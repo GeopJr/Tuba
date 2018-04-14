@@ -22,8 +22,7 @@ public class Tootle.MainWindow: Gtk.Window {
         set_titlebar (header);
         window_position = WindowPosition.CENTER;
         
-        Tootle.app.state_updated.connect(on_state_update);
-        on_state_update ();
+        AccountManager.instance.changed_current.connect(on_account_changed);
     }
 
     construct {
@@ -72,19 +71,16 @@ public class Tootle.MainWindow: Gtk.Window {
         NetManager.instance.finished.connect (() => spinner.hide ());
     }
     
-    private void on_state_update(){
+    private void on_account_changed(Account? account){
         mode.hide ();
         button_toot.hide ();
         accounts.hide ();
         stack.forall (widget => stack.remove (widget));
     
-        var has_token = AccountManager.instance.has_access_token();
-        if(!has_token)
+        if(account == null)
             show_setup_views ();
         else
             show_main_views ();
-            
-        AccountManager.instance.update_current ();
     }
     
     private void show_setup_views (){

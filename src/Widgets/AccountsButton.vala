@@ -17,7 +17,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         item_separator.margin_top = 6;
     
         var item_settings = new Gtk.ModelButton ();  
-        item_settings.text = _("Settings");  
+        item_settings.text = _("Settings");
     
         grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
@@ -35,7 +35,8 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         show_all ();
         
         AccountManager.instance.changed_current.connect (account => {
-            CacheManager.instance.load_avatar (account.avatar, avatar, 24);
+            if (account != null)
+                CacheManager.instance.load_avatar (account.avatar, avatar, 24);
         });
     }
 

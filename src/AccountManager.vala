@@ -2,7 +2,7 @@ using GLib;
 
 public class Tootle.AccountManager : Object{
 
-    public abstract signal void changed_current(Account account);
+    public abstract signal void changed_current(Account? account);
     public abstract signal void added(Account account);
     public abstract signal void removed(Account account);
 
@@ -89,7 +89,7 @@ public class Tootle.AccountManager : Object{
                 var access_token = root.get_string_member ("access_token");
                 settings.access_token = access_token;
                 debug ("Got access token");
-                Tootle.app.state_updated ();
+                update_current ();
             }
             catch (GLib.Error e) {
                 warning ("Can't get access token");
@@ -113,6 +113,11 @@ public class Tootle.AccountManager : Object{
             }
         });
         return msg;
+    }
+    
+    public void logout (){
+        current = null;
+        changed_current ();
     }
 
 }

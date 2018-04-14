@@ -28,7 +28,8 @@ public class Tootle.HomeView : Tootle.AbstractView {
         this.pars = pars;
         
         show_all();
-        request_update ();
+        
+        AccountManager.instance.changed_current.connect(on_account_changed);
         
         // var s = new Status(1);
         // s.content = "Test content, wow!";
@@ -49,7 +50,10 @@ public class Tootle.HomeView : Tootle.AbstractView {
         view.pack_end (widget, false, false, 0);
     }
     
-    public virtual Soup.Message request_update (){
+    public virtual void on_account_changed (Account? account){
+        if(account == null)
+            return;
+        
         var url = Settings.instance.instance_url;
         url += "api/v1/timelines/";
         url += this.timeline;
@@ -71,7 +75,6 @@ public class Tootle.HomeView : Tootle.AbstractView {
                 warning (e.message);
             }
         });
-        return msg;
     }
 
 }

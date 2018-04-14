@@ -8,7 +8,6 @@ namespace Tootle{
 
     public class Application : Granite.Application {
     
-        public abstract signal void state_updated();
         public abstract signal void toast(string title);
         public abstract signal void error(string error);
     
@@ -32,6 +31,11 @@ namespace Tootle{
         
         protected override void activate () {
             window.present ();
+            var has_token = AccountManager.instance.has_access_token();
+            if(has_token)
+                AccountManager.instance.update_current ();
+            else
+                AccountManager.instance.changed_current (null);
         }
     
     }
