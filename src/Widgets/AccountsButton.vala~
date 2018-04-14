@@ -8,6 +8,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
 
     construct{
         avatar = new Granite.Widgets.Avatar.with_default_icon (24);
+        avatar.set_tooltip_text (_("Account Options"));
         avatar.button_press_event.connect(event => {
             return false;
         });
@@ -33,10 +34,6 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         popover = menu;
         add(avatar);
         show_all ();
-        
-        AccountManager.instance.changed_current.connect (account => {
-            CacheManager.instance.load_avatar (account.avatar, avatar, 24);
-        });
     }
 
     public AccountsButton(){

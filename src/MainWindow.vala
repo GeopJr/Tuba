@@ -83,6 +83,8 @@ public class Tootle.MainWindow: Gtk.Window {
             show_setup_views ();
         else
             show_main_views ();
+            
+        AccountManager.instance.update_current ();
     }
     
     private void show_setup_views (){

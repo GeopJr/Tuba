@@ -26,9 +26,9 @@ public class Tootle.HomeView : Tootle.AbstractView {
         base (true);
         this.timeline = timeline;
         this.pars = pars;
+        request_update ();
         
         show_all();
-        request_update ();
         
         // var s = new Status(1);
         // s.content = "Test content, wow!";

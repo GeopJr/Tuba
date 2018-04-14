@@ -2,11 +2,6 @@ using GLib;
 
 public class Tootle.AccountManager : Object{
 
-    public abstract signal void changed_current(Account account);
-    public abstract signal void added(Account account);
-    public abstract signal void removed(Account account);
-
-    private static Account current;
     private static Settings settings;
     private static AccountManager _instance;
     public static AccountManager instance{
@@ -93,22 +88,6 @@ public class Tootle.AccountManager : Object{
             }
             catch (GLib.Error e) {
                 warning ("Can't get access token");
-                warning (e.message);
-            }
-        });
-        return msg;
-    }
-    
-    public Soup.Message update_current (){
-        var msg = new Soup.Message("GET", settings.instance_url + "/api/v1/accounts/verify_credentials");
-        NetManager.instance.queue(msg, (sess, mess) => {
-            try{
-                var root = NetManager.parse (mess);
-                current = Account.parse(root);
-                changed_current (current);
-            }
-            catch (GLib.Error e) {
-                warning ("Can't get current user");
                 warning (e.message);
             }
         });

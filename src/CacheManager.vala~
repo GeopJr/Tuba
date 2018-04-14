@@ -23,12 +23,12 @@ public class Tootle.CacheManager : GLib.Object{
     }
     
     //TODO: actually cache images
-    public void load_avatar (string url, Granite.Widgets.Avatar avatar, int size = 32){
+    public void load_image (string url, Granite.Widgets.Avatar avatar){
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(()=>{
                 uint8[] buf = msg.response_body.data;
                 var loader = new PixbufLoader();
-                loader.set_size (size, size);
+                loader.set_size (32,32);
                 loader.write(buf);
                 loader.close();
                 var pixbuf = loader.get_pixbuf ();

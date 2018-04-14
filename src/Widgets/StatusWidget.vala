@@ -13,6 +13,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
 
     construct {
         margin = 6;
+        
         avatar = new Granite.Widgets.Avatar.with_default_icon (32);
         avatar.valign = Gtk.Align.START;
         avatar.margin_end = 6;
@@ -32,7 +33,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
         
         reblogs = new Gtk.Label ("0");
         favorites = new Gtk.Label ("0");
-        counters = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        counters = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6); //TODO: currently useless
         counters.margin_top = 6;
         counters.margin_bottom = 12;
         counters.add(new Gtk.Image.from_icon_name ("media-playlist-repeat-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
@@ -45,7 +46,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
         attach(user, 1, 1, 1, 1);
         attach(content, 1, 2, 1, 1);
         attach(counters, 1, 3, 1, 1);
-        show_all();
+        show_all(); //TODO: display conversations
     }
 
     public StatusWidget () {
@@ -59,7 +60,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
         reblogs.label = status.reblogs_count.to_string ();
         favorites.label = status.favourites_count.to_string ();
         
-        CacheManager.instance.load_image (status.avatar, this.avatar);
+        CacheManager.instance.load_avatar (status.avatar, this.avatar);
     }
 
 }
