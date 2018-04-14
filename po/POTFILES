@@ -1,0 +1,3 @@
+src/Application.vala
+src/MainWindow.vala
+src/Widgets/AccountsButton.vala

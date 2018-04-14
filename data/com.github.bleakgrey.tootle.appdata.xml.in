@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2018 bleak_grey <bleakgrey@gmail.com> -->
+<component type="desktop">
+  <id>com.github.bleakgrey.tootle.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <name>Tootle</name>
+  <summary>Mastodon Client</summary>
+  <description>
+    <p>
+      A client for Mastodon
+    </p>
+  </description>
+  <provides>
+    <binary>com.github.bleakgrey.tootle</binary>
+  </provides>
+  <developer_name>bleak_grey</developer_name>
+  <url type="homepage">https://github.com/bleakgrey</url>
+  <url type="bugtracker">https://github.com/bleakgrey/tootle/issues</url>
+  <url type="donation">https://www.paypal.me/bleakgrey</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot.png</image>
+    </screenshot>
+  </screenshots>
+
+  <releases>
+    <release version="0.1.0" date="2018-03-01">
+  ​      <description>
+  ​         <ul>
+              <li>Initial release</li>
+          </ul>
+  ​      </description>
+  ​    </release>
+  ​ </releases>
+
+</component>

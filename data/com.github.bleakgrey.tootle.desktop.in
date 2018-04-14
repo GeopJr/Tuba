@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Tootle
+Comment=Mastodon Client
+GenericName=Mastodon Client
+Exec=com.github.bleakgrey.tootle
+Icon=com.github.bleakgrey.tootle
+Terminal=false
+Categories=GNOME;GTK;Network;
+Keywords=toot;mastodon;social;network;post;
+MimeType=text/plain;
+StartupNotify=true

@@ -1,0 +1,27 @@
+@define-color colorAccent #9aa7c8;
+@define-color colorPrimary #9aa7c8;
+
+.mode .button{
+    border-radius:0px;
+    border-top:none;
+    border-bottom:none;
+    padding:10px;
+}
+        
+.button_avatar{
+    padding:0;
+    border:0;
+    box-shadow:none;
+    background:none;
+}
+
+.status{
+    border-bottom: 1px solid #cecece;
+}
+.status:last-child{
+    border-bottom:none;
+}
+
+.toot-text{
+    background: none;
+}
