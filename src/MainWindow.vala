@@ -9,8 +9,8 @@ public class Tootle.MainWindow: Gtk.Window {
     Spinner spinner;
     Button button_toot;
     
-    HomeView home = new HomeView ();
-    LocalView feed_local = new LocalView ();
+    public HomeView home = new HomeView ();
+    public LocalView feed_local = new LocalView ();
     FederatedView feed_federated = new FederatedView ();
 
     public MainWindow (Gtk.Application application) {

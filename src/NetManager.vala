@@ -45,9 +45,9 @@ public class Tootle.NetManager : GLib.Object{
     }
     
     public static Json.Object parse(Soup.Message msg) throws GLib.Error{
-     //    stdout.printf ("Status Code: %u\n", msg.status_code);
-	    // stdout.printf ("Message length: %lld\n", msg.response_body.length);
-     //    stdout.printf ("Data: \n%s\n", (string) msg.response_body.data);
+        stdout.printf ("Status Code: %u\n", msg.status_code);
+        stdout.printf ("Message length: %lld\n", msg.response_body.length);
+        stdout.printf ("Data: \n%s\n", (string) msg.response_body.data);
     
         var parser = new Json.Parser ();
         parser.load_from_data ((string) msg.response_body.flatten ().data, -1);
@@ -56,7 +56,7 @@ public class Tootle.NetManager : GLib.Object{
     
     public static Json.Array parse_array(Soup.Message msg) throws GLib.Error{
      //    stdout.printf ("Status Code: %u\n", msg.status_code);
-	 //    stdout.printf ("Message length: %lld\n", msg.response_body.length);
+     //    stdout.printf ("Message length: %lld\n", msg.response_body.length);
      //    stdout.printf ("Data: \n%s\n", (string) msg.response_body.data);
     
         var parser = new Json.Parser ();

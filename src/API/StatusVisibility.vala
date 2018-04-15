@@ -39,9 +39,9 @@ public enum Tootle.StatusVisibility {
             case PUBLIC:
                 return "network-workgroup-symbolic";
             case UNLISTED:
-                return "security-medium-symbolic";
+                return "view-private-symbolic";
             case PRIVATE:
-                return "security-high-symbolic";
+                return "security-medium-symbolic";
             case DIRECT:
                 return "user-available-symbolic";
             default:

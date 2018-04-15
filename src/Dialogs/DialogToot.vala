@@ -7,6 +7,7 @@ public class Tootle.TootDialog : Gtk.Dialog {
     private Gtk.TextView text;
     private Gtk.Label counter;
     private Gtk.MenuButton visibility;
+    private Gtk.Button publish;
     
     private StatusVisibility visibility_opt;
 
@@ -28,10 +29,10 @@ public class Tootle.TootDialog : Gtk.Dialog {
         close.clicked.connect(() => {
             this.destroy ();
         });
-        var publish = add_button(_("Toot!"), 5) as Gtk.Button;
+        publish = add_button(_("Toot!"), 5) as Gtk.Button;
         publish.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         publish.clicked.connect (() => {
-            this.destroy (); //TODO: actually publish toots
+            publish_post ();
         });
         
         text = new Gtk.TextView ();
@@ -47,7 +48,7 @@ public class Tootle.TootDialog : Gtk.Dialog {
         actions.pack_start (visibility, false, false, 6);
         actions.pack_start (counter, false, false, 6);
         content.pack_start (text, false, false, 0);
-        content.set_size_request (300, 100);
+        content.set_size_request (300, 150);
     }
     
     private Gtk.MenuButton get_visibility_btn (){
@@ -89,8 +90,10 @@ public class Tootle.TootDialog : Gtk.Dialog {
     
     private void update_counter (){
         var len = text.buffer.text.length;
+        var remain = 500 - len;
+        publish.sensitive = (remain >= 0); 
         
-        counter.label = (500 - len).to_string ();
+        counter.label = remain.to_string ();
     }
     
     public static void open (Gtk.Window? parent){
@@ -101,6 +104,26 @@ public class Tootle.TootDialog : Gtk.Dialog {
 		    });
 		    dialog.show_all ();
 		}
+    }
+    
+    public void publish_post(){
+        var text_escaped = text.buffer.text.replace (" ", "%20");
+        var pars = "?status=" + text_escaped;
+        pars += "&visibility=" + visibility_opt.to_string ();
+
+        var msg = new Soup.Message("POST", Settings.instance.instance_url + "/api/v1/statuses" + pars);
+        NetManager.instance.queue(msg, (sess, mess) => {
+            try{
+                var root = NetManager.parse (mess);
+                var status = Status.parse (root);
+                Tootle.window.home.prepend (status);
+                this.destroy ();
+            }
+            catch (GLib.Error e) {
+                warning ("Can't publish post.");
+                warning (e.message);
+            }
+        });
     }
 
 }
