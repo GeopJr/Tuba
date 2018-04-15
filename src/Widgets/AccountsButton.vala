@@ -9,7 +9,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
 
     private class AccountView : Gtk.Grid{
     
-        public Gtk.Label name;
+        public Gtk.Label display_name;
         public Gtk.Label user;
         public Gtk.Button logout;
     
@@ -17,10 +17,10 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
             margin = 6;
             margin_start = 14;
         
-            name = new Gtk.Label ("<b>Anonymous</b>");
-            name.hexpand = true;
-            name.halign = Gtk.Align.START;
-            name.use_markup = true;
+            display_name = new Gtk.Label ("<b>Anonymous</b>");
+            display_name.hexpand = true;
+            display_name.halign = Gtk.Align.START;
+            display_name.use_markup = true;
             user = new Gtk.Label ("@error");
             user.halign = Gtk.Align.START;
             logout = new Gtk.Button.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
@@ -29,7 +29,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
             logout.clicked.connect (() => AccountManager.instance.logout ());
             show_all ();
             
-            attach(name, 1, 0, 1, 1);
+            attach(display_name, 1, 0, 1, 1);
             attach(user, 1, 1, 1, 1);
             attach(logout, 2, 0, 2, 2);
         }
@@ -71,7 +71,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         AccountManager.instance.changed_current.connect (account => {
             if (account != null){
                 CacheManager.instance.load_avatar (account.avatar, avatar, 24);
-                default_account.name.label = "<b>"+account.display_name+"</b>";
+                default_account.display_name.label = "<b>"+account.display_name+"</b>";
                 default_account.user.label = "@"+account.username;
             }
         });

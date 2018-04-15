@@ -10,28 +10,6 @@ public class Tootle.Status{
     public string avatar;
     public string acct;
 
-    enum Visibility {
-        PUBLIC,
-        UNLISTED,
-        PRIVATE,
-        DIRECT;
-
-        public string to_string() {
-            switch (this) {
-                case PUBLIC:
-                    return "public";
-                case UNLISTED:
-                    return "unlisted";
-                case PRIVATE:
-                    return "private";
-                case DIRECT:
-                    return "direct";
-                default:
-                    assert_not_reached();
-            }
-        }
-    }
-
     public Status(int64 id) {
         this.id = id;
     }

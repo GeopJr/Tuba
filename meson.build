@@ -26,6 +26,7 @@ executable(
     'src/CacheManager.vala',
     'src/API/Account.vala',
     'src/API/Status.vala',
+    'src/API/StatusVisibility.vala',
     'src/Widgets/AlignedLabel.vala',
     'src/Widgets/AccountsButton.vala',
     'src/Widgets/StatusWidget.vala',
