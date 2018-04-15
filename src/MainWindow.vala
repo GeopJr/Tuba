@@ -89,6 +89,7 @@ public class Tootle.MainWindow: Gtk.Window {
     }
     
     private void show_main_views (){
+        mode.clear_children ();
         add_view (home);
         add_view (feed_local);
         add_view (feed_federated);

@@ -117,7 +117,7 @@ public class Tootle.AccountManager : Object{
     
     public void logout (){
         current = null;
-        changed_current ();
+        changed_current (null);
     }
 
 }

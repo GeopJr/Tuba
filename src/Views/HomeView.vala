@@ -44,7 +44,7 @@ public class Tootle.HomeView : Tootle.AbstractView {
         return "Home Timeline";
     }
     
-    public void prepend(Status status){
+    public void prepend(Status status){ //TODO: clear all on account switch
         var widget = new StatusWidget();
         widget.rebind (status);
         view.pack_end (widget, false, false, 0);
