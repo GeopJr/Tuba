@@ -11,7 +11,8 @@ public class Tootle.MainWindow: Gtk.Window {
     
     public HomeView home = new HomeView ();
     public LocalView feed_local = new LocalView ();
-    FederatedView feed_federated = new FederatedView ();
+    public FederatedView feed_federated = new FederatedView ();
+    public NotificationsView notifications = new NotificationsView ();
 
     public MainWindow (Gtk.Application application) {
          Object (application: application,
@@ -93,6 +94,7 @@ public class Tootle.MainWindow: Gtk.Window {
         add_view (home);
         add_view (feed_local);
         add_view (feed_federated);
+        add_view (notifications);
         mode.set_active (0);
         mode.show ();
         button_toot.show ();
@@ -101,9 +103,10 @@ public class Tootle.MainWindow: Gtk.Window {
     
     private void add_view (AbstractView view) {
         if (view.show_in_header){
-            var button = new Gtk.Image.from_icon_name(view.get_icon (), Gtk.IconSize.LARGE_TOOLBAR);
-            button.tooltip_text = view.get_name ();
-            mode.append (button);
+            var img = new Gtk.Image.from_icon_name(view.get_icon (), Gtk.IconSize.LARGE_TOOLBAR);
+            img.tooltip_text = view.get_name ();
+            mode.append (img);
+            view.image = img;
             
             stack.add_named(view, view.get_name ());
         }

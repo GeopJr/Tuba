@@ -6,6 +6,7 @@ public class Tootle.Account{
     public string display_name;
     public string note;
     public string avatar;
+    public string url;
 
     public Account(int64 id){
         this.id = id;
@@ -20,6 +21,7 @@ public class Tootle.Account{
         account.display_name = obj.get_string_member ("display_name");
         account.note = obj.get_string_member ("note");
         account.avatar = obj.get_string_member ("avatar");
+        account.url = obj.get_string_member ("url");
     
         return account;
     }
