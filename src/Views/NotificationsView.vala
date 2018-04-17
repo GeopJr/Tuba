@@ -64,7 +64,5 @@ public class Tootle.NotificationsView : Tootle.AbstractView {
             }
         });
     }
-    
-
 
 }

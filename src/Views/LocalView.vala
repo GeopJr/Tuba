@@ -7,7 +7,7 @@ public class Tootle.LocalView : Tootle.HomeView {
     }
     
     public override string get_icon () {
-        return "appointment-symbolic";
+        return "folder-recent-symbolic";
     }
     
     public override string get_name () {
