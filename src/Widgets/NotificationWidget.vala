@@ -22,6 +22,11 @@ public class Tootle.NotificationWidget : Gtk.Grid {
         label.use_markup = true;
         dismiss = new Gtk.Button.from_icon_name ("close-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         dismiss.tooltip_text = _("Dismiss");
+        dismiss.clicked.connect (() => {
+            var parent = this.get_parent () as Gtk.Box;
+            parent.remove (this);
+            dismiss_notification (this.notification);
+        });
         
         attach(image, 0, 0, 1, 1);
         attach(label, 1, 0, 1, 1);
@@ -40,6 +45,16 @@ public class Tootle.NotificationWidget : Gtk.Grid {
             status_widget.rebind (this.notification.status);
             attach(status_widget, 0, 1, 3, 1);
         }
+    }
+    
+    public static Soup.Message dismiss_notification (Notification notification){
+        var url = Settings.instance.instance_url;
+        url += "api/v1/notifications/dismiss";
+        url += "?id=" + notification.id.to_string ();
+        
+        var msg = new Soup.Message("POST", url);
+        NetManager.instance.queue(msg, (sess, mess) => {});
+        return msg;
     }
 
 }
