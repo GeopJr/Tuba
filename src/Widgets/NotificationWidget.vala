@@ -26,7 +26,7 @@ public class Tootle.NotificationWidget : Gtk.Grid {
         dismiss_button.clicked.connect (() => {
             var parent = this.get_parent () as Gtk.Box;
             parent.remove (this);
-            //dismiss (this.notification);
+            dismiss (this.notification);
         });
         
         attach(image, 1, 2);
