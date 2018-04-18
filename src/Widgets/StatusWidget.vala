@@ -5,6 +5,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
     
     public Status status;
     
+    public Gtk.Separator? separator;
     public Granite.Widgets.Avatar avatar;
     Gtk.Label user;
     Gtk.Label content;
@@ -59,16 +60,21 @@ public class Tootle.StatusWidget : Gtk.Grid {
         counters.add(favorites);
         counters.show_all ();
         
-        attach(avatar, 0, 0, 1, 3);
-        attach(user, 1, 1, 1, 1);
-        attach(content, 1, 2, 1, 1);
-        attach(counters, 1, 3, 1, 1);
+        attach(avatar, 1, 0, 1, 3);
+        attach(user, 2, 1, 1, 1);
+        attach(content, 2, 2, 1, 1);
+        attach(counters, 2, 3, 1, 1);
         show_all(); //TODO: display conversations
     }
 
     public StatusWidget (Status status) {
         this.status = status;
         get_style_context ().add_class ("status");
+        
+        destroy.connect (() => {
+            if(separator != null)
+                separator.destroy ();
+        });
     }
     
     public void rebind (Status status = this.status){

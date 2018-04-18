@@ -26,9 +26,9 @@ public class Tootle.HomeView : Tootle.AbstractView {
         base (true);
         this.timeline = timeline;
         this.pars = pars;
-        
         show_all();
         
+        view.remove.connect (on_remove);
         AccountManager.instance.changed_current.connect(on_account_changed);
         
         // var s = new Status(1);
@@ -45,9 +45,21 @@ public class Tootle.HomeView : Tootle.AbstractView {
     }
     
     public void prepend(Status status){ //TODO: clear all on account switch
+        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        separator.show ();
+        
         var widget = new StatusWidget(status);
+        widget.separator = separator;
         widget.rebind (status);
+        view.pack_start(separator, false, false, 0);
         view.pack_start(widget, false, false, 0);
+    }
+    
+    public virtual void on_remove (Widget widget){
+        if (!(widget is StatusWidget))
+            return;
+            
+        //debug ("removed");
     }
     
     public virtual void on_account_changed (Account? account){

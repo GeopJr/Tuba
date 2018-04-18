@@ -15,13 +15,6 @@
     background:none;
 }
 
-.status{
-    border-bottom: 1px solid #cecece;
-}
-.status:last-child{
-    border-bottom:none;
-}
-
 .toot-text{
     background: none;
 }

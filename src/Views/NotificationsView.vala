@@ -23,6 +23,7 @@ public class Tootle.NotificationsView : Tootle.AbstractView {
         base (true);
         show_all();
         
+        view.remove.connect (on_remove);
         AccountManager.instance.changed_current.connect(on_account_changed);
     }
     
@@ -35,9 +36,21 @@ public class Tootle.NotificationsView : Tootle.AbstractView {
     }
     
     public void prepend(Notification notification){
+        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        separator.show ();
+        
         var widget = new NotificationWidget(notification);
+        widget.separator = separator;
+        view.pack_start(separator, false, false, 0);
         view.pack_start(widget, false, false, 0);
         image.icon_name = "notification-new-symbolic";
+    }
+    
+    public virtual void on_remove (Widget widget){
+        if (!(widget is NotificationWidget))
+            return;
+        
+        //debug ("removed");
     }
     
     public virtual void on_account_changed (Account? account){

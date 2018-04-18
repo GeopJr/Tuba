@@ -5,9 +5,10 @@ public class Tootle.NotificationWidget : Gtk.Grid {
     
     public Notification notification;
 
+    public Gtk.Separator? separator;
     private Gtk.Image image;
     private Gtk.Label label;
-    private Gtk.Button dismiss;
+    private Gtk.Button dismiss_button;
     private StatusWidget? status_widget;
 
     construct {
@@ -20,17 +21,17 @@ public class Tootle.NotificationWidget : Gtk.Grid {
         label.hexpand = true;
         label.halign = Gtk.Align.START;
         label.use_markup = true;
-        dismiss = new Gtk.Button.from_icon_name ("close-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-        dismiss.tooltip_text = _("Dismiss");
-        dismiss.clicked.connect (() => {
+        dismiss_button = new Gtk.Button.from_icon_name ("close-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        dismiss_button.tooltip_text = _("Dismiss");
+        dismiss_button.clicked.connect (() => {
             var parent = this.get_parent () as Gtk.Box;
             parent.remove (this);
-            dismiss_notification (this.notification);
+            //dismiss (this.notification);
         });
         
-        attach(image, 0, 0, 1, 1);
-        attach(label, 1, 0, 1, 1);
-        attach(dismiss, 2, 0, 1, 1);
+        attach(image, 1, 2);
+        attach(label, 2, 2);
+        attach(dismiss_button, 3, 2);
         show_all();
     }
 
@@ -43,11 +44,16 @@ public class Tootle.NotificationWidget : Gtk.Grid {
         if (notification.status != null){
             status_widget = new StatusWidget (this.notification.status);
             status_widget.rebind (this.notification.status);
-            attach(status_widget, 0, 1, 3, 1);
+            attach(status_widget, 1, 3, 3, 1);
         }
+        
+        destroy.connect (() => {
+            if(separator != null)
+                separator.destroy ();
+        });
     }
     
-    public static Soup.Message dismiss_notification (Notification notification){
+    public static Soup.Message dismiss (Notification notification){
         var url = Settings.instance.instance_url;
         url += "api/v1/notifications/dismiss";
         url += "?id=" + notification.id.to_string ();
