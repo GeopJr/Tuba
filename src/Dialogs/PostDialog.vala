@@ -1,9 +1,9 @@
 using Gtk;
 using Tootle;
 
-public class Tootle.TootDialog : Gtk.Dialog {
+public class Tootle.PostDialog : Gtk.Dialog {
 
-    private static TootDialog dialog;
+    private static PostDialog dialog;
     private Gtk.TextView text;
     private Gtk.Label counter;
     private Gtk.MenuButton visibility;
@@ -11,7 +11,7 @@ public class Tootle.TootDialog : Gtk.Dialog {
     
     private StatusVisibility visibility_opt;
 
-    public TootDialog (Gtk.Window? parent) {
+    public PostDialog (Gtk.Window? parent) {
         Object (
             border_width: 5,
             deletable: false,
@@ -98,7 +98,7 @@ public class Tootle.TootDialog : Gtk.Dialog {
     
     public static void open (Gtk.Window? parent){
         if(dialog == null){
-            dialog = new TootDialog (parent);
+            dialog = new PostDialog (parent);
 		    dialog.destroy.connect (() => {
 		        dialog = null;
 		    });

@@ -52,7 +52,9 @@ public class Tootle.HomeView : Tootle.AbstractView {
         widget.separator = separator;
         widget.rebind (status);
         widget.button_press_event.connect(() => {
-            //TODO: status page
+            var view = new StatusView (status);
+            Tootle.window.open_secondary_view (view);
+            return false;
         });
         view.pack_start(separator, false, false, 0);
         view.pack_start(widget, false, false, 0);

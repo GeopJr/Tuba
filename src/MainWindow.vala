@@ -48,13 +48,19 @@ public class Tootle.MainWindow: Gtk.Window {
         accounts = new AccountsButton ();
 		
 		button_back = new Button ();
+		button_back.label = _("Back");
 		button_back.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
+		button_back.clicked.connect (() => {
+		    primary_stack.set_visible_child_name ("modes");
+		    var child = primary_stack.get_child_by_name ("details");
+		    child.destroy ();
+		});
 		
 		button_toot = new Button ();
         button_toot.tooltip_text = "Toot";
         button_toot.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
         button_toot.clicked.connect (() => {
-            TootDialog.open (this);
+            PostDialog.open (this);
         });
 
         button_mode = new Granite.Widgets.ModeButton ();
@@ -66,7 +72,7 @@ public class Tootle.MainWindow: Gtk.Window {
         header = new HeaderBar ();
         header.custom_title = button_mode;
         header.show_close_button = true;
-        //header.pack_start (button_back);
+        header.pack_start (button_back);
         header.pack_start (button_toot);
         header.pack_end (accounts);
         header.pack_end (spinner);
@@ -117,6 +123,13 @@ public class Tootle.MainWindow: Gtk.Window {
             view.image = img;
             secondary_stack.add_named(view, view.get_name ());
         }
+    }
+    
+    public void open_secondary_view (Widget widget) {
+        widget.show ();
+        primary_stack.add_named (widget, "details");
+        primary_stack.set_visible_child_name ("details");
+        button_back.show ();
     }
 
 }

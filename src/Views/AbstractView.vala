@@ -16,5 +16,5 @@ public abstract class Tootle.AbstractView : Gtk.Box {
     public virtual string get_name () {
         return "unnamed";
     }
-
+    
 }
