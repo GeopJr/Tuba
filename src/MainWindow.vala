@@ -3,11 +3,13 @@ using Gtk;
 public class Tootle.MainWindow: Gtk.Window {
 
     HeaderBar header;
-    Stack stack;
+    Stack primary_stack;
+    Stack secondary_stack;
     AccountsButton accounts;
-    Granite.Widgets.ModeButton mode;
+    Granite.Widgets.ModeButton button_mode;
     Spinner spinner;
     Button button_toot;
+    Button button_back;
     
     public HomeView home = new HomeView ();
     public LocalView feed_local = new LocalView ();
@@ -31,15 +33,22 @@ public class Tootle.MainWindow: Gtk.Window {
         provider.load_from_resource ("/com/github/bleakgrey/tootle/Application.css");
         StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        stack = new Stack();
-        stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-        stack.show ();
-        stack.set_size_request (400, 500);
+        secondary_stack = new Stack();
+        secondary_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+        secondary_stack.show ();
+        secondary_stack.set_size_request (400, 500);
+        primary_stack = new Stack();
+        primary_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+        primary_stack.show ();
+        primary_stack.add_named (secondary_stack, "modes");
 
         spinner = new Spinner ();
         spinner.active = true;
 
         accounts = new AccountsButton ();
+		
+		button_back = new Button ();
+		button_back.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
 		
 		button_toot = new Button ();
         button_toot.tooltip_text = "Toot";
@@ -48,24 +57,23 @@ public class Tootle.MainWindow: Gtk.Window {
             TootDialog.open (this);
         });
 
-        mode = new Granite.Widgets.ModeButton ();
-        mode.get_style_context ().add_class ("mode");
-        mode.mode_changed.connect(widget => {
-            stack.set_visible_child_name(widget.tooltip_text);
+        button_mode = new Granite.Widgets.ModeButton ();
+        button_mode.get_style_context ().add_class ("mode");
+        button_mode.mode_changed.connect(widget => {
+            secondary_stack.set_visible_child_name(widget.tooltip_text);
         });
         
         header = new HeaderBar ();
+        header.custom_title = button_mode;
         header.show_close_button = true;
+        //header.pack_start (button_back);
         header.pack_start (button_toot);
-        header.custom_title = mode;
-
         header.pack_end (accounts);
         header.pack_end (spinner);
+        button_mode.valign = Gtk.Align.FILL;
         header.show ();
-        
-        mode.valign = Gtk.Align.FILL;
 
-        add (stack);
+        add (primary_stack);
         show_all ();
         
         NetManager.instance.started.connect (() => spinner.show ());
@@ -73,10 +81,10 @@ public class Tootle.MainWindow: Gtk.Window {
     }
     
     private void on_account_changed(Account? account){
-        mode.hide ();
+        button_mode.hide ();
         button_toot.hide ();
         accounts.hide ();
-        stack.forall (widget => stack.remove (widget));
+        secondary_stack.forall (widget => secondary_stack.remove (widget));
     
         if(account == null)
             show_setup_views ();
@@ -86,17 +94,17 @@ public class Tootle.MainWindow: Gtk.Window {
     
     private void show_setup_views (){
         var add_account = new AddAccountView ();
-        stack.add_named (add_account, add_account.get_name ());
+        secondary_stack.add_named (add_account, add_account.get_name ());
     }
     
     private void show_main_views (){
-        mode.clear_children ();
+        button_mode.clear_children ();
         add_view (home);
         add_view (notifications);
         add_view (feed_local);
         add_view (feed_federated);
-        mode.set_active (0);
-        mode.show ();
+        button_mode.set_active (0);
+        button_mode.show ();
         button_toot.show ();
         accounts.show ();
     }
@@ -105,10 +113,9 @@ public class Tootle.MainWindow: Gtk.Window {
         if (view.show_in_header){
             var img = new Gtk.Image.from_icon_name(view.get_icon (), Gtk.IconSize.LARGE_TOOLBAR);
             img.tooltip_text = view.get_name ();
-            mode.append (img);
+            button_mode.append (img);
             view.image = img;
-            
-            stack.add_named(view, view.get_name ());
+            secondary_stack.add_named(view, view.get_name ());
         }
     }
 
