@@ -53,7 +53,6 @@ public class Tootle.StatusWidget : Gtk.Grid {
         
         counters = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6); //TODO: currently useless
         counters.margin_top = 6;
-        counters.margin_bottom = 12;
         counters.add(reblog);
         counters.add(reblogs);
         counters.add(favorite);
@@ -99,7 +98,8 @@ public class Tootle.StatusWidget : Gtk.Grid {
         var icon = new Gtk.Image.from_icon_name (path, Gtk.IconSize.SMALL_TOOLBAR);
         
         var button = new Gtk.ToggleButton ();
-        
+        button.can_default = false;
+        button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         button.add (icon);
         return button;
     }

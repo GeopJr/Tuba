@@ -22,6 +22,7 @@ public class Tootle.NotificationWidget : Gtk.Grid {
         label.halign = Gtk.Align.START;
         label.use_markup = true;
         dismiss_button = new Gtk.Button.from_icon_name ("close-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        dismiss_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         dismiss_button.tooltip_text = _("Dismiss");
         dismiss_button.clicked.connect (() => {
             var parent = this.get_parent () as Gtk.Box;
