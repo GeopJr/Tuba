@@ -23,9 +23,12 @@ public class Tootle.StatusView : Tootle.AbstractView {
         
         var widget = new StatusWidget(status);
         widget.rebind (status);
+        widget.content.selectable = true;
         view.pack_start (widget, false, false, 0);
         
         show_all();
     }
 
 }
+
+

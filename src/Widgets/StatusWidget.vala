@@ -7,8 +7,8 @@ public class Tootle.StatusWidget : Gtk.Grid {
     
     public Gtk.Separator? separator;
     public Granite.Widgets.Avatar avatar;
-    Gtk.Label user;
-    Gtk.Label content;
+    public Gtk.Label user;
+    public Gtk.Label content;
     
     Gtk.Box counters;
     Gtk.Label reblogs;
@@ -32,7 +32,6 @@ public class Tootle.StatusWidget : Gtk.Grid {
         content.use_markup = true;
         content.single_line_mode = false;
         content.set_line_wrap (true);
-        //content.selectable = true; //TODO: toot page
         content.justify = Gtk.Justification.LEFT;
         content.margin_end = 6;
         content.xalign = 0;

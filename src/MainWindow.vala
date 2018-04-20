@@ -5,7 +5,7 @@ public class Tootle.MainWindow: Gtk.Window {
     HeaderBar header;
     Stack primary_stack;
     Stack secondary_stack;
-    AccountsButton accounts;
+    AccountsButton button_accounts;
     Granite.Widgets.ModeButton button_mode;
     Spinner spinner;
     Button button_toot;
@@ -45,7 +45,7 @@ public class Tootle.MainWindow: Gtk.Window {
         spinner = new Spinner ();
         spinner.active = true;
 
-        accounts = new AccountsButton ();
+        button_accounts = new AccountsButton ();
 		
 		button_back = new Button ();
 		button_back.label = _("Back");
@@ -54,6 +54,7 @@ public class Tootle.MainWindow: Gtk.Window {
 		    primary_stack.set_visible_child_name ("modes");
 		    var child = primary_stack.get_child_by_name ("details");
 		    child.destroy ();
+		    update_header (true);
 		});
 		
 		button_toot = new Button ();
@@ -68,13 +69,14 @@ public class Tootle.MainWindow: Gtk.Window {
         button_mode.mode_changed.connect(widget => {
             secondary_stack.set_visible_child_name(widget.tooltip_text);
         });
+        button_mode.show ();
         
         header = new HeaderBar ();
         header.custom_title = button_mode;
         header.show_close_button = true;
         header.pack_start (button_back);
         header.pack_start (button_toot);
-        header.pack_end (accounts);
+        header.pack_end (button_accounts);
         header.pack_end (spinner);
         button_mode.valign = Gtk.Align.FILL;
         header.show ();
@@ -87,9 +89,6 @@ public class Tootle.MainWindow: Gtk.Window {
     }
     
     private void on_account_changed(Account? account){
-        button_mode.hide ();
-        button_toot.hide ();
-        accounts.hide ();
         secondary_stack.forall (widget => secondary_stack.remove (widget));
     
         if(account == null)
@@ -98,9 +97,26 @@ public class Tootle.MainWindow: Gtk.Window {
             show_main_views ();
     }
     
+    private void update_header (bool primary_mode, bool hide_all = false){
+        if (hide_all){
+            button_mode.opacity = 0;
+            button_mode.sensitive = false;
+            button_toot.hide ();
+            button_back.hide ();
+            button_accounts.hide ();
+            return;
+        }
+        button_mode.opacity = primary_mode ? 1 : 0;
+        button_mode.sensitive = primary_mode ? true : false;
+        button_toot.set_visible (primary_mode);
+        button_back.set_visible (!primary_mode);
+        button_accounts.set_visible (true);
+    }
+    
     private void show_setup_views (){
         var add_account = new AddAccountView ();
         secondary_stack.add_named (add_account, add_account.get_name ());
+        update_header (false, true);
     }
     
     private void show_main_views (){
@@ -110,9 +126,7 @@ public class Tootle.MainWindow: Gtk.Window {
         add_view (feed_local);
         add_view (feed_federated);
         button_mode.set_active (0);
-        button_mode.show ();
-        button_toot.show ();
-        accounts.show ();
+        update_header (true);
     }
     
     private void add_view (AbstractView view) {
@@ -129,7 +143,7 @@ public class Tootle.MainWindow: Gtk.Window {
         widget.show ();
         primary_stack.add_named (widget, "details");
         primary_stack.set_visible_child_name ("details");
-        button_back.show ();
+        update_header (false);
     }
 
 }
