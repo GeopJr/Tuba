@@ -29,7 +29,7 @@ public class Tootle.HomeView : Tootle.AbstractView {
         show_all();
         
         view.remove.connect (on_remove);
-        AccountManager.instance.changed_current.connect(on_account_changed);
+        AccountManager.instance.switched.connect(on_account_changed);
         
         // var s = new Status(1);
         // s.content = "Test content, wow!";

@@ -35,7 +35,7 @@ namespace Tootle{
             if(has_token)
                 AccountManager.instance.update_current ();
             else
-                AccountManager.instance.changed_current (null);
+                AccountManager.instance.switched (null);
         }
     
     }

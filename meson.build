@@ -29,6 +29,7 @@ executable(
     'src/API/StatusVisibility.vala',
     'src/API/Notification.vala',
     'src/API/NotificationType.vala',
+    'src/Widgets/HeaderBar.vala',
     'src/Widgets/AlignedLabel.vala',
     'src/Widgets/AccountsButton.vala',
     'src/Widgets/StatusWidget.vala',

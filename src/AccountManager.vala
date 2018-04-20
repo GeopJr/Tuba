@@ -2,7 +2,7 @@ using GLib;
 
 public class Tootle.AccountManager : Object{
 
-    public abstract signal void changed_current(Account? account);
+    public abstract signal void switched(Account? account);
     public abstract signal void added(Account account);
     public abstract signal void removed(Account account);
 
@@ -105,7 +105,7 @@ public class Tootle.AccountManager : Object{
             try{
                 var root = NetManager.parse (mess);
                 current = Account.parse(root);
-                changed_current (current);
+                switched (current);
             }
             catch (GLib.Error e) {
                 warning ("Can't get current user");
@@ -117,7 +117,7 @@ public class Tootle.AccountManager : Object{
     
     public void logout (){
         current = null;
-        changed_current (null);
+        switched (null);
     }
 
 }

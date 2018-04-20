@@ -68,7 +68,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         add(avatar);
         show_all ();
         
-        AccountManager.instance.changed_current.connect (account => {
+        AccountManager.instance.switched.connect (account => {
             if (account != null){
                 CacheManager.instance.load_avatar (account.avatar, avatar, 24);
                 default_account.display_name.label = "<b>"+account.display_name+"</b>";
