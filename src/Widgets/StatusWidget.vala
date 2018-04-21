@@ -23,11 +23,11 @@ public class Tootle.StatusWidget : Gtk.Grid {
         avatar = new Granite.Widgets.Avatar.with_default_icon (32);
         avatar.valign = Gtk.Align.START;
         avatar.margin_end = 6;
-        user = new Gtk.Label ("Anonymous");
+        user = new Gtk.Label (_("Anonymous"));
         user.hexpand = true;
         user.halign = Gtk.Align.START;
         user.use_markup = true;
-        content = new Gtk.Label ("Error parsing text :c");
+        content = new Gtk.Label (_("Error parsing text :c"));
         content.halign = Gtk.Align.START;
         content.use_markup = true;
         content.single_line_mode = false;
@@ -75,7 +75,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
             image.margin_end = 8;
             image.show ();
             
-            var label_text = "<a href=\"%s\"><b>%s</b></a> boosted".printf (status.account.url, status.account.display_name);
+            var label_text = _("<a href=\"%s\"><b>%s</b></a> boosted").printf (status.account.url, status.account.display_name);
             var label = new Gtk.Label (label_text);
             label.halign = Gtk.Align.START;
             label.use_markup = true;
