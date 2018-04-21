@@ -58,16 +58,33 @@ public class Tootle.StatusWidget : Gtk.Grid {
         counters.add(favorites);
         counters.show_all ();
         
-        attach(avatar, 1, 0, 1, 3);
-        attach(user, 2, 1, 1, 1);
-        attach(content, 2, 2, 1, 1);
-        attach(counters, 2, 3, 1, 1);
+        attach(avatar, 1, 1, 1, 3);
+        attach(user, 2, 2, 1, 1);
+        attach(content, 2, 3, 1, 1);
+        attach(counters, 2, 4, 1, 1);
         show_all(); //TODO: display conversations
     }
 
     public StatusWidget (Status status) {
         this.status = status;
         get_style_context ().add_class ("status");
+        
+        if (status.reblog != null){
+            var image = new Gtk.Image.from_icon_name("edit-undo-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            image.halign = Gtk.Align.END;
+            image.margin_end = 8;
+            image.show ();
+            
+            var label_text = "<a href=\"%s\"><b>%s</b></a> boosted".printf (status.account.url, status.account.display_name);
+            var label = new Gtk.Label (label_text);
+            label.halign = Gtk.Align.START;
+            label.use_markup = true;
+            label.margin_bottom = 8;
+            label.show ();
+            
+            attach (image, 1, 0, 1, 1);
+            attach (label, 2, 0, 2, 1);
+        }
         
         destroy.connect (() => {
             if(separator != null)
@@ -76,7 +93,8 @@ public class Tootle.StatusWidget : Gtk.Grid {
     }
     
     public void rebind (Status status = this.status){
-        user.label = "<b>"+status.acct+"</b>";
+        var user_label = status.reblog != null ? status.reblog.account.display_name : status.account.display_name;
+        user.label = "<b>%s</b>".printf (user_label);
         content.label = status.content;
         
         reblogs.label = status.reblogs_count.to_string ();
@@ -87,7 +105,8 @@ public class Tootle.StatusWidget : Gtk.Grid {
         favorite.active = status.favorited;
         favorite.sensitive = true;
         
-        CacheManager.instance.load_avatar (status.avatar, this.avatar);
+        var avatar_url = status.reblog != null ? status.reblog.account.avatar : status.account.avatar;
+        CacheManager.instance.load_avatar (avatar_url, this.avatar);
     }
     
     private Gtk.ToggleButton get_action_button (bool reblog = true){

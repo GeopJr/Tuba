@@ -1,17 +1,18 @@
 public class Tootle.Status{
 
+    public Account account;
     public int64 id;
     public string uri;
     public string url;
     public string content;
     public int64 reblogs_count;
     public int64 favourites_count;
+    public string avatar;
+    public string acct;
     
     public bool reblogged;
     public bool favorited;
-    
-    public string avatar;
-    public string acct;
+    public Status? reblog;
 
     public Status(int64 id) {
         this.id = id;
@@ -41,6 +42,7 @@ public class Tootle.Status{
         var id = int64.parse (obj.get_string_member ("id"));
         var status = new Status (id);
         
+        status.account = Account.parse(obj.get_object_member ("account"));
         status.uri = obj.get_string_member ("uri");
         status.url = obj.get_string_member ("url");
         status.reblogs_count = obj.get_int_member ("reblogs_count");
@@ -51,10 +53,9 @@ public class Tootle.Status{
             status.reblogged = obj.get_boolean_member ("reblogged");
         if(obj.has_member ("favourited"))
             status.favorited = obj.get_boolean_member ("favourited");
-        
-        var acc = obj.get_object_member ("account");
-        status.avatar = acc.get_string_member ("avatar");
-        status.acct = acc.get_string_member ("acct");
+            
+        if(obj.has_member ("reblog") && obj.get_null_member("reblog") != true)
+            status.reblog = Status.parse (obj.get_object_member ("reblog"));
         
         return status;
     }
