@@ -53,6 +53,7 @@ public class Tootle.AccountManager : Object{
     public Soup.Message request_client_tokens(){
         var pars = "?client_name=Tootle";
         pars += "&redirect_uris=urn:ietf:wg:oauth:2.0:oob";
+        pars += "&website=https://github.com/bleakgrey/tootle";
         pars += "&scopes=read%20write%20follow";
 
         var msg = new Soup.Message("POST", settings.instance_url + "/api/v1/apps" + pars);
