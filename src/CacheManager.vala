@@ -23,7 +23,7 @@ public class Tootle.CacheManager : GLib.Object{
     }
     
     //TODO: actually cache images
-    public void load_avatar (string url, Granite.Widgets.Avatar avatar, int size = 32){
+    public void load_avatar (string url, Granite.Widgets.Avatar avatar, int size){
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(()=>{
                 uint8[] buf = msg.response_body.data;

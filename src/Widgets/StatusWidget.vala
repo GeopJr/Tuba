@@ -5,10 +5,11 @@ public class Tootle.StatusWidget : Gtk.Grid {
     
     public Status status;
     
-    public Gtk.Separator? separator;
+    public int avatar_size;
     public Granite.Widgets.Avatar avatar;
     public Gtk.Label user;
     public Gtk.Label content;
+    public Gtk.Separator? separator;
     
     Gtk.Box counters;
     Gtk.Label reblogs;
@@ -20,7 +21,8 @@ public class Tootle.StatusWidget : Gtk.Grid {
     construct {
         margin = 6;
         
-        avatar = new Granite.Widgets.Avatar.with_default_icon (32);
+        avatar_size = 32;
+        avatar = new Granite.Widgets.Avatar.with_default_icon (avatar_size);
         avatar.valign = Gtk.Align.START;
         avatar.margin_end = 6;
         user = new Gtk.Label (_("Anonymous"));
@@ -92,6 +94,12 @@ public class Tootle.StatusWidget : Gtk.Grid {
         });
     }
     
+    public void highlight (){
+        content.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+        avatar_size = 48;
+        avatar.show_default (avatar_size);
+    }
+    
     public void rebind (Status status = this.status){
         var user_label = status.reblog != null ? status.reblog.account.display_name : status.account.display_name;
         user.label = "<b>%s</b>".printf (user_label);
@@ -106,7 +114,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
         favorite.sensitive = true;
         
         var avatar_url = status.reblog != null ? status.reblog.account.avatar : status.account.avatar;
-        CacheManager.instance.load_avatar (avatar_url, this.avatar);
+        CacheManager.instance.load_avatar (avatar_url, this.avatar, this.avatar_size);
     }
     
     private Gtk.ToggleButton get_action_button (bool reblog = true){
