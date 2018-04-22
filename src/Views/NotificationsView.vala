@@ -49,8 +49,9 @@ public class Tootle.NotificationsView : Tootle.AbstractView {
     public virtual void on_remove (Widget widget){
         if (!(widget is NotificationWidget))
             return;
-        
-        //debug ("removed");
+
+        if (view.get_children ().length () <= 1)
+            image.icon_name = get_icon ();
     }
     
     public virtual void on_account_changed (Account? account){
