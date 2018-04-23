@@ -4,6 +4,7 @@ public class Tootle.Status{
     public int64 id;
     public string uri;
     public string url;
+    public string? spoiler_text;
     public string content;
     public int64 reblogs_count;
     public int64 favourites_count;
@@ -48,6 +49,9 @@ public class Tootle.Status{
         status.reblogs_count = obj.get_int_member ("reblogs_count");
         status.favourites_count = obj.get_int_member ("favourites_count");
         status.content = escape_html ( obj.get_string_member ("content"));
+        var spoiler = obj.get_string_member ("spoiler_text");
+        if (spoiler != "")
+            status.spoiler_text = escape_html (spoiler);
         
         if(obj.has_member ("reblogged"))
             status.reblogged = obj.get_boolean_member ("reblogged");

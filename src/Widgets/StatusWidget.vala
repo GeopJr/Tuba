@@ -14,9 +14,12 @@ public class Tootle.StatusWidget : Gtk.Grid {
     Gtk.Box counters;
     Gtk.Label reblogs;
     Gtk.Label favorites;
-    
     Gtk.ToggleButton reblog;
     Gtk.ToggleButton favorite;
+    
+    Gtk.Box? spoiler_box;
+    Gtk.Label? spoiler_content;
+    Gtk.Button? spoiler_button;
 
     construct {
         margin = 6;
@@ -60,10 +63,10 @@ public class Tootle.StatusWidget : Gtk.Grid {
         counters.add(favorites);
         counters.show_all ();
         
-        attach(avatar, 1, 1, 1, 3);
+        attach(avatar, 1, 1, 1, 4);
         attach(user, 2, 2, 1, 1);
-        attach(content, 2, 3, 1, 1);
-        attach(counters, 2, 4, 1, 1);
+        attach(content, 2, 4, 1, 1);
+        attach(counters, 2, 5, 1, 1);
         show_all(); //TODO: display conversations
     }
 
@@ -88,6 +91,18 @@ public class Tootle.StatusWidget : Gtk.Grid {
             attach (label, 2, 0, 2, 1);
         }
         
+        if (status.spoiler_text != null){
+            content.hide ();
+            spoiler_button = new Button.with_label (_("Show content"));
+            spoiler_button.clicked.connect (() => content.visible = !content.visible);
+            spoiler_content = new Label (status.spoiler_text);
+            spoiler_box = new Box (Gtk.Orientation.HORIZONTAL, 6);
+            spoiler_box.add (spoiler_content);
+            spoiler_box.add (spoiler_button);
+            spoiler_box.show_all ();
+            attach(spoiler_box, 2, 3, 1, 1);
+        }
+        
         destroy.connect (() => {
             if(separator != null)
                 separator.destroy ();
@@ -96,6 +111,8 @@ public class Tootle.StatusWidget : Gtk.Grid {
     
     public void highlight (){
         content.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+        if (spoiler_content != null)
+            spoiler_content.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
         avatar_size = 48;
         avatar.show_default (avatar_size);
     }
