@@ -8,6 +8,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
     public int avatar_size;
     public Granite.Widgets.Avatar avatar;
     public Gtk.Label user;
+    public Gtk.Revealer revealer;
     public Gtk.Label content;
     public Gtk.Separator? separator;
     
@@ -17,7 +18,6 @@ public class Tootle.StatusWidget : Gtk.Grid {
     Gtk.ToggleButton reblog;
     Gtk.ToggleButton favorite;
     
-    Gtk.Box? spoiler_box;
     Gtk.Label? spoiler_content;
     Gtk.Button? spoiler_button;
 
@@ -32,6 +32,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
         user.hexpand = true;
         user.halign = Gtk.Align.START;
         user.use_markup = true;
+        
         content = new Gtk.Label (_("Error parsing text :c"));
         content.halign = Gtk.Align.START;
         content.use_markup = true;
@@ -40,6 +41,9 @@ public class Tootle.StatusWidget : Gtk.Grid {
         content.justify = Gtk.Justification.LEFT;
         content.margin_end = 6;
         content.xalign = 0;
+        revealer = new Revealer ();
+        revealer.reveal_child = true;
+        revealer.add (content);
         
         reblogs = new Gtk.Label ("0");
         favorites = new Gtk.Label ("0");
@@ -65,7 +69,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
         
         attach(avatar, 1, 1, 1, 4);
         attach(user, 2, 2, 1, 1);
-        attach(content, 2, 4, 1, 1);
+        attach(revealer, 2, 4, 1, 1);
         attach(counters, 2, 5, 1, 1);
         show_all(); //TODO: display conversations
     }
@@ -92,14 +96,16 @@ public class Tootle.StatusWidget : Gtk.Grid {
         }
         
         if (status.spoiler_text != null){
-            content.hide ();
+            revealer.reveal_child = false;
             spoiler_button = new Button.with_label (_("Show content"));
-            spoiler_button.clicked.connect (() => content.visible = !content.visible);
             spoiler_content = new Label (status.spoiler_text);
-            spoiler_box = new Box (Gtk.Orientation.HORIZONTAL, 6);
+            
+            var spoiler_box = new Box (Gtk.Orientation.HORIZONTAL, 6);
             spoiler_box.add (spoiler_content);
             spoiler_box.add (spoiler_button);
             spoiler_box.show_all ();
+            
+            spoiler_button.clicked.connect (() => revealer.set_reveal_child (!revealer.child_revealed));
             attach(spoiler_box, 2, 3, 1, 1);
         }
         
