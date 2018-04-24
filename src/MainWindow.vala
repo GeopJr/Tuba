@@ -75,6 +75,9 @@ public class Tootle.MainWindow: Gtk.Window {
             header.button_mode.append (img);
             view.image = img;
             secondary_stack.add_named(view, view.get_name ());
+            
+            if (view is NotificationsView)
+                img.pixel_size = 20; // For some reason Notifications icon is too small without this
         }
     }
     
