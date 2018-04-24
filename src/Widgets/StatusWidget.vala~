@@ -11,12 +11,14 @@ public class Tootle.StatusWidget : Gtk.Grid {
     public Gtk.Revealer revealer;
     public Gtk.Label content;
     public Gtk.Separator? separator;
-    public Gtk.Label? spoiler_content;
+    
     Gtk.Box counters;
     Gtk.Label reblogs;
     Gtk.Label favorites;
     Gtk.ToggleButton reblog;
     Gtk.ToggleButton favorite;
+    
+    Gtk.Label? spoiler_content;
     Gtk.Button? spoiler_button;
 
     construct {
@@ -59,17 +61,17 @@ public class Tootle.StatusWidget : Gtk.Grid {
         
         counters = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6); //TODO: currently useless
         counters.margin_top = 6;
-        counters.add (reblog);
-        counters.add (reblogs);
-        counters.add (favorite);
-        counters.add (favorites);
+        counters.add(reblog);
+        counters.add(reblogs);
+        counters.add(favorite);
+        counters.add(favorites);
         counters.show_all ();
         
-        attach (avatar, 1, 1, 1, 4);
-        attach (user, 2, 2, 1, 1);
-        attach (revealer, 2, 4, 1, 1);
-        attach (counters, 2, 5, 1, 1);
-        show_all (); //TODO: display conversations
+        attach(avatar, 1, 1, 1, 4);
+        attach(user, 2, 2, 1, 1);
+        attach(revealer, 2, 4, 1, 1);
+        attach(counters, 2, 5, 1, 1);
+        show_all(); //TODO: display conversations
     }
 
     public StatusWidget (Status status) {
@@ -104,7 +106,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
             spoiler_box.show_all ();
             
             spoiler_button.clicked.connect (() => revealer.set_reveal_child (!revealer.child_revealed));
-            attach (spoiler_box, 2, 3, 1, 1);
+            attach(spoiler_box, 2, 3, 1, 1);
         }
         
         destroy.connect (() => {
@@ -151,46 +153,46 @@ public class Tootle.StatusWidget : Gtk.Grid {
         return button;
     }
     
-    public void toggle_reblog (){
+    public void toggle_reblog(){
         var state = reblog.get_active ();
         var action = "reblog";
         if (!state)
             action = "unreblog";
 
         var msg = new Soup.Message("POST", Settings.instance.instance_url + "/api/v1/statuses/" + status.id.to_string () + "/" + action);
-        msg.finished.connect (() => {
+        msg.finished.connect(() => {
             status.reblogged = state;
             reblog.sensitive = false;
             favorite.sensitive = false;
-            if (state)
+            if(state)
                 status.reblogs_count += 1;
             else
                 status.reblogs_count -= 1;
             rebind ();
         });
-        NetManager.instance.queue (msg, (sess, mess) => {
+        NetManager.instance.queue(msg, (sess, mess) => {
             //NetManager.parse (msg);
         });
     }
     
-    public void toggle_fav (){
+    public void toggle_fav(){
         var state = favorite.get_active ();
         var action = "favourite";
         if (!state)
             action = "unfavourite";
 
-        var msg = new Soup.Message ("POST", Settings.instance.instance_url + "/api/v1/statuses/" + status.id.to_string () + "/" + action);
-        msg.finished.connect (() => {
+        var msg = new Soup.Message("POST", Settings.instance.instance_url + "/api/v1/statuses/" + status.id.to_string () + "/" + action);
+        msg.finished.connect(() => {
             status.favorited = state;
             reblog.sensitive = false;
             favorite.sensitive = false;
-            if (state)
+            if(state)
                 status.favourites_count += 1;
             else
                 status.favourites_count -= 1;
             rebind ();
         });
-        NetManager.instance.queue (msg, (sess, mess) => {
+        NetManager.instance.queue(msg, (sess, mess) => {
             //NetManager.parse (msg);
         });
     }

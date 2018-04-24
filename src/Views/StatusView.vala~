@@ -37,8 +37,6 @@ public class Tootle.StatusView : Tootle.AbstractView {
         
         widget.rebind (status);
         widget.content.selectable = true;
-        if (widget.spoiler_content != null)
-            widget.spoiler_content.selectable = true;
         view.pack_start (widget, false, false, 0);
     }
 
