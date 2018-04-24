@@ -54,7 +54,7 @@ public enum Tootle.NotificationType {
             case MENTION:
                 return "user-available-symbolic";
             case REBLOG:
-                return "edit-undo-symbolic";
+                return "go-up-symbolic";
             case FAVORITE:
                 return "help-about-symbolic";
             case FOLLOW:

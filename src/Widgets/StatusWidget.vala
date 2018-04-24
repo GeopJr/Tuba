@@ -17,6 +17,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
     Gtk.Label favorites;
     Gtk.ToggleButton reblog;
     Gtk.ToggleButton favorite;
+    Gtk.ToggleButton reply;
     Gtk.Button? spoiler_button;
 
     construct {
@@ -46,15 +47,20 @@ public class Tootle.StatusWidget : Gtk.Grid {
         reblogs = new Gtk.Label ("0");
         favorites = new Gtk.Label ("0");
         
-        reblog = get_action_button ();
+        reblog = get_action_button ("go-up-symbolic");
         reblog.toggled.connect (() => {
             if (reblog.sensitive)
                 toggle_reblog ();
         });
-        favorite = get_action_button (false);
+        favorite = get_action_button ("help-about-symbolic");
         favorite.toggled.connect (() => {
             if (favorite.sensitive)
                 toggle_fav ();
+        });
+        reply = get_action_button ("edit-undo-symbolic");
+        reply.toggled.connect (() => {
+            reply.set_active (false);
+            PostDialog.open_reply (Tootle.window, this.status);
         });
         
         counters = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6); //TODO: currently useless
@@ -63,6 +69,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
         counters.add (reblogs);
         counters.add (favorite);
         counters.add (favorites);
+        counters.add (reply);
         counters.show_all ();
         
         attach (avatar, 1, 1, 1, 4);
@@ -77,7 +84,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
         get_style_context ().add_class ("status");
         
         if (status.reblog != null){
-            var image = new Gtk.Image.from_icon_name("edit-undo-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            var image = new Gtk.Image.from_icon_name("go-up-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             image.halign = Gtk.Align.END;
             image.margin_end = 8;
             image.show ();
@@ -138,12 +145,8 @@ public class Tootle.StatusWidget : Gtk.Grid {
         CacheManager.instance.load_avatar (avatar_url, this.avatar, this.avatar_size);
     }
     
-    private Gtk.ToggleButton get_action_button (bool reblog = true){
-        var path = "edit-undo-symbolic";
-        if (!reblog)
-            path = "help-about-symbolic";
-        var icon = new Gtk.Image.from_icon_name (path, Gtk.IconSize.SMALL_TOOLBAR);
-        
+    private Gtk.ToggleButton get_action_button (string icon_path){
+        var icon = new Gtk.Image.from_icon_name (icon_path, Gtk.IconSize.SMALL_TOOLBAR);
         var button = new Gtk.ToggleButton ();
         button.can_default = false;
         button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);

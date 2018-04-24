@@ -4,12 +4,13 @@ using Tootle;
 public class Tootle.PostDialog : Gtk.Dialog {
 
     private static PostDialog dialog;
-    private Gtk.TextView text;
+    protected Gtk.TextView text;
     private Gtk.Label counter;
     private Gtk.MenuButton visibility;
     private Gtk.Button publish;
     
     private StatusVisibility visibility_opt;
+    protected int64? in_reply_to_id;
 
     public PostDialog (Gtk.Window? parent) {
         Object (
@@ -106,9 +107,19 @@ public class Tootle.PostDialog : Gtk.Dialog {
 		}
     }
     
+    public static void open_reply (Gtk.Window? parent, Status status){
+        if(dialog == null){
+            open (parent);
+            dialog.in_reply_to_id = status.id;
+            dialog.text.buffer.text = "@%s ".printf (status.account.username);
+        }
+    }
+    
     public void publish_post(){
         var text_escaped = text.buffer.text.replace (" ", "%20");
         var pars = "?status=" + text_escaped;
+        if (in_reply_to_id != null)
+            pars += "&in_reply_to_id=" + in_reply_to_id.to_string ();
         pars += "&visibility=" + visibility_opt.to_string ();
 
         var msg = new Soup.Message("POST", Settings.instance.instance_url + "/api/v1/statuses" + pars);
