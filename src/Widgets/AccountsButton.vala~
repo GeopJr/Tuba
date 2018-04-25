@@ -56,8 +56,8 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.width_request = 200;
         grid.attach(default_account, 0, 1, 1, 1);
-        //grid.attach(item_separator, 0, 2, 1, 1);
-        //grid.attach(item_settings, 0, 3, 1, 1);
+        grid.attach(item_separator, 0, 2, 1, 1);
+        grid.attach(item_settings, 0, 3, 1, 1);
         grid.show_all ();
         
         menu = new Gtk.Popover (null);
