@@ -1,7 +1,7 @@
 using Gtk;
 using Granite;
 
-public class Tootle.StatusWidget : Gtk.Grid {
+public class Tootle.StatusWidget : Gtk.EventBox {
     
     public Status status;
     
@@ -12,6 +12,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
     public Gtk.Label content;
     public Gtk.Separator? separator;
     public Gtk.Label? spoiler_content;
+    Gtk.Grid grid;
     Gtk.Box counters;
     Gtk.Label reblogs;
     Gtk.Label favorites;
@@ -21,7 +22,8 @@ public class Tootle.StatusWidget : Gtk.Grid {
     Gtk.Button? spoiler_button;
 
     construct {
-        margin = 6;
+        grid = new Gtk.Grid ();
+        grid.margin = 6;
         
         avatar_size = 32;
         avatar = new Granite.Widgets.Avatar.with_default_icon (avatar_size);
@@ -72,10 +74,11 @@ public class Tootle.StatusWidget : Gtk.Grid {
         counters.add (reply);
         counters.show_all ();
         
-        attach (avatar, 1, 1, 1, 4);
-        attach (user, 2, 2, 1, 1);
-        attach (revealer, 2, 4, 1, 1);
-        attach (counters, 2, 5, 1, 1);
+        grid.attach (avatar, 1, 1, 1, 4);
+        grid.attach (user, 2, 2, 1, 1);
+        grid.attach (revealer, 2, 4, 1, 1);
+        grid.attach (counters, 2, 5, 1, 1);
+        add (grid);
         show_all (); //TODO: display conversations
     }
 
@@ -96,8 +99,8 @@ public class Tootle.StatusWidget : Gtk.Grid {
             label.margin_bottom = 8;
             label.show ();
             
-            attach (image, 1, 0, 1, 1);
-            attach (label, 2, 0, 2, 1);
+            grid.attach (image, 1, 0, 1, 1);
+            grid.attach (label, 2, 0, 2, 1);
         }
         
         if (status.spoiler_text != null){
@@ -111,7 +114,7 @@ public class Tootle.StatusWidget : Gtk.Grid {
             spoiler_box.show_all ();
             
             spoiler_button.clicked.connect (() => revealer.set_reveal_child (!revealer.child_revealed));
-            attach (spoiler_box, 2, 3, 1, 1);
+            grid.attach (spoiler_box, 2, 3, 1, 1);
         }
         
         destroy.connect (() => {
