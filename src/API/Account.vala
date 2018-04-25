@@ -5,8 +5,12 @@ public class Tootle.Account{
     public string acct;
     public string display_name;
     public string note;
+    public string header;
     public string avatar;
     public string url;
+    public int64 followers_count;
+    public int64 following_count;
+    public int64 statuses_count;
 
     public Account(int64 id){
         this.id = id;
@@ -23,7 +27,12 @@ public class Tootle.Account{
             account.display_name = account.username;
         account.note = obj.get_string_member ("note");
         account.avatar = obj.get_string_member ("avatar");
+        account.header = obj.get_string_member ("header");
         account.url = obj.get_string_member ("url");
+        
+        account.followers_count = obj.get_int_member ("followers_count");
+        account.following_count = obj.get_int_member ("following_count");
+        account.statuses_count = obj.get_int_member ("statuses_count");
     
         return account;
     }

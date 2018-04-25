@@ -8,6 +8,7 @@ public class Tootle.Utils{
         .replace("rel=\"tag\"", "")
         .replace("rel=\"nofollow noopener\"", "")
         .replace("class=\"mention hashtag\"", "")
+        .replace("class=\"mention\"", "")
         .replace("class=\"h-card\"", "")
         .replace("class=\"invisible\"", "")
         .replace("class=\"ellipsis\"", "")

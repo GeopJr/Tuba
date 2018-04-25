@@ -18,3 +18,8 @@
 .toot-text{
     background: none;
 }
+
+.header{
+    background-size: cover;
+    opacity: 0.1;
+}
