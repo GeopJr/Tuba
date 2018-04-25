@@ -24,6 +24,7 @@ executable(
     'src/AccountManager.vala',
     'src/NetManager.vala',
     'src/CacheManager.vala',
+    'src/Utils.vala',
     'src/API/Account.vala',
     'src/API/Status.vala',
     'src/API/StatusVisibility.vala',
@@ -42,6 +43,7 @@ executable(
     'src/Views/FederatedView.vala',
     'src/Views/NotificationsView.vala',
     'src/Views/StatusView.vala',
+    'src/Views/AccountView.vala',
     dependencies: [
         dependency('gtk+-3.0'),
         dependency('glib-2.0', version: '>=2.30.0'),

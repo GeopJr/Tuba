@@ -23,7 +23,7 @@ public class Tootle.MainWindow: Gtk.Window {
         primary_stack = new Stack();
         primary_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
         primary_stack.show ();
-        primary_stack.add_named (secondary_stack, "modes");
+        primary_stack.add_named (secondary_stack, "0");
         
         header = new Tootle.HeaderBar ();
 
@@ -83,8 +83,10 @@ public class Tootle.MainWindow: Gtk.Window {
     
     public void open_secondary_view (Widget widget) {
         widget.show ();
-        primary_stack.add_named (widget, "details");
-        primary_stack.set_visible_child_name ("details");
+        var i = int.parse (primary_stack.get_visible_child_name ());
+        i++;
+        primary_stack.add_named (widget, i.to_string ());
+        primary_stack.set_visible_child_name (i.to_string ());
         header.update (false);
     }
 

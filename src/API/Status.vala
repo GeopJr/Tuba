@@ -21,24 +21,6 @@ public class Tootle.Status{
         this.favorited = false;
     }
 
-    public static string escape_html(string content){
-        return content
-        .replace("<br>", "\n")
-        .replace("</br>", "")
-        .replace("<br />", "\n")
-        .replace("rel=\"tag\"", "")
-        .replace("rel=\"nofollow noopener\"", "")
-        .replace("class=\"mention hashtag\"", "")
-        .replace("class=\"h-card\"", "")
-        .replace("class=\"invisible\"", "")
-        .replace("class=\"ellipsis\"", "")
-        .replace("class=\"u-url mention\"", "")
-        .replace("class=\"\"", "")
-        .replace("<p>", "")
-        .replace("</p>", " ")
-        .replace("target=\"_blank\"", "");
-    }
-
     public static Status parse(Json.Object obj) {
         var id = int64.parse (obj.get_string_member ("id"));
         var status = new Status (id);
@@ -48,10 +30,10 @@ public class Tootle.Status{
         status.url = obj.get_string_member ("url");
         status.reblogs_count = obj.get_int_member ("reblogs_count");
         status.favourites_count = obj.get_int_member ("favourites_count");
-        status.content = escape_html ( obj.get_string_member ("content"));
+        status.content = Utils.escape_html ( obj.get_string_member ("content"));
         var spoiler = obj.get_string_member ("spoiler_text");
         if (spoiler != "")
-            status.spoiler_text = escape_html (spoiler);
+            status.spoiler_text = Utils.escape_html (spoiler);
         
         if(obj.has_member ("reblogged"))
             status.reblogged = obj.get_boolean_member ("reblogged");

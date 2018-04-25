@@ -19,10 +19,14 @@ public class Tootle.HeaderBar : Gtk.HeaderBar{
         button_back.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
         button_back.clicked.connect (() => {
             var primary_stack = Tootle.window.primary_stack;
-            primary_stack.set_visible_child_name ("modes");
-            var child = primary_stack.get_child_by_name ("details");
+            var i = int.parse (primary_stack.get_visible_child_name ());
+            primary_stack.set_visible_child_name ((i-1).to_string ());
+            
+            var child = primary_stack.get_child_by_name (i.to_string ());
             child.destroy ();
-            update (true);
+            
+            var is_root = primary_stack.get_visible_child_name () == "0";
+            update (is_root);
         });
         
         button_toot = new Button ();

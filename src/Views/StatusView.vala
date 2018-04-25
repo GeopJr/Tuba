@@ -3,23 +3,6 @@ using Gtk;
 public class Tootle.StatusView : Tootle.AbstractView {
 
     Status root_status;
-    Gtk.Box view;
-    Gtk.ScrolledWindow scroll;
-
-    construct {
-        view = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        view.hexpand = true;
-        view.valign = Gtk.Align.START;
-
-        scroll = new Gtk.ScrolledWindow (null, null);
-        scroll.hexpand = true;
-        scroll.vexpand = true;
-        scroll.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        scroll.add (view);
-        add (scroll);
-
-        show_all ();
-    }
 
     public StatusView (Status status) {
         base (false);

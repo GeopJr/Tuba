@@ -146,6 +146,15 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         
         var avatar_url = status.reblog != null ? status.reblog.account.avatar : status.account.avatar;
         CacheManager.instance.load_avatar (avatar_url, this.avatar, this.avatar_size);
+        
+        avatar.button_press_event.connect(on_avatar_clicked);
+    }
+    
+    private bool on_avatar_clicked (){
+        var account = status.reblog != null ? status.reblog.account : status.account;
+        var view = new AccountView (account);
+        Tootle.window.open_secondary_view (view);
+        return true;
     }
     
     private Gtk.ToggleButton get_action_button (string icon_path){

@@ -3,25 +3,8 @@ using Gdk;
 
 public class Tootle.NotificationsView : Tootle.AbstractView {
 
-    Gtk.Box view;
-    Gtk.ScrolledWindow scroll;
-
-    construct {
-        view = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        view.hexpand = true;
-        view.valign = Gtk.Align.START;
-
-        scroll = new Gtk.ScrolledWindow (null, null);
-        scroll.hexpand = true;
-        scroll.vexpand = true;
-        scroll.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        scroll.add (view);
-        add (scroll);
-    }
-
     public NotificationsView () {
         base (true);
-        show_all();
         
         view.remove.connect (on_remove);
         AccountManager.instance.switched.connect(on_account_changed);
