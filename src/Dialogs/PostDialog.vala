@@ -111,7 +111,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         if(dialog == null){
             open (parent);
             dialog.in_reply_to_id = status.id;
-            dialog.text.buffer.text = "@%s ".printf (status.account.username);
+            dialog.text.buffer.text = "@%s ".printf (status.account.acct);
         }
     }
     
