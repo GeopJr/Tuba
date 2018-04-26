@@ -4,12 +4,10 @@ using Gdk;
 public class Tootle.HomeView : Tootle.AbstractView {
     
     private string timeline;
-    private string pars;
 
-    public HomeView (string timeline = "home", string pars = "") {
+    public HomeView (string timeline = "home") {
         base (true);
         this.timeline = timeline;
-        this.pars = pars;
         
         view.remove.connect (on_remove);
         AccountManager.instance.switched.connect(on_account_changed);
@@ -24,22 +22,23 @@ public class Tootle.HomeView : Tootle.AbstractView {
     }
     
     public override string get_name () {
-        return "Home Timeline";
+        return "Home";
     }
     
-    public void prepend(Status status){ //TODO: clear all on account switch
+    public virtual bool is_status_owned (Status status){
+        return false;
+    }
+    
+    public void prepend(Status status){
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.show ();
         
         var widget = new StatusWidget(status);
         widget.separator = separator;
         widget.rebind (status);
-        widget.button_press_event.connect(() => {
-            var open_status = status.reblog != null ? status.reblog : status;
-            var view = new StatusView (open_status);
-            Tootle.window.open_secondary_view (view);
-            return false;
-        });
+        widget.button_press_event.connect(widget.open);
+        if (!is_status_owned (status))
+            widget.avatar.button_press_event.connect(widget.on_avatar_clicked);
         view.pack_start(separator, false, false, 0);
         view.pack_start(widget, false, false, 0);
     }
@@ -48,25 +47,30 @@ public class Tootle.HomeView : Tootle.AbstractView {
         if (!(widget is StatusWidget))
             return;
             
-        //debug ("removed");
+        //TODO: empty state
     }
     
-    public virtual void on_account_changed (Account? account){
-        if(account == null)
-            return;
-        
+    public virtual string get_url (){
         var url = Settings.instance.instance_url;
         url += "api/v1/timelines/";
         url += this.timeline;
-        url += this.pars;
+        url += "?limit=25";
         
-        var msg = new Soup.Message("GET", url);
+        if (max_id > 0)
+            url += "&max_id=" + max_id.to_string ();
+        
+        return url;
+    }
+    
+    public void request (){
+        var msg = new Soup.Message("GET", get_url ());
         NetManager.instance.queue(msg, (sess, mess) => {
             try{
                 NetManager.parse_array (mess).foreach_element ((array, i, node) => {
                     var object = node.get_object ();
                     if (object != null){
                         var status = Status.parse(object);
+                        max_id = status.id;
                         prepend (status);
                     }
                 });
@@ -76,6 +80,18 @@ public class Tootle.HomeView : Tootle.AbstractView {
                 warning (e.message);
             }
         });
+    }
+    
+    public virtual void on_account_changed (Account? account){
+        if(account == null)
+            return;
+        
+        clear ();
+        request ();
+    }
+    
+    public override void bottom_reached (){
+        request ();
     }
 
 }

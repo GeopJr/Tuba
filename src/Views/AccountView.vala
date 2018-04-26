@@ -1,7 +1,7 @@
 using Gtk;
 using Granite;
 
-public class Tootle.AccountView : Tootle.AbstractView {
+public class Tootle.AccountView : Tootle.HomeView {
     
     Account account;
     
@@ -13,7 +13,7 @@ public class Tootle.AccountView : Tootle.AbstractView {
     Gtk.Label note;
     Gtk.Grid counters;
     
-    construct {
+    public override void pre_construct () {
         header = new Gtk.Grid ();
     
         avatar = new Granite.Widgets.Avatar.with_default_icon (128);
@@ -51,8 +51,8 @@ public class Tootle.AccountView : Tootle.AbstractView {
         view.pack_start (header, false, false, 0);
     }
     
-    public AccountView (Account acc){
-        base (false);
+    public AccountView (Account acc) {
+        base ("account_"+acc.id.to_string ());
         account = acc;
         
         display_name.label = account.display_name;
@@ -68,13 +68,29 @@ public class Tootle.AccountView : Tootle.AbstractView {
         var stylesheet = ".header{background-image: url(\"%s\")}".printf (account.header);
         var css_provider = Granite.Widgets.Utils.get_css_provider (stylesheet);
         header_image.get_style_context ().add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        
+        request ();
     }
     
-    private void add_counter (string name, int i, int64 val){
+    private void add_counter (string name, int i, int64 val) {
         var label_name = new Gtk.Label (name);
         var label_val = new Gtk.Label (val.to_string ());
         counters.attach (label_name, i, 1, 1, 1);
         counters.attach (label_val, i, 2, 1, 1);
+    }
+    
+    public override bool is_status_owned (Status status){
+        return status.account.id == account.id;
+    }
+    
+    public override string get_url (){
+        var url = "%s/api/v1/accounts/%lld/statuses".printf (Settings.instance.instance_url, account.id);
+        url += "?limit=25";
+        
+        if (max_id > 0)
+            url += "&max_id=" + max_id.to_string ();
+            
+        return url;
     }
     
 }

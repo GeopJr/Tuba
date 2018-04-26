@@ -29,12 +29,12 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         avatar = new Granite.Widgets.Avatar.with_default_icon (avatar_size);
         avatar.valign = Gtk.Align.START;
         avatar.margin_end = 6;
-        user = new Gtk.Label (_("Anonymous"));
+        user = new Gtk.Label ("");
         user.hexpand = true;
         user.halign = Gtk.Align.START;
         user.use_markup = true;
         
-        content = new Gtk.Label (_("Error parsing text :c"));
+        content = new Gtk.Label ("");
         content.halign = Gtk.Align.START;
         content.use_markup = true;
         content.single_line_mode = false;
@@ -146,15 +146,20 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         
         var avatar_url = status.reblog != null ? status.reblog.account.avatar : status.account.avatar;
         CacheManager.instance.load_avatar (avatar_url, this.avatar, this.avatar_size);
-        
-        avatar.button_press_event.connect(on_avatar_clicked);
     }
     
-    private bool on_avatar_clicked (){
+    public bool on_avatar_clicked (){
         var account = status.reblog != null ? status.reblog.account : status.account;
         var view = new AccountView (account);
         Tootle.window.open_secondary_view (view);
         return true;
+    }
+    
+    public bool open (){
+        var open_status = status.reblog != null ? status.reblog : status;
+        var view = new StatusView (open_status);
+        Tootle.window.open_secondary_view (view);
+        return false;
     }
     
     private Gtk.ToggleButton get_action_button (string icon_path){

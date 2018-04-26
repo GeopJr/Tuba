@@ -3,7 +3,7 @@ using Gtk;
 public class Tootle.LocalView : Tootle.HomeView {
 
     public LocalView () {
-        base ("public", "?local=true");
+        base ("public");
     }
     
     public override string get_icon () {
@@ -12,6 +12,12 @@ public class Tootle.LocalView : Tootle.HomeView {
     
     public override string get_name () {
         return "Local Timeline";
+    }
+    
+    public override string get_url (){
+        string url = base.get_url ();
+        url += "&local=true";
+        return url;
     }
 
 }
