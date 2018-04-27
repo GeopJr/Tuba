@@ -3,7 +3,6 @@ using Granite;
 
 public class Tootle.AddAccountView : Tootle.AbstractView {
 
-    AccountManager manager;
     public Stack stack;
     GridInstance grid_instance;
     GridCode grid_code;
@@ -86,8 +85,6 @@ public class Tootle.AddAccountView : Tootle.AbstractView {
     
 
     construct {
-        manager = AccountManager.instance;
-    
         stack = new Stack ();
         stack.valign = Gtk.Align.CENTER;
         stack.transition_type = StackTransitionType.SLIDE_LEFT_RIGHT;
@@ -120,12 +117,12 @@ public class Tootle.AddAccountView : Tootle.AbstractView {
     }
     
     private void on_next_click(){
-        Settings.instance.clear_account ();
-        Settings.instance.instance_url = grid_instance.entry.text;
+        Tootle.settings.clear_account ();
+        Tootle.settings.instance_url = grid_instance.entry.text;
         grid_instance.sensitive = false; 
         
-        if(!manager.has_client_tokens ()){
-            var msg = manager.request_client_tokens ();
+        if(!Tootle.accounts.has_client_tokens ()){
+            var msg = Tootle.accounts.request_client_tokens ();
             msg.finished.connect(() => {
                 grid_instance.sensitive = true;
                 stack.set_visible_child_name ("code");
@@ -134,13 +131,13 @@ public class Tootle.AddAccountView : Tootle.AbstractView {
         else{
             grid_instance.sensitive = true;
             stack.set_visible_child_name ("code");
-            manager.request_auth_code (Settings.instance.client_id);
+            Tootle.accounts.request_auth_code (Tootle.settings.client_id);
         }
     }
     
     private void on_add_click (){
         var code = grid_code.code.text;
-        manager.try_auth (code);
+        Tootle.accounts.try_auth (code);
     }
 
 }

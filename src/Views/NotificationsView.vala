@@ -7,7 +7,7 @@ public class Tootle.NotificationsView : Tootle.AbstractView {
         base (true);
         
         view.remove.connect (on_remove);
-        AccountManager.instance.switched.connect(on_account_changed);
+        Tootle.accounts.switched.connect(on_account_changed);
     }
     
     public override string get_icon () {
@@ -41,13 +41,13 @@ public class Tootle.NotificationsView : Tootle.AbstractView {
         if(account == null)
             return;
         
-        var url = Settings.instance.instance_url;
+        var url = Tootle.settings.instance_url;
         url += "/api/v1/notifications";
         
         var msg = new Soup.Message("GET", url);
-        NetManager.instance.queue(msg, (sess, mess) => {
+        Tootle.network.queue(msg, (sess, mess) => {
             try{
-                NetManager.parse_array (mess).foreach_element ((array, i, node) => {
+                Tootle.network.parse_array (mess).foreach_element ((array, i, node) => {
                     var object = node.get_object ();
                     if (object != null){
                         var notification = Notification.parse(object);

@@ -122,10 +122,10 @@ public class Tootle.PostDialog : Gtk.Dialog {
             pars += "&in_reply_to_id=" + in_reply_to_id.to_string ();
         pars += "&visibility=" + visibility_opt.to_string ();
 
-        var msg = new Soup.Message("POST", Settings.instance.instance_url + "/api/v1/statuses" + pars);
-        NetManager.instance.queue(msg, (sess, mess) => {
+        var msg = new Soup.Message("POST", Tootle.settings.instance_url + "/api/v1/statuses" + pars);
+        Tootle.network.queue(msg, (sess, mess) => {
             try{
-                var root = NetManager.parse (mess);
+                var root = Tootle.network.parse (mess);
                 var status = Status.parse (root);
                 Tootle.window.home.prepend (status);
                 this.destroy ();

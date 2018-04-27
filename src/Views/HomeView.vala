@@ -10,7 +10,7 @@ public class Tootle.HomeView : Tootle.AbstractView {
         this.timeline = timeline;
         
         view.remove.connect (on_remove);
-        AccountManager.instance.switched.connect(on_account_changed);
+        Tootle.accounts.switched.connect(on_account_changed);
         
         // var s = new Status(1);
         // s.content = "Test content, wow!";
@@ -51,7 +51,7 @@ public class Tootle.HomeView : Tootle.AbstractView {
     }
     
     public virtual string get_url (){
-        var url = Settings.instance.instance_url;
+        var url = Tootle.settings.instance_url;
         url += "api/v1/timelines/";
         url += this.timeline;
         url += "?limit=25";
@@ -64,9 +64,9 @@ public class Tootle.HomeView : Tootle.AbstractView {
     
     public void request (){
         var msg = new Soup.Message("GET", get_url ());
-        NetManager.instance.queue(msg, (sess, mess) => {
+        Tootle.network.queue(msg, (sess, mess) => {
             try{
-                NetManager.parse_array (mess).foreach_element ((array, i, node) => {
+                Tootle.network.parse_array (mess).foreach_element ((array, i, node) => {
                     var object = node.get_object ();
                     if (object != null){
                         var status = Status.parse(object);

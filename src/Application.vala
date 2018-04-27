@@ -5,6 +5,11 @@ namespace Tootle{
 
     public static Application app;
     public static MainWindow window;
+    
+    public static SettingsManager settings;
+    public static AccountManager accounts;
+    public static NetManager network;
+    public static CacheManager cache;
 
     public class Application : Granite.Application {
     
@@ -16,6 +21,10 @@ namespace Tootle{
             flags = ApplicationFlags.FLAGS_NONE;
             program_name = "Toot";
             build_version = "0.1.0";
+            settings = new SettingsManager ();
+            accounts = new AccountManager ();
+            network = new NetManager ();
+            cache = new CacheManager ();
         }
 
         public static int main (string[] args) {
@@ -31,11 +40,11 @@ namespace Tootle{
         
         protected override void activate () {
             window.present ();
-            var has_token = AccountManager.instance.has_access_token();
+            var has_token = Tootle.accounts.has_access_token();
             if(has_token)
-                AccountManager.instance.update_current ();
+                Tootle.accounts.update_current ();
             else
-                AccountManager.instance.switched (null);
+                Tootle.accounts.switched (null);
         }
     
     }

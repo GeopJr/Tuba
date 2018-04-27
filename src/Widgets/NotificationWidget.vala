@@ -57,12 +57,12 @@ public class Tootle.NotificationWidget : Gtk.Grid {
     }
     
     public static Soup.Message dismiss (Notification notification){
-        var url = Settings.instance.instance_url;
+        var url = Tootle.settings.instance_url;
         url += "api/v1/notifications/dismiss";
         url += "?id=" + notification.id.to_string ();
         
         var msg = new Soup.Message("POST", url);
-        NetManager.instance.queue(msg, (sess, mess) => {});
+        Tootle.network.queue(msg, (sess, mess) => {});
         return msg;
     }
 

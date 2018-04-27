@@ -27,11 +27,11 @@ public class Tootle.StatusView : Tootle.AbstractView {
     }
 
     public Soup.Message request_context (){
-        var url = "%s/api/v1/statuses/%lld/context".printf (Settings.instance.instance_url, root_status.id);
+        var url = "%s/api/v1/statuses/%lld/context".printf (Tootle.settings.instance_url, root_status.id);
         var msg = new Soup.Message("GET", url);
-        NetManager.instance.queue(msg, (sess, mess) => {
+        Tootle.network.queue(msg, (sess, mess) => {
             try{
-                var root = NetManager.parse (mess);
+                var root = Tootle.network.parse (mess);
                 
                 var ancestors = root.get_array_member ("ancestors");
                 ancestors.foreach_element ((array, i, node) => {

@@ -43,8 +43,8 @@ public class Tootle.HeaderBar : Gtk.HeaderBar{
         });
         button_mode.show ();
         
-        NetManager.instance.started.connect (() => spinner.show ());
-        NetManager.instance.finished.connect (() => spinner.hide ());
+        Tootle.network.started.connect (() => spinner.show ());
+        Tootle.network.finished.connect (() => spinner.hide ());
         
         pack_start (button_back);
         pack_start (button_toot);

@@ -40,7 +40,7 @@ public class Tootle.MainWindow: Gtk.Window {
         set_titlebar (header);
         window_position = WindowPosition.CENTER;
         
-        AccountManager.instance.switched.connect(on_account_switched);
+        Tootle.accounts.switched.connect(on_account_switched);
     }
     
     private void on_account_switched(Account? account){

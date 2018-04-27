@@ -58,7 +58,7 @@ public class Tootle.AccountView : Tootle.HomeView {
         display_name.label = account.display_name;
         username.label = "@" + account.acct;
         note.label = Utils.escape_html (account.note);
-        CacheManager.instance.load_avatar (account.avatar, avatar, 128);
+        Tootle.cache.load_avatar (account.avatar, avatar, 128);
         
         add_counter (_("Toots"), 1, account.statuses_count);
         add_counter (_("Follows"), 2, account.following_count);
@@ -84,7 +84,7 @@ public class Tootle.AccountView : Tootle.HomeView {
     }
     
     public override string get_url (){
-        var url = "%s/api/v1/accounts/%lld/statuses".printf (Settings.instance.instance_url, account.id);
+        var url = "%s/api/v1/accounts/%lld/statuses".printf (Tootle.settings.instance_url, account.id);
         url += "?limit=25";
         
         if (max_id > 0)

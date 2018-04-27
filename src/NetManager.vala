@@ -6,15 +6,6 @@ public class Tootle.NetManager : GLib.Object{
 
     public abstract signal void started();
     public abstract signal void finished();
-
-    private static NetManager _instance;
-    public static NetManager instance{
-        get{
-            if(_instance == null)
-                _instance = new NetManager();
-            return _instance;
-        }
-    }
     
     private int requests_processing = 0;
     private Soup.Session session;
@@ -36,7 +27,7 @@ public class Tootle.NetManager : GLib.Object{
         requests_processing++;
         started ();
         
-        var token = Settings.instance.access_token;
+        var token = Tootle.settings.access_token;
         if(token != "null")
             msg.request_headers.append ("Authorization", "Bearer " + token);
         
@@ -44,7 +35,7 @@ public class Tootle.NetManager : GLib.Object{
         return msg;
     }
     
-    public static Json.Object parse(Soup.Message msg) throws GLib.Error{
+    public Json.Object parse(Soup.Message msg) throws GLib.Error{
         // stdout.printf ("Status Code: %u\n", msg.status_code);
         // stdout.printf ("Message length: %lld\n", msg.response_body.length);
         // stdout.printf ("Object: \n%s\n", (string) msg.response_body.data);
@@ -54,7 +45,7 @@ public class Tootle.NetManager : GLib.Object{
         return parser.get_root ().get_object ();
     }
     
-    public static Json.Array parse_array(Soup.Message msg) throws GLib.Error{
+    public Json.Array parse_array(Soup.Message msg) throws GLib.Error{
         // stdout.printf ("Status Code: %u\n", msg.status_code);
         // stdout.printf ("Message length: %lld\n", msg.response_body.length);
         // stdout.printf ("Array: \n%s\n", (string) msg.response_body.data);

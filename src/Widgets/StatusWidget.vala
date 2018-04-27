@@ -145,7 +145,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         favorite.sensitive = true;
         
         var avatar_url = status.reblog != null ? status.reblog.account.avatar : status.account.avatar;
-        CacheManager.instance.load_avatar (avatar_url, this.avatar, this.avatar_size);
+        Tootle.cache.load_avatar (avatar_url, this.avatar, this.avatar_size);
     }
     
     public bool on_avatar_clicked (){
@@ -177,7 +177,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         if (!state)
             action = "unreblog";
 
-        var msg = new Soup.Message("POST", Settings.instance.instance_url + "/api/v1/statuses/" + status.id.to_string () + "/" + action);
+        var msg = new Soup.Message("POST", Tootle.settings.instance_url + "/api/v1/statuses/" + status.id.to_string () + "/" + action);
         msg.finished.connect (() => {
             status.reblogged = state;
             reblog.sensitive = false;
@@ -188,8 +188,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
                 status.reblogs_count -= 1;
             rebind ();
         });
-        NetManager.instance.queue (msg, (sess, mess) => {
-            //NetManager.parse (msg);
+        Tootle.network.queue (msg, (sess, mess) => {
+            //Tootle.network.parse (msg);
         });
     }
     
@@ -199,7 +199,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         if (!state)
             action = "unfavourite";
 
-        var msg = new Soup.Message ("POST", Settings.instance.instance_url + "/api/v1/statuses/" + status.id.to_string () + "/" + action);
+        var msg = new Soup.Message ("POST", Tootle.settings.instance_url + "/api/v1/statuses/" + status.id.to_string () + "/" + action);
         msg.finished.connect (() => {
             status.favorited = state;
             reblog.sensitive = false;
@@ -210,8 +210,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
                 status.favourites_count -= 1;
             rebind ();
         });
-        NetManager.instance.queue (msg, (sess, mess) => {
-            //NetManager.parse (msg);
+        Tootle.network.queue (msg, (sess, mess) => {
+            //Tootle.network.parse (msg);
         });
     }
 

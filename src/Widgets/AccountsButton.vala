@@ -26,7 +26,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
             logout = new Gtk.Button.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             logout.receives_default = false;
             logout.tooltip_text = _("Log out");
-            logout.clicked.connect (() => AccountManager.instance.logout ());
+            logout.clicked.connect (() => Tootle.accounts.logout ());
             show_all ();
             
             attach(display_name, 1, 0, 1, 1);
@@ -68,9 +68,9 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         add(avatar);
         show_all ();
         
-        AccountManager.instance.switched.connect (account => {
+        Tootle.accounts.switched.connect (account => {
             if (account != null){
-                CacheManager.instance.load_avatar (account.avatar, avatar, 24);
+                Tootle.cache.load_avatar (account.avatar, avatar, 24);
                 default_account.display_name.label = "<b>"+account.display_name+"</b>";
                 default_account.user.label = "@"+account.username;
             }

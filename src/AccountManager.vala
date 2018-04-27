@@ -7,33 +7,20 @@ public class Tootle.AccountManager : Object{
     public abstract signal void removed(Account account);
 
     private static Account current;
-    private static Settings settings;
-    private static AccountManager _instance;
-    public static AccountManager instance{
-        get{
-            if(_instance == null)
-                _instance = new AccountManager();
-            return _instance;
-        }
-    }
-
-    construct{
-        settings = Settings.instance;
-    }
 
     public AccountManager(){
         Object();
     }
 
     public bool has_client_tokens(){
-        var client_id = settings.client_id;
-        var client_secret = settings.client_secret;
+        var client_id = Tootle.settings.client_id;
+        var client_secret = Tootle.settings.client_secret;
 
         return !(client_id == "null" || client_secret == "null");
     }
 
     public bool has_access_token (){
-        return settings.access_token != "null";
+        return Tootle.settings.access_token != "null";
     }
 
     public void request_auth_code (string client_id){
@@ -43,7 +30,7 @@ public class Tootle.AccountManager : Object{
         pars += "&client_id=" +client_id;
         
         try {
-            AppInfo.launch_default_for_uri (settings.instance_url + "/oauth/authorize" + pars, null);
+            AppInfo.launch_default_for_uri (Tootle.settings.instance_url + "/oauth/authorize" + pars, null);
         }
         catch (GLib.Error e){
             warning (e.message);
@@ -56,14 +43,14 @@ public class Tootle.AccountManager : Object{
         pars += "&website=https://github.com/bleakgrey/tootle";
         pars += "&scopes=read%20write%20follow";
 
-        var msg = new Soup.Message("POST", settings.instance_url + "/api/v1/apps" + pars);
-        NetManager.instance.queue(msg, (sess, mess) => {
+        var msg = new Soup.Message("POST", Tootle.settings.instance_url + "/api/v1/apps" + pars);
+        Tootle.network.queue(msg, (sess, mess) => {
             try{
-                var root = NetManager.parse (mess);
+                var root = Tootle.network.parse (mess);
                 var client_id = root.get_string_member ("client_id");
                 var client_secret = root.get_string_member ("client_secret");
-                settings.client_id = client_id;
-                settings.client_secret = client_secret;
+                Tootle.settings.client_id = client_id;
+                Tootle.settings.client_secret = client_secret;
                 debug ("Received tokens");
                 
                 request_auth_code (client_id);
@@ -77,18 +64,18 @@ public class Tootle.AccountManager : Object{
     }
     
     public Soup.Message try_auth (string code){
-        var pars = "?client_id=" + settings.client_id;
-        pars += "&client_secret=" + settings.client_secret;
+        var pars = "?client_id=" + Tootle.settings.client_id;
+        pars += "&client_secret=" + Tootle.settings.client_secret;
         pars += "&redirect_uri=urn:ietf:wg:oauth:2.0:oob";
         pars += "&grant_type=authorization_code";
         pars += "&code=" + code;
 
-        var msg = new Soup.Message("POST", settings.instance_url + "/oauth/token" + pars);
-        NetManager.instance.queue(msg, (sess, mess) => {
+        var msg = new Soup.Message("POST", Tootle.settings.instance_url + "/oauth/token" + pars);
+        Tootle.network.queue(msg, (sess, mess) => {
             try{
-                var root = NetManager.parse (mess);
+                var root = Tootle.network.parse (mess);
                 var access_token = root.get_string_member ("access_token");
-                settings.access_token = access_token;
+                Tootle.settings.access_token = access_token;
                 debug ("Got access token");
                 update_current ();
             }
@@ -101,10 +88,10 @@ public class Tootle.AccountManager : Object{
     }
     
     public Soup.Message update_current (){
-        var msg = new Soup.Message("GET", settings.instance_url + "/api/v1/accounts/verify_credentials");
-        NetManager.instance.queue(msg, (sess, mess) => {
+        var msg = new Soup.Message("GET", Tootle.settings.instance_url + "/api/v1/accounts/verify_credentials");
+        Tootle.network.queue(msg, (sess, mess) => {
             try{
-                var root = NetManager.parse (mess);
+                var root = Tootle.network.parse (mess);
                 current = Account.parse(root);
                 switched (current);
             }

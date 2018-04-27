@@ -2,15 +2,6 @@ using Gdk;
 using GLib;
 
 public class Tootle.CacheManager : GLib.Object{
-
-    private static CacheManager _instance;
-    public static CacheManager instance{
-        get{
-            if(_instance == null)
-                _instance = new CacheManager();
-            return _instance;
-        }
-    }
     
     private static string path_images;
 
@@ -35,7 +26,7 @@ public class Tootle.CacheManager : GLib.Object{
                 
                 avatar.pixbuf = pixbuf;
         });
-        NetManager.instance.queue(msg, (sess, mess) => {});
+        Tootle.network.queue(msg, (sess, mess) => {});
     }
 
 }
