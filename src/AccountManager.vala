@@ -105,6 +105,7 @@ public class Tootle.AccountManager : Object{
     
     public void logout (){
         current = null;
+        Tootle.settings.access_token = "null";
         switched (null);
     }
 

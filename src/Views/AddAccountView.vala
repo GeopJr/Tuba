@@ -87,6 +87,7 @@ public class Tootle.AddAccountView : Tootle.AbstractView {
     construct {
         stack = new Stack ();
         stack.valign = Gtk.Align.CENTER;
+        stack.vexpand = true;
         stack.transition_type = StackTransitionType.SLIDE_LEFT_RIGHT;
         
         grid_instance = new GridInstance ();
@@ -104,7 +105,7 @@ public class Tootle.AddAccountView : Tootle.AbstractView {
         stack.add_named (grid_instance, "instance");
         stack.add_named (grid_code, "code");
         
-        add (stack);
+        view.add (stack);
         show_all ();
     }
 
