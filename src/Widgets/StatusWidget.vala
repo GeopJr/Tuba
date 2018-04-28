@@ -9,7 +9,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public Granite.Widgets.Avatar avatar;
     public Gtk.Label user;
     public Gtk.Revealer revealer;
-    public Gtk.Label content;
+    public Tootle.RichLabel content;
     public Gtk.Separator? separator;
     public Gtk.Label? spoiler_content;
     Gtk.Grid grid;
@@ -34,9 +34,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         user.halign = Gtk.Align.START;
         user.use_markup = true;
         
-        content = new Gtk.Label ("");
+        content = new RichLabel ("");
         content.halign = Gtk.Align.START;
-        content.use_markup = true;
         content.single_line_mode = false;
         content.set_line_wrap (true);
         content.justify = Gtk.Justification.LEFT;
@@ -93,9 +92,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             image.show ();
             
             var label_text = _("<a href=\"%s\"><b>%s</b></a> boosted").printf (status.account.url, status.account.display_name);
-            var label = new Gtk.Label (label_text);
+            var label = new RichLabel (label_text);
             label.halign = Gtk.Align.START;
-            label.use_markup = true;
             label.margin_bottom = 8;
             label.show ();
             
@@ -106,7 +104,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         if (status.spoiler_text != null){
             revealer.reveal_child = false;
             spoiler_button = new Button.with_label (_("Show content"));
-            spoiler_content = new Label (status.spoiler_text);
+            spoiler_content = new RichLabel (status.spoiler_text);
             
             var spoiler_box = new Box (Gtk.Orientation.HORIZONTAL, 6);
             spoiler_box.add (spoiler_content);
@@ -135,6 +133,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         var user_label = status.reblog != null ? status.reblog.account.display_name : status.account.display_name;
         user.label = "<b>%s</b>".printf (user_label);
         content.label = status.content;
+        content.mentions = status.mentions;
         
         reblogs.label = status.reblogs_count.to_string ();
         favorites.label = status.favourites_count.to_string ();

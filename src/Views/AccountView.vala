@@ -10,7 +10,7 @@ public class Tootle.AccountView : Tootle.HomeView {
     Granite.Widgets.Avatar avatar;
     Gtk.Label display_name;
     Gtk.Label username;
-    Gtk.Label note;
+    Tootle.RichLabel note;
     Gtk.Grid counters;
     
     public override void pre_construct () {
@@ -22,7 +22,7 @@ public class Tootle.AccountView : Tootle.HomeView {
         avatar.margin_bottom = 16;
         header.attach (avatar, 0, 1, 1, 1);
         
-        display_name = new Gtk.Label ("");
+        display_name = new RichLabel ("");
         display_name.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
         header.attach (display_name, 0, 2, 1, 1);
         
@@ -30,8 +30,7 @@ public class Tootle.AccountView : Tootle.HomeView {
         username.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
         header.attach (username, 0, 3, 1, 1);
         
-        note = new Gtk.Label ("");
-        note.set_use_markup (true);
+        note = new RichLabel ("");
 		note.set_line_wrap (true);
         note.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
         note.justify = Gtk.Justification.CENTER;
@@ -55,7 +54,7 @@ public class Tootle.AccountView : Tootle.HomeView {
         base ("account_"+acc.id.to_string ());
         account = acc;
         
-        display_name.label = account.display_name;
+        display_name.label = "<b>%s</b>".printf (account.display_name);
         username.label = "@" + account.acct;
         note.label = Utils.escape_html (account.note);
         Tootle.cache.load_avatar (account.avatar, avatar, 128);
@@ -91,6 +90,22 @@ public class Tootle.AccountView : Tootle.HomeView {
             url += "&max_id=" + max_id.to_string ();
             
         return url;
+    }
+    
+    public static void open_from_id (int64 id){
+        var url = "%s/api/v1/accounts/%lld".printf (Tootle.settings.instance_url, id);
+        var msg = new Soup.Message("GET", url);
+        Tootle.network.queue(msg, (sess, mess) => {
+            try{
+                var root = Tootle.network.parse (mess);
+                var acc = Account.parse (root);
+                Tootle.window.open_secondary_view (new AccountView (acc));
+            }
+            catch (GLib.Error e) {
+                warning ("Can't update feed");
+                warning (e.message);
+            }
+        });
     }
     
 }

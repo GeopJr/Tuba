@@ -10,6 +10,8 @@ public class Tootle.Status{
     public int64 favourites_count;
     public string avatar;
     public string acct;
+    public Mention[]? mentions;
+    public Tag[]? tags;
     
     public bool reblogged;
     public bool favorited;
@@ -31,6 +33,25 @@ public class Tootle.Status{
         status.reblogs_count = obj.get_int_member ("reblogs_count");
         status.favourites_count = obj.get_int_member ("favourites_count");
         status.content = Utils.escape_html ( obj.get_string_member ("content"));
+        
+        Mention[]? _mentions = {};
+        obj.get_array_member ("mentions").foreach_element ((array, i, node) => {
+            var object = node.get_object ();
+            if (object != null)
+                _mentions += Mention.parse (object);
+        });
+        if (_mentions.length > 0)
+            status.mentions = _mentions;
+
+        Tag[]? _tags = {};
+        obj.get_array_member ("tags").foreach_element ((array, i, node) => {
+            var object = node.get_object ();
+            if (object != null)
+                _tags += Tag.parse (object);
+        });
+        if (_tags.length > 0)
+            status.tags = _tags;
+        
         var spoiler = obj.get_string_member ("spoiler_text");
         if (spoiler != "")
             status.spoiler_text = Utils.escape_html (spoiler);

@@ -7,7 +7,7 @@ public class Tootle.NotificationWidget : Gtk.Grid {
 
     public Gtk.Separator? separator;
     private Gtk.Image image;
-    private Gtk.Label label;
+    private Tootle.RichLabel label;
     private Gtk.Button dismiss_button;
     private StatusWidget? status_widget;
 
@@ -17,10 +17,9 @@ public class Tootle.NotificationWidget : Gtk.Grid {
         image = new Gtk.Image.from_icon_name("notification-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         image.margin_start = 32;
         image.margin_end = 6;
-        label = new Gtk.Label (_("Unknown Notification"));
+        label = new RichLabel (_("Unknown Notification"));
         label.hexpand = true;
         label.halign = Gtk.Align.START;
-        label.use_markup = true;
         dismiss_button = new Gtk.Button.from_icon_name ("close-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         dismiss_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         dismiss_button.tooltip_text = _("Dismiss");
