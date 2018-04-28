@@ -21,5 +21,9 @@
 
 .header{
     background-size: cover;
-    opacity: 0.1;
+    background-position: 50%;
+    opacity: 0.2;
+}
+.header-counters{
+    background:rgba(255,255,255,.4);
 }

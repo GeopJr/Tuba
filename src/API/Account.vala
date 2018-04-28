@@ -28,6 +28,8 @@ public class Tootle.Account{
         account.note = obj.get_string_member ("note");
         account.avatar = obj.get_string_member ("avatar");
         account.header = obj.get_string_member ("header");
+        if ("missing.png" in account.header)
+            account.header = "https://files.mastodon.social/accounts/headers/000/320/555/original/cebce998b571acf2.jpeg";
         account.url = obj.get_string_member ("url");
         
         account.followers_count = obj.get_int_member ("followers_count");

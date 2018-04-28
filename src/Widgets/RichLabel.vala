@@ -22,11 +22,11 @@ public class Tootle.RichLabel : Gtk.Label {
             }
         }
         
-        if ("/tags/" in url){
-            var hashtag = url.split("/tags/")[1];
-            //TODO: search hashtags
-            return true;
-        }
+        // if ("/tags/" in url){
+        //     var hashtag = url.split("/tags/")[1];
+        //     //TODO: search hashtags
+        //     return true;
+        // }
         
         if ("/@" in url){
             var profile = url.split("/@")[1];
