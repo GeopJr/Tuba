@@ -108,4 +108,25 @@ public class Tootle.AccountView : Tootle.HomeView {
         });
     }
     
+    public static void open_from_name (string name){
+        var url = "%s/api/v1/accounts/search?limit=1&q=%s".printf (Tootle.settings.instance_url, name);
+        var msg = new Soup.Message("GET", url);
+        Tootle.network.queue(msg, (sess, mess) => {
+            try{
+                var node = Tootle.network.parse_array (mess).get_element (0);
+                var object = node.get_object ();
+                if (object != null){
+                    var acc = Account.parse(object);
+                    Tootle.window.open_secondary_view (new AccountView (acc));
+                }
+                else
+                    warning ("No results found for account: "+name); //TODO: toast notifications
+            }
+            catch (GLib.Error e) {
+                warning ("Can't update feed");
+                warning (e.message);
+            }
+        });
+    }
+    
 }

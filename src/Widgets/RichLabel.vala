@@ -30,7 +30,7 @@ public class Tootle.RichLabel : Gtk.Label {
         
         if ("/@" in url){
             var profile = url.split("/@")[1];
-            //TODO: search profiles
+            AccountView.open_from_name (profile);
             return true;
         }
     
