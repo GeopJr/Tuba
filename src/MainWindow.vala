@@ -18,9 +18,9 @@ public class Tootle.MainWindow: Gtk.Window {
         provider.load_from_resource ("/com/github/bleakgrey/tootle/Application.css");
         StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        overlay = new Gtk.Overlay ();
-        overlay.set_size_request (400, 500);
         toast = new Granite.Widgets.Toast ("");
+        overlay = new Gtk.Overlay ();
+        overlay.add_overlay (toast);
         secondary_stack = new Stack();
         secondary_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
         secondary_stack.show ();
@@ -29,12 +29,16 @@ public class Tootle.MainWindow: Gtk.Window {
         primary_stack.show ();
         primary_stack.add_named (secondary_stack, "0");
         primary_stack.set_size_request (400, 500);
+        primary_stack.hexpand = true;
+        primary_stack.vexpand = true;
         header = new Tootle.HeaderBar ();
         
-        add (primary_stack);
-        //add (overlay);
-        //overlay.add_overlay (primary_stack);
-        //overlay.add_overlay (toast);
+        var grid = new Gtk.Grid ();
+        grid.set_size_request (400, 500);
+        grid.attach (primary_stack, 0, 0, 1, 1);
+        grid.attach (overlay, 0, 0, 1, 1);
+        
+        add (grid);
         show_all ();
     }
     
