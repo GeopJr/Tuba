@@ -88,7 +88,7 @@ public class Tootle.AccountView : Tootle.HomeView {
     }
     
     public override bool is_status_owned (Status status){
-        return status.account.id == account.id;
+        return status.get_formal ().account.id == account.id;
     }
     
     public override string get_url (){

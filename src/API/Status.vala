@@ -22,6 +22,10 @@ public class Tootle.Status{
         this.reblogged = false;
         this.favorited = false;
     }
+    
+    public Status get_formal (){
+        return reblog != null ? reblog : this;
+    }
 
     public static Status parse(Json.Object obj) {
         var id = int64.parse (obj.get_string_member ("id"));

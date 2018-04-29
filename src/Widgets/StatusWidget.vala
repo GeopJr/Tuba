@@ -130,8 +130,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     }
     
     public void rebind (Status status = this.status){
-        var user_label = status.reblog != null ? status.reblog.account.display_name : status.account.display_name;
-        user.label = "<b>%s</b>".printf (user_label);
+        user.label = "<b>%s</b>".printf (status.get_formal ().account.display_name);
         content.label = status.content;
         content.mentions = status.mentions;
         
@@ -143,20 +142,17 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         favorite.active = status.favorited;
         favorite.sensitive = true;
         
-        var avatar_url = status.reblog != null ? status.reblog.account.avatar : status.account.avatar;
-        Tootle.cache.load_avatar (avatar_url, this.avatar, this.avatar_size);
+        Tootle.cache.load_avatar (status.get_formal ().account.avatar, this.avatar, this.avatar_size);
     }
     
     public bool on_avatar_clicked (){
-        var account = status.reblog != null ? status.reblog.account : status.account;
-        var view = new AccountView (account);
+        var view = new AccountView (status.get_formal ().account);
         Tootle.window.open_secondary_view (view);
         return true;
     }
     
     public bool open (){
-        var open_status = status.reblog != null ? status.reblog : status;
-        var view = new StatusView (open_status);
+        var view = new StatusView (status.get_formal ());
         Tootle.window.open_secondary_view (view);
         return false;
     }
