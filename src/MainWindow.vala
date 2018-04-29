@@ -3,6 +3,8 @@ using Gtk;
 public class Tootle.MainWindow: Gtk.Window {
 
     Tootle.HeaderBar header;
+    Gtk.Overlay overlay;
+    Granite.Widgets.Toast toast;
     public Stack primary_stack;
     public Stack secondary_stack;
     
@@ -16,18 +18,23 @@ public class Tootle.MainWindow: Gtk.Window {
         provider.load_from_resource ("/com/github/bleakgrey/tootle/Application.css");
         StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
+        overlay = new Gtk.Overlay ();
+        overlay.set_size_request (400, 500);
+        toast = new Granite.Widgets.Toast ("");
         secondary_stack = new Stack();
         secondary_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
         secondary_stack.show ();
-        secondary_stack.set_size_request (400, 500);
         primary_stack = new Stack();
         primary_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
         primary_stack.show ();
         primary_stack.add_named (secondary_stack, "0");
-        
+        primary_stack.set_size_request (400, 500);
         header = new Tootle.HeaderBar ();
-
+        
         add (primary_stack);
+        //add (overlay);
+        //overlay.add_overlay (primary_stack);
+        //overlay.add_overlay (toast);
         show_all ();
     }
     
@@ -41,6 +48,8 @@ public class Tootle.MainWindow: Gtk.Window {
         window_position = WindowPosition.CENTER;
         
         Tootle.accounts.switched.connect(on_account_switched);
+        Tootle.app.error.connect (on_error);
+        Tootle.app.toast.connect (on_toast);
     }
     
     private void on_account_switched(Account? account){
@@ -88,6 +97,18 @@ public class Tootle.MainWindow: Gtk.Window {
         primary_stack.add_named (widget, i.to_string ());
         primary_stack.set_visible_child_name (i.to_string ());
         header.update (false);
+    }
+    
+    private void on_toast (string msg){
+        toast.title = msg;
+        toast.send_notification ();
+    }
+    
+    private void on_error (string title, string msg){
+        var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (title, msg, "dialog-warning");
+        message_dialog.transient_for = this;
+        message_dialog.run ();
+        message_dialog.destroy ();
     }
 
 }

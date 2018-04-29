@@ -17,6 +17,10 @@ public class Tootle.NetManager : GLib.Object{
             if(requests_processing <= 0)
                 finished ();
         });
+        
+        session.ssl_strict = true;
+        session.ssl_use_system_ca_file = true;
+        session.timeout = 15;
     }
 
     public NetManager(){
@@ -31,7 +35,24 @@ public class Tootle.NetManager : GLib.Object{
         if(token != "null")
             msg.request_headers.append ("Authorization", "Bearer " + token);
         
-        session.queue_message (msg, cb);
+        session.queue_message (msg, (sess, mess) => {
+            switch (mess.tls_errors){
+                case GLib.TlsCertificateFlags.UNKNOWN_CA:
+                case GLib.TlsCertificateFlags.BAD_IDENTITY:
+                case GLib.TlsCertificateFlags.NOT_ACTIVATED:
+                case GLib.TlsCertificateFlags.EXPIRED:
+                case GLib.TlsCertificateFlags.REVOKED:
+                case GLib.TlsCertificateFlags.INSECURE:
+                case GLib.TlsCertificateFlags.GENERIC_ERROR:
+                    var err = mess.tls_errors.to_string ();
+                    warning ("TLS error: "+err);
+                    Tootle.app.error (_("TLS Error"), _("Can't ensure secure connection: ")+err);
+                    return;
+                default:
+                    break;
+            }
+            cb (sess, mess);
+        });
         return msg;
     }
     
