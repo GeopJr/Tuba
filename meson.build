@@ -26,6 +26,7 @@ executable(
     'src/CacheManager.vala',
     'src/Utils.vala',
     'src/API/Account.vala',
+    'src/API/Relationship.vala',
     'src/API/Mention.vala',
     'src/API/Tag.vala',
     'src/API/Status.vala',

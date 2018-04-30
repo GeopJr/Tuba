@@ -22,7 +22,7 @@
 .header{
     background-size: cover;
     background-position: 50%;
-    opacity: 0.2;
+    opacity: 0.15;
 }
 .header-counters{
     background:rgba(255,255,255,.4);

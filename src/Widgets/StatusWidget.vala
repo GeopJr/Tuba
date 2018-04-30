@@ -167,6 +167,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         var icon = new Gtk.Image.from_icon_name (icon_path, Gtk.IconSize.SMALL_TOOLBAR);
         var button = new Gtk.ToggleButton ();
         button.can_default = false;
+        button.set_focus_on_click (false);
         button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         button.add (icon);
         return button;

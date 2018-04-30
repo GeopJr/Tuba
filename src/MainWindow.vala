@@ -2,9 +2,9 @@ using Gtk;
 
 public class Tootle.MainWindow: Gtk.Window {
 
-    Tootle.HeaderBar header;
     Gtk.Overlay overlay;
     Granite.Widgets.Toast toast;
+    public Tootle.HeaderBar header;
     public Stack primary_stack;
     public Stack secondary_stack;
     
