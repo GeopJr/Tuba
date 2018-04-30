@@ -38,6 +38,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         content.halign = Gtk.Align.START;
         content.single_line_mode = false;
         content.set_line_wrap (true);
+        content.wrap_mode = Pango.WrapMode.WORD_CHAR;
         content.justify = Gtk.Justification.LEFT;
         content.margin_end = 6;
         content.xalign = 0;
@@ -49,16 +50,19 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         favorites = new Gtk.Label ("0");
         
         reblog = get_action_button ("go-up-symbolic");
+        reblog.tooltip_text = _("Boost");
         reblog.toggled.connect (() => {
             if (reblog.sensitive)
                 toggle_reblog ();
         });
         favorite = get_action_button ("help-about-symbolic");
+        favorite.tooltip_text = _("Favorite");
         favorite.toggled.connect (() => {
             if (favorite.sensitive)
                 toggle_fav ();
         });
         reply = get_action_button ("edit-undo-symbolic");
+        reply.tooltip_text = _("Reply");
         reply.toggled.connect (() => {
             reply.set_active (false);
             PostDialog.open_reply (Tootle.window, this.status);
@@ -103,7 +107,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         
         if (status.spoiler_text != null){
             revealer.reveal_child = false;
-            spoiler_button = new Button.with_label (_("Show content"));
+            spoiler_button = new Button.with_label (_("Toggle content"));
             spoiler_content = new RichLabel (status.spoiler_text);
             
             var spoiler_box = new Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -137,8 +141,10 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         reblogs.label = status.reblogs_count.to_string ();
         favorites.label = status.favourites_count.to_string ();
         
+        reblog.sensitive = false;
         reblog.active = status.reblogged;
         reblog.sensitive = true;
+        favorite.sensitive = false;
         favorite.active = status.favorited;
         favorite.sensitive = true;
         
@@ -168,15 +174,10 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     
     public void toggle_reblog (){
         var state = reblog.get_active ();
-        var action = "reblog";
-        if (!state)
-            action = "unreblog";
-
+        var action = state ? "reblog" : "unreblog";
         var msg = new Soup.Message("POST", Tootle.settings.instance_url + "/api/v1/statuses/" + status.id.to_string () + "/" + action);
         msg.finished.connect (() => {
             status.reblogged = state;
-            reblog.sensitive = false;
-            favorite.sensitive = false;
             if (state)
                 status.reblogs_count += 1;
             else
@@ -184,21 +185,19 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             rebind ();
         });
         Tootle.network.queue (msg, (sess, mess) => {
-            //Tootle.network.parse (msg);
+            if(state)
+                Tootle.app.toast (_("Boosted!"));
+            else
+                Tootle.app.toast (_("Removed boost"));
         });
     }
     
     public void toggle_fav (){
         var state = favorite.get_active ();
-        var action = "favourite";
-        if (!state)
-            action = "unfavourite";
-
+        var action = state ? "favourite" : "unfavourite";
         var msg = new Soup.Message ("POST", Tootle.settings.instance_url + "/api/v1/statuses/" + status.id.to_string () + "/" + action);
         msg.finished.connect (() => {
             status.favorited = state;
-            reblog.sensitive = false;
-            favorite.sensitive = false;
             if (state)
                 status.favourites_count += 1;
             else
@@ -206,7 +205,10 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             rebind ();
         });
         Tootle.network.queue (msg, (sess, mess) => {
-            //Tootle.network.parse (msg);
+            if(state)
+                Tootle.app.toast (_("Favorited!"));
+            else
+                Tootle.app.toast (_("Removed favorite"));
         });
     }
 
