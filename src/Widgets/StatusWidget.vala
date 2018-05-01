@@ -53,13 +53,13 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         reblog.tooltip_text = _("Boost");
         reblog.toggled.connect (() => {
             if (reblog.sensitive)
-                toggle_reblog ();
+                status.set_reblogged (reblog.get_active ());
         });
         favorite = get_action_button ("help-about-symbolic");
         favorite.tooltip_text = _("Favorite");
         favorite.toggled.connect (() => {
             if (favorite.sensitive)
-                toggle_fav ();
+                status.set_favorited (favorite.get_active ());
         });
         reply = get_action_button ("edit-undo-symbolic");
         reply.tooltip_text = _("Reply");
@@ -87,6 +87,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
 
     public StatusWidget (Status status) {
         this.status = status;
+        status.updated.connect (rebind);
         get_style_context ().add_class ("status");
         
         if (status.reblog != null){
@@ -123,6 +124,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             if(separator != null)
                 separator.destroy ();
         });
+        rebind ();
     }
     
     public void highlight (){
@@ -133,7 +135,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         avatar.show_default (avatar_size);
     }
     
-    public void rebind (Status status = this.status){
+    public void rebind (){
         user.label = "<b>%s</b>".printf (status.get_formal ().account.display_name);
         content.label = status.content;
         content.mentions = status.mentions;
@@ -171,46 +173,6 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         button.add (icon);
         return button;
-    }
-    
-    public void toggle_reblog (){
-        var state = reblog.get_active ();
-        var action = state ? "reblog" : "unreblog";
-        var msg = new Soup.Message("POST", Tootle.settings.instance_url + "/api/v1/statuses/" + status.id.to_string () + "/" + action);
-        msg.finished.connect (() => {
-            status.reblogged = state;
-            if (state)
-                status.reblogs_count += 1;
-            else
-                status.reblogs_count -= 1;
-            rebind ();
-        });
-        Tootle.network.queue (msg, (sess, mess) => {
-            if(state)
-                Tootle.app.toast (_("Boosted!"));
-            else
-                Tootle.app.toast (_("Removed boost"));
-        });
-    }
-    
-    public void toggle_fav (){
-        var state = favorite.get_active ();
-        var action = state ? "favourite" : "unfavourite";
-        var msg = new Soup.Message ("POST", Tootle.settings.instance_url + "/api/v1/statuses/" + status.id.to_string () + "/" + action);
-        msg.finished.connect (() => {
-            status.favorited = state;
-            if (state)
-                status.favourites_count += 1;
-            else
-                status.favourites_count -= 1;
-            rebind ();
-        });
-        Tootle.network.queue (msg, (sess, mess) => {
-            if(state)
-                Tootle.app.toast (_("Favorited!"));
-            else
-                Tootle.app.toast (_("Removed favorite"));
-        });
     }
 
 }

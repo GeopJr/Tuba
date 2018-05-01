@@ -42,8 +42,7 @@ public class Tootle.NotificationWidget : Gtk.Grid {
         get_style_context ().add_class ("notification");
         
         if (notification.status != null){
-            status_widget = new StatusWidget (this.notification.status);
-            status_widget.rebind (this.notification.status);
+            status_widget = new StatusWidget (notification.status);
             status_widget.button_press_event.connect(status_widget.open);
             status_widget.avatar.button_press_event.connect(status_widget.on_avatar_clicked);
             attach(status_widget, 1, 3, 3, 1);

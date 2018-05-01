@@ -1,5 +1,7 @@
 public class Tootle.Status{
 
+    public abstract signal void updated ();
+
     public Account account;
     public int64 id;
     public string uri;
@@ -69,6 +71,36 @@ public class Tootle.Status{
             status.reblog = Status.parse (obj.get_object_member ("reblog"));
         
         return status;
+    }
+    
+    public void set_reblogged (bool rebl = true){
+        var action = rebl ? "reblog" : "unreblog";
+        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.settings.instance_url, id, action));
+        msg.priority = Soup.MessagePriority.HIGH;
+        msg.finished.connect (() => {
+            reblogged = rebl;
+            updated ();
+            if(rebl)
+                Tootle.app.toast (_("Boosted!"));
+            else
+                Tootle.app.toast (_("Removed boost"));
+        });
+        Tootle.network.queue (msg);
+    }
+    
+    public void set_favorited (bool fav = true){
+        var action = fav ? "favourite" : "unfavourite";
+        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.settings.instance_url, id, action));
+        msg.priority = Soup.MessagePriority.HIGH;
+        msg.finished.connect (() => {
+            favorited = fav;
+            updated ();
+            if(fav)
+                Tootle.app.toast (_("Favorited!"));
+            else
+                Tootle.app.toast (_("Removed from favorites"));
+        });
+        Tootle.network.queue (msg);
     }
 
 }

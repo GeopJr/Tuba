@@ -27,7 +27,7 @@ public class Tootle.NetManager : GLib.Object{
         GLib.Object();
     }
     
-    public Soup.Message queue(Soup.Message msg, Soup.SessionCallback cb){
+    public Soup.Message queue(Soup.Message msg, Soup.SessionCallback? cb = null){
         requests_processing++;
         started ();
         
@@ -51,7 +51,8 @@ public class Tootle.NetManager : GLib.Object{
                 default:
                     break;
             }
-            cb (sess, mess);
+            if (cb != null)
+                cb (sess, mess);
         });
         return msg;
     }

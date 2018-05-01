@@ -35,7 +35,6 @@ public class Tootle.HomeView : Tootle.AbstractView {
         
         var widget = new StatusWidget(status);
         widget.separator = separator;
-        widget.rebind (status);
         widget.button_press_event.connect(widget.open);
         if (!is_status_owned (status))
             widget.avatar.button_press_event.connect(widget.on_avatar_clicked);
