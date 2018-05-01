@@ -12,11 +12,8 @@ public class Tootle.StatusView : Tootle.AbstractView {
     
     private void prepend (Status status, bool is_root = false){
         var widget = new StatusWidget(status);
-        
         if (is_root)
             widget.highlight ();
-        else
-            widget.margin_start = 24;
         
         widget.content.selectable = true;
         if (widget.spoiler_content != null)

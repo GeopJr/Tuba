@@ -23,16 +23,18 @@ public class Tootle.StatusWidget : Gtk.EventBox {
 
     construct {
         grid = new Gtk.Grid ();
-        grid.margin = 6;
         
         avatar_size = 32;
         avatar = new Granite.Widgets.Avatar.with_default_icon (avatar_size);
         avatar.valign = Gtk.Align.START;
+        avatar.margin_top = 6;
+        avatar.margin_start = 6;
         avatar.margin_end = 6;
         user = new Gtk.Label ("");
         user.hexpand = true;
         user.halign = Gtk.Align.START;
         user.use_markup = true;
+        user.margin_top = 6;
         
         content = new RichLabel ("");
         content.halign = Gtk.Align.START;
@@ -40,7 +42,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         content.set_line_wrap (true);
         content.wrap_mode = Pango.WrapMode.WORD_CHAR;
         content.justify = Gtk.Justification.LEFT;
-        content.margin_end = 6;
+        content.margin_end = 12;
         content.xalign = 0;
         revealer = new Revealer ();
         revealer.reveal_child = true;
@@ -70,6 +72,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         
         counters = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6); //TODO: currently useless
         counters.margin_top = 6;
+        counters.margin_bottom = 6;
         counters.add (reblog);
         counters.add (reblogs);
         counters.add (favorite);
@@ -93,13 +96,14 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         if (status.reblog != null){
             var image = new Gtk.Image.from_icon_name("go-up-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             image.halign = Gtk.Align.END;
-            image.margin_end = 8;
+            image.margin_end = 6;
+            image.margin_top = 6;
             image.show ();
             
             var label_text = _("<a href=\"%s\"><b>%s</b></a> boosted").printf (status.account.url, status.account.display_name);
             var label = new RichLabel (label_text);
             label.halign = Gtk.Align.START;
-            label.margin_bottom = 8;
+            label.margin_top = 6;
             label.show ();
             
             grid.attach (image, 1, 0, 1, 1);
@@ -128,11 +132,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     }
     
     public void highlight (){
-        content.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
-        if (spoiler_content != null)
-            spoiler_content.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
-        avatar_size = 48;
-        avatar.show_default (avatar_size);
+        grid.get_style_context ().add_class ("card");
+        grid.margin_bottom = 6;
     }
     
     public void rebind (){
