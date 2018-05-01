@@ -97,13 +97,15 @@ public class Tootle.PostDialog : Gtk.Dialog {
         counter.label = remain.to_string ();
     }
     
-    public static void open (Gtk.Window? parent){
+    public static void open (Gtk.Window? parent, string? text = null){
         if(dialog == null){
             dialog = new PostDialog (parent);
 		    dialog.destroy.connect (() => {
 		        dialog = null;
 		    });
 		    dialog.show_all ();
+		    if (text != null)
+		        dialog.text.buffer.text = text;
 		}
     }
     

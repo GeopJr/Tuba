@@ -4,7 +4,6 @@ using Granite;
 public class Tootle.AccountView : Tootle.HomeView {
     
     Account account;
-    Relationship? relationship;
     
     Gtk.Grid header;
     Gtk.Grid header_image;
@@ -16,7 +15,14 @@ public class Tootle.AccountView : Tootle.HomeView {
     Gtk.Grid counters;
     Gtk.Box actions;
     Gtk.Button button_follow;
-    Gtk.Button button_more;
+    
+    Gtk.Menu menu;
+    Gtk.MenuItem menu_edit;
+    Gtk.MenuItem menu_mention;
+    Gtk.MenuItem menu_mute;
+    Gtk.MenuItem menu_block;
+    Gtk.MenuItem menu_report;
+    Gtk.MenuButton button_menu;
     
     public override void pre_construct () {
         header = new Gtk.Grid ();
@@ -60,12 +66,33 @@ public class Tootle.AccountView : Tootle.HomeView {
         header_image.get_style_context ().add_class ("header");
         header.attach (header_image, 0, 0, 2, 2);
         
+        menu = new Gtk.Menu ();
+        menu_edit = new Gtk.MenuItem.with_label (_("Edit Profile"));
+        menu_mention = new Gtk.MenuItem.with_label (_("Mention"));
+        menu_report = new Gtk.MenuItem.with_label (_("Report"));
+        menu_mute = new Gtk.MenuItem.with_label (_("Mute"));
+        menu_block = new Gtk.MenuItem.with_label (_("Block"));
+        menu.add (menu_mention);
+        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (menu_mute);
+        menu.add (menu_block);
+        //menu.add (menu_report); //TODO: Report users
+        menu.add (menu_edit); //TODO: Edit profile
+        menu.show_all ();
+        
         button_follow = add_counter ("contact-new-symbolic");
-        button_follow.hide ();
-        button_more = add_counter ("view-more-symbolic");
-        button_more.tooltip_text = _("More Actions");
-        actions.pack_end(button_more, false, false, 0);
+        button_menu = new Gtk.MenuButton ();
+        button_menu.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+        button_menu.tooltip_text = _("menu Actions");
+        button_menu.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        button_menu.set_focus_on_click (false);
+        button_menu.can_default = false;
+        button_menu.can_focus = false;
+        button_menu.popup = menu;
+        actions.pack_end(button_menu, false, false, 0);
         actions.pack_end(button_follow, false, false, 0);
+        button_menu.hide ();
+        button_follow.hide ();
         header.attach (actions, 0, 0, 2, 2);
         
         view.pack_start (header, false, false, 0);
@@ -74,11 +101,7 @@ public class Tootle.AccountView : Tootle.HomeView {
     public AccountView (Account acc) {
         base ("account_"+acc.id.to_string ());
         account = acc;
-        
-        display_name.label = "<b>%s</b>".printf (account.display_name);
-        username.label = "@" + account.acct;
-        note.label = Utils.escape_html (account.note);
-        Tootle.cache.load_avatar (account.avatar, avatar, 128);
+        account.updated.connect(rebind);
         
         add_counter (_("TOOTS"), 1, account.statuses_count);
         add_counter (_("FOLLOWS"), 2, account.following_count);
@@ -90,17 +113,28 @@ public class Tootle.AccountView : Tootle.HomeView {
         var css_provider = Granite.Widgets.Utils.get_css_provider (stylesheet);
         header_image.get_style_context ().add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
         
-        button_follow.visible = !is_owned ();
-        button_follow.clicked.connect (() => toggle_follow ());
+        menu_mention.activate.connect (() => PostDialog.open (Tootle.window, "@%s ".printf (account.acct)));
+        menu_mute.activate.connect (() => account.set_muted (!account.rs.muting));
+        menu_block.activate.connect (() => account.set_blocked (!account.rs.blocking));
+        button_follow.clicked.connect (() => account.set_following (!account.rs.following));
         
-        request_relationship ();
+        rebind ();
+        account.get_relationship ();
         request ();
     }
     
     public void rebind (){
-        if (relationship != null && !is_owned ()) {
+        display_name.label = "<b>%s</b>".printf (account.display_name);
+        username.label = "@" + account.acct;
+        note.label = Utils.escape_html (account.note);
+        button_follow.visible = !account.is_self ();
+        Tootle.cache.load_avatar (account.avatar, avatar, 128);
+        
+        menu_edit.visible = account.is_self ();
+    
+        if (account.rs != null && !account.is_self ()) {
             button_follow.show ();
-            if (relationship.following) {
+            if (account.rs.following) {
                 button_follow.tooltip_text = _("Unfollow");
                 (button_follow.get_image () as Gtk.Image).icon_name = "close-symbolic";
             }
@@ -108,6 +142,13 @@ public class Tootle.AccountView : Tootle.HomeView {
                 button_follow.tooltip_text = _("Follow");
                 (button_follow.get_image () as Gtk.Image).icon_name = "contact-new-symbolic";
             }
+        }
+        
+        if (account.rs != null){
+            button_menu.show ();
+            menu_block.label = account.rs.blocking ? _("Unblock") : _("Block");
+            menu_mute.label = account.rs.muting ? _("Unmute") : _("Mute");
+            menu_report.visible = menu_mute.visible = menu_block.visible = !account.is_self ();
         }
     }
     
@@ -132,10 +173,6 @@ public class Tootle.AccountView : Tootle.HomeView {
         return btn;
     }
     
-    public bool is_owned (){
-        return account.id == Tootle.accounts.current.id;
-    }
-    
     public override bool is_status_owned (Status status){
         return status.get_formal ().account.id == account.id;
     }
@@ -150,42 +187,10 @@ public class Tootle.AccountView : Tootle.HomeView {
         return url;
     }
     
-    public void request_relationship (){
-        var url = "%s/api/v1/accounts/relationships?id=%lld".printf (Tootle.settings.instance_url, account.id);
-        var msg = new Soup.Message("GET", url);
-        Tootle.network.queue(msg, (sess, mess) => {
-            try{
-                var root = Tootle.network.parse_array (mess).get_object_element (0);
-                relationship = Relationship.parse (root);
-                rebind ();
-            }
-            catch (GLib.Error e) {
-                warning ("Can't get relationship:");
-                warning (e.message);
-            }
-        });
-    }
-    
-    public void toggle_follow (){
-        var action = relationship.following ? "unfollow" : "follow"; 
-        var url = "%s/api/v1/accounts/%lld/%s".printf (Tootle.settings.instance_url, account.id, action);
-        var msg = new Soup.Message("POST", url);
-        Tootle.network.queue(msg, (sess, mess) => {
-            try{
-                var root = Tootle.network.parse (mess);
-                relationship = Relationship.parse (root);
-                rebind ();
-            }
-            catch (GLib.Error e) {
-                Tootle.app.error (_("Error"), e.message);
-                warning (e.message);
-            }
-        });
-    }
-    
     public static void open_from_id (int64 id){
         var url = "%s/api/v1/accounts/%lld".printf (Tootle.settings.instance_url, id);
         var msg = new Soup.Message("GET", url);
+        msg.priority = Soup.MessagePriority.HIGH;
         Tootle.network.queue(msg, (sess, mess) => {
             try{
                 var root = Tootle.network.parse (mess);
@@ -202,6 +207,7 @@ public class Tootle.AccountView : Tootle.HomeView {
     public static void open_from_name (string name){
         var url = "%s/api/v1/accounts/search?limit=1&q=%s".printf (Tootle.settings.instance_url, name);
         var msg = new Soup.Message("GET", url);
+        msg.priority = Soup.MessagePriority.HIGH;
         Tootle.network.queue(msg, (sess, mess) => {
             try{
                 var node = Tootle.network.parse_array (mess).get_element (0);

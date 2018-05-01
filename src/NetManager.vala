@@ -20,7 +20,7 @@ public class Tootle.NetManager : GLib.Object{
         
         session.ssl_strict = true;
         session.ssl_use_system_ca_file = true;
-        session.timeout = 15;
+        session.timeout = 25;
     }
 
     public NetManager(){
