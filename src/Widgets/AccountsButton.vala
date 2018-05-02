@@ -6,6 +6,8 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
     Gtk.Grid grid;
     Gtk.Popover menu;
     AccountView default_account;
+    Gtk.ModelButton item_settings;
+    Gtk.ModelButton item_favs;
 
     private class AccountView : Gtk.Grid{
     
@@ -49,15 +51,20 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         var item_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         item_separator.hexpand = true;
     
-        var item_settings = new Gtk.ModelButton ();  
+        item_favs = new Gtk.ModelButton ();  
+        item_favs.text = _("Favorites");
+        item_favs.clicked.connect (() => Tootle.window.open_secondary_view (new FavoritesView ()));
+    
+        item_settings = new Gtk.ModelButton ();  
         item_settings.text = _("Settings");
     
         grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.width_request = 200;
         grid.attach(default_account, 0, 1, 1, 1);
-        //grid.attach(item_separator, 0, 2, 1, 1);
-        //grid.attach(item_settings, 0, 3, 1, 1);
+        grid.attach(item_separator, 0, 2, 1, 1);
+        grid.attach(item_favs, 0, 3, 1, 1);
+        //grid.attach(item_settings, 0, 4, 1, 1);
         grid.show_all ();
         
         menu = new Gtk.Popover (null);

@@ -177,7 +177,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     // elementary OS has old GLib, so I have to improvise
     // Version >=2.56 provides DateTime.from_iso8601
     public void parse_date_iso8601 (string date){
-        string cmd = "date -d " + date + " +%s";
+        var cmd = "date -d " + date + " +%s";
         var runner = new Granite.Services.SimpleCommand ("/bin/", cmd);
         runner.done.connect (exit => {
             date_utc = int64.parse (runner.standard_output_str);

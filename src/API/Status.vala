@@ -10,13 +10,12 @@ public class Tootle.Status{
     public string content;
     public int64 reblogs_count;
     public int64 favourites_count;
-    public string created_at;
-    public Mention[]? mentions;
-    public Tag[]? tags;
-    
+    public string created_at;    
     public bool reblogged;
     public bool favorited;
     public Status? reblog;
+    public Mention[]? mentions;
+    public Tag[]? tags;
 
     public Status(int64 id) {
         this.id = id;
