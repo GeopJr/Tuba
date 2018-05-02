@@ -4,14 +4,18 @@ using Granite;
 public class Tootle.StatusWidget : Gtk.EventBox {
     
     public Status status;
+    public int64? date_utc;
     
     public int avatar_size;
     public Granite.Widgets.Avatar avatar;
-    public Gtk.Label user;
+    public Gtk.Label title_user;
+    public Gtk.Label title_date;
+    public Gtk.Label title_acct;
     public Gtk.Revealer revealer;
     public Tootle.RichLabel content;
     public Gtk.Separator? separator;
     public Gtk.Label? spoiler_content;
+    Gtk.Box title_box;
     Gtk.Grid grid;
     Gtk.Box counters;
     Gtk.Label reblogs;
@@ -30,11 +34,25 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         avatar.margin_top = 6;
         avatar.margin_start = 6;
         avatar.margin_end = 6;
-        user = new Gtk.Label ("");
-        user.hexpand = true;
-        user.halign = Gtk.Align.START;
-        user.use_markup = true;
-        user.margin_top = 6;
+        
+        title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        title_box.hexpand = true;
+        title_box.margin_end = 12;
+        title_box.margin_top = 6;
+        
+        title_user = new Gtk.Label ("");
+        title_user.use_markup = true;
+        title_box.pack_start (title_user, false, false, 0);
+        
+        title_acct = new Gtk.Label ("");
+        title_acct.opacity = 0.5;
+        title_box.pack_start (title_acct, false, false, 0);
+        
+        title_date = new Gtk.Label ("");
+        title_date.ellipsize = Pango.EllipsizeMode.END;
+        title_box.pack_end (title_date, false, false, 0);
+        
+        title_box.show_all ();
         
         content = new RichLabel ("");
         content.halign = Gtk.Align.START;
@@ -81,7 +99,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         counters.show_all ();
         
         grid.attach (avatar, 1, 1, 1, 4);
-        grid.attach (user, 2, 2, 1, 1);
+        grid.attach (title_box, 2, 2, 1, 1);
         grid.attach (revealer, 2, 4, 1, 1);
         grid.attach (counters, 2, 5, 1, 1);
         add (grid);
@@ -137,9 +155,11 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     }
     
     public void rebind (){
-        user.label = "<b>%s</b>".printf (status.get_formal ().account.display_name);
+        title_user.label = "<b>%s</b>".printf (status.get_formal ().account.display_name);
+        title_acct.label = "@" + status.account.acct;
         content.label = status.content;
         content.mentions = status.mentions;
+        parse_date_iso8601 (status.created_at);
         
         reblogs.label = status.reblogs_count.to_string ();
         favorites.label = status.favourites_count.to_string ();
@@ -152,6 +172,19 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         favorite.sensitive = true;
         
         Tootle.cache.load_avatar (status.get_formal ().account.avatar, this.avatar, this.avatar_size);
+    }
+    
+    // elementary OS has old GLib, so I have to improvise
+    // Version >=2.56 provides DateTime.from_iso8601
+    public void parse_date_iso8601 (string date){
+        string cmd = "date -d " + date + " +%s";
+        var runner = new Granite.Services.SimpleCommand ("/bin/", cmd);
+        runner.done.connect (exit => {
+            date_utc = int64.parse (runner.standard_output_str);
+            var date_obj = new GLib.DateTime.from_unix_local (date_utc);
+            title_date.label = Granite.DateTime.get_relative_datetime (date_obj);
+        });
+        runner.run ();
     }
     
     public bool on_avatar_clicked (){

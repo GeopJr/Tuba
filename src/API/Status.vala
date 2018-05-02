@@ -10,8 +10,7 @@ public class Tootle.Status{
     public string content;
     public int64 reblogs_count;
     public int64 favourites_count;
-    public string avatar;
-    public string acct;
+    public string created_at;
     public Mention[]? mentions;
     public Tag[]? tags;
     
@@ -36,6 +35,7 @@ public class Tootle.Status{
         status.account = Account.parse(obj.get_object_member ("account"));
         status.uri = obj.get_string_member ("uri");
         status.url = obj.get_string_member ("url");
+        status.created_at = obj.get_string_member ("created_at");
         status.reblogs_count = obj.get_int_member ("reblogs_count");
         status.favourites_count = obj.get_int_member ("favourites_count");
         status.content = Utils.escape_html ( obj.get_string_member ("content"));
