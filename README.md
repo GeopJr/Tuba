@@ -27,4 +27,6 @@ If you feel like contributing, you're always welcome to help the project in many
 * Reporting any issues
 * Suggesting ideas and functionality
 * Submitting pull requests
-* Donating with [PayPal](https://www.paypal.me/bleakgrey) to help project development and keeping the developer happy
+* Donating with [LiberaPay](https://liberapay.com/bleakgrey/) to help project development and keeping the developer happy
+
+<a href="https://liberapay.com/bleakgrey/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
