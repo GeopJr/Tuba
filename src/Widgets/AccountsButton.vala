@@ -7,6 +7,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
     Gtk.Popover menu;
     AccountView default_account;
     Gtk.ModelButton item_settings;
+    Gtk.ModelButton item_refresh;
     Gtk.ModelButton item_favs;
 
     private class AccountView : Gtk.Grid{
@@ -51,6 +52,10 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         var item_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         item_separator.hexpand = true;
     
+        item_refresh = new Gtk.ModelButton ();  
+        item_refresh.text = _("Refresh");
+        item_refresh.clicked.connect (() => Tootle.network.refresh ());
+    
         item_favs = new Gtk.ModelButton ();  
         item_favs.text = _("Favorites");
         item_favs.clicked.connect (() => Tootle.window.open_secondary_view (new FavoritesView ()));
@@ -63,8 +68,10 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         grid.width_request = 200;
         grid.attach(default_account, 0, 1, 1, 1);
         grid.attach(item_separator, 0, 2, 1, 1);
-        grid.attach(item_favs, 0, 3, 1, 1);
-        //grid.attach(item_settings, 0, 4, 1, 1);
+        grid.attach(item_favs, 0, 4, 1, 1);
+        grid.attach(new Gtk.Separator (Gtk.Orientation.HORIZONTAL), 0, 5, 1, 1);
+        grid.attach(item_refresh, 0, 6, 1, 1);
+        grid.attach(item_settings, 0, 7, 1, 1);
         grid.show_all ();
         
         menu = new Gtk.Popover (null);

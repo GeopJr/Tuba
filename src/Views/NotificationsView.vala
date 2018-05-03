@@ -8,6 +8,7 @@ public class Tootle.NotificationsView : Tootle.AbstractView {
         
         view.remove.connect (on_remove);
         Tootle.accounts.switched.connect(on_account_changed);
+        Tootle.network.refresh.connect(on_refresh);
     }
     
     public override string get_icon () {
@@ -36,11 +37,21 @@ public class Tootle.NotificationsView : Tootle.AbstractView {
         if (view.get_children ().length () <= 1)
             image.icon_name = get_icon ();
     }
-    
+
+    public virtual void on_refresh (){
+        clear ();
+        request ();
+    }
+
     public virtual void on_account_changed (Account? account){
         if(account == null)
             return;
-        
+            
+        clear ();
+        request ();
+    }
+    
+    public void request (){
         var url = Tootle.settings.instance_url;
         url += "/api/v1/notifications";
         

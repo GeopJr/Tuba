@@ -31,7 +31,7 @@ public class Tootle.Status{
         var id = int64.parse (obj.get_string_member ("id"));
         var status = new Status (id);
         
-        status.account = Account.parse(obj.get_object_member ("account"));
+        status.account = Account.parse (obj.get_object_member ("account"));
         status.uri = obj.get_string_member ("uri");
         status.url = obj.get_string_member ("url");
         status.created_at = obj.get_string_member ("created_at");

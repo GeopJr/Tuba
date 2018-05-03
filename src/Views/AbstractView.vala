@@ -35,7 +35,7 @@ public abstract class Tootle.AbstractView : Gtk.ScrolledWindow {
     
     public void clear (){
         max_id = -1;
-        view.forall (widget => view.remove (widget));
+        view.forall (widget => widget.destroy ());
         
         pre_construct ();
     }

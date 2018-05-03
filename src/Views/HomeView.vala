@@ -11,6 +11,7 @@ public class Tootle.HomeView : Tootle.AbstractView {
         
         view.remove.connect (on_remove);
         Tootle.accounts.switched.connect(on_account_changed);
+        Tootle.network.refresh.connect(on_refresh);
         
         // var s = new Status(1);
         // s.content = "Test content, wow!";
@@ -81,10 +82,14 @@ public class Tootle.HomeView : Tootle.AbstractView {
         });
     }
     
+    public virtual void on_refresh (){
+        clear ();
+        request ();
+    }
+    
     public virtual void on_account_changed (Account? account){
         if(account == null)
             return;
-        
         clear ();
         request ();
     }

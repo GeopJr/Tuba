@@ -6,6 +6,7 @@ public class Tootle.NetManager : GLib.Object{
 
     public abstract signal void started();
     public abstract signal void finished();
+    public abstract signal void refresh();
     
     private int requests_processing = 0;
     private Soup.Session session;

@@ -7,13 +7,13 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public int64? date_utc;
     
     public int avatar_size;
+    public Gtk.Separator? separator;
     public Granite.Widgets.Avatar avatar;
     public Gtk.Label title_user;
     public Gtk.Label title_date;
     public Gtk.Label title_acct;
     public Gtk.Revealer revealer;
     public Tootle.RichLabel content;
-    public Gtk.Separator? separator;
     public Gtk.Label? spoiler_content;
     Gtk.Box title_box;
     Gtk.Grid grid;
@@ -178,7 +178,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     // Version >=2.56 provides DateTime.from_iso8601
     public void parse_date_iso8601 (string date){
         var cmd = "date -d " + date + " +%s";
-        var runner = new Granite.Services.SimpleCommand ("/bin/", cmd);
+        var runner = new CmdRunner ("/bin/", cmd); //Workaround for Granite SimpleCommand pipes bug
         runner.done.connect (exit => {
             date_utc = int64.parse (runner.standard_output_str);
             var date_obj = new GLib.DateTime.from_unix_local (date_utc);

@@ -25,6 +25,7 @@ executable(
     'src/NetManager.vala',
     'src/CacheManager.vala',
     'src/Utils.vala',
+    'src/CmdRunner.vala',
     'src/API/Account.vala',
     'src/API/Relationship.vala',
     'src/API/Mention.vala',
