@@ -114,5 +114,12 @@ public class Tootle.MainWindow: Gtk.Window {
         message_dialog.run ();
         message_dialog.destroy ();
     }
+    
+    public override bool delete_event (Gdk.EventAny event) {
+        var do_not_exit = Tootle.network.is_active_in_background ();
+        if (do_not_exit)
+            hide ();
+        return do_not_exit;
+    }
 
 }

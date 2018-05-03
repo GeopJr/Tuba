@@ -108,5 +108,12 @@ public class Tootle.AccountManager : Object{
         Tootle.settings.access_token = "null";
         switched (null);
     }
+    
+    public void init (){
+        if(has_access_token())
+            update_current ();
+        else
+            switched (null);
+    }
 
 }

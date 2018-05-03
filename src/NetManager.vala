@@ -2,7 +2,7 @@ using Soup;
 using GLib;
 using Json;
 
-public class Tootle.NetManager : GLib.Object{
+public class Tootle.NetManager : GLib.Object {
 
     public abstract signal void started();
     public abstract signal void finished();
@@ -11,7 +11,7 @@ public class Tootle.NetManager : GLib.Object{
     private int requests_processing = 0;
     private Soup.Session session;
 
-    construct{
+    construct {
         session = new Soup.Session ();
         session.request_unqueued.connect (() => {
             requests_processing--;
@@ -24,11 +24,11 @@ public class Tootle.NetManager : GLib.Object{
         session.timeout = 25;
     }
 
-    public NetManager(){
+    public NetManager() {
         GLib.Object();
     }
     
-    public Soup.Message queue(Soup.Message msg, Soup.SessionCallback? cb = null){
+    public Soup.Message queue(Soup.Message msg, Soup.SessionCallback? cb = null) {
         requests_processing++;
         started ();
         
@@ -58,7 +58,7 @@ public class Tootle.NetManager : GLib.Object{
         return msg;
     }
     
-    public Json.Object parse(Soup.Message msg) throws GLib.Error{
+    public Json.Object parse(Soup.Message msg) throws GLib.Error {
         // stdout.printf ("Status Code: %u\n", msg.status_code);
         // stdout.printf ("Message length: %lld\n", msg.response_body.length);
         // stdout.printf ("Object: \n%s\n", (string) msg.response_body.data);
@@ -68,7 +68,7 @@ public class Tootle.NetManager : GLib.Object{
         return parser.get_root ().get_object ();
     }
     
-    public Json.Array parse_array(Soup.Message msg) throws GLib.Error{
+    public Json.Array parse_array(Soup.Message msg) throws GLib.Error {
         // stdout.printf ("Status Code: %u\n", msg.status_code);
         // stdout.printf ("Message length: %lld\n", msg.response_body.length);
         // stdout.printf ("Array: \n%s\n", (string) msg.response_body.data);
@@ -76,6 +76,10 @@ public class Tootle.NetManager : GLib.Object{
         var parser = new Json.Parser ();
         parser.load_from_data ((string) msg.response_body.flatten ().data, -1);
         return parser.get_root ().get_array ();
+    }
+    
+    public bool is_active_in_background () {
+        return false;
     }
 
 }

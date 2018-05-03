@@ -4,7 +4,7 @@ using Granite;
 namespace Tootle{
 
     public static Application app;
-    public static MainWindow window;
+    public static MainWindow? window;
     
     public static SettingsManager settings;
     public static AccountManager accounts;
@@ -19,7 +19,7 @@ namespace Tootle{
         construct {
             application_id = "com.github.bleakgrey.tootle";
             flags = ApplicationFlags.FLAGS_NONE;
-            program_name = "Toot";
+            program_name = "Tootle";
             build_version = "0.1.0";
             settings = new SettingsManager ();
             accounts = new AccountManager ();
@@ -28,6 +28,7 @@ namespace Tootle{
         }
 
         public static int main (string[] args) {
+            Gtk.init (ref args);
             app = new Application ();
             return app.run (args);
         }
@@ -39,12 +40,14 @@ namespace Tootle{
         }
         
         protected override void activate () {
-            window.present ();
-            var has_token = Tootle.accounts.has_access_token();
-            if(has_token)
-                Tootle.accounts.update_current ();
-            else
-                Tootle.accounts.switched (null);
+            if (window != null) {
+                window.present ();
+                Tootle.accounts.init ();
+            }
+            else {
+                window = new MainWindow (this);
+                window.present ();
+            }
         }
     
     }
