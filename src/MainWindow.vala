@@ -54,6 +54,7 @@ public class Tootle.MainWindow: Gtk.Window {
         Tootle.accounts.switched.connect(on_account_switched);
         Tootle.app.error.connect (on_error);
         Tootle.app.toast.connect (on_toast);
+        Tootle.accounts.init ();
     }
     
     private void on_account_switched(Account? account){

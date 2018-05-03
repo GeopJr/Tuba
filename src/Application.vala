@@ -40,10 +40,8 @@ namespace Tootle{
         }
         
         protected override void activate () {
-            if (window != null) {
+            if (window != null)
                 window.present ();
-                Tootle.accounts.init ();
-            }
             else {
                 window = new MainWindow (this);
                 window.present ();

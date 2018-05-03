@@ -13,15 +13,14 @@ public class Tootle.NetManager : GLib.Object {
 
     construct {
         session = new Soup.Session ();
+        session.ssl_strict = true;
+        session.ssl_use_system_ca_file = true;
+        session.timeout = 20;
         session.request_unqueued.connect (() => {
             requests_processing--;
             if(requests_processing <= 0)
                 finished ();
         });
-        
-        session.ssl_strict = true;
-        session.ssl_use_system_ca_file = true;
-        session.timeout = 25;
     }
 
     public NetManager() {
