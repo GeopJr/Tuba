@@ -14,7 +14,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public Gtk.Label title_acct;
     public Gtk.Revealer revealer;
     public Tootle.RichLabel content_label;
-    public Tootle.RichLabel content_spoiler;
+    public Tootle.RichLabel? content_spoiler;
     Gtk.Box title_box;
     Gtk.Box attachments;
     Gtk.ScrolledWindow attachments_scroll;
