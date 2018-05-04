@@ -9,6 +9,7 @@ public abstract class Tootle.AbstractView : Gtk.ScrolledWindow {
 
     construct {
         view = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        view.valign = Gtk.Align.START;
         hscrollbar_policy = Gtk.PolicyType.NEVER;
         add (view);
         

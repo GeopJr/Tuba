@@ -13,9 +13,11 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public Gtk.Label title_date;
     public Gtk.Label title_acct;
     public Gtk.Revealer revealer;
-    public Tootle.RichLabel content;
-    public Gtk.Label? spoiler_content;
+    public Tootle.RichLabel content_label;
+    public Tootle.RichLabel content_spoiler;
     Gtk.Box title_box;
+    Gtk.Box attachments;
+    Gtk.ScrolledWindow attachments_scroll;
     Gtk.Grid grid;
     Gtk.Box counters;
     Gtk.Label reblogs;
@@ -51,20 +53,10 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         title_date = new Gtk.Label ("");
         title_date.ellipsize = Pango.EllipsizeMode.END;
         title_box.pack_end (title_date, false, false, 0);
-        
         title_box.show_all ();
         
-        content = new RichLabel ("");
-        content.halign = Gtk.Align.START;
-        content.single_line_mode = false;
-        content.set_line_wrap (true);
-        content.wrap_mode = Pango.WrapMode.WORD_CHAR;
-        content.justify = Gtk.Justification.LEFT;
-        content.margin_end = 12;
-        content.xalign = 0;
-        revealer = new Revealer ();
-        revealer.reveal_child = true;
-        revealer.add (content);
+        content_label = new RichLabel ("");
+        content_label.wrap_words ();
         
         reblogs = new Gtk.Label ("0");
         favorites = new Gtk.Label ("0");
@@ -88,6 +80,20 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             PostDialog.open_reply (Tootle.window, this.status);
         });
         
+        attachments = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        attachments.hexpand = true;
+        attachments_scroll = new ScrolledWindow (null, null);
+        attachments_scroll.vscrollbar_policy = Gtk.PolicyType.NEVER;
+        attachments_scroll.add (attachments);
+
+        var revealer_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);    
+        revealer_box.margin_end = 12;
+        revealer_box.add (content_label);    
+        revealer_box.add (attachments_scroll);    
+        revealer = new Revealer ();
+        revealer.reveal_child = true;
+        revealer.add (revealer_box);
+        
         counters = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6); //TODO: currently useless
         counters.margin_top = 6;
         counters.margin_bottom = 6;
@@ -103,7 +109,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         grid.attach (revealer, 2, 4, 1, 1);
         grid.attach (counters, 2, 5, 1, 1);
         add (grid);
-        show_all (); //TODO: display conversations
+        show_all ();
     }
 
     public StatusWidget (Status status) {
@@ -128,24 +134,49 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             grid.attach (label, 2, 0, 2, 1);
         }
         
-        if (status.spoiler_text != null){
+        if (is_spoiler ()){
             revealer.reveal_child = false;
-            spoiler_button = new Button.with_label (_("Toggle content"));
-            spoiler_content = new RichLabel (status.spoiler_text);
-            
             var spoiler_box = new Box (Gtk.Orientation.HORIZONTAL, 6);
-            spoiler_box.add (spoiler_content);
+            spoiler_box.margin_end = 12;
+            
+            var spoiler_button_text = _("Toggle content");
+            if (status.sensitive && status.attachments != null) {
+                spoiler_button = new Button.from_icon_name ("mail-attachment-symbolic", Gtk.IconSize.BUTTON);
+                spoiler_button.label = spoiler_button_text;
+                spoiler_button.always_show_image = true;
+                spoiler_button.hexpand = true;
+                spoiler_button.halign = Gtk.Align.END;
+                content_label.margin_top = 6;
+            }
+            else {
+                spoiler_button = new Button.with_label (spoiler_button_text);
+                spoiler_button.hexpand = true;
+                spoiler_button.halign = Gtk.Align.END;
+            }
+            spoiler_button.clicked.connect (() => revealer.set_reveal_child (!revealer.child_revealed));
+            
+            var spoiler_text = _("[ This post contains sensitive content ]");
+            if (status.spoiler_text != null)
+                spoiler_text = status.spoiler_text;
+            content_spoiler = new RichLabel (spoiler_text);
+            content_spoiler.wrap_words ();
+            
+            spoiler_box.add (content_spoiler);
             spoiler_box.add (spoiler_button);
             spoiler_box.show_all ();
-            
-            spoiler_button.clicked.connect (() => revealer.set_reveal_child (!revealer.child_revealed));
             grid.attach (spoiler_box, 2, 3, 1, 1);
+        }
+        
+        if (status.attachments != null) {
+            foreach (Attachment attachment in status.attachments)
+                attachments.add (new AttachmentWidget (attachment));
         }
         
         destroy.connect (() => {
             if(separator != null)
                 separator.destroy ();
         });
+        
         rebind ();
     }
     
@@ -157,8 +188,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public void rebind (){
         title_user.label = "<b>%s</b>".printf (status.get_formal ().account.display_name);
         title_acct.label = "@" + status.account.acct;
-        content.label = status.content;
-        content.mentions = status.mentions;
+        content_label.label = status.content;
+        content_label.mentions = status.mentions;
         parse_date_iso8601 (status.created_at);
         
         reblogs.label = status.reblogs_count.to_string ();
@@ -172,6 +203,10 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         favorite.sensitive = true;
         
         Tootle.cache.load_avatar (status.get_formal ().account.avatar, this.avatar, this.avatar_size);
+    }
+
+    public bool is_spoiler (){
+        return status.spoiler_text != null || status.sensitive;
     }
     
     // elementary OS has old GLib, so I have to improvise

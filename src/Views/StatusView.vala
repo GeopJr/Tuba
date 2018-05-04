@@ -15,9 +15,9 @@ public class Tootle.StatusView : Tootle.AbstractView {
         if (is_root)
             widget.highlight ();
         
-        widget.content.selectable = true;
-        if (widget.spoiler_content != null)
-            widget.spoiler_content.selectable = true;
+        widget.content_label.selectable = true;
+        if (widget.content_spoiler != null)
+            widget.content_spoiler.selectable = true;
         widget.avatar.button_press_event.connect(widget.on_avatar_clicked);
         view.pack_start (widget, false, false, 0);
     }

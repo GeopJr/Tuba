@@ -27,3 +27,8 @@
 .header-counters{
     background:rgba(255,255,255,.4);
 }
+
+.attachment{
+    background: #fff;
+    border-radius: 3px;
+}

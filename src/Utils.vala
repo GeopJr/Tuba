@@ -1,6 +1,10 @@
 public class Tootle.Utils{
 
-    public static string escape_html(string content){      
+    public static void open_url (string url) {
+        Gtk.show_uri (null, url, Gdk.CURRENT_TIME);
+    }
+
+    public static string escape_html (string content) {      
         var str = content
         .replace("<br>", "\n")
         .replace("</br>", "")

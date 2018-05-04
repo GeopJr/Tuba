@@ -12,9 +12,18 @@ public class Tootle.RichLabel : Gtk.Label {
             activate_link.connect (open_link);
     }
     
+    public void wrap_words () {
+        halign = Gtk.Align.START;
+        single_line_mode = false;
+        set_line_wrap (true);
+        wrap_mode = Pango.WrapMode.WORD_CHAR;
+        justify = Gtk.Justification.LEFT;
+        xalign = 0;
+    }
+    
     public bool open_link (string url){
         if (mentions != null){
-            foreach (Mention mention in mentions){
+            foreach (Mention mention in mentions) {
                 if (url == mention.url){
                     AccountView.open_from_id (mention.id);
                     return true;
@@ -34,7 +43,7 @@ public class Tootle.RichLabel : Gtk.Label {
             return true;
         }
     
-        Gtk.show_uri (null, url, Gdk.CURRENT_TIME);
+        Tootle.Utils.open_url (url);
         return true;
     }
 

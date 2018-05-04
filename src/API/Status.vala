@@ -13,9 +13,11 @@ public class Tootle.Status{
     public string created_at;    
     public bool reblogged;
     public bool favorited;
+    public bool sensitive;
     public Status? reblog;
     public Mention[]? mentions;
     public Tag[]? tags;
+    public Attachment[]? attachments;
 
     public Status(int64 id) {
         this.id = id;
@@ -38,24 +40,7 @@ public class Tootle.Status{
         status.reblogs_count = obj.get_int_member ("reblogs_count");
         status.favourites_count = obj.get_int_member ("favourites_count");
         status.content = Utils.escape_html ( obj.get_string_member ("content"));
-        
-        Mention[]? _mentions = {};
-        obj.get_array_member ("mentions").foreach_element ((array, i, node) => {
-            var object = node.get_object ();
-            if (object != null)
-                _mentions += Mention.parse (object);
-        });
-        if (_mentions.length > 0)
-            status.mentions = _mentions;
-
-        Tag[]? _tags = {};
-        obj.get_array_member ("tags").foreach_element ((array, i, node) => {
-            var object = node.get_object ();
-            if (object != null)
-                _tags += Tag.parse (object);
-        });
-        if (_tags.length > 0)
-            status.tags = _tags;
+        status.sensitive = obj.get_boolean_member ("sensitive");
         
         var spoiler = obj.get_string_member ("spoiler_text");
         if (spoiler != "")
@@ -68,6 +53,33 @@ public class Tootle.Status{
             
         if(obj.has_member ("reblog") && obj.get_null_member("reblog") != true)
             status.reblog = Status.parse (obj.get_object_member ("reblog"));
+        
+        Mention[]? _mentions = {};
+        obj.get_array_member ("mentions").foreach_element ((array, i, node) => {
+            var object = node.get_object ();
+            if (object != null)
+                _mentions += Mention.parse (object);
+        });
+        if (_mentions.length > 0)
+            status.mentions = _mentions;
+        
+        Tag[]? _tags = {};
+        obj.get_array_member ("tags").foreach_element ((array, i, node) => {
+            var object = node.get_object ();
+            if (object != null)
+                _tags += Tag.parse (object);
+        });
+        if (_tags.length > 0)
+            status.tags = _tags;
+        
+        Attachment[]? _attachments = {};
+        obj.get_array_member ("media_attachments").foreach_element ((array, i, node) => {
+            var object = node.get_object ();
+            if (object != null)
+                _attachments += Attachment.parse (object);
+        });
+        if (_attachments.length > 0)
+            status.attachments = _attachments;
         
         return status;
     }
