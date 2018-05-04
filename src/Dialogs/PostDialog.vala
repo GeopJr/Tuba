@@ -5,6 +5,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
 
     private static PostDialog dialog;
     protected Gtk.TextView text;
+    private Gtk.ScrolledWindow scroll;
     private Gtk.Label counter;
     private Gtk.MenuButton visibility;
     private Gtk.Button publish;
@@ -37,19 +38,24 @@ public class Tootle.PostDialog : Gtk.Dialog {
         });
         
         text = new Gtk.TextView ();
-        text.margin_start = 6;
-        text.margin_end = 6;
         text.get_style_context ().add_class ("toot-text");
-        text.hexpand = true;
         text.wrap_mode = Gtk.WrapMode.WORD;
         text.buffer.changed.connect (update_counter);
+        
+        scroll = new Gtk.ScrolledWindow (null, null);
+        scroll.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        scroll.min_content_height = 150;
+        scroll.margin_start = 6;
+        scroll.margin_end = 6;
+        scroll.add (text);
+        scroll.show_all ();
         
         counter = new Gtk.Label ("500");
         
         actions.pack_start (visibility, false, false, 6);
         actions.pack_start (counter, false, false, 6);
-        content.pack_start (text, false, false, 0);
-        content.set_size_request (300, 150);
+        content.pack_start (scroll, false, false, 0);
+        content.set_size_request (350, 150);
     }
     
     private Gtk.MenuButton get_visibility_btn (){
