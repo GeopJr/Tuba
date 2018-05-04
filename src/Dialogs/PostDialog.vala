@@ -107,6 +107,8 @@ public class Tootle.PostDialog : Gtk.Dialog {
 		    if (text != null)
 		        dialog.text.buffer.text = text;
 		}
+		else
+		    dialog.text.buffer.text += " " + text;
     }
     
     public static void open_reply (Gtk.Window? parent, Status status){
