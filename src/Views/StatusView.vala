@@ -3,6 +3,7 @@ using Gtk;
 public class Tootle.StatusView : Tootle.AbstractView {
 
     Status root_status;
+    bool last_was_a_root = false;
 
     public StatusView (Status status) {
         base (false);
@@ -11,6 +12,8 @@ public class Tootle.StatusView : Tootle.AbstractView {
     }
     
     private void prepend (Status status, bool is_root = false){
+        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        separator.show ();
         var widget = new StatusWidget(status);
         if (is_root)
             widget.highlight ();
@@ -19,7 +22,12 @@ public class Tootle.StatusView : Tootle.AbstractView {
         if (widget.content_spoiler != null)
             widget.content_spoiler.selectable = true;
         widget.avatar.button_press_event.connect(widget.on_avatar_clicked);
+        if (!last_was_a_root) {
+            widget.separator = separator;
+            view.pack_start (separator, false, false, 0);
+        }
         view.pack_start (widget, false, false, 0);
+        last_was_a_root = is_root;
     }
 
     public Soup.Message request_context (){

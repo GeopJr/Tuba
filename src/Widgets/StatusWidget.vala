@@ -48,6 +48,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         
         title_acct = new Gtk.Label ("");
         title_acct.opacity = 0.5;
+        title_acct.ellipsize = Pango.EllipsizeMode.END;
         title_box.pack_start (title_acct, false, false, 0);
         
         title_date = new Gtk.Label ("");
