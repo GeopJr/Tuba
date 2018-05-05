@@ -111,6 +111,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         grid.attach (counters, 2, 5, 1, 1);
         add (grid);
         show_all ();
+        
+        attachments_scroll.hide ();
     }
 
     public StatusWidget (Status status) {
@@ -169,6 +171,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         }
         
         if (status.attachments != null) {
+            attachments_scroll.show ();
             foreach (Attachment attachment in status.attachments)
                 attachments.add (new AttachmentWidget (attachment));
         }
