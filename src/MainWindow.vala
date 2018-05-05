@@ -7,11 +7,6 @@ public class Tootle.MainWindow: Gtk.Window {
     public Tootle.HeaderBar header;
     public Stack primary_stack;
     public Stack secondary_stack;
-    
-    public HomeView home = new HomeView ();
-    public LocalView feed_local = new LocalView ();
-    public FederatedView feed_federated = new FederatedView ();
-    public NotificationsView notifications = new NotificationsView ();
 
     construct {
         var provider = new Gtk.CssProvider ();
@@ -57,45 +52,45 @@ public class Tootle.MainWindow: Gtk.Window {
         Tootle.accounts.init ();
     }
     
-    private void on_account_switched(Account? account){
-        secondary_stack.forall (widget => secondary_stack.remove (widget));
-    
-        if(account == null)
-            show_setup_views ();
-        else
-            show_main_views ();
+    private void reset () {
+        header.button_mode.clear_children ();
+        secondary_stack.forall (widget => widget.destroy ());
     }
     
-    private void show_setup_views (){
+    private void on_account_switched(Account? account = Tootle.accounts.current){
+        reset ();
+        if(account == null)
+            build_setup_view ();
+        else
+            build_main_view ();
+    }
+    
+    private void build_setup_view (){
         var add_account = new AddAccountView ();
         secondary_stack.add_named (add_account, add_account.get_name ());
         header.update (false, true);
     }
     
-    private void show_main_views (){
-        header.button_mode.clear_children ();
-        add_view (home);
-        add_view (notifications);
-        add_view (feed_local);
-        add_view (feed_federated);
-        header.button_mode.set_active (0);
+    private void build_main_view (){
+        add_header_view (new HomeView ());
+        add_header_view (new NotificationsView ());
+        add_header_view (new LocalView ());
+        add_header_view (new FederatedView ());
         header.update (true);
     }
     
-    private void add_view (AbstractView view) {
-        if (view.show_in_header){
-            var img = new Gtk.Image.from_icon_name(view.get_icon (), Gtk.IconSize.LARGE_TOOLBAR);
-            img.tooltip_text = view.get_name ();
-            header.button_mode.append (img);
-            view.image = img;
-            secondary_stack.add_named(view, view.get_name ());
-            
-            if (view is NotificationsView)
-                img.pixel_size = 20; // For some reason Notifications icon is too small without this
-        }
+    private void add_header_view (AbstractView view) {
+        var img = new Gtk.Image.from_icon_name(view.get_icon (), Gtk.IconSize.LARGE_TOOLBAR);
+        img.tooltip_text = view.get_name ();
+        header.button_mode.append (img);
+        view.image = img;
+        secondary_stack.add_named(view, view.get_name ());
+        
+        if (view is NotificationsView)
+            img.pixel_size = 20; // For some reason Notifications icon is too small without this
     }
     
-    public void open_secondary_view (Widget widget) {
+    public void open_view (Widget widget) {
         widget.show ();
         var i = int.parse (primary_stack.get_visible_child_name ());
         i++;

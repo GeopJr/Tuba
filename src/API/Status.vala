@@ -1,4 +1,4 @@
-public class Tootle.Status{
+public class Tootle.Status {
 
     public abstract signal void updated ();
 

@@ -4,11 +4,13 @@ using Gdk;
 public class Tootle.NotificationsView : Tootle.AbstractView {
 
     public NotificationsView () {
-        base (true);
+        base ();
         
         view.remove.connect (on_remove);
         Tootle.accounts.switched.connect(on_account_changed);
-        Tootle.network.refresh.connect(on_refresh);
+        Tootle.app.refresh.connect(on_refresh);
+        
+        request ();
     }
     
     public override string get_icon () {
@@ -46,9 +48,8 @@ public class Tootle.NotificationsView : Tootle.AbstractView {
     public virtual void on_account_changed (Account? account){
         if(account == null)
             return;
-            
-        clear ();
-        request ();
+        
+        on_refresh ();
     }
     
     public void request (){

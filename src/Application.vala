@@ -13,8 +13,9 @@ namespace Tootle{
 
     public class Application : Granite.Application {
     
-        public abstract signal void toast(string title);
-        public abstract signal void error(string title, string text);
+        public abstract signal void refresh ();
+        public abstract signal void toast (string title);
+        public abstract signal void error (string title, string text);
     
         construct {
             application_id = "com.github.bleakgrey.tootle";

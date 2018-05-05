@@ -8,6 +8,8 @@ public class Tootle.HeaderBar : Gtk.HeaderBar{
     Button button_toot;
     Button button_back;
     
+    private int last_tab = 0;
+    
     construct {
         spinner = new Spinner ();
         spinner.active = true;
@@ -39,6 +41,7 @@ public class Tootle.HeaderBar : Gtk.HeaderBar{
         button_mode = new Granite.Widgets.ModeButton ();
         button_mode.get_style_context ().add_class ("mode");
         button_mode.mode_changed.connect(widget => {
+            last_tab = button_mode.selected;
             Tootle.window.secondary_stack.set_visible_child_name(widget.tooltip_text);
         });
         button_mode.show ();
@@ -60,6 +63,7 @@ public class Tootle.HeaderBar : Gtk.HeaderBar{
     }
     
     public void update (bool primary_mode, bool hide_all = false){
+        button_mode.set_active (last_tab);
         if (hide_all){
             button_mode.opacity = 0;
             button_mode.sensitive = false;

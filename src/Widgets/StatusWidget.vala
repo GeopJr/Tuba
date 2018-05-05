@@ -120,7 +120,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         status.updated.connect (rebind);
         get_style_context ().add_class ("status");
         
-        if (status.reblog != null){
+        if (status.reblog != null) {
             var image = new Gtk.Image.from_icon_name("go-up-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             image.halign = Gtk.Align.END;
             image.margin_end = 6;
@@ -137,7 +137,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             grid.attach (label, 2, 0, 2, 1);
         }
         
-        if (is_spoiler ()){
+        if (is_spoiler ()) {
             revealer.reveal_child = false;
             var spoiler_box = new Box (Gtk.Orientation.HORIZONTAL, 6);
             spoiler_box.margin_end = 12;
@@ -184,12 +184,12 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         rebind ();
     }
     
-    public void highlight (){
+    public void highlight () {
         grid.get_style_context ().add_class ("card");
         grid.margin_bottom = 6;
     }
     
-    public void rebind (){
+    public void rebind () {
         title_user.label = "<b>%s</b>".printf (status.get_formal ().account.display_name);
         title_acct.label = "@" + status.account.acct;
         content_label.label = status.content;
@@ -209,13 +209,13 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         Tootle.cache.load_avatar (status.get_formal ().account.avatar, this.avatar, this.avatar_size);
     }
 
-    public bool is_spoiler (){
+    public bool is_spoiler () {
         return status.spoiler_text != null || status.sensitive;
     }
     
     // elementary OS has old GLib, so I have to improvise
     // Version >=2.56 provides DateTime.from_iso8601
-    public void parse_date_iso8601 (string date){
+    public void parse_date_iso8601 (string date) {
         var cmd = "date -d " + date + " +%s";
         var runner = new CmdRunner ("/bin/", cmd); //Workaround for Granite SimpleCommand pipes bug
         runner.done.connect (exit => {
@@ -226,19 +226,19 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         runner.run ();
     }
     
-    public bool on_avatar_clicked (){
+    public bool on_avatar_clicked () {
         var view = new AccountView (status.get_formal ().account);
-        Tootle.window.open_secondary_view (view);
+        Tootle.window.open_view (view);
         return true;
     }
     
-    public bool open (){
+    public bool open () {
         var view = new StatusView (status.get_formal ());
-        Tootle.window.open_secondary_view (view);
+        Tootle.window.open_view (view);
         return false;
     }
     
-    private Gtk.ToggleButton get_action_button (string icon_path){
+    private Gtk.ToggleButton get_action_button (string icon_path) {
         var icon = new Gtk.Image.from_icon_name (icon_path, Gtk.IconSize.SMALL_TOOLBAR);
         var button = new Gtk.ToggleButton ();
         button.can_default = false;

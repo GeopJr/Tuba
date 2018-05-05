@@ -6,7 +6,7 @@ public class Tootle.StatusView : Tootle.AbstractView {
     bool last_was_a_root = false;
 
     public StatusView (Status status) {
-        base (false);
+        base ();
         root_status = status;
         request_context ();
     }

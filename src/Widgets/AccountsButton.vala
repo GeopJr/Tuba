@@ -54,11 +54,11 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
     
         item_refresh = new Gtk.ModelButton ();  
         item_refresh.text = _("Refresh");
-        item_refresh.clicked.connect (() => Tootle.network.refresh ());
+        item_refresh.clicked.connect (() => Tootle.app.refresh ());
     
         item_favs = new Gtk.ModelButton ();  
         item_favs.text = _("Favorites");
-        item_favs.clicked.connect (() => Tootle.window.open_secondary_view (new FavoritesView ()));
+        item_favs.clicked.connect (() => Tootle.window.open_view (new FavoritesView ()));
     
         item_settings = new Gtk.ModelButton ();  
         item_settings.text = _("Settings");

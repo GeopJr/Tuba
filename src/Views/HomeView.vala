@@ -6,16 +6,17 @@ public class Tootle.HomeView : Tootle.AbstractView {
     private string timeline;
 
     public HomeView (string timeline = "home") {
-        base (true);
+        base ();
         this.timeline = timeline;
         
         view.remove.connect (on_remove);
         Tootle.accounts.switched.connect(on_account_changed);
-        Tootle.network.refresh.connect(on_refresh);
+        Tootle.app.refresh.connect(on_refresh);
         
         // var s = new Status(1);
         // s.content = "Test content, wow!";
         // prepend (s);
+        request ();
     }
     
     public override string get_icon () {
@@ -50,7 +51,7 @@ public class Tootle.HomeView : Tootle.AbstractView {
         //TODO: empty state
     }
     
-    public virtual string get_url (){
+    public virtual string get_url () {
         var url = Tootle.settings.instance_url;
         url += "api/v1/timelines/";
         url += this.timeline;
@@ -62,7 +63,7 @@ public class Tootle.HomeView : Tootle.AbstractView {
         return url;
     }
     
-    public void request (){
+    public virtual void request (){
         var msg = new Soup.Message("GET", get_url ());
         Tootle.network.queue(msg, (sess, mess) => {
             try{
@@ -90,8 +91,8 @@ public class Tootle.HomeView : Tootle.AbstractView {
     public virtual void on_account_changed (Account? account){
         if(account == null)
             return;
-        clear ();
-        request ();
+        
+        on_refresh ();
     }
     
     public override void bottom_reached (){

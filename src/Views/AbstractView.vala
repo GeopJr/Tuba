@@ -3,7 +3,6 @@ using Gtk;
 public abstract class Tootle.AbstractView : Gtk.ScrolledWindow {
     
     public int64 max_id = -1;
-    public bool show_in_header;
     public Gtk.Image image;
     public Gtk.Box view;
 
@@ -21,8 +20,7 @@ public abstract class Tootle.AbstractView : Gtk.ScrolledWindow {
         pre_construct ();
     }
 
-    public AbstractView (bool show) {
-        show_in_header = show;
+    public AbstractView () {
         show_all ();
     }
     

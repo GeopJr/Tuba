@@ -137,7 +137,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
             try{
                 var root = Tootle.network.parse (mess);
                 var status = Status.parse (root);
-                Tootle.window.home.prepend (status);
+                debug (status.id.to_string ()); //TODO: Live updates
                 this.destroy ();
             }
             catch (GLib.Error e) {

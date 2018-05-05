@@ -99,7 +99,6 @@ public class Tootle.AccountView : Tootle.HomeView {
     }
     
     public AccountView (Account acc) {
-        base ("account_"+acc.id.to_string ());
         account = acc;
         account.updated.connect(rebind);
         
@@ -177,14 +176,18 @@ public class Tootle.AccountView : Tootle.HomeView {
         return status.get_formal ().account.id == account.id;
     }
     
-    public override string get_url (){
+    public override string get_url () {
         var url = "%s/api/v1/accounts/%lld/statuses".printf (Tootle.settings.instance_url, account.id);
         url += "?limit=25";
         
         if (max_id > 0)
-            url += "&max_id=" + max_id.to_string ();
-            
+            url += "&max_id=" + max_id.to_string (); 
         return url;
+    }
+    
+    public override void request (){
+        if(account != null)
+            base.request ();
     }
     
     public static void open_from_id (int64 id){
@@ -195,7 +198,7 @@ public class Tootle.AccountView : Tootle.HomeView {
             try{
                 var root = Tootle.network.parse (mess);
                 var acc = Account.parse (root);
-                Tootle.window.open_secondary_view (new AccountView (acc));
+                Tootle.window.open_view (new AccountView (acc));
             }
             catch (GLib.Error e) {
                 warning ("Can't update feed");
@@ -214,7 +217,7 @@ public class Tootle.AccountView : Tootle.HomeView {
                 var object = node.get_object ();
                 if (object != null){
                     var acc = Account.parse(object);
-                    Tootle.window.open_secondary_view (new AccountView (acc));
+                    Tootle.window.open_view (new AccountView (acc));
                 }
                 else
                     warning ("No results found for account: "+name); //TODO: toast notifications

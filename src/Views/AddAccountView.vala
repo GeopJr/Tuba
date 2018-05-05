@@ -110,7 +110,7 @@ public class Tootle.AddAccountView : Tootle.AbstractView {
     }
 
     public AddAccountView () {
-        base (false);
+        base ();
     }
     
     public override string get_name () {

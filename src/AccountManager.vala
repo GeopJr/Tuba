@@ -6,7 +6,7 @@ public class Tootle.AccountManager : Object{
     public abstract signal void added(Account account);
     public abstract signal void removed(Account account);
 
-    public Account current;
+    public Account? current;
 
     public AccountManager(){
         Object();

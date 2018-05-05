@@ -6,7 +6,6 @@ public class Tootle.NetManager : GLib.Object {
 
     public abstract signal void started();
     public abstract signal void finished();
-    public abstract signal void refresh();
     
     private int requests_processing = 0;
     private Soup.Session session;
@@ -16,11 +15,15 @@ public class Tootle.NetManager : GLib.Object {
         session.ssl_strict = true;
         session.ssl_use_system_ca_file = true;
         session.timeout = 20;
+        session.max_conns = 15;
         session.request_unqueued.connect (() => {
             requests_processing--;
             if(requests_processing <= 0)
                 finished ();
         });
+        
+        // Soup.Logger logger = new Soup.Logger (Soup.LoggerLogLevel.MINIMAL, -1);
+        // session.add_feature (logger);
     }
 
     public NetManager() {

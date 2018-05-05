@@ -3,10 +3,10 @@ using GLib;
 
 public class Tootle.CacheManager : GLib.Object{
     
-    private static string path_images;
+    private static string path_downloads;
 
     construct{
-        path_images = GLib.Environment.get_user_special_dir (UserDirectory.DOWNLOAD);
+        path_downloads = GLib.Environment.get_user_special_dir (UserDirectory.DOWNLOAD);
     }
 
     //TODO: actually cache images
@@ -23,7 +23,7 @@ public class Tootle.CacheManager : GLib.Object{
                 loader.close();
                 avatar.pixbuf = loader.get_pixbuf ();
         });
-        Tootle.network.queue(msg, (sess, mess) => {});
+        Tootle.network.queue(msg);
     }
     
     public void load_image (string url, Gtk.Image image){
@@ -34,7 +34,7 @@ public class Tootle.CacheManager : GLib.Object{
                 loader.close();
                 image.set_from_pixbuf (loader.get_pixbuf ());
         });
-        Tootle.network.queue(msg, (sess, mess) => {});
+        Tootle.network.queue(msg);
     }
 
 }
