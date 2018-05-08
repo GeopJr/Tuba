@@ -206,7 +206,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         favorite.active = status.favorited;
         favorite.sensitive = true;
         
-        Tootle.cache.load_avatar (status.get_formal ().account.avatar, this.avatar, this.avatar_size);
+        Tootle.network.load_avatar (status.get_formal ().account.avatar, this.avatar, this.avatar_size);
     }
 
     public bool is_spoiler () {

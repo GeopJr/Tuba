@@ -23,7 +23,6 @@ executable(
     'src/SettingsManager.vala',
     'src/AccountManager.vala',
     'src/NetManager.vala',
-    'src/CacheManager.vala',
     'src/Utils.vala',
     'src/CmdRunner.vala',
     'src/API/Account.vala',

@@ -1,5 +1,6 @@
 using Soup;
 using GLib;
+using Gdk;
 using Json;
 
 public class Tootle.NetManager : GLib.Object {
@@ -9,14 +10,21 @@ public class Tootle.NetManager : GLib.Object {
     
     private int requests_processing = 0;
     private Soup.Session session;
+    private Soup.Cache cache;
+    public string cache_path;
 
     construct {
+        cache_path = "%s/%s".printf (GLib.Environment.get_user_cache_dir (), "tootle");
+        cache = new Soup.Cache (cache_path, Soup.CacheType.SINGLE_USER);
+        cache.set_max_size (1024 * 1024 * 16);
+    
         session = new Soup.Session ();
+        session.add_feature (cache);
         session.ssl_strict = true;
         session.ssl_use_system_ca_file = true;
         session.timeout = 20;
         session.max_conns = 15;
-        session.request_unqueued.connect (() => {
+        session.request_unqueued.connect (msg => {
             requests_processing--;
             if(requests_processing <= 0)
                 finished ();
@@ -28,6 +36,7 @@ public class Tootle.NetManager : GLib.Object {
 
     public NetManager() {
         GLib.Object();
+        Tootle.app.shutdown.connect (() => cache.flush ());
     }
     
     public Soup.Message queue(Soup.Message msg, Soup.SessionCallback? cb = null) {
@@ -56,11 +65,14 @@ public class Tootle.NetManager : GLib.Object {
             }
             if (cb != null)
                 cb (sess, mess);
+                
+            msg.request_body.free ();
+            msg.response_body.free ();
         });
         return msg;
     }
     
-    public Json.Object parse(Soup.Message msg) throws GLib.Error {
+    public Json.Object parse (Soup.Message msg) throws GLib.Error {
         // stdout.printf ("Status Code: %u\n", msg.status_code);
         // stdout.printf ("Message length: %lld\n", msg.response_body.length);
         // stdout.printf ("Object: \n%s\n", (string) msg.response_body.data);
@@ -70,7 +82,7 @@ public class Tootle.NetManager : GLib.Object {
         return parser.get_root ().get_object ();
     }
     
-    public Json.Array parse_array(Soup.Message msg) throws GLib.Error {
+    public Json.Array parse_array (Soup.Message msg) throws GLib.Error {
         // stdout.printf ("Status Code: %u\n", msg.status_code);
         // stdout.printf ("Message length: %lld\n", msg.response_body.length);
         // stdout.printf ("Array: \n%s\n", (string) msg.response_body.data);
@@ -80,8 +92,27 @@ public class Tootle.NetManager : GLib.Object {
         return parser.get_root ().get_array ();
     }
     
-    public bool is_active_in_background () {
-        return false;
+    public void load_avatar (string url, Granite.Widgets.Avatar avatar, int size){
+        var msg = new Soup.Message("GET", url);
+        msg.finished.connect(() => {
+                var loader = new PixbufLoader ();
+                loader.set_size (size, size);
+                loader.write (msg.response_body.data);
+                loader.close ();
+                avatar.pixbuf = loader.get_pixbuf ();
+        });
+        Tootle.network.queue (msg);
+    }
+    
+    public void load_image (string url, Gtk.Image image) {
+        var msg = new Soup.Message("GET", url);
+        msg.finished.connect(() => {
+                var loader = new PixbufLoader ();
+                loader.write (msg.response_body.data);
+                loader.close ();
+                image.set_from_pixbuf (loader.get_pixbuf ());
+        });
+        Tootle.network.queue (msg);
     }
 
 }

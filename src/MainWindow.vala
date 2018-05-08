@@ -112,10 +112,13 @@ public class Tootle.MainWindow: Gtk.Window {
     }
     
     public override bool delete_event (Gdk.EventAny event) {
-        var do_not_exit = Tootle.network.is_active_in_background ();
-        if (do_not_exit)
-            hide ();
-        return do_not_exit;
+        this.destroy.connect (() => {
+            if (!Tootle.settings.always_online)
+                Tootle.app.remove_window (Tootle.window_dummy);
+            Tootle.window = null;
+            this.dispose ();
+        });
+        return false;
     }
 
 }

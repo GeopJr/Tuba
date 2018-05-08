@@ -127,7 +127,7 @@ public class Tootle.AccountView : Tootle.HomeView {
         username.label = "@" + account.acct;
         note.label = Utils.escape_html (account.note);
         button_follow.visible = !account.is_self ();
-        Tootle.cache.load_avatar (account.avatar, avatar, 128);
+        Tootle.network.load_avatar (account.avatar, avatar, 128);
         
         menu_edit.visible = account.is_self ();
     

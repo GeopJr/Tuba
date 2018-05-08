@@ -24,7 +24,7 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
                 image.vexpand = true;
                 image.margin = 3;
                 image.valign = Gtk.Align.CENTER;
-                Tootle.cache.load_image (attachment.preview_url, image);
+                Tootle.network.load_image (attachment.preview_url, image);
                 grid.attach (image, 0, 0);
                 break;
             default:

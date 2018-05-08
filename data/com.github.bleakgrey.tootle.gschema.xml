@@ -26,5 +26,10 @@
 			<summary>Refresh Token</summary>
 			<description></description>
 		</key>
+		<key name="always-online" type="b">
+			<default>false</default>
+			<summary>Always monitor new notifications</summary>
+			<description></description>
+		</key>
 	</schema>
 </schemalist>
