@@ -2,7 +2,8 @@ public enum Tootle.NotificationType {
     MENTION,
     REBLOG,
     FAVORITE,
-    FOLLOW;
+    FOLLOW,
+    FOLLOW_REQUEST;
 
     public string to_string() {
         switch (this) {
@@ -14,6 +15,8 @@ public enum Tootle.NotificationType {
                 return "favourite";
             case FOLLOW:
                 return "follow";
+            case FOLLOW_REQUEST:
+                return "follow_request";
             default:
                 assert_not_reached();
         }
@@ -29,6 +32,8 @@ public enum Tootle.NotificationType {
                 return FAVORITE;
             case "follow":
                 return FOLLOW;
+            case "follow_request":
+                return FOLLOW_REQUEST;
             default:
                 assert_not_reached();
         }
@@ -44,6 +49,8 @@ public enum Tootle.NotificationType {
                 return _("<a href=\"%s\"><b>%s</b></a> favorited your toot").printf (account.url, account.display_name);
             case FOLLOW:
                 return _("<a href=\"%s\"><b>%s</b></a> now follows you").printf (account.url, account.display_name);
+            case FOLLOW_REQUEST:
+                return _("<a href=\"%s\"><b>%s</b></a> wants to follow you").printf (account.url, account.display_name);
             default:
                 assert_not_reached();
         }
@@ -58,6 +65,7 @@ public enum Tootle.NotificationType {
             case FAVORITE:
                 return "help-about-symbolic";
             case FOLLOW:
+            case FOLLOW_REQUEST:
                 return "contact-new-symbolic";
             default:
                 assert_not_reached();

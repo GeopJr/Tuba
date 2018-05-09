@@ -25,5 +25,39 @@ public class Tootle.Notification{
         
         return notification;
     }
+    
+    public static Notification parse_follow_request (Json.Object obj) {
+        var notification = new Notification (-1);
+        var account = Account.parse (obj);
+        
+        notification.type = NotificationType.FOLLOW_REQUEST;
+        notification.account = account;
+        
+        return notification;
+    }
+    
+    public Soup.Message dismiss () {
+        if (type == NotificationType.FOLLOW_REQUEST)
+            return reject_follow_request ();
+        
+        var url = "%s/api/v1/notifications/dismiss?id=%lld".printf (Tootle.settings.instance_url, id);
+        var msg = new Soup.Message("POST", url);
+        Tootle.network.queue(msg);
+        return msg;
+    }
+    
+    public Soup.Message accept_follow_request () {
+        var url = "%s/api/v1/follow_requests/%lld/authorize".printf (Tootle.settings.instance_url, account.id);
+        var msg = new Soup.Message("POST", url);
+        Tootle.network.queue(msg);
+        return msg;
+    }
+    
+    public Soup.Message reject_follow_request () {
+        var url = "%s/api/v1/follow_requests/%lld/reject".printf (Tootle.settings.instance_url, account.id);
+        var msg = new Soup.Message("POST", url);
+        Tootle.network.queue(msg);
+        return msg;
+    }
 
 }

@@ -85,6 +85,8 @@ public class Tootle.AddAccountView : Tootle.AbstractView {
     
 
     construct {
+        view.valign = Gtk.Align.CENTER;
+        
         stack = new Stack ();
         stack.valign = Gtk.Align.CENTER;
         stack.vexpand = true;
