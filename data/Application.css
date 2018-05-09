@@ -32,3 +32,10 @@
     background: #fff;
     border-radius: 3px;
 }
+
+.relationship {
+    background: rgba (0,0,0,.5);
+    padding: 6px;
+    border-radius: 3px;
+    color: #fff;
+}

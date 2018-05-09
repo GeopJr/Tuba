@@ -11,6 +11,7 @@ public class Tootle.AccountView : Tootle.HomeView {
     Granite.Widgets.Avatar avatar;
     Gtk.Label display_name;
     Gtk.Label username;
+    Gtk.Label relationship;
     Tootle.RichLabel note;
     Gtk.Grid counters;
     Gtk.Box actions;
@@ -27,17 +28,24 @@ public class Tootle.AccountView : Tootle.HomeView {
     public override void pre_construct () {
         header = new Gtk.Grid ();
         header_info = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        header_info.margin = 16;
+        header_info.margin = 12;
         actions = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         actions.hexpand = false;
         actions.halign = Gtk.Align.END;
         actions.vexpand = false;
         actions.valign = Gtk.Align.START;
-        actions.margin = 16;
+        actions.margin = 12;
+    
+        relationship = new Gtk.Label ("");
+        relationship.get_style_context ().add_class ("relationship");
+        relationship.halign = Gtk.Align.START;
+        relationship.valign = Gtk.Align.START;
+        relationship.margin = 12;
+        header.attach (relationship, 0, 0, 1, 1);
     
         avatar = new Granite.Widgets.Avatar.with_default_icon (128);
         avatar.hexpand = true;
-        avatar.margin_bottom = 8;
+        avatar.margin_bottom = 6;
         header_info.pack_start(avatar, false, false, 0);
         
         display_name = new RichLabel ("");
@@ -50,7 +58,7 @@ public class Tootle.AccountView : Tootle.HomeView {
         note = new RichLabel ("");
         note.set_line_wrap (true);
         note.selectable = true;
-        note.margin_top = 16;
+        note.margin_top = 12;
         note.can_focus = false;
         note.justify = Gtk.Justification.CENTER;
         header_info.pack_start(note, false, false, 0);
@@ -83,7 +91,7 @@ public class Tootle.AccountView : Tootle.HomeView {
         button_follow = add_counter ("contact-new-symbolic");
         button_menu = new Gtk.MenuButton ();
         button_menu.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-        button_menu.tooltip_text = _("menu Actions");
+        button_menu.tooltip_text = _("More Actions");
         button_menu.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         button_menu.set_focus_on_click (false);
         button_menu.can_default = false;
@@ -148,7 +156,17 @@ public class Tootle.AccountView : Tootle.HomeView {
             menu_block.label = account.rs.blocking ? _("Unblock") : _("Block");
             menu_mute.label = account.rs.muting ? _("Unmute") : _("Mute");
             menu_report.visible = menu_mute.visible = menu_block.visible = !account.is_self ();
+            
+            var rs_label = get_relationship_label ();
+            if (rs_label != null) {
+                relationship.label = rs_label;
+                relationship.show ();
+            }
+            else
+                relationship.hide ();
         }
+        else
+            relationship.hide ();
     }
     
     private Gtk.Button add_counter (string name, int? i = null, int64? val = null) {
@@ -185,9 +203,22 @@ public class Tootle.AccountView : Tootle.HomeView {
         return url;
     }
     
-    public override void request (){
+    public override void request () {
         if(account != null)
             base.request ();
+    }
+    
+    private string? get_relationship_label () {
+        if (account.rs.requested)
+            return _("Sent follow request");
+        else if (account.rs.blocking)
+            return _("Blocked");
+        else if (account.rs.followed_by)
+            return _("Follows you");
+        else if (account.rs.domain_blocking)
+            return _("Blocking this instance");
+        else
+            return null;
     }
     
     public static void open_from_id (int64 id){
