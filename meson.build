@@ -41,6 +41,7 @@ executable(
     'src/Widgets/StatusWidget.vala',
     'src/Widgets/NotificationWidget.vala',
     'src/Widgets/AttachmentWidget.vala',
+    'src/Widgets/AttachmentBox.vala',
     'src/Dialogs/PostDialog.vala',
     'src/Views/AbstractView.vala',
     'src/Views/AddAccountView.vala',

@@ -8,7 +8,10 @@ public class Tootle.PostDialog : Gtk.Dialog {
     private Gtk.ScrolledWindow scroll;
     private Gtk.Label counter;
     private Gtk.MenuButton visibility;
+    private Gtk.Button attach;
+    private Gtk.Button cancel;
     private Gtk.Button publish;
+    private AttachmentBox attachments;
     
     private StatusVisibility visibility_opt;
     protected int64? in_reply_to_id;
@@ -25,12 +28,24 @@ public class Tootle.PostDialog : Gtk.Dialog {
         
         var actions = get_action_area ().get_parent () as Gtk.Box;
         var content = get_content_area ();
+        get_action_area ().hexpand = false;
         
         visibility = get_visibility_btn ();
-        var close = add_button(_("Cancel"), 5) as Gtk.Button;
-        close.clicked.connect(() => {
-            this.destroy ();
-        });
+        visibility.tooltip_text = _("Post Visibility");
+        visibility.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        visibility.can_default = false;
+        visibility.set_focus_on_click (false);
+        attach = new Gtk.Button.from_icon_name ("mail-attachment-symbolic");
+        attach.tooltip_text = _("Add Media");
+        attach.valign = Gtk.Align.CENTER;
+        attach.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        attach.get_style_context ().remove_class ("image-button");
+        attach.can_default = false;
+        attach.set_focus_on_click (false);
+        attach.clicked.connect (() => attachments.select ());
+        
+        cancel = add_button(_("Cancel"), 5) as Gtk.Button;
+        cancel.clicked.connect(() => this.destroy ());
         publish = add_button(_("Toot!"), 5) as Gtk.Button;
         publish.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         publish.clicked.connect (() => {
@@ -50,17 +65,23 @@ public class Tootle.PostDialog : Gtk.Dialog {
         scroll.add (text);
         scroll.show_all ();
         
+        attachments = new AttachmentBox (true);
         counter = new Gtk.Label ("500");
         
-        actions.pack_start (visibility, false, false, 6);
         actions.pack_start (counter, false, false, 6);
-        content.pack_start (scroll, false, false, 0);
+        actions.pack_end (visibility, false, false, 0);
+        actions.pack_end (attach, false, false, 6);
+        content.pack_start (scroll, false, false, 6);
+        content.pack_start (attachments, false, false, 6);
         content.set_size_request (350, 150);
+        
+        show_all ();
+        attachments.hide ();
     }
     
-    private Gtk.MenuButton get_visibility_btn (){
+    private Gtk.MenuButton get_visibility_btn () {
         var button = new Gtk.MenuButton ();
-        var icon = new Gtk.Image.from_icon_name (visibility_opt.get_icon (), Gtk.IconSize.SMALL_TOOLBAR);
+        var icon = new Gtk.Image.from_icon_name (visibility_opt.get_icon (), Gtk.IconSize.BUTTON);
         var menu = new Gtk.Popover (null);
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
         box.margin = 6;
@@ -95,7 +116,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         return button;
     }
     
-    private void update_counter (){
+    private void update_counter () {
         var len = text.buffer.text.length;
         var remain = 500 - len;
         publish.sensitive = (remain >= 0); 
@@ -103,13 +124,12 @@ public class Tootle.PostDialog : Gtk.Dialog {
         counter.label = remain.to_string ();
     }
     
-    public static void open (Gtk.Window? parent, string? text = null){
+    public static void open (Gtk.Window? parent, string? text = null) {
         if(dialog == null){
             dialog = new PostDialog (parent);
 		    dialog.destroy.connect (() => {
 		        dialog = null;
 		    });
-		    dialog.show_all ();
 		    if (text != null)
 		        dialog.text.buffer.text = text;
 		}
@@ -117,7 +137,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
 		    dialog.text.buffer.text += " " + text;
     }
     
-    public static void open_reply (Gtk.Window? parent, Status status){
+    public static void open_reply (Gtk.Window? parent, Status status) {
         if(dialog == null){
             open (parent);
             dialog.in_reply_to_id = status.id;
@@ -125,16 +145,18 @@ public class Tootle.PostDialog : Gtk.Dialog {
         }
     }
     
-    public void publish_post(){
-        var text_escaped = text.buffer.text.replace (" ", "%20");
-        var pars = "?status=" + text_escaped;
+    public void publish_post () {
+        var pars = "?status=%s".printf (Soup.URI.encode (text.buffer.text, null));
+        pars += "&visibility=%s".printf (visibility_opt.to_string ());
+        pars += attachments.get_uri_array ();    
         if (in_reply_to_id != null)
-            pars += "&in_reply_to_id=" + in_reply_to_id.to_string ();
-        pars += "&visibility=" + visibility_opt.to_string ();
-
-        var msg = new Soup.Message("POST", Tootle.settings.instance_url + "/api/v1/statuses" + pars);
+            pars += "&in_reply_to_id=%s".printf (in_reply_to_id.to_string ());
+        
+        var url = "%s/api/v1/statuses%s".printf (Tootle.settings.instance_url, pars);
+        var msg = new Soup.Message("POST", url);
+        debug (url);
         Tootle.network.queue(msg, (sess, mess) => {
-            try{
+            try {
                 var root = Tootle.network.parse (mess);
                 var status = Status.parse (root);
                 debug (status.id.to_string ()); //TODO: Live updates

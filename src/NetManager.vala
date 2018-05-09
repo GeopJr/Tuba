@@ -30,7 +30,7 @@ public class Tootle.NetManager : GLib.Object {
                 finished ();
         });
         
-        // Soup.Logger logger = new Soup.Logger (Soup.LoggerLogLevel.MINIMAL, -1);
+        // Soup.Logger logger = new Soup.Logger (Soup.LoggerLogLevel.BODY, -1);
         // session.add_feature (logger);
     }
 
@@ -111,6 +111,16 @@ public class Tootle.NetManager : GLib.Object {
                 loader.write (msg.response_body.data);
                 loader.close ();
                 image.set_from_pixbuf (loader.get_pixbuf ());
+        });
+        Tootle.network.queue (msg);
+    }
+    
+    public void load_scaled_image (string url, Gtk.Image image, int size = 64) {
+        var msg = new Soup.Message("GET", url);
+        msg.finished.connect(() => {
+                var stream = new MemoryInputStream.from_data(msg.response_body.data, GLib.g_free);
+                var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, size, size, true);
+                image.set_from_pixbuf (pixbuf);
         });
         Tootle.network.queue (msg);
     }

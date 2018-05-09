@@ -16,8 +16,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public Tootle.RichLabel content_label;
     public Tootle.RichLabel? content_spoiler;
     Gtk.Box title_box;
-    Gtk.Box attachments;
-    Gtk.ScrolledWindow attachments_scroll;
+    AttachmentBox attachments;
     Gtk.Grid grid;
     Gtk.Box counters;
     Gtk.Label reblogs;
@@ -59,6 +58,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         content_label = new RichLabel ("");
         content_label.wrap_words ();
         
+        attachments = new AttachmentBox ();
+        
         reblogs = new Gtk.Label ("0");
         favorites = new Gtk.Label ("0");
         
@@ -80,22 +81,16 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             reply.set_active (false);
             PostDialog.open_reply (Tootle.window, this.status);
         });
-        
-        attachments = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        attachments.hexpand = true;
-        attachments_scroll = new ScrolledWindow (null, null);
-        attachments_scroll.vscrollbar_policy = Gtk.PolicyType.NEVER;
-        attachments_scroll.add (attachments);
 
         var revealer_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);    
         revealer_box.margin_end = 12;
         revealer_box.add (content_label);    
-        revealer_box.add (attachments_scroll);    
+        revealer_box.add (attachments);    
         revealer = new Revealer ();
         revealer.reveal_child = true;
         revealer.add (revealer_box);
         
-        counters = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6); //TODO: currently useless
+        counters = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         counters.margin_top = 6;
         counters.margin_bottom = 6;
         counters.add (reblog);
@@ -111,8 +106,6 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         grid.attach (counters, 2, 5, 1, 1);
         add (grid);
         show_all ();
-        
-        attachments_scroll.hide ();
     }
 
     public StatusWidget (Status status) {
@@ -171,10 +164,12 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         }
         
         if (status.attachments != null) {
-            attachments_scroll.show ();
+            attachments.clear ();
             foreach (Attachment attachment in status.attachments)
-                attachments.add (new AttachmentWidget (attachment));
+                attachments.append (attachment);
         }
+        else
+            attachments.destroy ();
         
         destroy.connect (() => {
             if(separator != null)
