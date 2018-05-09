@@ -24,7 +24,7 @@ public class Tootle.HomeView : Tootle.AbstractView {
     }
     
     public override string get_name () {
-        return "Home";
+        return _("Home");
     }
     
     public virtual bool is_status_owned (Status status){

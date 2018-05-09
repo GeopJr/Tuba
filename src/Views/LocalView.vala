@@ -11,7 +11,7 @@ public class Tootle.LocalView : Tootle.HomeView {
     }
     
     public override string get_name () {
-        return "Local Timeline";
+        return _("Local Timeline");
     }
     
     public override string get_url (){

@@ -31,12 +31,12 @@ public class Tootle.AddAccountView : Tootle.AbstractView {
             button_next = new Button.with_label ("Next");
             button_next.halign = Gtk.Align.END;
             
-            var register = new Label ("<a href=\"https://joinmastodon.org/\">What's an instance?</a>");
+            var register = new Label ("<a href=\"https://joinmastodon.org/\">%s</a>".printf (_("What's an instance?")));
             register.halign = Gtk.Align.END;
             register.set_use_markup (true);
             
             attach (image, 0, 1, 2, 1);
-            attach (new AlignedLabel ("Instance:"), 0, 2, 1, 1);
+            attach (new AlignedLabel (_("Instance:")), 0, 2, 1, 1);
             attach (entry, 1, 2, 1, 1);
             attach (button_next, 0, 3, 2, 1);
             attach (register, 0, 4, 2, 1);
@@ -66,14 +66,14 @@ public class Tootle.AddAccountView : Tootle.AbstractView {
             code = new Entry ();
             code.width_chars = 30;
             
-            button_next = new Button.with_label ("Add Account");
+            button_next = new Button.with_label (_("Add Account"));
             button_next.halign = Gtk.Align.END;
             
-            button_back = new Button.with_label ("Back");
+            button_back = new Button.with_label (_("Back"));
             button_back.halign = Gtk.Align.START;
             
             attach (image, 0, 1, 2, 1);
-            attach (new AlignedLabel ("Authorization Code:"), 0, 2, 1, 1);
+            attach (new AlignedLabel (_("Authorization Code:")), 0, 2, 1, 1);
             attach (code, 1, 2, 1, 1);
             attach (button_back, 0, 3, 1, 1);
             attach (button_next, 1, 3, 1, 1);
@@ -99,7 +99,7 @@ public class Tootle.AddAccountView : Tootle.AbstractView {
         grid_code.button_back.clicked.connect(() => stack.set_visible_child_name ("instance"));
         grid_code.button_next.clicked.connect(on_add_click);
         
-        var header1 = new Gtk.Label ("Enter Your Instance URL:");
+        var header1 = new Gtk.Label (_("Enter Your Instance URL:"));
         header1.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
         header1.halign = Gtk.Align.CENTER;
         header1.hexpand = true;

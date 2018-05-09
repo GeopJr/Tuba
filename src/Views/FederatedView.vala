@@ -11,7 +11,7 @@ public class Tootle.FederatedView : Tootle.HomeView {
     }
     
     public override string get_name () {
-        return "Federated Timeline";
+        return _("Federated Timeline");
     }
 
 }

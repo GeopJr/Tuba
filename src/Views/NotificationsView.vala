@@ -18,7 +18,7 @@ public class Tootle.NotificationsView : Tootle.AbstractView {
     }
     
     public override string get_name () {
-        return "Notifications";
+        return _("Notifications");
     }
     
     public void prepend(Notification notification){

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-13 13:04+0300\n"
-"PO-Revision-Date: 2018-04-13 13:04+0300\n"
+"POT-Creation-Date: 2018-05-10 00:44+0300\n"
+"PO-Revision-Date: 2018-05-10 00:35+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: ru\n"
@@ -18,6 +18,266 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/Widgets/AccountsButton.vala:12
-msgid "Account Options"
+#: src/NetManager.vala:61
+msgid "TLS Error"
+msgstr ""
+
+#: src/NetManager.vala:61
+msgid "Can't ensure secure connection: "
+msgstr ""
+
+#: src/API/StatusVisibility.vala:25
+msgid "Post to public timelines"
+msgstr ""
+
+#: src/API/StatusVisibility.vala:27
+msgid "Don't post to public timelines"
+msgstr ""
+
+#: src/API/StatusVisibility.vala:29
+msgid "Post to followers only"
+msgstr ""
+
+#: src/API/StatusVisibility.vala:31
+msgid "Post to mentioned users only"
+msgstr ""
+
+#: src/API/NotificationType.vala:45
+#, c-format
+msgid "<a href=\"%s\"><b>%s</b></a> mentioned you"
+msgstr ""
+
+#: src/API/NotificationType.vala:47
+#, c-format
+msgid "<a href=\"%s\"><b>%s</b></a> boosted your toot"
+msgstr ""
+
+#: src/API/NotificationType.vala:49
+#, c-format
+msgid "<a href=\"%s\"><b>%s</b></a> favorited your toot"
+msgstr ""
+
+#: src/API/NotificationType.vala:51
+#, c-format
+msgid "<a href=\"%s\"><b>%s</b></a> now follows you"
+msgstr ""
+
+#: src/API/NotificationType.vala:53
+#, c-format
+msgid "<a href=\"%s\"><b>%s</b></a> wants to follow you"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:20 src/Views/AddAccountView.vala:72
+msgid "Back"
+msgstr ""
+
+#: src/Widgets/AccountsButton.vala:31
+msgid "Log out"
+msgstr ""
+
+#: src/Widgets/AccountsButton.vala:56
+msgid "Refresh"
+msgstr ""
+
+#: src/Widgets/AccountsButton.vala:60
+msgid "Favorites"
+msgstr ""
+
+#: src/Widgets/AccountsButton.vala:64
+msgid "Settings"
+msgstr ""
+
+#: src/Widgets/StatusWidget.vala:67
+msgid "Boost"
+msgstr ""
+
+#: src/Widgets/StatusWidget.vala:73
+msgid "Favorite"
+msgstr ""
+
+#: src/Widgets/StatusWidget.vala:79
+msgid "Reply"
+msgstr ""
+
+#: src/Widgets/StatusWidget.vala:123
+#, c-format
+msgid "<a href=\"%s\"><b>%s</b></a> boosted"
+msgstr ""
+
+#: src/Widgets/StatusWidget.vala:138
+msgid "Toggle content"
+msgstr ""
+
+#: src/Widgets/StatusWidget.vala:154
+msgid "[ This post contains sensitive content ]"
+msgstr ""
+
+#: src/Widgets/NotificationWidget.vala:20
+msgid "Unknown Notification"
+msgstr ""
+
+#: src/Widgets/NotificationWidget.vala:25
+msgid "Dismiss"
+msgstr ""
+
+#: src/Widgets/NotificationWidget.vala:59
+msgid "Accept"
+msgstr ""
+
+#: src/Widgets/NotificationWidget.vala:61
+msgid "Reject"
+msgstr ""
+
+#: src/Widgets/AttachmentWidget.vala:53
+#, c-format
+msgid "Click to open %s media"
+msgstr ""
+
+#: src/Widgets/AttachmentWidget.vala:74
+msgid "Uploading file..."
+msgstr ""
+
+#: src/Widgets/AttachmentWidget.vala:96
+msgid "File read error"
+msgstr ""
+
+#: src/Widgets/AttachmentWidget.vala:96
+#, c-format
+msgid "Can't read file %s: %s"
+msgstr ""
+
+#: src/Widgets/AttachmentBox.vala:41
+msgid "Select media files to add"
+msgstr ""
+
+#: src/Widgets/AttachmentBox.vala:44
+msgid "_Cancel"
+msgstr ""
+
+#: src/Widgets/AttachmentBox.vala:46
+msgid "_Open"
+msgstr ""
+
+#: src/Dialogs/PostDialog.vala:24
+msgid "Toot"
+msgstr ""
+
+#: src/Dialogs/PostDialog.vala:34
+msgid "Post Visibility"
+msgstr ""
+
+#: src/Dialogs/PostDialog.vala:39
+msgid "Add Media"
+msgstr ""
+
+#: src/Dialogs/PostDialog.vala:47
+msgid "Cancel"
+msgstr ""
+
+#: src/Dialogs/PostDialog.vala:49
+msgid "Toot!"
+msgstr ""
+
+#: src/Views/AddAccountView.vala:34
+msgid "What's an instance?"
+msgstr ""
+
+#: src/Views/AddAccountView.vala:39
+msgid "Instance:"
+msgstr ""
+
+#: src/Views/AddAccountView.vala:69
+msgid "Add Account"
+msgstr ""
+
+#: src/Views/AddAccountView.vala:76
+msgid "Authorization Code:"
+msgstr ""
+
+#: src/Views/AddAccountView.vala:102
+msgid "Enter Your Instance URL:"
+msgstr ""
+
+#: src/Views/HomeView.vala:27
+msgid "Home"
+msgstr ""
+
+#: src/Views/LocalView.vala:14
+msgid "Local Timeline"
+msgstr ""
+
+#: src/Views/FederatedView.vala:14
+msgid "Federated Timeline"
+msgstr ""
+
+#: src/Views/NotificationsView.vala:21
+msgid "Notifications"
+msgstr ""
+
+#: src/Views/AccountView.vala:78
+msgid "Edit Profile"
+msgstr ""
+
+#: src/Views/AccountView.vala:79
+msgid "Mention"
+msgstr ""
+
+#: src/Views/AccountView.vala:80
+msgid "Report"
+msgstr ""
+
+#: src/Views/AccountView.vala:81 src/Views/AccountView.vala:157
+msgid "Mute"
+msgstr ""
+
+#: src/Views/AccountView.vala:82 src/Views/AccountView.vala:156
+msgid "Block"
+msgstr ""
+
+#: src/Views/AccountView.vala:94
+msgid "More Actions"
+msgstr ""
+
+#: src/Views/AccountView.vala:113
+msgid "TOOTS"
+msgstr ""
+
+#: src/Views/AccountView.vala:114
+msgid "FOLLOWS"
+msgstr ""
+
+#: src/Views/AccountView.vala:115
+msgid "FOLLOWERS"
+msgstr ""
+
+#: src/Views/AccountView.vala:145
+msgid "Unfollow"
+msgstr ""
+
+#: src/Views/AccountView.vala:149
+msgid "Follow"
+msgstr ""
+
+#: src/Views/AccountView.vala:156
+msgid "Unblock"
+msgstr ""
+
+#: src/Views/AccountView.vala:157
+msgid "Unmute"
+msgstr ""
+
+#: src/Views/AccountView.vala:213
+msgid "Sent follow request"
+msgstr ""
+
+#: src/Views/AccountView.vala:215
+msgid "Blocked"
+msgstr ""
+
+#: src/Views/AccountView.vala:217
+msgid "Follows you"
+msgstr ""
+
+#: src/Views/AccountView.vala:219
+msgid "Blocking this instance"
 msgstr ""
