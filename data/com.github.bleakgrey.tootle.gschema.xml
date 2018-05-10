@@ -31,5 +31,10 @@
 			<summary>Always monitor new notifications</summary>
 			<description></description>
 		</key>
+		<key name="cache" type="b">
+			<default>false</default>
+			<summary>Cache images to reduce network load</summary>
+			<description></description>
+		</key>
 	</schema>
 </schemalist>

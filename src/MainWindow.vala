@@ -2,6 +2,7 @@ using Gtk;
 
 public class Tootle.MainWindow: Gtk.Window {
 
+    weak SettingsManager settings;
     Gtk.Overlay overlay;
     Granite.Widgets.Toast toast;
     public Tootle.HeaderBar header;
@@ -9,6 +10,8 @@ public class Tootle.MainWindow: Gtk.Window {
     public Stack secondary_stack;
 
     construct {
+        settings = Tootle.settings;
+    
         var provider = new Gtk.CssProvider ();
         provider.load_from_resource ("/com/github/bleakgrey/tootle/Application.css");
         StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -23,7 +26,6 @@ public class Tootle.MainWindow: Gtk.Window {
         primary_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
         primary_stack.show ();
         primary_stack.add_named (secondary_stack, "0");
-        primary_stack.set_size_request (400, 500);
         primary_stack.hexpand = true;
         primary_stack.vexpand = true;
         header = new Tootle.HeaderBar ();

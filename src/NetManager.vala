@@ -19,7 +19,6 @@ public class Tootle.NetManager : GLib.Object {
         cache.set_max_size (1024 * 1024 * 16);
     
         session = new Soup.Session ();
-        session.add_feature (cache);
         session.ssl_strict = true;
         session.ssl_use_system_ca_file = true;
         session.timeout = 20;
@@ -36,7 +35,10 @@ public class Tootle.NetManager : GLib.Object {
 
     public NetManager() {
         GLib.Object();
-        Tootle.app.shutdown.connect (() => cache.flush ());
+        if (Tootle.settings.cache) {
+            session.add_feature (cache);
+            Tootle.app.shutdown.connect (() => cache.flush ());
+        }
     }
     
     public Soup.Message queue(Soup.Message msg, Soup.SessionCallback? cb = null) {
