@@ -16,6 +16,7 @@ public class Tootle.HomeView : Tootle.AbstractView {
         // var s = new Status(1);
         // s.content = "Test content, wow!";
         // prepend (s);
+        
         request ();
     }
     

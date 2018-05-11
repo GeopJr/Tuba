@@ -13,6 +13,8 @@ public class Tootle.NetManager : GLib.Object {
     private Soup.Cache cache;
     public string cache_path;
 
+    private Notificator notificator;
+
     construct {
         cache_path = "%s/%s".printf (GLib.Environment.get_user_cache_dir (), "tootle");
         cache = new Soup.Cache (cache_path, Soup.CacheType.SINGLE_USER);
@@ -39,9 +41,27 @@ public class Tootle.NetManager : GLib.Object {
             session.add_feature (cache);
             Tootle.app.shutdown.connect (() => cache.flush ());
         }
+        
+        Tootle.accounts.switched.connect (acc => {
+            if (acc == null) {
+                if (notificator != null)
+                    notificator.close ();
+                return;
+            }
+            notificator = new Notificator (acc);
+            //notificator.start ();
+        });
     }
     
-    public Soup.Message queue(Soup.Message msg, Soup.SessionCallback? cb = null) {
+    public void abort (Soup.Message msg) {
+        session.cancel_message (msg, 0);
+    }
+    
+    public async WebsocketConnection stream (Soup.Message msg) {
+        return yield session.websocket_connect_async (msg, null, null, null);
+    }
+    
+    public Soup.Message queue (Soup.Message msg, Soup.SessionCallback? cb = null) {
         requests_processing++;
         started ();
         
@@ -126,5 +146,7 @@ public class Tootle.NetManager : GLib.Object {
         });
         Tootle.network.queue (msg);
     }
+    
+    
 
 }

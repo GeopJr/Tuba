@@ -49,7 +49,7 @@ public class Tootle.Account{
         var url = "%s/api/v1/accounts/relationships?id=%lld".printf (Tootle.settings.instance_url, id);
         var msg = new Soup.Message("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
-        Tootle.network.queue(msg, (sess, mess) => {
+        Tootle.network.queue (msg, (sess, mess) => {
             try{
                 var root = Tootle.network.parse_array (mess).get_object_element (0);
                 rs = Relationship.parse (root);
@@ -68,7 +68,7 @@ public class Tootle.Account{
         var url = "%s/api/v1/accounts/%lld/%s".printf (Tootle.settings.instance_url, id, action);
         var msg = new Soup.Message("POST", url);
         msg.priority = Soup.MessagePriority.HIGH;
-        Tootle.network.queue(msg, (sess, mess) => {
+        Tootle.network.queue (msg, (sess, mess) => {
             try{
                 var root = Tootle.network.parse (mess);
                 rs = Relationship.parse (root);
@@ -87,7 +87,7 @@ public class Tootle.Account{
         var url = "%s/api/v1/accounts/%lld/%s".printf (Tootle.settings.instance_url, id, action);
         var msg = new Soup.Message("POST", url);
         msg.priority = Soup.MessagePriority.HIGH;
-        Tootle.network.queue(msg, (sess, mess) => {
+        Tootle.network.queue (msg, (sess, mess) => {
             try{
                 var root = Tootle.network.parse (mess);
                 rs = Relationship.parse (root);
@@ -106,7 +106,7 @@ public class Tootle.Account{
         var url = "%s/api/v1/accounts/%lld/%s".printf (Tootle.settings.instance_url, id, action);
         var msg = new Soup.Message("POST", url);
         msg.priority = Soup.MessagePriority.HIGH;
-        Tootle.network.queue(msg, (sess, mess) => {
+        Tootle.network.queue (msg, (sess, mess) => {
             try{
                 var root = Tootle.network.parse (mess);
                 rs = Relationship.parse (root);
@@ -117,6 +117,13 @@ public class Tootle.Account{
                 warning (e.message);
             }
         });
+        return msg;
+    }
+    
+    public Soup.Message get_stream () {
+        var url = "%sapi/v1/streaming/?stream=user&access_token=%s".printf (Tootle.settings.instance_url, Tootle.settings.access_token);
+        var msg = new Soup.Message("GET", url);
+        msg.priority = Soup.MessagePriority.VERY_HIGH;
         return msg;
     }
 
