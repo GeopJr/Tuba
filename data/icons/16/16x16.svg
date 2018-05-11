@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	 id="svg4372" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" inkscape:version="0.91 r13725" sodipodi:docname="16.svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+	 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+<sodipodi:namedview  inkscape:zoom="32" objecttolerance="10" bordercolor="#666666" borderopacity="1" gridtolerance="10" guidetolerance="10" showgrid="true" pagecolor="#ffffff" inkscape:cx="6.2006547" inkscape:cy="5.2070694" id="namedview23" inkscape:current-layer="svg4372" inkscape:window-height="1017" inkscape:window-y="30" inkscape:window-x="0" inkscape:window-maximized="1" inkscape:pageopacity="0" inkscape:window-width="1920" inkscape:pageshadow="2">
+	<inkscape:grid  type="xygrid" empspacing="4" id="grid4151"></inkscape:grid>
+	
+		<inkscape:grid  type="xygrid" color="#ff00ff" opacity="0.2627451" spacingy="0.5" empopacity="0" empcolor="#ff3fff" empspacing="4" spacingx="0.5" id="grid4153">
+		</inkscape:grid>
+</sodipodi:namedview>
+<radialGradient id="SVGID_1_" cx="-5.4128" cy="8.277" r="40.7317" fx="-7.1172" fy="8.277" gradientUnits="userSpaceOnUse">
+	<stop  offset="0" style="stop-color:#95A3AB"/>
+	<stop  offset="0.2624" style="stop-color:#9BAEC8"/>
+	<stop  offset="0.705" style="stop-color:#8093AA"/>
+	<stop  offset="1" style="stop-color:#273445"/>
+</radialGradient>
+<path fill="url(#SVGID_1_)" d="M14.5,2.5v11c0,0.52-0.4,0.94-0.9,0.99c-0.03,0.01-0.07,0.01-0.1,0.01h-11c-0.55,0-1-0.45-1-1v-11
+	c0-0.55,0.45-1,1-1h11C14.05,1.5,14.5,1.95,14.5,2.5z"/>
+<linearGradient id="rect6741-0-3-5_1_" gradientUnits="userSpaceOnUse" x1="502.1291" y1="2616.1348" x2="502.1291" y2="2578.1348" gradientTransform="matrix(0.2973 0 0 -0.2973 -141.2816 780.1212)">
+	<stop  offset="0" style="stop-color:#FFFFFF"/>
+	<stop  offset="0.0632" style="stop-color:#FFFFFF;stop-opacity:0.2353"/>
+	<stop  offset="0.9506" style="stop-color:#FFFFFF;stop-opacity:0.1569"/>
+	<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0.3922"/>
+</linearGradient>
+<rect id="rect6741-0-3-5" x="2.5" y="2.5" opacity="0.3" fill="none" stroke="url(#rect6741-0-3-5_1_)" stroke-linecap="round" stroke-linejoin="round" enable-background="new    " width="11" height="11"/>
+<path id="rect5505-21-2-8" opacity="0.5" fill="none" stroke="#0E141F" stroke-linecap="round" stroke-linejoin="round" enable-background="new    " d="
+	M2.5,1.5h11c0.552,0,1,0.448,1,1v11c0,0.552-0.448,1-1,1h-11c-0.552,0-1-0.448-1-1v-11C1.5,1.948,1.948,1.5,2.5,1.5z"/>
+<path opacity="0.5" fill="#273445" d="M14.5,6.56v6.94c0,0.52-0.4,0.94-0.9,0.99H6.77l-3.23-3.14v-0.01c-0.01,0-0.01,0-0.01,0
+	l-0.3-0.58l-0.35-0.68c-0.01-0.03,0-0.07,0.04-0.09c0.02-0.01,0.03-0.01,0.05-0.01l0.26,0.06l0.33,0.07l0.15-0.07l0.11-0.06
+	l1.49-0.77c0.01-0.02,0.02-0.02,0.03-0.02l0.73-0.38L5.95,8.58C5.9,8.48,5.92,8.37,5.98,8.29L5.57,7.9L5.54,7.87
+	C5.52,7.85,5.5,7.82,5.48,7.79C5.4,7.62,5.46,7.41,5.63,7.32l2-1.04c0.13-0.07,0.29-0.05,0.4,0.05l0.02,0.02l0.96,0.92l0.51-0.26
+	C9.53,7,9.54,7,9.55,6.99l1.52-0.8l0.77-1.84c0.01-0.04,0.05-0.06,0.07-0.09c0.06-0.03,0.14-0.02,0.19,0.02L14.5,6.56z"/>
+<path fill="#FFFFFF" d="M13.555,7.038l-1.418-2.716c-0.002-0.003-0.004-0.006-0.007-0.009c-0.01-0.013-0.021-0.024-0.034-0.033
+	c-0.05-0.037-0.119-0.044-0.179-0.014c-0.035,0.018-0.061,0.047-0.075,0.08c-0.002,0.003-0.003,0.006-0.004,0.01l-0.766,1.838
+	L9.551,6.989c-0.01,0.005-0.02,0.01-0.03,0.016l-0.517,0.27L8.554,7.51L8.436,7.284c-0.067-0.128-0.224-0.177-0.352-0.11
+	C7.957,7.24,7.907,7.397,7.974,7.525l0.118,0.226L7.656,7.978l-0.376-0.72l0.675-0.352c0.173-0.091,0.24-0.305,0.15-0.478
+	C8.091,6.4,8.073,6.375,8.052,6.353l-0.031-0.03C7.915,6.232,7.759,6.21,7.627,6.278l-1.992,1.04
+	c-0.173,0.091-0.241,0.305-0.15,0.478C5.499,7.823,5.516,7.848,5.536,7.87c0.01,0.012,0.022,0.023,0.033,0.032
+	c0.107,0.091,0.262,0.113,0.393,0.044l0.674-0.352l0.376,0.72l-0.48,0.251L6.415,8.339C6.348,8.212,6.19,8.162,6.063,8.229
+	C6.029,8.246,6.001,8.27,5.979,8.298C5.917,8.376,5.903,8.486,5.952,8.581L6.07,8.806L5.338,9.188c-0.01,0.005-0.02,0.01-0.03,0.015
+	l-1.742,0.909L2.972,9.984C2.97,9.984,2.968,9.983,2.967,9.983C2.951,9.98,2.933,9.982,2.917,9.991
+	c-0.036,0.019-0.051,0.061-0.037,0.097l0.652,1.249c0.002,0.002,0.003,0.005,0.005,0.007l0.001,0.001l0.009,0.009
+	c0.023,0.019,0.056,0.023,0.085,0.009c0.016-0.008,0.028-0.021,0.035-0.037c0.001-0.001,0.001-0.003,0.002-0.004l0.239-0.572
+	l0.697-0.364c0.003,0.198,0.051,0.399,0.148,0.586c0.335,0.641,1.126,0.889,1.767,0.555c0.01-0.005,0.02-0.01,0.03-0.016
+	l0.731-0.382l0.137,0.262c0.067,0.128,0.225,0.177,0.352,0.11c0.128-0.067,0.177-0.224,0.111-0.352l-0.137-0.262l0.48-0.251
+	l0.399,0.764c0.093,0.178,0.312,0.247,0.49,0.154c0.05-0.026,0.091-0.062,0.122-0.104c0.082-0.108,0.098-0.258,0.032-0.386
+	l-0.399-0.764l0.435-0.227l0.137,0.262c0.067,0.128,0.224,0.177,0.352,0.111c0.128-0.067,0.177-0.225,0.11-0.352L9.765,9.83
+	l1.009-0.527c0.07-0.037,0.135-0.08,0.195-0.127c0.484-0.382,0.644-1.066,0.348-1.633c-0.098-0.187-0.235-0.341-0.396-0.457
+	l0.476-0.248l1.958,0.424c0.004,0.001,0.007,0.002,0.01,0.002c0.036,0.007,0.074,0.002,0.109-0.016
+	C13.552,7.208,13.585,7.117,13.555,7.038z M6.2,10.878c-0.004,0.003-0.009,0.005-0.013,0.007c-0.288,0.15-0.643,0.039-0.794-0.249
+	c-0.15-0.288-0.039-0.643,0.249-0.793l0.762-0.398l0.544,1.043L6.2,10.878z M7.41,10.246L6.866,9.204l0.032-0.016l0.449-0.234
+	l0.544,1.043l-0.102,0.053L7.41,10.246z M8.534,9.66L7.99,8.617L8.425,8.39l0.544,1.043L8.534,9.66z M10.34,8.716
+	c-0.006,0.004-0.013,0.008-0.019,0.011L9.432,9.191L8.888,8.148L9.55,7.802l0.212-0.111C9.774,7.686,9.785,7.68,9.797,7.675
+	c0.281-0.125,0.615-0.011,0.759,0.266c0.127,0.244,0.067,0.535-0.129,0.71C10.401,8.675,10.372,8.697,10.34,8.716z"/>
+</svg>
