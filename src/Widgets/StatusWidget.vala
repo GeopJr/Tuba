@@ -15,16 +15,16 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public Gtk.Revealer revealer;
     public Tootle.RichLabel content_label;
     public Tootle.RichLabel? content_spoiler;
+    Gtk.Button? spoiler_button;
     Gtk.Box title_box;
     AttachmentBox attachments;
     Gtk.Grid grid;
     Gtk.Box counters;
     Gtk.Label reblogs;
     Gtk.Label favorites;
-    Gtk.ToggleButton reblog;
-    Gtk.ToggleButton favorite;
-    Gtk.ToggleButton reply;
-    Gtk.Button? spoiler_button;
+    ImageToggleButton reblog;
+    ImageToggleButton favorite;
+    ImageToggleButton reply;
 
     construct {
         grid = new Gtk.Grid ();
@@ -63,23 +63,26 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         reblogs = new Gtk.Label ("0");
         favorites = new Gtk.Label ("0");
         
-        reblog = get_action_button ("go-up-symbolic");
+        reblog = new ImageToggleButton ("go-up-symbolic");
+        reblog.set_action ();
         reblog.tooltip_text = _("Boost");
         reblog.toggled.connect (() => {
             if (reblog.sensitive)
                 status.set_reblogged (reblog.get_active ());
         });
-        favorite = get_action_button ("help-about-symbolic");
+        favorite = new ImageToggleButton ("help-about-symbolic");
+        favorite.set_action ();
         favorite.tooltip_text = _("Favorite");
         favorite.toggled.connect (() => {
             if (favorite.sensitive)
                 status.set_favorited (favorite.get_active ());
         });
-        reply = get_action_button ("edit-undo-symbolic");
+        reply = new ImageToggleButton ("edit-undo-symbolic");
+        reply.set_action ();
         reply.tooltip_text = _("Reply");
         reply.toggled.connect (() => {
             reply.set_active (false);
-            PostDialog.open_reply (Tootle.window, this.status);
+            PostDialog.open_reply (this.status);
         });
 
         var revealer_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);    
@@ -201,6 +204,12 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         favorite.active = status.favorited;
         favorite.sensitive = true;
         
+        if (status.visibility == StatusVisibility.DIRECT) {
+            reblog.sensitive = false;
+            reblog.icon.icon_name = status.visibility.get_icon ();
+            reblog.tooltip_text = _("This post can't be boosted");
+        }
+        
         Tootle.network.load_avatar (status.get_formal ().account.avatar, this.avatar, this.avatar_size);
     }
 
@@ -231,16 +240,6 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         var view = new StatusView (status.get_formal ());
         Tootle.window.open_view (view);
         return false;
-    }
-    
-    private Gtk.ToggleButton get_action_button (string icon_path) {
-        var icon = new Gtk.Image.from_icon_name (icon_path, Gtk.IconSize.SMALL_TOOLBAR);
-        var button = new Gtk.ToggleButton ();
-        button.can_default = false;
-        button.set_focus_on_click (false);
-        button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        button.add (icon);
-        return button;
     }
 
 }

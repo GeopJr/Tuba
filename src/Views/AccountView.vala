@@ -120,7 +120,7 @@ public class Tootle.AccountView : Tootle.HomeView {
         var css_provider = Granite.Widgets.Utils.get_css_provider (stylesheet);
         header_image.get_style_context ().add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
         
-        menu_mention.activate.connect (() => PostDialog.open (Tootle.window, "@%s ".printf (account.acct)));
+        menu_mention.activate.connect (() => PostDialog.open ("@%s ".printf (account.acct)));
         menu_mute.activate.connect (() => account.set_muted (!account.rs.muting));
         menu_block.activate.connect (() => account.set_blocked (!account.rs.blocking));
         button_follow.clicked.connect (() => account.set_following (!account.rs.following));

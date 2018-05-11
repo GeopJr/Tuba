@@ -14,6 +14,7 @@ public class Tootle.Status {
     public bool reblogged;
     public bool favorited;
     public bool sensitive;
+    public StatusVisibility visibility;
     public Status? reblog;
     public Mention[]? mentions;
     public Tag[]? tags;
@@ -41,6 +42,7 @@ public class Tootle.Status {
         status.favourites_count = obj.get_int_member ("favourites_count");
         status.content = Utils.escape_html ( obj.get_string_member ("content"));
         status.sensitive = obj.get_boolean_member ("sensitive");
+        status.visibility = StatusVisibility.from_string (obj.get_string_member ("visibility"));
         
         var spoiler = obj.get_string_member ("spoiler_text");
         if (spoiler != "")

@@ -16,7 +16,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
     private StatusVisibility visibility_opt;
     protected int64? in_reply_to_id;
 
-    public PostDialog (Gtk.Window? parent) {
+    public PostDialog (Gtk.Window? parent = Tootle.window) {
         Object (
             border_width: 5,
             deletable: false,
@@ -124,9 +124,9 @@ public class Tootle.PostDialog : Gtk.Dialog {
         counter.label = remain.to_string ();
     }
     
-    public static void open (Gtk.Window? parent, string? text = null) {
+    public static void open (string? text = null) {
         if(dialog == null){
-            dialog = new PostDialog (parent);
+            dialog = new PostDialog ();
 		    dialog.destroy.connect (() => {
 		        dialog = null;
 		    });
@@ -137,9 +137,9 @@ public class Tootle.PostDialog : Gtk.Dialog {
 		    dialog.text.buffer.text += " " + text;
     }
     
-    public static void open_reply (Gtk.Window? parent, Status status) {
+    public static void open_reply (Status status) {
         if(dialog == null){
-            open (parent);
+            open ();
             dialog.in_reply_to_id = status.id;
             dialog.text.buffer.text = "@%s ".printf (status.account.acct);
         }
@@ -154,7 +154,6 @@ public class Tootle.PostDialog : Gtk.Dialog {
         
         var url = "%s/api/v1/statuses%s".printf (Tootle.settings.instance_url, pars);
         var msg = new Soup.Message("POST", url);
-        debug (url);
         Tootle.network.queue(msg, (sess, mess) => {
             try {
                 var root = Tootle.network.parse (mess);

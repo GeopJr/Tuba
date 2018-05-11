@@ -37,6 +37,7 @@ executable(
     'src/Widgets/HeaderBar.vala',
     'src/Widgets/AlignedLabel.vala',
     'src/Widgets/RichLabel.vala',
+    'src/Widgets/ImageToggleButton.vala',
     'src/Widgets/AccountsButton.vala',
     'src/Widgets/StatusWidget.vala',
     'src/Widgets/NotificationWidget.vala',
