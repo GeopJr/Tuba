@@ -18,7 +18,7 @@ public class Tootle.AddAccountView : Tootle.AbstractView {
             hexpand = true;
             halign = Gtk.Align.CENTER;
             
-            image = new Image.from_resource ("/com/github/bleakgrey/tootle/elephant1.png");
+            image = new Image.from_resource ("/com/github/bleakgrey/tootle/logo128.png");
             image.halign = Gtk.Align.CENTER;
             image.hexpand = true;
             image.margin_bottom = 24;
