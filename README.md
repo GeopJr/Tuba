@@ -1,5 +1,4 @@
-# Tootle
-![tootle_pres-16](https://user-images.githubusercontent.com/37731582/39933812-45d8149a-5544-11e8-9bf4-6d78b1fdb29c.png)
+![Tootle](https://user-images.githubusercontent.com/37731582/39933812-45d8149a-5544-11e8-9bf4-6d78b1fdb29c.png)
 Simple [Mastodon](https://github.com/tootsuite/mastodon) client designed for elementary OS.
 
 ![Tootle Screenshot](https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot.png)
@@ -30,3 +29,7 @@ If you feel like contributing, you're always welcome to help the project in many
 * Donating with [LiberaPay](https://liberapay.com/bleakgrey/) to help project development and keeping the developer happy
 
 <a href="https://liberapay.com/bleakgrey/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
+
+## Credits
+* Tootle Logo by [CallMeFib3r](https://github.com/CallMeFib3r)
+* Medel typeface by Ozan Karakoc
