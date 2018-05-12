@@ -188,8 +188,9 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     }
     
     public void rebind () {
-        title_user.label = "<b>%s</b>".printf (status.get_formal ().account.display_name);
-        title_acct.label = "@" + status.account.acct;
+        var account_formal = status.get_formal ().account;
+        title_user.label = "<b>%s</b>".printf (account_formal.display_name);
+        title_acct.label = "@" + account_formal.acct;
         content_label.label = status.content;
         content_label.mentions = status.mentions;
         parse_date_iso8601 (status.created_at);
@@ -210,7 +211,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             reblog.tooltip_text = _("This post can't be boosted");
         }
         
-        Tootle.network.load_avatar (status.get_formal ().account.avatar, this.avatar, this.avatar_size);
+        Tootle.network.load_avatar (account_formal.avatar, this.avatar, this.avatar_size);
     }
 
     public bool is_spoiler () {
