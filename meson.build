@@ -54,6 +54,7 @@ executable(
     'src/Views/StatusView.vala',
     'src/Views/AccountView.vala',
     'src/Views/FavoritesView.vala',
+    'src/Views/SearchView.vala',
     dependencies: [
         dependency('gtk+-3.0'),
         dependency('glib-2.0', version: '>=2.30.0'),

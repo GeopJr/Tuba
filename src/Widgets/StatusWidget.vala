@@ -15,16 +15,16 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public Gtk.Revealer revealer;
     public Tootle.RichLabel content_label;
     public Tootle.RichLabel? content_spoiler;
-    Gtk.Button? spoiler_button;
-    Gtk.Box title_box;
-    AttachmentBox attachments;
-    Gtk.Grid grid;
-    Gtk.Box counters;
-    Gtk.Label reblogs;
-    Gtk.Label favorites;
-    ImageToggleButton reblog;
-    ImageToggleButton favorite;
-    ImageToggleButton reply;
+    public Gtk.Button? spoiler_button;
+    public Gtk.Box title_box;
+    public AttachmentBox attachments;
+    public Gtk.Grid grid;
+    public Gtk.Box counters;
+    public Gtk.Label reblogs;
+    public Gtk.Label favorites;
+    public ImageToggleButton reblog;
+    public ImageToggleButton favorite;
+    public ImageToggleButton reply;
 
     construct {
         grid = new Gtk.Grid ();

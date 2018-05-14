@@ -53,11 +53,7 @@ public class Tootle.HomeView : Tootle.AbstractView {
     }
     
     public virtual string get_url () {
-        var url = Tootle.settings.instance_url;
-        url += "api/v1/timelines/";
-        url += this.timeline;
-        url += "?limit=25";
-        
+        var url = "%s/api/v1/timelines/%s?limit=25".printf (Tootle.settings.instance_url, this.timeline);
         if (max_id > 0)
             url += "&max_id=" + max_id.to_string ();
         

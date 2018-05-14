@@ -8,6 +8,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
     AccountView default_account;
     Gtk.ModelButton item_settings;
     Gtk.ModelButton item_refresh;
+    Gtk.ModelButton item_search;
     Gtk.ModelButton item_favs;
 
     private class AccountView : Gtk.Grid{
@@ -60,6 +61,10 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         item_favs.text = _("Favorites");
         item_favs.clicked.connect (() => Tootle.window.open_view (new FavoritesView ()));
     
+        item_search = new Gtk.ModelButton ();  
+        item_search.text = _("Search");
+        item_search.clicked.connect (() => Tootle.window.open_view (new SearchView ()));
+    
         item_settings = new Gtk.ModelButton ();  
         item_settings.text = _("Settings");
     
@@ -68,10 +73,11 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         grid.width_request = 200;
         grid.attach(default_account, 0, 1, 1, 1);
         grid.attach(item_separator, 0, 2, 1, 1);
-        grid.attach(item_favs, 0, 4, 1, 1);
-        grid.attach(new Gtk.Separator (Gtk.Orientation.HORIZONTAL), 0, 5, 1, 1);
-        grid.attach(item_refresh, 0, 6, 1, 1);
-        grid.attach(item_settings, 0, 7, 1, 1);
+        grid.attach(item_favs, 0, 3, 1, 1);
+        grid.attach(new Gtk.Separator (Gtk.Orientation.HORIZONTAL), 0, 4, 1, 1);
+        grid.attach(item_refresh, 0, 5, 1, 1);
+        grid.attach(item_search, 0, 6, 1, 1);
+        //grid.attach(item_settings, 0, 8, 1, 1);
         grid.show_all ();
         
         menu = new Gtk.Popover (null);

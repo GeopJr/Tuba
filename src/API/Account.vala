@@ -10,6 +10,7 @@ public class Tootle.Account{
     public string header;
     public string avatar;
     public string url;
+    public string created_at;
     public int64 followers_count;
     public int64 following_count;
     public int64 statuses_count;
@@ -33,6 +34,7 @@ public class Tootle.Account{
         account.avatar = obj.get_string_member ("avatar");
         account.header = obj.get_string_member ("header");
         account.url = obj.get_string_member ("url");
+        account.created_at = obj.get_string_member ("created_at");
         
         account.followers_count = obj.get_int_member ("followers_count");
         account.following_count = obj.get_int_member ("following_count");
@@ -121,7 +123,7 @@ public class Tootle.Account{
     }
     
     public Soup.Message get_stream () {
-        var url = "%sapi/v1/streaming/?stream=user&access_token=%s".printf (Tootle.settings.instance_url, Tootle.settings.access_token);
+        var url = "%s/api/v1/streaming/?stream=user&access_token=%s".printf (Tootle.settings.instance_url, Tootle.settings.access_token);
         var msg = new Soup.Message("GET", url);
         msg.priority = Soup.MessagePriority.VERY_HIGH;
         return msg;

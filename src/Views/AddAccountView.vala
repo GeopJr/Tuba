@@ -24,8 +24,8 @@ public class Tootle.AddAccountView : Tootle.AbstractView {
             image.margin_bottom = 24;
             
             entry = new Entry ();
-            entry.text = "https://myinstance.com/";
-            entry.set_placeholder_text ("https://myinstance.com/");
+            entry.text = "https://myinstance.com";
+            entry.set_placeholder_text ("https://myinstance.com");
             entry.width_chars = 30;
              
             button_next = new Button.with_label ("Next");
