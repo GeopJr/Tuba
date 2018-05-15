@@ -6,8 +6,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public Status status;
     public int64? date_utc;
     
-    public int avatar_size;
     public Gtk.Separator? separator;
+    public int avatar_size = 32;
     public Granite.Widgets.Avatar avatar;
     public Gtk.Label title_user;
     public Gtk.Label title_date;
@@ -29,7 +29,6 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     construct {
         grid = new Gtk.Grid ();
         
-        avatar_size = 32;
         avatar = new Granite.Widgets.Avatar.with_default_icon (avatar_size);
         avatar.valign = Gtk.Align.START;
         avatar.margin_top = 6;
@@ -51,6 +50,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         title_box.pack_start (title_acct, false, false, 0);
         
         title_date = new Gtk.Label ("");
+        title_date.opacity = 0.5;
         title_date.ellipsize = Pango.EllipsizeMode.END;
         title_box.pack_end (title_date, false, false, 0);
         title_box.show_all ();
@@ -59,6 +59,14 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         content_label.wrap_words ();
         
         attachments = new AttachmentBox ();
+
+        var revealer_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);    
+        revealer_box.margin_end = 12;
+        revealer_box.add (content_label);    
+        revealer_box.add (attachments);    
+        revealer = new Revealer ();
+        revealer.reveal_child = true;
+        revealer.add (revealer_box);
         
         reblogs = new Gtk.Label ("0");
         favorites = new Gtk.Label ("0");
@@ -68,30 +76,22 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         reblog.tooltip_text = _("Boost");
         reblog.toggled.connect (() => {
             if (reblog.sensitive)
-                status.set_reblogged (reblog.get_active ());
+                status.get_formal ().set_reblogged (reblog.get_active ());
         });
         favorite = new ImageToggleButton ("help-about-symbolic");
         favorite.set_action ();
         favorite.tooltip_text = _("Favorite");
         favorite.toggled.connect (() => {
             if (favorite.sensitive)
-                status.set_favorited (favorite.get_active ());
+                status.get_formal ().set_favorited (favorite.get_active ());
         });
         reply = new ImageToggleButton ("edit-undo-symbolic");
         reply.set_action ();
         reply.tooltip_text = _("Reply");
         reply.toggled.connect (() => {
             reply.set_active (false);
-            PostDialog.open_reply (this.status);
+            PostDialog.open_reply (status.get_formal ());
         });
-
-        var revealer_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);    
-        revealer_box.margin_end = 12;
-        revealer_box.add (content_label);    
-        revealer_box.add (attachments);    
-        revealer = new Revealer ();
-        revealer.reveal_child = true;
-        revealer.add (revealer_box);
         
         counters = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         counters.margin_top = 6;
@@ -166,9 +166,9 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             grid.attach (spoiler_box, 2, 3, 1, 1);
         }
         
-        if (status.attachments != null) {
+        if (status.get_formal ().attachments != null) {
             attachments.clear ();
-            foreach (Attachment attachment in status.attachments)
+            foreach (Attachment attachment in status.get_formal ().attachments)
                 attachments.append (attachment);
         }
         else
@@ -188,34 +188,35 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     }
     
     public void rebind () {
-        var account_formal = status.get_formal ().account;
-        title_user.label = "<b>%s</b>".printf (account_formal.display_name);
-        title_acct.label = "@" + account_formal.acct;
-        content_label.label = status.content;
-        content_label.mentions = status.mentions;
-        parse_date_iso8601 (status.created_at);
+        var formal = status.get_formal ();
         
-        reblogs.label = status.reblogs_count.to_string ();
-        favorites.label = status.favourites_count.to_string ();
+        title_user.label = "<b>%s</b>".printf (formal.account.display_name);
+        title_acct.label = "@" + formal.account.acct;
+        content_label.label = formal.content;
+        content_label.mentions = formal.mentions;
+        parse_date_iso8601 (formal.created_at);
+        
+        reblogs.label = formal.reblogs_count.to_string ();
+        favorites.label = formal.favourites_count.to_string ();
         
         reblog.sensitive = false;
-        reblog.active = status.reblogged;
+        reblog.active = formal.reblogged;
         reblog.sensitive = true;
         favorite.sensitive = false;
-        favorite.active = status.favorited;
+        favorite.active = formal.favorited;
         favorite.sensitive = true;
         
-        if (status.visibility == StatusVisibility.DIRECT) {
+        if (formal.visibility == StatusVisibility.DIRECT) {
             reblog.sensitive = false;
-            reblog.icon.icon_name = status.visibility.get_icon ();
+            reblog.icon.icon_name = formal.visibility.get_icon ();
             reblog.tooltip_text = _("This post can't be boosted");
         }
         
-        Tootle.network.load_avatar (account_formal.avatar, this.avatar, this.avatar_size);
+        Tootle.network.load_avatar (formal.account.avatar, avatar, avatar_size);
     }
 
     public bool is_spoiler () {
-        return status.spoiler_text != null || status.sensitive;
+        return status.get_formal ().spoiler_text != null || status.get_formal ().sensitive;
     }
     
     // elementary OS has old GLib, so I have to improvise

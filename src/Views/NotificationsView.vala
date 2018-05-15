@@ -71,7 +71,7 @@ public class Tootle.NotificationsView : Tootle.AbstractView {
             }
         });
     
-        var url2 = "%s/api/v1/notifications".printf (Tootle.settings.instance_url);
+        var url2 = "%s/api/v1/notifications?limit=30".printf (Tootle.settings.instance_url);
         var msg2 = new Soup.Message("GET", url2);
         Tootle.network.queue(msg2, (sess, mess) => {
             try{
