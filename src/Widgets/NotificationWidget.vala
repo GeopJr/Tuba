@@ -24,9 +24,8 @@ public class Tootle.NotificationWidget : Gtk.Grid {
         dismiss.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         dismiss.tooltip_text = _("Dismiss");
         dismiss.clicked.connect (() => {
-            var parent = this.get_parent () as Gtk.Box;
             notification.dismiss ();
-            parent.remove (this);
+            destroy ();
         });
         
         attach(image, 1, 2);

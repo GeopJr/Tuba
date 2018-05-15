@@ -13,18 +13,20 @@ public class Tootle.PostDialog : Gtk.Dialog {
     private Gtk.Button publish;
     private AttachmentBox attachments;
     
-    private StatusVisibility visibility_opt;
-    protected int64? in_reply_to_id;
+    protected Status? in_reply_to;
+    protected StatusVisibility visibility_opt = StatusVisibility.PUBLIC;
 
-    public PostDialog (Gtk.Window? parent = Tootle.window) {
+    public PostDialog (Status? status = null) {
         Object (
-            border_width: 5,
+            border_width: 6,
             deletable: false,
             resizable: false,
             title: _("Toot"),
-            transient_for: parent
+            transient_for: Tootle.window
         );
-        visibility_opt = StatusVisibility.PUBLIC;
+        in_reply_to = status;
+        if (status != null)
+            visibility_opt = status.visibility;
         
         var actions = get_action_area ().get_parent () as Gtk.Box;
         var content = get_content_area ();
@@ -33,6 +35,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         visibility = get_visibility_btn ();
         visibility.tooltip_text = _("Post Visibility");
         visibility.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        visibility.get_style_context ().remove_class ("image-button");
         visibility.can_default = false;
         visibility.set_focus_on_click (false);
         attach = new Gtk.Button.from_icon_name ("mail-attachment-symbolic");
@@ -81,28 +84,26 @@ public class Tootle.PostDialog : Gtk.Dialog {
     
     private Gtk.MenuButton get_visibility_btn () {
         var button = new Gtk.MenuButton ();
-        var icon = new Gtk.Image.from_icon_name (visibility_opt.get_icon (), Gtk.IconSize.BUTTON);
         var menu = new Gtk.Popover (null);
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
         box.margin = 6;
         menu.add (box);
         button.direction = Gtk.ArrowType.DOWN;
+        button.image = new Gtk.Image.from_icon_name (visibility_opt.get_icon (), Gtk.IconSize.BUTTON);
         
         StatusVisibility[] opts = {StatusVisibility.PUBLIC, StatusVisibility.UNLISTED, StatusVisibility.PRIVATE, StatusVisibility.DIRECT};
         
         Gtk.RadioButton* first = null;
         foreach (StatusVisibility opt in opts){
             var item = new Gtk.RadioButton.with_label_from_widget (first, opt.get_desc ());
-            if(first == null)
+            if (first == null)
                 first = item;
                 
             item.toggled.connect (() => {
                 visibility_opt = opt;
-                button.remove (icon);
-                icon = new Gtk.Image.from_icon_name (opt.get_icon (), Gtk.IconSize.SMALL_TOOLBAR);
-                icon.show ();
-                button.add (icon);
+                (button.image as Gtk.Image).icon_name = visibility_opt.get_icon ();
             });
+            item.active = visibility_opt == opt;
             box.pack_start (item, false, false, 0);
         }
         
@@ -110,9 +111,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         button.use_popover = true;
         button.popover = menu;
         button.valign = Gtk.Align.CENTER;
-        button.add (icon);
         button.show ();
-        
         return button;
     }
     
@@ -124,33 +123,30 @@ public class Tootle.PostDialog : Gtk.Dialog {
         counter.label = remain.to_string ();
     }
     
-    public static void open (string? text = null) {
-        if(dialog == null){
-            dialog = new PostDialog ();
-		    dialog.destroy.connect (() => {
-		        dialog = null;
-		    });
+    public static void open (string? text = null, Status? reply_to = null) {
+        if (dialog == null){
+            dialog = new PostDialog (reply_to);
+		    dialog.destroy.connect (() => dialog = null);
 		    if (text != null)
 		        dialog.text.buffer.text = text;
 		}
-		else
+		else if (text != null)
 		    dialog.text.buffer.text += " " + text;
     }
     
-    public static void open_reply (Status status) {
-        if(dialog == null){
-            open ();
-            dialog.in_reply_to_id = status.id;
-            dialog.text.buffer.text = "@%s ".printf (status.account.acct);
-        }
+    public static void open_reply (Status reply_to) {
+        if(dialog != null)
+            return;
+        
+        open (null, reply_to);
+        dialog.text.buffer.text = "@%s ".printf (reply_to.account.acct);
     }
     
     public void publish_post () {
-        var pars = "?status=%s".printf (Soup.URI.encode (text.buffer.text, null));
-        pars += "&visibility=%s".printf (visibility_opt.to_string ());
+        var pars = "?status=%s&visibility=%s".printf (Soup.URI.encode (text.buffer.text, null), visibility_opt.to_string ());
         pars += attachments.get_uri_array ();    
-        if (in_reply_to_id != null)
-            pars += "&in_reply_to_id=%s".printf (in_reply_to_id.to_string ());
+        if (in_reply_to != null)
+            pars += "&in_reply_to_id=%s".printf (in_reply_to.id.to_string ());
         
         var url = "%s/api/v1/statuses%s".printf (Tootle.settings.instance_url, pars);
         var msg = new Soup.Message("POST", url);
@@ -158,7 +154,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
             try {
                 var root = Tootle.network.parse (mess);
                 var status = Status.parse (root);
-                debug (status.id.to_string ()); //TODO: Live updates
+                debug ("Posted: %s", status.id.to_string ()); //TODO: Live updates
                 this.destroy ();
             }
             catch (GLib.Error e) {
