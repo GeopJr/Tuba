@@ -9,6 +9,7 @@ public class Tootle.NotificationsView : Tootle.AbstractView {
         view.remove.connect (on_remove);
         Tootle.accounts.switched.connect(on_account_changed);
         Tootle.app.refresh.connect(on_refresh);
+        Tootle.network.notification.connect (notification => prepend (notification));
         
         request ();
     }
@@ -21,18 +22,18 @@ public class Tootle.NotificationsView : Tootle.AbstractView {
         return _("Notifications");
     }
     
-    public void prepend(Notification notification){
+    public void prepend (Notification notification, bool invert_order = false) {
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.show ();
         
         var widget = new NotificationWidget(notification);
         widget.separator = separator;
+        image.icon_name = "notification-new-symbolic";
         view.pack_start(separator, false, false, 0);
         view.pack_start(widget, false, false, 0);
-        image.icon_name = "notification-new-symbolic";
     }
     
-    public virtual void on_remove (Widget widget){
+    public virtual void on_remove (Widget widget) {
         if (!(widget is NotificationWidget))
             return;
 
@@ -40,19 +41,19 @@ public class Tootle.NotificationsView : Tootle.AbstractView {
             image.icon_name = get_icon ();
     }
 
-    public virtual void on_refresh (){
+    public virtual void on_refresh () {
         clear ();
         request ();
     }
 
-    public virtual void on_account_changed (Account? account){
+    public virtual void on_account_changed (Account? account) {
         if(account == null)
             return;
         
         on_refresh ();
     }
     
-    public void request (){
+    public void request () {
         var url = "%s/api/v1/follow_requests".printf (Tootle.settings.instance_url);
         var msg = new Soup.Message("GET", url);
         Tootle.network.queue(msg, (sess, mess) => {

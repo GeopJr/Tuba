@@ -179,6 +179,11 @@ public class Tootle.StatusWidget : Gtk.EventBox {
                 separator.destroy ();
         });
         
+        Tootle.network.status_removed.connect (id => {
+            if (id == status.id)
+                destroy ();
+        });
+        
         rebind ();
     }
     

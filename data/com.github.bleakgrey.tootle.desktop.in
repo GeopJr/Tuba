@@ -10,3 +10,4 @@ Categories=GNOME;GTK;Network;
 Keywords=toot;mastodon;social;network;post;
 MimeType=text/plain;
 StartupNotify=true
+X-GNOME-UsesNotifications=true

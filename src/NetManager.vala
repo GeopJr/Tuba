@@ -5,8 +5,12 @@ using Json;
 
 public class Tootle.NetManager : GLib.Object {
 
-    public abstract signal void started();
-    public abstract signal void finished();
+    public abstract signal void started ();
+    public abstract signal void finished ();
+    
+    public abstract signal void notification (Notification notification);
+    public abstract signal void status_added (Status status);
+    public abstract signal void status_removed (int64 id);
     
     private int requests_processing = 0;
     private Soup.Session session;
@@ -49,7 +53,7 @@ public class Tootle.NetManager : GLib.Object {
                 return;
             }
             notificator = new Notificator (acc);
-            //notificator.start ();
+            notificator.start ();
         });
     }
     
@@ -85,11 +89,9 @@ public class Tootle.NetManager : GLib.Object {
                 default:
                     break;
             }
+            
             if (cb != null)
                 cb (sess, mess);
-                
-            msg.request_body.free ();
-            msg.response_body.free ();
         });
         return msg;
     }

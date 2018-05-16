@@ -55,6 +55,23 @@ public enum Tootle.NotificationType {
                 assert_not_reached();
         }
     }
+    
+    public string get_desc_plain (Account? account) {
+        switch (this) {
+            case MENTION:
+                return _("%s mentioned you").printf (account.display_name);
+            case REBLOG:
+                return _("%s boosted your toot").printf (account.display_name);
+            case FAVORITE:
+                return _("%s favorited your toot").printf (account.display_name);
+            case FOLLOW:
+                return _("%s now follows you").printf (account.display_name);
+            case FOLLOW_REQUEST:
+                return _("%s wants to follow you").printf (account.display_name);
+            default:
+                assert_not_reached();
+        }
+    }
         
     public string get_icon () {
         switch (this) {
