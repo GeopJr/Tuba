@@ -17,7 +17,7 @@ public class Tootle.NetManager : GLib.Object {
     private Soup.Cache cache;
     public string cache_path;
 
-    private Notificator notificator;
+    private Notificator? notificator;
 
     construct {
         cache_path = "%s/%s".printf (GLib.Environment.get_user_cache_dir (), "tootle");
@@ -47,11 +47,11 @@ public class Tootle.NetManager : GLib.Object {
         }
         
         Tootle.accounts.switched.connect (acc => {
-            if (acc == null) {
-                if (notificator != null)
-                    notificator.close ();
+            if (notificator != null)
+                notificator.close ();
+            if (acc == null)
                 return;
-            }
+            
             notificator = new Notificator (acc);
             notificator.start ();
         });
