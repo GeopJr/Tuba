@@ -67,12 +67,11 @@ public class Tootle.Notificator : GLib.Object {
     }
     
     private void toast (Notification obj) {
-        var notification = new GLib.Notification (obj.type.get_desc_plain (obj.account));
-        if (obj.status != null) {
-            var desc = obj.status.content;
-            Regex tags = new Regex("<(.|\n)*?>", RegexCompileFlags.CASELESS);
-            notification.set_body (tags.replace(desc, -1, 0, ""));
-        }
+        var tags = new Regex("<(.|\n)*?>", RegexCompileFlags.CASELESS);
+        var title = tags.replace(obj.type.get_desc (obj.account), -1, 0, "");
+        var notification = new GLib.Notification (title);
+        if (obj.status != null)
+            notification.set_body (tags.replace(obj.status.content, -1, 0, ""));
         Tootle.app.send_notification (Tootle.app.application_id + ":" + obj.id.to_string (), notification);
     }
     
