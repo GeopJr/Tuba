@@ -39,6 +39,17 @@ public class Tootle.Account{
         account.followers_count = obj.get_int_member ("followers_count");
         account.following_count = obj.get_int_member ("following_count");
         account.statuses_count = obj.get_int_member ("statuses_count");
+        
+        if (obj.has_member ("fields")) {
+            obj.get_array_member ("fields").foreach_element ((array, i, node) => {
+                var field_obj = node.get_object ();
+                var field_name = field_obj.get_string_member ("name");
+                var field_val = field_obj.get_string_member ("value");
+                account.note += "\n";
+                account.note += field_name + ": ";
+                account.note += field_val;
+            });
+        }
     
         return account;
     }
