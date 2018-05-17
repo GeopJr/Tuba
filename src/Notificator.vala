@@ -67,11 +67,10 @@ public class Tootle.Notificator : GLib.Object {
     }
     
     private void toast (Notification obj) {
-        var tags = new Regex("<(.|\n)*?>", RegexCompileFlags.CASELESS);
-        var title = tags.replace(obj.type.get_desc (obj.account), -1, 0, "");
+        var title = Utils.escape_html (obj.type.get_desc (obj.account));
         var notification = new GLib.Notification (title);
         if (obj.status != null)
-            notification.set_body (tags.replace(obj.status.content, -1, 0, ""));
+            notification.set_body (Utils.escape_html (obj.status.content));
         Tootle.app.send_notification (Tootle.app.application_id + ":" + obj.id.to_string (), notification);
     }
     

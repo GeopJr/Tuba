@@ -4,28 +4,26 @@ public class Tootle.Utils{
         Gtk.show_uri (null, url, Gdk.CURRENT_TIME);
     }
 
-    public static string escape_html (string content) {      
-        var str = content
+    public static string escape_html (string content) {
+        var all_tags = new Regex("<(.|\n)*?>", RegexCompileFlags.CASELESS);
+        return all_tags.replace(content, -1, 0, "");
+    }
+
+    public static string simplify_html (string content) {      
+        var divided = content
         .replace("<br>", "\n")
         .replace("</br>", "")
         .replace("<br />", "\n")
-        .replace("rel=\"tag\"", "")
-        .replace("rel=\"nofollow noopener\"", "")
-        .replace("class=\"mention hashtag\"", "")
-        .replace("class=\"mention\"", "")
-        .replace("class=\"h-card\"", "")
-        .replace("class=\"invisible\"", "")
-        .replace("class=\"ellipsis\"", "")
-        .replace("class=\"u-url mention\"", "")
-        .replace("class=\"\"", "")
         .replace("<p>", "")
-        .replace("</p>", "\n\n")
-        .replace("target=\"_blank\"", "");
+        .replace("</p>", "\n\n");
         
-        while (str.has_suffix ("\n"))
-            str = str.slice (0, str.last_index_of ("\n"));
+        var html_params = new Regex("(class|target|rel)=\"(.|\n)*?\"", RegexCompileFlags.CASELESS);
+        var simplified = html_params.replace(divided, -1, 0, "");
         
-        return str;
+        while (simplified.has_suffix ("\n"))
+            simplified = simplified.slice (0, simplified.last_index_of ("\n"));
+        
+        return simplified;
     }
 
 }
