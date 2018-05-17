@@ -199,7 +199,9 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         title_acct.label = "@" + formal.account.acct;
         content_label.label = formal.content;
         content_label.mentions = formal.mentions;
-        parse_date_iso8601 (formal.created_at);
+        
+        var datetime = parse_date_iso8601 (formal.created_at);
+        title_date.label = Granite.DateTime.get_relative_datetime (datetime);
         
         reblogs.label = formal.reblogs_count.to_string ();
         favorites.label = formal.favourites_count.to_string ();
@@ -224,17 +226,12 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         return status.get_formal ().spoiler_text != null || status.get_formal ().sensitive;
     }
     
-    // elementary OS has old GLib, so I have to improvise
-    // Version >=2.56 provides DateTime.from_iso8601
-    public void parse_date_iso8601 (string date) {
-        var cmd = "date -d " + date + " +%s";
-        var runner = new CmdRunner ("/bin/", cmd); //Workaround for Granite SimpleCommand pipes bug
-        runner.done.connect (exit => {
-            date_utc = int64.parse (runner.standard_output_str);
-            var date_obj = new GLib.DateTime.from_unix_local (date_utc);
-            title_date.label = Granite.DateTime.get_relative_datetime (date_obj);
-        });
-        runner.run ();
+    private GLib.DateTime? parse_date_iso8601 (string date) {
+        var timeval = GLib.TimeVal();
+        if (timeval.from_iso8601 (date)) {
+            return new GLib.DateTime.from_timeval_local (timeval);
+        }
+        return null;
     }
     
     public bool on_avatar_clicked () {
