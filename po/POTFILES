@@ -4,7 +4,6 @@ src/SettingsManager.vala
 src/AccountManager.vala
 src/NetManager.vala
 src/Utils.vala
-src/CmdRunner.vala
 src/API/StatusVisibility.vala
 src/API/NotificationType.vala
 src/API/Attachment.vala
