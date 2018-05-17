@@ -133,7 +133,7 @@ public class Tootle.AccountView : Tootle.HomeView {
     public void rebind (){
         display_name.label = "<b>%s</b>".printf (account.display_name);
         username.label = "@" + account.acct;
-        note.label = Utils.escape_html (account.note);
+        note.label = Utils.simplify_html (account.note);
         button_follow.visible = !account.is_self ();
         Tootle.network.load_avatar (account.avatar, avatar, 128);
         
