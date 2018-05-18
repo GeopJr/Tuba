@@ -4,12 +4,10 @@ public class Tootle.RichLabel : Gtk.Label {
 
     public weak Mention[]? mentions;
 
-    public RichLabel (string text, bool override_links = true) {
+    public RichLabel (string text) {
         label = text;
         set_use_markup (true);
-        
-        if (override_links)
-            activate_link.connect (open_link);
+        activate_link.connect (open_link);
     }
     
     public void wrap_words () {

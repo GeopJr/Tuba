@@ -4,10 +4,9 @@ using Granite;
 public class Tootle.StatusWidget : Gtk.EventBox {
     
     public Status status;
-    public int64? date_utc;
     
     public Gtk.Separator? separator;
-    public int avatar_size = 32;
+    public Gtk.Grid grid;
     public Granite.Widgets.Avatar avatar;
     public Gtk.Label title_user;
     public Gtk.Label title_date;
@@ -18,7 +17,6 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public Gtk.Button? spoiler_button;
     public Gtk.Box title_box;
     public AttachmentBox attachments;
-    public Gtk.Grid grid;
     public Gtk.Box counters;
     public Gtk.Label reblogs;
     public Gtk.Label favorites;
@@ -28,8 +26,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
 
     construct {
         grid = new Gtk.Grid ();
-        
-        avatar = new Granite.Widgets.Avatar.with_default_icon (avatar_size);
+    
+        avatar = new Granite.Widgets.Avatar.with_default_icon (32);
         avatar.valign = Gtk.Align.START;
         avatar.margin_top = 6;
         avatar.margin_start = 6;
@@ -76,14 +74,14 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         reblog.tooltip_text = _("Boost");
         reblog.toggled.connect (() => {
             if (reblog.sensitive)
-                status.get_formal ().set_reblogged (reblog.get_active ());
+                this.status.get_formal ().set_reblogged (reblog.get_active ());
         });
         favorite = new ImageToggleButton ("help-about-symbolic");
         favorite.set_action ();
         favorite.tooltip_text = _("Favorite");
         favorite.toggled.connect (() => {
             if (favorite.sensitive)
-                status.get_formal ().set_favorited (favorite.get_active ());
+                this.status.get_formal ().set_favorited (favorite.get_active ());
         });
         reply = new ImageToggleButton ("edit-undo-symbolic");
         reply.set_action ();
@@ -103,27 +101,27 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         counters.add (reply);
         counters.show_all ();
         
+        add (grid);
         grid.attach (avatar, 1, 1, 1, 4);
         grid.attach (title_box, 2, 2, 1, 1);
         grid.attach (revealer, 2, 4, 1, 1);
         grid.attach (counters, 2, 5, 1, 1);
-        add (grid);
         show_all ();
     }
 
-    public StatusWidget (Status status) {
+    public StatusWidget (ref Status status) {
         this.status = status;
-        status.updated.connect (rebind);
+        this.status.updated.connect (rebind);
         get_style_context ().add_class ("status");
         
-        if (status.reblog != null) {
+        if (this.status.reblog != null) {
             var image = new Gtk.Image.from_icon_name("go-up-symbolic", Gtk.IconSize.BUTTON);
             image.halign = Gtk.Align.END;
             image.margin_end = 6;
             image.margin_top = 6;
             image.show ();
             
-            var label_text = _("<a href=\"%s\"><b>%s</b></a> boosted").printf (status.account.url, status.account.display_name);
+            var label_text = _("<a href=\"%s\"><b>%s</b></a> boosted").printf (this.status.account.url, this.status.account.display_name);
             var label = new RichLabel (label_text);
             label.halign = Gtk.Align.START;
             label.margin_top = 6;
@@ -180,7 +178,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         });
         
         Tootle.network.status_removed.connect (id => {
-            if (id == status.id)
+            if (id == this.status.id)
                 destroy ();
         });
         
@@ -219,11 +217,11 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             reblog.tooltip_text = _("This post can't be boosted");
         }
         
-        Tootle.network.load_avatar (formal.account.avatar, avatar, avatar_size);
+        Tootle.network.load_avatar (formal.account.avatar, avatar);
     }
 
     public bool is_spoiler () {
-        return status.get_formal ().spoiler_text != null || status.get_formal ().sensitive;
+        return this.status.get_formal ().spoiler_text != null || this.status.get_formal ().sensitive;
     }
     
     private GLib.DateTime? parse_date_iso8601 (string date) {
@@ -241,7 +239,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     }
     
     public bool open () {
-        var view = new StatusView (status.get_formal ());
+        var formal = status.get_formal ();
+        var view = new StatusView (ref formal);
         Tootle.window.open_view (view);
         return false;
     }

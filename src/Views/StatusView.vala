@@ -2,19 +2,19 @@ using Gtk;
 
 public class Tootle.StatusView : Tootle.AbstractView {
 
-    Status root_status;
+    private Status root_status;
     bool last_was_a_root = false;
 
-    public StatusView (Status status) {
+    public StatusView (ref Status status) {
         base ();
         root_status = status;
         request_context ();
     }
     
-    private void prepend (Status status, bool is_root = false){
+    private void prepend (ref Status status, bool is_root = false){
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.show ();
-        var widget = new StatusWidget(status);
+        var widget = new StatusWidget (ref status);
         if (is_root)
             widget.highlight ();
         
@@ -40,17 +40,21 @@ public class Tootle.StatusView : Tootle.AbstractView {
                 var ancestors = root.get_array_member ("ancestors");
                 ancestors.foreach_element ((array, i, node) => {
                     var object = node.get_object ();
-                    if (object != null)
-                        prepend (Status.parse(object));
+                    if (object != null) {
+                        var status = Status.parse (object);
+                        prepend (ref status);
+                    }
                 });
                 
-                prepend (root_status, true);
+                prepend (ref root_status, true);
                 
                 var descendants = root.get_array_member ("descendants");
                 descendants.foreach_element ((array, i, node) => {
                     var object = node.get_object ();
-                    if (object != null)
-                        prepend (Status.parse(object));
+                    if (object != null) {
+                        var status = Status.parse (object);
+                        prepend (ref status);
+                    }
                 });
             }
             catch (GLib.Error e) {

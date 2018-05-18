@@ -23,12 +23,12 @@ public class Tootle.SearchView : AbstractView {
         entry.grab_focus_without_selecting ();
     }
     
-    private void append_account (Account acc) {
+    private void append_account (ref Account acc) {
         var _status = new Status (-1);
         _status.account = acc;
         _status.content = "<a href=\"%s\">@%s</a>".printf (acc.url, acc.acct);
         _status.created_at = acc.created_at;
-        var widget = new StatusWidget (_status);
+        var widget = new StatusWidget (ref _status);
         widget.counters.visible = false;
         widget.title_acct.visible = false;
         widget.button_press_event.connect(() => {
@@ -38,8 +38,8 @@ public class Tootle.SearchView : AbstractView {
         view.pack_start (widget, false, false, 0);
     }
     
-    private void append_status (Status status) {
-        var widget = new StatusWidget (status);
+    private void append_status (ref Status status) {
+        var widget = new StatusWidget (ref status);
         widget.button_press_event.connect(widget.open);
         view.pack_start (widget, false, false, 0);
     }
@@ -99,7 +99,7 @@ public class Tootle.SearchView : AbstractView {
                     accounts.foreach_element ((array, i, node) => {
                         var obj = node.get_object ();
                         var acc = Account.parse (obj);
-                        append_account (acc);
+                        append_account (ref acc);
                     });
                 }
                 
@@ -108,7 +108,7 @@ public class Tootle.SearchView : AbstractView {
                     statuses.foreach_element ((array, i, node) => {
                         var obj = node.get_object ();
                         var status = Status.parse (obj);
-                        append_status (status);
+                        append_status (ref status);
                     });
                 }
                 

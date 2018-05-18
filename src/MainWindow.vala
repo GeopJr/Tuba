@@ -2,9 +2,11 @@ using Gtk;
 
 public class Tootle.MainWindow: Gtk.Window {
 
-    weak SettingsManager settings;
-    Gtk.Overlay overlay;
-    Granite.Widgets.Toast toast;
+    private weak SettingsManager settings;
+    
+    private Gtk.Overlay overlay;
+    private Granite.Widgets.Toast toast;
+    private Gtk.Grid grid;
     public Tootle.HeaderBar header;
     public Stack primary_stack;
     public Stack secondary_stack;
@@ -30,7 +32,7 @@ public class Tootle.MainWindow: Gtk.Window {
         primary_stack.vexpand = true;
         header = new Tootle.HeaderBar ();
         
-        var grid = new Gtk.Grid ();
+        grid = new Gtk.Grid ();
         grid.set_size_request (400, 500);
         grid.attach (primary_stack, 0, 0, 1, 1);
         grid.attach (overlay, 0, 0, 1, 1);

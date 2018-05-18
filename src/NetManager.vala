@@ -22,7 +22,7 @@ public class Tootle.NetManager : GLib.Object {
     construct {
         cache_path = "%s/%s".printf (GLib.Environment.get_user_cache_dir (), "tootle");
         cache = new Soup.Cache (cache_path, Soup.CacheType.SINGLE_USER);
-        cache.set_max_size (1024 * 1024 * 16);
+        cache.set_max_size (1024 * 1024 * 64); // 64 mb
     
         session = new Soup.Session ();
         session.ssl_strict = true;
@@ -92,6 +92,11 @@ public class Tootle.NetManager : GLib.Object {
             
             if (cb != null)
                 cb (sess, mess);
+                
+            msg.request_body.free ();
+            msg.response_body.free ();
+            msg.request_headers.free ();
+            msg.response_headers.free ();
         });
         return msg;
     }
@@ -116,14 +121,13 @@ public class Tootle.NetManager : GLib.Object {
         return parser.get_root ().get_array ();
     }
     
-    public void load_avatar (string url, Granite.Widgets.Avatar avatar, int size){
+    public void load_avatar (string url, Granite.Widgets.Avatar avatar, int size = 32){
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(() => {
-                var loader = new PixbufLoader ();
-                loader.set_size (size, size);
-                loader.write (msg.response_body.data);
-                loader.close ();
-                avatar.pixbuf = loader.get_pixbuf ();
+                var data = msg.response_body.flatten ().data;
+                var stream = new MemoryInputStream.from_data (data);
+                var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, size, size, true);
+                avatar.pixbuf = pixbuf;
         });
         Tootle.network.queue (msg);
     }
@@ -131,10 +135,10 @@ public class Tootle.NetManager : GLib.Object {
     public void load_image (string url, Gtk.Image image) {
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(() => {
-                var loader = new PixbufLoader ();
-                loader.write (msg.response_body.data);
-                loader.close ();
-                image.set_from_pixbuf (loader.get_pixbuf ());
+                var data = msg.response_body.flatten ().data;
+                var stream = new MemoryInputStream.from_data (data);
+                var pixbuf = new Gdk.Pixbuf.from_stream (stream);
+                image.set_from_pixbuf (pixbuf);
         });
         Tootle.network.queue (msg);
     }
@@ -142,7 +146,8 @@ public class Tootle.NetManager : GLib.Object {
     public void load_scaled_image (string url, Gtk.Image image, int size = 64) {
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(() => {
-                var stream = new MemoryInputStream.from_data(msg.response_body.data, GLib.g_free);
+                var data = msg.response_body.flatten ().data;
+                var stream = new MemoryInputStream.from_data (data);
                 var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, size, size, true);
                 image.set_from_pixbuf (pixbuf);
         });

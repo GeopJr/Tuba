@@ -13,11 +13,16 @@ public class Tootle.HomeView : Tootle.AbstractView {
         Tootle.accounts.switched.connect(on_account_changed);
         Tootle.app.refresh.connect(on_refresh);
         
-        // var s = new Status(1);
-        // s.content = "Test content, wow!";
-        // prepend (s);
-        
         request ();
+    }
+    
+    public override void clear (){
+        max_id = -1;
+        view.forall (widget => {
+            widget.destroy ();
+        });
+        
+        pre_construct ();
     }
     
     public override string get_icon () {
@@ -32,11 +37,11 @@ public class Tootle.HomeView : Tootle.AbstractView {
         return false;
     }
     
-    public void prepend(Status status){
+    public void prepend (ref Status status){
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.show ();
-        
-        var widget = new StatusWidget(status);
+
+        var widget = new StatusWidget (ref status);
         widget.separator = separator;
         widget.button_press_event.connect(widget.open);
         if (!is_status_owned (status))
@@ -69,7 +74,7 @@ public class Tootle.HomeView : Tootle.AbstractView {
                     if (object != null){
                         var status = Status.parse(object);
                         max_id = status.id;
-                        prepend (status);
+                        prepend (ref status);
                     }
                 });
             }
