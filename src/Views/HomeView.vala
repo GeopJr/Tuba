@@ -16,15 +16,6 @@ public class Tootle.HomeView : Tootle.AbstractView {
         request ();
     }
     
-    public override void clear (){
-        max_id = -1;
-        view.forall (widget => {
-            widget.destroy ();
-        });
-        
-        pre_construct ();
-    }
-    
     public override string get_icon () {
         return "user-home-symbolic";
     }

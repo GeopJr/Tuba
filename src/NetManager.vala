@@ -135,9 +135,15 @@ public class Tootle.NetManager : GLib.Object {
     public void load_image (string url, Gtk.Image image) {
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(() => {
-                var data = msg.response_body.flatten ().data;
-                var stream = new MemoryInputStream.from_data (data);
-                var pixbuf = new Gdk.Pixbuf.from_stream (stream);
+                // var data = msg.response_body.flatten ().data;
+                // var stream = new MemoryInputStream.from_data (data);
+                // var pixbuf = new Gdk.Pixbuf.from_stream (stream);
+                // image.set_from_pixbuf (pixbuf);
+                
+                var loader = new PixbufLoader ();
+                loader.write (msg.response_body.data);
+                loader.close ();
+                var pixbuf = loader.get_pixbuf ();
                 image.set_from_pixbuf (pixbuf);
         });
         Tootle.network.queue (msg);
