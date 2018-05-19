@@ -16,7 +16,6 @@ public class Tootle.TimelineView : AbstractView {
         this.timeline = timeline;
         this.pars = pars;
         
-        view.remove.connect (on_remove);
         Tootle.accounts.switched.connect(on_account_changed);
         Tootle.app.refresh.connect(on_refresh);
         
@@ -56,11 +55,6 @@ public class Tootle.TimelineView : AbstractView {
         this.page_next = null;
         this.is_last_page = false;
         base.clear ();
-    }
-    
-    public virtual void on_remove (Widget widget){
-        if (!(widget is StatusWidget))
-            return;
     }
     
     public void get_pages (string? header) {
