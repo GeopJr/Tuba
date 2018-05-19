@@ -53,7 +53,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         attach.clicked.connect (() => attachments.select ());
         
         spoiler = new ImageToggleButton ("image-red-eye-symbolic");
-        spoiler.tooltip_text = _("Spoiler warning");
+        spoiler.tooltip_text = _("Spoiler Warning");
         spoiler.set_action ();
         spoiler.toggled.connect (() => {
             spoiler_revealer.reveal_child = spoiler.active;
