@@ -57,8 +57,10 @@ public class Tootle.TimelineView : AbstractView {
         view.pack_start(separator, false, false, 0);
         view.pack_start(widget, false, false, 0);
         
-        if (first)
+        if (first) {
             view.reorder_child (widget, 0);
+            view.reorder_child (separator, 0);
+        }
     }
     
     public override void clear () {

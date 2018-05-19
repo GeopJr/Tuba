@@ -5,7 +5,8 @@ public class Tootle.ImageToggleButton : Gtk.ToggleButton {
     public Gtk.Image icon;
     public Gtk.IconSize size;
 
-    public ImageToggleButton (string icon_name, Gtk.IconSize icon_size = Gtk.IconSize.SMALL_TOOLBAR) {
+    public ImageToggleButton (string icon_name, Gtk.IconSize icon_size = Gtk.IconSize.BUTTON) {
+        valign = Gtk.Align.CENTER;
         size = icon_size;
         icon = new Gtk.Image.from_icon_name (icon_name, icon_size);
         add (icon);
