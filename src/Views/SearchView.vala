@@ -44,12 +44,6 @@ public class Tootle.SearchView : AbstractView {
         view.pack_start (widget, false, false, 0);
     }
     
-    private void append_empty_state (){
-        var empty_state = new Gtk.Label (_("No Results"));
-        empty_state.get_style_context ().add_class ("h2");
-        view.pack_start (empty_state, false, false, 6);
-    }
-    
     private void append_hashtag (string name) {
         var text = "<a href=\"%s/tags/%s\">#%s</a>".printf (Tootle.settings.instance_url, Soup.URI.encode (name, null), name);
         var widget = new RichLabel (text);
@@ -79,10 +73,6 @@ public class Tootle.SearchView : AbstractView {
                 var hashtags = root.get_array_member ("hashtags");
                 
                 clear ();
-                if (accounts.get_length () == 0 && statuses.get_length () == 0 && hashtags.get_length () == 0) {
-                    append_empty_state ();
-                    return;
-                }
                 
                 if (accounts.get_length () > 0) {
                     append_header (_("Accounts"));
@@ -108,6 +98,8 @@ public class Tootle.SearchView : AbstractView {
                         append_hashtag (node.get_string ());
                     });
                 }
+                
+                empty_state ();
                     
             }
             catch (GLib.Error e) {

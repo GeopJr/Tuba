@@ -4,10 +4,12 @@ public class Tootle.FollowersView : TimelineView {
 
     public FollowersView (ref Account account) {
         base (account.id.to_string ());
-        
     }
     
     public new void prepend (ref Account account){
+        if (empty != null)
+            empty.destroy ();
+    
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.show ();
 
@@ -27,7 +29,7 @@ public class Tootle.FollowersView : TimelineView {
     
     public override void request (){
         var msg = new Soup.Message("GET", get_url ());
-        debug (get_url ());
+        msg.finished.connect (() => empty_state ());
         Tootle.network.queue(msg, (sess, mess) => {
             try{
                 Tootle.network.parse_array (mess).foreach_element ((array, i, node) => {

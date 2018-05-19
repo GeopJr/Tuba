@@ -22,7 +22,10 @@ public class Tootle.NotificationsView : AbstractView {
         return _("Notifications");
     }
     
-    public void prepend (Notification notification, bool invert_order = false) {
+    public void prepend (Notification notification) {
+        if (empty != null)
+            empty.destroy ();
+    
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.show ();
         
@@ -37,8 +40,15 @@ public class Tootle.NotificationsView : AbstractView {
         if (!(widget is NotificationWidget))
             return;
 
-        if (view.get_children ().length () <= 1)
+        empty_state ();
+    }
+    
+    public override bool empty_state () {
+        var is_empty = base.empty_state ();
+        if (image != null && is_empty)
             image.icon_name = get_icon ();
+        
+        return is_empty;
     }
 
     public virtual void on_refresh () {
@@ -89,6 +99,8 @@ public class Tootle.NotificationsView : AbstractView {
                 warning (e.message);
             }
         });
+        
+        empty_state ();
     }
 
 }

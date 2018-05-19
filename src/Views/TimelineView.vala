@@ -36,6 +36,9 @@ public class Tootle.TimelineView : AbstractView {
     }
     
     public void prepend (ref Status status){
+        if (empty != null)
+            empty.destroy ();
+    
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.show ();
 
@@ -58,16 +61,12 @@ public class Tootle.TimelineView : AbstractView {
     public virtual void on_remove (Widget widget){
         if (!(widget is StatusWidget))
             return;
-            
-        //TODO: empty state
     }
     
     public void get_pages (string? header) {
         page_next = page_prev = null;
-        if (header == null) {
-            debug ("No pagingation links");
+        if (header == null)
             return;
-        }
         
         var pages = header.split (",");
         foreach (var page in pages) {
@@ -76,14 +75,10 @@ public class Tootle.TimelineView : AbstractView {
                 .replace (">", "")
                 .split (";")[0];
 
-            if ("rel=\"prev\"" in page) {
-                debug ("found prev page %s", sanitized);
+            if ("rel=\"prev\"" in page)
                 page_prev = sanitized;
-            }
-            else {
-                debug ("found next page %s", sanitized);
+            else
                 page_next = sanitized;
-            }
         }
         
         is_last_page = page_prev != null & page_next == null;
@@ -100,6 +95,7 @@ public class Tootle.TimelineView : AbstractView {
     
     public virtual void request (){
         var msg = new Soup.Message("GET", get_url ());
+        msg.finished.connect (() => empty_state ());
         Tootle.network.queue(msg, (sess, mess) => {
             try{
                 Tootle.network.parse_array (mess).foreach_element ((array, i, node) => {
@@ -126,7 +122,6 @@ public class Tootle.TimelineView : AbstractView {
     public virtual void on_account_changed (Account? account){
         if(account == null)
             return;
-        
         on_refresh ();
     }
     

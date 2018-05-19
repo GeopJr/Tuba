@@ -197,6 +197,10 @@ public class Tootle.AccountView : TimelineView {
         return btn;
     }
     
+    public override bool is_empty () {
+        return view.get_children ().length () <= 2;
+    }
+    
     public override bool is_status_owned (Status status){
         return status.get_formal ().account.id == account.id;
     }

@@ -2,6 +2,7 @@
 <gresources>
   <gresource prefix="/com/github/bleakgrey/tootle/">
     <file alias="Application.css">Application.css</file>
-    <file alias="logo128.png">logo128.png</file>
+    <file alias="logo128">logo128.png</file>
+    <file alias="empty_state">empty_state.png</file>
   </gresource>
 </gresources>
