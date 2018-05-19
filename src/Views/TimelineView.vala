@@ -18,6 +18,7 @@ public class Tootle.TimelineView : AbstractView {
         
         Tootle.accounts.switched.connect(on_account_changed);
         Tootle.app.refresh.connect(on_refresh);
+        Tootle.network.status_added.connect (on_status_added);
         
         request ();
     }
@@ -34,7 +35,14 @@ public class Tootle.TimelineView : AbstractView {
         return false;
     }
     
-    public void prepend (ref Status status){
+    private void on_status_added (ref Status status, string timeline) {
+        if (timeline != this.timeline)
+            return;
+        
+        prepend (ref status, true);
+    }
+    
+    public void prepend (ref Status status, bool first = false){
         if (empty != null)
             empty.destroy ();
     
@@ -48,6 +56,9 @@ public class Tootle.TimelineView : AbstractView {
             widget.avatar.button_press_event.connect(widget.on_avatar_clicked);
         view.pack_start(separator, false, false, 0);
         view.pack_start(widget, false, false, 0);
+        
+        if (first)
+            view.reorder_child (widget, 0);
     }
     
     public override void clear () {

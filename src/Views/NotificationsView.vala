@@ -9,7 +9,7 @@ public class Tootle.NotificationsView : AbstractView {
         view.remove.connect (on_remove);
         Tootle.accounts.switched.connect(on_account_changed);
         Tootle.app.refresh.connect(on_refresh);
-        Tootle.network.notification.connect (notification => prepend (notification));
+        Tootle.network.notification.connect (prepend);
         
         request ();
     }
@@ -22,7 +22,7 @@ public class Tootle.NotificationsView : AbstractView {
         return _("Notifications");
     }
     
-    public void prepend (Notification notification) {
+    public void prepend (ref Notification notification) {
         if (empty != null)
             empty.destroy ();
     
@@ -72,7 +72,7 @@ public class Tootle.NotificationsView : AbstractView {
                     var obj = node.get_object ();
                     if (obj != null){
                         var notification = Notification.parse_follow_request(obj);
-                        prepend (notification);
+                        prepend (ref notification);
                     }
                 });
             }
@@ -90,7 +90,7 @@ public class Tootle.NotificationsView : AbstractView {
                     var obj = node.get_object ();
                     if (obj != null){
                         var notification = Notification.parse(obj);
-                        prepend (notification);
+                        prepend (ref notification);
                     }
                 });
             }

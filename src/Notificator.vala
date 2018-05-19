@@ -40,7 +40,7 @@ public class Tootle.Notificator : GLib.Object {
         switch (type) {
             case "update":
                 var status = Status.parse (sanitize (root));
-                network.status_added (status);
+                network.status_added (ref status, "home");
                 break;
             case "delete":
                 var id = int64.parse (root.get_string_member("payload"));
@@ -49,7 +49,7 @@ public class Tootle.Notificator : GLib.Object {
             case "notification":
                 var notif = Notification.parse (sanitize (root));
                 toast (notif);
-                network.notification (notif);
+                network.notification (ref notif);
                 break;
             default:
                 warning ("Unknown push event: %s", type);

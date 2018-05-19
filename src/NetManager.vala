@@ -8,8 +8,8 @@ public class Tootle.NetManager : GLib.Object {
     public abstract signal void started ();
     public abstract signal void finished ();
     
-    public abstract signal void notification (Notification notification);
-    public abstract signal void status_added (Status status);
+    public abstract signal void notification (ref Notification notification);
+    public abstract signal void status_added (ref Status status, string timeline);
     public abstract signal void status_removed (int64 id);
     
     private int requests_processing = 0;
