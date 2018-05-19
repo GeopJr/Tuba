@@ -24,17 +24,7 @@ public class Tootle.SearchView : AbstractView {
     }
     
     private void append_account (ref Account acc) {
-        var _status = new Status (-1);
-        _status.account = acc;
-        _status.content = "<a href=\"%s\">@%s</a>".printf (acc.url, acc.acct);
-        _status.created_at = acc.created_at;
-        var widget = new StatusWidget (ref _status);
-        widget.counters.visible = false;
-        widget.title_acct.visible = false;
-        widget.button_press_event.connect(() => {
-            widget.on_avatar_clicked ();
-            return true;
-        });
+        var widget = new AccountWidget (ref acc);
         view.pack_start (widget, false, false, 0);
     }
     

@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tootle.LocalView : Tootle.HomeView {
+public class Tootle.LocalView : TimelineView {
 
     public LocalView () {
         base ("public");

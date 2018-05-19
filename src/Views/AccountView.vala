@@ -1,7 +1,7 @@
 using Gtk;
 using Granite;
 
-public class Tootle.AccountView : Tootle.HomeView {
+public class Tootle.AccountView : TimelineView {
     
     Account account;
     
@@ -107,12 +107,19 @@ public class Tootle.AccountView : Tootle.HomeView {
     }
     
     public AccountView (Account acc) {
+        base ("");
         account = acc;
         account.updated.connect(rebind);
         
         add_counter (_("TOOTS"), 1, account.statuses_count);
-        add_counter (_("FOLLOWS"), 2, account.following_count);
-        add_counter (_("FOLLOWERS"), 3, account.followers_count);
+        add_counter (_("FOLLOWS"), 2, account.following_count).clicked.connect (() => {
+            var view = new FollowingView (ref account);
+            Tootle.window.open_view (view);
+        });
+        add_counter (_("FOLLOWERS"), 3, account.followers_count).clicked.connect (() => {
+            var view = new FollowersView (ref account);
+            Tootle.window.open_view (view);
+        });
         
         show_all ();
         
@@ -195,11 +202,10 @@ public class Tootle.AccountView : Tootle.HomeView {
     }
     
     public override string get_url () {
-        var url = "%s/api/v1/accounts/%lld/statuses".printf (Tootle.settings.instance_url, account.id);
-        url += "?limit=25";
+        if (page_next != null)
+            return page_next;
         
-        if (max_id > 0)
-            url += "&max_id=" + max_id.to_string (); 
+        var url = "%s/api/v1/accounts/%lld/statuses?limit=%i".printf (Tootle.settings.instance_url, account.id, this.limit);
         return url;
     }
     

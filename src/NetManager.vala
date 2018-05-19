@@ -124,7 +124,7 @@ public class Tootle.NetManager : GLib.Object {
     public void load_avatar (string url, Granite.Widgets.Avatar avatar, int size = 32){
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(() => {
-                var data = msg.response_body.flatten ().data;
+                var data = msg.response_body.data;
                 var stream = new MemoryInputStream.from_data (data);
                 var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, size, size, true);
                 avatar.pixbuf = pixbuf;
@@ -141,7 +141,8 @@ public class Tootle.NetManager : GLib.Object {
                 // image.set_from_pixbuf (pixbuf);
                 
                 var loader = new PixbufLoader ();
-                loader.write (msg.response_body.data);
+                var data = msg.response_body.data;
+                loader.write (data);
                 loader.close ();
                 var pixbuf = loader.get_pixbuf ();
                 image.set_from_pixbuf (pixbuf);
@@ -152,7 +153,7 @@ public class Tootle.NetManager : GLib.Object {
     public void load_scaled_image (string url, Gtk.Image image, int size = 64) {
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(() => {
-                var data = msg.response_body.flatten ().data;
+                var data = msg.response_body.data;
                 var stream = new MemoryInputStream.from_data (data);
                 var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, size, size, true);
                 image.set_from_pixbuf (pixbuf);

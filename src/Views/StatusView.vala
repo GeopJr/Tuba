@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tootle.StatusView : Tootle.AbstractView {
+public class Tootle.StatusView : AbstractView {
 
     private Status root_status;
     bool last_was_a_root = false;

@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.NotificationsView : Tootle.AbstractView {
+public class Tootle.NotificationsView : AbstractView {
 
     public NotificationsView () {
         base ();

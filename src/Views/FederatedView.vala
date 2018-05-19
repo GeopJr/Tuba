@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tootle.FederatedView : Tootle.HomeView {
+public class Tootle.FederatedView : TimelineView {
 
     public FederatedView () {
         base ("public");

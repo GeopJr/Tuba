@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tootle.FavoritesView : Tootle.HomeView {
+public class Tootle.FavoritesView : TimelineView {
 
     public FavoritesView () {
         base ("favorites");
@@ -8,11 +8,10 @@ public class Tootle.FavoritesView : Tootle.HomeView {
     }
     
     public override string get_url (){
-        var url = "%s/api/v1/favourites?limit=25".printf (Tootle.settings.instance_url);
+        if (page_next != null)
+            return page_next;
         
-        if (max_id > 0)
-            url += "&max_id=" + max_id.to_string ();
-        
+        var url = "%s/api/v1/favourites/?limit=%i".printf (Tootle.settings.instance_url, this.limit);
         return url;
     }
 

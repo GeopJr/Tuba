@@ -76,7 +76,7 @@ public class Tootle.MainWindow: Gtk.Window {
     }
     
     private void build_main_view (){
-        add_header_view (new HomeView ());
+        add_header_view (new TimelineView ("home"));
         add_header_view (new NotificationsView ());
         add_header_view (new LocalView ());
         add_header_view (new FederatedView ());

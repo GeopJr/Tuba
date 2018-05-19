@@ -32,7 +32,7 @@ public class Tootle.RichLabel : Gtk.Label {
         if ("/tags/" in url){
             var encoded = url.split("/tags/")[1];
             var hashtag = Soup.URI.decode (encoded);
-            var feed = new HomeView ("tag/" + hashtag);
+            var feed = new TimelineView ("tag/" + hashtag);
             Tootle.window.open_view (feed);
             return true;
         }

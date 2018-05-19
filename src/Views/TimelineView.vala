@@ -1,13 +1,20 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.HomeView : Tootle.AbstractView {
+public class Tootle.TimelineView : AbstractView {
     
-    private string timeline;
+    protected string timeline;
+    protected string pars;
+    
+    protected int limit = 25;
+    protected bool is_last_page = false;
+    protected string? page_next;
+    protected string? page_prev;
 
-    public HomeView (string timeline = "home") {
+    public TimelineView (string timeline, string pars = "") {
         base ();
         this.timeline = timeline;
+        this.pars = pars;
         
         view.remove.connect (on_remove);
         Tootle.accounts.switched.connect(on_account_changed);
@@ -41,6 +48,13 @@ public class Tootle.HomeView : Tootle.AbstractView {
         view.pack_start(widget, false, false, 0);
     }
     
+    public override void clear () {
+        this.page_prev = null;
+        this.page_next = null;
+        this.is_last_page = false;
+        base.clear ();
+    }
+    
     public virtual void on_remove (Widget widget){
         if (!(widget is StatusWidget))
             return;
@@ -48,11 +62,39 @@ public class Tootle.HomeView : Tootle.AbstractView {
         //TODO: empty state
     }
     
-    public virtual string get_url () {
-        var url = "%s/api/v1/timelines/%s?limit=25".printf (Tootle.settings.instance_url, this.timeline);
-        if (max_id > 0)
-            url += "&max_id=" + max_id.to_string ();
+    public void get_pages (string? header) {
+        page_next = page_prev = null;
+        if (header == null) {
+            debug ("No pagingation links");
+            return;
+        }
         
+        var pages = header.split (",");
+        foreach (var page in pages) {
+            var sanitized = page
+                .replace ("<","")
+                .replace (">", "")
+                .split (";")[0];
+
+            if ("rel=\"prev\"" in page) {
+                debug ("found prev page %s", sanitized);
+                page_prev = sanitized;
+            }
+            else {
+                debug ("found next page %s", sanitized);
+                page_next = sanitized;
+            }
+        }
+        
+        is_last_page = page_prev != null & page_next == null;
+    }
+    
+    public virtual string get_url () {
+        if (page_next != null)
+            return page_next;
+        
+        var url = "%s/api/v1/timelines/%s?limit=%i".printf (Tootle.settings.instance_url, this.timeline, this.limit);
+        url += this.pars;
         return url;
     }
     
@@ -64,10 +106,10 @@ public class Tootle.HomeView : Tootle.AbstractView {
                     var object = node.get_object ();
                     if (object != null){
                         var status = Status.parse(object);
-                        max_id = status.id;
                         prepend (ref status);
                     }
                 });
+                get_pages (mess.response_headers.get_one ("Link"));
             }
             catch (GLib.Error e) {
                 warning ("Can't update feed");
@@ -89,6 +131,10 @@ public class Tootle.HomeView : Tootle.AbstractView {
     }
     
     public override void bottom_reached (){
+        if (is_last_page) {
+            debug ("Last page reached");
+            return;
+        }
         request ();
     }
 

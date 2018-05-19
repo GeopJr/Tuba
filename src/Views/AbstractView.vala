@@ -1,8 +1,7 @@
 using Gtk;
 
 public abstract class Tootle.AbstractView : Gtk.ScrolledWindow {
-    
-    public int64 max_id = -1;
+
     public Gtk.Image image;
     public Gtk.Box view;
 
@@ -33,9 +32,7 @@ public abstract class Tootle.AbstractView : Gtk.ScrolledWindow {
     }
     
     public virtual void clear (){
-        max_id = -1;
         view.forall (widget => widget.destroy ());
-        
         pre_construct ();
     }
     
