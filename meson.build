@@ -45,6 +45,7 @@ executable(
     'src/Widgets/AttachmentWidget.vala',
     'src/Widgets/AttachmentBox.vala',
     'src/Dialogs/PostDialog.vala',
+    'src/Dialogs/SettingsDialog.vala',
     'src/Views/AbstractView.vala',
     'src/Views/AddAccountView.vala',
     'src/Views/TimelineView.vala',

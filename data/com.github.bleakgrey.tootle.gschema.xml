@@ -36,5 +36,15 @@
 			<summary>Cache images to reduce network load</summary>
 			<description></description>
 		</key>
+		<key name="cache-size" type="i">
+			<default>64</default>
+			<summary>Cache size</summary>
+			<description>Sets the maximum size of cached content</description>
+		</key>
+		<key name="live-updates" type="b">
+			<default>true</default>
+			<summary>Update timelines in real-time</summary>
+			<description></description>
+		</key>
 	</schema>
 </schemalist>

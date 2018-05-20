@@ -20,10 +20,8 @@ public class Tootle.NetManager : GLib.Object {
     private Notificator? notificator;
 
     construct {
-        cache_path = "%s/%s".printf (GLib.Environment.get_user_cache_dir (), "tootle");
+        cache_path = "%s/%s".printf (GLib.Environment.get_user_cache_dir (), Tootle.app.application_id);
         cache = new Soup.Cache (cache_path, Soup.CacheType.SINGLE_USER);
-        cache.set_max_size (1024 * 1024 * 64); // 64 mb
-    
         session = new Soup.Session ();
         session.ssl_strict = true;
         session.ssl_use_system_ca_file = true;
@@ -35,16 +33,18 @@ public class Tootle.NetManager : GLib.Object {
                 finished ();
         });
         
+        Tootle.app.shutdown.connect (() => {
+            cache.dump ();
+        });
+        Tootle.settings.changed.connect (on_settings_changed);
+        on_settings_changed ();
+        
         // Soup.Logger logger = new Soup.Logger (Soup.LoggerLogLevel.BODY, -1);
         // session.add_feature (logger);
     }
 
     public NetManager() {
         GLib.Object();
-        if (Tootle.settings.cache) {
-            session.add_feature (cache);
-            Tootle.app.shutdown.connect (() => cache.flush ());
-        }
         
         Tootle.accounts.switched.connect (acc => {
             if (notificator != null)
@@ -55,6 +55,24 @@ public class Tootle.NetManager : GLib.Object {
             notificator = new Notificator (acc);
             notificator.start ();
         });
+    }
+    
+    private void on_settings_changed () {
+        cache.set_max_size (1024 * 1024 * Tootle.settings.cache_size);
+        
+        var has_cache = session.has_feature (cache.get_type ());
+        if (Tootle.settings.cache) {
+            if (!has_cache) {
+                debug ("Turning on cache");
+                session.add_feature (cache);
+            }
+        }
+        else {
+            if (has_cache) {
+                debug ("Turning off cache");
+                session.remove_feature (cache);
+            }
+        }
     }
     
     public void abort (Soup.Message msg) {
@@ -161,6 +179,4 @@ public class Tootle.NetManager : GLib.Object {
         Tootle.network.queue (msg);
     }
     
-    
-
 }

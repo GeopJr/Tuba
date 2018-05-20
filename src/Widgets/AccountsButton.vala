@@ -67,6 +67,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
     
         item_settings = new Gtk.ModelButton ();  
         item_settings.text = _("Settings");
+        item_settings.clicked.connect (() => SettingsDialog.open ());
     
         grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
@@ -77,7 +78,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         grid.attach(new Gtk.Separator (Gtk.Orientation.HORIZONTAL), 0, 4, 1, 1);
         grid.attach(item_refresh, 0, 5, 1, 1);
         grid.attach(item_search, 0, 6, 1, 1);
-        //grid.attach(item_settings, 0, 8, 1, 1);
+        grid.attach(item_settings, 0, 8, 1, 1);
         grid.show_all ();
         
         menu = new Gtk.Popover (null);

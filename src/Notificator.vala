@@ -39,17 +39,26 @@ public class Tootle.Notificator : GLib.Object {
         var type = root.get_string_member ("event");
         switch (type) {
             case "update":
-                var status = Status.parse (sanitize (root));
-                network.status_added (ref status, "home");
+                if (Tootle.settings.live_updates) {
+                    var status = Status.parse (sanitize (root));
+                    network.status_added (ref status, "home");
+                }
+                else
+                    Tootle.app.toast ("New post available");
+                
                 break;
             case "delete":
-                var id = int64.parse (root.get_string_member("payload"));
-                network.status_removed (id);
+                if (Tootle.settings.live_updates) {
+                    var id = int64.parse (root.get_string_member("payload"));
+                    network.status_removed (id);
+                }
+                
                 break;
             case "notification":
                 var notif = Notification.parse (sanitize (root));
                 toast (notif);
                 network.notification (ref notif);
+                
                 break;
             default:
                 warning ("Unknown push event: %s", type);
