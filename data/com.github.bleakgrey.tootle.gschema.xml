@@ -46,5 +46,10 @@
 			<summary>Update timelines in real-time</summary>
 			<description></description>
 		</key>
+		<key name="dark-theme" type="b">
+			<default>false</default>
+			<summary>Sets application theme to dark</summary>
+			<description></description>
+		</key>
 	</schema>
 </schemalist>

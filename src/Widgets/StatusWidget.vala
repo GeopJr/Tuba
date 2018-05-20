@@ -112,7 +112,6 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public StatusWidget (ref Status status) {
         this.status = status;
         this.status.updated.connect (rebind);
-        get_style_context ().add_class ("status");
         
         if (this.status.reblog != null) {
             var image = new Gtk.Image.from_icon_name("go-up-symbolic", Gtk.IconSize.BUTTON);

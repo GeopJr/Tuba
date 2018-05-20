@@ -1,0 +1,14 @@
+@define-color colorAccent #9aa7c8;
+@define-color colorPrimary #333542;
+
+.header-counters{
+    background: rgba(0,0,0,.4);
+}
+
+.attachment{
+    background: rgba (255,255,255,.3);
+}
+
+.card{
+    background: rgba (255,255,255,.15);
+}

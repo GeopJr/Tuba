@@ -19,6 +19,10 @@ public class Tootle.SettingsDialog : Gtk.Dialog {
         int i = 0;
         grid = new Gtk.Grid ();
         
+        grid.attach (new Granite.HeaderLabel (_("Appearance")), 0, i++, 2, 1);
+        grid.attach (new SettingsLabel (_("Dark theme:")), 0, i);
+        grid.attach (new SettingsSwitch ("dark-theme"), 1, i++);
+        
         grid.attach (new Granite.HeaderLabel (_("Timelines")), 0, i++, 2, 1);
         grid.attach (new SettingsLabel (_("Real-time updates:")), 0, i);
         grid.attach (new SettingsSwitch ("live-updates"), 1, i++);

@@ -15,8 +15,11 @@ public class Tootle.MainWindow: Gtk.Window {
         settings = Tootle.settings;
     
         var provider = new Gtk.CssProvider ();
-        provider.load_from_resource ("/com/github/bleakgrey/tootle/Application.css");
+        provider.load_from_resource ("/com/github/bleakgrey/tootle/app.css");
         StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        
+        settings.changed.connect (update_theme);
+        update_theme ();
 
         toast = new Granite.Widgets.Toast ("");
         overlay = new Gtk.Overlay ();
@@ -120,9 +123,18 @@ public class Tootle.MainWindow: Gtk.Window {
             if (!Tootle.settings.always_online)
                 Tootle.app.remove_window (Tootle.window_dummy);
             Tootle.window = null;
-            this.dispose ();
         });
         return false;
+    }
+    
+    private void update_theme () {
+        var provider = new Gtk.CssProvider ();
+        var is_dark = settings.dark_theme;
+        var theme = is_dark ? "dark" : "light";
+        provider.load_from_resource ("/com/github/bleakgrey/tootle/%s.css".printf (theme));
+        StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        
+        Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = is_dark;
     }
 
 }
