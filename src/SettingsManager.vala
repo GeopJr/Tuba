@@ -14,6 +14,8 @@ public class Tootle.SettingsManager : Granite.Services.Settings {
         access_token = "null";
         refresh_token = "null";
         instance_url = "null";
+        client_id = "null";
+        client_secret = "null";
         debug ("Removed current account");
     }
 
