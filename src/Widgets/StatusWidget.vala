@@ -254,7 +254,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             return false;
     }
     
-    public bool open_menu (uint button, uint32 time) {
+    public virtual bool open_menu (uint button, uint32 time) {
         var menu = new Gtk.Menu ();
         menu.selection_done.connect (() => {
             menu.detach ();
@@ -270,10 +270,10 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             var sanitized = Utils.escape_html (status.content);
             Utils.copy (sanitized);
         });
-		menu.add (item_open_link);
-		menu.add (new Gtk.SeparatorMenuItem ());
-		menu.add (item_copy_link);
-		menu.add (item_copy);
+        menu.add (item_open_link);
+        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (item_copy_link);
+        menu.add (item_copy);
         
         menu.show_all ();
         menu.attach_widget = this;
