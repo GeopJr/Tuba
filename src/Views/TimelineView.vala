@@ -31,15 +31,15 @@ public class Tootle.TimelineView : AbstractView {
         return _("Home");
     }
     
-    public virtual bool is_status_owned (Status status){
-        return false;
-    }
-    
     private void on_status_added (ref Status status, string timeline) {
         if (timeline != this.timeline)
             return;
         
         prepend (ref status, true);
+    }
+    
+    public virtual bool is_status_owned (ref Status status) {
+        return status.is_owned ();
     }
     
     public void prepend (ref Status status, bool first = false){
@@ -52,8 +52,8 @@ public class Tootle.TimelineView : AbstractView {
         var widget = new StatusWidget (ref status);
         widget.separator = separator;
         widget.button_press_event.connect(widget.open);
-        if (!is_status_owned (status))
-            widget.avatar.button_press_event.connect(widget.on_avatar_clicked);
+        if (!is_status_owned (ref status))
+            widget.avatar.button_press_event.connect(widget.open_account);
         view.pack_start(separator, false, false, 0);
         view.pack_start(widget, false, false, 0);
         

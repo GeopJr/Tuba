@@ -86,6 +86,10 @@ public class Tootle.Status {
         return status;
     }
     
+    public bool is_owned (){
+        return get_formal ().account.id == Tootle.accounts.current.id;
+    }
+    
     public void set_reblogged (bool rebl = true){
         var action = rebl ? "reblog" : "unreblog";
         var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.settings.instance_url, id, action));

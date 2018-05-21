@@ -176,6 +176,10 @@ public class Tootle.AccountView : TimelineView {
             relationship.hide ();
     }
     
+    public override bool is_status_owned (ref Status status) {
+        return status.get_formal().account.id == account.id;
+    }
+    
     private Gtk.Button add_counter (string name, int? i = null, int64? val = null) {
         Gtk.Button btn;
         if (val != null){
@@ -199,10 +203,6 @@ public class Tootle.AccountView : TimelineView {
     
     public override bool is_empty () {
         return view.get_children ().length () <= 2;
-    }
-    
-    public override bool is_status_owned (Status status){
-        return status.get_formal ().account.id == account.id;
     }
     
     public override string get_url () {

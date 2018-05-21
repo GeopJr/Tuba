@@ -14,14 +14,14 @@ public class Tootle.StatusView : AbstractView {
     private void prepend (ref Status status, bool is_root = false){
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.show ();
-        var widget = new StatusWidget (ref status);
-        if (is_root)
-            widget.highlight ();
         
-        widget.content_label.selectable = true;
-        if (widget.content_spoiler != null)
-            widget.content_spoiler.selectable = true;
-        widget.avatar.button_press_event.connect(widget.on_avatar_clicked);
+        var widget = new StatusWidget (ref status);
+        widget.avatar.button_press_event.connect(widget.open_account);
+        if (!is_root)
+            widget.button_press_event.connect(widget.open);
+        else
+            widget.highlight ();
+            
         if (!last_was_a_root) {
             widget.separator = separator;
             view.pack_start (separator, false, false, 0);

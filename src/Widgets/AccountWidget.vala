@@ -12,7 +12,7 @@ public class Tootle.AccountWidget : StatusWidget {
         title_acct.visible = false;
         content_label.margin_bottom = 12;
         button_press_event.connect(() => {
-            on_avatar_clicked ();
+            open_account ();
             return true;
         });
     }

@@ -27,7 +27,18 @@ public class Tootle.Utils{
     }
     
     public static string escape_entities (string content) {
-        return content.replace ("&", "&amp;");
+        return content
+            .replace ("&", "&amp;")
+            .replace ("'", "&apos;");
+    }
+
+    public static void copy (string str) {
+        var display = Tootle.window.get_display ();
+        var clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
+        var normalized = str
+            .replace ("&amp;", "&")
+            .replace ("&apos;", "'");
+        clipboard.set_text (normalized, -1);
     }
 
 }

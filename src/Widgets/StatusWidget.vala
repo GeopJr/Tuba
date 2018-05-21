@@ -1,4 +1,5 @@
 using Gtk;
+using Gdk;
 using Granite;
 
 public class Tootle.StatusWidget : Gtk.EventBox {
@@ -107,6 +108,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         grid.attach (revealer, 2, 4, 1, 1);
         grid.attach (counters, 2, 5, 1, 1);
         show_all ();
+    
+        this.button_press_event.connect (on_clicked);
     }
 
     public StatusWidget (ref Status status) {
@@ -231,17 +234,51 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         return null;
     }
     
-    public bool on_avatar_clicked () {
+    public bool open_account () {
         var view = new AccountView (status.get_formal ().account);
         Tootle.window.open_view (view);
         return true;
     }
     
-    public bool open () {
+    public bool open (EventButton ev) {
         var formal = status.get_formal ();
         var view = new StatusView (ref formal);
         Tootle.window.open_view (view);
-        return false;
+        return true;
+    }
+    
+    private bool on_clicked (EventButton ev) {
+        if (ev.button == 3)
+            return open_menu (ev.button, ev.time);
+        else
+            return false;
+    }
+    
+    public bool open_menu (uint button, uint32 time) {
+        var menu = new Gtk.Menu ();
+        menu.selection_done.connect (() => {
+            menu.detach ();
+            menu.destroy ();
+        });
+        
+        var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
+        item_open_link.activate.connect (() => Utils.open_url (status.url));
+        var item_copy_link = new Gtk.MenuItem.with_label (_("Copy Link"));
+        item_copy_link.activate.connect (() => Utils.copy (status.url));
+        var item_copy = new Gtk.MenuItem.with_label (_("Copy Text"));
+        item_copy.activate.connect (() => {
+            var sanitized = Utils.escape_html (status.content);
+            Utils.copy (sanitized);
+        });
+		menu.add (item_open_link);
+		menu.add (new Gtk.SeparatorMenuItem ());
+		menu.add (item_copy_link);
+		menu.add (item_copy);
+        
+        menu.show_all ();
+        menu.attach_widget = this;
+        menu.popup (null, null, null, button, time);
+        return true;
     }
 
 }
