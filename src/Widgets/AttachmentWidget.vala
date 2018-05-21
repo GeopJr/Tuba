@@ -1,4 +1,5 @@
 using Gtk;
+using Gdk;
 
 public class Tootle.AttachmentWidget : Gtk.EventBox {
 
@@ -55,11 +56,7 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
                 break;
         }
         show ();
-        button_press_event.connect(() => {
-            if (!editable)
-                Tootle.Utils.open_url (attachment.url);
-            return true;
-        });
+        button_press_event.connect(on_clicked);
     }
     
     public AttachmentWidget.upload (string uri) {
@@ -95,6 +92,39 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
             error (e.message);
             Tootle.app.error (_("File read error"), _("Can't read file %s: %s").printf (uri, e.message));
         }
+    }
+    
+    private bool on_clicked (EventButton ev){
+        if (ev.button == 3)
+            return open_menu (ev.button, ev.time);
+        
+        Tootle.Utils.open_url (attachment.url);
+        return true;
+    }
+    
+    public virtual bool open_menu (uint button, uint32 time) {
+        var menu = new Gtk.Menu ();
+        menu.selection_done.connect (() => {
+            menu.detach ();
+            menu.destroy ();
+        });
+        
+        var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
+        item_open_link.activate.connect (() => Utils.open_url (attachment.url));
+        var item_copy_link = new Gtk.MenuItem.with_label (_("Copy Link"));
+        item_copy_link.activate.connect (() => Utils.copy (attachment.url));
+        var item_download = new Gtk.MenuItem.with_label (_("Download"));
+        item_download.activate.connect (() => Utils.download (attachment.url));
+        menu.add (item_open_link);
+        if (attachment.type != "unknown")
+            menu.add (item_download);
+        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (item_copy_link);
+        
+        menu.show_all ();
+        menu.attach_widget = this;
+        menu.popup (null, null, null, button, time);
+        return true;
     }
 
 }
