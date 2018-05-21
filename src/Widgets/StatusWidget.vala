@@ -192,7 +192,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public void rebind () {
         var formal = status.get_formal ();
         
-        title_user.label = "<b>%s</b>".printf (formal.account.display_name);
+        title_user.label = "<b>%s</b>".printf (Utils.escape_entities (formal.account.display_name));
         title_acct.label = "@" + formal.account.acct;
         content_label.label = formal.content;
         content_label.mentions = formal.mentions;
@@ -224,10 +224,10 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     }
     
     private GLib.DateTime? parse_date_iso8601 (string date) {
-        var timeval = GLib.TimeVal();
-        if (timeval.from_iso8601 (date)) {
+        var timeval = GLib.TimeVal ();
+        if (timeval.from_iso8601 (date))
             return new GLib.DateTime.from_timeval_local (timeval);
-        }
+        
         return null;
     }
     

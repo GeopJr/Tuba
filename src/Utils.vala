@@ -25,5 +25,9 @@ public class Tootle.Utils{
         
         return simplified;
     }
+    
+    public static string escape_entities (string content) {
+        return content.replace ("&", "&amp;");
+    }
 
 }
