@@ -2,11 +2,11 @@
 @define-color colorPrimary #333542;
 
 .header-counters{
-    background: rgba(0,0,0,.4);
+    background: rgba(0,0,0,.2);
 }
 
 .attachment{
-    background: rgba (255,255,255,.3);
+    background: rgba (255,255,255,.15);
 }
 
 .card{
