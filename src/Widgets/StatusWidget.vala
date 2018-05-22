@@ -261,6 +261,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             menu.destroy ();
         });
         
+        var item_delete = new Gtk.MenuItem.with_label (_("Delete"));
+        item_delete.activate.connect (() => status.poof ());
         var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
         item_open_link.activate.connect (() => Utils.open_url (status.url));
         var item_copy_link = new Gtk.MenuItem.with_label (_("Copy Link"));
@@ -270,6 +272,12 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             var sanitized = Utils.escape_html (status.content);
             Utils.copy (sanitized);
         });
+        
+        if (this.status.is_owned ()) {
+            menu.add (item_delete);
+            menu.add (new Gtk.SeparatorMenuItem ());
+        }
+        
         menu.add (item_open_link);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (item_copy_link);

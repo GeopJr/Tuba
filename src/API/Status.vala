@@ -119,5 +119,15 @@ public class Tootle.Status {
         });
         Tootle.network.queue (msg);
     }
+    
+    public void poof (){
+        var msg = new Soup.Message("DELETE", "%s/api/v1/statuses/%lld".printf (Tootle.settings.instance_url, id));
+        msg.priority = Soup.MessagePriority.HIGH;
+        msg.finished.connect (() => {
+            Tootle.app.toast (_("Poof!"));
+            Tootle.network.status_removed (this.id);
+        });
+        Tootle.network.queue (msg);
+    }
 
 }
