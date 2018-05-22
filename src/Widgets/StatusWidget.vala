@@ -5,6 +5,7 @@ using Granite;
 public class Tootle.StatusWidget : Gtk.EventBox {
     
     public Status status;
+    public bool is_notification = false;
     
     public Gtk.Separator? separator;
     public Gtk.Grid grid;
@@ -261,6 +262,9 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             menu.destroy ();
         });
         
+        var is_muted = status.muted;
+        var item_muting = new Gtk.MenuItem.with_label (is_muted ? _("Unmute Conversation") : _("Mute Conversation"));
+        item_muting.activate.connect (() => status.set_muted (!is_muted));
         var item_delete = new Gtk.MenuItem.with_label (_("Delete"));
         item_delete.activate.connect (() => status.poof ());
         var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
@@ -278,6 +282,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             menu.add (new Gtk.SeparatorMenuItem ());
         }
         
+        if (this.is_notification)
+            menu.add (item_muting);
         menu.add (item_open_link);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (item_copy_link);

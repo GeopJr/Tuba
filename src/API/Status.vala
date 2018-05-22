@@ -11,9 +11,10 @@ public class Tootle.Status {
     public int64 reblogs_count;
     public int64 favourites_count;
     public string created_at;    
-    public bool reblogged;
-    public bool favorited;
-    public bool sensitive;
+    public bool reblogged = false;
+    public bool favorited = false;
+    public bool sensitive = false;
+    public bool muted = false;
     public StatusVisibility visibility;
     public Status? reblog;
     public Mention[]? mentions;
@@ -22,8 +23,6 @@ public class Tootle.Status {
 
     public Status(int64 id) {
         this.id = id;
-        this.reblogged = false;
-        this.favorited = false;
     }
     
     public Status get_formal (){
@@ -48,12 +47,14 @@ public class Tootle.Status {
         if (spoiler != "")
             status.spoiler_text = Utils.simplify_html (spoiler);
         
-        if(obj.has_member ("reblogged"))
+        if (obj.has_member ("reblogged"))
             status.reblogged = obj.get_boolean_member ("reblogged");
-        if(obj.has_member ("favourited"))
+        if (obj.has_member ("favourited"))
             status.favorited = obj.get_boolean_member ("favourited");
+        if (obj.has_member ("muted"))
+            status.muted = obj.get_boolean_member ("muted");
             
-        if(obj.has_member ("reblog") && obj.get_null_member("reblog") != true)
+        if (obj.has_member ("reblog") && obj.get_null_member("reblog") != true)
             status.reblog = Status.parse (obj.get_object_member ("reblog"));
         
         Mention[]? _mentions = {};
@@ -116,6 +117,21 @@ public class Tootle.Status {
                 Tootle.app.toast (_("Favorited!"));
             else
                 Tootle.app.toast (_("Removed from favorites"));
+        });
+        Tootle.network.queue (msg);
+    }
+    
+    public void set_muted (bool mute = true){
+        var action = mute ? "mute" : "unmute";
+        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.settings.instance_url, id, action));
+        msg.priority = Soup.MessagePriority.HIGH;
+        msg.finished.connect (() => {
+            muted = mute;
+            updated ();
+            if (mute)
+                Tootle.app.toast (_("Conversation muted"));
+            else
+                Tootle.app.toast (_("Conversation unmuted"));
         });
         Tootle.network.queue (msg);
     }
