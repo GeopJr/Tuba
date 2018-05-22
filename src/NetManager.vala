@@ -120,9 +120,9 @@ public class Tootle.NetManager : GLib.Object {
     }
     
     public Json.Object parse (Soup.Message msg) throws GLib.Error {
-        // stdout.printf ("Status Code: %u\n", msg.status_code);
-        // stdout.printf ("Message length: %lld\n", msg.response_body.length);
-        // stdout.printf ("Object: \n%s\n", (string) msg.response_body.data);
+        // debug ("Status Code: %u", msg.status_code);
+        // debug ("Message length: %lld", msg.response_body.length);
+        // debug ("Object: %s", (string) msg.response_body.data);
     
         var parser = new Json.Parser ();
         parser.load_from_data ((string) msg.response_body.flatten ().data, -1);
@@ -130,9 +130,9 @@ public class Tootle.NetManager : GLib.Object {
     }
     
     public Json.Array parse_array (Soup.Message msg) throws GLib.Error {
-        // stdout.printf ("Status Code: %u\n", msg.status_code);
-        // stdout.printf ("Message length: %lld\n", msg.response_body.length);
-        // stdout.printf ("Array: \n%s\n", (string) msg.response_body.data);
+        // debug ("Status Code: %u", msg.status_code);
+        // debug ("Message length: %lld", msg.response_body.length);
+        // debug ("Array: %s", (string) msg.response_body.data);
     
         var parser = new Json.Parser ();
         parser.load_from_data ((string) msg.response_body.flatten ().data, -1);
@@ -153,16 +153,9 @@ public class Tootle.NetManager : GLib.Object {
     public void load_image (string url, Gtk.Image image) {
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(() => {
-                // var data = msg.response_body.flatten ().data;
-                // var stream = new MemoryInputStream.from_data (data);
-                // var pixbuf = new Gdk.Pixbuf.from_stream (stream);
-                // image.set_from_pixbuf (pixbuf);
-                
-                var loader = new PixbufLoader ();
                 var data = msg.response_body.data;
-                loader.write (data);
-                loader.close ();
-                var pixbuf = loader.get_pixbuf ();
+                var stream = new MemoryInputStream.from_data (data);
+                var pixbuf = new Gdk.Pixbuf.from_stream (stream);
                 image.set_from_pixbuf (pixbuf);
         });
         Tootle.network.queue (msg);

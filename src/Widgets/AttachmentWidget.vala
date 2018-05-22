@@ -27,6 +27,11 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
         add (grid);
         grid.show ();
         label.hide ();
+        
+        destroy.connect (() => {
+            if (image != null)
+                image.clear ();
+        });
     }
 
     public AttachmentWidget (Attachment att) {

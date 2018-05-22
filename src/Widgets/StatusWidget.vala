@@ -10,6 +10,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public Gtk.Separator? separator;
     public Gtk.Grid grid;
     public Granite.Widgets.Avatar avatar;
+    private const int avatar_size = 32;
     public Gtk.Label title_user;
     public Gtk.Label title_date;
     public Gtk.Label title_acct;
@@ -176,6 +177,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             attachments.destroy ();
         
         destroy.connect (() => {
+            avatar.show_default (avatar_size);
             if(separator != null)
                 separator.destroy ();
         });
@@ -220,7 +222,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             reblog.tooltip_text = _("This post can't be boosted");
         }
         
-        Tootle.network.load_avatar (formal.account.avatar, avatar);
+        Tootle.network.load_avatar (formal.account.avatar, avatar, avatar_size);
     }
 
     public bool is_spoiler () {
