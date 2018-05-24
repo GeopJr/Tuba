@@ -23,6 +23,10 @@ public class Tootle.NotificationsView : AbstractView {
     }
     
     public void prepend (ref Notification notification) {
+        append (ref notification, true);
+    }
+    
+    public void append (ref Notification notification, bool reverse = false) {
         if (empty != null)
             empty.destroy ();
     
@@ -34,6 +38,11 @@ public class Tootle.NotificationsView : AbstractView {
         image.icon_name = "notification-new-symbolic";
         view.pack_start(separator, false, false, 0);
         view.pack_start(widget, false, false, 0);
+        
+        if (reverse) {
+            view.reorder_child (widget, 0);
+            view.reorder_child (separator, 0);
+        }
     }
     
     public virtual void on_remove (Widget widget) {
@@ -72,7 +81,7 @@ public class Tootle.NotificationsView : AbstractView {
                     var obj = node.get_object ();
                     if (obj != null){
                         var notification = Notification.parse_follow_request(obj);
-                        prepend (ref notification);
+                        append (ref notification);
                     }
                 });
             }
@@ -90,7 +99,7 @@ public class Tootle.NotificationsView : AbstractView {
                     var obj = node.get_object ();
                     if (obj != null){
                         var notification = Notification.parse(obj);
-                        prepend (ref notification);
+                        append (ref notification);
                     }
                 });
             }
