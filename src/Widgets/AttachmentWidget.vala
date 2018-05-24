@@ -49,9 +49,9 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
                 image.valign = Gtk.Align.CENTER;
                 image.show ();
                 if (editable)
-                    Tootle.network.load_scaled_image (attachment.preview_url, image);
+                    Tootle.image_cache.load_scaled_image (attachment.preview_url, image);
                 else
-                    Tootle.network.load_image (attachment.preview_url, image);
+                    Tootle.image_cache.load_image (attachment.preview_url, image);
                 grid.attach (image, 0, 0);
                 label.hide ();
                 break;
