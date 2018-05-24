@@ -83,7 +83,7 @@ public class Tootle.NetManager : GLib.Object {
         return yield session.websocket_connect_async (msg, null, null, null);
     }
     
-    public Soup.Message queue (Soup.Message msg, Soup.SessionCallback? cb = null) {
+    public Soup.Message queue (Soup.Message msg, owned Soup.SessionCallback? cb = null) {
         requests_processing++;
         started ();
         
