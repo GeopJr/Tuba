@@ -63,14 +63,14 @@ public class Tootle.NetManager : GLib.Object {
         var has_cache = session.has_feature (cache.get_type ());
         if (Tootle.settings.cache) {
             if (!has_cache) {
-                debug ("Turning on cache");
-                session.add_feature (cache);
+                //debug ("Turning on cache");
+                //session.add_feature (cache);
             }
         }
         else {
             if (has_cache) {
-                debug ("Turning off cache");
-                session.remove_feature (cache);
+                //debug ("Turning off cache");
+                //session.remove_feature (cache);
             }
         }
     }
