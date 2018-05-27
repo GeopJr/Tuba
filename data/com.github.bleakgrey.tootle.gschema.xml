@@ -6,31 +6,6 @@
 			<summary>Current Account</summary>
 			<description>Do not edit or it shall set your house on fire</description>
 		</key>
-		<key name="client-id" type="s">
-			<default>'null'</default>
-			<summary>Client ID</summary>
-			<description></description>
-		</key>
-		<key name="client-secret" type="s">
-			<default>'null'</default>
-			<summary>Client Secret</summary>
-			<description></description>
-		</key>
-		<key name="instance-url" type="s">
-			<default>'null'</default>
-			<summary>Instance URL</summary>
-			<description></description>
-		</key>
-		<key name="access-token" type="s">
-			<default>'null'</default>
-			<summary>Access Token</summary>
-			<description></description>
-		</key>
-		<key name="refresh-token" type="s">
-			<default>'null'</default>
-			<summary>Refresh Token</summary>
-			<description></description>
-		</key>
 		<key name="always-online" type="b">
 			<default>false</default>
 			<summary>Always monitor new notifications</summary>
