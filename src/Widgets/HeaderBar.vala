@@ -33,7 +33,7 @@ public class Tootle.HeaderBar : Gtk.HeaderBar{
         
         button_toot = new Button ();
         button_toot.tooltip_text = "Toot";
-        button_toot.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+        button_toot.image = new Gtk.Image.from_icon_name ("document-edit-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
         button_toot.clicked.connect (() => PostDialog.open ());
 
         button_mode = new Granite.Widgets.ModeButton ();
