@@ -60,6 +60,7 @@ namespace Tootle{
                     window = new MainWindow (this);
                     window.present ();
                     accounts.switched (accounts.current);
+                    accounts.signal_current ();
                 }
             }
         }

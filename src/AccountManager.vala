@@ -18,6 +18,11 @@ public class Tootle.AccountManager : Object{
         file_path = "%s/%s".printf (dir_path, "accounts.json");
     }
     
+    public void signal_current () {
+        switched (current);
+        updated (saved_accounts);
+    }
+    
     public void switch_account (int id){
         debug ("Switching to account #%i", id);
         Tootle.settings.current_account = id;

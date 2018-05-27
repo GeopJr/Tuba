@@ -35,14 +35,18 @@ public class Tootle.TimelineView : AbstractView {
         if (timeline != this.timeline)
             return;
         
-        prepend (ref status, true);
+        prepend (ref status);
     }
     
     public virtual bool is_status_owned (ref Status status) {
         return status.is_owned ();
     }
     
-    public void prepend (ref Status status, bool first = false){
+    public void prepend (ref Status status) {
+        append (ref status, true);
+    }
+    
+    public void append (ref Status status, bool first = false){
         if (empty != null)
             empty.destroy ();
     
@@ -109,7 +113,7 @@ public class Tootle.TimelineView : AbstractView {
                     var object = node.get_object ();
                     if (object != null){
                         var status = Status.parse(object);
-                        prepend (ref status);
+                        append (ref status);
                     }
                 });
                 get_pages (mess.response_headers.get_one ("Link"));
