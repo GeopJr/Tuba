@@ -54,9 +54,7 @@ public class Tootle.MainWindow: Gtk.Window {
         window_position = WindowPosition.CENTER;
         
         Tootle.accounts.switched.connect(on_account_switched);
-        Tootle.app.error.connect (on_error);
         Tootle.app.toast.connect (on_toast);
-        Tootle.accounts.init ();
     }
     
     private void reset () {
@@ -64,18 +62,13 @@ public class Tootle.MainWindow: Gtk.Window {
         secondary_stack.forall (widget => widget.destroy ());
     }
     
-    private void on_account_switched(Account? account = Tootle.accounts.current){
-        reset ();
-        if(account == null)
-            build_setup_view ();
-        else
-            build_main_view ();
-    }
-    
-    private void build_setup_view (){
-        var add_account = new AddAccountView ();
-        secondary_stack.add_named (add_account, add_account.get_name ());
-        header.update (false, true);
+    private void on_account_switched(Account? account){
+        header.button_mode.clear_children ();
+        secondary_stack.forall (widget => widget.destroy ());
+        
+        if (account == null)
+            return;
+        build_main_view ();
     }
     
     private void build_main_view (){
@@ -111,16 +104,9 @@ public class Tootle.MainWindow: Gtk.Window {
         toast.send_notification ();
     }
     
-    private void on_error (string title, string msg){
-        var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (title, msg, "dialog-warning");
-        message_dialog.transient_for = this;
-        message_dialog.run ();
-        message_dialog.destroy ();
-    }
-    
     public override bool delete_event (Gdk.EventAny event) {
         this.destroy.connect (() => {
-            if (!Tootle.settings.always_online)
+            if (!Tootle.settings.always_online || Tootle.accounts.is_empty ())
                 Tootle.app.remove_window (Tootle.window_dummy);
             Tootle.window = null;
         });

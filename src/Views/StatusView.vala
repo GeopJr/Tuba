@@ -31,7 +31,7 @@ public class Tootle.StatusView : AbstractView {
     }
 
     public Soup.Message request_context (){
-        var url = "%s/api/v1/statuses/%lld/context".printf (Tootle.settings.instance_url, root_status.id);
+        var url = "%s/api/v1/statuses/%lld/context".printf (Tootle.accounts.formal.instance, root_status.id);
         var msg = new Soup.Message("GET", url);
         Tootle.network.queue(msg, (sess, mess) => {
             try{

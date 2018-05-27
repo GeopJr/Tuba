@@ -184,7 +184,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
             pars += "&spoiler_text=" + Soup.URI.encode (spoiler_text.buffer.text, null);
         }
         
-        var url = "%s/api/v1/statuses%s".printf (Tootle.settings.instance_url, pars);
+        var url = "%s/api/v1/statuses%s".printf (Tootle.accounts.formal.instance, pars);
         var msg = new Soup.Message("POST", url);
         Tootle.network.queue(msg, (sess, mess) => {
             try {

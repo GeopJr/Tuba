@@ -11,7 +11,7 @@ public class Tootle.FavoritesView : TimelineView {
         if (page_next != null)
             return page_next;
         
-        var url = "%s/api/v1/favourites/?limit=%i".printf (Tootle.settings.instance_url, this.limit);
+        var url = "%s/api/v1/favourites/?limit=%i".printf (Tootle.accounts.formal.instance, this.limit);
         return url;
     }
 

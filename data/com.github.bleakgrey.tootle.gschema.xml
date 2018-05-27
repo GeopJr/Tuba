@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
 	<schema path="/com/github/bleakgrey/tootle/" id="com.github.bleakgrey.tootle" gettext-domain="com.github.bleakgrey.tootle">
+		<key name="current-account" type="i">
+			<default>0</default>
+			<summary>Current Account</summary>
+			<description>Do not edit or it shall set your house on fire</description>
+		</key>
 		<key name="client-id" type="s">
 			<default>'null'</default>
 			<summary>Client ID</summary>

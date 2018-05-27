@@ -17,8 +17,6 @@ public class Tootle.NetManager : GLib.Object {
     private Soup.Cache cache;
     public string cache_path;
 
-    private Notificator? notificator;
-
     construct {
         cache_path = "%s/%s".printf (GLib.Environment.get_user_cache_dir (), Tootle.app.application_id);
         cache = new Soup.Cache (cache_path, Soup.CacheType.SINGLE_USER);
@@ -45,38 +43,23 @@ public class Tootle.NetManager : GLib.Object {
 
     public NetManager() {
         GLib.Object();
-        
-        Tootle.accounts.switched.connect (acc => {
-            if (notificator != null)
-                notificator.close ();
-            if (acc == null)
-                return;
-            
-            notificator = new Notificator (acc);
-            notificator.start ();
-        });
     }
     
     private void on_settings_changed () {
-        cache.set_max_size (1024 * 1024 * Tootle.settings.cache_size);
-        
-        var has_cache = session.has_feature (cache.get_type ());
-        if (Tootle.settings.cache) {
-            if (!has_cache) {
-                //debug ("Turning on cache");
-                //session.add_feature (cache);
-            }
-        }
-        else {
-            if (has_cache) {
-                //debug ("Turning off cache");
-                //session.remove_feature (cache);
-            }
-        }
-    }
-    
-    public void abort (Soup.Message msg) {
-        session.cancel_message (msg, 0);
+        // cache.set_max_size (1024 * 1024 * Tootle.settings.cache_size);
+        // var has_cache = session.has_feature (cache.get_type ());
+        // if (Tootle.settings.cache) {
+        //     if (!has_cache) {
+        //         debug ("Turning on cache");
+        //         session.add_feature (cache);
+        //     }
+        // }
+        // else {
+        //     if (has_cache) {
+        //         debug ("Turning off cache");
+        //         session.remove_feature (cache);
+        //     }
+        // }
     }
     
     public async WebsocketConnection stream (Soup.Message msg) {
@@ -87,9 +70,9 @@ public class Tootle.NetManager : GLib.Object {
         requests_processing++;
         started ();
         
-        var token = Tootle.settings.access_token;
-        if(token != "null")
-            msg.request_headers.append ("Authorization", "Bearer " + token);
+        var formal = Tootle.accounts.formal;
+        if(formal != null)
+            msg.request_headers.append ("Authorization", "Bearer " + formal.token);
         
         session.queue_message (msg, (sess, mess) => {
             switch (mess.tls_errors){
@@ -108,6 +91,12 @@ public class Tootle.NetManager : GLib.Object {
                     break;
             }
             
+            if (mess.status_code != Soup.Status.OK) {
+                var phrase = Soup.Status.get_phrase (mess.status_code);
+                Tootle.app.toast (_("Error: %s").printf(phrase));
+                return;
+            }
+            
             if (cb != null)
                 cb (sess, mess);
                 
@@ -117,6 +106,10 @@ public class Tootle.NetManager : GLib.Object {
             msg.response_headers.free ();
         });
         return msg;
+    }
+    
+    public void queue_custom (Soup.Message msg, owned Soup.SessionCallback cb) {
+        session.queue_message (msg, cb);
     }
     
     public Json.Object parse (Soup.Message msg) throws GLib.Error {

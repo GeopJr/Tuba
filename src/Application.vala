@@ -31,7 +31,9 @@ namespace Tootle{
             settings = new SettingsManager ();
             accounts = new AccountManager ();
             network = new NetManager ();
-                       
+            accounts.init ();
+                                    
+            app.error.connect (app.on_error);
             return app.run (args);
         }
         
@@ -45,13 +47,27 @@ namespace Tootle{
         protected override void activate () {
             if (window != null) {
                 debug ("Reopening window");
-                window.present ();
+                if (!accounts.is_empty ())
+                    window.present ();
+                else
+                    NewAccountDialog.open ();
             }
             else {
                 debug ("Creating new window");
-                window = new MainWindow (this);
-                window.present ();
+                if (accounts.is_empty ())
+                    NewAccountDialog.open ();
+                else {
+                    window = new MainWindow (this);
+                    window.present ();
+                }
             }
+        }
+        
+        protected void on_error (string title, string msg){
+            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (title, msg, "dialog-warning");
+            message_dialog.transient_for = window;
+            message_dialog.run ();
+            message_dialog.destroy ();
         }
     
     }

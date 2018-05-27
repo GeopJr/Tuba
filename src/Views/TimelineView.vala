@@ -95,7 +95,7 @@ public class Tootle.TimelineView : AbstractView {
         if (page_next != null)
             return page_next;
         
-        var url = "%s/api/v1/timelines/%s?limit=%i".printf (Tootle.settings.instance_url, this.timeline, this.limit);
+        var url = "%s/api/v1/timelines/%s?limit=%i".printf (Tootle.accounts.formal.instance, this.timeline, this.limit);
         url += this.pars;
         return url;
     }

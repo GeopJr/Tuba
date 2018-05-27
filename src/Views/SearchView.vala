@@ -45,7 +45,7 @@ public class Tootle.SearchView : AbstractView {
     }
     
     private void append_hashtag (string name) {
-        var text = "<a href=\"%s/tags/%s\">#%s</a>".printf (Tootle.settings.instance_url, Soup.URI.encode (name, null), name);
+        var text = "<a href=\"%s/tags/%s\">#%s</a>".printf (Tootle.accounts.formal.instance, Soup.URI.encode (name, null), name);
         var widget = new RichLabel (text);
         widget.use_markup = true;
         widget.halign = Gtk.Align.START;
@@ -62,7 +62,7 @@ public class Tootle.SearchView : AbstractView {
         }
     
         var query = Soup.URI.encode (entry.text, null);
-        var url = "%s/api/v1/search?q=%s".printf (Tootle.settings.instance_url, query);
+        var url = "%s/api/v1/search?q=%s".printf (Tootle.accounts.formal.instance, query);
         
         var msg = new Soup.Message("GET", url);
         Tootle.network.queue(msg, (sess, mess) => {

@@ -60,17 +60,8 @@ public class Tootle.HeaderBar : Gtk.HeaderBar{
         button_mode.valign = Gtk.Align.FILL;
     }
     
-    public void update (bool primary_mode, bool hide_all = false){
+    public void update (bool primary_mode){
         button_mode.set_active (last_tab);
-        if (hide_all){
-            //button_mode.opacity = 0;
-            //button_mode.sensitive = false;
-            button_mode.hide ();
-            button_toot.hide ();
-            button_back.hide ();
-            button_accounts.hide ();
-            return;
-        }
         //button_mode.opacity = primary_mode ? 1 : 0;
         //button_mode.sensitive = primary_mode ? true : false;
         button_mode.set_visible (primary_mode);

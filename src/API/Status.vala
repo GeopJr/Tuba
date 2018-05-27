@@ -93,7 +93,7 @@ public class Tootle.Status {
     
     public void set_reblogged (bool rebl = true){
         var action = rebl ? "reblog" : "unreblog";
-        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.settings.instance_url, id, action));
+        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
         msg.finished.connect (() => {
             reblogged = rebl;
@@ -108,7 +108,7 @@ public class Tootle.Status {
     
     public void set_favorited (bool fav = true){
         var action = fav ? "favourite" : "unfavourite";
-        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.settings.instance_url, id, action));
+        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
         msg.finished.connect (() => {
             favorited = fav;
@@ -123,7 +123,7 @@ public class Tootle.Status {
     
     public void set_muted (bool mute = true){
         var action = mute ? "mute" : "unmute";
-        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.settings.instance_url, id, action));
+        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
         msg.finished.connect (() => {
             muted = mute;
@@ -137,7 +137,7 @@ public class Tootle.Status {
     }
     
     public void poof (){
-        var msg = new Soup.Message("DELETE", "%s/api/v1/statuses/%lld".printf (Tootle.settings.instance_url, id));
+        var msg = new Soup.Message("DELETE", "%s/api/v1/statuses/%lld".printf (Tootle.accounts.formal.instance, id));
         msg.priority = Soup.MessagePriority.HIGH;
         msg.finished.connect (() => {
             Tootle.app.toast (_("Poof!"));
