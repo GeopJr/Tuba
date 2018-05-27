@@ -33,7 +33,6 @@ public class Tootle.Notificator : GLib.Object {
     }
     
     private void on_message (int i, Bytes bytes) {
-        var network = Tootle.network;
         var msg = (string) bytes.get_data ();
         
         var parser = new Json.Parser ();
