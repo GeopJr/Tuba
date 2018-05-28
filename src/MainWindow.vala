@@ -34,6 +34,7 @@ public class Tootle.MainWindow: Gtk.Window {
         primary_stack.hexpand = true;
         primary_stack.vexpand = true;
         header = new Tootle.HeaderBar ();
+        set_titlebar (header);
         
         grid = new Gtk.Grid ();
         grid.set_size_request (400, 500);
@@ -50,7 +51,6 @@ public class Tootle.MainWindow: Gtk.Window {
             title: "Tootle",
             resizable: true
         );
-        set_titlebar (header);
         window_position = WindowPosition.CENTER;
         
         Tootle.accounts.switched.connect(on_account_switched);
