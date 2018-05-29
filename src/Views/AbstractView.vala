@@ -2,6 +2,7 @@ using Gtk;
 
 public abstract class Tootle.AbstractView : Gtk.ScrolledWindow {
 
+    public int stack_pos = -1;
     public Gtk.Image? image;
     public Gtk.Box view;
     protected Gtk.Box? empty;

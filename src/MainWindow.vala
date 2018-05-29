@@ -90,13 +90,37 @@ public class Tootle.MainWindow: Gtk.Window {
             img.pixel_size = 20; // For some reason Notifications icon is too small without this
     }
     
-    public void open_view (Widget widget) {
-        widget.show ();
-        var i = int.parse (primary_stack.get_visible_child_name ());
+    public int get_visible_id () {
+        return int.parse (primary_stack.get_visible_child_name ());
+    }
+    
+    public void open_view (AbstractView widget) {
+        var i = get_visible_id ();
         i++;
+        widget.stack_pos = i;
+        widget.show ();
         primary_stack.add_named (widget, i.to_string ());
         primary_stack.set_visible_child_name (i.to_string ());
         header.update (false);
+    }
+    
+    public void back () {
+        var i = get_visible_id ();
+        primary_stack.set_visible_child_name ((i-1).to_string ());
+        
+        var child = primary_stack.get_child_by_name (i.to_string ());
+        child.destroy ();
+        
+        var is_root = primary_stack.get_visible_child_name () == "0";
+        header.update (is_root);
+    }
+    
+    public void reopen_view (int view_id) {
+        var i = get_visible_id ();
+        while (i != view_id && view_id != 0) {
+            back ();
+            i = get_visible_id ();
+        }
     }
     
     private void on_toast (string msg){
