@@ -105,6 +105,11 @@ public class Tootle.TimelineView : AbstractView {
     }
     
     public virtual void request (){
+        if (accounts.current == null) {
+            empty_state ();
+            return;
+        }
+        
         var msg = new Soup.Message("GET", get_url ());
         msg.finished.connect (() => empty_state ());
         Tootle.network.queue(msg, (sess, mess) => {

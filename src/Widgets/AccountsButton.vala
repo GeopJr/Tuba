@@ -96,8 +96,8 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         add(avatar);
         show_all ();
         
-        Tootle.accounts.updated.connect (accounts_updated);
-        Tootle.accounts.switched.connect (account_switched);
+        accounts.updated.connect (accounts_updated);
+        accounts.switched.connect (account_switched);
         list.row_activated.connect (row => {
             var widget = row as AccountView;
             if (widget.id == -1) {
@@ -135,7 +135,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         if (account == null)
             avatar.show_default (24);
         else
-            Tootle.network.load_avatar (account.avatar, avatar, 24);
+            network.load_avatar (account.avatar, avatar, 24);
     }
     
     private void update_selection () {

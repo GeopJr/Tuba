@@ -35,7 +35,6 @@ executable(
     'src/API/Notification.vala',
     'src/API/NotificationType.vala',
     'src/API/Attachment.vala',
-    'src/Widgets/HeaderBar.vala',
     'src/Widgets/AlignedLabel.vala',
     'src/Widgets/RichLabel.vala',
     'src/Widgets/ImageToggleButton.vala',
