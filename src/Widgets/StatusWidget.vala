@@ -222,7 +222,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             reblog.tooltip_text = _("This post can't be boosted");
         }
         
-        Tootle.image_cache.load_avatar (formal.account.avatar, avatar, avatar_size);
+        Tootle.network.load_avatar (formal.account.avatar, avatar, avatar_size);
     }
 
     public bool is_spoiler () {

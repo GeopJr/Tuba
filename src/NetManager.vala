@@ -14,12 +14,8 @@ public class Tootle.NetManager : GLib.Object {
     
     private int requests_processing = 0;
     private Soup.Session session;
-    private Soup.Cache cache;
-    public string cache_path;
 
     construct {
-        cache_path = "%s/%s".printf (GLib.Environment.get_user_cache_dir (), Tootle.app.application_id);
-        cache = new Soup.Cache (cache_path, Soup.CacheType.SINGLE_USER);
         session = new Soup.Session ();
         session.ssl_strict = true;
         session.ssl_use_system_ca_file = true;
@@ -31,35 +27,12 @@ public class Tootle.NetManager : GLib.Object {
                 finished ();
         });
         
-        Tootle.app.shutdown.connect (() => {
-            cache.dump ();
-        });
-        Tootle.settings.changed.connect (on_settings_changed);
-        on_settings_changed ();
-        
         // Soup.Logger logger = new Soup.Logger (Soup.LoggerLogLevel.BODY, -1);
         // session.add_feature (logger);
     }
 
     public NetManager() {
         GLib.Object();
-    }
-    
-    private void on_settings_changed () {
-        // cache.set_max_size (1024 * 1024 * Tootle.settings.cache_size);
-        // var has_cache = session.has_feature (cache.get_type ());
-        // if (Tootle.settings.cache) {
-        //     if (!has_cache) {
-        //         debug ("Turning on cache");
-        //         session.add_feature (cache);
-        //     }
-        // }
-        // else {
-        //     if (has_cache) {
-        //         debug ("Turning off cache");
-        //         session.remove_feature (cache);
-        //     }
-        // }
     }
     
     public async WebsocketConnection stream (Soup.Message msg) {
@@ -108,7 +81,7 @@ public class Tootle.NetManager : GLib.Object {
         return msg;
     }
     
-    public void queue_custom (Soup.Message msg, owned Soup.SessionCallback cb) {
+    public void queue_custom (Soup.Message msg, owned Soup.SessionCallback? cb = null) {
         session.queue_message (msg, cb);
     }
     
@@ -133,34 +106,49 @@ public class Tootle.NetManager : GLib.Object {
     }
     
     public void load_avatar (string url, Granite.Widgets.Avatar avatar, int size = 32){
+        if (settings.cache) {
+            image_cache.load_avatar (url, avatar, size);
+            return;
+        }
+        
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(() => {
-                var data = msg.response_body.data;
-                var stream = new MemoryInputStream.from_data (data);
-                var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, size, size, true);
-                avatar.pixbuf = pixbuf;
+            var data = msg.response_body.data;
+            var stream = new MemoryInputStream.from_data (data);
+            var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, size, size, true);
+            avatar.pixbuf = pixbuf;
         });
         Tootle.network.queue (msg);
     }
     
     public void load_image (string url, Gtk.Image image) {
+        if (settings.cache) {
+            image_cache.load_image (url, image);
+            return;
+        }
+        
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(() => {
-                var data = msg.response_body.data;
-                var stream = new MemoryInputStream.from_data (data);
-                var pixbuf = new Gdk.Pixbuf.from_stream (stream);
-                image.set_from_pixbuf (pixbuf);
+            var data = msg.response_body.data;
+            var stream = new MemoryInputStream.from_data (data);
+            var pixbuf = new Gdk.Pixbuf.from_stream (stream);
+            image.set_from_pixbuf (pixbuf);
         });
         Tootle.network.queue (msg);
     }
     
     public void load_scaled_image (string url, Gtk.Image image, int size = 64) {
+        if (settings.cache) {
+            image_cache.load_scaled_image (url, image, size);
+            return;
+        }
+        
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(() => {
-                var data = msg.response_body.data;
-                var stream = new MemoryInputStream.from_data (data);
-                var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, size, size, true);
-                image.set_from_pixbuf (pixbuf);
+            var data = msg.response_body.data;
+            var stream = new MemoryInputStream.from_data (data);
+            var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, size, size, true);
+            image.set_from_pixbuf (pixbuf);
         });
         Tootle.network.queue (msg);
     }
