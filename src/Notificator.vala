@@ -3,24 +3,28 @@ using Soup;
 
 public class Tootle.Notificator : GLib.Object {
     
-    weak Account account;
     WebsocketConnection? connection;
+    Soup.Message msg;
     
-    public Notificator (Account acc){
+    public abstract signal void notification (ref Notification notification);
+    public abstract signal void status_added (ref Status status);
+    public abstract signal void status_removed (int64 id);
+    
+    public Notificator (Soup.Message msg){
         Object ();
-        account = acc;
+        this.msg = msg;
+        this.msg.priority = Soup.MessagePriority.VERY_HIGH;
     }
     
     public async void start () {
-        var msg = account.get_stream ();
+        debug ("Starting notificator");
         connection = yield Tootle.network.stream (msg);
         connection.error.connect (on_error);
         connection.message.connect (on_message);
-        debug ("Receiving notifications for %lld", account.id);
     }
     
     public void close () {
-        debug ("Closing notifications for %lld", account.id);
+        debug ("Stopping notificator");
         connection.close (0, null);
     }
     
@@ -29,7 +33,6 @@ public class Tootle.Notificator : GLib.Object {
     }
     
     private void on_message (int i, Bytes bytes) {
-        var network = Tootle.network;
         var msg = (string) bytes.get_data ();
         
         var parser = new Json.Parser ();
@@ -39,32 +42,21 @@ public class Tootle.Notificator : GLib.Object {
         var type = root.get_string_member ("event");
         switch (type) {
             case "update":
-                if (Tootle.settings.live_updates) {
-                    var status = Status.parse (sanitize (root));
-                    network.status_added (ref status, "home");
-                }
-                else
-                    Tootle.app.toast ("New post available");
-                
+                var status = Status.parse (sanitize (root));
+                status_added (ref status);
                 break;
             case "delete":
-                if (Tootle.settings.live_updates) {
-                    var id = int64.parse (root.get_string_member("payload"));
-                    network.status_removed (id);
-                }
-                
+                var id = int64.parse (root.get_string_member("payload"));
+                status_removed (id);
                 break;
             case "notification":
                 var notif = Notification.parse (sanitize (root));
-                toast (notif);
-                network.notification (ref notif);
-                
+                notification (ref notif);
                 break;
             default:
                 warning ("Unknown push event: %s", type);
                 break;
         }
-        
     }
     
     private Json.Object sanitize (Json.Object root) {
@@ -73,14 +65,6 @@ public class Tootle.Notificator : GLib.Object {
         var parser = new Json.Parser ();
         parser.load_from_data (sanitized, -1);
         return parser.get_root ().get_object ();
-    }
-    
-    private void toast (Notification obj) {
-        var title = Utils.escape_html (obj.type.get_desc (obj.account));
-        var notification = new GLib.Notification (title);
-        if (obj.status != null)
-            notification.set_body (Utils.escape_html (obj.status.content));
-        Tootle.app.send_notification (Tootle.app.application_id + ":" + obj.id.to_string (), notification);
     }
     
 }

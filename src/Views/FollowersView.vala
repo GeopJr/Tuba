@@ -6,7 +6,7 @@ public class Tootle.FollowersView : TimelineView {
         base (account.id.to_string ());
     }
     
-    public new void prepend (ref Account account){
+    public new void append (ref Account account){
         if (empty != null)
             empty.destroy ();
     
@@ -23,7 +23,7 @@ public class Tootle.FollowersView : TimelineView {
         if (page_next != null)
             return page_next;
         
-        var url = "%s/api/v1/accounts/%s/followers".printf (Tootle.settings.instance_url, this.timeline);
+        var url = "%s/api/v1/accounts/%s/followers".printf (Tootle.accounts.formal.instance, this.timeline);
         return url;
     }
     
@@ -36,7 +36,7 @@ public class Tootle.FollowersView : TimelineView {
                     var object = node.get_object ();
                     if (object != null){
                         var status = Account.parse (object);
-                        prepend (ref status);
+                        append (ref status);
                     }
                 });
                 

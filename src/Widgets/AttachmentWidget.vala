@@ -80,7 +80,7 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
             var buffer = new Soup.Buffer.take (contents);
             var multipart = new Soup.Multipart (Soup.FORM_MIME_TYPE_MULTIPART);
             multipart.append_form_file ("file", mime.replace ("/", "."), mime, buffer);
-            var url = "%s/api/v1/media".printf (Tootle.settings.instance_url);
+            var url = "%s/api/v1/media".printf (Tootle.accounts.formal.instance);
             var msg = Soup.Form.request_new_from_multipart (url, multipart);
             
             Tootle.network.queue(msg, (sess, mess) => {

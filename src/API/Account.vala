@@ -59,7 +59,7 @@ public class Tootle.Account{
     }
 
     public Soup.Message get_relationship (){
-        var url = "%s/api/v1/accounts/relationships?id=%lld".printf (Tootle.settings.instance_url, id);
+        var url = "%s/api/v1/accounts/relationships?id=%lld".printf (Tootle.accounts.formal.instance, id);
         var msg = new Soup.Message("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
         Tootle.network.queue (msg, (sess, mess) => {
@@ -78,7 +78,7 @@ public class Tootle.Account{
     
     public Soup.Message set_following (bool follow = true){
         var action = follow ? "follow" : "unfollow"; 
-        var url = "%s/api/v1/accounts/%lld/%s".printf (Tootle.settings.instance_url, id, action);
+        var url = "%s/api/v1/accounts/%lld/%s".printf (Tootle.accounts.formal.instance, id, action);
         var msg = new Soup.Message("POST", url);
         msg.priority = Soup.MessagePriority.HIGH;
         Tootle.network.queue (msg, (sess, mess) => {
@@ -97,7 +97,7 @@ public class Tootle.Account{
 
     public Soup.Message set_muted (bool mute = true){
         var action = mute ? "mute" : "unmute"; 
-        var url = "%s/api/v1/accounts/%lld/%s".printf (Tootle.settings.instance_url, id, action);
+        var url = "%s/api/v1/accounts/%lld/%s".printf (Tootle.accounts.formal.instance, id, action);
         var msg = new Soup.Message("POST", url);
         msg.priority = Soup.MessagePriority.HIGH;
         Tootle.network.queue (msg, (sess, mess) => {
@@ -116,7 +116,7 @@ public class Tootle.Account{
     
     public Soup.Message set_blocked (bool block = true){
         var action = block ? "block" : "unblock"; 
-        var url = "%s/api/v1/accounts/%lld/%s".printf (Tootle.settings.instance_url, id, action);
+        var url = "%s/api/v1/accounts/%lld/%s".printf (Tootle.accounts.formal.instance, id, action);
         var msg = new Soup.Message("POST", url);
         msg.priority = Soup.MessagePriority.HIGH;
         Tootle.network.queue (msg, (sess, mess) => {
@@ -130,13 +130,6 @@ public class Tootle.Account{
                 warning (e.message);
             }
         });
-        return msg;
-    }
-    
-    public Soup.Message get_stream () {
-        var url = "%s/api/v1/streaming/?stream=user&access_token=%s".printf (Tootle.settings.instance_url, Tootle.settings.access_token);
-        var msg = new Soup.Message("GET", url);
-        msg.priority = Soup.MessagePriority.VERY_HIGH;
         return msg;
     }
 

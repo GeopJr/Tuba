@@ -7,7 +7,7 @@ public class Tootle.LocalView : TimelineView {
     }
     
     public override string get_icon () {
-        return "folder-recent-symbolic";
+        return "document-open-recent-symbolic";
     }
     
     public override string get_name () {

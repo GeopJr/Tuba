@@ -73,7 +73,7 @@ public class Tootle.NotificationsView : AbstractView {
     }
     
     public void request () {
-        var url = "%s/api/v1/follow_requests".printf (Tootle.settings.instance_url);
+        var url = "%s/api/v1/follow_requests".printf (Tootle.accounts.formal.instance);
         var msg = new Soup.Message("GET", url);
         Tootle.network.queue(msg, (sess, mess) => {
             try{
@@ -91,7 +91,7 @@ public class Tootle.NotificationsView : AbstractView {
             }
         });
     
-        var url2 = "%s/api/v1/notifications?limit=30".printf (Tootle.settings.instance_url);
+        var url2 = "%s/api/v1/notifications?limit=30".printf (Tootle.accounts.formal.instance);
         var msg2 = new Soup.Message("GET", url2);
         Tootle.network.queue(msg2, (sess, mess) => {
             try{

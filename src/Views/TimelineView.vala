@@ -35,14 +35,18 @@ public class Tootle.TimelineView : AbstractView {
         if (timeline != this.timeline)
             return;
         
-        prepend (ref status, true);
+        prepend (ref status);
     }
     
     public virtual bool is_status_owned (ref Status status) {
         return status.is_owned ();
     }
     
-    public void prepend (ref Status status, bool first = false){
+    public void prepend (ref Status status) {
+        append (ref status, true);
+    }
+    
+    public void append (ref Status status, bool first = false){
         if (empty != null)
             empty.destroy ();
     
@@ -95,12 +99,17 @@ public class Tootle.TimelineView : AbstractView {
         if (page_next != null)
             return page_next;
         
-        var url = "%s/api/v1/timelines/%s?limit=%i".printf (Tootle.settings.instance_url, this.timeline, this.limit);
+        var url = "%s/api/v1/timelines/%s?limit=%i".printf (Tootle.accounts.formal.instance, this.timeline, this.limit);
         url += this.pars;
         return url;
     }
     
     public virtual void request (){
+        if (accounts.current == null) {
+            empty_state ();
+            return;
+        }
+        
         var msg = new Soup.Message("GET", get_url ());
         msg.finished.connect (() => empty_state ());
         Tootle.network.queue(msg, (sess, mess) => {
@@ -109,7 +118,7 @@ public class Tootle.TimelineView : AbstractView {
                     var object = node.get_object ();
                     if (object != null){
                         var status = Status.parse(object);
-                        prepend (ref status);
+                        append (ref status);
                     }
                 });
                 get_pages (mess.response_headers.get_one ("Link"));

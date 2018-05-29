@@ -209,7 +209,7 @@ public class Tootle.AccountView : TimelineView {
         if (page_next != null)
             return page_next;
         
-        var url = "%s/api/v1/accounts/%lld/statuses?limit=%i".printf (Tootle.settings.instance_url, account.id, this.limit);
+        var url = "%s/api/v1/accounts/%lld/statuses?limit=%i".printf (Tootle.accounts.formal.instance, account.id, this.limit);
         return url;
     }
     
@@ -232,7 +232,7 @@ public class Tootle.AccountView : TimelineView {
     }
     
     public static void open_from_id (int64 id){
-        var url = "%s/api/v1/accounts/%lld".printf (Tootle.settings.instance_url, id);
+        var url = "%s/api/v1/accounts/%lld".printf (Tootle.accounts.formal.instance, id);
         var msg = new Soup.Message("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
         Tootle.network.queue(msg, (sess, mess) => {
@@ -249,7 +249,7 @@ public class Tootle.AccountView : TimelineView {
     }
     
     public static void open_from_name (string name){
-        var url = "%s/api/v1/accounts/search?limit=1&q=%s".printf (Tootle.settings.instance_url, name);
+        var url = "%s/api/v1/accounts/search?limit=1&q=%s".printf (Tootle.accounts.formal.instance, name);
         var msg = new Soup.Message("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
         Tootle.network.queue(msg, (sess, mess) => {

@@ -40,21 +40,21 @@ public class Tootle.Notification{
         if (type == NotificationType.FOLLOW_REQUEST)
             return reject_follow_request ();
         
-        var url = "%s/api/v1/notifications/dismiss?id=%lld".printf (Tootle.settings.instance_url, id);
+        var url = "%s/api/v1/notifications/dismiss?id=%lld".printf (Tootle.accounts.formal.instance, id);
         var msg = new Soup.Message("POST", url);
         Tootle.network.queue(msg);
         return msg;
     }
     
     public Soup.Message accept_follow_request () {
-        var url = "%s/api/v1/follow_requests/%lld/authorize".printf (Tootle.settings.instance_url, account.id);
+        var url = "%s/api/v1/follow_requests/%lld/authorize".printf (Tootle.accounts.formal.instance, account.id);
         var msg = new Soup.Message("POST", url);
         Tootle.network.queue(msg);
         return msg;
     }
     
     public Soup.Message reject_follow_request () {
-        var url = "%s/api/v1/follow_requests/%lld/reject".printf (Tootle.settings.instance_url, account.id);
+        var url = "%s/api/v1/follow_requests/%lld/reject".printf (Tootle.accounts.formal.instance, account.id);
         var msg = new Soup.Message("POST", url);
         Tootle.network.queue(msg);
         return msg;
