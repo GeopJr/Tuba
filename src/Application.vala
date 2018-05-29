@@ -10,6 +10,7 @@ namespace Tootle{
     public static SettingsManager settings;
     public static AccountManager accounts;
     public static NetManager network;
+    public static ImageCache image_cache;
 
     public class Application : Granite.Application {
     
@@ -31,6 +32,7 @@ namespace Tootle{
             settings = new SettingsManager ();
             accounts = new AccountManager ();
             network = new NetManager ();
+            image_cache = new ImageCache ();
             accounts.init ();
                                     
             app.error.connect (app.on_error);

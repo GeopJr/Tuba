@@ -135,7 +135,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         if (account == null)
             avatar.show_default (24);
         else
-            network.load_avatar (account.avatar, avatar, 24);
+            image_cache.load_avatar (account.avatar, avatar, 24);
     }
     
     private void update_selection () {

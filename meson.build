@@ -22,6 +22,7 @@ executable(
     'src/MainWindow.vala',
     'src/SettingsManager.vala',
     'src/AccountManager.vala',
+    'src/ImageCache.vala',
     'src/NetManager.vala',
     'src/Utils.vala',
     'src/Notificator.vala',

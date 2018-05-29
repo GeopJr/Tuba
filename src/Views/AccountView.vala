@@ -142,7 +142,7 @@ public class Tootle.AccountView : TimelineView {
         username.label = "@" + account.acct;
         note.label = Utils.simplify_html (account.note);
         button_follow.visible = !account.is_self ();
-        Tootle.network.load_avatar (account.avatar, avatar, 128);
+        Tootle.image_cache.load_avatar (account.avatar, avatar, 128);
         
         menu_edit.visible = account.is_self ();
     
