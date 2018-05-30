@@ -66,6 +66,7 @@ public class Tootle.MainWindow: Gtk.Window {
         header.pack_start (button_toot);
         header.pack_end (button_accounts);
         header.pack_end (spinner);
+        set_titlebar (header);
         
         grid = new Gtk.Grid ();
         grid.set_size_request (400, 500);
@@ -77,7 +78,6 @@ public class Tootle.MainWindow: Gtk.Window {
         add_header_view (new LocalView ());
         add_header_view (new FederatedView ());
         button_mode.set_active (0);
-        update_header ();
         
         add (grid);
         show_all ();
@@ -91,8 +91,8 @@ public class Tootle.MainWindow: Gtk.Window {
             title: "Tootle",
             resizable: true
         );
-        set_titlebar (header);
         window_position = WindowPosition.CENTER;
+        update_header ();
         
         app.toast.connect (on_toast);
         network.started.connect (() => spinner.show ());
