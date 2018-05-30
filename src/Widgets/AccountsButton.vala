@@ -119,7 +119,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
             var widget = new AccountView ();
             widget.id = i;
             widget.display_name.label = "<b>@"+account.username+"</b>";
-            widget.instance.label = account.instance;
+            widget.instance.label = account.get_pretty_instance ();
             list.add (widget);
         });
         
