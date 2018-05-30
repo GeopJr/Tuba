@@ -69,7 +69,7 @@ public class Tootle.MainWindow: Gtk.Window {
         set_titlebar (header);
         
         grid = new Gtk.Grid ();
-        grid.set_size_request (400, 500);
+        grid.set_size_request (450, 600);
         grid.attach (primary_stack, 0, 0, 1, 1);
         grid.attach (overlay, 0, 0, 1, 1);
         
