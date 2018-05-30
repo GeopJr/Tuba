@@ -2,7 +2,8 @@ using Gtk;
 
 public class Tootle.SearchView : AbstractView {
 
-    Gtk.Entry entry;
+    private string query = "";
+    private Gtk.Entry entry;
 
     construct {
         view.margin_bottom = 6;
@@ -11,6 +12,7 @@ public class Tootle.SearchView : AbstractView {
         entry.placeholder_text = _("Search");
         entry.secondary_icon_name = "system-search-symbolic";
         entry.width_chars = 25;
+        entry.text = query;
         entry.show ();
         Tootle.window.header.pack_start (entry);
         
@@ -56,14 +58,15 @@ public class Tootle.SearchView : AbstractView {
     }
     
     private void request () {
-        if (entry.text == "") {
+        query = entry.text;
+        if (query == "") {
             clear ();
             return;
         }
+        Tootle.window.reopen_view (this.stack_pos);
     
-        var query = Soup.URI.encode (entry.text, null);
-        var url = "%s/api/v1/search?q=%s".printf (Tootle.accounts.formal.instance, query);
-        
+        var query_encoded = Soup.URI.encode (query, null);
+        var url = "%s/api/v1/search?q=%s".printf (Tootle.accounts.formal.instance, query_encoded);
         var msg = new Soup.Message("GET", url);
         Tootle.network.queue(msg, (sess, mess) => {
             try{
@@ -100,7 +103,6 @@ public class Tootle.SearchView : AbstractView {
                 }
                 
                 empty_state ();
-                    
             }
             catch (GLib.Error e) {
                 warning ("Can't update feed");

@@ -44,7 +44,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         }
     
         public AccountView (){
-            button.clicked.connect (() => Tootle.accounts.remove (id));
+            button.clicked.connect (() => accounts.remove (id));
         }
     
     }
@@ -62,15 +62,15 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
     
         item_refresh = new Gtk.ModelButton ();  
         item_refresh.text = _("Refresh");
-        item_refresh.clicked.connect (() => Tootle.app.refresh ());
+        item_refresh.clicked.connect (() => app.refresh ());
     
         item_favs = new Gtk.ModelButton ();  
         item_favs.text = _("Favorites");
-        item_favs.clicked.connect (() => Tootle.window.open_view (new FavoritesView ()));
+        item_favs.clicked.connect (() => window.open_view (new FavoritesView ()));
     
         item_search = new Gtk.ModelButton ();  
         item_search.text = _("Search");
-        item_search.clicked.connect (() => Tootle.window.open_view (new SearchView ()));
+        item_search.clicked.connect (() => window.open_view (new SearchView ()));
     
         item_settings = new Gtk.ModelButton ();  
         item_settings.text = _("Settings");
@@ -96,8 +96,8 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         add(avatar);
         show_all ();
         
-        Tootle.accounts.updated.connect (accounts_updated);
-        Tootle.accounts.switched.connect (account_switched);
+        accounts.updated.connect (accounts_updated);
+        accounts.switched.connect (account_switched);
         list.row_activated.connect (row => {
             var widget = row as AccountView;
             if (widget.id == -1) {
@@ -107,7 +107,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
             if (widget.id == Tootle.settings.current_account)
                 return;
             else
-                Tootle.accounts.switch_account (widget.id);
+                accounts.switch_account (widget.id);
         });
     }
     
@@ -135,7 +135,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         if (account == null)
             avatar.show_default (24);
         else
-            Tootle.network.load_avatar (account.avatar, avatar, 24);
+            network.load_avatar (account.avatar, avatar, 24);
     }
     
     private void update_selection () {
