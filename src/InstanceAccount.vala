@@ -70,13 +70,13 @@ public class Tootle.InstanceAccount : GLib.Object {
     }
     
     private void notification (ref Notification obj) {
-        var title = Utils.escape_html (obj.type.get_desc (obj.account));
+        var title = Html.remove_tags (obj.type.get_desc (obj.account));
         var notification = new GLib.Notification (title);
         if (obj.status != null) {
             var body = "";
             body += get_pretty_instance ();
             body += "\n";
-            body += Utils.escape_html (obj.status.content);
+            body += Html.remove_tags (obj.status.content);
             notification.set_body (body);
         }
         
