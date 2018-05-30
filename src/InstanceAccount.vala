@@ -79,12 +79,17 @@ public class Tootle.InstanceAccount : GLib.Object {
             body += Utils.escape_html (obj.status.content);
             notification.set_body (body);
         }
-        app.send_notification (app.application_id + ":" + obj.id.to_string (), notification);
+        
+        if (settings.notifications)
+            app.send_notification (app.application_id + ":" + obj.id.to_string (), notification);
         
         network.notification (ref obj);
     }
     
     private void status_added (ref Status status) {
+        if (accounts.formal.token != this.token)
+            return;
+        
         if (settings.live_updates)
             network.status_added (ref status, "home");
         else
@@ -92,6 +97,9 @@ public class Tootle.InstanceAccount : GLib.Object {
     }
     
     private void status_removed (int64 id) {
+        if (accounts.formal.token != this.token)
+            return;
+        
         if (settings.live_updates)
             network.status_removed (id);
     }

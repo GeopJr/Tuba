@@ -6,6 +6,11 @@
 			<summary>Current Account</summary>
 			<description>Do not edit or it shall set your house on fire</description>
 		</key>
+		<key name="notifications" type="b">
+			<default>true</default>
+			<summary>Display desktop notifications</summary>
+			<description></description>
+		</key>
 		<key name="always-online" type="b">
 			<default>false</default>
 			<summary>Always monitor new notifications</summary>
