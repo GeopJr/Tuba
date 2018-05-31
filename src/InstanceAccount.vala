@@ -83,7 +83,8 @@ public class Tootle.InstanceAccount : GLib.Object {
         if (settings.notifications)
             app.send_notification (app.application_id + ":" + obj.id.to_string (), notification);
         
-        network.notification (ref obj);
+        if (accounts.formal.token == this.token)
+            network.notification (ref obj);
     }
     
     private void status_added (ref Status status) {

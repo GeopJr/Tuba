@@ -23,9 +23,6 @@ public class Tootle.MainWindow: Gtk.Window {
         settings.changed.connect (update_theme);
         update_theme ();
 
-        toast = new Granite.Widgets.Toast ("");
-        overlay = new Gtk.Overlay ();
-        overlay.add_overlay (toast);
         secondary_stack = new Stack();
         secondary_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
         secondary_stack.show ();
@@ -61,17 +58,14 @@ public class Tootle.MainWindow: Gtk.Window {
         header = new Gtk.HeaderBar ();
         header.show_close_button = true;
         header.custom_title = button_mode;
-        header.show_all ();
         header.pack_start (button_back);
         header.pack_start (button_toot);
         header.pack_end (button_accounts);
         header.pack_end (spinner);
-        set_titlebar (header);
+        header.show_all ();
         
         grid = new Gtk.Grid ();
-        grid.set_size_request (450, 600);
         grid.attach (primary_stack, 0, 0, 1, 1);
-        grid.attach (overlay, 0, 0, 1, 1);
         
         add_header_view (new TimelineView ("home"));
         add_header_view (new NotificationsView ());
@@ -79,7 +73,12 @@ public class Tootle.MainWindow: Gtk.Window {
         add_header_view (new FederatedView ());
         button_mode.set_active (0);
         
-        add (grid);
+        toast = new Granite.Widgets.Toast ("");
+        overlay = new Gtk.Overlay ();
+        overlay.add_overlay (grid);
+        overlay.add_overlay (toast);
+        overlay.set_size_request (450, 600);
+        add (overlay);
         show_all ();
         
         button_mode.valign = Gtk.Align.FILL;
@@ -93,6 +92,7 @@ public class Tootle.MainWindow: Gtk.Window {
         );
         window_position = WindowPosition.CENTER;
         update_header ();
+        set_titlebar (header);
         
         app.toast.connect (on_toast);
         network.started.connect (() => spinner.show ());
