@@ -73,6 +73,11 @@ public class Tootle.NotificationsView : AbstractView {
     }
     
     public void request () {
+        if (accounts.current == null) {
+            empty_state ();
+            return;
+        }
+    
         var url = "%s/api/v1/follow_requests".printf (Tootle.accounts.formal.instance);
         var msg = new Soup.Message("GET", url);
         Tootle.network.queue(msg, (sess, mess) => {

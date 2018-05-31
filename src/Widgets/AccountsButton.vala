@@ -145,6 +145,8 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
             list.select_row (row);
     }
 
-    public AccountsButton() {}
+    public AccountsButton() {
+        account_switched (accounts.current);
+    }
 
 }

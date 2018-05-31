@@ -81,11 +81,11 @@ public class Tootle.AccountView : TimelineView {
         menu_mute = new Gtk.MenuItem.with_label (_("Mute"));
         menu_block = new Gtk.MenuItem.with_label (_("Block"));
         menu.add (menu_mention);
-        menu.add (new Gtk.SeparatorMenuItem ());
+        //menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (menu_mute);
         menu.add (menu_block);
         //menu.add (menu_report); //TODO: Report users
-        menu.add (menu_edit); //TODO: Edit profile
+        //menu.add (menu_edit); //TODO: Edit profile
         menu.show_all ();
         
         button_follow = add_counter ("contact-new-symbolic");
@@ -111,12 +111,12 @@ public class Tootle.AccountView : TimelineView {
         account = acc;
         account.updated.connect(rebind);
         
-        add_counter (_("TOOTS"), 1, account.statuses_count);
-        add_counter (_("FOLLOWS"), 2, account.following_count).clicked.connect (() => {
+        add_counter (_("Toots"), 1, account.statuses_count);
+        add_counter (_("Follows"), 2, account.following_count).clicked.connect (() => {
             var view = new FollowingView (ref account);
             Tootle.window.open_view (view);
         });
-        add_counter (_("FOLLOWERS"), 3, account.followers_count).clicked.connect (() => {
+        add_counter (_("Followers"), 3, account.followers_count).clicked.connect (() => {
             var view = new FollowersView (ref account);
             Tootle.window.open_view (view);
         });
@@ -177,15 +177,17 @@ public class Tootle.AccountView : TimelineView {
     }
     
     public override bool is_status_owned (ref Status status) {
-        return status.get_formal().account.id == account.id;
+        return status.is_owned ();
     }
     
     private Gtk.Button add_counter (string name, int? i = null, int64? val = null) {
         Gtk.Button btn;
         if (val != null){
             btn = new Gtk.Button ();
-            var label = new Gtk.Label (name + "\n" + val.to_string ());
+            var label = new Gtk.Label ("<b>%s</b>\n%s".printf (name.up (), val.to_string ()));
             label.justify = Gtk.Justification.CENTER;
+            label.use_markup = true;
+            label.margin = 8;
             btn.add (label);
         }
         else

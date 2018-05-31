@@ -8,6 +8,5 @@ Icon=com.github.bleakgrey.tootle
 Terminal=false
 Categories=GNOME;GTK;Network;
 Keywords=toot;mastodon;social;network;post;
-MimeType=text/plain;
-StartupNotify=true
+X-GNOME-Gettext-Domain=com.github.bleakgrey.tootle
 X-GNOME-UsesNotifications=true

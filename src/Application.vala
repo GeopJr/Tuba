@@ -28,6 +28,11 @@ namespace Tootle{
         public static int main (string[] args) {
             Gtk.init (ref args);
             app = new Application ();
+            return app.run (args);
+        }
+        
+        protected override void startup () {
+            base.startup ();
             
             settings = new SettingsManager ();
             accounts = new AccountManager ();
@@ -36,32 +41,21 @@ namespace Tootle{
             accounts.init ();
                                     
             app.error.connect (app.on_error);
-            return app.run (args);
-        }
-        
-        protected override void startup () {
-            base.startup ();
             
             window_dummy = new Window ();
             add_window (window_dummy);
         }
         
         protected override void activate () {
-            if (window != null) {
-                debug ("Reopening window");
-                if (!accounts.is_empty ())
-                    window.present ();
-                else
-                    NewAccountDialog.open ();
-            }
+            if (window != null)
+                return;
+            
+            debug ("Creating new window");
+            if (accounts.is_empty ())
+                NewAccountDialog.open ();
             else {
-                debug ("Creating new window");
-                if (accounts.is_empty ())
-                    NewAccountDialog.open ();
-                else {
-                    window = new MainWindow (this);
-                    window.present ();
-                }
+                window = new MainWindow (this);
+                window.present ();
             }
         }
         

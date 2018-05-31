@@ -39,7 +39,7 @@ public class Tootle.TimelineView : AbstractView {
     }
     
     public virtual bool is_status_owned (ref Status status) {
-        return status.is_owned ();
+        return false;
     }
     
     public void prepend (ref Status status) {

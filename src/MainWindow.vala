@@ -97,7 +97,7 @@ public class Tootle.MainWindow: Gtk.Window {
         app.toast.connect (on_toast);
         network.started.connect (() => spinner.show ());
         network.finished.connect (() => spinner.hide ());
-        accounts.signal_current ();
+        accounts.updated (accounts.saved_accounts);
     }
     
     private void add_header_view (AbstractView view) {

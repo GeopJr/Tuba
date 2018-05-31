@@ -14,4 +14,4 @@ Package: com.github.bleakgrey.tootle
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Mastodon client
- Fast and beautiful Mastodon client.
+ Lightning fast Mastodon client.

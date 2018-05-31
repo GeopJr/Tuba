@@ -5,27 +5,49 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Tootle</name>
-  <summary>Mastodon Client</summary>
+  <summary>Lighting fast client for Mastodon</summary>
+  
   <description>
     <p>
-      A client for Mastodon
+      Tootle is a client for the world’s largest free, open-source, decentralized microblogging network with real-time notifications and multiple accounts support.
+    </p>
+    <p>
+      Mastodon is lovely crafted with power and speed in mind, resulting in a free, independent and popular alternative to the centralized social networks.
+    </p>
+    <p>
+      Anyone can run a server of Mastodon. Each server hosts individual user accounts, the content they produce, and the content they are subscribed. Every user can follow each other and share their posts regardless of their server.
+    </p>
+    <p>
+      Would you like to join Mastodon? Visit https://joinmastodon.org/ to get started.
     </p>
   </description>
+  
   <provides>
     <binary>com.github.bleakgrey.tootle</binary>
   </provides>
+  
   <developer_name>bleak_grey</developer_name>
   <url type="homepage">https://github.com/bleakgrey</url>
   <url type="bugtracker">https://github.com/bleakgrey/tootle/issues</url>
-  <url type="donation">https://www.paypal.me/bleakgrey</url>
+  <url type="donation">https://liberapay.com/bleakgrey/donate</url>
+  
   <screenshots>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot.png</image>
     </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot2.png</image>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot3.png</image>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot4.png</image>
+    </screenshot>
   </screenshots>
 
   <releases>
-    <release version="0.1.0" date="2018-03-01">
+    <release version="0.1.0" date="2018-05-31">
   ​      <description>
   ​         <ul>
               <li>Initial release</li>
@@ -33,5 +55,10 @@
   ​      </description>
   ​    </release>
   ​ </releases>
+  
+   <custom>
+     <value key="x-appcenter-color-primary">#F5F8FF</value>
+     <value key="x-appcenter-color-primary-text">#413F58</value>
+  </custom>
 
 </component>

@@ -8,7 +8,7 @@ public class Tootle.AccountManager : Object{
     public abstract signal void switched (Account? account);
     public abstract signal void updated (GenericArray<InstanceAccount> accounts);
 
-    private GenericArray<InstanceAccount> saved_accounts = new GenericArray<InstanceAccount> ();
+    public GenericArray<InstanceAccount> saved_accounts = new GenericArray<InstanceAccount> ();
     public InstanceAccount? formal {get; set;}
     public Account? current {get; set;}
 
@@ -16,11 +16,6 @@ public class Tootle.AccountManager : Object{
         Object();
         dir_path = "%s/%s".printf (GLib.Environment.get_user_config_dir (), Tootle.app.application_id);
         file_path = "%s/%s".printf (dir_path, "accounts.json");
-    }
-    
-    public void signal_current () {
-        switched (current);
-        updated (saved_accounts);
     }
     
     public void switch_account (int id){
@@ -83,10 +78,8 @@ public class Tootle.AccountManager : Object{
         save (false);
         load ();
         
-        if (saved_accounts.length < 1) {
-            switched (null);
+        if (saved_accounts.length < 1)
             NewAccountDialog.open ();
-        }
         else
             switch_account (Tootle.settings.current_account);
     }
