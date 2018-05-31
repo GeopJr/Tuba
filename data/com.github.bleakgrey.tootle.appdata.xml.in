@@ -17,9 +17,6 @@
     <p>
       Anyone can run a server of Mastodon. Each server hosts individual user accounts, the content they produce, and the content they are subscribed. Every user can follow each other and share their posts regardless of their server.
     </p>
-    <p>
-      Would you like to join Mastodon? Visit https://joinmastodon.org/ to get started.
-    </p>
   </description>
   
   <provides>
@@ -47,7 +44,7 @@
   </screenshots>
 
   <releases>
-    <release version="0.1.1" date="2018-05-31">
+    <release version="0.1.2" date="2018-05-31">
   ​      <description>
   ​         <ul>
               <li>Initial release</li>
