@@ -72,6 +72,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         spoiler_text.margin_start = 6;
         spoiler_text.margin_end = 6;
         spoiler_text.placeholder_text = _("Write your warning here");
+        spoiler_text.changed.connect (validate);
         
         spoiler_revealer = new Gtk.Revealer ();
         spoiler_revealer.add (spoiler_text);
@@ -147,8 +148,9 @@ public class Tootle.PostDialog : Gtk.Dialog {
     }
     
     private void validate () {
-        var len = text.buffer.text.length;
-        var remain = 500 - len;
+        var remain = 500 - text.buffer.text.length;
+        if (spoiler.active)
+            remain -= spoiler_text.buffer.text.length;
         
         counter.label = remain.to_string ();
         publish.sensitive = remain >= 0; 
