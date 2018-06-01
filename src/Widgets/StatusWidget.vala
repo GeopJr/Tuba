@@ -72,7 +72,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         reblogs = new Gtk.Label ("0");
         favorites = new Gtk.Label ("0");
         
-        reblog = new ImageToggleButton ("go-up-symbolic");
+        reblog = new ImageToggleButton ("media-playlist-repeat-symbolic");
         reblog.set_action ();
         reblog.tooltip_text = _("Boost");
         reblog.toggled.connect (() => {
@@ -86,7 +86,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             if (favorite.sensitive)
                 this.status.get_formal ().set_favorited (favorite.get_active ());
         });
-        reply = new ImageToggleButton ("edit-undo-symbolic");
+        reply = new ImageToggleButton ("mail-reply-sender-symbolic");
         reply.set_action ();
         reply.tooltip_text = _("Reply");
         reply.toggled.connect (() => {
