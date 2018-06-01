@@ -174,15 +174,14 @@ public class Tootle.PostDialog : Gtk.Dialog {
     }
     
     public void publish_post () {
-        var to_escape = ";";
-        var pars = "?status=%s&visibility=%s".printf (Soup.URI.encode (text.buffer.text, to_escape), visibility_opt.to_string ());
+        var pars = "?status=%s&visibility=%s".printf (Utils.encode (text.buffer.text), visibility_opt.to_string ());
         pars += attachments.get_uri_array ();    
         if (in_reply_to != null)
             pars += "&in_reply_to_id=%s".printf (in_reply_to.id.to_string ());
         
         if (spoiler.active) {
             pars += "&sensitive=true";
-            pars += "&spoiler_text=" + Soup.URI.encode (spoiler_text.buffer.text, to_escape);
+            pars += "&spoiler_text=" + Utils.encode (spoiler_text.buffer.text);
         }
         
         var url = "%s/api/v1/statuses%s".printf (Tootle.accounts.formal.instance, pars);

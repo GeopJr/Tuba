@@ -31,6 +31,11 @@ public class Tootle.Utils{
             .replace ("&", "&amp;")
             .replace ("'", "&apos;");
     }
+    
+    public static string encode (string content) {
+        var to_escape = ";&";
+        return Soup.URI.encode (content, to_escape);
+    }
 
     public static void copy (string str) {
         var display = Tootle.window.get_display ();
