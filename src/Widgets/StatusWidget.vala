@@ -145,15 +145,13 @@ public class Tootle.StatusWidget : Gtk.EventBox {
                 spoiler_button = new Button.from_icon_name ("mail-attachment-symbolic", Gtk.IconSize.BUTTON);
                 spoiler_button.label = spoiler_button_text;
                 spoiler_button.always_show_image = true;
-                spoiler_button.hexpand = true;
-                spoiler_button.halign = Gtk.Align.END;
                 content_label.margin_top = 6;
             }
             else {
                 spoiler_button = new Button.with_label (spoiler_button_text);
-                spoiler_button.hexpand = true;
-                spoiler_button.halign = Gtk.Align.END;
             }
+            spoiler_button.hexpand = true;
+            spoiler_button.halign = Gtk.Align.END;
             spoiler_button.clicked.connect (() => revealer.set_reveal_child (!revealer.child_revealed));
             
             var spoiler_text = _("[ This post contains sensitive content ]");

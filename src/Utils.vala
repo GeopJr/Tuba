@@ -33,7 +33,7 @@ public class Tootle.Utils{
     }
     
     public static string encode (string content) {
-        var to_escape = ";&";
+        var to_escape = ";&+";
         return Soup.URI.encode (content, to_escape);
     }
 
