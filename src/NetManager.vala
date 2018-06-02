@@ -35,7 +35,7 @@ public class Tootle.NetManager : GLib.Object {
         GLib.Object();
     }
     
-    public async WebsocketConnection stream (Soup.Message msg) {
+    public async WebsocketConnection stream (Soup.Message msg) throws GLib.Error {
         return yield session.websocket_connect_async (msg, null, null, null);
     }
     
