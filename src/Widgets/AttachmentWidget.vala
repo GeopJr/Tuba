@@ -8,13 +8,14 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
 
     Attachment? attachment;
     private bool editable = false;
+    private const int SMALL_SIZE = 64;
     
     public Gtk.Label label;
     Gtk.Grid grid;
     Gtk.Image? image;
 
     construct {
-        set_size_request (64, 64);
+        set_size_request (SMALL_SIZE, SMALL_SIZE);
         grid = new Gtk.Grid ();
         get_style_context ().add_class ("attachment");
         
@@ -38,6 +39,10 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
         attachment = att;
         rebind ();
     }
+
+    public int get_small_size () {
+        return SMALL_SIZE * get_style_context ().get_scale ();
+    }
     
     public void rebind () {
         var type = attachment.type;
@@ -49,7 +54,7 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
                 image.valign = Gtk.Align.CENTER;
                 image.show ();
                 if (editable)
-                    Tootle.network.load_scaled_image (attachment.preview_url, image);
+                    Tootle.network.load_scaled_image (attachment.preview_url, image, get_small_size ());
                 else
                     Tootle.network.load_image (attachment.preview_url, image);
                 grid.attach (image, 0, 0);

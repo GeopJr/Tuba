@@ -2,6 +2,7 @@ using Gtk;
 
 public class Tootle.AccountsButton : Gtk.MenuButton{
 
+    const int AVATAR_SIZE = 24;
     Granite.Widgets.Avatar avatar;
     Gtk.Grid grid;
     Gtk.Popover menu;
@@ -50,7 +51,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
     }
 
     construct{
-        avatar = new Granite.Widgets.Avatar.with_default_icon (24);
+        avatar = new Granite.Widgets.Avatar.with_default_icon (AVATAR_SIZE);
         avatar.button_press_event.connect(event => {
             return false;
         });
@@ -133,9 +134,9 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
     
     private void account_switched (Account? account) {
         if (account == null)
-            avatar.show_default (24);
+            avatar.show_default (AVATAR_SIZE);
         else
-            network.load_avatar (account.avatar, avatar, 24);
+            network.load_avatar (account.avatar, avatar, get_avatar_size ());
     }
     
     private void update_selection () {
@@ -143,6 +144,10 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         var row = list.get_row_at_index (id);
         if (row != null)
             list.select_row (row);
+    }
+
+    public int get_avatar_size () {
+        return AVATAR_SIZE * get_style_context ().get_scale ();
     }
 
     public AccountsButton() {

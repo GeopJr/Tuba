@@ -6,11 +6,11 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     
     public Status status;
     public bool is_notification = false;
+    public const int AVATAR_SIZE = 32;
     
     public Gtk.Separator? separator;
     public Gtk.Grid grid;
     public Granite.Widgets.Avatar avatar;
-    private const int avatar_size = 32;
     public Gtk.Label title_user;
     public Gtk.Label title_date;
     public Gtk.Label title_acct;
@@ -30,7 +30,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     construct {
         grid = new Gtk.Grid ();
     
-        avatar = new Granite.Widgets.Avatar.with_default_icon (32);
+        avatar = new Granite.Widgets.Avatar.with_default_icon (AVATAR_SIZE);
         avatar.valign = Gtk.Align.START;
         avatar.margin_top = 6;
         avatar.margin_start = 6;
@@ -175,7 +175,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             attachments.destroy ();
         
         destroy.connect (() => {
-            avatar.show_default (avatar_size);
+            avatar.show_default (AVATAR_SIZE);
             if(separator != null)
                 separator.destroy ();
         });
@@ -191,6 +191,10 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public void highlight () {
         grid.get_style_context ().add_class ("card");
         grid.margin_bottom = 6;
+    }
+    
+    public int get_avatar_size () {
+        return AVATAR_SIZE * get_style_context ().get_scale ();
     }
     
     public void rebind () {
@@ -220,7 +224,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             reblog.tooltip_text = _("This post can't be boosted");
         }
         
-        Tootle.network.load_avatar (formal.account.avatar, avatar, avatar_size);
+        Tootle.network.load_avatar (formal.account.avatar, avatar, get_avatar_size ());
     }
 
     public bool is_spoiler () {

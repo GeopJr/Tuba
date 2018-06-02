@@ -105,7 +105,7 @@ public class Tootle.NetManager : GLib.Object {
         return parser.get_root ().get_array ();
     }
     
-    public void load_avatar (string url, Granite.Widgets.Avatar avatar, int size = 32){
+    public void load_avatar (string url, Granite.Widgets.Avatar avatar, int size){
         if (settings.cache) {
             image_cache.load_avatar (url, avatar, size);
             return;
@@ -116,7 +116,7 @@ public class Tootle.NetManager : GLib.Object {
             var data = msg.response_body.data;
             var stream = new MemoryInputStream.from_data (data);
             var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, size, size, true);
-            avatar.pixbuf = pixbuf;
+            avatar.pixbuf = pixbuf.scale_simple (size, size, Gdk.InterpType.BILINEAR);
         });
         Tootle.network.queue (msg);
     }
@@ -137,7 +137,7 @@ public class Tootle.NetManager : GLib.Object {
         Tootle.network.queue (msg);
     }
     
-    public void load_scaled_image (string url, Gtk.Image image, int size = 64) {
+    public void load_scaled_image (string url, Gtk.Image image, int size) {
         if (settings.cache) {
             image_cache.load_scaled_image (url, image, size);
             return;

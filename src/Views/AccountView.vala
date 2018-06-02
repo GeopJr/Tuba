@@ -3,6 +3,7 @@ using Granite;
 
 public class Tootle.AccountView : TimelineView {
     
+    const int AVATAR_SIZE = 128;
     Account account;
     
     Gtk.Grid header;
@@ -43,7 +44,7 @@ public class Tootle.AccountView : TimelineView {
         relationship.margin = 12;
         header.attach (relationship, 0, 0, 1, 1);
     
-        avatar = new Granite.Widgets.Avatar.with_default_icon (128);
+        avatar = new Granite.Widgets.Avatar.with_default_icon (AVATAR_SIZE);
         avatar.hexpand = true;
         avatar.margin_bottom = 6;
         header_info.pack_start(avatar, false, false, 0);
@@ -136,6 +137,8 @@ public class Tootle.AccountView : TimelineView {
         account.get_relationship ();
         request ();
     }
+    
+    
     
     public void rebind (){
         display_name.label = "<b>%s</b>".printf (Utils.escape_entities(account.display_name));
