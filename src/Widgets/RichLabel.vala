@@ -40,7 +40,12 @@ public class Tootle.RichLabel : Gtk.Label {
         if ("/@" in url){
             var uri = new Soup.URI (url);
             var username = url.split("/@")[1];
-            AccountView.open_from_name ("@" + username + "@" + uri.get_host ());
+            
+            if ("/" in username)
+                StatusView.open_from_link (url);
+            else
+                AccountView.open_from_name ("@" + username + "@" + uri.get_host ());
+            
             return true;
         }
     

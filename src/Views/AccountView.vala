@@ -237,9 +237,9 @@ public class Tootle.AccountView : TimelineView {
         var url = "%s/api/v1/accounts/%lld".printf (Tootle.accounts.formal.instance, id);
         var msg = new Soup.Message("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
-        Tootle.network.queue(msg, (sess, mess) => {
+        network.queue (msg, (sess, mess) => {
             try{
-                var root = Tootle.network.parse (mess);
+                var root = network.parse (mess);
                 var acc = Account.parse (root);
                 Tootle.window.open_view (new AccountView (acc));
             }
@@ -254,19 +254,18 @@ public class Tootle.AccountView : TimelineView {
         var url = "%s/api/v1/accounts/search?limit=1&q=%s".printf (Tootle.accounts.formal.instance, name);
         var msg = new Soup.Message("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
-        Tootle.network.queue(msg, (sess, mess) => {
+        network.queue (msg, (sess, mess) => {
             try{
-                var node = Tootle.network.parse_array (mess).get_element (0);
+                var node = network.parse_array (mess).get_element (0);
                 var object = node.get_object ();
                 if (object != null){
                     var acc = Account.parse(object);
-                    Tootle.window.open_view (new AccountView (acc));
+                    window.open_view (new AccountView (acc));
                 }
                 else
-                    warning ("No results found for account: "+name); //TODO: toast notifications
+                    app.toast (_("User not found"));
             }
             catch (GLib.Error e) {
-                warning ("Can't update feed");
                 warning (e.message);
             }
         });

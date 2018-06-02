@@ -33,7 +33,7 @@ public class Tootle.StatusView : AbstractView {
     public Soup.Message request_context (){
         var url = "%s/api/v1/statuses/%lld/context".printf (Tootle.accounts.formal.instance, root_status.id);
         var msg = new Soup.Message("GET", url);
-        Tootle.network.queue(msg, (sess, mess) => {
+        network.queue (msg, (sess, mess) => {
             try{
                 var root = Tootle.network.parse (mess);
                 
@@ -65,6 +65,26 @@ public class Tootle.StatusView : AbstractView {
         return msg;
     }
 
+    public static void open_from_link (string q){
+        var url = "%s/api/v1/search?q=%s&resolve=true".printf (accounts.formal.instance, q);
+        var msg = new Soup.Message("GET", url);
+        msg.priority = Soup.MessagePriority.HIGH;
+        network.queue (msg, (sess, mess) => {
+            try{
+                var root = network.parse (mess);
+                var statuses = root.get_array_member ("statuses");
+                var object = statuses.get_element (0).get_object ();
+                if (object != null){
+                    var st = Status.parse (object);
+                    window.open_view (new StatusView (ref st));
+                }
+                else
+                    app.toast (_("Toot not found"));
+            }
+            catch (GLib.Error e) {
+                warning (e.message);
+            }
+        });
+    }
+
 }
-
-
