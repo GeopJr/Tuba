@@ -119,7 +119,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         this.status.updated.connect (rebind);
         
         if (this.status.reblog != null) {
-            var image = new Gtk.Image.from_icon_name("go-up-symbolic", Gtk.IconSize.BUTTON);
+            var image = new Gtk.Image.from_icon_name("media-playlist-repeat-symbolic", Gtk.IconSize.BUTTON);
             image.halign = Gtk.Align.END;
             image.margin_end = 6;
             image.margin_top = 6;
