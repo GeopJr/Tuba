@@ -39,13 +39,13 @@ public class Tootle.Status {
         status.created_at = obj.get_string_member ("created_at");
         status.reblogs_count = obj.get_int_member ("reblogs_count");
         status.favourites_count = obj.get_int_member ("favourites_count");
-        status.content = Utils.simplify_html ( obj.get_string_member ("content"));
+        status.content = Html.simplify ( obj.get_string_member ("content"));
         status.sensitive = obj.get_boolean_member ("sensitive");
         status.visibility = StatusVisibility.from_string (obj.get_string_member ("visibility"));
         
         var spoiler = obj.get_string_member ("spoiler_text");
         if (spoiler != "")
-            status.spoiler_text = Utils.simplify_html (spoiler);
+            status.spoiler_text = Html.simplify (spoiler);
         
         if (obj.has_member ("reblogged"))
             status.reblogged = obj.get_boolean_member ("reblogged");

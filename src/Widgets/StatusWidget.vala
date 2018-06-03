@@ -200,7 +200,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public void rebind () {
         var formal = status.get_formal ();
         
-        title_user.label = "<b>%s</b>".printf (Utils.escape_entities (formal.account.display_name));
+        title_user.label = "<b>%s</b>".printf (Html.escape_entities (formal.account.display_name));
         title_acct.label = "@" + formal.account.acct;
         content_label.label = formal.content;
         content_label.mentions = formal.mentions;
@@ -272,13 +272,13 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         var item_delete = new Gtk.MenuItem.with_label (_("Delete"));
         item_delete.activate.connect (() => status.poof ());
         var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
-        item_open_link.activate.connect (() => Utils.open_url (status.url));
+        item_open_link.activate.connect (() => Desktop.open_url (status.url));
         var item_copy_link = new Gtk.MenuItem.with_label (_("Copy Link"));
-        item_copy_link.activate.connect (() => Utils.copy (status.url));
+        item_copy_link.activate.connect (() => Desktop.copy (status.url));
         var item_copy = new Gtk.MenuItem.with_label (_("Copy Text"));
         item_copy.activate.connect (() => {
-            var sanitized = Utils.escape_html (status.content);
-            Utils.copy (sanitized);
+            var sanitized = Html.remove_tags (status.content);
+            Desktop.copy (sanitized);
         });
         
         if (this.status.is_owned ()) {

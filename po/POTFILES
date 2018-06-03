@@ -1,9 +1,10 @@
 src/Application.vala
+src/Desktop.vala
+src/Html.vala
 src/MainWindow.vala
 src/SettingsManager.vala
 src/AccountManager.vala
 src/NetManager.vala
-src/Utils.vala
 src/API/StatusVisibility.vala
 src/API/NotificationType.vala
 src/API/Attachment.vala

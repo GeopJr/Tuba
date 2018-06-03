@@ -26,9 +26,9 @@ public class Tootle.AccountWidget : StatusWidget {
         });
         
         var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
-        item_open_link.activate.connect (() => Utils.open_url (status.url));
+        item_open_link.activate.connect (() => Desktop.open_url (status.url));
         var item_copy_link = new Gtk.MenuItem.with_label (_("Copy Link"));
-        item_copy_link.activate.connect (() => Utils.copy (status.url));
+        item_copy_link.activate.connect (() => Desktop.copy (status.url));
         menu.add (item_open_link);
         menu.add (item_copy_link);
         
