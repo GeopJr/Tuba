@@ -4,7 +4,6 @@ public class Tootle.FavoritesView : TimelineView {
 
     public FavoritesView () {
         base ("favorites");
-        request ();
     }
     
     public override string get_url (){
