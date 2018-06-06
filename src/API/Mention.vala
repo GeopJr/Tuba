@@ -5,7 +5,7 @@ public class Tootle.Mention{
     public string acct;
     public string url;
 
-    public Mention(int64 id){
+    public Mention (int64 id){
         this.id = id;
     }
     public Mention.from_account(Account account){

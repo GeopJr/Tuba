@@ -164,7 +164,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
 		        dialog.text.buffer.text = text;
 		}
 		else if (text != null)
-		    dialog.text.buffer.text += " " + text;
+		    dialog.text.buffer.text += text;
     }
     
     public static void open_reply (Status reply_to) {
@@ -172,7 +172,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
             return;
         
         open (null, reply_to);
-        dialog.text.buffer.text = "@%s ".printf (reply_to.account.acct);
+        dialog.text.buffer.text = reply_to.get_reply_mentions ();
     }
     
     public void publish_post () {

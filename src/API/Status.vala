@@ -81,6 +81,20 @@ public class Tootle.Status {
         return get_formal ().account.id == Tootle.accounts.current.id;
     }
     
+    public string get_reply_mentions () {
+        var result = "";
+        if (account.acct != accounts.current.acct)
+            result = "@%s ".printf (account.acct);
+        
+        if (mentions != null) {
+            foreach (var mention in mentions)
+                if (mention.acct != accounts.current.acct)
+                    result += "@%s ".printf (mention.acct);
+        }
+        
+        return result;
+    }
+    
     public void set_reblogged (bool rebl = true){
         var action = rebl ? "reblog" : "unreblog";
         var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.accounts.formal.instance, id, action));
