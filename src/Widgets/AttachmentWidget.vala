@@ -3,16 +3,13 @@ using Gdk;
 
 public class Tootle.AttachmentWidget : Gtk.EventBox {
 
-    public abstract signal void uploaded (int64 id);
-    public abstract signal void removed (int64 id);
-
-    Attachment? attachment;
+    public Attachment? attachment;
     private bool editable = false;
     private const int SMALL_SIZE = 64;
     
     public Gtk.Label label;
-    Gtk.Grid grid;
-    Gtk.Image? image;
+    private Gtk.Grid grid;
+    private Gtk.Image? image;
 
     construct {
         set_size_request (SMALL_SIZE, SMALL_SIZE);
@@ -78,7 +75,7 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
             var mime = type.get_content_type ();
             
             debug ("Uploading %s (%s)", uri, mime);
-            label.label = _("Uploading file...");
+            label.label = _("Uploading...");
             label.show ();
             show ();
             
@@ -88,14 +85,13 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
             var url = "%s/api/v1/media".printf (Tootle.accounts.formal.instance);
             var msg = Soup.Form.request_new_from_multipart (url, multipart);
             
-            Tootle.network.queue(msg, (sess, mess) => {
+            network.queue(msg, (sess, mess) => {
                 var root = Tootle.network.parse (mess);
                 attachment = Attachment.parse (root);
                 editable = true;
-                rebind ();
                 
+                rebind ();
                 debug ("Uploaded media: %lld", attachment.id);
-                uploaded (attachment.id);
             });
         }
         catch (Error e) {
@@ -118,6 +114,13 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
             menu.detach ();
             menu.destroy ();
         });
+        
+        if (editable && attachment != null) {
+            var item_remove = new Gtk.MenuItem.with_label (_("Remove"));
+            item_remove.activate.connect (() => destroy ());
+            menu.add (item_remove);
+            menu.add (new Gtk.SeparatorMenuItem ());
+        }
         
         var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
         item_open_link.activate.connect (() => Desktop.open_url (attachment.url));

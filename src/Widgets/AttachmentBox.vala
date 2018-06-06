@@ -5,7 +5,6 @@ public class Tootle.AttachmentBox : Gtk.ScrolledWindow {
 
     private Gtk.Box box;
     private bool edit_mode;
-    private int64[] ids;
 
     construct {
         box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -53,7 +52,6 @@ public class Tootle.AttachmentBox : Gtk.ScrolledWindow {
             show ();
             foreach (unowned string uri in chooser.get_uris ()) {
                 var widget = new AttachmentWidget.upload (uri);
-                widget.uploaded.connect (id => ids += id);
                 box.pack_start (widget, false, false, 6);
             }
         }
@@ -62,8 +60,11 @@ public class Tootle.AttachmentBox : Gtk.ScrolledWindow {
     
     public string get_uri_array () {
         var str = "";
-        foreach (int64 item in ids)
-            str += "&media_ids[]=" + item.to_string ();
+        box.get_children ().@foreach (widget => {
+            var w = (AttachmentWidget) widget;
+            if (w.attachment != null)
+                str += "&media_ids[]=%lld".printf (w.attachment.id);
+        });
         return str;
     }
 
