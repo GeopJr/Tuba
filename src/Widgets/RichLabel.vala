@@ -5,9 +5,25 @@ public class Tootle.RichLabel : Gtk.Label {
     public weak Mention[]? mentions;
 
     public RichLabel (string text) {
-        label = text;
+        set_label (text);
         set_use_markup (true);
         activate_link.connect (open_link);
+    }
+    
+    public static string escape_entities (string content) {
+        return content
+              .replace ("&", "&amp;")
+              .replace ("'", "&apos;");
+    }
+    
+    public static string restore_entities (string content) {
+        return content
+              .replace ("&amp;", "&")
+              .replace ("&apos;", "'");
+    }
+    
+    public new void set_label (string text) {
+        base.set_markup (escape_entities (text));
     }
     
     public void wrap_words () {

@@ -1,4 +1,5 @@
 public class Tootle.Html {
+
     public static string remove_tags (string content) {
         var all_tags = new Regex("<(.|\n)*?>", RegexCompileFlags.CASELESS);
         return all_tags.replace(content, -1, 0, "");
@@ -20,15 +21,10 @@ public class Tootle.Html {
         
         return simplified;
     }
-    
-    public static string escape_entities (string content) {
-        return content
-            .replace ("&", "&amp;")
-            .replace ("'", "&apos;");
-    }
 
     public static string uri_encode (string content) {
         var to_escape = ";&+";
         return Soup.URI.encode (content, to_escape);
     }
+    
 }

@@ -5,11 +5,11 @@ public class Tootle.NotificationWidget : Gtk.Grid {
     
     private Notification notification;
 
-    public Gtk.Separator? separator;
-    private Gtk.Image image;
-    private Tootle.RichLabel label;
+    public Separator? separator;
+    private Image image;
+    private RichLabel label;
     private StatusWidget? status_widget;
-    private Gtk.Button dismiss;
+    private Button dismiss;
 
     construct {
         margin = 6;
@@ -37,7 +37,7 @@ public class Tootle.NotificationWidget : Gtk.Grid {
     public NotificationWidget (Notification notification) {
         this.notification = notification;
         image.icon_name = notification.type.get_icon ();
-        label.label = notification.type.get_desc (notification.account);
+        label.set_label (notification.type.get_desc (notification.account));
         get_style_context ().add_class ("notification");
         
         if (notification.status != null) {

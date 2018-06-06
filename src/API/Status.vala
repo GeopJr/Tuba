@@ -18,7 +18,6 @@ public class Tootle.Status {
     public StatusVisibility visibility;
     public Status? reblog;
     public Mention[]? mentions;
-    public Tag[]? tags;
     public Attachment[]? attachments;
 
     public Status(int64 id) {
@@ -65,15 +64,6 @@ public class Tootle.Status {
         });
         if (_mentions.length > 0)
             status.mentions = _mentions;
-        
-        Tag[]? _tags = {};
-        obj.get_array_member ("tags").foreach_element ((array, i, node) => {
-            var object = node.get_object ();
-            if (object != null)
-                _tags += Tag.parse (object);
-        });
-        if (_tags.length > 0)
-            status.tags = _tags;
         
         Attachment[]? _attachments = {};
         obj.get_array_member ("media_attachments").foreach_element ((array, i, node) => {

@@ -1,20 +1,18 @@
 public class Tootle.Desktop {
-    // open a URI in the user's default browser
+
+    // Open a URI in the user's default browser
     public static void open_url (string url) {
         Gtk.show_uri (null, url, Gdk.CURRENT_TIME);
     }
 
-    // copy a string to the clipboard
+    // Copy a string to the clipboard
     public static void copy (string str) {
-        var display = Tootle.window.get_display ();
+        var display = window.get_display ();
         var clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
-        var normalized = str
-            .replace ("&amp;", "&")
-            .replace ("&apos;", "'");
-        clipboard.set_text (normalized, -1);
+        clipboard.set_text (RichLabel.restore_entities (str), -1);
     }
 
-    // download a file from the web to a user's configured Downloads folder
+    // Download a file from the web to a user's configured Downloads folder
     public static void download_file (string url) {
         debug ("Downloading file: %s", url);
         
@@ -23,7 +21,7 @@ public class Tootle.Desktop {
         if (name == null)
             name = "unknown";
         
-        var dir_path = "%s/%s".printf (GLib.Environment.get_user_special_dir (UserDirectory.DOWNLOAD), Tootle.app.program_name);
+        var dir_path = "%s/%s".printf (GLib.Environment.get_user_special_dir (UserDirectory.DOWNLOAD), app.program_name);
         var file_path = "%s/%s".printf (dir_path, name);
         
         var msg = new Soup.Message("GET", url);
@@ -39,12 +37,13 @@ public class Tootle.Desktop {
                     FileOutputStream stream = file.create (FileCreateFlags.PRIVATE);
                     stream.write (data);
                 }
-                Tootle.app.toast ("Media downloaded");
+                app.toast ("Media downloaded");
             } catch (Error e) {
-                Tootle.app.toast (e.message);
+                app.toast (e.message);
                 warning ("Error: %s\n", e.message);
             }
         });
-        Tootle.network.queue (msg);
+        network.queue (msg);
     }
+    
 }

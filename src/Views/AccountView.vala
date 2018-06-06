@@ -10,10 +10,10 @@ public class Tootle.AccountView : TimelineView {
     Gtk.Grid header_image;
     Gtk.Box header_info;
     Granite.Widgets.Avatar avatar;
-    Gtk.Label display_name;
+    RichLabel display_name;
     Gtk.Label username;
     Gtk.Label relationship;
-    Tootle.RichLabel note;
+    RichLabel note;
     Gtk.Grid counters;
     Gtk.Box actions;
     Gtk.Button button_follow;
@@ -115,11 +115,11 @@ public class Tootle.AccountView : TimelineView {
         add_counter (_("Toots"), 1, account.statuses_count);
         add_counter (_("Follows"), 2, account.following_count).clicked.connect (() => {
             var view = new FollowingView (ref account);
-            Tootle.window.open_view (view);
+            window.open_view (view);
         });
         add_counter (_("Followers"), 3, account.followers_count).clicked.connect (() => {
             var view = new FollowersView (ref account);
-            Tootle.window.open_view (view);
+            window.open_view (view);
         });
         
         show_all ();
@@ -141,11 +141,11 @@ public class Tootle.AccountView : TimelineView {
     
     
     public void rebind (){
-        display_name.label = "<b>%s</b>".printf (Html.escape_entities(account.display_name));
+        display_name.set_label ("<b>%s</b>".printf (account.display_name));
         username.label = "@" + account.acct;
-        note.label = Html.simplify (account.note);
+        note.set_label (Html.simplify (account.note));
         button_follow.visible = !account.is_self ();
-        Tootle.network.load_avatar (account.avatar, avatar, 128);
+        network.load_avatar (account.avatar, avatar, 128);
         
         menu_edit.visible = account.is_self ();
     
@@ -214,7 +214,7 @@ public class Tootle.AccountView : TimelineView {
         if (page_next != null)
             return page_next;
         
-        var url = "%s/api/v1/accounts/%lld/statuses?limit=%i".printf (Tootle.accounts.formal.instance, account.id, this.limit);
+        var url = "%s/api/v1/accounts/%lld/statuses?limit=%i".printf (accounts.formal.instance, account.id, this.limit);
         return url;
     }
     
@@ -237,7 +237,7 @@ public class Tootle.AccountView : TimelineView {
     }
     
     public static void open_from_id (int64 id){
-        var url = "%s/api/v1/accounts/%lld".printf (Tootle.accounts.formal.instance, id);
+        var url = "%s/api/v1/accounts/%lld".printf (accounts.formal.instance, id);
         var msg = new Soup.Message("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
         network.queue (msg, (sess, mess) => {
@@ -254,7 +254,7 @@ public class Tootle.AccountView : TimelineView {
     }
     
     public static void open_from_name (string name){
-        var url = "%s/api/v1/accounts/search?limit=1&q=%s".printf (Tootle.accounts.formal.instance, name);
+        var url = "%s/api/v1/accounts/search?limit=1&q=%s".printf (accounts.formal.instance, name);
         var msg = new Soup.Message("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
         network.queue (msg, (sess, mess) => {

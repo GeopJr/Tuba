@@ -11,12 +11,12 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public Gtk.Separator? separator;
     public Gtk.Grid grid;
     public Granite.Widgets.Avatar avatar;
-    public Gtk.Label title_user;
+    public RichLabel title_user;
     public Gtk.Label title_date;
     public Gtk.Label title_acct;
     public Gtk.Revealer revealer;
-    public Tootle.RichLabel content_label;
-    public Tootle.RichLabel? content_spoiler;
+    public RichLabel content_label;
+    public RichLabel? content_spoiler;
     public Gtk.Button? spoiler_button;
     public Gtk.Box title_box;
     public AttachmentBox attachments;
@@ -41,8 +41,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         title_box.margin_end = 12;
         title_box.margin_top = 6;
         
-        title_user = new Gtk.Label ("");
-        title_user.use_markup = true;
+        title_user = new RichLabel ("");
         title_box.pack_start (title_user, false, false, 0);
         
         title_acct = new Gtk.Label ("");
@@ -180,7 +179,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
                 separator.destroy ();
         });
         
-        Tootle.network.status_removed.connect (id => {
+        network.status_removed.connect (id => {
             if (id == this.status.id)
                 destroy ();
         });
@@ -200,7 +199,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public void rebind () {
         var formal = status.get_formal ();
         
-        title_user.label = "<b>%s</b>".printf (Html.escape_entities (formal.account.display_name));
+        title_user.set_label ("<b>%s</b>".printf ((formal.account.display_name)));
         title_acct.label = "@" + formal.account.acct;
         content_label.label = formal.content;
         content_label.mentions = formal.mentions;
@@ -224,7 +223,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             reblog.tooltip_text = _("This post can't be boosted");
         }
         
-        Tootle.network.load_avatar (formal.account.avatar, avatar, get_avatar_size ());
+        network.load_avatar (formal.account.avatar, avatar, get_avatar_size ());
     }
 
     public bool is_spoiler () {
@@ -241,14 +240,14 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     
     public bool open_account () {
         var view = new AccountView (status.get_formal ().account);
-        Tootle.window.open_view (view);
+        window.open_view (view);
         return true;
     }
     
     public bool open (EventButton ev) {
         var formal = status.get_formal ();
         var view = new StatusView (ref formal);
-        Tootle.window.open_view (view);
+        window.open_view (view);
         return true;
     }
     
