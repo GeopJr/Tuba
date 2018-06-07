@@ -271,7 +271,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         var item_delete = new Gtk.MenuItem.with_label (_("Delete"));
         item_delete.activate.connect (() => status.poof ());
         var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
-        item_open_link.activate.connect (() => Desktop.open_url (status.url));
+        item_open_link.activate.connect (() => Desktop.open_uri (status.url));
         var item_copy_link = new Gtk.MenuItem.with_label (_("Copy Link"));
         item_copy_link.activate.connect (() => Desktop.copy (status.url));
         var item_copy = new Gtk.MenuItem.with_label (_("Copy Text"));

@@ -1,8 +1,14 @@
 public class Tootle.Desktop {
 
-    // Open a URI in the user's default browser
-    public static void open_url (string url) {
-        Gtk.show_uri (null, url, Gdk.CURRENT_TIME);
+    // Open URI in the user's default application associated with it
+    public static void open_uri (string uri) {
+        try {
+            Gtk.show_uri (null, uri, Gdk.CURRENT_TIME);
+        }
+        catch (GLib.Error e){
+            warning ("Can't open %s: %s", uri, e.message);
+            app.error (_("Error"), e.message);
+        }
     }
 
     // Copy a string to the clipboard

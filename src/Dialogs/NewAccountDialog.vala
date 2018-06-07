@@ -146,14 +146,8 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
         pars += "&redirect_uri=urn:ietf:wg:oauth:2.0:oob";
         pars += "&client_id=" + client_id;
         
-        try {
-            info ("Requesting auth token");
-            AppInfo.launch_default_for_uri ("%s/oauth/authorize%s".printf (instance, pars), null);
-        }
-        catch (GLib.Error e){
-            warning (e.message);
-            app.error (_("Error"), e.message);
-        }
+        info ("Requesting auth token");
+        Desktop.open_uri ("%s/oauth/authorize%s".printf (instance, pars));
     }
     
     private void try_auth (string code){

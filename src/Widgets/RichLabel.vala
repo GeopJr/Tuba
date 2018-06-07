@@ -65,7 +65,7 @@ public class Tootle.RichLabel : Gtk.Label {
             return true;
         }
     
-        Desktop.open_url (url);
+        Desktop.open_uri (url);
         return true;
     }
 

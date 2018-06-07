@@ -104,7 +104,7 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
         if (ev.button == 3)
             return open_menu (ev.button, ev.time);
         
-        Desktop.open_url (attachment.url);
+        Desktop.open_uri (attachment.url);
         return true;
     }
     
@@ -123,7 +123,7 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
         }
         
         var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
-        item_open_link.activate.connect (() => Desktop.open_url (attachment.url));
+        item_open_link.activate.connect (() => Desktop.open_uri (attachment.url));
         var item_copy_link = new Gtk.MenuItem.with_label (_("Copy Link"));
         item_copy_link.activate.connect (() => Desktop.copy (attachment.url));
         var item_download = new Gtk.MenuItem.with_label (_("Download"));
