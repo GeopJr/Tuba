@@ -25,6 +25,7 @@ public class Tootle.Notificator : GLib.Object {
             connection.error.connect (on_error);
             connection.message.connect (on_message);
             connection.closed.connect (on_closed);
+            timeout = 2;
         }
         catch (GLib.Error e) {
             warning (e.message);
