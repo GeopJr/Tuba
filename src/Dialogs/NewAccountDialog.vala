@@ -26,7 +26,7 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
             deletable: true,
             resizable: false,
             title: _("New Account"),
-            transient_for: Tootle.window
+            transient_for: window
         );
         
         logo = new Image.from_resource ("/com/github/bleakgrey/tootle/logo128");
@@ -35,8 +35,6 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
         logo.margin_bottom = 24;
         
         instance_entry = new Entry ();
-        instance_entry.text = "https://myinstance.com";
-        instance_entry.set_placeholder_text ("https://myinstance.com");
         instance_entry.width_chars = 30;
         
         instance_register = new Label ("<a href=\"https://joinmastodon.org/\">%s</a>".printf (_("What's an instance?")));
@@ -74,8 +72,8 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
         destroy.connect (() => {
             dialog = null;
             
-            if (Tootle.accounts.is_empty ())
-                Tootle.app.remove_window (Tootle.window_dummy);
+            if (accounts.is_empty ())
+                app.remove_window (window_dummy);
         });
         
         show_all ();
@@ -90,7 +88,11 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
     }
     
     private void on_done_clicked () {
-        instance = instance_entry.text;
+        instance = "https://" + instance_entry.text
+            .replace ("/", "")
+            .replace (":", "")
+            .replace ("http", "")
+            .replace ("https", "");
         code = code_entry.text;
             
         if (this.client_id == null || this.client_secret == null) {
@@ -99,7 +101,7 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
         }
         
         if (code == "")
-            Tootle.app.error (_("Error"), _("Please paste valid instance authorization code"));
+            app.error (_("Error"), _("Please paste valid instance authorization code"));
         else
             try_auth (code);
     }
@@ -107,7 +109,7 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
     private bool show_error (Soup.Message msg) {
         if (msg.status_code != Soup.Status.OK) {
             var phrase = Soup.Status.get_phrase (msg.status_code);
-            Tootle.app.error (_("Network Error"), phrase);
+            app.error (_("Network Error"), phrase);
             return true;
         }
         return false;
@@ -121,11 +123,11 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
 
         grid.sensitive = false;
         var msg = new Soup.Message ("POST", "%s/api/v1/apps%s".printf (instance, pars));
-        Tootle.network.queue_custom (msg, (sess, mess) => {
+        network.queue_custom (msg, (sess, mess) => {
             grid.sensitive = true;
             if (show_error (mess)) return;
             
-            var root = Tootle.network.parse (mess);
+            var root = network.parse (mess);
             var id = root.get_string_member ("client_id");
             var secret = root.get_string_member ("client_secret");
             client_id = id;
@@ -150,7 +152,7 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
         }
         catch (GLib.Error e){
             warning (e.message);
-            Tootle.app.error (_("Error"), e.message);
+            app.error (_("Error"), e.message);
         }
     }
     
@@ -162,10 +164,10 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
         pars += "&code=" + code;
 
         var msg = new Soup.Message ("POST", "%s/oauth/token%s".printf (instance, pars));
-        Tootle.network.queue_custom (msg, (sess, mess) => {
+        network.queue_custom (msg, (sess, mess) => {
             try{
                 if (show_error (mess)) return;
-                var root = Tootle.network.parse (mess);
+                var root = network.parse (mess);
                 token = root.get_string_member ("access_token");
                 
                 debug ("Got access token");
@@ -181,15 +183,15 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
     private void get_username () {
         var msg = new Soup.Message("GET", "%s/api/v1/accounts/verify_credentials".printf (instance));
         msg.request_headers.append ("Authorization", "Bearer " + token);
-        Tootle.network.queue_custom (msg, (sess, mess) => {
+        network.queue_custom (msg, (sess, mess) => {
             try{
                 if (show_error (mess)) return;
-                var root = Tootle.network.parse (mess);
+                var root = network.parse (mess);
                 username = root.get_string_member ("username");
                 
                 add_account ();
-                Tootle.window.show ();
-                Tootle.window.present ();
+                window.show ();
+                window.present ();
                 destroy ();
             }
             catch (GLib.Error e) {
@@ -206,8 +208,8 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
         account.client_id = client_id;
         account.client_secret = client_secret;
         account.token = token;
-        Tootle.accounts.add (account);
-        Tootle.app.activate ();
+        accounts.add (account);
+        app.activate ();
     }
 
     public static void open () {
