@@ -36,5 +36,10 @@
 			<summary>Sets application theme to dark</summary>
 			<description></description>
 		</key>
+		<key name="char-limit" type="i">
+			<default>500</default>
+			<summary>Default character limit</summary>
+			<description>Change this if your instance supports more than 500 characters in post</description>
+		</key>
 	</schema>
 </schemalist>

@@ -19,6 +19,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
     
     protected Status? in_reply_to;
     protected StatusVisibility visibility_opt = StatusVisibility.PUBLIC;
+    protected int char_limit;
 
     public PostDialog (Status? status = null) {
         Object (
@@ -28,6 +29,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
             title: _("Toot"),
             transient_for: Tootle.window
         );
+        char_limit = settings.char_limit;
         in_reply_to = status;
         if (in_reply_to != null)
             visibility_opt = in_reply_to.visibility;
@@ -92,7 +94,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         scroll.show_all ();
         
         attachments = new AttachmentBox (true);
-        counter = new Gtk.Label ("500");
+        counter = new Gtk.Label ("");
         
         actions.pack_start (counter, false, false, 6);
         actions.pack_end (spoiler, false, false, 6);
@@ -112,6 +114,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         show_all ();
         attachments.hide ();
         text.grab_focus ();
+        validate ();
     }
     
     private Gtk.MenuButton get_visibility_btn () {
@@ -148,7 +151,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
     }
     
     private void validate () {
-        var remain = 500 - text.buffer.text.length;
+        var remain = char_limit - text.buffer.text.length;
         if (spoiler.active)
             remain -= spoiler_text.buffer.text.length;
         
