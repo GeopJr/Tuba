@@ -5,20 +5,39 @@ public class Tootle.TimelineView : AbstractView {
     
     protected string timeline;
     protected string pars;
-    
     protected int limit = 25;
     protected bool is_last_page = false;
     protected string? page_next;
     protected string? page_prev;
+    
+    private Notificator? _notificator;
+    public Notificator? notificator {
+        get {
+            return _notificator;
+        }
+        
+        set {
+            if (_notificator != null)
+                _notificator.close ();
+            
+            _notificator = value;  
+            
+            if (_notificator != null)
+                _notificator.start ();
+        }
+    }
 
     public TimelineView (string timeline, string pars = "") {
         base ();
         this.timeline = timeline;
         this.pars = pars;
         
-        Tootle.accounts.switched.connect(on_account_changed);
-        Tootle.app.refresh.connect(on_refresh);
-        Tootle.network.status_added.connect (on_status_added);
+        accounts.switched.connect (on_account_changed);
+        app.refresh.connect (on_refresh);
+        destroy.connect (() => {
+            if (notificator != null)
+                notificator.close ();
+        });
         
         request ();
     }
@@ -31,10 +50,7 @@ public class Tootle.TimelineView : AbstractView {
         return _("Home");
     }
     
-    private void on_status_added (ref Status status, string timeline) {
-        if (timeline != this.timeline)
-            return;
-        
+    public virtual void on_status_added (ref Status status) {
         prepend (ref status);
     }
     
@@ -138,6 +154,12 @@ public class Tootle.TimelineView : AbstractView {
     public virtual void on_account_changed (Account? account){
         if(account == null)
             return;
+        
+        if (notificator != null) {
+            notificator.close ();
+            notificator.start ();
+        }
+        
         on_refresh ();
     }
     

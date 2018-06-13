@@ -7,6 +7,7 @@ public class Tootle.SettingsManager : Granite.Services.Settings {
     public int cache_size { get; set; }
     public int char_limit { get; set; }
     public bool live_updates { get; set; }
+    public bool live_updates_public { get; set; }
     public bool dark_theme { get; set; }
 
     public SettingsManager () {

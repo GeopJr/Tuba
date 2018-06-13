@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tootle.FavoritesView : TimelineView {
 
     public FavoritesView () {
@@ -10,7 +8,7 @@ public class Tootle.FavoritesView : TimelineView {
         if (page_next != null)
             return page_next;
         
-        var url = "%s/api/v1/favourites/?limit=%i".printf (Tootle.accounts.formal.instance, this.limit);
+        var url = "%s/api/v1/favourites/?limit=%i".printf (accounts.formal.instance, this.limit);
         return url;
     }
 

@@ -23,16 +23,14 @@ public class Tootle.InstanceAccount : GLib.Object {
             notificator.close ();
         
         notificator = new Notificator (get_stream ());
-        notificator.status_added.connect (status_added);
         notificator.status_removed.connect (status_removed);
         notificator.notification.connect (notification);
         notificator.start ();
     }
     
-    private Soup.Message get_stream () {
+    public Soup.Message get_stream () {
         var url = "%s/api/v1/streaming/?stream=user&access_token=%s".printf (instance, token);
-        var msg = new Soup.Message("GET", url);
-        return msg;
+        return new Soup.Message ("GET", url);
     }
     
     public void close_notificator () {
@@ -87,21 +85,8 @@ public class Tootle.InstanceAccount : GLib.Object {
             network.notification (ref obj);
     }
     
-    private void status_added (ref Status status) {
-        if (accounts.formal.token != this.token)
-            return;
-        
-        if (settings.live_updates)
-            network.status_added (ref status, "home");
-        else
-            app.toast (_("New toot available"));
-    }
-    
     private void status_removed (int64 id) {
-        if (accounts.formal.token != this.token)
-            return;
-        
-        if (settings.live_updates)
+        if (accounts.formal.token == this.token)
             network.status_removed (id);
     }
 

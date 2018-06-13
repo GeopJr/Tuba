@@ -67,10 +67,16 @@ public class Tootle.Notificator : GLib.Object {
         var type = root.get_string_member ("event");
         switch (type) {
             case "update":
+                if (!settings.live_updates)
+                    return;
+                
                 var status = Status.parse (sanitize (root));
                 status_added (ref status);
                 break;
             case "delete":
+                if (!settings.live_updates)
+                    return;
+                
                 var id = int64.parse (root.get_string_member("payload"));
                 status_removed (id);
                 break;

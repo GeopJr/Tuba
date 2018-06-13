@@ -2,18 +2,23 @@ using Gtk;
 
 public class Tootle.MainWindow: Gtk.Window {
     
-    private Gtk.Overlay overlay;
+    private Overlay overlay;
     private Granite.Widgets.Toast toast;
-    private Gtk.Grid grid;
+    private Grid grid;
     private Stack primary_stack;
     private Stack secondary_stack;
     
-    public Gtk.HeaderBar header;
+    public HeaderBar header;
     private Granite.Widgets.ModeButton button_mode;
     private AccountsButton button_accounts;
     private Spinner spinner;
     private Button button_toot;
     private Button button_back;
+    
+    public HomeView home = new HomeView ();
+    public NotificationsView notifications = new NotificationsView ();
+    public LocalView local = new LocalView ();
+    public FederatedView federated = new FederatedView ();
 
     construct {
         var provider = new Gtk.CssProvider ();
@@ -67,10 +72,10 @@ public class Tootle.MainWindow: Gtk.Window {
         grid = new Gtk.Grid ();
         grid.attach (primary_stack, 0, 0, 1, 1);
         
-        add_header_view (new TimelineView ("home"));
-        add_header_view (new NotificationsView ());
-        add_header_view (new LocalView ());
-        add_header_view (new FederatedView ());
+        add_header_view (home);
+        add_header_view (notifications);
+        add_header_view (local);
+        add_header_view (federated);
         button_mode.set_active (0);
         
         toast = new Granite.Widgets.Toast ("");

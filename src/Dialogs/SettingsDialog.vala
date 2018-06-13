@@ -7,19 +7,32 @@ public class Tootle.SettingsDialog : Gtk.Dialog {
 
     private SettingsSwitch switch_notifications;
     private SettingsSwitch switch_watcher;
+    private SettingsSwitch switch_stream;
+    private SettingsSwitch switch_stream_public;
     private Gtk.Grid grid;
 
     public SettingsDialog () {
-        Object (
-            border_width: 6,
-            deletable: false,
-            resizable: false,
-            title: _("Settings"),
-            transient_for: Tootle.window
-        );
+        border_width = 6;
+        deletable = false;
+        resizable = false;
+        title = _("Settings");
+        transient_for = Tootle.window;
         
         int i = 0;
         grid = new Gtk.Grid ();
+        
+        switch_watcher = new SettingsSwitch ("always-online");
+        switch_notifications = new SettingsSwitch ("notifications");
+        switch_notifications.state_set.connect (state => {
+            switch_watcher.sensitive = state;
+            return false;
+        });
+        switch_stream = new SettingsSwitch ("live-updates");
+        switch_stream_public = new SettingsSwitch ("live-updates-public");
+        switch_stream.state_set.connect (state => {
+            switch_stream_public.sensitive = state;
+            return false;
+        });
         
         grid.attach (new Granite.HeaderLabel (_("Appearance")), 0, i++, 2, 1);
         grid.attach (new SettingsLabel (_("Dark theme:")), 0, i);
@@ -27,7 +40,9 @@ public class Tootle.SettingsDialog : Gtk.Dialog {
         
         grid.attach (new Granite.HeaderLabel (_("Timelines")), 0, i++, 2, 1);
         grid.attach (new SettingsLabel (_("Real-time updates:")), 0, i);
-        grid.attach (new SettingsSwitch ("live-updates"), 1, i++);
+        grid.attach (switch_stream, 1, i++);
+        grid.attach (new SettingsLabel (_("Update public timelines:")), 0, i);
+        grid.attach (switch_stream_public, 1, i++);
         
         // grid.attach (new Granite.HeaderLabel (_("Caching")), 0, i++, 2, 1);
         // grid.attach (new SettingsLabel (_("Use cache:")), 0, i);
@@ -36,13 +51,6 @@ public class Tootle.SettingsDialog : Gtk.Dialog {
         // var cache_size = new Gtk.SpinButton.with_range (16, 256, 1);
         // settings.schema.bind ("cache-size", cache_size, "value", SettingsBindFlags.DEFAULT);
         // grid.attach (cache_size, 1, i++);
-        
-        switch_watcher = new SettingsSwitch ("always-online");
-        switch_notifications = new SettingsSwitch ("notifications");
-        switch_notifications.state_set.connect (state => {
-            switch_watcher.sensitive = state;
-            return false;
-        });
         
         grid.attach (new Granite.HeaderLabel (_("Notifications")), 0, i++, 2, 1);
         grid.attach (new SettingsLabel (_("Display notifications:")), 0, i);

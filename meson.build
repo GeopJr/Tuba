@@ -51,6 +51,7 @@ executable(
     'src/Dialogs/SettingsDialog.vala',
     'src/Views/AbstractView.vala',
     'src/Views/TimelineView.vala',
+    'src/Views/HomeView.vala',
     'src/Views/LocalView.vala',
     'src/Views/FederatedView.vala',
     'src/Views/NotificationsView.vala',
