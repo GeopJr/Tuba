@@ -42,7 +42,7 @@ public class Tootle.Network : GLib.Object {
         requests_processing++;
         started ();
         
-        var formal = Tootle.accounts.formal;
+        var formal = accounts.formal;
         if(formal != null)
             msg.request_headers.append ("Authorization", "Bearer " + formal.token);
         
@@ -57,7 +57,7 @@ public class Tootle.Network : GLib.Object {
                 case GLib.TlsCertificateFlags.GENERIC_ERROR:
                     var err = mess.tls_errors.to_string ();
                     warning ("TLS error: "+err);
-                    Tootle.app.error (_("TLS Error"), _("Can't ensure secure connection: ")+err);
+                    app.error (_("TLS Error"), _("Can't ensure secure connection: ")+err);
                     return;
                 default:
                     break;
@@ -65,7 +65,7 @@ public class Tootle.Network : GLib.Object {
             
             if (mess.status_code != Soup.Status.OK) {
                 var phrase = Soup.Status.get_phrase (mess.status_code);
-                Tootle.app.toast (_("Error: %s").printf(phrase));
+                app.toast (_("Error: %s").printf(phrase));
                 return;
             }
             
@@ -81,6 +81,15 @@ public class Tootle.Network : GLib.Object {
     }
     
     public void queue_custom (Soup.Message msg, owned Soup.SessionCallback? cb = null) {
+        requests_processing++;
+        started ();
+        
+        msg.finished.connect_after (() => {
+            msg.request_body.free ();
+            msg.response_body.free ();
+            msg.request_headers.free ();
+            msg.response_headers.free ();
+        });
         session.queue_message (msg, cb);
     }
     
@@ -112,12 +121,17 @@ public class Tootle.Network : GLib.Object {
         
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(() => {
+            if (msg.status_code != Soup.Status.OK) {
+                avatar.show_default (size);
+                return;
+            }
+            
             var data = msg.response_body.data;
             var stream = new MemoryInputStream.from_data (data);
             var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, size, size, true);
             avatar.pixbuf = pixbuf.scale_simple (size, size, Gdk.InterpType.BILINEAR);
         });
-        Tootle.network.queue (msg);
+        network.queue_custom (msg);
     }
     
     public void load_image (string url, Gtk.Image image) {
@@ -128,12 +142,17 @@ public class Tootle.Network : GLib.Object {
         
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(() => {
+            if (msg.status_code != Soup.Status.OK) {
+                image.set_from_icon_name ("image-missing", Gtk.IconSize.LARGE_TOOLBAR);
+                return;
+            }
+            
             var data = msg.response_body.data;
             var stream = new MemoryInputStream.from_data (data);
             var pixbuf = new Gdk.Pixbuf.from_stream (stream);
             image.set_from_pixbuf (pixbuf);
         });
-        Tootle.network.queue (msg);
+        network.queue_custom (msg);
     }
     
     public void load_scaled_image (string url, Gtk.Image image, int size) {
@@ -144,12 +163,17 @@ public class Tootle.Network : GLib.Object {
         
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(() => {
+            if (msg.status_code != Soup.Status.OK) {
+                image.set_from_icon_name ("image-missing", Gtk.IconSize.LARGE_TOOLBAR);
+                return;
+            }
+
             var data = msg.response_body.data;
             var stream = new MemoryInputStream.from_data (data);
             var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, size, size, true);
             image.set_from_pixbuf (pixbuf);
         });
-        Tootle.network.queue (msg);
+        network.queue_custom (msg);
     }
     
 }

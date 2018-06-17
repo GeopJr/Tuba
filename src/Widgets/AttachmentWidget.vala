@@ -13,6 +13,7 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
 
     construct {
         set_size_request (SMALL_SIZE, SMALL_SIZE);
+        hexpand = false;
         grid = new Gtk.Grid ();
         get_style_context ().add_class ("attachment");
         
@@ -47,8 +48,10 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
             case "image":
                 image = new Gtk.Image ();
                 image.vexpand = true;
-                image.margin = 3;
+                image.hexpand = true;
                 image.valign = Gtk.Align.CENTER;
+                image.halign = Gtk.Align.CENTER;
+                image.margin = 3;
                 image.show ();
                 if (editable)
                     Tootle.network.load_scaled_image (attachment.preview_url, image, get_small_size ());
