@@ -7,9 +7,9 @@ namespace Tootle{
     public static MainWindow? window;
     public static Window window_dummy;
     
-    public static SettingsManager settings;
-    public static AccountManager accounts;
-    public static NetManager network;
+    public static Settings settings;
+    public static Accounts accounts;
+    public static Network network;
     public static ImageCache image_cache;
 
     public class Application : Granite.Application {
@@ -34,9 +34,9 @@ namespace Tootle{
         protected override void startup () {
             base.startup ();
             
-            settings = new SettingsManager ();
-            accounts = new AccountManager ();
-            network = new NetManager ();
+            settings = new Settings ();
+            accounts = new Accounts ();
+            network = new Network ();
             image_cache = new ImageCache ();
             accounts.init ();
                                     

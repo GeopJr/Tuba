@@ -1,6 +1,6 @@
 using GLib;
 
-public class Tootle.AccountManager : Object{
+public class Tootle.Accounts : Object{
 
     private string dir_path;
     private string file_path;
@@ -12,7 +12,7 @@ public class Tootle.AccountManager : Object{
     public InstanceAccount? formal {get; set;}
     public Account? current {get; set;}
 
-    public AccountManager(){
+    public Accounts (){
         Object();
         dir_path = "%s/%s".printf (GLib.Environment.get_user_config_dir (), Tootle.app.application_id);
         file_path = "%s/%s".printf (dir_path, "accounts.json");

@@ -3,7 +3,7 @@ using GLib;
 using Gdk;
 using Json;
 
-public class Tootle.NetManager : GLib.Object {
+public class Tootle.Network : GLib.Object {
 
     public abstract signal void started ();
     public abstract signal void finished ();
@@ -30,7 +30,7 @@ public class Tootle.NetManager : GLib.Object {
         // session.add_feature (logger);
     }
 
-    public NetManager() {
+    public Network () {
         GLib.Object();
     }
     

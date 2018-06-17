@@ -1,4 +1,4 @@
-public class Tootle.SettingsManager : Granite.Services.Settings {
+public class Tootle.Settings : Granite.Services.Settings {
     
     public int current_account { get; set; }
     public bool notifications { get; set; }
@@ -10,7 +10,7 @@ public class Tootle.SettingsManager : Granite.Services.Settings {
     public bool live_updates_public { get; set; }
     public bool dark_theme { get; set; }
 
-    public SettingsManager () {
+    public Settings () {
         base ("com.github.bleakgrey.tootle");
     }
 
