@@ -55,6 +55,7 @@ executable(
     'src/Views/LocalView.vala',
     'src/Views/FederatedView.vala',
     'src/Views/NotificationsView.vala',
+    'src/Views/DirectView.vala',
     'src/Views/StatusView.vala',
     'src/Views/AccountView.vala',
     'src/Views/FollowersView.vala',
