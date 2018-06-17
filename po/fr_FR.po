@@ -74,7 +74,7 @@ msgstr ""
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:26
 msgid "bleak_grey"
-msgstr "gris_sombre"
+msgstr ""
 
 #: src/Desktop.vala:10 src/API/Account.vala:91 src/API/Account.vala:110
 #: src/API/Account.vala:129 src/Dialogs/NewAccountDialog.vala:104
@@ -354,7 +354,7 @@ msgstr "Annuler"
 
 #: src/Dialogs/PostDialog.vala:67
 msgid "Toot!"
-msgstr "Toot!"
+msgstr "Envoyer le message!"
 
 #: src/Dialogs/PostDialog.vala:76
 msgid "Write your warning here"
@@ -461,7 +461,7 @@ msgstr "Rétablir"
 
 #: src/Views/AccountView.vala:228
 msgid "Sent follow request"
-msgstr "Envoyer une demande de suivi"
+msgstr "Demande de suivi envoyée"
 
 #: src/Views/AccountView.vala:230
 msgid "Blocked"
@@ -469,7 +469,7 @@ msgstr "Bloqué"
 
 #: src/Views/AccountView.vala:232
 msgid "Follows you"
-msgstr "Te suis actuellement"
+msgstr "Vous suis actuellement"
 
 #: src/Views/AccountView.vala:234
 msgid "Blocking this instance"
@@ -514,13 +514,13 @@ msgstr "Message non trouvé"
 #~ msgstr "Code d'autorisation:"
 
 #~ msgid "Enter Your Instance URL:"
-#~ msgstr "Tapez votre URL d'exemple"
+#~ msgstr "Tapez l'URL de votre instance:"
 
 #~ msgid "TOOTS"
-#~ msgstr "TOOTS"
+#~ msgstr "POUETS"
 
 #~ msgid "FOLLOWS"
-#~ msgstr "FOLLOWS"
+#~ msgstr "ABONNEMENTS"
 
 #~ msgid "FOLLOWERS"
-#~ msgstr "FOLLOWERS"
+#~ msgstr "ABONNÉS"
