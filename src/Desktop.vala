@@ -52,4 +52,9 @@ public class Tootle.Desktop {
         network.queue (msg);
     }
     
+    public static string fallback_icon (string normal, string fallback) {
+        var theme = Gtk.IconTheme.get_default ();
+        return theme.has_icon (normal) ? normal : fallback;
+    }
+    
 }

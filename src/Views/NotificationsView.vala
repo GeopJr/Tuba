@@ -5,21 +5,27 @@ public class Tootle.NotificationsView : AbstractView {
 
     public NotificationsView () {
         base ();
-        
         view.remove.connect (on_remove);
-        Tootle.accounts.switched.connect(on_account_changed);
-        Tootle.app.refresh.connect(on_refresh);
-        Tootle.network.notification.connect (prepend);
+        accounts.switched.connect(on_account_changed);
+        app.refresh.connect(on_refresh);
+        network.notification.connect (prepend);
         
         request ();
     }
     
     public override string get_icon () {
-        return "notification-symbolic";
+        return get_notifications_icon (false);
     }
     
     public override string get_name () {
         return _("Notifications");
+    }
+    
+    private string get_notifications_icon (bool has_new) {
+        if (has_new)
+            return Desktop.fallback_icon ("notification-new-symbolic", "user-available-symbolic");
+        else
+            return Desktop.fallback_icon ("notification-symbolic", "user-invisible-symbolic");
     }
     
     public void prepend (ref Notification notification) {
