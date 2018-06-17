@@ -346,7 +346,7 @@ msgstr "Ajouter un média"
 
 #: src/Dialogs/PostDialog.vala:58
 msgid "Spoiler Warning"
-msgstr "Alerte spoiler"
+msgstr "Ajouter un avertissement"
 
 #: src/Dialogs/PostDialog.vala:65
 msgid "Cancel"
