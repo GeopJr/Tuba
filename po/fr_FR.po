@@ -220,7 +220,7 @@ msgstr "_Ouvrir"
 #: src/Widgets/AttachmentWidget.vala:61
 #, c-format
 msgid "Click to open %s media"
-msgstr "Cliquer pour ouvrir %s les médias"
+msgstr "Cliquer pour ouvrir les médias %s"
 
 #: src/Widgets/AttachmentWidget.vala:78
 msgid "Uploading..."
