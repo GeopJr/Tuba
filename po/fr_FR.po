@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-13 15:47+0100\n"
-"PO-Revision-Date: 2018-05-10 16:48+0200\n"
-"Last-Translator: Papou84 <pacome.heuze@gmail.com>\n"
+"PO-Revision-Date: 2018-06-17 10:07+0200\n"
+"Last-Translator: Guillaume\n"
 "Language-Team: none\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
@@ -21,26 +21,25 @@ msgstr ""
 
 #: data/com.github.bleakgrey.tootle.desktop.in:4
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:7
-#, fuzzy
 msgid "Tootle"
-msgstr "Toot"
+msgstr "Tootle"
 
 #: data/com.github.bleakgrey.tootle.desktop.in:5
 #: data/com.github.bleakgrey.tootle.desktop.in:6
 msgid "Mastodon Client"
-msgstr ""
+msgstr "Client mastodon"
 
 #: data/com.github.bleakgrey.tootle.desktop.in:8
 msgid "com.github.bleakgrey.tootle"
-msgstr ""
+msgstr "com.github.bleakgrey.tootle"
 
 #: data/com.github.bleakgrey.tootle.desktop.in:11
 msgid "toot;mastodon;social;network;post;"
-msgstr ""
+msgstr "toot;mastodon;social;network;post;"
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:8
 msgid "Lightning fast client for Mastodon"
-msgstr ""
+msgstr "Client léger et rapide pour Mastodon"
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:11
 msgid ""
@@ -48,12 +47,18 @@ msgid ""
 "microblogging network with real-time notifications and multiple accounts "
 "support."
 msgstr ""
+"Tootle est un client pour le plus grand réseau mondial de microblogging "
+"décentralisé, libre et open-source, avec un support multicomptes et la "
+"gestion des notifications instantanées."
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:14
 msgid ""
 "Mastodon is lovely crafted with power and speed in mind, resulting in a "
 "free, independent and popular alternative to the centralized social networks."
 msgstr ""
+"Mastodon est conçu avec amour dans un objectif de puissance et de vitesse, "
+"en faisant une alternative libre, indépendante et populaire aux réseaux "
+"sociaux centralisés."
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:17
 msgid ""
@@ -62,6 +67,10 @@ msgid ""
 "Every user can follow each other and share their posts regardless of their "
 "server."
 msgstr ""
+"N'importe qui peut faire tourner un serveur Mastodon. Chaque serveur héberge "
+"des comptes utilisateurs individuels, le contenu qu'ils produisent et le "
+"contenu auquel ils sont abonnés. Chaque utilisateur peut se suivre "
+"mutuellement et partager ses messages indépendamment de son serveur."
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:26
 msgid "bleak_grey"
@@ -69,9 +78,8 @@ msgstr ""
 
 #: src/Desktop.vala:10 src/API/Account.vala:91 src/API/Account.vala:110
 #: src/API/Account.vala:129 src/Dialogs/NewAccountDialog.vala:104
-#, fuzzy
 msgid "Error"
-msgstr "Erreur TLS"
+msgstr "Erreur"
 
 #: src/MainWindow.vala:47
 msgid "Back"
@@ -79,7 +87,7 @@ msgstr "Retour"
 
 #: src/MainWindow.vala:52 src/Dialogs/PostDialog.vala:29
 msgid "Toot"
-msgstr "Toot"
+msgstr "Écrire un message"
 
 #: src/NetManager.vala:60
 msgid "TLS Error"
@@ -87,83 +95,81 @@ msgstr "Erreur TLS"
 
 #: src/NetManager.vala:60
 msgid "Can't ensure secure connection: "
-msgstr "Impossible d'assurer une connection sécurisée"
+msgstr "Impossible d'assurer une connexion sécurisée:"
 
 #: src/NetManager.vala:68
 #, c-format
 msgid "Error: %s"
-msgstr ""
+msgstr "Erreur: %s"
 
 #: src/API/NotificationType.vala:45
 #, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> mentioned you"
-msgstr ""
+msgstr "<a href=\"%s\"><b>%s</b></a> vous a mentionné"
 
 #: src/API/NotificationType.vala:47
 #, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> boosted your toot"
-msgstr ""
+msgstr "<a href=\"%s\"><b>%s</b></a> a partagé votre pouet"
 
 #: src/API/NotificationType.vala:49
 #, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> favorited your toot"
-msgstr ""
+msgstr "<a href=\"%s\"><b>%s</b></a> a ajouté votre pouet à ses favoris"
 
 #: src/API/NotificationType.vala:51
 #, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> now follows you"
-msgstr ""
+msgstr "<a href=\"%s\"><b>%s</b></a> vous suit désormais"
 
 #: src/API/NotificationType.vala:53
 #, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> wants to follow you"
-msgstr ""
+msgstr "<a href=\"%s\"><b>%s</b></a> demande à vous suivre"
 
 #: src/API/Status.vala:106
-#, fuzzy
 msgid "Boosted!"
-msgstr "Accélérer"
+msgstr "Partagé!"
 
 #: src/API/Status.vala:108
 msgid "Removed boost"
-msgstr ""
+msgstr "Partage annulé"
 
 #: src/API/Status.vala:121
-#, fuzzy
 msgid "Favorited!"
-msgstr "Favoris"
+msgstr "Ajouté aux favoris!"
 
 #: src/API/Status.vala:123
 msgid "Removed from favorites"
-msgstr ""
+msgstr "Supprimé des favoris"
 
 #: src/API/Status.vala:136
 msgid "Conversation muted"
-msgstr ""
+msgstr "Discussion masquée"
 
 #: src/API/Status.vala:138
 msgid "Conversation unmuted"
-msgstr ""
+msgstr "Discussion visible "
 
 #: src/API/Status.vala:147
 msgid "Poof!"
-msgstr ""
+msgstr "Poof!"
 
 #: src/API/StatusVisibility.vala:40
 msgid "Post to public timelines"
-msgstr ""
+msgstr "Afficher dans le fil public"
 
 #: src/API/StatusVisibility.vala:42
 msgid "Don't post to public timelines"
-msgstr ""
+msgstr "Ne pas afficher dans le fil public"
 
 #: src/API/StatusVisibility.vala:44
 msgid "Post to followers only"
-msgstr "Envoyer au Followers seulement"
+msgstr "Afficher seulement pour les abonnés"
 
 #: src/API/StatusVisibility.vala:46
 msgid "Post to mentioned users only"
-msgstr ""
+msgstr "N'envoyer qu'aux personnes mentionnées"
 
 #: src/Widgets/AccountsButton.vala:65
 msgid "Refresh"
@@ -175,7 +181,7 @@ msgstr "Favoris"
 
 #: src/Widgets/AccountsButton.vala:73 src/Views/SearchView.vala:12
 msgid "Search"
-msgstr ""
+msgstr "Chercher"
 
 #: src/Widgets/AccountsButton.vala:77 src/Dialogs/SettingsDialog.vala:18
 msgid "Settings"
@@ -183,21 +189,21 @@ msgstr "Paramètres"
 
 #: src/Widgets/AccountsButton.vala:128
 msgid "<b>New Account</b>"
-msgstr ""
+msgstr "<b>Nouveau Compte</b>"
 
 #: src/Widgets/AccountsButton.vala:129
 msgid "Click to add"
-msgstr ""
+msgstr "Cliquer pour ajouter"
 
 #: src/Widgets/AccountWidget.vala:28 src/Widgets/AttachmentWidget.vala:125
 #: src/Widgets/StatusWidget.vala:273
 msgid "Open in Browser"
-msgstr ""
+msgstr "Ouvrir dans le navigateur"
 
 #: src/Widgets/AccountWidget.vala:30 src/Widgets/AttachmentWidget.vala:127
 #: src/Widgets/StatusWidget.vala:275
 msgid "Copy Link"
-msgstr ""
+msgstr "Copier le lien"
 
 #: src/Widgets/AttachmentBox.vala:40
 msgid "Select media files to add"
@@ -214,12 +220,11 @@ msgstr "_Ouvrir"
 #: src/Widgets/AttachmentWidget.vala:61
 #, c-format
 msgid "Click to open %s media"
-msgstr "Cliquer pour ouvrir %s media"
+msgstr "Cliquer pour ouvrir %s les médias"
 
 #: src/Widgets/AttachmentWidget.vala:78
-#, fuzzy
 msgid "Uploading..."
-msgstr "Téléversement en cours..."
+msgstr "Téléchargement en cours..."
 
 #: src/Widgets/AttachmentWidget.vala:99
 msgid "File read error"
@@ -228,15 +233,15 @@ msgstr "Erreur de lecture du fichier"
 #: src/Widgets/AttachmentWidget.vala:99
 #, c-format
 msgid "Can't read file %s: %s"
-msgstr "Ne peut pas lire le fichier %s: %s"
+msgstr "Impossible de lire le fichier %s: %s"
 
 #: src/Widgets/AttachmentWidget.vala:119
 msgid "Remove"
-msgstr ""
+msgstr "Supprimer"
 
 #: src/Widgets/AttachmentWidget.vala:129
 msgid "Download"
-msgstr ""
+msgstr "Télécharger"
 
 #: src/Widgets/NotificationWidget.vala:20
 msgid "Unknown Notification"
@@ -256,7 +261,7 @@ msgstr "Rejeter"
 
 #: src/Widgets/StatusWidget.vala:76
 msgid "Boost"
-msgstr "Accélérer"
+msgstr "Partager"
 
 #: src/Widgets/StatusWidget.vala:83
 msgid "Favorite"
@@ -269,52 +274,51 @@ msgstr "Répondre"
 #: src/Widgets/StatusWidget.vala:127
 #, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> boosted"
-msgstr ""
+msgstr "<a href=\"%s\"><b>%s</b></a> partagé"
 
 #: src/Widgets/StatusWidget.vala:142
 msgid "Toggle content"
-msgstr ""
+msgstr "Afficher le contenu"
 
 #: src/Widgets/StatusWidget.vala:156
 msgid "[ This post contains sensitive content ]"
-msgstr "[ méssage à contenu sensible]"
+msgstr "[ message à contenu sensible]"
 
 #: src/Widgets/StatusWidget.vala:223
 msgid "This post can't be boosted"
-msgstr ""
+msgstr "Ce message ne peut être partagé"
 
 #: src/Widgets/StatusWidget.vala:269
 msgid "Unmute Conversation"
-msgstr ""
+msgstr "Rétablir la discussion"
 
 #: src/Widgets/StatusWidget.vala:269
 msgid "Mute Conversation"
-msgstr ""
+msgstr "Masquer la discussion"
 
 #: src/Widgets/StatusWidget.vala:271
 msgid "Delete"
-msgstr ""
+msgstr "Supprimer"
 
 #: src/Widgets/StatusWidget.vala:277
 msgid "Copy Text"
-msgstr ""
+msgstr "Copier le texte"
 
 #: src/Dialogs/NewAccountDialog.vala:28
-#, fuzzy
 msgid "New Account"
-msgstr "Ajouter un compte"
+msgstr "Nouveau compte"
 
 #: src/Dialogs/NewAccountDialog.vala:40
 msgid "What's an instance?"
-msgstr "Est ce un exemple?"
+msgstr "Qu'est une instance?"
 
 #: src/Dialogs/NewAccountDialog.vala:44
 msgid "Code:"
-msgstr ""
+msgstr "Code:"
 
 #: src/Dialogs/NewAccountDialog.vala:48
 msgid "Paste your instance authorization code here"
-msgstr ""
+msgstr "Coller le code d'autorisation de votre instance ici"
 
 #: src/Dialogs/NewAccountDialog.vala:51
 msgid "Add Account"
@@ -322,19 +326,19 @@ msgstr "Ajouter un compte"
 
 #: src/Dialogs/NewAccountDialog.vala:62
 msgid "Instance:"
-msgstr "Exemple:"
+msgstr "Instance:"
 
 #: src/Dialogs/NewAccountDialog.vala:104
 msgid "Please paste valid instance authorization code"
-msgstr ""
+msgstr "Veuillez coller un code d'autorisation valide"
 
 #: src/Dialogs/NewAccountDialog.vala:112
 msgid "Network Error"
-msgstr ""
+msgstr "Erreur réseau"
 
 #: src/Dialogs/PostDialog.vala:42
 msgid "Post Visibility"
-msgstr "Visibilité du méssage"
+msgstr "Visibilité du message"
 
 #: src/Dialogs/PostDialog.vala:49
 msgid "Add Media"
@@ -342,7 +346,7 @@ msgstr "Ajouter un média"
 
 #: src/Dialogs/PostDialog.vala:58
 msgid "Spoiler Warning"
-msgstr ""
+msgstr "Ajouter un avertissement"
 
 #: src/Dialogs/PostDialog.vala:65
 msgid "Cancel"
@@ -350,31 +354,31 @@ msgstr "Annuler"
 
 #: src/Dialogs/PostDialog.vala:67
 msgid "Toot!"
-msgstr "Toot!"
+msgstr "Envoyer le message!"
 
 #: src/Dialogs/PostDialog.vala:76
 msgid "Write your warning here"
-msgstr ""
+msgstr "Écrire votre avertissement ici"
 
 #: src/Dialogs/SettingsDialog.vala:37
 msgid "Appearance"
-msgstr ""
+msgstr "Apparance"
 
 #: src/Dialogs/SettingsDialog.vala:38
 msgid "Dark theme:"
-msgstr ""
+msgstr "Thème sombre:"
 
 #: src/Dialogs/SettingsDialog.vala:41
 msgid "Timelines"
-msgstr ""
+msgstr "Fils"
 
 #: src/Dialogs/SettingsDialog.vala:42
 msgid "Real-time updates:"
-msgstr ""
+msgstr "Mise à jour instantanée:"
 
 #: src/Dialogs/SettingsDialog.vala:44
 msgid "Update public timelines:"
-msgstr ""
+msgstr "Mettre à jour le fil public:"
 
 #. grid.attach (new Granite.HeaderLabel (_("Caching")), 0, i++, 2, 1);
 #. grid.attach (new SettingsLabel (_("Use cache:")), 0, i);
@@ -388,37 +392,36 @@ msgid "Notifications"
 msgstr "Notifications"
 
 #: src/Dialogs/SettingsDialog.vala:56
-#, fuzzy
 msgid "Display notifications:"
-msgstr "Notifications"
+msgstr "Afficher les notifications:"
 
 #: src/Dialogs/SettingsDialog.vala:58
 msgid "Always receive notifications:"
-msgstr ""
+msgstr "Toujours recevoir les notifications:"
 
 #: src/Dialogs/SettingsDialog.vala:64
 msgid "_Close"
-msgstr ""
+msgstr "_Fermer"
 
 #: src/Views/AbstractView.vala:58
 msgid "Nothing to see here"
-msgstr ""
+msgstr "Rien à voir par ici"
 
 #: src/Views/AccountView.vala:79
 msgid "Edit Profile"
-msgstr "Editer votre profil"
+msgstr "Éditer votre profil"
 
 #: src/Views/AccountView.vala:80
 msgid "Mention"
-msgstr "Mention"
+msgstr "Mentionner"
 
 #: src/Views/AccountView.vala:81
 msgid "Report"
-msgstr "Rapport"
+msgstr "Signaler"
 
 #: src/Views/AccountView.vala:82 src/Views/AccountView.vala:167
 msgid "Mute"
-msgstr "Muet"
+msgstr "Masquer"
 
 #: src/Views/AccountView.vala:83 src/Views/AccountView.vala:166
 msgid "Block"
@@ -429,23 +432,20 @@ msgid "More Actions"
 msgstr "Plus d'actions"
 
 #: src/Views/AccountView.vala:115
-#, fuzzy
 msgid "Toots"
-msgstr "Toot"
+msgstr "Pouets"
 
 #: src/Views/AccountView.vala:116
-#, fuzzy
 msgid "Follows"
-msgstr "Suivre"
+msgstr "Abonnements"
 
 #: src/Views/AccountView.vala:120
-#, fuzzy
 msgid "Followers"
-msgstr "Suivre"
+msgstr "Abonnés"
 
 #: src/Views/AccountView.vala:155
 msgid "Unfollow"
-msgstr "Ne pas suivre"
+msgstr "Ne plus suivre"
 
 #: src/Views/AccountView.vala:159
 msgid "Follow"
@@ -453,15 +453,15 @@ msgstr "Suivre"
 
 #: src/Views/AccountView.vala:166
 msgid "Unblock"
-msgstr "Déblocker"
+msgstr "Débloquer"
 
 #: src/Views/AccountView.vala:167
 msgid "Unmute"
-msgstr "Enlever muet"
+msgstr "Rétablir"
 
 #: src/Views/AccountView.vala:228
 msgid "Sent follow request"
-msgstr "Envoyer une demande pour suivre"
+msgstr "Demande de suivi envoyée"
 
 #: src/Views/AccountView.vala:230
 msgid "Blocked"
@@ -469,44 +469,43 @@ msgstr "Bloqué"
 
 #: src/Views/AccountView.vala:232
 msgid "Follows you"
-msgstr "Te suivent actuellement"
+msgstr "Vous suis actuellement"
 
 #: src/Views/AccountView.vala:234
 msgid "Blocking this instance"
-msgstr "Blocker cette instance"
+msgstr "Blocage de cette instance"
 
 #: src/Views/AccountView.vala:269
 msgid "User not found"
-msgstr ""
+msgstr "Utilisateur non trouvé"
 
 #: src/Views/FederatedView.vala:17
 msgid "Federated Timeline"
-msgstr ""
+msgstr "Fil global"
 
 #: src/Views/HomeView.vala:17 src/Views/TimelineView.vala:50
 msgid "Home"
-msgstr "Dossier Personnel"
+msgstr "Accueil"
 
 #: src/Views/LocalView.vala:17
 msgid "Local Timeline"
-msgstr ""
+msgstr "Fil local"
 
 #: src/Views/SearchView.vala:81
-#, fuzzy
 msgid "Accounts"
-msgstr "Ajouter un compte"
+msgstr "Comptes"
 
 #: src/Views/SearchView.vala:90
 msgid "Statuses"
-msgstr ""
+msgstr "Statuts"
 
 #: src/Views/SearchView.vala:99
 msgid "Hashtags"
-msgstr ""
+msgstr "Hashtags"
 
 #: src/Views/StatusView.vala:82
 msgid "Toot not found"
-msgstr ""
+msgstr "Message non trouvé"
 
 #~ msgid "Log out"
 #~ msgstr "Déconnexion"
@@ -515,13 +514,13 @@ msgstr ""
 #~ msgstr "Code d'autorisation:"
 
 #~ msgid "Enter Your Instance URL:"
-#~ msgstr "Tapez votre URL d'exemple"
+#~ msgstr "Tapez l'URL de votre instance:"
 
 #~ msgid "TOOTS"
-#~ msgstr "TOOTS"
+#~ msgstr "POUETS"
 
 #~ msgid "FOLLOWS"
-#~ msgstr "FOLLOWS"
+#~ msgstr "ABONNEMENTS"
 
 #~ msgid "FOLLOWERS"
-#~ msgstr "FOLLOWERS"
+#~ msgstr "ABONNÉS"
