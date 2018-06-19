@@ -52,6 +52,7 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
                 image.valign = Gtk.Align.CENTER;
                 image.halign = Gtk.Align.CENTER;
                 image.margin = 3;
+                image.set_tooltip_text (attachment.description);
                 image.show ();
                 if (editable)
                     Tootle.network.load_scaled_image (attachment.preview_url, image, get_small_size ());
