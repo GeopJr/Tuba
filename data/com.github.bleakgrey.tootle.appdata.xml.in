@@ -28,6 +28,36 @@
   <url type="bugtracker">https://github.com/bleakgrey/tootle/issues</url>
   <url type="donation">https://liberapay.com/bleakgrey/donate</url>
   
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-cartoon">none</content_attribute>
+    <content_attribute id="violence-fantasy">none</content_attribute>
+    <content_attribute id="violence-realistic">none</content_attribute>
+    <content_attribute id="violence-bloodshed">none</content_attribute>
+    <content_attribute id="violence-sexual">none</content_attribute>
+    <content_attribute id="violence-desecration">none</content_attribute>
+    <content_attribute id="violence-slavery">none</content_attribute>
+    <content_attribute id="violence-worship">none</content_attribute>
+    <content_attribute id="drugs-alcohol">none</content_attribute>
+    <content_attribute id="drugs-narcotics">none</content_attribute>
+    <content_attribute id="drugs-tobacco">none</content_attribute>
+    <content_attribute id="sex-nudity">none</content_attribute>
+    <content_attribute id="sex-themes">none</content_attribute>
+    <content_attribute id="sex-homosexuality">none</content_attribute>
+    <content_attribute id="sex-prostitution">none</content_attribute>
+    <content_attribute id="sex-adultery">none</content_attribute>
+    <content_attribute id="sex-appearance">none</content_attribute>
+    <content_attribute id="language-profanity">none</content_attribute>
+    <content_attribute id="language-humor">none</content_attribute>
+    <content_attribute id="language-discrimination">none</content_attribute>
+    <content_attribute id="social-chat">moderate</content_attribute>
+    <content_attribute id="social-info">none</content_attribute>
+    <content_attribute id="social-audio">moderate</content_attribute>
+    <content_attribute id="social-location">none</content_attribute>
+    <content_attribute id="social-contacts">intense</content_attribute>
+    <content_attribute id="money-purchasing">none</content_attribute>
+    <content_attribute id="money-gambling">none</content_attribute>
+  </content_rating>
+  
   <screenshots>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot.png</image>
@@ -44,6 +74,20 @@
   </screenshots>
 
   <releases>
+    <release version="0.1.4" date="2018-06-19">
+        <description>
+           <ul>
+              <li>Added Direct timeline</li>
+              <li>Added support for custom character limit</li>
+              <li>Added support for streaming all timelines</li>
+              <li>Added tooltips for image attachments</li>
+              <li>Added remove action for attachments</li>
+              <li>Changed behavior for mentioning users</li>
+              <li>Changed behavior for missing image attachments</li>
+              <li>Fixed minor bugs</li>
+          </ul>
+        </description>
+      </release>
     <release version="0.1.3" date="2018-05-31">
         <description>
            <ul>
