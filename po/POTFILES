@@ -1,15 +1,15 @@
 data/com.github.bleakgrey.tootle.desktop.in
 data/com.github.bleakgrey.tootle.appdata.xml.in
-src/AccountManager.vala
+src/Accounts.vala
 src/Application.vala
 src/Desktop.vala
 src/Html.vala
 src/ImageCache.vala
 src/InstanceAccount.vala
 src/MainWindow.vala
-src/NetManager.vala
+src/Network.vala
 src/Notificator.vala
-src/SettingsManager.vala
+src/Settings.vala
 src/API/Account.vala
 src/API/Attachment.vala
 src/API/Mention.vala
@@ -18,7 +18,6 @@ src/API/NotificationType.vala
 src/API/Relationship.vala
 src/API/Status.vala
 src/API/StatusVisibility.vala
-src/API/Tag.vala
 src/Widgets/AccountsButton.vala
 src/Widgets/AccountWidget.vala
 src/Widgets/AlignedLabel.vala
@@ -34,6 +33,7 @@ src/Dialogs/SettingsDialog.vala
 src/Views/AbstractView.vala
 src/Views/AccountView.vala
 src/Views/FavoritesView.vala
+src/Views/DirectView.vala
 src/Views/FederatedView.vala
 src/Views/FollowersView.vala
 src/Views/FollowingView.vala

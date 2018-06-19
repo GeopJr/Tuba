@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-13 15:47+0100\n"
+"POT-Creation-Date: 2018-06-19 12:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,15 +77,15 @@ msgstr ""
 msgid "Toot"
 msgstr ""
 
-#: src/NetManager.vala:60
+#: src/Network.vala:60
 msgid "TLS Error"
 msgstr ""
 
-#: src/NetManager.vala:60
+#: src/Network.vala:60
 msgid "Can't ensure secure connection: "
 msgstr ""
 
-#: src/NetManager.vala:68
+#: src/Network.vala:68
 #, c-format
 msgid "Error: %s"
 msgstr ""
@@ -159,36 +159,40 @@ msgstr ""
 msgid "Post to mentioned users only"
 msgstr ""
 
-#: src/Widgets/AccountsButton.vala:65
+#: src/Widgets/AccountsButton.vala:66
 msgid "Refresh"
 msgstr ""
 
-#: src/Widgets/AccountsButton.vala:69
+#: src/Widgets/AccountsButton.vala:70
 msgid "Favorites"
 msgstr ""
 
-#: src/Widgets/AccountsButton.vala:73 src/Views/SearchView.vala:12
+#: src/Widgets/AccountsButton.vala:74 src/Views/DirectView.vala:17
+msgid "Direct Messages"
+msgstr ""
+
+#: src/Widgets/AccountsButton.vala:78 src/Views/SearchView.vala:12
 msgid "Search"
 msgstr ""
 
-#: src/Widgets/AccountsButton.vala:77 src/Dialogs/SettingsDialog.vala:18
+#: src/Widgets/AccountsButton.vala:82 src/Dialogs/SettingsDialog.vala:18
 msgid "Settings"
 msgstr ""
 
-#: src/Widgets/AccountsButton.vala:128
+#: src/Widgets/AccountsButton.vala:134
 msgid "<b>New Account</b>"
 msgstr ""
 
-#: src/Widgets/AccountsButton.vala:129
+#: src/Widgets/AccountsButton.vala:135
 msgid "Click to add"
 msgstr ""
 
-#: src/Widgets/AccountWidget.vala:28 src/Widgets/AttachmentWidget.vala:125
+#: src/Widgets/AccountWidget.vala:28 src/Widgets/AttachmentWidget.vala:129
 #: src/Widgets/StatusWidget.vala:273
 msgid "Open in Browser"
 msgstr ""
 
-#: src/Widgets/AccountWidget.vala:30 src/Widgets/AttachmentWidget.vala:127
+#: src/Widgets/AccountWidget.vala:30 src/Widgets/AttachmentWidget.vala:131
 #: src/Widgets/StatusWidget.vala:275
 msgid "Copy Link"
 msgstr ""
@@ -205,29 +209,29 @@ msgstr ""
 msgid "_Open"
 msgstr ""
 
-#: src/Widgets/AttachmentWidget.vala:61
+#: src/Widgets/AttachmentWidget.vala:65
 #, c-format
 msgid "Click to open %s media"
 msgstr ""
 
-#: src/Widgets/AttachmentWidget.vala:78
+#: src/Widgets/AttachmentWidget.vala:82
 msgid "Uploading..."
 msgstr ""
 
-#: src/Widgets/AttachmentWidget.vala:99
+#: src/Widgets/AttachmentWidget.vala:103
 msgid "File read error"
 msgstr ""
 
-#: src/Widgets/AttachmentWidget.vala:99
+#: src/Widgets/AttachmentWidget.vala:103
 #, c-format
 msgid "Can't read file %s: %s"
 msgstr ""
 
-#: src/Widgets/AttachmentWidget.vala:119
+#: src/Widgets/AttachmentWidget.vala:123
 msgid "Remove"
 msgstr ""
 
-#: src/Widgets/AttachmentWidget.vala:129
+#: src/Widgets/AttachmentWidget.vala:133
 msgid "Download"
 msgstr ""
 
@@ -375,7 +379,7 @@ msgstr ""
 #. var cache_size = new Gtk.SpinButton.with_range (16, 256, 1);
 #. settings.schema.bind ("cache-size", cache_size, "value", SettingsBindFlags.DEFAULT);
 #. grid.attach (cache_size, 1, i++);
-#: src/Dialogs/SettingsDialog.vala:55 src/Views/NotificationsView.vala:22
+#: src/Dialogs/SettingsDialog.vala:55 src/Views/NotificationsView.vala:21
 msgid "Notifications"
 msgstr ""
 

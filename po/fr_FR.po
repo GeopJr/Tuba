@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-13 15:47+0100\n"
+"POT-Creation-Date: 2018-06-19 12:45+0300\n"
 "PO-Revision-Date: 2018-06-17 10:07+0200\n"
 "Last-Translator: Guillaume\n"
 "Language-Team: none\n"
@@ -89,15 +89,15 @@ msgstr "Retour"
 msgid "Toot"
 msgstr "Écrire un message"
 
-#: src/NetManager.vala:60
+#: src/Network.vala:60
 msgid "TLS Error"
 msgstr "Erreur TLS"
 
-#: src/NetManager.vala:60
+#: src/Network.vala:60
 msgid "Can't ensure secure connection: "
 msgstr "Impossible d'assurer une connexion sécurisée:"
 
-#: src/NetManager.vala:68
+#: src/Network.vala:68
 #, c-format
 msgid "Error: %s"
 msgstr "Erreur: %s"
@@ -171,36 +171,40 @@ msgstr "Afficher seulement pour les abonnés"
 msgid "Post to mentioned users only"
 msgstr "N'envoyer qu'aux personnes mentionnées"
 
-#: src/Widgets/AccountsButton.vala:65
+#: src/Widgets/AccountsButton.vala:66
 msgid "Refresh"
 msgstr "Actualiser"
 
-#: src/Widgets/AccountsButton.vala:69
+#: src/Widgets/AccountsButton.vala:70
 msgid "Favorites"
 msgstr "Favoris"
 
-#: src/Widgets/AccountsButton.vala:73 src/Views/SearchView.vala:12
+#: src/Widgets/AccountsButton.vala:74 src/Views/DirectView.vala:17
+msgid "Direct Messages"
+msgstr ""
+
+#: src/Widgets/AccountsButton.vala:78 src/Views/SearchView.vala:12
 msgid "Search"
 msgstr "Chercher"
 
-#: src/Widgets/AccountsButton.vala:77 src/Dialogs/SettingsDialog.vala:18
+#: src/Widgets/AccountsButton.vala:82 src/Dialogs/SettingsDialog.vala:18
 msgid "Settings"
 msgstr "Paramètres"
 
-#: src/Widgets/AccountsButton.vala:128
+#: src/Widgets/AccountsButton.vala:134
 msgid "<b>New Account</b>"
 msgstr "<b>Nouveau Compte</b>"
 
-#: src/Widgets/AccountsButton.vala:129
+#: src/Widgets/AccountsButton.vala:135
 msgid "Click to add"
 msgstr "Cliquer pour ajouter"
 
-#: src/Widgets/AccountWidget.vala:28 src/Widgets/AttachmentWidget.vala:125
+#: src/Widgets/AccountWidget.vala:28 src/Widgets/AttachmentWidget.vala:129
 #: src/Widgets/StatusWidget.vala:273
 msgid "Open in Browser"
 msgstr "Ouvrir dans le navigateur"
 
-#: src/Widgets/AccountWidget.vala:30 src/Widgets/AttachmentWidget.vala:127
+#: src/Widgets/AccountWidget.vala:30 src/Widgets/AttachmentWidget.vala:131
 #: src/Widgets/StatusWidget.vala:275
 msgid "Copy Link"
 msgstr "Copier le lien"
@@ -217,29 +221,29 @@ msgstr "_Annuler"
 msgid "_Open"
 msgstr "_Ouvrir"
 
-#: src/Widgets/AttachmentWidget.vala:61
+#: src/Widgets/AttachmentWidget.vala:65
 #, c-format
 msgid "Click to open %s media"
 msgstr "Cliquer pour ouvrir les médias %s"
 
-#: src/Widgets/AttachmentWidget.vala:78
+#: src/Widgets/AttachmentWidget.vala:82
 msgid "Uploading..."
 msgstr "Téléchargement en cours..."
 
-#: src/Widgets/AttachmentWidget.vala:99
+#: src/Widgets/AttachmentWidget.vala:103
 msgid "File read error"
 msgstr "Erreur de lecture du fichier"
 
-#: src/Widgets/AttachmentWidget.vala:99
+#: src/Widgets/AttachmentWidget.vala:103
 #, c-format
 msgid "Can't read file %s: %s"
 msgstr "Impossible de lire le fichier %s: %s"
 
-#: src/Widgets/AttachmentWidget.vala:119
+#: src/Widgets/AttachmentWidget.vala:123
 msgid "Remove"
 msgstr "Supprimer"
 
-#: src/Widgets/AttachmentWidget.vala:129
+#: src/Widgets/AttachmentWidget.vala:133
 msgid "Download"
 msgstr "Télécharger"
 
@@ -387,7 +391,7 @@ msgstr "Mettre à jour le fil public:"
 #. var cache_size = new Gtk.SpinButton.with_range (16, 256, 1);
 #. settings.schema.bind ("cache-size", cache_size, "value", SettingsBindFlags.DEFAULT);
 #. grid.attach (cache_size, 1, i++);
-#: src/Dialogs/SettingsDialog.vala:55 src/Views/NotificationsView.vala:22
+#: src/Dialogs/SettingsDialog.vala:55 src/Views/NotificationsView.vala:21
 msgid "Notifications"
 msgstr "Notifications"
 
@@ -506,21 +510,3 @@ msgstr "Hashtags"
 #: src/Views/StatusView.vala:82
 msgid "Toot not found"
 msgstr "Message non trouvé"
-
-#~ msgid "Log out"
-#~ msgstr "Déconnexion"
-
-#~ msgid "Authorization Code:"
-#~ msgstr "Code d'autorisation:"
-
-#~ msgid "Enter Your Instance URL:"
-#~ msgstr "Tapez l'URL de votre instance:"
-
-#~ msgid "TOOTS"
-#~ msgstr "POUETS"
-
-#~ msgid "FOLLOWS"
-#~ msgstr "ABONNEMENTS"
-
-#~ msgid "FOLLOWERS"
-#~ msgstr "ABONNÉS"

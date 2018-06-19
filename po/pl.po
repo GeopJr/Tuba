@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the com.github.bleakgrey.tootle package.
 # Marcin Mikołajczak <me@m4sk.in>, 2018.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-13 15:47+0100\n"
+"POT-Creation-Date: 2018-06-19 12:45+0300\n"
 "PO-Revision-Date: 2018-06-18 12:56+0200\n"
 "Last-Translator: Marcin Mikołajczak <me@m4sk.in>\n"
 "Language-Team: Polish\n"
@@ -45,17 +44,18 @@ msgid ""
 "microblogging network with real-time notifications and multiple accounts "
 "support."
 msgstr ""
-"Tootle jest klientem największej na świecie wolnej i otwartoźródłowej, zdecentralizowanej "
-"sieci społecznościowej obsługującym powiadomienia w czasie rzeczywistym i wiele "
-"kont jednocześnie."
+"Tootle jest klientem największej na świecie wolnej i otwartoźródłowej, "
+"zdecentralizowanej sieci społecznościowej obsługującym powiadomienia w "
+"czasie rzeczywistym i wiele kont jednocześnie."
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:14
 msgid ""
 "Mastodon is lovely crafted with power and speed in mind, resulting in a "
 "free, independent and popular alternative to the centralized social networks."
 msgstr ""
-"Mastodon został zaprojektowany z myślą o funkcjonalności i szybkości, w wyniku czego "
-"powstałą wolna, niezależna i popularna alternatywa dla scentralizowanych sieci społecznościowych."
+"Mastodon został zaprojektowany z myślą o funkcjonalności i szybkości, w "
+"wyniku czego powstałą wolna, niezależna i popularna alternatywa dla "
+"scentralizowanych sieci społecznościowych."
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:17
 msgid ""
@@ -66,8 +66,8 @@ msgid ""
 msgstr ""
 "Każdy może uruchomić serwer Mastodona. Każdy serwer przechowuje konta innych "
 "użytkowników, zawartość przez nich tworzoną i wpisy obserwowanych osób. "
-"Każdy użytkownik może zaobserwować innych i udostępniać ich wpisy niezależnie "
-"od używanego przez nich serwera."
+"Każdy użytkownik może zaobserwować innych i udostępniać ich wpisy "
+"niezależnie od używanego przez nich serwera."
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:26
 msgid "bleak_grey"
@@ -86,15 +86,15 @@ msgstr "Wróć"
 msgid "Toot"
 msgstr "Wyślij"
 
-#: src/NetManager.vala:60
+#: src/Network.vala:60
 msgid "TLS Error"
 msgstr "Błąd TLS"
 
-#: src/NetManager.vala:60
+#: src/Network.vala:60
 msgid "Can't ensure secure connection: "
 msgstr "Nie można zapewnić bezpiecznego połączenia: "
 
-#: src/NetManager.vala:68
+#: src/Network.vala:68
 #, c-format
 msgid "Error: %s"
 msgstr "Błąd: %s"
@@ -168,36 +168,40 @@ msgstr "Wyślij tylko dla śledzących"
 msgid "Post to mentioned users only"
 msgstr "Wyślij tylko dla wspomnianych"
 
-#: src/Widgets/AccountsButton.vala:65
+#: src/Widgets/AccountsButton.vala:66
 msgid "Refresh"
 msgstr "Odśwież"
 
-#: src/Widgets/AccountsButton.vala:69
+#: src/Widgets/AccountsButton.vala:70
 msgid "Favorites"
 msgstr "Ulubione"
 
-#: src/Widgets/AccountsButton.vala:73 src/Views/SearchView.vala:12
+#: src/Widgets/AccountsButton.vala:74 src/Views/DirectView.vala:17
+msgid "Direct Messages"
+msgstr ""
+
+#: src/Widgets/AccountsButton.vala:78 src/Views/SearchView.vala:12
 msgid "Search"
 msgstr "Wyszukiwanie"
 
-#: src/Widgets/AccountsButton.vala:77 src/Dialogs/SettingsDialog.vala:18
+#: src/Widgets/AccountsButton.vala:82 src/Dialogs/SettingsDialog.vala:18
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: src/Widgets/AccountsButton.vala:128
+#: src/Widgets/AccountsButton.vala:134
 msgid "<b>New Account</b>"
 msgstr "<b>Nowe konto</b>"
 
-#: src/Widgets/AccountsButton.vala:129
+#: src/Widgets/AccountsButton.vala:135
 msgid "Click to add"
 msgstr "Naciśnij aby dodać"
 
-#: src/Widgets/AccountWidget.vala:28 src/Widgets/AttachmentWidget.vala:125
+#: src/Widgets/AccountWidget.vala:28 src/Widgets/AttachmentWidget.vala:129
 #: src/Widgets/StatusWidget.vala:273
 msgid "Open in Browser"
 msgstr "Otwórz w przeglądarce"
 
-#: src/Widgets/AccountWidget.vala:30 src/Widgets/AttachmentWidget.vala:127
+#: src/Widgets/AccountWidget.vala:30 src/Widgets/AttachmentWidget.vala:131
 #: src/Widgets/StatusWidget.vala:275
 msgid "Copy Link"
 msgstr "Skopiuj odnośnik"
@@ -214,29 +218,29 @@ msgstr "_Anuluj"
 msgid "_Open"
 msgstr "_Otwórz"
 
-#: src/Widgets/AttachmentWidget.vala:61
+#: src/Widgets/AttachmentWidget.vala:65
 #, c-format
 msgid "Click to open %s media"
 msgstr "Naciśnij aby otworzyć %s multimediów"
 
-#: src/Widgets/AttachmentWidget.vala:78
+#: src/Widgets/AttachmentWidget.vala:82
 msgid "Uploading..."
 msgstr "Wysyłanie…"
 
-#: src/Widgets/AttachmentWidget.vala:99
+#: src/Widgets/AttachmentWidget.vala:103
 msgid "File read error"
 msgstr "Błąd odczytywania plików"
 
-#: src/Widgets/AttachmentWidget.vala:99
+#: src/Widgets/AttachmentWidget.vala:103
 #, c-format
 msgid "Can't read file %s: %s"
 msgstr "Nie można odczytać pliku %s: %s"
 
-#: src/Widgets/AttachmentWidget.vala:119
+#: src/Widgets/AttachmentWidget.vala:123
 msgid "Remove"
 msgstr "Usuń"
 
-#: src/Widgets/AttachmentWidget.vala:129
+#: src/Widgets/AttachmentWidget.vala:133
 msgid "Download"
 msgstr "Pobierz"
 
@@ -384,7 +388,7 @@ msgstr "Aktualizuj publiczne osie czasu:"
 #. var cache_size = new Gtk.SpinButton.with_range (16, 256, 1);
 #. settings.schema.bind ("cache-size", cache_size, "value", SettingsBindFlags.DEFAULT);
 #. grid.attach (cache_size, 1, i++);
-#: src/Dialogs/SettingsDialog.vala:55 src/Views/NotificationsView.vala:22
+#: src/Dialogs/SettingsDialog.vala:55 src/Views/NotificationsView.vala:21
 msgid "Notifications"
 msgstr "Powiadomienia"
 
