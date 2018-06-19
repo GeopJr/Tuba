@@ -33,6 +33,7 @@ namespace Tootle{
         
         protected override void startup () {
             base.startup ();
+            Granite.Services.Logger.DisplayLevel = Granite.Services.LogLevel.INFO;
             
             settings = new Settings ();
             accounts = new Accounts ();

@@ -34,7 +34,7 @@ msgstr ""
 
 #: data/com.github.bleakgrey.tootle.desktop.in:11
 msgid "toot;mastodon;social;network;post;"
-msgstr "пост;mastodon;мастодонт;социальные;сеть;статус"
+msgstr "пост;mastodon;мастодонт;социальные;сеть;статус;"
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:8
 msgid "Lightning fast client for Mastodon"

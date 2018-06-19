@@ -18,9 +18,19 @@ public class Tootle.Notificator : GLib.Object {
         this.msg.priority = Soup.MessagePriority.VERY_HIGH;
     }
     
+    public string get_name () {
+        var name = msg.get_uri ().to_string (true);
+        if ("&access_token" in name) {
+            var pos = name.last_index_of ("&access_token");
+            name = name.slice (0, pos);
+        }
+            
+        return name;
+    }
+    
     public async void start () {
         try {
-            debug ("Starting notificator");
+            info ("Starting notificator: %s", get_name ());
             connection = yield Tootle.network.stream (msg);
             connection.error.connect (on_error);
             connection.message.connect (on_message);
@@ -34,7 +44,10 @@ public class Tootle.Notificator : GLib.Object {
     }
     
     public void close () {
-        debug ("Stopping notificator");
+        if (connection == null)
+            return;
+        
+        info ("Stopping notificator: %s", get_name ());
         closing = true;
         connection.close (0, null);
     }
@@ -48,13 +61,13 @@ public class Tootle.Notificator : GLib.Object {
         if (closing)
             return;
         
-        debug ("Notificator aborted. Reconnecting in %i seconds.", timeout);
+        warning ("Notificator %s aborted. Reconnecting in %i seconds.", get_name (), timeout);
         GLib.Timeout.add_seconds (timeout, reconnect);
         timeout = int.min (timeout*2, 60);
     }
     
     private void on_error (Error e) {
-        error (e.message);
+        warning ("Error in notificator %s: %s", get_name (), e.message);
     }
     
     private void on_message (int i, Bytes bytes) {
