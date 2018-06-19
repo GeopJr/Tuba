@@ -5,6 +5,8 @@ Simple [Mastodon](https://github.com/tootsuite/mastodon) client designed for ele
 
 ## Building and Installation
 
+[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.bleakgrey.tootle)
+
 First of all you'll need some dependencies to build and run the app:
 * meson
 * valac
@@ -31,5 +33,7 @@ If you feel like contributing, you're always welcome to help the project in many
 <a href="https://liberapay.com/bleakgrey/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
 
 ## Credits
-* Tootle Logo by [CallMeFib3r](https://github.com/CallMeFib3r)
+* Tootle Logo by [@CallMeFib3r](https://github.com/CallMeFib3r)
 * Medel typeface by Ozan Karakoc
+* French translation by [@Larnicone](https://github.com/Larnicone)
+* Polish translation by [@m4sk1n](https://github.com/m4sk1n)
