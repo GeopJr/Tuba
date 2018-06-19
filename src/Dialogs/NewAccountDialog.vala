@@ -123,11 +123,11 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
 
         grid.sensitive = false;
         var msg = new Soup.Message ("POST", "%s/api/v1/apps%s".printf (instance, pars));
-        network.queue_custom (msg, (sess, mess) => {
+        msg.finished.connect (() => {
             grid.sensitive = true;
-            if (show_error (mess)) return;
+            if (show_error (msg)) return;
             
-            var root = network.parse (mess);
+            var root = network.parse (msg);
             var id = root.get_string_member ("client_id");
             var secret = root.get_string_member ("client_secret");
             client_id = id;
@@ -138,6 +138,7 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
             code_name.show ();
             code_entry.show ();
         });
+        network.queue_custom (msg);
     }
     
     private void request_auth_code (){
@@ -158,10 +159,10 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
         pars += "&code=" + code;
 
         var msg = new Soup.Message ("POST", "%s/oauth/token%s".printf (instance, pars));
-        network.queue_custom (msg, (sess, mess) => {
+        msg.finished.connect (() => {
             try{
-                if (show_error (mess)) return;
-                var root = network.parse (mess);
+                if (show_error (msg)) return;
+                var root = network.parse (msg);
                 token = root.get_string_member ("access_token");
                 
                 debug ("Got access token");
@@ -172,15 +173,16 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
                 warning (e.message);
             }
         });
+        network.queue_custom (msg);
     }
     
     private void get_username () {
         var msg = new Soup.Message("GET", "%s/api/v1/accounts/verify_credentials".printf (instance));
         msg.request_headers.append ("Authorization", "Bearer " + token);
-        network.queue_custom (msg, (sess, mess) => {
+        msg.finished.connect (() => {
             try{
-                if (show_error (mess)) return;
-                var root = network.parse (mess);
+                if (show_error (msg)) return;
+                var root = network.parse (msg);
                 username = root.get_string_member ("username");
                 
                 add_account ();
@@ -193,6 +195,7 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
                 warning (e.message);
             }
         });
+        network.queue_custom (msg);
     }
     
     private void add_account () {
