@@ -366,7 +366,7 @@ msgstr "Écrire votre avertissement ici"
 
 #: src/Dialogs/SettingsDialog.vala:37
 msgid "Appearance"
-msgstr "Apparance"
+msgstr "Apparence"
 
 #: src/Dialogs/SettingsDialog.vala:38
 msgid "Dark theme:"
