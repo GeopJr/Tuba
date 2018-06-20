@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-19 12:45+0300\n"
+"POT-Creation-Date: 2018-06-21 02:07+0300\n"
 "PO-Revision-Date: 2018-06-19 21:05+0200\n"
 "Last-Translator: Marcin Mikołajczak <me@m4sk.in>\n"
 "Language-Team: Polish\n"
@@ -78,6 +78,10 @@ msgstr "bleak_grey"
 #: src/API/Account.vala:129 src/Dialogs/NewAccountDialog.vala:104
 msgid "Error"
 msgstr "Błąd"
+
+#: src/Desktop.vala:46
+msgid "Media downloaded"
+msgstr ""
 
 #: src/MainWindow.vala:47
 msgid "Back"
@@ -177,7 +181,7 @@ msgstr "Odśwież"
 msgid "Favorites"
 msgstr "Ulubione"
 
-#: src/Widgets/AccountsButton.vala:74 src/Views/DirectView.vala:17
+#: src/Widgets/AccountsButton.vala:74 src/Views/DirectView.vala:12
 msgid "Direct Messages"
 msgstr "Wiadomości bezpośrednie"
 
@@ -481,15 +485,15 @@ msgstr "Blokujesz tę instancję"
 msgid "User not found"
 msgstr "Nie znaleziono użytkownika"
 
-#: src/Views/FederatedView.vala:17
+#: src/Views/FederatedView.vala:12
 msgid "Federated Timeline"
 msgstr "Oś czasu federacji"
 
-#: src/Views/HomeView.vala:17 src/Views/TimelineView.vala:50
+#: src/Views/HomeView.vala:12 src/Views/TimelineView.vala:36
 msgid "Home"
 msgstr "Strona główna"
 
-#: src/Views/LocalView.vala:17
+#: src/Views/LocalView.vala:12
 msgid "Local Timeline"
 msgstr "Lokalna oś czasu"
 

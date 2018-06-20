@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-19 12:45+0300\n"
+"POT-Creation-Date: 2018-06-21 02:07+0300\n"
 "PO-Revision-Date: 2018-05-10 00:35+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -79,6 +79,10 @@ msgstr ""
 #: src/API/Account.vala:129 src/Dialogs/NewAccountDialog.vala:104
 msgid "Error"
 msgstr "Ошибка"
+
+#: src/Desktop.vala:46
+msgid "Media downloaded"
+msgstr "Медиаконтент загружен"
 
 #: src/MainWindow.vala:47
 msgid "Back"
@@ -178,7 +182,7 @@ msgstr "Обновить"
 msgid "Favorites"
 msgstr "Понравившиеся"
 
-#: src/Widgets/AccountsButton.vala:74 src/Views/DirectView.vala:17
+#: src/Widgets/AccountsButton.vala:74 src/Views/DirectView.vala:12
 msgid "Direct Messages"
 msgstr "Личные Сообщения"
 
@@ -482,15 +486,15 @@ msgstr "Данный узел заблокирован"
 msgid "User not found"
 msgstr "Пользователь не найден"
 
-#: src/Views/FederatedView.vala:17
+#: src/Views/FederatedView.vala:12
 msgid "Federated Timeline"
 msgstr "Глобальная Лента"
 
-#: src/Views/HomeView.vala:17 src/Views/TimelineView.vala:50
+#: src/Views/HomeView.vala:12 src/Views/TimelineView.vala:36
 msgid "Home"
 msgstr "Главная"
 
-#: src/Views/LocalView.vala:17
+#: src/Views/LocalView.vala:12
 msgid "Local Timeline"
 msgstr "Локальная Лента"
 

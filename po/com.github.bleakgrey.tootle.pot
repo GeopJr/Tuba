@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-19 12:45+0300\n"
+"POT-Creation-Date: 2018-06-21 02:07+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,6 +67,10 @@ msgstr ""
 #: src/Desktop.vala:10 src/API/Account.vala:91 src/API/Account.vala:110
 #: src/API/Account.vala:129 src/Dialogs/NewAccountDialog.vala:104
 msgid "Error"
+msgstr ""
+
+#: src/Desktop.vala:46
+msgid "Media downloaded"
 msgstr ""
 
 #: src/MainWindow.vala:47
@@ -167,7 +171,7 @@ msgstr ""
 msgid "Favorites"
 msgstr ""
 
-#: src/Widgets/AccountsButton.vala:74 src/Views/DirectView.vala:17
+#: src/Widgets/AccountsButton.vala:74 src/Views/DirectView.vala:12
 msgid "Direct Messages"
 msgstr ""
 
@@ -471,15 +475,15 @@ msgstr ""
 msgid "User not found"
 msgstr ""
 
-#: src/Views/FederatedView.vala:17
+#: src/Views/FederatedView.vala:12
 msgid "Federated Timeline"
 msgstr ""
 
-#: src/Views/HomeView.vala:17 src/Views/TimelineView.vala:50
+#: src/Views/HomeView.vala:12 src/Views/TimelineView.vala:36
 msgid "Home"
 msgstr ""
 
-#: src/Views/LocalView.vala:17
+#: src/Views/LocalView.vala:12
 msgid "Local Timeline"
 msgstr ""
 
