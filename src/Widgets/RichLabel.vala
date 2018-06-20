@@ -48,19 +48,7 @@ public class Tootle.RichLabel : Gtk.Label {
         if ("/tags/" in url){
             var encoded = url.split("/tags/")[1];
             var hashtag = Soup.URI.decode (encoded);
-            
-            var msg_url = "%s/api/v1/streaming/?stream=hashtag&access_token=%s&tag=%s"
-                .printf (accounts.formal.instance, accounts.formal.token, encoded);
-            var msg = new Soup.Message("GET", msg_url);
-            
-            var timeline = new TimelineView ("tag/" + hashtag);
-            timeline.notificator = new Notificator (msg);
-            timeline.notificator.status_added.connect ((ref status) => {
-                if (settings.live_updates)
-                    timeline.on_status_added (ref status);
-            });
-            window.open_view (timeline);
-            
+            window.open_view (new HashtagView (hashtag));
             return true;
         }
         

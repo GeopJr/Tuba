@@ -10,22 +10,7 @@ public class Tootle.TimelineView : AbstractView {
     protected string? page_next;
     protected string? page_prev;
     
-    private Notificator? _notificator;
-    public Notificator? notificator {
-        get {
-            return _notificator;
-        }
-        
-        set {
-            if (_notificator != null)
-                _notificator.close ();
-            
-            _notificator = value;  
-            
-            if (_notificator != null)
-                _notificator.start ();
-        }
-    }
+    protected Notificator? notificator;
 
     public TimelineView (string timeline, string pars = "") {
         base ();
@@ -39,6 +24,7 @@ public class Tootle.TimelineView : AbstractView {
                 notificator.close ();
         });
         
+        setup_notificator ();
         request ();
     }
     
@@ -128,7 +114,7 @@ public class Tootle.TimelineView : AbstractView {
         
         var msg = new Soup.Message("GET", get_url ());
         msg.finished.connect (() => empty_state ());
-        Tootle.network.queue(msg, (sess, mess) => {
+        network.queue(msg, (sess, mess) => {
             try{
                 Tootle.network.parse_array (mess).foreach_element ((array, i, node) => {
                     var object = node.get_object ();
@@ -151,19 +137,56 @@ public class Tootle.TimelineView : AbstractView {
         request ();
     }
     
+    public virtual Soup.Message? get_stream (){
+        return null;
+    }
+    
     public virtual void on_account_changed (Account? account){
         if(account == null)
             return;
         
-        if (notificator != null) {
-            notificator.close ();
-            notificator.start ();
+        var stream = get_stream ();
+        if (notificator != null && stream != null) {
+            var old_url = notificator.get_url ();
+            var new_url = stream.get_uri ().to_string (false);
+            if (old_url != new_url) {
+                info ("Updating notificator %s", notificator.get_name ());
+                setup_notificator ();
+            }
         }
         
         on_refresh ();
     }
     
-    public override void bottom_reached (){
+    protected void setup_notificator () {
+        if (notificator != null)
+            notificator.close ();
+    
+        var stream = get_stream ();
+        if (stream == null)
+            return;
+        
+        notificator = new Notificator (stream);
+        notificator.status_added.connect ((ref status) => {
+            if (can_stream ())
+                on_status_added (ref status);
+        });
+        notificator.start ();
+    }
+    
+    protected virtual bool is_public () {
+        return false;
+    }
+    
+    protected virtual bool can_stream () {
+        var allowed_public = true;
+        if (is_public ())
+            allowed_public = settings.live_updates_public;
+            
+        return settings.live_updates && allowed_public;
+    }
+    
+    protected override void bottom_reached (){
         if (is_last_page) {
             debug ("Last page reached");
             return;

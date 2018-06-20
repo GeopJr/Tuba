@@ -18,6 +18,10 @@ public class Tootle.Notificator : GLib.Object {
         this.msg.priority = Soup.MessagePriority.VERY_HIGH;
     }
     
+    public string get_url () {
+        return msg.get_uri ().to_string (false);
+    }
+    
     public string get_name () {
         var name = msg.get_uri ().to_string (true);
         if ("&access_token" in name) {
@@ -29,9 +33,12 @@ public class Tootle.Notificator : GLib.Object {
     }
     
     public async void start () {
+        if (connection != null)
+            return;
+    
         try {
             info ("Starting notificator: %s", get_name ());
-            connection = yield Tootle.network.stream (msg);
+            connection = yield network.stream (msg);
             connection.error.connect (on_error);
             connection.message.connect (on_message);
             connection.closed.connect (on_closed);

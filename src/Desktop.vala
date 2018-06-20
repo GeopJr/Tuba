@@ -43,7 +43,7 @@ public class Tootle.Desktop {
                     FileOutputStream stream = file.create (FileCreateFlags.PRIVATE);
                     stream.write (data);
                 }
-                app.toast ("Media downloaded");
+                app.toast (_("Media downloaded"));
             } catch (Error e) {
                 app.toast (e.message);
                 warning ("Error: %s\n", e.message);

@@ -62,6 +62,7 @@ executable(
     'src/Views/FollowingView.vala',
     'src/Views/FavoritesView.vala',
     'src/Views/SearchView.vala',
+    'src/Views/HashtagView.vala',
     dependencies: [
         dependency('gtk+-3.0'),
         dependency('glib-2.0', version: '>=2.30.0'),
