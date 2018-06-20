@@ -74,9 +74,10 @@
   </screenshots>
 
   <releases>
-    <release version="0.1.4" date="2018-06-19">
+    <release version="0.1.5" date="2018-06-21">
         <description>
            <ul>
+              <li>Added Russian, French and Polish translations</li>
               <li>Added Direct timeline</li>
               <li>Added support for custom character limit</li>
               <li>Added support for streaming all timelines</li>

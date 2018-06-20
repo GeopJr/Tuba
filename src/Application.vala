@@ -22,7 +22,7 @@ namespace Tootle{
             application_id = "com.github.bleakgrey.tootle";
             flags = ApplicationFlags.FLAGS_NONE;
             program_name = "Tootle";
-            build_version = "0.1.4";
+            build_version = "0.1.5";
         }
 
         public static int main (string[] args) {
