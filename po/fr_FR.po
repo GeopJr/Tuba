@@ -278,7 +278,7 @@ msgstr "Répondre"
 #: src/Widgets/StatusWidget.vala:127
 #, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> boosted"
-msgstr "<a href=\"%s\"><b>%s</b></a> à partagé"
+msgstr "<a href=\"%s\"><b>%s</b></a> a partagé"
 
 #: src/Widgets/StatusWidget.vala:142
 msgid "Toggle content"
