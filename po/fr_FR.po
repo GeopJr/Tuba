@@ -185,7 +185,7 @@ msgstr "Favoris"
 
 #: src/Widgets/AccountsButton.vala:74 src/Views/DirectView.vala:12
 msgid "Direct Messages"
-msgstr ""
+msgstr "Messages directs"
 
 #: src/Widgets/AccountsButton.vala:78 src/Views/SearchView.vala:12
 msgid "Search"
