@@ -111,19 +111,23 @@ public class Tootle.ImageCache : GLib.Object {
         Soup.Message? msg = in_progress.get(ci);
         if (msg == null) {
             msg = new Soup.Message("GET", uri);
-            msg.finished.connect(() => {
+            ulong id = 0;
+            id = msg.finished.connect(() => {
                 debug("Caching %s@%d", uri, size);
                 var data = msg.response_body.data;
                 var stream = new MemoryInputStream.from_data (data);
                 var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, size, size, true);
                 store_pixbuf(ci, pixbuf);
                 cb(pixbuf);
+                msg.disconnect(id);
             });
             in_progress[ci] = msg;
             network.queue_custom (msg);
         } else {
-            msg.finished.connect_after(() => {
+            ulong id = 0;
+            id = msg.finished.connect(() => {
                 cb(pixbufs[ci]);
+                msg.disconnect(id);
             });
         }
     }
