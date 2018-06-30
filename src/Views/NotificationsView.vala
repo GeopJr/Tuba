@@ -14,18 +14,11 @@ public class Tootle.NotificationsView : AbstractView {
     }
     
     public override string get_icon () {
-        return get_notifications_icon (false);
+        return Desktop.fallback_icon ("notification-symbolic", "user-invisible-symbolic");
     }
     
     public override string get_name () {
         return _("Notifications");
-    }
-    
-    private string get_notifications_icon (bool has_new) {
-        if (has_new)
-            return Desktop.fallback_icon ("notification-new-symbolic", "user-available-symbolic");
-        else
-            return Desktop.fallback_icon ("notification-symbolic", "user-invisible-symbolic");
     }
     
     public void prepend (ref Notification notification) {
@@ -41,7 +34,7 @@ public class Tootle.NotificationsView : AbstractView {
         
         var widget = new NotificationWidget(notification);
         widget.separator = separator;
-        image.icon_name = "notification-new-symbolic";
+        image.icon_name = Desktop.fallback_icon ("notification-new-symbolic", "user-available-symbolic");
         view.pack_start(separator, false, false, 0);
         view.pack_start(widget, false, false, 0);
         
@@ -84,11 +77,11 @@ public class Tootle.NotificationsView : AbstractView {
             return;
         }
     
-        var url = "%s/api/v1/follow_requests".printf (Tootle.accounts.formal.instance);
+        var url = "%s/api/v1/follow_requests".printf (accounts.formal.instance);
         var msg = new Soup.Message("GET", url);
-        Tootle.network.queue(msg, (sess, mess) => {
+        network.queue(msg, (sess, mess) => {
             try{
-                Tootle.network.parse_array (mess).foreach_element ((array, i, node) => {
+                network.parse_array (mess).foreach_element ((array, i, node) => {
                     var obj = node.get_object ();
                     if (obj != null){
                         var notification = Notification.parse_follow_request(obj);
@@ -102,11 +95,11 @@ public class Tootle.NotificationsView : AbstractView {
             }
         });
     
-        var url2 = "%s/api/v1/notifications?limit=30".printf (Tootle.accounts.formal.instance);
+        var url2 = "%s/api/v1/notifications?limit=30".printf (accounts.formal.instance);
         var msg2 = new Soup.Message("GET", url2);
-        Tootle.network.queue(msg2, (sess, mess) => {
+        network.queue(msg2, (sess, mess) => {
             try{
-                Tootle.network.parse_array (mess).foreach_element ((array, i, node) => {
+                network.parse_array (mess).foreach_element ((array, i, node) => {
                     var obj = node.get_object ();
                     if (obj != null){
                         var notification = Notification.parse(obj);
