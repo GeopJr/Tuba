@@ -5,6 +5,7 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
 
     public Attachment? attachment;
     private bool editable = false;
+    private const int PREVIEW_SIZE = 350;
     private const int SMALL_SIZE = 64;
     
     public Gtk.Label label;
@@ -38,8 +39,8 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
         rebind ();
     }
 
-    public int get_small_size () {
-        return SMALL_SIZE * get_style_context ().get_scale ();
+    public int get_size (int size) {
+        return size * get_style_context ().get_scale ();
     }
     
     public void rebind () {
@@ -54,10 +55,10 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
                 image.margin = 3;
                 image.set_tooltip_text (attachment.description);
                 image.show ();
-                if (editable)
-                    Tootle.network.load_scaled_image (attachment.preview_url, image, get_small_size ());
-                else
-                    Tootle.network.load_image (attachment.preview_url, image);
+                
+                var size = editable ? SMALL_SIZE : PREVIEW_SIZE;
+                network.load_scaled_image (attachment.preview_url, image, get_size (size));
+                
                 grid.attach (image, 0, 0);
                 label.hide ();
                 break;
