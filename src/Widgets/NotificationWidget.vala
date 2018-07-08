@@ -48,8 +48,8 @@ public class Tootle.NotificationWidget : Gtk.Grid {
         }
         
         destroy.connect (() => {
-            if(separator != null)
-                separator.destroy ();
+            separator = null;
+            status_widget = null;
         });
         
         if (notification.status != null){
