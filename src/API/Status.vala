@@ -34,13 +34,17 @@ public class Tootle.Status {
         
         status.account = Account.parse (obj.get_object_member ("account"));
         status.uri = obj.get_string_member ("uri");
-        status.url = obj.get_string_member ("url");
         status.created_at = obj.get_string_member ("created_at");
         status.reblogs_count = obj.get_int_member ("reblogs_count");
         status.favourites_count = obj.get_int_member ("favourites_count");
         status.content = Html.simplify ( obj.get_string_member ("content"));
         status.sensitive = obj.get_boolean_member ("sensitive");
         status.visibility = StatusVisibility.from_string (obj.get_string_member ("visibility"));
+        
+        if (obj.has_member ("url"))
+            status.url = obj.get_string_member ("url");
+        else
+            status.url = obj.get_string_member ("uri").replace ("/activity", "");
         
         var spoiler = obj.get_string_member ("spoiler_text");
         if (spoiler != "")
