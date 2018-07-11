@@ -91,9 +91,13 @@ public class Tootle.Status {
             result = "@%s ".printf (account.acct);
         
         if (mentions != null) {
-            foreach (var mention in mentions)
-                if (mention.acct != accounts.current.acct)
+            foreach (var mention in mentions) {
+                var equals_current = mention.acct == accounts.current.acct;
+                var already_mentioned = mention.acct in result;
+                
+                if (!equals_current && ! already_mentioned)
                     result += "@%s ".printf (mention.acct);
+            }
         }
         
         return result;
