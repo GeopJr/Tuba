@@ -36,27 +36,30 @@ public class Tootle.Notification{
         return notification;
     }
     
-    public Soup.Message dismiss () {
+    public Soup.Message? dismiss () {
+        if (type == NotificationType.WATCHLIST)
+            return null;
+    
         if (type == NotificationType.FOLLOW_REQUEST)
             return reject_follow_request ();
         
-        var url = "%s/api/v1/notifications/dismiss?id=%lld".printf (Tootle.accounts.formal.instance, id);
+        var url = "%s/api/v1/notifications/dismiss?id=%lld".printf (accounts.formal.instance, id);
         var msg = new Soup.Message("POST", url);
-        Tootle.network.queue(msg);
+        network.queue(msg);
         return msg;
     }
     
     public Soup.Message accept_follow_request () {
-        var url = "%s/api/v1/follow_requests/%lld/authorize".printf (Tootle.accounts.formal.instance, account.id);
+        var url = "%s/api/v1/follow_requests/%lld/authorize".printf (accounts.formal.instance, account.id);
         var msg = new Soup.Message("POST", url);
-        Tootle.network.queue(msg);
+        network.queue(msg);
         return msg;
     }
     
     public Soup.Message reject_follow_request () {
-        var url = "%s/api/v1/follow_requests/%lld/reject".printf (Tootle.accounts.formal.instance, account.id);
+        var url = "%s/api/v1/follow_requests/%lld/reject".printf (accounts.formal.instance, account.id);
         var msg = new Soup.Message("POST", url);
-        Tootle.network.queue(msg);
+        network.queue(msg);
         return msg;
     }
 

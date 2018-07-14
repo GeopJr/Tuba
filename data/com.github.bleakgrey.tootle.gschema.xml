@@ -46,5 +46,15 @@
 			<summary>Default character limit</summary>
 			<description>Change this if your instance supports more than 500 characters in posts</description>
 		</key>
+		<key name="watched-users" type="s">
+			<default>''</default>
+			<summary>Watched Users</summary>
+			<description>Comma separated list of usernames to notify you about</description>
+		</key>
+		<key name="watched-hashtags" type="s">
+			<default>''</default>
+			<summary>Watched Hashtags</summary>
+			<description>Comma separated list of hashtags to notify you about</description>
+		</key>
 	</schema>
 </schemalist>

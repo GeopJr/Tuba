@@ -41,13 +41,15 @@ public class Tootle.NotificationWidget : Gtk.Grid {
         get_style_context ().add_class ("notification");
         
         if (notification.status != null) {
-            Tootle.network.status_removed.connect (id => {
+            network.status_removed.connect (id => {
                 if (id == notification.status.id)
                     destroy ();
             });
         }
         
         destroy.connect (() => {
+            if (separator != null)
+                separator.destroy ();
             separator = null;
             status_widget = null;
         });

@@ -89,7 +89,7 @@ public class Tootle.SettingsDialog : Gtk.Dialog {
             halign = Gtk.Align.START;
             valign = Gtk.Align.CENTER;
             margin_bottom = 6;
-            Tootle.settings.schema.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
+            settings.schema.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
         }
     }
 

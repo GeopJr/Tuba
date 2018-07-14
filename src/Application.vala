@@ -11,6 +11,7 @@ namespace Tootle{
     public static Accounts accounts;
     public static Network network;
     public static ImageCache image_cache;
+    public static Watchlist watchlist;
 
     public class Application : Granite.Application {
     
@@ -39,8 +40,9 @@ namespace Tootle{
             accounts = new Accounts ();
             network = new Network ();
             image_cache = new ImageCache ();
+            watchlist = new Watchlist ();
             accounts.init ();
-                                    
+            
             app.error.connect (app.on_error);
             
             window_dummy = new Window ();

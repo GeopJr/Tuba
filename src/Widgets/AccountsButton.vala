@@ -12,6 +12,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
     Gtk.ModelButton item_search;
     Gtk.ModelButton item_favs;
     Gtk.ModelButton item_direct;
+    Gtk.ModelButton item_watchlist;
 
     private class AccountView : Gtk.ListBoxRow{
     
@@ -78,6 +79,10 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         item_search.text = _("Search");
         item_search.clicked.connect (() => window.open_view (new SearchView ()));
     
+        item_watchlist = new Gtk.ModelButton ();  
+        item_watchlist.text = _("Watchlist");
+        item_watchlist.clicked.connect (() => WatchlistDialog.open ());
+    
         item_settings = new Gtk.ModelButton ();  
         item_settings.text = _("Settings");
         item_settings.clicked.connect (() => SettingsDialog.open ());
@@ -92,7 +97,8 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         grid.attach(new Gtk.Separator (Gtk.Orientation.HORIZONTAL), 0, 6, 1, 1);
         grid.attach(item_refresh, 0, 7, 1, 1);
         grid.attach(item_search, 0, 8, 1, 1);
-        grid.attach(item_settings, 0, 9, 1, 1);
+        grid.attach(item_watchlist, 0, 9, 1, 1);
+        grid.attach(item_settings, 0, 10, 1, 1);
         grid.show_all ();
         
         menu = new Gtk.Popover (null);

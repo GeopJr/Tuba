@@ -23,6 +23,7 @@ public class Tootle.InstanceAccount : GLib.Object {
             notificator.close ();
         
         notificator = new Notificator (get_stream ());
+        notificator.status_added.connect (status_added);
         notificator.status_removed.connect (status_removed);
         notificator.notification.connect (notification);
         notificator.start ();
@@ -67,7 +68,7 @@ public class Tootle.InstanceAccount : GLib.Object {
         return acc;
     }
     
-    private void notification (ref Notification obj) {
+    public void notification (ref Notification obj) {
         var title = Html.remove_tags (obj.type.get_desc (obj.account));
         var notification = new GLib.Notification (title);
         if (obj.status != null) {
@@ -88,6 +89,21 @@ public class Tootle.InstanceAccount : GLib.Object {
     private void status_removed (int64 id) {
         if (accounts.formal.token == this.token)
             network.status_removed (id);
+    }
+    
+    private void status_added (ref Status status) {
+        if (accounts.formal.token != this.token)
+            return;
+        
+        var acct = status.account.acct;
+        var obj = new Notification (-1);
+        obj.type = NotificationType.WATCHLIST;
+        obj.account = status.account;
+        obj.status = status;
+        watchlist.users.@foreach (item => {
+            if (item == acct || item == "@" + acct)
+                notification (ref obj);
+        });
     }
 
 }

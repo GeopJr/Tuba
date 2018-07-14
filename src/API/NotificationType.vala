@@ -3,7 +3,8 @@ public enum Tootle.NotificationType {
     REBLOG,
     FAVORITE,
     FOLLOW,
-    FOLLOW_REQUEST;
+    FOLLOW_REQUEST,
+    WATCHLIST;  // Internal
 
     public string to_string() {
         switch (this) {
@@ -17,6 +18,8 @@ public enum Tootle.NotificationType {
                 return "follow";
             case FOLLOW_REQUEST:
                 return "follow_request";
+            case WATCHLIST:
+                return "watchlist";
             default:
                 assert_not_reached();
         }
@@ -34,6 +37,8 @@ public enum Tootle.NotificationType {
                 return FOLLOW;
             case "follow_request":
                 return FOLLOW_REQUEST;
+            case "watchlist":
+                return WATCHLIST;
             default:
                 assert_not_reached();
         }
@@ -51,6 +56,8 @@ public enum Tootle.NotificationType {
                 return _("<a href=\"%s\"><b>%s</b></a> now follows you").printf (account.url, account.display_name);
             case FOLLOW_REQUEST:
                 return _("<a href=\"%s\"><b>%s</b></a> wants to follow you").printf (account.url, account.display_name);
+            case WATCHLIST:
+                return _("<a href=\"%s\"><b>%s</b></a> posted a toot").printf (account.url, account.display_name);
             default:
                 assert_not_reached();
         }
@@ -59,6 +66,7 @@ public enum Tootle.NotificationType {
     public string get_icon () {
         switch (this) {
             case MENTION:
+            case WATCHLIST:
                 return "user-available-symbolic";
             case REBLOG:
                 return "media-playlist-repeat-symbolic";

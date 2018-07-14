@@ -16,6 +16,7 @@ public class Tootle.Notificator : GLib.Object {
         Object ();
         this.msg = msg;
         this.msg.priority = Soup.MessagePriority.VERY_HIGH;
+        this.msg.set_flags (Soup.MessageFlags.IGNORE_CONNECTION_LIMITS);
     }
     
     public string get_url () {
@@ -37,7 +38,7 @@ public class Tootle.Notificator : GLib.Object {
             return;
     
         try {
-            info ("Starting notificator: %s", get_name ());
+            info ("Starting: %s", get_name ());
             connection = yield network.stream (msg);
             connection.error.connect (on_error);
             connection.message.connect (on_message);
@@ -54,7 +55,7 @@ public class Tootle.Notificator : GLib.Object {
         if (connection == null)
             return;
         
-        info ("Stopping notificator: %s", get_name ());
+        info ("Closing: %s", get_name ());
         closing = true;
         connection.close (0, null);
     }
@@ -68,13 +69,13 @@ public class Tootle.Notificator : GLib.Object {
         if (closing)
             return;
         
-        warning ("Notificator %s aborted. Reconnecting in %i seconds.", get_name (), timeout);
+        warning ("Aborted: %s. Reconnecting in %i seconds.", get_name (), timeout);
         GLib.Timeout.add_seconds (timeout, reconnect);
         timeout = int.min (timeout*2, 60);
     }
     
     private void on_error (Error e) {
-        warning ("Error in notificator %s: %s", get_name (), e.message);
+        warning ("Error in %s: %s", get_name (), e.message);
     }
     
     private void on_message (int i, Bytes bytes) {
