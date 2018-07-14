@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-21 02:07+0300\n"
+"POT-Creation-Date: 2018-07-14 11:44+0300\n"
 "PO-Revision-Date: 2018-05-10 00:35+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -105,56 +105,61 @@ msgstr "Не удалось установить безопасное соеди
 msgid "Error: %s"
 msgstr "Ошибка: %s"
 
-#: src/API/NotificationType.vala:45
+#: src/API/NotificationType.vala:50
 #, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> mentioned you"
 msgstr "<a href=\"%s\"><b>%s</b></a> упомянул вас"
 
-#: src/API/NotificationType.vala:47
+#: src/API/NotificationType.vala:52
 #, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> boosted your toot"
 msgstr "<a href=\"%s\"><b>%s</b></a> продвинул ваш статус"
 
-#: src/API/NotificationType.vala:49
+#: src/API/NotificationType.vala:54
 #, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> favorited your toot"
 msgstr "<a href=\"%s\"><b>%s</b></a> понравился ваш статус"
 
-#: src/API/NotificationType.vala:51
+#: src/API/NotificationType.vala:56
 #, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> now follows you"
 msgstr "<a href=\"%s\"><b>%s</b></a> подписался на вас"
 
-#: src/API/NotificationType.vala:53
+#: src/API/NotificationType.vala:58
 #, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> wants to follow you"
 msgstr "<a href=\"%s\"><b>%s</b></a> хочет на вас подписаться"
 
-#: src/API/Status.vala:106
+#: src/API/NotificationType.vala:60
+#, c-format
+msgid "<a href=\"%s\"><b>%s</b></a> posted a toot"
+msgstr "<a href=\"%s\"><b>%s</b></a> опубликовал статус"
+
+#: src/API/Status.vala:114
 msgid "Boosted!"
 msgstr "Продвинуто!"
 
-#: src/API/Status.vala:108
+#: src/API/Status.vala:116
 msgid "Removed boost"
 msgstr "Продвижение отменено"
 
-#: src/API/Status.vala:121
+#: src/API/Status.vala:129
 msgid "Favorited!"
 msgstr "Добавлено в понравившиеся!"
 
-#: src/API/Status.vala:123
+#: src/API/Status.vala:131
 msgid "Removed from favorites"
 msgstr "Удалено из понравившихся"
 
-#: src/API/Status.vala:136
+#: src/API/Status.vala:144
 msgid "Conversation muted"
 msgstr "Переписка заглушена"
 
-#: src/API/Status.vala:138
+#: src/API/Status.vala:146
 msgid "Conversation unmuted"
 msgstr "Переписка включена"
 
-#: src/API/Status.vala:147
+#: src/API/Status.vala:155
 msgid "Poof!"
 msgstr "Вжух!"
 
@@ -174,40 +179,44 @@ msgstr "Только для подписчиков"
 msgid "Post to mentioned users only"
 msgstr "Только для упомянутых"
 
-#: src/Widgets/AccountsButton.vala:66
+#: src/Widgets/AccountsButton.vala:67
 msgid "Refresh"
 msgstr "Обновить"
 
-#: src/Widgets/AccountsButton.vala:70
+#: src/Widgets/AccountsButton.vala:71
 msgid "Favorites"
 msgstr "Понравившиеся"
 
-#: src/Widgets/AccountsButton.vala:74 src/Views/DirectView.vala:12
+#: src/Widgets/AccountsButton.vala:75 src/Views/DirectView.vala:12
 msgid "Direct Messages"
 msgstr "Личные Сообщения"
 
-#: src/Widgets/AccountsButton.vala:78 src/Views/SearchView.vala:12
+#: src/Widgets/AccountsButton.vala:79 src/Views/SearchView.vala:12
 msgid "Search"
 msgstr "Поиск"
 
-#: src/Widgets/AccountsButton.vala:82 src/Dialogs/SettingsDialog.vala:18
+#: src/Widgets/AccountsButton.vala:83
+msgid "Watchlist"
+msgstr "Список Наблюдения"
+
+#: src/Widgets/AccountsButton.vala:87 src/Dialogs/SettingsDialog.vala:18
 msgid "Settings"
 msgstr "Настройки"
 
-#: src/Widgets/AccountsButton.vala:134
+#: src/Widgets/AccountsButton.vala:140
 msgid "<b>New Account</b>"
 msgstr "<b>Новый аккаунт</b>"
 
-#: src/Widgets/AccountsButton.vala:135
+#: src/Widgets/AccountsButton.vala:141
 msgid "Click to add"
 msgstr "Нажмите, чтобы добавить"
 
-#: src/Widgets/AccountWidget.vala:28 src/Widgets/AttachmentWidget.vala:129
+#: src/Widgets/AccountWidget.vala:28 src/Widgets/AttachmentWidget.vala:130
 #: src/Widgets/StatusWidget.vala:273
 msgid "Open in Browser"
 msgstr "Открыть в Браузере"
 
-#: src/Widgets/AccountWidget.vala:30 src/Widgets/AttachmentWidget.vala:131
+#: src/Widgets/AccountWidget.vala:30 src/Widgets/AttachmentWidget.vala:132
 #: src/Widgets/StatusWidget.vala:275
 msgid "Copy Link"
 msgstr "Скопировать Ссылку"
@@ -224,29 +233,29 @@ msgstr "_Отмена"
 msgid "_Open"
 msgstr "_Выбрать"
 
-#: src/Widgets/AttachmentWidget.vala:65
+#: src/Widgets/AttachmentWidget.vala:66
 #, c-format
 msgid "Click to open %s media"
 msgstr "Нажмите, чтобы открыть %s"
 
-#: src/Widgets/AttachmentWidget.vala:82
+#: src/Widgets/AttachmentWidget.vala:83
 msgid "Uploading..."
 msgstr "Загрузка..."
 
-#: src/Widgets/AttachmentWidget.vala:103
+#: src/Widgets/AttachmentWidget.vala:104
 msgid "File read error"
 msgstr "Ошибка чтения файла"
 
-#: src/Widgets/AttachmentWidget.vala:103
+#: src/Widgets/AttachmentWidget.vala:104
 #, c-format
 msgid "Can't read file %s: %s"
 msgstr "Не удалось прочитать файл %s: %s"
 
-#: src/Widgets/AttachmentWidget.vala:123
+#: src/Widgets/AttachmentWidget.vala:124
 msgid "Remove"
 msgstr "Удалить"
 
-#: src/Widgets/AttachmentWidget.vala:133
+#: src/Widgets/AttachmentWidget.vala:134
 msgid "Download"
 msgstr "Скачать"
 
@@ -258,11 +267,11 @@ msgstr "Неизвестное Уведомление"
 msgid "Dismiss"
 msgstr "Скрыть"
 
-#: src/Widgets/NotificationWidget.vala:66
+#: src/Widgets/NotificationWidget.vala:68
 msgid "Accept"
 msgstr "Принять"
 
-#: src/Widgets/NotificationWidget.vala:68
+#: src/Widgets/NotificationWidget.vala:70
 msgid "Reject"
 msgstr "Отклонить"
 
@@ -410,6 +419,30 @@ msgstr "Всегда получать уведомления:"
 msgid "_Close"
 msgstr "_Закрыть"
 
+#: src/Dialogs/WatchlistDialog.vala:20
+msgid ""
+"You'll be notified when toots from specific users appear in your Home "
+"timeline."
+msgstr "Вы получите уведомление, когда статусы от указанных людей появляются в вашей Главной ленте."
+
+#: src/Dialogs/WatchlistDialog.vala:21
+msgid ""
+"You'll be notified when toots with specific hashtags are posted in any "
+"public timelines."
+msgstr "Вы получите уведомление, когда статусы с указанными хэштегами появляются в любой публичной ленте."
+
+#: src/Dialogs/WatchlistDialog.vala:133
+msgid "Users"
+msgstr "Пользователи"
+
+#: src/Dialogs/WatchlistDialog.vala:134 src/Views/SearchView.vala:99
+msgid "Hashtags"
+msgstr "Хэштеги"
+
+#: src/Dialogs/WatchlistDialog.vala:143
+msgid "Add"
+msgstr "Добавить"
+
 #: src/Views/AbstractView.vala:58
 msgid "Nothing to see here"
 msgstr "Тут ничего нет"
@@ -505,10 +538,6 @@ msgstr "Аккаунты"
 #: src/Views/SearchView.vala:90
 msgid "Statuses"
 msgstr "Статусы"
-
-#: src/Views/SearchView.vala:99
-msgid "Hashtags"
-msgstr "Хэштеги"
 
 #: src/Views/StatusView.vala:82
 msgid "Toot not found"
