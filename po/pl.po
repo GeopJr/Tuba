@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-14 11:44+0300\n"
-"PO-Revision-Date: 2018-06-19 21:05+0200\n"
+"PO-Revision-Date: 2018-07-16 11:22+0200\n"
 "Last-Translator: Marcin Mikołajczak <me@m4sk.in>\n"
 "Language-Team: Polish\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.8\n"
+"X-Generator: Poedit 2.0.9\n"
 
 #: data/com.github.bleakgrey.tootle.desktop.in:4
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:7
@@ -81,7 +81,7 @@ msgstr "Błąd"
 
 #: src/Desktop.vala:46
 msgid "Media downloaded"
-msgstr ""
+msgstr "Pobrano zawartość multimedialną"
 
 #: src/MainWindow.vala:47
 msgid "Back"
@@ -130,9 +130,9 @@ msgid "<a href=\"%s\"><b>%s</b></a> wants to follow you"
 msgstr "<a href=\"%s\"><b>%s</b></a> chce Cię śledzić"
 
 #: src/API/NotificationType.vala:60
-#, fuzzy, c-format
+#, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> posted a toot"
-msgstr "<a href=\"%s\"><b>%s</b></a> podbił Twój wpis"
+msgstr "<a href=\"%s\"><b>%s</b></a> utworzył wpis"
 
 #: src/API/Status.vala:114
 msgid "Boosted!"
@@ -196,7 +196,7 @@ msgstr "Wyszukiwanie"
 
 #: src/Widgets/AccountsButton.vala:83
 msgid "Watchlist"
-msgstr ""
+msgstr "Lista obserwowanych"
 
 #: src/Widgets/AccountsButton.vala:87 src/Dialogs/SettingsDialog.vala:18
 msgid "Settings"
@@ -423,16 +423,20 @@ msgid ""
 "You'll be notified when toots from specific users appear in your Home "
 "timeline."
 msgstr ""
+"Otrzymasz powiadomienie, kiedy wpisy określonych użytkowników pojawią się na "
+"Twojej osi czasu."
 
 #: src/Dialogs/WatchlistDialog.vala:21
 msgid ""
 "You'll be notified when toots with specific hashtags are posted in any "
 "public timelines."
 msgstr ""
+"Otrzymasz powiadomienie, kiedy wpisy z określonymi hashtagami pojawią się na "
+"publicznej osi czasu."
 
 #: src/Dialogs/WatchlistDialog.vala:133
 msgid "Users"
-msgstr ""
+msgstr "Użytkownicy"
 
 #: src/Dialogs/WatchlistDialog.vala:134 src/Views/SearchView.vala:99
 msgid "Hashtags"
@@ -440,7 +444,7 @@ msgstr "Hashtagi"
 
 #: src/Dialogs/WatchlistDialog.vala:143
 msgid "Add"
-msgstr ""
+msgstr "Dodaj"
 
 #: src/Views/AbstractView.vala:58
 msgid "Nothing to see here"
