@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-14 11:44+0300\n"
-"PO-Revision-Date: 2018-06-27 12:33+0200\n"
+"PO-Revision-Date: 2018-07-31 21:23+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/com.github.bleakgrey.tootle.desktop.in:4
@@ -131,9 +131,9 @@ msgid "<a href=\"%s\"><b>%s</b></a> wants to follow you"
 msgstr "<a href=\"%s\"><b>%s</b></a> möchte dir folgen"
 
 #: src/API/NotificationType.vala:60
-#, fuzzy, c-format
+#, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> posted a toot"
-msgstr "<a href=\"%s\"><b>%s</b></a> hat deinen Beitrag geteilt"
+msgstr "<a href=\"%s\"><b>%s</b></a> hat einen Beitrag gepostet"
 
 #: src/API/Status.vala:114
 msgid "Boosted!"
@@ -197,7 +197,7 @@ msgstr "Suchen"
 
 #: src/Widgets/AccountsButton.vala:83
 msgid "Watchlist"
-msgstr ""
+msgstr "Beobachtungsliste"
 
 #: src/Widgets/AccountsButton.vala:87 src/Dialogs/SettingsDialog.vala:18
 msgid "Settings"
@@ -236,7 +236,7 @@ msgstr "_Open"
 #: src/Widgets/AttachmentWidget.vala:66
 #, c-format
 msgid "Click to open %s media"
-msgstr "Klicken, um %s Medien zu öffnen"
+msgstr "Klicken um %s Medien zu öffnen"
 
 #: src/Widgets/AttachmentWidget.vala:83
 msgid "Uploading..."
@@ -298,11 +298,11 @@ msgstr "Umschalten"
 
 #: src/Widgets/StatusWidget.vala:156
 msgid "[ This post contains sensitive content ]"
-msgstr "[ Dieser Post beinhaltet sensibles Material ]"
+msgstr "[ Dieser Beitrag beinhaltet sensibles Material ]"
 
 #: src/Widgets/StatusWidget.vala:223
 msgid "This post can't be boosted"
-msgstr "Dieser Post kann nicht geteilt werden"
+msgstr "Dieser Beitrag kann nicht geteilt werden"
 
 #: src/Widgets/StatusWidget.vala:269
 msgid "Unmute Conversation"
@@ -322,7 +322,7 @@ msgstr "Text kopieren"
 
 #: src/Dialogs/NewAccountDialog.vala:28
 msgid "New Account"
-msgstr "Neuer Account"
+msgstr "Neues Konto"
 
 #: src/Dialogs/NewAccountDialog.vala:40
 msgid "What's an instance?"
@@ -338,7 +338,7 @@ msgstr "Füge dein Autorisierungstoken hier ein"
 
 #: src/Dialogs/NewAccountDialog.vala:51
 msgid "Add Account"
-msgstr "Account hinzufügen"
+msgstr "Konto hinzufügen"
 
 #: src/Dialogs/NewAccountDialog.vala:62
 msgid "Instance:"
@@ -382,7 +382,7 @@ msgstr "Aussehen"
 
 #: src/Dialogs/SettingsDialog.vala:38
 msgid "Dark theme:"
-msgstr "Dunkles Theme:"
+msgstr "Dunkles Design:"
 
 #: src/Dialogs/SettingsDialog.vala:41
 msgid "Timelines"
@@ -424,16 +424,20 @@ msgid ""
 "You'll be notified when toots from specific users appear in your Home "
 "timeline."
 msgstr ""
+"Du wirst benachrichtigt wenn neue Beiträge von dem Nutzer in deiner "
+"Startseite erscheinen."
 
 #: src/Dialogs/WatchlistDialog.vala:21
 msgid ""
 "You'll be notified when toots with specific hashtags are posted in any "
 "public timelines."
 msgstr ""
+"Du wirst benachrichtigt wenn Beiträge mit spezifischen Hashtags in "
+"irgendwelchen öffentlichen Zeitleisten geteilt werden."
 
 #: src/Dialogs/WatchlistDialog.vala:133
 msgid "Users"
-msgstr ""
+msgstr "Benutzer"
 
 #: src/Dialogs/WatchlistDialog.vala:134 src/Views/SearchView.vala:99
 msgid "Hashtags"
@@ -441,7 +445,7 @@ msgstr "Hashtags"
 
 #: src/Dialogs/WatchlistDialog.vala:143
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: src/Views/AbstractView.vala:58
 msgid "Nothing to see here"
@@ -525,7 +529,7 @@ msgstr "Föderierte Zeitleiste"
 
 #: src/Views/HomeView.vala:12 src/Views/TimelineView.vala:36
 msgid "Home"
-msgstr "Home"
+msgstr "Startseite"
 
 #: src/Views/LocalView.vala:12
 msgid "Local Timeline"
