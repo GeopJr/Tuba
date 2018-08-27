@@ -103,6 +103,13 @@ public class Tootle.MainWindow: Gtk.Window {
         network.started.connect (() => spinner.show ());
         network.finished.connect (() => spinner.hide ());
         accounts.updated (accounts.saved_accounts);
+        button_release_event.connect ((event) => {
+            // On back mouse button pressed
+            if (event.button == 8) {
+                back ();
+            }
+            return false;
+        });
     }
     
     private void add_header_view (AbstractView view) {
@@ -177,4 +184,7 @@ public class Tootle.MainWindow: Gtk.Window {
         button_accounts.set_visible (true);
     }
 
+    public void switch_timeline (int32 timeline_no) {
+        button_mode.set_active (timeline_no);
+    }
 }

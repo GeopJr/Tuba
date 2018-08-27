@@ -18,6 +18,13 @@ namespace Tootle{
         public abstract signal void refresh ();
         public abstract signal void toast (string title);
         public abstract signal void error (string title, string text);
+
+        const GLib.ActionEntry[] app_entries = {
+            {"compose-toot",    compose_toot_activated          },
+            {"back",            back_activated                  },
+            {"refresh",         refresh_activated               },
+            {"switch-timeline", switch_timeline_activated, "i"  }
+        };
     
         construct {
             application_id = "com.github.bleakgrey.tootle";
@@ -47,6 +54,16 @@ namespace Tootle{
             
             window_dummy = new Window ();
             add_window (window_dummy);
+
+            this.set_accels_for_action ("app.compose-toot", {"<Ctrl>T"});
+            this.set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>Left"});
+            this.set_accels_for_action ("app.refresh", {"<Ctrl>R", "F5"});
+            this.set_accels_for_action ("app.switch-timeline(0)", {"<Alt>1"});
+            this.set_accels_for_action ("app.switch-timeline(1)", {"<Alt>2"});
+            this.set_accels_for_action ("app.switch-timeline(2)", {"<Alt>3"});
+            this.set_accels_for_action ("app.switch-timeline(3)", {"<Alt>4"});
+
+            this.add_action_entries (app_entries, this);
         }
         
         protected override void activate () {
@@ -67,6 +84,23 @@ namespace Tootle{
             message_dialog.transient_for = window;
             message_dialog.run ();
             message_dialog.destroy ();
+        }
+
+        private void compose_toot_activated () {
+            PostDialog.open ();
+        }
+
+        private void back_activated () {
+            window.back ();
+        }
+
+        private void refresh_activated () {
+            refresh ();
+        }
+
+        private void switch_timeline_activated (SimpleAction a, Variant? parameter) {
+            int32 timeline_no = parameter.get_int32 ();
+            window.switch_timeline (timeline_no);
         }
     
     }
