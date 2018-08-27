@@ -62,6 +62,7 @@ public class Tootle.MainWindow: Gtk.Window {
         
         header = new Gtk.HeaderBar ();
         header.show_close_button = true;
+        header.title = "Tootle";
         header.custom_title = button_mode;
         header.pack_start (button_back);
         header.pack_start (button_toot);
@@ -92,7 +93,6 @@ public class Tootle.MainWindow: Gtk.Window {
     public MainWindow (Gtk.Application application) {
          Object (application: application,
          icon_name: "com.github.bleakgrey.tootle",
-            title: "Tootle",
             resizable: true
         );
         window_position = WindowPosition.CENTER;
