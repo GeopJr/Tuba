@@ -89,8 +89,8 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
         instance = "https://" + instance_entry.text
             .replace ("/", "")
             .replace (":", "")
-            .replace ("http", "")
-            .replace ("https", "");
+            .replace ("https", "")
+            .replace ("http", "");
         code = code_entry.text;
             
         if (this.client_id == null || this.client_secret == null) {
