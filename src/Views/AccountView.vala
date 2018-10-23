@@ -94,7 +94,7 @@ public class Tootle.AccountView : TimelineView {
         button_menu.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
         button_menu.tooltip_text = _("More Actions");
         button_menu.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        button_menu.set_focus_on_click (false);
+        (button_menu as Gtk.Widget).set_focus_on_click (false);
         button_menu.can_default = false;
         button_menu.can_focus = false;
         button_menu.popup = menu;
@@ -197,7 +197,7 @@ public class Tootle.AccountView : TimelineView {
             btn = new Gtk.Button.from_icon_name (name, Gtk.IconSize.LARGE_TOOLBAR);
             
         btn.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        btn.set_focus_on_click (false);
+        (btn as Gtk.Widget).set_focus_on_click (false);
         btn.can_default = false;
         btn.can_focus = false;
         

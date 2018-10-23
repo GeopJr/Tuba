@@ -42,7 +42,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         visibility.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         visibility.get_style_context ().remove_class ("image-button");
         visibility.can_default = false;
-        visibility.set_focus_on_click (false);
+        (visibility as Gtk.Widget).set_focus_on_click (false);
         
         attach = new Gtk.Button.from_icon_name ("mail-attachment-symbolic");
         attach.tooltip_text = _("Add Media");
@@ -50,7 +50,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         attach.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         attach.get_style_context ().remove_class ("image-button");
         attach.can_default = false;
-        attach.set_focus_on_click (false);
+        (attach as Gtk.Widget).set_focus_on_click (false);
         attach.clicked.connect (() => attachments.select ());
         
         spoiler = new ImageToggleButton ("image-red-eye-symbolic");
