@@ -12,18 +12,14 @@ public class Tootle.AccountWidget : StatusWidget {
         counters.visible = false;
         title_acct.visible = false;
         content_label.margin_bottom = 12;
-        button_press_event.connect(() => {
-            open_account ();
+        button_press_event.connect (ev => {
+            open_account (ev);
             return true;
         });
     }
     
     public override bool open_menu (uint button, uint32 time) {
         var menu = new Gtk.Menu ();
-        menu.selection_done.connect (() => {
-            menu.detach ();
-            menu.destroy ();
-        });
         
         var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
         item_open_link.activate.connect (() => Desktop.open_uri (status.url));
@@ -33,8 +29,7 @@ public class Tootle.AccountWidget : StatusWidget {
         menu.add (item_copy_link);
         
         menu.show_all ();
-        menu.attach_widget = this;
-        menu.popup (null, null, null, button, time);
+        menu.popup_at_pointer ();
         return true;
     }
 

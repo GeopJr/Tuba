@@ -238,7 +238,10 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         return null;
     }
     
-    public bool open_account () {
+    public bool open_account (EventButton ev) {
+        if (ev.button == 8)
+            return false;
+    
         var view = new AccountView (status.get_formal ().account);
         window.open_view (view);
         return true;
@@ -266,10 +269,6 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     
     public virtual bool open_menu (uint button, uint32 time) {
         var menu = new Gtk.Menu ();
-        menu.selection_done.connect (() => {
-            menu.detach ();
-            menu.destroy ();
-        });
         
         var is_muted = status.muted;
         var item_muting = new Gtk.MenuItem.with_label (is_muted ? _("Unmute Conversation") : _("Mute Conversation"));
@@ -293,6 +292,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         
         if (this.is_notification)
             menu.add (item_muting);
+        
         menu.add (item_open_link);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (item_copy_link);
@@ -300,7 +300,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         
         menu.show_all ();
         menu.attach_widget = this;
-        menu.popup (null, null, null, button, time);
+        menu.popup_at_pointer ();
         return true;
     }
 

@@ -118,10 +118,6 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
     
     public virtual bool open_menu (uint button, uint32 time) {
         var menu = new Gtk.Menu ();
-        menu.selection_done.connect (() => {
-            menu.detach ();
-            menu.destroy ();
-        });
         
         if (editable && attachment != null) {
             var item_remove = new Gtk.MenuItem.with_label (_("Remove"));
@@ -144,7 +140,7 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
         
         menu.show_all ();
         menu.attach_widget = this;
-        menu.popup (null, null, null, button, time);
+        menu.popup_at_pointer ();
         return true;
     }
 

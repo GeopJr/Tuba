@@ -142,11 +142,11 @@ public class Tootle.WatchlistDialog : Gtk.Window {
         
         popover_button = new Gtk.Button.with_label (_("Add"));
         popover_button.halign = Gtk.Align.END;
-        popover_button.margin_left = 8;
+        popover_button.margin_start = 6;
         popover_button.clicked.connect (() => submit ());
         
         popover_grid = new Gtk.Grid ();
-        popover_grid.margin = 8;
+        popover_grid.margin = 6;
         popover_grid.attach (popover_entry, 0, 0);
         popover_grid.attach (popover_button, 1, 0);
         popover_grid.show_all ();
