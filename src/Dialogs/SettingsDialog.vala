@@ -16,7 +16,7 @@ public class Tootle.SettingsDialog : Gtk.Dialog {
         deletable = false;
         resizable = false;
         title = _("Settings");
-        transient_for = Tootle.window;
+        transient_for = window;
         
         int i = 0;
         grid = new Gtk.Grid ();

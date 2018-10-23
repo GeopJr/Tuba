@@ -17,8 +17,8 @@ public class Tootle.Account{
     
     public Relationship? rs;
 
-    public Account(int64 id){
-        this.id = id;
+    public Account (int64 _id){
+        id = _id;
     }
     
     public static Account parse(Json.Object obj) {
@@ -81,14 +81,14 @@ public class Tootle.Account{
         var url = "%s/api/v1/accounts/%lld/%s".printf (Tootle.accounts.formal.instance, id, action);
         var msg = new Soup.Message("POST", url);
         msg.priority = Soup.MessagePriority.HIGH;
-        Tootle.network.queue (msg, (sess, mess) => {
+        network.queue (msg, (sess, mess) => {
             try{
-                var root = Tootle.network.parse (mess);
+                var root = network.parse (mess);
                 rs = Relationship.parse (root);
                 updated ();
             }
             catch (GLib.Error e) {
-                Tootle.app.error (_("Error"), e.message);
+                app.error (_("Error"), e.message);
                 warning (e.message);
             }
         });
@@ -97,17 +97,17 @@ public class Tootle.Account{
 
     public Soup.Message set_muted (bool mute = true){
         var action = mute ? "mute" : "unmute"; 
-        var url = "%s/api/v1/accounts/%lld/%s".printf (Tootle.accounts.formal.instance, id, action);
+        var url = "%s/api/v1/accounts/%lld/%s".printf (accounts.formal.instance, id, action);
         var msg = new Soup.Message("POST", url);
         msg.priority = Soup.MessagePriority.HIGH;
-        Tootle.network.queue (msg, (sess, mess) => {
+        network.queue (msg, (sess, mess) => {
             try{
-                var root = Tootle.network.parse (mess);
+                var root = network.parse (mess);
                 rs = Relationship.parse (root);
                 updated ();
             }
             catch (GLib.Error e) {
-                Tootle.app.error (_("Error"), e.message);
+                app.error (_("Error"), e.message);
                 warning (e.message);
             }
         });
@@ -116,17 +116,17 @@ public class Tootle.Account{
     
     public Soup.Message set_blocked (bool block = true){
         var action = block ? "block" : "unblock"; 
-        var url = "%s/api/v1/accounts/%lld/%s".printf (Tootle.accounts.formal.instance, id, action);
+        var url = "%s/api/v1/accounts/%lld/%s".printf (accounts.formal.instance, id, action);
         var msg = new Soup.Message("POST", url);
         msg.priority = Soup.MessagePriority.HIGH;
-        Tootle.network.queue (msg, (sess, mess) => {
+        network.queue (msg, (sess, mess) => {
             try{
-                var root = Tootle.network.parse (mess);
+                var root = network.parse (mess);
                 rs = Relationship.parse (root);
                 updated ();
             }
             catch (GLib.Error e) {
-                Tootle.app.error (_("Error"), e.message);
+                app.error (_("Error"), e.message);
                 warning (e.message);
             }
         });

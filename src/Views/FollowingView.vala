@@ -1,7 +1,7 @@
 public class Tootle.FollowingView : FollowersView {
 
-    public FollowingView (ref Account account) {
-        base (ref account);
+    public FollowingView (Account account) {
+        base (account);
         
     }
     

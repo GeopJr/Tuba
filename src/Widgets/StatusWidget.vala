@@ -113,7 +113,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         this.button_press_event.connect (on_clicked);
     }
 
-    public StatusWidget (ref Status status) {
+    public StatusWidget (Status status) {
         this.status = status;
         this.status.updated.connect (rebind);
         
@@ -246,7 +246,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     
     public bool open (EventButton ev) {
         var formal = status.get_formal ();
-        var view = new StatusView (ref formal);
+        var view = new StatusView (formal);
         window.open_view (view);
         return true;
     }

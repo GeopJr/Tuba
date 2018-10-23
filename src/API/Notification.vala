@@ -7,8 +7,8 @@ public class Tootle.Notification{
     public Status? status;
     public Account? account;
 
-    public Notification(int64 id) {
-        this.id = id;
+    public Notification (int64 _id) {
+        id = _id;
     }
 
     public static Notification parse(Json.Object obj) {

@@ -6,8 +6,8 @@ public class Tootle.NotificationsView : AbstractView {
     public NotificationsView () {
         base ();
         view.remove.connect (on_remove);
-        accounts.switched.connect(on_account_changed);
-        app.refresh.connect(on_refresh);
+        accounts.switched.connect (on_account_changed);
+        app.refresh.connect (on_refresh);
         network.notification.connect (prepend);
         
         request ();
@@ -21,18 +21,18 @@ public class Tootle.NotificationsView : AbstractView {
         return _("Notifications");
     }
     
-    public void prepend (ref Notification notification) {
-        append (ref notification, true);
+    public void prepend (Notification notification) {
+        append (notification, true);
     }
     
-    public void append (ref Notification notification, bool reverse = false) {
+    public void append (Notification notification, bool reverse = false) {
         if (empty != null)
             empty.destroy ();
     
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.show ();
         
-        var widget = new NotificationWidget(notification);
+        var widget = new NotificationWidget (notification);
         widget.separator = separator;
         image.icon_name = Desktop.fallback_icon ("notification-new-symbolic", "user-available-symbolic");
         view.pack_start(separator, false, false, 0);
@@ -65,7 +65,7 @@ public class Tootle.NotificationsView : AbstractView {
     }
 
     public virtual void on_account_changed (Account? account) {
-        if(account == null)
+        if (account == null)
             return;
         
         on_refresh ();
@@ -78,14 +78,14 @@ public class Tootle.NotificationsView : AbstractView {
         }
     
         var url = "%s/api/v1/follow_requests".printf (accounts.formal.instance);
-        var msg = new Soup.Message("GET", url);
-        network.queue(msg, (sess, mess) => {
-            try{
+        var msg = new Soup.Message ("GET", url);
+        network.queue (msg, (sess, mess) => {
+            try {
                 network.parse_array (mess).foreach_element ((array, i, node) => {
                     var obj = node.get_object ();
                     if (obj != null){
-                        var notification = Notification.parse_follow_request(obj);
-                        append (ref notification);
+                        var notification = Notification.parse_follow_request (obj);
+                        append (notification);
                     }
                 });
             }
@@ -96,14 +96,14 @@ public class Tootle.NotificationsView : AbstractView {
         });
     
         var url2 = "%s/api/v1/notifications?limit=30".printf (accounts.formal.instance);
-        var msg2 = new Soup.Message("GET", url2);
-        network.queue(msg2, (sess, mess) => {
-            try{
+        var msg2 = new Soup.Message ("GET", url2);
+        network.queue (msg2, (sess, mess) => {
+            try {
                 network.parse_array (mess).foreach_element ((array, i, node) => {
                     var obj = node.get_object ();
                     if (obj != null){
-                        var notification = Notification.parse(obj);
-                        append (ref notification);
+                        var notification = Notification.parse (obj);
+                        append (notification);
                     }
                 });
             }

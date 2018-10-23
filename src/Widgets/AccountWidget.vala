@@ -1,13 +1,13 @@
 public class Tootle.AccountWidget : StatusWidget {
 
-    public AccountWidget (ref Account account) {
+    public AccountWidget (Account account) {
         var status = new Status (-1);
         status.account = account;
         status.url = account.url;
         status.content = "<a href=\"%s\">@%s</a>".printf (account.url, account.acct);
         status.created_at = account.created_at;
         
-        base (ref status);
+        base (status);
         
         counters.visible = false;
         title_acct.visible = false;

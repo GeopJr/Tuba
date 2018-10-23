@@ -5,14 +5,15 @@ public class Tootle.Mention{
     public string acct;
     public string url;
 
-    public Mention (int64 id){
-        this.id = id;
+    public Mention (int64 _id){
+        id = _id;
     }
-    public Mention.from_account(Account account){
-        this.id = account.id;
-        this.username = account.username;
-        this.acct = account.acct;
-        this.url = account.url;
+    
+    public Mention.from_account (Account account){
+        id = account.id;
+        username = account.username;
+        acct = account.acct;
+        url = account.url;
     }
     
     public static Mention parse (Json.Object obj){

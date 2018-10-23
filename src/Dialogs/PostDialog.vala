@@ -4,31 +4,30 @@ using Tootle;
 public class Tootle.PostDialog : Gtk.Dialog {
 
     private static PostDialog dialog;
-    protected Gtk.TextView text;
-    private Gtk.ScrolledWindow scroll;
-    private Gtk.Label counter;
-    private ImageToggleButton spoiler;
-    private Gtk.MenuButton visibility;
-    private Gtk.Button attach;
-    private Gtk.Button cancel;
-    private Gtk.Button publish;
-    private AttachmentBox attachments;
     
-    private Gtk.Revealer spoiler_revealer;
-    private Gtk.Entry spoiler_text;
+    protected TextView text;
+    private ScrolledWindow scroll;
+    private Label counter;
+    private ImageToggleButton spoiler;
+    private MenuButton visibility;
+    private Button attach;
+    private Button cancel;
+    private Button publish;
+    private AttachmentBox attachments;
+    private Revealer spoiler_revealer;
+    private Entry spoiler_text;
     
     protected Status? in_reply_to;
     protected StatusVisibility visibility_opt = StatusVisibility.PUBLIC;
     protected int char_limit;
 
     public PostDialog (Status? status = null) {
-        Object (
-            border_width: 6,
-            deletable: false,
-            resizable: false,
-            title: _("Toot"),
-            transient_for: Tootle.window
-        );
+        border_width = 6;
+        deletable = false;
+        resizable = true;
+        title = _("Toot");
+        transient_for = window;
+        
         char_limit = settings.char_limit;
         in_reply_to = status;
         if (in_reply_to != null)
@@ -83,11 +82,14 @@ public class Tootle.PostDialog : Gtk.Dialog {
         text.get_style_context ().add_class ("toot-text");
         text.wrap_mode = Gtk.WrapMode.WORD;
         text.accepts_tab = false;
+        text.vexpand = true;
         text.buffer.changed.connect (validate);
         
         scroll = new Gtk.ScrolledWindow (null, null);
         scroll.hscrollbar_policy = Gtk.PolicyType.NEVER;
         scroll.min_content_height = 120;
+        scroll.vexpand = true;
+        scroll.propagate_natural_height = true;
         scroll.margin_start = 6;
         scroll.margin_end = 6;
         scroll.add (text);
@@ -121,15 +123,13 @@ public class Tootle.PostDialog : Gtk.Dialog {
         var button = new Gtk.MenuButton ();
         var menu = new Gtk.Popover (null);
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
-        box.margin = 6;
+        box.margin = 12;
         menu.add (box);
         button.direction = Gtk.ArrowType.DOWN;
         button.image = new Gtk.Image.from_icon_name (visibility_opt.get_icon (), Gtk.IconSize.BUTTON);
         
-        StatusVisibility[] opts = {StatusVisibility.PUBLIC, StatusVisibility.UNLISTED, StatusVisibility.PRIVATE, StatusVisibility.DIRECT};
-        
-        Gtk.RadioButton* first = null;
-        foreach (StatusVisibility opt in opts){
+        Gtk.RadioButton? first = null;
+        foreach (StatusVisibility opt in StatusVisibility.get_all ()){
             var item = new Gtk.RadioButton.with_label_from_widget (first, opt.get_desc ());
             if (first == null)
                 first = item;
@@ -180,7 +180,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
     
     public void publish_post () {
         var pars = "?status=%s&visibility=%s".printf (Html.uri_encode (text.buffer.text), visibility_opt.to_string ());
-        pars += attachments.get_uri_array ();    
+        pars += attachments.get_uri_array ();
         if (in_reply_to != null)
             pars += "&in_reply_to_id=%s".printf (in_reply_to.id.to_string ());
         
@@ -189,11 +189,11 @@ public class Tootle.PostDialog : Gtk.Dialog {
             pars += "&spoiler_text=" + Html.uri_encode (spoiler_text.buffer.text);
         }
         
-        var url = "%s/api/v1/statuses%s".printf (Tootle.accounts.formal.instance, pars);
-        var msg = new Soup.Message("POST", url);
-        Tootle.network.queue(msg, (sess, mess) => {
+        var url = "%s/api/v1/statuses%s".printf (accounts.formal.instance, pars);
+        var msg = new Soup.Message ("POST", url);
+        network.queue(msg, (sess, mess) => {
             try {
-                var root = Tootle.network.parse (mess);
+                var root = network.parse (mess);
                 var status = Status.parse (root);
                 debug ("Posted: %s", status.id.to_string ()); //TODO: Live updates
                 this.destroy ();

@@ -1,8 +1,9 @@
-.mode .button{
+.mode .toggle{
     border-radius:0px;
     border-top:none;
     border-bottom:none;
     padding:10px;
+    margin:0px;
 }
         
 .button_avatar{
@@ -12,8 +13,8 @@
     background:none;
 }
 
-.toot-text{
-    background: none;
+.toot-text, .toot-text text{
+    background-color: transparent;
 }
 
 .header{

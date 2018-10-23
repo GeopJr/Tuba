@@ -12,8 +12,7 @@ public class Tootle.Accounts : Object{
     public InstanceAccount? formal {get; set;}
     public Account? current {get; set;}
 
-    public Accounts (){
-        Object();
+    public Accounts () {
         dir_path = "%s/%s".printf (GLib.Environment.get_user_config_dir (), Tootle.app.application_id);
         file_path = "%s/%s".printf (dir_path, "accounts.json");
     }

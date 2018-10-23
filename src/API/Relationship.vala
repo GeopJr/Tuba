@@ -9,8 +9,8 @@ public class Tootle.Relationship{
     public bool requested;
     public bool domain_blocking;
 
-    public Relationship(int64 id){
-        this.id = id;
+    public Relationship (int64 _id){
+        id = _id;
     }
     
     public static Relationship parse (Json.Object obj){

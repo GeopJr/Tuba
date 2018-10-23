@@ -14,7 +14,7 @@ public class Tootle.NotificationWidget : Gtk.Grid {
     construct {
         margin = 6;
         
-        image = new Gtk.Image.from_icon_name("notification-symbolic", Gtk.IconSize.BUTTON);
+        image = new Gtk.Image.from_icon_name ("notification-symbolic", Gtk.IconSize.BUTTON);
         image.margin_start = 32;
         image.margin_end = 6;
         label = new RichLabel (_("Unknown Notification"));
@@ -55,7 +55,7 @@ public class Tootle.NotificationWidget : Gtk.Grid {
         });
         
         if (notification.status != null){
-            status_widget = new StatusWidget (ref notification.status);
+            status_widget = new StatusWidget (notification.status);
             status_widget.is_notification = true;
             status_widget.button_press_event.connect(status_widget.open);
             status_widget.avatar.button_press_event.connect(status_widget.open_account);

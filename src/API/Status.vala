@@ -1,6 +1,6 @@
 public class Tootle.Status {
 
-    public abstract signal void updated ();
+    public signal void updated ();
 
     public Account account;
     public int64 id;
@@ -20,11 +20,11 @@ public class Tootle.Status {
     public Mention[]? mentions;
     public Attachment[]? attachments;
 
-    public Status(int64 id) {
-        this.id = id;
+    public Status (int64 _id) {
+        id = _id;
     }
     
-    public Status get_formal (){
+    public Status get_formal () {
         return reblog != null ? reblog : this;
     }
 
@@ -82,7 +82,7 @@ public class Tootle.Status {
     }
     
     public bool is_owned (){
-        return get_formal ().account.id == Tootle.accounts.current.id;
+        return get_formal ().account.id == accounts.current.id;
     }
     
     public string get_reply_mentions () {
@@ -105,57 +105,57 @@ public class Tootle.Status {
     
     public void set_reblogged (bool rebl = true){
         var action = rebl ? "reblog" : "unreblog";
-        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.accounts.formal.instance, id, action));
+        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
         msg.finished.connect (() => {
             reblogged = rebl;
             updated ();
             if(rebl)
-                Tootle.app.toast (_("Boosted!"));
+                app.toast (_("Boosted!"));
             else
-                Tootle.app.toast (_("Removed boost"));
+                app.toast (_("Removed boost"));
         });
-        Tootle.network.queue (msg);
+        network.queue (msg);
     }
     
     public void set_favorited (bool fav = true){
         var action = fav ? "favourite" : "unfavourite";
-        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.accounts.formal.instance, id, action));
+        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
         msg.finished.connect (() => {
             favorited = fav;
             updated ();
-            if(fav)
-                Tootle.app.toast (_("Favorited!"));
+            if (fav)
+                app.toast (_("Favorited!"));
             else
-                Tootle.app.toast (_("Removed from favorites"));
+                app.toast (_("Removed from favorites"));
         });
-        Tootle.network.queue (msg);
+        network.queue (msg);
     }
     
     public void set_muted (bool mute = true){
         var action = mute ? "mute" : "unmute";
-        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.accounts.formal.instance, id, action));
+        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
         msg.finished.connect (() => {
             muted = mute;
             updated ();
             if (mute)
-                Tootle.app.toast (_("Conversation muted"));
+                app.toast (_("Conversation muted"));
             else
-                Tootle.app.toast (_("Conversation unmuted"));
+                app.toast (_("Conversation unmuted"));
         });
-        Tootle.network.queue (msg);
+        network.queue (msg);
     }
     
     public void poof (){
-        var msg = new Soup.Message("DELETE", "%s/api/v1/statuses/%lld".printf (Tootle.accounts.formal.instance, id));
+        var msg = new Soup.Message("DELETE", "%s/api/v1/statuses/%lld".printf (accounts.formal.instance, id));
         msg.priority = Soup.MessagePriority.HIGH;
         msg.finished.connect (() => {
-            Tootle.app.toast (_("Poof!"));
-            Tootle.network.status_removed (this.id);
+            app.toast (_("Poof!"));
+            network.status_removed (this.id);
         });
-        Tootle.network.queue (msg);
+        network.queue (msg);
     }
 
 }

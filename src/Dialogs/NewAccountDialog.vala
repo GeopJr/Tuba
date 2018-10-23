@@ -21,13 +21,11 @@ public class Tootle.NewAccountDialog : Gtk.Dialog {
     private string? username;
 
     public NewAccountDialog () {
-        Object (
-            border_width: 6,
-            deletable: true,
-            resizable: false,
-            title: _("New Account"),
-            transient_for: window
-        );
+        border_width = 6;
+        deletable = true;
+        resizable = false;
+        title = _("New Account");
+        transient_for = window;
         
         logo = new Image.from_resource ("/com/github/bleakgrey/tootle/logo128");
         logo.halign = Gtk.Align.CENTER;

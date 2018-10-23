@@ -55,6 +55,8 @@ public class Tootle.MainWindow: Gtk.Window {
 
         button_mode = new Granite.Widgets.ModeButton ();
         button_mode.get_style_context ().add_class ("mode");
+        button_mode.vexpand = true;
+        button_mode.valign = Gtk.Align.FILL;
         button_mode.mode_changed.connect (widget => {
             secondary_stack.set_visible_child_name (widget.tooltip_text);
         });
@@ -69,6 +71,7 @@ public class Tootle.MainWindow: Gtk.Window {
         header.pack_end (button_accounts);
         header.pack_end (spinner);
         header.show_all ();
+        set_titlebar (header);
         
         grid = new Gtk.Grid ();
         grid.attach (primary_stack, 0, 0, 1, 1);
@@ -86,18 +89,14 @@ public class Tootle.MainWindow: Gtk.Window {
         overlay.set_size_request (450, 600);
         add (overlay);
         show_all ();
-        
-        button_mode.valign = Gtk.Align.FILL;
     }
     
-    public MainWindow (Gtk.Application application) {
-         Object (application: application,
-         icon_name: "com.github.bleakgrey.tootle",
-            resizable: true
-        );
+    public MainWindow (Gtk.Application _app) {
+        application = _app;
+        icon_name = "com.github.bleakgrey.tootle";
+        resizable = true;
         window_position = WindowPosition.CENTER;
         update_header ();
-        set_titlebar (header);
         
         app.toast.connect (on_toast);
         network.started.connect (() => spinner.show ());
@@ -106,11 +105,11 @@ public class Tootle.MainWindow: Gtk.Window {
     }
     
     private void add_header_view (AbstractView view) {
-        var img = new Gtk.Image.from_icon_name(view.get_icon (), Gtk.IconSize.LARGE_TOOLBAR);
+        var img = new Gtk.Image.from_icon_name (view.get_icon (), Gtk.IconSize.LARGE_TOOLBAR);
         img.tooltip_text = view.get_name ();
         button_mode.append (img);
         view.image = img;
-        secondary_stack.add_named(view, view.get_name ());
+        secondary_stack.add_named (view, view.get_name ());
         
         if (view is NotificationsView)
             img.pixel_size = 20; // For some reason Notifications icon is too small without this
@@ -153,9 +152,9 @@ public class Tootle.MainWindow: Gtk.Window {
     
     public override bool delete_event (Gdk.EventAny event) {
         this.destroy.connect (() => {
-            if (!Tootle.settings.always_online || Tootle.accounts.is_empty ())
-                Tootle.app.remove_window (Tootle.window_dummy);
-            Tootle.window = null;
+            if (!settings.always_online || accounts.is_empty ())
+                app.remove_window (window_dummy);
+            window = null;
         });
         return false;
     }
@@ -171,7 +170,8 @@ public class Tootle.MainWindow: Gtk.Window {
     
     private void update_header () {
         bool primary_mode = get_visible_id () == 0;
-        button_mode.set_visible (primary_mode);
+        button_mode.sensitive = primary_mode;
+        button_mode.opacity = primary_mode ? 1 : 0; //Prevent HeaderBar height jitter
         button_toot.set_visible (primary_mode);
         button_back.set_visible (!primary_mode);
         button_accounts.set_visible (true);

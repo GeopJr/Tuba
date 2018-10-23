@@ -114,11 +114,11 @@ public class Tootle.AccountView : TimelineView {
         
         add_counter (_("Toots"), 1, account.statuses_count);
         add_counter (_("Follows"), 2, account.following_count).clicked.connect (() => {
-            var view = new FollowingView (ref account);
+            var view = new FollowingView (account);
             window.open_view (view);
         });
         add_counter (_("Followers"), 3, account.followers_count).clicked.connect (() => {
-            var view = new FollowersView (ref account);
+            var view = new FollowersView (account);
             window.open_view (view);
         });
         
@@ -179,7 +179,7 @@ public class Tootle.AccountView : TimelineView {
             relationship.hide ();
     }
     
-    public override bool is_status_owned (ref Status status) {
+    public override bool is_status_owned (Status status) {
         return status.is_owned ();
     }
     

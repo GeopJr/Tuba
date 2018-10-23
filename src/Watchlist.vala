@@ -13,9 +13,7 @@ public class Tootle.Watchlist : GLib.Object {
         accounts.switched.connect (on_account_changed);
     }
 
-    public Watchlist () {
-        GLib.Object();
-    }
+    public Watchlist () {}
 
     public virtual void on_account_changed (Account? account){
         if(account != null)
@@ -75,12 +73,12 @@ public class Tootle.Watchlist : GLib.Object {
         return notificator;
     }
     
-    private void on_status_added (ref Status status) {
+    private void on_status_added (Status status) {
         var obj = new Notification (-1);
         obj.type = NotificationType.WATCHLIST;
         obj.account = status.account;
         obj.status = status;
-        accounts.formal.notification (ref obj);
+        accounts.formal.notification (obj);
     }
     
     public void add (string entity, bool is_hashtag) {

@@ -3,8 +3,8 @@ public enum Tootle.NotificationType {
     REBLOG,
     FAVORITE,
     FOLLOW,
-    FOLLOW_REQUEST,
-    WATCHLIST;  // Internal
+    FOLLOW_REQUEST,  // Internal
+    WATCHLIST;       // Internal
 
     public string to_string() {
         switch (this) {

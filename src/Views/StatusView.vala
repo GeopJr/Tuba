@@ -5,20 +5,20 @@ public class Tootle.StatusView : AbstractView {
     private Status root_status;
     bool last_was_a_root = false;
 
-    public StatusView (ref Status status) {
+    public StatusView (Status status) {
         base ();
         root_status = status;
         request_context ();
     }
     
-    private void prepend (ref Status status, bool is_root = false){
+    private void prepend (Status status, bool is_root = false){
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.show ();
         
-        var widget = new StatusWidget (ref status);
-        widget.avatar.button_press_event.connect(widget.open_account);
+        var widget = new StatusWidget (status);
+        widget.avatar.button_press_event.connect (widget.open_account);
         if (!is_root)
-            widget.button_press_event.connect(widget.open);
+            widget.button_press_event.connect (widget.open);
         else
             widget.highlight ();
             
@@ -31,29 +31,29 @@ public class Tootle.StatusView : AbstractView {
     }
 
     public Soup.Message request_context (){
-        var url = "%s/api/v1/statuses/%lld/context".printf (Tootle.accounts.formal.instance, root_status.id);
+        var url = "%s/api/v1/statuses/%lld/context".printf (accounts.formal.instance, root_status.id);
         var msg = new Soup.Message("GET", url);
         network.queue (msg, (sess, mess) => {
             try{
-                var root = Tootle.network.parse (mess);
+                var root = network.parse (mess);
                 
                 var ancestors = root.get_array_member ("ancestors");
                 ancestors.foreach_element ((array, i, node) => {
                     var object = node.get_object ();
                     if (object != null) {
                         var status = Status.parse (object);
-                        prepend (ref status);
+                        prepend (status);
                     }
                 });
                 
-                prepend (ref root_status, true);
+                prepend (root_status, true);
                 
                 var descendants = root.get_array_member ("descendants");
                 descendants.foreach_element ((array, i, node) => {
                     var object = node.get_object ();
                     if (object != null) {
                         var status = Status.parse (object);
-                        prepend (ref status);
+                        prepend (status);
                     }
                 });
             }
@@ -70,13 +70,13 @@ public class Tootle.StatusView : AbstractView {
         var msg = new Soup.Message("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
         network.queue (msg, (sess, mess) => {
-            try{
+            try {
                 var root = network.parse (mess);
                 var statuses = root.get_array_member ("statuses");
                 var object = statuses.get_element (0).get_object ();
                 if (object != null){
                     var st = Status.parse (object);
-                    window.open_view (new StatusView (ref st));
+                    window.open_view (new StatusView (st));
                 }
                 else
                     app.toast (_("Toot not found"));

@@ -8,15 +8,18 @@ private struct CachedImage {
     public string uri;
     public int size;
     
-    public CachedImage(string uri, int size) { this.uri=uri; this.size=size; }
-    
-    public static uint hash(CachedImage? c) {
-        assert(c != null);
-        assert(c.uri != null);
-        return GLib.int64_hash(c.size) ^ c.uri.hash();
+    public CachedImage (string _uri, int _size) {
+    	uri = _uri;
+    	size = _size;
     }
     
-    public static bool equal(CachedImage? a, CachedImage? b) {
+    public static uint hash(CachedImage? c) {
+        assert (c != null);
+        assert (c.uri != null);
+        return GLib.int64_hash (c.size) ^ c.uri.hash ();
+    }
+    
+    public static bool equal (CachedImage? a, CachedImage? b) {
         if (a == null || b == null)
             return false;
         return a.size == b.size && a.uri == b.uri;
@@ -35,8 +38,8 @@ public class Tootle.ImageCache : GLib.Object {
     private string cache_path;
     
     construct {
-        pixbufs = new GLib.HashTable<CachedImage?, Gdk.Pixbuf>(CachedImage.hash, CachedImage.equal);
-        in_progress = new GLib.HashTable<CachedImage?, Soup.Message>(CachedImage.hash, CachedImage.equal);
+        pixbufs = new GLib.HashTable<CachedImage?, Gdk.Pixbuf> (CachedImage.hash, CachedImage.equal);
+        in_progress = new GLib.HashTable<CachedImage?, Soup.Message> (CachedImage.hash, CachedImage.equal);
         total_size_est = 0;
         cache_path = "%s/%s".printf (GLib.Environment.get_user_cache_dir (), app.application_id);
         
@@ -44,9 +47,7 @@ public class Tootle.ImageCache : GLib.Object {
         on_settings_changed ();
     }
     
-    public ImageCache() {
-        GLib.Object();
-    }
+    public ImageCache() {}
     
     private void on_settings_changed () {
         // assume 32BPP (divide bytes by 4 to get # pixels) and raw, overhead-free storage
@@ -133,15 +134,15 @@ public class Tootle.ImageCache : GLib.Object {
     }
     
     public void load_avatar (string uri, Granite.Widgets.Avatar avatar, int size) {
-        get_image.begin(uri, size, (pixbuf) => avatar.pixbuf = pixbuf.scale_simple (size, size, Gdk.InterpType.BILINEAR));
+        get_image.begin (uri, size, (pixbuf) => avatar.pixbuf = pixbuf.scale_simple (size, size, Gdk.InterpType.BILINEAR));
     }
     
     public void load_image (string uri, Gtk.Image image) {
-        load_scaled_image(uri, image, -1);
+        load_scaled_image (uri, image, -1);
     }
     
     public void load_scaled_image (string uri, Gtk.Image image, int size) {
-        get_image.begin(uri, size, image.set_from_pixbuf);
+        get_image.begin (uri, size, image.set_from_pixbuf);
     }
     
 }

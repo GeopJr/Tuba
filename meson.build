@@ -66,7 +66,7 @@ executable(
     'src/Views/SearchView.vala',
     'src/Views/HashtagView.vala',
     dependencies: [
-        dependency('gtk+-3.0'),
+        dependency('gtk+-3.0', version: '>=3.22.0'),
         dependency('glib-2.0', version: '>=2.30.0'),
         dependency('granite'),
         dependency('json-glib-1.0'),

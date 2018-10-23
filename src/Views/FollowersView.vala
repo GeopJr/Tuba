@@ -2,18 +2,18 @@ using Gtk;
 
 public class Tootle.FollowersView : TimelineView {
 
-    public FollowersView (ref Account account) {
+    public FollowersView (Account account) {
         base (account.id.to_string ());
     }
     
-    public new void append (ref Account account){
+    public new void append (Account account){
         if (empty != null)
             empty.destroy ();
     
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.show ();
 
-        var widget = new AccountWidget (ref account);
+        var widget = new AccountWidget (account);
         widget.separator = separator;
         view.pack_start(separator, false, false, 0);
         view.pack_start(widget, false, false, 0);
@@ -30,13 +30,13 @@ public class Tootle.FollowersView : TimelineView {
     public override void request (){
         var msg = new Soup.Message("GET", get_url ());
         msg.finished.connect (() => empty_state ());
-        Tootle.network.queue(msg, (sess, mess) => {
-            try{
-                Tootle.network.parse_array (mess).foreach_element ((array, i, node) => {
+        network.queue(msg, (sess, mess) => {
+            try {
+                network.parse_array (mess).foreach_element ((array, i, node) => {
                     var object = node.get_object ();
                     if (object != null){
                         var status = Account.parse (object);
-                        append (ref status);
+                        append (status);
                     }
                 });
                 

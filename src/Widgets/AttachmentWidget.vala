@@ -87,11 +87,11 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
             var buffer = new Soup.Buffer.take (contents);
             var multipart = new Soup.Multipart (Soup.FORM_MIME_TYPE_MULTIPART);
             multipart.append_form_file ("file", mime.replace ("/", "."), mime, buffer);
-            var url = "%s/api/v1/media".printf (Tootle.accounts.formal.instance);
+            var url = "%s/api/v1/media".printf (accounts.formal.instance);
             var msg = Soup.Form.request_new_from_multipart (url, multipart);
             
             network.queue(msg, (sess, mess) => {
-                var root = Tootle.network.parse (mess);
+                var root = network.parse (mess);
                 attachment = Attachment.parse (root);
                 editable = true;
                 
@@ -101,7 +101,7 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
         }
         catch (Error e) {
             error (e.message);
-            Tootle.app.error (_("File read error"), _("Can't read file %s: %s").printf (uri, e.message));
+            app.error (_("File read error"), _("Can't read file %s: %s").printf (uri, e.message));
         }
     }
     

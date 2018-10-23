@@ -4,7 +4,7 @@ public enum Tootle.StatusVisibility {
     PRIVATE,
     DIRECT;
 
-    public string to_string() {
+    public string to_string () {
         switch (this) {
             case PUBLIC:
                 return "public";
@@ -34,7 +34,7 @@ public enum Tootle.StatusVisibility {
         }
     }
         
-    public string get_desc() {
+    public string get_desc () {
         switch (this) {
             case PUBLIC:
                 return _("Post to public timelines");
@@ -49,7 +49,7 @@ public enum Tootle.StatusVisibility {
         }
     }
         
-    public string get_icon() {
+    public string get_icon () {
         switch (this) {
             case PUBLIC:
                 return "network-workgroup-symbolic";
@@ -62,6 +62,10 @@ public enum Tootle.StatusVisibility {
             default:
                 assert_not_reached();
         }
+    }
+    
+    public static StatusVisibility[] get_all () {
+    	return {StatusVisibility.PUBLIC, StatusVisibility.UNLISTED, StatusVisibility.PRIVATE, StatusVisibility.DIRECT};
     }
     
 }

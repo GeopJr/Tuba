@@ -36,29 +36,29 @@ public class Tootle.TimelineView : AbstractView {
         return _("Home");
     }
     
-    public virtual void on_status_added (ref Status status) {
-        prepend (ref status);
+    public virtual void on_status_added (Status status) {
+        prepend (status);
     }
     
-    public virtual bool is_status_owned (ref Status status) {
+    public virtual bool is_status_owned (Status status) {
         return false;
     }
     
-    public void prepend (ref Status status) {
-        append (ref status, true);
+    public void prepend (Status status) {
+        append (status, true);
     }
     
-    public void append (ref Status status, bool first = false){
+    public void append (Status status, bool first = false){
         if (empty != null)
             empty.destroy ();
     
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.show ();
 
-        var widget = new StatusWidget (ref status);
+        var widget = new StatusWidget (status);
         widget.separator = separator;
         widget.button_press_event.connect(widget.open);
-        if (!is_status_owned (ref status))
+        if (!is_status_owned (status))
             widget.avatar.button_press_event.connect(widget.open_account);
         view.pack_start(separator, false, false, 0);
         view.pack_start(widget, false, false, 0);
@@ -101,7 +101,7 @@ public class Tootle.TimelineView : AbstractView {
         if (page_next != null)
             return page_next;
         
-        var url = "%s/api/v1/timelines/%s?limit=%i".printf (Tootle.accounts.formal.instance, this.timeline, this.limit);
+        var url = "%s/api/v1/timelines/%s?limit=%i".printf (accounts.formal.instance, this.timeline, this.limit);
         url += this.pars;
         return url;
     }
@@ -115,12 +115,12 @@ public class Tootle.TimelineView : AbstractView {
         var msg = new Soup.Message("GET", get_url ());
         msg.finished.connect (() => empty_state ());
         network.queue(msg, (sess, mess) => {
-            try{
-                Tootle.network.parse_array (mess).foreach_element ((array, i, node) => {
+            try {
+                network.parse_array (mess).foreach_element ((array, i, node) => {
                     var object = node.get_object ();
                     if (object != null){
                         var status = Status.parse(object);
-                        append (ref status);
+                        append (status);
                     }
                 });
                 get_pages (mess.response_headers.get_one ("Link"));
@@ -167,9 +167,9 @@ public class Tootle.TimelineView : AbstractView {
             return;
         
         notificator = new Notificator (stream);
-        notificator.status_added.connect ((ref status) => {
+        notificator.status_added.connect ((status) => {
             if (can_stream ())
-                on_status_added (ref status);
+                on_status_added (status);
         });
         notificator.start ();
     }

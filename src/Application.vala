@@ -1,7 +1,7 @@
 using Gtk;
 using Granite;
 
-namespace Tootle{
+namespace Tootle {
 
     public static Application app;
     public static MainWindow? window;

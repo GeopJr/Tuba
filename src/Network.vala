@@ -5,11 +5,11 @@ using Json;
 
 public class Tootle.Network : GLib.Object {
 
-    public abstract signal void started ();
-    public abstract signal void finished ();
+    public signal void started ();
+    public signal void finished ();
     
-    public abstract signal void notification (ref Notification notification);
-    public abstract signal void status_removed (int64 id);
+    public signal void notification (Notification notification);
+    public signal void status_removed (int64 id);
     
     private int requests_processing = 0;
     private Soup.Session session;
@@ -30,9 +30,7 @@ public class Tootle.Network : GLib.Object {
         // session.add_feature (logger);
     }
 
-    public Network () {
-        GLib.Object();
-    }
+    public Network () {}
     
     public async WebsocketConnection stream (Soup.Message msg) throws GLib.Error {
         return yield session.websocket_connect_async (msg, null, null, null);

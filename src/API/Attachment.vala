@@ -6,8 +6,8 @@ public class Tootle.Attachment{
     public string preview_url;
     public string? description;
 
-    public Attachment(int64 id){
-        this.id = id;
+    public Attachment(int64 _id){
+        id = _id;
     }
     
     public static Attachment parse (Json.Object obj){
