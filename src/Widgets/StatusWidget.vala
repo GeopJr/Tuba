@@ -110,7 +110,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         grid.attach (counters, 2, 5, 1, 1);
         show_all ();
     
-        this.button_press_event.connect (on_clicked);
+        button_press_event.connect (on_clicked);
     }
 
     public StatusWidget (Status status) {
@@ -245,6 +245,9 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     }
     
     public bool open (EventButton ev) {
+        if (ev.button == 8)
+            return false;
+    
         var formal = status.get_formal ();
         var view = new StatusView (formal);
         window.open_view (view);
@@ -252,6 +255,9 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     }
     
     private bool on_clicked (EventButton ev) {
+        if (ev.button == 8)
+            return false;
+    
         if (ev.button == 3)
             return open_menu (ev.button, ev.time);
         else

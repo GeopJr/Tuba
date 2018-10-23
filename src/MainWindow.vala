@@ -102,10 +102,10 @@ public class Tootle.MainWindow: Gtk.Window {
         network.started.connect (() => spinner.show ());
         network.finished.connect (() => spinner.hide ());
         accounts.updated (accounts.saved_accounts);
-        button_release_event.connect ((event) => {
-            // On back mouse button pressed
+        button_press_event.connect ((event) => {
             if (event.button == 8) {
                 back ();
+                return true;
             }
             return false;
         });
@@ -138,6 +138,9 @@ public class Tootle.MainWindow: Gtk.Window {
     
     public void back () {
         var i = get_visible_id ();
+        if (i == 0)
+            return;
+        
         var child = primary_stack.get_child_by_name (i.to_string ());
         primary_stack.set_visible_child_name ((i-1).to_string ());
         child.destroy ();

@@ -55,15 +55,14 @@ namespace Tootle {
             window_dummy = new Window ();
             add_window (window_dummy);
 
-            this.set_accels_for_action ("app.compose-toot", {"<Ctrl>T"});
-            this.set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>Left"});
-            this.set_accels_for_action ("app.refresh", {"<Ctrl>R", "F5"});
-            this.set_accels_for_action ("app.switch-timeline(0)", {"<Alt>1"});
-            this.set_accels_for_action ("app.switch-timeline(1)", {"<Alt>2"});
-            this.set_accels_for_action ("app.switch-timeline(2)", {"<Alt>3"});
-            this.set_accels_for_action ("app.switch-timeline(3)", {"<Alt>4"});
-
-            this.add_action_entries (app_entries, this);
+            set_accels_for_action ("app.compose-toot", {"<Ctrl>T"});
+            set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>Left"});
+            set_accels_for_action ("app.refresh", {"<Ctrl>R", "F5"});
+            set_accels_for_action ("app.switch-timeline(0)", {"<Alt>1"});
+            set_accels_for_action ("app.switch-timeline(1)", {"<Alt>2"});
+            set_accels_for_action ("app.switch-timeline(2)", {"<Alt>3"});
+            set_accels_for_action ("app.switch-timeline(3)", {"<Alt>4"});
+            add_action_entries (app_entries, this);
         }
         
         protected override void activate () {

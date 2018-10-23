@@ -68,7 +68,7 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
                 break;
         }
         show ();
-        button_press_event.connect(on_clicked);
+        button_press_event.connect (on_clicked);
     }
     
     public AttachmentWidget.upload (string uri) {
@@ -106,6 +106,9 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
     }
     
     private bool on_clicked (EventButton ev){
+        if (ev.button == 8)
+            return false;
+    
         if (ev.button == 3)
             return open_menu (ev.button, ev.time);
         
