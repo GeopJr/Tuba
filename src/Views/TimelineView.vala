@@ -57,15 +57,16 @@ public class Tootle.TimelineView : AbstractView {
 
         var widget = new StatusWidget (status);
         widget.separator = separator;
-        widget.button_press_event.connect(widget.open);
+        widget.button_press_event.connect (widget.open);
         if (!is_status_owned (status))
-            widget.avatar.button_press_event.connect(widget.open_account);
-        view.pack_start(separator, false, false, 0);
-        view.pack_start(widget, false, false, 0);
+            widget.avatar.button_press_event.connect (widget.open_account);
+        view.pack_start (separator, false, false, 0);
+        view.pack_start (widget, false, false, 0);
         
         if (first || status.pinned) {
-            view.reorder_child (widget, 0);
-            view.reorder_child (separator, 0);
+            var new_index = header == null ? 1 : 0;
+            view.reorder_child (widget, new_index);
+            view.reorder_child (separator, new_index);
         }
     }
     

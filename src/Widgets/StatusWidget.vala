@@ -8,36 +8,38 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public bool is_notification = false;
     public const int AVATAR_SIZE = 32;
     
-    public Gtk.Separator? separator;
-    public Gtk.Grid grid;
+    public Separator? separator;
     public Granite.Widgets.Avatar avatar;
-    public RichLabel title_user;
-    public Gtk.Label title_date;
-    public Gtk.Label title_acct;
-    public Gtk.Revealer revealer;
-    public RichLabel content_label;
-    public RichLabel? content_spoiler;
-    public Gtk.Button? spoiler_button;
-    public Gtk.Box title_box;
-    public AttachmentBox attachments;
-    public Gtk.Box counters;
-    public Gtk.Label reblogs;
-    public Gtk.Label favorites;
-    private Image pin_indicator;
-    public ImageToggleButton reblog;
-    public ImageToggleButton favorite;
-    public ImageToggleButton reply;
+    protected Grid grid;
+    protected RichLabel title_user;
+    protected Label title_date;
+    protected Label title_acct;
+    protected Revealer revealer;
+    protected RichLabel content_label;
+    protected RichLabel? content_spoiler;
+    protected Button? spoiler_button;
+    protected Box title_box;
+    protected AttachmentBox attachments;
+    protected Image pin_indicator;
+    
+    protected Box counters;
+    protected Label replies;
+    protected Label reblogs;
+    protected Label favorites;
+    protected ImageToggleButton reblog;
+    protected ImageToggleButton favorite;
+    protected ImageToggleButton reply;
 
     construct {
-        grid = new Gtk.Grid ();
+        grid = new Grid ();
     
         avatar = new Granite.Widgets.Avatar.with_default_icon (AVATAR_SIZE);
-        avatar.valign = Gtk.Align.START;
+        avatar.valign = Align.START;
         avatar.margin_top = 6;
         avatar.margin_start = 6;
         avatar.margin_end = 6;
         
-        title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        title_box = new Box (Gtk.Orientation.HORIZONTAL, 6);
         title_box.hexpand = true;
         title_box.margin_end = 12;
         title_box.margin_top = 6;
@@ -65,16 +67,17 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         
         attachments = new AttachmentBox ();
 
-        var revealer_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);    
+        var revealer_box = new Box (Orientation.VERTICAL, 6);
         revealer_box.margin_end = 12;
-        revealer_box.add (content_label);    
-        revealer_box.add (attachments);    
+        revealer_box.add (content_label);
+        revealer_box.add (attachments);
         revealer = new Revealer ();
         revealer.reveal_child = true;
         revealer.add (revealer_box);
         
-        reblogs = new Gtk.Label ("0");
-        favorites = new Gtk.Label ("0");
+        reblogs = new Label ("0");
+        favorites = new Label ("0");
+        replies = new Label ("0");
         
         reblog = new ImageToggleButton ("media-playlist-repeat-symbolic");
         reblog.set_action ();
@@ -98,7 +101,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             PostDialog.open_reply (status.get_formal ());
         });
         
-        counters = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        counters = new Box (Orientation.HORIZONTAL, 6);
         counters.margin_top = 6;
         counters.margin_bottom = 6;
         counters.add (reblog);
@@ -106,6 +109,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         counters.add (favorite);
         counters.add (favorites);
         counters.add (reply);
+        counters.add (replies);
         counters.show_all ();
         
         add (grid);
@@ -123,15 +127,15 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         this.status.updated.connect (rebind);
         
         if (this.status.reblog != null) {
-            var image = new Gtk.Image.from_icon_name("media-playlist-repeat-symbolic", Gtk.IconSize.BUTTON);
-            image.halign = Gtk.Align.END;
+            var image = new Image.from_icon_name("media-playlist-repeat-symbolic", IconSize.BUTTON);
+            image.halign = Align.END;
             image.margin_end = 6;
             image.margin_top = 6;
             image.show ();
             
             var label_text = _("<a href=\"%s\"><b>%s</b></a> boosted").printf (this.status.account.url, this.status.account.display_name);
             var label = new RichLabel (label_text);
-            label.halign = Gtk.Align.START;
+            label.halign = Align.START;
             label.margin_top = 6;
             label.show ();
             
@@ -141,7 +145,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         
         if (is_spoiler ()) {
             revealer.reveal_child = false;
-            var spoiler_box = new Box (Gtk.Orientation.HORIZONTAL, 6);
+            var spoiler_box = new Box (Orientation.HORIZONTAL, 6);
             spoiler_box.margin_end = 12;
             
             var spoiler_button_text = _("Toggle content");
@@ -155,7 +159,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
                 spoiler_button = new Button.with_label (spoiler_button_text);
             }
             spoiler_button.hexpand = true;
-            spoiler_button.halign = Gtk.Align.END;
+            spoiler_button.halign = Align.END;
             spoiler_button.clicked.connect (() => revealer.set_reveal_child (!revealer.child_revealed));
             
             var spoiler_text = _("[ This post contains sensitive content ]");
@@ -180,7 +184,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         
         destroy.connect (() => {
             avatar.show_default (AVATAR_SIZE);
-            if(separator != null)
+            if (separator != null)
                 separator.destroy ();
         });
         
@@ -215,6 +219,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         
         reblogs.label = formal.reblogs_count.to_string ();
         favorites.label = formal.favourites_count.to_string ();
+        replies.label = formal.replies_count.to_string ();
         
         reblog.sensitive = false;
         reblog.active = formal.reblogged;

@@ -5,21 +5,13 @@ public abstract class Tootle.AbstractView : ScrolledWindow {
     public int stack_pos = -1;
     public Image? image;
     public Box view;
-    protected Grid grid;
     protected Box? empty;
+    protected Gtk.Grid? header;
 
     construct {
         view = new Box (Orientation.VERTICAL, 0);
-        view.valign = Align.START;
-    
-        grid = new Grid ();
-        grid.hexpand = true;
-        grid.vexpand = true;
-        grid.attach (view, 0, 2);
-        
+        add (view);
         hscrollbar_policy = PolicyType.NEVER;
-        add (grid);
-        
         edge_reached.connect(pos => {
             if (pos == PositionType.BOTTOM)
                 bottom_reached ();
@@ -39,7 +31,10 @@ public abstract class Tootle.AbstractView : ScrolledWindow {
     }
     
     public virtual void clear (){
-        view.forall (widget => widget.destroy ());
+        view.forall (widget => {
+            if (widget != header)
+                widget.destroy ();
+        });
     }
     
     public virtual void bottom_reached (){}

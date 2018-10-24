@@ -74,7 +74,8 @@ public class Tootle.Notificator : GLib.Object {
     }
     
     private void on_error (Error e) {
-        warning ("Error in %s: %s", get_name (), e.message);
+    	if (!closing)
+        	warning ("Error in %s: %s", get_name (), e.message);
     }
     
     private void on_message (int i, Bytes bytes) {

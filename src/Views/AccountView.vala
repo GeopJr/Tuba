@@ -4,75 +4,74 @@ using Granite;
 public class Tootle.AccountView : TimelineView {
     
     const int AVATAR_SIZE = 128;
-    Account account;
+    protected Account account;
     
-    Gtk.Grid header;
-    Gtk.Grid header_image;
-    Gtk.Box header_info;
-    Granite.Widgets.Avatar avatar;
-    RichLabel display_name;
-    Gtk.Label username;
-    Gtk.Label relationship;
-    RichLabel note;
-    Gtk.Grid counters;
-    Gtk.Box actions;
-    Gtk.Button button_follow;
+    protected Grid header_image;
+    protected Box header_info;
+    protected Granite.Widgets.Avatar avatar;
+    protected RichLabel display_name;
+    protected Label username;
+    protected Label relationship;
+    protected RichLabel note;
+    protected Grid counters;
+    protected Box actions;
+    protected Button button_follow;
     
-    Gtk.Menu menu;
-    Gtk.MenuItem menu_edit;
-    Gtk.MenuItem menu_mention;
-    Gtk.MenuItem menu_mute;
-    Gtk.MenuItem menu_block;
-    Gtk.MenuItem menu_report;
-    Gtk.MenuButton button_menu;
+    protected Gtk.Menu menu;
+    protected Gtk.MenuItem menu_edit;
+    protected Gtk.MenuItem menu_mention;
+    protected Gtk.MenuItem menu_mute;
+    protected Gtk.MenuItem menu_block;
+    protected Gtk.MenuItem menu_report;
+    protected Gtk.MenuButton button_menu;
     
-    //public override void pre_construct () {
+    
     construct {
-        header = new Gtk.Grid ();
-        header_info = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        header = new Grid ();
+        header_info = new Box (Orientation.VERTICAL, 0);
         header_info.margin = 12;
-        actions = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        actions = new Box (Orientation.HORIZONTAL, 0);
         actions.hexpand = false;
-        actions.halign = Gtk.Align.END;
+        actions.halign = Align.END;
         actions.vexpand = false;
-        actions.valign = Gtk.Align.START;
+        actions.valign = Align.START;
         actions.margin = 12;
     
-        relationship = new Gtk.Label ("");
+        relationship = new Label ("");
         relationship.get_style_context ().add_class ("relationship");
-        relationship.halign = Gtk.Align.START;
-        relationship.valign = Gtk.Align.START;
+        relationship.halign = Align.START;
+        relationship.valign = Align.START;
         relationship.margin = 12;
         header.attach (relationship, 0, 0, 1, 1);
     
         avatar = new Granite.Widgets.Avatar.with_default_icon (AVATAR_SIZE);
         avatar.hexpand = true;
         avatar.margin_bottom = 6;
-        header_info.pack_start(avatar, false, false, 0);
+        header_info.pack_start (avatar, false, false, 0);
         
         display_name = new RichLabel ("");
         display_name.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
-        header_info.pack_start(display_name, false, false, 0);
+        header_info.pack_start (display_name, false, false, 0);
         
         username = new Gtk.Label ("");
-        header_info.pack_start(username, false, false, 0);
+        header_info.pack_start (username, false, false, 0);
         
         note = new RichLabel ("");
         note.set_line_wrap (true);
         note.selectable = true;
         note.margin_top = 12;
         note.can_focus = false;
-        note.justify = Gtk.Justification.CENTER;
-        header_info.pack_start(note, false, false, 0);
+        note.justify = Justification.CENTER;
+        header_info.pack_start (note, false, false, 0);
         header_info.show_all ();
         header.attach (header_info, 0, 0, 1, 1);
         
-        counters = new Gtk.Grid ();
+        counters = new Grid ();
         counters.column_homogeneous = true;
         counters.get_style_context ().add_class ("header-counters");
         header.attach (counters, 0, 1, 1, 1);
         
-        header_image = new Gtk.Grid ();
+        header_image = new Grid ();
         header_image.get_style_context ().add_class ("header");
         header.attach (header_image, 0, 0, 2, 2);
         
@@ -92,10 +91,10 @@ public class Tootle.AccountView : TimelineView {
         
         button_follow = add_counter ("contact-new-symbolic");
         button_menu = new Gtk.MenuButton ();
-        button_menu.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+        button_menu.image = new Image.from_icon_name ("view-more-symbolic", IconSize.LARGE_TOOLBAR);
         button_menu.tooltip_text = _("More Actions");
         button_menu.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        (button_menu as Gtk.Widget).set_focus_on_click (false);
+        (button_menu as Widget).set_focus_on_click (false);
         button_menu.can_default = false;
         button_menu.can_focus = false;
         button_menu.popup = menu;
@@ -105,8 +104,7 @@ public class Tootle.AccountView : TimelineView {
         button_follow.hide ();
         header.attach (actions, 0, 0, 2, 2);
         
-        grid.attach (header, 0, 1);
-        //view.pack_start (header, false, false, 0);
+        view.pack_start (header, false, false, 0);
     }
     
     public AccountView (Account acc) {
@@ -155,11 +153,11 @@ public class Tootle.AccountView : TimelineView {
             button_follow.show ();
             if (account.rs.following) {
                 button_follow.tooltip_text = _("Unfollow");
-                (button_follow.get_image () as Gtk.Image).icon_name = "close-symbolic";
+                (button_follow.get_image () as Image).icon_name = "close-symbolic";
             }
             else{
                 button_follow.tooltip_text = _("Follow");
-                (button_follow.get_image () as Gtk.Image).icon_name = "contact-new-symbolic";
+                (button_follow.get_image () as Image).icon_name = "contact-new-symbolic";
             }
         }
         
@@ -186,20 +184,20 @@ public class Tootle.AccountView : TimelineView {
     }
     
     private Gtk.Button add_counter (string name, int? i = null, int64? val = null) {
-        Gtk.Button btn;
+        Button btn;
         if (val != null){
-            btn = new Gtk.Button ();
-            var label = new Gtk.Label ("<b>%s</b>\n%s".printf (name.up (), val.to_string ()));
-            label.justify = Gtk.Justification.CENTER;
+            btn = new Button ();
+            var label = new Label ("<b>%s</b>\n%s".printf (name.up (), val.to_string ()));
+            label.justify = Justification.CENTER;
             label.use_markup = true;
             label.margin = 8;
             btn.add (label);
         }
         else
-            btn = new Gtk.Button.from_icon_name (name, Gtk.IconSize.LARGE_TOOLBAR);
+            btn = new Button.from_icon_name (name, IconSize.LARGE_TOOLBAR);
             
         btn.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        (btn as Gtk.Widget).set_focus_on_click (false);
+        (btn as Widget).set_focus_on_click (false);
         btn.can_default = false;
         btn.can_focus = false;
         
