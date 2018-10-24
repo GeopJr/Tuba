@@ -23,6 +23,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public Gtk.Box counters;
     public Gtk.Label reblogs;
     public Gtk.Label favorites;
+    private Image pin_indicator;
     public ImageToggleButton reblog;
     public ImageToggleButton favorite;
     public ImageToggleButton reply;
@@ -54,6 +55,10 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         title_date.ellipsize = Pango.EllipsizeMode.END;
         title_box.pack_end (title_date, false, false, 0);
         title_box.show_all ();
+        
+        pin_indicator = new Image.from_icon_name ("view-pin-symbolic", IconSize.MENU);
+        pin_indicator.opacity = 0.5;
+        title_box.pack_end (pin_indicator, false, false, 0);
         
         content_label = new RichLabel ("");
         content_label.wrap_words ();
@@ -203,6 +208,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         title_acct.label = "@" + formal.account.acct;
         content_label.label = formal.content;
         content_label.mentions = formal.mentions;
+        pin_indicator.visible = status.pinned;
         
         var datetime = parse_date_iso8601 (formal.created_at);
         title_date.label = Granite.DateTime.get_relative_datetime (datetime);
@@ -272,6 +278,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         
         var is_muted = status.muted;
         var is_pinned = status.pinned;
+        
         var item_muting = new Gtk.MenuItem.with_label (is_muted ? _("Unmute Conversation") : _("Mute Conversation"));
         item_muting.activate.connect (() => status.set_muted (!is_muted));
         var item_pin = new Gtk.MenuItem.with_label (is_pinned ? _("Unpin from Profile") : _("Pin on Profile"));

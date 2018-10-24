@@ -26,7 +26,8 @@ public class Tootle.AccountView : TimelineView {
     Gtk.MenuItem menu_report;
     Gtk.MenuButton button_menu;
     
-    public override void pre_construct () {
+    //public override void pre_construct () {
+    construct {
         header = new Gtk.Grid ();
         header_info = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         header_info.margin = 12;
@@ -104,7 +105,8 @@ public class Tootle.AccountView : TimelineView {
         button_follow.hide ();
         header.attach (actions, 0, 0, 2, 2);
         
-        view.pack_start (header, false, false, 0);
+        grid.attach (header, 0, 1);
+        //view.pack_start (header, false, false, 0);
     }
     
     public AccountView (Account acc) {

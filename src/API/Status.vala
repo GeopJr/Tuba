@@ -153,17 +153,17 @@ public class Tootle.Status {
     
     public void set_pinned (bool pin = true){
         var action = pin ? "pin" : "unpin";
-        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.accounts.formal.instance, id, action));
+        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
         msg.finished.connect (() => {
             pinned = pin;
             updated ();
             if (pin)
-                Tootle.app.toast (_("Pinned!"));
+                app.toast (_("Pinned on Profile"));
             else
-                Tootle.app.toast (_("Unpinned"));
+                app.toast (_("Unpinned from Profile"));
         });
-        Tootle.network.queue (msg);
+        network.queue (msg);
     }
 
     public void poof (){

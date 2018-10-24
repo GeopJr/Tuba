@@ -1,24 +1,29 @@
 using Gtk;
 
-public abstract class Tootle.AbstractView : Gtk.ScrolledWindow {
+public abstract class Tootle.AbstractView : ScrolledWindow {
 
     public int stack_pos = -1;
-    public Gtk.Image? image;
-    public Gtk.Box view;
-    protected Gtk.Box? empty;
+    public Image? image;
+    public Box view;
+    protected Grid grid;
+    protected Box? empty;
 
     construct {
-        view = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        view.valign = Gtk.Align.START;
-        hscrollbar_policy = Gtk.PolicyType.NEVER;
-        add (view);
+        view = new Box (Orientation.VERTICAL, 0);
+        view.valign = Align.START;
+    
+        grid = new Grid ();
+        grid.hexpand = true;
+        grid.vexpand = true;
+        grid.attach (view, 0, 2);
+        
+        hscrollbar_policy = PolicyType.NEVER;
+        add (grid);
         
         edge_reached.connect(pos => {
-            if (pos == Gtk.PositionType.BOTTOM)
+            if (pos == PositionType.BOTTOM)
                 bottom_reached ();
         });
-        
-        pre_construct ();
     }
 
     public AbstractView () {
@@ -35,10 +40,7 @@ public abstract class Tootle.AbstractView : Gtk.ScrolledWindow {
     
     public virtual void clear (){
         view.forall (widget => widget.destroy ());
-        pre_construct ();
     }
-    
-    public virtual void pre_construct () {}
     
     public virtual void bottom_reached (){}
     
@@ -52,14 +54,15 @@ public abstract class Tootle.AbstractView : Gtk.ScrolledWindow {
         if (!is_empty ())
             return false;
         
-        empty = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        empty = new Box (Orientation.VERTICAL, 0);
         empty.margin = 64;
         var image = new Image.from_resource ("/com/github/bleakgrey/tootle/empty_state");
-        var text = new Gtk.Label (_("Nothing to see here"));
+        var text = new Label (_("Nothing to see here"));
         text.get_style_context ().add_class ("h2");
         text.opacity = 0.5;
+        empty.hexpand = true;
         empty.vexpand = true;
-        empty.valign = Gtk.Align.FILL;
+        empty.valign = Align.FILL;
         empty.pack_start (image, false, false, 0);
         empty.pack_start (text, false, false, 12);
         empty.show_all ();
