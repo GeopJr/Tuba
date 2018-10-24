@@ -11,7 +11,7 @@ public class Tootle.Status {
     public int64 replies_count;
     public int64 reblogs_count;
     public int64 favourites_count;
-    public string created_at;    
+    public string created_at;
     public bool reblogged = false;
     public bool favorited = false;
     public bool sensitive = false;
@@ -30,7 +30,7 @@ public class Tootle.Status {
         return reblog != null ? reblog : this;
     }
 
-    public static Status parse(Json.Object obj) {
+    public static Status parse (Json.Object obj) {
         var id = int64.parse (obj.get_string_member ("id"));
         var status = new Status (id);
         
@@ -108,7 +108,7 @@ public class Tootle.Status {
         return result;
     }
     
-    public void set_reblogged (bool rebl = true){
+    public void set_reblogged (bool rebl = true) {
         var action = rebl ? "reblog" : "unreblog";
         var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
@@ -123,7 +123,7 @@ public class Tootle.Status {
         network.queue (msg);
     }
     
-    public void set_favorited (bool fav = true){
+    public void set_favorited (bool fav = true) {
         var action = fav ? "favourite" : "unfavourite";
         var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
@@ -138,7 +138,7 @@ public class Tootle.Status {
         network.queue (msg);
     }
     
-    public void set_muted (bool mute = true){
+    public void set_muted (bool mute = true) {
         var action = mute ? "mute" : "unmute";
         var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
@@ -153,7 +153,7 @@ public class Tootle.Status {
         network.queue (msg);
     }
     
-    public void set_pinned (bool pin = true){
+    public void set_pinned (bool pin = true) {
         var action = pin ? "pin" : "unpin";
         var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
@@ -168,14 +168,16 @@ public class Tootle.Status {
         network.queue (msg);
     }
 
-    public void poof (){
+    public Soup.Message poof (bool show_toast = true) {
         var msg = new Soup.Message ("DELETE", "%s/api/v1/statuses/%lld".printf (accounts.formal.instance, id));
         msg.priority = Soup.MessagePriority.HIGH;
         msg.finished.connect (() => {
-            app.toast (_("Poof!"));
+            if (show_toast)
+                app.toast (_("Poof!"));
             network.status_removed (id);
         });
         network.queue (msg);
+        return msg;
     }
 
 }

@@ -98,7 +98,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         reply.tooltip_text = _("Reply");
         reply.toggled.connect (() => {
             reply.set_active (false);
-            PostDialog.open_reply (status.get_formal ());
+            PostDialog.reply (status.get_formal ());
         });
         
         counters = new Box (Orientation.HORIZONTAL, 6);
@@ -189,7 +189,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         });
         
         network.status_removed.connect (id => {
-            if (id == this.status.id)
+            if (id == status.id)
                 destroy ();
         });
         
@@ -286,10 +286,6 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         
         var item_muting = new Gtk.MenuItem.with_label (is_muted ? _("Unmute Conversation") : _("Mute Conversation"));
         item_muting.activate.connect (() => status.set_muted (!is_muted));
-        var item_pin = new Gtk.MenuItem.with_label (is_pinned ? _("Unpin from Profile") : _("Pin on Profile"));
-        item_pin.activate.connect (() => status.set_pinned (!is_pinned));
-        var item_delete = new Gtk.MenuItem.with_label (_("Delete"));
-        item_delete.activate.connect (() => status.poof ());
         var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
         item_open_link.activate.connect (() => Desktop.open_uri (status.get_formal ().url));
         var item_copy_link = new Gtk.MenuItem.with_label (_("Copy Link"));
@@ -301,8 +297,18 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         });
         
         if (this.status.is_owned ()) {
+            var item_pin = new Gtk.MenuItem.with_label (is_pinned ? _("Unpin from Profile") : _("Pin on Profile"));
+            item_pin.activate.connect (() => status.set_pinned (!is_pinned));
             menu.add (item_pin);
+            
+            var item_delete = new Gtk.MenuItem.with_label (_("Delete"));
+            item_delete.activate.connect (() => status.poof ());
             menu.add (item_delete);
+            
+            var item_redraft = new Gtk.MenuItem.with_label (_("Redraft"));
+            item_redraft.activate.connect (() => PostDialog.redraft (status.get_formal ()));
+            menu.add (item_redraft);
+            
             menu.add (new Gtk.SeparatorMenuItem ());
         }
         

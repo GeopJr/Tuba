@@ -4,7 +4,7 @@ using Gdk;
 public class Tootle.AttachmentWidget : Gtk.EventBox {
 
     public Attachment? attachment;
-    private bool editable = false;
+    private bool editable;
     private const int PREVIEW_SIZE = 350;
     private const int SMALL_SIZE = 64;
     
@@ -34,8 +34,9 @@ public class Tootle.AttachmentWidget : Gtk.EventBox {
         });
     }
 
-    public AttachmentWidget (Attachment att) {
+    public AttachmentWidget (Attachment att, bool _editable = false) {
         attachment = att;
+        editable = _editable;
         rebind ();
     }
 

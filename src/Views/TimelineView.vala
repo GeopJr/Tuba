@@ -52,7 +52,7 @@ public class Tootle.TimelineView : AbstractView {
         if (empty != null)
             empty.destroy ();
     
-        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        var separator = new Separator (Orientation.HORIZONTAL);
         separator.show ();
 
         var widget = new StatusWidget (status);
@@ -65,8 +65,8 @@ public class Tootle.TimelineView : AbstractView {
         
         if (first || status.pinned) {
             var new_index = header == null ? 1 : 0;
-            view.reorder_child (widget, new_index);
             view.reorder_child (separator, new_index);
+            view.reorder_child (widget, new_index);
         }
     }
     

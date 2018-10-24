@@ -10,7 +10,9 @@ public abstract class Tootle.AbstractView : ScrolledWindow {
 
     construct {
         view = new Box (Orientation.VERTICAL, 0);
+        view.valign = Align.START;
         add (view);
+        
         hscrollbar_policy = PolicyType.NEVER;
         edge_reached.connect(pos => {
             if (pos == PositionType.BOTTOM)

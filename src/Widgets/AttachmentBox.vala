@@ -24,7 +24,8 @@ public class Tootle.AttachmentBox : Gtk.ScrolledWindow {
     }
     
     public void append (Attachment attachment) {
-        var widget = new AttachmentWidget (attachment);
+        show ();
+        var widget = new AttachmentWidget (attachment, edit_mode);
         box.add (widget);
     }
     
