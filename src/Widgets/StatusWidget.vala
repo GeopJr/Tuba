@@ -271,8 +271,11 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         var menu = new Gtk.Menu ();
         
         var is_muted = status.muted;
+        var is_pinned = status.pinned;
         var item_muting = new Gtk.MenuItem.with_label (is_muted ? _("Unmute Conversation") : _("Mute Conversation"));
         item_muting.activate.connect (() => status.set_muted (!is_muted));
+        var item_pin = new Gtk.MenuItem.with_label (is_pinned ? _("Unpin from Profile") : _("Pin on Profile"));
+        item_pin.activate.connect (() => status.set_pinned (!is_pinned));
         var item_delete = new Gtk.MenuItem.with_label (_("Delete"));
         item_delete.activate.connect (() => status.poof ());
         var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
@@ -286,6 +289,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         });
         
         if (this.status.is_owned ()) {
+            menu.add (item_pin);
             menu.add (item_delete);
             menu.add (new Gtk.SeparatorMenuItem ());
         }

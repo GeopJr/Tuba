@@ -15,6 +15,7 @@ public class Tootle.Status {
     public bool favorited = false;
     public bool sensitive = false;
     public bool muted = false;
+    public bool pinned = false;
     public StatusVisibility visibility;
     public Status? reblog;
     public Mention[]? mentions;
@@ -56,6 +57,8 @@ public class Tootle.Status {
             status.favorited = obj.get_boolean_member ("favourited");
         if (obj.has_member ("muted"))
             status.muted = obj.get_boolean_member ("muted");
+        if (obj.has_member ("pinned"))
+            status.pinned = obj.get_boolean_member ("pinned");
             
         if (obj.has_member ("reblog") && obj.get_null_member("reblog") != true)
             status.reblog = Status.parse (obj.get_object_member ("reblog"));
@@ -148,6 +151,21 @@ public class Tootle.Status {
         network.queue (msg);
     }
     
+    public void set_pinned (bool pin = true){
+        var action = pin ? "pin" : "unpin";
+        var msg = new Soup.Message("POST", "%s/api/v1/statuses/%lld/%s".printf (Tootle.accounts.formal.instance, id, action));
+        msg.priority = Soup.MessagePriority.HIGH;
+        msg.finished.connect (() => {
+            pinned = pin;
+            updated ();
+            if (pin)
+                Tootle.app.toast (_("Pinned!"));
+            else
+                Tootle.app.toast (_("Unpinned"));
+        });
+        Tootle.network.queue (msg);
+    }
+
     public void poof (){
         var msg = new Soup.Message("DELETE", "%s/api/v1/statuses/%lld".printf (accounts.formal.instance, id));
         msg.priority = Soup.MessagePriority.HIGH;
