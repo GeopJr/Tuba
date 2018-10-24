@@ -63,6 +63,7 @@ public class Tootle.MainWindow: Gtk.Window {
         button_mode.show ();
         
         header = new Gtk.HeaderBar ();
+        header.get_style_context ().add_class ("compact");
         header.show_close_button = true;
         header.title = "Tootle";
         header.custom_title = button_mode;
@@ -71,7 +72,6 @@ public class Tootle.MainWindow: Gtk.Window {
         header.pack_end (button_accounts);
         header.pack_end (spinner);
         header.show_all ();
-        set_titlebar (header);
         
         grid = new Gtk.Grid ();
         grid.attach (primary_stack, 0, 0, 1, 1);
@@ -96,6 +96,7 @@ public class Tootle.MainWindow: Gtk.Window {
         icon_name = "com.github.bleakgrey.tootle";
         resizable = true;
         window_position = WindowPosition.CENTER;
+        set_titlebar (header);
         update_header ();
         
         app.toast.connect (on_toast);
