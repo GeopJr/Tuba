@@ -14,7 +14,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
     Gtk.ModelButton item_direct;
     Gtk.ModelButton item_watchlist;
 
-    private class AccountView : Gtk.ListBoxRow{
+    private class AccountItemView : Gtk.ListBoxRow{
     
         private Gtk.Grid grid;
         public Gtk.Label display_name;
@@ -46,7 +46,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
             show_all ();
         }
     
-        public AccountView (){
+        public AccountItemView (){
             button.clicked.connect (() => accounts.remove (id));
         }
     
@@ -106,21 +106,23 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
 
         get_style_context ().add_class ("button_avatar");
         popover = menu;
-        add(avatar);
+        add (avatar);
         show_all ();
         
         accounts.updated.connect (accounts_updated);
         accounts.switched.connect (account_switched);
         list.row_activated.connect (row => {
-            var widget = row as AccountView;
+            var widget = row as AccountItemView;
             if (widget.id == -1) {
                 NewAccountDialog.open ();
                 return;
             }
-            if (widget.id == Tootle.settings.current_account)
-                return;
+            if (widget.id == settings.current_account)
+                AccountView.open_from_id (accounts.current.id);
             else
                 accounts.switch_account (widget.id);
+                
+            menu.popdown ();
         });
     }
     
@@ -129,14 +131,14 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         int i = -1;
         accounts.foreach (account => {
             i++;
-            var widget = new AccountView ();
+            var widget = new AccountItemView ();
             widget.id = i;
             widget.display_name.label = "<b>@"+account.username+"</b>";
             widget.instance.label = account.get_pretty_instance ();
             list.add (widget);
         });
         
-        var add_account = new AccountView ();
+        var add_account = new AccountItemView ();
         add_account.display_name.label = _("<b>New Account</b>");
         add_account.instance.label = _("Click to add");
         add_account.button.hide ();
@@ -152,7 +154,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
     }
     
     private void update_selection () {
-        var id = Tootle.settings.current_account;
+        var id = settings.current_account;
         var row = list.get_row_at_index (id);
         if (row != null)
             list.select_row (row);

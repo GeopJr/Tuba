@@ -1,13 +1,12 @@
-using Soup;
 using GLib;
 using Gdk;
-using Json;
+using Gee;
 
-public class Tootle.Watchlist : GLib.Object {
+public class Tootle.Watchlist : Object {
 
-    public GenericArray<string> users = new GenericArray<string> ();
-    public GenericArray<string> hashtags = new GenericArray<string> ();
-    public GenericArray<Notificator> notificators = new GenericArray<Notificator> ();
+    public ArrayList<string> users = new ArrayList<string> ();
+    public ArrayList<string> hashtags = new ArrayList<string> ();
+    public ArrayList<Notificator> notificators = new ArrayList<Notificator> ();
 
     construct {
         accounts.switched.connect (on_account_changed);
@@ -16,21 +15,23 @@ public class Tootle.Watchlist : GLib.Object {
     public Watchlist () {}
 
     public virtual void on_account_changed (Account? account){
-        if(account != null)
+        if (account != null)
             reload ();
     }
 
     private void reload () {
         info ("Reloading");
         
-        notificators.@foreach (notificator => notificator.close ());
-        notificators.remove_range (0, notificators.length);
-        users.remove_range (0, users.length);
-        hashtags.remove_range (0, hashtags.length);
+        notificators.@foreach (notificator => {
+            notificator.close ();
+            return true;
+        });
+        notificators.clear ();
+        users.clear ();
+        hashtags.clear ();
         
         load ();
-        
-        info ("Watching for %i users and %i hashtags", users.length, hashtags.length);
+        info ("Watching for %i users and %i hashtags", users.size, hashtags.size);
     }
     
     private void load () {
@@ -45,12 +46,18 @@ public class Tootle.Watchlist : GLib.Object {
     
     public void save () {
         var serialized_users = "";
-        users.@foreach (item => serialized_users += item + ",");
+        users.@foreach (item => {
+            serialized_users += item + ",";
+            return true;
+        });
         serialized_users = remove_last_delimiter (serialized_users);
         settings.watched_users = serialized_users;
         
         var serialized_hashtags = "";
-        hashtags.@foreach (item => serialized_hashtags += item + ",");
+        hashtags.@foreach (item => {
+            serialized_hashtags += item + ",";
+            return true;
+        });
         serialized_hashtags = remove_last_delimiter (serialized_hashtags);
         settings.watched_hashtags = serialized_hashtags;
         
@@ -99,26 +106,21 @@ public class Tootle.Watchlist : GLib.Object {
     }
 
     public void remove (string entity, bool is_hashtag) {
-        int i = -1;
-        if (is_hashtag)
-            hashtags.@foreach (item => {
-                i++;
-                if (item == entity) {
-                    var notificator = notificators.@get(i);
-                    notificator.close ();
-                    notificators.remove_index (i);
-                    hashtags.remove_index (i);
-                    info ("Removed #%s", entity);
-                }
-            });
-        else
-            users.@foreach (item => {
-                i++;
-                if (item == entity) {
-                    users.remove_index (i);
-                    info ("Removed @%s", entity);
-                }
-            });
+        if (entity == "")
+            return;
+    
+        if (is_hashtag) {
+            var i = hashtags.index_of (entity);
+            var notificator = notificators.@get(i);
+            notificator.close ();
+            notificators.remove_at (i);
+            hashtags.remove (entity);
+            info ("Removed #%s", entity);
+        }
+        else {
+            users.remove (entity);
+            info ("Removed @%s", entity);
+        }
     }
 
 }

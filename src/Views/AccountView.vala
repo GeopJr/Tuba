@@ -238,16 +238,16 @@ public class Tootle.AccountView : TimelineView {
     
     public static void open_from_id (int64 id){
         var url = "%s/api/v1/accounts/%lld".printf (accounts.formal.instance, id);
-        var msg = new Soup.Message("GET", url);
+        var msg = new Soup.Message ("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
         network.queue (msg, (sess, mess) => {
-            try{
+            try {
                 var root = network.parse (mess);
                 var acc = Account.parse (root);
-                Tootle.window.open_view (new AccountView (acc));
+                window.open_view (new AccountView (acc));
             }
             catch (GLib.Error e) {
-                warning ("Can't update feed");
+                warning ("Can't find account");
                 warning (e.message);
             }
         });
@@ -258,7 +258,7 @@ public class Tootle.AccountView : TimelineView {
         var msg = new Soup.Message("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
         network.queue (msg, (sess, mess) => {
-            try{
+            try {
                 var node = network.parse_array (mess).get_element (0);
                 var object = node.get_object ();
                 if (object != null){

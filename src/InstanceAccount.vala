@@ -101,6 +101,7 @@ public class Tootle.InstanceAccount : GLib.Object {
         watchlist.users.@foreach (item => {
             if (item == acct || item == "@" + acct)
                 notification (obj);
+            return true;
         });
     }
 

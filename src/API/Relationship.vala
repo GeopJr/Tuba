@@ -1,4 +1,6 @@
-public class Tootle.Relationship{
+using GLib;
+
+public class Tootle.Relationship : Object {
 
     public int64 id;
     public bool following;
@@ -9,11 +11,11 @@ public class Tootle.Relationship{
     public bool requested;
     public bool domain_blocking;
 
-    public Relationship (int64 _id){
+    public Relationship (int64 _id) {
         id = _id;
     }
     
-    public static Relationship parse (Json.Object obj){
+    public static Relationship parse (Json.Object obj) {
         var id = int64.parse (obj.get_string_member ("id"));
         var relationship = new Relationship (id);
         relationship.following = obj.get_boolean_member ("following");

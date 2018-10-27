@@ -68,6 +68,7 @@ executable(
     dependencies: [
         dependency('gtk+-3.0', version: '>=3.22.0'),
         dependency('glib-2.0', version: '>=2.30.0'),
+        dependency('gee-0.8', version: '>=0.8.5'),
         dependency('granite'),
         dependency('json-glib-1.0'),
         dependency('libsoup-2.4')

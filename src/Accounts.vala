@@ -1,30 +1,30 @@
 using GLib;
 
-public class Tootle.Accounts : Object{
+public class Tootle.Accounts : Object {
 
     private string dir_path;
     private string file_path;
 
-    public abstract signal void switched (Account? account);
-    public abstract signal void updated (GenericArray<InstanceAccount> accounts);
+    public signal void switched (Account? account);
+    public signal void updated (GenericArray<InstanceAccount> accounts);
 
     public GenericArray<InstanceAccount> saved_accounts = new GenericArray<InstanceAccount> ();
     public InstanceAccount? formal {get; set;}
     public Account? current {get; set;}
 
     public Accounts () {
-        dir_path = "%s/%s".printf (GLib.Environment.get_user_config_dir (), Tootle.app.application_id);
+        dir_path = "%s/%s".printf (GLib.Environment.get_user_config_dir (), app.application_id);
         file_path = "%s/%s".printf (dir_path, "accounts.json");
     }
     
-    public void switch_account (int id){
-        debug ("Switching to account #%i", id);
-        Tootle.settings.current_account = id;
-        formal = saved_accounts.@get(id);
-        var msg = new Soup.Message("GET", "%s/api/v1/accounts/verify_credentials".printf (Tootle.accounts.formal.instance));
-        Tootle.network.queue(msg, (sess, mess) => {
-            try{
-                var root = Tootle.network.parse (mess);
+    public void switch_account (int id) {
+        debug ("Switching to #%i", id);
+        settings.current_account = id;
+        formal = saved_accounts.@get (id);
+        var msg = new Soup.Message("GET", "%s/api/v1/accounts/verify_credentials".printf (accounts.formal.instance));
+        network.queue (msg, (sess, mess) => {
+            try {
+                var root = network.parse (mess);
                 current = Account.parse (root);
                 switched (current);
                 updated (saved_accounts);
@@ -53,7 +53,7 @@ public class Tootle.Accounts : Object{
         if (saved_accounts.length < 1)
             switched (null);
         else {
-            var id = Tootle.settings.current_account - 1;
+            var id = settings.current_account - 1;
             if (id > saved_accounts.length - 1)
                 id = saved_accounts.length - 1;
             else if (id < saved_accounts.length - 1)
@@ -64,7 +64,7 @@ public class Tootle.Accounts : Object{
         updated (saved_accounts);
         
         if (is_empty ()) {
-            Tootle.window.destroy ();
+            window.destroy ();
             NewAccountDialog.open ();
         }
     }
@@ -73,14 +73,14 @@ public class Tootle.Accounts : Object{
         return saved_accounts.length == 0;
     }
     
-    public void init (){
+    public void init () {
         save (false);
         load ();
         
         if (saved_accounts.length < 1)
             NewAccountDialog.open ();
         else
-            switch_account (Tootle.settings.current_account);
+            switch_account (settings.current_account);
     }
     
     private void save (bool overwrite = true) {

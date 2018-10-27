@@ -5,17 +5,17 @@ public class Tootle.WatchlistDialog : Gtk.Window {
 
     private static WatchlistDialog dialog;
 
-    private Gtk.HeaderBar header;
-    private Gtk.StackSwitcher switcher;
+    private HeaderBar header;
+    private StackSwitcher switcher;
     private Gtk.MenuButton button_add;
-    private Gtk.Stack stack;
+    private Stack stack;
     private ListStack users;
     private ListStack hashtags;
     
-    private Gtk.Popover popover;
-    private Gtk.Grid popover_grid;
-    private Gtk.Entry popover_entry;
-    private Gtk.Button popover_button;
+    private Popover popover;
+    private Grid popover_grid;
+    private Entry popover_entry;
+    private Button popover_button;
 
     private const string TIP_USERS = _("You'll be notified when toots from specific users appear in your Home timeline.");
     private const string TIP_HASHTAGS = _("You'll be notified when toots with specific hashtags are posted in any public timelines.");
@@ -30,21 +30,21 @@ public class Tootle.WatchlistDialog : Gtk.Window {
         }
     }
     
-    private class ModelView : Gtk.ListBoxRow {
-        private Gtk.Box box;
-        private Gtk.Button button_remove;
-        private Gtk.Label label;
+    private class ModelView : ListBoxRow {
+        private Box box;
+        private Button button_remove;
+        private Label label;
         private bool is_hashtag;
         
         public ModelView (ModelItem item) {
             is_hashtag = item.is_hashtag;
-            box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            box = new Box (Orientation.HORIZONTAL, 0);
             box.margin = 6;
-            label = new Gtk.Label (item.name);
+            label = new Label (item.name);
             label.vexpand = true;
-            label.valign = Gtk.Align.CENTER;
-            label.justify = Gtk.Justification.LEFT;
-            button_remove = new Gtk.Button.from_icon_name ("list-remove-symbolic", Gtk.IconSize.BUTTON);
+            label.valign = Align.CENTER;
+            label.justify = Justification.LEFT;
+            button_remove = new Button.from_icon_name ("list-remove-symbolic", IconSize.BUTTON);
             button_remove.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
             button_remove.clicked.connect (() => {
                 watchlist.remove (label.label, is_hashtag);
@@ -85,19 +85,21 @@ public class Tootle.WatchlistDialog : Gtk.Window {
         return new ModelView (item);
     }
 
-    private class ListStack : Gtk.ScrolledWindow {
+    private class ListStack : ScrolledWindow {
         public Model model;
-        public Gtk.ListBox list;
+        public ListBox list;
         private bool is_hashtags;
         
         public void update () {
             if (is_hashtags)
                 watchlist.hashtags.@foreach (item => {
                     model.append (new ModelItem (item, true));
+                    return true;
                 });
             else
                 watchlist.users.@foreach (item => {
                     model.append (new ModelItem (item, false));
+                    return true;
                 });
             
             list.bind_model (model, create_row);
@@ -106,7 +108,7 @@ public class Tootle.WatchlistDialog : Gtk.Window {
         public ListStack (bool is_hashtags) {
             this.is_hashtags = is_hashtags;
             model = new Model ();
-            list = new Gtk.ListBox ();
+            list = new ListBox ();
             add (list);
             update ();
         }
@@ -122,8 +124,8 @@ public class Tootle.WatchlistDialog : Gtk.Window {
         resizable = true;
         transient_for = window;
         
-        stack = new Gtk.Stack ();
-        stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+        stack = new Stack ();
+        stack.transition_type = StackTransitionType.SLIDE_LEFT_RIGHT;
         stack.hexpand = true;
         stack.vexpand = true;
         
@@ -134,37 +136,37 @@ public class Tootle.WatchlistDialog : Gtk.Window {
         stack.add_titled (hashtags, "hashtags", _("Hashtags"));
         stack.set_size_request (400, 300);
         
-        popover_entry = new Gtk.Entry ();
+        popover_entry = new Entry ();
         popover_entry.hexpand = true;
         popover_entry.secondary_icon_name = "dialog-information-symbolic";
         popover_entry.secondary_icon_activatable = false;
         popover_entry.activate.connect (() => submit ());
         
-        popover_button = new Gtk.Button.with_label (_("Add"));
-        popover_button.halign = Gtk.Align.END;
+        popover_button = new Button.with_label (_("Add"));
+        popover_button.halign = Align.END;
         popover_button.margin_start = 6;
         popover_button.clicked.connect (() => submit ());
         
-        popover_grid = new Gtk.Grid ();
+        popover_grid = new Grid ();
         popover_grid.margin = 6;
         popover_grid.attach (popover_entry, 0, 0);
         popover_grid.attach (popover_button, 1, 0);
         popover_grid.show_all ();
         
-        popover = new Gtk.Popover (null);
+        popover = new Popover (null);
         popover.add (popover_grid);
         
-        button_add = new Gtk.MenuButton ();
-        button_add.image = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON);
+        button_add = new MenuButton ();
+        button_add.image = new Image.from_icon_name ("list-add-symbolic", IconSize.BUTTON);
         button_add.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         button_add.popover = popover;
         button_add.clicked.connect (() => set_tip ());
         
         switcher = new StackSwitcher ();
         switcher.stack = stack;
-        switcher.halign = Gtk.Align.CENTER;
+        switcher.halign = Align.CENTER;
         
-        header = new Gtk.HeaderBar ();
+        header = new HeaderBar ();
         header.show_close_button = true;
         header.pack_start (button_add);
         header.set_custom_title (switcher);
