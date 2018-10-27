@@ -238,7 +238,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
     }
     
     private void redraft_post () {
-        redrafting.poof ().finished.connect (publish_post);
+        redrafting.poof (false).finished.connect (publish_post);
     }
 
 }
