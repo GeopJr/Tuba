@@ -43,15 +43,15 @@ public class Tootle.InstanceAccount : GLib.Object {
         builder.set_member_name ("hash");
         builder.add_string_value ("test");
         builder.set_member_name ("username");
-        builder.add_string_value (this.username);
+        builder.add_string_value (username);
         builder.set_member_name ("instance");
-        builder.add_string_value (this.instance);
+        builder.add_string_value (instance);
         builder.set_member_name ("id");
-        builder.add_string_value (this.client_id);
+        builder.add_string_value (client_id);
         builder.set_member_name ("secret");
-        builder.add_string_value (this.client_secret);
+        builder.add_string_value (client_secret);
         builder.set_member_name ("token");
-        builder.add_string_value (this.token);
+        builder.add_string_value (token);
         builder.end_object ();
         return builder.get_root ();
     }

@@ -13,13 +13,20 @@ namespace Tootle {
     public static ImageCache image_cache;
     public static Watchlist watchlist;
 
+    public static bool start_hidden = false;
+
     public class Application : Granite.Application {
     
         public abstract signal void refresh ();
         public abstract signal void toast (string title);
         public abstract signal void error (string title, string text);
 
-        const GLib.ActionEntry[] app_entries = {
+        public const GLib.OptionEntry[] app_options = {
+            { "hidden", 0, 0, OptionArg.NONE, ref start_hidden, "Do not show main window on start", null },
+            { null }
+        };
+
+        public const GLib.ActionEntry[] app_entries = {
             {"compose-toot",    compose_toot_activated          },
             {"back",            back_activated                  },
             {"refresh",         refresh_activated               },
@@ -35,6 +42,16 @@ namespace Tootle {
 
         public static int main (string[] args) {
             Gtk.init (ref args);
+            
+            try {
+                var opt_context = new OptionContext ("- Options");
+                opt_context.add_main_entries (app_options, null);
+                opt_context.parse (ref args);
+            }
+            catch (GLib.OptionError e) {
+                warning (e.message);
+            }
+            
             app = new Application ();
             return app.run (args);
         }
@@ -66,8 +83,15 @@ namespace Tootle {
         }
         
         protected override void activate () {
-            if (window != null)
+            if (window != null) {
+                window.present ();
                 return;
+            }
+            
+            if (start_hidden) {
+                start_hidden = false;
+                return;
+            }
             
             debug ("Creating new window");
             if (accounts.is_empty ())

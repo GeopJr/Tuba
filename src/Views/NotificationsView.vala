@@ -29,14 +29,14 @@ public class Tootle.NotificationsView : AbstractView {
         if (empty != null)
             empty.destroy ();
     
-        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        var separator = new Gtk.Separator (Orientation.HORIZONTAL);
         separator.show ();
         
         var widget = new NotificationWidget (notification);
         widget.separator = separator;
         image.icon_name = Desktop.fallback_icon ("notification-new-symbolic", "user-available-symbolic");
-        view.pack_start(separator, false, false, 0);
-        view.pack_start(widget, false, false, 0);
+        view.pack_start (separator, false, false, 0);
+        view.pack_start (widget, false, false, 0);
         
         if (reverse) {
             view.reorder_child (widget, 0);
