@@ -79,7 +79,7 @@ public class Tootle.StatusView : AbstractView {
                     window.open_view (new StatusView (st));
                 }
                 else
-                    app.toast (_("Toot not found"));
+                    Desktop.open_uri (q);
             }
             catch (GLib.Error e) {
                 warning (e.message);
