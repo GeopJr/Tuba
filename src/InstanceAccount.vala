@@ -1,10 +1,13 @@
-public class Tootle.InstanceAccount : GLib.Object {
+using GLib;
+
+public class Tootle.InstanceAccount : Object {
 
     public string username {get; set;}
     public string instance {get; set;}
     public string client_id {get; set;}
     public string client_secret {get; set;}
     public string token {get; set;}
+    public bool has_unread {get; set;}
 
     private Notificator? notificator;
 
@@ -52,6 +55,8 @@ public class Tootle.InstanceAccount : GLib.Object {
         builder.add_string_value (client_secret);
         builder.set_member_name ("token");
         builder.add_string_value (token);
+        builder.set_member_name ("has_unread");
+        builder.add_boolean_value (has_unread);
         builder.end_object ();
         return builder.get_root ();
     }
@@ -63,6 +68,7 @@ public class Tootle.InstanceAccount : GLib.Object {
         acc.client_id = obj.get_string_member ("id");
         acc.client_secret = obj.get_string_member ("secret");
         acc.token = obj.get_string_member ("token");
+        acc.has_unread = obj.get_boolean_member ("has_unread");
         return acc;
     }
     

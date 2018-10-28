@@ -2,11 +2,12 @@ using Gtk;
 
 public abstract class Tootle.AbstractView : ScrolledWindow {
 
+    public bool current = false;
     public int stack_pos = -1;
     public Image? image;
     public Box view;
     protected Box? empty;
-    protected Gtk.Grid? header;
+    protected Grid? header;
 
     construct {
         view = new Box (Orientation.VERTICAL, 0);
@@ -14,9 +15,9 @@ public abstract class Tootle.AbstractView : ScrolledWindow {
         add (view);
         
         hscrollbar_policy = PolicyType.NEVER;
-        edge_reached.connect(pos => {
+        edge_reached.connect (pos => {
             if (pos == PositionType.BOTTOM)
-                bottom_reached ();
+                on_bottom_reached ();
         });
     }
 
@@ -39,7 +40,8 @@ public abstract class Tootle.AbstractView : ScrolledWindow {
         });
     }
     
-    public virtual void bottom_reached (){}
+    public virtual void on_bottom_reached () {}
+    public virtual void on_set_current () {}
     
     public virtual bool is_empty () {
         return view.get_children ().length () <= 1;

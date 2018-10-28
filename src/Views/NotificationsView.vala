@@ -14,7 +14,10 @@ public class Tootle.NotificationsView : AbstractView {
     }
     
     public override string get_icon () {
-        return Desktop.fallback_icon ("notification-symbolic", "user-invisible-symbolic");
+        if (accounts.formal == null || !accounts.formal.has_unread)
+            return Desktop.fallback_icon ("notification-symbolic", "user-invisible-symbolic");
+        else
+            return Desktop.fallback_icon ("notification-new-symbolic", "user-available-symbolic");
     }
     
     public override string get_name () {
@@ -34,7 +37,6 @@ public class Tootle.NotificationsView : AbstractView {
         
         var widget = new NotificationWidget (notification);
         widget.separator = separator;
-        image.icon_name = Desktop.fallback_icon ("notification-new-symbolic", "user-available-symbolic");
         view.pack_start (separator, false, false, 0);
         view.pack_start (widget, false, false, 0);
         
@@ -42,6 +44,21 @@ public class Tootle.NotificationsView : AbstractView {
             view.reorder_child (widget, 0);
             view.reorder_child (separator, 0);
         }
+        
+        if (!current && reverse) {
+            accounts.formal.has_unread = true;
+            accounts.save ();
+        }
+        image.icon_name = get_icon ();
+    }
+    
+    public override void on_set_current () {
+        var account = accounts.formal;
+        if (account != null && account.has_unread) {
+            account.has_unread = false;
+            accounts.save ();
+        }
+        image.icon_name = get_icon ();
     }
     
     public virtual void on_remove (Widget widget) {

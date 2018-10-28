@@ -83,7 +83,7 @@ public class Tootle.Accounts : Object {
             switch_account (settings.current_account);
     }
     
-    private void save (bool overwrite = true) {
+    public void save (bool overwrite = true) {
         try {
             var dir = File.new_for_path (dir_path);
             if (!dir.query_exists ())

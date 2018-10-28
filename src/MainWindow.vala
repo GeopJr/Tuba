@@ -50,22 +50,20 @@ public class Tootle.MainWindow: Gtk.Window {
         
         button_toot = new Button ();
         button_toot.tooltip_text = _("Toot");
-        button_toot.image = new Gtk.Image.from_icon_name ("document-edit-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+        button_toot.image = new Image.from_icon_name ("document-edit-symbolic", IconSize.LARGE_TOOLBAR);
         button_toot.clicked.connect (() => PostDialog.open ());
 
         button_mode = new Granite.Widgets.ModeButton ();
         button_mode.get_style_context ().add_class ("mode");
         button_mode.vexpand = true;
-        button_mode.valign = Gtk.Align.FILL;
-        button_mode.mode_changed.connect (widget => {
-            secondary_stack.set_visible_child_name (widget.tooltip_text);
-        });
+        button_mode.valign = Align.FILL;
+        button_mode.mode_changed.connect (on_mode_changed);
         button_mode.show ();
         
-        header = new Gtk.HeaderBar ();
+        header = new HeaderBar ();
         header.get_style_context ().add_class ("compact");
         header.show_close_button = true;
-        header.title = "Tootle";
+        header.title = _("Tootle");
         header.custom_title = button_mode;
         header.pack_start (button_back);
         header.pack_start (button_toot);
@@ -73,7 +71,7 @@ public class Tootle.MainWindow: Gtk.Window {
         header.pack_end (spinner);
         header.show_all ();
         
-        grid = new Gtk.Grid ();
+        grid = new Grid ();
         grid.attach (primary_stack, 0, 0, 1, 1);
         
         add_header_view (home);
@@ -83,7 +81,7 @@ public class Tootle.MainWindow: Gtk.Window {
         button_mode.set_active (0);
         
         toast = new Granite.Widgets.Toast ("");
-        overlay = new Gtk.Overlay ();
+        overlay = new Overlay ();
         overlay.add_overlay (grid);
         overlay.add_overlay (toast);
         overlay.set_size_request (450, 600);
@@ -113,7 +111,7 @@ public class Tootle.MainWindow: Gtk.Window {
     }
     
     private void add_header_view (AbstractView view) {
-        var img = new Gtk.Image.from_icon_name (view.get_icon (), Gtk.IconSize.LARGE_TOOLBAR);
+        var img = new Image.from_icon_name (view.get_icon (), IconSize.LARGE_TOOLBAR);
         img.tooltip_text = view.get_name ();
         button_mode.append (img);
         view.image = img;
@@ -156,11 +154,6 @@ public class Tootle.MainWindow: Gtk.Window {
         }
     }
     
-    private void on_toast (string msg){
-        toast.title = msg;
-        toast.send_notification ();
-    }
-    
     public override bool delete_event (Gdk.EventAny event) {
         this.destroy.connect (() => {
             if (!settings.always_online || accounts.is_empty ())
@@ -168,6 +161,10 @@ public class Tootle.MainWindow: Gtk.Window {
             window = null;
         });
         return false;
+    }
+    
+    public void switch_timeline (int32 timeline_no) {
+        button_mode.set_active (timeline_no);
     }
     
     private void update_theme () {
@@ -188,7 +185,20 @@ public class Tootle.MainWindow: Gtk.Window {
         button_accounts.set_visible (true);
     }
 
-    public void switch_timeline (int32 timeline_no) {
-        button_mode.set_active (timeline_no);
+    private void on_toast (string msg){
+        toast.title = msg;
+        toast.send_notification ();
     }
+
+    private void on_mode_changed (Widget widget) {
+        var visible = secondary_stack.get_visible_child () as AbstractView;
+        visible.current = false;
+        
+        secondary_stack.set_visible_child_name (widget.tooltip_text);
+        
+        visible = secondary_stack.get_visible_child () as AbstractView;
+        visible.current = true;
+        visible.on_set_current ();
+    }
+
 }

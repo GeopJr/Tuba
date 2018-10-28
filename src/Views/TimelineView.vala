@@ -187,7 +187,7 @@ public class Tootle.TimelineView : AbstractView {
         return settings.live_updates && allowed_public;
     }
     
-    protected override void bottom_reached (){
+    protected override void on_bottom_reached () {
         if (is_last_page) {
             debug ("Last page reached");
             return;
