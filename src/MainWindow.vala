@@ -44,11 +44,13 @@ public class Tootle.MainWindow: Gtk.Window {
         button_accounts = new AccountsButton ();
         
         button_back = new Button ();
+        button_back.valign = Align.CENTER;
         button_back.label = _("Back");
         button_back.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
         button_back.clicked.connect (() => back ());
         
         button_toot = new Button ();
+        button_toot.valign = Align.CENTER;
         button_toot.tooltip_text = _("Toot");
         button_toot.image = new Image.from_icon_name ("document-edit-symbolic", IconSize.LARGE_TOOLBAR);
         button_toot.clicked.connect (() => PostDialog.open ());
