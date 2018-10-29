@@ -19,9 +19,9 @@ public class Tootle.Notification{
         notification.created_at = obj.get_string_member ("created_at");
         
         if (obj.has_member ("status"))
-            notification.status = Status.parse(obj.get_object_member ("status"));
+            notification.status = Status.parse (obj.get_object_member ("status"));
         if (obj.has_member ("account"))
-            notification.account = Account.parse(obj.get_object_member ("account"));
+            notification.account = Account.parse (obj.get_object_member ("account"));
         
         return notification;
     }

@@ -3,6 +3,9 @@ using Gdk;
 
 public class Tootle.NotificationsView : AbstractView {
 
+    private int64 last_id = 0;
+    private bool force_dot = false;
+
     public NotificationsView () {
         base ();
         view.remove.connect (on_remove);
@@ -13,11 +16,18 @@ public class Tootle.NotificationsView : AbstractView {
         request ();
     }
     
-    public override string get_icon () {
-        if (accounts.formal == null || !accounts.formal.has_unread)
-            return Desktop.fallback_icon ("notification-symbolic", "user-invisible-symbolic");
+    private bool has_unread () {
+        if (accounts.formal == null)
+            return false;
         else
+            return last_id > accounts.formal.last_seen_notification || force_dot;
+    }
+    
+    public override string get_icon () {
+        if (has_unread ())
             return Desktop.fallback_icon ("notification-new-symbolic", "user-available-symbolic");
+        else
+            return Desktop.fallback_icon ("notification-symbolic", "user-invisible-symbolic");
     }
     
     public override string get_name () {
@@ -43,28 +53,34 @@ public class Tootle.NotificationsView : AbstractView {
         if (reverse) {
             view.reorder_child (widget, 0);
             view.reorder_child (separator, 0);
+            force_dot = true;
+            accounts.formal.has_unread_notifications = force_dot;
         }
         
-        if (!current && reverse) {
-            accounts.formal.has_unread = true;
+        if (notification.id > last_id)
+            last_id = notification.id;
+        
+        if (has_unread ()) {
             accounts.save ();
+            image.icon_name = get_icon ();
         }
-        image.icon_name = get_icon ();
     }
     
     public override void on_set_current () {
         var account = accounts.formal;
-        if (account != null && account.has_unread) {
-            account.has_unread = false;
+        if (has_unread ()) {
+            force_dot = false;
+            account.has_unread_notifications = force_dot;
+            account.last_seen_notification = last_id;
             accounts.save ();
+            image.icon_name = get_icon ();
         }
-        image.icon_name = get_icon ();
     }
     
     public virtual void on_remove (Widget widget) {
         if (!(widget is NotificationWidget))
             return;
-
+        
         empty_state ();
     }
     
@@ -85,6 +101,8 @@ public class Tootle.NotificationsView : AbstractView {
         if (account == null)
             return;
         
+        last_id = accounts.formal.last_seen_notification;
+        force_dot = accounts.formal.has_unread_notifications;
         on_refresh ();
     }
     

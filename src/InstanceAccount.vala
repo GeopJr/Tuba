@@ -7,8 +7,9 @@ public class Tootle.InstanceAccount : Object {
     public string client_id {get; set;}
     public string client_secret {get; set;}
     public string token {get; set;}
-    public bool has_unread {get; set;}
-
+    public int64 last_seen_notification {get; set; default = 0;}
+    public bool has_unread_notifications {get; set; default = false;}
+    
     private Notificator? notificator;
 
     public InstanceAccount () {}
@@ -28,6 +29,10 @@ public class Tootle.InstanceAccount : Object {
         notificator.status_removed.connect (status_removed);
         notificator.notification.connect (notification);
         notificator.start ();
+    }
+    
+    public bool is_current () {
+    	return accounts.formal.token == token;
     }
     
     public Soup.Message get_stream () {
@@ -55,8 +60,10 @@ public class Tootle.InstanceAccount : Object {
         builder.add_string_value (client_secret);
         builder.set_member_name ("token");
         builder.add_string_value (token);
-        builder.set_member_name ("has_unread");
-        builder.add_boolean_value (has_unread);
+        builder.set_member_name ("last_seen_notification");
+        builder.add_int_value (last_seen_notification);
+        builder.set_member_name ("has_unread_notifications");
+        builder.add_boolean_value (has_unread_notifications);
         builder.end_object ();
         return builder.get_root ();
     }
@@ -68,7 +75,8 @@ public class Tootle.InstanceAccount : Object {
         acc.client_id = obj.get_string_member ("id");
         acc.client_secret = obj.get_string_member ("secret");
         acc.token = obj.get_string_member ("token");
-        acc.has_unread = obj.get_boolean_member ("has_unread");
+        acc.last_seen_notification = obj.get_int_member ("last_seen_notification");
+        acc.has_unread_notifications = obj.get_boolean_member ("has_unread_notifications");
         return acc;
     }
     
@@ -86,27 +94,28 @@ public class Tootle.InstanceAccount : Object {
         if (settings.notifications)
             app.send_notification (app.application_id + ":" + obj.id.to_string (), notification);
         
-        if (accounts.formal.token == this.token)
+        if (is_current ())
             network.notification (obj);
     }
     
     private void status_removed (int64 id) {
-        if (accounts.formal.token == this.token)
+        if (is_current ())
             network.status_removed (id);
     }
     
     private void status_added (Status status) {
-        if (accounts.formal.token != this.token)
+        if (!is_current ())
             return;
         
-        var acct = status.account.acct;
-        var obj = new Notification (-1);
-        obj.type = NotificationType.WATCHLIST;
-        obj.account = status.account;
-        obj.status = status;
         watchlist.users.@foreach (item => {
-            if (item == acct || item == "@" + acct)
+        	var acct = status.account.acct;
+            if (item == acct || item == "@" + acct) {
+                var obj = new Notification (-1);
+                obj.type = NotificationType.WATCHLIST;
+                obj.account = status.account;
+                obj.status = status;
                 notification (obj);
+            }
             return true;
         });
     }
