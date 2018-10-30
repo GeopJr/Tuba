@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-30 19:17+0300\n"
-"PO-Revision-Date: 2018-07-31 21:23+0200\n"
+"PO-Revision-Date: 2018-10-30 22:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -152,9 +152,8 @@ msgid "Removed from favorites"
 msgstr "Von den Favoriten entfernt"
 
 #: src/API/Status.vala:204
-#, fuzzy
 msgid "Muted!"
-msgstr "Stummschalten"
+msgstr "Stummgeschaltet!"
 
 #: src/API/Status.vala:206
 msgid "Conversation unmuted"
@@ -162,12 +161,11 @@ msgstr "Konversation nicht mehr stummgeschaltet"
 
 #: src/API/Status.vala:219
 msgid "Pinned!"
-msgstr ""
+msgstr "Angepinnt!"
 
 #: src/API/Status.vala:221
-#, fuzzy
 msgid "Unpinned from profile"
-msgstr "Profil bearbeiten"
+msgstr "Vom Profil losgelöst"
 
 #: src/API/Status.vala:231
 msgid "Poof!"
@@ -327,14 +325,12 @@ msgid "Copy Text"
 msgstr "Text kopieren"
 
 #: src/Widgets/StatusWidget.vala:300
-#, fuzzy
 msgid "Unpin from Profile"
-msgstr "Profil bearbeiten"
+msgstr "Vom Profil loslösen"
 
 #: src/Widgets/StatusWidget.vala:300
-#, fuzzy
 msgid "Pin on Profile"
-msgstr "Profil bearbeiten"
+msgstr "An Profil anheften"
 
 #: src/Widgets/StatusWidget.vala:304
 msgid "Delete"
@@ -342,7 +338,7 @@ msgstr "Löschen"
 
 #: src/Widgets/StatusWidget.vala:308 src/Dialogs/PostDialog.vala:72
 msgid "Redraft"
-msgstr ""
+msgstr "Neu verfassen"
 
 #: src/Dialogs/NewAccountDialog.vala:27
 msgid "New Account"
@@ -444,21 +440,19 @@ msgid "_Close"
 msgstr "_Close"
 
 #: src/Dialogs/WatchlistDialog.vala:20
-#, fuzzy
 msgid ""
 "You'll be notified when toots from this user appear in your Home timeline."
 msgstr ""
-"Du wirst benachrichtigt wenn neue Beiträge von dem Nutzer in deiner "
-"Startseite erscheinen."
+"Du wirst benachrichtigt wenn Beiträge von dem Nutzer in deiner Startseite "
+"erscheinen."
 
 #: src/Dialogs/WatchlistDialog.vala:21
-#, fuzzy
 msgid ""
 "You'll be notified when toots with this hashtag appear in any public "
 "timelines."
 msgstr ""
-"Du wirst benachrichtigt wenn Beiträge mit spezifischen Hashtags in "
-"irgendwelchen öffentlichen Zeitleisten geteilt werden."
+"Du wirst benachrichtigt wenn Beiträge mit diesem Hashtag in irgendwelchen "
+"öffentlichen Zeitleisten geteilt werden."
 
 #: src/Dialogs/WatchlistDialog.vala:137
 msgid "Users"
