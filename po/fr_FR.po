@@ -83,7 +83,7 @@ msgstr "Erreur"
 
 #: src/Desktop.vala:46
 msgid "Media downloaded"
-msgstr ""
+msgstr "Média téléchargés"
 
 #: src/MainWindow.vala:48
 msgid "Back"
@@ -155,20 +155,20 @@ msgstr "Supprimé des favoris"
 #: src/API/Status.vala:204
 #, fuzzy
 msgid "Muted!"
-msgstr "Masquer"
+msgstr "Masqué!"
 
 #: src/API/Status.vala:206
 msgid "Conversation unmuted"
-msgstr "Discussion visible "
+msgstr "Discussion visible"
 
 #: src/API/Status.vala:219
 msgid "Pinned!"
-msgstr ""
+msgstr "Épinglé!"
 
 #: src/API/Status.vala:221
 #, fuzzy
 msgid "Unpinned from profile"
-msgstr "Éditer votre profil"
+msgstr "Désépinglé du profil"
 
 #: src/API/Status.vala:231
 msgid "Poof!"
@@ -208,7 +208,7 @@ msgstr "Chercher"
 
 #: src/Widgets/AccountsButton.vala:83
 msgid "Watchlist"
-msgstr ""
+msgstr "Liste de veille"
 
 #: src/Widgets/AccountsButton.vala:87 src/Dialogs/SettingsDialog.vala:18
 msgid "Settings"
@@ -309,7 +309,7 @@ msgstr "Afficher le contenu"
 
 #: src/Widgets/StatusWidget.vala:165
 msgid "[ This post contains sensitive content ]"
-msgstr "[ message à contenu sensible]"
+msgstr "[ Message à contenu sensible]"
 
 #: src/Widgets/StatusWidget.vala:234
 msgid "This post can't be boosted"
@@ -330,12 +330,12 @@ msgstr "Copier le texte"
 #: src/Widgets/StatusWidget.vala:300
 #, fuzzy
 msgid "Unpin from Profile"
-msgstr "Éditer votre profil"
+msgstr "Désépingler du profil"
 
 #: src/Widgets/StatusWidget.vala:300
 #, fuzzy
 msgid "Pin on Profile"
-msgstr "Éditer votre profil"
+msgstr "Épingler sur le profil"
 
 #: src/Widgets/StatusWidget.vala:304
 msgid "Delete"
@@ -343,7 +343,7 @@ msgstr "Supprimer"
 
 #: src/Widgets/StatusWidget.vala:308 src/Dialogs/PostDialog.vala:72
 msgid "Redraft"
-msgstr ""
+msgstr "Réecrire"
 
 #: src/Dialogs/NewAccountDialog.vala:27
 msgid "New Account"
@@ -447,17 +447,17 @@ msgstr "_Fermer"
 #: src/Dialogs/WatchlistDialog.vala:20
 msgid ""
 "You'll be notified when toots from this user appear in your Home timeline."
-msgstr ""
+msgstr "Vous serez averti lorsque des messages de cet utilisateur apparaîtront sur votre fil d'actualité". 
 
 #: src/Dialogs/WatchlistDialog.vala:21
 msgid ""
 "You'll be notified when toots with this hashtag appear in any public "
 "timelines."
-msgstr ""
+msgstr "Vous serez averti lorsque des toots contenant ce hashtag apparaîtront dans n'importe quel fil public."
 
 #: src/Dialogs/WatchlistDialog.vala:137
 msgid "Users"
-msgstr ""
+msgstr "Utilisateurs"
 
 #: src/Dialogs/WatchlistDialog.vala:138 src/Views/SearchView.vala:100
 msgid "Hashtags"
@@ -465,7 +465,7 @@ msgstr "Hashtags"
 
 #: src/Dialogs/WatchlistDialog.vala:148
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: src/Views/AbstractView.vala:59
 msgid "Nothing to see here"
@@ -568,7 +568,7 @@ msgstr "Statuts"
 
 #, fuzzy
 #~ msgid "Pinned on Profile"
-#~ msgstr "Éditer votre profil"
+#~ msgstr "Épinglé sur le profil"
 
 #~ msgid "Toot not found"
 #~ msgstr "Message non trouvé"
