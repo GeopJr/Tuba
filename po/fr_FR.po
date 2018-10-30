@@ -447,7 +447,7 @@ msgstr "_Fermer"
 #: src/Dialogs/WatchlistDialog.vala:20
 msgid ""
 "You'll be notified when toots from this user appear in your Home timeline."
-msgstr "Vous serez averti lorsque des messages de cet utilisateur apparaîtront sur votre fil d'actualité". 
+msgstr "Vous serez averti lorsque des messages de cet utilisateur apparaîtront sur votre fil d'actualité."
 
 #: src/Dialogs/WatchlistDialog.vala:21
 msgid ""
