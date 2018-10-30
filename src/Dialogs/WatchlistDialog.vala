@@ -1,7 +1,7 @@
 using Gtk;
 using Tootle;
 
-public class Tootle.WatchlistDialog : Gtk.Window {
+public class Tootle.WatchlistDialog : Gtk.Dialog {
 
     private static WatchlistDialog dialog;
 
@@ -121,8 +121,10 @@ public class Tootle.WatchlistDialog : Gtk.Window {
 
     public WatchlistDialog () {
         deletable = true;
-        resizable = true;
+        resizable = false;
         transient_for = window;
+        
+        var content = get_content_area ();
         
         stack = new Stack ();
         stack.transition_type = StackTransitionType.SLIDE_LEFT_RIGHT;
@@ -134,7 +136,8 @@ public class Tootle.WatchlistDialog : Gtk.Window {
         
         stack.add_titled (users, "users", _("Users"));
         stack.add_titled (hashtags, "hashtags", _("Hashtags"));
-        stack.set_size_request (400, 300);
+        stack.set_size_request (350, 400);
+        content.pack_start (stack, true, true, 0);
         
         popover_entry = new Entry ();
         popover_entry.hexpand = true;
@@ -172,12 +175,9 @@ public class Tootle.WatchlistDialog : Gtk.Window {
         header.set_custom_title (switcher);
         set_titlebar (header);
         
-        add (stack);
         show_all ();
         
-        destroy.connect (() => {
-            dialog = null;
-        });
+        destroy.connect (() => dialog = null);
     }
     
     private void submit () {
