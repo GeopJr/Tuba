@@ -54,6 +54,38 @@ public class Tootle.Account{
         return account;
     }
     
+    public Json.Node? serialize () {
+        var builder = new Json.Builder ();
+        builder.begin_object ();
+        builder.set_member_name ("id");
+        builder.add_string_value (id.to_string ());
+        builder.set_member_name ("created_at");
+        builder.add_string_value (created_at);
+        builder.set_member_name ("following_count");
+        builder.add_int_value (following_count);
+        builder.set_member_name ("followers_count");
+        builder.add_int_value (followers_count);
+        builder.set_member_name ("statuses_count");
+        builder.add_int_value (statuses_count);
+        builder.set_member_name ("display_name");
+        builder.add_string_value (display_name);
+        builder.set_member_name ("username");
+        builder.add_string_value (username);
+        builder.set_member_name ("acct");
+        builder.add_string_value (acct);
+        builder.set_member_name ("note");
+        builder.add_string_value (note);
+        builder.set_member_name ("header");
+        builder.add_string_value (header);
+        builder.set_member_name ("avatar");
+        builder.add_string_value (avatar);
+        builder.set_member_name ("url");
+        builder.add_string_value (url);
+        
+        builder.end_object ();
+        return builder.get_root ();
+    }
+    
     public bool is_self (){
         return id == Tootle.accounts.current.id;
     }

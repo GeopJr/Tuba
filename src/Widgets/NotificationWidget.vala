@@ -1,7 +1,7 @@
 using Gtk;
 using Granite;
 
-public class Tootle.NotificationWidget : Gtk.Grid {
+public class Tootle.NotificationWidget : Grid {
     
     private Notification notification;
 
@@ -14,13 +14,13 @@ public class Tootle.NotificationWidget : Gtk.Grid {
     construct {
         margin = 6;
         
-        image = new Gtk.Image.from_icon_name ("notification-symbolic", Gtk.IconSize.BUTTON);
+        image = new Image.from_icon_name ("notification-symbolic", IconSize.BUTTON);
         image.margin_start = 32;
         image.margin_end = 6;
         label = new RichLabel (_("Unknown Notification"));
         label.hexpand = true;
-        label.halign = Gtk.Align.START;
-        dismiss = new Gtk.Button.from_icon_name ("close-symbolic", Gtk.IconSize.BUTTON);
+        label.halign = Align.START;
+        dismiss = new Button.from_icon_name ("close-symbolic", IconSize.BUTTON);
         dismiss.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         dismiss.tooltip_text = _("Dismiss");
         dismiss.clicked.connect (() => {
@@ -28,24 +28,20 @@ public class Tootle.NotificationWidget : Gtk.Grid {
             destroy ();
         });
         
-        attach(image, 1, 2);
-        attach(label, 2, 2);
-        attach(dismiss, 3, 2);
-        show_all();
+        attach (image, 1, 2);
+        attach (label, 2, 2);
+        attach (dismiss, 3, 2);
+        show_all ();
     }
 
-    public NotificationWidget (Notification notification) {
-        this.notification = notification;
+    public NotificationWidget (Notification _notification) {
+        notification = _notification;
         image.icon_name = notification.type.get_icon ();
         label.set_label (notification.type.get_desc (notification.account));
         get_style_context ().add_class ("notification");
         
-        if (notification.status != null) {
-            network.status_removed.connect (id => {
-                if (id == notification.status.id)
-                    destroy ();
-            });
-        }
+        if (notification.status != null)
+            network.status_removed.connect (on_status_removed);
         
         destroy.connect (() => {
             if (separator != null)
@@ -57,20 +53,20 @@ public class Tootle.NotificationWidget : Gtk.Grid {
         if (notification.status != null){
             status_widget = new StatusWidget (notification.status);
             status_widget.is_notification = true;
-            status_widget.button_press_event.connect(status_widget.open);
-            status_widget.avatar.button_press_event.connect(status_widget.open_account);
-            attach(status_widget, 1, 3, 3, 1);
+            status_widget.button_press_event.connect (status_widget.open);
+            status_widget.avatar.button_press_event.connect (status_widget.open_account);
+            attach (status_widget, 1, 3, 3, 1);
         }
         
         if (notification.type == NotificationType.FOLLOW_REQUEST) {
-            var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            var box = new Box (Orientation.HORIZONTAL, 6);
             box.margin_start = 32 + 16 + 8;
-            var accept = new Gtk.Button.with_label (_("Accept"));
+            var accept = new Button.with_label (_("Accept"));
             box.pack_start (accept, false, false, 0);
-            var reject = new Gtk.Button.with_label (_("Reject"));
+            var reject = new Button.with_label (_("Reject"));
             box.pack_start (reject, false, false, 0);
             
-            attach(box, 1, 3, 3, 1);
+            attach (box, 1, 3, 3, 1);
             box.show_all ();
             
             accept.clicked.connect (() => {
@@ -81,6 +77,15 @@ public class Tootle.NotificationWidget : Gtk.Grid {
                 destroy ();
                 notification.reject_follow_request ();
             });
+        }
+    }
+    
+    private void on_status_removed (int64 id) {
+        if (id == notification.status.id) {
+            if (notification.type == NotificationType.WATCHLIST)
+                notification.dismiss ();
+            
+            destroy ();
         }
     }
 

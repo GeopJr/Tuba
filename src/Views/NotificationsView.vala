@@ -53,8 +53,11 @@ public class Tootle.NotificationsView : AbstractView {
         if (reverse) {
             view.reorder_child (widget, 0);
             view.reorder_child (separator, 0);
-            force_dot = true;
-            accounts.formal.has_unread_notifications = force_dot;
+            
+            if (!current) {
+                force_dot = true;
+                accounts.formal.has_unread_notifications = force_dot;
+            }
         }
         
         if (notification.id > last_id)
@@ -94,6 +97,10 @@ public class Tootle.NotificationsView : AbstractView {
 
     public virtual void on_refresh () {
         clear ();
+        accounts.formal.cached_notifications.@foreach (notification => {
+            append (notification);
+            return true;
+        });
         request ();
     }
 

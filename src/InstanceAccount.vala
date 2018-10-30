@@ -1,4 +1,5 @@
 using GLib;
+using Gee;
 
 public class Tootle.InstanceAccount : Object {
 
@@ -7,12 +8,16 @@ public class Tootle.InstanceAccount : Object {
     public string client_id {get; set;}
     public string client_secret {get; set;}
     public string token {get; set;}
+    
     public int64 last_seen_notification {get; set; default = 0;}
     public bool has_unread_notifications {get; set; default = false;}
+    public ArrayList<Notification> cached_notifications {get; set;}
     
     private Notificator? notificator;
 
-    public InstanceAccount () {}
+    public InstanceAccount () {
+        cached_notifications = new ArrayList<Notification> ();
+    }
     
     public string get_pretty_instance () {
         return instance
@@ -64,6 +69,17 @@ public class Tootle.InstanceAccount : Object {
         builder.add_int_value (last_seen_notification);
         builder.set_member_name ("has_unread_notifications");
         builder.add_boolean_value (has_unread_notifications);
+        
+        builder.set_member_name ("cached_notifications");
+        builder.begin_array ();
+        cached_notifications.@foreach (notification => {
+            var node = notification.serialize ();
+            if (node != null)
+                builder.add_value (node);
+            return true;
+        });
+        builder.end_array ();
+        
         builder.end_object ();
         return builder.get_root ();
     }
@@ -77,6 +93,13 @@ public class Tootle.InstanceAccount : Object {
         acc.token = obj.get_string_member ("token");
         acc.last_seen_notification = obj.get_int_member ("last_seen_notification");
         acc.has_unread_notifications = obj.get_boolean_member ("has_unread_notifications");
+        
+        var notifications = obj.get_array_member ("cached_notifications");
+        notifications.foreach_element ((arr, i, node) => {
+            var notification = Notification.parse (node.get_object ());
+            acc.cached_notifications.add (notification);
+        });
+        
         return acc;
     }
     
@@ -96,6 +119,11 @@ public class Tootle.InstanceAccount : Object {
         
         if (is_current ())
             network.notification (obj);
+            
+        if (obj.type == NotificationType.WATCHLIST) {
+            cached_notifications.add (obj);
+            accounts.save ();
+        }
     }
     
     private void status_removed (int64 id) {

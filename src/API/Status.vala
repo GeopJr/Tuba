@@ -86,6 +86,61 @@ public class Tootle.Status {
         return status;
     }
     
+    public Json.Node? serialize () {
+        var builder = new Json.Builder ();
+        builder.begin_object ();
+        builder.set_member_name ("id");
+        builder.add_string_value (id.to_string ());
+        builder.set_member_name ("uri");
+        builder.add_string_value (uri);
+        builder.set_member_name ("url");
+        builder.add_string_value (url);
+        builder.set_member_name ("content");
+        builder.add_string_value (content);
+        builder.set_member_name ("created_at");
+        builder.add_string_value (created_at);
+        builder.set_member_name ("visibility");
+        builder.add_string_value (visibility.to_string ());
+        builder.set_member_name ("sensitive");
+        builder.add_boolean_value (sensitive);
+        builder.set_member_name ("sensitive");
+        builder.add_boolean_value (sensitive);
+        builder.set_member_name ("replies_count");
+        builder.add_int_value (replies_count);
+        builder.set_member_name ("favourites_count");
+        builder.add_int_value (favourites_count);
+        builder.set_member_name ("reblogs_count");
+        builder.add_int_value (reblogs_count);
+        builder.set_member_name ("account");
+        builder.add_value (account.serialize ());
+        
+        if (spoiler_text != null) {
+            builder.set_member_name ("spoiler_text");
+            builder.add_string_value (spoiler_text);
+        }
+        if (reblog != null) {
+            builder.set_member_name ("reblog");
+            builder.add_value (reblog.serialize ());
+        }
+        if (attachments != null) {
+            builder.set_member_name ("media_attachments");
+            builder.begin_array ();
+            foreach (Attachment attachment in attachments)
+                builder.add_value (attachment.serialize ());
+            builder.end_array ();
+        }
+        if (mentions != null) {
+            builder.set_member_name ("mentions");
+            builder.begin_array ();
+            foreach (Mention mention in mentions)
+                builder.add_value (mention.serialize ());
+            builder.end_array ();
+        }
+        
+        builder.end_object ();
+        return builder.get_root ();
+    }
+    
     public bool is_owned (){
         return get_formal ().account.id == accounts.current.id;
     }

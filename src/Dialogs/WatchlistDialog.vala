@@ -17,8 +17,8 @@ public class Tootle.WatchlistDialog : Gtk.Dialog {
     private Entry popover_entry;
     private Button popover_button;
 
-    private const string TIP_USERS = _("You'll be notified when toots from specific users appear in your Home timeline.");
-    private const string TIP_HASHTAGS = _("You'll be notified when toots with specific hashtags are posted in any public timelines.");
+    private const string TIP_USERS = _("You'll be notified when toots from this user appear in your Home timeline.");
+    private const string TIP_HASHTAGS = _("You'll be notified when toots with this hashtag appear in any public timelines.");
 
     private class ModelItem : GLib.Object {
         public string name;
