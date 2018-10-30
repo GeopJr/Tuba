@@ -201,7 +201,7 @@ public class Tootle.Status {
             muted = mute;
             updated ();
             if (mute)
-                app.toast (_("Conversation muted"));
+                app.toast (_("Muted!"));
             else
                 app.toast (_("Conversation unmuted"));
         });
@@ -216,9 +216,9 @@ public class Tootle.Status {
             pinned = pin;
             updated ();
             if (pin)
-                app.toast (_("Pinned on Profile"));
+                app.toast (_("Pinned!"));
             else
-                app.toast (_("Unpinned from Profile"));
+                app.toast (_("Unpinned from profile"));
         });
         network.queue (msg);
     }

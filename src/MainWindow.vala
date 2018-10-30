@@ -9,7 +9,7 @@ public class Tootle.MainWindow: Gtk.Window {
     private Stack secondary_stack;
     
     public HeaderBar header;
-    private Granite.Widgets.ModeButton button_mode;
+    public Granite.Widgets.ModeButton button_mode;
     private AccountsButton button_accounts;
     private Spinner spinner;
     private Button button_toot;

@@ -3,16 +3,17 @@ using Gtk;
 public class Tootle.SearchView : AbstractView {
 
     private string query = "";
-    private Gtk.Entry entry;
+    private Entry entry;
 
     construct {
         view.margin_bottom = 6;
         
-        entry = new Gtk.Entry ();
+        entry = new Entry ();
         entry.placeholder_text = _("Search");
         entry.secondary_icon_name = "system-search-symbolic";
         entry.width_chars = 25;
         entry.text = query;
+        entry.valign = Align.CENTER;
         entry.show ();
         window.header.pack_start (entry);
         
@@ -37,9 +38,9 @@ public class Tootle.SearchView : AbstractView {
     }
     
     private void append_header (string name) {
-        var widget = new Gtk.Label (name);
+        var widget = new Label (name);
         widget.get_style_context ().add_class ("h4");
-        widget.halign = Gtk.Align.START;
+        widget.halign = Align.START;
         widget.margin = 6;
         widget.margin_bottom = 0;
         widget.show ();
@@ -50,7 +51,7 @@ public class Tootle.SearchView : AbstractView {
         var text = "<a href=\"%s/tags/%s\">#%s</a>".printf (accounts.formal.instance, Soup.URI.encode (name, null), name);
         var widget = new RichLabel (text);
         widget.use_markup = true;
-        widget.halign = Gtk.Align.START;
+        widget.halign = Align.START;
         widget.margin = 6;
         widget.margin_bottom = 0;
         widget.show ();

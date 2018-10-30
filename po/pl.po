@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-14 11:44+0300\n"
+"POT-Creation-Date: 2018-10-30 19:17+0300\n"
 "PO-Revision-Date: 2018-07-16 11:22+0200\n"
 "Last-Translator: Marcin Mikołajczak <me@m4sk.in>\n"
 "Language-Team: Polish\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 2.0.9\n"
 
 #: data/com.github.bleakgrey.tootle.desktop.in:4
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:7
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:7 src/MainWindow.vala:68
 msgid "Tootle"
 msgstr "Tootle"
 
@@ -74,8 +74,8 @@ msgstr ""
 msgid "bleak_grey"
 msgstr "bleak_grey"
 
-#: src/Desktop.vala:10 src/API/Account.vala:91 src/API/Account.vala:110
-#: src/API/Account.vala:129 src/Dialogs/NewAccountDialog.vala:104
+#: src/Desktop.vala:10 src/API/Account.vala:123 src/API/Account.vala:142
+#: src/API/Account.vala:161 src/Dialogs/NewAccountDialog.vala:102
 msgid "Error"
 msgstr "Błąd"
 
@@ -83,23 +83,23 @@ msgstr "Błąd"
 msgid "Media downloaded"
 msgstr "Pobrano zawartość multimedialną"
 
-#: src/MainWindow.vala:47
+#: src/MainWindow.vala:48
 msgid "Back"
 msgstr "Wróć"
 
-#: src/MainWindow.vala:52 src/Dialogs/PostDialog.vala:29
+#: src/MainWindow.vala:54 src/Dialogs/PostDialog.vala:29
 msgid "Toot"
 msgstr "Wyślij"
 
-#: src/Network.vala:60
+#: src/Network.vala:58
 msgid "TLS Error"
 msgstr "Błąd TLS"
 
-#: src/Network.vala:60
+#: src/Network.vala:58
 msgid "Can't ensure secure connection: "
 msgstr "Nie można zapewnić bezpiecznego połączenia: "
 
-#: src/Network.vala:68
+#: src/Network.vala:66
 #, c-format
 msgid "Error: %s"
 msgstr "Błąd: %s"
@@ -134,31 +134,41 @@ msgstr "<a href=\"%s\"><b>%s</b></a> chce Cię śledzić"
 msgid "<a href=\"%s\"><b>%s</b></a> posted a toot"
 msgstr "<a href=\"%s\"><b>%s</b></a> utworzył wpis"
 
-#: src/API/Status.vala:114
+#: src/API/Status.vala:174
 msgid "Boosted!"
 msgstr "Podbito!"
 
-#: src/API/Status.vala:116
+#: src/API/Status.vala:176
 msgid "Removed boost"
 msgstr "Cofnięto podbicie"
 
-#: src/API/Status.vala:129
+#: src/API/Status.vala:189
 msgid "Favorited!"
 msgstr "Dodano do ulubionych!"
 
-#: src/API/Status.vala:131
+#: src/API/Status.vala:191
 msgid "Removed from favorites"
 msgstr "Usunięto z ulubionych"
 
-#: src/API/Status.vala:144
-msgid "Conversation muted"
-msgstr "Wyciszono konwersację"
+#: src/API/Status.vala:204
+#, fuzzy
+msgid "Muted!"
+msgstr "Wycisz"
 
-#: src/API/Status.vala:146
+#: src/API/Status.vala:206
 msgid "Conversation unmuted"
 msgstr "Cofnięto wyciszenie konwersacji"
 
-#: src/API/Status.vala:155
+#: src/API/Status.vala:219
+msgid "Pinned!"
+msgstr ""
+
+#: src/API/Status.vala:221
+#, fuzzy
+msgid "Unpinned from profile"
+msgstr "Edytuj profil"
+
+#: src/API/Status.vala:231
 msgid "Poof!"
 msgstr ""
 
@@ -202,50 +212,50 @@ msgstr "Lista obserwowanych"
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: src/Widgets/AccountsButton.vala:140
+#: src/Widgets/AccountsButton.vala:142
 msgid "<b>New Account</b>"
 msgstr "<b>Nowe konto</b>"
 
-#: src/Widgets/AccountsButton.vala:141
+#: src/Widgets/AccountsButton.vala:143
 msgid "Click to add"
 msgstr "Naciśnij aby dodać"
 
-#: src/Widgets/AccountWidget.vala:28 src/Widgets/AttachmentWidget.vala:130
-#: src/Widgets/StatusWidget.vala:273
+#: src/Widgets/AccountWidget.vala:24 src/Widgets/AttachmentWidget.vala:130
+#: src/Widgets/StatusWidget.vala:289
 msgid "Open in Browser"
 msgstr "Otwórz w przeglądarce"
 
-#: src/Widgets/AccountWidget.vala:30 src/Widgets/AttachmentWidget.vala:132
-#: src/Widgets/StatusWidget.vala:275
+#: src/Widgets/AccountWidget.vala:26 src/Widgets/AttachmentWidget.vala:132
+#: src/Widgets/StatusWidget.vala:291
 msgid "Copy Link"
 msgstr "Skopiuj odnośnik"
 
-#: src/Widgets/AttachmentBox.vala:40
+#: src/Widgets/AttachmentBox.vala:41
 msgid "Select media files to add"
 msgstr "Zaznacz pliki multimedialne do dodania"
 
-#: src/Widgets/AttachmentBox.vala:43
+#: src/Widgets/AttachmentBox.vala:44
 msgid "_Cancel"
 msgstr "_Anuluj"
 
-#: src/Widgets/AttachmentBox.vala:45
+#: src/Widgets/AttachmentBox.vala:46
 msgid "_Open"
 msgstr "_Otwórz"
 
-#: src/Widgets/AttachmentWidget.vala:66
+#: src/Widgets/AttachmentWidget.vala:67
 #, c-format
 msgid "Click to open %s media"
 msgstr "Naciśnij aby otworzyć %s multimediów"
 
-#: src/Widgets/AttachmentWidget.vala:83
+#: src/Widgets/AttachmentWidget.vala:84
 msgid "Uploading..."
 msgstr "Wysyłanie…"
 
-#: src/Widgets/AttachmentWidget.vala:104
+#: src/Widgets/AttachmentWidget.vala:105
 msgid "File read error"
 msgstr "Błąd odczytywania plików"
 
-#: src/Widgets/AttachmentWidget.vala:104
+#: src/Widgets/AttachmentWidget.vala:105
 #, c-format
 msgid "Can't read file %s: %s"
 msgstr "Nie można odczytać pliku %s: %s"
@@ -266,112 +276,126 @@ msgstr "Nieznane powiadomienie"
 msgid "Dismiss"
 msgstr "Pomiń"
 
-#: src/Widgets/NotificationWidget.vala:68
+#: src/Widgets/NotificationWidget.vala:64
 msgid "Accept"
 msgstr "Zaakceptuj"
 
-#: src/Widgets/NotificationWidget.vala:70
+#: src/Widgets/NotificationWidget.vala:66
 msgid "Reject"
 msgstr "Odrzuć"
 
-#: src/Widgets/StatusWidget.vala:76
+#: src/Widgets/StatusWidget.vala:84
 msgid "Boost"
 msgstr "Podbij"
 
-#: src/Widgets/StatusWidget.vala:83
+#: src/Widgets/StatusWidget.vala:91
 msgid "Favorite"
 msgstr "Dodaj do ulubionych"
 
-#: src/Widgets/StatusWidget.vala:90
+#: src/Widgets/StatusWidget.vala:98
 msgid "Reply"
 msgstr "Odpowiedz"
 
-#: src/Widgets/StatusWidget.vala:127
+#: src/Widgets/StatusWidget.vala:136
 #, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> boosted"
 msgstr "<a href=\"%s\"><b>%s</b></a> podbił"
 
-#: src/Widgets/StatusWidget.vala:142
+#: src/Widgets/StatusWidget.vala:151
 msgid "Toggle content"
 msgstr "Przełącz zawartość"
 
-#: src/Widgets/StatusWidget.vala:156
+#: src/Widgets/StatusWidget.vala:165
 msgid "[ This post contains sensitive content ]"
 msgstr "[ Ten wpis zawiera zawartość wrażliwą ]"
 
-#: src/Widgets/StatusWidget.vala:223
+#: src/Widgets/StatusWidget.vala:234
 msgid "This post can't be boosted"
 msgstr "Ten wpis nie może zostać podbity"
 
-#: src/Widgets/StatusWidget.vala:269
+#: src/Widgets/StatusWidget.vala:287
 msgid "Unmute Conversation"
 msgstr "Cofnij wyciszenie konwersacji"
 
-#: src/Widgets/StatusWidget.vala:269
+#: src/Widgets/StatusWidget.vala:287
 msgid "Mute Conversation"
 msgstr "Wycisz konwersację"
 
-#: src/Widgets/StatusWidget.vala:271
-msgid "Delete"
-msgstr "Usuń"
-
-#: src/Widgets/StatusWidget.vala:277
+#: src/Widgets/StatusWidget.vala:293
 msgid "Copy Text"
 msgstr "Skopiuj tekst"
 
-#: src/Dialogs/NewAccountDialog.vala:28
+#: src/Widgets/StatusWidget.vala:300
+#, fuzzy
+msgid "Unpin from Profile"
+msgstr "Edytuj profil"
+
+#: src/Widgets/StatusWidget.vala:300
+#, fuzzy
+msgid "Pin on Profile"
+msgstr "Edytuj profil"
+
+#: src/Widgets/StatusWidget.vala:304
+msgid "Delete"
+msgstr "Usuń"
+
+#: src/Widgets/StatusWidget.vala:308 src/Dialogs/PostDialog.vala:72
+msgid "Redraft"
+msgstr ""
+
+#: src/Dialogs/NewAccountDialog.vala:27
 msgid "New Account"
 msgstr "Nowe konto"
 
-#: src/Dialogs/NewAccountDialog.vala:40
+#: src/Dialogs/NewAccountDialog.vala:38
 msgid "What's an instance?"
 msgstr "Czym jest instancja?"
 
-#: src/Dialogs/NewAccountDialog.vala:44
+#: src/Dialogs/NewAccountDialog.vala:42
 msgid "Code:"
 msgstr "Kod:"
 
-#: src/Dialogs/NewAccountDialog.vala:48
+#: src/Dialogs/NewAccountDialog.vala:46
 msgid "Paste your instance authorization code here"
 msgstr "Wklej kod autoryzacji swojej instancji tutaj"
 
-#: src/Dialogs/NewAccountDialog.vala:51
+#: src/Dialogs/NewAccountDialog.vala:49
 msgid "Add Account"
 msgstr "Dodaj konto"
 
-#: src/Dialogs/NewAccountDialog.vala:62
+#: src/Dialogs/NewAccountDialog.vala:60
 msgid "Instance:"
 msgstr "Instancja:"
 
-#: src/Dialogs/NewAccountDialog.vala:104
+#: src/Dialogs/NewAccountDialog.vala:102
 msgid "Please paste valid instance authorization code"
 msgstr "Wklej prawidłowy kod autoryzacji tutaj"
 
-#: src/Dialogs/NewAccountDialog.vala:112
+#: src/Dialogs/NewAccountDialog.vala:110
 msgid "Network Error"
 msgstr "Błąd sieci"
 
-#: src/Dialogs/PostDialog.vala:42
+#: src/Dialogs/PostDialog.vala:45
 msgid "Post Visibility"
 msgstr "Widoczność wpisu"
 
-#: src/Dialogs/PostDialog.vala:49
+#: src/Dialogs/PostDialog.vala:52
 msgid "Add Media"
 msgstr "Dodaj zawartość multimedialną"
 
-#: src/Dialogs/PostDialog.vala:58
+#: src/Dialogs/PostDialog.vala:61
 msgid "Spoiler Warning"
 msgstr "Ostrzeżenie o zawartości"
 
-#: src/Dialogs/PostDialog.vala:65
+#: src/Dialogs/PostDialog.vala:68
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: src/Dialogs/PostDialog.vala:67
+#: src/Dialogs/PostDialog.vala:77
 msgid "Toot!"
 msgstr "Wyślij"
 
-#: src/Dialogs/PostDialog.vala:76
+#: src/Dialogs/PostDialog.vala:85
 msgid "Write your warning here"
 msgstr "Wprowadź zawartość ostrzeżenia tutaj"
 
@@ -402,7 +426,7 @@ msgstr "Aktualizuj publiczne osie czasu:"
 #. var cache_size = new Gtk.SpinButton.with_range (16, 256, 1);
 #. settings.schema.bind ("cache-size", cache_size, "value", SettingsBindFlags.DEFAULT);
 #. grid.attach (cache_size, 1, i++);
-#: src/Dialogs/SettingsDialog.vala:55 src/Views/NotificationsView.vala:21
+#: src/Dialogs/SettingsDialog.vala:55 src/Views/NotificationsView.vala:34
 msgid "Notifications"
 msgstr "Powiadomienia"
 
@@ -419,34 +443,35 @@ msgid "_Close"
 msgstr "_Zamknij"
 
 #: src/Dialogs/WatchlistDialog.vala:20
+#, fuzzy
 msgid ""
-"You'll be notified when toots from specific users appear in your Home "
-"timeline."
+"You'll be notified when toots from this user appear in your Home timeline."
 msgstr ""
 "Otrzymasz powiadomienie, kiedy wpisy określonych użytkowników pojawią się na "
 "Twojej osi czasu."
 
 #: src/Dialogs/WatchlistDialog.vala:21
+#, fuzzy
 msgid ""
-"You'll be notified when toots with specific hashtags are posted in any "
-"public timelines."
+"You'll be notified when toots with this hashtag appear in any public "
+"timelines."
 msgstr ""
 "Otrzymasz powiadomienie, kiedy wpisy z określonymi hashtagami pojawią się na "
 "publicznej osi czasu."
 
-#: src/Dialogs/WatchlistDialog.vala:133
+#: src/Dialogs/WatchlistDialog.vala:137
 msgid "Users"
 msgstr "Użytkownicy"
 
-#: src/Dialogs/WatchlistDialog.vala:134 src/Views/SearchView.vala:99
+#: src/Dialogs/WatchlistDialog.vala:138 src/Views/SearchView.vala:100
 msgid "Hashtags"
 msgstr "Hashtagi"
 
-#: src/Dialogs/WatchlistDialog.vala:143
+#: src/Dialogs/WatchlistDialog.vala:148
 msgid "Add"
 msgstr "Dodaj"
 
-#: src/Views/AbstractView.vala:58
+#: src/Views/AbstractView.vala:59
 msgid "Nothing to see here"
 msgstr "Nie ma nic do wyświetlenia"
 
@@ -534,14 +559,20 @@ msgstr "Strona główna"
 msgid "Local Timeline"
 msgstr "Lokalna oś czasu"
 
-#: src/Views/SearchView.vala:81
+#: src/Views/SearchView.vala:82
 msgid "Accounts"
 msgstr "Kinda"
 
-#: src/Views/SearchView.vala:90
+#: src/Views/SearchView.vala:91
 msgid "Statuses"
 msgstr "Wpisy"
 
-#: src/Views/StatusView.vala:82
-msgid "Toot not found"
-msgstr "Nie znaleziono wpisu"
+#~ msgid "Conversation muted"
+#~ msgstr "Wyciszono konwersację"
+
+#, fuzzy
+#~ msgid "Pinned on Profile"
+#~ msgstr "Edytuj profil"
+
+#~ msgid "Toot not found"
+#~ msgstr "Nie znaleziono wpisu"
