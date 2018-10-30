@@ -12,14 +12,17 @@ public class Tootle.RichLabel : Gtk.Label {
     
     public static string escape_entities (string content) {
         return content
-              .replace ("&", "&amp;")
-              .replace ("'", "&apos;");
+               .replace ("&", "&amp;")
+               .replace ("'", "&apos;");
     }
     
     public static string restore_entities (string content) {
         return content
-              .replace ("&amp;", "&")
-              .replace ("&apos;", "'");
+               .replace ("&amp;", "&")
+               .replace ("&lt;", "<")
+               .replace ("&gt;", ">")
+               .replace ("&apos;", "'")
+               .replace ("&quot;", "\"");
     }
     
     public new void set_label (string text) {

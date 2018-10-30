@@ -207,6 +207,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         
         var content = Html.simplify (status.content);
         content = Html.remove_tags (content);
+        content = RichLabel.restore_entities (content);
         dialog.text.buffer.text = content;
     }
     
