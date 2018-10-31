@@ -108,7 +108,7 @@ public class Tootle.Watchlist : Object {
     public void remove (string entity, bool is_hashtag) {
         if (entity == "")
             return;
-    
+        
         if (is_hashtag) {
             var i = hashtags.index_of (entity);
             var notificator = notificators.@get(i);

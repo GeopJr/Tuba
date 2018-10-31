@@ -61,7 +61,7 @@ public class Tootle.Notification {
     
     public Soup.Message? dismiss () {
         if (type == NotificationType.WATCHLIST) {
-            if (accounts.formal.cached_notifications.remove (this));
+            if (accounts.formal.cached_notifications.remove (this))
                 accounts.save ();
             return null;
         }
