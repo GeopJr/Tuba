@@ -35,7 +35,7 @@ msgstr "com.github.bleakgrey.tootle"
 
 #: data/com.github.bleakgrey.tootle.desktop.in:11
 msgid "toot;mastodon;social;network;post;"
-msgstr "toot;mastodon;social;network;post;"
+msgstr "toot;mastodon;social;réseau;message;"
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:8
 msgid "Lightning fast client for Mastodon"
@@ -83,7 +83,7 @@ msgstr "Erreur"
 
 #: src/Desktop.vala:46
 msgid "Media downloaded"
-msgstr "Média téléchargés"
+msgstr "Médias téléchargés"
 
 #: src/MainWindow.vala:48
 msgid "Back"
@@ -134,7 +134,7 @@ msgstr "<a href=\"%s\"><b>%s</b></a> demande à vous suivre"
 #: src/API/NotificationType.vala:60
 #, fuzzy, c-format
 msgid "<a href=\"%s\"><b>%s</b></a> posted a toot"
-msgstr "<a href=\"%s\"><b>%s</b></a> a partagé votre pouet"
+msgstr "<a href=\"%s\"><b>%s</b></a> a publié un pouet"
 
 #: src/API/Status.vala:174
 msgid "Boosted!"
@@ -292,7 +292,7 @@ msgstr "Partager"
 
 #: src/Widgets/StatusWidget.vala:91
 msgid "Favorite"
-msgstr "Favoris"
+msgstr "Ajouter aux favoris"
 
 #: src/Widgets/StatusWidget.vala:98
 msgid "Reply"
@@ -309,7 +309,7 @@ msgstr "Afficher le contenu"
 
 #: src/Widgets/StatusWidget.vala:165
 msgid "[ This post contains sensitive content ]"
-msgstr "[ Message à contenu sensible]"
+msgstr "[ Ce message comporte un contenu sensible ]"
 
 #: src/Widgets/StatusWidget.vala:234
 msgid "This post can't be boosted"
@@ -415,7 +415,7 @@ msgstr "Fils"
 
 #: src/Dialogs/SettingsDialog.vala:42
 msgid "Real-time updates:"
-msgstr "Mise à jour instantanée:"
+msgstr "Mises à jour instantanées:"
 
 #: src/Dialogs/SettingsDialog.vala:44
 msgid "Update public timelines:"
