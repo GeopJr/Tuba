@@ -39,3 +39,4 @@ If you feel like contributing, you're always welcome to help the project in many
 * French translation by [@Larnicone](https://github.com/Larnicone)
 * Polish translation by [@m4sk1n](https://github.com/m4sk1n)
 * German translation by [@koyuawsmbrtn](https://github.com/koyuawsmbrtn)
+* Simplified Chinese translation by [@gloomy-ghost](https://github.com/gloomy-ghost)
