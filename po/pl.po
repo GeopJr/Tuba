@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-30 19:17+0300\n"
-"PO-Revision-Date: 2018-07-16 11:22+0200\n"
+"PO-Revision-Date: 2018-11-01 12:20+0100\n"
 "Last-Translator: Marcin Mikołajczak <me@m4sk.in>\n"
 "Language-Team: Polish\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.9\n"
+"X-Generator: Poedit 2.1.1\n"
 
 #: data/com.github.bleakgrey.tootle.desktop.in:4
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:7 src/MainWindow.vala:68
@@ -151,9 +151,8 @@ msgid "Removed from favorites"
 msgstr "Usunięto z ulubionych"
 
 #: src/API/Status.vala:204
-#, fuzzy
 msgid "Muted!"
-msgstr "Wycisz"
+msgstr "Wyciszono!"
 
 #: src/API/Status.vala:206
 msgid "Conversation unmuted"
@@ -161,12 +160,11 @@ msgstr "Cofnięto wyciszenie konwersacji"
 
 #: src/API/Status.vala:219
 msgid "Pinned!"
-msgstr ""
+msgstr "Przypięto!"
 
 #: src/API/Status.vala:221
-#, fuzzy
 msgid "Unpinned from profile"
-msgstr "Edytuj profil"
+msgstr "Cofnięto przypięcie"
 
 #: src/API/Status.vala:231
 msgid "Poof!"
@@ -326,14 +324,12 @@ msgid "Copy Text"
 msgstr "Skopiuj tekst"
 
 #: src/Widgets/StatusWidget.vala:300
-#, fuzzy
 msgid "Unpin from Profile"
-msgstr "Edytuj profil"
+msgstr "Cofnij przypięcie"
 
 #: src/Widgets/StatusWidget.vala:300
-#, fuzzy
 msgid "Pin on Profile"
-msgstr "Edytuj profil"
+msgstr "Przypnij do profilu"
 
 #: src/Widgets/StatusWidget.vala:304
 msgid "Delete"
@@ -341,7 +337,7 @@ msgstr "Usuń"
 
 #: src/Widgets/StatusWidget.vala:308 src/Dialogs/PostDialog.vala:72
 msgid "Redraft"
-msgstr ""
+msgstr "Przeredaguj"
 
 #: src/Dialogs/NewAccountDialog.vala:27
 msgid "New Account"
@@ -443,20 +439,18 @@ msgid "_Close"
 msgstr "_Zamknij"
 
 #: src/Dialogs/WatchlistDialog.vala:20
-#, fuzzy
 msgid ""
 "You'll be notified when toots from this user appear in your Home timeline."
 msgstr ""
-"Otrzymasz powiadomienie, kiedy wpisy określonych użytkowników pojawią się na "
-"Twojej osi czasu."
+"Otrzymasz powiadomienie, kiedy wpisy tego użytkownika pojawią się na Twojej "
+"osi czasu."
 
 #: src/Dialogs/WatchlistDialog.vala:21
-#, fuzzy
 msgid ""
 "You'll be notified when toots with this hashtag appear in any public "
 "timelines."
 msgstr ""
-"Otrzymasz powiadomienie, kiedy wpisy z określonymi hashtagami pojawią się na "
+"Otrzymasz powiadomienie, kiedy wpisy z tym hashtagiem pojawią się na "
 "publicznej osi czasu."
 
 #: src/Dialogs/WatchlistDialog.vala:137
