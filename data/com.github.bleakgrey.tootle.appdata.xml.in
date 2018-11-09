@@ -9,13 +9,13 @@
   
   <description>
     <p>
-      Tootle is a client for the world’s largest free, open-source, decentralized microblogging network with real-time notifications and multiple accounts support.
+      Tootle is a client for the world’s largest free, open-source, decentralized microblogging network with real-time notifications and support for multiple accounts.
     </p>
     <p>
-      Mastodon is lovely crafted with power and speed in mind, resulting in a free, independent and popular alternative to the centralized social networks.
+      Mastodon is lovingly crafted with power and speed in mind, resulting in a free, independent, and popular alternative to the centralized social networks.
     </p>
     <p>
-      Anyone can run a server of Mastodon. Each server hosts individual user accounts, the content they produce, and the content they are subscribed. Every user can follow each other and share their posts regardless of their server.
+      Anyone can run a Mastodon server. Each server hosts individual user accounts, the content they produce, and the content to which they are subscribed. Every user can follow each other and share their posts regardless of their server.
     </p>
   </description>
   
@@ -118,3 +118,4 @@
   </custom>
 
 </component>
+
