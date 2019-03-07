@@ -1,20 +1,20 @@
 using Gtk;
 
 public class Tootle.MainWindow: Gtk.Window {
-    
+
     private Overlay overlay;
     private Granite.Widgets.Toast toast;
     private Grid grid;
     private Stack primary_stack;
     private Stack secondary_stack;
-    
+
     public HeaderBar header;
     public Granite.Widgets.ModeButton button_mode;
     private AccountsButton button_accounts;
     private Spinner spinner;
     private Button button_toot;
     private Button button_back;
-    
+
     public HomeView home = new HomeView ();
     public NotificationsView notifications = new NotificationsView ();
     public LocalView local = new LocalView ();
@@ -24,7 +24,7 @@ public class Tootle.MainWindow: Gtk.Window {
         var provider = new Gtk.CssProvider ();
         provider.load_from_resource ("/com/github/bleakgrey/tootle/app.css");
         StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        
+
         settings.changed.connect (update_theme);
         update_theme ();
 
@@ -37,18 +37,18 @@ public class Tootle.MainWindow: Gtk.Window {
         primary_stack.add_named (secondary_stack, "0");
         primary_stack.hexpand = true;
         primary_stack.vexpand = true;
-        
+
         spinner = new Spinner ();
         spinner.active = true;
 
         button_accounts = new AccountsButton ();
-        
+
         button_back = new Button ();
         button_back.valign = Align.CENTER;
         button_back.label = _("Back");
         button_back.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
         button_back.clicked.connect (() => back ());
-        
+
         button_toot = new Button ();
         button_toot.valign = Align.CENTER;
         button_toot.tooltip_text = _("Toot");
@@ -61,7 +61,7 @@ public class Tootle.MainWindow: Gtk.Window {
         button_mode.valign = Align.FILL;
         button_mode.mode_changed.connect (on_mode_changed);
         button_mode.show ();
-        
+
         header = new HeaderBar ();
         header.get_style_context ().add_class ("compact");
         header.show_close_button = true;
@@ -72,16 +72,16 @@ public class Tootle.MainWindow: Gtk.Window {
         header.pack_end (button_accounts);
         header.pack_end (spinner);
         header.show_all ();
-        
+
         grid = new Grid ();
         grid.attach (primary_stack, 0, 0, 1, 1);
-        
+
         add_header_view (home);
         add_header_view (notifications);
         add_header_view (local);
         add_header_view (federated);
         button_mode.set_active (0);
-        
+
         toast = new Granite.Widgets.Toast ("");
         overlay = new Overlay ();
         overlay.add_overlay (grid);
@@ -90,7 +90,7 @@ public class Tootle.MainWindow: Gtk.Window {
         add (overlay);
         show_all ();
     }
-    
+
     public MainWindow (Gtk.Application _app) {
         application = _app;
         icon_name = "com.github.bleakgrey.tootle";
@@ -98,7 +98,7 @@ public class Tootle.MainWindow: Gtk.Window {
         window_position = WindowPosition.CENTER;
         set_titlebar (header);
         update_header ();
-        
+
         app.toast.connect (on_toast);
         network.started.connect (() => spinner.show ());
         network.finished.connect (() => spinner.hide ());
@@ -111,22 +111,22 @@ public class Tootle.MainWindow: Gtk.Window {
             return false;
         });
     }
-    
+
     private void add_header_view (AbstractView view) {
         var img = new Image.from_icon_name (view.get_icon (), IconSize.LARGE_TOOLBAR);
         img.tooltip_text = view.get_name ();
         button_mode.append (img);
         view.image = img;
         secondary_stack.add_named (view, view.get_name ());
-        
+
         if (view is NotificationsView)
             img.pixel_size = 20; // For some reason Notifications icon is too small without this
     }
-    
+
     public int get_visible_id () {
         return int.parse (primary_stack.get_visible_child_name ());
     }
-    
+
     public void open_view (AbstractView widget) {
         var i = get_visible_id ();
         i++;
@@ -136,18 +136,18 @@ public class Tootle.MainWindow: Gtk.Window {
         primary_stack.set_visible_child_name (i.to_string ());
         update_header ();
     }
-    
+
     public void back () {
         var i = get_visible_id ();
         if (i == 0)
             return;
-        
+
         var child = primary_stack.get_child_by_name (i.to_string ());
         primary_stack.set_visible_child_name ((i-1).to_string ());
         child.destroy ();
         update_header ();
     }
-    
+
     public void reopen_view (int view_id) {
         var i = get_visible_id ();
         while (i != view_id && view_id != 0) {
@@ -155,7 +155,7 @@ public class Tootle.MainWindow: Gtk.Window {
             i = get_visible_id ();
         }
     }
-    
+
     public override bool delete_event (Gdk.EventAny event) {
         this.destroy.connect (() => {
             if (!settings.always_online || accounts.is_empty ())
@@ -164,11 +164,11 @@ public class Tootle.MainWindow: Gtk.Window {
         });
         return false;
     }
-    
+
     public void switch_timeline (int32 timeline_no) {
         button_mode.set_active (timeline_no);
     }
-    
+
     private void update_theme () {
         var provider = new Gtk.CssProvider ();
         var is_dark = settings.dark_theme;
@@ -177,7 +177,7 @@ public class Tootle.MainWindow: Gtk.Window {
         StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
         Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = is_dark;
     }
-    
+
     private void update_header () {
         bool primary_mode = get_visible_id () == 0;
         button_mode.sensitive = primary_mode;
@@ -195,9 +195,9 @@ public class Tootle.MainWindow: Gtk.Window {
     private void on_mode_changed (Widget widget) {
         var visible = secondary_stack.get_visible_child () as AbstractView;
         visible.current = false;
-        
+
         secondary_stack.set_visible_child_name (widget.tooltip_text);
-        
+
         visible = secondary_stack.get_visible_child () as AbstractView;
         visible.current = true;
         visible.on_set_current ();
