@@ -134,7 +134,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             image.margin_top = 6;
             image.show ();
 
-            var label_text = _("<a href=\"%s\"><b>%s</b></a> boosted").printf (this.status.account.url, this.status.account.display_name);
+            var label_text = NotificationType.REBLOG_REMOTE_USER.get_desc (status.account);
             var label = new RichLabel (label_text);
             label.halign = Align.START;
             label.margin_top = 6;
