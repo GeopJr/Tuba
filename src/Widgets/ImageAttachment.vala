@@ -12,6 +12,8 @@ public class Tootle.Widgets.ImageAttachment : Gtk.DrawingArea {
 	private int center_x = 0;
 	private int center_y = 0;
 
+	private Soup.Message? image_request;
+
 	construct {
 		if (pixbuf_error == null)
 			pixbuf_error = IconTheme.get_default ().load_icon ("image-missing", 32, IconLookupFlags.GENERIC_FALLBACK);
@@ -23,9 +25,13 @@ public class Tootle.Widgets.ImageAttachment : Gtk.DrawingArea {
 		button_press_event.connect (on_clicked);
 	}
 
+	~ImageAttachment () {
+		network.cancel_request (image_request);
+	}
+
 	public ImageAttachment (Attachment obj) {
 		attachment = obj;
-		network.load_pixbuf (attachment.preview_url, on_ready);
+		image_request = network.load_pixbuf (attachment.preview_url, on_ready);
 		set_size_request (32, 128);
 		show_all ();
 	}
