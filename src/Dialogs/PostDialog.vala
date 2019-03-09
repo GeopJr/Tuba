@@ -168,9 +168,9 @@ public class Tootle.PostDialog : Gtk.Dialog {
     }
 
     private void validate () {
-        var remain = char_limit - text.buffer.text.length;
+        var remain = char_limit - text.buffer.get_char_count ();
         if (spoiler.active)
-            remain -= spoiler_text.buffer.text.length;
+            remain -= (int)spoiler_text.buffer.length;
 
         counter.label = remain.to_string ();
         publish.sensitive = remain >= 0;

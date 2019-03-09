@@ -20,7 +20,7 @@ public class Tootle.NotificationWidget : Grid {
         label = new RichLabel (_("Unknown Notification"));
         label.hexpand = true;
         label.halign = Align.START;
-        dismiss = new Button.from_icon_name ("close-symbolic", IconSize.BUTTON);
+        dismiss = new Button.from_icon_name ("window-close-symbolic", IconSize.BUTTON);
         dismiss.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         dismiss.tooltip_text = _("Dismiss");
         dismiss.clicked.connect (() => {
