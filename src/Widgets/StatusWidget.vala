@@ -93,7 +93,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             if (favorite.sensitive)
                 this.status.get_formal ().set_favorited (favorite.get_active ());
         });
-        reply = new ImageToggleButton ("mail-reply-sender-symbolic");
+        reply = new ImageToggleButton ("mail-replied-symbolic");
         reply.set_action ();
         reply.tooltip_text = _("Reply");
         reply.toggled.connect (() => {

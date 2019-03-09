@@ -27,10 +27,6 @@
     opacity: 0.15;
 }
 
-.attachment{
-    border-radius: 3px;
-}
-
 .relationship {
     background: rgba (0,0,0,.5);
     padding: 6px;

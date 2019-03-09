@@ -35,7 +35,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
             display_name.use_markup = true;
             instance = new Gtk.Label ("");
             instance.halign = Gtk.Align.START;
-            button = new Gtk.Button.from_icon_name ("close-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             button.receives_default = false;
             button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 

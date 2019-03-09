@@ -18,7 +18,7 @@ public enum Tootle.StatusVisibility {
                 assert_not_reached();
         }
     }
-    
+
     public static StatusVisibility from_string (string str) {
         switch (str) {
             case "public":
@@ -33,7 +33,7 @@ public enum Tootle.StatusVisibility {
                 assert_not_reached();
         }
     }
-        
+
     public string get_desc () {
         switch (this) {
             case PUBLIC:
@@ -48,7 +48,7 @@ public enum Tootle.StatusVisibility {
                 assert_not_reached();
         }
     }
-        
+
     public string get_icon () {
         switch (this) {
             case PUBLIC:
@@ -58,14 +58,14 @@ public enum Tootle.StatusVisibility {
             case PRIVATE:
                 return "security-medium-symbolic";
             case DIRECT:
-                return "mail-send-symbolic";
+                return "user-available-symbolic";
             default:
                 assert_not_reached();
         }
     }
-    
+
     public static StatusVisibility[] get_all () {
     	return {StatusVisibility.PUBLIC, StatusVisibility.UNLISTED, StatusVisibility.PRIVATE, StatusVisibility.DIRECT};
     }
-    
+
 }
