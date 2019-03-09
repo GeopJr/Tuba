@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tootle.MainWindow: Gtk.Window {
+public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
 
     private Overlay overlay;
     private Granite.Widgets.Toast toast;
@@ -89,6 +89,8 @@ public class Tootle.MainWindow: Gtk.Window {
         overlay.add_overlay (toast);
         overlay.set_size_request (450, 600);
         add (overlay);
+        
+        restore_state ();
         show_all ();
     }
 

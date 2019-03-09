@@ -56,5 +56,19 @@
 			<summary>Watched Hashtags</summary>
 			<description>Comma separated list of hashtags to notify you about</description>
 		</key>
+
+		<key name="window-x" type="i">
+			<default>-1</default>
+		</key>
+		<key name="window-y" type="i">
+			<default>-1</default>
+		</key>
+		<key name="window-w" type="i">
+			<default>-1</default>
+		</key>
+		<key name="window-h" type="i">
+			<default>-1</default>
+		</key>
+
 	</schema>
 </schemalist>

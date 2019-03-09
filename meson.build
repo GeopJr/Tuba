@@ -22,6 +22,7 @@ executable(
     'src/Desktop.vala',
     'src/Drawing.vala',
     'src/Html.vala',
+    'src/ISavedWindow.vala',
     'src/MainWindow.vala',
     'src/Settings.vala',
     'src/Accounts.vala',
