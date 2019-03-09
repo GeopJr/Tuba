@@ -5,7 +5,7 @@ Maintainer: bleak_grey <bleakgrey@gmail.com>
 Build-Depends: meson,
                valac (>= 0.26),
                debhelper (>= 11),
-               libgranite-dev,
+               libgranite-dev (>= 5.2.0),
                libgtk-3-dev (>= 3.22.0),
                libglib2.0-dev (>= 2.30.0),
                libgee-0.8-dev (>= 0.8.5),
