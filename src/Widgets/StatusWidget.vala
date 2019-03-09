@@ -86,7 +86,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             if (reblog.sensitive)
                 this.status.get_formal ().set_reblogged (reblog.get_active ());
         });
-        favorite = new ImageToggleButton ("help-about-symbolic");
+        favorite = new ImageToggleButton ("emblem-favorite-symbolic");
         favorite.set_action ();
         favorite.tooltip_text = _("Favorite");
         favorite.toggled.connect (() => {
