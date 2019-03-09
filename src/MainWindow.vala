@@ -48,12 +48,13 @@ public class Tootle.MainWindow: Gtk.Window {
         button_back.label = _("Back");
         button_back.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
         button_back.clicked.connect (() => back ());
+        Desktop.set_hotkey_tooltip (button_back, null, app.ACCEL_BACK);
 
         button_toot = new Button ();
         button_toot.valign = Align.CENTER;
-        button_toot.tooltip_text = _("Toot");
         button_toot.image = new Image.from_icon_name ("document-edit-symbolic", IconSize.LARGE_TOOLBAR);
         button_toot.clicked.connect (() => PostDialog.open ());
+        Desktop.set_hotkey_tooltip (button_toot, _("Toot"), app.ACCEL_NEW_POST);
 
         button_mode = new Granite.Widgets.ModeButton ();
         button_mode.get_style_context ().add_class ("mode");
@@ -76,10 +77,10 @@ public class Tootle.MainWindow: Gtk.Window {
         grid = new Grid ();
         grid.attach (primary_stack, 0, 0, 1, 1);
 
-        add_header_view (home);
-        add_header_view (notifications);
-        add_header_view (local);
-        add_header_view (federated);
+        add_header_view (home, app.ACCEL_TIMELINE_0, 0);
+        add_header_view (notifications, app.ACCEL_TIMELINE_1, 1);
+        add_header_view (local, app.ACCEL_TIMELINE_2, 2);
+        add_header_view (federated, app.ACCEL_TIMELINE_3, 3);
         button_mode.set_active (0);
 
         toast = new Granite.Widgets.Toast ("");
@@ -112,12 +113,12 @@ public class Tootle.MainWindow: Gtk.Window {
         });
     }
 
-    private void add_header_view (AbstractView view) {
+    private void add_header_view (AbstractView view, string[] accelerators, int32 num) {
         var img = new Image.from_icon_name (view.get_icon (), IconSize.LARGE_TOOLBAR);
-        img.tooltip_text = view.get_name ();
+        Desktop.set_hotkey_tooltip (img, view.get_name (), accelerators);
         button_mode.append (img);
         view.image = img;
-        secondary_stack.add_named (view, view.get_name ());
+        secondary_stack.add_named (view, num.to_string ());
 
         if (view is NotificationsView)
             img.pixel_size = 20; // For some reason Notifications icon is too small without this
@@ -196,7 +197,7 @@ public class Tootle.MainWindow: Gtk.Window {
         var visible = secondary_stack.get_visible_child () as AbstractView;
         visible.current = false;
 
-        secondary_stack.set_visible_child_name (widget.tooltip_text);
+        secondary_stack.set_visible_child_name (button_mode.selected.to_string ());
 
         visible = secondary_stack.get_visible_child () as AbstractView;
         visible.current = true;

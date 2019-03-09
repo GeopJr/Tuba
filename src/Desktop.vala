@@ -21,15 +21,15 @@ public class Tootle.Desktop {
     // Download a file from the web to a user's configured Downloads folder
     public static void download_file (string url) {
         debug ("Downloading file: %s", url);
-        
+
         var i = url.last_index_of ("/");
         var name = url.substring (i + 1, url.length - i - 1);
         if (name == null)
             name = "unknown";
-        
+
         var dir_path = "%s/%s".printf (GLib.Environment.get_user_special_dir (UserDirectory.DOWNLOAD), app.program_name);
         var file_path = "%s/%s".printf (dir_path, name);
-        
+
         var msg = new Soup.Message("GET", url);
         msg.finished.connect(() => {
             try {
@@ -51,10 +51,14 @@ public class Tootle.Desktop {
         });
         network.queue (msg);
     }
-    
+
     public static string fallback_icon (string normal, string fallback) {
         var theme = Gtk.IconTheme.get_default ();
         return theme.has_icon (normal) ? normal : fallback;
     }
-    
+
+    public static void set_hotkey_tooltip (Gtk.Widget widget, string? description, string[] accelerators) {
+    	widget.tooltip_markup = Granite.markup_accel_tooltip (accelerators, description);
+    }
+
 }

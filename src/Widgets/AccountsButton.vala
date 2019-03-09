@@ -15,20 +15,20 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
     Gtk.ModelButton item_watchlist;
 
     private class AccountItemView : Gtk.ListBoxRow{
-    
+
         private Gtk.Grid grid;
         public Gtk.Label display_name;
         public Gtk.Label instance;
         public Gtk.Button button;
         public int id = -1;
-        
+
         construct {
             can_default = false;
-            
+
             grid = new Gtk.Grid ();
             grid.margin = 6;
             grid.margin_start = 14;
-        
+
             display_name = new Gtk.Label ("");
             display_name.hexpand = true;
             display_name.halign = Gtk.Align.START;
@@ -38,18 +38,18 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
             button = new Gtk.Button.from_icon_name ("close-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             button.receives_default = false;
             button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-            
+
             grid.attach(display_name, 1, 0, 1, 1);
             grid.attach(instance, 1, 1, 1, 1);
             grid.attach(button, 2, 0, 2, 2);
             add (grid);
             show_all ();
         }
-    
+
         public AccountItemView (){
             button.clicked.connect (() => accounts.remove (id));
         }
-    
+
     }
 
     construct{
@@ -57,36 +57,37 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         avatar.button_press_event.connect(event => {
             return false;
         });
-    
+
         list = new Gtk.ListBox ();
-    
+
         var item_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         item_separator.hexpand = true;
-    
-        item_refresh = new Gtk.ModelButton ();  
+
+        item_refresh = new Gtk.ModelButton ();
         item_refresh.text = _("Refresh");
         item_refresh.clicked.connect (() => app.refresh ());
-    
-        item_favs = new Gtk.ModelButton ();  
+        Desktop.set_hotkey_tooltip (item_refresh, null, app.ACCEL_REFRESH);
+
+        item_favs = new Gtk.ModelButton ();
         item_favs.text = _("Favorites");
         item_favs.clicked.connect (() => window.open_view (new FavoritesView ()));
-        
-        item_direct = new Gtk.ModelButton ();  
+
+        item_direct = new Gtk.ModelButton ();
         item_direct.text = _("Direct Messages");
         item_direct.clicked.connect (() => window.open_view (new DirectView ()));
-    
-        item_search = new Gtk.ModelButton ();  
+
+        item_search = new Gtk.ModelButton ();
         item_search.text = _("Search");
         item_search.clicked.connect (() => window.open_view (new SearchView ()));
-    
-        item_watchlist = new Gtk.ModelButton ();  
+
+        item_watchlist = new Gtk.ModelButton ();
         item_watchlist.text = _("Watchlist");
         item_watchlist.clicked.connect (() => WatchlistDialog.open ());
-    
-        item_settings = new Gtk.ModelButton ();  
+
+        item_settings = new Gtk.ModelButton ();
         item_settings.text = _("Settings");
         item_settings.clicked.connect (() => SettingsDialog.open ());
-    
+
         grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.width_request = 200;
@@ -100,7 +101,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         grid.attach(item_watchlist, 0, 9, 1, 1);
         grid.attach(item_settings, 0, 10, 1, 1);
         grid.show_all ();
-        
+
         menu = new Gtk.Popover (null);
         menu.add (grid);
 
@@ -108,7 +109,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         popover = menu;
         add (avatar);
         show_all ();
-        
+
         accounts.updated.connect (accounts_updated);
         accounts.switched.connect (account_switched);
         list.row_activated.connect (row => {
@@ -121,11 +122,11 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
                 AccountView.open_from_id (accounts.current.id);
             else
                 accounts.switch_account (widget.id);
-                
+
             menu.popdown ();
         });
     }
-    
+
     private void accounts_updated (GenericArray<InstanceAccount> accounts) {
         list.forall (widget => widget.destroy ());
         int i = -1;
@@ -137,7 +138,7 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
             widget.instance.label = account.get_pretty_instance ();
             list.add (widget);
         });
-        
+
         var add_account = new AccountItemView ();
         add_account.display_name.label = _("<b>New Account</b>");
         add_account.instance.label = _("Click to add");
@@ -145,14 +146,14 @@ public class Tootle.AccountsButton : Gtk.MenuButton{
         list.add (add_account);
         update_selection ();
     }
-    
+
     private void account_switched (Account? account) {
         if (account == null)
             avatar.show_default (AVATAR_SIZE);
         else
             network.load_avatar (account.avatar, avatar, get_avatar_size ());
     }
-    
+
     private void update_selection () {
         var id = settings.current_account;
         var row = list.get_row_at_index (id);
