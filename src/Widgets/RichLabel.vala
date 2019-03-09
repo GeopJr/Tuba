@@ -9,13 +9,13 @@ public class Tootle.RichLabel : Gtk.Label {
         set_use_markup (true);
         activate_link.connect (open_link);
     }
-    
+
     public static string escape_entities (string content) {
         return content
-               .replace ("&", "&amp;")
+               .replace ("&nbsp;", " ")
                .replace ("'", "&apos;");
     }
-    
+
     public static string restore_entities (string content) {
         return content
                .replace ("&amp;", "&")
@@ -24,11 +24,11 @@ public class Tootle.RichLabel : Gtk.Label {
                .replace ("&apos;", "'")
                .replace ("&quot;", "\"");
     }
-    
+
     public new void set_label (string text) {
         base.set_markup (escape_entities (text));
     }
-    
+
     public void wrap_words () {
         halign = Gtk.Align.START;
         single_line_mode = false;
@@ -37,7 +37,7 @@ public class Tootle.RichLabel : Gtk.Label {
         justify = Gtk.Justification.LEFT;
         xalign = 0;
     }
-    
+
     public bool open_link (string url){
         if (mentions != null){
             foreach (Mention mention in mentions) {
@@ -47,26 +47,26 @@ public class Tootle.RichLabel : Gtk.Label {
                 }
             }
         }
-        
+
         if ("/tags/" in url){
             var encoded = url.split("/tags/")[1];
             var hashtag = Soup.URI.decode (encoded);
             window.open_view (new HashtagView (hashtag));
             return true;
         }
-        
+
         if ("/@" in url){
             var uri = new Soup.URI (url);
             var username = url.split("/@")[1];
-            
+
             if ("/" in username)
                 StatusView.open_from_link (url);
             else
                 AccountView.open_from_name ("@" + username + "@" + uri.get_host ());
-            
+
             return true;
         }
-    
+
         Desktop.open_uri (url);
         return true;
     }
