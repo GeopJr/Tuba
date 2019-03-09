@@ -208,7 +208,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
 
         title_user.set_label ("<b>%s</b>".printf ((formal.account.display_name)));
         title_acct.label = "@" + formal.account.acct;
-        content_label.label = formal.content;
+        content_label.set_label (formal.content);
         content_label.mentions = formal.mentions;
         pin_indicator.visible = status.pinned;
 

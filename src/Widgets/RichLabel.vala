@@ -26,7 +26,7 @@ public class Tootle.RichLabel : Gtk.Label {
     }
 
     public new void set_label (string text) {
-        base.set_markup (escape_entities (text));
+        base.set_markup (Html.simplify(escape_entities (text)));
     }
 
     public void wrap_words () {

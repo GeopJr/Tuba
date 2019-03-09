@@ -144,7 +144,7 @@ public class Tootle.AccountView : TimelineView {
     public void rebind (){
         display_name.set_label ("<b>%s</b>".printf (account.display_name));
         username.label = "@" + account.acct;
-        note.set_label (Html.simplify (account.note));
+        note.set_label (account.note);
         button_follow.visible = !account.is_self ();
         network.load_avatar (account.avatar, avatar, 128);
 
