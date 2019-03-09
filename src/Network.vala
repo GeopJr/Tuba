@@ -97,7 +97,8 @@ public class Tootle.Network : GLib.Object {
         started ();
         msg.finished.connect (() => {
             if (msg.status_code != Soup.Status.CANCELLED) {
-                cb (session, msg);
+                if (cb != null)
+                    cb (session, msg);
                 msg.request_body.free ();
                 msg.response_body.free ();
                 msg.request_headers.free ();
