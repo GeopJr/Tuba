@@ -97,10 +97,6 @@ public class Tootle.Views.Notifications : Views.Abstract {
 
     public virtual void on_refresh () {
         clear ();
-        accounts.formal.cached_notifications.@foreach (notification => {
-            append (notification);
-            return true;
-        });
         request ();
     }
 
@@ -118,6 +114,11 @@ public class Tootle.Views.Notifications : Views.Abstract {
             empty_state ();
             return;
         }
+
+        accounts.formal.cached_notifications.@foreach (notification => {
+            append (notification);
+            return true;
+        });
 
         var url = "%s/api/v1/follow_requests".printf (accounts.formal.instance);
         var msg = new Soup.Message ("GET", url);

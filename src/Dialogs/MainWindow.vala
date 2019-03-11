@@ -6,8 +6,8 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
     private Overlay overlay;
     private Granite.Widgets.Toast toast;
     private Grid grid;
-    private Stack primary_stack;
-    private Stack secondary_stack;
+    private Stack view_stack;
+    private Stack timeline_stack;
 
     public HeaderBar header;
     public Granite.Widgets.ModeButton button_mode;
@@ -29,14 +29,14 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         settings.changed.connect (update_theme);
         update_theme ();
 
-        secondary_stack = new Stack();
-        secondary_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-        secondary_stack.show ();
-        primary_stack = new Stack();
-        primary_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-        primary_stack.show ();
-        primary_stack.add_named (secondary_stack, "0");
-        primary_stack.hexpand = primary_stack.vexpand = true;
+        timeline_stack = new Stack();
+        timeline_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+        timeline_stack.show ();
+        view_stack = new Stack();
+        view_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+        view_stack.show ();
+        view_stack.add_named (timeline_stack, "0");
+        view_stack.hexpand = view_stack.vexpand = true;
 
         spinner = new Spinner ();
         spinner.active = true;
@@ -75,7 +75,7 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         header.show_all ();
 
         grid = new Grid ();
-        grid.attach (primary_stack, 0, 0, 1, 1);
+        grid.attach (view_stack, 0, 0, 1, 1);
 
         add_header_view (home, app.ACCEL_TIMELINE_0, 0);
         add_header_view (notifications, app.ACCEL_TIMELINE_1, 1);
@@ -120,14 +120,14 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         Desktop.set_hotkey_tooltip (img, view.get_name (), accelerators);
         button_mode.append (img);
         view.image = img;
-        secondary_stack.add_named (view, num.to_string ());
+        timeline_stack.add_named (view, num.to_string ());
 
         if (view is Views.Notifications)
             img.pixel_size = 20; // For some reason Notifications icon is too small without this
     }
 
     public int get_visible_id () {
-        return int.parse (primary_stack.get_visible_child_name ());
+        return int.parse (view_stack.get_visible_child_name ());
     }
 
     public bool open_view (Views.Abstract widget) {
@@ -135,8 +135,8 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         i++;
         widget.stack_pos = i;
         widget.show ();
-        primary_stack.add_named (widget, i.to_string ());
-        primary_stack.set_visible_child_name (i.to_string ());
+        view_stack.add_named (widget, i.to_string ());
+        view_stack.set_visible_child_name (i.to_string ());
         update_header ();
         return true;
     }
@@ -146,8 +146,8 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         if (i == 0)
             return false;
 
-        var child = primary_stack.get_child_by_name (i.to_string ());
-        primary_stack.set_visible_child_name ((i-1).to_string ());
+        var child = view_stack.get_child_by_name (i.to_string ());
+        view_stack.set_visible_child_name ((i-1).to_string ());
         child.destroy ();
         update_header ();
         return true;
@@ -198,12 +198,12 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
     }
 
     private void on_mode_changed (Widget widget) {
-        var visible = secondary_stack.get_visible_child () as Views.Abstract;
+        var visible = timeline_stack.get_visible_child () as Views.Abstract;
         visible.current = false;
 
-        secondary_stack.set_visible_child_name (button_mode.selected.to_string ());
+        timeline_stack.set_visible_child_name (button_mode.selected.to_string ());
 
-        visible = secondary_stack.get_visible_child () as Views.Abstract;
+        visible = timeline_stack.get_visible_child () as Views.Abstract;
         visible.current = true;
         visible.on_set_current ();
     }
