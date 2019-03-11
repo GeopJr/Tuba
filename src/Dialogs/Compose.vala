@@ -1,14 +1,13 @@
 using Gtk;
-using Tootle;
 
-public class Tootle.PostDialog : Gtk.Dialog {
+public class Tootle.Dialogs.Compose : Dialog {
 
-    private static PostDialog dialog;
+    private static Compose dialog;
 
     protected TextView text;
     private ScrolledWindow scroll;
     private Label counter;
-    private ImageToggleButton spoiler;
+    private Widgets.ImageToggleButton spoiler;
     private MenuButton visibility;
     private Button attach;
     private Button cancel;
@@ -17,12 +16,12 @@ public class Tootle.PostDialog : Gtk.Dialog {
     private Revealer spoiler_revealer;
     private Entry spoiler_text;
 
-    protected Status? replying_to;
-    protected Status? redrafting;
-    protected StatusVisibility visibility_opt = StatusVisibility.PUBLIC;
+    protected API.Status? replying_to;
+    protected API.Status? redrafting;
+    protected API.StatusVisibility visibility_opt = API.StatusVisibility.PUBLIC;
     protected int char_limit;
 
-    public PostDialog (Status? _replying_to = null, Status? _redrafting = null) {
+    public Compose (API.Status? _replying_to = null, API.Status? _redrafting = null) {
         border_width = 6;
         deletable = false;
         resizable = true;
@@ -37,7 +36,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         if (redrafting != null)
             visibility_opt = redrafting.visibility;
 
-        var actions = get_action_area ().get_parent () as Gtk.Box;
+        var actions = get_action_area ().get_parent () as Box;
         var content = get_content_area ();
         get_action_area ().hexpand = false;
 
@@ -50,14 +49,14 @@ public class Tootle.PostDialog : Gtk.Dialog {
 
         attach = new Button.from_icon_name ("mail-attachment-symbolic");
         attach.tooltip_text = _("Add Media");
-        attach.valign = Gtk.Align.CENTER;
+        attach.valign = Align.CENTER;
         attach.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         attach.get_style_context ().remove_class ("image-button");
         attach.can_default = false;
         (attach as Widget).set_focus_on_click (false);
         attach.clicked.connect (() => attachments.select ());
 
-        spoiler = new ImageToggleButton ("image-red-eye-symbolic");
+        spoiler = new Widgets.ImageToggleButton ("image-red-eye-symbolic");
         spoiler.tooltip_text = _("Spoiler Warning");
         spoiler.set_action ();
         spoiler.toggled.connect (() => {
@@ -79,24 +78,24 @@ public class Tootle.PostDialog : Gtk.Dialog {
             publish.clicked.connect (publish_post);
         }
 
-        spoiler_text = new Gtk.Entry ();
+        spoiler_text = new Entry ();
         spoiler_text.margin_start = 6;
         spoiler_text.margin_end = 6;
         spoiler_text.placeholder_text = _("Write your warning here");
         spoiler_text.changed.connect (validate);
 
-        spoiler_revealer = new Gtk.Revealer ();
+        spoiler_revealer = new Revealer ();
         spoiler_revealer.add (spoiler_text);
 
         text = new TextView ();
         text.get_style_context ().add_class ("toot-text");
-        text.wrap_mode = Gtk.WrapMode.WORD;
+        text.wrap_mode = WrapMode.WORD;
         text.accepts_tab = false;
         text.vexpand = true;
         text.buffer.changed.connect (validate);
 
         scroll = new ScrolledWindow (null, null);
-        scroll.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        scroll.hscrollbar_policy = PolicyType.NEVER;
         scroll.min_content_height = 120;
         scroll.vexpand = true;
         scroll.propagate_natural_height = true;
@@ -136,24 +135,24 @@ public class Tootle.PostDialog : Gtk.Dialog {
         validate ();
     }
 
-    private Gtk.MenuButton get_visibility_btn () {
-        var button = new Gtk.MenuButton ();
-        var menu = new Gtk.Popover (null);
-        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+    private MenuButton get_visibility_btn () {
+        var button = new MenuButton ();
+        var menu = new Popover (null);
+        var box = new Box (Orientation.VERTICAL, 6);
         box.margin = 12;
         menu.add (box);
-        button.direction = Gtk.ArrowType.DOWN;
-        button.image = new Gtk.Image.from_icon_name (visibility_opt.get_icon (), Gtk.IconSize.BUTTON);
+        button.direction = ArrowType.DOWN;
+        button.image = new Image.from_icon_name (visibility_opt.get_icon (), IconSize.BUTTON);
 
-        Gtk.RadioButton? first = null;
-        foreach (StatusVisibility opt in StatusVisibility.get_all ()){
-            var item = new Gtk.RadioButton.with_label_from_widget (first, opt.get_desc ());
+        RadioButton? first = null;
+        foreach (API.StatusVisibility opt in API.StatusVisibility.get_all ()){
+            var item = new RadioButton.with_label_from_widget (first, opt.get_desc ());
             if (first == null)
                 first = item;
 
             item.toggled.connect (() => {
                 visibility_opt = opt;
-                (button.image as Gtk.Image).icon_name = visibility_opt.get_icon ();
+                (button.image as Image).icon_name = visibility_opt.get_icon ();
             });
             item.active = visibility_opt == opt;
             box.pack_start (item, false, false, 0);
@@ -162,7 +161,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         box.show_all ();
         button.use_popover = true;
         button.popover = menu;
-        button.valign = Gtk.Align.CENTER;
+        button.valign = Align.CENTER;
         button.show ();
         return button;
     }
@@ -176,9 +175,9 @@ public class Tootle.PostDialog : Gtk.Dialog {
         publish.sensitive = remain >= 0;
     }
 
-    public static void open (string? text = null, Status? reply_to = null) {
+    public static void open (string? text = null, API.Status? reply_to = null) {
         if (dialog == null){
-            dialog = new PostDialog (reply_to);
+            dialog = new Compose (reply_to);
 
 		    if (text != null)
 		        dialog.text.buffer.text = text;
@@ -187,7 +186,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
 		    dialog.text.buffer.text += text;
     }
 
-    public static void reply (Status status) {
+    public static void reply (API.Status status) {
         if (dialog != null)
             return;
 
@@ -195,19 +194,19 @@ public class Tootle.PostDialog : Gtk.Dialog {
         dialog.text.buffer.text = status.get_reply_mentions ();
     }
 
-    public static void redraft (Status status) {
+    public static void redraft (API.Status status) {
         if (dialog != null)
             return;
-        dialog = new PostDialog (null, status);
+        dialog = new Compose (null, status);
 
         if (status.attachments != null) {
-            foreach (Attachment attachment in status.attachments)
+            foreach (API.Attachment attachment in status.attachments)
                 dialog.attachments.append (attachment);
         }
 
         var content = Html.simplify (status.content);
         content = Html.remove_tags (content);
-        content = RichLabel.restore_entities (content);
+        content = Widgets.RichLabel.restore_entities (content);
         dialog.text.buffer.text = content;
     }
 
@@ -227,7 +226,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         network.queue (msg, (sess, mess) => {
             try {
                 var root = network.parse (mess);
-                var status = Status.parse (root);
+                var status = API.Status.parse (root);
                 debug ("Posted: %s", status.id.to_string ()); //TODO: Live updates
                 destroy ();
             }

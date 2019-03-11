@@ -4,7 +4,7 @@ using Granite;
 namespace Tootle {
 
     public static Application app;
-    public static MainWindow? window;
+    public static Dialogs.MainWindow? window;
     public static Window window_dummy;
 
     public static Settings settings;
@@ -103,9 +103,9 @@ namespace Tootle {
 
             debug ("Creating new window");
             if (accounts.is_empty ())
-                NewAccountDialog.open ();
+                Dialogs.NewAccount.open ();
             else {
-                window = new MainWindow (this);
+                window = new Dialogs.MainWindow (this);
                 window.present ();
             }
         }
@@ -118,7 +118,7 @@ namespace Tootle {
         }
 
         private void compose_toot_activated () {
-            PostDialog.open ();
+            Dialogs.Compose.open ();
         }
 
         private void back_activated () {

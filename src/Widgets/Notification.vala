@@ -1,14 +1,14 @@
 using Gtk;
 using Granite;
 
-public class Tootle.NotificationWidget : Grid {
+public class Tootle.Widgets.Notification : Grid {
 
-    private Notification notification;
+    private API.Notification notification;
 
     public Separator? separator;
     private Image image;
-    private RichLabel label;
-    private StatusWidget? status_widget;
+    private Widgets.RichLabel label;
+    private Widgets.Status? status_widget;
     private Button dismiss;
 
     construct {
@@ -34,7 +34,7 @@ public class Tootle.NotificationWidget : Grid {
         show_all ();
     }
 
-    public NotificationWidget (Notification _notification) {
+    public Notification (API.Notification _notification) {
         notification = _notification;
         image.icon_name = notification.type.get_icon ();
         label.set_label (notification.type.get_desc (notification.account));
@@ -51,14 +51,14 @@ public class Tootle.NotificationWidget : Grid {
         });
 
         if (notification.status != null){
-            status_widget = new StatusWidget (notification.status, true);
+            status_widget = new Widgets.Status (notification.status, true);
             status_widget.is_notification = true;
             status_widget.button_press_event.connect (status_widget.open);
             status_widget.avatar.button_press_event.connect (status_widget.on_avatar_clicked);
             attach (status_widget, 1, 3, 3, 1);
         }
 
-        if (notification.type == NotificationType.FOLLOW_REQUEST) {
+        if (notification.type == API.NotificationType.FOLLOW_REQUEST) {
             var box = new Box (Orientation.HORIZONTAL, 6);
             box.margin_start = 32 + 16 + 8;
             var accept = new Button.with_label (_("Accept"));
@@ -82,7 +82,7 @@ public class Tootle.NotificationWidget : Grid {
 
     private void on_status_removed (int64 id) {
         if (id == notification.status.id) {
-            if (notification.type == NotificationType.WATCHLIST)
+            if (notification.type == API.NotificationType.WATCHLIST)
                 notification.dismiss ();
 
             destroy ();

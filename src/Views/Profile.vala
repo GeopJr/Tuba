@@ -1,18 +1,18 @@
 using Gtk;
 using Granite;
 
-public class Tootle.AccountView : TimelineView {
+public class Tootle.Views.Profile : Views.Timeline {
 
     const int AVATAR_SIZE = 128;
-    protected Account account;
+    protected API.Account account;
 
     protected Grid header_image;
     protected Box header_info;
     protected Granite.Widgets.Avatar avatar;
-    protected RichLabel display_name;
+    protected Widgets.RichLabel display_name;
     protected Label username;
     protected Label relationship;
-    protected RichLabel note;
+    protected Widgets.RichLabel note;
     protected Grid counters;
     protected Box actions;
     protected Button button_follow;
@@ -49,14 +49,14 @@ public class Tootle.AccountView : TimelineView {
         avatar.margin_bottom = 6;
         header_info.pack_start (avatar, false, false, 0);
 
-        display_name = new RichLabel ("");
+        display_name = new Widgets.RichLabel ("");
         display_name.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
         header_info.pack_start (display_name, false, false, 0);
 
-        username = new Gtk.Label ("");
+        username = new Label ("");
         header_info.pack_start (username, false, false, 0);
 
-        note = new RichLabel ("");
+        note = new Widgets.RichLabel ("");
         note.set_line_wrap (true);
         note.selectable = true;
         note.margin_top = 12;
@@ -90,7 +90,7 @@ public class Tootle.AccountView : TimelineView {
         menu.show_all ();
 
         button_follow = add_counter ("contact-new-symbolic");
-        button_menu = new Gtk.MenuButton ();
+        button_menu = new MenuButton ();
         button_menu.image = new Image.from_icon_name ("view-more-symbolic", IconSize.LARGE_TOOLBAR);
         button_menu.tooltip_text = _("More Actions");
         button_menu.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
@@ -107,18 +107,18 @@ public class Tootle.AccountView : TimelineView {
         view.pack_start (header, false, false, 0);
     }
 
-    public AccountView (Account acc) {
+    public Profile (API.Account acc) {
         base ("");
         account = acc;
-        account.updated.connect(rebind);
+        account.updated.connect (rebind);
 
         add_counter (_("Toots"), 1, account.statuses_count);
         add_counter (_("Follows"), 2, account.following_count).clicked.connect (() => {
-            var view = new FollowingView (account);
+            var view = new Views.Following (account);
             window.open_view (view);
         });
         add_counter (_("Followers"), 3, account.followers_count).clicked.connect (() => {
-            var view = new FollowersView (account);
+            var view = new Views.Followers (account);
             window.open_view (view);
         });
 
@@ -129,7 +129,7 @@ public class Tootle.AccountView : TimelineView {
         //var css_provider = Granite.Widgets.Utils.get_css_provider (stylesheet);
         //header_image.get_style_context ().add_provider (css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        menu_mention.activate.connect (() => PostDialog.open ("@%s ".printf (account.acct)));
+        menu_mention.activate.connect (() => Dialogs.Compose.open ("@%s ".printf (account.acct)));
         menu_mute.activate.connect (() => account.set_muted (!account.rs.muting));
         menu_block.activate.connect (() => account.set_blocked (!account.rs.blocking));
         button_follow.clicked.connect (() => account.set_following (!account.rs.following));
@@ -180,11 +180,11 @@ public class Tootle.AccountView : TimelineView {
             relationship.hide ();
     }
 
-    public override bool is_status_owned (Status status) {
+    public override bool is_status_owned (API.Status status) {
         return status.is_owned ();
     }
 
-    private Gtk.Button add_counter (string name, int? i = null, int64? val = null) {
+    private Button add_counter (string name, int? i = null, int64? val = null) {
         Button btn;
         if (val != null){
             btn = new Button ();
@@ -220,7 +220,7 @@ public class Tootle.AccountView : TimelineView {
     }
 
     public override void request () {
-        if(account != null)
+        if (account != null)
             base.request ();
     }
 
@@ -244,8 +244,8 @@ public class Tootle.AccountView : TimelineView {
         network.queue (msg, (sess, mess) => {
             try {
                 var root = network.parse (mess);
-                var acc = Account.parse (root);
-                window.open_view (new AccountView (acc));
+                var acc = API.Account.parse (root);
+                window.open_view (new Views.Profile (acc));
             }
             catch (GLib.Error e) {
                 warning ("Can't find account");
@@ -263,8 +263,8 @@ public class Tootle.AccountView : TimelineView {
                 var node = network.parse_array (mess).get_element (0);
                 var object = node.get_object ();
                 if (object != null){
-                    var acc = Account.parse(object);
-                    window.open_view (new AccountView (acc));
+                    var acc = API.Account.parse (object);
+                    window.open_view (new Views.Profile (acc));
                 }
                 else
                     app.toast (_("User not found"));

@@ -1,8 +1,8 @@
-public class Tootle.Status {
+public class Tootle.API.Status {
 
     public signal void updated ();
 
-    public Account account;
+    public API.Account account;
     public int64 id;
     public string uri;
     public string url;
@@ -17,15 +17,15 @@ public class Tootle.Status {
     public bool sensitive = false;
     public bool muted = false;
     public bool pinned = false;
-    public StatusVisibility visibility;
-    public Status? reblog;
-    public Mention[]? mentions;
-    public Attachment[]? attachments;
+    public API.StatusVisibility visibility;
+    public API.Status? reblog;
+    public API.Mention[]? mentions;
+    public API.Attachment[]? attachments;
 
     public Status (int64 _id) {
         id = _id;
     }
-    
+
     public Status get_formal () {
         return reblog != null ? reblog : this;
     }
@@ -33,7 +33,7 @@ public class Tootle.Status {
     public static Status parse (Json.Object obj) {
         var id = int64.parse (obj.get_string_member ("id"));
         var status = new Status (id);
-        
+
         status.account = Account.parse (obj.get_object_member ("account"));
         status.uri = obj.get_string_member ("uri");
         status.created_at = obj.get_string_member ("created_at");
@@ -43,16 +43,16 @@ public class Tootle.Status {
         status.content = Html.simplify ( obj.get_string_member ("content"));
         status.sensitive = obj.get_boolean_member ("sensitive");
         status.visibility = StatusVisibility.from_string (obj.get_string_member ("visibility"));
-        
+
         if (obj.has_member ("url"))
             status.url = obj.get_string_member ("url");
         else
             status.url = obj.get_string_member ("uri").replace ("/activity", "");
-        
+
         var spoiler = obj.get_string_member ("spoiler_text");
         if (spoiler != "")
             status.spoiler_text = Html.simplify (spoiler);
-        
+
         if (obj.has_member ("reblogged"))
             status.reblogged = obj.get_boolean_member ("reblogged");
         if (obj.has_member ("favourited"))
@@ -61,31 +61,31 @@ public class Tootle.Status {
             status.muted = obj.get_boolean_member ("muted");
         if (obj.has_member ("pinned"))
             status.pinned = obj.get_boolean_member ("pinned");
-            
+
         if (obj.has_member ("reblog") && obj.get_null_member("reblog") != true)
             status.reblog = Status.parse (obj.get_object_member ("reblog"));
-        
-        Mention[]? _mentions = {};
+
+        API.Mention[]? _mentions = {};
         obj.get_array_member ("mentions").foreach_element ((array, i, node) => {
             var object = node.get_object ();
             if (object != null)
-                _mentions += Mention.parse (object);
+                _mentions += API.Mention.parse (object);
         });
         if (_mentions.length > 0)
             status.mentions = _mentions;
-        
-        Attachment[]? _attachments = {};
+
+        API.Attachment[]? _attachments = {};
         obj.get_array_member ("media_attachments").foreach_element ((array, i, node) => {
             var object = node.get_object ();
             if (object != null)
-                _attachments += Attachment.parse (object);
+                _attachments += API.Attachment.parse (object);
         });
         if (_attachments.length > 0)
             status.attachments = _attachments;
-        
+
         return status;
     }
-    
+
     public Json.Node? serialize () {
         var builder = new Json.Builder ();
         builder.begin_object ();
@@ -113,7 +113,7 @@ public class Tootle.Status {
         builder.add_int_value (reblogs_count);
         builder.set_member_name ("account");
         builder.add_value (account.serialize ());
-        
+
         if (spoiler_text != null) {
             builder.set_member_name ("spoiler_text");
             builder.add_string_value (spoiler_text);
@@ -125,44 +125,44 @@ public class Tootle.Status {
         if (attachments != null) {
             builder.set_member_name ("media_attachments");
             builder.begin_array ();
-            foreach (Attachment attachment in attachments)
+            foreach (API.Attachment attachment in attachments)
                 builder.add_value (attachment.serialize ());
             builder.end_array ();
         }
         if (mentions != null) {
             builder.set_member_name ("mentions");
             builder.begin_array ();
-            foreach (Mention mention in mentions)
+            foreach (API.Mention mention in mentions)
                 builder.add_value (mention.serialize ());
             builder.end_array ();
         }
-        
+
         builder.end_object ();
         return builder.get_root ();
     }
-    
+
     public bool is_owned (){
         return get_formal ().account.id == accounts.current.id;
     }
-    
+
     public string get_reply_mentions () {
         var result = "";
         if (account.acct != accounts.current.acct)
             result = "@%s ".printf (account.acct);
-        
+
         if (mentions != null) {
             foreach (var mention in mentions) {
                 var equals_current = mention.acct == accounts.current.acct;
                 var already_mentioned = mention.acct in result;
-                
+
                 if (!equals_current && ! already_mentioned)
                     result += "@%s ".printf (mention.acct);
             }
         }
-        
+
         return result;
     }
-    
+
     public void set_reblogged (bool rebl = true) {
         var action = rebl ? "reblog" : "unreblog";
         var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
@@ -177,7 +177,7 @@ public class Tootle.Status {
         });
         network.queue (msg);
     }
-    
+
     public void set_favorited (bool fav = true) {
         var action = fav ? "favourite" : "unfavourite";
         var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
@@ -192,7 +192,7 @@ public class Tootle.Status {
         });
         network.queue (msg);
     }
-    
+
     public void set_muted (bool mute = true) {
         var action = mute ? "mute" : "unmute";
         var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
@@ -207,7 +207,7 @@ public class Tootle.Status {
         });
         network.queue (msg);
     }
-    
+
     public void set_pinned (bool pin = true) {
         var action = pin ? "pin" : "unpin";
         var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));

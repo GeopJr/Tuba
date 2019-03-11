@@ -16,7 +16,7 @@ public class Tootle.Desktop {
     public static void copy (string str) {
         var display = window.get_display ();
         var clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
-        clipboard.set_text (RichLabel.restore_entities (str), -1);
+        clipboard.set_text (Widgets.RichLabel.restore_entities (str), -1);
     }
 
     // Download a file from the web to a user's configured Downloads folder

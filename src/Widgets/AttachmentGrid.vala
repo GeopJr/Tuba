@@ -14,7 +14,7 @@ public class Tootle.Widgets.AttachmentGrid : Grid {
 		allow_editing = edit;
 	}
 
-	public void append (Attachment attachment) {
+	public void append (API.Attachment attachment) {
 		var widget = new ImageAttachment (attachment);
 		attach_widget (widget);
 	}
@@ -28,7 +28,7 @@ public class Tootle.Widgets.AttachmentGrid : Grid {
 	    show_all ();
 	}
 
-    public void pack (Attachment[] attachments) {
+    public void pack (API.Attachment[] attachments) {
         clear ();
         var len = attachments.length;
 
@@ -38,7 +38,7 @@ public class Tootle.Widgets.AttachmentGrid : Grid {
             widget.fill_parent ();
         }
         else {
-            foreach (Attachment attachment in attachments) {
+            foreach (API.Attachment attachment in attachments) {
                 append (attachment);
             }
         }

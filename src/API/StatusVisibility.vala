@@ -1,4 +1,4 @@
-public enum Tootle.StatusVisibility {
+public enum Tootle.API.StatusVisibility {
     PUBLIC,
     UNLISTED,
     PRIVATE,

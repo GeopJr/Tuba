@@ -1,8 +1,8 @@
 using Gtk;
 
-public class Tootle.RichLabel : Gtk.Label {
+public class Tootle.Widgets.RichLabel : Label {
 
-    public weak Mention[]? mentions;
+    public weak API.Mention[]? mentions;
 
     public RichLabel (string text) {
         set_label (text);
@@ -30,40 +30,39 @@ public class Tootle.RichLabel : Gtk.Label {
     }
 
     public void wrap_words () {
-        halign = Gtk.Align.START;
+        halign = Align.START;
         single_line_mode = false;
         set_line_wrap (true);
         wrap_mode = Pango.WrapMode.WORD_CHAR;
-        justify = Gtk.Justification.LEFT;
+        justify = Justification.LEFT;
         xalign = 0;
     }
 
-    public bool open_link (string url){
+    public bool open_link (string url) {
         if (mentions != null){
-            foreach (Mention mention in mentions) {
+            foreach (API.Mention mention in mentions) {
                 if (url == mention.url){
-                    AccountView.open_from_id (mention.id);
+                    Views.Profile.open_from_id (mention.id);
                     return true;
                 }
             }
         }
 
-        if ("/tags/" in url){
+        if ("/tags/" in url) {
             var encoded = url.split("/tags/")[1];
             var hashtag = Soup.URI.decode (encoded);
-            window.open_view (new HashtagView (hashtag));
+            window.open_view (new Views.Hashtag (hashtag));
             return true;
         }
 
-        if ("/@" in url){
+        if ("/@" in url) {
             var uri = new Soup.URI (url);
             var username = url.split("/@")[1];
 
             if ("/" in username)
-                StatusView.open_from_link (url);
+                Views.ExpandedStatus.open_from_link (url);
             else
-                AccountView.open_from_name ("@" + username + "@" + uri.get_host ());
-
+                Views.Profile.open_from_name ("@" + username + "@" + uri.get_host ());
             return true;
         }
 

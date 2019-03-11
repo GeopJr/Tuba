@@ -1,14 +1,14 @@
 using Gtk;
 
-public class Tootle.ImageToggleButton : Gtk.ToggleButton {
+public class Tootle.Widgets.ImageToggleButton : ToggleButton {
 
-    public Gtk.Image icon;
-    public Gtk.IconSize size;
+    public Image icon;
+    public IconSize size;
 
-    public ImageToggleButton (string icon_name, Gtk.IconSize icon_size = Gtk.IconSize.BUTTON) {
-        valign = Gtk.Align.CENTER;
+    public ImageToggleButton (string icon_name, IconSize icon_size = IconSize.BUTTON) {
+        valign = Align.CENTER;
         size = icon_size;
-        icon = new Gtk.Image.from_icon_name (icon_name, icon_size);
+        icon = new Image.from_icon_name (icon_name, icon_size);
         add (icon);
         show_all ();
     }

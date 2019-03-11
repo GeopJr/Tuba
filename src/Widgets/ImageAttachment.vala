@@ -1,9 +1,9 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.Widgets.ImageAttachment : Gtk.DrawingArea {
+public class Tootle.Widgets.ImageAttachment : DrawingArea {
 
-	public Attachment? attachment;
+	public API.Attachment? attachment;
 	private bool editable = false;
 	private bool fill = false;
 
@@ -29,7 +29,7 @@ public class Tootle.Widgets.ImageAttachment : Gtk.DrawingArea {
 		network.cancel_request (image_request);
 	}
 
-	public ImageAttachment (Attachment obj) {
+	public ImageAttachment (API.Attachment obj) {
 		attachment = obj;
 		image_request = network.load_pixbuf (attachment.preview_url, on_ready);
 		set_size_request (32, 128);
@@ -59,7 +59,7 @@ public class Tootle.Widgets.ImageAttachment : Gtk.DrawingArea {
 
             network.queue (msg, (sess, mess) => {
                 var root = network.parse (mess);
-                attachment = Attachment.parse (root);
+                attachment = API.Attachment.parse (root);
                 editable = true;
                 invalidate ();
                 network.load_pixbuf (attachment.preview_url, on_ready);

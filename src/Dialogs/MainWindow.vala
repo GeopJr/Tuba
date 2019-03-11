@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
+public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
 
     private Overlay overlay;
     private Granite.Widgets.Toast toast;
@@ -11,15 +11,15 @@ public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
 
     public HeaderBar header;
     public Granite.Widgets.ModeButton button_mode;
-    private AccountsButton button_accounts;
+    private Widgets.AccountsButton button_accounts;
     private Spinner spinner;
     private Button button_toot;
     private Button button_back;
 
-    public HomeView home = new HomeView ();
-    public NotificationsView notifications = new NotificationsView ();
-    public LocalView local = new LocalView ();
-    public FederatedView federated = new FederatedView ();
+    public Views.Home home = new Views.Home ();
+    public Views.Notifications notifications = new Views.Notifications ();
+    public Views.Local local = new Views.Local ();
+    public Views.Federated federated = new Views.Federated ();
 
     construct {
         var provider = new Gtk.CssProvider ();
@@ -41,7 +41,7 @@ public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
         spinner = new Spinner ();
         spinner.active = true;
 
-        button_accounts = new AccountsButton ();
+        button_accounts = new Widgets.AccountsButton ();
 
         button_back = new Button ();
         button_back.valign = Align.CENTER;
@@ -53,7 +53,7 @@ public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
         button_toot = new Button ();
         button_toot.valign = Align.CENTER;
         button_toot.image = new Image.from_icon_name ("document-edit-symbolic", IconSize.LARGE_TOOLBAR);
-        button_toot.clicked.connect (() => PostDialog.open ());
+        button_toot.clicked.connect (() => Dialogs.Compose.open ());
         Desktop.set_hotkey_tooltip (button_toot, _("Toot"), app.ACCEL_NEW_POST);
 
         button_mode = new Granite.Widgets.ModeButton ();
@@ -115,14 +115,14 @@ public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
         return false;
     }
 
-    private void add_header_view (AbstractView view, string[] accelerators, int32 num) {
+    private void add_header_view (Views.Abstract view, string[] accelerators, int32 num) {
         var img = new Image.from_icon_name (view.get_icon (), IconSize.LARGE_TOOLBAR);
         Desktop.set_hotkey_tooltip (img, view.get_name (), accelerators);
         button_mode.append (img);
         view.image = img;
         secondary_stack.add_named (view, num.to_string ());
 
-        if (view is NotificationsView)
+        if (view is Views.Notifications)
             img.pixel_size = 20; // For some reason Notifications icon is too small without this
     }
 
@@ -130,7 +130,7 @@ public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
         return int.parse (primary_stack.get_visible_child_name ());
     }
 
-    public bool open_view (AbstractView widget) {
+    public bool open_view (Views.Abstract widget) {
         var i = get_visible_id ();
         i++;
         widget.stack_pos = i;
@@ -198,12 +198,12 @@ public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
     }
 
     private void on_mode_changed (Widget widget) {
-        var visible = secondary_stack.get_visible_child () as AbstractView;
+        var visible = secondary_stack.get_visible_child () as Views.Abstract;
         visible.current = false;
 
         secondary_stack.set_visible_child_name (button_mode.selected.to_string ());
 
-        visible = secondary_stack.get_visible_child () as AbstractView;
+        visible = secondary_stack.get_visible_child () as Views.Abstract;
         visible.current = true;
         visible.on_set_current ();
     }

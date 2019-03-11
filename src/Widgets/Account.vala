@@ -1,9 +1,9 @@
 using Gdk;
 
-public class Tootle.AccountWidget : StatusWidget {
+public class Tootle.Widgets.Account : Widgets.Status {
 
-    public AccountWidget (Account account) {
-        var status = new Status (-1);
+    public Account (API.Account account) {
+        var status = new API.Status (-1);
         status.account = account;
         status.url = account.url;
         status.content = "<a href=\"%s\">@%s</a>".printf (account.url, account.acct);

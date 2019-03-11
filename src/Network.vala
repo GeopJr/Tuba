@@ -8,7 +8,7 @@ public class Tootle.Network : GLib.Object {
     public signal void started ();
     public signal void finished ();
 
-    public signal void notification (Notification notification);
+    public signal void notification (API.Notification notification);
     public signal void status_removed (int64 id);
 
     private int requests_processing = 0;

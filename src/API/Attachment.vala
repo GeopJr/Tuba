@@ -1,4 +1,4 @@
-public class Tootle.Attachment {
+public class Tootle.API.Attachment {
 
     public int64 id;
     public string type;
@@ -6,7 +6,7 @@ public class Tootle.Attachment {
     public string preview_url;
     public string? description;
 
-    public Attachment(int64 _id) {
+    public Attachment (int64 _id) {
         id = _id;
     }
 

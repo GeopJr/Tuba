@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.TimelineView : AbstractView {
+public class Tootle.Views.Timeline : Views.Abstract {
 
     protected string timeline;
     protected string pars;
@@ -12,7 +12,7 @@ public class Tootle.TimelineView : AbstractView {
 
     protected Notificator? notificator;
 
-    public TimelineView (string timeline, string pars = "") {
+    public Timeline (string timeline, string pars = "") {
         base ();
         this.timeline = timeline;
         this.pars = pars;
@@ -36,26 +36,26 @@ public class Tootle.TimelineView : AbstractView {
         return _("Home");
     }
 
-    public virtual void on_status_added (Status status) {
+    public virtual void on_status_added (API.Status status) {
         prepend (status);
     }
 
-    public virtual bool is_status_owned (Status status) {
+    public virtual bool is_status_owned (API.Status status) {
         return false;
     }
 
-    public void prepend (Status status) {
+    public void prepend (API.Status status) {
         append (status, true);
     }
 
-    public void append (Status status, bool first = false){
+    public void append (API.Status status, bool first = false){
         if (empty != null)
             empty.destroy ();
 
         var separator = new Separator (Orientation.HORIZONTAL);
         separator.show ();
 
-        var widget = new StatusWidget (status);
+        var widget = new Widgets.Status (status);
         widget.separator = separator;
         widget.button_press_event.connect (widget.open);
         if (!is_status_owned (status))
@@ -115,12 +115,12 @@ public class Tootle.TimelineView : AbstractView {
 
         var msg = new Soup.Message("GET", get_url ());
         msg.finished.connect (() => empty_state ());
-        network.queue(msg, (sess, mess) => {
+        network.queue (msg, (sess, mess) => {
             try {
                 network.parse_array (mess).foreach_element ((array, i, node) => {
                     var object = node.get_object ();
                     if (object != null){
-                        var status = Status.parse(object);
+                        var status = API.Status.parse (object);
                         append (status);
                     }
                 });
@@ -142,7 +142,7 @@ public class Tootle.TimelineView : AbstractView {
         return null;
     }
 
-    public virtual void on_account_changed (Account? account){
+    public virtual void on_account_changed (API.Account? account){
         if(account == null)
             return;
 

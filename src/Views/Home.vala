@@ -1,6 +1,6 @@
-public class Tootle.HomeView : TimelineView {
+public class Tootle.Views.Home : Views.Timeline {
 
-    public HomeView () {
+    public Home () {
         base ("home");
     }
 

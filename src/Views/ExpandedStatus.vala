@@ -1,21 +1,21 @@
 using Gtk;
 
-public class Tootle.StatusView : AbstractView {
+public class Tootle.Views.ExpandedStatus : Views.Abstract {
 
-    private Status root_status;
+    private API.Status root_status;
     bool last_was_a_root = false;
 
-    public StatusView (Status status) {
+    public ExpandedStatus (API.Status status) {
         base ();
         root_status = status;
         request_context ();
     }
 
-    private void prepend (Status status, bool is_root = false){
-        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+    private void prepend (API.Status status, bool is_root = false){
+        var separator = new Separator (Orientation.HORIZONTAL);
         separator.show ();
 
-        var widget = new StatusWidget (status);
+        var widget = new Widgets.Status (status);
         widget.avatar.button_press_event.connect (widget.on_avatar_clicked);
         if (!is_root)
             widget.button_press_event.connect (widget.open);
@@ -41,7 +41,7 @@ public class Tootle.StatusView : AbstractView {
                 ancestors.foreach_element ((array, i, node) => {
                     var object = node.get_object ();
                     if (object != null) {
-                        var status = Status.parse (object);
+                        var status = API.Status.parse (object);
                         prepend (status);
                     }
                 });
@@ -52,7 +52,7 @@ public class Tootle.StatusView : AbstractView {
                 descendants.foreach_element ((array, i, node) => {
                     var object = node.get_object ();
                     if (object != null) {
-                        var status = Status.parse (object);
+                        var status = API.Status.parse (object);
                         prepend (status);
                     }
                 });
@@ -75,8 +75,8 @@ public class Tootle.StatusView : AbstractView {
                 var statuses = root.get_array_member ("statuses");
                 var object = statuses.get_element (0).get_object ();
                 if (object != null){
-                    var st = Status.parse (object);
-                    window.open_view (new StatusView (st));
+                    var st = API.Status.parse (object);
+                    window.open_view (new Views.ExpandedStatus (st));
                 }
                 else
                     Desktop.open_uri (q);

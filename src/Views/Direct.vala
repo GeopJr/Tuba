@@ -1,6 +1,6 @@
-public class Tootle.DirectView : TimelineView {
+public class Tootle.Views.Direct : Views.Timeline {
 
-    public DirectView () {
+    public Direct () {
         base ("direct");
     }
     

@@ -1,6 +1,6 @@
-public class Tootle.FavoritesView : TimelineView {
+public class Tootle.Views.Favorites : Views.Timeline {
 
-    public FavoritesView () {
+    public Favorites () {
         base ("favorites");
     }
     

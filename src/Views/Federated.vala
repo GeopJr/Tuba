@@ -1,6 +1,6 @@
-public class Tootle.FederatedView : TimelineView {
+public class Tootle.Views.Federated : Views.Timeline {
 
-    public FederatedView () {
+    public Federated () {
         base ("public");
     }
     

@@ -1,4 +1,4 @@
-public class Tootle.Account{
+public class Tootle.API.Account {
 
     public abstract signal void updated ();
 
@@ -14,17 +14,17 @@ public class Tootle.Account{
     public int64 followers_count;
     public int64 following_count;
     public int64 statuses_count;
-    
+
     public Relationship? rs;
 
     public Account (int64 _id){
         id = _id;
     }
-    
+
     public static Account parse(Json.Object obj) {
         var id = int64.parse (obj.get_string_member ("id"));
         var account = new Account (id);
-        
+
         account.username = obj.get_string_member ("username");
         account.acct = obj.get_string_member ("acct");
         account.display_name = obj.get_string_member ("display_name");
@@ -35,11 +35,11 @@ public class Tootle.Account{
         account.header = obj.get_string_member ("header");
         account.url = obj.get_string_member ("url");
         account.created_at = obj.get_string_member ("created_at");
-        
+
         account.followers_count = obj.get_int_member ("followers_count");
         account.following_count = obj.get_int_member ("following_count");
         account.statuses_count = obj.get_int_member ("statuses_count");
-        
+
         if (obj.has_member ("fields")) {
             obj.get_array_member ("fields").foreach_element ((array, i, node) => {
                 var field_obj = node.get_object ();
@@ -50,10 +50,10 @@ public class Tootle.Account{
                 account.note += field_val;
             });
         }
-    
+
         return account;
     }
-    
+
     public Json.Node? serialize () {
         var builder = new Json.Builder ();
         builder.begin_object ();
@@ -81,17 +81,17 @@ public class Tootle.Account{
         builder.add_string_value (avatar);
         builder.set_member_name ("url");
         builder.add_string_value (url);
-        
+
         builder.end_object ();
         return builder.get_root ();
     }
-    
+
     public bool is_self (){
-        return id == Tootle.accounts.current.id;
+        return id == accounts.current.id;
     }
 
     public Soup.Message get_relationship (){
-        var url = "%s/api/v1/accounts/relationships?id=%lld".printf (Tootle.accounts.formal.instance, id);
+        var url = "%s/api/v1/accounts/relationships?id=%lld".printf (accounts.formal.instance, id);
         var msg = new Soup.Message("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
         Tootle.network.queue (msg, (sess, mess) => {
@@ -107,10 +107,10 @@ public class Tootle.Account{
         });
         return msg;
     }
-    
+
     public Soup.Message set_following (bool follow = true){
-        var action = follow ? "follow" : "unfollow"; 
-        var url = "%s/api/v1/accounts/%lld/%s".printf (Tootle.accounts.formal.instance, id, action);
+        var action = follow ? "follow" : "unfollow";
+        var url = "%s/api/v1/accounts/%lld/%s".printf (accounts.formal.instance, id, action);
         var msg = new Soup.Message("POST", url);
         msg.priority = Soup.MessagePriority.HIGH;
         network.queue (msg, (sess, mess) => {
@@ -128,7 +128,7 @@ public class Tootle.Account{
     }
 
     public Soup.Message set_muted (bool mute = true){
-        var action = mute ? "mute" : "unmute"; 
+        var action = mute ? "mute" : "unmute";
         var url = "%s/api/v1/accounts/%lld/%s".printf (accounts.formal.instance, id, action);
         var msg = new Soup.Message("POST", url);
         msg.priority = Soup.MessagePriority.HIGH;
@@ -145,9 +145,9 @@ public class Tootle.Account{
         });
         return msg;
     }
-    
+
     public Soup.Message set_blocked (bool block = true){
-        var action = block ? "block" : "unblock"; 
+        var action = block ? "block" : "unblock";
         var url = "%s/api/v1/accounts/%lld/%s".printf (accounts.formal.instance, id, action);
         var msg = new Soup.Message("POST", url);
         msg.priority = Soup.MessagePriority.HIGH;

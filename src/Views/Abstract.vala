@@ -1,6 +1,6 @@
 using Gtk;
 
-public abstract class Tootle.AbstractView : ScrolledWindow {
+public abstract class Tootle.Views.Abstract : ScrolledWindow {
 
     public bool current = false;
     public int stack_pos = -1;
@@ -13,7 +13,7 @@ public abstract class Tootle.AbstractView : ScrolledWindow {
         view = new Box (Orientation.VERTICAL, 0);
         view.valign = Align.START;
         add (view);
-        
+
         hscrollbar_policy = PolicyType.NEVER;
         edge_reached.connect (pos => {
             if (pos == PositionType.BOTTOM)
@@ -21,38 +21,38 @@ public abstract class Tootle.AbstractView : ScrolledWindow {
         });
     }
 
-    public AbstractView () {
+    public Abstract () {
         show_all ();
     }
-    
+
     public virtual string get_icon () {
         return "null";
     }
-    
+
     public virtual string get_name () {
         return "unnamed";
     }
-    
+
     public virtual void clear (){
         view.forall (widget => {
             if (widget != header)
                 widget.destroy ();
         });
     }
-    
+
     public virtual void on_bottom_reached () {}
     public virtual void on_set_current () {}
-    
+
     public virtual bool is_empty () {
         return view.get_children ().length () <= 1;
     }
-    
+
     public virtual bool empty_state () {
         if (empty != null)
             empty.destroy ();
         if (!is_empty ())
             return false;
-        
+
         empty = new Box (Orientation.VERTICAL, 0);
         empty.margin = 64;
         var image = new Image.from_resource ("/com/github/bleakgrey/tootle/empty_state");
@@ -66,8 +66,8 @@ public abstract class Tootle.AbstractView : ScrolledWindow {
         empty.pack_start (text, false, false, 12);
         empty.show_all ();
         view.pack_start (empty, false, false, 0);
-        
+
         return true;
     }
-    
+
 }

@@ -1,6 +1,6 @@
-public class Tootle.HashtagView : TimelineView {
+public class Tootle.Views.Hashtag : Views.Timeline {
 
-    public HashtagView (string hashtag) {
+    public Hashtag (string hashtag) {
         base ("tag/" + hashtag);
     }
     

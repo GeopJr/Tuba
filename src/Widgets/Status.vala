@@ -2,21 +2,21 @@ using Gtk;
 using Gdk;
 using Granite;
 
-public class Tootle.StatusWidget : Gtk.EventBox {
+public class Tootle.Widgets.Status : EventBox {
 
-    public Status status;
+    public API.Status status;
     public bool is_notification = false;
     public const int AVATAR_SIZE = 32;
 
     public Separator? separator;
     public Granite.Widgets.Avatar avatar;
     protected Grid grid;
-    protected RichLabel title_user;
+    protected Widgets.RichLabel title_user;
     protected Label title_date;
     protected Label title_acct;
     protected Revealer revealer;
-    protected RichLabel content_label;
-    protected RichLabel? content_spoiler;
+    protected Widgets.RichLabel content_label;
+    protected Widgets.RichLabel? content_spoiler;
     protected Button? spoiler_button;
     protected Box title_box;
     protected Widgets.AttachmentGrid attachments;
@@ -26,9 +26,9 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     protected Label replies;
     protected Label reblogs;
     protected Label favorites;
-    protected ImageToggleButton reblog;
-    protected ImageToggleButton favorite;
-    protected ImageToggleButton reply;
+    protected Widgets.ImageToggleButton reblog;
+    protected Widgets.ImageToggleButton favorite;
+    protected Widgets.ImageToggleButton reply;
 
     construct {
         grid = new Grid ();
@@ -39,20 +39,20 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         avatar.margin_start = 6;
         avatar.margin_end = 6;
 
-        title_box = new Box (Gtk.Orientation.HORIZONTAL, 6);
+        title_box = new Box (Orientation.HORIZONTAL, 6);
         title_box.hexpand = true;
         title_box.margin_end = 12;
         title_box.margin_top = 6;
 
-        title_user = new RichLabel ("");
+        title_user = new Widgets.RichLabel ("");
         title_box.pack_start (title_user, false, false, 0);
 
-        title_acct = new Gtk.Label ("");
+        title_acct = new Label ("");
         title_acct.opacity = 0.5;
         title_acct.ellipsize = Pango.EllipsizeMode.END;
         title_box.pack_start (title_acct, false, false, 0);
 
-        title_date = new Gtk.Label ("");
+        title_date = new Label ("");
         title_date.opacity = 0.5;
         title_date.ellipsize = Pango.EllipsizeMode.END;
         title_box.pack_end (title_date, false, false, 0);
@@ -62,7 +62,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         pin_indicator.opacity = 0.5;
         title_box.pack_end (pin_indicator, false, false, 0);
 
-        content_label = new RichLabel ("");
+        content_label = new Widgets.RichLabel ("");
         content_label.wrap_words ();
 
         attachments = new Widgets.AttachmentGrid ();
@@ -79,26 +79,26 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         favorites = new Label ("0");
         replies = new Label ("0");
 
-        reblog = new ImageToggleButton ("media-playlist-repeat-symbolic");
+        reblog = new Widgets.ImageToggleButton ("media-playlist-repeat-symbolic");
         reblog.set_action ();
         reblog.tooltip_text = _("Boost");
         reblog.toggled.connect (() => {
             if (reblog.sensitive)
                 this.status.get_formal ().set_reblogged (reblog.get_active ());
         });
-        favorite = new ImageToggleButton ("emblem-favorite-symbolic");
+        favorite = new Widgets.ImageToggleButton ("emblem-favorite-symbolic");
         favorite.set_action ();
         favorite.tooltip_text = _("Favorite");
         favorite.toggled.connect (() => {
             if (favorite.sensitive)
                 this.status.get_formal ().set_favorited (favorite.get_active ());
         });
-        reply = new ImageToggleButton ("mail-replied-symbolic");
+        reply = new Widgets.ImageToggleButton ("mail-replied-symbolic");
         reply.set_action ();
         reply.tooltip_text = _("Reply");
         reply.toggled.connect (() => {
             reply.set_active (false);
-            PostDialog.reply (status.get_formal ());
+            Dialogs.Compose.reply (status.get_formal ());
         });
 
         counters = new Box (Orientation.HORIZONTAL, 6);
@@ -122,7 +122,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         button_press_event.connect (on_clicked);
     }
 
-    public StatusWidget (Status status, bool notification = false) {
+    public Status (API.Status status, bool notification = false) {
         this.status = status;
         this.status.updated.connect (rebind);
         is_notification = notification;
@@ -134,8 +134,8 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             image.margin_top = 6;
             image.show ();
 
-            var label_text = NotificationType.REBLOG_REMOTE_USER.get_desc (status.account);
-            var label = new RichLabel (label_text);
+            var label_text = API.NotificationType.REBLOG_REMOTE_USER.get_desc (status.account);
+            var label = new Widgets.RichLabel (label_text);
             label.halign = Align.START;
             label.margin_top = 6;
             label.show ();
@@ -151,7 +151,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
 
             var spoiler_button_text = _("Toggle content");
             if (status.sensitive && status.attachments != null) {
-                spoiler_button = new Button.from_icon_name ("mail-attachment-symbolic", Gtk.IconSize.BUTTON);
+                spoiler_button = new Button.from_icon_name ("mail-attachment-symbolic", IconSize.BUTTON);
                 spoiler_button.label = spoiler_button_text;
                 spoiler_button.always_show_image = true;
                 content_label.margin_top = 6;
@@ -166,7 +166,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             var spoiler_text = _("[ This post contains sensitive content ]");
             if (status.spoiler_text != null)
                 spoiler_text = status.spoiler_text;
-            content_spoiler = new RichLabel (spoiler_text);
+            content_spoiler = new Widgets.RichLabel (spoiler_text);
             content_spoiler.wrap_words ();
 
             spoiler_box.add (content_spoiler);
@@ -226,7 +226,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         favorite.active = formal.favorited;
         favorite.sensitive = true;
 
-        if (formal.visibility == StatusVisibility.DIRECT) {
+        if (formal.visibility == API.StatusVisibility.DIRECT) {
             reblog.sensitive = false;
             reblog.icon.icon_name = formal.visibility.get_icon ();
             reblog.tooltip_text = _("This post can't be boosted");
@@ -249,7 +249,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
 
     public bool on_avatar_clicked (EventButton ev) {
         if (ev.button == 1) {
-            var view = new AccountView (status.get_formal ().account);
+            var view = new Views.Profile (status.get_formal ().account);
             return window.open_view (view);
         }
         return false;
@@ -258,7 +258,7 @@ public class Tootle.StatusWidget : Gtk.EventBox {
     public bool open (EventButton ev) {
         if (ev.button == 1) {
             var formal = status.get_formal ();
-            var view = new StatusView (formal);
+            var view = new Views.ExpandedStatus (formal);
             return window.open_view (view);
         }
         return false;
@@ -299,17 +299,17 @@ public class Tootle.StatusWidget : Gtk.EventBox {
             menu.add (item_delete);
 
             var item_redraft = new Gtk.MenuItem.with_label (_("Redraft"));
-            item_redraft.activate.connect (() => PostDialog.redraft (status.get_formal ()));
+            item_redraft.activate.connect (() => Dialogs.Compose.redraft (status.get_formal ()));
             menu.add (item_redraft);
 
-            menu.add (new Gtk.SeparatorMenuItem ());
+            menu.add (new SeparatorMenuItem ());
         }
 
         if (this.is_notification)
             menu.add (item_muting);
 
         menu.add (item_open_link);
-        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (new SeparatorMenuItem ());
         menu.add (item_copy_link);
         menu.add (item_copy);
 

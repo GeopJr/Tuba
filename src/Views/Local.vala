@@ -1,6 +1,6 @@
-public class Tootle.LocalView : TimelineView {
+public class Tootle.Views.Local : Views.Timeline {
 
-    public LocalView () {
+    public Local () {
         base ("public");
     }
 
