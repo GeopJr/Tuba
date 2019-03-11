@@ -1,7 +1,7 @@
 public class Tootle.Desktop {
 
     // Open URI in the user's default application associated with it
-    public static void open_uri (string uri) {
+    public static bool open_uri (string uri) {
         try {
             Gtk.show_uri (null, uri, Gdk.CURRENT_TIME);
         }
@@ -9,6 +9,7 @@ public class Tootle.Desktop {
             warning ("Can't open %s: %s", uri, e.message);
             app.error (_("Error"), e.message);
         }
+        return true;
     }
 
     // Copy a string to the clipboard

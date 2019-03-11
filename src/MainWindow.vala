@@ -1,4 +1,5 @@
 using Gtk;
+using Gdk;
 
 public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
 
@@ -35,8 +36,7 @@ public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
         primary_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
         primary_stack.show ();
         primary_stack.add_named (secondary_stack, "0");
-        primary_stack.hexpand = true;
-        primary_stack.vexpand = true;
+        primary_stack.hexpand = primary_stack.vexpand = true;
 
         spinner = new Spinner ();
         spinner.active = true;
@@ -89,7 +89,7 @@ public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
         overlay.add_overlay (toast);
         overlay.set_size_request (450, 600);
         add (overlay);
-        
+
         restore_state ();
         show_all ();
     }
@@ -106,13 +106,13 @@ public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
         network.started.connect (() => spinner.show ());
         network.finished.connect (() => spinner.hide ());
         accounts.updated (accounts.saved_accounts);
-        button_press_event.connect ((event) => {
-            if (event.button == 8) {
-                back ();
-                return true;
-            }
-            return false;
-        });
+        button_press_event.connect (on_button_press);
+    }
+
+    private bool on_button_press (EventButton ev) {
+        if (ev.button == 8)
+            return back ();
+        return false;
     }
 
     private void add_header_view (AbstractView view, string[] accelerators, int32 num) {
@@ -130,7 +130,7 @@ public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
         return int.parse (primary_stack.get_visible_child_name ());
     }
 
-    public void open_view (AbstractView widget) {
+    public bool open_view (AbstractView widget) {
         var i = get_visible_id ();
         i++;
         widget.stack_pos = i;
@@ -138,17 +138,19 @@ public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
         primary_stack.add_named (widget, i.to_string ());
         primary_stack.set_visible_child_name (i.to_string ());
         update_header ();
+        return true;
     }
 
-    public void back () {
+    public bool back () {
         var i = get_visible_id ();
         if (i == 0)
-            return;
+            return false;
 
         var child = primary_stack.get_child_by_name (i.to_string ());
         primary_stack.set_visible_child_name ((i-1).to_string ());
         child.destroy ();
         update_header ();
+        return true;
     }
 
     public void reopen_view (int view_id) {
@@ -160,7 +162,7 @@ public class Tootle.MainWindow: Gtk.Window, ISavedWindow {
     }
 
     public override bool delete_event (Gdk.EventAny event) {
-        this.destroy.connect (() => {
+        destroy.connect (() => {
             if (!settings.always_online || accounts.is_empty ())
                 app.remove_window (window_dummy);
             window = null;

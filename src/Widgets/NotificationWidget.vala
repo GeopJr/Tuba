@@ -54,7 +54,7 @@ public class Tootle.NotificationWidget : Grid {
             status_widget = new StatusWidget (notification.status, true);
             status_widget.is_notification = true;
             status_widget.button_press_event.connect (status_widget.open);
-            status_widget.avatar.button_press_event.connect (status_widget.open_account);
+            status_widget.avatar.button_press_event.connect (status_widget.on_avatar_clicked);
             attach (status_widget, 1, 3, 3, 1);
         }
 

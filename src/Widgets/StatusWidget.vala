@@ -247,33 +247,28 @@ public class Tootle.StatusWidget : Gtk.EventBox {
         return null;
     }
 
-    public bool open_account (EventButton ev) {
-        if (ev.button == 8)
-            return false;
-
-        var view = new AccountView (status.get_formal ().account);
-        window.open_view (view);
-        return true;
+    public bool on_avatar_clicked (EventButton ev) {
+        if (ev.button == 1) {
+            var view = new AccountView (status.get_formal ().account);
+            return window.open_view (view);
+        }
+        return false;
     }
 
     public bool open (EventButton ev) {
-        if (ev.button == 8)
-            return false;
-
-        var formal = status.get_formal ();
-        var view = new StatusView (formal);
-        window.open_view (view);
-        return true;
+        if (ev.button == 1) {
+            var formal = status.get_formal ();
+            var view = new StatusView (formal);
+            return window.open_view (view);
+        }
+        return false;
     }
 
-    private bool on_clicked (EventButton ev) {
-        if (ev.button == 8)
-            return false;
-
+    protected virtual bool on_clicked (EventButton ev) {
         if (ev.button == 3)
             return open_menu (ev.button, ev.time);
-        else
-            return false;
+        return false;
+
     }
 
     public virtual bool open_menu (uint button, uint32 time) {

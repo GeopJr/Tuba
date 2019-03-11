@@ -67,8 +67,8 @@ public class Tootle.Widgets.ImageAttachment : Gtk.DrawingArea {
             });
         }
         catch (Error e) {
-            error (e.message);
-            app.error (_("File read error"), _("Can't read file %s: %s").printf (uri, e.message));
+        	app.error (_("File read error"), _("Can't read file %s: %s").printf (uri, e.message));
+            warning (e.message);
         }
     }
 
@@ -151,8 +151,7 @@ public class Tootle.Widgets.ImageAttachment : Gtk.DrawingArea {
     		case 3:
     			return open_menu (ev.button, ev.time);
     		case 1:
-    			Desktop.open_uri (attachment.url);
-    			return true;
+    			return Desktop.open_uri (attachment.url);
     	}
     	return false;
     }

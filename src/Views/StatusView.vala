@@ -10,18 +10,18 @@ public class Tootle.StatusView : AbstractView {
         root_status = status;
         request_context ();
     }
-    
+
     private void prepend (Status status, bool is_root = false){
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.show ();
-        
+
         var widget = new StatusWidget (status);
-        widget.avatar.button_press_event.connect (widget.open_account);
+        widget.avatar.button_press_event.connect (widget.on_avatar_clicked);
         if (!is_root)
             widget.button_press_event.connect (widget.open);
         else
             widget.highlight ();
-            
+
         if (!last_was_a_root) {
             widget.separator = separator;
             view.pack_start (separator, false, false, 0);
@@ -36,7 +36,7 @@ public class Tootle.StatusView : AbstractView {
         network.queue (msg, (sess, mess) => {
             try{
                 var root = network.parse (mess);
-                
+
                 var ancestors = root.get_array_member ("ancestors");
                 ancestors.foreach_element ((array, i, node) => {
                     var object = node.get_object ();
@@ -45,9 +45,9 @@ public class Tootle.StatusView : AbstractView {
                         prepend (status);
                     }
                 });
-                
+
                 prepend (root_status, true);
-                
+
                 var descendants = root.get_array_member ("descendants");
                 descendants.foreach_element ((array, i, node) => {
                     var object = node.get_object ();

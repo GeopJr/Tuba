@@ -59,7 +59,7 @@ public class Tootle.TimelineView : AbstractView {
         widget.separator = separator;
         widget.button_press_event.connect (widget.open);
         if (!is_status_owned (status))
-            widget.avatar.button_press_event.connect (widget.open_account);
+            widget.avatar.button_press_event.connect (widget.on_avatar_clicked);
         view.pack_start (separator, false, false, 0);
         view.pack_start (widget, false, false, 0);
 
