@@ -14,7 +14,7 @@ public class Tootle.Widgets.Status : EventBox {
     protected Widgets.RichLabel title_user;
     protected Label title_date;
     protected Label title_acct;
-    protected Revealer revealer;
+    public Revealer revealer;
     protected Widgets.RichLabel content_label;
     protected Widgets.RichLabel? content_spoiler;
     protected Button? spoiler_button;
@@ -144,7 +144,7 @@ public class Tootle.Widgets.Status : EventBox {
             grid.attach (label, 2, 0, 2, 1);
         }
 
-        if (is_spoiler ()) {
+        if (status.has_spoiler ()) {
             revealer.reveal_child = false;
             var spoiler_box = new Box (Orientation.HORIZONTAL, 6);
             spoiler_box.margin_end = 12;
@@ -233,10 +233,6 @@ public class Tootle.Widgets.Status : EventBox {
         }
 
         network.load_avatar (formal.account.avatar, avatar, get_avatar_size ());
-    }
-
-    public bool is_spoiler () {
-        return this.status.get_formal ().spoiler_text != null || this.status.get_formal ().sensitive;
     }
 
     private GLib.DateTime? parse_date_iso8601 (string date) {

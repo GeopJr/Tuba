@@ -28,6 +28,7 @@ namespace Tootle {
 
         public const GLib.ActionEntry[] app_entries = {
             {"compose-toot",    compose_toot_activated          },
+            {"toggle-reveal",   on_sensitive_toggled            },
             {"back",            back_activated                  },
             {"refresh",         refresh_activated               },
             {"switch-timeline", switch_timeline_activated, "i"  }
@@ -41,6 +42,7 @@ namespace Tootle {
         }
 
         public string[] ACCEL_NEW_POST = {"<Ctrl>T"};
+        public string[] ACCEL_TOGGLE_REVEAL = {"<Ctrl>S"};
         public string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left"};
         public string[] ACCEL_REFRESH = {"<Ctrl>R", "F5"};
         public string[] ACCEL_TIMELINE_0 = {"<Alt>1"};
@@ -81,6 +83,7 @@ namespace Tootle {
             add_window (window_dummy);
 
             set_accels_for_action ("app.compose-toot", ACCEL_NEW_POST);
+            set_accels_for_action ("app.toggle-reveal", ACCEL_TOGGLE_REVEAL);
             set_accels_for_action ("app.back", ACCEL_BACK);
             set_accels_for_action ("app.refresh", ACCEL_REFRESH);
             set_accels_for_action ("app.switch-timeline(0)", ACCEL_TIMELINE_0);
@@ -115,6 +118,10 @@ namespace Tootle {
             message_dialog.transient_for = window;
             message_dialog.run ();
             message_dialog.destroy ();
+        }
+
+        private void on_sensitive_toggled () {
+            window.button_reveal.clicked ();
         }
 
         private void compose_toot_activated () {

@@ -145,6 +145,10 @@ public class Tootle.API.Status {
         return get_formal ().account.id == accounts.current.id;
     }
 
+    public bool has_spoiler () {
+        return get_formal ().spoiler_text != null || get_formal ().sensitive;
+    }
+
     public string get_reply_mentions () {
         var result = "";
         if (account.acct != accounts.current.acct)
