@@ -50,51 +50,6 @@ public class Tootle.Network : GLib.Object {
         session.cancel_message (msg, Soup.Status.CANCELLED);
     }
 
-    // public Soup.Message queue (owned Soup.Message msg, owned Soup.SessionCallback? cb = null) {
-    //     requests_processing++;
-    //     started ();
-
-    //     var formal = accounts.formal;
-    //     if(formal != null)
-    //         msg.request_headers.append ("Authorization", "Bearer " + formal.token);
-
-    //     session.queue_message (msg, (sess, mess) => {
-    //         switch (mess.tls_errors){
-    //             case GLib.TlsCertificateFlags.UNKNOWN_CA:
-    //             case GLib.TlsCertificateFlags.BAD_IDENTITY:
-    //             case GLib.TlsCertificateFlags.NOT_ACTIVATED:
-    //             case GLib.TlsCertificateFlags.EXPIRED:
-    //             case GLib.TlsCertificateFlags.REVOKED:
-    //             case GLib.TlsCertificateFlags.INSECURE:
-    //             case GLib.TlsCertificateFlags.GENERIC_ERROR:
-    //                 var err = mess.tls_errors.to_string ();
-    //                 warning ("TLS error: "+err);
-    //                 app.error (_("TLS Error"), _("Can't ensure secure connection: ")+err);
-    //                 return;
-    //             default:
-    //                 break;
-    //         }
-
-    //         if (msg.status_code == Soup.Status.CANCELLED)
-    //             return;
-
-    //         if (mess.status_code != Soup.Status.OK) {
-    //             var phrase = Soup.Status.get_phrase (mess.status_code);
-    //             app.toast (_("Error: %s").printf (phrase));
-    //             return;
-    //         }
-
-    //         if (cb != null)
-    //             cb (sess, mess);
-
-    //         msg.request_body.free ();
-    //         msg.response_body.free ();
-    //         msg.request_headers.free ();
-    //         msg.response_headers.free ();
-    //     });
-    //     return msg;
-    // }
-
     public void inject (Soup.Message msg, string header) {
         msg.request_headers.append (header, "VeryPls");
     }
