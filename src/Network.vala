@@ -13,6 +13,7 @@ public class Tootle.Network : GLib.Object {
     public signal void status_removed (int64 id);
 
 	public delegate void ErrorCallback (int32 code, string reason);
+	public delegate void SuccessCallback (Session session, Message msg) throws GLib.Error;
 
     private int requests_processing = 0;
     private Soup.Session session;
@@ -63,7 +64,7 @@ public class Tootle.Network : GLib.Object {
         }
     }
 
-    public void queue (owned Soup.Message message, owned Soup.SessionCallback? cb = null, owned ErrorCallback? errcb = null) {
+    public void queue (owned Soup.Message message, owned SuccessCallback? cb = null, owned ErrorCallback? errcb = null) {
         requests_processing++;
         started ();
 
@@ -105,7 +106,7 @@ public class Tootle.Network : GLib.Object {
         warning (message);
         app.toast (message);
     }
-    
+
     public void on_show_error (int32 code, string message) {
     	warning (message);
     	app.error (_("Network Error"), message);

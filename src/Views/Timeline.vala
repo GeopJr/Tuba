@@ -118,7 +118,7 @@ public class Tootle.Views.Timeline : Views.Abstract {
         network.queue (msg, (sess, mess) => {
                 network.parse_array (mess).foreach_element ((array, i, node) => {
                     var object = node.get_object ();
-                    if (object != null){
+                    if (object != null) {
                         var status = API.Status.parse (object);
                         append (status);
                     }
