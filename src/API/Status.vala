@@ -167,76 +167,69 @@ public class Tootle.API.Status {
         return result;
     }
 
-    public void set_reblogged (bool rebl = true) {
+    public void set_reblogged (bool rebl, Network.ErrorCallback? err = network.on_error) {
         var action = rebl ? "reblog" : "unreblog";
         var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
-        msg.finished.connect (() => {
-            reblogged = rebl;
-            updated ();
-            if (rebl)
-                app.toast (_("Boosted!"));
-            else
-                app.toast (_("Removed boost"));
-        });
-        network.queue (msg);
+        network.inject (msg, Network.INJECT_TOKEN);
+        network.queue (msg, (sess, message) => {
+                reblogged = rebl;
+                updated ();
+            }, (status, reason) => {
+                err (status, reason);
+            });
     }
 
-    public void set_favorited (bool fav = true) {
+    public void set_favorited (bool fav, Network.ErrorCallback? err = network.on_error) {
         var action = fav ? "favourite" : "unfavourite";
         var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
-        msg.finished.connect (() => {
-            favorited = fav;
-            updated ();
-            if (fav)
-                app.toast (_("Favorited!"));
-            else
-                app.toast (_("Removed from favorites"));
-        });
-        network.queue (msg);
+        network.inject (msg, Network.INJECT_TOKEN);
+            network.queue (msg, (sess, message) => {
+                favorited = fav;
+                updated ();
+            }, (status, reason) => {
+                err (status, reason);
+            });
     }
 
-    public void set_muted (bool mute = true) {
+    public void set_muted (bool mute, Network.ErrorCallback? err = network.on_error) {
         var action = mute ? "mute" : "unmute";
         var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
-        msg.finished.connect (() => {
-            muted = mute;
-            updated ();
-            if (mute)
-                app.toast (_("Muted!"));
-            else
-                app.toast (_("Conversation unmuted"));
-        });
-        network.queue (msg);
+        network.inject (msg, Network.INJECT_TOKEN);
+        network.queue (msg, (sess, message) => {
+                muted = mute;
+                updated ();
+            }, (status, reason) => {
+                err (status, reason);
+            });
     }
 
-    public void set_pinned (bool pin = true) {
+    public void set_pinned (bool pin, Network.ErrorCallback? err = network.on_error) {
         var action = pin ? "pin" : "unpin";
         var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
         msg.priority = Soup.MessagePriority.HIGH;
-        msg.finished.connect (() => {
-            pinned = pin;
-            updated ();
-            if (pin)
-                app.toast (_("Pinned!"));
-            else
-                app.toast (_("Unpinned from profile"));
-        });
-        network.queue (msg);
+        network.inject (msg, Network.INJECT_TOKEN);
+        network.queue (msg, (sess, message) => {
+                pinned = pin;
+                updated ();
+            }, (status, reason) => {
+                err (status, reason);
+            });
     }
 
-    public Soup.Message poof (bool show_toast = true) {
+    public void poof (Soup.SessionCallback? cb = null, Network.ErrorCallback? err = network.on_error) {
         var msg = new Soup.Message ("DELETE", "%s/api/v1/statuses/%lld".printf (accounts.formal.instance, id));
         msg.priority = Soup.MessagePriority.HIGH;
-        msg.finished.connect (() => {
-            if (show_toast)
-                app.toast (_("Poof!"));
-            network.status_removed (id);
-        });
-        network.queue (msg);
-        return msg;
+        network.inject (msg, Network.INJECT_TOKEN);
+        network.queue (msg, (sess, message) => {
+                network.status_removed (id);
+                if (cb != null)
+                    cb (sess, message);
+            }, (status, reason) => {
+                err (status, reason);
+            });
     }
 
 }

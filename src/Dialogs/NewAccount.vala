@@ -92,7 +92,7 @@ public class Tootle.Dialogs.NewAccount : Dialog {
             .replace ("http", "");
         code = code_entry.text;
 
-        if (this.client_id == null || this.client_secret == null) {
+        if (client_id == null || client_secret == null) {
             request_client_tokens ();
             return;
         }
@@ -103,15 +103,6 @@ public class Tootle.Dialogs.NewAccount : Dialog {
             try_auth (code);
     }
 
-    private bool show_error (Soup.Message msg) {
-        if (msg.status_code != Soup.Status.OK) {
-            var phrase = Soup.Status.get_phrase (msg.status_code);
-            app.error (_("Network Error"), phrase);
-            return true;
-        }
-        return false;
-    }
-
     private void request_client_tokens (){
         var pars = "?client_name=Tootle";
         pars += "&redirect_uris=urn:ietf:wg:oauth:2.0:oob";
@@ -119,10 +110,9 @@ public class Tootle.Dialogs.NewAccount : Dialog {
         pars += "&scopes=read%20write%20follow";
 
         grid.sensitive = false;
-        var msg = new Soup.Message ("POST", "%s/api/v1/apps%s".printf (instance, pars));
-        msg.finished.connect (() => {
+        var message = new Soup.Message ("POST", "%s/api/v1/apps%s".printf (instance, pars));
+        network.queue (message, (sess, msg) => {
             grid.sensitive = true;
-            if (show_error (msg)) return;
 
             var root = network.parse (msg);
             var id = root.get_string_member ("client_id");
@@ -134,8 +124,9 @@ public class Tootle.Dialogs.NewAccount : Dialog {
             request_auth_code ();
             code_name.show ();
             code_entry.show ();
+        }, (status, reason) => {
+            network.on_show_error (status, reason);
         });
-        network.queue_custom (msg);
     }
 
     private void request_auth_code (){
@@ -155,44 +146,31 @@ public class Tootle.Dialogs.NewAccount : Dialog {
         pars += "&grant_type=authorization_code";
         pars += "&code=" + code;
 
-        var msg = new Soup.Message ("POST", "%s/oauth/token%s".printf (instance, pars));
-        msg.finished.connect (() => {
-            try{
-                if (show_error (msg)) return;
+        var message = new Soup.Message ("POST", "%s/oauth/token%s".printf (instance, pars));
+        network.queue (message, (sess, msg) => {
                 var root = network.parse (msg);
                 token = root.get_string_member ("access_token");
 
-                debug ("Got access token");
+                info ("Got access token");
                 get_username ();
-            }
-            catch (GLib.Error e) {
-                warning ("Can't get access token");
-                warning (e.message);
-            }
+        }, (status, reason) => {
+            network.on_show_error (status, reason);
         });
-        network.queue_custom (msg);
     }
 
     private void get_username () {
-        var msg = new Soup.Message("GET", "%s/api/v1/accounts/verify_credentials".printf (instance));
-        msg.request_headers.append ("Authorization", "Bearer " + token);
-        msg.finished.connect (() => {
-            try{
-                if (show_error (msg)) return;
+        var message = new Soup.Message("GET", "%s/api/v1/accounts/verify_credentials".printf (instance));
+        message.request_headers.append ("Authorization", "Bearer " + token);
+        network.queue (message, (sess, msg) => {
                 var root = network.parse (msg);
                 username = root.get_string_member ("username");
-
                 add_account ();
                 window.show ();
                 window.present ();
                 destroy ();
-            }
-            catch (GLib.Error e) {
-                warning ("Can't get username");
-                warning (e.message);
-            }
-        });
-        network.queue_custom (msg);
+            }, (status, reason) => {
+                network.on_show_error (status, reason);
+            });
     }
 
     private void add_account () {

@@ -113,10 +113,9 @@ public class Tootle.Views.Timeline : Views.Abstract {
             return;
         }
 
-        var msg = new Soup.Message("GET", get_url ());
-        msg.finished.connect (() => empty_state ());
+        var msg = new Soup.Message ("GET", get_url ());
+        network.inject (msg, Network.INJECT_TOKEN);
         network.queue (msg, (sess, mess) => {
-            try {
                 network.parse_array (mess).foreach_element ((array, i, node) => {
                     var object = node.get_object ();
                     if (object != null){
@@ -125,12 +124,9 @@ public class Tootle.Views.Timeline : Views.Abstract {
                     }
                 });
                 get_pages (mess.response_headers.get_one ("Link"));
-            }
-            catch (GLib.Error e) {
-                warning ("Can't update feed");
-                warning (e.message);
-            }
-        });
+                empty_state ();
+            },
+            network.on_error);
     }
 
     public virtual void on_refresh (){

@@ -18,26 +18,22 @@ public class Tootle.Accounts : Object {
     }
 
     public void switch_account (int id) {
-        debug ("Switching to #%i", id);
+        info ("Switching to #%i", id);
         settings.current_account = id;
         formal = saved_accounts.@get (id);
         var msg = new Soup.Message ("GET", "%s/api/v1/accounts/verify_credentials".printf (accounts.formal.instance));
+        network.inject (msg, Network.INJECT_TOKEN);
         network.queue (msg, (sess, mess) => {
-            try {
                 var root = network.parse (mess);
                 current = API.Account.parse (root);
                 switched (current);
                 updated (saved_accounts);
-            }
-            catch (GLib.Error e) {
-                warning ("Can't login into %s", formal.instance);
-                warning (e.message);
-            }
-        });
+            },
+            network.on_show_error);
     }
 
     public void add (InstanceAccount account) {
-        debug ("Adding account for %s at %s", account.username, account.instance);
+        info ("Adding account for %s at %s", account.username, account.instance);
         saved_accounts.add (account);
         save ();
         updated (saved_accounts);

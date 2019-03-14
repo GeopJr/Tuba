@@ -122,38 +122,28 @@ public class Tootle.Views.Notifications : Views.Abstract {
 
         var url = "%s/api/v1/follow_requests".printf (accounts.formal.instance);
         var msg = new Soup.Message ("GET", url);
+        network.inject (msg, Network.INJECT_TOKEN);
         network.queue (msg, (sess, mess) => {
-            try {
-                network.parse_array (mess).foreach_element ((array, i, node) => {
-                    var obj = node.get_object ();
-                    if (obj != null){
-                        var notification = API.Notification.parse_follow_request (obj);
-                        append (notification);
-                    }
-                });
-            }
-            catch (GLib.Error e) {
-                warning ("Can't update follow requests");
-                warning (e.message);
-            }
+            network.parse_array (mess).foreach_element ((array, i, node) => {
+                var obj = node.get_object ();
+                if (obj != null){
+                    var notification = API.Notification.parse_follow_request (obj);
+                    append (notification);
+                }
+            });
         });
 
         var url2 = "%s/api/v1/notifications?limit=30".printf (accounts.formal.instance);
         var msg2 = new Soup.Message ("GET", url2);
+        network.inject (msg2, Network.INJECT_TOKEN);
         network.queue (msg2, (sess, mess) => {
-            try {
-                network.parse_array (mess).foreach_element ((array, i, node) => {
-                    var obj = node.get_object ();
-                    if (obj != null){
-                        var notification = API.Notification.parse (obj);
-                        append (notification);
-                    }
-                });
-            }
-            catch (GLib.Error e) {
-                warning ("Can't update notifications");
-                warning (e.message);
-            }
+            network.parse_array (mess).foreach_element ((array, i, node) => {
+                var obj = node.get_object ();
+                if (obj != null){
+                    var notification = API.Notification.parse (obj);
+                    append (notification);
+                }
+            });
         });
 
         empty_state ();

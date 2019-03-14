@@ -123,7 +123,7 @@ public class Tootle.ImageCache : GLib.Object {
                 msg.disconnect(id);
             });
             in_progress[ci] = msg;
-            network.queue_custom (msg);
+            network.queue (msg);
         } else {
             ulong id = 0;
             id = msg.finished.connect(() => {

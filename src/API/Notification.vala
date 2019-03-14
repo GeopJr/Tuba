@@ -71,6 +71,7 @@ public class Tootle.API.Notification {
 
         var url = "%s/api/v1/notifications/dismiss?id=%lld".printf (accounts.formal.instance, id);
         var msg = new Soup.Message ("POST", url);
+        network.inject (msg, Network.INJECT_TOKEN);
         network.queue (msg);
         return msg;
     }
@@ -78,6 +79,7 @@ public class Tootle.API.Notification {
     public Soup.Message accept_follow_request () {
         var url = "%s/api/v1/follow_requests/%lld/authorize".printf (accounts.formal.instance, account.id);
         var msg = new Soup.Message ("POST", url);
+        network.inject (msg, Network.INJECT_TOKEN);
         network.queue (msg);
         return msg;
     }
@@ -85,6 +87,7 @@ public class Tootle.API.Notification {
     public Soup.Message reject_follow_request () {
         var url = "%s/api/v1/follow_requests/%lld/reject".printf (accounts.formal.instance, account.id);
         var msg = new Soup.Message ("POST", url);
+        network.inject (msg, Network.INJECT_TOKEN);
         network.queue (msg);
         return msg;
     }

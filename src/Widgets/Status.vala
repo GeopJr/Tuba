@@ -84,14 +84,14 @@ public class Tootle.Widgets.Status : EventBox {
         reblog.tooltip_text = _("Boost");
         reblog.toggled.connect (() => {
             if (reblog.sensitive)
-                this.status.get_formal ().set_reblogged (reblog.get_active ());
+                status.get_formal ().set_reblogged (reblog.get_active ());
         });
         favorite = new Widgets.ImageToggleButton ("emblem-favorite-symbolic");
         favorite.set_action ();
         favorite.tooltip_text = _("Favorite");
         favorite.toggled.connect (() => {
             if (favorite.sensitive)
-                this.status.get_formal ().set_favorited (favorite.get_active ());
+                status.get_formal ().set_favorited (favorite.get_active ());
         });
         reply = new Widgets.ImageToggleButton ("mail-replied-symbolic");
         reply.set_action ();
@@ -285,7 +285,7 @@ public class Tootle.Widgets.Status : EventBox {
             Desktop.copy (sanitized);
         });
 
-        if (this.status.is_owned ()) {
+        if (status.is_owned ()) {
             var item_pin = new Gtk.MenuItem.with_label (is_pinned ? _("Unpin from Profile") : _("Pin on Profile"));
             item_pin.activate.connect (() => status.set_pinned (!is_pinned));
             menu.add (item_pin);
@@ -301,7 +301,7 @@ public class Tootle.Widgets.Status : EventBox {
             menu.add (new SeparatorMenuItem ());
         }
 
-        if (this.is_notification)
+        if (is_notification)
             menu.add (item_muting);
 
         menu.add (item_open_link);

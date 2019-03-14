@@ -223,22 +223,19 @@ public class Tootle.Dialogs.Compose : Dialog {
 
         var url = "%s/api/v1/statuses%s".printf (accounts.formal.instance, pars);
         var msg = new Soup.Message ("POST", url);
+        network.inject (msg, Network.INJECT_TOKEN);
         network.queue (msg, (sess, mess) => {
-            try {
-                var root = network.parse (mess);
-                var status = API.Status.parse (root);
-                debug ("Posted: %s", status.id.to_string ()); //TODO: Live updates
-                destroy ();
-            }
-            catch (GLib.Error e) {
-                warning ("Can't publish post.");
-                warning (e.message);
-            }
+            var root = network.parse (mess);
+            var status = API.Status.parse (root);
+            debug ("Posted: %s", status.id.to_string ()); //TODO: Live updates
+            destroy ();
         });
     }
 
     private void redraft_post () {
-        redrafting.poof (false).finished.connect (publish_post);
+        redrafting.poof ((sess, msg) => {
+            publish_post ();
+        });
     }
 
 }
