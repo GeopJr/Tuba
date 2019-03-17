@@ -69,6 +69,7 @@ public class Tootle.Views.Search : Views.Abstract {
         var query_encoded = Soup.URI.encode (query, null);
         var url = "%s/api/v1/search?q=%s&resolve=true".printf (accounts.formal.instance, query_encoded);
         var msg = new Soup.Message("GET", url);
+        network.inject (msg, Network.INJECT_TOKEN);
         network.queue (msg, (sess, mess) => {
                 var root = network.parse (mess);
                 var accounts = root.get_array_member ("accounts");
