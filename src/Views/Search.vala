@@ -70,7 +70,6 @@ public class Tootle.Views.Search : Views.Abstract {
         var url = "%s/api/v1/search?q=%s".printf (accounts.formal.instance, query_encoded);
         var msg = new Soup.Message("GET", url);
         network.queue (msg, (sess, mess) => {
-            try {
                 var root = network.parse (mess);
                 var accounts = root.get_array_member ("accounts");
                 var statuses = root.get_array_member ("statuses");
@@ -104,11 +103,6 @@ public class Tootle.Views.Search : Views.Abstract {
                 }
 
                 empty_state ();
-            }
-            catch (GLib.Error e) {
-                warning ("Can't update feed");
-                warning (e.message);
-            }
         });
     }
 

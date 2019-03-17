@@ -55,18 +55,61 @@ public class Tootle.Widgets.RichLabel : Label {
             return true;
         }
 
-        if ("/@" in url) {
-            var uri = new Soup.URI (url);
-            var username = url.split("/@")[1];
+        if ("@" in url || "tags" in url) {
+            var query = Soup.URI.encode (url, null);
+            var msg_url = "%s/api/v1/search?q=%s".printf (accounts.formal.instance, query);
+            var msg = new Soup.Message("GET", msg_url);
+            msg.priority = Soup.MessagePriority.HIGH;
+            network.inject (msg, Network.INJECT_TOKEN);
+            network.queue (msg, (sess, mess) => {
+                var root = network.parse (mess);
+                var accounts = root.get_array_member ("accounts");
+                var statuses = root.get_array_member ("statuses");
+                var hashtags = root.get_array_member ("hashtags");
 
-            if ("/" in username)
-                Views.ExpandedStatus.open_from_link (url);
-            else
-                Views.Profile.open_from_name ("@" + username + "@" + uri.get_host ());
-            return true;
+                if (accounts.get_length () > 0) {
+                    var item = accounts.get_object_element (0);
+                    var obj = API.Account.parse (item);
+                    window.open_view (new Views.Profile (obj));
+                }
+                else if (statuses.get_length () > 0) {
+                    var item = accounts.get_object_element (0);
+                    var obj = API.Status.parse (item);
+                    window.open_view (new Views.ExpandedStatus (obj));
+                }
+                else if (hashtags.get_length () > 0) {
+                    var item = accounts.get_object_element (0);
+                    var obj = API.Tag.parse (item);
+                    window.open_view (new Views.Hashtag (obj.name));
+                }
+                else {
+                    Desktop.open_uri (url);
+                }
+
+            }, (status, reason) => {
+                open_link_fallback (url, reason);
+            });
         }
+        else {
+            Desktop.open_uri (url);
+        }
+        return true;
+    }
 
-        return Desktop.open_uri (url);
+    public bool open_link_fallback (string url, string reason) {
+        warning ("Can't resolve url: " + url);
+        warning ("Reason: " + reason);
+
+        var toast = window.toast;
+        toast.title = reason;
+        toast.set_default_action (_("Open in Browser"));
+        ulong signal_id = 0;
+        signal_id = toast.default_action.connect (() => {
+            Desktop.open_uri (url);
+            toast.disconnect (signal_id);
+        });
+        toast.send_notification ();
+        return true;
     }
 
 }

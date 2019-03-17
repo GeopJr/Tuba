@@ -4,7 +4,7 @@ using Gdk;
 public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
 
     private Overlay overlay;
-    private Granite.Widgets.Toast toast;
+    public Granite.Widgets.Toast toast;
     private Grid grid;
     private Stack view_stack;
     private Stack timeline_stack;
