@@ -48,6 +48,7 @@ public class Tootle.Views.ExpandedStatus : Views.Abstract {
     public Soup.Message request (){
         var url = "%s/api/v1/statuses/%lld/context".printf (accounts.formal.instance, root_status.id);
         var msg = new Soup.Message ("GET", url);
+        network.inject (msg, Network.INJECT_TOKEN);
         network.queue (msg, (sess, mess) => {
             var root = network.parse (mess);
             var ancestors = root.get_array_member ("ancestors");
@@ -77,6 +78,7 @@ public class Tootle.Views.ExpandedStatus : Views.Abstract {
         var url = "%s/api/v1/search?q=%s&resolve=true".printf (accounts.formal.instance, q);
         var msg = new Soup.Message ("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
+        network.inject (msg, Network.INJECT_TOKEN);
         network.queue (msg, (sess, mess) => {
             var root = network.parse (mess);
             var statuses = root.get_array_member ("statuses");
