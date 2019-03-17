@@ -242,36 +242,11 @@ public class Tootle.Views.Profile : Views.Timeline {
         var msg = new Soup.Message ("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
         network.queue (msg, (sess, mess) => {
-            try {
-                var root = network.parse (mess);
-                var acc = API.Account.parse (root);
-                window.open_view (new Views.Profile (acc));
-            }
-            catch (GLib.Error e) {
-                warning ("Can't find account");
-                warning (e.message);
-            }
-        });
-    }
-
-    public static void open_from_name (string name){
-        var url = "%s/api/v1/accounts/search?limit=1&q=%s".printf (accounts.formal.instance, name);
-        var msg = new Soup.Message("GET", url);
-        msg.priority = Soup.MessagePriority.HIGH;
-        network.queue (msg, (sess, mess) => {
-            try {
-                var node = network.parse_array (mess).get_element (0);
-                var object = node.get_object ();
-                if (object != null){
-                    var acc = API.Account.parse (object);
-                    window.open_view (new Views.Profile (acc));
-                }
-                else
-                    app.toast (_("User not found"));
-            }
-            catch (GLib.Error e) {
-                warning (e.message);
-            }
+            var root = network.parse (mess);
+            var acc = API.Account.parse (root);
+            window.open_view (new Views.Profile (acc));
+        }, (status, reason) => {
+            network.on_error (status, reason);
         });
     }
 

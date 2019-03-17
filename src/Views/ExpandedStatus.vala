@@ -49,33 +49,26 @@ public class Tootle.Views.ExpandedStatus : Views.Abstract {
         var url = "%s/api/v1/statuses/%lld/context".printf (accounts.formal.instance, root_status.id);
         var msg = new Soup.Message ("GET", url);
         network.queue (msg, (sess, mess) => {
-            try{
-                var root = network.parse (mess);
+            var root = network.parse (mess);
+            var ancestors = root.get_array_member ("ancestors");
+            ancestors.foreach_element ((array, i, node) => {
+                var object = node.get_object ();
+                if (object != null) {
+                    var status = API.Status.parse (object);
+                    prepend (status);
+                }
+            });
 
-                var ancestors = root.get_array_member ("ancestors");
-                ancestors.foreach_element ((array, i, node) => {
-                    var object = node.get_object ();
-                    if (object != null) {
-                        var status = API.Status.parse (object);
-                        prepend (status);
-                    }
-                });
+            prepend (root_status, true);
 
-                prepend (root_status, true);
-
-                var descendants = root.get_array_member ("descendants");
-                descendants.foreach_element ((array, i, node) => {
-                    var object = node.get_object ();
-                    if (object != null) {
-                        var status = API.Status.parse (object);
-                        prepend (status);
-                    }
-                });
-            }
-            catch (GLib.Error e) {
-                warning ("Can't get context for a status");
-                warning (e.message);
-            }
+            var descendants = root.get_array_member ("descendants");
+            descendants.foreach_element ((array, i, node) => {
+                var object = node.get_object ();
+                if (object != null) {
+                    var status = API.Status.parse (object);
+                    prepend (status);
+                }
+            });
         });
         return msg;
     }
@@ -85,20 +78,15 @@ public class Tootle.Views.ExpandedStatus : Views.Abstract {
         var msg = new Soup.Message ("GET", url);
         msg.priority = Soup.MessagePriority.HIGH;
         network.queue (msg, (sess, mess) => {
-            try {
-                var root = network.parse (mess);
-                var statuses = root.get_array_member ("statuses");
-                var object = statuses.get_element (0).get_object ();
-                if (object != null){
-                    var st = API.Status.parse (object);
-                    window.open_view (new Views.ExpandedStatus (st));
-                }
-                else
-                    Desktop.open_uri (q);
+            var root = network.parse (mess);
+            var statuses = root.get_array_member ("statuses");
+            var object = statuses.get_element (0).get_object ();
+            if (object != null){
+                var st = API.Status.parse (object);
+                window.open_view (new Views.ExpandedStatus (st));
             }
-            catch (GLib.Error e) {
-                warning (e.message);
-            }
+            else
+                Desktop.open_uri (q);
         });
     }
 

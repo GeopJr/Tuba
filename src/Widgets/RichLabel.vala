@@ -57,7 +57,7 @@ public class Tootle.Widgets.RichLabel : Label {
 
         if ("@" in url || "tags" in url) {
             var query = Soup.URI.encode (url, null);
-            var msg_url = "%s/api/v1/search?q=%s".printf (accounts.formal.instance, query);
+            var msg_url = "%s/api/v1/search?q=%s&resolve=true".printf (accounts.formal.instance, query);
             var msg = new Soup.Message("GET", msg_url);
             msg.priority = Soup.MessagePriority.HIGH;
             network.inject (msg, Network.INJECT_TOKEN);
