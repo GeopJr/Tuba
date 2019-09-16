@@ -6,8 +6,18 @@ public class Tootle.Desktop {
             Gtk.show_uri (null, uri, Gdk.CURRENT_TIME);
         }
         catch (GLib.Error e){
-            warning ("Can't open %s: %s", uri, e.message);
-            app.error (_("Error"), e.message);
+            try {
+              string[] spawn_args = {"/usr/bin/xdg-open", uri};
+              Process.spawn_sync (null, spawn_args, null, SpawnFlags.SEARCH_PATH, null, null, null);
+            }
+            catch (GLib.Error e){
+              warning ("Can't open %s: %s", uri, e.message);
+              if (e.message == "Operation not supported") {
+                  app.error (_("Open this in a web browser:\n\n"+uri),"");
+              } else {
+                  app.error (_("Error"), e.message);
+              }
+            }
         }
         return true;
     }
