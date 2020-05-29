@@ -1,35 +1,12 @@
-.titlebar.compact {
-    padding: 0 6px;
+.avatar {
+	border-radius: 4px;
 }
 
-.mode .toggle{
-    border-radius:0px;
-    border-top:none;
-    border-bottom:none;
-    padding:10px;
-    margin:0px;
+.attachment {
+	border-radius: 4px;
+	background: rgba (150, 150, 150, 0.2);
 }
 
-.button_avatar{
-    padding:0;
-    border:0;
-    box-shadow:none;
-    background:none;
-}
-
-.toot-text, .toot-text text{
-    background-color: transparent;
-}
-
-.header{
-    background-size: cover;
-    background-position: 50%;
-    opacity: 0.15;
-}
-
-.relationship {
-    background: rgba (0,0,0,.5);
-    padding: 6px;
-    border-radius: 3px;
-    color: #fff;
+.highlight {
+	background: @theme_base_color;
 }

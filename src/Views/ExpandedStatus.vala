@@ -1,111 +1,91 @@
 using Gtk;
 
-public class Tootle.Views.ExpandedStatus : Views.Abstract {
+public class Tootle.Views.ExpandedStatus : Views.Base, IAccountListener {
 
-    private API.Status root_status;
-    private bool last_status_was_root = false;
-    private bool sensitive_visible = false;
+    public API.Status root_status { get; construct set; }
+    protected InstanceAccount? account = null;
+    protected Widgets.Status root_widget;
 
     public ExpandedStatus (API.Status status) {
-        base ();
-        root_status = status;
+        Object (root_status: status, state: "content");
+
+        root_widget = append (status);
+        root_widget.avatar.button_press_event.connect (root_widget.on_avatar_clicked);
+        root_widget.get_style_context ().add_class ("card");
+        root_widget.get_style_context ().add_class ("highlight");
+
+        connect_account ();
+    }
+
+   public override void on_account_changed (InstanceAccount? acc) {
+        account = acc;
         request ();
-
-        window.button_reveal.clicked.connect (on_reveal_toggle);
     }
 
-    ~ExpandedStatus () {
-        if (window != null) {
-            window.button_reveal.clicked.disconnect (on_reveal_toggle);
-            window.button_reveal.hide ();
-        }
-    }
-
-    private void prepend (API.Status status, bool is_root = false){
-        var separator = new Separator (Orientation.HORIZONTAL);
-        separator.show ();
-
+    private Widgets.Status prepend (API.Status status, bool to_end = false){
         var widget = new Widgets.Status (status);
         widget.avatar.button_press_event.connect (widget.on_avatar_clicked);
-        if (!is_root)
-            widget.button_press_event.connect (widget.open);
-        else
-            widget.highlight ();
+        widget.revealer.reveal_child = true;
 
-        if (!last_status_was_root) {
-            widget.separator = separator;
-            view.pack_start (separator, false, false, 0);
-        }
-        view.pack_start (widget, false, false, 0);
-        last_status_was_root = is_root;
+        content.pack_start (widget, false, false, 0);
+        if (!to_end)
+            content.reorder_child (widget, 0);
 
-        if (status.has_spoiler ())
-            window.button_reveal.show ();
-        if (sensitive_visible)
-            reveal_sensitive (widget);
+        check_resize ();
+        return widget;
+    }
+    private Widgets.Status append (API.Status status) {
+    	return prepend (status, true);
     }
 
-    public Soup.Message request (){
-        var url = "%s/api/v1/statuses/%lld/context".printf (accounts.formal.instance, root_status.id);
-        var msg = new Soup.Message ("GET", url);
-        network.inject (msg, Network.INJECT_TOKEN);
-        network.queue (msg, (sess, mess) => {
-            var root = network.parse (mess);
-            var ancestors = root.get_array_member ("ancestors");
-            ancestors.foreach_element ((array, i, node) => {
-                var object = node.get_object ();
-                if (object != null) {
-                    var status = API.Status.parse (object);
-                    prepend (status);
+    public void request () {
+        new Request.GET (@"/api/v1/statuses/$(root_status.id)/context")
+            .with_account (account)
+            .then_parse_obj (root => {
+                if (scrolled == null) return;
+
+                var ancestors = root.get_array_member ("ancestors");
+                ancestors.foreach_element ((array, i, node) => {
+                    var object = node.get_object ();
+                    if (object != null) {
+                        var status = new API.Status (object);
+                        prepend (status);
+                    }
+                });
+
+                var descendants = root.get_array_member ("descendants");
+                descendants.foreach_element ((array, i, node) => {
+                    var object = node.get_object ();
+                    if (object != null) {
+                        var status = new API.Status (object);
+                        append (status);
+                    }
+                });
+
+                int x,y;
+                translate_coordinates (root_widget, 0, 0, out x, out y);
+                scrolled.vadjustment.value = (double)(y*-1); //TODO: Animate scrolling?
+            })
+            .exec ();
+    }
+
+    public static void open_from_link (string q) {
+        new Request.GET ("/api/v1/search")
+            .with_account ()
+            .with_param ("q", q)
+            .with_param ("resolve", "true")
+            .then ((sess, msg) => {
+                var root = network.parse (msg);
+                var statuses = root.get_array_member ("statuses");
+                var object = statuses.get_element (0).get_object ();
+                if (object != null){
+                    var status = new API.Status (object);
+                    window.open_view (new Views.ExpandedStatus (status));
                 }
-            });
-
-            prepend (root_status, true);
-
-            var descendants = root.get_array_member ("descendants");
-            descendants.foreach_element ((array, i, node) => {
-                var object = node.get_object ();
-                if (object != null) {
-                    var status = API.Status.parse (object);
-                    prepend (status);
-                }
-            });
-        });
-        return msg;
-    }
-
-    public static void open_from_link (string q){
-        var url = "%s/api/v1/search?q=%s&resolve=true".printf (accounts.formal.instance, q);
-        var msg = new Soup.Message ("GET", url);
-        msg.priority = Soup.MessagePriority.HIGH;
-        network.inject (msg, Network.INJECT_TOKEN);
-        network.queue (msg, (sess, mess) => {
-            var root = network.parse (mess);
-            var statuses = root.get_array_member ("statuses");
-            var object = statuses.get_element (0).get_object ();
-            if (object != null){
-                var st = API.Status.parse (object);
-                window.open_view (new Views.ExpandedStatus (st));
-            }
-            else
-                Desktop.open_uri (q);
-        });
-    }
-
-    private void on_reveal_toggle () {
-        sensitive_visible = !sensitive_visible;
-        view.forall (w => {
-            if (!(w is Widgets.Status))
-                return;
-
-            var widget = w as Widgets.Status;
-            reveal_sensitive (widget);
-        });
-    }
-
-    private void reveal_sensitive (Widgets.Status widget) {
-        if (widget.status.has_spoiler ())
-            widget.revealer.reveal_child = sensitive_visible;
+                else
+                    Desktop.open_uri (q);
+            })
+            .exec ();
     }
 
 }

@@ -88,7 +88,7 @@ public class Tootle.Dialogs.Preferences : Dialog {
             halign = Align.START;
             valign = Align.CENTER;
             margin_bottom = 6;
-            settings.schema.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
+            settings.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
         }
     }
 

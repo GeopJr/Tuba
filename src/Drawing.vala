@@ -13,23 +13,24 @@ public class Tootle.Drawing {
 		ctx.close_path ();
 	}
 
-	public static Pixbuf make_pixbuf_thumbnail (Pixbuf pixbuf, int view_w, int view_h, bool fill_parent = false) {
-		// Don't resize if parent view is bigger than actual image
-		if (view_w >= pixbuf.width && view_h >= pixbuf.height)
-			return pixbuf;
+	public static void center (Cairo.Context ctx, int w, int h, int tw, int th) {
+		var cx = w/2 - tw/2;
+		var cy = h/2 - th/2;
+		ctx.translate (cx, cy);
+	}
 
-		//Otherwise fit the image into the parent view
-		var resized_w = view_w;
-		var resized_h = view_h;
-		//resized_w = (pixbuf.width * view_h) / pixbuf.height;
-		//resized_h = (pixbuf.height * view_w) / pixbuf.width;
+	public static Pixbuf make_thumbnail (Pixbuf pb, int view_w, int view_h) {
+		if (view_w >= pb.width && view_h >= pb.height)
+			return pb;
 
-		if (fill_parent)
-			resized_h = (pixbuf.height * view_w) / pixbuf.width;
-		else
-			resized_w = (pixbuf.width * view_h) / pixbuf.height;
+		double ratio_x = (double) view_w / (double) pb.width;
+		double ratio_y = (double) view_h / (double) pb.height;
+		double ratio = ratio_x < ratio_y ? ratio_x : ratio_y;
 
-		return pixbuf.scale_simple (resized_w, resized_h, InterpType.BILINEAR);
+		return pb.scale_simple (
+			(int) (pb.width * ratio),
+			(int) (pb.height * ratio),
+			InterpType.BILINEAR);
 	}
 
 }

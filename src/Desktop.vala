@@ -30,37 +30,42 @@ public class Tootle.Desktop {
     }
 
     // Download a file from the web to a user's configured Downloads folder
-    public static void download_file (string url) {
-        debug ("Downloading file: %s", url);
+    public delegate void DownloadCallback (string path);
+    public static void download (string url, DownloadCallback? cb = null, Network.ErrorCallback? ecb = null) {
+        info (@"Downloading file: $url...");
 
         var i = url.last_index_of ("/");
         var name = url.substring (i + 1, url.length - i - 1);
         if (name == null)
-            name = "unknown";
+            name = _("Unknown Attachment");
 
-        var dir_path = "%s/%s".printf (GLib.Environment.get_user_special_dir (UserDirectory.DOWNLOAD), app.program_name);
-        var file_path = "%s/%s".printf (dir_path, name);
+		var downloads = GLib.Environment.get_user_special_dir (UserDirectory.DOWNLOAD);
+		var dir_path = @"$downloads/$(Build.NAME)";
+        var file_path = @"$dir_path/$name";
 
-        var msg = new Soup.Message("GET", url);
-        msg.finished.connect(() => {
-            try {
-                var dir = File.new_for_path (dir_path);
-                if (!dir.query_exists ())
-                    dir.make_directory ();
+        new Request.GET (url)
+            .then ((sess, msg) => {
+                try {
+                    var dir = File.new_for_path (dir_path);
+                    if (!dir.query_exists ())
+                        dir.make_directory ();
 
-                var file = File.new_for_path (file_path);
-                if (!file.query_exists ()) {
-                    var data = msg.response_body.data;
-                    FileOutputStream stream = file.create (FileCreateFlags.PRIVATE);
-                    stream.write (data);
+                    var file = File.new_for_path (file_path);
+                    if (!file.query_exists ()) {
+                        var data = msg.response_body.data;
+                        FileOutputStream stream = file.create (FileCreateFlags.PRIVATE);
+                        stream.write (data);
+                    }
+                    info ("OK");
+                    cb (file_path);
+                    
+                } catch (Error e) {
+                    warning ("Error: %s\n", e.message);
+                    ecb (0, e.message);
                 }
-                app.toast (_("Media downloaded"));
-            } catch (Error e) {
-                app.toast (e.message);
-                warning ("Error: %s\n", e.message);
-            }
-        });
-        network.queue (msg);
+            })
+            .on_error ((code, reason) => ecb)
+            .exec ();
     }
 
     public static string fallback_icon (string normal, string fallback) {

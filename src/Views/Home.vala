@@ -1,7 +1,7 @@
 public class Tootle.Views.Home : Views.Timeline {
 
     public Home () {
-        base ("home");
+        Object (timeline: "home");
     }
 
     public override string get_icon () {
@@ -12,8 +12,8 @@ public class Tootle.Views.Home : Views.Timeline {
         return _("Home");
     }
 
-    public override Soup.Message? get_stream () {
-        return accounts.formal.get_stream ();
+    public override string? get_stream_url () {
+        return account.get_stream_url () ?? null;
     }
 
 }

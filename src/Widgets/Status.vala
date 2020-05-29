@@ -1,251 +1,191 @@
 using Gtk;
 using Gdk;
-using Granite;
 
+[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/status.ui")]
 public class Tootle.Widgets.Status : EventBox {
 
-    public API.Status status;
-    public bool is_notification = false;
-    public const int AVATAR_SIZE = 32;
+    public API.Status status { get; construct set; }
+    public API.NotificationType? kind { get; construct set; }
 
-    public Separator? separator;
-    public Granite.Widgets.Avatar avatar;
+    [GtkChild]
+    protected Separator separator;
+    [GtkChild]
     protected Grid grid;
-    protected Widgets.RichLabel title_user;
-    protected Label title_date;
-    protected Label title_acct;
-    public Revealer revealer;
-    protected Widgets.RichLabel content_label;
-    protected Widgets.RichLabel? content_spoiler;
-    protected Button? spoiler_button;
-    protected Box title_box;
-    protected Widgets.AttachmentGrid attachments;
-    protected Image pin_indicator;
 
-    protected Box counters;
-    protected Label replies;
-    protected Label reblogs;
-    protected Label favorites;
-    protected Widgets.ImageToggleButton reblog;
-    protected Widgets.ImageToggleButton favorite;
-    protected Widgets.ImageToggleButton reply;
+    [GtkChild]
+    protected Image header_icon;
+    [GtkChild]
+    protected Widgets.RichLabel header_label;
+
+    [GtkChild]
+    public Widgets.Avatar avatar;
+    [GtkChild]
+    protected Widgets.RichLabel handle_label;
+    [GtkChild]
+    protected Label date_label;
+    [GtkChild]
+    protected Image pin_indicator;
+    [GtkChild]
+    public Revealer revealer;
+    [GtkChild]
+    protected Widgets.RichLabel content;
+    [GtkChild]
+    protected Widgets.RichLabel revealer_content;
+    [GtkChild]
+    protected Widgets.Attachment.Box attachments;
+
+    [GtkChild]
+    protected Box actions;
+    [GtkChild]
+    protected Button reply_button;
+    [GtkChild]
+    protected ToggleButton reblog_button;
+    [GtkChild]
+    protected Image reblog_icon;
+    [GtkChild]
+    protected ToggleButton favorite_button;
+
+    protected string escaped_spoiler {
+        owned get {
+            if (status.formal.has_spoiler) {
+                var text = Html.simplify (status.formal.spoiler_text ?? "");
+                var label = _("[ Toggle content ]");
+                text += @" <a href='tootle://toggle'>$label</a>";
+                return text;
+            }
+            else
+                return Html.simplify (status.formal.content);
+        }
+    }
+
+    protected string escaped_content {
+        owned get {
+            return status.formal.has_spoiler ? Html.simplify (status.formal.content) : "";
+        }
+    }
+
+    protected string handle {
+		owned get {
+			var name = Html.simplify (status.formal.account.display_name);
+			var handle = Html.simplify (status.formal.account.acct);
+			return @"<b>$name</b> @$handle";
+		}
+	}
+
+	protected string date {
+		owned get {
+		    var timeval = GLib.TimeVal ();
+		    GLib.DateTime? date = null;
+		    if (timeval.from_iso8601 (status.formal.created_at))
+		        date = new GLib.DateTime.from_timeval_local (timeval);
+
+		    return Granite.DateTime.get_relative_datetime (date);
+		}
+	}
 
     construct {
-        grid = new Grid ();
-
-        avatar = new Granite.Widgets.Avatar.with_default_icon (AVATAR_SIZE);
-        avatar.valign = Align.START;
-        avatar.margin_top = 6;
-        avatar.margin_start = 6;
-        avatar.margin_end = 6;
-
-        title_box = new Box (Orientation.HORIZONTAL, 6);
-        title_box.hexpand = true;
-        title_box.margin_end = 12;
-        title_box.margin_top = 6;
-
-        title_user = new Widgets.RichLabel ("");
-        title_box.pack_start (title_user, false, false, 0);
-
-        title_acct = new Label ("");
-        title_acct.opacity = 0.5;
-        title_acct.ellipsize = Pango.EllipsizeMode.END;
-        title_box.pack_start (title_acct, false, false, 0);
-
-        title_date = new Label ("");
-        title_date.opacity = 0.5;
-        title_date.ellipsize = Pango.EllipsizeMode.END;
-        title_box.pack_end (title_date, false, false, 0);
-        title_box.show_all ();
-
-        pin_indicator = new Image.from_icon_name ("view-pin-symbolic", IconSize.MENU);
-        pin_indicator.opacity = 0.5;
-        title_box.pack_end (pin_indicator, false, false, 0);
-
-        content_label = new Widgets.RichLabel ("");
-        content_label.wrap_words ();
-
-        attachments = new Widgets.AttachmentGrid ();
-
-        var revealer_box = new Box (Orientation.VERTICAL, 6);
-        revealer_box.margin_end = 12;
-        revealer_box.add (content_label);
-        revealer_box.add (attachments);
-        revealer = new Revealer ();
-        revealer.reveal_child = true;
-        revealer.add (revealer_box);
-
-        reblogs = new Label ("0");
-        favorites = new Label ("0");
-        replies = new Label ("0");
-
-        reblog = new Widgets.ImageToggleButton ("media-playlist-repeat-symbolic");
-        reblog.set_action ();
-        reblog.tooltip_text = _("Boost");
-        reblog.toggled.connect (() => {
-            if (reblog.sensitive)
-                status.get_formal ().set_reblogged (reblog.get_active ());
-        });
-        favorite = new Widgets.ImageToggleButton ("emblem-favorite-symbolic");
-        favorite.set_action ();
-        favorite.tooltip_text = _("Favorite");
-        favorite.toggled.connect (() => {
-            if (favorite.sensitive)
-                status.get_formal ().set_favorited (favorite.get_active ());
-        });
-        reply = new Widgets.ImageToggleButton ("mail-replied-symbolic");
-        reply.set_action ();
-        reply.tooltip_text = _("Reply");
-        reply.toggled.connect (() => {
-            reply.set_active (false);
-            Dialogs.Compose.reply (status.get_formal ());
-        });
-
-        counters = new Box (Orientation.HORIZONTAL, 6);
-        counters.margin_top = 6;
-        counters.margin_bottom = 6;
-        counters.add (reblog);
-        counters.add (reblogs);
-        counters.add (favorite);
-        counters.add (favorites);
-        counters.add (reply);
-        counters.add (replies);
-        counters.show_all ();
-
-        add (grid);
-        grid.attach (avatar, 1, 1, 1, 4);
-        grid.attach (title_box, 2, 2, 1, 1);
-        grid.attach (revealer, 2, 4, 1, 1);
-        grid.attach (counters, 2, 5, 1, 1);
-        show_all ();
-
         button_press_event.connect (on_clicked);
-    }
+        streams.status_removed.connect (on_status_removed);
+        content.activate_link.connect (on_toggle_spoiler);
+        notify["kind"].connect (on_kind_changed);
 
-    public Status (API.Status status, bool notification = false) {
-        this.status = status;
-        this.status.updated.connect (rebind);
-        is_notification = notification;
-
-        if (status.reblog != null) {
-            var image = new Image.from_icon_name("media-playlist-repeat-symbolic", IconSize.BUTTON);
-            image.halign = Align.END;
-            image.margin_end = 6;
-            image.margin_top = 6;
-            image.show ();
-
-            var label_text = API.NotificationType.REBLOG_REMOTE_USER.get_desc (status.account);
-            var label = new Widgets.RichLabel (label_text);
-            label.halign = Align.START;
-            label.margin_top = 6;
-            label.show ();
-
-            grid.attach (image, 1, 0, 1, 1);
-            grid.attach (label, 2, 0, 2, 1);
+        if (kind == null) {
+            if (status.reblog != null)
+                kind = API.NotificationType.REBLOG_REMOTE_USER;
         }
 
-        if (status.has_spoiler ()) {
-            revealer.reveal_child = false;
-            var spoiler_box = new Box (Orientation.HORIZONTAL, 6);
-            spoiler_box.margin_end = 12;
+        status.formal.bind_property ("favorited", favorite_button, "active", BindingFlags.SYNC_CREATE);
+        favorite_button.clicked.connect (() => {
+            status.action (status.formal.favorited ? "unfavourite" : "favourite");
+        });
 
-            var spoiler_button_text = _("Toggle content");
-            if (status.sensitive && status.attachments != null) {
-                spoiler_button = new Button.from_icon_name ("mail-attachment-symbolic", IconSize.BUTTON);
-                spoiler_button.label = spoiler_button_text;
-                spoiler_button.always_show_image = true;
-                content_label.margin_top = 6;
-            }
-            else {
-                spoiler_button = new Button.with_label (spoiler_button_text);
-            }
-            spoiler_button.hexpand = true;
-            spoiler_button.halign = Align.END;
-            spoiler_button.clicked.connect (() => revealer.set_reveal_child (!revealer.child_revealed));
+        status.formal.bind_property ("reblogged", reblog_button, "active", BindingFlags.SYNC_CREATE);
+        reblog_button.clicked.connect (() => {
+            status.action (status.formal.reblogged ? "unreblog" : "reblog");
+        });
 
-            var spoiler_text = _("[ This post contains sensitive content ]");
-            if (status.spoiler_text != null)
-                spoiler_text = status.spoiler_text;
-            content_spoiler = new Widgets.RichLabel (spoiler_text);
-            content_spoiler.wrap_words ();
+        reply_button.clicked.connect (() => new Dialogs.Compose.reply (status));
 
-            spoiler_box.add (content_spoiler);
-            spoiler_box.add (spoiler_button);
-            spoiler_box.show_all ();
-            grid.attach (spoiler_box, 2, 3, 1, 1);
+        bind_property ("escaped-spoiler", content, "label", BindingFlags.SYNC_CREATE);
+        bind_property ("escaped-content", revealer_content, "label", BindingFlags.SYNC_CREATE);
+        status.formal.account.bind_property ("avatar", avatar, "url", BindingFlags.SYNC_CREATE);
+		bind_property ("handle", handle_label, "label", BindingFlags.SYNC_CREATE);
+		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
+		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
+		status.formal.bind_property ("replies-count", reply_button, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_string (((int64)src).to_string ());
+			return true;
+		});
+		status.formal.bind_property ("reblogs-count", reblog_button, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_string (((int64)src).to_string ());
+			return true;
+		});
+		status.bind_property ("favourites-count", favorite_button, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_string (((int64)src).to_string ());
+			return true;
+		});
+
+        status.formal.bind_property ("has_spoiler", revealer_content, "visible", BindingFlags.SYNC_CREATE);
+        revealer.reveal_child = !status.formal.has_spoiler;
+
+        if (status.formal.visibility == API.Visibility.DIRECT) {
+            reblog_icon.icon_name = status.formal.visibility.get_icon ();
+            reblog_button.sensitive = false;
+            reblog_button.tooltip_text = _("This post can't be boosted");
         }
 
-        if (!is_notification && status.get_formal ().attachments != null)
-            attachments.pack (status.get_formal ().attachments);
-        else
+        if (status.id <= 0) {
+            actions.destroy ();
+            date_label.destroy ();
+            content.single_line_mode = true;
+            content.lines = 2;
+            content.ellipsize = Pango.EllipsizeMode.END;
+            button_press_event.connect (on_avatar_clicked);
+        }
+        else {
+            button_press_event.connect (open);
+        }
+
+        if (!attachments.populate (status.formal.attachments) || status.id <= 0) {
             attachments.destroy ();
-
-        destroy.connect (() => {
-            avatar.show_default (AVATAR_SIZE);
-            if (separator != null)
-                separator.destroy ();
-        });
-
-        network.status_removed.connect (id => {
-            if (id == status.id)
-                destroy ();
-        });
-
-        rebind ();
-    }
-
-    public void highlight () {
-        grid.get_style_context ().add_class ("card");
-        grid.margin_bottom = 6;
-    }
-
-    public int get_avatar_size () {
-        return AVATAR_SIZE * get_style_context ().get_scale ();
-    }
-
-    public void rebind () {
-        var formal = status.get_formal ();
-
-        title_user.set_label ("<b>%s</b>".printf ((formal.account.display_name)));
-        title_acct.label = "@" + formal.account.acct;
-        content_label.set_label (formal.content);
-        content_label.mentions = formal.mentions;
-        pin_indicator.visible = status.pinned;
-
-        var datetime = parse_date_iso8601 (formal.created_at);
-        title_date.label = Granite.DateTime.get_relative_datetime (datetime);
-
-        reblogs.label = formal.reblogs_count.to_string ();
-        favorites.label = formal.favourites_count.to_string ();
-        replies.label = formal.replies_count.to_string ();
-
-        reblog.sensitive = false;
-        reblog.active = formal.reblogged;
-        reblog.sensitive = true;
-        favorite.sensitive = false;
-        favorite.active = formal.favorited;
-        favorite.sensitive = true;
-
-        if (formal.visibility == API.StatusVisibility.DIRECT) {
-            reblog.sensitive = false;
-            reblog.icon.icon_name = formal.visibility.get_icon ();
-            reblog.tooltip_text = _("This post can't be boosted");
         }
-
-        network.load_avatar (formal.account.avatar, avatar, get_avatar_size ());
     }
 
-    private GLib.DateTime? parse_date_iso8601 (string date) {
-        var timeval = GLib.TimeVal ();
-        if (timeval.from_iso8601 (date))
-            return new GLib.DateTime.from_timeval_local (timeval);
+    public Status (API.Status status, API.NotificationType? _kind = null) {
+        Object (status: status, kind: _kind);
+    }
 
-        return null;
+    ~Status () {
+        button_press_event.disconnect (on_clicked);
+        streams.status_removed.disconnect (on_status_removed);
+        notify["kind"].disconnect (on_kind_changed);
+    }
+
+	protected virtual void on_status_removed (int64 id) {
+        if (id == status.id)
+            destroy ();
+	}
+
+    protected bool on_toggle_spoiler (string uri) {
+        if (uri == "tootle://toggle") {
+            revealer.reveal_child = !revealer.reveal_child;
+            return true;
+        }
+        return false;
+    }
+
+    protected virtual void on_kind_changed () {
+        header_icon.visible = header_label.visible = (kind != null);
+        if (kind == null)
+            return;
+
+        header_icon.icon_name = kind.get_icon ();
+        header_label.label = kind.get_desc (status.account);
     }
 
     public bool on_avatar_clicked (EventButton ev) {
         if (ev.button == 1) {
-            var view = new Views.Profile (status.get_formal ().account);
+            var view = new Views.Profile (status.formal.account);
             return window.open_view (view);
         }
         return false;
@@ -253,7 +193,7 @@ public class Tootle.Widgets.Status : EventBox {
 
     public bool open (EventButton ev) {
         if (ev.button == 1) {
-            var formal = status.get_formal ();
+            var formal = status.formal;
             var view = new Views.ExpandedStatus (formal);
             return window.open_view (view);
         }
@@ -264,30 +204,26 @@ public class Tootle.Widgets.Status : EventBox {
         if (ev.button == 3)
             return open_menu (ev.button, ev.time);
         return false;
-
     }
 
     public virtual bool open_menu (uint button, uint32 time) {
         var menu = new Gtk.Menu ();
 
-        var is_muted = status.muted;
-        var is_pinned = status.pinned;
-
-        var item_muting = new Gtk.MenuItem.with_label (is_muted ? _("Unmute Conversation") : _("Mute Conversation"));
-        item_muting.activate.connect (() => status.set_muted (!is_muted));
         var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
-        item_open_link.activate.connect (() => Desktop.open_uri (status.get_formal ().url));
+        item_open_link.activate.connect (() => Desktop.open_uri (status.formal.url));
         var item_copy_link = new Gtk.MenuItem.with_label (_("Copy Link"));
-        item_copy_link.activate.connect (() => Desktop.copy (status.get_formal ().url));
+        item_copy_link.activate.connect (() => Desktop.copy (status.formal.url));
         var item_copy = new Gtk.MenuItem.with_label (_("Copy Text"));
         item_copy.activate.connect (() => {
-            var sanitized = Html.remove_tags (status.get_formal ().content);
+            var sanitized = Html.remove_tags (status.formal.content);
             Desktop.copy (sanitized);
         });
 
         if (status.is_owned ()) {
-            var item_pin = new Gtk.MenuItem.with_label (is_pinned ? _("Unpin from Profile") : _("Pin on Profile"));
-            item_pin.activate.connect (() => status.set_pinned (!is_pinned));
+            var item_pin = new Gtk.MenuItem.with_label (status.pinned ? _("Unpin from Profile") : _("Pin on Profile"));
+            item_pin.activate.connect (() => {
+                status.action (status.formal.pinned ? "unpin" : "pin");
+            });
             menu.add (item_pin);
 
             var item_delete = new Gtk.MenuItem.with_label (_("Delete"));
@@ -295,14 +231,17 @@ public class Tootle.Widgets.Status : EventBox {
             menu.add (item_delete);
 
             var item_redraft = new Gtk.MenuItem.with_label (_("Redraft"));
-            item_redraft.activate.connect (() => Dialogs.Compose.redraft (status.get_formal ()));
+            item_redraft.activate.connect (() => new Dialogs.Compose.redraft (status.formal));
             menu.add (item_redraft);
 
             menu.add (new SeparatorMenuItem ());
         }
 
-        if (is_notification)
-            menu.add (item_muting);
+        // if (is_notification) {
+        //     var item_muting = new Gtk.MenuItem.with_label (status.muted ? _("Unmute Conversation") : _("Mute Conversation"));
+        //     item_muting.activate.connect (() => status.update_muted (!is_muted) );
+        //     menu.add (item_muting);
+        // }
 
         menu.add (item_open_link);
         menu.add (new SeparatorMenuItem ());

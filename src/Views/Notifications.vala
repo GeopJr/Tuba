@@ -1,23 +1,20 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.Views.Notifications : Views.Abstract {
+public class Tootle.Views.Notifications : Views.Base, IAccountListener {
 
-    private int64 last_id = 0;
-    private bool force_dot = false;
+    protected InstanceAccount? account = null;
+    protected int64 last_id = 0;
+    protected bool force_dot = false;
 
     public Notifications () {
-        base ();
-        view.remove.connect (on_remove);
-        accounts.switched.connect (on_account_changed);
         app.refresh.connect (on_refresh);
-        network.notification.connect (prepend);
-
-        request ();
+        status_button.clicked.connect (on_refresh);
+        streams.notification.connect (prepend);
+        connect_account ();
     }
 
     private bool has_unread () {
-        var account = accounts.formal;
         if (account == null)
             return false;
         return last_id > account.last_seen_notification || force_dot;
@@ -39,38 +36,33 @@ public class Tootle.Views.Notifications : Views.Abstract {
     }
 
     public void append (API.Notification notification, bool reverse = false) {
-        if (empty != null)
-            empty.destroy ();
+        GLib.Idle.add (() => {
+            var widget = new Widgets.Notification (notification);
+            content.pack_start (widget, false, false, 0);
 
-        var separator = new Separator (Orientation.HORIZONTAL);
-        separator.show ();
+            if (reverse) {
+                content.reorder_child (widget, 0);
 
-        var widget = new Widgets.Notification (notification);
-        widget.separator = separator;
-        view.pack_start (separator, false, false, 0);
-        view.pack_start (widget, false, false, 0);
-
-        if (reverse) {
-            view.reorder_child (widget, 0);
-            view.reorder_child (separator, 0);
-
-            if (!current) {
-                force_dot = true;
-                accounts.formal.has_unread_notifications = force_dot;
+                if (!current) {
+                    force_dot = true;
+                    accounts.active.has_unread_notifications = force_dot;
+                }
             }
-        }
 
-        if (notification.id > last_id)
-            last_id = notification.id;
+            on_content_changed ();
 
-        if (has_unread ()) {
-            accounts.save ();
-            image.icon_name = get_icon ();
-        }
+            if (notification.id > last_id)
+                last_id = notification.id;
+
+            if (has_unread ()) {
+                accounts.save ();
+                image.icon_name = get_icon ();
+            }
+            return GLib.Source.REMOVE;
+        });
     }
 
     public override void on_set_current () {
-        var account = accounts.formal;
         if (has_unread ()) {
             force_dot = false;
             account.has_unread_notifications = force_dot;
@@ -80,73 +72,58 @@ public class Tootle.Views.Notifications : Views.Abstract {
         }
     }
 
-    public virtual void on_remove (Widget widget) {
-        if (!(widget is Widgets.Notification))
-            return;
-
-        empty_state ();
-    }
-
-    public override bool empty_state () {
-        var is_empty = base.empty_state ();
-        if (image != null && is_empty)
+    public override void on_content_changed () {
+        base.on_content_changed ();
+        if (image != null && empty)
             image.icon_name = get_icon ();
-
-        return is_empty;
     }
 
     public virtual void on_refresh () {
         clear ();
-        request ();
+        GLib.Idle.add (request);
     }
 
-    public virtual void on_account_changed (API.Account? account) {
-        if (account == null)
-            return;
-
-        last_id = accounts.formal.last_seen_notification;
-        force_dot = accounts.formal.has_unread_notifications;
-        on_refresh ();
+    public virtual void on_account_changed (InstanceAccount? acc) {
+        account = acc;
+        if (account == null) {
+		    last_id = 0;
+		    force_dot = false;
+        }
+        else {
+		    last_id = account.last_seen_notification;
+		    force_dot = account.has_unread_notifications;
+		}
+		on_refresh ();
     }
 
-    public void request () {
-        if (accounts.current == null) {
-            empty_state ();
-            return;
+    public bool request () {
+        if (account != null) {
+            account.cached_notifications.@foreach (notification => {
+                append (notification);
+                return true;
+            });
         }
 
-        accounts.formal.cached_notifications.@foreach (notification => {
-            append (notification);
-            return true;
-        });
+        // new Request.GET ("/api/v1/follow_requests")  //TODO: this
+        // 	.with_account ()
+        // 	.then_parse_array (node => {
+        //   var notification = API.Notification.parse_follow_request (node.get_object ());
+        //   append (notification);
+        // 	})
+        // 	.on_error (on_error)
+        // 	.exec ();
 
-        var url = "%s/api/v1/follow_requests".printf (accounts.formal.instance);
-        var msg = new Soup.Message ("GET", url);
-        network.inject (msg, Network.INJECT_TOKEN);
-        network.queue (msg, (sess, mess) => {
-            network.parse_array (mess).foreach_element ((array, i, node) => {
-                var obj = node.get_object ();
-                if (obj != null){
-                    var notification = API.Notification.parse_follow_request (obj);
-                    append (notification);
-                }
-            });
-        });
+        new Request.GET ("/api/v1/notifications")
+        	.with_account (account)
+        	.with_param ("limit", "30")
+        	.then_parse_array (node => {
+				var notification = new API.Notification (node.get_object ());
+				append (notification);
+        	})
+        	.on_error (on_error)
+        	.exec ();
 
-        var url2 = "%s/api/v1/notifications?limit=30".printf (accounts.formal.instance);
-        var msg2 = new Soup.Message ("GET", url2);
-        network.inject (msg2, Network.INJECT_TOKEN);
-        network.queue (msg2, (sess, mess) => {
-            network.parse_array (mess).foreach_element ((array, i, node) => {
-                var obj = node.get_object ();
-                if (obj != null){
-                    var notification = API.Notification.parse (obj);
-                    append (notification);
-                }
-            });
-        });
-
-        empty_state ();
+        return GLib.Source.REMOVE;
     }
 
 }

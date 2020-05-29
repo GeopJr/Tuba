@@ -1,24 +1,19 @@
 public class Tootle.Views.Federated : Views.Timeline {
 
     public Federated () {
-        base ("public");
+        Object (timeline: "public", is_public: true);
     }
-    
+
     public override string get_icon () {
         return "network-workgroup-symbolic";
     }
-    
+
     public override string get_name () {
         return _("Federated Timeline");
     }
-    
-    protected override bool is_public () {
-        return true;
-    }
-    
-    public override Soup.Message? get_stream () {
-        var url = "%s/api/v1/streaming/?stream=public&access_token=%s".printf (accounts.formal.instance, accounts.formal.token);
-        return new Soup.Message("GET", url);
+
+    public override string? get_stream_url () {
+        return account != null ? @"$(account.instance)/api/v1/streaming/?stream=public&access_token=$(account.token)" : null;
     }
 
 }

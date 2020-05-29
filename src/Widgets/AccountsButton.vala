@@ -1,168 +1,149 @@
 using Gtk;
 
-public class Tootle.Widgets.AccountsButton : MenuButton {
+[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/accounts_button.ui")]
+public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
 
-    const int AVATAR_SIZE = 24;
-    Granite.Widgets.Avatar avatar;
-    Grid grid;
-    Popover menu;
-    ListBox list;
-    ModelButton item_settings;
-    ModelButton item_refresh;
-    ModelButton item_search;
-    ModelButton item_favs;
-    ModelButton item_direct;
-    ModelButton item_watchlist;
+    [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/accounts_button_item.ui")]
+    private class Item : Grid {
+        [GtkChild]
+        private Widgets.Avatar avatar;
+        [GtkChild]
+        private Label name;
+        [GtkChild]
+        private Label handle;
+        [GtkChild]
+        private Button profile;
+        [GtkChild]
+        private Button remove;
 
-    private class AccountItemView : ListBoxRow {
+        public Item (InstanceAccount acc, AccountsButton _self) {
+            avatar.url = acc.avatar;
+            name.label = acc.display_name;
+            handle.label = acc.handle;
 
-        private Grid grid;
-        public Label display_name;
-        public Label instance;
-        public Button button;
-        public int id = -1;
+            profile.clicked.connect (() => {
+                Views.Profile.open_from_id (acc.id);
+                _self.active = false;
+            });
 
-        construct {
-            can_default = false;
-
-            grid = new Grid ();
-            grid.margin = 6;
-            grid.margin_start = 14;
-
-            display_name = new Label ("");
-            display_name.hexpand = true;
-            display_name.halign = Align.START;
-            display_name.use_markup = true;
-            instance = new Label ("");
-            instance.halign = Align.START;
-            button = new Button.from_icon_name ("window-close-symbolic", IconSize.SMALL_TOOLBAR);
-            button.receives_default = false;
-            button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-            grid.attach (display_name, 1, 0, 1, 1);
-            grid.attach (instance, 1, 1, 1, 1);
-            grid.attach (button, 2, 0, 2, 2);
-            add (grid);
-            show_all ();
+            remove.clicked.connect (() => {
+                _self.active = false;
+                accounts.remove (acc);
+            });
         }
 
-        public AccountItemView (){
-            button.clicked.connect (() => accounts.remove (id));
+        public Item.add_new () {
+            name.label = _("New Account");
+            handle.label = _("Click to add");
+            profile.destroy ();
+            remove.destroy ();
         }
-
     }
 
-    construct{
-        avatar = new Granite.Widgets.Avatar.with_default_icon (AVATAR_SIZE);
-        list = new ListBox ();
+    private bool invalidated = true;
 
-        var item_separator = new Separator (Orientation.HORIZONTAL);
-        item_separator.hexpand = true;
+    [GtkChild]
+    private Widgets.Avatar avatar;
+    [GtkChild]
+    private Spinner spinner;
 
-        item_refresh = new ModelButton ();
-        item_refresh.text = _("Refresh");
+    [GtkChild]
+    private ListBox account_list;
+
+    [GtkChild]
+    private ModelButton item_accounts;
+    [GtkChild]
+    private ModelButton item_prefs;
+    [GtkChild]
+    private ModelButton item_refresh;
+    [GtkChild]
+    private ModelButton item_search;
+    [GtkChild]
+    private ModelButton item_favs;
+    [GtkChild]
+    private ModelButton item_direct;
+    [GtkChild]
+    private ModelButton item_watchlist;
+
+    construct {
+        connect_account ();
+
         item_refresh.clicked.connect (() => app.refresh ());
         Desktop.set_hotkey_tooltip (item_refresh, null, app.ACCEL_REFRESH);
 
-        item_favs = new ModelButton ();
-        item_favs.text = _("Favorites");
         item_favs.clicked.connect (() => window.open_view (new Views.Favorites ()));
-
-        item_direct = new ModelButton ();
-        item_direct.text = _("Direct Messages");
         item_direct.clicked.connect (() => window.open_view (new Views.Direct ()));
-
-        item_search = new ModelButton ();
-        item_search.text = _("Search");
         item_search.clicked.connect (() => window.open_view (new Views.Search ()));
+        //item_watchlist.clicked.connect (() => Dialogs.WatchlistEditor.open ());
+        item_prefs.clicked.connect (() => Dialogs.Preferences.open ());
 
-        item_watchlist = new ModelButton ();
-        item_watchlist.text = _("Watchlist");
-        item_watchlist.clicked.connect (() => Dialogs.WatchlistEditor.open ());
+        // network.started.connect (() => spinner.show ());
+        // network.finished.connect (() => spinner.hide ());
 
-        item_settings = new ModelButton ();
-        item_settings.text = _("Settings");
-        item_settings.clicked.connect (() => Dialogs.Preferences.open ());
+        on_account_changed (null);
 
-        grid = new Grid ();
-        grid.orientation = Orientation.VERTICAL;
-        grid.width_request = 200;
-        grid.attach (list, 0, 1, 1, 1);
-        grid.attach (item_separator, 0, 3, 1, 1);
-        grid.attach (item_favs, 0, 4, 1, 1);
-        grid.attach (item_direct, 0, 5, 1, 1);
-        grid.attach (new Separator (Orientation.HORIZONTAL), 0, 6, 1, 1);
-        grid.attach (item_refresh, 0, 7, 1, 1);
-        grid.attach (item_search, 0, 8, 1, 1);
-        grid.attach (item_watchlist, 0, 9, 1, 1);
-        grid.attach (item_settings, 0, 10, 1, 1);
-        grid.show_all ();
-
-        menu = new Popover (null);
-        menu.add (grid);
-
-        get_style_context ().add_class ("button_avatar");
-        popover = menu;
-        add (avatar);
-        show_all ();
-
-        accounts.updated.connect (accounts_updated);
-        accounts.switched.connect (account_switched);
-        list.row_activated.connect (row => {
-            var widget = row as AccountItemView;
-            if (widget.id == -1) {
-                Dialogs.NewAccount.open ();
-                return;
-            }
-            if (widget.id == settings.current_account)
-                Views.Profile.open_from_id (accounts.current.id);
-            else
-                accounts.switch_account (widget.id);
-
-            menu.popdown ();
-        });
-    }
-
-    private void accounts_updated (GenericArray<InstanceAccount> accounts) {
-        list.forall (widget => widget.destroy ());
-        int i = -1;
-        accounts.foreach (account => {
-            i++;
-            var widget = new AccountItemView ();
-            widget.id = i;
-            widget.display_name.label = "<b>@"+account.username+"</b>";
-            widget.instance.label = account.get_pretty_instance ();
-            list.add (widget);
+        notify["active"].connect (() => {
+            if (active && invalidated)
+                rebuild ();
         });
 
-        var add_account = new AccountItemView ();
-        add_account.display_name.label = _("<b>New Account</b>");
-        add_account.instance.label = _("Click to add");
-        add_account.button.hide ();
-        list.add (add_account);
-        update_selection ();
+        account_list.row_activated.connect (on_selection_changed) ;
     }
 
-    private void account_switched (API.Account? account) {
-        if (account == null)
-            avatar.show_default (AVATAR_SIZE);
-        else
-            network.load_avatar (account.avatar, avatar, get_avatar_size ());
+    protected void on_selection_changed (ListBoxRow r) {
+        var i = r.get_index ();
+        if (i >= accounts.saved.size) {
+            active = false;
+            window.open_view (new Views.NewAccount (true));
+            return;
+        }
+
+        var account = accounts.saved.@get (i);
+        if (accounts.active == account)
+            return;
+
+        accounts.switch_account (i);
     }
 
-    private void update_selection () {
-        var id = settings.current_account;
-        var row = list.get_row_at_index (id);
-        if (row != null)
-            list.select_row (row);
+    public virtual void on_accounts_changed (Gee.ArrayList<InstanceAccount> accounts) {
+    	invalidated = true;
+    	if (active)
+    	    rebuild ();
     }
 
-    public int get_avatar_size () {
-        return AVATAR_SIZE * get_style_context ().get_scale ();
+    public virtual void on_account_changed (InstanceAccount? account) {
+    	if (account == null) {
+    	    avatar.url = null;
+    	    item_accounts.text = "<b>" + _("No active account") + "</b>";
+    	}
+    	else {
+    	    avatar.url = account.avatar;
+    	    item_accounts.text = @"<b>$(account.display_name)</b>\n$(account.handle)   ";
+    	}
+    	item_accounts.use_markup = true;
     }
 
-    public AccountsButton () {
-        account_switched (accounts.current);
+    private void rebuild () {
+        account_list.@foreach (w => account_list.remove (w));
+        accounts.saved.@foreach (acc => {
+            var item = new Item (acc, this);
+            var row = new ListBoxRow ();
+            row.add (item);
+            row.show ();
+
+            account_list.insert (row, -1);
+            if (accounts.active == acc)
+                row.activate ();
+
+            return true;
+        });
+        var new_row = new ListBoxRow ();
+        new_row.add (new Item.add_new ());
+        new_row.selectable = false;
+        new_row.show ();
+        account_list.insert (new_row, -1);
+
+        invalidated = false;
     }
 
 }

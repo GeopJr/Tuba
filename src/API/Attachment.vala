@@ -1,27 +1,24 @@
-public class Tootle.API.Attachment {
+public class Tootle.API.Attachment : GLib.Object {
 
-    public int64 id;
-    public string type;
-    public string url;
-    public string preview_url;
-    public string? description;
+    public int64 id { get; construct set; }
+    public string kind { get; set; }
+    public string url { get; set; }
+    public string? description { get; set; default = null; }
 
-    public Attachment (int64 _id) {
-        id = _id;
+    public string? _preview_url = null;
+    public string preview_url {
+        set { this._preview_url = value; }
+    	get { return (_preview_url == null || _preview_url == "") ? url : _preview_url; }
     }
 
-    public static Attachment parse (Json.Object obj) {
-        var id = int64.parse (obj.get_string_member ("id"));
-        var attachment = new Attachment (id);
-
-        attachment.type = obj.get_string_member ("type");
-        attachment.preview_url = obj.get_string_member ("preview_url");
-        attachment.url = obj.get_string_member ("url");
-
-        if (obj.has_member ("description"))
-            attachment.description = obj.get_string_member ("description");
-
-        return attachment;
+    public Attachment (Json.Object obj) {
+        Object (
+            id: int64.parse (obj.get_string_member ("id")),
+            kind: obj.get_string_member ("type"),
+            preview_url: obj.get_string_member ("preview_url"),
+            url: obj.get_string_member ("url"),
+            description: obj.get_string_member ("description")
+        );
     }
 
     public Json.Node? serialize () {
@@ -30,7 +27,7 @@ public class Tootle.API.Attachment {
         builder.set_member_name ("id");
         builder.add_string_value (id.to_string ());
         builder.set_member_name ("type");
-        builder.add_string_value (type);
+        builder.add_string_value (kind);
         builder.set_member_name ("url");
         builder.add_string_value (url);
         builder.set_member_name ("preview_url");

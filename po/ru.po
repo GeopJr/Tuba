@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-30 19:17+0300\n"
+"POT-Creation-Date: 2019-09-16 16:00+0300\n"
 "PO-Revision-Date: 2018-05-10 00:35+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,7 +19,7 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: data/com.github.bleakgrey.tootle.desktop.in:4
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:7 src/MainWindow.vala:68
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:7
 msgid "Tootle"
 msgstr ""
 
@@ -41,30 +41,34 @@ msgid "Lightning fast client for Mastodon"
 msgstr "Молниеносный клиент для Мастодонта"
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:11
+#, fuzzy
 msgid ""
 "Tootle is a client for the world’s largest free, open-source, decentralized "
-"microblogging network with real-time notifications and multiple accounts "
-"support."
+"microblogging network with real-time notifications and support for multiple "
+"accounts."
 msgstr ""
 "Tootle - клиент для крупнейшей в мире свободной, децентрализованной сети "
 "микроблогинга с открытым исходным кодом. Он поддерживает уведомления в "
 "реальном времени и несколько рабочих аккаунтов."
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:14
+#, fuzzy
 msgid ""
-"Mastodon is lovely crafted with power and speed in mind, resulting in a "
-"free, independent and popular alternative to the centralized social networks."
+"Mastodon is lovingly crafted with power and speed in mind, resulting in a "
+"free, independent, and popular alternative to the centralized social "
+"networks."
 msgstr ""
 "Мастодонт был создан с учётом множества возможностей и скорости, что привело "
 "к созданию свободной альтернативы популярным централизованным социальным "
 "сетям."
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:17
+#, fuzzy
 msgid ""
-"Anyone can run a server of Mastodon. Each server hosts individual user "
-"accounts, the content they produce, and the content they are subscribed. "
-"Every user can follow each other and share their posts regardless of their "
-"server."
+"Anyone can run a Mastodon server. Each server hosts individual user "
+"accounts, the content they produce, and the content to which they are "
+"subscribed. Every user can follow each other and share their posts "
+"regardless of their server."
 msgstr ""
 "Каждый может запустить свою копию Мастодонта. Сервер хранит аккаунты "
 "пользователей, контент, который они создают, и контент, на который они "
@@ -75,344 +79,280 @@ msgstr ""
 msgid "bleak_grey"
 msgstr ""
 
-#: src/Desktop.vala:10 src/API/Account.vala:123 src/API/Account.vala:142
-#: src/API/Account.vala:161 src/Dialogs/NewAccountDialog.vala:102
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:80
+#, fuzzy
+msgid "Added Watchlist"
+msgstr "Список Наблюдения"
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:81
+msgid "Added Redraft support"
+msgstr ""
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:82
+msgid "Added Pinning support"
+msgstr ""
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:83
+msgid "Added Simplified Chinese and German translations"
+msgstr ""
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:84
+msgid "Added --hidden Start Flag"
+msgstr ""
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:85
+msgid "Added Shortcuts and Back mouse button support"
+msgstr ""
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:86
+msgid "Changed Notifications screen behavior"
+msgstr ""
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:87
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:102
+msgid "Fixed minor bugs"
+msgstr ""
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:94
+msgid "Added Russian, French and Polish translations"
+msgstr ""
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:95
+#, fuzzy
+msgid "Added Direct timeline"
+msgstr "Обновлять публичные ленты:"
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:96
+msgid "Added support for custom character limit"
+msgstr ""
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:97
+msgid "Added support for streaming all timelines"
+msgstr ""
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:98
+msgid "Added tooltips for image attachments"
+msgstr ""
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:99
+msgid "Added remove action for attachments"
+msgstr ""
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:100
+msgid "Changed behavior for mentioning users"
+msgstr ""
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:101
+msgid "Changed behavior for missing image attachments"
+msgstr ""
+
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:109
+msgid "Initial release"
+msgstr ""
+
+#: src/Desktop.vala:10
 msgid "Error"
 msgstr "Ошибка"
 
-#: src/Desktop.vala:46
+#: src/Desktop.vala:47
 msgid "Media downloaded"
 msgstr "Медиаконтент загружен"
 
-#: src/MainWindow.vala:48
-msgid "Back"
-msgstr "Назад"
-
-#: src/MainWindow.vala:54 src/Dialogs/PostDialog.vala:29
-msgid "Toot"
-msgstr "Статус"
-
-#: src/Network.vala:58
-msgid "TLS Error"
-msgstr "Ошибка TLS"
-
-#: src/Network.vala:58
-msgid "Can't ensure secure connection: "
-msgstr "Не удалось установить безопасное соединение:"
-
-#: src/Network.vala:66
+#: src/Services/Accounts.vala:31
 #, c-format
-msgid "Error: %s"
-msgstr "Ошибка: %s"
-
-#: src/API/NotificationType.vala:50
-#, c-format
-msgid "<a href=\"%s\"><b>%s</b></a> mentioned you"
-msgstr "<a href=\"%s\"><b>%s</b></a> упомянул вас"
-
-#: src/API/NotificationType.vala:52
-#, c-format
-msgid "<a href=\"%s\"><b>%s</b></a> boosted your toot"
-msgstr "<a href=\"%s\"><b>%s</b></a> продвинул ваш статус"
-
-#: src/API/NotificationType.vala:54
-#, c-format
-msgid "<a href=\"%s\"><b>%s</b></a> favorited your toot"
-msgstr "<a href=\"%s\"><b>%s</b></a> понравился ваш статус"
-
-#: src/API/NotificationType.vala:56
-#, c-format
-msgid "<a href=\"%s\"><b>%s</b></a> now follows you"
-msgstr "<a href=\"%s\"><b>%s</b></a> подписался на вас"
-
-#: src/API/NotificationType.vala:58
-#, c-format
-msgid "<a href=\"%s\"><b>%s</b></a> wants to follow you"
-msgstr "<a href=\"%s\"><b>%s</b></a> хочет на вас подписаться"
-
-#: src/API/NotificationType.vala:60
-#, c-format
-msgid "<a href=\"%s\"><b>%s</b></a> posted a toot"
-msgstr "<a href=\"%s\"><b>%s</b></a> опубликовал статус"
-
-#: src/API/Status.vala:174
-msgid "Boosted!"
-msgstr "Продвинуто!"
-
-#: src/API/Status.vala:176
-msgid "Removed boost"
-msgstr "Продвижение отменено"
-
-#: src/API/Status.vala:189
-msgid "Favorited!"
-msgstr "Добавлено в понравившиеся!"
-
-#: src/API/Status.vala:191
-msgid "Removed from favorites"
-msgstr "Удалено из понравившихся"
-
-#: src/API/Status.vala:204
-msgid "Muted!"
-msgstr "Заглушено!"
-
-#: src/API/Status.vala:206
-msgid "Conversation unmuted"
-msgstr "Переписка включена"
-
-#: src/API/Status.vala:219
-msgid "Pinned!"
-msgstr "Закреплено!"
-
-#: src/API/Status.vala:221
-msgid "Unpinned from profile"
-msgstr "Откреплено от профиля"
-
-#: src/API/Status.vala:231
-msgid "Poof!"
-msgstr "Вжух!"
-
-#: src/API/StatusVisibility.vala:40
-msgid "Post to public timelines"
-msgstr "Видно в публичных лентах"
-
-#: src/API/StatusVisibility.vala:42
-msgid "Don't post to public timelines"
-msgstr "Не видно в публичных лентах"
-
-#: src/API/StatusVisibility.vala:44
-msgid "Post to followers only"
-msgstr "Только для подписчиков"
-
-#: src/API/StatusVisibility.vala:46
-msgid "Post to mentioned users only"
-msgstr "Только для упомянутых"
-
-#: src/Widgets/AccountsButton.vala:67
-msgid "Refresh"
-msgstr "Обновить"
-
-#: src/Widgets/AccountsButton.vala:71
-msgid "Favorites"
-msgstr "Понравившиеся"
-
-#: src/Widgets/AccountsButton.vala:75 src/Views/DirectView.vala:12
-msgid "Direct Messages"
-msgstr "Личные Сообщения"
-
-#: src/Widgets/AccountsButton.vala:79 src/Views/SearchView.vala:12
-msgid "Search"
-msgstr "Поиск"
-
-#: src/Widgets/AccountsButton.vala:83
-msgid "Watchlist"
-msgstr "Список Наблюдения"
-
-#: src/Widgets/AccountsButton.vala:87 src/Dialogs/SettingsDialog.vala:18
-msgid "Settings"
-msgstr "Настройки"
-
-#: src/Widgets/AccountsButton.vala:142
-msgid "<b>New Account</b>"
-msgstr "<b>Новый аккаунт</b>"
-
-#: src/Widgets/AccountsButton.vala:143
-msgid "Click to add"
-msgstr "Нажмите, чтобы добавить"
-
-#: src/Widgets/AccountWidget.vala:24 src/Widgets/AttachmentWidget.vala:130
-#: src/Widgets/StatusWidget.vala:289
-msgid "Open in Browser"
-msgstr "Открыть в Браузере"
-
-#: src/Widgets/AccountWidget.vala:26 src/Widgets/AttachmentWidget.vala:132
-#: src/Widgets/StatusWidget.vala:291
-msgid "Copy Link"
-msgstr "Скопировать Ссылку"
-
-#: src/Widgets/AttachmentBox.vala:41
-msgid "Select media files to add"
-msgstr "Выберите файлы для добавления"
-
-#: src/Widgets/AttachmentBox.vala:44
-msgid "_Cancel"
-msgstr "_Отмена"
-
-#: src/Widgets/AttachmentBox.vala:46
-msgid "_Open"
-msgstr "_Выбрать"
-
-#: src/Widgets/AttachmentWidget.vala:67
-#, c-format
-msgid "Click to open %s media"
-msgstr "Нажмите, чтобы открыть %s"
-
-#: src/Widgets/AttachmentWidget.vala:84
-msgid "Uploading..."
-msgstr "Загрузка..."
-
-#: src/Widgets/AttachmentWidget.vala:105
-msgid "File read error"
-msgstr "Ошибка чтения файла"
-
-#: src/Widgets/AttachmentWidget.vala:105
-#, c-format
-msgid "Can't read file %s: %s"
-msgstr "Не удалось прочитать файл %s: %s"
-
-#: src/Widgets/AttachmentWidget.vala:124
-msgid "Remove"
-msgstr "Удалить"
-
-#: src/Widgets/AttachmentWidget.vala:134
-msgid "Download"
-msgstr "Скачать"
-
-#: src/Widgets/NotificationWidget.vala:20
-msgid "Unknown Notification"
-msgstr "Неизвестное уведомление"
-
-#: src/Widgets/NotificationWidget.vala:25
-msgid "Dismiss"
-msgstr "Скрыть"
-
-#: src/Widgets/NotificationWidget.vala:64
-msgid "Accept"
-msgstr "Принять"
-
-#: src/Widgets/NotificationWidget.vala:66
-msgid "Reject"
-msgstr "Отклонить"
-
-#: src/Widgets/StatusWidget.vala:84
-msgid "Boost"
-msgstr "Продвинуть"
-
-#: src/Widgets/StatusWidget.vala:91
-msgid "Favorite"
-msgstr "Нравится"
-
-#: src/Widgets/StatusWidget.vala:98
-msgid "Reply"
-msgstr "Ответить"
-
-#: src/Widgets/StatusWidget.vala:136
-#, c-format
-msgid "<a href=\"%s\"><b>%s</b></a> boosted"
-msgstr "<a href=\"%s\"><b>%s</b></a> продвинул"
-
-#: src/Widgets/StatusWidget.vala:151
-msgid "Toggle content"
-msgstr "Развернуть"
-
-#: src/Widgets/StatusWidget.vala:165
-msgid "[ This post contains sensitive content ]"
-msgstr "[ Данный статус содержит чувствительный контент ]"
-
-#: src/Widgets/StatusWidget.vala:234
-msgid "This post can't be boosted"
-msgstr "Этот статус нельзя продвинуть"
-
-#: src/Widgets/StatusWidget.vala:287
-msgid "Unmute Conversation"
-msgstr "Включить переписку"
-
-#: src/Widgets/StatusWidget.vala:287
-msgid "Mute Conversation"
-msgstr "Заглушить Переписку"
-
-#: src/Widgets/StatusWidget.vala:293
-msgid "Copy Text"
-msgstr "Скопировать Текст"
-
-#: src/Widgets/StatusWidget.vala:300
-msgid "Unpin from Profile"
-msgstr "Открепить от Профиля"
-
-#: src/Widgets/StatusWidget.vala:300
-msgid "Pin on Profile"
-msgstr "Закрепить на Профиле"
-
-#: src/Widgets/StatusWidget.vala:304
-msgid "Delete"
-msgstr "Удалить"
-
-#: src/Widgets/StatusWidget.vala:308 src/Dialogs/PostDialog.vala:72
-msgid "Redraft"
-msgstr "Исправить"
-
-#: src/Dialogs/NewAccountDialog.vala:27
-msgid "New Account"
-msgstr "Новый аккаунт"
-
-#: src/Dialogs/NewAccountDialog.vala:38
-msgid "What's an instance?"
-msgstr "Что такое узел?"
-
-#: src/Dialogs/NewAccountDialog.vala:42
-msgid "Code:"
-msgstr "Код:"
-
-#: src/Dialogs/NewAccountDialog.vala:46
-msgid "Paste your instance authorization code here"
-msgstr "Вставьте свой код авторизации здесь"
-
-#: src/Dialogs/NewAccountDialog.vala:49
-msgid "Add Account"
-msgstr "Добавить Аккаунт"
-
-#: src/Dialogs/NewAccountDialog.vala:60
-msgid "Instance:"
-msgstr "Узел:"
-
-#: src/Dialogs/NewAccountDialog.vala:102
-msgid "Please paste valid instance authorization code"
-msgstr "Пожалуйста, вставьте корректный код авторизации"
-
-#: src/Dialogs/NewAccountDialog.vala:110
+msgid ""
+"This instance has invalidated this session. Please sign in again.\n"
+"\n"
+"%s"
+msgstr ""
+
+#: src/Services/Network.vala:86
 msgid "Network Error"
 msgstr "Сетевая Ошибка"
 
-#: src/Dialogs/PostDialog.vala:45
-msgid "Post Visibility"
-msgstr "Видимость Статуса"
+#: src/API/Visibility.vala:36
+msgid "Unlisted"
+msgstr ""
 
-#: src/Dialogs/PostDialog.vala:52
-msgid "Add Media"
-msgstr "Добавить Медиаконтент"
+#: src/API/Visibility.vala:38
+#, fuzzy
+msgid "Followers-only"
+msgstr "Подписчиков"
 
-#: src/Dialogs/PostDialog.vala:61
-msgid "Spoiler Warning"
-msgstr "Спойлер"
+#: src/API/Visibility.vala:40
+msgid "Direct"
+msgstr ""
 
-#: src/Dialogs/PostDialog.vala:68
-msgid "Cancel"
-msgstr "Отмена"
+#: src/API/Visibility.vala:42
+msgid "Public"
+msgstr ""
 
-#: src/Dialogs/PostDialog.vala:77
-msgid "Toot!"
-msgstr "Отправить!"
+#: src/API/Visibility.vala:49
+msgid "Don't post to public timelines"
+msgstr "Не видно в публичных лентах"
 
-#: src/Dialogs/PostDialog.vala:85
-msgid "Write your warning here"
-msgstr "Напишите здесь предупреждение"
+#: src/API/Visibility.vala:51
+msgid "Post to followers only"
+msgstr "Только для подписчиков"
 
-#: src/Dialogs/SettingsDialog.vala:37
+#: src/API/Visibility.vala:53
+msgid "Post to mentioned users only"
+msgstr "Только для упомянутых"
+
+#: src/API/Visibility.vala:55
+msgid "Post to public timelines"
+msgstr "Видно в публичных лентах"
+
+#: src/API/NotificationType.vala:56
+#, fuzzy, c-format
+msgid ""
+"<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> mentioned you</span>"
+msgstr "<a href=\"%s\"><b>%s</b></a> упомянул вас"
+
+#: src/API/NotificationType.vala:58
+#, fuzzy, c-format
+msgid ""
+"<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> boosted your status</"
+"span>"
+msgstr "<a href=\"%s\"><b>%s</b></a> продвинул ваш статус"
+
+#: src/API/NotificationType.vala:60
+#, fuzzy, c-format
+msgid "<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> boosted</span>"
+msgstr "<a href=\"%s\"><b>%s</b></a> продвинул"
+
+#: src/API/NotificationType.vala:62
+#, fuzzy, c-format
+msgid ""
+"<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> favorited your status</"
+"span>"
+msgstr "<a href=\"%s\"><b>%s</b></a> понравился ваш статус"
+
+#: src/API/NotificationType.vala:64
+#, fuzzy, c-format
+msgid ""
+"<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> now follows you</span>"
+msgstr "<a href=\"%s\"><b>%s</b></a> подписался на вас"
+
+#: src/API/NotificationType.vala:66
+#, fuzzy, c-format
+msgid ""
+"<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> wants to follow you</"
+"span>"
+msgstr "<a href=\"%s\"><b>%s</b></a> хочет на вас подписаться"
+
+#: src/API/NotificationType.vala:68
+#, fuzzy, c-format
+msgid ""
+"<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> posted a status</span>"
+msgstr "<a href=\"%s\"><b>%s</b></a> опубликовал статус"
+
+#: src/Widgets/RichLabel.vala:105 src/Widgets/Status.vala:206
+#: src/Widgets/Account.vala:28
+msgid "Open in Browser"
+msgstr "Открыть в Браузере"
+
+#: src/Widgets/AccountsButton.vala:62
+msgid "Refresh"
+msgstr "Обновить"
+
+#: src/Widgets/AccountsButton.vala:67
+msgid "Favorites"
+msgstr "Понравившиеся"
+
+#: src/Widgets/AccountsButton.vala:71 src/Views/Direct.vala:12
+msgid "Direct Messages"
+msgstr "Личные Сообщения"
+
+#: src/Widgets/AccountsButton.vala:75 src/Views/Search.vala:12
+msgid "Search"
+msgstr "Поиск"
+
+#: src/Widgets/AccountsButton.vala:79 src/Dialogs/WatchlistEditor.vala:99
+msgid "Watchlist"
+msgstr "Список Наблюдения"
+
+#: src/Widgets/AccountsButton.vala:83 src/Dialogs/Preferences.vala:17
+msgid "Settings"
+msgstr "Настройки"
+
+#: src/Widgets/Status.vala:52
+msgid "[ Show more ]"
+msgstr ""
+
+#: src/Widgets/Status.vala:120
+msgid "This post can't be boosted"
+msgstr "Этот статус нельзя продвинуть"
+
+#: src/Widgets/Status.vala:208 src/Widgets/Account.vala:30
+msgid "Copy Link"
+msgstr "Скопировать Ссылку"
+
+#: src/Widgets/Status.vala:210
+msgid "Copy Text"
+msgstr "Скопировать Текст"
+
+#: src/Widgets/Status.vala:217
+msgid "Unpin from Profile"
+msgstr "Открепить от Профиля"
+
+#: src/Widgets/Status.vala:217
+msgid "Pin on Profile"
+msgstr "Закрепить на Профиле"
+
+#: src/Widgets/Status.vala:221
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/Widgets/Status.vala:225 src/Dialogs/Compose.vala:73
+msgid "Redraft"
+msgstr "Исправить"
+
+#: src/Widgets/Attachment/Box.vala:28
+msgid "Select media files to add"
+msgstr "Выберите файлы для добавления"
+
+#: src/Widgets/Attachment/Box.vala:31
+msgid "_Cancel"
+msgstr "_Отмена"
+
+#: src/Widgets/Attachment/Box.vala:33
+msgid "_Open"
+msgstr "_Выбрать"
+
+#: src/Dialogs/MainWindow.vala:49
+msgid "Back"
+msgstr "Назад"
+
+#: src/Dialogs/MainWindow.vala:58
+msgid "Toot"
+msgstr "Статус"
+
+#: src/Dialogs/MainWindow.vala:63
+msgid "Toggle content"
+msgstr "Развернуть"
+
+#: src/Dialogs/Compose.vala:69
+msgid "Post"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:36
 msgid "Appearance"
 msgstr "Внешний вид"
 
-#: src/Dialogs/SettingsDialog.vala:38
+#: src/Dialogs/Preferences.vala:37
 msgid "Dark theme:"
 msgstr "Тёмная тема:"
 
-#: src/Dialogs/SettingsDialog.vala:41
+#: src/Dialogs/Preferences.vala:40
 msgid "Timelines"
 msgstr "Ленты"
 
-#: src/Dialogs/SettingsDialog.vala:42
+#: src/Dialogs/Preferences.vala:41
 msgid "Real-time updates:"
 msgstr "Обновления в реальном времени:"
 
-#: src/Dialogs/SettingsDialog.vala:44
+#: src/Dialogs/Preferences.vala:43
 msgid "Update public timelines:"
 msgstr "Обновлять публичные ленты:"
 
@@ -420,33 +360,33 @@ msgstr "Обновлять публичные ленты:"
 #. grid.attach (new SettingsLabel (_("Use cache:")), 0, i);
 #. grid.attach (new SettingsSwitch ("cache"), 1, i++);
 #. grid.attach (new SettingsLabel (_("Max cache size (MB):")), 0, i);
-#. var cache_size = new Gtk.SpinButton.with_range (16, 256, 1);
+#. var cache_size = new SpinButton.with_range (16, 256, 1);
 #. settings.schema.bind ("cache-size", cache_size, "value", SettingsBindFlags.DEFAULT);
 #. grid.attach (cache_size, 1, i++);
-#: src/Dialogs/SettingsDialog.vala:55 src/Views/NotificationsView.vala:34
+#: src/Dialogs/Preferences.vala:54 src/Views/Notifications.vala:33
 msgid "Notifications"
 msgstr "Уведомления"
 
-#: src/Dialogs/SettingsDialog.vala:56
+#: src/Dialogs/Preferences.vala:55
 msgid "Display notifications:"
 msgstr "Отображать уведомления:"
 
-#: src/Dialogs/SettingsDialog.vala:58
+#: src/Dialogs/Preferences.vala:57
 msgid "Always receive notifications:"
 msgstr "Всегда получать уведомления:"
 
-#: src/Dialogs/SettingsDialog.vala:64
+#: src/Dialogs/Preferences.vala:63 src/Dialogs/WatchlistEditor.vala:162
 msgid "_Close"
 msgstr "_Закрыть"
 
-#: src/Dialogs/WatchlistDialog.vala:20
+#: src/Dialogs/WatchlistEditor.vala:20
 msgid ""
 "You'll be notified when toots from this user appear in your Home timeline."
 msgstr ""
 "Вы получите уведомление, когда статусы от этого пользователя появятся в "
 "вашей Главной ленте."
 
-#: src/Dialogs/WatchlistDialog.vala:21
+#: src/Dialogs/WatchlistEditor.vala:21
 msgid ""
 "You'll be notified when toots with this hashtag appear in any public "
 "timelines."
@@ -454,110 +394,88 @@ msgstr ""
 "Вы получите уведомление, когда статусы с данным хэштегом появятся в любой "
 "публичной ленте."
 
-#: src/Dialogs/WatchlistDialog.vala:137
+#: src/Dialogs/WatchlistEditor.vala:108
 msgid "Users"
 msgstr "Пользователи"
 
-#: src/Dialogs/WatchlistDialog.vala:138 src/Views/SearchView.vala:100
+#: src/Dialogs/WatchlistEditor.vala:109 src/Views/Search.vala:100
 msgid "Hashtags"
 msgstr "Хэштеги"
 
-#: src/Dialogs/WatchlistDialog.vala:148
+#: src/Dialogs/WatchlistEditor.vala:122
 msgid "Add"
 msgstr "Добавить"
 
-#: src/Views/AbstractView.vala:59
+#: src/Views/Base.vala:6
 msgid "Nothing to see here"
 msgstr "Тут ничего нет"
 
-#: src/Views/AccountView.vala:79
-msgid "Edit Profile"
-msgstr "Редактировать Профиль"
+#: src/Views/NewAccount.vala:91
+msgid "Instance URL is invalid"
+msgstr ""
 
-#: src/Views/AccountView.vala:80
-msgid "Mention"
-msgstr "Упомянуть"
+#: src/Views/NewAccount.vala:133
+#, fuzzy
+msgid "Please paste a valid authorization code"
+msgstr "Пожалуйста, вставьте корректный код авторизации"
 
-#: src/Views/AccountView.vala:81
-msgid "Report"
-msgstr "Пожаловаться"
-
-#: src/Views/AccountView.vala:82 src/Views/AccountView.vala:167
-msgid "Mute"
-msgstr "Заглушить"
-
-#: src/Views/AccountView.vala:83 src/Views/AccountView.vala:166
-msgid "Block"
-msgstr "Заблокировать"
-
-#: src/Views/AccountView.vala:95
-msgid "More Actions"
-msgstr "Больше Действий"
-
-#: src/Views/AccountView.vala:115
-msgid "Toots"
-msgstr "Статусов"
-
-#: src/Views/AccountView.vala:116
-msgid "Follows"
-msgstr "Подписок"
-
-#: src/Views/AccountView.vala:120
-msgid "Followers"
-msgstr "Подписчиков"
-
-#: src/Views/AccountView.vala:155
-msgid "Unfollow"
-msgstr "Отписаться"
-
-#: src/Views/AccountView.vala:159
-msgid "Follow"
-msgstr "Подписаться"
-
-#: src/Views/AccountView.vala:166
-msgid "Unblock"
-msgstr "Разблокировать"
-
-#: src/Views/AccountView.vala:167
-msgid "Unmute"
-msgstr "Включить"
-
-#: src/Views/AccountView.vala:228
-msgid "Sent follow request"
-msgstr "Отправлен запрос на подписку"
-
-#: src/Views/AccountView.vala:230
-msgid "Blocked"
-msgstr "Заблокирован"
-
-#: src/Views/AccountView.vala:232
-msgid "Follows you"
-msgstr "Подписан на вас"
-
-#: src/Views/AccountView.vala:234
-msgid "Blocking this instance"
-msgstr "Данный узел заблокирован"
-
-#: src/Views/AccountView.vala:269
-msgid "User not found"
-msgstr "Пользователь не найден"
-
-#: src/Views/FederatedView.vala:12
-msgid "Federated Timeline"
-msgstr "Глобальная Лента"
-
-#: src/Views/HomeView.vala:12 src/Views/TimelineView.vala:36
+#: src/Views/Timeline.vala:34 src/Views/Home.vala:12
 msgid "Home"
 msgstr "Главная"
 
-#: src/Views/LocalView.vala:12
+#: src/Views/Local.vala:12
 msgid "Local Timeline"
 msgstr "Локальная Лента"
 
-#: src/Views/SearchView.vala:82
+#: src/Views/Federated.vala:12
+msgid "Federated Timeline"
+msgstr "Глобальная Лента"
+
+#: src/Views/Profile.vala:61
+#, c-format
+msgid "%s Posts"
+msgstr ""
+
+#: src/Views/Profile.vala:67
+#, fuzzy, c-format
+msgid "%s Follows"
+msgstr "Подписок"
+
+#: src/Views/Profile.vala:73
+#, fuzzy, c-format
+msgid "%s Followers"
+msgstr "Подписчиков"
+
+#: src/Views/Profile.vala:109
+msgid "Sent follow request"
+msgstr "Отправлен запрос на подписку"
+
+#: src/Views/Profile.vala:111
+#, fuzzy
+msgid "Mutually follows you"
+msgstr "Подписан на вас"
+
+#: src/Views/Profile.vala:113
+msgid "Follows you"
+msgstr "Подписан на вас"
+
+#: src/Views/Profile.vala:124
+#, fuzzy
+msgid "Follow back"
+msgstr "Подписаться"
+
+#: src/Views/Profile.vala:126
+msgid "Unfollow"
+msgstr "Отписаться"
+
+#: src/Views/Profile.vala:128
+msgid "Follow"
+msgstr "Подписаться"
+
+#: src/Views/Search.vala:82
 msgid "Accounts"
 msgstr "Аккаунты"
 
-#: src/Views/SearchView.vala:91
+#: src/Views/Search.vala:91
 msgid "Statuses"
 msgstr "Статусы"

@@ -1,31 +1,25 @@
-using GLib;
+public class Tootle.API.Relationship : GLib.Object {
 
-public class Tootle.API.Relationship : Object {
+    public int64 id { get; construct set; }
+    public bool following { get; set; default = false; }
+    public bool followed_by { get; set; default = false; }
+    public bool muting { get; set; default = false; }
+    public bool muting_notifications { get; set; default = false; }
+    public bool requested { get; set; default = false; }
+    public bool blocking { get; set; default = false; }
+    public bool domain_blocking { get; set; default = false; }
 
-    public int64 id;
-    public bool following;
-    public bool followed_by;
-    public bool blocking;
-    public bool muting;
-    public bool muting_notifications;
-    public bool requested;
-    public bool domain_blocking;
-
-    public Relationship (int64 _id) {
-        id = _id;
-    }
-
-    public static Relationship parse (Json.Object obj) {
-        var id = int64.parse (obj.get_string_member ("id"));
-        var relationship = new Relationship (id);
-        relationship.following = obj.get_boolean_member ("following");
-        relationship.followed_by = obj.get_boolean_member ("followed_by");
-        relationship.blocking = obj.get_boolean_member ("blocking");
-        relationship.muting = obj.get_boolean_member ("muting");
-        relationship.muting_notifications = obj.get_boolean_member ("muting_notifications");
-        relationship.requested = obj.get_boolean_member ("requested");
-        relationship.domain_blocking = obj.get_boolean_member ("domain_blocking");
-        return relationship;
+    public Relationship (Json.Object obj) {
+    	Object (
+    		id: int64.parse (obj.get_string_member ("id")),
+    		following: obj.get_boolean_member ("following"),
+    		followed_by: obj.get_boolean_member ("followed_by"),
+    		blocking: obj.get_boolean_member ("blocking"),
+    		muting: obj.get_boolean_member ("muting"),
+    		muting_notifications: obj.get_boolean_member ("muting_notifications"),
+    		requested: obj.get_boolean_member ("requested"),
+    		domain_blocking: obj.get_boolean_member ("domain_blocking")
+    	);
     }
 
 }

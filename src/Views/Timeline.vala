@@ -1,31 +1,25 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.Views.Timeline : Views.Abstract {
+public class Tootle.Views.Timeline : Views.Base, IAccountListener, IStreamListener {
 
-    protected string timeline;
-    protected string pars;
+    public string timeline { get; construct set; }
+    public bool is_public { get; construct set; default = false; }
+
+    protected InstanceAccount? account = null;
     protected int limit = 25;
     protected bool is_last_page = false;
     protected string? page_next;
     protected string? page_prev;
+    protected string? stream;
 
-    protected Notificator? notificator;
-
-    public Timeline (string timeline, string pars = "") {
-        base ();
-        this.timeline = timeline;
-        this.pars = pars;
-
-        accounts.switched.connect (on_account_changed);
+    construct {
         app.refresh.connect (on_refresh);
-        destroy.connect (() => {
-            if (notificator != null)
-                notificator.close ();
-        });
-
-        setup_notificator ();
-        request ();
+        status_button.clicked.connect (on_refresh);
+        connect_account ();
+    }
+    ~Timeline () {
+        streams.unsubscribe (stream, this);
     }
 
     public override string get_icon () {
@@ -36,38 +30,32 @@ public class Tootle.Views.Timeline : Views.Abstract {
         return _("Home");
     }
 
-    public virtual void on_status_added (API.Status status) {
+    public override void on_status_added (API.Status status) {
         prepend (status);
     }
 
     public virtual bool is_status_owned (API.Status status) {
-        return false;
+        return status.is_owned ();
     }
 
     public void prepend (API.Status status) {
         append (status, true);
     }
 
-    public void append (API.Status status, bool first = false){
-        if (empty != null)
-            empty.destroy ();
+    public void append (API.Status status, bool first = false) {
+        GLib.Idle.add (() => {
+            var w = new Widgets.Status (status);
+            w.button_press_event.connect (w.open);
+            if (!is_status_owned (status))
+                w.avatar.button_press_event.connect (w.on_avatar_clicked);
 
-        var separator = new Separator (Orientation.HORIZONTAL);
-        separator.show ();
+            content.pack_start (w, false, false, 0);
+            if (first || status.pinned)
+                content.reorder_child (w, 0);
 
-        var widget = new Widgets.Status (status);
-        widget.separator = separator;
-        widget.button_press_event.connect (widget.open);
-        if (!is_status_owned (status))
-            widget.avatar.button_press_event.connect (widget.on_avatar_clicked);
-        view.pack_start (separator, false, false, 0);
-        view.pack_start (widget, false, false, 0);
-
-        if (first || status.pinned) {
-            var new_index = header == null ? 1 : 0;
-            view.reorder_child (separator, new_index);
-            view.reorder_child (widget, new_index);
-        }
+            on_content_changed ();
+            return GLib.Source.REMOVE;
+        });
     }
 
     public override void clear () {
@@ -102,82 +90,51 @@ public class Tootle.Views.Timeline : Views.Abstract {
         if (page_next != null)
             return page_next;
 
-        var url = "%s/api/v1/timelines/%s?limit=%i".printf (accounts.formal.instance, this.timeline, this.limit);
-        url += this.pars;
-        return url;
+        return @"/api/v1/timelines/$timeline";
     }
 
-    public virtual void request (){
-        if (accounts.current == null) {
-            empty_state ();
-            return;
-        }
-
-        var msg = new Soup.Message ("GET", get_url ());
-        network.inject (msg, Network.INJECT_TOKEN);
-        network.queue (msg, (sess, mess) => {
-                network.parse_array (mess).foreach_element ((array, i, node) => {
-                    var object = node.get_object ();
-                    if (object != null) {
-                        var status = API.Status.parse (object);
-                        append (status);
-                    }
-                });
-                get_pages (mess.response_headers.get_one ("Link"));
-                empty_state ();
-            },
-            network.on_error);
+    public virtual Request append_params (Request req) {
+        return req.with_param ("limit", limit.to_string ());
     }
 
-    public virtual void on_refresh (){
+    public virtual bool request () {
+		append_params (new Request.GET (get_url ()))
+		.with_account (account)
+		.then_parse_array ((node, msg) => {
+            var obj = node.get_object ();
+            if (obj != null) {
+                var status = new API.Status (obj);
+                append (status);
+            }
+            get_pages (msg.response_headers.get_one ("Link"));
+        })
+		.on_error (on_error)
+		.exec ();
+
+		return GLib.Source.REMOVE;
+    }
+
+    public virtual void on_refresh () {
+        status_button.sensitive = false;
         clear ();
-        request ();
+        status_message = STATUS_LOADING;
+        GLib.Idle.add (request);
     }
 
-    public virtual Soup.Message? get_stream (){
+    public virtual string? get_stream_url () {
         return null;
     }
 
-    public virtual void on_account_changed (API.Account? account){
-        if(account == null)
-            return;
-
-        var stream = get_stream ();
-        if (notificator != null && stream != null) {
-            var old_url = notificator.get_url ();
-            var new_url = stream.get_uri ().to_string (false);
-            if (old_url != new_url) {
-                info ("Updating notificator %s", notificator.get_name ());
-                setup_notificator ();
-            }
-        }
-
+    public override void on_account_changed (InstanceAccount? acc) {
+        account = acc;
+		streams.unsubscribe (stream, this);
+        streams.subscribe (get_stream_url (), this, out stream);
         on_refresh ();
     }
 
-    protected void setup_notificator () {
-        if (notificator != null)
-            notificator.close ();
-
-        var stream = get_stream ();
-        if (stream == null)
-            return;
-
-        notificator = new Notificator (stream);
-        notificator.status_added.connect ((status) => {
-            if (can_stream ())
-                on_status_added (status);
-        });
-        notificator.start ();
-    }
-
-    protected virtual bool is_public () {
-        return false;
-    }
-
-    protected virtual bool can_stream () {
+    protected override bool accepts (ref string event) {
         var allowed_public = true;
-        if (is_public ())
+        if (is_public)
             allowed_public = settings.live_updates_public;
 
         return settings.live_updates && allowed_public;
@@ -185,7 +142,7 @@ public class Tootle.Views.Timeline : Views.Abstract {
 
     protected override void on_bottom_reached () {
         if (is_last_page) {
-            debug ("Last page reached");
+            info ("Last page reached");
             return;
         }
         request ();

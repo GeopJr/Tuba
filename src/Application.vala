@@ -3,6 +3,12 @@ using Granite;
 
 namespace Tootle {
 
+    public errordomain Oopsie {
+        USER,
+    	PARSING,
+    	INSTANCE
+    }
+
     public static Application app;
     public static Dialogs.MainWindow? window;
     public static Window window_dummy;
@@ -10,16 +16,23 @@ namespace Tootle {
     public static Settings settings;
     public static Accounts accounts;
     public static Network network;
-    public static ImageCache image_cache;
-    public static Watchlist watchlist;
+    public static Cache cache;
+    public static Streams streams;
 
     public static bool start_hidden = false;
 
     public class Application : Granite.Application {
 
-        public abstract signal void refresh ();
-        public abstract signal void toast (string title);
-        public abstract signal void error (string title, string text);
+        // These are used for the GTK Inspector
+        public Settings app_settings { get {return Tootle.settings; } }
+        public Accounts app_accounts { get {return Tootle.accounts; } }
+        public Network app_network { get {return Tootle.network; } }
+        public Cache app_cache { get {return Tootle.cache; } }
+        public Streams app_streams { get {return Tootle.streams; } }
+
+        public signal void refresh ();
+        public signal void toast (string title);
+        public signal void error (string title, string text);
 
         public const GLib.OptionEntry[] app_options = {
             { "hidden", 0, 0, OptionArg.NONE, ref start_hidden, "Do not show main window on start", null },
@@ -27,22 +40,20 @@ namespace Tootle {
         };
 
         public const GLib.ActionEntry[] app_entries = {
-            {"compose-toot",    compose_toot_activated          },
-            {"toggle-reveal",   on_sensitive_toggled            },
+            {"compose",    compose_activated          },
             {"back",            back_activated                  },
             {"refresh",         refresh_activated               },
             {"switch-timeline", switch_timeline_activated, "i"  }
         };
 
         construct {
-            application_id = "com.github.bleakgrey.tootle";
+            application_id = Build.DOMAIN;
             flags = ApplicationFlags.FLAGS_NONE;
-            program_name = "Tootle";
-            build_version = "0.2.0";
+            program_name = Build.NAME;
+            build_version = Build.VERSION;
         }
 
         public string[] ACCEL_NEW_POST = {"<Ctrl>T"};
-        public string[] ACCEL_TOGGLE_REVEAL = {"<Ctrl>S"};
         public string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left"};
         public string[] ACCEL_REFRESH = {"<Ctrl>R", "F5"};
         public string[] ACCEL_TIMELINE_0 = {"<Alt>1"};
@@ -52,6 +63,9 @@ namespace Tootle {
 
         public static int main (string[] args) {
             Gtk.init (ref args);
+            
+            Stacktrace.register_handlers ();
+            //assert (true == false); // I'm not crazy. It's for stacktrace testing.
 
             try {
                 var opt_context = new OptionContext ("- Options");
@@ -71,10 +85,10 @@ namespace Tootle {
             Granite.Services.Logger.DisplayLevel = Granite.Services.LogLevel.INFO;
 
             settings = new Settings ();
+            streams = new Streams ();
             accounts = new Accounts ();
             network = new Network ();
-            image_cache = new ImageCache ();
-            watchlist = new Watchlist ();
+            cache = new Cache ();
             accounts.init ();
 
             app.error.connect (app.on_error);
@@ -82,8 +96,7 @@ namespace Tootle {
             window_dummy = new Window ();
             add_window (window_dummy);
 
-            set_accels_for_action ("app.compose-toot", ACCEL_NEW_POST);
-            set_accels_for_action ("app.toggle-reveal", ACCEL_TOGGLE_REVEAL);
+            set_accels_for_action ("app.compose", ACCEL_NEW_POST);
             set_accels_for_action ("app.back", ACCEL_BACK);
             set_accels_for_action ("app.refresh", ACCEL_REFRESH);
             set_accels_for_action ("app.switch-timeline(0)", ACCEL_TIMELINE_0);
@@ -104,13 +117,9 @@ namespace Tootle {
                 return;
             }
 
-            debug ("Creating new window");
-            if (accounts.is_empty ())
-                Dialogs.NewAccount.open ();
-            else {
-                window = new Dialogs.MainWindow (this);
-                window.present ();
-            }
+            info ("Creating new window");
+            window = new Dialogs.MainWindow (this);
+            window.present ();
         }
 
         protected void on_error (string title, string msg){
@@ -120,12 +129,8 @@ namespace Tootle {
             message_dialog.destroy ();
         }
 
-        private void on_sensitive_toggled () {
-            window.button_reveal.clicked ();
-        }
-
-        private void compose_toot_activated () {
-            Dialogs.Compose.open ();
+        private void compose_activated () {
+            new Dialogs.Compose ();
         }
 
         private void back_activated () {

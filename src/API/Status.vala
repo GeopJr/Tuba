@@ -1,90 +1,116 @@
-public class Tootle.API.Status {
+using Gee;
 
-    public signal void updated ();
+public class Tootle.API.Status : GLib.Object {
 
-    public API.Account account;
-    public int64 id;
-    public string uri;
-    public string url;
-    public string? spoiler_text;
-    public string content;
-    public int64 replies_count;
-    public int64 reblogs_count;
-    public int64 favourites_count;
-    public string created_at;
-    public bool reblogged = false;
-    public bool favorited = false;
-    public bool sensitive = false;
-    public bool muted = false;
-    public bool pinned = false;
-    public API.StatusVisibility visibility;
-    public API.Status? reblog;
-    public API.Mention[]? mentions;
-    public API.Attachment[]? attachments;
 
-    public Status (int64 _id) {
-        id = _id;
+    public int64 id { get; construct set; }
+    public API.Account account { get; construct set; }
+    public string uri { get; set; }
+    public string? url { get; set; default = null; }
+    public string? spoiler_text { get; set; default = null; }
+    public string? in_reply_to_id { get; set; default = null; }
+    public string? in_reply_to_account_id { get; set; default = null; }
+    public string content { get; set; default = ""; }
+    public int64 replies_count { get; set; default = 0; }
+    public int64 reblogs_count { get; set; default = 0; }
+    public int64 favourites_count { get; set; default = 0; }
+    public string created_at { get; set; default = "0"; }
+    public bool reblogged { get; set; default = false; }
+    public bool favorited { get; set; default = false; }
+    public bool sensitive { get; set; default = false; }
+    public bool muted { get; set; default = false; }
+    public bool pinned { get; set; default = false; }
+    public API.Visibility visibility { get; set; default = API.Visibility.PUBLIC; }
+    public API.Status? reblog { get; set; default = null; }
+    public ArrayList<API.Mention>? mentions { get; set; default = null; }
+    public ArrayList<API.Attachment>? attachments { get; set; default = null; }
+
+    public Status formal {
+        get { return reblog ?? this; }
     }
 
-    public Status get_formal () {
-        return reblog != null ? reblog : this;
-    }
+	public bool has_spoiler {
+        get {
+            return formal.spoiler_text != null || formal.sensitive;
+        }
+	}
 
-    public static Status parse (Json.Object obj) {
-        var id = int64.parse (obj.get_string_member ("id"));
-        var status = new Status (id);
+    public Status (Json.Object obj) {
+        Object (
+            id: int64.parse (obj.get_string_member ("id")),
+            account: new Account (obj.get_object_member ("account")),
+            uri: obj.get_string_member ("uri"),
+            created_at: obj.get_string_member ("created_at"),
+            content: Html.simplify ( obj.get_string_member ("content")),
+            sensitive: obj.get_boolean_member ("sensitive"),
+            visibility: Visibility.from_string (obj.get_string_member ("visibility")),
 
-        status.account = Account.parse (obj.get_object_member ("account"));
-        status.uri = obj.get_string_member ("uri");
-        status.created_at = obj.get_string_member ("created_at");
-        status.replies_count = obj.get_int_member ("replies_count");
-        status.reblogs_count = obj.get_int_member ("reblogs_count");
-        status.favourites_count = obj.get_int_member ("favourites_count");
-        status.content = Html.simplify ( obj.get_string_member ("content"));
-        status.sensitive = obj.get_boolean_member ("sensitive");
-        status.visibility = StatusVisibility.from_string (obj.get_string_member ("visibility"));
+            in_reply_to_id: obj.get_string_member ("in_reply_to_id") ?? null,
+            in_reply_to_account_id: obj.get_string_member ("in_reply_to_account_id") ?? null,
+
+            replies_count: obj.get_int_member ("replies_count"),
+            reblogs_count: obj.get_int_member ("reblogs_count"),
+            favourites_count: obj.get_int_member ("favourites_count")
+        );
 
         if (obj.has_member ("url"))
-            status.url = obj.get_string_member ("url");
+            url = obj.get_string_member ("url");
         else
-            status.url = obj.get_string_member ("uri").replace ("/activity", "");
+            url = obj.get_string_member ("uri").replace ("/activity", "");
 
         var spoiler = obj.get_string_member ("spoiler_text");
         if (spoiler != "")
-            status.spoiler_text = Html.simplify (spoiler);
+            spoiler_text = Html.simplify (spoiler);
 
         if (obj.has_member ("reblogged"))
-            status.reblogged = obj.get_boolean_member ("reblogged");
+            reblogged = obj.get_boolean_member ("reblogged");
         if (obj.has_member ("favourited"))
-            status.favorited = obj.get_boolean_member ("favourited");
+            favorited = obj.get_boolean_member ("favourited");
         if (obj.has_member ("muted"))
-            status.muted = obj.get_boolean_member ("muted");
+            muted = obj.get_boolean_member ("muted");
         if (obj.has_member ("pinned"))
-            status.pinned = obj.get_boolean_member ("pinned");
+            pinned = obj.get_boolean_member ("pinned");
 
         if (obj.has_member ("reblog") && obj.get_null_member("reblog") != true)
-            status.reblog = Status.parse (obj.get_object_member ("reblog"));
+            reblog = new Status (obj.get_object_member ("reblog"));
 
-        API.Mention[]? _mentions = {};
         obj.get_array_member ("mentions").foreach_element ((array, i, node) => {
-            var object = node.get_object ();
-            if (object != null)
-                _mentions += API.Mention.parse (object);
+            var entity = node.get_object ();
+            if (entity != null) {
+                if (mentions == null)
+                    mentions = new ArrayList<API.Mention> ();
+                mentions.add (new API.Mention (entity));
+            }
         });
-        if (_mentions.length > 0)
-            status.mentions = _mentions;
 
-        API.Attachment[]? _attachments = {};
         obj.get_array_member ("media_attachments").foreach_element ((array, i, node) => {
-            var object = node.get_object ();
-            if (object != null)
-                _attachments += API.Attachment.parse (object);
+            var entity = node.get_object ();
+            if (entity != null) {
+                if (attachments == null)
+                    attachments = new ArrayList<API.Attachment> ();
+                attachments.add (new API.Attachment (entity));
+            }
         });
-        if (_attachments.length > 0)
-            status.attachments = _attachments;
-
-        return status;
     }
+
+    public Status.empty () {
+        Object (id: -1);
+    }
+
+	public Status.from_account (API.Account account) {
+	    Object (
+	        id: 0,
+	        account: account,
+	        created_at: account.created_at
+	    );
+
+        if (account.note == "")
+            content = "";
+        else if ("\n" in account.note)
+            content = Html.remove_tags (account.note.split ("\n")[0]);
+        else
+            content = Html.remove_tags (account.note);
+	}
 
     public Json.Node? serialize () {
         var builder = new Json.Builder ();
@@ -142,21 +168,17 @@ public class Tootle.API.Status {
     }
 
     public bool is_owned (){
-        return get_formal ().account.id == accounts.current.id;
-    }
-
-    public bool has_spoiler () {
-        return get_formal ().spoiler_text != null || get_formal ().sensitive;
+        return formal.account.id == accounts.active.id;
     }
 
     public string get_reply_mentions () {
         var result = "";
-        if (account.acct != accounts.current.acct)
+        if (account.acct != accounts.active.acct)
             result = "@%s ".printf (account.acct);
 
         if (mentions != null) {
             foreach (var mention in mentions) {
-                var equals_current = mention.acct == accounts.current.acct;
+                var equals_current = mention.acct == accounts.active.acct;
                 var already_mentioned = mention.acct in result;
 
                 if (!equals_current && ! already_mentioned)
@@ -167,69 +189,29 @@ public class Tootle.API.Status {
         return result;
     }
 
-    public void set_reblogged (bool rebl, Network.ErrorCallback? err = network.on_error) {
-        var action = rebl ? "reblog" : "unreblog";
-        var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
-        msg.priority = Soup.MessagePriority.HIGH;
-        network.inject (msg, Network.INJECT_TOKEN);
-        network.queue (msg, (sess, message) => {
-                reblogged = rebl;
-                updated ();
-            }, (status, reason) => {
-                err (status, reason);
-            });
+    public void action (string action, owned Network.ErrorCallback? err = network.on_error) {
+        new Request.POST (@"/api/v1/statuses/$(formal.id)/$action")
+        	.with_account (accounts.active)
+        	.then_parse_obj (obj => {
+        	    var status = new API.Status (obj).formal;
+        	    formal.reblogged = status.reblogged;
+        	    formal.favorited = status.favorited;
+        	    formal.muted = status.muted;
+        	    formal.pinned = status.pinned;
+            })
+            .on_error ((status, reason) => err (status, reason))
+        	.exec ();
     }
 
-    public void set_favorited (bool fav, Network.ErrorCallback? err = network.on_error) {
-        var action = fav ? "favourite" : "unfavourite";
-        var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
-        msg.priority = Soup.MessagePriority.HIGH;
-        network.inject (msg, Network.INJECT_TOKEN);
-            network.queue (msg, (sess, message) => {
-                favorited = fav;
-                updated ();
-            }, (status, reason) => {
-                err (status, reason);
-            });
-    }
-
-    public void set_muted (bool mute, Network.ErrorCallback? err = network.on_error) {
-        var action = mute ? "mute" : "unmute";
-        var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
-        msg.priority = Soup.MessagePriority.HIGH;
-        network.inject (msg, Network.INJECT_TOKEN);
-        network.queue (msg, (sess, message) => {
-                muted = mute;
-                updated ();
-            }, (status, reason) => {
-                err (status, reason);
-            });
-    }
-
-    public void set_pinned (bool pin, Network.ErrorCallback? err = network.on_error) {
-        var action = pin ? "pin" : "unpin";
-        var msg = new Soup.Message ("POST", "%s/api/v1/statuses/%lld/%s".printf (accounts.formal.instance, id, action));
-        msg.priority = Soup.MessagePriority.HIGH;
-        network.inject (msg, Network.INJECT_TOKEN);
-        network.queue (msg, (sess, message) => {
-                pinned = pin;
-                updated ();
-            }, (status, reason) => {
-                err (status, reason);
-            });
-    }
-
-    public void poof (Soup.SessionCallback? cb = null, Network.ErrorCallback? err = network.on_error) {
-        var msg = new Soup.Message ("DELETE", "%s/api/v1/statuses/%lld".printf (accounts.formal.instance, id));
-        msg.priority = Soup.MessagePriority.HIGH;
-        network.inject (msg, Network.INJECT_TOKEN);
-        network.queue (msg, (sess, message) => {
-                network.status_removed (id);
-                if (cb != null)
-                    cb (sess, message);
-            }, (status, reason) => {
-                err (status, reason);
-            });
+    public void poof (owned Soup.SessionCallback? cb = null, owned Network.ErrorCallback? err = network.on_error) {
+        new Request.DELETE (@"/api/v1/statuses/$id")
+        	.with_account (accounts.active)
+        	.then ((sess, msg) => {
+        	    streams.status_removed (id);
+        	    cb (sess, msg);
+        	})
+            .on_error ((status, reason) => err (status, reason))
+        	.exec ();
     }
 
 }

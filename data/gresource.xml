@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+    <gresource prefix="/com/github/bleakgrey/tootle/">
+        <file alias="app.css">app.css</file>
+        <file preprocess="xml-stripblanks">ui/views/new_account.ui</file>
+        <file preprocess="xml-stripblanks">ui/views/base.ui</file>
+        <file preprocess="xml-stripblanks">ui/views/profile_header.ui</file>
+        <file preprocess="xml-stripblanks">ui/widgets/status.ui</file>
+        <file preprocess="xml-stripblanks">ui/widgets/accounts_button.ui</file>
+        <file preprocess="xml-stripblanks">ui/widgets/accounts_button_item.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/compose.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/main.ui</file>
+    </gresource>
+</gresources>

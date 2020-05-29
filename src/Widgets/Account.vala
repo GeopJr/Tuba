@@ -5,15 +5,15 @@ public class Tootle.Widgets.Account : Widgets.Status {
     public Account (API.Account account) {
         var status = new API.Status (-1);
         status.account = account;
-        status.url = account.url;
-        status.content = "<a href=\"%s\">@%s</a>".printf (account.url, account.acct);
-        status.created_at = account.created_at;
+        //status.url = account.url;
+        //status.content = "<a href=\"%s\">@%s</a>".printf (account.url, account.acct);
+        //status.created_at = account.created_at;
 
         base (status);
 
-        counters.visible = false;
-        title_acct.visible = false;
-        content_label.margin_bottom = 12;
+        //counters.visible = false;
+        //title_acct.visible = false;
+        //content_label.margin_bottom = 12;
     }
 
     protected override bool on_clicked (EventButton ev) {

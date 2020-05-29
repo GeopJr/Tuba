@@ -1,241 +1,145 @@
 using Gtk;
 
-public class Tootle.Dialogs.Compose : Dialog {
+[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/compose.ui")]
+public class Tootle.Dialogs.Compose : Window {
 
-    private static Compose dialog;
+    public API.Status? status { get; construct set; }
+    public string style_class { get; construct set; }
+    public string label { get; construct set; }
+    public int char_limit {
+        get {
+            return 250;
+        }
+    }
 
-    protected TextView text;
-    private ScrolledWindow scroll;
-    private Label counter;
-    private Widgets.ImageToggleButton spoiler;
-    private MenuButton visibility;
-    private Button attach;
-    private Button cancel;
-    private Button publish;
-    protected Widgets.AttachmentGrid attachments;
-    private Revealer spoiler_revealer;
-    private Entry spoiler_text;
+    [GtkChild]
+    protected Box box;
 
-    protected API.Status? replying_to;
-    protected API.Status? redrafting;
-    protected API.StatusVisibility visibility_opt = API.StatusVisibility.PUBLIC;
-    protected int char_limit;
+    [GtkChild]
+    protected Revealer cw_revealer;
+    [GtkChild]
+    protected ToggleButton cw_button;
+    [GtkChild]
+    protected Entry cw;
+    [GtkChild]
+    protected Label counter;
 
-    public Compose (API.Status? _replying_to = null, API.Status? _redrafting = null) {
-        border_width = 6;
-        deletable = false;
-        resizable = true;
-        title = _("Toot");
+    [GtkChild]
+    protected MenuButton visibility_button;
+    [GtkChild]
+    protected Image visibility_icon;
+    protected Widgets.VisibilityPopover visibility_popover;
+    [GtkChild]
+    protected Button post_button;
+
+    [GtkChild]
+    protected TextView content;
+
+    construct {
         transient_for = window;
-        char_limit = settings.char_limit;
-        replying_to = _replying_to;
-        redrafting = _redrafting;
 
-        if (replying_to != null)
-            visibility_opt = replying_to.visibility;
-        if (redrafting != null)
-            visibility_opt = redrafting.visibility;
+        post_button.label = label;
+		foreach (Widget w in new Widget[] { visibility_button, post_button })
+			w.get_style_context ().add_class (style_class);
 
-        var actions = get_action_area ().get_parent () as Box;
-        var content = get_content_area ();
-        get_action_area ().hexpand = false;
+        visibility_popover = new Widgets.VisibilityPopover.with_button (visibility_button);
+        visibility_popover.bind_property ("selected", visibility_icon, "icon-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_string (((API.Visibility)src).get_icon ());
+			return true;
+		});
 
-        visibility = get_visibility_btn ();
-        visibility.tooltip_text = _("Post Visibility");
-        visibility.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        visibility.get_style_context ().remove_class ("image-button");
-        visibility.can_default = false;
-        (visibility as Widget).set_focus_on_click (false);
+        cw_button.bind_property ("active", cw_revealer, "reveal_child", BindingFlags.SYNC_CREATE);
 
-        attach = new Button.from_icon_name ("mail-attachment-symbolic");
-        attach.tooltip_text = _("Add Media");
-        attach.valign = Align.CENTER;
-        attach.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        attach.get_style_context ().remove_class ("image-button");
-        attach.can_default = false;
-        (attach as Widget).set_focus_on_click (false);
-        attach.clicked.connect (() => attachments.select ());
+        cw_button.toggled.connect (validate);
+        cw.buffer.deleted_text.connect (() => validate ());
+        cw.buffer.inserted_text.connect (() => validate ());
+        content.buffer.changed.connect (validate);
+        post_button.clicked.connect (on_post_button_clicked);
 
-        spoiler = new Widgets.ImageToggleButton ("image-red-eye-symbolic");
-        spoiler.tooltip_text = _("Spoiler Warning");
-        spoiler.set_action ();
-        spoiler.toggled.connect (() => {
-            spoiler_revealer.reveal_child = spoiler.active;
-            validate ();
-        });
-
-        cancel = add_button (_("Cancel"), 5) as Button;
-        cancel.clicked.connect(() => destroy ());
-
-        if (redrafting != null) {
-            publish = add_button (_("Redraft"), 5) as Button;
-            publish.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-            publish.clicked.connect (redraft_post);
+        if (status.spoiler_text != null) {
+            cw.text = status.spoiler_text;
+            cw_button.active = true;
         }
-        else {
-            publish = add_button (_("Toot!"), 5) as Button;
-            publish.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-            publish.clicked.connect (publish_post);
-        }
+        content.buffer.text = Html.remove_tags (status.content);
 
-        spoiler_text = new Entry ();
-        spoiler_text.margin_start = 6;
-        spoiler_text.margin_end = 6;
-        spoiler_text.placeholder_text = _("Write your warning here");
-        spoiler_text.changed.connect (validate);
+        show ();
+    }
 
-        spoiler_revealer = new Revealer ();
-        spoiler_revealer.add (spoiler_text);
+    public Compose () {
+        Object (status: new API.Status.empty (), style_class: STYLE_CLASS_SUGGESTED_ACTION, label: _("Post"));
+    }
 
-        text = new TextView ();
-        text.get_style_context ().add_class ("toot-text");
-        text.wrap_mode = WrapMode.WORD;
-        text.accepts_tab = false;
-        text.vexpand = true;
-        text.buffer.changed.connect (validate);
+    public Compose.redraft (API.Status status) {
+        Object (status: status, style_class: STYLE_CLASS_DESTRUCTIVE_ACTION, label: _("Redraft"));
+    }
 
-        scroll = new ScrolledWindow (null, null);
-        scroll.hscrollbar_policy = PolicyType.NEVER;
-        scroll.min_content_height = 120;
-        scroll.vexpand = true;
-        scroll.propagate_natural_height = true;
-        scroll.margin_start = 6;
-        scroll.margin_end = 6;
-        scroll.add (text);
-        scroll.show_all ();
+	public Compose.reply (API.Status status) {
+		var template = new API.Status.empty ();
+		template.in_reply_to_id = status.in_reply_to_id;
+		template.in_reply_to_account_id = status.in_reply_to_account_id;
+		template.content = status.formal.get_reply_mentions ();
+		Object (status: template, style_class: STYLE_CLASS_SUGGESTED_ACTION, label: _("Reply"));
+		visibility_popover.selected = status.visibility;
+	}
 
-        attachments = new Widgets.AttachmentGrid (true);
-        counter = new Label ("");
+    protected void validate () {
+        var remain = char_limit - content.buffer.get_char_count ();
+        if (cw_button.active)
+            remain -= (int)cw.buffer.length;
 
-        actions.pack_start (counter, false, false, 6);
-        actions.pack_end (spoiler, false, false, 6);
-        actions.pack_end (visibility, false, false, 0);
-        actions.pack_end (attach, false, false, 6);
-        content.pack_start (spoiler_revealer, false, false, 6);
-        content.pack_start (scroll, false, false, 6);
-        content.pack_start (attachments, false, false, 6);
-        content.set_size_request (350, 120);
+        counter.label = remain.to_string ();
+        post_button.sensitive = remain >= 0;
+        visibility_button.sensitive = true;
+        box.sensitive = true;
+    }
 
-        if (replying_to != null) {
-            spoiler.active = replying_to.sensitive;
-            var status_spoiler_text = replying_to.spoiler_text != null ? replying_to.spoiler_text : "";
-            spoiler_text.set_text (status_spoiler_text);
-        }
-        if (redrafting != null) {
-            spoiler.active = redrafting.sensitive;
-            var status_spoiler_text = redrafting.spoiler_text != null ? redrafting.spoiler_text : "";
-            spoiler_text.set_text (status_spoiler_text);
-        }
-
-        destroy.connect (() => dialog = null);
-
-        show_all ();
-        attachments.hide ();
-        text.grab_focus ();
+    protected void on_error (int32 code, string reason) { //TODO: display errors
+        warning (reason);
         validate ();
     }
 
-    private MenuButton get_visibility_btn () {
-        var button = new MenuButton ();
-        var menu = new Popover (null);
-        var box = new Box (Orientation.VERTICAL, 6);
-        box.margin = 12;
-        menu.add (box);
-        button.direction = ArrowType.DOWN;
-        button.image = new Image.from_icon_name (visibility_opt.get_icon (), IconSize.BUTTON);
+    protected void on_post_button_clicked () {
+        post_button.sensitive = false;
+        visibility_button.sensitive = false;
+        box.sensitive = false;
 
-        RadioButton? first = null;
-        foreach (API.StatusVisibility opt in API.StatusVisibility.get_all ()){
-            var item = new RadioButton.with_label_from_widget (first, opt.get_desc ());
-            if (first == null)
-                first = item;
+        if (status.id >= 0) {
+            info ("Removing old status...");
+            status.poof (publish, on_error);
+        }
+        else {
+            publish ();
+        }
+    }
 
-            item.toggled.connect (() => {
-                visibility_opt = opt;
-                (button.image as Image).icon_name = visibility_opt.get_icon ();
-            });
-            item.active = visibility_opt == opt;
-            box.pack_start (item, false, false, 0);
+    protected void publish () {
+        info ("Publishing new status...");
+        status.content = content.buffer.text;
+        status.spoiler_text = cw.text;
+
+        var req = new Request.POST ("/api/v1/statuses")
+            .with_account ()
+            .with_param ("visibility", visibility_popover.selected.to_string ())
+            .with_param ("status", Html.uri_encode (status.content));
+
+        if (cw_button.active) {
+            req.with_param ("sensitive", "true");
+            req.with_param ("spoiler_text", Html.uri_encode (cw.text));
         }
 
-        box.show_all ();
-        button.use_popover = true;
-        button.popover = menu;
-        button.valign = Align.CENTER;
-        button.show ();
-        return button;
-    }
+        if (status.in_reply_to_id != null)
+            req.with_param ("in_reply_to_id", status.in_reply_to_id);
+        if (status.in_reply_to_account_id != null)
+            req.with_param ("in_reply_to_account_id", status.in_reply_to_account_id);
 
-    private void validate () {
-        var remain = char_limit - text.buffer.get_char_count ();
-        if (spoiler.active)
-            remain -= (int)spoiler_text.buffer.length;
-
-        counter.label = remain.to_string ();
-        publish.sensitive = remain >= 0;
-    }
-
-    public static void open (string? text = null, API.Status? reply_to = null) {
-        if (dialog == null){
-            dialog = new Compose (reply_to);
-
-		    if (text != null)
-		        dialog.text.buffer.text = text;
-		}
-		else if (text != null)
-		    dialog.text.buffer.text += text;
-    }
-
-    public static void reply (API.Status status) {
-        if (dialog != null)
-            return;
-
-        open (null, status);
-        dialog.text.buffer.text = status.get_reply_mentions ();
-    }
-
-    public static void redraft (API.Status status) {
-        if (dialog != null)
-            return;
-        dialog = new Compose (null, status);
-
-        if (status.attachments != null) {
-            foreach (API.Attachment attachment in status.attachments)
-                dialog.attachments.append (attachment);
-        }
-
-        var content = Html.simplify (status.content);
-        content = Html.remove_tags (content);
-        content = Widgets.RichLabel.restore_entities (content);
-        dialog.text.buffer.text = content;
-    }
-
-    private void publish_post () {
-        var pars = "?status=%s&visibility=%s".printf (Html.uri_encode (text.buffer.text), visibility_opt.to_string ());
-        pars += attachments.get_uri_array ();
-        if (replying_to != null)
-            pars += "&in_reply_to_id=%s".printf (replying_to.id.to_string ());
-
-        if (spoiler.active) {
-            pars += "&sensitive=true";
-            pars += "&spoiler_text=" + Html.uri_encode (spoiler_text.buffer.text);
-        }
-
-        var url = "%s/api/v1/statuses%s".printf (accounts.formal.instance, pars);
-        var msg = new Soup.Message ("POST", url);
-        network.inject (msg, Network.INJECT_TOKEN);
-        network.queue (msg, (sess, mess) => {
+        req.then ((sess, mess) => {
             var root = network.parse (mess);
-            var status = API.Status.parse (root);
-            debug ("Posted: %s", status.id.to_string ()); //TODO: Live updates
+            var status = new API.Status (root);
+            info ("OK: status id is %s", status.id.to_string ());
             destroy ();
-        });
-    }
-
-    private void redraft_post () {
-        redrafting.poof ((sess, msg) => {
-            publish_post ();
-        });
+        })
+        .on_error (on_error)
+        .exec ();
     }
 
 }

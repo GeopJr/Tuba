@@ -1,92 +1,34 @@
 using Gtk;
 using Granite;
 
-public class Tootle.Widgets.Notification : Grid {
+public class Tootle.Widgets.Notification : Widgets.Status {
 
-    private API.Notification notification;
+    public API.Notification notification { get; construct set; }
 
-    public Separator? separator;
-    private Image image;
-    private Widgets.RichLabel label;
-    private Widgets.Status? status_widget;
-    private Button dismiss;
+    public Notification (API.Notification obj) {
+        API.Status status;
+        if (obj.status != null)
+            status = obj.status;
+        else
+            status = new API.Status.from_account (obj.account);
 
-    construct {
-        margin = 6;
+        Object (notification: obj, status: status);
+        this.kind = obj.kind;
+    }
 
-        image = new Image.from_icon_name ("notification-symbolic", IconSize.BUTTON);
-        image.margin_start = 32;
-        image.margin_end = 6;
-        label = new RichLabel (_("Unknown Notification"));
-        label.hexpand = true;
-        label.halign = Align.START;
-        dismiss = new Button.from_icon_name ("window-close-symbolic", IconSize.BUTTON);
-        dismiss.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        dismiss.tooltip_text = _("Dismiss");
-        dismiss.clicked.connect (() => {
+    protected override void on_kind_changed () {
+        if (kind == null)
+            return;
+
+        header_icon.visible = header_label.visible = true;
+        header_icon.icon_name = kind.get_icon ();
+        header_label.label = kind.get_desc (notification.account);
+    }
+
+	protected override void on_status_removed (int64 id) {
+        if (id == notification.status.id)
             notification.dismiss ();
-            destroy ();
-        });
-
-        attach (image, 1, 2);
-        attach (label, 2, 2);
-        attach (dismiss, 3, 2);
-        show_all ();
-    }
-
-    public Notification (API.Notification _notification) {
-        notification = _notification;
-        image.icon_name = notification.type.get_icon ();
-        label.set_label (notification.type.get_desc (notification.account));
-        get_style_context ().add_class ("notification");
-
-        if (notification.status != null)
-            network.status_removed.connect (on_status_removed);
-
-        destroy.connect (() => {
-            if (separator != null)
-                separator.destroy ();
-            separator = null;
-            status_widget = null;
-        });
-
-        if (notification.status != null){
-            status_widget = new Widgets.Status (notification.status, true);
-            status_widget.is_notification = true;
-            status_widget.button_press_event.connect (status_widget.open);
-            status_widget.avatar.button_press_event.connect (status_widget.on_avatar_clicked);
-            attach (status_widget, 1, 3, 3, 1);
-        }
-
-        if (notification.type == API.NotificationType.FOLLOW_REQUEST) {
-            var box = new Box (Orientation.HORIZONTAL, 6);
-            box.margin_start = 32 + 16 + 8;
-            var accept = new Button.with_label (_("Accept"));
-            box.pack_start (accept, false, false, 0);
-            var reject = new Button.with_label (_("Reject"));
-            box.pack_start (reject, false, false, 0);
-
-            attach (box, 1, 3, 3, 1);
-            box.show_all ();
-
-            accept.clicked.connect (() => {
-                destroy ();
-                notification.accept_follow_request ();
-            });
-            reject.clicked.connect (() => {
-                destroy ();
-                notification.reject_follow_request ();
-            });
-        }
-    }
-
-    private void on_status_removed (int64 id) {
-        if (id == notification.status.id) {
-            if (notification.type == API.NotificationType.WATCHLIST)
-                notification.dismiss ();
-
-            destroy ();
-        }
-    }
+        base.on_status_removed (id);
+	}
 
 }

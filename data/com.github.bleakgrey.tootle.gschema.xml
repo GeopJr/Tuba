@@ -16,16 +16,6 @@
 			<summary>Always monitor new notifications</summary>
 			<description></description>
 		</key>
-		<key name="cache" type="b">
-			<default>false</default>
-			<summary>Cache images to reduce network load</summary>
-			<description></description>
-		</key>
-		<key name="cache-size" type="i">
-			<default>64</default>
-			<summary>Cache size</summary>
-			<description>Sets the maximum size of cached content</description>
-		</key>
 		<key name="live-updates" type="b">
 			<default>true</default>
 			<summary>Real-time timelines</summary>

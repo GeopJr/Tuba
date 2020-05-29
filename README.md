@@ -1,14 +1,17 @@
-![Tootle](https://user-images.githubusercontent.com/37731582/39933812-45d8149a-5544-11e8-9bf4-6d78b1fdb29c.png)
-Simple [Mastodon](https://github.com/tootsuite/mastodon) client designed for elementary OS.
+![Tootle](https://raw.githubusercontent.com/bleakgrey/tootle/master/data/icons/color.svg)
+Simple [Mastodon](https://github.com/tootsuite/mastodon) client for Linux
 
-![Tootle Screenshot](https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot.png)
 
-## Building and Installation
+## Installation
+This project is undergoing a major rewrite and will be published in the near future.
 
-[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.bleakgrey.tootle)
+To help the project, please build it manually and help test it.
+
 <a href='https://flathub.org/apps/details/com.github.bleakgrey.tootle'><img height='51' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
 
-First of all you'll need some dependencies to build and run the app:
+## Building
+To build the app, make sure you have these dependencies:
 * meson
 * valac
 * libgtk-3-dev
@@ -16,26 +19,19 @@ First of all you'll need some dependencies to build and run the app:
 * libgranite-dev
 * libjson-glib-dev
 
-Then run these commands to build and install it:
+Then run 'install.sh' in the project directory to install the app.
 
-    meson build --prefix=/usr
-    cd build
-    sudo ninja install
-    com.github.bleakgrey.tootle
-    
 ## Contributing
 
-If you feel like contributing, you're always welcome to help the project in many ways:
-* Reporting any issues
-* Suggesting ideas and functionality
+You're always welcome to help the project in many ways:
+* Donating with [LiberaPay](https://liberapay.com/bleakgrey/) to keep the developer happy and motivated
+* Reporting issues and bugs
 * Submitting pull requests
-* Donating with [LiberaPay](https://liberapay.com/bleakgrey/) to help project development and keeping the developer happy
 
 <a href="https://liberapay.com/bleakgrey/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
 
 ## Credits
-* Tootle Logo by [@CallMeFib3r](https://github.com/CallMeFib3r)
-* Medel typeface by Ozan Karakoc
+* Icon design by [Tobias Bernard](https://github.com/bertob)
 * French translation by [@Larnicone](https://github.com/Larnicone)
 * Polish translation by [@m4sk1n](https://github.com/m4sk1n)
 * German translation by [@koyuawsmbrtn](https://github.com/koyuawsmbrtn)

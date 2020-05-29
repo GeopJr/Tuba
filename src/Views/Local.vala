@@ -1,8 +1,4 @@
-public class Tootle.Views.Local : Views.Timeline {
-
-    public Local () {
-        base ("public");
-    }
+public class Tootle.Views.Local : Views.Federated {
 
     public override string get_icon () {
         return Desktop.fallback_icon ("system-users-symbolic", "document-open-recent-symbolic");
@@ -12,19 +8,14 @@ public class Tootle.Views.Local : Views.Timeline {
         return _("Local Timeline");
     }
 
-    public override string get_url (){
-        var url = base.get_url ();
-        url += "&local=true";
-        return url;
+    public override Request append_params (Request req) {
+        req.with_param ("local", "true");
+        req.with_param ("limit", limit.to_string ());
+        return req;
     }
 
-    protected override bool is_public () {
-        return true;
-    }
-
-    public override Soup.Message? get_stream () {
-        var url = "%s/api/v1/streaming/?stream=public:local&access_token=%s".printf (accounts.formal.instance, accounts.formal.token);
-        return new Soup.Message("GET", url);
+    public override string? get_stream_url () {
+        return account != null ? @"$(account.instance)/api/v1/streaming/?stream=public:local&access_token=$(account.token)" : null;
     }
 
 }

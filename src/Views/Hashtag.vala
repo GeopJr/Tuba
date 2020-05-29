@@ -1,20 +1,12 @@
 public class Tootle.Views.Hashtag : Views.Timeline {
 
-    public Hashtag (string hashtag) {
-        base ("tag/" + hashtag);
+    public Hashtag (string tag) {
+        Object (timeline: @"tag/$tag");
     }
-    
-    public string get_hashtag () {
-        return this.timeline.substring (4);
-    }
-    
-    public override string get_name () {
-        return get_hashtag ();
-    }
-    
-    public override Soup.Message? get_stream () {
-        var url = "%s/api/v1/streaming/?stream=hashtag&tag=%s&access_token=%s".printf (accounts.formal.instance, get_hashtag (), accounts.formal.token);
-        return new Soup.Message("GET", url);
+
+    public override string? get_stream_url () {
+        var tag = timeline.substring (4);
+        return account != null ? @"$(account.instance)/api/v1/streaming/?stream=hashtag&tag=$tag&access_token=$(account.token)" : null;
     }
 
 }
