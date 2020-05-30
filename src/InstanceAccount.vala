@@ -132,8 +132,7 @@ public class Tootle.InstanceAccount : API.Account, IStreamListener {
             notification.set_body (body);
         }
 
-        if (settings.notifications)
-            app.send_notification (app.application_id + ":" + obj.id.to_string (), notification);
+		app.send_notification (app.application_id + ":" + obj.id.to_string (), notification);
 
         if (obj.kind == API.NotificationType.WATCHLIST) {
             cached_notifications.add (obj);

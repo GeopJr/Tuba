@@ -155,15 +155,22 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
     }
 
     protected virtual void add_status (API.Status status) {
-        prepend (widgetize (status));
+        var allow_update = true;
+        if (is_public)
+            allow_update = settings.live_updates_public;
+
+        if (settings.live_updates && allow_update)
+            prepend (widgetize (status));
     }
 
     protected virtual void remove_status (int64 id) {
-        content.get_children ().@foreach (w => {
-            var sw = w as Widgets.Status;
-            if (sw != null && sw.status.id == id)
-                sw.destroy ();
-        });
+        if (settings.live_updates) {
+            content.get_children ().@foreach (w => {
+                var sw = w as Widgets.Status;
+                if (sw != null && sw.status.id == id)
+                    sw.destroy ();
+            });
+        }
     }
 
 }

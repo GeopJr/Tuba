@@ -3,7 +3,6 @@ using GLib;
 public class Tootle.Settings : GLib.Settings {
 
 	public int current_account { get; set; }
-	public bool notifications { get; set; }
 	public bool always_online { get; set; }
 	public int char_limit { get; set; }
 	public bool live_updates { get; set; }
