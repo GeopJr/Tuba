@@ -144,24 +144,21 @@ public class Tootle.Streams : Object {
 			case "update":
 				var obj = new API.Status (sanitize (root));
 				c.subscribers.@foreach (s => {
-					if (s.accepts (ref e))
-						s.on_status_added (obj);
+					s.on_status_added (obj);
 					return true;
 				});
 				break;
 			case "delete":
 				var id = int64.parse (root.get_string_member ("payload"));
 				c.subscribers.@foreach (s => {
-					if (s.accepts (ref e))
-						s.on_status_removed (id);
+					s.on_status_removed (id);
 					return true;
 				});
 				break;
 			case "notification":
 				var obj = new API.Notification (sanitize (root));
 				c.subscribers.@foreach (s => {
-					if (s.accepts (ref e))
-						s.on_notification (obj);
+					s.on_notification (obj);
 					return true;
 				});
 				break;

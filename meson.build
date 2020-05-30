@@ -3,9 +3,6 @@ project('com.github.bleakgrey.tootle', 'vala', 'c')
 gnome = import('gnome')
 i18n = import('i18n')
 
-#add_project_arguments(['--disable-warnings', '-g', '-X', '-rdynamic'], language: 'vala')
-#add_project_arguments(['-g', '-rdynamic', '-export-dynamic'], language: 'c')
-
 add_global_arguments([
         '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
         '-DHANDY_USE_UNSTABLE_API',
@@ -82,7 +79,6 @@ executable(
         dependency('libhandy-0.0', version: '>=0.0.13'),
     ],
     install: true,
-    link_args: '-export-dynamic'
 )
 
 subdir('data')

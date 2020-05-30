@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.Views.Timeline : Views.Base, IAccountListener, IStreamListener {
+public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Base {
 
     public string timeline { get; construct set; }
     public bool is_public { get; construct set; default = false; }
@@ -17,6 +17,9 @@ public class Tootle.Views.Timeline : Views.Base, IAccountListener, IStreamListen
         app.refresh.connect (on_refresh);
         status_button.clicked.connect (on_refresh);
         connect_account ();
+
+        on_status_added.connect (add_status);
+        on_status_removed.connect (remove_status);
     }
     ~Timeline () {
         streams.unsubscribe (stream, this);
@@ -30,32 +33,39 @@ public class Tootle.Views.Timeline : Views.Base, IAccountListener, IStreamListen
         return _("Home");
     }
 
-    public override void on_status_added (API.Status status) {
-        prepend (status);
-    }
-
     public virtual bool is_status_owned (API.Status status) {
         return status.is_owned ();
     }
 
-    public void prepend (API.Status status) {
-        append (status, true);
+    public virtual GLib.Object? to_entity (Json.Object? json) {
+        return new API.Status (json);
     }
 
-    public void append (API.Status status, bool first = false) {
-        GLib.Idle.add (() => {
-            var w = new Widgets.Status (status);
-            w.button_press_event.connect (w.open);
-            if (!is_status_owned (status))
-                w.avatar.button_press_event.connect (w.on_avatar_clicked);
+    public virtual Widget? widgetize (GLib.Object? entity) {
+        var status = entity as API.Status;
+        if (status == null)
+            return null;
 
-            content.pack_start (w, false, false, 0);
-            if (first || status.pinned)
-                content.reorder_child (w, 0);
+        var w = new Widgets.Status (status);
+        w.button_press_event.connect (w.open);
+        if (!is_status_owned (status))
+            w.avatar.button_press_event.connect (w.on_avatar_clicked);
 
-            on_content_changed ();
-            return GLib.Source.REMOVE;
-        });
+        return w;
+    }
+
+    public void prepend (Widget? w) {
+        append (w, true);
+    }
+
+    public virtual void append (Widget? w, bool first = false) {
+        if (w == null)
+            return;
+
+        content.pack_start (w, false, false, 0);
+        if (first)
+            content.reorder_child (w, 0);
+        on_content_changed ();
     }
 
     public override void clear () {
@@ -101,16 +111,20 @@ public class Tootle.Views.Timeline : Views.Base, IAccountListener, IStreamListen
 		append_params (new Request.GET (get_url ()))
 		.with_account (account)
 		.then_parse_array ((node, msg) => {
-            var obj = node.get_object ();
-            if (obj != null) {
-                var status = new API.Status (obj);
-                append (status);
-            }
+		    var obj = node.get_object ();
+		    if (obj == null)
+		        warning ("Received invalid Json.Object");
+		    else {
+                var entity = to_entity (obj);
+                if (entity == null)
+                    warning ("Can't convert Json.Object to required entity");
+                else
+                    append (widgetize (entity));
+		    }
             get_pages (msg.response_headers.get_one ("Link"));
         })
 		.on_error (on_error)
 		.exec ();
-
 		return GLib.Source.REMOVE;
     }
 
@@ -125,7 +139,7 @@ public class Tootle.Views.Timeline : Views.Base, IAccountListener, IStreamListen
         return null;
     }
 
-    public override void on_account_changed (InstanceAccount? acc) {
+    public virtual void on_account_changed (InstanceAccount? acc) {
         account = acc;
 		streams.unsubscribe (stream, this);
         streams.subscribe (get_stream_url (), this, out stream);
@@ -140,18 +154,14 @@ public class Tootle.Views.Timeline : Views.Base, IAccountListener, IStreamListen
         request ();
     }
 
-    public override bool accepts (ref string event) {
-        var allowed_public = true;
-        if (is_public)
-            allowed_public = settings.live_updates_public;
-
-        return settings.live_updates && allowed_public;
+    protected virtual void add_status (API.Status status) {
+        prepend (widgetize (status));
     }
 
-    public override void on_status_removed (int64 id) {
+    protected virtual void remove_status (int64 id) {
         content.get_children ().@foreach (w => {
             var sw = w as Widgets.Status;
-            if (sw.status.id == id)
+            if (sw != null && sw.status.id == id)
                 sw.destroy ();
         });
     }

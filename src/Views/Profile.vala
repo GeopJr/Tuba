@@ -154,28 +154,13 @@ public class Tootle.Views.Profile : Views.Timeline {
 		return base.append_params (req);
 	}
 
-    public override bool request () {
-		append_params (new Request.GET (get_url ()))
-		.with_account (account)
-		.then_parse_array ((node, msg) => {
-            var obj = node.get_object ();
-            if (obj != null) {
-            	API.Status status;
-            	if (posts_tab.active)
-                	status = new API.Status (obj);
-                else {
-                	var account = new API.Account (obj);
-                	status = new API.Status.from_account (account);
-                }
-
-                append (status);
-            }
-            get_pages (msg.response_headers.get_one ("Link"));
-        })
-		.on_error (on_error)
-		.exec ();
-
-		return GLib.Source.REMOVE;
+    public override GLib.Object? to_entity (Json.Object? json) {
+    	if (posts_tab.active)
+        	return new API.Status (json);
+        else {
+        	var account = new API.Account (json);
+        	return new API.Status.from_account (account);
+        }
     }
 
     public static void open_from_id (int64 id){

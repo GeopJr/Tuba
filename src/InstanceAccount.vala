@@ -45,6 +45,8 @@ public class Tootle.InstanceAccount : API.Account, IStreamListener {
             var notification = new API.Notification (node.get_object ());
             cached_notifications.add (notification);
         });
+
+        on_notification.connect (show_notification);
     }
 	~InstanceAccount () {
 		unsubscribe ();
@@ -119,7 +121,7 @@ public class Tootle.InstanceAccount : API.Account, IStreamListener {
         return builder.get_root ();
     }
 
-    public override void on_notification (API.Notification obj) {
+    protected void show_notification (API.Notification obj) {
         var title = Html.remove_tags (obj.kind.get_desc (obj.account));
         var notification = new GLib.Notification (title);
         if (obj.status != null) {
@@ -139,12 +141,7 @@ public class Tootle.InstanceAccount : API.Account, IStreamListener {
         }
     }
 
-    // public override void on_status_removed (int64 id) {
-    //     if (is_current ())
-    //         streams.force_delete (id);
-    // }
-
-    // public override void on_status_added (API.Status status) {
+    // protected void on_status_added (API.Status status) { //TODO: Watchlist
     //     if (!is_current ())
     //         return;
 
