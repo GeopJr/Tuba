@@ -63,10 +63,7 @@ namespace Tootle {
 
         public static int main (string[] args) {
             Gtk.init (ref args);
-            
-            Stacktrace.register_handlers ();
-            //assert (true == false); // I'm not crazy. It's for stacktrace testing.
-
+            Hdy.init (ref args);
             try {
                 var opt_context = new OptionContext ("- Options");
                 opt_context.add_main_entries (app_options, null);

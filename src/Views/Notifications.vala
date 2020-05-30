@@ -107,7 +107,6 @@ public class Tootle.Views.Notifications : Views.Base, IAccountListener, IStreamL
     }
 
     public override bool accepts (ref string event) {
-		warning (event);
 		return true;
 	}
 
