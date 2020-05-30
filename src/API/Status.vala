@@ -207,7 +207,7 @@ public class Tootle.API.Status : GLib.Object {
         new Request.DELETE (@"/api/v1/statuses/$id")
         	.with_account (accounts.active)
         	.then ((sess, msg) => {
-        	    streams.status_removed (id);
+        	    streams.force_delete (id);
         	    cb (sess, msg);
         	})
             .on_error ((status, reason) => err (status, reason))

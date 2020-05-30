@@ -1,17 +1,21 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.Views.Notifications : Views.Base, IAccountListener {
+public class Tootle.Views.Notifications : Views.Base, IAccountListener, IStreamListener { //TODO: make this a timeline
 
     protected InstanceAccount? account = null;
     protected int64 last_id = 0;
     protected bool force_dot = false;
 
+    protected string? stream;
+
     public Notifications () {
         app.refresh.connect (on_refresh);
         status_button.clicked.connect (on_refresh);
-        streams.notification.connect (prepend);
         connect_account ();
+    }
+    ~Notifications () {
+        streams.unsubscribe (stream, this);
     }
 
     private bool has_unread () {
@@ -85,6 +89,7 @@ public class Tootle.Views.Notifications : Views.Base, IAccountListener {
 
     public virtual void on_account_changed (InstanceAccount? acc) {
         account = acc;
+		streams.unsubscribe (stream, this);
         if (account == null) {
 		    last_id = 0;
 		    force_dot = false;
@@ -92,8 +97,22 @@ public class Tootle.Views.Notifications : Views.Base, IAccountListener {
         else {
 		    last_id = account.last_seen_notification;
 		    force_dot = account.has_unread_notifications;
+		    streams.subscribe (get_stream_url (), this, out stream);
 		}
 		on_refresh ();
+    }
+
+    public virtual string? get_stream_url () {
+        return account != null ? @"$(account.instance)/api/v1/streaming/?stream=user&access_token=$(account.token)" : null;
+    }
+
+    public override bool accepts (ref string event) {
+		warning (event);
+		return true;
+	}
+
+    public override void on_notification (API.Notification n) {
+        prepend (n);
     }
 
     public bool request () {

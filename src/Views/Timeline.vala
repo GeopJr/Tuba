@@ -132,7 +132,15 @@ public class Tootle.Views.Timeline : Views.Base, IAccountListener, IStreamListen
         on_refresh ();
     }
 
-    protected override bool accepts (ref string event) {
+    protected override void on_bottom_reached () {
+        if (is_last_page) {
+            info ("Last page reached");
+            return;
+        }
+        request ();
+    }
+
+    public override bool accepts (ref string event) {
         var allowed_public = true;
         if (is_public)
             allowed_public = settings.live_updates_public;
@@ -140,12 +148,12 @@ public class Tootle.Views.Timeline : Views.Base, IAccountListener, IStreamListen
         return settings.live_updates && allowed_public;
     }
 
-    protected override void on_bottom_reached () {
-        if (is_last_page) {
-            info ("Last page reached");
-            return;
-        }
-        request ();
+    public override void on_status_removed (int64 id) {
+        content.get_children ().@foreach (w => {
+            var sw = w as Widgets.Status;
+            if (sw.status.id == id)
+                sw.destroy ();
+        });
     }
 
 }

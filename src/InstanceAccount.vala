@@ -133,35 +133,32 @@ public class Tootle.InstanceAccount : API.Account, IStreamListener {
         if (settings.notifications)
             app.send_notification (app.application_id + ":" + obj.id.to_string (), notification);
 
-        if (is_current ())
-            streams.notification (obj);
-
         if (obj.kind == API.NotificationType.WATCHLIST) {
             cached_notifications.add (obj);
             accounts.save ();
         }
     }
 
-    public override void on_status_removed (int64 id) {
-        if (is_current ())
-            streams.status_removed (id);
-    }
+    // public override void on_status_removed (int64 id) {
+    //     if (is_current ())
+    //         streams.force_delete (id);
+    // }
 
-    public override void on_status_added (API.Status status) {
-        if (!is_current ())
-            return;
+    // public override void on_status_added (API.Status status) {
+    //     if (!is_current ())
+    //         return;
 
-        // watchlist.users.@foreach (item => {
-        // 	var acct = status.account.acct;
-        //     if (item == acct || item == "@" + acct) {
-        //         var obj = new API.Notification (-1);
-        //         obj.kind = API.NotificationType.WATCHLIST;
-        //         obj.account = status.account;
-        //         obj.status = status;
-        //         on_notification (obj);
-        //     }
-        //     return true;
-        // });
-    }
+    //     watchlist.users.@foreach (item => {
+    //     	var acct = status.account.acct;
+    //         if (item == acct || item == "@" + acct) {
+    //             var obj = new API.Notification (-1);
+    //             obj.kind = API.NotificationType.WATCHLIST;
+    //             obj.account = status.account;
+    //             obj.status = status;
+    //             on_notification (obj);
+    //         }
+    //         return true;
+    //     });
+    // }
 
 }

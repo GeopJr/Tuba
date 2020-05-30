@@ -1,11 +1,7 @@
-using GLib;
 using Soup;
 using Gee;
 
 public class Tootle.Streams : Object {
-
-	public signal void notification (API.Notification n);
-	public signal void status_removed (int64 id);
 
 	protected HashTable<string, Connection> connections {
 		get;
@@ -34,7 +30,7 @@ public class Tootle.Streams : Object {
 		}
 
 		public bool start () {
-			//info (@"Opening stream: $name");
+			info (@"Opening stream: $name");
 			network.session.websocket_connect_async.begin (msg, null, null, null, (obj, res) => {
 				socket = network.session.websocket_connect_async.end (res);
 				socket.error.connect (on_error);
@@ -69,10 +65,11 @@ public class Tootle.Streams : Object {
 
 		void on_closed () {
 			if (!closing) {
-				warning (@"CLOSED: $name. Reconnecting in $timeout seconds.");
+				warning (@"DISCONNECTED: $name. Reconnecting in $timeout seconds.");
 				GLib.Timeout.add_seconds (timeout, start);
 				timeout = int.min (timeout*2, 30);
 			}
+			warning (@"Closing stream: $name");
 		}
 
 		void on_message (int i, Bytes bytes) {
@@ -134,44 +131,54 @@ public class Tootle.Streams : Object {
 		if (!settings.live_updates)
 			return;
 
-		string event;
+		string e;
 		Json.Object root;
-		decode (bytes, out event, out root);
+		decode (bytes, out e, out root);
 
 		// c.subscribers.@foreach (s => {
-		// 	warning ("%s: %s for %s", c.name, event, get_subscriber_name (s));
+		// 	warning ("%s: %s for %s", c.name, e, get_subscriber_name (s));
 		// 	return false;
 		// });
 
-		switch (event) {
+		switch (e) {
 			case "update":
-				var entity = new API.Status (sanitize (root));
+				var obj = new API.Status (sanitize (root));
 				c.subscribers.@foreach (s => {
-					if (s.accepts (ref event))
-						s.on_status_added (entity);
-					return false;
+					if (s.accepts (ref e))
+						s.on_status_added (obj);
+					return true;
 				});
 				break;
 			case "delete":
 				var id = int64.parse (root.get_string_member ("payload"));
 				c.subscribers.@foreach (s => {
-					if (s.accepts (ref event))
+					if (s.accepts (ref e))
 						s.on_status_removed (id);
-					return false;
+					return true;
 				});
 				break;
 			case "notification":
-				var entity = new API.Notification (sanitize (root));
+				var obj = new API.Notification (sanitize (root));
 				c.subscribers.@foreach (s => {
-					if (s.accepts (ref event))
-						s.on_notification (entity);
-					return false;
+					if (s.accepts (ref e))
+						s.on_notification (obj);
+					return true;
 				});
 				break;
 			default:
-				warning (@"Unknown websocket event: \"$event\". Ignoring.");
+				warning (@"Unknown websocket event: \"$e\". Ignoring.");
 				break;
 		}
+	}
+
+	public void force_delete (int64 id) {
+		warning (@"Force removing status id $id");
+		connections.get_values ().@foreach (c => {
+			c.subscribers.@foreach (s => {
+				s.on_status_removed (id);
+				return false;
+			});
+		});
 	}
 
 }

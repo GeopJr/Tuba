@@ -25,10 +25,4 @@ public class Tootle.Widgets.Notification : Widgets.Status {
         header_label.label = kind.get_desc (notification.account);
     }
 
-	protected override void on_status_removed (int64 id) {
-        if (id == notification.status.id)
-            notification.dismiss ();
-        base.on_status_removed (id);
-	}
-
 }
