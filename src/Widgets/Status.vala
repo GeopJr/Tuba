@@ -74,11 +74,7 @@ public class Tootle.Widgets.Status : EventBox {
 
 	protected string date {
 		owned get {
-		    var timeval = GLib.TimeVal ();
-		    GLib.DateTime? date = null;
-		    if (timeval.from_iso8601 (status.formal.created_at))
-		        date = new GLib.DateTime.from_timeval_local (timeval);
-
+		    var date = new GLib.DateTime.from_iso8601 (status.formal.created_at, null);
 		    return Granite.DateTime.get_relative_datetime (date);
 		}
 	}

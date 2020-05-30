@@ -70,7 +70,7 @@ public class Tootle.Cache : GLib.Object {
             return;
         }
 
-        var item = items.@get (key);
+        //var item = items.@get (key);
 
         var message = items_in_progress.@get (key);
         if (message == null) {

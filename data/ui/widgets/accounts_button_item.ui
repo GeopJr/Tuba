@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.36.0 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <template class="TootleWidgetsAccountsButtonItem" parent="GtkGrid">
@@ -23,7 +23,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkButton" id="remove">
+      <object class="GtkButton" id="forget">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
@@ -50,11 +50,11 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="name">
+      <object class="GtkLabel" id="title">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="hexpand">True</property>
-        <property name="label" translatable="yes">Name</property>
+        <property name="label" translatable="yes">Title</property>
         <property name="ellipsize">end</property>
         <property name="single_line_mode">True</property>
         <property name="xalign">0</property>

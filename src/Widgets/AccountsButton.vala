@@ -8,17 +8,17 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
         [GtkChild]
         private Widgets.Avatar avatar;
         [GtkChild]
-        private Label name;
+        private Label title;
         [GtkChild]
         private Label handle;
         [GtkChild]
         private Button profile;
         [GtkChild]
-        private Button remove;
+        private Button forget;
 
         public Item (InstanceAccount acc, AccountsButton _self) {
             avatar.url = acc.avatar;
-            name.label = acc.display_name;
+            title.label = acc.display_name;
             handle.label = acc.handle;
 
             profile.clicked.connect (() => {
@@ -26,17 +26,17 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
                 _self.active = false;
             });
 
-            remove.clicked.connect (() => {
+            forget.clicked.connect (() => {
                 _self.active = false;
                 accounts.remove (acc);
             });
         }
 
         public Item.add_new () {
-            name.label = _("New Account");
+            title.label = _("New Account");
             handle.label = _("Click to add");
             profile.destroy ();
-            remove.destroy ();
+            forget.destroy ();
         }
     }
 
@@ -44,8 +44,8 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
 
     [GtkChild]
     private Widgets.Avatar avatar;
-    [GtkChild]
-    private Spinner spinner;
+    // [GtkChild]
+    // private Spinner spinner;
 
     [GtkChild]
     private ListBox account_list;
@@ -62,8 +62,6 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
     private ModelButton item_favs;
     [GtkChild]
     private ModelButton item_direct;
-    [GtkChild]
-    private ModelButton item_watchlist;
 
     construct {
         connect_account ();

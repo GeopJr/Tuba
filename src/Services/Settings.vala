@@ -20,7 +20,6 @@ public class Tootle.Settings : GLib.Settings {
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
 		init ("current-account");
-		init ("notifications");
 		init ("always-online");
 		init ("char-limit");
 		init ("live-updates");
