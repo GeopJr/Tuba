@@ -66,11 +66,19 @@ public class Tootle.Dialogs.Compose : Window {
     }
 
     public Compose () {
-        Object (status: new API.Status.empty (), style_class: STYLE_CLASS_SUGGESTED_ACTION, label: _("Post"));
+        Object (
+            status: new API.Status.empty (),
+            style_class: STYLE_CLASS_SUGGESTED_ACTION,
+            label: _("Post")
+        );
     }
 
     public Compose.redraft (API.Status status) {
-        Object (status: status, style_class: STYLE_CLASS_DESTRUCTIVE_ACTION, label: _("Redraft"));
+        Object (
+            status: status,
+            style_class: STYLE_CLASS_DESTRUCTIVE_ACTION,
+            label: _("Redraft")
+        );
     }
 
 	public Compose.reply (API.Status status) {
@@ -78,7 +86,11 @@ public class Tootle.Dialogs.Compose : Window {
 		template.in_reply_to_id = status.in_reply_to_id;
 		template.in_reply_to_account_id = status.in_reply_to_account_id;
 		template.content = status.formal.get_reply_mentions ();
-		Object (status: template, style_class: STYLE_CLASS_SUGGESTED_ACTION, label: _("Reply"));
+		Object (
+		    status: template,
+		    style_class: STYLE_CLASS_SUGGESTED_ACTION,
+		    label: _("Reply")
+		);
 		visibility_popover.selected = status.visibility;
 	}
 
@@ -103,7 +115,7 @@ public class Tootle.Dialogs.Compose : Window {
         visibility_button.sensitive = false;
         box.sensitive = false;
 
-        if (status.id >= 0) {
+        if (status.id > 0) {
             info ("Removing old status...");
             status.poof (publish, on_error);
         }
@@ -118,7 +130,7 @@ public class Tootle.Dialogs.Compose : Window {
         status.spoiler_text = cw.text;
 
         var req = new Request.POST ("/api/v1/statuses")
-            .with_account ()
+            .with_account (accounts.active)
             .with_param ("visibility", visibility_popover.selected.to_string ())
             .with_param ("status", Html.uri_encode (status.content));
 

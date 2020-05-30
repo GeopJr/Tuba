@@ -3,7 +3,7 @@ using Gee;
 public class Tootle.API.Status : GLib.Object {
 
 
-    public int64 id { get; construct set; }
+    public int64 id { get; construct set; } //TODO: IDs are no longer guaranteed to be numbers. Replace with strings.
     public API.Account account { get; construct set; }
     public string uri { get; set; }
     public string? url { get; set; default = null; }
@@ -94,7 +94,7 @@ public class Tootle.API.Status : GLib.Object {
     }
 
     public Status.empty () {
-        Object (id: -1);
+        Object (id: 0);
     }
 
 	public Status.from_account (API.Account account) {
