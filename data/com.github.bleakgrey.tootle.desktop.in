@@ -9,4 +9,4 @@ Terminal=false
 Categories=GNOME;GTK;Network;
 Keywords=toot;mastodon;social;network;post;
 X-GNOME-Gettext-Domain=com.github.bleakgrey.tootle
-X-GNOME-UsesNotifications=true
+X-GNOME-UsesNotifications=true	

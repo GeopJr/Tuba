@@ -10,5 +10,6 @@
         <file preprocess="xml-stripblanks">ui/widgets/accounts_button_item.ui</file>
         <file preprocess="xml-stripblanks">ui/dialogs/compose.ui</file>
         <file preprocess="xml-stripblanks">ui/dialogs/main.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/preferences.ui</file>
     </gresource>
 </gresources>

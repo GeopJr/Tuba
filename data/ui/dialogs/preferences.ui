@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.36.0 -->
+<interface>
+	<requires lib="gtk+" version="3.22"/>
+	<requires lib="libhandy" version="0.0"/>
+	<template class="TootleDialogsPreferences" parent="HdyPreferencesWindow">
+		<property name="default_height">600</property>
+		<property name="default_width">500</property>
+		<property name="width_request">300</property>
+		<!--<property name="search_enabled">false</property>-->
+
+		<!--Application-->
+		<child>
+			<object class="HdyPreferencesPage">
+				<property name="icon_name">preferences-other-symbolic</property>
+				<property name="title" translatable="yes">Application</property>
+        		<property name="visible">True</property>
+
+					<child>
+						<object class="HdyPreferencesGroup">
+							<property name="visible">True</property>
+							<property name="title" translatable="yes">Appearance</property>
+							<child>
+								<object class="HdyActionRow">
+									<property name="visible">True</property>
+									<property name="activatable_widget">use_dark_mode</property>
+									<property name="title" translatable="yes">Dark theme</property>
+									<child type="action">
+										<object class="GtkSwitch" id="use_dark_mode">
+											<property name="visible">True</property>
+											<property name="valign">center</property>
+										</object>
+									</child>
+								</object>
+							</child>
+						</object>
+					</child>
+
+					<child>
+						<object class="HdyPreferencesGroup">
+							<property name="visible">True</property>
+							<property name="title" translatable="yes">Behavior</property>
+							<child>
+								<object class="HdyActionRow">
+									<property name="visible">True</property>
+									<property name="activatable_widget">autostart</property>
+									<property name="title" translatable="yes">Autostart</property>
+									<property name="subtitle" translatable="yes">Start minimized at boot</property>
+									<child type="action">
+										<object class="GtkSwitch" id="autostart">
+											<property name="visible">True</property>
+											<property name="valign">center</property>
+										</object>
+									</child>
+								</object>
+							</child>
+							<child>
+								<object class="HdyActionRow">
+									<property name="visible">True</property>
+									<property name="activatable_widget">work_in_background</property>
+									<property name="title" translatable="yes">Background work</property>
+									<property name="subtitle" translatable="yes">Receive notifications even when the app window is closed</property>
+									<child type="action">
+										<object class="GtkSwitch" id="work_in_background">
+											<property name="visible">True</property>
+											<property name="valign">center</property>
+										</object>
+									</child>
+								</object>
+							</child>
+							<child>
+								<object class="HdyComboRow" id="default_post_visibility">
+									<property name="visible">True</property>
+									<property name="title" translatable="yes">Default post visibility</property>
+								</object>
+							</child>
+						</object>
+					</child>
+
+			</object>
+		</child>
+
+		<!--Timelines-->
+		<child>
+			<object class="HdyPreferencesPage">
+				<property name="icon_name">view-list-symbolic</property>
+				<property name="title" translatable="yes">Timelines</property>
+        		<property name="visible">True</property>
+
+					<child>
+						<object class="HdyPreferencesGroup">
+							<property name="visible">True</property>
+							<property name="title" translatable="yes">Appearance</property>
+							<child>
+								<object class="HdyActionRow">
+									<property name="visible">True</property>
+									<property name="activatable_widget">timeline_page_size</property>
+									<property name="title" translatable="yes">Posts per page</property>
+									<child type="action">
+										<object class="GtkSpinButton" id="timeline_page_size">
+											<property name="visible">True</property>
+											<property name="can_focus">True</property>
+											<property name="valign">center</property>
+											<property name="digits">0</property>
+											<property name="adjustment">page_adjustment</property>
+										</object>
+									</child>
+								</object>
+							</child>
+							<child>
+								<object class="HdyActionRow">
+									<property name="visible">True</property>
+									<property name="activatable_widget">post_text_size</property>
+									<property name="title" translatable="yes">Post text size</property>
+									<child type="action">
+										<object class="GtkSpinButton" id="post_text_size">
+											<property name="visible">True</property>
+											<property name="can_focus">True</property>
+											<property name="valign">center</property>
+											<property name="digits">0</property>
+											<property name="adjustment">font_adjustment</property>
+										</object>
+									</child>
+								</object>
+							</child>
+						</object>
+					</child>
+
+					<child>
+						<object class="HdyPreferencesGroup">
+							<property name="visible">True</property>
+							<property name="title" translatable="yes">Behavior</property>
+							<child>
+								<object class="HdyActionRow" id="live_updates_row">
+									<property name="visible">True</property>
+									<property name="activatable_widget">live_updates</property>
+									<property name="title" translatable="yes">Stream timelines</property>
+									<property name="subtitle" translatable="yes">Add and remove posts in real-time</property>
+									<child type="action">
+										<object class="GtkSwitch" id="live_updates">
+											<property name="visible">True</property>
+											<property name="valign">center</property>
+										</object>
+									</child>
+								</object>
+							</child>
+							<child>
+								<object class="HdyActionRow">
+									<property name="visible">True</property>
+									<property name="activatable_widget">public_live_updates</property>
+									<property name="sensitive" bind-source="live_updates" bind-property="state" bind-flags="sync-create"></property>
+									<property name="title" translatable="yes">Stream public timelines</property>
+									<property name="subtitle" translatable="yes">Warning: This will use more resources on crowded instances</property>
+									<child type="action">
+										<object class="GtkSwitch" id="public_live_updates">
+											<property name="visible">True</property>
+											<property name="valign">center</property>
+										</object>
+									</child>
+								</object>
+							</child>
+						</object>
+					</child>
+
+			</object>
+		</child>
+
+	</template>
+
+	<object class="GtkAdjustment" id="page_adjustment">
+		<property name="lower">10</property>
+		<property name="upper">50</property>
+		<property name="value">20</property>
+		<property name="page-increment">1</property>
+		<property name="step-increment">1</property>
+	</object>
+	<object class="GtkAdjustment" id="font_adjustment">
+		<property name="lower">14</property>
+		<property name="upper">32</property>
+		<property name="value">14</property>
+		<property name="page-increment">1</property>
+		<property name="step-increment">1</property>
+	</object>
+
+</interface>

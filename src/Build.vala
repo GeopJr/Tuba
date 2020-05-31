@@ -9,7 +9,7 @@ public class Build {
     public static void print_info () {
     	var os_name = get_os_info ("NAME");
     	var os_ver = get_os_info ("VERSION");
-        message (@"$(Build.NAME) $(Build.VERSION)");
+        message (@"$NAME $VERSION");
         message (@"Running on: $os_name $os_ver");
         message (@"Build type: FROM_SOURCE");
     }

@@ -19,7 +19,7 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
     protected Hdy.ViewSwitcher timeline_switcher;
     [GtkChild]
     protected Widgets.AccountsButton accounts_button;
-    
+
     Views.Base? last_view = null;
 
     construct {
