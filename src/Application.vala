@@ -138,9 +138,9 @@ namespace Tootle {
             refresh ();
         }
 
-        private void switch_timeline_activated (SimpleAction a, Variant? parameter) {
-            int32 timeline_no = parameter.get_int32 ();
-            window.switch_timeline (timeline_no);
+        private void switch_timeline_activated (SimpleAction a, Variant? v) {
+            int32 num = v.get_int32 ();
+            window.switch_timeline (num);
         }
 
     }

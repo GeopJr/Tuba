@@ -4,28 +4,13 @@ using Gdk;
 public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStreamListener {
 
     protected int64 last_id = 0;
-    protected bool force_dot = false;
 
     public Notifications () {
-        Object ();
+        Object (
+        	label: _("Notifications"),
+        	icon: Desktop.fallback_icon ("notification-symbolic", "preferences-system-notifications-symbolic", "user-invisible-symbolic")
+        );
         on_notification.connect (add_notification);
-    }
-
-    public bool has_unread () {
-        if (account == null)
-            return false;
-        return last_id > account.last_seen_notification || force_dot;
-    }
-
-    public override string get_icon () {
-        if (has_unread ())
-            return Desktop.fallback_icon ("notification-new-symbolic", "user-available-symbolic");
-        else
-            return Desktop.fallback_icon ("notification-symbolic", "user-invisible-symbolic");
-    }
-
-    public override string get_name () {
-        return _("Notifications");
     }
 
     public override string? get_stream_url () {
@@ -39,19 +24,12 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
         return "/api/v1/notifications";
     }
 
-    public override void on_content_changed () {
-        base.on_content_changed ();
-        if (image != null && empty)
-            image.icon_name = get_icon ();
-    }
-
-    public override void on_set_current () {
+    public override void on_shown () {
         if (has_unread ()) {
-            force_dot = false;
-            account.has_unread_notifications = force_dot;
+            needs_attention = false;
+            account.has_unread_notifications = false;
             account.last_seen_notification = last_id;
             accounts.save ();
-            image.icon_name = get_icon ();
         }
     }
 
@@ -61,17 +39,15 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
         var notification = nw.notification;
 
         if (reverse && !current) {
-            force_dot = true;
-            accounts.active.has_unread_notifications = force_dot;
+            needs_attention = accounts.active.has_unread_notifications = true;
         }
 
         if (notification.id > last_id)
             last_id = notification.id;
 
-        if (has_unread ()) {
+		needs_attention = has_unread ();
+        if (needs_attention)
             accounts.save ();
-            image.icon_name = get_icon ();
-        }
     }
 
     public override GLib.Object? to_entity (Json.Object? json) {
@@ -94,11 +70,11 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
         base.on_account_changed (acc);
         if (account == null) {
 		    last_id = 0;
-		    force_dot = false;
+		    needs_attention = false;
         }
         else {
 		    last_id = account.last_seen_notification;
-		    force_dot = account.has_unread_notifications;
+		    needs_attention = account.has_unread_notifications;
 		}
     }
 
@@ -112,7 +88,13 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
         return base.request ();
     }
 
-    protected virtual void add_notification (API.Notification n) {
+    bool has_unread () {
+        if (account == null)
+            return false;
+        return last_id > account.last_seen_notification || needs_attention;
+    }
+
+    void add_notification (API.Notification n) {
         prepend (widgetize (n));
     }
 

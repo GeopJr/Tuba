@@ -16,9 +16,11 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
     [GtkChild]
     protected Button compose_button;
     [GtkChild]
-    protected Granite.Widgets.ModeButton timeline_switcher;
+    protected Hdy.ViewSwitcher timeline_switcher;
     [GtkChild]
     protected Widgets.AccountsButton accounts_button;
+    
+    Views.Base? last_view = null;
 
     construct {
         var provider = new Gtk.CssProvider ();
@@ -31,13 +33,14 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         compose_button.clicked.connect (() => new Dialogs.Compose ());
         Desktop.set_hotkey_tooltip (compose_button, _("Compose"), app.ACCEL_NEW_POST);
 
-        timeline_switcher.mode_changed.connect (on_mode_changed);
+        timeline_switcher.stack = timeline_stack;
+        timeline_switcher.valign = Align.FILL;
+        timeline_stack.notify["visible-child"].connect (on_timeline_changed);
 
-        add_header_view (new Views.Home (), app.ACCEL_TIMELINE_0, 0);
-        add_header_view (new Views.Notifications (), app.ACCEL_TIMELINE_1, 1);
-        add_header_view (new Views.Local (), app.ACCEL_TIMELINE_2, 2);
-        add_header_view (new Views.Federated (), app.ACCEL_TIMELINE_3, 3);
-        timeline_switcher.set_active (0);
+        add_timeline_view (new Views.Home (), app.ACCEL_TIMELINE_0, 0);
+        add_timeline_view (new Views.Notifications (), app.ACCEL_TIMELINE_1, 1);
+        add_timeline_view (new Views.Local (), app.ACCEL_TIMELINE_2, 2);
+        add_timeline_view (new Views.Federated (), app.ACCEL_TIMELINE_3, 3);
 
         button_press_event.connect (on_button_press);
         settings.changed.connect (update_theme);
@@ -47,23 +50,15 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
     }
 
     public MainWindow (Gtk.Application app) {
-        Object (application: app, icon_name: Build.DOMAIN, resizable: true, window_position: WindowPosition.CENTER);
+        Object (
+            application: app,
+            icon_name: Build.DOMAIN,
+            resizable: true,
+            window_position: WindowPosition.CENTER
+        );
+
         if (accounts.is_empty ())
             open_view (new Views.NewAccount (false));
-    }
-
-    private bool on_button_press (EventButton ev) {
-        if (ev.button == 8)
-            return back ();
-        return false;
-    }
-
-    private void add_header_view (Views.Base view, string[] accelerators, int32 num) {
-        var img = new Image.from_icon_name (view.get_icon (), IconSize.LARGE_TOOLBAR);
-        Desktop.set_hotkey_tooltip (img, view.get_name (), accelerators);
-        timeline_switcher.append (img);
-        view.image = img;
-        timeline_stack.add_named (view, num.to_string ());
     }
 
     public int get_visible_id () {
@@ -110,15 +105,29 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         return false;
     }
 
-    public void switch_timeline (int32 timeline_no) {
-        timeline_switcher.set_active (timeline_no);
+    public void switch_timeline (int32 num) {
+        timeline_stack.visible_child_name = num.to_string ();
     }
 
-    private void update_theme () {
+    bool on_button_press (EventButton ev) {
+        if (ev.button == 8)
+            return back ();
+        return false;
+    }
+
+    void add_timeline_view (Views.Base view, string[] accelerators, int32 num) {
+        timeline_stack.add_titled (view, num.to_string (), view.label);
+        timeline_stack.child_set_property (view, "icon-name", view.icon);
+        view.notify["needs-attention"].connect (() => {
+            timeline_stack.child_set_property (view, "needs-attention", view.needs_attention);
+        });
+    }
+
+    void update_theme () {
         Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.dark_theme;
     }
 
-    private void update_header () {
+    void update_header () {
         bool primary_mode = get_visible_id () == 0;
         timeline_switcher.sensitive = primary_mode;
         timeline_switcher.opacity = primary_mode ? 1 : 0; //Prevent HeaderBar height jitter
@@ -126,15 +135,16 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         back_button.visible = !primary_mode;
     }
 
-    private void on_mode_changed (Widget widget) {
-        var visible = timeline_stack.get_visible_child () as Views.Base;
-        visible.current = false;
+    void on_timeline_changed (ParamSpec spec) {
+        var view = timeline_stack.visible_child as Views.Base;
 
-        timeline_stack.set_visible_child_name (timeline_switcher.selected.to_string ());
+        if (last_view != null)
+            last_view.current = false;
 
-        visible = timeline_stack.get_visible_child () as Views.Base;
-        visible.current = true;
-        visible.on_set_current ();
+        if (view != null) {
+            view.current = true;
+            last_view = view;
+        }
     }
 
 }

@@ -6,9 +6,11 @@ public class Tootle.Views.Base : Box {
     public static string STATUS_EMPTY = _("Nothing to see here");
     public static string STATUS_LOADING = " ";
 
-    public bool current = false;
-    public int stack_pos = -1;
-    public Image? image;
+    public int stack_pos { get; set; default = -1; }
+	public string? icon { get; set; default = null; }
+	public string label { get; set; default = ""; }
+	public bool needs_attention { get; set; default = false; }
+	public bool current { get; set; default = false; }
 
     [GtkChild]
     protected ScrolledWindow scrolled;
@@ -19,11 +21,11 @@ public class Tootle.Views.Base : Box {
     [GtkChild]
     protected Box content;
     [GtkChild]
-    private Label status_message_label;
-    [GtkChild]
     protected Button status_button;
     [GtkChild]
-    private Stack status_stack;
+    Stack status_stack;
+    [GtkChild]
+    Label status_message_label;
 
     public string state { get; set; default = "status"; }
     public string status_message { get; set; default = STATUS_EMPTY; }
@@ -48,14 +50,13 @@ public class Tootle.Views.Base : Box {
             status_message_label.label = @"<span size='large'>$status_message</span>";
             status_stack.visible_child_name = status_message == STATUS_LOADING ? "spinner" : "message";
         });
-    }
 
-    public virtual string get_icon () {
-        return "null";
-    }
-
-    public virtual string get_name () {
-        return "unnamed";
+        notify["current"].connect (() => {
+            if (current)
+                on_shown ();
+            else
+                on_hidden ();
+        });
     }
 
     public virtual void clear (){
@@ -66,7 +67,8 @@ public class Tootle.Views.Base : Box {
     }
 
     public virtual void on_bottom_reached () {}
-    public virtual void on_set_current () {}
+    public virtual void on_shown () {}
+    public virtual void on_hidden () {}
 
     public virtual void on_content_changed () {
         if (empty) {

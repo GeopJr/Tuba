@@ -25,14 +25,6 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
         streams.unsubscribe (stream, this);
     }
 
-    public override string get_icon () {
-        return "user-home-symbolic";
-    }
-
-    public override string get_name () {
-        return _("Home");
-    }
-
     public virtual bool is_status_owned (API.Status status) {
         return status.is_owned ();
     }

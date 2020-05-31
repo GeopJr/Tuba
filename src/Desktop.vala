@@ -58,7 +58,7 @@ public class Tootle.Desktop {
                     }
                     info ("OK");
                     cb (file_path);
-                    
+
                 } catch (Error e) {
                     warning ("Error: %s\n", e.message);
                     ecb (0, e.message);
@@ -68,9 +68,12 @@ public class Tootle.Desktop {
             .exec ();
     }
 
-    public static string fallback_icon (string normal, string fallback) {
+    public static string fallback_icon (string normal, string fallback, string fallback2 = "broken") {
         var theme = Gtk.IconTheme.get_default ();
-        return theme.has_icon (normal) ? normal : fallback;
+        if (theme.has_icon (normal))
+        	return normal;
+        else
+        	return theme.has_icon (fallback) ? fallback : fallback2;
     }
 
     public static void set_hotkey_tooltip (Gtk.Widget widget, string? description, string[] accelerators) {

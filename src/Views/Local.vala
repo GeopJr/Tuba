@@ -1,11 +1,8 @@
 public class Tootle.Views.Local : Views.Federated {
 
-    public override string get_icon () {
-        return Desktop.fallback_icon ("system-users-symbolic", "document-open-recent-symbolic");
-    }
-
-    public override string get_name () {
-        return _("Local Timeline");
+    public Local () {
+        label = _("Local");
+        icon = Desktop.fallback_icon ("system-users-symbolic", "document-open-recent-symbolic");
     }
 
     public override Request append_params (Request req) {

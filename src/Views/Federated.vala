@@ -1,15 +1,12 @@
 public class Tootle.Views.Federated : Views.Timeline {
 
     public Federated () {
-        Object (timeline: "public", is_public: true);
-    }
-
-    public override string get_icon () {
-        return "network-workgroup-symbolic";
-    }
-
-    public override string get_name () {
-        return _("Federated Timeline");
+        Object (
+        	timeline: "public",
+        	is_public: true,
+        	label: _("Federated"),
+        	icon: "network-workgroup-symbolic"
+        );
     }
 
     public override string? get_stream_url () {
