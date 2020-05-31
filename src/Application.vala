@@ -21,7 +21,7 @@ namespace Tootle {
 
     public static bool start_hidden = false;
 
-    public class Application : Granite.Application {
+    public class Application : Gtk.Application {
 
         // These are used for the GTK Inspector
         public Settings app_settings { get {return Tootle.settings; } }
@@ -49,8 +49,6 @@ namespace Tootle {
         construct {
             application_id = Build.DOMAIN;
             flags = ApplicationFlags.FLAGS_NONE;
-            program_name = Build.NAME;
-            build_version = Build.VERSION;
         }
 
         public string[] ACCEL_NEW_POST = {"<Ctrl>T"};
@@ -79,7 +77,7 @@ namespace Tootle {
 
         protected override void startup () {
             base.startup ();
-            Granite.Services.Logger.DisplayLevel = Granite.Services.LogLevel.INFO;
+            Build.print_info ();
 
             settings = new Settings ();
             streams = new Streams ();
@@ -126,19 +124,19 @@ namespace Tootle {
             message_dialog.destroy ();
         }
 
-        private void compose_activated () {
+        void compose_activated () {
             new Dialogs.Compose ();
         }
 
-        private void back_activated () {
+        void back_activated () {
             window.back ();
         }
 
-        private void refresh_activated () {
+        void refresh_activated () {
             refresh ();
         }
 
-        private void switch_timeline_activated (SimpleAction a, Variant? v) {
+        void switch_timeline_activated (SimpleAction a, Variant? v) {
             int32 num = v.get_int32 ();
             window.switch_timeline (num);
         }
