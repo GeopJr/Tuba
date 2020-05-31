@@ -23,10 +23,10 @@
 							<child>
 								<object class="HdyActionRow">
 									<property name="visible">True</property>
-									<property name="activatable_widget">use_dark_mode</property>
+									<property name="activatable_widget">dark_theme</property>
 									<property name="title" translatable="yes">Dark theme</property>
 									<child type="action">
-										<object class="GtkSwitch" id="use_dark_mode">
+										<object class="GtkSwitch" id="dark_theme">
 											<property name="visible">True</property>
 											<property name="valign">center</property>
 										</object>
@@ -170,14 +170,12 @@
 	<object class="GtkAdjustment" id="page_adjustment">
 		<property name="lower">10</property>
 		<property name="upper">50</property>
-		<property name="value">20</property>
 		<property name="page-increment">1</property>
 		<property name="step-increment">1</property>
 	</object>
 	<object class="GtkAdjustment" id="font_adjustment">
 		<property name="lower">14</property>
 		<property name="upper">32</property>
-		<property name="value">14</property>
 		<property name="page-increment">1</property>
 		<property name="step-increment">1</property>
 	</object>

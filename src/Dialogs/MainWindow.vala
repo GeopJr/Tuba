@@ -42,9 +42,9 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         add_timeline_view (new Views.Local (), app.ACCEL_TIMELINE_2, 2);
         add_timeline_view (new Views.Federated (), app.ACCEL_TIMELINE_3, 3);
 
+        settings.bind_property ("dark-theme", Gtk.Settings.get_default (), "gtk-application-prefer-dark-theme", BindingFlags.SYNC_CREATE);
+
         button_press_event.connect (on_button_press);
-        settings.changed.connect (update_theme);
-        update_theme ();
         update_header ();
         restore_state ();
     }
@@ -98,7 +98,7 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
 
     public override bool delete_event (EventAny event) {
         destroy.connect (() => {
-            if (!settings.always_online || accounts.is_empty ())
+            if (!settings.work_in_background || accounts.is_empty ())
                 app.remove_window (window_dummy);
             window = null;
         });
@@ -121,10 +121,6 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         view.notify["needs-attention"].connect (() => {
             timeline_stack.child_set_property (view, "needs-attention", view.needs_attention);
         });
-    }
-
-    void update_theme () {
-        Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.dark_theme;
     }
 
     void update_header () {

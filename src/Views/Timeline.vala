@@ -149,7 +149,7 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
     protected virtual void add_status (API.Status status) {
         var allow_update = true;
         if (is_public)
-            allow_update = settings.live_updates_public;
+            allow_update = settings.public_live_updates;
 
         if (settings.live_updates && allow_update)
             prepend (widgetize (status));

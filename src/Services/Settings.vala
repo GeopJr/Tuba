@@ -3,11 +3,14 @@ using GLib;
 public class Tootle.Settings : GLib.Settings {
 
 	public int current_account { get; set; }
-	public bool always_online { get; set; }
-	public int char_limit { get; set; }
-	public bool live_updates { get; set; }
-	public bool live_updates_public { get; set; }
 	public bool dark_theme { get; set; }
+	public bool autostart { get; set; }
+	public bool work_in_background { get; set; }
+	public API.Visibility default_post_visibility { get; set; }
+	public int timeline_page_size { get; set; }
+	public int post_text_size { get; set; }
+	public bool live_updates { get; set; }
+	public bool public_live_updates { get; set; }
 
 	public string watched_users { get; set; }
 	public string watched_hashtags { get; set; }
@@ -20,11 +23,14 @@ public class Tootle.Settings : GLib.Settings {
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
 		init ("current-account");
-		init ("always-online");
-		init ("char-limit");
-		init ("live-updates");
-		init ("live-updates-public");
 		init ("dark-theme");
+		init ("autostart");
+		init ("work-in-background");
+		init ("default-post-visibility");
+		init ("timeline-page-size");
+		init ("post-text-size");
+		init ("live-updates");
+		init ("public-live-updates");
 
 		init ("watched-users");
 		init ("watched-hashtags");

@@ -1,46 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
+
+	<enum id='com.github.bleakgrey.tootle.API.Visibility'>
+		<value nick='public' value='0'/>
+		<value nick='unlisted' value='1'/>
+		<value nick='private' value='2'/>
+		<value nick='direct' value='3'/>
+	</enum>
+
 	<schema path="/com/github/bleakgrey/tootle/" id="com.github.bleakgrey.tootle" gettext-domain="com.github.bleakgrey.tootle">
+
 		<key name="current-account" type="i">
 			<default>0</default>
-			<summary>Current Account</summary>
-			<description>Do not edit or it shall set your house on fire</description>
-		</key>
-		<key name="always-online" type="b">
-			<default>false</default>
-			<summary>Always monitor new notifications</summary>
-			<description></description>
-		</key>
-		<key name="live-updates" type="b">
-			<default>true</default>
-			<summary>Real-time timelines</summary>
-			<description>Update timelines in real-time</description>
-		</key>
-		<key name="live-updates-public" type="b">
-			<default>false</default>
-			<summary>Real-time public timelines</summary>
-			<description>Update local and federated timelines in real-time. May clog up memory on busy instances.</description>
 		</key>
 		<key name="dark-theme" type="b">
 			<default>false</default>
-			<summary>Sets application theme to dark</summary>
-			<description></description>
 		</key>
-		<key name="char-limit" type="i">
-			<default>500</default>
-			<summary>Default character limit</summary>
-			<description>Change this if your instance supports more than 500 characters in posts</description>
+		<key name="autostart" type="b">
+			<default>false</default>
 		</key>
+		<key name="work-in-background" type="b">
+			<default>false</default>
+		</key>
+		<key name="default-post-visibility" enum="com.github.bleakgrey.tootle.API.Visibility">
+			<default>'public'</default>
+		</key>
+		<key name="timeline-page-size" type="i">
+			<default>20</default>
+		</key>
+		<key name="post-text-size" type="i">
+			<default>14</default>
+		</key>
+		<key name="live-updates" type="b">
+			<default>true</default>
+		</key>
+		<key name="public-live-updates" type="b">
+			<default>false</default>
+		</key>
+
+
+
 		<key name="watched-users" type="s">
 			<default>''</default>
 			<summary>Watched Users</summary>
-			<description>Comma separated list of usernames to notify you about</description>
 		</key>
 		<key name="watched-hashtags" type="s">
 			<default>''</default>
 			<summary>Watched Hashtags</summary>
-			<description>Comma separated list of hashtags to notify you about</description>
 		</key>
+
+
 
 		<key name="window-x" type="i">
 			<default>-1</default>
@@ -49,10 +58,10 @@
 			<default>-1</default>
 		</key>
 		<key name="window-w" type="i">
-			<default>-1</default>
+			<default>600</default>
 		</key>
 		<key name="window-h" type="i">
-			<default>-1</default>
+			<default>700</default>
 		</key>
 
 	</schema>
