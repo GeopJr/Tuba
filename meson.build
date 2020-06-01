@@ -45,7 +45,6 @@ executable(
     'src/API/Attachment.vala',
     'src/Widgets/Avatar.vala',
     'src/Widgets/AccountsButton.vala',
-    'src/Widgets/AlignedLabel.vala',
     'src/Widgets/RichLabel.vala',
     'src/Widgets/Status.vala',
     'src/Widgets/Notification.vala',

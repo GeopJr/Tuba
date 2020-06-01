@@ -4,6 +4,8 @@ using Gdk;
 [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/main.ui")]
 public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
 
+    public const string ZOOM_CLASS = "app-scalable";
+
     [GtkChild]
     protected Stack view_stack;
     [GtkChild]
@@ -22,11 +24,9 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
 
     Views.Base? last_view = null;
 
-    construct {
-        var provider = new Gtk.CssProvider ();
-        provider.load_from_resource (@"$(Build.RESOURCES)app.css");
-        StyleContext.add_provider_for_screen (Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+    CssProvider zoom_css_provider = new CssProvider ();
 
+    construct {
         back_button.clicked.connect (() => back ());
         Desktop.set_hotkey_tooltip (back_button, _("Back"), app.ACCEL_BACK);
 
@@ -43,6 +43,13 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         add_timeline_view (new Views.Federated (), app.ACCEL_TIMELINE_3, 3);
 
         settings.bind_property ("dark-theme", Gtk.Settings.get_default (), "gtk-application-prefer-dark-theme", BindingFlags.SYNC_CREATE);
+        settings.notify["post-text-size"].connect (() => on_zoom_level_changed ());
+
+        var provider = new Gtk.CssProvider ();
+        provider.load_from_resource (@"$(Build.RESOURCES)app.css");
+        StyleContext.add_provider_for_screen (Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        StyleContext.add_provider_for_screen (Screen.get_default (), zoom_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        on_zoom_level_changed ();
 
         button_press_event.connect (on_button_press);
         update_header ();
@@ -140,6 +147,21 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         if (view != null) {
             view.current = true;
             last_view = view;
+        }
+    }
+
+    void on_zoom_level_changed () {
+        var css ="""
+            .%s {
+                font-size: %i%;
+            }
+        """.printf (ZOOM_CLASS, settings.post_text_size);
+
+        try {
+            zoom_css_provider.load_from_data (css);
+        }
+        catch (Error e) {
+            warning (@"Can't set zoom level: $(e.message)");
         }
     }
 

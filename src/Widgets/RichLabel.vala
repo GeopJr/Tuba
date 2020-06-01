@@ -13,6 +13,7 @@ public class Tootle.Widgets.RichLabel : Label {
         single_line_mode = false;
         set_line_wrap (true);
 		activate_link.connect (open_link);
+		get_style_context ().add_class (Dialogs.MainWindow.ZOOM_CLASS);
 	}
 
     public RichLabel (string text) {
