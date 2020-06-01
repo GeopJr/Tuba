@@ -7,7 +7,6 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
     public bool is_public { get; construct set; default = false; }
 
     protected InstanceAccount? account = null;
-    protected int limit = 25;
     protected bool is_last_page = false;
     protected string? page_next;
     protected string? page_prev;
@@ -96,7 +95,7 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
     }
 
     public virtual Request append_params (Request req) {
-        return req.with_param ("limit", limit.to_string ());
+        return req.with_param ("limit", @"$(settings.timeline_page_size)");
     }
 
     public virtual bool request () {

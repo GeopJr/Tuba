@@ -5,9 +5,9 @@ public class Tootle.Views.Local : Views.Federated {
         icon = Desktop.fallback_icon ("system-users-symbolic", "document-open-recent-symbolic");
     }
 
-    public override Request append_params (Request req) {
+    public override Request append_params (Request r) {
+        var req = base.append_params (r);
         req.with_param ("local", "true");
-        req.with_param ("limit", limit.to_string ());
         return req;
     }
 
