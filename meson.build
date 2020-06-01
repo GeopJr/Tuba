@@ -16,6 +16,21 @@ asresources = gnome.compile_resources(
   c_name: 'as'
 )
 
+libhandy_dep = dependency('libhandy-1', version: '>= 0.80.0')
+
+if not libhandy_dep.found()
+  libhandy = subproject(
+    'libhandy',
+    install: false,
+    default_options: [
+      'examples=false',
+      'package_subdir=' + meson.project_name(),
+      'tests=false',
+    ]
+  )
+  libhandy_dep = libhandy.get_variable('libhandy_dep')
+endif
+
 executable(
     meson.project_name(),
     asresources,
@@ -75,7 +90,7 @@ executable(
         dependency('granite', version: '>=5.2.0'),
         dependency('json-glib-1.0'),
         dependency('libsoup-2.4'),
-        dependency('libhandy-0.0', version: '>=0.0.13'),
+        libhandy_dep,
     ],
     install: true,
 )

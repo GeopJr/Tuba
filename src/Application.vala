@@ -61,7 +61,6 @@ namespace Tootle {
 
         public static int main (string[] args) {
             Gtk.init (ref args);
-            Hdy.init (ref args);
             try {
                 var opt_context = new OptionContext ("- Options");
                 opt_context.add_main_entries (app_options, null);

@@ -12,8 +12,8 @@
 		<!--Application-->
 		<child>
 			<object class="HdyPreferencesPage">
-				<property name="icon_name">preferences-other-symbolic</property>
-				<property name="title" translatable="yes">Application</property>
+				<property name="icon_name">applications-system-symbolic</property>
+				<property name="title" translatable="yes">General</property>
         		<property name="visible">True</property>
 
 					<child>
@@ -25,7 +25,7 @@
 									<property name="visible">True</property>
 									<property name="activatable_widget">dark_theme</property>
 									<property name="title" translatable="yes">Dark theme</property>
-									<child type="action">
+									<child>
 										<object class="GtkSwitch" id="dark_theme">
 											<property name="visible">True</property>
 											<property name="valign">center</property>
@@ -46,7 +46,7 @@
 									<property name="activatable_widget">autostart</property>
 									<property name="title" translatable="yes">Autostart</property>
 									<property name="subtitle" translatable="yes">Start minimized at boot</property>
-									<child type="action">
+									<child>
 										<object class="GtkSwitch" id="autostart">
 											<property name="visible">True</property>
 											<property name="valign">center</property>
@@ -60,7 +60,7 @@
 									<property name="activatable_widget">work_in_background</property>
 									<property name="title" translatable="yes">Background work</property>
 									<property name="subtitle" translatable="yes">Receive notifications even when the app window is closed</property>
-									<child type="action">
+									<child>
 										<object class="GtkSwitch" id="work_in_background">
 											<property name="visible">True</property>
 											<property name="valign">center</property>
@@ -96,7 +96,7 @@
 									<property name="visible">True</property>
 									<property name="activatable_widget">timeline_page_size</property>
 									<property name="title" translatable="yes">Posts per page</property>
-									<child type="action">
+									<child>
 										<object class="GtkSpinButton" id="timeline_page_size">
 											<property name="visible">True</property>
 											<property name="can_focus">True</property>
@@ -112,7 +112,7 @@
 									<property name="visible">True</property>
 									<property name="activatable_widget">post_text_size</property>
 									<property name="title" translatable="yes">Post text size (%)</property>
-									<child type="action">
+									<child>
 										<object class="GtkSpinButton" id="post_text_size">
 											<property name="visible">True</property>
 											<property name="can_focus">True</property>
@@ -136,7 +136,7 @@
 									<property name="activatable_widget">live_updates</property>
 									<property name="title" translatable="yes">Stream timelines</property>
 									<property name="subtitle" translatable="yes">Add and remove posts in real-time</property>
-									<child type="action">
+									<child>
 										<object class="GtkSwitch" id="live_updates">
 											<property name="visible">True</property>
 											<property name="valign">center</property>
@@ -151,7 +151,7 @@
 									<property name="sensitive" bind-source="live_updates" bind-property="state" bind-flags="sync-create"></property>
 									<property name="title" translatable="yes">Stream public timelines</property>
 									<property name="subtitle" translatable="yes">Warning: This will use more resources on crowded instances</property>
-									<child type="action">
+									<child>
 										<object class="GtkSwitch" id="public_live_updates">
 											<property name="visible">True</property>
 											<property name="valign">center</property>

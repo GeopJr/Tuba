@@ -1,0 +1,3 @@
+[submodule "subprojects/libhandy"]
+	path = subprojects/libhandy
+	url = https://gitlab.gnome.org/GNOME/libhandy.git

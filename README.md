@@ -18,7 +18,7 @@ To build the app, make sure you have these dependencies:
 * libsoup2.4-dev
 * libgranite-dev
 * libjson-glib-dev
-* libhandy-0.0-dev
+* libhandy-1.0-dev
 
 Then run `install.sh` in the project directory to install the app.
 
