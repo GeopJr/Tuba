@@ -94,7 +94,10 @@ public class Tootle.API.Status : GLib.Object {
     }
 
     public Status.empty () {
-        Object (id: 0);
+        Object (
+        	id: 0,
+        	visibility: settings.default_post_visibility
+        );
     }
 
 	public Status.from_account (API.Account account) {

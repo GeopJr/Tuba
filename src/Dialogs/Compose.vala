@@ -71,6 +71,7 @@ public class Tootle.Dialogs.Compose : Window {
             style_class: STYLE_CLASS_SUGGESTED_ACTION,
             label: _("Post")
         );
+        set_visibility (status.visibility);
     }
 
     public Compose.redraft (API.Status status) {
@@ -79,22 +80,28 @@ public class Tootle.Dialogs.Compose : Window {
             style_class: STYLE_CLASS_DESTRUCTIVE_ACTION,
             label: _("Redraft")
         );
+        set_visibility (status.visibility);
     }
 
-	public Compose.reply (API.Status status) {
+	public Compose.reply (API.Status to) {
 		var template = new API.Status.empty ();
-		template.in_reply_to_id = status.in_reply_to_id;
-		template.in_reply_to_account_id = status.in_reply_to_account_id;
-		template.content = status.formal.get_reply_mentions ();
+		template.in_reply_to_id = to.id.to_string ();
+		template.in_reply_to_account_id = to.account.id.to_string ();
+		template.content = to.formal.get_reply_mentions ();
 		Object (
 		    status: template,
 		    style_class: STYLE_CLASS_SUGGESTED_ACTION,
 		    label: _("Reply")
 		);
-		visibility_popover.selected = status.visibility;
+		set_visibility (to.visibility);
 	}
 
-    protected void validate () {
+    void set_visibility (API.Visibility v) {
+        visibility_popover.selected = v;
+        visibility_popover.invalidate ();
+    }
+
+    void validate () {
         var remain = char_limit - content.buffer.get_char_count ();
         if (cw_button.active)
             remain -= (int)cw.buffer.length;
@@ -105,12 +112,12 @@ public class Tootle.Dialogs.Compose : Window {
         box.sensitive = true;
     }
 
-    protected void on_error (int32 code, string reason) { //TODO: display errors
+    void on_error (int32 code, string reason) { //TODO: display errors
         warning (reason);
         validate ();
     }
 
-    protected void on_post_button_clicked () {
+    void on_post_button_clicked () {
         post_button.sensitive = false;
         visibility_button.sensitive = false;
         box.sensitive = false;
@@ -124,7 +131,7 @@ public class Tootle.Dialogs.Compose : Window {
         }
     }
 
-    protected void publish () {
+    void publish () {
         info ("Publishing new status...");
         status.content = content.buffer.text;
         status.spoiler_text = cw.text;
