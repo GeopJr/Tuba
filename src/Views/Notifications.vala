@@ -11,6 +11,7 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
         	icon: Desktop.fallback_icon ("notification-symbolic", "preferences-system-notifications-symbolic", "user-invisible-symbolic")
         );
         on_notification.connect (add_notification);
+        on_status_added.disconnect (add_status);
     }
 
     public override string? get_stream_url () {
@@ -38,14 +39,10 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
         var nw = w as Widgets.Notification;
         var notification = nw.notification;
 
-        if (reverse && !current) {
-            needs_attention = accounts.active.has_unread_notifications = true;
-        }
-
         if (notification.id > last_id)
             last_id = notification.id;
 
-		needs_attention = has_unread ();
+		needs_attention = has_unread () && !current;
         if (needs_attention)
             accounts.save ();
     }
