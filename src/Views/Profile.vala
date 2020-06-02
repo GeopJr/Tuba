@@ -24,7 +24,9 @@ public class Tootle.Views.Profile : Views.Timeline {
     	profile.notify["rs"].connect (on_rs_updated);
 
         var builder = new Builder.from_resource (@"$(Build.RESOURCES)ui/views/profile_header.ui");
-		view.pack_start (builder.get_object ("grid") as Grid, false, false, 0);
+        var hdr = builder.get_object ("grid") as Grid;
+		column_view.pack_start (hdr, false, false, 0);
+		column_view.reorder_child (hdr, 0);
 
 		var avatar = builder.get_object ("avatar") as Widgets.Avatar;
 		avatar.url = profile.avatar;

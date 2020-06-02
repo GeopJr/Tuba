@@ -2,9 +2,9 @@ using Gtk;
 
 public class Tootle.Views.Search : Views.Base {
 
-    private string query = "";
-    private SearchBar bar;
-    private SearchEntry entry;
+    string query = "";
+    SearchBar bar;
+    SearchEntry entry;
 
     construct {
         bar = new SearchBar ();
@@ -23,51 +23,53 @@ public class Tootle.Views.Search : Views.Base {
         entry.icon_press.connect (() => request ());
         entry.grab_focus_without_selecting ();
         status_button.clicked.connect (request);
+
+        request ();
     }
 
-    private void append_account (API.Account acc) {
+    void append_account (API.Account acc) {
         var status = new API.Status.from_account (acc);
-        var widget = new Widgets.Status (status);
-        widget.button_press_event.connect (widget.on_avatar_clicked);
-        content.pack_start (widget, false, false, 0);
+        var w = new Widgets.Status (status);
+        w.button_press_event.connect (w.on_avatar_clicked);
+        content_list.insert (w, -1);
         on_content_changed ();
     }
 
-    private void append_status (API.Status status) {
-        var widget = new Widgets.Status (status);
-        widget.button_press_event.connect (widget.on_avatar_clicked);
-        content.pack_start (widget, false, false, 0);
+    void append_status (API.Status status) {
+        var w = new Widgets.Status (status);
+        w.button_press_event.connect (w.on_avatar_clicked);
+        content_list.insert (w, -1);
         on_content_changed ();
     }
 
-    private void append_header (string name) {
-        var widget = new Label (@"<span weight='bold' size='medium'>$name</span>");
-        widget.halign = Align.START;
-        widget.margin = 8;
-        widget.use_markup = true;
-        widget.show ();
-        content.pack_start (widget, false, false, 0);
+    void append_header (string name) {
+        var w = new Label (@"<span weight='bold' size='medium'>$name</span>");
+        w.halign = Align.START;
+        w.margin = 8;
+        w.use_markup = true;
+        w.show ();
+        content_list.insert (w, -1);
         on_content_changed ();
     }
 
-    private void append_hashtag (string name) {
+    void append_hashtag (string name) {
         var encoded = Soup.URI.encode (name, null);
-        var widget = new Widgets.RichLabel (@"<a href=\"$(accounts.active.instance)/tags/$encoded\">#$name</a>");
-        widget.use_markup = true;
-        widget.halign = Align.START;
-        widget.margin = 6;
-        widget.margin_bottom = 0;
-        widget.show ();
-        content.pack_start (widget, false, false, 0);
+        var w = new Widgets.RichLabel (@"<a href=\"$(accounts.active.instance)/tags/$encoded\">#$name</a>");
+        w.use_markup = true;
+        w.halign = Align.START;
+        w.margin = 8;
+        w.show ();
+        content_list.insert (w, -1);
     }
 
-    private void request () {
+    void request () {
         query = entry.text;
         if (query == "") {
             clear ();
             return;
         }
 
+        status_message = STATUS_LOADING;
         new Request.GET ("/api/v2/search")
         	.with_account (accounts.active)
         	.with_param ("resolve", "true")

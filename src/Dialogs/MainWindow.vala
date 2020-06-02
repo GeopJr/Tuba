@@ -152,7 +152,7 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
 
     void on_zoom_level_changed () {
         var css ="""
-            .%s {
+            .%s label {
                 font-size: %i%;
             }
         """.printf (ZOOM_CLASS, settings.post_text_size);

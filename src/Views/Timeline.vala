@@ -53,9 +53,11 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
         if (w == null)
             return;
 
-        content.pack_start (w, false, false, 0);
         if (first)
-            content.reorder_child (w, 0);
+            content_list.prepend (w);
+        else
+            content_list.insert (w, -1);
+
         on_content_changed ();
     }
 

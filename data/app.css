@@ -7,6 +7,9 @@
 	background: rgba (150, 150, 150, 0.2);
 }
 
-.highlight {
-	background: @theme_base_color;
+.padded.app-view {
+	margin: 32px 0 32px 0;
+}
+.app-view:not(.padded) .preferences row {
+	border-radius: 0px;
 }

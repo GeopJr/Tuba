@@ -17,9 +17,15 @@ public class Tootle.Views.Base : Box {
     [GtkChild]
     protected Box view;
     [GtkChild]
+    protected Hdy.Column column;
+    [GtkChild]
+    protected Box column_view;
+    [GtkChild]
     protected Stack states;
     [GtkChild]
     protected Box content;
+    [GtkChild]
+    protected ListBox content_list;
     [GtkChild]
     protected Button status_button;
     [GtkChild]
@@ -33,7 +39,7 @@ public class Tootle.Views.Base : Box {
 
     public bool empty {
         get {
-            return content.get_children ().length () <= 0;
+            return content_list.get_children ().length () <= 0;
         }
     }
 
@@ -45,6 +51,7 @@ public class Tootle.Views.Base : Box {
                 on_bottom_reached ();
         });
         content.remove.connect (() => on_content_changed ());
+        content_list.remove.connect (() => on_content_changed ());
 
         notify["status-message"].connect (() => {
             status_message_label.label = @"<span size='large'>$status_message</span>";
@@ -57,10 +64,13 @@ public class Tootle.Views.Base : Box {
             else
                 on_hidden ();
         });
+
+        size_allocate.connect (on_resized);
+        get_style_context ().add_class (Dialogs.MainWindow.ZOOM_CLASS);
     }
 
     public virtual void clear (){
-        content.forall (widget => {
+        content_list.forall (widget => {
             widget.destroy ();
         });
         state = "status";
@@ -86,6 +96,20 @@ public class Tootle.Views.Base : Box {
         status_button.visible = true;
         status_button.sensitive = true;
         state = "status";
+    }
+
+    protected void on_resized () {
+        Allocation alloc;
+        get_allocation (out alloc);
+
+        var target_w = column.maximum_width;
+        var view_w = alloc.width;
+
+        var ctx = view.get_style_context ();
+        if (view_w <= target_w && ctx.has_class ("padded"))
+            ctx.remove_class ("padded");
+        if (view_w > target_w && !ctx.has_class ("padded"))
+            ctx.add_class ("padded");
     }
 
 }

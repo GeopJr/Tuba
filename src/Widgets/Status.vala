@@ -8,8 +8,6 @@ public class Tootle.Widgets.Status : EventBox {
     public API.NotificationType? kind { get; construct set; }
 
     [GtkChild]
-    protected Separator separator;
-    [GtkChild]
     protected Grid grid;
 
     [GtkChild]
