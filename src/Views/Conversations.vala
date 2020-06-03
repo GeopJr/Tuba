@@ -4,7 +4,8 @@ public class Tootle.Views.Conversations : Views.Timeline {
         Object (
             url: "/api/v1/conversations",
             label: _("Conversations"),
-            icon: "mail-send-symbolic"
+            icon: API.Visibility.DIRECT.get_icon (),
+            accepts: typeof (API.Conversation)
         );
     }
 

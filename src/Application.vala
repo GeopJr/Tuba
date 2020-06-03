@@ -6,7 +6,8 @@ namespace Tootle {
     public errordomain Oopsie {
         USER,
     	PARSING,
-    	INSTANCE
+    	INSTANCE,
+    	INTERNAL
     }
 
     public static Application app;

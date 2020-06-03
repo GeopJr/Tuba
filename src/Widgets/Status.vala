@@ -135,6 +135,7 @@ public class Tootle.Widgets.Status : EventBox {
         }
 
         menu_button.clicked.connect (open_menu);
+        avatar.button_press_event.connect (on_avatar_clicked);
     }
 
     public Status (API.Status status, API.NotificationType? _kind = null) {
@@ -166,7 +167,7 @@ public class Tootle.Widgets.Status : EventBox {
             var view = new Views.Profile (status.formal.account);
             return window.open_view (view);
         }
-        return false;
+        return true;
     }
 
     public bool open (EventButton ev) {

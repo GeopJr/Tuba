@@ -11,6 +11,7 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
         	label: _("Notifications"),
         	icon: Desktop.fallback_icon ("notification-symbolic", "preferences-system-notifications-symbolic", "user-invisible-symbolic")
         );
+        accepts = typeof (API.Notification);
         on_notification.connect (add_notification);
         on_status_added.disconnect (add_status);
     }
@@ -41,20 +42,15 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
             accounts.save ();
     }
 
-    public override GLib.Object? to_entity (Json.Object? json) {
-    	if (json != null)
-        	return new API.Notification (json);
-        else
-        	return null;
-    }
+    public override GLib.Object to_entity (Json.Node node) throws Oopsie {
+        if (node == null)
+            throw new Oopsie.PARSING ("Received null Json.Node");
 
-    public override Widget? widgetize (GLib.Object? entity) {
-        var n = entity as API.Notification;
-        if (n == null)
-            return null;
+        var obj = node.get_object ();
+        if (obj == null)
+            throw new Oopsie.PARSING ("Received Json.Node is not a Json.Object!");
 
-        var w = new Widgets.Notification (n);
-        return w;
+        return new API.Notification (obj);
     }
 
     public override void on_account_changed (InstanceAccount? acc) {
@@ -72,7 +68,7 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
     public override bool request () {
         if (account != null) {
             account.cached_notifications.@foreach (n => {
-                append (widgetize (n));
+                append (n.to_widget ());
                 return true;
             });
         }
@@ -86,7 +82,7 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
     }
 
     void add_notification (API.Notification n) {
-        prepend (widgetize (n));
+        prepend (n.to_widget ());
     }
 
 }

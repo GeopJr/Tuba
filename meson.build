@@ -58,6 +58,8 @@ executable(
     'src/API/Notification.vala',
     'src/API/NotificationType.vala',
     'src/API/Attachment.vala',
+    'src/API/Conversation.vala',
+    'src/Widgets/Widgetizable.vala',
     'src/Widgets/Avatar.vala',
     'src/Widgets/AccountsButton.vala',
     'src/Widgets/RichLabel.vala',

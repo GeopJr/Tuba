@@ -1,7 +1,6 @@
 using Gee;
 
-public class Tootle.API.Status : GLib.Object {
-
+public class Tootle.API.Status : GLib.Object, Widgetizable {
 
     public int64 id { get; construct set; } //TODO: IDs are no longer guaranteed to be numbers. Replace with strings.
     public API.Account account { get; construct set; }
@@ -114,6 +113,13 @@ public class Tootle.API.Status : GLib.Object {
         else
             content = Html.remove_tags (account.note);
 	}
+
+    public override Gtk.Widget to_widget () {
+        var w = new Widgets.Status (this);
+        w.button_press_event.connect (w.open);
+
+        return w;
+    }
 
     public Json.Node? serialize () {
         var builder = new Json.Builder ();

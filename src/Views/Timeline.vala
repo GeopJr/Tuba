@@ -5,6 +5,7 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
 
     public string url { get; construct set; }
     public bool is_public { get; construct set; default = false; }
+    public Type accepts { get; set; default = typeof (API.Status); }
 
     protected InstanceAccount? account = null;
 
@@ -29,21 +30,15 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
         return status.is_owned ();
     }
 
-    public virtual GLib.Object? to_entity (Json.Object? json) {
-        return new API.Status (json);
-    }
+    public virtual GLib.Object to_entity (Json.Node node) throws Oopsie {
+        if (node == null)
+            throw new Oopsie.PARSING ("Received null Json.Node");
 
-    public virtual Widget? widgetize (GLib.Object? entity) {
-        var status = entity as API.Status;
-        if (status == null)
-            return null;
+        var obj = node.get_object ();
+        if (obj == null)
+            throw new Oopsie.PARSING ("Received Json.Node is not a Json.Object!");
 
-        var w = new Widgets.Status (status);
-        w.button_press_event.connect (w.open);
-        if (!is_status_owned (status))
-            w.avatar.button_press_event.connect (w.on_avatar_clicked);
-
-        return w;
+        return new API.Status (obj);
     }
 
     public void prepend (Widget? w) {
@@ -51,8 +46,10 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
     }
 
     public virtual void append (Widget? w, bool first = false) {
-        if (w == null)
+        if (w == null) {
+            warning ("Attempted to add an empty widget");
             return;
+        }
 
         if (first)
             content_list.prepend (w);
@@ -105,15 +102,13 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
 		append_params (new Request.GET (get_req_url ()))
 		.with_account (account)
 		.then_parse_array ((node, msg) => {
-		    var obj = node.get_object ();
-		    if (obj == null)
-		        warning ("Received invalid Json.Object");
-		    else {
-                var entity = to_entity (obj);
-                if (entity == null)
-                    warning ("Can't convert Json.Object to required entity");
-                else
-                    append (widgetize (entity));
+		    try {
+                var e = to_entity (node);
+                var w = e as Widgetizable;
+                append (w.to_widget ());
+		    }
+		    catch (Error e) {
+		        warning (@"Timeline item parse error: $(e.message)");
 		    }
             get_pages (msg.response_headers.get_one ("Link"));
         })
@@ -154,7 +149,7 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
             allow_update = settings.public_live_updates;
 
         if (settings.live_updates && allow_update)
-            prepend (widgetize (status));
+            prepend (status.to_widget ());
     }
 
     protected virtual void remove_status (int64 id) {

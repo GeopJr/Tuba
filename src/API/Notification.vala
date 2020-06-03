@@ -1,4 +1,4 @@
-public class Tootle.API.Notification : GLib.Object {
+public class Tootle.API.Notification : GLib.Object, Widgetizable {
 
     public int64 id { get; construct set; }
     public Account account { get; construct set; }
@@ -25,6 +25,10 @@ public class Tootle.API.Notification : GLib.Object {
             kind: NotificationType.FOLLOW_REQUEST,
             account: new Account (obj)
         );
+    }
+
+    public override Gtk.Widget to_widget () {
+        return new Widgets.Notification (this);
     }
 
     public Json.Node? serialize () {

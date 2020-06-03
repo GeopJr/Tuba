@@ -156,11 +156,12 @@ public class Tootle.Views.Profile : Views.Timeline {
 		return base.append_params (req);
 	}
 
-    public override GLib.Object? to_entity (Json.Object? json) {
+    public override GLib.Object to_entity (Json.Node node) {
+    	var obj = node.get_object ();
     	if (posts_tab.active)
-        	return new API.Status (json);
+        	return new API.Status (obj);
         else {
-        	var account = new API.Account (json);
+        	var account = new API.Account (obj);
         	return new API.Status.from_account (account);
         }
     }
