@@ -42,6 +42,10 @@ public class Tootle.Widgets.Status : EventBox {
     protected Image reblog_icon;
     [GtkChild]
     protected ToggleButton favorite_button;
+    [GtkChild]
+    protected ToggleButton bookmark_button;
+    [GtkChild]
+    protected Button menu_button;
 
     protected string escaped_spoiler {
         owned get {
@@ -78,7 +82,6 @@ public class Tootle.Widgets.Status : EventBox {
 	}
 
     construct {
-        button_press_event.connect (on_clicked);
         content.activate_link.connect (on_toggle_spoiler);
         notify["kind"].connect (on_kind_changed);
 
@@ -105,18 +108,6 @@ public class Tootle.Widgets.Status : EventBox {
 		bind_property ("handle", handle_label, "label", BindingFlags.SYNC_CREATE);
 		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
-		status.formal.bind_property ("replies-count", reply_button, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_string (((int64)src).to_string ());
-			return true;
-		});
-		status.formal.bind_property ("reblogs-count", reblog_button, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_string (((int64)src).to_string ());
-			return true;
-		});
-		status.bind_property ("favourites-count", favorite_button, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_string (((int64)src).to_string ());
-			return true;
-		});
 
         status.formal.bind_property ("has_spoiler", revealer_content, "visible", BindingFlags.SYNC_CREATE);
         revealer.reveal_child = !status.formal.has_spoiler;
@@ -142,14 +133,14 @@ public class Tootle.Widgets.Status : EventBox {
         if (!attachments.populate (status.formal.attachments) || status.id <= 0) {
             attachments.destroy ();
         }
+
+        menu_button.clicked.connect (open_menu);
     }
 
     public Status (API.Status status, API.NotificationType? _kind = null) {
         Object (status: status, kind: _kind);
     }
-
     ~Status () {
-        button_press_event.disconnect (on_clicked);
         notify["kind"].disconnect (on_kind_changed);
     }
 
@@ -187,13 +178,7 @@ public class Tootle.Widgets.Status : EventBox {
         return false;
     }
 
-    protected virtual bool on_clicked (EventButton ev) {
-        if (ev.button == 3)
-            return open_menu (ev.button, ev.time);
-        return false;
-    }
-
-    public virtual bool open_menu (uint button, uint32 time) {
+    protected void open_menu () {
         var menu = new Gtk.Menu ();
 
         var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
@@ -206,7 +191,20 @@ public class Tootle.Widgets.Status : EventBox {
             Desktop.copy (sanitized);
         });
 
+        // if (is_notification) {
+        //     var item_muting = new Gtk.MenuItem.with_label (status.muted ? _("Unmute Conversation") : _("Mute Conversation"));
+        //     item_muting.activate.connect (() => status.update_muted (!is_muted) );
+        //     menu.add (item_muting);
+        // }
+
+        menu.add (item_open_link);
+        menu.add (new SeparatorMenuItem ());
+        menu.add (item_copy_link);
+        menu.add (item_copy);
+
         if (status.is_owned ()) {
+            menu.add (new SeparatorMenuItem ());
+
             var item_pin = new Gtk.MenuItem.with_label (status.pinned ? _("Unpin from Profile") : _("Pin on Profile"));
             item_pin.activate.connect (() => {
                 status.action (status.formal.pinned ? "unpin" : "pin");
@@ -220,25 +218,10 @@ public class Tootle.Widgets.Status : EventBox {
             var item_redraft = new Gtk.MenuItem.with_label (_("Redraft"));
             item_redraft.activate.connect (() => new Dialogs.Compose.redraft (status.formal));
             menu.add (item_redraft);
-
-            menu.add (new SeparatorMenuItem ());
         }
 
-        // if (is_notification) {
-        //     var item_muting = new Gtk.MenuItem.with_label (status.muted ? _("Unmute Conversation") : _("Mute Conversation"));
-        //     item_muting.activate.connect (() => status.update_muted (!is_muted) );
-        //     menu.add (item_muting);
-        // }
-
-        menu.add (item_open_link);
-        menu.add (new SeparatorMenuItem ());
-        menu.add (item_copy_link);
-        menu.add (item_copy);
-
         menu.show_all ();
-        menu.attach_widget = this;
-        menu.popup_at_pointer ();
-        return true;
+        menu.popup_at_widget (menu_button, Gravity.SOUTH_EAST, Gravity.SOUTH_EAST);
     }
 
 }

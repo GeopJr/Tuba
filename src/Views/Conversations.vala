@@ -1,9 +1,9 @@
-public class Tootle.Views.Direct : Views.Timeline {
+public class Tootle.Views.Conversations : Views.Timeline {
 
-    public Direct () {
+    public Conversations () {
         Object (
-            timeline: "direct",
-            label: _("Direct Messages"),
+            url: "/api/v1/conversations",
+            label: _("Conversations"),
             icon: "mail-send-symbolic"
         );
     }

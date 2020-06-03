@@ -61,7 +61,7 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
     [GtkChild]
     private ModelButton item_favs;
     [GtkChild]
-    private ModelButton item_direct;
+    private ModelButton item_conversations;
 
     construct {
         connect_account ();
@@ -70,9 +70,8 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
         Desktop.set_hotkey_tooltip (item_refresh, null, app.ACCEL_REFRESH);
 
         item_favs.clicked.connect (() => window.open_view (new Views.Favorites ()));
-        item_direct.clicked.connect (() => window.open_view (new Views.Direct ()));
+        item_conversations.clicked.connect (() => window.open_view (new Views.Conversations ()));
         item_search.clicked.connect (() => window.open_view (new Views.Search ()));
-        //item_watchlist.clicked.connect (() => Dialogs.WatchlistEditor.open ());
         item_prefs.clicked.connect (() => Dialogs.Preferences.open ());
 
         // network.started.connect (() => spinner.show ());

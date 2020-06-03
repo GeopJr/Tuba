@@ -7,6 +7,7 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
 
     public Notifications () {
         Object (
+            url: "/api/v1/notifications",
         	label: _("Notifications"),
         	icon: Desktop.fallback_icon ("notification-symbolic", "preferences-system-notifications-symbolic", "user-invisible-symbolic")
         );
@@ -16,13 +17,6 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
 
     public override string? get_stream_url () {
         return account != null ? @"$(account.instance)/api/v1/streaming/?stream=user&access_token=$(account.token)" : null;
-    }
-
-    public override string get_url () {
-        if (page_next != null)
-            return page_next;
-
-        return "/api/v1/notifications";
     }
 
     public override void on_shown () {

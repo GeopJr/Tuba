@@ -77,7 +77,7 @@ executable(
     'src/Views/Local.vala',
     'src/Views/Federated.vala',
     'src/Views/Notifications.vala',
-    'src/Views/Direct.vala',
+    'src/Views/Conversations.vala',
     'src/Views/ExpandedStatus.vala',
     'src/Views/Profile.vala',
     'src/Views/Favorites.vala',

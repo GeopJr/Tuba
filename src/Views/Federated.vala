@@ -2,7 +2,7 @@ public class Tootle.Views.Federated : Views.Timeline {
 
     public Federated () {
         Object (
-        	timeline: "public",
+        	url: "/api/v1/timelines/public",
         	is_public: true,
         	label: _("Federated"),
         	icon: "network-workgroup-symbolic"

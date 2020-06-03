@@ -3,14 +3,15 @@ using Gdk;
 
 public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Base {
 
-    public string timeline { get; construct set; }
+    public string url { get; construct set; }
     public bool is_public { get; construct set; default = false; }
 
     protected InstanceAccount? account = null;
-    protected bool is_last_page = false;
-    protected string? page_next;
-    protected string? page_prev;
-    protected string? stream;
+
+    protected bool is_last_page { get; set; default = false; }
+    protected string? page_next { get; set; }
+    protected string? page_prev { get; set; }
+    protected string? stream = null;
 
     construct {
         app.refresh.connect (on_refresh);
@@ -89,11 +90,11 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
         is_last_page = page_prev != null & page_next == null;
     }
 
-    public virtual string get_url () {
+    public virtual string get_req_url () {
         if (page_next != null)
             return page_next;
 
-        return @"/api/v1/timelines/$timeline";
+        return url;
     }
 
     public virtual Request append_params (Request req) {
@@ -101,7 +102,7 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
     }
 
     public virtual bool request () {
-		append_params (new Request.GET (get_url ()))
+		append_params (new Request.GET (get_req_url ()))
 		.with_account (account)
 		.then_parse_array ((node, msg) => {
 		    var obj = node.get_object ();

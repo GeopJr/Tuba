@@ -138,7 +138,7 @@ public class Tootle.Views.Profile : Views.Timeline {
 		relationship.label = label;
 	}
 
-    public override string get_url () {
+    public override string get_req_url () {
         if (page_next != null)
             return page_next;
 

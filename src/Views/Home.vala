@@ -2,7 +2,7 @@ public class Tootle.Views.Home : Views.Timeline {
 
     public Home () {
         Object (
-        	timeline: "home",
+        	url: "/api/v1/timelines/home",
         	label: _("Home"),
         	icon: "user-home-symbolic"
         );
