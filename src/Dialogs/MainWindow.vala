@@ -20,6 +20,8 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
     [GtkChild]
     protected Hdy.ViewSwitcherTitle timeline_switcher;
     [GtkChild]
+    protected Hdy.ViewSwitcherBar switcher_navbar;
+    [GtkChild]
     protected Widgets.AccountsButton accounts_button;
 
     Views.Base? last_view = null;
@@ -132,7 +134,7 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
 
     void update_header () {
         bool primary_mode = get_visible_id () == 0;
-        timeline_switcher.sensitive = primary_mode;
+        switcher_navbar.visible = timeline_switcher.sensitive = primary_mode;
         timeline_switcher.opacity = primary_mode ? 1 : 0; //Prevent HeaderBar height jitter
         compose_button.visible = primary_mode;
         back_button.visible = !primary_mode;
