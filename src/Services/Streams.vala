@@ -15,7 +15,7 @@ public class Tootle.Streams : Object {
 		protected Message msg;
 
 		protected bool closing = false;
-		protected int timeout = 2;
+		protected int timeout = 1;
 
 		public string name {
 			owned get {
@@ -67,7 +67,7 @@ public class Tootle.Streams : Object {
 			if (!closing) {
 				warning (@"DISCONNECTED: $name. Reconnecting in $timeout seconds.");
 				GLib.Timeout.add_seconds (timeout, start);
-				timeout = int.min (timeout*2, 30);
+				timeout = int.min (timeout*2, 6);
 			}
 			warning (@"Closing stream: $name");
 		}
