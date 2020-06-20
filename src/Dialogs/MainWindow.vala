@@ -18,7 +18,7 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
     [GtkChild]
     protected Button compose_button;
     [GtkChild]
-    protected Hdy.ViewSwitcher timeline_switcher;
+    protected Hdy.ViewSwitcherTitle timeline_switcher;
     [GtkChild]
     protected Widgets.AccountsButton accounts_button;
 

@@ -10,6 +10,16 @@ add_global_arguments([
     language: 'c',
 )
 
+# This is needed to make libhandy 1.0 work with vala.
+# Without this, vala will complain:
+# "X is not available in libhandy-1 0.81.0. Use libhandy-1 >= 1.0"
+# FIXME Disable --disable-since-check after libhandy 1.0 is released
+add_project_arguments (
+  '--disable-since-check',
+  language: 'vala'
+)
+
+
 asresources = gnome.compile_resources(
   'as-resources', 'data/gresource.xml',
   source_dir: 'data',
