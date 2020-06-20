@@ -4,7 +4,7 @@ using Gdk;
 public class Tootle.Widgets.Attachment.Item : EventBox {
 
 	public API.Attachment attachment { get; construct set; }
-	
+
 	private Cache.Reference? cached;
 
 	public Item (API.Attachment obj) {
@@ -13,15 +13,15 @@ public class Tootle.Widgets.Attachment.Item : EventBox {
 	~Item () {
 		cache.unload (cached);
 	}
-	
+
 	construct {
 		get_style_context ().add_class ("attachment");
 		width_request = height_request = 128;
 		hexpand = true;
 		tooltip_text = attachment.description ?? _("No description is available");
-		
+
 		button_press_event.connect (on_clicked);
-		
+
 		show ();
 		on_request ();
 	}
@@ -60,7 +60,7 @@ public class Tootle.Widgets.Attachment.Item : EventBox {
 		var h = get_allocated_height ();
 		var style = get_style_context ();
 		var border_radius = style.get_property (Gtk.STYLE_PROPERTY_BORDER_RADIUS, style.get_state ()).get_int ();
-		
+
 		if (cached != null) {
 			if (cached.loading) {
 				Drawing.center (ctx, w, h, 32, 32);
@@ -74,7 +74,7 @@ public class Tootle.Widgets.Attachment.Item : EventBox {
 				ctx.fill ();
 			}
 		}
-		
+
 		return Gdk.EVENT_STOP;
 	}
 
@@ -85,15 +85,15 @@ public class Tootle.Widgets.Attachment.Item : EventBox {
 		}
         else if (ev.button == 3) {
         	var menu = new Gtk.Menu ();
-        	
+
         	var item_open = new Gtk.MenuItem.with_label (_("Open"));
         	item_open.activate.connect (open);
         	menu.add (item_open);
-        	
+
         	var item_download = new Gtk.MenuItem.with_label (_("Download"));
         	item_download.activate.connect (download);
         	menu.add (item_download);
-        	
+
 		    menu.show_all ();
 		    menu.attach_widget = this;
 		    menu.popup_at_pointer ();

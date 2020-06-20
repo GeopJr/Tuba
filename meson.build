@@ -17,7 +17,6 @@ asresources = gnome.compile_resources(
 )
 
 libhandy_dep = dependency('libhandy-1', version: '>= 0.80.0')
-
 if not libhandy_dep.found()
   libhandy = subproject(
     'libhandy',
@@ -39,7 +38,6 @@ executable(
     'src/Desktop.vala',
     'src/Drawing.vala',
     'src/Html.vala',
-    'src/Utils.vala',
     'src/Request.vala',
     'src/InstanceAccount.vala',
     'src/Services/Streams.vala',
@@ -59,6 +57,7 @@ executable(
     'src/API/NotificationType.vala',
     'src/API/Attachment.vala',
     'src/API/Conversation.vala',
+    'src/API/Entity.vala',
     'src/Widgets/Widgetizable.vala',
     'src/Widgets/Avatar.vala',
     'src/Widgets/AccountsButton.vala',
@@ -90,8 +89,8 @@ executable(
         dependency('glib-2.0', version: '>=2.30.0'),
         dependency('gee-0.8', version: '>=0.8.5'),
         dependency('granite', version: '>=5.2.0'),
-        dependency('json-glib-1.0'),
         dependency('libsoup-2.4'),
+        dependency('json-glib-1.0', version: '>=1.4.4'),
         libhandy_dep,
     ],
     install: true,

@@ -17,7 +17,7 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
     }
 
     public override string? get_stream_url () {
-        return account != null ? @"$(account.instance)/api/v1/streaming/?stream=user&access_token=$(account.token)" : null;
+        return account != null ? @"$(account.instance)/api/v1/streaming/?stream=user&access_token=$(account.access_token)" : null;
     }
 
     public override void on_shown () {
@@ -34,23 +34,12 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
         var nw = w as Widgets.Notification;
         var notification = nw.notification;
 
-        if (notification.id > last_id)
-            last_id = notification.id;
+        if (int64.parse (notification.id) > last_id)
+            last_id = int64.parse (notification.id);
 
 		needs_attention = has_unread () && !current;
         if (needs_attention)
             accounts.save ();
-    }
-
-    public override GLib.Object to_entity (Json.Node node) throws Oopsie {
-        if (node == null)
-            throw new Oopsie.PARSING ("Received null Json.Node");
-
-        var obj = node.get_object ();
-        if (obj == null)
-            throw new Oopsie.PARSING ("Received Json.Node is not a Json.Object!");
-
-        return new API.Notification (obj);
     }
 
     public override void on_account_changed (InstanceAccount? acc) {

@@ -92,8 +92,7 @@ public class Tootle.Views.Search : Views.Base {
                 if (accounts.get_length () > 0) {
                     append_header (_("Accounts"));
                     accounts.foreach_element ((array, i, node) => {
-                        var obj = node.get_object ();
-                        var acc = new API.Account (obj);
+                        var acc = API.Account.from (node);
                         append_account (acc);
                     });
                 }
@@ -101,8 +100,7 @@ public class Tootle.Views.Search : Views.Base {
                 if (statuses.get_length () > 0) {
                     append_header (_("Statuses"));
                     statuses.foreach_element ((array, i, node) => {
-                        var obj = node.get_object ();
-                        var status = new API.Status (obj);
+                        var status = API.Status.from (node);
                         append_status (status);
                     });
                 }

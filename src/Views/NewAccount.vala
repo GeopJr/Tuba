@@ -42,7 +42,7 @@ public class Tootle.Views.NewAccount : Views.Base {
 		info ("New account view was requested");
 	}
 
-	private bool reset () {
+	bool reset () {
 		info ("State invalidated");
 		instance = code = client_id = client_secret = access_token = null;
 		instance_entry.sensitive = true;
@@ -50,11 +50,11 @@ public class Tootle.Views.NewAccount : Views.Base {
 		return true;
 	}
 
-	private void oopsie (string message) {
+	void oopsie (string message) {
 		warning (message);
 	}
 
-	private void on_next_clicked () {
+	void on_next_clicked () {
 		try {
 			step ();
 		}
@@ -63,7 +63,7 @@ public class Tootle.Views.NewAccount : Views.Base {
 		}
 	}
 
-	private void step () throws Error {
+	void step () throws Error {
 		if (instance == null)
 			setup_instance ();
 
@@ -76,7 +76,7 @@ public class Tootle.Views.NewAccount : Views.Base {
 		request_token ();
 	}
 
-	private void setup_instance () throws Error {
+	void setup_instance () throws Error {
 		info ("Checking instance URL");
 
 		var str = instance_entry.text
@@ -91,7 +91,7 @@ public class Tootle.Views.NewAccount : Views.Base {
 			throw new Oopsie.USER (_("Instance URL is invalid"));
 	}
 
-	private void register_client () throws Error {
+	void register_client () throws Error {
 		info ("Registering client");
 		instance_entry.sensitive = false;
 
@@ -119,7 +119,7 @@ public class Tootle.Views.NewAccount : Views.Base {
 			.exec ();
 	}
 
-	private void open_confirmation_page () {
+	void open_confirmation_page () {
 		info ("Opening permission request page");
 
 		var pars = @"scope=$scopes&response_type=code&redirect_uri=$redirect_uri&client_id=$client_id";
@@ -127,7 +127,7 @@ public class Tootle.Views.NewAccount : Views.Base {
 		Desktop.open_uri (url);
 	}
 
-	private void request_token () throws Error {
+	void request_token () throws Error {
 		if (code.char_count () <= 10)
 			throw new Oopsie.USER (_("Please paste a valid authorization code"));
 
@@ -142,8 +142,8 @@ public class Tootle.Views.NewAccount : Views.Base {
         	.then ((sess, msg) => {
 		    	var root = network.parse (msg);
 		    	access_token = root.get_string_member ("access_token");
-		    	account.token = access_token;
-		    	account.id = 0;
+		    	account.access_token = access_token;
+		    	account.id = "";
 		    	info ("OK: received access token");
 		    	request_profile ();
         	})
@@ -151,13 +151,13 @@ public class Tootle.Views.NewAccount : Views.Base {
         	.exec ();
 	}
 
-	private void request_profile () throws Error {
+	void request_profile () throws Error {
 		info ("Testing received access token");
 		new Request.GET ("/api/v1/accounts/verify_credentials")
 			.with_account (account)
 			.then ((sess, msg) => {
-				var root = network.parse (msg);
-				var account = new API.Account (root);
+				var node = network.parse_node (msg);
+				var account = API.Account.from (node);
 				info ("OK: received user profile");
 				save (account);
 			})
@@ -168,13 +168,13 @@ public class Tootle.Views.NewAccount : Views.Base {
 			.exec ();
 	}
 
-	private void save (API.Account profile) {
+	void save (API.Account profile) {
 		info ("Account validated. Saving...");
 		account.patch (profile);
 		account.instance = instance;
 		account.client_id = client_id;
 		account.client_secret = client_secret;
-		account.token = access_token;
+		account.access_token = access_token;
 		accounts.add (account);
 
 		destroy ();

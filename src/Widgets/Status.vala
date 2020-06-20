@@ -90,9 +90,9 @@ public class Tootle.Widgets.Status : EventBox {
                 kind = API.NotificationType.REBLOG_REMOTE_USER;
         }
 
-        status.formal.bind_property ("favorited", favorite_button, "active", BindingFlags.SYNC_CREATE);
+        status.formal.bind_property ("favourited", favorite_button, "active", BindingFlags.SYNC_CREATE);
         favorite_button.clicked.connect (() => {
-            status.action (status.formal.favorited ? "unfavourite" : "favourite");
+            status.action (status.formal.favourited ? "unfavourite" : "favourite");
         });
 
         status.formal.bind_property ("reblogged", reblog_button, "active", BindingFlags.SYNC_CREATE);
@@ -118,7 +118,7 @@ public class Tootle.Widgets.Status : EventBox {
             reblog_button.tooltip_text = _("This post can't be boosted");
         }
 
-        if (status.id <= 0) {
+        if (status.id == "") {
             actions.destroy ();
             date_label.destroy ();
             content.single_line_mode = true;
@@ -130,7 +130,7 @@ public class Tootle.Widgets.Status : EventBox {
             button_press_event.connect (open);
         }
 
-        if (!attachments.populate (status.formal.attachments) || status.id <= 0) {
+        if (!attachments.populate (status.formal.media_attachments) || status.id == "") {
             attachments.destroy ();
         }
 

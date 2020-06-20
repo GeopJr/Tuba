@@ -3,7 +3,7 @@ using Gee;
 
 public class Tootle.Request : Soup.Message {
 
-	public string url { construct set; get; }
+	public string url { set; get; }
 	private Network.SuccessCallback? cb;
 	private Network.ErrorCallback? error_cb;
 	private HashMap<string, string>? pars;
@@ -81,11 +81,10 @@ public class Tootle.Request : Soup.Message {
 
 		if (needs_token) {
 			if (account == null) {
-				warning (@"No account found for: $method: $url$parameters");
+				warning (@"No account was specified or found for $method: $url$parameters");
 				return this;
 			}
-
-			request_headers.append ("Authorization", @"Bearer $(account.token)");
+			request_headers.append ("Authorization", @"Bearer $(account.access_token)");
 		}
 
 		if (!("://" in url)) {
@@ -95,7 +94,7 @@ public class Tootle.Request : Soup.Message {
 		this.uri = new URI (url + "" + parameters);
 
 		url = uri.to_string (false);
-		info (@"$method: $url");
+		debug (@"$method: $url");
 
 		network.queue (this, (owned) cb, (owned) error_cb);
 		return this;

@@ -111,65 +111,68 @@ public class Tootle.Streams : Object {
 		return s.get_type ().name ();
 	}
 
-	static void decode (Bytes bytes, out string event, out Json.Object root) throws Error {
+	static void decode (Bytes bytes, out Json.Node root, out Json.Object obj, out string event) throws Error {
 		var msg = (string) bytes.get_data ();
 		var parser = new Json.Parser ();
 		parser.load_from_data (msg, -1);
-		root = parser.get_root ().get_object ();
-		event = root.get_string_member ("event");
+		root = parser.steal_root ();
+		obj = root.get_object ();
+		event = obj.get_string_member ("event");
 	}
 
-	static Json.Object sanitize (Json.Object root) {
-		var payload = root.get_string_member ("payload");
-		var sanitized = Soup.URI.decode (payload);
+	static Json.Node payload (Json.Object obj) {
+		var payload = obj.get_string_member ("payload");
+		var data = Soup.URI.decode (payload);
 		var parser = new Json.Parser ();
-		parser.load_from_data (sanitized, -1);
-		return parser.get_root ().get_object ();
+		parser.load_from_data (data, -1);
+		return parser.steal_root ();
 	}
 
 	static void emit (Bytes bytes, Connection c) throws Error {
 		if (!settings.live_updates)
 			return;
 
-		string e;
-		Json.Object root;
-		decode (bytes, out e, out root);
+		Json.Node root;
+		Json.Object root_obj;
+		string ev;
+		decode (bytes, out root, out root_obj, out ev);
 
 		// c.subscribers.@foreach (s => {
 		// 	warning ("%s: %s for %s", c.name, e, get_subscriber_name (s));
 		// 	return false;
 		// });
 
-		switch (e) {
+		switch (ev) {
 			case "update":
-				var obj = new API.Status (sanitize (root));
+				var node = payload (root_obj);
+				var status = Entity.from_json (typeof (API.Status), node) as API.Status;
 				c.subscribers.@foreach (s => {
-					s.on_status_added (obj);
+					s.on_status_added (status);
 					return true;
 				});
 				break;
 			case "delete":
-				var id = int64.parse (root.get_string_member ("payload"));
+				var id = root_obj.get_string_member ("payload");
 				c.subscribers.@foreach (s => {
 					s.on_status_removed (id);
 					return true;
 				});
 				break;
 			case "notification":
-				var obj = new API.Notification (sanitize (root));
+				var node = payload (root_obj);
+				var notif = Entity.from_json (typeof (API.Notification), node) as API.Notification;
 				c.subscribers.@foreach (s => {
-					s.on_notification (obj);
+					s.on_notification (notif);
 					return true;
 				});
 				break;
 			default:
-				warning (@"Unknown websocket event: \"$e\". Ignoring.");
+				warning (@"Unknown websocket event: \"$ev\". Ignoring.");
 				break;
 		}
 	}
 
-	public void force_delete (int64 id) {
-		warning (@"Force removing status id $id");
+	public void force_delete (string id) {
 		connections.get_values ().@foreach (c => {
 			c.subscribers.@foreach (s => {
 				s.on_status_removed (id);

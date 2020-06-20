@@ -79,10 +79,14 @@ public class Tootle.Network : GLib.Object {
     	app.error (_("Network Error"), message);
     }
 
-    public Json.Object parse (Soup.Message msg) throws Error {
+    public Json.Node parse_node (Soup.Message msg) throws Error {
         var parser = new Json.Parser ();
         parser.load_from_data ((string) msg.response_body.flatten ().data, -1);
-        return parser.get_root ().get_object ();
+        return parser.get_root ();
+    }
+
+    public Json.Object parse (Soup.Message msg) throws Error {
+        return parse_node (msg).get_object ();
     }
 
 }

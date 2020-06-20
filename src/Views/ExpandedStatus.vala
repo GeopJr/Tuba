@@ -4,24 +4,23 @@ public class Tootle.Views.ExpandedStatus : Views.Base, IAccountListener {
 
     public API.Status root_status { get; construct set; }
     protected InstanceAccount? account = null;
-    protected Widgets.Status root_widget;
+    protected Widget root_widget;
 
     public ExpandedStatus (API.Status status) {
-        Object (root_status: status, state: "content");
-
-        root_widget = append (status);
-        root_widget.avatar.button_press_event.connect (root_widget.on_avatar_clicked);
+        Object (
+            root_status: status,
+            status_message: STATUS_LOADING
+        );
         connect_account ();
     }
 
-   public override void on_account_changed (InstanceAccount? acc) {
+    public override void on_account_changed (InstanceAccount? acc) {
         account = acc;
         request ();
     }
 
-    private Widgets.Status prepend (API.Status status, bool to_end = false){
-        var w = new Widgets.Status (status);
-        w.avatar.button_press_event.connect (w.on_avatar_clicked);
+    Widget prepend (Entity entity, bool to_end = false){
+        var w = entity.to_widget () as Widgets.Status;
         w.revealer.reveal_child = true;
 
 		if (to_end)
@@ -32,8 +31,8 @@ public class Tootle.Views.ExpandedStatus : Views.Base, IAccountListener {
         check_resize ();
         return w;
     }
-    private Widgets.Status append (API.Status status) {
-    	return prepend (status, true);
+    Widget append (Entity entity) {
+    	return prepend (entity, true);
     }
 
     public void request () {
@@ -44,25 +43,23 @@ public class Tootle.Views.ExpandedStatus : Views.Base, IAccountListener {
 
                 var ancestors = root.get_array_member ("ancestors");
                 ancestors.foreach_element ((array, i, node) => {
-                    var object = node.get_object ();
-                    if (object != null) {
-                        var status = new API.Status (object);
-                        prepend (status);
-                    }
+                	var status = Entity.from_json (typeof (API.Status), node);
+                    append (status);
                 });
+
+                root_widget = append (root_status);
 
                 var descendants = root.get_array_member ("descendants");
                 descendants.foreach_element ((array, i, node) => {
-                    var object = node.get_object ();
-                    if (object != null) {
-                        var status = new API.Status (object);
-                        append (status);
-                    }
+                	var status = Entity.from_json (typeof (API.Status), node);
+                    append (status);
                 });
+
+                on_content_changed ();
 
                 int x,y;
                 translate_coordinates (root_widget, 0, 0, out x, out y);
-                scrolled.vadjustment.value = (double)(y*-1); //TODO: Animate scrolling?
+                scrolled.vadjustment.value = (double)(y*-1);
                 //content_list.select_row (root_widget);
             })
             .exec ();
@@ -76,9 +73,9 @@ public class Tootle.Views.ExpandedStatus : Views.Base, IAccountListener {
             .then ((sess, msg) => {
                 var root = network.parse (msg);
                 var statuses = root.get_array_member ("statuses");
-                var object = statuses.get_element (0).get_object ();
-                if (object != null){
-                    var status = new API.Status (object);
+                var node = statuses.get_element (0);
+                if (node != null){
+                    var status = API.Status.from (node);
                     window.open_view (new Views.ExpandedStatus (status));
                 }
                 else

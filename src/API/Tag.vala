@@ -1,13 +1,10 @@
-public class Tootle.API.Tag : GLib.Object {
+public class Tootle.API.Tag : Entity {
 
-    public string name { get; construct set; }
-    public string url { get; construct set; }
+    public string name { get; set; }
+    public string url { get; set; }
 
-    public Tag (Json.Object obj) {
-    	Object (
-    		name: obj.get_string_member ("name"),
-    		url: obj.get_string_member ("url")
-    	);
-    }
+	public static Tag from (Json.Node node) throws Error {
+		return Entity.from_json (typeof (API.Tag), node) as API.Tag;
+	}
 
 }

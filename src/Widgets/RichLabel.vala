@@ -69,18 +69,18 @@ public class Tootle.Widgets.RichLabel : Label {
                     var hashtags = root.get_array_member ("hashtags");
 
                     if (accounts.get_length () > 0) {
-                        var item = accounts.get_object_element (0);
-                        var obj = new API.Account (item);
+                        var node = accounts.get_element (0);
+                        var obj = API.Account.from (node);
                         window.open_view (new Views.Profile (obj));
                     }
                     else if (statuses.get_length () > 0) {
-                        var item = accounts.get_object_element (0);
-                        var obj = new API.Status (item);
+                        var node = accounts.get_element (0);
+                        var obj = API.Status.from (node);
                         window.open_view (new Views.ExpandedStatus (obj));
                     }
                     else if (hashtags.get_length () > 0) {
-                        var item = accounts.get_object_element (0);
-                        var obj = new API.Tag (item);
+                        var node = accounts.get_element (0);
+                        var obj = API.Tag.from (node);
                         window.open_view (new Views.Hashtag (obj.name));
                     }
                     else {

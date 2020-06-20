@@ -30,17 +30,6 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
         return status.is_owned ();
     }
 
-    public virtual GLib.Object to_entity (Json.Node node) throws Oopsie {
-        if (node == null)
-            throw new Oopsie.PARSING ("Received null Json.Node");
-
-        var obj = node.get_object ();
-        if (obj == null)
-            throw new Oopsie.PARSING ("Received Json.Node is not a Json.Object!");
-
-        return new API.Status (obj);
-    }
-
     public void prepend (Widget? w) {
         append (w, true);
     }
@@ -90,30 +79,34 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
     public virtual string get_req_url () {
         if (page_next != null)
             return page_next;
-
         return url;
     }
 
     public virtual Request append_params (Request req) {
-        return req.with_param ("limit", @"$(settings.timeline_page_size)");
+        if (page_next == null)
+            return req.with_param ("limit", @"$(settings.timeline_page_size)");
+        else
+            return req;
     }
 
     public virtual bool request () {
-		append_params (new Request.GET (get_req_url ()))
+		var req = append_params (new Request.GET (get_req_url ()))
 		.with_account (account)
 		.then_parse_array ((node, msg) => {
 		    try {
-                var e = to_entity (node);
+                var e = Entity.from_json (accepts, node);
                 var w = e as Widgetizable;
                 append (w.to_widget ());
 		    }
 		    catch (Error e) {
 		        warning (@"Timeline item parse error: $(e.message)");
 		    }
-            get_pages (msg.response_headers.get_one ("Link"));
         })
-		.on_error (on_error)
-		.exec ();
+		.on_error (on_error);
+		req.finished.connect (() => {
+		    get_pages (req.response_headers.get_one ("Link"));
+		});
+		req.exec ();
 		return GLib.Source.REMOVE;
     }
 
@@ -152,7 +145,7 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
             prepend (status.to_widget ());
     }
 
-    protected virtual void remove_status (int64 id) {
+    protected virtual void remove_status (string id) {
         if (settings.live_updates) {
             content.get_children ().@foreach (w => {
                 var sw = w as Widgets.Status;

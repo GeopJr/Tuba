@@ -122,7 +122,7 @@ public class Tootle.Dialogs.Compose : Window {
         visibility_button.sensitive = false;
         box.sensitive = false;
 
-        if (status.id > 0) {
+        if (status.id != "") {
             info ("Removing old status...");
             status.poof (publish, on_error);
         }
@@ -152,8 +152,8 @@ public class Tootle.Dialogs.Compose : Window {
             req.with_param ("in_reply_to_account_id", status.in_reply_to_account_id);
 
         req.then ((sess, mess) => {
-            var root = network.parse (mess);
-            var status = new API.Status (root);
+            var node = network.parse_node (mess);
+            var status = API.Status.from (node);
             info ("OK: status id is %s", status.id.to_string ());
             destroy ();
         })

@@ -1,6 +1,6 @@
-public class Tootle.API.Relationship : GLib.Object {
+public class Tootle.API.Relationship : Entity {
 
-    public int64 id { get; construct set; }
+    public string id { get; set; }
     public bool following { get; set; default = false; }
     public bool followed_by { get; set; default = false; }
     public bool muting { get; set; default = false; }
@@ -9,17 +9,8 @@ public class Tootle.API.Relationship : GLib.Object {
     public bool blocking { get; set; default = false; }
     public bool domain_blocking { get; set; default = false; }
 
-    public Relationship (Json.Object obj) {
-    	Object (
-    		id: int64.parse (obj.get_string_member ("id")),
-    		following: obj.get_boolean_member ("following"),
-    		followed_by: obj.get_boolean_member ("followed_by"),
-    		blocking: obj.get_boolean_member ("blocking"),
-    		muting: obj.get_boolean_member ("muting"),
-    		muting_notifications: obj.get_boolean_member ("muting_notifications"),
-    		requested: obj.get_boolean_member ("requested"),
-    		domain_blocking: obj.get_boolean_member ("domain_blocking")
-    	);
-    }
+	public static Relationship from (Json.Node node) throws Error {
+		return Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
+	}
 
 }

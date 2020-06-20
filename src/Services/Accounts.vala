@@ -19,9 +19,9 @@ public class Tootle.Accounts : GLib.Object {
         new Request.GET ("/api/v1/accounts/verify_credentials")
             .with_account (acc)
             .then ((sess, mess) => {
-                var root = network.parse (mess);
-                var profile = new API.Account (root);
-                acc.patch (profile);
+                var node = network.parse_node (mess);
+                var updated = API.Account.from (node);
+                acc.patch (updated);
                 info ("OK: Token is valid");
                 active = acc;
                 settings.current_account = id;
@@ -89,7 +89,7 @@ public class Tootle.Accounts : GLib.Object {
             var builder = new Json.Builder ();
             builder.begin_array ();
             saved.foreach ((acc) => {
-                var node = acc.serialize ();
+                var node = acc.to_json ();
                 builder.add_value (node);
                 return true;
             });
@@ -124,8 +124,7 @@ public class Tootle.Accounts : GLib.Object {
             var array = parser.get_root ().get_array ();
 
             array.foreach_element ((_arr, _i, node) => {
-                var obj = node.get_object ();
-                var account = new InstanceAccount (obj);
+                var account = InstanceAccount.from (node);
                 if (account != null) {
                     saved.add (account);
                     account.subscribe ();
