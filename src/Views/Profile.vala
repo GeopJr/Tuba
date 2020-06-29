@@ -4,26 +4,26 @@ public class Tootle.Views.Profile : Views.Timeline {
 
     public API.Account profile { get; construct set; }
 
-    protected RadioButton filter_all;
-    protected RadioButton filter_replies;
-    protected RadioButton filter_media;
+	ListBox profile_list;
 
-    protected Label relationship;
-    protected Box actions;
-    protected Button follow_button;
-    protected MenuButton options_button;
+    Label relationship;
+    Box actions;
+	Button follow_button;
+    MenuButton options_button;
 
-    protected Label posts_label;
-    protected Label following_label;
-    protected Label followers_label;
-    protected RadioButton posts_tab;
-    protected RadioButton following_tab;
-    protected RadioButton followers_tab;
+	Widgets.TimelineFilter filter;
+
+	public bool exclude_replies { get; set; default = true; }
+	public bool only_media { get; set; default = false; }
 
     construct {
     	profile.notify["rs"].connect (on_rs_updated);
 
+		filter = new Widgets.TimelineFilter.with_profile (this);
+
         var builder = new Builder.from_resource (@"$(Build.RESOURCES)ui/views/profile_header.ui");
+        profile_list = builder.get_object ("profile_list") as ListBox;
+
         var hdr = builder.get_object ("grid") as Grid;
 		column_view.pack_start (hdr, false, false, 0);
 		column_view.reorder_child (hdr, 0);
@@ -31,21 +31,17 @@ public class Tootle.Views.Profile : Views.Timeline {
 		var avatar = builder.get_object ("avatar") as Widgets.Avatar;
 		avatar.url = profile.avatar;
 
-		var name = builder.get_object ("name") as Widgets.RichLabel;
-		profile.bind_property ("display-name", name, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			var label = (string) src;
-			target.set_string (@"<span size='x-large' weight='bold'>$label</span>");
-			return true;
-		});
+		profile.bind_property ("display-name", filter.title, "label", BindingFlags.SYNC_CREATE);
 
 		var handle = builder.get_object ("handle") as Widgets.RichLabel;
-		profile.bind_property ("acct", handle, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_string ("@" + (string) src);
+		profile.bind_property ("acct", handle, "text", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			var text = "@" + (string) src;
+			target.set_string (@"<span size=\"x-large\" weight=\"bold\">$text</span>");
 			return true;
 		});
 
 		var note = builder.get_object ("note") as Widgets.RichLabel;
-		profile.bind_property ("note", note, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		profile.bind_property ("note", note, "text", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_string (Html.simplify ((string) src));
 			return true;
 		});
@@ -56,57 +52,49 @@ public class Tootle.Views.Profile : Views.Timeline {
 		options_button = builder.get_object ("options_button") as MenuButton;
 		relationship = builder.get_object ("relationship") as Label;
 
-		posts_label = builder.get_object ("posts_label") as Label;
-		profile.bind_property ("statuses_count", posts_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-		    var val = (int64) src;
-			target.set_string (_("%s Posts").printf (@"<b>$val</b>"));
-			return true;
-		});
-		following_label = builder.get_object ("following_label") as Label;
-		profile.bind_property ("following_count", following_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-		    var val = (int64) src;
-			target.set_string (_("%s Follows").printf (@"<b>$val</b>"));
-			return true;
-		});
-		followers_label = builder.get_object ("followers_label") as Label;
-		profile.bind_property ("followers_count", followers_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-		    var val = (int64) src;
-			target.set_string (_("%s Followers").printf (@"<b>$val</b>"));
-			return true;
-		});
+		// posts_label = builder.get_object ("posts_label") as Label;
+		// profile.bind_property ("statuses_count", posts_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		//     var val = (int64) src;
+		// 	target.set_string (_("%s Posts").printf (@"<b>$val</b>"));
+		// 	return true;
+		// });
+		// following_label = builder.get_object ("following_label") as Label;
+		// profile.bind_property ("following_count", following_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		//     var val = (int64) src;
+		// 	target.set_string (_("%s Follows").printf (@"<b>$val</b>"));
+		// 	return true;
+		// });
+		// followers_label = builder.get_object ("followers_label") as Label;
+		// profile.bind_property ("followers_count", followers_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		//     var val = (int64) src;
+		// 	target.set_string (_("%s Followers").printf (@"<b>$val</b>"));
+		// 	return true;
+		// });
 
-		filter_all = builder.get_object ("filter_all") as RadioButton;
-		filter_all.toggled.connect (on_refresh);
-		filter_replies = builder.get_object ("filter_replies") as RadioButton;
-		filter_replies.toggled.connect (on_refresh);
-		filter_media = builder.get_object ("filter_media") as RadioButton;
-		filter_media.toggled.connect (on_refresh);
-
-		posts_tab = builder.get_object ("posts_tab") as RadioButton;
-		posts_tab.toggled.connect (() => {
-			if (posts_tab.active) on_refresh ();
-		});
-		following_tab = builder.get_object ("following_tab") as RadioButton;
-		following_tab.toggled.connect (() => {
-			if (following_tab.active) on_refresh ();
-		});
-		followers_tab = builder.get_object ("followers_tab") as RadioButton;
-		followers_tab.toggled.connect (() => {
-			if (followers_tab.active) on_refresh ();
-		});
+		rebuild_fields ();
     }
 
     public Profile (API.Account acc) {
-        Object (profile: acc);
+        Object (
+        	profile: acc,
+        	url: @"/api/v1/accounts/$(acc.id)/statuses"
+        );
         profile.get_relationship ();
     }
 
-	protected void on_follow_button_clicked () {
+	public override void on_shown () {
+		window.header.custom_title = filter;
+	}
+	public override void on_hidden () {
+		window.header.custom_title = null;
+	}
+
+	void on_follow_button_clicked () {
 		actions.sensitive = false;
 		profile.set_following (!profile.rs.following);
 	}
 
-	protected void on_rs_updated () {
+	 void on_rs_updated () {
 		var rs = profile.rs;
 		var label = "";
 		if (actions.sensitive = rs != null) {
@@ -136,24 +124,15 @@ public class Tootle.Views.Profile : Views.Timeline {
 		}
 
 		relationship.label = label;
+		relationship.visible = label != "";
 	}
-
-    public override string get_req_url () {
-        if (page_next != null)
-            return page_next;
-
-    	if (following_tab.active)
-    		return @"/api/v1/accounts/$(profile.id)/following";
-    	else if (followers_tab.active)
-    		return @"/api/v1/accounts/$(profile.id)/followers";
-    	else
-        	return @"/api/v1/accounts/$(profile.id)/statuses";
-    }
 
 	public override Request append_params (Request req) {
 		if (page_next == null) {
-			req.with_param ("exclude_replies", (!filter_replies.active).to_string ());
-			req.with_param ("only_media", filter_media.active.to_string ());
+			if (exclude_replies)
+				req.with_param ("exclude_replies", "true");
+			if (only_media)
+				req.with_param ("only_media", "true");
 			return base.append_params (req);
 		}
 		else
@@ -172,5 +151,29 @@ public class Tootle.Views.Profile : Views.Timeline {
             network.on_error (status, reason);
         });
     }
+
+	[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/profile_field_row.ui")]
+	protected class Field : ListBoxRow {
+
+		[GtkChild]
+		Widgets.RichLabel name_label;
+		[GtkChild]
+		Widgets.RichLabel value_label;
+
+		public Field (API.AccountField field) {
+			name_label.text = field.name;
+			value_label.text = field.val;
+		}
+
+	}
+
+	void rebuild_fields () {
+		if (profile.fields != null) {
+			foreach (Entity e in profile.fields) {
+				var w = new Field (e as API.AccountField);
+				profile_list.insert (w, 2);
+			}
+		}
+	}
 
 }

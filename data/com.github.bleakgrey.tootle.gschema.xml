@@ -29,7 +29,7 @@
 			<default>20</default>
 		</key>
 		<key name="post-text-size" type="i">
-			<default>100</default>
+			<default>120</default>
 		</key>
 		<key name="live-updates" type="b">
 			<default>true</default>

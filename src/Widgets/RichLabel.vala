@@ -5,6 +5,15 @@ public class Tootle.Widgets.RichLabel : Label {
 
     public weak ArrayList<API.Mention>? mentions;
 
+    public string text {
+        get {
+            return this.label;
+        }
+        set {
+            this.label = escape_entities (Html.simplify (value));
+        }
+    }
+
 	construct {
 		use_markup = true;
 		xalign = 0;
@@ -32,10 +41,6 @@ public class Tootle.Widgets.RichLabel : Label {
                .replace ("&gt;", ">")
                .replace ("&apos;", "'")
                .replace ("&quot;", "\"");
-    }
-
-    public new void set_label (string text) {
-        base.set_markup (Html.simplify(escape_entities (text)));
     }
 
     public bool open_link (string url) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.36.0 -->
 <interface>
-  <requires lib="gtk+" version="3.20"/>
+  <requires lib="gtk+" version="3.14"/>
   <object class="GtkPopover" id="filter_popover">
     <property name="can_focus">False</property>
     <child>
@@ -101,212 +101,10 @@
     <property name="row_spacing">8</property>
     <property name="column_spacing">8</property>
     <child>
-      <object class="GtkListBox">
+      <object class="GtkListBox" id="profile_list">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="selection_mode">none</property>
-        <property name="activate_on_single_click">False</property>
-        <child>
-          <object class="GtkListBoxRow">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="activatable">False</property>
-            <property name="selectable">False</property>
-            <child>
-              <object class="TootleWidgetsRichLabel" id="note">
-                    <property name="visible">True</property>
-                    <property name="wrap">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="margin_left">8</property>
-                    <property name="margin_right">8</property>
-                    <property name="margin_top">8</property>
-                    <property name="margin_bottom">8</property>
-                    <property name="selectable">True</property>
-                    <property name="width_chars">25</property>
-                  </object>
-            </child>
-          </object>
-        </child>
-        <style>
-          <class name="preferences"/>
-        </style>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkListBox">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="selection_mode">none</property>
-        <property name="activate_on_single_click">False</property>
-        <child>
-          <object class="GtkListBoxRow">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="activatable">False</property>
-            <property name="selectable">False</property>
-            <child>
-              <object class="GtkBox">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_left">8</property>
-                <property name="margin_right">8</property>
-                <property name="margin_top">8</property>
-                <property name="margin_bottom">8</property>
-                <property name="spacing">8</property>
-                <child>
-                  <object class="GtkBox">
-                    <property name="height_request">40</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="hexpand">True</property>
-                    <property name="spacing">32</property>
-                    <child>
-                      <object class="GtkRadioButton" id="posts_tab">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="active">True</property>
-                        <property name="draw_indicator">True</property>
-                        <child>
-                          <object class="GtkLabel" id="posts_label">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label">0 Posts</property>
-                            <property name="use_markup">True</property>
-                          </object>
-                        </child>
-                        <style>
-                          <class name="flat"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkRadioButton" id="following_tab">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="draw_indicator">True</property>
-                        <property name="group">posts_tab</property>
-                        <child>
-                          <object class="GtkLabel" id="following_label">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label">0 Follows</property>
-                            <property name="use_markup">True</property>
-                          </object>
-                        </child>
-                        <style>
-                          <class name="flat"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkRadioButton" id="followers_tab">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="draw_indicator">True</property>
-                        <property name="group">posts_tab</property>
-                        <child>
-                          <object class="GtkLabel" id="followers_label">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label">0 Followers</property>
-                            <property name="use_markup">True</property>
-                          </object>
-                        </child>
-                        <style>
-                          <class name="flat"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                    <style>
-                      <class name="linked"/>
-                      <class name="horizontal"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSeparator">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="orientation">vertical</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkMenuButton" id="filter_button">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="relief">none</property>
-                    <property name="draw_indicator">True</property>
-                    <property name="popover">filter_popover</property>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="icon_name">view-more-symbolic</property>
-                      </object>
-                    </child>
-                    <style>
-                      <class name="flat"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-              </object>
-            </child>
-            <style>
-              <class name="preferences"/>
-            </style>
-          </object>
-        </child>
-        <style>
-          <class name="preferences"/>
-        </style>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">3</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkListBox">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="hexpand">True</property>
         <property name="selection_mode">none</property>
         <property name="activate_on_single_click">False</property>
         <child>
@@ -328,13 +126,13 @@
                 <property name="spacing">8</property>
                 <child>
                   <object class="TootleWidgetsAvatar" id="avatar">
-                        <property name="visible">True</property>
-                        <property name="margin_top">8</property>
-                        <property name="margin_bottom">8</property>
-                        <property name="margin_left">8</property>
-                        <property name="margin_right">8</property>
-                        <property name="size">128</property>
-                      </object>
+                    <property name="visible">True</property>
+                    <property name="margin_top">8</property>
+                    <property name="margin_bottom">8</property>
+                    <property name="margin_left">8</property>
+                    <property name="margin_right">8</property>
+                    <property name="size">96</property>
+                  </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
@@ -351,10 +149,10 @@
                     <property name="orientation">vertical</property>
                     <property name="spacing">8</property>
                     <child>
-                      <object class="TootleWidgetsRichLabel" id="name">
-                            <property name="visible">True</property>
-                            <property name="selectable">True</property>
-                          </object>
+                      <object class="TootleWidgetsRichLabel" id="handle">
+                        <property name="visible">True</property>
+                        <property name="selectable">True</property>
+                      </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
@@ -362,10 +160,10 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="TootleWidgetsRichLabel" id="handle">
-                            <property name="visible">True</property>
-                            <property name="selectable">True</property>
-                          </object>
+                      <object class="TootleWidgetsRichLabel" id="relationship">
+                        <property name="visible">False</property>
+                        <property name="opacity">0.5</property>
+                      </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
@@ -399,7 +197,7 @@
                 <property name="margin_bottom">8</property>
                 <property name="spacing">8</property>
                 <child>
-                  <object class="GtkLabel" id="relationship">
+                  <object class="GtkLabel" id="old-relationship">
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">False</property>
@@ -462,6 +260,27 @@
             </child>
           </object>
         </child>
+        <child>
+          <object class="GtkListBoxRow" id="note_row">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="activatable">False</property>
+            <property name="selectable">False</property>
+            <child>
+              <object class="TootleWidgetsRichLabel" id="note">
+                <property name="visible">True</property>
+                <property name="wrap">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">8</property>
+                <property name="margin_right">8</property>
+                <property name="margin_top">8</property>
+                <property name="margin_bottom">8</property>
+                <property name="selectable">True</property>
+                <property name="width_chars">25</property>
+              </object>
+            </child>
+          </object>
+        </child>
         <style>
           <class name="preferences"/>
         </style>
@@ -470,12 +289,6 @@
         <property name="left_attach">1</property>
         <property name="top_attach">1</property>
       </packing>
-    </child>
-    <child>
-      <placeholder/>
-    </child>
-    <child>
-      <placeholder/>
     </child>
     <child>
       <placeholder/>

@@ -14,7 +14,7 @@ public class Tootle.InstanceAccount : API.Account, IStreamListener {
 
 	protected string? stream;
 
-    public string handle {
+    public new string handle {
         owned get { return @"@$username@$short_instance"; }
     }
     public string short_instance {

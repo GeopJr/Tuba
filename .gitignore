@@ -1,6 +1,4 @@
 _ignore
 build
 build.sh
-build-po.sh
-uninstall.sh
 *~

@@ -5,22 +5,6 @@ public class Tootle.Html {
         return GLib.Markup.escape_text (all_tags.replace (content, -1, 0, ""));
     }
 
-    public static string escape_pango_entities (string str) {
-        return str
-               .replace ("&nbsp;", " ")
-               .replace ("'", "&apos;")
-               .replace ("& ", "&amp;");
-    }
-
-    public static string restore_entities (string str) {
-        return str
-               .replace ("&amp;", "&")
-               .replace ("&lt;", "<")
-               .replace ("&gt;", ">")
-               .replace ("&apos;", "'")
-               .replace ("&quot;", "\"");
-    }
-
     public static string simplify (string str) {
         var divided = str
         .replace("<br>", "\n")
@@ -35,11 +19,11 @@ public class Tootle.Html {
         while (simplified.has_suffix ("\n"))
             simplified = simplified.slice (0, simplified.last_index_of ("\n"));
 
-        return escape_pango_entities (simplified);
+        return simplified;
     }
 
     public static string uri_encode (string str) {
-        var restored = restore_entities (str);
+        var restored = Widgets.RichLabel.restore_entities (str);
         return Soup.URI.encode (restored, ";&+");
     }
 

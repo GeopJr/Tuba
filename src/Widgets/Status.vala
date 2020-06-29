@@ -18,9 +18,11 @@ public class Tootle.Widgets.Status : EventBox {
     [GtkChild]
     public Widgets.Avatar avatar;
     [GtkChild]
+    protected Widgets.RichLabel name_label;
+    [GtkChild]
     protected Widgets.RichLabel handle_label;
     [GtkChild]
-    protected Label date_label;
+    protected Widgets.RichLabel date_label;
     [GtkChild]
     protected Image pin_indicator;
     [GtkChild]
@@ -50,27 +52,26 @@ public class Tootle.Widgets.Status : EventBox {
     protected string escaped_spoiler {
         owned get {
             if (status.formal.has_spoiler) {
-                var text = Html.simplify (status.formal.spoiler_text ?? "");
+                var text = status.formal.spoiler_text ?? "";
                 var label = _("[ Toggle content ]");
-                text += @" <a href='tootle://toggle'>$label</a>";
+                text += @" <a href=\"tootle://toggle\">$label</a>";
                 return text;
             }
             else
-                return Html.simplify (status.formal.content);
+                return status.formal.content;
         }
     }
 
     protected string escaped_content {
         owned get {
-            return status.formal.has_spoiler ? Html.simplify (status.formal.content) : "";
+            return status.formal.has_spoiler ? status.formal.content : "";
         }
     }
 
-    protected string handle {
+    protected string display_name {
 		owned get {
 			var name = Html.simplify (status.formal.account.display_name);
-			var handle = Html.simplify (status.formal.account.acct);
-			return @"<b>$name</b> @$handle";
+			return @"<b>$name</b>";
 		}
 	}
 
@@ -102,10 +103,11 @@ public class Tootle.Widgets.Status : EventBox {
 
         reply_button.clicked.connect (() => new Dialogs.Compose.reply (status));
 
-        bind_property ("escaped-spoiler", content, "label", BindingFlags.SYNC_CREATE);
-        bind_property ("escaped-content", revealer_content, "label", BindingFlags.SYNC_CREATE);
+        bind_property ("escaped-spoiler", content, "text", BindingFlags.SYNC_CREATE);
+        bind_property ("escaped-content", revealer_content, "text", BindingFlags.SYNC_CREATE);
         status.formal.account.bind_property ("avatar", avatar, "url", BindingFlags.SYNC_CREATE);
-		bind_property ("handle", handle_label, "label", BindingFlags.SYNC_CREATE);
+		status.account.bind_property ("handle", handle_label, "label", BindingFlags.SYNC_CREATE);
+		bind_property ("display_name", name_label, "text", BindingFlags.SYNC_CREATE);
 		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
 

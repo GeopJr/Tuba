@@ -41,9 +41,8 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">end</property>
-            <property name="valign">start</property>
             <property name="margin_bottom">8</property>
-            <property name="icon_name">applications-development-symbolic</property>
+            <property name="icon_name">oops</property>
             <property name="icon_size">1</property>
           </object>
           <packing>
@@ -156,63 +155,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="hexpand">True</property>
-            <property name="spacing">8</property>
-            <child>
-              <object class="TootleWidgetsRichLabel" id="handle_label">
-                    <property name="visible">True</property>
-                    <property name="label">Handle</property>
-                    <property name="ellipsize">end</property>
-                    <property name="xalign">0</property>
-                  </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="date_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="opacity">0.5</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">Yesterday</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack_type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkImage" id="pin_indicator">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">end</property>
-                <property name="icon_name">view-pin-symbolic</property>
-                <property name="icon_size">1</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack_type">end</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">1</property>
-            <property name="width">3</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkRevealer" id="revealer">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -224,15 +166,15 @@
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="TootleWidgetsRichLabel" id="revealer_content">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="hexpand">True</property>
-                        <property name="label">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</property>
-                        <property name="wrap">True</property>
-                        <property name="wrap_mode">word-char</property>
-                        <property name="width_chars">15</property>
-                        <property name="xalign">0</property>
-                      </object>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="hexpand">True</property>
+                    <property name="label">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</property>
+                    <property name="wrap">True</property>
+                    <property name="wrap_mode">word-char</property>
+                    <property name="width_chars">15</property>
+                    <property name="xalign">0</property>
+                  </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
@@ -241,9 +183,9 @@
                 </child>
                 <child>
                   <object class="TootleWidgetsAttachmentBox" id="attachments">
-                        <property name="visible">True</property>
-                        <property name="margin_top">8</property>
-                      </object>
+                    <property name="visible">True</property>
+                    <property name="margin_top">8</property>
+                  </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
@@ -261,23 +203,24 @@
         </child>
         <child>
           <object class="TootleWidgetsAvatar" id="avatar">
-                <property name="width_request">48</property>
-                <property name="height_request">48</property>
-                <property name="valign">start</property>
-                <property name="visible">true</property>
-              </object>
+            <property name="width_request">48</property>
+            <property name="height_request">48</property>
+            <property name="valign">start</property>
+            <property name="visible">true</property>
+          </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">1</property>
-            <property name="height">4</property>
+            <property name="height">1</property>
           </packing>
         </child>
         <child>
           <object class="TootleWidgetsRichLabel" id="header_label">
-                <property name="visible">True</property>
-                <property name="ellipsize">end</property>
-                <property name="xalign">0</property>
-              </object>
+            <property name="visible">True</property>
+            <property name="ellipsize">end</property>
+            <property name="xalign">0</property>
+            <property name="margin-bottom">8</property>
+          </object>
           <packing>
             <property name="left_attach">1</property>
             <property name="top_attach">0</property>
@@ -286,18 +229,91 @@
         </child>
         <child>
           <object class="TootleWidgetsRichLabel" id="content">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="label">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</property>
-                <property name="wrap">True</property>
-                <property name="wrap_mode">word-char</property>
-                <property name="width_chars">15</property>
-                <property name="xalign">0</property>
-              </object>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="hexpand">True</property>
+            <property name="label">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</property>
+            <property name="wrap">True</property>
+            <property name="wrap_mode">word-char</property>
+            <property name="width_chars">15</property>
+            <property name="xalign">0</property>
+            <property name="margin-top">8</property>
+          </object>
           <packing>
             <property name="left_attach">1</property>
             <property name="top_attach">2</property>
+            <property name="width">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="vexpand">True</property>
+            <property name="valign">fill</property>
+            <property name="row_homogeneous">True</property>
+            <child>
+              <object class="TootleWidgetsRichLabel" id="name_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="label" translatable="yes">Name</property>
+                <property name="ellipsize">end</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="TootleWidgetsRichLabel" id="handle_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="no">Handle</property>
+                <property name="opacity">0.5</property>
+                <property name="ellipsize">end</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">1</property>
+                <property name="width">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="pin_indicator">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">8</property>
+                <property name="margin_start">8</property>
+                <property name="icon_name">view-pin-symbolic</property>
+                <property name="icon_size">1</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="TootleWidgetsRichLabel" id="date_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="opacity">0.5</property>
+                <property name="margin_left">8</property>
+                <property name="margin_start">8</property>
+                <property name="label" translatable="no">Yesterday</property>
+                <property name="halign">end</property>
+                <property name="valign">start</property>
+              </object>
+              <packing>
+                <property name="left_attach">3</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">1</property>
             <property name="width">3</property>
           </packing>
         </child>

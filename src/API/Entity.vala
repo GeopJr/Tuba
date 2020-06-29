@@ -36,10 +36,17 @@ public class Tootle.Entity : GLib.Object, Widgetizable, Json.Serializable {
         if (obj == null)
             throw new Oopsie.PARSING (@"Received Json.Node for $(type.name ()) is not a Json.Object!");
 
+		//Replace with something more elegant
         var kind = obj.get_member ("type");
         if (kind != null) {
         	obj.set_member ("kind", kind);
         	obj.remove_member ("type");
+        }
+
+        var val = obj.get_member ("value");
+        if (val != null) {
+        	obj.set_member ("val", val);
+        	obj.remove_member ("value");
         }
 
         return Json.gobject_deserialize (type, node) as Entity;
@@ -67,12 +74,17 @@ public class Tootle.Entity : GLib.Object, Widgetizable, Json.Serializable {
 
 		if (type.is_a (typeof (Gee.ArrayList))) {
 			Type contains;
+
+			//There has to be a better way
 			switch (prop) {
 				case "media-attachments":
 					contains = typeof (API.Attachment);
 					break;
 				case "mentions":
 					contains = typeof (API.Mention);
+					break;
+				case "fields":
+					contains = typeof (API.AccountField);
 					break;
 				default:
 					contains = typeof (Entity);

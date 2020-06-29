@@ -9,10 +9,10 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
 
     protected InstanceAccount? account = null;
 
-    protected bool is_last_page { get; set; default = false; }
-    protected string? page_next { get; set; }
-    protected string? page_prev { get; set; }
-    protected string? stream = null;
+    public bool is_last_page { get; set; default = false; }
+    public string? page_next { get; set; }
+    public string? page_prev { get; set; }
+    public string? stream = null;
 
     construct {
         app.refresh.connect (on_refresh);
