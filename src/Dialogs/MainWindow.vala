@@ -161,7 +161,7 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
     void update_header () {
         bool primary_mode = get_visible_id () == 0;
         switcher_navbar.visible = timeline_switcher.sensitive = primary_mode;
-        // timeline_switcher.opacity = primary_mode ? 1 : 0; //Prevent HeaderBar height jitter
+        timeline_switcher.opacity = primary_mode ? 1 : 0; //Prevent HeaderBar height jitter
         view_navigation.reveal_child = !primary_mode;
 
         if (primary_mode)
