@@ -75,9 +75,9 @@
             <child>
               <object class="TootleWidgetsAccountsButton" id="accounts_button">
                 <property name="visible">True</property>
-                    <style>
-                        <class name="image-button"/>
-                    </style>
+                <style>
+                  <class name="image-button"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -114,10 +114,26 @@
           </packing>
         </child>
         <child>
+          <object class="GtkRevealer" id="view_controls">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="transition_type">slide-left</property>
+            <property name="transition_duration">200</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkRevealer" id="view_navigation">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="transition_type">slide-right</property>
+            <property name="transition_duration">200</property>
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>

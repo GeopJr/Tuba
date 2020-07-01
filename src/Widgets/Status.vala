@@ -106,7 +106,7 @@ public class Tootle.Widgets.Status : EventBox {
         bind_property ("escaped-spoiler", content, "text", BindingFlags.SYNC_CREATE);
         bind_property ("escaped-content", revealer_content, "text", BindingFlags.SYNC_CREATE);
         status.formal.account.bind_property ("avatar", avatar, "url", BindingFlags.SYNC_CREATE);
-		status.account.bind_property ("handle", handle_label, "label", BindingFlags.SYNC_CREATE);
+		status.formal.account.bind_property ("handle", handle_label, "label", BindingFlags.SYNC_CREATE);
 		bind_property ("display_name", name_label, "text", BindingFlags.SYNC_CREATE);
 		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);

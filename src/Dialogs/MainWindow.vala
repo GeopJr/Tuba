@@ -16,6 +16,8 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
     [GtkChild]
     protected Revealer view_navigation;
     [GtkChild]
+    protected Revealer view_controls;
+    [GtkChild]
     protected Button back_button;
     [GtkChild]
     protected Button compose_button;
@@ -130,6 +132,18 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         timeline_stack.visible_child_name = num.to_string ();
     }
 
+    public void set_header_controls (Widget w) {
+        reset_header_controls ();
+        view_controls.add (w);
+        view_controls.reveal_child = true;
+    }
+    public void reset_header_controls () {
+        view_controls.reveal_child = false;
+        view_controls.get_children ().@foreach (w => {
+            view_controls.remove (w);
+        });
+    }
+
     bool on_button_press (EventButton ev) {
         if (ev.button == 8)
             return back ();
@@ -147,7 +161,7 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
     void update_header () {
         bool primary_mode = get_visible_id () == 0;
         switcher_navbar.visible = timeline_switcher.sensitive = primary_mode;
-        timeline_switcher.opacity = primary_mode ? 1 : 0; //Prevent HeaderBar height jitter
+        // timeline_switcher.opacity = primary_mode ? 1 : 0; //Prevent HeaderBar height jitter
         view_navigation.reveal_child = !primary_mode;
 
         if (primary_mode)

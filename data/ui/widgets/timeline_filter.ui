@@ -275,15 +275,16 @@
     <property name="draw_indicator">True</property>
     <property name="popover">popover</property>
     <child>
-      <object class="GtkStack">
+      <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="transition_duration">100</property>
-        <property name="transition_type">crossfade</property>
+        <property name="halign">center</property>
+        <property name="spacing">6</property>
         <child>
           <object class="GtkLabel" id="title">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="label">User</property>
             <property name="ellipsize">end</property>
             <property name="single_line_mode">True</property>
             <attributes>
@@ -291,47 +292,21 @@
             </attributes>
           </object>
           <packing>
-            <property name="name">title</property>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
           </packing>
         </child>
         <child>
-          <object class="GtkBox">
+          <object class="GtkImage">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="halign">center</property>
-            <property name="spacing">8</property>
-            <child>
-              <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="icon_name">mail-send-symbolic</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="title_scrolled">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label">1K</property>
-                <property name="ellipsize">end</property>
-                <property name="single_line_mode">True</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
+            <property name="icon_name">pan-down-symbolic</property>
           </object>
           <packing>
-            <property name="name">title_scrolled</property>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
             <property name="position">1</property>
           </packing>
         </child>

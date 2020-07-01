@@ -7,11 +7,10 @@ public class Tootle.Views.Profile : Views.Timeline {
 	ListBox profile_list;
 
     Label relationship;
-    Box actions;
-	Button follow_button;
-    MenuButton options_button;
-
 	Widgets.TimelineFilter filter;
+
+	Button rs_button;
+	Label rs_button_label;
 
 	public bool exclude_replies { get; set; default = true; }
 	public bool only_media { get; set; default = false; }
@@ -40,16 +39,15 @@ public class Tootle.Views.Profile : Views.Timeline {
 			return true;
 		});
 
+		var note_row = builder.get_object ("note_row") as ListBoxRow;
 		var note = builder.get_object ("note") as Widgets.RichLabel;
 		profile.bind_property ("note", note, "text", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_string (Html.simplify ((string) src));
+			var text = Html.simplify ((string) src);
+			target.set_string (text);
+			note_row.visible = text != "";
 			return true;
 		});
 
-		actions = builder.get_object ("actions") as Box;
-		follow_button = builder.get_object ("follow_button") as Button;
-		follow_button.clicked.connect (on_follow_button_clicked);
-		options_button = builder.get_object ("options_button") as MenuButton;
 		relationship = builder.get_object ("relationship") as Label;
 
 		// posts_label = builder.get_object ("posts_label") as Label;
@@ -71,6 +69,10 @@ public class Tootle.Views.Profile : Views.Timeline {
 		// 	return true;
 		// });
 
+		rs_button = builder.get_object ("rs_button") as Button;
+		rs_button.clicked.connect (on_rs_button_clicked);
+		rs_button_label = builder.get_object ("rs_button_label") as Label;
+
 		rebuild_fields ();
     }
 
@@ -84,20 +86,22 @@ public class Tootle.Views.Profile : Views.Timeline {
 
 	public override void on_shown () {
 		window.header.custom_title = filter;
+		window.set_header_controls (rs_button);
 	}
 	public override void on_hidden () {
 		window.header.custom_title = null;
+		window.reset_header_controls ();
 	}
 
-	void on_follow_button_clicked () {
-		actions.sensitive = false;
+	void on_rs_button_clicked () {
+		rs_button.sensitive = false;
 		profile.set_following (!profile.rs.following);
 	}
 
 	 void on_rs_updated () {
 		var rs = profile.rs;
 		var label = "";
-		if (actions.sensitive = rs != null) {
+		if (rs_button.sensitive = rs != null) {
 			if (rs.requested)
 				label = _("Sent follow request");
 			else if (rs.followed_by && rs.following)
@@ -105,22 +109,14 @@ public class Tootle.Views.Profile : Views.Timeline {
 			else if (rs.followed_by)
 				label = _("Follows you");
 
-			foreach (Widget w in new Widget[] { follow_button, options_button }) {
+			foreach (Widget w in new Widget[] { rs_button }) {
 				var ctx = w.get_style_context ();
 				ctx.remove_class (STYLE_CLASS_SUGGESTED_ACTION);
 				ctx.remove_class (STYLE_CLASS_DESTRUCTIVE_ACTION);
 				ctx.add_class (rs.following ? STYLE_CLASS_DESTRUCTIVE_ACTION : STYLE_CLASS_SUGGESTED_ACTION);
 			}
 
-			var label2 = "";
-			if (rs.followed_by && !rs.following)
-				label2 = _("Follow back");
-			else if (rs.following)
-				label2 = _("Unfollow");
-			else
-				label2 = _("Follow");
-
-			follow_button.label = label2;
+			rs_button_label.label = rs.following ? _("Unfollow") : _("Follow");
 		}
 
 		relationship.label = label;
@@ -171,7 +167,7 @@ public class Tootle.Views.Profile : Views.Timeline {
 		if (profile.fields != null) {
 			foreach (Entity e in profile.fields) {
 				var w = new Field (e as API.AccountField);
-				profile_list.insert (w, 2);
+				profile_list.insert (w, -1);
 			}
 		}
 	}
