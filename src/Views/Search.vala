@@ -30,14 +30,12 @@ public class Tootle.Views.Search : Views.Base {
     void append_account (API.Account acc) {
         var status = new API.Status.from_account (acc);
         var w = new Widgets.Status (status);
-        w.button_press_event.connect (w.on_avatar_clicked);
         content_list.insert (w, -1);
         on_content_changed ();
     }
 
     void append_status (API.Status status) {
         var w = new Widgets.Status (status);
-        w.button_press_event.connect (w.on_avatar_clicked);
         content_list.insert (w, -1);
         on_content_changed ();
     }

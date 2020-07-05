@@ -73,10 +73,7 @@ public class Tootle.API.Status : Entity, Widgetizable {
 	}
 
     public override Gtk.Widget to_widget () {
-        var w = new Widgets.Status (this);
-        w.button_press_event.connect (w.open);
-
-        return w;
+        return new Widgets.Status (this);
     }
 
     public bool is_owned (){

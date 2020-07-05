@@ -39,9 +39,7 @@ public class Tootle.API.Account : Entity, Widgetizable {
 
     public override Gtk.Widget to_widget () {
         var status = new API.Status.from_account (this);
-        var w = new Widgets.Status (status);
-        w.button_press_event.connect (w.open);
-        return w;
+        return new Widgets.Status (status);
     }
 
     public Request get_relationship () {

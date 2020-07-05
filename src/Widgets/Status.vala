@@ -2,7 +2,7 @@ using Gtk;
 using Gdk;
 
 [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/status.ui")]
-public class Tootle.Widgets.Status : EventBox {
+public class Tootle.Widgets.Status : ListBoxRow {
 
     public API.Status status { get; construct set; }
     public API.NotificationType? kind { get; construct set; }
@@ -82,6 +82,18 @@ public class Tootle.Widgets.Status : EventBox {
 		}
 	}
 
+    public virtual signal void open () {
+        if (status.id == "") {
+            var view = new Views.Profile (status.formal.account);
+            window.open_view (view);
+        }
+        else {
+            var formal = status.formal;
+            var view = new Views.ExpandedStatus (formal);
+            window.open_view (view);
+        }
+    }
+
     construct {
         content.activate_link.connect (on_toggle_spoiler);
         notify["kind"].connect (on_kind_changed);
@@ -126,10 +138,7 @@ public class Tootle.Widgets.Status : EventBox {
             content.single_line_mode = true;
             content.lines = 2;
             content.ellipsize = Pango.EllipsizeMode.END;
-            button_press_event.connect (on_avatar_clicked);
-        }
-        else {
-            button_press_event.connect (open);
+            button_release_event.connect (on_avatar_clicked);
         }
 
         if (!attachments.populate (status.formal.media_attachments) || status.id == "") {
@@ -137,7 +146,7 @@ public class Tootle.Widgets.Status : EventBox {
         }
 
         menu_button.clicked.connect (open_menu);
-        avatar.button_press_event.connect (on_avatar_clicked);
+        avatar.button_release_event.connect (on_avatar_clicked);
     }
 
     public Status (API.Status status, API.NotificationType? _kind = null) {
@@ -165,17 +174,8 @@ public class Tootle.Widgets.Status : EventBox {
     }
 
     public bool on_avatar_clicked (EventButton ev) {
-        if (ev.button == 1) {
+        if (ev.button == 1 && ev.type == EventType.BUTTON_RELEASE) {
             var view = new Views.Profile (status.formal.account);
-            return window.open_view (view);
-        }
-        return true;
-    }
-
-    public bool open (EventButton ev) {
-        if (ev.button == 1) {
-            var formal = status.formal;
-            var view = new Views.ExpandedStatus (formal);
             return window.open_view (view);
         }
         return false;

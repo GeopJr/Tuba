@@ -52,6 +52,7 @@ public class Tootle.Views.Base : Box {
         });
         content.remove.connect (() => on_content_changed ());
         content_list.remove.connect (() => on_content_changed ());
+        content_list.row_activated.connect (on_content_item_activated);
 
         notify["status-message"].connect (() => {
             status_message_label.label = @"<span size='large'>$status_message</span>";
@@ -111,5 +112,9 @@ public class Tootle.Views.Base : Box {
         if (view_w > target_w && !ctx.has_class ("padded"))
             ctx.add_class ("padded");
     }
+
+    public virtual void on_content_item_activated (ListBoxRow row) {
+	    Signal.emit_by_name (row, "open");
+	}
 
 }
