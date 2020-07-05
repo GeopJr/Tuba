@@ -63,6 +63,7 @@
           <object class="HdyViewSwitcherTitle" id="timeline_switcher">
             <property name="visible">True</property>
             <property name="title">Tootle</property>
+            <property name="policy">auto</property>
           </object>
           <packing>
             <property name="position">1</property>
