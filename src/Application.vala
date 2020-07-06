@@ -78,6 +78,7 @@ namespace Tootle {
         protected override void startup () {
             base.startup ();
             Build.print_info ();
+			Hdy.init ();
 
             settings = new Settings ();
             streams = new Streams ();

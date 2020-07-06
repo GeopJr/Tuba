@@ -22,7 +22,7 @@ If the options above are not available to you, you can build the app from source
     - [x] libsoup2.4-dev
     - [x] libgranite-dev
     - [x] libjson-glib-dev
-    - [ ] libhandy-1.0-dev
+    - [ ] libhandy-1.0-dev (>= 0.83.0)
 
     *Note: Unchecked items will be installed automatically if not present in the system.*
 
@@ -34,7 +34,7 @@ Please consider donating with [LiberaPay](https://liberapay.com/bleakgrey/) to k
 
 <a href="https://liberapay.com/bleakgrey/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
 
-You can always help by reporting bugs, submitting pull requests, and suggesting ideas. 
+You can always help by reporting bugs, submitting pull requests, and suggesting ideas.
 
 
 ### Credits

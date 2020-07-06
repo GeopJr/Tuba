@@ -1,4 +1,4 @@
 [wrap-git]
 directory=libhandy
 url=https://gitlab.gnome.org/GNOME/libhandy.git
-revision=v0.83.0
+revision=0.83.0
