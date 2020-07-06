@@ -23,10 +23,10 @@
                 <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="HdyColumn" id="column">
+                  <object class="HdyClamp" id="clamp">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="maximum_width">628</property>
+                    <property name="maximum_size">628</property>
                     <property name="linear_growth_width">628</property>
                     <child>
                       <object class="GtkBox" id="column_view">

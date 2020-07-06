@@ -17,7 +17,7 @@ public class Tootle.Views.Base : Box {
     [GtkChild]
     protected Box view;
     [GtkChild]
-    protected Hdy.Column column;
+    protected Hdy.Clamp clamp;
     [GtkChild]
     protected Box column_view;
     [GtkChild]
@@ -103,7 +103,7 @@ public class Tootle.Views.Base : Box {
         Allocation alloc;
         get_allocation (out alloc);
 
-        var target_w = column.maximum_width;
+        var target_w = clamp.maximum_size;
         var view_w = alloc.width;
 
         var ctx = view.get_style_context ();
