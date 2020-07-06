@@ -20,3 +20,7 @@
 .app-view:not(.padded) .preferences row {
 	border-radius: 0px;
 }
+
+.app-action-bar .circular {
+	box-shadow: none;
+}

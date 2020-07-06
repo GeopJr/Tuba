@@ -112,6 +112,11 @@ public class Tootle.Widgets.Status : ListBoxRow {
         reblog_button.clicked.connect (() => {
             status.action (status.formal.reblogged ? "unreblog" : "reblog");
         });
+        
+        status.formal.bind_property ("bookmarked", bookmark_button, "active", BindingFlags.SYNC_CREATE);
+        bookmark_button.clicked.connect (() => {
+            status.action (status.formal.bookmarked ? "unbookmark" : "bookmark");
+        });
 
         reply_button.clicked.connect (() => new Dialogs.Compose.reply (status));
 

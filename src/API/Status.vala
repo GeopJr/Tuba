@@ -15,6 +15,7 @@ public class Tootle.API.Status : Entity, Widgetizable {
     public string created_at { get; set; default = "0"; }
     public bool reblogged { get; set; default = false; }
     public bool favourited { get; set; default = false; }
+    public bool bookmarked { get; set; default = false; }
     public bool sensitive { get; set; default = false; }
     public bool muted { get; set; default = false; }
     public bool pinned { get; set; default = false; }

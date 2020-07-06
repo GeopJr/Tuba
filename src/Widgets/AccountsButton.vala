@@ -4,17 +4,17 @@ using Gtk;
 public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
 
     [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/accounts_button_item.ui")]
-    private class Item : Grid {
+    class Item : Grid {
         [GtkChild]
-        private Widgets.Avatar avatar;
+        Widgets.Avatar avatar;
         [GtkChild]
-        private Label title;
+        Label title;
         [GtkChild]
-        private Label handle;
+        Label handle;
         [GtkChild]
-        private Button profile;
+        Button profile;
         [GtkChild]
-        private Button forget;
+        Button forget;
 
         public Item (InstanceAccount acc, AccountsButton _self) {
             avatar.url = acc.avatar;
@@ -40,42 +40,57 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
         }
     }
 
-    private bool invalidated = true;
+    bool invalidated = true;
 
     [GtkChild]
-    private Widgets.Avatar avatar;
-    // [GtkChild]
-    // private Spinner spinner;
+    Widgets.Avatar avatar;
 
     [GtkChild]
-    private ListBox account_list;
+    ListBox account_list;
 
     [GtkChild]
-    private ModelButton item_accounts;
+    ModelButton item_accounts;
     [GtkChild]
-    private ModelButton item_prefs;
+    ModelButton item_prefs;
     [GtkChild]
-    private ModelButton item_refresh;
+    ModelButton item_refresh;
     [GtkChild]
-    private ModelButton item_search;
+    ModelButton item_search;
     [GtkChild]
-    private ModelButton item_favs;
+    Button item_favs;
     [GtkChild]
-    private ModelButton item_conversations;
+    Button item_conversations;
+    [GtkChild]
+    Button item_bookmarks;
 
     construct {
         connect_account ();
 
-        item_refresh.clicked.connect (() => app.refresh ());
+        item_refresh.clicked.connect (() => {
+            app.refresh ();
+        });
         Desktop.set_hotkey_tooltip (item_refresh, null, app.ACCEL_REFRESH);
 
-        item_favs.clicked.connect (() => window.open_view (new Views.Favorites ()));
-        item_conversations.clicked.connect (() => window.open_view (new Views.Conversations ()));
-        item_search.clicked.connect (() => window.open_view (new Views.Search ()));
-        item_prefs.clicked.connect (() => Dialogs.Preferences.open ());
-
-        // network.started.connect (() => spinner.show ());
-        // network.finished.connect (() => spinner.hide ());
+        item_favs.clicked.connect (() => {
+            window.open_view (new Views.Favorites ());
+            popover.popdown ();
+        });
+        item_conversations.clicked.connect (() => {
+            window.open_view (new Views.Conversations ());
+            popover.popdown ();
+        });
+        item_bookmarks.clicked.connect (() => {
+            window.open_view (new Views.Bookmarks ());
+            popover.popdown ();
+        });
+        item_search.clicked.connect (() => {
+            window.open_view (new Views.Search ());
+            popover.popdown ();
+        });
+        item_prefs.clicked.connect (() => {
+            Dialogs.Preferences.open ();
+            popover.popdown ();
+        });
 
         on_account_changed (null);
 
@@ -84,7 +99,7 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
                 rebuild ();
         });
 
-        account_list.row_activated.connect (on_selection_changed) ;
+        account_list.row_activated.connect (on_selection_changed);
     }
 
     protected void on_selection_changed (ListBoxRow r) {
@@ -92,6 +107,7 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
         if (i >= accounts.saved.size) {
             active = false;
             window.open_view (new Views.NewAccount (true));
+            popover.popdown ();
             return;
         }
 
@@ -100,6 +116,7 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
             return;
 
         accounts.switch_account (i);
+        popover.popdown ();
     }
 
     public virtual void on_accounts_changed (Gee.ArrayList<InstanceAccount> accounts) {
@@ -120,7 +137,7 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
     	item_accounts.use_markup = true;
     }
 
-    private void rebuild () {
+    void rebuild () {
         account_list.@foreach (w => account_list.remove (w));
         accounts.saved.@foreach (acc => {
             var item = new Item (acc, this);
