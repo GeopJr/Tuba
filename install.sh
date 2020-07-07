@@ -1,4 +1,4 @@
-clear
+set -e
 meson build
 cd build
 ninja
