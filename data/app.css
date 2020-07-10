@@ -3,9 +3,24 @@
 }
 
 .attachment {
-	border-radius: 4px;
+	border-radius: 6px;
 	background: rgba (150, 150, 150, 0.2);
+	padding:0px;
+	margin:0px;
 }
+.attachment .pic {
+	border-radius: 6px;
+}
+.attachment .chip {
+	padding: 6px;
+	border-radius:6px;
+}
+/*.attachment box button:nth-child(1) {*/
+/*	border-radius:0 0 0 8px;*/
+/*}*/
+/*.attachment box button:nth-child(2) {*/
+/*	border-radius:0 8px 0 0;*/
+/*}*/
 
 .header-title-button {
 	margin: 0px;

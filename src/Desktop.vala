@@ -76,6 +76,11 @@ public class Tootle.Desktop {
         	return theme.has_icon (fallback) ? fallback : fallback2;
     }
 
+	public static Gdk.Pixbuf icon_to_pixbuf (string name) {
+		var theme = Gtk.IconTheme.get_default ();
+		return theme.load_icon (name, 32, Gtk.IconLookupFlags.GENERIC_FALLBACK);
+	}
+
     public static void set_hotkey_tooltip (Gtk.Widget widget, string? description, string[] accelerators) {
     	widget.tooltip_markup = Granite.markup_accel_tooltip (accelerators, description);
     }

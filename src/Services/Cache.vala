@@ -81,10 +81,22 @@ public class Tootle.Cache : GLib.Object {
             id = msg.finished.connect (() => {
                 Pixbuf? pixbuf = null;
 
-                var data = msg.response_body.flatten ().data;
-                var stream = new MemoryInputStream.from_data (data);
-                pixbuf = new Pixbuf.from_stream (stream);
-                stream.close ();
+                try {
+                    var code = message.status_code;
+					if (code != Soup.Status.OK) {
+					    var msg = network.describe_error (code);
+					    throw new Oopsie.INSTANCE (@"Server returned $msg");
+					}
+
+                    var data = message.response_body.flatten ().data;
+                    var stream = new MemoryInputStream.from_data (data);
+                    pixbuf = new Pixbuf.from_stream (stream);
+                    stream.close ();
+                }
+                catch (Error e) {
+                    warning (@"\"$url\" -> Pixbuf: FAIL ($(e.message))");
+                    pixbuf = Desktop.icon_to_pixbuf ("image-x-generic-symbolic");
+                }
 
                 // message (@"[*] $key");
                 items[key] = new Item (pixbuf, 1);

@@ -8,7 +8,7 @@ public class Tootle.Dialogs.Compose : Window {
     public string label { get; construct set; }
     public int char_limit {
         get {
-            return 250;
+            return 500;
         }
     }
 
@@ -62,6 +62,7 @@ public class Tootle.Dialogs.Compose : Window {
         }
         content.buffer.text = Html.remove_tags (status.content);
 
+		validate ();
         show ();
     }
 

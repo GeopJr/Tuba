@@ -13,24 +13,4 @@ public class Tootle.Drawing {
 		ctx.close_path ();
 	}
 
-	public static void center (Cairo.Context ctx, int w, int h, int tw, int th) {
-		var cx = w/2 - tw/2;
-		var cy = h/2 - th/2;
-		ctx.translate (cx, cy);
-	}
-
-	public static Pixbuf make_thumbnail (Pixbuf pb, int view_w, int view_h) {
-		if (view_w >= pb.width && view_h >= pb.height)
-			return pb;
-
-		double ratio_x = (double) view_w / (double) pb.width;
-		double ratio_y = (double) view_h / (double) pb.height;
-		double ratio = ratio_x < ratio_y ? ratio_x : ratio_y;
-
-		return pb.scale_simple (
-			(int) (pb.width * ratio),
-			(int) (pb.height * ratio),
-			InterpType.BILINEAR);
-	}
-
 }
