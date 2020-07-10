@@ -82,13 +82,13 @@ public class Tootle.Cache : GLib.Object {
                 Pixbuf? pixbuf = null;
 
                 try {
-                    var code = message.status_code;
+                    var code = msg.status_code;
 					if (code != Soup.Status.OK) {
-					    var msg = network.describe_error (code);
-					    throw new Oopsie.INSTANCE (@"Server returned $msg");
+					    var error = network.describe_error (code);
+					    throw new Oopsie.INSTANCE (@"Server returned $error");
 					}
 
-                    var data = message.response_body.flatten ().data;
+                    var data = msg.response_body.flatten ().data;
                     var stream = new MemoryInputStream.from_data (data);
                     pixbuf = new Pixbuf.from_stream (stream);
                     stream.close ();

@@ -42,6 +42,7 @@ public class Tootle.Widgets.Avatar : EventBox {
 
 	public int get_scaled_size () {
 		return size; //return size * get_scale_factor ();
+	}
 
 	private void on_redraw () {
 		set_size_request (get_scaled_size (), get_scaled_size ());
