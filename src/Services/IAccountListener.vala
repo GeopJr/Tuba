@@ -1,9 +1,23 @@
 public interface Tootle.IAccountListener : GLib.Object {
 
-	protected void connect_account () {
-		accounts.notify["active"].connect (() => on_account_changed (accounts.active));
-		accounts.saved.notify["size"].connect (() => on_accounts_changed (accounts.saved));
+	//TODO: Refactor into AccountHolder
+
+	protected void account_listener_init () {
+		accounts.notify["active"].connect (_on_active_acc_update);
+		accounts.saved.notify["size"].connect (_on_saved_accs_update);
 		on_account_changed (accounts.active);
+	}
+	protected void account_listener_free () {
+		accounts.notify["active"].disconnect (_on_active_acc_update);
+		accounts.saved.notify["size"].disconnect (_on_saved_accs_update);
+	}
+
+	void _on_active_acc_update (ParamSpec s) {
+		on_account_changed (accounts.active);
+	}
+
+	void _on_saved_accs_update (ParamSpec s) {
+		on_accounts_changed (accounts.saved);
 	}
 
 	public virtual void on_account_changed (InstanceAccount? account) {}

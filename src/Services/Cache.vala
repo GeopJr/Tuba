@@ -26,9 +26,9 @@ public class Tootle.Cache : GLib.Object {
 
     protected class Item : GLib.Object {
         public Pixbuf data { get; construct set; }
-        public int64 references { get; construct set; }
+        public int references { get; construct set; }
 
-        public Item (Pixbuf d, int64 r) {
+        public Item (Pixbuf d, int r) {
             Object (data: d, references: r);
         }
     }
@@ -45,12 +45,14 @@ public class Tootle.Cache : GLib.Object {
             return;
 
         item.references--;
-        //info (@"DEREF $(r.key) $(item.references)");
         if (item.references <= 0) {
-            //info ("REMOVE %s", r.key);
+            // message (@"[X] $(r.key)");
             items.remove (r.key);
             items_in_progress.remove (r.key);
         }
+        // else {
+        //     message (@"[-] $(r.key) - $(item.references)");
+        // }
     }
 
     public void load (string? url, owned CachedResultCallback cb) {
@@ -59,9 +61,9 @@ public class Tootle.Cache : GLib.Object {
 
         var key = url;
         if (items.contains (key)) {
-            //info (@"LOAD $key");
             var item = items.@get (key);
             item.references++;
+            // message (@"[+] $key - $(item.references)");
             cb (Reference () {
                 data = item.data,
                 key = key,
@@ -72,19 +74,19 @@ public class Tootle.Cache : GLib.Object {
 
         //var item = items.@get (key);
 
-        var message = items_in_progress.@get (key);
-        if (message == null) {
-            message = new Soup.Message ("GET", url);
+        var msg = items_in_progress.@get (key);
+        if (msg == null) {
+            msg = new Soup.Message ("GET", url);
             ulong id = 0;
-            id = message.finished.connect (() => {
+            id = msg.finished.connect (() => {
                 Pixbuf? pixbuf = null;
 
-                var data = message.response_body.flatten ().data;
+                var data = msg.response_body.flatten ().data;
                 var stream = new MemoryInputStream.from_data (data);
                 pixbuf = new Pixbuf.from_stream (stream);
                 stream.close ();
 
-                //info (@"< STORE $key");
+                // message (@"[*] $key");
                 items[key] = new Item (pixbuf, 1);
                 items_in_progress.remove (key);
 
@@ -94,10 +96,10 @@ public class Tootle.Cache : GLib.Object {
                     loading = false
                 });
 
-                message.disconnect (id);
+                msg.disconnect (id);
             });
 
-            network.queue (message, (sess, msg) => {
+            network.queue (msg, (sess, mess) => {
                 // no one cares
             },
             (code, reason) => {
@@ -110,12 +112,12 @@ public class Tootle.Cache : GLib.Object {
                 loading = true
             });
 
-            items_in_progress.insert (key, message);
+            items_in_progress.insert (key, msg);
         }
         else {
-            //info ("AWAIT: %s", key);
+            //message ("[/]: %s", key);
             ulong id = 0;
-            id = message.finished.connect_after (() => {
+            id = msg.finished.connect_after (() => {
                 var it = items.@get (key);
                 cb (Reference () {
                     data = it.data,
@@ -123,13 +125,13 @@ public class Tootle.Cache : GLib.Object {
                     loading = false
                 });
                 it.references++;
-                message.disconnect (id);
+                msg.disconnect (id);
             });
         }
     }
 
     public void clear () {
-        info ("PURGE");
+        // message ("[ CLEARED ALL ]");
         items.remove_all ();
         items_in_progress.remove_all ();
     }

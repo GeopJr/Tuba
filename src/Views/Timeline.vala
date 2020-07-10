@@ -17,7 +17,7 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
     construct {
         app.refresh.connect (on_refresh);
         status_button.clicked.connect (on_refresh);
-        connect_account ();
+        account_listener_init ();
 
         on_status_added.connect (add_status);
         on_status_removed.connect (remove_status);
@@ -92,20 +92,22 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
     public virtual bool request () {
 		var req = append_params (new Request.GET (get_req_url ()))
 		.with_account (account)
-		.then_parse_array ((node, msg) => {
-		    try {
-                var e = Entity.from_json (accepts, node);
-                var w = e as Widgetizable;
-                append (w.to_widget ());
-		    }
-		    catch (Error e) {
-		        warning (@"Timeline item parse error: $(e.message)");
-		    }
+		.with_ctx (this)
+		.then ((sess, msg) => {
+		    Network.parse_array (msg, node => {
+		        try {
+                    var e = Entity.from_json (accepts, node);
+                    var w = e as Widgetizable;
+                    append (w.to_widget ());
+		        }
+		        catch (Error e) {
+		            warning (@"Timeline item parse error: $(e.message)");
+		        }
+
+		    get_pages (msg.response_headers.get_one ("Link"));
+		    });
         })
 		.on_error (on_error);
-		req.finished.connect (() => {
-		    get_pages (req.response_headers.get_one ("Link"));
-		});
 		req.exec ();
 		return GLib.Source.REMOVE;
     }

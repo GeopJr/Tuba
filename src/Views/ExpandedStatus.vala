@@ -11,7 +11,7 @@ public class Tootle.Views.ExpandedStatus : Views.Base, IAccountListener {
             root_status: status,
             status_message: STATUS_LOADING
         );
-        connect_account ();
+        account_listener_init ();
     }
 
     public override void on_account_changed (InstanceAccount? acc) {
@@ -38,8 +38,9 @@ public class Tootle.Views.ExpandedStatus : Views.Base, IAccountListener {
     public void request () {
         new Request.GET (@"/api/v1/statuses/$(root_status.id)/context")
             .with_account (account)
-            .then_parse_obj (root => {
-                if (scrolled == null) return;
+            .with_ctx (this)
+            .then ((sess, msg) => {
+                var root = network.parse (msg);
 
                 var ancestors = root.get_array_member ("ancestors");
                 ancestors.foreach_element ((array, i, node) => {

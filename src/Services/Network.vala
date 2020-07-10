@@ -29,17 +29,18 @@ public class Tootle.Network : GLib.Object {
         });
     }
 
-    // public void cancel_request (Soup.Message? msg) {
-    //     if (msg == null)
-    //         return;
+    public void cancel (Soup.Message? msg) {
+        if (msg == null)
+            return;
 
-    //     switch (msg.status_code) {
-    //         case Soup.Status.CANCELLED:
-    //         case Soup.Status.OK:
-    //             return;
-    //     }
-    //     session.cancel_message (msg, Soup.Status.CANCELLED);
-    // }
+        switch (msg.status_code) {
+            case Soup.Status.CANCELLED:
+            case Soup.Status.OK:
+                return;
+        }
+        debug ("Cancelling message");
+        session.cancel_message (msg, Soup.Status.CANCELLED);
+    }
 
     public void queue (owned Soup.Message message, owned SuccessCallback? cb, owned ErrorCallback? errcb = null) {
         requests_processing++;
@@ -56,6 +57,9 @@ public class Tootle.Network : GLib.Object {
                     if (errcb != null)
                     	errcb (Soup.Status.NONE, e.message);
             	}
+            }
+            else if (status == Soup.Status.CANCELLED) {
+                debug ("Message is cancelled. Ignoring callback invocation.");
             }
             else {
             	if (errcb != null)
@@ -87,6 +91,14 @@ public class Tootle.Network : GLib.Object {
 
     public Json.Object parse (Soup.Message msg) throws Error {
         return parse_node (msg).get_object ();
+    }
+
+    public static void parse_array (Soup.Message msg, owned NodeCallback cb) throws Error {
+		var parser = new Json.Parser ();
+		parser.load_from_data ((string) msg.response_body.flatten ().data, -1);
+		parser.get_root ().get_array ().foreach_element ((array, i, node) => {
+		    cb (node, msg);
+		});
     }
 
 }

@@ -71,8 +71,8 @@ public class Tootle.Views.Base : Box {
     }
 
     public virtual void clear (){
-        content_list.forall (widget => {
-            widget.destroy ();
+        content_list.forall (w => {
+            w.destroy ();
         });
         state = "status";
     }

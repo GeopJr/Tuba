@@ -12,7 +12,7 @@ public class Tootle.Widgets.Avatar : EventBox {
 		get_style_context ().add_class ("avatar");
 		notify["url"].connect (on_url_updated);
 		notify["size"].connect (on_redraw);
-		Screen.get_default ().monitors_changed.connect (on_redraw);
+		// Screen.get_default ().monitors_changed.connect (on_redraw);
 		on_url_updated ();
 	}
 
@@ -23,11 +23,13 @@ public class Tootle.Widgets.Avatar : EventBox {
 
 	~Avatar () {
 		notify["url"].disconnect (on_url_updated);
-		Screen.get_default ().monitors_changed.disconnect (on_redraw);
+		// Screen.get_default ().monitors_changed.disconnect (on_redraw);
 		cache.unload (cached);
 	}
 
 	private void on_url_updated () {
+		if (cached != null)
+			cache.unload (cached);
 		cached = null;
 		on_redraw ();
 		cache.load (url, on_cache_result);
@@ -39,8 +41,7 @@ public class Tootle.Widgets.Avatar : EventBox {
 	}
 
 	public int get_scaled_size () {
-		return size;
-		//return size * get_scale_factor ();
+		return size; //return size * get_scale_factor ();
 	}
 
 	private void on_redraw () {

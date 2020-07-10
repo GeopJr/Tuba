@@ -12,6 +12,8 @@ public class Tootle.Views.Profile : Views.Timeline {
 	Button rs_button;
 	Label rs_button_label;
 
+	weak ListBoxRow note_row;
+
 	public bool exclude_replies { get; set; default = true; }
 	public bool only_media { get; set; default = false; }
 
@@ -39,7 +41,7 @@ public class Tootle.Views.Profile : Views.Timeline {
 			return true;
 		});
 
-		var note_row = builder.get_object ("note_row") as ListBoxRow;
+		note_row = builder.get_object ("note_row") as ListBoxRow;
 		var note = builder.get_object ("note") as Widgets.RichLabel;
 		profile.bind_property ("note", note, "text", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			var text = Html.simplify ((string) src);
@@ -82,6 +84,9 @@ public class Tootle.Views.Profile : Views.Timeline {
         	url: @"/api/v1/accounts/$(acc.id)/statuses"
         );
         profile.get_relationship ();
+    }
+    ~Profile () {
+    	filter.destroy ();
     }
 
 	public override void on_shown () {

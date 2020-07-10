@@ -46,8 +46,10 @@ public class Tootle.API.Account : Entity, Widgetizable {
     	return new Request.GET ("/api/v1/accounts/relationships")
     		.with_account (accounts.active)
     		.with_param ("id", id.to_string ())
-    		.then_parse_array (node => {
-    		    rs = API.Relationship.from (node);
+    		.then ((sess, msg) => {
+    			Network.parse_array (msg, node => {
+    				rs = API.Relationship.from (node);
+    			});
     		})
     		.on_error (network.on_error)
     		.exec ();

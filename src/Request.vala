@@ -4,11 +4,14 @@ using Gee;
 public class Tootle.Request : Soup.Message {
 
 	public string url { set; get; }
-	private Network.SuccessCallback? cb;
-	private Network.ErrorCallback? error_cb;
-	private HashMap<string, string>? pars;
-	private weak InstanceAccount? account;
-	private bool needs_token = false;
+	Network.SuccessCallback? cb;
+	Network.ErrorCallback? error_cb;
+	HashMap<string, string>? pars;
+	weak InstanceAccount? account;
+	bool needs_token = false;
+
+	weak Gtk.Widget? ctx;
+	bool has_ctx = false;
 
 	public Request.GET (string url) {
 		Object (method: "GET", url: url);
@@ -20,23 +23,22 @@ public class Tootle.Request : Soup.Message {
 		Object (method: "DELETE", url: url);
 	}
 
+	public Request with_ctx (Gtk.Widget ctx) {
+		this.has_ctx = true;
+		this.ctx = ctx;
+		this.ctx.destroy.connect (() => {
+			network.cancel (this);
+			this.ctx = null;
+		});
+		return this;
+	}
+
 	public Request then (owned Network.SuccessCallback cb) {
-		this.cb = (owned) cb;
-		return this;
-	}
-
-	public Request then_parse_array (owned Network.NodeCallback _cb) {
-		this.cb = (sess, msg) => {
-			var parser = new Json.Parser ();
-			parser.load_from_data ((string) msg.response_body.flatten ().data, -1);
-			parser.get_root ().get_array ().foreach_element ((array, i, node) => _cb (node, msg));
-		};
-		return this;
-	}
-
-	public Request then_parse_obj (owned Network.ObjectCallback _cb) {
-		this.cb = (sess, msg) => {
-			_cb (network.parse (msg));
+		this.cb = (s, m) => {
+			Idle.add (() => {
+				cb (s, m);
+				return false;
+			});
 		};
 		return this;
 	}
@@ -60,8 +62,7 @@ public class Tootle.Request : Soup.Message {
 		return this;
 	}
 
-	// Should be used for requests with default priority
-	public Request queue () {
+	public Request exec () {
 		var parameters = "";
 		if (pars != null) {
 			parameters = "?";
@@ -98,12 +99,6 @@ public class Tootle.Request : Soup.Message {
 
 		network.queue (this, (owned) cb, (owned) error_cb);
 		return this;
-	}
-
-	// Should be used for real-time user interactions (liking, removing and browsing posts)
-	public Request exec () {
-		this.priority = MessagePriority.HIGH;
-		return this.queue ();
 	}
 
 }

@@ -64,7 +64,7 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
     Button item_bookmarks;
 
     construct {
-        connect_account ();
+        account_listener_init ();
 
         item_refresh.clicked.connect (() => {
             app.refresh ();
@@ -101,6 +101,9 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
 
         account_list.row_activated.connect (on_selection_changed);
     }
+	~AccountsButton () {
+		account_listener_free ();
+	}
 
     protected void on_selection_changed (ListBoxRow r) {
         var i = r.get_index ();

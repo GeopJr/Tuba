@@ -3,6 +3,8 @@ using Gtk;
 [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/timeline_filter.ui")]
 public class Tootle.Widgets.TimelineFilter : MenuButton {
 
+	weak Views.Profile view;
+
 	[GtkChild]
 	public Label title;
 
@@ -22,7 +24,8 @@ public class Tootle.Widgets.TimelineFilter : MenuButton {
 		radio_source.bind_property ("active", post_filter, "reveal-child", BindingFlags.SYNC_CREATE);
 	}
 
-	public TimelineFilter.with_profile (Views.Profile view) {
+	public TimelineFilter.with_profile (Views.Profile profile) {
+		this.view = profile;
 		radio_source.get_group ().@foreach (w => {
 			w.toggled.connect (() => {
 				if (w.active) {
