@@ -1,5 +1,4 @@
 _ignore
 build
 build.sh
-subprojects/libhandy
 *~
