@@ -240,7 +240,6 @@
           </object>
           <packing>
             <property name="name">menu</property>
-            <property name="title" translatable="yes">page0</property>
           </packing>
         </child>
         <child>
@@ -248,7 +247,7 @@
             <property name="width_request">400</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="border_width">4</property>
+            <property name="border_width">12</property>
             <property name="orientation">vertical</property>
             <property name="spacing">6</property>
             <child>
@@ -297,7 +296,6 @@
           </object>
           <packing>
             <property name="name">accounts</property>
-            <property name="title" translatable="yes">page1</property>
             <property name="position">1</property>
           </packing>
         </child>
