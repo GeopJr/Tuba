@@ -56,6 +56,7 @@
     </child>
     <child type="titlebar">
       <object class="GtkHeaderBar" id="header">
+        <property name="height_request">48</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="show_close_button">True</property>
@@ -65,7 +66,7 @@
             <property name="policy">auto</property>
           </object>
           <packing>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
@@ -73,11 +74,48 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="TootleWidgetsAccountsButton" id="accounts_button">
+              <object class="GtkRevealer" id="view_navigation">
                 <property name="visible">True</property>
-                <style>
-                  <class name="image-button"/>
-                </style>
+                <property name="can_focus">False</property>
+                <property name="transition_type">slide-right</property>
+                <property name="transition_duration">200</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_end">6</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkButton" id="back_button">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="icon_name">go-previous-symbolic</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSeparator">
+                        <property name="can_focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -86,63 +124,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="compose_button">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="icon_name">document-edit-symbolic</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <style>
-              <class name="linked"/>
-              <class name="horizontal"/>
-            </style>
-          </object>
-          <packing>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkRevealer" id="view_controls">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="transition_type">slide-left</property>
-            <property name="transition_duration">200</property>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkRevealer" id="view_navigation">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="transition_type">slide-right</property>
-            <property name="transition_duration">200</property>
-            <child>
-              <object class="GtkBox">
+              <object class="GtkBox" id="account_actions">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="spacing">6</property>
                 <child>
-                  <object class="GtkSeparator">
+                  <object class="TootleWidgetsAccountsButton" id="accounts_button">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <style>
+                      <class name="image-button"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -151,7 +141,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="back_button">
+                  <object class="GtkButton" id="compose_button">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -159,7 +149,7 @@
                       <object class="GtkImage">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="icon_name">go-previous-symbolic</property>
+                        <property name="icon_name">document-edit-symbolic</property>
                       </object>
                     </child>
                   </object>
@@ -169,10 +159,32 @@
                     <property name="position">1</property>
                   </packing>
                 </child>
+                <style>
+                  <class name="linked"/>
+                  <class name="horizontal"/>
+                </style>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkRevealer" id="view_controls">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="valign">center</property>
+            <property name="transition_type">crossfade</property>
+            <property name="transition_duration">200</property>
+            <child>
+              <placeholder/>
             </child>
           </object>
           <packing>
+            <property name="pack_type">end</property>
             <property name="position">2</property>
           </packing>
         </child>

@@ -24,7 +24,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="text" translatable="yes"> </property>
+                <property name="text" translatable="no"> </property>
                 <property name="use_markup">True</property>
                 <property name="menu_name">accounts</property>
               </object>
@@ -314,7 +314,8 @@
         <child>
           <object class="TootleWidgetsAvatar" id="avatar">
             <property name="visible">True</property>
-            <property name="size">25</property>
+            <property name="size">24</property>
+            <property name="valign">center</property>
           </object>
           <packing>
             <property name="pass_through">True</property>

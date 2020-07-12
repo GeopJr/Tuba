@@ -91,6 +91,7 @@ public class Tootle.Views.Profile : Views.Timeline {
 
 	public override void on_shown () {
 		window.header.custom_title = filter;
+		filter.valign = Align.FILL;
 		window.set_header_controls (rs_button);
 	}
 	public override void on_hidden () {
