@@ -26,10 +26,10 @@
 			<default>'public'</default>
 		</key>
 		<key name="timeline-page-size" type="i">
-			<default>20</default>
+			<default>12</default>
 		</key>
 		<key name="post-text-size" type="i">
-			<default>120</default>
+			<default>100</default>
 		</key>
 		<key name="live-updates" type="b">
 			<default>true</default>
@@ -37,19 +37,6 @@
 		<key name="public-live-updates" type="b">
 			<default>false</default>
 		</key>
-
-
-
-		<key name="watched-users" type="s">
-			<default>''</default>
-			<summary>Watched Users</summary>
-		</key>
-		<key name="watched-hashtags" type="s">
-			<default>''</default>
-			<summary>Watched Hashtags</summary>
-		</key>
-
-
 
 		<key name="window-x" type="i">
 			<default>-1</default>
