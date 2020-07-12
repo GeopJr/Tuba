@@ -12,9 +12,6 @@ public class Tootle.Settings : GLib.Settings {
 	public bool live_updates { get; set; }
 	public bool public_live_updates { get; set; }
 
-	public string watched_users { get; set; }
-	public string watched_hashtags { get; set; }
-
 	public int window_x { get; set; }
 	public int window_y { get; set; }
 	public int window_w { get; set; }
@@ -31,9 +28,6 @@ public class Tootle.Settings : GLib.Settings {
 		init ("post-text-size");
 		init ("live-updates");
 		init ("public-live-updates");
-
-		init ("watched-users");
-		init ("watched-hashtags");
 
 		init ("window-x");
 		init ("window-y");
