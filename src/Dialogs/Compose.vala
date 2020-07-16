@@ -105,7 +105,7 @@ public class Tootle.Dialogs.Compose : Window {
     void validate () {
         var remain = char_limit - content.buffer.get_char_count ();
         if (cw_button.active)
-            remain -= (int)cw.buffer.length;
+            remain -= (int) cw.buffer.get_length ();
 
         counter.label = remain.to_string ();
         post_button.sensitive = remain >= 0;
