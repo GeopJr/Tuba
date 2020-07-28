@@ -81,6 +81,7 @@ public class Tootle.Views.Profile : Views.Timeline {
     public Profile (API.Account acc) {
         Object (
         	profile: acc,
+        	label: acc.acct,
         	url: @"/api/v1/accounts/$(acc.id)/statuses"
         );
         profile.get_relationship ();

@@ -1,0 +1,14 @@
+[default]
+name=Default
+runtime=host
+toolchain=default
+config-opts=
+run-opts=
+prefix=/home/user/.cache/gnome-builder/install/tootle/host
+app-id=
+postbuild=
+prebuild=
+default=true
+
+[default.environment]
+G_MESSAGES_DEBUG=tootle

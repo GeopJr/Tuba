@@ -22,7 +22,10 @@ public class Tootle.Views.NewAccount : Views.Base {
 	private Widget step2;
 
 	public NewAccount (bool allow_closing = true) {
-		Object (allow_closing: allow_closing);
+		Object (
+			allow_closing: allow_closing,
+			label: _("New Account")
+		);
 
 		var builder = new Builder.from_resource (@"$(Build.RESOURCES)ui/views/new_account.ui");
 		content.pack_start (builder.get_object ("wizard") as Grid);

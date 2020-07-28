@@ -10,9 +10,12 @@
         <file preprocess="xml-stripblanks">ui/widgets/accounts_button_item.ui</file>
         <file preprocess="xml-stripblanks">ui/widgets/profile_field_row.ui</file>
         <file preprocess="xml-stripblanks">ui/widgets/timeline_filter.ui</file>
+        <file preprocess="xml-stripblanks">ui/widgets/list_item.ui</file>
+        <file preprocess="xml-stripblanks">ui/widgets/list_editor_item.ui</file>
         <file preprocess="xml-stripblanks">ui/widgets/attachment_slot.ui</file>
         <file preprocess="xml-stripblanks">ui/dialogs/compose.ui</file>
         <file preprocess="xml-stripblanks">ui/dialogs/main.ui</file>
         <file preprocess="xml-stripblanks">ui/dialogs/preferences.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/list_editor.ui</file>
     </gresource>
 </gresources>

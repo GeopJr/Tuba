@@ -7,6 +7,8 @@ public class Tootle.Views.Search : Views.Base {
     SearchEntry entry;
 
     construct {
+    	label = _("Search");
+
         bar = new SearchBar ();
         bar.search_mode_enabled = true;
         bar.show ();

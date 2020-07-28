@@ -38,34 +38,30 @@ public class Tootle.Network : GLib.Object {
             case Soup.Status.OK:
                 return;
         }
+
         debug ("Cancelling message");
         session.cancel_message (msg, Soup.Status.CANCELLED);
     }
 
-    public void queue (owned Soup.Message message, owned SuccessCallback? cb, owned ErrorCallback? errcb = null) {
+    public void queue (owned Soup.Message message, owned SuccessCallback cb, owned ErrorCallback ecb) {
         requests_processing++;
         started ();
 
-        session.queue_message (message, (sess, msg) => {
-        	var status = msg.status_code;
-            if (status == Soup.Status.OK) {
-            	try {
-            		cb (session, msg);
-            	}
-            	catch (Error e) {
-            		warning ("Exception on network request: %s", e.message);
-                    if (errcb != null)
-                    	errcb (Soup.Status.NONE, e.message);
-            	}
-            }
-            else if (status == Soup.Status.CANCELLED) {
-                debug ("Message is cancelled. Ignoring callback invocation.");
-            }
-            else {
-            	if (errcb != null)
-            		errcb ((int32)status, describe_error ((int32)status));
-            }
-        });
+        try {
+            session.queue_message (message, (sess, msg) => {
+            	var status = msg.status_code;
+                if (status == Soup.Status.OK)
+                	cb (session, msg);
+                else if (status == Soup.Status.CANCELLED)
+                    debug ("Message is cancelled. Ignoring callback invocation.");
+                else
+                    ecb ((int32) status, describe_error ((int32) status));
+            });
+        }
+        catch (Error e) {
+            warning (@"Exception in network queue: $(e.message)");
+            ecb (0, e.message);
+        }
     }
 
 	public string describe_error (uint code) {
@@ -76,11 +72,6 @@ public class Tootle.Network : GLib.Object {
     public void on_error (int32 code, string message) {
         warning (message);
         app.toast (message);
-    }
-
-    public void on_show_error (int32 code, string message) {
-    	warning (message);
-    	app.error (_("Network Error"), message);
     }
 
     public Json.Node parse_node (Soup.Message msg) throws Error {

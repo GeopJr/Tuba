@@ -46,7 +46,7 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         add_timeline_view (new Views.Home (), app.ACCEL_TIMELINE_0, 0);
         add_timeline_view (new Views.Notifications (), app.ACCEL_TIMELINE_1, 1);
         add_timeline_view (new Views.Local (), app.ACCEL_TIMELINE_2, 2);
-        add_timeline_view (new Views.Federated (), app.ACCEL_TIMELINE_3, 3);
+        add_timeline_view (new Views.Lists (), app.ACCEL_TIMELINE_3, 3);
 
         settings.bind_property ("dark-theme", Gtk.Settings.get_default (), "gtk-application-prefer-dark-theme", BindingFlags.SYNC_CREATE);
         settings.notify["post-text-size"].connect (() => on_zoom_level_changed ());
@@ -66,6 +66,7 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
         Object (
             application: app,
             icon_name: Build.DOMAIN,
+            title: Build.NAME,
             resizable: true,
             window_position: WindowPosition.CENTER
         );

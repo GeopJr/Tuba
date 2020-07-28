@@ -62,6 +62,8 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
     Button item_conversations;
     [GtkChild]
     Button item_bookmarks;
+    [GtkChild]
+    Button item_lists;
 
     construct {
         account_listener_init ();
@@ -81,6 +83,10 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
         });
         item_bookmarks.clicked.connect (() => {
             window.open_view (new Views.Bookmarks ());
+            popover.popdown ();
+        });
+        item_lists.clicked.connect (() => {
+            window.open_view (new Views.Lists ());
             popover.popdown ();
         });
         item_search.clicked.connect (() => {

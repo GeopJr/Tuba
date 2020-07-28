@@ -28,7 +28,10 @@ public class Tootle.Accounts : GLib.Object {
             })
             .on_error ((code, reason) => {
                 warning ("Token invalid!");
-                network.on_show_error (code, _("This instance has invalidated this session. Please sign in again.\n\n%s").printf (reason));
+                app.error (
+                    _("Network Error"),
+                    _("This instance has invalidated this session. Please sign in again.\n\n%s").printf (reason)
+                );
             })
             .exec ();
     }

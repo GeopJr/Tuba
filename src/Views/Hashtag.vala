@@ -2,7 +2,8 @@ public class Tootle.Views.Hashtag : Views.Timeline {
 
     public Hashtag (string tag) {
         Object (
-        	url: @"/api/v1/timelines/tag/$tag"
+        	url: @"/api/v1/timelines/tag/$tag",
+        	label: tag
         );
     }
 

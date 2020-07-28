@@ -142,6 +142,22 @@ namespace Tootle {
             window.switch_timeline (num);
         }
 
+		public bool question (string text, string? secondary = null, Gtk.Window? win = window) {
+		    var dlg = new Gtk.MessageDialog (
+		        window,
+		        Gtk.DialogFlags.MODAL,
+		        Gtk.MessageType.QUESTION,
+		        Gtk.ButtonsType.YES_NO,
+		        null
+		    );
+		    dlg.text = text;
+		    dlg.secondary_text = secondary;
+		    dlg.transient_for = win;
+		    var i = dlg.run ();
+		    dlg.destroy ();
+		    return i == ResponseType.YES;
+		}
+
     }
 
 }
