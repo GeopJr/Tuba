@@ -96,7 +96,7 @@ public class Tootle.Dialogs.ListEditor: Gtk.Window {
 
 		new Request.GET (@"/api/v1/lists/$(list.id)/accounts")
 			.with_account (accounts.active)
-			// .with_context (this) //FIXME this
+			.with_ctx (this)
 			.on_error (on_error)
 			.then ((sess, msg) => {
 				Network.parse_array (msg, node => {
@@ -146,7 +146,7 @@ public class Tootle.Dialogs.ListEditor: Gtk.Window {
 
 		search_req = new Request.GET ("/api/v1/accounts/search")
 			.with_account (accounts.active)
-			// .with_context (this) //FIXME this
+			.with_ctx (this)
 			.with_param ("resolve", "false")
 			.with_param ("limit", "8")
 			.with_param ("following", "true")

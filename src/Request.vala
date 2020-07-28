@@ -48,16 +48,6 @@ public class Tootle.Request : Soup.Message {
 		return this;
 	}
 
-	public Request then (owned Network.SuccessCallback cb) {
-		this.cb = (s, m) => {
-			Idle.add (() => {
-				cb (s, m);
-				return false;
-			});
-		};
-		return this;
-	}
-
 	public Request on_error (owned Network.ErrorCallback cb) {
 		this.error_cb = (owned) cb;
 		return this;
@@ -118,11 +108,6 @@ public class Tootle.Request : Soup.Message {
 		return this;
 	}
 
-	public Request exec () {
-		this.priority = MessagePriority.HIGH;
-		return this.queue ();
-	}
-
 	public async Request await () throws Error {
 		string? error = null;
 		this.error_cb = (code, reason) => {
@@ -132,7 +117,7 @@ public class Tootle.Request : Soup.Message {
 		this.cb = (sess, msg) => {
 			await.callback ();
 		};
-		this.queue ();
+		this.exec ();
 		yield;
 
 		if (error != null)
