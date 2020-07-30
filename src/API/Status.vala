@@ -81,6 +81,10 @@ public class Tootle.API.Status : Entity, Widgetizable {
         return formal.account.id == accounts.active.id;
     }
 
+	public bool has_media () {
+		return media_attachments != null && media_attachments.size > 0;
+	}
+
     public string get_reply_mentions () {
         var result = "";
         if (account.acct != accounts.active.acct)
@@ -111,15 +115,9 @@ public class Tootle.API.Status : Entity, Widgetizable {
         	.exec ();
     }
 
-    public void poof (owned Soup.SessionCallback? cb = null, owned Network.ErrorCallback? err = network.on_error) {
-        new Request.DELETE (@"/api/v1/statuses/$id")
-        	.with_account (accounts.active)
-        	.then ((sess, msg) => {
-        	    streams.force_delete (id);
-        	    cb (sess, msg);
-        	})
-            .on_error ((status, reason) => err (status, reason))
-        	.exec ();
+    public Request annihilate () {
+        return new Request.DELETE (@"/api/v1/statuses/$id")
+        	.with_account (accounts.active);
     }
 
 }

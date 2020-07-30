@@ -138,8 +138,8 @@ public class Tootle.Streams : Object {
 		decode (bytes, out root, out root_obj, out ev);
 
 		// c.subscribers.@foreach (s => {
-		// 	warning ("%s: %s for %s", c.name, e, get_subscriber_name (s));
-		// 	return false;
+		// 	message (@"$(c.name): $ev for $(get_subscriber_name (s))");
+		// 	return true;
 		// });
 
 		switch (ev) {
@@ -176,7 +176,7 @@ public class Tootle.Streams : Object {
 		connections.get_values ().@foreach (c => {
 			c.subscribers.@foreach (s => {
 				s.on_status_removed (id);
-				return false;
+				return true;
 			});
 		});
 	}

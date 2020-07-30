@@ -224,9 +224,9 @@ public class Tootle.Dialogs.ListEditor: Gtk.Window {
 	[GtkCallback]
 	void on_save_clicked () {
 		working = true;
-		exec_save_chain.begin ((obj, res) => {
+		transaction.begin ((obj, res) => {
 			try {
-				exec_save_chain.end (res);
+				transaction.end (res);
 
 				done ();
 				destroy ();
@@ -238,7 +238,7 @@ public class Tootle.Dialogs.ListEditor: Gtk.Window {
 		});
 	}
 
-	async void exec_save_chain () throws Error {
+	async void transaction () throws Error {
 		if (!exists) {
 			message ("Creating list...");
 			var req = new Request.POST ("/api/v1/lists")

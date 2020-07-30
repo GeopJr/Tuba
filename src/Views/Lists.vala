@@ -28,11 +28,11 @@ public class Tootle.Views.Lists : Views.Timeline {
 
 		[GtkCallback]
 		void on_remove_clicked () {
-			var yes = app.question (
+			var remove = app.question (
 				_("Delete \"%s\"?").printf (list.title),
 				_("This action cannot be reverted.")
 			);
-			if (yes) {
+			if (remove) {
 				new Request.DELETE (@"/api/v1/lists/$(list.id)")
 					.with_account (accounts.active)
 					.then (() => { this.destroy (); })

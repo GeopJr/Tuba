@@ -155,7 +155,7 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
 
 	protected virtual void remove_status (string id) {
 		if (settings.live_updates) {
-			content.get_children ().@foreach (w => {
+			content_list.get_children ().@foreach (w => {
 				var sw = w as Widgets.Status;
 				if (sw != null && sw.status.id == id)
 					sw.destroy ();

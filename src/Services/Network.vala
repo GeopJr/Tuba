@@ -43,12 +43,14 @@ public class Tootle.Network : GLib.Object {
         session.cancel_message (msg, Soup.Status.CANCELLED);
     }
 
-    public void queue (owned Soup.Message message, owned SuccessCallback cb, owned ErrorCallback ecb) {
+    public void queue (owned Soup.Message mess, owned SuccessCallback cb, owned ErrorCallback ecb) {
         requests_processing++;
         started ();
 
+		message (@"$(mess.method): $(mess.uri.to_string (false))");
+
         try {
-            session.queue_message (message, (sess, msg) => {
+            session.queue_message (mess, (sess, msg) => {
             	var status = msg.status_code;
                 if (status == Soup.Status.OK)
                 	cb (session, msg);

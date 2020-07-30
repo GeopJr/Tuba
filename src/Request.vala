@@ -101,9 +101,6 @@ public class Tootle.Request : Soup.Message {
 			url = account.instance + url;
 
 		uri = new URI (url + parameters);
-		url = uri.to_string (false);
-		message (@"$method: $url");
-
 		network.queue (this, (owned) cb, (owned) error_cb);
 		return this;
 	}

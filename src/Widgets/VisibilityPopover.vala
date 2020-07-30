@@ -9,7 +9,7 @@ public class Tootle.Widgets.VisibilityPopover: Popover {
 
 	construct {
 		var box = new Box (Orientation.VERTICAL, 8);
-		box.margin = 8;
+		box.margin = 12;
 		box.show ();
 		add (box);
 
