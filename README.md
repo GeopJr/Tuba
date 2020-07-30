@@ -1,7 +1,7 @@
 ## Tootle
 Simple [Mastodon](https://github.com/tootsuite/mastodon) client for Linux
 
-![Screenshot](https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot1.png)
 
 
 ### Installation
