@@ -2,32 +2,36 @@
 name: Bug Report
 about: Report a problem in the application behavior
 title: Bug Report
-labels: ''
+labels: 'bug'
 assignees: ''
 
 ---
 
-**What should happen:**
-(Enter here a clear and concise description of what you expected to happen.)
+⚠️ Please try to fill in every blank. Keep the information clear and concise.
 
-**What happened instead:**
-(Enter here a clear and concise description of what the bug is.)
+#### What should happen:
+__
 
-**How to reproduce:**
-Steps to reproduce the behavior:
-1. ...
-2. ...
 
-**Screenshots:**
-(If applicable, add screenshots here.)
+#### What happened instead:
+__
 
-**Build context:**
- - Distro: (enter your distribution name here)
- - Version: (enter the app version you're using)
- - Build type: AppCenter / Flatpak / Manual from source (highlight or enter where you got the app from)
 
-**Logs:**
-(Terminal logs can be extremely helpful. Launch the app from terminal with 'com.github.bleakgrey.tootle' and paste the output here if you can.)
+#### How to reproduce:
+1. __
+2. __
 
-**Additional info:**
-(Add any other context about the problem here if any.)
+
+#### Screenshots (if applicable):
+__
+
+#### Build context:
+ - **Distro:** __
+ - **App version:** __
+ - **Build type:** Flatpak / Built from source / Built by a third-party maintainer
+
+#### Logs:
+*(Terminal logs are often invaluable. If you can, launch the app from terminal with `com.github.bleakgrey.tootle` and paste the output here)*
+
+#### Additional info (if needed):
+__
