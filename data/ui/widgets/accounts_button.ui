@@ -14,6 +14,7 @@
         <property name="interpolate_size">True</property>
         <child>
           <object class="GtkBox">
+            <property name="width_request">275</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="border_width">12</property>
@@ -24,7 +25,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="text" translatable="no"> </property>
+                <property name="text"> &lt;b&gt;&lt;span size="large"&gt;No account&lt;/span&gt;&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
                 <property name="menu_name">accounts</property>
               </object>
@@ -35,21 +36,10 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSeparator">
-                <property name="can_focus">False</property>
-                <property name="margin_top">4</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkFlowBox" id="actions">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="margin_top">6</property>
+                <property name="margin_top">12</property>
                 <property name="margin_bottom">6</property>
                 <property name="homogeneous">True</property>
                 <property name="column_spacing">6</property>
@@ -183,7 +173,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">2</property>
+                <property name="position">1</property>
               </packing>
             </child>
             <child>
@@ -195,7 +185,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">3</property>
+                <property name="position">2</property>
               </packing>
             </child>
             <child>
@@ -208,7 +198,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">4</property>
+                <property name="position">3</property>
               </packing>
             </child>
             <child>
@@ -221,7 +211,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">5</property>
+                <property name="position">4</property>
               </packing>
             </child>
             <child>
@@ -234,7 +224,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">6</property>
+                <property name="position">5</property>
               </packing>
             </child>
           </object>
@@ -244,7 +234,7 @@
         </child>
         <child>
           <object class="GtkBox">
-            <property name="width_request">400</property>
+            <property name="width_request">350</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="border_width">12</property>
@@ -271,7 +261,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="vexpand">True</property>
-                <property name="shadow_type">in</property>
                 <property name="max_content_height">300</property>
                 <property name="propagate_natural_height">True</property>
                 <child>
@@ -282,6 +271,9 @@
                       <object class="GtkListBox" id="account_list">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <style>
+                          <class name="preferences"/>
+                        </style>
                       </object>
                     </child>
                   </object>
@@ -301,6 +293,9 @@
         </child>
       </object>
     </child>
+    <style>
+      <class name="app-view"/>
+    </style>
   </object>
   <template class="TootleWidgetsAccountsButton" parent="GtkMenuButton">
     <property name="visible">True</property>

@@ -90,10 +90,8 @@ public class Tootle.Widgets.Status : ListBoxRow {
 	}
 
 	public virtual signal void open () {
-		if (status.id == "") {
-			var view = new Views.Profile (status.formal.account);
-			window.open_view (view);
-		}
+		if (status.id == "")
+			on_avatar_clicked ();
 		else {
 			var formal = status.formal;
 			var view = new Views.ExpandedStatus (formal);
@@ -150,7 +148,6 @@ public class Tootle.Widgets.Status : ListBoxRow {
 			content.single_line_mode = true;
 			content.lines = 2;
 			content.ellipsize = Pango.EllipsizeMode.END;
-			button_release_event.connect (on_avatar_clicked);
 		}
 
 		if (!attachments.populate (status.formal.media_attachments) || status.id == "") {
@@ -158,7 +155,6 @@ public class Tootle.Widgets.Status : ListBoxRow {
 		}
 
 		menu_button.clicked.connect (open_menu);
-		avatar.button_release_event.connect (on_avatar_clicked);
 	}
 
 	public Status (API.Status status, API.NotificationType? _kind = null) {
@@ -185,12 +181,10 @@ public class Tootle.Widgets.Status : ListBoxRow {
 		header_label.label = kind.get_desc (status.account);
 	}
 
-	public bool on_avatar_clicked (EventButton ev) {
-		if (ev.button == 1 && ev.type == EventType.BUTTON_RELEASE) {
-			var view = new Views.Profile (status.formal.account);
-			return window.open_view (view);
-		}
-		return false;
+	[GtkCallback]
+	public void on_avatar_clicked () {
+		var view = new Views.Profile (status.formal.account);
+		window.open_view (view);
 	}
 
 	protected void open_menu () {

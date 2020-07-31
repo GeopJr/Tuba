@@ -1,24 +1,24 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.Widgets.Avatar : EventBox {
+public class Tootle.Widgets.Avatar : Button {
 
 	public string? url { get; set; }
 	public int size { get; set; default = 48; }
 
-	private Cache.Reference? cached;
+	Cache.Reference? cached;
 
 	construct {
 		get_style_context ().add_class ("avatar");
 		notify["url"].connect (on_url_updated);
-		notify["size"].connect (on_redraw);
+		notify["size"].connect (on_size_changed);
 		// Screen.get_default ().monitors_changed.connect (on_redraw);
 		on_url_updated ();
 	}
 
 	public Avatar (int size = this.size) {
 		Object (size: size);
-		on_redraw ();
+		queue_draw ();
 	}
 
 	~Avatar () {
@@ -27,26 +27,35 @@ public class Tootle.Widgets.Avatar : EventBox {
 		cache.unload (cached);
 	}
 
-	private void on_url_updated () {
+	void on_url_updated () {
 		if (cached != null)
 			cache.unload (cached);
+
 		cached = null;
-		on_redraw ();
+		queue_draw ();
 		cache.load (url, on_cache_result);
 	}
 
-	private void on_cache_result (Cache.Reference? result) {
+	void on_cache_result (Cache.Reference? result) {
 		cached = result;
-		on_redraw ();
+		queue_draw ();
+	}
+
+	void on_size_changed () {
+		set_size_request (get_scaled_size (), get_scaled_size ());
+		queue_draw ();
 	}
 
 	public int get_scaled_size () {
 		return size; //return size * get_scale_factor ();
 	}
 
-	private void on_redraw () {
-		set_size_request (get_scaled_size (), get_scaled_size ());
-		queue_draw_area (0, 0, size, size);
+	public override void get_preferred_height (out int min_h, out int nat_h) {
+		min_h = nat_h = get_scaled_size ();
+	}
+
+	public override void get_preferred_width (out int min_w, out int nat_w) {
+		min_w = nat_w = get_scaled_size ();
 	}
 
 	public override bool draw (Cairo.Context ctx) {
@@ -61,8 +70,11 @@ public class Tootle.Widgets.Avatar : EventBox {
 			pixbuf = cached.data.scale_simple (get_scaled_size (), get_scaled_size (), InterpType.BILINEAR);
 		}
 		else {
-			pixbuf = IconTheme.get_default ()
-				.load_icon_for_scale ("avatar-default", get_scaled_size (), get_scale_factor (), IconLookupFlags.GENERIC_FALLBACK);
+			pixbuf = IconTheme.get_default ().load_icon_for_scale (
+				"avatar-default",
+				get_scaled_size (),
+				get_scale_factor (),
+				IconLookupFlags.GENERIC_FALLBACK);
 		}
 		Gdk.cairo_set_source_pixbuf (ctx, pixbuf, 0, 0);
 		ctx.fill ();
