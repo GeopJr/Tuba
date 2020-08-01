@@ -22,9 +22,13 @@ public class Tootle.Widgets.Status : ListBoxRow {
 	[GtkChild]
 	protected Widgets.RichLabel handle_label;
 	[GtkChild]
+	protected Box indicators;
+	[GtkChild]
 	protected Widgets.RichLabel date_label;
 	[GtkChild]
 	protected Image pin_indicator;
+	[GtkChild]
+	protected Image indicator;
 	[GtkChild]
 	public Revealer revealer;
 	[GtkChild]
@@ -68,13 +72,6 @@ public class Tootle.Widgets.Status : ListBoxRow {
 		}
 	}
 
-	protected string display_name {
-		owned get {
-			var name = Html.simplify (status.formal.account.display_name);
-			return @"<b>$name</b>";
-		}
-	}
-
 	protected string date {
 		owned get {
 			var date = new GLib.DateTime.from_iso8601 (status.formal.created_at, null);
@@ -83,13 +80,28 @@ public class Tootle.Widgets.Status : ListBoxRow {
 		}
 	}
 
-	protected string handle {
+	public string title_text {
+		owned get {
+			var name = Html.simplify (status.formal.account.display_name);
+			return @"<b>$name</b>";
+		}
+	}
+
+	public string subtitle_text {
 		owned get {
 			return @"<small>$(status.formal.account.handle)</small>";
 		}
 	}
 
-	public virtual signal void open () {
+	public string? avatar_url {
+		owned get {
+			return status.formal.account.avatar;
+		}
+	}
+
+	public signal void open ();
+
+	public virtual void on_open () {
 		if (status.id == "")
 			on_avatar_clicked ();
 		else
@@ -99,6 +111,7 @@ public class Tootle.Widgets.Status : ListBoxRow {
 	construct {
 		content.activate_link.connect (on_toggle_spoiler);
 		notify["kind"].connect (on_kind_changed);
+		open.connect (on_open);
 
 		if (kind == null) {
 			if (status.reblog != null)
@@ -124,11 +137,11 @@ public class Tootle.Widgets.Status : ListBoxRow {
 
 		bind_property ("escaped-spoiler", content, "text", BindingFlags.SYNC_CREATE);
 		bind_property ("escaped-content", revealer_content, "text", BindingFlags.SYNC_CREATE);
-		status.formal.account.bind_property ("avatar", avatar, "url", BindingFlags.SYNC_CREATE);
-		bind_property ("handle", handle_label, "label", BindingFlags.SYNC_CREATE);
-		bind_property ("display_name", name_label, "text", BindingFlags.SYNC_CREATE);
+		bind_property ("title_text", name_label, "text", BindingFlags.SYNC_CREATE);
+		bind_property ("subtitle_text", handle_label, "text", BindingFlags.SYNC_CREATE);
 		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
+		bind_property ("avatar_url", avatar, "url", BindingFlags.SYNC_CREATE);
 
 		status.formal.bind_property ("has_spoiler", revealer_content, "visible", BindingFlags.SYNC_CREATE);
 		revealer.reveal_child = !status.formal.has_spoiler;

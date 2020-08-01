@@ -79,6 +79,7 @@ executable(
     'src/Widgets/RichLabel.vala',
     'src/Widgets/Status.vala',
     'src/Widgets/Notification.vala',
+    'src/Widgets/Conversation.vala',
     'src/Widgets/VisibilityPopover.vala',
     'src/Widgets/Attachment/Box.vala',
     'src/Widgets/Attachment/Slot.vala',
