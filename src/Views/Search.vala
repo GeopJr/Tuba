@@ -2,111 +2,82 @@ using Gtk;
 
 public class Tootle.Views.Search : Views.Base {
 
-    string query = "";
-    SearchBar bar;
-    SearchEntry entry;
+	string query = "";
+	SearchBar bar;
+	SearchEntry entry;
 
-    construct {
-    	label = _("Search");
+	construct {
+		label = _("Search");
 
-        bar = new SearchBar ();
-        bar.search_mode_enabled = true;
-        bar.show ();
-        pack_start (bar, false, false, 0);
+		bar = new SearchBar ();
+		bar.search_mode_enabled = true;
+		bar.show ();
+		pack_start (bar, false, false, 0);
 
-        entry = new SearchEntry ();
-        entry.width_chars = 25;
-        entry.text = query;
-        entry.show ();
-        bar.add (entry);
-        bar.connect_entry (entry);
+		entry = new SearchEntry ();
+		entry.width_chars = 25;
+		entry.text = query;
+		entry.show ();
+		bar.add (entry);
+		bar.connect_entry (entry);
 
-        entry.activate.connect (() => request ());
-        entry.icon_press.connect (() => request ());
-        entry.grab_focus_without_selecting ();
-        status_button.clicked.connect (request);
+		entry.activate.connect (() => request ());
+		entry.icon_press.connect (() => request ());
+		entry.grab_focus_without_selecting ();
+		status_button.clicked.connect (request);
 
-        request ();
-    }
+		request ();
+	}
 
-    void append_account (API.Account acc) {
-        var status = new API.Status.from_account (acc);
-        var w = new Widgets.Status (status);
-        content_list.insert (w, -1);
-        on_content_changed ();
-    }
+	bool append (owned Entity entity) {
+		var w = entity.to_widget ();
+		content_list.insert (w, -1);
+		return true;
+	}
 
-    void append_status (API.Status status) {
-        var w = new Widgets.Status (status);
-        content_list.insert (w, -1);
-        on_content_changed ();
-    }
+	void append_header (string name) {
+		var w = new Label (@"<span weight='bold' size='medium'>$name</span>");
+		w.halign = Align.START;
+		w.margin = 8;
+		w.use_markup = true;
+		w.show ();
+		content_list.insert (w, -1);
+	}
 
-    void append_header (string name) {
-        var w = new Label (@"<span weight='bold' size='medium'>$name</span>");
-        w.halign = Align.START;
-        w.margin = 8;
-        w.use_markup = true;
-        w.show ();
-        content_list.insert (w, -1);
-        on_content_changed ();
-    }
+	void request () {
+		query = entry.text.chug ().chomp ();
+		if (query == "") {
+			clear ();
+			return;
+		}
 
-    void append_hashtag (string name) {
-        var encoded = Soup.URI.encode (name, null);
-        var w = new Widgets.RichLabel (@"<a href=\"$(accounts.active.instance)/tags/$encoded\">#$name</a>");
-        w.use_markup = true;
-        w.halign = Align.START;
-        w.margin = 8;
-        w.show ();
-        content_list.insert (w, -1);
-    }
+		clear ();
+		status_message = STATUS_LOADING;
+		API.SearchResults.request.begin (query, accounts.active, (obj, res) => {
+			try {
+				var results = API.SearchResults.request.end (res);
 
-    void request () {
-        query = entry.text;
-        if (query == "") {
-            clear ();
-            return;
-        }
+				if (!results.accounts.is_empty) {
+					append_header (_("People"));
+					results.accounts.@foreach (append);
+				}
 
-        status_message = STATUS_LOADING;
-        new Request.GET ("/api/v2/search")
-        	.with_account (accounts.active)
-        	.with_param ("resolve", "true")
-        	.with_param ("q", Soup.URI.encode (query, null))
-        	.then ((sess, msg) => {
-                var root = network.parse (msg);
-                var accounts = root.get_array_member ("accounts");
-                var statuses = root.get_array_member ("statuses");
-                var hashtags = root.get_array_member ("hashtags");
+				if (!results.statuses.is_empty) {
+					append_header (_("Posts"));
+					results.statuses.@foreach (append);
+				}
 
-                clear ();
+				if (!results.hashtags.is_empty) {
+					append_header (_("Hashtags"));
+					results.hashtags.@foreach (append);
+				}
 
-                if (hashtags.get_length () > 0) {
-                    append_header (_("Hashtags"));
-                    hashtags.foreach_element ((array, i, node) => {
-                        append_hashtag (node.get_object ().get_string_member ("name"));
-                    });
-                }
-
-                if (accounts.get_length () > 0) {
-                    append_header (_("Accounts"));
-                    accounts.foreach_element ((array, i, node) => {
-                        var acc = API.Account.from (node);
-                        append_account (acc);
-                    });
-                }
-
-                if (statuses.get_length () > 0) {
-                    append_header (_("Statuses"));
-                    statuses.foreach_element ((array, i, node) => {
-                        var status = API.Status.from (node);
-                        append_status (status);
-                    });
-                }
-        	})
-        	.on_error (on_error)
-        	.exec ();
-    }
+				on_content_changed ();
+			}
+			catch (Error e) {
+				on_error (-1, e.message);
+			}
+		});
+	}
 
 }

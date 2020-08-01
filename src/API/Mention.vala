@@ -1,4 +1,4 @@
-public class Tootle.API.Mention : Entity {
+public class Tootle.API.Mention : Entity, Widgetizable {
 
     public string id { get; construct set; }
     public string username { get; construct set; }
@@ -13,5 +13,9 @@ public class Tootle.API.Mention : Entity {
     		url: account.url
     	);
     }
+
+	public override void open () {
+		Views.Profile.open_from_id (id);
+	}
 
 }

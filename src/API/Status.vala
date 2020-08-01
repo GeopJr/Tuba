@@ -77,6 +77,11 @@ public class Tootle.API.Status : Entity, Widgetizable {
         return new Widgets.Status (this);
     }
 
+	public override void open () {
+		var view = new Views.ExpandedStatus (formal);
+		window.open_view (view);
+	}
+
     public bool is_owned (){
         return formal.account.id == accounts.active.id;
     }

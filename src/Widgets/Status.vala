@@ -92,11 +92,8 @@ public class Tootle.Widgets.Status : ListBoxRow {
 	public virtual signal void open () {
 		if (status.id == "")
 			on_avatar_clicked ();
-		else {
-			var formal = status.formal;
-			var view = new Views.ExpandedStatus (formal);
-			window.open_view (view);
-		}
+		else
+			status.open ();
 	}
 
 	construct {
@@ -183,8 +180,7 @@ public class Tootle.Widgets.Status : ListBoxRow {
 
 	[GtkCallback]
 	public void on_avatar_clicked () {
-		var view = new Views.Profile (status.formal.account);
-		window.open_view (view);
+		status.formal.account.open ();
 	}
 
 	protected void open_menu () {

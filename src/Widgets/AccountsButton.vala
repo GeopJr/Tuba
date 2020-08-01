@@ -49,8 +49,8 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
 
 		[GtkCallback]
 		void open_profile () {
-			Views.Profile.open_from_id (account.id);
 			button.active = false;
+			account.resolve_open (accounts.active);
 		}
 
 	}

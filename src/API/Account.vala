@@ -37,10 +37,29 @@ public class Tootle.API.Account : Entity, Widgetizable {
         return id == accounts.active.id;
     }
 
+	public override bool is_local (InstanceAccount account) {
+		return account.short_instance in url;
+	}
+
     public override Gtk.Widget to_widget () {
         var status = new API.Status.from_account (this);
         return new Widgets.Status (status);
     }
+
+	public override void open () {
+		var view = new Views.Profile (this);
+		window.open_view (view);
+	}
+
+	public override void resolve_open (InstanceAccount account) {
+		if (is_local (account))
+			open ();
+		else {
+			account.resolve.begin (url, (obj, res) => {
+				account.resolve.end (res).open ();
+			});
+		}
+	}
 
     public Request get_relationship () {
     	return new Request.GET ("/api/v1/accounts/relationships")

@@ -3,109 +3,85 @@ using Gee;
 
 public class Tootle.Widgets.RichLabel : Label {
 
-    public weak ArrayList<API.Mention>? mentions;
+	public weak ArrayList<API.Mention>? mentions;
 
-    public string text {
-        get {
-            return this.label;
-        }
-        set {
-            this.label = escape_entities (Html.simplify (value));
-        }
-    }
+	public string text {
+		get {
+			return this.label;
+		}
+		set {
+			this.label = escape_entities (Html.simplify (value));
+		}
+	}
 
 	construct {
 		use_markup = true;
 		xalign = 0;
-        wrap_mode = Pango.WrapMode.WORD_CHAR;
-        justify = Justification.LEFT;
-        single_line_mode = false;
-        set_line_wrap (true);
+		wrap_mode = Pango.WrapMode.WORD_CHAR;
+		justify = Justification.LEFT;
+		single_line_mode = false;
+		set_line_wrap (true);
 		activate_link.connect (open_link);
 	}
 
-    public RichLabel (string text) {
-        set_label (text);
-    }
+	public RichLabel (string text) {
+		set_label (text);
+	}
 
-    public static string escape_entities (string content) {
-        return content
-               .replace ("&nbsp;", " ")
-               .replace ("'", "&apos;");
-    }
+	public static string escape_entities (string content) {
+		return content
+			   .replace ("&nbsp;", " ")
+			   .replace ("'", "&apos;");
+	}
 
-    public static string restore_entities (string content) {
-        return content
-               .replace ("&amp;", "&")
-               .replace ("&lt;", "<")
-               .replace ("&gt;", ">")
-               .replace ("&apos;", "'")
-               .replace ("&quot;", "\"");
-    }
+	public static string restore_entities (string content) {
+		return content
+			   .replace ("&amp;", "&")
+			   .replace ("&lt;", "<")
+			   .replace ("&gt;", ">")
+			   .replace ("&apos;", "'")
+			   .replace ("&quot;", "\"");
+	}
 
-    public bool open_link (string url) {
-        if ("tootle://" in url)
-            return false;
+	public bool open_link (string url) {
+		if ("tootle://" in url)
+			return false;
 
-        if (mentions != null){
-            mentions.@foreach (mention => {
-                if (url == mention.url)
-                    Views.Profile.open_from_id (mention.id);
-                return true;
-            });
-        }
+		if (mentions != null){
+			mentions.@foreach (mention => {
+				if (url == mention.url)
+					mention.open ();
+				return true;
+			});
+		}
 
-        if ("/tags/" in url) {
-            var encoded = url.split("/tags/")[1];
-            var hashtag = Soup.URI.decode (encoded);
-            window.open_view (new Views.Hashtag (hashtag));
-            return true;
-        }
+		if ("/tags/" in url) {
+			var encoded = url.split ("/tags/")[1];
+			var tag = Soup.URI.decode (encoded);
+			window.open_view (new Views.Hashtag (tag));
+			return true;
+		}
 
-        if ("@" in url || "tags" in url) {
-            new Request.GET ("/api/v2/search")
-                .with_account (accounts.active)
-                .with_param ("resolve", "true")
-                .with_param ("q", Soup.URI.encode (url, null))
-                .then ((sess, mess) => {
-                    var root = network.parse (mess);
-                    var accounts = root.get_array_member ("accounts");
-                    var statuses = root.get_array_member ("statuses");
-                    var hashtags = root.get_array_member ("hashtags");
+		var resolve = "@" in url;
+		var resolved = false;
+		if (resolve) {
+			accounts.active.resolve.begin (url, (obj, res) => {
+				try {
+					accounts.active.resolve.end (res).open ();
+					resolved = true;
+				}
+				catch (Error e) {
+					warning (@"Failed to resolve URL \"$url\":");
+					warning (e.message);
+				}
+			});
+		}
 
-                    if (accounts.get_length () > 0) {
-                        var node = accounts.get_element (0);
-                        var obj = API.Account.from (node);
-                        window.open_view (new Views.Profile (obj));
-                    }
-                    else if (statuses.get_length () > 0) {
-                        var node = accounts.get_element (0);
-                        var obj = API.Status.from (node);
-                        window.open_view (new Views.ExpandedStatus (obj));
-                    }
-                    else if (hashtags.get_length () > 0) {
-                        var node = accounts.get_element (0);
-                        var obj = API.Tag.from (node);
-                        window.open_view (new Views.Hashtag (obj.name));
-                    }
-                    else {
-                        Desktop.open_uri (url);
-                    }
-                })
-                .on_error ((status, reason) => open_link_fallback (url, reason))
-                .exec ();
-        }
-        else {
-            Desktop.open_uri (url);
-        }
-        return true;
-    }
+		if (!resolved)
+			Desktop.open_uri (url);
 
-    public bool open_link_fallback (string url, string reason) {
-        warning (@"Can't resolve url: $url");
-        warning (@"Reason: $reason");
-        Desktop.open_uri (url);
-        return true;
-    }
+		return true;
+	}
+
 
 }

@@ -142,10 +142,8 @@ public class Tootle.Views.Profile : Views.Timeline {
 			return req;
 	}
 
-    public static void open_from_id (string id){
-        var url = @"$(accounts.active.instance)/api/v1/accounts/$id";
-        var msg = new Soup.Message ("GET", url);
-        msg.priority = Soup.MessagePriority.HIGH;
+    public static void open_from_id (string id) {
+        var msg = new Soup.Message ("GET", @"$(accounts.active.instance)/api/v1/accounts/$id");
         network.queue (msg, (sess, mess) => {
             var node = network.parse_node (mess);
             var acc = API.Account.from (node);

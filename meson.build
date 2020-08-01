@@ -70,6 +70,7 @@ executable(
     'src/API/Attachment.vala',
     'src/API/Conversation.vala',
     'src/API/List.vala',
+    'src/API/SearchResults.vala',
     'src/API/Entity.vala',
     'src/Widgets/Widgetizable.vala',
     'src/Widgets/Avatar.vala',

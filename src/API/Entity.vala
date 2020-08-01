@@ -4,6 +4,10 @@ public class Tootle.Entity : GLib.Object, Widgetizable, Json.Serializable {
 
 	public static string[] ignore_props = {"formal", "handle", "short-instance", "has-spoiler"};
 
+	public virtual bool is_local (InstanceAccount account) {
+		return true;
+	}
+
 	public new ParamSpec[] list_properties () {
 		ParamSpec[] specs = {};
 		foreach (ParamSpec spec in get_class ().list_properties ()) {
@@ -12,7 +16,6 @@ public class Tootle.Entity : GLib.Object, Widgetizable, Json.Serializable {
 		}
 		return specs;
 	}
-
 
 	public void patch (GLib.Object with) {
 		var props = with.get_class ().list_properties ();
@@ -85,6 +88,15 @@ public class Tootle.Entity : GLib.Object, Widgetizable, Json.Serializable {
 					break;
 				case "fields":
 					contains = typeof (API.AccountField);
+					break;
+				case "accounts":
+					contains = typeof (API.Account);
+					break;
+				case "statuses":
+					contains = typeof (API.Status);
+					break;
+				case "hashtags":
+					contains = typeof (API.Tag);
 					break;
 				default:
 					contains = typeof (Entity);

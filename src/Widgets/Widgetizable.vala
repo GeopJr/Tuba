@@ -4,4 +4,11 @@ public interface Tootle.Widgetizable : GLib.Object {
 		throw new Tootle.Oopsie.INTERNAL ("Widgetizable didn't provide a Widget!");
 	}
 
+	public virtual void open () {
+		warning ("Widgetizable didn't provide a way to open it!");
+	}
+	public virtual void resolve_open (InstanceAccount account) {
+		this.open ();
+	}
+
 }
