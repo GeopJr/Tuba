@@ -21,7 +21,6 @@ public class Tootle.Widgets.RichLabel : Label {
 		justify = Justification.LEFT;
 		single_line_mode = false;
 		set_line_wrap (true);
-		activate_link.connect (open_link);
 	}
 
 	public RichLabel (string text) {
@@ -43,10 +42,7 @@ public class Tootle.Widgets.RichLabel : Label {
 			   .replace ("&quot;", "\"");
 	}
 
-	public bool open_link (string url) {
-		if ("tootle://" in url)
-			return false;
-
+	public override bool activate_link (string url) {
 		if (mentions != null){
 			mentions.@foreach (mention => {
 				if (url == mention.url)
@@ -63,23 +59,20 @@ public class Tootle.Widgets.RichLabel : Label {
 		}
 
 		var resolve = "@" in url;
-		var resolved = false;
-		if (resolve) {
+		if (!resolve)
+			Desktop.open_uri (url);
+		else {
 			accounts.active.resolve.begin (url, (obj, res) => {
 				try {
 					accounts.active.resolve.end (res).open ();
-					resolved = true;
 				}
 				catch (Error e) {
 					warning (@"Failed to resolve URL \"$url\":");
 					warning (e.message);
+					Desktop.open_uri (url);
 				}
 			});
 		}
-
-		if (!resolved)
-			Desktop.open_uri (url);
-
 		return true;
 	}
 
