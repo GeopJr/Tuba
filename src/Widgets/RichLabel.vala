@@ -58,7 +58,7 @@ public class Tootle.Widgets.RichLabel : Label {
 			return true;
 		}
 
-		var resolve = "@" in url;
+		var resolve = settings.aggressive_resolving || ("@" in url);
 		if (!resolve)
 			Desktop.open_uri (url);
 		else {

@@ -37,6 +37,9 @@
 		<key name="public-live-updates" type="b">
 			<default>false</default>
 		</key>
+		<key name="aggressive-resolving" type="b">
+			<default>false</default>
+		</key>
 
 		<key name="window-x" type="i">
 			<default>-1</default>

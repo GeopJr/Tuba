@@ -48,13 +48,16 @@ public class Tootle.Widgets.Attachment.Slot : FlowBoxChild {
 
 	void download () {
         Desktop.download (attachment.url, path => {
-        	app.toast (_("Attachment downloaded"));
-        });
+        	app.toast (_("File saved to Downloads"));
+        },
+        () => {});
 	}
+
 	void open () {
         Desktop.download (attachment.url, path => {
         	Desktop.open_uri (path);
-        });
+        },
+        () => {});
 	}
 
     protected virtual bool on_clicked (EventButton ev) {

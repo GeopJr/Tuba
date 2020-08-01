@@ -11,6 +11,7 @@ public class Tootle.Settings : GLib.Settings {
 	public int post_text_size { get; set; }
 	public bool live_updates { get; set; }
 	public bool public_live_updates { get; set; }
+	public bool aggressive_resolving { get; set; }
 
 	public int window_x { get; set; }
 	public int window_y { get; set; }
@@ -28,6 +29,7 @@ public class Tootle.Settings : GLib.Settings {
 		init ("post-text-size");
 		init ("live-updates");
 		init ("public-live-updates");
+		init ("aggressive-resolving");
 
 		init ("window-x");
 		init ("window-y");
