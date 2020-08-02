@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-16 16:00+0300\n"
+"POT-Creation-Date: 2020-08-02 15:30+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,393 +65,441 @@ msgstr ""
 msgid "bleak_grey"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:80
-msgid "Added Watchlist"
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:74
+msgid "New app icon (kudos to Tobias Bernard!)"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:81
-msgid "Added Redraft support"
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:75
+msgid "New interface design"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:82
-msgid "Added Pinning support"
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:76
+msgid "Fixed bugs"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:83
-msgid "Added Simplified Chinese and German translations"
+#: data/ui/dialogs/compose.ui:50
+msgid "Write your warning here"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:84
-msgid "Added --hidden Start Flag"
+#: data/ui/dialogs/compose.ui:116
+msgid "Visibility"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:85
-msgid "Added Shortcuts and Back mouse button support"
+#: data/ui/dialogs/compose.ui:169
+msgid "Attach Media"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:86
-msgid "Changed Notifications screen behavior"
+#: data/ui/dialogs/compose.ui:191
+msgid "Instance Emojis"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:87
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:102
-msgid "Fixed minor bugs"
+#: data/ui/dialogs/compose.ui:215
+msgid "Spoiler Warning"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:94
-msgid "Added Russian, French and Polish translations"
+#: data/ui/dialogs/compose.ui:260
+msgid "Text"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:95
-msgid "Added Direct timeline"
+#: data/ui/dialogs/compose.ui:320
+msgid "Media"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:96
-msgid "Added support for custom character limit"
+#: data/ui/dialogs/compose.ui:391 data/ui/dialogs/list_editor.ui:239
+msgid "Cancel"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:97
-msgid "Added support for streaming all timelines"
+#: data/ui/dialogs/list_editor.ui:110
+msgid "Search among people you follow"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:98
-msgid "Added tooltips for image attachments"
+#: data/ui/dialogs/list_editor.ui:171
+msgid "<span size=\"x-large\">Nobody here</span>"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:99
-msgid "Added remove action for attachments"
+#: data/ui/dialogs/list_editor.ui:213 data/ui/widgets/status.ui:260
+msgid "Name"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:100
-msgid "Changed behavior for mentioning users"
+#: data/ui/dialogs/list_editor.ui:263
+msgid "Save"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:101
-msgid "Changed behavior for missing image attachments"
+#: data/ui/dialogs/preferences.ui:16
+msgid "General"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:109
-msgid "Initial release"
+#: data/ui/dialogs/preferences.ui:22 data/ui/dialogs/preferences.ui:93
+msgid "Appearance"
 msgstr ""
 
-#: src/Desktop.vala:10
-msgid "Error"
+#: data/ui/dialogs/preferences.ui:27
+msgid "Dark theme"
 msgstr ""
 
-#: src/Desktop.vala:47
-msgid "Media downloaded"
+#: data/ui/dialogs/preferences.ui:42 data/ui/dialogs/preferences.ui:132
+msgid "Behavior"
 msgstr ""
 
-#: src/Services/Accounts.vala:31
+#: data/ui/dialogs/preferences.ui:47
+msgid "Autostart"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:48
+msgid "Start minimized at boot"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:61
+msgid "Background work"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:62
+msgid "Receive notifications even when the app window is closed"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:74
+msgid "Default post visibility"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:87
+msgid "Timelines"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:98
+msgid "Posts per page"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:114
+msgid "Post text size (%)"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:137
+msgid "Stream timelines"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:138
+msgid "Add and remove posts in real-time"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:152
+msgid "Stream public timelines"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:153
+msgid "Warning: This will use more resources on crowded instances"
+msgstr ""
+
+#: data/ui/views/new_account.ui:80
+msgid "Which Instance?\n"
+msgstr ""
+
+#: data/ui/views/new_account.ui:100
+msgid "<a href=\"https://joinmastodon.org/\">What's an instance?</a>"
+msgstr ""
+
+#: data/ui/views/new_account.ui:117
+msgid "instance.domain"
+msgstr ""
+
+#: data/ui/views/new_account.ui:146
+msgid "Grant Account Access\n"
+msgstr ""
+
+#: data/ui/views/new_account.ui:166
+msgid "Paste"
+msgstr ""
+
+#: data/ui/views/new_account.ui:167
+msgid "Paste your authorization code here"
+msgstr ""
+
+#: data/ui/views/new_account.ui:182
+msgid "<a href=\"\">Try another instance?</a>"
+msgstr ""
+
+#: data/ui/views/profile_header.ui:142 src/Views/Profile.vala:126
+msgid "Follow"
+msgstr ""
+
+#: data/ui/widgets/accounts_button.ui:61 src/Views/Conversations.vala:6
+msgid "Conversations"
+msgstr ""
+
+#: data/ui/widgets/accounts_button.ui:90 src/Views/Favorites.vala:6
+msgid "Favorites"
+msgstr ""
+
+#: data/ui/widgets/accounts_button.ui:119 src/Views/Bookmarks.vala:6
+msgid "Bookmarks"
+msgstr ""
+
+#: data/ui/widgets/accounts_button.ui:149 src/Views/Lists.vala:59
+msgid "Lists"
+msgstr ""
+
+#: data/ui/widgets/accounts_button.ui:196
+msgid "Refresh"
+msgstr ""
+
+#: data/ui/widgets/accounts_button.ui:209 src/Views/Search.vala:10
+msgid "Search"
+msgstr ""
+
+#: data/ui/widgets/accounts_button.ui:222
+msgid "Preferences"
+msgstr ""
+
+#: data/ui/widgets/accounts_button.ui:248
+msgid "Accounts"
+msgstr ""
+
+#: data/ui/widgets/accounts_button_item.ui:44
+msgid "Forget"
+msgstr ""
+
+#: data/ui/widgets/accounts_button_item.ui:72
+msgid "Title"
+msgstr ""
+
+#: data/ui/widgets/accounts_button_item.ui:91
+msgid "Handle"
+msgstr ""
+
+#: data/ui/widgets/compose_attachment.ui:29
+msgid "Describe for the visually impaired"
+msgstr ""
+
+#: data/ui/widgets/compose_attachment.ui:90
+msgid "Unknown"
+msgstr ""
+
+#: data/ui/widgets/compose_attachment.ui:113 data/ui/widgets/list_item.ui:74
+#: src/Widgets/Status.vala:232
+msgid "Delete"
+msgstr ""
+
+#: data/ui/widgets/list_item.ui:26 src/Dialogs/ListEditor.vala:87
+msgid "Untitled"
+msgstr ""
+
+#: data/ui/widgets/list_item.ui:42
+msgid "Edit"
+msgstr ""
+
+#: data/ui/widgets/timeline_filter.ui:26
+msgid "Show:"
+msgstr ""
+
+#: data/ui/widgets/timeline_filter.ui:56
+msgid "0 Posts"
+msgstr ""
+
+#: data/ui/widgets/timeline_filter.ui:79
+msgid "0 Follows"
+msgstr ""
+
+#: data/ui/widgets/timeline_filter.ui:102
+msgid "0 Followers"
+msgstr ""
+
+#: data/ui/widgets/timeline_filter.ui:159
+msgid "Filter:"
+msgstr ""
+
+#: data/ui/widgets/timeline_filter.ui:189
+msgid "None"
+msgstr ""
+
+#: data/ui/widgets/timeline_filter.ui:211
+msgid "Include Replies"
+msgstr ""
+
+#: data/ui/widgets/timeline_filter.ui:233
+msgid "Only Media"
+msgstr ""
+
+#: src/Desktop.vala:18
 #, c-format
 msgid ""
-"This instance has invalidated this session. Please sign in again.\n"
+"Open this URL in your browser:\n"
 "\n"
 "%s"
 msgstr ""
 
-#: src/Services/Network.vala:86
-msgid "Network Error"
+#: src/Html.vala:3
+msgid "[ There was an error parsing this text :c ]"
 msgstr ""
 
-#: src/API/Visibility.vala:36
-msgid "Unlisted"
+#: src/Dialogs/Compose.vala:83 src/Views/Lists.vala:33
+msgid "This action cannot be reverted."
 msgstr ""
 
-#: src/API/Visibility.vala:38
-msgid "Followers-only"
+#: src/Dialogs/Compose.vala:126
+msgid "Publish"
 msgstr ""
 
-#: src/API/Visibility.vala:40
-msgid "Direct"
-msgstr ""
-
-#: src/API/Visibility.vala:42
-msgid "Public"
-msgstr ""
-
-#: src/API/Visibility.vala:49
-msgid "Don't post to public timelines"
-msgstr ""
-
-#: src/API/Visibility.vala:51
-msgid "Post to followers only"
-msgstr ""
-
-#: src/API/Visibility.vala:53
-msgid "Post to mentioned users only"
-msgstr ""
-
-#: src/API/Visibility.vala:55
-msgid "Post to public timelines"
-msgstr ""
-
-#: src/API/NotificationType.vala:56
-#, c-format
-msgid ""
-"<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> mentioned you</span>"
-msgstr ""
-
-#: src/API/NotificationType.vala:58
-#, c-format
-msgid ""
-"<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> boosted your status</"
-"span>"
-msgstr ""
-
-#: src/API/NotificationType.vala:60
-#, c-format
-msgid "<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> boosted</span>"
-msgstr ""
-
-#: src/API/NotificationType.vala:62
-#, c-format
-msgid ""
-"<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> favorited your status</"
-"span>"
-msgstr ""
-
-#: src/API/NotificationType.vala:64
-#, c-format
-msgid ""
-"<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> now follows you</span>"
-msgstr ""
-
-#: src/API/NotificationType.vala:66
-#, c-format
-msgid ""
-"<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> wants to follow you</"
-"span>"
-msgstr ""
-
-#: src/API/NotificationType.vala:68
-#, c-format
-msgid ""
-"<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> posted a status</span>"
-msgstr ""
-
-#: src/Widgets/RichLabel.vala:105 src/Widgets/Status.vala:206
-#: src/Widgets/Account.vala:28
-msgid "Open in Browser"
-msgstr ""
-
-#: src/Widgets/AccountsButton.vala:62
-msgid "Refresh"
-msgstr ""
-
-#: src/Widgets/AccountsButton.vala:67
-msgid "Favorites"
-msgstr ""
-
-#: src/Widgets/AccountsButton.vala:71 src/Views/Direct.vala:12
-msgid "Direct Messages"
-msgstr ""
-
-#: src/Widgets/AccountsButton.vala:75 src/Views/Search.vala:12
-msgid "Search"
-msgstr ""
-
-#: src/Widgets/AccountsButton.vala:79 src/Dialogs/WatchlistEditor.vala:99
-msgid "Watchlist"
-msgstr ""
-
-#: src/Widgets/AccountsButton.vala:83 src/Dialogs/Preferences.vala:17
-msgid "Settings"
-msgstr ""
-
-#: src/Widgets/Status.vala:52
-msgid "[ Show more ]"
-msgstr ""
-
-#: src/Widgets/Status.vala:120
-msgid "This post can't be boosted"
-msgstr ""
-
-#: src/Widgets/Status.vala:208 src/Widgets/Account.vala:30
-msgid "Copy Link"
-msgstr ""
-
-#: src/Widgets/Status.vala:210
-msgid "Copy Text"
-msgstr ""
-
-#: src/Widgets/Status.vala:217
-msgid "Unpin from Profile"
-msgstr ""
-
-#: src/Widgets/Status.vala:217
-msgid "Pin on Profile"
-msgstr ""
-
-#: src/Widgets/Status.vala:221
-msgid "Delete"
-msgstr ""
-
-#: src/Widgets/Status.vala:225 src/Dialogs/Compose.vala:73
+#: src/Dialogs/Compose.vala:136 src/Widgets/Status.vala:242
 msgid "Redraft"
 msgstr ""
 
-#: src/Widgets/Attachment/Box.vala:28
-msgid "Select media files to add"
+#: src/Dialogs/Compose.vala:154
+msgid "Reply"
 msgstr ""
 
-#: src/Widgets/Attachment/Box.vala:31
-msgid "_Cancel"
+#: src/Dialogs/Compose.vala:197
+msgid "Select media"
 msgstr ""
 
-#: src/Widgets/Attachment/Box.vala:33
+#: src/Dialogs/Compose.vala:200
 msgid "_Open"
 msgstr ""
 
-#: src/Dialogs/MainWindow.vala:49
+#: src/Dialogs/Compose.vala:201
+msgid "_Cancel"
+msgstr ""
+
+#: src/Dialogs/ListEditor.vala:201
+msgid "Discard changes?"
+msgstr ""
+
+#: src/Dialogs/ListEditor.vala:202
+msgid "You need to save the list if you want to keep them."
+msgstr ""
+
+#: src/Dialogs/MainWindow.vala:37
 msgid "Back"
 msgstr ""
 
-#: src/Dialogs/MainWindow.vala:58
-msgid "Toot"
+#: src/Dialogs/MainWindow.vala:40
+msgid "Compose"
 msgstr ""
 
-#: src/Dialogs/MainWindow.vala:63
-msgid "Toggle content"
+#: src/Services/Accounts.vala:32
+msgid "Network Error"
 msgstr ""
 
-#: src/Dialogs/Compose.vala:69
-msgid "Post"
-msgstr ""
-
-#: src/Dialogs/Preferences.vala:36
-msgid "Appearance"
-msgstr ""
-
-#: src/Dialogs/Preferences.vala:37
-msgid "Dark theme:"
-msgstr ""
-
-#: src/Dialogs/Preferences.vala:40
-msgid "Timelines"
-msgstr ""
-
-#: src/Dialogs/Preferences.vala:41
-msgid "Real-time updates:"
-msgstr ""
-
-#: src/Dialogs/Preferences.vala:43
-msgid "Update public timelines:"
-msgstr ""
-
-#. grid.attach (new Granite.HeaderLabel (_("Caching")), 0, i++, 2, 1);
-#. grid.attach (new SettingsLabel (_("Use cache:")), 0, i);
-#. grid.attach (new SettingsSwitch ("cache"), 1, i++);
-#. grid.attach (new SettingsLabel (_("Max cache size (MB):")), 0, i);
-#. var cache_size = new SpinButton.with_range (16, 256, 1);
-#. settings.schema.bind ("cache-size", cache_size, "value", SettingsBindFlags.DEFAULT);
-#. grid.attach (cache_size, 1, i++);
-#: src/Dialogs/Preferences.vala:54 src/Views/Notifications.vala:33
-msgid "Notifications"
-msgstr ""
-
-#: src/Dialogs/Preferences.vala:55
-msgid "Display notifications:"
-msgstr ""
-
-#: src/Dialogs/Preferences.vala:57
-msgid "Always receive notifications:"
-msgstr ""
-
-#: src/Dialogs/Preferences.vala:63 src/Dialogs/WatchlistEditor.vala:162
-msgid "_Close"
-msgstr ""
-
-#: src/Dialogs/WatchlistEditor.vala:20
+#: src/Services/Accounts.vala:33
+#, c-format
 msgid ""
-"You'll be notified when toots from this user appear in your Home timeline."
-msgstr ""
-
-#: src/Dialogs/WatchlistEditor.vala:21
-msgid ""
-"You'll be notified when toots with this hashtag appear in any public "
-"timelines."
-msgstr ""
-
-#: src/Dialogs/WatchlistEditor.vala:108
-msgid "Users"
-msgstr ""
-
-#: src/Dialogs/WatchlistEditor.vala:109 src/Views/Search.vala:100
-msgid "Hashtags"
-msgstr ""
-
-#: src/Dialogs/WatchlistEditor.vala:122
-msgid "Add"
+"The instance has invalidated this session. Please sign in again.\n"
+"\n"
+"%s"
 msgstr ""
 
 #: src/Views/Base.vala:6
 msgid "Nothing to see here"
 msgstr ""
 
-#: src/Views/NewAccount.vala:91
-msgid "Instance URL is invalid"
+#: src/Views/Base.vala:47
+msgid "Reload"
 msgstr ""
 
-#: src/Views/NewAccount.vala:133
-msgid "Please paste a valid authorization code"
+#: src/Views/Federated.vala:7
+msgid "Federated"
 msgstr ""
 
-#: src/Views/Timeline.vala:34 src/Views/Home.vala:12
+#: src/Views/Home.vala:6
 msgid "Home"
 msgstr ""
 
-#: src/Views/Local.vala:12
-msgid "Local Timeline"
-msgstr ""
-
-#: src/Views/Federated.vala:12
-msgid "Federated Timeline"
-msgstr ""
-
-#: src/Views/Profile.vala:61
+#: src/Views/Lists.vala:32
 #, c-format
-msgid "%s Posts"
+msgid "Delete \"%s\"?"
 msgstr ""
 
-#: src/Views/Profile.vala:67
-#, c-format
-msgid "%s Follows"
+#: src/Views/Local.vala:4
+msgid "Local"
 msgstr ""
 
-#: src/Views/Profile.vala:73
-#, c-format
-msgid "%s Followers"
+#: src/Views/NewAccount.vala:27
+msgid "New Account"
 msgstr ""
 
-#: src/Views/Profile.vala:109
-msgid "Sent follow request"
+#: src/Views/NewAccount.vala:94
+msgid "Instance URL is invalid"
 msgstr ""
 
-#: src/Views/Profile.vala:111
-msgid "Mutually follows you"
+#: src/Views/NewAccount.vala:135
+msgid "Please paste a valid authorization code"
+msgstr ""
+
+#: src/Views/Notifications.vala:11
+msgid "Notifications"
 msgstr ""
 
 #: src/Views/Profile.vala:113
-msgid "Follows you"
+msgid "Sent follow request"
 msgstr ""
 
-#: src/Views/Profile.vala:124
-msgid "Follow back"
+#: src/Views/Profile.vala:115
+msgid "Mutually follows you"
+msgstr ""
+
+#: src/Views/Profile.vala:117
+msgid "Follows you"
 msgstr ""
 
 #: src/Views/Profile.vala:126
 msgid "Unfollow"
 msgstr ""
 
-#: src/Views/Profile.vala:128
-msgid "Follow"
+#: src/Views/Search.vala:61
+msgid "People"
 msgstr ""
 
-#: src/Views/Search.vala:82
-msgid "Accounts"
+#: src/Views/Search.vala:66
+msgid "Posts"
 msgstr ""
 
-#: src/Views/Search.vala:91
-msgid "Statuses"
+#: src/Views/Search.vala:71
+msgid "Hashtags"
+msgstr ""
+
+#: src/Widgets/Attachment/Slot.vala:51
+msgid "File saved to Downloads"
+msgstr ""
+
+#: src/Widgets/AccountsButton.vala:40
+#, c-format
+msgid "Forget %s?"
+msgstr ""
+
+#: src/Widgets/AccountsButton.vala:41
+msgid "This account will be removed from the application."
+msgstr ""
+
+#: src/Widgets/AccountsButton.vala:156
+msgid "Anonymous"
+msgstr ""
+
+#: src/Widgets/AccountsButton.vala:157
+msgid "No active account"
+msgstr ""
+
+#: src/Widgets/Status.vala:60
+msgid "[ Toggle content ]"
+msgstr ""
+
+#: src/Widgets/Status.vala:152
+msgid "This post can't be boosted"
+msgstr ""
+
+#: src/Widgets/Status.vala:202
+msgid "Open in Browser"
+msgstr ""
+
+#: src/Widgets/Status.vala:204
+msgid "Copy Link"
+msgstr ""
+
+#: src/Widgets/Status.vala:206
+msgid "Copy Text"
+msgstr ""
+
+#: src/Widgets/Status.vala:226
+msgid "Unpin from Profile"
+msgstr ""
+
+#: src/Widgets/Status.vala:226
+msgid "Pin on Profile"
 msgstr ""
