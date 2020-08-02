@@ -68,48 +68,16 @@
   </screenshots>
 
   <releases>
-    <release version="0.2.0" date="2018-10-31">
+    <release version="1.0.0" date="2020-07-25">
         <description>
            <ul>
-              <li>Added Watchlist</li>
-              <li>Added Redraft support</li>
-              <li>Added Pinning support</li>
-              <li>Added Simplified Chinese and German translations</li>
-              <li>Added --hidden Start Flag</li>
-              <li>Added Shortcuts and Back mouse button support</li>
-              <li>Changed Notifications screen behavior</li>
-              <li>Fixed minor bugs</li>
-          </ul>
-        </description>
-      </release>
-    <release version="0.1.5" date="2018-06-21">
-        <description>
-           <ul>
-              <li>Added Russian, French and Polish translations</li>
-              <li>Added Direct timeline</li>
-              <li>Added support for custom character limit</li>
-              <li>Added support for streaming all timelines</li>
-              <li>Added tooltips for image attachments</li>
-              <li>Added remove action for attachments</li>
-              <li>Changed behavior for mentioning users</li>
-              <li>Changed behavior for missing image attachments</li>
-              <li>Fixed minor bugs</li>
-          </ul>
-        </description>
-      </release>
-    <release version="0.1.3" date="2018-05-31">
-        <description>
-           <ul>
-              <li>Initial release</li>
+              <li>New app icon (kudos to Tobias Bernard!)</li>
+              <li>New interface design</li>
+              <li>Fixed bugs</li>
           </ul>
         </description>
       </release>
    </releases>
-
-   <custom>
-     <value key="x-appcenter-color-primary">#F5F8FF</value>
-     <value key="x-appcenter-color-primary-text">#413F58</value>
-  </custom>
 
 </component>
 

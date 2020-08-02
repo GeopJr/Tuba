@@ -30,7 +30,7 @@ public class Tootle.Accounts : GLib.Object {
                 warning ("Token invalid!");
                 app.error (
                     _("Network Error"),
-                    _("This instance has invalidated this session. Please sign in again.\n\n%s").printf (reason)
+                    _("The instance has invalidated this session. Please sign in again.\n\n%s").printf (reason)
                 );
             })
             .exec ();
