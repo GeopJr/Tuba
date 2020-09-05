@@ -13,7 +13,7 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
         );
         accepts = typeof (API.Notification);
         on_notification.connect (add_notification);
-        on_status_added.disconnect (add_status);
+        disconnect (on_status_added_sigig);
     }
 
     public override string? get_stream_url () {
