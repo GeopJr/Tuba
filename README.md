@@ -20,7 +20,6 @@ If the options above are not available to you, you can build the app from source
     - [x] valac
     - [x] libgtk-3-dev
     - [x] libsoup2.4-dev
-    - [x] libgranite-dev
     - [x] libjson-glib-dev
     - [ ] libhandy-1.0-dev (>= 0.83.0)
 

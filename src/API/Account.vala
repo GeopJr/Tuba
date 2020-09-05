@@ -20,7 +20,6 @@ public class Tootle.API.Account : Entity, Widgetizable {
     public int64 followers_count { get; set; }
     public int64 following_count { get; set; }
     public int64 statuses_count { get; set; }
-    public Relationship? rs { get; set; default = null; }
     public Gee.ArrayList<API.AccountField>? fields { get; set; default = null; }
 
     public string handle {
@@ -28,6 +27,12 @@ public class Tootle.API.Account : Entity, Widgetizable {
             return "@" + acct;
         }
     }
+	public string domain {
+		owned get {
+			var uri = new Soup.URI (url);
+			return uri.get_host ();
+		}
+	}
 
 	public static Account from (Json.Node node) throws Error {
 		return Entity.from_json (typeof (API.Account), node) as API.Account;
@@ -38,7 +43,7 @@ public class Tootle.API.Account : Entity, Widgetizable {
     }
 
 	public override bool is_local (InstanceAccount account) {
-		return account.short_instance in url;
+		return account.domain in url;
 	}
 
     public override Gtk.Widget to_widget () {
@@ -60,54 +65,5 @@ public class Tootle.API.Account : Entity, Widgetizable {
 			});
 		}
 	}
-
-    public Request get_relationship () {
-    	return new Request.GET ("/api/v1/accounts/relationships")
-    		.with_account (accounts.active)
-    		.with_param ("id", id.to_string ())
-    		.then ((sess, msg) => {
-    			Network.parse_array (msg, node => {
-    				rs = API.Relationship.from (node);
-    			});
-    		})
-    		.on_error (network.on_error)
-    		.exec ();
-    }
-
-    public Request set_following (bool state = true) {
-        var action = state ? "follow" : "unfollow";
-        return new Request.POST (@"/api/v1/accounts/$id/$action")
-            .with_account (accounts.active)
-            .then ((sess, msg) => {
-                var node = network.parse_node (msg);
-                rs = API.Relationship.from (node);
-            })
-    		.on_error (network.on_error)
-    		.exec ();
-    }
-
-    public Request set_muted (bool state = true) {
-        var action = state ? "mute" : "unmute";
-        return new Request.POST (@"/api/v1/accounts/$id/$action")
-            .with_account (accounts.active)
-            .then ((sess, msg) => {
-                var node = network.parse_node (msg);
-                rs = API.Relationship.from (node);
-            })
-    		.on_error (network.on_error)
-    		.exec ();
-    }
-
-    public Request set_blocked (bool state = true) {
-        var action = state ? "block" : "unblock";
-        return new Request.POST (@"/api/v1/accounts/$id/$action")
-            .with_account (accounts.active)
-            .then ((sess, msg) => {
-                var node = network.parse_node (msg);
-                rs = API.Relationship.from (node);
-            })
-    		.on_error (network.on_error)
-    		.exec ();
-    }
 
 }

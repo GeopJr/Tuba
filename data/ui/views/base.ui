@@ -54,10 +54,12 @@
                                     <property name="height_request">128</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="opacity">0.30196078431372547</property>
                                     <property name="pixel_size">128</property>
                                     <property name="icon_name">com.github.bleakgrey.tootle-symbolic</property>
                                     <property name="icon_size">0</property>
+                                    <style>
+                                      <class name="dim-label"/>
+                                    </style>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -69,7 +71,6 @@
                                   <object class="GtkStack" id="status_stack">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="opacity">0.5019607843137255</property>
                                     <property name="transition_type">crossfade</property>
                                     <child>
                                       <object class="GtkLabel" id="status_message_label">
@@ -79,7 +80,6 @@
                                       </object>
                                       <packing>
                                         <property name="name">message</property>
-                                        <property name="title" translatable="no">page0</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -92,10 +92,12 @@
                                       </object>
                                       <packing>
                                         <property name="name">spinner</property>
-                                        <property name="title" translatable="no">page1</property>
                                         <property name="position">1</property>
                                       </packing>
                                     </child>
+                                    <style>
+                                      <class name="dim-label"/>
+                                    </style>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>

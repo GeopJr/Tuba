@@ -42,7 +42,7 @@
 							<property name="title" translatable="yes">Behavior</property>
 							<child>
 								<object class="HdyActionRow">
-									<property name="visible">True</property>
+									<property name="visible">False</property>
 									<property name="activatable_widget">autostart</property>
 									<property name="title" translatable="yes">Autostart</property>
 									<property name="subtitle" translatable="yes">Start minimized at boot</property>
@@ -56,7 +56,7 @@
 							</child>
 							<child>
 								<object class="HdyActionRow">
-									<property name="visible">True</property>
+									<property name="visible">False</property>
 									<property name="activatable_widget">work_in_background</property>
 									<property name="title" translatable="yes">Background work</property>
 									<property name="subtitle" translatable="yes">Receive notifications even when the app window is closed</property>

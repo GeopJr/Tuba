@@ -2,7 +2,7 @@ using Json;
 
 public class Tootle.Entity : GLib.Object, Widgetizable, Json.Serializable {
 
-	public static string[] ignore_props = {"formal", "handle", "short-instance", "has-spoiler"};
+	public static string[] ignore_props = {"formal", "handle", "domain", "has-spoiler"};
 
 	public virtual bool is_local (InstanceAccount account) {
 		return true;

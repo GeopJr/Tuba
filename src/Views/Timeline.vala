@@ -111,10 +111,12 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
 		})
 		.on_error (on_error);
 		req.exec ();
+
 		return GLib.Source.REMOVE;
 	}
 
 	public virtual void on_refresh () {
+		scrolled.vadjustment.value = 0;
 		status_button.sensitive = false;
 		clear ();
 		status_message = STATUS_LOADING;

@@ -1,5 +1,4 @@
 using Gtk;
-using Granite;
 
 public class Tootle.Widgets.Notification : Widgets.Status {
 

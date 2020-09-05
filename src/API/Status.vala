@@ -93,7 +93,7 @@ public class Tootle.API.Status : Entity, Widgetizable {
     public string get_reply_mentions () {
         var result = "";
         if (account.acct != accounts.active.acct)
-            result = "@%s ".printf (account.acct);
+            result = @"$(account.handle) ";
 
         if (mentions != null) {
             foreach (var mention in mentions) {
@@ -101,7 +101,7 @@ public class Tootle.API.Status : Entity, Widgetizable {
                 var already_mentioned = mention.acct in result;
 
                 if (!equals_current && ! already_mentioned)
-                    result += "@%s ".printf (mention.acct);
+                    result += @"$(mention.handle) ";
             }
         }
 

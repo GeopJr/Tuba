@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+
+  <menu id="profile-menu">
+
+    <section>
+      <submenu id="profile-filter-menu">
+        <attribute name="label" translatable="yes">Filter</attribute>
+        <item>
+          <attribute name="label" translatable="yes">Posts</attribute>
+          <attribute name="action">view.source</attribute>
+          <attribute name="target">statuses</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Following</attribute>
+          <attribute name="action">view.source</attribute>
+          <attribute name="target">following</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Followers</attribute>
+          <attribute name="action">view.source</attribute>
+          <attribute name="target">followers</attribute>
+        </item>
+
+        <section>
+          <item>
+            <attribute name="label" translatable="yes">With Replies</attribute>
+            <attribute name="action">view.include-replies</attribute>
+            <attribute name="hidden-when">action-disabled</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">With Media</attribute>
+            <attribute name="action">view.only-media</attribute>
+            <attribute name="hidden-when">action-disabled</attribute>
+          </item>
+        </section>
+
+      </submenu>
+    </section>
+
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Mention…</attribute>
+        <attribute name="action">view.mention</attribute>
+        <attribute name="target">public</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Direct Message…</attribute>
+        <attribute name="action">view.mention</attribute>
+        <attribute name="target">direct</attribute>
+      </item>
+    </section>
+
+    <section>
+      <!-- <submenu> -->
+        <!-- <attribute name="label" translatable="yes">Moderation</attribute> -->
+        <item>
+          <attribute name="label" translatable="yes">Hide Boosts</attribute>
+          <attribute name="action">view.hiding_reblogs</attribute>
+          <attribute name="hidden-when">action-disabled</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Mute</attribute>
+          <attribute name="action">view.muting</attribute>
+        </item>
+        <section>
+          <item>
+            <attribute name="label" translatable="yes">Report</attribute>
+            <attribute name="action">view.report</attribute>
+            <!-- TODO: Reporting users -->
+            <attribute name="hidden-when">action-missing</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">Block</attribute>
+            <attribute name="action">view.blocking</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">Block Domain</attribute>
+            <attribute name="action">view.domain_blocking</attribute>
+            <attribute name="hidden-when">action-disabled</attribute>
+          </item>
+        </section>
+      <!-- </submenu> -->
+    </section>
+
+  </menu>
+
+</interface>

@@ -86,7 +86,6 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
 		item_refresh.clicked.connect (() => {
 			app.refresh ();
 		});
-		Desktop.set_hotkey_tooltip (item_refresh, null, app.ACCEL_REFRESH);
 
 		item_favs.clicked.connect (() => {
 			window.open_view (new Views.Favorites ());

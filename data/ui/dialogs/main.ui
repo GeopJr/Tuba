@@ -29,7 +29,7 @@
               </object>
               <packing>
                 <property name="name">0</property>
-                <property name="title" translatable="no">0</property>
+                <property name="title">0</property>
               </packing>
             </child>
           </object>
@@ -145,6 +145,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Compose</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>

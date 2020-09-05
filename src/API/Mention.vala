@@ -5,6 +5,12 @@ public class Tootle.API.Mention : Entity, Widgetizable {
     public string acct { get; construct set; }
     public string url { get; construct set; }
 
+    public string handle {
+        owned get {
+            return "@" + acct;
+        }
+    }
+
     public Mention.from_account (API.Account account) {
     	Object (
     		id: account.id,

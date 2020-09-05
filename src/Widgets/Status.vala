@@ -74,9 +74,8 @@ public class Tootle.Widgets.Status : ListBoxRow {
 
 	protected string date {
 		owned get {
-			var date = new GLib.DateTime.from_iso8601 (status.formal.created_at, null);
-			var humanized = Granite.DateTime.get_relative_datetime (date);
-			return @"<small>$humanized</small>";
+			var date = status.formal.created_at;
+			return @"<small>$(DateTime.humanize (date))</small>";
 		}
 	}
 

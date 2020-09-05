@@ -20,8 +20,6 @@ public class Tootle.Dialogs.Compose : Window {
 	Button commit;
 	[GtkChild]
 	Stack commit_stack;
-	[GtkChild]
-	Label commit_label;
 
 	[GtkChild]
 	Revealer cw_revealer;
@@ -93,7 +91,7 @@ public class Tootle.Dialogs.Compose : Window {
 
 		notify["working"].connect (on_state_change);
 
-		commit_label.label = label;
+		mode_switcher.title = label;
 		commit.get_style_context ().add_class (style_class);
 
 		visibility_popover = new Widgets.VisibilityPopover.with_button (visibility_button);
@@ -117,15 +115,16 @@ public class Tootle.Dialogs.Compose : Window {
 		validate ();
 		set_media_mode (status.has_media ());
 		show ();
+		content.grab_focus ();
 	}
 
-	public Compose () {
+	public Compose (API.Status template = new API.Status.empty ()) {
 		Object (
-			status: new API.Status.empty (),
+			status: template,
 			style_class: STYLE_CLASS_SUGGESTED_ACTION,
-			label: _("Publish")
+			label: _("Compose")
 		);
-		message ("Editing empty status");
+		message ("Composing status template");
 		set_visibility (status.visibility);
 	}
 
@@ -135,8 +134,8 @@ public class Tootle.Dialogs.Compose : Window {
 			style_class: STYLE_CLASS_DESTRUCTIVE_ACTION,
 			label: _("Redraft")
 		);
-		set_visibility (status.visibility);
 		message (@"Redrafting status $(status.id)");
+		set_visibility (status.visibility);
 		status.media_attachments.@foreach (a => {
 			media_list.insert (new MediaItem (this, null, a), 0);
 			return true;
@@ -147,14 +146,15 @@ public class Tootle.Dialogs.Compose : Window {
 		var template = new API.Status.empty ();
 		template.in_reply_to_id = to.id.to_string ();
 		template.in_reply_to_account_id = to.account.id.to_string ();
+		template.spoiler_text = to.spoiler_text;
 		template.content = to.formal.get_reply_mentions ();
 		Object (
 			status: template,
 			style_class: STYLE_CLASS_SUGGESTED_ACTION,
 			label: _("Reply")
 		);
-		set_visibility (to.visibility);
 		message (@"Replying to status $(status.in_reply_to_id)");
+		set_visibility (to.visibility);
 	}
 
 	void set_visibility (API.Visibility v) {

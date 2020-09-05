@@ -34,10 +34,7 @@ public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
 
     construct {
         back_button.clicked.connect (() => back ());
-        Desktop.set_hotkey_tooltip (back_button, _("Back"), app.ACCEL_BACK);
-
         compose_button.clicked.connect (() => new Dialogs.Compose ());
-        Desktop.set_hotkey_tooltip (compose_button, _("Compose"), app.ACCEL_NEW_POST);
 
         timeline_switcher.stack = timeline_stack;
         timeline_switcher.valign = Align.FILL;

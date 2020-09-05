@@ -1,4 +1,15 @@
-project('com.github.bleakgrey.tootle', 'vala', 'c')
+project('com.github.bleakgrey.tootle', 'vala', 'c', version: '1.0.0')
+
+config = configuration_data()
+config.set('EXEC_NAME', meson.project_name())
+config.set('GETTEXT_PACKAGE', meson.project_name())
+config.set('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) + '/' )
+config.set('VERSION', meson.project_version())
+config.set('PREFIX', get_option('prefix'))
+config.set('NAME', 'Tootle')
+config.set('WEBSITE', 'https://github.com/bleakgrey/tootle')
+config.set('SUPPORT_WEBSITE', 'https://github.com/bleakgrey/tootle/issues')
+config.set('COPYRIGHT', '© 2018-2020 bleak_grey')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -20,6 +31,12 @@ asresources = gnome.compile_resources(
   'as-resources', 'data/gresource.xml',
   source_dir: 'data',
   c_name: 'as'
+)
+
+build_file = configure_file(
+	input: 'src/Build.vala',
+	output: 'Build.vala',
+	configuration: config
 )
 
 libhandy_dep = dependency('libhandy-1', version: '>= 0.83.0', required: false)
@@ -44,12 +61,13 @@ endif
 executable(
     meson.project_name(),
     asresources,
-    'src/Build.vala',
+    build_file,
     'src/Application.vala',
     'src/Desktop.vala',
     'src/Drawing.vala',
     'src/Html.vala',
     'src/Request.vala',
+    'src/DateTime.vala',
     'src/InstanceAccount.vala',
     'src/Services/Streams.vala',
     'src/Services/Settings.vala',
@@ -75,7 +93,7 @@ executable(
     'src/Widgets/Widgetizable.vala',
     'src/Widgets/Avatar.vala',
     'src/Widgets/AccountsButton.vala',
-    'src/Widgets/TimelineFilter.vala',
+    'src/Widgets/TimelineMenu.vala',
     'src/Widgets/RichLabel.vala',
     'src/Widgets/Status.vala',
     'src/Widgets/Notification.vala',
@@ -86,6 +104,7 @@ executable(
     'src/Widgets/Attachment/Picture.vala',
     'src/Dialogs/ISavedWindow.vala',
     'src/Dialogs/MainWindow.vala',
+    'src/Dialogs/About.vala',
     'src/Dialogs/Compose.vala',
     'src/Dialogs/Preferences.vala',
     'src/Dialogs/ListEditor.vala',
@@ -109,7 +128,6 @@ executable(
         dependency('gtk+-3.0', version: '>=3.22.0'),
         dependency('glib-2.0', version: '>=2.30.0'),
         dependency('gee-0.8', version: '>=0.8.5'),
-        dependency('granite', version: '>=5.2.0'),
         dependency('libsoup-2.4'),
         dependency('json-glib-1.0', version: '>=1.4.4'),
         libhandy_dep,
