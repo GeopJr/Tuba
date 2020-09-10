@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-10 21:57+0300\n"
+"POT-Creation-Date: 2020-09-10 21:58+0300\n"
 "PO-Revision-Date: 2020-09-10 20:20+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -42,39 +42,35 @@ msgstr ""
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:11
 msgid ""
-"Tootle is a client for the world’s largest free, open-source, decentralized "
-"microblogging network with real-time notifications and support for multiple "
-"accounts."
+"Tootle is a GTK client for the world's largest, decentralized, microblogging "
+"platform, Mastodon. With the user experience in mind, it provides a clean, "
+"native interface that allows you to integrate Mastodon's social experience "
+"seamlessly with your desktop environment."
 msgstr ""
 
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:14
 msgid ""
-"Mastodon is lovingly crafted with power and speed in mind, resulting in a "
-"free, independent, and popular alternative to the centralized social "
-"networks."
+"Mastodon is a free and open source microblogging platform similar to "
+"Twitter, but with user privacy and decentralization in mind. It is one of "
+"many protocols that interacts with the Fediverse of protocols like Pleroma, "
+"GNU Social, and others. The power of federated microblogging that Mastodon "
+"brings and the agility of Tootle creates a fantastic duo for all of your "
+"social media needs."
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:17
-msgid ""
-"Anyone can run a Mastodon server. Each server hosts individual user "
-"accounts, the content they produce, and the content to which they are "
-"subscribed. Every user can follow each other and share their posts "
-"regardless of their server."
-msgstr ""
-
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:26
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:23
 msgid "bleak_grey"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:74
-msgid "New app icon (kudos to Tobias Bernard!)"
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:71
+msgid "New app icon (Kudos to Tobias Bernard!)"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:75
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:72
 msgid "New interface design"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:76
+#: data/com.github.bleakgrey.tootle.appdata.xml.in:73
 msgid "Fixed bugs"
 msgstr ""
 
