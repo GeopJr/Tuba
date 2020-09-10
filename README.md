@@ -5,9 +5,6 @@ Simple [Mastodon](https://github.com/tootsuite/mastodon) client for Linux
 
 
 ### Installation
-This project is undergoing a major rewrite and will be published in the near future.
-
-To help the project, please build it manually and help test it.
 
 <a href='https://flathub.org/apps/details/com.github.bleakgrey.tootle'><img height='51' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
 
@@ -21,7 +18,7 @@ If the options above are not available to you, you can build the app from source
     - [x] libgtk-3-dev
     - [x] libsoup2.4-dev
     - [x] libjson-glib-dev
-    - [ ] libhandy-1.0-dev (>= 0.83.0)
+    - [ ] libhandy-1.0-dev (>= 1.0.0)
 
     *Note: Unchecked items will be installed automatically if not present in the system.*
 
