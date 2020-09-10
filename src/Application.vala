@@ -11,6 +11,7 @@ namespace Tootle {
 
 	public static Application app;
 	public static Dialogs.MainWindow? window;
+	public static Dialogs.NewAccount? new_account_window;
 	public static Window window_dummy;
 
 	public static Settings settings;
@@ -32,7 +33,10 @@ namespace Tootle {
 
 		public signal void refresh ();
 		public signal void toast (string title);
-		public signal void error (string title, string text);
+		public signal void error (string title, string? text);
+
+		public CssProvider css_provider = new CssProvider ();
+		public CssProvider zoom_css_provider = new CssProvider ();
 
 		public const GLib.OptionEntry[] app_options = {
 			{ "hidden", 0, 0, OptionArg.NONE, ref start_hidden, "Do not show main window on start", null },
@@ -49,7 +53,7 @@ namespace Tootle {
 
 		construct {
 			application_id = Build.DOMAIN;
-			flags = ApplicationFlags.FLAGS_NONE;
+			flags = ApplicationFlags.HANDLES_OPEN;
 		}
 
 		public string[] ACCEL_ABOUT = {"F1"};
@@ -88,10 +92,16 @@ namespace Tootle {
 			cache = new Cache ();
 			accounts.init ();
 
-			app.error.connect (app.on_error);
+			app.error.connect ((title, msg) => {
+				inform (Gtk.MessageType.ERROR, title, msg);
+			});
 
 			window_dummy = new Window ();
 			add_window (window_dummy);
+
+			css_provider.load_from_resource (@"$(Build.RESOURCES)app.css");
+			StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+			StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), zoom_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
 			set_accels_for_action ("app.about", ACCEL_ABOUT);
 			set_accels_for_action ("app.compose", ACCEL_NEW_POST);
@@ -105,19 +115,43 @@ namespace Tootle {
 		}
 
 		protected override void activate () {
-			if (window != null) {
-				window.present ();
-				return;
-			}
+			present_window ();
 
 			if (start_hidden) {
 				start_hidden = false;
 				return;
 			}
+		}
 
-			info ("Creating new window");
-			window = new Dialogs.MainWindow (this);
-			window.present ();
+		public override void open (File[] files, string hint) {
+			foreach (File file in files) {
+				string uri = file.get_uri ();
+				if (new_account_window != null)
+					new_account_window.redirect (uri);
+				else
+					warning (@"Received an unexpected uri to open: $uri");
+				return;
+			}
+		}
+
+		public void present_window () {
+			if (accounts.is_empty ()) {
+				message ("Presenting NewAccount dialog");
+				if (new_account_window == null)
+					new Dialogs.NewAccount ();
+			}
+			else {
+				message ("Presenting MainWindow");
+				if (window == null)
+					window = new Dialogs.MainWindow (this);
+				window.present ();
+			}
+		}
+
+		public bool on_window_closed () {
+			if (!settings.work_in_background || accounts.is_empty ())
+				app.remove_window (window_dummy);
+				return false;
 		}
 
 		void compose_activated () {
@@ -141,31 +175,31 @@ namespace Tootle {
 			new Dialogs.About ();
 		}
 
-		public void on_error (string title, string msg){
+		public void inform (Gtk.MessageType type, string text, string? msg = null, Gtk.Window? win = window){
 			var dlg = new Gtk.MessageDialog (
-				window,
+				win,
 				Gtk.DialogFlags.MODAL,
-				Gtk.MessageType.ERROR,
+				type,
 				Gtk.ButtonsType.OK,
 				null
 			);
-			dlg.text = title;
+			dlg.text = text;
 			dlg.secondary_text = msg;
-			dlg.transient_for = window;
+			dlg.transient_for = win;
 			dlg.run ();
 			dlg.destroy ();
 		}
 
-		public bool question (string text, string? secondary = null, Gtk.Window? win = window) {
+		public bool question (string text, string? msg = null, Gtk.Window? win = window) {
 			var dlg = new Gtk.MessageDialog (
-				window,
+				win,
 				Gtk.DialogFlags.MODAL,
 				Gtk.MessageType.QUESTION,
 				Gtk.ButtonsType.YES_NO,
 				null
 			);
 			dlg.text = text;
-			dlg.secondary_text = secondary;
+			dlg.secondary_text = msg;
 			dlg.transient_for = win;
 			var i = dlg.run ();
 			dlg.destroy ();

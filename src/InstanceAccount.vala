@@ -3,10 +3,10 @@ using Gee;
 
 public class Tootle.InstanceAccount : API.Account, IStreamListener {
 
-	public string instance { get; set; }
-	public string client_id { get; set; }
-	public string client_secret { get; set; }
-	public string access_token { get; set; }
+	public string? instance { get; set; }
+	public string? client_id { get; set; }
+	public string? client_secret { get; set; }
+	public string? access_token { get; set; }
 
 	public int64 last_seen_notification { get; set; default = 0; }
 	public bool has_unread_notifications { get; set; default = false; }

@@ -1,4 +1,5 @@
-[wrap-git]
-directory=libhandy
-url=https://gitlab.gnome.org/GNOME/libhandy.git
-revision=0.83.0
+[wrap-file]
+directory=libhandy-e3fb7400c88136b866ae4a63457c6fd76d0a75b6
+source_url=https://gitlab.gnome.org/GNOME/libhandy/-/archive/e3fb7400c88136b866ae4a63457c6fd76d0a75b6/libhandy-e3fb7400c88136b866ae4a63457c6fd76d0a75b6.tar
+source_filename=libhandy-e3fb7400c88136b866ae4a63457c6fd76d0a75b6.tar
+source_hash=cbf34b9b2201ed25a41c9fa0ccfa132d4f87e0ce01a163ab3ad6c3701bec7d31

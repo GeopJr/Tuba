@@ -35,7 +35,6 @@ public class Tootle.Views.Base : Box {
 
     public string state { get; set; default = "status"; }
     public string status_message { get; set; default = STATUS_EMPTY; }
-    public bool allow_closing { get; set; default = true; }
 
     public bool empty {
         get {

@@ -16,15 +16,9 @@ i18n = import('i18n')
 
 add_global_arguments([
         '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
-        '-DHANDY_USE_UNSTABLE_API',
+        # '-DHANDY_USE_UNSTABLE_API',
     ],
     language: 'c',
-)
-
-# FIXME Disable --disable-since-check after libhandy 1.0 is released
-add_project_arguments (
-  '--disable-since-check',
-  language: 'vala'
 )
 
 asresources = gnome.compile_resources(
@@ -39,7 +33,7 @@ build_file = configure_file(
 	configuration: config
 )
 
-libhandy_dep = dependency('libhandy-1', version: '>= 0.83.0', required: false)
+libhandy_dep = dependency('libhandy-1', version: '>= 1.0', required: false)
 if not libhandy_dep.found()
   libhandy = subproject(
     'libhandy',
@@ -103,13 +97,13 @@ executable(
     'src/Widgets/Attachment/Slot.vala',
     'src/Widgets/Attachment/Picture.vala',
     'src/Dialogs/ISavedWindow.vala',
+    'src/Dialogs/NewAccount.vala',
     'src/Dialogs/MainWindow.vala',
     'src/Dialogs/About.vala',
     'src/Dialogs/Compose.vala',
     'src/Dialogs/Preferences.vala',
     'src/Dialogs/ListEditor.vala',
     'src/Views/Base.vala',
-    'src/Views/NewAccount.vala',
     'src/Views/Timeline.vala',
     'src/Views/Home.vala',
     'src/Views/Local.vala',

@@ -2,7 +2,7 @@
 	border-radius: 4px;
 }
 
-.chip {
+.header .chip {
   padding: 4px 12px;
   border-radius: 4px;
   border: 1px solid black;
@@ -28,7 +28,7 @@
 .padded.app-view {
 	margin: 32px 0 32px 0;
 }
-.app-view:not(.padded) .preferences row {
+.app-view:not(.padded) .content row {
 	border-radius: 0px;
 }
 

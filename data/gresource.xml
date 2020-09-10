@@ -14,6 +14,7 @@
         <file preprocess="xml-stripblanks">ui/widgets/list_editor_item.ui</file>
         <file preprocess="xml-stripblanks">ui/widgets/attachment_slot.ui</file>
         <file preprocess="xml-stripblanks">ui/widgets/compose_attachment.ui</file>
+        <file preprocess="xml-stripblanks">ui/dialogs/new_account.ui</file>
         <file preprocess="xml-stripblanks">ui/dialogs/compose.ui</file>
         <file preprocess="xml-stripblanks">ui/dialogs/main.ui</file>
         <file preprocess="xml-stripblanks">ui/dialogs/preferences.ui</file>

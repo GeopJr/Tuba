@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.36.0 -->
+<!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <requires lib="libhandy" version="0.0"/>
+  <requires lib="libhandy" version="1.0"/>
   <template class="TootleViewsBase" parent="GtkBox">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -26,8 +26,8 @@
                   <object class="HdyClamp" id="clamp">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="maximum_size">632</property>
-                    <property name="tightening-threshold">632</property>
+                    <property name="maximum_size">650</property>
+                    <property name="tightening_threshold">650</property>
                     <child>
                       <object class="GtkBox" id="column_view">
                         <property name="visible">True</property>
@@ -125,7 +125,7 @@
                               </object>
                               <packing>
                                 <property name="name">status</property>
-                                <property name="title" translatable="no">page1</property>
+                                <property name="title">page1</property>
                               </packing>
                             </child>
                             <child>
@@ -139,7 +139,7 @@
                                     <property name="can_focus">False</property>
                                     <property name="selection_mode">none</property>
                                     <style>
-                                      <class name="preferences"/>
+                                      <class name="content"/>
                                     </style>
                                   </object>
                                   <packing>
@@ -151,7 +151,7 @@
                               </object>
                               <packing>
                                 <property name="name">content</property>
-                                <property name="title" translatable="no">page0</property>
+                                <property name="title">page0</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>

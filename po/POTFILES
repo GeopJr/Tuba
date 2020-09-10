@@ -6,9 +6,9 @@ data/ui/dialogs/compose.ui
 data/ui/dialogs/list_editor.ui
 data/ui/dialogs/main.ui
 data/ui/dialogs/preferences.ui
+data/ui/dialogs/new_account.ui
 
 data/ui/views/base.ui
-data/ui/views/new_account.ui
 data/ui/views/profile_header.ui
 
 data/ui/widgets/accounts_button.ui
@@ -19,7 +19,7 @@ data/ui/widgets/list_editor_item.ui
 data/ui/widgets/list_item.ui
 data/ui/widgets/profile_field_row.ui
 data/ui/widgets/status.ui
-data/ui/widgets/timeline_filter.ui
+data/ui/widgets/timeline_menu.ui
 
 src/Build.vala
 src/Application.vala
@@ -28,13 +28,14 @@ src/Drawing.vala
 src/Html.vala
 src/InstanceAccount.vala
 src/Request.vala
-src/Time.vala
+src/DateTime.vala
 
 src/Dialogs/About.vala
 src/Dialogs/Compose.vala
 src/Dialogs/ListEditor.vala
 src/Dialogs/MainWindow.vala
 src/Dialogs/Preferences.vala
+src/Dialogs/NewAccount.vala
 
 src/Services/Accounts.vala
 src/Services/Cache.vala
@@ -52,7 +53,6 @@ src/Views/Home.vala
 src/Views/List.vala
 src/Views/Lists.vala
 src/Views/Local.vala
-src/Views/NewAccount.vala
 src/Views/Notifications.vala
 src/Views/Profile.vala
 src/Views/Search.vala
@@ -67,5 +67,6 @@ src/Widgets/Conversation.vala
 src/Widgets/Notification.vala
 src/Widgets/RichLabel.vala
 src/Widgets/Status.vala
-src/Widgets/TimelineFilter.vala
+src/Widgets/TimelineMenu.vala
 src/Widgets/VisibilityPopover.vala
+
