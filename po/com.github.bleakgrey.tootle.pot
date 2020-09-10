@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-10 20:20+0300\n"
+"POT-Creation-Date: 2020-09-10 21:57+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,40 +77,40 @@ msgstr ""
 msgid "Fixed bugs"
 msgstr ""
 
-#: data/ui/dialogs/compose.ui:50
-msgid "Write your warning here"
+#: data/ui/dialogs/compose.ui:18 data/ui/dialogs/list_editor.ui:239
+msgid "Cancel"
 msgstr ""
 
-#: data/ui/dialogs/compose.ui:116
-msgid "Visibility"
-msgstr ""
-
-#: data/ui/dialogs/compose.ui:169
-msgid "Attach Media"
-msgstr ""
-
-#: data/ui/dialogs/compose.ui:191
-msgid "Instance Emojis"
-msgstr ""
-
-#: data/ui/dialogs/compose.ui:215
-msgid "Spoiler Warning"
-msgstr ""
-
-#: data/ui/dialogs/compose.ui:260
-msgid "Text"
-msgstr ""
-
-#: data/ui/dialogs/compose.ui:320
-msgid "Media"
-msgstr ""
-
-#: data/ui/dialogs/compose.ui:363
+#: data/ui/dialogs/compose.ui:49
 msgid "Publish"
 msgstr ""
 
-#: data/ui/dialogs/compose.ui:392 data/ui/dialogs/list_editor.ui:239
-msgid "Cancel"
+#: data/ui/dialogs/compose.ui:117
+msgid "Write your warning here"
+msgstr ""
+
+#: data/ui/dialogs/compose.ui:183
+msgid "Visibility"
+msgstr ""
+
+#: data/ui/dialogs/compose.ui:236
+msgid "Attach Media"
+msgstr ""
+
+#: data/ui/dialogs/compose.ui:258
+msgid "Instance Emojis"
+msgstr ""
+
+#: data/ui/dialogs/compose.ui:282
+msgid "Spoiler Warning"
+msgstr ""
+
+#: data/ui/dialogs/compose.ui:327
+msgid "Text"
+msgstr ""
+
+#: data/ui/dialogs/compose.ui:387
+msgid "Media"
 msgstr ""
 
 #: data/ui/dialogs/list_editor.ui:110
