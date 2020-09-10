@@ -17,6 +17,10 @@
 .attachment .pic {
 	border-radius: 6px;
 }
+.attachment .chip {
+	padding: 6px;
+	border-radius:6px;
+}
 
 .header-title-button {
 	margin: 0px;
