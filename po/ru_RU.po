@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-07 21:26+0300\n"
-"PO-Revision-Date: 2020-09-07 21:26+0300\n"
+"POT-Creation-Date: 2020-09-10 20:20+0300\n"
+"PO-Revision-Date: 2020-09-10 20:20+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: ru\n"
@@ -202,11 +202,11 @@ msgstr ""
 msgid "Add Account"
 msgstr ""
 
-#: data/ui/dialogs/new_account.ui:19 src/Dialogs/NewAccount.vala:74
+#: data/ui/dialogs/new_account.ui:19 src/Dialogs/NewAccount.vala:85
 msgid "Back"
 msgstr ""
 
-#: data/ui/dialogs/new_account.ui:42 src/Dialogs/NewAccount.vala:73
+#: data/ui/dialogs/new_account.ui:42 src/Dialogs/NewAccount.vala:84
 msgid "Next"
 msgstr ""
 
@@ -223,7 +223,7 @@ msgid "Enter Authorization Code"
 msgstr ""
 
 #: data/ui/dialogs/new_account.ui:267
-msgid "<a href=\"tootle://manual_auth\">Didn't receive the code?</a>"
+msgid "<a href=\"tootle://manual_auth\">Try manual authorization</a>"
 msgstr ""
 
 #: data/ui/views/profile_header.ui:142 src/Views/Profile.vala:217
@@ -369,32 +369,32 @@ msgstr ""
 msgid "You need to save the list if you want to keep them."
 msgstr ""
 
-#: src/Dialogs/NewAccount.vala:73
+#: src/Dialogs/NewAccount.vala:84
 msgid "Close"
 msgstr ""
 
-#: src/Dialogs/NewAccount.vala:74
+#: src/Dialogs/NewAccount.vala:85
 msgid "Add Another"
 msgstr ""
 
-#: src/Dialogs/NewAccount.vala:116
+#: src/Dialogs/NewAccount.vala:127
 msgid "Please enter a valid instance URL"
 msgstr ""
 
-#: src/Dialogs/NewAccount.vala:149
+#: src/Dialogs/NewAccount.vala:160
 msgid "Please enter a valid authorization code"
 msgstr ""
 
-#: src/Dialogs/NewAccount.vala:165
+#: src/Dialogs/NewAccount.vala:176
 msgid "Instance failed to authorize the access token"
 msgstr ""
 
-#: src/Dialogs/NewAccount.vala:179
+#: src/Dialogs/NewAccount.vala:190
 #, c-format
 msgid "Hello, %s!"
 msgstr ""
 
-#: src/Dialogs/NewAccount.vala:207
+#: src/Dialogs/NewAccount.vala:218
 msgid "Server returned an error"
 msgstr ""
 
@@ -509,11 +509,11 @@ msgstr ""
 msgid "This account will be removed from the application."
 msgstr ""
 
-#: src/Widgets/AccountsButton.vala:155
+#: src/Widgets/AccountsButton.vala:153
 msgid "Anonymous"
 msgstr ""
 
-#: src/Widgets/AccountsButton.vala:156
+#: src/Widgets/AccountsButton.vala:154
 msgid "No active account"
 msgstr ""
 
