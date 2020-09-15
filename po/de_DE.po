@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-10 21:58+0300\n"
-"PO-Revision-Date: 2020-09-15 08:29+0200\n"
+"PO-Revision-Date: 2020-09-15 10:18+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: de\n"
@@ -352,7 +352,7 @@ msgstr "Einen Fehler melden"
 
 #: src/Dialogs/Compose.vala:81 src/Views/Lists.vala:33
 msgid "This action cannot be reverted."
-msgstr "Diese Aktion kann nicht rückgängig gemacht werden"
+msgstr "Diese Aktion kann nicht rückgängig gemacht werden."
 
 #: src/Dialogs/Compose.vala:135 src/Widgets/Status.vala:241
 msgid "Redraft"
@@ -366,18 +366,13 @@ msgstr "Antworten"
 msgid "Select media"
 msgstr "Medien auswählen"
 
-# I am not sure if this is a machine string or if the word after the underscore should be translated
-# ~koyu
 #: src/Dialogs/Compose.vala:200
 msgid "_Open"
-msgstr ""
+msgstr "_Öffnen"
 
-# I am not sure if this is a machine string or if the word 
-# after the underscore should be translated
-# ~koyu
 #: src/Dialogs/Compose.vala:201
 msgid "_Cancel"
-msgstr ""
+msgstr "_Abbrechen"
 
 #: src/Dialogs/ListEditor.vala:201
 msgid "Discard changes?"
