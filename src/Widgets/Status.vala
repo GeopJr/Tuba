@@ -29,14 +29,19 @@ public class Tootle.Widgets.Status : ListBoxRow {
 	protected Image pin_indicator;
 	[GtkChild]
 	protected Image indicator;
+
 	[GtkChild]
-	public Revealer revealer;
+	protected Stack spoiler_stack;
+	[GtkChild]
+	protected Box content_box;
 	[GtkChild]
 	protected Widgets.RichLabel content;
 	[GtkChild]
-	protected Widgets.RichLabel revealer_content;
-	[GtkChild]
 	protected Widgets.Attachment.Box attachments;
+	[GtkChild]
+	protected Button spoiler_button;
+	[GtkChild]
+	protected Widgets.RichLabel spoiler_label;
 
 	[GtkChild]
 	protected Box actions;
@@ -53,24 +58,16 @@ public class Tootle.Widgets.Status : ListBoxRow {
 	[GtkChild]
 	protected Button menu_button;
 
-	protected string escaped_spoiler {
+	protected string spoiler_text {
 		owned get {
-			if (status.formal.has_spoiler) {
-				var text = status.formal.spoiler_text ?? "";
-				var label = _("[ Toggle content ]");
-				text += @" <a href=\"tootle://toggle\">$label</a>";
-				return text;
-			}
+			var text = status.formal.spoiler_text;
+			if (text == null || text == "")
+				return _("Click to show sensitive content");
 			else
-				return status.formal.content;
+				return text;
 		}
 	}
-
-	protected string escaped_content {
-		owned get {
-			return status.formal.has_spoiler ? status.formal.content : "";
-		}
-	}
+	public bool reveal_spoiler { get; set; default = false; }
 
 	protected string date {
 		owned get {
@@ -108,7 +105,6 @@ public class Tootle.Widgets.Status : ListBoxRow {
 	}
 
 	construct {
-		content.activate_link.connect (on_toggle_spoiler);
 		notify["kind"].connect (on_kind_changed);
 		open.connect (on_open);
 
@@ -134,16 +130,23 @@ public class Tootle.Widgets.Status : ListBoxRow {
 
 		reply_button.clicked.connect (() => new Dialogs.Compose.reply (status));
 
-		bind_property ("escaped-spoiler", content, "text", BindingFlags.SYNC_CREATE);
-		bind_property ("escaped-content", revealer_content, "text", BindingFlags.SYNC_CREATE);
+		bind_property ("spoiler-text", spoiler_label, "text", BindingFlags.SYNC_CREATE);
+		status.formal.bind_property ("content", content, "text", BindingFlags.SYNC_CREATE);
 		bind_property ("title_text", name_label, "text", BindingFlags.SYNC_CREATE);
 		bind_property ("subtitle_text", handle_label, "text", BindingFlags.SYNC_CREATE);
 		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
 		bind_property ("avatar_url", avatar, "url", BindingFlags.SYNC_CREATE);
 
-		status.formal.bind_property ("has_spoiler", revealer_content, "visible", BindingFlags.SYNC_CREATE);
-		revealer.reveal_child = !status.formal.has_spoiler;
+		status.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_boolean (!src.get_boolean ());
+			return true;
+		});
+		bind_property ("reveal-spoiler", spoiler_stack, "visible-child-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			var name = reveal_spoiler ? "content" : "spoiler";
+			target.set_string (name);
+			return true;
+		});
 
 		if (status.formal.visibility == API.Visibility.DIRECT) {
 			reblog_icon.icon_name = status.formal.visibility.get_icon ();
@@ -166,19 +169,19 @@ public class Tootle.Widgets.Status : ListBoxRow {
 		menu_button.clicked.connect (open_menu);
 	}
 
-	public Status (API.Status status, API.NotificationType? _kind = null) {
-		Object (status: status, kind: _kind);
+	public Status (API.Status status, API.NotificationType? kind = null) {
+		Object (
+			status: status,
+			kind: kind
+		);
 	}
 	~Status () {
 		notify["kind"].disconnect (on_kind_changed);
 	}
 
-	protected bool on_toggle_spoiler (string uri) {
-		if (uri == "tootle://toggle") {
-			revealer.reveal_child = !revealer.reveal_child;
-			return true;
-		}
-		return false;
+	[GtkCallback]
+	public void toggle_spoiler () {
+		reveal_spoiler = !reveal_spoiler;
 	}
 
 	protected virtual void on_kind_changed () {

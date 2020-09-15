@@ -21,7 +21,7 @@ public class Tootle.Views.ExpandedStatus : Views.Base, IAccountListener {
 
     Widget prepend (Entity entity, bool to_end = false){
         var w = entity.to_widget () as Widgets.Status;
-        w.revealer.reveal_child = true;
+        w.reveal_spoiler = true;
 
 		if (to_end)
 			content_list.insert (w, -1);
