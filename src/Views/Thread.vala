@@ -1,15 +1,16 @@
 using Gtk;
 
-public class Tootle.Views.ExpandedStatus : Views.Base, IAccountListener {
+public class Tootle.Views.Thread : Views.Base, IAccountListener {
 
     public API.Status root_status { get; construct set; }
     protected InstanceAccount? account = null;
     protected Widget root_widget;
 
-    public ExpandedStatus (API.Status status) {
+    public Thread (API.Status status) {
         Object (
             root_status: status,
-            status_message: STATUS_LOADING
+            status_message: STATUS_LOADING,
+            label: _("Conversation")
         );
         account_listener_init ();
     }
@@ -61,7 +62,6 @@ public class Tootle.Views.ExpandedStatus : Views.Base, IAccountListener {
                 int x,y;
                 translate_coordinates (root_widget, 0, 0, out x, out y);
                 scrolled.vadjustment.value = (double)(y*-1);
-                //content_list.select_row (root_widget);
             })
             .exec ();
     }
@@ -77,7 +77,7 @@ public class Tootle.Views.ExpandedStatus : Views.Base, IAccountListener {
                 var node = statuses.get_element (0);
                 if (node != null){
                     var status = API.Status.from (node);
-                    window.open_view (new Views.ExpandedStatus (status));
+                    window.open_view (new Views.Thread (status));
                 }
                 else
                     Desktop.open_uri (q);

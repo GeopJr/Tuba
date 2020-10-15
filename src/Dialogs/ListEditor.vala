@@ -1,7 +1,7 @@
 using Gtk;
 
 [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/list_editor.ui")]
-public class Tootle.Dialogs.ListEditor: Gtk.Window {
+public class Tootle.Dialogs.ListEditor: Hdy.Window {
 
 	[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/list_editor_item.ui")]
 	class Item : ListBoxRow {

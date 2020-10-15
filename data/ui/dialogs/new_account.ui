@@ -3,169 +3,117 @@
 <interface>
   <requires lib="gtk+" version="3.22"/>
   <requires lib="libhandy" version="1.0"/>
-  <template class="TootleDialogsNewAccount" parent="GtkWindow">
+  <template class="TootleDialogsNewAccount" parent="HdyWindow">
     <property name="can_focus">False</property>
     <property name="modal">True</property>
     <property name="default_width">700</property>
     <property name="default_height">500</property>
-    <child type="titlebar">
-      <object class="GtkHeaderBar">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="title" translatable="yes">Add Account</property>
-        <property name="show_close_button">True</property>
-        <child>
-          <object class="GtkButton" id="back_button">
-            <property name="label" translatable="yes">Back</property>
-            <property name="width_request">80</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <signal name="clicked" handler="on_back_clicked" swapped="no"/>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="next_button">
-            <property name="width_request">80</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <signal name="clicked" handler="on_next_clicked" swapped="no"/>
-            <child>
-              <object class="GtkStack">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Next</property>
-                  </object>
-                  <packing>
-                    <property name="name">idle</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSpinner">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="valign">center</property>
-                    <property name="active">True</property>
-                  </object>
-                  <packing>
-                    <property name="name">spinner</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-            </child>
-            <style>
-              <class name="suggested-action"/>
-            </style>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-    </child>
+    <property name="type_hint">dialog</property>
     <child>
-      <object class="HdyClamp">
+      <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_left">18</property>
-        <property name="margin_right">18</property>
-        <property name="margin_top">18</property>
-        <property name="margin_bottom">18</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
-        <property name="maximum_size">400</property>
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkStack" id="stack">
+          <object class="HdyHeaderBar">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="valign">center</property>
-            <property name="transition_duration">100</property>
-            <property name="transition_type">crossfade</property>
+            <property name="title" translatable="yes">Add Account</property>
+            <property name="show_close_button">True</property>
             <child>
-              <object class="GtkBox" id="instance_step">
+              <object class="GtkButton" id="back_button">
+                <property name="label" translatable="yes">Back</property>
+                <property name="width_request">80</property>
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">24</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_back_clicked" swapped="no"/>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="next_button">
+                <property name="width_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_next_clicked" swapped="no"/>
                 <child>
-                  <object class="GtkImage">
+                  <object class="GtkStack">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="pixel_size">128</property>
-                    <property name="icon_name">network-server-symbolic</property>
-                    <property name="icon_size">0</property>
-                    <style>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">What is your instance?</property>
-                    <attributes>
-                      <attribute name="weight" value="ultrabold"/>
-                      <attribute name="scale" value="1.7"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="margin_top">24</property>
-                    <property name="orientation">vertical</property>
-                    <property name="spacing">12</property>
                     <child>
-                      <object class="GtkBox">
+                      <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label">https://</property>
-                            <property name="visible">True</property>
-                            <property name="sensitive">False</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkEntry" id="instance_entry">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <signal name="activate" handler="on_next_clicked" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="expand">True</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
+                        <property name="label" translatable="yes">Next</property>
+                      </object>
+                      <packing>
+                        <property name="name">idle</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinner">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="valign">center</property>
+                        <property name="active">True</property>
+                      </object>
+                      <packing>
+                        <property name="name">spinner</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <style>
+                  <class name="suggested-action"/>
+                </style>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="HdyClamp">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">18</property>
+            <property name="margin_right">18</property>
+            <property name="margin_top">18</property>
+            <property name="margin_bottom">18</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="maximum_size">400</property>
+            <child>
+              <object class="GtkStack" id="stack">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="valign">center</property>
+                <property name="transition_duration">100</property>
+                <property name="transition_type">crossfade</property>
+                <child>
+                  <object class="GtkBox" id="instance_step">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">24</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="pixel_size">128</property>
+                        <property name="icon_name">network-server-symbolic</property>
+                        <property name="icon_size">0</property>
                         <style>
-                          <class name="linked"/>
+                          <class name="dim-label"/>
                         </style>
                       </object>
                       <packing>
@@ -177,11 +125,12 @@
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">&lt;a href="https://joinmastodon.org/"&gt;Don't have one yet?&lt;/a&gt;</property>
-                        <property name="use_markup">True</property>
-                        <property name="track_visited_links">False</property>
-                        <property name="xalign">1</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">What is your instance?</property>
+                        <attributes>
+                          <attribute name="weight" value="ultrabold"/>
+                          <attribute name="scale" value="1.7"/>
+                        </attributes>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -189,70 +138,97 @@
                         <property name="position">1</property>
                       </packing>
                     </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="name">instance</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="code_step">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="valign">center</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">24</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="pixel_size">128</property>
-                    <property name="icon_name">dialog-password-symbolic</property>
-                    <property name="icon_size">0</property>
-                    <style>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Enter Authorization Code</property>
-                    <attributes>
-                      <attribute name="weight" value="ultrabold"/>
-                      <attribute name="scale" value="1.7"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="margin_top">24</property>
-                    <property name="orientation">vertical</property>
-                    <property name="spacing">12</property>
                     <child>
-                      <object class="GtkEntry" id="code_entry">
+                      <object class="GtkBox">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <signal name="activate" handler="on_next_clicked" swapped="no"/>
+                        <property name="can_focus">False</property>
+                        <property name="margin_top">24</property>
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">12</property>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="label">https://</property>
+                                <property name="visible">True</property>
+                                <property name="sensitive">False</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkEntry" id="instance_entry">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <signal name="activate" handler="on_next_clicked" swapped="no"/>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <style>
+                              <class name="linked"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="label" translatable="yes">&lt;a href="https://joinmastodon.org/"&gt;Don't have one yet?&lt;/a&gt;</property>
+                            <property name="use_markup">True</property>
+                            <property name="track_visited_links">False</property>
+                            <property name="xalign">1</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">instance</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="code_step">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">center</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">24</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="pixel_size">128</property>
+                        <property name="icon_name">dialog-password-symbolic</property>
+                        <property name="icon_size">0</property>
+                        <style>
+                          <class name="dim-label"/>
+                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -261,14 +237,102 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="code_label">
+                      <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">&lt;a href="tootle://manual_auth"&gt;Try manual authorization&lt;/a&gt;</property>
-                        <property name="use_markup">True</property>
-                        <property name="track_visited_links">False</property>
-                        <property name="xalign">1</property>
-                        <signal name="activate-link" handler="on_activate_code_label_link" swapped="no"/>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Enter Authorization Code</property>
+                        <attributes>
+                          <attribute name="weight" value="ultrabold"/>
+                          <attribute name="scale" value="1.7"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_top">24</property>
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">12</property>
+                        <child>
+                          <object class="GtkEntry" id="code_entry">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <signal name="activate" handler="on_next_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="code_label">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="label" translatable="yes">&lt;a href="tootle://manual_auth"&gt;Try manual authorization&lt;/a&gt;</property>
+                            <property name="use_markup">True</property>
+                            <property name="track_visited_links">False</property>
+                            <property name="xalign">1</property>
+                            <signal name="activate-link" handler="on_activate_code_label_link" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">code</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="done_step">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">center</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">24</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="pixel_size">128</property>
+                        <property name="icon_name">emblem-default-symbolic</property>
+                        <property name="icon_size">0</property>
+                        <style>
+                          <class name="dim-label"/>
+                        </style>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="hello_label">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label">Hello, @user@instance.com!</property>
+                        <attributes>
+                          <attribute name="weight" value="ultrabold"/>
+                          <attribute name="scale" value="1.7"/>
+                        </attributes>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -278,64 +342,18 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
+                    <property name="name">done</property>
                     <property name="position">2</property>
                   </packing>
                 </child>
               </object>
-              <packing>
-                <property name="name">code</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="done_step">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="valign">center</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">24</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="pixel_size">128</property>
-                    <property name="icon_name">emblem-default-symbolic</property>
-                    <property name="icon_size">0</property>
-                    <style>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="hello_label">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label">Hello, @user@instance.com!</property>
-                    <attributes>
-                      <attribute name="weight" value="ultrabold"/>
-                      <attribute name="scale" value="1.7"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="name">done</property>
-                <property name="position">2</property>
-              </packing>
             </child>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
         </child>
       </object>
     </child>

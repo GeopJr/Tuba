@@ -2,182 +2,109 @@ using Gtk;
 using Gdk;
 
 [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/main.ui")]
-public class Tootle.Dialogs.MainWindow: Gtk.Window, ISavedWindow {
+public class Tootle.Dialogs.MainWindow: Hdy.Window, ISavedWindow {
 
-    public const string ZOOM_CLASS = "app-scalable";
+	public const string ZOOM_CLASS = "app-scalable";
 
-    [GtkChild]
-    protected Stack view_stack;
-    [GtkChild]
-    protected Stack timeline_stack;
+	[GtkChild]
+	Hdy.Deck deck;
 
-    [GtkChild]
-    public HeaderBar header;
-    [GtkChild]
-    protected Revealer view_navigation;
-    [GtkChild]
-    protected Revealer view_controls;
-    [GtkChild]
-    protected Button back_button;
-    [GtkChild]
-    protected Button compose_button;
-    [GtkChild]
-    protected Hdy.ViewSwitcherTitle timeline_switcher;
-    [GtkChild]
-    protected Hdy.ViewSwitcherBar switcher_navbar;
-    [GtkChild]
-    protected Widgets.AccountsButton accounts_button;
+	Views.Base? last_view = null;
 
-    Views.Base? last_view = null;
+	construct {
+		settings.bind_property ("dark-theme", Gtk.Settings.get_default (), "gtk-application-prefer-dark-theme", BindingFlags.SYNC_CREATE);
+		settings.notify["post-text-size"].connect (() => on_zoom_level_changed ());
 
-    construct {
-        back_button.clicked.connect (() => back ());
-        compose_button.clicked.connect (() => new Dialogs.Compose ());
+		on_zoom_level_changed ();
+		deck.notify["visible-child"].connect (on_view_changed);
+		button_press_event.connect (on_button_press);
+		restore_state ();
+	}
 
-        timeline_switcher.stack = timeline_stack;
-        timeline_switcher.valign = Align.FILL;
-        timeline_stack.notify["visible-child"].connect (on_timeline_changed);
+	public MainWindow (Gtk.Application app) {
+		Object (
+			application: app,
+			icon_name: Build.DOMAIN,
+			title: Build.NAME,
+			resizable: true,
+			window_position: WindowPosition.CENTER
+		);
+		open_view (new Views.Main ());
+	}
 
-        add_timeline_view (new Views.Home (), app.ACCEL_TIMELINE_0, 0);
-        add_timeline_view (new Views.Notifications (), app.ACCEL_TIMELINE_1, 1);
-        add_timeline_view (new Views.Local (), app.ACCEL_TIMELINE_2, 2);
-        add_timeline_view (new Views.Federated (), app.ACCEL_TIMELINE_3, 3);
+	public Views.Base open_view (Views.Base view) {
+		deck.add (view);
+		deck.visible_child = view;
+		return view;
+	}
 
-        settings.bind_property ("dark-theme", Gtk.Settings.get_default (), "gtk-application-prefer-dark-theme", BindingFlags.SYNC_CREATE);
-        settings.notify["post-text-size"].connect (() => on_zoom_level_changed ());
+	public bool back () {
+		var children = deck.get_children ();
+		unowned var current = children.find (deck.visible_child);
+		if (current != null) {
+			unowned var prev = current.prev;
+			if (current.prev != null) {
+				deck.visible_child = prev.data;
+				(current.data as Views.Base).unused = true;
+				Timeout.add (deck.transition_duration, clean_unused_views);
+			}
+		}
+		return true;
+	}
 
-        on_zoom_level_changed ();
-
-        button_press_event.connect (on_button_press);
-        update_header ();
-        restore_state ();
-    }
-
-    public MainWindow (Gtk.Application app) {
-        Object (
-            application: app,
-            icon_name: Build.DOMAIN,
-            title: Build.NAME,
-            resizable: true,
-            window_position: WindowPosition.CENTER
-        );
-    }
-
-    public int get_visible_id () {
-        return int.parse (view_stack.get_visible_child_name ());
-    }
-
-    public bool open_view (Views.Base widget) {
-        var curr = view_stack.visible_child as Views.Base;
-        if (curr != null)
-            curr.current = false;
-
-        var i = get_visible_id ();
-        i++;
-        widget.stack_pos = i;
-        widget.show ();
-        view_stack.add_named (widget, i.to_string ());
-        view_stack.set_visible_child_name (i.to_string ());
-        update_header ();
-        widget.current = true;
-        return true;
-    }
-
-    public bool back () {
-        var i = get_visible_id ();
-        if (i == 0)
-            return false;
-
-        var child = view_stack.get_child_by_name (i.to_string ());
-        view_stack.set_visible_child_name ((i-1).to_string ());
-        (child as Views.Base).current = false;
-        child.destroy ();
-        update_header ();
-
-        var curr = view_stack.visible_child as Views.Base;
-        if (curr != null)
-            curr.current = true;
-        return true;
-    }
-
-    public void reopen_view (int view_id) {
-        var i = get_visible_id ();
-        while (i != view_id && view_id != 0) {
-            back ();
-            i = get_visible_id ();
-        }
-    }
+	bool clean_unused_views () {
+		deck.get_children ().foreach (c => {
+			var view = c as Views.Base;
+			if (view != null && view.unused)
+				view.destroy ();
+		});
+		return Source.REMOVE;
+	}
 
 	public override bool delete_event (Gdk.EventAny event) {
 		window = null;
 		return app.on_window_closed ();
 	}
 
-    public void switch_timeline (int32 num) {
-        timeline_stack.visible_child_name = num.to_string ();
-    }
+	[Deprecated]
+	public void switch_timeline (int32 num) {
+	}
 
-    public void set_header_controls (Widget w) {
-        reset_header_controls ();
-        view_controls.add (w);
-        view_controls.reveal_child = true;
-    }
-    public void reset_header_controls () {
-        view_controls.reveal_child = false;
-        view_controls.get_children ().@foreach (w => {
-            view_controls.remove (w);
-        });
-    }
+	bool on_button_press (EventButton ev) {
+		if (ev.button == 8)
+			return back ();
+		return false;
+	}
 
-    bool on_button_press (EventButton ev) {
-        if (ev.button == 8)
-            return back ();
-        return false;
-    }
+	void on_zoom_level_changed () {
+		var css ="""
+			.%s label {
+				font-size: %i%;
+			}
+		""".printf (ZOOM_CLASS, settings.post_text_size);
 
-    void add_timeline_view (Views.Base view, string[] accelerators, int32 num) {
-        timeline_stack.add_titled (view, num.to_string (), view.label);
-        timeline_stack.child_set_property (view, "icon-name", view.icon);
-        view.notify["needs-attention"].connect (() => {
-            timeline_stack.child_set_property (view, "needs-attention", view.needs_attention);
-        });
-    }
+		try {
+			app.zoom_css_provider.load_from_data (css);
+		}
+		catch (Error e) {
+			warning (@"Can't set zoom level: $(e.message)");
+		}
+	}
 
-    void update_header () {
-        bool primary_mode = get_visible_id () == 0;
-        switcher_navbar.visible = timeline_switcher.sensitive = primary_mode;
-        timeline_switcher.opacity = primary_mode ? 1 : 0; //Prevent HeaderBar height jitter
-        view_navigation.reveal_child = !primary_mode;
+	void on_view_changed () {
+		var view = deck.visible_child as Views.Base;
 
-        if (primary_mode)
-        	header.custom_title = timeline_switcher;
-    }
+		if (last_view != null) {
+			last_view.current = false;
+			last_view.on_hidden ();
+		}
 
-    void on_timeline_changed (ParamSpec spec) {
-        var view = timeline_stack.visible_child as Views.Base;
+		if (view != null) {
+			view.current = true;
+			view.on_shown ();
+		}
 
-        if (last_view != null)
-            last_view.current = false;
-
-        if (view != null) {
-            view.current = true;
-            last_view = view;
-        }
-    }
-
-    void on_zoom_level_changed () {
-        var css ="""
-            .%s label {
-                font-size: %i%;
-            }
-        """.printf (ZOOM_CLASS, settings.post_text_size);
-
-        try {
-            app.zoom_css_provider.load_from_data (css);
-        }
-        catch (Error e) {
-            warning (@"Can't set zoom level: $(e.message)");
-        }
-    }
+		last_view = view;
+	}
 
 }

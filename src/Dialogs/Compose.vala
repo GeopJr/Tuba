@@ -2,7 +2,7 @@ using Gtk;
 using Gee;
 
 [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/compose.ui")]
-public class Tootle.Dialogs.Compose : Window {
+public class Tootle.Dialogs.Compose : Hdy.Window {
 
 	public API.Status? status { get; construct set; }
 	public string style_class { get; construct set; }

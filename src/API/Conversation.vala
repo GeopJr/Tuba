@@ -10,7 +10,7 @@ public class Tootle.API.Conversation : Entity, Widgetizable {
     }
 
 	public override void open () {
-		var view = new Views.ExpandedStatus (last_status.formal);
+		var view = new Views.Thread (last_status.formal);
 		window.open_view (view);
 
 		if (unread)

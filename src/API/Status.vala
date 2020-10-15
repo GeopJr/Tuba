@@ -78,7 +78,7 @@ public class Tootle.API.Status : Entity, Widgetizable {
     }
 
 	public override void open () {
-		var view = new Views.ExpandedStatus (formal);
+		var view = new Views.Thread (formal);
 		window.open_view (view);
 	}
 

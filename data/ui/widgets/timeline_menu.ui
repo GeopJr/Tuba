@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.36.0 -->
+<!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.22"/>
   <template class="TootleWidgetsTimelineMenu" parent="GtkMenuButton">
@@ -15,15 +15,43 @@
         <property name="halign">center</property>
         <property name="spacing">6</property>
         <child>
-          <object class="GtkLabel" id="title">
+          <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label">User</property>
-            <property name="ellipsize">end</property>
-            <property name="single_line_mode">True</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-            </attributes>
+            <property name="valign">center</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel" id="title">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label">User</property>
+                <property name="ellipsize">end</property>
+                <property name="single_line_mode">True</property>
+                <style>
+                  <class name="title"/>
+                </style>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="subtitle">
+                <property name="can_focus">False</property>
+                <property name="ellipsize">end</property>
+                <property name="single_line_mode">True</property>
+                <style>
+                  <class name="subtitle"/>
+                </style>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -48,13 +76,7 @@
     </child>
     <style>
       <class name="flat"/>
-      <class name="header-title-buttonx"/>
+      <class name="header-title-button"/>
     </style>
   </template>
-  <object class="GtkPopover" id="popover">
-    <property name="can_focus">False</property>
-    <child>
-      <placeholder/>
-    </child>
-  </object>
 </interface>

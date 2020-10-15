@@ -120,7 +120,7 @@ public class Tootle.Request : Soup.Message {
 		if (error != null)
 			throw new Oopsie.INSTANCE (error);
 		else
-		return this;
+			return this;
 	}
 
 	public static string array2string (Gee.ArrayList<string> array, string key) {

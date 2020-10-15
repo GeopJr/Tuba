@@ -202,19 +202,6 @@
               </packing>
             </child>
             <child>
-              <object class="GtkModelButton" id="item_search">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="text" translatable="yes">Search</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">4</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkModelButton" id="item_prefs">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -224,7 +211,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">5</property>
+                <property name="position">4</property>
               </packing>
             </child>
             <child>
@@ -238,7 +225,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">6</property>
+                <property name="position">5</property>
               </packing>
             </child>
           </object>

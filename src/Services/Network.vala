@@ -47,7 +47,7 @@ public class Tootle.Network : GLib.Object {
         requests_processing++;
         started ();
 
-		message (@"$(mess.method): $(mess.uri.to_string (false))");
+		// message (@"$(mess.method): $(mess.uri.to_string (false))");
 
         try {
             session.queue_message (mess, (sess, msg) => {

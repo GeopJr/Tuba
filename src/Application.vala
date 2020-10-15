@@ -48,6 +48,7 @@ namespace Tootle {
 			{ "compose", compose_activated },
 			{ "back", back_activated },
 			{ "refresh", refresh_activated },
+			{ "search", search_activated },
 			{ "switch-timeline", switch_timeline_activated, "i" }
 		};
 
@@ -60,6 +61,7 @@ namespace Tootle {
 		public string[] ACCEL_NEW_POST = {"<Ctrl>T"};
 		public string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left"};
 		public string[] ACCEL_REFRESH = {"<Ctrl>R", "F5"};
+		public string[] ACCEL_SEARCH = {"<Ctrl>F"};
 		public string[] ACCEL_TIMELINE_0 = {"<Alt>1"};
 		public string[] ACCEL_TIMELINE_1 = {"<Alt>2"};
 		public string[] ACCEL_TIMELINE_2 = {"<Alt>3"};
@@ -107,6 +109,7 @@ namespace Tootle {
 			set_accels_for_action ("app.compose", ACCEL_NEW_POST);
 			set_accels_for_action ("app.back", ACCEL_BACK);
 			set_accels_for_action ("app.refresh", ACCEL_REFRESH);
+			set_accels_for_action ("app.search", ACCEL_SEARCH);
 			set_accels_for_action ("app.switch-timeline(0)", ACCEL_TIMELINE_0);
 			set_accels_for_action ("app.switch-timeline(1)", ACCEL_TIMELINE_1);
 			set_accels_for_action ("app.switch-timeline(2)", ACCEL_TIMELINE_2);
@@ -160,6 +163,10 @@ namespace Tootle {
 
 		void back_activated () {
 			window.back ();
+		}
+
+		void search_activated () {
+			window.open_view (new Views.Search ());
 		}
 
 		void refresh_activated () {

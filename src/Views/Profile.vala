@@ -8,7 +8,6 @@ public class Tootle.Views.Profile : Views.Timeline {
 	public bool only_media { get; set; default = false; }
 	public string source { get; set; default = "statuses"; }
 
-	SimpleActionGroup actions;
 	SimpleAction media_action;
 	SimpleAction replies_action;
 	SimpleAction muting_action;
@@ -19,14 +18,14 @@ public class Tootle.Views.Profile : Views.Timeline {
 	ListBox profile_list;
 	Label relationship;
 	Widgets.TimelineMenu menu_button;
-	Button rs_button;
-	Label rs_button_label;
+
+	Widgets.AdaptiveButton rs_button;
+	SourceFunc? rs_button_action;
 
 	weak ListBoxRow note_row;
 
 	construct {
 		build_actions ();
-		menu_button = new Widgets.TimelineMenu ("profile-menu");
 
 		var builder = new Builder.from_resource (@"$(Build.RESOURCES)ui/views/profile_header.ui");
 		profile_list = builder.get_object ("profile_list") as ListBox;
@@ -38,11 +37,15 @@ public class Tootle.Views.Profile : Views.Timeline {
 		var avatar = builder.get_object ("avatar") as Widgets.Avatar;
 		avatar.url = profile.avatar;
 
-		profile.bind_property ("display-name", menu_button.title, "label", BindingFlags.SYNC_CREATE);
+		var domain = "@" + profile.domain;
+		menu_button.title.label = profile.handle.replace (domain, "");
+		menu_button.subtitle.label = domain;
+		if ("@" in profile.acct)
+			menu_button.subtitle.show ();
 
 		var handle = builder.get_object ("handle") as Widgets.RichLabel;
-		profile.bind_property ("acct", handle, "text", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			var text = "@" + (string) src;
+		profile.bind_property ("display-name", handle, "text", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			var text = (string) src;
 			target.set_string (@"<span size=\"x-large\" weight=\"bold\">$text</span>");
 			return true;
 		});
@@ -57,9 +60,6 @@ public class Tootle.Views.Profile : Views.Timeline {
 		});
 
 		relationship = builder.get_object ("relationship") as Label;
-		rs_button = builder.get_object ("rs_button") as Button;
-		rs_button.clicked.connect (on_rs_button_clicked);
-		rs_button_label = builder.get_object ("rs_button_label") as Label;
 		rs.notify["id"].connect (on_rs_updated);
 
 		rebuild_fields ();
@@ -75,6 +75,20 @@ public class Tootle.Views.Profile : Views.Timeline {
 	}
 	~Profile () {
 		menu_button.destroy ();
+	}
+
+	public override void build_header () {
+		rs_button = new Widgets.AdaptiveButton ();
+		rs_button.clicked.connect (() => {
+			if (rs_button_action != null) {
+				rs_button.sensitive = false;
+				rs_button_action ();
+			}
+		});
+		header.custom_title = menu_button = new Widgets.TimelineMenu ("profile-menu");
+
+		if (profile.id != accounts.active.id)
+			header.pack_end (rs_button);
 	}
 
 	void build_actions () {
@@ -113,6 +127,12 @@ public class Tootle.Views.Profile : Views.Timeline {
 			new Dialogs.Compose (status);
 		});
 		actions.add_action (mention_action);
+
+		var copy_handle_action = new SimpleAction ("copy_handle", null);
+		copy_handle_action.activate.connect (v => {
+			Desktop.copy (profile.handle);
+		});
+		actions.add_action (copy_handle_action);
 
 		muting_action = new SimpleAction.stateful ("muting", null, false);
 		muting_action.change_state.connect (v => {
@@ -181,24 +201,6 @@ public class Tootle.Views.Profile : Views.Timeline {
 		}
 	}
 
-	public override void on_shown () {
-		window.insert_action_group ("view", actions);
-		window.header.custom_title = menu_button;
-		menu_button.valign = Align.FILL;
-		window.set_header_controls (rs_button);
-	}
-
-	public override void on_hidden () {
-		window.insert_action_group ("view", null);
-		window.header.custom_title = null;
-		window.reset_header_controls ();
-	}
-
-	void on_rs_button_clicked () {
-		rs_button.sensitive = false;
-		rs.modify (rs.following ? "unfollow" : "follow");
-	}
-
 	 void on_rs_updated () {
 		var label = "";
 		if (rs_button.sensitive = rs != null) {
@@ -209,18 +211,53 @@ public class Tootle.Views.Profile : Views.Timeline {
 			else if (rs.followed_by)
 				label = _("Follows you");
 
-			var ctx = rs_button.get_style_context ();
-			ctx.remove_class (STYLE_CLASS_SUGGESTED_ACTION);
-			ctx.remove_class (STYLE_CLASS_DESTRUCTIVE_ACTION);
-			ctx.add_class (rs.following ? STYLE_CLASS_DESTRUCTIVE_ACTION : STYLE_CLASS_SUGGESTED_ACTION);
 
-			rs_button_label.label = rs.following ? _("Unfollow") : _("Follow");
+			string action_icon = "";
+			string action_label = "";
+			get_rs_button_state (ref action_label, ref action_icon, ref rs_button_action);
+			rs_button.icon_name = action_icon;
+			rs_button.label = action_label;
+
 		}
 
 		relationship.label = label;
 		relationship.visible = label != "";
 
 		invalidate_actions (false);
+	}
+
+	void get_rs_button_state (ref string label, ref string icon_name, ref SourceFunc? fn) {
+		if (rs == null) return;
+
+		if (rs.blocking) {
+			label = _("Unblock");
+			icon_name = "view-reveal-symbolic";
+			fn = () => {
+				blocking_action.change_state (false);
+				rs_button.sensitive = true;
+				return true;
+			};
+			return;
+		}
+		else if (rs.following || rs.requested) {
+			label = _("Unfollow");
+			icon_name = "list-remove-symbolic";
+			fn = () => {
+				rs.modify ("unfollow");
+				return true;
+			};
+			return;
+		}
+		else if (!rs.following) {
+			label = _("Follow");
+			icon_name = "list-add-symbolic";
+			fn = () => {
+				rs.modify ("follow");
+				return true;
+			};
+			return;
+		}
+
 	}
 
 	public override Request append_params (Request req) {

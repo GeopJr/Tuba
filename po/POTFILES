@@ -43,6 +43,8 @@ src/Services/Network.vala
 src/Services/Streams.vala
 
 src/Views/Base.vala
+src/Views/TabbedBase.vala
+src/Views/Main.vala
 src/Views/Bookmarks.vala
 src/Views/Conversations.vala
 src/Views/ExpandedStatus.vala
@@ -57,6 +59,7 @@ src/Views/Notifications.vala
 src/Views/Profile.vala
 src/Views/Search.vala
 src/Views/Timeline.vala
+src/Views/Thread.vala
 
 src/Widgets/Attachment/Box.vala
 src/Widgets/Attachment/Picture.vala

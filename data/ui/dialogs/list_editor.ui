@@ -2,7 +2,7 @@
 <!-- Generated with glade 3.36.0 -->
 <interface>
   <requires lib="gtk+" version="3.22"/>
-  <template class="TootleDialogsListEditor" parent="GtkWindow">
+  <template class="TootleDialogsListEditor" parent="HdyWindow">
     <property name="can_focus">False</property>
     <property name="modal">True</property>
     <property name="default_width">300</property>
@@ -17,6 +17,101 @@
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkHeaderBar">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child type="title">
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Name</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="name_entry">
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
+                    <property name="can_focus">True</property>
+                    <property name="width_chars">20</property>
+                    <signal name="changed" handler="validate" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="cancel_btn">
+                <property name="label" translatable="yes">Cancel</property>
+                <property name="width_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_cancel_clicked" swapped="no"/>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="save_btn">
+                <property name="width_request">80</property>
+                <property name="visible">True</property>
+                <property name="sensitive">False</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_save_clicked" swapped="no"/>
+                <child>
+                  <object class="GtkStack" id="save_btn_stack">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Save</property>
+                      </object>
+                      <packing>
+                        <property name="name">done</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinner">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="active">True</property>
+                      </object>
+                      <packing>
+                        <property name="name">working</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+                <style>
+                  <class name="suggested-action"/>
+                </style>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+        </child>
         <child>
           <object class="GtkInfoBar" id="infobar">
             <property name="visible">True</property>
@@ -83,11 +178,6 @@
               </packing>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
         </child>
         <child>
           <object class="GtkSearchEntry" id="search_entry">
@@ -110,11 +200,6 @@
             <property name="placeholder_text" translatable="yes">Search among people you follow</property>
             <signal name="search-changed" handler="on_search_changed" swapped="no"/>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
         </child>
         <child>
           <object class="GtkScrolledWindow">
@@ -189,106 +274,6 @@
               </object>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <child type="titlebar">
-      <object class="GtkHeaderBar">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <child type="title">
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="spacing">6</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Name</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="name_entry">
-                <property name="visible">True</property>
-                <property name="sensitive">False</property>
-                <property name="can_focus">True</property>
-                <property name="width_chars">20</property>
-                <signal name="changed" handler="validate" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="cancel_btn">
-            <property name="label" translatable="yes">Cancel</property>
-            <property name="width_request">80</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <signal name="clicked" handler="on_cancel_clicked" swapped="no"/>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="save_btn">
-            <property name="width_request">80</property>
-            <property name="visible">True</property>
-            <property name="sensitive">False</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <signal name="clicked" handler="on_save_clicked" swapped="no"/>
-            <child>
-              <object class="GtkStack" id="save_btn_stack">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Save</property>
-                  </object>
-                  <packing>
-                    <property name="name">done</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSpinner">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="halign">center</property>
-                    <property name="valign">center</property>
-                    <property name="active">True</property>
-                  </object>
-                  <packing>
-                    <property name="name">working</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-            </child>
-            <style>
-              <class name="suggested-action"/>
-            </style>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-            <property name="position">2</property>
-          </packing>
         </child>
       </object>
     </child>

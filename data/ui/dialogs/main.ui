@@ -1,192 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.36.0 -->
+<!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <requires lib="libhandy" version="1.0"/>
-  <template class="TootleDialogsMainWindow" parent="GtkWindow">
+  <template class="TootleDialogsMainWindow" parent="HdyWindow">
     <property name="width_request">360</property>
     <property name="height_request">600</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkBox">
+      <object class="HdyDeck" id="deck">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
+        <property name="transition_type">slide</property>
+        <property name="can_swipe_back">True</property>
+        <property name="can_swipe_forward">True</property>
         <child>
-          <object class="GtkStack" id="view_stack">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="transition_type">slide-left-right</property>
-            <child>
-              <object class="GtkStack" id="timeline_stack">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="transition_type">slide-left-right</property>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-              <packing>
-                <property name="name">0</property>
-                <property name="title">0</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="HdyViewSwitcherBar" id="switcher_navbar">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="stack">timeline_stack</property>
-            <property name="reveal" bind-source="timeline_switcher" bind-property="title_visible" bind-flags="sync-create">False</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <child type="titlebar">
-      <object class="GtkHeaderBar" id="header">
-        <property name="height_request">48</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="show_close_button">True</property>
-        <child type="title">
-          <object class="HdyViewSwitcherTitle" id="timeline_switcher">
-            <property name="visible">True</property>
-            <property name="policy">auto</property>
-          </object>
-          <packing>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkRevealer" id="view_navigation">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="transition_type">slide-right</property>
-                <property name="transition_duration">200</property>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="margin_end">6</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkButton" id="back_button">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="icon_name">go-previous-symbolic</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkSeparator">
-                        <property name="can_focus">False</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="account_actions">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="TootleWidgetsAccountsButton" id="accounts_button">
-                    <property name="visible">True</property>
-                    <style>
-                      <class name="image-button"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="compose_button">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="tooltip_text" translatable="yes">Compose</property>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="icon_name">document-edit-symbolic</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <style>
-                  <class name="linked"/>
-                  <class name="horizontal"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkRevealer" id="view_controls">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="valign">center</property>
-            <property name="transition_type">crossfade</property>
-            <property name="transition_duration">200</property>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-            <property name="position">2</property>
-          </packing>
+          <placeholder/>
         </child>
       </object>
     </child>

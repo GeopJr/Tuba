@@ -3,85 +3,87 @@
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <requires lib="libhandy" version="1.0"/>
-  <template class="TootleDialogsCompose" parent="GtkWindow">
+  <template class="TootleDialogsCompose" parent="HdyWindow">
     <property name="can_focus">False</property>
     <property name="modal">True</property>
     <property name="default_width">500</property>
-    <property name="default_height">250</property>
+    <property name="default_height">300</property>
     <property name="type_hint">dialog</property>
-    <child type="titlebar">
-      <object class="GtkHeaderBar">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <child>
-          <object class="GtkButton" id="close">
-            <property name="label" translatable="yes">Cancel</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <signal name="clicked" handler="on_close" swapped="no"/>
-          </object>
-          <packing>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child type="title">
-          <object class="HdyViewSwitcherTitle" id="mode_switcher">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="stack">mode</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="commit">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <signal name="clicked" handler="on_commit" swapped="no"/>
-            <child>
-              <object class="GtkStack" id="commit_stack">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkLabel" id="commit_label">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Publish</property>
-                  </object>
-                  <packing>
-                    <property name="name">ready</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSpinner">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="halign">center</property>
-                    <property name="valign">center</property>
-                    <property name="active">True</property>
-                  </object>
-                  <packing>
-                    <property name="name">working</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <placeholder/>
+          <object class="HdyHeaderBar">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child type="title">
+              <object class="HdyViewSwitcherTitle" id="mode_switcher">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stack">mode</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="commit">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_commit" swapped="no"/>
+                <child>
+                  <object class="GtkStack" id="commit_stack">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkLabel" id="commit_label">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Publish</property>
+                      </object>
+                      <packing>
+                        <property name="name">ready</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinner">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="active">True</property>
+                      </object>
+                      <packing>
+                        <property name="name">working</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="close">
+                <property name="label" translatable="yes">Cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_close" swapped="no"/>
+              </object>
+              <packing>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
         </child>
         <child>
           <object class="GtkStack" id="mode">

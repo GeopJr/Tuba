@@ -49,6 +49,10 @@
         <attribute name="action">view.mention</attribute>
         <attribute name="target">direct</attribute>
       </item>
+      <item>
+        <attribute name="label" translatable="yes">Copy Handle</attribute>
+        <attribute name="action">view.copy_handle</attribute>
+      </item>
     </section>
 
     <section>

@@ -70,8 +70,6 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
 	[GtkChild]
 	ModelButton item_refresh;
 	[GtkChild]
-	ModelButton item_search;
-	[GtkChild]
 	Button item_favs;
 	[GtkChild]
 	Button item_conversations;
@@ -82,6 +80,7 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
 
 	construct {
 		account_listener_init ();
+		get_style_context ().add_class ("image-button");
 
 		item_refresh.clicked.connect (() => {
 			app.refresh ();
@@ -101,10 +100,6 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
 		});
 		item_lists.clicked.connect (() => {
 			window.open_view (new Views.Lists ());
-			popover.popdown ();
-		});
-		item_search.clicked.connect (() => {
-			window.open_view (new Views.Search ());
 			popover.popdown ();
 		});
 		item_prefs.clicked.connect (() => {
