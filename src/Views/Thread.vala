@@ -4,7 +4,7 @@ public class Tootle.Views.Thread : Views.Base, IAccountListener {
 
     public API.Status root_status { get; construct set; }
     protected InstanceAccount? account = null;
-    protected Widget root_widget;
+    protected Widgets.Status root_widget;
 
     public Thread (API.Status status) {
         Object (
@@ -20,7 +20,7 @@ public class Tootle.Views.Thread : Views.Base, IAccountListener {
         request ();
     }
 
-    Widget prepend (Entity entity, bool to_end = false){
+    Widgets.Status prepend (Entity entity, bool to_end = false){
         var w = entity.to_widget () as Widgets.Status;
         w.reveal_spoiler = true;
 
@@ -49,7 +49,8 @@ public class Tootle.Views.Thread : Views.Base, IAccountListener {
                     append (status);
                 });
 
-                root_widget = append (root_status);
+                root_widget = append (root_status) as Widgets.Status;
+                root_widget.expand_root ();
 
                 var descendants = root.get_array_member ("descendants");
                 descendants.foreach_element ((array, i, node) => {

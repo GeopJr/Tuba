@@ -31,6 +31,8 @@ public class Tootle.Widgets.Status : ListBoxRow {
 	protected Image indicator;
 
 	[GtkChild]
+	protected Box content_column;
+	[GtkChild]
 	protected Stack spoiler_stack;
 	[GtkChild]
 	protected Box content_box;
@@ -248,6 +250,17 @@ public class Tootle.Widgets.Status : ListBoxRow {
 
 		menu.show_all ();
 		menu.popup_at_widget (menu_button, Gravity.SOUTH_EAST, Gravity.SOUTH_EAST);
+	}
+
+	public void expand_root () {
+		activatable = false;
+        content.selectable = true;
+
+        var parent = content_column.get_parent () as Container;
+        var left_attach = parent.find_child_property ("left-attach");
+        var width = parent.find_child_property ("width");
+        parent.set_child_property (content_column, 1, 0, left_attach);
+        parent.set_child_property (content_column, 3, 2, width);
 	}
 
 }
