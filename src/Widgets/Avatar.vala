@@ -1,85 +1,76 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.Widgets.Avatar : Button {
-
-	public string? url { get; set; }
-	public int size { get; set; default = 48; }
+public class Tootle.Widgets.Avatar : Bin {
 
 	Cache.Reference? cached;
 
-	construct {
-		get_style_context ().add_class ("avatar");
-		notify["url"].connect (on_url_updated);
-		notify["size"].connect (on_size_changed);
-		// Screen.get_default ().monitors_changed.connect (on_redraw);
-		on_url_updated ();
+	Hdy.Avatar avatar;
+
+	public int size {
+		get {
+			return avatar.size;
+		}
+		set {
+			avatar.size = value;
+		}
 	}
 
-	public Avatar (int size = this.size) {
-		Object (size: size);
-		queue_draw ();
+	public API.Account? account { get; set; }
+
+	construct {
+		avatar = new Hdy.Avatar (48, null, true);
+		add (avatar);
+		show_all ();
+
+		notify["account"].connect (on_invalidated);
+		on_invalidated ();
 	}
 
 	~Avatar () {
-		notify["url"].disconnect (on_url_updated);
-		// Screen.get_default ().monitors_changed.disconnect (on_redraw);
-		cache.unload (cached);
+		notify["account"].disconnect (on_invalidated);
+		cache.unload (ref cached);
 	}
 
-	void on_url_updated () {
+	void on_invalidated () {
 		if (cached != null)
-			cache.unload (cached);
+			cache.unload (ref cached);
 
 		cached = null;
-		queue_draw ();
-		cache.load (url, on_cache_result);
+
+		if (account != null)
+			cache.load (account.avatar, on_cache_result);
+		else
+			on_cache_result (null);
 	}
 
 	void on_cache_result (Cache.Reference? result) {
 		cached = result;
-		queue_draw ();
-	}
-
-	void on_size_changed () {
-		set_size_request (get_scaled_size (), get_scaled_size ());
-		queue_draw ();
-	}
-
-	public int get_scaled_size () {
-		return size; //return size * get_scale_factor ();
-	}
-
-	public override void get_preferred_height (out int min_h, out int nat_h) {
-		min_h = nat_h = get_scaled_size ();
-	}
-
-	public override void get_preferred_width (out int min_w, out int nat_w) {
-		min_w = nat_w = get_scaled_size ();
-	}
-
-	public override bool draw (Cairo.Context ctx) {
-		var w = get_allocated_width ();
-		var h = get_allocated_height ();
-		var style = get_style_context ();
-		var border_radius = style.get_property (Gtk.STYLE_PROPERTY_BORDER_RADIUS, style.get_state ()).get_int ();
-		Pixbuf pixbuf;
-
-		Drawing.draw_rounded_rect (ctx, 0, 0, w, h, border_radius);
-		if (cached != null && !cached.loading) {
-			pixbuf = cached.data.scale_simple (get_scaled_size (), get_scaled_size (), InterpType.BILINEAR);
+		if (account == null) {
+			// This exact string makes the avatar grey.
+			//
+			// If left null, *each* blank Hdy.Avatar receives
+			// a random color and hurts my eyes. No bueno.
+			avatar.text = "abc";
+			avatar.show_initials = false;
 		}
+		else if (cached != null) {
+			avatar.text = account.display_name;
+			avatar.show_initials = true;
+		}
+		avatar.set_image_load_func (avatar_set_pixbuf);
+	}
+
+	Pixbuf? avatar_set_pixbuf (int size) {
+		if (cached == null || cached.data == null)
+			return null;
 		else {
-			pixbuf = IconTheme.get_default ().load_icon_for_scale (
-				"avatar-default",
-				get_scaled_size (),
-				get_scale_factor (),
-				IconLookupFlags.GENERIC_FALLBACK);
+			var pb = cached.data;
+			if (pb.width != size)
+				return pb.scale_simple (size, size, InterpType.BILINEAR);
+			else
+				return pb;
 		}
-		Gdk.cairo_set_source_pixbuf (ctx, pixbuf, 0, 0);
-		ctx.fill ();
-
-		return Gdk.EVENT_STOP;
 	}
 
 }

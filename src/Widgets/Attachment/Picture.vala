@@ -16,7 +16,7 @@ public class Tootle.Widgets.Attachment.Picture : DrawingArea {
 		Object (url: url);
 	}
 	~Picture () {
-		cache.unload (cached);
+		cache.unload (ref cached);
 	}
 
 	public void on_request () {

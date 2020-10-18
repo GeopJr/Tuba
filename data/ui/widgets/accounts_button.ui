@@ -167,7 +167,7 @@
                   </object>
                 </child>
                 <style>
-                  <class name="app-action-bar"/>
+                  <class name="ttl-action-bar"/>
                 </style>
               </object>
               <packing>
@@ -295,7 +295,7 @@
       </object>
     </child>
     <style>
-      <class name="app-view"/>
+      <class name="ttl-view"/>
     </style>
   </object>
   <template class="TootleWidgetsAccountsButton" parent="GtkMenuButton">

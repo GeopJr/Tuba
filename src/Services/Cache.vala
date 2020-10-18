@@ -33,7 +33,7 @@ public class Tootle.Cache : GLib.Object {
         }
     }
 
-    public void unload (Reference? r) {
+    public void unload (ref Reference? r) {
         if (r == null)
             return;
 
@@ -53,11 +53,15 @@ public class Tootle.Cache : GLib.Object {
         // else {
         //     message (@"[-] $(r.key) - $(item.references)");
         // }
+
+        r = null;
     }
 
     public void load (string? url, owned CachedResultCallback cb) {
-        if (url == null)
-            return;
+        if (url == null) {
+        	cb (null);
+        	return;
+        }
 
         var key = url;
         if (items.contains (key)) {

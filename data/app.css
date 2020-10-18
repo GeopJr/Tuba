@@ -1,7 +1,3 @@
-.avatar {
-	border-radius: 4px;
-}
-
 .header .chip {
   padding: 4px 12px;
   border-radius: 4px;
@@ -29,13 +25,17 @@
 	border-bottom: none;
 }
 
-.padded.app-view {
+.padded.ttl-view {
 	margin: 32px 0 32px 0;
 }
-.app-view:not(.padded) .content row {
+.ttl-view:not(.padded) .content row {
 	border-radius: 0px;
 }
 
-.app-action-bar .circular {
+.ttl-action-bar .circular {
 	box-shadow: none;
+}
+
+.ttl-avatar-button {
+  padding: 0;
 }

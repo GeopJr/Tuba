@@ -399,7 +399,7 @@
           </packing>
         </child>
         <style>
-          <class name="app-view"/>
+          <class name="ttl-view"/>
         </style>
       </object>
     </child>

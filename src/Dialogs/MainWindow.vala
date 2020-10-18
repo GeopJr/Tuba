@@ -4,7 +4,7 @@ using Gdk;
 [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/main.ui")]
 public class Tootle.Dialogs.MainWindow: Hdy.Window, ISavedWindow {
 
-	public const string ZOOM_CLASS = "app-scalable";
+	public const string ZOOM_CLASS = "ttl-scalable";
 
 	[GtkChild]
 	Hdy.Deck deck;

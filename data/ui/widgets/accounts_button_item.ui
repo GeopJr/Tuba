@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.36.0 -->
+<!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <template class="TootleWidgetsAccountsButtonItem" parent="GtkListBoxRow">
@@ -25,11 +25,27 @@
                 <property name="column_spacing">8</property>
                 <property name="row_homogeneous">True</property>
                 <child>
-                  <object class="TootleWidgetsAvatar" id="avatar">
-                <property name="visible">true</property>
-                <property name="size">48</property>
-                <signal name="clicked" handler="open_profile" swapped="no"/>
-              </object>
+                  <object class="GtkButton" id="avatar_button">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">start</property>
+                    <property name="valign">start</property>
+                    <signal name="clicked" handler="open_profile" swapped="no"/>
+                    <child>
+                      <object class="TootleWidgetsAvatar" id="avatar">
+                        <property name="size">48</property>
+                        <property name="valign">start</property>
+                        <property name="visible">true</property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="flat"/>
+                      <class name="image-button"/>
+                      <class name="circular"/>
+                      <class name="ttl-avatar-button"/>
+                    </style>
+                  </object>
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">0</property>

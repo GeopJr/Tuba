@@ -16,7 +16,7 @@ public class Tootle.Views.TabbedBase : Views.Base {
 		state = "content";
 
 		states.get_parent ().remove (states);
-		view.get_style_context ().remove_class ("app-view");
+		view.get_style_context ().remove_class ("ttl-view");
 		scrolled.destroy ();
 		pack_start (states);
 

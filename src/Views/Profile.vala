@@ -35,7 +35,7 @@ public class Tootle.Views.Profile : Views.Timeline {
 		column_view.reorder_child (hdr, 0);
 
 		var avatar = builder.get_object ("avatar") as Widgets.Avatar;
-		avatar.url = profile.avatar;
+		avatar.account = profile;
 
 		var domain = "@" + profile.domain;
 		menu_button.title.label = profile.handle.replace (domain, "");

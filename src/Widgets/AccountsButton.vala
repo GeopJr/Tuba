@@ -23,7 +23,7 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
 		public Item (InstanceAccount account, AccountsButton btn) {
 			this.account = account;
 			this.button = btn;
-			avatar.url = account.avatar;
+			avatar.account = account;
 			title.label = account.display_name;
 			handle.label = account.handle;
 		}
@@ -143,13 +143,13 @@ public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
 
 	public virtual void on_account_changed (InstanceAccount? account) {
 		if (account == null) {
-			avatar.url = null;
+			avatar.account = null;
 			item_accounts.text = "<b><span size=\"large\">%s</span></b>\n%s".printf (
 				_("Anonymous"),
 				_("No active account"));
 		}
 		else {
-			avatar.url = account.avatar;
+			avatar.account = account;
 			item_accounts.text = @"<b><span size=\"large\">$(account.display_name)</span></b>\n$(account.handle)";
 		}
 		item_accounts.use_markup = true;

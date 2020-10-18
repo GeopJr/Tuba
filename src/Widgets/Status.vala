@@ -138,7 +138,7 @@ public class Tootle.Widgets.Status : ListBoxRow {
 		bind_property ("subtitle_text", handle_label, "text", BindingFlags.SYNC_CREATE);
 		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
-		bind_property ("avatar_url", avatar, "url", BindingFlags.SYNC_CREATE);
+		status.formal.bind_property ("account", avatar, "account", BindingFlags.SYNC_CREATE);
 
 		status.formal.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_boolean (!src.get_boolean ());
