@@ -39,8 +39,6 @@ public class Tootle.Widgets.Avatar : Bin {
 		if (cached != null)
 			cache.unload (ref cached);
 
-		cached = null;
-
 		if (account != null)
 			cache.load (account.avatar, on_cache_result);
 		else
