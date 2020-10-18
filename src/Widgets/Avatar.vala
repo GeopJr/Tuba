@@ -20,6 +20,9 @@ public class Tootle.Widgets.Avatar : Bin {
 
 	construct {
 		avatar = new Hdy.Avatar (48, null, true);
+		avatar.destroy.connect (() => {
+			avatar.set_image_load_func (null);
+		});
 		add (avatar);
 		show_all ();
 
