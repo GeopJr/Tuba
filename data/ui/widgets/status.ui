@@ -12,15 +12,15 @@
     <property name="can_focus">False</property>
     <property name="icon_name">non-starred-symbolic</property>
   </object>
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">mail-replied-symbolic</property>
-  </object>
   <object class="GtkImage" id="reblog_icon">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">media-playlist-repeat-symbolic</property>
+  </object>
+  <object class="GtkImage" id="reply_button_icon">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">mail-reply-sender-symbolic</property>
   </object>
   <template class="TootleWidgetsStatus" parent="GtkListBoxRow">
     <property name="visible">True</property>
@@ -290,7 +290,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="image">image3</property>
+                    <property name="image">reply_button_icon</property>
                     <property name="always_show_image">True</property>
                     <style>
                       <class name="flat"/>

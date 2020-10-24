@@ -7,58 +7,35 @@ public class Tootle.Widgets.Status : ListBoxRow {
 	public API.Status status { get; construct set; }
 	public API.NotificationType? kind { get; construct set; }
 
-	[GtkChild]
-	protected Grid grid;
+	[GtkChild] protected Grid grid;
 
-	[GtkChild]
-	protected Image header_icon;
-	[GtkChild]
-	protected Widgets.RichLabel header_label;
+	[GtkChild] protected Image header_icon;
+	[GtkChild] protected Widgets.RichLabel header_label;
 
-	[GtkChild]
-	public Widgets.Avatar avatar;
-	[GtkChild]
-	protected Widgets.RichLabel name_label;
-	[GtkChild]
-	protected Widgets.RichLabel handle_label;
-	[GtkChild]
-	protected Box indicators;
-	[GtkChild]
-	protected Widgets.RichLabel date_label;
-	[GtkChild]
-	protected Image pin_indicator;
-	[GtkChild]
-	protected Image indicator;
+	[GtkChild] public Widgets.Avatar avatar;
+	[GtkChild] protected Widgets.RichLabel name_label;
+	[GtkChild] protected Widgets.RichLabel handle_label;
+	[GtkChild] protected Box indicators;
+	[GtkChild] protected Widgets.RichLabel date_label;
+	[GtkChild] protected Image pin_indicator;
+	[GtkChild] protected Image indicator;
 
-	[GtkChild]
-	protected Box content_column;
-	[GtkChild]
-	protected Stack spoiler_stack;
-	[GtkChild]
-	protected Box content_box;
-	[GtkChild]
-	protected Widgets.RichLabel content;
-	[GtkChild]
-	protected Widgets.Attachment.Box attachments;
-	[GtkChild]
-	protected Button spoiler_button;
-	[GtkChild]
-	protected Widgets.RichLabel spoiler_label;
+	[GtkChild] protected Box content_column;
+	[GtkChild] protected Stack spoiler_stack;
+	[GtkChild] protected Box content_box;
+	[GtkChild] protected Widgets.RichLabel content;
+	[GtkChild] protected Widgets.Attachment.Box attachments;
+	[GtkChild] protected Button spoiler_button;
+	[GtkChild] protected Widgets.RichLabel spoiler_label;
 
-	[GtkChild]
-	protected Box actions;
-	[GtkChild]
-	protected Button reply_button;
-	[GtkChild]
-	protected ToggleButton reblog_button;
-	[GtkChild]
-	protected Image reblog_icon;
-	[GtkChild]
-	protected ToggleButton favorite_button;
-	[GtkChild]
-	protected ToggleButton bookmark_button;
-	[GtkChild]
-	protected Button menu_button;
+	[GtkChild] protected Box actions;
+	[GtkChild] protected Button reply_button;
+	[GtkChild] protected Image reply_button_icon;
+	[GtkChild] protected ToggleButton reblog_button;
+	[GtkChild] protected Image reblog_icon;
+	[GtkChild] protected ToggleButton favorite_button;
+	[GtkChild] protected ToggleButton bookmark_button;
+	[GtkChild] protected Button menu_button;
 
 	protected string spoiler_text {
 		owned get {
@@ -129,6 +106,10 @@ public class Tootle.Widgets.Status : ListBoxRow {
 		});
 
 		reply_button.clicked.connect (() => new Dialogs.Compose.reply (status));
+		if (status.formal.in_reply_to_id != null)
+			reply_button_icon.icon_name = "mail-reply-all-symbolic";
+		else
+			reply_button_icon.icon_name = "mail-reply-sender-symbolic";
 
 		bind_property ("spoiler-text", spoiler_label, "text", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("content", content, "text", BindingFlags.SYNC_CREATE);
