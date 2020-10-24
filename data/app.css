@@ -40,3 +40,17 @@
   padding: 0px;
   margin: 0px;
 }
+
+.ttl-post {
+  padding: 0px;
+}
+.ttl-thread-line {
+  background: @theme_fg_color;
+  opacity: .1;
+  margin-top: -8px;
+  margin-bottom: -8px;
+}
+
+.ttl-large-body {
+  font-size: 110%;
+}

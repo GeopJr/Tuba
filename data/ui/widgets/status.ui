@@ -417,9 +417,26 @@
           </packing>
         </child>
         <child>
-          <placeholder/>
+          <object class="GtkImage" id="thread_line">
+            <property name="width_request">4</property>
+            <property name="height_request">32</property>
+            <property name="can_focus">False</property>
+            <property name="halign">center</property>
+            <property name="icon_size">0</property>
+            <style>
+              <class name="ttl-thread-line"/>
+            </style>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="height">3</property>
+          </packing>
         </child>
       </object>
     </child>
+    <style>
+      <class name="ttl-post"/>
+    </style>
   </template>
 </interface>

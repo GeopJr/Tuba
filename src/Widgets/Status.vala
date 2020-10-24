@@ -7,10 +7,38 @@ public class Tootle.Widgets.Status : ListBoxRow {
 	public API.Status status { get; construct set; }
 	public API.NotificationType? kind { get; construct set; }
 
+	public enum ThreadRole {
+		NONE,
+		START,
+		MIDDLE,
+		END;
+
+		public static void connect_posts (Widgets.Status? prev, Widgets.Status curr) {
+			if (prev == null) {
+				curr.thread_role = NONE;
+				return;
+			}
+
+			switch (prev.thread_role) {
+				case NONE:
+					prev.thread_role = START;
+					curr.thread_role = END;
+					break;
+				case END:
+					prev.thread_role = MIDDLE;
+					curr.thread_role = END;
+					break;
+			}
+		}
+	}
+
+	public ThreadRole thread_role { get; set; default = ThreadRole.NONE; }
+
 	[GtkChild] protected Grid grid;
 
 	[GtkChild] protected Image header_icon;
 	[GtkChild] protected Widgets.RichLabel header_label;
+	[GtkChild] public Image thread_line;
 
 	[GtkChild] public Widgets.Avatar avatar;
 	[GtkChild] protected Widgets.RichLabel name_label;
@@ -234,12 +262,37 @@ public class Tootle.Widgets.Status : ListBoxRow {
 	public void expand_root () {
 		activatable = false;
         content.selectable = true;
+        content.get_style_context ().add_class ("ttl-large-body");
 
         var parent = content_column.get_parent () as Container;
         var left_attach = parent.find_child_property ("left-attach");
         var width = parent.find_child_property ("width");
         parent.set_child_property (content_column, 1, 0, left_attach);
         parent.set_child_property (content_column, 3, 2, width);
+	}
+
+	public void install_thread_line () {
+		var l = thread_line;
+		switch (thread_role) {
+			case NONE:
+				l.visible = false;
+				break;
+			case START:
+				l.valign = Align.FILL;
+				l.margin_top = 24;
+				l.visible = true;
+				break;
+			case MIDDLE:
+				l.valign = Align.FILL;
+				l.margin_top = 0;
+				l.visible = true;
+				break;
+			case END:
+				l.valign = Align.START;
+				l.margin_top = 0;
+				l.visible = true;
+				break;
+		}
 	}
 
 }
