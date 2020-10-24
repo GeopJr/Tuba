@@ -89,9 +89,9 @@
                     <property name="ellipsize">end</property>
                     <property name="single_line_mode">True</property>
                     <property name="xalign">0</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
+                    <style>
+                      <class name="title-4"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -104,10 +104,13 @@
                     <property name="can_focus">False</property>
                     <property name="opacity">0.5</property>
                     <property name="hexpand">True</property>
-                    <property name="label" translatable="yes">Handle</property>
+                    <property name="label" translatable="no">Handle</property>
                     <property name="ellipsize">end</property>
                     <property name="single_line_mode">True</property>
                     <property name="xalign">0</property>
+                    <style>
+                      <class name="body"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>

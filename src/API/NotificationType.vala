@@ -53,19 +53,19 @@ public enum Tootle.API.NotificationType {
     public string get_desc (Account? account) {
         switch (this) {
             case MENTION:
-                return _("<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> mentioned you</span>").printf (account.url, account.display_name);
+                return _("<span underline=\"none\"><a href=\"%s\">%s</a> mentioned you</span>").printf (account.url, account.display_name);
             case REBLOG:
-                return _("<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> boosted your status</span>").printf (account.url, account.display_name);
+                return _("<span underline=\"none\"><a href=\"%s\">%s</a> boosted your status</span>").printf (account.url, account.display_name);
             case REBLOG_REMOTE_USER:
-                return _("<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> boosted</span>").printf (account.url, account.display_name);
+                return _("<span underline=\"none\"><a href=\"%s\">%s</a> boosted</span>").printf (account.url, account.display_name);
             case FAVORITE:
-                return _("<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> favorited your status</span>").printf (account.url, account.display_name);
+                return _("<span underline=\"none\"><a href=\"%s\">%s</a> favorited your status</span>").printf (account.url, account.display_name);
             case FOLLOW:
-                return _("<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> now follows you</span>").printf (account.url, account.display_name);
+                return _("<span underline=\"none\"><a href=\"%s\">%s</a> now follows you</span>").printf (account.url, account.display_name);
             case FOLLOW_REQUEST:
-                return _("<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> wants to follow you</span>").printf (account.url, account.display_name);
+                return _("<span underline=\"none\"><a href=\"%s\">%s</a> wants to follow you</span>").printf (account.url, account.display_name);
             case WATCHLIST:
-                return _("<span underline=\"none\"><a href=\"%s\"><b>%s</b></a> posted a status</span>").printf (account.url, account.display_name);
+                return _("<span underline=\"none\"><a href=\"%s\">%s</a> posted a status</span>").printf (account.url, account.display_name);
             default:
                 warning (@"Unknown notification type: $this");
                 return "";

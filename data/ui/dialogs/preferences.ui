@@ -1,183 +1,194 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Not generated with glade 3.36.0 and I hate it -->
+<!-- Generated with glade 3.22.2 -->
 <interface>
-	<requires lib="gtk+" version="3.22"/>
-	<requires lib="libhandy" version="0.0"/>
-	<template class="TootleDialogsPreferences" parent="HdyPreferencesWindow">
-		<property name="default_height">400</property>
-		<property name="default_width">500</property>
-		<property name="width_request">300</property>
-		<property name="search_enabled">false</property>
-
-		<!--Application-->
-		<child>
-			<object class="HdyPreferencesPage">
-				<property name="icon_name">applications-system-symbolic</property>
-				<property name="title" translatable="yes">General</property>
-        		<property name="visible">True</property>
-
-					<child>
-						<object class="HdyPreferencesGroup">
-							<property name="visible">True</property>
-							<property name="title" translatable="yes">Appearance</property>
-							<child>
-								<object class="HdyActionRow">
-									<property name="visible">True</property>
-									<property name="activatable_widget">dark_theme</property>
-									<property name="title" translatable="yes">Dark theme</property>
-									<child>
-										<object class="GtkSwitch" id="dark_theme">
-											<property name="visible">True</property>
-											<property name="valign">center</property>
-										</object>
-									</child>
-								</object>
-							</child>
-						</object>
-					</child>
-
-					<child>
-						<object class="HdyPreferencesGroup">
-							<property name="visible">True</property>
-							<property name="title" translatable="yes">Behavior</property>
-							<child>
-								<object class="HdyActionRow">
-									<property name="visible">False</property>
-									<property name="activatable_widget">autostart</property>
-									<property name="title" translatable="yes">Autostart</property>
-									<property name="subtitle" translatable="yes">Start minimized at boot</property>
-									<child>
-										<object class="GtkSwitch" id="autostart">
-											<property name="visible">True</property>
-											<property name="valign">center</property>
-										</object>
-									</child>
-								</object>
-							</child>
-							<child>
-								<object class="HdyActionRow">
-									<property name="visible">False</property>
-									<property name="activatable_widget">work_in_background</property>
-									<property name="title" translatable="yes">Background work</property>
-									<property name="subtitle" translatable="yes">Receive notifications even when the app window is closed</property>
-									<child>
-										<object class="GtkSwitch" id="work_in_background">
-											<property name="visible">True</property>
-											<property name="valign">center</property>
-										</object>
-									</child>
-								</object>
-							</child>
-							<child>
-								<object class="HdyComboRow" id="default_post_visibility">
-									<property name="visible">True</property>
-									<property name="title" translatable="yes">Default post visibility</property>
-								</object>
-							</child>
-						</object>
-					</child>
-
-			</object>
-		</child>
-
-		<!--Timelines-->
-		<child>
-			<object class="HdyPreferencesPage">
-				<property name="icon_name">view-list-symbolic</property>
-				<property name="title" translatable="yes">Timelines</property>
-        		<property name="visible">True</property>
-
-					<child>
-						<object class="HdyPreferencesGroup">
-							<property name="visible">True</property>
-							<property name="title" translatable="yes">Appearance</property>
-							<child>
-								<object class="HdyActionRow">
-									<property name="visible">True</property>
-									<property name="activatable_widget">timeline_page_size</property>
-									<property name="title" translatable="yes">Posts per page</property>
-									<child>
-										<object class="GtkSpinButton" id="timeline_page_size">
-											<property name="visible">True</property>
-											<property name="can_focus">True</property>
-											<property name="valign">center</property>
-											<property name="digits">0</property>
-											<property name="adjustment">page_adjustment</property>
-										</object>
-									</child>
-								</object>
-							</child>
-							<child>
-								<object class="HdyActionRow">
-									<property name="visible">True</property>
-									<property name="activatable_widget">post_text_size</property>
-									<property name="title" translatable="yes">Post text size (%)</property>
-									<child>
-										<object class="GtkSpinButton" id="post_text_size">
-											<property name="visible">True</property>
-											<property name="can_focus">True</property>
-											<property name="valign">center</property>
-											<property name="digits">0</property>
-											<property name="adjustment">font_adjustment</property>
-										</object>
-									</child>
-								</object>
-							</child>
-						</object>
-					</child>
-
-					<child>
-						<object class="HdyPreferencesGroup">
-							<property name="visible">True</property>
-							<property name="title" translatable="yes">Behavior</property>
-							<child>
-								<object class="HdyActionRow" id="live_updates_row">
-									<property name="visible">True</property>
-									<property name="activatable_widget">live_updates</property>
-									<property name="title" translatable="yes">Stream timelines</property>
-									<property name="subtitle" translatable="yes">Add and remove posts in real-time</property>
-									<child>
-										<object class="GtkSwitch" id="live_updates">
-											<property name="visible">True</property>
-											<property name="valign">center</property>
-										</object>
-									</child>
-								</object>
-							</child>
-							<child>
-								<object class="HdyActionRow">
-									<property name="visible">True</property>
-									<property name="activatable_widget">public_live_updates</property>
-									<property name="sensitive" bind-source="live_updates" bind-property="state" bind-flags="sync-create"></property>
-									<property name="title" translatable="yes">Stream public timelines</property>
-									<property name="subtitle" translatable="yes">Warning: This will use more resources on crowded instances</property>
-									<child>
-										<object class="GtkSwitch" id="public_live_updates">
-											<property name="visible">True</property>
-											<property name="valign">center</property>
-										</object>
-									</child>
-								</object>
-							</child>
-						</object>
-					</child>
-
-			</object>
-		</child>
-
-	</template>
-
-	<object class="GtkAdjustment" id="page_adjustment">
-		<property name="lower">10</property>
-		<property name="upper">50</property>
-		<property name="page-increment">1</property>
-		<property name="step-increment">1</property>
-	</object>
-	<object class="GtkAdjustment" id="font_adjustment">
-		<property name="lower">100</property>
-		<property name="upper">500</property>
-		<property name="page-increment">10</property>
-		<property name="step-increment">10</property>
-	</object>
-
+  <requires lib="gtk+" version="3.22"/>
+  <requires lib="libhandy" version="0.0"/>
+  <object class="GtkAdjustment" id="font_adjustment">
+    <property name="lower">100</property>
+    <property name="upper">500</property>
+    <property name="step_increment">5</property>
+    <property name="page_increment">5</property>
+  </object>
+  <object class="GtkAdjustment" id="page_adjustment">
+    <property name="lower">10</property>
+    <property name="upper">50</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">1</property>
+  </object>
+  <template class="TootleDialogsPreferences" parent="HdyPreferencesWindow">
+    <property name="width_request">300</property>
+    <property name="can_focus">False</property>
+    <property name="default_width">500</property>
+    <property name="default_height">600</property>
+    <property name="search_enabled">False</property>
+    <child>
+      <object class="HdyPreferencesPage">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="icon_name">applications-system-symbolic</property>
+        <property name="title" translatable="yes">General</property>
+        <child>
+          <object class="HdyPreferencesGroup">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="title" translatable="yes">Appearance</property>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="title" translatable="yes">Dark theme</property>
+                <property name="activatable_widget">dark_theme</property>
+                <child>
+                  <object class="GtkSwitch" id="dark_theme">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="title" translatable="yes">Text scale (%)</property>
+                <property name="activatable_widget">post_text_size</property>
+                <child>
+                  <object class="GtkSpinButton" id="post_text_size">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="valign">center</property>
+                    <property name="text" translatable="yes">100</property>
+                    <property name="progress_pulse_step">0.050000000000000003</property>
+                    <property name="adjustment">font_adjustment</property>
+                    <property name="value">100</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="HdyPreferencesGroup">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="title" translatable="yes">Behavior</property>
+            <child>
+              <object class="HdyActionRow">
+                <property name="can_focus">False</property>
+                <property name="title" translatable="yes">Autostart</property>
+                <property name="activatable_widget">autostart</property>
+                <property name="subtitle" translatable="yes">Start minimized at boot</property>
+                <child>
+                  <object class="GtkSwitch" id="autostart">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="can_focus">False</property>
+                <property name="title" translatable="yes">Background work</property>
+                <property name="activatable_widget">work_in_background</property>
+                <property name="subtitle" translatable="yes">Receive notifications even when the app is closed</property>
+                <child>
+                  <object class="GtkSwitch" id="work_in_background">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyComboRow" id="default_post_visibility">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="title" translatable="yes">Default post visibility</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="HdyPreferencesGroup">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="title" translatable="yes">Timelines</property>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="title" translatable="yes">Posts per page</property>
+                <property name="activatable_widget">timeline_page_size</property>
+                <child>
+                  <object class="GtkSpinButton" id="timeline_page_size">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="valign">center</property>
+                    <property name="text" translatable="yes">10</property>
+                    <property name="adjustment">page_adjustment</property>
+                    <property name="value">10</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="can_focus">True</property>
+                <property name="title" translatable="yes">Infinite scrolling</property>
+                <property name="activatable_widget">infinite_scrolling</property>
+                <property name="subtitle" translatable="yes">Warning: This will increase memory usage</property>
+                <child>
+                  <object class="GtkSwitch" id="infinite_scrolling">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow" id="live_updates_row">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="title" translatable="yes">Stream timelines</property>
+                <property name="activatable_widget">live_updates</property>
+                <property name="subtitle" translatable="yes">Receive new posts and notifications in real-time</property>
+                <child>
+                  <object class="GtkSwitch" id="live_updates">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="sensitive" bind-source="live_updates" bind-property="state" bind-flags="sync-create">False</property>
+                <property name="can_focus">True</property>
+                <property name="title" translatable="yes">Stream public timelines</property>
+                <property name="activatable_widget">public_live_updates</property>
+                <property name="subtitle" translatable="yes">Warning: This will increase memory usage</property>
+                <child>
+                  <object class="GtkSwitch" id="public_live_updates">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
 </interface>

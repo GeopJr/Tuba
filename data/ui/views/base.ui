@@ -54,8 +54,8 @@
                   <object class="HdyClamp" id="clamp">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="maximum_size">650</property>
-                    <property name="tightening_threshold">650</property>
+                    <property name="maximum_size">700</property>
+                    <property name="tightening_threshold">700</property>
                     <child>
                       <object class="GtkBox" id="column_view">
                         <property name="visible">True</property>

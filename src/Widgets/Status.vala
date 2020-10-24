@@ -73,21 +73,19 @@ public class Tootle.Widgets.Status : ListBoxRow {
 
 	protected string date {
 		owned get {
-			var date = status.formal.created_at;
-			return @"<small>$(DateTime.humanize (date))</small>";
+			return DateTime.humanize (status.formal.created_at);
 		}
 	}
 
 	public string title_text {
 		owned get {
-			var name = Html.simplify (status.formal.account.display_name);
-			return @"<b>$name</b>";
+			return Html.simplify (status.formal.account.display_name);
 		}
 	}
 
 	public string subtitle_text {
 		owned get {
-			return @"<small>$(status.formal.account.handle)</small>";
+			return status.formal.account.handle;
 		}
 	}
 

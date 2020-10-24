@@ -61,6 +61,9 @@
                       <object class="TootleWidgetsRichLabel" id="handle">
                         <property name="visible">True</property>
                         <property name="selectable">True</property>
+                        <style>
+                          <class name="title-1"/>
+                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>

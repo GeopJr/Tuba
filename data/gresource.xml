@@ -2,24 +2,24 @@
 <gresources>
     <gresource prefix="/com/github/bleakgrey/tootle/">
         <file alias="app.css">app.css</file>
-        <file preprocess="xml-stripblanks">ui/views/new_account.ui</file>
-        <file preprocess="xml-stripblanks">ui/views/base.ui</file>
-        <file preprocess="xml-stripblanks">ui/views/profile_header.ui</file>
-        <file preprocess="xml-stripblanks">ui/widgets/status.ui</file>
-        <file preprocess="xml-stripblanks">ui/widgets/accounts_button.ui</file>
-        <file preprocess="xml-stripblanks">ui/widgets/accounts_button_item.ui</file>
-        <file preprocess="xml-stripblanks">ui/widgets/profile_field_row.ui</file>
-        <file preprocess="xml-stripblanks">ui/widgets/timeline_menu.ui</file>
-        <file preprocess="xml-stripblanks">ui/widgets/list_item.ui</file>
-        <file preprocess="xml-stripblanks">ui/widgets/list_editor_item.ui</file>
-        <file preprocess="xml-stripblanks">ui/widgets/attachment_slot.ui</file>
-        <file preprocess="xml-stripblanks">ui/widgets/compose_attachment.ui</file>
-        <file preprocess="xml-stripblanks">ui/widgets/adaptive_button.ui</file>
-        <file preprocess="xml-stripblanks">ui/dialogs/new_account.ui</file>
-        <file preprocess="xml-stripblanks">ui/dialogs/compose.ui</file>
-        <file preprocess="xml-stripblanks">ui/dialogs/main.ui</file>
-        <file preprocess="xml-stripblanks">ui/dialogs/preferences.ui</file>
-        <file preprocess="xml-stripblanks">ui/dialogs/list_editor.ui</file>
-        <file preprocess="xml-stripblanks">ui/menus.ui</file>
+        <file>ui/views/new_account.ui</file>
+        <file>ui/views/base.ui</file>
+        <file>ui/views/profile_header.ui</file>
+        <file>ui/widgets/status.ui</file>
+        <file>ui/widgets/accounts_button.ui</file>
+        <file>ui/widgets/accounts_button_item.ui</file>
+        <file>ui/widgets/profile_field_row.ui</file>
+        <file>ui/widgets/timeline_menu.ui</file>
+        <file>ui/widgets/list_item.ui</file>
+        <file>ui/widgets/list_editor_item.ui</file>
+        <file>ui/widgets/attachment_slot.ui</file>
+        <file>ui/widgets/compose_attachment.ui</file>
+        <file>ui/widgets/adaptive_button.ui</file>
+        <file>ui/dialogs/new_account.ui</file>
+        <file>ui/dialogs/compose.ui</file>
+        <file>ui/dialogs/main.ui</file>
+        <file>ui/dialogs/preferences.ui</file>
+        <file>ui/dialogs/list_editor.ui</file>
+        <file>ui/menus.ui</file>
     </gresource>
 </gresources>

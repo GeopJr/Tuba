@@ -127,10 +127,9 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">What is your instance?</property>
-                        <attributes>
-                          <attribute name="weight" value="ultrabold"/>
-                          <attribute name="scale" value="1.7"/>
-                        </attributes>
+                        <style>
+                          <class name="title-1"/>
+                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -240,11 +239,10 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Enter Authorization Code</property>
-                        <attributes>
-                          <attribute name="weight" value="ultrabold"/>
-                          <attribute name="scale" value="1.7"/>
-                        </attributes>
+                        <property name="label" translatable="yes">Enter authorization code</property>
+                        <style>
+                          <class name="title-1"/>
+                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -329,10 +327,9 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label">Hello, @user@instance.com!</property>
-                        <attributes>
-                          <attribute name="weight" value="ultrabold"/>
-                          <attribute name="scale" value="1.7"/>
-                        </attributes>
+                        <style>
+                          <class name="title-1"/>
+                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>

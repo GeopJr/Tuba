@@ -12,7 +12,8 @@ public class Tootle.Dialogs.MainWindow: Hdy.Window, ISavedWindow {
 	Views.Base? last_view = null;
 
 	construct {
-		settings.bind_property ("dark-theme", Gtk.Settings.get_default (), "gtk-application-prefer-dark-theme", BindingFlags.SYNC_CREATE);
+		var gtk_settings = Gtk.Settings.get_default ();
+		settings.bind_property ("dark-theme", gtk_settings, "gtk-application-prefer-dark-theme", BindingFlags.SYNC_CREATE);
 		settings.notify["post-text-size"].connect (() => on_zoom_level_changed ());
 
 		on_zoom_level_changed ();
@@ -77,13 +78,18 @@ public class Tootle.Dialogs.MainWindow: Hdy.Window, ISavedWindow {
 	}
 
 	void on_zoom_level_changed () {
-		var css ="""
-			.%s label {
-				font-size: %i%;
-			}
-		""".printf (ZOOM_CLASS, settings.post_text_size);
-
 		try {
+			var scale = settings.post_text_size;
+			var css = "";
+
+			if (scale > 100) {
+				css ="""
+					.%s label {
+						font-size: %i%;
+					}
+				""".printf (ZOOM_CLASS, scale);
+			}
+
 			app.zoom_css_provider.load_from_data (css);
 		}
 		catch (Error e) {

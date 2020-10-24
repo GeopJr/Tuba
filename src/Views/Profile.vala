@@ -44,11 +44,7 @@ public class Tootle.Views.Profile : Views.Timeline {
 			menu_button.subtitle.show ();
 
 		var handle = builder.get_object ("handle") as Widgets.RichLabel;
-		profile.bind_property ("display-name", handle, "text", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			var text = (string) src;
-			target.set_string (@"<span size=\"x-large\" weight=\"bold\">$text</span>");
-			return true;
-		});
+		profile.bind_property ("display-name", handle, "text", BindingFlags.SYNC_CREATE);
 
 		note_row = builder.get_object ("note_row") as ListBoxRow;
 		var note = builder.get_object ("note") as Widgets.RichLabel;
