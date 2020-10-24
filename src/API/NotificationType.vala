@@ -81,7 +81,7 @@ public enum Tootle.API.NotificationType {
             case REBLOG_REMOTE_USER:
                 return "media-playlist-repeat-symbolic";
             case FAVORITE:
-                return "emblem-favorite-symbolic";
+                return "starred-symbolic";
             case FOLLOW:
             case FOLLOW_REQUEST:
                 return "contact-new-symbolic";
