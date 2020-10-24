@@ -6,7 +6,7 @@ public class Tootle.Desktop {
 	public static bool open_uri (string uri) {
 		message (@"Opening URI: $uri");
 		try {
-			Gtk.show_uri (null, uri, Gdk.CURRENT_TIME);
+			GLib.AppInfo.launch_default_for_uri (uri, null);
 		}
 		catch (Error e){
 			try {
@@ -16,6 +16,7 @@ public class Tootle.Desktop {
 			catch (Error e){
 				warning (@"Can't open URI \"$uri\": $(e.message)");
 				app.error (_("Open this URL in your browser:\n\n%s").printf (uri), "");
+				return false;
 			}
 		}
 		return true;
