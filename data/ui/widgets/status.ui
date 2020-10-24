@@ -408,7 +408,7 @@
               <class name="flat"/>
               <class name="image-button"/>
               <class name="circular"/>
-              <class name="ttl-avatar-button"/>
+              <class name="ttl-flat-button"/>
             </style>
           </object>
           <packing>

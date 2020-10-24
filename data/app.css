@@ -5,13 +5,13 @@
 }
 
 .attachment {
-	border-radius: 6px;
+	border-radius: 5px;
 	background: rgba (150, 150, 150, 0.2);
 	padding:0px;
 	margin:0px;
 }
 .attachment .pic {
-	border-radius: 6px;
+	border-radius: 5px;
 }
 .attachment .chip {
 	padding: 6px;
@@ -36,6 +36,7 @@
 	box-shadow: none;
 }
 
-.ttl-avatar-button {
-  padding: 0;
+.ttl-flat-button {
+  padding: 0px;
+  margin: 0px;
 }

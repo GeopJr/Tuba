@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.36.0 -->
+<!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.22"/>
   <template class="TootleWidgetsAttachmentSlot" parent="GtkFlowBoxChild">
@@ -8,9 +8,11 @@
     <property name="can_focus">True</property>
     <property name="hexpand">True</property>
     <child>
-      <object class="GtkEventBox" id="event_box">
+      <object class="GtkButton" id="button">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <signal name="clicked" handler="on_clicked" swapped="no"/>
         <child>
           <object class="GtkGrid" id="overlay">
             <property name="visible">True</property>
@@ -22,6 +24,8 @@
                 <property name="can_focus">False</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
+                <property name="margin_left">16</property>
+                <property name="margin_right">16</property>
                 <property name="margin_start">16</property>
                 <property name="margin_end">16</property>
                 <property name="margin_top">16</property>
@@ -46,6 +50,8 @@
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="valign">start</property>
+                <property name="margin_left">6</property>
+                <property name="margin_right">6</property>
                 <property name="margin_start">6</property>
                 <property name="margin_end">6</property>
                 <property name="margin_top">6</property>
@@ -74,7 +80,7 @@
                     <property name="height_request">32</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="opacity">0.5019607843137255</property>
+                    <property name="opacity">0.50196078431372548</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
                     <property name="hexpand">True</property>
@@ -91,11 +97,12 @@
                 <property name="top_attach">0</property>
               </packing>
             </child>
-            <child>
-              <placeholder/>
-            </child>
           </object>
         </child>
+        <style>
+          <class name="flat"/>
+          <class name="ttl-flat-button"/>
+        </style>
       </object>
     </child>
     <style>

@@ -23,7 +23,7 @@ public class Tootle.Widgets.Conversation : Widgets.Status {
 				if (conversation.accounts.last () != account)
 					label += ", ";
 			}
-			return @"$label";
+			return label;
 		}
 	}
 
@@ -33,7 +33,7 @@ public class Tootle.Widgets.Conversation : Widgets.Status {
 			foreach (API.Account account in conversation.accounts) {
 				label += account.handle + " ";
 			}
-			return @"<small>$label</small>";
+			return label;
 		}
 	}
 
