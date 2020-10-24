@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-10 21:58+0300\n"
-"PO-Revision-Date: 2020-09-15 10:18+0200\n"
+"PO-Revision-Date: 2020-10-23 12:38+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.3\n"
 
 #: data/com.github.bleakgrey.tootle.desktop.in:4
 #: data/com.github.bleakgrey.tootle.appdata.xml.in:7
@@ -388,32 +388,32 @@ msgstr "Schließen"
 
 #: src/Dialogs/NewAccount.vala:85
 msgid "Add Another"
-msgstr ""
+msgstr "Neu hinzufügen"
 
 #: src/Dialogs/NewAccount.vala:127
 msgid "Please enter a valid instance URL"
-msgstr ""
+msgstr "Bitte gib eine valide Instanz-URL an"
 
 #: src/Dialogs/NewAccount.vala:160
 msgid "Please enter a valid authorization code"
-msgstr ""
+msgstr "Bitte gib einen validen Autorisierungscode an"
 
 #: src/Dialogs/NewAccount.vala:176
 msgid "Instance failed to authorize the access token"
-msgstr ""
+msgstr "Die Instanz konnte das Autorisierungstoken nicht finden"
 
 #: src/Dialogs/NewAccount.vala:190
 #, c-format
 msgid "Hello, %s!"
-msgstr ""
+msgstr "Hallo, %s!"
 
 #: src/Dialogs/NewAccount.vala:218
 msgid "Server returned an error"
-msgstr ""
+msgstr "Der Server gab einen Fehler zurück"
 
 #: src/Services/Accounts.vala:32
 msgid "Network Error"
-msgstr ""
+msgstr "Netzwerkfehler"
 
 #: src/Services/Accounts.vala:33
 #, c-format
@@ -422,55 +422,58 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Die Instanz hat die Sitzung beendet. Bitte melde dich erneut an.\n"
+"\n"
+"%s"
 
 #: src/Views/Base.vala:6
 msgid "Nothing to see here"
-msgstr ""
+msgstr "Es gibt hier nichts zu sehen"
 
 #: src/Views/Base.vala:46
 msgid "Reload"
-msgstr ""
+msgstr "Aktualisieren"
 
 #: src/Views/Federated.vala:7
 msgid "Federated"
-msgstr ""
+msgstr "Föderiert"
 
 #: src/Views/Home.vala:6
 msgid "Home"
-msgstr ""
+msgstr "Startseite"
 
 #: src/Views/Lists.vala:32
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr ""
+msgstr "Lösche \"%s\"?"
 
 #: src/Views/Local.vala:4
 msgid "Local"
-msgstr ""
+msgstr "Lokal"
 
 #: src/Views/Notifications.vala:11
 msgid "Notifications"
-msgstr ""
+msgstr "Benachrichtigungen"
 
 #: src/Views/Profile.vala:134
 #, c-format
 msgid "Block \"%s\"?"
-msgstr ""
+msgstr "\"%s\" blockieren?"
 
 #: src/Views/Profile.vala:134
 #, c-format
 msgid "Unblock \"%s\"?"
-msgstr ""
+msgstr "\"%s\" nicht mehr blockieren?"
 
 #: src/Views/Profile.vala:145
 #, c-format
 msgid "Block Entire \"%s\"?"
-msgstr ""
+msgstr "Blockiere alles von \"%s\"?"
 
 #: src/Views/Profile.vala:145
 #, c-format
 msgid "Unblock Entire \"%s\"?"
-msgstr ""
+msgstr "Nicht mehr alles von \"%s\" blockieren?"
 
 #: src/Views/Profile.vala:148
 msgid ""
@@ -480,80 +483,86 @@ msgid ""
 "• Remove its followers from your account\n"
 "• Prevent you from following its users"
 msgstr ""
+"Eine Domain zu blockieren wird:\n"
+"\n"
+"• Öffentliche Beiträge und Benachrichtigungen der Domain von deinen "
+"Zeitleisten entfernen\n"
+"• Alle Follower von der Domain von deinem Account entfernen\n"
+"• Dich davon abhalten Leuten von der Domain zu folgen"
 
 #: src/Views/Profile.vala:206
 msgid "Sent follow request"
-msgstr ""
+msgstr "Sende Folgeanfrage"
 
 #: src/Views/Profile.vala:208
 msgid "Mutually follows you"
-msgstr ""
+msgstr "Ihr folgt euch gegenseitig"
 
 #: src/Views/Profile.vala:210
 msgid "Follows you"
-msgstr ""
+msgstr "Folgt dir"
 
 #: src/Views/Profile.vala:217
 msgid "Unfollow"
-msgstr ""
+msgstr "Nicht mehr folgen"
 
 #: src/Views/Search.vala:61
 msgid "People"
-msgstr ""
+msgstr "Leute"
 
 #: src/Views/Search.vala:66
 msgid "Posts"
-msgstr ""
+msgstr "Beiträge"
 
 #: src/Views/Search.vala:71
 msgid "Hashtags"
-msgstr ""
+msgstr "Hashtags"
 
 #: src/Widgets/Attachment/Slot.vala:51
 msgid "File saved to Downloads"
-msgstr ""
+msgstr "Datei in Downloads gespeichert"
 
 #: src/Widgets/AccountsButton.vala:40
 #, c-format
 msgid "Forget %s?"
-msgstr ""
+msgstr "%s vergessen?"
 
 #: src/Widgets/AccountsButton.vala:41
 msgid "This account will be removed from the application."
-msgstr ""
+msgstr "Dieses Konto wird von der Applikation entfernt."
 
 #: src/Widgets/AccountsButton.vala:153
 msgid "Anonymous"
-msgstr ""
+msgstr "Anonym"
 
 #: src/Widgets/AccountsButton.vala:154
 msgid "No active account"
-msgstr ""
+msgstr "Kein aktives Konto"
 
 #: src/Widgets/Status.vala:60
 msgid "[ Toggle content ]"
-msgstr ""
+msgstr "[ Inhalt anzeigen/verbergen ]"
 
 #: src/Widgets/Status.vala:151
 msgid "This post can't be boosted"
-msgstr ""
+msgstr "Dieser Beitrag kann nicht geteilt werden"
 
 #: src/Widgets/Status.vala:201
 msgid "Open in Browser"
-msgstr ""
+msgstr "Im Browser öffnen"
 
 #: src/Widgets/Status.vala:203
 msgid "Copy Link"
-msgstr ""
+msgstr "Link kopieren"
 
 #: src/Widgets/Status.vala:205
 msgid "Copy Text"
-msgstr ""
+msgstr "Text kopieren"
 
 #: src/Widgets/Status.vala:225
 msgid "Unpin from Profile"
-msgstr ""
+msgstr "Nicht mehr im Profil anpinnen"
 
 #: src/Widgets/Status.vala:225
 msgid "Pin on Profile"
-msgstr ""
+msgstr "Im Profil anpinnen"
