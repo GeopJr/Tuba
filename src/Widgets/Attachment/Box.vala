@@ -40,6 +40,7 @@ public class Tootle.Widgets.Attachment.Box : FlowBox {
     public bool pack (API.Attachment obj) {
         var w = new Widgets.Attachment.Slot (obj);
         insert (w, -1);
+        show ();
 
         return true;
     }

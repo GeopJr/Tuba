@@ -259,7 +259,6 @@
                     </child>
                     <child>
                       <object class="TootleWidgetsAttachmentBox" id="attachments">
-                        <property name="visible">True</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
