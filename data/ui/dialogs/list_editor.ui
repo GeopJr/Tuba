@@ -253,10 +253,12 @@
                           <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">&lt;span size="x-large"&gt;Nobody here&lt;/span&gt;</property>
-                            <property name="use_markup">True</property>
+                            <property name="label" translatable="yes">Nobody here</property>
                             <property name="justify">center</property>
                             <property name="wrap">True</property>
+                            <style>
+                              <class name="title-2"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>

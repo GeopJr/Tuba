@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.bleakgrey.tootle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-10 21:58+0300\n"
+"POT-Creation-Date: 2020-10-30 16:21+0300\n"
 "PO-Revision-Date: 2020-09-10 20:20+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -74,204 +74,213 @@ msgstr ""
 msgid "Fixed bugs"
 msgstr ""
 
-#: data/ui/dialogs/compose.ui:18 data/ui/dialogs/list_editor.ui:239
-msgid "Cancel"
-msgstr ""
-
-#: data/ui/dialogs/compose.ui:49
+#: data/ui/dialogs/compose.ui:42
 msgid "Publish"
 msgstr ""
 
-#: data/ui/dialogs/compose.ui:117
+#: data/ui/dialogs/compose.ui:71 data/ui/dialogs/list_editor.ui:59
+msgid "Cancel"
+msgstr ""
+
+#: data/ui/dialogs/compose.ui:119
 msgid "Write your warning here"
 msgstr ""
 
-#: data/ui/dialogs/compose.ui:183
+#: data/ui/dialogs/compose.ui:185
 msgid "Visibility"
 msgstr ""
 
-#: data/ui/dialogs/compose.ui:236
+#: data/ui/dialogs/compose.ui:238
 msgid "Attach Media"
 msgstr ""
 
-#: data/ui/dialogs/compose.ui:258
+#: data/ui/dialogs/compose.ui:260
 msgid "Instance Emojis"
 msgstr ""
 
-#: data/ui/dialogs/compose.ui:282
+#: data/ui/dialogs/compose.ui:284
 msgid "Spoiler Warning"
 msgstr ""
 
-#: data/ui/dialogs/compose.ui:327
+#: data/ui/dialogs/compose.ui:329
 msgid "Text"
 msgstr ""
 
-#: data/ui/dialogs/compose.ui:387
+#: data/ui/dialogs/compose.ui:389
 msgid "Media"
 msgstr ""
 
-#: data/ui/dialogs/list_editor.ui:110
-msgid "Search among people you follow"
-msgstr ""
-
-#: data/ui/dialogs/list_editor.ui:171
-msgid "<span size=\"x-large\">Nobody here</span>"
-msgstr ""
-
-#: data/ui/dialogs/list_editor.ui:213 data/ui/widgets/status.ui:260
+#: data/ui/dialogs/list_editor.ui:33
 msgid "Name"
 msgstr ""
 
-#: data/ui/dialogs/list_editor.ui:263
+#: data/ui/dialogs/list_editor.ui:83
 msgid "Save"
 msgstr ""
 
-#: data/ui/dialogs/main.ui:148 src/Dialogs/Compose.vala:125
-msgid "Compose"
+#: data/ui/dialogs/list_editor.ui:200
+msgid "Search among people you follow"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:16
+#: data/ui/dialogs/list_editor.ui:256
+msgid "Nobody here"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:29
 msgid "General"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:22 data/ui/dialogs/preferences.ui:93
+#: data/ui/dialogs/preferences.ui:34
 msgid "Appearance"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:27
+#: data/ui/dialogs/preferences.ui:39
 msgid "Dark theme"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:42 data/ui/dialogs/preferences.ui:132
-msgid "Behavior"
-msgstr ""
-
-#: data/ui/dialogs/preferences.ui:47
-msgid "Autostart"
-msgstr ""
-
-#: data/ui/dialogs/preferences.ui:48
-msgid "Start minimized at boot"
+#: data/ui/dialogs/preferences.ui:54
+msgid "Text scale (%)"
 msgstr ""
 
 #: data/ui/dialogs/preferences.ui:61
+msgid "100"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:75
+msgid "Behavior"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:79
+msgid "Autostart"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:81
+msgid "Start minimized at boot"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:94
 msgid "Background work"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:62
-msgid "Receive notifications even when the app window is closed"
+#: data/ui/dialogs/preferences.ui:96
+msgid "Receive notifications even when the app is closed"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:74
+#: data/ui/dialogs/preferences.ui:110
 msgid "Default post visibility"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:87
+#: data/ui/dialogs/preferences.ui:119
 msgid "Timelines"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:98
+#: data/ui/dialogs/preferences.ui:124
 msgid "Posts per page"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:114
-msgid "Post text size (%)"
+#: data/ui/dialogs/preferences.ui:131
+msgid "10"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:137
+#: data/ui/dialogs/preferences.ui:141
+msgid "Infinite scrolling"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:143 data/ui/dialogs/preferences.ui:176
+msgid "Warning: This will increase memory usage"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:157
 msgid "Stream timelines"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:138
-msgid "Add and remove posts in real-time"
+#: data/ui/dialogs/preferences.ui:159
+msgid "Receive new posts and notifications in real-time"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:152
+#: data/ui/dialogs/preferences.ui:174
 msgid "Stream public timelines"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:153
-msgid "Warning: This will use more resources on crowded instances"
-msgstr ""
-
-#: data/ui/dialogs/new_account.ui:15
+#: data/ui/dialogs/new_account.ui:21
 msgid "Add Account"
 msgstr ""
 
-#: data/ui/dialogs/new_account.ui:19 src/Dialogs/NewAccount.vala:85
+#: data/ui/dialogs/new_account.ui:25 data/ui/views/base.ui:26
+#: src/Dialogs/NewAccount.vala:85
 msgid "Back"
 msgstr ""
 
-#: data/ui/dialogs/new_account.ui:42 src/Dialogs/NewAccount.vala:84
+#: data/ui/dialogs/new_account.ui:48 src/Dialogs/NewAccount.vala:84
 msgid "Next"
 msgstr ""
 
-#: data/ui/dialogs/new_account.ui:118
+#: data/ui/dialogs/new_account.ui:129
 msgid "What is your instance?"
 msgstr ""
 
-#: data/ui/dialogs/new_account.ui:181
+#: data/ui/dialogs/new_account.ui:191
 msgid "<a href=\"https://joinmastodon.org/\">Don't have one yet?</a>"
 msgstr ""
 
-#: data/ui/dialogs/new_account.ui:232
-msgid "Enter Authorization Code"
+#: data/ui/dialogs/new_account.ui:242
+msgid "Enter authorization code"
 msgstr ""
 
-#: data/ui/dialogs/new_account.ui:267
+#: data/ui/dialogs/new_account.ui:276
 msgid "<a href=\"tootle://manual_auth\">Try manual authorization</a>"
 msgstr ""
 
-#: data/ui/views/profile_header.ui:142 src/Views/Profile.vala:217
-msgid "Follow"
-msgstr ""
-
-#: data/ui/widgets/accounts_button.ui:61 src/Views/Conversations.vala:6
+#: data/ui/widgets/accounts_button.ui:64 src/Views/Conversations.vala:6
 msgid "Conversations"
 msgstr ""
 
-#: data/ui/widgets/accounts_button.ui:90 src/Views/Favorites.vala:6
+#: data/ui/widgets/accounts_button.ui:93 src/Views/Favorites.vala:6
 msgid "Favorites"
 msgstr ""
 
-#: data/ui/widgets/accounts_button.ui:119 src/Views/Bookmarks.vala:6
+#: data/ui/widgets/accounts_button.ui:122 src/Views/Bookmarks.vala:6
 msgid "Bookmarks"
 msgstr ""
 
-#: data/ui/widgets/accounts_button.ui:149 src/Views/Lists.vala:59
+#: data/ui/widgets/accounts_button.ui:152 src/Views/Lists.vala:59
 msgid "Lists"
 msgstr ""
 
-#: data/ui/widgets/accounts_button.ui:196
+#: data/ui/widgets/accounts_button.ui:204
+msgid "POSTS"
+msgstr ""
+
+#: data/ui/widgets/accounts_button.ui:247
+msgid "FOLLOWING"
+msgstr ""
+
+#: data/ui/widgets/accounts_button.ui:290
+msgid "FOLLOWERS"
+msgstr ""
+
+#: data/ui/widgets/accounts_button.ui:344
 msgid "Refresh"
 msgstr ""
 
-#: data/ui/widgets/accounts_button.ui:209 src/Views/Search.vala:10
-msgid "Search"
-msgstr ""
-
-#: data/ui/widgets/accounts_button.ui:222
+#: data/ui/widgets/accounts_button.ui:357
 msgid "Preferences"
 msgstr ""
 
-#: data/ui/widgets/accounts_button.ui:236
+#: data/ui/widgets/accounts_button.ui:371
 msgid "About"
 msgstr ""
 
-#: data/ui/widgets/accounts_button.ui:262
+#: data/ui/widgets/accounts_button.ui:397 src/Views/Search.vala:43
 msgid "Accounts"
 msgstr ""
 
-#: data/ui/widgets/accounts_button_item.ui:44
+#: data/ui/widgets/accounts_button_item.ui:60
 msgid "Forget"
 msgstr ""
 
-#: data/ui/widgets/accounts_button_item.ui:72
+#: data/ui/widgets/accounts_button_item.ui:88
 msgid "Title"
-msgstr ""
-
-#: data/ui/widgets/accounts_button_item.ui:91
-msgid "Handle"
 msgstr ""
 
 #: data/ui/widgets/compose_attachment.ui:29
@@ -283,7 +292,7 @@ msgid "Unknown"
 msgstr ""
 
 #: data/ui/widgets/compose_attachment.ui:113 data/ui/widgets/list_item.ui:74
-#: src/Widgets/Status.vala:231
+#: src/Widgets/Status.vala:243
 msgid "Delete"
 msgstr ""
 
@@ -337,7 +346,11 @@ msgstr ""
 msgid "This action cannot be reverted."
 msgstr ""
 
-#: src/Dialogs/Compose.vala:135 src/Widgets/Status.vala:241
+#: src/Dialogs/Compose.vala:125 src/Views/Main.vala:25
+msgid "Compose"
+msgstr ""
+
+#: src/Dialogs/Compose.vala:135 src/Widgets/Status.vala:253
 msgid "Redraft"
 msgstr ""
 
@@ -410,8 +423,16 @@ msgstr ""
 msgid "Nothing to see here"
 msgstr ""
 
-#: src/Views/Base.vala:46
+#: src/Views/Base.vala:58
 msgid "Reload"
+msgstr ""
+
+#: src/Views/Main.vala:31 src/Views/Search.vala:15
+msgid "Search"
+msgstr ""
+
+#: src/Views/Thread.vala:13
+msgid "Conversation"
 msgstr ""
 
 #: src/Views/Federated.vala:7
@@ -435,27 +456,27 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
-#: src/Views/Profile.vala:134
+#: src/Views/Profile.vala:150
 #, c-format
 msgid "Block \"%s\"?"
 msgstr ""
 
-#: src/Views/Profile.vala:134
+#: src/Views/Profile.vala:150
 #, c-format
 msgid "Unblock \"%s\"?"
 msgstr ""
 
-#: src/Views/Profile.vala:145
+#: src/Views/Profile.vala:161
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr ""
 
-#: src/Views/Profile.vala:145
+#: src/Views/Profile.vala:161
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr ""
 
-#: src/Views/Profile.vala:148
+#: src/Views/Profile.vala:164
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -464,35 +485,43 @@ msgid ""
 "• Prevent you from following its users"
 msgstr ""
 
-#: src/Views/Profile.vala:206
+#: src/Views/Profile.vala:204
 msgid "Sent follow request"
 msgstr ""
 
-#: src/Views/Profile.vala:208
+#: src/Views/Profile.vala:206
 msgid "Mutually follows you"
 msgstr ""
 
-#: src/Views/Profile.vala:210
+#: src/Views/Profile.vala:208
 msgid "Follows you"
 msgstr ""
 
-#: src/Views/Profile.vala:217
+#: src/Views/Profile.vala:229
+msgid "Unblock"
+msgstr ""
+
+#: src/Views/Profile.vala:239
 msgid "Unfollow"
 msgstr ""
 
-#: src/Views/Search.vala:61
-msgid "People"
+#: src/Views/Profile.vala:248
+msgid "Follow"
 msgstr ""
 
-#: src/Views/Search.vala:66
-msgid "Posts"
+#: src/Views/Search.vala:44
+msgid "Statuses"
 msgstr ""
 
-#: src/Views/Search.vala:71
+#: src/Views/Search.vala:45
 msgid "Hashtags"
 msgstr ""
 
-#: src/Widgets/Attachment/Slot.vala:51
+#: src/Views/Search.vala:61
+msgid "Enter query"
+msgstr ""
+
+#: src/Widgets/Attachment/Slot.vala:46
 msgid "File saved to Downloads"
 msgstr ""
 
@@ -505,38 +534,38 @@ msgstr ""
 msgid "This account will be removed from the application."
 msgstr ""
 
-#: src/Widgets/AccountsButton.vala:153
+#: src/Widgets/AccountsButton.vala:148
 msgid "Anonymous"
 msgstr ""
 
-#: src/Widgets/AccountsButton.vala:154
+#: src/Widgets/AccountsButton.vala:149
 msgid "No active account"
 msgstr ""
 
-#: src/Widgets/Status.vala:60
-msgid "[ Toggle content ]"
+#: src/Widgets/Status.vala:72
+msgid "Click to show sensitive content"
 msgstr ""
 
-#: src/Widgets/Status.vala:151
+#: src/Widgets/Status.vala:163
 msgid "This post can't be boosted"
 msgstr ""
 
-#: src/Widgets/Status.vala:201
+#: src/Widgets/Status.vala:213
 msgid "Open in Browser"
 msgstr ""
 
-#: src/Widgets/Status.vala:203
+#: src/Widgets/Status.vala:215
 msgid "Copy Link"
 msgstr ""
 
-#: src/Widgets/Status.vala:205
+#: src/Widgets/Status.vala:217
 msgid "Copy Text"
 msgstr ""
 
-#: src/Widgets/Status.vala:225
+#: src/Widgets/Status.vala:237
 msgid "Unpin from Profile"
 msgstr ""
 
-#: src/Widgets/Status.vala:225
+#: src/Widgets/Status.vala:237
 msgid "Pin on Profile"
 msgstr ""

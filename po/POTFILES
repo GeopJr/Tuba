@@ -47,7 +47,7 @@ src/Views/TabbedBase.vala
 src/Views/Main.vala
 src/Views/Bookmarks.vala
 src/Views/Conversations.vala
-src/Views/ExpandedStatus.vala
+src/Views/Thread.vala
 src/Views/Favorites.vala
 src/Views/Federated.vala
 src/Views/Hashtag.vala

@@ -216,7 +216,7 @@
                           <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">1K</property>
+                            <property name="label">1K</property>
                             <style>
                               <class name="title-4"/>
                             </style>
@@ -259,7 +259,7 @@
                           <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">64</property>
+                            <property name="label">64</property>
                             <style>
                               <class name="title-4"/>
                             </style>
@@ -302,7 +302,7 @@
                           <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">24</property>
+                            <property name="label">24</property>
                             <style>
                               <class name="title-4"/>
                             </style>
