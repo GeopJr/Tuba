@@ -11,3 +11,5 @@ Keywords=toot;mastodon;social;network;post;
 X-GNOME-Gettext-Domain=com.github.bleakgrey.tootle
 X-GNOME-UsesNotifications=true	
 MimeType=x-scheme-handler/tootle;
+# Translators: Do NOT translate or transliterate this text (these are enum types)!
+X-Purism-FormFactor=Workstation;Mobile;

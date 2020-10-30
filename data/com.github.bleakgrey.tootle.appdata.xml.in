@@ -55,6 +55,11 @@
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
 
+  <custom>
+    <value key="Purism::form_factor">workstation</value>
+    <value key="Purism::form_factor">mobile</value>
+  </custom>
+
   <screenshots>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot1.png</image>
@@ -62,14 +67,21 @@
     <screenshot>
       <image>https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot2.png</image>
     </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot3.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot4.png</image>
+    </screenshot>
   </screenshots>
 
   <releases>
-    <release version="1.0.0-alpha1" date="2020-09-10">
+    <release version="1.0.0-alpha2" date="2020-10-30">
         <description>
            <ul>
               <li>New app icon (Kudos to Tobias Bernard!)</li>
               <li>New interface design</li>
+              <li>Added Lists and Conversations</li>
               <li>Fixed bugs</li>
           </ul>
         </description>
