@@ -2,29 +2,31 @@ using Json;
 
 public class Tootle.Entity : GLib.Object, Widgetizable, Json.Serializable {
 
-	public static string[] ignore_props = {"formal", "handle", "domain", "has-spoiler"};
-
 	public virtual bool is_local (InstanceAccount account) {
 		return true;
 	}
 
-	public new ParamSpec[] list_properties () {
-		ParamSpec[] specs = {};
-		foreach (ParamSpec spec in get_class ().list_properties ()) {
-			if (!(spec.name in ignore_props))
-				specs += spec;
+	static bool is_spec_valid (ref ParamSpec spec) {
+		return ParamFlags.WRITABLE in spec.flags;
+	}
+
+	public override unowned ParamSpec? find_property (string name) {
+		switch (name) {
+			case "type":
+				return get_class ().find_property ("kind");
+			case "value":
+				return get_class ().find_property ("val");
+			default:
+				return get_class ().find_property (name);
 		}
-		return specs;
 	}
 
 	public void patch (GLib.Object with) {
-		var props = with.get_class ().list_properties ();
-		foreach (var prop in props) {
-			var name = prop.get_name ();
+		foreach (ParamSpec spec in with.get_class ().list_properties ()) {
+			var name = spec.get_name ();
 			var defined = get_class ().find_property (name) != null;
-			var forbidden = name in ignore_props;
-			if (defined && !forbidden) {
-				var val = Value (prop.value_type);
+			if (defined && is_spec_valid (ref spec)) {
+				var val = Value (spec.value_type);
 				with.get_property (name, ref val);
 				base.set_property (name, val);
 			}
@@ -38,19 +40,6 @@ public class Tootle.Entity : GLib.Object, Widgetizable, Json.Serializable {
         var obj = node.get_object ();
         if (obj == null)
             throw new Oopsie.PARSING (@"Received Json.Node for $(type.name ()) is not a Json.Object!");
-
-		//Replace with something more elegant
-        var kind = obj.get_member ("type");
-        if (kind != null) {
-        	obj.set_member ("kind", kind);
-        	obj.remove_member ("type");
-        }
-
-        var val = obj.get_member ("value");
-        if (val != null) {
-        	obj.set_member ("val", val);
-        	obj.remove_member ("value");
-        }
 
         return Json.gobject_deserialize (type, node) as Entity;
 	}
