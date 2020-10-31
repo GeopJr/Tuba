@@ -1,4 +1,4 @@
-project('com.github.bleakgrey.tootle', 'vala', 'c', version: '1.0.0-alpha2')
+project('com.github.bleakgrey.tootle', 'vala', 'c', version: '1.0.0-alpha3')
 
 config = configuration_data()
 config.set('EXEC_NAME', meson.project_name())

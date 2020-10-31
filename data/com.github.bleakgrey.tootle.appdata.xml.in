@@ -76,7 +76,7 @@
   </screenshots>
 
   <releases>
-    <release version="1.0.0-alpha2" date="2020-10-30">
+    <release version="1.0.0-alpha3" date="2020-10-30">
         <description>
            <ul>
               <li>New app icon (Kudos to Tobias Bernard!)</li>
