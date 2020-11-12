@@ -93,16 +93,8 @@ public class Tootle.Entity : GLib.Object, Widgetizable, Json.Serializable {
 			}
 			return des_list (out val, node, contains);
 		}
-		else if (type.is_a (typeof (API.NotificationType)))
-			return des_notification_type (out val, node);
 
 		return success;
-	}
-
-	static bool des_notification_type (out Value val, Json.Node node) {
-		var str = node.get_string ();
-		val = API.NotificationType.from_string (str);
-		return true;
 	}
 
 	static bool des_list (out Value val, Json.Node node, Type type) {
@@ -123,17 +115,8 @@ public class Tootle.Entity : GLib.Object, Widgetizable, Json.Serializable {
 
 		if (type.is_a (typeof (Gee.ArrayList)))
 			return ser_list (prop, val, spec);
-		if (type.is_a (typeof (API.NotificationType)))
-			return ser_notification_type (prop, val, spec);
 
 		return default_serialize_property (prop, val, spec);
-	}
-
-	static Json.Node ser_notification_type (string prop, Value val, ParamSpec spec) {
-		var enum_val = (API.NotificationType) val;
-		var node = new Json.Node (NodeType.VALUE);
-		node.set_string (enum_val.to_string ());
-		return node;
 	}
 
 	static Json.Node ser_list (string prop, Value val, ParamSpec spec) {

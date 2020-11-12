@@ -76,7 +76,7 @@
     </child>
     <style>
       <class name="flat"/>
-      <class name="header-title-button"/>
+      <class name="ttl-header-button"/>
     </style>
   </template>
 </interface>

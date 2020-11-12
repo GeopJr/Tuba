@@ -2,7 +2,7 @@ public enum Tootle.API.NotificationType {
     MENTION,
     REBLOG,
     REBLOG_REMOTE_USER, // Internal
-    FAVORITE,
+    FAVOURITE,
     FOLLOW,
     FOLLOW_REQUEST,     // Internal
     WATCHLIST;          // Internal
@@ -15,7 +15,7 @@ public enum Tootle.API.NotificationType {
                 return "reblog";
             case REBLOG_REMOTE_USER:
                 return "reblog_remote";
-            case FAVORITE:
+            case FAVOURITE:
                 return "favourite";
             case FOLLOW:
                 return "follow";
@@ -38,7 +38,7 @@ public enum Tootle.API.NotificationType {
             case "reblog_remote":
                 return REBLOG_REMOTE_USER;
             case "favourite":
-                return FAVORITE;
+                return FAVOURITE;
             case "follow":
                 return FOLLOW;
             case "follow_request":
@@ -58,7 +58,7 @@ public enum Tootle.API.NotificationType {
                 return _("<span underline=\"none\"><a href=\"%s\">%s</a> boosted your status</span>").printf (account.url, account.display_name);
             case REBLOG_REMOTE_USER:
                 return _("<span underline=\"none\"><a href=\"%s\">%s</a> boosted</span>").printf (account.url, account.display_name);
-            case FAVORITE:
+            case FAVOURITE:
                 return _("<span underline=\"none\"><a href=\"%s\">%s</a> favorited your status</span>").printf (account.url, account.display_name);
             case FOLLOW:
                 return _("<span underline=\"none\"><a href=\"%s\">%s</a> now follows you</span>").printf (account.url, account.display_name);
@@ -80,7 +80,7 @@ public enum Tootle.API.NotificationType {
             case REBLOG:
             case REBLOG_REMOTE_USER:
                 return "media-playlist-repeat-symbolic";
-            case FAVORITE:
+            case FAVOURITE:
                 return "starred-symbolic";
             case FOLLOW:
             case FOLLOW_REQUEST:

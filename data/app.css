@@ -18,11 +18,15 @@
 	border-radius:6px;
 }
 
-.header-title-button {
+.ttl-header-button {
 	margin: 0px;
 	border-radius: 0px;
 	border-top: none;
 	border-bottom: none;
+}
+.ttl-header-button .title, .ttl-header-button .subtitle {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .padded.ttl-view {
