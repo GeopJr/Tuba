@@ -10,7 +10,6 @@ public class Tootle.Views.Base : Box {
 	public string label { get; set; default = ""; }
 	public bool needs_attention { get; set; default = false; }
 	public bool current { get; set; default = false; }
-	public bool unused { get; set; default = false; }
 	public SimpleActionGroup? actions { get; set; }
 
 	public Container content { get; set; }

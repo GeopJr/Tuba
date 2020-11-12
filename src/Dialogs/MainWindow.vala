@@ -40,26 +40,18 @@ public class Tootle.Dialogs.MainWindow: Hdy.Window, ISavedWindow {
 	}
 
 	public bool back () {
-		var children = deck.get_children ();
-		unowned var current = children.find (deck.visible_child);
-		if (current != null) {
-			unowned var prev = current.prev;
-			if (current.prev != null) {
-				deck.visible_child = prev.data;
-				(current.data as Views.Base).unused = true;
-				Timeout.add (deck.transition_duration, clean_unused_views);
-			}
-		}
+		deck.navigate (Hdy.NavigationDirection.BACK);
 		return true;
 	}
 
-	bool clean_unused_views () {
-		deck.get_children ().foreach (c => {
-			var view = c as Views.Base;
-			if (view != null && view.unused)
-				view.destroy ();
-		});
-		return Source.REMOVE;
+	[GtkCallback]
+	void on_child_transition () {
+		if (deck.transition_running)
+			return;
+
+		Widget unused_child;
+		while ((unused_child = deck.get_adjacent_child (Hdy.NavigationDirection.FORWARD)) != null)
+			unused_child.destroy ();
 	}
 
 	public override bool delete_event (Gdk.EventAny event) {
