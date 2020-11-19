@@ -49,7 +49,6 @@ public class Tootle.Widgets.Attachment.Slot : FlowBoxChild {
 			}
 			catch (Error e) {
 				app.error (_("Error"), e.message);
-				warning ("!!!" + e.message);
 			}
         });
 	}
