@@ -41,18 +41,17 @@ public class Tootle.Widgets.Attachment.Slot : FlowBoxChild {
 		button.tooltip_text = attachment.description;
 	}
 
-	void download () {
-        Desktop.download (attachment.url, path => {
-        	app.toast (_("File saved to Downloads"));
-        },
-        () => {});
-	}
-
 	void open () {
-        Desktop.download (attachment.url, path => {
-        	Desktop.open_uri (path);
-        },
-        () => {});
+        Desktop.download.begin (attachment.url, (obj, res) => {
+			try {
+				var path = Desktop.download.end (res);
+				Desktop.open_uri (path);
+			}
+			catch (Error e) {
+				app.error (_("Error"), e.message);
+				warning ("!!!" + e.message);
+			}
+        });
 	}
 
 	[GtkCallback]

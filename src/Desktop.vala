@@ -38,8 +38,7 @@ public class Tootle.Desktop {
 	}
 
 	// Download a file from the web to a user's configured Downloads folder
-	public delegate void DownloadCallback (string path);
-	public static void download (string url, owned DownloadCallback cb, owned Network.ErrorCallback ecb) {
+	public async static string download (string url) throws Error {
 		message (@"Downloading file: $url...");
 
 		var file_name = Path.get_basename (url);
@@ -56,29 +55,26 @@ public class Tootle.Desktop {
 			dir_path,
 			str_hash (dir_name).to_string () + file_name);
 
-		new Request.GET (url)
-			.then ((sess, msg) => {
-				try {
-					var dir = File.new_for_path (dir_path);
-					if (!dir.query_exists ())
-						dir.make_directory ();
+		var dir = File.new_for_path (dir_path);
+		if (!dir.query_exists ())
+			dir.make_directory_with_parents ();
 
-					var file = File.new_for_path (file_path);
-					if (!file.query_exists ()) {
-						var data = msg.response_body.data;
-						FileOutputStream stream = file.create (FileCreateFlags.PRIVATE);
-						stream.write (data);
-					}
-					message (@"OK: File written to: $file_path");
-					cb (file_path);
+		var file = File.new_for_path (file_path);
 
-				} catch (Error e) {
-					warning ("Error: %s\n", e.message);
-					ecb (0, e.message);
-				}
-			})
-			.on_error ((owned) ecb)
-			.exec ();
+		if (!file.query_exists ()) {
+			var msg = yield new Request.GET (url)
+				.await ();
+
+			var data = msg.response_body.data;
+			FileOutputStream stream = file.create (FileCreateFlags.PRIVATE);
+			stream.write (data);
+
+			message (@"OK: File written to: $file_path");
+		}
+		else
+			message ("OK: File exists already");
+
+		return file_path;
 	}
 
 	public static string fallback_icon (string normal, string fallback, string fallback2 = "broken") {

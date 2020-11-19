@@ -51,6 +51,7 @@ public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Ba
 		this.page_prev = null;
 		this.page_next = null;
 		this.is_last_page = false;
+		this.needs_attention = false;
 		base.clear ();
 	}
 
