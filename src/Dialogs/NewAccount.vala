@@ -11,12 +11,7 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 	protected InstanceAccount account { get; set; default = new InstanceAccount.empty (""); }
 
 	[GtkChild]
-	Button back_button;
-	[GtkChild]
-	Button next_button;
-
-	[GtkChild]
-	Stack stack;
+	Hdy.Deck deck;
 	[GtkChild]
 	Box instance_step;
 	[GtkChild]
@@ -31,7 +26,7 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 	[GtkChild]
 	Label code_label;
 	[GtkChild]
-	Label hello_label;
+	Hdy.StatusPage done_page;
 
 	public NewAccount () {
 		Object (transient_for: window);
@@ -75,15 +70,7 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 	void reset () {
 		message ("Reset state");
 		account = new InstanceAccount.empty (account.instance);
-		stack.visible_child = instance_step;
-		invalidate ();
-	}
-
-	void invalidate () {
-		next_button.sensitive = !is_working;
-		next_button.label = stack.visible_child == done_step ? _("Close") : _("Next");
-		back_button.label = stack.visible_child == done_step ? _("Add Another") : _("Back");
-		back_button.visible = stack.visible_child != instance_step;
+		deck.visible_child = instance_step;
 	}
 
 	void oopsie (string title, string msg = "") {
@@ -92,7 +79,7 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 	}
 
 	async void step () throws Error {
-		if (stack.visible_child == done_step) {
+		if (deck.visible_child == done_step) {
 			if (accounts.is_empty ())
 				accounts.switch_account (0);
 
@@ -101,7 +88,7 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 			return;
 		}
 
-		if (stack.visible_child == instance_step)
+		if (deck.visible_child == instance_step)
 			setup_instance ();
 
 		if (account.client_secret == null || account.client_id == null) {
@@ -143,7 +130,7 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 		account.client_secret = root.get_string_member ("client_secret");
 		message ("OK: Instance registered client");
 
-		stack.visible_child = code_step;
+		deck.visible_child = code_step;
 		open_confirmation_page ();
 	}
 
@@ -187,8 +174,8 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 		message ("Saving account");
 		accounts.add (account);
 
-		hello_label.label = _("Hello, %s!").printf (account.handle);
-		stack.visible_child = done_step;
+		done_page.title = _("Hello, %s!").printf (account.handle);
+		deck.visible_child = done_step;
 	}
 
 	public void redirect (string uri) {
@@ -209,7 +196,6 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 		if (is_working) return;
 
 		is_working = true;
-		invalidate ();
 		step.begin ((obj, res) => {
 			try {
 				step.end (res);
@@ -221,13 +207,20 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 				oopsie (e.message);
 			}
 			is_working = false;
-			invalidate ();
 		});
 	}
 
 	[GtkCallback]
 	void on_back_clicked () {
 		reset ();
+	}
+
+	[GtkCallback]
+	void on_visible_child_notify () {
+		if (!deck.transition_running && deck.visible_child == instance_step)
+			reset ();
+
+		deck.can_swipe_back = deck.visible_child != done_step;
 	}
 
 }
