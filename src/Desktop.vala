@@ -5,7 +5,7 @@ public class Tootle.Desktop {
 	// Open a URI in the user's default application
 	public static bool open_uri (string _uri) {
 		var uri = _uri;
-		if (!("//" in uri))
+		if (!(":" in uri))
 			uri = "file://" + _uri;
 
 		message (@"Opening URI: $uri");
