@@ -3,10 +3,16 @@ using GLib;
 public class Tootle.Desktop {
 
 	// Open a URI in the user's default application
-	public static bool open_uri (string uri) {
+	public static bool open_uri (string _uri) {
+		var uri = _uri;
+		if (!("//" in uri))
+			uri = "file://" + _uri;
+
 		message (@"Opening URI: $uri");
 		try {
-			GLib.AppInfo.launch_default_for_uri (uri, null);
+			var success = AppInfo.launch_default_for_uri (uri, null);
+			if (!success)
+				throw new Oopsie.USER (_("launch_default_for_uri() failed"));
 		}
 		catch (Error e){
 			try {
@@ -14,8 +20,8 @@ public class Tootle.Desktop {
 				Process.spawn_sync (null, spawn_args, null, SpawnFlags.SEARCH_PATH, null, null, null);
 			}
 			catch (Error e){
-				warning (@"Can't open URI \"$uri\": $(e.message)");
-				app.error (_("Open this URL in your browser:\n\n%s").printf (uri), "");
+				warning (@"xdg-open failed too: $(e.message)");
+				app.error (_("Open this URL in your browser", uri);
 				return false;
 			}
 		}
