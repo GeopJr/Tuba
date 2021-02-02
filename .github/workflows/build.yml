@@ -1,0 +1,18 @@
+on:
+  push:
+    branches: [master]
+  pull_request:
+name: CI
+jobs:
+  flatpak-builder:
+    name: "Flatpak Builder"
+    runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:gnome-3-38
+      options: --privileged
+    steps:
+    - uses: actions/checkout@v2
+    - uses: bilelmoussaoui/flatpak-github-actions@v2
+      with:
+        bundle: "com.github.bleakgrey.tootle.flatpak"
+        manifest-path: "com.github.bleakgrey.tootle.json"
