@@ -118,20 +118,9 @@ public class Tootle.Widgets.Status : ListBoxRow {
 				kind = API.NotificationType.REBLOG_REMOTE_USER;
 		}
 
-		status.formal.bind_property ("favourited", favorite_button, "active", BindingFlags.SYNC_CREATE);
-		favorite_button.clicked.connect (() => {
-			status.action (status.formal.favourited ? "unfavourite" : "favourite");
-		});
-
-		status.formal.bind_property ("reblogged", reblog_button, "active", BindingFlags.SYNC_CREATE);
-		reblog_button.clicked.connect (() => {
-			status.action (status.formal.reblogged ? "unreblog" : "reblog");
-		});
-
-		status.formal.bind_property ("bookmarked", bookmark_button, "active", BindingFlags.SYNC_CREATE);
-		bookmark_button.clicked.connect (() => {
-			status.action (status.formal.bookmarked ? "unbookmark" : "bookmark");
-		});
+		bind_toggleable_prop (favorite_button, "favourited", "favourite", "unfavourite");
+		bind_toggleable_prop (reblog_button, "reblogged", "reblog", "unreblog");
+		bind_toggleable_prop (bookmark_button, "bookmarked", "bookmark", "unbookmark");
 
 		reply_button.clicked.connect (() => new Dialogs.Compose.reply (status));
 		if (status.formal.in_reply_to_id != null)
@@ -166,11 +155,6 @@ public class Tootle.Widgets.Status : ListBoxRow {
 		if (status.id == "") {
 			actions.destroy ();
 			date_label.destroy ();
-
-			//TODO: this
-			// content.single_line_mode = true;
-			// content.lines = 2;
-			// content.ellipsize = Pango.EllipsizeMode.END;
 		}
 
 		if (!attachments.populate (status.formal.media_attachments) || status.id == "") {
@@ -295,6 +279,48 @@ public class Tootle.Widgets.Status : ListBoxRow {
 				l.visible = true;
 				break;
 		}
+	}
+
+	// This disables the button when its status property is updated.
+	// Fixes a bug where clicking one or more post action buttons
+	// triggers an infite loop of network requests.
+	//
+	// This took me an entire day to fix and I'm quite sad.
+	public void bind_toggleable_prop (ToggleButton button, string prop, string on, string off) {
+		var init_val = Value (Type.BOOLEAN);
+		((GLib.Object) status.formal).get_property (prop, ref init_val);
+		button.active = init_val.get_boolean ();
+
+		status.formal.bind_property (prop, button, "active", BindingFlags.SYNC_CREATE);
+
+		button.toggled.connect (() => {
+			if (!(button.has_focus && button.sensitive))
+				return;
+
+			button.sensitive = false;
+			var val = Value (Type.BOOLEAN);
+			((GLib.Object) status.formal).get_property (prop, ref val);
+			var act = val.get_boolean () ? off : on;
+
+			var req = status.action (act);
+			req.await.begin ((obj, res) => {
+				try {
+					var msg = req.await.end (res);
+					var node = network.parse_node (msg);
+					var entity = API.Status.from (node);
+
+					var new_val = Value (Type.BOOLEAN);
+					((GLib.Object) entity.formal).get_property (prop, ref new_val);
+					((GLib.Object) status.formal).set_property (prop, new_val.get_boolean ());
+				}
+				catch (Error e) {
+					warning (@"Couldn't perform action \"$act\" on a Status:");
+					warning (e.message);
+					app.inform (Gtk.MessageType.WARNING, _("Network Error"), e.message);
+				}
+				button.sensitive = true;
+			});
+		});
 	}
 
 }

@@ -22,7 +22,11 @@ public class Tootle.Entity : GLib.Object, Widgetizable, Json.Serializable {
 	}
 
 	public void patch (GLib.Object with) {
-		foreach (ParamSpec spec in with.get_class ().list_properties ()) {
+		patch_specs (with, with.get_class ().list_properties ());
+	}
+
+	public void patch_specs (GLib.Object with, ParamSpec[] specs) {
+		foreach (ParamSpec spec in specs) {
 			var name = spec.get_name ();
 			var defined = get_class ().find_property (name) != null;
 			if (defined && is_spec_valid (ref spec)) {
