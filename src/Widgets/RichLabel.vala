@@ -3,19 +3,30 @@ using Gee;
 
 public class Tootle.Widgets.RichLabel : Label {
 
+	// TODO: We can parse <a> tags and extract resolvable URIs now
 	public weak ArrayList<API.Mention>? mentions;
+
+	MarkupPolicy _markup = DISALLOW;
+	public MarkupPolicy markup {
+		get {
+			return _markup;
+		}
+		set {
+			_markup = value;
+			_markup.apply (this);
+		}
+	}
 
 	public string text {
 		get {
 			return this.label;
 		}
 		set {
-			this.label = escape_entities (Html.simplify (value));
+			this.label = markup.process (value);
 		}
 	}
 
 	construct {
-		use_markup = true;
 		xalign = 0;
 		wrap_mode = Pango.WrapMode.WORD_CHAR;
 		justify = Justification.LEFT;

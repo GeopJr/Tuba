@@ -110,7 +110,7 @@ public class Tootle.Dialogs.Compose : Hdy.Window {
 			cw.text = status.spoiler_text;
 			cw_button.active = true;
 		}
-		content.buffer.text = Html.remove_tags (status.content);
+		content.buffer.text = HtmlUtils.remove_tags (status.content);
 
 		validate ();
 		set_media_mode (status.has_media ());
@@ -291,11 +291,11 @@ public class Tootle.Dialogs.Compose : Hdy.Window {
 		var req = new Request.POST (@"/api/v1/statuses?$media_param")
 			.with_account (accounts.active)
 			.with_param ("visibility", visibility_popover.selected.to_string ())
-			.with_param ("status", Html.uri_encode (status.content));
+			.with_param ("status", HtmlUtils.uri_encode (status.content));
 
 		if (cw_button.active) {
 			req.with_param ("sensitive", "true");
-			req.with_param ("spoiler_text", Html.uri_encode (cw.text));
+			req.with_param ("spoiler_text", HtmlUtils.uri_encode (cw.text));
 		}
 		if (status.in_reply_to_id != null)
 			req.with_param ("in_reply_to_id", status.in_reply_to_id);

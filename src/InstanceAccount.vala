@@ -63,13 +63,13 @@ public class Tootle.InstanceAccount : API.Account, IStreamListener {
 	}
 
 	void show_notification (API.Notification obj) {
-		var title = Html.remove_tags (obj.kind.get_desc (obj.account));
+		var title = HtmlUtils.remove_tags (obj.kind.get_desc (obj.account));
 		var notification = new GLib.Notification (title);
 		if (obj.status != null) {
 			var body = "";
 			body += domain;
 			body += "\n";
-			body += Html.remove_tags (obj.status.content);
+			body += HtmlUtils.remove_tags (obj.status.content);
 			notification.set_body (body);
 		}
 

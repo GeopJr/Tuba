@@ -19,7 +19,7 @@ public class Tootle.Widgets.Conversation : Widgets.Status {
 		owned get {
 			var label = "";
 			foreach (API.Account account in conversation.accounts) {
-				label += "<b>" + Html.simplify (account.display_name) + "</b>";
+				label += account.display_name;
 				if (conversation.accounts.last () != account)
 					label += ", ";
 			}

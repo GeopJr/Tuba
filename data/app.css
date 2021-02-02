@@ -58,3 +58,10 @@
 .ttl-large-body {
   font-size: 110%;
 }
+
+.ttl-code {
+	font-family: monospace;
+	padding: 12px;
+	background: rgba(150,150,150,.1);
+	border-radius: 6px;
+}

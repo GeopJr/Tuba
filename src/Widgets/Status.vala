@@ -42,16 +42,16 @@ public class Tootle.Widgets.Status : ListBoxRow {
 
 	[GtkChild] public Widgets.Avatar avatar;
 	[GtkChild] protected Widgets.RichLabel name_label;
-	[GtkChild] protected Widgets.RichLabel handle_label;
+	[GtkChild] protected Label handle_label;
 	[GtkChild] protected Box indicators;
-	[GtkChild] protected Widgets.RichLabel date_label;
+	[GtkChild] protected Label date_label;
 	[GtkChild] protected Image pin_indicator;
 	[GtkChild] protected Image indicator;
 
 	[GtkChild] protected Box content_column;
 	[GtkChild] protected Stack spoiler_stack;
 	[GtkChild] protected Box content_box;
-	[GtkChild] protected Widgets.RichLabel content;
+	[GtkChild] protected Widgets.MarkupView content;
 	[GtkChild] protected Widgets.Attachment.Box attachments;
 	[GtkChild] protected Button spoiler_button;
 	[GtkChild] protected Widgets.RichLabel spoiler_label;
@@ -84,7 +84,7 @@ public class Tootle.Widgets.Status : ListBoxRow {
 
 	public string title_text {
 		owned get {
-			return Html.simplify (status.formal.account.display_name);
+			return status.formal.account.display_name;
 		}
 	}
 
@@ -140,9 +140,9 @@ public class Tootle.Widgets.Status : ListBoxRow {
 			reply_button_icon.icon_name = "mail-reply-sender-symbolic";
 
 		bind_property ("spoiler-text", spoiler_label, "text", BindingFlags.SYNC_CREATE);
-		status.formal.bind_property ("content", content, "text", BindingFlags.SYNC_CREATE);
+		status.formal.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
 		bind_property ("title_text", name_label, "text", BindingFlags.SYNC_CREATE);
-		bind_property ("subtitle_text", handle_label, "text", BindingFlags.SYNC_CREATE);
+		bind_property ("subtitle_text", handle_label, "label", BindingFlags.SYNC_CREATE);
 		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("account", avatar, "account", BindingFlags.SYNC_CREATE);
@@ -166,9 +166,11 @@ public class Tootle.Widgets.Status : ListBoxRow {
 		if (status.id == "") {
 			actions.destroy ();
 			date_label.destroy ();
-			content.single_line_mode = true;
-			content.lines = 2;
-			content.ellipsize = Pango.EllipsizeMode.END;
+
+			//TODO: this
+			// content.single_line_mode = true;
+			// content.lines = 2;
+			// content.ellipsize = Pango.EllipsizeMode.END;
 		}
 
 		if (!attachments.populate (status.formal.media_attachments) || status.id == "") {
@@ -178,7 +180,7 @@ public class Tootle.Widgets.Status : ListBoxRow {
 		menu_button.clicked.connect (open_menu);
 	}
 
-	public Status (API.Status status, API.NotificationType? kind = null) {
+	public Status (owned API.Status status, API.NotificationType? kind = null) {
 		Object (
 			status: status,
 			kind: kind
@@ -216,7 +218,7 @@ public class Tootle.Widgets.Status : ListBoxRow {
 		item_copy_link.activate.connect (() => Desktop.copy (status.formal.url));
 		var item_copy = new Gtk.MenuItem.with_label (_("Copy Text"));
 		item_copy.activate.connect (() => {
-			var sanitized = Html.remove_tags (status.formal.content);
+			var sanitized = HtmlUtils.remove_tags (status.formal.content);
 			Desktop.copy (sanitized);
 		});
 
@@ -261,14 +263,14 @@ public class Tootle.Widgets.Status : ListBoxRow {
 
 	public void expand_root () {
 		activatable = false;
-        content.selectable = true;
-        content.get_style_context ().add_class ("ttl-large-body");
+		content.selectable = true;
+		content.get_style_context ().add_class ("ttl-large-body");
 
-        var parent = content_column.get_parent () as Container;
-        var left_attach = parent.find_child_property ("left-attach");
-        var width = parent.find_child_property ("width");
-        parent.set_child_property (content_column, 1, 0, left_attach);
-        parent.set_child_property (content_column, 3, 2, width);
+		var parent = content_column.get_parent () as Container;
+		var left_attach = parent.find_child_property ("left-attach");
+		var width = parent.find_child_property ("width");
+		parent.set_child_property (content_column, 1, 0, left_attach);
+		parent.set_child_property (content_column, 3, 2, width);
 	}
 
 	public void install_thread_line () {

@@ -63,7 +63,7 @@ public class Tootle.API.Attachment : Entity {
 
 		var descr_param = "";
 		if (descr != null && descr.replace (" ", "") != "") {
-			descr_param = "?description=" + Html.uri_encode (descr);
+			descr_param = "?description=" + HtmlUtils.uri_encode (descr);
 		}
 
 		var buffer = new Soup.Buffer.take (contents);

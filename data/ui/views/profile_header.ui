@@ -100,16 +100,14 @@
             <property name="activatable">False</property>
             <property name="selectable">False</property>
             <child>
-              <object class="TootleWidgetsRichLabel" id="note">
+              <object class="TootleWidgetsMarkupView" id="note">
                 <property name="visible">True</property>
-                <property name="wrap">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_left">8</property>
                 <property name="margin_right">8</property>
                 <property name="margin_top">8</property>
                 <property name="margin_bottom">8</property>
                 <property name="selectable">True</property>
-                <property name="width_chars">25</property>
               </object>
             </child>
           </object>

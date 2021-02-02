@@ -68,9 +68,9 @@ public class Tootle.API.Status : Entity, Widgetizable {
         if (account.note == "")
             content = "";
         else if ("\n" in account.note)
-            content = Html.remove_tags (account.note.split ("\n")[0]);
+            content = account.note.split ("\n")[0];
         else
-            content = Html.remove_tags (account.note);
+            content = account.note;
 	}
 
     public override Gtk.Widget to_widget () {
