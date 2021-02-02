@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2020 bleak_grey <bleakgrey@gmail.com> -->
+<!-- Copyright 2020 Bleak Grey -->
 <component type="desktop">
   <id>com.github.bleakgrey.tootle</id>
   <metadata_license>CC0-1.0</metadata_license>
@@ -76,18 +76,12 @@
   </screenshots>
 
   <releases>
-    <release version="1.0.0-alpha3" date="2020-10-30">
+    <release version="1.0.0" date="2021-02-02">
         <description>
            <ul>
-              <li>New app icon (Kudos to Tobias Bernard!)</li>
-              <li>New interface design</li>
-              <li>Added Lists and Conversations</li>
-              <li>Fixed bugs</li>
+              <li>Initial release</li>
           </ul>
         </description>
       </release>
    </releases>
-
 </component>
-
-
