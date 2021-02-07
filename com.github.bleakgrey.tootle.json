@@ -27,13 +27,29 @@
   ],
   "modules": [
     {
+      "name": "libhandy",
+      "buildsystem": "meson",
+      "config-opts": [
+        "-Dtests=false",
+        "-Dexamples=false",
+        "-Dglade_catalog=disabled"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://ftp.acc.umu.se/pub/GNOME/sources/libhandy/1.0/libhandy-1.0.3.tar.xz",
+          "sha256": "559bb3acc2c362488917eb72ed25bdc181f4ae26ac94d177634cc5d34c867f7a"
+        }
+      ]
+    },
+    {
       "name": "tootle",
       "builddir": true,
       "buildsystem": "meson",
       "sources": [
         {
-          "type": "git",
-          "url": "https://github.com/bleakgrey/tootle.git"
+          "type": "dir",
+          "path": "."
         }
       ]
     }
