@@ -38,4 +38,8 @@ public class Build {
 		return GLib.Environment.get_os_info (key) ?? "Unknown";
 	}
 
+	public static Tootle.AccountStore get_account_store () {
+		return new Tootle.@ACCOUNT_STORE@ ();
+	}
+
 }

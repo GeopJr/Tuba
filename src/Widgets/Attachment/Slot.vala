@@ -48,7 +48,7 @@ public class Tootle.Widgets.Attachment.Slot : FlowBoxChild {
 				Desktop.open_uri (path);
 			}
 			catch (Error e) {
-				app.error (_("Error"), e.message);
+				app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
 			}
         });
 	}

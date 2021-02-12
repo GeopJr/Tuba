@@ -1,6 +1,5 @@
+[Deprecated]
 public interface Tootle.IAccountListener : GLib.Object {
-
-	//TODO: Refactor into AccountHolder
 
 	protected void account_listener_init () {
 		accounts.notify["active"].connect (_on_active_acc_update);

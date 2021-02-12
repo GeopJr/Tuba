@@ -93,16 +93,15 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 
 	async void step () throws Error {
 		if (stack.visible_child == done_step) {
-			if (accounts.is_empty ())
-				accounts.switch_account (0);
-
 			app.present_window ();
 			destroy ();
 			return;
 		}
 
-		if (stack.visible_child == instance_step)
+		if (stack.visible_child == instance_step) {
 			setup_instance ();
+			yield accounts.guess_backend (account);
+		}
 
 		if (account.client_secret == null || account.client_id == null) {
 			yield register_client ();
@@ -113,7 +112,7 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 	}
 
 	void setup_instance () throws Error {
-		message ("Checking instance URL");
+		message ("Checking instance");
 
 		var str = instance_entry.text
 			.replace ("/", "")
@@ -156,7 +155,7 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 	}
 
 	async void request_token () throws Error {
-		if (code_entry.text.char_count () <= 10)
+		if (code_entry.text.char_count () <= 1)
 			throw new Oopsie.USER (_("Please enter a valid authorization code"));
 
 		message ("Requesting access token");
@@ -175,20 +174,18 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 		if (account.access_token == null)
 			throw new Oopsie.INSTANCE (_("Instance failed to authorize the access token"));
 
-		message ("Trying to get the user profile");
-		var profile_req = new Request.GET ("/api/v1/accounts/verify_credentials")
-			.with_account (account);
-		yield profile_req.await ();
+		yield account.verify_credentials ();
 
-		var node = network.parse_node (profile_req);
-		var profile = API.Account.from (node);
-		account.patch (profile);
+		account = accounts.create_account (account.to_json ());
 
 		message ("Saving account");
 		accounts.add (account);
 
 		hello_label.label = _("Hello, %s!").printf (account.handle);
 		stack.visible_child = done_step;
+
+		message ("Switching to account");
+		accounts.activate (account);
 	}
 
 	public void redirect (string uri) {
@@ -231,3 +228,4 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 	}
 
 }
+

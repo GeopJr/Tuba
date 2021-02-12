@@ -4,8 +4,7 @@ public enum Tootle.API.NotificationType {
     REBLOG_REMOTE_USER, // Internal
     FAVOURITE,
     FOLLOW,
-    FOLLOW_REQUEST,     // Internal
-    WATCHLIST;          // Internal
+    FOLLOW_REQUEST;     // Internal
 
     public string to_string () {
         switch (this) {
@@ -21,8 +20,6 @@ public enum Tootle.API.NotificationType {
                 return "follow";
             case FOLLOW_REQUEST:
                 return "follow_request";
-            case WATCHLIST:
-                return "watchlist";
             default:
                 warning (@"Unknown notification type: $this");
                 return "";
@@ -43,8 +40,6 @@ public enum Tootle.API.NotificationType {
                 return FOLLOW;
             case "follow_request":
                 return FOLLOW_REQUEST;
-            case "watchlist":
-                return WATCHLIST;
             default:
                 throw new Oopsie.INSTANCE (@"Unknown notification type: $str");
         }
@@ -64,8 +59,6 @@ public enum Tootle.API.NotificationType {
                 return _("<span underline=\"none\"><a href=\"%s\">%s</a> now follows you</span>").printf (account.url, account.display_name);
             case FOLLOW_REQUEST:
                 return _("<span underline=\"none\"><a href=\"%s\">%s</a> wants to follow you</span>").printf (account.url, account.display_name);
-            case WATCHLIST:
-                return _("<span underline=\"none\"><a href=\"%s\">%s</a> posted a status</span>").printf (account.url, account.display_name);
             default:
                 warning (@"Unknown notification type: $this");
                 return "";
@@ -75,7 +68,6 @@ public enum Tootle.API.NotificationType {
     public string get_icon () {
         switch (this) {
             case MENTION:
-            case WATCHLIST:
                 return "user-available-symbolic";
             case REBLOG:
             case REBLOG_REMOTE_USER:

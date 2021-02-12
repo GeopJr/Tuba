@@ -25,7 +25,7 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
             needs_attention = false;
             account.has_unread_notifications = false;
             account.last_seen_notification = last_id;
-            accounts.save ();
+            accounts.safe_save ();
         }
     }
 
@@ -39,7 +39,7 @@ public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStr
 
 		needs_attention = has_unread () && !current;
         if (needs_attention)
-            accounts.save ();
+            accounts.safe_save ();
     }
 
     public override void on_account_changed (InstanceAccount? acc) {

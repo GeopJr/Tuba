@@ -13,22 +13,18 @@ Simple [Mastodon](https://github.com/tootsuite/mastodon) client for Linux
 
 1. Make sure you have these dependencies:
 
-    Package Name | Required Version
-    --- |:---:
-    meson | 0.50
-    valac | 0.48
-    libglib-2.0-dev | 2.30.0
-    libjson-glib-dev | 1.4.4
-    libxml2-dev | 2.9.10
-    libgee-0.8-dev | 0.8.5 
-    libsoup2.4-dev | 2.64
-    libgtk-3-dev | 3.22.0 
-
-    The following packages are also required, but will be installed automatically if not present in your system:
-    
-    Package Name | Required Version
-    --- |:---:
-    libhandy-1.0-dev | 1.0.0
+    Package Name | Required Version | Notes
+    --- |:---:| ---
+    meson | 0.50 | 
+    valac | 0.48 | 
+    libglib-2.0-dev | 2.30 | 
+    libjson-glib-dev | 1.4.4 | 
+    libxml2-dev | 2.9.10 | 
+    libgee-0.8-dev | 0.8.5 | 
+    libsoup2.4-dev | 2.64 | 
+    libgtk-3-dev | 3.22 | 
+    libhandy-1.0-dev | 1.0.0 | Will be attempted to install automatically if not present.
+    libsecret-1-dev | 0.20 | Optional. Used for storing accounts using Secret Service API.
     
 
 2. Run `install.sh` in the project directory. The app will launch automatically on success.

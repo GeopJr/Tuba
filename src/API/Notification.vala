@@ -11,12 +11,6 @@ public class Tootle.API.Notification : Entity, Widgetizable {
     }
 
     public Soup.Message? dismiss () {
-        if (kind == NotificationType.WATCHLIST) {
-            if (accounts.active.cached_notifications.remove (this))
-                accounts.save ();
-            return null;
-        }
-
         if (kind == NotificationType.FOLLOW_REQUEST)
             return reject_follow_request ();
 

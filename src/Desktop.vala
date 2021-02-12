@@ -21,7 +21,7 @@ public class Tootle.Desktop {
 			}
 			catch (Error e){
 				warning (@"xdg-open failed too: $(e.message)");
-				app.error (_("Open this URL in your browser"), uri);
+				app.inform (Gtk.MessageType.WARNING, _("Open this URL in your browser"), uri);
 				return false;
 			}
 		}

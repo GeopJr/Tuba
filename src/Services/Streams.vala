@@ -30,7 +30,7 @@ public class Tootle.Streams : Object {
 		}
 
 		public bool start () {
-			info (@"Opening stream: $name");
+			message (@"Opening stream: $name");
 			network.session.websocket_connect_async.begin (msg, null, null, null, (obj, res) => {
 				socket = network.session.websocket_connect_async.end (res);
 				socket.error.connect (on_error);
@@ -69,7 +69,7 @@ public class Tootle.Streams : Object {
 				GLib.Timeout.add_seconds (timeout, start);
 				timeout = int.min (timeout*2, 6);
 			}
-			warning (@"Closing stream: $name");
+			message (@"Closing stream: $name");
 		}
 
 		void on_message (int i, Bytes bytes) {
