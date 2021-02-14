@@ -7,6 +7,7 @@ public class Tootle.Request : Soup.Message {
 	Network.SuccessCallback? cb;
 	Network.ErrorCallback? error_cb;
 	HashMap<string, string>? pars;
+	Soup.Multipart? form_data;
 	weak InstanceAccount? account;
 	bool needs_token = false;
 
@@ -67,6 +68,13 @@ public class Tootle.Request : Soup.Message {
 		return this;
 	}
 
+	public Request with_form_data (string name, string val) {
+		if (form_data == null)
+			form_data = new Soup.Multipart(FORM_MIME_TYPE_MULTIPART);
+		form_data.append_form_string(name, val);
+		return this;
+	}
+
 	public Request exec () {
 		var parameters = "";
 		if (pars != null) {
@@ -88,6 +96,9 @@ public class Tootle.Request : Soup.Message {
 				return true;
 			});
 		}
+
+		if (form_data != null)
+			form_data.to_message(request_headers, request_body);
 
 		if (needs_token) {
 			if (account == null) {

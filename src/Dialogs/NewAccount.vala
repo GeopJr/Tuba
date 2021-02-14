@@ -3,7 +3,7 @@ using Gtk;
 [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/new_account.ui")]
 public class Tootle.Dialogs.NewAccount: Hdy.Window {
 
-	const string scopes = "read%20write%20follow";
+	const string scopes = "read write follow";
 
 	protected bool is_working { get; set; default = false; }
 	protected string? redirect_uri { get; set; }
@@ -131,10 +131,10 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 
 		var msg = new Request.POST (@"/api/v1/apps")
 			.with_account (account)
-			.with_param ("client_name", Build.NAME)
-			.with_param ("website", Build.WEBSITE)
-			.with_param ("scopes", scopes)
-			.with_param ("redirect_uris", redirect_uri = setup_redirect_uri ());
+			.with_form_data ("client_name", Build.NAME)
+			.with_form_data ("website", Build.WEBSITE)
+			.with_form_data ("scopes", scopes)
+			.with_form_data ("redirect_uris", redirect_uri = setup_redirect_uri ());
 		yield msg.await ();
 
 		var root = network.parse (msg);

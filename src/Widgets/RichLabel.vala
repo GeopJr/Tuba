@@ -69,10 +69,7 @@ public class Tootle.Widgets.RichLabel : Label {
 			return true;
 		}
 
-		var resolve = settings.aggressive_resolving || ("@" in url);
-		if (!resolve)
-			Desktop.open_uri (url);
-		else {
+		if (should_resolve_url (url)) {
 			accounts.active.resolve.begin (url, (obj, res) => {
 				try {
 					accounts.active.resolve.end (res).open ();
@@ -84,8 +81,15 @@ public class Tootle.Widgets.RichLabel : Label {
 				}
 			});
 		}
+		else {
+			Desktop.open_uri (url);
+		}
+
 		return true;
 	}
 
+	public static bool should_resolve_url (string url) {
+		return settings.aggressive_resolving || "@" in url || "user" in url;
+	}
 
 }

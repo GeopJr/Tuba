@@ -290,17 +290,17 @@ public class Tootle.Dialogs.Compose : Hdy.Window {
 
 		var req = new Request.POST (@"/api/v1/statuses?$media_param")
 			.with_account (accounts.active)
-			.with_param ("visibility", visibility_popover.selected.to_string ())
-			.with_param ("status", HtmlUtils.uri_encode (status.content));
+			.with_form_data ("visibility", visibility_popover.selected.to_string ())
+			.with_form_data ("status", status.content);
 
 		if (cw_button.active) {
-			req.with_param ("sensitive", "true");
-			req.with_param ("spoiler_text", HtmlUtils.uri_encode (cw.text));
+			req.with_form_data ("sensitive", "true");
+			req.with_form_data ("spoiler_text", cw.text);
 		}
 		if (status.in_reply_to_id != null)
-			req.with_param ("in_reply_to_id", status.in_reply_to_id);
+			req.with_form_data ("in_reply_to_id", status.in_reply_to_id);
 		if (status.in_reply_to_account_id != null)
-			req.with_param ("in_reply_to_account_id", status.in_reply_to_account_id);
+			req.with_form_data ("in_reply_to_account_id", status.in_reply_to_account_id);
 
 		yield req.await ();
 
