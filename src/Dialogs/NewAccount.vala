@@ -81,7 +81,7 @@ public class Tootle.Dialogs.NewAccount: Hdy.Window {
 
 	void invalidate () {
 		next_button.sensitive = !is_working;
-		next_button.label = stack.visible_child == done_step ? _("Close") : _("Next");
+		next_button.label = stack.visible_child == done_step ? _("Done") : _("Next");
 		back_button.label = stack.visible_child == done_step ? _("Add Another") : _("Back");
 		back_button.visible = stack.visible_child != instance_step;
 	}
