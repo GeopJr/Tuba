@@ -22,6 +22,13 @@ public class Tootle.Dialogs.About : AboutDialog {
 		artists = Build.get_artists ();
 		translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : null;
 
+		response.connect ((response_id) => {
+			if (response_id == Gtk.ResponseType.CANCEL || 
+			    response_id == Gtk.ResponseType.DELETE_EVENT) {
+				hide_on_delete ();
+			}
+		});
+
 		present ();
 	}
 
