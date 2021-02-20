@@ -45,4 +45,5 @@ You can always help by reporting bugs, submitting pull requests, and suggesting 
 * German translation by [@koyuawsmbrtn](https://github.com/koyuawsmbrtn)
 * Simplified Chinese translation by [@gloomy-ghost](https://github.com/gloomy-ghost)
 * Spanish translation by [@oscfdezdz](https://github.com/oscfdezdz)
+* Norwegian (Bokmål) translation by [@Octolinger](https://github.com/Octolinger)
 
