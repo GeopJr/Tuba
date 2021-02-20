@@ -21,12 +21,11 @@ data/ui/widgets/profile_field_row.ui
 data/ui/widgets/status.ui
 data/ui/widgets/timeline_menu.ui
 
-src/Build.vala
+src/Build.vala.in
 src/Application.vala
 src/Desktop.vala
 src/Drawing.vala
 src/Html.vala
-src/InstanceAccount.vala
 src/Request.vala
 src/DateTime.vala
 
@@ -37,10 +36,11 @@ src/Dialogs/MainWindow.vala
 src/Dialogs/Preferences.vala
 src/Dialogs/NewAccount.vala
 
-src/Services/Accounts.vala
 src/Services/Cache.vala
 src/Services/Network.vala
 src/Services/Streams.vala
+
+src/Services/Accounts/InstanceAccount.vala
 
 src/Views/Base.vala
 src/Views/TabbedBase.vala
