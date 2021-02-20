@@ -8,19 +8,16 @@ public abstract class Tootle.AccountStore : GLib.Object {
 	// TODO: Make settings.current_account a string
 	public bool ensure_active_account () {
 		var has_active = false;
+		var account = find_by_handle (settings.active_account);
 
-		if (!saved.is_empty) {
-			if (settings.current_account > saved.size || settings.current_account <= 0)
-				settings.current_account = 0;
-
-			var last_account = saved[settings.current_account];
-			if (active != last_account) {
-				activate (last_account);
-				has_active = true;
-			}
+		if (account == null && !saved.is_empty) {
+			account = saved[0];
 		}
 
-		if (!has_active)
+		has_active = account != null;
+		if (has_active)
+			activate (account);
+		else
 			app.present_window ();
 
 		return has_active;
@@ -59,19 +56,19 @@ public abstract class Tootle.AccountStore : GLib.Object {
 		saved.remove (account);
 		saved.notify_property ("size");
 		save ();
-
-		var id = settings.current_account - 1;
-		if (saved.size < 1)
-			active = null;
-		else {
-			if (id > saved.size - 1)
-				id = saved.size - 1;
-			else if (id < saved.size - 1)
-				id = 0;
-		}
-		settings.current_account = id;
-
 		ensure_active_account ();
+	}
+
+	public InstanceAccount? find_by_handle (string handle) {
+		var iter = saved.filter (acc => {
+			return acc.handle == handle;
+		});
+		iter.next ();
+
+		if (!iter.valid)
+			return null;
+		else
+			return iter.@get ();
 	}
 
 	public void activate (InstanceAccount account) {
@@ -89,7 +86,7 @@ public abstract class Tootle.AccountStore : GLib.Object {
 		});
 
 		accounts.active = account;
-		settings.current_account = accounts.saved.index_of (account);
+		settings.active_account = account.handle;
 	}
 
 	[Signal (detailed = true)]

@@ -10,8 +10,8 @@
 
 	<schema path="/com/github/bleakgrey/tootle/" id="com.github.bleakgrey.tootle" gettext-domain="com.github.bleakgrey.tootle">
 
-		<key name="current-account" type="i">
-			<default>0</default>
+		<key name="active-account" type="s">
+			<default>''</default>
 		</key>
 		<key name="dark-theme" type="b">
 			<default>false</default>

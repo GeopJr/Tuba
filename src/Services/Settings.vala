@@ -2,7 +2,7 @@ using GLib;
 
 public class Tootle.Settings : GLib.Settings {
 
-	public int current_account { get; set; }
+	public string active_account { get; set; }
 	public bool dark_theme { get; set; }
 	public bool autostart { get; set; }
 	public bool work_in_background { get; set; }
@@ -20,7 +20,7 @@ public class Tootle.Settings : GLib.Settings {
 
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
-		init ("current-account");
+		init ("active-account");
 		init ("dark-theme");
 		init ("autostart");
 		init ("work-in-background");
