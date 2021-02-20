@@ -40,10 +40,7 @@ You can always help by reporting bugs, submitting pull requests, and suggesting 
 
 ### Credits
 * Icon design by [Tobias Bernard](https://github.com/bertob)
-* French translation by [@Larnicone](https://github.com/Larnicone)
-* Polish translation by [@m4sk1n](https://github.com/m4sk1n)
 * German translation by [@koyuawsmbrtn](https://github.com/koyuawsmbrtn)
-* Simplified Chinese translation by [@gloomy-ghost](https://github.com/gloomy-ghost)
 * Spanish translation by [@oscfdezdz](https://github.com/oscfdezdz)
 * Norwegian (Bokmål) translation by [@Octolinger](https://github.com/Octolinger)
 

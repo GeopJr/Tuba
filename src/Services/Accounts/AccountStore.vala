@@ -5,7 +5,6 @@ public abstract class Tootle.AccountStore : GLib.Object {
 	public ArrayList<InstanceAccount> saved { get; set; default = new ArrayList<InstanceAccount> (); }
 	public InstanceAccount? active { get; set; default = null; }
 
-	// TODO: Make settings.current_account a string
 	public bool ensure_active_account () {
 		var has_active = false;
 		var account = find_by_handle (settings.active_account);
