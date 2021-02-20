@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.Views.Notifications : Views.Timeline, IAccountListener, IStreamListener {
+public class Tootle.Views.Notifications : Views.Timeline, IAccountHolder, IStreamListener {
 
     protected int64 last_id = 0;
 

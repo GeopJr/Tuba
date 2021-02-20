@@ -1,9 +1,9 @@
 using Gtk;
 
-public class Tootle.Views.Thread : Views.Base, IAccountListener {
+public class Tootle.Views.Thread : Views.Base, IAccountHolder {
 
+	protected InstanceAccount? account { get; set; default = null; }
 	public API.Status root_status { get; construct set; }
-	protected InstanceAccount? account = null;
 	protected Widgets.Status root_widget;
 
 	public Thread (API.Status status) {

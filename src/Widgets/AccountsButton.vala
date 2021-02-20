@@ -1,7 +1,9 @@
 using Gtk;
 
 [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/accounts_button.ui")]
-public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountListener {
+public class Tootle.Widgets.AccountsButton : Gtk.MenuButton, IAccountHolder {
+
+	protected InstanceAccount? account { get; set; default = null; }
 
 	[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/accounts_button_item.ui")]
 	class Item : ListBoxRow {

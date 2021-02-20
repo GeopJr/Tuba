@@ -1,13 +1,13 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.Views.Timeline : IAccountListener, IStreamListener, Views.Base {
+public class Tootle.Views.Timeline : IAccountHolder, IStreamListener, Views.Base {
 
 	public string url { get; construct set; }
 	public bool is_public { get; construct set; default = false; }
 	public Type accepts { get; set; default = typeof (API.Status); }
 
-	protected InstanceAccount? account = null;
+	protected InstanceAccount? account { get; set; default = null; }
 	protected ulong on_status_added_sigig;
 
 	public bool is_last_page { get; set; default = false; }

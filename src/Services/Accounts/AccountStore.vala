@@ -5,6 +5,9 @@ public abstract class Tootle.AccountStore : GLib.Object {
 	public ArrayList<InstanceAccount> saved { get; set; default = new ArrayList<InstanceAccount> (); }
 	public InstanceAccount? active { get; set; default = null; }
 
+	public signal void changed (ArrayList<InstanceAccount> accounts);
+	public signal void switched (InstanceAccount? account);
+
 	public bool ensure_active_account () {
 		var has_active = false;
 		var account = find_by_handle (settings.active_account);
@@ -14,9 +17,9 @@ public abstract class Tootle.AccountStore : GLib.Object {
 		}
 
 		has_active = account != null;
-		if (has_active)
-			activate (account);
-		else
+		activate (account);
+
+		if (!has_active)
 			app.present_window ();
 
 		return has_active;
@@ -53,7 +56,7 @@ public abstract class Tootle.AccountStore : GLib.Object {
 		message (@"Removing account: $(account.handle)");
 		account.unsubscribe ();
 		saved.remove (account);
-		saved.notify_property ("size");
+		changed (saved);
 		save ();
 		ensure_active_account ();
 	}
@@ -70,22 +73,29 @@ public abstract class Tootle.AccountStore : GLib.Object {
 			return iter.@get ();
 	}
 
-	public void activate (InstanceAccount account) {
-		message (@"Activating $(account.handle)...");
-		account.verify_credentials.begin ((obj, res) => {
-			try {
-				account.verify_credentials.end (res);
-				account.error = null;
-			}
-			catch (Error e) {
-				warning (@"Couldn't activate account $(account.handle):");
-				warning (e.message);
-				account.error = e;
-			}
-		});
+	public void activate (InstanceAccount? account) {
+		if (account == null) {
+			message ("Reset active account");
+			return;
+		}
+		else {
+			message (@"Activating $(account.handle)...");
+			account.verify_credentials.begin ((obj, res) => {
+				try {
+					account.verify_credentials.end (res);
+					account.error = null;
+					settings.active_account = account.handle;
+				}
+				catch (Error e) {
+					warning (@"Couldn't activate account $(account.handle):");
+					warning (e.message);
+					account.error = e;
+				}
+			});
+		}
 
 		accounts.active = account;
-		settings.active_account = account.handle;
+		switched (active);
 	}
 
 	[Signal (detailed = true)]

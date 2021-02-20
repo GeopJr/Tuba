@@ -56,7 +56,7 @@ sources = files(
     'src/Services/Accounts/InstanceAccount.vala',
     'src/Services/Accounts/AccountStore.vala',
     'src/Services/Accounts/FileAccountStore.vala',
-    'src/Services/Accounts/IAccountListener.vala',
+    'src/Services/Accounts/IAccountHolder.vala',
     'src/Services/Accounts/Mastodon/MastodonAccount.vala',
     'src/Services/Streams.vala',
     'src/Services/Settings.vala',
