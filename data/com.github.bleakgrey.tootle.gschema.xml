@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
 
-	<enum id='com.github.bleakgrey.tootle.API.Visibility'>
-		<value nick='public' value='0'/>
-		<value nick='unlisted' value='1'/>
-		<value nick='private' value='2'/>
-		<value nick='direct' value='3'/>
-	</enum>
-
 	<schema path="/com/github/bleakgrey/tootle/" id="com.github.bleakgrey.tootle" gettext-domain="com.github.bleakgrey.tootle">
 
 		<key name="active-account" type="s">
@@ -21,9 +14,6 @@
 		</key>
 		<key name="work-in-background" type="b">
 			<default>false</default>
-		</key>
-		<key name="default-post-visibility" enum="com.github.bleakgrey.tootle.API.Visibility">
-			<default>'public'</default>
 		</key>
 		<key name="timeline-page-size" type="i">
 			<default>12</default>

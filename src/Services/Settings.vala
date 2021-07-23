@@ -6,17 +6,11 @@ public class Tootle.Settings : GLib.Settings {
 	public bool dark_theme { get; set; }
 	public bool autostart { get; set; }
 	public bool work_in_background { get; set; }
-	public API.Visibility default_post_visibility { get; set; }
 	public int timeline_page_size { get; set; }
 	public int post_text_size { get; set; }
 	public bool live_updates { get; set; }
 	public bool public_live_updates { get; set; }
 	public bool aggressive_resolving { get; set; }
-
-	public int window_x { get; set; }
-	public int window_y { get; set; }
-	public int window_w { get; set; }
-	public int window_h { get; set; }
 
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
@@ -24,17 +18,11 @@ public class Tootle.Settings : GLib.Settings {
 		init ("dark-theme");
 		init ("autostart");
 		init ("work-in-background");
-		init ("default-post-visibility");
 		init ("timeline-page-size");
 		init ("post-text-size");
 		init ("live-updates");
 		init ("public-live-updates");
 		init ("aggressive-resolving");
-
-		init ("window-x");
-		init ("window-y");
-		init ("window-w");
-		init ("window-h");
 	}
 
 	void init (string key) {

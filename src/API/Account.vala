@@ -53,7 +53,7 @@ public class Tootle.API.Account : Entity, Widgetizable {
 
 	public override void open () {
 		var view = new Views.Profile (this);
-		window.open_view (view);
+		app.main_window.open_view (view);
 	}
 
 	public override void resolve_open (InstanceAccount account) {

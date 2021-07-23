@@ -47,14 +47,14 @@ public abstract class Tootle.AccountStore : GLib.Object {
 	public virtual void add (InstanceAccount account) throws GLib.Error {
 		message (@"Adding new account: $(account.handle)");
 		saved.add (account);
+		changed (saved);
 		save ();
-		account.subscribe ();
 		ensure_active_account ();
 	}
 
 	public virtual void remove (InstanceAccount account) throws GLib.Error {
 		message (@"Removing account: $(account.handle)");
-		account.unsubscribe ();
+		account.removed ();
 		saved.remove (account);
 		changed (saved);
 		save ();
@@ -74,6 +74,9 @@ public abstract class Tootle.AccountStore : GLib.Object {
 	}
 
 	public void activate (InstanceAccount? account) {
+		if (active != null)
+			active.deactivated ();
+
 		if (account == null) {
 			message ("Reset active account");
 			return;
@@ -95,6 +98,7 @@ public abstract class Tootle.AccountStore : GLib.Object {
 		}
 
 		accounts.active = account;
+		active.activated ();
 		switched (active);
 	}
 

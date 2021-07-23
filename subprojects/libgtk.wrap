@@ -1,0 +1,5 @@
+[wrap-file]
+directory=gtk-4.2.0
+source_url=https://gitlab.gnome.org/GNOME/gtk/-/archive/4.2.0/gtk-4.2.0.tar
+source_filename=gtk-4.2.0.tar
+source_hash=4dee09cf3915304bd18cf0f466fff72e4be1b87d9e4dc5d16fba72b4d67b7c0c

@@ -1,7 +1,7 @@
 using Gtk;
 
 [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/list_editor.ui")]
-public class Tootle.Dialogs.ListEditor: Hdy.Window {
+public class Tootle.Dialogs.ListEditor: Adw.Window {
 
 	[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/list_editor_item.ui")]
 	class Item : ListBoxRow {
@@ -10,12 +10,9 @@ public class Tootle.Dialogs.ListEditor: Hdy.Window {
 		public API.Account acc { get; construct set; }
 		public bool committed { get; construct set; }
 
-		[GtkChild]
-		Widgets.RichLabel label;
-		[GtkChild]
-		Widgets.RichLabel handle;
-		[GtkChild]
-		ToggleButton status;
+		[GtkChild] unowned Widgets.RichLabel label;
+		[GtkChild] unowned Widgets.RichLabel handle;
+		[GtkChild] unowned ToggleButton status;
 
 		public Item (ListEditor editor, API.Account acc, bool committed) {
 			this.editor = editor;
@@ -59,26 +56,19 @@ public class Tootle.Dialogs.ListEditor: Hdy.Window {
 	public Gee.ArrayList<string> to_add = new Gee.ArrayList<string> ();
 	public Gee.ArrayList<string> to_remove = new Gee.ArrayList<string> ();
 
-	[GtkChild]
-	Button save_btn;
-	[GtkChild]
-	Stack save_btn_stack;
-	[GtkChild]
-	Entry name_entry;
-	[GtkChild]
-	SearchEntry search_entry;
-	[GtkChild]
-	ListBox listbox;
+	[GtkChild] unowned Button save_btn;
+	[GtkChild] unowned Stack save_btn_stack;
+	[GtkChild] unowned Entry name_entry;
+	[GtkChild] unowned SearchEntry search_entry;
+	[GtkChild] unowned ListBox listbox;
 
-	[GtkChild]
-	InfoBar infobar;
-	[GtkChild]
-	Label infobar_label;
+	[GtkChild] unowned InfoBar infobar;
+	[GtkChild] unowned Label infobar_label;
 
 	public signal void done ();
 
 	construct {
-		transient_for = window;
+		transient_for = app.main_window;
 		show ();
 	}
 
@@ -163,13 +153,13 @@ public class Tootle.Dialogs.ListEditor: Hdy.Window {
 
 	void add_account (API.Account acc, bool added, int order = -1) {
 		var exists = false;
-		listbox.@foreach (w => {
-			var i = w as Item;
-			if (i != null) {
-				if (i.acc.id == acc.id)
-					exists = true;
-			}
-		});
+		// listbox.@foreach (w => {
+		// 	var i = w as Item;
+		// 	if (i != null) {
+		// 		if (i.acc.id == acc.id)
+		// 			exists = true;
+		// 	}
+		// });
 
 		if (!exists) {
 			var item = new Item (this, acc, added);
@@ -178,13 +168,13 @@ public class Tootle.Dialogs.ListEditor: Hdy.Window {
 	}
 
 	void invalidate () {
-		listbox.@foreach (w => {
-			var i = w as Item;
-			if (i != null) {
-				if (!i.committed)
-					i.destroy ();
-			}
-		});
+		// listbox.@foreach (w => {
+		// 	var i = w as Item;
+		// 	if (i != null) {
+		// 		if (!i.committed)
+		// 			i.destroy ();
+		// 	}
+		// });
 	}
 
 

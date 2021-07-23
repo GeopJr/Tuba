@@ -1,16 +1,16 @@
 public class Tootle.Views.Federated : Views.Timeline {
 
-    public Federated () {
-        Object (
-        	url: "/api/v1/timelines/public",
-        	is_public: true,
-        	label: _("Federated"),
-        	icon: "network-workgroup-symbolic"
-        );
-    }
+	public Federated () {
+		Object (
+			url: "/api/v1/timelines/public",
+			is_public: true,
+			label: _("Federated"),
+			icon: "globe-symbolic"
+		);
+	}
 
-    public override string? get_stream_url () {
-        return account != null ? @"$(account.instance)/api/v1/streaming/?stream=public&access_token=$(account.access_token)" : null;
-    }
+	public override string? get_stream_url () {
+		return account != null ? @"$(account.instance)/api/v1/streaming/?stream=public&access_token=$(account.access_token)" : null;
+	}
 
 }

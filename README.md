@@ -22,9 +22,9 @@ Simple [Mastodon](https://github.com/tootsuite/mastodon) client for Linux
     libxml2-dev | 2.9.10 | 
     libgee-0.8-dev | 0.8.5 | 
     libsoup2.4-dev | 2.64 | 
-    libgtk-3-dev | 3.22 | 
-    libhandy-1.0-dev | 1.0.0 | Will be attempted to install automatically if not present.
-    libsecret-1-dev | 0.20 | Optional. Used for storing accounts using Secret Service API.
+    libgtk-4-dev | 4.3.0 | 
+    libadwaita-1.0-dev | 1.0.0-alpha2 | Will be attempted to install automatically if not present.
+    libsecret-1-dev | 0.20 | 
     
 
 2. Run `install.sh` in the project directory. The app will launch automatically on success.
@@ -43,4 +43,3 @@ You can always help by reporting bugs, submitting pull requests, and suggesting 
 * German translation by [@koyuawsmbrtn](https://github.com/koyuawsmbrtn)
 * Spanish translation by [@oscfdezdz](https://github.com/oscfdezdz)
 * Norwegian (Bokmål) translation by [@Octolinger](https://github.com/Octolinger)
-

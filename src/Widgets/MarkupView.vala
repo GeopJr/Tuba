@@ -23,12 +23,12 @@ public class Tootle.Widgets.MarkupView : Box {
 		get { return _selectable; }
 		set {
 			_selectable = value;
-			get_children ().foreach (w => {
-				var label = w as Label;
-				if (label != null) {
-					label.selectable = _selectable;
-				}
-			});
+			// get_children ().foreach (w => {
+			// 	var label = w as Label;
+			// 	if (label != null) {
+			// 		label.selectable = _selectable;
+			// 	}
+			// });
 		}
 	}
 
@@ -40,9 +40,9 @@ public class Tootle.Widgets.MarkupView : Box {
 	void update_content (string content) {
 		current_chunk = null;
 
-		get_children ().foreach (w => {
+		for (var w = get_first_child (); w != null; w = w.get_next_sibling ()) {
 			w.destroy ();
-		});
+		}
 
 		var doc = Html.Doc.read_doc (content, "", "utf8");
 		if (doc != null) {
@@ -54,7 +54,7 @@ public class Tootle.Widgets.MarkupView : Box {
 
 		delete doc;
 
-		visible = get_children ().length () > 0;
+		visible = get_first_child () != null;
 	}
 
 	static void traverse (Xml.Node* root, owned NodeFn cb) {
@@ -73,10 +73,10 @@ public class Tootle.Widgets.MarkupView : Box {
 		if (current_chunk != null && current_chunk != "") {
 			var label = new RichLabel (current_chunk) {
 				visible = true,
-				markup = MarkupPolicy.TRUST,
+				// markup = MarkupPolicy.TRUST,
 				selectable = _selectable
 			};
-			pack_start (label);
+			prepend (label);
 		}
 		current_chunk = null;
 	}
@@ -127,11 +127,11 @@ public class Tootle.Widgets.MarkupView : Box {
 				});
 
 				var label = new RichLabel (text) {
-					visible = true,
-					markup = MarkupPolicy.DISALLOW
+					visible = true
+					// markup = MarkupPolicy.DISALLOW
 				};
 				label.get_style_context ().add_class ("ttl-code");
-				v.pack_start (label);
+				v.prepend (label);
 				break;
 			case "a":
 				var href = root->get_prop ("href");

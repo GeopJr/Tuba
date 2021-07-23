@@ -2,6 +2,10 @@ using Gee;
 
 public class Tootle.API.Status : Entity, Widgetizable {
 
+	~Status () {
+		message ("[OBJ] Destroyed "+uri);
+	}
+
     public string id { get; set; }
     public API.Account account { get; set; }
     public string uri { get; set; }
@@ -19,7 +23,7 @@ public class Tootle.API.Status : Entity, Widgetizable {
     public bool sensitive { get; set; default = false; }
     public bool muted { get; set; default = false; }
     public bool pinned { get; set; default = false; }
-    public API.Visibility visibility { get; set; default = settings.default_post_visibility; }
+    public string visibility { get; set; default = "public"; } // TODO: Bring back default post visibility preference
     public API.Status? reblog { get; set; default = null; }
     public ArrayList<API.Mention>? mentions { get; set; default = null; }
     public ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
@@ -47,14 +51,19 @@ public class Tootle.API.Status : Entity, Widgetizable {
         }
     }
 
+    public bool can_be_boosted {
+    	get {
+    		return this.formal.visibility != "direct";
+    	}
+    }
+
 	public static Status from (Json.Node node) throws Error {
 		return Entity.from_json (typeof (API.Status), node) as API.Status;
 	}
 
     public Status.empty () {
         Object (
-        	id: "",
-        	visibility: settings.default_post_visibility
+        	id: ""
         );
     }
 
@@ -79,7 +88,7 @@ public class Tootle.API.Status : Entity, Widgetizable {
 
 	public override void open () {
 		var view = new Views.Thread (formal);
-		window.open_view (view);
+		app.main_window.open_view (view);
 	}
 
     public bool is_owned (){
@@ -87,10 +96,10 @@ public class Tootle.API.Status : Entity, Widgetizable {
     }
 
 	public bool has_media () {
-		return media_attachments != null && media_attachments.size > 0;
+		return media_attachments != null && !media_attachments.is_empty;
 	}
 
-    public string get_reply_mentions () {
+    public virtual string get_reply_mentions () {
         var result = "";
         if (account.acct != accounts.active.acct)
             result = @"$(account.handle) ";
@@ -100,7 +109,7 @@ public class Tootle.API.Status : Entity, Widgetizable {
                 var equals_current = mention.acct == accounts.active.acct;
                 var already_mentioned = mention.acct in result;
 
-                if (!equals_current && ! already_mentioned)
+                if (!equals_current && !already_mentioned)
                     result += @"$(mention.handle) ";
             }
         }
@@ -109,7 +118,9 @@ public class Tootle.API.Status : Entity, Widgetizable {
     }
 
     public Request action (string action) {
-        return new Request.POST (@"/api/v1/statuses/$(formal.id)/$action").with_account (accounts.active);
+        var req = new Request.POST (@"/api/v1/statuses/$(formal.id)/$action").with_account (accounts.active);
+        req.priority = Soup.MessagePriority.HIGH;
+        return req;
     }
 
     public Request annihilate () {

@@ -1,5 +1,6 @@
 using Gtk;
 
+// TODO: Lists is borken
 public class Tootle.Views.Lists : Views.Timeline {
 
     [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/list_item.ui")]
@@ -7,10 +8,8 @@ public class Tootle.Views.Lists : Views.Timeline {
 
 		API.List? list;
 
-		[GtkChild]
-		Stack stack;
-		[GtkChild]
-		Label title;
+		[GtkChild] unowned Stack stack;
+		[GtkChild] unowned Label title;
 
 		public Row (API.List? list) {
 			this.list = list;
@@ -45,7 +44,7 @@ public class Tootle.Views.Lists : Views.Timeline {
 				return;
 
 			var view = new Views.List (list);
-			window.open_view (view);
+			app.main_window.open_view (view);
 		}
     }
 

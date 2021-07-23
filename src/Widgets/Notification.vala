@@ -11,17 +11,12 @@ public class Tootle.Widgets.Notification : Widgets.Status {
         else
             status = new API.Status.from_account (obj.account);
 
-        Object (notification: obj, status: status);
-        this.kind = obj.kind;
-    }
-
-    protected override void on_kind_changed () {
-        if (kind == null)
-            return;
-
-        header_icon.visible = header_label.visible = true;
-        header_icon.icon_name = kind.get_icon ();
-        header_label.label = kind.get_desc (notification.account);
+        Object (
+            notification: obj,
+            kind_instigator: obj.account,
+            kind: obj.kind,
+            status: status
+        );
     }
 
 }

@@ -10,32 +10,33 @@ namespace Tootle {
 	}
 
 	public static Application app;
-	public static Dialogs.MainWindow? window;
-	public static Dialogs.NewAccount? new_account_window;
-	public static Window window_dummy;
 
 	public static Settings settings;
 	public static AccountStore accounts;
 	public static Network network;
-	public static Cache cache;
 	public static Streams streams;
+
+	public static EntityCache entity_cache;
+	public static ImageCache image_cache;
 
 	public static bool start_hidden = false;
 
 	public class Application : Gtk.Application {
 
+		public Dialogs.MainWindow? main_window { get; set; }
+		public Dialogs.NewAccount? add_account_window { get; set; }
+
 		// These are used for the GTK Inspector
 		public Settings app_settings { get {return Tootle.settings; } }
 		public AccountStore app_accounts { get {return Tootle.accounts; } }
 		public Network app_network { get {return Tootle.network; } }
-		public Cache app_cache { get {return Tootle.cache; } }
 		public Streams app_streams { get {return Tootle.streams; } }
 
 		public signal void refresh ();
 		public signal void toast (string title);
 
 		public CssProvider css_provider = new CssProvider ();
-		public CssProvider zoom_css_provider = new CssProvider ();
+		public CssProvider zoom_css_provider = new CssProvider (); //FIXME: Zoom not working
 
 		public const GLib.OptionEntry[] app_options = {
 			{ "hidden", 0, 0, OptionArg.NONE, ref start_hidden, "Do not show main window on start", null },
@@ -48,7 +49,6 @@ namespace Tootle {
 			{ "back", back_activated },
 			{ "refresh", refresh_activated },
 			{ "search", search_activated },
-			{ "switch-timeline", switch_timeline_activated, "i" }
 		};
 
 		construct {
@@ -61,13 +61,9 @@ namespace Tootle {
 		public string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left"};
 		public string[] ACCEL_REFRESH = {"<Ctrl>R", "F5"};
 		public string[] ACCEL_SEARCH = {"<Ctrl>F"};
-		public string[] ACCEL_TIMELINE_0 = {"<Alt>1"};
-		public string[] ACCEL_TIMELINE_1 = {"<Alt>2"};
-		public string[] ACCEL_TIMELINE_2 = {"<Alt>3"};
-		public string[] ACCEL_TIMELINE_3 = {"<Alt>4"};
 
 		public static int main (string[] args) {
-			Gtk.init (ref args);
+			Gtk.init ();
 			try {
 				var opt_context = new OptionContext ("- Options");
 				opt_context.add_main_entries (app_options, null);
@@ -85,21 +81,19 @@ namespace Tootle {
 			base.startup ();
 			try {
 				Build.print_info ();
-				Hdy.init ();
+				Adw.init ();
 
 				settings = new Settings ();
 				streams = new Streams ();
 				network = new Network ();
-				cache = new Cache ();
-				accounts = Build.get_account_store ();
+				entity_cache = new EntityCache ();
+				image_cache = new ImageCache ();
+				accounts = new SecretAccountStore();
 				accounts.init ();
 
 				css_provider.load_from_resource (@"$(Build.RESOURCES)app.css");
-				StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-				StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), zoom_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-				window_dummy = new Window ();
-				add_window (window_dummy);
+				StyleContext.add_provider_for_display (Gdk.Display.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+				StyleContext.add_provider_for_display (Gdk.Display.get_default (), zoom_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 			}
 			catch (Error e) {
 				var msg = _("Could not start application: %s").printf (e.message);
@@ -112,10 +106,6 @@ namespace Tootle {
 			set_accels_for_action ("app.back", ACCEL_BACK);
 			set_accels_for_action ("app.refresh", ACCEL_REFRESH);
 			set_accels_for_action ("app.search", ACCEL_SEARCH);
-			set_accels_for_action ("app.switch-timeline(0)", ACCEL_TIMELINE_0); //TODO: There's no action for handling these
-			set_accels_for_action ("app.switch-timeline(1)", ACCEL_TIMELINE_1);
-			set_accels_for_action ("app.switch-timeline(2)", ACCEL_TIMELINE_2);
-			set_accels_for_action ("app.switch-timeline(3)", ACCEL_TIMELINE_3);
 			add_action_entries (app_entries, this);
 		}
 
@@ -131,8 +121,8 @@ namespace Tootle {
 		public override void open (File[] files, string hint) {
 			foreach (File file in files) {
 				string uri = file.get_uri ();
-				if (new_account_window != null)
-					new_account_window.redirect (uri);
+				if (add_account_window != null)
+					add_account_window.redirect (uri);
 				else
 					warning (@"Received an unexpected uri to open: $uri");
 				return;
@@ -142,50 +132,66 @@ namespace Tootle {
 		public void present_window () {
 			if (accounts.saved.is_empty) {
 				message ("Presenting NewAccount dialog");
-				if (new_account_window == null)
+				if (add_account_window == null)
 					new Dialogs.NewAccount ();
-				new_account_window.present ();
+				add_account_window.present ();
 			}
 			else {
 				message ("Presenting MainWindow");
-				if (window == null)
-					window = new Dialogs.MainWindow (this);
-				window.present ();
+				if (main_window == null)
+					main_window = new Dialogs.MainWindow (this);
+				main_window.present ();
 			}
 		}
 
-		public bool on_window_closed () {
-			if (!settings.work_in_background || accounts.saved.is_empty)
-				app.remove_window (window_dummy);
-				return false;
-		}
+		// TODO: Background mode
+		// public bool on_window_closed () {
+		// 	if (!settings.work_in_background || accounts.saved.is_empty)
+		// 		app.remove_window (window_dummy);
+		// 		return false;
+		// }
 
 		void compose_activated () {
 			new Dialogs.Compose ();
 		}
 
 		void back_activated () {
-			window.back ();
+			main_window.back ();
 		}
 
 		void search_activated () {
-			window.open_view (new Views.Search ());
+			main_window.open_view (new Views.Search ());
 		}
 
 		void refresh_activated () {
 			refresh ();
 		}
 
-		void switch_timeline_activated (SimpleAction a, Variant? v) {
-			int32 num = v.get_int32 ();
-			window.switch_timeline (num);
-		}
-
 		void about_activated () {
-			new Dialogs.About ();
+			var dialog = new AboutDialog () {
+				transient_for = main_window,
+				modal = true,
+
+				logo_icon_name = Build.DOMAIN,
+				program_name = Build.NAME,
+				version = Build.VERSION,
+				website = Build.SUPPORT_WEBSITE,
+				website_label = _("Report an issue"),
+				license_type = License.GPL_3_0_ONLY,
+				copyright = Build.COPYRIGHT,
+				system_information = Build.SYSTEM_INFO
+			};
+
+			// For some obscure reason, const arrays produce duplicates in the credits.
+			// Static functions seem to avoid this peculiar behavior.
+			dialog.authors = Build.get_authors ();
+			dialog.artists = Build.get_artists ();
+			dialog.translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : null;
+
+			dialog.present ();
 		}
 
-		public void inform (Gtk.MessageType type, string text, string? msg = null, Gtk.Window? win = window){
+		public void inform (Gtk.MessageType type, string text, string? msg = null, Gtk.Window? win = main_window){
 			var dlg = new Gtk.MessageDialog (
 				win,
 				Gtk.DialogFlags.MODAL,
@@ -196,11 +202,11 @@ namespace Tootle {
 			dlg.text = text;
 			dlg.secondary_text = msg;
 			dlg.transient_for = win;
-			dlg.run ();
+			// dlg.run ();
 			dlg.destroy ();
 		}
 
-		public bool question (string text, string? msg = null, Gtk.Window? win = window) {
+		public bool question (string text, string? msg = null, Gtk.Window? win = main_window) {
 			var dlg = new Gtk.MessageDialog (
 				win,
 				Gtk.DialogFlags.MODAL,
@@ -211,9 +217,10 @@ namespace Tootle {
 			dlg.text = text;
 			dlg.secondary_text = msg;
 			dlg.transient_for = win;
-			var i = dlg.run ();
+			// var i = dlg.run ();
 			dlg.destroy ();
-			return i == ResponseType.YES;
+			// return i == ResponseType.YES;
+			return false;
 		}
 
 	}

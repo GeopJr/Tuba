@@ -1,50 +1,39 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.Views.Timeline : IAccountHolder, IStreamListener, Views.Base {
+public class Tootle.Views.Timeline : AccountHolder, Streamable, Views.ContentBase {
 
 	public string url { get; construct set; }
 	public bool is_public { get; construct set; default = false; }
 	public Type accepts { get; set; default = typeof (API.Status); }
 
 	protected InstanceAccount? account { get; set; default = null; }
-	protected ulong on_status_added_sigig;
 
 	public bool is_last_page { get; set; default = false; }
 	public string? page_next { get; set; }
 	public string? page_prev { get; set; }
-	public string? stream = null;
 
 	construct {
 		app.refresh.connect (on_refresh);
 		status_button.clicked.connect (on_refresh);
-		account_listener_init ();
 
-		on_status_added_sigig = on_status_added.connect (add_status);
-		on_status_removed.connect (remove_status);
+		construct_account_holder ();
+
+		construct_streamable ();
+		stream_event[InstanceAccount.EVENT_NEW_POST].connect (on_new_post);
+		stream_event[InstanceAccount.EVENT_DELETE_POST].connect (on_delete_post);
+
+		content.bind_model (model, on_create_model_widget);
 	}
 	~Timeline () {
-		streams.unsubscribe (stream, this);
+		destruct_account_holder ();
+		destruct_streamable ();
+
+		content.bind_model (null, null);
 	}
 
 	public virtual bool is_status_owned (API.Status status) {
 		return status.is_owned ();
-	}
-
-	public void prepend (Widget? w) {
-		append (w, true);
-	}
-
-	public virtual void append (Widget? w, bool first = false) {
-		if (w == null) {
-			warning ("Attempted to add an empty widget");
-			return;
-		}
-
-		if (first)
-			content_list.prepend (w);
-		else
-			content_list.insert (w, -1);
 	}
 
 	public override void clear () {
@@ -98,9 +87,8 @@ public class Tootle.Views.Timeline : IAccountHolder, IStreamListener, Views.Base
 		.then ((sess, msg) => {
 			Network.parse_array (msg, node => {
 				try {
-					var e = Entity.from_json (accepts, node);
-					var w = e as Widgetizable;
-					append (w.to_widget ());
+					var e = entity_cache.lookup_or_insert (node, accepts);
+					model.append (e); //FIXME: use splice();
 				}
 				catch (Error e) {
 					warning (@"Timeline item parse error: $(e.message)");
@@ -125,19 +113,11 @@ public class Tootle.Views.Timeline : IAccountHolder, IStreamListener, Views.Base
 		GLib.Idle.add (request);
 	}
 
-	public virtual string? get_stream_url () {
-		return null;
-	}
 
-	public virtual void on_account_changed (InstanceAccount? acc) {
+	protected virtual void on_account_changed (InstanceAccount? acc) {
 		account = acc;
-		reconnect_stream ();
+		update_stream ();
 		on_refresh ();
-	}
-
-	public void reconnect_stream () {
-		streams.unsubscribe (stream, this);
-		streams.subscribe (get_stream_url (), this, out stream);
 	}
 
 	protected override void on_bottom_reached () {
@@ -148,23 +128,32 @@ public class Tootle.Views.Timeline : IAccountHolder, IStreamListener, Views.Base
 		request ();
 	}
 
-	protected virtual void add_status (API.Status status) {
-		var allow_update = true;
-		if (is_public)
-			allow_update = settings.public_live_updates;
 
-		if (settings.live_updates && allow_update)
-			prepend (status.to_widget ());
+
+	// Streamable
+
+	public string? _connection_url { get; set; }
+	public bool subscribed { get; set; }
+
+	protected override void on_streaming_policy_changed () {
+		var allow_streaming = settings.live_updates;
+		if (is_public)
+			allow_streaming = allow_streaming && settings.public_live_updates;
+
+		subscribed = allow_streaming;
 	}
 
-	protected virtual void remove_status (string id) {
-		if (settings.live_updates) {
-			content_list.get_children ().@foreach (w => {
-				var sw = w as Widgets.Status;
-				if (sw != null && sw.status.id == id)
-					sw.destroy ();
-			});
-		}
+	public virtual string? get_stream_url () {
+		return null;
+	}
+
+	public virtual void on_new_post (Streamable.Event ev) {
+		var entity = Entity.from_json (accepts, ev.get_node ());
+		model.insert (0, entity);
+	}
+
+	public virtual void on_delete_post (Streamable.Event ev) {
+		//TODO: This
 	}
 
 }

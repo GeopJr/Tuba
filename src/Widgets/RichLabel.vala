@@ -1,41 +1,53 @@
 using Gtk;
 using Gee;
 
-public class Tootle.Widgets.RichLabel : Label {
+public class Tootle.Widgets.RichLabel : Adw.Bin {
+
+	Label widget;
 
 	// TODO: We can parse <a> tags and extract resolvable URIs now
 	public weak ArrayList<API.Mention>? mentions;
 
-	MarkupPolicy _markup = DISALLOW;
-	public MarkupPolicy markup {
-		get {
-			return _markup;
-		}
-		set {
-			_markup = value;
-			_markup.apply (this);
-		}
+	public string label {
+		get { return widget.label; }
+		set { widget.label = value; }
 	}
 
-	public string text {
-		get {
-			return this.label;
-		}
-		set {
-			this.label = markup.process (value);
-		}
+	public bool selectable {
+		get { return widget.selectable; }
+		set { widget.selectable = value; }
+	}
+
+	public Pango.EllipsizeMode ellipsize {
+		get { return widget.ellipsize; }
+		set { widget.ellipsize = value; }
+	}
+
+	public bool single_line_mode {
+		get { return widget.single_line_mode; }
+		set { widget.single_line_mode = value; }
+	}
+
+	public float xalign {
+	    get { return widget.xalign; }
+	    set { widget.xalign = value; }
 	}
 
 	construct {
-		xalign = 0;
-		wrap_mode = Pango.WrapMode.WORD_CHAR;
-		justify = Justification.LEFT;
-		single_line_mode = false;
-		set_line_wrap (true);
+		widget = new Label ("") {
+			xalign = 0,
+			wrap = true,
+			wrap_mode = Pango.WrapMode.WORD_CHAR,
+			justify = Justification.LEFT,
+			single_line_mode = false,
+			use_markup = true
+		};
+		widget.activate_link.connect (on_activate_link);
+		child = widget;
 	}
 
 	public RichLabel (string text) {
-		set_label (text);
+		widget.set_label (text);
 	}
 
 	public static string escape_entities (string content) {
@@ -53,7 +65,7 @@ public class Tootle.Widgets.RichLabel : Label {
 			   .replace ("&quot;", "\"");
 	}
 
-	public override bool activate_link (string url) {
+	bool on_activate_link (string url) {
 		if (mentions != null){
 			mentions.@foreach (mention => {
 				if (url == mention.url)
@@ -65,7 +77,7 @@ public class Tootle.Widgets.RichLabel : Label {
 		if ("/tags/" in url) {
 			var encoded = url.split ("/tags/")[1];
 			var tag = Soup.URI.decode (encoded);
-			window.open_view (new Views.Hashtag (tag));
+			app.main_window.open_view (new Views.Hashtag (tag));
 			return true;
 		}
 
@@ -77,12 +89,12 @@ public class Tootle.Widgets.RichLabel : Label {
 				catch (Error e) {
 					warning (@"Failed to resolve URL \"$url\":");
 					warning (e.message);
-					Desktop.open_uri (url);
+					Host.open_uri (url);
 				}
 			});
 		}
 		else {
-			Desktop.open_uri (url);
+			Host.open_uri (url);
 		}
 
 		return true;

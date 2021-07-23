@@ -4,6 +4,61 @@
   <menu id="profile-menu">
 
     <section>
+      <attribute name="display-hint">circular-buttons</attribute>
+      <!-- <attribute name="label" translatable="yes">Interaction</attribute> -->
+      <item>
+        <attribute name="label" translatable="yes">Mention…</attribute>
+        <attribute name="action">view.mention</attribute>
+        <attribute name="target">public</attribute>
+        <attribute name="verb-icon">mention-symbolic</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Direct Message…</attribute>
+        <attribute name="action">view.mention</attribute>
+        <attribute name="target">direct</attribute>
+        <attribute name="verb-icon">mail-unread-symbolic</attribute>
+      </item>
+      <!-- <item> -->
+      <!--   <attribute name="label" translatable="yes">Copy Handle</attribute> -->
+      <!--   <attribute name="action">view.copy_handle</attribute> -->
+      <!--   <attribute name="verb-icon">emblem-shared-symbolic</attribute> -->
+      <!-- </item> -->
+    </section>
+
+    <section>
+      <!-- <submenu> -->
+        <attribute name="label" translatable="yes">Moderation</attribute>
+        <item>
+          <attribute name="label" translatable="yes">Hide Boosts</attribute>
+          <attribute name="action">view.hiding_reblogs</attribute>
+          <!-- <attribute name="hidden-when">action-disabled</attribute> -->
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Mute</attribute>
+          <attribute name="action">view.muting</attribute>
+        </item>
+        <section>
+          <item>
+            <attribute name="label" translatable="yes">Report</attribute>
+            <attribute name="action">view.report</attribute>
+            <!-- TODO: Reporting users -->
+            <attribute name="hidden-when">action-missing</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">Block</attribute>
+            <attribute name="action">view.blocking</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">Block Domain</attribute>
+            <attribute name="action">view.domain_blocking</attribute>
+            <!-- <attribute name="hidden-when">action-disabled</attribute> -->
+          </item>
+        </section>
+      <!-- </submenu> -->
+    </section>
+
+    <section>
+      <attribute name="label" translatable="yes">Timeline</attribute>
       <submenu id="profile-filter-menu">
         <attribute name="label" translatable="yes">Filter</attribute>
         <item>
@@ -36,55 +91,25 @@
         </section>
 
       </submenu>
-    </section>
 
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">Mention…</attribute>
-        <attribute name="action">view.mention</attribute>
-        <attribute name="target">public</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Direct Message…</attribute>
-        <attribute name="action">view.mention</attribute>
-        <attribute name="target">direct</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Copy Handle</attribute>
-        <attribute name="action">view.copy_handle</attribute>
-      </item>
-    </section>
-
-    <section>
-      <!-- <submenu> -->
-        <!-- <attribute name="label" translatable="yes">Moderation</attribute> -->
+    <!-- <section> -->
+      <submenu id="copy-menu">
+        <attribute name="label" translatable="yes">Copy</attribute>
         <item>
-          <attribute name="label" translatable="yes">Hide Boosts</attribute>
-          <attribute name="action">view.hiding_reblogs</attribute>
-          <attribute name="hidden-when">action-disabled</attribute>
+          <attribute name="label" translatable="yes">Profile Handle</attribute>
+          <attribute name="action">view.copy_handle</attribute>
         </item>
         <item>
-          <attribute name="label" translatable="yes">Mute</attribute>
-          <attribute name="action">view.muting</attribute>
+          <attribute name="label" translatable="yes">Profile Link</attribute>
+          <attribute name="action">view.copy_handle</attribute>
         </item>
-        <section>
-          <item>
-            <attribute name="label" translatable="yes">Report</attribute>
-            <attribute name="action">view.report</attribute>
-            <!-- TODO: Reporting users -->
-            <attribute name="hidden-when">action-missing</attribute>
-          </item>
-          <item>
-            <attribute name="label" translatable="yes">Block</attribute>
-            <attribute name="action">view.blocking</attribute>
-          </item>
-          <item>
-            <attribute name="label" translatable="yes">Block Domain</attribute>
-            <attribute name="action">view.domain_blocking</attribute>
-            <attribute name="hidden-when">action-disabled</attribute>
-          </item>
-        </section>
-      <!-- </submenu> -->
+      </submenu>
+    <!-- </section> -->
+
+      <item>
+        <attribute name="label" translatable="yes">Refresh</attribute>
+        <attribute name="action">app.refresh</attribute>
+      </item>
     </section>
 
   </menu>

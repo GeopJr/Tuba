@@ -9,7 +9,7 @@ public class Tootle.Views.Home : Views.Timeline {
     }
 
     public override string? get_stream_url () {
-        return account.get_stream_url () ?? null;
+        return account.get_stream_url ();
     }
 
 }

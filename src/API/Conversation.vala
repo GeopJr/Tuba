@@ -11,7 +11,7 @@ public class Tootle.API.Conversation : Entity, Widgetizable {
 
 	public override void open () {
 		var view = new Views.Thread (last_status.formal);
-		window.open_view (view);
+		app.main_window.open_view (view);
 
 		if (unread)
 			mark_read ();

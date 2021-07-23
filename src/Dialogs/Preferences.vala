@@ -1,34 +1,26 @@
 using Gtk;
 
 [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/preferences.ui")]
-public class Tootle.Dialogs.Preferences : Hdy.PreferencesWindow {
+public class Tootle.Dialogs.Preferences : Adw.PreferencesWindow {
 
-    [GtkChild]
-    Switch dark_theme;
-    [GtkChild]
-    Switch autostart;
-    [GtkChild]
-    Switch work_in_background;
-    [GtkChild]
-    Hdy.ComboRow default_post_visibility;
-    [GtkChild]
-    SpinButton timeline_page_size;
-    [GtkChild]
-    SpinButton post_text_size;
-    [GtkChild]
-    Switch live_updates;
-    [GtkChild]
-    Switch public_live_updates;
+    [GtkChild] unowned Switch dark_theme;
+    [GtkChild] unowned Switch autostart;
+    [GtkChild] unowned Switch work_in_background;
+    [GtkChild] unowned SpinButton timeline_page_size;
+    [GtkChild] unowned SpinButton post_text_size;
+    [GtkChild] unowned Switch live_updates;
+    [GtkChild] unowned Switch public_live_updates;
 
     construct {
-        transient_for = window;
+        transient_for = app.main_window;
 
-        default_post_visibility.set_for_enum (typeof (API.Visibility), e => {
-            var i = e.get_value ();
-            var vis = API.Visibility.all ()[i];
-            default_post_visibility.subtitle = vis.get_desc ();
-            return vis.get_name ();
-        });
+		// TODO: default_post_visibility options
+        // default_post_visibility.set_for_enum (typeof (API.Visibility), e => {
+        //     var i = e.get_value ();
+        //     var vis = API.Visibility.all ()[i];
+        //     default_post_visibility.subtitle = vis.get_desc ();
+        //     return vis.get_name ();
+        // });
 
 		bind ();
         show ();
@@ -42,11 +34,6 @@ public class Tootle.Dialogs.Preferences : Hdy.PreferencesWindow {
         settings.bind ("dark-theme", dark_theme, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("autostart", autostart, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("work-in-background", work_in_background, "active", SettingsBindFlags.DEFAULT);
-        default_post_visibility.selected_index = (int) settings.default_post_visibility;
-        default_post_visibility.notify["selected-index"].connect (p => {
-            var i = default_post_visibility.selected_index;
-            settings.default_post_visibility = (API.Visibility) i;
-        });
         settings.bind ("timeline-page-size", timeline_page_size.adjustment, "value", SettingsBindFlags.DEFAULT);
         settings.bind ("post-text-size", post_text_size.adjustment, "value", SettingsBindFlags.DEFAULT);
         settings.bind ("live-updates", live_updates, "active", SettingsBindFlags.DEFAULT);

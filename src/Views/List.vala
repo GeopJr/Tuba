@@ -9,7 +9,8 @@ public class Tootle.Views.List : Views.Timeline {
         	icon: "view-list-symbolic",
         	list: l
         );
-        reconnect_stream ();
+
+        update_stream ();
     }
 
     public override string? get_stream_url () {

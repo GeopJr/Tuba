@@ -1,77 +1,46 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.Widgets.Avatar : Bin {
-
-	Cache.Reference? cached;
-
-	Hdy.Avatar avatar;
-
-	public int size {
-		get {
-			return avatar.size;
-		}
-		set {
-			avatar.size = value;
-		}
-	}
+public class Tootle.Widgets.Avatar : Button {
 
 	public API.Account? account { get; set; }
+	public int size {
+		get { return avatar.size; }
+		set { avatar.size = value; }
+	}
+
+	protected Adw.Avatar? avatar {
+		get { return child as Adw.Avatar; }
+	}
 
 	construct {
-		avatar = new Hdy.Avatar (48, null, true);
-		avatar.destroy.connect (() => {
-			avatar.set_image_load_func (null);
-		});
-		add (avatar);
-		show_all ();
+		// construct_disposable ();
+
+		child = new Adw.Avatar (48, null, true);
+		halign = valign = Align.CENTER;
+		add_css_class ("flat");
+		add_css_class ("circular");
+		add_css_class ("image-button");
+		add_css_class ("ttl-flat-button");
 
 		notify["account"].connect (on_invalidated);
 		on_invalidated ();
 	}
 
-	~Avatar () {
-		notify["account"].disconnect (on_invalidated);
-		cache.unload (ref cached);
-	}
-
 	void on_invalidated () {
-		if (cached != null)
-			cache.unload (ref cached);
-
-		if (account != null)
-			cache.load (account.avatar, on_cache_result);
-		else
-			on_cache_result (null);
-	}
-
-	void on_cache_result (Cache.Reference? result) {
-		cached = result;
 		if (account == null) {
-			// This exact string makes the avatar grey.
-			//
-			// If left null, *each* blank Hdy.Avatar receives
-			// a random color and hurts my eyes. No bueno.
-			avatar.text = "abc";
+			avatar.text = "d";
 			avatar.show_initials = false;
 		}
-		else if (cached != null) {
+		else {
 			avatar.text = account.display_name;
 			avatar.show_initials = true;
+			image_cache.request_paintable (account.avatar, on_cache_response);
 		}
-		avatar.set_image_load_func (avatar_set_pixbuf);
 	}
 
-	Pixbuf? avatar_set_pixbuf (int size) {
-		if (cached == null || cached.data == null)
-			return null;
-		else {
-			var pb = cached.data;
-			if (pb.width != size)
-				return pb.scale_simple (size, size, InterpType.BILINEAR);
-			else
-				return pb;
-		}
+	void on_cache_response (bool is_loaded, owned Paintable? data) {
+		avatar.custom_image = data;
 	}
 
 }

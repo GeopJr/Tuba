@@ -35,9 +35,12 @@ public class Tootle.SecretAccountStore : AccountStore {
 
 		secrets.foreach (item => {
 			var account = secret_to_account (item);
-			if (account != null)
+			if (account != null) {
 				saved.add (account);
+				account.added ();
+			}
 		});
+		changed (saved);
 
 		message (@"Loaded $(saved.size) accounts");
 	}

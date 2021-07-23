@@ -9,6 +9,8 @@ public class Build {
 	public const string COPYRIGHT = "@COPYRIGHT@";
 	public const string PREFIX = "@PREFIX@";
 
+	public static string SYSTEM_INFO;
+
 	// Please do not remove the credits below. You may add your own, but keep the existing ones intact.
 
 	// TRANSLATORS: Replace this with your name. It will be displayed in the About dialog.
@@ -26,20 +28,24 @@ public class Build {
 		};
 	}
 
-    public static void print_info () {
-    	var os_name = get_os_info ("NAME");
-    	var os_ver = get_os_info ("VERSION");
-        message (@"$NAME $VERSION");
-        message (@"Running on: $os_name $os_ver");
-        message (@"Build prefix: \"$PREFIX\"");
-    }
+	public static string print_info () {
+		var os_name = get_os_info ("NAME");
+		var os_ver = get_os_info ("VERSION");
+
+		SYSTEM_INFO = @"$NAME $VERSION";
+		SYSTEM_INFO += @"\nRunning on: $os_name $os_ver";
+		SYSTEM_INFO += @"\nBuild prefix: \"$PREFIX\"";
+
+		var lines = SYSTEM_INFO.split ("\n");
+		foreach (unowned string line in lines) {
+			message (line);
+		}
+
+		return SYSTEM_INFO;
+	}
 
 	static string get_os_info (string key) {
 		return GLib.Environment.get_os_info (key) ?? "Unknown";
-	}
-
-	public static Tootle.AccountStore get_account_store () {
-		return new Tootle.@ACCOUNT_STORE@ ();
 	}
 
 }

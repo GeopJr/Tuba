@@ -1,57 +1,60 @@
 {
-  "app-id": "com.github.bleakgrey.tootle",
-  "runtime": "org.gnome.Platform",
-  "sdk": "org.gnome.Sdk",
-  "runtime-version": "3.38",
-  "command": "com.github.bleakgrey.tootle",
-  "finish-args": [
-    "--share=network",
-    "--share=ipc",
-    "--socket=fallback-x11",
-    "--socket=wayland",
-    "--filesystem=xdg-run/dconf",
-    "--filesystem=~/.config/dconf:ro",
-    "--talk-name=ca.desrt.dconf",
-    "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
-  ],
-  "cleanup": [
-    "/include",
-    "/lib/pkgconfig",
-    "/man",
-    "/share/doc",
-    "/share/gtk-doc",
-    "/share/man",
-    "/share/pkgconfig",
-    "*.la",
-    "*.a"
-  ],
-  "modules": [
-    {
-      "name": "libhandy",
-      "buildsystem": "meson",
-      "config-opts": [
-        "-Dtests=false",
-        "-Dexamples=false",
-        "-Dglade_catalog=disabled"
-      ],
-      "sources": [
+    "app-id" : "com.github.bleakgrey.tootle",
+    "runtime" : "org.gnome.Platform",
+    "sdk" : "org.gnome.Sdk",
+    "runtime-version" : "40",
+    "command" : "com.github.bleakgrey.tootle",
+    "finish-args" : [
+        "--share=network",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--filesystem=xdg-run/dconf",
+        "--filesystem=~/.config/dconf:ro",
+        "--talk-name=ca.desrt.dconf",
+        "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
+    ],
+    "cleanup" : [
+        "/include",
+        "/lib/pkgconfig",
+        "/man",
+        "/share/doc",
+        "/share/gtk-doc",
+        "/share/man",
+        "/share/pkgconfig",
+        "*.la",
+        "*.a"
+    ],
+    "modules" : [
         {
-          "type": "archive",
-          "url": "https://ftp.acc.umu.se/pub/GNOME/sources/libhandy/1.0/libhandy-1.0.3.tar.xz",
-          "sha256": "559bb3acc2c362488917eb72ed25bdc181f4ae26ac94d177634cc5d34c867f7a"
-        }
-      ]
-    },
-    {
-      "name": "tootle",
-      "builddir": true,
-      "buildsystem": "meson",
-      "sources": [
+            "name" : "libadwaita",
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "config-opts" : [
+                "-Dexamples=false",
+                "-Dtests=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://gitlab.gnome.org/GNOME/libadwaita/-/archive/594eb987c57e4d20370cc20520871f230ff02ae2/libadwaita-594eb987c57e4d20370cc20520871f230ff02ae2.tar",
+                    "sha256" : "960d8e95864cac71be9e893d37baace82d67ecb06b3b09bd24b9fdfece9eca9c"
+                }
+            ]
+        },
         {
-          "type": "dir",
-          "path": "."
+            "name" : "tootle",
+            "builddir" : true,
+            "buildsystem" : "meson",
+            "sources" : [
+                {
+                    "type" : "dir",
+                    "path" : "."
+                }
+            ]
         }
-      ]
+    ],
+    "build-options" : {
+        "env" : {        }
     }
-  ]
 }

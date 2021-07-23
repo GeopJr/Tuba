@@ -4,8 +4,255 @@ using Gdk;
 [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/status.ui")]
 public class Tootle.Widgets.Status : ListBoxRow {
 
-	public API.Status status { get; construct set; }
-	public API.NotificationType? kind { get; construct set; }
+    API.Status? _bound_status = null;
+	public API.Status? status {
+	    get { return _bound_status; }
+	    set {
+	        if (_bound_status != null)
+	            warning ("Trying to rebind a Status widget! This is not supposed to happen!");
+
+            _bound_status = value;
+	        if (_bound_status != null)
+	            bind ();
+	    }
+	}
+
+    public API.Account? kind_instigator { get; set; default = null; }
+
+    string? _kind = null;
+	public string? kind {
+	    get { return _kind; }
+	    set {
+	        _kind = value;
+	        change_kind ();
+	    }
+	}
+
+	[GtkChild] protected unowned Grid grid;
+
+	[GtkChild] protected unowned Image header_icon;
+	[GtkChild] protected unowned Widgets.RichLabel header_label;
+	[GtkChild] public unowned Image thread_line;
+
+	[GtkChild] public unowned Widgets.Avatar avatar;
+	[GtkChild] protected unowned Widgets.RichLabel name_label;
+	[GtkChild] protected unowned Label handle_label;
+	[GtkChild] protected unowned Box indicators;
+	[GtkChild] protected unowned Label date_label;
+	[GtkChild] protected unowned Image pin_indicator;
+	[GtkChild] protected unowned Image indicator;
+
+	[GtkChild] protected unowned Box content_column;
+	[GtkChild] protected unowned Stack spoiler_stack;
+	[GtkChild] protected unowned Box content_box;
+	[GtkChild] protected unowned Widgets.MarkupView content;
+	[GtkChild] protected unowned Widgets.Attachment.Box attachments;
+	[GtkChild] protected unowned Button spoiler_button;
+	[GtkChild] protected unowned Widgets.RichLabel spoiler_label;
+
+	[GtkChild] protected unowned Box actions;
+
+	protected Button reply_button;
+	protected StatusActionButton reblog_button;
+	protected StatusActionButton favorite_button;
+	protected StatusActionButton bookmark_button;
+
+	construct {
+	    open.connect (on_open);
+		rebuild_actions ();
+	}
+
+	public Status (API.Status status) {
+		Object (
+		    kind_instigator: status.account,
+			status: status
+		);
+
+		if (kind == null && status.reblog != null) {
+			kind = Mastodon.Account.KIND_REMOTE_REBLOG;
+		}
+	}
+	~Status () {
+		message ("Destroying Status widget");
+	}
+
+	protected string spoiler_text {
+		owned get {
+			var text = status.formal.spoiler_text;
+			if (text == null || text == "")
+				return _("Click to show sensitive content");
+			else
+				return text;
+		}
+	}
+	public bool reveal_spoiler { get; set; default = true; }
+
+	protected string date {
+		owned get {
+			return DateTime.humanize (status.formal.created_at);
+		}
+	}
+
+	public string title_text {
+		owned get {
+			return status.formal.account.display_name;
+		}
+	}
+
+	public string subtitle_text {
+		owned get {
+			return status.formal.account.handle;
+		}
+	}
+
+	public string? avatar_url {
+		owned get {
+			return status.formal.account.avatar;
+		}
+	}
+
+	public signal void open ();
+	public virtual void on_open () {
+		if (status.id == "")
+			on_avatar_clicked ();
+		else
+			status.open ();
+	}
+
+	protected virtual void change_kind () {
+	    string icon = null;
+	    string descr = null;
+	    accounts.active.describe_kind (this.kind, out icon, out descr, this.kind_instigator);
+
+	    header_icon.visible = header_label.visible = (icon != null);
+	    if (icon == null) return;
+
+	    header_icon.icon_name = icon;
+		header_label.label = descr;
+	}
+
+	protected virtual void bind () {
+		// Content
+		bind_property ("spoiler-text", spoiler_label, "label", BindingFlags.SYNC_CREATE);
+		status.formal.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
+		bind_property ("title_text", name_label, "label", BindingFlags.SYNC_CREATE);
+		bind_property ("subtitle_text", handle_label, "label", BindingFlags.SYNC_CREATE);
+		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
+		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
+		status.formal.bind_property ("account", avatar, "account", BindingFlags.SYNC_CREATE);
+
+		// Spoiler //TODO: Spoilers
+		reveal_spoiler = true;
+		spoiler_stack.visible_child_name = "content";
+
+		// status.formal.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.INVERT_BOOLEAN);
+
+		// status.formal.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		// 	target.set_boolean (!src.get_boolean ());
+		// 	return true;
+		// }); !!!
+		// bind_property ("reveal-spoiler", spoiler_stack, "visible-child-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		// 	var name = reveal_spoiler ? "content" : "spoiler";
+		// 	target.set_string (name);
+		// 	return true;
+		// });
+
+		// Actions
+		reblog_button.bind (status.formal);
+		favorite_button.bind (status.formal);
+		bookmark_button.bind (status.formal);
+
+		if (status.formal.in_reply_to_id != null)
+			reply_button.icon_name = "mail-reply-all-symbolic";
+		else
+			reply_button.icon_name = "mail-reply-sender-symbolic";
+
+		if (!status.can_be_boosted) {
+			reblog_button.sensitive = false;
+			reblog_button.tooltip_text = _("This post can't be boosted");
+			reblog_button.icon_name = accounts.active.visibility[status.visibility].icon_name;
+		}
+		else {
+			reblog_button.sensitive = true;
+			reblog_button.tooltip_text = null;
+			reblog_button.icon_name = "media-playlist-repeat-symbolic";
+		}
+
+		if (status.id == "") {
+			actions.destroy ();
+			date_label.destroy ();
+		}
+
+		// Attachments
+		attachments.list = status.formal.media_attachments;
+	}
+
+	protected virtual void append_actions () {
+		reply_button = new Button ();
+		reply_button.clicked.connect (() => new Dialogs.Compose.reply (status));
+		actions.append (reply_button);
+
+		reblog_button = new StatusActionButton () {
+		    prop_name = "reblogged",
+		    action_on = "reblog",
+		    action_off = "unreblog"
+		};
+		actions.append (reblog_button);
+
+		favorite_button = new StatusActionButton () {
+		    prop_name = "favourited",
+		    action_on = "favourite",
+		    action_off = "unfavourite",
+		    icon_name = "non-starred-symbolic"
+		};
+		actions.append (favorite_button);
+
+		bookmark_button = new StatusActionButton () {
+		    prop_name = "bookmarked",
+		    action_on = "bookmark",
+		    action_off = "unbookmark",
+		    icon_name = "user-bookmarks-symbolic"
+		};
+		actions.append (bookmark_button);
+	}
+
+	void rebuild_actions () {
+		for (var w = actions.get_first_child (); w != null; w = w.get_next_sibling ())
+			actions.remove (w);
+
+		append_actions ();
+
+		// var menu_button = new MenuButton (); //TODO: Status menu
+		// menu_button.icon_name = "view-more-symbolic";
+		// menu_button.get_first_child ().add_css_class ("flat");
+		// actions.append (menu_button);
+
+		for (var w = actions.get_first_child (); w != null; w = w.get_next_sibling ())
+			w.add_css_class ("flat");
+	}
+
+	[GtkCallback] public void toggle_spoiler () {
+		reveal_spoiler = !reveal_spoiler;
+	}
+
+	[GtkCallback] public void on_avatar_clicked () {
+		status.formal.account.open ();
+	}
+
+	public void expand_root () {
+		activatable = false;
+		content.selectable = true;
+		content.get_style_context ().add_class ("ttl-large-body");
+
+		var mgr = (content_column.get_parent () as Grid).get_layout_manager ();
+		var child = mgr.get_layout_child (content_column);
+		child.set_property ("column", 0);
+		child.set_property ("column_span", 2);
+	}
+
+
+
+	// Threads
 
 	public enum ThreadRole {
 		NONE,
@@ -34,229 +281,6 @@ public class Tootle.Widgets.Status : ListBoxRow {
 
 	public ThreadRole thread_role { get; set; default = ThreadRole.NONE; }
 
-	[GtkChild] protected Grid grid;
-
-	[GtkChild] protected Image header_icon;
-	[GtkChild] protected Widgets.RichLabel header_label;
-	[GtkChild] public Image thread_line;
-
-	[GtkChild] public Widgets.Avatar avatar;
-	[GtkChild] protected Widgets.RichLabel name_label;
-	[GtkChild] protected Label handle_label;
-	[GtkChild] protected Box indicators;
-	[GtkChild] protected Label date_label;
-	[GtkChild] protected Image pin_indicator;
-	[GtkChild] protected Image indicator;
-
-	[GtkChild] protected Box content_column;
-	[GtkChild] protected Stack spoiler_stack;
-	[GtkChild] protected Box content_box;
-	[GtkChild] protected Widgets.MarkupView content;
-	[GtkChild] protected Widgets.Attachment.Box attachments;
-	[GtkChild] protected Button spoiler_button;
-	[GtkChild] protected Widgets.RichLabel spoiler_label;
-
-	[GtkChild] protected Box actions;
-	[GtkChild] protected Button reply_button;
-	[GtkChild] protected Image reply_button_icon;
-	[GtkChild] protected ToggleButton reblog_button;
-	[GtkChild] protected Image reblog_icon;
-	[GtkChild] protected ToggleButton favorite_button;
-	[GtkChild] protected ToggleButton bookmark_button;
-	[GtkChild] protected Button menu_button;
-
-	protected string spoiler_text {
-		owned get {
-			var text = status.formal.spoiler_text;
-			if (text == null || text == "")
-				return _("Click to show sensitive content");
-			else
-				return text;
-		}
-	}
-	public bool reveal_spoiler { get; set; default = false; }
-
-	protected string date {
-		owned get {
-			return DateTime.humanize (status.formal.created_at);
-		}
-	}
-
-	public string title_text {
-		owned get {
-			return status.formal.account.display_name;
-		}
-	}
-
-	public string subtitle_text {
-		owned get {
-			return status.formal.account.handle;
-		}
-	}
-
-	public string? avatar_url {
-		owned get {
-			return status.formal.account.avatar;
-		}
-	}
-
-	public signal void open ();
-
-	public virtual void on_open () {
-		if (status.id == "")
-			on_avatar_clicked ();
-		else
-			status.open ();
-	}
-
-	construct {
-		notify["kind"].connect (on_kind_changed);
-		open.connect (on_open);
-
-		if (kind == null) {
-			if (status.reblog != null)
-				kind = API.NotificationType.REBLOG_REMOTE_USER;
-		}
-
-		bind_toggleable_prop (favorite_button, "favourited", "favourite", "unfavourite");
-		bind_toggleable_prop (reblog_button, "reblogged", "reblog", "unreblog");
-		bind_toggleable_prop (bookmark_button, "bookmarked", "bookmark", "unbookmark");
-
-		reply_button.clicked.connect (() => new Dialogs.Compose.reply (status));
-		if (status.formal.in_reply_to_id != null)
-			reply_button_icon.icon_name = "mail-reply-all-symbolic";
-		else
-			reply_button_icon.icon_name = "mail-reply-sender-symbolic";
-
-		bind_property ("spoiler-text", spoiler_label, "text", BindingFlags.SYNC_CREATE);
-		status.formal.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
-		bind_property ("title_text", name_label, "text", BindingFlags.SYNC_CREATE);
-		bind_property ("subtitle_text", handle_label, "label", BindingFlags.SYNC_CREATE);
-		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
-		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
-		status.formal.bind_property ("account", avatar, "account", BindingFlags.SYNC_CREATE);
-
-		status.formal.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_boolean (!src.get_boolean ());
-			return true;
-		});
-		bind_property ("reveal-spoiler", spoiler_stack, "visible-child-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			var name = reveal_spoiler ? "content" : "spoiler";
-			target.set_string (name);
-			return true;
-		});
-
-		if (status.formal.visibility == API.Visibility.DIRECT) {
-			reblog_icon.icon_name = status.formal.visibility.get_icon ();
-			reblog_button.sensitive = false;
-			reblog_button.tooltip_text = _("This post can't be boosted");
-		}
-
-		if (status.id == "") {
-			actions.destroy ();
-			date_label.destroy ();
-		}
-
-		if (!attachments.populate (status.formal.media_attachments) || status.id == "") {
-			attachments.destroy ();
-		}
-
-		menu_button.clicked.connect (open_menu);
-	}
-
-	public Status (owned API.Status status, API.NotificationType? kind = null) {
-		Object (
-			status: status,
-			kind: kind
-		);
-	}
-	~Status () {
-		notify["kind"].disconnect (on_kind_changed);
-	}
-
-	[GtkCallback]
-	public void toggle_spoiler () {
-		reveal_spoiler = !reveal_spoiler;
-	}
-
-	protected virtual void on_kind_changed () {
-		header_icon.visible = header_label.visible = (kind != null);
-		if (kind == null)
-			return;
-
-		header_icon.icon_name = kind.get_icon ();
-		header_label.label = kind.get_desc (status.account);
-	}
-
-	[GtkCallback]
-	public void on_avatar_clicked () {
-		status.formal.account.open ();
-	}
-
-	protected void open_menu () {
-		var menu = new Gtk.Menu ();
-
-		var item_open_link = new Gtk.MenuItem.with_label (_("Open in Browser"));
-		item_open_link.activate.connect (() => Desktop.open_uri (status.formal.url));
-		var item_copy_link = new Gtk.MenuItem.with_label (_("Copy Link"));
-		item_copy_link.activate.connect (() => Desktop.copy (status.formal.url));
-		var item_copy = new Gtk.MenuItem.with_label (_("Copy Text"));
-		item_copy.activate.connect (() => {
-			var sanitized = HtmlUtils.remove_tags (status.formal.content);
-			Desktop.copy (sanitized);
-		});
-
-		// if (is_notification) {
-		//	 var item_muting = new Gtk.MenuItem.with_label (status.muted ? _("Unmute Conversation") : _("Mute Conversation"));
-		//	 item_muting.activate.connect (() => status.update_muted (!is_muted) );
-		//	 menu.add (item_muting);
-		// }
-
-		menu.add (item_open_link);
-		menu.add (new SeparatorMenuItem ());
-		menu.add (item_copy_link);
-		menu.add (item_copy);
-
-		if (status.is_owned ()) {
-			menu.add (new SeparatorMenuItem ());
-
-			var item_pin = new Gtk.MenuItem.with_label (status.pinned ? _("Unpin from Profile") : _("Pin on Profile"));
-			item_pin.activate.connect (() => {
-				status.action (status.formal.pinned ? "unpin" : "pin");
-			});
-			menu.add (item_pin);
-
-			var item_delete = new Gtk.MenuItem.with_label (_("Delete"));
-			item_delete.activate.connect (() => {
-				status.annihilate ()
-					.then ((sess, mess) => {
-						streams.force_delete (status.id);
-					})
-					.exec ();
-			});
-			menu.add (item_delete);
-
-			var item_redraft = new Gtk.MenuItem.with_label (_("Redraft"));
-			item_redraft.activate.connect (() => new Dialogs.Compose.redraft (status.formal));
-			menu.add (item_redraft);
-		}
-
-		menu.show_all ();
-		menu.popup_at_widget (menu_button, Gravity.SOUTH_EAST, Gravity.SOUTH_EAST);
-	}
-
-	public void expand_root () {
-		activatable = false;
-		content.selectable = true;
-		content.get_style_context ().add_class ("ttl-large-body");
-
-		var parent = content_column.get_parent () as Container;
-		var left_attach = parent.find_child_property ("left-attach");
-		var width = parent.find_child_property ("width");
-		parent.set_child_property (content_column, 1, 0, left_attach);
-		parent.set_child_property (content_column, 3, 2, width);
-	}
-
 	public void install_thread_line () {
 		var l = thread_line;
 		switch (thread_role) {
@@ -279,48 +303,6 @@ public class Tootle.Widgets.Status : ListBoxRow {
 				l.visible = true;
 				break;
 		}
-	}
-
-	// This disables the button when its status property is updated.
-	// Fixes a bug where clicking one or more post action buttons
-	// triggers an infite loop of network requests.
-	//
-	// This took me an entire day to fix and I'm quite sad.
-	public void bind_toggleable_prop (ToggleButton button, string prop, string on, string off) {
-		var init_val = Value (Type.BOOLEAN);
-		((GLib.Object) status.formal).get_property (prop, ref init_val);
-		button.active = init_val.get_boolean ();
-
-		status.formal.bind_property (prop, button, "active", BindingFlags.SYNC_CREATE);
-
-		button.toggled.connect (() => {
-			if (!(button.has_focus && button.sensitive))
-				return;
-
-			button.sensitive = false;
-			var val = Value (Type.BOOLEAN);
-			((GLib.Object) status.formal).get_property (prop, ref val);
-			var act = val.get_boolean () ? off : on;
-
-			var req = status.action (act);
-			req.await.begin ((obj, res) => {
-				try {
-					var msg = req.await.end (res);
-					var node = network.parse_node (msg);
-					var entity = API.Status.from (node);
-
-					var new_val = Value (Type.BOOLEAN);
-					((GLib.Object) entity.formal).get_property (prop, ref new_val);
-					((GLib.Object) status.formal).set_property (prop, new_val.get_boolean ());
-				}
-				catch (Error e) {
-					warning (@"Couldn't perform action \"$act\" on a Status:");
-					warning (e.message);
-					app.inform (Gtk.MessageType.WARNING, _("Network Error"), e.message);
-				}
-				button.sensitive = true;
-			});
-		});
 	}
 
 }

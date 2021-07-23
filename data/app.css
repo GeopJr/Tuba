@@ -1,53 +1,43 @@
-.header .chip {
-  padding: 4px 12px;
-  border-radius: 4px;
-  border: 1px solid black;
+.sidebar .badge {
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: @accent_bg_color;
+  color: @text_view_bg;
 }
 
-.attachment {
-	border-radius: 5px;
-	background: rgba (150, 150, 150, 0.2);
+/* .header .chip { */
+/*   padding: 4px 12px; */
+/*   border-radius: 4px; */
+/*   border: 1px solid black; */
+/* } */
+
+.attachment, .attachment button, flowboxchild {
 	padding:0px;
 	margin:0px;
 }
-.attachment .pic {
-	border-radius: 5px;
-}
-.attachment .chip {
-	padding: 6px;
-	border-radius:6px;
+
+.attachment .osd {
+	padding: 6px 12px;
+	border-radius: 6px;
+	margin: 8px;
 }
 
-.ttl-header-button {
-	margin: 0px;
-	border-radius: 0px;
-	border-top: none;
-	border-bottom: none;
-}
-.ttl-header-button .title, .ttl-header-button .subtitle {
-  padding-left: 0px;
-  padding-right: 0px;
-}
-
-.padded.ttl-view {
-	margin: 32px 0 32px 0;
-}
-.ttl-view:not(.padded) .content row {
-	border-radius: 0px;
-}
-
-.ttl-action-bar .circular {
-	box-shadow: none;
-}
+/* .ttl-header-button { */
+/* 	margin: 0px; */
+/* 	border-radius: 0px; */
+/* 	border-top: none; */
+/* 	border-bottom: none; */
+/* } */
+/* .ttl-header-button .title, .ttl-header-button .subtitle { */
+/*   padding-left: 0px; */
+/*   padding-right: 0px; */
+/* } */
 
 .ttl-flat-button {
   padding: 0px;
   margin: 0px;
 }
 
-.ttl-post {
-  padding: 0px;
-}
 .ttl-thread-line {
   background: @theme_fg_color;
   opacity: .1;
@@ -55,13 +45,48 @@
   margin-bottom: -8px;
 }
 
-.ttl-large-body {
-  font-size: 110%;
-}
+/* .ttl-large-body { */
+/*   font-size: 110%; */
+/* } */
 
 .ttl-code {
 	font-family: monospace;
 	padding: 12px;
 	background: rgba(150,150,150,.1);
 	border-radius: 6px;
+}
+
+.ttl-view .small .content row {
+	border-left: none;
+	border-right: none;
+	border-radius:0px;
+}
+
+.ttl-view .content row  {
+  padding: 0px;
+}
+
+.ttl-view .large:first-child {
+	margin-top: 32px;
+}
+.ttl-view .large:last-child {
+	margin-bottom: 32px;
+}
+
+
+
+
+/*
+  Profile
+*/
+
+.ttl-profile-cover .header-image {
+  background:grey;
+}
+.ttl-profile-cover avatar {
+	border: 6px solid @theme_base_color;
+	background: @theme_base_color;
+}
+.large .header-image {
+  border-radius:6px 6px 0 0;
 }
