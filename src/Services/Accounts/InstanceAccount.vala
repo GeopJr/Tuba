@@ -19,7 +19,11 @@ public class Tootle.InstanceAccount : API.Account, Streamable {
 	}
 
 	public bool is_active {
-		get { return accounts.active.access_token == access_token; }
+		get {
+			if (accounts.active == null)
+				return false;
+			return accounts.active.access_token == access_token;
+		}
 	}
 
 	public HashMap<Type,Type> type_overrides = new HashMap<Type,Type> ();
