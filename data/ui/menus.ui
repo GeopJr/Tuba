@@ -94,13 +94,13 @@
 
     <!-- <section> -->
       <submenu id="copy-menu">
-        <attribute name="label" translatable="yes">Copy</attribute>
+        <attribute name="label" translatable="yes">Share</attribute>
         <item>
-          <attribute name="label" translatable="yes">Profile Handle</attribute>
+          <attribute name="label" translatable="yes">Copy Profile Handle</attribute>
           <attribute name="action">view.copy_handle</attribute>
         </item>
         <item>
-          <attribute name="label" translatable="yes">Profile Link</attribute>
+          <attribute name="label" translatable="yes">Copy Profile Link</attribute>
           <attribute name="action">view.copy_handle</attribute>
         </item>
       </submenu>

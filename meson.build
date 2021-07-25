@@ -1,4 +1,4 @@
-project('com.github.bleakgrey.tootle', 'vala', 'c', version: '2.0-alpha1')
+project('com.github.bleakgrey.tootle', 'vala', 'c', version: '2.0-alpha2')
 
 add_global_arguments([
         '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
@@ -71,6 +71,7 @@ sources = files(
     'src/Widgets/Attachment/Image.vala',
     'src/Widgets/LockableToggleButton.vala',
     'src/Widgets/StatusActionButton.vala',
+    'src/Widgets/RelationshipButton.vala',
     'src/Widgets/MarkupView.vala',
     'src/Dialogs/Saveable.vala',
     'src/Dialogs/NewAccount.vala',

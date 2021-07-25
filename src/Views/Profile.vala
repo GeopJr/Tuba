@@ -10,8 +10,7 @@ public class Tootle.Views.Profile : Views.Timeline {
 
 	protected Cover cover;
 	protected MenuButton menu_button;
-	protected Button rs_button;
-	protected SourceFunc? rs_button_action;
+	protected Widgets.RelationshipButton rs_button;
 
 	protected SimpleAction media_action;
 	protected SimpleAction replies_action;
@@ -24,24 +23,6 @@ public class Tootle.Views.Profile : Views.Timeline {
 	construct {
 		cover = build_cover ();
 		column_view.prepend (cover);
-
-		// column_view.pack_start (hdr, false, false, 0);
-		// column_view.reorder_child (hdr, 0);
-
-		// var handle = builder.get_object ("handle") as Widgets.RichLabel;
-		// profile.bind_property ("display-name", handle, "text", BindingFlags.SYNC_CREATE);
-
-		// note_row = builder.get_object ("note_row") as ListBoxRow;
-		// var note = builder.get_object ("note") as Widgets.MarkupView;
-		// profile.bind_property ("note", note, "content", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-		// 	var text = (string) src;
-		// 	target.set_string (text);
-		// 	note_row.visible = text != "";
-		// 	return true;
-		// });
-
-		// relationship = builder.get_object ("relationship") as Label;
-		// rs.notify["id"].connect (on_rs_updated);
 	}
 
 	public Profile (API.Account acc) {
@@ -94,21 +75,6 @@ public class Tootle.Views.Profile : Views.Timeline {
 
 	protected override void build_header () {
 		base.build_header ();
-		// rs_button = new Widgets.AdaptiveButton ();
-		// rs_button.clicked.connect (() => {
-		// 	if (rs_button_action != null) {
-		// 		rs_button.sensitive = false;
-		// 		rs_button_action ();
-		// 	}
-		// });
-
-		// if (profile.id != accounts.active.id)
-		// 	header.pack_end (rs_button);
-
-		// TODO: RS button
-		// var a = new Button ();
-		// a.label = _("Follow");
-		// header.pack_start (a);
 
 		menu_button = new MenuButton ();
 		var menu_builder = new Builder.from_resource (@"$(Build.RESOURCES)ui/menus.ui");
@@ -117,6 +83,12 @@ public class Tootle.Views.Profile : Views.Timeline {
 		menu_button.popover.width_request = 250;
 		menu_button.icon_name = "view-more-symbolic";
 		header.pack_end (menu_button);
+
+		rs_button = new Widgets.RelationshipButton () {
+			rs = this.rs
+		};
+		if (profile.id != accounts.active.id)
+			header.pack_end (rs_button);
 	}
 
 	protected virtual Cover build_cover () {
@@ -191,6 +163,7 @@ public class Tootle.Views.Profile : Views.Timeline {
 			var block = v.get_boolean ();
 			var q = block ? _("Block \"%s\"?") : _("Unblock \"%s\"?");
 			var yes = app.question (q.printf (profile.handle));
+			warning (q);
 
 			if (yes)
 				rs.modify (block ? "block" : "unblock");
@@ -201,6 +174,7 @@ public class Tootle.Views.Profile : Views.Timeline {
 		domain_blocking_action.change_state.connect (v => {
 			var block = v.get_boolean ();
 			var q = block ? _("Block Entire \"%s\"?") : _("Unblock Entire \"%s\"?");
+			warning (q);
 			var yes = app.question (
 				q.printf (profile.domain),
 				_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users")
@@ -239,7 +213,8 @@ public class Tootle.Views.Profile : Views.Timeline {
 		}
 	}
 
-	 void on_rs_updated () {
+	// TODO: RS badges
+	void on_rs_updated () {
 		// var label = "";
 		// if (rs_button.sensitive = rs != null) {
 		// 	if (rs.requested)
@@ -262,40 +237,6 @@ public class Tootle.Views.Profile : Views.Timeline {
 		// relationship.visible = label != "";
 
 		invalidate_actions (false);
-	}
-
-	void get_rs_button_state (ref string label, ref string icon_name, ref SourceFunc? fn) {
-		if (rs == null) return;
-
-		if (rs.blocking) {
-			label = _("Unblock");
-			icon_name = "view-reveal-symbolic";
-			fn = () => {
-				blocking_action.change_state (false);
-				// rs_button.sensitive = true;
-				return true;
-			};
-			return;
-		}
-		else if (rs.following || rs.requested) {
-			label = _("Unfollow");
-			icon_name = "list-remove-symbolic";
-			fn = () => {
-				rs.modify ("unfollow");
-				return true;
-			};
-			return;
-		}
-		else if (!rs.following) {
-			label = _("Follow");
-			icon_name = "list-add-symbolic";
-			fn = () => {
-				rs.modify ("follow");
-				return true;
-			};
-			return;
-		}
-
 	}
 
 	public override Request append_params (Request req) {

@@ -14,8 +14,6 @@ public class Tootle.Widgets.Avatar : Button {
 	}
 
 	construct {
-		// construct_disposable ();
-
 		child = new Adw.Avatar (48, null, true);
 		halign = valign = Align.CENTER;
 		add_css_class ("flat");

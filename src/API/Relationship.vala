@@ -1,5 +1,7 @@
 public class Tootle.API.Relationship : Entity {
 
+	public signal void invalidated ();
+
 	public string id { get; set; default = ""; }
 	public bool following { get; set; default = false; }
 	public bool followed_by { get; set; default = false; }
@@ -9,10 +11,6 @@ public class Tootle.API.Relationship : Entity {
 	public bool requested { get; set; default = false; }
 	public bool blocking { get; set; default = false; }
 	public bool domain_blocking { get; set; default = false; }
-
-	public static Relationship from (Json.Node node) throws Error {
-		return Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
-	}
 
 	public Relationship.for_account (API.Account acc) {
 		Object (id: acc.id);
@@ -32,9 +30,9 @@ public class Tootle.API.Relationship : Entity {
 	}
 
 	void invalidate (Json.Node node) throws Error {
-		var rs = Relationship.from (node);
+		var rs = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
 		patch (rs);
-		notify_property ("id");
+		invalidated ();
 	}
 
 	public void modify (string operation, string? param = null, string? val = null) {

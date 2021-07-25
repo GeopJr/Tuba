@@ -26,6 +26,7 @@ public class Tootle.Entity : GLib.Object, Widgetizable, Json.Serializable {
 	}
 
 	public void patch_specs (GLib.Object obj, ParamSpec[] specs) {
+		freeze_notify ();
 		foreach (ParamSpec spec in specs) {
 			var name = spec.get_name ();
 			var defined = get_class ().find_property (name) != null;
@@ -35,6 +36,7 @@ public class Tootle.Entity : GLib.Object, Widgetizable, Json.Serializable {
 				base.set_property (name, val);
 			}
 		}
+		thaw_notify ();
 	}
 
 	public static Entity from_json (Type type, Json.Node node) throws Error {

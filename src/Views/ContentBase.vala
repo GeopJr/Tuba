@@ -6,9 +6,7 @@ public class Tootle.Views.ContentBase : Views.Base {
 	protected ListBox content;
 
 	public bool empty {
-		get {
-			return model.get_n_items () <= 0;
-		}
+		get { return model.get_n_items () <= 0; }
 	}
 
 	construct {
