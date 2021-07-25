@@ -44,7 +44,7 @@ public class Tootle.Views.TabbedBase : Views.Base {
 		view.header.hide ();
 	}
 
-	public Views.Base add_list_tab (string label, string icon) {
+	public Views.ContentBase add_list_tab (string label, string icon) {
 		var tab = new Views.ContentBase ();
 		tab.label = label;
 		tab.icon = icon;

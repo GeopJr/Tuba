@@ -3,40 +3,36 @@ using Gtk;
 public class Tootle.Views.Search : Views.TabbedBase {
 
 	public string query { get; set; default = ""; }
-	// Adw.SearchBar bar; //TODO: Hdy.SearchBar no longer exists
-	Adw.Clamp bar_clamp;
-	SearchEntry entry;
+	protected SearchBar bar;
+	protected Adw.Clamp bar_clamp;
+	protected SearchEntry entry;
 
-	Views.Base accounts_tab;
-	Views.Base statuses_tab;
-	Views.Base hashtags_tab;
+	Views.ContentBase accounts_tab;
+	Views.ContentBase statuses_tab;
+	Views.ContentBase hashtags_tab;
 
 	public Search () {
 		Object (label: _("Search"));
 
-		// bar = new Adw.SearchBar ();
-		// bar.search_mode_enabled = true;
-		// bar.show ();
-		// pack_start (bar, false, false, 0);
-		// reorder_child (bar, 2);
+		bar = new SearchBar () {
+			search_mode_enabled = true
+		};
+		prepend (bar);
+		reorder_child_after (bar, header);
 
-		entry = new SearchEntry ();
-		entry.width_chars = 25;
-		entry.text = query;
-		entry.show ();
+		entry = new SearchEntry () {
+			width_chars = 25,
+			text = query
+		};
 
-		bar_clamp = new Adw.Clamp ();
-		bar_clamp.child = entry;
+		bar_clamp = new Adw.Clamp () {
+			child = entry
+		};
 
-		// bar.add (bar_clamp);
-		// bar.connect_entry (entry);
+		bar.child = bar_clamp;
+		bar.connect_entry (entry);
 
 		entry.activate.connect (() => request ());
-		// entry.icon_press.connect (() => {
-		// 	entry.text = "";
-		// 	request ();
-		// });
-		// entry.grab_focus_without_selecting ();
 		status_button.clicked.connect (request);
 
 		accounts_tab = add_list_tab (_("Accounts"), "system-users-symbolic");
@@ -46,11 +42,10 @@ public class Tootle.Views.Search : Views.TabbedBase {
 		request ();
 	}
 
-	// bool append (Views.Base tab, owned Entity entity) {
-	// 	var w = entity.to_widget ();
-	// 	tab.content_list.insert (w, -1);
-	// 	return true;
-	// }
+	bool append_entity (Views.ContentBase tab, owned Entity entity) {
+		tab.model.append (entity);
+		return true;
+	}
 
 	void request () {
 		query = entry.text.chug ().chomp ();
@@ -68,15 +63,15 @@ public class Tootle.Views.Search : Views.TabbedBase {
 			try {
 				var results = API.SearchResults.request.end (res);
 
-				// if (!results.accounts.is_empty) {
-				// 	results.accounts.@foreach (e => append (accounts_tab, e));
-				// }
-				// if (!results.statuses.is_empty) {
-				// 	results.statuses.@foreach (e => append (statuses_tab, e));
-				// }
-				// if (!results.hashtags.is_empty) {
-				// 	results.hashtags.@foreach (e => append (hashtags_tab, e));
-				// }
+				if (!results.accounts.is_empty) {
+					results.accounts.@foreach (e => append_entity (accounts_tab, e));
+				}
+				if (!results.statuses.is_empty) {
+					results.statuses.@foreach (e => append_entity (statuses_tab, e));
+				}
+				if (!results.hashtags.is_empty) {
+					results.hashtags.@foreach (e => append_entity (hashtags_tab, e));
+				}
 
 				on_content_changed ();
 			}

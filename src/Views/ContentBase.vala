@@ -2,7 +2,7 @@ using Gtk;
 
 public class Tootle.Views.ContentBase : Views.Base {
 
-	protected GLib.ListStore model;
+	public GLib.ListStore model;
 	protected ListBox content;
 
 	public bool empty {
