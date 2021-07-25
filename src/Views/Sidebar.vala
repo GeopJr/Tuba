@@ -92,6 +92,10 @@ public class Tootle.Views.Sidebar : Box, AccountHolder {
 		mode.visible_child_name = accounts_button.active ? "saved_accounts" : "items";
 	}
 
+	[GtkCallback] void on_open () {
+		if (account != null)
+			account.open ();
+	}
 
 
 	// Item
@@ -174,6 +178,12 @@ public class Tootle.Views.Sidebar : Box, AccountHolder {
 				avatar.account = null;
 				selectable = false;
 				forget.hide ();
+			}
+		}
+
+		[GtkCallback] void on_open () {
+			if (account != null) {
+				account.resolve_open (accounts.active);
 			}
 		}
 

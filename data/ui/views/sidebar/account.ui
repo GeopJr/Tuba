@@ -8,6 +8,7 @@
     <child type="prefix">
       <object class="TootleWidgetsAvatar" id="avatar">
         <property name="size">32</property>
+        <signal name="clicked" handler="on_open"/>
       </object>
     </child>
 

@@ -55,6 +55,7 @@
                           <property name="size">64</property>
                           <property name="halign">start</property>
                           <property name="margin-bottom">6</property>
+                          <signal name="clicked" handler="on_open"/>
                         </object>
                       </child>
 
