@@ -26,7 +26,7 @@ asresources = gnome.compile_resources(
   c_name: 'as'
 )
 
-libgtk_dep = dependency('gtk4', version: '>=4.3.0', required: true)
+libgtk_dep = dependency('gtk4', version: '>=4.0.0', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.0.0', required: true)
 
 sources = files(

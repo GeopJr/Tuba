@@ -5,14 +5,14 @@
     "runtime-version" : "40",
     "command" : "com.github.bleakgrey.tootle",
     "finish-args" : [
-        "--share=network",
+        "--device=dri",
         "--share=ipc",
+        "--share=network",
         "--socket=fallback-x11",
         "--socket=wayland",
-        "--filesystem=xdg-run/dconf",
-        "--filesystem=~/.config/dconf:ro",
-        "--talk-name=ca.desrt.dconf",
-        "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
+        "--talk-name=org.gtk.vfs",
+        "--talk-name=org.gtk.vfs.*",
+        "--filesystem=xdg-run/gvfsd"
     ],
     "cleanup" : [
         "/include",
@@ -27,18 +27,37 @@
     ],
     "modules" : [
         {
-            "name" : "libadwaita",
+            "name" : "libsass",
             "buildsystem" : "meson",
             "builddir" : true,
-            "config-opts" : [
-                "-Dexamples=false",
-                "-Dtests=false"
-            ],
             "sources" : [
                 {
-                    "type" : "archive",
-                    "url" : "https://gitlab.gnome.org/GNOME/libadwaita/-/archive/594eb987c57e4d20370cc20520871f230ff02ae2/libadwaita-594eb987c57e4d20370cc20520871f230ff02ae2.tar",
-                    "sha256" : "960d8e95864cac71be9e893d37baace82d67ecb06b3b09bd24b9fdfece9eca9c"
+                    "type" : "git",
+                    "url" : "https://github.com/lazka/libsass.git",
+                    "branch" : "meson"
+                }
+            ]
+        },
+        {
+            "name" : "sassc",
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/lazka/sassc.git",
+                    "branch" : "meson"
+                }
+            ]
+        },
+        {
+            "name" : "libadwaita",
+            "buildsystem" : "meson",
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libadwaita.git",
+                    "branch" : "main"
                 }
             ]
         },
