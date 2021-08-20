@@ -9,7 +9,6 @@
       <object class="AdwHeaderBar" id="header">
         <property name="visible">True</property>
         <property name="hexpand">True</property>
-        <property name="centering-policy">strict</property>
         <child>
           <object class="GtkButton" id="back_button">
             <property name="icon_name">go-previous-symbolic</property>
