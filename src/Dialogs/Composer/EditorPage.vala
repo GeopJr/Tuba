@@ -14,7 +14,6 @@ public class Tootle.EditorPage : ComposerPage {
 		base.on_build (dialog, status);
 
 		install_editor ();
-		populate_editor ();
 		install_visibility ();
 		install_cw ();
 
@@ -27,9 +26,11 @@ public class Tootle.EditorPage : ComposerPage {
 		recount_chars ();
 	}
 
-	public override void on_sync () {
-		warning ("syncing");
+	public override void on_pull () {
+		populate_editor ();
+	}
 
+	public override void on_push () {
 		status.content = editor.buffer.text;
 		status.sensitive = cw_button.active;
 		if (status.sensitive) {

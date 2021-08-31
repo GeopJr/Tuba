@@ -40,14 +40,16 @@ public class Tootle.ComposerPage : Gtk.Box {
 		bottom_bar.show ();
 	}
 
-	// This is used to populate the UI with the status entity data
 	public virtual void on_build (Dialogs.Compose dialog, API.Status status) {
 		this.dialog = dialog;
 		this.status = status;
 	}
 
-	// This is used to push data back to the status entity
-	public virtual void on_sync () {}
+	// Entity -> UI state
+	public virtual void on_pull () {}
+
+	// UI state -> Entity
+	public virtual void on_push () {}
 
 	public virtual void on_modify_req (Request req) {}
 

@@ -13,13 +13,17 @@ public class Tootle.Dialogs.Compose : Adw.Window {
 		set { commit_button.add_css_class (value); }
 	}
 
+	ulong build_sigid;
+
 	construct {
 		transient_for = app.main_window;
 		title_switcher.stack = stack;
 
-		notify["status"].connect (() => {
+		build_sigid = notify["status"].connect (() => {
 			build ();
 			present ();
+
+			disconnect (build_sigid);
 		});
 	}
 
@@ -80,7 +84,9 @@ public class Tootle.Dialogs.Compose : Adw.Window {
 	protected void add_page (ComposerPage page) {
 		var wrapper = stack.add (page);
 		page.on_build (this, this.status);
-		modify_req.connect (page.on_sync);
+		page.on_pull ();
+
+		modify_req.connect (page.on_push);
 		modify_req.connect (page.on_modify_req);
 		page.bind_property ("visible", wrapper, "visible", GLib.BindingFlags.SYNC_CREATE);
 		page.bind_property ("title", wrapper, "title", GLib.BindingFlags.SYNC_CREATE);
