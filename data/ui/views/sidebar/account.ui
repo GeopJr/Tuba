@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template class="TootleViewsSidebarAccountRow" parent="AdwActionRow">
-    <property name="height_request">76</property>
-    <property name="title_lines">2</property>
+    <property name="height_request">64</property>
+    <property name="title_lines">1</property>
+    <property name="subtitle_lines">1</property>
     <property name="activatable">1</property>
 
     <child type="prefix">

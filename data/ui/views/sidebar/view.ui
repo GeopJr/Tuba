@@ -75,6 +75,7 @@
                           <property name="xalign">0</property>
                           <style>
                             <class name="body"/>
+                            <class name="dim-label"/>
                           </style>
                         </object>
                       </child>
