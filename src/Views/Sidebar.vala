@@ -13,31 +13,46 @@ public class Tootle.Views.Sidebar : Box, AccountHolder {
 	[GtkChild] unowned Label subtitle;
 
 	protected InstanceAccount? account { get; set; default = null; }
-	GLib.ListStore item_model = new GLib.ListStore (typeof (Object));
 
-	Item item_preferences = new Item () {
-			label = _("Preferences"),
+	protected GLib.ListStore app_items;
+	protected SliceListModel account_items;
+	protected FlattenListModel item_model;
+
+	public static Place PREFERENCES = new Place () {
+			title = _("Preferences"),
 			icon = "emblem-system-symbolic",
-			selectable = false,
+			//selectable = false,
 			separated = true,
-			on_activated = () => {
+			open_func = () => {
 				Dialogs.Preferences.open ();
 			}
 	};
-	Item item_about = new Item () {
-			label = _("About"),
+	public static Place ABOUT = new Place () {
+			title = _("About"),
 			icon = "help-about-symbolic",
-			selectable = false,
-			on_activated = () => {
+			//selectable = false,
+			open_func = () => {
 				app.lookup_action ("about").activate (null);
 			}
 	};
 
 	construct {
-		construct_account_holder ();
+		app_items = new GLib.ListStore (typeof (Place));
+		app_items.append (PREFERENCES);
+		app_items.append (ABOUT);
+
+		account_items = new SliceListModel (null, 0, 15);
+
+		var models = new GLib.ListStore (typeof (Object));
+		models.append (account_items);
+		models.append (app_items);
+		item_model = new FlattenListModel (models);
+
 		items.bind_model (item_model, on_item_create);
 		items.set_header_func (on_item_header_update);
 		saved_accounts.set_header_func (on_account_header_update);
+
+		construct_account_holder ();
 	}
 
 	protected virtual void on_accounts_changed (Gee.ArrayList<InstanceAccount> accounts) {
@@ -56,17 +71,13 @@ public class Tootle.Views.Sidebar : Box, AccountHolder {
 
 	protected virtual void on_account_changed (InstanceAccount? account) {
 		this.account = account;
-
-		warning (account.handle);
 		accounts_button.active = false;
-		item_model.remove_all ();
 
 		if (account != null) {
 			title.label = account.display_name;
 			subtitle.label = account.handle;
 			avatar.account = account;
-
-			account.populate_user_menu (item_model);
+			account_items.model = account.known_places;
 		}
 		else {
 			saved_accounts.unselect_all ();
@@ -74,18 +85,8 @@ public class Tootle.Views.Sidebar : Box, AccountHolder {
 			title.label = _("Anonymous");
 			subtitle.label = _("No account selected");
 			avatar.account = null;
+			account_items.model = null;
 		}
-
-		item_model.append (item_preferences);
-		item_model.append (item_about);
-
-		// item_model.append (new Item () {
-		// 	label = "(Debug) Empty View",
-		// 	separated = true,
-		// 	on_activated = () => {
-		// 		app.main_window.open_view (new Views.ContentBase ());
-		// 	}
-		// });
 	}
 
 	[GtkCallback] void on_mode_changed () {
@@ -100,44 +101,35 @@ public class Tootle.Views.Sidebar : Box, AccountHolder {
 
 	// Item
 
-	public class Item : Object {
-		public VoidFunc? on_activated;
-		public string label { get; set; default = ""; }
-		public string icon { get; set; default = ""; }
-		public int badge { get; set; default = 0; }
-		public bool selectable { get; set; default = false; }
-		public bool separated { get; set; default = false; }
-	}
-
 	[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/views/sidebar/item.ui")]
 	protected class ItemRow : ListBoxRow {
-		public Item item;
+		public Place place;
 
 		[GtkChild] unowned Image icon;
 		[GtkChild] unowned Label label;
 		[GtkChild] unowned Label badge;
 
-		public ItemRow (Item _item) {
-			item = _item;
-			item.bind_property ("label", label, "label", BindingFlags.SYNC_CREATE);
-			item.bind_property ("icon", icon, "icon-name", BindingFlags.SYNC_CREATE);
-			item.bind_property ("badge", badge, "label", BindingFlags.SYNC_CREATE);
-			item.bind_property ("badge", badge, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		public ItemRow (Place place) {
+			this.place = place;
+			place.bind_property ("title", label, "label", BindingFlags.SYNC_CREATE);
+			place.bind_property ("icon", icon, "icon-name", BindingFlags.SYNC_CREATE);
+			place.bind_property ("badge", badge, "label", BindingFlags.SYNC_CREATE);
+			place.bind_property ("badge", badge, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 				target.set_boolean (src.get_int () > 0);
 				return true;
 			});
-			bind_property ("selectable", item, "selectable", BindingFlags.SYNC_CREATE);
+		// 	bind_property ("selectable", item, "selectable", BindingFlags.SYNC_CREATE);
 		}
 	}
 
 	Widget on_item_create (Object obj) {
-		return new ItemRow (obj as Item);
+		return new ItemRow (obj as Place);
 	}
 
 	[GtkCallback] void on_item_activated (ListBoxRow _row) {
 		var row = _row as ItemRow;
-		if (row.item.on_activated != null)
-			row.item.on_activated ();
+		if (row.place.open_func != null)
+			row.place.open_func (app.main_window);
 
         var flap = app.main_window.flap;
         if (flap.folded)
@@ -150,7 +142,7 @@ public class Tootle.Views.Sidebar : Box, AccountHolder {
 
 		row.set_header (null);
 
-		if (row.item.separated && before != null && !before.item.separated) {
+		if (row.place.separated && before != null && !before.place.separated) {
 			row.set_header (new Separator (Orientation.HORIZONTAL));
 		}
 	}

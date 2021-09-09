@@ -14,6 +14,10 @@ public class Tootle.InstanceAccount : API.Account, Streamable {
 	public string? access_token { get; set; }
 	public Error? error { get; set; } //TODO: use this field when server invalidates the auth token
 
+	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
+
+	public HashMap<Type,Type> type_overrides = new HashMap<Type,Type> ();
+
 	public new string handle {
 		owned get { return @"@$username@$domain"; }
 	}
@@ -25,8 +29,6 @@ public class Tootle.InstanceAccount : API.Account, Streamable {
 			return accounts.active.access_token == access_token;
 		}
 	}
-
-	public HashMap<Type,Type> type_overrides = new HashMap<Type,Type> ();
 
 	public virtual signal void activated () {}
 	public virtual signal void deactivated () {}
@@ -41,8 +43,9 @@ public class Tootle.InstanceAccount : API.Account, Streamable {
 
 
 	construct {
-		construct_streamable ();
-		stream_event[EVENT_NOTIFICATION].connect (on_notification_event);
+		this.construct_streamable ();
+		this.stream_event[EVENT_NOTIFICATION].connect (on_notification_event);
+		this.register_known_places (this.known_places);
 	}
 	~InstanceAccount () {
 		destruct_streamable ();
@@ -110,12 +113,12 @@ public class Tootle.InstanceAccount : API.Account, Streamable {
 		return entity;
 	}
 
-	public virtual void populate_user_menu (GLib.ListStore model) {}
-
 	public virtual void describe_kind (string kind, out string? icon, out string? descr, API.Account account) {
 		icon = null;
 		descr = null;
 	}
+
+	public virtual void register_known_places (GLib.ListStore places) {}
 
 
 

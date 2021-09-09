@@ -36,6 +36,7 @@ sources = files(
     'src/Utils/DateTime.vala',
     'src/Services/Accounts/InstanceAccount.vala',
     'src/Services/Accounts/AccountStore.vala',
+    'src/Services/Accounts/Places.vala',
     'src/Services/Accounts/SecretAccountStore.vala',
     'src/Services/Accounts/AccountHolder.vala',
     'src/Services/Accounts/Mastodon/Account.vala',
