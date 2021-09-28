@@ -7,7 +7,7 @@ public class Tooth.ImageCache : AbstractCache {
 	protected Paintable decode (owned Soup.Message msg) throws Error {
 		var code = msg.status_code;
 		if (code != Soup.Status.OK) {
-			var error = network.describe_error (code);
+			var error = msg.reason_phrase;
 			throw new Oopsie.INSTANCE (@"Server returned $error");
 		}
 

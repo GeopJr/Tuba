@@ -56,18 +56,13 @@ public class Tooth.Network : GLib.Object {
 				else if (status == Soup.Status.CANCELLED)
 					debug ("Message is cancelled. Ignoring callback invocation.");
 				else
-					ecb ((int32) status, describe_error ((int32) status));
+					ecb ((int32) status, msg.reason_phrase);
 			});
 		}
 		catch (Error e) {
 			warning (@"Exception in network queue: $(e.message)");
 			ecb (0, e.message);
 		}
-	}
-
-	public string describe_error (uint code) {
-		var reason = Soup.Status.get_phrase (code);
-		return @"$code: $reason";
 	}
 
 	public void on_error (int32 code, string message) {
