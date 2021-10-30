@@ -58,6 +58,10 @@
 	border-top: 0px;
 }
 
+.ttl-view .large {
+	margin-left: 18px;
+	margin-right: 18px;
+}
 .ttl-view .large:first-child {
 	margin-top: 32px;
 }
