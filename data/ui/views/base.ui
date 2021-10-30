@@ -33,8 +33,8 @@
                     <property name="vexpand">1</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="maximum_size">650</property>
-                    <property name="tightening_threshold">650</property>
+                    <property name="maximum_size">670</property>
+                    <property name="tightening_threshold">670</property>
                     <child>
                       <object class="GtkBox" id="column_view">
                         <property name="orientation">vertical</property>
