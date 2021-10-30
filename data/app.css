@@ -47,6 +47,11 @@
 	padding: 0px;
 }
 
+.ttl-view .small .content {
+	border: none;
+	border-radius: 0;
+}
+
 .ttl-view .small .content row {
 	border-left: none;
 	border-right: none;
