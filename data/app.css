@@ -50,6 +50,7 @@
 .ttl-view .small .content {
 	border: none;
 	border-radius: 0;
+	transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .ttl-view .small .content row {
@@ -61,6 +62,10 @@
 /* Hides the top border from the first row of the first listbox */
 .ttl-view .small :first-child list row:first-child {
 	border-top: 0px;
+}
+
+.ttl-view clamp > * {
+	transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .ttl-view .large {
