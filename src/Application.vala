@@ -43,7 +43,7 @@ namespace Tootle {
 			{ null }
 		};
 
-		public const GLib.ActionEntry[] app_entries = {
+		private const GLib.ActionEntry[] app_entries = {
 			{ "about", about_activated },
 			{ "compose", compose_activated },
 			{ "back", back_activated },
