@@ -3,15 +3,20 @@ public class Tooth.API.Account : Entity, Widgetizable {
     public string id { get; set; }
     public string username { get; set; }
     public string acct { get; set; }
-    public string? _display_name = null;
+
+    /* internal display name representation */
+    private string _display_name = "";
+    /* User's display name: Specific display name, or falling back to the
+       nickname */
     public string display_name {
         set {
-            this._display_name = value;
+	    _display_name = value;
         }
     	get {
-    		return (_display_name == null || _display_name == "") ? username : _display_name;
+            return ( ( _display_name.length > 0 ) ? _display_name : username );
     	}
     }
+
     public string note { get; set; }
     public string header { get; set; }
     public string avatar { get; set; }
