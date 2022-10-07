@@ -63,7 +63,6 @@ namespace Tooth {
 		public string[] ACCEL_SEARCH = {"<Ctrl>F"};
 
 		public static int main (string[] args) {
-			Gtk.init ();
 			try {
 				var opt_context = new OptionContext ("- Options");
 				opt_context.add_main_entries (app_options, null);
