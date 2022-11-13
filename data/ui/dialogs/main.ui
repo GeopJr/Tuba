@@ -10,6 +10,9 @@
       <object class="AdwFlap" id="flap">
         <child type="flap">
           <object class="TootleViewsSidebar" id="sidebar">
+            <style>
+              <class name="background"/>
+            </style>
           </object>
         </child>
         <!-- <child type="separator"> -->
