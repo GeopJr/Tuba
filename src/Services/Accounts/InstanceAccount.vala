@@ -136,7 +136,7 @@ public class Tootle.InstanceAccount : API.Account, Streamable {
 			.then ((sess, msg) => {
 				var root = network.parse (msg);
 				var notifications = root.get_object_member ("notifications");
-				last_read_id = int.parse (notifications.get_string_member ("last_read_id") );
+				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "0") );
 			})
 			.exec ();
 	}
