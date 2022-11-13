@@ -227,8 +227,11 @@ public class Tootle.Widgets.Status : ListBoxRow {
 		// menu_button.get_first_child ().add_css_class ("flat");
 		// actions.append (menu_button);
 
-		for (var w = actions.get_first_child (); w != null; w = w.get_next_sibling ())
+		for (var w = actions.get_first_child (); w != null; w = w.get_next_sibling ()) {
 			w.add_css_class ("flat");
+			w.add_css_class ("circular");
+			w.halign = Align.CENTER;
+		}
 	}
 
 	[GtkCallback] public void toggle_spoiler () {
