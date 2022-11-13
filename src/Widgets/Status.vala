@@ -203,7 +203,7 @@ public class Tootle.Widgets.Status : ListBoxRow {
 		    prop_name = "favourited",
 		    action_on = "favourite",
 		    action_off = "unfavourite",
-		    icon_name = "non-starred-symbolic"
+		    icon_name = "starred-symbolic"
 		};
 		actions.append (favorite_button);
 
