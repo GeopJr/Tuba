@@ -56,7 +56,8 @@ public class Tootle.Views.Profile : Views.Timeline {
 			if (account.fields != null) {
 				foreach (API.AccountField f in account.fields) {
 					var row = new Adw.ActionRow ();
-					var val = new Widgets.RichLabel (f.val);
+					var val = new Widgets.RichLabel (HtmlUtils.simplify (f.val));
+					val.wrap = false;
 					val.xalign = 1;
 					row.title = f.name;
 					row.add_suffix (val);

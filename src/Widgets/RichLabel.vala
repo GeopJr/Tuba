@@ -13,6 +13,11 @@ public class Tootle.Widgets.RichLabel : Adw.Bin {
 		set { widget.label = value; }
 	}
 
+	public bool wrap {
+		get { return widget.wrap; }
+		set { widget.wrap = value; }
+	}
+
 	public bool selectable {
 		get { return widget.selectable; }
 		set { widget.selectable = value; }
