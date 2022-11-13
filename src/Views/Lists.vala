@@ -1,9 +1,9 @@
 using Gtk;
 
 // TODO: Lists is borken
-public class Tootle.Views.Lists : Views.Timeline {
+public class Tooth.Views.Lists : Views.Timeline {
 
-    [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/list_item.ui")]
+    [GtkTemplate (ui = "/dev/geopjr/tooth/ui/widgets/list_item.ui")]
     public class Row : ListBoxRow {
 
 		API.List? list;

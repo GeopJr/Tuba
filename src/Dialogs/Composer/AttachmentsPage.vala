@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tootle.AttachmentsPage : ComposerPage {
+public class Tooth.AttachmentsPage : ComposerPage {
 
 	// https://github.com/tootsuite/mastodon/blob/master/app/models/media_attachment.rb
 	public const string[] SUPPORTED_MIMES = {

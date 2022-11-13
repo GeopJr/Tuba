@@ -1,6 +1,6 @@
 using GLib;
 
-public class Tootle.Settings : GLib.Settings {
+public class Tooth.Settings : GLib.Settings {
 
 	public string active_account { get; set; }
 	//  public bool dark_theme { get; set; }

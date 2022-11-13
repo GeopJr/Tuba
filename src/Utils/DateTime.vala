@@ -1,6 +1,6 @@
 using GLib;
 
-public class Tootle.DateTime {
+public class Tooth.DateTime {
 
 	public static string humanize (string iso8601) {
 		var date = new GLib.DateTime.from_iso8601 (iso8601, null);

@@ -1,6 +1,6 @@
 using Secret;
 
-public class Tootle.SecretAccountStore : AccountStore {
+public class Tooth.SecretAccountStore : AccountStore {
 
 	const string VERSION = "1";
 

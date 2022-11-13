@@ -1,4 +1,4 @@
-public class Tootle.PollPage : ComposerPage {
+public class Tooth.PollPage : ComposerPage {
 
 	public PollPage () {
 		Object (

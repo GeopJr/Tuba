@@ -1,4 +1,4 @@
-project('com.github.bleakgrey.tootle', 'vala', 'c', version: '2.0-alpha2')
+project('dev.geopjr.tooth', 'vala', 'c', version: '2.0-alpha2')
 
 add_global_arguments([
         '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
@@ -12,10 +12,10 @@ config.set('GETTEXT_PACKAGE', meson.project_name())
 config.set('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) + '/' )
 config.set('VERSION', meson.project_version())
 config.set('PREFIX', get_option('prefix'))
-config.set('NAME', 'Tootle')
-config.set('WEBSITE', 'https://github.com/bleakgrey/tootle')
-config.set('SUPPORT_WEBSITE', 'https://github.com/bleakgrey/tootle/issues')
-config.set('COPYRIGHT', '© 2018-2021 bleak_grey')
+config.set('NAME', 'Tooth')
+config.set('WEBSITE', 'https://github.com/GeopJr/tooth')
+config.set('SUPPORT_WEBSITE', 'https://github.com/GeopJr/tooth/issues')
+config.set('COPYRIGHT', '© 2018-2021 bleak_grey\n© 2022 Evangelos "GeopJr" Paterakis')
 
 gnome = import('gnome')
 i18n = import('i18n')

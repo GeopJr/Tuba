@@ -4,10 +4,10 @@ runtime=host
 toolchain=default
 config-opts=
 run-opts=
-prefix=/home/user/.cache/gnome-builder/install/tootle/host
+prefix=/home/user/.cache/gnome-builder/install/tooth/host
 app-id=
 postbuild=
 prebuild=
 
 [default.environment]
-G_MESSAGES_DEBUG=tootle
+G_MESSAGES_DEBUG=tooth

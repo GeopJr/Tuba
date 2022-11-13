@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tootle.Views.Profile : Views.Timeline {
+public class Tooth.Views.Profile : Views.Timeline {
 
 	public API.Account profile { get; construct set; }
 	public API.Relationship rs { get; construct set; }
@@ -35,7 +35,7 @@ public class Tootle.Views.Profile : Views.Timeline {
 		cover.bind (profile);
 	}
 
-	[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/views/profile_header.ui")]
+	[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/profile_header.ui")]
 	protected class Cover : Box {
 
 		[GtkChild] unowned Widgets.Background background;

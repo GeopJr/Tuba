@@ -1,9 +1,9 @@
 {
-    "app-id" : "com.github.bleakgrey.tootle",
+    "app-id" : "dev.geopjr.tooth",
     "runtime" : "org.gnome.Platform",
     "sdk" : "org.gnome.Sdk",
     "runtime-version" : "40",
-    "command" : "com.github.bleakgrey.tootle",
+    "command" : "dev.geopjr.tooth",
     "finish-args" : [
         "--device=dri",
         "--share=ipc",
@@ -62,7 +62,7 @@
             ]
         },
         {
-            "name" : "tootle",
+            "name" : "tooth",
             "builddir" : true,
             "buildsystem" : "meson",
             "sources" : [

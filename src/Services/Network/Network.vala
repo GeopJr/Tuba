@@ -3,7 +3,7 @@ using GLib;
 using Gdk;
 using Json;
 
-public class Tootle.Network : GLib.Object {
+public class Tooth.Network : GLib.Object {
 
 	public signal void started ();
 	public signal void finished ();

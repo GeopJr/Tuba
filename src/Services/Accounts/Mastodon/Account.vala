@@ -1,4 +1,4 @@
-public class Tootle.Mastodon.Account : InstanceAccount {
+public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public const string BACKEND = "Mastodon";
 

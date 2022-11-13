@@ -1,4 +1,4 @@
-public class Tootle.Views.Home : Views.Timeline {
+public class Tooth.Views.Home : Views.Timeline {
 
     public Home () {
         Object (

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-    <gresource prefix="/com/github/bleakgrey/tootle/">
+    <gresource prefix="/dev/geopjr/tooth/">
         <file alias="app.css">app.css</file>
 
         <file preprocess="xml-stripblanks">icons/scalable/actions/mention-symbolic.svg</file>

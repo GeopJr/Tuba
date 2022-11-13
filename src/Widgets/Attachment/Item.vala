@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tootle.Widgets.Attachment.Item : Adw.Bin {
+public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 
 	public API.Attachment entity { get; set; default = null; }
 

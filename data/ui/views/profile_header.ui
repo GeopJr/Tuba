@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="TootleViewsProfileCover" parent="GtkBox">
+  <template class="ToothViewsProfileCover" parent="GtkBox">
     <property name="margin_bottom">16</property>
     <property name="orientation">vertical</property>
 
@@ -20,7 +20,7 @@
   <object class="GtkGrid">
     <property name="row_homogeneous">0</property>
     <child>
-      <object class="TootleWidgetsBackground" id="background">
+      <object class="ToothWidgetsBackground" id="background">
         <property name="hexpand">1</property>
         <property name="vexpand">1</property>
         <property name="height-request">224</property>
@@ -34,7 +34,7 @@
       </object>
     </child>
     <child>
-      <object class="TootleWidgetsAvatar" id="avatar">
+      <object class="ToothWidgetsAvatar" id="avatar">
         <property name="halign">start</property>
         <property name="valign">end</property>
         <property name="margin-start">12</property>
@@ -56,7 +56,7 @@
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child>
-          <object class="TootleWidgetsRichLabel" id="display_name">
+          <object class="ToothWidgetsRichLabel" id="display_name">
             <property name="label">Unknown</property>
             <style>
               <class name="title-3"/>
@@ -74,7 +74,7 @@
         </child>
 
         <child>
-          <object class="TootleWidgetsMarkupView" id="note">
+          <object class="ToothWidgetsMarkupView" id="note">
             <property name="margin_top">6</property>
           </object>
         </child>

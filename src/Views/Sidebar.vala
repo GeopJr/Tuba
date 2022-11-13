@@ -1,7 +1,7 @@
 using Gtk;
 
-[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/views/sidebar/view.ui")]
-public class Tootle.Views.Sidebar : Box, AccountHolder {
+[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/sidebar/view.ui")]
+public class Tooth.Views.Sidebar : Box, AccountHolder {
 
 	[GtkChild] unowned ToggleButton accounts_button;
 	[GtkChild] unowned Stack mode;
@@ -101,7 +101,7 @@ public class Tootle.Views.Sidebar : Box, AccountHolder {
 
 	// Item
 
-	[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/views/sidebar/item.ui")]
+	[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/sidebar/item.ui")]
 	protected class ItemRow : ListBoxRow {
 		public Place place;
 
@@ -151,7 +151,7 @@ public class Tootle.Views.Sidebar : Box, AccountHolder {
 
 	// Account
 
-	[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/views/sidebar/account.ui")]
+	[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/sidebar/account.ui")]
 	protected class AccountRow : Adw.ActionRow {
 		public InstanceAccount? account;
 

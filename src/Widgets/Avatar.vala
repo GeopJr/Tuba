@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.Widgets.Avatar : Button {
+public class Tooth.Widgets.Avatar : Button {
 
 	public API.Account? account { get; set; }
 	public int size {

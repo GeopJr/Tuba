@@ -1,7 +1,7 @@
 using Soup;
 using Gee;
 
-public class Tootle.Streams : Object {
+public class Tooth.Streams : Object {
 
 	protected HashTable<string, Connection> connections {
 		get;

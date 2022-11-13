@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="TootleViewsSidebarAccountRow" parent="AdwActionRow">
+  <template class="ToothViewsSidebarAccountRow" parent="AdwActionRow">
     <property name="height_request">64</property>
     <property name="title_lines">1</property>
     <property name="subtitle_lines">1</property>
     <property name="activatable">1</property>
 
     <child type="prefix">
-      <object class="TootleWidgetsAvatar" id="avatar">
+      <object class="ToothWidgetsAvatar" id="avatar">
         <property name="size">32</property>
         <signal name="clicked" handler="on_open"/>
       </object>

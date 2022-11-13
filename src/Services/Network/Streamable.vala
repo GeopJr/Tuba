@@ -1,4 +1,4 @@
-public abstract interface Tootle.Streamable : Object {
+public abstract interface Tooth.Streamable : Object {
 
 	public struct Event {
 		public string type;

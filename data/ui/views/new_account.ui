@@ -212,7 +212,7 @@
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <property name="pixel_size">128</property>
-        <property name="icon_name">com.github.bleakgrey.tootle</property>
+        <property name="icon_name">dev.geopjr.tooth</property>
         <property name="icon_size">6</property>
       </object>
       <packing>

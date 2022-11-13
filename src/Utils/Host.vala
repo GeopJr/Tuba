@@ -1,6 +1,6 @@
 using GLib;
 
-public class Tootle.Host {
+public class Tooth.Host {
 
 	// Open a URI in the user's default application
 	public static bool open_uri (string _uri) {

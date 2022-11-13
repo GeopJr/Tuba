@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="TootleDialogsListEditorItem" parent="GtkListBoxRow">
+  <template class="ToothDialogsListEditorItem" parent="GtkListBoxRow">
     <property name="activatable">0</property>
     <property name="child">
       <object class="GtkGrid">
@@ -13,7 +13,7 @@
         <property name="row_spacing">8</property>
         <property name="column_spacing">8</property>
         <child>
-          <object class="TootleWidgetsRichLabel" id="label">
+          <object class="ToothWidgetsRichLabel" id="label">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="hexpand">True</property>
@@ -30,7 +30,7 @@
           </object>
         </child>
         <child>
-          <object class="TootleWidgetsRichLabel" id="handle">
+          <object class="ToothWidgetsRichLabel" id="handle">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="hexpand">True</property>

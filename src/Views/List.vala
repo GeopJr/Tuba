@@ -1,4 +1,4 @@
-public class Tootle.Views.List : Views.Timeline {
+public class Tooth.Views.List : Views.Timeline {
 
 	public API.List list { get; set; }
 

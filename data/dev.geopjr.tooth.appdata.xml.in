@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2020 Bleak Grey -->
 <component type="desktop">
-  <id>com.github.bleakgrey.tootle</id>
+  <id>dev.geopjr.tooth</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0+</project_license>
-  <name>Tootle</name>
+  <name>Tooth</name>
   <summary>Lightning fast client for Mastodon</summary>
 
   <description>
     <p>
-      Tootle is a GTK client for the world's largest, decentralized, microblogging platform, Mastodon. With the user experience in mind, it provides a clean, native interface that allows you to integrate Mastodon's social experience seamlessly with your desktop environment.
+      Tooth is a GTK client for the world's largest, decentralized, microblogging platform, Mastodon. With the user experience in mind, it provides a clean, native interface that allows you to integrate Mastodon's social experience seamlessly with your desktop environment.
     </p>
     <p>
-      Mastodon is a free and open source microblogging platform similar to Twitter, but with user privacy and decentralization in mind. It is one of many protocols that interacts with the Fediverse of protocols like Pleroma, GNU Social, and others. The power of federated microblogging that Mastodon brings and the agility of Tootle creates a fantastic duo for all of your social media needs.
+      Mastodon is a free and open source microblogging platform similar to Twitter, but with user privacy and decentralization in mind. It is one of many protocols that interacts with the Fediverse of protocols like Pleroma, GNU Social, and others. The power of federated microblogging that Mastodon brings and the agility of Tooth creates a fantastic duo for all of your social media needs.
     </p>
   </description>
 
   <provides>
-    <binary>com.github.bleakgrey.tootle</binary>
+    <binary>dev.geopjr.tooth</binary>
   </provides>
 
   <developer_name>bleak_grey</developer_name>
   <url type="homepage">https://github.com/bleakgrey</url>
-  <url type="bugtracker">https://github.com/bleakgrey/tootle/issues</url>
+  <url type="bugtracker">https://github.com/GeopJr/tooth/issues</url>
   <url type="donation">https://liberapay.com/bleakgrey/donate</url>
 
   <content_rating type="oars-1.1">
@@ -62,16 +62,16 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot1.png</image>
+      <image>https://raw.githubusercontent.com/GeopJr/tooth/main/data/screenshot1.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot2.png</image>
+      <image>https://raw.githubusercontent.com/GeopJr/tooth/main/data/screenshot2.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot3.png</image>
+      <image>https://raw.githubusercontent.com/GeopJr/tooth/main/data/screenshot3.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot4.png</image>
+      <image>https://raw.githubusercontent.com/GeopJr/tooth/main/data/screenshot4.png</image>
     </screenshot>
   </screenshots>
 

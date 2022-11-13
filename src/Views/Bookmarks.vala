@@ -1,4 +1,4 @@
-public class Tootle.Views.Bookmarks : Views.Timeline {
+public class Tooth.Views.Bookmarks : Views.Timeline {
 
     public Bookmarks () {
         Object (

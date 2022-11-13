@@ -1,4 +1,4 @@
-public class Tootle.Views.Conversations : Views.Timeline {
+public class Tooth.Views.Conversations : Views.Timeline {
 
     public Conversations () {
         Object (

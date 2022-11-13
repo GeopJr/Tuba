@@ -1,4 +1,4 @@
-public class Tootle.Views.Local : Views.Federated {
+public class Tooth.Views.Local : Views.Federated {
 
     public Local () {
         label = _("Local");

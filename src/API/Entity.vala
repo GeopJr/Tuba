@@ -1,6 +1,6 @@
 using Json;
 
-public class Tootle.Entity : GLib.Object, Widgetizable, Json.Serializable {
+public class Tooth.Entity : GLib.Object, Widgetizable, Json.Serializable {
 
 	public virtual bool is_local (InstanceAccount account) {
 		return true;

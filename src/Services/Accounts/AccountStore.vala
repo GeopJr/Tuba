@@ -1,6 +1,6 @@
 using Gee;
 
-public abstract class Tootle.AccountStore : GLib.Object {
+public abstract class Tooth.AccountStore : GLib.Object {
 
 	public ArrayList<InstanceAccount> saved { get; set; default = new ArrayList<InstanceAccount> (); }
 	public InstanceAccount? active { get; set; default = null; }

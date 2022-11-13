@@ -31,7 +31,7 @@ __
  - **Build type:** Flatpak / Built from source / Built by a third-party maintainer
 
 #### Logs:
-*(Terminal logs are often invaluable. If you can, launch the app from terminal with `com.github.bleakgrey.tootle` and paste the output here)*
+*(Terminal logs are often invaluable. If you can, launch the app from terminal with `dev.geopjr.tooth` and paste the output here)*
 
 #### Additional info (if needed):
 __

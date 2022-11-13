@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tootle.Views.Thread : Views.ContentBase, AccountHolder {
+public class Tooth.Views.Thread : Views.ContentBase, AccountHolder {
 
 	protected InstanceAccount? account { get; set; }
 	public API.Status root_status { get; set; }

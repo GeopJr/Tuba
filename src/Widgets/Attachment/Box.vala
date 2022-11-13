@@ -2,7 +2,7 @@ using Gtk;
 using GLib;
 using Gee;
 
-public class Tootle.Widgets.Attachment.Box : Adw.Bin {
+public class Tooth.Widgets.Attachment.Box : Adw.Bin {
 
 	ArrayList<API.Attachment>? _list = null;
 	public ArrayList<API.Attachment>? list {

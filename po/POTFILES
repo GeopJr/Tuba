@@ -1,6 +1,6 @@
-data/com.github.bleakgrey.tootle.desktop.in
-data/com.github.bleakgrey.tootle.appdata.xml.in
-data/com.github.bleakgrey.tootle.gschema.xml
+data/dev.geopjr.tooth.desktop.in
+data/dev.geopjr.tooth.appdata.xml.in
+data/dev.geopjr.tooth.gschema.xml
 
 data/ui/dialogs/compose.ui
 data/ui/dialogs/list_editor.ui

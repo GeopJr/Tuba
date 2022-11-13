@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tootle.EditorPage : ComposerPage {
+public class Tooth.EditorPage : ComposerPage {
 
 	protected uint char_limit { get; set; default = 500; } //TODO: Ask the instance to get this value
 	protected int remaining_chars { get; set; default = 0; }

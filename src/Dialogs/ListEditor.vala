@@ -1,9 +1,9 @@
 using Gtk;
 
-[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/list_editor.ui")]
-public class Tootle.Dialogs.ListEditor: Adw.Window {
+[GtkTemplate (ui = "/dev/geopjr/tooth/ui/dialogs/list_editor.ui")]
+public class Tooth.Dialogs.ListEditor: Adw.Window {
 
-	[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/list_editor_item.ui")]
+	[GtkTemplate (ui = "/dev/geopjr/tooth/ui/widgets/list_editor_item.ui")]
 	class Item : ListBoxRow {
 
 		public ListEditor editor { get; construct set; }

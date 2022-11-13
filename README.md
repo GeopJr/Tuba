@@ -1,13 +1,19 @@
-## Tootle
-Simple [Mastodon](https://github.com/tootsuite/mastodon) client for Linux
+<p align="center">
+  <img alt="branding" width="192" src="./data/icons/color.svg">
+</p>
+<h1 align="center">Tooth</h1>
+<h4 align="center">A GTK Mastodon Client</h4>
+<p align="center">
+  <br />
+    <a href="./CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.1-1970e3.svg?style=for-the-badge&labelColor=A2C4FA" alt="COC" /></a>
+    <a href="./LICENSE"><img src="https://img.shields.io/badge/LICENSE-GPL--3.0-1970e3.svg?style=for-the-badge&labelColor=A2C4FA" alt="GPL-3.0" /></a>
+</p>
 
-![Screenshot](https://raw.githubusercontent.com/bleakgrey/tootle/master/data/screenshot1.png)
+<p align="center">
+    <img alt="screenshot of the tooth app showing the home tim" height="512" src="https://i.imgur.com/UrCrAji.png">
+</p>
 
-
-### Installation
-
-<a href='https://flathub.org/apps/details/com.github.bleakgrey.tootle'><img height='51' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
-
+> This is a fork of the now archived [Tootle](https://github.com/bleakgrey/tootle).
 
 ### Building From Source
 
@@ -30,16 +36,11 @@ Simple [Mastodon](https://github.com/tootsuite/mastodon) client for Linux
 2. Run `install.sh` in the project directory. The app will launch automatically on success.
 
 
-### Contributing
-Please consider donating with [LiberaPay](https://liberapay.com/bleakgrey/) to keep the developer happy.
+## Contributing
 
-<a href="https://liberapay.com/bleakgrey/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
-
-You can always help by reporting bugs, submitting pull requests, and suggesting ideas.
-
-
-### Credits
-* Icon design by [Tobias Bernard](https://github.com/bertob)
-* German translation by [@koyuawsmbrtn](https://github.com/koyuawsmbrtn)
-* Spanish translation by [@oscfdezdz](https://github.com/oscfdezdz)
-* Norwegian (Bokmål) translation by [@Octolinger](https://github.com/Octolinger)
+1. Read the [Code of Conduct](./CODE_OF_CONDUCT.md)
+2. Fork it ( https://github.com/GeopJr/Tooth/fork )
+3. Create your feature branch (git checkout -b my-new-feature)
+4. Commit your changes (git commit -am 'Add some feature')
+5. Push to the branch (git push origin my-new-feature)
+6. Create a new Pull Request

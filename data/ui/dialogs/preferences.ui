@@ -12,7 +12,7 @@
     <property name="step_increment">1</property>
     <property name="page_increment">1</property>
   </object>
-  <template class="TootleDialogsPreferences" parent="AdwPreferencesWindow">
+  <template class="ToothDialogsPreferences" parent="AdwPreferencesWindow">
     <child>
       <object class="AdwPreferencesPage">
         <property name="icon_name">applications-system-symbolic</property>

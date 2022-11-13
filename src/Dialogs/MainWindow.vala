@@ -1,8 +1,8 @@
 using Gtk;
 using Gdk;
 
-[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/main.ui")]
-public class Tootle.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
+[GtkTemplate (ui = "/dev/geopjr/tooth/ui/dialogs/main.ui")]
+public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	public const string ZOOM_CLASS = "ttl-scalable";
 

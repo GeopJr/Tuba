@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="TootleWidgetsStatus" parent="GtkListBoxRow">
+  <template class="ToothWidgetsStatus" parent="GtkListBoxRow">
     <property name="can_focus">0</property>
     <property name="child">
       <object class="GtkGrid" id="grid">
@@ -27,7 +27,7 @@
           </object>
         </child>
         <child>
-          <object class="TootleWidgetsRichLabel" id="header_label">
+          <object class="ToothWidgetsRichLabel" id="header_label">
             <property name="visible">0</property>
             <property name="ellipsize">end</property>
             <property name="margin-bottom">8</property>
@@ -46,7 +46,7 @@
             <property name="vexpand">1</property>
             <property name="row_homogeneous">1</property>
             <child>
-              <object class="TootleWidgetsRichLabel" id="name_label">
+              <object class="ToothWidgetsRichLabel" id="name_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
@@ -165,7 +165,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="TootleWidgetsRichLabel" id="spoiler_label">
+                              <object class="ToothWidgetsRichLabel" id="spoiler_label">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label">Spoiler Text Here</property>
@@ -189,14 +189,14 @@
                         <property name="orientation">vertical</property>
                         <property name="spacing">6</property>
                         <child>
-                          <object class="TootleWidgetsMarkupView" id="content">
+                          <object class="ToothWidgetsMarkupView" id="content">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="hexpand">True</property>
                           </object>
                         </child>
                         <child>
-                          <object class="TootleWidgetsAttachmentBox" id="attachments"/>
+                          <object class="ToothWidgetsAttachmentBox" id="attachments"/>
                         </child>
                       </object>
                     </property>
@@ -234,7 +234,7 @@
           </object>
         </child>
         <child>
-              <object class="TootleWidgetsAvatar" id="avatar">
+              <object class="ToothWidgetsAvatar" id="avatar">
                 <property name="size">48</property>
                 <property name="valign">start</property>
                 <property name="visible">true</property>

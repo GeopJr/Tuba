@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.Views.Notifications : Views.Timeline, AccountHolder, Streamable {
+public class Tooth.Views.Notifications : Views.Timeline, AccountHolder, Streamable {
 
 	protected InstanceAccount? last_account = null;
 

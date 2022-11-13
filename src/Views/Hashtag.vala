@@ -1,4 +1,4 @@
-public class Tootle.Views.Hashtag : Views.Timeline {
+public class Tooth.Views.Hashtag : Views.Timeline {
 
     public Hashtag (string tag) {
         Object (

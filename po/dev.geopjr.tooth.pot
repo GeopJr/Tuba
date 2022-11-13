@@ -1,12 +1,12 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.bleakgrey.tootle package.
+# This file is distributed under the same license as the dev.geopjr.tooth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: com.github.bleakgrey.tootle\n"
+"Project-Id-Version: dev.geopjr.tooth\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-30 16:21+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -17,59 +17,59 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/com.github.bleakgrey.tootle.desktop.in:4
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:7
-msgid "Tootle"
+#: data/dev.geopjr.tooth.desktop.in:4
+#: data/dev.geopjr.tooth.appdata.xml.in:7
+msgid "Tooth"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.desktop.in:5
-#: data/com.github.bleakgrey.tootle.desktop.in:6
+#: data/dev.geopjr.tooth.desktop.in:5
+#: data/dev.geopjr.tooth.desktop.in:6
 msgid "Mastodon Client"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.desktop.in:8
-msgid "com.github.bleakgrey.tootle"
+#: data/dev.geopjr.tooth.desktop.in:8
+msgid "dev.geopjr.tooth"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.desktop.in:11
+#: data/dev.geopjr.tooth.desktop.in:11
 msgid "toot;mastodon;social;network;post;"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:8
+#: data/dev.geopjr.tooth.appdata.xml.in:8
 msgid "Lightning fast client for Mastodon"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:11
+#: data/dev.geopjr.tooth.appdata.xml.in:11
 msgid ""
-"Tootle is a GTK client for the world's largest, decentralized, microblogging "
+"Tooth is a GTK client for the world's largest, decentralized, microblogging "
 "platform, Mastodon. With the user experience in mind, it provides a clean, "
 "native interface that allows you to integrate Mastodon's social experience "
 "seamlessly with your desktop environment."
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:14
+#: data/dev.geopjr.tooth.appdata.xml.in:14
 msgid ""
 "Mastodon is a free and open source microblogging platform similar to "
 "Twitter, but with user privacy and decentralization in mind. It is one of "
 "many protocols that interacts with the Fediverse of protocols like Pleroma, "
 "GNU Social, and others. The power of federated microblogging that Mastodon "
-"brings and the agility of Tootle creates a fantastic duo for all of your "
+"brings and the agility of Tooth creates a fantastic duo for all of your "
 "social media needs."
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:23
+#: data/dev.geopjr.tooth.appdata.xml.in:23
 msgid "bleak_grey"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:71
+#: data/dev.geopjr.tooth.appdata.xml.in:71
 msgid "New app icon (Kudos to Tobias Bernard!)"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:72
+#: data/dev.geopjr.tooth.appdata.xml.in:72
 msgid "New interface design"
 msgstr ""
 
-#: data/com.github.bleakgrey.tootle.appdata.xml.in:73
+#: data/dev.geopjr.tooth.appdata.xml.in:73
 msgid "Fixed bugs"
 msgstr ""
 
@@ -227,7 +227,7 @@ msgid "Enter authorization code"
 msgstr ""
 
 #: data/ui/dialogs/new_account.ui:276
-msgid "<a href=\"tootle://manual_auth\">Try manual authorization</a>"
+msgid "<a href=\"tooth://manual_auth\">Try manual authorization</a>"
 msgstr ""
 
 #: data/ui/widgets/accounts_button.ui:64 src/Views/Conversations.vala:6

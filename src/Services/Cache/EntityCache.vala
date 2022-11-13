@@ -1,4 +1,4 @@
-public class Tootle.EntityCache : AbstractCache {
+public class Tooth.EntityCache : AbstractCache {
 
 	// Must return unique id for each JSON entity node
 	protected string? get_node_cache_id (owned Json.Node node) {

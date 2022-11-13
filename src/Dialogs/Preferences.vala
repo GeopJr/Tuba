@@ -1,7 +1,7 @@
 using Gtk;
 
-[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/preferences.ui")]
-public class Tootle.Dialogs.Preferences : Adw.PreferencesWindow {
+[GtkTemplate (ui = "/dev/geopjr/tooth/ui/dialogs/preferences.ui")]
+public class Tooth.Dialogs.Preferences : Adw.PreferencesWindow {
 
     //  [GtkChild] unowned Switch dark_theme;
     [GtkChild] unowned Switch autostart;

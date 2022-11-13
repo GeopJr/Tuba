@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
 
-	<schema path="/com/github/bleakgrey/tootle/" id="com.github.bleakgrey.tootle" gettext-domain="com.github.bleakgrey.tootle">
+	<schema path="/dev/geopjr/tooth/" id="dev.geopjr.tooth" gettext-domain="dev.geopjr.tooth">
 
 		<key name="active-account" type="s">
 			<default>''</default>

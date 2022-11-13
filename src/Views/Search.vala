@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tootle.Views.Search : Views.TabbedBase {
+public class Tooth.Views.Search : Views.TabbedBase {
 
 	public string query { get; set; default = ""; }
 	protected SearchBar bar;

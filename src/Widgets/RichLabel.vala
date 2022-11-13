@@ -1,7 +1,7 @@
 using Gtk;
 using Gee;
 
-public class Tootle.Widgets.RichLabel : Adw.Bin {
+public class Tooth.Widgets.RichLabel : Adw.Bin {
 
 	Label widget;
 

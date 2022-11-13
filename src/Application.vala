@@ -1,6 +1,6 @@
 using Gtk;
 
-namespace Tootle {
+namespace Tooth {
 
 	public errordomain Oopsie {
 		USER,
@@ -27,10 +27,10 @@ namespace Tootle {
 		public Dialogs.NewAccount? add_account_window { get; set; }
 
 		// These are used for the GTK Inspector
-		public Settings app_settings { get {return Tootle.settings; } }
-		public AccountStore app_accounts { get {return Tootle.accounts; } }
-		public Network app_network { get {return Tootle.network; } }
-		public Streams app_streams { get {return Tootle.streams; } }
+		public Settings app_settings { get {return Tooth.settings; } }
+		public AccountStore app_accounts { get {return Tooth.accounts; } }
+		public Network app_network { get {return Tooth.network; } }
+		public Streams app_streams { get {return Tooth.streams; } }
 
 		public signal void refresh ();
 		public signal void toast (string title);

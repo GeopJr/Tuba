@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="TootleDialogsNewAccount" parent="AdwWindow">
+  <template class="ToothDialogsNewAccount" parent="AdwWindow">
     <property name="modal">True</property>
     <property name="default_width">600</property>
     <property name="default_height">450</property>
@@ -26,7 +26,7 @@
                   <object class="GtkButton">
                     <property name="receives_default">1</property>
                     <property name="label" translatable="yes">Next</property>
-                    <property name="sensitive" bind-source="TootleDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
+                    <property name="sensitive" bind-source="ToothDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
                     <signal name="clicked" handler="on_next_clicked" swapped="no"/>
                     <style>
                       <class name="suggested-action"/>
@@ -98,7 +98,7 @@
                   <object class="GtkButton">
                     <property name="receives_default">1</property>
                     <property name="label" translatable="yes">Next</property>
-                    <property name="sensitive" bind-source="TootleDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
+                    <property name="sensitive" bind-source="ToothDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
                     <signal name="clicked" handler="on_next_clicked" swapped="no"/>
                     <style>
                       <class name="suggested-action"/>
@@ -127,7 +127,7 @@
                         </child>
                         <child>
                           <object class="GtkLabel" id="code_label">
-                            <property name="label" translatable="yes">&lt;a href=&quot;tootle://manual_auth&quot;&gt;Try manual authorization&lt;/a&gt;</property>
+                            <property name="label" translatable="yes">&lt;a href=&quot;tooth://manual_auth&quot;&gt;Try manual authorization&lt;/a&gt;</property>
                             <property name="use_markup">1</property>
                             <property name="xalign">1</property>
                             <signal name="activate-link" handler="on_activate_code_label_link" swapped="no"/>
@@ -150,7 +150,7 @@
                   <object class="GtkButton">
                     <property name="receives_default">1</property>
                     <property name="label" translatable="yes">Done</property>
-                    <property name="sensitive" bind-source="TootleDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
+                    <property name="sensitive" bind-source="ToothDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
                     <signal name="clicked" handler="on_next_clicked" swapped="no"/>
                     <style>
                       <class name="suggested-action"/>

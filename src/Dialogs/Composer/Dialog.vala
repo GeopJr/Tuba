@@ -1,8 +1,8 @@
 using Gtk;
 using Gee;
 
-[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/compose.ui")]
-public class Tootle.Dialogs.Compose : Adw.Window {
+[GtkTemplate (ui = "/dev/geopjr/tooth/ui/dialogs/compose.ui")]
+public class Tooth.Dialogs.Compose : Adw.Window {
 
 	public API.Status status { get; construct set; }
 

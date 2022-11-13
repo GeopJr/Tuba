@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-public class Tootle.Widgets.Attachment.Image : Widgets.Attachment.Item {
+public class Tooth.Widgets.Attachment.Image : Widgets.Attachment.Item {
 
 	protected Gtk.Picture pic;
 

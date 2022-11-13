@@ -2,7 +2,7 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
-  <template class="TootleViewsBase" parent="GtkBox">
+  <template class="ToothViewsBase" parent="GtkBox">
     <property name="orientation">vertical</property>
     <property name="width_request">360</property>
 
@@ -59,7 +59,7 @@
                                         <property name="width_request">128</property>
                                         <property name="height_request">128</property>
                                         <property name="pixel_size">128</property>
-                                        <property name="icon_name">com.github.bleakgrey.tootle-symbolic</property>
+                                        <property name="icon_name">dev.geopjr.tooth-symbolic</property>
                                         <style>
                                           <class name="dim-label"/>
                                         </style>

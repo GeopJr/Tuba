@@ -1,7 +1,7 @@
 using Gtk;
 
-[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/new_account.ui")]
-public class Tootle.Dialogs.NewAccount: Adw.Window {
+[GtkTemplate (ui = "/dev/geopjr/tooth/ui/dialogs/new_account.ui")]
+public class Tooth.Dialogs.NewAccount: Adw.Window {
 
 	const string scopes = "read write follow";
 
@@ -42,10 +42,10 @@ public class Tootle.Dialogs.NewAccount: Adw.Window {
 			if (!use_auto_auth)
 				throw new Oopsie.INTERNAL ("Using manual auth method");
 
-			GLib.Process.spawn_command_line_sync (@"xdg-mime default $(Build.DOMAIN).desktop x-scheme-handler/tootle");
+			GLib.Process.spawn_command_line_sync (@"xdg-mime default $(Build.DOMAIN).desktop x-scheme-handler/tooth");
 
 			message ("Successfully associated MIME type for automatic authorization");
-			return "tootle://auth_code";
+			return "tooth://auth_code";
 		}
 		catch (Error e) {
 			warning (e.message);

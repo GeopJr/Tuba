@@ -1,4 +1,4 @@
-public class Tootle.Views.Federated : Views.Timeline {
+public class Tooth.Views.Federated : Views.Timeline {
 
 	public Federated () {
 		Object (

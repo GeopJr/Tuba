@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tootle.Views.Main : Views.TabbedBase {
+public class Tooth.Views.Main : Views.TabbedBase {
 
 	public Main () {
 		add_tab (new Views.Home ());

@@ -1,7 +1,7 @@
 using GLib;
 using Gee;
 
-public class Tootle.InstanceAccount : API.Account, Streamable {
+public class Tooth.InstanceAccount : API.Account, Streamable {
 
 	public const string EVENT_NEW_POST = "update";
 	public const string EVENT_DELETE_POST = "delete";

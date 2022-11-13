@@ -5,7 +5,7 @@ using Gtk;
 // This widget is intended to be used with Statuses where their properties
 // can be used to drive network requests.
 
-public abstract class Tootle.LockableToggleButton : ToggleButton {
+public abstract class Tooth.LockableToggleButton : ToggleButton {
 
 	uint _locks = 0;
 	public bool locked {

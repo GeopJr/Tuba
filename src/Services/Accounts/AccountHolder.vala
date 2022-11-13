@@ -1,4 +1,4 @@
-public interface Tootle.AccountHolder : GLib.Object {
+public interface Tooth.AccountHolder : GLib.Object {
 
 	protected abstract InstanceAccount? account { get; set; default = null; }
 

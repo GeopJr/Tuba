@@ -1,7 +1,7 @@
 using Gdk;
 
 // This widget fits a Paintable inside its bounds without letterboxing.
-public class Tootle.Widgets.Background : Gtk.Widget {
+public class Tooth.Widgets.Background : Gtk.Widget {
 
 	public Paintable? paintable { get; set; default = null; }
 

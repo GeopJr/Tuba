@@ -1,6 +1,6 @@
 using Gee;
 
-public class Tootle.API.SearchResults : Entity {
+public class Tooth.API.SearchResults : Entity {
 
 	public ArrayList<API.Account> accounts { get; set; }
 	public ArrayList<API.Status> statuses { get; set; }

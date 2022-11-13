@@ -1,8 +1,8 @@
 using Gtk;
 using Gdk;
 
-[GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/widgets/status.ui")]
-public class Tootle.Widgets.Status : ListBoxRow {
+[GtkTemplate (ui = "/dev/geopjr/tooth/ui/widgets/status.ui")]
+public class Tooth.Widgets.Status : ListBoxRow {
 
     API.Status? _bound_status = null;
 	public API.Status? status {

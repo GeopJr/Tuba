@@ -2,4 +2,4 @@
 
 cd ..
 cd build
-ninja com.github.bleakgrey.tootle-update-po
+ninja dev.geopjr.tooth-update-po

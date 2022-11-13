@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tootle.Widgets.Conversation : Widgets.Status {
+public class Tooth.Widgets.Conversation : Widgets.Status {
 
 	public API.Conversation conversation { get; construct set; }
 

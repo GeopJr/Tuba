@@ -1,4 +1,4 @@
-public class Tootle.API.Attachment : Entity, Widgetizable {
+public class Tooth.API.Attachment : Entity, Widgetizable {
 
 	public string id { get; set; }
 	public string kind { get; set; default = "unknown"; }

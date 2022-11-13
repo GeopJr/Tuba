@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tootle.API.Tag : Entity, Widgetizable {
+public class Tooth.API.Tag : Entity, Widgetizable {
 
     public string name { get; set; }
     public string url { get; set; }
