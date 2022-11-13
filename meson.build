@@ -1,4 +1,4 @@
-project('dev.geopjr.tooth', 'vala', 'c', version: '2.0-alpha2')
+project('dev.geopjr.tooth', 'vala', 'c', version: '2.1.0')
 
 add_global_arguments([
         '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
@@ -15,7 +15,7 @@ config.set('PREFIX', get_option('prefix'))
 config.set('NAME', 'Tooth')
 config.set('WEBSITE', 'https://github.com/GeopJr/tooth')
 config.set('SUPPORT_WEBSITE', 'https://github.com/GeopJr/tooth/issues')
-config.set('COPYRIGHT', '© 2018-2021 bleak_grey\n© 2022 Evangelos "GeopJr" Paterakis')
+config.set('COPYRIGHT', '© 2018-2021 bleak_grey\n© 2022 Evangelos \"GeopJr\" Paterakis')
 
 gnome = import('gnome')
 i18n = import('i18n')

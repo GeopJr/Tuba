@@ -18,7 +18,8 @@ public class Build {
 
 	public static string[] get_authors () {
 		return new string[] {
-			"bleak_grey"
+			"bleak_grey",
+			"Evangelos \"GeopJr\" Paterakis"
 		};
 	}
 
