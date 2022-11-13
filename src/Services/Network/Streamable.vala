@@ -20,7 +20,7 @@ public abstract interface Tootle.Streamable : Object {
 		}
 	}
 
-	public abstract string? _connection_url { get; set; }
+	public abstract string? t_connection_url { get; set; }
 	public abstract bool subscribed { get; set; default = false; }
 
     public abstract string? get_stream_url ();
@@ -29,14 +29,14 @@ public abstract interface Tootle.Streamable : Object {
     public signal void stream_event (Event ev);
 
 	void subscribe () {
-		streams.unsubscribe (_connection_url, this);
+		streams.unsubscribe (t_connection_url, this);
 		streams.subscribe (get_stream_url (), this);
-		_connection_url = get_stream_url ();
+		t_connection_url = get_stream_url ();
 	}
 
 	void unsubscribe () {
 		streams.unsubscribe (get_stream_url (), this);
-		_connection_url = null;
+		t_connection_url = null;
 	}
 
 	public string get_subscriber_name () {

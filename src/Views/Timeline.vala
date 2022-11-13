@@ -132,7 +132,7 @@ public class Tootle.Views.Timeline : AccountHolder, Streamable, Views.ContentBas
 
 	// Streamable
 
-	public string? _connection_url { get; set; }
+	public string? t_connection_url { get; set; }
 	public bool subscribed { get; set; }
 
 	protected override void on_streaming_policy_changed () {

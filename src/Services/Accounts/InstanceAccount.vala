@@ -177,7 +177,7 @@ public class Tootle.InstanceAccount : API.Account, Streamable {
 
 	// Streamable
 
-	public string? _connection_url { get; set; }
+	public string? t_connection_url { get; set; }
 	public bool subscribed { get; set; }
 
 	public virtual string? get_stream_url () {
