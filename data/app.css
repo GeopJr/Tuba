@@ -5,6 +5,10 @@
   color: @text_view_bg;
 }
 
+.small .ttl-content {
+  border-radius: 0px;
+}
+
 .attachment, .attachment button, flowboxchild {
 	padding:0px;
 	margin:0px;

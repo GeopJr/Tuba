@@ -19,6 +19,7 @@ public class Tootle.Views.ContentBase : Views.Base {
 		};
 		content_box.append (content);
 		content.add_css_class ("content");
+		content.add_css_class ("ttl-content");
 		content.row_activated.connect (on_content_item_activated);
 
 		content.bind_model (model, on_create_model_widget);
