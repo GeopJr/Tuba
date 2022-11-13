@@ -4,7 +4,7 @@
   <template class="ToothDialogsNewAccount" parent="AdwWindow">
     <property name="modal">True</property>
     <property name="default_width">600</property>
-    <property name="default_height">450</property>
+    <property name="default_height">500</property>
     <property name="title" translatable="yes">Add Account</property>
     <child>
       <object class="AdwLeaflet" id="deck">
