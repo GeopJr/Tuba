@@ -211,7 +211,7 @@ public class Tootle.Dialogs.NewAccount: Adw.Window {
 		if (!deck.child_transition_running && deck.visible_child == instance_step)
 			reset ();
 
-		deck.can_swipe_back = deck.visible_child != done_step;
+		deck.can_navigate_back = deck.visible_child != done_step;
 	}
 
 }

@@ -8,7 +8,7 @@
     <property name="title" translatable="yes">Add Account</property>
     <child>
       <object class="AdwLeaflet" id="deck">
-        <property name="can_swipe_back">1</property>
+        <property name="can_navigate_back">1</property>
         <property name="can_unfold">0</property>
         <signal name="notify::visible_child" handler="on_visible_child_notify" swapped="no"/>
         <child>

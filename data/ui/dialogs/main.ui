@@ -19,10 +19,9 @@
         <!-- </child> -->
         <child type="content">
           <object class="AdwLeaflet" id="leaflet">
-            <property name="can-swipe-back">1</property>
+            <property name="can-navigate-back">1</property>
             <property name="can-unfold">0</property>
-            <property name="hhomogeneous-folded">0</property>
-            <property name="hhomogeneous-unfolded">1</property>
+            <property name="homogeneous">0</property>
             <signal name="notify::child-transition-running" handler="on_child_transition"/>
             <signal name="notify::visible-child" handler="on_view_changed"/>
           </object>
