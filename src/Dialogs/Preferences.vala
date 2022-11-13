@@ -3,7 +3,7 @@ using Gtk;
 [GtkTemplate (ui = "/com/github/bleakgrey/tootle/ui/dialogs/preferences.ui")]
 public class Tootle.Dialogs.Preferences : Adw.PreferencesWindow {
 
-    [GtkChild] unowned Switch dark_theme;
+    //  [GtkChild] unowned Switch dark_theme;
     [GtkChild] unowned Switch autostart;
     [GtkChild] unowned Switch work_in_background;
     [GtkChild] unowned SpinButton timeline_page_size;
@@ -31,7 +31,7 @@ public class Tootle.Dialogs.Preferences : Adw.PreferencesWindow {
     }
 
 	void bind () {
-        settings.bind ("dark-theme", dark_theme, "active", SettingsBindFlags.DEFAULT);
+        //  settings.bind ("dark-theme", dark_theme, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("autostart", autostart, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("work-in-background", work_in_background, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("timeline-page-size", timeline_page_size.adjustment, "value", SettingsBindFlags.DEFAULT);

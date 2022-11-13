@@ -6,9 +6,9 @@
 		<key name="active-account" type="s">
 			<default>''</default>
 		</key>
-		<key name="dark-theme" type="b">
+		<!-- <key name="dark-theme" type="b">
 			<default>false</default>
-		</key>
+		</key> -->
 		<key name="autostart" type="b">
 			<default>false</default>
 		</key>

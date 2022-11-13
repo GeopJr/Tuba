@@ -3,7 +3,7 @@ using GLib;
 public class Tootle.Settings : GLib.Settings {
 
 	public string active_account { get; set; }
-	public bool dark_theme { get; set; }
+	//  public bool dark_theme { get; set; }
 	public bool autostart { get; set; }
 	public bool work_in_background { get; set; }
 	public int timeline_page_size { get; set; }
@@ -15,7 +15,7 @@ public class Tootle.Settings : GLib.Settings {
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
 		init ("active-account");
-		init ("dark-theme");
+		//  init ("dark-theme");
 		init ("autostart");
 		init ("work-in-background");
 		init ("timeline-page-size");

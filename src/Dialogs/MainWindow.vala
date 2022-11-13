@@ -16,7 +16,7 @@ public class Tootle.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		construct_saveable (settings);
 
 		var gtk_settings = Gtk.Settings.get_default ();
-		settings.bind_property ("dark-theme", gtk_settings, "gtk-application-prefer-dark-theme", BindingFlags.SYNC_CREATE);
+		//  settings.bind_property ("dark-theme", gtk_settings, "gtk-application-prefer-dark-theme", BindingFlags.SYNC_CREATE);
 		settings.notify["post-text-size"].connect (() => on_zoom_level_changed ());
 
 		on_zoom_level_changed ();
