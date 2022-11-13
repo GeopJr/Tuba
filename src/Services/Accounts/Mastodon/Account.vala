@@ -51,7 +51,7 @@ public class Tootle.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_FAVORITES = new Place () {
 		title = _("Favorites"),
-		icon = "non-starred-symbolic",
+		icon = "starred-symbolic",
 		open_func = (win) => {
 			win.open_view (new Views.Favorites ());
 		}
