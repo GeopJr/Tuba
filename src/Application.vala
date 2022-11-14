@@ -168,6 +168,15 @@ namespace Tooth {
 		}
 
 		void about_activated () {
+			const string[] artists = {
+				"Tobias Bernard"
+			};
+
+			const string[] developers = {
+				"bleak_grey",
+				"Evangelos \"GeopJr\" Paterakis"
+			};
+
 			var dialog = new Adw.AboutWindow () {
 				transient_for = main_window,
 				modal = true,
@@ -178,13 +187,13 @@ namespace Tooth {
 				support_url = Build.SUPPORT_WEBSITE,
 				license_type = License.GPL_3_0_ONLY,
 				copyright = Build.COPYRIGHT,
-				debug_info = Build.SYSTEM_INFO
+				debug_info = Build.SYSTEM_INFO,
+				developers = developers,
+				artists = artists
 			};
 
 			// For some obscure reason, const arrays produce duplicates in the credits.
 			// Static functions seem to avoid this peculiar behavior.
-			dialog.developers = Build.get_authors ();
-			dialog.artists = Build.get_artists ();
 			dialog.translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : null;
 
 			dialog.present ();

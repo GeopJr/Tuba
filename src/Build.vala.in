@@ -16,19 +16,6 @@ public class Build {
 	// TRANSLATORS: Replace this with your name. It will be displayed in the About dialog.
 	public const string TRANSLATOR = _(" ");
 
-	public static string[] get_authors () {
-		return new string[] {
-			"bleak_grey",
-			"Evangelos \"GeopJr\" Paterakis"
-		};
-	}
-
-	public static string[] get_artists () {
-		return new string[] {
-			"Tobias Bernard"
-		};
-	}
-
 	public static string print_info () {
 		var os_name = get_os_info ("NAME");
 		var os_ver = get_os_info ("VERSION");
