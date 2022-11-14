@@ -34,6 +34,8 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public Views.Base open_view (Views.Base view) {
+		if (last_view.label == view.label) return view;
+
 		leaflet.append (view);
 		leaflet.visible_child = view;
 		return view;
