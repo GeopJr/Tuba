@@ -19,7 +19,7 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 	public HashMap<Type,Type> type_overrides = new HashMap<Type,Type> ();
 
 	public new string handle {
-		owned get { return @"@$username@$domain"; }
+		owned get { return @"@$username"; }
 	}
 
 	public bool is_active {
