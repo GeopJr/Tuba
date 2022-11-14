@@ -32,7 +32,7 @@
             <property name="ellipsize">end</property>
             <property name="margin-bottom">8</property>
             <style>
-              <class name="title-4"/>
+              <class name="font-bold"/>
             </style>
             <layout>
               <property name="column">1</property>
@@ -54,7 +54,7 @@
                 <property name="ellipsize">end</property>
                 <property name="single_line_mode">True</property>
                 <style>
-                  <class name="title-4"/>
+                  <class name="font-bold"/>
                 </style>
                 <layout>
                   <property name="column">0</property>

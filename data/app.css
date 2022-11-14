@@ -9,6 +9,10 @@
   border-radius: 0px;
 }
 
+.font-bold {
+  font-weight: bold;
+}
+
 .attachment, .attachment button, flowboxchild {
 	padding:0px;
 	margin:0px;
