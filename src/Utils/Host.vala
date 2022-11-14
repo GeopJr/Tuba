@@ -16,13 +16,10 @@ public class Tooth.Host {
 		}
 		catch (Error e){
 			try {
-				string[] spawn_args = {"/usr/bin/xdg-open", uri};
-				Process.spawn_sync (null, spawn_args, null, SpawnFlags.SEARCH_PATH, null, null, null);
+				Gtk.show_uri(app.active_window, uri, Gdk.CURRENT_TIME);
 			}
 			catch (Error e){
-				//FIXME: WHY DO THESE TWO LINES CRASH THE COMPILER WHAT IS HAPPENING HERE
-				// warning (@"xdg-open failed too: $(e.message)");
-				// app.inform (Gtk.MessageType.WARNING, _("Open this URL in your browser"), uri);
+				warning (@"Gtk.show_uri failed too: $(e.message)");
 				return false;
 			}
 		}
