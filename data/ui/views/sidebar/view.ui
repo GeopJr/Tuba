@@ -91,7 +91,7 @@
 
                   <child>
                     <object class="GtkListBox" id="items">
-                      <property name="selection_mode">none</property>
+                      <property name="selection_mode">single</property>
                       <signal name="row_activated" handler="on_item_activated"/>
                       <style>
                         <class name="navigation-sidebar"/>
