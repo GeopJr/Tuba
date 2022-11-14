@@ -43,43 +43,44 @@
                   <!-- Header -->
                   <child>
                     <object class="GtkBox">
-                      <property name="orientation">vertical</property>
+                      <property name="orientation">horizontal</property>
                       <property name="margin-start">12</property>
                       <property name="margin-end">12</property>
                       <property name="margin-top">12</property>
                       <property name="margin-bottom">12</property>
-                      <property name="spacing">6</property>
-
+                      <property name="spacing">12</property>
                       <child>
                         <object class="ToothWidgetsAvatar" id="avatar">
                           <property name="size">64</property>
                           <property name="halign">start</property>
-                          <property name="margin-bottom">6</property>
                           <signal name="clicked" handler="on_open"/>
                         </object>
                       </child>
-
                       <child>
-                        <object class="GtkLabel" id="title">
-                          <property name="label">Account Name</property>
-                          <property name="xalign">0</property>
-                          <style>
-                            <class name="title-2"/>
-                          </style>
+                        <object class="GtkBox">
+                          <property name="orientation">vertical</property>
+                          <property name="valign">center</property>
+                          <child>
+                            <object class="GtkLabel" id="title">
+                              <property name="label">Account Name</property>
+                              <property name="xalign">0</property>
+                              <style>
+                                <class name="title-2"/>
+                              </style>
+                            </object>
+                          </child>
+                          <child>
+                            <object class="GtkLabel" id="subtitle">
+                              <property name="label">Handle</property>
+                              <property name="xalign">0</property>
+                              <style>
+                                <class name="body"/>
+                                <class name="dim-label"/>
+                              </style>
+                            </object>
+                          </child>
                         </object>
                       </child>
-
-                      <child>
-                        <object class="GtkLabel" id="subtitle">
-                          <property name="label">Handle</property>
-                          <property name="xalign">0</property>
-                          <style>
-                            <class name="body"/>
-                            <class name="dim-label"/>
-                          </style>
-                        </object>
-                      </child>
-
                     </object>
                   </child>
 
