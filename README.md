@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-    <img alt="screenshot of the tooth app showing the home tim" height="512" src="https://i.imgur.com/UrCrAji.png">
+    <img alt="screenshot of the tooth app showing the home tim" height="512" src="https://i.imgur.com/NvOop5O.png">
 </p>
 
 > This is a fork of the now archived [Tootle](https://github.com/bleakgrey/tootle).
