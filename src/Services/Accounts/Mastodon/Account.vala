@@ -25,6 +25,15 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		});
 	}
 
+	public static Place PLACE_HOME = new Place() {
+		title = _("Home"), 
+		icon = "user-home-symbolic",
+		open_func = win => {
+			//  win.open_view (new Views.Main ());
+			win.back();
+		}
+	};
+
 	public static Place PLACE_NOTIFICATIONS = new Place () {
 		title = _("Notifications"),
 		icon = "bell-symbolic",
@@ -74,6 +83,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 	};
 
 	public override void register_known_places (GLib.ListStore places) {
+		places.append (PLACE_HOME);
 		places.append (PLACE_NOTIFICATIONS);
 		places.append (PLACE_MESSAGES);
 		places.append (PLACE_BOOKMARKS);

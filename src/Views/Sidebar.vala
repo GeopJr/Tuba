@@ -69,6 +69,12 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 		saved_accounts.append (new_acc_row);
 	}
 
+	public void set_sidebar_selected_item(int index) {
+		if (items != null) {
+			items.select_row(items.get_row_at_index(index));
+		}
+	}
+
 	protected virtual void on_account_changed (InstanceAccount? account) {
 		this.account = account;
 		accounts_button.active = false;

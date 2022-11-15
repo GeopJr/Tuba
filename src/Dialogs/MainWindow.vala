@@ -30,11 +30,15 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			title: Build.NAME,
 			resizable: true
 		);
+		sidebar.set_sidebar_selected_item(0);
 		open_view (new Views.Main ());
 	}
 
 	public Views.Base open_view (Views.Base view) {
 		if (last_view.label == view.label) return view;
+		if (last_view != null && last_view.label != _("Home")) {
+			leaflet.remove(last_view);
+		}
 
 		leaflet.append (view);
 		leaflet.visible_child = view;
@@ -42,6 +46,9 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public bool back () {
+		if (last_view == null) return true;
+
+		sidebar.set_sidebar_selected_item(0);
 		leaflet.navigate (Adw.NavigationDirection.BACK);
 		return true;
 	}
