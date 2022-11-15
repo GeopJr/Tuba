@@ -36,7 +36,7 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	public Views.Base open_view (Views.Base view) {
 		if (last_view.label == view.label) return view;
-		if (last_view != null && last_view.label != _("Home")) {
+		if (last_view != null && !last_view.is_main) {
 			leaflet.remove(last_view);
 		}
 

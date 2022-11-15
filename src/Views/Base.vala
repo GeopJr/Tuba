@@ -10,6 +10,7 @@ public class Tooth.Views.Base : Box {
 	public string label { get; set; default = ""; }
 	public bool needs_attention { get; set; default = false; }
 	public bool current { get; set; default = false; }
+	public bool is_main { get; set; default = false; }
 	protected SimpleActionGroup actions { get; set; default = new SimpleActionGroup (); }
 
 	[GtkChild] protected unowned Adw.HeaderBar header;
