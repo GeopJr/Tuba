@@ -1,10 +1,10 @@
 {
-    "app-id" : "dev.geopjr.tooth",
-    "runtime" : "org.gnome.Platform",
-    "sdk" : "org.gnome.Sdk",
-    "runtime-version" : "40",
-    "command" : "dev.geopjr.tooth",
-    "finish-args" : [
+    "app-id": "dev.geopjr.tooth",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "43",
+    "sdk": "org.gnome.Sdk",
+    "command": "dev.geopjr.tooth",
+    "finish-args": [
         "--device=dri",
         "--share=ipc",
         "--share=network",
@@ -14,7 +14,7 @@
         "--talk-name=org.gtk.vfs.*",
         "--filesystem=xdg-run/gvfsd"
     ],
-    "cleanup" : [
+    "cleanup": [
         "/include",
         "/lib/pkgconfig",
         "/man",
@@ -22,58 +22,21 @@
         "/share/gtk-doc",
         "/share/man",
         "/share/pkgconfig",
+        "/share/vala",
         "*.la",
         "*.a"
     ],
-    "modules" : [
+    "modules": [
         {
-            "name" : "libsass",
-            "buildsystem" : "meson",
-            "builddir" : true,
-            "sources" : [
+            "name": "tooth",
+            "builddir": true,
+            "buildsystem": "meson",
+            "sources": [
                 {
-                    "type" : "git",
-                    "url" : "https://github.com/lazka/libsass.git",
-                    "branch" : "meson"
-                }
-            ]
-        },
-        {
-            "name" : "sassc",
-            "buildsystem" : "meson",
-            "builddir" : true,
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://github.com/lazka/sassc.git",
-                    "branch" : "meson"
-                }
-            ]
-        },
-        {
-            "name" : "libadwaita",
-            "buildsystem" : "meson",
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/libadwaita.git",
-                    "branch" : "main"
-                }
-            ]
-        },
-        {
-            "name" : "tooth",
-            "builddir" : true,
-            "buildsystem" : "meson",
-            "sources" : [
-                {
-                    "type" : "dir",
-                    "path" : "."
+                    "type": "dir",
+                    "path": "."
                 }
             ]
         }
-    ],
-    "build-options" : {
-        "env" : {        }
-    }
+    ]
 }

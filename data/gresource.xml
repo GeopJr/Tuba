@@ -30,7 +30,6 @@
         <file>ui/dialogs/preferences.ui</file>
         <file>ui/dialogs/list_editor.ui</file>
         <file>ui/menus.ui</file>
-
     </gresource>
 </gresources>
 

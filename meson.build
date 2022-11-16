@@ -1,6 +1,16 @@
-project('dev.geopjr.tooth', 'vala', 'c', version: '2.1.0')
+project(
+    'dev.geopjr.tooth',
+    ['c', 'vala'],
+    version: '2.1.0',
+    meson_version: '>= 0.59.0',
+    default_options: [
+        'warning_level=2',
+        'werror=false',
+    ],
+)
 
-add_global_arguments([
+add_global_arguments(
+    [
         '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
     ],
     language: 'c',
@@ -9,106 +19,110 @@ add_global_arguments([
 config = configuration_data()
 config.set('EXEC_NAME', meson.project_name())
 config.set('GETTEXT_PACKAGE', meson.project_name())
-config.set('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) + '/' )
+config.set('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) + '/')
 config.set('VERSION', meson.project_version())
 config.set('PREFIX', get_option('prefix'))
 config.set('NAME', 'Tooth')
 config.set('WEBSITE', 'https://github.com/GeopJr/tooth')
 config.set('SUPPORT_WEBSITE', 'https://github.com/GeopJr/tooth/issues')
-config.set('COPYRIGHT', '© 2018-2021 bleak_grey\n© 2022 Evangelos \"GeopJr\" Paterakis')
+config.set(
+    'COPYRIGHT',
+    '© 2018-2021 bleak_grey\n© 2022 Evangelos \"GeopJr\" Paterakis',
+)
 
 gnome = import('gnome')
 i18n = import('i18n')
 
 asresources = gnome.compile_resources(
-  'as-resources', 'data/gresource.xml',
-  source_dir: 'data',
-  c_name: 'as'
+    'as-resources',
+    'data/gresource.xml',
+    source_dir: 'data',
+    c_name: 'as',
 )
 
 libgtk_dep = dependency('gtk4', version: '>=4.0.0', required: true)
-libadwaita_dep = dependency('libadwaita-1', version: '>=1.0.0', required: true)
+libadwaita_dep = dependency('libadwaita-1', version: '>=1.2', required: true)
 
 sources = files(
+    'src/API/Account.vala',
+    'src/API/AccountField.vala',
+    'src/API/Attachment.vala',
+    'src/API/Conversation.vala',
+    'src/API/Entity.vala',
+    'src/API/List.vala',
+    'src/API/Mention.vala',
+    'src/API/Notification.vala',
+    'src/API/Relationship.vala',
+    'src/API/SearchResults.vala',
+    'src/API/Status.vala',
+    'src/API/Tag.vala',
     'src/Application.vala',
-    'src/Utils/Host.vala',
-    'src/Utils/Html.vala',
-    'src/Utils/DateTime.vala',
-    'src/Services/Accounts/InstanceAccount.vala',
+    'src/Dialogs/Composer/AttachmentsPage.vala',
+    'src/Dialogs/Composer/Dialog.vala',
+    'src/Dialogs/Composer/EditorPage.vala',
+    'src/Dialogs/Composer/Page.vala',
+    'src/Dialogs/Composer/PollPage.vala',
+    'src/Dialogs/ListEditor.vala',
+    'src/Dialogs/MainWindow.vala',
+    'src/Dialogs/NewAccount.vala',
+    'src/Dialogs/Preferences.vala',
+    'src/Dialogs/Saveable.vala',
+    'src/Services/Accounts/AccountHolder.vala',
     'src/Services/Accounts/AccountStore.vala',
+    'src/Services/Accounts/InstanceAccount.vala',
+    'src/Services/Accounts/Mastodon/Account.vala',
     'src/Services/Accounts/Places.vala',
     'src/Services/Accounts/SecretAccountStore.vala',
-    'src/Services/Accounts/AccountHolder.vala',
-    'src/Services/Accounts/Mastodon/Account.vala',
     'src/Services/Cache/AbstractCache.vala',
     'src/Services/Cache/EntityCache.vala',
     'src/Services/Cache/ImageCache.vala',
     'src/Services/Network/Network.vala',
     'src/Services/Network/Request.vala',
-    'src/Services/Network/Streams.vala',
     'src/Services/Network/Streamable.vala',
+    'src/Services/Network/Streams.vala',
     'src/Services/Settings.vala',
-    'src/API/Account.vala',
-    'src/API/AccountField.vala',
-    'src/API/Relationship.vala',
-    'src/API/Mention.vala',
-    'src/API/Tag.vala',
-    'src/API/Status.vala',
-    'src/API/Notification.vala',
-    'src/API/Attachment.vala',
-    'src/API/Conversation.vala',
-    'src/API/List.vala',
-    'src/API/SearchResults.vala',
-    'src/API/Entity.vala',
-    'src/Widgets/Widgetizable.vala',
-    'src/Widgets/Background.vala',
+    'src/Utils/DateTime.vala',
+    'src/Utils/Host.vala',
+    'src/Utils/Html.vala',
+    'src/Views/Base.vala',
+    'src/Views/Bookmarks.vala',
+    'src/Views/ContentBase.vala',
+    'src/Views/Conversations.vala',
+    'src/Views/Favorites.vala',
+    'src/Views/Federated.vala',
+    'src/Views/Hashtag.vala',
+    'src/Views/Home.vala',
+    'src/Views/List.vala',
+    'src/Views/Lists.vala',
+    'src/Views/Local.vala',
+    'src/Views/Main.vala',
+    'src/Views/Notifications.vala',
+    'src/Views/Profile.vala',
+    'src/Views/Search.vala',
+    'src/Views/Sidebar.vala',
+    'src/Views/TabbedBase.vala',
+    'src/Views/Thread.vala',
+    'src/Views/Timeline.vala',
+    'src/Widgets/Attachment/Box.vala',
+    'src/Widgets/Attachment/Image.vala',
+    'src/Widgets/Attachment/Item.vala',
     'src/Widgets/Avatar.vala',
+    'src/Widgets/Background.vala',
+    'src/Widgets/Conversation.vala',
+    'src/Widgets/LockableToggleButton.vala',
+    'src/Widgets/MarkupView.vala',
+    'src/Widgets/Notification.vala',
+    'src/Widgets/RelationshipButton.vala',
     'src/Widgets/RichLabel.vala',
     'src/Widgets/Status.vala',
-    'src/Widgets/Notification.vala',
-    'src/Widgets/Conversation.vala',
-    'src/Widgets/Attachment/Box.vala',
-    'src/Widgets/Attachment/Item.vala',
-    'src/Widgets/Attachment/Image.vala',
-    'src/Widgets/LockableToggleButton.vala',
     'src/Widgets/StatusActionButton.vala',
-    'src/Widgets/RelationshipButton.vala',
-    'src/Widgets/MarkupView.vala',
-    'src/Dialogs/Saveable.vala',
-    'src/Dialogs/NewAccount.vala',
-    'src/Dialogs/MainWindow.vala',
-    'src/Dialogs/Preferences.vala',
-    'src/Dialogs/ListEditor.vala',
-    'src/Dialogs/Composer/Dialog.vala',
-    'src/Dialogs/Composer/Page.vala',
-    'src/Dialogs/Composer/EditorPage.vala',
-    'src/Dialogs/Composer/AttachmentsPage.vala',
-    'src/Dialogs/Composer/PollPage.vala',
-    'src/Views/Base.vala',
-    'src/Views/ContentBase.vala',
-    'src/Views/TabbedBase.vala',
-    'src/Views/Sidebar.vala',
-    'src/Views/Main.vala',
-    'src/Views/Timeline.vala',
-    'src/Views/Home.vala',
-    'src/Views/Local.vala',
-    'src/Views/Federated.vala',
-    'src/Views/Notifications.vala',
-    'src/Views/Conversations.vala',
-    'src/Views/Bookmarks.vala',
-    'src/Views/Thread.vala',
-    'src/Views/Profile.vala',
-    'src/Views/Favorites.vala',
-    'src/Views/Search.vala',
-    'src/Views/Hashtag.vala',
-    'src/Views/Lists.vala',
-    'src/Views/List.vala',
+    'src/Widgets/Widgetizable.vala',
 )
 
 build_file = configure_file(
     input: 'src/Build.vala.in',
     output: 'Build.vala',
-    configuration: config
+    configuration: config,
 )
 
 executable(
@@ -131,5 +145,11 @@ executable(
 
 subdir('data')
 subdir('po')
+
+gnome.post_install(
+    glib_compile_schemas: true,
+    gtk_update_icon_cache: true,
+    update_desktop_database: true,
+)
 
 meson.add_install_script('meson/post_install.py')
