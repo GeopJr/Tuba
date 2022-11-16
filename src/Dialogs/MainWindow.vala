@@ -23,7 +23,7 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		// button_press_event.connect (on_button_press);
 	}
 
-	public MainWindow (Gtk.Application app) {
+	public MainWindow (Adw.Application app) {
 		Object (
 			application: app,
 			icon_name: Build.DOMAIN,

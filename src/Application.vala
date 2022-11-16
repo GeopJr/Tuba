@@ -21,7 +21,7 @@ namespace Tooth {
 
 	public static bool start_hidden = false;
 
-	public class Application : Gtk.Application {
+	public class Application : Adw.Application {
 
 		public Dialogs.MainWindow? main_window { get; set; }
 		public Dialogs.NewAccount? add_account_window { get; set; }
