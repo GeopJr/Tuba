@@ -56,8 +56,10 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 	}
 
 	protected virtual void on_accounts_changed (Gee.ArrayList<InstanceAccount> accounts) {
-		for (var w = saved_accounts.get_first_child (); w != null; w = w.get_next_sibling ()) {
+		var w = saved_accounts.get_first_child ();
+		while(w != null) {
 			saved_accounts.remove (w);
+			w = saved_accounts.get_first_child ();
 		}
 
 		accounts.foreach (acc => {
