@@ -18,8 +18,12 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 
 	public HashMap<Type,Type> type_overrides = new HashMap<Type,Type> ();
 
-	public new string handle {
+	public new string handle_short {
 		owned get { return @"@$username"; }
+	}
+
+	public new string handle {
+		owned get { return @"@$username@$domain"; }
 	}
 
 	public bool is_active {

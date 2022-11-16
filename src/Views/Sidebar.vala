@@ -81,7 +81,7 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 
 		if (account != null) {
 			title.label = account.display_name;
-			subtitle.label = account.handle;
+			subtitle.label = account.handle_short;
 			avatar.account = account;
 			account_items.model = account.known_places;
 		}
