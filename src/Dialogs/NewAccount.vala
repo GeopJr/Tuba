@@ -32,7 +32,7 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 	}
 
 	public override bool close_request () {
-		warning ("CLose Request");
+		warning ("Close Request");
 		app.add_account_window = null;
 		return base.close_request ();
 	}

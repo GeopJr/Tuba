@@ -20,7 +20,7 @@ public abstract class Tooth.AccountStore : GLib.Object {
 		activate (account);
 
 		if (!has_active)
-			app.present_window ();
+			app.present_window (true);
 
 		return has_active;
 	}
