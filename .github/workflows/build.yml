@@ -16,5 +16,3 @@ jobs:
       with:
         bundle: "dev.geopjr.tooth.flatpak"
         manifest-path: "dev.geopjr.tooth.json"
-        run-tests: "true"
-        cache-key: flatpak-builder-${{ github.sha }}
