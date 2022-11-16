@@ -74,22 +74,40 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		}
 	};
 
-	public static Place PLACE_SEARCH = new Place () {
-		title = _("Search"),
-		icon = "system-search-symbolic",
+	//  public static Place PLACE_SEARCH = new Place () {
+	//  	title = _("Search"),
+	//  	icon = "system-search-symbolic",
+	//  	open_func = (win) => {
+	//  		win.open_view (new Views.Search ());
+	//  	}
+	//  };
+
+	public static Place PLACE_LOCAL = new Place () {
+		title = _("Local"),
+		icon = "network-server-symbolic",
 		open_func = (win) => {
-			win.open_view (new Views.Search ());
+			win.open_view (new Views.Local ());
+		}
+	};
+
+	public static Place PLACE_FEDERATED = new Place () {
+		title = _("Federated"),
+		icon = "globe-symbolic",
+		open_func = (win) => {
+			win.open_view (new Views.Federated ());
 		}
 	};
 
 	public override void register_known_places (GLib.ListStore places) {
 		places.append (PLACE_HOME);
-		places.append (PLACE_NOTIFICATIONS);
-		places.append (PLACE_MESSAGES);
-		places.append (PLACE_BOOKMARKS);
+		//  places.append (PLACE_SEARCH);
+
+		places.append (PLACE_LOCAL);
+		places.append (PLACE_FEDERATED);
+
 		places.append (PLACE_FAVORITES);
+		places.append (PLACE_BOOKMARKS);
 		places.append (PLACE_LISTS);
-		places.append (PLACE_SEARCH);
 	}
 
 	construct {

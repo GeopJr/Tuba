@@ -7,13 +7,20 @@ public class Tooth.Views.Main : Views.TabbedBase {
 
 		add_tab (new Views.Home ());
 		add_tab (new Views.Notifications ());
-		add_tab (new Views.Local ());
-		add_tab (new Views.Federated ());
+		add_tab (new Views.Conversations ());
 	}
 
 	public override void build_header () {
 		base.build_header ();
 		back_button.hide ();
+
+		var search_button = new Button();
+		search_button.icon_name = "system-search-symbolic";
+		search_button.tooltip_text = _("Search");
+		search_button.clicked.connect ((source) => {
+			app.main_window.open_view (new Views.Search ());
+		});
+		header.pack_end(search_button);
 
 		var sidebar_button = new ToggleButton ();
 		header.pack_start (sidebar_button);
