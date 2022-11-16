@@ -16,7 +16,10 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 	[GtkChild] unowned Box done_step;
 
 	[GtkChild] unowned Entry instance_entry;
+	[GtkChild] unowned Label instance_entry_error;
+
 	[GtkChild] unowned Entry code_entry;
+	[GtkChild] unowned Label code_entry_error;
 	[GtkChild] unowned Label code_label;
 	[GtkChild] unowned Adw.StatusPage done_page;
 
@@ -28,7 +31,12 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 		reset ();
 		present ();
 
-		bind_property ("use-auto-auth", code_label, "visible", BindingFlags.SYNC_CREATE);
+		instance_entry.buffer.inserted_text.connect(clear_errors);
+		instance_entry.buffer.deleted_text.connect(clear_errors);
+
+		code_entry.buffer.inserted_text.connect(clear_errors);
+		code_entry.buffer.deleted_text.connect(clear_errors);
+		//  bind_property ("use-auto-auth", code_label, "visible", BindingFlags.SYNC_CREATE);
 	}
 
 	public override bool close_request () {
@@ -64,6 +72,7 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 
 	void reset () {
 		message ("Reset state");
+		clear_errors ();
 		use_auto_auth = true;
 		account = new InstanceAccount.empty (account.instance);
 		deck.visible_child = instance_step;
@@ -178,20 +187,40 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 		on_next_clicked ();
 	}
 
+	public void mark_errors (string error_message) {
+		instance_entry.add_css_class("error");
+		instance_entry_error.label = error_message;
+
+		code_entry.add_css_class("error");
+		code_entry_error.label = error_message;
+	}
+
+	public void clear_errors () {
+		instance_entry.remove_css_class("error");
+		instance_entry_error.label = "";
+
+		code_entry.remove_css_class("error");
+		code_entry_error.label = "";
+	}
+
 	[GtkCallback]
 	void on_next_clicked () {
+		clear_errors ();
 		if (is_working) return;
 
 		is_working = true;
 		step.begin ((obj, res) => {
 			try {
 				step.end (res);
+				clear_errors ();
 			}
 			catch (Oopsie.INSTANCE e) {
 				oopsie (_("Server returned an error"), e.message);
+				mark_errors(e.message);
 			}
 			catch (Error e) {
 				oopsie (e.message);
+				mark_errors(e.message);
 			}
 			is_working = false;
 		});

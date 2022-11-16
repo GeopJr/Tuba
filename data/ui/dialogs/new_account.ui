@@ -50,22 +50,36 @@
                         <property name="spacing">12</property>
                         <child>
                           <object class="GtkBox">
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">6</property>
                             <child>
-                              <object class="GtkButton">
-                                <property name="label">https://</property>
-                                <property name="sensitive">0</property>
-                                <property name="receives_default">1</property>
+                              <object class="GtkBox">
+                                <child>
+                                  <object class="GtkButton">
+                                    <property name="label">https://</property>
+                                    <property name="sensitive">0</property>
+                                    <property name="receives_default">1</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkEntry" id="instance_entry">
+                                    <property name="hexpand">1</property>
+                                    <signal name="activate" handler="on_next_clicked" swapped="no"/>
+                                  </object>
+                                </child>
+                                <style>
+                                  <class name="linked"/>
+                                </style>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkEntry" id="instance_entry">
-                                <property name="hexpand">1</property>
-                                <signal name="activate" handler="on_next_clicked" swapped="no"/>
+                              <object class="GtkLabel" id="instance_entry_error">
+                                <property name="label" translatable="yes"></property>
+                                <style>
+                                  <class name="error"/>
+                                </style>
                               </object>
                             </child>
-                            <style>
-                              <class name="linked"/>
-                            </style>
                           </object>
                         </child>
                         <child>
@@ -121,8 +135,22 @@
                         <property name="orientation">vertical</property>
                         <property name="spacing">12</property>
                         <child>
-                          <object class="GtkEntry" id="code_entry">
-                            <signal name="activate" handler="on_next_clicked" swapped="no"/>
+                          <object class="GtkBox">
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">6</property>
+                            <child>
+                              <object class="GtkEntry" id="code_entry">
+                                <signal name="activate" handler="on_next_clicked" swapped="no"/>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="code_entry_error">
+                                <property name="label" translatable="yes"></property>
+                                <style>
+                                  <class name="error"/>
+                                </style>
+                              </object>
+                            </child>
                           </object>
                         </child>
                         <child>
@@ -151,7 +179,7 @@
                     <property name="receives_default">1</property>
                     <property name="label" translatable="yes">Done</property>
                     <property name="sensitive" bind-source="ToothDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
-                    <signal name="clicked" handler="on_next_clicked" swapped="no"/>
+                    <signal name="clicked" handler="on_done_clicked" swapped="no"/>
                     <style>
                       <class name="suggested-action"/>
                     </style>
