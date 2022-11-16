@@ -174,7 +174,8 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 		var toast = obj.to_toast (this);
 		var id = obj.id;
 		app.send_notification (id, toast);
-		unread_toasts.set (int.parse (id), toast);
+
+		//  unread_toasts.set (int.parse (id), toast);
 	}
 
 
