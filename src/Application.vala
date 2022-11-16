@@ -131,7 +131,7 @@ namespace Tooth {
 		public void present_window (bool destroy_main = false) {
 			if (accounts.saved.is_empty) {
 				if (main_window != null && destroy_main)
-					main_window.destroy();
+					main_window.hide();
 				message ("Presenting NewAccount dialog");
 				if (add_account_window == null)
 					new Dialogs.NewAccount ();

@@ -42,9 +42,9 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 			if (!use_auto_auth)
 				throw new Oopsie.INTERNAL ("Using manual auth method");
 
-			GLib.Process.spawn_command_line_sync (@"xdg-mime default $(Build.DOMAIN).desktop x-scheme-handler/tooth");
+			//  GLib.Process.spawn_command_line_sync (@"xdg-mime default $(Build.DOMAIN).desktop x-scheme-handler/tooth");
 
-			message ("Successfully associated MIME type for automatic authorization");
+			//  message ("Successfully associated MIME type for automatic authorization");
 			return "tooth://auth_code";
 		}
 		catch (Error e) {
@@ -57,28 +57,24 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 	[GtkCallback]
 	bool on_activate_code_label_link (string uri) {
 		use_auto_auth = false;
-		reset ();
+		register_client ();
+		//  reset();
 		return true;
 	}
 
 	void reset () {
 		message ("Reset state");
+		use_auto_auth = true;
 		account = new InstanceAccount.empty (account.instance);
 		deck.visible_child = instance_step;
 	}
 
 	void oopsie (string title, string msg = "") {
-		warning (@"$title   $msg");
+		warning (@"$title   $msg.");
 		app.inform (Gtk.MessageType.ERROR, title, msg, this);
 	}
 
 	async void step () throws Error {
-		if (deck.visible_child == done_step) {
-			app.present_window ();
-			destroy ();
-			return;
-		}
-
 		if (deck.visible_child == instance_step) {
 			setup_instance ();
 			yield accounts.guess_backend (account);
@@ -199,6 +195,13 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 			}
 			is_working = false;
 		});
+	}
+
+	[GtkCallback]
+	void on_done_clicked () {
+		app.present_window ();
+		app.add_account_window = null;
+		destroy();
 	}
 
 	[GtkCallback]
