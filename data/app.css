@@ -5,10 +5,6 @@
   color: @text_view_bg;
 }
 
-.small .ttl-content {
-  border-radius: 0px;
-}
-
 .font-bold {
   font-weight: bold;
 }

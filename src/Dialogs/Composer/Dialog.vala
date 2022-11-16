@@ -61,7 +61,8 @@ public class Tooth.Dialogs.Compose : Adw.Window {
 			in_reply_to_id = to.id.to_string (),
 			in_reply_to_account_id = to.account.id.to_string (),
 			spoiler_text = to.spoiler_text,
-			content = to.formal.get_reply_mentions ()
+			content = to.formal.get_reply_mentions (),
+			visibility = to.visibility
 		};
 
 		Object (

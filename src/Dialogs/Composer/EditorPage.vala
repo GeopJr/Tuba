@@ -14,7 +14,7 @@ public class Tooth.EditorPage : ComposerPage {
 		base.on_build (dialog, status);
 
 		install_editor ();
-		install_visibility ();
+		install_visibility (status.visibility);
 		install_cw ();
 
 		validate ();
@@ -138,12 +138,18 @@ public class Tooth.EditorPage : ComposerPage {
 
 	protected DropDown visibility_button;
 
-	protected void install_visibility () {
+	protected void install_visibility (string default_visibility = "public") {
 		visibility_button = new DropDown (accounts.active.visibility_list, null) {
 			expression = new PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
 			factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/icon.ui"),
 			list_factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/full.ui")
 		};
+
+		uint default_visibility_index;
+		if (accounts.active.visibility_list.find(accounts.active.visibility[default_visibility], out default_visibility_index)) {
+			visibility_button.selected = default_visibility_index;
+		}
+
 		add_button (visibility_button);
 		add_button (new Gtk.Separator (Orientation.VERTICAL));
 	}
