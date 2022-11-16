@@ -189,17 +189,25 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 			var confirmed = app.question (
 				_("Forget %s?".printf (account.handle)),
 				_("This account will be removed from the application."),
-				app.main_window
+				app.main_window,
+				_("Forget"),
+				Adw.ResponseAppearance.DESTRUCTIVE
 			);
-			if (confirmed) {
-				try {
-					accounts.remove (account);
+
+			confirmed.response.connect(res => {
+				if (res == "yes") {
+					try {
+						accounts.remove (account);
+					}
+					catch (Error e) {
+						warning (e.message);
+						app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
+					}
 				}
-				catch (Error e) {
-					warning (e.message);
-					app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
-				}
-			}
+				confirmed.destroy();
+			});
+
+			confirmed.present ();
 		}
 
 	}

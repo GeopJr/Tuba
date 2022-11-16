@@ -163,11 +163,24 @@ public class Tooth.Views.Profile : Views.Timeline {
 		blocking_action.change_state.connect (v => {
 			var block = v.get_boolean ();
 			var q = block ? _("Block \"%s\"?") : _("Unblock \"%s\"?");
-			var yes = app.question (q.printf (profile.handle));
 			warning (q);
 
-			if (yes)
-				rs.modify (block ? "block" : "unblock");
+			var confirmed = app.question (
+				q.printf (profile.handle),
+				null,
+				app.main_window,
+				block ? _("Block") : _("Unblock"),
+				Adw.ResponseAppearance.DESTRUCTIVE
+			);
+
+			confirmed.response.connect(res => {
+				if (res == "yes") {
+					rs.modify (block ? "block" : "unblock");
+				}
+				confirmed.destroy();
+			});
+
+			confirmed.present ();
 		});
 		actions.add_action (blocking_action);
 
@@ -176,13 +189,17 @@ public class Tooth.Views.Profile : Views.Timeline {
 			var block = v.get_boolean ();
 			var q = block ? _("Block Entire \"%s\"?") : _("Unblock Entire \"%s\"?");
 			warning (q);
-			var yes = app.question (
+			var confirmed = app.question (
 				q.printf (profile.domain),
-				_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users")
+				_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users"),
+				app.main_window,
+				block ? _("Block") : _("Unblock"),
+				Adw.ResponseAppearance.DESTRUCTIVE
 			);
 
-			if (yes) {
-				var req = new Request.POST ("/api/v1/domain_blocks")
+			confirmed.response.connect(res => {
+				if (res == "yes") {
+					var req = new Request.POST ("/api/v1/domain_blocks")
 					.with_account (accounts.active)
 					.with_param ("domain", profile.domain)
 					.then (() => {
@@ -191,7 +208,11 @@ public class Tooth.Views.Profile : Views.Timeline {
 
 				if (!block) req.method = "DELETE";
 				req.exec ();
-			}
+				}
+				confirmed.destroy();
+			});
+
+			confirmed.present ();
 		});
 		actions.add_action (domain_blocking_action);
 

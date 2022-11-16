@@ -187,13 +187,22 @@ public class Tooth.Dialogs.ListEditor: Adw.Window {
 	[GtkCallback]
 	void on_cancel_clicked () {
 		if (dirty) {
-			var yes = app.question (
+			var dlg = app.question (
 				_("Discard changes?"),
 				_("You need to save the list if you want to keep them."),
-				this
+				this,
+				_("Discard"),
+				Adw.ResponseAppearance.DESTRUCTIVE
 			);
-			if (yes)
-				destroy ();
+
+			dlg.response.connect(res => {
+				if (res == "yes") {
+					destroy ();
+				}
+				dlg.destroy();
+			});
+
+			dlg.present ();
 		}
 		else
 			destroy ();

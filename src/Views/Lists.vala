@@ -29,14 +29,23 @@ public class Tooth.Views.Lists : Views.Timeline {
 		void on_remove_clicked () {
 			var remove = app.question (
 				_("Delete \"%s\"?").printf (list.title),
-				_("This action cannot be reverted.")
+				_("This action cannot be reverted."),
+				app.main_window,
+				_("Discard"),
+				Adw.ResponseAppearance.DESTRUCTIVE
 			);
-			if (remove) {
-				new Request.DELETE (@"/api/v1/lists/$(list.id)")
+
+			remove.response.connect(res => {
+				if (res == "yes") {
+					new Request.DELETE (@"/api/v1/lists/$(list.id)")
 					.with_account (accounts.active)
 					.then (() => { this.destroy (); })
 					.exec ();
-			}
+				}
+				remove.destroy();
+			});
+
+			remove.present ();
 		}
 
 		public virtual signal void open () {

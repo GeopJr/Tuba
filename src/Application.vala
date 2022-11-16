@@ -215,21 +215,21 @@ namespace Tooth {
 			dlg.destroy ();
 		}
 
-		public bool question (string text, string? msg = null, Gtk.Window? win = main_window) {
-			var dlg = new Gtk.MessageDialog (
+		public Adw.MessageDialog question (string text, string? msg = null, Gtk.Window? win = main_window, string yes_label = _("Yes"), Adw.ResponseAppearance yes_appearence = Adw.ResponseAppearance.DEFAULT, string no_label = _("Cancel"), Adw.ResponseAppearance no_appearence = Adw.ResponseAppearance.DEFAULT) {
+			var dlg = new Adw.MessageDialog (
 				win,
-				Gtk.DialogFlags.MODAL,
-				Gtk.MessageType.QUESTION,
-				Gtk.ButtonsType.YES_NO,
-				null
+				text,
+				msg
 			);
-			dlg.text = text;
-			dlg.secondary_text = msg;
+
+			dlg.add_response("no", no_label);
+			dlg.set_response_appearance("no", no_appearence);
+
+			dlg.add_response("yes", yes_label);
+			dlg.set_response_appearance("yes", yes_appearence);
+
 			dlg.transient_for = win;
-			// var i = dlg.run ();
-			dlg.destroy ();
-			// return i == ResponseType.YES;
-			return false;
+			return dlg;
 		}
 
 	}
