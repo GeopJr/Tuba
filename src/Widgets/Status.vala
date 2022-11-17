@@ -138,7 +138,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		status.formal.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
 		//  bind_property ("title_text", name_label, "label", BindingFlags.SYNC_CREATE);
 		//  title_text
-		name_label.set_label(title_text, null, this.kind_instigator.emojis_map);
+		name_label.set_label(title_text, null, status.formal.account.emojis_map);
 		bind_property ("subtitle_text", handle_label, "label", BindingFlags.SYNC_CREATE);
 		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
