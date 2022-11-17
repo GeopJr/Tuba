@@ -12,7 +12,8 @@ public class Tooth.API.Notification : Entity, Widgetizable {
 	// TODO: notification actions
 	public virtual GLib.Notification to_toast (InstanceAccount issuer) {
 		string descr;
-		issuer.describe_kind (kind, null, out descr, account);
+		string descr_url;
+		issuer.describe_kind (kind, null, out descr, account, out descr_url);
 
 		var toast = new GLib.Notification ( HtmlUtils.remove_tags (descr) );
 		if (status != null) {

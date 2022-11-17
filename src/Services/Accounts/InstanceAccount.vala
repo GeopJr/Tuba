@@ -117,9 +117,10 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 		return entity;
 	}
 
-	public virtual void describe_kind (string kind, out string? icon, out string? descr, API.Account account) {
+	public virtual void describe_kind (string kind, out string? icon, out string? descr, API.Account account, out string? descr_url) {
 		icon = null;
 		descr = null;
+		descr_url = null;
 	}
 
 	public virtual void register_known_places (GLib.ListStore places) {}

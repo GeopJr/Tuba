@@ -20,7 +20,7 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 
 	[GtkChild] unowned Entry code_entry;
 	[GtkChild] unowned Label code_entry_error;
-	[GtkChild] unowned Label code_label;
+	//  [GtkChild] unowned Label code_label;
 	[GtkChild] unowned Adw.StatusPage done_page;
 
 	public NewAccount () {

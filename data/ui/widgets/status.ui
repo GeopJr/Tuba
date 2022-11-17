@@ -27,9 +27,9 @@
           </object>
         </child>
         <child>
-          <object class="ToothWidgetsRichLabel" id="header_label">
+          <object class="ToothWidgetsRichLabelContainer" id="header_label">
             <property name="visible">0</property>
-            <property name="ellipsize">end</property>
+            <!-- <property name="ellipsize">end</property> -->
             <property name="margin-bottom">8</property>
             <style>
               <class name="font-bold"/>
@@ -46,13 +46,13 @@
             <property name="vexpand">1</property>
             <property name="row_homogeneous">1</property>
             <child>
-              <object class="ToothWidgetsRichLabel" id="name_label">
+              <object class="ToothWidgetsRichLabelContainer" id="name_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
-                <property name="label" translatable="no">Name</property>
-                <property name="ellipsize">end</property>
-                <property name="single_line_mode">True</property>
+                <!-- <property name="label" translatable="no">Name</property> -->
+                <!-- <property name="ellipsize">end</property> -->
+                <!-- <property name="single_line_mode">True</property> -->
                 <style>
                   <class name="font-bold"/>
                 </style>

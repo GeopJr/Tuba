@@ -62,7 +62,7 @@ public class Tooth.Views.Base : Box {
     protected virtual void build_actions () {}
 
 	protected virtual void build_header () {
-		var title = new Adw.WindowTitle (null, null);
+		var title = new Adw.WindowTitle (label, "");
 		bind_property ("label", title, "title", BindingFlags.SYNC_CREATE);
 		header.title_widget = title;
 	}

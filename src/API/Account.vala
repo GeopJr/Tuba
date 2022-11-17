@@ -22,6 +22,7 @@ public class Tooth.API.Account : Entity, Widgetizable {
     public string avatar { get; set; }
     public string url { get; set; }
     public string created_at { get; set; }
+    public Gee.ArrayList<API.Emoji>? emojis { get; set; }
     public int64 followers_count { get; set; }
     public int64 following_count { get; set; }
     public int64 statuses_count { get; set; }
@@ -38,6 +39,23 @@ public class Tooth.API.Account : Entity, Widgetizable {
 			return uri.get_host ();
 		}
 	}
+    public Gee.HashMap<string, string>? emojis_map {
+		owned get {
+			return gen_emojis_map();
+		}
+	}
+
+    private Gee.HashMap<string, string>? gen_emojis_map () {
+        var res = new Gee.HashMap<string, string>();
+        if (emojis != null && emojis.size > 0) {
+            emojis.@foreach (e => {
+                res.set(e.shortcode, e.url);
+                return true;
+            });
+        }
+
+       return res;
+    }
 
 	public static Account from (Json.Node node) throws Error {
 		return Entity.from_json (typeof (API.Account), node) as API.Account;

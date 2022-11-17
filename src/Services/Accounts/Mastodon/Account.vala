@@ -140,39 +140,47 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		});
 	}
 
-	public override void describe_kind (string kind, out string? icon, out string? descr, API.Account account) {
+	public override void describe_kind (string kind, out string? icon, out string? descr, API.Account account, out string? descr_url) {
 		switch (kind) {
 			case KIND_MENTION:
 				icon = "user-available-symbolic";
-				descr = _("<span underline=\"none\"><a href=\"%s\">%s</a> mentioned you</span>").printf (account.url, account.display_name);
+				descr = _("%s mentioned you").printf (account.display_name);
+				descr_url = account.url;
 				break;
 			case KIND_REBLOG:
 				icon = "media-playlist-repeat-symbolic";
-				descr = _("<span underline=\"none\"><a href=\"%s\">%s</a> boosted your status</span>").printf (account.url, account.display_name);
+				descr = _("%s boosted your status").printf (account.display_name);
+				descr_url = account.url;
 				break;
 			case KIND_REMOTE_REBLOG:
 				icon = "media-playlist-repeat-symbolic";
-				descr = _("<span underline=\"none\"><a href=\"%s\">%s</a> boosted</span>").printf (account.url, account.display_name);
+				descr = _("%s boosted").printf (account.display_name);
+				descr_url = account.url;
 				break;
 			case KIND_FAVOURITE:
 				icon = "starred-symbolic";
-				descr = _("<span underline=\"none\"><a href=\"%s\">%s</a> favorited your status</span>").printf (account.url, account.display_name);
+				descr = _("%s favorited your status").printf (account.display_name);
+				descr_url = account.url;
 				break;
 			case KIND_FOLLOW:
 				icon = "contact-new-symbolic";
-				descr = _("<span underline=\"none\"><a href=\"%s\">%s</a> now follows you</span>").printf (account.url, account.display_name);
+				descr = _("%s now follows you").printf (account.display_name);
+				descr_url = account.url;
 				break;
 			case KIND_FOLLOW_REQUEST:
 				icon = "contact-new-symbolic";
-				descr = _("<span underline=\"none\"><a href=\"%s\">%s</a> wants to follow you</span>").printf (account.url, account.display_name);
+				descr = _("%s wants to follow you").printf (account.display_name);
+				descr_url = account.url;
 				break;
 			case KIND_POLL:
 				icon = "emblem-default-symbolic";
 				descr = _("Poll results");
+				descr_url = null;
 				break;
 			default:
 				icon = null;
 				descr = null;
+				descr_url = null;
 				break;
 		}
 	}

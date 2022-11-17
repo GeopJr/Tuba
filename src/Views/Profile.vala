@@ -40,13 +40,14 @@ public class Tooth.Views.Profile : Views.Timeline {
 
 		[GtkChild] unowned Widgets.Background background;
 		[GtkChild] unowned ListBox info;
-		[GtkChild] unowned Widgets.RichLabel display_name;
+		[GtkChild] unowned Widgets.RichLabelContainer display_name;
 		[GtkChild] unowned Label handle;
 		[GtkChild] unowned Widgets.Avatar avatar;
 		[GtkChild] unowned Widgets.MarkupView note;
 
 		public void bind (API.Account account) {
-			display_name.label = account.display_name;
+			//  display_name.label = account.display_name;
+			display_name.set_label(account.display_name, null, account.emojis_map);
 			handle.label = account.handle;
 			avatar.account = account;
 			note.content = account.note;
@@ -236,7 +237,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 	}
 
 	// TODO: RS badges
-	void on_rs_updated () {
+	//  void on_rs_updated () {
 		// var label = "";
 		// if (rs_button.sensitive = rs != null) {
 		// 	if (rs.requested)
@@ -258,8 +259,8 @@ public class Tooth.Views.Profile : Views.Timeline {
 		// relationship.label = label;
 		// relationship.visible = label != "";
 
-		invalidate_actions (false);
-	}
+	//  	invalidate_actions (false);
+	//  }
 
 	public override Request append_params (Request req) {
 		if (page_next == null && source == "statuses") {

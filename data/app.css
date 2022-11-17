@@ -75,8 +75,14 @@
 	margin-bottom: 32px;
 }
 
-
-
+.ttl-label-emoji-no-click:hover {
+	background: transparent;
+}
+	
+.ttl-label-emoji-no-click {
+	background: transparent;
+	padding: 0;
+}
 
 /*
   Profile

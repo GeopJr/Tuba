@@ -31,11 +31,11 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Grid grid;
 
 	[GtkChild] protected unowned Image header_icon;
-	[GtkChild] protected unowned Widgets.RichLabel header_label;
+	[GtkChild] protected unowned Widgets.RichLabelContainer header_label;
 	[GtkChild] public unowned Image thread_line;
 
 	[GtkChild] public unowned Widgets.Avatar avatar;
-	[GtkChild] protected unowned Widgets.RichLabel name_label;
+	[GtkChild] protected unowned Widgets.RichLabelContainer name_label;
 	[GtkChild] protected unowned Label handle_label;
 	[GtkChild] protected unowned Box indicators;
 	[GtkChild] protected unowned Label date_label;
@@ -122,20 +122,23 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	protected virtual void change_kind () {
 	    string icon = null;
 	    string descr = null;
-	    accounts.active.describe_kind (this.kind, out icon, out descr, this.kind_instigator);
+	    string label_url = null;
+	    accounts.active.describe_kind (this.kind, out icon, out descr, this.kind_instigator, out label_url);
 
 	    header_icon.visible = header_label.visible = (icon != null);
 	    if (icon == null) return;
 
 	    header_icon.icon_name = icon;
-		header_label.label = descr;
+		header_label.set_label(descr, label_url, this.kind_instigator.emojis_map);
 	}
 
 	protected virtual void bind () {
 		// Content
 		bind_property ("spoiler-text", spoiler_label, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
-		bind_property ("title_text", name_label, "label", BindingFlags.SYNC_CREATE);
+		//  bind_property ("title_text", name_label, "label", BindingFlags.SYNC_CREATE);
+		//  title_text
+		name_label.set_label(title_text, null, this.kind_instigator.emojis_map);
 		bind_property ("subtitle_text", handle_label, "label", BindingFlags.SYNC_CREATE);
 		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
