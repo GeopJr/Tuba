@@ -1,0 +1,591 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the dev.geopjr.tooth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: dev.geopjr.tooth\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-30 16:21+0300\n"
+"PO-Revision-Date: 2022-11-17 20:18+0100\n"
+"Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: data/dev.geopjr.tooth.desktop.in:4 data/dev.geopjr.tooth.appdata.xml.in:7
+msgid "Tooth"
+msgstr "Tooth"
+
+#: data/dev.geopjr.tooth.desktop.in:5 data/dev.geopjr.tooth.desktop.in:6
+msgid "Mastodon Client"
+msgstr "Client Mastodon"
+
+#: data/dev.geopjr.tooth.desktop.in:8
+msgid "dev.geopjr.tooth"
+msgstr "dev.geopjr.tooth"
+
+#: data/dev.geopjr.tooth.desktop.in:11
+msgid "toot;mastodon;social;network;post;"
+msgstr "toot;mastodon;social;réseau;post;publication;"
+
+#: data/dev.geopjr.tooth.appdata.xml.in:8
+msgid "Lightning fast client for Mastodon"
+msgstr "Un client Mastodon rapide comme l’éclair"
+
+#: data/dev.geopjr.tooth.appdata.xml.in:11
+msgid ""
+"Tooth is a GTK client for the world's largest, decentralized, microblogging "
+"platform, Mastodon. With the user experience in mind, it provides a clean, "
+"native interface that allows you to integrate Mastodon's social experience "
+"seamlessly with your desktop environment."
+msgstr ""
+"Tooth est un client GTK pour la plus grande plateforme de microblogage "
+"décentralisée, Mastodon. Conçu avec l’expérience utilisateur à l’esprit, il "
+"fournit une interface native propre qui vous permet d’intégrer de manière "
+"fluide l’expérience sociale de Mastodon dans votre environnement de bureau."
+
+#: data/dev.geopjr.tooth.appdata.xml.in:14
+msgid ""
+"Mastodon is a free and open source microblogging platform similar to "
+"Twitter, but with user privacy and decentralization in mind. It is one of "
+"many protocols that interacts with the Fediverse of protocols like Pleroma, "
+"GNU Social, and others. The power of federated microblogging that Mastodon "
+"brings and the agility of Tooth creates a fantastic duo for all of your "
+"social media needs."
+msgstr ""
+"Mastodon est une plateforme de microblogage libre et gratuite similaire à "
+"Twitter, mais avec la vie privée et la décentralisation en plus. C'est l’un "
+"des nombreux protocoles qui interagissent avec le Fédiverse de protocoles "
+"comme Pleroma, GNU Social, et autres. La puissance du microblogage fédéré "
+"qu’apporte Mastodon et l’agilité de Tooth créent un duo fantastique pour "
+"tous vos besoins en matière de réseaux sociaux."
+
+#: data/dev.geopjr.tooth.appdata.xml.in:23
+msgid "bleak_grey"
+msgstr "bleak_grey"
+
+#: data/dev.geopjr.tooth.appdata.xml.in:71
+msgid "New app icon (Kudos to Tobias Bernard!)"
+msgstr "Nouvelle icône d’application (remerciements à Tobias Bernard)"
+
+#: data/dev.geopjr.tooth.appdata.xml.in:72
+msgid "New interface design"
+msgstr "Nouveau design d’interface"
+
+#: data/dev.geopjr.tooth.appdata.xml.in:73
+msgid "Fixed bugs"
+msgstr "Bogues corrigés"
+
+#: data/ui/dialogs/compose.ui:42
+msgid "Publish"
+msgstr "Publier"
+
+#: data/ui/dialogs/compose.ui:71 data/ui/dialogs/list_editor.ui:59
+msgid "Cancel"
+msgstr "Annuler"
+
+#: data/ui/dialogs/compose.ui:119
+msgid "Write your warning here"
+msgstr "Écrivez votre avertissement ici"
+
+#: data/ui/dialogs/compose.ui:185
+msgid "Visibility"
+msgstr "Visibilité"
+
+#: data/ui/dialogs/compose.ui:238
+msgid "Attach Media"
+msgstr "Joindre un média"
+
+#: data/ui/dialogs/compose.ui:260
+msgid "Instance Emojis"
+msgstr "Émojis d’instance"
+
+#: data/ui/dialogs/compose.ui:284
+msgid "Spoiler Warning"
+msgstr "Alerte spoiler"
+
+#: data/ui/dialogs/compose.ui:329
+msgid "Text"
+msgstr "Texte"
+
+#: data/ui/dialogs/compose.ui:389
+msgid "Media"
+msgstr "Média"
+
+#: data/ui/dialogs/list_editor.ui:33
+msgid "Name"
+msgstr "Nom"
+
+#: data/ui/dialogs/list_editor.ui:83
+msgid "Save"
+msgstr "Enregistrer"
+
+#: data/ui/dialogs/list_editor.ui:200
+msgid "Search among people you follow"
+msgstr "Rechercher parmi les personnes que vous suivez"
+
+#: data/ui/dialogs/list_editor.ui:256
+msgid "Nobody here"
+msgstr "Personne ici"
+
+#: data/ui/dialogs/preferences.ui:29
+msgid "General"
+msgstr "Général"
+
+#: data/ui/dialogs/preferences.ui:34
+msgid "Appearance"
+msgstr "Apparence"
+
+#: data/ui/dialogs/preferences.ui:39
+msgid "Dark theme"
+msgstr "Thème sombre"
+
+#: data/ui/dialogs/preferences.ui:54
+msgid "Text scale (%)"
+msgstr "Échelle de texte (%)"
+
+#: data/ui/dialogs/preferences.ui:61
+msgid "100"
+msgstr "100"
+
+#: data/ui/dialogs/preferences.ui:75
+msgid "Behavior"
+msgstr "Comportement"
+
+#: data/ui/dialogs/preferences.ui:79
+msgid "Autostart"
+msgstr "Démarrage automatique"
+
+#: data/ui/dialogs/preferences.ui:81
+msgid "Start minimized at boot"
+msgstr "Démarrer en mode minimisé lors de l’ouverture de session"
+
+#: data/ui/dialogs/preferences.ui:94
+msgid "Background work"
+msgstr "Activité en arrière plan"
+
+#: data/ui/dialogs/preferences.ui:96
+msgid "Receive notifications even when the app is closed"
+msgstr "Recevez des notifications même quand l’application est fermée"
+
+#: data/ui/dialogs/preferences.ui:110
+msgid "Default post visibility"
+msgstr "Visibilité par défaut des publications"
+
+#: data/ui/dialogs/preferences.ui:119
+msgid "Timelines"
+msgstr "Fils d’actualité"
+
+#: data/ui/dialogs/preferences.ui:124
+msgid "Posts per page"
+msgstr "Publications par page"
+
+#: data/ui/dialogs/preferences.ui:131
+msgid "10"
+msgstr "10"
+
+#: data/ui/dialogs/preferences.ui:141
+msgid "Infinite scrolling"
+msgstr "Défilement infini"
+
+#: data/ui/dialogs/preferences.ui:143 data/ui/dialogs/preferences.ui:176
+msgid "Warning: This will increase memory usage"
+msgstr "Avertissement : cela va accroître l’utilisation de la mémoire"
+
+#: data/ui/dialogs/preferences.ui:157
+msgid "Stream timelines"
+msgstr "Fils d’actualité du flux"
+
+#: data/ui/dialogs/preferences.ui:159
+msgid "Receive new posts and notifications in real-time"
+msgstr "Recevoir les nouvelles publications et notifications en temps réel"
+
+#: data/ui/dialogs/preferences.ui:174
+msgid "Stream public timelines"
+msgstr "Fils d’actualité publics du flux"
+
+#: data/ui/dialogs/new_account.ui:21
+msgid "Add Account"
+msgstr "Ajouter un compte"
+
+#: data/ui/dialogs/new_account.ui:25 data/ui/views/base.ui:26
+#: src/Dialogs/NewAccount.vala:85
+msgid "Back"
+msgstr "Retour"
+
+#: data/ui/dialogs/new_account.ui:48 src/Dialogs/NewAccount.vala:84
+msgid "Next"
+msgstr "Suivant"
+
+#: data/ui/dialogs/new_account.ui:129
+msgid "What is your instance?"
+msgstr "Quelle est votre instance ?"
+
+#: data/ui/dialogs/new_account.ui:191
+msgid "<a href=\"https://joinmastodon.org/\">Don't have one yet?</a>"
+msgstr "<a href=\"https://joinmastodon.org/\">Vous n’en avez pas encore ?</a>"
+
+#: data/ui/dialogs/new_account.ui:242
+msgid "Enter authorization code"
+msgstr "Entrez le code d’autorisation"
+
+#: data/ui/dialogs/new_account.ui:276
+msgid "<a href=\"tooth://manual_auth\">Try manual authorization</a>"
+msgstr "<a href=\"tootle://manual_auth\">Essayez l’autorisation manuelle</a>"
+
+#: data/ui/widgets/accounts_button.ui:64 src/Views/Conversations.vala:6
+msgid "Conversations"
+msgstr "Conversations"
+
+#: data/ui/widgets/accounts_button.ui:93 src/Views/Favorites.vala:6
+msgid "Favorites"
+msgstr "Favoris"
+
+#: data/ui/widgets/accounts_button.ui:122 src/Views/Bookmarks.vala:6
+msgid "Bookmarks"
+msgstr "Signets"
+
+#: data/ui/widgets/accounts_button.ui:152 src/Views/Lists.vala:59
+msgid "Lists"
+msgstr "Listes"
+
+#: data/ui/widgets/accounts_button.ui:204
+msgid "POSTS"
+msgstr "PUBLICATIONS"
+
+#: data/ui/widgets/accounts_button.ui:247
+msgid "FOLLOWING"
+msgstr "SUIVI"
+
+#: data/ui/widgets/accounts_button.ui:290
+msgid "FOLLOWERS"
+msgstr "ABONNÉS"
+
+#: data/ui/widgets/accounts_button.ui:344
+msgid "Refresh"
+msgstr "Actualiser"
+
+#: data/ui/widgets/accounts_button.ui:357
+msgid "Preferences"
+msgstr "Préférences"
+
+#: data/ui/widgets/accounts_button.ui:371
+msgid "About"
+msgstr "À propos"
+
+#: data/ui/widgets/accounts_button.ui:397 src/Views/Search.vala:43
+msgid "Accounts"
+msgstr "Comptes"
+
+#: data/ui/widgets/accounts_button_item.ui:60
+msgid "Forget"
+msgstr "Oublier"
+
+#: data/ui/widgets/accounts_button_item.ui:88
+msgid "Title"
+msgstr "Titre"
+
+#: data/ui/widgets/compose_attachment.ui:29
+msgid "Describe for the visually impaired"
+msgstr "Décrire pour les malvoyants"
+
+#: data/ui/widgets/compose_attachment.ui:90
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: data/ui/widgets/compose_attachment.ui:113 data/ui/widgets/list_item.ui:74
+#: src/Widgets/Status.vala:243
+msgid "Delete"
+msgstr "Supprimer"
+
+#: data/ui/widgets/list_item.ui:26 src/Dialogs/ListEditor.vala:87
+msgid "Untitled"
+msgstr "Sans titre"
+
+#: data/ui/widgets/list_item.ui:42
+msgid "Edit"
+msgstr "Modifier"
+
+#. Please do not remove the credits below. You may add your own, but keep the existing ones intact.
+#. TRANSLATORS: Replace this with your name. It will be displayed in the About dialog.
+#: src/Build.vala:15
+msgid " "
+msgstr "Irénée THIRION"
+
+#: src/Desktop.vala:18
+#, c-format
+msgid ""
+"Open this URL in your browser:\n"
+"\n"
+"%s"
+msgstr ""
+"Ouvrez cette URL dans votre navigateur :\n"
+"\n"
+"%s"
+
+#: src/Html.vala:3
+msgid "[ There was an error parsing this text :c ]"
+msgstr "[ Une erreur s’est produite lors de l’analyse de ce texte :c ]"
+
+#: src/DateTime.vala:11
+msgid "Just now"
+msgstr "À l’instant"
+
+#: src/DateTime.vala:21
+msgid "Yesterday"
+msgstr "Hier"
+
+#: src/DateTime.vala:24
+msgid "%b %e"
+msgstr "%b %e"
+
+#: src/DateTime.vala:27
+msgid "%b %e, %Y"
+msgstr "%b %e, %Y"
+
+#: src/Dialogs/About.vala:14
+msgid "Report an issue"
+msgstr "Signaler un problème"
+
+#: src/Dialogs/Compose.vala:81 src/Views/Lists.vala:33
+msgid "This action cannot be reverted."
+msgstr "Cette action ne peut être annulée."
+
+#: src/Dialogs/Compose.vala:125 src/Views/Main.vala:25
+msgid "Compose"
+msgstr "Composer"
+
+#: src/Dialogs/Compose.vala:135 src/Widgets/Status.vala:253
+msgid "Redraft"
+msgstr "Réécrire"
+
+#: src/Dialogs/Compose.vala:154
+msgid "Reply"
+msgstr "Répondre"
+
+#: src/Dialogs/Compose.vala:197
+msgid "Select media"
+msgstr "Sélectionner un média"
+
+#: src/Dialogs/Compose.vala:200
+msgid "_Open"
+msgstr "_Ouvrir"
+
+#: src/Dialogs/Compose.vala:201
+msgid "_Cancel"
+msgstr "A_nnuler"
+
+#: src/Dialogs/ListEditor.vala:201
+msgid "Discard changes?"
+msgstr "Abandonner les modifications ?"
+
+#: src/Dialogs/ListEditor.vala:202
+msgid "You need to save the list if you want to keep them."
+msgstr "Vous devez enregistrer la liste si vous voulez les conserver."
+
+#: src/Dialogs/NewAccount.vala:84
+msgid "Close"
+msgstr "Fermer"
+
+#: src/Dialogs/NewAccount.vala:85
+msgid "Add Another"
+msgstr "Ajouter une autre"
+
+#: src/Dialogs/NewAccount.vala:127
+msgid "Please enter a valid instance URL"
+msgstr "Merci d’entrer une URL d’instance valide"
+
+#: src/Dialogs/NewAccount.vala:160
+msgid "Please enter a valid authorization code"
+msgstr "Merci d’entrer un code d’autorisation valide"
+
+#: src/Dialogs/NewAccount.vala:176
+msgid "Instance failed to authorize the access token"
+msgstr "L’instance n’a pas pu autoriser le jeton d’accès"
+
+#: src/Dialogs/NewAccount.vala:190
+#, c-format
+msgid "Hello, %s!"
+msgstr "Bonjour, %s !"
+
+#: src/Dialogs/NewAccount.vala:218
+msgid "Server returned an error"
+msgstr "Le serveur a renvoyé une erreur"
+
+#: src/Services/Accounts.vala:32
+msgid "Network Error"
+msgstr "Erreur réseau"
+
+#: src/Services/Accounts.vala:33
+#, c-format
+msgid ""
+"The instance has invalidated this session. Please sign in again.\n"
+"\n"
+"%s"
+msgstr ""
+"L’instance a invalidé cette session. Merci de vous reconnecter.\n"
+"\n"
+"%s"
+
+#: src/Views/Base.vala:6
+msgid "Nothing to see here"
+msgstr "Rien ici, pour l’instant"
+
+#: src/Views/Base.vala:58
+msgid "Reload"
+msgstr "Recharger"
+
+#: src/Views/Main.vala:31 src/Views/Search.vala:15
+msgid "Search"
+msgstr "Rechercher"
+
+#: src/Views/Thread.vala:13
+msgid "Conversation"
+msgstr "Conversation"
+
+#: src/Views/Federated.vala:7
+msgid "Federated"
+msgstr "Fédéré"
+
+#: src/Views/Home.vala:6
+msgid "Home"
+msgstr "Accueil"
+
+#: src/Views/Lists.vala:32
+#, c-format
+msgid "Delete \"%s\"?"
+msgstr "Supprimer « %s » ?"
+
+#: src/Views/Local.vala:4
+msgid "Local"
+msgstr "Local"
+
+#: src/Views/Notifications.vala:11
+msgid "Notifications"
+msgstr "Notifications"
+
+#: src/Views/Profile.vala:150
+#, c-format
+msgid "Block \"%s\"?"
+msgstr "Bloquer « %s » ?"
+
+#: src/Views/Profile.vala:150
+#, c-format
+msgid "Unblock \"%s\"?"
+msgstr "Débloquer « %s » ?"
+
+#: src/Views/Profile.vala:161
+#, c-format
+msgid "Block Entire \"%s\"?"
+msgstr "Bloquer entièrement « %s » ?"
+
+#: src/Views/Profile.vala:161
+#, c-format
+msgid "Unblock Entire \"%s\"?"
+msgstr "Débloquer entièrement « %s » ?"
+
+#: src/Views/Profile.vala:164
+msgid ""
+"Blocking a domain will:\n"
+"\n"
+"• Remove its public posts and notifications from your timelines\n"
+"• Remove its followers from your account\n"
+"• Prevent you from following its users"
+msgstr ""
+"Bloquer un domaine va :\n"
+"\n"
+"• Supprimer ses publications et notifications publiques de votre fil "
+"d’actualité\n"
+"• Supprimer ses abonnés de votre compte\n"
+"• Vous empêcher de suivre ses utilisateurs"
+
+#: src/Views/Profile.vala:204
+msgid "Sent follow request"
+msgstr "Envoyer une demande d’abonnement"
+
+#: src/Views/Profile.vala:206
+msgid "Mutually follows you"
+msgstr "Vous vous suivez mutuellement"
+
+#: src/Views/Profile.vala:208
+msgid "Follows you"
+msgstr "Vous suit"
+
+#: src/Views/Profile.vala:229
+msgid "Unblock"
+msgstr "Débloquer"
+
+#: src/Views/Profile.vala:239
+msgid "Unfollow"
+msgstr "Ne plus suivre"
+
+#: src/Views/Profile.vala:248
+msgid "Follow"
+msgstr "Suivre"
+
+#: src/Views/Search.vala:44
+msgid "Statuses"
+msgstr "Statuts"
+
+#: src/Views/Search.vala:45
+msgid "Hashtags"
+msgstr "Hashtags"
+
+#: src/Views/Search.vala:61
+msgid "Enter query"
+msgstr "Entrez une requête"
+
+#: src/Widgets/Attachment/Slot.vala:46
+msgid "File saved to Downloads"
+msgstr "Fichier enregistré dans Téléchargements"
+
+#: src/Widgets/AccountsButton.vala:40
+#, c-format
+msgid "Forget %s?"
+msgstr "Oublier %s ?"
+
+#: src/Widgets/AccountsButton.vala:41
+msgid "This account will be removed from the application."
+msgstr "Ce compte sera supprimé de l’application."
+
+#: src/Widgets/AccountsButton.vala:148
+msgid "Anonymous"
+msgstr "Anonyme"
+
+#: src/Widgets/AccountsButton.vala:149
+msgid "No active account"
+msgstr "Aucun compte actif"
+
+#: src/Widgets/Status.vala:72
+msgid "Click to show sensitive content"
+msgstr "Cliquer pour afficher le contenu sensible"
+
+#: src/Widgets/Status.vala:163
+msgid "This post can't be boosted"
+msgstr "Ce post ne peut pas être boosté"
+
+#: src/Widgets/Status.vala:213
+msgid "Open in Browser"
+msgstr "Ouvrir dans le navigateur"
+
+#: src/Widgets/Status.vala:215
+msgid "Copy Link"
+msgstr "Copier le lien"
+
+#: src/Widgets/Status.vala:217
+msgid "Copy Text"
+msgstr "Copier le texte"
+
+#: src/Widgets/Status.vala:237
+msgid "Unpin from Profile"
+msgstr "Désépingler du profil"
+
+#: src/Widgets/Status.vala:237
+msgid "Pin on Profile"
+msgstr "Épingler au profil"
