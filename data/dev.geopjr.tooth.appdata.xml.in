@@ -60,21 +60,6 @@
     <value key="Purism::form_factor">mobile</value>
   </custom>
 
-  <screenshots>
-    <screenshot type="default">
-      <image>https://raw.githubusercontent.com/GeopJr/tooth/main/data/screenshot1.png</image>
-    </screenshot>
-    <screenshot>
-      <image>https://raw.githubusercontent.com/GeopJr/tooth/main/data/screenshot2.png</image>
-    </screenshot>
-    <screenshot>
-      <image>https://raw.githubusercontent.com/GeopJr/tooth/main/data/screenshot3.png</image>
-    </screenshot>
-    <screenshot>
-      <image>https://raw.githubusercontent.com/GeopJr/tooth/main/data/screenshot4.png</image>
-    </screenshot>
-  </screenshots>
-
   <releases>
     <release version="1.0.0" date="2021-02-02">
         <description>

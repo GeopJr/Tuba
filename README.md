@@ -10,7 +10,8 @@
 </p>
 
 <p align="center">
-    <img alt="screenshot of the tooth app showing the home tim" height="512" src="https://i.imgur.com/NvOop5O.png">
+    <img alt="screenshot of the tooth app showing the flap/sidebar" height="512" src="https://i.imgur.com/c6zeCvp.png">
+    <img alt="screenshot of the tooth app showing the home timeline" height="512" src="https://i.imgur.com/DOAV9nh.png">
 </p>
 
 > This is a fork of the now archived [Tootle](https://github.com/bleakgrey/tootle).
@@ -19,18 +20,18 @@
 
 1. Make sure you have these dependencies:
 
-    Package Name | Required Version | Notes
-    --- |:---:| ---
-    meson | 0.50 | 
-    valac | 0.48 | 
-    libglib-2.0-dev | 2.30 | 
-    libjson-glib-dev | 1.4.4 | 
-    libxml2-dev | 2.9.10 | 
-    libgee-0.8-dev | 0.8.5 | 
-    libsoup2.4-dev | 2.64 | 
-    libgtk-4-dev | 4.3.0 | 
-    libadwaita-1.0-dev | 1.0.0-alpha2 | Will be attempted to install automatically if not present.
-    libsecret-1-dev | 0.20 | 
+    Package Name | Required Version
+    :--- |---:|
+    meson | 0.50 
+    valac | 0.48 
+    libglib-2.0-dev | 2.30 
+    libjson-glib-dev | 1.4.4 
+    libxml2-dev | 2.9.10 
+    libgee-0.8-dev | 0.8.5 
+    libsoup2.4-dev | 2.64 
+    libgtk-4-dev | 4.3.0 
+    libadwaita-1.0-dev | 1.2.0 
+    libsecret-1-dev | 0.20 
     
 
 2. Run `install.sh` in the project directory. The app will launch automatically on success.
