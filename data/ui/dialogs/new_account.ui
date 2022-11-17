@@ -155,7 +155,7 @@
                         </child>
                         <child>
                           <object class="GtkLabel" id="code_label">
-                            <property name="label" translatable="yes">&lt;a href=&quot;tooth://manual_auth&quot;&gt;Didn't work? Try manual authorization.&lt;/a&gt;</property>
+                            <property name="label" translatable="yes">Didn't work? &lt;a href=&quot;tooth://manual_auth&quot;&gt;Try manual authorization.&lt;/a&gt;</property>
                             <property name="use_markup">1</property>
                             <property name="xalign">1</property>
                             <signal name="activate-link" handler="on_activate_code_label_link" swapped="no"/>
