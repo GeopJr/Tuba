@@ -19,7 +19,7 @@ public class Tooth.Widgets.RichLabelContainer : Adw.Bin {
 		widget.clicked.connect (on_click);
 	}
 
-	public void set_label (string text, string? url, Gee.HashMap<string, string>? emojis) {
+	public void set_label (string text, string? url, Gee.HashMap<string, string>? emojis, bool force_no_style = false) {
 		if (text.contains(":") && emojis != null) {
 			string[] labelss = text.split (":");
 
@@ -80,7 +80,7 @@ public class Tooth.Widgets.RichLabelContainer : Adw.Bin {
 		// if there's no url
 		// make the button look
 		// like a label
-		if (url ==null) {
+		if (url ==null || force_no_style) {
 			widget.add_css_class("ttl-label-emoji-no-click");
 		}
 
