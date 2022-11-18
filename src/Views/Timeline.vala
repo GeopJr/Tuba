@@ -41,6 +41,7 @@ public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase
 		this.page_next = null;
 		this.is_last_page = false;
 		this.needs_attention = false;
+		this.badge_number = 0;
 		base.clear ();
 	}
 

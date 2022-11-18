@@ -41,6 +41,7 @@ public class Tooth.Views.TabbedBase : Views.Base {
 		var page = stack.add_titled (view, ID_COUNTER.to_string (), view.label);
 		view.bind_property ("icon", page, "icon-name", BindingFlags.SYNC_CREATE);
 		view.bind_property ("needs-attention", page, "needs-attention", BindingFlags.SYNC_CREATE);
+		view.bind_property ("badge-number", page, "badge-number", BindingFlags.SYNC_CREATE);
 		view.header.hide ();
 	}
 

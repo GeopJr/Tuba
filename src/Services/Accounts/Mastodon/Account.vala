@@ -34,13 +34,13 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		}
 	};
 
-	public static Place PLACE_NOTIFICATIONS = new Place () {
-		title = _("Notifications"),
-		icon = "bell-symbolic",
-		open_func = win => {
-			win.open_view (new Views.Notifications ());
-		}
-	};
+	//  public static Place PLACE_NOTIFICATIONS = new Place () {
+	//  	title = _("Notifications"),
+	//  	icon = "bell-symbolic",
+	//  	open_func = win => {
+	//  		win.open_view (new Views.Notifications ());
+	//  	}
+	//  };
 
 	public static Place PLACE_MESSAGES = new Place () {
 		title = _("Direct Messages"),

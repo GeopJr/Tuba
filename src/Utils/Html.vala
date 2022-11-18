@@ -60,5 +60,4 @@ public class Tooth.HtmlUtils {
 		var restored = Widgets.RichLabel.restore_entities (str);
 		return Soup.URI.encode (restored, ";&+");
 	}
-
 }

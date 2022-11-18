@@ -44,8 +44,6 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 		subscribed = false;
 	}
 
-
-
 	construct {
 		this.construct_streamable ();
 		this.stream_event[EVENT_NOTIFICATION].connect (on_notification_event);
@@ -61,8 +59,6 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 			instance: instance
 		);
 	}
-
-
 
 	// Visibility options
 
@@ -125,15 +121,25 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 
 	public virtual void register_known_places (GLib.ListStore places) {}
 
-
-
 	// Notifications
 
 	public int unread_count { get; set; default = 0; }
+	public bool has_unread { get; set; default = false; }
 	public int last_read_id { get; set; default = 0; }
 	public int last_received_id { get; set; default = 0; }
 	public HashMap<int,GLib.Notification> unread_toasts { get; set; default = new HashMap<int,GLib.Notification> (); }
 	public ArrayList<Object> notification_inhibitors { get; set; default = new ArrayList<Object> (); }
+
+	public void init_notifications () {
+		new Request.GET ("/api/v1/notifications")
+			.with_account (this)
+			.with_param ("since_id", @"$last_read_id")
+			.then ((sess, msg) => {
+				unread_count = (int)Network.get_array_size(msg);
+				has_unread = unread_count > 0;
+			})
+			.exec ();
+	}
 
 	public virtual void check_notifications () {
 		new Request.GET ("/api/v1/markers?timeline[]=notifications")
@@ -141,42 +147,52 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 			.then ((sess, msg) => {
 				var root = network.parse (msg);
 				var notifications = root.get_object_member ("notifications");
-				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "0") );
+				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1") );
 			})
 			.exec ();
 	}
 
 	public void read_notifications (int up_to_id) {
+		//  if (up_to_id == -1) return;
+
 		message (@"Reading notifications up to id $up_to_id");
 
 		if (up_to_id > last_read_id) {
 			last_read_id = up_to_id;
-
-			// TODO: Actually send read req to the instance
 		}
 
-		unread_toasts.@foreach (entry => {
-			var id = entry.key;
-			read_notification (id);
-			return true;
-		});
+		if (last_read_id != -1) {
+			// Mark as read
+			new Request.POST ("/api/v1/markers")
+				.with_account (this)
+				.with_form_data ("notifications[last_read_id]", @"$last_read_id")
+				.then(() => {})
+				.exec ();
+		}
+
+		unread_count = 0;
+		has_unread = false;
+		//  unread_toasts.@foreach (entry => {
+		//  	var id = entry.key;
+		//  	read_notification (id);
+		//  	return true;
+		//  });
 	}
 
-	public void read_notification (int id) {
-		if (id <= last_read_id) {
-			message (@"Read notification with id: $id");
-			app.withdraw_notification (id.to_string ());
-			unread_toasts.unset (id);
-		}
-		unread_count = unread_toasts.size;
-	}
+	//  public void read_notification (int id) {
+	//  	if (id <= last_read_id) {
+	//  		message (@"Read notification with id: $id");
+	//  		app.withdraw_notification (id.to_string ());
+	//  		unread_toasts.unset (id);
+	//  	}
+	//  	unread_count = unread_toasts.size;
+	//  	has_unread = unread_count > 0;
+	//  }
 
 	public void send_toast (API.Notification obj) {
 		var toast = obj.to_toast (this);
 		var id = obj.id;
 		app.send_notification (id, toast);
-
-		//  unread_toasts.set (int.parse (id), toast);
 	}
 
 
@@ -199,6 +215,7 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 
 			if (notification_inhibitors.is_empty) {
 				unread_count++;
+				has_unread = true;
 				send_toast (entity);
 			}
 			else {
