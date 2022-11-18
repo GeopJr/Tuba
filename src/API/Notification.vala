@@ -22,7 +22,7 @@ public class Tooth.API.Notification : Entity, Widgetizable {
 			toast.set_body (body);
 		}
 
-		var icon_file = GLib.File.new_for_uri (issuer.avatar);
+		var icon_file = GLib.File.new_for_uri (account.avatar);
 		var icon = new FileIcon (icon_file);
 		toast.set_icon (icon);
 
