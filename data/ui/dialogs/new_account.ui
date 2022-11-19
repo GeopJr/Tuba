@@ -75,6 +75,7 @@
                             <child>
                               <object class="GtkLabel" id="instance_entry_error">
                                 <property name="label" translatable="yes"></property>
+                                <property name="wrap">1</property>
                                 <style>
                                   <class name="error"/>
                                 </style>
@@ -146,6 +147,7 @@
                             <child>
                               <object class="GtkLabel" id="code_entry_error">
                                 <property name="label" translatable="yes"></property>
+                                <property name="wrap">1</property>
                                 <style>
                                   <class name="error"/>
                                 </style>
