@@ -71,9 +71,17 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		if (kind == null && status.reblog != null) {
 			kind = Mastodon.Account.KIND_REMOTE_REBLOG;
 		}
+
+		check_actions();
 	}
 	~Status () {
 		message ("Destroying Status widget");
+	}
+
+	private void check_actions() {
+		if (kind == Mastodon.Account.KIND_FOLLOW || kind == Mastodon.Account.KIND_FOLLOW_REQUEST) {
+            actions.visible = false;
+        }
 	}
 
 	protected string spoiler_text {
@@ -123,6 +131,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	    string icon = null;
 	    string descr = null;
 	    string label_url = null;
+		check_actions();
 	    accounts.active.describe_kind (this.kind, out icon, out descr, this.kind_instigator, out label_url);
 
 	    header_icon.visible = header_label.visible = (icon != null);
