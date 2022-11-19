@@ -19,7 +19,7 @@ public class Tooth.Widgets.RichLabelContainer : Adw.Bin {
 		widget.clicked.connect (on_click);
 	}
 
-	public void set_label (string text, string? url, Gee.HashMap<string, string>? emojis, bool force_no_style = false) {
+	public void set_label (string text, string? url, Gee.HashMap<string, string>? emojis, bool force_no_style = false, bool should_markup = false) {
 		if (text.contains(":") && emojis != null) {
 			string[] labelss = text.split (":");
 
@@ -72,7 +72,7 @@ public class Tooth.Widgets.RichLabelContainer : Adw.Bin {
 				wrap_mode = Pango.WrapMode.WORD_CHAR,
 				justify = Justification.LEFT,
 				single_line_mode = false,
-				use_markup = true // allow markup
+				use_markup = should_markup
 			};
 			tmp_child.label = text;
 			button_child.append(tmp_child);
