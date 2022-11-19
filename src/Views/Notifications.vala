@@ -30,7 +30,8 @@ public class Tooth.Views.Notifications : Views.Timeline, AccountHolder, Streamab
 		//  acc.stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post_badge);
 		acc.bind_property ("unread_count", this, "badge_number", BindingFlags.SYNC_CREATE);
 		acc.bind_property ("has_unread", this, "needs_attention", BindingFlags.SYNC_CREATE);
-		acc.init_notifications();
+		//  acc.check_notifications ();
+		//  acc.init_notifications();
 	}
 
 	//  public virtual void on_new_post_badge (Streamable.Event ev) {

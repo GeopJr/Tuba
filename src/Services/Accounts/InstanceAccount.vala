@@ -129,14 +129,18 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 	public int last_received_id { get; set; default = 0; }
 	public HashMap<int,GLib.Notification> unread_toasts { get; set; default = new HashMap<int,GLib.Notification> (); }
 	public ArrayList<Object> notification_inhibitors { get; set; default = new ArrayList<Object> (); }
+	private bool passed_init_notifications = false;
 
 	public void init_notifications () {
+		if (passed_init_notifications) return;
+
 		new Request.GET ("/api/v1/notifications")
 			.with_account (this)
-			.with_param ("since_id", @"$last_read_id")
+			.with_param ("min_id", @"$last_read_id")
 			.then ((sess, msg) => {
 				unread_count = (int)Network.get_array_size(msg);
 				has_unread = unread_count > 0;
+				passed_init_notifications = true;
 			})
 			.exec ();
 	}
@@ -148,6 +152,7 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 				var root = network.parse (msg);
 				var notifications = root.get_object_member ("notifications");
 				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1") );
+				if (!passed_init_notifications) init_notifications();
 			})
 			.exec ();
 	}
@@ -159,15 +164,15 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 
 		if (up_to_id > last_read_id) {
 			last_read_id = up_to_id;
-		}
 
-		if (last_read_id != -1) {
-			// Mark as read
-			new Request.POST ("/api/v1/markers")
-				.with_account (this)
-				.with_form_data ("notifications[last_read_id]", @"$last_read_id")
-				.then(() => {})
-				.exec ();
+			if (last_read_id != -1) {
+				// Mark as read
+				new Request.POST ("/api/v1/markers")
+					.with_account (this)
+					.with_form_data ("notifications[last_read_id]", @"$up_to_id")
+					.then(() => {})
+					.exec ();
+			}
 		}
 
 		unread_count = 0;
