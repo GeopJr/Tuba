@@ -44,7 +44,7 @@ public class Tooth.Views.Notifications : Views.Timeline, AccountHolder, Streamab
 			if (!account.notification_inhibitors.contains (this))
 				account.notification_inhibitors.add (this);
 
-			account.read_notifications (account.last_received_id);
+			account.read_notifications (account.last_received_id > account.last_read_id ? account.last_received_id : account.last_received_id);
 		}
 	}
 	public override void on_hidden () {
