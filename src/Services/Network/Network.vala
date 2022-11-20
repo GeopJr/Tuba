@@ -81,6 +81,12 @@ public class Tooth.Network : GLib.Object {
 		return parse_node (msg).get_object ();
 	}
 
+	public static Json.Array? get_array_mstd (Soup.Message msg) throws Error {
+		var parser = new Json.Parser ();
+		parser.load_from_data ((string) msg.response_body.flatten ().data, -1);
+		return parser.get_root ().get_array ();
+	}
+
 	public static uint get_array_size (Soup.Message msg) throws Error {
 		var parser = new Json.Parser ();
 		parser.load_from_data ((string) msg.response_body.flatten ().data, -1);

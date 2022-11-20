@@ -138,8 +138,14 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 			.with_account (this)
 			.with_param ("min_id", @"$last_read_id")
 			.then ((sess, msg) => {
-				unread_count = (int)Network.get_array_size(msg);
-				has_unread = unread_count > 0;
+				var array = Network.get_array_mstd(msg);
+				if (array != null) {
+					unread_count = (int)array.get_length();
+					if (unread_count > 0) {
+						last_received_id = int.parse (array.get_object_element(0).get_string_member_with_default ("id", "-1"));
+					}
+					has_unread = unread_count > 0;
+				}
 				passed_init_notifications = true;
 			})
 			.exec ();
@@ -158,8 +164,6 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 	}
 
 	public void read_notifications (int up_to_id) {
-		//  if (up_to_id == -1) return;
-
 		message (@"Reading notifications up to id $up_to_id");
 
 		if (up_to_id > last_read_id) {
