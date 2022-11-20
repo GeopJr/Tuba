@@ -16,6 +16,7 @@ public class Tooth.EditorPage : ComposerPage {
 		install_editor ();
 		install_visibility (status.visibility);
 		install_cw ();
+		install_emoji_picker();
 
 		validate ();
 	}
@@ -100,7 +101,21 @@ public class Tooth.EditorPage : ComposerPage {
 		editor.buffer.text = dialog.status.content;
 	}
 
+	protected EmojiChooser emoji_picker;
+	protected void install_emoji_picker () {
+		emoji_picker = new EmojiChooser();
+		var emoji_button = new MenuButton();
+		emoji_button.icon_name = "face-smile-big-symbolic";
+		emoji_button.popover = emoji_picker;
 
+		add_button(emoji_button);
+
+		emoji_picker.emoji_picked.connect(on_emoji_picked);
+	}
+
+	protected void on_emoji_picked(string emoji_unicode) {
+		editor.buffer.text += emoji_unicode;
+	}
 
 	protected ToggleButton cw_button;
 	protected Entry cw_entry;
