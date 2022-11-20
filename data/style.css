@@ -98,3 +98,37 @@
 .large .header-image {
   border-radius:6px 6px 0 0;
 }
+
+/* Status action icons */
+
+.ttl-status-action-star:hover, .ttl-status-action-star.enabled {
+	color: @yellow_3;
+}
+
+.ttl-status-action-star:active {
+	color: @yellow_4;
+}
+
+.ttl-status-action-reblog:hover, .ttl-status-action-reblog.enabled {
+	color: @purple_3;
+}
+
+.ttl-status-action-reblog:active {
+	color: @purple_4;
+}
+
+.ttl-status-action-reply:hover, .ttl-status-action-reply.enabled {
+	color: @green_3;
+}
+
+.ttl-status-action-reply:active {
+	color: @green_4;
+}
+
+.ttl-status-action-bookmark:hover, .ttl-status-action-bookmark.enabled {
+	color: @red_3;
+}
+
+.ttl-status-action-bookmark:active {
+	color: @red_4;
+}

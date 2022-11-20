@@ -90,7 +90,7 @@ namespace Tooth {
 				accounts = new SecretAccountStore();
 				accounts.init ();
 
-				css_provider.load_from_resource (@"$(Build.RESOURCES)app.css");
+				//  css_provider.load_from_resource (@"$(Build.RESOURCES)app.css");
 				StyleContext.add_provider_for_display (Gdk.Display.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 				StyleContext.add_provider_for_display (Gdk.Display.get_default (), zoom_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 			}

@@ -18,7 +18,16 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 	public void bind (Object obj) {
 		this.object = obj;
 		active = get_value ();
+		set_class_enabled(active);
 		object.notify[prop_name].connect (on_object_notify);
+	}
+
+	protected void set_class_enabled(bool is_active = true) {
+		if (is_active) { 
+			add_css_class("enabled");
+		} else {
+			remove_css_class("enabled");
+		}
 	}
 
 	protected void on_object_notify (ParamSpec pspec) {
@@ -28,6 +37,7 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 		set_locked(true);
 		var val = get_value ();
 		active = val;
+		set_class_enabled(active);
 		set_locked(false);
 	}
 
@@ -36,6 +46,7 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 		val.set_boolean (state);
 		object.set_property (prop_name, val);
 		active = val.get_boolean ();
+		set_class_enabled(active);
 	}
 
 	protected bool get_value () {

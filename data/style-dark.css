@@ -1,0 +1,31 @@
+.ttl-status-action-star:hover, .ttl-status-action-star.enabled {
+	color: @yellow_1;
+}
+
+.ttl-status-action-star:active {
+	color: @yellow_2;
+}
+
+.ttl-status-action-reblog:hover, .ttl-status-action-reblog.enabled {
+	color: @purple_1;
+}
+
+.ttl-status-action-reblog:active {
+	color: @purple_2;
+}
+
+.ttl-status-action-reply:hover, .ttl-status-action-reply.enabled {
+	color: @green_1;
+}
+
+.ttl-status-action-reply:active {
+	color: @green_2;
+}
+
+.ttl-status-action-bookmark:hover, .ttl-status-action-bookmark.enabled {
+	color: @red_1;
+}
+
+.ttl-status-action-bookmark:active {
+	color: @red_2;
+}
