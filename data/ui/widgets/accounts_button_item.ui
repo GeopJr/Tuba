@@ -66,7 +66,7 @@
                       <object class="GtkImage">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="icon_name">user-trash-symbolic</property>
+                        <property name="icon_name">tooth-trash-symbolic</property>
                       </object>
                     </child>
                     <style>
@@ -130,7 +130,7 @@
           <object class="GtkImage">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="icon_name">list-add-symbolic</property>
+            <property name="icon_name">tooth-plus-large-symbolic</property>
           </object>
           <packing>
             <property name="name">new</property>

@@ -6,7 +6,7 @@ public class Tooth.Views.List : Views.Timeline {
         Object (
         	url: @"/api/v1/timelines/list/$(l.id)",
         	label: l.title,
-        	icon: "view-list-symbolic",
+        	icon: "tooth-list-compact-symbolic",
         	list: l
         );
 

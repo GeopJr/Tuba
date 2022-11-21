@@ -46,7 +46,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
-                <property name="icon_name">folder-documents-symbolic</property>
+                <property name="icon_name">tooth-paper-symbolic</property>
               </object>
               <packing>
                 <property name="name">new</property>
@@ -59,7 +59,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
-                <property name="icon_name">emblem-ok-symbolic</property>
+                <property name="icon_name">tooth-check-round-outline-symbolic</property>
               </object>
               <packing>
                 <property name="name">ok</property>
@@ -125,7 +125,7 @@
                     <property name="margin_end">6</property>
                     <property name="margin_top">6</property>
                     <property name="margin_bottom">6</property>
-                    <property name="icon_name">user-trash-symbolic</property>
+                    <property name="icon_name">tooth-trash-symbolic</property>
                   </object>
                 </child>
                 <style>

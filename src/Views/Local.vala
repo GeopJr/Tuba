@@ -2,7 +2,7 @@ public class Tooth.Views.Local : Views.Federated {
 
     public Local () {
         label = _("Local");
-        icon = "network-server-symbolic";
+        icon = "tooth-network-server-symbolic";
     }
 
     public override Request append_params (Request r) {

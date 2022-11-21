@@ -20,7 +20,7 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 
 	public static Place PREFERENCES = new Place () {
 			title = _("Preferences"),
-			icon = "emblem-system-symbolic",
+			icon = "tooth-gear-symbolic",
 			//selectable = false,
 			separated = true,
 			open_func = () => {
@@ -29,7 +29,7 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 	};
 	public static Place ABOUT = new Place () {
 			title = _("About"),
-			icon = "help-about-symbolic",
+			icon = "tooth-about-symbolic",
 			//selectable = false,
 			open_func = () => {
 				app.lookup_action ("about").activate (null);

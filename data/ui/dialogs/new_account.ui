@@ -38,7 +38,7 @@
             <child>
               <object class="AdwStatusPage">
                 <property name="vexpand">1</property>
-                <property name="icon_name">network-server-symbolic</property>
+                <property name="icon_name">tooth-network-server-symbolic</property>
                 <property name="title" translatable="yes">What is Your Instance?</property>
                 <child>
                   <object class="AdwClamp">
@@ -125,7 +125,7 @@
             <child>
               <object class="AdwStatusPage">
                 <property name="vexpand">1</property>
-                <property name="icon_name">dialog-password-symbolic</property>
+                <property name="icon_name">tooth-key-password-symbolic</property>
                 <property name="title" translatable="yes">Enter Authorization Code</property>
                 <child>
                   <object class="AdwClamp">
@@ -192,7 +192,7 @@
             <child>
               <object class="AdwStatusPage" id="done_page">
                 <property name="vexpand">1</property>
-                <property name="icon_name">emblem-default-symbolic</property>
+                <property name="icon_name">check-rounded-outline-symbolic</property>
                 <property name="title">Welcome!</property>
               </object>
             </child>

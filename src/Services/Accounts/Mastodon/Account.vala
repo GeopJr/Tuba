@@ -27,7 +27,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_HOME = new Place() {
 		title = _("Home"), 
-		icon = "user-home-symbolic",
+		icon = "tooth-home-symbolic",
 		open_func = win => {
 			//  win.open_view (new Views.Main ());
 			win.back();
@@ -36,7 +36,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	//  public static Place PLACE_NOTIFICATIONS = new Place () {
 	//  	title = _("Notifications"),
-	//  	icon = "bell-symbolic",
+	//  	icon = "tooth-bell-symbolic",
 	//  	open_func = win => {
 	//  		win.open_view (new Views.Notifications ());
 	//  	}
@@ -44,7 +44,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_MESSAGES = new Place () {
 		title = _("Direct Messages"),
-		icon = "mail-unread-symbolic",
+		icon = "tooth-mail-symbolic",
 		open_func = (win) => {
 			win.open_view (new Views.Conversations ());
 		}
@@ -52,7 +52,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_BOOKMARKS = new Place () {
 		title = _("Bookmarks"),
-		icon = "user-bookmarks-symbolic",
+		icon = "tooth-bookmarks-filled-symbolic",
 		open_func = (win) => {
 			win.open_view (new Views.Bookmarks ());
 		}
@@ -60,7 +60,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_FAVORITES = new Place () {
 		title = _("Favorites"),
-		icon = "starred-symbolic",
+		icon = "tooth-starred-symbolic",
 		open_func = (win) => {
 			win.open_view (new Views.Favorites ());
 		}
@@ -68,7 +68,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_LISTS = new Place () {
 		title = _("Lists"),
-		icon = "view-list-symbolic",
+		icon = "tooth-list-compact-symbolic",
 		open_func = (win) => {
 			win.open_view (new Views.Lists ());
 		}
@@ -84,7 +84,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_LOCAL = new Place () {
 		title = _("Local"),
-		icon = "network-server-symbolic",
+		icon = "tooth-network-server-symbolic",
 		open_func = (win) => {
 			win.open_view (new Views.Local ());
 		}
@@ -92,7 +92,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_FEDERATED = new Place () {
 		title = _("Federated"),
-		icon = "globe-symbolic",
+		icon = "tooth-globe-symbolic",
 		open_func = (win) => {
 			win.open_view (new Views.Federated ());
 		}
@@ -117,25 +117,25 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		set_visibility (new Visibility () {
 			id = "public",
 			name = _("Public"),
-			icon_name = "globe-symbolic",
+			icon_name = "tooth-globe-symbolic",
 			description = _("Post to public timelines")
 		});
 		set_visibility (new Visibility () {
 			id = "unlisted",
 			name = _("Unlisted"),
-			icon_name = "changes-allow-symbolic",
+			icon_name = "tooth-padlock2-open-symbolic",
 			description = _("Don\'t post to public timelines")
 		});
 		set_visibility (new Visibility () {
 			id = "private",
 			name = _("Followers-only"),
-			icon_name = "changes-prevent-symbolic",
+			icon_name = "tooth-padlock2-symbolic",
 			description = _("Post to followers only")
 		});
 		set_visibility (new Visibility () {
 			id = "direct",
 			name = _("Direct"),
-			icon_name = "mail-unread-symbolic",
+			icon_name = "tooth-mail-symbolic",
 			description = _("Post to mentioned users only")
 		});
 	}
@@ -143,37 +143,37 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 	public override void describe_kind (string kind, out string? icon, out string? descr, API.Account account, out string? descr_url) {
 		switch (kind) {
 			case KIND_MENTION:
-				icon = "user-available-symbolic";
+				icon = "tooth-chat-symbolic";
 				descr = _("%s mentioned you").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_REBLOG:
-				icon = "media-playlist-repeat-symbolic";
+				icon = "tooth-media-playlist-repeat-symbolic";
 				descr = _("%s boosted your status").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_REMOTE_REBLOG:
-				icon = "media-playlist-repeat-symbolic";
+				icon = "tooth-media-playlist-repeat-symbolic";
 				descr = _("%s boosted").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_FAVOURITE:
-				icon = "starred-symbolic";
+				icon = "tooth-starred-symbolic";
 				descr = _("%s favorited your status").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_FOLLOW:
-				icon = "contact-new-symbolic";
+				icon = "tooth-contact-new-symbolic";
 				descr = _("%s now follows you").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_FOLLOW_REQUEST:
-				icon = "contact-new-symbolic";
+				icon = "tooth-contact-new-symbolic";
 				descr = _("%s wants to follow you").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_POLL:
-				icon = "emblem-default-symbolic";
+				icon = "tooth-check-round-outline-symbolic";
 				descr = _("Poll results");
 				descr_url = null;
 				break;

@@ -15,7 +15,7 @@
 
     <child type="suffix">
       <object class="GtkButton" id="forget">
-        <property name="icon-name">user-trash-symbolic</property>
+        <property name="icon-name">tooth-trash-symbolic</property>
         <property name="valign">center</property>
         <signal name="clicked" handler="on_forget" swapped="no"/>
         <style>

@@ -4,7 +4,7 @@ public class Tooth.Views.Bookmarks : Views.Timeline {
         Object (
             url: "/api/v1/bookmarks",
             label: _("Bookmarks"),
-            icon: "user-bookmarks-symbolic"
+            icon: "tooth-bookmarks-symbolic"
         );
     }
 

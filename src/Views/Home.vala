@@ -4,7 +4,7 @@ public class Tooth.Views.Home : Views.Timeline {
         Object (
         	url: "/api/v1/timelines/home",
         	label: _("Home"),
-        	icon: "user-home-symbolic"
+        	icon: "tooth-home-symbolic"
         );
     }
 

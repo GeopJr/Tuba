@@ -176,9 +176,9 @@ public class Tooth.Widgets.Status : ListBoxRow {
 
 		reply_button.add_css_class("ttl-status-action-reply");
 		if (status.formal.in_reply_to_id != null)
-			reply_button.icon_name = "mail-reply-all-symbolic";
+			reply_button.icon_name = "tooth-reply-all-symbolic";
 		else
-			reply_button.icon_name = "mail-reply-sender-symbolic";
+			reply_button.icon_name = "tooth-reply-sender-symbolic";
 
 		if (!status.can_be_boosted) {
 			reblog_button.sensitive = false;
@@ -188,7 +188,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		else {
 			reblog_button.sensitive = true;
 			reblog_button.tooltip_text = null;
-			reblog_button.icon_name = "media-playlist-repeat-symbolic";
+			reblog_button.icon_name = "tooth-media-playlist-repeat-symbolic";
 		}
 
 		if (status.id == "") {
@@ -217,7 +217,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		    prop_name = "favourited",
 		    action_on = "favourite",
 		    action_off = "unfavourite",
-		    icon_name = "starred-symbolic"
+		    icon_name = "tooth-unstarred-symbolic",
 		};
 		favorite_button.add_css_class("ttl-status-action-star");
 		actions.append (favorite_button);
@@ -226,7 +226,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		    prop_name = "bookmarked",
 		    action_on = "bookmark",
 		    action_off = "unbookmark",
-		    icon_name = "user-bookmarks-symbolic"
+		    icon_name = "tooth-bookmarks-symbolic",
 		};
 		bookmark_button.add_css_class("ttl-status-action-bookmark");
 		actions.append (bookmark_button);

@@ -12,7 +12,7 @@
         <property name="hexpand">True</property>
         <child>
           <object class="GtkButton" id="back_button">
-            <property name="icon_name">go-previous-symbolic</property>
+            <property name="icon_name">tooth-left-large-symbolic</property>
             <signal name="clicked" handler="on_close" swapped="no"/>
           </object>
         </child>

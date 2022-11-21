@@ -7,7 +7,7 @@ public class Tooth.EditorPage : ComposerPage {
 
 	construct {
 		title = _("Text");
-		icon_name = "document-edit-symbolic";
+		icon_name = "tooth-edit-symbolic";
 	}
 
 	public override void on_build (Dialogs.Compose dialog, API.Status status) {
@@ -105,7 +105,7 @@ public class Tooth.EditorPage : ComposerPage {
 	protected void install_emoji_picker () {
 		emoji_picker = new EmojiChooser();
 		var emoji_button = new MenuButton();
-		emoji_button.icon_name = "face-smile-big-symbolic";
+		emoji_button.icon_name = "tooth-smile-symbolic";
 		emoji_button.popover = emoji_picker;
 
 		add_button(emoji_button);
@@ -136,7 +136,7 @@ public class Tooth.EditorPage : ComposerPage {
 		content.prepend (revealer);
 
 		cw_button = new ToggleButton () {
-			icon_name = "dialog-warning-symbolic",
+			icon_name = "tooth-warning-symbolic",
 			tooltip_text = _("Spoiler Warning")
 		};
 		cw_button.toggled.connect (validate);

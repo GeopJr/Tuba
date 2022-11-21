@@ -9,7 +9,7 @@ public class Tooth.Views.Notifications : Views.Timeline, AccountHolder, Streamab
 		Object (
 			url: "/api/v1/notifications",
 			label: _("Notifications"),
-			icon: "bell-symbolic",
+			icon: "tooth-bell-symbolic",
 			badge_number: 0,
 			needs_attention: false
 		);

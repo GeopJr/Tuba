@@ -65,7 +65,7 @@ public class Tooth.Views.Lists : Views.Timeline {
         Object (
         	url: @"/api/v1/lists",
             label: _("Lists"),
-            icon: "view-list-symbolic"
+            icon: "tooth-list-compact-symbolic"
         );
         accepts = typeof (API.List);
     }

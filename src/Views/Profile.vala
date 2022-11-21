@@ -83,7 +83,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 		var menu = "profile-menu";
 		menu_button.menu_model = menu_builder.get_object (menu) as MenuModel;
 		menu_button.popover.width_request = 250;
-		menu_button.icon_name = "view-more-symbolic";
+		menu_button.icon_name = "tooth-view-more-symbolic";
 		header.pack_end (menu_button);
 
 		rs_button = new Widgets.RelationshipButton () {

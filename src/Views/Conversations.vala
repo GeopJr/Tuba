@@ -4,7 +4,7 @@ public class Tooth.Views.Conversations : Views.Timeline {
         Object (
             url: "/api/v1/conversations",
             label: _("Conversations"),
-            icon: "mail-unread-symbolic"
+            icon: "tooth-mail-symbolic"
         );
         accepts = typeof (API.Conversation);
     }

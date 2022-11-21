@@ -10,13 +10,13 @@
         <property name="show-end-title-buttons">0</property>
         <child type="start">
           <object class="GtkButton" id="compose_button">
-            <property name="icon-name">document-edit-symbolic</property>
+            <property name="icon-name">tooth-edit-symbolic</property>
             <property name="action-name">app.compose</property>
           </object>
         </child>
         <child type="end">
           <object class="GtkToggleButton" id="accounts_button">
-            <property name="icon-name">system-switch-user-symbolic</property>
+            <property name="icon-name">tooth-people-symbolic</property>
             <signal name="toggled" handler="on_mode_changed"/>
           </object>
         </child>

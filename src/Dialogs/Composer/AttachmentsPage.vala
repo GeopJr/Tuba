@@ -34,7 +34,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 	public AttachmentsPage () {
 		Object (
 			title: _("Media"),
-			icon_name: "mail-attachment-symbolic"
+			icon_name: "tooth-clip-attachment-symbolic"
 		);
 
 		attachments = new GLib.ListStore (typeof (API.Attachment));

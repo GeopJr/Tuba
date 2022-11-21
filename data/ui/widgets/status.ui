@@ -93,7 +93,7 @@
                     <property name="visible">0</property>
                     <property name="can_focus">0</property>
                     <property name="opacity">0.5</property>
-                    <property name="icon_name">view-pin-symbolic</property>
+                    <property name="icon_name">tooth-pin-symbolic</property>
                     <property name="icon_size">1</property>
                   </object>
                 </child>
@@ -161,7 +161,7 @@
                             <child>
                               <object class="GtkImage">
                                 <property name="can_focus">0</property>
-                                <property name="icon_name">dialog-warning-symbolic</property>
+                                <property name="icon_name">tooth-warning-symbolic</property>
                               </object>
                             </child>
                             <child>

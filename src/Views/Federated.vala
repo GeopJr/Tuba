@@ -5,7 +5,7 @@ public class Tooth.Views.Federated : Views.Timeline {
 			url: "/api/v1/timelines/public",
 			is_public: true,
 			label: _("Federated"),
-			icon: "globe-symbolic"
+			icon: "tooth-globe-symbolic"
 		);
 	}
 

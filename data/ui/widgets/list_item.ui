@@ -37,7 +37,7 @@
                         <property name="margin_end">6</property>
                         <property name="margin_top">6</property>
                         <property name="margin_bottom">6</property>
-                        <property name="icon_name">document-edit-symbolic</property>
+                        <property name="icon_name">tooth-edit-symbolic</property>
                       </object>
                     </child>
                     <style>
@@ -59,7 +59,7 @@
                         <property name="margin_end">6</property>
                         <property name="margin_top">6</property>
                         <property name="margin_bottom">6</property>
-                        <property name="icon_name">user-trash-symbolic</property>
+                        <property name="icon_name">tooth-trash-symbolic</property>
                       </object>
                     </child>
                     <style>
@@ -77,7 +77,7 @@
             <property name="name">add</property>
             <property name="child">
               <object class="GtkImage">
-                <property name="icon_name">list-add-symbolic</property>
+                <property name="icon_name">tooth-plus-large-symbolic</property>
               </object>
             </property>
           </object>

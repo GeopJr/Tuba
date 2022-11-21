@@ -35,9 +35,9 @@ public class Tooth.Views.Search : Views.TabbedBase {
 		entry.activate.connect (() => request ());
 		status_button.clicked.connect (request);
 
-		accounts_tab = add_list_tab (_("Accounts"), "system-users-symbolic");
-		statuses_tab = add_list_tab (_("Statuses"), "user-available-symbolic");
-		hashtags_tab = add_list_tab (_("Hashtags"), "hashtag-symbolic");
+		accounts_tab = add_list_tab (_("Accounts"), "tooth-people-symbolic");
+		statuses_tab = add_list_tab (_("Statuses"), "tooth-chat-symbolic");
+		hashtags_tab = add_list_tab (_("Hashtags"), "tooth-hashtag-symbolic");
 
 		request ();
 	}

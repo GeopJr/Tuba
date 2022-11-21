@@ -169,7 +169,7 @@
             <property name="width_chars">30</property>
             <property name="truncate_multiline">True</property>
             <property name="caps_lock_warning">False</property>
-            <property name="primary_icon_name">edit-find-symbolic</property>
+            <property name="primary_icon_name">tooth-loupe-large-symbolic</property>
             <property name="primary_icon_activatable">False</property>
             <property name="primary_icon_sensitive">False</property>
             <property name="placeholder_text" translatable="yes">Search among people you follow</property>
@@ -210,7 +210,7 @@
                           <object class="GtkImage">
                             <property name="visible">0</property>
                             <property name="pixel_size">48</property>
-                            <property name="icon_name">face-sad-symbolic</property>
+                            <property name="icon_name">tooth-sentiment-dissatisfied-symbolic</property>
                           </object>
                         </child>
                         <child>
