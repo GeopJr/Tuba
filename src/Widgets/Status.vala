@@ -220,6 +220,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		    action_on = "favourite",
 		    action_off = "unfavourite",
 		    icon_name = "tooth-unstarred-symbolic",
+			icon_toggled_name = "tooth-starred-symbolic"
 		};
 		favorite_button.add_css_class("ttl-status-action-star");
 		favorite_button.tooltip_text = _("Favourite");
@@ -230,6 +231,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		    action_on = "bookmark",
 		    action_off = "unbookmark",
 		    icon_name = "tooth-bookmarks-symbolic",
+			icon_toggled_name = "tooth-bookmarks-filled-symbolic"
 		};
 		bookmark_button.add_css_class("ttl-status-action-bookmark");
 		bookmark_button.tooltip_text = _("Bookmark");
@@ -243,7 +245,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		append_actions ();
 
 		// var menu_button = new MenuButton (); //TODO: Status menu
-		// menu_button.icon_name = "view-more-symbolic";
+		// menu_button.icon_name = "tooth-view-more-symbolic";
 		// menu_button.get_first_child ().add_css_class ("flat");
 		// actions.append (menu_button);
 

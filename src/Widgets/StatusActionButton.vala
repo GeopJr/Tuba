@@ -8,6 +8,8 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 	public string prop_name { get; set; }
 	public string action_on { get; construct set; }
 	public string action_off { get; construct set; }
+	public string icon_toggled_name { get; set; default = null; }
+	public string default_icon_name { get; set; default = null; }
 
 	~StatusActionButton() {
 		if (object != null) {
@@ -19,6 +21,7 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 		this.object = obj;
 		active = get_value ();
 		set_class_enabled(active);
+		set_toggled_icon(active);
 		object.notify[prop_name].connect (on_object_notify);
 	}
 
@@ -30,6 +33,19 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 		}
 	}
 
+	protected void set_toggled_icon(bool is_active = true) {
+		if (icon_toggled_name != null) {
+			if (this.icon_name != null && this.default_icon_name == null) {
+				default_icon_name = this.icon_name;
+			}
+			if (is_active) {
+				this.icon_name = icon_toggled_name;
+			} else {
+				this.icon_name = default_icon_name;
+			}
+		}
+	}
+
 	protected void on_object_notify (ParamSpec pspec) {
 		if (locked)
 			return;
@@ -37,7 +53,6 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 		set_locked(true);
 		var val = get_value ();
 		active = val;
-		set_class_enabled(active);
 		set_locked(false);
 	}
 
@@ -46,7 +61,6 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 		val.set_boolean (state);
 		object.set_property (prop_name, val);
 		active = val.get_boolean ();
-		set_class_enabled(active);
 	}
 
 	protected bool get_value () {
@@ -73,6 +87,8 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 		req = entity.action (action);
 
 		set_locked(true);
+		set_class_enabled(active);
+		set_toggled_icon(active);
 
 		message (@"Performing status action '$action'...");
 		req.await.begin ((o, res) => {
@@ -89,6 +105,8 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 				warning (@"Couldn't perform action \"$action\" on a Status:");
 				warning (e.message);
 				app.inform (Gtk.MessageType.WARNING, _("Network Error"), e.message);
+				set_class_enabled(!active);
+				set_toggled_icon(!active);
 			}
 
 			req = null;
