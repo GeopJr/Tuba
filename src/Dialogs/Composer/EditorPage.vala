@@ -90,7 +90,8 @@ public class Tooth.EditorPage : ComposerPage {
 		content.prepend (editor);
 
 		char_counter = new Label (char_limit.to_string ()) {
-			margin_end = 6
+			margin_end = 6,
+			tooltip_text = _("Characters Left")
 		};
 		char_counter.add_css_class ("heading");
 		bottom_bar.pack_end (char_counter);
@@ -104,9 +105,11 @@ public class Tooth.EditorPage : ComposerPage {
 	protected EmojiChooser emoji_picker;
 	protected void install_emoji_picker () {
 		emoji_picker = new EmojiChooser();
-		var emoji_button = new MenuButton();
-		emoji_button.icon_name = "tooth-smile-symbolic";
-		emoji_button.popover = emoji_picker;
+		var emoji_button = new MenuButton() {
+			icon_name = "tooth-smile-symbolic",
+			popover = emoji_picker,
+			tooltip_text = _("Emoji Picker")
+		};
 
 		add_button(emoji_button);
 
@@ -157,7 +160,8 @@ public class Tooth.EditorPage : ComposerPage {
 		visibility_button = new DropDown (accounts.active.visibility_list, null) {
 			expression = new PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
 			factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/icon.ui"),
-			list_factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/full.ui")
+			list_factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/full.ui"),
+			tooltip_text = _("Post Privacy")
 		};
 
 		uint default_visibility_index;
