@@ -58,7 +58,8 @@ public class Tooth.Views.Profile : Views.Timeline {
 				foreach (API.AccountField f in account.fields) {
 					var row = new Adw.ActionRow ();
 					var val = new Widgets.RichLabel (HtmlUtils.simplify (f.val));
-					val.wrap = false;
+					val.wrap = true;
+					val.hexpand = true;
 					val.xalign = 1;
 					row.title = f.name;
 					row.add_suffix (val);
