@@ -14,6 +14,7 @@ public class Tooth.EditorPage : ComposerPage {
 		base.on_build (dialog, status);
 
 		install_editor ();
+		install_overlay();
 		install_visibility (status.visibility);
 		install_cw ();
 		install_emoji_picker();
@@ -66,6 +67,7 @@ public class Tooth.EditorPage : ComposerPage {
 			remaining_chars = (int) char_limit;
 		});
 		recount_chars.connect_after (() => {
+			placeholder.visible = remaining_chars == char_limit;
 			char_counter.label = remaining_chars.to_string ();
 			if (remaining_chars < 0)
 				char_counter.add_css_class ("error");
@@ -87,7 +89,7 @@ public class Tooth.EditorPage : ComposerPage {
 		recount_chars.connect (() => {
 			remaining_chars -= editor.buffer.get_char_count ();
 		});
-		content.prepend (editor);
+		//  content.prepend (editor);
 
 		char_counter = new Label (char_limit.to_string ()) {
 			margin_end = 6,
@@ -96,6 +98,26 @@ public class Tooth.EditorPage : ComposerPage {
 		char_counter.add_css_class ("heading");
 		bottom_bar.pack_end (char_counter);
 		editor.buffer.changed.connect (validate);
+	}
+
+	protected Overlay overlay;
+	protected Label placeholder;
+
+	protected void install_overlay() {
+		overlay = new Overlay();
+		placeholder = new Label(_("What's on your mind?")) {
+			valign = Align.START,
+			halign = Align.START,
+			justify = Justification.FILL,
+			margin_top = 6,
+			margin_start = 6,
+			wrap = true,
+			sensitive = false
+		};
+		
+		overlay.add_overlay(placeholder);
+		overlay.child = editor;
+		content.prepend(overlay);
 	}
 
 	protected void populate_editor () {
