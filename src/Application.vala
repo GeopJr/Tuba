@@ -19,6 +19,8 @@ namespace Tooth {
 	public static EntityCache entity_cache;
 	public static ImageCache image_cache;
 
+	public static GLib.Regex rtl_regex;
+
 	public static bool start_hidden = false;
 
 	public class Application : Adw.Application {
@@ -69,6 +71,12 @@ namespace Tooth {
 				opt_context.parse (ref args);
 			}
 			catch (GLib.OptionError e) {
+				warning (e.message);
+			}
+
+			try {
+				rtl_regex = new GLib.Regex("[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]", GLib.RegexCompileFlags.OPTIMIZE, GLib.RegexMatchFlags.ANCHORED);
+			} catch (GLib.RegexError e) {
 				warning (e.message);
 			}
 

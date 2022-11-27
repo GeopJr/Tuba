@@ -53,6 +53,10 @@ public class Tooth.Widgets.RichLabel : Adw.Bin {
 
 	public RichLabel (string text) {
 		widget.set_label (text);
+		var rtl = rtl_regex.match(text);
+		if (rtl) {
+			xalign = 1;
+		}
 	}
 
 	public static string escape_entities (string content) {
