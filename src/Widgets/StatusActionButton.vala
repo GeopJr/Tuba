@@ -10,6 +10,8 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 	public string action_off { get; construct set; }
 	public string icon_toggled_name { get; set; default = null; }
 	public string default_icon_name { get; set; default = null; }
+	public bool increase_fav { get; set; default = false; }
+	public bool increase_reblog { get; set; default = false; }
 
 	~StatusActionButton() {
 		if (object != null) {
@@ -81,6 +83,18 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 		return active != get_value (); // Ignore if this got triggered while unchanged.
 	}
 
+	protected void update_stats (API.Status obj, string action) {
+		if (action == "favourite") {
+			obj.favourites_count++;
+		} else if (action == "unfavourite") {
+			obj.favourites_count--;
+		} else if (action == "reblog") {
+			obj.reblogs_count++;
+		} else if (action == "unreblog") {
+			obj.reblogs_count--;
+		}
+	}
+
 	protected override void commit_change () {
 		var entity = object as API.Status;
 		var action = !active ? action_off : action_on;
@@ -99,11 +113,13 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 				var jobj = node.get_object ();
 				var received_value = jobj.get_boolean_member (prop_name);
 				set_value (received_value);
+				update_stats(entity, action);
 				message (@"Status action '$action' complete");
 			}
 			catch (Error e) {
 				warning (@"Couldn't perform action \"$action\" on a Status:");
 				warning (e.message);
+				update_stats(entity, active ? action_off : action_on);
 				app.inform (Gtk.MessageType.WARNING, _("Network Error"), e.message);
 				set_class_enabled(!active);
 				set_toggled_icon(!active);

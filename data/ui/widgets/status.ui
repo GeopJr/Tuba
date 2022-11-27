@@ -205,6 +205,29 @@
               </object>
             </child>
             <child>
+              <object class="GtkBox" id="status_stats">
+                <property name="spacing">20</property>
+                <property name="margin_top">20</property>
+                <property name="visible">0</property>
+                <child>
+                  <object class="GtkLabel" id="reblog_count_label">
+                    <property name="label">Reblogs</property>
+                    <property name="use_markup">1</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="fav_count_label">
+                      <property name="label">Favourites</property>
+                      <property name="use_markup">1</property>
+                  </object>
+                </child>
+                <style>
+                  <class name="body"/>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+            </child>
+            <child>
               <object class="GtkBox" id="actions">
                 <property name="homogeneous">1</property>
                 <property name="spacing">6</property>

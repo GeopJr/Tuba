@@ -31,6 +31,7 @@ public class Tooth.Views.Thread : Views.ContentBase, AccountHolder {
 		for (var w = content.get_row_at_index (0) as Widgets.Status;
 				w != null;
 				w = w.get_next_sibling () as Widgets.Status) {
+			w.is_conversation_open = true;
 
 			var id = w.status.formal.in_reply_to_id;
 

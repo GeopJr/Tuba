@@ -50,12 +50,18 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Button spoiler_button;
 	[GtkChild] protected unowned Widgets.RichLabel spoiler_label;
 
+	[GtkChild] protected unowned Box status_stats;
+	[GtkChild] protected unowned Label reblog_count_label;
+	[GtkChild] protected unowned Label fav_count_label;
+
 	[GtkChild] protected unowned Box actions;
 
 	protected Button reply_button;
 	protected StatusActionButton reblog_button;
 	protected StatusActionButton favorite_button;
 	protected StatusActionButton bookmark_button;
+
+    public bool is_conversation_open { get; set; default = false; }
 
 	construct {
 	    open.connect (on_open);
@@ -145,6 +151,18 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		// Content
 		bind_property ("spoiler-text", spoiler_label, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
+
+		bind_property ("is_conversation_open", status_stats, "visible", BindingFlags.SYNC_CREATE);
+		status.formal.bind_property ("reblogs_count", reblog_count_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			int64 srcval = (int64) src;
+			target.set_string (@"<b>$srcval</b> " + _("Reblogs"));
+			return true;
+		});
+		status.formal.bind_property ("favourites_count", fav_count_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			int64 srcval = (int64) src;
+			target.set_string (@"<b>$srcval</b> " + _("Favourites"));
+			return true;
+		});
 		//  bind_property ("title_text", name_label, "label", BindingFlags.SYNC_CREATE);
 		//  title_text
 		name_label.set_label(title_text, status.formal.account.handle, status.formal.account.emojis_map, true);
