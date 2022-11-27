@@ -20,6 +20,7 @@ namespace Tooth {
 	public static ImageCache image_cache;
 
 	public static GLib.Regex rtl_regex;
+	public static bool is_rtl;
 
 	public static bool start_hidden = false;
 
@@ -147,8 +148,10 @@ namespace Tooth {
 			}
 			else {
 				message ("Presenting MainWindow");
-				if (main_window == null)
+				if (main_window == null) {
 					main_window = new Dialogs.MainWindow (this);
+					is_rtl = main_window.get_default_direction() == Gtk.TextDirection.RTL;
+				}
 				main_window.present ();
 			}
 		}

@@ -55,7 +55,9 @@ public class Tooth.Widgets.RichLabel : Adw.Bin {
 		widget.set_label (text);
 		var rtl = rtl_regex.match(text);
 		if (rtl) {
-			xalign = 1;
+			xalign = is_rtl ? 0 : 1;
+		} else {
+			xalign = is_rtl ? 1 : 0;
 		}
 	}
 
