@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <requires lib="libhandy" version="1.0"/>
+  <requires lib="libadwaita" version="1.0"/>
   <template class="ToothDialogsCompose" parent="AdwWindow">
     <property name="modal">1</property>
     <property name="default_width">500</property>
@@ -32,7 +32,8 @@
             </child>
             <child type="end">
               <object class="GtkButton" id="commit_button">
-                <property name="label" translatable="yes">Publish</property>
+                <property name="label" translatable="yes">_Publish</property>
+                <property name="use-underline">1</property>
                 <signal name="clicked" handler="on_commit" swapped="no"/>
               </object>
             </child>
