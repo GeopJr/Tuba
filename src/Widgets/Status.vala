@@ -170,12 +170,17 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			if (srcval > 0) {
 				reply_button_content.margin_start = 6;
 				reply_button_content.margin_end = 6;
+			} else {
+				reply_button_content.margin_start = 0;
+				reply_button_content.margin_end = 0;
 			}
 
 			if (srcval == 1)
 				target.set_string (@"1");
 			else if (srcval > 1)
 				target.set_string (@"+1");
+			else
+				target.set_string("");
 			return true;
 		});
 		//  bind_property ("title_text", name_label, "label", BindingFlags.SYNC_CREATE);
