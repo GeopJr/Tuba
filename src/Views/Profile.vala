@@ -30,6 +30,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 			profile: acc,
 			rs: new API.Relationship.for_account (acc),
 			label: _("Profile"),
+			is_profile: true,
 			url: @"/api/v1/accounts/$(acc.id)/statuses"
 		);
 		cover.bind (profile);
