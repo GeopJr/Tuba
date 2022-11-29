@@ -257,16 +257,16 @@
           </object>
         </child>
         <child>
-              <object class="ToothWidgetsAvatar" id="avatar">
-                <property name="size">48</property>
-                <property name="valign">start</property>
-                <property name="visible">true</property>
-                <signal name="clicked" handler="on_avatar_clicked" swapped="no"/>
-              <layout>
-                <property name="column">0</property>
-                <property name="row">1</property>
-              </layout>
-              </object>
+          <object class="ToothWidgetsAvatar" id="avatar">
+            <property name="size">48</property>
+            <property name="valign">start</property>
+            <property name="visible">true</property>
+            <signal name="clicked" handler="on_avatar_clicked" swapped="no"/>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
         </child>
       </object>
     </property>
