@@ -54,7 +54,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Label reblog_count_label;
 	[GtkChild] protected unowned Label fav_count_label;
 
-	[GtkChild] protected unowned Box actions;
+	[GtkChild] public unowned Box actions;
 
 	protected Button reply_button;
 	protected StatusActionButton reblog_button;

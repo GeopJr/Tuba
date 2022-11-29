@@ -18,7 +18,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 	protected SimpleAction hiding_reblogs_action;
 	protected SimpleAction blocking_action;
 	protected SimpleAction domain_blocking_action;
-	protected SimpleAction source_action;
+	//  protected SimpleAction source_action;
 
 	construct {
 		cover = build_cover ();
@@ -34,13 +34,14 @@ public class Tooth.Views.Profile : Views.Timeline {
 			url: @"/api/v1/accounts/$(acc.id)/statuses"
 		);
 		cover.bind (profile);
+		build_profile_stats(cover.info);
 	}
 
 	[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/profile_header.ui")]
 	protected class Cover : Box {
 
 		[GtkChild] unowned Widgets.Background background;
-		[GtkChild] unowned ListBox info;
+		[GtkChild] public unowned ListBox info;
 		[GtkChild] unowned Widgets.RichLabelContainer display_name;
 		[GtkChild] unowned Label handle;
 		[GtkChild] unowned Widgets.Avatar avatar;
@@ -68,13 +69,38 @@ public class Tooth.Views.Profile : Views.Timeline {
 					info.append (row);
 				}
 			}
-
 		}
 
 		void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
 			background.paintable = data;
 		}
+	}
 
+	protected void build_profile_stats(ListBox info) {
+		var box = new Box (Orientation.HORIZONTAL, 6) {
+			homogeneous = true
+		};
+
+		box.append(build_profile_stats_button(@"$(profile.statuses_count) " + _("Posts"), "statuses"));
+		box.append(build_profile_stats_button(@"$(profile.following_count) " + _("Following"), "following"));
+		box.append(build_profile_stats_button(@"$(profile.followers_count) " + _("Followers"), "followers"));
+
+		info.append (box);
+	}
+
+	protected Button build_profile_stats_button(string btn_label, string t_source) {
+		var btn = new Button.with_label(btn_label);
+		btn.add_css_class("flat");
+
+		btn.clicked.connect(() => {
+			source = t_source;
+			accepts = source == "statuses" ? typeof (API.Status) : typeof (API.Account);
+
+			url = @"/api/v1/accounts/$(profile.id)/$source";
+			invalidate_actions (true);
+		});
+
+		return btn;
 	}
 
 	protected override void build_header () {
@@ -116,16 +142,16 @@ public class Tooth.Views.Profile : Views.Timeline {
 		});
 		actions.add_action (replies_action);
 
-		source_action = new SimpleAction.stateful ("source", VariantType.STRING, source);
-		source_action.change_state.connect (v => {
-			source = v.get_string ();
-			source_action.set_state (source);
-			accepts = (source == "statuses" ? typeof (API.Status) : typeof (API.Account));
+		//  source_action = new SimpleAction.stateful ("source", VariantType.STRING, source);
+		//  source_action.change_state.connect (v => {
+		//  	source = v.get_string ();
+		//  	source_action.set_state (source);
+		//  	accepts = (source == "statuses" ? typeof (API.Status) : typeof (API.Account));
 
-			url = @"/api/v1/accounts/$(profile.id)/$source";
-			invalidate_actions (true);
-		});
-		actions.add_action (source_action);
+		//  	url = @"/api/v1/accounts/$(profile.id)/$source";
+		//  	invalidate_actions (true);
+		//  });
+		//  actions.add_action (source_action);
 
 		var mention_action = new SimpleAction ("mention", VariantType.STRING);
 		mention_action.activate.connect (v => {

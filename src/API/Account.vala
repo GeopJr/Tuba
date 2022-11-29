@@ -71,7 +71,10 @@ public class Tooth.API.Account : Entity, Widgetizable {
 
     public override Gtk.Widget to_widget () {
         var status = new API.Status.from_account (this);
-        return new Widgets.Status (status);
+        var status_widget = new Widgets.Status (status);
+        status_widget.actions.visible = false;
+
+        return status_widget;
     }
 
 	public override void open () {
