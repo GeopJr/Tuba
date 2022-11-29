@@ -166,6 +166,12 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		});
 		status.formal.bind_property ("replies_count", reply_button_content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			int64 srcval = (int64) src;
+
+			if (srcval > 0) {
+				reply_button_content.margin_start = 6;
+				reply_button_content.margin_end = 6;
+			}
+
 			if (srcval == 1)
 				target.set_string (@"1");
 			else if (srcval > 1)
