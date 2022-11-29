@@ -61,7 +61,7 @@
       <attribute name="label" translatable="yes">Timeline</attribute>
       <submenu id="profile-filter-menu">
         <attribute name="label" translatable="yes">Filter</attribute>
-        <item>
+        <!-- <item>
           <attribute name="label" translatable="yes">Posts</attribute>
           <attribute name="action">view.source</attribute>
           <attribute name="target">statuses</attribute>
@@ -75,9 +75,9 @@
           <attribute name="label" translatable="yes">Followers</attribute>
           <attribute name="action">view.source</attribute>
           <attribute name="target">followers</attribute>
-        </item>
+        </item> -->
 
-        <section>
+        <!-- <section> -->
           <item>
             <attribute name="label" translatable="yes">With Replies</attribute>
             <attribute name="action">view.include-replies</attribute>
@@ -88,7 +88,7 @@
             <attribute name="action">view.only-media</attribute>
             <attribute name="hidden-when">action-disabled</attribute>
           </item>
-        </section>
+        <!-- </section> -->
 
       </submenu>
 
