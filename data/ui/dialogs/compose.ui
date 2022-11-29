@@ -47,7 +47,12 @@
             <property name="vexpand">1</property>
           </object>
         </child>
-
+        <child>
+          <object class="AdwViewSwitcherBar" id="switcher_bar">
+            <property name="stack">stack</property>
+            <property name="reveal" bind-source="title_switcher" bind-property="title-visible" bind-flags="sync-create"/>
+          </object>
+        </child>
       </object>
     </child>
 
