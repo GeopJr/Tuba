@@ -4,6 +4,7 @@ public class Tooth.EditorPage : ComposerPage {
 
 	protected uint char_limit { get; set; default = 500; } //TODO: Ask the instance to get this value
 	protected int remaining_chars { get; set; default = 0; }
+	public bool can_publish { get; set; default = false; }
 
 	construct {
 		title = _("Text");
@@ -69,10 +70,13 @@ public class Tooth.EditorPage : ComposerPage {
 		recount_chars.connect_after (() => {
 			placeholder.visible = remaining_chars == char_limit;
 			char_counter.label = remaining_chars.to_string ();
-			if (remaining_chars < 0)
+			if (remaining_chars < 0) {
 				char_counter.add_css_class ("error");
-			else
+				can_publish = false;
+			} else {
 				char_counter.remove_css_class ("error");
+				can_publish = remaining_chars != char_limit;
+			}
 		});
 
 		editor = new TextView () {
