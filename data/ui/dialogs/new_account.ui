@@ -192,7 +192,7 @@
             <child>
               <object class="AdwStatusPage" id="done_page">
                 <property name="vexpand">1</property>
-                <property name="icon_name">check-rounded-outline-symbolic</property>
+                <property name="icon_name">tooth-check-round-outline-symbolic</property>
                 <property name="title">Welcome!</property>
               </object>
             </child>
