@@ -57,6 +57,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	[GtkChild] public unowned Box actions;
 
 	protected Button reply_button;
+	protected Adw.ButtonContent reply_button_content;
 	protected StatusActionButton reblog_button;
 	protected StatusActionButton favorite_button;
 	protected StatusActionButton bookmark_button;
@@ -163,6 +164,25 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			target.set_string (@"<b>$srcval</b> " + _("Favourites"));
 			return true;
 		});
+		status.formal.bind_property ("replies_count", reply_button_content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			int64 srcval = (int64) src;
+
+			if (srcval > 0) {
+				reply_button_content.margin_start = 6;
+				reply_button_content.margin_end = 6;
+			} else {
+				reply_button_content.margin_start = 0;
+				reply_button_content.margin_end = 0;
+			}
+
+			if (srcval == 1)
+				target.set_string (@"1");
+			else if (srcval > 1)
+				target.set_string (@"+1");
+			else
+				target.set_string("");
+			return true;
+		});
 		//  bind_property ("title_text", name_label, "label", BindingFlags.SYNC_CREATE);
 		//  title_text
 		name_label.set_label(title_text, status.formal.account.handle, status.formal.account.emojis_map, true);
@@ -192,12 +212,13 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		favorite_button.bind (status.formal);
 		bookmark_button.bind (status.formal);
 
+		reply_button.set_child(reply_button_content);
 		reply_button.add_css_class("ttl-status-action-reply");
 		reply_button.tooltip_text = _("Reply");
 		if (status.formal.in_reply_to_id != null)
-			reply_button.icon_name = "tooth-reply-all-symbolic";
+			reply_button_content.icon_name = "tooth-reply-all-symbolic";
 		else
-			reply_button.icon_name = "tooth-reply-sender-symbolic";
+			reply_button_content.icon_name = "tooth-reply-sender-symbolic";
 
 		if (!status.can_be_boosted) {
 			reblog_button.sensitive = false;
@@ -221,6 +242,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 
 	protected virtual void append_actions () {
 		reply_button = new Button ();
+		reply_button_content = new Adw.ButtonContent ();
 		reply_button.clicked.connect (() => new Dialogs.Compose.reply (status));
 		actions.append (reply_button);
 
