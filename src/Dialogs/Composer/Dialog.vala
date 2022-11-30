@@ -28,7 +28,10 @@ public class Tooth.Dialogs.Compose : Adw.Window {
 	}
 
 	protected virtual signal void build () {
-		add_page (new EditorPage ());
+		var p_edit = new EditorPage ();
+		p_edit.bind_property("can-publish", commit_button, "sensitive", BindingFlags.SYNC_CREATE);
+
+		add_page (p_edit);
 		add_page (new AttachmentsPage ());
 		add_page (new PollPage ());
 	}
@@ -43,7 +46,7 @@ public class Tooth.Dialogs.Compose : Adw.Window {
 	public Compose (API.Status template = new API.Status.empty ()) {
 		Object (
 			status: template,
-			button_label: _("Publish"),
+			button_label: _("_Publish"),
 			button_class: "suggested-action"
 		);
 	}
@@ -51,7 +54,7 @@ public class Tooth.Dialogs.Compose : Adw.Window {
 	public Compose.redraft (API.Status status) {
 		Object (
 			status: status,
-			button_label: _("Redraft"),
+			button_label: _("_Redraft"),
 			button_class: "destructive-action"
 		);
 	}
@@ -67,7 +70,7 @@ public class Tooth.Dialogs.Compose : Adw.Window {
 
 		Object (
 			status: template,
-			button_label: _("Reply"),
+			button_label: _("_Reply"),
 			button_class: "suggested-action"
 		);
 	}
