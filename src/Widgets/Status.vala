@@ -181,7 +181,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			if (srcval == 1)
 				target.set_string (@"1");
 			else if (srcval > 1)
-				target.set_string (@"+1");
+				target.set_string (@"1+");
 			else
 				target.set_string("");
 			return true;
