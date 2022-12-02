@@ -96,12 +96,15 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	protected string spoiler_text {
 		owned get {
 			var text = status.formal.spoiler_text;
-			if (text == null || text == "")
+			if (text == null || text == "") {
 				return _("Show More");
-			else
+			} else {
+				spoiler_text_revealed = text;
 				return text;
+			}
 		}
 	}
+	public string spoiler_text_revealed { get; set; default = _("Sensitive"); }
 	public bool reveal_spoiler { get; set; default = true; }
 
 	protected string date {
@@ -153,7 +156,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	protected virtual void bind () {
 		// Content
 		bind_property ("spoiler-text", spoiler_label, "label", BindingFlags.SYNC_CREATE);
-		bind_property ("spoiler-text", spoiler_label_rev, "label", BindingFlags.SYNC_CREATE);
+		bind_property ("spoiler-text-revealed", spoiler_label_rev, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
 
 		bind_property ("is_conversation_open", status_stats, "visible", BindingFlags.SYNC_CREATE);
