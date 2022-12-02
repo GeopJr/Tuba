@@ -6,10 +6,17 @@ public class Tooth.Widgets.Conversation : Widgets.Status {
 
 	public Conversation (API.Conversation entity) {
 		Object (conversation: entity, status: entity.last_status);
-		conversation.bind_property ("unread", this.indicator, "visible", BindingFlags.SYNC_CREATE);
+		conversation.bind_property ("unread", this.indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			if (src.get_boolean()) {
+				target.set_string ("tooth-mark-important-symbolic");
+				this.indicator.opacity = 1;
+			} else {
+				target.set_string ("tooth-mail-symbolic");
+				this.indicator.opacity = 0.5;
+			}
+			return true;
+		});
 		// this.indicators.child_set_property (this.indicator, "position", 2);
-		this.indicator.opacity = 1;
-		this.indicator.icon_name = "tooth-mark-important-symbolic";
 		this.actions.destroy ();
 	}
 

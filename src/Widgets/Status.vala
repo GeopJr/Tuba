@@ -192,6 +192,10 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		bind_property ("subtitle_text", handle_label, "label", BindingFlags.SYNC_CREATE);
 		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
+		status.formal.bind_property ("visibility", indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_string (accounts.active.visibility[src.get_string ()].icon_name);
+			return true;
+		});
 		status.formal.bind_property ("account", avatar, "account", BindingFlags.SYNC_CREATE);
 
 		// Spoiler //TODO: Spoilers
