@@ -30,7 +30,8 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		icon = "tooth-home-symbolic",
 		open_func = win => {
 			//  win.open_view (new Views.Main ());
-			win.back();
+			//  win.back();
+			win.go_back_to_start();
 		}
 	};
 
@@ -46,7 +47,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		title = _("Direct Messages"),
 		icon = "tooth-mail-symbolic",
 		open_func = (win) => {
-			win.open_view (new Views.Conversations ());
+			win.open_view (set_as_sidebar_item(new Views.Conversations ()));
 		}
 	};
 
@@ -54,7 +55,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		title = _("Bookmarks"),
 		icon = "tooth-bookmarks-filled-symbolic",
 		open_func = (win) => {
-			win.open_view (new Views.Bookmarks ());
+			win.open_view (set_as_sidebar_item(new Views.Bookmarks ()));
 		}
 	};
 
@@ -62,7 +63,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		title = _("Favorites"),
 		icon = "tooth-starred-symbolic",
 		open_func = (win) => {
-			win.open_view (new Views.Favorites ());
+			win.open_view (set_as_sidebar_item(new Views.Favorites ()));
 		}
 	};
 
@@ -70,7 +71,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		title = _("Lists"),
 		icon = "tooth-list-compact-symbolic",
 		open_func = (win) => {
-			win.open_view (new Views.Lists ());
+			win.open_view (set_as_sidebar_item(new Views.Lists ()));
 		}
 	};
 
@@ -86,7 +87,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		title = _("Local"),
 		icon = "tooth-network-server-symbolic",
 		open_func = (win) => {
-			win.open_view (new Views.Local ());
+			win.open_view (set_as_sidebar_item(new Views.Local ()));
 		}
 	};
 
@@ -94,7 +95,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		title = _("Federated"),
 		icon = "tooth-globe-symbolic",
 		open_func = (win) => {
-			win.open_view (new Views.Federated ());
+			win.open_view (set_as_sidebar_item(new Views.Federated ()));
 		}
 	};
 
@@ -138,6 +139,11 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 			icon_name = "tooth-mail-symbolic",
 			description = _("Post to mentioned users only")
 		});
+	}
+
+	private static Views.Base set_as_sidebar_item (Views.Base view) {
+		view.is_sidebar_item = true;
+		return view;
 	}
 
 	public override void describe_kind (string kind, out string? icon, out string? descr, API.Account account, out string? descr_url) {

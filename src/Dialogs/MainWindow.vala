@@ -36,7 +36,8 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	public Views.Base open_view (Views.Base view) {
 		if (last_view.label == view.label && !view.is_profile) return view;
-		if (last_view != null && !last_view.is_main) {
+
+		if (last_view != null && !last_view.is_main && view.is_sidebar_item) {
 			leaflet.remove(last_view);
 		}
 
@@ -48,9 +49,18 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	public bool back () {
 		if (last_view == null) return true;
 
-		sidebar.set_sidebar_selected_item(0);
+		if (last_view.is_sidebar_item)
+			sidebar.set_sidebar_selected_item(0);
+		
 		leaflet.navigate (Adw.NavigationDirection.BACK);
 		return true;
+	}
+
+	public void go_back_to_start () {
+		var navigated = true;
+		while(navigated) {
+			navigated = leaflet.navigate (Adw.NavigationDirection.BACK);
+		}
 	}
 
 	// public override bool delete_event (Gdk.EventAny event) {
