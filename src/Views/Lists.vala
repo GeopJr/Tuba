@@ -31,7 +31,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 				_("Delete \"%s\"?").printf (list.title),
 				_("This action cannot be reverted."),
 				app.main_window,
-				_("Discard"),
+				_("Delete"),
 				Adw.ResponseAppearance.DESTRUCTIVE
 			);
 

@@ -21,7 +21,7 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 	public static Place PREFERENCES = new Place () {
 			title = _("Preferences"),
 			icon = "tooth-gear-symbolic",
-			//selectable = false,
+			selectable = false,
 			separated = true,
 			open_func = () => {
 				Dialogs.Preferences.open ();
@@ -30,7 +30,7 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 	public static Place ABOUT = new Place () {
 			title = _("About"),
 			icon = "tooth-about-symbolic",
-			//selectable = false,
+			selectable = false,
 			open_func = () => {
 				app.lookup_action ("about").activate (null);
 			}
@@ -127,7 +127,7 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 			//  	return true;
 			//  });
 
-		// 	bind_property ("selectable", item, "selectable", BindingFlags.SYNC_CREATE);
+			place.bind_property ("selectable", this, "selectable", BindingFlags.SYNC_CREATE);
 		}
 	}
 
