@@ -27,6 +27,9 @@
 		<key name="public-live-updates" type="b">
 			<default>false</default>
 		</key>
+		<key name="show-spoilers" type="b">
+			<default>false</default>
+		</key>
 		<key name="aggressive-resolving" type="b">
 			<default>false</default>
 		</key>

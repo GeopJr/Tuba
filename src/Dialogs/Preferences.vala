@@ -10,6 +10,7 @@ public class Tooth.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned SpinButton post_text_size;
     [GtkChild] unowned Switch live_updates;
     [GtkChild] unowned Switch public_live_updates;
+    [GtkChild] unowned Switch show_spoilers;
 
     construct {
         transient_for = app.main_window;
@@ -38,6 +39,7 @@ public class Tooth.Dialogs.Preferences : Adw.PreferencesWindow {
         settings.bind ("post-text-size", post_text_size.adjustment, "value", SettingsBindFlags.DEFAULT);
         settings.bind ("live-updates", live_updates, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("public-live-updates", public_live_updates, "active", SettingsBindFlags.DEFAULT);
+        settings.bind ("show-spoilers", show_spoilers, "active", SettingsBindFlags.DEFAULT);
 	}
 
 }

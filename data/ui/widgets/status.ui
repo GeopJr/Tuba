@@ -137,6 +137,28 @@
             <property name="orientation">vertical</property>
             <property name="spacing">6</property>
             <child>
+              <object class="GtkBox" id="spoiler_status_con">
+                <property name="margin_bottom">12</property>
+                <property name="visible">0</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="can_focus">0</property>
+                    <property name="icon_name">tooth-warning-symbolic</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="spoiler_label_rev">
+                    <property name="halign">start</property>
+                    <property name="wrap">1</property>
+                  </object>
+                </child>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+            </child>
+            <child>
               <object class="GtkStack" id="spoiler_stack">
                 <property name="can_focus">0</property>
                 <property name="vhomogeneous">0</property>
@@ -149,6 +171,7 @@
                     <property name="child">
                       <object class="GtkButton" id="spoiler_button">
                         <property name="receives_default">1</property>
+                        <property name="tooltip_text" translatable="yes">Show More</property>
                         <signal name="clicked" handler="toggle_spoiler" swapped="no"/>
                         <child>
                           <object class="GtkBox">

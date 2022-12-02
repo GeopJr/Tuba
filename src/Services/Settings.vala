@@ -10,6 +10,7 @@ public class Tooth.Settings : GLib.Settings {
 	public int post_text_size { get; set; }
 	public bool live_updates { get; set; }
 	public bool public_live_updates { get; set; }
+	public bool show_spoilers { get; set; }
 	public bool aggressive_resolving { get; set; }
 
 	public Settings () {
@@ -22,6 +23,7 @@ public class Tooth.Settings : GLib.Settings {
 		init ("post-text-size");
 		init ("live-updates");
 		init ("public-live-updates");
+		init ("show-spoilers");
 		init ("aggressive-resolving");
 	}
 

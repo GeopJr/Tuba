@@ -49,6 +49,8 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Widgets.Attachment.Box attachments;
 	[GtkChild] protected unowned Button spoiler_button;
 	[GtkChild] protected unowned Widgets.RichLabel spoiler_label;
+	[GtkChild] protected unowned Label spoiler_label_rev;
+	[GtkChild] protected unowned Box spoiler_status_con;
 
 	[GtkChild] protected unowned Box status_stats;
 	[GtkChild] protected unowned Label reblog_count_label;
@@ -95,7 +97,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		owned get {
 			var text = status.formal.spoiler_text;
 			if (text == null || text == "")
-				return _("Click to show sensitive content");
+				return _("Show More");
 			else
 				return text;
 		}
@@ -151,6 +153,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	protected virtual void bind () {
 		// Content
 		bind_property ("spoiler-text", spoiler_label, "label", BindingFlags.SYNC_CREATE);
+		bind_property ("spoiler-text", spoiler_label_rev, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
 
 		bind_property ("is_conversation_open", status_stats, "visible", BindingFlags.SYNC_CREATE);
@@ -192,20 +195,21 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		status.formal.bind_property ("account", avatar, "account", BindingFlags.SYNC_CREATE);
 
 		// Spoiler //TODO: Spoilers
-		reveal_spoiler = true;
-		spoiler_stack.visible_child_name = "content";
+		//  reveal_spoiler = true;
+		//  spoiler_stack.visible_child_name = "content";
 
-		// status.formal.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.INVERT_BOOLEAN);
+		//  status.formal.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.INVERT_BOOLEAN);
 
-		// status.formal.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-		// 	target.set_boolean (!src.get_boolean ());
-		// 	return true;
-		// }); !!!
-		// bind_property ("reveal-spoiler", spoiler_stack, "visible-child-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-		// 	var name = reveal_spoiler ? "content" : "spoiler";
-		// 	target.set_string (name);
-		// 	return true;
-		// });
+		status.formal.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_boolean (!src.get_boolean () || settings.show_spoilers);
+			return true;
+		});
+		bind_property ("reveal-spoiler", spoiler_stack, "visible-child-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			var name = reveal_spoiler ? "content" : "spoiler";
+			spoiler_status_con.visible = src.get_boolean() && status.formal.has_spoiler;
+			target.set_string (name);
+			return true;
+		});
 
 		// Actions
 		reblog_button.bind (status.formal);

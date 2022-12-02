@@ -22,6 +22,7 @@ public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase
 		construct_streamable ();
 		stream_event[InstanceAccount.EVENT_NEW_POST].connect (on_new_post);
 		stream_event[InstanceAccount.EVENT_DELETE_POST].connect (on_delete_post);
+		settings.notify["show-spoilers"].connect (on_refresh);
 
 		content.bind_model (model, on_create_model_widget);
 	}

@@ -152,6 +152,18 @@
               </object>
             </child>
             <child>
+              <object class="AdwActionRow">
+                <property name="can_focus">True</property>
+                <property name="title" translatable="yes">Reveal spoilers by default</property>
+                <property name="activatable_widget">show_spoilers</property>
+                <child>
+                  <object class="GtkSwitch" id="show_spoilers">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
               <placeholder/>
             </child>
           </object>
