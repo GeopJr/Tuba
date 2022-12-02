@@ -201,12 +201,13 @@ namespace Tooth {
 				copyright = Build.COPYRIGHT,
 				debug_info = Build.SYSTEM_INFO,
 				developers = developers,
-				artists = artists
+				artists = artists,
+				translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : ""
 			};
 
 			// For some obscure reason, const arrays produce duplicates in the credits.
 			// Static functions seem to avoid this peculiar behavior.
-			dialog.translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : null;
+			//  dialog.translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : null;
 
 			dialog.present ();
 		}
