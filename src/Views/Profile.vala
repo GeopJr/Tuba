@@ -77,6 +77,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 	}
 
 	protected void build_profile_stats(ListBox info) {
+		var row = new Gtk.ListBoxRow ();
 		var box = new Box (Orientation.HORIZONTAL, 6) {
 			homogeneous = true
 		};
@@ -85,7 +86,9 @@ public class Tooth.Views.Profile : Views.Timeline {
 		box.append(build_profile_stats_button(@"$(profile.following_count) " + _("Following"), "following"));
 		box.append(build_profile_stats_button(@"$(profile.followers_count) " + _("Followers"), "followers"));
 
-		info.append (box);
+		row.activatable = false;
+		row.child = box;
+		info.append (row);
 	}
 
 	protected Button build_profile_stats_button(string btn_label, string t_source) {
