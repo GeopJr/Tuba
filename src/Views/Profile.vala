@@ -94,6 +94,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 	protected Button build_profile_stats_button(string btn_label, string t_source) {
 		var btn = new Button.with_label(btn_label);
 		btn.add_css_class("flat");
+		btn.add_css_class("ttl-profile-stat-button");
 
 		btn.clicked.connect(() => {
 			source = t_source;
