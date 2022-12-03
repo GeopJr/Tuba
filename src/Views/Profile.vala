@@ -166,10 +166,9 @@ public class Tooth.Views.Profile : Views.Timeline {
 		});
 		actions.add_action (mention_action);
 
-		//FIXME: Take a variant to copy "handle" and "uri"
 		var copy_handle_action = new SimpleAction ("copy_handle", null);
 		copy_handle_action.activate.connect (v => {
-			Host.copy (profile.handle);
+			Host.copy (profile.full_handle);
 		});
 		actions.add_action (copy_handle_action);
 
