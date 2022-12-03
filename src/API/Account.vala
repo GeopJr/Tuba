@@ -39,6 +39,12 @@ public class Tooth.API.Account : Entity, Widgetizable {
 			return uri.get_host ();
 		}
 	}
+    public string full_handle {
+        owned get {
+            return @"@$username@$domain";
+        }
+    }
+
     public Gee.HashMap<string, string>? emojis_map {
 		owned get {
 			return gen_emojis_map();

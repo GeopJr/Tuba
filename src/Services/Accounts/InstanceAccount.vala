@@ -23,7 +23,7 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 	}
 
 	public new string handle {
-		owned get { return @"@$username@$domain"; }
+		owned get { return full_handle; }
 	}
 
 	public bool is_active {
