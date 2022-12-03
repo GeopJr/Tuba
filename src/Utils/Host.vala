@@ -1,4 +1,5 @@
 using GLib;
+using Gdk;
 
 public class Tooth.Host {
 
@@ -26,10 +27,9 @@ public class Tooth.Host {
 		return true;
 	}
 
-	// FIXME: Copy a string to the clipboard
 	public static void copy (string str) {
-		// var clipboard = Gdk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
-		// clipboard.set_text (Widgets.RichLabel.restore_entities (str), -1);
+		Clipboard clipboard = Display.get_default().get_clipboard();
+		clipboard.set_text(str);
 	}
 
 	public static string get_uri_host (string uri) {
