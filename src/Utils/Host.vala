@@ -28,8 +28,10 @@ public class Tooth.Host {
 	}
 
 	public static void copy (string str) {
-		Clipboard clipboard = Display.get_default().get_clipboard();
-		clipboard.set_text(str);
+		Display display = Display.get_default();
+		if (display == null) return;
+
+		display.get_clipboard().set_text(str);
 	}
 
 	public static string get_uri_host (string uri) {
