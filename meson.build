@@ -123,6 +123,7 @@ sources = files(
     'src/Widgets/StatusActionButton.vala',
     'src/Widgets/Widgetizable.vala',
     'src/Widgets/VoteBox.vala',
+    'src/Widgets/VoteCheckButton.vala',
 )
 
 build_file = configure_file(

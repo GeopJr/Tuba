@@ -4,8 +4,11 @@ using Gee;
 
 [GtkTemplate (ui = "/dev/geopjr/tooth/ui/widgets/votebox.ui")]
 public class Tooth.Widgets.VoteBox: Box {
-	[GtkChild] protected Gtk.Box pollBox;
-	[GtkChild] protected Gtk.Button button_vote;
+	[GtkChild] protected ListBox pollBox;
+	[GtkChild] protected Button button_vote;
+    [GtkChild] protected Box pollActionBox;
+    [GtkChild] protected Label people_label;
+    [GtkChild] protected Label expires_label;
 
 	public API.Poll? poll { get; set;}
 	public API.Status? status_parent{ get; set;}
@@ -23,14 +26,22 @@ public class Tooth.Widgets.VoteBox: Box {
             .on_error ((code, reason) => {}).exec ();
         });
         notify["poll"].connect (update);
+        button_vote.sensitive = false;
 	}
+
+    public string generate_css_style(int percentage) {
+        return @".ttl-poll-$(percentage).ttl-poll-winner { background: linear-gradient(to right, alpha(@accent_bg_color, .5) $(percentage)%, transparent 0%); } .ttl-poll-$(percentage) { background: linear-gradient(to right, alpha(@view_fg_color, .1) $(percentage)%, transparent 0%); }";
+    }
 
 	void update(){
         var row_number=0;
- 		Gtk.ToggleButton group_radio_option = null;
+        var winner_p = 0.0;
+
+        Adw.ActionRow last_winner = null;
+        Widgets.VoteCheckButton group_radio_option = null;
 
 		//clear all existing entries
-		Gtk.Widget entry=pollBox.get_first_child();
+		Widget entry=pollBox.get_first_child();
 		while(entry!=null){
 			pollBox.remove(entry);
 			entry=pollBox.get_first_child();
@@ -40,16 +51,39 @@ public class Tooth.Widgets.VoteBox: Box {
         if(!poll.expired && !poll.voted){
 		    button_vote.set_visible(true);
 		}
+
+        //  if (poll.expired) {
+        //      pollBox.sensitive = false;
+        //  }
 		//creates the entries of poll
  		foreach (API.PollOption p in poll.options){
+            var row = new Adw.ActionRow ();
             //if it is own poll
             if(poll.expired){
                 // If multiple, Checkbox else radioButton
-                var option = new Widgets.RichLabel (_(" %.2f %%   %s ".printf (( (double)p.votes_count/poll.votes_count)*100,p.title) ));
-                pollBox.append(option);
+                var percentage = ((double)p.votes_count/poll.votes_count)*100;
+
+                var provider = new Gtk.CssProvider ();
+                provider.load_from_data(generate_css_style((int) percentage).data);
+                row.get_style_context ().add_provider (provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                row.add_css_class(@"ttl-poll-$((int) percentage)");
+
+                if (percentage > winner_p) {
+                    winner_p = percentage;
+                    if (last_winner != null)
+                        last_winner.remove_css_class("ttl-poll-winner");
+                    row.add_css_class("ttl-poll-winner");
+                    last_winner = row;
+                }
+
+                row.title = "%.2f%%".printf(percentage);
+                row.subtitle = p.title;
+                pollBox.append(row);
             }
             else{
-                var check_option = new Gtk.ToggleButton ();
+                row.title = p.title;
+                var check_option = new Widgets.VoteCheckButton ();
+
                 if (!poll.multiple){
                     if (row_number==0){
  						group_radio_option=check_option;
@@ -58,15 +92,19 @@ public class Tooth.Widgets.VoteBox: Box {
  						check_option.set_group(group_radio_option);
                    }
 				}
-                check_option.set_label(p.title);
+
+                check_option.poll_title = p.title;
                 check_option.toggled.connect((radio)=>{
-                    if (selectedIndex.contains(radio.get_label())){
-                        selectedIndex.remove(radio.get_label());
+                    var radio_votebutton = radio as Widgets.VoteCheckButton;
+                    if (selectedIndex.contains(radio_votebutton.poll_title)){
+                        selectedIndex.remove(radio_votebutton.poll_title);
                     }
                     else{
-                        selectedIndex.add(radio.get_label());
+                        selectedIndex.add(radio_votebutton.poll_title);
                     }
+                    button_vote.sensitive = selectedIndex.size > 0;
                 });
+
                 foreach (int own_vote in poll.own_votes){
                     if (own_vote==row_number){
                          check_option.set_active(true);
@@ -75,17 +113,20 @@ public class Tooth.Widgets.VoteBox: Box {
                           }
                     }
                 }
+
                 if(poll.expired || poll.voted){
                     check_option.set_sensitive(false);
                 }
-                pollBox.append(check_option);
+
+                row.add_prefix(check_option);
+                row.activatable_widget = check_option;
+
+                pollBox.append(row);
             }
             row_number++;
         }
 
-        if(!poll.expired){
-                var option = new Widgets.RichLabel (_("Expires at: %s").printf(DateTime.humanize(poll.expires_at)));
-                pollBox.append(option);
-        }
+        people_label.label = _("%lld voted").printf(poll.votes_count);
+        expires_label.label = poll.expired ? DateTime.humanize_ago(poll.expires_at) : DateTime.humanize_left(poll.expires_at);
 	}
 }
