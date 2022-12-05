@@ -76,7 +76,13 @@ public class Tooth.Widgets.VoteBox: Box {
                     last_winner = row;
                 }
 
-                row.title = "%.2f%%".printf(percentage);
+                foreach (int own_vote in poll.own_votes){
+                    if (own_vote==row_number){
+                         row.add_suffix(new Image.from_icon_name("tooth-check-round-outline-symbolic"));
+                    }
+                }
+
+                row.title = "%.1f%%".printf(percentage);
                 row.subtitle = p.title;
                 pollBox.append(row);
             }
@@ -108,6 +114,7 @@ public class Tooth.Widgets.VoteBox: Box {
                 foreach (int own_vote in poll.own_votes){
                     if (own_vote==row_number){
                          check_option.set_active(true);
+                         row.add_suffix(new Image.from_icon_name("tooth-check-round-outline-symbolic"));
                           if (!selectedIndex.contains(p.title)){
                             selectedIndex.add(p.title);
                           }
