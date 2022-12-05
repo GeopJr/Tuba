@@ -6,8 +6,9 @@ public class Tooth.DateTime {
 		var date = new GLib.DateTime.from_iso8601 (iso8601, null);
 		var now = new GLib.DateTime.now_local ();
 		var delta = now.difference (date);
-
-		if (delta <= TimeSpan.MINUTE)
+		if (delta < 0)
+			return date.format (_("%b %e, %Y %H:%m"));
+		else if (delta <= TimeSpan.MINUTE)
 			return _("Just now");
 		else if (delta < TimeSpan.HOUR) {
 			var minutes = delta / TimeSpan.MINUTE;
