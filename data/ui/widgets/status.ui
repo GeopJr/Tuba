@@ -219,7 +219,7 @@
                           </object>
                         </child>
                         <child>
-                              <object class="ToothWidgetsVoteBox" id="poll_spoiled">
+                              <object class="ToothWidgetsVoteBox" id="poll">
                               </object>
                         </child>
                         <child>
@@ -252,10 +252,6 @@
                   <class name="body"/>
                   <class name="dim-label"/>
                 </style>
-              </object>
-            </child>
-           <child>
-              <object class="ToothWidgetsVoteBox" id="poll">
               </object>
             </child>
             <child>

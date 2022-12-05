@@ -59,7 +59,6 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	[GtkChild] public unowned Box actions;
 
     [GtkChild] public unowned Widgets.VoteBox poll;
-    [GtkChild] public unowned Widgets.VoteBox poll_spoiled;
 
 	protected Button reply_button;
 	protected Adw.ButtonContent reply_button_content;
@@ -252,18 +251,10 @@ public class Tooth.Widgets.Status : ListBoxRow {
 
 		if (status.poll==null){
 			poll.hide();
-			poll_spoiled.hide();
 		}
 		else{
-			if (status.has_spoiler){
-				poll_spoiled.status_parent=status;
-				status.bind_property ("poll", poll_spoiled, "poll", BindingFlags.SYNC_CREATE);
-			}
-			else{
-				poll.status_parent=status;
-				status.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE);
-			}
-
+			poll.status_parent=status;
+			status.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE);
 		}
 
 		// Attachments
