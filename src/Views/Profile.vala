@@ -54,7 +54,11 @@ public class Tooth.Views.Profile : Views.Timeline {
 			avatar.account = account;
 			note.content = account.note;
 
-			image_cache.request_paintable (account.header, on_cache_response);
+			if (account.header.contains("/headers/original/missing.png")) {
+				avatar.bind_property("custom_image", background, "paintable", GLib.BindingFlags.SYNC_CREATE);
+			} else {
+				image_cache.request_paintable (account.header, on_cache_response);
+			}
 
 			if (account.fields != null) {
 				foreach (API.AccountField f in account.fields) {

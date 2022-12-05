@@ -8,6 +8,9 @@ public class Tooth.Widgets.Avatar : Button {
 		get { return avatar.size; }
 		set { avatar.size = value; }
 	}
+	public Paintable? custom_image {
+		get { return avatar.custom_image; }
+	}
 
 	protected Adw.Avatar? avatar {
 		get { return child as Adw.Avatar; }
