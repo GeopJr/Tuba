@@ -30,7 +30,7 @@ public class Tooth.Widgets.VoteBox: Box {
 	}
 
     public string generate_css_style(int percentage) {
-        return @".ttl-poll-$(percentage).ttl-poll-winner { background: linear-gradient(to right, alpha(@accent_bg_color, .5) $(percentage)%, transparent 0%); } .ttl-poll-$(percentage) { background: linear-gradient(to right, alpha(@view_fg_color, .1) $(percentage)%, transparent 0%); }";
+        return @".ttl-poll-$(percentage).ttl-poll-winner { background: linear-gradient(to right, alpha(@accent_bg_color, .5) $(percentage)%, transparent 0%); } .ttl-poll-$(percentage) { background: linear-gradient(to right, alpha(@view_fg_color, .1) $(percentage)%, transparent 0%); }.ttl-poll-row:first-child{border-top-left-radius: 12px;border-top-right-radius: 12px;}.ttl-poll-row:last-child{border-bottom-left-radius: 12px;border-bottom-right-radius: 12px;}";
     }
 
 	void update(){
@@ -58,6 +58,8 @@ public class Tooth.Widgets.VoteBox: Box {
 		//creates the entries of poll
  		foreach (API.PollOption p in poll.options){
             var row = new Adw.ActionRow ();
+            row.add_css_class("ttl-poll-row");
+
             //if it is own poll
             if(poll.expired || poll.voted){
                 // If multiple, Checkbox else radioButton
