@@ -59,7 +59,7 @@ public class Tooth.Widgets.VoteBox: Box {
  		foreach (API.PollOption p in poll.options){
             var row = new Adw.ActionRow ();
             //if it is own poll
-            if(poll.expired){
+            if(poll.expired || poll.voted){
                 // If multiple, Checkbox else radioButton
                 var percentage = ((double)p.votes_count/poll.votes_count)*100;
 
