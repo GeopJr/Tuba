@@ -58,6 +58,8 @@ public class Tooth.Widgets.Status : ListBoxRow {
 
 	[GtkChild] public unowned Box actions;
 
+    [GtkChild] public unowned Widgets.VoteBox poll;
+
 	protected Button reply_button;
 	protected Adw.ButtonContent reply_button_content;
 	protected StatusActionButton reblog_button;
@@ -245,6 +247,14 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		if (status.id == "") {
 			actions.destroy ();
 			date_label.destroy ();
+		}
+
+		if (status.poll==null){
+			poll.hide();
+		}
+		else{
+			poll.status_parent=status;
+			status.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE);
 		}
 
 		// Attachments

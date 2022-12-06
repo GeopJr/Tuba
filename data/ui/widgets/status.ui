@@ -219,6 +219,10 @@
                           </object>
                         </child>
                         <child>
+                              <object class="ToothWidgetsVoteBox" id="poll">
+                              </object>
+                        </child>
+                        <child>
                           <object class="ToothWidgetsAttachmentBox" id="attachments"/>
                         </child>
                       </object>

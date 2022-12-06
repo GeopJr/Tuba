@@ -27,6 +27,7 @@ public class Tooth.API.Status : Entity, Widgetizable {
     public API.Status? reblog { get; set; default = null; }
     public ArrayList<API.Mention>? mentions { get; set; default = null; }
     public ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
+    public API.Poll? poll { get; set; default = null; }
 
     public string? t_url { get; set; }
     public string url {

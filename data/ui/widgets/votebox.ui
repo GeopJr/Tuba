@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="ToothWidgetsVoteBox" parent="GtkBox">
+    <property name="margin_top">12</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkListBox" id="pollBox">
+        <child>
+          <placeholder/>
+        </child>
+        <style>
+          <class name="boxed-list"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox" id="pollActionBox">
+        <property name="margin_top">10</property>
+        <property name="spacing">12</property>
+        <child>
+          <object class="GtkButton" id="button_vote">
+            <property name="visible">0</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="people_label">
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="expires_label">
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

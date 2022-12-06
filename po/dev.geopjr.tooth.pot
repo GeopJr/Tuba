@@ -295,6 +295,14 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+#: src/Widgets/VoteBox.vala:17
+msgid "Vote"
+msgstr ""
+
+#: src/Widgets/VoteBox.vala:87
+msgid "Expires at: %s"
+msgstr ""
+
 #: data/ui/widgets/list_item.ui:26 src/Dialogs/ListEditor.vala:87
 msgid "Untitled"
 msgstr ""
