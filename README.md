@@ -22,17 +22,17 @@
 
     Package Name | Required Version
     :--- |---:|
-    meson | 0.50 
-    valac | 0.48 
-    libglib-2.0-dev | 2.30 
-    libjson-glib-dev | 1.4.4 
-    libxml2-dev | 2.9.10 
-    libgee-0.8-dev | 0.8.5 
-    libsoup2.4-dev | 2.64 
-    libgtk-4-dev | 4.3.0 
-    libadwaita-1.0-dev | 1.2.0 
-    libsecret-1-dev | 0.20 
-    
+    meson | 0.56
+    valac | 0.48
+    libglib-2.0-dev | 2.30
+    libjson-glib-dev | 1.4.4
+    libxml2-dev | 2.9.10
+    libgee-0.8-dev | 0.8.5
+    libsoup2.4-dev | 2.64
+    libgtk-4-dev | 4.3.0
+    libadwaita-1.0-dev | 1.2.0
+    libsecret-1-dev | 0.20
+
 
 2. Run `install.sh` in the project directory. The app will launch automatically on success.
 
