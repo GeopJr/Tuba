@@ -42,9 +42,9 @@ public class Tooth.Widgets.RelationshipButton : Button {
 			// icon_name = "changes-allow-symbolic";
 			fn = () => {
 				if (rs.domain_blocking)
-					activate_action ("domain_blocking", null);
+					activate_action ("domain_blocking", "");
 				else if (rs.blocking)
-					activate_action ("view.blocking", null);
+					activate_action ("view.blocking", "");
 				return true;
 			};
 			add_css_class ("destructive-action");

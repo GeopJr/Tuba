@@ -4,11 +4,11 @@ using Gee;
 
 [GtkTemplate (ui = "/dev/geopjr/tooth/ui/widgets/votebox.ui")]
 public class Tooth.Widgets.VoteBox: Box {
-	[GtkChild] protected ListBox pollBox;
-	[GtkChild] protected Button button_vote;
-    [GtkChild] protected Box pollActionBox;
-    [GtkChild] protected Label people_label;
-    [GtkChild] protected Label expires_label;
+	[GtkChild] protected unowned ListBox pollBox;
+	[GtkChild] protected unowned Button button_vote;
+    [GtkChild] protected unowned Box pollActionBox;
+    [GtkChild] protected unowned Label people_label;
+    [GtkChild] protected unowned Label expires_label;
 
 	public API.Poll? poll { get; set;}
 	public API.Status? status_parent{ get; set;}

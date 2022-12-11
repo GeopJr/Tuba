@@ -221,24 +221,29 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 	public bool subscribed { get; set; }
 
 	public virtual string? get_stream_url () {
+		if (instance == null || access_token == null) return null;
 		return @"$instance/api/v1/streaming/?stream=user&access_token=$access_token";
 	}
 
 	public virtual void on_notification_event (Streamable.Event ev) {
-		var entity = create_entity<API.Notification> (ev.get_node ());
+		try {
+			var entity = create_entity<API.Notification> (ev.get_node ());
 
-		var id = int.parse (entity.id);
-		if (id > last_received_id) {
-			last_received_id = id;
+			var id = int.parse (entity.id);
+			if (id > last_received_id) {
+				last_received_id = id;
 
-			if (notification_inhibitors.is_empty) {
-				unread_count++;
-				has_unread = true;
-				send_toast (entity);
+				if (notification_inhibitors.is_empty) {
+					unread_count++;
+					has_unread = true;
+					send_toast (entity);
+				}
+				else {
+					read_notifications (last_received_id);
+				}
 			}
-			else {
-				read_notifications (last_received_id);
-			}
+		} catch (Error e) {
+			warning (@"on_notification_event: $(e.message)");
 		}
 	}
 

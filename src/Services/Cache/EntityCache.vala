@@ -16,7 +16,11 @@ public class Tooth.EntityCache : AbstractCache {
 
 		// Entity can't be cached
 		if (id == null) {
-			entity = Entity.from_json (type, node);
+			try {
+				entity = Entity.from_json (type, node);
+			} catch (Error e) {
+				warning (@"Error getting Entity from json: $(e.message)");
+			}
 		}
 		else {
 
@@ -27,7 +31,11 @@ public class Tooth.EntityCache : AbstractCache {
 			}
 			// It's a new instance and we need to store it
 			else {
-				entity = Entity.from_json (type, node);
+				try {
+					entity = Entity.from_json (type, node);
+				} catch (Error e) {
+					warning (@"Error getting Entity from json: $(e.message)");
+				}
 				insert (id, entity);
 			}
 		}

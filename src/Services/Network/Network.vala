@@ -48,22 +48,20 @@ public class Tooth.Network : GLib.Object {
 
 		message (@"$(mess.method): $(mess.uri.to_string (false))");
 
-		try {
-			session.queue_message (mess, (sess, msg) => {
-				var status = msg.status_code;
-				if (status == Soup.Status.OK)
+		session.queue_message (mess, (sess, msg) => {
+			var status = msg.status_code;
+			if (status == Soup.Status.OK)
+				try {
 					cb (session, msg);
-				else if (status == Soup.Status.CANCELLED)
-					debug ("Message is cancelled. Ignoring callback invocation.");
-				else
-					critical (@"Should be ecb: $status $(msg.reason_phrase)");
-					//  ecb ((int32) status, msg.reason_phrase);
-			});
-		}
-		catch (Error e) {
-			warning (@"Exception in network queue: $(e.message)");
-			ecb (0, e.message);
-		}
+				} catch (Error e) {
+					warning (@"Error in session: $(e.message)");
+				}
+			else if (status == Soup.Status.CANCELLED)
+				debug ("Message is cancelled. Ignoring callback invocation.");
+			else
+				critical (@"Should be ecb: $status $(msg.reason_phrase)");
+				//  ecb ((int32) status, msg.reason_phrase);
+		});
 	}
 
 	public void on_error (int32 code, string message) {
@@ -97,7 +95,11 @@ public class Tooth.Network : GLib.Object {
 		var parser = new Json.Parser ();
 		parser.load_from_data ((string) msg.response_body.flatten ().data, -1);
 		parser.get_root ().get_array ().foreach_element ((array, i, node) => {
-			cb (node, msg);
+			try {
+				cb (node, msg);
+			} catch (Error e) {
+				warning (@"Error parsing array: $(e.message)");
+			}
 		});
 	}
 

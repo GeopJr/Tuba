@@ -16,6 +16,8 @@ public class Tooth.Widgets.Emoji : Adw.Bin {
 	}
 
 	void on_cache_response (bool is_loaded, owned Paintable? data) {
-		(child as Image).paintable = data;
+		var image_widget = (child as Image);
+		if (child != null && image_widget != null)
+			image_widget.paintable = data;
 	}
 }

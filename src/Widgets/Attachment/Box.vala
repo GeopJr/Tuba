@@ -40,8 +40,12 @@ public class Tooth.Widgets.Attachment.Box : Adw.Bin {
 		}
 
 		list.@foreach (item => {
-			var widget = item.to_widget ();
-			box.insert (widget, -1);
+			try {
+				var widget = item.to_widget ();
+				box.insert (widget, -1);
+			} catch (Oopsie e) {
+				warning(@"Error updating attachements: $(e.message)");
+			}
 			return true;
 		});
 

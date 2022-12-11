@@ -16,13 +16,7 @@ public class Tooth.Host {
 				throw new Oopsie.USER (_("launch_default_for_uri() failed"));
 		}
 		catch (Error e){
-			try {
-				Gtk.show_uri(app.active_window, uri, Gdk.CURRENT_TIME);
-			}
-			catch (Error e){
-				warning (@"Gtk.show_uri failed too: $(e.message)");
-				return false;
-			}
+			Gtk.show_uri(app.active_window, uri, Gdk.CURRENT_TIME);
 		}
 		return true;
 	}

@@ -56,7 +56,15 @@ public class Tooth.Views.ContentBase : Views.Base {
 
 
 	public virtual Widget on_create_model_widget (Object obj) {
-		return (obj as Widgetizable).to_widget ();
+		var obj_widgetable = obj as Widgetizable;
+		if (obj_widgetable == null)
+			Process.exit (0);
+		try {
+			return obj_widgetable.to_widget ();
+		} catch (Oopsie e) {
+			warning(@"Error on_create_model_widget: $(e.message)");
+			Process.exit (0);
+		}
 	}
 
 	public virtual void on_bottom_reached () {}

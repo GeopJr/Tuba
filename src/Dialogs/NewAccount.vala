@@ -65,7 +65,7 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 	[GtkCallback]
 	bool on_activate_code_label_link (string uri) {
 		use_auto_auth = false;
-		register_client ();
+		register_client.begin ();
 		//  reset();
 		return true;
 	}

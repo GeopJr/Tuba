@@ -150,7 +150,7 @@ namespace Tooth {
 				message ("Presenting MainWindow");
 				if (main_window == null) {
 					main_window = new Dialogs.MainWindow (this);
-					is_rtl = main_window.get_default_direction() == Gtk.TextDirection.RTL;
+					is_rtl = Gtk.Widget.get_default_direction() == Gtk.TextDirection.RTL;
 				}
 				main_window.present ();
 			}

@@ -75,10 +75,12 @@ public class Tooth.Views.Base : Box {
 	}
 
 	public virtual void on_shown () {
-		app.main_window.insert_action_group ("view", actions);
+		if (app != null && app.main_window != null)
+			app.main_window.insert_action_group ("view", actions);
 	}
 	public virtual void on_hidden () {
-		app.main_window.insert_action_group ("view", null);
+		if (app != null && app.main_window != null)
+			app.main_window.insert_action_group ("view", null);
 	}
 
 	public virtual void on_content_changed () {}

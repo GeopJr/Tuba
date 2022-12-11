@@ -35,7 +35,7 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public Views.Base open_view (Views.Base view) {
-		if (last_view.label == view.label && !view.is_profile) return view;
+		if (last_view != null && last_view.label == view.label && !view.is_profile) return view;
 
 		if (last_view != null && !last_view.is_main && view.is_sidebar_item) {
 			leaflet.remove(last_view);
@@ -79,23 +79,16 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	// }
 
 	void on_zoom_level_changed () {
-		try {
-			var scale = settings.post_text_size;
-			var css = "";
-
-			if (scale > 100) {
-				css ="""
-					.%s label {
-						font-size: %i%;
-					}
-				""".printf (ZOOM_CLASS, scale);
-			}
-
-			// app.zoom_css_provider.load_from_data (css.data);
+		var scale = settings.post_text_size;
+		var css = "";
+		if (scale > 100) {
+			css ="""
+				.%s label {
+					font-size: %i%;
+				}
+			""".printf (ZOOM_CLASS, scale);
 		}
-		catch (Error e) {
-			warning (@"Can't set zoom level: $(e.message)");
-		}
+		// app.zoom_css_provider.load_from_data (css.data);
 	}
 
 	[GtkCallback]

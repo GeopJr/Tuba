@@ -88,13 +88,8 @@ public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase
 		.with_ctx (this)
 		.then ((sess, msg) => {
 			Network.parse_array (msg, node => {
-				try {
-					var e = entity_cache.lookup_or_insert (node, accepts);
-					model.append (e); //FIXME: use splice();
-				}
-				catch (Error e) {
-					warning (@"Timeline item parse error: $(e.message)");
-				}
+				var e = entity_cache.lookup_or_insert (node, accepts);
+				model.append (e); //FIXME: use splice();
 			});
 
 			get_pages (msg.response_headers.get_one ("Link"));
@@ -150,8 +145,12 @@ public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase
 	}
 
 	public virtual void on_new_post (Streamable.Event ev) {
-		var entity = Entity.from_json (accepts, ev.get_node ());
-		model.insert (0, entity);
+		try {
+			var entity = Entity.from_json (accepts, ev.get_node ());
+			model.insert (0, entity);
+		} catch (Error e) {
+			warning (@"Error getting Entity from json: $(e.message)");
+		}
 	}
 
 	public virtual void on_delete_post (Streamable.Event ev) {

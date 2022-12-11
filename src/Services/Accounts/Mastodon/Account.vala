@@ -19,9 +19,14 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 	public static void register (AccountStore store) {
 		store.backend_tests.add (new Test ());
 		store.create_for_backend[BACKEND].connect ((node) => {
-			var account = Entity.from_json (typeof (Account), node) as Account;
-			account.backend = BACKEND;
-			return account;
+			try {
+				var account = Entity.from_json (typeof (Account), node) as Account;
+				account.backend = BACKEND;
+				return account;
+			} catch (Error e) {
+				warning (@"Error creating backend: $(e.message)");
+			}
+			return null;
 		});
 	}
 

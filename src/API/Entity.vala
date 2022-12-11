@@ -104,14 +104,18 @@ public class Tooth.Entity : GLib.Object, Widgetizable, Json.Serializable {
 	}
 
 	public static bool des_list (out Value val, Json.Node node, Type type) {
+		var arr = new Gee.ArrayList<Entity> ();
 		if (!node.is_null ()) {
-			var arr = new Gee.ArrayList<Entity> ();
 			node.get_array ().foreach_element ((array, i, elem) => {
-				var obj = Entity.from_json (type, elem);
-				arr.add (obj);
+				try {
+					var obj = Entity.from_json (type, elem);
+					arr.add (obj);
+				} catch (Error e) {
+					warning (@"Error getting Entity from json: $(e.message)");
+				}
 			});
-			val = arr;
 		}
+		val = arr;
 		return true;
 	}
 

@@ -7,9 +7,7 @@ public class Tooth.API.Attachment : Entity, Widgetizable {
 	public string? t_preview_url { get; set; }
 	public string? preview_url {
 		set { this.t_preview_url = value; }
-		get { return (bool.parse( this.t_preview_url )) ?
-			this.t_preview_url : this.url;
-		  }
+		get { return (this.t_preview_url == null || this.t_preview_url == "") ? url : t_preview_url; }
 	}
 
 	public File? source_file { get; set; }

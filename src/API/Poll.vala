@@ -19,7 +19,7 @@ public class Tooth.API.Poll :   GLib.Object, Json.Serializable{
 	public override bool deserialize_property (string prop, out Value val, ParamSpec spec, Json.Node node) {
 		var success = default_deserialize_property (prop, out val, spec, node);
 
-		var type = spec.value_type;
+		//  var type = spec.value_type;
 		if (prop=="options"){
 		    return Entity.des_list (out val, node, typeof (API.PollOption));
 		}
@@ -29,13 +29,13 @@ public class Tooth.API.Poll :   GLib.Object, Json.Serializable{
 		return success;
 	}
 	public static bool des_list_int (out Value val, Json.Node node) {
+		var arr = new Gee.ArrayList<int> ();
 		if (!node.is_null ()) {
-			var arr = new Gee.ArrayList<int> ();
 			node.get_array ().foreach_element ((array, i, elem) => {
 				arr.add ((int)elem.get_int());
 			});
-			val = arr;
 		}
+		val = arr;
 		return true;
 	}
 	public static Poll from_json (Type type, Json.Node? node) throws Oopsie {

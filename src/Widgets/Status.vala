@@ -330,7 +330,10 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		content.selectable = true;
 		content.get_style_context ().add_class ("ttl-large-body");
 
-		var mgr = (content_column.get_parent () as Grid).get_layout_manager ();
+		var content_grid = content_column.get_parent () as Grid;
+		if (content_grid == null)
+			return;
+		var mgr = content_grid.get_layout_manager ();
 		var child = mgr.get_layout_child (content_column);
 		child.set_property ("column", 0);
 		child.set_property ("column_span", 2);
@@ -357,7 +360,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 					prev.thread_role = START;
 					curr.thread_role = END;
 					break;
-				case END:
+				default:
 					prev.thread_role = MIDDLE;
 					curr.thread_role = END;
 					break;

@@ -93,7 +93,11 @@ public class Tooth.API.Account : Entity, Widgetizable {
 			open ();
 		else {
 			account.resolve.begin (url, (obj, res) => {
-				account.resolve.end (res).open ();
+                try {
+				    account.resolve.end (res).open ();
+                } catch (Error e) {
+					warning (@"Error opening account: $(account.handle) - $(e.message)");
+				}
 			});
 		}
 	}

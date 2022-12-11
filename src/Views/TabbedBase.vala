@@ -13,9 +13,14 @@ public class Tooth.Views.TabbedBase : Views.Base {
 	construct {
 		state = "content";
 
-		(states.get_parent () as Box).remove (states);
+		var states_box = states.get_parent () as Box;
+		if (states_box != null)
+			states_box.remove (states);
 		view.get_style_context ().remove_class ("ttl-view");
-		(scrolled.get_parent () as Box).remove (scrolled);
+
+		var scrolled_box = scrolled.get_parent () as Box;
+		if (scrolled_box != null)
+			scrolled_box.remove (scrolled);
 		insert_child_after (states, header);
 
 		stack = new Adw.ViewStack ();

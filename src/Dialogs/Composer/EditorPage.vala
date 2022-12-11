@@ -40,7 +40,9 @@ public class Tooth.EditorPage : ComposerPage {
 			status.spoiler_text = cw_entry.text;
 		}
 
-		status.visibility = (visibility_button.selected_item as InstanceAccount.Visibility).id;
+		var instance_visibility = (visibility_button.selected_item as InstanceAccount.Visibility);
+		if (visibility_button != null && visibility_button.selected_item != null && instance_visibility != null)
+			status.visibility = instance_visibility.id;
 	}
 
 	public override void on_modify_req (Request req) {

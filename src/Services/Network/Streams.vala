@@ -67,10 +67,14 @@ public class Tooth.Streams : Object {
 		public bool start () {
 			message (@"Opening stream: $name");
 			network.session.websocket_connect_async.begin (msg, null, null, null, (obj, res) => {
-				socket = network.session.websocket_connect_async.end (res);
-				socket.error.connect (on_error);
-				socket.closed.connect (on_closed);
-				socket.message.connect (on_message);
+				try {
+					socket = network.session.websocket_connect_async.end (res);
+					socket.error.connect (on_error);
+					socket.closed.connect (on_closed);
+					socket.message.connect (on_message);
+				} catch (Error e) {
+					warning (@"Error opening stream: $(e.message)");
+				}
 			});
 			return false;
 		}
