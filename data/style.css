@@ -133,7 +133,7 @@
 	color: @red_4;
 }
 
-.ttl-profile-stat-button {
+.ttl-profile-stat-button, .small .ttl-profile-stat-button:first-child, .small .ttl-profile-stat-button:last-child {
 	border-radius: 0px;
 }
 
@@ -144,4 +144,3 @@
 .ttl-profile-stat-button:last-child {
 	border-bottom-right-radius: 12px;
 }
-
