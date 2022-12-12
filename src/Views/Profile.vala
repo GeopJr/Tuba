@@ -100,6 +100,10 @@ public class Tooth.Views.Profile : Views.Timeline {
 		btn.add_css_class("flat");
 		btn.add_css_class("ttl-profile-stat-button");
 
+		var child_label = btn.child as Label;
+		child_label.wrap = true;
+		child_label.justify = Justification.CENTER;
+
 		btn.clicked.connect(() => {
 			source = t_source;
 			accepts = source == "statuses" ? typeof (API.Status) : typeof (API.Account);
