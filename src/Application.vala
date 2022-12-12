@@ -154,14 +154,18 @@ namespace Tooth {
 				}
 				main_window.present ();
 			}
+			main_window.close_request.connect(on_window_closed);
 		}
 
-		// TODO: Background mode
-		// public bool on_window_closed () {
-		// 	if (!settings.work_in_background || accounts.saved.is_empty)
-		// 		app.remove_window (window_dummy);
-		// 		return false;
-		// }
+		public bool on_window_closed () {
+			if (!settings.work_in_background || accounts.saved.is_empty) {
+				main_window.hide_on_close = false;
+			} else {
+				main_window.hide_on_close = true;
+			}
+
+			return false;
+		}
 
 		void compose_activated () {
 			new Dialogs.Compose ();

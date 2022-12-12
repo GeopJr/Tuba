@@ -67,12 +67,12 @@
         <child>
           <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Behavior</property>
-            <property name="sensitive">0</property>
             <child>
               <object class="AdwActionRow">
                 <property name="title" translatable="yes">Autostart</property>
                 <property name="activatable_widget">autostart</property>
                 <property name="subtitle" translatable="yes">Start minimized at boot</property>
+                <property name="sensitive">0</property>
                 <child>
                   <object class="GtkSwitch" id="autostart">
                     <property name="can_focus">0</property>
