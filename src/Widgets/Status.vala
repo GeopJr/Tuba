@@ -40,6 +40,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Box indicators;
 	[GtkChild] protected unowned Label date_label;
 	[GtkChild] protected unowned Image pin_indicator;
+	[GtkChild] protected unowned Image edited_indicator;
 	[GtkChild] protected unowned Image indicator;
 
 	[GtkChild] protected unowned Box content_column;
@@ -197,6 +198,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		bind_property ("subtitle_text", handle_label, "label", BindingFlags.SYNC_CREATE);
 		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
+		status.formal.bind_property ("is-edited", edited_indicator, "visible", BindingFlags.SYNC_CREATE);
 		status.formal.bind_property ("visibility", indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_string (accounts.active.visibility[src.get_string ()].icon_name);
 			return true;

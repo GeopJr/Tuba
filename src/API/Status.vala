@@ -23,6 +23,7 @@ public class Tooth.API.Status : Entity, Widgetizable {
     public bool sensitive { get; set; default = false; }
     public bool muted { get; set; default = false; }
     public bool pinned { get; set; default = false; }
+    public string? edited_at { get; set; default = null; }
     public string visibility { get; set; default = "public"; } // TODO: Bring back default post visibility preference
     public API.Status? reblog { get; set; default = null; }
     public ArrayList<API.Mention>? mentions { get; set; default = null; }
@@ -39,6 +40,10 @@ public class Tooth.API.Status : Entity, Widgetizable {
             return this.uri.replace ("/activity", "");
         }
         return this.t_url;
+    }
+
+    public bool is_edited {
+        get { return edited_at != null; }
     }
 
     public Status formal {
