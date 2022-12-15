@@ -35,9 +35,8 @@ public class Tooth.Widgets.VoteBox: Box {
 
 	void update(){
         var row_number=0;
-        var winner_p = 0.0;
 
-        Adw.ActionRow last_winner = null;
+        int64 winner_p = 0;
         Widgets.VoteCheckButton group_radio_option = null;
 
 		//clear all existing entries
@@ -55,6 +54,14 @@ public class Tooth.Widgets.VoteBox: Box {
         //  if (poll.expired) {
         //      pollBox.sensitive = false;
         //  }
+        if(poll.expired || poll.voted){
+            foreach (API.PollOption p in poll.options){
+                if (p.votes_count > winner_p) {
+                    winner_p = p.votes_count;
+                }
+            }
+        }
+
 		//creates the entries of poll
  		foreach (API.PollOption p in poll.options){
             var row = new Adw.ActionRow ();
@@ -70,12 +77,8 @@ public class Tooth.Widgets.VoteBox: Box {
                 row.get_style_context ().add_provider (provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 row.add_css_class(@"ttl-poll-$((int) percentage)");
 
-                if (percentage > winner_p) {
-                    winner_p = percentage;
-                    if (last_winner != null)
-                        last_winner.remove_css_class("ttl-poll-winner");
+                if (p.votes_count == winner_p) {
                     row.add_css_class("ttl-poll-winner");
-                    last_winner = row;
                 }
 
                 foreach (int own_vote in poll.own_votes){
