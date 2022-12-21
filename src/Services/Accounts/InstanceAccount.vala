@@ -128,7 +128,7 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 	public int last_read_id { get; set; default = 0; }
 	public int last_received_id { get; set; default = 0; }
 	//  public HashMap<int,GLib.Notification> unread_toasts { get; set; default = new HashMap<int,GLib.Notification> (); }
-	public ArrayList<string> sent_notification_ids { get; set; default = new ArrayList<string> (); }
+	//  public ArrayList<string> sent_notification_ids { get; set; default = new ArrayList<string> (); }
 	public ArrayList<Object> notification_inhibitors { get; set; default = new ArrayList<Object> (); }
 	private bool passed_init_notifications = false;
 
@@ -183,12 +183,12 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 		unread_count = 0;
 		has_unread = false;
 
-		if (sent_notification_ids.size > 0) {
-			sent_notification_ids.@foreach (entry => {
-				app.withdraw_notification (entry);
-				return true;
-			});
-		}
+		//  if (sent_notification_ids.size > 0) {
+		//  	sent_notification_ids.@foreach (entry => {
+		//  		app.withdraw_notification (entry);
+		//  		return true;
+		//  	});
+		//  }
 		//  unread_toasts.@foreach (entry => {
 		//  	var id = entry.key;
 		//  	read_notification (id);
@@ -210,7 +210,7 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 		var toast = obj.to_toast (this);
 		var id = obj.id;
 		app.send_notification (id, toast);
-		sent_notification_ids.add(id);
+		//  sent_notification_ids.add(id);
 	}
 
 
