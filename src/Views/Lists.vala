@@ -7,7 +7,6 @@ public class Tooth.Views.Lists : Views.Timeline {
 		public API.List? list;
 		Button delete_button;
 		Button edit_button;
-		Adw.PreferencesWindow preferences_dialog;
 
 		construct {
 			var action_box = new Box(Orientation.HORIZONTAL, 6);
@@ -19,9 +18,6 @@ public class Tooth.Views.Lists : Views.Timeline {
 			};
 			edit_button.add_css_class("flat");
 			edit_button.add_css_class("circular");
-			edit_button.clicked.connect(() => {
-				preferences_dialog.show();
-			});
 
 			delete_button = new Button() {
 				icon_name = "tooth-trash-symbolic",
@@ -47,8 +43,10 @@ public class Tooth.Views.Lists : Views.Timeline {
 			this.list = list;
 
 			if (list != null) {
-				list.bind_property ("title", this, "title", BindingFlags.SYNC_CREATE);
-				preferences_dialog = create_edit_preferences_window(list);
+				this.list.bind_property ("title", this, "title", BindingFlags.SYNC_CREATE);
+				edit_button.clicked.connect(() => {
+					create_edit_preferences_window(this.list).show();
+				});
 			}
 		}
 
@@ -61,7 +59,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 
 		void on_remove_clicked () {
 			var remove = app.question (
-				_("Delete \"%s\"?").printf (list.title),
+				_("Delete \"%s\"?").printf (this.list.title),
 				_("This action cannot be reverted."),
 				app.main_window,
 				_("Delete"),
@@ -105,6 +103,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 			info_group.add(title_row);
 			list_settings_page_general.add(info_group);
 
+			string? replies_policy_active = null;
 			if (t_list.replies_policy != null) {
 				var replies_group = new Adw.PreferencesGroup() {
 					title = _("Replies Policy"),
@@ -116,6 +115,10 @@ public class Tooth.Views.Lists : Views.Timeline {
 					activatable_widget = none_radio
 				};
 				none_row.add_prefix(none_radio);
+				none_radio.toggled.connect(() => {
+					if (none_radio.active)
+						replies_policy_active = "none";
+				});
 
 				var list_radio = new CheckButton();
 				list_radio.group = none_radio;
@@ -124,6 +127,10 @@ public class Tooth.Views.Lists : Views.Timeline {
 					activatable_widget = list_radio
 				};
 				list_row.add_prefix(list_radio);
+				list_radio.toggled.connect(() => {
+					if (list_radio.active)
+						replies_policy_active = "list";
+				});
 
 				var followed_radio = new CheckButton();
 				followed_radio.group = none_radio;
@@ -132,6 +139,10 @@ public class Tooth.Views.Lists : Views.Timeline {
 					activatable_widget = followed_radio
 				};
 				followed_row.add_prefix(followed_radio);
+				followed_radio.toggled.connect(() => {
+					if (followed_radio.active)
+						replies_policy_active = "followed";
+				});
 
 				switch (t_list.replies_policy) {
 					case "none":
@@ -205,21 +216,36 @@ public class Tooth.Views.Lists : Views.Timeline {
 
 			edit_preferences_window.add(list_settings_page_general);
 
+			edit_preferences_window.close_request.connect(() => {
+				on_apply(t_list, title_row.text, replies_policy_active, to_remove);
+				edit_preferences_window.hide();
+				edit_preferences_window.destroy();
+				return false;
+			});
+
 			return edit_preferences_window;
 		}
 
-		//  public void on_apply() {
-		//  	if (entry.text_length == 0) return;
+		public void on_apply(API.List t_list, string title, string? replies_policy, Gee.ArrayList<string> to_remove) {
+			if (t_list.title != title || t_list.replies_policy != replies_policy) {
+				this.list.title = title;
+				this.list.replies_policy = replies_policy;
+				new Request.PUT (@"/api/v1/lists/$(t_list.id)")
+					.with_account (accounts.active)
+					.with_param ("title", title)
+					.with_param ("replies_policy", replies_policy)
+					.then(() => {})
+					.exec ();
+			}
 
-		//  	new Request.PUT (@"/api/v1/lists/$(list.id)")
-		//  		.with_account (accounts.active)
-		//  		.with_param ("title", entry.buffer.text)
-		//  		.then (() => {
-		//  			this.title = entry.buffer.text;
-		//  			entry.buffer.set_text("".data);
-		//  		})
-		//  		.exec ();
-		//  }
+			if (to_remove.size > 0) {
+				var id_array = Request.array2string (to_remove, "account_ids");
+				new Request.DELETE (@"/api/v1/lists/$(t_list.id)/accounts/?$id_array")
+					.with_account (accounts.active)
+					.then(() => {})
+					.exec ();
+			}
+		}
 
 		public virtual signal void open () {
 			if (this.list == null)
