@@ -1,7 +1,7 @@
 #! /bin/sh
 
 set -e
-meson build --prefix=/usr
+meson setup build --prefix=/usr
 cd build
 ninja
 sudo ninja install

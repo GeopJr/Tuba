@@ -165,11 +165,10 @@ public class Tooth.Views.Profile : Views.Timeline {
 		//  	invalidate_actions (true);
 		//  });
 		//  actions.add_action (source_action);
-		var ar_list_action = new SimpleAction ("ar_list", null);
+		ar_list_action = new SimpleAction ("ar_list", null);
 		ar_list_action.activate.connect (v => {
 			create_ar_list_dialog().show();
 		});
-		ar_list_action.set_enabled(profile.full_handle != accounts.active.full_handle);
 		actions.add_action (ar_list_action);
 
 		var mention_action = new SimpleAction ("mention", VariantType.STRING);
@@ -275,6 +274,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 		blocking_action.set_state (rs.blocking);
 		domain_blocking_action.set_state (rs.domain_blocking);
 		domain_blocking_action.set_enabled (accounts.active.domain != profile.domain);
+		ar_list_action.set_enabled(profile.id != accounts.active.id && rs.following);
 
 		if (refresh) {
 			page_next = null;
