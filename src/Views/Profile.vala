@@ -36,6 +36,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 		);
 		cover.bind (profile);
 		build_profile_stats(cover.info);
+		rs.invalidated.connect (() => invalidate_actions(false));
 	}
 
 	[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/profile_header.ui")]
