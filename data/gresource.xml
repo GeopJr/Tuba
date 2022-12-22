@@ -61,14 +61,12 @@
         <file>ui/widgets/profile_field_row.ui</file>
         <file>ui/widgets/timeline_menu.ui</file>
         <file>ui/widgets/list_item.ui</file>
-        <file>ui/widgets/list_editor_item.ui</file>
         <file>ui/widgets/compose_attachment.ui</file>
         <file>ui/widgets/votebox.ui</file>
         <file>ui/dialogs/new_account.ui</file>
         <file>ui/dialogs/compose.ui</file>
         <file>ui/dialogs/main.ui</file>
         <file>ui/dialogs/preferences.ui</file>
-        <file>ui/dialogs/list_editor.ui</file>
         <file>ui/menus.ui</file>
     </gresource>
 </gresources>

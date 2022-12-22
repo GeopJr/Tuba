@@ -65,7 +65,6 @@ sources = files(
     'src/Dialogs/Composer/EditorPage.vala',
     'src/Dialogs/Composer/Page.vala',
     'src/Dialogs/Composer/PollPage.vala',
-    'src/Dialogs/ListEditor.vala',
     'src/Dialogs/MainWindow.vala',
     'src/Dialogs/NewAccount.vala',
     'src/Dialogs/Preferences.vala',

@@ -50,11 +50,6 @@ public class Tooth.Views.Lists : Views.Timeline {
 			}
 		}
 
-		[GtkCallback]
-		void on_edit_clicked () {
-			new Dialogs.ListEditor (this.list);
-		}
-
 		public virtual signal void remove_from_model () {}
 
 		void on_remove_clicked () {
