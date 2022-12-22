@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
 
+  <enum id="dev.geopjr.tooth.ColorScheme">
+    <value value="0" nick="system"/>
+    <value value="1" nick="light"/>
+    <value value="2" nick="dark"/>
+  </enum>
+
 	<schema path="/dev/geopjr/tooth/" id="dev.geopjr.tooth" gettext-domain="dev.geopjr.tooth">
 
 		<key name="active-account" type="s">
 			<default>''</default>
 		</key>
-		<!-- <key name="dark-theme" type="b">
-			<default>false</default>
-		</key> -->
+		<key name="color-scheme" enum="dev.geopjr.tooth.ColorScheme">
+			<default>'system'</default>
+		</key>
 		<key name="autostart" type="b">
 			<default>false</default>
 		</key>
