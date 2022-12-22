@@ -3,7 +3,7 @@ using GLib;
 public class Tooth.Settings : GLib.Settings {
 
 	public string active_account { get; set; }
-	//  public bool dark_theme { get; set; }
+	public ColorScheme color_scheme { get; set; }
 	public bool autostart { get; set; }
 	public bool work_in_background { get; set; }
 	public int timeline_page_size { get; set; }
@@ -16,7 +16,7 @@ public class Tooth.Settings : GLib.Settings {
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
 		init ("active-account");
-		//  init ("dark-theme");
+		init ("color-scheme");
 		init ("autostart");
 		init ("work-in-background");
 		init ("timeline-page-size");
@@ -30,5 +30,36 @@ public class Tooth.Settings : GLib.Settings {
 	void init (string key) {
 		bind (key, this, key, SettingsBindFlags.DEFAULT);
 	}
+}
 
+public enum Tooth.ColorScheme {
+	SYSTEM,
+	LIGHT,
+	DARK;
+
+	public string to_string () {
+		switch (this) {
+			case SYSTEM:
+				return _("Follow System");
+			case LIGHT:
+				return _("Light");
+			case DARK:
+				return _("Dark");
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public Adw.ColorScheme to_adwaita_scheme () {
+		switch (this) {
+			case SYSTEM:
+				return DEFAULT;
+			case LIGHT:
+				return FORCE_LIGHT;
+			case DARK:
+				return FORCE_DARK;
+			default:
+				assert_not_reached ();
+		}
+	}
 }

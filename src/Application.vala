@@ -109,6 +109,10 @@ namespace Tooth {
 				error (msg);
 			}
 
+			var style_manager = Adw.StyleManager.get_default ();
+			ColorScheme color_scheme = (ColorScheme) settings.get_enum ("color-scheme");
+			style_manager.color_scheme = color_scheme.to_adwaita_scheme ();
+
 			set_accels_for_action ("app.about", ACCEL_ABOUT);
 			set_accels_for_action ("app.compose", ACCEL_NEW_POST);
 			set_accels_for_action ("app.back", ACCEL_BACK);
