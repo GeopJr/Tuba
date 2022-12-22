@@ -18,6 +18,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 	protected SimpleAction hiding_reblogs_action;
 	protected SimpleAction blocking_action;
 	protected SimpleAction domain_blocking_action;
+	protected SimpleAction ar_list_action;
 	//  protected SimpleAction source_action;
 
 	construct {
@@ -35,6 +36,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 		);
 		cover.bind (profile);
 		build_profile_stats(cover.info);
+		rs.invalidated.connect (() => invalidate_actions(false));
 	}
 
 	[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/profile_header.ui")]
@@ -164,6 +166,11 @@ public class Tooth.Views.Profile : Views.Timeline {
 		//  	invalidate_actions (true);
 		//  });
 		//  actions.add_action (source_action);
+		ar_list_action = new SimpleAction ("ar_list", null);
+		ar_list_action.activate.connect (v => {
+			create_ar_list_dialog().show();
+		});
+		actions.add_action (ar_list_action);
 
 		var mention_action = new SimpleAction ("mention", VariantType.STRING);
 		mention_action.activate.connect (v => {
@@ -268,6 +275,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 		blocking_action.set_state (rs.blocking);
 		domain_blocking_action.set_state (rs.domain_blocking);
 		domain_blocking_action.set_enabled (accounts.active.domain != profile.domain);
+		ar_list_action.set_enabled(profile.id != accounts.active.id && rs.following);
 
 		if (refresh) {
 			page_next = null;
@@ -320,4 +328,142 @@ public class Tooth.Views.Profile : Views.Timeline {
 		network.on_error);
 	}
 
+	public class RowButton : Button {
+		public bool remove { get; set; default = false; }
+	}
+
+	public Adw.Window create_ar_list_dialog() {
+		var spinner = new Spinner() {
+			spinning = true,
+			halign = Align.CENTER,
+			valign = Align.CENTER,
+			vexpand = true,
+			hexpand = true,
+			width_request = 32,
+			height_request = 32
+		};
+		var box = new Box(Orientation.VERTICAL, 6);
+		var headerbar = new Adw.HeaderBar();
+		var toast_overlay = new Adw.ToastOverlay() {
+			vexpand = true,
+			valign = Align.CENTER
+		};
+		toast_overlay.child = spinner;
+
+		box.append(headerbar);
+		box.append(toast_overlay);
+		var dialog = new Adw.Window() {
+			title = _("Add or remove \"%s\" to or from a list").printf (profile.handle),
+			modal = true,
+			transient_for = app.main_window,
+			content = box,
+			default_width = 600,
+			default_height = 550
+		};
+		spinner.start();
+
+		var preferences_page = new Adw.PreferencesPage();
+		var preferences_group = new Adw.PreferencesGroup() {
+			title = _("Select the list to add or remove \"%s\" to or from:").printf (profile.handle)
+		};
+
+		var no_lists_page = new Adw.StatusPage() {
+			icon_name = "tooth-error-symbolic",
+			vexpand = true,
+			title = _("You don't have any lists")
+		};
+
+		new Request.GET (@"/api/v1/lists/")
+			.with_account (accounts.active)
+			.with_ctx (this)
+			.on_error (on_error)
+			.then ((sess, msg) => {
+				if (Network.get_array_size(msg) > 0) {
+					new Request.GET (@"/api/v1/accounts/$(profile.id)/lists")
+					.with_account (accounts.active)
+					.with_ctx (this)
+					.on_error (on_error)
+					.then ((sess2, msg2) => {
+						var added = false;
+						var in_list = new Gee.ArrayList<string>();
+
+						Network.parse_array (msg2, node => {
+							var list = API.List.from (node);
+							in_list.add(list.id);
+						});
+						Network.parse_array (msg, node => {
+							var list = API.List.from (node);
+							var is_already = in_list.contains(list.id);
+
+							var add_button = new RowButton() {
+								icon_name = is_already ? "tooth-minus-large-symbolic" : "tooth-plus-large-symbolic",
+								tooltip_text = is_already ? _("Remove \"%s\" from \"%s\"").printf (profile.handle, list.title) : _("Add \"%s\" to \"%s\"").printf (profile.handle, list.title),
+								halign = Align.CENTER,
+								valign = Align.CENTER
+							};
+							add_button.add_css_class("flat");
+							add_button.add_css_class("circular");
+							add_button.remove = is_already;
+
+							var row = new Adw.ActionRow() {
+								title = list.title
+							};
+							row.add_suffix(add_button);
+
+							add_button.clicked.connect(() => {
+								handle_list_edit(list, row, toast_overlay, add_button);
+							});
+
+							preferences_group.add(row);
+							added = true;
+						});
+
+						if (added) {
+							preferences_page.add(preferences_group);
+
+							toast_overlay.child = preferences_page;
+							toast_overlay.valign = Align.FILL;
+						} else {
+							toast_overlay.child = no_lists_page;
+						}
+					})
+					.exec();
+				} else {
+					toast_overlay.child = no_lists_page;
+				}	
+			})
+			.exec ();
+
+		return dialog;
+	}
+
+	public void handle_list_edit(API.List list, Adw.ActionRow row, Adw.ToastOverlay toast_overlay, RowButton button) {
+			row.sensitive = false;
+
+			var endpoint = @"/api/v1/lists/$(list.id)/accounts/?account_ids[]=$(profile.id)";
+			var req = button.remove ? new Request.DELETE (endpoint) : new Request.POST (endpoint);
+			req
+		 		.with_account (accounts.active)
+				.with_ctx (this)
+				.on_error (on_error)
+				.then ((sess, msg) => {
+					var toast_msg = "";
+					if (button.remove) {
+						toast_msg = _("User \"%s\" got removed from \"%s\"").printf (profile.handle, list.title);
+						button.icon_name = "tooth-plus-large-symbolic";
+						button.tooltip_text = _("Add \"%s\" to \"%s\"").printf (profile.handle, list.title);
+					} else {
+						toast_msg = _("User \"%s\" got added to \"%s\"").printf (profile.handle, list.title);
+						button.icon_name = "tooth-minus-large-symbolic";
+						button.tooltip_text = _("Remove \"%s\" from \"%s\"").printf (profile.handle, list.title);
+					}
+
+					button.remove = !button.remove;
+					row.sensitive = true;
+
+					var toast = new Adw.Toast(toast_msg);
+					toast_overlay.add_toast(toast);
+				})
+				.exec();
+	}
 }

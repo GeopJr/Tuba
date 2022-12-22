@@ -144,3 +144,7 @@
 .ttl-profile-stat-button:last-child {
 	border-bottom-right-radius: 12px;
 }
+
+.ttl-box-no-shadow > revealer > box {
+	box-shadow: none;
+}
