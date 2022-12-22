@@ -152,6 +152,56 @@ public class Tooth.Views.Lists : Views.Timeline {
 				list_settings_page_general.add(replies_group);
 			}
 
+			var to_remove = new Gee.ArrayList<string>();
+			new Request.GET (@"/api/v1/lists/$(t_list.id)/accounts")
+				.with_account (accounts.active)
+				.then ((sess, msg) => {
+					if (Network.get_array_size(msg) > 0) {
+						var list_settings_page_members = new Adw.PreferencesPage() {
+							icon_name = "tooth-people-symbolic",
+							title = _("Members")
+						};
+
+						var rm_group = new Adw.PreferencesGroup() {
+							title = _("Remove Members")
+						};
+
+						Network.parse_array (msg, node => {
+							var member = API.Account.from (node);
+							var avi = new Widgets.Avatar() {
+								account = member,
+								size = 32
+							};
+							var m_switch = new Switch() {
+								active = true,
+								state = true,
+								valign = Align.CENTER,
+								halign = Align.CENTER
+							};
+							m_switch.state_set.connect((x) => {
+								if (!x) {
+									to_remove.add(member.id);
+								} else if (to_remove.contains(member.id)) {
+									to_remove.remove(member.id);
+								}
+
+								return x;
+							});
+
+							var member_row = new Adw.ActionRow() {
+								title = member.full_handle
+							};
+							member_row.add_prefix(avi);
+							member_row.add_suffix(m_switch);
+
+							rm_group.add(member_row);
+						});
+
+						list_settings_page_members.add(rm_group);
+						edit_preferences_window.add(list_settings_page_members);
+					}
+				})
+				.exec();
 
 			edit_preferences_window.add(list_settings_page_general);
 
