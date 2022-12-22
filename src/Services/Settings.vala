@@ -58,9 +58,9 @@ public enum Tooth.ColorScheme {
 			case SYSTEM:
 				return DEFAULT;
 			case LIGHT:
-				return PREFER_LIGHT;
+				return FORCE_LIGHT;
 			case DARK:
-				return PREFER_DARK;
+				return FORCE_DARK;
 			default:
 				assert_not_reached ();
 		}
