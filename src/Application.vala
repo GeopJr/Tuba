@@ -124,6 +124,12 @@ namespace Tooth {
 				start_hidden = false;
 				return;
 			}
+			settings.delay ();
+		}
+
+		protected override void shutdown () {
+			settings.apply ();
+			base.shutdown ();
 		}
 
 		public override void open (File[] files, string hint) {
