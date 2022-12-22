@@ -27,6 +27,9 @@ public class Tooth.Dialogs.Preferences : Adw.PreferencesWindow {
         //     return vis.get_name ();
         // });
 
+        // Setup scheme combo row
+        scheme_combo_row.selected = settings.get_enum ("color-scheme");
+
 		bind ();
         show ();
     }

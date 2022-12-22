@@ -25,9 +25,6 @@ public class Tooth.Settings : GLib.Settings {
 		init ("public-live-updates");
 		init ("show-spoilers");
 		init ("aggressive-resolving");
-
-		var enum_val = (ColorScheme) get_enum ("color-scheme");
-		message (enum_val.to_string ());
 	}
 
 	void init (string key) {
