@@ -82,12 +82,11 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 		accounts_button.active = false;
 
 		if (account != null) {
-			title.label = account.display_name;
-			subtitle.label = account.handle_short;
-			avatar.account = account;
+			this.account.bind_property("display_name", title, "label", BindingFlags.SYNC_CREATE);
+			this.account.bind_property("handle_short", subtitle, "label", BindingFlags.SYNC_CREATE);
+			this.bind_property("account", avatar, "account", BindingFlags.SYNC_CREATE);
 			account_items.model = account.known_places;
-		}
-		else {
+		} else {
 			saved_accounts.unselect_all ();
 
 			title.label = _("Anonymous");
