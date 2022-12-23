@@ -9,6 +9,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 	public string source { get; set; default = "statuses"; }
 
 	protected Cover cover;
+	protected Label cover_badge;
 	protected MenuButton menu_button;
 	protected Widgets.RelationshipButton rs_button;
 
@@ -23,6 +24,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 
 	construct {
 		cover = build_cover ();
+		cover_badge = cover.cover_badge;
 		column_view.prepend (cover);
 	}
 
@@ -36,13 +38,14 @@ public class Tooth.Views.Profile : Views.Timeline {
 		);
 		cover.bind (profile);
 		build_profile_stats(cover.info);
-		rs.invalidated.connect (() => invalidate_actions(false));
+		rs.invalidated.connect (on_rs_updated);
 	}
 
 	[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/profile_header.ui")]
 	protected class Cover : Box {
 
 		[GtkChild] unowned Widgets.Background background;
+		[GtkChild] public unowned Label cover_badge;
 		[GtkChild] public unowned ListBox info;
 		[GtkChild] unowned Widgets.RichLabelContainer display_name;
 		[GtkChild] unowned Label handle;
@@ -283,31 +286,22 @@ public class Tooth.Views.Profile : Views.Timeline {
 		}
 	}
 
-	// TODO: RS badges
-	//  void on_rs_updated () {
-		// var label = "";
-		// if (rs_button.sensitive = rs != null) {
-		// 	if (rs.requested)
-		// 		label = _("Sent follow request");
-		// 	else if (rs.followed_by && rs.following)
-		// 		label = _("Mutually follows you");
-		// 	else if (rs.followed_by)
-		// 		label = _("Follows you");
+	void on_rs_updated () {
+		var label = "";
+		if (rs_button.sensitive = rs != null) {
+			if (rs.requested)
+				label = _("Sent follow request");
+			else if (rs.followed_by && rs.following)
+				label = _("Mutuals");
+			else if (rs.followed_by)
+				label = _("Follows you");
+		}
 
+		cover_badge.label = label;
+		cover_badge.visible = label != "";
 
-		// 	string action_icon = "";
-		// 	string action_label = "";
-		// 	get_rs_button_state (ref action_label, ref action_icon, ref rs_button_action);
-		// 	rs_button.icon_name = action_icon;
-		// 	rs_button.label = action_label;
-
-		// }
-
-		// relationship.label = label;
-		// relationship.visible = label != "";
-
-	//  	invalidate_actions (false);
-	//  }
+		invalidate_actions (false);
+	}
 
 	public override Request append_params (Request req) {
 		if (page_next == null && source == "statuses") {

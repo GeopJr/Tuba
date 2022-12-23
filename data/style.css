@@ -14,7 +14,7 @@
 	margin:0px;
 }
 
-.attachment .osd {
+.attachment .osd, .cover-badge {
 	padding: 6px 12px;
 	border-radius: 6px;
 	margin: 8px;
