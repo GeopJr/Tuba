@@ -10,7 +10,6 @@ public class Tooth.Widgets.Emoji : Adw.Bin {
         child = image;
 	}
 
-
     public Emoji (string emoji_url) {
 		image_cache.request_paintable (emoji_url, on_cache_response);
 	}

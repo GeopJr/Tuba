@@ -63,6 +63,8 @@
                           <property name="orientation">vertical</property>
                           <property name="valign">center</property>
                           <child>
+                            <!-- FIXME: Wrapping -->
+                            <!-- <object class="ToothWidgetsEmojiLabel" id="title"> -->
                             <object class="GtkLabel" id="title">
                               <property name="label">Account Name</property>
                               <property name="lines">0</property>

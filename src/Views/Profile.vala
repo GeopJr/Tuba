@@ -47,14 +47,14 @@ public class Tooth.Views.Profile : Views.Timeline {
 		[GtkChild] unowned Widgets.Background background;
 		[GtkChild] public unowned Label cover_badge;
 		[GtkChild] public unowned ListBox info;
-		[GtkChild] unowned Widgets.RichLabelContainer display_name;
+		[GtkChild] unowned Widgets.EmojiLabel display_name;
 		[GtkChild] unowned Label handle;
 		[GtkChild] unowned Widgets.Avatar avatar;
 		[GtkChild] unowned Widgets.MarkupView note;
 
 		public void bind (API.Account account) {
-			//  display_name.label = account.display_name;
-			display_name.set_label(account.display_name, null, account.emojis_map);
+			display_name.instance_emojis = account.emojis_map;
+			display_name.label = account.display_name;
 			handle.label = account.handle;
 			avatar.account = account;
 			note.content = account.note;

@@ -10,6 +10,8 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 
 	[GtkChild] unowned Widgets.Avatar avatar;
 	[GtkChild] unowned Label title;
+	// FIXME: Wrapping
+	//  [GtkChild] unowned Widgets.EmojiLabel title;
 	[GtkChild] unowned Label subtitle;
 
 	protected InstanceAccount? account { get; set; default = null; }
@@ -82,7 +84,13 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 		accounts_button.active = false;
 
 		if (account != null) {
-			this.account.bind_property("display_name", title, "label", BindingFlags.SYNC_CREATE);
+			this.account.bind_property("display-name", title, "label", BindingFlags.SYNC_CREATE);
+
+			// FIXME: Wrapping
+			//  this.account.notify["display-name"].connect(() => {
+			//  	title.instance_emojis = this.account.emojis_map;
+			//  	title.label = this.account.display_name;
+			//  });
 			this.account.bind_property("handle_short", subtitle, "label", BindingFlags.SYNC_CREATE);
 			this.bind_property("account", avatar, "account", BindingFlags.SYNC_CREATE);
 			account_items.model = account.known_places;

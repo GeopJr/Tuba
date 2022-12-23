@@ -118,6 +118,7 @@ sources = files(
     'src/Widgets/RelationshipButton.vala',
     'src/Widgets/RichLabel.vala',
     'src/Widgets/RichLabelContainer.vala',
+    'src/Widgets/EmojiLabel.vala',
     'src/Widgets/Status.vala',
     'src/Widgets/StatusActionButton.vala',
     'src/Widgets/Widgetizable.vala',

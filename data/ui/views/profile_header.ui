@@ -70,7 +70,7 @@
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child>
-          <object class="ToothWidgetsRichLabelContainer" id="display_name">
+          <object class="ToothWidgetsEmojiLabel" id="display_name">
             <!-- <property name="label">Unknown</property> -->
             <style>
               <class name="title-3"/>

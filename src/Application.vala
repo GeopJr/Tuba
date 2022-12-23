@@ -19,6 +19,7 @@ namespace Tooth {
 	public static EntityCache entity_cache;
 	public static ImageCache image_cache;
 
+	public static GLib.Regex custom_emoji_regex;
 	public static GLib.Regex rtl_regex;
 	public static bool is_rtl;
 
@@ -72,6 +73,12 @@ namespace Tooth {
 				opt_context.parse (ref args);
 			}
 			catch (GLib.OptionError e) {
+				warning (e.message);
+			}
+
+			try {
+				custom_emoji_regex = new GLib.Regex("(:[a-zA-Z0-9_]{2,}:)", GLib.RegexCompileFlags.OPTIMIZE);
+			} catch (GLib.RegexError e) {
 				warning (e.message);
 			}
 
