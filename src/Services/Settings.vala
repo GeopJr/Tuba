@@ -11,6 +11,8 @@ public class Tooth.Settings : GLib.Settings {
 	public bool live_updates { get; set; }
 	public bool public_live_updates { get; set; }
 	public bool show_spoilers { get; set; }
+	public bool larger_font_size { get; set; }
+	public bool larger_line_height { get; set; }
 	public bool aggressive_resolving { get; set; }
 
 	public Settings () {
@@ -24,6 +26,8 @@ public class Tooth.Settings : GLib.Settings {
 		init ("live-updates");
 		init ("public-live-updates");
 		init ("show-spoilers");
+		init ("larger-font-size");
+		init ("larger-line-height");
 		init ("aggressive-resolving");
 	}
 

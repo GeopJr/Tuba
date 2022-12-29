@@ -148,3 +148,11 @@
 .ttl-box-no-shadow > revealer > box {
 	box-shadow: none;
 }
+
+.ttl-status-font-large {
+	font-size: 18.333333333333332px;
+}
+
+.ttl-status-line-height-large {
+	line-height: 1.4;
+}

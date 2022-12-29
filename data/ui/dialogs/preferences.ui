@@ -166,6 +166,35 @@
             </child>
           </object>
         </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Status</property>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Larger font size</property>
+                <property name="activatable_widget">larger_font_size</property>
+                <property name="subtitle" translatable="yes">Makes the status font larger</property>
+                <child>
+                  <object class="GtkSwitch" id="larger_font_size">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Larger line height</property>
+                <property name="activatable_widget">larger_line_height</property>
+                <property name="subtitle" translatable="yes">Makes the status line height larger</property>
+                <child>
+                  <object class="GtkSwitch" id="larger_line_height">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
   </template>

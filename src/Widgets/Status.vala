@@ -71,6 +71,11 @@ public class Tooth.Widgets.Status : ListBoxRow {
 
 	construct {
 	    open.connect (on_open);
+		if (settings.larger_font_size)
+			add_css_class("ttl-status-font-large");
+
+		if (settings.larger_line_height)
+			add_css_class("ttl-status-line-height-large");
 		rebuild_actions ();
 	}
 
@@ -214,6 +219,21 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		//  spoiler_stack.visible_child_name = "content";
 
 		//  status.formal.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.INVERT_BOOLEAN);
+
+		settings.notify["larger-font-size"].connect (() => {
+			if (settings.larger_font_size) {
+				add_css_class("ttl-status-font-large");
+			} else {
+				remove_css_class("ttl-status-font-large");
+			}
+		});
+		settings.notify["larger-line-height"].connect (() => {
+			if (settings.larger_line_height) {
+				add_css_class("ttl-status-line-height-large");
+			} else {
+				remove_css_class("ttl-status-line-height-large");
+			}
+		});
 
 		status.formal.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_boolean (!src.get_boolean () || settings.show_spoilers);

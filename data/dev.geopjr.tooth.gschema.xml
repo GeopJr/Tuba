@@ -36,6 +36,12 @@
 		<key name="show-spoilers" type="b">
 			<default>false</default>
 		</key>
+		<key name="larger-font-size" type="b">
+			<default>false</default>
+		</key>
+		<key name="larger-line-height" type="b">
+			<default>false</default>
+		</key>
 		<key name="aggressive-resolving" type="b">
 			<default>false</default>
 		</key>
