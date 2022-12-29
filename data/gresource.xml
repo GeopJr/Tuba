@@ -50,18 +50,12 @@
         <file>gtk/dropdown/icon.ui</file>
         <file>gtk/dropdown/full.ui</file>
 
-        <file>ui/views/new_account.ui</file>
         <file>ui/views/base.ui</file>
         <file>ui/views/profile_header.ui</file>
         <file>ui/views/sidebar/view.ui</file>
         <file>ui/views/sidebar/account.ui</file>
         <file>ui/views/sidebar/item.ui</file>
         <file>ui/widgets/status.ui</file>
-        <file>ui/widgets/accounts_button_item.ui</file>
-        <file>ui/widgets/profile_field_row.ui</file>
-        <file>ui/widgets/timeline_menu.ui</file>
-        <file>ui/widgets/list_item.ui</file>
-        <file>ui/widgets/compose_attachment.ui</file>
         <file>ui/widgets/votebox.ui</file>
         <file>ui/dialogs/new_account.ui</file>
         <file>ui/dialogs/compose.ui</file>
