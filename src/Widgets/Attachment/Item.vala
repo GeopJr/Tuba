@@ -24,7 +24,9 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 		badge.add_css_class ("osd");
 		badge.add_css_class ("heading");
 
-		overlay = new Overlay ();
+		overlay = new Overlay () {
+			can_focus = false // Double focus on overlay and button
+		};
 		overlay.child = button;
 		overlay.add_overlay (badge);
 

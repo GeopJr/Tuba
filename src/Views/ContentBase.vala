@@ -14,8 +14,7 @@ public class Tooth.Views.ContentBase : Views.Base {
 		model.items_changed.connect (() => on_content_changed ());
 
 		content = new ListBox () {
-			selection_mode = SelectionMode.NONE,
-			can_focus = false
+			selection_mode = SelectionMode.NONE
 		};
 		content_box.append (content);
 		content.add_css_class ("content");

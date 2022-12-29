@@ -2,10 +2,8 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <template class="ToothWidgetsStatus" parent="GtkListBoxRow">
-    <property name="can_focus">0</property>
     <property name="child">
       <object class="GtkGrid" id="grid">
-        <property name="can_focus">0</property>
         <property name="margin-start">8</property>
         <property name="margin-end">8</property>
         <property name="margin_top">8</property>
@@ -42,13 +40,11 @@
         </child>
         <child>
           <object class="GtkGrid">
-            <property name="can_focus">0</property>
             <property name="vexpand">1</property>
             <property name="row_homogeneous">1</property>
             <child>
               <object class="ToothWidgetsRichLabelContainer" id="name_label">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
                 <!-- <property name="label" translatable="no">Name</property> -->
                 <!-- <property name="ellipsize">end</property> -->
@@ -65,7 +61,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="handle_label">
-                <property name="can_focus">0</property>
                 <property name="label" translatable="no">Handle</property>
                 <property name="ellipsize">end</property>
                 <property name="single_line_mode">1</property>
@@ -83,7 +78,6 @@
             </child>
             <child>
               <object class="GtkBox" id="indicators">
-                <property name="can_focus">0</property>
                 <property name="halign">end</property>
                 <property name="valign">start</property>
                 <property name="margin_start">6</property>
@@ -91,7 +85,6 @@
                 <child>
                   <object class="GtkImage" id="indicator">
                     <property name="visible">1</property>
-                    <property name="can_focus">0</property>
                     <property name="icon_name">unknown</property>
                     <property name="icon_size">1</property>
                     <style>
@@ -102,7 +95,6 @@
                 <child>
                   <object class="GtkImage" id="pin_indicator">
                     <property name="visible">0</property>
-                    <property name="can_focus">0</property>
                     <property name="icon_name">tooth-pin-symbolic</property>
                     <property name="icon_size">1</property>
                     <property name="tooltip_text" translatable="yes">Pinned</property>
@@ -114,7 +106,6 @@
                 <child>
                   <object class="GtkImage" id="edited_indicator">
                     <property name="visible">0</property>
-                    <property name="can_focus">0</property>
                     <property name="icon_name">tooth-edit-symbolic</property>
                     <property name="icon_size">1</property>
                     <property name="tooltip_text" translatable="yes">Edited</property>
@@ -125,7 +116,6 @@
                 </child>
                 <child>
                   <object class="GtkLabel" id="date_label">
-                    <property name="can_focus">0</property>
                     <property name="label" translatable="no">Yesterday</property>
                     <property name="xalign">0</property>
                     <style>
@@ -149,7 +139,6 @@
         </child>
         <child>
           <object class="GtkBox" id="content_column">
-            <property name="can_focus">0</property>
             <property name="margin_top">6</property>
             <property name="orientation">vertical</property>
             <property name="spacing">6</property>
@@ -160,7 +149,6 @@
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkImage">
-                    <property name="can_focus">0</property>
                     <property name="icon_name">tooth-warning-symbolic</property>
                   </object>
                 </child>
@@ -177,7 +165,6 @@
             </child>
             <child>
               <object class="GtkStack" id="spoiler_stack">
-                <property name="can_focus">0</property>
                 <property name="vhomogeneous">0</property>
                 <property name="hhomogeneous">0</property>
                 <property name="transition_type">crossfade</property>
@@ -192,7 +179,6 @@
                         <signal name="clicked" handler="toggle_spoiler" swapped="no"/>
                         <child>
                           <object class="GtkBox">
-                            <property name="can_focus">0</property>
                             <property name="margin-start">12</property>
                             <property name="margin-end">12</property>
                             <property name="margin_top">12</property>
@@ -200,14 +186,12 @@
                             <property name="spacing">6</property>
                             <child>
                               <object class="GtkImage">
-                                <property name="can_focus">0</property>
                                 <property name="icon_name">tooth-warning-symbolic</property>
                               </object>
                             </child>
                             <child>
                               <object class="ToothWidgetsRichLabel" id="spoiler_label">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
                                 <property name="label">Spoiler Text Here</property>
                               </object>
                             </child>
@@ -225,13 +209,11 @@
                     <property name="name">content</property>
                     <property name="child">
                       <object class="GtkBox" id="content_box">
-                        <property name="can_focus">0</property>
                         <property name="orientation">vertical</property>
                         <property name="spacing">6</property>
                         <child>
                           <object class="ToothWidgetsMarkupView" id="content">
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
                             <property name="hexpand">True</property>
                           </object>
                         </child>
