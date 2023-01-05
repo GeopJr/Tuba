@@ -85,6 +85,16 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 
 		if (account != null) {
 			this.account.bind_property("display-name", title, "label", BindingFlags.SYNC_CREATE);
+			this.account.notify["locked"].connect(() => {
+				uint indx;
+		        var found = this.account.known_places.find (Mastodon.Account.PLACE_FOLLOW_REQUESTS, out indx);
+
+				if (this.account.locked == false && found == true) {
+					this.account.known_places.remove(indx);
+				} else if (this.account.locked == true && found == false) {
+					this.account.known_places.append(Mastodon.Account.PLACE_FOLLOW_REQUESTS);
+				}
+			});
 
 			// FIXME: Wrapping
 			//  this.account.notify["display-name"].connect(() => {

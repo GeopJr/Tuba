@@ -97,6 +97,7 @@ sources = files(
     'src/Views/List.vala',
     'src/Views/Lists.vala',
     'src/Views/Local.vala',
+    'src/Views/FollowRequests.vala',
     'src/Views/Main.vala',
     'src/Views/Notifications.vala',
     'src/Views/Profile.vala',

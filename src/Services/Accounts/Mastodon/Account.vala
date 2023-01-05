@@ -96,6 +96,14 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		}
 	};
 
+	public static Place PLACE_FOLLOW_REQUESTS = new Place () {
+		title = _("Follow Requests"),
+		icon = "tooth-address-book-new-symbolic",
+		open_func = (win) => {
+			win.open_view (set_as_sidebar_item(new Views.FollowRequests ()));
+		}
+	};
+
 	public override void register_known_places (GLib.ListStore places) {
 		places.append (PLACE_HOME);
 		//  places.append (PLACE_SEARCH);
@@ -106,6 +114,8 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		places.append (PLACE_FAVORITES);
 		places.append (PLACE_BOOKMARKS);
 		places.append (PLACE_LISTS);
+
+		places.append (PLACE_FOLLOW_REQUESTS);
 	}
 
 	construct {

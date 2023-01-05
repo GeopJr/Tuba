@@ -18,6 +18,7 @@ public class Tooth.API.Account : Entity, Widgetizable {
     }
 
     public string note { get; set; }
+    public bool locked { get; set; }
     public string header { get; set; }
     public string avatar { get; set; }
     public string url { get; set; }

@@ -58,6 +58,10 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Label fav_count_label;
 
 	[GtkChild] public unowned Box actions;
+	[GtkChild] public unowned Box fr_actions;
+
+	[GtkChild] public unowned Button accept_fr_button;
+	[GtkChild] public unowned Button decline_fr_button;
 
     [GtkChild] public unowned Widgets.VoteBox poll;
 

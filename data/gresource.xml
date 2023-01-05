@@ -46,6 +46,8 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-about-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-error-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-minus-large-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-cross-large-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-address-book-new-symbolic.svg</file>
 
         <file>gtk/dropdown/icon.ui</file>
         <file>gtk/dropdown/full.ui</file>
