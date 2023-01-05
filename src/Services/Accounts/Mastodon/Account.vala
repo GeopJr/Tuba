@@ -2,14 +2,6 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public const string BACKEND = "Mastodon";
 
-	public const string KIND_MENTION = "mention";
-	public const string KIND_REBLOG = "reblog";
-	public const string KIND_FAVOURITE = "favourite";
-	public const string KIND_FOLLOW = "follow";
-	public const string KIND_POLL = "poll";
-	public const string KIND_FOLLOW_REQUEST = "__follow-request";
-	public const string KIND_REMOTE_REBLOG = "__remote-reblog";
-
 	class Test : AccountStore.BackendTest {
 		public override string? get_backend (Json.Object obj) {
 			return BACKEND; // Always treat instances as compatible with Mastodon
@@ -150,50 +142,4 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		view.is_sidebar_item = true;
 		return view;
 	}
-
-	public override void describe_kind (string kind, out string? icon, out string? descr, API.Account account, out string? descr_url) {
-		switch (kind) {
-			case KIND_MENTION:
-				icon = "tooth-chat-symbolic";
-				descr = _("%s mentioned you").printf (account.display_name);
-				descr_url = account.url;
-				break;
-			case KIND_REBLOG:
-				icon = "tooth-media-playlist-repeat-symbolic";
-				descr = _("%s boosted your status").printf (account.display_name);
-				descr_url = account.url;
-				break;
-			case KIND_REMOTE_REBLOG:
-				icon = "tooth-media-playlist-repeat-symbolic";
-				descr = _("%s boosted").printf (account.display_name);
-				descr_url = account.url;
-				break;
-			case KIND_FAVOURITE:
-				icon = "tooth-starred-symbolic";
-				descr = _("%s favorited your status").printf (account.display_name);
-				descr_url = account.url;
-				break;
-			case KIND_FOLLOW:
-				icon = "tooth-contact-new-symbolic";
-				descr = _("%s now follows you").printf (account.display_name);
-				descr_url = account.url;
-				break;
-			case KIND_FOLLOW_REQUEST:
-				icon = "tooth-contact-new-symbolic";
-				descr = _("%s wants to follow you").printf (account.display_name);
-				descr_url = account.url;
-				break;
-			case KIND_POLL:
-				icon = "tooth-check-round-outline-symbolic";
-				descr = _("Poll results");
-				descr_url = null;
-				break;
-			default:
-				icon = null;
-				descr = null;
-				descr_url = null;
-				break;
-		}
-	}
-
 }

@@ -86,7 +86,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		);
 
 		if (kind == null && status.reblog != null) {
-			kind = Mastodon.Account.KIND_REMOTE_REBLOG;
+			kind = InstanceAccount.KIND_REMOTE_REBLOG;
 		}
 
 		check_actions();
@@ -96,7 +96,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	}
 
 	private void check_actions() {
-		if (kind == Mastodon.Account.KIND_FOLLOW || kind == Mastodon.Account.KIND_FOLLOW_REQUEST) {
+		if (kind == InstanceAccount.KIND_FOLLOW || kind == InstanceAccount.KIND_FOLLOW_REQUEST) {
             actions.visible = false;
         }
 	}

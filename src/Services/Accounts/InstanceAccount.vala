@@ -7,6 +7,14 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 	public const string EVENT_DELETE_POST = "delete";
 	public const string EVENT_NOTIFICATION = "notification";
 
+	public const string KIND_MENTION = "mention";
+	public const string KIND_REBLOG = "reblog";
+	public const string KIND_FAVOURITE = "favourite";
+	public const string KIND_FOLLOW = "follow";
+	public const string KIND_POLL = "poll";
+	public const string KIND_FOLLOW_REQUEST = "follow_request";
+	public const string KIND_REMOTE_REBLOG = "__remote-reblog";
+
 	public string? backend { set; get; }
 	public string? instance { get; set; }
 	public string? client_id { get; set; }
@@ -114,9 +122,48 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 	}
 
 	public virtual void describe_kind (string kind, out string? icon, out string? descr, API.Account account, out string? descr_url) {
-		icon = null;
-		descr = null;
-		descr_url = null;
+		switch (kind) {
+			case KIND_MENTION:
+				icon = "tooth-chat-symbolic";
+				descr = _("%s mentioned you").printf (account.display_name);
+				descr_url = account.url;
+				break;
+			case KIND_REBLOG:
+				icon = "tooth-media-playlist-repeat-symbolic";
+				descr = _("%s boosted your status").printf (account.display_name);
+				descr_url = account.url;
+				break;
+			case KIND_REMOTE_REBLOG:
+				icon = "tooth-media-playlist-repeat-symbolic";
+				descr = _("%s boosted").printf (account.display_name);
+				descr_url = account.url;
+				break;
+			case KIND_FAVOURITE:
+				icon = "tooth-starred-symbolic";
+				descr = _("%s favorited your status").printf (account.display_name);
+				descr_url = account.url;
+				break;
+			case KIND_FOLLOW:
+				icon = "tooth-contact-new-symbolic";
+				descr = _("%s now follows you").printf (account.display_name);
+				descr_url = account.url;
+				break;
+			case KIND_FOLLOW_REQUEST:
+				icon = "tooth-contact-new-symbolic";
+				descr = _("%s wants to follow you").printf (account.display_name);
+				descr_url = account.url;
+				break;
+			case KIND_POLL:
+				icon = "tooth-check-round-outline-symbolic";
+				descr = _("Poll results");
+				descr_url = null;
+				break;
+			default:
+				icon = null;
+				descr = null;
+				descr_url = null;
+				break;
+		}
 	}
 
 	public virtual void register_known_places (GLib.ListStore places) {}
@@ -237,8 +284,7 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 					unread_count++;
 					has_unread = true;
 					send_toast (entity);
-				}
-				else {
+				} else {
 					read_notifications (last_received_id);
 				}
 			}
