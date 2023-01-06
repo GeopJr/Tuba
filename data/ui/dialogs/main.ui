@@ -22,7 +22,7 @@
         <!-- </child> -->
         <child type="content">
           <object class="AdwLeaflet" id="leaflet">
-            <property name="transition_type">slide</property>
+            <property name="transition_type">over</property>
             <property name="can-navigate-back">1</property>
             <property name="can-unfold">0</property>
             <property name="homogeneous">0</property>
