@@ -87,8 +87,8 @@ public class Tooth.Widgets.VoteBox: Box {
                     }
                 }
 
-                row.title = "%.1f%%".printf(percentage);
-                row.subtitle = p.title;
+                row.subtitle = "%.1f%%".printf(percentage);
+                row.title = p.title;
                 pollBox.append(row);
             }
             else{

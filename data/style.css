@@ -8,6 +8,9 @@
 .font-bold {
   font-weight: bold;
 }
+.no-shadow {
+	box-shadow: none;
+}
 
 .attachment, .attachment button, flowboxchild {
 	padding:0px;
@@ -96,7 +99,7 @@
 	background: @theme_base_color;
 }
 .large .header-image {
-  border-radius:6px 6px 0 0;
+  border-radius: 12px 12px 0 0;
 }
 
 /* Status action icons */
@@ -135,6 +138,8 @@
 
 .ttl-profile-stat-button, .small .ttl-profile-stat-button:first-child, .small .ttl-profile-stat-button:last-child {
 	border-radius: 0px;
+	padding: 8px 12px;
+	min-height: 32px;
 }
 
 .ttl-profile-stat-button:first-child {

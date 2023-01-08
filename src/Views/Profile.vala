@@ -87,7 +87,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 
 	protected void build_profile_stats(ListBox info) {
 		var row = new Gtk.ListBoxRow ();
-		var box = new Box (Orientation.HORIZONTAL, 6) {
+		var box = new Box (Orientation.HORIZONTAL, 0) {
 			homogeneous = true
 		};
 
