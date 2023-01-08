@@ -20,7 +20,7 @@ public class Tooth.DateTime {
 			var days = delta / TimeSpan.DAY;
 			return _(@"$(days)d left");
 		} else {
-			return date.format (_("expires on %b %e, %Y"));
+			return date.format (_("expires on %b %-e, %Y"));
 		}
 	}
 
@@ -29,7 +29,7 @@ public class Tooth.DateTime {
 		var now = new GLib.DateTime.now_local ();
 		var delta = now.difference (date);
 		if (delta < 0)
-			return date.format (_("expires on %b %e, %Y %H:%m"));
+			return date.format (_("expires on %b %-e, %Y %H:%m"));
 		else if (delta <= TimeSpan.MINUTE)
 			return _("expired on just now");
 		else if (delta < TimeSpan.HOUR) {
@@ -44,10 +44,10 @@ public class Tooth.DateTime {
 			return _("expired yesterday");
 		}
 		else if (date.get_year () == now.get_year ()) {
-			return date.format (_("expired on %b %e"));
+			return date.format (_("expired on %b %-e"));
 		}
 		else {
-			return date.format (_("expired on %b %e, %Y"));
+			return date.format (_("expired on %b %-e, %Y"));
 		}
 	}
 
@@ -56,7 +56,7 @@ public class Tooth.DateTime {
 		var now = new GLib.DateTime.now_local ();
 		var delta = now.difference (date);
 		if (delta < 0)
-			return date.format (_("%b %e, %Y %H:%m"));
+			return date.format (_("%b %-e, %Y %H:%m"));
 		else if (delta <= TimeSpan.MINUTE)
 			return _("Just now");
 		else if (delta < TimeSpan.HOUR) {
@@ -71,10 +71,10 @@ public class Tooth.DateTime {
 			return _("Yesterday");
 		}
 		else if (date.get_year () == now.get_year ()) {
-			return date.format (_("%b %e"));
+			return date.format (_("%b %-e"));
 		}
 		else {
-			return date.format (_("%b %e, %Y"));
+			return date.format (_("%b %-e, %Y"));
 		}
 	}
 
