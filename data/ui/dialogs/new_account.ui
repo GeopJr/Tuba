@@ -8,14 +8,19 @@
     <property name="title" translatable="yes">Add Account</property>
     <child>
       <object class="AdwLeaflet" id="deck">
-        <property name="can_navigate_back">1</property>
         <property name="can_unfold">0</property>
+        <property name="transition_type">slide</property>
         <signal name="notify::visible_child" handler="on_visible_child_notify" swapped="no"/>
         <child>
           <object class="GtkBox" id="instance_step">
             <property name="orientation">vertical</property>
             <child>
               <object class="AdwHeaderBar">
+                <property name="show-end-title-buttons">false</property>
+                <property name="show-start-title-buttons">false</property>
+                <style>
+                    <class name="flat"/>
+                </style>
                 <child>
                   <object class="GtkButton">
                     <property name="label" translatable="yes">Cancel</property>
@@ -39,7 +44,10 @@
               <object class="AdwStatusPage">
                 <property name="vexpand">1</property>
                 <property name="icon_name">tooth-network-server-symbolic</property>
-                <property name="title" translatable="yes">What is Your Instance?</property>
+                <property name="title" translatable="yes">What is your Instance?</property>
+                <style>
+                    <class name="compact"/>
+                </style>
                 <child>
                   <object class="AdwClamp">
                     <property name="maximum-size">400</property>
@@ -103,6 +111,11 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="AdwHeaderBar">
+                <property name="show-end-title-buttons">false</property>
+                <property name="show-start-title-buttons">false</property>
+                <style>
+                    <class name="flat"/>
+                </style>
                 <child>
                   <object class="GtkButton">
                     <property name="label" translatable="yes">Previous</property>
@@ -126,7 +139,10 @@
               <object class="AdwStatusPage">
                 <property name="vexpand">1</property>
                 <property name="icon_name">tooth-key-password-symbolic</property>
-                <property name="title" translatable="yes">Enter Authorization Code</property>
+                <property name="title" translatable="yes">Enter authorization Code</property>
+                <style>
+                    <class name="compact"/>
+                </style>
                 <child>
                   <object class="AdwClamp">
                     <property name="maximum-size">400</property>
@@ -176,6 +192,11 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="AdwHeaderBar">
+                <property name="show-end-title-buttons">false</property>
+                <property name="show-start-title-buttons">false</property>
+                <style>
+                    <class name="flat"/>
+                </style>
                 <child type="end">
                   <object class="GtkButton">
                     <property name="receives_default">1</property>
@@ -194,6 +215,9 @@
                 <property name="vexpand">1</property>
                 <property name="icon_name">tooth-check-round-outline-symbolic</property>
                 <property name="title">Welcome!</property>
+                <style>
+                    <class name="compact"/>
+                </style>
               </object>
             </child>
           </object>
