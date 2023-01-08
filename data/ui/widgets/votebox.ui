@@ -11,6 +11,8 @@
         </child>
         <style>
           <class name="boxed-list"/>
+          <class name="frame"/>
+          <class name="no-shadow"/>
         </style>
       </object>
     </child>
