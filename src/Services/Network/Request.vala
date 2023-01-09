@@ -101,7 +101,7 @@ public class Tooth.Request : Soup.Message {
 		if (form_data != null)
 			form_data.to_message(request_headers, request_body);
 
-		if (account != null) {
+		if (account != null && account.access_token != null) {
 			request_headers.append ("Authorization", @"Bearer $(account.access_token)");
 		}
 
