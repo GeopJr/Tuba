@@ -31,6 +31,12 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 		Object (transient_for: app.main_window);
 		app.add_account_window = this;
 		app.add_window (this);
+
+		bind_property("use-auto-auth", auth_page, "description", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_string (src.get_boolean () ? AUTO_AUTH_DESCRIPTION : CODE_AUTH_DESCRIPTION);
+			return true;
+		});
+
 		reset ();
 		present ();
 	}
@@ -116,7 +122,6 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 		account.client_secret = root.get_string_member ("client_secret");
 		message ("OK: Instance registered client");
 
-		auth_page.description = use_auto_auth ? AUTO_AUTH_DESCRIPTION : CODE_AUTH_DESCRIPTION;
 		deck.visible_child = code_step;
 		open_confirmation_page ();
 	}
