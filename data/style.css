@@ -9,6 +9,10 @@
   font-weight: bold;
 }
 
+headerbar.flat .title {
+	opacity: 0;
+}
+
 .attachment, .attachment button, flowboxchild {
 	padding:0px;
 	margin:0px;

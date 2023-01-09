@@ -44,7 +44,8 @@
               <object class="AdwStatusPage">
                 <property name="vexpand">1</property>
                 <property name="icon_name">tooth-network-server-symbolic</property>
-                <property name="title" translatable="yes">What is your Instance?</property>
+                <property name="title" translatable="yes">What is your Server?</property>
+                <property name="description" translatable="yes">If you don&apos;t have one yet, you can register &lt;a href=&quot;https://joinmastodon.org/servers&quot;&gt;here&lt;/a&gt;.</property>
                 <style>
                     <class name="compact"/>
                 </style>
@@ -61,24 +62,17 @@
                             <property name="orientation">vertical</property>
                             <property name="spacing">6</property>
                             <child>
-                              <object class="GtkBox">
+
+                              <object class="AdwPreferencesGroup">
                                 <child>
-                                  <object class="GtkButton">
-                                    <property name="label">https://</property>
-                                    <property name="sensitive">0</property>
-                                    <property name="receives_default">1</property>
+                                  <object class="AdwEntryRow" id="instance_entry">
+                                    <property name="title" translatable="false">https://</property>
+                                    <signal name="entry_activated" handler="on_next_clicked" swapped="no"/>
+                                    <signal name="changed" handler="clear_errors" swapped="no"/>
                                   </object>
                                 </child>
-                                <child>
-                                  <object class="GtkEntry" id="instance_entry">
-                                    <property name="hexpand">1</property>
-                                    <signal name="activate" handler="on_next_clicked" swapped="no"/>
-                                  </object>
-                                </child>
-                                <style>
-                                  <class name="linked"/>
-                                </style>
                               </object>
+
                             </child>
                             <child>
                               <object class="GtkLabel" id="instance_entry_error">
@@ -89,13 +83,6 @@
                                 </style>
                               </object>
                             </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="label" translatable="yes">&lt;a href=&quot;https://joinmastodon.org/&quot;&gt;Don&apos;t have one yet?&lt;/a&gt;</property>
-                            <property name="use_markup">1</property>
-                            <property name="xalign">1</property>
                           </object>
                         </child>
                       </object>
@@ -118,7 +105,7 @@
                 </style>
                 <child>
                   <object class="GtkButton">
-                    <property name="label" translatable="yes">Previous</property>
+                    <property name="label" translatable="yes">Back</property>
                     <signal name="clicked" handler="on_back_clicked" swapped="no"/>
                   </object>
                 </child>
@@ -136,10 +123,10 @@
               </object>
             </child>
             <child>
-              <object class="AdwStatusPage">
+              <object class="AdwStatusPage" id="auth_page">
                 <property name="vexpand">1</property>
                 <property name="icon_name">tooth-key-password-symbolic</property>
-                <property name="title" translatable="yes">Enter authorization Code</property>
+                <property name="title" translatable="yes">Confirm Authorization</property>
                 <style>
                     <class name="compact"/>
                 </style>
@@ -156,8 +143,15 @@
                             <property name="orientation">vertical</property>
                             <property name="spacing">6</property>
                             <child>
-                              <object class="GtkEntry" id="code_entry">
-                                <signal name="activate" handler="on_next_clicked" swapped="no"/>
+                              <object class="AdwPreferencesGroup">
+                                <property name="visible" bind-source="ToothDialogsNewAccount" bind-property="use_auto_auth" bind-flags="sync-create|invert-boolean"/>"
+                                <child>
+                                  <object class="AdwEntryRow" id="code_entry">
+                                    <property name="title" translatable="true">Authorization Code</property>
+                                    <signal name="entry_activated" handler="on_next_clicked" swapped="no"/>
+                                    <signal name="changed" handler="clear_errors" swapped="no"/>
+                                  </object>
+                                </child>
                               </object>
                             </child>
                             <child>
@@ -169,14 +163,6 @@
                                 </style>
                               </object>
                             </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="code_label">
-                            <property name="label" translatable="yes">Didn't work? &lt;a href=&quot;tooth://manual_auth&quot;&gt;Try manual authorization.&lt;/a&gt;</property>
-                            <property name="use_markup">1</property>
-                            <property name="xalign">1</property>
-                            <signal name="activate-link" handler="on_activate_code_label_link" swapped="no"/>
                           </object>
                         </child>
                       </object>
@@ -214,7 +200,8 @@
               <object class="AdwStatusPage" id="done_page">
                 <property name="vexpand">1</property>
                 <property name="icon_name">tooth-check-round-outline-symbolic</property>
-                <property name="title">Welcome!</property>
+                <property name="title">Hello!</property>
+                <property name="description" translatable="true">Your account is connected and ready to use.</property>
                 <style>
                     <class name="compact"/>
                 </style>

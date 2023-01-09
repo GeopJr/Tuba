@@ -3,6 +3,9 @@ using Gtk;
 [GtkTemplate (ui = "/dev/geopjr/tooth/ui/dialogs/new_account.ui")]
 public class Tooth.Dialogs.NewAccount: Adw.Window {
 
+	const string AUTO_AUTH_DESCRIPTION = _("Allow access to your account in the browser. If something went wrong, <a href=\"tooth://manual_auth\">try manual authorization</a>.");
+	const string CODE_AUTH_DESCRIPTION = _("Copy the authorization code from the browser and paste it here.");
+
 	const string scopes = "read write follow";
 
 	protected bool is_working { get; set; default = false; }
@@ -15,28 +18,21 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 	[GtkChild] unowned Box code_step;
 	[GtkChild] unowned Box done_step;
 
-	[GtkChild] unowned Entry instance_entry;
+	[GtkChild] unowned Adw.EntryRow instance_entry;
 	[GtkChild] unowned Label instance_entry_error;
 
-	[GtkChild] unowned Entry code_entry;
+	[GtkChild] unowned Adw.EntryRow code_entry;
 	[GtkChild] unowned Label code_entry_error;
-	//  [GtkChild] unowned Label code_label;
+
+	[GtkChild] unowned Adw.StatusPage auth_page;
 	[GtkChild] unowned Adw.StatusPage done_page;
 
 	public NewAccount () {
 		Object (transient_for: app.main_window);
 		app.add_account_window = this;
 		app.add_window (this);
-		// StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), app.css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 		reset ();
 		present ();
-
-		instance_entry.buffer.inserted_text.connect(clear_errors);
-		instance_entry.buffer.deleted_text.connect(clear_errors);
-
-		code_entry.buffer.inserted_text.connect(clear_errors);
-		code_entry.buffer.deleted_text.connect(clear_errors);
-		//  bind_property ("use-auto-auth", code_label, "visible", BindingFlags.SYNC_CREATE);
 	}
 
 	public override bool close_request () {
@@ -60,14 +56,6 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 			use_auto_auth = false;
 			return "urn:ietf:wg:oauth:2.0:oob";
 		}
-	}
-
-	[GtkCallback]
-	bool on_activate_code_label_link (string uri) {
-		use_auto_auth = false;
-		register_client.begin ();
-		//  reset();
-		return true;
 	}
 
 	void reset () {
@@ -128,6 +116,7 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 		account.client_secret = root.get_string_member ("client_secret");
 		message ("OK: Instance registered client");
 
+		auth_page.description = use_auto_auth ? AUTO_AUTH_DESCRIPTION : CODE_AUTH_DESCRIPTION;
 		deck.visible_child = code_step;
 		open_confirmation_page ();
 	}
@@ -167,7 +156,7 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 		message ("Saving account");
 		accounts.add (account);
 
-		done_page.title = _("Hello, %s!").printf (account.handle);
+		done_page.title = _("Hello, %s!").printf (account.display_name);
 		deck.visible_child = done_step;
 
 		message ("Switching to account");
@@ -177,6 +166,13 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 	public void redirect (string uri) {
 		present ();
 		message (@"Received uri: $uri");
+
+		if ("manual_auth" in uri) {
+			use_auto_auth = false;
+			register_client.begin ();
+			//  reset();
+			return;
+		}
 
 		var query = new Soup.URI (uri).get_query ();
 		var split = query.split ("=");
@@ -195,6 +191,7 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 		code_entry_error.label = error_message;
 	}
 
+	[GtkCallback]
 	public void clear_errors () {
 		instance_entry.remove_css_class("error");
 		instance_entry_error.label = "";
