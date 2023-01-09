@@ -20,6 +20,7 @@
                 <property name="show-start-title-buttons">false</property>
                 <style>
                     <class name="flat"/>
+                    <class name="no-title"/>
                 </style>
                 <child>
                   <object class="GtkButton">

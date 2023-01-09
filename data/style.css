@@ -9,7 +9,7 @@
   font-weight: bold;
 }
 
-headerbar.flat .title {
+headerbar.flat.no-title .title {
 	opacity: 0;
 }
 
