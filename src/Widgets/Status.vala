@@ -57,6 +57,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Label reblog_count_label;
 	[GtkChild] protected unowned Label fav_count_label;
 
+	[GtkChild] public unowned FlowBox emoji_reactions;
 	[GtkChild] public unowned Box actions;
 	[GtkChild] public unowned Box fr_actions;
 
@@ -72,6 +73,46 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	protected StatusActionButton bookmark_button;
 
     public bool is_conversation_open { get; set; default = false; }
+
+	public Gee.ArrayList<API.EmojiReaction>? reactions {
+	    get { return status.formal.status_reactions; }
+	    set {
+			if (value == null) return;
+
+			var i = 0;
+			FlowBoxChild? fb_child = null;
+			while((fb_child = emoji_reactions.get_child_at_index(i)) != null) {
+				emoji_reactions.remove(fb_child);
+				i = i + 1;
+			}
+
+	        foreach (API.EmojiReaction p in value){
+				if (p.count <= 0) return;
+
+				var badge_button = new Button() {
+					tooltip_text = _("React with %s").printf (p.name)
+				};
+				var badge = new Box(Orientation.HORIZONTAL, 6);
+
+				if (p.url != null) {
+					badge.append(new Widgets.Emoji(p.url));
+				} else {
+					badge.append(new Label(p.name));
+				}
+
+				badge.append(new Label(@"$(p.count)"));
+				badge_button.child = badge;
+
+				if (p.me == true) {
+					badge_button.add_css_class("accent");
+				}
+
+				emoji_reactions.append(badge_button);
+			}
+
+			emoji_reactions.visible = value.size > 0;
+	    }
+	}
 
 	construct {
 	    open.connect (on_open);
@@ -238,6 +279,8 @@ public class Tooth.Widgets.Status : ListBoxRow {
 				remove_css_class("ttl-status-line-height-large");
 			}
 		});
+
+		status.formal.bind_property ("status-reactions", this, "reactions", BindingFlags.SYNC_CREATE);
 
 		status.formal.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_boolean (!src.get_boolean () || settings.show_spoilers);

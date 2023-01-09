@@ -81,6 +81,10 @@ public class Tooth.Entity : GLib.Object, Widgetizable, Json.Serializable {
 				case "emojis":
 					contains = typeof (API.Emoji);
 					break;
+				case "emoji-reactions":
+				case "reactions":
+					contains = typeof (API.EmojiReaction);
+					break;
 				case "fields":
 					contains = typeof (API.AccountField);
 					break;

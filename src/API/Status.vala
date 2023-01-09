@@ -27,8 +27,23 @@ public class Tooth.API.Status : Entity, Widgetizable {
     public string visibility { get; set; default = "public"; } // TODO: Bring back default post visibility preference
     public API.Status? reblog { get; set; default = null; }
     public ArrayList<API.Mention>? mentions { get; set; default = null; }
+    public ArrayList<API.EmojiReaction>? reactions { get; set; default = null; }
+    public ArrayList<API.EmojiReaction>? emoji_reactions { get; set; default = null; }
+    public API.Pleroma? pleroma { get; set; default = null; }
     public ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
     public API.Poll? poll { get; set; default = null; }
+
+    public ArrayList<API.EmojiReaction>? status_reactions {
+        get {
+			if (emoji_reactions != null) {
+                return emoji_reactions;
+            } else if (pleroma != null && pleroma.emoji_reactions != null) {
+                return pleroma.emoji_reactions;
+            }
+
+            return reactions;
+		}
+    }
 
     public string? t_url { get; set; }
     public string url {
@@ -133,5 +148,4 @@ public class Tooth.API.Status : Entity, Widgetizable {
         return new Request.DELETE (@"/api/v1/statuses/$id")
         	.with_account (accounts.active);
     }
-
 }
