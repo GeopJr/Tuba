@@ -204,6 +204,7 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 			.with_account (this)
 			.then ((sess, msg) => {
 				var root = network.parse (msg);
+				if (!root.has_member("notifications")) return;
 				var notifications = root.get_object_member ("notifications");
 				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1") );
 				if (!passed_init_notifications) init_notifications();
