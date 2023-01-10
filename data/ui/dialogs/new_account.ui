@@ -68,6 +68,7 @@
                                 <child>
                                   <object class="AdwEntryRow" id="instance_entry">
                                     <property name="title" translatable="true">Server URL</property>
+                                    <property name="input_purpose">url</property>
                                     <signal name="entry_activated" handler="on_next_clicked" swapped="no"/>
                                     <signal name="changed" handler="clear_errors" swapped="no"/>
                                   </object>
