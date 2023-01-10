@@ -15,7 +15,9 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 		add_css_class ("flat");
 
 		button = new Button ();
+		button.overflow = Overflow.HIDDEN;
 		button.clicked.connect (on_click);
+		button.add_css_class ("frame");
 
 		badge = new Label ("") {
 			valign = Align.END,

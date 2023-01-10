@@ -40,7 +40,7 @@ asresources = gnome.compile_resources(
     c_name: 'as',
 )
 
-libgtk_dep = dependency('gtk4', version: '>=4.0.0', required: true)
+libgtk_dep = dependency('gtk4', version: '>=4.8.0', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.2', required: true)
 
 sources = files(
@@ -110,7 +110,6 @@ sources = files(
     'src/Widgets/Attachment/Image.vala',
     'src/Widgets/Attachment/Item.vala',
     'src/Widgets/Avatar.vala',
-    'src/Widgets/Background.vala',
     'src/Widgets/Conversation.vala',
     'src/Widgets/Emoji.vala',
     'src/Widgets/LockableToggleButton.vala',

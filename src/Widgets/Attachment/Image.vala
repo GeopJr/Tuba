@@ -11,7 +11,9 @@ public class Tooth.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			vexpand = true,
 			can_shrink = true,
 			keep_aspect_ratio = true
+			// content_fit = ContentFit.COVER
 		};
+		pic.set_property ("content-fit", 2); // TODO: This property binding is not yet available.
 		button.child = pic;
 	}
 
