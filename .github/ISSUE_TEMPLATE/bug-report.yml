@@ -1,0 +1,76 @@
+name: Bug Report
+description: Report a problem you encountered while using the app
+title: "[Bug]: "
+labels: bug
+body:
+- type: textarea
+  attributes:
+    label: Describe the bug
+    description: A clear and concise description of what the bug is.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Steps To Reproduce
+    description: Steps to reproduce the behavior.
+    placeholder: |
+      1. Go to '...'
+      2. Click on '...'
+      3. Scroll down to '...'
+      4. See error
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Logs and/or Screenshots
+    description: Terminal logs are often invaluable. If you can, launch the app from terminal and paste the output here. Please remove instance domains and post ids before creating this issue for privacy reasons.
+    value: |
+      ```
+      <paste your logs here>
+      ```
+  validations:
+    required: false
+- type: dropdown
+  attributes:
+    label: Instance Backend
+    description: What kind of instance is your account on?
+    multiple: false
+    options:
+      - Mastodon
+      - glitch-soc
+      - Hometown
+      - Pleroma
+      - Akkoma
+      - I'm not sure / Other
+  validations:
+    required: true
+- type: input
+  attributes:
+    label: Operating System
+    description: Please include its version if available.
+  validations:
+    required: true
+- type: dropdown
+  attributes:
+    label: Package
+    description: How did you install the app?
+    multiple: false
+    options:
+      - Flatpak
+      - OS repositories
+      - Compiled manually
+      - I'm not sure
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Troubleshooting information
+    description: You can find this info under About > Troubleshooting > Debugging Information.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Additional Context
+    description: Add any other relevant information about the problem here.
+  validations:
+    required: false
