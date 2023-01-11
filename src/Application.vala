@@ -200,6 +200,15 @@ namespace Tooth {
 			refresh ();
 		}
 
+		string troubleshooting = "flatpak: %s\nversion: %s\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\n".printf(
+				(GLib.Environment.get_variable("FLATPAK_ID") != null || GLib.File.new_for_path("/.flatpak-info").query_exists()).to_string(),
+				Build.VERSION,
+				Gtk.get_major_version(), Gtk.get_minor_version(), Gtk.get_micro_version(),
+				Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION, Gtk.MICRO_VERSION,
+				Adw.get_major_version(), Adw.get_minor_version(), Adw.get_micro_version(),
+				Adw.MAJOR_VERSION, Adw.MINOR_VERSION, Adw.MICRO_VERSION
+			);
+
 		void about_activated () {
 			const string[] artists = {
 				"Tobias Bernard"
@@ -223,6 +232,8 @@ namespace Tooth {
 				debug_info = Build.SYSTEM_INFO,
 				developers = developers,
 				artists = artists,
+				debug_info = troubleshooting,
+				debug_info_filename = @"$(Build.NAME).txt",
 				translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : ""
 			};
 
