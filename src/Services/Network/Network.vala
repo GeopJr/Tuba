@@ -59,7 +59,8 @@ public class Tooth.Network : GLib.Object {
 			else if (status == Soup.Status.CANCELLED)
 				debug ("Message is cancelled. Ignoring callback invocation.");
 			else
-				ecb ((int32) status, msg.reason_phrase);
+				critical (@"Should be ecb: $status $(msg.reason_phrase)");
+				//  ecb ((int32) status, msg.reason_phrase);
 		});
 	}
 
