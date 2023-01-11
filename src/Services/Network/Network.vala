@@ -19,7 +19,8 @@ public class Tooth.Network : GLib.Object {
 	construct {
 		session = new Soup.Session () {
 			ssl_strict = true,
-			ssl_use_system_ca_file = true
+			ssl_use_system_ca_file = true,
+			user_agent = @"$(Build.NAME)/$(Build.VERSION) libsoup/$(Soup.get_major_version()).$(Soup.get_minor_version()).$(Soup.get_micro_version()) ($(Soup.MAJOR_VERSION).$(Soup.MINOR_VERSION).$(Soup.MICRO_VERSION))"
 		};
 		session.request_unqueued.connect (msg => {
 			requests_processing--;
