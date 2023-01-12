@@ -229,15 +229,15 @@ public class Tooth.Widgets.Status : ListBoxRow {
 
 		self_bindings.bind_property ("spoiler-text", spoiler_label, "label", BindingFlags.SYNC_CREATE);
 		self_bindings.bind_property ("spoiler-text-revealed", spoiler_label_rev, "label", BindingFlags.SYNC_CREATE);
+
+		notify["reveal-spoiler"].connect(() => {
+			spoiler_status_con.visible = reveal_spoiler && status.formal.has_spoiler;
+			spoiler_stack.visible_child_name = reveal_spoiler ? "content" : "spoiler";
+		});
+
 		self_bindings.bind_property ("is_conversation_open", status_stats, "visible", BindingFlags.SYNC_CREATE);
 		self_bindings.bind_property ("subtitle_text", handle_label, "label", BindingFlags.SYNC_CREATE);
 		self_bindings.bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
-		self_bindings.bind_property ("reveal-spoiler", spoiler_stack, "visible-child-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			var name = reveal_spoiler ? "content" : "spoiler";
-			spoiler_status_con.visible = src.get_boolean() && status.formal.has_spoiler;
-			target.set_string (name);
-			return true;
-		});
 
 		formal_bindings.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
 		formal_bindings.bind_property ("is-edited", edited_indicator, "visible", BindingFlags.SYNC_CREATE);
