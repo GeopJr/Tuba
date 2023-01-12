@@ -33,11 +33,13 @@ config.set(
 )
 
 if profile == 'development'
-  find_program('git')
-  branch = run_command('git', 'branch', '--show-current').stdout().strip()
-  revision = run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()
-  version = '@0@-@1@'.format(branch, revision)
-  config.set('VERSION', version)
+  git = find_program('git')
+  if git.found()
+    branch = run_command('git', 'branch', '--show-current').stdout().strip()
+    revision = run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()
+    version = '@0@-@1@'.format(branch, revision)
+    config.set('VERSION', version)
+  endif
 endif
 
 gnome = import('gnome')
