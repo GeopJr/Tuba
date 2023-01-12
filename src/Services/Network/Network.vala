@@ -19,7 +19,8 @@ public class Tooth.Network : GLib.Object {
 	construct {
 		session = new Soup.Session () {
 			ssl_strict = true,
-			ssl_use_system_ca_file = true
+			ssl_use_system_ca_file = true,
+			user_agent = @"$(Build.NAME)/$(Build.VERSION) libsoup/$(Soup.get_major_version()).$(Soup.get_minor_version()).$(Soup.get_micro_version()) ($(Soup.MAJOR_VERSION).$(Soup.MINOR_VERSION).$(Soup.MICRO_VERSION))"
 		};
 		session.request_unqueued.connect (msg => {
 			requests_processing--;
@@ -42,7 +43,7 @@ public class Tooth.Network : GLib.Object {
 		session.cancel_message (msg, Soup.Status.CANCELLED);
 	}
 
-	public void queue (owned Soup.Message mess, owned SuccessCallback cb, owned ErrorCallback ecb) {
+	public void queue (owned Soup.Message mess, owned SuccessCallback cb, owned ErrorCallback? ecb) {
 		requests_processing++;
 		started ();
 
@@ -58,8 +59,13 @@ public class Tooth.Network : GLib.Object {
 				}
 			else if (status == Soup.Status.CANCELLED)
 				debug ("Message is cancelled. Ignoring callback invocation.");
-			else
-				ecb ((int32) status, msg.reason_phrase);
+			else {
+				if (ecb == null) {
+					critical (@"Request \"$(mess.uri.to_string (false))\" failed: $status $(msg.reason_phrase)");
+				} else {
+					ecb ((int32) status, msg.reason_phrase);
+				}
+			}
 		});
 	}
 
