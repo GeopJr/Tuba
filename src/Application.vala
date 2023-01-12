@@ -200,9 +200,9 @@ namespace Tooth {
 			refresh ();
 		}
 
-		string troubleshooting = "flatpak: %s\nversion: %s\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)\n".printf(
+		string troubleshooting = "flatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)\n".printf(
 				(GLib.Environment.get_variable("FLATPAK_ID") != null || GLib.File.new_for_path("/.flatpak-info").query_exists()).to_string(),
-				Build.VERSION,
+				Build.VERSION, Build.PROFILE,
 				Gtk.get_major_version(), Gtk.get_minor_version(), Gtk.get_micro_version(),
 				Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION, Gtk.MICRO_VERSION,
 				Adw.get_major_version(), Adw.get_minor_version(), Adw.get_micro_version(),
