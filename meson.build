@@ -35,8 +35,8 @@ config.set(
 if profile == 'development'
   git = find_program('git')
   if git.found()
-    branch = run_command('git', 'branch', '--show-current').stdout().strip()
-    revision = run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()
+    branch = run_command('git', 'branch', '--show-current', check: true).stdout().strip()
+    revision = run_command('git', 'rev-parse', '--short', 'HEAD', check: true).stdout().strip()
     version = '@0@-@1@'.format(branch, revision)
     config.set('VERSION', version)
   endif
