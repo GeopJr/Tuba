@@ -32,6 +32,10 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		);
 		sidebar.set_sidebar_selected_item(0);
 		open_view (new Views.Main ());
+
+		if (Build.PROFILE == "development") {
+			this.add_css_class ("devel");
+		}
 	}
 
 	public Views.Base open_view (Views.Base view) {

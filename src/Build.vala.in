@@ -8,6 +8,7 @@ public class Build {
 	public const string SUPPORT_WEBSITE = "@SUPPORT_WEBSITE@";
 	public const string COPYRIGHT = "@COPYRIGHT@";
 	public const string PREFIX = "@PREFIX@";
+	public const string PROFILE = "@PROFILE@";
 
 	public static string SYSTEM_INFO;
 
@@ -23,6 +24,7 @@ public class Build {
 		SYSTEM_INFO = @"$NAME $VERSION";
 		SYSTEM_INFO += @"\nRunning on: $os_name $os_ver";
 		SYSTEM_INFO += @"\nBuild prefix: \"$PREFIX\"";
+		SYSTEM_INFO += @"\nBuild profile: \"$PROFILE\"";
 
 		var lines = SYSTEM_INFO.split ("\n");
 		foreach (unowned string line in lines) {

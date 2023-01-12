@@ -16,19 +16,29 @@ add_global_arguments(
     language: 'c',
 )
 
+profile = get_option('profile')
 config = configuration_data()
 config.set('EXEC_NAME', meson.project_name())
 config.set('GETTEXT_PACKAGE', meson.project_name())
 config.set('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) + '/')
 config.set('VERSION', meson.project_version())
 config.set('PREFIX', get_option('prefix'))
+config.set('PROFILE', profile)
 config.set('NAME', 'Tooth')
 config.set('WEBSITE', 'https://github.com/GeopJr/tooth')
 config.set('SUPPORT_WEBSITE', 'https://github.com/GeopJr/tooth/issues')
 config.set(
     'COPYRIGHT',
-    '© 2018-2021 bleak_grey\n© 2022 Evangelos \"GeopJr\" Paterakis',
+    '© 2022 bleak_grey\n© 2022 Evangelos \"GeopJr\" Paterakis',
 )
+
+if profile == 'development'
+  find_program('git')
+  branch = run_command('git', 'branch', '--show-current').stdout().strip()
+  revision = run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()
+  version = '@0@-@1@'.format(branch, revision)
+  config.set('VERSION', version)
+endif
 
 gnome = import('gnome')
 i18n = import('i18n')
