@@ -4,28 +4,29 @@ using Gdk;
 [GtkTemplate (ui = "/dev/geopjr/tooth/ui/widgets/status.ui")]
 public class Tooth.Widgets.Status : ListBoxRow {
 
-    API.Status? _bound_status = null;
+	API.Status? _bound_status = null;
 	public API.Status? status {
-	    get { return _bound_status; }
-	    set {
-	        if (_bound_status != null)
-	            warning ("Trying to rebind a Status widget! This is not supposed to happen!");
+		get { return _bound_status; }
+		set {
+			if (_bound_status != null)
+				warning ("Trying to rebind a Status widget! This is not supposed to happen!");
 
-            _bound_status = value;
-	        if (_bound_status != null)
-	            bind ();
-	    }
+			_bound_status = value;
+			if (_bound_status != null) {
+				bind ();
+			}
+		}
 	}
 
-    public API.Account? kind_instigator { get; set; default = null; }
+	public API.Account? kind_instigator { get; set; default = null; }
 
-    string? _kind = null;
+	string? _kind = null;
 	public string? kind {
-	    get { return _kind; }
-	    set {
-	        _kind = value;
-	        change_kind ();
-	    }
+		get { return _kind; }
+		set {
+			_kind = value;
+			change_kind ();
+		}
 	}
 
 	[GtkChild] protected unowned Grid grid;
@@ -64,7 +65,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	[GtkChild] public unowned Button accept_fr_button;
 	[GtkChild] public unowned Button decline_fr_button;
 
-    [GtkChild] public unowned Widgets.VoteBox poll;
+	[GtkChild] public unowned Widgets.VoteBox poll;
 
 	protected Button reply_button;
 	protected Adw.ButtonContent reply_button_content;
@@ -72,11 +73,11 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	protected StatusActionButton favorite_button;
 	protected StatusActionButton bookmark_button;
 
-    public bool is_conversation_open { get; set; default = false; }
+	public bool is_conversation_open { get; set; default = false; }
 
 	public Gee.ArrayList<API.EmojiReaction>? reactions {
-	    get { return status.formal.status_reactions; }
-	    set {
+		get { return status.formal.status_reactions; }
+		set {
 			if (value == null) return;
 
 			var i = 0;
@@ -86,7 +87,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 				i = i + 1;
 			}
 
-	        foreach (API.EmojiReaction p in value){
+			foreach (API.EmojiReaction p in value){
 				if (p.count <= 0) return;
 
 				var badge_button = new Button() {
@@ -111,22 +112,38 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			}
 
 			emoji_reactions.visible = value.size > 0;
-	    }
+		}
 	}
 
 	construct {
-	    open.connect (on_open);
+		open.connect (on_open);
 		if (settings.larger_font_size)
 			add_css_class("ttl-status-font-large");
 
 		if (settings.larger_line_height)
 			add_css_class("ttl-status-line-height-large");
+
 		rebuild_actions ();
+
+		settings.notify["larger-font-size"].connect (() => {
+			if (settings.larger_font_size) {
+				add_css_class("ttl-status-font-large");
+			} else {
+				remove_css_class("ttl-status-font-large");
+			}
+		});
+		settings.notify["larger-line-height"].connect (() => {
+			if (settings.larger_line_height) {
+				add_css_class("ttl-status-line-height-large");
+			} else {
+				remove_css_class("ttl-status-line-height-large");
+			}
+		});
 	}
 
 	public Status (API.Status status) {
 		Object (
-		    kind_instigator: status.account,
+			kind_instigator: status.account,
 			status: status
 		);
 
@@ -142,8 +159,8 @@ public class Tooth.Widgets.Status : ListBoxRow {
 
 	private void check_actions() {
 		if (kind == InstanceAccount.KIND_FOLLOW || kind == InstanceAccount.KIND_FOLLOW_REQUEST) {
-            actions.visible = false;
-        }
+			actions.visible = false;
+		}
 	}
 
 	protected string spoiler_text {
@@ -193,37 +210,63 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	}
 
 	protected virtual void change_kind () {
-	    string icon = null;
-	    string descr = null;
-	    string label_url = null;
+		string icon = null;
+		string descr = null;
+		string label_url = null;
 		check_actions();
-	    accounts.active.describe_kind (this.kind, out icon, out descr, this.kind_instigator, out label_url);
+		accounts.active.describe_kind (this.kind, out icon, out descr, this.kind_instigator, out label_url);
 
-	    header_icon.visible = header_label.visible = (icon != null);
-	    if (icon == null) return;
+		header_icon.visible = header_label.visible = (icon != null);
+		if (icon == null) return;
 
-	    header_icon.icon_name = icon;
+		header_icon.icon_name = icon;
 		header_label.set_label(descr, label_url, this.kind_instigator.emojis_map);
 	}
 
 	protected virtual void bind () {
-		// Content
-		bind_property ("spoiler-text", spoiler_label, "label", BindingFlags.SYNC_CREATE);
-		bind_property ("spoiler-text-revealed", spoiler_label_rev, "label", BindingFlags.SYNC_CREATE);
-		status.formal.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
+		var self_bindings = new BindingGroup ();
+		var formal_bindings = new BindingGroup ();
 
-		bind_property ("is_conversation_open", status_stats, "visible", BindingFlags.SYNC_CREATE);
-		status.formal.bind_property ("reblogs_count", reblog_count_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		self_bindings.bind_property ("spoiler-text", spoiler_label, "label", BindingFlags.SYNC_CREATE);
+		self_bindings.bind_property ("spoiler-text-revealed", spoiler_label_rev, "label", BindingFlags.SYNC_CREATE);
+		self_bindings.bind_property ("is_conversation_open", status_stats, "visible", BindingFlags.SYNC_CREATE);
+		self_bindings.bind_property ("subtitle_text", handle_label, "label", BindingFlags.SYNC_CREATE);
+		self_bindings.bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
+		self_bindings.bind_property ("reveal-spoiler", spoiler_stack, "visible-child-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			var name = reveal_spoiler ? "content" : "spoiler";
+			spoiler_status_con.visible = src.get_boolean() && status.formal.has_spoiler;
+			target.set_string (name);
+			return true;
+		});
+
+		formal_bindings.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
+		formal_bindings.bind_property ("is-edited", edited_indicator, "visible", BindingFlags.SYNC_CREATE);
+		formal_bindings.bind_property ("visibility", indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_string (accounts.active.visibility[src.get_string ()].icon_name);
+			return true;
+		});
+		formal_bindings.bind_property ("visibility", indicator, "tooltip-text", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_string (accounts.active.visibility[src.get_string ()].name);
+			return true;
+		});
+		formal_bindings.bind_property ("account", avatar, "account", BindingFlags.SYNC_CREATE);
+		formal_bindings.bind_property ("status-reactions", this, "reactions", BindingFlags.SYNC_CREATE);
+		formal_bindings.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_boolean (!src.get_boolean () || settings.show_spoilers);
+			return true;
+		});
+		formal_bindings.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
+		formal_bindings.bind_property ("reblogs_count", reblog_count_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			int64 srcval = (int64) src;
 			target.set_string (@"<b>$srcval</b> " + _("Reblogs"));
 			return true;
 		});
-		status.formal.bind_property ("favourites_count", fav_count_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		formal_bindings.bind_property ("favourites_count", fav_count_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			int64 srcval = (int64) src;
 			target.set_string (@"<b>$srcval</b> " + _("Favourites"));
 			return true;
 		});
-		status.formal.bind_property ("replies_count", reply_button_content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		formal_bindings.bind_property ("replies_count", reply_button_content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			int64 srcval = (int64) src;
 
 			if (srcval > 0) {
@@ -242,56 +285,15 @@ public class Tooth.Widgets.Status : ListBoxRow {
 				target.set_string("");
 			return true;
 		});
-		//  bind_property ("title_text", name_label, "label", BindingFlags.SYNC_CREATE);
-		//  title_text
+
+		self_bindings.set_source (this);
+		formal_bindings.set_source (status.formal);
+
+
+
+		// TODO: Ideally, this should be a binding too somehow
+		// bind_property ("title_text", name_label, "label", BindingFlags.SYNC_CREATE);
 		name_label.set_label(title_text, status.formal.account.handle, status.formal.account.emojis_map, true);
-		bind_property ("subtitle_text", handle_label, "label", BindingFlags.SYNC_CREATE);
-		bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
-		status.formal.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
-		status.formal.bind_property ("is-edited", edited_indicator, "visible", BindingFlags.SYNC_CREATE);
-		status.formal.bind_property ("visibility", indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_string (accounts.active.visibility[src.get_string ()].icon_name);
-			return true;
-		});
-		status.formal.bind_property ("visibility", indicator, "tooltip-text", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_string (accounts.active.visibility[src.get_string ()].name);
-			return true;
-		});
-		status.formal.bind_property ("account", avatar, "account", BindingFlags.SYNC_CREATE);
-
-		// Spoiler //TODO: Spoilers
-		//  reveal_spoiler = true;
-		//  spoiler_stack.visible_child_name = "content";
-
-		//  status.formal.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.INVERT_BOOLEAN);
-
-		settings.notify["larger-font-size"].connect (() => {
-			if (settings.larger_font_size) {
-				add_css_class("ttl-status-font-large");
-			} else {
-				remove_css_class("ttl-status-font-large");
-			}
-		});
-		settings.notify["larger-line-height"].connect (() => {
-			if (settings.larger_line_height) {
-				add_css_class("ttl-status-line-height-large");
-			} else {
-				remove_css_class("ttl-status-line-height-large");
-			}
-		});
-
-		status.formal.bind_property ("status-reactions", this, "reactions", BindingFlags.SYNC_CREATE);
-
-		status.formal.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_boolean (!src.get_boolean () || settings.show_spoilers);
-			return true;
-		});
-		bind_property ("reveal-spoiler", spoiler_stack, "visible-child-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			var name = reveal_spoiler ? "content" : "spoiler";
-			spoiler_status_con.visible = src.get_boolean() && status.formal.has_spoiler;
-			target.set_string (name);
-			return true;
-		});
 
 		// Actions
 		reblog_button.bind (status.formal);
@@ -322,6 +324,8 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			date_label.destroy ();
 		}
 
+		// TODO: Votebox should be created dynamically if needed.
+		// Currently *all* status widgets contain one even if they don't have a poll.
 		if (status.poll==null){
 			poll.hide();
 		}
@@ -341,19 +345,19 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		actions.append (reply_button);
 
 		reblog_button = new StatusActionButton () {
-		    prop_name = "reblogged",
-		    action_on = "reblog",
-		    action_off = "unreblog"
+			prop_name = "reblogged",
+			action_on = "reblog",
+			action_off = "unreblog"
 		};
 		reblog_button.add_css_class("ttl-status-action-reblog");
 		reblog_button.tooltip_text = _("Boost");
 		actions.append (reblog_button);
 
 		favorite_button = new StatusActionButton () {
-		    prop_name = "favourited",
-		    action_on = "favourite",
-		    action_off = "unfavourite",
-		    icon_name = "tooth-unstarred-symbolic",
+			prop_name = "favourited",
+			action_on = "favourite",
+			action_off = "unfavourite",
+			icon_name = "tooth-unstarred-symbolic",
 			icon_toggled_name = "tooth-starred-symbolic"
 		};
 		favorite_button.add_css_class("ttl-status-action-star");
@@ -361,10 +365,10 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		actions.append (favorite_button);
 
 		bookmark_button = new StatusActionButton () {
-		    prop_name = "bookmarked",
-		    action_on = "bookmark",
-		    action_off = "unbookmark",
-		    icon_name = "tooth-bookmarks-symbolic",
+			prop_name = "bookmarked",
+			action_on = "bookmark",
+			action_off = "unbookmark",
+			icon_name = "tooth-bookmarks-symbolic",
 			icon_toggled_name = "tooth-bookmarks-filled-symbolic"
 		};
 		bookmark_button.add_css_class("ttl-status-action-bookmark");
