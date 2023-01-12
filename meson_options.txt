@@ -1,1 +1,1 @@
-option('profile', type: 'combo', choices: ['production', 'development'], value: 'production')
+option('devel', type: 'boolean', value: false)

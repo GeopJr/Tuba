@@ -3,7 +3,7 @@ scalable_dir = join_paths(icons_dir, 'scalable', 'apps')
 symbolic_dir = join_paths(icons_dir, 'symbolic', 'apps')
 
 icon = 'color.svg'
-if get_option('profile') == 'development'
+if get_option('devel')
   icon = 'color-nightly.svg'
 endif
 

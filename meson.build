@@ -16,14 +16,14 @@ add_global_arguments(
     language: 'c',
 )
 
-profile = get_option('profile')
+devel = get_option('devel')
 config = configuration_data()
 config.set('EXEC_NAME', meson.project_name())
 config.set('GETTEXT_PACKAGE', meson.project_name())
 config.set('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) + '/')
 config.set('VERSION', meson.project_version())
 config.set('PREFIX', get_option('prefix'))
-config.set('PROFILE', profile)
+config.set('PROFILE', devel ? 'development' : 'production')
 config.set('NAME', 'Tooth')
 config.set('WEBSITE', 'https://github.com/GeopJr/tooth')
 config.set('SUPPORT_WEBSITE', 'https://github.com/GeopJr/tooth/issues')
@@ -32,7 +32,7 @@ config.set(
     '© 2022 bleak_grey\n© 2022 Evangelos \"GeopJr\" Paterakis',
 )
 
-if profile == 'development'
+if devel
   git = find_program('git')
   if git.found()
     branch = run_command('git', 'branch', '--show-current', check: true).stdout().strip()
