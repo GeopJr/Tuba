@@ -23,12 +23,15 @@ public class Tooth.Widgets.MarkupView : Box {
 		get { return _selectable; }
 		set {
 			_selectable = value;
-			// get_children ().foreach (w => {
-			// 	var label = w as Label;
-			// 	if (label != null) {
-			// 		label.selectable = _selectable;
-			// 	}
-			// });
+
+			var w = this.get_first_child();
+			while (w != null) {
+				var label = w as RichLabel;
+				if (label != null) {
+					label.selectable = _selectable;
+				}
+				w = w.get_next_sibling();
+			};
 		}
 	}
 
