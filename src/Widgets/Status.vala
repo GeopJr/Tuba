@@ -326,12 +326,11 @@ public class Tooth.Widgets.Status : ListBoxRow {
 
 		// TODO: Votebox should be created dynamically if needed.
 		// Currently *all* status widgets contain one even if they don't have a poll.
-		if (status.poll==null){
+		if (status.formal.poll==null){
 			poll.hide();
-		}
-		else{
-			poll.status_parent=status;
-			status.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE);
+		} else {
+			poll.status_parent=status.formal;
+			status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE);
 		}
 
 		// Attachments
