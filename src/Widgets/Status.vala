@@ -47,7 +47,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Box content_column;
 	[GtkChild] protected unowned Stack spoiler_stack;
 	[GtkChild] protected unowned Box content_box;
-	[GtkChild] protected unowned Widgets.MarkupView content;
+	[GtkChild] public unowned Widgets.MarkupView content;
 	[GtkChild] protected unowned Widgets.Attachment.Box attachments;
 	[GtkChild] protected unowned Button spoiler_button;
 	[GtkChild] protected unowned Widgets.RichLabel spoiler_label;

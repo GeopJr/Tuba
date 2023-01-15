@@ -48,6 +48,7 @@ public class Tooth.Views.Thread : Views.ContentBase, AccountHolder {
 				w = w.get_next_sibling () as Widgets.Status) {
 
 			w.install_thread_line ();
+			w.content.selectable = true;
 		}
 
 		root_widget.thread_line.hide ();
