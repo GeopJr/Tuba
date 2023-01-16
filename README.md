@@ -36,6 +36,11 @@
 
 2. Run `install.sh` in the project directory. The app will launch automatically on success.
 
+### Installing via package
+
+Tooth is available as a package on various platforms.
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/tooth.svg)](https://repology.org/project/tooth/versions)
 
 ## Contributing
 
