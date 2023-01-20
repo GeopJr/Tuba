@@ -123,6 +123,18 @@ public class Tooth.Entity : GLib.Object, Widgetizable, Json.Serializable {
 		return true;
 	}
 
+	public static bool des_list_string (out Value val, Json.Node node) {
+		var arr = new Gee.ArrayList<string> ();
+		if (!node.is_null ()) {
+			node.get_array ().foreach_element ((array, i, elem) => {
+				var obj = (string) elem.get_string();
+				arr.add (obj);
+			});
+		}
+		val = arr;
+		return true;
+	}
+
 	public override Json.Node serialize_property (string prop, Value val, ParamSpec spec) {
 		var type = spec.value_type;
 		// debug (@"serializing $prop of type $(val.type_name ())");
