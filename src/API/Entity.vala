@@ -72,6 +72,9 @@ public class Tooth.Entity : GLib.Object, Widgetizable, Json.Serializable {
 
 			//There has to be a better way
 			switch (prop) {
+				case "supported-mime-types":
+				case "languages":
+					return des_list_string(out val, node);
 				case "media-attachments":
 					contains = typeof (API.Attachment);
 					break;
