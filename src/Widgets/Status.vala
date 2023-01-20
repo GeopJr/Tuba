@@ -76,7 +76,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	public bool is_conversation_open { get; set; default = false; }
 
 	public Gee.ArrayList<API.EmojiReaction>? reactions {
-		get { return status.formal.status_reactions; }
+		get { return status.formal.compat_status_reactions; }
 		set {
 			if (value == null) return;
 
@@ -250,7 +250,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			return true;
 		});
 		formal_bindings.bind_property ("account", avatar, "account", BindingFlags.SYNC_CREATE);
-		formal_bindings.bind_property ("status-reactions", this, "reactions", BindingFlags.SYNC_CREATE);
+		formal_bindings.bind_property ("compat-status-reactions", this, "reactions", BindingFlags.SYNC_CREATE);
 		formal_bindings.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_boolean (!src.get_boolean () || settings.show_spoilers);
 			return true;
