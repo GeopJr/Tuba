@@ -36,9 +36,25 @@ public class Tooth.Views.Profile : Views.Timeline {
 			is_profile: true,
 			url: @"/api/v1/accounts/$(acc.id)/statuses"
 		);
+		append_pinned(acc.id);
 		cover.bind (profile);
 		build_profile_stats(cover.info);
 		rs.invalidated.connect (on_rs_updated);
+	}
+
+	public void append_pinned(string acc_id) {
+		new Request.GET (@"/api/v1/accounts/$(acc_id)/statuses")
+			.with_account (account)
+			.with_param ("pinned", "true")
+			.with_ctx (this)
+			.then ((sess, msg) => {
+				Network.parse_array (msg, node => {
+					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
+					(e as API.Status).pinned = true;
+					model.append (e); //FIXME: use splice();
+				});
+			})
+			.exec ();
 	}
 
 	[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/profile_header.ui")]
