@@ -50,7 +50,9 @@ public class Tooth.Views.Profile : Views.Timeline {
 			.then ((sess, msg) => {
 				Network.parse_array (msg, node => {
 					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
-					(e as API.Status).pinned = true;
+					var e_status = e as API.Status;
+					if (e_status != null) e_status.pinned = true;
+
 					model.append (e); //FIXME: use splice();
 				});
 			})
