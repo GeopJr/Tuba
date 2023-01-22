@@ -173,6 +173,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	}
 	~Status () {
 		message ("Destroying Status widget");
+		context_menu.unparent ();
 	}
 
 	protected void create_context_menu() {

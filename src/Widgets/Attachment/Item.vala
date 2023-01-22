@@ -16,7 +16,6 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 	protected Button button;
 	protected Label badge;
 
-
 	private void copy_url () {
 		Host.copy (entity.url);
 	}
@@ -94,6 +93,10 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 
 		child = overlay;
 		child.add_css_class ("attachment");
+	}
+	~Item () {
+		message ("Destroying Attachment.Item widget");
+		context_menu.unparent ();
 	}
 
 	protected void create_context_menu() {
