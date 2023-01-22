@@ -4,6 +4,7 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 
 	public API.Attachment entity { get; set; default = null; }
 	protected GestureClick gesture_click_controller { get; set; }
+	protected GestureLongPress gesture_lp_controller { get; set; }
 	protected PopoverMenu context_menu { get; set; }
 	private const GLib.ActionEntry[] action_entries = {
 		{"copy-url",        copy_url},
@@ -76,9 +77,14 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 
 		create_context_menu();
 		gesture_click_controller = new GestureClick();
+		gesture_lp_controller = new GestureLongPress();
         add_controller(gesture_click_controller);
+        add_controller(gesture_lp_controller);
 		gesture_click_controller.button = Gdk.BUTTON_SECONDARY;
+		gesture_lp_controller.button = Gdk.BUTTON_PRIMARY;
+		gesture_lp_controller.touch_only = true;
         gesture_click_controller.pressed.connect(on_secondary_click);
+        gesture_lp_controller.pressed.connect(on_secondary_click);
 
 		badge = new Label ("") {
 			valign = Align.END,
@@ -127,6 +133,7 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 
 	protected virtual void on_secondary_click () {
 		gesture_click_controller.set_state(EventSequenceState.CLAIMED);
+		gesture_lp_controller.set_state(EventSequenceState.CLAIMED);
 		context_menu.popup();
 	}
 

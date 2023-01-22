@@ -74,6 +74,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	protected StatusActionButton bookmark_button;
 
 	protected GestureClick gesture_click_controller { get; set; }
+	protected GestureLongPress gesture_lp_controller { get; set; }
 	protected PopoverMenu context_menu { get; set; }
 	private const GLib.ActionEntry[] action_entries = {
 		{"copy-url",        copy_url},
@@ -154,9 +155,14 @@ public class Tooth.Widgets.Status : ListBoxRow {
 
 		create_context_menu();
 		gesture_click_controller = new GestureClick();
+		gesture_lp_controller = new GestureLongPress();
         add_controller(gesture_click_controller);
+        add_controller(gesture_lp_controller);
 		gesture_click_controller.button = Gdk.BUTTON_SECONDARY;
+		gesture_lp_controller.button = Gdk.BUTTON_PRIMARY;
+		gesture_lp_controller.touch_only = true;
         gesture_click_controller.pressed.connect(on_secondary_click);
+        gesture_lp_controller.pressed.connect(on_secondary_click);
 	}
 
 	public Status (API.Status status) {
@@ -195,6 +201,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 
 	protected virtual void on_secondary_click () {
 		gesture_click_controller.set_state(EventSequenceState.CLAIMED);
+		gesture_lp_controller.set_state(EventSequenceState.CLAIMED);
 		context_menu.popup();
 	}
 
