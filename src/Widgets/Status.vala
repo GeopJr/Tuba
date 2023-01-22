@@ -73,6 +73,14 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	protected StatusActionButton favorite_button;
 	protected StatusActionButton bookmark_button;
 
+	protected GestureClick gesture_click_controller { get; set; }
+	protected PopoverMenu context_menu { get; set; }
+	private const GLib.ActionEntry[] action_entries = {
+		{"copy-url",        copy_url},
+		{"open-in-browser", open_in_browser}
+	};
+	private GLib.SimpleActionGroup action_group;
+
 	public bool is_conversation_open { get; set; default = false; }
 
 	public Gee.ArrayList<API.EmojiReaction>? reactions {
@@ -139,6 +147,16 @@ public class Tooth.Widgets.Status : ListBoxRow {
 				remove_css_class("ttl-status-line-height-large");
 			}
 		});
+
+		action_group = new GLib.SimpleActionGroup ();
+		action_group.add_action_entries (action_entries, this);
+		this.insert_action_group ("status", action_group);
+
+		create_context_menu();
+		gesture_click_controller = new GestureClick();
+        add_controller(gesture_click_controller);
+		gesture_click_controller.button = Gdk.BUTTON_SECONDARY;
+        gesture_click_controller.pressed.connect(on_secondary_click);
 	}
 
 	public Status (API.Status status) {
@@ -155,6 +173,28 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	}
 	~Status () {
 		message ("Destroying Status widget");
+	}
+
+	protected void create_context_menu() {
+		var menu_model = new GLib.Menu ();
+		menu_model.append (_("Open in Browser"), "status.open-in-browser");
+		menu_model.append (_("Copy URL"), "status.copy-url");
+
+		context_menu = new PopoverMenu.from_model(menu_model);
+		context_menu.set_parent(this);
+	}
+
+	private void copy_url () {
+		Host.copy (status.formal.url);
+	}
+
+	private void open_in_browser () {
+		Host.open_uri (status.formal.url);
+	}
+
+	protected virtual void on_secondary_click () {
+		gesture_click_controller.set_state(EventSequenceState.CLAIMED);
+		context_menu.popup();
 	}
 
 	private void check_actions() {
