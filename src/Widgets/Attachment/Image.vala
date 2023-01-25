@@ -17,6 +17,7 @@ public class Tooth.Widgets.Attachment.Image : Widgets.Attachment.Item {
 
 	protected override void on_rebind () {
 		base.on_rebind ();
+		pic.alternative_text = entity == null ? null : entity.description;
 		image_cache.request_paintable (entity.preview_url, on_cache_response);
 	}
 

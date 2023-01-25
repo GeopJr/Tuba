@@ -15,6 +15,7 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 
 	protected Overlay overlay;
 	protected Button button;
+	protected Button alt_btn;
 	protected Label badge;
 
 	private void copy_url () {
@@ -86,16 +87,30 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
         gesture_click_controller.pressed.connect(on_secondary_click);
         gesture_lp_controller.pressed.connect(on_secondary_click);
 
-		badge = new Label ("") {
+		var badge_box = new Gtk.Box(Orientation.HORIZONTAL, 1) {
 			valign = Align.END,
 			halign = Align.START
 		};
-		badge.add_css_class ("osd");
+		badge = new Label ("");
 		badge.add_css_class ("heading");
+
+		alt_btn = new Button.with_label("ALT");
+		alt_btn.add_css_class ("heading");
+		alt_btn.add_css_class ("flat");
+
+		alt_btn.clicked.connect(() => {
+			if (entity != null && entity.description != null)
+				create_alt_text_window(entity.description).show();
+		});
+
+		badge_box.append(badge);
+		badge_box.append(alt_btn);
+		badge_box.add_css_class ("linked");
+		badge_box.add_css_class ("ttl-status-badge");
 
 		overlay = new Overlay ();
 		overlay.child = button;
-		overlay.add_overlay (badge);
+		overlay.add_overlay (badge_box);
 
 		child = overlay;
 		child.add_css_class ("attachment");
@@ -103,6 +118,38 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 	~Item () {
 		message ("Destroying Attachment.Item widget");
 		context_menu.unparent ();
+	}
+
+	protected Adw.Window create_alt_text_window (string alt_text) {
+		var clamp = new Adw.Clamp () {
+			child = new Label(alt_text) {
+				selectable = true,
+				wrap = true
+			},
+			tightening_threshold = 100,
+			valign = Align.START
+		};
+
+		var scrolledwindow = new ScrolledWindow() {
+			child = clamp,
+			vexpand = true,
+			hexpand = true
+		};
+
+		var box = new Gtk.Box(Orientation.VERTICAL, 6);
+		var headerbar = new Adw.HeaderBar();
+
+		box.append(headerbar);
+		box.append(scrolledwindow);
+
+		return new Adw.Window() {
+			modal = true,
+			title = @"Alternative text for $(badge.label)",
+			transient_for = app.main_window,
+			content = box,
+			default_width = 400,
+			default_height = 300
+		};
 	}
 
 	protected void create_context_menu() {
@@ -116,7 +163,7 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	protected virtual void on_rebind () {
-		button.tooltip_text = entity == null ? null : entity.description;
+		alt_btn.visible = entity != null && entity.description != null && entity.description != "";
 		badge.label = entity == null ? "" : entity.kind.up();
 	}
 

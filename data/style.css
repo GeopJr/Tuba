@@ -165,3 +165,18 @@ headerbar.flat.no-title .title {
 .ttl-status-line-height-large {
 	line-height: 1.4;
 }
+
+.ttl-status-badge {
+	background-color: rgba(0,0,0, .8);
+	border-radius: 6px;
+	margin-left: 8px;
+	margin-bottom: 8px;
+}
+
+.ttl-status-badge  > * {
+	padding: 6px 12px;
+}
+
+.ttl-status-badge  > button > label {
+	padding: 6px 12px;
+}
