@@ -92,7 +92,12 @@ public class Tooth.AttachmentsPage : ComposerPage {
 		var filter = new FileFilter () {
 			name = _("All Supported Files")
 		};
-		foreach (var mime_type in SUPPORTED_MIMES) {
+
+		var supported_mimes = new Gee.ArrayList<string>.wrap(SUPPORTED_MIMES);
+		if (accounts.active.instance_info != null && accounts.active.instance_info.configuration != null && accounts.active.instance_info.configuration.media_attachments != null && accounts.active.instance_info.configuration.media_attachments.supported_mime_types != null && accounts.active.instance_info.configuration.media_attachments.supported_mime_types.size > 0) {
+			supported_mimes = accounts.active.instance_info.configuration.media_attachments.supported_mime_types;
+		}
+		foreach (var mime_type in supported_mimes) {
 			filter.add_mime_type (mime_type);
 		}
 
