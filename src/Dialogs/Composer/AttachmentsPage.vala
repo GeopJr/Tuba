@@ -52,6 +52,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 		var attach_button = new Button.with_label (_("Add Media")) {
 			halign = Align.CENTER
 		};
+		attach_button.add_css_class("pill");
 		attach_button.clicked.connect (show_file_selector);
 
 		empty_state = new Adw.StatusPage () {
@@ -67,6 +68,16 @@ public class Tooth.AttachmentsPage : ComposerPage {
 		list = new ListBox ();
 		list.bind_model (attachments, on_create_list_item);
 
+		var add_media_action_button = new Gtk.Button() {
+			icon_name = "tooth-plus-large-symbolic",
+			valign = Gtk.Align.CENTER,
+			halign = Gtk.Align.CENTER
+		};
+		add_media_action_button.add_css_class ("flat");
+		add_media_action_button.clicked.connect(show_file_selector);
+
+		bottom_bar.pack_start (add_media_action_button);
+
 		// State stack
 		stack = new Adw.ViewStack ();
 		stack.add_named (list, "list");
@@ -80,12 +91,25 @@ public class Tooth.AttachmentsPage : ComposerPage {
 
 	Widget on_create_list_item (Object item) {
 		var attachment = item as API.Attachment;
-		return new Label (attachment.source_file.get_uri ());
+		var attachment_widget = new AttachmentsPageAttachment(attachment.source_file, dialog);
+		attachment_widget.remove_from_model.connect(() => {
+			uint indx;
+			var found = attachments.find (item, out indx);
+			if (found)
+				attachments.remove(indx);
+		});
+		return attachment_widget;
 	}
 
 	void on_attachments_changed () {
 		var is_empty = attachments.get_n_items () < 1;
-		stack.visible_child_name = (is_empty ? "empty" : "list");
+		if (is_empty) {
+			stack.visible_child_name = "empty";
+			bottom_bar.hide ();
+		} else {
+			stack.visible_child_name = "list";
+			bottom_bar.show ();
+		}
 	}
 
 	void show_file_selector () {

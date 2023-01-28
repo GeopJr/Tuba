@@ -17,6 +17,8 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 	protected Button button;
 	protected Button alt_btn;
 	protected Label badge;
+	protected Gtk.Box badge_box;
+	protected ulong alt_btn_clicked_id;
 
 	private void copy_url () {
 		Host.copy (entity.url);
@@ -87,7 +89,7 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
         gesture_click_controller.pressed.connect(on_secondary_click);
         gesture_lp_controller.pressed.connect(on_secondary_click);
 
-		var badge_box = new Gtk.Box(Orientation.HORIZONTAL, 1) {
+		badge_box = new Gtk.Box(Orientation.HORIZONTAL, 1) {
 			valign = Align.END,
 			halign = Align.START
 		};
@@ -98,7 +100,7 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 		alt_btn.add_css_class ("heading");
 		alt_btn.add_css_class ("flat");
 
-		alt_btn.clicked.connect(() => {
+		alt_btn_clicked_id = alt_btn.clicked.connect(() => {
 			if (entity != null && entity.description != null)
 				create_alt_text_window(entity.description).show();
 		});

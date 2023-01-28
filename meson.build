@@ -75,6 +75,7 @@ sources = files(
     'src/API/PollOption.vala',
     'src/Application.vala',
     'src/Dialogs/Composer/AttachmentsPage.vala',
+    'src/Dialogs/Composer/AttachmentsPageAttachment.vala',
     'src/Dialogs/Composer/Dialog.vala',
     'src/Dialogs/Composer/EditorPage.vala',
     'src/Dialogs/Composer/Page.vala',

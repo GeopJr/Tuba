@@ -24,5 +24,4 @@ public class Tooth.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	protected virtual void on_cache_response (bool is_loaded, owned Paintable? data) {
 		pic.paintable = data;
 	}
-
 }
