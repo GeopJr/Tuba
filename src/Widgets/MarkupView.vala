@@ -36,7 +36,7 @@ public class Tooth.Widgets.MarkupView : Box {
 	}
 
 	construct {
-		orientation = Orientation.VERTICAL;
+		orientation = Orientation.HORIZONTAL;
 		spacing = 12;
 	}
 
