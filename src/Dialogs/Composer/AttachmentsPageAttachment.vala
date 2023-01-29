@@ -1,11 +1,14 @@
 public class Tooth.AttachmentsPageAttachment : Widgets.Attachment.Item {
+
 	protected Gtk.Picture pic;
 	protected File attachment_file;
 	protected string? alt_text { get; set; default = null; }
 	private const int ALT_MAX_CHARS = 1500;
 	private Dialogs.Compose compose_dialog;
+	protected string id;
 
-    public AttachmentsPageAttachment (File file, Dialogs.Compose dialog){
+    public AttachmentsPageAttachment (string attachment_id, File file, Dialogs.Compose dialog){
+		id = attachment_id;
 		attachment_file = file;
 		compose_dialog = dialog;
 		pic = new Gtk.Picture.for_file (file) {
@@ -126,6 +129,11 @@ public class Tooth.AttachmentsPageAttachment : Widgets.Attachment.Item {
 				alt_btn.remove_css_class("success");
 				alt_btn.add_css_class("error");
 			}
+			new Request.PUT (@"/api/v1/media/$(id)")
+				.with_account (accounts.active)
+				.with_param ("description", HtmlUtils.uri_encode (alt_text))
+				.then(() => {})
+				.exec ();
 			dialog.destroy();
 		});
 
