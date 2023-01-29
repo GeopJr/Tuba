@@ -30,6 +30,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 	};
 
 	public GLib.ListStore attachments;
+	public bool can_publish { get; set; default = false; }
 
 	public AttachmentsPage () {
 		Object (
@@ -135,8 +136,16 @@ public class Tooth.AttachmentsPage : ComposerPage {
 					var files = chooser.get_files ();
 					for (var i = 0; i < chooser.get_files ().get_n_items (); i++) {
 						var file = files.get_item (i) as File;
-						var attachment = API.Attachment.upload (file);
-						attachments.append (attachment);
+						API.Attachment.upload.begin (file.get_uri (), (obj, res) => {
+							try {
+								var attachment = API.Attachment.upload.end (res);
+								attachment.source_file = file;
+								attachments.append (attachment);
+							}
+							catch (Error e) {
+								warning (e.message);
+							}
+						});
 					}
 					break;
 			}
@@ -146,4 +155,12 @@ public class Tooth.AttachmentsPage : ComposerPage {
 		chooser.show ();
 	}
 
+	public override void on_modify_req (Request req) {
+		if (can_publish){
+			for (var i = 0; i < attachments.get_n_items (); i++) {
+				var attachment = attachments.get_item (i) as API.Attachment;
+				req.with_form_data ("media_ids[]", attachment.id);
+			}
+		}
+	}
 }

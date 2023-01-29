@@ -29,10 +29,18 @@ public class Tooth.Dialogs.Compose : Adw.Window {
 
 	protected virtual signal void build () {
 		var p_edit = new EditorPage ();
-		p_edit.bind_property("can-publish", commit_button, "sensitive", BindingFlags.SYNC_CREATE);
+		var p_attach = new AttachmentsPage ();
+		p_edit.bind_property("can-publish", commit_button, "sensitive", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_boolean (src.get_boolean() || p_attach.can_publish);
+			return true;
+		});
+		p_attach.bind_property("can-publish", commit_button, "sensitive", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_boolean (src.get_boolean() || p_edit.can_publish);
+			return true;
+		});
 
 		add_page (p_edit);
-		add_page (new AttachmentsPage ());
+		add_page (p_attach);
 		add_page (new PollPage ());
 	}
 

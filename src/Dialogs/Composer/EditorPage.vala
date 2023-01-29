@@ -2,13 +2,18 @@ using Gtk;
 
 public class Tooth.EditorPage : ComposerPage {
 
-	protected uint char_limit { get; set; default = 500; } //TODO: Ask the instance to get this value
-	protected int remaining_chars { get; set; default = 0; }
+	protected int64 char_limit { get; set; default = 500; }
+	protected int64 remaining_chars { get; set; default = 0; }
 	public bool can_publish { get; set; default = false; }
 
 	construct {
 		title = _("Text");
 		icon_name = "tooth-edit-symbolic";
+
+		var char_limit_api = accounts.active.instance_info.compat_status_max_characters;
+		if (char_limit_api > 0)
+			char_limit = char_limit_api;
+		remaining_chars = char_limit;
 	}
 
 	public override void on_build (Dialogs.Compose dialog, API.Status status) {
@@ -46,7 +51,8 @@ public class Tooth.EditorPage : ComposerPage {
 	}
 
 	public override void on_modify_req (Request req) {
-		req.with_form_data ("status", status.content);
+		if (can_publish)
+			req.with_form_data ("status", status.content);
 		req.with_form_data ("visibility", status.visibility);
 
 		if (dialog.status.in_reply_to_id != null)
@@ -67,7 +73,7 @@ public class Tooth.EditorPage : ComposerPage {
 
 	protected void install_editor () {
 		recount_chars.connect (() => {
-			remaining_chars = (int) char_limit;
+			remaining_chars = char_limit;
 		});
 		recount_chars.connect_after (() => {
 			placeholder.visible = remaining_chars == char_limit;
