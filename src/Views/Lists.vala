@@ -43,7 +43,10 @@ public class Tooth.Views.Lists : Views.Timeline {
 			this.list = list;
 
 			if (list != null) {
-				this.list.bind_property ("title", this, "title", BindingFlags.SYNC_CREATE);
+				this.list.bind_property ("title", this, "title", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+					target.set_string (GLib.Markup.escape_text(src.get_string ()));
+					return true;
+				});
 				edit_button.clicked.connect(() => {
 					create_edit_preferences_window(this.list).show();
 				});
@@ -227,7 +230,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 				this.list.replies_policy = replies_policy;
 				new Request.PUT (@"/api/v1/lists/$(t_list.id)")
 					.with_account (accounts.active)
-					.with_param ("title", title)
+					.with_param ("title", HtmlUtils.uri_encode(title))
 					.with_param ("replies_policy", replies_policy)
 					.then(() => {})
 					.exec ();
