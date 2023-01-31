@@ -289,7 +289,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 	public void create_list(string list_name) {
 		new Request.POST ("/api/v1/lists")
 			.with_account (accounts.active)
-			.with_param ("title", list_name)
+			.with_param ("title", HtmlUtils.uri_encode(list_name))
 			.then ((sess, msg) => {
 				var node = network.parse_node (msg);
 				var list = API.List.from (node);
