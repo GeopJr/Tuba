@@ -143,6 +143,34 @@ public class Tooth.AttachmentsPage : ComposerPage {
 					var files = chooser.get_files ();
 					for (var i = 0; i < files.get_n_items (); i++) {
 						var file = files.get_item (i) as File;
+
+						if (accounts.active.instance_info.compat_status_max_image_size > 0) {
+							try {
+								var file_info = file.query_info ("standard::size,standard::content-type", 0);
+								var file_content_type = file_info.get_content_type ();
+
+								if (file_content_type != null) {
+									file_content_type = file_content_type.down();
+									var file_size = file_info.get_size();
+									var skip = (file_content_type.contains("image/") &&
+									file_size >= accounts.active.instance_info.compat_status_max_image_size) ||
+									(file_content_type.contains("video/") &&
+									file_size >= accounts.active.instance_info.compat_status_max_video_size);
+
+									if (skip) {
+										var toast = new Adw.Toast(_("File \"%s\" is bigger than the instance limit").printf(file.get_basename())) {
+											timeout = 0
+										};
+										toast_overlay.add_toast(toast);
+										continue;
+									}
+								}
+
+							} catch (Error e) {
+								warning (e.message);
+							}
+						}
+
 						API.Attachment.upload.begin (file.get_uri (), (obj, res) => {
 							try {
 								var attachment = API.Attachment.upload.end (res);
