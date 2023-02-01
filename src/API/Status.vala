@@ -33,7 +33,7 @@ public class Tooth.API.Status : Entity, Widgetizable {
     public ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
     public API.Poll? poll { get; set; default = null; }
 
-    public ArrayList<API.EmojiReaction>? status_reactions {
+    public ArrayList<API.EmojiReaction>? compat_status_reactions {
         get {
 			if (emoji_reactions != null) {
                 return emoji_reactions;

@@ -29,3 +29,8 @@
 .ttl-status-action-bookmark:active {
 	color: @red_2;
 }
+
+.ttl-verified-field {
+	color: rgb(143,240,164);
+	background: rgba(143,240,164,0.1);
+}
