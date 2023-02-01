@@ -94,6 +94,8 @@ public class Tooth.Views.Profile : Views.Timeline {
 					row.add_suffix (val);
 
 					info.append (row);
+
+					if (f.verified_at != null) row.add_css_class("ttl-verified-field");
 				}
 			}
 		}
