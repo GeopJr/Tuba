@@ -73,6 +73,7 @@ public class Tooth.SecretAccountStore : AccountStore {
 		attrs["version"] = VERSION;
 
 		var generator = new Json.Generator ();
+		account.instance_info = null;
 		generator.set_root (account.to_json ());
 		var secret = generator.to_data (null);
 		var label = _("%s Account").printf (account.backend);
