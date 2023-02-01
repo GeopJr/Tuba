@@ -30,6 +30,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 	};
 
 	public GLib.ListStore attachments;
+	public Adw.ToastOverlay toast_overlay;
 	public bool can_publish { get; set; default = false; }
 
 	public AttachmentsPage () {
@@ -83,7 +84,11 @@ public class Tooth.AttachmentsPage : ComposerPage {
 		stack = new Adw.ViewStack ();
 		stack.add_named (list, "list");
 		stack.add_named (empty_state, "empty");
-		content.prepend (stack);
+
+		toast_overlay = new Adw.ToastOverlay();
+		toast_overlay.child = stack;
+
+		content.prepend (toast_overlay);
 	}
 
 	public override void on_pull () {
@@ -92,7 +97,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 
 	Widget on_create_list_item (Object item) {
 		var attachment = item as API.Attachment;
-		var attachment_widget = new AttachmentsPageAttachment(attachment.source_file, dialog);
+		var attachment_widget = new AttachmentsPageAttachment(attachment.id, attachment.source_file, dialog);
 		attachment_widget.remove_from_model.connect(() => {
 			uint indx;
 			var found = attachments.find (item, out indx);
@@ -107,9 +112,11 @@ public class Tooth.AttachmentsPage : ComposerPage {
 		if (is_empty) {
 			stack.visible_child_name = "empty";
 			bottom_bar.hide ();
+			can_publish = false;
 		} else {
 			stack.visible_child_name = "list";
 			bottom_bar.show ();
+			can_publish = true;
 		}
 	}
 
@@ -134,7 +141,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 			switch (id) {
 				case ResponseType.ACCEPT:
 					var files = chooser.get_files ();
-					for (var i = 0; i < chooser.get_files ().get_n_items (); i++) {
+					for (var i = 0; i < files.get_n_items (); i++) {
 						var file = files.get_item (i) as File;
 						API.Attachment.upload.begin (file.get_uri (), (obj, res) => {
 							try {
@@ -144,6 +151,10 @@ public class Tooth.AttachmentsPage : ComposerPage {
 							}
 							catch (Error e) {
 								warning (e.message);
+								var toast = new Adw.Toast(e.message) {
+									timeout = 0
+								};
+								toast_overlay.add_toast(toast);
 							}
 						});
 					}
