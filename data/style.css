@@ -182,6 +182,10 @@ headerbar.flat.no-title .title {
 	padding: 6px 12px;
 }
 
+.ttl-status-badge  > .image-button {
+	padding: 3px 12px;
+}
+
 .ttl-verified-field {
 	color: rgb(27,133,83);
 	background: rgba(27,133,83,0.1);
