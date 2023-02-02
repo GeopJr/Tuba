@@ -111,6 +111,7 @@ sources = files(
     'src/Views/Bookmarks.vala',
     'src/Views/ContentBase.vala',
     'src/Views/Conversations.vala',
+    'src/Views/EditHistory.vala',
     'src/Views/Favorites.vala',
     'src/Views/Federated.vala',
     'src/Views/Hashtag.vala',

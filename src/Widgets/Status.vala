@@ -81,6 +81,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		{"open-in-browser", open_in_browser}
 	};
 	private GLib.SimpleActionGroup action_group;
+	private SimpleAction edit_history_simple_action;
 
 	public bool is_conversation_open { get; set; default = false; }
 
@@ -149,8 +150,13 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			}
 		});
 
+		edit_history_simple_action = new SimpleAction ("edit-history", null);
+		edit_history_simple_action.activate.connect (view_edit_history);
+
 		action_group = new GLib.SimpleActionGroup ();
 		action_group.add_action_entries (action_entries, this);
+		action_group.add_action(edit_history_simple_action);
+
 		this.insert_action_group ("status", action_group);
 
 		create_context_menu();
@@ -187,6 +193,10 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		menu_model.append (_("Open in Browser"), "status.open-in-browser");
 		menu_model.append (_("Copy URL"), "status.copy-url");
 
+		var edit_history_menu_item = new MenuItem(_("View Edit History"), "status.edit-history");
+		edit_history_menu_item.set_attribute_value("hidden-when", "action-disabled");
+		menu_model.append_item (edit_history_menu_item);
+
 		context_menu = new PopoverMenu.from_model(menu_model);
 		context_menu.set_parent(this);
 	}
@@ -197,6 +207,10 @@ public class Tooth.Widgets.Status : ListBoxRow {
 
 	private void open_in_browser () {
 		Host.open_uri (status.formal.url);
+	}
+
+	private void view_edit_history () {
+		app.main_window.open_view (new Views.EditHistory (status.formal.id));
 	}
 
 	protected virtual void on_secondary_click () {
@@ -288,7 +302,11 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		self_bindings.bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 
 		formal_bindings.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
-		formal_bindings.bind_property ("is-edited", edited_indicator, "visible", BindingFlags.SYNC_CREATE);
+		formal_bindings.bind_property ("is-edited", edited_indicator, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			edit_history_simple_action.set_enabled(src.get_boolean());
+			target.set_boolean (src.get_boolean());
+			return true;
+		});
 		formal_bindings.bind_property ("visibility", indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_string (accounts.active.visibility[src.get_string ()].icon_name);
 			return true;
