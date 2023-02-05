@@ -61,7 +61,7 @@
                                         <child>
                                           <object class="GtkButton" id="status_button">
                                             <property name="visible">0</property>
-                                            <property name="width-request">200</property>
+                                            <property name="halign">center</property>
                                             <style>
                                               <class name="pill"/>
                                             </style>
