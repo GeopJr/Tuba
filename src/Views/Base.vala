@@ -41,7 +41,7 @@ public class Tooth.Views.Base : Box {
 
 		notify["status-message"].connect (() => {
 			status_page.description = @"<span size='large'>$status_message</span>";
-			status_spinner.visible = status_message == STATUS_LOADING ? true : false;
+			status_spinner.visible = status_message == STATUS_LOADING;
 		});
 
 		notify["current"].connect (() => {
