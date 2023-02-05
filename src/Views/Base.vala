@@ -26,8 +26,8 @@ public class Tooth.Views.Base : Box {
 	[GtkChild] protected unowned Stack states;
 	[GtkChild] protected unowned Box content_box;
 	[GtkChild] protected unowned Button status_button;
-	[GtkChild] unowned Stack status_stack;
-	[GtkChild] unowned Label status_message_label;
+	[GtkChild] unowned Adw.StatusPage status_page;
+	[GtkChild] unowned Spinner status_spinner;
 
 	public string state { get; set; default = "status"; }
 	public string status_message { get; set; default = STATUS_EMPTY; }
@@ -40,8 +40,8 @@ public class Tooth.Views.Base : Box {
 		bind_property ("state", states, "visible-child-name", BindingFlags.SYNC_CREATE);
 
 		notify["status-message"].connect (() => {
-			status_message_label.label = @"<span size='large'>$status_message</span>";
-			status_stack.visible_child_name = status_message == STATUS_LOADING ? "spinner" : "message";
+			status_page.description = @"<span size='large'>$status_message</span>";
+			status_spinner.visible = status_message == STATUS_LOADING;
 		});
 
 		notify["current"].connect (() => {

@@ -104,7 +104,7 @@ public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase
 
 	public virtual void on_refresh () {
 		scrolled.vadjustment.value = 0;
-		status_button.sensitive = false;
+		status_button.visible = false;
 		clear ();
 		status_message = STATUS_LOADING;
 		GLib.Idle.add (request);
