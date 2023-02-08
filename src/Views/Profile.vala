@@ -41,6 +41,9 @@ public class Tooth.Views.Profile : Views.Timeline {
 		build_profile_stats(cover.info);
 		rs.invalidated.connect (on_rs_updated);
 	}
+	~Profile () {
+		message("Destroying Profile view");
+	}
 
 	public void append_pinned(string acc_id) {
 		new Request.GET (@"/api/v1/accounts/$(acc_id)/statuses")
@@ -111,16 +114,24 @@ public class Tooth.Views.Profile : Views.Timeline {
 			homogeneous = true
 		};
 
-		box.append(build_profile_stats_button(@"$(profile.statuses_count) " + _("Posts"), "statuses"));
-		box.append(build_profile_stats_button(@"$(profile.following_count) " + _("Following"), "following"));
-		box.append(build_profile_stats_button(@"$(profile.followers_count) " + _("Followers"), "followers"));
+		var btn = build_profile_stats_button(@"$(profile.statuses_count) " + _("Posts"));
+		btn.clicked.connect(() => change_timeline_source("statuses"));
+		box.append(btn);
+
+		btn = build_profile_stats_button(@"$(profile.following_count) " + _("Following"));
+		btn.clicked.connect(() => change_timeline_source("following"));
+		box.append(btn);
+
+		btn = build_profile_stats_button(@"$(profile.followers_count) " + _("Followers"));
+		btn.clicked.connect(() => change_timeline_source("followers"));
+		box.append(btn);
 
 		row.activatable = false;
 		row.child = box;
 		info.append (row);
 	}
 
-	protected Button build_profile_stats_button(string btn_label, string t_source) {
+	protected Button build_profile_stats_button(string btn_label) {
 		var btn = new Button.with_label(btn_label);
 		btn.add_css_class("flat");
 		btn.add_css_class("ttl-profile-stat-button");
@@ -129,15 +140,14 @@ public class Tooth.Views.Profile : Views.Timeline {
 		child_label.wrap = true;
 		child_label.justify = Justification.CENTER;
 
-		btn.clicked.connect(() => {
-			source = t_source;
-			accepts = source == "statuses" ? typeof (API.Status) : typeof (API.Account);
-
-			url = @"/api/v1/accounts/$(profile.id)/$source";
-			invalidate_actions (true);
-		});
-
 		return btn;
+	}
+
+	protected void change_timeline_source (string t_source) {
+		accepts = t_source == "statuses" ? typeof (API.Status) : typeof (API.Account);
+
+		url = @"/api/v1/accounts/$(profile.id)/$t_source";
+		invalidate_actions (true);
 	}
 
 	protected override void build_header () {
