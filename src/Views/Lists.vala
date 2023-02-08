@@ -304,15 +304,17 @@ public class Tooth.Views.Lists : Views.Timeline {
 		buffer.set_text("".data);
 	}
 
+	Entry child_entry = new Entry() {
+		input_purpose = InputPurpose.FREE_FORM,
+		placeholder_text = _("New list title")
+	};
+
 	construct {
         var add_action_bar = new ActionBar ();
 		add_action_bar.add_css_class("ttl-box-no-shadow");
 
 		var child_box = new Box(Orientation.HORIZONTAL, 6);
-		var child_entry = new Entry() {
-			input_purpose = InputPurpose.FREE_FORM,
-			placeholder_text = _("New list title")
-		};
+
 		var add_button = new Button.with_label (_("Add list")) {
 			sensitive = false
 		};
@@ -334,6 +336,10 @@ public class Tooth.Views.Lists : Views.Timeline {
 
 		add_action_bar.set_center_widget(child_box);
 		insert_child_after (add_action_bar, header);
+	}
+
+	~Lists () {
+		message("Destroying Lists view");
 	}
 	
     public override void on_request_finish () {
