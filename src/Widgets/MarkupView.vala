@@ -36,7 +36,7 @@ public class Tooth.Widgets.MarkupView : Box {
 	}
 
 	construct {
-		orientation = Orientation.HORIZONTAL;
+		orientation = Orientation.VERTICAL;
 		spacing = 12;
 	}
 
@@ -77,7 +77,8 @@ public class Tooth.Widgets.MarkupView : Box {
 			var label = new RichLabel (current_chunk) {
 				visible = true,
 				// markup = MarkupPolicy.TRUST,
-				selectable = _selectable
+				selectable = _selectable,
+				vexpand = true
 			};
 			prepend (label);
 		}
