@@ -53,6 +53,7 @@ namespace Tooth {
 			{ "back", back_activated },
 			{ "refresh", refresh_activated },
 			{ "search", search_activated },
+			{ "quit", quit_activated }
 		};
 
 		construct {
@@ -65,6 +66,7 @@ namespace Tooth {
 		public string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left"};
 		public string[] ACCEL_REFRESH = {"<Ctrl>R", "F5"};
 		public string[] ACCEL_SEARCH = {"<Ctrl>F"};
+		public string[] ACCEL_QUIT = {"<Ctrl>Q"};
 
 		public static int main (string[] args) {
 			try {
@@ -125,6 +127,7 @@ namespace Tooth {
 			set_accels_for_action ("app.back", ACCEL_BACK);
 			set_accels_for_action ("app.refresh", ACCEL_REFRESH);
 			set_accels_for_action ("app.search", ACCEL_SEARCH);
+			set_accels_for_action ("app.quit", ACCEL_QUIT);
 			add_action_entries (app_entries, this);
 		}
 
@@ -194,6 +197,10 @@ namespace Tooth {
 
 		void search_activated () {
 			main_window.open_view (new Views.Search ());
+		}
+
+		void quit_activated () {
+			app.quit ();
 		}
 
 		void refresh_activated () {
