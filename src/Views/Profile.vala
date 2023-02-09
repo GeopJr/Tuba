@@ -144,6 +144,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 	}
 
 	protected void change_timeline_source (string t_source) {
+		source = t_source;
 		accepts = t_source == "statuses" ? typeof (API.Status) : typeof (API.Account);
 
 		url = @"/api/v1/accounts/$(profile.id)/$t_source";
