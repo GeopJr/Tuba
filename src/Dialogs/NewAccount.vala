@@ -182,8 +182,9 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 		var query = new Soup.URI (uri).get_query ();
 		var split = query.split ("=");
 		var code = split[1];
+		var code_clean = code.splice(code.index_of_char('&'), -1);
 
-		code_entry.text = code;
+		code_entry.text = code_clean;
 		is_working = false;
 		on_next_clicked ();
 	}
