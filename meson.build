@@ -77,6 +77,7 @@ sources = files(
     'src/API/SearchResults.vala',
     'src/API/Status.vala',
     'src/API/Tag.vala',
+    'src/API/TagHistory.vala',
     'src/API/Poll.vala',
     'src/API/PollOption.vala',
     'src/Application.vala',

@@ -100,6 +100,9 @@ public class Tooth.Entity : GLib.Object, Widgetizable, Json.Serializable {
 				case "hashtags":
 					contains = typeof (API.Tag);
 					break;
+				case "history":
+					contains = typeof (API.TagHistory);
+					break;
 				default:
 					contains = typeof (Entity);
 					break;
