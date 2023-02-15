@@ -52,13 +52,13 @@ public class Tooth.Views.Search : Views.TabbedBase {
 		if (query == "") {
 			clear ();
 			state = "status";
-			status_message = _("Enter query");
+			status_title = _("Enter Query");
 			return;
 		}
 
 		clear ();
 		state = "status";
-		status_message = STATUS_LOADING;
+		status_title = STATUS_LOADING;
 		API.SearchResults.request.begin (query, accounts.active, (obj, res) => {
 			try {
 				var results = API.SearchResults.request.end (res);

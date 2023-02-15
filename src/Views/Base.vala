@@ -27,9 +27,11 @@ public class Tooth.Views.Base : Box {
 	[GtkChild] protected unowned Box content_box;
 	[GtkChild] protected unowned Button status_button;
 	[GtkChild] unowned Stack status_stack;
+	[GtkChild] unowned Label status_title_label;
 	[GtkChild] unowned Label status_message_label;
 
 	public string state { get; set; default = "status"; }
+	public string status_title { get; set; default = STATUS_EMPTY; }
 	public string status_message { get; set; default = STATUS_EMPTY; }
 
 	construct {
@@ -38,10 +40,17 @@ public class Tooth.Views.Base : Box {
 
 		status_button.label = _("Reload");
 		bind_property ("state", states, "visible-child-name", BindingFlags.SYNC_CREATE);
+		bind_property ("status-message", status_message_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			var src_s = src.get_string ();
+			target.set_string (src_s);
+			status_message_label.visible = src_s != STATUS_EMPTY && src_s != "";
+			return true;
+		});
 
-		notify["status-message"].connect (() => {
-			status_message_label.label = @"<span size='large'>$status_message</span>";
-			status_stack.visible_child_name = status_message == STATUS_LOADING ? "spinner" : "message";
+		notify["status-title"].connect (() => {
+			status_title_label.label = status_title;
+			status_message = STATUS_EMPTY;
+			status_stack.visible_child_name = status_title == STATUS_LOADING ? "spinner" : "message";
 		});
 
 		notify["current"].connect (() => {
@@ -86,6 +95,7 @@ public class Tooth.Views.Base : Box {
 	public virtual void on_content_changed () {}
 
 	public virtual void on_error (int32 code, string reason) {
+		status_title = _("An Error Occurred");
 		status_message = reason;
 		status_button.visible = true;
 		status_button.sensitive = true;

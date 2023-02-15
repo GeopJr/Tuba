@@ -88,7 +88,7 @@ public class Tooth.Views.TabbedBase : Views.Base {
 
 		// if (empty) {
 		// 	state = "status";
-		// 	status_message = STATUS_EMPTY;
+		// 	status_title = STATUS_EMPTY;
 		// }
 		// else {
 		// 	state = "content";

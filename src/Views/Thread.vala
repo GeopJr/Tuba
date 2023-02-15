@@ -9,7 +9,7 @@ public class Tooth.Views.Thread : Views.ContentBase, AccountHolder {
 	public Thread (API.Status status) {
 		Object (
 			root_status: status,
-			status_message: STATUS_LOADING,
+			status_title: STATUS_LOADING,
 			label: _("Conversation")
 		);
 		construct_account_holder ();
