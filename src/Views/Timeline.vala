@@ -106,7 +106,7 @@ public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase
 		scrolled.vadjustment.value = 0;
 		status_button.sensitive = false;
 		clear ();
-		status_title = STATUS_LOADING;
+		status_loading = true;
 		GLib.Idle.add (request);
 	}
 

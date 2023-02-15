@@ -58,7 +58,7 @@ public class Tooth.Views.Search : Views.TabbedBase {
 
 		clear ();
 		state = "status";
-		status_title = STATUS_LOADING;
+		status_loading = true;
 		API.SearchResults.request.begin (query, accounts.active, (obj, res) => {
 			try {
 				var results = API.SearchResults.request.end (res);
@@ -72,6 +72,8 @@ public class Tooth.Views.Search : Views.TabbedBase {
 				if (!results.hashtags.is_empty) {
 					results.hashtags.@foreach (e => append_entity (hashtags_tab, e));
 				}
+
+				status_title = STATUS_EMPTY;
 
 				on_content_changed ();
 			}

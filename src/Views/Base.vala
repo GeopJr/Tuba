@@ -4,7 +4,6 @@ using Gtk;
 public class Tooth.Views.Base : Box {
 
 	public static string STATUS_EMPTY = _("Nothing to see here");
-	public static string STATUS_LOADING = " ";
 
 	public string? icon { get; set; default = null; }
 	public string label { get; set; default = ""; }
@@ -33,6 +32,7 @@ public class Tooth.Views.Base : Box {
 	public string state { get; set; default = "status"; }
 	public string status_title { get; set; default = STATUS_EMPTY; }
 	public string status_message { get; set; default = STATUS_EMPTY; }
+	public bool status_loading { get; set; default = false; }
 
 	construct {
 	    build_actions ();
@@ -40,17 +40,27 @@ public class Tooth.Views.Base : Box {
 
 		status_button.label = _("Reload");
 		bind_property ("state", states, "visible-child-name", BindingFlags.SYNC_CREATE);
+		bind_property ("status-loading", status_stack, "visible-child-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_string (src.get_boolean ()  ? "spinner" : "message");
+			return true;
+		});
 		bind_property ("status-message", status_message_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			var src_s = src.get_string ();
 			target.set_string (src_s);
 			status_message_label.visible = src_s != STATUS_EMPTY && src_s != "";
 			return true;
 		});
+		bind_property ("status-title", status_title_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			var src_s = src.get_string ();
+			target.set_string (src_s);
+			status_message = STATUS_EMPTY;
+			status_loading = src_s == "";
+			return true;
+		});
 
 		notify["status-title"].connect (() => {
 			status_title_label.label = status_title;
 			status_message = STATUS_EMPTY;
-			status_stack.visible_child_name = status_title == STATUS_LOADING ? "spinner" : "message";
 		});
 
 		notify["current"].connect (() => {
