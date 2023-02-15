@@ -5,6 +5,16 @@ public class Tooth.API.Instance : Entity {
 	public API.Mastodon.Configuration.Polls? poll_limits { get; set; default = null; }
 	public int64 upload_limit { get; set; default = 0; }
 
+    public int64 compat_status_max_media_attachments {
+        get {
+			if (configuration != null) {
+                return configuration.statuses.max_media_attachments;
+            }
+
+            return 4;
+		}
+    }
+
     public int64 compat_status_max_characters {
         get {
 			if (configuration != null) {

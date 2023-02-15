@@ -46,13 +46,15 @@ public class Tooth.AttachmentsPage : ComposerPage {
 	protected Adw.ViewStack stack;
 	protected Adw.StatusPage empty_state;
 	protected ListBox list;
+	protected Gtk.Button add_media_action_button;
 
 	public override void on_build (Dialogs.Compose dialog, API.Status status) {
 		base.on_build (dialog, status);
 
 		// Empty state
 		var attach_button = new Button.with_label (_("Add Media")) {
-			halign = Align.CENTER
+			halign = Align.CENTER,
+			sensitive = accounts.active.instance_info.compat_status_max_media_attachments > 0
 		};
 		attach_button.add_css_class("pill");
 		attach_button.clicked.connect (show_file_selector);
@@ -70,7 +72,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 		list = new ListBox ();
 		list.bind_model (attachments, on_create_list_item);
 
-		var add_media_action_button = new Gtk.Button() {
+		add_media_action_button = new Gtk.Button() {
 			icon_name = "tooth-plus-large-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER
@@ -108,7 +110,8 @@ public class Tooth.AttachmentsPage : ComposerPage {
 	}
 
 	void on_attachments_changed () {
-		var is_empty = attachments.get_n_items () < 1;
+		var attachments_size = attachments.get_n_items ();
+		var is_empty = attachments_size < 1;
 		if (is_empty) {
 			stack.visible_child_name = "empty";
 			bottom_bar.hide ();
@@ -117,6 +120,11 @@ public class Tooth.AttachmentsPage : ComposerPage {
 			stack.visible_child_name = "list";
 			bottom_bar.show ();
 			can_publish = true;
+
+			// Disable the add media action button
+			// if we went over the amount of media
+			// the server allows.
+			add_media_action_button.sensitive = accounts.active.instance_info.compat_status_max_media_attachments > attachments_size;
 		}
 	}
 
@@ -141,7 +149,14 @@ public class Tooth.AttachmentsPage : ComposerPage {
 			switch (id) {
 				case ResponseType.ACCEPT:
 					var files = chooser.get_files ();
-					for (var i = 0; i < files.get_n_items (); i++) {
+					var selected_files_amount = files.get_n_items ();
+
+					// We want to only upload as many attachments as the server
+					// accpets based on the amount we have already uploaded.
+					var allowed_attachments_amount = accounts.active.instance_info.compat_status_max_media_attachments - attachments.get_n_items ();
+					var amount_to_add = selected_files_amount > allowed_attachments_amount ? allowed_attachments_amount : selected_files_amount;
+
+					for (var i = 0; i < amount_to_add; i++) {
 						var file = files.get_item (i) as File;
 
 						if (accounts.active.instance_info.compat_status_max_image_size > 0) {
