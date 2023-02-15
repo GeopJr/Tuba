@@ -19,6 +19,7 @@ public class Tooth.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		};
 		button.child = pic;
 		badge.visible = false;
+		alt_btn.tooltip_text = _("Edit Alt Text");
 		alt_btn.disconnect(alt_btn_clicked_id);
 		alt_btn.clicked.connect(() => {
 			create_alt_text_input_window().show();
@@ -29,7 +30,8 @@ public class Tooth.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		var delete_button = new Gtk.Button() {
 			icon_name = "tooth-trash-symbolic",
 			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER
+			halign = Gtk.Align.CENTER,
+			tooltip_text = _("Remove Attachment")
 		};
 		badge_box.append(delete_button);
 		delete_button.add_css_class("error");

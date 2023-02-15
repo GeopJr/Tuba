@@ -96,7 +96,9 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 		badge = new Label ("");
 		badge.add_css_class ("heading");
 
-		alt_btn = new Button.with_label("ALT");
+		alt_btn = new Button.with_label("ALT") {
+			tooltip_text = _("View Alt Text")
+		};
 		alt_btn.add_css_class ("heading");
 		alt_btn.add_css_class ("flat");
 

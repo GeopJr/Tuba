@@ -61,7 +61,6 @@ public class Tooth.AttachmentsPage : ComposerPage {
 
 		empty_state = new Adw.StatusPage () {
 			title = _("No Media"),
-			description = _("Drag files here or click the button below"),
 			vexpand = true,
 			icon_name = icon_name,
 			child = attach_button
@@ -75,7 +74,8 @@ public class Tooth.AttachmentsPage : ComposerPage {
 		add_media_action_button = new Gtk.Button() {
 			icon_name = "tooth-plus-large-symbolic",
 			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER
+			halign = Gtk.Align.CENTER,
+			tooltip_text = _("Add Media")
 		};
 		add_media_action_button.add_css_class ("flat");
 		add_media_action_button.clicked.connect(show_file_selector);
