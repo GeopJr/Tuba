@@ -285,8 +285,12 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		header_label.set_label(descr, label_url, this.kind_instigator.emojis_map);
 	}
 
+	// WARN: self_bindings __must__ be outside bind ()
+	//       else some source values wont be updated
+	BindingGroup self_bindings = new BindingGroup ();
 	protected virtual void bind () {
-		var self_bindings = new BindingGroup ();
+		// WARN: formal_bindings __must__ be inside bind ()
+		//       else the widget wont get destructed
 		var formal_bindings = new BindingGroup ();
 
 		self_bindings.bind_property ("spoiler-text", spoiler_label, "label", BindingFlags.SYNC_CREATE);
@@ -297,7 +301,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			spoiler_stack.visible_child_name = reveal_spoiler ? "content" : "spoiler";
 		});
 
-		self_bindings.bind_property ("is_conversation_open", status_stats, "visible", BindingFlags.SYNC_CREATE);
+		self_bindings.bind_property ("is-conversation-open", status_stats, "visible", BindingFlags.SYNC_CREATE);
 		self_bindings.bind_property ("subtitle_text", handle_label, "label", BindingFlags.SYNC_CREATE);
 		self_bindings.bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 
