@@ -118,7 +118,8 @@ public class Tooth.Widgets.Status : ListBoxRow {
 					badge_button.add_css_class("accent");
 				}
 
-				emoji_reactions.append(badge_button);
+				//  emoji_reactions.append(badge_button); // GTK >= 4.5
+				emoji_reactions.insert (badge_button, -1);
 			}
 
 			emoji_reactions.visible = value.size > 0;

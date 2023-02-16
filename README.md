@@ -24,7 +24,7 @@
     :--- |---:|
     meson | 0.56
     valac | 0.48
-    libglib-2.0-dev | 2.30
+    libglib-2.0-dev | 2.71.2
     libjson-glib-dev | 1.4.4
     libxml2-dev | 2.9.10
     libgee-0.8-dev | 0.8.5

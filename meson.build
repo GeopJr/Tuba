@@ -162,7 +162,7 @@ executable(
     build_file,
     sources,
     dependencies: [
-        dependency('glib-2.0', version: '>=2.30.0'),
+        dependency('glib-2.0', version: '>=2.71.2'),
         dependency('gee-0.8', version: '>=0.8.5'),
         dependency('libsoup-2.4'),
         dependency('json-glib-1.0', version: '>=1.4.4'),
