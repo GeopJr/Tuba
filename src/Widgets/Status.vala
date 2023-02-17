@@ -242,8 +242,6 @@ public class Tooth.Widgets.Status : ListBoxRow {
 						var root = network.parse (msg);
 						if (root.has_member("error")) {
 							// TODO: Handle error (probably a toast?)
-						} else {
-							this.destroy();
 						};
 					})
 					.exec ();
