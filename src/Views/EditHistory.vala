@@ -12,7 +12,7 @@ public class Tooth.Views.EditHistory : Views.Timeline {
 		var widget_status = widget as Widgets.Status;
 
 		widget_status.actions.visible = false;
-		widget_status.sensitive = false;
+		widget_status.activatable = false;
 
 		return widget;
 	}
