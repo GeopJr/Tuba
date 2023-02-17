@@ -154,7 +154,23 @@ public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase
 	}
 
 	public virtual void on_delete_post (Streamable.Event ev) {
-		//TODO: This
-	}
+		try {
+			var status_id = ev.get_string ();
 
+			for (uint i = 0; i < model.get_n_items(); i++) {
+				var status_obj = (API.Status)model.get_item(i);
+				// Not sure if there can be both the original
+				// and a boost of it at the same time.
+				if (status_obj.id == status_id || status_obj.formal.id == status_id) {
+					model.remove(i);
+					// If there can be both the original
+					// and boosts at the same time, then
+					// it shouldn't stop at the first find.
+					break;
+				}
+			}
+		} catch (Error e) {
+			warning (@"Error getting String from json: $(e.message)");
+		}
+	}
 }
