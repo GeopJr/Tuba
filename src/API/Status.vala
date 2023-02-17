@@ -74,7 +74,7 @@ public class Tooth.API.Status : Entity, Widgetizable {
 
     public bool can_be_boosted {
     	get {
-    		return this.formal.visibility != "direct";
+    		return this.formal.visibility != "direct" && (this.formal.visibility != "private" || this.formal.account.is_self ());
     	}
     }
 
