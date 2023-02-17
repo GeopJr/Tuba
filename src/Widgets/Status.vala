@@ -160,7 +160,6 @@ public class Tooth.Widgets.Status : ListBoxRow {
 
 		this.insert_action_group ("status", action_group);
 
-		create_context_menu();
 		gesture_click_controller = new GestureClick();
 		gesture_lp_controller = new GestureLongPress();
         add_controller(gesture_click_controller);
@@ -183,10 +182,18 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		}
 
 		check_actions();
+		create_context_menu();
+
+		if (status.formal.account.is_self ()) {
+			var delete_status_simple_action = new SimpleAction ("delete-status", null);
+			delete_status_simple_action.activate.connect (delete_status);
+			action_group.add_action(delete_status_simple_action);
+		}
 	}
 	~Status () {
 		message ("Destroying Status widget");
-		context_menu.unparent ();
+		if (context_menu != null)
+			context_menu.unparent ();
 	}
 
 	protected void create_context_menu() {
@@ -197,6 +204,10 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		var edit_history_menu_item = new MenuItem(_("View Edit History"), "status.edit-history");
 		edit_history_menu_item.set_attribute_value("hidden-when", "action-disabled");
 		menu_model.append_item (edit_history_menu_item);
+
+		if (status.formal.account.is_self ()) {
+			menu_model.append (_("Delete"), "status.delete-status");
+		}
 
 		context_menu = new PopoverMenu.from_model(menu_model);
 		context_menu.set_parent(this);
@@ -212,6 +223,35 @@ public class Tooth.Widgets.Status : ListBoxRow {
 
 	private void view_edit_history () {
 		app.main_window.open_view (new Views.EditHistory (status.formal.id));
+	}
+
+	private void delete_status () {
+		var remove = app.question (
+			_("Are you sure you want to delete this post?"),
+			null,
+			app.main_window,
+			_("Delete"),
+			Adw.ResponseAppearance.DESTRUCTIVE
+		);
+
+		remove.response.connect(res => {
+			if (res == "yes") {
+				new Request.DELETE (@"/api/v1/statuses/$(status.formal.id)")
+					.with_account (accounts.active)
+					.then ((sess, msg) => {
+						var root = network.parse (msg);
+						if (root.has_member("error")) {
+							// TODO: Handle error (probably a toast?)
+						} else {
+							this.destroy();
+						};
+					})
+					.exec ();
+			}
+			remove.destroy();
+		});
+
+		remove.present ();
 	}
 
 	protected virtual void on_secondary_click () {
