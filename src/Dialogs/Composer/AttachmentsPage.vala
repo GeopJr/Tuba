@@ -32,6 +32,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 	public GLib.ListStore attachments;
 	public Adw.ToastOverlay toast_overlay;
 	public bool can_publish { get; set; default = false; }
+	public bool media_sensitive { get; set; default = false; }
 
 	public AttachmentsPage () {
 		Object (
@@ -75,12 +76,28 @@ public class Tooth.AttachmentsPage : ComposerPage {
 			icon_name = "tooth-plus-large-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			tooltip_text = _("Add Media")
+			tooltip_text = _("Add Media"),
+			css_classes = {"flat"}
 		};
-		add_media_action_button.add_css_class ("flat");
 		add_media_action_button.clicked.connect(show_file_selector);
 
+		var sensitive_media_button = new Gtk.ToggleButton() {
+			icon_name = "tooth-eye-open-negative-filled-symbolic",
+			valign = Gtk.Align.CENTER,
+			halign = Gtk.Align.CENTER,
+			tooltip_text = _("Mark media as sensitive"),
+			css_classes = {"flat"}
+		};
+		sensitive_media_button.bind_property ("active", this, "media_sensitive", GLib.BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			var sensitive_media_button_active = src.get_boolean ();
+			target.set_boolean (sensitive_media_button_active);
+			sensitive_media_button.icon_name = sensitive_media_button_active ? "tooth-eye-not-looking-symbolic" : "tooth-eye-open-negative-filled-symbolic";
+			sensitive_media_button.tooltip_text = sensitive_media_button_active ? _("Unmark media as sensitive") : _("Mark media as sensitive");
+			return true;
+		});
+
 		bottom_bar.pack_start (add_media_action_button);
+		bottom_bar.pack_start (sensitive_media_button);
 
 		// State stack
 		stack = new Adw.ViewStack ();
@@ -214,6 +231,10 @@ public class Tooth.AttachmentsPage : ComposerPage {
 			for (var i = 0; i < attachments.get_n_items (); i++) {
 				var attachment = attachments.get_item (i) as API.Attachment;
 				req.with_form_data ("media_ids[]", attachment.id);
+			}
+
+			if (media_sensitive) {
+				req.with_form_data ("sensitive", "true");
 			}
 		}
 	}
