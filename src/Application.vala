@@ -97,7 +97,10 @@ namespace Tooth {
 		protected override void startup () {
 			base.startup ();
 			try {
-				Build.print_info ();
+				var lines = troubleshooting.split ("\n");
+				foreach (unowned string line in lines) {
+					message (line);
+				}
 				Adw.init ();
 
 				settings = new Settings ();
@@ -207,7 +210,9 @@ namespace Tooth {
 			refresh ();
 		}
 
-		string troubleshooting = "flatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)\n".printf(
+		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)\n".printf(
+				GLib.Environment.get_os_info ("NAME"), GLib.Environment.get_os_info ("VERSION"),
+				Build.PREFIX,
 				(GLib.Environment.get_variable("FLATPAK_ID") != null || GLib.File.new_for_path("/.flatpak-info").query_exists()).to_string(),
 				Build.VERSION, Build.PROFILE,
 				Gtk.get_major_version(), Gtk.get_minor_version(), Gtk.get_micro_version(),
@@ -219,14 +224,16 @@ namespace Tooth {
 			);
 
 		void about_activated () {
-			const string[] artists = {
+			const string[] ARTISTS = {
 				"Tobias Bernard"
 			};
 
-			const string[] developers = {
+			const string[] DEVELOPERS = {
 				"bleak_grey",
 				"Evangelos \"GeopJr\" Paterakis"
 			};
+
+			const string COPYRIGHT = "© 2022 bleak_grey\n© 2022 Evangelos \"GeopJr\" Paterakis";
 
 			var dialog = new Adw.AboutWindow () {
 				transient_for = main_window,
@@ -237,13 +244,13 @@ namespace Tooth {
 				version = Build.VERSION,
 				support_url = Build.SUPPORT_WEBSITE,
 				license_type = License.GPL_3_0_ONLY,
-				copyright = Build.COPYRIGHT,
-				debug_info = Build.SYSTEM_INFO,
-				developers = developers,
-				artists = artists,
+				copyright = COPYRIGHT,
+				developers = DEVELOPERS,
+				artists = ARTISTS,
 				debug_info = troubleshooting,
 				debug_info_filename = @"$(Build.NAME).txt",
-				translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : ""
+				// translators: Name <email@domain.com> or Name https://website.example
+				translator_credits = _("translator-credits")
 			};
 
 			// For some obscure reason, const arrays produce duplicates in the credits.
