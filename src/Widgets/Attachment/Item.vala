@@ -104,7 +104,7 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 
 		alt_btn_clicked_id = alt_btn.clicked.connect(() => {
 			if (entity != null && entity.description != null)
-				create_alt_text_window(entity.description).show();
+				create_alt_text_window(entity.description, true);
 		});
 
 		badge_box.append(badge);
@@ -124,12 +124,13 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 		context_menu.unparent ();
 	}
 
-	protected Adw.Window create_alt_text_window (string alt_text) {
+	protected Adw.Window create_alt_text_window (string alt_text, bool show = false) {
+		var alt_label = new Label(alt_text) {
+			wrap = true
+		};
+
 		var clamp = new Adw.Clamp () {
-			child = new Label(alt_text) {
-				selectable = true,
-				wrap = true
-			},
+			child = alt_label,
 			tightening_threshold = 100,
 			valign = Align.START
 		};
@@ -142,11 +143,7 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 
 		var box = new Gtk.Box(Orientation.VERTICAL, 6);
 		var headerbar = new Adw.HeaderBar();
-
-		box.append(headerbar);
-		box.append(scrolledwindow);
-
-		return new Adw.Window() {
+		var window = new Adw.Window() {
 			modal = true,
 			title = @"Alternative text for $(badge.label)",
 			transient_for = app.main_window,
@@ -154,6 +151,14 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 			default_width = 400,
 			default_height = 300
 		};
+
+		box.append(headerbar);
+		box.append(scrolledwindow);
+
+		if (show) window.show();
+		alt_label.selectable = true;
+
+		return window;
 	}
 
 	protected void create_context_menu() {
