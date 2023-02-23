@@ -94,11 +94,24 @@ public class Tooth.Views.Profile : Views.Timeline {
 					val.hexpand = true;
 					val.xalign = 1;
 					row.title = f.name;
-					row.add_suffix (val);
 
 					info.append (row);
 
-					if (f.verified_at != null) row.add_css_class("ttl-verified-field");
+					if (f.verified_at != null) {
+						var verified_date = f.verified_at.slice (0, f.verified_at.last_index_of ("T"));
+						var verified_label_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+						var verified_checkmark = new Gtk.Image.from_icon_name("tooth-check-round-outline-symbolic") {
+							tooltip_text = _(@"Ownership of this link was checked on $verified_date")
+						};
+
+						verified_label_box.append(val);
+						verified_label_box.append(verified_checkmark);
+
+						row.add_suffix(verified_label_box);
+						row.add_css_class("ttl-verified-field");
+					} else {
+						row.add_suffix (val);
+					};
 				}
 			}
 		}
