@@ -116,7 +116,7 @@ namespace Tooth {
 				StyleContext.add_provider_for_display (Gdk.Display.get_default (), zoom_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 			}
 			catch (Error e) {
-				var msg = _("Could not start application: %s").printf (e.message);
+				var msg = "Could not start application: %s".printf (e.message);
 				inform (Gtk.MessageType.ERROR, _("Error"), msg);
 				error (msg);
 			}

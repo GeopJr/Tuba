@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-    <gresource prefix="/dev/geopjr/tooth/">
+    <gresource prefix="/dev/geopjr/Tooth/">
         <file>style.css</file>
         <file>style-dark.css</file>
 

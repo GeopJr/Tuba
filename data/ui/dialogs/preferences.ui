@@ -36,12 +36,11 @@
             </child>
             <child>
               <object class="AdwActionRow">
-                <property name="title" translatable="yes">Multiple Columns</property>
-                <property name="subtitle" translatable="yes">Warning: Expirimental and highly flammable</property>
-                <property name="activatable_widget">multiple_columns</property>
-                <property name="sensitive">0</property>
+                <property name="title" translatable="yes">Larger font size</property>
+                <property name="activatable_widget">larger_font_size</property>
+                <property name="subtitle" translatable="yes">Makes the font larger for posts</property>
                 <child>
-                  <object class="GtkSwitch" id="multiple_columns">
+                  <object class="GtkSwitch" id="larger_font_size">
                     <property name="valign">center</property>
                   </object>
                 </child>
@@ -49,16 +48,12 @@
             </child>
             <child>
               <object class="AdwActionRow">
-                <property name="visible">0</property>
-                <property name="title" translatable="yes">Text scale (%)</property>
-                <property name="activatable_widget">post_text_size</property>
+                <property name="title" translatable="yes">Larger line height</property>
+                <property name="activatable_widget">larger_line_height</property>
+                <property name="subtitle" translatable="yes">Makes the line height larger for posts</property>
                 <child>
-                  <object class="GtkSpinButton" id="post_text_size">
+                  <object class="GtkSwitch" id="larger_line_height">
                     <property name="valign">center</property>
-                    <property name="text" translatable="yes">100</property>
-                    <property name="climb_rate">0.05</property>
-                    <property name="adjustment">font_adjustment</property>
-                    <property name="value">100</property>
                   </object>
                 </child>
               </object>
@@ -105,22 +100,9 @@
                 <child>
                   <object class="GtkSpinButton" id="timeline_page_size">
                     <property name="valign">center</property>
-                    <property name="text" translatable="yes">10</property>
+                    <property name="text">10</property>
                     <property name="adjustment">page_adjustment</property>
                     <property name="value">10</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="AdwActionRow">
-                <property name="visible">0</property>
-                <property name="title" translatable="yes">Infinite scrolling</property>
-                <property name="activatable_widget">infinite_scrolling</property>
-                <property name="subtitle" translatable="yes">Warning: This will increase memory usage</property>
-                <child>
-                  <object class="GtkSwitch" id="infinite_scrolling">
-                    <property name="valign">center</property>
                   </object>
                 </child>
               </object>
@@ -156,38 +138,6 @@
                 <property name="activatable_widget">show_spoilers</property>
                 <child>
                   <object class="GtkSwitch" id="show_spoilers">
-                    <property name="valign">center</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="AdwPreferencesGroup">
-            <property name="title" translatable="yes">Status</property>
-            <child>
-              <object class="AdwActionRow">
-                <property name="title" translatable="yes">Larger font size</property>
-                <property name="activatable_widget">larger_font_size</property>
-                <property name="subtitle" translatable="yes">Makes the status font larger</property>
-                <child>
-                  <object class="GtkSwitch" id="larger_font_size">
-                    <property name="valign">center</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="AdwActionRow">
-                <property name="title" translatable="yes">Larger line height</property>
-                <property name="activatable_widget">larger_line_height</property>
-                <property name="subtitle" translatable="yes">Makes the status line height larger</property>
-                <child>
-                  <object class="GtkSwitch" id="larger_line_height">
                     <property name="valign">center</property>
                   </object>
                 </child>

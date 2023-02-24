@@ -7,7 +7,6 @@ public class Tooth.Settings : GLib.Settings {
 	public bool autostart { get; set; }
 	public bool work_in_background { get; set; }
 	public int timeline_page_size { get; set; }
-	public int post_text_size { get; set; }
 	public bool live_updates { get; set; }
 	public bool public_live_updates { get; set; }
 	public bool show_spoilers { get; set; }
@@ -22,7 +21,6 @@ public class Tooth.Settings : GLib.Settings {
 		init ("autostart");
 		init ("work-in-background");
 		init ("timeline-page-size");
-		init ("post-text-size");
 		init ("live-updates");
 		init ("public-live-updates");
 		init ("show-spoilers");
@@ -44,10 +42,13 @@ public enum Tooth.ColorScheme {
 	public string to_string () {
 		switch (this) {
 			case SYSTEM:
+				// translators: Follow System's dark mode preference
 				return _("Follow System");
 			case LIGHT:
+				// translators: Light mode theme
 				return _("Light");
 			case DARK:
+				// translators: Dark mode theme
 				return _("Dark");
 			default:
 				assert_not_reached ();

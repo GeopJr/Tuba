@@ -1,7 +1,7 @@
 using Gtk;
 using Gee;
 
-[GtkTemplate (ui = "/dev/geopjr/tooth/ui/dialogs/compose.ui")]
+[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/dialogs/compose.ui")]
 public class Tooth.Dialogs.Compose : Adw.Window {
 
 	public API.Status status { get; construct set; }

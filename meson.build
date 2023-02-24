@@ -1,5 +1,5 @@
 project(
-    'dev.geopjr.tooth',
+    'dev.geopjr.Tooth',
     ['c', 'vala'],
     version: '2.1.0',
     meson_version: '>= 0.56.0',
@@ -21,8 +21,8 @@ config.set_quoted('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) +
 config.set_quoted('VERSION', meson.project_version())
 config.set_quoted('PREFIX', get_option('prefix'))
 config.set_quoted('NAME', 'Tooth')
-config.set_quoted('WEBSITE', 'https://github.com/GeopJr/tooth')
-config.set_quoted('SUPPORT_WEBSITE', 'https://github.com/GeopJr/tooth/issues')
+config.set_quoted('WEBSITE', 'https://github.com/GeopJr/Tooth')
+config.set_quoted('SUPPORT_WEBSITE', 'https://github.com/GeopJr/Tooth/issues')
 config.set_quoted('PROFILE', devel ? 'development' : 'production')
 
 if devel

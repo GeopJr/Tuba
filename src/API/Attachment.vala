@@ -37,7 +37,7 @@ public class Tooth.API.Attachment : Entity, Widgetizable {
 			mime = type.get_content_type ();
 		}
 		catch (Error e) {
-			throw new Oopsie.USER (_("Can't open file %s:\n%s").printf (uri, e.message));
+			throw new Oopsie.USER ("Can't open file %s:\n%s".printf (uri, e.message));
 		}
 
 		var buffer = new Soup.Buffer.take (contents);

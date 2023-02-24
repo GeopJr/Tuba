@@ -13,7 +13,7 @@ public class Tooth.Host {
 		try {
 			var success = AppInfo.launch_default_for_uri (uri, null);
 			if (!success)
-				throw new Oopsie.USER (_("launch_default_for_uri() failed"));
+				throw new Oopsie.USER ("launch_default_for_uri() failed");
 		}
 		catch (Error e){
 			Gtk.show_uri(app.active_window, uri, Gdk.CURRENT_TIME);

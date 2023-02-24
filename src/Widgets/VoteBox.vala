@@ -2,7 +2,7 @@ using Gtk;
 using Gdk;
 using Gee;
 
-[GtkTemplate (ui = "/dev/geopjr/tooth/ui/widgets/votebox.ui")]
+[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/widgets/votebox.ui")]
 public class Tooth.Widgets.VoteBox: Box {
 	[GtkChild] protected unowned ListBox pollBox;
 	[GtkChild] protected unowned Button button_vote;

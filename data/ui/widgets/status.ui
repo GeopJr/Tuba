@@ -237,13 +237,13 @@
                 <property name="visible">0</property>
                 <child>
                   <object class="GtkLabel" id="reblog_count_label">
-                    <property name="label">Reblogs</property>
+                    <property name="label">Boosts</property>
                     <property name="use_markup">1</property>
                   </object>
                 </child>
                 <child>
                   <object class="GtkLabel" id="fav_count_label">
-                      <property name="label">Favourites</property>
+                      <property name="label">Favorites</property>
                       <property name="use_markup">1</property>
                   </object>
                 </child>

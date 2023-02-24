@@ -6,5 +6,5 @@ meson configure build -Ddevel=true
 cd build
 ninja
 sudo ninja install
-# gdb dev.geopjr.tooth
-dev.geopjr.tooth
+# gdb dev.geopjr.Tooth
+dev.geopjr.Tooth

@@ -76,6 +76,7 @@ public class Tooth.SecretAccountStore : AccountStore {
 		account.instance_info = null;
 		generator.set_root (account.to_json ());
 		var secret = generator.to_data (null);
+		// translators: The variable is the backend like "Mastodon"
 		var label = _("%s Account").printf (account.backend);
 
 		try {

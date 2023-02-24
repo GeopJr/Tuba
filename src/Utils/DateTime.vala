@@ -20,6 +20,9 @@ public class Tooth.DateTime {
 			var days = delta / TimeSpan.DAY;
 			return _(@"$(days)d left");
 		} else {
+			//  translators: %b is Month name (short)
+			//				 %-e is the Day number
+			//				 %Y is the year (with century)
 			return date.format (_("expires on %b %-e, %Y"));
 		}
 	}
@@ -29,6 +32,11 @@ public class Tooth.DateTime {
 		var now = new GLib.DateTime.now_local ();
 		var delta = now.difference (date);
 		if (delta < 0)
+			//  translators: %b is Month name (short)
+			//				 %-e is the Day number
+			//				 %Y is the year (with century)
+			//				 %H is the hours (24h format)
+			//				 %m is the minutes
 			return date.format (_("expires on %b %-e, %Y %H:%m"));
 		else if (delta <= TimeSpan.MINUTE)
 			return _("expired on just now");
@@ -44,9 +52,14 @@ public class Tooth.DateTime {
 			return _("expired yesterday");
 		}
 		else if (date.get_year () == now.get_year ()) {
+			//  translators: %b is Month name (short)
+			//				 %-e is the Day number
 			return date.format (_("expired on %b %-e"));
 		}
 		else {
+			//  translators: %b is Month name (short)
+			//				 %-e is the Day number
+			//				 %Y is the year (with century)
 			return date.format (_("expired on %b %-e, %Y"));
 		}
 	}
@@ -56,6 +69,11 @@ public class Tooth.DateTime {
 		var now = new GLib.DateTime.now_local ();
 		var delta = now.difference (date);
 		if (delta < 0)
+			//  translators: %b is Month name (short)
+			//				 %-e is the Day number
+			//				 %Y is the year (with century)
+			//				 %H is the hours (24h format)
+			//				 %m is the minutes
 			return date.format (_("%b %-e, %Y %H:%m"));
 		else if (delta <= TimeSpan.MINUTE)
 			return _("Just now");
@@ -71,9 +89,14 @@ public class Tooth.DateTime {
 			return _("Yesterday");
 		}
 		else if (date.get_year () == now.get_year ()) {
+			//  translators: %b is Month name (short)
+			//				 %-e is the Day number
 			return date.format (_("%b %-e"));
 		}
 		else {
+			//  translators: %b is Month name (short)
+			//				 %-e is the Day number
+			//				 %Y is the year (with century)
 			return date.format (_("%b %-e, %Y"));
 		}
 	}

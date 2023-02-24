@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-[GtkTemplate (ui = "/dev/geopjr/tooth/ui/widgets/status.ui")]
+[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/widgets/status.ui")]
 public class Tooth.Widgets.Status : ListBoxRow {
 
 	API.Status? _bound_status = null;
@@ -367,12 +367,12 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		formal_bindings.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
 		formal_bindings.bind_property ("reblogs_count", reblog_count_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			int64 srcval = (int64) src;
-			target.set_string (@"<b>$srcval</b> " + _("Reblogs"));
+			target.set_string (@"<b>$srcval</b> " + _("Boosts"));
 			return true;
 		});
 		formal_bindings.bind_property ("favourites_count", fav_count_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			int64 srcval = (int64) src;
-			target.set_string (@"<b>$srcval</b> " + _("Favourites"));
+			target.set_string (@"<b>$srcval</b> " + _("Favorites"));
 			return true;
 		});
 		formal_bindings.bind_property ("replies_count", reply_button_content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
@@ -469,7 +469,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			icon_toggled_name = "tooth-starred-symbolic"
 		};
 		favorite_button.add_css_class("ttl-status-action-star");
-		favorite_button.tooltip_text = _("Favourite");
+		favorite_button.tooltip_text = _("Favorite");
 		actions.append (favorite_button);
 
 		bookmark_button = new StatusActionButton () {

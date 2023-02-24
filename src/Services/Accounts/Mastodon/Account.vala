@@ -130,13 +130,14 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		});
 		set_visibility (new Visibility () {
 			id = "unlisted",
+			// translators: Probably follow Mastodon's translation
 			name = _("Unlisted"),
 			icon_name = "tooth-padlock2-open-symbolic",
 			description = _("Don\'t post to public timelines")
 		});
 		set_visibility (new Visibility () {
 			id = "private",
-			name = _("Followers-only"),
+			name = _("Followers Only"),
 			icon_name = "tooth-padlock2-symbolic",
 			description = _("Post to followers only")
 		});

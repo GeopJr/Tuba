@@ -62,7 +62,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 			.exec ();
 	}
 
-	[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/profile_header.ui")]
+	[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/views/profile_header.ui")]
 	protected class Cover : Box {
 
 		[GtkChild] unowned Widgets.Background background;
@@ -487,12 +487,16 @@ public class Tooth.Views.Profile : Views.Timeline {
 				.then ((sess, msg) => {
 					var toast_msg = "";
 					if (button.remove) {
+						//  translators: First variable is a handle, second variable is a list name
 						toast_msg = _("User \"%s\" got removed from \"%s\"").printf (profile.handle, list.title);
 						button.icon_name = "tooth-plus-large-symbolic";
+						//  translators: First variable is a handle, second variable is a list name
 						button.tooltip_text = _("Add \"%s\" to \"%s\"").printf (profile.handle, list.title);
 					} else {
+						//  translators: First variable is a handle, second variable is a list name
 						toast_msg = _("User \"%s\" got added to \"%s\"").printf (profile.handle, list.title);
 						button.icon_name = "tooth-minus-large-symbolic";
+						//  translators: First variable is a handle, second variable is a list name
 						button.tooltip_text = _("Remove \"%s\" from \"%s\"").printf (profile.handle, list.title);
 					}
 

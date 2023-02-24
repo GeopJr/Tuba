@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-[GtkTemplate (ui = "/dev/geopjr/tooth/ui/dialogs/main.ui")]
+[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/dialogs/main.ui")]
 public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	public const string ZOOM_CLASS = "ttl-scalable";
@@ -17,9 +17,6 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 		var gtk_settings = Gtk.Settings.get_default ();
 		//  settings.bind_property ("dark-theme", gtk_settings, "gtk-application-prefer-dark-theme", BindingFlags.SYNC_CREATE);
-		settings.notify["post-text-size"].connect (() => on_zoom_level_changed ());
-
-		on_zoom_level_changed ();
 		// button_press_event.connect (on_button_press);
 	}
 
@@ -81,19 +78,6 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	// 		return back ();
 	// 	return false;
 	// }
-
-	void on_zoom_level_changed () {
-		var scale = settings.post_text_size;
-		var css = "";
-		if (scale > 100) {
-			css ="""
-				.%s label {
-					font-size: %i%;
-				}
-			""".printf (ZOOM_CLASS, scale);
-		}
-		// app.zoom_css_provider.load_from_data (css.data);
-	}
 
 	[GtkCallback]
 	void on_view_changed () {

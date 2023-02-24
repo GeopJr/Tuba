@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
 
-  <enum id="dev.geopjr.tooth.ColorScheme">
+  <enum id="dev.geopjr.Tooth.ColorScheme">
     <value value="0" nick="system"/>
     <value value="1" nick="light"/>
     <value value="2" nick="dark"/>
   </enum>
 
-	<schema path="/dev/geopjr/tooth/" id="dev.geopjr.tooth" gettext-domain="dev.geopjr.tooth">
+	<schema path="/dev/geopjr/Tooth/" id="dev.geopjr.Tooth" gettext-domain="dev.geopjr.Tooth">
 
 		<key name="active-account" type="s">
 			<default>''</default>
 		</key>
-		<key name="color-scheme" enum="dev.geopjr.tooth.ColorScheme">
+		<key name="color-scheme" enum="dev.geopjr.Tooth.ColorScheme">
 			<default>'system'</default>
 		</key>
 		<key name="autostart" type="b">
@@ -23,9 +23,6 @@
 		</key>
 		<key name="timeline-page-size" type="i">
 			<default>12</default>
-		</key>
-		<key name="post-text-size" type="i">
-			<default>100</default>
 		</key>
 		<key name="live-updates" type="b">
 			<default>true</default>

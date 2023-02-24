@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>dev.geopjr.Tooth</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+  <name>Tooth</name>
+  <summary>Browse the Fediverse</summary>
+  <description>
+    <p>
+      Explore the federated social web with Tooth for GNOME. Stay connected to your favorite communities, family and friends with support for popular Fediverse platforms like Mastodon, GoToSocial, Pleroma &amp; more!
+    </p>
+    <p>
+      The Fediverse is a decentralized social network that consists of multiple interconnected platforms and communities, allowing users to communicate and share content across different networks and servers. It promotes user privacy and data ownership, and offers an alternative to centralized social media platforms.
+    </p>
+  </description>
+  <provides>
+    <binary>dev.geopjr.Tooth</binary>
+  </provides>
+  <developer_name translatable="no">Evangelos "GeopJr" Paterakis</developer_name>
+  <url type="homepage">https://github.com/bleakgrey</url>
+  <url type="bugtracker">https://github.com/GeopJr/Tooth/issues</url>
+  <url type="donation">https://liberapay.com/bleakgrey/donate</url>
+  <content_rating type="oars-1.1">
+    <content_attribute id="social-chat">moderate</content_attribute>
+    <content_attribute id="social-audio">moderate</content_attribute>
+    <content_attribute id="social-contacts">intense</content_attribute>
+  </content_rating>
+  <custom>
+    <value key="Purism::form_factor">workstation</value>
+    <value key="Purism::form_factor">mobile</value>
+  </custom>
+  <releases>
+    <release version="1.0.0" date="2021-02-02">
+        <description>
+           <ul>
+              <li>Initial release</li>
+          </ul>
+        </description>
+      </release>
+   </releases>
+</component>
