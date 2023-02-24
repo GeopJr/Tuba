@@ -1,6 +1,6 @@
 using Gtk;
 
-[GtkTemplate (ui = "/dev/geopjr/tooth/ui/dialogs/new_account.ui")]
+[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/dialogs/new_account.ui")]
 public class Tooth.Dialogs.NewAccount: Adw.Window {
 
 	const string AUTO_AUTH_DESCRIPTION = _("Allow access to your account in the browser. If something went wrong, <a href=\"tooth://manual_auth\">try manual authorization</a>.");

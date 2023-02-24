@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-[GtkTemplate (ui = "/dev/geopjr/tooth/ui/widgets/status.ui")]
+[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/widgets/status.ui")]
 public class Tooth.Widgets.Status : ListBoxRow {
 
 	API.Status? _bound_status = null;

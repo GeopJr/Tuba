@@ -1,6 +1,6 @@
 using Gtk;
 
-[GtkTemplate (ui = "/dev/geopjr/tooth/ui/dialogs/preferences.ui")]
+[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/dialogs/preferences.ui")]
 public class Tooth.Dialogs.Preferences : Adw.PreferencesWindow {
 
     [GtkChild] unowned Adw.ComboRow scheme_combo_row;

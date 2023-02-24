@@ -1,6 +1,6 @@
 using Gtk;
 
-[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/sidebar/view.ui")]
+[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/views/sidebar/view.ui")]
 public class Tooth.Views.Sidebar : Box, AccountHolder {
 
 	[GtkChild] unowned ToggleButton accounts_button;
@@ -126,7 +126,7 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 
 	// Item
 
-	[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/sidebar/item.ui")]
+	[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/views/sidebar/item.ui")]
 	protected class ItemRow : ListBoxRow {
 		public Place place;
 
@@ -177,7 +177,7 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 
 	// Account
 
-	[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/sidebar/account.ui")]
+	[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/views/sidebar/account.ui")]
 	protected class AccountRow : Adw.ActionRow {
 		public InstanceAccount? account;
 

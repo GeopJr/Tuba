@@ -1,5 +1,5 @@
 {
-    "app-id": "dev.geopjr.tooth",
+    "app-id": "dev.geopjr.Tooth",
     "runtime": "org.gnome.Platform",
     "runtime-version": "43",
     "sdk": "org.gnome.Sdk",
@@ -8,7 +8,7 @@
         "prepend-path" : "/usr/lib/sdk/vala/bin/",
         "prepend-ld-library-path" : "/usr/lib/sdk/vala/lib"
     },
-    "command": "dev.geopjr.tooth",
+    "command": "dev.geopjr.Tooth",
     "finish-args": [
         "--device=dri",
         "--share=ipc",

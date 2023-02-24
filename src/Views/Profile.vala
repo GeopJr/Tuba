@@ -62,7 +62,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 			.exec ();
 	}
 
-	[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/profile_header.ui")]
+	[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/views/profile_header.ui")]
 	protected class Cover : Box {
 
 		[GtkChild] unowned Widgets.Background background;
