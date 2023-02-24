@@ -165,7 +165,7 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 		var menu_model = new GLib.Menu ();
 		menu_model.append (_("Open in Browser"), "attachment.open-in-browser");
 		menu_model.append (_("Copy URL"), "attachment.copy-url");
-		menu_model.append (_("Save as…"), "attachment.save-as");
+		menu_model.append (_("Save Media"), "attachment.save-as");
 
 		context_menu = new PopoverMenu.from_model(menu_model);
 		context_menu.set_parent(this);

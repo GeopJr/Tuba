@@ -7,7 +7,6 @@ public class Tooth.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned Switch autostart;
     [GtkChild] unowned Switch work_in_background;
     [GtkChild] unowned SpinButton timeline_page_size;
-    [GtkChild] unowned SpinButton post_text_size;
     [GtkChild] unowned Switch live_updates;
     [GtkChild] unowned Switch public_live_updates;
     [GtkChild] unowned Switch show_spoilers;
@@ -45,7 +44,6 @@ public class Tooth.Dialogs.Preferences : Adw.PreferencesWindow {
         settings.bind ("autostart", autostart, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("work-in-background", work_in_background, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("timeline-page-size", timeline_page_size.adjustment, "value", SettingsBindFlags.DEFAULT);
-        settings.bind ("post-text-size", post_text_size.adjustment, "value", SettingsBindFlags.DEFAULT);
         settings.bind ("live-updates", live_updates, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("public-live-updates", public_live_updates, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("show-spoilers", show_spoilers, "active", SettingsBindFlags.DEFAULT);

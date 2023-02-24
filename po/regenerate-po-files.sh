@@ -2,4 +2,4 @@
 
 cd ..
 cd build
-ninja dev.geopjr.tooth-update-po
+ninja dev.geopjr.Tooth-update-po

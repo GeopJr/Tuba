@@ -7,13 +7,13 @@
       <attribute name="display-hint">circular-buttons</attribute>
       <!-- <attribute name="label" translatable="yes">Interaction</attribute> -->
       <item>
-        <attribute name="label" translatable="yes">Mention…</attribute>
+        <attribute name="label" translatable="yes">Mention</attribute>
         <attribute name="action">view.mention</attribute>
         <attribute name="target">public</attribute>
         <attribute name="verb-icon">tooth-online-symbolic</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">Direct Message…</attribute>
+        <attribute name="label" translatable="yes">Direct Message</attribute>
         <attribute name="action">view.mention</attribute>
         <attribute name="target">direct</attribute>
         <attribute name="verb-icon">tooth-mail-symbolic</attribute>
@@ -26,7 +26,6 @@
     </section>
 
     <section>
-      <!-- <submenu> -->
         <attribute name="label" translatable="yes">Moderation</attribute>
         <item>
           <attribute name="label" translatable="yes">Hide Boosts</attribute>
@@ -54,7 +53,6 @@
             <!-- <attribute name="hidden-when">action-disabled</attribute> -->
           </item>
         </section>
-      <!-- </submenu> -->
     </section>
 
     <section>
@@ -79,12 +77,12 @@
 
         <!-- <section> -->
           <item>
-            <attribute name="label" translatable="yes">With Replies</attribute>
+            <attribute name="label" translatable="yes">Include Replies</attribute>
             <attribute name="action">view.include-replies</attribute>
             <attribute name="hidden-when">action-disabled</attribute>
           </item>
           <item>
-            <attribute name="label" translatable="yes">With Media</attribute>
+            <attribute name="label" translatable="yes">Include Media</attribute>
             <attribute name="action">view.only-media</attribute>
             <attribute name="hidden-when">action-disabled</attribute>
           </item>

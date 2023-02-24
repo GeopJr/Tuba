@@ -7,6 +7,7 @@ public class Tooth.EditorPage : ComposerPage {
 	public bool can_publish { get; set; default = false; }
 
 	construct {
+		//  translators: "Text" as in text-based input
 		title = _("Text");
 		icon_name = "tooth-edit-symbolic";
 
@@ -174,7 +175,7 @@ public class Tooth.EditorPage : ComposerPage {
 
 		cw_button = new ToggleButton () {
 			icon_name = "tooth-warning-symbolic",
-			tooltip_text = _("Spoiler Warning")
+			tooltip_text = _("Content Warning")
 		};
 		cw_button.toggled.connect (validate);
 		cw_button.bind_property ("active", revealer, "reveal_child", GLib.BindingFlags.SYNC_CREATE);

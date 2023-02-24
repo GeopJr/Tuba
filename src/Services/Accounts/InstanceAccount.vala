@@ -133,7 +133,7 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 				break;
 			case KIND_REBLOG:
 				icon = "tooth-media-playlist-repeat-symbolic";
-				descr = _("%s boosted your status").printf (account.display_name);
+				descr = _("%s boosted your post").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_REMOTE_REBLOG:
@@ -143,7 +143,7 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 				break;
 			case KIND_FAVOURITE:
 				icon = "tooth-starred-symbolic";
-				descr = _("%s favorited your status").printf (account.display_name);
+				descr = _("%s favorited your post").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_FOLLOW:

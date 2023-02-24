@@ -52,11 +52,11 @@ public class Tooth.AttachmentsPage : ComposerPage {
 	public override void on_build (Dialogs.Compose dialog, API.Status status) {
 		base.on_build (dialog, status);
 
-		// Empty state
 		var attach_button = new Button.with_label (_("Add Media")) {
 			halign = Align.CENTER,
 			sensitive = accounts.active.instance_info.compat_status_max_media_attachments > 0
 		};
+		// Empty state
 		attach_button.add_css_class("pill");
 		attach_button.clicked.connect (show_file_selector);
 
@@ -85,6 +85,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 			icon_name = "tooth-eye-open-negative-filled-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
+			// translators: sensitive as in not safe for work or similar
 			tooltip_text = _("Mark media as sensitive"),
 			css_classes = {"flat"}
 		};
@@ -92,6 +93,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 			var sensitive_media_button_active = src.get_boolean ();
 			target.set_boolean (sensitive_media_button_active);
 			sensitive_media_button.icon_name = sensitive_media_button_active ? "tooth-eye-not-looking-symbolic" : "tooth-eye-open-negative-filled-symbolic";
+			// translators: sensitive as in not safe for work or similar
 			sensitive_media_button.tooltip_text = sensitive_media_button_active ? _("Unmark media as sensitive") : _("Mark media as sensitive");
 			return true;
 		});
@@ -158,6 +160,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 			filter.add_mime_type (mime_type);
 		}
 
+		// translators: Open file
 		var chooser = new FileChooserNative (_("Open"), dialog, Gtk.FileChooserAction.OPEN, null, null) {
 			select_multiple = true,
 			filter = filter

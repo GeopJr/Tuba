@@ -32,6 +32,7 @@ public class Tooth.API.Tag : Entity, Widgetizable {
 				suffix = _("in the past 2 days");
 			}
 
+			// translators: the first two are numbers, the last one is either "yesterday" or "in the past 2 days"
 			w.subtitle = _("Used %d times by %d people %s").printf (total_uses, total_accounts, suffix);
 		}
 		w.activated.connect(on_activated);
