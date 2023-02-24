@@ -152,7 +152,7 @@ public class Tooth.EditorPage : ComposerPage {
 	}
 
 	protected void on_emoji_picked(string emoji_unicode) {
-		editor.buffer.text += emoji_unicode;
+		editor.buffer.insert_at_cursor(emoji_unicode, emoji_unicode.data.length);
 	}
 
 	protected ToggleButton cw_button;
