@@ -15,6 +15,7 @@ public class Tooth.Widgets.Avatar : Button {
 	protected Adw.Avatar? avatar {
 		get { return child as Adw.Avatar; }
 	}
+	public string? avatar_url { get; set; }
 
 	construct {
 		child = new Adw.Avatar (48, null, true);
@@ -25,7 +26,14 @@ public class Tooth.Widgets.Avatar : Button {
 		add_css_class ("ttl-flat-button");
 
 		notify["account"].connect (on_invalidated);
+		notify["avatar-url"].connect (on_avatar_url_change);
 		on_invalidated ();
+	}
+
+	void on_avatar_url_change () {
+		if (avatar_url == null) return;
+
+		image_cache.request_paintable (avatar_url, on_cache_response);
 	}
 
 	void on_invalidated () {

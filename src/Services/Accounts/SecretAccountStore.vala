@@ -36,6 +36,16 @@ public class Tooth.SecretAccountStore : AccountStore {
 		secrets.foreach (item => {
 			var account = secret_to_account (item);
 			if (account != null) {
+			new Request.GET (@"/api/v1/accounts/$(account.id)")
+				.with_account (account)
+				.then ((sess, msg) => {
+					var node = network.parse_node (msg);
+					var acc = API.Account.from (node);
+
+					account.display_name = acc.display_name;
+					account.avatar = acc.avatar;
+				})
+				.exec ();
 				saved.add (account);
 				account.added ();
 			}

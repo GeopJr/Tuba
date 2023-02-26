@@ -79,15 +79,25 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 		}
 	}
 
+	private Binding sidebar_display_name;
+	private Binding sidebar_handle_short;
+	private Binding sidebar_avatar;
+	private ulong sidebar_private_signal;
 	protected virtual void on_account_changed (InstanceAccount? account) {
+		if (this.account != null) {
+			sidebar_display_name.unbind();
+			sidebar_handle_short.unbind();
+			sidebar_avatar.unbind();
+			this.account.disconnect(sidebar_private_signal);
+		}
+
 		this.account = account;
 		accounts_button.active = false;
 
 		if (account != null) {
-			this.account.bind_property("display-name", title, "label", BindingFlags.SYNC_CREATE);
-			this.account.notify["locked"].connect(() => {
+			sidebar_private_signal = this.account.notify["locked"].connect(() => {
 				uint indx;
-		        var found = this.account.known_places.find (Mastodon.Account.PLACE_FOLLOW_REQUESTS, out indx);
+				var found = this.account.known_places.find (Mastodon.Account.PLACE_FOLLOW_REQUESTS, out indx);
 
 				if (this.account.locked == false && found == true) {
 					this.account.known_places.remove(indx);
@@ -95,14 +105,15 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 					this.account.known_places.append(Mastodon.Account.PLACE_FOLLOW_REQUESTS);
 				}
 			});
-
+			sidebar_display_name = this.account.bind_property("display-name", title, "label", BindingFlags.SYNC_CREATE);
+			sidebar_handle_short = this.account.bind_property("handle_short", subtitle, "label", BindingFlags.SYNC_CREATE);
+			sidebar_avatar = this.account.bind_property("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
 			// FIXME: Wrapping
 			//  this.account.notify["display-name"].connect(() => {
 			//  	title.instance_emojis = this.account.emojis_map;
 			//  	title.label = this.account.display_name;
 			//  });
-			this.account.bind_property("handle_short", subtitle, "label", BindingFlags.SYNC_CREATE);
-			this.bind_property("account", avatar, "account", BindingFlags.SYNC_CREATE);
+
 			account_items.model = account.known_places;
 		} else {
 			saved_accounts.unselect_all ();
@@ -184,12 +195,22 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 		[GtkChild] unowned Widgets.Avatar avatar;
 		[GtkChild] unowned Button forget;
 
+		private Binding switcher_display_name;
+		private Binding switcher_handle;
+		private Binding switcher_avatar;
 		public AccountRow (InstanceAccount? _account) {
+			if (account != null) {
+				switcher_display_name.unbind();
+				switcher_handle.unbind();
+				switcher_avatar.unbind();
+			}
+
 			account = _account;
 			if (account != null) {
-				title = account.display_name;
-				subtitle = account.handle;
-				avatar.account = account;
+				
+				switcher_display_name = this.account.bind_property("display-name", this, "title", BindingFlags.SYNC_CREATE);
+				switcher_handle = this.account.bind_property("handle", this, "subtitle", BindingFlags.SYNC_CREATE);
+				switcher_avatar = this.account.bind_property("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
 			}
 			else {
 				title = _("Add Account");
