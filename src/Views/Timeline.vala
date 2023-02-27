@@ -80,23 +80,25 @@ public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase
 			return req;
 	}
 
-	public virtual void on_request_finish () {}
+	public virtual void on_request_finish () {
+		status_loading = false;
+	}
 
 	public virtual bool request () {
 		var req = append_params (new Request.GET (get_req_url ()))
-		.with_account (account)
-		.with_ctx (this)
-		.then ((sess, msg) => {
-			Network.parse_array (msg, node => {
-				var e = entity_cache.lookup_or_insert (node, accepts);
-				model.append (e); //FIXME: use splice();
-			});
+			.with_account (account)
+			.with_ctx (this)
+			.then ((sess, msg) => {
+				Network.parse_array (msg, node => {
+					var e = entity_cache.lookup_or_insert (node, accepts);
+					model.append (e); //FIXME: use splice();
+				});
 
-			get_pages (msg.response_headers.get_one ("Link"));
-			on_content_changed ();
-			on_request_finish ();
-		})
-		.on_error (on_error);
+				get_pages (msg.response_headers.get_one ("Link"));
+				on_content_changed ();
+				on_request_finish ();
+			})
+			.on_error (on_error);
 		req.exec ();
 
 		return GLib.Source.REMOVE;

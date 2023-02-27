@@ -279,7 +279,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 
     public Lists () {
         Object (
-        	url: @"/api/v1/lists",
+			url: @"/api/v1/lists",
             label: _("Lists"),
             icon: "tooth-list-compact-symbolic"
         );
@@ -343,6 +343,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 	}
 	
     public override void on_request_finish () {
+		base.on_request_finish ();
 		on_content_changed ();
     }
 
