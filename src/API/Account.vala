@@ -13,7 +13,7 @@ public class Tooth.API.Account : Entity, Widgetizable {
 	    _display_name = value;
         }
     	get {
-            return ( ( _display_name.length > 0 ) ? _display_name : username );
+            return ( ( _display_name != null && _display_name.length > 0 ) ? _display_name : username );
     	}
     }
 
