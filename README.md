@@ -8,6 +8,7 @@
     <a href="./CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.1-1970e3.svg?style=for-the-badge&labelColor=A2C4FA" alt="Contributor Covenant v2.1" /></a>
     <a href="./LICENSE"><img src="https://img.shields.io/badge/LICENSE-GPL--3.0-1970e3.svg?style=for-the-badge&labelColor=A2C4FA" alt="License GPL-3.0" /></a>
     <a href="https://github.com/GeopJr/Tooth/actions/workflows/build.yml"><img alt="GitHub CI Status" src="https://img.shields.io/github/actions/workflow/status/GeopJr/Tooth/build.yml?branch=main&style=for-the-badge&labelColor=A2C4FA"></a>
+    <a href='https://stopthemingmy.app'><img width='193.455' alt='Please do not theme this app' src='https://stopthemingmy.app/badge.svg'/></a>
 </p>
 
 <p align="center">
@@ -24,7 +25,8 @@
 
 ### Nightly
 
-[x86_64](https://nightly.link/GeopJr/Tooth/workflows/build/main/dev.geopjr.Tooth.Devel-x86_64.zip) <br /> [aarch64](https://nightly.link/GeopJr/Tooth/workflows/build/main/dev.geopjr.Tooth.Devel-aarch64.zip)
+[x86_64](https://nightly.link/GeopJr/Tooth/workflows/build/main/dev.geopjr.Tooth.Devel-x86_64.zip) | [aarch64](https://nightly.link/GeopJr/Tooth/workflows/build/main/dev.geopjr.Tooth.Devel-aarch64.zip)
+:---: | :---:
 
 ## Third Party
 
@@ -91,19 +93,12 @@ $ make install
 
 </div>
 
-# Miscellaneous
+# Acknowledgements
 
-<p align="center">
-  <a href='https://stopthemingmy.app'>
-    <img width='240' alt='Please do not theme this app' src='https://stopthemingmy.app/badge.svg'/>
-  </a><br />
-  <a href="https://hosted.weblate.org/engage/tooth/">
-    <img src="https://hosted.weblate.org/widgets/tooth/-/tooth/287x66-white.png" alt="Translation status" />
-  </a>
-</p>
+- Tooth is a fork of [Tootle](https://github.com/bleakgrey/tootle) by [Bleak Grey](https://github.com/bleakgrey)
+- Translations are managed by [Weblate](https://hosted.weblate.org/engage/tooth/)
 
-
-> Tooth is a fork of [Tootle](https://github.com/bleakgrey/tootle) by [Bleak Grey](https://github.com/bleakgrey).
+[![Translation status](https://hosted.weblate.org/widgets/tooth/-/tooth/287x66-white.png)](https://hosted.weblate.org/engage/tooth/)
 
 # Contributing
 
