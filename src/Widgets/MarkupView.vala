@@ -80,7 +80,7 @@ public class Tooth.Widgets.MarkupView : Box {
 				selectable = _selectable,
 				vexpand = true
 			};
-			prepend (label);
+			append (label);
 		}
 		current_chunk = null;
 	}
@@ -135,7 +135,7 @@ public class Tooth.Widgets.MarkupView : Box {
 					// markup = MarkupPolicy.DISALLOW
 				};
 				label.get_style_context ().add_class ("ttl-code");
-				v.prepend (label);
+				v.append (label);
 				break;
 			case "a":
 				var href = root->get_prop ("href");
