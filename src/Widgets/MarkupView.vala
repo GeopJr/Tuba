@@ -146,6 +146,18 @@ public class Tooth.Widgets.MarkupView : Box {
 				}
 				break;
 
+			case "em":
+				v.write_chunk (@"<i>");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk (@"</i>");
+				break;
+
+			case "strong":
+				v.write_chunk (@"<b>");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk (@"</b>");
+				break;
+
 			case "b":
 			case "i":
 			case "u":
