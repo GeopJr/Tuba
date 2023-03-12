@@ -46,7 +46,7 @@
                 <property name="vexpand">1</property>
                 <property name="icon_name">tooth-network-server-symbolic</property>
                 <property name="title" translatable="yes">What is your Server?</property>
-                <!-- translators: Please replace the joinmastodon.org link with the one for your language if available -->
+                <!-- translators: Please replace the joinmastodon.org/servers link with the one for your language if available -->
                 <property name="description" translatable="yes">If you don&apos;t have an account yet, &lt;a href=&quot;https://joinmastodon.org/servers&quot;&gt;choose a server and register one&lt;/a&gt;.</property>
                 <style>
                     <class name="compact"/>
@@ -147,8 +147,17 @@
                             <property name="orientation">vertical</property>
                             <property name="spacing">6</property>
                             <child>
+                              <object class="GtkLabel" id="manual_auth_label">
+                                <property name="visible" bind-source="ToothDialogsNewAccount" bind-property="use_auto_auth" bind-flags="sync-create"/>
+                                <!-- translators: Do not translate "manual_auth" -->
+                                <property name="label" translatable="yes">If something went wrong, &lt;a href=&quot;manual_auth&quot;&gt;try manual authorization&lt;/a&gt;.</property>
+                                <property name="use_markup">1</property>
+                                <property name="wrap">1</property>
+                              </object>
+                            </child>
+                            <child>
                               <object class="AdwPreferencesGroup">
-                                <property name="visible" bind-source="ToothDialogsNewAccount" bind-property="use_auto_auth" bind-flags="sync-create|invert-boolean"/>"
+                                <property name="visible" bind-source="ToothDialogsNewAccount" bind-property="use_auto_auth" bind-flags="sync-create|invert-boolean"/>
                                 <child>
                                   <object class="AdwEntryRow" id="code_entry">
                                     <property name="title" translatable="true">Authorization Code</property>

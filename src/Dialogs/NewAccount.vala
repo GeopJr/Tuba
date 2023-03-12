@@ -2,8 +2,7 @@ using Gtk;
 
 [GtkTemplate (ui = "/dev/geopjr/Tooth/ui/dialogs/new_account.ui")]
 public class Tooth.Dialogs.NewAccount: Adw.Window {
-
-	const string AUTO_AUTH_DESCRIPTION = _("Allow access to your account in the browser. If something went wrong, <a href=\"tooth://manual_auth\">try manual authorization</a>.");
+	const string AUTO_AUTH_DESCRIPTION = _("Allow access to your account in the browser.");
 	const string CODE_AUTH_DESCRIPTION = _("Copy the authorization code from the browser and paste it below.");
 
 	const string scopes = "read write follow";
@@ -27,6 +26,8 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 	[GtkChild] unowned Adw.StatusPage auth_page;
 	[GtkChild] unowned Adw.StatusPage done_page;
 
+	[GtkChild] unowned Gtk.Label manual_auth_label;
+
 	public NewAccount () {
 		Object (transient_for: app.main_window);
 		app.add_account_window = this;
@@ -37,8 +38,21 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 			return true;
 		});
 
+		manual_auth_label.activate_link.connect(on_manual_auth);
+
 		reset ();
 		present ();
+	}
+
+	public bool on_manual_auth (string url) {
+		if (url == "manual_auth") {
+			use_auto_auth = false;
+			register_client.begin ();
+		} else {
+			warning(@"Expected \"manual_auth\", instead got \"$(url)\"");
+		}
+
+		return true;
 	}
 
 	public override bool close_request () {
@@ -171,13 +185,6 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 	public void redirect (string uri) {
 		present ();
 		message (@"Received uri: $uri");
-
-		if ("manual_auth" in uri) {
-			use_auto_auth = false;
-			register_client.begin ();
-			//  reset();
-			return;
-		}
 
 		var query = new Soup.URI (uri).get_query ();
 		var split = query.split ("=");
