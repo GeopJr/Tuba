@@ -187,6 +187,6 @@ headerbar.flat.no-title .title {
 }
 
 .ttl-verified-field {
-	color: rgb(27,133,83);
-	background: rgba(27,133,83,0.1);
+	color: @success_color;
+	background: alpha(@success_bg_color, 0.1);
 }
