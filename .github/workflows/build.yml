@@ -33,3 +33,29 @@ jobs:
         manifest-path: "dev.geopjr.Tooth.Devel.json"
         cache-key: flatpak-builder-${{ github.sha }}
         arch: ${{ matrix.arch }}
+  snap-builder:
+    name: "Snap Builder"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [x86_64, aarch64]
+      # Don't fail the whole workflow if one architecture fails
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v3
+    - uses: docker/setup-qemu-action@v2
+      if: matrix.arch == 'aarch64'
+    - run: "sed -i '/version: git/d' snapcraft.yaml"
+      if: matrix.arch == 'aarch64'
+    - uses: diddlesnaps/snapcraft-multiarch-action@v1
+      if: matrix.arch == 'aarch64'
+      id: snapcraft_docker
+      with:
+        architecture: arm64
+    - uses: snapcore/action-build@v1
+      id: snapcraft
+      if: matrix.arch == 'x86_64'
+    - uses: actions/upload-artifact@v3
+      with:
+        name: snap-${{ matrix.arch }}
+        path: ${{ steps.snapcraft_docker.outputs.snap }}${{ steps.snapcraft.outputs.snap }}

@@ -25,8 +25,10 @@
 
 ### Nightly
 
-[x86_64](https://nightly.link/GeopJr/Tooth/workflows/build/main/dev.geopjr.Tooth.Devel-x86_64.zip) | [aarch64](https://nightly.link/GeopJr/Tooth/workflows/build/main/dev.geopjr.Tooth.Devel-aarch64.zip)
+Flatpak | Snap
 :---: | :---:
+[x86_64](https://nightly.link/GeopJr/Tooth/workflows/build/main/dev.geopjr.Tooth.Devel-x86_64.zip) | [x86_64](https://nightly.link/GeopJr/Tooth/workflows/build/main/snap-x86_64.zip)
+[aarch64](https://nightly.link/GeopJr/Tooth/workflows/build/main/dev.geopjr.Tooth.Devel-aarch64.zip) | [aarch64](https://nightly.link/GeopJr/Tooth/workflows/build/main/snap-aarch64.zip)
 
 ## Third Party
 
