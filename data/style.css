@@ -109,7 +109,7 @@ headerbar.flat.no-title .title {
 /* Status action icons */
 
 .ttl-status-action-star:hover, .ttl-status-action-star.enabled {
-	color: @yellow_3;
+	color: @yellow_5;
 }
 
 .ttl-status-action-star:active {
