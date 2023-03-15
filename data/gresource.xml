@@ -50,6 +50,8 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-address-book-new-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-eye-open-negative-filled-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-eye-not-looking-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-view-fullscreen-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-view-restore-symbolic.svg</file>
 
         <file>gtk/dropdown/icon.ui</file>
         <file>gtk/dropdown/full.ui</file>

@@ -29,13 +29,17 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	private void save_as () {
+		save_media_as(entity.url);
+	}
+
+	public static void save_media_as (string url) {
 		var chooser = new FileChooserNative (_("Save Attachment"), app.main_window, Gtk.FileChooserAction.SAVE, null, null);
-		chooser.set_current_name(Path.get_basename (entity.url));
+		chooser.set_current_name(Path.get_basename (url));
 		chooser.response.connect (id => {
 			switch (id) {
 				case ResponseType.ACCEPT:
-					message (@"Downloading file: $(entity.url)...");
-					download.begin(entity.url, chooser.get_file (), (obj, res) => {
+					message (@"Downloading file: $(url)...");
+					download.begin(url, chooser.get_file (), (obj, res) => {
 						download.end (res);
 					});
 					break;
@@ -46,7 +50,7 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 		chooser.show ();
 	}
 
-	private async void download(string attachment_url, File file) {
+	private static async void download(string attachment_url, File file) {
 		try {
 			var msg = yield new Request.GET (attachment_url).await ();
 			var data = msg.response_body.data;
@@ -57,11 +61,11 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 				message (@"   OK: File written to: $(file.get_path ())");
 			} catch (GLib.IOError e) {
 				warning (e.message);
-				app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
+				//  app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
 			}
 		} catch (GLib.Error e) {
 			warning (e.message);
-			app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
+			//  app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
 		}
 	}
 
@@ -197,5 +201,4 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 		var path = yield Host.download (entity.url);
 		Host.open_uri (path);
 	}
-
 }

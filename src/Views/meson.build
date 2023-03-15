@@ -13,6 +13,7 @@ sources += files(
     'Lists.vala',
     'Local.vala',
     'Main.vala',
+    'MediaViewer.vala',
     'Notifications.vala',
     'Profile.vala',
     'Search.vala',
