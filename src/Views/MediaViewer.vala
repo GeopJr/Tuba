@@ -53,6 +53,10 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
 	}
 
 	construct {
+        var drag = new Gtk.GestureDrag ();
+        drag.drag_end.connect(on_drag_end);
+        add_controller (drag);
+
 		orientation = Gtk.Orientation.VERTICAL;
         spacing = 0;
 
@@ -99,7 +103,7 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
         var back_btn = new Gtk.Button.from_icon_name("tooth-left-large-symbolic") {
             tooltip_text = _("Go Back")
         };
-        back_btn.clicked.connect(on_clicked);
+        back_btn.clicked.connect(on_back_clicked);
         headerbar.pack_start(back_btn);
 
         var end_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
@@ -126,7 +130,7 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
 		message ("Destroying MediaViewer");
 	}
 
-    protected void on_clicked() {
+    protected void on_back_clicked() {
         app.main_window.hide_media_viewer();
     }
 
@@ -179,4 +183,10 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
 	private void save_as () {
 		Widgets.Attachment.Item.save_media_as(url);
 	}
+
+    private void on_drag_end (double x, double y) {
+        if (Math.fabs(y) >= 200) {
+            on_back_clicked();
+        }
+    }
 }
