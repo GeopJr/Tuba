@@ -6,32 +6,53 @@
     <property name="width_request">360</property>
     <property name="height_request">600</property>
     <child>
-
-      <object class="AdwFlap" id="flap">
-        <child type="flap">
-          <object class="ToothViewsSidebar" id="sidebar">
-            <style>
-              <class name="background"/>
-            </style>
+      <object class="GtkStack" id="main_stack">
+        <property name="vexpand">1</property>
+        <property name="hexpand">1</property>
+        <property name="vhomogeneous">0</property>
+        <property name="transition_type">crossfade</property>
+        <property name="interpolate_size">1</property>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">main</property>
+            <property name="child">
+              <object class="AdwFlap" id="flap">
+                <child type="flap">
+                  <object class="ToothViewsSidebar" id="sidebar">
+                    <style>
+                      <class name="background"/>
+                    </style>
+                  </object>
+                </child>
+                <!-- <child type="separator"> -->
+                <!--   <object class="GtkSeparator"> -->
+                <!--     <property name="orientation">vertical</property> -->
+                <!--   </object> -->
+                <!-- </child> -->
+                <child type="content">
+                  <object class="AdwLeaflet" id="leaflet">
+                    <property name="transition_type">over</property>
+                    <property name="can-navigate-back">1</property>
+                    <property name="can-unfold">0</property>
+                    <property name="homogeneous">0</property>
+                    <signal name="notify::child-transition-running" handler="on_child_transition"/>
+                    <signal name="notify::visible-child" handler="on_view_changed"/>
+                  </object>
+                </child>
+              </object>
+            </property>
           </object>
         </child>
-        <!-- <child type="separator"> -->
-        <!--   <object class="GtkSeparator"> -->
-        <!--     <property name="orientation">vertical</property> -->
-        <!--   </object> -->
-        <!-- </child> -->
-        <child type="content">
-          <object class="AdwLeaflet" id="leaflet">
-            <property name="transition_type">over</property>
-            <property name="can-navigate-back">1</property>
-            <property name="can-unfold">0</property>
-            <property name="homogeneous">0</property>
-            <signal name="notify::child-transition-running" handler="on_child_transition"/>
-            <signal name="notify::visible-child" handler="on_view_changed"/>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">media_viewer</property>
+            <property name="child">
+              <object class="ToothViewsMediaViewer" id="media_viewer">
+              </object>
+            </property>
           </object>
         </child>
       </object>
-
     </child>
   </template>
 </interface>

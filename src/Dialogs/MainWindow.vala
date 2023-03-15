@@ -9,6 +9,8 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	[GtkChild] public unowned Adw.Flap flap;
 	[GtkChild] unowned Adw.Leaflet leaflet;
 	[GtkChild] unowned Views.Sidebar sidebar;
+	[GtkChild] unowned Stack main_stack;
+	[GtkChild] unowned Views.MediaViewer media_viewer;
 
 	Views.Base? last_view = null;
 
@@ -33,6 +35,34 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		if (Build.PROFILE == "development") {
 			this.add_css_class ("devel");
 		}
+	}
+
+	public void show_media_viewer(string url, string? alt_text, bool video) {
+		main_stack.visible_child_name = "media_viewer";
+		media_viewer.spinning = true;
+		media_viewer.url = url;
+		if (video) {
+			media_viewer.set_video(url);
+		} else {
+			image_cache.request_paintable (url, on_media_viewer_cache_response);
+			media_viewer.alternative_text = alt_text;
+		}
+	}
+
+	private void on_media_viewer_cache_response(bool is_loaded, owned Paintable? data) {
+		media_viewer.paintable = data;
+		if (is_loaded) {
+			media_viewer.spinning = false;
+		}
+	}
+
+	public void hide_media_viewer() {
+		media_viewer.fullscreen = false;
+		main_stack.visible_child_name = "main";
+		media_viewer.paintable = null;
+		media_viewer.set_video(null);
+		media_viewer.url = "";
+		media_viewer.spinning = true;
 	}
 
 	public Views.Base open_view (Views.Base view) {
