@@ -203,8 +203,11 @@ headerbar.flat.no-title .title {
 .ttl-status-avatar-actor {
 	margin-top: -20px;
 	margin-left: -6px;
-	border: 3px solid @popover_bg_color;
 	padding: 0;
 	background: none;
+}
+
+.ttl-status-avatar-border {
+	border: 3px solid @popover_bg_color;
 	border-radius: 100%;
 }

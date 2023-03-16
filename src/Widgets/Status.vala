@@ -128,6 +128,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	}
 
 	construct {
+		avatar_overlay.set_size_request(avatar.size, avatar.size);
 		open.connect (on_open);
 		if (settings.larger_font_size)
 			add_css_class("ttl-status-font-large");
@@ -335,12 +336,15 @@ public class Tooth.Widgets.Status : ListBoxRow {
 				actor_avatar_binding = status.bind_property ("account", actor_avatar, "account", BindingFlags.SYNC_CREATE);
 				actor_avatar_singal = actor_avatar.clicked.connect(on_actor_avatar_clicked);
 			}
-			avatar_overlay.add_overlay(actor_avatar);
+			avatar.add_css_class("ttl-status-avatar-border");
+			avatar_overlay.child = actor_avatar;
+			//  avatar_overlay.add_overlay(actor_avatar);
 		} else if (actor_avatar != null) {
 			actor_avatar.disconnect(actor_avatar_singal);
 			actor_avatar_binding.unbind();
 
-			avatar_overlay.remove_overlay(actor_avatar);
+			avatar_overlay.child = null;
+			//  avatar_overlay.remove_overlay(actor_avatar);
 		}
 
 		header_icon.icon_name = icon;
