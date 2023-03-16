@@ -15,7 +15,7 @@
           <object class="GtkImage" id="header_icon">
             <property name="visible">0</property>
             <property name="halign">end</property>
-            <property name="margin_bottom">8</property>
+            <!-- <property name="margin_bottom">8</property> -->
             <property name="icon_name">oops</property>
             <property name="icon_size">1</property>
             <layout>
@@ -28,7 +28,7 @@
           <object class="ToothWidgetsRichLabelContainer" id="header_label">
             <property name="visible">0</property>
             <!-- <property name="ellipsize">end</property> -->
-            <property name="margin-bottom">8</property>
+            <!-- <property name="margin-bottom">8</property> -->
             <style>
               <class name="font-bold"/>
             </style>
