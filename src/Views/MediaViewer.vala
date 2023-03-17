@@ -125,6 +125,7 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
         append(stack);
 
         stack.visible_child_name = "spinner";
+		setup_mouse_previous_click();
 	}
 	~MediaViewer () {
 		message ("Destroying MediaViewer");
@@ -188,5 +189,17 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
         if (Math.fabs(y) >= 200) {
             on_back_clicked();
         }
+    }
+
+    private void setup_mouse_previous_click () {
+        var gesture = new Gtk.GestureClick();
+        gesture.button = 8;
+        gesture.propagation_phase = Gtk.PropagationPhase.CAPTURE;
+        gesture.pressed.connect(handle_mouse_previous_click);
+        add_controller (gesture);
+    }
+
+    private void handle_mouse_previous_click(int n_press, double x, double y) {
+        on_back_clicked();
     }
 }

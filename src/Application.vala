@@ -63,7 +63,7 @@ namespace Tooth {
 
 		public string[] ACCEL_ABOUT = {"F1"};
 		public string[] ACCEL_NEW_POST = {"<Ctrl>T"};
-		public string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left"};
+		public string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left", "Escape", "<Alt>KP_Left", "Pointer_DfltBtnPrev"};
 		public string[] ACCEL_REFRESH = {"<Ctrl>R", "F5"};
 		public string[] ACCEL_SEARCH = {"<Ctrl>F"};
 		public string[] ACCEL_QUIT = {"<Ctrl>Q"};

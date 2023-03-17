@@ -3,7 +3,6 @@ using Gdk;
 
 [GtkTemplate (ui = "/dev/geopjr/Tooth/ui/dialogs/main.ui")]
 public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
-
 	public const string ZOOM_CLASS = "ttl-scalable";
 
 	[GtkChild] public unowned Adw.Flap flap;
@@ -18,8 +17,6 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		construct_saveable (settings);
 
 		var gtk_settings = Gtk.Settings.get_default ();
-		//  settings.bind_property ("dark-theme", gtk_settings, "gtk-application-prefer-dark-theme", BindingFlags.SYNC_CREATE);
-		// button_press_event.connect (on_button_press);
 	}
 
 	public MainWindow (Adw.Application app) {
@@ -38,6 +35,8 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public void show_media_viewer(string url, string? alt_text, bool video) {
+		if (main_stack.visible_child_name == "media_viewer") return;
+
 		main_stack.visible_child_name = "media_viewer";
 		media_viewer.spinning = true;
 		media_viewer.url = url;
@@ -57,6 +56,8 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public void hide_media_viewer() {
+		if (main_stack.visible_child_name != "media_viewer") return;
+
 		media_viewer.fullscreen = false;
 		main_stack.visible_child_name = "main";
 		media_viewer.paintable = null;
@@ -78,6 +79,11 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public bool back () {
+		if (main_stack.visible_child_name == "media_viewer") {
+			hide_media_viewer();
+			return true;
+		};
+
 		if (last_view == null) return true;
 
 		if (last_view.is_sidebar_item)
