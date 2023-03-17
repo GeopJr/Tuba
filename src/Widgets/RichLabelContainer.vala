@@ -8,9 +8,36 @@ public class Tooth.Widgets.RichLabelContainer : Adw.Bin {
 	string on_click_url = null;
 	public weak ArrayList<API.Mention>? mentions;
 
+	private bool _dim = false;
+	public bool dim {
+		get { return _dim; }
+		set {
+			_dim = value;
+			if (value) {
+				button_child.label_css_classes.add("dim-label");
+			} else {
+				button_child.label_css_classes.remove("dim-label");
+			}
+		}
+	}
+
+	private bool _small_font = false;
+	public bool small_font {
+		get { return _small_font; }
+		set {
+			_small_font = value;
+			if (value) {
+				button_child.label_css_classes.add("ttl-status-heading");
+			} else {
+				button_child.label_css_classes.remove("ttl-status-heading");
+			}
+		}
+	}
+
 	construct {
-		widget = new Button ();
-		widget.add_css_class("ttl-label-emoji-no-click");
+		widget = new Button () {
+			css_classes = {"ttl-label-emoji-no-click", "flat"}
+		};
 		button_child = new EmojiLabel();
 
 		widget.child = button_child;

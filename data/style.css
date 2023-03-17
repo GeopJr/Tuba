@@ -195,3 +195,19 @@ headerbar.flat.no-title .title {
 	background: rgba(0,0,0,.7);
 	color: white;
 }
+
+.ttl-status-heading {
+	font-size: 13px;
+}
+
+.ttl-status-avatar-actor {
+	margin-top: -20px;
+	margin-left: -6px;
+	padding: 0;
+	background: none;
+}
+
+.ttl-status-avatar-border {
+	border: 3px solid @popover_bg_color;
+	border-radius: 100%;
+}

@@ -15,7 +15,7 @@
           <object class="GtkImage" id="header_icon">
             <property name="visible">0</property>
             <property name="halign">end</property>
-            <property name="margin_bottom">8</property>
+            <!-- <property name="margin_bottom">8</property> -->
             <property name="icon_name">oops</property>
             <property name="icon_size">1</property>
             <layout>
@@ -28,7 +28,7 @@
           <object class="ToothWidgetsRichLabelContainer" id="header_label">
             <property name="visible">0</property>
             <!-- <property name="ellipsize">end</property> -->
-            <property name="margin-bottom">8</property>
+            <!-- <property name="margin-bottom">8</property> -->
             <style>
               <class name="font-bold"/>
             </style>
@@ -325,11 +325,15 @@
           </object>
         </child>
         <child>
-          <object class="ToothWidgetsAvatar" id="avatar">
-            <property name="size">48</property>
-            <property name="valign">start</property>
-            <property name="visible">true</property>
-            <signal name="clicked" handler="on_avatar_clicked" swapped="no"/>
+          <object class="GtkOverlay" id="avatar_overlay">
+            <child type="overlay">
+              <object class="ToothWidgetsAvatar" id="avatar">
+                <property name="size">48</property>
+                <property name="valign">start</property>
+                <property name="visible">true</property>
+                <signal name="clicked" handler="on_avatar_clicked" swapped="no"/>
+              </object>
+            </child>
             <layout>
               <property name="column">0</property>
               <property name="row">1</property>
