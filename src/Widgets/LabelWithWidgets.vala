@@ -1,7 +1,7 @@
 // LabelWithWidgets is ported from Fractal
 // https://gitlab.gnome.org/GNOME/fractal/-/blob/40d2071975e20c1c936f7e87daaf8a0eba7f31b7/src/components/label_with_widgets.rs
 
-public class Tooth.Widgets.LabelWithWidgets : Gtk.Buildable, Gtk.Widget {
+public class LabelWithWidgets : Gtk.Buildable, Gtk.Widget {
     private Gtk.Widget[] widgets = {};
     private int[] widget_heights = {};
     private int[] widget_widths = {};
@@ -27,6 +27,7 @@ public class Tooth.Widgets.LabelWithWidgets : Gtk.Buildable, Gtk.Widget {
         set {
             _text = value;
             update_label();
+            notify_property("label");
         }
     }
     
@@ -65,6 +66,10 @@ public class Tooth.Widgets.LabelWithWidgets : Gtk.Buildable, Gtk.Widget {
         };
 
         label.set_parent(this);
+
+        label.notify["label"].connect(() => {
+            invalidate_child_widgets();
+        });        
     }
     ~LabelWithWidgets (){
         label.unparent();
@@ -146,6 +151,7 @@ public class Tooth.Widgets.LabelWithWidgets : Gtk.Buildable, Gtk.Widget {
             var extra_attrs = run.item.analysis.extra_attrs.copy();
             bool has_shape_attr = false;
             foreach (var attr in extra_attrs) {
+                // FIXME
                 if (true) {
                     has_shape_attr = true;
                     break;
@@ -230,7 +236,7 @@ public class Tooth.Widgets.LabelWithWidgets : Gtk.Buildable, Gtk.Widget {
                     natural_baseline = int.max(t_natural_baseline, child_nat_baseline);
                 }
             }
-		}
+	    }
     }
     
     public void update_label() {
@@ -287,6 +293,7 @@ public class Tooth.Widgets.LabelWithWidgets : Gtk.Buildable, Gtk.Widget {
             widget_widths[i] = 0;
             widget_heights[i] = 0;
         }
+        this.queue_resize();
     }
     
     public int pango_pixels(int d) {
@@ -300,5 +307,7 @@ public class Tooth.Widgets.LabelWithWidgets : Gtk.Buildable, Gtk.Widget {
         } else {
             this.parent.add_child(builder, child, type);
         }
+
+        base.add_child (builder, child, type);
     }
 }
