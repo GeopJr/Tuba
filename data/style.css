@@ -46,7 +46,7 @@ headerbar.flat.no-title .title {
 	border-radius: 6px;
 }
 
-.ttl-view .content row  {
+.ttl-view .content row:not(.ttl-post)  {
 	padding: 0px;
 }
 
@@ -211,4 +211,18 @@ headerbar.flat.no-title .title {
 	border: 3px solid @popover_bg_color;
 	border-radius: 100%;
 	background-color: @popover_bg_color;
+}
+
+.ttl-post {
+	padding: 18px;
+}
+
+.ttl-post-actions {
+	/* .ttl-post.padding */
+	margin-bottom: -18px;
+}
+
+.ttl-thread-line.not-first {
+	/* .ttl-post.padding + 8px */
+	margin-top: -26px; 
 }
