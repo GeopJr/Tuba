@@ -28,8 +28,10 @@ public class Tooth.Widgets.RichLabelContainer : Adw.Bin {
 			_small_font = value;
 			if (value) {
 				button_child.label_css_classes.add("ttl-status-heading");
+				widget.add_css_class("ttl-status-heading-padding");
 			} else {
 				button_child.label_css_classes.remove("ttl-status-heading");
+				widget.add_css_class("ttl-status-heading-padding");
 			}
 		}
 	}

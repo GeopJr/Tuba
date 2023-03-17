@@ -200,6 +200,10 @@ headerbar.flat.no-title .title {
 	font-size: 13px;
 }
 
+.ttl-status-heading-padding {
+	padding: 0 5px;
+}
+
 .ttl-status-avatar-actor {
 	margin-top: -20px;
 	margin-left: -6px;

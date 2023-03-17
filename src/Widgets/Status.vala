@@ -355,7 +355,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		header_icon.icon_name = icon;
 		header_label.dim = true;
 		header_label.small_font = true;
-		header_label.set_label(descr, label_url, this.kind_instigator.emojis_map, true);
+		header_label.set_label(descr, label_url, this.kind_instigator.emojis_map);
 	}
 
 	private void open_kind_instigator_account () {
