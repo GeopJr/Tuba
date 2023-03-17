@@ -214,15 +214,15 @@ headerbar.flat.no-title .title {
 }
 
 .ttl-post {
-	padding: 18px;
+	padding: 12px;
 }
 
 .ttl-post-actions {
 	/* .ttl-post.padding */
-	margin-bottom: -18px;
+	margin-bottom: -12px;
 }
 
 .ttl-thread-line.not-first {
 	/* .ttl-post.padding + 8px */
-	margin-top: -26px; 
+	margin-top: -20px; 
 }
