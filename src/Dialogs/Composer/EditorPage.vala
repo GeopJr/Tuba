@@ -9,7 +9,7 @@ public class Tooth.EditorPage : ComposerPage {
 	construct {
 		//  translators: "Text" as in text-based input
 		title = _("Text");
-		icon_name = "tooth-edit-symbolic";
+		icon_name = "document-edit-symbolic";
 
 		var char_limit_api = accounts.active.instance_info.compat_status_max_characters;
 		if (char_limit_api > 0)

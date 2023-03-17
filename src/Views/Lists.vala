@@ -12,7 +12,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 			var action_box = new Box(Orientation.HORIZONTAL, 6);
 
 			edit_button = new Button() {
-				icon_name = "tooth-edit-symbolic",
+				icon_name = "document-edit-symbolic",
 				valign = Align.CENTER,
 				halign = Align.CENTER
 			};

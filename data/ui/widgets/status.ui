@@ -96,7 +96,7 @@
                 <child>
                   <object class="GtkImage" id="edited_indicator">
                     <property name="visible">0</property>
-                    <property name="icon_name">tooth-edit-symbolic</property>
+                    <property name="icon_name">document-edit-symbolic</property>
                     <property name="icon_size">1</property>
                     <property name="tooltip_text" translatable="yes">Edited</property>
                     <style>

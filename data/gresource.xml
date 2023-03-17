@@ -9,7 +9,6 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-bookmarks-filled-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-starred-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-unstarred-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-edit-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-online-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-smile-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-globe-symbolic.svg</file>
