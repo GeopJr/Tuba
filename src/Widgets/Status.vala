@@ -602,21 +602,25 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		switch (thread_role) {
 			case NONE:
 				l.visible = false;
+				l.remove_css_class("not-first");
 				break;
 			case START:
 				l.valign = Align.FILL;
 				l.margin_top = 24;
 				l.visible = true;
+				l.remove_css_class("not-first");
 				break;
 			case MIDDLE:
 				l.valign = Align.FILL;
 				l.margin_top = 0;
 				l.visible = true;
+				l.add_css_class("not-first");
 				break;
 			case END:
 				l.valign = Align.START;
 				l.margin_top = 0;
 				l.visible = true;
+				l.add_css_class("not-first");
 				break;
 		}
 	}
