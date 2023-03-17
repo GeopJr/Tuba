@@ -315,6 +315,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	Widgets.Avatar? actor_avatar = null;
 	ulong actor_avatar_singal;
 	private Binding actor_avatar_binding;
+	const string[] should_show_actor_avatar = {InstanceAccount.KIND_REBLOG, InstanceAccount.KIND_REMOTE_REBLOG, InstanceAccount.KIND_FAVOURITE};
 	protected virtual void change_kind () {
 		string icon = null;
 		string descr = null;
@@ -325,7 +326,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		header_icon.visible = header_label.visible = (icon != null);
 		if (icon == null) return;
 
-		if (kind == InstanceAccount.KIND_REBLOG || kind == InstanceAccount.KIND_REMOTE_REBLOG) {
+		if (kind in should_show_actor_avatar) {
 			if (actor_avatar == null) {
 				actor_avatar = new Widgets.Avatar () {
 					size = 34,
@@ -333,18 +334,22 @@ public class Tooth.Widgets.Status : ListBoxRow {
 					halign = Gtk.Align.START,
 					css_classes = {"ttl-status-avatar-actor"}
 				};
-				actor_avatar_binding = status.bind_property ("account", actor_avatar, "account", BindingFlags.SYNC_CREATE);
-				actor_avatar_singal = actor_avatar.clicked.connect(on_actor_avatar_clicked);
+
+				if (kind == InstanceAccount.KIND_FAVOURITE) {
+					actor_avatar_binding = this.bind_property ("kind_instigator", actor_avatar, "account", BindingFlags.SYNC_CREATE);
+					actor_avatar_singal = actor_avatar.clicked.connect(open_kind_instigator_account);
+				} else {
+					actor_avatar_binding = status.bind_property ("account", actor_avatar, "account", BindingFlags.SYNC_CREATE);
+					actor_avatar_singal = actor_avatar.clicked.connect(open_status_account);
+				}
 			}
 			avatar.add_css_class("ttl-status-avatar-border");
 			avatar_overlay.child = actor_avatar;
-			//  avatar_overlay.add_overlay(actor_avatar);
 		} else if (actor_avatar != null) {
 			actor_avatar.disconnect(actor_avatar_singal);
 			actor_avatar_binding.unbind();
 
 			avatar_overlay.child = null;
-			//  avatar_overlay.remove_overlay(actor_avatar);
 		}
 
 		header_icon.icon_name = icon;
@@ -353,7 +358,11 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		header_label.set_label(descr, label_url, this.kind_instigator.emojis_map, true);
 	}
 
-	private void on_actor_avatar_clicked () {
+	private void open_kind_instigator_account () {
+		this.kind_instigator.open ();
+	}
+
+	private void open_status_account () {
 		status.account.open ();
 	}
 
