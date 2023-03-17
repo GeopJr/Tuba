@@ -210,4 +210,5 @@ headerbar.flat.no-title .title {
 .ttl-status-avatar-border {
 	border: 3px solid @popover_bg_color;
 	border-radius: 100%;
+	background-color: @popover_bg_color;
 }
