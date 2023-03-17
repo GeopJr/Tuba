@@ -335,7 +335,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 					css_classes = {"ttl-status-avatar-actor"}
 				};
 
-				if (kind == InstanceAccount.KIND_FAVOURITE) {
+				if (this.kind_instigator != null) {
 					actor_avatar_binding = this.bind_property ("kind_instigator", actor_avatar, "account", BindingFlags.SYNC_CREATE);
 					actor_avatar_singal = actor_avatar.clicked.connect(open_kind_instigator_account);
 				} else {
