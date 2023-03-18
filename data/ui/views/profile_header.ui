@@ -27,7 +27,7 @@
             <property name="label">Follows you</property> 
             <property name="xalign">0</property> 
             <property name="halign">end</property> 
-            <property name="valign">end</property> 
+            <property name="valign">start</property> 
             <property name="margin-bottom">48</property> 
             <property name="visible">0</property> 
             <style> 
