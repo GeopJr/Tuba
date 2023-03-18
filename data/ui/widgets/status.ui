@@ -264,7 +264,6 @@
             </child>
             <child>
               <object class="GtkBox" id="actions">
-                <property name="homogeneous">1</property>
                 <property name="spacing">6</property>
                 <style>
                   <class name="ttl-post-actions"/>
