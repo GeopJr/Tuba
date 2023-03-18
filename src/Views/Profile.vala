@@ -25,6 +25,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 	construct {
 		cover = build_cover ();
 		cover_badge = cover.cover_badge;
+		cover.rsbtn.rs = this.rs;
 		column_view.prepend (cover);
 	}
 
@@ -72,6 +73,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 		[GtkChild] unowned Label handle;
 		[GtkChild] unowned Widgets.Avatar avatar;
 		[GtkChild] unowned Widgets.MarkupView note;
+		[GtkChild] public unowned Widgets.RelationshipButton rsbtn;
 
 		public void bind (API.Account account) {
 			display_name.instance_emojis = account.emojis_map;
@@ -79,6 +81,8 @@ public class Tooth.Views.Profile : Views.Timeline {
 			handle.label = account.handle;
 			avatar.account = account;
 			note.content = account.note;
+
+			if (account.id != accounts.active.id) rsbtn.visible = true;
 
 			if (account.header.contains("/headers/original/missing.png")) {
 				avatar.bind_property("custom_image", background, "paintable", GLib.BindingFlags.SYNC_CREATE);
@@ -175,11 +179,9 @@ public class Tooth.Views.Profile : Views.Timeline {
 		menu_button.icon_name = "tooth-view-more-symbolic";
 		header.pack_end (menu_button);
 
-		rs_button = new Widgets.RelationshipButton () {
-			rs = this.rs
-		};
-		if (profile.id != accounts.active.id)
-			header.pack_end (rs_button);
+		//  rs_button = new Widgets.RelationshipButton () {
+		//  	rs = this.rs
+		//  };
 	}
 
 	protected virtual Cover build_cover () {
