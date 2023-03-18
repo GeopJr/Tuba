@@ -540,8 +540,12 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		for (var w = actions.get_first_child (); w != null; w = w.get_next_sibling ()) {
 			w.add_css_class ("flat");
 			w.add_css_class ("circular");
-			w.halign = Align.CENTER;
+			w.halign = Align.START;
+			w.hexpand = true;
 		}
+
+		var w = actions.get_last_child ();
+		w.hexpand = false;
 	}
 
 	[GtkCallback] public void toggle_spoiler () {
