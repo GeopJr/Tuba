@@ -345,11 +345,13 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			}
 			avatar.add_css_class("ttl-status-avatar-border");
 			avatar_overlay.child = actor_avatar;
+			grid.margin_top = 0;
 		} else if (actor_avatar != null) {
 			actor_avatar.disconnect(actor_avatar_singal);
 			actor_avatar_binding.unbind();
 
 			avatar_overlay.child = null;
+			grid.margin_top = 8;
 		}
 
 		header_icon.icon_name = icon;
