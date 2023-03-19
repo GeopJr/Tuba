@@ -18,7 +18,6 @@ public class Tooth.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			keep_aspect_ratio = true
 		};
 		button.child = pic;
-		badge.visible = false;
 		alt_btn.tooltip_text = _("Edit Alt Text");
 		alt_btn.disconnect(alt_btn_clicked_id);
 		alt_btn.clicked.connect(() => {
