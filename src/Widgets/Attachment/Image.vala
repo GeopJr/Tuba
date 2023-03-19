@@ -15,7 +15,7 @@ public class Tooth.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			can_shrink = true,
 			keep_aspect_ratio = true,
 			css_classes = {"attachment-picture"}
-			//  content_fit = ContentFit.COVER // GTK 4.8
+			//  content_fit = ContentFit.COVER // vala is not aware of it
 		};
 		pic.set_property ("content-fit", 2);
 
