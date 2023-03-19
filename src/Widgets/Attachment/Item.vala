@@ -16,9 +16,9 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 	protected Overlay overlay;
 	protected Button button;
 	protected Button alt_btn;
-	protected Label badge;
 	protected Gtk.Box badge_box;
 	protected ulong alt_btn_clicked_id;
+	protected string media_kind;
 
 	private void copy_url () {
 		Host.copy (entity.url);
@@ -97,8 +97,6 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 			valign = Align.END,
 			halign = Align.START
 		};
-		badge = new Label ("");
-		badge.add_css_class ("heading");
 
 		alt_btn = new Button.with_label("ALT") {
 			tooltip_text = _("View Alt Text")
@@ -111,7 +109,6 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 				create_alt_text_window(entity.description, true);
 		});
 
-		badge_box.append(badge);
 		badge_box.append(alt_btn);
 		badge_box.add_css_class ("linked");
 		badge_box.add_css_class ("ttl-status-badge");
@@ -149,7 +146,7 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 		var headerbar = new Adw.HeaderBar();
 		var window = new Adw.Window() {
 			modal = true,
-			title = @"Alternative text for $(badge.label)",
+			title = @"Alternative text for $media_kind",
 			transient_for = app.main_window,
 			content = box,
 			default_width = 400,
@@ -177,7 +174,7 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 
 	protected virtual void on_rebind () {
 		alt_btn.visible = entity != null && entity.description != null && entity.description != "";
-		badge.label = entity == null ? "" : entity.kind.up();
+		media_kind = entity.kind.up();
 	}
 
 	protected virtual void on_click () {

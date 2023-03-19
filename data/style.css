@@ -175,15 +175,15 @@ headerbar.flat.no-title .title {
 }
 
 .ttl-status-badge  > * {
-	padding: 6px 12px;
+	padding: 1px 6px;
 }
 
 .ttl-status-badge  > button > label {
-	padding: 6px 12px;
+	padding: 1px 6px;
 }
 
 .ttl-status-badge  > .image-button {
-	padding: 3px 12px;
+	padding: 1px 6px;
 }
 
 .ttl-verified-field {
@@ -229,4 +229,12 @@ headerbar.flat.no-title .title {
 .ttl-thread-line.not-first {
 	/* .ttl-post.padding + 8px */
 	margin-top: -20px; 
+}
+
+.attachment-overlay-icon {
+	background-color: alpha(white, .3);
+}
+
+.attachment-picture {
+	border-radius: 6px;
 }

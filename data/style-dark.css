@@ -29,3 +29,7 @@
 .ttl-status-action-bookmark:active {
 	color: @red_2;
 }
+
+.attachment-overlay-icon {
+	background-color: alpha(black, .3);
+}
