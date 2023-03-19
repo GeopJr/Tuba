@@ -7,7 +7,19 @@ public class Tooth.AbstractCache : Object {
     protected Map<string, Object> items;
     protected Map<string, Soup.Message> items_in_progress;
 
-    public int maintenance_secs { get; set; default = 5; }
+	private uint timeout_source;
+	private int _maintenance_secs = 5;
+    public int maintenance_secs {
+		get {
+			return _maintenance_secs;
+		}
+
+		set {
+			_maintenance_secs = value;
+			GLib.Source.remove(timeout_source);
+			setup_maintenance();
+		}
+	}
     public uint size {
         get { return items.size; }
     }
@@ -16,8 +28,12 @@ public class Tooth.AbstractCache : Object {
         items = new HashMap<string, Object> ();
         items_in_progress = new HashMap<string, Soup.Message> ();
 
-        Timeout.add_seconds (maintenance_secs, maintenance_func, Priority.LOW);
+		setup_maintenance();
     }
+
+	private void setup_maintenance () {
+        timeout_source = Timeout.add_seconds (_maintenance_secs, maintenance_func, Priority.LOW);
+	}
 
 	bool maintenance_func () {
 		// message ("maintenance start");
