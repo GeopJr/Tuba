@@ -11,9 +11,9 @@
         <property name="show-end-title-buttons">0</property>
         <child type="start">
           <object class="GtkButton" id="compose_button">
-            <property name="icon-name">tooth-edit-symbolic</property>
+            <property name="icon-name">document-edit-symbolic</property>
             <property name="action-name">app.compose</property>
-            <property name="tooltip_text" translatable="yes">Toot</property>
+            <property name="tooltip_text" translatable="yes">Compose</property>
           </object>
         </child>
         <child type="end">

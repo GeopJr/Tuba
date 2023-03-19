@@ -1,13 +1,12 @@
 using Gee;
 using Json;
 
-public class Tooth.API.Poll :   GLib.Object, Json.Serializable{
+public class Tooth.API.Poll : GLib.Object, Json.Serializable{
     public string id { get; set; }
     public string expires_at{ get; set; }
     public bool expired { get; set; }
     public bool multiple { get; set; }
     public int64 votes_count { get; set; }
-    public int64 voters_count { get; set; }
     public bool voted { get; set; default = true;}
     public ArrayList<int> own_votes { get; set; }
     public ArrayList<PollOption>? options{ get; set; default = null; }

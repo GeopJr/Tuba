@@ -1,7 +1,9 @@
 using Gtk;
 
-[GtkTemplate (ui = "/dev/geopjr/tooth/ui/dialogs/new_account.ui")]
+[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/dialogs/new_account.ui")]
 public class Tooth.Dialogs.NewAccount: Adw.Window {
+	const string AUTO_AUTH_DESCRIPTION = _("Allow access to your account in the browser.");
+	const string CODE_AUTH_DESCRIPTION = _("Copy the authorization code from the browser and paste it below.");
 
 	const string scopes = "read write follow";
 
@@ -15,28 +17,42 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 	[GtkChild] unowned Box code_step;
 	[GtkChild] unowned Box done_step;
 
-	[GtkChild] unowned Entry instance_entry;
+	[GtkChild] unowned Adw.EntryRow instance_entry;
 	[GtkChild] unowned Label instance_entry_error;
 
-	[GtkChild] unowned Entry code_entry;
+	[GtkChild] unowned Adw.EntryRow code_entry;
 	[GtkChild] unowned Label code_entry_error;
-	//  [GtkChild] unowned Label code_label;
+
+	[GtkChild] unowned Adw.StatusPage auth_page;
 	[GtkChild] unowned Adw.StatusPage done_page;
+
+	[GtkChild] unowned Gtk.Label manual_auth_label;
 
 	public NewAccount () {
 		Object (transient_for: app.main_window);
 		app.add_account_window = this;
 		app.add_window (this);
-		// StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), app.css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+		bind_property("use-auto-auth", auth_page, "description", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_string (src.get_boolean () ? AUTO_AUTH_DESCRIPTION : CODE_AUTH_DESCRIPTION);
+			return true;
+		});
+
+		manual_auth_label.activate_link.connect(on_manual_auth);
+
 		reset ();
 		present ();
+	}
 
-		instance_entry.buffer.inserted_text.connect(clear_errors);
-		instance_entry.buffer.deleted_text.connect(clear_errors);
+	public bool on_manual_auth (string url) {
+		if (url == "manual_auth") {
+			use_auto_auth = false;
+			register_client.begin ();
+		} else {
+			warning(@"Expected \"manual_auth\", instead got \"$(url)\"");
+		}
 
-		code_entry.buffer.inserted_text.connect(clear_errors);
-		code_entry.buffer.deleted_text.connect(clear_errors);
-		//  bind_property ("use-auto-auth", code_label, "visible", BindingFlags.SYNC_CREATE);
+		return true;
 	}
 
 	public override bool close_request () {
@@ -60,14 +76,6 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 			use_auto_auth = false;
 			return "urn:ietf:wg:oauth:2.0:oob";
 		}
-	}
-
-	[GtkCallback]
-	bool on_activate_code_label_link (string uri) {
-		use_auto_auth = false;
-		register_client.begin ();
-		//  reset();
-		return true;
 	}
 
 	void reset () {
@@ -167,7 +175,7 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 		message ("Saving account");
 		accounts.add (account);
 
-		done_page.title = _("Hello, %s!").printf (account.handle);
+		done_page.title = _("Hello, %s!").printf (account.display_name);
 		deck.visible_child = done_step;
 
 		message ("Switching to account");
@@ -181,8 +189,9 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 		var query = new Soup.URI (uri).get_query ();
 		var split = query.split ("=");
 		var code = split[1];
+		var code_clean = code.splice(code.index_of_char('&'), -1);
 
-		code_entry.text = code;
+		code_entry.text = code_clean;
 		is_working = false;
 		on_next_clicked ();
 	}
@@ -195,6 +204,7 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 		code_entry_error.label = error_message;
 	}
 
+	[GtkCallback]
 	public void clear_errors () {
 		instance_entry.remove_css_class("error");
 		instance_entry_error.label = "";

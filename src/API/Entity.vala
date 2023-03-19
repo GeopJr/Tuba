@@ -72,6 +72,9 @@ public class Tooth.Entity : GLib.Object, Widgetizable, Json.Serializable {
 
 			//There has to be a better way
 			switch (prop) {
+				case "supported-mime-types":
+				case "languages":
+					return des_list_string(out val, node);
 				case "media-attachments":
 					contains = typeof (API.Attachment);
 					break;
@@ -80,6 +83,10 @@ public class Tooth.Entity : GLib.Object, Widgetizable, Json.Serializable {
 					break;
 				case "emojis":
 					contains = typeof (API.Emoji);
+					break;
+				case "emoji-reactions":
+				case "reactions":
+					contains = typeof (API.EmojiReaction);
 					break;
 				case "fields":
 					contains = typeof (API.AccountField);
@@ -92,6 +99,9 @@ public class Tooth.Entity : GLib.Object, Widgetizable, Json.Serializable {
 					break;
 				case "hashtags":
 					contains = typeof (API.Tag);
+					break;
+				case "history":
+					contains = typeof (API.TagHistory);
 					break;
 				default:
 					contains = typeof (Entity);
@@ -113,6 +123,18 @@ public class Tooth.Entity : GLib.Object, Widgetizable, Json.Serializable {
 				} catch (Error e) {
 					warning (@"Error getting Entity from json: $(e.message)");
 				}
+			});
+		}
+		val = arr;
+		return true;
+	}
+
+	public static bool des_list_string (out Value val, Json.Node node) {
+		var arr = new Gee.ArrayList<string> ();
+		if (!node.is_null ()) {
+			node.get_array ().foreach_element ((array, i, elem) => {
+				var obj = (string) elem.get_string();
+				arr.add (obj);
 			});
 		}
 		val = arr;

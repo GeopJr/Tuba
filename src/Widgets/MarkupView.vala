@@ -23,12 +23,15 @@ public class Tooth.Widgets.MarkupView : Box {
 		get { return _selectable; }
 		set {
 			_selectable = value;
-			// get_children ().foreach (w => {
-			// 	var label = w as Label;
-			// 	if (label != null) {
-			// 		label.selectable = _selectable;
-			// 	}
-			// });
+
+			var w = this.get_first_child();
+			while (w != null) {
+				var label = w as RichLabel;
+				if (label != null) {
+					label.selectable = _selectable;
+				}
+				w = w.get_next_sibling();
+			};
 		}
 	}
 
@@ -74,9 +77,10 @@ public class Tooth.Widgets.MarkupView : Box {
 			var label = new RichLabel (current_chunk) {
 				visible = true,
 				// markup = MarkupPolicy.TRUST,
-				selectable = _selectable
+				selectable = _selectable,
+				vexpand = true
 			};
-			prepend (label);
+			append (label);
 		}
 		current_chunk = null;
 	}
@@ -131,7 +135,7 @@ public class Tooth.Widgets.MarkupView : Box {
 					// markup = MarkupPolicy.DISALLOW
 				};
 				label.get_style_context ().add_class ("ttl-code");
-				v.prepend (label);
+				v.append (label);
 				break;
 			case "a":
 				var href = root->get_prop ("href");
@@ -140,6 +144,18 @@ public class Tooth.Widgets.MarkupView : Box {
 					traverse_and_handle (v, root, default_handler);
 					v.write_chunk ("</a>");
 				}
+				break;
+
+			case "em":
+				v.write_chunk (@"<i>");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk (@"</i>");
+				break;
+
+			case "strong":
+				v.write_chunk (@"<b>");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk (@"</b>");
 				break;
 
 			case "b":

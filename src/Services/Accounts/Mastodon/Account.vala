@@ -50,7 +50,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_BOOKMARKS = new Place () {
 		title = _("Bookmarks"),
-		icon = "tooth-bookmarks-filled-symbolic",
+		icon = "tooth-bookmarks-symbolic",
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item(new Views.Bookmarks ()));
 		}
@@ -58,7 +58,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_FAVORITES = new Place () {
 		title = _("Favorites"),
-		icon = "tooth-starred-symbolic",
+		icon = "tooth-unstarred-symbolic",
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item(new Views.Favorites ()));
 		}
@@ -130,13 +130,14 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		});
 		set_visibility (new Visibility () {
 			id = "unlisted",
+			// translators: Probably follow Mastodon's translation
 			name = _("Unlisted"),
 			icon_name = "tooth-padlock2-open-symbolic",
 			description = _("Don\'t post to public timelines")
 		});
 		set_visibility (new Visibility () {
 			id = "private",
-			name = _("Followers-only"),
+			name = _("Followers Only"),
 			icon_name = "tooth-padlock2-symbolic",
 			description = _("Post to followers only")
 		});

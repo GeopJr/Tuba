@@ -1,5 +1,5 @@
 {
-  description = "A GTK Mastodon client, forked from the now-archived Tootle";
+  description = "Browse the Fediverse";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/master";
@@ -58,7 +58,7 @@
                 gappsWrapperArgs+=(
                   --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS" \
                   --prefix XDG_DATA_DIRS : "$out/share" \
-                  --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/dev.geopjr.tooth" \
+                  --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/dev.geopjr.Tooth" \
                   --prefix XDG_DATA_DIRS : "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}" \
                   --prefix XDG_DATA_DIRS : "${hicolor-icon-theme}/share" \
                   --prefix GI_TYPELIB_PATH : "${lib.makeSearchPath "lib/girepository-1.0" [ pango json-glib ]}"

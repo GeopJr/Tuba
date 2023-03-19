@@ -45,7 +45,7 @@ public class Tooth.Views.ContentBase : Views.Base {
 
 	public override void on_content_changed () {
 		if (empty) {
-			status_message = STATUS_EMPTY;
+			status_title = STATUS_EMPTY;
 			state = "status";
 		}
 		else {

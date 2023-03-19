@@ -25,6 +25,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 	construct {
 		cover = build_cover ();
 		cover_badge = cover.cover_badge;
+		cover.rsbtn.rs = this.rs;
 		column_view.prepend (cover);
 	}
 
@@ -36,12 +37,33 @@ public class Tooth.Views.Profile : Views.Timeline {
 			is_profile: true,
 			url: @"/api/v1/accounts/$(acc.id)/statuses"
 		);
+		append_pinned(acc.id);
 		cover.bind (profile);
 		build_profile_stats(cover.info);
 		rs.invalidated.connect (on_rs_updated);
 	}
+	~Profile () {
+		message("Destroying Profile view");
+	}
 
-	[GtkTemplate (ui = "/dev/geopjr/tooth/ui/views/profile_header.ui")]
+	public void append_pinned(string acc_id) {
+		new Request.GET (@"/api/v1/accounts/$(acc_id)/statuses")
+			.with_account (account)
+			.with_param ("pinned", "true")
+			.with_ctx (this)
+			.then ((sess, msg) => {
+				Network.parse_array (msg, node => {
+					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
+					var e_status = e as API.Status;
+					if (e_status != null) e_status.pinned = true;
+
+					model.append (e); //FIXME: use splice();
+				});
+			})
+			.exec ();
+	}
+
+	[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/views/profile_header.ui")]
 	protected class Cover : Box {
 
 		[GtkChild] unowned Gtk.Picture background;
@@ -51,6 +73,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 		[GtkChild] unowned Label handle;
 		[GtkChild] unowned Widgets.Avatar avatar;
 		[GtkChild] unowned Widgets.MarkupView note;
+		[GtkChild] public unowned Widgets.RelationshipButton rsbtn;
 
 		public void bind (API.Account account) {
 			display_name.instance_emojis = account.emojis_map;
@@ -58,6 +81,8 @@ public class Tooth.Views.Profile : Views.Timeline {
 			handle.label = account.handle;
 			avatar.account = account;
 			note.content = account.note;
+
+			if (account.id != accounts.active.id) rsbtn.visible = true;
 
 			if (account.header.contains("/headers/original/missing.png")) {
 				avatar.bind_property("custom_image", background, "paintable", GLib.BindingFlags.SYNC_CREATE);
@@ -73,9 +98,24 @@ public class Tooth.Views.Profile : Views.Timeline {
 					val.hexpand = true;
 					val.xalign = 1;
 					row.title = f.name;
-					row.add_suffix (val);
 
 					info.append (row);
+
+					if (f.verified_at != null) {
+						var verified_date = f.verified_at.slice (0, f.verified_at.last_index_of ("T"));
+						var verified_label_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+						var verified_checkmark = new Gtk.Image.from_icon_name("tooth-check-round-outline-symbolic") {
+							tooltip_text = _(@"Ownership of this link was checked on $verified_date")
+						};
+
+						verified_label_box.append(val);
+						verified_label_box.append(verified_checkmark);
+
+						row.add_suffix(verified_label_box);
+						row.add_css_class("ttl-verified-field");
+					} else {
+						row.add_suffix (val);
+					};
 				}
 			}
 		}
@@ -91,16 +131,24 @@ public class Tooth.Views.Profile : Views.Timeline {
 			homogeneous = true
 		};
 
-		box.append(build_profile_stats_button(@"$(profile.statuses_count) " + _("Posts"), "statuses"));
-		box.append(build_profile_stats_button(@"$(profile.following_count) " + _("Following"), "following"));
-		box.append(build_profile_stats_button(@"$(profile.followers_count) " + _("Followers"), "followers"));
+		var btn = build_profile_stats_button(@"$(profile.statuses_count) " + _("Posts"));
+		btn.clicked.connect(() => change_timeline_source("statuses"));
+		box.append(btn);
+
+		btn = build_profile_stats_button(@"$(profile.following_count) " + _("Following"));
+		btn.clicked.connect(() => change_timeline_source("following"));
+		box.append(btn);
+
+		btn = build_profile_stats_button(@"$(profile.followers_count) " + _("Followers"));
+		btn.clicked.connect(() => change_timeline_source("followers"));
+		box.append(btn);
 
 		row.activatable = false;
 		row.child = box;
 		info.append (row);
 	}
 
-	protected Button build_profile_stats_button(string btn_label, string t_source) {
+	protected Button build_profile_stats_button(string btn_label) {
 		var btn = new Button.with_label(btn_label);
 		btn.add_css_class("flat");
 		btn.add_css_class("ttl-profile-stat-button");
@@ -109,15 +157,15 @@ public class Tooth.Views.Profile : Views.Timeline {
 		child_label.wrap = true;
 		child_label.justify = Justification.CENTER;
 
-		btn.clicked.connect(() => {
-			source = t_source;
-			accepts = source == "statuses" ? typeof (API.Status) : typeof (API.Account);
-
-			url = @"/api/v1/accounts/$(profile.id)/$source";
-			invalidate_actions (true);
-		});
-
 		return btn;
+	}
+
+	protected void change_timeline_source (string t_source) {
+		source = t_source;
+		accepts = t_source == "statuses" ? typeof (API.Status) : typeof (API.Account);
+
+		url = @"/api/v1/accounts/$(profile.id)/$t_source";
+		invalidate_actions (true);
 	}
 
 	protected override void build_header () {
@@ -131,11 +179,9 @@ public class Tooth.Views.Profile : Views.Timeline {
 		menu_button.icon_name = "tooth-view-more-symbolic";
 		header.pack_end (menu_button);
 
-		rs_button = new Widgets.RelationshipButton () {
-			rs = this.rs
-		};
-		if (profile.id != accounts.active.id)
-			header.pack_end (rs_button);
+		//  rs_button = new Widgets.RelationshipButton () {
+		//  	rs = this.rs
+		//  };
 	}
 
 	protected virtual Cover build_cover () {
@@ -443,12 +489,16 @@ public class Tooth.Views.Profile : Views.Timeline {
 				.then ((sess, msg) => {
 					var toast_msg = "";
 					if (button.remove) {
+						//  translators: First variable is a handle, second variable is a list name
 						toast_msg = _("User \"%s\" got removed from \"%s\"").printf (profile.handle, list.title);
 						button.icon_name = "tooth-plus-large-symbolic";
+						//  translators: First variable is a handle, second variable is a list name
 						button.tooltip_text = _("Add \"%s\" to \"%s\"").printf (profile.handle, list.title);
 					} else {
+						//  translators: First variable is a handle, second variable is a list name
 						toast_msg = _("User \"%s\" got added to \"%s\"").printf (profile.handle, list.title);
 						button.icon_name = "tooth-minus-large-symbolic";
+						//  translators: First variable is a handle, second variable is a list name
 						button.tooltip_text = _("Remove \"%s\" from \"%s\"").printf (profile.handle, list.title);
 					}
 

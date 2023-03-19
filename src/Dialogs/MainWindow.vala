@@ -1,14 +1,15 @@
 using Gtk;
 using Gdk;
 
-[GtkTemplate (ui = "/dev/geopjr/tooth/ui/dialogs/main.ui")]
+[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/dialogs/main.ui")]
 public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
-
 	public const string ZOOM_CLASS = "ttl-scalable";
 
 	[GtkChild] public unowned Adw.Flap flap;
 	[GtkChild] unowned Adw.Leaflet leaflet;
 	[GtkChild] unowned Views.Sidebar sidebar;
+	[GtkChild] unowned Stack main_stack;
+	[GtkChild] unowned Views.MediaViewer media_viewer;
 
 	Views.Base? last_view = null;
 
@@ -16,11 +17,6 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		construct_saveable (settings);
 
 		var gtk_settings = Gtk.Settings.get_default ();
-		//  settings.bind_property ("dark-theme", gtk_settings, "gtk-application-prefer-dark-theme", BindingFlags.SYNC_CREATE);
-		settings.notify["post-text-size"].connect (() => on_zoom_level_changed ());
-
-		on_zoom_level_changed ();
-		// button_press_event.connect (on_button_press);
 	}
 
 	public MainWindow (Adw.Application app) {
@@ -32,6 +28,32 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		);
 		sidebar.set_sidebar_selected_item(0);
 		open_view (new Views.Main ());
+
+		if (Build.PROFILE == "development") {
+			this.add_css_class ("devel");
+		}
+	}
+
+	public void show_media_viewer(string url, string? alt_text, bool video) {
+		if (main_stack.visible_child_name == "media_viewer") return;
+
+		main_stack.visible_child_name = "media_viewer";
+		media_viewer.spinning = true;
+		media_viewer.url = url;
+		if (video) {
+			media_viewer.set_video(url);
+		} else {
+			media_viewer.set_image(url);
+			media_viewer.alternative_text = alt_text;
+		}
+
+		media_viewer.clear.connect(hide_media_viewer);
+	}
+
+	public void hide_media_viewer() {
+		if (main_stack.visible_child_name != "media_viewer") return;
+
+		main_stack.visible_child_name = "main";
 	}
 
 	public Views.Base open_view (Views.Base view) {
@@ -47,6 +69,11 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public bool back () {
+		if (main_stack.visible_child_name == "media_viewer") {
+			media_viewer.clear();
+			return true;
+		};
+
 		if (last_view == null) return true;
 
 		if (last_view.is_sidebar_item)
@@ -77,19 +104,6 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	// 		return back ();
 	// 	return false;
 	// }
-
-	void on_zoom_level_changed () {
-		var scale = settings.post_text_size;
-		var css = "";
-		if (scale > 100) {
-			css ="""
-				.%s label {
-					font-size: %i%;
-				}
-			""".printf (ZOOM_CLASS, scale);
-		}
-		// app.zoom_css_provider.load_from_data (css.data);
-	}
 
 	[GtkCallback]
 	void on_view_changed () {

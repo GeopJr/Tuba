@@ -12,7 +12,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 			var action_box = new Box(Orientation.HORIZONTAL, 6);
 
 			edit_button = new Button() {
-				icon_name = "tooth-edit-symbolic",
+				icon_name = "document-edit-symbolic",
 				valign = Align.CENTER,
 				halign = Align.CENTER
 			};
@@ -43,7 +43,10 @@ public class Tooth.Views.Lists : Views.Timeline {
 			this.list = list;
 
 			if (list != null) {
-				this.list.bind_property ("title", this, "title", BindingFlags.SYNC_CREATE);
+				this.list.bind_property ("title", this, "title", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+					target.set_string (GLib.Markup.escape_text(src.get_string ()));
+					return true;
+				});
 				edit_button.clicked.connect(() => {
 					create_edit_preferences_window(this.list).show();
 				});
@@ -227,7 +230,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 				this.list.replies_policy = replies_policy;
 				new Request.PUT (@"/api/v1/lists/$(t_list.id)")
 					.with_account (accounts.active)
-					.with_param ("title", title)
+					.with_param ("title", HtmlUtils.uri_encode(title))
 					.with_param ("replies_policy", replies_policy)
 					.then(() => {})
 					.exec ();
@@ -276,7 +279,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 
     public Lists () {
         Object (
-        	url: @"/api/v1/lists",
+			url: @"/api/v1/lists",
             label: _("Lists"),
             icon: "tooth-list-compact-symbolic"
         );
@@ -286,7 +289,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 	public void create_list(string list_name) {
 		new Request.POST ("/api/v1/lists")
 			.with_account (accounts.active)
-			.with_param ("title", list_name)
+			.with_param ("title", HtmlUtils.uri_encode(list_name))
 			.then ((sess, msg) => {
 				var node = network.parse_node (msg);
 				var list = API.List.from (node);
@@ -301,15 +304,17 @@ public class Tooth.Views.Lists : Views.Timeline {
 		buffer.set_text("".data);
 	}
 
+	Entry child_entry = new Entry() {
+		input_purpose = InputPurpose.FREE_FORM,
+		placeholder_text = _("New list title")
+	};
+
 	construct {
         var add_action_bar = new ActionBar ();
 		add_action_bar.add_css_class("ttl-box-no-shadow");
 
 		var child_box = new Box(Orientation.HORIZONTAL, 6);
-		var child_entry = new Entry() {
-			input_purpose = InputPurpose.FREE_FORM,
-			placeholder_text = _("New list title")
-		};
+
 		var add_button = new Button.with_label (_("Add list")) {
 			sensitive = false
 		};
@@ -332,8 +337,13 @@ public class Tooth.Views.Lists : Views.Timeline {
 		add_action_bar.set_center_widget(child_box);
 		insert_child_after (add_action_bar, header);
 	}
+
+	~Lists () {
+		message("Destroying Lists view");
+	}
 	
     public override void on_request_finish () {
+		base.on_request_finish ();
 		on_content_changed ();
     }
 

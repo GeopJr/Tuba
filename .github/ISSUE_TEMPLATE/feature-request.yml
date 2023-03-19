@@ -1,0 +1,21 @@
+name: Feature Request
+description: Suggest an idea for this app
+title: "[Request]: "
+labels: enhancement
+body:
+- type: textarea
+  attributes:
+    label: Describe the request
+    description: A clear and concise description of what the request is.
+  validations:
+    required: true
+- type: checkboxes
+  attributes:
+    label: Implementation Details
+    description: How should this feature be implemented?
+    options:
+      - label: This should be an option in settings.
+      - label: This should be only available to some fediverse backends. (Include which ones on the above field).
+      - label: This is client-only (and shouldn't sync with the instance).
+      - label: This follows the [GNOME HIG](https://developer.gnome.org/hig/).
+        required: true

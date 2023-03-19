@@ -53,6 +53,7 @@ namespace Tooth {
 			{ "back", back_activated },
 			{ "refresh", refresh_activated },
 			{ "search", search_activated },
+			{ "quit", quit_activated }
 		};
 
 		construct {
@@ -62,9 +63,10 @@ namespace Tooth {
 
 		public string[] ACCEL_ABOUT = {"F1"};
 		public string[] ACCEL_NEW_POST = {"<Ctrl>T"};
-		public string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left"};
+		public string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left", "Escape", "<Alt>KP_Left", "Pointer_DfltBtnPrev"};
 		public string[] ACCEL_REFRESH = {"<Ctrl>R", "F5"};
 		public string[] ACCEL_SEARCH = {"<Ctrl>F"};
+		public string[] ACCEL_QUIT = {"<Ctrl>Q"};
 
 		public static int main (string[] args) {
 			try {
@@ -95,7 +97,10 @@ namespace Tooth {
 		protected override void startup () {
 			base.startup ();
 			try {
-				Build.print_info ();
+				var lines = troubleshooting.split ("\n");
+				foreach (unowned string line in lines) {
+					message (line);
+				}
 				Adw.init ();
 
 				settings = new Settings ();
@@ -111,7 +116,7 @@ namespace Tooth {
 				StyleContext.add_provider_for_display (Gdk.Display.get_default (), zoom_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 			}
 			catch (Error e) {
-				var msg = _("Could not start application: %s").printf (e.message);
+				var msg = "Could not start application: %s".printf (e.message);
 				inform (Gtk.MessageType.ERROR, _("Error"), msg);
 				error (msg);
 			}
@@ -125,6 +130,7 @@ namespace Tooth {
 			set_accels_for_action ("app.back", ACCEL_BACK);
 			set_accels_for_action ("app.refresh", ACCEL_REFRESH);
 			set_accels_for_action ("app.search", ACCEL_SEARCH);
+			set_accels_for_action ("app.quit", ACCEL_QUIT);
 			add_action_entries (app_entries, this);
 		}
 
@@ -196,19 +202,38 @@ namespace Tooth {
 			main_window.open_view (new Views.Search ());
 		}
 
+		void quit_activated () {
+			app.quit ();
+		}
+
 		void refresh_activated () {
 			refresh ();
 		}
 
+		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)\n".printf(
+				GLib.Environment.get_os_info ("NAME"), GLib.Environment.get_os_info ("VERSION"),
+				Build.PREFIX,
+				(GLib.Environment.get_variable("FLATPAK_ID") != null || GLib.File.new_for_path("/.flatpak-info").query_exists()).to_string(),
+				Build.VERSION, Build.PROFILE,
+				Gtk.get_major_version(), Gtk.get_minor_version(), Gtk.get_micro_version(),
+				Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION, Gtk.MICRO_VERSION,
+				Adw.get_major_version(), Adw.get_minor_version(), Adw.get_micro_version(),
+				Adw.MAJOR_VERSION, Adw.MINOR_VERSION, Adw.MICRO_VERSION,
+				Soup.get_major_version(), Soup.get_minor_version(), Soup.get_micro_version(),
+				Soup.MAJOR_VERSION, Soup.MINOR_VERSION, Soup.MICRO_VERSION
+			);
+
 		void about_activated () {
-			const string[] artists = {
+			const string[] ARTISTS = {
 				"Tobias Bernard"
 			};
 
-			const string[] developers = {
+			const string[] DEVELOPERS = {
 				"bleak_grey",
 				"Evangelos \"GeopJr\" Paterakis"
 			};
+
+			const string COPYRIGHT = "© 2022 bleak_grey\n© 2022 Evangelos \"GeopJr\" Paterakis";
 
 			var dialog = new Adw.AboutWindow () {
 				transient_for = main_window,
@@ -219,11 +244,13 @@ namespace Tooth {
 				version = Build.VERSION,
 				support_url = Build.SUPPORT_WEBSITE,
 				license_type = License.GPL_3_0_ONLY,
-				copyright = Build.COPYRIGHT,
-				debug_info = Build.SYSTEM_INFO,
-				developers = developers,
-				artists = artists,
-				translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : ""
+				copyright = COPYRIGHT,
+				developers = DEVELOPERS,
+				artists = ARTISTS,
+				debug_info = troubleshooting,
+				debug_info_filename = @"$(Build.NAME).txt",
+				// translators: Name <email@domain.com> or Name https://website.example
+				translator_credits = _("translator-credits")
 			};
 
 			// For some obscure reason, const arrays produce duplicates in the credits.

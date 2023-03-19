@@ -27,7 +27,7 @@
             <property name="label">Follows you</property> 
             <property name="xalign">0</property> 
             <property name="halign">end</property> 
-            <property name="valign">end</property> 
+            <property name="valign">start</property> 
             <property name="margin-bottom">48</property> 
             <property name="visible">0</property> 
             <style> 
@@ -59,6 +59,20 @@
         <property name="margin-start">12</property>
         <property name="margin-end">12</property>
         <property name="size">100</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="row">0</property>
+          <property name="row-span">1</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ToothWidgetsRelationshipButton" id="rsbtn">
+        <property name="halign">end</property>
+        <property name="valign">end</property>
+        <property name="margin-start">12</property>
+        <property name="margin-end">12</property>
+        <property name="visible">0</property>
         <layout>
           <property name="column">0</property>
           <property name="row">0</property>

@@ -1,15 +1,15 @@
 [Desktop Entry]
 Type=Application
 Name=Tooth
-Comment=Mastodon Client
-GenericName=Mastodon Client
-Exec=dev.geopjr.tooth %u
-Icon=dev.geopjr.tooth
+Comment=Browse the Fediverse
+GenericName=Fediverse Client
+Exec=dev.geopjr.Tooth %u
+Icon=dev.geopjr.Tooth
 Terminal=false
 Categories=GNOME;GTK;Network;
-Keywords=toot;mastodon;social;network;post;
-X-GNOME-Gettext-Domain=dev.geopjr.tooth
-X-GNOME-UsesNotifications=true	
+Keywords=toot;mastodon;fediverse;gotosocial;pleroma;
+X-GNOME-Gettext-Domain=dev.geopjr.Tooth
+X-GNOME-UsesNotifications=true
 MimeType=x-scheme-handler/tooth;
 # Translators: Do NOT translate or transliterate this text (these are enum types)!
 X-Purism-FormFactor=Workstation;Mobile;

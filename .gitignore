@@ -4,3 +4,5 @@ build.sh
 subprojects/libhandy-*
 subprojects/packagecache
 *~
+builddir
+*.snap

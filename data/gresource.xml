@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-    <gresource prefix="/dev/geopjr/tooth/">
+    <gresource prefix="/dev/geopjr/Tooth/">
         <file>style.css</file>
         <file>style-dark.css</file>
 
@@ -9,7 +9,6 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-bookmarks-filled-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-starred-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-unstarred-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-edit-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-online-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-smile-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-globe-symbolic.svg</file>
@@ -48,6 +47,11 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-minus-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-cross-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-address-book-new-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-eye-open-negative-filled-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-eye-not-looking-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-view-fullscreen-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-view-restore-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tooth-music-note-symbolic.svg</file>
 
         <file>gtk/dropdown/icon.ui</file>
         <file>gtk/dropdown/full.ui</file>

@@ -1,6 +1,6 @@
 public class Tooth.HtmlUtils {
 
-	public const string FALLBACK_TEXT = _("[ There was an error parsing this text :c ]");
+	public const string FALLBACK_TEXT = "[ There was an error parsing this text ]";
 
 	public static string remove_tags (string content) {
 		try {

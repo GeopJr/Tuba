@@ -1,0 +1,46 @@
+name: tooth
+base: core22
+version: git
+adopt-info: tooth
+
+grade: devel
+confinement: strict
+license: GPL-3.0-only
+compression: lzo
+
+slots:
+  tooth:
+    interface: dbus
+    bus: session
+    name: dev.geopjr.Tooth
+
+apps:
+  tooth:
+    command: usr/bin/dev.geopjr.Tooth
+    desktop: usr/share/applications/dev.geopjr.Tooth.desktop
+    common-id: dev.geopjr.Tooth.desktop
+    extensions: [gnome]
+    plugs:
+      - desktop
+      - network-status
+      - gsettings
+      - network
+
+parts:
+  tooth:
+    source: .
+    source-type: git
+    plugin: meson
+    meson-parameters:
+      - --prefix=/usr
+      - -Ddevel=true
+    parse-info: [usr/share/metainfo/dev.geopjr.Tooth.appdata.xml]
+    build-packages:
+      - valac
+      - libgtk-4-dev
+      - libglib2.0-dev
+      - libsoup2.4-dev
+      - libjson-glib-dev
+      - gettext
+      - libadwaita-1-dev
+      - libsecret-1-dev

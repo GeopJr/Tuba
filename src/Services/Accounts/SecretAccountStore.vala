@@ -35,9 +35,23 @@ public class Tooth.SecretAccountStore : AccountStore {
 
 		secrets.foreach (item => {
 			var account = secret_to_account (item);
-			if (account != null) {
-				saved.add (account);
-				account.added ();
+			if (account != null && account.id != "") {
+				new Request.GET (@"/api/v1/accounts/$(account.id)")
+					.with_account (account)
+					.then ((sess, msg) => {
+						var node = network.parse_node (msg);
+						var acc = API.Account.from (node);
+
+						if (account.display_name != acc.display_name || account.avatar != acc.avatar) {
+							account.display_name = acc.display_name;
+							account.avatar = acc.avatar;
+
+							account_to_secret (account);
+						}
+					})
+					.exec ();
+					saved.add (account);
+					account.added ();
 			}
 		});
 		changed (saved);
@@ -73,8 +87,10 @@ public class Tooth.SecretAccountStore : AccountStore {
 		attrs["version"] = VERSION;
 
 		var generator = new Json.Generator ();
+		account.instance_info = null;
 		generator.set_root (account.to_json ());
 		var secret = generator.to_data (null);
+		// translators: The variable is the backend like "Mastodon"
 		var label = _("%s Account").printf (account.backend);
 
 		try {

@@ -80,23 +80,25 @@ public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase
 			return req;
 	}
 
-	public virtual void on_request_finish () {}
+	public virtual void on_request_finish () {
+		status_loading = false;
+	}
 
 	public virtual bool request () {
 		var req = append_params (new Request.GET (get_req_url ()))
-		.with_account (account)
-		.with_ctx (this)
-		.then ((sess, msg) => {
-			Network.parse_array (msg, node => {
-				var e = entity_cache.lookup_or_insert (node, accepts);
-				model.append (e); //FIXME: use splice();
-			});
+			.with_account (account)
+			.with_ctx (this)
+			.then ((sess, msg) => {
+				Network.parse_array (msg, node => {
+					var e = entity_cache.lookup_or_insert (node, accepts);
+					model.append (e); //FIXME: use splice();
+				});
 
-			get_pages (msg.response_headers.get_one ("Link"));
-			on_content_changed ();
-			on_request_finish ();
-		})
-		.on_error (on_error);
+				get_pages (msg.response_headers.get_one ("Link"));
+				on_content_changed ();
+				on_request_finish ();
+			})
+			.on_error (on_error);
 		req.exec ();
 
 		return GLib.Source.REMOVE;
@@ -106,7 +108,7 @@ public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase
 		scrolled.vadjustment.value = 0;
 		status_button.sensitive = false;
 		clear ();
-		status_message = STATUS_LOADING;
+		status_loading = true;
 		GLib.Idle.add (request);
 	}
 
@@ -154,7 +156,23 @@ public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase
 	}
 
 	public virtual void on_delete_post (Streamable.Event ev) {
-		//TODO: This
-	}
+		try {
+			var status_id = ev.get_string ();
 
+			for (uint i = 0; i < model.get_n_items(); i++) {
+				var status_obj = (API.Status)model.get_item(i);
+				// Not sure if there can be both the original
+				// and a boost of it at the same time.
+				if (status_obj.id == status_id || status_obj.formal.id == status_id) {
+					model.remove(i);
+					// If there can be both the original
+					// and boosts at the same time, then
+					// it shouldn't stop at the first find.
+					break;
+				}
+			}
+		} catch (Error e) {
+			warning (@"Error getting String from json: $(e.message)");
+		}
+	}
 }

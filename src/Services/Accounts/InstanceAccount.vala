@@ -16,6 +16,7 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 	public const string KIND_REMOTE_REBLOG = "__remote-reblog";
 
 	public string? backend { set; get; }
+	public API.Instance? instance_info { get; set; }
 	public string? instance { get; set; }
 	public string? client_id { get; set; }
 	public string? client_secret { get; set; }
@@ -42,7 +43,9 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 		}
 	}
 
-	public virtual signal void activated () {}
+	public virtual signal void activated () {
+		gather_instance_info ();
+	}
 	public virtual signal void deactivated () {}
 	public virtual signal void added () {
 		subscribed = true;
@@ -130,7 +133,7 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 				break;
 			case KIND_REBLOG:
 				icon = "tooth-media-playlist-repeat-symbolic";
-				descr = _("%s boosted your status").printf (account.display_name);
+				descr = _("%s boosted your post").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_REMOTE_REBLOG:
@@ -140,7 +143,7 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 				break;
 			case KIND_FAVOURITE:
 				icon = "tooth-starred-symbolic";
-				descr = _("%s favorited your status").printf (account.display_name);
+				descr = _("%s favorited your post").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_FOLLOW:
@@ -179,6 +182,16 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 	public ArrayList<Object> notification_inhibitors { get; set; default = new ArrayList<Object> (); }
 	private bool passed_init_notifications = false;
 
+	public void gather_instance_info () {
+		new Request.GET ("/api/v1/instance")
+			.with_account (this)
+			.then ((sess, msg) => {
+				var node = network.parse_node (msg);
+				instance_info = API.Instance.from (node);
+			})
+			.exec ();
+	}
+
 	public void init_notifications () {
 		if (passed_init_notifications) return;
 
@@ -204,6 +217,7 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 			.with_account (this)
 			.then ((sess, msg) => {
 				var root = network.parse (msg);
+				if (!root.has_member("notifications")) return;
 				var notifications = root.get_object_member ("notifications");
 				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1") );
 				if (!passed_init_notifications) init_notifications();
