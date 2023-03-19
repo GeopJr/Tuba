@@ -1,4 +1,5 @@
-.ttl-status-action-star:hover, .ttl-status-action-star.enabled {
+.ttl-status-action-star:hover,
+.ttl-status-action-star.enabled {
 	color: @yellow_1;
 }
 
@@ -6,7 +7,8 @@
 	color: @yellow_2;
 }
 
-.ttl-status-action-reblog:hover, .ttl-status-action-reblog.enabled {
+.ttl-status-action-reblog:hover,
+.ttl-status-action-reblog.enabled {
 	color: @purple_1;
 }
 
@@ -14,7 +16,8 @@
 	color: @purple_2;
 }
 
-.ttl-status-action-reply:hover, .ttl-status-action-reply.enabled {
+.ttl-status-action-reply:hover,
+.ttl-status-action-reply.enabled {
 	color: @green_1;
 }
 
@@ -22,14 +25,11 @@
 	color: @green_2;
 }
 
-.ttl-status-action-bookmark:hover, .ttl-status-action-bookmark.enabled {
+.ttl-status-action-bookmark:hover,
+.ttl-status-action-bookmark.enabled {
 	color: @red_1;
 }
 
 .ttl-status-action-bookmark:active {
 	color: @red_2;
-}
-
-.attachment-overlay-icon {
-	background-color: alpha(black, .3);
 }

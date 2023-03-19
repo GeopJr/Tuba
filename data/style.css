@@ -1,13 +1,14 @@
 .sidebar .badge {
-  padding: 2px 12px;
-  border-radius: 999px;
-  background: @accent_bg_color;
-  color: @text_view_bg;
+	padding: 2px 12px;
+	border-radius: 999px;
+	background: @accent_bg_color;
+	color: @text_view_bg;
 }
 
 .font-bold {
-  font-weight: bold;
+	font-weight: bold;
 }
+
 .no-shadow {
 	box-shadow: none;
 }
@@ -16,37 +17,39 @@ headerbar.flat.no-title .title {
 	opacity: 0;
 }
 
-.attachment, .attachment button, flowboxchild {
-	padding:0px;
-	margin:0px;
+.attachment,
+.attachment button,
+flowboxchild {
+	padding: 0px;
+	margin: 0px;
 }
 
-.attachment .osd, .cover-badge {
+.cover-badge {
 	padding: 6px 12px;
 	border-radius: 6px;
 	margin: 8px;
 }
 
 .ttl-flat-button {
-  padding: 0px;
-  margin: 0px;
+	padding: 0px;
+	margin: 0px;
 }
 
 .ttl-thread-line {
-  background: @theme_fg_color;
-  opacity: .1;
-  margin-top: -8px;
-  margin-bottom: -8px;
+	background: @theme_fg_color;
+	opacity: .1;
+	margin-top: -8px;
+	margin-bottom: -8px;
 }
 
 .ttl-code {
 	font-family: monospace;
 	padding: 12px;
-	background: rgba(150,150,150,.1);
+	background: rgba(150, 150, 150, .1);
 	border-radius: 6px;
 }
 
-.ttl-view .content row:not(.ttl-post)  {
+.ttl-view .content row:not(.ttl-post) {
 	padding: 0px;
 }
 
@@ -67,7 +70,7 @@ headerbar.flat.no-title .title {
 	border-top: 0px;
 }
 
-.ttl-view clamp > * {
+.ttl-view clamp>* {
 	transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -75,9 +78,11 @@ headerbar.flat.no-title .title {
 	margin-left: 18px;
 	margin-right: 18px;
 }
+
 .ttl-view .large:first-child {
 	margin-top: 32px;
 }
+
 .ttl-view .large:last-child {
 	margin-bottom: 32px;
 }
@@ -85,7 +90,7 @@ headerbar.flat.no-title .title {
 .ttl-label-emoji-no-click:hover {
 	background: transparent;
 }
-	
+
 .ttl-label-emoji-no-click {
 	background: transparent;
 	padding: 0;
@@ -96,19 +101,22 @@ headerbar.flat.no-title .title {
 */
 
 .ttl-profile-cover .header-image {
-  background:grey;
+	background: grey;
 }
+
 .ttl-profile-cover avatar {
 	border: 6px solid @theme_base_color;
 	background: @theme_base_color;
 }
+
 .large .header-image {
-  border-radius: 12px 12px 0 0;
+	border-radius: 12px 12px 0 0;
 }
 
 /* Status action icons */
 
-.ttl-status-action-star:hover, .ttl-status-action-star.enabled {
+.ttl-status-action-star:hover,
+.ttl-status-action-star.enabled {
 	color: @yellow_5;
 }
 
@@ -116,7 +124,8 @@ headerbar.flat.no-title .title {
 	color: @yellow_4;
 }
 
-.ttl-status-action-reblog:hover, .ttl-status-action-reblog.enabled {
+.ttl-status-action-reblog:hover,
+.ttl-status-action-reblog.enabled {
 	color: @purple_3;
 }
 
@@ -124,7 +133,8 @@ headerbar.flat.no-title .title {
 	color: @purple_4;
 }
 
-.ttl-status-action-reply:hover, .ttl-status-action-reply.enabled {
+.ttl-status-action-reply:hover,
+.ttl-status-action-reply.enabled {
 	color: @green_3;
 }
 
@@ -132,7 +142,8 @@ headerbar.flat.no-title .title {
 	color: @green_4;
 }
 
-.ttl-status-action-bookmark:hover, .ttl-status-action-bookmark.enabled {
+.ttl-status-action-bookmark:hover,
+.ttl-status-action-bookmark.enabled {
 	color: @red_3;
 }
 
@@ -140,7 +151,9 @@ headerbar.flat.no-title .title {
 	color: @red_4;
 }
 
-.ttl-profile-stat-button, .small .ttl-profile-stat-button:first-child, .small .ttl-profile-stat-button:last-child {
+.ttl-profile-stat-button,
+.small .ttl-profile-stat-button:first-child,
+.small .ttl-profile-stat-button:last-child {
 	border-radius: 0px;
 	padding: 8px 12px;
 	min-height: 32px;
@@ -154,7 +167,7 @@ headerbar.flat.no-title .title {
 	border-bottom-right-radius: 12px;
 }
 
-.ttl-box-no-shadow > revealer > box {
+.ttl-box-no-shadow>revealer>box {
 	box-shadow: none;
 }
 
@@ -167,22 +180,22 @@ headerbar.flat.no-title .title {
 }
 
 .ttl-status-badge {
-	background-color: rgba(0,0,0, .8);
+	background-color: rgba(0, 0, 0, .8);
 	color: white;
 	border-radius: 6px;
 	margin-left: 8px;
 	margin-bottom: 8px;
 }
 
-.ttl-status-badge  > * {
+.ttl-status-badge>* {
 	padding: 1px 6px;
 }
 
-.ttl-status-badge  > button > label {
+.ttl-status-badge>button>label {
 	padding: 1px 6px;
 }
 
-.ttl-status-badge  > .image-button {
+.ttl-status-badge>.image-button {
 	padding: 1px 6px;
 }
 
@@ -192,7 +205,7 @@ headerbar.flat.no-title .title {
 }
 
 .media-viewer-headerbar {
-	background: rgba(0,0,0,.7);
+	background: rgba(0, 0, 0, .7);
 	color: white;
 }
 
@@ -228,11 +241,13 @@ headerbar.flat.no-title .title {
 
 .ttl-thread-line.not-first {
 	/* .ttl-post.padding + 8px */
-	margin-top: -20px; 
+	margin-top: -20px;
 }
 
 .attachment-overlay-icon {
-	background-color: alpha(white, .3);
+	border-radius: 100%;
+	min-height: 64px;
+	min-width: 64px;
 }
 
 .attachment-picture {

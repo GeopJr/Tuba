@@ -30,14 +30,15 @@ public class Tooth.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		
 		if (media_kind in VIDEO_TYPES) {
 			var icon = new Gtk.Image() {
-				hexpand = true,
-				vexpand = true,
-				css_classes = {"attachment-picture"}
+				valign = Gtk.Align.CENTER,
+				halign = Gtk.Align.CENTER
 			};
 
 			if (media_kind != "AUDIO") {
+				icon.add_css_class("osd");
+				icon.add_css_class("circular");
 				icon.add_css_class("attachment-overlay-icon");
-				icon.icon_name = "tooth-play-large-symbolic";
+				icon.icon_name = "media-playback-start-symbolic";
 			} else {
 				icon.icon_name = "tooth-music-note-symbolic";
 			}
