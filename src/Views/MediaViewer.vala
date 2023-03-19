@@ -37,6 +37,7 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
 	protected Gtk.Video video;
 	protected Gtk.Button fullscreen_btn;
 	protected Adw.HeaderBar headerbar;
+    protected ImageCache image_cache;
 	public Gdk.Paintable paintable {
 		set {
             _type = "image";
@@ -53,6 +54,10 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
 	}
 
 	construct {
+        image_cache = new ImageCache () {
+            maintenance_secs = 60 * 5
+        };
+
         var drag = new Gtk.GestureDrag ();
         drag.drag_end.connect(on_drag_end);
         add_controller (drag);
@@ -132,7 +137,7 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
 	}
 
     protected void on_back_clicked() {
-        app.main_window.hide_media_viewer();
+        clear();
     }
 
     protected void toggle_fullscreen() {
@@ -201,5 +206,24 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
 
     private void handle_mouse_previous_click(int n_press, double x, double y) {
         on_back_clicked();
+    }
+
+	public virtual signal void clear () {
+        this.fullscreen = false;
+		this.paintable = null;
+		this.set_video(null);
+		this.url = "";
+		this.spinning = true;
+    }
+
+    private void on_media_viewer_cache_response(bool is_loaded, owned Gdk.Paintable? data) {
+		this.paintable = data;
+		if (is_loaded) {
+			this.spinning = false;
+		}
+	}
+
+    public void set_image(string url) {
+		image_cache.request_paintable (url, on_media_viewer_cache_response);
     }
 }

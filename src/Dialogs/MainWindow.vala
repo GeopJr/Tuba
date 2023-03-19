@@ -43,27 +43,17 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		if (video) {
 			media_viewer.set_video(url);
 		} else {
-			image_cache.request_paintable (url, on_media_viewer_cache_response);
+			media_viewer.set_image(url);
 			media_viewer.alternative_text = alt_text;
 		}
-	}
 
-	private void on_media_viewer_cache_response(bool is_loaded, owned Paintable? data) {
-		media_viewer.paintable = data;
-		if (is_loaded) {
-			media_viewer.spinning = false;
-		}
+		media_viewer.clear.connect(hide_media_viewer);
 	}
 
 	public void hide_media_viewer() {
 		if (main_stack.visible_child_name != "media_viewer") return;
 
-		media_viewer.fullscreen = false;
 		main_stack.visible_child_name = "main";
-		media_viewer.paintable = null;
-		media_viewer.set_video(null);
-		media_viewer.url = "";
-		media_viewer.spinning = true;
 	}
 
 	public Views.Base open_view (Views.Base view) {
@@ -80,7 +70,7 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	public bool back () {
 		if (main_stack.visible_child_name == "media_viewer") {
-			hide_media_viewer();
+			media_viewer.clear();
 			return true;
 		};
 
