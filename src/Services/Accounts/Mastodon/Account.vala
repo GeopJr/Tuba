@@ -50,7 +50,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_BOOKMARKS = new Place () {
 		title = _("Bookmarks"),
-		icon = "tooth-bookmarks-filled-symbolic",
+		icon = "tooth-bookmarks-symbolic",
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item(new Views.Bookmarks ()));
 		}
@@ -58,7 +58,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_FAVORITES = new Place () {
 		title = _("Favorites"),
-		icon = "tooth-starred-symbolic",
+		icon = "tooth-unstarred-symbolic",
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item(new Views.Favorites ()));
 		}
