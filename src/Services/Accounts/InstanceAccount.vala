@@ -4,6 +4,7 @@ using Gee;
 public class Tooth.InstanceAccount : API.Account, Streamable {
 
 	public const string EVENT_NEW_POST = "update";
+	public const string EVENT_EDIT_POST = "status.update";
 	public const string EVENT_DELETE_POST = "delete";
 	public const string EVENT_NOTIFICATION = "notification";
 

@@ -21,6 +21,7 @@ public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase
 
 		construct_streamable ();
 		stream_event[InstanceAccount.EVENT_NEW_POST].connect (on_new_post);
+		stream_event[InstanceAccount.EVENT_EDIT_POST].connect (on_edit_post);
 		stream_event[InstanceAccount.EVENT_DELETE_POST].connect (on_delete_post);
 		settings.notify["show-spoilers"].connect (on_refresh);
 
@@ -150,6 +151,23 @@ public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase
 		try {
 			var entity = Entity.from_json (accepts, ev.get_node ());
 			model.insert (0, entity);
+		} catch (Error e) {
+			warning (@"Error getting Entity from json: $(e.message)");
+		}
+	}
+
+	public virtual void on_edit_post (Streamable.Event ev) {
+		try {
+			var entity = Entity.from_json (accepts, ev.get_node ());
+			var entity_id = ((API.Status)entity).id;
+			for (uint i = 0; i < model.get_n_items(); i++) {
+				var status_obj = (API.Status)model.get_item(i);
+				if (status_obj.id == entity_id) {
+					model.remove(i);
+					model.insert (i, entity);
+					break;
+				}
+			}
 		} catch (Error e) {
 			warning (@"Error getting Entity from json: $(e.message)");
 		}
