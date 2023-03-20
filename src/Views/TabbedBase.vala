@@ -100,13 +100,11 @@ public class Tooth.Views.TabbedBase : Views.Base {
 
 		if (last_view != null) {
 			last_view.current = false;
-			last_view.on_hidden ();
 		}
 
 		if (view != null) {
 			label = view.label;
 			view.current = true;
-			view.on_shown ();
 		}
 
 		last_view = view;

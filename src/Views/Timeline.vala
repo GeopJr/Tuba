@@ -83,6 +83,7 @@ public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase
 
 	public virtual void on_request_finish () {
 		status_loading = false;
+		base.on_bottom_reached ();
 	}
 
 	public virtual bool request () {
