@@ -67,6 +67,17 @@ public class Tooth.Dialogs.Compose : Adw.Window {
 		);
 	}
 
+	public Compose.edit (API.Status status) {
+		var t_status = status;
+		t_status.content =  HtmlUtils.remove_tags (t_status.content);
+
+		Object (
+			status: t_status,
+			button_label: _("_Edit"),
+			button_class: "suggested-action"
+		);
+	}
+
 	public Compose.reply (API.Status to) {
 		var template = new API.Status.empty () {
 			in_reply_to_id = to.id.to_string (),
@@ -133,6 +144,13 @@ public class Tooth.Dialogs.Compose : Adw.Window {
 			url = "/api/v1/statuses",
 			account = accounts.active
 		};
+		if (status.id.length > 0) {
+			publish_req = new Request () {
+				method = "PUT",
+				url = @"/api/v1/statuses/$(status.id)",
+				account = accounts.active
+			};
+		}
 		modify_req (publish_req);
 		yield publish_req.await ();
 

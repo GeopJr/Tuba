@@ -110,6 +110,12 @@ public class Tooth.AttachmentsPage : ComposerPage {
 		toast_overlay.child = stack;
 
 		content.prepend (toast_overlay);
+
+		if (status.has_media()) {
+			foreach (var t_attachment in status.media_attachments) {
+                attachments.append(t_attachment);
+            }
+		}
 	}
 
 	public override void on_pull () {
@@ -118,7 +124,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 
 	Widget on_create_list_item (Object item) {
 		var attachment = item as API.Attachment;
-		var attachment_widget = new AttachmentsPageAttachment(attachment.id, attachment.source_file, dialog);
+		var attachment_widget = new AttachmentsPageAttachment(attachment.id, attachment.source_file, dialog, attachment);
 		attachment_widget.remove_from_model.connect(() => {
 			uint indx;
 			var found = attachments.find (item, out indx);
