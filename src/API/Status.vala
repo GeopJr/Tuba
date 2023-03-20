@@ -46,12 +46,13 @@ public class Tooth.API.Status : Entity, Widgetizable {
     }
 
     public string? t_url { get; set; }
-    public string url {
+    public string? url {
         owned get { return this.get_modified_url (); }
         set { this.t_url = value; }
     }
-    string get_modified_url () {
+    string? get_modified_url () {
         if (this.t_url == null) {
+            if (this.uri == null) return null;
             return this.uri.replace ("/activity", "");
         }
         return this.t_url;

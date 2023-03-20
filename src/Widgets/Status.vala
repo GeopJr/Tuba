@@ -15,6 +15,9 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			if (_bound_status != null) {
 				bind ();
 			}
+			if (context_menu == null) {
+				create_actions ();
+			}
 		}
 	}
 
@@ -184,6 +187,19 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		}
 
 		check_actions();
+		if (context_menu == null) {
+			create_actions ();
+		}
+	}
+	~Status () {
+		message ("Destroying Status widget");
+		if (context_menu != null) {
+			context_menu.unparent ();
+			context_menu.dispose();
+		}
+	}
+
+	protected void create_actions () {
 		create_context_menu();
 
 		if (status.formal.account.is_self ()) {
@@ -195,11 +211,6 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			delete_status_simple_action.activate.connect (delete_status);
 			action_group.add_action(delete_status_simple_action);
 		}
-	}
-	~Status () {
-		message ("Destroying Status widget");
-		if (context_menu != null)
-			context_menu.unparent ();
 	}
 
 	protected void create_context_menu() {
@@ -221,11 +232,11 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	}
 
 	private void copy_url () {
-		Host.copy (status.formal.url);
+		Host.copy (status.formal.url ?? status.formal.account.url);
 	}
 
 	private void open_in_browser () {
-		Host.open_uri (status.formal.url);
+		Host.open_uri (status.formal.url ?? status.formal.account.url);
 	}
 
 	private void view_edit_history () {
