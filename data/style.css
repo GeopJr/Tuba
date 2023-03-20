@@ -244,6 +244,11 @@ flowboxchild {
 	margin-top: -20px;
 }
 
+.ttl-thread-line.not-last {
+	/* .ttl-post.padding + 8px */
+	margin-bottom: -20px;
+}
+
 .attachment-overlay-icon {
 	border-radius: 100%;
 	min-height: 64px;
