@@ -80,7 +80,9 @@ public class Tooth.Widgets.Attachment.Item : Adw.Bin {
 		add_css_class ("flat");
 
 		button = new Button ();
+		button.overflow = Overflow.HIDDEN;
 		button.clicked.connect (on_click);
+		button.add_css_class ("frame");
 
 		create_context_menu();
 		gesture_click_controller = new GestureClick();
