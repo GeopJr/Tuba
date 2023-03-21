@@ -66,7 +66,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 	[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/views/profile_header.ui")]
 	protected class Cover : Box {
 
-		[GtkChild] unowned Widgets.Background background;
+		[GtkChild] unowned Gtk.Picture background;
 		[GtkChild] public unowned Label cover_badge;
 		[GtkChild] public unowned ListBox info;
 		[GtkChild] unowned Widgets.EmojiLabel display_name;

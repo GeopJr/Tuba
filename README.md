@@ -48,7 +48,7 @@ libjson-glib-dev | 1.4.4
 libxml2-dev | 2.9.10
 libgee-0.8-dev | 0.8.5
 libsoup2.4-dev | 2.64
-libgtk-4-dev | 4.3.0
+libgtk-4-dev | 4.8.0
 libadwaita-1.0-dev | 1.2.0
 libsecret-1-dev | 0.20
 

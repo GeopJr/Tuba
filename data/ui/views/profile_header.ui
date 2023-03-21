@@ -39,11 +39,15 @@
           </object> 
         </child>
         <property name="child">
-          <object class="ToothWidgetsBackground" id="background">
+          <object class="GtkPicture" id="background">
             <property name="hexpand">1</property>
             <property name="vexpand">1</property>
             <property name="height-request">224</property>
             <property name="margin-bottom">50</property>
+            <property name="content-fit">2</property>
+            <style>
+              <class name="header-image" />
+            </style>
           </object>
         </property>
       </object>

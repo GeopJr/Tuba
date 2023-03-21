@@ -1,6 +1,5 @@
 sources += files(
     'Avatar.vala',
-    'Background.vala',
     'Conversation.vala',
     'Emoji.vala',
     'EmojiLabel.vala',
