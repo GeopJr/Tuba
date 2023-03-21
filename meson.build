@@ -56,6 +56,10 @@ asresources = gnome.compile_resources(
 libgtk_dep = dependency('gtk4', version: '>=4.0.0', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.2', required: true)
 
+if libgtk_dep.version().version_compare('>=4.8.0')
+  add_project_arguments(['--define=GTK_4_8'], language: 'vala')
+endif
+
 sources = files(
     'vapi/build.vapi',
 )
