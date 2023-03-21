@@ -175,7 +175,7 @@ namespace Tooth {
 					main_window = new Dialogs.MainWindow (this);
 					is_rtl = Gtk.Widget.get_default_direction() == Gtk.TextDirection.RTL;
 				}
-				main_window.present ();
+				if (!start_hidden) main_window.present ();
 			}
 			main_window.close_request.connect(on_window_closed);
 		}

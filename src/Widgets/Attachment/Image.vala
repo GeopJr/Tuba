@@ -17,7 +17,10 @@ public class Tooth.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			css_classes = {"attachment-picture"}
 			//  content_fit = ContentFit.COVER // vala is not aware of it
 		};
-		pic.set_property ("content-fit", 2);
+
+		#if GTK_4_8
+			pic.set_property ("content-fit", 2);
+		#endif
 
 		media_overlay = new Overlay ();
 		media_overlay.child = pic;

@@ -15,6 +15,9 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			if (_bound_status != null) {
 				bind ();
 			}
+			if (context_menu == null) {
+				create_actions ();
+			}
 		}
 	}
 
@@ -184,18 +187,30 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		}
 
 		check_actions();
-		create_context_menu();
-
-		if (status.formal.account.is_self ()) {
-			var delete_status_simple_action = new SimpleAction ("delete-status", null);
-			delete_status_simple_action.activate.connect (delete_status);
-			action_group.add_action(delete_status_simple_action);
+		if (context_menu == null) {
+			create_actions ();
 		}
 	}
 	~Status () {
 		message ("Destroying Status widget");
-		if (context_menu != null)
+		if (context_menu != null) {
 			context_menu.unparent ();
+			context_menu.dispose();
+		}
+	}
+
+	protected void create_actions () {
+		create_context_menu();
+
+		if (status.formal.account.is_self ()) {
+			var edit_status_simple_action = new SimpleAction ("edit-status", null);
+			edit_status_simple_action.activate.connect (edit_status);
+			action_group.add_action(edit_status_simple_action);
+
+			var delete_status_simple_action = new SimpleAction ("delete-status", null);
+			delete_status_simple_action.activate.connect (delete_status);
+			action_group.add_action(delete_status_simple_action);
+		}
 	}
 
 	protected void create_context_menu() {
@@ -208,6 +223,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		menu_model.append_item (edit_history_menu_item);
 
 		if (status.formal.account.is_self ()) {
+			menu_model.append (_("Edit"), "status.edit-status");
 			menu_model.append (_("Delete"), "status.delete-status");
 		}
 
@@ -216,15 +232,19 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	}
 
 	private void copy_url () {
-		Host.copy (status.formal.url);
+		Host.copy (status.formal.url ?? status.formal.account.url);
 	}
 
 	private void open_in_browser () {
-		Host.open_uri (status.formal.url);
+		Host.open_uri (status.formal.url ?? status.formal.account.url);
 	}
 
 	private void view_edit_history () {
 		app.main_window.open_view (new Views.EditHistory (status.formal.id));
+	}
+
+	private void edit_status () {
+		new Dialogs.Compose.edit (status.formal);
 	}
 
 	private void delete_status () {
@@ -441,6 +461,8 @@ public class Tooth.Widgets.Status : ListBoxRow {
 				target.set_string("");
 			return true;
 		});
+		// Attachments
+		formal_bindings.bind_property ("media-attachments", attachments, "list", BindingFlags.SYNC_CREATE);
 
 		self_bindings.set_source (this);
 		formal_bindings.set_source (status.formal);
@@ -488,15 +510,12 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			poll.status_parent=status.formal;
 			status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE);
 		}
-
-		// Attachments
-		attachments.list = status.formal.media_attachments;
 	}
 
 	protected virtual void append_actions () {
 		reply_button = new Button ();
 		reply_button_content = new Adw.ButtonContent ();
-		reply_button.clicked.connect (() => new Dialogs.Compose.reply (status));
+		reply_button.clicked.connect (() => new Dialogs.Compose.reply (status.formal));
 		actions.append (reply_button);
 
 		reblog_button = new StatusActionButton () {
@@ -612,18 +631,21 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			case NONE:
 				l.visible = false;
 				l.remove_css_class("not-first");
+				l.remove_css_class("not-last");
 				break;
 			case START:
 				l.valign = Align.FILL;
 				l.margin_top = 24;
 				l.visible = true;
 				l.remove_css_class("not-first");
+				l.add_css_class("not-last");
 				break;
 			case MIDDLE:
 				l.valign = Align.FILL;
 				l.margin_top = 0;
 				l.visible = true;
 				l.add_css_class("not-first");
+				l.add_css_class("not-last");
 				break;
 			case END:
 				l.valign = Align.START;

@@ -4,6 +4,7 @@ public class Tooth.Views.ContentBase : Views.Base {
 
 	public GLib.ListStore model;
 	protected ListBox content;
+	private bool bottom_reached_locked = false;
 
 	public bool empty {
 		get { return model.get_n_items () <= 0; }
@@ -23,10 +24,16 @@ public class Tooth.Views.ContentBase : Views.Base {
 
 		content.bind_model (model, on_create_model_widget);
 
-		scrolled.edge_reached.connect (pos => {
-			if (pos == PositionType.BOTTOM)
+		scrolled.vadjustment.value_changed.connect(() => {
+			if (!bottom_reached_locked && scrolled.vadjustment.value > scrolled.vadjustment.upper - scrolled.vadjustment.page_size * 2) {
+				bottom_reached_locked = true;
 				on_bottom_reached ();
+			}
 		});
+		//  scrolled.edge_reached.connect (pos => {
+		//  	if (pos == PositionType.BOTTOM)
+		//  		on_bottom_reached ();
+		//  });
 	}
 	~ContentBase () {
 		message ("Destroying ContentBase");
@@ -66,7 +73,9 @@ public class Tooth.Views.ContentBase : Views.Base {
 		}
 	}
 
-	public virtual void on_bottom_reached () {}
+	public virtual void on_bottom_reached () {
+		bottom_reached_locked = false;
+	}
 
 	public virtual void on_content_item_activated (ListBoxRow row) {
 		Signal.emit_by_name (row, "open");

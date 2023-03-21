@@ -22,7 +22,7 @@
 			<default>false</default>
 		</key>
 		<key name="timeline-page-size" type="i">
-			<default>12</default>
+			<default>20</default>
 		</key>
 		<key name="live-updates" type="b">
 			<default>true</default>
