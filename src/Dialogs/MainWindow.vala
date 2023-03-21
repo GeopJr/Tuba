@@ -98,13 +98,6 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	//FIXME: switch timelines with 1-4. Should be moved to Views.TabbedBase
 	public void switch_timeline (int32 num) {}
 
-	//FIXME: Handle back mouse button
-	// bool on_button_press (EventButton ev) {
-	// 	if (ev.button == 8)
-	// 		return back ();
-	// 	return false;
-	// }
-
 	[GtkCallback]
 	void on_view_changed () {
 		var view = leaflet.visible_child as Views.Base;
