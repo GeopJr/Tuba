@@ -446,8 +446,8 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			int64 srcval = (int64) src;
 
 			if (srcval > 0) {
-				reblog_button.content.margin_start = 6;
-				reblog_button.content.margin_end = 6;
+				reblog_button.content.margin_start = 12;
+				reblog_button.content.margin_end = 9;
 				target.set_string (@"$srcval");
 			} else {
 				reblog_button.content.margin_start = 0;
@@ -461,8 +461,8 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			int64 srcval = (int64) src;
 
 			if (srcval > 0) {
-				favorite_button.content.margin_start = 6;
-				favorite_button.content.margin_end = 6;
+				favorite_button.content.margin_start = 12;
+				favorite_button.content.margin_end = 9;
 				target.set_string (@"$srcval");
 			} else {
 				favorite_button.content.margin_start = 0;
@@ -476,8 +476,8 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			int64 srcval = (int64) src;
 
 			if (srcval > 0) {
-				reply_button_content.margin_start = 6;
-				reply_button_content.margin_end = 6;
+				reply_button_content.margin_start = 12;
+				reply_button_content.margin_end = 9;
 				target.set_string (@"$srcval");
 			} else {
 				reply_button_content.margin_start = 0;

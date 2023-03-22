@@ -124,8 +124,12 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 
 		if (new_label == 0) {
 			content.label = "";
+			content.margin_start = 0;
+			content.margin_end = 0;
 		} else {
 			content.label = @"$new_label";
+			content.margin_start = 12;
+			content.margin_end = 9;
 		}
 	}
 
