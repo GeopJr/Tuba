@@ -8,6 +8,7 @@
 
     <child>
       <object class="AdwHeaderBar" id="header">
+        <property name="centering_policy">strict</property>
         <property name="visible">True</property>
         <property name="hexpand">True</property>
         <child>
