@@ -442,23 +442,49 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			target.set_string (@"<b>$srcval</b> " + _("Favorites"));
 			return true;
 		});
+		formal_bindings.bind_property ("reblogs_count", reblog_button.content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			int64 srcval = (int64) src;
+
+			if (srcval > 0) {
+				reblog_button.content.margin_start = 6;
+				reblog_button.content.margin_end = 6;
+				target.set_string (@"$srcval");
+			} else {
+				reblog_button.content.margin_start = 0;
+				reblog_button.content.margin_end = 0;
+				target.set_string ("");
+			}
+
+			return true;
+		});
+		formal_bindings.bind_property ("favourites_count", favorite_button.content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			int64 srcval = (int64) src;
+
+			if (srcval > 0) {
+				favorite_button.content.margin_start = 6;
+				favorite_button.content.margin_end = 6;
+				target.set_string (@"$srcval");
+			} else {
+				favorite_button.content.margin_start = 0;
+				favorite_button.content.margin_end = 0;
+				target.set_string ("");
+			}
+
+			return true;
+		});
 		formal_bindings.bind_property ("replies_count", reply_button_content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			int64 srcval = (int64) src;
 
 			if (srcval > 0) {
 				reply_button_content.margin_start = 6;
 				reply_button_content.margin_end = 6;
+				target.set_string (@"$srcval");
 			} else {
 				reply_button_content.margin_start = 0;
 				reply_button_content.margin_end = 0;
+				target.set_string ("");
 			}
 
-			if (srcval == 1)
-				target.set_string (@"1");
-			else if (srcval > 1)
-				target.set_string (@"1+");
-			else
-				target.set_string("");
 			return true;
 		});
 		// Attachments
@@ -489,12 +515,12 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		if (!status.can_be_boosted) {
 			reblog_button.sensitive = false;
 			reblog_button.tooltip_text = _("This post can't be boosted");
-			reblog_button.icon_name = accounts.active.visibility[status.visibility].icon_name;
+			reblog_button.content.icon_name = accounts.active.visibility[status.visibility].icon_name;
 		}
 		else {
 			reblog_button.sensitive = true;
 			reblog_button.tooltip_text = _("Boost");
-			reblog_button.icon_name = "tooth-media-playlist-repeat-symbolic";
+			reblog_button.content.icon_name = "tooth-media-playlist-repeat-symbolic";
 		}
 
 		if (status.id == "") {

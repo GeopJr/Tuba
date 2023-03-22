@@ -12,6 +12,21 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 	public string default_icon_name { get; set; default = null; }
 	public bool increase_fav { get; set; default = false; }
 	public bool increase_reblog { get; set; default = false; }
+	public Adw.ButtonContent content { get; set; }
+	public new string icon_name {
+		get {
+			return content.icon_name;
+		}
+
+		set {
+			content.icon_name = value;
+		}
+	}
+
+	construct {
+		content = new Adw.ButtonContent ();
+		this.child = content;
+	}
 
 	~StatusActionButton() {
 		if (object != null) {
@@ -37,13 +52,13 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 
 	protected void set_toggled_icon(bool is_active = true) {
 		if (icon_toggled_name != null) {
-			if (this.icon_name != null && this.default_icon_name == null) {
-				default_icon_name = this.icon_name;
+			if (content.icon_name != null && this.default_icon_name == null) {
+				default_icon_name = content.icon_name;
 			}
 			if (is_active) {
-				this.icon_name = icon_toggled_name;
+				content.icon_name = icon_toggled_name;
 			} else {
-				this.icon_name = default_icon_name;
+				content.icon_name = default_icon_name;
 			}
 		}
 	}
@@ -84,14 +99,33 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 	}
 
 	protected void update_stats (API.Status obj, string action) {
+		int64 new_label = 0;
 		if (action == "favourite") {
 			obj.favourites_count++;
+			// FIXME: Bindings of Widgets.Status
+			//        should be handling this instead
+			new_label = obj.favourites_count;
 		} else if (action == "unfavourite") {
 			obj.favourites_count--;
+			// FIXME: Bindings of Widgets.Status
+			//        should be handling this instead
+			new_label = obj.favourites_count;
 		} else if (action == "reblog") {
 			obj.reblogs_count++;
+			// FIXME: Bindings of Widgets.Status
+			//        should be handling this instead
+			new_label = obj.reblogs_count;
 		} else if (action == "unreblog") {
 			obj.reblogs_count--;
+			// FIXME: Bindings of Widgets.Status
+			//        should be handling this instead
+			new_label = obj.reblogs_count;
+		}
+
+		if (new_label == 0) {
+			content.label = "";
+		} else {
+			content.label = @"$new_label";
 		}
 	}
 
@@ -103,6 +137,7 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 		set_locked(true);
 		set_class_enabled(active);
 		set_toggled_icon(active);
+		update_stats(entity, action);
 
 		message (@"Performing status action '$action'...");
 		req.await.begin ((o, res) => {
@@ -113,7 +148,6 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 				var jobj = node.get_object ();
 				var received_value = jobj.get_boolean_member (prop_name);
 				set_value (received_value);
-				update_stats(entity, action);
 				message (@"Status action '$action' complete");
 			}
 			catch (Error e) {
