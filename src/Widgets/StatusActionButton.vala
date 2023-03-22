@@ -99,14 +99,33 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 	}
 
 	protected void update_stats (API.Status obj, string action) {
+		int64 new_label = 0;
 		if (action == "favourite") {
 			obj.favourites_count++;
+			// FIXME: Bindings of Widgets.Status
+			//        should be handling this instead
+			new_label = obj.favourites_count;
 		} else if (action == "unfavourite") {
 			obj.favourites_count--;
+			// FIXME: Bindings of Widgets.Status
+			//        should be handling this instead
+			new_label = obj.favourites_count;
 		} else if (action == "reblog") {
 			obj.reblogs_count++;
+			// FIXME: Bindings of Widgets.Status
+			//        should be handling this instead
+			new_label = obj.reblogs_count;
 		} else if (action == "unreblog") {
 			obj.reblogs_count--;
+			// FIXME: Bindings of Widgets.Status
+			//        should be handling this instead
+			new_label = obj.reblogs_count;
+		}
+
+		if (new_label == 0) {
+			content.label = "";
+		} else {
+			content.label = @"$new_label";
 		}
 	}
 
@@ -118,6 +137,7 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 		set_locked(true);
 		set_class_enabled(active);
 		set_toggled_icon(active);
+		update_stats(entity, action);
 
 		message (@"Performing status action '$action'...");
 		req.await.begin ((o, res) => {
@@ -128,7 +148,6 @@ public class Tooth.StatusActionButton : LockableToggleButton {
 				var jobj = node.get_object ();
 				var received_value = jobj.get_boolean_member (prop_name);
 				set_value (received_value);
-				update_stats(entity, action);
 				message (@"Status action '$action' complete");
 			}
 			catch (Error e) {
