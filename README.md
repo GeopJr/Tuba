@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-    <img alt="Screenshot of the Tuba app in light and mobile view. The current view is the main one on the 'Home' tab. The 'Notifications' tab has the number 15 in an accent-colored bubble. There are 3 posts visible by BASIL, AUBREY and HERO (only the boost tag) showcasing some of Tuba's features: 1. Image attachments, 2. custom emojis, 3. content warnings, 4. reboosts, 5. notification badges, 6.post indicators, 7. post actions." src="https://i.imgur.com/YVM9YXK.png">
+    <img alt="Screenshot of the Tuba app in light and mobile view. The current view is the main one on the 'Home' tab. The 'Notifications' tab has the number 15 in an accent-colored bubble. There are 3 posts visible by BASIL, AUBREY and HERO (only the boost tag) showcasing some of Tuba's features: 1. Image attachments, 2. custom emojis, 3. content warnings, 4. reboosts, 5. notification badges, 6.post indicators, 7. post actions." src="https://i.imgur.com/jKmFZou.png">
 </p>
 
 # Install
@@ -73,15 +73,15 @@ $ make install
 
 <table>
   <tr>
-    <td align="center"><img loading="lazy" draggable="false" alt="Screenshot of the Tuba app in light and mobile view. The current view is the home one. The main window is inactive as there's the compose modal open. The modal's privacy setting dropdown is open. This screenshot showcases: 1. that you can write posts, 2. you can use emojis, 3. it supports character limits of the instance, 4. you can change privacy settings, 5. you can attach media, 5. you can set content warnings" src="https://i.imgur.com/SjbLmdJ.png" /></td>
-    <td align="center"><img loading="lazy" draggable="false" alt="Screenshot of the Tuba app in dark and mobile view. The current view is the main one on the 'Home' tab. The 'Notifications' tab has the number 15 in an accent-colored bubble. There are 3 posts visible by BASIL, AUBREY and HERO showcasing some of Tuba's features: 1. Image attachments, 2. custom emojis, 3. content warnings, 4. reboosts, 5. notification badges, 6.post indicators, 7. post actions." src="https://i.imgur.com/nqgdnqQ.png" /></td>
+    <td align="center"><img loading="lazy" draggable="false" alt="Screenshot of the Tuba app in light and mobile view. The current view is the home one. The main window is inactive as there's the compose modal open. The modal's privacy setting dropdown is open. This screenshot showcases: 1. that you can write posts, 2. you can use emojis, 3. it supports character limits of the instance, 4. you can change privacy settings, 5. you can attach media, 5. you can set content warnings" src="https://i.imgur.com/3essApP.png" /></td>
+    <td align="center"><img loading="lazy" draggable="false" alt="Screenshot of the Tuba app in dark and mobile view. The current view is the main one on the 'Home' tab. The 'Notifications' tab has the number 15 in an accent-colored bubble. There are 3 posts visible by BASIL, AUBREY and HERO showcasing some of Tuba's features: 1. Image attachments, 2. custom emojis, 3. content warnings, 4. reboosts, 5. notification badges, 6.post indicators, 7. post actions." src="https://i.imgur.com/Q3lnP51.png" /></td>
   </tr>
   <tr>
-    <td colspan="2" align="center"><img loading="lazy" draggable="false" alt="Screenshot of the Tuba app in light and large window size view. The current view is the main one on the 'Home' tab. 2 more posts are visible now by the users HERO and KEL. The screenshot showcases: 1. poll support, 2. user mentions in posts, 3. large window size." src="https://i.imgur.com/h82kf7I.png" /></td>
+    <td colspan="2" align="center"><img loading="lazy" draggable="false" alt="Screenshot of the Tuba app in light and large window size view. The current view is the main one on the 'Home' tab. 2 more posts are visible now by the users HERO and KEL. The screenshot showcases: 1. poll support, 2. user mentions in posts, 3. large window size." src="https://i.imgur.com/XBtQsya.png" /></td>
   </tr>
   <tr>
     <td align="center"><img loading="lazy" draggable="false" alt="Screenshot of the Tuba app in dark and mobile view. The current view is the search one on the 'Hashtags' tab. The search entry has '#linux' as its content. There's a full page of results returned showcasing Tuba's search functionality and ability to return how many times each hashtag was used and by how many people in the past 2 days." src="https://i.imgur.com/VxeOMOg.png" /></td>
-    <td align="center"><img loading="lazy" draggable="false" alt="Screenshot of the Tuba app in light and medium window size view. The current view is the profile one on the user Xenia. This screenshot showcases: 1. verified links, 2. the ability to follow users, 3. posts, following and follower counts, 4. profile headers, 5. the sidebar." src="https://i.imgur.com/kQtxL5I.png" /></td>
+    <td align="center"><img loading="lazy" draggable="false" alt="Screenshot of the Tuba app in light and medium window size view. The current view is the profile one on the user Xenia. This screenshot showcases: 1. verified links, 2. the ability to follow users, 3. posts, following and follower counts, 4. profile headers, 5. the sidebar." src="https://i.imgur.com/jBF85mI.png" /></td>
   </tr>
 </table>
 
