@@ -251,11 +251,11 @@ msgstr "Auf welchem Server bist du?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
-"Wenn du noch kein Account hast, <a href=\"https://joinmastodon.org/servers\""
-">wähle einen Server aus und registriere einen</a>."
+"Wenn du noch kein Account hast, <a href=\"https://joinmastodon.org/servers"
+"\">wähle einen Server aus und registriere einen</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
@@ -803,49 +803,49 @@ msgstr "Direkt"
 
 #: src/Services/Accounts/Mastodon/Account.vala:148
 msgid "Post to mentioned users only"
-msgstr ""
+msgstr "Nur zu erwähnten Nutzern posten"
 
 #: src/Services/Accounts/InstanceAccount.vala:132
 #, c-format
 msgid "%s mentioned you"
-msgstr ""
+msgstr "%s hat dich erwähnt"
 
 #: src/Services/Accounts/InstanceAccount.vala:137
 #, c-format
 msgid "%s boosted your post"
-msgstr ""
+msgstr "%s hat deinen Beitrag geboostet"
 
 #: src/Services/Accounts/InstanceAccount.vala:142
 #, c-format
 msgid "%s boosted"
-msgstr ""
+msgstr "%s boostet"
 
 #: src/Services/Accounts/InstanceAccount.vala:147
 #, c-format
 msgid "%s favorited your post"
-msgstr ""
+msgstr "%s hat deinen Beitrag favorisiert"
 
 #: src/Services/Accounts/InstanceAccount.vala:152
-#, fuzzy, c-format
+#, c-format
 msgid "%s now follows you"
-msgstr "Folgt dir"
+msgstr "%s folgt dir jetzt"
 
 #: src/Services/Accounts/InstanceAccount.vala:157
 #, c-format
 msgid "%s wants to follow you"
-msgstr ""
+msgstr "%s möchte dir folgen"
 
 #: src/Services/Accounts/InstanceAccount.vala:162
 msgid "Poll results"
-msgstr ""
+msgstr "Umfrageergebnisse"
 
 #: src/Dialogs/NewAccount.vala:5
 msgid "Allow access to your account in the browser."
-msgstr ""
+msgstr "Erlaube den Zugriff auf Ihr Konto im Browser."
 
 #: src/Dialogs/NewAccount.vala:6
 msgid "Copy the authorization code from the browser and paste it below."
-msgstr ""
+msgstr "Kopiere den Autorisierungscode vom Browser und fügen ihn unten ein."
 
 #: src/Dialogs/NewAccount.vala:120
 msgid "Please enter a valid instance URL"
@@ -870,7 +870,7 @@ msgstr "Der Server gab einen Fehler zurück"
 
 #: src/Dialogs/Composer/PollPage.vala:5
 msgid "Options"
-msgstr ""
+msgstr "Optionen"
 
 #. translators: "Text" as in text-based input
 #: src/Dialogs/Composer/EditorPage.vala:11
@@ -880,16 +880,15 @@ msgstr "Text"
 #: src/Dialogs/Composer/EditorPage.vala:109
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:104
 msgid "Characters Left"
-msgstr ""
+msgstr "Verbleibende Zeichen"
 
 #: src/Dialogs/Composer/EditorPage.vala:121
-#, fuzzy
 msgid "What's on your mind?"
-msgstr "Wie heißt deine Instanz?"
+msgstr "Was hast du auf dem Herzen?"
 
 #: src/Dialogs/Composer/EditorPage.vala:146
 msgid "Emoji Picker"
-msgstr ""
+msgstr "Emoji-Auswahl"
 
 #: src/Dialogs/Composer/EditorPage.vala:163
 msgid "Write your warning here"
@@ -897,11 +896,11 @@ msgstr "Schreibe deine Warnung hier"
 
 #: src/Dialogs/Composer/EditorPage.vala:178
 msgid "Content Warning"
-msgstr ""
+msgstr "Inhaltswarnung"
 
 #: src/Dialogs/Composer/EditorPage.vala:199
 msgid "Post Privacy"
-msgstr ""
+msgstr "Post-Sichtbarkeit"
 
 #: src/Dialogs/Composer/Dialog.vala:65
 #, fuzzy
@@ -910,7 +909,7 @@ msgstr "Neu erstellen"
 
 #: src/Dialogs/Composer/Dialog.vala:76
 msgid "_Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: src/Dialogs/Composer/Dialog.vala:92
 #, fuzzy
@@ -919,11 +918,11 @@ msgstr "Antworten"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:28
 msgid "Edit Alt Text"
-msgstr ""
+msgstr "Alt-Text bearbeiten"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:43
 msgid "Remove Attachment"
-msgstr ""
+msgstr "Anhang entfernen"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:109
 msgid "Save"
@@ -935,49 +934,46 @@ msgstr "Medien"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:55
 #: src/Dialogs/Composer/AttachmentsPage.vala:79
-#, fuzzy
 msgid "Add Media"
-msgstr "Medien"
+msgstr "Medien hinzufügen"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:64
-#, fuzzy
 msgid "No Media"
-msgstr "Medien"
+msgstr "Keine Medien"
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:89
 #: src/Dialogs/Composer/AttachmentsPage.vala:97
 msgid "Mark media as sensitive"
-msgstr ""
+msgstr "Medien als sensibel markieren"
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:97
 msgid "Unmark media as sensitive"
-msgstr ""
+msgstr "Medien als nicht sensibel markieren"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:158
 msgid "All Supported Files"
-msgstr ""
+msgstr "Alle unterstützten Dateien"
 
 #. translators: Open file
 #: src/Dialogs/Composer/AttachmentsPage.vala:170
-#, fuzzy
 msgid "Open"
-msgstr "_Öffnen"
+msgstr "Öffnen"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:202
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
-msgstr ""
+msgstr "Datei \"%s\" ist größer als das Instanzlimit"
 
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:258
 msgid "translator-credits"
-msgstr ""
+msgstr "Feliks Weber <feliks@notabit.eu>"
 
 #: src/Application.vala:283
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:27
@@ -995,3 +991,17 @@ msgstr ""
 #, fuzzy
 msgid "Search returned no results"
 msgstr "Der Server gab einen Fehler zurück"
+
+#: src/API/Tag.vala:26
+msgid "yesterday"
+msgstr "Gestern"
+
+#: src/API/Tag.vala:32
+msgid "in the past 2 days"
+msgstr "in den letzten 2 Tagen"
+
+#. translators: the first two are numbers, the last one is either "yesterday" or "in the past 2 days"
+#: src/API/Tag.vala:36
+#, c-format
+msgid "Used %d times by %d people %s"
+msgstr ""
