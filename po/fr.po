@@ -248,8 +248,8 @@ msgstr "Quel est votre serveur ?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
 "Si vous n’avez pas encore de compte, <a href=\"https://joinmastodon.org/"
 "servers\">choisissez un serveur pour en créer un</a>."
@@ -272,8 +272,8 @@ msgid ""
 "If something went wrong, <a href=\"manual_auth\">try manual authorization</"
 "a>."
 msgstr ""
-"Si quelque chose s’est mal passé, <a href=\"manual_auth\">essayez l’"
-"autorisation manuelle</a>."
+"Si quelque chose s’est mal passé, <a href=\"manual_auth\">essayez "
+"l’autorisation manuelle</a>."
 
 #: data/ui/dialogs/new_account.ui:163
 msgid "Authorization Code"

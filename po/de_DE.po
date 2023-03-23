@@ -992,16 +992,12 @@ msgstr ""
 msgid "Search returned no results"
 msgstr "Der Server gab einen Fehler zurück"
 
-#: src/API/Tag.vala:26
-msgid "yesterday"
-msgstr "Gestern"
+#~ msgid "yesterday"
+#~ msgstr "Gestern"
 
-#: src/API/Tag.vala:32
-msgid "in the past 2 days"
-msgstr "in den letzten 2 Tagen"
+#~ msgid "in the past 2 days"
+#~ msgstr "in den letzten 2 Tagen"
 
-#. translators: the first two are numbers, the last one is either "yesterday" or "in the past 2 days"
-#: src/API/Tag.vala:36
 #, c-format
-msgid "Used %d times by %d people %s"
-msgstr "%s %d mal von %d Personen benutzt"
+#~ msgid "Used %d times by %d people %s"
+#~ msgstr "%s %d mal von %d Personen benutzt"
