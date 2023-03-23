@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-23 11:43+0200\n"
+"POT-Creation-Date: 2023-03-23 18:13+0200\n"
 "PO-Revision-Date: 2023-03-23 16:08+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
@@ -972,19 +972,17 @@ msgstr ""
 msgid "Yes"
 msgstr "Ja"
 
-#: src/API/Tag.vala:26
-msgid "yesterday"
-msgstr "gisteren"
-
-#: src/API/Tag.vala:32
-msgid "in the past 2 days"
-msgstr "in de afgelopen 2 dagen"
-
-#. translators: the first two are numbers, the last one is either "yesterday" or "in the past 2 days"
-#: src/API/Tag.vala:36
+#. translators: the variables are numbers
+#: src/API/Tag.vala:27
 #, c-format
-msgid "Used %d times by %d people %s"
-msgstr "%d keer gebruikt door %d mensen %s"
+msgid "Used %d times by %d people yesterday"
+msgstr ""
+
+#. translators: the variables are numbers
+#: src/API/Tag.vala:35
+#, c-format
+msgid "Used %d times by %d people in the past 2 days"
+msgstr ""
 
 #: src/API/SearchResults.vala:21
 msgid "Search returned no results"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-23 11:43+0200\n"
+"POT-Creation-Date: 2023-03-23 18:13+0200\n"
 "PO-Revision-Date: 2023-03-23 15:30+0000\n"
 "Last-Translator: Сергей Ворон <voron.s.a@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tuba/tuba/ru/>\n"
@@ -964,18 +964,16 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: src/API/Tag.vala:26
-msgid "yesterday"
-msgstr ""
-
-#: src/API/Tag.vala:32
-msgid "in the past 2 days"
-msgstr ""
-
-#. translators: the first two are numbers, the last one is either "yesterday" or "in the past 2 days"
-#: src/API/Tag.vala:36
+#. translators: the variables are numbers
+#: src/API/Tag.vala:27
 #, c-format
-msgid "Used %d times by %d people %s"
+msgid "Used %d times by %d people yesterday"
+msgstr ""
+
+#. translators: the variables are numbers
+#: src/API/Tag.vala:35
+#, c-format
+msgid "Used %d times by %d people in the past 2 days"
 msgstr ""
 
 #: src/API/SearchResults.vala:21
