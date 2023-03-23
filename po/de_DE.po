@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 11:43+0200\n"
-"PO-Revision-Date: 2023-03-23 16:08+0000\n"
+"PO-Revision-Date: 2023-03-23 16:09+0000\n"
 "Last-Translator: Jummit <jummit@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tuba/tuba/de/>\n"
 "Language: de_DE\n"
@@ -791,15 +791,15 @@ msgstr "Nicht zu öffentlichen Chroniken posten"
 
 #: src/Services/Accounts/Mastodon/Account.vala:140
 msgid "Followers Only"
-msgstr ""
+msgstr "Nur Followers"
 
 #: src/Services/Accounts/Mastodon/Account.vala:142
 msgid "Post to followers only"
-msgstr ""
+msgstr "Nur an Followers posten"
 
 #: src/Services/Accounts/Mastodon/Account.vala:146
 msgid "Direct"
-msgstr ""
+msgstr "Direkt"
 
 #: src/Services/Accounts/Mastodon/Account.vala:148
 msgid "Post to mentioned users only"
