@@ -1004,4 +1004,4 @@ msgstr "in den letzten 2 Tagen"
 #: src/API/Tag.vala:36
 #, c-format
 msgid "Used %d times by %d people %s"
-msgstr ""
+msgstr "%s %d mal von %d Personen benutzt"
