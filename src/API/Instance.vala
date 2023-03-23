@@ -1,4 +1,4 @@
-public class Tooth.API.Instance : Entity {
+public class Tuba.API.Instance : Entity {
 	public Gee.ArrayList<string>? languages { get; set; }
 	public API.Mastodon.Configurations? configuration { get; set; default = null; }
 	public int64 max_toot_chars { get; set; default = 0; }

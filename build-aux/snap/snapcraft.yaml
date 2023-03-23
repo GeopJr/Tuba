@@ -1,7 +1,7 @@
-name: tooth
+name: tuba
 base: core22
 version: git
-adopt-info: tooth
+adopt-info: tuba
 
 grade: devel
 confinement: strict
@@ -9,16 +9,16 @@ license: GPL-3.0-only
 compression: lzo
 
 slots:
-  tooth:
+  tuba:
     interface: dbus
     bus: session
-    name: dev.geopjr.Tooth
+    name: dev.geopjr.Tuba
 
 apps:
-  tooth:
-    command: usr/bin/dev.geopjr.Tooth
-    desktop: usr/share/applications/dev.geopjr.Tooth.desktop
-    common-id: dev.geopjr.Tooth.desktop
+  tuba:
+    command: usr/bin/dev.geopjr.Tuba
+    desktop: usr/share/applications/dev.geopjr.Tuba.desktop
+    common-id: dev.geopjr.Tuba.desktop
     extensions: [gnome]
     plugs:
       - desktop
@@ -27,14 +27,14 @@ apps:
       - network
 
 parts:
-  tooth:
+  tuba:
     source: .
     source-type: git
     plugin: meson
     meson-parameters:
       - --prefix=/usr
       - -Ddevel=true
-    parse-info: [usr/share/metainfo/dev.geopjr.Tooth.appdata.xml]
+    parse-info: [usr/share/metainfo/dev.geopjr.Tuba.appdata.xml]
     build-packages:
       - valac
       - libgtk-4-dev

@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.AttachmentsPage : ComposerPage {
+public class Tuba.AttachmentsPage : ComposerPage {
 
 	// https://github.com/tootsuite/mastodon/blob/master/app/models/media_attachment.rb
 	public const string[] SUPPORTED_MIMES = {
@@ -37,7 +37,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 	public AttachmentsPage () {
 		Object (
 			title: _("Media"),
-			icon_name: "tooth-clip-attachment-symbolic"
+			icon_name: "tuba-clip-attachment-symbolic"
 		);
 
 		attachments = new GLib.ListStore (typeof (API.Attachment));
@@ -73,7 +73,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 		list.bind_model (attachments, on_create_list_item);
 
 		add_media_action_button = new Gtk.Button() {
-			icon_name = "tooth-plus-large-symbolic",
+			icon_name = "tuba-plus-large-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			tooltip_text = _("Add Media"),
@@ -82,7 +82,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 		add_media_action_button.clicked.connect(show_file_selector);
 
 		var sensitive_media_button = new Gtk.ToggleButton() {
-			icon_name = "tooth-eye-open-negative-filled-symbolic",
+			icon_name = "tuba-eye-open-negative-filled-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			// translators: sensitive as in not safe for work or similar
@@ -92,7 +92,7 @@ public class Tooth.AttachmentsPage : ComposerPage {
 		sensitive_media_button.bind_property ("active", this, "media_sensitive", GLib.BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			var sensitive_media_button_active = src.get_boolean ();
 			target.set_boolean (sensitive_media_button_active);
-			sensitive_media_button.icon_name = sensitive_media_button_active ? "tooth-eye-not-looking-symbolic" : "tooth-eye-open-negative-filled-symbolic";
+			sensitive_media_button.icon_name = sensitive_media_button_active ? "tuba-eye-not-looking-symbolic" : "tuba-eye-open-negative-filled-symbolic";
 			// translators: sensitive as in not safe for work or similar
 			sensitive_media_button.tooltip_text = sensitive_media_button_active ? _("Unmark media as sensitive") : _("Mark media as sensitive");
 			return true;

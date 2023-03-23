@@ -12,10 +12,10 @@
     <property name="step_increment">1</property>
     <property name="page_increment">1</property>
   </object>
-  <template class="ToothDialogsPreferences" parent="AdwPreferencesWindow">
+  <template class="TubaDialogsPreferences" parent="AdwPreferencesWindow">
     <child>
       <object class="AdwPreferencesPage">
-        <property name="icon_name">tooth-gear-symbolic</property>
+        <property name="icon_name">tuba-gear-symbolic</property>
         <property name="title" translatable="yes">General</property>
         <child>
           <object class="AdwPreferencesGroup">
@@ -26,11 +26,11 @@
                 <signal name="notify::selected-item" handler="on_scheme_changed" swapped="no"/>
 
                 <property name="model">
-                  <object class="ToothColorSchemeListModel"/>
+                  <object class="TubaColorSchemeListModel"/>
                 </property>
 
                 <property name="expression">
-                  <lookup type="ToothColorSchemeListItem" name="name"/>
+                  <lookup type="TubaColorSchemeListItem" name="name"/>
                 </property>
               </object>
             </child>

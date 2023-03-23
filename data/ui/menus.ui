@@ -10,13 +10,13 @@
         <attribute name="label" translatable="yes">Mention</attribute>
         <attribute name="action">view.mention</attribute>
         <attribute name="target">public</attribute>
-        <attribute name="verb-icon">tooth-online-symbolic</attribute>
+        <attribute name="verb-icon">tuba-online-symbolic</attribute>
       </item>
       <item>
         <attribute name="label" translatable="yes">Direct Message</attribute>
         <attribute name="action">view.mention</attribute>
         <attribute name="target">direct</attribute>
-        <attribute name="verb-icon">tooth-mail-symbolic</attribute>
+        <attribute name="verb-icon">tuba-mail-symbolic</attribute>
       </item>
       <item>
         <attribute name="label" translatable="yes">Copy Handle</attribute>

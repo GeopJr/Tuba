@@ -1,7 +1,7 @@
 using GLib;
 using Gee;
 
-public class Tooth.InstanceAccount : API.Account, Streamable {
+public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public const string EVENT_NEW_POST = "update";
 	public const string EVENT_EDIT_POST = "status.update";
@@ -128,37 +128,37 @@ public class Tooth.InstanceAccount : API.Account, Streamable {
 	public virtual void describe_kind (string kind, out string? icon, out string? descr, API.Account account, out string? descr_url) {
 		switch (kind) {
 			case KIND_MENTION:
-				icon = "tooth-chat-symbolic";
+				icon = "tuba-chat-symbolic";
 				descr = _("%s mentioned you").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_REBLOG:
-				icon = "tooth-media-playlist-repeat-symbolic";
+				icon = "tuba-media-playlist-repeat-symbolic";
 				descr = _("%s boosted your post").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_REMOTE_REBLOG:
-				icon = "tooth-media-playlist-repeat-symbolic";
+				icon = "tuba-media-playlist-repeat-symbolic";
 				descr = _("%s boosted").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_FAVOURITE:
-				icon = "tooth-starred-symbolic";
+				icon = "tuba-starred-symbolic";
 				descr = _("%s favorited your post").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_FOLLOW:
-				icon = "tooth-contact-new-symbolic";
+				icon = "tuba-contact-new-symbolic";
 				descr = _("%s now follows you").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_FOLLOW_REQUEST:
-				icon = "tooth-contact-new-symbolic";
+				icon = "tuba-contact-new-symbolic";
 				descr = _("%s wants to follow you").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_POLL:
-				icon = "tooth-check-round-outline-symbolic";
+				icon = "tuba-check-round-outline-symbolic";
 				descr = _("Poll results");
 				descr_url = null;
 				break;

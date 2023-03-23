@@ -1,7 +1,7 @@
 using Gtk;
 
 // TODO: Lists is borken
-public class Tooth.Views.Lists : Views.Timeline {
+public class Tuba.Views.Lists : Views.Timeline {
 
     public class Row : Adw.ActionRow {
 		public API.List? list;
@@ -20,7 +20,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 			edit_button.add_css_class("circular");
 
 			delete_button = new Button() {
-				icon_name = "tooth-trash-symbolic",
+				icon_name = "tuba-trash-symbolic",
 				valign = Align.CENTER,
 				halign = Align.CENTER
 			};
@@ -87,7 +87,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 				transient_for = app.main_window
 			};
 			var list_settings_page_general = new Adw.PreferencesPage() {
-				icon_name = "tooth-gear-symbolic",
+				icon_name = "tuba-gear-symbolic",
 				title = _("General")
 			};
 			var info_group = new Adw.PreferencesGroup() {
@@ -167,7 +167,7 @@ public class Tooth.Views.Lists : Views.Timeline {
 				.then ((sess, msg) => {
 					if (Network.get_array_size(msg) > 0) {
 						var list_settings_page_members = new Adw.PreferencesPage() {
-							icon_name = "tooth-people-symbolic",
+							icon_name = "tuba-people-symbolic",
 							title = _("Members")
 						};
 
@@ -281,7 +281,7 @@ public class Tooth.Views.Lists : Views.Timeline {
         Object (
 			url: @"/api/v1/lists",
             label: _("Lists"),
-            icon: "tooth-list-compact-symbolic"
+            icon: "tuba-list-compact-symbolic"
         );
         accepts = typeof (API.List);
     }

@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.ComposerPage : Gtk.Box {
+public class Tuba.ComposerPage : Gtk.Box {
 
 	public string title { get; set; }
 	public string icon_name { get; set; }

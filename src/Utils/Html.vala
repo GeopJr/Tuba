@@ -1,4 +1,4 @@
-public class Tooth.HtmlUtils {
+public class Tuba.HtmlUtils {
 
 	public const string FALLBACK_TEXT = "[ There was an error parsing this text ]";
 

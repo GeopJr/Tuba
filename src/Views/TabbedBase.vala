@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.Views.TabbedBase : Views.Base {
+public class Tuba.Views.TabbedBase : Views.Base {
 
 	static int ID_COUNTER = 0;
 

@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.Views.Search : Views.TabbedBase {
+public class Tuba.Views.Search : Views.TabbedBase {
 
 	public string query { get; set; default = ""; }
 	protected SearchBar bar;
@@ -35,9 +35,9 @@ public class Tooth.Views.Search : Views.TabbedBase {
 		entry.activate.connect (() => request ());
 		status_button.clicked.connect (request);
 
-		accounts_tab = add_list_tab (_("Accounts"), "tooth-people-symbolic");
-		statuses_tab = add_list_tab (_("Statuses"), "tooth-chat-symbolic");
-		hashtags_tab = add_list_tab (_("Hashtags"), "tooth-hashtag-symbolic");
+		accounts_tab = add_list_tab (_("Accounts"), "tuba-people-symbolic");
+		statuses_tab = add_list_tab (_("Statuses"), "tuba-chat-symbolic");
+		hashtags_tab = add_list_tab (_("Hashtags"), "tuba-hashtag-symbolic");
 
 		request ();
 	}

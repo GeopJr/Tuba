@@ -1,7 +1,7 @@
 using Gtk;
 using Gee;
 
-public class Tooth.Widgets.EmojiLabel : Box {
+public class Tuba.Widgets.EmojiLabel : Box {
 	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
 	public bool labels_should_markup { get; set; default = false; }
 	public Gee.ArrayList<string> label_css_classes { get; set; default = new Gee.ArrayList<string>(); }

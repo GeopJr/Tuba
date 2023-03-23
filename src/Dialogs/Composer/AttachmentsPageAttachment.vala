@@ -1,4 +1,4 @@
-public class Tooth.AttachmentsPageAttachment : Widgets.Attachment.Item {
+public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	protected Gtk.Picture pic;
 	protected File? attachment_file;
@@ -37,7 +37,7 @@ public class Tooth.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		}
 
 		var delete_button = new Gtk.Button() {
-			icon_name = "tooth-trash-symbolic",
+			icon_name = "tuba-trash-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			tooltip_text = _("Remove Attachment")

@@ -1,6 +1,6 @@
 using Gee;
 
-public class Tooth.AbstractCache : Object {
+public class Tuba.AbstractCache : Object {
 
 	public const string DATA_MIN_REF_COUNT = "refs";
 

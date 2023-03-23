@@ -4,7 +4,7 @@
 
       <object class="GtkImage">
         <binding name="icon_name">
-          <lookup name="icon_name" type="ToothInstanceAccountVisibility">
+          <lookup name="icon_name" type="TubaInstanceAccountVisibility">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
@@ -13,7 +13,7 @@
       <!-- <object class="GtkLabel"> -->
       <!--   <property name="xalign">0</property> -->
       <!--   <binding name="label"> -->
-      <!--     <lookup name="name" type="ToothInstanceAccountVisibility"> -->
+      <!--     <lookup name="name" type="TubaInstanceAccountVisibility"> -->
       <!--       <lookup name="item">GtkListItem</lookup> -->
       <!--     </lookup> -->
       <!--   </binding> -->

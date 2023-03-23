@@ -1,6 +1,6 @@
 using Gee;
 
-public class Tooth.API.Status : Entity, Widgetizable {
+public class Tuba.API.Status : Entity, Widgetizable {
 
 	~Status () {
 		message ("[OBJ] Destroyed "+uri);

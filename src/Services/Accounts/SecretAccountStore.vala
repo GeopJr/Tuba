@@ -1,6 +1,6 @@
 using Secret;
 
-public class Tooth.SecretAccountStore : AccountStore {
+public class Tuba.SecretAccountStore : AccountStore {
 
 	const string VERSION = "1";
 

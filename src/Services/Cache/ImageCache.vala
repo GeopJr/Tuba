@@ -1,6 +1,6 @@
 using Gdk;
 
-public class Tooth.ImageCache : AbstractCache {
+public class Tuba.ImageCache : AbstractCache {
 
 	public delegate void OnItemChangedFn (bool is_loaded, owned Paintable? data);
 

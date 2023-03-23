@@ -1,8 +1,8 @@
 using Gtk;
 using Gee;
 
-[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/dialogs/compose.ui")]
-public class Tooth.Dialogs.Compose : Adw.Window {
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/compose.ui")]
+public class Tuba.Dialogs.Compose : Adw.Window {
 
 	public API.Status status { get; construct set; }
 

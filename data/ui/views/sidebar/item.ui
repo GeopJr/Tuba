@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="ToothViewsSidebarItemRow" parent="GtkListBoxRow">
+  <template class="TubaViewsSidebarItemRow" parent="GtkListBoxRow">
     <property name="activatable">1</property>
     <child>
       <object class="GtkBox">

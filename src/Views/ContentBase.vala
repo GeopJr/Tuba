@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.Views.ContentBase : Views.Base {
+public class Tuba.Views.ContentBase : Views.Base {
 
 	public GLib.ListStore model;
 	protected ListBox content;

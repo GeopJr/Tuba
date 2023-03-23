@@ -1,7 +1,7 @@
 using Gtk;
 
-[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/views/base.ui")]
-public class Tooth.Views.Base : Box {
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/base.ui")]
+public class Tuba.Views.Base : Box {
 
 	public static string STATUS_EMPTY = _("Nothing to see here");
 

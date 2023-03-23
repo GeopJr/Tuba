@@ -1,7 +1,7 @@
 using Gtk;
 
-[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/dialogs/preferences.ui")]
-public class Tooth.Dialogs.Preferences : Adw.PreferencesWindow {
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/preferences.ui")]
+public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 
     [GtkChild] unowned Adw.ComboRow scheme_combo_row;
     [GtkChild] unowned Switch autostart;
@@ -61,7 +61,7 @@ public class Tooth.Dialogs.Preferences : Adw.PreferencesWindow {
 	}
 }
 
-public class Tooth.ColorSchemeListModel : Object, ListModel {
+public class Tuba.ColorSchemeListModel : Object, ListModel {
 	private Gee.ArrayList<ColorSchemeListItem> array = new Gee.ArrayList<ColorSchemeListItem> ();
 
 	construct {
@@ -89,7 +89,7 @@ public class Tooth.ColorSchemeListModel : Object, ListModel {
 	}
 }
 
-public class Tooth.ColorSchemeListItem : Object {
+public class Tuba.ColorSchemeListItem : Object {
 	public ColorScheme color_scheme { get; construct; }
 	public string name {
 		owned get {

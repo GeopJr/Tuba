@@ -1,5 +1,5 @@
 project(
-    'dev.geopjr.Tooth',
+    'dev.geopjr.Tuba',
     ['c', 'vala'],
     version: '0.1.0',
     meson_version: '>= 0.56.0',
@@ -16,13 +16,13 @@ config = configuration_data()
 config.set_quoted('EXEC_NAME', meson.project_name())
 config.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 config.set_quoted('DOMAIN', meson.project_name ())
-config.set_quoted('G_LOG_DOMAIN', 'Tooth')
+config.set_quoted('G_LOG_DOMAIN', 'Tuba')
 config.set_quoted('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) + '/')
 config.set_quoted('VERSION', meson.project_version())
 config.set_quoted('PREFIX', get_option('prefix'))
-config.set_quoted('NAME', 'Tooth')
-config.set_quoted('WEBSITE', 'https://github.com/GeopJr/Tooth')
-config.set_quoted('SUPPORT_WEBSITE', 'https://github.com/GeopJr/Tooth/issues')
+config.set_quoted('NAME', 'Tuba')
+config.set_quoted('WEBSITE', 'https://github.com/GeopJr/Tuba')
+config.set_quoted('SUPPORT_WEBSITE', 'https://github.com/GeopJr/Tuba/issues')
 config.set_quoted('PROFILE', devel ? 'development' : 'production')
 
 if devel

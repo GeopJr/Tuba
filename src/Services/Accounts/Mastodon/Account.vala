@@ -1,4 +1,4 @@
-public class Tooth.Mastodon.Account : InstanceAccount {
+public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public const string BACKEND = "Mastodon";
 
@@ -24,7 +24,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_HOME = new Place() {
 		title = _("Home"), 
-		icon = "tooth-home-symbolic",
+		icon = "tuba-home-symbolic",
 		open_func = win => {
 			//  win.open_view (new Views.Main ());
 			//  win.back();
@@ -34,7 +34,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	//  public static Place PLACE_NOTIFICATIONS = new Place () {
 	//  	title = _("Notifications"),
-	//  	icon = "tooth-bell-symbolic",
+	//  	icon = "tuba-bell-symbolic",
 	//  	open_func = win => {
 	//  		win.open_view (new Views.Notifications ());
 	//  	}
@@ -42,7 +42,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_MESSAGES = new Place () {
 		title = _("Direct Messages"),
-		icon = "tooth-mail-symbolic",
+		icon = "tuba-mail-symbolic",
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item(new Views.Conversations ()));
 		}
@@ -50,7 +50,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_BOOKMARKS = new Place () {
 		title = _("Bookmarks"),
-		icon = "tooth-bookmarks-symbolic",
+		icon = "tuba-bookmarks-symbolic",
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item(new Views.Bookmarks ()));
 		}
@@ -58,7 +58,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_FAVORITES = new Place () {
 		title = _("Favorites"),
-		icon = "tooth-unstarred-symbolic",
+		icon = "tuba-unstarred-symbolic",
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item(new Views.Favorites ()));
 		}
@@ -66,7 +66,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_LISTS = new Place () {
 		title = _("Lists"),
-		icon = "tooth-list-compact-symbolic",
+		icon = "tuba-list-compact-symbolic",
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item(new Views.Lists ()));
 		}
@@ -82,7 +82,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_LOCAL = new Place () {
 		title = _("Local"),
-		icon = "tooth-network-server-symbolic",
+		icon = "tuba-network-server-symbolic",
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item(new Views.Local ()));
 		}
@@ -90,7 +90,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_FEDERATED = new Place () {
 		title = _("Federated"),
-		icon = "tooth-globe-symbolic",
+		icon = "tuba-globe-symbolic",
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item(new Views.Federated ()));
 		}
@@ -98,7 +98,7 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_FOLLOW_REQUESTS = new Place () {
 		title = _("Follow Requests"),
-		icon = "tooth-address-book-new-symbolic",
+		icon = "tuba-address-book-new-symbolic",
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item(new Views.FollowRequests ()));
 		}
@@ -125,26 +125,26 @@ public class Tooth.Mastodon.Account : InstanceAccount {
 		set_visibility (new Visibility () {
 			id = "public",
 			name = _("Public"),
-			icon_name = "tooth-globe-symbolic",
+			icon_name = "tuba-globe-symbolic",
 			description = _("Post to public timelines")
 		});
 		set_visibility (new Visibility () {
 			id = "unlisted",
 			// translators: Probably follow Mastodon's translation
 			name = _("Unlisted"),
-			icon_name = "tooth-padlock2-open-symbolic",
+			icon_name = "tuba-padlock2-open-symbolic",
 			description = _("Don\'t post to public timelines")
 		});
 		set_visibility (new Visibility () {
 			id = "private",
 			name = _("Followers Only"),
-			icon_name = "tooth-padlock2-symbolic",
+			icon_name = "tuba-padlock2-symbolic",
 			description = _("Post to followers only")
 		});
 		set_visibility (new Visibility () {
 			id = "direct",
 			name = _("Direct"),
-			icon_name = "tooth-mail-symbolic",
+			icon_name = "tuba-mail-symbolic",
 			description = _("Post to mentioned users only")
 		});
 	}

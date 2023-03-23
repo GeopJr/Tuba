@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="ToothWidgetsVoteBox" parent="GtkBox">
+  <template class="TubaWidgetsVoteBox" parent="GtkBox">
     <property name="margin_top">12</property>
     <property name="orientation">vertical</property>
     <child>

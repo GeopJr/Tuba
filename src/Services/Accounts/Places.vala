@@ -1,4 +1,4 @@
-public class Tooth.Place : Object {
+public class Tuba.Place : Object {
 
 	public string title { get; set; }
 	public string icon { get; set; }

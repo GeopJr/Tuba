@@ -1,7 +1,7 @@
 using Soup;
 using Gee;
 
-public class Tooth.Request : Soup.Message {
+public class Tuba.Request : Soup.Message {
 
 	public string url { set; get; }
 	public weak InstanceAccount? account { get; set; default = null; }

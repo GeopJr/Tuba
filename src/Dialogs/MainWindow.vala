@@ -1,8 +1,8 @@
 using Gtk;
 using Gdk;
 
-[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/dialogs/main.ui")]
-public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/main.ui")]
+public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	public const string ZOOM_CLASS = "ttl-scalable";
 
 	[GtkChild] public unowned Adw.Flap flap;

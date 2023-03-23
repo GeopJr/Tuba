@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.Widgets.Conversation : Widgets.Status {
+public class Tuba.Widgets.Conversation : Widgets.Status {
 
 	public API.Conversation conversation { get; construct set; }
 
@@ -8,10 +8,10 @@ public class Tooth.Widgets.Conversation : Widgets.Status {
 		Object (conversation: entity, status: entity.last_status);
 		conversation.bind_property ("unread", this.indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			if (src.get_boolean()) {
-				target.set_string ("tooth-mark-important-symbolic");
+				target.set_string ("tuba-mark-important-symbolic");
 				this.indicator.remove_css_class("dim-label");
 			} else {
-				target.set_string ("tooth-mail-symbolic");
+				target.set_string ("tuba-mail-symbolic");
 				this.indicator.add_css_class("dim-label");
 			}
 			return true;

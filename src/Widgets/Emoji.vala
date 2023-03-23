@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-public class Tooth.Widgets.Emoji : Adw.Bin {
+public class Tuba.Widgets.Emoji : Adw.Bin {
 
 	protected Image image;
 

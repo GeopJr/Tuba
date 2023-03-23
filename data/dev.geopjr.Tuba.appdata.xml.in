@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>dev.geopjr.Tuba</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+  <name>Tuba</name>
+  <summary>Browse the Fediverse</summary>
+  <description>
+    <p>
+      Explore the federated social web with Tuba for GNOME. Stay connected to your favorite communities, family and friends with support for popular Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!
+    </p>
+    <p>
+      The Fediverse is a decentralized social network that consists of multiple interconnected platforms and communities, allowing users to communicate and share content across different networks and servers. It promotes user privacy and data ownership, and offers an alternative to centralized social media platforms.
+    </p>
+  </description>
+  <provides>
+    <binary>dev.geopjr.Tuba</binary>
+  </provides>
+  <developer_name translatable="no">Evangelos "GeopJr" Paterakis</developer_name>
+  <url type="homepage">https://tuba.geopjr.dev/</url>
+  <url type="bugtracker">https://github.com/GeopJr/Tuba/issues</url>
+  <url type="translate">https://hosted.weblate.org/engage/tuba/</url>
+  <url type="donation">https://geopjr.dev/donate</url>
+  <screenshots>
+    <screenshot type="default">
+      <image type="source">https://i.imgur.com/TMwCOWY.png</image>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://i.imgur.com/pmIdbwf.png</image>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://i.imgur.com/n9HNuEp.png</image>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://i.imgur.com/21com71.png</image>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1">
+    <content_attribute id="social-chat">moderate</content_attribute>
+    <content_attribute id="social-audio">moderate</content_attribute>
+    <content_attribute id="social-contacts">intense</content_attribute>
+  </content_rating>
+  <translation type="gettext">dev.geopjr.Tuba</translation>
+  <custom>
+    <value key="Purism::form_factor">workstation</value>
+    <value key="Purism::form_factor">mobile</value>
+  </custom>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+  <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </recommends>
+  <releases>
+    <release version="0.1.0" date="2022-03-23">
+        <description>
+          <ul>
+              <li>Initial release</li>
+          </ul>
+        </description>
+      </release>
+    </releases>
+</component>

@@ -1,11 +1,11 @@
-public class Tooth.Views.Federated : Views.Timeline {
+public class Tuba.Views.Federated : Views.Timeline {
 
 	public Federated () {
 		Object (
 			url: "/api/v1/timelines/public",
 			is_public: true,
 			label: _("Federated"),
-			icon: "tooth-globe-symbolic"
+			icon: "tuba-globe-symbolic"
 		);
 	}
 

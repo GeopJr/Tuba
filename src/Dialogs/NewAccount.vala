@@ -1,7 +1,7 @@
 using Gtk;
 
-[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/dialogs/new_account.ui")]
-public class Tooth.Dialogs.NewAccount: Adw.Window {
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/new_account.ui")]
+public class Tuba.Dialogs.NewAccount: Adw.Window {
 	const string AUTO_AUTH_DESCRIPTION = _("Allow access to your account in the browser.");
 	const string CODE_AUTH_DESCRIPTION = _("Copy the authorization code from the browser and paste it below.");
 
@@ -66,10 +66,10 @@ public class Tooth.Dialogs.NewAccount: Adw.Window {
 			if (!use_auto_auth)
 				throw new Oopsie.INTERNAL ("Using manual auth method");
 
-			//  GLib.Process.spawn_command_line_sync (@"xdg-mime default $(Build.DOMAIN).desktop x-scheme-handler/tooth");
+			//  GLib.Process.spawn_command_line_sync (@"xdg-mime default $(Build.DOMAIN).desktop x-scheme-handler/tuba");
 
 			//  message ("Successfully associated MIME type for automatic authorization");
-			return "tooth://auth_code";
+			return "tuba://auth_code";
 		}
 		catch (Error e) {
 			warning (e.message);

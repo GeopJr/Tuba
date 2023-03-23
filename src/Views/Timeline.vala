@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-public class Tooth.Views.Timeline : AccountHolder, Streamable, Views.ContentBase {
+public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase {
 
 	public string url { get; construct set; }
 	public bool is_public { get; construct set; default = false; }

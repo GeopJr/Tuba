@@ -1,4 +1,4 @@
-public class Tooth.API.Conversation : Entity, Widgetizable {
+public class Tuba.API.Conversation : Entity, Widgetizable {
 
 	public string id { get; set; }
 	public Gee.ArrayList<API.Account> accounts { get; set; }
@@ -19,7 +19,7 @@ public class Tooth.API.Conversation : Entity, Widgetizable {
 
 	public void mark_read () {
 		new Request.POST (@"/api/v1/conversations/$id/read")
-			.with_account (Tooth.accounts.active)
+			.with_account (Tuba.accounts.active)
 			.then (() => {
 				unread = false;
 			})

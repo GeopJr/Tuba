@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.API.List : Entity, Widgetizable {
+public class Tuba.API.List : Entity, Widgetizable {
 
     public string id { get; set; }
     public string title { get; set; }

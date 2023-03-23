@@ -1,7 +1,7 @@
 using GLib;
 using Gdk;
 
-public class Tooth.Host {
+public class Tuba.Host {
 
 	// Open a URI in the user's default application
 	public static bool open_uri (string _uri) {

@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-public class Tooth.Widgets.Attachment.Image : Widgets.Attachment.Item {
+public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	const string[] ALLOWED_TYPES = {"IMAGE", "VIDEO", "GIFV", "AUDIO"};
 	const string[] VIDEO_TYPES = {"GIFV", "VIDEO", "AUDIO"};
 
@@ -45,7 +45,7 @@ public class Tooth.Widgets.Attachment.Image : Widgets.Attachment.Item {
 				icon.add_css_class("attachment-overlay-icon");
 				icon.icon_name = "media-playback-start-symbolic";
 			} else {
-				icon.icon_name = "tooth-music-note-symbolic";
+				icon.icon_name = "tuba-music-note-symbolic";
 			}
 
 			media_overlay.add_overlay (icon);

@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.StatusActionButton : LockableToggleButton {
+public class Tuba.StatusActionButton : LockableToggleButton {
 
 	public Request req { get; set; default = null; }
 

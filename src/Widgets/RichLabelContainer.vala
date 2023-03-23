@@ -1,7 +1,7 @@
 using Gtk;
 using Gee;
 
-public class Tooth.Widgets.RichLabelContainer : Adw.Bin {
+public class Tuba.Widgets.RichLabelContainer : Adw.Bin {
 
 	Button widget;
 	Widgets.EmojiLabel button_child;

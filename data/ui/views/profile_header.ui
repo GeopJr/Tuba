@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="ToothViewsProfileCover" parent="GtkBox">
+  <template class="TubaViewsProfileCover" parent="GtkBox">
     <property name="margin_bottom">16</property>
     <property name="orientation">vertical</property>
 
@@ -39,7 +39,7 @@
           </object> 
         </child>
         <property name="child">
-          <object class="ToothWidgetsBackground" id="background">
+          <object class="TubaWidgetsBackground" id="background">
             <property name="hexpand">1</property>
             <property name="vexpand">1</property>
             <property name="height-request">224</property>
@@ -49,7 +49,7 @@
       </object>
     </child>
     <child>
-      <object class="ToothWidgetsAvatar" id="avatar">
+      <object class="TubaWidgetsAvatar" id="avatar">
         <property name="halign">start</property>
         <property name="valign">end</property>
         <property name="margin-start">12</property>
@@ -63,7 +63,7 @@
       </object>
     </child>
     <child>
-      <object class="ToothWidgetsRelationshipButton" id="rsbtn">
+      <object class="TubaWidgetsRelationshipButton" id="rsbtn">
         <property name="halign">end</property>
         <property name="valign">end</property>
         <property name="margin-start">12</property>
@@ -85,7 +85,7 @@
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child>
-          <object class="ToothWidgetsEmojiLabel" id="display_name">
+          <object class="TubaWidgetsEmojiLabel" id="display_name">
             <!-- <property name="label">Unknown</property> -->
             <style>
               <class name="title-3"/>
@@ -103,7 +103,7 @@
         </child>
 
         <child>
-          <object class="ToothWidgetsMarkupView" id="note">
+          <object class="TubaWidgetsMarkupView" id="note">
             <property name="margin_top">6</property>
           </object>
         </child>

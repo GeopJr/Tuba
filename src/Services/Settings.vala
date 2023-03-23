@@ -1,6 +1,6 @@
 using GLib;
 
-public class Tooth.Settings : GLib.Settings {
+public class Tuba.Settings : GLib.Settings {
 
 	public string active_account { get; set; }
 	public ColorScheme color_scheme { get; set; }
@@ -34,7 +34,7 @@ public class Tooth.Settings : GLib.Settings {
 	}
 }
 
-public enum Tooth.ColorScheme {
+public enum Tuba.ColorScheme {
 	SYSTEM,
 	LIGHT,
 	DARK;

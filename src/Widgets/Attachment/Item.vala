@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.Widgets.Attachment.Item : Adw.Bin {
+public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	public API.Attachment entity { get; set; default = null; }
 	protected GestureClick gesture_click_controller { get; set; }
