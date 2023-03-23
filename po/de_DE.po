@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 18:13+0200\n"
-"PO-Revision-Date: 2023-03-23 16:09+0000\n"
+"PO-Revision-Date: 2023-03-23 21:38+0000\n"
 "Last-Translator: Jummit <jummit@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tuba/tuba/de/>\n"
 "Language: de_DE\n"
@@ -62,7 +62,6 @@ msgstr ""
 "zentralisierten Social-Media-Plattformen."
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:19
-#, fuzzy
 msgid "Evangelos \"GeopJr\" Paterakis"
 msgstr "Evangelos \"GeopJr\" Paterakis"
 
@@ -903,7 +902,6 @@ msgid "Post Privacy"
 msgstr "Post-Sichtbarkeit"
 
 #: src/Dialogs/Composer/Dialog.vala:65
-#, fuzzy
 msgid "_Redraft"
 msgstr "Neu erstellen"
 
@@ -912,7 +910,6 @@ msgid "_Edit"
 msgstr "Bearbeiten"
 
 #: src/Dialogs/Composer/Dialog.vala:92
-#, fuzzy
 msgid "_Reply"
 msgstr "Antworten"
 
@@ -979,18 +976,17 @@ msgstr "Ja"
 #: src/API/Tag.vala:27
 #, c-format
 msgid "Used %d times by %d people yesterday"
-msgstr ""
+msgstr "Gestern %d mal von %d Personen benutzt"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:35
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
-msgstr ""
+msgstr "%d mal von %d Personen in den letzten 2 Tagen benutzt"
 
 #: src/API/SearchResults.vala:21
-#, fuzzy
 msgid "Search returned no results"
-msgstr "Der Server gab einen Fehler zurück"
+msgstr "Suche ergab keine Ergebnisse"
 
 #~ msgid "yesterday"
 #~ msgstr "Gestern"
