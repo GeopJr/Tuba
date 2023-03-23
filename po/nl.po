@@ -2,14 +2,15 @@
 # This file is distributed under the same license as the dev.geopjr.Tuba package.
 #
 # Heimen Stoffels <vistausss@fastmail.com>, 2023.
+# Philip Goto <philip.goto@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 11:43+0200\n"
-"PO-Revision-Date: 2023-03-23 12:17+0000\n"
-"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/tooth/tooth/nl/>\n"
+"PO-Revision-Date: 2023-03-23 15:30+0000\n"
+"Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +24,7 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Verken het Fediverse"
+msgstr "Verken de Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
@@ -51,7 +52,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:19
 msgid "Evangelos \"GeopJr\" Paterakis"
-msgstr ""
+msgstr "Evangelos ‘GeopJr’ Paterakis"
 
 #: data/ui/widgets/status.ui:90
 msgid "Pinned"
@@ -67,27 +68,27 @@ msgstr "Meer tonen"
 
 #: data/ui/widgets/status.ui:280 data/ui/widgets/status.ui:281
 msgid "Decline"
-msgstr ""
+msgstr "Afwijzen"
 
 #: data/ui/widgets/status.ui:293 data/ui/widgets/status.ui:294
 msgid "Accept"
-msgstr ""
+msgstr "Accepteren"
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
-msgstr ""
+msgstr "Opstellen"
 
 #: data/ui/views/sidebar/view.ui:23
 msgid "Switch Account"
-msgstr "Ander account kiezen"
+msgstr "Van account wisselen"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
-msgstr ""
+msgstr "Vermelden"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr ""
+msgstr "Privébericht"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
@@ -107,7 +108,7 @@ msgstr "Dempen"
 
 #: data/ui/menus.ui:41
 msgid "Report"
-msgstr "Melden als ongewenst"
+msgstr "Rapporteren"
 
 #: data/ui/menus.ui:47 src/Views/Profile.vala:268 src/Views/Profile.vala:292
 msgid "Block"
@@ -127,11 +128,11 @@ msgstr "Filteren"
 
 #: data/ui/menus.ui:80
 msgid "Include Replies"
-msgstr ""
+msgstr "Reacties tonen"
 
 #: data/ui/menus.ui:85
 msgid "Include Media"
-msgstr ""
+msgstr "Media tonen"
 
 #: data/ui/menus.ui:108 src/Views/Lists.vala:283
 #: src/Services/Accounts/Mastodon/Account.vala:68
@@ -152,23 +153,23 @@ msgstr "Vormgeving"
 
 #: data/ui/dialogs/preferences.ui:25
 msgid "Color Scheme"
-msgstr ""
+msgstr "Kleurenschema"
 
 #: data/ui/dialogs/preferences.ui:39
 msgid "Larger font size"
-msgstr ""
+msgstr "Groter lettertype"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Makes the font larger for posts"
-msgstr ""
+msgstr "Maakt de tekst van berichten groter"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Larger line height"
-msgstr ""
+msgstr "Grotere regelafstand"
 
 #: data/ui/dialogs/preferences.ui:53
 msgid "Makes the line height larger for posts"
-msgstr ""
+msgstr "Maakt de regelafstand van berichten groter"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Behavior"
@@ -188,7 +189,7 @@ msgstr "Uitvoeren op achtergrond"
 
 #: data/ui/dialogs/preferences.ui:83
 msgid "Receive notifications even when the app is closed"
-msgstr "Toon meldingen, zelfs als de toepassing afgesloten is"
+msgstr "Ontvang meldingen, zelfs als de app gesloten is"
 
 #: data/ui/dialogs/preferences.ui:95
 msgid "Timelines"
@@ -196,7 +197,7 @@ msgstr "Tijdlijnen"
 
 #: data/ui/dialogs/preferences.ui:98
 msgid "Posts per load batch"
-msgstr ""
+msgstr "Berichten per laad-batch"
 
 #: data/ui/dialogs/preferences.ui:112
 msgid "Stream timelines"
@@ -216,7 +217,7 @@ msgstr "Waarschuwing: dit verhoogt het geheugengebruik"
 
 #: data/ui/dialogs/preferences.ui:137
 msgid "Reveal spoilers by default"
-msgstr "Altijd leeswaarschuwingen tonen"
+msgstr "Spoilers standaard weergeven"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:216
 msgid "Add Account"
@@ -233,7 +234,7 @@ msgstr "Volgende"
 
 #: data/ui/dialogs/new_account.ui:48
 msgid "What is your Server?"
-msgstr ""
+msgstr "Wat is uw server?"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
@@ -241,18 +242,20 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
 msgstr ""
+"Heeft u nog geen account? <a href=\"https://joinmastodon.org/servers\">Kies "
+"dan een server en registreer een account</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
-msgstr ""
+msgstr "Server-URL"
 
 #: data/ui/dialogs/new_account.ui:112
 msgid "Back"
-msgstr ""
+msgstr "Terug"
 
 #: data/ui/dialogs/new_account.ui:133
 msgid "Confirm Authorization"
-msgstr ""
+msgstr "Goedkeuren"
 
 #. translators: Do not translate "manual_auth"
 #: data/ui/dialogs/new_account.ui:153
@@ -263,7 +266,7 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:163
 msgid "Authorization Code"
-msgstr ""
+msgstr "Verificatiecode"
 
 #: data/ui/dialogs/new_account.ui:203
 msgid "Done"
@@ -293,25 +296,25 @@ msgstr "Verbindingsfout"
 #: src/Widgets/Status.vala:108
 #, c-format
 msgid "React with %s"
-msgstr ""
+msgstr "Reageren met %s"
 
 #: src/Widgets/Status.vala:218 src/Widgets/Attachment/Item.vala:169
 #: src/Views/MediaViewer.vala:174
 msgid "Open in Browser"
-msgstr ""
+msgstr "Openen in browser"
 
 #: src/Widgets/Status.vala:219 src/Widgets/Attachment/Item.vala:170
 #: src/Views/MediaViewer.vala:175
 msgid "Copy URL"
-msgstr ""
+msgstr "URL kopiëren"
 
 #: src/Widgets/Status.vala:221
 msgid "View Edit History"
-msgstr ""
+msgstr "Bewerkgeschiedenis tonen"
 
 #: src/Widgets/Status.vala:226
 msgid "Edit"
-msgstr ""
+msgstr "Bewerken"
 
 #: src/Widgets/Status.vala:227 src/Widgets/Status.vala:255
 #: src/Views/Lists.vala:63
@@ -328,7 +331,7 @@ msgstr "Gevoelig"
 
 #: src/Widgets/Status.vala:437
 msgid "Boosts"
-msgstr ""
+msgstr "Boosts"
 
 #: src/Widgets/Status.vala:442 src/Views/Favorites.vala:6
 #: src/Services/Accounts/Mastodon/Account.vala:60
@@ -349,11 +352,11 @@ msgstr "Boosten"
 
 #: src/Widgets/Status.vala:564
 msgid "Favorite"
-msgstr ""
+msgstr "Aan favorieten toevoegen"
 
 #: src/Widgets/Status.vala:575
 msgid "Bookmark"
-msgstr "Toev. aan bladwijzers"
+msgstr "Aan bladwijzers toevoegen"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
@@ -373,15 +376,15 @@ msgstr "Ontvolgen"
 
 #: src/Widgets/Attachment/Item.vala:36
 msgid "Save Attachment"
-msgstr ""
+msgstr "Bijlage opslaan"
 
 #: src/Widgets/Attachment/Item.vala:104
 msgid "View Alt Text"
-msgstr ""
+msgstr "Alt-tekst tonen"
 
 #: src/Widgets/Attachment/Item.vala:171 src/Views/MediaViewer.vala:176
 msgid "Save Media"
-msgstr ""
+msgstr "Media opslaan"
 
 #: src/Widgets/Attachment/Item.vala:188 src/Views/Sidebar.vala:245
 #: src/Views/MediaViewer.vala:161
@@ -408,7 +411,7 @@ msgstr "Anoniem"
 
 #: src/Views/Sidebar.vala:122
 msgid "No account selected"
-msgstr "Er is geen account gekozen"
+msgstr "Geen account gekozen"
 
 #: src/Views/Sidebar.vala:231
 #, c-format
@@ -417,7 +420,7 @@ msgstr "Wilt u ‘%s’ verwijderen?"
 
 #: src/Views/Sidebar.vala:232
 msgid "This account will be removed from the application."
-msgstr "Hierdoor wordt het account uit de toepassing verwijderd."
+msgstr "Dit account zal uit de app worden verwijderd"
 
 #: src/Views/Sidebar.vala:234
 msgid "Forget"
@@ -441,7 +444,7 @@ msgstr "Onderwerpen"
 
 #: src/Views/Search.vala:55
 msgid "Enter Query"
-msgstr ""
+msgstr "Voer een zoekopdracht in"
 
 #: src/Views/Profile.vala:36
 msgid "Profile"
@@ -489,22 +492,22 @@ msgid ""
 msgstr ""
 "Het blokkeren van een domeinnaam heeft de volgende gevolgen:\n"
 "\n"
-"• Alle openbare berichten en meldingen worden niet meer op uw tijdlijnen "
-"getoond;\n"
-"• Alle volgers worden van uw account verwijderd;\n"
-"• U kunt anderen niet meer volgen."
+"  • Alle openbare berichten en meldingen worden niet meer op uw tijdlijnen "
+"getoond\n"
+"  • Alle volgers worden van uw account verwijderd\n"
+"  • U kunt anderen niet meer volgen"
 
 #: src/Views/Profile.vala:339
 msgid "Sent follow request"
-msgstr ""
+msgstr "Volgverzoek verstuurd"
 
 #: src/Views/Profile.vala:341
 msgid "Mutuals"
-msgstr ""
+msgstr "Gelijkgestemden"
 
 #: src/Views/Profile.vala:343
 msgid "Follows you"
-msgstr ""
+msgstr "Volgt u"
 
 #: src/Views/Profile.vala:396
 #, c-format
@@ -554,11 +557,11 @@ msgstr ""
 
 #: src/Views/MediaViewer.vala:109
 msgid "Go Back"
-msgstr ""
+msgstr "Terug"
 
 #: src/Views/MediaViewer.vala:116
 msgid "Toggle Fullscreen"
-msgstr ""
+msgstr "Volledig scherm omschakelen"
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
@@ -567,7 +570,7 @@ msgstr "Lokaal"
 #: src/Views/Lists.vala:60
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr "Wilt u ‘%s’ verwijderen?"
+msgstr "‘%s’ verwijderen?"
 
 #: src/Views/Lists.vala:61
 msgid "This action cannot be reverted."
@@ -576,19 +579,19 @@ msgstr "Deze actie is onomkeerbaar."
 #: src/Views/Lists.vala:86
 #, c-format
 msgid "Edit \"%s\""
-msgstr ""
+msgstr "‘%s’ bewerken"
 
 #: src/Views/Lists.vala:94
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: src/Views/Lists.vala:98
 msgid "List Name"
-msgstr ""
+msgstr "Lijstnaam"
 
 #: src/Views/Lists.vala:107
 msgid "Replies Policy"
-msgstr ""
+msgstr "Antwoordbeleid"
 
 #: src/Views/Lists.vala:108
 msgid "Show member replies to"
@@ -596,7 +599,7 @@ msgstr ""
 
 #: src/Views/Lists.vala:112
 msgid "Nobody"
-msgstr ""
+msgstr "Niemand"
 
 #: src/Views/Lists.vala:124
 msgid "Other members of the list"
@@ -608,11 +611,11 @@ msgstr ""
 
 #: src/Views/Lists.vala:171
 msgid "Members"
-msgstr ""
+msgstr "Leden"
 
 #: src/Views/Lists.vala:175
 msgid "Remove Members"
-msgstr ""
+msgstr "Leden verwijderen"
 
 #: src/Views/Lists.vala:309
 msgid "New list title"
@@ -620,7 +623,7 @@ msgstr ""
 
 #: src/Views/Lists.vala:318
 msgid "Add list"
-msgstr ""
+msgstr "Lijst toevoegen"
 
 #: src/Views/Home.vala:6 src/Services/Accounts/Mastodon/Account.vala:26
 msgid "Home"
@@ -629,7 +632,7 @@ msgstr "Tijdlijn"
 #: src/Views/FollowRequests.vala:4
 #: src/Services/Accounts/Mastodon/Account.vala:100
 msgid "Follow Requests"
-msgstr ""
+msgstr "Volgverzoeken"
 
 #: src/Views/Federated.vala:7 src/Services/Accounts/Mastodon/Account.vala:92
 msgid "Federated"
@@ -637,7 +640,7 @@ msgstr "Gedecentraliseerd"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
-msgstr ""
+msgstr "Geschiedenis bewerken"
 
 #: src/Views/Conversations.vala:6
 msgid "Conversations"
@@ -733,17 +736,17 @@ msgstr ""
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:46
 msgid "Follow System"
-msgstr ""
+msgstr "Systeeminstelling volgen"
 
 #. translators: Light mode theme
 #: src/Services/Settings.vala:49
 msgid "Light"
-msgstr ""
+msgstr "Licht"
 
 #. translators: Dark mode theme
 #: src/Services/Settings.vala:52
 msgid "Dark"
-msgstr ""
+msgstr "Donker"
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:94
@@ -891,7 +894,7 @@ msgstr "O_pslaan als concept"
 
 #: src/Dialogs/Composer/Dialog.vala:76
 msgid "_Edit"
-msgstr ""
+msgstr "_Bewerken"
 
 #: src/Dialogs/Composer/Dialog.vala:92
 msgid "_Reply"
@@ -951,6 +954,8 @@ msgstr ""
 #: src/Application.vala:258
 msgid "translator-credits"
 msgstr ""
+"Heimen Stoffels <vistausss@fastmail.com>\n"
+"Philip Goto <philip.goto@gmail.com>"
 
 #: src/Application.vala:283
 msgid "Yes"
@@ -958,11 +963,11 @@ msgstr "Ja"
 
 #: src/API/Tag.vala:26
 msgid "yesterday"
-msgstr ""
+msgstr "gisteren"
 
 #: src/API/Tag.vala:32
 msgid "in the past 2 days"
-msgstr ""
+msgstr "in de afgelopen 2 dagen"
 
 #. translators: the first two are numbers, the last one is either "yesterday" or "in the past 2 days"
 #: src/API/Tag.vala:36
