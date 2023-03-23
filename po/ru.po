@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 18:13+0200\n"
-"PO-Revision-Date: 2023-03-23 21:38+0000\n"
+"PO-Revision-Date: 2023-03-24 22:40+0000\n"
 "Last-Translator: Сергей Ворон <voron.s.a@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tuba/tuba/ru/>\n"
 "Language: ru\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -24,11 +24,11 @@ msgstr "Туба"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Обзор Fediverse"
+msgstr "Обзор сети Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr "Клиент Fediverse"
+msgstr "Клиент сети Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
@@ -61,7 +61,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:19
 msgid "Evangelos \"GeopJr\" Paterakis"
-msgstr ""
+msgstr "Evangelos \"GeopJr\" Paterakis"
 
 #: data/ui/widgets/status.ui:90
 msgid "Pinned"
@@ -101,7 +101,7 @@ msgstr "Личное сообщение"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
-msgstr "Копировать дескриптор"
+msgstr "Копировать адрес пользователя"
 
 #: data/ui/menus.ui:29
 msgid "Moderation"
@@ -141,7 +141,7 @@ msgstr "Включить ответы"
 
 #: data/ui/menus.ui:85
 msgid "Include Media"
-msgstr "Включить мультимедиа"
+msgstr "Включить медиа"
 
 #: data/ui/menus.ui:108 src/Views/Lists.vala:283
 #: src/Services/Accounts/Mastodon/Account.vala:68
@@ -166,19 +166,19 @@ msgstr "Цветовая схема"
 
 #: data/ui/dialogs/preferences.ui:39
 msgid "Larger font size"
-msgstr "Увеличенный размер шрифта"
+msgstr "Увеличить размер шрифта"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Makes the font larger for posts"
-msgstr "Увеличивает шрифт сообщений"
+msgstr "Увеличивает шрифт для постов"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Larger line height"
-msgstr "Увеличенная высота строки"
+msgstr "Увеличить высоту строк"
 
 #: data/ui/dialogs/preferences.ui:53
 msgid "Makes the line height larger for posts"
-msgstr "Увеличивает высоту строки для постов"
+msgstr "Увеличивает высоту строк для постов"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Behavior"
@@ -298,7 +298,7 @@ msgstr "Голосование"
 #: src/Widgets/VoteBox.vala:141
 #, c-format
 msgid "%lld voted"
-msgstr "%lld проголосовало"
+msgstr "%lld проголосовал"
 
 #: src/Widgets/StatusActionButton.vala:161
 msgid "Network Error"
@@ -391,11 +391,11 @@ msgstr "Сохранить вложение"
 
 #: src/Widgets/Attachment/Item.vala:104
 msgid "View Alt Text"
-msgstr "Просмотр альтернативного текста"
+msgstr "Просмотр описания"
 
 #: src/Widgets/Attachment/Item.vala:171 src/Views/MediaViewer.vala:176
 msgid "Save Media"
-msgstr "Сохранить мультимедиа"
+msgstr "Сохранить медиа"
 
 #: src/Widgets/Attachment/Item.vala:188 src/Views/Sidebar.vala:245
 #: src/Views/MediaViewer.vala:161
@@ -563,7 +563,7 @@ msgstr "Уведомления"
 
 #: src/Views/MediaViewer.vala:103
 msgid "Media Viewer"
-msgstr "Просмотрщик медиафайлов"
+msgstr "Просмотрщик медиа"
 
 #: src/Views/MediaViewer.vala:109
 msgid "Go Back"
@@ -770,7 +770,7 @@ msgstr "Личные сообщения"
 
 #: src/Services/Accounts/Mastodon/Account.vala:127
 msgid "Public"
-msgstr "Публичные"
+msgstr "Публичный"
 
 #: src/Services/Accounts/Mastodon/Account.vala:129
 msgid "Post to public timelines"
@@ -791,7 +791,7 @@ msgstr "Только подписчики"
 
 #: src/Services/Accounts/Mastodon/Account.vala:142
 msgid "Post to followers only"
-msgstr "Публиковать только для подписчиков"
+msgstr "Опубликовать только для подписчиков"
 
 #: src/Services/Accounts/Mastodon/Account.vala:146
 msgid "Direct"
@@ -799,7 +799,7 @@ msgstr "Личное сообщение"
 
 #: src/Services/Accounts/Mastodon/Account.vala:148
 msgid "Post to mentioned users only"
-msgstr "Публиковать только для упомянутых пользователей"
+msgstr "Опубликовать только для упомянутых пользователей"
 
 #: src/Services/Accounts/InstanceAccount.vala:132
 #, c-format
@@ -900,7 +900,7 @@ msgstr "Приватный пост"
 
 #: src/Dialogs/Composer/Dialog.vala:65
 msgid "_Redraft"
-msgstr "_Редактировать"
+msgstr "_Исправить"
 
 #: src/Dialogs/Composer/Dialog.vala:76
 msgid "_Edit"
@@ -924,27 +924,27 @@ msgstr "Сохранить"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:39
 msgid "Media"
-msgstr "Мультимедиа"
+msgstr "Медиа"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:55
 #: src/Dialogs/Composer/AttachmentsPage.vala:79
 msgid "Add Media"
-msgstr "Добавить мультимедиа"
+msgstr "Добавить медиа"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:64
 msgid "No Media"
-msgstr "Нет мультимедиа"
+msgstr "Нет медиа"
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:89
 #: src/Dialogs/Composer/AttachmentsPage.vala:97
 msgid "Mark media as sensitive"
-msgstr "Отметить мультимедиа как чувствительное"
+msgstr "Отметить медиа как чувствительное"
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:97
 msgid "Unmark media as sensitive"
-msgstr "Снять отметку с мультимедиа как чувствительное"
+msgstr "Снять отметку с медиа как чувствительное"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:158
 msgid "All Supported Files"
