@@ -4,13 +4,14 @@
 # This file is distributed under the same license as the dev.geopjr.Tuba package.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2022.
 # Felipe Nogueira <contato.fnog@gmail.com>, 2023.
+# Infinitive Witch <infinitivewitch@disroot.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 18:13+0200\n"
-"PO-Revision-Date: 2023-03-23 21:38+0000\n"
-"Last-Translator: Felipe Nogueira <contato.fnog@gmail.com>\n"
+"PO-Revision-Date: 2023-03-26 03:47+0000\n"
+"Last-Translator: Infinitive Witch <infinitivewitch@disroot.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -18,23 +19,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
-msgstr ""
+msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
-msgstr ""
+msgstr "Navegue o Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr ""
+msgstr "Cliente para o Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr ""
+msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:9
 msgid ""
@@ -42,6 +43,10 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
+"Explore a rede social federada com o Tuba para o GNOME. Mantenha-se "
+"conectado às suas comunidades favoritas, familiares e amigos com suporte "
+"para plataformas populares do Fediverse, como Mastodon, GoToSocial, Akkoma "
+"&amp; mais!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
 msgid ""
@@ -51,10 +56,15 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
+"O Fediverse é uma rede social descentralizada que consiste em múltiplas "
+"plataformas e comunidades interligadas, permitindo que os usuários se "
+"comuniquem e compartilhem conteúdos em diferentes redes e servidores. Ele "
+"promove a privacidade do usuário e a propriedade dos dados e oferece uma "
+"alternativa às plataformas centralizadas de mídia social."
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:19
 msgid "Evangelos \"GeopJr\" Paterakis"
-msgstr ""
+msgstr "Evangelos \"GeopJr\" Paterakis"
 
 #: data/ui/widgets/status.ui:90
 msgid "Pinned"
@@ -66,7 +76,7 @@ msgstr "Editado"
 
 #: data/ui/widgets/status.ui:178 src/Widgets/Status.vala:293
 msgid "Show More"
-msgstr "Mostrar mais"
+msgstr "Mostrar Mais"
 
 #: data/ui/widgets/status.ui:280 data/ui/widgets/status.ui:281
 msgid "Decline"
@@ -78,23 +88,23 @@ msgstr "Aceitar"
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
-msgstr ""
+msgstr "Compor"
 
 #: data/ui/views/sidebar/view.ui:23
 msgid "Switch Account"
-msgstr "Trocar de conta"
+msgstr "Trocar de Conta"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
-msgstr ""
+msgstr "Mencionar"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr ""
+msgstr "Mensagem Direta"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
-msgstr "Copiar identificador"
+msgstr "Copiar Identificador"
 
 #: data/ui/menus.ui:29
 msgid "Moderation"
@@ -118,11 +128,11 @@ msgstr "Bloquear"
 
 #: data/ui/menus.ui:51
 msgid "Block Domain"
-msgstr "Bloquear domínio"
+msgstr "Bloquear Domínio"
 
 #: data/ui/menus.ui:59
 msgid "Timeline"
-msgstr "Linha do tempo"
+msgstr "Linha do Tempo"
 
 #: data/ui/menus.ui:61
 msgid "Filter"
@@ -130,11 +140,11 @@ msgstr "Filtrar"
 
 #: data/ui/menus.ui:80
 msgid "Include Replies"
-msgstr ""
+msgstr "Incluir Respostas"
 
 #: data/ui/menus.ui:85
 msgid "Include Media"
-msgstr ""
+msgstr "Incluir Mídia"
 
 #: data/ui/menus.ui:108 src/Views/Lists.vala:283
 #: src/Services/Accounts/Mastodon/Account.vala:68
@@ -155,23 +165,23 @@ msgstr "Aparência"
 
 #: data/ui/dialogs/preferences.ui:25
 msgid "Color Scheme"
-msgstr ""
+msgstr "Esquema de Cores"
 
 #: data/ui/dialogs/preferences.ui:39
 msgid "Larger font size"
-msgstr ""
+msgstr "Maior tamanho de fonte"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Makes the font larger for posts"
-msgstr ""
+msgstr "Aumentar o tamanho da fonte para postagens"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Larger line height"
-msgstr ""
+msgstr "Maior altura da linha"
 
 #: data/ui/dialogs/preferences.ui:53
 msgid "Makes the line height larger for posts"
-msgstr ""
+msgstr "Aumenta a altura da linha para postagens"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Behavior"
@@ -199,7 +209,7 @@ msgstr "Linhas do tempo"
 
 #: data/ui/dialogs/preferences.ui:98
 msgid "Posts per load batch"
-msgstr ""
+msgstr "Postagens em lote"
 
 #: data/ui/dialogs/preferences.ui:112
 msgid "Stream timelines"
@@ -236,7 +246,7 @@ msgstr "Próxima"
 
 #: data/ui/dialogs/new_account.ui:48
 msgid "What is your Server?"
-msgstr ""
+msgstr "Qual é o seu Servidor?"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
@@ -244,10 +254,12 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
 "\">choose a server and register one</a>."
 msgstr ""
+"Se você não tem uma conta, <a href=\"https://joinmastodon.org/pt-BR/servers\""
+">escolha um servidor e registre uma</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
-msgstr ""
+msgstr "URL do Servidor"
 
 #: data/ui/dialogs/new_account.ui:112
 msgid "Back"
@@ -263,6 +275,7 @@ msgid ""
 "If something went wrong, <a href=\"manual_auth\">try manual authorization</"
 "a>."
 msgstr ""
+"Se algo deu errado, <a href=\"manual_auth\">tente a autorização manual</a>."
 
 #: data/ui/dialogs/new_account.ui:163
 msgid "Authorization Code"
@@ -274,7 +287,7 @@ msgstr "Feito"
 
 #: data/ui/dialogs/new_account.ui:218
 msgid "Your account is connected and ready to use!"
-msgstr ""
+msgstr "Sua conta está conectada e pronta para uso!"
 
 #: data/ui/dialogs/compose.ui:35 src/Dialogs/Composer/Dialog.vala:57
 msgid "_Publish"
@@ -296,7 +309,7 @@ msgstr "Erro de rede"
 #: src/Widgets/Status.vala:108
 #, c-format
 msgid "React with %s"
-msgstr ""
+msgstr "Reagir com %s"
 
 #: src/Widgets/Status.vala:218 src/Widgets/Attachment/Item.vala:169
 #: src/Views/MediaViewer.vala:174
@@ -310,7 +323,7 @@ msgstr "Copiar URL"
 
 #: src/Widgets/Status.vala:221
 msgid "View Edit History"
-msgstr ""
+msgstr "Visualizar Histórico de Edição"
 
 #: src/Widgets/Status.vala:226
 msgid "Edit"
@@ -323,7 +336,7 @@ msgstr "Excluir"
 
 #: src/Widgets/Status.vala:252
 msgid "Are you sure you want to delete this post?"
-msgstr ""
+msgstr "Você tem certeza que deseja deletar esta postagem?"
 
 #: src/Widgets/Status.vala:300
 msgid "Sensitive"
@@ -331,7 +344,7 @@ msgstr "Sensível"
 
 #: src/Widgets/Status.vala:437
 msgid "Boosts"
-msgstr ""
+msgstr "Impulsionamentos"
 
 #: src/Widgets/Status.vala:442 src/Views/Favorites.vala:6
 #: src/Services/Accounts/Mastodon/Account.vala:60
@@ -352,7 +365,7 @@ msgstr "Dar boost"
 
 #: src/Widgets/Status.vala:564
 msgid "Favorite"
-msgstr ""
+msgstr "Favoritar"
 
 #: src/Widgets/Status.vala:575
 msgid "Bookmark"
@@ -376,15 +389,15 @@ msgstr "Parar de seguir"
 
 #: src/Widgets/Attachment/Item.vala:36
 msgid "Save Attachment"
-msgstr ""
+msgstr "Salvar Anexo"
 
 #: src/Widgets/Attachment/Item.vala:104
 msgid "View Alt Text"
-msgstr ""
+msgstr "Ver Texto Alternativo"
 
 #: src/Widgets/Attachment/Item.vala:171 src/Views/MediaViewer.vala:176
 msgid "Save Media"
-msgstr ""
+msgstr "Salvar Mídia"
 
 #: src/Widgets/Attachment/Item.vala:188 src/Views/Sidebar.vala:245
 #: src/Views/MediaViewer.vala:161
@@ -444,7 +457,7 @@ msgstr "Hashtags"
 
 #: src/Views/Search.vala:55
 msgid "Enter Query"
-msgstr ""
+msgstr "Inserir Consulta"
 
 #: src/Views/Profile.vala:36
 msgid "Profile"
@@ -498,53 +511,53 @@ msgstr ""
 
 #: src/Views/Profile.vala:339
 msgid "Sent follow request"
-msgstr ""
+msgstr "Solicitação de acompanhamento enviada"
 
 #: src/Views/Profile.vala:341
 msgid "Mutuals"
-msgstr ""
+msgstr "Mútuos"
 
 #: src/Views/Profile.vala:343
 msgid "Follows you"
-msgstr ""
+msgstr "Segue você"
 
 #: src/Views/Profile.vala:396
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
-msgstr ""
+msgstr "Adicionar ou remover \"%s\" para o de uma lista"
 
 #: src/Views/Profile.vala:407
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
-msgstr ""
+msgstr "Selecione a lista para adicionar ou remover \"%s\"para ou de:"
 
 #: src/Views/Profile.vala:413
 msgid "You don't have any lists"
-msgstr ""
+msgstr "Você não tem nenhuma lista"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:440 src/Views/Profile.vala:502
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
-msgstr ""
+msgstr "Remover \"%s\" de \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:440 src/Views/Profile.vala:496
 #, c-format
 msgid "Add \"%s\" to \"%s\""
-msgstr ""
+msgstr "Adicionar \"%s\" em \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:493
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
-msgstr ""
+msgstr "Usuário \"%s\" foi removido de \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:499
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
-msgstr ""
+msgstr "Usuário \"%s\" foi adicionado em \"%s\""
 
 #: src/Views/Notifications.vala:11
 msgid "Notifications"
@@ -552,15 +565,15 @@ msgstr "Notificações"
 
 #: src/Views/MediaViewer.vala:103
 msgid "Media Viewer"
-msgstr ""
+msgstr "Visualizador de Mídia"
 
 #: src/Views/MediaViewer.vala:109
 msgid "Go Back"
-msgstr ""
+msgstr "Voltar"
 
 #: src/Views/MediaViewer.vala:116
 msgid "Toggle Fullscreen"
-msgstr ""
+msgstr "Alternar Tela-Cheia"
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
@@ -578,51 +591,51 @@ msgstr "Esta ação não pode ser revertida."
 #: src/Views/Lists.vala:86
 #, c-format
 msgid "Edit \"%s\""
-msgstr ""
+msgstr "Editar \"%s\""
 
 #: src/Views/Lists.vala:94
 msgid "Info"
-msgstr ""
+msgstr "Informações"
 
 #: src/Views/Lists.vala:98
 msgid "List Name"
-msgstr ""
+msgstr "Nome da Lista"
 
 #: src/Views/Lists.vala:107
 msgid "Replies Policy"
-msgstr ""
+msgstr "Politica de Respostas"
 
 #: src/Views/Lists.vala:108
 msgid "Show member replies to"
-msgstr ""
+msgstr "Mostrar respostas de membros para"
 
 #: src/Views/Lists.vala:112
 msgid "Nobody"
-msgstr ""
+msgstr "Ninguém"
 
 #: src/Views/Lists.vala:124
 msgid "Other members of the list"
-msgstr ""
+msgstr "Outros membros da lista"
 
 #: src/Views/Lists.vala:136
 msgid "Any followed user"
-msgstr ""
+msgstr "Qualquer usuário seguido"
 
 #: src/Views/Lists.vala:171
 msgid "Members"
-msgstr ""
+msgstr "Membros"
 
 #: src/Views/Lists.vala:175
 msgid "Remove Members"
-msgstr ""
+msgstr "Remover Membros"
 
 #: src/Views/Lists.vala:309
 msgid "New list title"
-msgstr ""
+msgstr "Novo título da lista"
 
 #: src/Views/Lists.vala:318
 msgid "Add list"
-msgstr ""
+msgstr "Adicionar lista"
 
 #: src/Views/Home.vala:6 src/Services/Accounts/Mastodon/Account.vala:26
 msgid "Home"
@@ -631,7 +644,7 @@ msgstr "Início"
 #: src/Views/FollowRequests.vala:4
 #: src/Services/Accounts/Mastodon/Account.vala:100
 msgid "Follow Requests"
-msgstr ""
+msgstr "Solicitações de Acompanhamento"
 
 #: src/Views/Federated.vala:7 src/Services/Accounts/Mastodon/Account.vala:92
 msgid "Federated"
@@ -639,7 +652,7 @@ msgstr "Linha global"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
-msgstr ""
+msgstr "Histórico de Edição"
 
 #: src/Views/Conversations.vala:6
 msgid "Conversations"
@@ -659,7 +672,7 @@ msgstr "Recarregar"
 
 #: src/Views/Base.vala:108
 msgid "An Error Occurred"
-msgstr ""
+msgstr "Ocorreu um Erro"
 
 #: src/Utils/DateTime.vala:12
 msgid "expires soon"
@@ -670,7 +683,7 @@ msgstr "expira em breve"
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:26
 msgid "expires on %b %-e, %Y"
-msgstr ""
+msgstr "expira em %-e de %b de %Y"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -679,7 +692,7 @@ msgstr ""
 #. %m is the minutes
 #: src/Utils/DateTime.vala:40
 msgid "expires on %b %-e, %Y %H:%m"
-msgstr ""
+msgstr "expira em %-e de %b de %Y %H:%m"
 
 #: src/Utils/DateTime.vala:42
 msgid "expired on just now"
@@ -693,14 +706,14 @@ msgstr "expirou ontem"
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:57
 msgid "expired on %b %-e"
-msgstr ""
+msgstr "expirou em %-e de %b"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:63
 msgid "expired on %b %-e, %Y"
-msgstr ""
+msgstr "expirou em %-e de %b de %Y"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -709,7 +722,7 @@ msgstr ""
 #. %m is the minutes
 #: src/Utils/DateTime.vala:77
 msgid "%b %-e, %Y %H:%m"
-msgstr ""
+msgstr "%-e de %b de %Y %H:%m"
 
 #: src/Utils/DateTime.vala:79
 msgid "Just now"
@@ -723,29 +736,29 @@ msgstr "Ontem"
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:94
 msgid "%b %-e"
-msgstr ""
+msgstr "%-e de %b"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:100
 msgid "%b %-e, %Y"
-msgstr ""
+msgstr "%-e de %b de %Y"
 
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:46
 msgid "Follow System"
-msgstr ""
+msgstr "Seguir Sistema"
 
 #. translators: Light mode theme
 #: src/Services/Settings.vala:49
 msgid "Light"
-msgstr ""
+msgstr "Claro"
 
 #. translators: Dark mode theme
 #: src/Services/Settings.vala:52
 msgid "Dark"
-msgstr ""
+msgstr "Escuro"
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:94
@@ -776,7 +789,7 @@ msgstr "Não toota em linhas do tempo públicas"
 
 #: src/Services/Accounts/Mastodon/Account.vala:140
 msgid "Followers Only"
-msgstr ""
+msgstr "Apenas Seguidores"
 
 #: src/Services/Accounts/Mastodon/Account.vala:142
 msgid "Post to followers only"
@@ -798,7 +811,7 @@ msgstr "%s mencionou você"
 #: src/Services/Accounts/InstanceAccount.vala:137
 #, c-format
 msgid "%s boosted your post"
-msgstr ""
+msgstr "%s impulsionou sua postagem"
 
 #: src/Services/Accounts/InstanceAccount.vala:142
 #, c-format
@@ -808,7 +821,7 @@ msgstr "%s deu boost"
 #: src/Services/Accounts/InstanceAccount.vala:147
 #, c-format
 msgid "%s favorited your post"
-msgstr ""
+msgstr "%s favoritou sua postagem"
 
 #: src/Services/Accounts/InstanceAccount.vala:152
 #, c-format
@@ -826,11 +839,11 @@ msgstr "Resultados da enquete"
 
 #: src/Dialogs/NewAccount.vala:5
 msgid "Allow access to your account in the browser."
-msgstr ""
+msgstr "Permitir acesso a sua conta pelo navegador."
 
 #: src/Dialogs/NewAccount.vala:6
 msgid "Copy the authorization code from the browser and paste it below."
-msgstr ""
+msgstr "Copiar código de autorização pelo navegador e colar abaixo."
 
 #: src/Dialogs/NewAccount.vala:120
 msgid "Please enter a valid instance URL"
@@ -881,7 +894,7 @@ msgstr "Aviso de conteúdo aqui"
 
 #: src/Dialogs/Composer/EditorPage.vala:178
 msgid "Content Warning"
-msgstr ""
+msgstr "Aviso de Conteúdo"
 
 #: src/Dialogs/Composer/EditorPage.vala:199
 msgid "Post Privacy"
@@ -893,7 +906,7 @@ msgstr "_Rescrever"
 
 #: src/Dialogs/Composer/Dialog.vala:76
 msgid "_Edit"
-msgstr ""
+msgstr "_Editar"
 
 #: src/Dialogs/Composer/Dialog.vala:92
 msgid "_Reply"
@@ -901,11 +914,11 @@ msgstr "_Responder"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:28
 msgid "Edit Alt Text"
-msgstr ""
+msgstr "Editar Texto Alternativo"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:43
 msgid "Remove Attachment"
-msgstr ""
+msgstr "Remover Anexo"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:109
 msgid "Save"
@@ -928,12 +941,12 @@ msgstr "Nenhuma mídia"
 #: src/Dialogs/Composer/AttachmentsPage.vala:89
 #: src/Dialogs/Composer/AttachmentsPage.vala:97
 msgid "Mark media as sensitive"
-msgstr ""
+msgstr "Marcar mídia como sensível"
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:97
 msgid "Unmark media as sensitive"
-msgstr ""
+msgstr "Desmarcar mídia como sensível"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:158
 msgid "All Supported Files"
@@ -947,12 +960,12 @@ msgstr "Abrir"
 #: src/Dialogs/Composer/AttachmentsPage.vala:202
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
-msgstr ""
+msgstr "Arquivo \"%s\" é maior que o limite da instância"
 
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:258
 msgid "translator-credits"
-msgstr ""
+msgstr "Infinitive Witch <infinitivewitch@disroot.org>"
 
 #: src/Application.vala:283
 msgid "Yes"
@@ -962,13 +975,13 @@ msgstr "Sim"
 #: src/API/Tag.vala:27
 #, c-format
 msgid "Used %d times by %d people yesterday"
-msgstr ""
+msgstr "Usado %d vezes por %d pessoas ontem"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:35
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
-msgstr ""
+msgstr "Usado %d vezes por %d pessoas nos últimos 2 dias"
 
 #: src/API/SearchResults.vala:21
 msgid "Search returned no results"
