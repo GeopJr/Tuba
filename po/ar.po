@@ -7,13 +7,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 18:13+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-03-27 11:06+0000\n"
+"Last-Translator: Ali Galal <ali.sameh.galal@gmail.com>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -57,11 +60,11 @@ msgstr ""
 
 #: data/ui/widgets/status.ui:101
 msgid "Edited"
-msgstr ""
+msgstr "معدلة"
 
 #: data/ui/widgets/status.ui:178 src/Widgets/Status.vala:293
 msgid "Show More"
-msgstr ""
+msgstr "إظهار المزيد"
 
 #: data/ui/widgets/status.ui:280 data/ui/widgets/status.ui:281
 msgid "Decline"
@@ -69,7 +72,7 @@ msgstr ""
 
 #: data/ui/widgets/status.ui:293 data/ui/widgets/status.ui:294
 msgid "Accept"
-msgstr ""
+msgstr "موافقة"
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
@@ -77,7 +80,7 @@ msgstr ""
 
 #: data/ui/views/sidebar/view.ui:23
 msgid "Switch Account"
-msgstr ""
+msgstr "تبديل الحساب"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
@@ -85,11 +88,12 @@ msgstr ""
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr ""
+msgstr "رسالة مباشرة"
 
 #: data/ui/menus.ui:22
+#, fuzzy
 msgid "Copy Handle"
-msgstr ""
+msgstr "نسخ المعرف"
 
 #: data/ui/menus.ui:29
 msgid "Moderation"
@@ -101,23 +105,25 @@ msgstr ""
 
 #: data/ui/menus.ui:36
 msgid "Mute"
-msgstr ""
+msgstr "كتم"
 
 #: data/ui/menus.ui:41
 msgid "Report"
-msgstr ""
+msgstr "إبلاغ"
 
 #: data/ui/menus.ui:47 src/Views/Profile.vala:268 src/Views/Profile.vala:292
 msgid "Block"
-msgstr ""
+msgstr "حظر"
 
 #: data/ui/menus.ui:51
+#, fuzzy
 msgid "Block Domain"
-msgstr ""
+msgstr "حظر النطاق"
 
 #: data/ui/menus.ui:59
+#, fuzzy
 msgid "Timeline"
-msgstr ""
+msgstr "الخط الزمني"
 
 #: data/ui/menus.ui:61
 msgid "Filter"
@@ -138,27 +144,30 @@ msgstr ""
 
 #: data/ui/menus.ui:113
 msgid "Refresh"
-msgstr ""
+msgstr "تحديث"
 
 #: data/ui/dialogs/preferences.ui:19 src/Views/Lists.vala:91
 msgid "General"
-msgstr ""
+msgstr "عام"
 
 #: data/ui/dialogs/preferences.ui:22
 msgid "Appearance"
-msgstr ""
+msgstr "المظهر"
 
 #: data/ui/dialogs/preferences.ui:25
+#, fuzzy
 msgid "Color Scheme"
-msgstr ""
+msgstr "لون الثمة"
 
 #: data/ui/dialogs/preferences.ui:39
+#, fuzzy
 msgid "Larger font size"
-msgstr ""
+msgstr "حجم خط أكبر"
 
 #: data/ui/dialogs/preferences.ui:41
+#, fuzzy
 msgid "Makes the font larger for posts"
-msgstr ""
+msgstr "جعل الخط أكبر للمنشورات"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Larger line height"
@@ -185,12 +194,14 @@ msgid "Background work"
 msgstr ""
 
 #: data/ui/dialogs/preferences.ui:83
+#, fuzzy
 msgid "Receive notifications even when the app is closed"
-msgstr ""
+msgstr "الحصول على إشعارات حتى لو أُغلق التطبيق"
 
 #: data/ui/dialogs/preferences.ui:95
+#, fuzzy
 msgid "Timelines"
-msgstr ""
+msgstr "الخطوط الزمنية"
 
 #: data/ui/dialogs/preferences.ui:98
 msgid "Posts per load batch"
