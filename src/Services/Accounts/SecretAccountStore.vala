@@ -29,7 +29,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		var secrets = Secret.password_searchv_sync (
 			schema,
 			attrs,
-			Secret.SearchFlags.ALL,
+			Secret.SearchFlags.ALL | Secret.SearchFlags.UNLOCK,
 			null
 		);
 
