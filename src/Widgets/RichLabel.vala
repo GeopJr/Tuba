@@ -45,7 +45,9 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 			wrap_mode = Pango.WrapMode.WORD_CHAR,
 			justify = Justification.LEFT,
 			single_line_mode = false,
-			use_markup = true
+			use_markup = true,
+			lines = 100,
+			ellipsize = Pango.EllipsizeMode.END
 		};
 		widget.activate_link.connect (on_activate_link);
 		child = widget;
