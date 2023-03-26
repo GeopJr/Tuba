@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the dev.geopjr.Tuba package.
 # Óscar Fernández Díaz <oscfdezdz@tuta.io>, 2021.
 # Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted.weblate.org>, 2023.
+# iceCat3003 <danielespinoza0109@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 18:13+0200\n"
 "PO-Revision-Date: 2023-03-26 12:10+0000\n"
-"Last-Translator: Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted.weblate"
-".org>\n"
+"Last-Translator: iceCat3003 <danielespinoza0109@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tuba/tuba/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,9 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
+"Explore las redes sociales federadas con Tuba para GNOME. Mantente conectado "
+"con tus comunidades favoritas, familia y amigos con soporte para plataformas "
+"populares del Fediverso como Mastodon, GoToSocial, Akkoma, y más!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
 msgid ""
@@ -50,6 +53,11 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
+"El Fediverso es una red social descentralizada que consiste de múltiples "
+"plataformas y comunidades interconectadas, permitiendo a los usuarios "
+"comunicarse y compartir contenido a través de diferentes redes y servidores. "
+"Promueve la privacidad del usuario y la propiedad de sus datos, y ofrece una "
+"alternativa a las plataformas de medios sociales centralizadas."
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:19
 msgid "Evangelos \"GeopJr\" Paterakis"
@@ -57,24 +65,23 @@ msgstr "Evangelos \"GeopJr\" Paterakis"
 
 #: data/ui/widgets/status.ui:90
 msgid "Pinned"
-msgstr ""
+msgstr "Fijado"
 
 #: data/ui/widgets/status.ui:101
-#, fuzzy
 msgid "Edited"
-msgstr "Editar"
+msgstr "Editado"
 
 #: data/ui/widgets/status.ui:178 src/Widgets/Status.vala:293
 msgid "Show More"
-msgstr ""
+msgstr "Mostrar más"
 
 #: data/ui/widgets/status.ui:280 data/ui/widgets/status.ui:281
 msgid "Decline"
-msgstr ""
+msgstr "Rechazar"
 
 #: data/ui/widgets/status.ui:293 data/ui/widgets/status.ui:294
 msgid "Accept"
-msgstr ""
+msgstr "Aceptar"
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
@@ -86,20 +93,19 @@ msgstr "Cambiar cuenta"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
-msgstr ""
+msgstr "Mención"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr ""
+msgstr "Mensaje directo"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
 msgstr "Copiar enlace"
 
 #: data/ui/menus.ui:29
-#, fuzzy
 msgid "Moderation"
-msgstr "Conversación"
+msgstr "Moderación"
 
 #: data/ui/menus.ui:31
 msgid "Hide Boosts"
@@ -107,20 +113,19 @@ msgstr "Ocultar impulsos"
 
 #: data/ui/menus.ui:36
 msgid "Mute"
-msgstr ""
+msgstr "Silenciar"
 
 #: data/ui/menus.ui:41
 msgid "Report"
-msgstr ""
+msgstr "Reportar"
 
 #: data/ui/menus.ui:47 src/Views/Profile.vala:268 src/Views/Profile.vala:292
-#, fuzzy
 msgid "Block"
-msgstr "Desbloquear"
+msgstr "Bloquear"
 
 #: data/ui/menus.ui:51
 msgid "Block Domain"
-msgstr ""
+msgstr "Bloquear dominio"
 
 #: data/ui/menus.ui:59
 msgid "Timeline"
@@ -128,15 +133,15 @@ msgstr "Línea de tiempo"
 
 #: data/ui/menus.ui:61
 msgid "Filter"
-msgstr ""
+msgstr "Filtrar"
 
 #: data/ui/menus.ui:80
 msgid "Include Replies"
-msgstr ""
+msgstr "Incluir respuestas"
 
 #: data/ui/menus.ui:85
 msgid "Include Media"
-msgstr ""
+msgstr "Incluir multimedia"
 
 #: data/ui/menus.ui:108 src/Views/Lists.vala:283
 #: src/Services/Accounts/Mastodon/Account.vala:68
@@ -157,7 +162,7 @@ msgstr "Apariencia"
 
 #: data/ui/dialogs/preferences.ui:25
 msgid "Color Scheme"
-msgstr ""
+msgstr "Esquema de colores"
 
 #: data/ui/dialogs/preferences.ui:39
 msgid "Larger font size"
