@@ -190,7 +190,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="TubaWidgetsRichLabel" id="spoiler_label">
+                              <object class="GtkLabel" id="spoiler_label">
                                 <property name="visible">True</property>
                                 <property name="label">Spoiler Text Here</property>
                               </object>

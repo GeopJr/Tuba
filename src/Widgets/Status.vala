@@ -54,7 +54,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	[GtkChild] public unowned Widgets.MarkupView content;
 	[GtkChild] protected unowned Widgets.Attachment.Box attachments;
 	[GtkChild] protected unowned Button spoiler_button;
-	[GtkChild] protected unowned Widgets.RichLabel spoiler_label;
+	[GtkChild] protected unowned Label spoiler_label;
 	[GtkChild] protected unowned Label spoiler_label_rev;
 	[GtkChild] protected unowned Box spoiler_status_con;
 
