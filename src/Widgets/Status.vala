@@ -277,6 +277,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	protected virtual void on_secondary_click () {
 		gesture_click_controller.set_state(EventSequenceState.CLAIMED);
 		gesture_lp_controller.set_state(EventSequenceState.CLAIMED);
+
+		if (app.main_window.is_media_viewer_visible()) return;
 		context_menu.popup();
 	}
 
