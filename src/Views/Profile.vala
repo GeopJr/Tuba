@@ -11,7 +11,6 @@ public class Tuba.Views.Profile : Views.Timeline {
 	protected Cover cover;
 	protected Label cover_badge;
 	protected MenuButton menu_button;
-	protected Widgets.RelationshipButton rs_button;
 
 	protected SimpleAction media_action;
 	protected SimpleAction replies_action;
@@ -334,7 +333,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 	void on_rs_updated () {
 		var label = "";
-		if (rs_button.sensitive = rs != null) {
+		if (cover.rsbtn.sensitive = rs != null) {
 			if (rs.requested)
 				label = _("Sent follow request");
 			else if (rs.followed_by && rs.following)
