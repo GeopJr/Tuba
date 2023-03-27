@@ -1,7 +1,7 @@
 // LabelWithWidgets is ported from Fractal
 // https://gitlab.gnome.org/GNOME/fractal/-/blob/40d2071975e20c1c936f7e87daaf8a0eba7f31b7/src/components/label_with_widgets.rs
 
-public class LabelWithWidgets : Gtk.Buildable, Gtk.Widget {
+public class Tooth.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Accessible {
     private Gtk.Widget[] widgets = {};
     private int[] widget_heights = {};
     private int[] widget_widths = {};
@@ -52,8 +52,26 @@ public class LabelWithWidgets : Gtk.Buildable, Gtk.Widget {
             label.use_markup = _use_markup;
         }
     }
+
+    public float xalign {
+        get {
+            return label.xalign;
+        }
+        set {
+            label.xalign = value;
+        }
+    }
     
-    const string OBJECT_REPLACEMENT_CHARACTER = "​";
+    public bool selectable {
+        get {
+            return label.selectable;
+        }
+        set {
+            label.selectable = value;
+        }
+    }
+    
+    const string OBJECT_REPLACEMENT_CHARACTER = "\xEF\xBF\xBC";
     const int PANGO_SCALE = 1024;
     
     construct {
@@ -144,44 +162,42 @@ public class LabelWithWidgets : Gtk.Buildable, Gtk.Widget {
 
         while (true) {
             var run = run_iter.get_run_readonly ();
-            if (run == null) {
-                break;
-            }
-    
-            var extra_attrs = run.item.analysis.extra_attrs.copy();
-            bool has_shape_attr = false;
-            foreach (var attr in extra_attrs) {
-                // FIXME
-                if (true) {
-                    has_shape_attr = true;
-                    break;
+            if (run != null) {
+                var extra_attrs = run.item.analysis.extra_attrs.copy();
+                bool has_shape_attr = false;
+                foreach (var attr in extra_attrs) {
+                    // FIXME
+                    if (true) {
+                        has_shape_attr = true;
+                        break;
+                    }
                 }
-            }
-    
-            if (has_shape_attr) {
-                if (i < widgets.length) {
-                    var widget = widgets[i];
-                    var width = widget_widths[i];
-                    var height = widget_heights[i];
-    
-                    Pango.Rectangle ink_rect;
-                    Pango.Rectangle logical_rect;
-                    run_iter.get_run_extents (out ink_rect, out logical_rect);
-    
-                    int offset_x;
-                    int offset_y;
-                    label.get_layout_offsets (out offset_x, out offset_y);
-    
-                    var allocation = Gtk.Allocation () {
-                        x = pango_pixels (logical_rect.x) + offset_x,
-                        y = pango_pixels (logical_rect.y) + offset_y,
-                        height = width,
-                        width = height
-                    };
-                    widget.allocate_size (allocation, -1);
-                    i++;
-                } else {
-                    break;
+
+                if (has_shape_attr) {
+                    if (i < widgets.length) {
+                        var widget = widgets[i];
+                        var width = widget_widths[i];
+                        var height = widget_heights[i];
+
+                        Pango.Rectangle ink_rect;
+                        Pango.Rectangle logical_rect;
+                        run_iter.get_run_extents (out ink_rect, out logical_rect);
+
+                        int offset_x;
+                        int offset_y;
+                        label.get_layout_offsets (out offset_x, out offset_y);
+
+                        var allocation = Gtk.Allocation () {
+                            x = pango_pixels (logical_rect.x) + offset_x,
+                            y = pango_pixels (logical_rect.y) + offset_y,
+                            height = width,
+                            width = height
+                        };
+                        widget.allocate_size (allocation, -1);
+                        i++;
+                    } else {
+                        break;
+                    }
                 }
             }
     
@@ -287,6 +303,19 @@ public class LabelWithWidgets : Gtk.Buildable, Gtk.Widget {
 
         this.text = t_text;
     }
+
+    public void add_widgets (Gtk.Widget[] t_widgets) {
+        foreach (unowned Gtk.Widget widget in t_widgets) {
+            append_child(widget);
+        }
+    }
+
+    public void set_widgets (Gtk.Widget[] t_widgets) {
+        widgets = {};
+        widget_widths = {};
+        widget_heights = {};
+        add_widgets(t_widgets);
+    }
     
     private void invalidate_child_widgets() {
         for (var i = 0; i < widget_widths.length; i++) {
@@ -309,5 +338,9 @@ public class LabelWithWidgets : Gtk.Buildable, Gtk.Widget {
         }
 
         base.add_child (builder, child, type);
+    }
+
+    public signal bool activate_link (string uri) {
+        return label.activate_link (uri);
     }
 }
