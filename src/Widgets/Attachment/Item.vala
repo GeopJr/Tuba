@@ -191,6 +191,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	protected virtual void on_secondary_click () {
+		if (app.main_window.is_media_viewer_visible()) return;
 		gesture_click_controller.set_state(EventSequenceState.CLAIMED);
 		gesture_lp_controller.set_state(EventSequenceState.CLAIMED);
 		context_menu.popup();
