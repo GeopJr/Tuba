@@ -34,8 +34,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 	[GtkChild] protected unowned Grid grid;
 
-	[GtkChild] protected unowned Image header_icon;
-	[GtkChild] protected unowned Widgets.RichLabelContainer header_label;
+	protected Image? header_icon;
+	protected Widgets.RichLabelContainer? header_label;
 	[GtkChild] public unowned Image thread_line;
 
 	[GtkChild] public unowned Widgets.Avatar avatar;
@@ -52,7 +52,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Stack spoiler_stack;
 	[GtkChild] protected unowned Box content_box;
 	[GtkChild] public unowned Widgets.MarkupView content;
-	[GtkChild] protected unowned Widgets.Attachment.Box attachments;
 	[GtkChild] protected unowned Button spoiler_button;
 	[GtkChild] protected unowned Label spoiler_label;
 	[GtkChild] protected unowned Label spoiler_label_rev;
@@ -62,14 +61,15 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Label reblog_count_label;
 	[GtkChild] protected unowned Label fav_count_label;
 
-	[GtkChild] public unowned FlowBox emoji_reactions;
 	[GtkChild] public unowned Box actions;
-	[GtkChild] public unowned Box fr_actions;
 
-	[GtkChild] public unowned Button accept_fr_button;
-	[GtkChild] public unowned Button decline_fr_button;
+	public Box? fr_actions;
+	public Button? accept_fr_button;
+	public Button? decline_fr_button;
 
-	[GtkChild] public unowned Widgets.VoteBox poll;
+	protected Widgets.VoteBox? poll;
+	protected Widgets.Attachment.Box? attachments;
+	protected FlowBox emoji_reactions;
 
 	protected Button reply_button;
 	protected Adw.ButtonContent reply_button_content;
@@ -93,6 +93,18 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		get { return status.formal.compat_status_reactions; }
 		set {
 			if (value == null) return;
+
+			if (emoji_reactions == null) {
+				emoji_reactions = new Gtk.FlowBox () {
+					visible = false,
+					column_spacing = 6,
+					row_spacing = 6,
+					// Lower values leave space between items
+					max_children_per_line = 100
+				};
+
+				content_column.insert_child_after(emoji_reactions, status_stats);
+			}
 
 			var i = 0;
 			FlowBoxChild? fb_child = null;
@@ -197,6 +209,33 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			context_menu.unparent ();
 			context_menu.dispose();
 		}
+	}
+
+	public void create_follow_request_actions () {
+		if (fr_actions != null) return;
+
+		fr_actions = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6) {
+			homogeneous = true,
+			css_classes = {"ttl-post-actions"},
+			visible = false
+		};
+
+		decline_fr_button = new Gtk.Button.from_icon_name("tuba-cross-large-symbolic") {
+			tooltip_text = _("Decline"),
+			halign = Gtk.Align.CENTER,
+			css_classes = {"flat", "circular", "error"}
+		};
+
+		accept_fr_button = new Gtk.Button.from_icon_name("tuba-check-round-outline-symbolic") {
+			tooltip_text = _("Accept"),
+			halign = Gtk.Align.CENTER,
+			css_classes = {"flat", "circular", "success"}
+		};
+
+		fr_actions.append(decline_fr_button);
+		fr_actions.append(accept_fr_button);
+
+		content_box.append(fr_actions);
 	}
 
 	protected void create_actions () {
@@ -343,6 +382,27 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		check_actions();
 		accounts.active.describe_kind (this.kind, out icon, out descr, this.kind_instigator, out label_url);
 
+		if (icon != null) {
+			if (header_icon == null) {
+				header_icon = new Gtk.Image.from_icon_name(icon) {
+					visible = false,
+					halign = Gtk.Align.END,
+					icon_size = Gtk.IconSize.NORMAL
+				};
+
+				grid.attach(header_icon, 0, 0);
+			}
+
+			if (header_label == null) {
+				header_label = new Widgets.RichLabelContainer () {
+					visible = false,
+					css_classes = {"font-bold"}
+				};
+
+				grid.attach(header_label, 1, 0);
+			}
+		}
+
 		header_icon.visible = header_label.visible = (icon != null);
 		if (icon == null) {
 			grid.margin_top = 8;
@@ -487,12 +547,9 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 			return true;
 		});
-		// Attachments
-		formal_bindings.bind_property ("media-attachments", attachments, "list", BindingFlags.SYNC_CREATE);
 
 		self_bindings.set_source (this);
 		formal_bindings.set_source (status.formal);
-
 
 
 		// TODO: Ideally, this should be a binding too somehow
@@ -528,13 +585,17 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			date_label.destroy ();
 		}
 
-		// TODO: Votebox should be created dynamically if needed.
-		// Currently *all* status widgets contain one even if they don't have a poll.
-		if (status.formal.poll==null){
-			poll.hide();
-		} else {
+		if (poll == null && status.formal.poll != null) {
+			poll = new Widgets.VoteBox();
 			poll.status_parent=status.formal;
+			content_box.append(poll);
 			status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE);
+		}
+
+		if (attachments == null && status.formal.media_attachments != null && !status.formal.media_attachments.is_empty) {
+			attachments = new Widgets.Attachment.Box();
+			content_box.append(attachments);
+			formal_bindings.bind_property ("media-attachments", attachments, "list", BindingFlags.SYNC_CREATE);
 		}
 	}
 
