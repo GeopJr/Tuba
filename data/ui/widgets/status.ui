@@ -193,6 +193,7 @@
                               <object class="GtkLabel" id="spoiler_label">
                                 <property name="visible">True</property>
                                 <property name="label">Spoiler Text Here</property>
+                                <property name="wrap">1</property>
                               </object>
                             </child>
                           </object>
