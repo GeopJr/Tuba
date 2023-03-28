@@ -29,6 +29,8 @@ public class Tuba.Views.ContentBase : Views.Base {
 				bottom_reached_locked = true;
 				on_bottom_reached ();
 			}
+			
+			scroll_to_top.visible = scrolled.vadjustment.value > 1000;
 		});
 		//  scrolled.edge_reached.connect (pos => {
 		//  	if (pos == PositionType.BOTTOM)

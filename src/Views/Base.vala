@@ -19,6 +19,8 @@ public class Tuba.Views.Base : Box {
 	[GtkChild] protected unowned Button back_button;
 
 	[GtkChild] protected unowned ScrolledWindow scrolled;
+	[GtkChild] protected unowned Overlay scrolled_overlay;
+	[GtkChild] protected unowned Button scroll_to_top;
 	[GtkChild] protected unowned Box view;
 	[GtkChild] protected unowned Adw.Clamp clamp;
 	[GtkChild] protected unowned Box column_view;
@@ -71,9 +73,15 @@ public class Tuba.Views.Base : Box {
 		});
 
 		scrolled.get_style_context ().add_class (Dialogs.MainWindow.ZOOM_CLASS);
+
+		scroll_to_top.clicked.connect(on_scroll_to_top);
 	}
 	~Base () {
 		message ("Destroying base "+label);
+	}
+
+	private void on_scroll_to_top () {
+		scrolled.vadjustment.value = 0.0;
 	}
 
 	public override void dispose () {
