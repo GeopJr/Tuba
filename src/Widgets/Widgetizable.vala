@@ -1,7 +1,7 @@
-public interface Tooth.Widgetizable : GLib.Object {
+public interface Tuba.Widgetizable : GLib.Object {
 
 	public virtual Gtk.Widget to_widget () throws Oopsie {
-		throw new Tooth.Oopsie.INTERNAL ("Widgetizable didn't provide a Widget!");
+		throw new Tuba.Oopsie.INTERNAL ("Widgetizable didn't provide a Widget!");
 	}
 
 	public virtual void open () {

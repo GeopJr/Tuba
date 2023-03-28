@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.Widgets.MarkupView : Box {
+public class Tuba.Widgets.MarkupView : Box {
 
 	public delegate void NodeFn (Xml.Node* node);
 	public delegate void NodeHandlerFn (MarkupView view, Xml.Node* node);

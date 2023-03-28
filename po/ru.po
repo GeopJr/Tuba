@@ -1,22 +1,22 @@
-# Spanish translations for dev.geopjr.Tuba package.
-# Copyright (C) 2021 THE dev.geopjr.Tuba'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the dev.geopjr.Tuba package.
-# Óscar Fernández Díaz <oscfdezdz@tuta.io>, 2021.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Сергей Ворон <voron.s.a@gmail.com>, 2023.
 msgid ""
 msgstr ""
-"Project-Id-Version: dev.geopjr.Tuba\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 18:13+0200\n"
-"PO-Revision-Date: 2021-01-25 16:19+0100\n"
-"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
-"Language-Team: Spanish; Castilian <oscfdezdz@tuta.io>\n"
-"Language: es\n"
+"PO-Revision-Date: 2023-03-23 15:30+0000\n"
+"Last-Translator: Сергей Ворон <voron.s.a@gmail.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/tuba/tuba/ru/>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 3.38.0\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -24,11 +24,11 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
-msgstr ""
+msgstr "Обзор Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr ""
+msgstr "Клиент Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
@@ -40,6 +40,10 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
+"Исследуйте федеративную социальную сеть с помощью Tuba для GNOME. "
+"Оставайтесь на связи со своими любимыми сообществами, семьей и друзьями "
+"благодаря поддержке популярных платформ Fediverse, таких как Mastodon, "
+"GoToSocial, Akkoma и других!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
 msgid ""
@@ -49,6 +53,11 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
+"Fediverse - это децентрализованная социальная сеть, состоящая из множества "
+"взаимосвязанных платформ и сообществ, позволяющая пользователям общаться и "
+"обмениваться контентом через различные сети и серверы. Она способствует "
+"конфиденциальности пользователей и владению данными, а также предлагает "
+"альтернативу централизованным платформам социальных сетей."
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:19
 msgid "Evangelos \"GeopJr\" Paterakis"
@@ -56,191 +65,185 @@ msgstr ""
 
 #: data/ui/widgets/status.ui:90
 msgid "Pinned"
-msgstr ""
+msgstr "Закреплено"
 
 #: data/ui/widgets/status.ui:101
-#, fuzzy
 msgid "Edited"
-msgstr "Editar"
+msgstr "Изменено"
 
 #: data/ui/widgets/status.ui:178 src/Widgets/Status.vala:293
 msgid "Show More"
-msgstr ""
+msgstr "Показать ещё"
 
 #: data/ui/widgets/status.ui:280 data/ui/widgets/status.ui:281
 msgid "Decline"
-msgstr ""
+msgstr "Отклонить"
 
 #: data/ui/widgets/status.ui:293 data/ui/widgets/status.ui:294
 msgid "Accept"
-msgstr ""
+msgstr "Принять"
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
-msgstr "Redactar"
+msgstr "Написать"
 
 #: data/ui/views/sidebar/view.ui:23
-#, fuzzy
 msgid "Switch Account"
-msgstr "Añadir cuenta"
+msgstr "Сменить аккаунт"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
-msgstr ""
+msgstr "Упомянуть"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr ""
+msgstr "Личное сообщение"
 
 #: data/ui/menus.ui:22
-#, fuzzy
 msgid "Copy Handle"
-msgstr "Copiar enlace"
+msgstr "Копировать дескриптор"
 
 #: data/ui/menus.ui:29
-#, fuzzy
 msgid "Moderation"
-msgstr "Conversación"
+msgstr "Модерация"
 
 #: data/ui/menus.ui:31
 msgid "Hide Boosts"
-msgstr ""
+msgstr "Скрыть продвижения"
 
 #: data/ui/menus.ui:36
 msgid "Mute"
-msgstr ""
+msgstr "Игнорировать"
 
 #: data/ui/menus.ui:41
 msgid "Report"
-msgstr ""
+msgstr "Пожаловаться"
 
 #: data/ui/menus.ui:47 src/Views/Profile.vala:268 src/Views/Profile.vala:292
-#, fuzzy
 msgid "Block"
-msgstr "Desbloquear"
+msgstr "Блокировать"
 
 #: data/ui/menus.ui:51
 msgid "Block Domain"
-msgstr ""
+msgstr "Блокировать домен"
 
 #: data/ui/menus.ui:59
-#, fuzzy
 msgid "Timeline"
-msgstr "Líneas de tiempo"
+msgstr "Лента"
 
 #: data/ui/menus.ui:61
 msgid "Filter"
-msgstr ""
+msgstr "Фильтр"
 
 #: data/ui/menus.ui:80
 msgid "Include Replies"
-msgstr ""
+msgstr "Включить ответы"
 
 #: data/ui/menus.ui:85
 msgid "Include Media"
-msgstr ""
+msgstr "Включить мультимедиа"
 
 #: data/ui/menus.ui:108 src/Views/Lists.vala:283
 #: src/Services/Accounts/Mastodon/Account.vala:68
 msgid "Lists"
-msgstr "Listas"
+msgstr "Списки"
 
 #: data/ui/menus.ui:113
 msgid "Refresh"
-msgstr "Refrescar"
+msgstr "Обновить"
 
 #: data/ui/dialogs/preferences.ui:19 src/Views/Lists.vala:91
 msgid "General"
-msgstr "General"
+msgstr "Общие"
 
 #: data/ui/dialogs/preferences.ui:22
 msgid "Appearance"
-msgstr "Apariencia"
+msgstr "Внешний вид"
 
 #: data/ui/dialogs/preferences.ui:25
 msgid "Color Scheme"
-msgstr ""
+msgstr "Цветовая схема"
 
 #: data/ui/dialogs/preferences.ui:39
 msgid "Larger font size"
-msgstr ""
+msgstr "Увеличенный размер шрифта"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Makes the font larger for posts"
-msgstr ""
+msgstr "Увеличивает шрифт сообщений"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Larger line height"
-msgstr ""
+msgstr "Увеличенная высота строки"
 
 #: data/ui/dialogs/preferences.ui:53
 msgid "Makes the line height larger for posts"
-msgstr ""
+msgstr "Увеличивает высоту строки для постов"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Behavior"
-msgstr "Comportamiento"
+msgstr "Поведение"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Autostart"
-msgstr "Inicio automático"
+msgstr "Автозапуск"
 
 #: data/ui/dialogs/preferences.ui:70
 msgid "Start minimized at boot"
-msgstr "Ejecutar minimizado en el arranque"
+msgstr "Запускать в свернутом виде при загрузке"
 
 #: data/ui/dialogs/preferences.ui:81
 msgid "Background work"
-msgstr "Proceso en segundo plano"
+msgstr "Фоновая работа"
 
 #: data/ui/dialogs/preferences.ui:83
 msgid "Receive notifications even when the app is closed"
-msgstr "Recibir notificaciones incluso cuando la aplicación está cerrada"
+msgstr "Получать уведомления, даже когда приложение закрыто"
 
 #: data/ui/dialogs/preferences.ui:95
 msgid "Timelines"
-msgstr "Líneas de tiempo"
+msgstr "Ленты"
 
 #: data/ui/dialogs/preferences.ui:98
 msgid "Posts per load batch"
-msgstr ""
+msgstr "Постов за одну загрузку"
 
 #: data/ui/dialogs/preferences.ui:112
 msgid "Stream timelines"
-msgstr "Cronología en directo"
+msgstr "Транслировать ленты"
 
 #: data/ui/dialogs/preferences.ui:114
 msgid "Receive new posts and notifications in real-time"
-msgstr "Recibir nuevas publicaciones y notificaciones en tiempo real"
+msgstr "Получать новые посты и уведомления в режиме реального времени"
 
 #: data/ui/dialogs/preferences.ui:125
 msgid "Stream public timelines"
-msgstr "Cronologías públicas en directo"
+msgstr "Транслировать публичные ленты"
 
 #: data/ui/dialogs/preferences.ui:127
 msgid "Warning: This will increase memory usage"
-msgstr "Advertencia: Esto aumentará el uso de la memoria"
+msgstr "Предупреждение: это увеличит использование памяти"
 
 #: data/ui/dialogs/preferences.ui:137
 msgid "Reveal spoilers by default"
-msgstr ""
+msgstr "Показывать спойлеры по умолчанию"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:216
 msgid "Add Account"
-msgstr "Añadir cuenta"
+msgstr "Добавить учетную запись"
 
 #: data/ui/dialogs/new_account.ui:27 data/ui/dialogs/compose.ui:29
 #: src/Application.vala:283
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Отмена"
 
 #: data/ui/dialogs/new_account.ui:34 data/ui/dialogs/new_account.ui:119
 msgid "Next"
-msgstr "Siguiente"
+msgstr "Далее"
 
 #: data/ui/dialogs/new_account.ui:48
 msgid "What is your Server?"
-msgstr ""
+msgstr "Какой у вас сервер?"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
@@ -248,18 +251,20 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
 msgstr ""
+"Если у вас еще нет учетной записи, <a href=\"https://joinmastodon.org/ru/"
+"servers\">выберите сервер и зарегистрируйте её</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
-msgstr ""
+msgstr "URL-адрес сервера"
 
 #: data/ui/dialogs/new_account.ui:112
 msgid "Back"
-msgstr "Atrás"
+msgstr "Назад"
 
 #: data/ui/dialogs/new_account.ui:133
 msgid "Confirm Authorization"
-msgstr ""
+msgstr "Подтвердить авторизацию"
 
 #. translators: Do not translate "manual_auth"
 #: data/ui/dialogs/new_account.ui:153
@@ -267,229 +272,226 @@ msgid ""
 "If something went wrong, <a href=\"manual_auth\">try manual authorization</"
 "a>."
 msgstr ""
+"Если что-то пошло не так, <a href=\"manual_auth\">попробуйте авторизоваться "
+"вручную</a>."
 
 #: data/ui/dialogs/new_account.ui:163
 msgid "Authorization Code"
-msgstr ""
+msgstr "Код авторизации"
 
 #: data/ui/dialogs/new_account.ui:203
 msgid "Done"
-msgstr ""
+msgstr "Готово"
 
 #: data/ui/dialogs/new_account.ui:218
 msgid "Your account is connected and ready to use!"
-msgstr ""
+msgstr "Ваша учетная запись подключена и готова к работе!"
 
 #: data/ui/dialogs/compose.ui:35 src/Dialogs/Composer/Dialog.vala:57
-#, fuzzy
 msgid "_Publish"
-msgstr "Publicar"
+msgstr "_Опубликовать"
 
 #: src/Widgets/VoteBox.vala:20
 msgid "Vote"
-msgstr ""
+msgstr "Голосование"
 
 #: src/Widgets/VoteBox.vala:141
 #, c-format
 msgid "%lld voted"
-msgstr ""
+msgstr "%lld проголосовало"
 
 #: src/Widgets/StatusActionButton.vala:161
 msgid "Network Error"
-msgstr "Error de red"
+msgstr "Ошибка сети"
 
 #: src/Widgets/Status.vala:108
 #, c-format
 msgid "React with %s"
-msgstr ""
+msgstr "Реакция на %s"
 
 #: src/Widgets/Status.vala:218 src/Widgets/Attachment/Item.vala:169
 #: src/Views/MediaViewer.vala:174
 msgid "Open in Browser"
-msgstr "Abrir en el navegador"
+msgstr "Открыть в браузере"
 
 #: src/Widgets/Status.vala:219 src/Widgets/Attachment/Item.vala:170
 #: src/Views/MediaViewer.vala:175
 msgid "Copy URL"
-msgstr ""
+msgstr "Копировать URL"
 
 #: src/Widgets/Status.vala:221
 msgid "View Edit History"
-msgstr ""
+msgstr "Посмотреть историю изменений"
 
 #: src/Widgets/Status.vala:226
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 #: src/Widgets/Status.vala:227 src/Widgets/Status.vala:255
 #: src/Views/Lists.vala:63
 msgid "Delete"
-msgstr "Eliminar"
+msgstr "Удалить"
 
 #: src/Widgets/Status.vala:252
 msgid "Are you sure you want to delete this post?"
-msgstr ""
+msgstr "Вы уверены, что хотите удалить этот пост?"
 
 #: src/Widgets/Status.vala:300
 msgid "Sensitive"
-msgstr ""
+msgstr "Чувствительный"
 
 #: src/Widgets/Status.vala:437
 msgid "Boosts"
-msgstr ""
+msgstr "Продвижения"
 
 #: src/Widgets/Status.vala:442 src/Views/Favorites.vala:6
 #: src/Services/Accounts/Mastodon/Account.vala:60
 msgid "Favorites"
-msgstr "Favoritos"
+msgstr "Избранное"
 
 #: src/Widgets/Status.vala:509
 msgid "Reply"
-msgstr "Responder"
+msgstr "Ответить"
 
 #: src/Widgets/Status.vala:517
 msgid "This post can't be boosted"
-msgstr "Esta publicación no puede ser impulsada"
+msgstr "Этот пост нельзя продвинуть"
 
 #: src/Widgets/Status.vala:522 src/Widgets/Status.vala:553
 msgid "Boost"
-msgstr ""
+msgstr "Продвинуть"
 
 #: src/Widgets/Status.vala:564
 msgid "Favorite"
-msgstr ""
+msgstr "Избранное"
 
 #: src/Widgets/Status.vala:575
-#, fuzzy
 msgid "Bookmark"
-msgstr "Marcadores"
+msgstr "Закладка"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
 #: src/Views/Hashtag.vala:35
 msgid "Follow"
-msgstr "Seguir"
+msgstr "Подписаться"
 
 #: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:268
 #: src/Views/Profile.vala:292
 msgid "Unblock"
-msgstr "Desbloquear"
+msgstr "Разблокировать"
 
 #: src/Widgets/RelationshipButton.vala:54 src/Views/Hashtag.vala:23
 #: src/Views/Hashtag.vala:39
 msgid "Unfollow"
-msgstr "Dejar de seguir"
+msgstr "Отписаться"
 
 #: src/Widgets/Attachment/Item.vala:36
 msgid "Save Attachment"
-msgstr ""
+msgstr "Сохранить вложение"
 
 #: src/Widgets/Attachment/Item.vala:104
 msgid "View Alt Text"
-msgstr ""
+msgstr "Просмотр альтернативного текста"
 
 #: src/Widgets/Attachment/Item.vala:171 src/Views/MediaViewer.vala:176
 msgid "Save Media"
-msgstr ""
+msgstr "Сохранить мультимедиа"
 
 #: src/Widgets/Attachment/Item.vala:188 src/Views/Sidebar.vala:245
 #: src/Views/MediaViewer.vala:161
 #: src/Services/Accounts/SecretAccountStore.vala:108
 #: src/Services/Accounts/AccountStore.vala:43 src/Application.vala:120
 msgid "Error"
-msgstr "Error"
+msgstr "Ошибка"
 
 #: src/Views/Thread.vala:13
 msgid "Conversation"
-msgstr "Conversación"
+msgstr "Обсуждение"
 
 #: src/Views/Sidebar.vala:24
 msgid "Preferences"
-msgstr "Preferencias"
+msgstr "Настройки"
 
 #: src/Views/Sidebar.vala:33
 msgid "About"
-msgstr "Acerca de"
+msgstr "О"
 
 #: src/Views/Sidebar.vala:121
 msgid "Anonymous"
-msgstr "Anónimo"
+msgstr "Анонимный"
 
 #: src/Views/Sidebar.vala:122
 msgid "No account selected"
-msgstr ""
+msgstr "Учетная запись не выбрана"
 
 #: src/Views/Sidebar.vala:231
 #, c-format
 msgid "Forget %s?"
-msgstr "¿Olvidar %s?"
+msgstr "Забыть %s?"
 
 #: src/Views/Sidebar.vala:232
 msgid "This account will be removed from the application."
-msgstr "Esta aplicación será eliminada de la aplicación."
+msgstr "Эта учетная запись будет удалена из приложения."
 
 #: src/Views/Sidebar.vala:234
 msgid "Forget"
-msgstr "Olvidar"
+msgstr "Забыть"
 
 #: src/Views/Search.vala:15 src/Views/Main.vala:19
 msgid "Search"
-msgstr "Buscar"
+msgstr "Поиск"
 
 #: src/Views/Search.vala:38
 msgid "Accounts"
-msgstr "Cuentas"
+msgstr "Учетные записи"
 
 #: src/Views/Search.vala:39
 msgid "Statuses"
-msgstr "Estados"
+msgstr "Статусы"
 
 #: src/Views/Search.vala:40
 msgid "Hashtags"
-msgstr "Hashtags"
+msgstr "Хэштеги"
 
 #: src/Views/Search.vala:55
 msgid "Enter Query"
-msgstr ""
+msgstr "Введите запрос"
 
 #: src/Views/Profile.vala:36
-#, fuzzy
 msgid "Profile"
-msgstr "Fijar"
+msgstr "Профиль"
 
 #: src/Views/Profile.vala:134
 msgid "Posts"
-msgstr ""
+msgstr "Посты"
 
 #: src/Views/Profile.vala:138
-#, fuzzy
 msgid "Following"
-msgstr "Seguir"
+msgstr "Подписки"
 
 #: src/Views/Profile.vala:142
-#, fuzzy
 msgid "Followers"
-msgstr "Seguir"
+msgstr "Подписчики"
 
 #: src/Views/Profile.vala:261
 #, c-format
 msgid "Block \"%s\"?"
-msgstr "¿Bloquear \"%s\"?"
+msgstr "Блокировать \"%s\"?"
 
 #: src/Views/Profile.vala:261
 #, c-format
 msgid "Unblock \"%s\"?"
-msgstr "¿Desbloquear \"%s\"?"
+msgstr "Разблокировать \"%s\"?"
 
 #: src/Views/Profile.vala:286
 #, c-format
 msgid "Block Entire \"%s\"?"
-msgstr "¿Bloquear por completo \"%s\"?"
+msgstr "Блокировать полностью \"%s\"?"
 
 #: src/Views/Profile.vala:286
 #, c-format
 msgid "Unblock Entire \"%s\"?"
-msgstr "¿Desbloquear por completo \"%s\"?"
+msgstr "Разблокировать полностью \"%s\"?"
 
 #: src/Views/Profile.vala:290
 msgid ""
@@ -499,16 +501,10 @@ msgid ""
 "• Remove its followers from your account\n"
 "• Prevent you from following its users"
 msgstr ""
-"Bloquear un dominio:\n"
-"\n"
-"• Eliminará sus publicaciones públicas y notificaciones de sus líneas del "
-"tiempo\n"
-"• Eliminará sus seguidores de su cuenta\n"
-"• Le impedirá seguir a sus usuarios"
 
 #: src/Views/Profile.vala:339
 msgid "Sent follow request"
-msgstr "Enviar petición de seguimiento"
+msgstr ""
 
 #: src/Views/Profile.vala:341
 msgid "Mutuals"
@@ -558,7 +554,7 @@ msgstr ""
 
 #: src/Views/Notifications.vala:11
 msgid "Notifications"
-msgstr "Notificaciones"
+msgstr ""
 
 #: src/Views/MediaViewer.vala:103
 msgid "Media Viewer"
@@ -574,16 +570,16 @@ msgstr ""
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
-msgstr "Local"
+msgstr ""
 
 #: src/Views/Lists.vala:60
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr "¿Eliminar \"%s\"?"
+msgstr ""
 
 #: src/Views/Lists.vala:61
 msgid "This action cannot be reverted."
-msgstr "Esta acción no puede ser revertida."
+msgstr ""
 
 #: src/Views/Lists.vala:86
 #, c-format
@@ -636,7 +632,7 @@ msgstr ""
 
 #: src/Views/Home.vala:6 src/Services/Accounts/Mastodon/Account.vala:26
 msgid "Home"
-msgstr "Inicio"
+msgstr ""
 
 #: src/Views/FollowRequests.vala:4
 #: src/Services/Accounts/Mastodon/Account.vala:100
@@ -645,7 +641,7 @@ msgstr ""
 
 #: src/Views/Federated.vala:7 src/Services/Accounts/Mastodon/Account.vala:92
 msgid "Federated"
-msgstr "Federado"
+msgstr ""
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -653,19 +649,19 @@ msgstr ""
 
 #: src/Views/Conversations.vala:6
 msgid "Conversations"
-msgstr "Conversaciones"
+msgstr ""
 
 #: src/Views/Bookmarks.vala:6 src/Services/Accounts/Mastodon/Account.vala:52
 msgid "Bookmarks"
-msgstr "Marcadores"
+msgstr ""
 
 #: src/Views/Base.vala:6
 msgid "Nothing to see here"
-msgstr "No hay nada que ver aquí"
+msgstr ""
 
 #: src/Views/Base.vala:41
 msgid "Reload"
-msgstr "Recargar"
+msgstr ""
 
 #: src/Views/Base.vala:108
 msgid "An Error Occurred"
@@ -696,9 +692,8 @@ msgid "expired on just now"
 msgstr ""
 
 #: src/Utils/DateTime.vala:52
-#, fuzzy
 msgid "expired yesterday"
-msgstr "Ayer"
+msgstr ""
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -724,11 +719,11 @@ msgstr ""
 
 #: src/Utils/DateTime.vala:79
 msgid "Just now"
-msgstr "Justo ahora"
+msgstr ""
 
 #: src/Utils/DateTime.vala:89
 msgid "Yesterday"
-msgstr "Ayer"
+msgstr ""
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -760,23 +755,21 @@ msgstr ""
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:94
-#, fuzzy, c-format
+#, c-format
 msgid "%s Account"
-msgstr "Cuentas"
+msgstr ""
 
 #: src/Services/Accounts/Mastodon/Account.vala:44
 msgid "Direct Messages"
 msgstr ""
 
 #: src/Services/Accounts/Mastodon/Account.vala:127
-#, fuzzy
 msgid "Public"
-msgstr "Publicar"
+msgstr ""
 
 #: src/Services/Accounts/Mastodon/Account.vala:129
-#, fuzzy
 msgid "Post to public timelines"
-msgstr "Cronologías públicas en directo"
+msgstr ""
 
 #. translators: Probably follow Mastodon's translation
 #: src/Services/Accounts/Mastodon/Account.vala:134
@@ -784,9 +777,8 @@ msgid "Unlisted"
 msgstr ""
 
 #: src/Services/Accounts/Mastodon/Account.vala:136
-#, fuzzy
 msgid "Don't post to public timelines"
-msgstr "Cronologías públicas en directo"
+msgstr ""
 
 #: src/Services/Accounts/Mastodon/Account.vala:140
 msgid "Followers Only"
@@ -825,9 +817,9 @@ msgid "%s favorited your post"
 msgstr ""
 
 #: src/Services/Accounts/InstanceAccount.vala:152
-#, fuzzy, c-format
+#, c-format
 msgid "%s now follows you"
-msgstr "Te sigue"
+msgstr ""
 
 #: src/Services/Accounts/InstanceAccount.vala:157
 #, c-format
@@ -848,24 +840,24 @@ msgstr ""
 
 #: src/Dialogs/NewAccount.vala:120
 msgid "Please enter a valid instance URL"
-msgstr "Por favor, introduce una URL de una instancia válida"
+msgstr ""
 
 #: src/Dialogs/NewAccount.vala:153
 msgid "Please enter a valid authorization code"
-msgstr "Por favor, introduce un código de autorización válido"
+msgstr ""
 
 #: src/Dialogs/NewAccount.vala:169
 msgid "Instance failed to authorize the access token"
-msgstr "La instancia falló al autorizar el token de acceso"
+msgstr ""
 
 #: src/Dialogs/NewAccount.vala:178
 #, c-format
 msgid "Hello, %s!"
-msgstr "¡Hola, %s!"
+msgstr ""
 
 #: src/Dialogs/NewAccount.vala:228
 msgid "Server returned an error"
-msgstr "El servidor devolvió un error"
+msgstr ""
 
 #: src/Dialogs/Composer/PollPage.vala:5
 msgid "Options"
@@ -874,7 +866,7 @@ msgstr ""
 #. translators: "Text" as in text-based input
 #: src/Dialogs/Composer/EditorPage.vala:11
 msgid "Text"
-msgstr "Texto"
+msgstr ""
 
 #: src/Dialogs/Composer/EditorPage.vala:109
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:104
@@ -882,9 +874,8 @@ msgid "Characters Left"
 msgstr ""
 
 #: src/Dialogs/Composer/EditorPage.vala:121
-#, fuzzy
 msgid "What's on your mind?"
-msgstr "¿Cuál es tu instancia?"
+msgstr ""
 
 #: src/Dialogs/Composer/EditorPage.vala:146
 msgid "Emoji Picker"
@@ -892,7 +883,7 @@ msgstr ""
 
 #: src/Dialogs/Composer/EditorPage.vala:163
 msgid "Write your warning here"
-msgstr "Escribe tu advertencia aquí"
+msgstr ""
 
 #: src/Dialogs/Composer/EditorPage.vala:178
 msgid "Content Warning"
@@ -903,18 +894,16 @@ msgid "Post Privacy"
 msgstr ""
 
 #: src/Dialogs/Composer/Dialog.vala:65
-#, fuzzy
 msgid "_Redraft"
-msgstr "Redactar de nuevo"
+msgstr ""
 
 #: src/Dialogs/Composer/Dialog.vala:76
 msgid "_Edit"
 msgstr ""
 
 #: src/Dialogs/Composer/Dialog.vala:92
-#, fuzzy
 msgid "_Reply"
-msgstr "Responder"
+msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:28
 msgid "Edit Alt Text"
@@ -926,22 +915,20 @@ msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:109
 msgid "Save"
-msgstr "Guardar"
+msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:39
 msgid "Media"
-msgstr "Multimedia"
+msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:55
 #: src/Dialogs/Composer/AttachmentsPage.vala:79
-#, fuzzy
 msgid "Add Media"
-msgstr "Multimedia"
+msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:64
-#, fuzzy
 msgid "No Media"
-msgstr "Multimedia"
+msgstr ""
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:89
@@ -960,9 +947,8 @@ msgstr ""
 
 #. translators: Open file
 #: src/Dialogs/Composer/AttachmentsPage.vala:170
-#, fuzzy
 msgid "Open"
-msgstr "_Abrir"
+msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:202
 #, c-format
@@ -991,6 +977,5 @@ msgid "Used %d times by %d people in the past 2 days"
 msgstr ""
 
 #: src/API/SearchResults.vala:21
-#, fuzzy
 msgid "Search returned no results"
-msgstr "El servidor devolvió un error"
+msgstr ""

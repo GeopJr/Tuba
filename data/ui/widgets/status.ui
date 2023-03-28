@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="ToothWidgetsStatus" parent="GtkListBoxRow">
+  <template class="TubaWidgetsStatus" parent="GtkListBoxRow">
     <property name="child">
       <object class="GtkGrid" id="grid">
         <property name="margin-start">8</property>
@@ -15,7 +15,7 @@
           <object class="GtkImage" id="header_icon">
             <property name="visible">0</property>
             <property name="halign">end</property>
-            <property name="margin_bottom">8</property>
+            <!-- <property name="margin_bottom">8</property> -->
             <property name="icon_name">oops</property>
             <property name="icon_size">1</property>
             <layout>
@@ -25,10 +25,10 @@
           </object>
         </child>
         <child>
-          <object class="ToothWidgetsRichLabelContainer" id="header_label">
+          <object class="TubaWidgetsRichLabelContainer" id="header_label">
             <property name="visible">0</property>
             <!-- <property name="ellipsize">end</property> -->
-            <property name="margin-bottom">8</property>
+            <!-- <property name="margin-bottom">8</property> -->
             <style>
               <class name="font-bold"/>
             </style>
@@ -43,7 +43,7 @@
             <property name="vexpand">1</property>
             <property name="row_homogeneous">1</property>
             <child>
-              <object class="ToothWidgetsRichLabelContainer" id="name_label">
+              <object class="TubaWidgetsRichLabelContainer" id="name_label">
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <!-- <property name="label" translatable="no">Name</property> -->
@@ -85,7 +85,7 @@
                 <child>
                   <object class="GtkImage" id="pin_indicator">
                     <property name="visible">0</property>
-                    <property name="icon_name">tooth-pin-symbolic</property>
+                    <property name="icon_name">tuba-pin-symbolic</property>
                     <property name="icon_size">1</property>
                     <property name="tooltip_text" translatable="yes">Pinned</property>
                     <style>
@@ -96,7 +96,7 @@
                 <child>
                   <object class="GtkImage" id="edited_indicator">
                     <property name="visible">0</property>
-                    <property name="icon_name">tooth-edit-symbolic</property>
+                    <property name="icon_name">document-edit-symbolic</property>
                     <property name="icon_size">1</property>
                     <property name="tooltip_text" translatable="yes">Edited</property>
                     <style>
@@ -149,7 +149,7 @@
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkImage">
-                    <property name="icon_name">tooth-warning-symbolic</property>
+                    <property name="icon_name">tuba-warning-symbolic</property>
                   </object>
                 </child>
                 <child>
@@ -186,13 +186,14 @@
                             <property name="spacing">6</property>
                             <child>
                               <object class="GtkImage">
-                                <property name="icon_name">tooth-warning-symbolic</property>
+                                <property name="icon_name">tuba-warning-symbolic</property>
                               </object>
                             </child>
                             <child>
-                              <object class="ToothWidgetsRichLabel" id="spoiler_label">
+                              <object class="GtkLabel" id="spoiler_label">
                                 <property name="visible">True</property>
                                 <property name="label">Spoiler Text Here</property>
+                                <property name="wrap">1</property>
                               </object>
                             </child>
                           </object>
@@ -212,17 +213,17 @@
                         <property name="orientation">vertical</property>
                         <property name="spacing">6</property>
                         <child>
-                          <object class="ToothWidgetsMarkupView" id="content">
+                          <object class="TubaWidgetsMarkupView" id="content">
                             <property name="visible">True</property>
                             <property name="hexpand">True</property>
                           </object>
                         </child>
                         <child>
-                              <object class="ToothWidgetsVoteBox" id="poll">
+                              <object class="TubaWidgetsVoteBox" id="poll">
                               </object>
                         </child>
                         <child>
-                          <object class="ToothWidgetsAttachmentBox" id="attachments"/>
+                          <object class="TubaWidgetsAttachmentBox" id="attachments"/>
                         </child>
                       </object>
                     </property>
@@ -264,8 +265,10 @@
             </child>
             <child>
               <object class="GtkBox" id="actions">
-                <property name="homogeneous">1</property>
                 <property name="spacing">6</property>
+                <style>
+                  <class name="ttl-post-actions"/>
+                </style>
               </object>
             </child>
             <child>
@@ -277,7 +280,7 @@
                   <object class="GtkButton" id="decline_fr_button">
                       <property name="label" translatable="yes">Decline</property>
                       <property name="tooltip_text" translatable="yes">Decline</property>
-                      <property name="icon_name">tooth-cross-large-symbolic</property>
+                      <property name="icon_name">tuba-cross-large-symbolic</property>
                       <property name="halign">center</property>
                       <style>
                         <class name="flat"/>
@@ -290,7 +293,7 @@
                   <object class="GtkButton" id="accept_fr_button">
                       <property name="label" translatable="yes">Accept</property>
                       <property name="tooltip_text" translatable="yes">Accept</property>
-                      <property name="icon_name">tooth-check-round-outline-symbolic</property>
+                      <property name="icon_name">tuba-check-round-outline-symbolic</property>
                       <property name="halign">center</property>
                       <style>
                         <class name="flat"/>
@@ -299,6 +302,9 @@
                       </style>
                   </object>
                 </child>
+                <style>
+                  <class name="ttl-post-actions"/>
+                </style>
               </object>
             </child>
             <layout>
@@ -325,11 +331,15 @@
           </object>
         </child>
         <child>
-          <object class="ToothWidgetsAvatar" id="avatar">
-            <property name="size">48</property>
-            <property name="valign">start</property>
-            <property name="visible">true</property>
-            <signal name="clicked" handler="on_avatar_clicked" swapped="no"/>
+          <object class="GtkOverlay" id="avatar_overlay">
+            <child type="overlay">
+              <object class="TubaWidgetsAvatar" id="avatar">
+                <property name="size">48</property>
+                <property name="valign">start</property>
+                <property name="visible">true</property>
+                <signal name="clicked" handler="on_avatar_clicked" swapped="no"/>
+              </object>
+            </child>
             <layout>
               <property name="column">0</property>
               <property name="row">1</property>

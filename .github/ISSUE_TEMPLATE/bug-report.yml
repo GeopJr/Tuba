@@ -40,8 +40,9 @@ body:
       - glitch-soc
       - Hometown
       - GoToSocial
-      - Pleroma
       - Akkoma
+      - Pleroma
+      - Takahē
       - I'm not sure / Other
   validations:
     required: true
@@ -58,6 +59,7 @@ body:
     multiple: false
     options:
       - Flatpak
+      - Snap
       - OS repositories
       - Compiled manually
       - I'm not sure

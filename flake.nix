@@ -46,9 +46,9 @@
 
       packages = {
         ${system} = {
-          tooth =
+          tuba =
             pkgs.stdenv.mkDerivation {
-              name = "tooth";
+              name = "tuba";
               src = self;
 
               nativeBuildInputs = nativeBuildInputs;
@@ -58,27 +58,30 @@
                 gappsWrapperArgs+=(
                   --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS" \
                   --prefix XDG_DATA_DIRS : "$out/share" \
-                  --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/dev.geopjr.Tooth" \
+                  --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/dev.geopjr.Tuba" \
                   --prefix XDG_DATA_DIRS : "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}" \
                   --prefix XDG_DATA_DIRS : "${hicolor-icon-theme}/share" \
                   --prefix GI_TYPELIB_PATH : "${lib.makeSearchPath "lib/girepository-1.0" [ pango json-glib ]}"
                 )
               '';
 
-              configurePhase = "meson build --prefix=$out";
+              configurePhase = "
+                meson setup builddir --prefix=$out
+                meson configure builddir -Ddevel=true
+              ";
 
-              buildPhase = "ninja -C build";
+              buildPhase = "meson compile -C builddir";
               installPhase = "
-                patchShebangs meson/post_install.py
-                ninja -C build install
+                patchShebangs build-aux/post_install.py
+                ninja -C builddir install
               ";
 
               postInstallPhase = "
-                meson/post_install.py
+                build-aux/post_install.py
               ";
             };
 
-          default = self.packages.${system}.tooth;
+          default = self.packages.${system}.tuba;
         };
       };
 

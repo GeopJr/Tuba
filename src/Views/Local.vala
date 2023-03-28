@@ -1,8 +1,8 @@
-public class Tooth.Views.Local : Views.Federated {
+public class Tuba.Views.Local : Views.Federated {
 
     public Local () {
         label = _("Local");
-        icon = "tooth-network-server-symbolic";
+        icon = "tuba-network-server-symbolic";
     }
 
     public override Request append_params (Request r) {

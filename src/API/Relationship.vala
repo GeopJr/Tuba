@@ -1,4 +1,4 @@
-public class Tooth.API.Relationship : Entity {
+public class Tuba.API.Relationship : Entity {
 
 	public signal void invalidated ();
 

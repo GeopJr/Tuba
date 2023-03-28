@@ -2,7 +2,7 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
-  <template class="ToothDialogsCompose" parent="AdwWindow">
+  <template class="TubaDialogsCompose" parent="AdwWindow">
     <property name="modal">1</property>
     <property name="default_width">500</property>
     <property name="default_height">400</property>

@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.Widgets.Notification : Widgets.Status {
+public class Tuba.Widgets.Notification : Widgets.Status {
 
     public API.Notification notification { get; construct set; }
 

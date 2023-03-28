@@ -1,7 +1,7 @@
 using Gee;
 using Json;
 
-public class Tooth.API.Poll : GLib.Object, Json.Serializable{
+public class Tuba.API.Poll : GLib.Object, Json.Serializable{
     public string id { get; set; }
     public string expires_at{ get; set; }
     public bool expired { get; set; }

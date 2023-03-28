@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.API.Tag : Entity, Widgetizable {
+public class Tuba.API.Tag : Entity, Widgetizable {
 
     public string name { get; set; }
     public string url { get; set; }
@@ -23,17 +23,19 @@ public class Tooth.API.Tag : Entity, Widgetizable {
 			var last_history_entry = history.get(0);
 			var total_uses = int.parse (last_history_entry.uses);
 			var total_accounts = int.parse (last_history_entry.accounts);
-			var suffix = _("yesterday");
+			// translators: the variables are numbers
+			var subtitle = _("Used %d times by %d people yesterday").printf (total_uses, total_accounts);
 
 			if (history.size > 1) {
 				last_history_entry = history.get(1);
 				total_uses += int.parse (last_history_entry.uses);
 				total_accounts += int.parse (last_history_entry.accounts);
-				suffix = _("in the past 2 days");
+
+				// translators: the variables are numbers
+				subtitle = _("Used %d times by %d people in the past 2 days").printf (total_uses, total_accounts);
 			}
 
-			// translators: the first two are numbers, the last one is either "yesterday" or "in the past 2 days"
-			w.subtitle = _("Used %d times by %d people %s").printf (total_uses, total_accounts, suffix);
+			w.subtitle = subtitle;
 		}
 		w.activated.connect(on_activated);
 		return w;

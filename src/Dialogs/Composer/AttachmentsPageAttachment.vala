@@ -1,34 +1,43 @@
-public class Tooth.AttachmentsPageAttachment : Widgets.Attachment.Item {
+public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	protected Gtk.Picture pic;
-	protected File attachment_file;
+	protected File? attachment_file;
 	protected string? alt_text { get; set; default = null; }
 	private const int ALT_MAX_CHARS = 1500;
 	private Dialogs.Compose compose_dialog;
 	protected string id;
 
-    public AttachmentsPageAttachment (string attachment_id, File file, Dialogs.Compose dialog){
+    public AttachmentsPageAttachment (string attachment_id, File? file, Dialogs.Compose dialog, API.Attachment? t_entity){
 		id = attachment_id;
 		attachment_file = file;
 		compose_dialog = dialog;
-		pic = new Gtk.Picture.for_file (file) {
+		pic = new Gtk.Picture () {
 			hexpand = true,
 			vexpand = true,
 			can_shrink = true,
 			keep_aspect_ratio = true
 		};
+		if (file != null) {
+			pic.file = file;
+		} else {
+			entity = t_entity;
+			image_cache.request_paintable (t_entity.preview_url, on_cache_response);
+		}
 		button.child = pic;
-		badge.visible = false;
-		alt_btn.tooltip_text = _("Edit Alt Text");
-		alt_btn.disconnect(alt_btn_clicked_id);
-		alt_btn.clicked.connect(() => {
-			create_alt_text_input_window().show();
-		});
-		alt_btn.add_css_class("error");
-		alt_btn.remove_css_class("flat");
+		if (file != null) {
+			alt_btn.tooltip_text = _("Edit Alt Text");
+			alt_btn.disconnect(alt_btn_clicked_id);
+			alt_btn.clicked.connect(() => {
+				create_alt_text_input_window().show();
+			});
+			alt_btn.add_css_class("error");
+			alt_btn.remove_css_class("flat");
+		} else {
+			alt_btn.visible = false;
+		}
 
 		var delete_button = new Gtk.Button() {
-			icon_name = "tooth-trash-symbolic",
+			icon_name = "tuba-trash-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			tooltip_text = _("Remove Attachment")
@@ -39,6 +48,10 @@ public class Tooth.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		delete_button.clicked.connect(() => remove_from_model());
 	}
 
+	protected virtual void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
+		pic.paintable = data;
+	}
+
 	public virtual signal void remove_from_model () {}
 
 	protected override void on_rebind () {}
@@ -46,7 +59,11 @@ public class Tooth.AttachmentsPageAttachment : Widgets.Attachment.Item {
 	protected override void on_secondary_click () {}
 
 	protected override void on_click () {
-		Host.open_uri (attachment_file.get_path ());
+		if (attachment_file != null) {
+			Host.open_uri (attachment_file.get_path ());
+		} else if (entity != null) {
+			base.on_click();
+		}
 	}
 
 	protected bool validate(int text_size) {

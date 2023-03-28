@@ -1,8 +1,8 @@
 using Gtk;
 using Gee;
 
-[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/dialogs/compose.ui")]
-public class Tooth.Dialogs.Compose : Adw.Window {
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/compose.ui")]
+public class Tuba.Dialogs.Compose : Adw.Window {
 
 	public API.Status status { get; construct set; }
 
@@ -64,6 +64,17 @@ public class Tooth.Dialogs.Compose : Adw.Window {
 			status: status,
 			button_label: _("_Redraft"),
 			button_class: "destructive-action"
+		);
+	}
+
+	public Compose.edit (API.Status status) {
+		var t_status = status;
+		t_status.content =  HtmlUtils.remove_tags (t_status.content);
+
+		Object (
+			status: t_status,
+			button_label: _("_Edit"),
+			button_class: "suggested-action"
 		);
 	}
 
@@ -133,6 +144,13 @@ public class Tooth.Dialogs.Compose : Adw.Window {
 			url = "/api/v1/statuses",
 			account = accounts.active
 		};
+		if (status.id.length > 0) {
+			publish_req = new Request () {
+				method = "PUT",
+				url = @"/api/v1/statuses/$(status.id)",
+				account = accounts.active
+			};
+		}
 		modify_req (publish_req);
 		yield publish_req.await ();
 

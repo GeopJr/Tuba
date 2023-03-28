@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="ToothViewsSidebarAccountRow" parent="AdwActionRow">
+  <template class="TubaViewsSidebarAccountRow" parent="AdwActionRow">
     <property name="height_request">64</property>
     <property name="title_lines">1</property>
     <property name="subtitle_lines">1</property>
     <property name="activatable">1</property>
 
     <child type="prefix">
-      <object class="ToothWidgetsAvatar" id="avatar">
+      <object class="TubaWidgetsAvatar" id="avatar">
         <property name="size">32</property>
         <signal name="clicked" handler="on_open"/>
       </object>
@@ -15,7 +15,7 @@
 
     <child type="suffix">
       <object class="GtkButton" id="forget">
-        <property name="icon-name">tooth-trash-symbolic</property>
+        <property name="icon-name">tuba-trash-symbolic</property>
         <property name="valign">center</property>
         <signal name="clicked" handler="on_forget" swapped="no"/>
         <style>

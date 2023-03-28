@@ -1,4 +1,4 @@
-public class Tooth.API.Mention : Entity, Widgetizable {
+public class Tuba.API.Mention : Entity, Widgetizable {
 
     public string id { get; construct set; }
     public string username { get; construct set; }

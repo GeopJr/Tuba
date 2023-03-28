@@ -1,6 +1,6 @@
 using Gtk;
 
-namespace Tooth {
+namespace Tuba {
 
 	public errordomain Oopsie {
 		USER,
@@ -31,10 +31,10 @@ namespace Tooth {
 		public Dialogs.NewAccount? add_account_window { get; set; }
 
 		// These are used for the GTK Inspector
-		public Settings app_settings { get {return Tooth.settings; } }
-		public AccountStore app_accounts { get {return Tooth.accounts; } }
-		public Network app_network { get {return Tooth.network; } }
-		public Streams app_streams { get {return Tooth.streams; } }
+		public Settings app_settings { get {return Tuba.settings; } }
+		public AccountStore app_accounts { get {return Tuba.accounts; } }
+		public Network app_network { get {return Tuba.network; } }
+		public Streams app_streams { get {return Tuba.streams; } }
 
 		public signal void refresh ();
 		public signal void toast (string title);
@@ -63,7 +63,7 @@ namespace Tooth {
 
 		public string[] ACCEL_ABOUT = {"F1"};
 		public string[] ACCEL_NEW_POST = {"<Ctrl>T"};
-		public string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left"};
+		public string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left", "Escape", "<Alt>KP_Left", "Pointer_DfltBtnPrev"};
 		public string[] ACCEL_REFRESH = {"<Ctrl>R", "F5"};
 		public string[] ACCEL_SEARCH = {"<Ctrl>F"};
 		public string[] ACCEL_QUIT = {"<Ctrl>Q"};
@@ -175,7 +175,7 @@ namespace Tooth {
 					main_window = new Dialogs.MainWindow (this);
 					is_rtl = Gtk.Widget.get_default_direction() == Gtk.TextDirection.RTL;
 				}
-				main_window.present ();
+				if (!start_hidden) main_window.present ();
 			}
 			main_window.close_request.connect(on_window_closed);
 		}
@@ -228,6 +228,10 @@ namespace Tooth {
 				"Tobias Bernard"
 			};
 
+			const string[] DESIGNERS = {
+				"Tobias Bernard"
+			};
+
 			const string[] DEVELOPERS = {
 				"bleak_grey",
 				"Evangelos \"GeopJr\" Paterakis"
@@ -247,6 +251,7 @@ namespace Tooth {
 				copyright = COPYRIGHT,
 				developers = DEVELOPERS,
 				artists = ARTISTS,
+				designers = DESIGNERS,
 				debug_info = troubleshooting,
 				debug_info_filename = @"$(Build.NAME).txt",
 				// translators: Name <email@domain.com> or Name https://website.example

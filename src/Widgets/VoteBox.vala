@@ -2,8 +2,8 @@ using Gtk;
 using Gdk;
 using Gee;
 
-[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/widgets/votebox.ui")]
-public class Tooth.Widgets.VoteBox: Box {
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/votebox.ui")]
+public class Tuba.Widgets.VoteBox: Box {
 	[GtkChild] protected unowned ListBox pollBox;
 	[GtkChild] protected unowned Button button_vote;
     [GtkChild] protected unowned Box pollActionBox;
@@ -83,7 +83,7 @@ public class Tooth.Widgets.VoteBox: Box {
 
                 foreach (int own_vote in poll.own_votes){
                     if (own_vote==row_number){
-                         row.add_suffix(new Image.from_icon_name("tooth-check-round-outline-symbolic"));
+                         row.add_suffix(new Image.from_icon_name("tuba-check-round-outline-symbolic"));
                     }
                 }
 
@@ -119,7 +119,7 @@ public class Tooth.Widgets.VoteBox: Box {
                 foreach (int own_vote in poll.own_votes){
                     if (own_vote==row_number){
                          check_option.set_active(true);
-                         row.add_suffix(new Image.from_icon_name("tooth-check-round-outline-symbolic"));
+                         row.add_suffix(new Image.from_icon_name("tuba-check-round-outline-symbolic"));
                           if (!selectedIndex.contains(p.title)){
                             selectedIndex.add(p.title);
                           }

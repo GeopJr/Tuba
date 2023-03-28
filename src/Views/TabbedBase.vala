@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.Views.TabbedBase : Views.Base {
+public class Tuba.Views.TabbedBase : Views.Base {
 
 	static int ID_COUNTER = 0;
 
@@ -43,6 +43,7 @@ public class Tooth.Views.TabbedBase : Views.Base {
 
 	public void add_tab (Views.Base view) {
 		ID_COUNTER++;
+		view.view.add_css_class("no-transition");
 		var page = stack.add_titled (view, ID_COUNTER.to_string (), view.label);
 		view.bind_property ("icon", page, "icon-name", BindingFlags.SYNC_CREATE);
 		view.bind_property ("needs-attention", page, "needs-attention", BindingFlags.SYNC_CREATE);
@@ -97,19 +98,26 @@ public class Tooth.Views.TabbedBase : Views.Base {
 
 	void on_view_switched () {
 		var view = stack.visible_child as Views.Base;
+		if (view.view.has_css_class("no-transition")) {
+			// Timeout.add_once // glib 2.7.4
+			uint timeout = 0;
+			timeout = Timeout.add (200, () => {
+				last_view.view.remove_css_class("no-transition");
+				GLib.Source.remove(timeout);
+
+				return true;
+			}, Priority.LOW);
+		}
 
 		if (last_view != null) {
 			last_view.current = false;
-			last_view.on_hidden ();
 		}
 
 		if (view != null) {
 			label = view.label;
 			view.current = true;
-			view.on_shown ();
 		}
 
 		last_view = view;
 	}
-
 }

@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.EditorPage : ComposerPage {
+public class Tuba.EditorPage : ComposerPage {
 
 	protected int64 char_limit { get; set; default = 500; }
 	protected int64 remaining_chars { get; set; default = 0; }
@@ -9,7 +9,7 @@ public class Tooth.EditorPage : ComposerPage {
 	construct {
 		//  translators: "Text" as in text-based input
 		title = _("Text");
-		icon_name = "tooth-edit-symbolic";
+		icon_name = "document-edit-symbolic";
 
 		var char_limit_api = accounts.active.instance_info.compat_status_max_characters;
 		if (char_limit_api > 0)
@@ -141,7 +141,7 @@ public class Tooth.EditorPage : ComposerPage {
 	protected void install_emoji_picker () {
 		emoji_picker = new EmojiChooser();
 		var emoji_button = new MenuButton() {
-			icon_name = "tooth-smile-symbolic",
+			icon_name = "tuba-smile-symbolic",
 			popover = emoji_picker,
 			tooltip_text = _("Emoji Picker")
 		};
@@ -174,7 +174,7 @@ public class Tooth.EditorPage : ComposerPage {
 		content.prepend (revealer);
 
 		cw_button = new ToggleButton () {
-			icon_name = "tooth-warning-symbolic",
+			icon_name = "tuba-warning-symbolic",
 			tooltip_text = _("Content Warning")
 		};
 		cw_button.toggled.connect (validate);

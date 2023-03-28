@@ -1,9 +1,10 @@
 using Gtk;
 using Gee;
 
-public class Tooth.Widgets.EmojiLabel : Box {
+public class Tuba.Widgets.EmojiLabel : Box {
 	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
 	public bool labels_should_markup { get; set; default = false; }
+	public Gee.ArrayList<string> label_css_classes { get; set; default = new Gee.ArrayList<string>(); }
 
     private string _label = "";
 	public string label { get {return _label;}
@@ -35,6 +36,12 @@ public class Tooth.Widgets.EmojiLabel : Box {
 
 	private void generate_box() {
 		string? t_label = null;
+		string[] array_label_css_classes = {};
+
+		label_css_classes.foreach (css_class => {
+			array_label_css_classes += css_class;
+			return true;
+		});
 
 		if (label.contains(":") && instance_emojis != null) {
 			string[] emoji_arr = custom_emoji_regex.split (label);
@@ -50,7 +57,8 @@ public class Tooth.Widgets.EmojiLabel : Box {
 						wrap_mode = Pango.WrapMode.WORD_CHAR,
 						justify = Justification.LEFT,
 						single_line_mode = false,
-						use_markup = false
+						use_markup = false,
+						css_classes = array_label_css_classes
 					};
 					append(tmp_child);
 					t_label = "";
@@ -71,7 +79,8 @@ public class Tooth.Widgets.EmojiLabel : Box {
 				wrap_mode = Pango.WrapMode.WORD_CHAR,
 				justify = Justification.LEFT,
 				single_line_mode = false,
-				use_markup = t_label != label ? false : labels_should_markup
+				use_markup = t_label != label ? false : labels_should_markup,
+				css_classes = array_label_css_classes
 			};
 			append(tmp_child);
 		}

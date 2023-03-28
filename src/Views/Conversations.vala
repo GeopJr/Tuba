@@ -1,10 +1,10 @@
-public class Tooth.Views.Conversations : Views.Timeline {
+public class Tuba.Views.Conversations : Views.Timeline {
 
     public Conversations () {
         Object (
             url: "/api/v1/conversations",
             label: _("Conversations"),
-            icon: "tooth-mail-symbolic"
+            icon: "tuba-mail-symbolic"
         );
         accepts = typeof (API.Conversation);
     }

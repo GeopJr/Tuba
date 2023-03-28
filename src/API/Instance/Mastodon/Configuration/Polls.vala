@@ -1,4 +1,4 @@
-public class Tooth.API.Mastodon.Configuration.Polls : Entity {
+public class Tuba.API.Mastodon.Configuration.Polls : Entity {
 	public int64 max_options { get; set; }
 	public int64 max_characters_per_option { get; set; default = -1; }
 	public int64 max_option_chars { get; set; default = -1; }

@@ -1,4 +1,4 @@
-public class Tooth.API.Notification : Entity, Widgetizable {
+public class Tuba.API.Notification : Entity, Widgetizable {
 
     public string id { get; set; }
     public API.Account account { get; set; }

@@ -1,8 +1,8 @@
 using Gtk;
 using Gdk;
 
-[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/widgets/status.ui")]
-public class Tooth.Widgets.Status : ListBoxRow {
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/status.ui")]
+public class Tuba.Widgets.Status : ListBoxRow {
 
 	API.Status? _bound_status = null;
 	public API.Status? status {
@@ -14,6 +14,9 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			_bound_status = value;
 			if (_bound_status != null) {
 				bind ();
+			}
+			if (context_menu == null) {
+				create_actions ();
 			}
 		}
 	}
@@ -36,6 +39,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	[GtkChild] public unowned Image thread_line;
 
 	[GtkChild] public unowned Widgets.Avatar avatar;
+	[GtkChild] public unowned Overlay avatar_overlay;
 	[GtkChild] protected unowned Widgets.RichLabelContainer name_label;
 	[GtkChild] protected unowned Label handle_label;
 	[GtkChild] protected unowned Box indicators;
@@ -50,7 +54,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	[GtkChild] public unowned Widgets.MarkupView content;
 	[GtkChild] protected unowned Widgets.Attachment.Box attachments;
 	[GtkChild] protected unowned Button spoiler_button;
-	[GtkChild] protected unowned Widgets.RichLabel spoiler_label;
+	[GtkChild] protected unowned Label spoiler_label;
 	[GtkChild] protected unowned Label spoiler_label_rev;
 	[GtkChild] protected unowned Box spoiler_status_con;
 
@@ -127,6 +131,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	}
 
 	construct {
+		avatar_overlay.set_size_request(avatar.size, avatar.size);
 		open.connect (on_open);
 		if (settings.larger_font_size)
 			add_css_class("ttl-status-font-large");
@@ -182,18 +187,30 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		}
 
 		check_actions();
-		create_context_menu();
-
-		if (status.formal.account.is_self ()) {
-			var delete_status_simple_action = new SimpleAction ("delete-status", null);
-			delete_status_simple_action.activate.connect (delete_status);
-			action_group.add_action(delete_status_simple_action);
+		if (context_menu == null) {
+			create_actions ();
 		}
 	}
 	~Status () {
 		message ("Destroying Status widget");
-		if (context_menu != null)
+		if (context_menu != null) {
 			context_menu.unparent ();
+			context_menu.dispose();
+		}
+	}
+
+	protected void create_actions () {
+		create_context_menu();
+
+		if (status.formal.account.is_self ()) {
+			var edit_status_simple_action = new SimpleAction ("edit-status", null);
+			edit_status_simple_action.activate.connect (edit_status);
+			action_group.add_action(edit_status_simple_action);
+
+			var delete_status_simple_action = new SimpleAction ("delete-status", null);
+			delete_status_simple_action.activate.connect (delete_status);
+			action_group.add_action(delete_status_simple_action);
+		}
 	}
 
 	protected void create_context_menu() {
@@ -206,6 +223,7 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		menu_model.append_item (edit_history_menu_item);
 
 		if (status.formal.account.is_self ()) {
+			menu_model.append (_("Edit"), "status.edit-status");
 			menu_model.append (_("Delete"), "status.delete-status");
 		}
 
@@ -214,15 +232,19 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	}
 
 	private void copy_url () {
-		Host.copy (status.formal.url);
+		Host.copy (status.formal.url ?? status.formal.account.url);
 	}
 
 	private void open_in_browser () {
-		Host.open_uri (status.formal.url);
+		Host.open_uri (status.formal.url ?? status.formal.account.url);
 	}
 
 	private void view_edit_history () {
 		app.main_window.open_view (new Views.EditHistory (status.formal.id));
+	}
+
+	private void edit_status () {
+		new Dialogs.Compose.edit (status.formal);
 	}
 
 	private void delete_status () {
@@ -255,6 +277,8 @@ public class Tooth.Widgets.Status : ListBoxRow {
 	protected virtual void on_secondary_click () {
 		gesture_click_controller.set_state(EventSequenceState.CLAIMED);
 		gesture_lp_controller.set_state(EventSequenceState.CLAIMED);
+
+		if (app.main_window.is_media_viewer_visible()) return;
 		context_menu.popup();
 	}
 
@@ -310,6 +334,10 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			status.open ();
 	}
 
+	Widgets.Avatar? actor_avatar = null;
+	ulong actor_avatar_singal;
+	private Binding actor_avatar_binding;
+	const string[] should_show_actor_avatar = {InstanceAccount.KIND_REBLOG, InstanceAccount.KIND_REMOTE_REBLOG, InstanceAccount.KIND_FAVOURITE};
 	protected virtual void change_kind () {
 		string icon = null;
 		string descr = null;
@@ -318,10 +346,51 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		accounts.active.describe_kind (this.kind, out icon, out descr, this.kind_instigator, out label_url);
 
 		header_icon.visible = header_label.visible = (icon != null);
-		if (icon == null) return;
+		if (icon == null) {
+			grid.margin_top = 8;
+			return;
+		};
+
+		grid.margin_top = 0;
+
+		if (kind in should_show_actor_avatar) {
+			if (actor_avatar == null) {
+				actor_avatar = new Widgets.Avatar () {
+					size = 34,
+					valign = Gtk.Align.START,
+					halign = Gtk.Align.START,
+					css_classes = {"ttl-status-avatar-actor"}
+				};
+
+				if (this.kind_instigator != null) {
+					actor_avatar_binding = this.bind_property ("kind_instigator", actor_avatar, "account", BindingFlags.SYNC_CREATE);
+					actor_avatar_singal = actor_avatar.clicked.connect(open_kind_instigator_account);
+				} else {
+					actor_avatar_binding = status.bind_property ("account", actor_avatar, "account", BindingFlags.SYNC_CREATE);
+					actor_avatar_singal = actor_avatar.clicked.connect(open_status_account);
+				}
+			}
+			avatar.add_css_class("ttl-status-avatar-border");
+			avatar_overlay.child = actor_avatar;
+		} else if (actor_avatar != null) {
+			actor_avatar.disconnect(actor_avatar_singal);
+			actor_avatar_binding.unbind();
+
+			avatar_overlay.child = null;
+		}
 
 		header_icon.icon_name = icon;
+		header_label.dim = true;
+		header_label.small_font = true;
 		header_label.set_label(descr, label_url, this.kind_instigator.emojis_map);
+	}
+
+	private void open_kind_instigator_account () {
+		this.kind_instigator.open ();
+	}
+
+	private void open_status_account () {
+		status.account.open ();
 	}
 
 	// WARN: self_bindings __must__ be outside bind ()
@@ -375,25 +444,53 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			target.set_string (@"<b>$srcval</b> " + _("Favorites"));
 			return true;
 		});
+		formal_bindings.bind_property ("reblogs_count", reblog_button.content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			int64 srcval = (int64) src;
+
+			if (srcval > 0) {
+				reblog_button.content.margin_start = 12;
+				reblog_button.content.margin_end = 9;
+				target.set_string (@"$srcval");
+			} else {
+				reblog_button.content.margin_start = 0;
+				reblog_button.content.margin_end = 0;
+				target.set_string ("");
+			}
+
+			return true;
+		});
+		formal_bindings.bind_property ("favourites_count", favorite_button.content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			int64 srcval = (int64) src;
+
+			if (srcval > 0) {
+				favorite_button.content.margin_start = 12;
+				favorite_button.content.margin_end = 9;
+				target.set_string (@"$srcval");
+			} else {
+				favorite_button.content.margin_start = 0;
+				favorite_button.content.margin_end = 0;
+				target.set_string ("");
+			}
+
+			return true;
+		});
 		formal_bindings.bind_property ("replies_count", reply_button_content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			int64 srcval = (int64) src;
 
 			if (srcval > 0) {
-				reply_button_content.margin_start = 6;
-				reply_button_content.margin_end = 6;
+				reply_button_content.margin_start = 12;
+				reply_button_content.margin_end = 9;
+				target.set_string (@"$srcval");
 			} else {
 				reply_button_content.margin_start = 0;
 				reply_button_content.margin_end = 0;
+				target.set_string ("");
 			}
 
-			if (srcval == 1)
-				target.set_string (@"1");
-			else if (srcval > 1)
-				target.set_string (@"1+");
-			else
-				target.set_string("");
 			return true;
 		});
+		// Attachments
+		formal_bindings.bind_property ("media-attachments", attachments, "list", BindingFlags.SYNC_CREATE);
 
 		self_bindings.set_source (this);
 		formal_bindings.set_source (status.formal);
@@ -413,19 +510,19 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		reply_button.add_css_class("ttl-status-action-reply");
 		reply_button.tooltip_text = _("Reply");
 		if (status.formal.in_reply_to_id != null)
-			reply_button_content.icon_name = "tooth-reply-all-symbolic";
+			reply_button_content.icon_name = "tuba-reply-all-symbolic";
 		else
-			reply_button_content.icon_name = "tooth-reply-sender-symbolic";
+			reply_button_content.icon_name = "tuba-reply-sender-symbolic";
 
 		if (!status.can_be_boosted) {
 			reblog_button.sensitive = false;
 			reblog_button.tooltip_text = _("This post can't be boosted");
-			reblog_button.icon_name = accounts.active.visibility[status.visibility].icon_name;
+			reblog_button.content.icon_name = accounts.active.visibility[status.visibility].icon_name;
 		}
 		else {
 			reblog_button.sensitive = true;
 			reblog_button.tooltip_text = _("Boost");
-			reblog_button.icon_name = "tooth-media-playlist-repeat-symbolic";
+			reblog_button.content.icon_name = "tuba-media-playlist-repeat-symbolic";
 		}
 
 		if (status.id == "") {
@@ -441,15 +538,12 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			poll.status_parent=status.formal;
 			status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE);
 		}
-
-		// Attachments
-		attachments.list = status.formal.media_attachments;
 	}
 
 	protected virtual void append_actions () {
 		reply_button = new Button ();
 		reply_button_content = new Adw.ButtonContent ();
-		reply_button.clicked.connect (() => new Dialogs.Compose.reply (status));
+		reply_button.clicked.connect (() => new Dialogs.Compose.reply (status.formal));
 		actions.append (reply_button);
 
 		reblog_button = new StatusActionButton () {
@@ -465,8 +559,8 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			prop_name = "favourited",
 			action_on = "favourite",
 			action_off = "unfavourite",
-			icon_name = "tooth-unstarred-symbolic",
-			icon_toggled_name = "tooth-starred-symbolic"
+			icon_name = "tuba-unstarred-symbolic",
+			icon_toggled_name = "tuba-starred-symbolic"
 		};
 		favorite_button.add_css_class("ttl-status-action-star");
 		favorite_button.tooltip_text = _("Favorite");
@@ -476,8 +570,8 @@ public class Tooth.Widgets.Status : ListBoxRow {
 			prop_name = "bookmarked",
 			action_on = "bookmark",
 			action_off = "unbookmark",
-			icon_name = "tooth-bookmarks-symbolic",
-			icon_toggled_name = "tooth-bookmarks-filled-symbolic"
+			icon_name = "tuba-bookmarks-symbolic",
+			icon_toggled_name = "tuba-bookmarks-filled-symbolic"
 		};
 		bookmark_button.add_css_class("ttl-status-action-bookmark");
 		bookmark_button.tooltip_text = _("Bookmark");
@@ -491,15 +585,19 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		append_actions ();
 
 		// var menu_button = new MenuButton (); //TODO: Status menu
-		// menu_button.icon_name = "tooth-view-more-symbolic";
+		// menu_button.icon_name = "tuba-view-more-symbolic";
 		// menu_button.get_first_child ().add_css_class ("flat");
 		// actions.append (menu_button);
 
 		for (var w = actions.get_first_child (); w != null; w = w.get_next_sibling ()) {
 			w.add_css_class ("flat");
 			w.add_css_class ("circular");
-			w.halign = Align.CENTER;
+			w.halign = Align.START;
+			w.hexpand = true;
 		}
+
+		var w = actions.get_last_child ();
+		w.hexpand = false;
 	}
 
 	[GtkCallback] public void toggle_spoiler () {
@@ -560,21 +658,28 @@ public class Tooth.Widgets.Status : ListBoxRow {
 		switch (thread_role) {
 			case NONE:
 				l.visible = false;
+				l.remove_css_class("not-first");
+				l.remove_css_class("not-last");
 				break;
 			case START:
 				l.valign = Align.FILL;
 				l.margin_top = 24;
 				l.visible = true;
+				l.remove_css_class("not-first");
+				l.add_css_class("not-last");
 				break;
 			case MIDDLE:
 				l.valign = Align.FILL;
 				l.margin_top = 0;
 				l.visible = true;
+				l.add_css_class("not-first");
+				l.add_css_class("not-last");
 				break;
 			case END:
 				l.valign = Align.START;
 				l.margin_top = 0;
 				l.visible = true;
+				l.add_css_class("not-first");
 				break;
 		}
 	}

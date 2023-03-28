@@ -1,9 +1,8 @@
 using Gtk;
 using Gdk;
 
-[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/dialogs/main.ui")]
-public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
-
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/main.ui")]
+public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	public const string ZOOM_CLASS = "ttl-scalable";
 
 	[GtkChild] public unowned Adw.Flap flap;
@@ -18,8 +17,6 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		construct_saveable (settings);
 
 		var gtk_settings = Gtk.Settings.get_default ();
-		//  settings.bind_property ("dark-theme", gtk_settings, "gtk-application-prefer-dark-theme", BindingFlags.SYNC_CREATE);
-		// button_press_event.connect (on_button_press);
 	}
 
 	public MainWindow (Adw.Application app) {
@@ -37,32 +34,30 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		}
 	}
 
+	public bool is_media_viewer_visible() {
+		return main_stack.visible_child_name == "media_viewer"; 
+	}
+
 	public void show_media_viewer(string url, string? alt_text, bool video) {
+		if (is_media_viewer_visible()) return;
+
 		main_stack.visible_child_name = "media_viewer";
 		media_viewer.spinning = true;
 		media_viewer.url = url;
 		if (video) {
 			media_viewer.set_video(url);
 		} else {
-			image_cache.request_paintable (url, on_media_viewer_cache_response);
+			media_viewer.set_image(url);
 			media_viewer.alternative_text = alt_text;
 		}
-	}
 
-	private void on_media_viewer_cache_response(bool is_loaded, owned Paintable? data) {
-		media_viewer.paintable = data;
-		if (is_loaded) {
-			media_viewer.spinning = false;
-		}
+		media_viewer.clear.connect(hide_media_viewer);
 	}
 
 	public void hide_media_viewer() {
-		media_viewer.fullscreen = false;
+		if (!is_media_viewer_visible()) return;
+
 		main_stack.visible_child_name = "main";
-		media_viewer.paintable = null;
-		media_viewer.set_video(null);
-		media_viewer.url = "";
-		media_viewer.spinning = true;
 	}
 
 	public Views.Base open_view (Views.Base view) {
@@ -78,6 +73,11 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public bool back () {
+		if (is_media_viewer_visible()) {
+			media_viewer.clear();
+			return true;
+		};
+
 		if (last_view == null) return true;
 
 		if (last_view.is_sidebar_item)
@@ -101,13 +101,6 @@ public class Tooth.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	//FIXME: switch timelines with 1-4. Should be moved to Views.TabbedBase
 	public void switch_timeline (int32 num) {}
-
-	//FIXME: Handle back mouse button
-	// bool on_button_press (EventButton ev) {
-	// 	if (ev.button == 8)
-	// 		return back ();
-	// 	return false;
-	// }
 
 	[GtkCallback]
 	void on_view_changed () {

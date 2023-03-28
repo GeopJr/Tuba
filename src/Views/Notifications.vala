@@ -1,7 +1,7 @@
 using Gtk;
 using Gdk;
 
-public class Tooth.Views.Notifications : Views.Timeline, AccountHolder, Streamable {
+public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamable {
 
 	protected InstanceAccount? last_account = null;
 
@@ -9,7 +9,7 @@ public class Tooth.Views.Notifications : Views.Timeline, AccountHolder, Streamab
 		Object (
 			url: "/api/v1/notifications",
 			label: _("Notifications"),
-			icon: "tooth-bell-symbolic",
+			icon: "tuba-bell-symbolic",
 			badge_number: 0,
 			needs_attention: false
 		);

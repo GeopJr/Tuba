@@ -1,9 +1,9 @@
-public class Tooth.Views.EditHistory : Views.Timeline {
+public class Tuba.Views.EditHistory : Views.Timeline {
     public EditHistory (string status_id) {
         Object (
             url: @"/api/v1/statuses/$(status_id)/history",
             label: _("Edit History"),
-            icon: "tooth-edit-symbolic"
+            icon: "document-edit-symbolic"
         );
     }
 

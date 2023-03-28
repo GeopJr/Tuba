@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="ToothDialogsNewAccount" parent="AdwWindow">
+  <template class="TubaDialogsNewAccount" parent="AdwWindow">
     <property name="modal">True</property>
     <property name="default_width">600</property>
     <property name="default_height">500</property>
@@ -32,7 +32,7 @@
                   <object class="GtkButton">
                     <property name="receives_default">1</property>
                     <property name="label" translatable="yes">Next</property>
-                    <property name="sensitive" bind-source="ToothDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
+                    <property name="sensitive" bind-source="TubaDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
                     <signal name="clicked" handler="on_next_clicked" swapped="no"/>
                     <style>
                       <class name="suggested-action"/>
@@ -44,7 +44,7 @@
             <child>
               <object class="AdwStatusPage">
                 <property name="vexpand">1</property>
-                <property name="icon_name">tooth-network-server-symbolic</property>
+                <property name="icon_name">tuba-network-server-symbolic</property>
                 <property name="title" translatable="yes">What is your Server?</property>
                 <!-- translators: Please replace the joinmastodon.org/servers link with the one for your language if available -->
                 <property name="description" translatable="yes">If you don&apos;t have an account yet, &lt;a href=&quot;https://joinmastodon.org/servers&quot;&gt;choose a server and register one&lt;/a&gt;.</property>
@@ -117,7 +117,7 @@
                   <object class="GtkButton">
                     <property name="receives_default">1</property>
                     <property name="label" translatable="yes">Next</property>
-                    <property name="sensitive" bind-source="ToothDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
+                    <property name="sensitive" bind-source="TubaDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
                     <signal name="clicked" handler="on_next_clicked" swapped="no"/>
                     <style>
                       <class name="suggested-action"/>
@@ -129,7 +129,7 @@
             <child>
               <object class="AdwStatusPage" id="auth_page">
                 <property name="vexpand">1</property>
-                <property name="icon_name">tooth-key-password-symbolic</property>
+                <property name="icon_name">tuba-key-password-symbolic</property>
                 <property name="title" translatable="yes">Confirm Authorization</property>
                 <style>
                     <class name="compact"/>
@@ -148,7 +148,7 @@
                             <property name="spacing">6</property>
                             <child>
                               <object class="GtkLabel" id="manual_auth_label">
-                                <property name="visible" bind-source="ToothDialogsNewAccount" bind-property="use_auto_auth" bind-flags="sync-create"/>
+                                <property name="visible" bind-source="TubaDialogsNewAccount" bind-property="use_auto_auth" bind-flags="sync-create"/>
                                 <!-- translators: Do not translate "manual_auth" -->
                                 <property name="label" translatable="yes">If something went wrong, &lt;a href=&quot;manual_auth&quot;&gt;try manual authorization&lt;/a&gt;.</property>
                                 <property name="use_markup">1</property>
@@ -157,7 +157,7 @@
                             </child>
                             <child>
                               <object class="AdwPreferencesGroup">
-                                <property name="visible" bind-source="ToothDialogsNewAccount" bind-property="use_auto_auth" bind-flags="sync-create|invert-boolean"/>
+                                <property name="visible" bind-source="TubaDialogsNewAccount" bind-property="use_auto_auth" bind-flags="sync-create|invert-boolean"/>
                                 <child>
                                   <object class="AdwEntryRow" id="code_entry">
                                     <property name="title" translatable="true">Authorization Code</property>
@@ -201,7 +201,7 @@
                   <object class="GtkButton">
                     <property name="receives_default">1</property>
                     <property name="label" translatable="yes">Done</property>
-                    <property name="sensitive" bind-source="ToothDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
+                    <property name="sensitive" bind-source="TubaDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
                     <signal name="clicked" handler="on_done_clicked" swapped="no"/>
                     <style>
                       <class name="suggested-action"/>
@@ -213,7 +213,7 @@
             <child>
               <object class="AdwStatusPage" id="done_page">
                 <property name="vexpand">1</property>
-                <property name="icon_name">tooth-check-round-outline-symbolic</property>
+                <property name="icon_name">tuba-check-round-outline-symbolic</property>
                 <property name="title">Hello!</property>
                 <property name="description" translatable="true">Your account is connected and ready to use!</property>
                 <style>

@@ -1,4 +1,4 @@
-public class Tooth.Views.List : Views.Timeline {
+public class Tuba.Views.List : Views.Timeline {
 
 	public API.List list { get; set; }
 
@@ -6,7 +6,7 @@ public class Tooth.Views.List : Views.Timeline {
         Object (
         	url: @"/api/v1/timelines/list/$(l.id)",
         	label: l.title,
-        	icon: "tooth-list-compact-symbolic",
+        	icon: "tuba-list-compact-symbolic",
         	list: l
         );
 

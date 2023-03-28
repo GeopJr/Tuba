@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.Views.Main : Views.TabbedBase {
+public class Tuba.Views.Main : Views.TabbedBase {
 
 	public Main () {
 		Object(is_main: true);
@@ -15,7 +15,7 @@ public class Tooth.Views.Main : Views.TabbedBase {
 		back_button.hide ();
 
 		var search_button = new Button();
-		search_button.icon_name = "tooth-loupe-large-symbolic";
+		search_button.icon_name = "tuba-loupe-large-symbolic";
 		search_button.tooltip_text = _("Search");
 		search_button.clicked.connect ((source) => {
 			app.main_window.open_view (new Views.Search ());
@@ -24,7 +24,7 @@ public class Tooth.Views.Main : Views.TabbedBase {
 
 		var sidebar_button = new ToggleButton ();
 		header.pack_start (sidebar_button);
-		sidebar_button.icon_name = "tooth-dock-left-symbolic";
+		sidebar_button.icon_name = "tuba-dock-left-symbolic";
 
 		app.notify["main-window"].connect (() => {
 			if (app.main_window == null) {

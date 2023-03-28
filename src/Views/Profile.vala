@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.Views.Profile : Views.Timeline {
+public class Tuba.Views.Profile : Views.Timeline {
 
 	public API.Account profile { get; construct set; }
 	public API.Relationship rs { get; construct set; }
@@ -11,7 +11,6 @@ public class Tooth.Views.Profile : Views.Timeline {
 	protected Cover cover;
 	protected Label cover_badge;
 	protected MenuButton menu_button;
-	protected Widgets.RelationshipButton rs_button;
 
 	protected SimpleAction media_action;
 	protected SimpleAction replies_action;
@@ -25,6 +24,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 	construct {
 		cover = build_cover ();
 		cover_badge = cover.cover_badge;
+		cover.rsbtn.rs = this.rs;
 		column_view.prepend (cover);
 	}
 
@@ -62,7 +62,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 			.exec ();
 	}
 
-	[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/views/profile_header.ui")]
+	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/profile_header.ui")]
 	protected class Cover : Box {
 
 		[GtkChild] unowned Widgets.Background background;
@@ -72,6 +72,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 		[GtkChild] unowned Label handle;
 		[GtkChild] unowned Widgets.Avatar avatar;
 		[GtkChild] unowned Widgets.MarkupView note;
+		[GtkChild] public unowned Widgets.RelationshipButton rsbtn;
 
 		public void bind (API.Account account) {
 			display_name.instance_emojis = account.emojis_map;
@@ -79,6 +80,8 @@ public class Tooth.Views.Profile : Views.Timeline {
 			handle.label = account.handle;
 			avatar.account = account;
 			note.content = account.note;
+
+			if (account.id != accounts.active.id) rsbtn.visible = true;
 
 			if (account.header.contains("/headers/original/missing.png")) {
 				avatar.bind_property("custom_image", background, "paintable", GLib.BindingFlags.SYNC_CREATE);
@@ -100,7 +103,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 					if (f.verified_at != null) {
 						var verified_date = f.verified_at.slice (0, f.verified_at.last_index_of ("T"));
 						var verified_label_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
-						var verified_checkmark = new Gtk.Image.from_icon_name("tooth-check-round-outline-symbolic") {
+						var verified_checkmark = new Gtk.Image.from_icon_name("tuba-check-round-outline-symbolic") {
 							tooltip_text = _(@"Ownership of this link was checked on $verified_date")
 						};
 
@@ -172,14 +175,12 @@ public class Tooth.Views.Profile : Views.Timeline {
 		var menu = "profile-menu";
 		menu_button.menu_model = menu_builder.get_object (menu) as MenuModel;
 		menu_button.popover.width_request = 250;
-		menu_button.icon_name = "tooth-view-more-symbolic";
+		menu_button.icon_name = "tuba-view-more-symbolic";
 		header.pack_end (menu_button);
 
-		rs_button = new Widgets.RelationshipButton () {
-			rs = this.rs
-		};
-		if (profile.id != accounts.active.id)
-			header.pack_end (rs_button);
+		//  rs_button = new Widgets.RelationshipButton () {
+		//  	rs = this.rs
+		//  };
 	}
 
 	protected virtual Cover build_cover () {
@@ -332,7 +333,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 
 	void on_rs_updated () {
 		var label = "";
-		if (rs_button.sensitive = rs != null) {
+		if (cover.rsbtn.sensitive = rs != null) {
 			if (rs.requested)
 				label = _("Sent follow request");
 			else if (rs.followed_by && rs.following)
@@ -406,7 +407,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 		};
 
 		var no_lists_page = new Adw.StatusPage() {
-			icon_name = "tooth-error-symbolic",
+			icon_name = "tuba-error-symbolic",
 			vexpand = true,
 			title = _("You don't have any lists")
 		};
@@ -434,7 +435,7 @@ public class Tooth.Views.Profile : Views.Timeline {
 							var is_already = in_list.contains(list.id);
 
 							var add_button = new RowButton() {
-								icon_name = is_already ? "tooth-minus-large-symbolic" : "tooth-plus-large-symbolic",
+								icon_name = is_already ? "tuba-minus-large-symbolic" : "tuba-plus-large-symbolic",
 								tooltip_text = is_already ? _("Remove \"%s\" from \"%s\"").printf (profile.handle, list.title) : _("Add \"%s\" to \"%s\"").printf (profile.handle, list.title),
 								halign = Align.CENTER,
 								valign = Align.CENTER
@@ -489,13 +490,13 @@ public class Tooth.Views.Profile : Views.Timeline {
 					if (button.remove) {
 						//  translators: First variable is a handle, second variable is a list name
 						toast_msg = _("User \"%s\" got removed from \"%s\"").printf (profile.handle, list.title);
-						button.icon_name = "tooth-plus-large-symbolic";
+						button.icon_name = "tuba-plus-large-symbolic";
 						//  translators: First variable is a handle, second variable is a list name
 						button.tooltip_text = _("Add \"%s\" to \"%s\"").printf (profile.handle, list.title);
 					} else {
 						//  translators: First variable is a handle, second variable is a list name
 						toast_msg = _("User \"%s\" got added to \"%s\"").printf (profile.handle, list.title);
-						button.icon_name = "tooth-minus-large-symbolic";
+						button.icon_name = "tuba-minus-large-symbolic";
 						//  translators: First variable is a handle, second variable is a list name
 						button.tooltip_text = _("Remove \"%s\" from \"%s\"").printf (profile.handle, list.title);
 					}

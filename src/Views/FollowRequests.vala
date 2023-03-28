@@ -1,8 +1,8 @@
-public class Tooth.Views.FollowRequests : Views.Timeline {
+public class Tuba.Views.FollowRequests : Views.Timeline {
 
     public FollowRequests () {
         label = _("Follow Requests");
-        icon = "tooth-address-book-new-symbolic";
+        icon = "tuba-address-book-new-symbolic";
         url = "/api/v1/follow_requests";
         accepts = typeof (API.Account);
     }

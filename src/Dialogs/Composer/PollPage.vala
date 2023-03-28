@@ -1,9 +1,9 @@
-public class Tooth.PollPage : ComposerPage {
+public class Tuba.PollPage : ComposerPage {
 
 	public PollPage () {
 		Object (
 			title: _("Options"),
-			icon_name: "tooth-list-compact-symbolic",
+			icon_name: "tuba-list-compact-symbolic",
 			visible: false
 		);
 	}

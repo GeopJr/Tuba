@@ -1,7 +1,7 @@
 using Gtk;
 
-[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/views/sidebar/view.ui")]
-public class Tooth.Views.Sidebar : Box, AccountHolder {
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/view.ui")]
+public class Tuba.Views.Sidebar : Box, AccountHolder {
 
 	[GtkChild] unowned ToggleButton accounts_button;
 	[GtkChild] unowned Stack mode;
@@ -22,7 +22,7 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 
 	public static Place PREFERENCES = new Place () {
 			title = _("Preferences"),
-			icon = "tooth-gear-symbolic",
+			icon = "tuba-gear-symbolic",
 			selectable = false,
 			separated = true,
 			open_func = () => {
@@ -31,7 +31,7 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 	};
 	public static Place ABOUT = new Place () {
 			title = _("About"),
-			icon = "tooth-about-symbolic",
+			icon = "tuba-about-symbolic",
 			selectable = false,
 			open_func = () => {
 				app.lookup_action ("about").activate (null);
@@ -137,7 +137,7 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 
 	// Item
 
-	[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/views/sidebar/item.ui")]
+	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/item.ui")]
 	protected class ItemRow : ListBoxRow {
 		public Place place;
 
@@ -188,7 +188,7 @@ public class Tooth.Views.Sidebar : Box, AccountHolder {
 
 	// Account
 
-	[GtkTemplate (ui = "/dev/geopjr/Tooth/ui/views/sidebar/account.ui")]
+	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/account.ui")]
 	protected class AccountRow : Adw.ActionRow {
 		public InstanceAccount? account;
 

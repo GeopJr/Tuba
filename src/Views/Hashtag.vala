@@ -1,4 +1,4 @@
-public class Tooth.Views.Hashtag : Views.Timeline {
+public class Tuba.Views.Hashtag : Views.Timeline {
 
     bool t_following = false;
     string t_tag = "";

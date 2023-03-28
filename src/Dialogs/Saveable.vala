@@ -1,6 +1,6 @@
 using Gtk;
 
-public interface Tooth.Dialogs.Saveable : Window {
+public interface Tuba.Dialogs.Saveable : Window {
 
 	protected void construct_saveable (GLib.Settings settings) {
 		settings.bind ("window-w", this, "default-width", SettingsBindFlags.DEFAULT);

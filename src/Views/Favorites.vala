@@ -1,4 +1,4 @@
-public class Tooth.Views.Favorites : Views.Timeline {
+public class Tuba.Views.Favorites : Views.Timeline {
 
     public Favorites () {
         Object (

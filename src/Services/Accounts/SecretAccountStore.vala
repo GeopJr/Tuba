@@ -1,6 +1,6 @@
 using Secret;
 
-public class Tooth.SecretAccountStore : AccountStore {
+public class Tuba.SecretAccountStore : AccountStore {
 
 	const string VERSION = "1";
 
@@ -15,7 +15,7 @@ public class Tooth.SecretAccountStore : AccountStore {
 		schema_attributes["version"] = SchemaAttributeType.STRING;
 		schema = new Secret.Schema.newv (
 			Build.DOMAIN,
-			Secret.SchemaFlags.NONE,
+			Secret.SchemaFlags.DONT_MATCH_NAME,
 			schema_attributes
 		);
 
@@ -29,7 +29,7 @@ public class Tooth.SecretAccountStore : AccountStore {
 		var secrets = Secret.password_searchv_sync (
 			schema,
 			attrs,
-			Secret.SearchFlags.ALL,
+			Secret.SearchFlags.ALL | Secret.SearchFlags.UNLOCK,
 			null
 		);
 

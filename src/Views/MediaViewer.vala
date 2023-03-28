@@ -1,4 +1,4 @@
-public class Tooth.Views.MediaViewer : Gtk.Box {
+public class Tuba.Views.MediaViewer : Gtk.Box {
     // Keep track of the curret type
     // for switching between spinner
     // video and image
@@ -8,11 +8,11 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
 		set {
             if (value) {
                 app.main_window.fullscreen();
-                fullscreen_btn.icon_name = "tooth-view-restore-symbolic";
+                fullscreen_btn.icon_name = "tuba-view-restore-symbolic";
                 _fullscreen = true;
             } else {
                 app.main_window.unfullscreen();
-                fullscreen_btn.icon_name = "tooth-view-fullscreen-symbolic";
+                fullscreen_btn.icon_name = "tuba-view-fullscreen-symbolic";
                 _fullscreen = false;
             }
         }
@@ -37,6 +37,7 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
 	protected Gtk.Video video;
 	protected Gtk.Button fullscreen_btn;
 	protected Adw.HeaderBar headerbar;
+    protected ImageCache image_cache;
 	public Gdk.Paintable paintable {
 		set {
             _type = "image";
@@ -53,6 +54,10 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
 	}
 
 	construct {
+        image_cache = new ImageCache () {
+            maintenance_secs = 60 * 5
+        };
+
         var drag = new Gtk.GestureDrag ();
         drag.drag_end.connect(on_drag_end);
         add_controller (drag);
@@ -100,20 +105,20 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
             },
 			css_classes = {"flat", "media-viewer-headerbar"}
         };
-        var back_btn = new Gtk.Button.from_icon_name("tooth-left-large-symbolic") {
+        var back_btn = new Gtk.Button.from_icon_name("tuba-left-large-symbolic") {
             tooltip_text = _("Go Back")
         };
         back_btn.clicked.connect(on_back_clicked);
         headerbar.pack_start(back_btn);
 
         var end_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-        fullscreen_btn = new Gtk.Button.from_icon_name("tooth-view-fullscreen-symbolic") {
+        fullscreen_btn = new Gtk.Button.from_icon_name("tuba-view-fullscreen-symbolic") {
             tooltip_text = _("Toggle Fullscreen")
         };
         fullscreen_btn.clicked.connect(toggle_fullscreen);
         
         var actions_btn = new Gtk.MenuButton() {
-            icon_name = "tooth-view-more-symbolic",
+            icon_name = "tuba-view-more-symbolic",
             menu_model = create_actions_menu()
         };
 
@@ -125,13 +130,14 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
         append(stack);
 
         stack.visible_child_name = "spinner";
+		setup_mouse_previous_click();
 	}
 	~MediaViewer () {
 		message ("Destroying MediaViewer");
 	}
 
     protected void on_back_clicked() {
-        app.main_window.hide_media_viewer();
+        clear();
     }
 
     protected void toggle_fullscreen() {
@@ -188,5 +194,36 @@ public class Tooth.Views.MediaViewer : Gtk.Box {
         if (Math.fabs(y) >= 200) {
             on_back_clicked();
         }
+    }
+
+    private void setup_mouse_previous_click () {
+        var gesture = new Gtk.GestureClick();
+        gesture.button = 8;
+        gesture.propagation_phase = Gtk.PropagationPhase.CAPTURE;
+        gesture.pressed.connect(handle_mouse_previous_click);
+        add_controller (gesture);
+    }
+
+    private void handle_mouse_previous_click(int n_press, double x, double y) {
+        on_back_clicked();
+    }
+
+	public virtual signal void clear () {
+        this.fullscreen = false;
+		this.paintable = null;
+		this.set_video(null);
+		this.url = "";
+		this.spinning = true;
+    }
+
+    private void on_media_viewer_cache_response(bool is_loaded, owned Gdk.Paintable? data) {
+		this.paintable = data;
+		if (is_loaded) {
+			this.spinning = false;
+		}
+	}
+
+    public void set_image(string url) {
+		image_cache.request_paintable (url, on_media_viewer_cache_response);
     }
 }

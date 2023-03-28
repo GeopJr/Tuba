@@ -1,6 +1,6 @@
 using Gtk;
 
-public class Tooth.Widgets.RelationshipButton : Button {
+public class Tuba.Widgets.RelationshipButton : Button {
 
 	public API.Relationship? rs { get; set; }
 	protected SourceFunc? fn = null;
