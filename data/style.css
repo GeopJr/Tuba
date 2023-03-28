@@ -193,6 +193,12 @@ flowboxchild {
 	background-color: rgba(0, 0, 0, .8);
 }
 
+.ttl-status-badge.attachmentpageattachment>*.error {
+	background-color: alpha(mix(@red_4, white, .8), .8);
+}
+
+.ttl-status-badge.attachmentpageattachment>*.success {
+	background-color: alpha(mix(@green_4, white, .8), .8);
 }
 
 .ttl-status-badge>* {
