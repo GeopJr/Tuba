@@ -34,6 +34,17 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	public bool can_publish { get; set; default = false; }
 	public bool media_sensitive { get; set; default = false; }
 
+	bool _uploading = false;
+	private bool uploading {
+		get {
+			return _uploading;
+		}
+		set {
+			_uploading = value;
+			on_attachments_changed ();
+		}
+	}
+
 	public AttachmentsPage () {
 		Object (
 			title: _("Media"),
@@ -106,6 +117,17 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		stack.add_named (list, "list");
 		stack.add_named (empty_state, "empty");
 
+		var spinner = new Gtk.Spinner() {
+			spinning = true,
+			halign = Gtk.Align.CENTER,
+			valign = Gtk.Align.CENTER,
+			vexpand = true,
+			hexpand = true,
+			width_request = 32,
+			height_request = 32
+		};
+		stack.add_named (spinner, "spinner");
+
 		toast_overlay = new Adw.ToastOverlay();
 		toast_overlay.child = stack;
 
@@ -137,8 +159,8 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	void on_attachments_changed () {
 		var attachments_size = attachments.get_n_items ();
 		var is_empty = attachments_size < 1;
-		if (is_empty) {
-			stack.visible_child_name = "empty";
+		if (is_empty || uploading) {
+			stack.visible_child_name = uploading ? "spinner" : "empty";
 			bottom_bar.hide ();
 			can_publish = false;
 		} else {
@@ -182,6 +204,8 @@ public class Tuba.AttachmentsPage : ComposerPage {
 					var allowed_attachments_amount = accounts.active.instance_info.compat_status_max_media_attachments - attachments.get_n_items ();
 					var amount_to_add = selected_files_amount > allowed_attachments_amount ? allowed_attachments_amount : selected_files_amount;
 
+					File[] files_for_upload = {};
+
 					for (var i = 0; i < amount_to_add; i++) {
 						var file = files.get_item (i) as File;
 
@@ -212,10 +236,17 @@ public class Tuba.AttachmentsPage : ComposerPage {
 							}
 						}
 
+						files_for_upload += file;
+					}
+
+					var i = 0;
+					foreach (var file in files_for_upload) {
+						uploading = true;
 						API.Attachment.upload.begin (file.get_uri (), (obj, res) => {
 							try {
 								var attachment = API.Attachment.upload.end (res);
 								attachment.source_file = file;
+
 								attachments.append (attachment);
 							}
 							catch (Error e) {
@@ -225,6 +256,8 @@ public class Tuba.AttachmentsPage : ComposerPage {
 								};
 								toast_overlay.add_toast(toast);
 							}
+							i = i + 1;
+							if (i == files_for_upload.length) uploading = false;
 						});
 					}
 					break;
