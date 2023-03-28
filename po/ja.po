@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 18:13+0200\n"
-"PO-Revision-Date: 2023-03-26 12:10+0000\n"
+"PO-Revision-Date: 2023-03-29 09:37+0000\n"
 "Last-Translator: Gnuey56 <gnuey56@proton.me>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/tuba/tuba/ja/>\n"
 "Language: ja\n"
@@ -555,129 +555,130 @@ msgstr ""
 
 #: src/Views/Notifications.vala:11
 msgid "Notifications"
-msgstr ""
+msgstr "通知"
 
 #: src/Views/MediaViewer.vala:103
 msgid "Media Viewer"
-msgstr ""
+msgstr "メディアビューアー"
 
 #: src/Views/MediaViewer.vala:109
 msgid "Go Back"
-msgstr ""
+msgstr "戻る"
 
 #: src/Views/MediaViewer.vala:116
 msgid "Toggle Fullscreen"
-msgstr ""
+msgstr "フルスクリーンの切り替え"
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
-msgstr ""
+msgstr "ローカル"
 
 #: src/Views/Lists.vala:60
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr ""
+msgstr "\"%s\"を削除しますか？"
 
 #: src/Views/Lists.vala:61
 msgid "This action cannot be reverted."
-msgstr ""
+msgstr "このアクションは元に戻せません。"
 
 #: src/Views/Lists.vala:86
 #, c-format
 msgid "Edit \"%s\""
-msgstr ""
+msgstr "\"%s\" を編集"
 
 #: src/Views/Lists.vala:94
 msgid "Info"
-msgstr ""
+msgstr "情報"
 
 #: src/Views/Lists.vala:98
 msgid "List Name"
-msgstr ""
+msgstr "リストの名前"
 
 #: src/Views/Lists.vala:107
 msgid "Replies Policy"
-msgstr ""
+msgstr "リプライのポリシー"
 
 #: src/Views/Lists.vala:108
 msgid "Show member replies to"
 msgstr ""
 
 #: src/Views/Lists.vala:112
+#, fuzzy
 msgid "Nobody"
-msgstr ""
+msgstr "誰にもしない"
 
 #: src/Views/Lists.vala:124
 msgid "Other members of the list"
-msgstr ""
+msgstr "リスト内以外のメンバー"
 
 #: src/Views/Lists.vala:136
 msgid "Any followed user"
-msgstr ""
+msgstr "フォローしているユーザー"
 
 #: src/Views/Lists.vala:171
 msgid "Members"
-msgstr ""
+msgstr "メンバー"
 
 #: src/Views/Lists.vala:175
 msgid "Remove Members"
-msgstr ""
+msgstr "メンバーを削除"
 
 #: src/Views/Lists.vala:309
 msgid "New list title"
-msgstr ""
+msgstr "新しいリストのタイトル"
 
 #: src/Views/Lists.vala:318
 msgid "Add list"
-msgstr ""
+msgstr "リストを追加"
 
 #: src/Views/Home.vala:6 src/Services/Accounts/Mastodon/Account.vala:26
 msgid "Home"
-msgstr ""
+msgstr "ホーム"
 
 #: src/Views/FollowRequests.vala:4
 #: src/Services/Accounts/Mastodon/Account.vala:100
 msgid "Follow Requests"
-msgstr ""
+msgstr "フォローリクエスト"
 
 #: src/Views/Federated.vala:7 src/Services/Accounts/Mastodon/Account.vala:92
 msgid "Federated"
-msgstr ""
+msgstr "連合"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
-msgstr ""
+msgstr "履歴を編集"
 
 #: src/Views/Conversations.vala:6
 msgid "Conversations"
-msgstr ""
+msgstr "会話"
 
 #: src/Views/Bookmarks.vala:6 src/Services/Accounts/Mastodon/Account.vala:52
 msgid "Bookmarks"
-msgstr ""
+msgstr "ブックマーク"
 
 #: src/Views/Base.vala:6
 msgid "Nothing to see here"
-msgstr ""
+msgstr "ここには何もありません"
 
 #: src/Views/Base.vala:41
 msgid "Reload"
-msgstr ""
+msgstr "読み込み"
 
 #: src/Views/Base.vala:108
 msgid "An Error Occurred"
-msgstr ""
+msgstr "エラーが発生しました"
 
 #: src/Utils/DateTime.vala:12
 msgid "expires soon"
-msgstr ""
+msgstr "もうすぐ時間切れ"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:26
 msgid "expires on %b %-e, %Y"
-msgstr ""
+msgstr "%Y年%b%-e日に終了"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -686,28 +687,28 @@ msgstr ""
 #. %m is the minutes
 #: src/Utils/DateTime.vala:40
 msgid "expires on %b %-e, %Y %H:%m"
-msgstr ""
+msgstr "%Y年%b%-e日 %H:%mに終了"
 
 #: src/Utils/DateTime.vala:42
 msgid "expired on just now"
-msgstr ""
+msgstr "たった今終了"
 
 #: src/Utils/DateTime.vala:52
 msgid "expired yesterday"
-msgstr ""
+msgstr "きのう終了"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:57
 msgid "expired on %b %-e"
-msgstr ""
+msgstr "%b%-e日に終了"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:63
 msgid "expired on %b %-e, %Y"
-msgstr ""
+msgstr "%Y年%b%-e日で終了"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -716,158 +717,158 @@ msgstr ""
 #. %m is the minutes
 #: src/Utils/DateTime.vala:77
 msgid "%b %-e, %Y %H:%m"
-msgstr ""
+msgstr "%Y年%b%-e日 %H:%m"
 
 #: src/Utils/DateTime.vala:79
 msgid "Just now"
-msgstr ""
+msgstr "たった今"
 
 #: src/Utils/DateTime.vala:89
 msgid "Yesterday"
-msgstr ""
+msgstr "昨日"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:94
 msgid "%b %-e"
-msgstr ""
+msgstr "%b%-e日"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:100
 msgid "%b %-e, %Y"
-msgstr ""
+msgstr "%Y年%b%-e日"
 
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:46
 msgid "Follow System"
-msgstr ""
+msgstr "システムに従う"
 
 #. translators: Light mode theme
 #: src/Services/Settings.vala:49
 msgid "Light"
-msgstr ""
+msgstr "明るい"
 
 #. translators: Dark mode theme
 #: src/Services/Settings.vala:52
 msgid "Dark"
-msgstr ""
+msgstr "暗い"
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:94
 #, c-format
 msgid "%s Account"
-msgstr ""
+msgstr "%s アカウント"
 
 #: src/Services/Accounts/Mastodon/Account.vala:44
 msgid "Direct Messages"
-msgstr ""
+msgstr "ダイレクトメッセージ"
 
 #: src/Services/Accounts/Mastodon/Account.vala:127
 msgid "Public"
-msgstr ""
+msgstr "公開"
 
 #: src/Services/Accounts/Mastodon/Account.vala:129
 msgid "Post to public timelines"
-msgstr ""
+msgstr "公開タイムラインへ投稿"
 
 #. translators: Probably follow Mastodon's translation
 #: src/Services/Accounts/Mastodon/Account.vala:134
 msgid "Unlisted"
-msgstr ""
+msgstr "未収載"
 
 #: src/Services/Accounts/Mastodon/Account.vala:136
 msgid "Don't post to public timelines"
-msgstr ""
+msgstr "公開タイムラインには非表示"
 
 #: src/Services/Accounts/Mastodon/Account.vala:140
 msgid "Followers Only"
-msgstr ""
+msgstr "フォロワー限定"
 
 #: src/Services/Accounts/Mastodon/Account.vala:142
 msgid "Post to followers only"
-msgstr ""
+msgstr "フォロワーのみに投稿"
 
 #: src/Services/Accounts/Mastodon/Account.vala:146
 msgid "Direct"
-msgstr ""
+msgstr "ダイレクト"
 
 #: src/Services/Accounts/Mastodon/Account.vala:148
 msgid "Post to mentioned users only"
-msgstr ""
+msgstr "指定したユーザーのみに投稿"
 
 #: src/Services/Accounts/InstanceAccount.vala:132
 #, c-format
 msgid "%s mentioned you"
-msgstr ""
+msgstr "%s さんがあなたに言及しました"
 
 #: src/Services/Accounts/InstanceAccount.vala:137
 #, c-format
 msgid "%s boosted your post"
-msgstr ""
+msgstr "%s さんがあなたの投稿をブースト"
 
 #: src/Services/Accounts/InstanceAccount.vala:142
 #, c-format
 msgid "%s boosted"
-msgstr ""
+msgstr "%s さんがブースト"
 
 #: src/Services/Accounts/InstanceAccount.vala:147
 #, c-format
 msgid "%s favorited your post"
-msgstr ""
+msgstr "%s さんがあなたの投稿をお気に入りに"
 
 #: src/Services/Accounts/InstanceAccount.vala:152
 #, c-format
 msgid "%s now follows you"
-msgstr ""
+msgstr "%s さんが今あなたをフォローしました"
 
 #: src/Services/Accounts/InstanceAccount.vala:157
-#, c-format
+#, c-format, fuzzy
 msgid "%s wants to follow you"
-msgstr ""
+msgstr "%s さんがあなたをフォローしたがっています"
 
 #: src/Services/Accounts/InstanceAccount.vala:162
 msgid "Poll results"
-msgstr ""
+msgstr "投票結果"
 
 #: src/Dialogs/NewAccount.vala:5
 msgid "Allow access to your account in the browser."
-msgstr ""
+msgstr "あなたのアカウントへのアクセスをブラウザで許可してください。"
 
 #: src/Dialogs/NewAccount.vala:6
 msgid "Copy the authorization code from the browser and paste it below."
-msgstr ""
+msgstr "ブラウザの認証コードをコピーして張り付けてください。"
 
 #: src/Dialogs/NewAccount.vala:120
 msgid "Please enter a valid instance URL"
-msgstr ""
+msgstr "インスタンスのURLを入力してください"
 
 #: src/Dialogs/NewAccount.vala:153
 msgid "Please enter a valid authorization code"
-msgstr ""
+msgstr "認証コードを入力してください"
 
 #: src/Dialogs/NewAccount.vala:169
 msgid "Instance failed to authorize the access token"
-msgstr ""
+msgstr "インスタンスとのアクセストークンの認証に失敗しました"
 
 #: src/Dialogs/NewAccount.vala:178
 #, c-format
 msgid "Hello, %s!"
-msgstr ""
+msgstr "こんにちは、%sさん！"
 
 #: src/Dialogs/NewAccount.vala:228
 msgid "Server returned an error"
-msgstr ""
+msgstr "サーバーがエラーを返しました"
 
 #: src/Dialogs/Composer/PollPage.vala:5
 msgid "Options"
-msgstr ""
+msgstr "オプション"
 
 #. translators: "Text" as in text-based input
 #: src/Dialogs/Composer/EditorPage.vala:11
 msgid "Text"
-msgstr ""
+msgstr "文章"
 
 #: src/Dialogs/Composer/EditorPage.vala:109
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:104
@@ -876,107 +877,107 @@ msgstr ""
 
 #: src/Dialogs/Composer/EditorPage.vala:121
 msgid "What's on your mind?"
-msgstr ""
+msgstr "今なにしてる？"
 
 #: src/Dialogs/Composer/EditorPage.vala:146
 msgid "Emoji Picker"
-msgstr ""
+msgstr "絵文字ピッカー"
 
 #: src/Dialogs/Composer/EditorPage.vala:163
 msgid "Write your warning here"
-msgstr ""
+msgstr "コンテンツの警告を記入"
 
 #: src/Dialogs/Composer/EditorPage.vala:178
 msgid "Content Warning"
-msgstr ""
+msgstr "閲覧注意"
 
 #: src/Dialogs/Composer/EditorPage.vala:199
 msgid "Post Privacy"
-msgstr ""
+msgstr "公開範囲"
 
 #: src/Dialogs/Composer/Dialog.vala:65
 msgid "_Redraft"
-msgstr ""
+msgstr "再投稿(_R)"
 
 #: src/Dialogs/Composer/Dialog.vala:76
 msgid "_Edit"
-msgstr ""
+msgstr "編集(_E)"
 
 #: src/Dialogs/Composer/Dialog.vala:92
 msgid "_Reply"
-msgstr ""
+msgstr "リプライ(_R)"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:28
 msgid "Edit Alt Text"
-msgstr ""
+msgstr "説明を編集"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:43
 msgid "Remove Attachment"
-msgstr ""
+msgstr "添付を削除"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:109
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:39
 msgid "Media"
-msgstr ""
+msgstr "メディア"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:55
 #: src/Dialogs/Composer/AttachmentsPage.vala:79
 msgid "Add Media"
-msgstr ""
+msgstr "メディアを追加"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:64
 msgid "No Media"
-msgstr ""
+msgstr "メディアはありません"
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:89
 #: src/Dialogs/Composer/AttachmentsPage.vala:97
 msgid "Mark media as sensitive"
-msgstr ""
+msgstr "メディアを閲覧注意に設定"
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:97
 msgid "Unmark media as sensitive"
-msgstr ""
+msgstr "閲覧注意を取り消し"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:158
 msgid "All Supported Files"
-msgstr ""
+msgstr "サポートされているすべてのファイル"
 
 #. translators: Open file
 #: src/Dialogs/Composer/AttachmentsPage.vala:170
 msgid "Open"
-msgstr ""
+msgstr "開く"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:202
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
-msgstr ""
+msgstr "ファイル\"%s\"はインスタンスの限界容量を越えています"
 
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:258
 msgid "translator-credits"
-msgstr ""
+msgstr "Gnuey56 <gnuey56@proton.me>"
 
 #: src/Application.vala:283
 msgid "Yes"
-msgstr ""
+msgstr "はい"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:27
 #, c-format
 msgid "Used %d times by %d people yesterday"
-msgstr ""
+msgstr "昨日は、%d人が%d回使用しました"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:35
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
-msgstr ""
+msgstr "2日間で%d人が%d回使用しました"
 
 #: src/API/SearchResults.vala:21
 msgid "Search returned no results"
-msgstr ""
+msgstr "検索結果は見つかりませんでした"
