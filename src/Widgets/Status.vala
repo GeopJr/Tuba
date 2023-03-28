@@ -35,12 +35,12 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Grid grid;
 
 	[GtkChild] protected unowned Image header_icon;
-	[GtkChild] protected unowned Widgets.RichLabelContainer header_label;
+	[GtkChild] protected unowned Widgets.RichLabelContainerTemp header_label;
 	[GtkChild] public unowned Image thread_line;
 
 	[GtkChild] public unowned Widgets.Avatar avatar;
 	[GtkChild] public unowned Overlay avatar_overlay;
-	[GtkChild] protected unowned Widgets.RichLabelContainer name_label;
+	[GtkChild] protected unowned Widgets.RichLabelContainerTemp name_label;
 	[GtkChild] protected unowned Label handle_label;
 	[GtkChild] protected unowned Box indicators;
 	[GtkChild] protected unowned Label date_label;
@@ -380,9 +380,9 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 
 		header_icon.icon_name = icon;
+		header_label.set_label(descr, label_url, this.kind_instigator.emojis_map);
 		header_label.dim = true;
 		header_label.small_font = true;
-		header_label.set_label(descr, label_url, this.kind_instigator.emojis_map);
 	}
 
 	private void open_kind_instigator_account () {

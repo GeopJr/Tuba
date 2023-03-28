@@ -1,7 +1,7 @@
 // LabelWithWidgets is ported from Fractal
 // https://gitlab.gnome.org/GNOME/fractal/-/blob/40d2071975e20c1c936f7e87daaf8a0eba7f31b7/src/components/label_with_widgets.rs
 
-public class Tooth.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Accessible {
+public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Accessible {
     private Gtk.Widget[] widgets = {};
     private int[] widget_heights = {};
     private int[] widget_widths = {};
@@ -27,7 +27,7 @@ public class Tooth.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acc
         set {
             _text = value;
             update_label();
-            notify_property("label");
+            label.notify_property("label");
         }
     }
     
@@ -50,24 +50,6 @@ public class Tooth.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acc
         set {
             _use_markup = value;
             label.use_markup = _use_markup;
-        }
-    }
-
-    public float xalign {
-        get {
-            return label.xalign;
-        }
-        set {
-            label.xalign = value;
-        }
-    }
-    
-    public bool selectable {
-        get {
-            return label.selectable;
-        }
-        set {
-            label.selectable = value;
         }
     }
     
@@ -166,8 +148,7 @@ public class Tooth.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acc
                 var extra_attrs = run.item.analysis.extra_attrs.copy();
                 bool has_shape_attr = false;
                 foreach (var attr in extra_attrs) {
-                    // FIXME
-                    if (true) {
+                    if (((Pango.Attribute) attr).as_shape() != null) {
                         has_shape_attr = true;
                         break;
                     }
@@ -304,17 +285,19 @@ public class Tooth.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acc
         this.text = t_text;
     }
 
-    public void add_widgets (Gtk.Widget[] t_widgets) {
-        foreach (unowned Gtk.Widget widget in t_widgets) {
-            append_child(widget);
+    public void set_children (Gtk.Widget[] t_widgets) {
+        foreach (var child in widgets) {
+            child.unparent();
+            child.destroy ();
         }
-    }
 
-    public void set_widgets (Gtk.Widget[] t_widgets) {
         widgets = {};
         widget_widths = {};
         widget_heights = {};
-        add_widgets(t_widgets);
+
+        foreach (unowned Gtk.Widget widget in t_widgets) {
+            append_child(widget);
+        }
     }
     
     private void invalidate_child_widgets() {
@@ -338,9 +321,5 @@ public class Tooth.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acc
         }
 
         base.add_child (builder, child, type);
-    }
-
-    public signal bool activate_link (string uri) {
-        return label.activate_link (uri);
     }
 }

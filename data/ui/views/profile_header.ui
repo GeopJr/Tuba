@@ -85,7 +85,7 @@
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child>
-          <object class="TubaWidgetsEmojiLabel" id="display_name">
+          <object class="TubaWidgetsEmojiLabelTemp" id="display_name">
             <!-- <property name="label">Unknown</property> -->
             <style>
               <class name="title-3"/>

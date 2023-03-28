@@ -25,7 +25,7 @@
           </object>
         </child>
         <child>
-          <object class="TubaWidgetsRichLabelContainer" id="header_label">
+          <object class="TubaWidgetsRichLabelContainerTemp" id="header_label">
             <property name="visible">0</property>
             <!-- <property name="ellipsize">end</property> -->
             <!-- <property name="margin-bottom">8</property> -->
@@ -43,7 +43,7 @@
             <property name="vexpand">1</property>
             <property name="row_homogeneous">1</property>
             <child>
-              <object class="TubaWidgetsRichLabelContainer" id="name_label">
+              <object class="TubaWidgetsRichLabelContainerTemp" id="name_label">
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <!-- <property name="label" translatable="no">Name</property> -->

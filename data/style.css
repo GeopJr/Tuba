@@ -262,3 +262,7 @@ flowboxchild {
 .attachment-picture {
 	border-radius: 6px;
 }
+
+.line-height {
+	line-height: 150%;
+}
