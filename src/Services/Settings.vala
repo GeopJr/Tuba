@@ -4,6 +4,7 @@ public class Tuba.Settings : GLib.Settings {
 
 	public string active_account { get; set; }
 	public ColorScheme color_scheme { get; set; }
+	public string default_post_visibility { get; set; default = "public"; }
 	public bool autostart { get; set; }
 	public bool work_in_background { get; set; }
 	public int timeline_page_size { get; set; }
@@ -18,6 +19,7 @@ public class Tuba.Settings : GLib.Settings {
 		Object (schema_id: Build.DOMAIN);
 		init ("active-account");
 		init ("color-scheme");
+		init ("default-post-visibility");
 		init ("autostart");
 		init ("work-in-background");
 		init ("timeline-page-size");

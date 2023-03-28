@@ -191,7 +191,7 @@ public class Tuba.EditorPage : ComposerPage {
 
 	protected DropDown visibility_button;
 
-	protected void install_visibility (string default_visibility = "public") {
+	protected void install_visibility (string default_visibility = settings.default_post_visibility) {
 		visibility_button = new DropDown (accounts.active.visibility_list, null) {
 			expression = new PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
 			factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/icon.ui"),
@@ -199,8 +199,9 @@ public class Tuba.EditorPage : ComposerPage {
 			tooltip_text = _("Post Privacy")
 		};
 
+		var safe_visibility = accounts.active.visibility.has_key(default_visibility) ? default_visibility : "public";
 		uint default_visibility_index;
-		if (accounts.active.visibility_list.find(accounts.active.visibility[default_visibility], out default_visibility_index)) {
+		if (accounts.active.visibility_list.find(accounts.active.visibility[safe_visibility], out default_visibility_index)) {
 			visibility_button.selected = default_visibility_index;
 		}
 

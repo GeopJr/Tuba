@@ -62,6 +62,21 @@
         </child>
         <child>
           <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Posting</property>
+            <child>
+              <object class="AdwComboRow" id="post_visibility_combo_row">
+                <property name="title" translatable="yes">Default post visibility</property>
+                <property name="subtitle" translatable="yes">Replies follow the original post's visibility</property>
+
+                <property name="expression">
+                  <lookup type="TubaInstanceAccountVisibility" name="name"/>
+                </property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Behavior</property>
             <child>
               <object class="AdwActionRow">
