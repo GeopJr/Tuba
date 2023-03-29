@@ -217,6 +217,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
     }
 
     private void on_media_viewer_cache_response(bool is_loaded, owned Gdk.Paintable? data) {
+        warning(@"AAAAAAAAAAAAAAAAAAAAAAA $(is_loaded)");
 		this.paintable = data;
 		if (is_loaded) {
 			this.spinning = false;

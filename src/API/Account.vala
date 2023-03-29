@@ -36,7 +36,13 @@ public class Tuba.API.Account : Entity, Widgetizable {
     }
 	public string domain {
 		owned get {
-			var uri = new Soup.URI (url);
+            Uri uri;
+            try {
+                uri = Uri.parse (url, UriFlags.NONE);
+            } catch (GLib.UriError e) {
+                warning (e.message);
+                return "";
+            }
 			return uri.get_host ();
 		}
 	}

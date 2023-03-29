@@ -50,8 +50,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 			.with_account (account)
 			.with_param ("pinned", "true")
 			.with_ctx (this)
-			.then ((sess, msg) => {
-				Network.parse_array (msg, node => {
+			.then ((sess, msg, in_stream) => {
+				Network.parse_array (msg, in_stream, node => {
 					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
 					var e_status = e as API.Status;
 					if (e_status != null) e_status.pinned = true;
@@ -359,8 +359,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 	public static void open_from_id (string id) {
 		var msg = new Soup.Message ("GET", @"$(accounts.active.instance)/api/v1/accounts/$id");
-		network.queue (msg, (sess, mess) => {
-			var node = network.parse_node (mess);
+		network.queue (msg, null, (sess, mess, in_stream) => {
+			var node = network.parse_node (in_stream);
 			var acc = API.Account.from (node);
 			app.main_window.open_view (new Views.Profile (acc));
 		},
@@ -416,21 +416,21 @@ public class Tuba.Views.Profile : Views.Timeline {
 			.with_account (accounts.active)
 			.with_ctx (this)
 			.on_error (on_error)
-			.then ((sess, msg) => {
-				if (Network.get_array_size(msg) > 0) {
+			.then ((sess, msg, in_stream) => {
+				if (Network.get_array_size(in_stream) > 0) {
 					new Request.GET (@"/api/v1/accounts/$(profile.id)/lists")
 					.with_account (accounts.active)
 					.with_ctx (this)
 					.on_error (on_error)
-					.then ((sess2, msg2) => {
+					.then ((sess2, msg2, in_stream2) => {
 						var added = false;
 						var in_list = new Gee.ArrayList<string>();
 
-						Network.parse_array (msg2, node => {
+						Network.parse_array (msg2, in_stream2, node => {
 							var list = API.List.from (node);
 							in_list.add(list.id);
 						});
-						Network.parse_array (msg, node => {
+						Network.parse_array (msg, in_stream, node => {
 							var list = API.List.from (node);
 							var is_already = in_list.contains(list.id);
 

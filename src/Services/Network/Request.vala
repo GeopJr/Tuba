@@ -1,29 +1,62 @@
 using Soup;
 using Gee;
 
-public class Tuba.Request : Soup.Message {
-
+public class Tuba.Request : GLib.Object {
+	private Soup.Message _msg;
+	public Soup.Message msg {
+		get {
+			return _msg;
+		}
+		set {
+			if (cancellable != null && !cancellable.is_cancelled()) cancellable.cancel();
+			_msg = value;
+			cancellable = new Cancellable ();
+		}
+	}
 	public string url { set; get; }
+	public Soup.MessagePriority priority { set; get; }
+	private string _method;
+	public string method {
+		set {
+			_method = value;
+			if (msg != null)
+				msg.method = value;
+		}
+		
+		get {
+			return msg == null ? _method : msg.method;
+		}
+	}
+	public InputStream response_body { get; set; }
 	public weak InstanceAccount? account { get; set; default = null; }
 	Network.SuccessCallback? cb;
 	Network.ErrorCallback? error_cb;
 	HashMap<string, string>? pars;
 	Soup.Multipart? form_data;
+	public GLib.Cancellable cancellable;
 
 	weak Gtk.Widget? ctx;
 	bool has_ctx = false;
 
 	public Request.GET (string url) {
-		Object (method: "GET", url: url);
+		this.url = url;
+		method = "GET";
+		msg = new Soup.Message(method, url);
 	}
 	public Request.POST (string url) {
-		Object (method: "POST", url: url);
+		this.url = url;
+		method = "POST";
+		msg = new Soup.Message(method, url);
 	}
 	public Request.PUT (string url) {
-		Object (method: "PUT", url: url);
+		this.url = url;
+		method = "PUT";
+		msg = new Soup.Message(method, url);
 	}
 	public Request.DELETE (string url) {
-		Object (method: "DELETE", url: url);
+		this.url = url;
+		method = "DELETE";
+		msg = new Soup.Message(method, url);
 	}
 
 	// ~Request () {
@@ -36,8 +69,8 @@ public class Tuba.Request : Soup.Message {
 	}
 
 	public Request then_parse_array (owned Network.NodeCallback _cb) {
-		this.cb = (sess, msg) => {
-			Network.parse_array (msg, (owned) _cb);
+		this.cb = (sess, msg, in_stream) => {
+			Network.parse_array (msg, in_stream, (owned) _cb);
 		};
     return this;
 }
@@ -46,7 +79,7 @@ public class Tuba.Request : Soup.Message {
 		this.has_ctx = true;
 		this.ctx = ctx;
 		this.ctx.destroy.connect (() => {
-			network.cancel (this);
+			this.cancellable.cancel();
 			this.ctx = null;
 		});
 		return this;
@@ -98,18 +131,35 @@ public class Tuba.Request : Soup.Message {
 			});
 		}
 
-		if (form_data != null)
-			form_data.to_message(request_headers, request_body);
-
-		if (account != null && account.access_token != null) {
-			request_headers.append ("Authorization", @"Bearer $(account.access_token)");
-		}
-
 		if (!("://" in url))
 			url = account.instance + url;
 
-		uri = new URI (url + parameters);
-		network.queue (this, (owned) cb, (owned) error_cb);
+		if (msg == null)
+			msg = new Soup.Message (method, url);
+
+		if (form_data != null) {
+			var t_method = msg.method;
+			msg = new Soup.Message.from_multipart (url, form_data);
+			msg.method = t_method;
+		} else {
+			Uri t_uri;
+			try {
+				t_uri = Uri.parse (url + parameters, UriFlags.NONE);
+			} catch (GLib.UriError e) {
+				warning (e.message);
+				return this;
+			}
+			msg.uri = t_uri;
+		}
+
+		if (account != null && account.access_token != null) {
+			msg.request_headers.remove ("Authorization");
+			msg.request_headers.append ("Authorization", @"Bearer $(account.access_token)");
+		}
+
+		msg.priority = priority;
+
+		network.queue (msg, this.cancellable, (owned) cb, (owned) error_cb);
 		return this;
 	}
 
@@ -119,7 +169,8 @@ public class Tuba.Request : Soup.Message {
 			error = reason;
 			await.callback ();
 		};
-		this.cb = (sess, msg) => {
+		this.cb = (sess, msg, in_stream) => {
+			this.response_body = in_stream;
 			await.callback ();
 		};
 		this.exec ();

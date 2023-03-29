@@ -131,7 +131,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			.with_form_data ("website", Build.WEBSITE);
 		yield msg.await ();
 
-		var root = network.parse (msg);
+		var root = network.parse (msg.response_body);
 		account.client_id = root.get_string_member ("client_id");
 		account.client_secret = root.get_string_member ("client_secret");
 		message ("OK: Instance registered client");
@@ -162,7 +162,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			.with_param ("code", code_entry.text);
 		yield token_req.await ();
 
-		var root = network.parse (token_req);
+		var root = network.parse (token_req.response_body);
 		account.access_token = root.get_string_member ("access_token");
 
 		if (account.access_token == null)
@@ -182,11 +182,19 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		accounts.activate (account);
 	}
 
-	public void redirect (string uri) {
+	public void redirect (string t_uri) {
 		present ();
-		message (@"Received uri: $uri");
+		message (@"Received uri: $t_uri");
 
-		var query = new Soup.URI (uri).get_query ();
+		Uri uri;
+		try {
+			uri = Uri.parse (t_uri, UriFlags.NONE);
+		} catch (GLib.UriError e) {
+			warning (e.message);
+			return;
+		}
+
+		var query = uri.get_query ();
 		var split = query.split ("=");
 		var code = split[1];
 		var code_clean = code.splice(code.index_of_char('&'), -1);

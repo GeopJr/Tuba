@@ -21,8 +21,8 @@ public class Tuba.API.Relationship : Entity {
 		new Request.GET ("/api/v1/accounts/relationships")
 			.with_account (accounts.active)
 			.with_param ("id", id)
-			.then ((sess, msg) => {
-				Network.parse_array (msg, node => {
+			.then ((sess, msg, in_stream) => {
+				Network.parse_array (msg, in_stream, node => {
 					invalidate (node);
 				});
 			})
@@ -38,8 +38,8 @@ public class Tuba.API.Relationship : Entity {
 	public void modify (string operation, string? param = null, string? val = null) {
 		var req = new Request.POST (@"/api/v1/accounts/$id/$operation")
 			.with_account (accounts.active)
-			.then ((sess, msg) => {
-				var node = network.parse_node (msg);
+			.then ((sess, msg, in_stream) => {
+				var node = network.parse_node (in_stream);
 				invalidate (node);
 				message (@"Performed \"$operation\" on Relationship $id");
 			});
