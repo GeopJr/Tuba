@@ -77,6 +77,7 @@ executable(
         dependency('json-glib-1.0', version: '>=1.4.4'),
         dependency('libxml-2.0'),
         dependency('libsecret-1', required: true),
+        dependency('gtksourceview-5', required: true),
         libgtk_dep,
         libadwaita_dep,
     ],

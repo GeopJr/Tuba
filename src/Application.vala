@@ -102,6 +102,7 @@ namespace Tuba {
 					message (line);
 				}
 				Adw.init ();
+				GtkSource.init ();
 
 				settings = new Settings ();
 				streams = new Streams ();
@@ -210,7 +211,7 @@ namespace Tuba {
 			refresh ();
 		}
 
-		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)\n".printf(
+		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)\nlibgtksourceview: %u.%u.%u (%d.%d.%d)".printf(
 				GLib.Environment.get_os_info ("NAME"), GLib.Environment.get_os_info ("VERSION"),
 				Build.PREFIX,
 				(GLib.Environment.get_variable("FLATPAK_ID") != null || GLib.File.new_for_path("/.flatpak-info").query_exists()).to_string(),
@@ -220,7 +221,9 @@ namespace Tuba {
 				Adw.get_major_version(), Adw.get_minor_version(), Adw.get_micro_version(),
 				Adw.MAJOR_VERSION, Adw.MINOR_VERSION, Adw.MICRO_VERSION,
 				Soup.get_major_version(), Soup.get_minor_version(), Soup.get_micro_version(),
-				Soup.MAJOR_VERSION, Soup.MINOR_VERSION, Soup.MICRO_VERSION
+				Soup.MAJOR_VERSION, Soup.MINOR_VERSION, Soup.MICRO_VERSION,
+				GtkSource.get_major_version (), GtkSource.get_minor_version (), GtkSource.get_micro_version (),
+				GtkSource.MAJOR_VERSION, GtkSource.MINOR_VERSION, GtkSource.MICRO_VERSION
 			);
 
 		void about_activated () {
