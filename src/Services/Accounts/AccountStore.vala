@@ -40,7 +40,8 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		}
 		catch (GLib.Error e) {
 			warning (e.message);
-			app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
+			var dlg = app.inform (_("Error"), e.message);
+			dlg.present ();
 		}
 	}
 

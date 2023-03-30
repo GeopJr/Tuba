@@ -16,7 +16,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		var states_box = states.get_parent () as Box;
 		if (states_box != null)
 			states_box.remove (states);
-		view.get_style_context ().remove_class ("ttl-view");
+		view.remove_css_class ("ttl-view");
 
 		var scrolled_overlay_box = scrolled_overlay.get_parent () as Box;
 		if (scrolled_overlay_box != null)

@@ -611,7 +611,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	public void expand_root () {
 		activatable = false;
 		content.selectable = true;
-		content.get_style_context ().add_class ("ttl-large-body");
+		content.add_css_class ("ttl-large-body");
 
 		var content_grid = content_column.get_parent () as Grid;
 		if (content_grid == null)

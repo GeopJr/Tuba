@@ -158,7 +158,8 @@ public class Tuba.StatusActionButton : LockableToggleButton {
 				warning (@"Couldn't perform action \"$action\" on a Status:");
 				warning (e.message);
 				update_stats(entity, active ? action_off : action_on);
-				app.inform (Gtk.MessageType.WARNING, _("Network Error"), e.message);
+				var dlg = app.inform (_("Network Error"), e.message);
+				dlg.present ();
 				set_class_enabled(!active);
 				set_toggled_icon(!active);
 			}

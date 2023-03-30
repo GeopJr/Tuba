@@ -158,7 +158,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 				download_video.end (res);
 			}
 			catch (Error e) {
-				app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
+				var dlg = app.inform (_("Error"), e.message);
+                dlg.present ();
 			}
 		});
 	}

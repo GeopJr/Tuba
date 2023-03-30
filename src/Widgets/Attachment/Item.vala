@@ -185,7 +185,8 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 				open.end (res);
 			}
 			catch (Error e) {
-				app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
+				var dlg = app.inform (_("Error"), e.message);
+				dlg.present ();
 			}
 		});
 	}

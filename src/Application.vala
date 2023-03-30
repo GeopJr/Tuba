@@ -39,8 +39,8 @@ namespace Tuba {
 		public signal void refresh ();
 		public signal void toast (string title);
 
-		public CssProvider css_provider = new CssProvider ();
-		public CssProvider zoom_css_provider = new CssProvider (); //FIXME: Zoom not working
+		//  public CssProvider css_provider = new CssProvider ();
+		//  public CssProvider zoom_css_provider = new CssProvider (); //FIXME: Zoom not working
 
 		public const GLib.OptionEntry[] app_options = {
 			{ "hidden", 0, 0, OptionArg.NONE, ref start_hidden, "Do not show main window on start", null },
@@ -112,12 +112,13 @@ namespace Tuba {
 				accounts.init ();
 
 				//  css_provider.load_from_resource (@"$(Build.RESOURCES)app.css");
-				StyleContext.add_provider_for_display (Gdk.Display.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-				StyleContext.add_provider_for_display (Gdk.Display.get_default (), zoom_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+				//  StyleContext.add_provider_for_display (Gdk.Display.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+				//  StyleContext.add_provider_for_display (Gdk.Display.get_default (), zoom_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 			}
 			catch (Error e) {
 				var msg = "Could not start application: %s".printf (e.message);
-				inform (Gtk.MessageType.ERROR, _("Error"), msg);
+				var dlg = inform (_("Error"), msg);
+				dlg.present ();
 				error (msg);
 			}
 
@@ -265,19 +266,15 @@ namespace Tuba {
 			dialog.present ();
 		}
 
-		public void inform (Gtk.MessageType type, string text, string? msg = null, Gtk.Window? win = main_window){
-			var dlg = new Gtk.MessageDialog (
+		public Adw.MessageDialog inform (string text, string? msg = null, Gtk.Window? win = main_window){
+			var dlg = new Adw.MessageDialog (
 				win,
-				Gtk.DialogFlags.MODAL,
-				type,
-				Gtk.ButtonsType.OK,
-				null
+				text,
+				msg
 			);
-			dlg.text = text;
-			dlg.secondary_text = msg;
+
 			dlg.transient_for = win;
-			// dlg.run ();
-			dlg.destroy ();
+			return dlg;
 		}
 
 		public Adw.MessageDialog question (string text, string? msg = null, Gtk.Window? win = main_window, string yes_label = _("Yes"), Adw.ResponseAppearance yes_appearence = Adw.ResponseAppearance.DEFAULT, string no_label = _("Cancel"), Adw.ResponseAppearance no_appearence = Adw.ResponseAppearance.DEFAULT) {

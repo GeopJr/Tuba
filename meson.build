@@ -60,6 +60,9 @@ libadwaita_dep = dependency('libadwaita-1', version: '>=1.2', required: true)
 if libgtk_dep.version().version_compare('>=4.8.0')
   add_project_arguments(['--define=GTK_4_8'], language: 'vala')
 endif
+if libgtk_dep.version().version_compare('>=4.10.0')
+  add_project_arguments(['--define=GTK_4_10'], language: 'vala')
+endif
 
 sources = files(
     'vapi/build.vapi',
