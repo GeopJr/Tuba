@@ -70,7 +70,7 @@ public class Tuba.HandleCompletionProvider: GLib.Object, GtkSource.CompletionPro
 		var req = yield API.Account.search (word);
 		yield req.await();
 
-		Network.parse_array (req, node => {
+		Network.parse_array (req.msg, req.response_body, node => {
 			if (word != context.get_word ())
 				return;
 
