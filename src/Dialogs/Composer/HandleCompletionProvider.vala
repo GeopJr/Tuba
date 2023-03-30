@@ -2,22 +2,21 @@ using Gtk;
 
 public class Tuba.HandleCompletionProvider: GLib.Object, GtkSource.CompletionProvider {
 
-	protected Dialogs.Compose dialog;
-
 	protected GLib.ListStore results = new GLib.ListStore (typeof(Object));
 	protected bool is_capturing_input { get; set; default = false; }
 	protected int empty_triggers = 0;
 
-	class Proposal: Object, GtkSource.CompletionProposal {
-		public API.Account account { set; get; }
+	internal class Proposal: Object, GtkSource.CompletionProposal {
+		public API.Account account { construct; get; }
 
-		public Proposal (API.Account account) {
-			this.account = account;
+		public Proposal (API.Account entity) {
+			Object (account: entity);
 		}
 	}
 
 	public void activate (GtkSource.CompletionContext context, GtkSource.CompletionProposal proposal) {
-		var account = (proposal as Proposal).account;
+		var account = (proposal as Proposal)?.account;
+		return_if_fail (account != null);
 
 		TextIter start;
 		TextIter end;
@@ -68,12 +67,15 @@ public class Tuba.HandleCompletionProvider: GLib.Object, GtkSource.CompletionPro
 
 		this.results.remove_all ();
 
-		var req = yield this.search (word);
+		var req = yield API.Account.search (word);
 		yield req.await();
 
 		Network.parse_array (req, node => {
+			if (word != context.get_word ())
+				return;
+
 			var entity = entity_cache.lookup_or_insert (node, typeof (API.Account));
-			if (entity is API.Account && word == context.get_word ()) {
+			if (entity is API.Account) {
 				var proposal = new Proposal (entity as API.Account);
 				this.results.append (proposal);
 			}
@@ -82,17 +84,11 @@ public class Tuba.HandleCompletionProvider: GLib.Object, GtkSource.CompletionPro
 		return this.results;
 	}
 
-	protected async Request search (string query) throws Error {
-		return new Request.GET ("/api/v1/accounts/search")
-			.with_account (accounts.active)
-			.with_param ("q", query)
-			.with_param ("resolve", "false")
-			.with_param ("limit", "4");
-	}
-
 	public void display (GtkSource.CompletionContext context, GtkSource.CompletionProposal proposal, GtkSource.CompletionCell cell) {
+		var account = (proposal as Proposal)?.account;
+		return_if_fail (account != null);
+
 		var column = cell.get_column ();
-		var account = (proposal as Proposal).account;
 		switch (column) {
 			case GtkSource.CompletionColumn.ICON:
 				var avatar = new Widgets.Avatar ();
