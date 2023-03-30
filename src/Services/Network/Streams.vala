@@ -54,7 +54,7 @@ public class Tuba.Streams : Object {
 
 		public string name {
 			owned get {
-				var url = msg.get_uri ().to_string (false);
+				var url = msg.get_uri ().to_string ();
 				return url.slice (0, url.last_index_of ("&access_token"));
 			}
 		}
@@ -66,7 +66,7 @@ public class Tuba.Streams : Object {
 
 		public bool start () {
 			message (@"Opening stream: $name");
-			network.session.websocket_connect_async.begin (msg, null, null, null, (obj, res) => {
+			network.session.websocket_connect_async.begin (msg, null, null, 0, null, (obj, res) => {
 				try {
 					socket = network.session.websocket_connect_async.end (res);
 					socket.error.connect (on_error);
@@ -93,7 +93,8 @@ public class Tuba.Streams : Object {
 			if (subscribers.size <= 0) {
 				message (@"Closing: $name");
 				closing = true;
-				socket.close (0, null);
+				if (socket != null)
+					socket.close (0, null);
 				return true;
 			}
 			return false;

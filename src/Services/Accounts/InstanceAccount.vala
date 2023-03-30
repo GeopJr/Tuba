@@ -110,7 +110,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		var req = new Request.GET ("/api/v1/accounts/verify_credentials").with_account (this);
 		yield req.await ();
 
-		var node = network.parse_node (req);
+		var node = network.parse_node (req.response_body);
 		var updated = API.Account.from (node);
 		patch (updated);
 
@@ -186,8 +186,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public void gather_instance_info () {
 		new Request.GET ("/api/v1/instance")
 			.with_account (this)
-			.then ((sess, msg) => {
-				var node = network.parse_node (msg);
+			.then ((sess, msg, in_stream) => {
+				var node = network.parse_node (in_stream);
 				instance_info = API.Instance.from (node);
 			})
 			.exec ();
@@ -199,8 +199,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		new Request.GET ("/api/v1/notifications")
 			.with_account (this)
 			.with_param ("min_id", @"$last_read_id")
-			.then ((sess, msg) => {
-				var array = Network.get_array_mstd(msg);
+			.then ((sess, msg, in_stream) => {
+				var array = Network.get_array_mstd(in_stream);
 				if (array != null) {
 					unread_count = (int)array.get_length();
 					if (unread_count > 0) {
@@ -216,8 +216,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public virtual void check_notifications () {
 		new Request.GET ("/api/v1/markers?timeline[]=notifications")
 			.with_account (this)
-			.then ((sess, msg) => {
-				var root = network.parse (msg);
+			.then ((sess, msg, in_stream) => {
+				var root = network.parse (in_stream);
 				if (!root.has_member("notifications")) return;
 				var notifications = root.get_object_member ("notifications");
 				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1") );

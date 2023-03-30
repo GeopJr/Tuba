@@ -73,7 +73,7 @@ executable(
     dependencies: [
         dependency('glib-2.0', version: '>=2.70'),
         dependency('gee-0.8', version: '>=0.8.5'),
-        dependency('libsoup-2.4'),
+        dependency('libsoup-3.0'),
         dependency('json-glib-1.0', version: '>=1.4.4'),
         dependency('libxml-2.0'),
         dependency('libsecret-1', required: true),

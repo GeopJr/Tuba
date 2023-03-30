@@ -154,7 +154,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		modify_req (publish_req);
 		yield publish_req.await ();
 
-		var node = network.parse_node (publish_req);
+		var node = network.parse_node (publish_req.response_body);
 		var status = API.Status.from (node);
 		message (@"Published post with id $(status.id)");
 

@@ -4,17 +4,14 @@ public class Tuba.ImageCache : AbstractCache {
 
 	public delegate void OnItemChangedFn (bool is_loaded, owned Paintable? data);
 
-	protected Paintable decode (owned Soup.Message msg) throws Error {
+	protected Paintable decode (owned Soup.Message msg, owned InputStream in_stream) throws Error {
 		var code = msg.status_code;
 		if (code != Soup.Status.OK) {
 			var error = msg.reason_phrase;
 			throw new Oopsie.INSTANCE (@"Server returned $error");
 		}
 
-        var data = msg.response_body.flatten ().data;
-        var stream = new MemoryInputStream.from_data (data);
-        var pixbuf = new Pixbuf.from_stream (stream);
-        stream.close ();
+        var pixbuf = new Pixbuf.from_stream (in_stream);
 
         return Gdk.Texture.for_pixbuf (pixbuf);
 	}
@@ -34,11 +31,10 @@ public class Tuba.ImageCache : AbstractCache {
 			// This image isn't cached, so we need to download it first.
 
             download_msg = new Soup.Message ("GET", url);
-            ulong id = 0;
-            id = download_msg.finished.connect (() => {
+            network.queue (download_msg, null, (sess, mess, t_in_stream) => {
                 Paintable? paintable = null;
                 try {
-                    paintable = decode (download_msg);
+                    paintable = decode (download_msg, t_in_stream);
                 }
                 catch (Error e) {
                     warning (@"Failed to download image at \"$url\". $(e.message).");
@@ -48,14 +44,12 @@ public class Tuba.ImageCache : AbstractCache {
 
                 // message (@"[*] $key");
                 insert (url, paintable);
+                Signal.emit_by_name (download_msg, "finished");
+
                 items_in_progress.unset (key);
 
                 cb (true, paintable);
-
-                download_msg.disconnect (id);
-            });
-
-            network.queue (download_msg, (sess, mess) => {},
+            },
             (code, reason) => {
                 cb (true, null);
             });
@@ -69,8 +63,9 @@ public class Tuba.ImageCache : AbstractCache {
 
             //message ("[/]: %s", key);
             ulong id = 0;
-            id = download_msg.finished.connect_after (() => {
+            id = download_msg.finished.connect (() => {
                 cb (true, lookup (key) as Paintable);
+
                 download_msg.disconnect (id);
             });
         }

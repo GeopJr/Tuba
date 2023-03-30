@@ -63,9 +63,9 @@ public class Tuba.Host {
 			var msg = yield new Request.GET (url)
 				.await ();
 
-			var data = msg.response_body.data;
+			var data = msg.response_body;
 			FileOutputStream stream = file.create (FileCreateFlags.PRIVATE);
-			stream.write (data);
+			stream.splice (data, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);
 
 			message (@"   OK: File written to: $file_path");
 		}

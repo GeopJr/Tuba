@@ -147,7 +147,7 @@ public class Tuba.StatusActionButton : LockableToggleButton {
 		req.await.begin ((o, res) => {
 			try {
 				var msg = req.await.end (res);
-				var node = network.parse_node (msg);
+				var node = network.parse_node (msg.response_body);
 
 				var jobj = node.get_object ();
 				var received_value = jobj.get_boolean_member (prop_name);
