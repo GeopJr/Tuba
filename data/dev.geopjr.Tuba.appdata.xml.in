@@ -54,7 +54,7 @@
     <control>touch</control>
   </recommends>
   <releases>
-    <release version="0.1.0" date="2022-03-23">
+    <release version="0.1.0" date="2023-03-23">
         <description>
           <ul>
               <li>Initial release</li>
