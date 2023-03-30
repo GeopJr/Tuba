@@ -93,7 +93,8 @@ public class Tuba.Streams : Object {
 			if (subscribers.size <= 0) {
 				message (@"Closing: $name");
 				closing = true;
-				socket.close (0, null);
+				if (socket != null)
+					socket.close (0, null);
 				return true;
 			}
 			return false;
