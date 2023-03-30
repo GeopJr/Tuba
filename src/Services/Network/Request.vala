@@ -63,6 +63,13 @@ public class Tuba.Request : GLib.Object {
 	// 	message ("Destroy req: "+url);
 	// }
 
+	private string? t_content_type = null;
+	private Bytes? t_body_bytes = null;
+	public void set_request_body_from_bytes (string? content_type, Bytes? bytes)  {
+		t_content_type = content_type;
+		t_body_bytes = bytes;
+	}
+
 	public Request then (owned Network.SuccessCallback cb) {
 		this.cb = (owned) cb;
 		return this;
@@ -158,6 +165,9 @@ public class Tuba.Request : GLib.Object {
 		}
 
 		msg.priority = priority;
+
+		if (t_content_type != null)
+			msg.set_request_body_from_bytes(t_content_type, t_body_bytes);
 
 		network.queue (msg, this.cancellable, (owned) cb, (owned) error_cb);
 		return this;
