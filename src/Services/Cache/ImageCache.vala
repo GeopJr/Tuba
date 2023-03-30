@@ -36,6 +36,10 @@ public class Tuba.ImageCache : AbstractCache {
             id = download_msg.finished.connect (() => {
                 Paintable? paintable = null;
                 try {
+                    if (in_stream == null) {
+                        cb (true, null);
+                        return;
+                    }
                     paintable = decode (download_msg, in_stream);
                 }
                 catch (Error e) {
