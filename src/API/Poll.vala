@@ -71,7 +71,7 @@ public class Tuba.API.Poll : GLib.Object, Json.Serializable{
         //Send POST MESSAGE
 		Request voting=new Request.POST (@"/api/v1/polls/$(id)/votes")
 			.with_account (acc);
-		//  voting.set_request("application/json",Soup.MemoryUse.COPY,json.data);
+		voting.set_request_body_from_bytes("application/json", new Bytes.take(json.data));
 		return voting;
     }
 }
