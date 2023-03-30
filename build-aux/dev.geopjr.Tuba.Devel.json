@@ -30,24 +30,6 @@
     ],
     "modules": [
         {
-            "name": "libsoup-2.4",
-            "buildsystem": "meson",
-            "config-opts": [
-                "-Dvapi=disabled",
-                "-Dtests=false",
-                "-Dtls_check=false",
-                "-Dntlm=disabled",
-                "-Dsysprof=enabled"
-            ],
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/libsoup.git",
-                    "branch": "libsoup-2-74"
-                }
-            ]
-        },
-        {
             "name": "tuba",
             "builddir": true,
             "buildsystem": "meson",

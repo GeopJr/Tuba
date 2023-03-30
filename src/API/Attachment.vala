@@ -40,16 +40,18 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 			throw new Oopsie.USER ("Can't open file %s:\n%s".printf (uri, e.message));
 		}
 
-		var buffer = new Soup.Buffer.take (contents);
+		var buffer = new Bytes.take (contents);
 		var multipart = new Soup.Multipart (Soup.FORM_MIME_TYPE_MULTIPART);
 		multipart.append_form_file ("file", mime.replace ("/", "."), mime, buffer);
 		var url = @"$(accounts.active.instance)/api/v1/media";
-		var msg = Soup.Form.request_new_from_multipart (url, multipart);
+		var msg = new Soup.Message.from_multipart (url, multipart);
 		msg.request_headers.append ("Authorization", @"Bearer $(accounts.active.access_token)");
 
 		string? error = null;
-		network.queue (msg,
-			(sess, mess) => {
+		InputStream? in_stream = null;
+		network.queue (msg, null,
+			(sess, mess, t_is) => {
+				in_stream = t_is;
 				upload.callback ();
 			},
 			(code, reason) => {
@@ -59,10 +61,10 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 
 		yield;
 
-		if (error != null)
+		if (error != null || in_stream == null)
 			throw new Oopsie.INSTANCE (error);
 		else {
-			var node = network.parse_node (msg);
+			var node = network.parse_node (in_stream);
 			var entity = accounts.active.create_entity<API.Attachment> (node);
 			message (@"OK! ID $(entity.id)");
 			return entity;

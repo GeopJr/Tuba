@@ -164,8 +164,8 @@ public class Tuba.Views.Lists : Views.Timeline {
 			var to_remove = new Gee.ArrayList<string>();
 			new Request.GET (@"/api/v1/lists/$(t_list.id)/accounts")
 				.with_account (accounts.active)
-				.then ((sess, msg) => {
-					if (Network.get_array_size(msg) > 0) {
+				.then ((sess, msg, in_stream) => {
+					if (Network.get_array_size(in_stream) > 0) {
 						var list_settings_page_members = new Adw.PreferencesPage() {
 							icon_name = "tuba-people-symbolic",
 							title = _("Members")
@@ -175,7 +175,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 							title = _("Remove Members")
 						};
 
-						Network.parse_array (msg, node => {
+						Network.parse_array (msg, in_stream, node => {
 							var member = API.Account.from (node);
 							var avi = new Widgets.Avatar() {
 								account = member,
@@ -290,8 +290,8 @@ public class Tuba.Views.Lists : Views.Timeline {
 		new Request.POST ("/api/v1/lists")
 			.with_account (accounts.active)
 			.with_param ("title", HtmlUtils.uri_encode(list_name))
-			.then ((sess, msg) => {
-				var node = network.parse_node (msg);
+			.then ((sess, msg, in_stream) => {
+				var node = network.parse_node (in_stream);
 				var list = API.List.from (node);
 				model.insert (0, list);
 			})

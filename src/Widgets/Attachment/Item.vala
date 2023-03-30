@@ -52,11 +52,11 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	private static async void download(string attachment_url, File file) {
 		try {
-			var msg = yield new Request.GET (attachment_url).await ();
-			var data = msg.response_body.data;
+			var req = yield new Request.GET (attachment_url).await ();
+			var data = req.response_body;
 			FileOutputStream stream = file.create (FileCreateFlags.PRIVATE);
 			try {
-				stream.write (data);
+				stream.splice (data, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);
 
 				message (@"   OK: File written to: $(file.get_path ())");
 			} catch (GLib.IOError e) {

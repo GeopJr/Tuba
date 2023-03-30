@@ -38,8 +38,8 @@ public class Tuba.SecretAccountStore : AccountStore {
 			if (account != null && account.id != "") {
 				new Request.GET (@"/api/v1/accounts/$(account.id)")
 					.with_account (account)
-					.then ((sess, msg) => {
-						var node = network.parse_node (msg);
+					.then ((sess, msg, in_stream) => {
+						var node = network.parse_node (in_stream);
 						var acc = API.Account.from (node);
 
 						if (account.display_name != acc.display_name || account.avatar != acc.avatar) {
