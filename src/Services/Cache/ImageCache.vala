@@ -31,16 +31,10 @@ public class Tuba.ImageCache : AbstractCache {
 			// This image isn't cached, so we need to download it first.
 
             download_msg = new Soup.Message ("GET", url);
-            InputStream? in_stream = null;
-            ulong id = 0;
-            id = download_msg.finished.connect (() => {
+            network.queue (download_msg, null, (sess, mess, t_in_stream) => {
                 Paintable? paintable = null;
                 try {
-                    if (in_stream == null) {
-                        cb (true, null);
-                        return;
-                    }
-                    paintable = decode (download_msg, in_stream);
+                    paintable = decode (download_msg, t_in_stream);
                 }
                 catch (Error e) {
                     warning (@"Failed to download image at \"$url\". $(e.message).");
@@ -50,16 +44,11 @@ public class Tuba.ImageCache : AbstractCache {
 
                 // message (@"[*] $key");
                 insert (url, paintable);
+                Signal.emit_by_name (download_msg, "finished");
+
                 items_in_progress.unset (key);
 
                 cb (true, paintable);
-
-                download_msg.disconnect (id);
-            });
-
-            network.queue (download_msg, null, (sess, mess, t_in_stream) => {
-                in_stream = t_in_stream;
-                Signal.emit_by_name (download_msg, "finished");
             },
             (code, reason) => {
                 cb (true, null);
@@ -74,8 +63,9 @@ public class Tuba.ImageCache : AbstractCache {
 
             //message ("[/]: %s", key);
             ulong id = 0;
-            id = download_msg.finished.connect_after (() => {
+            id = download_msg.finished.connect (() => {
                 cb (true, lookup (key) as Paintable);
+
                 download_msg.disconnect (id);
             });
         }
