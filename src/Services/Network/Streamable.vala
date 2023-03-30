@@ -9,9 +9,10 @@ public abstract interface Tuba.Streamable : Object {
 		}
 
 		public Json.Node get_node () throws Error {
-			var data = Uri.unescape_string (get_string ());
+			var data_str = get_string ();
+			var data = Uri.unescape_string (data_str);
 			var parser = new Json.Parser ();
-			parser.load_from_data (data, -1);
+			parser.load_from_data (data ?? data_str, -1);
 			return parser.steal_root ();
 		}
 
