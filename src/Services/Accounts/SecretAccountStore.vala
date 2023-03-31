@@ -88,6 +88,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 		var generator = new Json.Generator ();
 		account.instance_info = null;
+		account.instance_emojis = null;
 		generator.set_root (account.to_json ());
 		var secret = generator.to_data (null);
 		// translators: The variable is the backend like "Mastodon"
