@@ -23,7 +23,7 @@ public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 
 		var results = new GLib.ListStore (typeof (Object));
 		accounts.active.instance_emojis.@foreach (e => {
-			if (word != context.get_word () || e.shortcode.index_of (word) != 0)
+			if (e.shortcode.index_of (word) != 0)
 				return true;
 
 			var proposal = new Proposal (e);

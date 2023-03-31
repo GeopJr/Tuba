@@ -26,9 +26,6 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 
 		var results = new GLib.ListStore (typeof (Object));
 		Network.parse_array (req.msg, req.response_body, node => {
-			if (word != context.get_word ())
-				return;
-
 			var entity = entity_cache.lookup_or_insert (node, typeof (API.Account));
 			if (entity is API.Account) {
 				var proposal = new Proposal (entity as API.Account);
