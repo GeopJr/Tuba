@@ -47,7 +47,7 @@ public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 				cell.set_widget (image);
 				break;
 			case GtkSource.CompletionColumn.TYPED_TEXT:
-				cell.set_markup (proposal.get_typed_text ());
+				cell.set_markup (":" + proposal.get_typed_text ());
 				break;
 			default:
 				cell.text = null;
