@@ -107,6 +107,7 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.completion.select_on_show = true;
 		editor.completion.show_icons = true;
 		editor.completion.page_size = 3;
+		update_style_scheme ();
 
 		recount_chars.connect (() => {
 			remaining_chars -= editor.buffer.get_char_count ();
@@ -119,6 +120,13 @@ public class Tuba.EditorPage : ComposerPage {
 		char_counter.add_css_class ("heading");
 		bottom_bar.pack_end (char_counter);
 		editor.buffer.changed.connect (validate);
+	}
+
+	protected void update_style_scheme () {
+		var manager = GtkSource.StyleSchemeManager.get_default ();
+		var scheme = manager.get_scheme ("adwaita");
+		var buffer = editor.buffer as GtkSource.Buffer;
+		buffer.style_scheme = scheme;
 	}
 
 	protected Overlay overlay;
