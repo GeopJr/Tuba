@@ -27,16 +27,15 @@ public class Tuba.HashtagProvider: Tuba.CompletionProvider {
 		if (word != context.get_word ())
 			return EMPTY;
 
-		var results = new GLib.ListStore (typeof (Object));
-		var response = API.SearchResults.from (network.parse_node (req.response_body));
-		warning (response.hashtags.size.to_string ());
-		response.hashtags.foreach (tag => {
+		var suggestions = new GLib.ListStore (typeof (Object));
+		var results = API.SearchResults.from (network.parse_node (req.response_body));
+		results?.hashtags.foreach (tag => {
 			var proposal = new Proposal (tag);
-			results.append (proposal);
+			suggestions.append (proposal);
 			return true;
 		});
 
-		return results;
+		return suggestions;
 	}
 
 	public override void display (GtkSource.CompletionContext context, GtkSource.CompletionProposal proposal, GtkSource.CompletionCell cell) {
