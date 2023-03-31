@@ -74,7 +74,7 @@ public class Tuba.API.Account : Entity, Widgetizable {
 		return Entity.from_json (typeof (API.Account), node) as API.Account;
 	}
 
-	public static async Request search (string query) throws Error {
+	public static Request search (string query) throws Error {
 		return new Request.GET ("/api/v1/accounts/search")
 			.with_account (accounts.active)
 			.with_param ("q", Uri.escape_string (query))

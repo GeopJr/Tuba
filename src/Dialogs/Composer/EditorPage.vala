@@ -101,7 +101,7 @@ public class Tuba.EditorPage : ComposerPage {
 			wrap_mode = WrapMode.WORD_CHAR
 		};
 
-		editor.completion.add_provider (new Tuba.HandleCompletionProvider ());
+		editor.completion.add_provider (new Tuba.HandleProvider ());
 		editor.completion.select_on_show = true;
 		editor.completion.show_icons = true;
 		editor.completion.page_size = 3;
