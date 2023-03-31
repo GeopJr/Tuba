@@ -14,7 +14,7 @@ public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 		}
 
 		public override string? get_typed_text() {
-			return this.emoji.shortcode;
+			return this.emoji.shortcode + ":";
 		}
 	}
 
