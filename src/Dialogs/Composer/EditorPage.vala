@@ -102,6 +102,7 @@ public class Tuba.EditorPage : ComposerPage {
 		};
 
 		editor.completion.add_provider (new Tuba.HandleProvider ());
+		editor.completion.add_provider (new Tuba.HashtagProvider ());
 		editor.completion.select_on_show = true;
 		editor.completion.show_icons = true;
 		editor.completion.page_size = 3;
