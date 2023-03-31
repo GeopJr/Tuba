@@ -11,6 +11,16 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 		return Entity.from_json (typeof (API.Tag), node) as API.Tag;
 	}
 
+	public static async Request search (string query) throws Error {
+		return new Request.GET ("/api/v2/search")
+			.with_account (accounts.active)
+			.with_param ("q", Uri.escape_string (query))
+			.with_param ("resolve", "hashtags")
+			.with_param ("exclude_unreviewed", "true")
+			.with_param ("type", "false")
+			.with_param ("limit", "4");
+	}
+
 	public override void open () {
 	}
 
