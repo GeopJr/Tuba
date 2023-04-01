@@ -5,13 +5,14 @@
 # Rafael Fontenelle <rafaelff@gnome.org>, 2022.
 # Felipe Nogueira <contato.fnog@gmail.com>, 2023.
 # Infinitive Witch <infinitivewitch@disroot.org>, 2023.
+# Cassio Gomes Pereira <cassiogomes00@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 18:13+0200\n"
-"PO-Revision-Date: 2023-03-26 03:47+0000\n"
-"Last-Translator: Infinitive Witch <infinitivewitch@disroot.org>\n"
+"PO-Revision-Date: 2023-04-01 01:38+0000\n"
+"Last-Translator: Cassio Gomes Pereira <cassiogomes00@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -27,7 +28,7 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Navegue o Fediverse"
+msgstr "Navegue pelo Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
