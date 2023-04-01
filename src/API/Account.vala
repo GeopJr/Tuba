@@ -101,7 +101,7 @@ public class Tuba.API.Account : Entity, Widgetizable {
 		else {
 			account.resolve.begin (url, (obj, res) => {
                 try {
-				    account.resolve.end (res).open ();
+                    account.resolve.end (res).open ();
                 } catch (Error e) {
 					warning (@"Error opening account: $(account.handle) - $(e.message)");
 				}
