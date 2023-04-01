@@ -79,6 +79,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 			display_name.content = account.display_name;
 			handle.label = account.handle;
 			avatar.account = account;
+			note.instance_emojis = account.emojis_map;
 			note.content = account.note;
 
 			if (account.id != accounts.active.id) rsbtn.visible = true;

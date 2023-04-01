@@ -54,14 +54,13 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     }
     
     const string OBJECT_REPLACEMENT_CHARACTER = "\xEF\xBF\xBC";
-    const int PANGO_SCALE = 1024;
     
     construct {
         label = new Gtk.Label("") {
             wrap = true,
             wrap_mode = Pango.WrapMode.WORD_CHAR,
             xalign = 0.0f,
-            valign = Gtk.Align.START,
+            valign = Gtk.Align.CENTER,
             //  css_classes = {"line-height"}
         };
 
@@ -122,9 +121,9 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             var height = widget_heights[i];
             var logical_rect = Pango.Rectangle() {
                 x = 0,
-                y = -(height - (height / 4)) * PANGO_SCALE,
-                width = width * PANGO_SCALE,
-                height = height * PANGO_SCALE
+                y = -(height - (height / 4)) * Pango.SCALE,
+                width = width * Pango.SCALE,
+                height = height * Pango.SCALE
             };
     
             var shape = Pango.AttrShape.new(logical_rect, logical_rect);
@@ -189,10 +188,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     }
     
     public override void size_allocate(int width, int height, int baseline) {
-        // The order of the widget allocation is important.
-        allocate_shapes();
         label.allocate(width, height, baseline, null);
-        allocate_children();
+        this.allocate_children();
     }
     
     public override Gtk.SizeRequestMode get_request_mode() {
@@ -200,40 +197,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     }
     
     public override void measure(Gtk.Orientation orientation, int for_size, out int minimum, out int natural, out int minimum_baseline, out int natural_baseline) {
-        int t_minimum = -1;
-        int t_natural = -1;
-        int t_minimum_baseline = -1;
-        int t_natural_baseline = -1;
-
-        minimum = -1;
-        natural = -1;
-        minimum_baseline = -1;
-        natural_baseline = -1;
-    
-        if (label.should_layout()) {
-            label.measure(orientation, for_size, out t_minimum, out t_natural, out t_minimum_baseline, out t_natural_baseline);
-        }
-    
-        foreach (var child in widgets){
-            if (label.should_layout()) {
-                int child_min = -1;
-                int child_nat = -1;
-                int child_min_baseline = -1;
-                int child_nat_baseline = -1;
-    
-                child.measure(orientation, for_size, out child_min, out child_nat, out child_min_baseline, out child_nat_baseline);
-    
-                minimum = int.max(t_minimum, child_min);
-                natural = int.max(t_natural, child_nat);
-    
-                if (child_min_baseline > -1) {
-                    minimum_baseline = int.max(t_minimum_baseline, child_min_baseline);
-                }
-                if (child_nat_baseline > -1) {
-                    natural_baseline = int.max(t_natural_baseline, child_nat_baseline);
-                }
-            }
-	    }
+        this.allocate_shapes();
+        this.label.measure(orientation, for_size, out minimum, out natural, out minimum_baseline, out natural_baseline);
     }
     
     public void update_label() {
@@ -245,16 +210,20 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     
             if (text != null) {
                 _text = _text.replace(placeholder, OBJECT_REPLACEMENT_CHARACTER);
+
                 int pos = _text.index_of_char('\n');
                 if (pos >= 0) {
                     _text = _text.substring(0, pos) + "…";
                 }
+
                 label.label = _text;
             }
         } else {
             label.wrap = true;
             label.wrap_mode = Pango.WrapMode.WORD_CHAR;
-            label.ellipsize = Pango.EllipsizeMode.NONE;
+
+            // The lines check is Tuba specific for statuses that overflow their row
+            label.ellipsize = lines != 100 ? Pango.EllipsizeMode.NONE : Pango.EllipsizeMode.END;
     
             if (text != null) {
                 _text = _text.replace(placeholder, OBJECT_REPLACEMENT_CHARACTER);
@@ -322,4 +291,28 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 
         base.add_child (builder, child, type);
     }
+
+    public signal bool activate_link (string uri) {
+        return this.label.activate_link (uri);
+    }
+
+    public bool single_line_mode {
+		get { return label.single_line_mode; }
+		set { label.single_line_mode = value; }
+	}
+
+	public float xalign {
+        get { return label.xalign; }
+        set { label.xalign = value; }
+	}
+
+    public bool selectable {
+        get { return label.selectable; }
+        set { label.selectable = value; }
+	}
+
+    public int lines {
+        get { return label.lines; }
+        set { label.lines = value; }
+	}
 }

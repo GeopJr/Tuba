@@ -40,7 +40,7 @@ public class Tuba.Widgets.RichLabelContainerTemp : Adw.Bin {
 			css_classes = {"ttl-label-emoji-no-click", "flat"}
 		};
 		
-		//  widget.halign = Align.START;
+		widget.halign = Align.START;
 
 		child = widget;
 		widget.clicked.connect (on_click);

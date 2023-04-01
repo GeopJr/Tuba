@@ -11,6 +11,7 @@ sources += files(
     'Notification.vala',
     'RelationshipButton.vala',
     'RichLabel.vala',
+    'RichLabelTemp.vala',
     'RichLabelContainer.vala',
     'RichLabelContainerTemp.vala',
     'Status.vala',

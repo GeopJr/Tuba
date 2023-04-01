@@ -401,6 +401,9 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		//       else the widget wont get destructed
 		var formal_bindings = new BindingGroup ();
 
+		this.content.instance_emojis = status.formal.emojis_map;
+		this.content.content = status.formal.content;
+
 		self_bindings.bind_property ("spoiler-text", spoiler_label, "label", BindingFlags.SYNC_CREATE);
 		self_bindings.bind_property ("spoiler-text-revealed", spoiler_label_rev, "label", BindingFlags.SYNC_CREATE);
 
@@ -433,7 +436,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			target.set_boolean (!src.get_boolean () || settings.show_spoilers);
 			return true;
 		});
-		formal_bindings.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
+		//  formal_bindings.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
 		formal_bindings.bind_property ("reblogs_count", reblog_count_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			int64 srcval = (int64) src;
 			target.set_string (@"<b>$srcval</b> " + _("Boosts"));
@@ -494,8 +497,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 		self_bindings.set_source (this);
 		formal_bindings.set_source (status.formal);
-
-
 
 		// TODO: Ideally, this should be a binding too somehow
 		// bind_property ("title_text", name_label, "label", BindingFlags.SYNC_CREATE);
