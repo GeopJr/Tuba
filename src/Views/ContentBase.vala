@@ -30,12 +30,8 @@ public class Tuba.Views.ContentBase : Views.Base {
 				on_bottom_reached ();
 			}
 			
-			scroll_to_top.visible = scrolled.vadjustment.value > 1000;
+			scroll_to_top.visible = scrolled.vadjustment.value > 1000 && scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper;
 		});
-		//  scrolled.edge_reached.connect (pos => {
-		//  	if (pos == PositionType.BOTTOM)
-		//  		on_bottom_reached ();
-		//  });
 	}
 	~ContentBase () {
 		message ("Destroying ContentBase");

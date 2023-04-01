@@ -1,6 +1,5 @@
 using Gtk;
 
-// TODO: Lists is borken
 public class Tuba.Views.Lists : Views.Timeline {
 
     public class Row : Adw.ActionRow {
