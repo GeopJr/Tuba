@@ -21,6 +21,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
     public bool spinning {
 		set {
             stack.visible_child_name = value ? "spinner" : _type;
+            spinner.spinning = value;
         }
 		get { return stack.visible_child_name == "spinner"; }
 	}
@@ -38,6 +39,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	protected Gtk.Button fullscreen_btn;
 	protected Adw.HeaderBar headerbar;
     protected ImageCache image_cache;
+    private Gtk.Spinner spinner;
 	public Gdk.Paintable paintable {
 		set {
             _type = "image";
@@ -88,7 +90,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		};
         stack.add_named(pic, "image");
 
-        var spinner = new Gtk.Spinner() {
+        spinner = new Gtk.Spinner() {
 			spinning = true,
 			halign = Gtk.Align.CENTER,
 			valign = Gtk.Align.CENTER,
@@ -130,6 +132,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         append(stack);
 
         stack.visible_child_name = "spinner";
+        spinner.spinning = true;
 		setup_mouse_previous_click();
 	}
 	~MediaViewer () {
