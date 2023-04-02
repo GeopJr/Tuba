@@ -119,7 +119,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		stack.add_named (empty_state, "empty");
 
 		spinner = new Gtk.Spinner() {
-			spinning = true,
+			spinning = false,
 			halign = Gtk.Align.CENTER,
 			valign = Gtk.Align.CENTER,
 			vexpand = true,

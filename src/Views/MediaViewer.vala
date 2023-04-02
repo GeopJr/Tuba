@@ -91,7 +91,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         stack.add_named(pic, "image");
 
         spinner = new Gtk.Spinner() {
-			spinning = true,
+			spinning = false,
 			halign = Gtk.Align.CENTER,
 			valign = Gtk.Align.CENTER,
 			vexpand = true,
@@ -132,7 +132,6 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         append(stack);
 
         stack.visible_child_name = "spinner";
-        spinner.spinning = true;
 		setup_mouse_previous_click();
 	}
 	~MediaViewer () {
