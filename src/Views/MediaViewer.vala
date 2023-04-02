@@ -215,7 +215,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		this.paintable = null;
 		this.set_video(null);
 		this.url = "";
-		this.spinning = true;
+		this.spinning = false;
     }
 
     private void on_media_viewer_cache_response(bool is_loaded, owned Gdk.Paintable? data) {
