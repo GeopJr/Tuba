@@ -54,12 +54,32 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.2.0" date="2023-04-04">
+        <description>
+          <ul>
+              <li>Migrated to libsoup3</li>
+              <li>Added default visibility option</li>
+              <li>Added scroll to top button</li>
+              <li>Added uploading feedback</li>
+              <li>Added opening all status attachments at once</li>
+              <li>Added showing attachment preview while the full media is downloading</li>
+              <li>Moved alt text and trash can buttons apart in composer</li>
+              <li>Fixed constant CPU usage due to non-visible spinners</li>
+              <li>Fixed crash when double clicking buttons that open profiles</li>
+              <li>Fixed contrast of composer attachment buttons</li>
+              <li>Fixed context menu getting triggered when tapping attachments</li>
+              <li>Fixed some posts overflowing their container</li>
+              <li>Fixed spoiler labels not wrapping</li>
+              <li>Several libsecret fixes</li>
+          </ul>
+        </description>
+    </release>
     <release version="0.1.0" date="2023-03-23">
         <description>
           <ul>
               <li>Initial release</li>
           </ul>
         </description>
-      </release>
-    </releases>
+    </release>
+  </releases>
 </component>
