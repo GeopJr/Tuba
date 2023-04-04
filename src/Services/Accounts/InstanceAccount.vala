@@ -18,6 +18,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public string? backend { set; get; }
 	public API.Instance? instance_info { get; set; }
+	public ArrayList<API.Emoji>? instance_emojis { get; set; }
 	public string? instance { get; set; }
 	public string? client_id { get; set; }
 	public string? client_secret { get; set; }
@@ -46,6 +47,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public virtual signal void activated () {
 		gather_instance_info ();
+		gather_instance_custom_emojis ();
 	}
 	public virtual signal void deactivated () {}
 	public virtual signal void added () {
@@ -189,6 +191,18 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			.then ((sess, msg, in_stream) => {
 				var node = network.parse_node (in_stream);
 				instance_info = API.Instance.from (node);
+			})
+			.exec ();
+	}
+
+	public void gather_instance_custom_emojis () {
+		new Request.GET ("/api/v1/custom_emojis")
+			.with_account (this)
+			.then ((sess, msg, in_stream) => {
+				var node = network.parse_node (in_stream);
+				Value res_emojis;
+				Entity.des_list(out res_emojis, node, typeof (API.Emoji));
+				instance_emojis = (Gee.ArrayList<Tuba.API.Emoji>) res_emojis;
 			})
 			.exec ();
 	}

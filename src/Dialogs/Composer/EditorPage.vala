@@ -36,7 +36,7 @@ public class Tuba.EditorPage : ComposerPage {
 	}
 
 	public override void on_pull () {
-		populate_editor ();
+		editor.buffer.text = dialog.status.content;
 	}
 
 	public override void on_push () {
@@ -69,12 +69,13 @@ public class Tuba.EditorPage : ComposerPage {
 
 
 
-	protected TextView editor;
+	protected GtkSource.View editor;
 	protected Label char_counter;
 
 	protected void install_editor () {
 		recount_chars.connect (() => {
 			remaining_chars = char_limit;
+			editor.show_completion ();
 		});
 		recount_chars.connect_after (() => {
 			placeholder.visible = remaining_chars == char_limit;
@@ -88,7 +89,7 @@ public class Tuba.EditorPage : ComposerPage {
 			}
 		});
 
-		editor = new TextView () {
+		editor = new GtkSource.View () {
 			vexpand = true,
 			hexpand = true,
 			top_margin = 6,
@@ -99,10 +100,18 @@ public class Tuba.EditorPage : ComposerPage {
 			accepts_tab = false,
 			wrap_mode = WrapMode.WORD_CHAR
 		};
+
+		editor.completion.add_provider (new Tuba.HandleProvider ());
+		editor.completion.add_provider (new Tuba.HashtagProvider ());
+		editor.completion.add_provider (new Tuba.EmojiProvider ());
+		editor.completion.select_on_show = true;
+		editor.completion.show_icons = true;
+		editor.completion.page_size = 3;
+		update_style_scheme ();
+
 		recount_chars.connect (() => {
 			remaining_chars -= editor.buffer.get_char_count ();
 		});
-		//  content.prepend (editor);
 
 		char_counter = new Label (char_limit.to_string ()) {
 			margin_end = 6,
@@ -111,6 +120,13 @@ public class Tuba.EditorPage : ComposerPage {
 		char_counter.add_css_class ("heading");
 		bottom_bar.pack_end (char_counter);
 		editor.buffer.changed.connect (validate);
+	}
+
+	protected void update_style_scheme () {
+		var manager = GtkSource.StyleSchemeManager.get_default ();
+		var scheme = manager.get_scheme ("adwaita");
+		var buffer = editor.buffer as GtkSource.Buffer;
+		buffer.style_scheme = scheme;
 	}
 
 	protected Overlay overlay;
@@ -131,10 +147,6 @@ public class Tuba.EditorPage : ComposerPage {
 		overlay.add_overlay(placeholder);
 		overlay.child = editor;
 		content.prepend(overlay);
-	}
-
-	protected void populate_editor () {
-		editor.buffer.text = dialog.status.content;
 	}
 
 	protected EmojiChooser emoji_picker;
