@@ -57,6 +57,7 @@
     <release version="0.2.0" date="2023-04-04">
         <description>
           <ul>
+              <li>Added composer autocomplete for users, hashtags and emojis</li>
               <li>Migrated to libsoup3</li>
               <li>Added default visibility option</li>
               <li>Added scroll to top button</li>
