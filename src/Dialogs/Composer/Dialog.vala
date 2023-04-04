@@ -16,7 +16,15 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	ulong build_sigid;
 
 	construct {
-		add_binding_action (Gdk.Key.Escape, 0, "window.close", null);
+		var exit_action = new SimpleAction ("exit", null);
+		exit_action.activate.connect (on_exit);
+
+		var action_group = new GLib.SimpleActionGroup ();
+		action_group.add_action(exit_action);
+
+		this.insert_action_group ("composer", action_group);
+		add_binding_action (Gdk.Key.Escape, 0, "composer.exit", null);
+
 		transient_for = app.main_window;
 		title_switcher.stack = stack;
 
@@ -26,6 +34,10 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 			disconnect (build_sigid);
 		});
+	}
+
+	void on_exit () {
+		if (!commit_button.sensitive) on_close ();
 	}
 
 	protected virtual signal void build () {
