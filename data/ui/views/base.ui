@@ -124,7 +124,6 @@
                                                 <property name="child">
                                                   <object class="GtkSpinner" id="status_spinner">
                                                     <property name="height_request">32</property>
-                                                    <property name="spinning">True</property>
                                                   </object>
                                                 </property>
                                               </object>

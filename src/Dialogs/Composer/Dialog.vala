@@ -16,6 +16,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	ulong build_sigid;
 
 	construct {
+		add_binding_action (Gdk.Key.Escape, 0, "window.close", null);
 		transient_for = app.main_window;
 		title_switcher.stack = stack;
 
