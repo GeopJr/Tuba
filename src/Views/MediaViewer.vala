@@ -69,6 +69,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	protected Adw.HeaderBar headerbar;
     protected ImageCache image_cache;
     private Adw.Carousel carousel;
+    private Adw.CarouselIndicatorDots carousel_dots;
 
 	construct {
         carousel = new Adw.Carousel () {
@@ -118,8 +119,20 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         end_box.append(actions_btn);
         headerbar.pack_end(end_box);
 
+        carousel_dots = new Adw.CarouselIndicatorDots () {
+            carousel = carousel,
+            css_classes = {"osd"},
+            visible = false
+        };
+
+		carousel.bind_property("n_pages", carousel_dots, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_boolean (src.get_uint () > 1);
+			return true;
+		});
+
         append(headerbar);
         append(carousel);
+        append(carousel_dots);
 
 		setup_mouse_previous_click();
 	}
