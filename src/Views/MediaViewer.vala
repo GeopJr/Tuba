@@ -230,6 +230,15 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
     public void scroll_to (int pos) {
         if (pos >= items.length) return;
-        carousel.scroll_to(items[pos], true);
+
+        // https://gitlab.gnome.org/GNOME/libadwaita/-/issues/597
+        // https://gitlab.gnome.org/GNOME/libadwaita/-/merge_requests/827
+        uint timeout = 0;
+		timeout = Timeout.add (1000, () => {
+            carousel.scroll_to(carousel.get_nth_page(pos), true);
+			GLib.Source.remove(timeout);
+
+			return true;
+		}, Priority.LOW);
     }
 }
