@@ -229,7 +229,7 @@
                         <child>
                           <object class="TubaWidgetsMarkupView" id="content">
                             <property name="visible">True</property>
-                            <property name="hexpand">True</property>
+                            <property name="hexpand">False</property>
                           </object>
                         </child>
                         <child>
