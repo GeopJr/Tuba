@@ -321,4 +321,9 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         get { return label.lines; }
         set { label.lines = value; }
 	}
+
+    public Gtk.Justification justify {
+        get { return label.justify; }
+        set { label.justify = value; }
+	}
 }
