@@ -11,7 +11,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	[GtkChild] unowned Widgets.Avatar avatar;
 	//  [GtkChild] unowned Label title;
 	// FIXME: Wrapping
-	[GtkChild] unowned Widgets.EmojiLabelTemp title;
+	[GtkChild] unowned Widgets.EmojiLabel title;
 	[GtkChild] unowned Label subtitle;
 
 	protected InstanceAccount? account { get; set; default = null; }

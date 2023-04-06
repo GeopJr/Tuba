@@ -68,7 +68,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		[GtkChild] unowned Widgets.Background background;
 		[GtkChild] public unowned Label cover_badge;
 		[GtkChild] public unowned ListBox info;
-		[GtkChild] unowned Widgets.EmojiLabelTemp display_name;
+		[GtkChild] unowned Widgets.EmojiLabel display_name;
 		[GtkChild] unowned Label handle;
 		[GtkChild] unowned Widgets.Avatar avatar;
 		[GtkChild] unowned Widgets.MarkupView note;

@@ -3,7 +3,7 @@ using Gee;
 
 public class Tuba.Widgets.RichLabel : Adw.Bin {
 
-	Widgets.EmojiLabelTemp widget;
+	Widgets.EmojiLabel widget;
 
 	// TODO: We can parse <a> tags and extract resolvable URIs now
 	public weak ArrayList<API.Mention>? mentions;
@@ -59,7 +59,7 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	}
 
 	construct {
-		widget = new Widgets.EmojiLabelTemp() {
+		widget = new Widgets.EmojiLabel() {
 			use_markup = true
 		};
 		widget.activate_link.connect (on_activate_link);

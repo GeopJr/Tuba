@@ -1,88 +1,51 @@
 using Gtk;
 using Gee;
 
-public class Tuba.Widgets.EmojiLabel : Box {
+public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
 	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
-	public bool labels_should_markup { get; set; default = false; }
-	public Gee.ArrayList<string> label_css_classes { get; set; default = new Gee.ArrayList<string>(); }
 
-    private string _label = "";
-	public string label { get {return _label;}
+    private string _content = "";
+	public string content { get {return _content;}
 	 set {
-		var w = get_first_child ();
-		while(w != null) {
-			remove(w);
-			w = get_first_child ();
-		}
-		_label = value;
+		_content = value;
 
-		generate_box();
+        string t_value;
+        Gtk.Widget[] t_widgets;
+        generate_label_with_emojis(value, out t_value, out t_widgets);
+
+        set_children(t_widgets);
+        text = t_value;
 	} }
 
-	construct {
-		orientation = Orientation.HORIZONTAL;
-		spacing = 1;
+	construct { }
+
+	public EmojiLabel(string? text = null, Gee.HashMap<string, string>? emojis = null) {
+        Object  ();
+		if (text == null) return;
+
+		instance_emojis = emojis;
+
+        content = text;
 	}
 
-	public EmojiLabel(string? text = null, Gee.HashMap<string, string>? emojis = null, bool should_markup = false) {
-		if (text != null) {
-			instance_emojis = emojis;
-			labels_should_markup = should_markup;
-			label = text;
+    private void generate_label_with_emojis (string t_input, out string t_input_with_placeholder, out Gtk.Widget[] t_widgets) {
+        t_input_with_placeholder = t_input;
+        t_widgets = {};
 
-			generate_box();
-		}
-	}
+		if (!t_input.contains(":") || instance_emojis == null) return;
 
-	private void generate_box() {
-		string? t_label = null;
-		string[] array_label_css_classes = {};
+        Gtk.Widget[] t_t_widgets = {};
 
-		label_css_classes.foreach (css_class => {
-			array_label_css_classes += css_class;
-			return true;
-		});
-
-		if (label.contains(":") && instance_emojis != null) {
-			string[] emoji_arr = custom_emoji_regex.split (label);
-
-			t_label = "";
-			foreach (unowned string str in emoji_arr) {
-				// If str is an available emoji
-				string? shortcode = str.length > 2 ? str.slice(1,-1) : null;
-				if (shortcode != null && instance_emojis.has_key(shortcode)) {
-					var tmp_child = new Label (t_label) {
-						xalign = 0,
-						wrap = true,
-						wrap_mode = Pango.WrapMode.WORD_CHAR,
-						justify = Justification.LEFT,
-						single_line_mode = false,
-						use_markup = false,
-						css_classes = array_label_css_classes
-					};
-					append(tmp_child);
-					t_label = "";
-					append(new Widgets.Emoji(instance_emojis.get(shortcode)));
-				} else {
-					t_label += str;
-				}
+		string[] emoji_arr = custom_emoji_regex.split (t_input);
+        foreach (unowned string str in emoji_arr) {
+			// If str is an available emoji
+			string? shortcode = str.length > 2 ? str.slice(1,-1) : null;
+			if (shortcode != null && instance_emojis.has_key(shortcode)) {
+                t_t_widgets += new Widgets.Emoji(instance_emojis.get(shortcode));
+                t_input_with_placeholder = t_input_with_placeholder.replace(@":$shortcode:", "<widget>");
 			}
-		}  else {
-			t_label = label;
 		}
 
-		// Label after last emoji OR label without emojis
-		if (t_label != "") {
-			var tmp_child = new Label (t_label) {
-				xalign = 0,
-				wrap = true,
-				wrap_mode = Pango.WrapMode.WORD_CHAR,
-				justify = Justification.LEFT,
-				single_line_mode = false,
-				use_markup = t_label != label ? false : labels_should_markup,
-				css_classes = array_label_css_classes
-			};
-			append(tmp_child);
-		}
-	}
+        t_widgets = t_t_widgets;
+    }
 }

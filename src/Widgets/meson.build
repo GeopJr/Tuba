@@ -4,7 +4,6 @@ sources += files(
     'Conversation.vala',
     'Emoji.vala',
     'EmojiLabel.vala',
-    'EmojiLabelTemp.vala',
     'LabelWithWidgets.vala',
     'LockableToggleButton.vala',
     'MarkupView.vala',

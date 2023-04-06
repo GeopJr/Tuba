@@ -67,7 +67,7 @@
                           <property name="spacing">6</property>
                           <child>
                             <!-- FIXME: Wrapping -->
-                            <object class="TubaWidgetsEmojiLabelTemp" id="title">
+                            <object class="TubaWidgetsEmojiLabel" id="title">
                             <!-- <object class="GtkLabel" id="title"> -->
                               <style>
                                 <class name="title-2"/>
