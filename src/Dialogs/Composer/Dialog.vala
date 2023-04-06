@@ -55,14 +55,14 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		add_page (p_edit);
 		add_page (p_attach);
 		add_page (new PollPage ());
+
+		p_edit.editor_grab_focus ();
 	}
 
 	[GtkChild] unowned Adw.ViewSwitcherTitle title_switcher;
 	[GtkChild] unowned Button commit_button;
 
 	[GtkChild] unowned Adw.ViewStack stack;
-
-
 
 	public Compose (API.Status template = new API.Status.empty ()) {
 		Object (

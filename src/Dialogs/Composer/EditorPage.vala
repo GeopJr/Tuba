@@ -67,10 +67,12 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 	}
 
-
-
 	protected GtkSource.View editor;
 	protected Label char_counter;
+
+	public void editor_grab_focus () {
+		editor.grab_focus ();
+	}
 
 	protected void install_editor () {
 		recount_chars.connect (() => {
