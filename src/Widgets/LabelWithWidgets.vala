@@ -1,6 +1,12 @@
 // LabelWithWidgets is ported from Fractal
 // https://gitlab.gnome.org/GNOME/fractal/-/blob/071bfa9e2ad1574e675b2f90c3218565f9953f08/src/components/label_with_widgets.rs
 
+// How to use:
+// Set `text` to the label's content but use the `placeholder` keyword where widgets should be placed.
+// Then use `set_children` with an array of Widgets in order of how they should be placed in the label.
+// There are some helper functions like `append_child` to add children and
+// `LabelWithWidgets.with_label_and_widgets` to construct it with the desired text and widgets.
+
 public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Accessible {
     private Gtk.Widget[] widgets = {};
     private int[] widget_heights = {};
@@ -201,7 +207,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         this.label.measure(orientation, for_size, out minimum, out natural, out minimum_baseline, out natural_baseline);
     }
     
-    public void update_label() {
+    private void update_label() {
         if (this.ellipsize) {
             // Workaround: if both wrap and ellipsize are set, and there are
             // widgets inserted, GtkLabel reports an erroneous minimum width.
@@ -277,7 +283,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         this.queue_resize();
     }
     
-    public int pango_pixels(int d) {
+    private int pango_pixels(int d) {
         return (d + 512) >> 10;
     }
 
