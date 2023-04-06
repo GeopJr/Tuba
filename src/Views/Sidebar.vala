@@ -9,9 +9,9 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	[GtkChild] unowned ListBox saved_accounts;
 
 	[GtkChild] unowned Widgets.Avatar avatar;
-	[GtkChild] unowned Label title;
+	//  [GtkChild] unowned Label title;
 	// FIXME: Wrapping
-	//  [GtkChild] unowned Widgets.EmojiLabel title;
+	[GtkChild] unowned Widgets.EmojiLabel title;
 	[GtkChild] unowned Label subtitle;
 
 	protected InstanceAccount? account { get; set; default = null; }
@@ -79,16 +79,16 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 		}
 	}
 
-	private Binding sidebar_display_name;
 	private Binding sidebar_handle_short;
 	private Binding sidebar_avatar;
 	private ulong sidebar_private_signal;
+	private ulong sidebar_display_name;
 	protected virtual void on_account_changed (InstanceAccount? account) {
 		if (this.account != null) {
-			sidebar_display_name.unbind();
 			sidebar_handle_short.unbind();
 			sidebar_avatar.unbind();
 			this.account.disconnect(sidebar_private_signal);
+			this.account.disconnect(sidebar_display_name);
 		}
 
 		this.account = account;
@@ -105,20 +105,19 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 					this.account.known_places.append(Mastodon.Account.PLACE_FOLLOW_REQUESTS);
 				}
 			});
-			sidebar_display_name = this.account.bind_property("display-name", title, "label", BindingFlags.SYNC_CREATE);
+
 			sidebar_handle_short = this.account.bind_property("handle_short", subtitle, "label", BindingFlags.SYNC_CREATE);
 			sidebar_avatar = this.account.bind_property("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
-			// FIXME: Wrapping
-			//  this.account.notify["display-name"].connect(() => {
-			//  	title.instance_emojis = this.account.emojis_map;
-			//  	title.label = this.account.display_name;
-			//  });
+			sidebar_display_name = this.account.notify["display-name"].connect(() => {
+				title.instance_emojis = this.account.emojis_map;
+				title.content = this.account.display_name;
+			});
 
 			account_items.model = account.known_places;
 		} else {
 			saved_accounts.unselect_all ();
 
-			title.label = _("Anonymous");
+			title.content = _("Anonymous");
 			subtitle.label = _("No account selected");
 			avatar.account = null;
 			account_items.model = null;

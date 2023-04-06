@@ -273,7 +273,6 @@ flowboxchild {
 	border-radius: 6px;
 }
 
-
 /* Composer auto completion */
 GtkSourceAssistant.completion list row{
 	padding: 6px 12px 6px 12px;

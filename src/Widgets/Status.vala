@@ -35,12 +35,14 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Grid grid;
 
 	[GtkChild] protected unowned Image header_icon;
-	[GtkChild] protected unowned Widgets.RichLabelContainer header_label;
+	[GtkChild] protected unowned Widgets.RichLabel header_label;
+	[GtkChild] protected unowned Button header_button;
 	[GtkChild] public unowned Image thread_line;
 
 	[GtkChild] public unowned Widgets.Avatar avatar;
 	[GtkChild] public unowned Overlay avatar_overlay;
-	[GtkChild] protected unowned Widgets.RichLabelContainer name_label;
+	[GtkChild] protected unowned Button name_button;
+	[GtkChild] protected unowned Widgets.RichLabel name_label;
 	[GtkChild] protected unowned Label handle_label;
 	[GtkChild] protected unowned Box indicators;
 	[GtkChild] protected unowned Label date_label;
@@ -174,6 +176,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		gesture_lp_controller.touch_only = true;
         gesture_click_controller.pressed.connect(on_secondary_click);
         gesture_lp_controller.pressed.connect(on_secondary_click);
+
+		name_button.clicked.connect (() => name_label.on_activate_link(status.formal.account.handle));
 	}
 
 	public Status (API.Status status) {
@@ -336,6 +340,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 	Widgets.Avatar? actor_avatar = null;
 	ulong actor_avatar_singal;
+	ulong header_button_activate;
 	private Binding actor_avatar_binding;
 	const string[] should_show_actor_avatar = {InstanceAccount.KIND_REBLOG, InstanceAccount.KIND_REMOTE_REBLOG, InstanceAccount.KIND_FAVOURITE};
 	protected virtual void change_kind () {
@@ -345,12 +350,12 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		check_actions();
 		accounts.active.describe_kind (this.kind, out icon, out descr, this.kind_instigator, out label_url);
 
-		header_icon.visible = header_label.visible = (icon != null);
 		if (icon == null) {
 			grid.margin_top = 8;
 			return;
 		};
 
+		header_icon.visible = header_button.visible = true;
 		grid.margin_top = 0;
 
 		if (kind in should_show_actor_avatar) {
@@ -380,9 +385,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 
 		header_icon.icon_name = icon;
-		header_label.dim = true;
-		header_label.small_font = true;
-		header_label.set_label(descr, label_url, this.kind_instigator.emojis_map);
+		header_label.instance_emojis = this.kind_instigator.emojis_map;
+		header_label.label = descr;
+
+		if (header_button_activate > 0) header_button.disconnect(header_button_activate);
+		header_button_activate = header_button.clicked.connect (() => header_label.on_activate_link(label_url));
 	}
 
 	private void open_kind_instigator_account () {
@@ -400,6 +407,9 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		// WARN: formal_bindings __must__ be inside bind ()
 		//       else the widget wont get destructed
 		var formal_bindings = new BindingGroup ();
+
+		this.content.instance_emojis = status.formal.emojis_map;
+		this.content.content = status.formal.content;
 
 		self_bindings.bind_property ("spoiler-text", spoiler_label, "label", BindingFlags.SYNC_CREATE);
 		self_bindings.bind_property ("spoiler-text-revealed", spoiler_label_rev, "label", BindingFlags.SYNC_CREATE);
@@ -433,7 +443,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			target.set_boolean (!src.get_boolean () || settings.show_spoilers);
 			return true;
 		});
-		formal_bindings.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
+		//  formal_bindings.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
 		formal_bindings.bind_property ("reblogs_count", reblog_count_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			int64 srcval = (int64) src;
 			target.set_string (@"<b>$srcval</b> " + _("Boosts"));
@@ -495,11 +505,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		self_bindings.set_source (this);
 		formal_bindings.set_source (status.formal);
 
-
-
 		// TODO: Ideally, this should be a binding too somehow
 		// bind_property ("title_text", name_label, "label", BindingFlags.SYNC_CREATE);
-		name_label.set_label(title_text, status.formal.account.handle, status.formal.account.emojis_map, true);
+		//  name_label.set_label(title_text, status.formal.account.handle, status.formal.account.emojis_map, true);
+		name_label.instance_emojis = status.formal.account.emojis_map;
+		name_label.label = title_text;
 
 		// Actions
 		reblog_button.bind (status.formal);

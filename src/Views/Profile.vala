@@ -76,9 +76,10 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 		public void bind (API.Account account) {
 			display_name.instance_emojis = account.emojis_map;
-			display_name.label = account.display_name;
+			display_name.content = account.display_name;
 			handle.label = account.handle;
 			avatar.account = account;
+			note.instance_emojis = account.emojis_map;
 			note.content = account.note;
 
 			if (account.id != accounts.active.id) rsbtn.visible = true;
@@ -93,7 +94,6 @@ public class Tuba.Views.Profile : Views.Timeline {
 				foreach (API.AccountField f in account.fields) {
 					var row = new Adw.ActionRow ();
 					var val = new Widgets.RichLabel (HtmlUtils.simplify (f.val));
-					val.wrap = true;
 					val.hexpand = true;
 					val.xalign = 1;
 					row.title = f.name;

@@ -25,17 +25,26 @@
           </object>
         </child>
         <child>
-          <object class="TubaWidgetsRichLabelContainer" id="header_label">
+          <object class="GtkButton" id="header_button">
             <property name="visible">0</property>
-            <!-- <property name="ellipsize">end</property> -->
-            <!-- <property name="margin-bottom">8</property> -->
-            <style>
-              <class name="font-bold"/>
-            </style>
+            <property name="halign">start</property>
+            <child>
+              <object class="TubaWidgetsRichLabel" id="header_label">
+                <style>
+                  <class name="font-bold"/>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+            </child>
             <layout>
               <property name="column">1</property>
               <property name="row">0</property>
             </layout>
+            <style>
+              <class name="flat"/>
+              <class name="ttl-status-heading-padding"/>
+              <class name="ttl-status-heading"/>
+            </style>
           </object>
         </child>
         <child>
@@ -43,20 +52,25 @@
             <property name="vexpand">1</property>
             <property name="row_homogeneous">1</property>
             <child>
-              <object class="TubaWidgetsRichLabelContainer" id="name_label">
-                <property name="visible">True</property>
-                <property name="hexpand">True</property>
-                <!-- <property name="label" translatable="no">Name</property> -->
-                <!-- <property name="ellipsize">end</property> -->
-                <!-- <property name="single_line_mode">True</property> -->
-                <style>
-                  <class name="font-bold"/>
-                </style>
+              <object class="GtkButton" id="name_button">
+                <property name="halign">start</property>
+                <child>
+                  <object class="TubaWidgetsRichLabel" id="name_label">
+                    <property name="visible">True</property>
+                    <property name="hexpand">True</property>
+                    <style>
+                      <class name="font-bold"/>
+                    </style>
+                  </object>
+                </child>
                 <layout>
-                  <property name="column">0</property>
-                  <property name="row">0</property>
-                  <property name="column-span">3</property>
+                    <property name="column">0</property>
+                    <property name="row">0</property>
+                    <property name="column-span">3</property>
                 </layout>
+                <style>
+                  <class name="ttl-label-emoji-no-click"/>
+                </style>
               </object>
             </child>
             <child>
@@ -215,7 +229,7 @@
                         <child>
                           <object class="TubaWidgetsMarkupView" id="content">
                             <property name="visible">True</property>
-                            <property name="hexpand">True</property>
+                            <property name="hexpand">False</property>
                           </object>
                         </child>
                         <child>

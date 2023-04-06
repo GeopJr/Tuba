@@ -18,6 +18,8 @@ public class Tuba.Widgets.MarkupView : Box {
 		}
 	}
 
+	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
+
 	private bool _selectable = false;
 	public bool selectable {
 		get { return _selectable; }
@@ -74,12 +76,14 @@ public class Tuba.Widgets.MarkupView : Box {
 
 	void commit_chunk () {
 		if (current_chunk != null && current_chunk != "") {
-			var label = new RichLabel (current_chunk) {
+			var label = new RichLabel () {
 				visible = true,
 				// markup = MarkupPolicy.TRUST,
 				selectable = _selectable,
 				vexpand = true
 			};
+			if (instance_emojis != null) label.instance_emojis = instance_emojis;
+			label.label = current_chunk;
 			append (label);
 		}
 		current_chunk = null;
