@@ -1,5 +1,5 @@
 // LabelWithWidgets is ported from Fractal
-// https://gitlab.gnome.org/GNOME/fractal/-/blob/40d2071975e20c1c936f7e87daaf8a0eba7f31b7/src/components/label_with_widgets.rs
+// https://gitlab.gnome.org/GNOME/fractal/-/blob/071bfa9e2ad1574e675b2f90c3218565f9953f08/src/components/label_with_widgets.rs
 
 public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Accessible {
     private Gtk.Widget[] widgets = {};
@@ -114,7 +114,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         int index = 0;
 
         for (var i = 0; i < widget_widths.length; i++) {
-            index = text.index_of (OBJECT_REPLACEMENT_CHARACTER, index);
+            index = label.get_text ().index_of (OBJECT_REPLACEMENT_CHARACTER, index);
             if (index < 0) break;
 
             var width = widget_widths[i];
@@ -131,7 +131,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             shape.end_index = index + OBJECT_REPLACEMENT_CHARACTER.length;
             attrs.insert(shape.copy());
     
-            index = index + 1;
+            index = index + OBJECT_REPLACEMENT_CHARACTER.length;
         }
 
         label.attributes = attrs;
