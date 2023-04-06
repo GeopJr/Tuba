@@ -18,9 +18,9 @@ public class Tuba.Views.TabbedBase : Views.Base {
 			states_box.remove (states);
 		view.get_style_context ().remove_class ("ttl-view");
 
-		var scrolled_box = scrolled.get_parent () as Box;
-		if (scrolled_box != null)
-			scrolled_box.remove (scrolled);
+		var scrolled_overlay_box = scrolled_overlay.get_parent () as Box;
+		if (scrolled_overlay_box != null)
+			scrolled_overlay_box.remove (scrolled_overlay);
 		insert_child_after (states, header);
 
 		stack = new Adw.ViewStack ();

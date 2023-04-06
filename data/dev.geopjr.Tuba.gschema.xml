@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
 
-  <enum id="dev.geopjr.Tuba.ColorScheme">
-    <value value="0" nick="system"/>
-    <value value="1" nick="light"/>
-    <value value="2" nick="dark"/>
-  </enum>
+	<enum id="dev.geopjr.Tuba.ColorScheme">
+		<value value="0" nick="system"/>
+		<value value="1" nick="light"/>
+		<value value="2" nick="dark"/>
+	</enum>
 
 	<schema path="/dev/geopjr/Tuba/" id="dev.geopjr.Tuba" gettext-domain="dev.geopjr.Tuba">
 
@@ -14,6 +14,9 @@
 		</key>
 		<key name="color-scheme" enum="dev.geopjr.Tuba.ColorScheme">
 			<default>'system'</default>
+		</key>
+		<key name="default-post-visibility" type="s">
+			<default>'public'</default>
 		</key>
 		<key name="autostart" type="b">
 			<default>false</default>

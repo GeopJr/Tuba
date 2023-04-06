@@ -260,8 +260,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			if (res == "yes") {
 				new Request.DELETE (@"/api/v1/statuses/$(status.formal.id)")
 					.with_account (accounts.active)
-					.then ((sess, msg) => {
-						var root = network.parse (msg);
+					.then ((sess, msg, in_stream) => {
+						var root = network.parse (in_stream);
 						if (root.has_member("error")) {
 							// TODO: Handle error (probably a toast?)
 						};

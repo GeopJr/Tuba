@@ -19,6 +19,8 @@ public class Tuba.Views.Base : Box {
 	[GtkChild] protected unowned Button back_button;
 
 	[GtkChild] protected unowned ScrolledWindow scrolled;
+	[GtkChild] protected unowned Overlay scrolled_overlay;
+	[GtkChild] protected unowned Button scroll_to_top;
 	[GtkChild] protected unowned Box view;
 	[GtkChild] protected unowned Adw.Clamp clamp;
 	[GtkChild] protected unowned Box column_view;
@@ -28,6 +30,7 @@ public class Tuba.Views.Base : Box {
 	[GtkChild] unowned Stack status_stack;
 	[GtkChild] unowned Label status_title_label;
 	[GtkChild] unowned Label status_message_label;
+	[GtkChild] unowned Spinner status_spinner;
 
 	public string state { get; set; default = "status"; }
 	public string status_title { get; set; default = STATUS_EMPTY; }
@@ -39,9 +42,16 @@ public class Tuba.Views.Base : Box {
 	    build_header ();
 
 		status_button.label = _("Reload");
-		bind_property ("state", states, "visible-child-name", BindingFlags.SYNC_CREATE);
+		bind_property ("state", states, "visible-child-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_string (src.get_string ());
+			if (src.get_string () != "status") status_spinner.spinning = false;
+
+			return true;
+		});
 		bind_property ("status-loading", status_stack, "visible-child-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_string (src.get_boolean ()  ? "spinner" : "message");
+			status_spinner.spinning = src.get_boolean ();
+
 			return true;
 		});
 		bind_property ("status-message", status_message_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
@@ -71,9 +81,15 @@ public class Tuba.Views.Base : Box {
 		});
 
 		scrolled.get_style_context ().add_class (Dialogs.MainWindow.ZOOM_CLASS);
+
+		scroll_to_top.clicked.connect(on_scroll_to_top);
 	}
 	~Base () {
 		message ("Destroying base "+label);
+	}
+
+	private void on_scroll_to_top () {
+		scrolled.vadjustment.value = 0.0;
 	}
 
 	public override void dispose () {

@@ -90,8 +90,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		var req = append_params (new Request.GET (get_req_url ()))
 			.with_account (account)
 			.with_ctx (this)
-			.then ((sess, msg) => {
-				Network.parse_array (msg, node => {
+			.then ((sess, msg, in_stream) => {
+				Network.parse_array (msg, in_stream, node => {
 					var e = entity_cache.lookup_or_insert (node, accepts);
 					model.append (e); //FIXME: use splice();
 				});

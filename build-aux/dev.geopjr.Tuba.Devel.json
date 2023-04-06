@@ -14,7 +14,8 @@
         "--share=ipc",
         "--share=network",
         "--socket=fallback-x11",
-        "--socket=wayland"
+        "--socket=wayland",
+        "--env=GDK_PIXBUF_MODULE_FILE=/app/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
     ],
     "cleanup": [
         "/include",
@@ -30,21 +31,26 @@
     ],
     "modules": [
         {
-            "name": "libsoup-2.4",
-            "buildsystem": "meson",
-            "config-opts": [
-                "-Dvapi=disabled",
-                "-Dtests=false",
-                "-Dtls_check=false",
-                "-Dntlm=disabled",
-                "-Dsysprof=enabled"
+            "name" : "webp-pixbuf-loader",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dgdk_pixbuf_moduledir=/app/lib/gdk-pixbuf-2.0/2.10.0/loaders/"
             ],
-            "sources": [
+            "sources" : [
                 {
-                    "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/libsoup.git",
-                    "branch": "libsoup-2-74"
+                    "type" : "git",
+                    "url" : "https://github.com/aruiz/webp-pixbuf-loader.git",
+                    "tag" : "0.2.4",
+                    "commit": "a35014104a226265e44fe30fcdb4df9305af3466"
                 }
+            ]
+        },
+        {
+            "name" : "update-pixbuf-loaders",
+            "buildsystem" : "simple",
+            "build-commands" : [
+                "GDK_PIXBUF_MODULEDIR=/app/lib/gdk-pixbuf-2.0/2.10.0/loaders/ gdk-pixbuf-query-loaders > /app/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache",
+                "gdk-pixbuf-query-loaders >> /app/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
             ]
         },
         {

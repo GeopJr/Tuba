@@ -16,6 +16,15 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	ulong build_sigid;
 
 	construct {
+		var exit_action = new SimpleAction ("exit", null);
+		exit_action.activate.connect (on_exit);
+
+		var action_group = new GLib.SimpleActionGroup ();
+		action_group.add_action(exit_action);
+
+		this.insert_action_group ("composer", action_group);
+		add_binding_action (Gdk.Key.Escape, 0, "composer.exit", null);
+
 		transient_for = app.main_window;
 		title_switcher.stack = stack;
 
@@ -25,6 +34,10 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 			disconnect (build_sigid);
 		});
+	}
+
+	void on_exit () {
+		if (!commit_button.sensitive) on_close ();
 	}
 
 	protected virtual signal void build () {
@@ -42,14 +55,14 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		add_page (p_edit);
 		add_page (p_attach);
 		add_page (new PollPage ());
+
+		p_edit.editor_grab_focus ();
 	}
 
 	[GtkChild] unowned Adw.ViewSwitcherTitle title_switcher;
 	[GtkChild] unowned Button commit_button;
 
 	[GtkChild] unowned Adw.ViewStack stack;
-
-
 
 	public Compose (API.Status template = new API.Status.empty ()) {
 		Object (
@@ -154,7 +167,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		modify_req (publish_req);
 		yield publish_req.await ();
 
-		var node = network.parse_node (publish_req);
+		var node = network.parse_node (publish_req.response_body);
 		var status = API.Status.from (node);
 		message (@"Published post with id $(status.id)");
 

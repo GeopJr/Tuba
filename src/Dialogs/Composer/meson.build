@@ -6,3 +6,5 @@ sources += files(
     'Page.vala',
     'PollPage.vala',
 )
+
+subdir('Completion')

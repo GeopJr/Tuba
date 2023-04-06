@@ -21,132 +21,149 @@
     </child>
 
     <child>
-      <object class="GtkScrolledWindow" id="scrolled">
-        <property name="vexpand">1</property>
-        <property name="hscrollbar_policy">never</property>
+      <object class="GtkOverlay" id="scrolled_overlay">
+        <child type="overlay">
+          <object class="GtkButton" id="scroll_to_top"> 
+            <property name="icon-name">go-top-symbolic</property>
+            <property name="valign">end</property>
+            <property name="halign">end</property>
+            <property name="margin_end">16</property>
+            <property name="margin_bottom">16</property>
+            <property name="visible">0</property>
+            <style> 
+              <class name="circular"/>
+              <class name="osd"/> 
+            </style> 
+          </object> 
+        </child>
         <property name="child">
-          <object class="GtkViewport">
+          <object class="GtkScrolledWindow" id="scrolled">
+            <property name="vexpand">1</property>
+            <property name="hscrollbar_policy">never</property>
             <property name="child">
-              <object class="GtkBox" id="view">
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="AdwClamp" id="clamp">
-                    <property name="vexpand">1</property>
-                    <property name="visible">True</property>
-                    <property name="maximum_size">670</property>
-                    <property name="tightening_threshold">670</property>
+              <object class="GtkViewport">
+                <property name="child">
+                  <object class="GtkBox" id="view">
+                    <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkBox" id="column_view">
-                        <property name="orientation">vertical</property>
+                      <object class="AdwClamp" id="clamp">
+                        <property name="vexpand">1</property>
+                        <property name="visible">True</property>
+                        <property name="maximum_size">670</property>
+                        <property name="tightening_threshold">670</property>
                         <child>
-                          <object class="GtkStack" id="states">
-                            <property name="vexpand">1</property>
-                            <property name="vhomogeneous">0</property>
-                            <property name="transition_type">crossfade</property>
-                            <property name="interpolate_size">1</property>
+                          <object class="GtkBox" id="column_view">
+                            <property name="orientation">vertical</property>
                             <child>
-                              <object class="GtkStackPage">
-                                <property name="name">status</property>
-                                <property name="child">
-                                  <object class="GtkBox" id="status">
-                                    <property name="valign">center</property>
-                                    <property name="margin_top">16</property>
-                                    <property name="margin_bottom">16</property>
-                                    <property name="orientation">vertical</property>
-                                    <property name="spacing">16</property>
-                                    <child>
-                                      <object class="GtkImage">
-                                        <property name="width_request">128</property>
-                                        <property name="height_request">128</property>
-                                        <property name="pixel_size">128</property>
-                                        <property name="icon_name">dev.geopjr.Tuba-symbolic</property>
-                                        <style>
-                                          <class name="dim-label"/>
-                                        </style>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkStack" id="status_stack">
-                                        <property name="transition_type">crossfade</property>
+                              <object class="GtkStack" id="states">
+                                <property name="vexpand">1</property>
+                                <property name="vhomogeneous">0</property>
+                                <property name="transition_type">crossfade</property>
+                                <property name="interpolate_size">1</property>
+                                <child>
+                                  <object class="GtkStackPage">
+                                    <property name="name">status</property>
+                                    <property name="child">
+                                      <object class="GtkBox" id="status">
+                                        <property name="valign">center</property>
+                                        <property name="margin_top">16</property>
+                                        <property name="margin_bottom">16</property>
+                                        <property name="orientation">vertical</property>
+                                        <property name="spacing">16</property>
                                         <child>
-                                          <object class="GtkStackPage">
-                                            <property name="name">message</property>
-                                            <property name="child">
-                                              <object class="GtkBox">
-                                                <property name="orientation">vertical</property>
-                                                <property name="valign">center</property>
-                                                <property name="spacing">12</property>
-                                                <child>
-                                                  <object class="GtkLabel" id="status_title_label">
-                                                    <property name="wrap">1</property>
-                                                    <property name="wrap-mode">word-char</property>
-                                                    <property name="justify">center</property>
-                                                    <style>
-                                                      <class name="title"/>
-                                                      <class name="title-1"/>
-                                                    </style>
-                                                  </object>
-                                                </child>
-                                                <child>
-                                                  <object class="GtkLabel" id="status_message_label">
-                                                    <property name="wrap">1</property>
-                                                    <property name="wrap-mode">word-char</property>
-                                                    <property name="justify">center</property>
-                                                    <style>
-                                                      <class name="body"/>
-                                                      <class name="description"/>
-                                                    </style>
-                                                  </object>
-                                                </child>
-                                              </object>
-                                            </property>
+                                          <object class="GtkImage">
+                                            <property name="width_request">128</property>
+                                            <property name="height_request">128</property>
+                                            <property name="pixel_size">128</property>
+                                            <property name="icon_name">dev.geopjr.Tuba-symbolic</property>
+                                            <style>
+                                              <class name="dim-label"/>
+                                            </style>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="GtkStackPage">
-                                            <property name="name">spinner</property>
-                                            <property name="child">
-                                              <object class="GtkSpinner" id="status_spinner">
-                                                <property name="height_request">32</property>
-                                                <property name="spinning">True</property>
+                                          <object class="GtkStack" id="status_stack">
+                                            <property name="transition_type">crossfade</property>
+                                            <child>
+                                              <object class="GtkStackPage">
+                                                <property name="name">message</property>
+                                                <property name="child">
+                                                  <object class="GtkBox">
+                                                    <property name="orientation">vertical</property>
+                                                    <property name="valign">center</property>
+                                                    <property name="spacing">12</property>
+                                                    <child>
+                                                      <object class="GtkLabel" id="status_title_label">
+                                                        <property name="wrap">1</property>
+                                                        <property name="wrap-mode">word-char</property>
+                                                        <property name="justify">center</property>
+                                                        <style>
+                                                          <class name="title"/>
+                                                          <class name="title-1"/>
+                                                        </style>
+                                                      </object>
+                                                    </child>
+                                                    <child>
+                                                      <object class="GtkLabel" id="status_message_label">
+                                                        <property name="wrap">1</property>
+                                                        <property name="wrap-mode">word-char</property>
+                                                        <property name="justify">center</property>
+                                                        <style>
+                                                          <class name="body"/>
+                                                          <class name="description"/>
+                                                        </style>
+                                                      </object>
+                                                    </child>
+                                                  </object>
+                                                </property>
                                               </object>
-                                            </property>
+                                            </child>
+                                            <child>
+                                              <object class="GtkStackPage">
+                                                <property name="name">spinner</property>
+                                                <property name="child">
+                                                  <object class="GtkSpinner" id="status_spinner">
+                                                    <property name="height_request">32</property>
+                                                  </object>
+                                                </property>
+                                              </object>
+                                            </child>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkButton" id="status_button">
+                                            <property name="visible">0</property>
+                                            <property name="halign">center</property>
+                                            <style>
+                                              <class name="pill"/>
+                                            </style>
                                           </object>
                                         </child>
                                       </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkButton" id="status_button">
-                                        <property name="visible">0</property>
-                                        <property name="halign">center</property>
-                                        <style>
-                                          <class name="pill"/>
-                                        </style>
+                                    </property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkStackPage">
+                                    <property name="name">content</property>
+                                    <property name="child">
+                                      <object class="GtkBox" id="content_box">
+                                        <property name="orientation">vertical</property>
                                       </object>
-                                    </child>
+                                    </property>
                                   </object>
-                                </property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkStackPage">
-                                <property name="name">content</property>
-                                <property name="child">
-                                  <object class="GtkBox" id="content_box">
-                                    <property name="orientation">vertical</property>
-                                  </object>
-                                </property>
+                                </child>
                               </object>
                             </child>
                           </object>
                         </child>
                       </object>
                     </child>
+                    <style>
+                      <class name="ttl-view"/>
+                    </style>
                   </object>
-                </child>
-                <style>
-                  <class name="ttl-view"/>
-                </style>
+                </property>
               </object>
             </property>
           </object>

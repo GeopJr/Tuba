@@ -39,7 +39,7 @@ parts:
       - valac
       - libgtk-4-dev
       - libglib2.0-dev
-      - libsoup2.4-dev
+      - libgtksourceview-5-dev # 5.8 is not available yet
       - libjson-glib-dev
       - gettext
       - libadwaita-1-dev

@@ -4,6 +4,7 @@ using Gtk;
 public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 
     [GtkChild] unowned Adw.ComboRow scheme_combo_row;
+    [GtkChild] unowned Adw.ComboRow post_visibility_combo_row;
     [GtkChild] unowned Switch autostart;
     [GtkChild] unowned Switch work_in_background;
     [GtkChild] unowned SpinButton timeline_page_size;
@@ -20,16 +21,18 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
     construct {
         transient_for = app.main_window;
 
-		// TODO: default_post_visibility options
-        // default_post_visibility.set_for_enum (typeof (API.Visibility), e => {
-        //     var i = e.get_value ();
-        //     var vis = API.Visibility.all ()[i];
-        //     default_post_visibility.subtitle = vis.get_desc ();
-        //     return vis.get_name ();
-        // });
+		post_visibility_combo_row.model = accounts.active.visibility_list;
 
         // Setup scheme combo row
         scheme_combo_row.selected = settings.get_enum ("color-scheme");
+
+		uint default_visibility_index;
+		if (accounts.active.visibility.has_key(settings.default_post_visibility) && accounts.active.visibility_list.find(accounts.active.visibility[settings.default_post_visibility], out default_visibility_index)) {
+			post_visibility_combo_row.selected = default_visibility_index;
+		} else {
+			post_visibility_combo_row.selected = 0;
+			on_post_visibility_changed ();
+		}
 
 		bind ();
         show ();
@@ -49,6 +52,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
         settings.bind ("show-spoilers", show_spoilers, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("larger-font-size", larger_font_size, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("larger-line-height", larger_line_height, "active", SettingsBindFlags.DEFAULT);
+
+		post_visibility_combo_row.notify["selected-item"].connect(on_post_visibility_changed);
 	}
 
 	[GtkCallback]
@@ -58,6 +63,10 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 
 		style_manager.color_scheme = selected_item.adwaita_scheme;
 		settings.color_scheme = selected_item.color_scheme;
+	}
+
+	private void on_post_visibility_changed () {
+		settings.default_post_visibility = (string) ((InstanceAccount.Visibility) post_visibility_combo_row.selected_item).id;
 	}
 }
 
