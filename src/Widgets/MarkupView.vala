@@ -28,7 +28,7 @@ public class Tuba.Widgets.MarkupView : Box {
 
 			var w = this.get_first_child();
 			while (w != null) {
-				var label = w as RichLabelTemp;
+				var label = w as RichLabel;
 				if (label != null) {
 					label.selectable = _selectable;
 				}
@@ -76,7 +76,7 @@ public class Tuba.Widgets.MarkupView : Box {
 
 	void commit_chunk () {
 		if (current_chunk != null && current_chunk != "") {
-			var label = new RichLabelTemp () {
+			var label = new RichLabel () {
 				visible = true,
 				// markup = MarkupPolicy.TRUST,
 				selectable = _selectable,
@@ -134,7 +134,7 @@ public class Tuba.Widgets.MarkupView : Box {
 					}
 				});
 
-				var label = new RichLabelTemp (text) {
+				var label = new RichLabel (text) {
 					visible = true
 					// markup = MarkupPolicy.DISALLOW
 				};
