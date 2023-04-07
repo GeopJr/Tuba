@@ -60,10 +60,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Label spoiler_label_rev;
 	[GtkChild] protected unowned Box spoiler_status_con;
 
-	[GtkChild] protected unowned Box status_stats;
-	[GtkChild] protected unowned Label reblog_count_label;
-	[GtkChild] protected unowned Label fav_count_label;
-
 	[GtkChild] public unowned FlowBox emoji_reactions;
 	[GtkChild] public unowned Box actions;
 	[GtkChild] public unowned Box fr_actions;
@@ -419,7 +415,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			spoiler_stack.visible_child_name = reveal_spoiler ? "content" : "spoiler";
 		});
 
-		self_bindings.bind_property ("is-conversation-open", status_stats, "visible", BindingFlags.SYNC_CREATE);
 		self_bindings.bind_property ("subtitle_text", handle_label, "label", BindingFlags.SYNC_CREATE);
 		self_bindings.bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 
@@ -444,16 +439,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			return true;
 		});
 		//  formal_bindings.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
-		formal_bindings.bind_property ("reblogs_count", reblog_count_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			int64 srcval = (int64) src;
-			target.set_string (@"<b>$srcval</b> " + _("Boosts"));
-			return true;
-		});
-		formal_bindings.bind_property ("favourites_count", fav_count_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			int64 srcval = (int64) src;
-			target.set_string (@"<b>$srcval</b> " + _("Favorites"));
-			return true;
-		});
 		formal_bindings.bind_property ("reblogs_count", reblog_button.content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			int64 srcval = (int64) src;
 

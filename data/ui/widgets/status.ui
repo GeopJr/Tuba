@@ -246,29 +246,6 @@
               </object>
             </child>
             <child>
-              <object class="GtkBox" id="status_stats">
-                <property name="spacing">20</property>
-                <property name="margin_top">20</property>
-                <property name="visible">0</property>
-                <child>
-                  <object class="GtkLabel" id="reblog_count_label">
-                    <property name="label">Boosts</property>
-                    <property name="use_markup">1</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="fav_count_label">
-                      <property name="label">Favorites</property>
-                      <property name="use_markup">1</property>
-                  </object>
-                </child>
-                <style>
-                  <class name="body"/>
-                  <class name="dim-label"/>
-                </style>
-              </object>
-            </child>
-            <child>
               <object class="GtkFlowBox" id="emoji_reactions">
                 <property name="visible">0</property>
                 <property name="column_spacing">6</property>
