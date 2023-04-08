@@ -248,9 +248,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         // https://gitlab.gnome.org/GNOME/libadwaita/-/merge_requests/827
         uint timeout = 0;
 		timeout = Timeout.add (1000, () => {
-            if (pos >= items.length) return true;
-
-            carousel.scroll_to(carousel.get_nth_page(pos), true);
+            if (pos < items.length)
+                carousel.scroll_to(carousel.get_nth_page(pos), true);
 			GLib.Source.remove(timeout);
 
 			return true;
