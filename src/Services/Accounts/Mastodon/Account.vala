@@ -104,6 +104,14 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		}
 	};
 
+	public static Place PLACE_HASHTAGS = new Place () {
+		title = _("Hashtags"),
+		icon = "tuba-hashtag-symbolic",
+		open_func = (win) => {
+			win.open_view (set_as_sidebar_item(new Views.Hashtags ()));
+		}
+	};
+
 	public override void register_known_places (GLib.ListStore places) {
 		places.append (PLACE_HOME);
 		//  places.append (PLACE_SEARCH);
@@ -115,6 +123,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		places.append (PLACE_BOOKMARKS);
 		places.append (PLACE_LISTS);
 
+		places.append (PLACE_HASHTAGS);
 		places.append (PLACE_FOLLOW_REQUESTS);
 	}
 

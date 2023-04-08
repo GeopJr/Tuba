@@ -8,6 +8,7 @@ sources += files(
     'Federated.vala',
     'FollowRequests.vala',
     'Hashtag.vala',
+    'Hashtags.vala',
     'Home.vala',
     'List.vala',
     'Lists.vala',
