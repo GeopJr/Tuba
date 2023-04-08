@@ -74,11 +74,15 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 
 	public static string restore_entities (string content) {
 		return content
-			.replace ("&amp;", "&")
 			.replace ("&lt;", "<")
 			.replace ("&gt;", ">")
 			.replace ("&apos;", "'")
-			.replace ("&quot;", "\"");
+			.replace ("&quot;", "\"")
+			.replace ("&#39;", "'")
+
+			// Always last since its prone to errors
+			// like &amp;lt; => &lt; => <
+			.replace ("&amp;", "&");
 	}
 
 	public bool on_activate_link (string url) {
