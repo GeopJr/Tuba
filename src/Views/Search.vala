@@ -39,6 +39,14 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		statuses_tab = add_list_tab (_("Statuses"), "tuba-chat-symbolic");
 		hashtags_tab = add_list_tab (_("Hashtags"), "tuba-hashtag-symbolic");
 
+		uint timeout = 0;
+		timeout = Timeout.add (200, () => {
+			entry.grab_focus ();
+			GLib.Source.remove(timeout);
+
+			return true;
+		}, Priority.LOW);
+
 		request ();
 	}
 
