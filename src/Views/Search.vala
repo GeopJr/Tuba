@@ -7,6 +7,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 	protected Adw.Clamp bar_clamp;
 	protected SearchEntry entry;
 
+	Views.ContentBase all_tab;
 	Views.ContentBase accounts_tab;
 	Views.ContentBase statuses_tab;
 	Views.ContentBase hashtags_tab;
@@ -35,6 +36,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		entry.activate.connect (() => request ());
 		status_button.clicked.connect (request);
 
+		all_tab = add_list_tab (_("All"), "tuba-loupe-large-symbolic");
 		accounts_tab = add_list_tab (_("Accounts"), "tuba-people-symbolic");
 		statuses_tab = add_list_tab (_("Statuses"), "tuba-chat-symbolic");
 		hashtags_tab = add_list_tab (_("Hashtags"), "tuba-hashtag-symbolic");
@@ -72,13 +74,28 @@ public class Tuba.Views.Search : Views.TabbedBase {
 				var results = API.SearchResults.request.end (res);
 
 				if (!results.accounts.is_empty) {
-					results.accounts.@foreach (e => append_entity (accounts_tab, e));
+					results.accounts.@foreach (e => {
+						append_entity (all_tab, e);
+						append_entity (accounts_tab, e);
+
+						return true;
+					});
 				}
 				if (!results.statuses.is_empty) {
-					results.statuses.@foreach (e => append_entity (statuses_tab, e));
+					results.statuses.@foreach (e => {
+						append_entity (all_tab, e);
+						append_entity (statuses_tab, e);
+
+						return true;
+					});
 				}
 				if (!results.hashtags.is_empty) {
-					results.hashtags.@foreach (e => append_entity (hashtags_tab, e));
+					results.hashtags.@foreach (e => {
+						append_entity (all_tab, e);
+						append_entity (hashtags_tab, e);
+
+						return true;
+					});
 				}
 
 				status_title = STATUS_EMPTY;
