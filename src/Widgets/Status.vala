@@ -285,6 +285,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	private void check_actions() {
 		if (kind == InstanceAccount.KIND_FOLLOW || kind == InstanceAccount.KIND_FOLLOW_REQUEST) {
 			actions.visible = false;
+			indicator.visible = false;
+			date_label.visible = false;
 		}
 	}
 
