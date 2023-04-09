@@ -54,5 +54,4 @@ public class Tuba.Widgets.Conversation : Widgets.Status {
 	public override void on_open () {
 		conversation.open ();
 	}
-
 }
