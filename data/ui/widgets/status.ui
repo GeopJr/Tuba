@@ -138,6 +138,16 @@
                     </style>
                   </object>
                 </child>
+                <child>
+                  <object class="GtkMenuButton" id="menu_button">
+                    <property name="icon-name">view-more-horizontal-symbolic</property>
+                    <style>
+                      <class name="flat"/>
+                      <class name="circular"/>
+                      <class name="dim-label"/>
+                    </style>
+                  </object>
+                </child>
                 <layout>
                   <property name="column">2</property>
                   <property name="row">0</property>

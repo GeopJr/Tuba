@@ -33,6 +33,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	[GtkChild] protected unowned Grid grid;
+	[GtkChild] public unowned MenuButton menu_button;
 
 	[GtkChild] protected unowned Image header_icon;
 	[GtkChild] protected unowned Widgets.RichLabel header_label;
@@ -75,8 +76,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	protected StatusActionButton favorite_button;
 	protected StatusActionButton bookmark_button;
 
-	protected GestureClick gesture_click_controller { get; set; }
-	protected GestureLongPress gesture_lp_controller { get; set; }
 	protected PopoverMenu context_menu { get; set; }
 	private const GLib.ActionEntry[] action_entries = {
 		{"copy-url",        copy_url},
@@ -163,16 +162,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 		this.insert_action_group ("status", action_group);
 
-		gesture_click_controller = new GestureClick();
-		gesture_lp_controller = new GestureLongPress();
-        add_controller(gesture_click_controller);
-        add_controller(gesture_lp_controller);
-		gesture_click_controller.button = Gdk.BUTTON_SECONDARY;
-		gesture_lp_controller.button = Gdk.BUTTON_PRIMARY;
-		gesture_lp_controller.touch_only = true;
-        gesture_click_controller.pressed.connect(on_secondary_click);
-        gesture_lp_controller.pressed.connect(on_secondary_click);
-
 		name_button.clicked.connect (() => name_label.on_activate_link(status.formal.account.handle));
 	}
 
@@ -190,11 +179,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		if (context_menu == null) {
 			create_actions ();
 		}
+		menu_button.popover = context_menu;
 	}
 	~Status () {
 		message ("Destroying Status widget");
 		if (context_menu != null) {
-			context_menu.unparent ();
 			context_menu.dispose();
 		}
 	}
@@ -228,7 +217,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 
 		context_menu = new PopoverMenu.from_model(menu_model);
-		context_menu.set_parent(this);
 	}
 
 	private void copy_url () {
@@ -272,14 +260,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		});
 
 		remove.present ();
-	}
-
-	protected virtual void on_secondary_click () {
-		gesture_click_controller.set_state(EventSequenceState.CLAIMED);
-		gesture_lp_controller.set_state(EventSequenceState.CLAIMED);
-
-		if (app.main_window.is_media_viewer_visible()) return;
-		context_menu.popup();
 	}
 
 	private void check_actions() {
