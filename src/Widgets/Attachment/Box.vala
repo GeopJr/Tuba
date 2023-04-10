@@ -41,21 +41,29 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 			return;
 		}
 
+		var single_attachment = list.size == 1;
+
 		list.@foreach (item => {
 			try {
-				var widget = item.to_widget ();
+				var widget = (Widgets.Attachment.Image) item.to_widget ();
 				box.insert (widget, -1);
-				attachement_widgets += ((Widgets.Attachment.Image) widget);
+				attachement_widgets += widget;
 
-				((Widgets.Attachment.Image) widget).on_any_attachment_click.connect (() => open_all_attachments(item.url));
+				if (single_attachment) widget.height_request = 256;
+				widget.on_any_attachment_click.connect (() => open_all_attachments(item.url));
 			} catch (Oopsie e) {
 				warning(@"Error updating attachements: $(e.message)");
 			}
 			return true;
 		});
 
-		box.max_children_per_line = 2;
-		box.min_children_per_line = 2;
+		if (single_attachment) {
+			box.max_children_per_line = 1;
+			box.min_children_per_line = 1;
+		} else {
+			box.max_children_per_line = 2;
+			box.min_children_per_line = 2;
+		}
 		// if (list.size > 1) {
 		// 	box.max_children_per_line = 2;
 		// }
