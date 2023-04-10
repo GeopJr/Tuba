@@ -49,7 +49,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 				box.insert (widget, -1);
 				attachement_widgets += widget;
 
-				if (single_attachment) widget.height_request = 256;
+				if (single_attachment) widget.height_request = 384;
 				widget.on_any_attachment_click.connect (() => open_all_attachments(item.url));
 			} catch (Oopsie e) {
 				warning(@"Error updating attachements: $(e.message)");
