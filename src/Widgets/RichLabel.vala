@@ -60,7 +60,8 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 
 	construct {
 		widget = new Widgets.EmojiLabel() {
-			use_markup = true
+			use_markup = true,
+			valign = Gtk.Align.CENTER
 		};
 		widget.activate_link.connect (on_activate_link);
 		child = widget;

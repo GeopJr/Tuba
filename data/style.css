@@ -281,3 +281,7 @@ GtkSourceAssistant.completion list row{
 .no-border-radius {
 	border-radius: 0px;
 }
+
+/* .ttl-status-content {
+	margin-top: -14px;
+} */
