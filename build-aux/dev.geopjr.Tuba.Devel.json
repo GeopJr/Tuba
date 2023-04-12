@@ -15,7 +15,8 @@
         "--share=network",
         "--socket=fallback-x11",
         "--socket=wayland",
-        "--env=GDK_PIXBUF_MODULE_FILE=/app/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
+        "--env=GDK_PIXBUF_MODULE_FILE=/app/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache",
+        "--socket=pulseaudio"
     ],
     "cleanup": [
         "/include",
