@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 18:13+0200\n"
-"PO-Revision-Date: 2023-04-10 08:18+0000\n"
+"PO-Revision-Date: 2023-04-14 06:50+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -349,7 +349,7 @@ msgstr "Podbicia"
 #: src/Widgets/Status.vala:442 src/Views/Favorites.vala:6
 #: src/Services/Accounts/Mastodon/Account.vala:60
 msgid "Favorites"
-msgstr "Ulubione"
+msgstr "Polubione"
 
 #: src/Widgets/Status.vala:509
 msgid "Reply"
@@ -365,7 +365,7 @@ msgstr "Podbij"
 
 #: src/Widgets/Status.vala:564
 msgid "Favorite"
-msgstr "Dodaj do ulubionych"
+msgstr "Polub"
 
 #: src/Widgets/Status.vala:575
 msgid "Bookmark"
