@@ -1,352 +1,351 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <template class="TubaWidgetsStatus" parent="GtkListBoxRow">
-    <property name="child">
-      <object class="GtkGrid" id="grid">
-        <property name="margin-start">8</property>
-        <property name="margin-end">8</property>
-        <property name="margin_top">8</property>
-        <property name="margin_bottom">8</property>
-        <property name="hexpand">1</property>
-        <property name="orientation">vertical</property>
-        <property name="column_spacing">8</property>
-        <child>
-          <object class="GtkImage" id="header_icon">
-            <property name="visible">0</property>
-            <property name="halign">end</property>
-            <!-- <property name="margin_bottom">8</property> -->
-            <property name="icon_name">oops</property>
-            <property name="icon_size">1</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">0</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="header_button">
-            <property name="visible">0</property>
-            <property name="halign">start</property>
-            <child>
-              <object class="TubaWidgetsRichLabel" id="header_label">
-                <style>
-                  <class name="font-bold"/>
-                  <class name="dim-label"/>
-                </style>
-              </object>
-            </child>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">0</property>
-            </layout>
-            <style>
-              <class name="flat"/>
-              <class name="ttl-status-heading-padding"/>
-              <class name="ttl-status-heading"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="vexpand">1</property>
-            <property name="spacing">6</property>
-            <property name="valign">start</property>
-            <child>
-              <object class="GtkFlowBox">
-                <property name="selection-mode">none</property>
-                <property name="column_spacing">6</property>
-                <!-- Lower values leave space between items -->
-                <property name="max_children_per_line">100</property>
-                <child>
-                  <object class="GtkButton" id="name_button">
-                    <child>
-                      <object class="TubaWidgetsRichLabel" id="name_label">
-                        <property name="visible">True</property>
-                        <property name="ellipsize">False</property>
-                        <style>
-                          <class name="font-bold"/>
-                        </style>
-                      </object>
-                    </child>
-                    <style>
-                      <class name="ttl-label-emoji-no-click"/>
-                    </style>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="handle_label">
-                    <property name="label" translatable="no">Handle</property>
-                    <property name="ellipsize">end</property>
-                    <property name="single_line_mode">1</property>
-                    <property name="xalign">0</property>
-                    <property name="hexpand">1</property>
-                    <style>
-                      <class name="body"/>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkBox" id="indicators">
-                <property name="halign">end</property>
-                <property name="valign">center</property>
-                <property name="margin_start">6</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkImage" id="pin_indicator">
-                    <property name="visible">0</property>
-                    <property name="icon_name">tuba-pin-symbolic</property>
-                    <property name="icon_size">1</property>
-                    <property name="tooltip_text" translatable="yes">Pinned</property>
-                    <style>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkImage" id="edited_indicator">
-                    <property name="visible">0</property>
-                    <property name="icon_name">document-edit-symbolic</property>
-                    <property name="icon_size">1</property>
-                    <property name="tooltip_text" translatable="yes">Edited</property>
-                    <style>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkImage" id="indicator">
-                    <property name="visible">1</property>
-                    <property name="icon_name">unknown</property>
-                    <property name="icon_size">1</property>
-                    <style>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="date_label">
-                    <property name="label" translatable="no">Yesterday</property>
-                    <property name="xalign">0</property>
-                    <style>
-                      <class name="body"/>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkMenuButton" id="menu_button">
-                    <property name="icon-name">view-more-horizontal-symbolic</property>
-                    <style>
-                      <class name="flat"/>
-                      <class name="circular"/>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkBox" id="content_column">
-            <property name="orientation">vertical</property>
-            <property name="spacing">6</property>
-            <style>
-              <class name="ttl-status-content"/>
-            </style>
-            <child>
-              <object class="GtkBox" id="spoiler_status_con">
-                <property name="margin_bottom">12</property>
-                <property name="visible">0</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="icon_name">tuba-warning-symbolic</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="spoiler_label_rev">
-                    <property name="halign">start</property>
-                    <property name="wrap">1</property>
-                  </object>
-                </child>
-                <style>
-                  <class name="dim-label"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkStack" id="spoiler_stack">
-                <property name="vhomogeneous">0</property>
-                <property name="hhomogeneous">0</property>
-                <property name="transition_type">crossfade</property>
-                <property name="interpolate_size">1</property>
-                <child>
-                  <object class="GtkStackPage">
-                    <property name="name">spoiler</property>
-                    <property name="child">
-                      <object class="GtkButton" id="spoiler_button">
-                        <property name="receives_default">1</property>
-                        <property name="tooltip_text" translatable="yes">Show More</property>
-                        <signal name="clicked" handler="toggle_spoiler" swapped="no"/>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="margin-start">12</property>
-                            <property name="margin-end">12</property>
-                            <property name="margin_top">12</property>
-                            <property name="margin_bottom">12</property>
-                            <property name="spacing">6</property>
-                            <child>
-                              <object class="GtkImage">
-                                <property name="icon_name">tuba-warning-symbolic</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="spoiler_label">
-                                <property name="visible">True</property>
-                                <property name="label">Spoiler Text Here</property>
-                                <property name="wrap">1</property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <style>
-                          <class name="spoiler"/>
-                        </style>
-                      </object>
-                    </property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkStackPage">
-                    <property name="name">content</property>
-                    <property name="child">
-                      <object class="GtkBox" id="content_box">
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">6</property>
-                        <child>
-                          <object class="TubaWidgetsMarkupView" id="content">
-                            <property name="visible">True</property>
-                            <property name="hexpand">False</property>
-                          </object>
-                        </child>
-                        <child>
-                              <object class="TubaWidgetsVoteBox" id="poll">
-                              </object>
-                        </child>
-                        <child>
-                          <object class="TubaWidgetsAttachmentBox" id="attachments"/>
-                        </child>
-                      </object>
-                    </property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkFlowBox" id="emoji_reactions">
-                <property name="visible">0</property>
-                <property name="column_spacing">6</property>
-                <property name="row_spacing">6</property>
-                <!-- Lower values leave space between items -->
-                <property name="max_children_per_line">100</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkBox" id="actions">
-                <property name="spacing">6</property>
-                <style>
-                  <class name="ttl-post-actions"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkBox" id="fr_actions">
-                <property name="visible">0</property>
-                <property name="homogeneous">1</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkButton" id="decline_fr_button">
-                      <property name="label" translatable="yes">Decline</property>
-                      <property name="tooltip_text" translatable="yes">Decline</property>
-                      <property name="icon_name">tuba-cross-large-symbolic</property>
-                      <property name="halign">center</property>
-                      <style>
-                        <class name="flat"/>
-                        <class name="circular"/>
-                        <class name="error"/>
-                      </style>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkButton" id="accept_fr_button">
-                      <property name="label" translatable="yes">Accept</property>
-                      <property name="tooltip_text" translatable="yes">Accept</property>
-                      <property name="icon_name">tuba-check-round-outline-symbolic</property>
-                      <property name="halign">center</property>
-                      <style>
-                        <class name="flat"/>
-                        <class name="circular"/>
-                        <class name="success"/>
-                      </style>
-                  </object>
-                </child>
-                <style>
-                  <class name="ttl-post-actions"/>
-                </style>
-              </object>
-            </child>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">2</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkImage" id="thread_line">
-            <property name="visible">0</property>
-            <property name="width_request">4</property>
-            <property name="height_request">32</property>
-            <property name="halign">center</property>
-            <property name="pixel-size">4</property>
-            <style>
-              <class name="ttl-thread-line"/>
-            </style>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">0</property>
-              <property name="row-span">3</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkOverlay" id="avatar_overlay">
-            <child type="overlay">
-              <object class="TubaWidgetsAvatar" id="avatar">
-                <property name="size">48</property>
-                <property name="valign">start</property>
-                <property name="visible">true</property>
-                <signal name="clicked" handler="on_avatar_clicked" swapped="no"/>
-              </object>
-            </child>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">1</property>
-            </layout>
-          </object>
-        </child>
-      </object>
-    </property>
-    <style>
-      <class name="ttl-post"/>
-    </style>
-  </template>
+	<requires lib="gtk" version="4.0" />
+	<template class="TubaWidgetsStatus" parent="GtkListBoxRow">
+		<property name="child">
+			<object class="GtkBox" id="grid">
+				<property name="margin-start">18</property>
+				<property name="margin-end">18</property>
+				<property name="margin_top">15</property>
+				<property name="margin_bottom">18</property>
+				<property name="hexpand">1</property>
+				<property name="orientation">horizontal</property>
+				<property name="spacing">8</property>
+				<child>
+					<object class="GtkBox">
+						<property name="orientation">vertical</property>
+						<child>
+							<object class="GtkImage" id="header_icon">
+								<property name="visible">0</property>
+								<property name="halign">end</property>
+								<!-- <property name="margin_bottom">8</property> -->
+								<property name="icon_name">oops</property>
+								<property name="icon_size">1</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkImage" id="thread_line_top">
+								<property name="visible">0</property>
+								<property name="width_request">4</property>
+								<property name="halign">center</property>
+								<property name="pixel-size">4</property>
+								<style>
+									<class name="ttl-thread-line" />
+									<class name="top" />
+								</style>
+							</object>
+						</child>
+						<child>
+							<object class="GtkOverlay" id="avatar_overlay">
+								<property name="margin_top">3</property>
+								<child type="overlay">
+									<object class="TubaWidgetsAvatar" id="avatar">
+										<property name="size">48</property>
+										<property name="valign">start</property>
+										<property name="visible">true</property>
+										<signal name="clicked" handler="on_avatar_clicked" swapped="no" />
+									</object>
+								</child>
+							</object>
+						</child>
+						<child>
+							<object class="GtkImage" id="thread_line_bottom">
+								<property name="visible">0</property>
+								<property name="width_request">4</property>
+								<property name="vexpand">1</property>
+								<property name="halign">center</property>
+								<property name="pixel-size">4</property>
+								<style>
+									<class name="ttl-thread-line" />
+									<class name="bottom" />
+								</style>
+							</object>
+						</child>
+					</object>
+				</child>
+				<child>
+					<object class="GtkBox">
+						<property name="orientation">vertical</property>
+						<child>
+							<object class="GtkButton" id="header_button">
+								<property name="visible">0</property>
+								<property name="halign">start</property>
+								<child>
+									<object class="TubaWidgetsRichLabel" id="header_label">
+										<style>
+											<class name="font-bold" />
+											<class name="dim-label" />
+										</style>
+									</object>
+								</child>
+								<style>
+									<class name="flat" />
+									<class name="ttl-status-heading-padding" />
+									<class name="ttl-status-heading" />
+								</style>
+							</object>
+						</child>
+						<child>
+							<object class="GtkBox">
+								<property name="vexpand">1</property>
+								<property name="spacing">6</property>
+								<property name="valign">start</property>
+								<child>
+									<object class="GtkFlowBox">
+										<property name="selection-mode">none</property>
+										<property name="column_spacing">6</property>
+										<!-- <property name="margin-bottom">6</property> -->
+										<!-- Lower values leave space between items -->
+										<property name="max_children_per_line">100</property>
+										<child>
+											<object class="GtkButton" id="name_button">
+												<child>
+													<object class="TubaWidgetsRichLabel" id="name_label">
+														<property name="visible">True</property>
+														<property name="ellipsize">False</property>
+														<style>
+															<class name="font-bold" />
+														</style>
+													</object>
+												</child>
+												<style>
+													<class name="ttl-label-emoji-no-click" />
+												</style>
+											</object>
+										</child>
+										<child>
+											<object class="GtkLabel" id="handle_label">
+												<property name="label" translatable="no">Handle</property>
+												<property name="ellipsize">end</property>
+												<property name="single_line_mode">1</property>
+												<property name="xalign">0</property>
+												<property name="hexpand">1</property>
+												<style>
+													<class name="body" />
+													<class name="dim-label" />
+												</style>
+											</object>
+										</child>
+									</object>
+								</child>
+								<child>
+									<object class="GtkBox" id="indicators">
+										<property name="halign">end</property>
+										<property name="valign">center</property>
+										<property name="margin_start">6</property>
+										<property name="spacing">6</property>
+										<child>
+											<object class="GtkImage" id="pin_indicator">
+												<property name="visible">0</property>
+												<property name="icon_name">tuba-pin-symbolic</property>
+												<property name="icon_size">1</property>
+												<property name="tooltip_text" translatable="yes">Pinned</property>
+												<style>
+													<class name="dim-label" />
+												</style>
+											</object>
+										</child>
+										<child>
+											<object class="GtkImage" id="edited_indicator">
+												<property name="visible">0</property>
+												<property name="icon_name">document-edit-symbolic</property>
+												<property name="icon_size">1</property>
+												<property name="tooltip_text" translatable="yes">Edited</property>
+												<style>
+													<class name="dim-label" />
+												</style>
+											</object>
+										</child>
+										<child>
+											<object class="GtkImage" id="indicator">
+												<property name="visible">1</property>
+												<property name="icon_name">unknown</property>
+												<property name="icon_size">1</property>
+												<style>
+													<class name="dim-label" />
+												</style>
+											</object>
+										</child>
+										<child>
+											<object class="GtkLabel" id="date_label">
+												<property name="label" translatable="no">Yesterday</property>
+												<property name="xalign">0</property>
+												<style>
+													<class name="body" />
+													<class name="dim-label" />
+												</style>
+											</object>
+										</child>
+										<child>
+											<object class="GtkMenuButton" id="menu_button">
+												<property name="icon-name">view-more-horizontal-symbolic</property>
+												<style>
+													<class name="flat" />
+													<class name="circular" />
+													<class name="dim-label" />
+												</style>
+											</object>
+										</child>
+									</object>
+								</child>
+							</object>
+						</child>
+						<child>
+							<object class="GtkBox" id="content_column">
+								<property name="orientation">vertical</property>
+								<property name="spacing">6</property>
+								<style>
+									<class name="ttl-status-content" />
+								</style>
+								<child>
+									<object class="GtkBox" id="spoiler_status_con">
+										<property name="margin_bottom">12</property>
+										<property name="visible">0</property>
+										<property name="spacing">6</property>
+										<child>
+											<object class="GtkImage">
+												<property name="icon_name">tuba-warning-symbolic</property>
+											</object>
+										</child>
+										<child>
+											<object class="GtkLabel" id="spoiler_label_rev">
+												<property name="halign">start</property>
+												<property name="wrap">1</property>
+											</object>
+										</child>
+										<style>
+											<class name="dim-label" />
+										</style>
+									</object>
+								</child>
+								<child>
+									<object class="GtkStack" id="spoiler_stack">
+										<property name="vhomogeneous">0</property>
+										<property name="hhomogeneous">0</property>
+										<property name="transition_type">crossfade</property>
+										<property name="interpolate_size">1</property>
+										<child>
+											<object class="GtkStackPage">
+												<property name="name">spoiler</property>
+												<property name="child">
+													<object class="GtkButton" id="spoiler_button">
+														<property name="receives_default">1</property>
+														<property name="tooltip_text" translatable="yes">Show More</property>
+														<signal name="clicked" handler="toggle_spoiler" swapped="no" />
+														<child>
+															<object class="GtkBox">
+																<property name="margin-start">12</property>
+																<property name="margin-end">12</property>
+																<property name="margin_top">12</property>
+																<property name="margin_bottom">12</property>
+																<property name="spacing">6</property>
+																<child>
+																	<object class="GtkImage">
+																		<property name="icon_name">tuba-warning-symbolic</property>
+																	</object>
+																</child>
+																<child>
+																	<object class="GtkLabel" id="spoiler_label">
+																		<property name="visible">True</property>
+																		<property name="label">Spoiler Text Here</property>
+																		<property name="wrap">1</property>
+																	</object>
+																</child>
+															</object>
+														</child>
+														<style>
+															<class name="spoiler" />
+														</style>
+													</object>
+												</property>
+											</object>
+										</child>
+										<child>
+											<object class="GtkStackPage">
+												<property name="name">content</property>
+												<property name="child">
+													<object class="GtkBox" id="content_box">
+														<property name="orientation">vertical</property>
+														<property name="spacing">6</property>
+														<child>
+															<object class="TubaWidgetsMarkupView" id="content">
+																<property name="visible">True</property>
+																<property name="hexpand">False</property>
+															</object>
+														</child>
+														<child>
+															<object class="TubaWidgetsVoteBox" id="poll" />
+														</child>
+														<child>
+															<object class="TubaWidgetsAttachmentBox" id="attachments" />
+														</child>
+													</object>
+												</property>
+											</object>
+										</child>
+									</object>
+								</child>
+								<child>
+									<object class="GtkFlowBox" id="emoji_reactions">
+										<property name="visible">0</property>
+										<property name="column_spacing">6</property>
+										<property name="row_spacing">6</property>
+										<!-- Lower values leave space between items -->
+										<property name="max_children_per_line">100</property>
+									</object>
+								</child>
+								<child>
+									<object class="GtkBox" id="actions">
+										<property name="spacing">6</property>
+										<style>
+											<class name="ttl-post-actions" />
+										</style>
+									</object>
+								</child>
+								<child>
+									<object class="GtkBox" id="fr_actions">
+										<property name="visible">0</property>
+										<property name="homogeneous">1</property>
+										<property name="spacing">6</property>
+										<child>
+											<object class="GtkButton" id="decline_fr_button">
+												<property name="label" translatable="yes">Decline</property>
+												<property name="tooltip_text" translatable="yes">Decline</property>
+												<property name="icon_name">tuba-cross-large-symbolic</property>
+												<property name="halign">center</property>
+												<style>
+													<class name="flat" />
+													<class name="circular" />
+													<class name="error" />
+												</style>
+											</object>
+										</child>
+										<child>
+											<object class="GtkButton" id="accept_fr_button">
+												<property name="label" translatable="yes">Accept</property>
+												<property name="tooltip_text" translatable="yes">Accept</property>
+												<property name="icon_name">tuba-check-round-outline-symbolic</property>
+												<property name="halign">center</property>
+												<style>
+													<class name="flat" />
+													<class name="circular" />
+													<class name="success" />
+												</style>
+											</object>
+										</child>
+										<style>
+											<class name="ttl-post-actions" />
+										</style>
+									</object>
+								</child>
+							</object>
+						</child>
+					</object>
+				</child>
+			</object>
+		</property>
+		<style>
+			<class name="ttl-post" />
+		</style>
+	</template>
 </interface>

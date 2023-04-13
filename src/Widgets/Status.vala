@@ -32,13 +32,14 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 	}
 
-	[GtkChild] protected unowned Grid grid;
+	[GtkChild] protected unowned Box grid;
 	[GtkChild] public unowned MenuButton menu_button;
 
 	[GtkChild] protected unowned Image header_icon;
 	[GtkChild] protected unowned Widgets.RichLabel header_label;
 	[GtkChild] protected unowned Button header_button;
-	[GtkChild] public unowned Image thread_line;
+	[GtkChild] public unowned Image thread_line_top;
+	[GtkChild] public unowned Image thread_line_bottom;
 
 	[GtkChild] public unowned Widgets.Avatar avatar;
 	[GtkChild] public unowned Overlay avatar_overlay;
@@ -329,12 +330,12 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		accounts.active.describe_kind (this.kind, out icon, out descr, this.kind_instigator, out label_url);
 
 		if (icon == null) {
-			grid.margin_top = 8;
+			//  grid.margin_top = 18;
 			return;
 		};
 
 		header_icon.visible = header_button.visible = true;
-		grid.margin_top = 0;
+		//  grid.margin_top = 15;
 
 		if (kind in should_show_actor_avatar) {
 			if (actor_avatar == null) {
@@ -590,13 +591,13 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		content.selectable = true;
 		content.get_style_context ().add_class ("ttl-large-body");
 
-		var content_grid = content_column.get_parent () as Grid;
-		if (content_grid == null)
-			return;
-		var mgr = content_grid.get_layout_manager ();
-		var child = mgr.get_layout_child (content_column);
-		child.set_property ("column", 0);
-		child.set_property ("column_span", 2);
+		//  var content_grid = content_column.get_parent () as Grid;
+		//  if (content_grid == null)
+		//  	return;
+		//  var mgr = content_grid.get_layout_manager ();
+		//  var child = mgr.get_layout_child (content_column);
+		//  child.set_property ("column", 0);
+		//  child.set_property ("column_span", 2);
 	}
 
 
@@ -631,32 +632,24 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	public ThreadRole thread_role { get; set; default = ThreadRole.NONE; }
 
 	public void install_thread_line () {
-		var l = thread_line;
+		var l_t = thread_line_top;
+		var l_b = thread_line_bottom;
 		switch (thread_role) {
 			case NONE:
-				l.visible = false;
-				l.remove_css_class("not-first");
-				l.remove_css_class("not-last");
+				l_t.visible = false;
+				l_b.visible = false;
 				break;
 			case START:
-				l.valign = Align.FILL;
-				l.margin_top = 24;
-				l.visible = true;
-				l.remove_css_class("not-first");
-				l.add_css_class("not-last");
+				l_t.visible = true;
+				l_b.visible = false;
 				break;
 			case MIDDLE:
-				l.valign = Align.FILL;
-				l.margin_top = 0;
-				l.visible = true;
-				l.add_css_class("not-first");
-				l.add_css_class("not-last");
+				l_t.visible = true;
+				l_b.visible = true;
 				break;
 			case END:
-				l.valign = Align.START;
-				l.margin_top = 0;
-				l.visible = true;
-				l.add_css_class("not-first");
+				l_t.visible = false;
+				l_b.visible = true;
 				break;
 		}
 	}

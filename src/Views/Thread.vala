@@ -51,7 +51,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			w.content.selectable = true;
 		}
 
-		root_widget.thread_line.hide ();
+		root_widget.thread_line_top.hide ();
+		root_widget.thread_line_bottom.hide ();
 	}
 
 	public void request () {
