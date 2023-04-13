@@ -49,7 +49,8 @@ jobs:
     - uses: docker/setup-qemu-action@v2
       if: matrix.arch == 'aarch64'
     - uses: mikefarah/yq@v4.33.3
-      run: |
+      if: matrix.arch == 'aarch64'
+    - run: |
         mv ./build-aux/snap/snapcraft.yaml .
         sed -i '/version: git/d' snapcraft.yaml
         yq 'del(.parts.cleanup)' snapcraft.yaml > snapcraft.yaml
