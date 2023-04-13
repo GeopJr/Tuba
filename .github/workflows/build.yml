@@ -53,7 +53,7 @@ jobs:
     - run: |
         mv ./build-aux/snap/snapcraft.yaml .
         sed -i '/version: git/d' snapcraft.yaml
-        yq 'del(.parts.cleanup)' snapcraft.yaml > snapcraft.yaml
+        yq -i 'del(.parts.cleanup)' snapcraft.yaml
       if: matrix.arch == 'aarch64'
     - uses: diddlesnaps/snapcraft-multiarch-action@v1
       if: matrix.arch == 'aarch64'
