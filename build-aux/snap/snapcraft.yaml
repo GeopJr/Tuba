@@ -21,9 +21,7 @@ apps:
     common-id: dev.geopjr.Tuba.desktop
     extensions: [gnome]
     plugs:
-      - desktop
       - network-status
-      - gsettings
       - network
 
 parts:
@@ -36,11 +34,18 @@ parts:
       - -Ddevel=true
     parse-info: [usr/share/metainfo/dev.geopjr.Tuba.appdata.xml]
     build-packages:
-      - valac
-      - libgtk-4-dev
-      - libglib2.0-dev
-      - libgtksourceview-5-dev # 5.8 is not available yet
       - libjson-glib-dev
-      - gettext
-      - libadwaita-1-dev
       - libsecret-1-dev
+  cleanup:
+    after:  # Make this part run last; list all your other parts here
+      - tuba
+    plugin: nil
+    build-snaps:  # List all content-snaps and base snaps you're using here
+      - core22
+      - gnome-42-2204
+      - gnome-42-2204-sdk
+    override-prime: |
+      set -eux
+      for snap in "core22" "gnome-42-2204" "gnome-42-2204-sdk"; do  # List all content-snaps and base snaps you're using here
+          cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
+      done
