@@ -129,8 +129,12 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	}
 
 	[GtkCallback] void on_open () {
-		if (account != null)
-			account.open ();
+		if (account == null) return;
+		account.open ();
+
+		var flap = app.main_window.flap;
+        if (flap.folded)
+			flap.reveal_flap = false;
 	}
 
 
@@ -169,7 +173,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 
         var flap = app.main_window.flap;
         if (flap.folded)
-		    flap.reveal_flap = false;
+			flap.reveal_flap = false;
 	}
 
 	void on_item_header_update (ListBoxRow _row, ListBoxRow? _before) {
