@@ -10,7 +10,7 @@
 				<property name="margin_bottom">18</property>
 				<property name="hexpand">1</property>
 				<property name="orientation">horizontal</property>
-				<property name="spacing">8</property>
+				<property name="spacing">14</property>
 				<child>
 					<object class="GtkBox">
 						<property name="orientation">vertical</property>
