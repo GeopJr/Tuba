@@ -640,16 +640,16 @@ public class Tuba.Widgets.Status : ListBoxRow {
 				l_b.visible = false;
 				break;
 			case START:
-				l_t.visible = true;
-				l_b.visible = false;
+				l_t.visible = false;
+				l_b.visible = true;
 				break;
 			case MIDDLE:
 				l_t.visible = true;
 				l_b.visible = true;
 				break;
 			case END:
-				l_t.visible = false;
-				l_b.visible = true;
+				l_t.visible = true;
+				l_b.visible = false;
 				break;
 		}
 	}
