@@ -88,7 +88,10 @@ public class Tuba.Views.Profile : Views.Timeline {
 				avatar.bind_property("custom_image", background, "paintable", GLib.BindingFlags.SYNC_CREATE);
 			} else {
 				image_cache.request_paintable (account.header, on_cache_response);
+				background.clicked.connect (() => app.main_window.show_media_viewer_single(account.header, background.paintable));
 			}
+
+			avatar.clicked.connect (() => app.main_window.show_media_viewer_single(account.avatar, avatar.custom_image));
 
 			if (account.fields != null) {
 				foreach (API.AccountField f in account.fields) {
