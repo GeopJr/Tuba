@@ -39,7 +39,7 @@
           </object> 
         </child>
         <property name="child">
-          <object class="TubaWidgetsBackground" id="background">
+          <object class="TubaWidgetsBackgroundWrapper" id="background">
             <property name="hexpand">1</property>
             <property name="vexpand">1</property>
             <property name="height-request">224</property>

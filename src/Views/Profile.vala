@@ -65,7 +65,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/profile_header.ui")]
 	protected class Cover : Box {
 
-		[GtkChild] unowned Widgets.Background background;
+		[GtkChild] unowned Widgets.BackgroundWrapper background;
 		[GtkChild] public unowned Label cover_badge;
 		[GtkChild] public unowned ListBox info;
 		[GtkChild] unowned Widgets.EmojiLabel display_name;
