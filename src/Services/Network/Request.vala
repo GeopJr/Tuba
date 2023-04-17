@@ -77,7 +77,7 @@ public class Tuba.Request : GLib.Object {
 
 	public Request then_parse_array (owned Network.NodeCallback _cb) {
 		this.cb = (sess, msg, in_stream) => {
-			Network.parse_array (msg, in_stream, (owned) _cb);
+			Network.parse_array (msg, in_stream, null, (owned) _cb);
 		};
     return this;
 }

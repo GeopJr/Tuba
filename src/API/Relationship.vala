@@ -22,7 +22,7 @@ public class Tuba.API.Relationship : Entity {
 			.with_account (accounts.active)
 			.with_param ("id", id)
 			.then ((sess, msg, in_stream) => {
-				Network.parse_array (msg, in_stream, node => {
+				Network.parse_array (msg, in_stream, null, node => {
 					invalidate (node);
 				});
 			})

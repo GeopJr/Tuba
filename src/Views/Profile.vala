@@ -51,7 +51,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 			.with_param ("pinned", "true")
 			.with_ctx (this)
 			.then ((sess, msg, in_stream) => {
-				Network.parse_array (msg, in_stream, node => {
+				Network.parse_array (msg, in_stream, null, node => {
 					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
 					var e_status = e as API.Status;
 					if (e_status != null) e_status.pinned = true;
@@ -417,7 +417,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 			.with_ctx (this)
 			.on_error (on_error)
 			.then ((sess, msg, in_stream) => {
-				if (Network.get_array_size(in_stream) > 0) {
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				if (Network.get_array_size(null, parser) > 0) {
 					new Request.GET (@"/api/v1/accounts/$(profile.id)/lists")
 					.with_account (accounts.active)
 					.with_ctx (this)
@@ -426,11 +427,11 @@ public class Tuba.Views.Profile : Views.Timeline {
 						var added = false;
 						var in_list = new Gee.ArrayList<string>();
 
-						Network.parse_array (msg2, in_stream2, node => {
+						Network.parse_array (msg2, in_stream2, null, node => {
 							var list = API.List.from (node);
 							in_list.add(list.id);
 						});
-						Network.parse_array (msg, in_stream, node => {
+						Network.parse_array (msg, null, parser, node => {
 							var list = API.List.from (node);
 							var is_already = in_list.contains(list.id);
 
