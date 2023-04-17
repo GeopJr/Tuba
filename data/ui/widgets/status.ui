@@ -12,7 +12,7 @@
 				<property name="orientation">horizontal</property>
 				<property name="spacing">14</property>
 				<child>
-					<object class="GtkBox">
+					<object class="GtkBox" id="left_side">
 						<property name="orientation">vertical</property>
 						<child>
 							<object class="GtkImage" id="header_icon">
@@ -64,7 +64,7 @@
 					</object>
 				</child>
 				<child>
-					<object class="GtkBox">
+					<object class="GtkBox" id="vertical_box">
 						<property name="orientation">vertical</property>
 						<child>
 							<object class="GtkButton" id="header_button">
@@ -87,12 +87,12 @@
 							</object>
 						</child>
 						<child>
-							<object class="GtkBox">
+							<object class="GtkBox" id="name_box">
 								<property name="vexpand">1</property>
 								<property name="spacing">6</property>
 								<property name="valign">start</property>
 								<child>
-									<object class="GtkFlowBox">
+									<object class="GtkFlowBox" id="name_flow">
 										<property name="selection-mode">none</property>
 										<property name="column_spacing">6</property>
 										<!-- <property name="margin-bottom">6</property> -->

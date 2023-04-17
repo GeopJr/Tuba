@@ -33,6 +33,10 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	[GtkChild] protected unowned Box grid;
+	[GtkChild] protected unowned Box left_side;
+	[GtkChild] protected unowned Box name_box;
+	[GtkChild] protected unowned Box vertical_box;
+	[GtkChild] protected unowned FlowBox name_flow;
 	[GtkChild] public unowned MenuButton menu_button;
 
 	[GtkChild] protected unowned Image header_icon;
@@ -591,6 +595,41 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		activatable = false;
 		content.selectable = true;
 		content.get_style_context ().add_class ("ttl-large-body");
+
+		grid.remove(left_side);
+		name_box.prepend (left_side);
+		name_box.spacing = 14;
+		name_flow.max_children_per_line = 1;
+		vertical_box.spacing = 10;
+
+		indicators.remove (date_label);
+		indicators.remove (edited_indicator);
+		indicators.remove (indicator);
+
+		var date_split = status.formal.created_at.split("T");
+		var date_parsed = new GLib.DateTime.from_iso8601 (status.formal.created_at, null);
+		date_label.label = date_parsed.format("%F %H:%M:%S");
+
+		var bottom_info = new Gtk.FlowBox () {
+			max_children_per_line = 100
+		};
+
+		content_column.insert_child_after (bottom_info, spoiler_stack);
+		bottom_info.append (date_label);
+		bottom_info.append (edited_indicator);
+		bottom_info.append (indicator);
+
+		if (status.formal.application != null) {
+			var has_link = status.formal.application.website != null;
+			var application_link = has_link ? @"<a href=\"$(status.formal.application.website)\">$(status.formal.application.name)</a>" : status.formal.application.name;
+			var application_label = new Gtk.Label(application_link) {
+				wrap = true,
+				use_markup = has_link,
+				halign = Gtk.Align.START
+			};
+
+			bottom_info.append (application_label);
+		}
 
 		//  var content_grid = content_column.get_parent () as Grid;
 		//  if (content_grid == null)
