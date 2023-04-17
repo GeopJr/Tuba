@@ -13,6 +13,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public string? in_reply_to_id { get; set; default = null; }
     public string? in_reply_to_account_id { get; set; default = null; }
     public string content { get; set; default = ""; }
+    public StatusApplication? application { get; set; default = null; }
     public int64 replies_count { get; set; default = 0; }
     public int64 reblogs_count { get; set; default = 0; }
     public int64 favourites_count { get; set; default = 0; }

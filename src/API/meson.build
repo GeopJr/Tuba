@@ -21,3 +21,4 @@ sources += files(
 )
 
 subdir('Instance')
+subdir('Status')
