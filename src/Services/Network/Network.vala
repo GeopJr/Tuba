@@ -74,7 +74,7 @@ public class Tuba.Network : GLib.Object {
 		return parse_node (in_stream).get_object ();
 	}
 
-	public static Json.Parser get_parser_from_inputstream (InputStream in_stream) {
+	public static Json.Parser get_parser_from_inputstream (InputStream in_stream) throws Error {
 		var parser = new Json.Parser ();
 		parser.load_from_stream (in_stream);
 		return parser;
@@ -89,7 +89,7 @@ public class Tuba.Network : GLib.Object {
 		return get_array_mstd(in_stream, t_parser).get_length();
 	}
 
-	public static void parse_array (Soup.Message msg, InputStream? in_stream, Json.Parser? t_parser = null, owned NodeCallback cb) throws Error {
+	public static void parse_array (Soup.Message msg, InputStream? in_stream, Json.Parser? t_parser, owned NodeCallback cb) throws Error {
 		get_array_mstd(in_stream, t_parser).foreach_element ((array, i, node) => {
 			try {
 				cb (node, msg);
