@@ -603,7 +603,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		vertical_box.spacing = 10;
 
 		indicators.remove (date_label);
-		indicators.remove (edited_indicator);
+		if (status.formal.is_edited)
+			indicators.remove (edited_indicator);
 		indicators.remove (indicator);
 
 		var date_split = status.formal.created_at.split("T");
@@ -616,7 +617,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 		content_column.insert_child_after (bottom_info, spoiler_stack);
 		bottom_info.append (date_label);
-		bottom_info.append (edited_indicator);
+		if (status.formal.is_edited)
+			bottom_info.append (edited_indicator);
 		bottom_info.append (indicator);
 
 		if (status.formal.application != null) {
