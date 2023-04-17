@@ -26,6 +26,11 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	//  	set { widget.wrap = value; }
 	//  }
 
+	public bool use_markup {
+		get { return widget.use_markup; }
+		set { widget.use_markup = value; }
+	}
+
 	public bool selectable {
 		get { return widget.selectable; }
 		set { widget.selectable = value; }

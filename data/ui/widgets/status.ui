@@ -72,6 +72,7 @@
 								<property name="halign">start</property>
 								<child>
 									<object class="TubaWidgetsRichLabel" id="header_label">
+										<property name="use_markup">0</property>
 										<style>
 											<class name="font-bold" />
 											<class name="dim-label" />

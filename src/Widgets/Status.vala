@@ -129,6 +129,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	construct {
+		name_label.use_markup = false;
 		avatar_overlay.set_size_request(avatar.size, avatar.size);
 		open.connect (on_open);
 		if (settings.larger_font_size)
