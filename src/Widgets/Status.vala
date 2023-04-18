@@ -596,6 +596,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		content.selectable = true;
 		content.get_style_context ().add_class ("ttl-large-body");
 
+		var separator = "·";
 		grid.remove(left_side);
 		name_box.prepend (left_side);
 		name_box.spacing = 14;
@@ -609,9 +610,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		indicators.remove (indicator);
 		//  indicator.visible = false;
 
-		var date_split = status.formal.created_at.split("T");
 		var date_parsed = new GLib.DateTime.from_iso8601 (status.formal.created_at, null);
-		date_label.label = date_parsed.format("%B %e, %Y · %H:%M").replace(" ", ""); // %e prefixes with whitespace on single digits
+		date_label.label = date_parsed.format(@"%B %e, %Y $separator %H:%M").replace(" ", ""); // %e prefixes with whitespace on single digits
 
 		var bottom_info = new Gtk.FlowBox () {
 			max_children_per_line = 100,
@@ -643,6 +643,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			bottom_info.append (application_label);
 		}
 
+		add_separators_to_expanded_bottom (bottom_info, separator);
 		//  var content_grid = content_column.get_parent () as Grid;
 		//  if (content_grid == null)
 		//  	return;
@@ -652,7 +653,19 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		//  child.set_property ("column_span", 2);
 	}
 
+	private void add_separators_to_expanded_bottom (FlowBox flowbox, string separator = "·") {
+		var i = 0;
+		var child = flowbox.get_child_at_index (i);
+		while (child != null) {
 
+			if (i % 2 != 0) {
+				flowbox.insert (new Gtk.Label (separator) { css_classes = {"dim-label"} }, i);
+			}
+
+			i = i + 1;
+			child = flowbox.get_child_at_index (i);
+		}
+	}
 
 	// Threads
 
