@@ -631,6 +631,9 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		bottom_info.append (visibility_label);
 		bottom_info.append (indicator);
 
+		edited_indicator.pixel_size = 14;
+		indicator.pixel_size = 14;
+
 		if (status.formal.application != null) {
 			var has_link = status.formal.application.website != null;
 			var application_link = has_link ? @"<a href=\"$(status.formal.application.website)\">$(status.formal.application.name)</a>" : status.formal.application.name;
