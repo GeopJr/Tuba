@@ -600,25 +600,35 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		name_box.prepend (left_side);
 		name_box.spacing = 14;
 		name_flow.max_children_per_line = 1;
+		name_flow.valign = Gtk.Align.CENTER;
 		vertical_box.spacing = 10;
 
 		indicators.remove (date_label);
 		if (status.formal.is_edited)
 			indicators.remove (edited_indicator);
 		indicators.remove (indicator);
+		//  indicator.visible = false;
 
 		var date_split = status.formal.created_at.split("T");
 		var date_parsed = new GLib.DateTime.from_iso8601 (status.formal.created_at, null);
-		date_label.label = date_parsed.format("%F %H:%M:%S");
+		date_label.label = date_parsed.format("%B %e, %Y · %H:%M").replace(" ", ""); // %e prefixes with whitespace on single digits
 
 		var bottom_info = new Gtk.FlowBox () {
-			max_children_per_line = 100
+			max_children_per_line = 100,
+			margin_top = 6,
+			selection_mode = SelectionMode.NONE
 		};
 
 		content_column.insert_child_after (bottom_info, spoiler_stack);
 		bottom_info.append (date_label);
 		if (status.formal.is_edited)
 			bottom_info.append (edited_indicator);
+
+		var visibility_label = new Gtk.Label (accounts.active.visibility[status.formal.visibility].name) {
+			wrap = true,
+			css_classes = {"dim-label"}
+		};
+		bottom_info.append (visibility_label);
 		bottom_info.append (indicator);
 
 		if (status.formal.application != null) {
