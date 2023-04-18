@@ -643,6 +643,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 				halign = Gtk.Align.START
 			};
 
+			if (!has_link) application_label.add_css_class ("dim-label");
+
 			bottom_info.append (application_label);
 		}
 
