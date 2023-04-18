@@ -32,11 +32,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 	}
 
-	[GtkChild] protected unowned Box grid;
-	[GtkChild] protected unowned Box left_side;
-	[GtkChild] protected unowned Box name_box;
-	[GtkChild] protected unowned Box vertical_box;
-	[GtkChild] protected unowned FlowBox name_flow;
+	[GtkChild] protected unowned Box status_box;
+	[GtkChild] protected unowned Box avatar_side;
+	[GtkChild] protected unowned Box title_box;
+	[GtkChild] protected unowned Box content_side;
+	[GtkChild] protected unowned FlowBox name_flowbox;
 	[GtkChild] public unowned MenuButton menu_button;
 
 	[GtkChild] protected unowned Image header_icon;
@@ -54,7 +54,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Label date_label;
 	[GtkChild] protected unowned Image pin_indicator;
 	[GtkChild] protected unowned Image edited_indicator;
-	[GtkChild] protected unowned Image indicator;
+	[GtkChild] protected unowned Image visibility_indicator;
 
 	[GtkChild] protected unowned Box content_column;
 	[GtkChild] protected unowned Stack spoiler_stack;
@@ -271,7 +271,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	private void check_actions() {
 		if (kind == InstanceAccount.KIND_FOLLOW || kind == InstanceAccount.KIND_FOLLOW_REQUEST) {
 			actions.visible = false;
-			indicator.visible = false;
+			visibility_indicator.visible = false;
 			date_label.visible = false;
 		}
 	}
@@ -335,12 +335,12 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		accounts.active.describe_kind (this.kind, out icon, out descr, this.kind_instigator, out label_url);
 
 		if (icon == null) {
-			//  grid.margin_top = 18;
+			//  status_box.margin_top = 18;
 			return;
 		};
 
 		header_icon.visible = header_button.visible = true;
-		//  grid.margin_top = 15;
+		//  status_box.margin_top = 15;
 
 		if (kind in should_show_actor_avatar) {
 			if (actor_avatar == null) {
@@ -412,11 +412,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			target.set_boolean (src.get_boolean());
 			return true;
 		});
-		formal_bindings.bind_property ("visibility", indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		formal_bindings.bind_property ("visibility", visibility_indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_string (accounts.active.visibility[src.get_string ()].icon_name);
 			return true;
 		});
-		formal_bindings.bind_property ("visibility", indicator, "tooltip-text", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		formal_bindings.bind_property ("visibility", visibility_indicator, "tooltip-text", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_string (accounts.active.visibility[src.get_string ()].name);
 			return true;
 		});
@@ -596,46 +596,55 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		content.selectable = true;
 		content.get_style_context ().add_class ("ttl-large-body");
 
+		// separator between the bottom bar items
 		var separator = "·";
-		grid.remove(left_side);
-		name_box.prepend (left_side);
-		name_box.spacing = 14;
-		name_flow.max_children_per_line = 1;
-		name_flow.valign = Gtk.Align.CENTER;
-		vertical_box.spacing = 10;
 
+		// Move the avatar & thread line into the name box
+		status_box.remove(avatar_side);
+		title_box.prepend (avatar_side);
+		title_box.spacing = 14;
+
+		// Make the name box take 2 rows
+		name_flowbox.max_children_per_line = 1;
+		name_flowbox.valign = Gtk.Align.CENTER;
+		content_side.spacing = 10;
+
+		// Remove the date & indicators
 		indicators.remove (date_label);
 		if (status.formal.is_edited)
 			indicators.remove (edited_indicator);
-		indicators.remove (indicator);
-		//  indicator.visible = false;
+		indicators.remove (visibility_indicator);
 
+		// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES
 		var date_parsed = new GLib.DateTime.from_iso8601 (status.formal.created_at, null);
 		date_label.label = date_parsed.format(@"%B %e, %Y $separator %H:%M").replace(" ", ""); // %e prefixes with whitespace on single digits
+		date_label.wrap = true;
 
+		// The bottom bar
 		var bottom_info = new Gtk.FlowBox () {
 			max_children_per_line = 100,
 			margin_top = 6,
 			selection_mode = SelectionMode.NONE
 		};
 
+		// Insert it after the post content
 		content_column.insert_child_after (bottom_info, spoiler_stack);
 		bottom_info.append (date_label);
 		if (status.formal.is_edited)
 			bottom_info.append (edited_indicator);
+		bottom_info.append (visibility_indicator);
 
-		var visibility_label = new Gtk.Label (accounts.active.visibility[status.formal.visibility].name) {
-			wrap = true,
-			css_classes = {"dim-label"}
-		};
-		bottom_info.append (visibility_label);
-		bottom_info.append (indicator);
+		edited_indicator.valign = Gtk.Align.CENTER;
+		visibility_indicator.valign = Gtk.Align.CENTER;
 
+		// Make the icons smaller
 		edited_indicator.pixel_size = 14;
-		indicator.pixel_size = 14;
+		visibility_indicator.pixel_size = 14;
 
+		// If the application used to make the post is available
 		if (status.formal.application != null) {
 			var has_link = status.formal.application.website != null;
+			// Make it an anchor if it has a website
 			var application_link = has_link ? @"<a href=\"$(status.formal.application.website)\">$(status.formal.application.name)</a>" : status.formal.application.name;
 			var application_label = new Gtk.Label(application_link) {
 				wrap = true,
@@ -643,28 +652,22 @@ public class Tuba.Widgets.Status : ListBoxRow {
 				halign = Gtk.Align.START
 			};
 
+			// If it's not an anchor, it should follow the styling of the other items
 			if (!has_link) application_label.add_css_class ("dim-label");
 
 			bottom_info.append (application_label);
 		}
 
 		add_separators_to_expanded_bottom (bottom_info, separator);
-		//  var content_grid = content_column.get_parent () as Grid;
-		//  if (content_grid == null)
-		//  	return;
-		//  var mgr = content_grid.get_layout_manager ();
-		//  var child = mgr.get_layout_child (content_column);
-		//  child.set_property ("column", 0);
-		//  child.set_property ("column_span", 2);
 	}
 
+	// Adds *separator* between all *flowbox* children
 	private void add_separators_to_expanded_bottom (FlowBox flowbox, string separator = "·") {
 		var i = 0;
 		var child = flowbox.get_child_at_index (i);
 		while (child != null) {
-
 			if (i % 2 != 0) {
-				flowbox.insert (new Gtk.Label (separator) { css_classes = {"dim-label"} }, i);
+				flowbox.insert (new Gtk.Label (separator) { css_classes = {"dim-label"}, halign = Gtk.Align.START }, i);
 			}
 
 			i = i + 1;

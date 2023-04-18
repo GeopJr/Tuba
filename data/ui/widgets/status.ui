@@ -3,7 +3,7 @@
 	<requires lib="gtk" version="4.0" />
 	<template class="TubaWidgetsStatus" parent="GtkListBoxRow">
 		<property name="child">
-			<object class="GtkBox" id="grid">
+			<object class="GtkBox" id="status_box">
 				<property name="margin-start">18</property>
 				<property name="margin-end">18</property>
 				<property name="margin_top">15</property>
@@ -12,7 +12,7 @@
 				<property name="orientation">horizontal</property>
 				<property name="spacing">14</property>
 				<child>
-					<object class="GtkBox" id="left_side">
+					<object class="GtkBox" id="avatar_side">
 						<property name="orientation">vertical</property>
 						<child>
 							<object class="GtkImage" id="header_icon">
@@ -64,7 +64,7 @@
 					</object>
 				</child>
 				<child>
-					<object class="GtkBox" id="vertical_box">
+					<object class="GtkBox" id="content_side">
 						<property name="orientation">vertical</property>
 						<child>
 							<object class="GtkButton" id="header_button">
@@ -87,12 +87,12 @@
 							</object>
 						</child>
 						<child>
-							<object class="GtkBox" id="name_box">
+							<object class="GtkBox" id="title_box">
 								<property name="vexpand">1</property>
 								<property name="spacing">6</property>
 								<property name="valign">start</property>
 								<child>
-									<object class="GtkFlowBox" id="name_flow">
+									<object class="GtkFlowBox" id="name_flowbox">
 										<property name="selection-mode">none</property>
 										<property name="column_spacing">6</property>
 										<!-- <property name="margin-bottom">6</property> -->
@@ -158,7 +158,7 @@
 											</object>
 										</child>
 										<child>
-											<object class="GtkImage" id="indicator">
+											<object class="GtkImage" id="visibility_indicator">
 												<property name="visible">1</property>
 												<property name="icon_name">unknown</property>
 												<property name="icon_size">1</property>
