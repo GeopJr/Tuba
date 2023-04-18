@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 18:13+0200\n"
-"PO-Revision-Date: 2023-04-06 16:52+0000\n"
+"PO-Revision-Date: 2023-04-19 07:49+0000\n"
 "Last-Translator: Luca Ruggeri <lc.ruggeri+weblate@runbox.it>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/tuba/tuba/it/>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -128,7 +128,7 @@ msgstr "Blocca Dominio"
 
 #: data/ui/menus.ui:59
 msgid "Timeline"
-msgstr ""
+msgstr "Timeline"
 
 #: data/ui/menus.ui:61
 msgid "Filter"
@@ -165,7 +165,7 @@ msgstr "Schema colore"
 
 #: data/ui/dialogs/preferences.ui:39
 msgid "Larger font size"
-msgstr ""
+msgstr "Font più grande"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Makes the font larger for posts"
@@ -201,11 +201,11 @@ msgstr "Ricevi notifiche anche mentre l'app è chiusa"
 
 #: data/ui/dialogs/preferences.ui:95
 msgid "Timelines"
-msgstr ""
+msgstr "Timeline"
 
 #: data/ui/dialogs/preferences.ui:98
 msgid "Posts per load batch"
-msgstr ""
+msgstr "Post per caricamento"
 
 #: data/ui/dialogs/preferences.ui:112
 msgid "Stream timelines"
@@ -353,7 +353,6 @@ msgid "Reply"
 msgstr "Rispondi"
 
 #: src/Widgets/Status.vala:517
-#, fuzzy
 msgid "This post can't be boosted"
 msgstr "Questo post non può essere boostato"
 
@@ -428,7 +427,7 @@ msgstr "Nessun account selezionato"
 #: src/Views/Sidebar.vala:231
 #, c-format
 msgid "Forget %s?"
-msgstr ""
+msgstr "Dimenticato %s?"
 
 #: src/Views/Sidebar.vala:232
 msgid "This account will be removed from the application."
