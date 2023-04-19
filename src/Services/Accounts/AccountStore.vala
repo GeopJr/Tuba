@@ -137,7 +137,8 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			.with_account (account);
 		yield req.await ();
 
-		var root = network.parse (req.response_body);
+		var parser = Network.get_parser_from_inputstream(req.response_body);
+		var root = network.parse (parser);
 
 		string? backend = null;
 		backend_tests.foreach (test => {
