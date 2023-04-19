@@ -36,6 +36,13 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             if (paintable != null) overlay.child = new Gtk.Picture.for_paintable (paintable);
         }
 
+        public Item.static (Gtk.Widget child, string t_url) {
+            stack.add_named (child, "child");
+            this.url = t_url;
+
+            done ();
+        }
+
         public void done () {
             spinner.spinning = false;
             stack.visible_child_name = "child";
@@ -239,6 +246,15 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
                 item.done ();
             }
         });
+    }
+
+    public void set_single_paintable (string url, Gdk.Paintable paintable) {
+        var picture = new Gtk.Picture ();
+        picture.paintable = paintable;
+
+        var item = new Item.static (picture, url);
+        carousel.append (item);
+        items += item;
     }
 
     public void scroll_to (int pos) {

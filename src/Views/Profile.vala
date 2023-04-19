@@ -66,7 +66,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/profile_header.ui")]
 	protected class Cover : Box {
 
-		[GtkChild] unowned Widgets.Background background;
+		[GtkChild] unowned Widgets.BackgroundWrapper background;
 		[GtkChild] public unowned Label cover_badge;
 		[GtkChild] public unowned ListBox info;
 		[GtkChild] unowned Widgets.EmojiLabel display_name;
@@ -89,7 +89,10 @@ public class Tuba.Views.Profile : Views.Timeline {
 				avatar.bind_property("custom_image", background, "paintable", GLib.BindingFlags.SYNC_CREATE);
 			} else {
 				image_cache.request_paintable (account.header, on_cache_response);
+				background.clicked.connect (() => app.main_window.show_media_viewer_single(account.header, background.paintable));
 			}
+
+			avatar.clicked.connect (() => app.main_window.show_media_viewer_single(account.avatar, avatar.custom_image));
 
 			if (account.fields != null) {
 				foreach (API.AccountField f in account.fields) {
