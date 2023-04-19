@@ -32,21 +32,29 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 	}
 
-	[GtkChild] protected unowned Grid grid;
+	[GtkChild] protected unowned Box status_box;
+	[GtkChild] protected unowned Box avatar_side;
+	[GtkChild] protected unowned Box title_box;
+	[GtkChild] protected unowned Box content_side;
+	[GtkChild] protected unowned FlowBox name_flowbox;
+	[GtkChild] public unowned MenuButton menu_button;
 
 	[GtkChild] protected unowned Image header_icon;
-	[GtkChild] protected unowned Widgets.RichLabelContainer header_label;
-	[GtkChild] public unowned Image thread_line;
+	[GtkChild] protected unowned Widgets.RichLabel header_label;
+	[GtkChild] protected unowned Button header_button;
+	[GtkChild] public unowned Image thread_line_top;
+	[GtkChild] public unowned Image thread_line_bottom;
 
 	[GtkChild] public unowned Widgets.Avatar avatar;
 	[GtkChild] public unowned Overlay avatar_overlay;
-	[GtkChild] protected unowned Widgets.RichLabelContainer name_label;
+	[GtkChild] protected unowned Button name_button;
+	[GtkChild] protected unowned Widgets.RichLabel name_label;
 	[GtkChild] protected unowned Label handle_label;
 	[GtkChild] protected unowned Box indicators;
 	[GtkChild] protected unowned Label date_label;
 	[GtkChild] protected unowned Image pin_indicator;
 	[GtkChild] protected unowned Image edited_indicator;
-	[GtkChild] protected unowned Image indicator;
+	[GtkChild] protected unowned Image visibility_indicator;
 
 	[GtkChild] protected unowned Box content_column;
 	[GtkChild] protected unowned Stack spoiler_stack;
@@ -57,10 +65,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Label spoiler_label;
 	[GtkChild] protected unowned Label spoiler_label_rev;
 	[GtkChild] protected unowned Box spoiler_status_con;
-
-	[GtkChild] protected unowned Box status_stats;
-	[GtkChild] protected unowned Label reblog_count_label;
-	[GtkChild] protected unowned Label fav_count_label;
 
 	[GtkChild] public unowned FlowBox emoji_reactions;
 	[GtkChild] public unowned Box actions;
@@ -77,8 +81,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	protected StatusActionButton favorite_button;
 	protected StatusActionButton bookmark_button;
 
-	protected GestureClick gesture_click_controller { get; set; }
-	protected GestureLongPress gesture_lp_controller { get; set; }
 	protected PopoverMenu context_menu { get; set; }
 	private const GLib.ActionEntry[] action_entries = {
 		{"copy-url",        copy_url},
@@ -86,6 +88,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	};
 	private GLib.SimpleActionGroup action_group;
 	private SimpleAction edit_history_simple_action;
+	private SimpleAction stats_simple_action;
 
 	public bool is_conversation_open { get; set; default = false; }
 
@@ -131,6 +134,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	construct {
+		name_label.use_markup = false;
 		avatar_overlay.set_size_request(avatar.size, avatar.size);
 		open.connect (on_open);
 		if (settings.larger_font_size)
@@ -159,21 +163,26 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		edit_history_simple_action = new SimpleAction ("edit-history", null);
 		edit_history_simple_action.activate.connect (view_edit_history);
 
+		stats_simple_action = new SimpleAction ("status-stats", null);
+		stats_simple_action.activate.connect (view_stats);
+
 		action_group = new GLib.SimpleActionGroup ();
 		action_group.add_action_entries (action_entries, this);
+		action_group.add_action(stats_simple_action);
 		action_group.add_action(edit_history_simple_action);
 
 		this.insert_action_group ("status", action_group);
 
-		gesture_click_controller = new GestureClick();
-		gesture_lp_controller = new GestureLongPress();
-        add_controller(gesture_click_controller);
-        add_controller(gesture_lp_controller);
-		gesture_click_controller.button = Gdk.BUTTON_SECONDARY;
-		gesture_lp_controller.button = Gdk.BUTTON_PRIMARY;
-		gesture_lp_controller.touch_only = true;
-        gesture_click_controller.pressed.connect(on_secondary_click);
-        gesture_lp_controller.pressed.connect(on_secondary_click);
+		name_button.clicked.connect (() => name_label.on_activate_link(status.formal.account.handle));
+
+		show_view_stats_action ();
+		reblog_button.content.notify["label"].connect (show_view_stats_action);
+		favorite_button.content.notify["label"].connect (show_view_stats_action);
+	}
+
+	private bool has_stats { get { return reblog_button.content.label != "" || favorite_button.content.label != ""; } }
+	private void show_view_stats_action () {
+		stats_simple_action.set_enabled(has_stats);
 	}
 
 	public Status (API.Status status) {
@@ -186,17 +195,22 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			kind = InstanceAccount.KIND_REMOTE_REBLOG;
 		}
 
-		check_actions();
-		if (context_menu == null) {
-			create_actions ();
-		}
+		init_menu_button ();
 	}
 	~Status () {
 		message ("Destroying Status widget");
 		if (context_menu != null) {
-			context_menu.unparent ();
 			context_menu.dispose();
 		}
+	}
+
+	protected void init_menu_button () {
+		check_actions();
+		if (context_menu == null) {
+			create_actions ();
+		}
+		menu_button.popover = context_menu;
+		menu_button.visible = true;
 	}
 
 	protected void create_actions () {
@@ -218,6 +232,10 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		menu_model.append (_("Open in Browser"), "status.open-in-browser");
 		menu_model.append (_("Copy URL"), "status.copy-url");
 
+		var stats_menu_item = new MenuItem(_("View Stats"), "status.status-stats");
+		stats_menu_item.set_attribute_value("hidden-when", "action-disabled");
+		menu_model.append_item (stats_menu_item);
+
 		var edit_history_menu_item = new MenuItem(_("View Edit History"), "status.edit-history");
 		edit_history_menu_item.set_attribute_value("hidden-when", "action-disabled");
 		menu_model.append_item (edit_history_menu_item);
@@ -228,7 +246,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 
 		context_menu = new PopoverMenu.from_model(menu_model);
-		context_menu.set_parent(this);
 	}
 
 	private void copy_url () {
@@ -241,6 +258,10 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 	private void view_edit_history () {
 		app.main_window.open_view (new Views.EditHistory (status.formal.id));
+	}
+
+	private void view_stats () {
+		app.main_window.open_view (new Views.StatusStats (status.formal.id));
 	}
 
 	private void edit_status () {
@@ -261,7 +282,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 				new Request.DELETE (@"/api/v1/statuses/$(status.formal.id)")
 					.with_account (accounts.active)
 					.then ((sess, msg, in_stream) => {
-						var root = network.parse (in_stream);
+						var parser = Network.get_parser_from_inputstream(in_stream);
+						var root = network.parse (parser);
 						if (root.has_member("error")) {
 							// TODO: Handle error (probably a toast?)
 						};
@@ -274,17 +296,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		remove.present ();
 	}
 
-	protected virtual void on_secondary_click () {
-		gesture_click_controller.set_state(EventSequenceState.CLAIMED);
-		gesture_lp_controller.set_state(EventSequenceState.CLAIMED);
-
-		if (app.main_window.is_media_viewer_visible()) return;
-		context_menu.popup();
-	}
-
 	private void check_actions() {
 		if (kind == InstanceAccount.KIND_FOLLOW || kind == InstanceAccount.KIND_FOLLOW_REQUEST) {
 			actions.visible = false;
+			visibility_indicator.visible = false;
+			date_label.visible = false;
 		}
 	}
 
@@ -336,6 +352,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 	Widgets.Avatar? actor_avatar = null;
 	ulong actor_avatar_singal;
+	ulong header_button_activate;
 	private Binding actor_avatar_binding;
 	const string[] should_show_actor_avatar = {InstanceAccount.KIND_REBLOG, InstanceAccount.KIND_REMOTE_REBLOG, InstanceAccount.KIND_FAVOURITE};
 	protected virtual void change_kind () {
@@ -345,13 +362,13 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		check_actions();
 		accounts.active.describe_kind (this.kind, out icon, out descr, this.kind_instigator, out label_url);
 
-		header_icon.visible = header_label.visible = (icon != null);
 		if (icon == null) {
-			grid.margin_top = 8;
+			//  status_box.margin_top = 18;
 			return;
 		};
 
-		grid.margin_top = 0;
+		header_icon.visible = header_button.visible = true;
+		//  status_box.margin_top = 15;
 
 		if (kind in should_show_actor_avatar) {
 			if (actor_avatar == null) {
@@ -380,9 +397,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 
 		header_icon.icon_name = icon;
-		header_label.dim = true;
-		header_label.small_font = true;
-		header_label.set_label(descr, label_url, this.kind_instigator.emojis_map);
+		header_label.instance_emojis = this.kind_instigator.emojis_map;
+		header_label.label = descr;
+
+		if (header_button_activate > 0) header_button.disconnect(header_button_activate);
+		header_button_activate = header_button.clicked.connect (() => header_label.on_activate_link(label_url));
 	}
 
 	private void open_kind_instigator_account () {
@@ -401,6 +420,9 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		//       else the widget wont get destructed
 		var formal_bindings = new BindingGroup ();
 
+		this.content.instance_emojis = status.formal.emojis_map;
+		this.content.content = status.formal.content;
+
 		self_bindings.bind_property ("spoiler-text", spoiler_label, "label", BindingFlags.SYNC_CREATE);
 		self_bindings.bind_property ("spoiler-text-revealed", spoiler_label_rev, "label", BindingFlags.SYNC_CREATE);
 
@@ -409,7 +431,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			spoiler_stack.visible_child_name = reveal_spoiler ? "content" : "spoiler";
 		});
 
-		self_bindings.bind_property ("is-conversation-open", status_stats, "visible", BindingFlags.SYNC_CREATE);
 		self_bindings.bind_property ("subtitle_text", handle_label, "label", BindingFlags.SYNC_CREATE);
 		self_bindings.bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
 
@@ -419,11 +440,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			target.set_boolean (src.get_boolean());
 			return true;
 		});
-		formal_bindings.bind_property ("visibility", indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		formal_bindings.bind_property ("visibility", visibility_indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_string (accounts.active.visibility[src.get_string ()].icon_name);
 			return true;
 		});
-		formal_bindings.bind_property ("visibility", indicator, "tooltip-text", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		formal_bindings.bind_property ("visibility", visibility_indicator, "tooltip-text", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_string (accounts.active.visibility[src.get_string ()].name);
 			return true;
 		});
@@ -433,17 +454,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			target.set_boolean (!src.get_boolean () || settings.show_spoilers);
 			return true;
 		});
-		formal_bindings.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
-		formal_bindings.bind_property ("reblogs_count", reblog_count_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			int64 srcval = (int64) src;
-			target.set_string (@"<b>$srcval</b> " + _("Boosts"));
-			return true;
-		});
-		formal_bindings.bind_property ("favourites_count", fav_count_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			int64 srcval = (int64) src;
-			target.set_string (@"<b>$srcval</b> " + _("Favorites"));
-			return true;
-		});
+		//  formal_bindings.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
 		formal_bindings.bind_property ("reblogs_count", reblog_button.content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			int64 srcval = (int64) src;
 
@@ -495,11 +506,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		self_bindings.set_source (this);
 		formal_bindings.set_source (status.formal);
 
-
-
 		// TODO: Ideally, this should be a binding too somehow
 		// bind_property ("title_text", name_label, "label", BindingFlags.SYNC_CREATE);
-		name_label.set_label(title_text, status.formal.account.handle, status.formal.account.emojis_map, true);
+		//  name_label.set_label(title_text, status.formal.account.handle, status.formal.account.emojis_map, true);
+		name_label.instance_emojis = status.formal.account.emojis_map;
+		name_label.label = title_text;
 
 		// Actions
 		reblog_button.bind (status.formal);
@@ -613,16 +624,84 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		content.selectable = true;
 		content.add_css_class ("ttl-large-body");
 
-		var content_grid = content_column.get_parent () as Grid;
-		if (content_grid == null)
-			return;
-		var mgr = content_grid.get_layout_manager ();
-		var child = mgr.get_layout_child (content_column);
-		child.set_property ("column", 0);
-		child.set_property ("column_span", 2);
+		// separator between the bottom bar items
+		var separator = "·";
+
+		// Move the avatar & thread line into the name box
+		status_box.remove(avatar_side);
+		title_box.prepend (avatar_side);
+		title_box.spacing = 14;
+
+		// Make the name box take 2 rows
+		name_flowbox.max_children_per_line = 1;
+		name_flowbox.valign = Gtk.Align.CENTER;
+		content_side.spacing = 10;
+
+		// Remove the date & indicators
+		indicators.remove (date_label);
+		if (status.formal.is_edited)
+			indicators.remove (edited_indicator);
+		indicators.remove (visibility_indicator);
+
+		// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES
+		var date_parsed = new GLib.DateTime.from_iso8601 (status.formal.created_at, null);
+		date_label.label = date_parsed.format(@"%B %e, %Y $separator %H:%M").replace(" ", ""); // %e prefixes with whitespace on single digits
+		date_label.wrap = true;
+
+		// The bottom bar
+		var bottom_info = new Gtk.FlowBox () {
+			max_children_per_line = 100,
+			margin_top = 6,
+			selection_mode = SelectionMode.NONE
+		};
+
+		// Insert it after the post content
+		content_column.insert_child_after (bottom_info, spoiler_stack);
+		bottom_info.append (date_label);
+		if (status.formal.is_edited)
+			bottom_info.append (edited_indicator);
+		bottom_info.append (visibility_indicator);
+
+		edited_indicator.valign = Gtk.Align.CENTER;
+		visibility_indicator.valign = Gtk.Align.CENTER;
+
+		// Make the icons smaller
+		edited_indicator.pixel_size = 14;
+		visibility_indicator.pixel_size = 14;
+
+		// If the application used to make the post is available
+		if (status.formal.application != null) {
+			var has_link = status.formal.application.website != null;
+			// Make it an anchor if it has a website
+			var application_link = has_link ? @"<a href=\"$(status.formal.application.website)\">$(status.formal.application.name)</a>" : status.formal.application.name;
+			var application_label = new Gtk.Label(application_link) {
+				wrap = true,
+				use_markup = has_link,
+				halign = Gtk.Align.START
+			};
+
+			// If it's not an anchor, it should follow the styling of the other items
+			if (!has_link) application_label.add_css_class ("dim-label");
+
+			bottom_info.append (application_label);
+		}
+
+		add_separators_to_expanded_bottom (bottom_info, separator);
 	}
 
+	// Adds *separator* between all *flowbox* children
+	private void add_separators_to_expanded_bottom (FlowBox flowbox, string separator = "·") {
+		var i = 0;
+		var child = flowbox.get_child_at_index (i);
+		while (child != null) {
+			if (i % 2 != 0) {
+				flowbox.insert (new Gtk.Label (separator) { css_classes = {"dim-label"}, halign = Gtk.Align.START }, i);
+			}
 
+			i = i + 1;
+			child = flowbox.get_child_at_index (i);
+		}
+	}
 
 	// Threads
 
@@ -654,32 +733,24 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	public ThreadRole thread_role { get; set; default = ThreadRole.NONE; }
 
 	public void install_thread_line () {
-		var l = thread_line;
+		var l_t = thread_line_top;
+		var l_b = thread_line_bottom;
 		switch (thread_role) {
 			case NONE:
-				l.visible = false;
-				l.remove_css_class("not-first");
-				l.remove_css_class("not-last");
+				l_t.visible = false;
+				l_b.visible = false;
 				break;
 			case START:
-				l.valign = Align.FILL;
-				l.margin_top = 24;
-				l.visible = true;
-				l.remove_css_class("not-first");
-				l.add_css_class("not-last");
+				l_t.visible = false;
+				l_b.visible = true;
 				break;
 			case MIDDLE:
-				l.valign = Align.FILL;
-				l.margin_top = 0;
-				l.visible = true;
-				l.add_css_class("not-first");
-				l.add_css_class("not-last");
+				l_t.visible = true;
+				l_b.visible = true;
 				break;
 			case END:
-				l.valign = Align.START;
-				l.margin_top = 0;
-				l.visible = true;
-				l.add_css_class("not-first");
+				l_t.visible = true;
+				l_b.visible = false;
 				break;
 		}
 	}

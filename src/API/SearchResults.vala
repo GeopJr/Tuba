@@ -28,7 +28,8 @@ public class Tuba.API.SearchResults : Entity {
 			.with_param ("q", Uri.escape_string (q));
 		yield req.await ();
 
-		return from (network.parse_node (req.response_body));
+		var parser = Network.get_parser_from_inputstream(req.response_body);
+		return from (network.parse_node (parser));
 	}
 
 }

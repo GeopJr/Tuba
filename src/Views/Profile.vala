@@ -51,7 +51,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 			.with_param ("pinned", "true")
 			.with_ctx (this)
 			.then ((sess, msg, in_stream) => {
-				Network.parse_array (msg, in_stream, node => {
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				Network.parse_array (msg, parser, node => {
 					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
 					var e_status = e as API.Status;
 					if (e_status != null) e_status.pinned = true;
@@ -65,7 +66,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/profile_header.ui")]
 	protected class Cover : Box {
 
-		[GtkChild] unowned Widgets.Background background;
+		[GtkChild] unowned Widgets.BackgroundWrapper background;
 		[GtkChild] public unowned Label cover_badge;
 		[GtkChild] public unowned ListBox info;
 		[GtkChild] unowned Widgets.EmojiLabel display_name;
@@ -76,9 +77,10 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 		public void bind (API.Account account) {
 			display_name.instance_emojis = account.emojis_map;
-			display_name.label = account.display_name;
+			display_name.content = account.display_name;
 			handle.label = account.handle;
 			avatar.account = account;
+			note.instance_emojis = account.emojis_map;
 			note.content = account.note;
 
 			if (account.id != accounts.active.id) rsbtn.visible = true;
@@ -87,13 +89,15 @@ public class Tuba.Views.Profile : Views.Timeline {
 				avatar.bind_property("custom_image", background, "paintable", GLib.BindingFlags.SYNC_CREATE);
 			} else {
 				image_cache.request_paintable (account.header, on_cache_response);
+				background.clicked.connect (() => app.main_window.show_media_viewer_single(account.header, background.paintable));
 			}
+
+			avatar.clicked.connect (() => app.main_window.show_media_viewer_single(account.avatar, avatar.custom_image));
 
 			if (account.fields != null) {
 				foreach (API.AccountField f in account.fields) {
 					var row = new Adw.ActionRow ();
 					var val = new Widgets.RichLabel (HtmlUtils.simplify (f.val));
-					val.wrap = true;
 					val.hexpand = true;
 					val.xalign = 1;
 					row.title = f.name;
@@ -360,7 +364,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 	public static void open_from_id (string id) {
 		var msg = new Soup.Message ("GET", @"$(accounts.active.instance)/api/v1/accounts/$id");
 		network.queue (msg, null, (sess, mess, in_stream) => {
-			var node = network.parse_node (in_stream);
+			var parser = Network.get_parser_from_inputstream(in_stream);
+			var node = network.parse_node (parser);
 			var acc = API.Account.from (node);
 			app.main_window.open_view (new Views.Profile (acc));
 		},
@@ -417,7 +422,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 			.with_ctx (this)
 			.on_error (on_error)
 			.then ((sess, msg, in_stream) => {
-				if (Network.get_array_size(in_stream) > 0) {
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				if (Network.get_array_size(parser) > 0) {
 					new Request.GET (@"/api/v1/accounts/$(profile.id)/lists")
 					.with_account (accounts.active)
 					.with_ctx (this)
@@ -426,11 +432,12 @@ public class Tuba.Views.Profile : Views.Timeline {
 						var added = false;
 						var in_list = new Gee.ArrayList<string>();
 
-						Network.parse_array (msg2, in_stream2, node => {
+						var parser2 = Network.get_parser_from_inputstream(in_stream2);
+						Network.parse_array (msg2, parser2, node => {
 							var list = API.List.from (node);
 							in_list.add(list.id);
 						});
-						Network.parse_array (msg, in_stream, node => {
+						Network.parse_array (msg, parser, node => {
 							var list = API.List.from (node);
 							var is_already = in_list.contains(list.id);
 

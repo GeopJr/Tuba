@@ -1,5 +1,23 @@
 using Gdk;
 
+public class Tuba.Widgets.BackgroundWrapper : Gtk.Button {
+	private Widgets.Background background;
+	public Paintable? paintable {
+		get { return background.paintable; }
+		set { background.paintable = value; }
+	}
+
+	construct {
+		background = new Tuba.Widgets.Background ();
+		child = background;
+
+		add_css_class ("flat");
+		add_css_class ("image-button");
+		add_css_class ("ttl-flat-button");
+		add_css_class ("header-image");
+	}
+}
+
 // This widget fits a Paintable inside its bounds without letterboxing.
 public class Tuba.Widgets.Background : Gtk.Widget {
 

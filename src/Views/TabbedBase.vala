@@ -61,6 +61,21 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		return tab;
 	}
 
+	public Views.ContentBase add_timeline_tab (string label, string icon, string url, Type accepts) {
+		var tab = new Views.Timeline () {
+			url = url,
+			label = label,
+			icon = icon,
+			accepts = accepts
+		};
+		tab.label = label;
+		tab.icon = icon;
+
+		add_tab (tab);
+
+		return tab;
+	}
+
 	public delegate void TabCB (Views.ContentBase tab);
 	public void foreach_tab (TabCB cb) {
 		for (var w = stack.get_first_child (); w != null; w = w.get_next_sibling ()) {

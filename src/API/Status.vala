@@ -13,6 +13,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public string? in_reply_to_id { get; set; default = null; }
     public string? in_reply_to_account_id { get; set; default = null; }
     public string content { get; set; default = ""; }
+    public StatusApplication? application { get; set; default = null; }
     public int64 replies_count { get; set; default = 0; }
     public int64 reblogs_count { get; set; default = 0; }
     public int64 favourites_count { get; set; default = 0; }
@@ -32,6 +33,25 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public API.Pleroma? pleroma { get; set; default = null; }
     public ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
     public API.Poll? poll { get; set; default = null; }
+    public Gee.ArrayList<API.Emoji>? emojis { get; set; }
+
+    public Gee.HashMap<string, string>? emojis_map {
+		owned get {
+			return gen_emojis_map();
+		}
+	}
+
+    private Gee.HashMap<string, string>? gen_emojis_map () {
+        var res = new Gee.HashMap<string, string>();
+        if (emojis != null && emojis.size > 0) {
+            emojis.@foreach (e => {
+                res.set(e.shortcode, e.url);
+                return true;
+            });
+        }
+
+        return res;
+    }
 
     public ArrayList<API.EmojiReaction>? compat_status_reactions {
         get {
@@ -93,7 +113,8 @@ public class Tuba.API.Status : Entity, Widgetizable {
 	    Object (
 	        id: "",
 	        account: account,
-	        created_at: account.created_at
+	        created_at: account.created_at,
+            emojis: account.emojis
 	    );
 
         if (account.note == "")

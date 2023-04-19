@@ -3,19 +3,32 @@ using Gee;
 
 public class Tuba.Widgets.RichLabel : Adw.Bin {
 
-	Label widget;
+	Widgets.EmojiLabel widget;
 
 	// TODO: We can parse <a> tags and extract resolvable URIs now
 	public weak ArrayList<API.Mention>? mentions;
 
 	public string label {
-		get { return widget.label; }
-		set { widget.label = value; }
+		get { return widget.content; }
+		set {
+			widget.content = value;
+			var rtl = rtl_regex.match(value);
+			if (rtl) {
+				xalign = is_rtl ? 0 : 1;
+			} else {
+				xalign = is_rtl ? 1 : 0;
+			}
+		}
 	}
 
-	public bool wrap {
-		get { return widget.wrap; }
-		set { widget.wrap = value; }
+	//  public bool wrap {
+	//  	get { return widget.wrap; }
+	//  	set { widget.wrap = value; }
+	//  }
+
+	public bool use_markup {
+		get { return widget.use_markup; }
+		set { widget.use_markup = value; }
 	}
 
 	public bool selectable {
@@ -23,7 +36,7 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		set { widget.selectable = value; }
 	}
 
-	public Pango.EllipsizeMode ellipsize {
+	public bool ellipsize {
 		get { return widget.ellipsize; }
 		set { widget.ellipsize = value; }
 	}
@@ -34,51 +47,51 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	}
 
 	public float xalign {
-	    get { return widget.xalign; }
-	    set { widget.xalign = value; }
+		get { return widget.xalign; }
+		set { widget.xalign = value; }
+	}
+
+	public Gee.HashMap<string, string> instance_emojis {
+		get { return widget.instance_emojis; }
+		set { widget.instance_emojis = value; }
+	}
+
+	public RichLabel (string? text = null) {
+		if (text != null)
+			label = text;
+
+		widget.lines = 100;
 	}
 
 	construct {
-		widget = new Label ("") {
-			xalign = 0,
-			wrap = true,
-			wrap_mode = Pango.WrapMode.WORD_CHAR,
-			justify = Justification.LEFT,
-			single_line_mode = false,
+		widget = new Widgets.EmojiLabel() {
 			use_markup = true,
-			lines = 100,
-			ellipsize = Pango.EllipsizeMode.END
+			valign = Gtk.Align.CENTER
 		};
 		widget.activate_link.connect (on_activate_link);
 		child = widget;
 	}
 
-	public RichLabel (string text) {
-		widget.set_label (text);
-		var rtl = rtl_regex.match(text);
-		if (rtl) {
-			xalign = is_rtl ? 0 : 1;
-		} else {
-			xalign = is_rtl ? 1 : 0;
-		}
-	}
-
 	public static string escape_entities (string content) {
 		return content
-			   .replace ("&nbsp;", " ")
-			   .replace ("'", "&apos;");
+			.replace ("&nbsp;", " ")
+			.replace ("'", "&apos;");
 	}
 
 	public static string restore_entities (string content) {
 		return content
-			   .replace ("&amp;", "&")
-			   .replace ("&lt;", "<")
-			   .replace ("&gt;", ">")
-			   .replace ("&apos;", "'")
-			   .replace ("&quot;", "\"");
+			.replace ("&lt;", "<")
+			.replace ("&gt;", ">")
+			.replace ("&apos;", "'")
+			.replace ("&quot;", "\"")
+			.replace ("&#39;", "'")
+
+			// Always last since its prone to errors
+			// like &amp;lt; => &lt; => <
+			.replace ("&amp;", "&");
 	}
 
-	bool on_activate_link (string url) {
+	public bool on_activate_link (string url) {
 		if (mentions != null){
 			mentions.@foreach (mention => {
 				if (url == mention.url)

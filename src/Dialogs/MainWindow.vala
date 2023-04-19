@@ -38,20 +38,34 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		return main_stack.visible_child_name == "media_viewer"; 
 	}
 
-	public void show_media_viewer(string url, string? alt_text, bool video) {
-		if (is_media_viewer_visible()) return;
+	public void scroll_media_viewer (int pos) {
+		if (!is_media_viewer_visible()) return;
 
-		main_stack.visible_child_name = "media_viewer";
-		media_viewer.spinning = true;
-		media_viewer.url = url;
-		if (video) {
-			media_viewer.set_video(url);
-		} else {
-			media_viewer.set_image(url);
-			media_viewer.alternative_text = alt_text;
+		media_viewer.scroll_to (pos);
+	}
+
+	public void show_media_viewer(string url, string? alt_text, bool video, Paintable? preview, int? pos) {
+		if (!is_media_viewer_visible()) {
+			main_stack.visible_child_name = "media_viewer";
+			media_viewer.clear.connect(hide_media_viewer);
 		}
 
-		media_viewer.clear.connect(hide_media_viewer);
+		if (video) {
+			media_viewer.add_video(url, preview, pos);
+		} else {
+			media_viewer.add_image(url, alt_text, preview, pos);
+		}
+	}
+
+	public void show_media_viewer_single (string? url, Paintable? paintable) {
+		if (paintable == null) return;
+
+		if (!is_media_viewer_visible()) {
+			main_stack.visible_child_name = "media_viewer";
+			media_viewer.clear.connect(hide_media_viewer);
+		}
+
+		media_viewer.set_single_paintable (url, paintable);
 	}
 
 	public void hide_media_viewer() {
@@ -61,7 +75,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public Views.Base open_view (Views.Base view) {
-		if (last_view != null && last_view.label == view.label && !view.is_profile) return view;
+		if ((leaflet.visible_child == view) || (last_view != null && last_view.label == view.label && !view.is_profile)) return view;
 
 		if (last_view != null && !last_view.is_main && view.is_sidebar_item) {
 			leaflet.remove(last_view);

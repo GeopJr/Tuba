@@ -39,7 +39,8 @@ public class Tuba.SecretAccountStore : AccountStore {
 				new Request.GET (@"/api/v1/accounts/$(account.id)")
 					.with_account (account)
 					.then ((sess, msg, in_stream) => {
-						var node = network.parse_node (in_stream);
+						var parser = Network.get_parser_from_inputstream(in_stream);
+						var node = network.parse_node (parser);
 						var acc = API.Account.from (node);
 
 						if (account.display_name != acc.display_name || account.avatar != acc.avatar) {
@@ -88,6 +89,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 		var generator = new Json.Generator ();
 		account.instance_info = null;
+		account.instance_emojis = null;
 		generator.set_root (account.to_json ());
 		var secret = generator.to_data (null);
 		// translators: The variable is the backend like "Mastodon"

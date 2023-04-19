@@ -1,7 +1,7 @@
 project(
     'dev.geopjr.Tuba',
     ['c', 'vala'],
-    version: '0.1.0',
+    version: '0.2.0',
     meson_version: '>= 0.56.0',
     default_options: [
         'warning_level=2',
@@ -56,12 +56,23 @@ asresources = gnome.compile_resources(
 
 libgtk_dep = dependency('gtk4', version: '>=4.0.0', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.2', required: true)
+gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
+libwebp_dep = dependency('libwebp', required: false)
+
+if not libwebp_dep.found ()
+  warning('WebP support might be missing, please install webp-pixbuf-loader.')
+endif
 
 if libgtk_dep.version().version_compare('>=4.8.0')
   add_project_arguments(['--define=GTK_4_8'], language: 'vala')
 endif
+
 if libgtk_dep.version().version_compare('>=4.10.0')
   add_project_arguments(['--define=GTK_4_10'], language: 'vala')
+endif
+
+if gtksourceview_dep.version().version_compare('>=5.7.1')
+  add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
 endif
 
 sources = files(
@@ -80,6 +91,7 @@ executable(
         dependency('json-glib-1.0', version: '>=1.4.4'),
         dependency('libxml-2.0'),
         dependency('libsecret-1', required: true),
+        gtksourceview_dep,
         libgtk_dep,
         libadwaita_dep,
     ],

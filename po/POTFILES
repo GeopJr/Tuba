@@ -21,7 +21,6 @@
 ./src/Widgets/VoteBox.vala
 ./src/Widgets/StatusActionButton.vala
 ./src/Widgets/Status.vala
-./src/Widgets/RichLabelContainer.vala
 ./src/Widgets/RichLabel.vala
 ./src/Widgets/RelationshipButton.vala
 ./src/Widgets/Notification.vala

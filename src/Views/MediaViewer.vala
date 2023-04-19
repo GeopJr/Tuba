@@ -1,8 +1,54 @@
 public class Tuba.Views.MediaViewer : Gtk.Box {
-    // Keep track of the curret type
-    // for switching between spinner
-    // video and image
-    private string _type = "image";
+    public class Item : Adw.Bin {
+        private Gtk.Stack stack;
+        private Gtk.Overlay overlay;
+        private Gtk.Spinner spinner;
+        public string url { get; private set; }
+
+        construct {
+            hexpand = true;
+            vexpand = true;
+
+            stack = new Gtk.Stack ();
+            overlay = new Gtk.Overlay () {
+                vexpand = true,
+                hexpand = true
+            };
+            spinner = new Gtk.Spinner() {
+                spinning = true,
+                halign = Gtk.Align.CENTER,
+                valign = Gtk.Align.CENTER,
+                vexpand = true,
+                hexpand = true,
+                width_request = 32,
+                height_request = 32
+            };
+
+            overlay.add_overlay (spinner);
+            stack.add_named(overlay, "spinner");
+            this.child = stack;
+        }
+
+        public Item (Gtk.Widget child, string t_url, Gdk.Paintable? paintable) {
+            stack.add_named (child, "child");
+            this.url = t_url;
+
+            if (paintable != null) overlay.child = new Gtk.Picture.for_paintable (paintable);
+        }
+
+        public Item.static (Gtk.Widget child, string t_url) {
+            stack.add_named (child, "child");
+            this.url = t_url;
+
+            done ();
+        }
+
+        public void done () {
+            spinner.spinning = false;
+            stack.visible_child_name = "child";
+        }
+    }
+
     private bool _fullscreen = false;
 	public bool fullscreen {
 		set {
@@ -18,42 +64,26 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         }
 		get { return app.main_window.fullscreened; }
 	}
-    public bool spinning {
-		set {
-            stack.visible_child_name = value ? "spinner" : _type;
-        }
-		get { return stack.visible_child_name == "spinner"; }
-	}
 
     private const GLib.ActionEntry[] action_entries = {
 		{"copy-url",        copy_url},
 		{"open-in-browser", open_in_browser},
 		{"save-as",         save_as},
 	};
-    public string url { set; get; }
 
-	protected Gtk.Stack stack;
-	protected Gtk.Picture pic;
-	protected Gtk.Video video;
+    private Item[] items;
 	protected Gtk.Button fullscreen_btn;
 	protected Adw.HeaderBar headerbar;
     protected ImageCache image_cache;
-	public Gdk.Paintable paintable {
-		set {
-            _type = "image";
-            this.pic.paintable = value;
-        }
-		get { return this.pic.paintable; }
-	}
-    public string? alternative_text {
-		set { 
-            _type = "image";
-            this.pic.alternative_text = value;
-        }
-		get { return this.pic.alternative_text; }
-	}
+    private Adw.Carousel carousel;
+    private Adw.CarouselIndicatorDots carousel_dots;
 
 	construct {
+        carousel = new Adw.Carousel () {
+            vexpand = true,
+            hexpand = true,
+            css_classes = {"osd"}
+        };
         image_cache = new ImageCache () {
             maintenance_secs = 60 * 5
         };
@@ -69,39 +99,9 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		actions.add_action_entries (action_entries, this);
 		this.insert_action_group ("mediaviewer", actions);
 
-        stack = new Gtk.Stack() {
-			css_classes = {"osd"}
-        };
-
-        video = new Gtk.Video () {
-			hexpand = true,
-			vexpand = true,
-            autoplay = true
-		};
-        stack.add_named(video, "video");
-
-        pic = new Gtk.Picture () {
-			hexpand = true,
-			vexpand = true,
-			can_shrink = true,
-			keep_aspect_ratio = true
-		};
-        stack.add_named(pic, "image");
-
-        var spinner = new Gtk.Spinner() {
-			spinning = true,
-			halign = Gtk.Align.CENTER,
-			valign = Gtk.Align.CENTER,
-			vexpand = true,
-			hexpand = true,
-			width_request = 32,
-			height_request = 32
-		};
-        stack.add_named(spinner, "spinner");
-
 		headerbar = new Adw.HeaderBar() {
             title_widget = new Gtk.Label(_("Media Viewer")) {
-			    css_classes = {"title"}
+                css_classes = {"title"}
             },
 			css_classes = {"flat", "media-viewer-headerbar"}
         };
@@ -126,10 +126,21 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         end_box.append(actions_btn);
         headerbar.pack_end(end_box);
 
-        append(headerbar);
-        append(stack);
+        carousel_dots = new Adw.CarouselIndicatorDots () {
+            carousel = carousel,
+            css_classes = {"osd"},
+            visible = false
+        };
 
-        stack.visible_child_name = "spinner";
+		carousel.bind_property("n_pages", carousel_dots, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			target.set_boolean (src.get_uint () > 1);
+			return true;
+		});
+
+        append(headerbar);
+        append(carousel);
+        append(carousel_dots);
+
 		setup_mouse_previous_click();
 	}
 	~MediaViewer () {
@@ -144,32 +155,6 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         this.fullscreen = !this._fullscreen;
     }
 
-    public void set_video (string? url) {
-        // Clear
-        if (url == null) {
-            video.file = null;
-            video.set_filename(null);
-            return;
-        }
-
-        _type = "video";
-		download_video.begin (url, (obj, res) => {
-			try {
-				download_video.end (res);
-			}
-			catch (Error e) {
-				var dlg = app.inform (_("Error"), e.message);
-                dlg.present ();
-			}
-		});
-	}
-
-	private async void download_video (string url) throws Error {
-		var path = yield Host.download (url);
-        video.set_filename(path);
-        stack.visible_child_name = "video";
-	}
-
     protected GLib.Menu create_actions_menu() {
 		var menu_model = new GLib.Menu ();
 		menu_model.append (_("Open in Browser"), "mediaviewer.open-in-browser");
@@ -180,15 +165,15 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	}
 
     private void copy_url () {
-		Host.copy (url);
+		Host.copy (items[(int) carousel.position].url);
 	}
 
 	private void open_in_browser () {
-		Host.open_uri (url);
+		Host.open_uri (items[(int) carousel.position].url);
 	}
 
 	private void save_as () {
-		Widgets.Attachment.Item.save_media_as(url);
+		Widgets.Attachment.Item.save_media_as(items[(int) carousel.position].url);
 	}
 
     private void on_drag_end (double x, double y) {
@@ -211,20 +196,80 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
 	public virtual signal void clear () {
         this.fullscreen = false;
-		this.paintable = null;
-		this.set_video(null);
-		this.url = "";
-		this.spinning = true;
+		foreach (var item in items) {
+            carousel.remove (item);
+        }
+        items = {};
     }
 
-    private void on_media_viewer_cache_response(bool is_loaded, owned Gdk.Paintable? data) {
-		this.paintable = data;
-		if (is_loaded) {
-			this.spinning = false;
-		}
+    private async string download_video (string url) throws Error {
+		return yield Host.download (url);
 	}
 
-    public void set_image(string url) {
-		image_cache.request_paintable (url, on_media_viewer_cache_response);
+    public void add_video (string url, Gdk.Paintable? preview, int? pos) {
+        var video = new Gtk.Video ();
+        var item = new Item (video, url, preview);
+        if (pos == null) {
+            carousel.append (item);
+        } else {
+            carousel.insert(item, pos);
+        }
+        items += item;
+
+		download_video.begin (url, (obj, res) => {
+			try {
+				var path = download_video.end (res);
+                video.set_filename(path);
+                item.done ();
+			}
+			catch (Error e) {
+				var dlg = app.inform (_("Error"), e.message);
+                dlg.present ();
+			}
+		});
+	}
+
+    public void add_image(string url, string? alt_text, Gdk.Paintable? preview, int? pos) {
+        var picture = new Gtk.Picture ();
+        var item = new Item (picture, url, preview);
+        if (pos == null) {
+            carousel.append (item);
+        } else {
+            carousel.insert(item, pos);
+        }
+        items += item;
+
+        if (alt_text != null) picture.alternative_text = alt_text;
+
+		image_cache.request_paintable (url, (is_loaded, data) => {
+            picture.paintable = data;
+            if (is_loaded) {
+                item.done ();
+            }
+        });
+    }
+
+    public void set_single_paintable (string url, Gdk.Paintable paintable) {
+        var picture = new Gtk.Picture ();
+        picture.paintable = paintable;
+
+        var item = new Item.static (picture, url);
+        carousel.append (item);
+        items += item;
+    }
+
+    public void scroll_to (int pos) {
+        if (pos >= items.length) return;
+
+        // https://gitlab.gnome.org/GNOME/libadwaita/-/issues/597
+        // https://gitlab.gnome.org/GNOME/libadwaita/-/merge_requests/827
+        uint timeout = 0;
+		timeout = Timeout.add (1000, () => {
+            if (pos < items.length)
+                carousel.scroll_to(carousel.get_nth_page(pos), true);
+			GLib.Source.remove(timeout);
+
+			return true;
+		}, Priority.LOW);
     }
 }

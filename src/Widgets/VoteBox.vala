@@ -21,7 +21,8 @@ public class Tuba.Widgets.VoteBox: Box {
         button_vote.clicked.connect ((button) =>{
             Request voting=API.Poll.vote(accounts.active,poll.options,selectedIndex,poll.id);
  			voting.then ((sess, mess, in_stream) => {
-	            status_parent.poll=API.Poll.from_json(typeof(API.Poll),network.parse_node (in_stream));
+                var parser = Network.get_parser_from_inputstream(in_stream);
+	            status_parent.poll=API.Poll.from_json(typeof(API.Poll),network.parse_node (parser));
             })
             .on_error ((code, reason) => {}).exec ();
         });

@@ -38,8 +38,6 @@ flowboxchild {
 .ttl-thread-line {
 	background: @theme_fg_color;
 	opacity: .1;
-	margin-top: -8px;
-	margin-bottom: -8px;
 }
 
 .ttl-code {
@@ -179,6 +177,10 @@ flowboxchild {
 	font-size: 18.333333333333332px;
 }
 
+.ttl-large-body {
+	font-size: 16px;
+}
+
 .ttl-status-line-height-large {
 	line-height: 1.4;
 }
@@ -228,6 +230,7 @@ flowboxchild {
 }
 
 .ttl-status-heading-padding {
+	margin-top: -5px;
 	padding: 0 5px;
 }
 
@@ -244,22 +247,20 @@ flowboxchild {
 	background-color: @popover_bg_color;
 }
 
-.ttl-post {
+/* .ttl-post {
 	padding: 12px;
-}
+} */
 
 .ttl-post-actions {
-	/* .ttl-post.padding */
 	margin-bottom: -12px;
 }
 
-.ttl-thread-line.not-first {
-	/* .ttl-post.padding + 8px */
-	margin-top: -20px;
+.ttl-thread-line.top {
+	margin-top: -18px;
+	margin-bottom: -3px;
 }
 
-.ttl-thread-line.not-last {
-	/* .ttl-post.padding + 8px */
+.ttl-thread-line.bottom {
 	margin-bottom: -20px;
 }
 
@@ -271,4 +272,13 @@ flowboxchild {
 
 .attachment-picture {
 	border-radius: 6px;
+}
+
+/* Composer auto completion */
+GtkSourceAssistant.completion list row{
+	padding: 6px 12px 6px 12px;
+}
+
+.no-border-radius {
+	border-radius: 0px;
 }
