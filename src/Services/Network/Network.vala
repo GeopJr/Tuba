@@ -64,14 +64,12 @@ public class Tuba.Network : GLib.Object {
 		app.toast (message);
 	}
 
-	public Json.Node parse_node (InputStream in_stream) throws Error {
-		var parser = new Json.Parser ();
-		parser.load_from_stream (in_stream);
+	public Json.Node parse_node (Json.Parser parser) {
 		return parser.get_root ();
 	}
 
-	public Json.Object parse (InputStream in_stream) throws Error {
-		return parse_node (in_stream).get_object ();
+	public Json.Object parse (Json.Parser parser) {
+		return parse_node (parser).get_object ();
 	}
 
 	public static Json.Parser get_parser_from_inputstream (InputStream in_stream) throws Error {
@@ -80,17 +78,16 @@ public class Tuba.Network : GLib.Object {
 		return parser;
 	}
 
-	public static Json.Array? get_array_mstd (InputStream? in_stream, Json.Parser? t_parser = null) throws Error {
-		Json.Parser parser = t_parser ?? get_parser_from_inputstream(in_stream);
+	public static Json.Array? get_array_mstd (Json.Parser parser) {
 		return parser.get_root ().get_array ();
 	}
 
-	public static uint get_array_size (InputStream? in_stream, Json.Parser? t_parser = null) throws Error {
-		return get_array_mstd(in_stream, t_parser).get_length();
+	public static uint get_array_size (Json.Parser parser) {
+		return get_array_mstd(parser).get_length();
 	}
 
-	public static void parse_array (Soup.Message msg, InputStream? in_stream, Json.Parser? t_parser, owned NodeCallback cb) throws Error {
-		get_array_mstd(in_stream, t_parser).foreach_element ((array, i, node) => {
+	public static void parse_array (Soup.Message msg, Json.Parser parser, owned NodeCallback cb) throws Error {
+		get_array_mstd(parser).foreach_element ((array, i, node) => {
 			try {
 				cb (node, msg);
 			} catch (Error e) {

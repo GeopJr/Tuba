@@ -165,7 +165,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 				.with_account (accounts.active)
 				.then ((sess, msg, in_stream) => {
 					var parser = Network.get_parser_from_inputstream(in_stream);
-					if (Network.get_array_size(null, parser) > 0) {
+					if (Network.get_array_size(parser) > 0) {
 						var list_settings_page_members = new Adw.PreferencesPage() {
 							icon_name = "tuba-people-symbolic",
 							title = _("Members")
@@ -175,7 +175,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 							title = _("Remove Members")
 						};
 
-						Network.parse_array (msg, null, parser, node => {
+						Network.parse_array (msg, parser, node => {
 							var member = API.Account.from (node);
 							var avi = new Widgets.Avatar() {
 								account = member,
@@ -291,7 +291,8 @@ public class Tuba.Views.Lists : Views.Timeline {
 			.with_account (accounts.active)
 			.with_param ("title", HtmlUtils.uri_encode(list_name))
 			.then ((sess, msg, in_stream) => {
-				var node = network.parse_node (in_stream);
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				var node = network.parse_node (parser);
 				var list = API.List.from (node);
 				model.insert (0, list);
 			})

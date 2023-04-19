@@ -25,7 +25,8 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
         new Request.POST (@"/api/v1/follow_requests/$(widget_status.kind_instigator.id)/authorize")
 			.with_account (accounts.active)
 			.then ((sess, msg, in_stream) => {
-				var node = network.parse_node (in_stream);
+                var parser = Network.get_parser_from_inputstream(in_stream);
+				var node = network.parse_node (parser);
 				var relationship = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
                 if (relationship.followed_by == true) {
                     uint indx;

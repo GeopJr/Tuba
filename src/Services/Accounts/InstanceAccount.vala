@@ -112,7 +112,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		var req = new Request.GET ("/api/v1/accounts/verify_credentials").with_account (this);
 		yield req.await ();
 
-		var node = network.parse_node (req.response_body);
+		var parser = Network.get_parser_from_inputstream(req.response_body);
+		var node = network.parse_node (parser);
 		var updated = API.Account.from (node);
 		patch (updated);
 
@@ -189,7 +190,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		new Request.GET ("/api/v1/instance")
 			.with_account (this)
 			.then ((sess, msg, in_stream) => {
-				var node = network.parse_node (in_stream);
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				var node = network.parse_node (parser);
 				instance_info = API.Instance.from (node);
 			})
 			.exec ();
@@ -199,7 +201,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		new Request.GET ("/api/v1/custom_emojis")
 			.with_account (this)
 			.then ((sess, msg, in_stream) => {
-				var node = network.parse_node (in_stream);
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				var node = network.parse_node (parser);
 				Value res_emojis;
 				Entity.des_list(out res_emojis, node, typeof (API.Emoji));
 				instance_emojis = (Gee.ArrayList<Tuba.API.Emoji>) res_emojis;
@@ -214,7 +217,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			.with_account (this)
 			.with_param ("min_id", @"$last_read_id")
 			.then ((sess, msg, in_stream) => {
-				var array = Network.get_array_mstd(in_stream);
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				var array = Network.get_array_mstd(parser);
 				if (array != null) {
 					unread_count = (int)array.get_length();
 					if (unread_count > 0) {
@@ -231,7 +235,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		new Request.GET ("/api/v1/markers?timeline[]=notifications")
 			.with_account (this)
 			.then ((sess, msg, in_stream) => {
-				var root = network.parse (in_stream);
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				var root = network.parse (parser);
 				if (!root.has_member("notifications")) return;
 				var notifications = root.get_object_member ("notifications");
 				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1") );
