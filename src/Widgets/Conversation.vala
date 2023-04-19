@@ -6,6 +6,7 @@ public class Tuba.Widgets.Conversation : Widgets.Status {
 
 	public Conversation (API.Conversation entity) {
 		Object (conversation: entity, status: entity.last_status);
+		init_menu_button ();
 		conversation.bind_property ("unread", this.visibility_indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			if (src.get_boolean()) {
 				target.set_string ("tuba-mark-important-symbolic");
