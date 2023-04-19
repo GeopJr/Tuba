@@ -18,7 +18,13 @@ public class Tuba.Host {
 		catch (Error e){
 			#if GTK_4_10
 				var launcher = new Gtk.UriLauncher(uri);
-				launcher.launch(app.active_window, null);
+				launcher.launch.begin(app.active_window, null, (obj, res) => {
+					try {
+						launcher.launch.end (res);
+					} catch (Error e) {
+						warning (@"Error opening uri \"$uri\": $(e.message)");
+					}
+				});
 			#else
 				Gtk.show_uri(app.active_window, uri, Gdk.CURRENT_TIME);
 			#endif
