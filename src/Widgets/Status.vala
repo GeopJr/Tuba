@@ -88,6 +88,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	};
 	private GLib.SimpleActionGroup action_group;
 	private SimpleAction edit_history_simple_action;
+	private SimpleAction stats_simple_action;
 
 	public bool is_conversation_open { get; set; default = false; }
 
@@ -162,13 +163,26 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		edit_history_simple_action = new SimpleAction ("edit-history", null);
 		edit_history_simple_action.activate.connect (view_edit_history);
 
+		stats_simple_action = new SimpleAction ("status-stats", null);
+		stats_simple_action.activate.connect (view_stats);
+
 		action_group = new GLib.SimpleActionGroup ();
 		action_group.add_action_entries (action_entries, this);
+		action_group.add_action(stats_simple_action);
 		action_group.add_action(edit_history_simple_action);
 
 		this.insert_action_group ("status", action_group);
 
 		name_button.clicked.connect (() => name_label.on_activate_link(status.formal.account.handle));
+
+		show_view_stats_action ();
+		reblog_button.content.notify["label"].connect (show_view_stats_action);
+		favorite_button.content.notify["label"].connect (show_view_stats_action);
+	}
+
+	private bool has_stats { get { return reblog_button.content.label != "" || favorite_button.content.label != ""; } }
+	private void show_view_stats_action () {
+		stats_simple_action.set_enabled(has_stats);
 	}
 
 	public Status (API.Status status) {
@@ -213,6 +227,10 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		menu_model.append (_("Open in Browser"), "status.open-in-browser");
 		menu_model.append (_("Copy URL"), "status.copy-url");
 
+		var stats_menu_item = new MenuItem(_("View Stats"), "status.status-stats");
+		stats_menu_item.set_attribute_value("hidden-when", "action-disabled");
+		menu_model.append_item (stats_menu_item);
+
 		var edit_history_menu_item = new MenuItem(_("View Edit History"), "status.edit-history");
 		edit_history_menu_item.set_attribute_value("hidden-when", "action-disabled");
 		menu_model.append_item (edit_history_menu_item);
@@ -235,6 +253,10 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 	private void view_edit_history () {
 		app.main_window.open_view (new Views.EditHistory (status.formal.id));
+	}
+
+	private void view_stats () {
+		app.main_window.open_view (new Views.StatusStats (status.formal.id));
 	}
 
 	private void edit_status () {
