@@ -113,7 +113,8 @@ public class Tuba.API.Status : Entity, Widgetizable {
 	    Object (
 	        id: "",
 	        account: account,
-	        created_at: account.created_at
+	        created_at: account.created_at,
+            emojis: account.emojis
 	    );
 
         if (account.note == "")
