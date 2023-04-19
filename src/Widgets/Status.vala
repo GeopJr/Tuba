@@ -195,17 +195,22 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			kind = InstanceAccount.KIND_REMOTE_REBLOG;
 		}
 
-		check_actions();
-		if (context_menu == null) {
-			create_actions ();
-		}
-		menu_button.popover = context_menu;
+		init_menu_button ();
 	}
 	~Status () {
 		message ("Destroying Status widget");
 		if (context_menu != null) {
 			context_menu.dispose();
 		}
+	}
+
+	protected void init_menu_button () {
+		check_actions();
+		if (context_menu == null) {
+			create_actions ();
+		}
+		menu_button.popover = context_menu;
+		menu_button.visible = true;
 	}
 
 	protected void create_actions () {

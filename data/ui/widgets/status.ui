@@ -180,6 +180,7 @@
                     <child>
                       <object class="GtkMenuButton" id="menu_button">
                         <property name="icon-name">view-more-horizontal-symbolic</property>
+                        <property name="visible">0</property>
                         <style>
                           <class name="flat" />
                           <class name="circular" />
