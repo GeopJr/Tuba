@@ -23,8 +23,12 @@ public class Tuba.EditorPage : ComposerPage {
 		install_editor ();
 		install_overlay();
 		install_visibility (status.visibility);
+		add_button (new Gtk.Separator (Orientation.VERTICAL));
 		install_cw ();
 		install_emoji_picker();
+
+		var top_actionbar = add_top_actionbar ();
+		install_languages (top_actionbar);
 
 		validate ();
 	}
@@ -204,6 +208,7 @@ public class Tuba.EditorPage : ComposerPage {
 
 
 	protected DropDown visibility_button;
+	protected DropDown language_button;
 
 	protected void install_visibility (string default_visibility = settings.default_post_visibility) {
 		visibility_button = new DropDown (accounts.active.visibility_list, null) {
@@ -220,7 +225,23 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 
 		add_button (visibility_button);
-		add_button (new Gtk.Separator (Orientation.VERTICAL));
 	}
 
+	protected void install_languages (ActionBar actionbar) {
+		var store = new GLib.ListStore (typeof (Locale));
+
+		foreach (var locale in app.locales) {
+			store.append (locale);
+		}
+
+		language_button = new DropDown (store, null) {
+			expression = new PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
+			factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/language_title.ui"),
+			list_factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/language.ui"),
+			tooltip_text = _("Post Language"),
+			enable_search = true
+		};
+
+		add_button (language_button, actionbar, true);
+	}
 }

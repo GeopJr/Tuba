@@ -1,0 +1,34 @@
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="xalign">0</property>
+            <binding name="label">
+              <lookup name="name" type="TubaLocale">
+                <lookup name="item">GtkListItem</lookup>
+              </lookup>
+            </binding>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="xalign">0</property>
+            <binding name="label">
+              <lookup name="en_name" type="TubaLocale">
+                <lookup name="item">GtkListItem</lookup>
+              </lookup>
+            </binding>
+            <style>
+              <class name="caption"/>
+              <class name="dim-label"/>
+            </style>
+          </object>
+        </child>
+      </object>
+    </property>
+  </template>
+</interface>
+

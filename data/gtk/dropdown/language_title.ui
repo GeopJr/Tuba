@@ -1,0 +1,25 @@
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkBox">
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkImage">
+            <property name="icon_name">tuba-language-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="ellipsize">end</property>
+            <binding name="label">
+              <lookup name="name" type="TubaLocale">
+                <lookup name="item">GtkListItem</lookup>
+              </lookup>
+            </binding>
+          </object>
+        </child>
+      </object>
+    </property>
+  </template>
+</interface>
