@@ -1,7 +1,6 @@
 using Gtk;
 
 namespace Tuba {
-
 	public errordomain Oopsie {
 		USER,
 		PARSING,
@@ -29,6 +28,8 @@ namespace Tuba {
 
 		public Dialogs.MainWindow? main_window { get; set; }
 		public Dialogs.NewAccount? add_account_window { get; set; }
+
+		public Object[] locales { owned get { return generate_iso_639 (); } }
 
 		// These are used for the GTK Inspector
 		public Settings app_settings { get {return Tuba.settings; } }
