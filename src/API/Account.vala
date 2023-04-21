@@ -28,6 +28,7 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	public int64 following_count { get; set; }
 	public int64 statuses_count { get; set; }
 	public Gee.ArrayList<API.AccountField>? fields { get; set; default = null; }
+	public AccountSource? source { get; set; default = null; }
 
 	public string handle {
 		owned get {

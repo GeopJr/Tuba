@@ -20,5 +20,6 @@ sources += files(
     'TagHistory.vala',
 )
 
+subdir('Account')
 subdir('Instance')
 subdir('Status')

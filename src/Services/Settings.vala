@@ -3,6 +3,7 @@ using GLib;
 public class Tuba.Settings : GLib.Settings {
 
 	public string active_account { get; set; }
+	public string default_language { get; set; default = "en"; }
 	public ColorScheme color_scheme { get; set; }
 	public string default_post_visibility { get; set; default = "public"; }
 	public bool autostart { get; set; }

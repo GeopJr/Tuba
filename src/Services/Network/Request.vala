@@ -58,6 +58,11 @@ public class Tuba.Request : GLib.Object {
 		method = "DELETE";
 		msg = new Soup.Message(method, url);
 	}
+	public Request.PATCH (string url) {
+		this.url = url;
+		method = "PATCH";
+		msg = new Soup.Message(method, url);
+	}
 
 	// ~Request () {
 	// 	message ("Destroy req: "+url);
