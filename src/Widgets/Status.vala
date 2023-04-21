@@ -413,11 +413,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	// WARN: self_bindings __must__ be outside bind ()
-	//       else some source values wont be updated
+	//       else some source values won't be updated
 	BindingGroup self_bindings = new BindingGroup ();
 	protected virtual void bind () {
 		// WARN: formal_bindings __must__ be inside bind ()
-		//       else the widget wont get destructed
+		//       else the widget won't get destructed
 		var formal_bindings = new BindingGroup ();
 
 		this.content.instance_emojis = status.formal.emojis_map;

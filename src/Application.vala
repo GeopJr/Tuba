@@ -290,7 +290,7 @@ namespace Tuba {
 			dlg.destroy ();
 		}
 
-		public Adw.MessageDialog question (string text, string? msg = null, Gtk.Window? win = main_window, string yes_label = _("Yes"), Adw.ResponseAppearance yes_appearence = Adw.ResponseAppearance.DEFAULT, string no_label = _("Cancel"), Adw.ResponseAppearance no_appearence = Adw.ResponseAppearance.DEFAULT) {
+		public Adw.MessageDialog question (string text, string? msg = null, Gtk.Window? win = main_window, string yes_label = _("Yes"), Adw.ResponseAppearance yes_appearance = Adw.ResponseAppearance.DEFAULT, string no_label = _("Cancel"), Adw.ResponseAppearance no_appearance = Adw.ResponseAppearance.DEFAULT) {
 			var dlg = new Adw.MessageDialog (
 				win,
 				text,
@@ -298,10 +298,10 @@ namespace Tuba {
 			);
 
 			dlg.add_response("no", no_label);
-			dlg.set_response_appearance("no", no_appearence);
+			dlg.set_response_appearance("no", no_appearance);
 
 			dlg.add_response("yes", yes_label);
-			dlg.set_response_appearance("yes", yes_appearence);
+			dlg.set_response_appearance("yes", yes_appearance);
 
 			dlg.transient_for = win;
 			return dlg;
