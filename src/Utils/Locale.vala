@@ -1,16 +1,20 @@
-class Tuba.Locale : GLib.Object {
+public class Tuba.Locale : GLib.Object {
 	public string locale { get; set; }
 	public string en_name { get; set; }
 	public string name { get; set; }
 
-	public Locale (string locale, string en_name, string name) {
+	public Locale (string? locale, string? en_name, string? name) {
 		Object (locale: locale, en_name: en_name, name: name);
 	}
+
+    public static EqualFunc<string> compare = (a, b) => {
+		return ((Tuba.Locale) a).locale == ((Tuba.Locale) b).locale;
+	};
 }
 
 
-Object[] generate_iso_639() {
-    return {
+Gee.ArrayList<Tuba.Locale> generate_iso_639_1() {
+    return new Gee.ArrayList<Tuba.Locale>.wrap({
             new Tuba.Locale("aa", "Afar", "Afaraf"),
             new Tuba.Locale("ab", "Abkhaz", "аҧсуа бызшәа"),
             new Tuba.Locale("ae", "Avestan", "avesta"),
@@ -20,7 +24,7 @@ Object[] generate_iso_639() {
             new Tuba.Locale("an", "Aragonese", "aragonés"),
             new Tuba.Locale("ar", "Arabic", "اللغة العربية"),
             new Tuba.Locale("as", "Assamese", "অসমীয়া"),
-            new Tuba.Locale("ast", "Asturian", "Asturianu"),
+            //  new Tuba.Locale("ast", "Asturian", "Asturianu"), // ISO-639-3
             new Tuba.Locale("av", "Avaric", "авар мацӀ"),
             new Tuba.Locale("ay", "Aymara", "aymar aru"),
             new Tuba.Locale("az", "Azerbaijani", "azərbaycan dili"),
@@ -37,8 +41,8 @@ Object[] generate_iso_639() {
             new Tuba.Locale("ca", "Catalan", "Català"),
             new Tuba.Locale("ce", "Chechen", "нохчийн мотт"),
             new Tuba.Locale("ch", "Chamorro", "Chamoru"),
-            new Tuba.Locale("ckb", "Sorani (Kurdish)", "سۆرانی"),
-            new Tuba.Locale("cnr", "Montenegrin", "crnogorski"),
+            //  new Tuba.Locale("ckb", "Sorani (Kurdish)", "سۆرانی"), // ISO-639-3
+            //  new Tuba.Locale("cnr", "Montenegrin", "crnogorski"), // ISO-639-3
             new Tuba.Locale("co", "Corsican", "corsu"),
             new Tuba.Locale("cr", "Cree", "ᓀᐦᐃᔭᐍᐏᐣ"),
             new Tuba.Locale("cs", "Czech", "čeština"),
@@ -88,17 +92,17 @@ Object[] generate_iso_639() {
             new Tuba.Locale("it", "Italian", "Italiano"),
             new Tuba.Locale("iu", "Inuktitut", "ᐃᓄᒃᑎᑐᑦ"),
             new Tuba.Locale("ja", "Japanese", "日本語"),
-            new Tuba.Locale("jbo", "Lojban", "la .lojban."),
+            //  new Tuba.Locale("jbo", "Lojban", "la .lojban."), // ISO-639-3
             new Tuba.Locale("jv", "Javanese", "basa Jawa"),
             new Tuba.Locale("ka", "Georgian", "ქართული"),
-            new Tuba.Locale("kab", "Kabyle", "Taqbaylit"),
+            //  new Tuba.Locale("kab", "Kabyle", "Taqbaylit"), // ISO-639-3
             new Tuba.Locale("kg", "Kongo", "Kikongo"),
             new Tuba.Locale("ki", "Kikuyu", "Gĩkũyũ"),
             new Tuba.Locale("kj", "Kwanyama", "Kuanyama"),
             new Tuba.Locale("kk", "Kazakh", "қазақ тілі"),
             new Tuba.Locale("kl", "Kalaallisut", "kalaallisut"),
             new Tuba.Locale("km", "Khmer", "ខេមរភាសា"),
-            new Tuba.Locale("kmr", "Kurmanji (Kurdish)", "Kurmancî"),
+            //  new Tuba.Locale("kmr", "Kurmanji (Kurdish)", "Kurmancî"), // ISO-639-3
             new Tuba.Locale("kn", "Kannada", "ಕನ್ನಡ"),
             new Tuba.Locale("ko", "Korean", "한국어"),
             new Tuba.Locale("kr", "Kanuri", "Kanuri"),
@@ -109,8 +113,8 @@ Object[] generate_iso_639() {
             new Tuba.Locale("ky", "Kyrgyz", "Кыргызча"),
             new Tuba.Locale("la", "Latin", "latine"),
             new Tuba.Locale("lb", "Luxembourgish", "Lëtzebuergesch"),
-            new Tuba.Locale("ldn", "Láadan", "Láadan"),
-            new Tuba.Locale("lfn", "Lingua Franca Nova", "lingua franca nova"),
+            //  new Tuba.Locale("ldn", "Láadan", "Láadan"), // ISO-639-3
+            //  new Tuba.Locale("lfn", "Lingua Franca Nova", "lingua franca nova"), // ISO-639-3
             new Tuba.Locale("lg", "Ganda", "Luganda"),
             new Tuba.Locale("li", "Limburgish", "Limburgs"),
             new Tuba.Locale("ln", "Lingala", "Lingála"),
@@ -157,15 +161,15 @@ Object[] generate_iso_639() {
             new Tuba.Locale("rw", "Kinyarwanda", "Ikinyarwanda"),
             new Tuba.Locale("sa", "Sanskrit", "संस्कृतम्"),
             new Tuba.Locale("sc", "Sardinian", "sardu"),
-            new Tuba.Locale("sco", "Scots", "Scots"),
+            //  new Tuba.Locale("sco", "Scots", "Scots"), // ISO-639-3
             new Tuba.Locale("sd", "Sindhi", "सिन्धी"),
             new Tuba.Locale("se", "Northern Sami", "Davvisámegiella"),
             new Tuba.Locale("sg", "Sango", "yângâ tî sängö"),
             new Tuba.Locale("si", "Sinhala", "සිංහල"),
             new Tuba.Locale("sk", "Slovak", "slovenčina"),
             new Tuba.Locale("sl", "Slovenian", "slovenščina"),
-            new Tuba.Locale("sma", "Southern Sami", "Åarjelsaemien Gïele"),
-            new Tuba.Locale("smj", "Lule Sami", "Julevsámegiella"),
+            //  new Tuba.Locale("sma", "Southern Sami", "Åarjelsaemien Gïele"), // ISO-639-3
+            //  new Tuba.Locale("smj", "Lule Sami", "Julevsámegiella"), // ISO-639-3
             new Tuba.Locale("sn", "Shona", "chiShona"),
             new Tuba.Locale("so", "Somali", "Soomaaliga"),
             new Tuba.Locale("sq", "Albanian", "Shqip"),
@@ -175,9 +179,9 @@ Object[] generate_iso_639() {
             new Tuba.Locale("su", "Sundanese", "Basa Sunda"),
             new Tuba.Locale("sv", "Swedish", "Svenska"),
             new Tuba.Locale("sw", "Swahili", "Kiswahili"),
-            new Tuba.Locale("szl", "Silesian", "ślůnsko godka"),
+            //  new Tuba.Locale("szl", "Silesian", "ślůnsko godka"), // ISO-639-3
             new Tuba.Locale("ta", "Tamil", "தமிழ்"),
-            new Tuba.Locale("tai", "Tai", "ภาษาไท or ภาษาไต"),
+            //  new Tuba.Locale("tai", "Tai", "ภาษาไท or ภาษาไต"), // ISO-639-3
             new Tuba.Locale("te", "Telugu", "తెలుగు"),
             new Tuba.Locale("tg", "Tajik", "тоҷикӣ"),
             new Tuba.Locale("th", "Thai", "ไทย"),
@@ -186,7 +190,7 @@ Object[] generate_iso_639() {
             new Tuba.Locale("tl", "Tagalog", "Wikang Tagalog"),
             new Tuba.Locale("tn", "Tswana", "Setswana"),
             new Tuba.Locale("to", "Tonga", "faka Tonga"),
-            new Tuba.Locale("tok", "Toki Pona", "toki pona"),
+            //  new Tuba.Locale("tok", "Toki Pona", "toki pona"), // ISO-639-3
             new Tuba.Locale("tr", "Turkish", "Türkçe"),
             new Tuba.Locale("ts", "Tsonga", "Xitsonga"),
             new Tuba.Locale("tt", "Tatar", "татар теле"),
@@ -205,9 +209,9 @@ Object[] generate_iso_639() {
             new Tuba.Locale("yi", "Yiddish", "ייִדיש"),
             new Tuba.Locale("yo", "Yoruba", "Yorùbá"),
             new Tuba.Locale("za", "Zhuang", "Saɯ cueŋƅ"),
-            new Tuba.Locale("zba", "Balaibalan", "باليبلن"),
-            new Tuba.Locale("zgh", "Standard Moroccan Tamazight", "ⵜⴰⵎⴰⵣⵉⵖⵜ"),
+            //  new Tuba.Locale("zba", "Balaibalan", "باليبلن"), // ISO-639-3
+            //  new Tuba.Locale("zgh", "Standard Moroccan Tamazight", "ⵜⴰⵎⴰⵣⵉⵖⵜ"), // ISO-639-3
             new Tuba.Locale("zh", "Chinese", "中文"),
             new Tuba.Locale("zu", "Zulu", "isiZulu")
-    };
+    });
 }
