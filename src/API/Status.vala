@@ -25,7 +25,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public bool muted { get; set; default = false; }
     public bool pinned { get; set; default = false; }
     public string? edited_at { get; set; default = null; }
-    public string? language { get; set; default = null; }
+    public string language { get; set; default = settings.default_language; }
     public string visibility { get; set; default = settings.default_post_visibility; }
     public API.Status? reblog { get; set; default = null; }
     public ArrayList<API.Mention>? mentions { get; set; default = null; }
