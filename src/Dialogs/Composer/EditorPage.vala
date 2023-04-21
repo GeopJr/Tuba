@@ -23,12 +23,10 @@ public class Tuba.EditorPage : ComposerPage {
 		install_editor ();
 		install_overlay();
 		install_visibility (status.visibility);
+		install_languages (status.language);
 		add_button (new Gtk.Separator (Orientation.VERTICAL));
 		install_cw ();
 		install_emoji_picker();
-
-		var top_actionbar = add_top_actionbar ();
-		install_languages (top_actionbar);
 
 		validate ();
 	}
@@ -232,7 +230,7 @@ public class Tuba.EditorPage : ComposerPage {
 		add_button (visibility_button);
 	}
 
-	protected void install_languages (ActionBar actionbar) {
+	protected void install_languages (string? locale_iso) {
 		var store = new GLib.ListStore (typeof (Locale));
 
 		foreach (var locale in app.locales) {
@@ -240,13 +238,20 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 
 		language_button = new DropDown (store, null) {
-			expression = new PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
+			expression = new PropertyExpression (typeof (Tuba.Locale), null, "name"),
 			factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/language_title.ui"),
 			list_factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/language.ui"),
 			tooltip_text = _("Post Language"),
 			enable_search = true
 		};
 
-		add_button (language_button, actionbar, true);
+		if (locale_iso != null) {
+			uint default_lang_index;
+			if (store.find_with_equal_func(new Tuba.Locale(locale_iso, null, null), Tuba.Locale.compare, out default_lang_index)) {
+				language_button.selected = default_lang_index;
+			}
+		}
+
+		add_button (language_button);
 	}
 }

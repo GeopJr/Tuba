@@ -97,7 +97,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			in_reply_to_account_id = to.account.id.to_string (),
 			spoiler_text = to.spoiler_text,
 			content = to.formal.get_reply_mentions (),
-			visibility = to.visibility
+			visibility = to.visibility,
+			language = to.language
 		};
 
 		Object (
