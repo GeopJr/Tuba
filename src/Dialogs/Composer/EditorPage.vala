@@ -53,12 +53,17 @@ public class Tuba.EditorPage : ComposerPage {
 		var instance_visibility = (visibility_button.selected_item as InstanceAccount.Visibility);
 		if (visibility_button != null && visibility_button.selected_item != null && instance_visibility != null)
 			status.visibility = instance_visibility.id;
+
+		if (language_button != null && language_button.selected_item != null) {
+			status.language = ((Tuba.Locale) language_button.selected_item).locale;
+		}
 	}
 
 	public override void on_modify_req (Request req) {
 		if (can_publish)
 			req.with_form_data ("status", status.content);
 		req.with_form_data ("visibility", status.visibility);
+		req.with_form_data ("language", status.language);
 
 		if (dialog.status.in_reply_to_id != null)
 			req.with_form_data ("in_reply_to_id", dialog.status.in_reply_to_id);
