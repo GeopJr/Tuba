@@ -1,7 +1,7 @@
 <interface>
   <template class="GtkListItem">
     <property name="child">
-      <object class="GtkBox">
+      <!-- <object class="GtkBox">
         <property name="orientation">horizontal</property>
         <property name="spacing">6</property>
         <child>
@@ -9,17 +9,19 @@
             <property name="icon_name">tuba-language-symbolic</property>
           </object>
         </child>
-        <child>
+        <child> -->
           <object class="GtkLabel">
-            <property name="ellipsize">end</property>
             <binding name="label">
-              <lookup name="name" type="TubaLocale">
+              <lookup name="locale" type="TubaLocale">
                 <lookup name="item">GtkListItem</lookup>
               </lookup>
             </binding>
+            <style>
+              <class name="locale-dropdown-upcase"/>
+            </style>
           </object>
-        </child>
-      </object>
+        <!-- </child>
+      </object> -->
     </property>
   </template>
 </interface>

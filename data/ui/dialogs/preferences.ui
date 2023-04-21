@@ -73,6 +73,16 @@
                 </property>
               </object>
             </child>
+            <child>
+              <object class="AdwComboRow" id="default_language_combo_row">
+                <property name="title" translatable="yes">Default post language</property>
+                <property name="subtitle" translatable="yes">Replies follow the original post's language</property>
+
+                <property name="expression">
+                  <lookup type="TubaLocale" name="name"/>
+                </property>
+              </object>
+            </child>
           </object>
         </child>
         <child>

@@ -282,3 +282,7 @@ GtkSourceAssistant.completion list row{
 .no-border-radius {
 	border-radius: 0px;
 }
+
+.locale-dropdown-upcase {
+	text-transform: uppercase;
+}
