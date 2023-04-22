@@ -8,6 +8,7 @@
         "prepend-path" : "/usr/lib/sdk/vala/bin/",
         "prepend-ld-library-path" : "/usr/lib/sdk/vala/lib"
     },
+    "separate-locales": false,
     "command": "dev.geopjr.Tuba",
     "finish-args": [
         "--device=dri",
