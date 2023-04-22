@@ -202,7 +202,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 					var selected_files_amount = files.get_n_items ();
 
 					// We want to only upload as many attachments as the server
-					// accpets based on the amount we have already uploaded.
+					// accepts based on the amount we have already uploaded.
 					var allowed_attachments_amount = accounts.active.instance_info.compat_status_max_media_attachments - attachments.get_n_items ();
 					var amount_to_add = selected_files_amount > allowed_attachments_amount ? allowed_attachments_amount : selected_files_amount;
 
