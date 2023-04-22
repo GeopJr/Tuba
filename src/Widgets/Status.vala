@@ -622,7 +622,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	public void expand_root () {
 		activatable = false;
 		content.selectable = true;
-		content.get_style_context ().add_class ("ttl-large-body");
+		content.add_css_class ("ttl-large-body");
 
 		// separator between the bottom bar items
 		var separator = "·";

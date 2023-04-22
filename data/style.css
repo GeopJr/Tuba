@@ -177,6 +177,10 @@ flowboxchild {
 	font-size: 18.333333333333332px;
 }
 
+.ttl-status-font-large > .ttl-large-body {
+	font-size: 19px;
+}
+
 .ttl-large-body {
 	font-size: 16px;
 }
