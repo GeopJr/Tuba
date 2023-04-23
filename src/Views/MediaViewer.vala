@@ -84,6 +84,14 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             hexpand = true,
             css_classes = {"osd"}
         };
+
+        var overlay = new Gtk.Overlay () {
+            vexpand = true,
+            hexpand = true
+        };
+        overlay.add_overlay (generate_media_buttons ());
+        overlay.child = carousel;
+
         image_cache = new ImageCache () {
             maintenance_secs = 60 * 5
         };
@@ -138,7 +146,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		});
 
         append(headerbar);
-        append(carousel);
+        append(overlay);
         append(carousel_dots);
 
 		setup_mouse_previous_click();
@@ -257,8 +265,13 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         items += item;
     }
 
-    public void scroll_to (int pos) {
-        if (pos >= items.length) return;
+    public void scroll_to (int pos, bool should_timeout = true) {
+        if (pos >= items.length || pos < 0) return;
+
+        if (!should_timeout) {
+            carousel.scroll_to(carousel.get_nth_page(pos), true);
+            return;
+        }
 
         // https://gitlab.gnome.org/GNOME/libadwaita/-/issues/597
         // https://gitlab.gnome.org/GNOME/libadwaita/-/merge_requests/827
@@ -270,5 +283,68 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
 			return true;
 		}, Priority.LOW);
+    }
+
+    private Gtk.Box generate_media_buttons () {
+        var media_buttons = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0) {
+            hexpand = true,
+            valign = Gtk.Align.END,
+            margin_end = 18,
+            margin_start = 18,
+            margin_bottom = 18
+        };
+
+        var page_btns = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 12) {
+            valign = Gtk.Align.END,
+            halign = Gtk.Align.START
+        };
+
+        var zoom_btns = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 12) {
+            valign = Gtk.Align.END,
+            halign = Gtk.Align.END,
+            hexpand = true
+        };
+
+        var prev_btn = new Gtk.Button.from_icon_name("go-previous-symbolic") {
+            css_classes = {"circular", "osd"}
+        };
+
+        var next_btn = new Gtk.Button.from_icon_name("go-next-symbolic") {
+            css_classes = {"circular", "osd"}
+        };
+
+        prev_btn.clicked.connect (() => scroll_to (((int) carousel.position) - 1, false));
+        next_btn.clicked.connect (() => scroll_to (((int) carousel.position) + 1, false));
+
+        carousel.notify["n-pages"].connect (() => {
+            var has_more_than_1_item = carousel.n_pages > 1;
+
+            prev_btn.visible = has_more_than_1_item;
+            next_btn.visible = has_more_than_1_item;
+        });
+
+        carousel.page_changed.connect ((pos) => {
+            prev_btn.sensitive = pos > 0;
+            next_btn.sensitive = pos < items.length - 1;
+        });
+
+        page_btns.append (prev_btn);
+        page_btns.append (next_btn);
+
+        var zoom_out_btn = new Gtk.Button.from_icon_name("zoom-out-symbolic") {
+            css_classes = {"circular", "osd"}
+        };
+
+        var zoom_in_btn = new Gtk.Button.from_icon_name("zoom-in-symbolic") {
+            css_classes = {"circular", "osd"}
+        };
+
+        zoom_btns.append (zoom_out_btn);
+        zoom_btns.append (zoom_in_btn);
+
+        media_buttons.append (page_btns);
+        media_buttons.append (zoom_btns);
+
+        return media_buttons;
     }
 }
