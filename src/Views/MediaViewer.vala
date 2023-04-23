@@ -85,6 +85,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             css_classes = {"osd"}
         };
 
+        var keypresscontroller = new Gtk.EventControllerKey ();
+        keypresscontroller.key_pressed.connect (on_keypress);
+        add_controller (keypresscontroller);
+
         var overlay = new Gtk.Overlay () {
             vexpand = true,
             hexpand = true
@@ -154,6 +158,25 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	~MediaViewer () {
 		message ("Destroying MediaViewer");
 	}
+
+    protected bool on_keypress (uint keyval, uint keycode, Gdk.ModifierType state) {
+        if (state != 0) return false;
+
+        switch (keyval) {
+            case Gdk.Key.Left:
+            case Gdk.Key.KP_Left:
+                scroll_to (((int) carousel.position) - 1, false);
+                break;
+            case Gdk.Key.Right:
+            case Gdk.Key.KP_Right:
+                scroll_to (((int) carousel.position) + 1, false);
+                break;
+            default:
+                return false;
+        }
+
+        return true;
+    }
 
     protected void on_back_clicked() {
         clear();
