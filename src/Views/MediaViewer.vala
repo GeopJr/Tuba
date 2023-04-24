@@ -5,7 +5,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         private Gtk.Stack stack;
         private Gtk.Overlay overlay;
         private Gtk.Spinner spinner;
-        private Gtk.Widget child_widget;
+        public Gtk.Widget child_widget { get; private set; }
         private Gtk.ScrolledWindow scroller;
         public bool is_video { get; private set; default=false; }
         public string url { get; private set; }
@@ -296,7 +296,9 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	}
 
     private void on_drag_end (double x, double y) {
-        if (!items.get((int) carousel.position).is_video && !((Gtk.Picture) items.get((int) carousel.position)).can_shrink) return;
+        var pic = (items.get((int) carousel.position)).child_widget as Gtk.Picture;
+        if (pic != null && !pic.can_shrink) return;
+
         if (Math.fabs(y) >= 200) {
             on_back_clicked();
         }
