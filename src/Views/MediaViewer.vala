@@ -1,5 +1,6 @@
 public class Tuba.Views.MediaViewer : Gtk.Box {
     const double MAX_ZOOM = 3.5;
+	private signal void zoom_changed ();
 
     public class Item : Adw.Bin {
         private Gtk.Stack stack;
@@ -9,7 +10,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         private Gtk.ScrolledWindow scroller;
         public bool is_video { get; private set; default=false; }
         public string url { get; private set; }
-        private double total_zoom = 1.0;
+        private Views.MediaViewer? parent { get; set; default=null; } 
 
         public bool can_zoom_in {
             get {
@@ -19,17 +20,28 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
         public bool can_zoom_out {
             get {
-                return total_zoom > 1.0;
+                return total_zoom > 1.0 && (scroller.hadjustment.upper > scroller.hadjustment.page_size || scroller.vadjustment.upper > scroller.vadjustment.page_size);
             }
         }
 
-        private double hvalue;
-        private double vvalue;
-        public void zoom (double zoom_level, bool center = true) {
+        private double _total_zoom = 1.0;
+        private double total_zoom {
+            get {
+                return _total_zoom;
+            }
+
+            set {
+                _total_zoom = value;
+                emit_zoom_changed ();
+            }
+        }
+
+        public void zoom (double zoom_level) {
             if (is_video) return;
 
             hvalue = scroller.hadjustment.value;
             vvalue = scroller.vadjustment.value;
+
             var diff = total_zoom + zoom_level - 1;
             if (diff <= 1.0) {
                 ((Gtk.Picture) child_widget).can_shrink = true;
@@ -49,16 +61,11 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             var new_height = child_widget.get_height () * zoom_level;
             child_widget.set_size_request( (int) new_width,  (int) new_height);
 
-            if (center) {
-                scroller.vadjustment.upper = new_height;
-                scroller.vadjustment.value = (new_height - scroller.vadjustment.page_size) / 2;
+            scroller.vadjustment.upper = new_height;
+            scroller.vadjustment.value = (new_height - scroller.vadjustment.page_size) / 2;
 
-                scroller.hadjustment.upper = new_width;
-                scroller.hadjustment.value = (new_width - scroller.hadjustment.page_size) / 2;
-            } else {
-                scroller.hadjustment.value = hvalue;
-                scroller.vadjustment.value = vvalue;
-            }
+            scroller.hadjustment.upper = new_width;
+            scroller.hadjustment.value = (new_width - scroller.hadjustment.page_size) / 2;
 
             total_zoom = diff;
         }
@@ -95,7 +102,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             this.child = stack;
         }
 
-        public Item (Gtk.Widget child, string t_url, Gdk.Paintable? paintable, bool t_is_video = false) {
+        public Item (Gtk.Widget child, string t_url, Gdk.Paintable? paintable, Views.MediaViewer? media_viewer = null, bool t_is_video = false) {
+            parent = media_viewer;
             child_widget = child;
             is_video = t_is_video;
 
@@ -105,7 +113,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             if (paintable != null) overlay.child = new Gtk.Picture.for_paintable (paintable);
         }
 
-        public Item.static (Gtk.Widget child, string t_url) {
+        public Item.static (Gtk.Widget child, string t_url, Views.MediaViewer? media_viewer = null) {
+            parent = media_viewer;
             child_widget = child;
 
             stack.add_named (setup_scrolledwindow (child), "child");
@@ -127,8 +136,14 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
                 vexpand = true
             };
             scroller.child = child;
+            scroller.vadjustment.changed.connect (emit_zoom_changed);
+            scroller.hadjustment.changed.connect (emit_zoom_changed);
 
             return scroller;
+        }
+
+        private void emit_zoom_changed () {
+            if (parent != null) parent.zoom_changed ();
         }
     }
 
@@ -189,7 +204,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         add_controller (drag);
 
         var gesture = new Gtk.GestureZoom();
-        gesture.scale_changed.connect((dd) => items.get((int) carousel.position).zoom (dd, false));
+        gesture.scale_changed.connect((dd) => safe_get ((int) carousel.position)?.zoom (dd));
         add_controller (gesture);
 
 		orientation = Gtk.Orientation.VERTICAL;
@@ -284,19 +299,19 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	}
 
     private void copy_url () {
-		Host.copy (items.get((int) carousel.position).url);
+		Host.copy (safe_get ((int) carousel.position)?.url);
 	}
 
 	private void open_in_browser () {
-		Host.open_uri (items.get((int) carousel.position).url);
+		Host.open_uri (safe_get ((int) carousel.position)?.url);
 	}
 
 	private void save_as () {
-		Widgets.Attachment.Item.save_media_as(items.get((int) carousel.position).url);
+		Widgets.Attachment.Item.save_media_as(safe_get ((int) carousel.position)?.url);
 	}
 
     private void on_drag_end (double x, double y) {
-        var pic = (items.get((int) carousel.position)).child_widget as Gtk.Picture;
+        var pic = (safe_get ((int) carousel.position))?.child_widget as Gtk.Picture;
         if (pic != null && !pic.can_shrink) return;
 
         if (Math.fabs(y) >= 200) {
@@ -336,7 +351,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
     public void add_video (string url, Gdk.Paintable? preview, int? pos) {
         var video = new Gtk.Video ();
-        var item = new Item (video, url, preview, true);
+        var item = new Item (video, url, preview, null, true);
         if (pos == null) {
             carousel.append (item);
             items.add (item);
@@ -360,7 +375,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
     public void add_image(string url, string? alt_text, Gdk.Paintable? preview, int? pos) {
         var picture = new Gtk.Picture ();
-        var item = new Item (picture, url, preview);
+        var item = new Item (picture, url, preview, this);
         if (pos == null) {
             carousel.append (item);
             items.add (item);
@@ -384,7 +399,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         var picture = new Gtk.Picture ();
         picture.paintable = paintable;
 
-        var item = new Item.static (picture, url);
+        var item = new Item.static (picture, url, this);
         carousel.append (item);
         //  items += item;
         items.add (item);
@@ -410,6 +425,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		}, Priority.LOW);
     }
 
+    private Gtk.Button zoom_out_btn;
+    private Gtk.Button zoom_in_btn;
     private Gtk.Box generate_media_buttons () {
         var media_buttons = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
@@ -451,29 +468,33 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         page_btns.append (prev_btn);
         page_btns.append (next_btn);
 
-        var zoom_out_btn = new Gtk.Button.from_icon_name("zoom-out-symbolic") {
+        zoom_out_btn = new Gtk.Button.from_icon_name("zoom-out-symbolic") {
             css_classes = {"circular", "osd"}
         };
 
-        var zoom_in_btn = new Gtk.Button.from_icon_name("zoom-in-symbolic") {
+        zoom_in_btn = new Gtk.Button.from_icon_name("zoom-in-symbolic") {
             css_classes = {"circular", "osd"}
         };
 
-        zoom_out_btn.clicked.connect (() => items.get((int) carousel.position).zoom_out ());
-        zoom_in_btn.clicked.connect (() => items.get((int) carousel.position).zoom_in ());
+        zoom_out_btn.clicked.connect (() => safe_get ((int) carousel.position)?.zoom_out ());
+        zoom_in_btn.clicked.connect (() => safe_get ((int) carousel.position)?.zoom_in ());
 
         carousel.page_changed.connect ((pos) => {
             prev_btn.sensitive = pos > 0;
             next_btn.sensitive = pos < items.size - 1;
 
-            if (items.get((int) pos).is_video) {
+            if (safe_get ((int) pos)?.is_video) {
                 media_buttons.margin_bottom = 40;
                 zoom_btns.visible = false;
             } else {
                 media_buttons.margin_bottom = 18;
                 zoom_btns.visible = true;
             }
+
+            on_zoom_change ();
         });
+
+        zoom_changed.connect (on_zoom_change);
 
         zoom_btns.append (zoom_out_btn);
         zoom_btns.append (zoom_in_btn);
@@ -482,5 +503,16 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         media_buttons.append (zoom_btns);
 
         return media_buttons;
+    }
+
+    public void on_zoom_change () {
+        zoom_in_btn.sensitive = safe_get ((int) carousel.position)?.can_zoom_in;
+        zoom_out_btn.sensitive = safe_get ((int) carousel.position)?.can_zoom_out;
+    }
+
+    private Item? safe_get (int pos) {
+        if (items.size > pos) return items.get(pos);
+
+        return null;
     }
 }
