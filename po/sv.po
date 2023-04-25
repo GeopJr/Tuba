@@ -748,12 +748,12 @@ msgstr "Följ system"
 #. translators: Light mode theme
 #: src/Services/Settings.vala:49
 msgid "Light"
-msgstr "Ljus"
+msgstr "Ljust"
 
 #. translators: Dark mode theme
 #: src/Services/Settings.vala:52
 msgid "Dark"
-msgstr "Mörk"
+msgstr "Mörkt"
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:94
