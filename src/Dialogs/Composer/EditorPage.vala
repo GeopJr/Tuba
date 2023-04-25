@@ -205,7 +205,7 @@ public class Tuba.EditorPage : ComposerPage {
 		cw_button.bind_property ("active", revealer, "reveal_child", GLib.BindingFlags.SYNC_CREATE);
 		add_button (cw_button);
 
-		if (cw_text != null) {
+		if (cw_text != null && cw_text != "") {
 			cw_entry.buffer.set_text ((uint8[]) cw_text);
 			cw_button.active = true;
 		}
