@@ -265,7 +265,19 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	private void edit_status () {
-		new Dialogs.Compose.edit (status.formal);
+		new Request.GET (@"/api/v1/statuses/$(status.formal.id)/source")
+			.with_account (accounts.active)
+			.then ((sess, msg, in_stream) => {
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				var node = network.parse_node (parser);
+				var source = API.StatusSource.from (node);
+
+				new Dialogs.Compose.edit (status.formal, source);
+			})
+			.on_error (() => {
+				new Dialogs.Compose.edit (status.formal);
+			})
+			.exec ();
 	}
 
 	private void delete_status () {

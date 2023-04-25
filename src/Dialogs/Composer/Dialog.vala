@@ -80,9 +80,15 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		);
 	}
 
-	public Compose.edit (API.Status status) {
+	public Compose.edit (API.Status status, API.StatusSource? source = null) {
 		var t_status = status;
-		t_status.content =  HtmlUtils.remove_tags (t_status.content);
+
+		if (source == null) {
+			t_status.content = HtmlUtils.remove_tags (t_status.content);
+		} else {
+			t_status.content = source.text;
+			t_status.spoiler_text = source.spoiler_text;
+		}
 
 		Object (
 			status: t_status,
