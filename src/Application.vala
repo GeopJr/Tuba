@@ -91,6 +91,10 @@ namespace Tuba {
 				warning (e.message);
 			}
 
+			Intl.setlocale (LocaleCategory.ALL, "");
+			Intl.bindtextdomain(Build.GETTEXT_PACKAGE, Build.LOCALEDIR);
+			Intl.textdomain(Build.GETTEXT_PACKAGE);
+
 			app = new Application ();
 			return app.run (args);
 		}
