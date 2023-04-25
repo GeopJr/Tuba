@@ -25,7 +25,7 @@ public class Tuba.EditorPage : ComposerPage {
 		install_visibility (status.visibility);
 		install_languages (status.language);
 		add_button (new Gtk.Separator (Orientation.VERTICAL));
-		install_cw ();
+		install_cw (status.spoiler_text);
 		install_emoji_picker();
 
 		validate ();
@@ -71,6 +71,9 @@ public class Tuba.EditorPage : ComposerPage {
 		if (cw_button.active) {
 			req.with_form_data ("sensitive", "true");
 			req.with_form_data ("spoiler_text", status.spoiler_text);
+		} else {
+			req.with_form_data ("sensitive", "false");
+			req.with_form_data ("spoiler_text", "");
 		}
 	}
 
@@ -179,7 +182,7 @@ public class Tuba.EditorPage : ComposerPage {
 	protected ToggleButton cw_button;
 	protected Entry cw_entry;
 
-	protected void install_cw () {
+	protected void install_cw (string? cw_text) {
 		cw_entry = new Gtk.Entry () {
 			placeholder_text = _("Write your warning here"),
 			margin_top = 6,
@@ -201,6 +204,11 @@ public class Tuba.EditorPage : ComposerPage {
 		cw_button.toggled.connect (validate);
 		cw_button.bind_property ("active", revealer, "reveal_child", GLib.BindingFlags.SYNC_CREATE);
 		add_button (cw_button);
+
+		if (cw_text != null) {
+			cw_entry.buffer.set_text ((uint8[]) cw_text);
+			cw_button.active = true;
+		}
 
 		recount_chars.connect (() => {
 			if (cw_button.active)
