@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 18:13+0200\n"
-"PO-Revision-Date: 2023-04-25 06:32+0000\n"
+"PO-Revision-Date: 2023-04-26 20:57+0000\n"
 "Last-Translator: Sajad Mousavi <s.sajad.mousavi@gmail.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
 "Language: fa\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
-msgstr "شیپور"
+msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
@@ -39,6 +39,9 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
+"تارنمای احتماعی فدیرورس را با Tuba در GNOME کاوش کنید. با جوامع مورد علاقه، "
+"خانواده و دوستان خود در سکو‌های فدیورس معروف همچون Mastodon،GoToSocial، "
+"Akkoma و غیره در تماس باشید!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
 msgid ""
@@ -96,11 +99,11 @@ msgstr "پیام مستقیم"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
-msgstr ""
+msgstr "رونوشت از نام‌کاربری"
 
 #: data/ui/menus.ui:29
 msgid "Moderation"
-msgstr ""
+msgstr "Moderation"
 
 #: data/ui/menus.ui:31
 msgid "Hide Boosts"
@@ -205,7 +208,7 @@ msgstr "تعداد فرسته‌ها در هر بارگذاری"
 
 #: data/ui/dialogs/preferences.ui:112
 msgid "Stream timelines"
-msgstr ""
+msgstr "استریم خطوط‌زمانی"
 
 #: data/ui/dialogs/preferences.ui:114
 msgid "Receive new posts and notifications in real-time"
@@ -213,7 +216,7 @@ msgstr "دریافت فرسته‌ها و اعلانات جدید بصورت ب�
 
 #: data/ui/dialogs/preferences.ui:125
 msgid "Stream public timelines"
-msgstr ""
+msgstr "استریم خطوط‌زمانی عمومی"
 
 #: data/ui/dialogs/preferences.ui:127
 msgid "Warning: This will increase memory usage"
@@ -516,12 +519,12 @@ msgstr "شما را پیگیری میکند"
 #: src/Views/Profile.vala:396
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
-msgstr "اضافه کردن یا حذف \"%s به یا از یک سیاهه"
+msgstr "اضافه/ حذف \"%s\" به/از یک سیاهه"
 
 #: src/Views/Profile.vala:407
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
-msgstr "سیاهه را برای افزودن یا حذف \"%s\" به یا از آن انتخاب کنید:"
+msgstr "سیاهه را برای افزودن/حذف \"%s\" به/ از آن انتخاب کنید:"
 
 #: src/Views/Profile.vala:413
 msgid "You don't have any lists"
@@ -640,7 +643,7 @@ msgstr "درخواست‌های پیگیری"
 
 #: src/Views/Federated.vala:7 src/Services/Accounts/Mastodon/Account.vala:92
 msgid "Federated"
-msgstr ""
+msgstr "هم پیمان"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -675,7 +678,7 @@ msgstr "به زودی منقضی می شود"
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:26
 msgid "expires on %b %-e, %Y"
-msgstr "منقضی شده در ٪b ٪-e، ٪Y"
+msgstr "منقضی شده در%b %-e, %Y"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -684,7 +687,7 @@ msgstr "منقضی شده در ٪b ٪-e، ٪Y"
 #. %m is the minutes
 #: src/Utils/DateTime.vala:40
 msgid "expires on %b %-e, %Y %H:%m"
-msgstr "در ٪B ٪-e منقضی میشود، ٪Y ٪H:٪m"
+msgstr "در %b %-e, %Y %H:%m منقضی می‌شود"
 
 #: src/Utils/DateTime.vala:42
 msgid "expired on just now"
@@ -698,14 +701,14 @@ msgstr "دیروز منقضی شد"
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:57
 msgid "expired on %b %-e"
-msgstr "منقضی شده در %b%-e"
+msgstr "در% b %-e منقضی شده‌است"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:63
 msgid "expired on %b %-e, %Y"
-msgstr "منقضی شده در%b %-e, %Y"
+msgstr "در%b %-e, %Y منقضی شده‌است"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -967,7 +970,7 @@ msgstr "بله"
 #: src/API/Tag.vala:27
 #, c-format
 msgid "Used %d times by %d people yesterday"
-msgstr "دیروز %d بار توسط %d نفر استفاده شد"
+msgstr "دیروز %d بار توسط %d نفر استفاده شده‌است"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:35
