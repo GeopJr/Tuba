@@ -50,10 +50,10 @@ public class Tuba.Views.ContentBase : Views.Base {
 
 	public override void on_content_changed () {
 		if (empty) {
-			status = new StatusMessage ();
+			base_status = new StatusMessage ();
 		}
 		else {
-			status = null;
+			base_status = null;
 		}
 	}
 

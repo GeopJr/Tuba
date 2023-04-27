@@ -62,12 +62,12 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		query = entry.text.chug ().chomp ();
 		if (query == "") {
 			clear ();
-			status = new StatusMessage () { title = _("Enter Query") };
+			base_status = new StatusMessage () { title = _("Enter Query") };
 			return;
 		}
 
 		clear ();
-		status = new StatusMessage () { loading = true };
+		base_status = new StatusMessage () { loading = true };
 		API.SearchResults.request.begin (query, accounts.active, (obj, res) => {
 			try {
 				var results = API.SearchResults.request.end (res);
@@ -97,7 +97,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 					});
 				}
 
-				status = new StatusMessage ();
+				base_status = new StatusMessage ();
 
 				on_content_changed ();
 			}

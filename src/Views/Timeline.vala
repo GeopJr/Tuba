@@ -82,7 +82,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_request_finish () {
-		status = null;
+		base_status = null;
 		base.on_bottom_reached ();
 	}
 
@@ -111,7 +111,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		scrolled.vadjustment.value = 0;
 		status_button.sensitive = false;
 		clear ();
-		status = new StatusMessage () { loading = true };
+		base_status = new StatusMessage () { loading = true };
 		GLib.Idle.add (request);
 	}
 

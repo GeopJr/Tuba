@@ -38,10 +38,10 @@ public class Tuba.Views.Base : Box {
 		public bool loading = false;
 	}
 
-	private StatusMessage? _status = null;
-	public StatusMessage? status {
+	private StatusMessage? _base_status = null;
+	public StatusMessage? base_status {
 		get {
-			return _status;
+			return _base_status;
 		}
 		set {
 			if (value == null) {
@@ -61,7 +61,7 @@ public class Tuba.Views.Base : Box {
 						status_message_label.label = value.message;
 				}
 			}
-			_status = value;
+			_base_status = value;
 		}
 	}
 
@@ -71,7 +71,7 @@ public class Tuba.Views.Base : Box {
 		build_header ();
 
 		status_button.label = _("Reload");
-		status = new StatusMessage () { loading = true };
+		base_status = new StatusMessage () { loading = true };
 
 		notify["current"].connect (() => {
 			if (current)
@@ -106,7 +106,7 @@ public class Tuba.Views.Base : Box {
 	}
 
 	public virtual void clear () {
-		status = null;
+		base_status = null;
 	}
 
 	public virtual void on_shown () {
@@ -121,7 +121,7 @@ public class Tuba.Views.Base : Box {
 	public virtual void on_content_changed () {}
 
 	public virtual void on_error (int32 code, string reason) {
-		status = new StatusMessage () {
+		base_status = new StatusMessage () {
 			title = _("An Error Occurred"),
 			message = reason
 		};
