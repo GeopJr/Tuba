@@ -36,7 +36,7 @@ public abstract interface Tuba.Streamable : Object {
 	}
 
 	void unsubscribe () {
-		streams.unsubscribe (get_stream_url (), this);
+		streams.unsubscribe (t_connection_url, this);
 		t_connection_url = null;
 	}
 
