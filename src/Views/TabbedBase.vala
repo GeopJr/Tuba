@@ -11,7 +11,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 	Views.Base? last_view = null;
 
 	construct {
-		state = "content";
+		status = null;
 
 		var states_box = states.get_parent () as Box;
 		if (states_box != null)
@@ -100,7 +100,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 			tab.on_content_changed ();
 		});
-		state = "content";
+		status = null;
 
 		// if (empty) {
 		// 	state = "status";
