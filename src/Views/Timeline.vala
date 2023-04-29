@@ -82,7 +82,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_request_finish () {
-		base_status = null;
 		base.on_bottom_reached ();
 	}
 
