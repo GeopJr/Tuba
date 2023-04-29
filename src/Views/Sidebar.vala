@@ -9,8 +9,6 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	[GtkChild] unowned ListBox saved_accounts;
 
 	[GtkChild] unowned Widgets.Avatar avatar;
-	//  [GtkChild] unowned Label title;
-	// FIXME: Wrapping
 	[GtkChild] unowned Widgets.EmojiLabel title;
 	[GtkChild] unowned Label subtitle;
 
@@ -90,6 +88,9 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 			this.account.disconnect(sidebar_private_signal);
 			sidebar_display_name.unbind ();
 		}
+
+		if (app?.main_window != null)
+			app.main_window.go_back_to_start ();
 
 		this.account = account;
 		accounts_button.active = false;
