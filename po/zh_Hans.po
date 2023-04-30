@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Leo Li <leoli@6leo6.com>, 2023.
+# valigarmanda <valigarmanda55@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 18:13+0200\n"
-"PO-Revision-Date: 2023-04-04 16:12+0000\n"
-"Last-Translator: Leo Li <leoli@6leo6.com>\n"
+"PO-Revision-Date: 2023-04-30 16:51+0000\n"
+"Last-Translator: valigarmanda <valigarmanda55@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "tuba/tuba/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -57,7 +58,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:19
 msgid "Evangelos \"GeopJr\" Paterakis"
-msgstr ""
+msgstr "Evangelos \"GeopJr\" Paterakis"
 
 #: data/ui/widgets/status.ui:90
 msgid "Pinned"
@@ -583,7 +584,7 @@ msgstr "此操作无法撤销。"
 #: src/Views/Lists.vala:86
 #, c-format
 msgid "Edit \"%s\""
-msgstr "编辑 \"%s\"？"
+msgstr "编辑 \"%s\""
 
 #: src/Views/Lists.vala:94
 msgid "Info"
