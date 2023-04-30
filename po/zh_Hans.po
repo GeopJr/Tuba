@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 18:13+0200\n"
-"PO-Revision-Date: 2023-04-30 16:51+0000\n"
+"PO-Revision-Date: 2023-05-01 17:51+0000\n"
 "Last-Translator: valigarmanda <valigarmanda55@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "tuba/tuba/zh_Hans/>\n"
@@ -284,7 +284,7 @@ msgstr "您的账户已连接成功，可以开始使用了！"
 
 #: data/ui/dialogs/compose.ui:35 src/Dialogs/Composer/Dialog.vala:57
 msgid "_Publish"
-msgstr ""
+msgstr "发布"
 
 #: src/Widgets/VoteBox.vala:20
 msgid "Vote"
@@ -895,15 +895,15 @@ msgstr "发布隐私设置"
 
 #: src/Dialogs/Composer/Dialog.vala:65
 msgid "_Redraft"
-msgstr ""
+msgstr "清空"
 
 #: src/Dialogs/Composer/Dialog.vala:76
 msgid "_Edit"
-msgstr ""
+msgstr "编辑"
 
 #: src/Dialogs/Composer/Dialog.vala:92
 msgid "_Reply"
-msgstr ""
+msgstr "回复"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:28
 msgid "Edit Alt Text"
