@@ -44,7 +44,11 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		list.@foreach (item => {
 			try {
 				var widget = item.to_widget ();
-				box.insert (widget, -1);
+				var flowboxchild = new Gtk.FlowBoxChild () {
+					child = widget,
+					focusable = false
+				};
+				box.insert (flowboxchild, -1);
 				attachment_widgets += ((Widgets.Attachment.Image) widget);
 
 				((Widgets.Attachment.Image) widget).on_any_attachment_click.connect (() => open_all_attachments(item.url));
