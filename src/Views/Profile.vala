@@ -134,15 +134,18 @@ public class Tuba.Views.Profile : Views.Timeline {
 			homogeneous = true
 		};
 
-		var btn = build_profile_stats_button(@"$(profile.statuses_count) " + _("Posts"));
+		// translators: the variable is the amount of posts a user has made
+		var btn = build_profile_stats_button(_("%lld Posts").printf (profile.statuses_count));
 		btn.clicked.connect(() => change_timeline_source("statuses"));
 		box.append(btn);
 
-		btn = build_profile_stats_button(@"$(profile.following_count) " + _("Following"));
+		// translators: the variable is the amount of people a user follows
+		btn = build_profile_stats_button(_("%lld Following").printf (profile.following_count));
 		btn.clicked.connect(() => change_timeline_source("following"));
 		box.append(btn);
 
-		btn = build_profile_stats_button(@"$(profile.followers_count) " + _("Followers"));
+		// translators: the variable is the amount of followers a user has
+		btn = build_profile_stats_button(_("%lld Followers").printf (profile.followers_count));
 		btn.clicked.connect(() => change_timeline_source("followers"));
 		box.append(btn);
 

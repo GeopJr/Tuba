@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-02 07:15+0300\n"
+"POT-Creation-Date: 2023-05-02 12:04+0300\n"
 "PO-Revision-Date: 2023-03-26 17:36+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
@@ -119,7 +119,7 @@ msgstr "Mututu"
 msgid "Report"
 msgstr "Salatu"
 
-#: data/ui/menus.ui:47 src/Views/Profile.vala:271 src/Views/Profile.vala:295
+#: data/ui/menus.ui:47 src/Views/Profile.vala:274 src/Views/Profile.vala:298
 msgid "Block"
 msgstr "Blokeatu"
 
@@ -388,8 +388,8 @@ msgstr "Jarri laster-marka"
 msgid "Follow"
 msgstr "Jarraitu"
 
-#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:271
-#: src/Views/Profile.vala:295
+#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:274
+#: src/Views/Profile.vala:298
 msgid "Unblock"
 msgstr "Utzi blokeatzeari"
 
@@ -464,7 +464,7 @@ msgstr ""
 msgid "Accounts"
 msgstr "Kontuak"
 
-#: src/Views/Search.vala:42 src/Views/Profile.vala:137
+#: src/Views/Search.vala:42
 msgid "Posts"
 msgstr "Bidalketak"
 
@@ -481,35 +481,45 @@ msgstr "Sartu bilaketa"
 msgid "Profile"
 msgstr "Profila"
 
-#: src/Views/Profile.vala:141
-msgid "Following"
-msgstr "Jarraitzen"
+#. translators: the variable is the amount of posts a user has made
+#: src/Views/Profile.vala:138
+#, c-format
+msgid "%lld Posts"
+msgstr "%lld Bidalketak"
 
-#: src/Views/Profile.vala:145
-msgid "Followers"
-msgstr "Jarraitzaile"
+#. translators: the variable is the amount of people a user follows
+#: src/Views/Profile.vala:143
+#, c-format
+msgid "%lld Following"
+msgstr "%lld Jarraitzen"
 
-#: src/Views/Profile.vala:264
+#. translators: the variable is the amount of followers a user has
+#: src/Views/Profile.vala:148
+#, c-format
+msgid "%lld Followers"
+msgstr "%lld Jarraitzaile"
+
+#: src/Views/Profile.vala:267
 #, c-format
 msgid "Block \"%s\"?"
 msgstr "\"%s\" blokeatu?"
 
-#: src/Views/Profile.vala:264
+#: src/Views/Profile.vala:267
 #, c-format
 msgid "Unblock \"%s\"?"
 msgstr "Utzi \"%s\" blokeatzeari?"
 
-#: src/Views/Profile.vala:289
+#: src/Views/Profile.vala:292
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr "Blokeatu \"%s\" osoa?"
 
-#: src/Views/Profile.vala:289
+#: src/Views/Profile.vala:292
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr "Utzi \"%s\" osoa blokeatzeari?"
 
-#: src/Views/Profile.vala:293
+#: src/Views/Profile.vala:296
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -524,55 +534,55 @@ msgstr ""
 "• Bertan kontua duten jarraitzaileak zure kontutik kenduko dituzu\n"
 "• Bertako erabiltzaileak jarraitzea ekidingo dizu"
 
-#: src/Views/Profile.vala:342
+#: src/Views/Profile.vala:345
 #, fuzzy
 msgid "Sent follow request"
 msgstr "Jarraipen-eskaera bidalita"
 
-#: src/Views/Profile.vala:344
+#: src/Views/Profile.vala:347
 msgid "Mutuals"
 msgstr "Komunak"
 
-#: src/Views/Profile.vala:346
+#: src/Views/Profile.vala:349
 msgid "Follows you"
 msgstr "Jarraitzen dizu"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:401
+#: src/Views/Profile.vala:404
 #, fuzzy, c-format
 msgid "Add or remove \"%s\" to or from a list"
 msgstr "Gehitu/kendu \"%s\" zerrendara/zerrendatik"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:413
+#: src/Views/Profile.vala:416
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr "Hautatu zerrenda \"%s\" bertara gehitu/bertatik kentzeko:"
 
-#: src/Views/Profile.vala:419
+#: src/Views/Profile.vala:422
 msgid "You don't have any lists"
 msgstr "Ez duzu zerrendarik"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:448 src/Views/Profile.vala:510
+#: src/Views/Profile.vala:451 src/Views/Profile.vala:513
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr "Kendu \"%s\" \"%s\" zerrendatik"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:448 src/Views/Profile.vala:504
+#: src/Views/Profile.vala:451 src/Views/Profile.vala:507
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr "Gehitu \"%s\" \"%s\" zerrendatik"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:501
+#: src/Views/Profile.vala:504
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr "\"%s\" erabiltzailea \"%s\" zerrendatik kendu da"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:507
+#: src/Views/Profile.vala:510
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr "\"%s\" erabiltzailea \"%s\" zerrandatik kendu da"
@@ -1041,8 +1051,9 @@ msgstr "%d aldiz erabili dute %d pertsonak azken bi egunetan"
 msgid "Search returned no results"
 msgstr "Bilaketak ez du emaitzarik eman"
 
-#. translators: the variable is a comma separated list of account handles
-#: src/API/Conversation.vala:17
+#. translators: the variable is a comma separated list of account handles,
+#. this is a state - not an action
+#: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
 msgstr ""

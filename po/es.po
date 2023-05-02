@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-02 07:15+0300\n"
+"POT-Creation-Date: 2023-05-02 12:04+0300\n"
 "PO-Revision-Date: 2023-03-26 17:36+0000\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted."
 "weblate.org>\n"
@@ -121,7 +121,7 @@ msgstr "Silenciar"
 msgid "Report"
 msgstr "Reportar"
 
-#: data/ui/menus.ui:47 src/Views/Profile.vala:271 src/Views/Profile.vala:295
+#: data/ui/menus.ui:47 src/Views/Profile.vala:274 src/Views/Profile.vala:298
 msgid "Block"
 msgstr "Bloquear"
 
@@ -387,8 +387,8 @@ msgstr "Marcador"
 msgid "Follow"
 msgstr "Seguir"
 
-#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:271
-#: src/Views/Profile.vala:295
+#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:274
+#: src/Views/Profile.vala:298
 msgid "Unblock"
 msgstr "Desbloquear"
 
@@ -463,7 +463,7 @@ msgstr ""
 msgid "Accounts"
 msgstr "Cuentas"
 
-#: src/Views/Search.vala:42 src/Views/Profile.vala:137
+#: src/Views/Search.vala:42
 msgid "Posts"
 msgstr "Publicaciones"
 
@@ -479,35 +479,45 @@ msgstr "Introducir consulta"
 msgid "Profile"
 msgstr "Perfil"
 
-#: src/Views/Profile.vala:141
-msgid "Following"
-msgstr "Siguiendo"
+#. translators: the variable is the amount of posts a user has made
+#: src/Views/Profile.vala:138
+#, c-format
+msgid "%lld Posts"
+msgstr "%lld Publicaciones"
 
-#: src/Views/Profile.vala:145
-msgid "Followers"
-msgstr "Seguidores"
+#. translators: the variable is the amount of people a user follows
+#: src/Views/Profile.vala:143
+#, c-format
+msgid "%lld Following"
+msgstr "%lld Siguiendo"
 
-#: src/Views/Profile.vala:264
+#. translators: the variable is the amount of followers a user has
+#: src/Views/Profile.vala:148
+#, c-format
+msgid "%lld Followers"
+msgstr "%lld Seguidores"
+
+#: src/Views/Profile.vala:267
 #, c-format
 msgid "Block \"%s\"?"
 msgstr "¿Bloquear \"%s\"?"
 
-#: src/Views/Profile.vala:264
+#: src/Views/Profile.vala:267
 #, c-format
 msgid "Unblock \"%s\"?"
 msgstr "¿Desbloquear \"%s\"?"
 
-#: src/Views/Profile.vala:289
+#: src/Views/Profile.vala:292
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr "¿Bloquear por completo \"%s\"?"
 
-#: src/Views/Profile.vala:289
+#: src/Views/Profile.vala:292
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr "¿Desbloquear por completo \"%s\"?"
 
-#: src/Views/Profile.vala:293
+#: src/Views/Profile.vala:296
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -522,54 +532,54 @@ msgstr ""
 "• Eliminará sus seguidores de su cuenta\n"
 "• Le impedirá seguir a sus usuarios"
 
-#: src/Views/Profile.vala:342
+#: src/Views/Profile.vala:345
 msgid "Sent follow request"
 msgstr "Enviar petición de seguimiento"
 
-#: src/Views/Profile.vala:344
+#: src/Views/Profile.vala:347
 msgid "Mutuals"
 msgstr "Mutuas"
 
-#: src/Views/Profile.vala:346
+#: src/Views/Profile.vala:349
 msgid "Follows you"
 msgstr "Le sigue"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:401
+#: src/Views/Profile.vala:404
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
 msgstr "Añadir o eliminar \"%s\" de una lista"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:413
+#: src/Views/Profile.vala:416
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr "Seleccione la lista a la que añadir o de la que quitar \"%s\":"
 
-#: src/Views/Profile.vala:419
+#: src/Views/Profile.vala:422
 msgid "You don't have any lists"
 msgstr "No tiene ninguna lista"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:448 src/Views/Profile.vala:510
+#: src/Views/Profile.vala:451 src/Views/Profile.vala:513
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr "Eliminar \"%s\" de \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:448 src/Views/Profile.vala:504
+#: src/Views/Profile.vala:451 src/Views/Profile.vala:507
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr "Añadir \"%s\" a \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:501
+#: src/Views/Profile.vala:504
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr "El usuario \"%s\" ha sido eliminado de \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:507
+#: src/Views/Profile.vala:510
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr "El usuario \"%s\" ha sido añadido a \"%s\""
@@ -1027,8 +1037,9 @@ msgstr "Usado %d veces por %d personas en los últimos 2 días"
 msgid "Search returned no results"
 msgstr "La búsqueda no ha dado ningún resultado"
 
-#. translators: the variable is a comma separated list of account handles
-#: src/API/Conversation.vala:17
+#. translators: the variable is a comma separated list of account handles,
+#. this is a state - not an action
+#: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
 msgstr ""

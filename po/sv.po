@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-02 07:15+0300\n"
+"POT-Creation-Date: 2023-05-02 12:04+0300\n"
 "PO-Revision-Date: 2023-04-26 12:50+0000\n"
 "Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/tuba/tuba/sv/>\n"
@@ -117,7 +117,7 @@ msgstr "Tysta"
 msgid "Report"
 msgstr "Rapportera"
 
-#: data/ui/menus.ui:47 src/Views/Profile.vala:271 src/Views/Profile.vala:295
+#: data/ui/menus.ui:47 src/Views/Profile.vala:274 src/Views/Profile.vala:298
 msgid "Block"
 msgstr "Blockera"
 
@@ -382,8 +382,8 @@ msgstr "Bokmärk"
 msgid "Follow"
 msgstr "Följ"
 
-#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:271
-#: src/Views/Profile.vala:295
+#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:274
+#: src/Views/Profile.vala:298
 msgid "Unblock"
 msgstr "Avblockera"
 
@@ -458,7 +458,7 @@ msgstr ""
 msgid "Accounts"
 msgstr "Konton"
 
-#: src/Views/Search.vala:42 src/Views/Profile.vala:137
+#: src/Views/Search.vala:42
 msgid "Posts"
 msgstr "Poster"
 
@@ -474,35 +474,45 @@ msgstr "Ange sökfråga"
 msgid "Profile"
 msgstr "Profil"
 
-#: src/Views/Profile.vala:141
-msgid "Following"
-msgstr "Följer"
+#. translators: the variable is the amount of posts a user has made
+#: src/Views/Profile.vala:138
+#, c-format
+msgid "%lld Posts"
+msgstr "%lld Poster"
 
-#: src/Views/Profile.vala:145
-msgid "Followers"
-msgstr "Följare"
+#. translators: the variable is the amount of people a user follows
+#: src/Views/Profile.vala:143
+#, c-format
+msgid "%lld Following"
+msgstr "%lld Följer"
 
-#: src/Views/Profile.vala:264
+#. translators: the variable is the amount of followers a user has
+#: src/Views/Profile.vala:148
+#, c-format
+msgid "%lld Followers"
+msgstr "%lld Följare"
+
+#: src/Views/Profile.vala:267
 #, c-format
 msgid "Block \"%s\"?"
 msgstr "Blockera \"%s\"?"
 
-#: src/Views/Profile.vala:264
+#: src/Views/Profile.vala:267
 #, c-format
 msgid "Unblock \"%s\"?"
 msgstr "Avblockera \"%s\"?"
 
-#: src/Views/Profile.vala:289
+#: src/Views/Profile.vala:292
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr "Blockera hela \"%s\"?"
 
-#: src/Views/Profile.vala:289
+#: src/Views/Profile.vala:292
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr "Avblockera hela \"%s\"?"
 
-#: src/Views/Profile.vala:293
+#: src/Views/Profile.vala:296
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -516,54 +526,54 @@ msgstr ""
 "• Ta bort dess följare från ditt konto\n"
 "• Hindra dig från att följa dess användare"
 
-#: src/Views/Profile.vala:342
+#: src/Views/Profile.vala:345
 msgid "Sent follow request"
 msgstr "Skickat följarförfrågan"
 
-#: src/Views/Profile.vala:344
+#: src/Views/Profile.vala:347
 msgid "Mutuals"
 msgstr "Ömsesidiga"
 
-#: src/Views/Profile.vala:346
+#: src/Views/Profile.vala:349
 msgid "Follows you"
 msgstr "Följer dig"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:401
+#: src/Views/Profile.vala:404
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
 msgstr "Lägg till eller ta bort \"%s\" till eller från en lista"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:413
+#: src/Views/Profile.vala:416
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr "Välj en lista för att lägga till eller ta bort \"%s\" till eller från:"
 
-#: src/Views/Profile.vala:419
+#: src/Views/Profile.vala:422
 msgid "You don't have any lists"
 msgstr "Du har inga listor"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:448 src/Views/Profile.vala:510
+#: src/Views/Profile.vala:451 src/Views/Profile.vala:513
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr "Ta bort \"%s\" från \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:448 src/Views/Profile.vala:504
+#: src/Views/Profile.vala:451 src/Views/Profile.vala:507
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr "Lägg till \"%s\" till \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:501
+#: src/Views/Profile.vala:504
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr "Användare \"%s\" blev borttagen från \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:507
+#: src/Views/Profile.vala:510
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr "Användare \"%s\" blev tillagd till \"%s\""
@@ -1020,8 +1030,9 @@ msgstr "Använd %d gånger av %d person under de senaste 2 dagarna"
 msgid "Search returned no results"
 msgstr "Sökningen gav inga resultat"
 
-#. translators: the variable is a comma separated list of account handles
-#: src/API/Conversation.vala:17
+#. translators: the variable is a comma separated list of account handles,
+#. this is a state - not an action
+#: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
 msgstr ""

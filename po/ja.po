@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-02 07:15+0300\n"
+"POT-Creation-Date: 2023-05-02 12:04+0300\n"
 "PO-Revision-Date: 2023-03-29 09:37+0000\n"
 "Last-Translator: Gnuey56 <gnuey56@proton.me>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/tuba/tuba/ja/>\n"
@@ -120,7 +120,7 @@ msgstr "ミュート"
 msgid "Report"
 msgstr "報告"
 
-#: data/ui/menus.ui:47 src/Views/Profile.vala:271 src/Views/Profile.vala:295
+#: data/ui/menus.ui:47 src/Views/Profile.vala:274 src/Views/Profile.vala:298
 msgid "Block"
 msgstr "ブロック"
 
@@ -386,8 +386,8 @@ msgstr "ブックマーク"
 msgid "Follow"
 msgstr "フォロー"
 
-#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:271
-#: src/Views/Profile.vala:295
+#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:274
+#: src/Views/Profile.vala:298
 msgid "Unblock"
 msgstr "ブロック解除"
 
@@ -463,7 +463,7 @@ msgstr ""
 msgid "Accounts"
 msgstr "アカウント"
 
-#: src/Views/Search.vala:42 src/Views/Profile.vala:137
+#: src/Views/Search.vala:42
 msgid "Posts"
 msgstr "投稿"
 
@@ -479,35 +479,45 @@ msgstr "クエリを入力"
 msgid "Profile"
 msgstr "プロフィール"
 
-#: src/Views/Profile.vala:141
-msgid "Following"
-msgstr "フォロー中"
+#. translators: the variable is the amount of posts a user has made
+#: src/Views/Profile.vala:138
+#, c-format
+msgid "%lld Posts"
+msgstr "%lld 投稿"
 
-#: src/Views/Profile.vala:145
-msgid "Followers"
-msgstr "フォロワー"
+#. translators: the variable is the amount of people a user follows
+#: src/Views/Profile.vala:143
+#, c-format
+msgid "%lld Following"
+msgstr "%lld フォロー中"
 
-#: src/Views/Profile.vala:264
+#. translators: the variable is the amount of followers a user has
+#: src/Views/Profile.vala:148
+#, c-format
+msgid "%lld Followers"
+msgstr "%lld フォロワー"
+
+#: src/Views/Profile.vala:267
 #, c-format
 msgid "Block \"%s\"?"
 msgstr "\"%s\"をブロックしますか？"
 
-#: src/Views/Profile.vala:264
+#: src/Views/Profile.vala:267
 #, c-format
 msgid "Unblock \"%s\"?"
 msgstr "\"%s\"のブロックを解除しますか？"
 
-#: src/Views/Profile.vala:289
+#: src/Views/Profile.vala:292
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr ""
 
-#: src/Views/Profile.vala:289
+#: src/Views/Profile.vala:292
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr ""
 
-#: src/Views/Profile.vala:293
+#: src/Views/Profile.vala:296
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -516,54 +526,54 @@ msgid ""
 "• Prevent you from following its users"
 msgstr ""
 
-#: src/Views/Profile.vala:342
+#: src/Views/Profile.vala:345
 msgid "Sent follow request"
 msgstr "フォローリクエストを送る"
 
-#: src/Views/Profile.vala:344
+#: src/Views/Profile.vala:347
 msgid "Mutuals"
 msgstr ""
 
-#: src/Views/Profile.vala:346
+#: src/Views/Profile.vala:349
 msgid "Follows you"
 msgstr "あなたをフォローしています"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:401
+#: src/Views/Profile.vala:404
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
 msgstr "\"%s\"をリストから追加・削除"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:413
+#: src/Views/Profile.vala:416
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr ""
 
-#: src/Views/Profile.vala:419
+#: src/Views/Profile.vala:422
 msgid "You don't have any lists"
 msgstr "リストがありません"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:448 src/Views/Profile.vala:510
+#: src/Views/Profile.vala:451 src/Views/Profile.vala:513
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr ""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:448 src/Views/Profile.vala:504
+#: src/Views/Profile.vala:451 src/Views/Profile.vala:507
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr ""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:501
+#: src/Views/Profile.vala:504
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr ""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:507
+#: src/Views/Profile.vala:510
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr ""
@@ -1021,8 +1031,9 @@ msgstr "2日間で%d人が%d回使用しました"
 msgid "Search returned no results"
 msgstr "検索結果は見つかりませんでした"
 
-#. translators: the variable is a comma separated list of account handles
-#: src/API/Conversation.vala:17
+#. translators: the variable is a comma separated list of account handles,
+#. this is a state - not an action
+#: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
 msgstr ""
