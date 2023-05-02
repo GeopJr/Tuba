@@ -122,6 +122,7 @@ msgid "Report"
 msgstr "Zgłoś"
 
 #: data/ui/menus.ui:47 src/Views/Profile.vala:274 src/Views/Profile.vala:298
+#: src/Views/Profile.vala:271 src/Views/Profile.vala:295
 msgid "Block"
 msgstr "Zablokuj"
 
@@ -184,15 +185,15 @@ msgstr "Zwiększa wysokość linii wpisów"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Posting"
-msgstr ""
+msgstr "Ustawienia wpisów"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
-msgstr ""
+msgstr "Domyślna widoczność wpisów"
 
 #: data/ui/dialogs/preferences.ui:77
 msgid "Default post language"
-msgstr ""
+msgstr "Domyślny język wpisów"
 
 #: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
@@ -262,11 +263,11 @@ msgstr "Na jakim serwerze masz konto?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
-"Jeżeli nie masz jeszcze konta, <a href=\"https://joinmastodon.org/"
-"servers\">wybierz serwer i je załóż</a>."
+"Jeżeli nie masz jeszcze konta, <a href=\"https://joinmastodon.org/servers"
+"\">wybierz serwer i je załóż</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
@@ -338,7 +339,7 @@ msgstr "Kopiuj adres URL"
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:237
 msgid "View Stats"
-msgstr ""
+msgstr "Wyświetl polubienia i podbicia"
 
 #: src/Widgets/Status.vala:241
 msgid "View Edit History"
@@ -388,7 +389,8 @@ msgid "Follow"
 msgstr "Obserwuj"
 
 #: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:274
-#: src/Views/Profile.vala:298
+#: src/Views/Profile.vala:298 src/Views/Profile.vala:271
+#: src/Views/Profile.vala:295
 msgid "Unblock"
 msgstr "Odblokuj"
 
@@ -457,13 +459,13 @@ msgstr "Wyszukiwanie"
 #. translators: as in All search results
 #: src/Views/Search.vala:40
 msgid "All"
-msgstr ""
+msgstr "Wszystko"
 
 #: src/Views/Search.vala:41
 msgid "Accounts"
 msgstr "Konta"
 
-#: src/Views/Search.vala:42
+#: src/Views/Search.vala:42 src/Views/Profile.vala:137
 msgid "Posts"
 msgstr "wpisów"
 
@@ -497,27 +499,27 @@ msgstr "%lld obserwowanych"
 msgid "%lld Followers"
 msgstr "%lld obserwujących"
 
-#: src/Views/Profile.vala:267
+#: src/Views/Profile.vala:267 src/Views/Profile.vala:264
 #, c-format
 msgid "Block \"%s\"?"
 msgstr "Zablokować \"%s\"?"
 
-#: src/Views/Profile.vala:267
+#: src/Views/Profile.vala:267 src/Views/Profile.vala:264
 #, c-format
 msgid "Unblock \"%s\"?"
 msgstr "Odblokować \"%s\"?"
 
-#: src/Views/Profile.vala:292
+#: src/Views/Profile.vala:292 src/Views/Profile.vala:289
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr "Zablokować całość \"%s\"?"
 
-#: src/Views/Profile.vala:292
+#: src/Views/Profile.vala:292 src/Views/Profile.vala:289
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr "Odblokować całość \"%s\"?"
 
-#: src/Views/Profile.vala:296
+#: src/Views/Profile.vala:296 src/Views/Profile.vala:293
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -531,54 +533,56 @@ msgstr ""
 "• Usunie osoby z niej z twoich obserwujących\n"
 "• Uniemożliwi ci obserwowanie osób z niej"
 
-#: src/Views/Profile.vala:345
+#: src/Views/Profile.vala:345 src/Views/Profile.vala:342
 msgid "Sent follow request"
 msgstr "Wysłano prośbę o obserwowanie"
 
-#: src/Views/Profile.vala:347
+#: src/Views/Profile.vala:347 src/Views/Profile.vala:344
 msgid "Mutuals"
 msgstr "Wzajemnie"
 
-#: src/Views/Profile.vala:349
+#: src/Views/Profile.vala:349 src/Views/Profile.vala:346
 msgid "Follows you"
 msgstr "Obserwuje cię"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:404
+#: src/Views/Profile.vala:404 src/Views/Profile.vala:401
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
 msgstr "Dodaj lub usuń \"%s\" z listy"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:416
+#: src/Views/Profile.vala:416 src/Views/Profile.vala:413
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr "Wybierz listę do dodania lub usunięcia \"%s\":"
 
-#: src/Views/Profile.vala:422
+#: src/Views/Profile.vala:422 src/Views/Profile.vala:419
 msgid "You don't have any lists"
 msgstr "Nie masz żadnych list"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:451 src/Views/Profile.vala:513
+#: src/Views/Profile.vala:448 src/Views/Profile.vala:510
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr "Usuń \"%s\" z \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:451 src/Views/Profile.vala:507
+#: src/Views/Profile.vala:448 src/Views/Profile.vala:504
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr "Dodaj \"%s\" do \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:504
+#: src/Views/Profile.vala:504 src/Views/Profile.vala:501
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr "Osoba \"%s\" została usunięta z \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:510
+#: src/Views/Profile.vala:510 src/Views/Profile.vala:507
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr "Osoba \"%s\" została dodana do \"%s\""
@@ -601,19 +605,19 @@ msgstr "Przełącz tryb pełnoekranowy"
 
 #: src/Views/MediaViewer.vala:496
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Poprzedni załącznik"
 
 #: src/Views/MediaViewer.vala:501
 msgid "Next Attachment"
-msgstr ""
+msgstr "Następny załącznik"
 
 #: src/Views/MediaViewer.vala:519
 msgid "Zoom Out"
-msgstr ""
+msgstr "Oddal"
 
 #: src/Views/MediaViewer.vala:524
 msgid "Zoom In"
-msgstr ""
+msgstr "Przybliż"
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
@@ -946,7 +950,7 @@ msgstr "Widoczność wpisu"
 
 #: src/Dialogs/Composer/EditorPage.vala:252
 msgid "Post Language"
-msgstr ""
+msgstr "Język wpisu"
 
 #: src/Dialogs/Composer/Dialog.vala:78
 msgid "_Redraft"
@@ -1035,9 +1039,16 @@ msgstr "Użyty %d razy przez %d osób w ciągu ostatnich dwóch dni"
 msgid "Search returned no results"
 msgstr "Wyszukiwanie nie przyniosło żadnych wyników"
 
-#. translators: the variable is a comma separated list of account handles,
-#. this is a state - not an action
-#: src/API/Conversation.vala:18
+#. translators: the variable is a comma separated list of account handles
+#: src/API/Conversation.vala:17
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "Pusta rozmowa z %s"
+
+#: src/Views/Profile.vala:141
+msgid "Following"
+msgstr "obserwowanych"
+
+#: src/Views/Profile.vala:145
+msgid "Followers"
+msgstr "obserwujących"
