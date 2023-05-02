@@ -1,3 +1,5 @@
+// Mostly inspired by Loupe https://gitlab.gnome.org/Incubator/loupe
+
 public class Tuba.Views.MediaViewer : Gtk.Box {
     const double MAX_ZOOM = 3.5;
     private signal void zoom_changed ();
@@ -12,6 +14,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         public Gtk.Widget child_widget { get; private set; }
         public bool is_video { get; private set; default=false; }
         public string url { get; private set; }
+        public double last_x { get; set; default=0.0; }
+        public double last_y { get; set; default=0.0; }
 
         public bool can_zoom_in {
             get {
@@ -37,6 +41,11 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
                 _total_zoom = value;
                 emit_zoom_changed ();
             }
+        }
+
+        public void update_adjustment (double x, double y) {
+            scroller.hadjustment.value = scroller.hadjustment.value - x + last_x;
+            scroller.vadjustment.value = scroller.vadjustment.value - y + last_y;
         }
 
         public void zoom (double zoom_level) {
@@ -206,6 +215,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         };
 
         var drag = new Gtk.GestureDrag ();
+        drag.drag_begin.connect(on_drag_begin);
+        drag.drag_update.connect(on_drag_update);
         drag.drag_end.connect(on_drag_end);
         add_controller (drag);
 
@@ -319,11 +330,38 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		Widgets.Attachment.Item.save_media_as(safe_get ((int) carousel.position)?.url);
 	}
 
+    private void on_drag_begin (double x, double y) {
+        var t_item = safe_get ((int) carousel.position);
+        var pic = t_item?.child_widget as Gtk.Picture;
+        if (pic != null && !pic.can_shrink) {
+            pic.set_cursor (new Gdk.Cursor.from_name ("grabbing", null));
+            t_item.last_x = 0.0;
+            t_item.last_y = 0.0;
+        }
+    }
+
+    private void on_drag_update (double x, double y) {
+        var t_item = safe_get ((int) carousel.position);
+        var pic = t_item?.child_widget as Gtk.Picture;
+        if (pic != null && !pic.can_shrink) {
+            t_item.update_adjustment (x, y);
+            t_item.last_x = x;
+            t_item.last_y = y;
+        }
+    }
+
     private void on_drag_end (double x, double y) {
         // Don't clear if the image is zoomed in
         // as it triggers when scrolling
-        var pic = (safe_get ((int) carousel.position))?.child_widget as Gtk.Picture;
-        if (pic != null && !pic.can_shrink) return;
+        var t_item = safe_get ((int) carousel.position);
+        var pic = t_item?.child_widget as Gtk.Picture;
+        if (pic != null) {
+            pic.set_cursor (null);
+            t_item.last_x = 0.0;
+            t_item.last_y = 0.0;
+
+            if (!pic.can_shrink) return;
+        };
 
         if (Math.fabs(y) >= 200) {
             on_back_clicked();
