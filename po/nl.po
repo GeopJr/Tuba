@@ -120,7 +120,6 @@ msgid "Report"
 msgstr "Rapporteren"
 
 #: data/ui/menus.ui:47 src/Views/Profile.vala:274 src/Views/Profile.vala:298
-#: src/Views/Profile.vala:271 src/Views/Profile.vala:295
 msgid "Block"
 msgstr "Blokkeren"
 
@@ -387,8 +386,7 @@ msgid "Follow"
 msgstr "Volgen"
 
 #: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:274
-#: src/Views/Profile.vala:298 src/Views/Profile.vala:271
-#: src/Views/Profile.vala:295
+#: src/Views/Profile.vala:298
 msgid "Unblock"
 msgstr "Deblokkeren"
 
@@ -463,7 +461,7 @@ msgstr "Alle"
 msgid "Accounts"
 msgstr "Accounts"
 
-#: src/Views/Search.vala:42 src/Views/Profile.vala:137
+#: src/Views/Search.vala:42
 msgid "Posts"
 msgstr "Berichten"
 
@@ -497,27 +495,27 @@ msgstr "%lld Volgend"
 msgid "%lld Followers"
 msgstr "%lld Volgers"
 
-#: src/Views/Profile.vala:267 src/Views/Profile.vala:264
+#: src/Views/Profile.vala:267
 #, c-format
 msgid "Block \"%s\"?"
 msgstr "Wilt u ‘%s’ blokkeren?"
 
-#: src/Views/Profile.vala:267 src/Views/Profile.vala:264
+#: src/Views/Profile.vala:267
 #, c-format
 msgid "Unblock \"%s\"?"
 msgstr "Wilt u ‘%s’ deblokkeren?"
 
-#: src/Views/Profile.vala:292 src/Views/Profile.vala:289
+#: src/Views/Profile.vala:292
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr "Wilt u ‘%s’ in zijn geheel blokkeren?"
 
-#: src/Views/Profile.vala:292 src/Views/Profile.vala:289
+#: src/Views/Profile.vala:292
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr "Wilt u ‘%s’ in zijn geheel deblokkeren?"
 
-#: src/Views/Profile.vala:296 src/Views/Profile.vala:293
+#: src/Views/Profile.vala:296
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -532,56 +530,54 @@ msgstr ""
 "  • Alle volgers worden van uw account verwijderd\n"
 "  • U kunt anderen niet meer volgen"
 
-#: src/Views/Profile.vala:345 src/Views/Profile.vala:342
+#: src/Views/Profile.vala:345
 msgid "Sent follow request"
 msgstr "Volgverzoek verstuurd"
 
-#: src/Views/Profile.vala:347 src/Views/Profile.vala:344
+#: src/Views/Profile.vala:347
 msgid "Mutuals"
 msgstr "Gelijkgestemden"
 
-#: src/Views/Profile.vala:349 src/Views/Profile.vala:346
+#: src/Views/Profile.vala:349
 msgid "Follows you"
 msgstr "Volgt u"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:404 src/Views/Profile.vala:401
+#: src/Views/Profile.vala:404
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
 msgstr "‘%s’ toevoegen aan of verwijderen van lijst"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:416 src/Views/Profile.vala:413
+#: src/Views/Profile.vala:416
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr "Kies een lijst om ‘%s’ aan toe te voegen of van te verwijderen:"
 
-#: src/Views/Profile.vala:422 src/Views/Profile.vala:419
+#: src/Views/Profile.vala:422
 msgid "You don't have any lists"
 msgstr "U heeft nog geen lijsten"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:451 src/Views/Profile.vala:513
-#: src/Views/Profile.vala:448 src/Views/Profile.vala:510
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr "‘%s’ verwijderen van ‘%s’"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:451 src/Views/Profile.vala:507
-#: src/Views/Profile.vala:448 src/Views/Profile.vala:504
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr "‘%s’ toevoegen aan ‘%s’"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:504 src/Views/Profile.vala:501
+#: src/Views/Profile.vala:504
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr "‘%s’ is verwijderd van ‘%s’"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:510 src/Views/Profile.vala:507
+#: src/Views/Profile.vala:510
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr "‘%s’ is toegevoegd aan ‘%s’"
@@ -1040,16 +1036,15 @@ msgstr "In de afgelopen 2 dagen %d keer gebruikt door %d personen"
 msgid "Search returned no results"
 msgstr "Er zijn geen zoekresultaten"
 
-#. translators: the variable is a comma separated list of account handles
-#: src/API/Conversation.vala:17
+#. translators: the variable is a comma separated list of account handles,
+#. this is a state - not an action
+#: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
 msgstr "Leeg gesprek met %s"
 
-#: src/Views/Profile.vala:141
-msgid "Following"
-msgstr "Volgend"
+#~ msgid "Following"
+#~ msgstr "Volgend"
 
-#: src/Views/Profile.vala:145
-msgid "Followers"
-msgstr "Volgers"
+#~ msgid "Followers"
+#~ msgstr "Volgers"

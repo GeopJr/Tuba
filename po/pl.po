@@ -122,7 +122,6 @@ msgid "Report"
 msgstr "Zgłoś"
 
 #: data/ui/menus.ui:47 src/Views/Profile.vala:274 src/Views/Profile.vala:298
-#: src/Views/Profile.vala:271 src/Views/Profile.vala:295
 msgid "Block"
 msgstr "Zablokuj"
 
@@ -389,8 +388,7 @@ msgid "Follow"
 msgstr "Obserwuj"
 
 #: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:274
-#: src/Views/Profile.vala:298 src/Views/Profile.vala:271
-#: src/Views/Profile.vala:295
+#: src/Views/Profile.vala:298
 msgid "Unblock"
 msgstr "Odblokuj"
 
@@ -465,7 +463,7 @@ msgstr "Wszystko"
 msgid "Accounts"
 msgstr "Konta"
 
-#: src/Views/Search.vala:42 src/Views/Profile.vala:137
+#: src/Views/Search.vala:42
 msgid "Posts"
 msgstr "wpisów"
 
@@ -499,27 +497,27 @@ msgstr "%lld obserwowanych"
 msgid "%lld Followers"
 msgstr "%lld obserwujących"
 
-#: src/Views/Profile.vala:267 src/Views/Profile.vala:264
+#: src/Views/Profile.vala:267
 #, c-format
 msgid "Block \"%s\"?"
 msgstr "Zablokować \"%s\"?"
 
-#: src/Views/Profile.vala:267 src/Views/Profile.vala:264
+#: src/Views/Profile.vala:267
 #, c-format
 msgid "Unblock \"%s\"?"
 msgstr "Odblokować \"%s\"?"
 
-#: src/Views/Profile.vala:292 src/Views/Profile.vala:289
+#: src/Views/Profile.vala:292
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr "Zablokować całość \"%s\"?"
 
-#: src/Views/Profile.vala:292 src/Views/Profile.vala:289
+#: src/Views/Profile.vala:292
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr "Odblokować całość \"%s\"?"
 
-#: src/Views/Profile.vala:296 src/Views/Profile.vala:293
+#: src/Views/Profile.vala:296
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -533,56 +531,54 @@ msgstr ""
 "• Usunie osoby z niej z twoich obserwujących\n"
 "• Uniemożliwi ci obserwowanie osób z niej"
 
-#: src/Views/Profile.vala:345 src/Views/Profile.vala:342
+#: src/Views/Profile.vala:345
 msgid "Sent follow request"
 msgstr "Wysłano prośbę o obserwowanie"
 
-#: src/Views/Profile.vala:347 src/Views/Profile.vala:344
+#: src/Views/Profile.vala:347
 msgid "Mutuals"
 msgstr "Wzajemnie"
 
-#: src/Views/Profile.vala:349 src/Views/Profile.vala:346
+#: src/Views/Profile.vala:349
 msgid "Follows you"
 msgstr "Obserwuje cię"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:404 src/Views/Profile.vala:401
+#: src/Views/Profile.vala:404
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
 msgstr "Dodaj lub usuń \"%s\" z listy"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:416 src/Views/Profile.vala:413
+#: src/Views/Profile.vala:416
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr "Wybierz listę do dodania lub usunięcia \"%s\":"
 
-#: src/Views/Profile.vala:422 src/Views/Profile.vala:419
+#: src/Views/Profile.vala:422
 msgid "You don't have any lists"
 msgstr "Nie masz żadnych list"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:451 src/Views/Profile.vala:513
-#: src/Views/Profile.vala:448 src/Views/Profile.vala:510
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr "Usuń \"%s\" z \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:451 src/Views/Profile.vala:507
-#: src/Views/Profile.vala:448 src/Views/Profile.vala:504
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr "Dodaj \"%s\" do \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:504 src/Views/Profile.vala:501
+#: src/Views/Profile.vala:504
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr "Osoba \"%s\" została usunięta z \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:510 src/Views/Profile.vala:507
+#: src/Views/Profile.vala:510
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr "Osoba \"%s\" została dodana do \"%s\""
@@ -1039,16 +1035,15 @@ msgstr "Użyty %d razy przez %d osób w ciągu ostatnich dwóch dni"
 msgid "Search returned no results"
 msgstr "Wyszukiwanie nie przyniosło żadnych wyników"
 
-#. translators: the variable is a comma separated list of account handles
-#: src/API/Conversation.vala:17
+#. translators: the variable is a comma separated list of account handles,
+#. this is a state - not an action
+#: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
 msgstr "Pusta rozmowa z %s"
 
-#: src/Views/Profile.vala:141
-msgid "Following"
-msgstr "obserwowanych"
+#~ msgid "Following"
+#~ msgstr "obserwowanych"
 
-#: src/Views/Profile.vala:145
-msgid "Followers"
-msgstr "obserwujących"
+#~ msgid "Followers"
+#~ msgstr "obserwujących"
