@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-02 12:04+0300\n"
-"PO-Revision-Date: 2023-03-27 11:06+0000\n"
+"PO-Revision-Date: 2023-05-03 03:58+0000\n"
 "Last-Translator: Ali Galal <ali.sameh.galal@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -179,7 +179,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Posting"
-msgstr ""
+msgstr "نشر"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
@@ -187,7 +187,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:77
 msgid "Default post language"
-msgstr ""
+msgstr "لغة النشر الافتراضية"
 
 #: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
@@ -203,7 +203,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:104
 msgid "Background work"
-msgstr ""
+msgstr "العمل في الخلفية"
 
 #: data/ui/dialogs/preferences.ui:106
 #, fuzzy
@@ -241,7 +241,7 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:221
 msgid "Add Account"
-msgstr ""
+msgstr "أضف حساب"
 
 #: data/ui/dialogs/new_account.ui:27 data/ui/dialogs/compose.ui:29
 #: src/Application.vala:300
@@ -250,11 +250,11 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:34 data/ui/dialogs/new_account.ui:119
 msgid "Next"
-msgstr ""
+msgstr "التالي"
 
 #: data/ui/dialogs/new_account.ui:48
 msgid "What is your Server?"
-msgstr ""
+msgstr "ما هو خادمك؟"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
