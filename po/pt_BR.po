@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-23 18:13+0200\n"
-"PO-Revision-Date: 2023-04-01 01:38+0000\n"
-"Last-Translator: Cassio Gomes Pereira <cassiogomes00@gmail.com>\n"
+"PO-Revision-Date: 2023-04-26 12:49+0000\n"
+"Last-Translator: Infinitive Witch <infinitivewitch@disroot.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -113,7 +113,7 @@ msgstr "Moderação"
 
 #: data/ui/menus.ui:31
 msgid "Hide Boosts"
-msgstr "Ocultar boosts"
+msgstr "Ocultar Impulsionamentos"
 
 #: data/ui/menus.ui:36
 msgid "Mute"
