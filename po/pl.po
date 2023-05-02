@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-02 12:04+0300\n"
-"PO-Revision-Date: 2023-04-14 06:50+0000\n"
+"PO-Revision-Date: 2023-05-03 03:58+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -465,7 +465,7 @@ msgstr "Konta"
 
 #: src/Views/Search.vala:42
 msgid "Posts"
-msgstr "wpisów"
+msgstr "Wpisy"
 
 #: src/Views/Search.vala:43 src/Services/Accounts/Mastodon/Account.vala:108
 msgid "Hashtags"
@@ -483,7 +483,7 @@ msgstr "Profil"
 #: src/Views/Profile.vala:138
 #, c-format
 msgid "%lld Posts"
-msgstr ""
+msgstr "%lld wpisów"
 
 #. translators: the variable is the amount of people a user follows
 #: src/Views/Profile.vala:143
