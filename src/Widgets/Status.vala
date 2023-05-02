@@ -108,6 +108,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 				if (p.count <= 0) return;
 
 				var badge_button = new Button() {
+					// translators: the variable is the emoji or its name if it's custom
 					tooltip_text = _("React with %s").printf (p.name)
 				};
 				var badge = new Box(Orientation.HORIZONTAL, 6);
@@ -232,6 +233,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		menu_model.append (_("Open in Browser"), "status.open-in-browser");
 		menu_model.append (_("Copy URL"), "status.copy-url");
 
+		// translators: as in post stats (who liked and boosted)
 		var stats_menu_item = new MenuItem(_("View Stats"), "status.status-stats");
 		stats_menu_item.set_attribute_value("hidden-when", "action-disabled");
 		menu_model.append_item (stats_menu_item);

@@ -139,6 +139,7 @@ public class Tuba.Widgets.VoteBox: Box {
             row_number++;
         }
 
+        // translators: the variable is the amount of people that voted
         people_label.label = _("%lld voted").printf(poll.votes_count);
         expires_label.label = poll.expired ? DateTime.humanize_ago(poll.expires_at) : DateTime.humanize_left(poll.expires_at);
 	}

@@ -397,6 +397,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		box.append(headerbar);
 		box.append(toast_overlay);
 		var dialog = new Adw.Window() {
+			// translators: the variable is an account handle
 			title = _("Add or remove \"%s\" to or from a list").printf (profile.handle),
 			modal = true,
 			transient_for = app.main_window,
@@ -408,6 +409,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 		var preferences_page = new Adw.PreferencesPage();
 		var preferences_group = new Adw.PreferencesGroup() {
+			// translators: the variable is an account handle
 			title = _("Select the list to add or remove \"%s\" to or from:").printf (profile.handle)
 		};
 

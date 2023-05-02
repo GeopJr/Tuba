@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-23 18:13+0200\n"
+"POT-Creation-Date: 2023-05-02 07:15+0300\n"
 "PO-Revision-Date: 2023-04-27 21:50+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
@@ -62,23 +62,23 @@ msgstr ""
 msgid "Evangelos \"GeopJr\" Paterakis"
 msgstr "Evangelos 'GeopJr' Paterakis"
 
-#: data/ui/widgets/status.ui:90
+#: data/ui/widgets/status.ui:151
 msgid "Pinned"
 msgstr "سنجاق شده"
 
-#: data/ui/widgets/status.ui:101
+#: data/ui/widgets/status.ui:162
 msgid "Edited"
 msgstr "ویراسته"
 
-#: data/ui/widgets/status.ui:178 src/Widgets/Status.vala:293
+#: data/ui/widgets/status.ui:243 src/Widgets/Status.vala:325
 msgid "Show More"
 msgstr "نمایش بیش‌تر"
 
-#: data/ui/widgets/status.ui:280 data/ui/widgets/status.ui:281
+#: data/ui/widgets/status.ui:322 data/ui/widgets/status.ui:323
 msgid "Decline"
 msgstr "رد کردن"
 
-#: data/ui/widgets/status.ui:293 data/ui/widgets/status.ui:294
+#: data/ui/widgets/status.ui:335 data/ui/widgets/status.ui:336
 msgid "Accept"
 msgstr "پذیرفتن"
 
@@ -118,7 +118,7 @@ msgstr "خموش"
 msgid "Report"
 msgstr "گزارش"
 
-#: data/ui/menus.ui:47 src/Views/Profile.vala:268 src/Views/Profile.vala:292
+#: data/ui/menus.ui:47 src/Views/Profile.vala:271 src/Views/Profile.vala:295
 msgid "Block"
 msgstr "انسداد"
 
@@ -151,7 +151,7 @@ msgstr "سیاهه‌ها"
 msgid "Refresh"
 msgstr "بازخوانی"
 
-#: data/ui/dialogs/preferences.ui:19 src/Views/Lists.vala:91
+#: data/ui/dialogs/preferences.ui:19 src/Views/Lists.vala:90
 msgid "General"
 msgstr "عمومی"
 
@@ -180,59 +180,71 @@ msgid "Makes the line height larger for posts"
 msgstr "بلندای خطا را برای فرسته‌ها بیش‌تر می‌کند"
 
 #: data/ui/dialogs/preferences.ui:65
+msgid "Posting"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:68
+msgid "Default post visibility"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:77
+msgid "Default post language"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
 msgstr "رفتار"
 
-#: data/ui/dialogs/preferences.ui:68
+#: data/ui/dialogs/preferences.ui:91
 msgid "Autostart"
 msgstr "آغاز خودکار"
 
-#: data/ui/dialogs/preferences.ui:70
+#: data/ui/dialogs/preferences.ui:93
 msgid "Start minimized at boot"
 msgstr "آغاز کمینه هنگام راه‌اندازی"
 
-#: data/ui/dialogs/preferences.ui:81
+#: data/ui/dialogs/preferences.ui:104
 msgid "Background work"
 msgstr "کار پس‌زمینه"
 
-#: data/ui/dialogs/preferences.ui:83
+#: data/ui/dialogs/preferences.ui:106
 msgid "Receive notifications even when the app is closed"
 msgstr "دریافت آگاهی‌ها حتا هنگام بسته بودن کاره"
 
-#: data/ui/dialogs/preferences.ui:95
+#: data/ui/dialogs/preferences.ui:118
 msgid "Timelines"
 msgstr "خط‌‌های زمانی"
 
-#: data/ui/dialogs/preferences.ui:98
+#: data/ui/dialogs/preferences.ui:121
 msgid "Posts per load batch"
 msgstr "فرسته‌ها در هر بار بار کردن"
 
-#: data/ui/dialogs/preferences.ui:112
+#: data/ui/dialogs/preferences.ui:135
 msgid "Stream timelines"
 msgstr "خط‌های زمانی جریانی"
 
-#: data/ui/dialogs/preferences.ui:114
+#: data/ui/dialogs/preferences.ui:137
 msgid "Receive new posts and notifications in real-time"
 msgstr "گرفتن بلادرنگ آگاهی‌ها و فرسته‌های جدید"
 
-#: data/ui/dialogs/preferences.ui:125
+#: data/ui/dialogs/preferences.ui:148
 msgid "Stream public timelines"
 msgstr "خط‌های زمانی عمومی جریانی"
 
-#: data/ui/dialogs/preferences.ui:127
+#: data/ui/dialogs/preferences.ui:150
 msgid "Warning: This will increase memory usage"
 msgstr "هشدار: این کار موجب افزایش مصرف حافظه خواهد شد"
 
-#: data/ui/dialogs/preferences.ui:137
+#: data/ui/dialogs/preferences.ui:160
 msgid "Reveal spoilers by default"
 msgstr "آشکارسازی لوث‌کن‌ها به صورت پیش‌گزیده"
 
-#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:216
+#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:221
 msgid "Add Account"
 msgstr "افزودن حساب"
 
 #: data/ui/dialogs/new_account.ui:27 data/ui/dialogs/compose.ui:29
-#: src/Application.vala:283
+#: src/Application.vala:300
 msgid "Cancel"
 msgstr "لغو"
 
@@ -285,7 +297,7 @@ msgstr "انجام شد"
 msgid "Your account is connected and ready to use!"
 msgstr "حسابتان وصل و آمادهٔ استفاده است!"
 
-#: data/ui/dialogs/compose.ui:35 src/Dialogs/Composer/Dialog.vala:57
+#: data/ui/dialogs/compose.ui:35 src/Dialogs/Composer/Dialog.vala:70
 msgid "_Publish"
 msgstr "_انتشار"
 
@@ -293,77 +305,75 @@ msgstr "_انتشار"
 msgid "Vote"
 msgstr "رای"
 
-#: src/Widgets/VoteBox.vala:141
+#. translators: the variable is the amount of people that voted
+#: src/Widgets/VoteBox.vala:143
 #, c-format
 msgid "%lld voted"
 msgstr "%lld رأی"
 
-#: src/Widgets/StatusActionButton.vala:161
+#: src/Widgets/StatusActionButton.vala:162
 msgid "Network Error"
 msgstr "خطای شبکه"
 
-#: src/Widgets/Status.vala:108
+#. translators: the variable is the emoji or its name if it's custom
+#: src/Widgets/Status.vala:112
 #, c-format
 msgid "React with %s"
 msgstr "واکنش با %s"
 
-#: src/Widgets/Status.vala:218 src/Widgets/Attachment/Item.vala:169
-#: src/Views/MediaViewer.vala:174
+#: src/Widgets/Status.vala:233 src/Widgets/Attachment/Item.vala:169
+#: src/Views/MediaViewer.vala:314
 msgid "Open in Browser"
 msgstr "گشودن در مرورگر"
 
-#: src/Widgets/Status.vala:219 src/Widgets/Attachment/Item.vala:170
-#: src/Views/MediaViewer.vala:175
+#: src/Widgets/Status.vala:234 src/Widgets/Attachment/Item.vala:170
+#: src/Views/MediaViewer.vala:315
 msgid "Copy URL"
 msgstr "رونوشت URL"
 
-#: src/Widgets/Status.vala:221
+#. translators: as in post stats (who liked and boosted)
+#: src/Widgets/Status.vala:237
+msgid "View Stats"
+msgstr ""
+
+#: src/Widgets/Status.vala:241
 msgid "View Edit History"
 msgstr "نمایش تاریچه ویرایش"
 
-#: src/Widgets/Status.vala:226
+#: src/Widgets/Status.vala:246
 msgid "Edit"
 msgstr "ویرایش"
 
-#: src/Widgets/Status.vala:227 src/Widgets/Status.vala:255
-#: src/Views/Lists.vala:63
+#: src/Widgets/Status.vala:247 src/Widgets/Status.vala:290
+#: src/Views/Lists.vala:62
 msgid "Delete"
 msgstr "حذف"
 
-#: src/Widgets/Status.vala:252
+#: src/Widgets/Status.vala:287
 msgid "Are you sure you want to delete this post?"
 msgstr "از حذف این فرسته مطمئنید؟"
 
-#: src/Widgets/Status.vala:300
+#: src/Widgets/Status.vala:332
 msgid "Sensitive"
 msgstr "حسّاس"
 
-#: src/Widgets/Status.vala:437
-msgid "Boosts"
-msgstr "تقویت"
-
-#: src/Widgets/Status.vala:442 src/Views/Favorites.vala:6
-#: src/Services/Accounts/Mastodon/Account.vala:60
-msgid "Favorites"
-msgstr "برگزینش"
-
-#: src/Widgets/Status.vala:509
+#: src/Widgets/Status.vala:536
 msgid "Reply"
 msgstr "پاسخ"
 
-#: src/Widgets/Status.vala:517
+#: src/Widgets/Status.vala:544
 msgid "This post can't be boosted"
 msgstr "این فرسته نمی‌تواند تقویت شپود"
 
-#: src/Widgets/Status.vala:522 src/Widgets/Status.vala:553
+#: src/Widgets/Status.vala:549 src/Widgets/Status.vala:580
 msgid "Boost"
 msgstr "تقویت"
 
-#: src/Widgets/Status.vala:564
+#: src/Widgets/Status.vala:591
 msgid "Favorite"
 msgstr "برگزیدن"
 
-#: src/Widgets/Status.vala:575
+#: src/Widgets/Status.vala:602
 msgid "Bookmark"
 msgstr "نشانک"
 
@@ -373,8 +383,8 @@ msgstr "نشانک"
 msgid "Follow"
 msgstr "پیگیری"
 
-#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:268
-#: src/Views/Profile.vala:292
+#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:271
+#: src/Views/Profile.vala:295
 msgid "Unblock"
 msgstr "رفع انسداد"
 
@@ -391,14 +401,14 @@ msgstr "ذخیرهٔ پیوست"
 msgid "View Alt Text"
 msgstr "دیدن متن جایگزین"
 
-#: src/Widgets/Attachment/Item.vala:171 src/Views/MediaViewer.vala:176
+#: src/Widgets/Attachment/Item.vala:171 src/Views/MediaViewer.vala:316
 msgid "Save Media"
 msgstr "ذخیرهٔ رسانه"
 
-#: src/Widgets/Attachment/Item.vala:188 src/Views/Sidebar.vala:245
-#: src/Views/MediaViewer.vala:161
-#: src/Services/Accounts/SecretAccountStore.vala:108
-#: src/Services/Accounts/AccountStore.vala:43 src/Application.vala:120
+#: src/Widgets/Attachment/Item.vala:188 src/Views/Sidebar.vala:251
+#: src/Views/MediaViewer.vala:417
+#: src/Services/Accounts/SecretAccountStore.vala:110
+#: src/Services/Accounts/AccountStore.vala:43 src/Application.vala:129
 msgid "Error"
 msgstr "خطا"
 
@@ -406,92 +416,94 @@ msgstr "خطا"
 msgid "Conversation"
 msgstr "گفت‌وگو"
 
-#: src/Views/Sidebar.vala:24
+#: src/Views/Sidebar.vala:22
 msgid "Preferences"
 msgstr "ترجیحات"
 
-#: src/Views/Sidebar.vala:33
+#: src/Views/Sidebar.vala:31
 msgid "About"
 msgstr "درباره"
 
-#: src/Views/Sidebar.vala:121
+#: src/Views/Sidebar.vala:122
 msgid "Anonymous"
 msgstr "ناشناس"
 
-#: src/Views/Sidebar.vala:122
+#: src/Views/Sidebar.vala:123
 msgid "No account selected"
 msgstr "هیچ حسابی گزیده نشده"
 
-#: src/Views/Sidebar.vala:231
+#. translators: the variable is an account handle
+#: src/Views/Sidebar.vala:237
 #, c-format
 msgid "Forget %s?"
 msgstr "فراموشی %s؟"
 
-#: src/Views/Sidebar.vala:232
+#: src/Views/Sidebar.vala:238
 msgid "This account will be removed from the application."
 msgstr "این حساب از برنامه برداشته خواهد شد."
 
-#: src/Views/Sidebar.vala:234
+#: src/Views/Sidebar.vala:240
 msgid "Forget"
 msgstr "فراموشی"
 
-#: src/Views/Search.vala:15 src/Views/Main.vala:19
+#: src/Views/Search.vala:16 src/Views/Main.vala:19
 msgid "Search"
 msgstr "جست‌وجو"
 
-#: src/Views/Search.vala:38
+#. translators: as in All search results
+#: src/Views/Search.vala:40
+msgid "All"
+msgstr ""
+
+#: src/Views/Search.vala:41
 msgid "Accounts"
 msgstr "حساب‌ها"
 
-#: src/Views/Search.vala:39
-msgid "Statuses"
-msgstr "وضعیت‌ها"
-
-#: src/Views/Search.vala:40
-msgid "Hashtags"
-msgstr "برچسب‌ها"
-
-#: src/Views/Search.vala:55
-msgid "Enter Query"
-msgstr "ورود پرس‌وجو"
-
-#: src/Views/Profile.vala:36
-msgid "Profile"
-msgstr "نمایه"
-
-#: src/Views/Profile.vala:134
+#: src/Views/Search.vala:42 src/Views/Profile.vala:137
 msgid "Posts"
 msgstr "فرسته"
 
-#: src/Views/Profile.vala:138
+#: src/Views/Search.vala:43 src/Services/Accounts/Mastodon/Account.vala:108
+msgid "Hashtags"
+msgstr "برچسب‌ها"
+
+#: src/Views/Search.vala:65
+msgid "Enter Query"
+msgstr "ورود پرس‌وجو"
+
+#: src/Views/Profile.vala:35
+msgid "Profile"
+msgstr "نمایه"
+
+#: src/Views/Profile.vala:141
 msgid "Following"
 msgstr "پی گرفته"
 
-#: src/Views/Profile.vala:142
+#: src/Views/Profile.vala:145
 msgid "Followers"
 msgstr "پی‌گیرنده"
 
-#: src/Views/Profile.vala:261
+#: src/Views/Profile.vala:264
 #, c-format
 msgid "Block \"%s\"?"
 msgstr "انسداد «%s»؟"
 
-#: src/Views/Profile.vala:261
+#: src/Views/Profile.vala:264
 #, c-format
 msgid "Unblock \"%s\"?"
 msgstr "رفع انسداد «%s\"»؟"
 
-#: src/Views/Profile.vala:286
+#: src/Views/Profile.vala:289
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr "انسداد کل«\"%s»؟"
 
-#: src/Views/Profile.vala:286
+#: src/Views/Profile.vala:289
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr "رفع انسداد کل «%s»؟"
 
-#: src/Views/Profile.vala:290
+#: src/Views/Profile.vala:293
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -505,52 +517,54 @@ msgstr ""
 "• پی‌گیرانش را از حسابتان برمی‌دارد\n"
 "• از پی‌گیری کاربرانش بازتان می دارد"
 
-#: src/Views/Profile.vala:339
+#: src/Views/Profile.vala:342
 msgid "Sent follow request"
 msgstr "درخواست پی‌گیری ارسال شد"
 
-#: src/Views/Profile.vala:341
+#: src/Views/Profile.vala:344
 msgid "Mutuals"
 msgstr "دوطرفه"
 
-#: src/Views/Profile.vala:343
+#: src/Views/Profile.vala:346
 msgid "Follows you"
 msgstr "پی‌گیرتان است"
 
-#: src/Views/Profile.vala:396
+#. translators: the variable is an account handle
+#: src/Views/Profile.vala:401
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
 msgstr "اضافه یا حذف «%s» به یا از یک سیاهه"
 
-#: src/Views/Profile.vala:407
+#. translators: the variable is an account handle
+#: src/Views/Profile.vala:413
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr "گزینش سیاهه برای افزودن یا حذف «%s»:"
 
-#: src/Views/Profile.vala:413
+#: src/Views/Profile.vala:419
 msgid "You don't have any lists"
 msgstr "هیچ سیاهه‌ای ندارید"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:440 src/Views/Profile.vala:502
+#: src/Views/Profile.vala:448 src/Views/Profile.vala:510
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr "برداشتن «%s« از«%s»"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:440 src/Views/Profile.vala:496
+#: src/Views/Profile.vala:448 src/Views/Profile.vala:504
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr "افزودن «%s» به«\"%s»"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:493
+#: src/Views/Profile.vala:501
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr "کاربر «%s» از «%s» برداشته شد"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:499
+#: src/Views/Profile.vala:507
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr "کاربر «%s» به«\"%s» افزوده شد"
@@ -559,61 +573,77 @@ msgstr "کاربر «%s» به«\"%s» افزوده شد"
 msgid "Notifications"
 msgstr "آگاهی‌ها"
 
-#: src/Views/MediaViewer.vala:103
+#: src/Views/MediaViewer.vala:236
 msgid "Media Viewer"
 msgstr "نمایشگر رسانه"
 
-#: src/Views/MediaViewer.vala:109
+#: src/Views/MediaViewer.vala:242
 msgid "Go Back"
 msgstr "بازگشت به عقب"
 
-#: src/Views/MediaViewer.vala:116
+#: src/Views/MediaViewer.vala:249
 msgid "Toggle Fullscreen"
 msgstr "تغییر حالت تمام‌صفحه"
+
+#: src/Views/MediaViewer.vala:496
+msgid "Previous Attachment"
+msgstr ""
+
+#: src/Views/MediaViewer.vala:501
+msgid "Next Attachment"
+msgstr ""
+
+#: src/Views/MediaViewer.vala:519
+msgid "Zoom Out"
+msgstr ""
+
+#: src/Views/MediaViewer.vala:524
+msgid "Zoom In"
+msgstr ""
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
 msgstr "محلی"
 
-#: src/Views/Lists.vala:60
+#: src/Views/Lists.vala:59
 #, c-format
 msgid "Delete \"%s\"?"
 msgstr "حذف «%s»؟"
 
-#: src/Views/Lists.vala:61
+#: src/Views/Lists.vala:60
 msgid "This action cannot be reverted."
 msgstr "این کنش بازگشت‌پذیر نیست."
 
-#: src/Views/Lists.vala:86
+#: src/Views/Lists.vala:85
 #, c-format
 msgid "Edit \"%s\""
 msgstr "ویرایش «%s»"
 
-#: src/Views/Lists.vala:94
+#: src/Views/Lists.vala:93
 msgid "Info"
 msgstr "اطّلاعات"
 
-#: src/Views/Lists.vala:98
+#: src/Views/Lists.vala:97
 msgid "List Name"
 msgstr "نام سیاهه"
 
-#: src/Views/Lists.vala:107
+#: src/Views/Lists.vala:106
 msgid "Replies Policy"
 msgstr "سیاست پاسخ‌ها"
 
-#: src/Views/Lists.vala:108
+#: src/Views/Lists.vala:107
 msgid "Show member replies to"
 msgstr "نمایش پاسخ‌های عضو به"
 
-#: src/Views/Lists.vala:112
+#: src/Views/Lists.vala:111
 msgid "Nobody"
 msgstr "هیچ‌کس"
 
-#: src/Views/Lists.vala:124
+#: src/Views/Lists.vala:123
 msgid "Other members of the list"
 msgstr "دیگر اعضای سیاهه"
 
-#: src/Views/Lists.vala:136
+#: src/Views/Lists.vala:135
 msgid "Any followed user"
 msgstr "هر کاربر پی‌گیر شده"
 
@@ -625,15 +655,15 @@ msgstr "اعضا"
 msgid "Remove Members"
 msgstr "برداشتن اعضا"
 
-#: src/Views/Lists.vala:309
+#: src/Views/Lists.vala:310
 msgid "New list title"
 msgstr "عنوان سیاههٔ جدید"
 
-#: src/Views/Lists.vala:318
+#: src/Views/Lists.vala:319
 msgid "Add list"
 msgstr "افزودن سیاهه"
 
-#: src/Views/Home.vala:6 src/Services/Accounts/Mastodon/Account.vala:26
+#: src/Views/Home.vala:5 src/Services/Accounts/Mastodon/Account.vala:26
 msgid "Home"
 msgstr "خانه"
 
@@ -646,11 +676,15 @@ msgstr "درخواست‌های پی‌گیری"
 msgid "Federated"
 msgstr "همگانی"
 
+#: src/Views/Favorites.vala:6 src/Services/Accounts/Mastodon/Account.vala:60
+msgid "Favorites"
+msgstr "برگزینش"
+
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
 msgstr "ویرایش تاریخچه"
 
-#: src/Views/Conversations.vala:6
+#: src/Views/Conversations.vala:5
 msgid "Conversations"
 msgstr "گفت‌وگو‌ها"
 
@@ -662,11 +696,11 @@ msgstr "نشانک‌ها"
 msgid "Nothing to see here"
 msgstr "چیزی برای نمایش وجود ندارد"
 
-#: src/Views/Base.vala:41
+#: src/Views/Base.vala:73
 msgid "Reload"
 msgstr "بازخوانی"
 
-#: src/Views/Base.vala:108
+#: src/Views/Base.vala:125
 msgid "An Error Occurred"
 msgstr "خطایی رخ داد"
 
@@ -742,22 +776,22 @@ msgid "%b %-e, %Y"
 msgstr "%b %-e, %Y"
 
 #. translators: Follow System's dark mode preference
-#: src/Services/Settings.vala:46
+#: src/Services/Settings.vala:49
 msgid "Follow System"
 msgstr "پیروی از سامانه"
 
 #. translators: Light mode theme
-#: src/Services/Settings.vala:49
+#: src/Services/Settings.vala:52
 msgid "Light"
 msgstr "روشن"
 
 #. translators: Dark mode theme
-#: src/Services/Settings.vala:52
+#: src/Services/Settings.vala:55
 msgid "Dark"
 msgstr "تیره"
 
 #. translators: The variable is the backend like "Mastodon"
-#: src/Services/Accounts/SecretAccountStore.vala:94
+#: src/Services/Accounts/SecretAccountStore.vala:96
 #, c-format
 msgid "%s Account"
 msgstr "حساب %s"
@@ -766,70 +800,70 @@ msgstr "حساب %s"
 msgid "Direct Messages"
 msgstr "پیام های مستقیم"
 
-#: src/Services/Accounts/Mastodon/Account.vala:127
+#: src/Services/Accounts/Mastodon/Account.vala:136
 msgid "Public"
 msgstr "عمومی"
 
-#: src/Services/Accounts/Mastodon/Account.vala:129
+#: src/Services/Accounts/Mastodon/Account.vala:138
 msgid "Post to public timelines"
 msgstr "فرستادن به خط زمانی عمومی"
 
 #. translators: Probably follow Mastodon's translation
-#: src/Services/Accounts/Mastodon/Account.vala:134
+#: src/Services/Accounts/Mastodon/Account.vala:143
 msgid "Unlisted"
 msgstr "سیاهه نشده"
 
-#: src/Services/Accounts/Mastodon/Account.vala:136
+#: src/Services/Accounts/Mastodon/Account.vala:145
 msgid "Don't post to public timelines"
 msgstr "نمایان برای همه ولی خارج از قابلیت‌های کشف"
 
-#: src/Services/Accounts/Mastodon/Account.vala:140
+#: src/Services/Accounts/Mastodon/Account.vala:149
 msgid "Followers Only"
 msgstr "فقط پی‌گیران"
 
-#: src/Services/Accounts/Mastodon/Account.vala:142
+#: src/Services/Accounts/Mastodon/Account.vala:151
 msgid "Post to followers only"
 msgstr "فقط فرستادن به پیگیران"
 
-#: src/Services/Accounts/Mastodon/Account.vala:146
+#: src/Services/Accounts/Mastodon/Account.vala:155
 msgid "Direct"
 msgstr "مستقیم"
 
-#: src/Services/Accounts/Mastodon/Account.vala:148
+#: src/Services/Accounts/Mastodon/Account.vala:157
 msgid "Post to mentioned users only"
 msgstr "فقط فرستادن به کاربران اشاره شده"
 
-#: src/Services/Accounts/InstanceAccount.vala:132
+#: src/Services/Accounts/InstanceAccount.vala:136
 #, c-format
 msgid "%s mentioned you"
 msgstr "%s از شما یاد کرد"
 
-#: src/Services/Accounts/InstanceAccount.vala:137
+#: src/Services/Accounts/InstanceAccount.vala:141
 #, c-format
 msgid "%s boosted your post"
 msgstr "%s فرسته‌تان را تقویت کرد"
 
-#: src/Services/Accounts/InstanceAccount.vala:142
+#: src/Services/Accounts/InstanceAccount.vala:146
 #, c-format
 msgid "%s boosted"
 msgstr "%s تقویت کرد"
 
-#: src/Services/Accounts/InstanceAccount.vala:147
+#: src/Services/Accounts/InstanceAccount.vala:151
 #, c-format
 msgid "%s favorited your post"
 msgstr "%s فرسته‌تان را برگزید"
 
-#: src/Services/Accounts/InstanceAccount.vala:152
+#: src/Services/Accounts/InstanceAccount.vala:156
 #, c-format
 msgid "%s now follows you"
 msgstr "هم‌اکنون %s پی می‌گیردتان"
 
-#: src/Services/Accounts/InstanceAccount.vala:157
+#: src/Services/Accounts/InstanceAccount.vala:161
 #, c-format
 msgid "%s wants to follow you"
 msgstr "%s می‌خواهد پی بگیردتان"
 
-#: src/Services/Accounts/InstanceAccount.vala:162
+#: src/Services/Accounts/InstanceAccount.vala:166
 msgid "Poll results"
 msgstr "نتایج نظرسنجی"
 
@@ -845,20 +879,20 @@ msgstr "کد هویت‌سنجی را از مرورگر رونوشت کرده و
 msgid "Please enter a valid instance URL"
 msgstr "لطفاً نشانی نمونهٔ معتبری را وارد کنید"
 
-#: src/Dialogs/NewAccount.vala:153
+#: src/Dialogs/NewAccount.vala:154
 msgid "Please enter a valid authorization code"
 msgstr "لطفاُ کد هویت‌سنجی معتبری را وارد کنید"
 
-#: src/Dialogs/NewAccount.vala:169
+#: src/Dialogs/NewAccount.vala:171
 msgid "Instance failed to authorize the access token"
 msgstr "نمونه در هویت‌سنجی ژتون دسترسی شکست خورد"
 
-#: src/Dialogs/NewAccount.vala:178
+#: src/Dialogs/NewAccount.vala:180
 #, c-format
 msgid "Hello, %s!"
 msgstr "سلام %s!"
 
-#: src/Dialogs/NewAccount.vala:228
+#: src/Dialogs/NewAccount.vala:238
 msgid "Server returned an error"
 msgstr "کارساز خطایی برگرداند"
 
@@ -871,40 +905,44 @@ msgstr "گزینه‌ها"
 msgid "Text"
 msgstr "متن"
 
-#: src/Dialogs/Composer/EditorPage.vala:109
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:104
+#: src/Dialogs/Composer/EditorPage.vala:130
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:108
 msgid "Characters Left"
 msgstr "نویسه مانده"
 
-#: src/Dialogs/Composer/EditorPage.vala:121
+#: src/Dialogs/Composer/EditorPage.vala:149
 msgid "What's on your mind?"
 msgstr "چه در سرتان است؟"
 
-#: src/Dialogs/Composer/EditorPage.vala:146
+#: src/Dialogs/Composer/EditorPage.vala:170
 msgid "Emoji Picker"
 msgstr "اموجی‌گزین"
 
-#: src/Dialogs/Composer/EditorPage.vala:163
+#: src/Dialogs/Composer/EditorPage.vala:187
 msgid "Write your warning here"
 msgstr "هشدارتان را این‌جا بنویسید"
 
-#: src/Dialogs/Composer/EditorPage.vala:178
+#: src/Dialogs/Composer/EditorPage.vala:202
 msgid "Content Warning"
 msgstr "هشدار محتوا"
 
-#: src/Dialogs/Composer/EditorPage.vala:199
+#: src/Dialogs/Composer/EditorPage.vala:229
 msgid "Post Privacy"
 msgstr "محرمانگی فرسته"
 
-#: src/Dialogs/Composer/Dialog.vala:65
+#: src/Dialogs/Composer/EditorPage.vala:252
+msgid "Post Language"
+msgstr ""
+
+#: src/Dialogs/Composer/Dialog.vala:78
 msgid "_Redraft"
 msgstr "_پیش‌نویسی دوباره"
 
-#: src/Dialogs/Composer/Dialog.vala:76
+#: src/Dialogs/Composer/Dialog.vala:95
 msgid "_Edit"
 msgstr "_ویرایش"
 
-#: src/Dialogs/Composer/Dialog.vala:92
+#: src/Dialogs/Composer/Dialog.vala:112
 msgid "_Reply"
 msgstr "_پاسخ"
 
@@ -912,71 +950,71 @@ msgstr "_پاسخ"
 msgid "Edit Alt Text"
 msgstr "ویرایش متن جایگزین"
 
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:43
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:44
 msgid "Remove Attachment"
 msgstr "برداشتن پیوست"
 
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:109
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:113
 msgid "Save"
 msgstr "ذخیره"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:39
+#: src/Dialogs/Composer/AttachmentsPage.vala:51
 msgid "Media"
 msgstr "رسانه"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:55
-#: src/Dialogs/Composer/AttachmentsPage.vala:79
+#: src/Dialogs/Composer/AttachmentsPage.vala:67
+#: src/Dialogs/Composer/AttachmentsPage.vala:91
 msgid "Add Media"
 msgstr "افزودن رسانه"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:64
+#: src/Dialogs/Composer/AttachmentsPage.vala:76
 msgid "No Media"
 msgstr "بدون رسانه"
 
 #. translators: sensitive as in not safe for work or similar
-#: src/Dialogs/Composer/AttachmentsPage.vala:89
-#: src/Dialogs/Composer/AttachmentsPage.vala:97
+#: src/Dialogs/Composer/AttachmentsPage.vala:101
+#: src/Dialogs/Composer/AttachmentsPage.vala:109
 msgid "Mark media as sensitive"
 msgstr "علامت زدن رسانه به عنوان حسّاس"
 
 #. translators: sensitive as in not safe for work or similar
-#: src/Dialogs/Composer/AttachmentsPage.vala:97
+#: src/Dialogs/Composer/AttachmentsPage.vala:109
 msgid "Unmark media as sensitive"
 msgstr "برداشتن علامت حسّاس از رسانه"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:158
+#: src/Dialogs/Composer/AttachmentsPage.vala:182
 msgid "All Supported Files"
 msgstr "تمامی پرونده‌های پشتیبانی شده"
 
 #. translators: Open file
-#: src/Dialogs/Composer/AttachmentsPage.vala:170
+#: src/Dialogs/Composer/AttachmentsPage.vala:194
 msgid "Open"
 msgstr "گشودن"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:202
+#: src/Dialogs/Composer/AttachmentsPage.vala:228
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
 msgstr "پروندهٔ «%s» بزرگ‌تر از کران نمونه است"
 
 #. translators: Name <email@domain.com> or Name https://website.example
-#: src/Application.vala:258
+#: src/Application.vala:275
 msgid "translator-credits"
 msgstr ""
 "جادو <ssmns@outlook.com>\n"
 "دانیال بهزادی <dani.behzi@ubuntu.com>"
 
-#: src/Application.vala:283
+#: src/Application.vala:300
 msgid "Yes"
 msgstr "بله"
 
 #. translators: the variables are numbers
-#: src/API/Tag.vala:27
+#: src/API/Tag.vala:36
 #, c-format
 msgid "Used %d times by %d people yesterday"
 msgstr "دیروز %d بار به دست %d نفر استفاده شد"
 
 #. translators: the variables are numbers
-#: src/API/Tag.vala:35
+#: src/API/Tag.vala:44
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
 msgstr "در ۲ روز گذشته %d بار به دست %d نفر استفاده شد"
@@ -984,3 +1022,9 @@ msgstr "در ۲ روز گذشته %d بار به دست %d نفر استفاده
 #: src/API/SearchResults.vala:21
 msgid "Search returned no results"
 msgstr "جست‌وجو نتیجه‌ای برنگرداند"
+
+#. translators: the variable is a comma separated list of account handles
+#: src/API/Conversation.vala:17
+#, c-format
+msgid "Empty Conversation with %s"
+msgstr ""

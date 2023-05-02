@@ -233,6 +233,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 
 		[GtkCallback] void on_forget () {
 			var confirmed = app.question (
+				// translators: the variable is an account handle
 				_("Forget %s?".printf (account.handle)),
 				_("This account will be removed from the application."),
 				app.main_window,
