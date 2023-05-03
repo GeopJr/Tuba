@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-02 12:04+0300\n"
-"PO-Revision-Date: 2023-04-27 21:50+0000\n"
-"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
+"PO-Revision-Date: 2023-05-04 05:20+0000\n"
+"Last-Translator: Sajad Mousavi <s.sajad.mousavi@gmail.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
@@ -181,15 +181,15 @@ msgstr "بلندای خطا را برای فرسته‌ها بیش‌تر می�
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Posting"
-msgstr ""
+msgstr "فرستادن"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
-msgstr ""
+msgstr "نمایش پیش‌فرض فرسته"
 
 #: data/ui/dialogs/preferences.ui:77
 msgid "Default post language"
-msgstr ""
+msgstr "زبان پیش‌فرض فرسته"
 
 #: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
@@ -217,7 +217,7 @@ msgstr "خط‌‌های زمانی"
 
 #: data/ui/dialogs/preferences.ui:121
 msgid "Posts per load batch"
-msgstr "فرسته‌ها در هر بار بار کردن"
+msgstr "تعداد فرسته‌ها در هر نوبت بارگذاری"
 
 #: data/ui/dialogs/preferences.ui:135
 msgid "Stream timelines"
@@ -334,7 +334,7 @@ msgstr "رونوشت URL"
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:237
 msgid "View Stats"
-msgstr ""
+msgstr "آمار مشاهده"
 
 #: src/Widgets/Status.vala:241
 msgid "View Edit History"
@@ -363,7 +363,7 @@ msgstr "پاسخ"
 
 #: src/Widgets/Status.vala:544
 msgid "This post can't be boosted"
-msgstr "این فرسته نمی‌تواند تقویت شپود"
+msgstr "این فرسته نمی‌تواند تقویت شود"
 
 #: src/Widgets/Status.vala:549 src/Widgets/Status.vala:580
 msgid "Boost"
@@ -453,7 +453,7 @@ msgstr "جست‌وجو"
 #. translators: as in All search results
 #: src/Views/Search.vala:40
 msgid "All"
-msgstr ""
+msgstr "همه"
 
 #: src/Views/Search.vala:41
 msgid "Accounts"
@@ -461,7 +461,7 @@ msgstr "حساب‌ها"
 
 #: src/Views/Search.vala:42
 msgid "Posts"
-msgstr "فرسته"
+msgstr "فرسته‌ها"
 
 #: src/Views/Search.vala:43 src/Services/Accounts/Mastodon/Account.vala:108
 msgid "Hashtags"
@@ -479,19 +479,19 @@ msgstr "نمایه"
 #: src/Views/Profile.vala:138
 #, c-format
 msgid "%lld Posts"
-msgstr ""
+msgstr "%lld فرسته‌"
 
 #. translators: the variable is the amount of people a user follows
 #: src/Views/Profile.vala:143
 #, c-format
 msgid "%lld Following"
-msgstr ""
+msgstr "%lld پی‌گرفته"
 
 #. translators: the variable is the amount of followers a user has
 #: src/Views/Profile.vala:148
 #, c-format
 msgid "%lld Followers"
-msgstr ""
+msgstr "%lld پی‌گیرنده"
 
 #: src/Views/Profile.vala:267
 #, c-format
@@ -597,19 +597,19 @@ msgstr "تغییر حالت تمام‌صفحه"
 
 #: src/Views/MediaViewer.vala:496
 msgid "Previous Attachment"
-msgstr ""
+msgstr "پیوست قبلی"
 
 #: src/Views/MediaViewer.vala:501
 msgid "Next Attachment"
-msgstr ""
+msgstr "پیوست بعدی"
 
 #: src/Views/MediaViewer.vala:519
 msgid "Zoom Out"
-msgstr ""
+msgstr "کاهش بزرگنمایی"
 
 #: src/Views/MediaViewer.vala:524
 msgid "Zoom In"
-msgstr ""
+msgstr "بزرگنمایی"
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
@@ -942,7 +942,7 @@ msgstr "محرمانگی فرسته"
 
 #: src/Dialogs/Composer/EditorPage.vala:252
 msgid "Post Language"
-msgstr ""
+msgstr "زبان فرسته"
 
 #: src/Dialogs/Composer/Dialog.vala:78
 msgid "_Redraft"
@@ -1038,4 +1038,4 @@ msgstr "جست‌وجو نتیجه‌ای برنگرداند"
 #: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "مکالمه خالی با %s"
