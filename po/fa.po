@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-02 12:04+0300\n"
-"PO-Revision-Date: 2023-05-04 05:20+0000\n"
-"Last-Translator: Sajad Mousavi <s.sajad.mousavi@gmail.com>\n"
+"PO-Revision-Date: 2023-05-04 10:12+0000\n"
+"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,9 @@ msgstr "کاربر فدیورس"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr "بوق؛ماستودون؛فدیورس؛گوتوسوشال؛پلروما؛آکوما؛"
+msgstr ""
+"toot;mastodon;fediverse;gotosocial;pleroma;akkoma;بوق;ماستودون;فدیورس;پلروما;"
+"گوتو سوشال;آکوما;"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:9
 msgid ""
@@ -185,11 +187,11 @@ msgstr "فرستادن"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
-msgstr "نمایش پیش‌فرض فرسته"
+msgstr "نمایانی پیش‌گزیدهٔ فرسته"
 
 #: data/ui/dialogs/preferences.ui:77
 msgid "Default post language"
-msgstr "زبان پیش‌فرض فرسته"
+msgstr "زبان پیش‌گزیدهٔ فرسته"
 
 #: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
@@ -217,7 +219,7 @@ msgstr "خط‌‌های زمانی"
 
 #: data/ui/dialogs/preferences.ui:121
 msgid "Posts per load batch"
-msgstr "تعداد فرسته‌ها در هر نوبت بارگذاری"
+msgstr "تعداد فرسته‌ها در هر نوبت بار کردن"
 
 #: data/ui/dialogs/preferences.ui:135
 msgid "Stream timelines"
@@ -597,7 +599,7 @@ msgstr "تغییر حالت تمام‌صفحه"
 
 #: src/Views/MediaViewer.vala:496
 msgid "Previous Attachment"
-msgstr "پیوست قبلی"
+msgstr "پیوست پیشین"
 
 #: src/Views/MediaViewer.vala:501
 msgid "Next Attachment"
@@ -605,11 +607,11 @@ msgstr "پیوست بعدی"
 
 #: src/Views/MediaViewer.vala:519
 msgid "Zoom Out"
-msgstr "کاهش بزرگنمایی"
+msgstr "کوچک‌نمایی"
 
 #: src/Views/MediaViewer.vala:524
 msgid "Zoom In"
-msgstr "بزرگنمایی"
+msgstr "بزرگ‌نمایی"
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
@@ -1038,4 +1040,4 @@ msgstr "جست‌وجو نتیجه‌ای برنگرداند"
 #: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr "مکالمه خالی با %s"
+msgstr "گفت‌وگوی خالی با %s"
