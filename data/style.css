@@ -257,9 +257,10 @@ flowboxchild {
 	background-color: @popover_bg_color;
 }
 
-/* .ttl-post {
-	padding: 12px;
-} */
+.ttl-post {
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
 
 .ttl-post-actions {
 	margin-bottom: -12px;
@@ -295,4 +296,8 @@ GtkSourceAssistant.completion list row{
 
 .locale-dropdown-upcase {
 	text-transform: uppercase;
+}
+
+.compose-button {
+	padding: 8px;
 }

@@ -9,20 +9,38 @@
       <object class="AdwHeaderBar">
         <property name="show-start-title-buttons">0</property>
         <property name="show-end-title-buttons">0</property>
-        <child type="start">
+        <!-- <child type="start">
           <object class="GtkButton" id="compose_button">
             <property name="icon-name">document-edit-symbolic</property>
             <property name="action-name">app.compose</property>
             <property name="tooltip_text" translatable="yes">Compose</property>
           </object>
-        </child>
+        </child> -->
         <child type="end">
-          <object class="GtkToggleButton" id="accounts_button">
-            <property name="icon-name">tuba-people-symbolic</property>
-            <signal name="toggled" handler="on_mode_changed"/>
-            <property name="tooltip_text" translatable="yes">Switch Account</property>
+          <object class="GtkButton">
+            <property name="icon-name">open-menu-symbolic</property>
+            <property name="tooltip_text" translatable="yes">Menu</property>
           </object>
         </child>
+        <child type="start">
+          <object class="GtkToggleButton" id="accounts_button">
+            <signal name="toggled" handler="on_mode_changed"/>
+            <property name="tooltip_text" translatable="yes">Switch Account</property>
+            <child>
+              <object class="TubaWidgetsAvatar" id="accounts_button_avi">
+                <property name="size">24</property>
+              </object>
+            </child>
+            <style>
+              <class name="flat"/>
+              <class name="circular"/>
+            </style>
+          </object>
+        </child>
+        <style>
+          <class name="flat"/>
+          <class name="no-title"/>
+        </style>
       </object>
     </child>
 

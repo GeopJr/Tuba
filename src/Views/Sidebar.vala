@@ -11,6 +11,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	[GtkChild] unowned Widgets.Avatar avatar;
 	[GtkChild] unowned Widgets.EmojiLabel title;
 	[GtkChild] unowned Label subtitle;
+	[GtkChild] unowned Widgets.Avatar accounts_button_avi;
 
 	protected InstanceAccount? account { get; set; default = null; }
 
@@ -79,6 +80,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 
 	private Binding sidebar_handle_short;
 	private Binding sidebar_avatar;
+	private Binding sidebar_avatar_btn;
 	private ulong sidebar_private_signal;
 	private Binding sidebar_display_name;
 	protected virtual void on_account_changed (InstanceAccount? account) {
@@ -109,6 +111,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 
 			sidebar_handle_short = this.account.bind_property("handle_short", subtitle, "label", BindingFlags.SYNC_CREATE);
 			sidebar_avatar = this.account.bind_property("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
+			sidebar_avatar_btn = this.account.bind_property("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
 			sidebar_display_name = this.account.bind_property("display-name", title, "content", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 				title.instance_emojis = this.account.emojis_map;
 				target.set_string (src.get_string ());
@@ -122,6 +125,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 			title.content = _("Anonymous");
 			subtitle.label = _("No account selected");
 			avatar.account = null;
+			accounts_button_avi.account = null;
 			account_items.model = null;
 		}
 	}

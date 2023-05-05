@@ -32,13 +32,21 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		}
 	};
 
-	//  public static Place PLACE_NOTIFICATIONS = new Place () {
-	//  	title = _("Notifications"),
-	//  	icon = "tuba-bell-symbolic",
-	//  	open_func = win => {
-	//  		win.open_view (new Views.Notifications ());
-	//  	}
-	//  };
+	public static Place PLACE_NOTIFICATIONS = new Place () {
+		title = _("Notifications"),
+		icon = "tuba-bell-symbolic",
+		open_func = win => {
+			win.open_view (new Views.Notifications ());
+		}
+	};
+
+	public static Place PLACE_CONVERSATIONS = new Place () {
+		title = _("Conversations"),
+		icon = "tuba-mail-symbolic",
+		open_func = win => {
+			win.open_view (new Views.Conversations ());
+		}
+	};
 
 	public static Place PLACE_MESSAGES = new Place () {
 		title = _("Direct Messages"),
@@ -72,13 +80,13 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		}
 	};
 
-	//  public static Place PLACE_SEARCH = new Place () {
-	//  	title = _("Search"),
-	//  	icon = "system-search-symbolic",
-	//  	open_func = (win) => {
-	//  		win.open_view (new Views.Search ());
-	//  	}
-	//  };
+	public static Place PLACE_SEARCH = new Place () {
+		title = _("Search"),
+		icon = "system-search-symbolic",
+		open_func = (win) => {
+			win.open_view (new Views.Search ());
+		}
+	};
 
 	public static Place PLACE_LOCAL = new Place () {
 		title = _("Local"),
@@ -114,13 +122,14 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public override void register_known_places (GLib.ListStore places) {
 		places.append (PLACE_HOME);
-		//  places.append (PLACE_SEARCH);
+		places.append (PLACE_NOTIFICATIONS);
+		places.append (PLACE_CONVERSATIONS);
+		places.append (PLACE_SEARCH);
+		places.append (PLACE_FAVORITES);
+		places.append (PLACE_BOOKMARKS);
 
 		places.append (PLACE_LOCAL);
 		places.append (PLACE_FEDERATED);
-
-		places.append (PLACE_FAVORITES);
-		places.append (PLACE_BOOKMARKS);
 		places.append (PLACE_LISTS);
 
 		places.append (PLACE_HASHTAGS);

@@ -26,7 +26,10 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	public override Widget to_widget () {
 		var w = new Adw.ActionRow () {
 			title = @"#$name",
-			activatable = true
+			activatable = true,
+			css_classes = {"card"},
+			margin_top = 6,
+			margin_bottom = 6
 		};
 		if (history != null && history.size > 0) {
 			var last_history_entry = history.get(0);

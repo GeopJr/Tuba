@@ -18,7 +18,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 			selection_mode = SelectionMode.NONE
 		};
 		content_box.append (content);
-		content.add_css_class ("content");
+		//  content.add_css_class ("content");
 		content.add_css_class ("ttl-content");
 		content.row_activated.connect (on_content_item_activated);
 
@@ -30,7 +30,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 				on_bottom_reached ();
 			}
 			
-			scroll_to_top.visible = scrolled.vadjustment.value > 1000 && scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper;
+			//  scroll_to_top.visible = scrolled.vadjustment.value > 1000 && scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper;
 		});
 	}
 	~ContentBase () {

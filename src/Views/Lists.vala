@@ -8,6 +8,10 @@ public class Tuba.Views.Lists : Views.Timeline {
 		Button edit_button;
 
 		construct {
+			this.add_css_class ("card");
+			this.margin_top = 6;
+			this.margin_bottom = 6;
+
 			var action_box = new Box(Orientation.HORIZONTAL, 6);
 
 			edit_button = new Button() {

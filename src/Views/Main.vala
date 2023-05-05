@@ -1,26 +1,33 @@
 using Gtk;
 
-public class Tuba.Views.Main : Views.TabbedBase {
+public class Tuba.Views.Main : Views.Home {
 
 	public Main () {
-		Object(is_main: true);
+		Object (
+            url: "/api/v1/timelines/home",
+            label: _("Home"),
+            icon: "tuba-home-symbolic",
+			is_main: true
+        );
 
-		add_tab (new Views.Home ());
-		add_tab (new Views.Notifications ());
-		add_tab (new Views.Conversations ());
+		//  add_tab (new Views.Home ());
+		//  add_tab (new Views.Notifications ());
+		//  add_tab (new Views.Conversations ());
 	}
 
 	public override void build_header () {
 		base.build_header ();
+		header.add_css_class ("flat");
+		header.add_css_class ("no-title");
 		back_button.hide ();
 
-		var search_button = new Button();
-		search_button.icon_name = "tuba-loupe-large-symbolic";
-		search_button.tooltip_text = _("Search");
-		search_button.clicked.connect ((source) => {
-			app.main_window.open_view (new Views.Search ());
-		});
-		header.pack_end(search_button);
+		//  var search_button = new Button();
+		//  search_button.icon_name = "tuba-loupe-large-symbolic";
+		//  search_button.tooltip_text = _("Search");
+		//  search_button.clicked.connect ((source) => {
+		//  	app.main_window.open_view (new Views.Search ());
+		//  });
+		//  header.pack_end(search_button);
 
 		var sidebar_button = new ToggleButton ();
 		header.pack_start (sidebar_button);
