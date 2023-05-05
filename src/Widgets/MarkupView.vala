@@ -49,7 +49,7 @@ public class Tuba.Widgets.MarkupView : Box {
 			w.destroy ();
 		}
 
-		var doc = Html.Doc.read_doc (content, "", "utf8");
+		var doc = Html.Doc.read_doc (HtmlUtils.replace_with_pango_markup(content), "", "utf8");
 		if (doc != null) {
 			var root = doc->get_root_element ();
 			if (root != null) {
@@ -148,18 +148,6 @@ public class Tuba.Widgets.MarkupView : Box {
 					traverse_and_handle (v, root, default_handler);
 					v.write_chunk ("</a>");
 				}
-				break;
-
-			case "em":
-				v.write_chunk (@"<i>");
-				traverse_and_handle (v, root, default_handler);
-				v.write_chunk (@"</i>");
-				break;
-
-			case "strong":
-				v.write_chunk (@"<b>");
-				traverse_and_handle (v, root, default_handler);
-				v.write_chunk (@"</b>");
 				break;
 
 			case "b":
