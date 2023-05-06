@@ -4,14 +4,14 @@ public class Tuba.ImageCache : AbstractCache {
 
 	public delegate void OnItemChangedFn (bool is_loaded, owned Paintable? data);
 
-	protected Paintable decode (owned Soup.Message msg, owned InputStream in_stream) throws Error {
+	protected async Paintable decode (owned Soup.Message msg, owned InputStream in_stream) throws Error {
 		var code = msg.status_code;
 		if (code != Soup.Status.OK) {
 			var error = msg.reason_phrase;
 			throw new Oopsie.INSTANCE (@"Server returned $error");
 		}
 
-        var pixbuf = new Pixbuf.from_stream (in_stream);
+        var pixbuf = yield new Pixbuf.from_stream_async (in_stream);
 
         return Gdk.Texture.for_pixbuf (pixbuf);
 	}
@@ -32,23 +32,25 @@ public class Tuba.ImageCache : AbstractCache {
 
             download_msg = new Soup.Message ("GET", url);
             network.queue (download_msg, null, (sess, mess, t_in_stream) => {
-                Paintable? paintable = null;
-                try {
-                    paintable = decode (download_msg, t_in_stream);
-                }
-                catch (Error e) {
-                    warning (@"Failed to download image at \"$url\". $(e.message).");
-                    cb (true, null);
-                    return;
-                }
+                decode.begin (download_msg, t_in_stream, (obj, async_res) => {
+                    Paintable? paintable = null;
+                    try {
+                        paintable = decode.end (async_res);
+                    }
+                    catch (Error e) {
+                        warning (@"Failed to download image at \"$url\". $(e.message).");
+                        cb (true, null);
+                        return;
+                    }
 
-                // message (@"[*] $key");
-                insert (url, paintable);
-                Signal.emit_by_name (download_msg, "finished");
+                    // message (@"[*] $key");
+                    insert (url, paintable);
+                    Signal.emit_by_name (download_msg, "finished");
 
-                items_in_progress.unset (key);
+                    items_in_progress.unset (key);
 
-                cb (true, paintable);
+                    cb (true, paintable);
+                });
             },
             (code, reason) => {
                 cb (true, null);
