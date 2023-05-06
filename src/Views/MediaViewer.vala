@@ -414,7 +414,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
                 item.done ();
 			}
 			catch (Error e) {
-				app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
+				var dlg = app.inform (_("Error"), e.message);
+                dlg.present ();
 			}
 		});
 	}
@@ -557,7 +558,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
     public void on_zoom_change () {
         zoom_in_btn.sensitive = safe_get ((int) carousel.position)?.can_zoom_in;
-        zoom_out_btn.sensitive = safe_get ((int) carousel.position)?.can_zoom_out;
+
+        bool can_zoom_out = safe_get ((int) carousel.position)?.can_zoom_out ?? false;
+        zoom_out_btn.sensitive = can_zoom_out;
+        carousel.interactive = !can_zoom_out;
     }
 
     // ArrayList will segfault if we #get

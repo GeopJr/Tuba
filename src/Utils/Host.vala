@@ -16,7 +16,18 @@ public class Tuba.Host {
 				throw new Oopsie.USER ("launch_default_for_uri() failed");
 		}
 		catch (Error e){
-			Gtk.show_uri(app.active_window, uri, Gdk.CURRENT_TIME);
+			#if GTK_4_10
+				var launcher = new Gtk.UriLauncher(uri);
+				launcher.launch.begin(app.active_window, null, (obj, res) => {
+					try {
+						launcher.launch.end (res);
+					} catch (Error e) {
+						warning (@"Error opening uri \"$uri\": $(e.message)");
+					}
+				});
+			#else
+				Gtk.show_uri(app.active_window, uri, Gdk.CURRENT_TIME);
+			#endif
 		}
 		return true;
 	}
