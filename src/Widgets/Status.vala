@@ -426,103 +426,67 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		status.account.open ();
 	}
 
-	// WARN: self_bindings __must__ be outside bind ()
-	//       else some source values won't be updated
-	BindingGroup self_bindings = new BindingGroup ();
 	protected virtual void bind () {
-		// WARN: formal_bindings __must__ be inside bind ()
-		//       else the widget won't get destructed
-		var formal_bindings = new BindingGroup ();
-
 		this.content.instance_emojis = status.formal.emojis_map;
 		this.content.content = status.formal.content;
 
-		self_bindings.bind_property ("spoiler-text", spoiler_label, "label", BindingFlags.SYNC_CREATE);
-		self_bindings.bind_property ("spoiler-text-revealed", spoiler_label_rev, "label", BindingFlags.SYNC_CREATE);
+		spoiler_label.label = this.spoiler_text;
+		spoiler_label_rev.label = this.spoiler_text_revealed;
+
+		reveal_spoiler = !status.formal.has_spoiler || settings.show_spoilers;
+		spoiler_status_con.visible = reveal_spoiler && status.formal.has_spoiler;
+		spoiler_stack.visible_child_name = reveal_spoiler ? "content" : "spoiler";
 
 		notify["reveal-spoiler"].connect(() => {
 			spoiler_status_con.visible = reveal_spoiler && status.formal.has_spoiler;
 			spoiler_stack.visible_child_name = reveal_spoiler ? "content" : "spoiler";
 		});
 
-		self_bindings.bind_property ("subtitle_text", handle_label, "label", BindingFlags.SYNC_CREATE);
-		self_bindings.bind_property ("date", date_label, "label", BindingFlags.SYNC_CREATE);
+		handle_label.label = this.subtitle_text;
+		date_label.label = this.date;
 
-		formal_bindings.bind_property ("pinned", pin_indicator, "visible", BindingFlags.SYNC_CREATE);
-		formal_bindings.bind_property ("is-edited", edited_indicator, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			edit_history_simple_action.set_enabled(src.get_boolean());
-			target.set_boolean (src.get_boolean());
-			return true;
-		});
-		formal_bindings.bind_property ("visibility", visibility_indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_string (accounts.active.visibility[src.get_string ()].icon_name);
-			return true;
-		});
-		formal_bindings.bind_property ("visibility", visibility_indicator, "tooltip-text", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_string (accounts.active.visibility[src.get_string ()].name);
-			return true;
-		});
-		formal_bindings.bind_property ("account", avatar, "account", BindingFlags.SYNC_CREATE);
-		formal_bindings.bind_property ("compat-status-reactions", this, "reactions", BindingFlags.SYNC_CREATE);
-		formal_bindings.bind_property ("has-spoiler", this, "reveal-spoiler", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_boolean (!src.get_boolean () || settings.show_spoilers);
-			return true;
-		});
-		//  formal_bindings.bind_property ("content", content, "content", BindingFlags.SYNC_CREATE);
-		formal_bindings.bind_property ("reblogs_count", reblog_button.content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			int64 srcval = (int64) src;
+		pin_indicator.visible = status.formal.pinned;
+		edited_indicator.visible = status.formal.is_edited;
+		edit_history_simple_action.set_enabled (status.formal.is_edited);
 
-			if (srcval > 0) {
-				reblog_button.content.margin_start = 12;
-				reblog_button.content.margin_end = 9;
-				target.set_string (@"$srcval");
-			} else {
-				reblog_button.content.margin_start = 0;
-				reblog_button.content.margin_end = 0;
-				target.set_string ("");
-			}
+		var t_visibility = accounts.active.visibility[status.formal.visibility];
+		visibility_indicator.icon_name = t_visibility.icon_name;
+		visibility_indicator.tooltip_text = t_visibility.name;
 
-			return true;
-		});
-		formal_bindings.bind_property ("favourites_count", favorite_button.content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			int64 srcval = (int64) src;
+		avatar.account = status.formal.account;
+		reactions = status.formal.compat_status_reactions;
 
-			if (srcval > 0) {
-				favorite_button.content.margin_start = 12;
-				favorite_button.content.margin_end = 9;
-				target.set_string (@"$srcval");
-			} else {
-				favorite_button.content.margin_start = 0;
-				favorite_button.content.margin_end = 0;
-				target.set_string ("");
-			}
+		if (status.formal.reblogs_count > 0) {
+			reblog_button.content.margin_start = 12;
+			reblog_button.content.margin_end = 9;
+			reblog_button.content.label = @"$(status.formal.reblogs_count)";
+		} else {
+			reblog_button.content.margin_start = 0;
+			reblog_button.content.margin_end = 0;
+			reblog_button.content.label = "";
+		}
 
-			return true;
-		});
-		formal_bindings.bind_property ("replies_count", reply_button_content, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			int64 srcval = (int64) src;
+		if (status.formal.favourites_count > 0) {
+			favorite_button.content.margin_start = 12;
+			favorite_button.content.margin_end = 9;
+			favorite_button.content.label = @"$(status.formal.reblogs_count)";
+		} else {
+			favorite_button.content.margin_start = 0;
+			favorite_button.content.margin_end = 0;
+			favorite_button.content.label = "";
+		}
 
-			if (srcval > 0) {
-				reply_button_content.margin_start = 12;
-				reply_button_content.margin_end = 9;
-				target.set_string (@"$srcval");
-			} else {
-				reply_button_content.margin_start = 0;
-				reply_button_content.margin_end = 0;
-				target.set_string ("");
-			}
+		if (status.formal.replies_count > 0) {
+			reply_button_content.margin_start = 12;
+			reply_button_content.margin_end = 9;
+			reply_button_content.label = @"$(status.formal.reblogs_count)";
+		} else {
+			reply_button_content.margin_start = 0;
+			reply_button_content.margin_end = 0;
+			reply_button_content.label = "";
+		}
 
-			return true;
-		});
-		// Attachments
-		formal_bindings.bind_property ("media-attachments", attachments, "list", BindingFlags.SYNC_CREATE);
-
-		self_bindings.set_source (this);
-		formal_bindings.set_source (status.formal);
-
-		// TODO: Ideally, this should be a binding too somehow
-		// bind_property ("title_text", name_label, "label", BindingFlags.SYNC_CREATE);
-		//  name_label.set_label(title_text, status.formal.account.handle, status.formal.account.emojis_map, true);
+		attachments.list = status.formal.media_attachments;
 		name_label.instance_emojis = status.formal.account.emojis_map;
 		name_label.label = title_text;
 
@@ -542,7 +506,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		if (!status.can_be_boosted) {
 			reblog_button.sensitive = false;
 			reblog_button.tooltip_text = _("This post can't be boosted");
-			reblog_button.content.icon_name = accounts.active.visibility[status.visibility].icon_name;
+			reblog_button.content.icon_name = visibility_indicator.icon_name;
 		}
 		else {
 			reblog_button.sensitive = true;
@@ -555,13 +519,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			date_label.destroy ();
 		}
 
-		// TODO: Votebox should be created dynamically if needed.
-		// Currently *all* status widgets contain one even if they don't have a poll.
 		if (status.formal.poll==null){
 			poll.hide();
 		} else {
 			poll.status_parent=status.formal;
-			status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE);
+			poll.poll = status.formal.poll;
 		}
 	}
 
