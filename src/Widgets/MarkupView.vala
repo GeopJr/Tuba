@@ -178,7 +178,7 @@ public class Tuba.Widgets.MarkupView : Box {
 					visible = true
 					// markup = MarkupPolicy.DISALLOW
 				};
-				label.get_style_context ().add_class ("ttl-code");
+				label.add_css_class ("ttl-code");
 				v.append (label);
 				break;
 			case "a":

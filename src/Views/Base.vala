@@ -80,7 +80,7 @@ public class Tuba.Views.Base : Box {
 				on_hidden ();
 		});
 
-		scrolled.get_style_context ().add_class (Dialogs.MainWindow.ZOOM_CLASS);
+		//  scrolled.get_style_context ().add_class (Dialogs.MainWindow.ZOOM_CLASS);
 
 		scroll_to_top.clicked.connect(on_scroll_to_top);
 	}

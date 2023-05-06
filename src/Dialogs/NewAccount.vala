@@ -88,7 +88,8 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 	void oopsie (string title, string msg = "") {
 		warning (@"$title   $msg.");
-		app.inform (Gtk.MessageType.ERROR, title, msg, this);
+		var dlg = app.inform (title, msg, this);
+		dlg.present ();
 	}
 
 	async void step () throws Error {

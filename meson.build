@@ -67,6 +67,11 @@ endif
 if libgtk_dep.version().version_compare('>=4.8.0')
   add_project_arguments(['--define=GTK_4_8'], language: 'vala')
 endif
+
+if libgtk_dep.version().version_compare('>=4.10.0')
+  add_project_arguments(['--define=GTK_4_10'], language: 'vala')
+endif
+
 if gtksourceview_dep.version().version_compare('>=5.7.1')
   add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
 endif

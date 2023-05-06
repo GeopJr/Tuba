@@ -414,7 +414,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
                 item.done ();
 			}
 			catch (Error e) {
-				app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
+				var dlg = app.inform (_("Error"), e.message);
+                dlg.present ();
 			}
 		});
 	}
