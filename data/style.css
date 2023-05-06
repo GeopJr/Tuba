@@ -98,6 +98,12 @@ flowboxchild {
 	padding: 0;
 }
 
+.ttl-name-button {
+	padding: 0 5px;
+	margin-left: -5px;
+	margin-right: -5px;
+}
+
 /*
   Profile
 */
@@ -175,6 +181,10 @@ flowboxchild {
 
 .ttl-status-font-large {
 	font-size: 18.333333333333332px;
+}
+
+.ttl-status-font-large > .ttl-large-body {
+	font-size: 19px;
 }
 
 .ttl-large-body {
@@ -281,4 +291,8 @@ GtkSourceAssistant.completion list row{
 
 .no-border-radius {
 	border-radius: 0px;
+}
+
+.locale-dropdown-upcase {
+	text-transform: uppercase;
 }

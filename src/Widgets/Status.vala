@@ -108,6 +108,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 				if (p.count <= 0) return;
 
 				var badge_button = new Button() {
+					// translators: the variable is the emoji or its name if it's custom
 					tooltip_text = _("React with %s").printf (p.name)
 				};
 				var badge = new Box(Orientation.HORIZONTAL, 6);
@@ -232,6 +233,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		menu_model.append (_("Open in Browser"), "status.open-in-browser");
 		menu_model.append (_("Copy URL"), "status.copy-url");
 
+		// translators: as in post stats (who liked and boosted)
 		var stats_menu_item = new MenuItem(_("View Stats"), "status.status-stats");
 		stats_menu_item.set_attribute_value("hidden-when", "action-disabled");
 		menu_model.append_item (stats_menu_item);
@@ -265,7 +267,19 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	private void edit_status () {
-		new Dialogs.Compose.edit (status.formal);
+		new Request.GET (@"/api/v1/statuses/$(status.formal.id)/source")
+			.with_account (accounts.active)
+			.then ((sess, msg, in_stream) => {
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				var node = network.parse_node (parser);
+				var source = API.StatusSource.from (node);
+
+				new Dialogs.Compose.edit (status.formal, source);
+			})
+			.on_error (() => {
+				new Dialogs.Compose.edit (status.formal);
+			})
+			.exec ();
 	}
 
 	private void delete_status () {
@@ -413,11 +427,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	// WARN: self_bindings __must__ be outside bind ()
-	//       else some source values wont be updated
+	//       else some source values won't be updated
 	BindingGroup self_bindings = new BindingGroup ();
 	protected virtual void bind () {
 		// WARN: formal_bindings __must__ be inside bind ()
-		//       else the widget wont get destructed
+		//       else the widget won't get destructed
 		var formal_bindings = new BindingGroup ();
 
 		this.content.instance_emojis = status.formal.emojis_map;

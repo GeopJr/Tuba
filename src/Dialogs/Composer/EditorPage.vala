@@ -23,7 +23,9 @@ public class Tuba.EditorPage : ComposerPage {
 		install_editor ();
 		install_overlay();
 		install_visibility (status.visibility);
-		install_cw ();
+		install_languages (status.language);
+		add_button (new Gtk.Separator (Orientation.VERTICAL));
+		install_cw (status.spoiler_text);
 		install_emoji_picker();
 
 		validate ();
@@ -49,12 +51,17 @@ public class Tuba.EditorPage : ComposerPage {
 		var instance_visibility = (visibility_button.selected_item as InstanceAccount.Visibility);
 		if (visibility_button != null && visibility_button.selected_item != null && instance_visibility != null)
 			status.visibility = instance_visibility.id;
+
+		if (language_button != null && language_button.selected_item != null) {
+			status.language = ((Tuba.Locale) language_button.selected_item).locale;
+		}
 	}
 
 	public override void on_modify_req (Request req) {
 		if (can_publish)
 			req.with_form_data ("status", status.content);
 		req.with_form_data ("visibility", status.visibility);
+		req.with_form_data ("language", status.language);
 
 		if (dialog.status.in_reply_to_id != null)
 			req.with_form_data ("in_reply_to_id", dialog.status.in_reply_to_id);
@@ -64,6 +71,9 @@ public class Tuba.EditorPage : ComposerPage {
 		if (cw_button.active) {
 			req.with_form_data ("sensitive", "true");
 			req.with_form_data ("spoiler_text", status.spoiler_text);
+		} else {
+			req.with_form_data ("sensitive", "false");
+			req.with_form_data ("spoiler_text", "");
 		}
 	}
 
@@ -172,7 +182,7 @@ public class Tuba.EditorPage : ComposerPage {
 	protected ToggleButton cw_button;
 	protected Entry cw_entry;
 
-	protected void install_cw () {
+	protected void install_cw (string? cw_text) {
 		cw_entry = new Gtk.Entry () {
 			placeholder_text = _("Write your warning here"),
 			margin_top = 6,
@@ -195,6 +205,11 @@ public class Tuba.EditorPage : ComposerPage {
 		cw_button.bind_property ("active", revealer, "reveal_child", GLib.BindingFlags.SYNC_CREATE);
 		add_button (cw_button);
 
+		if (cw_text != null && cw_text != "") {
+			cw_entry.buffer.set_text ((uint8[]) cw_text);
+			cw_button.active = true;
+		}
+
 		recount_chars.connect (() => {
 			if (cw_button.active)
 				remaining_chars -= (int) cw_entry.buffer.length;
@@ -204,6 +219,7 @@ public class Tuba.EditorPage : ComposerPage {
 
 
 	protected DropDown visibility_button;
+	protected DropDown language_button;
 
 	protected void install_visibility (string default_visibility = settings.default_post_visibility) {
 		visibility_button = new DropDown (accounts.active.visibility_list, null) {
@@ -220,7 +236,30 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 
 		add_button (visibility_button);
-		add_button (new Gtk.Separator (Orientation.VERTICAL));
 	}
 
+	protected void install_languages (string? locale_iso) {
+		var store = new GLib.ListStore (typeof (Locale));
+
+		foreach (var locale in app.locales) {
+			store.append (locale);
+		}
+
+		language_button = new DropDown (store, null) {
+			expression = new PropertyExpression (typeof (Tuba.Locale), null, "name"),
+			factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/language_title.ui"),
+			list_factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/language.ui"),
+			tooltip_text = _("Post Language"),
+			enable_search = true
+		};
+
+		if (locale_iso != null) {
+			uint default_lang_index;
+			if (store.find_with_equal_func(new Tuba.Locale(locale_iso, null, null), Tuba.Locale.compare, out default_lang_index)) {
+				language_button.selected = default_lang_index;
+			}
+		}
+
+		add_button (language_button);
+	}
 }

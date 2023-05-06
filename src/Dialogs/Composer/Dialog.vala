@@ -80,9 +80,15 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		);
 	}
 
-	public Compose.edit (API.Status status) {
+	public Compose.edit (API.Status status, API.StatusSource? source = null) {
 		var t_status = status;
-		t_status.content =  HtmlUtils.remove_tags (t_status.content);
+
+		if (source == null) {
+			t_status.content = HtmlUtils.remove_tags (t_status.content);
+		} else {
+			t_status.content = source.text;
+			t_status.spoiler_text = source.spoiler_text;
+		}
 
 		Object (
 			status: t_status,
@@ -97,7 +103,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			in_reply_to_account_id = to.account.id.to_string (),
 			spoiler_text = to.spoiler_text,
 			content = to.formal.get_reply_mentions (),
-			visibility = to.visibility
+			visibility = to.visibility,
+			language = to.language
 		};
 
 		Object (

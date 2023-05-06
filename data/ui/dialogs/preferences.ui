@@ -66,10 +66,18 @@
             <child>
               <object class="AdwComboRow" id="post_visibility_combo_row">
                 <property name="title" translatable="yes">Default post visibility</property>
-                <property name="subtitle" translatable="yes">Replies follow the original post's visibility</property>
 
                 <property name="expression">
                   <lookup type="TubaInstanceAccountVisibility" name="name"/>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwComboRow" id="default_language_combo_row">
+                <property name="title" translatable="yes">Default post language</property>
+
+                <property name="expression">
+                  <lookup type="TubaLocale" name="name"/>
                 </property>
               </object>
             </child>

@@ -9,8 +9,6 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	[GtkChild] unowned ListBox saved_accounts;
 
 	[GtkChild] unowned Widgets.Avatar avatar;
-	//  [GtkChild] unowned Label title;
-	// FIXME: Wrapping
 	[GtkChild] unowned Widgets.EmojiLabel title;
 	[GtkChild] unowned Label subtitle;
 
@@ -82,14 +80,17 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	private Binding sidebar_handle_short;
 	private Binding sidebar_avatar;
 	private ulong sidebar_private_signal;
-	private ulong sidebar_display_name;
+	private Binding sidebar_display_name;
 	protected virtual void on_account_changed (InstanceAccount? account) {
 		if (this.account != null) {
 			sidebar_handle_short.unbind();
 			sidebar_avatar.unbind();
 			this.account.disconnect(sidebar_private_signal);
-			this.account.disconnect(sidebar_display_name);
+			sidebar_display_name.unbind ();
 		}
+
+		if (app?.main_window != null)
+			app.main_window.go_back_to_start ();
 
 		this.account = account;
 		accounts_button.active = false;
@@ -108,9 +109,10 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 
 			sidebar_handle_short = this.account.bind_property("handle_short", subtitle, "label", BindingFlags.SYNC_CREATE);
 			sidebar_avatar = this.account.bind_property("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
-			sidebar_display_name = this.account.notify["display-name"].connect(() => {
+			sidebar_display_name = this.account.bind_property("display-name", title, "content", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 				title.instance_emojis = this.account.emojis_map;
-				title.content = this.account.display_name;
+				target.set_string (src.get_string ());
+				return true;
 			});
 
 			account_items.model = account.known_places;
@@ -231,6 +233,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 
 		[GtkCallback] void on_forget () {
 			var confirmed = app.question (
+				// translators: the variable is an account handle
 				_("Forget %s?".printf (account.handle)),
 				_("This account will be removed from the application."),
 				app.main_window,

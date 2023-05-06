@@ -89,6 +89,8 @@ public abstract class Tuba.AccountStore : GLib.Object {
 					account.verify_credentials.end (res);
 					account.error = null;
 					settings.active_account = account.handle;
+					if (account.source != null && account.source.language != null && account.source.language != "")
+						settings.default_language = account.source.language;
 				}
 				catch (Error e) {
 					warning (@"Couldn't activate account $(account.handle):");

@@ -1,7 +1,6 @@
 using Gtk;
 
 namespace Tuba {
-
 	public errordomain Oopsie {
 		USER,
 		PARSING,
@@ -29,6 +28,8 @@ namespace Tuba {
 
 		public Dialogs.MainWindow? main_window { get; set; }
 		public Dialogs.NewAccount? add_account_window { get; set; }
+
+		public Gee.ArrayList<Tuba.Locale> locales { owned get { return generate_iso_639_1 (); } }
 
 		// These are used for the GTK Inspector
 		public Settings app_settings { get {return Tuba.settings; } }
@@ -89,6 +90,13 @@ namespace Tuba {
 			} catch (GLib.RegexError e) {
 				warning (e.message);
 			}
+
+			// Fix some links not getting underlined
+			Environment.set_variable ("GSK_RENDERER", "cairo", false);
+
+			Intl.setlocale (LocaleCategory.ALL, "");
+			Intl.bindtextdomain(Build.GETTEXT_PACKAGE, Build.LOCALEDIR);
+			Intl.textdomain(Build.GETTEXT_PACKAGE);
 
 			app = new Application ();
 			return app.run (args);
@@ -286,7 +294,7 @@ namespace Tuba {
 			return dlg;
 		}
 
-		public Adw.MessageDialog question (string text, string? msg = null, Gtk.Window? win = main_window, string yes_label = _("Yes"), Adw.ResponseAppearance yes_appearence = Adw.ResponseAppearance.DEFAULT, string no_label = _("Cancel"), Adw.ResponseAppearance no_appearence = Adw.ResponseAppearance.DEFAULT) {
+		public Adw.MessageDialog question (string text, string? msg = null, Gtk.Window? win = main_window, string yes_label = _("Yes"), Adw.ResponseAppearance yes_appearance = Adw.ResponseAppearance.DEFAULT, string no_label = _("Cancel"), Adw.ResponseAppearance no_appearance = Adw.ResponseAppearance.DEFAULT) {
 			var dlg = new Adw.MessageDialog (
 				win,
 				text,
@@ -294,10 +302,10 @@ namespace Tuba {
 			);
 
 			dlg.add_response("no", no_label);
-			dlg.set_response_appearance("no", no_appearence);
+			dlg.set_response_appearance("no", no_appearance);
 
 			dlg.add_response("yes", yes_label);
-			dlg.set_response_appearance("yes", yes_appearence);
+			dlg.set_response_appearance("yes", yes_appearance);
 
 			dlg.transient_for = win;
 			return dlg;

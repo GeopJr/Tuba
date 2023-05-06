@@ -49,7 +49,7 @@ public class Tuba.Widgets.MarkupView : Box {
 			w.destroy ();
 		}
 
-		var doc = Html.Doc.read_doc (content, "", "utf8");
+		var doc = Html.Doc.read_doc (HtmlUtils.replace_with_pango_markup(content), "", "utf8");
 		if (doc != null) {
 			var root = doc->get_root_element ();
 			if (root != null) {
@@ -98,6 +98,54 @@ public class Tuba.Widgets.MarkupView : Box {
 			current_chunk += chunk;
 	}
 
+	static string blockquote_handler_text = "";
+	private static void blockquote_handler (Xml.Node* root) {
+		traverse (root, (node) => {
+			switch (node->name) {
+				case "text":
+					blockquote_handler_text += node->content;
+					break;
+				case "html":
+				case "span":
+				case "markup":
+				case "pre":
+				case "ul":
+				case "ol":
+				case "body":
+				case "p":
+					blockquote_handler (node);
+					break;
+				case "b":
+				case "i":
+				case "u":
+				case "s":
+				case "sup":
+				case "sub":
+					blockquote_handler_text += @"<$(node->name)>";
+					blockquote_handler (node);
+					blockquote_handler_text += @"</$(node->name)>";
+				break;
+				case "a":
+					var href = node->get_prop ("href");
+					if (href != null) {
+						blockquote_handler_text += "<a href='" + GLib.Markup.escape_text (href) + "'>";
+						blockquote_handler (node);
+						blockquote_handler_text += "</a>";
+					}
+					break;
+				case "li":
+					blockquote_handler_text += "\n• ";
+					blockquote_handler (node);
+					break;
+				case "br":
+					blockquote_handler_text += "\n";
+					break;
+				default:
+					break;
+			}
+		});
+	}
+
 	public static void default_handler (MarkupView v, Xml.Node* root) {
 		switch (root->name) {
 			case "html":
@@ -123,17 +171,9 @@ public class Tuba.Widgets.MarkupView : Box {
 			case "blockquote":
 				v.commit_chunk ();
 
-				var text = "";
-				traverse (root, (node) => {
-					switch (node->name) {
-						case "text":
-							text += node->content;
-							break;
-						default:
-							break;
-					}
-				});
-
+				blockquote_handler_text = "";
+				blockquote_handler (root);
+				var text = blockquote_handler_text;
 				var label = new RichLabel (text) {
 					visible = true
 					// markup = MarkupPolicy.DISALLOW
@@ -148,18 +188,6 @@ public class Tuba.Widgets.MarkupView : Box {
 					traverse_and_handle (v, root, default_handler);
 					v.write_chunk ("</a>");
 				}
-				break;
-
-			case "em":
-				v.write_chunk (@"<i>");
-				traverse_and_handle (v, root, default_handler);
-				v.write_chunk (@"</i>");
-				break;
-
-			case "strong":
-				v.write_chunk (@"<b>");
-				traverse_and_handle (v, root, default_handler);
-				v.write_chunk (@"</b>");
 				break;
 
 			case "b":
