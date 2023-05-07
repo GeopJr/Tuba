@@ -35,32 +35,45 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			disconnect (build_sigid);
 		});
 	}
+	~Compose () {
+		message ("Destroying composer");
+	}
 
 	void on_exit () {
 		if (!commit_button.sensitive) on_close ();
 	}
 
+	private ComposerPage[] t_pages = {};
 	protected virtual signal void build () {
 		var p_edit = new EditorPage ();
 		var p_attach = new AttachmentsPage ();
-		p_edit.bind_property("can-publish", commit_button, "sensitive", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_boolean (src.get_boolean() || p_attach.can_publish);
-			return true;
-		});
-		p_attach.bind_property("can-publish", commit_button, "sensitive", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_boolean (src.get_boolean() || p_edit.can_publish);
-			return true;
-		});
 
 		p_edit.ctrl_return_pressed.connect (() => {
 			if (commit_button.sensitive) on_commit ();
 		});
 
-		add_page (p_edit);
-		add_page (p_attach);
-		add_page (new PollPage ());
+		setup_pages ({p_edit, p_attach});
 
+		if (editing) p_edit.edit_mode = true;
 		p_edit.editor_grab_focus ();
+	}
+
+	private void setup_pages (ComposerPage[] pages) {
+		foreach (var page in pages) {
+			add_page (page);
+			page.notify["can-publish"].connect (update_commit_button);
+		}
+
+		update_commit_button ();
+	}
+
+	private void update_commit_button () {
+		var allow = false;
+		foreach (var page in t_pages) {
+			allow = allow || page.can_publish;
+			if (allow) break;
+		}
+		commit_button.sensitive = allow;
 	}
 
 	[GtkChild] unowned Adw.ViewSwitcherTitle title_switcher;
@@ -130,6 +143,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	protected void add_page (ComposerPage page) {
 		var wrapper = stack.add (page);
+		t_pages += page;
 		page.on_build (this, this.status);
 		page.on_pull ();
 
