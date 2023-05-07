@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-02 12:04+0300\n"
-"PO-Revision-Date: 2023-05-04 10:12+0000\n"
+"PO-Revision-Date: 2023-05-08 07:51+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
 "Language: fa\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
-msgstr "Tuba"
+msgstr "توبا"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
@@ -42,9 +42,9 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-"تارنمای احتماعی فدیرورس را با Tuba در GNOME کاوش کنید. با جوامع مورد علاقه، "
-"خانواده و دوستان خود در سکو‌های فدیورس معروف همچون Mastodon،GoToSocial، "
-"Akkoma و غیره در تماس باشید!"
+"کاوش وب اجتماعی خودگردان با توبا برای گنوم. وصل ماندن به جوامع مورد علاقه، "
+"خانواده و دوستان با پشتیبانی از بن‌سازه‌های محبوب فدبورس چون ماستودون، "
+"گوتوسوشال، آکوما و بیش‌تر!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
 msgid ""
