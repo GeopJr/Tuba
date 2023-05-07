@@ -4,7 +4,6 @@ public class Tuba.EditorPage : ComposerPage {
 
 	protected int64 char_limit { get; set; default = 500; }
 	protected int64 remaining_chars { get; set; default = 0; }
-	public bool can_publish { get; set; default = false; }
 	public signal void ctrl_return_pressed ();
 
 	construct {

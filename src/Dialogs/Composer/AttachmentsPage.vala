@@ -32,7 +32,6 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	private Gtk.Spinner spinner;
 	public GLib.ListStore attachments;
 	public Adw.ToastOverlay toast_overlay;
-	public bool can_publish { get; set; default = false; }
 	public bool media_sensitive { get; set; default = false; }
 
 	bool _uploading = false;
