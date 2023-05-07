@@ -12,6 +12,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	public string button_class {
 		set { commit_button.add_css_class (value); }
 	}
+	public bool editing { get; set; default=false; }
 
 	ulong build_sigid;
 
@@ -117,7 +118,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		Object (
 			status: template,
 			button_label: _("_Edit"),
-			button_class: "suggested-action"
+			button_class: "suggested-action",
+			editing: true
 		);
 	}
 

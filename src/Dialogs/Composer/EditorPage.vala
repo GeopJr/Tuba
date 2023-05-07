@@ -231,6 +231,17 @@ public class Tuba.EditorPage : ComposerPage {
 	protected DropDown visibility_button;
 	protected DropDown language_button;
 
+	private bool _edit_mode = false;
+	public bool edit_mode {
+		get {
+			return _edit_mode;
+		}
+		set {
+			_edit_mode = value;
+			visibility_button.sensitive = !value;
+		}
+	}
+
 	protected void install_visibility (string default_visibility = settings.default_post_visibility) {
 		visibility_button = new DropDown (accounts.active.visibility_list, null) {
 			expression = new PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
