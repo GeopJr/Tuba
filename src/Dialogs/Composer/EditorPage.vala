@@ -5,6 +5,7 @@ public class Tuba.EditorPage : ComposerPage {
 	protected int64 char_limit { get; set; default = 500; }
 	protected int64 remaining_chars { get; set; default = 0; }
 	public bool can_publish { get; set; default = false; }
+	public signal void ctrl_return_pressed ();
 
 	construct {
 		//  translators: "Text" as in text-based input
@@ -112,6 +113,16 @@ public class Tuba.EditorPage : ComposerPage {
 			accepts_tab = false,
 			wrap_mode = WrapMode.WORD_CHAR
 		};
+
+		var keypress_controller = new Gtk.EventControllerKey();
+        keypress_controller.key_pressed.connect((keyval, _, modifier) => {
+            if (keyval == Gdk.Key.Return && modifier == Gdk.ModifierType.CONTROL_MASK) {
+				ctrl_return_pressed ();
+				return true;
+			}
+            return false;
+        });
+        editor.add_controller(keypress_controller);
 
 		editor.completion.add_provider (new Tuba.HandleProvider ());
 		editor.completion.add_provider (new Tuba.HashtagProvider ());

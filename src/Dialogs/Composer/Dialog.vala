@@ -52,6 +52,10 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			return true;
 		});
 
+		p_edit.ctrl_return_pressed.connect (() => {
+			if (commit_button.sensitive) on_commit ();
+		});
+
 		add_page (p_edit);
 		add_page (p_attach);
 		add_page (new PollPage ());
