@@ -97,18 +97,25 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		);
 	}
 
-	public Compose.edit (API.Status status, API.StatusSource? source = null) {
-		var t_status = status;
+	public Compose.edit (API.Status t_status, API.StatusSource? source = null) {
+		var template = new API.Status.empty () {
+			id = t_status.id,
+			poll = t_status.poll,
+			sensitive = t_status.sensitive,
+			media_attachments = t_status.media_attachments,
+			visibility = t_status.visibility,
+			language = t_status.language
+		};
 
 		if (source == null) {
-			t_status.content = HtmlUtils.remove_tags (t_status.content);
+			template.content = HtmlUtils.remove_tags (t_status.content);
 		} else {
-			t_status.content = source.text;
-			t_status.spoiler_text = source.spoiler_text;
+			template.content = source.text;
+			template.spoiler_text = source.spoiler_text;
 		}
 
 		Object (
-			status: t_status,
+			status: template,
 			button_label: _("_Edit"),
 			button_class: "suggested-action"
 		);
