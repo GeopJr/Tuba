@@ -426,6 +426,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		status.account.open ();
 	}
 
+	private void update_spoiler_status () {
+		spoiler_status_con.visible = reveal_spoiler && status.formal.has_spoiler;
+		spoiler_stack.visible_child_name = reveal_spoiler ? "content" : "spoiler";
+	}
+
 	protected virtual void bind () {
 		this.content.instance_emojis = status.formal.emojis_map;
 		this.content.content = status.formal.content;
@@ -434,13 +439,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		spoiler_label_rev.label = this.spoiler_text_revealed;
 
 		reveal_spoiler = !status.formal.has_spoiler || settings.show_spoilers;
-		spoiler_status_con.visible = reveal_spoiler && status.formal.has_spoiler;
-		spoiler_stack.visible_child_name = reveal_spoiler ? "content" : "spoiler";
-
-		notify["reveal-spoiler"].connect(() => {
-			spoiler_status_con.visible = reveal_spoiler && status.formal.has_spoiler;
-			spoiler_stack.visible_child_name = reveal_spoiler ? "content" : "spoiler";
-		});
+		update_spoiler_status ();
+		notify["reveal-spoiler"].connect(update_spoiler_status);
 
 		handle_label.label = this.subtitle_text;
 		date_label.label = this.date;
@@ -519,10 +519,10 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			date_label.destroy ();
 		}
 
-		if (status.formal.poll==null){
-			poll.hide();
+		if (status.formal.poll == null){
+			poll.hide ();
 		} else {
-			poll.status_parent=status.formal;
+			poll.status_parent = status.formal;
 			poll.poll = status.formal.poll;
 		}
 	}
