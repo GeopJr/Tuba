@@ -75,10 +75,20 @@ public class Tuba.SecretAccountStore : AccountStore {
 		attrs["version"] = VERSION;
 		attrs["login"] = account.handle;
 
-		Secret.password_clearv_sync (
+		Secret.password_clearv.begin (
 			schema,
 			attrs,
-			null
+			null,
+			(obj, async_res) => {
+				try {
+					Secret.password_clearv.end (async_res);
+				}
+				catch (GLib.Error e) {
+					warning (e.message);
+					var dlg = app.inform (_("Error"), e.message);
+					dlg.present ();
+				}
+			}
 		);
 	}
 
@@ -95,23 +105,25 @@ public class Tuba.SecretAccountStore : AccountStore {
 		// translators: The variable is the backend like "Mastodon"
 		var label = _("%s Account").printf (account.backend);
 
-		try {
-			Secret.password_storev_sync (
-				schema,
-				attrs,
-				Secret.COLLECTION_DEFAULT,
-				label,
-				secret,
-				null
-			);
-		}
-		catch (GLib.Error e) {
-			warning (e.message);
-			var dlg = app.inform (_("Error"), e.message);
-			dlg.present ();
-		}
-
-		message (@"Saved secret for $(account.handle)");
+		Secret.password_storev.begin (
+			schema,
+			attrs,
+			Secret.COLLECTION_DEFAULT,
+			label,
+			secret,
+			null,
+			(obj, async_res) => {
+				try {
+					Secret.password_store.end (async_res);
+					message (@"Saved secret for $(account.handle)");
+				}
+				catch (GLib.Error e) {
+					warning (e.message);
+					var dlg = app.inform (_("Error"), e.message);
+					dlg.present ();
+				}
+			}
+		);
 	}
 
 	InstanceAccount? secret_to_account (Secret.Retrievable item) {

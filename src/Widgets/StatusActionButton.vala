@@ -42,6 +42,18 @@ public class Tuba.StatusActionButton : LockableToggleButton {
 		object.notify[prop_name].connect (on_object_notify);
 	}
 
+	public void update_button_content (int64 new_value) {
+		if (new_value == 0) {
+			content.label = "";
+			content.margin_start = 0;
+			content.margin_end = 0;
+		} else {
+			content.label = @"$new_value";
+			content.margin_start = 12;
+			content.margin_end = 9;
+		}
+	}
+
 	protected void set_class_enabled(bool is_active = true) {
 		if (is_active) { 
 			add_css_class("enabled");
@@ -99,38 +111,22 @@ public class Tuba.StatusActionButton : LockableToggleButton {
 	}
 
 	protected void update_stats (API.Status obj, string action) {
-		int64 new_label = 0;
+		int64 new_value = 0;
 		if (action == "favourite") {
 			obj.favourites_count++;
-			// FIXME: Bindings of Widgets.Status
-			//        should be handling this instead
-			new_label = obj.favourites_count;
+			new_value = obj.favourites_count;
 		} else if (action == "unfavourite") {
 			obj.favourites_count--;
-			// FIXME: Bindings of Widgets.Status
-			//        should be handling this instead
-			new_label = obj.favourites_count;
+			new_value = obj.favourites_count;
 		} else if (action == "reblog") {
 			obj.reblogs_count++;
-			// FIXME: Bindings of Widgets.Status
-			//        should be handling this instead
-			new_label = obj.reblogs_count;
+			new_value = obj.reblogs_count;
 		} else if (action == "unreblog") {
 			obj.reblogs_count--;
-			// FIXME: Bindings of Widgets.Status
-			//        should be handling this instead
-			new_label = obj.reblogs_count;
+			new_value = obj.reblogs_count;
 		}
 
-		if (new_label == 0) {
-			content.label = "";
-			content.margin_start = 0;
-			content.margin_end = 0;
-		} else {
-			content.label = @"$new_label";
-			content.margin_start = 12;
-			content.margin_end = 9;
-		}
+		update_button_content (new_value);
 	}
 
 	protected override void commit_change () {
