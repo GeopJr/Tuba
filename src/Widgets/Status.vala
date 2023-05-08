@@ -469,7 +469,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		if (status.formal.favourites_count > 0) {
 			favorite_button.content.margin_start = 12;
 			favorite_button.content.margin_end = 9;
-			favorite_button.content.label = @"$(status.formal.reblogs_count)";
+			favorite_button.content.label = @"$(status.formal.favourites_count)";
 		} else {
 			favorite_button.content.margin_start = 0;
 			favorite_button.content.margin_end = 0;
@@ -479,7 +479,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		if (status.formal.replies_count > 0) {
 			reply_button_content.margin_start = 12;
 			reply_button_content.margin_end = 9;
-			reply_button_content.label = @"$(status.formal.reblogs_count)";
+			reply_button_content.label = @"$(status.formal.replies_count)";
 		} else {
 			reply_button_content.margin_start = 0;
 			reply_button_content.margin_end = 0;
