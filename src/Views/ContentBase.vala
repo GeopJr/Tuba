@@ -5,6 +5,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 	public GLib.ListStore model;
 	protected ListBox content;
 	private bool bottom_reached_locked = false;
+	protected signal void reached_close_to_top ();
 
 	public bool empty {
 		get { return model.get_n_items () <= 0; }
@@ -30,7 +31,10 @@ public class Tuba.Views.ContentBase : Views.Base {
 				on_bottom_reached ();
 			}
 			
-			scroll_to_top.visible = scrolled.vadjustment.value > 1000 && scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper;
+			var is_close_to_top = scrolled.vadjustment.value <= 1000;
+			scroll_to_top.visible = !is_close_to_top && scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper;
+
+			if (is_close_to_top) reached_close_to_top ();
 		});
 	}
 	~ContentBase () {
