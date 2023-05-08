@@ -456,26 +456,20 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		avatar.account = status.formal.account;
 		reactions = status.formal.compat_status_reactions;
 
-		if (status.formal.reblogs_count > 0) {
-			reblog_button.content.margin_start = 12;
-			reblog_button.content.margin_end = 9;
-			reblog_button.content.label = @"$(status.formal.reblogs_count)";
-		} else {
-			reblog_button.content.margin_start = 0;
-			reblog_button.content.margin_end = 0;
-			reblog_button.content.label = "";
-		}
+		attachments.list = status.formal.media_attachments;
+		name_label.instance_emojis = status.formal.account.emojis_map;
+		name_label.label = title_text;
 
-		if (status.formal.favourites_count > 0) {
-			favorite_button.content.margin_start = 12;
-			favorite_button.content.margin_end = 9;
-			favorite_button.content.label = @"$(status.formal.favourites_count)";
-		} else {
-			favorite_button.content.margin_start = 0;
-			favorite_button.content.margin_end = 0;
-			favorite_button.content.label = "";
-		}
+		// Actions
+		reblog_button.bind (status.formal);
+		bookmark_button.bind (status.formal);
+		favorite_button.bind (status.formal);
+		favorite_button.update_button_content (status.formal.favourites_count);
 
+		reply_button.set_child(reply_button_content);
+		reply_button.add_css_class("ttl-status-action-reply");
+		reply_button.tooltip_text = _("Reply");
+		reply_button_content.icon_name = status.formal.in_reply_to_id != null ? "tuba-reply-all-symbolic" : "tuba-reply-sender-symbolic";
 		if (status.formal.replies_count > 0) {
 			reply_button_content.margin_start = 12;
 			reply_button_content.margin_end = 9;
@@ -486,23 +480,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			reply_button_content.label = "";
 		}
 
-		attachments.list = status.formal.media_attachments;
-		name_label.instance_emojis = status.formal.account.emojis_map;
-		name_label.label = title_text;
-
-		// Actions
-		reblog_button.bind (status.formal);
-		favorite_button.bind (status.formal);
-		bookmark_button.bind (status.formal);
-
-		reply_button.set_child(reply_button_content);
-		reply_button.add_css_class("ttl-status-action-reply");
-		reply_button.tooltip_text = _("Reply");
-		if (status.formal.in_reply_to_id != null)
-			reply_button_content.icon_name = "tuba-reply-all-symbolic";
-		else
-			reply_button_content.icon_name = "tuba-reply-sender-symbolic";
-
 		if (!status.can_be_boosted) {
 			reblog_button.sensitive = false;
 			reblog_button.tooltip_text = _("This post can't be boosted");
@@ -512,6 +489,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			reblog_button.sensitive = true;
 			reblog_button.tooltip_text = _("Boost");
 			reblog_button.content.icon_name = "tuba-media-playlist-repeat-symbolic";
+			reblog_button.update_button_content (status.formal.reblogs_count);
 		}
 
 		if (status.id == "") {
