@@ -13,6 +13,7 @@ public class Tuba.Views.EditHistory : Views.Timeline {
 
 		widget_status.actions.visible = false;
 		widget_status.activatable = false;
+		widget_status.menu_button.visible = false;
 
 		return widget;
 	}
