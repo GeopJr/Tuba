@@ -94,6 +94,23 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 			avatar.clicked.connect (() => app.main_window.show_media_viewer_single(account.avatar, avatar.custom_image));
 
+			if (account.created_at != null) {
+				var row = new Adw.ActionRow ();
+				string parsed_date = "";
+
+				for (int i = 0; i < 10; i++) {
+					parsed_date += account.created_at.get_char(i).to_string();
+				}
+
+				var val = new Widgets.RichLabel (parsed_date);
+				val.hexpand = true;
+				val.xalign = 1;
+				row.title = "Joined";
+
+				info.append (row);
+				row.add_suffix (val);
+			}
+
 			if (account.fields != null) {
 				foreach (API.AccountField f in account.fields) {
 					var row = new Adw.ActionRow ();
