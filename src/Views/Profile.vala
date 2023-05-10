@@ -105,7 +105,9 @@ public class Tuba.Views.Profile : Views.Timeline {
 					tooltip_text = parsed_date.format(@"%F")
 				};
 
-				row.title = "Joined";
+				// translators: as in created an account; this is used in Profiles in a row
+				//				which has as value the date it the profile was created
+				row.title = _("Joined");
 
 				info.append (row);
 				row.add_suffix (val);
