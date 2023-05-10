@@ -94,28 +94,6 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 			avatar.clicked.connect (() => app.main_window.show_media_viewer_single(account.avatar, avatar.custom_image));
 
-			if (account.created_at != null) {
-				var row = new Adw.ActionRow ();
-				var parsed_date = new GLib.DateTime.from_iso8601 (account.created_at, null);
-
-				var val = new Gtk.Label (parsed_date.format(@"%B %e, %Y").replace(" ", "")) { // %e prefixes with whitespace on single digits
-					wrap = true,
-					xalign = 1,
-					hexpand = true,
-					tooltip_text = parsed_date.format(@"%F")
-				};
-
-				var row_icon = new Gtk.Image.from_icon_name ("tuba-contact-new-symbolic");
-
-				// translators: as in created an account; this is used in Profiles in a row
-				//				which has as value the date it the profile was created
-				row.title = _("Joined");
-
-				info.append (row);
-				row.add_suffix (val);
-				row.add_prefix (row_icon);
-			}
-
 			if (account.fields != null) {
 				foreach (API.AccountField f in account.fields) {
 					var row = new Adw.ActionRow ();
@@ -143,6 +121,29 @@ public class Tuba.Views.Profile : Views.Timeline {
 					};
 				}
 			}
+
+			if (account.created_at != null) {
+				var row = new Adw.ActionRow ();
+				var parsed_date = new GLib.DateTime.from_iso8601 (account.created_at, null);
+
+				var val = new Gtk.Label (parsed_date.format(@"%B %e, %Y").replace(" ", "")) { // %e prefixes with whitespace on single digits
+					wrap = true,
+					xalign = 1,
+					hexpand = true,
+					tooltip_text = parsed_date.format(@"%F")
+				};
+
+				var row_icon = new Gtk.Image.from_icon_name ("tuba-contact-new-symbolic");
+
+				// translators: as in created an account; this is used in Profiles in a row
+				//				which has as value the date it the profile was created
+				row.title = _("Joined");
+
+				info.append (row);
+				row.add_suffix (val);
+				row.add_prefix (row_icon);
+			}
+		}
 
 		void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
 			background.paintable = data;
