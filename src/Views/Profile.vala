@@ -96,15 +96,15 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 			if (account.created_at != null) {
 				var row = new Adw.ActionRow ();
-				string parsed_date = "";
+				var parsed_date = new GLib.DateTime.from_iso8601 (account.created_at, null);
 
-				for (int i = 0; i < 10; i++) {
-					parsed_date += account.created_at.get_char(i).to_string();
-				}
+				var val = new Gtk.Label (parsed_date.format(@"%B %e, %Y").replace(" ", "")) { // %e prefixes with whitespace on single digits
+					wrap = true,
+					xalign = 1,
+					hexpand = true,
+					tooltip_text = parsed_date.format(@"%F")
+				};
 
-				var val = new Widgets.RichLabel (parsed_date);
-				val.hexpand = true;
-				val.xalign = 1;
 				row.title = "Joined";
 
 				info.append (row);
