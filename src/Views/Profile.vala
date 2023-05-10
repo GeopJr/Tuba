@@ -121,6 +121,26 @@ public class Tuba.Views.Profile : Views.Timeline {
 					};
 				}
 			}
+
+			if (account.created_at != null) {
+				var row = new Adw.ActionRow ();
+				var parsed_date = new GLib.DateTime.from_iso8601 (account.created_at, null);
+
+				var val = new Gtk.Label (parsed_date.format(@"%B %e, %Y").replace(" ", "")) { // %e prefixes with whitespace on single digits
+					wrap = true,
+					xalign = 1,
+					hexpand = true,
+					tooltip_text = parsed_date.format(@"%F")
+				};
+
+				// translators: as in created an account; this is used in Profiles in a row
+				//				which has as value the date the profile was created
+				row.title = _("Joined");
+
+				info.append (row);
+				row.add_suffix (val);
+				row.add_prefix (new Gtk.Image.from_icon_name ("tuba-contact-new-symbolic"));
+			}
 		}
 
 		void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
