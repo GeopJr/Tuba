@@ -173,10 +173,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	private void finish_queue () {
 		if (entity_queue.length == 0) return;
-
-		foreach (var entity in entity_queue) {
-			model.insert (0, entity);
-		}
+		model.splice (0, 0, entity_queue);
 
 		entity_queue = {};
 	}

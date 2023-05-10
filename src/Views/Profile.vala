@@ -52,13 +52,17 @@ public class Tuba.Views.Profile : Views.Timeline {
 			.with_ctx (this)
 			.then ((sess, msg, in_stream) => {
 				var parser = Network.get_parser_from_inputstream(in_stream);
+
+				Object[] to_add = {};
 				Network.parse_array (msg, parser, node => {
 					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
 					var e_status = e as API.Status;
 					if (e_status != null) e_status.pinned = true;
 
-					model.append (e); //FIXME: use splice();
+					to_add += e_status;
 				});
+				model.splice (0, 0, to_add);
+
 			})
 			.exec ();
 	}
