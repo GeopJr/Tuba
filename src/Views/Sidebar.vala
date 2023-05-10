@@ -11,6 +11,18 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	[GtkChild] unowned Widgets.Avatar avatar;
 	[GtkChild] unowned Widgets.EmojiLabel title;
 	[GtkChild] unowned Label subtitle;
+	[GtkChild] unowned Adw.HeaderBar sb_header;
+
+	private bool _show_window_controls = false;
+	public bool show_window_controls {
+		get {
+			return _show_window_controls;
+		}
+		set {
+			_show_window_controls = value;
+			sb_header.show_start_title_buttons = value;
+		}
+	}
 
 	protected InstanceAccount? account { get; set; default = null; }
 

@@ -29,6 +29,7 @@ public class Tuba.ImageCache : AbstractCache {
 		var download_msg = items_in_progress.@get (key);
 		if (download_msg == null) {
 			// This image isn't cached, so we need to download it first.
+            cb (false, null);
 
             download_msg = new Soup.Message ("GET", url);
             network.queue (download_msg, null, (sess, mess, t_in_stream) => {
@@ -55,8 +56,6 @@ public class Tuba.ImageCache : AbstractCache {
             (code, reason) => {
                 cb (true, null);
             });
-
-            cb (false, null);
 
             items_in_progress.@set (key, download_msg);
 		}

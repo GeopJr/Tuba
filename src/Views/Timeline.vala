@@ -6,14 +6,17 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public string url { get; construct set; }
 	public bool is_public { get; construct set; default = false; }
 	public Type accepts { get; set; default = typeof (API.Status); }
+	public bool only_append_if_top { get; set; default = true; }
 
 	protected InstanceAccount? account { get; set; default = null; }
 
 	public bool is_last_page { get; set; default = false; }
 	public string? page_next { get; set; }
 	public string? page_prev { get; set; }
+	Entity[] entity_queue = {};
 
 	construct {
+		reached_close_to_top.connect (finish_queue);
 		app.refresh.connect (on_refresh);
 		status_button.clicked.connect (on_refresh);
 
@@ -28,6 +31,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		content.bind_model (model, on_create_model_widget);
 	}
 	~Timeline () {
+		entity_queue = {};
 		destruct_account_holder ();
 		destruct_streamable ();
 
@@ -110,6 +114,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_refresh () {
+		entity_queue = {};
 		scrolled.vadjustment.value = 0;
 		status_button.sensitive = false;
 		clear ();
@@ -154,10 +159,26 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public virtual void on_new_post (Streamable.Event ev) {
 		try {
 			var entity = Entity.from_json (accepts, ev.get_node ());
+
+			if (only_append_if_top && scrolled.vadjustment.value > 1000) {
+				entity_queue += entity;
+				return;
+			}
+
 			model.insert (0, entity);
 		} catch (Error e) {
 			warning (@"Error getting Entity from json: $(e.message)");
 		}
+	}
+
+	private void finish_queue () {
+		if (entity_queue.length == 0) return;
+
+		foreach (var entity in entity_queue) {
+			model.insert (0, entity);
+		}
+
+		entity_queue = {};
 	}
 
 	public virtual void on_edit_post (Streamable.Event ev) {
