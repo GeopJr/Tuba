@@ -133,15 +133,13 @@ public class Tuba.Views.Profile : Views.Timeline {
 					tooltip_text = parsed_date.format(@"%F")
 				};
 
-				var row_icon = new Gtk.Image.from_icon_name ("tuba-contact-new-symbolic");
-
 				// translators: as in created an account; this is used in Profiles in a row
 				//				which has as value the date the profile was created
 				row.title = _("Joined");
 
 				info.append (row);
 				row.add_suffix (val);
-				row.add_prefix (row_icon);
+				row.add_prefix (new Gtk.Image.from_icon_name ("tuba-contact-new-symbolic"));
 			}
 		}
 
