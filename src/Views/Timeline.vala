@@ -6,7 +6,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public string url { get; construct set; }
 	public bool is_public { get; construct set; default = false; }
 	public Type accepts { get; set; default = typeof (API.Status); }
-	public bool only_append_if_top { get; set; default = true; }
+	public bool use_queue { get; set; default = true; }
 
 	protected InstanceAccount? account { get; set; default = null; }
 
@@ -160,7 +160,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		try {
 			var entity = Entity.from_json (accepts, ev.get_node ());
 
-			if (only_append_if_top && scrolled.vadjustment.value > 1000) {
+			if (use_queue && scrolled.vadjustment.value > 1000) {
 				entity_queue += entity;
 				return;
 			}
