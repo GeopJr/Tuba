@@ -136,7 +136,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 				var row_icon = new Gtk.Image.from_icon_name ("tuba-contact-new-symbolic");
 
 				// translators: as in created an account; this is used in Profiles in a row
-				//				which has as value the date it the profile was created
+				//				which has as value the date the profile was created
 				row.title = _("Joined");
 
 				info.append (row);
