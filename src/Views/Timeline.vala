@@ -60,8 +60,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	public void get_pages (string? header) {
 		page_next = page_prev = null;
-		if (header == null)
+		if (header == null) {
+			is_last_page = true;
 			return;
+		};
 
 		var pages = header.split (",");
 		foreach (var page in pages) {
