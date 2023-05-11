@@ -52,7 +52,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 			}
 		}
 
-		public virtual signal void remove_from_model () {}
+		public virtual signal void remove_from_model (API.List? t_list);
 
 		void on_remove_clicked () {
 			var remove = app.question (
@@ -68,7 +68,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 					new Request.DELETE (@"/api/v1/lists/$(list.id)")
 						.with_account (accounts.active)
 						.then (() => {
-							remove_from_model();
+							remove_from_model(this.list);
 							this.destroy ();
 						})
 						.exec ();
@@ -263,7 +263,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 		var widget_row = widget as Row;
 
 		if (widget_row != null)
-			widget_row.remove_from_model.connect(() => remove_list(widget_row.list));
+			widget_row.remove_from_model.connect(remove_list);
 
 		return widget;
 	}
