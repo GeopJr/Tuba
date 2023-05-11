@@ -75,7 +75,13 @@ public class Tuba.Views.ContentBase : Views.Base {
 	}
 
 	public virtual void on_bottom_reached () {
-		bottom_reached_locked = false;
+		uint timeout = 0;
+		timeout = Timeout.add (1000, () => {
+			bottom_reached_locked = false;
+			GLib.Source.remove(timeout);
+
+			return true;
+		}, Priority.LOW);
 	}
 
 	public virtual void on_content_item_activated (ListBoxRow row) {
