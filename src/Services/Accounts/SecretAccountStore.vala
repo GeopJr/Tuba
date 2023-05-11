@@ -42,7 +42,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 			warning (@"$help_msg\nread more: $wiki_page");
 
 			new Dialogs.NewAccount ();
-			var dlg = app.question (_("Error"), help_msg, app.add_account_window, "Read More", Adw.ResponseAppearance.SUGGESTED, "Close");
+			var dlg = app.question (_("Error"), @"Couldn't search for user accounts. $help_msg", app.add_account_window, "Read More", Adw.ResponseAppearance.SUGGESTED, "Close");
 
 			dlg.response.connect(res => {
 				if (res == "yes") {
