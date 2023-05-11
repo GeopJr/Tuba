@@ -262,11 +262,11 @@ msgstr "Auf welchem Server bist du?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
-"Wenn du noch kein Account hast, <a href=\"https://joinmastodon.org/"
-"servers\">wähle einen Server aus und registriere einen</a>."
+"Wenn du noch kein Account hast, <a href=\"https://joinmastodon.org/servers"
+"\">wähle einen Server aus und registriere einen</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
