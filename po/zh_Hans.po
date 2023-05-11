@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-02 12:04+0300\n"
+"POT-Creation-Date: 2023-05-11 03:15+0300\n"
 "PO-Revision-Date: 2023-05-01 17:51+0000\n"
 "Last-Translator: valigarmanda <valigarmanda55@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -116,7 +116,7 @@ msgstr "静音"
 msgid "Report"
 msgstr "举报"
 
-#: data/ui/menus.ui:47 src/Views/Profile.vala:274 src/Views/Profile.vala:298
+#: data/ui/menus.ui:47 src/Views/Profile.vala:295 src/Views/Profile.vala:319
 msgid "Block"
 msgstr "屏蔽"
 
@@ -237,12 +237,12 @@ msgstr "警告：这会增加内存占用"
 msgid "Reveal spoilers by default"
 msgstr "默认显示隐藏内"
 
-#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:221
+#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:233
 msgid "Add Account"
 msgstr "添加账户"
 
 #: data/ui/dialogs/new_account.ui:27 data/ui/dialogs/compose.ui:29
-#: src/Application.vala:300
+#: src/Application.vala:297
 msgid "Cancel"
 msgstr "取消"
 
@@ -294,7 +294,7 @@ msgstr "完成"
 msgid "Your account is connected and ready to use!"
 msgstr "您的账户已连接成功，可以开始使用了！"
 
-#: data/ui/dialogs/compose.ui:35 src/Dialogs/Composer/Dialog.vala:70
+#: data/ui/dialogs/compose.ui:35 src/Dialogs/Composer/Dialog.vala:88
 msgid "_Publish"
 msgstr "发布"
 
@@ -308,7 +308,7 @@ msgstr "投票"
 msgid "%lld voted"
 msgstr "%lld 人已投票"
 
-#: src/Widgets/StatusActionButton.vala:162
+#: src/Widgets/StatusActionButton.vala:158
 msgid "Network Error"
 msgstr "网络错误"
 
@@ -318,12 +318,12 @@ msgstr "网络错误"
 msgid "React with %s"
 msgstr "以 %s 表态"
 
-#: src/Widgets/Status.vala:233 src/Widgets/Attachment/Item.vala:169
+#: src/Widgets/Status.vala:233 src/Widgets/Attachment/Item.vala:193
 #: src/Views/MediaViewer.vala:314
 msgid "Open in Browser"
 msgstr "在浏览器中打开"
 
-#: src/Widgets/Status.vala:234 src/Widgets/Attachment/Item.vala:170
+#: src/Widgets/Status.vala:234 src/Widgets/Attachment/Item.vala:194
 #: src/Views/MediaViewer.vala:315
 msgid "Copy URL"
 msgstr "复制链接"
@@ -354,25 +354,34 @@ msgstr "您确定要删除这篇帖子吗？"
 msgid "Sensitive"
 msgstr "敏感内容"
 
-#: src/Widgets/Status.vala:536
+#: src/Widgets/Status.vala:471
 msgid "Reply"
 msgstr "回复"
 
-#: src/Widgets/Status.vala:544
+#: src/Widgets/Status.vala:485
 msgid "This post can't be boosted"
 msgstr "这篇帖子不能被转嘟"
 
-#: src/Widgets/Status.vala:549 src/Widgets/Status.vala:580
+#: src/Widgets/Status.vala:490 src/Widgets/Status.vala:520
 msgid "Boost"
 msgstr "转嘟"
 
-#: src/Widgets/Status.vala:591
+#: src/Widgets/Status.vala:531
 msgid "Favorite"
 msgstr "喜欢"
 
-#: src/Widgets/Status.vala:602
+#: src/Widgets/Status.vala:542
 msgid "Bookmark"
 msgstr "书签"
+
+#. translators: this is a "long" date format shown in places like expanded posts or
+#. the profile "Joined" field. You can find all the available specifiers
+#. on https://valadoc.org/glib-2.0/GLib.DateTime.format.html
+#. Please do not stray far from the original and only include day, month
+#. and year.
+#: src/Widgets/Status.vala:605 src/Views/Profile.vala:129
+msgid "%B %e, %Y"
+msgstr ""
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
@@ -380,8 +389,8 @@ msgstr "书签"
 msgid "Follow"
 msgstr "关注"
 
-#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:274
-#: src/Views/Profile.vala:298
+#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:295
+#: src/Views/Profile.vala:319
 msgid "Unblock"
 msgstr "取消屏蔽"
 
@@ -390,21 +399,22 @@ msgstr "取消屏蔽"
 msgid "Unfollow"
 msgstr "取消关注"
 
-#: src/Widgets/Attachment/Item.vala:36
+#: src/Widgets/Attachment/Item.vala:38 src/Widgets/Attachment/Item.vala:48
 msgid "Save Attachment"
 msgstr "保存附件"
 
-#: src/Widgets/Attachment/Item.vala:104
+#: src/Widgets/Attachment/Item.vala:128
 msgid "View Alt Text"
 msgstr "查看替代文本"
 
-#: src/Widgets/Attachment/Item.vala:171 src/Views/MediaViewer.vala:316
+#: src/Widgets/Attachment/Item.vala:195 src/Views/MediaViewer.vala:316
 msgid "Save Media"
 msgstr "保存媒体"
 
-#: src/Widgets/Attachment/Item.vala:188 src/Views/Sidebar.vala:251
+#: src/Widgets/Attachment/Item.vala:212 src/Views/Sidebar.vala:263
 #: src/Views/MediaViewer.vala:417
-#: src/Services/Accounts/SecretAccountStore.vala:110
+#: src/Services/Accounts/SecretAccountStore.vala:88
+#: src/Services/Accounts/SecretAccountStore.vala:122
 #: src/Services/Accounts/AccountStore.vala:43 src/Application.vala:129
 msgid "Error"
 msgstr "错误"
@@ -413,33 +423,33 @@ msgstr "错误"
 msgid "Conversation"
 msgstr "对话"
 
-#: src/Views/Sidebar.vala:22
+#: src/Views/Sidebar.vala:34
 msgid "Preferences"
 msgstr "偏好"
 
-#: src/Views/Sidebar.vala:31
+#: src/Views/Sidebar.vala:43
 msgid "About"
 msgstr "关于"
 
-#: src/Views/Sidebar.vala:122
+#: src/Views/Sidebar.vala:134
 msgid "Anonymous"
 msgstr "匿名"
 
-#: src/Views/Sidebar.vala:123
+#: src/Views/Sidebar.vala:135
 msgid "No account selected"
 msgstr "未选择账户"
 
 #. translators: the variable is an account handle
-#: src/Views/Sidebar.vala:237
+#: src/Views/Sidebar.vala:249
 #, c-format
 msgid "Forget %s?"
 msgstr "忘记 %s？"
 
-#: src/Views/Sidebar.vala:238
+#: src/Views/Sidebar.vala:250
 msgid "This account will be removed from the application."
 msgstr "将从应用程序中删除此账户。"
 
-#: src/Views/Sidebar.vala:240
+#: src/Views/Sidebar.vala:252
 msgid "Forget"
 msgstr "忘记"
 
@@ -472,45 +482,51 @@ msgstr "输入查询内容"
 msgid "Profile"
 msgstr "个人资料"
 
+#. translators: as in created an account; this is used in Profiles in a row
+#. which has as value the date the profile was created on
+#: src/Views/Profile.vala:139
+msgid "Joined"
+msgstr ""
+
 #. translators: the variable is the amount of posts a user has made
-#: src/Views/Profile.vala:138
+#: src/Views/Profile.vala:159
 #, c-format
 msgid "%lld Posts"
 msgstr "%lld 帖子"
 
 #. translators: the variable is the amount of people a user follows
-#: src/Views/Profile.vala:143
+#: src/Views/Profile.vala:164
 #, c-format
 msgid "%lld Following"
 msgstr "%lld 正在关注"
 
 #. translators: the variable is the amount of followers a user has
-#: src/Views/Profile.vala:148
+#: src/Views/Profile.vala:169
 #, c-format
 msgid "%lld Followers"
 msgstr "%lld 关注者"
 
-#: src/Views/Profile.vala:267
+#: src/Views/Profile.vala:288
 #, c-format
 msgid "Block \"%s\"?"
 msgstr "屏蔽 \"%s\"？"
 
-#: src/Views/Profile.vala:267
+#: src/Views/Profile.vala:288
 #, c-format
 msgid "Unblock \"%s\"?"
 msgstr "取消屏蔽 \"%s\"？"
 
-#: src/Views/Profile.vala:292
+#: src/Views/Profile.vala:313
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr "屏蔽整个 \"%s\"？"
 
-#: src/Views/Profile.vala:292
+#: src/Views/Profile.vala:313
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr "取消屏蔽整个 \"%s\"？"
 
-#: src/Views/Profile.vala:296
+#: src/Views/Profile.vala:317
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -524,54 +540,54 @@ msgstr ""
 "• 从您的账户中移除属于该实例的关注者\n"
 "• 防止您关注该实例的用户"
 
-#: src/Views/Profile.vala:345
+#: src/Views/Profile.vala:366
 msgid "Sent follow request"
 msgstr "发送关注请求"
 
-#: src/Views/Profile.vala:347
+#: src/Views/Profile.vala:368
 msgid "Mutuals"
 msgstr "互相关注"
 
-#: src/Views/Profile.vala:349
+#: src/Views/Profile.vala:370
 msgid "Follows you"
 msgstr "关注了你"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:404
+#: src/Views/Profile.vala:425
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
 msgstr "将 \"%s\" 添加到列表中或从列表中移除"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:416
+#: src/Views/Profile.vala:437
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr "请选择需要将 \"%s\" 添加到其中或从其中移除的列表："
 
-#: src/Views/Profile.vala:422
+#: src/Views/Profile.vala:443
 msgid "You don't have any lists"
 msgstr "您当前没有任何列表"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:451 src/Views/Profile.vala:513
+#: src/Views/Profile.vala:472 src/Views/Profile.vala:534
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr "将 \"%s\" 从 \"%s\" 中移除"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:451 src/Views/Profile.vala:507
+#: src/Views/Profile.vala:472 src/Views/Profile.vala:528
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr "将 \"%s\" 加入 \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:504
+#: src/Views/Profile.vala:525
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr "用户 “%s\" 已从 \"%s\" 中移除"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:510
+#: src/Views/Profile.vala:531
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr "用户 “%s\" 已加入 \"%s\""
@@ -592,19 +608,19 @@ msgstr "返回"
 msgid "Toggle Fullscreen"
 msgstr "切换全屏"
 
-#: src/Views/MediaViewer.vala:496
+#: src/Views/MediaViewer.vala:497
 msgid "Previous Attachment"
 msgstr ""
 
-#: src/Views/MediaViewer.vala:501
+#: src/Views/MediaViewer.vala:502
 msgid "Next Attachment"
 msgstr ""
 
-#: src/Views/MediaViewer.vala:519
+#: src/Views/MediaViewer.vala:520
 msgid "Zoom Out"
 msgstr ""
 
-#: src/Views/MediaViewer.vala:524
+#: src/Views/MediaViewer.vala:525
 msgid "Zoom In"
 msgstr ""
 
@@ -798,7 +814,7 @@ msgid "Dark"
 msgstr "深色"
 
 #. translators: The variable is the backend like "Mastodon"
-#: src/Services/Accounts/SecretAccountStore.vala:96
+#: src/Services/Accounts/SecretAccountStore.vala:106
 #, c-format
 msgid "%s Account"
 msgstr "%s 账户"
@@ -882,24 +898,24 @@ msgstr "在浏览器允许中访问您的账户。"
 msgid "Copy the authorization code from the browser and paste it below."
 msgstr "从浏览器中复制授权码并粘贴到下方。"
 
-#: src/Dialogs/NewAccount.vala:120
+#: src/Dialogs/NewAccount.vala:121
 msgid "Please enter a valid instance URL"
 msgstr "请输入有效的实例 URL"
 
-#: src/Dialogs/NewAccount.vala:154
+#: src/Dialogs/NewAccount.vala:155
 msgid "Please enter a valid authorization code"
 msgstr "请输入有效的授权码"
 
-#: src/Dialogs/NewAccount.vala:171
+#: src/Dialogs/NewAccount.vala:172
 msgid "Instance failed to authorize the access token"
 msgstr "实例未能授权访问令牌"
 
-#: src/Dialogs/NewAccount.vala:180
+#: src/Dialogs/NewAccount.vala:181
 #, c-format
 msgid "Hello, %s!"
 msgstr "你好，%s！"
 
-#: src/Dialogs/NewAccount.vala:238
+#: src/Dialogs/NewAccount.vala:239
 msgid "Server returned an error"
 msgstr "服务器返回了一个错误"
 
@@ -912,44 +928,44 @@ msgstr "选项"
 msgid "Text"
 msgstr "文本"
 
-#: src/Dialogs/Composer/EditorPage.vala:130
+#: src/Dialogs/Composer/EditorPage.vala:140
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:108
 msgid "Characters Left"
 msgstr "剩余字符"
 
-#: src/Dialogs/Composer/EditorPage.vala:149
+#: src/Dialogs/Composer/EditorPage.vala:159
 msgid "What's on your mind?"
 msgstr "你在想些什么？"
 
-#: src/Dialogs/Composer/EditorPage.vala:170
+#: src/Dialogs/Composer/EditorPage.vala:180
 msgid "Emoji Picker"
 msgstr "表情选择器"
 
-#: src/Dialogs/Composer/EditorPage.vala:187
+#: src/Dialogs/Composer/EditorPage.vala:197
 msgid "Write your warning here"
 msgstr "在这里写下你的警告"
 
-#: src/Dialogs/Composer/EditorPage.vala:202
+#: src/Dialogs/Composer/EditorPage.vala:212
 msgid "Content Warning"
 msgstr "内容警告"
 
-#: src/Dialogs/Composer/EditorPage.vala:229
+#: src/Dialogs/Composer/EditorPage.vala:250
 msgid "Post Privacy"
 msgstr "发布隐私设置"
 
-#: src/Dialogs/Composer/EditorPage.vala:252
+#: src/Dialogs/Composer/EditorPage.vala:273
 msgid "Post Language"
 msgstr ""
 
-#: src/Dialogs/Composer/Dialog.vala:78
+#: src/Dialogs/Composer/Dialog.vala:96
 msgid "_Redraft"
 msgstr "清空"
 
-#: src/Dialogs/Composer/Dialog.vala:95
+#: src/Dialogs/Composer/Dialog.vala:120
 msgid "_Edit"
 msgstr "编辑"
 
-#: src/Dialogs/Composer/Dialog.vala:112
+#: src/Dialogs/Composer/Dialog.vala:138
 msgid "_Reply"
 msgstr "回复"
 
@@ -965,50 +981,51 @@ msgstr "移除附件"
 msgid "Save"
 msgstr "保存"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:51
+#: src/Dialogs/Composer/AttachmentsPage.vala:50
 msgid "Media"
 msgstr "媒体"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:67
-#: src/Dialogs/Composer/AttachmentsPage.vala:91
+#: src/Dialogs/Composer/AttachmentsPage.vala:66
+#: src/Dialogs/Composer/AttachmentsPage.vala:90
 msgid "Add Media"
 msgstr "添加媒体"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:76
+#: src/Dialogs/Composer/AttachmentsPage.vala:75
 msgid "No Media"
 msgstr "没有媒体"
 
 #. translators: sensitive as in not safe for work or similar
-#: src/Dialogs/Composer/AttachmentsPage.vala:101
-#: src/Dialogs/Composer/AttachmentsPage.vala:109
+#: src/Dialogs/Composer/AttachmentsPage.vala:100
+#: src/Dialogs/Composer/AttachmentsPage.vala:108
 msgid "Mark media as sensitive"
 msgstr "标记敏感媒体（内容可能引起不适）"
 
 #. translators: sensitive as in not safe for work or similar
-#: src/Dialogs/Composer/AttachmentsPage.vala:109
+#: src/Dialogs/Composer/AttachmentsPage.vala:108
 msgid "Unmark media as sensitive"
 msgstr "取消标记敏感媒体"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:182
+#: src/Dialogs/Composer/AttachmentsPage.vala:181
 msgid "All Supported Files"
 msgstr "所有支持的文件"
 
 #. translators: Open file
-#: src/Dialogs/Composer/AttachmentsPage.vala:194
+#: src/Dialogs/Composer/AttachmentsPage.vala:195
+#: src/Dialogs/Composer/AttachmentsPage.vala:204
 msgid "Open"
 msgstr "打开"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:228
+#: src/Dialogs/Composer/AttachmentsPage.vala:240
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
 msgstr "文件“%s”的大小超过了实例限制"
 
 #. translators: Name <email@domain.com> or Name https://website.example
-#: src/Application.vala:275
+#: src/Application.vala:276
 msgid "translator-credits"
 msgstr "Leo Li <leoli@6leo6.com>"
 
-#: src/Application.vala:300
+#: src/Application.vala:297
 msgid "Yes"
 msgstr "是"
 

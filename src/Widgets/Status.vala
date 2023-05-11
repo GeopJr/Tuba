@@ -597,9 +597,17 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			indicators.remove (edited_indicator);
 		indicators.remove (visibility_indicator);
 
+		// translators: this is a "long" date format shown in places like expanded posts or
+		//				the profile "Joined" field. You can find all the available specifiers
+		//				on https://valadoc.org/glib-2.0/GLib.DateTime.format.html
+		//				Please do not stray far from the original and only include day, month
+		//				and year.
+		var date_local = _("%B %e, %Y");
+
 		// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES
 		var date_parsed = new GLib.DateTime.from_iso8601 (status.formal.created_at, null);
-		date_label.label = date_parsed.format(@"%B %e, %Y $separator %H:%M").replace(" ", ""); // %e prefixes with whitespace on single digits
+
+		date_label.label = date_parsed.format(@"$date_local $separator %H:%M").replace(" ", ""); // %e prefixes with whitespace on single digits
 		date_label.wrap = true;
 
 		// The bottom bar
