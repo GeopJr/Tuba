@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-02 12:04+0300\n"
-"PO-Revision-Date: 2023-04-14 06:50+0000\n"
+"PO-Revision-Date: 2023-05-03 03:58+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -184,15 +184,15 @@ msgstr "Zwiększa wysokość linii wpisów"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Posting"
-msgstr ""
+msgstr "Ustawienia wpisów"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
-msgstr ""
+msgstr "Domyślna widoczność wpisów"
 
 #: data/ui/dialogs/preferences.ui:77
 msgid "Default post language"
-msgstr ""
+msgstr "Domyślny język wpisów"
 
 #: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
@@ -262,11 +262,11 @@ msgstr "Na jakim serwerze masz konto?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
-"Jeżeli nie masz jeszcze konta, <a href=\"https://joinmastodon.org/"
-"servers\">wybierz serwer i je załóż</a>."
+"Jeżeli nie masz jeszcze konta, <a href=\"https://joinmastodon.org/servers"
+"\">wybierz serwer i je załóż</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
@@ -338,7 +338,7 @@ msgstr "Kopiuj adres URL"
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:237
 msgid "View Stats"
-msgstr ""
+msgstr "Wyświetl polubienia i podbicia"
 
 #: src/Widgets/Status.vala:241
 msgid "View Edit History"
@@ -457,7 +457,7 @@ msgstr "Wyszukiwanie"
 #. translators: as in All search results
 #: src/Views/Search.vala:40
 msgid "All"
-msgstr ""
+msgstr "Wszystko"
 
 #: src/Views/Search.vala:41
 msgid "Accounts"
@@ -465,7 +465,7 @@ msgstr "Konta"
 
 #: src/Views/Search.vala:42
 msgid "Posts"
-msgstr "wpisów"
+msgstr "Wpisy"
 
 #: src/Views/Search.vala:43 src/Services/Accounts/Mastodon/Account.vala:108
 msgid "Hashtags"
@@ -483,7 +483,7 @@ msgstr "Profil"
 #: src/Views/Profile.vala:138
 #, c-format
 msgid "%lld Posts"
-msgstr ""
+msgstr "%lld wpisów"
 
 #. translators: the variable is the amount of people a user follows
 #: src/Views/Profile.vala:143
@@ -601,19 +601,19 @@ msgstr "Przełącz tryb pełnoekranowy"
 
 #: src/Views/MediaViewer.vala:496
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Poprzedni załącznik"
 
 #: src/Views/MediaViewer.vala:501
 msgid "Next Attachment"
-msgstr ""
+msgstr "Następny załącznik"
 
 #: src/Views/MediaViewer.vala:519
 msgid "Zoom Out"
-msgstr ""
+msgstr "Oddal"
 
 #: src/Views/MediaViewer.vala:524
 msgid "Zoom In"
-msgstr ""
+msgstr "Przybliż"
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
@@ -946,7 +946,7 @@ msgstr "Widoczność wpisu"
 
 #: src/Dialogs/Composer/EditorPage.vala:252
 msgid "Post Language"
-msgstr ""
+msgstr "Język wpisu"
 
 #: src/Dialogs/Composer/Dialog.vala:78
 msgid "_Redraft"
@@ -1040,4 +1040,10 @@ msgstr "Wyszukiwanie nie przyniosło żadnych wyników"
 #: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "Pusta rozmowa z %s"
+
+#~ msgid "Following"
+#~ msgstr "obserwowanych"
+
+#~ msgid "Followers"
+#~ msgstr "obserwujących"

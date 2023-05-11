@@ -32,7 +32,7 @@ msgstr "Fediverse-cliënt"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
+msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;fediversum;"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:9
 msgid ""
@@ -182,15 +182,15 @@ msgstr "Maakt de regelafstand van berichten groter"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Posting"
-msgstr ""
+msgstr "Berichten plaatsen"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
-msgstr ""
+msgstr "Standaard­zichtbaarheid van berichten"
 
 #: data/ui/dialogs/preferences.ui:77
 msgid "Default post language"
-msgstr ""
+msgstr "Standaard­taal van berichten"
 
 #: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
@@ -260,11 +260,11 @@ msgstr "Wat is uw server?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
-"Indien u nog geen account heeft, <a href=\"https://joinmastodon.org/"
-"servers\">kies dan een server en registreer een account</a>."
+"Indien u nog geen account heeft, <a href=\"https://joinmastodon.org/servers"
+"\">kies dan een server en registreer een account</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
@@ -336,7 +336,7 @@ msgstr "URL kopiëren"
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:237
 msgid "View Stats"
-msgstr ""
+msgstr "Weergave­statistieken"
 
 #: src/Widgets/Status.vala:241
 msgid "View Edit History"
@@ -442,7 +442,7 @@ msgstr "Wilt u ‘%s’ verwijderen?"
 
 #: src/Views/Sidebar.vala:238
 msgid "This account will be removed from the application."
-msgstr "Dit account zal uit de app worden verwijderd"
+msgstr "Dit account zal uit de app worden verwijderd."
 
 #: src/Views/Sidebar.vala:240
 msgid "Forget"
@@ -455,7 +455,7 @@ msgstr "Zoeken"
 #. translators: as in All search results
 #: src/Views/Search.vala:40
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: src/Views/Search.vala:41
 msgid "Accounts"
@@ -600,19 +600,19 @@ msgstr "Volledig scherm omschakelen"
 
 #: src/Views/MediaViewer.vala:496
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Vorige bijlage"
 
 #: src/Views/MediaViewer.vala:501
 msgid "Next Attachment"
-msgstr ""
+msgstr "Volgende bijlage"
 
 #: src/Views/MediaViewer.vala:519
 msgid "Zoom Out"
-msgstr ""
+msgstr "Uitzoomen"
 
 #: src/Views/MediaViewer.vala:524
 msgid "Zoom In"
-msgstr ""
+msgstr "Inzoomen"
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
@@ -945,7 +945,7 @@ msgstr "Berichtprivacy"
 
 #: src/Dialogs/Composer/EditorPage.vala:252
 msgid "Post Language"
-msgstr ""
+msgstr "Bericht­taal"
 
 #: src/Dialogs/Composer/Dialog.vala:78
 msgid "_Redraft"
@@ -1041,4 +1041,10 @@ msgstr "Er zijn geen zoekresultaten"
 #: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "Leeg gesprek met %s"
+
+#~ msgid "Following"
+#~ msgstr "Volgend"
+
+#~ msgid "Followers"
+#~ msgstr "Volgers"

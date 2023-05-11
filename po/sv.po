@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-02 12:04+0300\n"
-"PO-Revision-Date: 2023-04-26 12:50+0000\n"
+"PO-Revision-Date: 2023-05-04 10:12+0000\n"
 "Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/tuba/tuba/sv/>\n"
 "Language: sv\n"
@@ -180,15 +180,15 @@ msgstr "Gör linjehöjden större för inlägg"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Posting"
-msgstr ""
+msgstr "Publicerar inlägget"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
-msgstr ""
+msgstr "Standard inläggssynlighet"
 
 #: data/ui/dialogs/preferences.ui:77
 msgid "Default post language"
-msgstr ""
+msgstr "Standardspråk för inlägg"
 
 #: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
@@ -258,11 +258,11 @@ msgstr "Vad är din server?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
-"Om du inte har ett konto än, <a href=\"https://joinmastodon.org/"
-"servers\">välj en server och registrera ett</a>."
+"Om du inte har ett konto än, <a href=\"https://joinmastodon.org/servers"
+"\">välj en server och registrera ett</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
@@ -333,7 +333,7 @@ msgstr "Kopiera URL"
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:237
 msgid "View Stats"
-msgstr ""
+msgstr "Visa statistik"
 
 #: src/Widgets/Status.vala:241
 msgid "View Edit History"
@@ -452,7 +452,7 @@ msgstr "Sök"
 #. translators: as in All search results
 #: src/Views/Search.vala:40
 msgid "All"
-msgstr ""
+msgstr "Alla"
 
 #: src/Views/Search.vala:41
 msgid "Accounts"
@@ -596,19 +596,19 @@ msgstr "Växla helskärm"
 
 #: src/Views/MediaViewer.vala:496
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Föregående bilaga"
 
 #: src/Views/MediaViewer.vala:501
 msgid "Next Attachment"
-msgstr ""
+msgstr "Nästa bilaga"
 
 #: src/Views/MediaViewer.vala:519
 msgid "Zoom Out"
-msgstr ""
+msgstr "Zooma ut"
 
 #: src/Views/MediaViewer.vala:524
 msgid "Zoom In"
-msgstr ""
+msgstr "Zooma in"
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
@@ -941,7 +941,7 @@ msgstr "Inläggssekretess"
 
 #: src/Dialogs/Composer/EditorPage.vala:252
 msgid "Post Language"
-msgstr ""
+msgstr "Inläggsspråk"
 
 #: src/Dialogs/Composer/Dialog.vala:78
 msgid "_Redraft"
@@ -1035,4 +1035,4 @@ msgstr "Sökningen gav inga resultat"
 #: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "Tom konversation med %s"
