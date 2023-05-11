@@ -126,7 +126,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 				var row = new Adw.ActionRow ();
 				var parsed_date = new GLib.DateTime.from_iso8601 (account.created_at, null);
 
-				var val = new Gtk.Label (parsed_date.format(@"%B %e, %Y").replace(" ", "")) { // %e prefixes with whitespace on single digits
+				var date_local = _("%B %e, %Y");
+				var val = new Gtk.Label (parsed_date.format(date_local).replace(" ", "")) { // %e prefixes with whitespace on single digits
 					wrap = true,
 					xalign = 1,
 					hexpand = true,
@@ -134,7 +135,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 				};
 
 				// translators: as in created an account; this is used in Profiles in a row
-				//				which has as value the date the profile was created
+				//				which has as value the date the profile was created on
 				row.title = _("Joined");
 
 				info.append (row);
