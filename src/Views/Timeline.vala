@@ -31,11 +31,18 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		content.bind_model (model, on_create_model_widget);
 	}
 	~Timeline () {
+		message (@"Destroying Timeline $label");
+
 		entity_queue = {};
 		destruct_account_holder ();
 		destruct_streamable ();
 
 		content.bind_model (null, null);
+	}
+
+	public override void dispose () {
+		destruct_streamable ();
+		base.dispose ();
 	}
 
 	public virtual bool is_status_owned (API.Status status) {
