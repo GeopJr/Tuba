@@ -36,13 +36,15 @@ public class Tuba.SecretAccountStore : AccountStore {
 			);
 		} catch (GLib.Error e) {
 			var wiki_page = "https://github.com/GeopJr/Tuba/wiki/keyring-issues";
+
+			// Let's leave this untranslated for now
 			var help_msg = "If you didn’t manually cancel it, try creating a password keyring named \"login\" using Passwords and Keys (seahorse) or KWalletManager";
 
 			critical (@"Error while searching for items in the secret service: $(e.message)");
 			warning (@"$help_msg\nread more: $wiki_page");
 
 			new Dialogs.NewAccount ();
-			var dlg = app.question (_("Error while searching for user accounts"), help_msg, app.add_account_window, "Read More", Adw.ResponseAppearance.SUGGESTED, "Close");
+			var dlg = app.question ("Error while searching for user accounts", help_msg, app.add_account_window, "Read More", Adw.ResponseAppearance.SUGGESTED, "Close");
 
 			dlg.response.connect(res => {
 				if (res == "yes") {
