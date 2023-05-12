@@ -296,3 +296,20 @@ GtkSourceAssistant.completion list row{
 .locale-dropdown-upcase {
 	text-transform: uppercase;
 }
+
+.preview_card {
+	padding: 0;
+}
+
+.preview_card_image:dir(ltr) {
+	border-radius: 6px 0px 0px 6px;
+}
+
+.preview_card_image:dir(rtl) {
+	border-radius: 0px 6px 6px 0px;
+}
+
+.preview_card_video {
+	border-radius: 6px 6px 0px 0px;
+}
+

@@ -27,6 +27,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		stream_event[InstanceAccount.EVENT_EDIT_POST].connect (on_edit_post);
 		stream_event[InstanceAccount.EVENT_DELETE_POST].connect (on_delete_post);
 		settings.notify["show-spoilers"].connect (on_refresh);
+		settings.notify["hide-preview-cards"].connect (on_refresh);
 
 		content.bind_model (model, on_create_model_widget);
 	}
