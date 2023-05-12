@@ -462,7 +462,6 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
         File file = File.new_for_uri (url);
 		video.set_file(file);
-        video.media_stream.seekable = false;
         item.done ();
         carousel.page_changed (0);
     }
