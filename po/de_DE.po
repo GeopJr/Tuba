@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-11 03:15+0300\n"
-"PO-Revision-Date: 2023-04-16 12:47+0000\n"
+"PO-Revision-Date: 2023-05-13 14:49+0000\n"
 "Last-Translator: Jummit <jummit@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tuba/tuba/de/>\n"
 "Language: de_DE\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -184,15 +184,15 @@ msgstr "Vergrößert die Zeilenhöhe für Beiträge"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Posting"
-msgstr ""
+msgstr "Posting"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
-msgstr ""
+msgstr "Sichtbarkeit neuer Beiträge"
 
 #: data/ui/dialogs/preferences.ui:77
 msgid "Default post language"
-msgstr ""
+msgstr "Sprache neuer Beiträge"
 
 #: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
@@ -338,7 +338,7 @@ msgstr "URL kopieren"
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:237
 msgid "View Stats"
-msgstr ""
+msgstr "Statistiken ansehen"
 
 #: src/Widgets/Status.vala:241
 msgid "View Edit History"
@@ -388,7 +388,7 @@ msgstr "Lesezeichen"
 #. and year.
 #: src/Widgets/Status.vala:605 src/Views/Profile.vala:129
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%e. %B, %Y"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
@@ -467,7 +467,7 @@ msgstr "Suchen"
 #. translators: as in All search results
 #: src/Views/Search.vala:40
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: src/Views/Search.vala:41
 msgid "Accounts"
@@ -493,7 +493,7 @@ msgstr "Profil"
 #. which has as value the date the profile was created on
 #: src/Views/Profile.vala:139
 msgid "Joined"
-msgstr ""
+msgstr "Beigetretten"
 
 #. translators: the variable is the amount of posts a user has made
 #: src/Views/Profile.vala:159
@@ -618,19 +618,19 @@ msgstr "Vollbild ein-/ausschalten"
 
 #: src/Views/MediaViewer.vala:497
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Vorheriger Anhang"
 
 #: src/Views/MediaViewer.vala:502
 msgid "Next Attachment"
-msgstr ""
+msgstr "Nächster Anhang"
 
 #: src/Views/MediaViewer.vala:520
 msgid "Zoom Out"
-msgstr ""
+msgstr "Herauszoomen"
 
 #: src/Views/MediaViewer.vala:525
 msgid "Zoom In"
-msgstr ""
+msgstr "Vergrößern"
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
@@ -963,7 +963,7 @@ msgstr "Post-Sichtbarkeit"
 
 #: src/Dialogs/Composer/EditorPage.vala:273
 msgid "Post Language"
-msgstr ""
+msgstr "Beitragssprache"
 
 #: src/Dialogs/Composer/Dialog.vala:96
 msgid "_Redraft"
@@ -1058,4 +1058,4 @@ msgstr "Suche ergab keine Ergebnisse"
 #: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "Leeres Gespräch mit %s"
