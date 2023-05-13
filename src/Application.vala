@@ -187,7 +187,9 @@ namespace Tuba {
 				}
 				if (!start_hidden) main_window.present ();
 			}
-			main_window.close_request.connect(on_window_closed);
+
+			if (main_window != null)
+				main_window.close_request.connect(on_window_closed);
 		}
 
 		public bool on_window_closed () {
@@ -290,7 +292,8 @@ namespace Tuba {
 				msg
 			);
 
-			dlg.transient_for = win;
+			if (win != null)
+				dlg.transient_for = win;
 			return dlg;
 		}
 
@@ -307,7 +310,8 @@ namespace Tuba {
 			dlg.add_response("yes", yes_label);
 			dlg.set_response_appearance("yes", yes_appearance);
 
-			dlg.transient_for = win;
+			if (win != null)
+				dlg.transient_for = win;
 			return dlg;
 		}
 
