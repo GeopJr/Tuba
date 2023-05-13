@@ -575,29 +575,32 @@ public class Tuba.Widgets.Status : ListBoxRow {
 				} catch {}
 			}
 
-			var author_label = new Gtk.Label (author.replace ("\n", " ")) {
+			var author_label = new Gtk.Label (author) {
 				ellipsize = Pango.EllipsizeMode.END,
 				halign = Gtk.Align.START,
 				css_classes = {"dim-label"},
-				tooltip_text = author
+				tooltip_text = author,
+				single_line_mode = true
 			};
 			body.append (author_label);
 
 			if (card_obj.title != "") {
-				var title_label = new Gtk.Label (card_obj.title.replace ("\n", " ")) {
+				var title_label = new Gtk.Label (card_obj.title) {
 					ellipsize = Pango.EllipsizeMode.END,
 					halign = Gtk.Align.START,
-					tooltip_text = card_obj.title
+					tooltip_text = card_obj.title,
+					single_line_mode = true
 				};
 				body.append (title_label);
 			}
 
 			if (card_obj.description != "") {
-				var description_label = new Gtk.Label (card_obj.description.replace ("\n", " ")) {
+				var description_label = new Gtk.Label (card_obj.description) {
 					ellipsize = Pango.EllipsizeMode.END,
 					halign = Gtk.Align.START,
 					css_classes = {"dim-label"},
-					tooltip_text = card_obj.description
+					tooltip_text = card_obj.description,
+					single_line_mode = true
 				};
 				body.append (description_label);
 			}
