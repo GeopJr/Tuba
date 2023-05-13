@@ -134,7 +134,7 @@ public class Tuba.Request : GLib.Object {
 			pars.@foreach (entry => {
 				parameters_counter++;
 				var key = (string) entry.key;
-				var val = (string) entry.value;
+				var val = Uri.escape_string ((string) entry.value);
 				parameters += @"$key=$val";
 
 				if (parameters_counter < pars.size)

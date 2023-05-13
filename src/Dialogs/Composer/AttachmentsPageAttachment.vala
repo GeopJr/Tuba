@@ -154,7 +154,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			}
 			new Request.PUT (@"/api/v1/media/$(id)")
 				.with_account (accounts.active)
-				.with_param ("description", HtmlUtils.uri_encode (alt_text))
+				.with_param ("description", alt_text)
 				.then(() => {})
 				.exec ();
 			dialog.destroy();
