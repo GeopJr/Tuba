@@ -230,7 +230,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 				this.list.replies_policy = replies_policy;
 				new Request.PUT (@"/api/v1/lists/$(t_list.id)")
 					.with_account (accounts.active)
-					.with_param ("title", HtmlUtils.uri_encode(title))
+					.with_param ("title", title)
 					.with_param ("replies_policy", replies_policy)
 					.then(() => {})
 					.exec ();
@@ -289,7 +289,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 	public void create_list(string list_name) {
 		new Request.POST ("/api/v1/lists")
 			.with_account (accounts.active)
-			.with_param ("title", HtmlUtils.uri_encode(list_name))
+			.with_param ("title", list_name)
 			.then ((sess, msg, in_stream) => {
 				var parser = Network.get_parser_from_inputstream(in_stream);
 				var node = network.parse_node (parser);
