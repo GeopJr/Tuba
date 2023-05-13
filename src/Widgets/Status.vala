@@ -431,6 +431,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		spoiler_stack.visible_child_name = reveal_spoiler ? "content" : "spoiler";
 	}
 
+	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	protected virtual void bind () {
 		this.content.instance_emojis = status.formal.emojis_map;
 		this.content.content = status.formal.content;
@@ -503,6 +504,200 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			poll.status_parent = status.formal;
 			poll.poll = status.formal.poll;
 		}
+
+		if (!settings.hide_preview_cards && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
+			var card_obj = status.formal.card;
+			var is_video = card_obj.kind == "video";
+			var card_container = is_video ? new Gtk.Box (Orientation.VERTICAL, 0) : new Gtk.Box (Orientation.HORIZONTAL, 6);
+
+			if (card_obj.image != null) {
+				var image = new Gtk.Picture ();
+
+				#if GTK_4_8
+					image.set_property ("content-fit", 2);
+				#endif
+
+				image_cache.request_paintable (card_obj.image, (is_loaded, paintable) => {
+					image.paintable = paintable;
+				});
+
+				if (is_video) {
+					image.height_request = 250;
+					image.add_css_class ("preview_card_video");
+
+					var overlay = new Gtk.Overlay () {
+						vexpand = true,
+						hexpand = true
+					};
+
+					var icon = new Gtk.Image() {
+						valign = Gtk.Align.CENTER,
+						halign = Gtk.Align.CENTER,
+						css_classes = {"osd", "circular", "attachment-overlay-icon"},
+						icon_name = "media-playback-start-symbolic",
+						icon_size = Gtk.IconSize.LARGE
+					};
+
+					overlay.add_overlay (icon);
+					overlay.child = image;
+					card_container.append (overlay);
+				} else {
+					image.height_request = 70;
+					image.add_css_class ("preview_card_image");
+					card_container.append (image);
+				}
+
+				
+			} else if (!is_video) {
+				card_container.append (new Gtk.Image.from_icon_name("tuba-paper-symbolic") {
+					height_request = 70,
+					width_request = 70,
+					icon_size = Gtk.IconSize.LARGE
+				});
+				card_container.spacing = 0;
+			}
+
+			var body = new Gtk.Box (Orientation.VERTICAL, 6) {
+				margin_top = 6,
+				margin_bottom = 6,
+				valign = Gtk.Align.CENTER,
+				width_request = 120
+			};
+
+			if (is_video) body.margin_start = body.margin_end = 6;
+
+			var author = card_obj.provider_name;
+			if (author == "") {
+				try {
+					var uri = GLib.Uri.parse (card_obj.url, GLib.UriFlags.NONE);
+					var host = uri.get_host ();
+					if (host != null) author = host;
+				} catch {}
+			}
+
+			var author_label = new Gtk.Label (author) {
+				ellipsize = Pango.EllipsizeMode.END,
+				halign = Gtk.Align.START,
+				css_classes = {"dim-label"},
+				tooltip_text = author,
+				single_line_mode = true
+			};
+			body.append (author_label);
+
+			if (card_obj.title != "") {
+				var title_label = new Gtk.Label (card_obj.title) {
+					ellipsize = Pango.EllipsizeMode.END,
+					halign = Gtk.Align.START,
+					tooltip_text = card_obj.title,
+					single_line_mode = true
+				};
+				body.append (title_label);
+			}
+
+			if (card_obj.description != "") {
+				var description_label = new Gtk.Label (card_obj.description) {
+					ellipsize = Pango.EllipsizeMode.END,
+					halign = Gtk.Align.START,
+					css_classes = {"dim-label"},
+					tooltip_text = card_obj.description,
+					single_line_mode = true
+				};
+				body.append (description_label);
+			}
+
+			card_container.append (body);
+
+			var card = new Gtk.Button () {
+				child = card_container,
+				css_classes = {"preview_card", "frame"}
+			};
+			card.clicked.connect (open_card_url);
+			content_box.append (card);
+		}
+	}
+
+	// Anything higher is usually very laggy
+	const int64[] IDEAL_PEERTUBE_RESOLUTION = { 720, 480, 360 };
+	void open_card_url () {
+		var peertube = status.formal.card.is_peertube;
+
+		var dlg_url = status.formal.card.url;
+		if (dlg_url.length > 64) {
+			dlg_url = status.formal.card.url.substring(0, 62) + "…";
+		}
+
+		// translators: the variable is the app name (Tuba)
+		var dlg_title = _(@"You are about to leave $(Build.NAME)");
+
+		// translators: the variable is a url
+		var dlg_body = _("If you proceed, \"%s\" will open in your browser.".printf (dlg_url));
+		if (peertube) {
+			dlg_title = _("You are about to open a PeerTube video");
+
+			// translators: the first variable is the app name (Tuba),
+			//				the second one is a url
+			dlg_body = _("If you proceed, %s will connect to \"%s\".".printf (Build.NAME, dlg_url));
+		}
+
+		var privacy_dialog = app.question (
+			dlg_title,
+			dlg_body,
+			app.main_window,
+			_("Proceed"),
+			Adw.ResponseAppearance.DESTRUCTIVE
+		);
+
+		privacy_dialog.response.connect(res => {
+			if (res == "yes") {
+				if (peertube) {
+					try {
+						var peertube_instance = GLib.Uri.parse (status.formal.card.url, GLib.UriFlags.NONE);
+						var peertube_api_video = @"https://$(peertube_instance.get_host ())/api/v1/videos/$(Path.get_basename (peertube_instance.get_path ()))";
+						new Request.GET (peertube_api_video)
+							.then ((sess, msg, in_stream) => {
+								var failed = true;
+								var parser = Network.get_parser_from_inputstream(in_stream);
+								var node = network.parse_node (parser);
+								var peertube_obj = API.PeerTube.from (node);
+
+								if (peertube_obj.url == status.formal.card.url) {
+									if (peertube_obj.streamingPlaylists != null && peertube_obj.streamingPlaylists.size > 0) {
+										var peertube_streaming_playlist = peertube_obj.streamingPlaylists.get(0);
+										if (peertube_streaming_playlist.files != null && peertube_streaming_playlist.files.size > 0) {
+											var res_url = "";
+											peertube_streaming_playlist.files.foreach (file => {
+												if (file.fileDownloadUrl == "" || file.resolution == null) return true;
+												res_url = file.fileDownloadUrl;
+
+												if (file.resolution.id in IDEAL_PEERTUBE_RESOLUTION) return false;
+												return true;
+											});
+
+											if (res_url != "") {
+												failed = false;
+												app.main_window.show_media_viewer_peertube (res_url, null);
+											}
+										}
+									}
+								}
+
+								if (failed) Host.open_uri (status.formal.card.url);
+							})
+							.on_error (() => {
+								Host.open_uri (status.formal.card.url);
+							})
+							.exec ();
+					} catch {
+						Host.open_uri (status.formal.card.url);
+					}
+				} else {
+					Host.open_uri (status.formal.card.url);
+				}
+			}
+			privacy_dialog.destroy();
+		});
+
+		privacy_dialog.present ();
 	}
 
 	protected virtual void append_actions () {

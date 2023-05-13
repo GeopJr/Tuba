@@ -135,6 +135,20 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             done ();
         }
 
+        ~Item () {
+            message ("Destroying MediaViewer.Item");
+
+            if (is_video) {
+                ((Gtk.Video) child_widget).media_stream.stream_unprepared ();
+                ((Gtk.Video) child_widget).set_file (null);
+                ((Gtk.Video) child_widget).set_media_stream (null);
+            } else {
+                ((Gtk.Picture) child_widget).paintable = null;
+            }
+
+            child_widget.destroy ();
+        }
+
         public void done () {
             spinner.spinning = false;
             stack.visible_child_name = "child";
@@ -439,6 +453,20 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
                 item.done ();
             }
         });
+    }
+
+    public void set_peertube (string url, Gdk.Paintable? preview) {
+        var video = new Gtk.Video ();
+        var item = new Item (video, url, preview, null, true);
+
+        File file = File.new_for_uri (url);
+		video.set_file(file);
+        item.done ();
+
+        carousel.append (item);
+        items.add (item);
+
+        carousel.page_changed (0);
     }
 
     public void set_single_paintable (string url, Gdk.Paintable paintable) {

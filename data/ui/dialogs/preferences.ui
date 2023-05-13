@@ -166,6 +166,17 @@
                 </child>
               </object>
             </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Hide link preview cards</property>
+                <property name="activatable_widget">hide_preview_cards</property>
+                <child>
+                  <object class="GtkSwitch" id="hide_preview_cards">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
       </object>

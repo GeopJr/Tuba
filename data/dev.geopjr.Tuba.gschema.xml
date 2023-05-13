@@ -36,6 +36,9 @@
 		<key name="show-spoilers" type="b">
 			<default>false</default>
 		</key>
+		<key name="hide-preview-cards" type="b">
+			<default>false</default>
+		</key>
 		<key name="larger-font-size" type="b">
 			<default>false</default>
 		</key>

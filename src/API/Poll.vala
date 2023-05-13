@@ -20,10 +20,10 @@ public class Tuba.API.Poll : GLib.Object, Json.Serializable{
 
 		//  var type = spec.value_type;
 		if (prop=="options"){
-		    return Entity.des_list (out val, node, typeof (API.PollOption));
+            return Entity.des_list (out val, node, typeof (API.PollOption));
 		}
 		if (prop=="own-votes"){
-		    return Poll.des_list_int (out val, node);
+            return Poll.des_list_int (out val, node);
 		}
 		return success;
 	}
@@ -48,7 +48,7 @@ public class Tuba.API.Poll : GLib.Object, Json.Serializable{
         return Json.gobject_deserialize (type, node) as Poll;
 	}
     public static Request vote (InstanceAccount acc,ArrayList<PollOption> options,ArrayList<string> selection, string id) {
- 		message (@"Voting poll $(id)...");
+        message (@"Voting poll $(id)...");
  		  //Creating json to send
         var builder = new Json.Builder ();
         builder.begin_object ();
@@ -58,12 +58,12 @@ public class Tuba.API.Poll : GLib.Object, Json.Serializable{
         foreach (API.PollOption p in options){
             foreach (string select in selection){
                 if (select == p.title){
-	                builder.add_string_value (row_number.to_string());
-	            }
+                    builder.add_string_value (row_number.to_string());
+                }
             }
             row_number++;
-	    }
-	    builder.end_array ();
+        }
+        builder.end_array ();
         builder.end_object ();
         var generator = new Json.Generator ();
         generator.set_root (builder.get_root ());

@@ -68,6 +68,15 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		media_viewer.set_single_paintable (url, paintable);
 	}
 
+	public void show_media_viewer_peertube(string url, Paintable? preview) {
+		if (!is_media_viewer_visible()) {
+			main_stack.visible_child_name = "media_viewer";
+			media_viewer.clear.connect(hide_media_viewer);
+		}
+
+		media_viewer.set_peertube (url, preview);
+	}
+
 	public void hide_media_viewer() {
 		if (!is_media_viewer_visible()) return;
 
