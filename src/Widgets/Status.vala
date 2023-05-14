@@ -32,6 +32,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 	}
 
+	public Dialogs.Compose.SuccessCallback? reply_cb;
+
 	[GtkChild] protected unowned Box status_box;
 	[GtkChild] protected unowned Box avatar_side;
 	[GtkChild] protected unowned Box title_box;
@@ -705,10 +707,18 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		privacy_dialog.present ();
 	}
 
+	private void on_reply (API.Status x) {
+		reply_cb (x);
+	}
+
+	private void on_reply_button_clicked () {
+		new Dialogs.Compose.reply (status.formal, on_reply);
+	}
+
 	protected virtual void append_actions () {
 		reply_button = new Button ();
 		reply_button_content = new Adw.ButtonContent ();
-		reply_button.clicked.connect (() => new Dialogs.Compose.reply (status.formal));
+		reply_button.clicked.connect (on_reply_button_clicked);
 		actions.append (reply_button);
 
 		reblog_button = new StatusActionButton () {

@@ -55,6 +55,23 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		root_widget.thread_line_bottom.hide ();
 	}
 
+	private void on_replied (API.Status t_status) {
+		var found = false;
+		if (t_status.in_reply_to_id != null) {
+			for (uint i = 0; i < model.get_n_items(); i++) {
+				var status_obj = (API.Status)model.get_item(i);
+				if (status_obj.id == t_status.in_reply_to_id) {
+					model.insert (i+1, t_status);
+					found = true;
+					break;
+				}
+			}
+		}
+
+		if (!found) model.append (t_status);
+		connect_threads ();
+	}
+
 	public void request () {
 		new Request.GET (@"/api/v1/statuses/$(root_status.id)/context")
 			.with_account (account)
@@ -114,6 +131,15 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 					Host.open_uri (q);
 			})
 			.exec ();
+	}
+
+	public override Gtk.Widget on_create_model_widget(Object obj) {
+		var widget = base.on_create_model_widget(obj);
+		var widget_status = widget as Widgets.Status;
+
+		widget_status.reply_cb = on_replied;
+
+		return widget_status;
 	}
 
 }
