@@ -73,7 +73,7 @@ if libgtk_dep.version().version_compare('>=4.10.0')
 endif
 
 if not gtksourceview_dep.found ()
-  warning('Support for lack of gtksourceview-5 is not guaranteed. Avoid packaging this app in environments that are missing it.')
+  warning('Support for lack of gtksourceview-5 is not guaranteed.')
   add_project_arguments(['--define=MISSING_GTKSOURCEVIEW'], language: 'vala')
 elif gtksourceview_dep.version().version_compare('>=5.7.1')
   add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
