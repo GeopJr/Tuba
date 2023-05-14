@@ -4,7 +4,7 @@ public class Tuba.Views.Hashtag : Views.Timeline {
     string t_tag = "";
     public Hashtag (string tag, bool? following = null) {
         Object (
-            url: @"/api/v1/timelines/tag/$tag",
+            url: @"/api/v1/timelines/tag/$(Uri.escape_string (tag))",
             label: "#"+tag
         );
 
