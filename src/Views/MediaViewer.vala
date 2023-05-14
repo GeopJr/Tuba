@@ -517,7 +517,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         var zoom_btns = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 12) {
             valign = Gtk.Align.END,
             halign = Gtk.Align.END,
-            hexpand = true
+            hexpand = true,
+            visible = false
         };
 
         var prev_btn = new Gtk.Button.from_icon_name("go-previous-symbolic") {
