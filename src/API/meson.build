@@ -10,6 +10,7 @@ sources += files(
     'List.vala',
     'Mention.vala',
     'Notification.vala',
+    'PeerTube.vala',
     'Pleroma.vala',
     'Poll.vala',
     'PollOption.vala',
@@ -20,5 +21,8 @@ sources += files(
     'TagHistory.vala',
 )
 
-subdir('Instance')
+subdir('Account')
 subdir('Attachment')
+subdir('Instance')
+subdir('PeerTube')
+subdir('Status')

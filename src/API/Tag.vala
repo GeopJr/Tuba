@@ -14,7 +14,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	public static Request search (string query) throws Error {
 		return new Request.GET ("/api/v2/search")
 			.with_account (accounts.active)
-			.with_param ("q", Uri.escape_string (query))
+			.with_param ("q", query)
 			.with_param ("resolve", "hashtags")
 			.with_param ("exclude_unreviewed", "true")
 			.with_param ("limit", "4");

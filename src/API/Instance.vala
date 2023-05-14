@@ -4,6 +4,7 @@ public class Tuba.API.Instance : Entity {
 	public int64 max_toot_chars { get; set; default = 0; }
 	public API.Mastodon.Configuration.Polls? poll_limits { get; set; default = null; }
 	public int64 upload_limit { get; set; default = 0; }
+    public API.Pleroma? pleroma { get; set; default = null; }
 
     public int64 compat_status_max_media_attachments {
         get {

@@ -31,10 +31,10 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		child = box;
 	}
 
-	private Attachment.Image[] attachement_widgets;
+	private Attachment.Image[] attachment_widgets;
 	protected void update () {
 		// box.clear_all ();
-		attachement_widgets = {};
+		attachment_widgets = {};
 
 		if (list == null || list.is_empty) {
 			visible = false;
@@ -45,9 +45,13 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 
 		list.@foreach (item => {
 			try {
-				var widget = (Widgets.Attachment.Image) item.to_widget ();
-				box.insert (widget, -1);
-				attachement_widgets += widget;
+				var widget = item.to_widget ();
+				var flowboxchild = new Gtk.FlowBoxChild () {
+					child = widget,
+					focusable = false
+				};
+				box.insert (flowboxchild, -1);
+				attachment_widgets += ((Widgets.Attachment.Image) widget);
 
 				if (single_attachment) {
 					if (item != null && item.meta != null && item.meta.small != null && item.meta.small.width != 0 && item.meta.small.height != 0 && item.meta.small.aspect != 0.0f) {
@@ -57,9 +61,9 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 						widget.height_request = 384;
 					}
 				}
-				widget.on_any_attachment_click.connect (() => open_all_attachments(item.url));
+				((Widgets.Attachment.Image) widget).on_any_attachment_click.connect (() => open_all_attachments(item.url));
 			} catch (Oopsie e) {
-				warning(@"Error updating attachements: $(e.message)");
+				warning(@"Error updating attachments: $(e.message)");
 			}
 			return true;
 		});
@@ -81,7 +85,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 	private void open_all_attachments (string url) {
 		var i = 0;
 		var main = 0;
-		foreach (var at_widget in attachement_widgets) {
+		foreach (var at_widget in attachment_widgets) {
 			if (at_widget.entity.url != url) {
 				at_widget.load_image_in_media_viewer (i);
 			} else {

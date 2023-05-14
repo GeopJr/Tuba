@@ -25,7 +25,8 @@ public class Tuba.HashtagProvider: Tuba.CompletionProvider {
 		yield req.await();
 
 		var suggestions = new GLib.ListStore (typeof (Object));
-		var results = API.SearchResults.from (network.parse_node (req.response_body));
+		var parser = Network.get_parser_from_inputstream(req.response_body);
+		var results = API.SearchResults.from (network.parse_node (parser));
 		results?.hashtags.foreach (tag => {
 			var proposal = new Proposal (tag);
 			suggestions.append (proposal);

@@ -65,7 +65,8 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 		if (error != null || in_stream == null)
 			throw new Oopsie.INSTANCE (error);
 		else {
-			var node = network.parse_node (in_stream);
+			var parser = Network.get_parser_from_inputstream(in_stream);
+			var node = network.parse_node (parser);
 			var entity = accounts.active.create_entity<API.Attachment> (node);
 			message (@"OK! ID $(entity.id)");
 			return entity;

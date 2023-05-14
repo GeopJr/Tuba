@@ -66,12 +66,13 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             wrap = true,
             wrap_mode = Pango.WrapMode.WORD_CHAR,
             xalign = 0.0f,
-            valign = Gtk.Align.CENTER,
+            valign = Gtk.Align.START,
             //  css_classes = {"line-height"}
         };
 
         label.set_parent(this);
 
+        label.activate_link.connect((url) => activate_link(url));
         label.notify["label"].connect(() => {
             invalidate_child_widgets();
         });        
@@ -298,9 +299,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         base.add_child (builder, child, type);
     }
 
-    public signal bool activate_link (string uri) {
-        return this.label.activate_link (uri);
-    }
+    public signal bool activate_link (string uri);
 
     public bool single_line_mode {
 		get { return label.single_line_mode; }

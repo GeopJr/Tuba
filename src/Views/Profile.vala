@@ -51,13 +51,18 @@ public class Tuba.Views.Profile : Views.Timeline {
 			.with_param ("pinned", "true")
 			.with_ctx (this)
 			.then ((sess, msg, in_stream) => {
-				Network.parse_array (msg, in_stream, node => {
+				var parser = Network.get_parser_from_inputstream(in_stream);
+
+				Object[] to_add = {};
+				Network.parse_array (msg, parser, node => {
 					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
 					var e_status = e as API.Status;
 					if (e_status != null) e_status.pinned = true;
 
-					model.append (e); //FIXME: use splice();
+					to_add += e_status;
 				});
+				model.splice (0, 0, to_add);
+
 			})
 			.exec ();
 	}
@@ -65,7 +70,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/profile_header.ui")]
 	protected class Cover : Box {
 
-		[GtkChild] unowned Widgets.Background background;
+		[GtkChild] unowned Widgets.BackgroundWrapper background;
 		[GtkChild] public unowned Label cover_badge;
 		[GtkChild] public unowned ListBox info;
 		[GtkChild] unowned Widgets.EmojiLabel display_name;
@@ -88,7 +93,10 @@ public class Tuba.Views.Profile : Views.Timeline {
 				avatar.bind_property("custom_image", background, "paintable", GLib.BindingFlags.SYNC_CREATE);
 			} else {
 				image_cache.request_paintable (account.header, on_cache_response);
+				background.clicked.connect (() => app.main_window.show_media_viewer_single(account.header, background.paintable));
 			}
+
+			avatar.clicked.connect (() => app.main_window.show_media_viewer_single(account.avatar, avatar.custom_image));
 
 			if (account.fields != null) {
 				foreach (API.AccountField f in account.fields) {
@@ -117,6 +125,27 @@ public class Tuba.Views.Profile : Views.Timeline {
 					};
 				}
 			}
+
+			if (account.created_at != null) {
+				var row = new Adw.ActionRow ();
+				var parsed_date = new GLib.DateTime.from_iso8601 (account.created_at, null);
+
+				var date_local = _("%B %e, %Y");
+				var val = new Gtk.Label (parsed_date.format(date_local).replace(" ", "")) { // %e prefixes with whitespace on single digits
+					wrap = true,
+					xalign = 1,
+					hexpand = true,
+					tooltip_text = parsed_date.format(@"%F")
+				};
+
+				// translators: as in created an account; this is used in Profiles in a row
+				//				which has as value the date the profile was created on
+				row.title = _("Joined");
+
+				info.append (row);
+				row.add_suffix (val);
+				row.add_prefix (new Gtk.Image.from_icon_name ("tuba-contact-new-symbolic"));
+			}
 		}
 
 		void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
@@ -130,15 +159,18 @@ public class Tuba.Views.Profile : Views.Timeline {
 			homogeneous = true
 		};
 
-		var btn = build_profile_stats_button(@"$(profile.statuses_count) " + _("Posts"));
+		// translators: the variable is the amount of posts a user has made
+		var btn = build_profile_stats_button(_("%lld Posts").printf (profile.statuses_count));
 		btn.clicked.connect(() => change_timeline_source("statuses"));
 		box.append(btn);
 
-		btn = build_profile_stats_button(@"$(profile.following_count) " + _("Following"));
+		// translators: the variable is the amount of people a user follows
+		btn = build_profile_stats_button(_("%lld Following").printf (profile.following_count));
 		btn.clicked.connect(() => change_timeline_source("following"));
 		box.append(btn);
 
-		btn = build_profile_stats_button(@"$(profile.followers_count) " + _("Followers"));
+		// translators: the variable is the amount of followers a user has
+		btn = build_profile_stats_button(_("%lld Followers").printf (profile.followers_count));
 		btn.clicked.connect(() => change_timeline_source("followers"));
 		box.append(btn);
 
@@ -360,7 +392,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 	public static void open_from_id (string id) {
 		var msg = new Soup.Message ("GET", @"$(accounts.active.instance)/api/v1/accounts/$id");
 		network.queue (msg, null, (sess, mess, in_stream) => {
-			var node = network.parse_node (in_stream);
+			var parser = Network.get_parser_from_inputstream(in_stream);
+			var node = network.parse_node (parser);
 			var acc = API.Account.from (node);
 			app.main_window.open_view (new Views.Profile (acc));
 		},
@@ -392,6 +425,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		box.append(headerbar);
 		box.append(toast_overlay);
 		var dialog = new Adw.Window() {
+			// translators: the variable is an account handle
 			title = _("Add or remove \"%s\" to or from a list").printf (profile.handle),
 			modal = true,
 			transient_for = app.main_window,
@@ -403,6 +437,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 		var preferences_page = new Adw.PreferencesPage();
 		var preferences_group = new Adw.PreferencesGroup() {
+			// translators: the variable is an account handle
 			title = _("Select the list to add or remove \"%s\" to or from:").printf (profile.handle)
 		};
 
@@ -417,7 +452,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 			.with_ctx (this)
 			.on_error (on_error)
 			.then ((sess, msg, in_stream) => {
-				if (Network.get_array_size(in_stream) > 0) {
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				if (Network.get_array_size(parser) > 0) {
 					new Request.GET (@"/api/v1/accounts/$(profile.id)/lists")
 					.with_account (accounts.active)
 					.with_ctx (this)
@@ -426,11 +462,12 @@ public class Tuba.Views.Profile : Views.Timeline {
 						var added = false;
 						var in_list = new Gee.ArrayList<string>();
 
-						Network.parse_array (msg2, in_stream2, node => {
+						var parser2 = Network.get_parser_from_inputstream(in_stream2);
+						Network.parse_array (msg2, parser2, node => {
 							var list = API.List.from (node);
 							in_list.add(list.id);
 						});
-						Network.parse_array (msg, in_stream, node => {
+						Network.parse_array (msg, parser, node => {
 							var list = API.List.from (node);
 							var is_already = in_list.contains(list.id);
 

@@ -28,6 +28,7 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	public int64 following_count { get; set; }
 	public int64 statuses_count { get; set; }
 	public Gee.ArrayList<API.AccountField>? fields { get; set; default = null; }
+	public AccountSource? source { get; set; default = null; }
 
 	public string handle {
 		owned get {
@@ -77,7 +78,7 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	public static Request search (string query) throws Error {
 		return new Request.GET ("/api/v1/accounts/search")
 			.with_account (accounts.active)
-			.with_param ("q", Uri.escape_string (query))
+			.with_param ("q", query)
 			.with_param ("resolve", "false")
 			.with_param ("limit", "4");
 	}

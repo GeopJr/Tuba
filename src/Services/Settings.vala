@@ -3,6 +3,7 @@ using GLib;
 public class Tuba.Settings : GLib.Settings {
 
 	public string active_account { get; set; }
+	public string default_language { get; set; default = "en"; }
 	public ColorScheme color_scheme { get; set; }
 	public string default_post_visibility { get; set; default = "public"; }
 	public bool autostart { get; set; }
@@ -11,6 +12,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool live_updates { get; set; }
 	public bool public_live_updates { get; set; }
 	public bool show_spoilers { get; set; }
+	public bool hide_preview_cards { get; set; }
 	public bool larger_font_size { get; set; }
 	public bool larger_line_height { get; set; }
 	public bool aggressive_resolving { get; set; }
@@ -26,6 +28,7 @@ public class Tuba.Settings : GLib.Settings {
 		init ("live-updates");
 		init ("public-live-updates");
 		init ("show-spoilers");
+		init ("hide-preview-cards");
 		init ("larger-font-size");
 		init ("larger-line-height");
 		init ("aggressive-resolving");

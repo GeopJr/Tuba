@@ -6,18 +6,17 @@ public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
 
     private string _content = "";
 	public string content { get {return _content;}
-	 set {
-		_content = value;
+        set {
+            _content = value;
 
-        string t_value;
-        Gtk.Widget[] t_widgets;
-        generate_label_with_emojis(value, out t_value, out t_widgets);
+            string t_value;
+            Gtk.Widget[] t_widgets;
+            generate_label_with_emojis(value, out t_value, out t_widgets);
 
-        set_children(t_widgets);
-        text = t_value;
-	} }
-
-	construct { }
+            set_children(t_widgets);
+            text = t_value;
+        }
+    }
 
 	public EmojiLabel(string? text = null, Gee.HashMap<string, string>? emojis = null) {
         Object  ();

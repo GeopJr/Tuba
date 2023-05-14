@@ -7,6 +7,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string EVENT_EDIT_POST = "status.update";
 	public const string EVENT_DELETE_POST = "delete";
 	public const string EVENT_NOTIFICATION = "notification";
+	public const string EVENT_CONVERSATION = "conversation";
 
 	public const string KIND_MENTION = "mention";
 	public const string KIND_REBLOG = "reblog";
@@ -112,7 +113,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		var req = new Request.GET ("/api/v1/accounts/verify_credentials").with_account (this);
 		yield req.await ();
 
-		var node = network.parse_node (req.response_body);
+		var parser = Network.get_parser_from_inputstream(req.response_body);
+		var node = network.parse_node (parser);
 		var updated = API.Account.from (node);
 		patch (updated);
 
@@ -189,7 +191,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		new Request.GET ("/api/v1/instance")
 			.with_account (this)
 			.then ((sess, msg, in_stream) => {
-				var node = network.parse_node (in_stream);
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				var node = network.parse_node (parser);
 				instance_info = API.Instance.from (node);
 			})
 			.exec ();
@@ -199,7 +202,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		new Request.GET ("/api/v1/custom_emojis")
 			.with_account (this)
 			.then ((sess, msg, in_stream) => {
-				var node = network.parse_node (in_stream);
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				var node = network.parse_node (parser);
 				Value res_emojis;
 				Entity.des_list(out res_emojis, node, typeof (API.Emoji));
 				instance_emojis = (Gee.ArrayList<Tuba.API.Emoji>) res_emojis;
@@ -214,7 +218,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			.with_account (this)
 			.with_param ("min_id", @"$last_read_id")
 			.then ((sess, msg, in_stream) => {
-				var array = Network.get_array_mstd(in_stream);
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				var array = Network.get_array_mstd(parser);
 				if (array != null) {
 					unread_count = (int)array.get_length();
 					if (unread_count > 0) {
@@ -231,7 +236,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		new Request.GET ("/api/v1/markers?timeline[]=notifications")
 			.with_account (this)
 			.then ((sess, msg, in_stream) => {
-				var root = network.parse (in_stream);
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				var root = network.parse (parser);
 				if (!root.has_member("notifications")) return;
 				var notifications = root.get_object_member ("notifications");
 				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1") );
@@ -253,6 +259,15 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					.with_form_data ("notifications[last_read_id]", @"$up_to_id")
 					.then(() => {})
 					.exec ();
+
+				// Pleroma FE doesn't mark them as read by just updating the marker
+				if (instance_info != null && instance_info?.pleroma != null) {
+					new Request.POST ("/api/v1/pleroma/notifications/read")
+						.with_account (this)
+						.with_form_data ("max_id", @"$up_to_id")
+						.then(() => {})
+						.exec ();
+				}
 			}
 		}
 
@@ -298,7 +313,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public virtual string? get_stream_url () {
 		if (instance == null || access_token == null) return null;
-		return @"$instance/api/v1/streaming/?stream=user&access_token=$access_token";
+		return @"$instance/api/v1/streaming/?stream=user:notification&access_token=$access_token";
 	}
 
 	public virtual void on_notification_event (Streamable.Event ev) {

@@ -6,6 +6,9 @@ namespace Build {
     public const string RESOURCES;
     public const string PROFILE;
 
+    public const string GETTEXT_PACKAGE;
+    public const string LOCALEDIR;
+
     public const string WEBSITE;
     public const string SUPPORT_WEBSITE;
     public const string PREFIX;

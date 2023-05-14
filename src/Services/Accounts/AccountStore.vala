@@ -40,7 +40,8 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		}
 		catch (GLib.Error e) {
 			warning (e.message);
-			app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
+			var dlg = app.inform (_("Error"), e.message);
+			dlg.present ();
 		}
 	}
 
@@ -88,6 +89,8 @@ public abstract class Tuba.AccountStore : GLib.Object {
 					account.verify_credentials.end (res);
 					account.error = null;
 					settings.active_account = account.handle;
+					if (account.source != null && account.source.language != null && account.source.language != "")
+						settings.default_language = account.source.language;
 				}
 				catch (Error e) {
 					warning (@"Couldn't activate account $(account.handle):");
@@ -137,7 +140,8 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			.with_account (account);
 		yield req.await ();
 
-		var root = network.parse (req.response_body);
+		var parser = Network.get_parser_from_inputstream(req.response_body);
+		var root = network.parse (parser);
 
 		string? backend = null;
 		backend_tests.foreach (test => {
