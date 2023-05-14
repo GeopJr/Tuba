@@ -9,7 +9,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 	public Thread (API.Status status) {
 		Object (
 			root_status: status,
-			status_loading: true,
+			base_status: new StatusMessage () { loading = true },
 			label: _("Conversation")
 		);
 		construct_account_holder ();
@@ -51,7 +51,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			w.content.selectable = true;
 		}
 
-		root_widget.thread_line.hide ();
+		root_widget.thread_line_top.hide ();
+		root_widget.thread_line_bottom.hide ();
 	}
 
 	public void request () {
@@ -59,7 +60,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			.with_account (account)
 			.with_ctx (this)
 			.then ((sess, msg, in_stream) => {
-				var root = network.parse (in_stream);
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				var root = network.parse (parser);
 
 				var ancestors = root.get_array_member ("ancestors");
 				ancestors.foreach_element ((array, i, node) => {
@@ -96,7 +98,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			.with_param ("q", q)
 			.with_param ("resolve", "true")
 			.then ((sess, msg, in_stream) => {
-				var root = network.parse (in_stream);
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				var root = network.parse (parser);
 				var statuses = root.get_array_member ("statuses");
 				var node = statuses.get_element (0);
 				if (node != null){

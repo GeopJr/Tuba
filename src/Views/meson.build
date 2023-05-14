@@ -19,6 +19,7 @@ sources += files(
     'Profile.vala',
     'Search.vala',
     'Sidebar.vala',
+    'StatusStats.vala',
     'TabbedBase.vala',
     'Thread.vala',
     'Timeline.vala',

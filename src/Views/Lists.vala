@@ -52,7 +52,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 			}
 		}
 
-		public virtual signal void remove_from_model () {}
+		public virtual signal void remove_from_model (API.List? t_list);
 
 		void on_remove_clicked () {
 			var remove = app.question (
@@ -68,7 +68,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 					new Request.DELETE (@"/api/v1/lists/$(list.id)")
 						.with_account (accounts.active)
 						.then (() => {
-							remove_from_model();
+							remove_from_model(this.list);
 							this.destroy ();
 						})
 						.exec ();
@@ -164,7 +164,8 @@ public class Tuba.Views.Lists : Views.Timeline {
 			new Request.GET (@"/api/v1/lists/$(t_list.id)/accounts")
 				.with_account (accounts.active)
 				.then ((sess, msg, in_stream) => {
-					if (Network.get_array_size(in_stream) > 0) {
+					var parser = Network.get_parser_from_inputstream(in_stream);
+					if (Network.get_array_size(parser) > 0) {
 						var list_settings_page_members = new Adw.PreferencesPage() {
 							icon_name = "tuba-people-symbolic",
 							title = _("Members")
@@ -174,7 +175,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 							title = _("Remove Members")
 						};
 
-						Network.parse_array (msg, in_stream, node => {
+						Network.parse_array (msg, parser, node => {
 							var member = API.Account.from (node);
 							var avi = new Widgets.Avatar() {
 								account = member,
@@ -229,7 +230,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 				this.list.replies_policy = replies_policy;
 				new Request.PUT (@"/api/v1/lists/$(t_list.id)")
 					.with_account (accounts.active)
-					.with_param ("title", HtmlUtils.uri_encode(title))
+					.with_param ("title", title)
 					.with_param ("replies_policy", replies_policy)
 					.then(() => {})
 					.exec ();
@@ -262,7 +263,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 		var widget_row = widget as Row;
 
 		if (widget_row != null)
-			widget_row.remove_from_model.connect(() => remove_list(widget_row.list));
+			widget_row.remove_from_model.connect(remove_list);
 
 		return widget;
 	}
@@ -288,9 +289,10 @@ public class Tuba.Views.Lists : Views.Timeline {
 	public void create_list(string list_name) {
 		new Request.POST ("/api/v1/lists")
 			.with_account (accounts.active)
-			.with_param ("title", HtmlUtils.uri_encode(list_name))
+			.with_param ("title", list_name)
 			.then ((sess, msg, in_stream) => {
-				var node = network.parse_node (in_stream);
+				var parser = Network.get_parser_from_inputstream(in_stream);
+				var node = network.parse_node (parser);
 				var list = API.List.from (node);
 				model.insert (0, list);
 			})

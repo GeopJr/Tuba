@@ -21,7 +21,8 @@ public class Tuba.Widgets.VoteBox: Box {
         button_vote.clicked.connect ((button) =>{
             Request voting=API.Poll.vote(accounts.active,poll.options,selectedIndex,poll.id);
  			voting.then ((sess, mess, in_stream) => {
-	            status_parent.poll=API.Poll.from_json(typeof(API.Poll),network.parse_node (in_stream));
+                var parser = Network.get_parser_from_inputstream(in_stream);
+	            status_parent.poll=API.Poll.from_json(typeof(API.Poll),network.parse_node (parser));
             })
             .on_error ((code, reason) => {}).exec ();
         });
@@ -138,6 +139,7 @@ public class Tuba.Widgets.VoteBox: Box {
             row_number++;
         }
 
+        // translators: the variable is the amount of people that voted
         people_label.label = _("%lld voted").printf(poll.votes_count);
         expires_label.label = poll.expired ? DateTime.humanize_ago(poll.expires_at) : DateTime.humanize_left(poll.expires_at);
 	}

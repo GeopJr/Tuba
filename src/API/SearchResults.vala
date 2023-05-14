@@ -25,10 +25,11 @@ public class Tuba.API.SearchResults : Entity {
 		var req = new Request.GET ("/api/v2/search")
 			.with_account (account)
 			.with_param ("resolve", "true")
-			.with_param ("q", Uri.escape_string (q));
+			.with_param ("q", q);
 		yield req.await ();
 
-		return from (network.parse_node (req.response_body));
+		var parser = Network.get_parser_from_inputstream(req.response_body);
+		return from (network.parse_node (parser));
 	}
 
 }

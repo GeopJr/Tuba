@@ -38,8 +38,6 @@ flowboxchild {
 .ttl-thread-line {
 	background: @theme_fg_color;
 	opacity: .1;
-	margin-top: -8px;
-	margin-bottom: -8px;
 }
 
 .ttl-code {
@@ -98,6 +96,12 @@ flowboxchild {
 .ttl-label-emoji-no-click {
 	background: transparent;
 	padding: 0;
+}
+
+.ttl-name-button {
+	padding: 0 5px;
+	margin-left: -5px;
+	margin-right: -5px;
 }
 
 /*
@@ -179,6 +183,14 @@ flowboxchild {
 	font-size: 18.333333333333332px;
 }
 
+.ttl-status-font-large > .ttl-large-body {
+	font-size: 19px;
+}
+
+.ttl-large-body {
+	font-size: 16px;
+}
+
 .ttl-status-line-height-large {
 	line-height: 1.4;
 }
@@ -228,6 +240,7 @@ flowboxchild {
 }
 
 .ttl-status-heading-padding {
+	margin-top: -5px;
 	padding: 0 5px;
 }
 
@@ -244,22 +257,24 @@ flowboxchild {
 	background-color: @popover_bg_color;
 }
 
-.ttl-post {
-	padding: 12px;
+.ttl-post.direct {
+	background-color: alpha(@warning_bg_color, .1);
+}
+
+.ttl-post.direct:hover {
+	background-color: darker(alpha(@warning_bg_color, .1));
 }
 
 .ttl-post-actions {
-	/* .ttl-post.padding */
 	margin-bottom: -12px;
 }
 
-.ttl-thread-line.not-first {
-	/* .ttl-post.padding + 8px */
-	margin-top: -20px;
+.ttl-thread-line.top {
+	margin-top: -18px;
+	margin-bottom: -3px;
 }
 
-.ttl-thread-line.not-last {
-	/* .ttl-post.padding + 8px */
+.ttl-thread-line.bottom {
 	margin-bottom: -20px;
 }
 
@@ -281,3 +296,24 @@ GtkSourceAssistant.completion list row{
 .no-border-radius {
 	border-radius: 0px;
 }
+
+.locale-dropdown-upcase {
+	text-transform: uppercase;
+}
+
+.preview_card {
+	padding: 0;
+}
+
+.preview_card_image:dir(ltr) {
+	border-radius: 6px 0px 0px 6px;
+}
+
+.preview_card_image:dir(rtl) {
+	border-radius: 0px 6px 6px 0px;
+}
+
+.preview_card_video {
+	border-radius: 6px 6px 0px 0px;
+}
+

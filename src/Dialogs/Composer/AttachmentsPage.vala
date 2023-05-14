@@ -32,7 +32,6 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	private Gtk.Spinner spinner;
 	public GLib.ListStore attachments;
 	public Adw.ToastOverlay toast_overlay;
-	public bool can_publish { get; set; default = false; }
 	public bool media_sensitive { get; set; default = false; }
 
 	bool _uploading = false;
@@ -190,19 +189,32 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			filter.add_mime_type (mime_type);
 		}
 
-		// translators: Open file
-		var chooser = new FileChooserNative (_("Open"), dialog, Gtk.FileChooserAction.OPEN, null, null) {
-			select_multiple = true,
-			filter = filter
-		};
-		chooser.response.connect (id => {
-			switch (id) {
-				case ResponseType.ACCEPT:
-					var files = chooser.get_files ();
+		#if GTK_4_10
+			var chooser = new FileDialog () {
+				// translators: Open file
+				title = _("Open"),
+				modal = true,
+				default_filter = filter
+			};
+			chooser.open_multiple.begin (dialog, null, (obj, res) => {
+				try {
+				var files = chooser.open_multiple.end (res);
+		#else
+			// translators: Open file
+			var chooser = new FileChooserNative (_("Open"), dialog, Gtk.FileChooserAction.OPEN, null, null) {
+				select_multiple = true,
+				filter = filter
+			};
+
+			chooser.response.connect (id => {
+				switch (id) {
+					case ResponseType.ACCEPT:
+						var files = chooser.get_files ();
+		#endif
 					var selected_files_amount = files.get_n_items ();
 
 					// We want to only upload as many attachments as the server
-					// accpets based on the amount we have already uploaded.
+					// accepts based on the amount we have already uploaded.
 					var allowed_attachments_amount = accounts.active.instance_info.compat_status_max_media_attachments - attachments.get_n_items ();
 					var amount_to_add = selected_files_amount > allowed_attachments_amount ? allowed_attachments_amount : selected_files_amount;
 
@@ -262,12 +274,21 @@ public class Tuba.AttachmentsPage : ComposerPage {
 							if (i == files_for_upload.length) uploading = false;
 						});
 					}
-					break;
-			}
-			chooser.unref ();
-		});
-		chooser.ref ();
-		chooser.show ();
+		#if GTK_4_10
+				} catch (Error e) {
+					// User dismissing the dialog also ends here so don't make it sound like
+					// it's an error
+					warning (@"Couldn't get the result of FileDialog for AttachmentsPage: $(e.message)");
+				}
+			});
+		#else
+						break;
+				}
+				chooser.unref ();
+			});
+			chooser.ref ();
+			chooser.show ();
+		#endif
 	}
 
 	public override void on_modify_req (Request req) {

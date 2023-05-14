@@ -88,7 +88,8 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 	void oopsie (string title, string msg = "") {
 		warning (@"$title   $msg.");
-		app.inform (Gtk.MessageType.ERROR, title, msg, this);
+		var dlg = app.inform (title, msg, this);
+		dlg.present ();
 	}
 
 	async void step () throws Error {
@@ -131,7 +132,8 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			.with_form_data ("website", Build.WEBSITE);
 		yield msg.await ();
 
-		var root = network.parse (msg.response_body);
+		var parser = Network.get_parser_from_inputstream(msg.response_body);
+		var root = network.parse (parser);
 		account.client_id = root.get_string_member ("client_id");
 		account.client_secret = root.get_string_member ("client_secret");
 		message ("OK: Instance registered client");
@@ -162,7 +164,8 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			.with_param ("code", code_entry.text);
 		yield token_req.await ();
 
-		var root = network.parse (token_req.response_body);
+		var parser = Network.get_parser_from_inputstream(token_req.response_body);
+		var root = network.parse (parser);
 		account.access_token = root.get_string_member ("access_token");
 
 		if (account.access_token == null)

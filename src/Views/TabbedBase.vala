@@ -11,12 +11,12 @@ public class Tuba.Views.TabbedBase : Views.Base {
 	Views.Base? last_view = null;
 
 	construct {
-		state = "content";
+		base_status = null;
 
 		var states_box = states.get_parent () as Box;
 		if (states_box != null)
 			states_box.remove (states);
-		view.get_style_context ().remove_class ("ttl-view");
+		view.remove_css_class ("ttl-view");
 
 		var scrolled_overlay_box = scrolled_overlay.get_parent () as Box;
 		if (scrolled_overlay_box != null)
@@ -61,6 +61,21 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		return tab;
 	}
 
+	public Views.ContentBase add_timeline_tab (string label, string icon, string url, Type accepts) {
+		var tab = new Views.Timeline () {
+			url = url,
+			label = label,
+			icon = icon,
+			accepts = accepts
+		};
+		tab.label = label;
+		tab.icon = icon;
+
+		add_tab (tab);
+
+		return tab;
+	}
+
 	public delegate void TabCB (Views.ContentBase tab);
 	public void foreach_tab (TabCB cb) {
 		for (var w = stack.get_first_child (); w != null; w = w.get_next_sibling ()) {
@@ -85,7 +100,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 			tab.on_content_changed ();
 		});
-		state = "content";
+		base_status = null;
 
 		// if (empty) {
 		// 	state = "status";

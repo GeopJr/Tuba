@@ -33,21 +33,45 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	public static void save_media_as (string url) {
-		var chooser = new FileChooserNative (_("Save Attachment"), app.main_window, Gtk.FileChooserAction.SAVE, null, null);
-		chooser.set_current_name(Path.get_basename (url));
-		chooser.response.connect (id => {
-			switch (id) {
-				case ResponseType.ACCEPT:
-					message (@"Downloading file: $(url)...");
-					download.begin(url, chooser.get_file (), (obj, res) => {
-						download.end (res);
-					});
-					break;
-			}
-			chooser.unref ();
-		});
-		chooser.ref ();
-		chooser.show ();
+		#if GTK_4_10
+			var chooser = new FileDialog () {
+				title = _("Save Attachment"),
+				modal = true,
+				initial_name = Path.get_basename (url)
+			};
+
+			chooser.save.begin (app.main_window, null, (obj, res) => {
+				try {
+					var file = chooser.save.end (res);
+					if (file != null) {
+		#else
+			var chooser = new FileChooserNative (_("Save Attachment"), app.main_window, Gtk.FileChooserAction.SAVE, null, null);
+			chooser.set_current_name(Path.get_basename (url));
+			chooser.response.connect (id => {
+				switch (id) {
+					case ResponseType.ACCEPT:
+						var file = chooser.get_file ();
+		#endif
+						message (@"Downloading file: $(url)...");
+						download.begin(url, file, (obj, res) => {
+							download.end (res);
+						});
+		#if GTK_4_10
+					}
+				} catch (Error e) {
+					// User dismissing the dialog also ends here so don't make it sound like
+					// it's an error
+					warning (@"Couldn't get the result of FileDialog for attachment: $(e.message)");
+				}
+			});
+		#else
+						break;
+				}
+				chooser.unref ();
+			});
+			chooser.ref ();
+			chooser.show ();
+		#endif
 	}
 
 	private static async void download(string attachment_url, File file) {
@@ -185,7 +209,8 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 				open.end (res);
 			}
 			catch (Error e) {
-				app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
+				var dlg = app.inform (_("Error"), e.message);
+				dlg.present ();
 			}
 		});
 	}

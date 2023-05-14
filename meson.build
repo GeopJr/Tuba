@@ -16,6 +16,7 @@ distro = get_option('distro')
 config = configuration_data()
 config.set_quoted('EXEC_NAME', meson.project_name())
 config.set_quoted('GETTEXT_PACKAGE', meson.project_name())
+config.set_quoted('LOCALEDIR', join_paths(get_option('prefix'), get_option('localedir')))
 config.set_quoted('DOMAIN', meson.project_name ())
 config.set_quoted('G_LOG_DOMAIN', 'Tuba')
 config.set_quoted('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) + '/')
@@ -65,6 +66,10 @@ endif
 
 if libgtk_dep.version().version_compare('>=4.8.0')
   add_project_arguments(['--define=GTK_4_8'], language: 'vala')
+endif
+
+if libgtk_dep.version().version_compare('>=4.10.0')
+  add_project_arguments(['--define=GTK_4_10'], language: 'vala')
 endif
 
 if not gtksourceview_dep.found ()

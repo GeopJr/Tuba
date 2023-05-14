@@ -6,14 +6,17 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public string url { get; construct set; }
 	public bool is_public { get; construct set; default = false; }
 	public Type accepts { get; set; default = typeof (API.Status); }
+	public bool use_queue { get; set; default = true; }
 
 	protected InstanceAccount? account { get; set; default = null; }
 
 	public bool is_last_page { get; set; default = false; }
 	public string? page_next { get; set; }
 	public string? page_prev { get; set; }
+	Entity[] entity_queue = {};
 
 	construct {
+		reached_close_to_top.connect (finish_queue);
 		app.refresh.connect (on_refresh);
 		status_button.clicked.connect (on_refresh);
 
@@ -24,14 +27,23 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		stream_event[InstanceAccount.EVENT_EDIT_POST].connect (on_edit_post);
 		stream_event[InstanceAccount.EVENT_DELETE_POST].connect (on_delete_post);
 		settings.notify["show-spoilers"].connect (on_refresh);
+		settings.notify["hide-preview-cards"].connect (on_refresh);
 
 		content.bind_model (model, on_create_model_widget);
 	}
 	~Timeline () {
+		message (@"Destroying Timeline $label");
+
+		entity_queue = {};
 		destruct_account_holder ();
 		destruct_streamable ();
 
 		content.bind_model (null, null);
+	}
+
+	public override void dispose () {
+		destruct_streamable ();
+		base.dispose ();
 	}
 
 	public virtual bool is_status_owned (API.Status status) {
@@ -49,8 +61,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	public void get_pages (string? header) {
 		page_next = page_prev = null;
-		if (header == null)
+		if (header == null) {
+			is_last_page = true;
 			return;
+		};
 
 		var pages = header.split (",");
 		foreach (var page in pages) {
@@ -82,35 +96,39 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_request_finish () {
-		status_loading = false;
 		base.on_bottom_reached ();
 	}
 
 	public virtual bool request () {
-		var req = append_params (new Request.GET (get_req_url ()))
+		append_params (new Request.GET (get_req_url ()))
 			.with_account (account)
 			.with_ctx (this)
 			.then ((sess, msg, in_stream) => {
-				Network.parse_array (msg, in_stream, node => {
+				var parser = Network.get_parser_from_inputstream(in_stream);
+
+				Object[] to_add = {};
+				Network.parse_array (msg, parser, node => {
 					var e = entity_cache.lookup_or_insert (node, accepts);
-					model.append (e); //FIXME: use splice();
+					to_add += e;
 				});
+				model.splice (model.n_items, 0, to_add);
 
 				get_pages (msg.response_headers.get_one ("Link"));
 				on_content_changed ();
 				on_request_finish ();
 			})
-			.on_error (on_error);
-		req.exec ();
+			.on_error (on_error)
+			.exec ();
 
 		return GLib.Source.REMOVE;
 	}
 
 	public virtual void on_refresh () {
+		entity_queue = {};
 		scrolled.vadjustment.value = 0;
 		status_button.sensitive = false;
 		clear ();
-		status_loading = true;
+		base_status = new StatusMessage () { loading = true };
 		GLib.Idle.add (request);
 	}
 
@@ -151,10 +169,23 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public virtual void on_new_post (Streamable.Event ev) {
 		try {
 			var entity = Entity.from_json (accepts, ev.get_node ());
+
+			if (use_queue && scrolled.vadjustment.value > 1000) {
+				entity_queue += entity;
+				return;
+			}
+
 			model.insert (0, entity);
 		} catch (Error e) {
 			warning (@"Error getting Entity from json: $(e.message)");
 		}
+	}
+
+	private void finish_queue () {
+		if (entity_queue.length == 0) return;
+		model.splice (0, 0, entity_queue);
+
+		entity_queue = {};
 	}
 
 	public virtual void on_edit_post (Streamable.Event ev) {

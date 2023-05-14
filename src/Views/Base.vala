@@ -32,46 +32,46 @@ public class Tuba.Views.Base : Box {
 	[GtkChild] unowned Label status_message_label;
 	[GtkChild] unowned Spinner status_spinner;
 
-	public string state { get; set; default = "status"; }
-	public string status_title { get; set; default = STATUS_EMPTY; }
-	public string status_message { get; set; default = STATUS_EMPTY; }
-	public bool status_loading { get; set; default = false; }
+	public class StatusMessage : Object {
+		public string title = STATUS_EMPTY;
+		public string? message = null;
+		public bool loading = false;
+	}
+
+	private StatusMessage? _base_status = null;
+	public StatusMessage? base_status {
+		get {
+			return _base_status;
+		}
+		set {
+			if (value == null) {
+				states.visible_child_name = "content";
+				status_spinner.spinning = false;
+			} else {
+				states.visible_child_name = "status";
+				if (value.loading) {
+					status_stack.visible_child_name = "spinner";
+					status_spinner.spinning = true;
+				} else {
+					status_stack.visible_child_name = "message";
+					status_spinner.spinning = false;
+
+					status_title_label.label = value.title;
+					if (value.message != null)
+						status_message_label.label = value.message;
+				}
+			}
+			_base_status = value;
+		}
+	}
+
 
 	construct {
-	    build_actions ();
-	    build_header ();
+		build_actions ();
+		build_header ();
 
 		status_button.label = _("Reload");
-		bind_property ("state", states, "visible-child-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_string (src.get_string ());
-			if (src.get_string () != "status") status_spinner.spinning = false;
-
-			return true;
-		});
-		bind_property ("status-loading", status_stack, "visible-child-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_string (src.get_boolean ()  ? "spinner" : "message");
-			status_spinner.spinning = src.get_boolean ();
-
-			return true;
-		});
-		bind_property ("status-message", status_message_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			var src_s = src.get_string ();
-			target.set_string (src_s);
-			status_message_label.visible = src_s != STATUS_EMPTY && src_s != "";
-			return true;
-		});
-		bind_property ("status-title", status_title_label, "label", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			var src_s = src.get_string ();
-			target.set_string (src_s);
-			status_message = STATUS_EMPTY;
-			status_loading = src_s == "";
-			return true;
-		});
-
-		notify["status-title"].connect (() => {
-			status_title_label.label = status_title;
-			status_message = STATUS_EMPTY;
-		});
+		base_status = new StatusMessage () { loading = true };
 
 		notify["current"].connect (() => {
 			if (current)
@@ -80,7 +80,7 @@ public class Tuba.Views.Base : Box {
 				on_hidden ();
 		});
 
-		scrolled.get_style_context ().add_class (Dialogs.MainWindow.ZOOM_CLASS);
+		//  scrolled.get_style_context ().add_class (Dialogs.MainWindow.ZOOM_CLASS);
 
 		scroll_to_top.clicked.connect(on_scroll_to_top);
 	}
@@ -106,7 +106,7 @@ public class Tuba.Views.Base : Box {
 	}
 
 	public virtual void clear () {
-		state = "status";
+		base_status = null;
 	}
 
 	public virtual void on_shown () {
@@ -121,11 +121,13 @@ public class Tuba.Views.Base : Box {
 	public virtual void on_content_changed () {}
 
 	public virtual void on_error (int32 code, string reason) {
-		status_title = _("An Error Occurred");
-		status_message = reason;
+		base_status = new StatusMessage () {
+			title = _("An Error Occurred"),
+			message = reason
+		};
+
 		status_button.visible = true;
 		status_button.sensitive = true;
-		state = "status";
 	}
 
 	[GtkCallback]

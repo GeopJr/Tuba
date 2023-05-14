@@ -1,7 +1,6 @@
 using Gtk;
 
 namespace Tuba {
-
 	public errordomain Oopsie {
 		USER,
 		PARSING,
@@ -30,6 +29,8 @@ namespace Tuba {
 		public Dialogs.MainWindow? main_window { get; set; }
 		public Dialogs.NewAccount? add_account_window { get; set; }
 
+		public Gee.ArrayList<Tuba.Locale> locales { owned get { return generate_iso_639_1 (); } }
+
 		// These are used for the GTK Inspector
 		public Settings app_settings { get {return Tuba.settings; } }
 		public AccountStore app_accounts { get {return Tuba.accounts; } }
@@ -39,8 +40,8 @@ namespace Tuba {
 		public signal void refresh ();
 		public signal void toast (string title);
 
-		public CssProvider css_provider = new CssProvider ();
-		public CssProvider zoom_css_provider = new CssProvider (); //FIXME: Zoom not working
+		//  public CssProvider css_provider = new CssProvider ();
+		//  public CssProvider zoom_css_provider = new CssProvider (); //FIXME: Zoom not working
 
 		public const GLib.OptionEntry[] app_options = {
 			{ "hidden", 0, 0, OptionArg.NONE, ref start_hidden, "Do not show main window on start", null },
@@ -90,6 +91,13 @@ namespace Tuba {
 				warning (e.message);
 			}
 
+			// Fix some links not getting underlined
+			Environment.set_variable ("GSK_RENDERER", "cairo", false);
+
+			Intl.setlocale (LocaleCategory.ALL, "");
+			Intl.bindtextdomain(Build.GETTEXT_PACKAGE, Build.LOCALEDIR);
+			Intl.textdomain(Build.GETTEXT_PACKAGE);
+
 			app = new Application ();
 			return app.run (args);
 		}
@@ -113,12 +121,13 @@ namespace Tuba {
 				accounts.init ();
 
 				//  css_provider.load_from_resource (@"$(Build.RESOURCES)app.css");
-				StyleContext.add_provider_for_display (Gdk.Display.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-				StyleContext.add_provider_for_display (Gdk.Display.get_default (), zoom_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+				//  StyleContext.add_provider_for_display (Gdk.Display.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+				//  StyleContext.add_provider_for_display (Gdk.Display.get_default (), zoom_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 			}
 			catch (Error e) {
 				var msg = "Could not start application: %s".printf (e.message);
-				inform (Gtk.MessageType.ERROR, _("Error"), msg);
+				var dlg = inform (_("Error"), msg);
+				dlg.present ();
 				error (msg);
 			}
 
@@ -178,7 +187,9 @@ namespace Tuba {
 				}
 				if (!start_hidden) main_window.present ();
 			}
-			main_window.close_request.connect(on_window_closed);
+
+			if (main_window != null)
+				main_window.close_request.connect(on_window_closed);
 		}
 
 		public bool on_window_closed () {
@@ -274,22 +285,19 @@ namespace Tuba {
 			dialog.present ();
 		}
 
-		public void inform (Gtk.MessageType type, string text, string? msg = null, Gtk.Window? win = main_window){
-			var dlg = new Gtk.MessageDialog (
+		public Adw.MessageDialog inform (string text, string? msg = null, Gtk.Window? win = main_window){
+			var dlg = new Adw.MessageDialog (
 				win,
-				Gtk.DialogFlags.MODAL,
-				type,
-				Gtk.ButtonsType.OK,
-				null
+				text,
+				msg
 			);
-			dlg.text = text;
-			dlg.secondary_text = msg;
-			dlg.transient_for = win;
-			// dlg.run ();
-			dlg.destroy ();
+
+			if (win != null)
+				dlg.transient_for = win;
+			return dlg;
 		}
 
-		public Adw.MessageDialog question (string text, string? msg = null, Gtk.Window? win = main_window, string yes_label = _("Yes"), Adw.ResponseAppearance yes_appearence = Adw.ResponseAppearance.DEFAULT, string no_label = _("Cancel"), Adw.ResponseAppearance no_appearence = Adw.ResponseAppearance.DEFAULT) {
+		public Adw.MessageDialog question (string text, string? msg = null, Gtk.Window? win = main_window, string yes_label = _("Yes"), Adw.ResponseAppearance yes_appearance = Adw.ResponseAppearance.DEFAULT, string no_label = _("Cancel"), Adw.ResponseAppearance no_appearance = Adw.ResponseAppearance.DEFAULT) {
 			var dlg = new Adw.MessageDialog (
 				win,
 				text,
@@ -297,12 +305,13 @@ namespace Tuba {
 			);
 
 			dlg.add_response("no", no_label);
-			dlg.set_response_appearance("no", no_appearence);
+			dlg.set_response_appearance("no", no_appearance);
 
 			dlg.add_response("yes", yes_label);
-			dlg.set_response_appearance("yes", yes_appearence);
+			dlg.set_response_appearance("yes", yes_appearance);
 
-			dlg.transient_for = win;
+			if (win != null)
+				dlg.transient_for = win;
 			return dlg;
 		}
 

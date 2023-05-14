@@ -58,6 +58,11 @@ public class Tuba.Request : GLib.Object {
 		method = "DELETE";
 		msg = new Soup.Message(method, url);
 	}
+	public Request.PATCH (string url) {
+		this.url = url;
+		method = "PATCH";
+		msg = new Soup.Message(method, url);
+	}
 
 	// ~Request () {
 	// 	message ("Destroy req: "+url);
@@ -77,7 +82,8 @@ public class Tuba.Request : GLib.Object {
 
 	public Request then_parse_array (owned Network.NodeCallback _cb) {
 		this.cb = (sess, msg, in_stream) => {
-			Network.parse_array (msg, in_stream, (owned) _cb);
+			var parser = Network.get_parser_from_inputstream(in_stream);
+			Network.parse_array (msg, parser, (owned) _cb);
 		};
     return this;
 }
@@ -128,7 +134,7 @@ public class Tuba.Request : GLib.Object {
 			pars.@foreach (entry => {
 				parameters_counter++;
 				var key = (string) entry.key;
-				var val = (string) entry.value;
+				var val = Uri.escape_string ((string) entry.value);
 				parameters += @"$key=$val";
 
 				if (parameters_counter < pars.size)

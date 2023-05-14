@@ -13,6 +13,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public string? in_reply_to_id { get; set; default = null; }
     public string? in_reply_to_account_id { get; set; default = null; }
     public string content { get; set; default = ""; }
+    public StatusApplication? application { get; set; default = null; }
     public int64 replies_count { get; set; default = 0; }
     public int64 reblogs_count { get; set; default = 0; }
     public int64 favourites_count { get; set; default = 0; }
@@ -24,6 +25,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public bool muted { get; set; default = false; }
     public bool pinned { get; set; default = false; }
     public string? edited_at { get; set; default = null; }
+    public string language { get; set; default = settings.default_language; }
     public string visibility { get; set; default = settings.default_post_visibility; }
     public API.Status? reblog { get; set; default = null; }
     public ArrayList<API.Mention>? mentions { get; set; default = null; }
@@ -33,6 +35,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
     public API.Poll? poll { get; set; default = null; }
     public Gee.ArrayList<API.Emoji>? emojis { get; set; }
+    public API.PreviewCard? card { get; set; default = null; }
 
     public Gee.HashMap<string, string>? emojis_map {
 		owned get {
@@ -112,7 +115,8 @@ public class Tuba.API.Status : Entity, Widgetizable {
 	    Object (
 	        id: "",
 	        account: account,
-	        created_at: account.created_at
+	        created_at: account.created_at,
+            emojis: account.emojis
 	    );
 
         if (account.note == "")

@@ -53,7 +53,8 @@ public class Tuba.Views.Hashtag : Views.Timeline {
         new Request.POST (@"/api/v1/tags/$t_tag/$action")
             .with_account (accounts.active)
             .then ((sess, msg, in_stream) => {
-                var root = network.parse (in_stream);
+                var parser = Network.get_parser_from_inputstream(in_stream);
+                var root = network.parse (parser);
 				if (!root.has_member("following")) {
                     update_button();
                 };
@@ -65,7 +66,8 @@ public class Tuba.Views.Hashtag : Views.Timeline {
         new Request.GET (@"/api/v1/tags/$t_tag")
             .with_account (accounts.active)
             .then ((sess, msg, in_stream) => {
-                var node = network.parse_node (in_stream);
+                var parser = Network.get_parser_from_inputstream(in_stream);
+                var node = network.parse_node (parser);
 				var tag_info = API.Tag.from (node);
                 t_following = tag_info.following;
                 create_follow_button();

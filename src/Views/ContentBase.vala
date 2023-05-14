@@ -5,6 +5,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 	public GLib.ListStore model;
 	protected ListBox content;
 	private bool bottom_reached_locked = false;
+	protected signal void reached_close_to_top ();
 
 	public bool empty {
 		get { return model.get_n_items () <= 0; }
@@ -30,7 +31,10 @@ public class Tuba.Views.ContentBase : Views.Base {
 				on_bottom_reached ();
 			}
 			
-			scroll_to_top.visible = scrolled.vadjustment.value > 1000 && scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper;
+			var is_close_to_top = scrolled.vadjustment.value <= 1000;
+			scroll_to_top.visible = !is_close_to_top && scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper;
+
+			if (is_close_to_top) reached_close_to_top ();
 		});
 	}
 	~ContentBase () {
@@ -50,11 +54,10 @@ public class Tuba.Views.ContentBase : Views.Base {
 
 	public override void on_content_changed () {
 		if (empty) {
-			status_title = STATUS_EMPTY;
-			state = "status";
+			base_status = new StatusMessage ();
 		}
 		else {
-			state = "content";
+			base_status = null;
 		}
 	}
 
@@ -72,7 +75,13 @@ public class Tuba.Views.ContentBase : Views.Base {
 	}
 
 	public virtual void on_bottom_reached () {
-		bottom_reached_locked = false;
+		uint timeout = 0;
+		timeout = Timeout.add (1000, () => {
+			bottom_reached_locked = false;
+			GLib.Source.remove(timeout);
+
+			return true;
+		}, Priority.LOW);
 	}
 
 	public virtual void on_content_item_activated (ListBoxRow row) {

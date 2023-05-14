@@ -26,12 +26,36 @@ public class Tuba.SecretAccountStore : AccountStore {
 		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
 		attrs["version"] = VERSION;
 
-		var secrets = Secret.password_searchv_sync (
-			schema,
-			attrs,
-			Secret.SearchFlags.ALL | Secret.SearchFlags.UNLOCK,
-			null
-		);
+		List<Secret.Retrievable> secrets = new List<Secret.Retrievable> ();
+		try {
+			secrets = Secret.password_searchv_sync (
+				schema,
+				attrs,
+				Secret.SearchFlags.ALL | Secret.SearchFlags.UNLOCK,
+				null
+			);
+		} catch (GLib.Error e) {
+			var wiki_page = "https://github.com/GeopJr/Tuba/wiki/keyring-issues";
+
+			// Let's leave this untranslated for now
+			var help_msg = "If you didn’t manually cancel it, try creating a password keyring named \"login\" using Passwords and Keys (seahorse) or KWalletManager";
+
+			critical (@"Error while searching for items in the secret service: $(e.message)");
+			warning (@"$help_msg\nread more: $wiki_page");
+
+			new Dialogs.NewAccount ();
+			var dlg = app.question ("Error while searching for user accounts", @"$help_msg.", app.add_account_window, "Read More", Adw.ResponseAppearance.SUGGESTED, "Close");
+
+			dlg.response.connect(res => {
+				if (res == "yes") {
+					Host.open_uri (wiki_page);
+				}
+				dlg.destroy();
+				Process.exit (1);
+			});
+
+			dlg.present ();
+		}
 
 		secrets.foreach (item => {
 			var account = secret_to_account (item);
@@ -39,7 +63,8 @@ public class Tuba.SecretAccountStore : AccountStore {
 				new Request.GET (@"/api/v1/accounts/$(account.id)")
 					.with_account (account)
 					.then ((sess, msg, in_stream) => {
-						var node = network.parse_node (in_stream);
+						var parser = Network.get_parser_from_inputstream(in_stream);
+						var node = network.parse_node (parser);
 						var acc = API.Account.from (node);
 
 						if (account.display_name != acc.display_name || account.avatar != acc.avatar) {
@@ -74,10 +99,20 @@ public class Tuba.SecretAccountStore : AccountStore {
 		attrs["version"] = VERSION;
 		attrs["login"] = account.handle;
 
-		Secret.password_clearv_sync (
+		Secret.password_clearv.begin (
 			schema,
 			attrs,
-			null
+			null,
+			(obj, async_res) => {
+				try {
+					Secret.password_clearv.end (async_res);
+				}
+				catch (GLib.Error e) {
+					warning (e.message);
+					var dlg = app.inform (_("Error"), e.message);
+					dlg.present ();
+				}
+			}
 		);
 	}
 
@@ -94,22 +129,25 @@ public class Tuba.SecretAccountStore : AccountStore {
 		// translators: The variable is the backend like "Mastodon"
 		var label = _("%s Account").printf (account.backend);
 
-		try {
-			Secret.password_storev_sync (
-				schema,
-				attrs,
-				Secret.COLLECTION_DEFAULT,
-				label,
-				secret,
-				null
-			);
-		}
-		catch (GLib.Error e) {
-			warning (e.message);
-			app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
-		}
-
-		message (@"Saved secret for $(account.handle)");
+		Secret.password_storev.begin (
+			schema,
+			attrs,
+			Secret.COLLECTION_DEFAULT,
+			label,
+			secret,
+			null,
+			(obj, async_res) => {
+				try {
+					Secret.password_store.end (async_res);
+					message (@"Saved secret for $(account.handle)");
+				}
+				catch (GLib.Error e) {
+					warning (e.message);
+					var dlg = app.inform (_("Error"), e.message);
+					dlg.present ();
+				}
+			}
+		);
 	}
 
 	InstanceAccount? secret_to_account (Secret.Retrievable item) {

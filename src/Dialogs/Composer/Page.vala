@@ -5,6 +5,7 @@ public class Tuba.ComposerPage : Gtk.Box {
 	public string title { get; set; }
 	public string icon_name { get; set; }
 	public uint badge_number { get; set; default = 0; }
+	public bool can_publish { get; set; default = false; }
 
 	protected weak Dialogs.Compose dialog;
 	protected weak API.Status status;
@@ -33,10 +34,12 @@ public class Tuba.ComposerPage : Gtk.Box {
 
 	protected void add_button (Widget widget) {
 		bottom_bar.pack_start (widget);
+
 		widget.add_css_class ("flat");
 		for (var w = widget.get_first_child (); w != null; w = w.get_next_sibling ()) {
 			w.add_css_class ("flat");
 		}
+
 		bottom_bar.show ();
 	}
 
