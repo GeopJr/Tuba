@@ -3,9 +3,10 @@ public class Tuba.Views.Hashtag : Views.Timeline {
     bool t_following = false;
     string t_tag = "";
     public Hashtag (string tag, bool? following = null) {
+		var un_tag = Uri.unescape_string (tag);
         Object (
-            url: @"/api/v1/timelines/tag/$(Uri.escape_string (tag))",
-            label: "#"+tag
+            url: @"/api/v1/timelines/tag/$tag",
+            label: @"#$(un_tag ?? tag)"
         );
 
         t_tag = tag;
