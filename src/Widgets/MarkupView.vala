@@ -46,6 +46,7 @@ public class Tuba.Widgets.MarkupView : Box {
 		current_chunk = null;
 
 		for (var w = get_first_child (); w != null; w = w.get_next_sibling ()) {
+			w.unparent ();
 			w.destroy ();
 		}
 

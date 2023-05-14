@@ -43,6 +43,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 	}
 
+	public Dialogs.Compose.SuccessCallback? reply_cb;
+
 	[GtkChild] protected unowned Box status_box;
 	[GtkChild] protected unowned Box avatar_side;
 	[GtkChild] protected unowned Box title_box;
@@ -277,6 +279,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		app.main_window.open_view (new Views.StatusStats (status.formal.id));
 	}
 
+	private void on_edit (API.Status x) {
+		this.status.patch(x);
+		bind ();
+	}
+
 	private void edit_status () {
 		new Request.GET (@"/api/v1/statuses/$(status.formal.id)/source")
 			.with_account (accounts.active)
@@ -285,10 +292,10 @@ public class Tuba.Widgets.Status : ListBoxRow {
 				var node = network.parse_node (parser);
 				var source = API.StatusSource.from (node);
 
-				new Dialogs.Compose.edit (status.formal, source);
+				new Dialogs.Compose.edit (status.formal, source, on_edit);
 			})
 			.on_error (() => {
-				new Dialogs.Compose.edit (status.formal);
+				new Dialogs.Compose.edit (status.formal, null, on_edit);
 			})
 			.exec ();
 	}
@@ -713,10 +720,18 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		privacy_dialog.present ();
 	}
 
+	private void on_reply (API.Status x) {
+		reply_cb (x);
+	}
+
+	private void on_reply_button_clicked () {
+		new Dialogs.Compose.reply (status.formal, on_reply);
+	}
+
 	protected virtual void append_actions () {
 		reply_button = new Button ();
 		reply_button_content = new Adw.ButtonContent ();
-		reply_button.clicked.connect (() => new Dialogs.Compose.reply (status.formal));
+		reply_button.clicked.connect (on_reply_button_clicked);
 		actions.append (reply_button);
 
 		reblog_button = new StatusActionButton () {
