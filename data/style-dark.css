@@ -41,3 +41,7 @@
 .ttl-status-badge.attachmentpageattachment>*.success {
 	background-color: alpha(mix(@green_4, black, .8), .8);
 }
+
+.ttl-post.direct:hover {
+	background-color: lighter(alpha(@warning_bg_color, .1));
+}

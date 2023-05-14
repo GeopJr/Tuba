@@ -5,7 +5,7 @@ public class Tuba.Widgets.Conversation : Widgets.Status {
 	public API.Conversation conversation { get; construct set; }
 
 	public Conversation (API.Conversation entity) {
-		Object (conversation: entity, status: entity.last_status);
+		Object (conversation: entity, status: entity.last_status, change_background_on_direct: false);
 		init_menu_button ();
 		conversation.bind_property ("unread", this.visibility_indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			if (src.get_boolean()) {

@@ -32,6 +32,17 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 	}
 
+	private bool _change_background_on_direct = true;
+	public bool change_background_on_direct {
+		get {
+			return _change_background_on_direct;
+		}
+		set {
+			_change_background_on_direct = value;
+			if (!value) remove_css_class ("direct");
+		}
+	}
+
 	[GtkChild] protected unowned Box status_box;
 	[GtkChild] protected unowned Box avatar_side;
 	[GtkChild] protected unowned Box title_box;
@@ -453,6 +464,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		var t_visibility = accounts.active.visibility[status.formal.visibility];
 		visibility_indicator.icon_name = t_visibility.icon_name;
 		visibility_indicator.tooltip_text = t_visibility.name;
+
+		if (change_background_on_direct && status.formal.visibility == "direct") this.add_css_class ("direct");
 
 		avatar.account = status.formal.account;
 		reactions = status.formal.compat_status_reactions;
