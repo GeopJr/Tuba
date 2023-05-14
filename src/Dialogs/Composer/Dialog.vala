@@ -6,6 +6,9 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	public API.Status status { get; construct set; }
 
+	public delegate void SuccessCallback (API.Status cb_status);
+	protected SuccessCallback? cb;
+
 	public string button_label {
 		set { commit_button.label = value; }
 	}
@@ -98,7 +101,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		);
 	}
 
-	public Compose.edit (API.Status t_status, API.StatusSource? source = null) {
+	public Compose.edit (API.Status t_status, API.StatusSource? source = null, owned SuccessCallback? t_cb = null) {
 		var template = new API.Status.empty () {
 			id = t_status.id,
 			poll = t_status.poll,
@@ -121,9 +124,11 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			button_class: "suggested-action",
 			editing: true
 		);
+
+		this.cb = (owned) t_cb;
 	}
 
-	public Compose.reply (API.Status to) {
+	public Compose.reply (API.Status to, owned SuccessCallback? t_cb = null) {
 		var template = new API.Status.empty () {
 			in_reply_to_id = to.id.to_string (),
 			in_reply_to_account_id = to.account.id.to_string (),
@@ -138,6 +143,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			button_label: _("_Reply"),
 			button_class: "suggested-action"
 		);
+
+		this.cb = (owned) t_cb;
 	}
 
 	protected T? get_page<T> () {
@@ -205,6 +212,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		var node = network.parse_node (parser);
 		var status = API.Status.from (node);
 		message (@"Published post with id $(status.id)");
+		if (cb != null) cb (status);
 
 		on_close ();
 	}
