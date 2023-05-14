@@ -7,4 +7,6 @@ sources += files(
     'PollPage.vala',
 )
 
-subdir('Completion')
+if gtksourceview_dep.found ()
+    subdir('Completion')
+endif

@@ -77,7 +77,11 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 	}
 
-	protected GtkSource.View editor;
+	#if MISSING_GTKSOURCEVIEW
+		protected TextView editor;
+	#else
+		protected GtkSource.View editor;
+	#endif
 	protected Label char_counter;
 
 	public void editor_grab_focus () {
@@ -87,7 +91,9 @@ public class Tuba.EditorPage : ComposerPage {
 	protected void install_editor () {
 		recount_chars.connect (() => {
 			remaining_chars = char_limit;
-			editor.show_completion ();
+			#if !MISSING_GTKSOURCEVIEW
+				editor.show_completion ();
+			#endif
 		});
 		recount_chars.connect_after (() => {
 			placeholder.visible = remaining_chars == char_limit;
@@ -101,7 +107,11 @@ public class Tuba.EditorPage : ComposerPage {
 			}
 		});
 
-		editor = new GtkSource.View () {
+		#if MISSING_GTKSOURCEVIEW
+			editor = new TextView () {
+		#else
+			editor = new GtkSource.View () {
+		#endif
 			vexpand = true,
 			hexpand = true,
 			top_margin = 6,
@@ -123,13 +133,15 @@ public class Tuba.EditorPage : ComposerPage {
         });
         editor.add_controller(keypress_controller);
 
-		editor.completion.add_provider (new Tuba.HandleProvider ());
-		editor.completion.add_provider (new Tuba.HashtagProvider ());
-		editor.completion.add_provider (new Tuba.EmojiProvider ());
-		editor.completion.select_on_show = true;
-		editor.completion.show_icons = true;
-		editor.completion.page_size = 3;
-		update_style_scheme ();
+		#if !MISSING_GTKSOURCEVIEW
+			editor.completion.add_provider (new Tuba.HandleProvider ());
+			editor.completion.add_provider (new Tuba.HashtagProvider ());
+			editor.completion.add_provider (new Tuba.EmojiProvider ());
+			editor.completion.select_on_show = true;
+			editor.completion.show_icons = true;
+			editor.completion.page_size = 3;
+			update_style_scheme ();
+		#endif
 
 		recount_chars.connect (() => {
 			remaining_chars -= editor.buffer.get_char_count ();
@@ -144,12 +156,14 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.buffer.changed.connect (validate);
 	}
 
-	protected void update_style_scheme () {
-		var manager = GtkSource.StyleSchemeManager.get_default ();
-		var scheme = manager.get_scheme ("adwaita");
-		var buffer = editor.buffer as GtkSource.Buffer;
-		buffer.style_scheme = scheme;
-	}
+	#if !MISSING_GTKSOURCEVIEW
+		protected void update_style_scheme () {
+			var manager = GtkSource.StyleSchemeManager.get_default ();
+			var scheme = manager.get_scheme ("adwaita");
+			var buffer = editor.buffer as GtkSource.Buffer;
+			buffer.style_scheme = scheme;
+		}
+	#endif
 
 	protected Overlay overlay;
 	protected Label placeholder;
