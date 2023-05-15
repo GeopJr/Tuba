@@ -639,7 +639,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	// Anything higher is usually very laggy
 	const int64[] IDEAL_PEERTUBE_RESOLUTION = { 720, 480, 360 };
 	void open_card_url () {
-		var peertube = status.formal.card.is_peertube;
+		var card_special_type = status.formal.card.card_special_type;
 
 		var dlg_url = status.formal.card.url;
 		if (dlg_url.length > 64) {
@@ -651,8 +651,20 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 		// translators: the variable is a url
 		var dlg_body = _("If you proceed, \"%s\" will open in your browser.".printf (dlg_url));
-		if (peertube) {
-			dlg_title = _("You are about to open a PeerTube video");
+		if (card_special_type != API.PreviewCard.CardSpecialType.BASIC) {
+			switch (card_special_type) {
+				case API.PreviewCard.CardSpecialType.PEERTUBE:
+					// translators: the variable is an external service like "PeerTube"
+					dlg_title = _(@"You are about to open a $(card_special_type) video");
+					break;
+				case API.PreviewCard.CardSpecialType.FUNKWHALE:
+					// translators: the variable is an external service like "Funkwhale",
+					//				track as in song
+					dlg_title = _(@"You are about to open a $(card_special_type) track");
+					break;
+				default:
+					assert_not_reached ();
+			}
 
 			// translators: the first variable is the app name (Tuba),
 			//				the second one is a url
@@ -669,39 +681,74 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 		privacy_dialog.response.connect(res => {
 			if (res == "yes") {
-				if (peertube) {
+				if (card_special_type != API.PreviewCard.CardSpecialType.BASIC) {
 					try {
-						var peertube_instance = GLib.Uri.parse (status.formal.card.url, GLib.UriFlags.NONE);
-						var peertube_api_video = @"https://$(peertube_instance.get_host ())/api/v1/videos/$(Path.get_basename (peertube_instance.get_path ()))";
-						new Request.GET (peertube_api_video)
+						var special_api_url = "";
+						var special_host = "";
+						switch (card_special_type) {
+							case API.PreviewCard.CardSpecialType.PEERTUBE:
+								var peertube_instance = GLib.Uri.parse (status.formal.card.url, GLib.UriFlags.NONE);
+								special_host = peertube_instance.get_host ();
+								special_api_url = @"https://$(special_host)/api/v1/videos/$(Path.get_basename (peertube_instance.get_path ()))";
+								break;
+							case API.PreviewCard.CardSpecialType.FUNKWHALE:
+								var funkwhale_instance = GLib.Uri.parse (status.formal.card.url, GLib.UriFlags.NONE);
+								special_host = funkwhale_instance.get_host ();
+								special_api_url = @"https://$(special_host)/api/v1/tracks/$(Path.get_basename (funkwhale_instance.get_path ()))";
+								break;
+							default:
+								assert_not_reached ();
+						}
+
+						new Request.GET (special_api_url)
 							.then ((sess, msg, in_stream) => {
 								var failed = true;
 								var parser = Network.get_parser_from_inputstream(in_stream);
 								var node = network.parse_node (parser);
-								var peertube_obj = API.PeerTube.from (node);
+								var res_url = "";
 
-								if (peertube_obj.url == status.formal.card.url) {
-									if (peertube_obj.streamingPlaylists != null && peertube_obj.streamingPlaylists.size > 0) {
-										var peertube_streaming_playlist = peertube_obj.streamingPlaylists.get(0);
-										if (peertube_streaming_playlist.files != null && peertube_streaming_playlist.files.size > 0) {
-											var res_url = "";
-											peertube_streaming_playlist.files.foreach (file => {
-												if (file.fileDownloadUrl == "" || file.resolution == null) return true;
-												res_url = file.fileDownloadUrl;
+								switch (card_special_type) {
+									case API.PreviewCard.CardSpecialType.PEERTUBE:
+										var peertube_obj = API.PeerTube.from (node);
 
-												if (file.resolution.id in IDEAL_PEERTUBE_RESOLUTION) return false;
-												return true;
-											});
+										if (peertube_obj.url == status.formal.card.url) {
+											if (peertube_obj.streamingPlaylists != null && peertube_obj.streamingPlaylists.size > 0) {
+												var peertube_streaming_playlist = peertube_obj.streamingPlaylists.get(0);
+												if (peertube_streaming_playlist.files != null && peertube_streaming_playlist.files.size > 0) {
+													peertube_streaming_playlist.files.foreach (file => {
+														if (file.fileDownloadUrl == "" || file.resolution == null) return true;
+														res_url = file.fileDownloadUrl;
 
-											if (res_url != "") {
-												failed = false;
-												app.main_window.show_media_viewer_peertube (res_url, null);
+														if (file.resolution.id in IDEAL_PEERTUBE_RESOLUTION) return false;
+														return true;
+													});
+
+													if (res_url != "") failed = false;
+												}
 											}
 										}
-									}
+										break;
+									case API.PreviewCard.CardSpecialType.FUNKWHALE:
+										var funkwhale_obj = API.Funkwhale.from (node);
+
+										if (funkwhale_obj.uploads != null && funkwhale_obj.uploads.size > 0) {
+											var funkwhale_track = funkwhale_obj.uploads.get(0);
+
+											if (funkwhale_track.listen_url != "") {
+												failed = false;
+												res_url = @"https://$(special_host)$(funkwhale_track.listen_url)";
+											}
+										}
+										break;
+									default:
+										assert_not_reached ();
 								}
 
-								if (failed) Host.open_uri (status.formal.card.url);
+								if (failed || res_url == "") {
+									Host.open_uri (status.formal.card.url);
+								} else {
+									app.main_window.show_media_viewer_remote_video (res_url, null, status.formal.card.url);
+								}
 							})
 							.on_error (() => {
 								Host.open_uri (status.formal.card.url);
