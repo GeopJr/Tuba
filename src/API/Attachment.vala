@@ -9,6 +9,7 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 		set { this.t_preview_url = value; }
 		get { return (this.t_preview_url == null || this.t_preview_url == "") ? url : t_preview_url; }
 	}
+	public API.AttachmentMeta? meta { get; set; default=null; }
 
 	public File? source_file { get; set; }
 

@@ -41,6 +41,8 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 			return;
 		}
 
+		var single_attachment = list.size == 1;
+
 		list.@foreach (item => {
 			try {
 				var widget = item.to_widget ();
@@ -51,6 +53,14 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 				box.insert (flowboxchild, -1);
 				attachment_widgets += ((Widgets.Attachment.Image) widget);
 
+				if (single_attachment) {
+					if (item != null && item.meta != null && item.meta.small != null && item.meta.small.width != 0 && item.meta.small.height != 0 && item.meta.small.aspect != 0.0f) {
+						//  var is_landscape = item.meta.small.width > item.meta.small.height;
+						//  widget.height_request = 
+					} else {
+						widget.height_request = 384;
+					}
+				}
 				((Widgets.Attachment.Image) widget).on_any_attachment_click.connect (() => open_all_attachments(item.url));
 			} catch (Oopsie e) {
 				warning(@"Error updating attachments: $(e.message)");
@@ -58,8 +68,13 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 			return true;
 		});
 
-		box.max_children_per_line = 2;
-		box.min_children_per_line = 2;
+		if (single_attachment) {
+			box.max_children_per_line = 1;
+			box.min_children_per_line = 1;
+		} else {
+			box.max_children_per_line = 2;
+			box.min_children_per_line = 2;
+		}
 		// if (list.size > 1) {
 		// 	box.max_children_per_line = 2;
 		// }

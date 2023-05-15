@@ -22,6 +22,7 @@ sources += files(
 )
 
 subdir('Account')
+subdir('Attachment')
 subdir('Instance')
 subdir('PeerTube')
 subdir('Status')
