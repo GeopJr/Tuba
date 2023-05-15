@@ -681,22 +681,24 @@ public class Tuba.Widgets.Status : ListBoxRow {
 								var peertube_obj = API.PeerTube.from (node);
 
 								if (peertube_obj.url == status.formal.card.url) {
-									if (peertube_obj.streamingPlaylists != null && peertube_obj.streamingPlaylists.size > 0) {
-										var peertube_streaming_playlist = peertube_obj.streamingPlaylists.get(0);
-										if (peertube_streaming_playlist.files != null && peertube_streaming_playlist.files.size > 0) {
-											var res_url = "";
-											peertube_streaming_playlist.files.foreach (file => {
-												if (file.fileDownloadUrl == "" || file.resolution == null) return true;
-												res_url = file.fileDownloadUrl;
+									var peertube_file_list = peertube_obj.files;
+									if ((peertube_file_list == null || peertube_file_list.size == 0) && peertube_obj.streamingPlaylists != null && peertube_obj.streamingPlaylists.size > 0) {
+										peertube_file_list = peertube_obj.streamingPlaylists.get(0).files;
+									}
 
-												if (file.resolution.id in IDEAL_PEERTUBE_RESOLUTION) return false;
-												return true;
-											});
+									if (peertube_file_list != null && peertube_file_list.size > 0) {
+										var res_url = "";
+										peertube_file_list.foreach (file => {
+											if (file.fileDownloadUrl == "" || file.resolution == null) return true;
+											res_url = file.fileDownloadUrl;
 
-											if (res_url != "") {
-												failed = false;
-												app.main_window.show_media_viewer_peertube (res_url, null);
-											}
+											if (file.resolution.id in IDEAL_PEERTUBE_RESOLUTION) return false;
+											return true;
+										});
+
+										if (res_url != "") {
+											failed = false;
+											app.main_window.show_media_viewer_peertube (res_url, null);
 										}
 									}
 								}
