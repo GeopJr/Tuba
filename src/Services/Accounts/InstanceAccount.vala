@@ -16,6 +16,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_POLL = "poll";
 	public const string KIND_FOLLOW_REQUEST = "follow_request";
 	public const string KIND_REMOTE_REBLOG = "__remote-reblog";
+	public const string KIND_EDITED = "update";
 
 	public string? backend { set; get; }
 	public API.Instance? instance_info { get; set; }
@@ -164,6 +165,11 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_POLL:
 				icon = "tuba-check-round-outline-symbolic";
 				descr = _("Poll results");
+				descr_url = null;
+				break;
+			case KIND_EDITED:
+				icon = "document-edit-symbolic";
+				descr = _("%s edited a post").printf (account.display_name);
 				descr_url = null;
 				break;
 			default:
