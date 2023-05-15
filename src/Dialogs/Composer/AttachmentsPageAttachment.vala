@@ -4,7 +4,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 	protected File? attachment_file;
 	protected string? alt_text { get; set; default = null; }
 	private const int ALT_MAX_CHARS = 1500;
-	private Dialogs.Compose compose_dialog;
+	private unowned Dialogs.Compose compose_dialog;
 	protected string id;
 
     public AttachmentsPageAttachment (string attachment_id, File? file, Dialogs.Compose dialog, API.Attachment? t_entity){
