@@ -157,7 +157,7 @@ public class Tuba.Request : GLib.Object {
 		} else {
 			Uri t_uri;
 			try {
-				t_uri = Uri.parse (url + parameters, UriFlags.ENCODED_QUERY);
+				t_uri = Uri.parse (url + parameters, UriFlags.ENCODED_PATH | UriFlags.ENCODED_QUERY);
 			} catch (GLib.UriError e) {
 				warning (e.message);
 				return this;
