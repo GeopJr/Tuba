@@ -51,6 +51,6 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	}
 
 	protected void on_activated () {
-		app.main_window.open_view (new Views.Hashtag (name, following));
+		app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url)));
 	}
 }
