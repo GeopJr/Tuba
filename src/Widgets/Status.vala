@@ -662,6 +662,10 @@ public class Tuba.Widgets.Status : ListBoxRow {
 					//				track as in song
 					dlg_title = _(@"You are about to open a $(card_special_type) track");
 					break;
+				case API.PreviewCard.CardSpecialType.BOOKWYRM:
+					// translators: the variable is an external service like "BookWyrm"
+					dlg_title = _(@"You are about to open a $(card_special_type) book");
+					break;
 				default:
 					assert_not_reached ();
 			}
@@ -696,6 +700,12 @@ public class Tuba.Widgets.Status : ListBoxRow {
 								special_host = funkwhale_instance.get_host ();
 								special_api_url = @"https://$(special_host)/api/v1/tracks/$(Path.get_basename (funkwhale_instance.get_path ()))";
 								break;
+							case API.PreviewCard.CardSpecialType.BOOKWYRM:
+								var bookwyrm_instance = GLib.Uri.parse (status.formal.card.url, GLib.UriFlags.NONE);
+								special_host = bookwyrm_instance.get_host ();
+								var bookwyrm_id = Path.get_basename (Path.get_dirname (Path.get_dirname (status.formal.card.url)));
+								special_api_url = @"https://$(special_host)/book/$(bookwyrm_id).json";
+								break;
 							default:
 								assert_not_reached ();
 						}
@@ -706,6 +716,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 								var parser = Network.get_parser_from_inputstream(in_stream);
 								var node = network.parse_node (parser);
 								var res_url = "";
+								API.BookWyrm? bookwyrm_obj = null;
 
 								switch (card_special_type) {
 									case API.PreviewCard.CardSpecialType.PEERTUBE:
@@ -740,6 +751,12 @@ public class Tuba.Widgets.Status : ListBoxRow {
 											}
 										}
 										break;
+									case API.PreviewCard.CardSpecialType.BOOKWYRM:
+										bookwyrm_obj = API.BookWyrm.from (node);
+										res_url = bookwyrm_obj.id;
+
+										if (bookwyrm_obj.title != null && bookwyrm_obj.title != "") failed = false;
+										break;
 									default:
 										assert_not_reached ();
 								}
@@ -747,7 +764,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 								if (failed || res_url == "") {
 									Host.open_uri (status.formal.card.url);
 								} else {
-									app.main_window.show_media_viewer_remote_video (res_url, null, status.formal.card.url);
+									if (bookwyrm_obj == null) {
+										app.main_window.show_media_viewer_remote_video (res_url, null, status.formal.card.url);
+									} else {
+										app.main_window.show_book (bookwyrm_obj, status.formal.card.url);
+									}
 								}
 							})
 							.on_error (() => {
