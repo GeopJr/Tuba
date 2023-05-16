@@ -2,6 +2,7 @@ sources += files(
     'Account.vala',
     'AccountField.vala',
     'Attachment.vala',
+    'BookWyrm.vala',
     'Conversation.vala',
     'Emoji.vala',
     'EmojiReaction.vala',
@@ -23,6 +24,7 @@ sources += files(
 )
 
 subdir('Account')
+subdir('BookWyrm')
 subdir('Funkwhale')
 subdir('Instance')
 subdir('PeerTube')
