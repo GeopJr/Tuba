@@ -23,16 +23,16 @@
   <url type="donation">https://geopjr.dev/donate</url>
   <screenshots>
     <screenshot type="default">
-      <image type="source">https://raw.githubusercontent.com/fabiscafe/tuba/main/data/screenshots/home-small.png</image>
+      <image type="source">https://raw.githubusercontent.com/GeopJr/Tuba/main/data/screenshots/home-small.png</image>
     </screenshot>
     <screenshot>
-      <image type="source">https://raw.githubusercontent.com/fabiscafe/tuba/main/data/screenshots/composer-small.png</image>
+      <image type="source">https://raw.githubusercontent.com/GeopJr/Tuba/main/data/screenshots/composer-small.png</image>
     </screenshot>
     <screenshot>
-      <image type="source">https://raw.githubusercontent.com/fabiscafe/tuba/main/data/screenshots/profile-medium.png</image>
+      <image type="source">https://raw.githubusercontent.com/GeopJr/Tuba/main/data/screenshots/profile-medium.png</image>
     </screenshot>
     <screenshot>
-      <image type="source">https://raw.githubusercontent.com/fabiscafe/tuba/main/data/screenshots/home-large.png</image>
+      <image type="source">https://raw.githubusercontent.com/GeopJr/Tuba/main/data/screenshots/home-large.png</image>
     </screenshot>
   </screenshots>
   <content_rating type="oars-1.1">
