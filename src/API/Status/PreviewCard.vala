@@ -39,9 +39,15 @@ public class Tuba.API.PreviewCard : Entity {
 
     public bool is_peertube {
         get {
-			bool url_pt = url.last_index_of ("/videos/watch/") > -1;
+			// Disable PeerTube support for now
+			// see #253
+			#if false
+				bool url_pt = url.last_index_of ("/videos/watch/") > -1;
 
-			return kind == "video" && provider_name == "PeerTube" && url_pt;
+				return kind == "video" && provider_name == "PeerTube" && url_pt;
+			#else
+				return false;
+			#endif
 		}
     }
 
