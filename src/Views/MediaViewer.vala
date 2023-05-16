@@ -455,9 +455,9 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         });
     }
 
-    public void set_peertube (string url, Gdk.Paintable? preview) {
+    public void set_remote_video (string url, Gdk.Paintable? preview, string? user_friendly_url = null) {
         var video = new Gtk.Video ();
-        var item = new Item (video, url, preview, null, true);
+        var item = new Item (video, user_friendly_url, preview, null, true);
 
         File file = File.new_for_uri (url);
 		video.set_file(file);

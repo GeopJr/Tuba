@@ -109,6 +109,9 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 				case "files":
 					contains = typeof (API.PeerTubeFile);
 					break;
+				case "uploads":
+					contains = typeof (API.FunkwhaleTrack);
+					break;
 				default:
 					contains = typeof (Entity);
 					break;

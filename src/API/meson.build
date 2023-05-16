@@ -6,6 +6,7 @@ sources += files(
     'Emoji.vala',
     'EmojiReaction.vala',
     'Entity.vala',
+    'Funkwhale.vala',
     'Instance.vala',
     'List.vala',
     'Mention.vala',
@@ -22,6 +23,7 @@ sources += files(
 )
 
 subdir('Account')
+subdir('Funkwhale')
 subdir('Instance')
 subdir('PeerTube')
 subdir('Status')
