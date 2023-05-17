@@ -110,8 +110,8 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 				title = book.title,
 				transient_for = this,
 				content = box,
-				default_width = 360,
-				default_height = 500
+				default_width = 460,
+				default_height = 520
 			};
 
 			book_dialog.show ();

@@ -58,7 +58,13 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
         title_box.append (book_title);
 
         if (t_obj.authors != null && t_obj.authors.size > 0) {
-            Gtk.Label author_label = null;
+            Gtk.Label author_label = new Gtk.Label ("") {
+                wrap = true,
+                use_markup = true,
+                halign = Gtk.Align.START
+            };
+            title_box.insert_child_after (author_label, book_title);
+
             foreach (var author in t_obj.authors) {
                 new Request.GET (@"$author.json")
                     .then ((sess, msg, in_stream) => {
@@ -66,20 +72,20 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
                         var node = network.parse_node (parser);
                         var author_obj = API.BookWyrmAuthor.from (node);
                         if (author_obj.id == author) {
-                            if (author_label == null) {
-                                author_label = new Gtk.Label (@"by <a href=\"$(author_obj.id)\">$(author_obj.name)</a>") {
-                                    wrap = true,
-                                    use_markup = true,
-                                    halign = Gtk.Align.START
-                                };
-                                title_box.insert_child_after (author_label, book_title);
-                            } else {
-                                author_label.label += @", <a href=\"$(author_obj.id)\">$(author_obj.name)</a>";
-                            }
+                            author_label.label = generate_authors_label (author_obj.name, author_obj.id);
                         }
                     })
                     .exec ();
             }
+        }
+
+        if (t_obj.isbn13 != "") {
+            var isbn_label = new Gtk.Label (@"ISBN: $(t_obj.isbn13)") {
+                wrap=true,
+                halign = Gtk.Align.START
+            };
+            selectable_labels += isbn_label;
+            title_box.append (isbn_label);
         }
 
         header_box.append (title_box);
@@ -108,20 +114,28 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
             append (description_label);
         }
 
-        if (t_obj.isbn13 != "") {
-            var isbn_label = new Gtk.Label (@"ISBN: $(t_obj.isbn13)") {
-                wrap=true
-            };
-            selectable_labels += isbn_label;
-            append (isbn_label);
-        }
-
         if (t_obj.publishedDate != "") {
             var date_parsed = new GLib.DateTime.from_iso8601 (t_obj.publishedDate, null);
             if (date_parsed != null)
                 append (new Gtk.Label (@"Published: $(date_parsed.format("%x"))") { wrap=true });
         }
 	}
+
+    string authors_markup (string author, string? author_url = null) {
+        if (author_url != null && author_url != "")
+            return @"<a href=\"$author_url\">$author</a>";
+
+        return author;
+    }
+
+    string[] author_labels = {};
+    string generate_authors_label (string author, string? author_url = null) {
+        author_labels += authors_markup (author, author_url);
+
+        // translators: the variable is a comma separated
+        //              list of the book authors
+        return _(@"by $(string.joinv (", ", author_labels))");
+    }
 
 	void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
 		cover.paintable = data;
