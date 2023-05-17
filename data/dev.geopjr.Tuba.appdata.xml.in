@@ -23,16 +23,16 @@
   <url type="donation">https://geopjr.dev/donate</url>
   <screenshots>
     <screenshot type="default">
-      <image type="source">https://i.imgur.com/jKmFZou.png</image>
+      <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-1.png</image>
     </screenshot>
     <screenshot>
-      <image type="source">https://i.imgur.com/3essApP.png</image>
+      <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-2.png</image>
     </screenshot>
     <screenshot>
-      <image type="source">https://i.imgur.com/jBF85mI.png</image>
+      <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-3.png</image>
     </screenshot>
     <screenshot>
-      <image type="source">https://i.imgur.com/XBtQsya.png</image>
+      <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-4.png</image>
     </screenshot>
   </screenshots>
   <content_rating type="oars-1.1">
