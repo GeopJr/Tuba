@@ -111,7 +111,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 					var e = entity_cache.lookup_or_insert (node, accepts);
 					to_add += e;
 				});
-				model.splice (model.n_items, 0, to_add);
+				model.splice (model.get_n_items (), 0, to_add);
 
 				get_pages (msg.response_headers.get_one ("Link"));
 				on_content_changed ();
@@ -183,7 +183,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	private void finish_queue () {
 		if (entity_queue.length == 0) return;
-		model.splice (0, 0, entity_queue);
+		model.splice (0, 0, (Object[])entity_queue);
 
 		entity_queue = {};
 	}

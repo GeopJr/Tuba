@@ -83,6 +83,45 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		main_stack.visible_child_name = "main";
 	}
 
+	public void show_book (API.BookWyrm book, string? fallback = null) {
+		try {
+			var book_widget = book.to_widget ();
+			var clamp = new Adw.Clamp () {
+				child = book_widget,
+				tightening_threshold = 100,
+				valign = Align.START
+			};
+			var scroller = new Gtk.ScrolledWindow () {
+				hexpand = true,
+				vexpand = true
+			};
+			scroller.child = clamp;
+
+			var box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+			var headerbar = new Adw.HeaderBar() {
+				css_classes = { "flat" }
+			};
+
+			box.append(headerbar);
+			box.append(scroller);
+
+			var book_dialog = new Adw.Window() {
+				modal = true,
+				title = book.title,
+				transient_for = this,
+				content = box,
+				default_width = 460,
+				default_height = 520
+			};
+
+			book_dialog.show ();
+
+			((Widgets.BookWyrmPage) book_widget).selectable = true;
+		} catch {
+			if (fallback != null) Host.open_uri (fallback);
+		}
+	}
+
 	public Views.Base open_view (Views.Base view) {
 		if ((leaflet.visible_child == view) || (last_view != null && last_view.label == view.label && !view.is_profile)) return view;
 
