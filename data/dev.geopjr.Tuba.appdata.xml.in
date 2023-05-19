@@ -54,6 +54,67 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.3.0" date="2023-05-20">
+        <description>
+          <ul>
+              <li>Added custom emoji support</li>
+              <li>Added link preview cards</li>
+              <li>Added Funkwhale support</li>
+              <li>Added BookWyrm support</li>
+              <li>Added All tab in search</li>
+              <li>Added Hashtags sidebar view</li>
+              <li>Added view for who favorited / boosted a post</li>
+              <li>Implemented new design for post titles</li>
+              <li>Implemented new design for expanded posts</li>
+              <li>Added composer language selector</li>
+              <li>Added more media viewer functions (zoom, panning, gestures)</li>
+              <li>Added entity queue so scroll position doesn't change</li>
+              <li>Added enlarging attachment if it's there's only one</li>
+              <li>Added post got edited notification event support</li>
+              <li>Added closing all views when active account changes</li>
+              <li>Added ability to view user avatars and headers</li>
+              <li>Added streaming support for conversations</li>
+              <li>Added Ctrl+Return as shortcut for posting</li>
+              <li>Added joined date on profiles</li>
+              <li>Added helpful message on broken keyring setup</li>
+              <li>Added marking visibility button as insensitive on edit</li>
+              <li>Added visual indicator for direct posts</li>
+              <li>Added composer focus grabbing</li>
+              <li>Added search entry focus grabbing</li>
+              <li>Added support for building without gtksourceview</li>
+              <li>Fixed websockets not closing</li>
+              <li>Fixed timelines receiving posts from other accounts after switching</li>
+              <li>Fixed complex blockquotes not rendering</li>
+              <li>Fixed multiple memory leaks</li>
+              <li>Fixed multiple performance issues</li>
+              <li>Fixed editing posts not getting updated instantly in view</li>
+              <li>Fixed composing new posts not getting added instantly in view</li>
+              <li>Fixed lists being broken from the libsoup3 migration</li>
+              <li>Fixed notification marking for Pleroma and forks</li>
+              <li>Fixed several media viewer bugs</li>
+              <li>Fixed missing underline on some links</li>
+              <li>Fixed some spinners still spinning when not visible</li>
+              <li>Fixed translations not getting applied</li>
+              <li>Fixed content warning getting removed on edit</li>
+              <li>Fixed spoiler not getting wrapped in some cases</li>
+              <li>Fixed apostrophes getting escaped on edit</li>
+              <li>Fixed active account username being invisible until fetching finished</li>
+              <li>Fixed focusing twice on some widgets</li>
+              <li>Fixed window controls showing on the main headerbar when set to left</li>
+              <li>Fixed timeline never finishing</li>
+              <li>Fixed broken hashtag view when it contains special characters</li>
+              <li>Fixed empty conversations shown as posts</li>
+              <li>Fixed flap staying open when activating the sidebar header</li>
+              <li>Turned sideabar header into a button</li>
+              <li>Turned user names into buttons</li>
+              <li>Reduced bandwidth used by only connecting to notifications for each account</li>
+              <li>Removed trivial info from follow notifications</li>
+              <li>Removed post stats in text</li>
+              <li>Moved post actions to a button instead of context menu</li>
+              <li>Several other minor bug fixes</li>
+          </ul>
+        </description>
+    </release>
     <release version="0.2.0" date="2023-04-04">
         <description>
           <ul>
