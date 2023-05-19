@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-11 03:15+0300\n"
-"PO-Revision-Date: 2023-05-04 05:20+0000\n"
+"PO-Revision-Date: 2023-05-13 14:49+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tuba/tuba/es/>\n"
 "Language: es\n"
@@ -262,8 +262,8 @@ msgstr "¿Cuál es su servidor?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
 "Si aún no tiene cuenta, <a href=\"https://joinmastodon.org/servers\">elija "
 "un servidor y registre una</a>."
@@ -388,7 +388,7 @@ msgstr "Marcador"
 #. and year.
 #: src/Widgets/Status.vala:605 src/Views/Profile.vala:129
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%B %e, %Y"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
@@ -493,7 +493,7 @@ msgstr "Perfil"
 #. which has as value the date the profile was created on
 #: src/Views/Profile.vala:139
 msgid "Joined"
-msgstr ""
+msgstr "Ingreso en"
 
 #. translators: the variable is the amount of posts a user has made
 #: src/Views/Profile.vala:159

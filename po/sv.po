@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # bittin1ddc447d824349b2 <bittin@reimu.nl>, 2023.
+# Evangelos Paterakis <evan@geopjr.dev>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-11 03:15+0300\n"
-"PO-Revision-Date: 2023-05-04 10:12+0000\n"
-"Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
+"PO-Revision-Date: 2023-05-19 20:13+0000\n"
+"Last-Translator: Evangelos Paterakis <evan@geopjr.dev>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/tuba/tuba/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -258,11 +259,11 @@ msgstr "Vad är din server?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
-"Om du inte har ett konto än, <a href=\"https://joinmastodon.org/"
-"servers\">välj en server och registrera ett</a>."
+"Om du inte har ett konto än, <a href=\"https://joinmastodon.org/servers"
+"\">välj en server och registrera ett</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
@@ -383,7 +384,7 @@ msgstr "Bokmärk"
 #. and year.
 #: src/Widgets/Status.vala:605 src/Views/Profile.vala:129
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%x"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
@@ -488,7 +489,7 @@ msgstr "Profil"
 #. which has as value the date the profile was created on
 #: src/Views/Profile.vala:139
 msgid "Joined"
-msgstr ""
+msgstr "Gick med"
 
 #. translators: the variable is the amount of posts a user has made
 #: src/Views/Profile.vala:159

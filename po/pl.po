@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-11 03:15+0300\n"
-"PO-Revision-Date: 2023-05-03 03:58+0000\n"
+"PO-Revision-Date: 2023-05-12 09:53+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -262,11 +262,11 @@ msgstr "Na jakim serwerze masz konto?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
-"Jeżeli nie masz jeszcze konta, <a href=\"https://joinmastodon.org/"
-"servers\">wybierz serwer i je załóż</a>."
+"Jeżeli nie masz jeszcze konta, <a href=\"https://joinmastodon.org/servers"
+"\">wybierz serwer i je załóż</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
@@ -388,7 +388,7 @@ msgstr "Dodaj do zakładek"
 #. and year.
 #: src/Widgets/Status.vala:605 src/Views/Profile.vala:129
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%e %B %Y"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
@@ -493,7 +493,7 @@ msgstr "Profil"
 #. which has as value the date the profile was created on
 #: src/Views/Profile.vala:139
 msgid "Joined"
-msgstr ""
+msgstr "Data dołączenia"
 
 #. translators: the variable is the amount of posts a user has made
 #: src/Views/Profile.vala:159
