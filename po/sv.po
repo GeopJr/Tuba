@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # bittin1ddc447d824349b2 <bittin@reimu.nl>, 2023.
+# Evangelos Paterakis <evan@geopjr.dev>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-11 03:15+0300\n"
-"PO-Revision-Date: 2023-05-12 09:53+0000\n"
-"Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
+"PO-Revision-Date: 2023-05-19 20:13+0000\n"
+"Last-Translator: Evangelos Paterakis <evan@geopjr.dev>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/tuba/tuba/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -383,7 +384,7 @@ msgstr "Bokmärk"
 #. and year.
 #: src/Widgets/Status.vala:605 src/Views/Profile.vala:129
 msgid "%B %e, %Y"
-msgstr "%D %m, %Å"
+msgstr "%x"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
