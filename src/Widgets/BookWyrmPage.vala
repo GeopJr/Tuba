@@ -134,7 +134,7 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
 
         // translators: the variable is a comma separated
         //              list of the book authors
-        return _(@"by $(string.joinv (", ", author_labels))");
+        return _("by %s").printf (string.joinv (", ", author_labels));
     }
 
 	void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {

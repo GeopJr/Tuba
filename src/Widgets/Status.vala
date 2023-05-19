@@ -745,6 +745,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		//				on https://valadoc.org/glib-2.0/GLib.DateTime.format.html
 		//				Please do not stray far from the original and only include day, month
 		//				and year.
+		//				If unsure, either leave it as-is or set it to %x.
 		var date_local = _("%B %e, %Y");
 
 		// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES

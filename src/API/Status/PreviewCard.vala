@@ -22,17 +22,17 @@ public class Tuba.API.PreviewCard : Entity {
 			switch (this) {
 				case PEERTUBE:
 					// translators: the variable is an external service like "PeerTube"
-					return _(@"You are about to open a $(this) video");
+					return _("You are about to open a %s video").printf (@"$this");
 				case FUNKWHALE:
 					// translators: the variable is an external service like "Funkwhale",
 					//				track as in song
-					return _(@"You are about to open a $(this) track");
+					return _("You are about to open a %s track").printf (@"$this");
 				case BOOKWYRM:
 					// translators: the variable is an external service like "BookWyrm"
-					return _(@"You are about to open a $(this) book");
+					return _("You are about to open a %s book").printf (@"$this");
 				default:
 					// translators: the variable is the app name (Tuba)
-					return _(@"You are about to leave $(Build.NAME)");
+					return _("You are about to leave %s").printf (Build.NAME);
 			}
 		}
 
