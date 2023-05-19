@@ -10,7 +10,9 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
         child = image;
 	}
 
-    public Emoji (string emoji_url) {
+    public Emoji (string emoji_url, string? shortcode = null) {
+		if (shortcode != null)
+			image.tooltip_text = shortcode;
 		image_cache.request_paintable (emoji_url, on_cache_response);
 	}
 
