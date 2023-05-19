@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Mek 101 <mek101-dev.inv@slmail.me>, 2023.
 # Luca Ruggeri <lc.ruggeri+weblate@runbox.it>, 2023.
+# Nekothegamer <nekotheggamer@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-11 03:15+0300\n"
-"PO-Revision-Date: 2023-04-19 07:49+0000\n"
-"Last-Translator: Luca Ruggeri <lc.ruggeri+weblate@runbox.it>\n"
+"PO-Revision-Date: 2023-05-19 20:13+0000\n"
+"Last-Translator: Nekothegamer <nekotheggamer@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/tuba/tuba/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +43,7 @@ msgid ""
 msgstr ""
 "Esplora il web sociale federato con Tuba per Gnome. Rimani connesso alle tue "
 "comunità, famiglia e amici preferiti con il supporto per piattaforme "
-"popolari del Fediverso come Mastodon, GoToSocial, Akkoma &amp'; more!"
+"popolari del Fediverso come Mastodon, GoToSocial, Akkoma e molti altri!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
 msgid ""
@@ -100,7 +101,7 @@ msgstr "Messaggio Diretto"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
-msgstr ""
+msgstr "Copia Handle"
 
 #: data/ui/menus.ui:29
 msgid "Moderation"
@@ -185,11 +186,11 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
-msgstr ""
+msgstr "Visibilità predefinita dei post"
 
 #: data/ui/dialogs/preferences.ui:77
 msgid "Default post language"
-msgstr ""
+msgstr "Lingua predefinita dei post"
 
 #: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
@@ -221,7 +222,7 @@ msgstr "Post per caricamento"
 
 #: data/ui/dialogs/preferences.ui:135
 msgid "Stream timelines"
-msgstr ""
+msgstr "Trasmetti timeline"
 
 #: data/ui/dialogs/preferences.ui:137
 msgid "Receive new posts and notifications in real-time"
@@ -229,7 +230,7 @@ msgstr "Ricevi nuovi post e notifiche in tempo reale"
 
 #: data/ui/dialogs/preferences.ui:148
 msgid "Stream public timelines"
-msgstr ""
+msgstr "Trasmetti timeline pubbliche"
 
 #: data/ui/dialogs/preferences.ui:150
 msgid "Warning: This will increase memory usage"
@@ -300,7 +301,7 @@ msgstr "Il tuo account è connesso e pronto all'uso!"
 
 #: data/ui/dialogs/compose.ui:35 src/Dialogs/Composer/Dialog.vala:88
 msgid "_Publish"
-msgstr ""
+msgstr "_Pubblica"
 
 #: src/Widgets/VoteBox.vala:20
 msgid "Vote"
@@ -335,7 +336,7 @@ msgstr "Copia URL"
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:237
 msgid "View Stats"
-msgstr ""
+msgstr "Visualizza statistiche"
 
 #: src/Widgets/Status.vala:241
 msgid "View Edit History"
@@ -448,7 +449,7 @@ msgstr "Nessun account selezionato"
 #: src/Views/Sidebar.vala:249
 #, c-format
 msgid "Forget %s?"
-msgstr "Dimenticato %s?"
+msgstr "Dimentica %s?"
 
 #: src/Views/Sidebar.vala:250
 msgid "This account will be removed from the application."
@@ -465,7 +466,7 @@ msgstr "Cerca"
 #. translators: as in All search results
 #: src/Views/Search.vala:40
 msgid "All"
-msgstr ""
+msgstr "Tutti"
 
 #: src/Views/Search.vala:41
 msgid "Accounts"
@@ -492,7 +493,7 @@ msgstr "Profilo"
 #. which has as value the date the profile was created on
 #: src/Views/Profile.vala:139
 msgid "Joined"
-msgstr ""
+msgstr "Unito"
 
 #. translators: the variable is the amount of posts a user has made
 #: src/Views/Profile.vala:159
@@ -971,7 +972,7 @@ msgstr "Privacy post"
 
 #: src/Dialogs/Composer/EditorPage.vala:273
 msgid "Post Language"
-msgstr ""
+msgstr "Lingua del post"
 
 #: src/Dialogs/Composer/Dialog.vala:96
 msgid "_Redraft"
@@ -999,7 +1000,7 @@ msgstr "Salva"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:50
 msgid "Media"
-msgstr ""
+msgstr "Media"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:66
 #: src/Dialogs/Composer/AttachmentsPage.vala:90
