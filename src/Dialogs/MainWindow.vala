@@ -126,10 +126,11 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		if ((leaflet.visible_child == view) || (last_view != null && last_view.label == view.label && !view.is_profile)) return view;
 
 		if (last_view != null && !last_view.is_main && view.is_sidebar_item) {
-			leaflet.remove(last_view);
+			leaflet.prepend(view);
+		} else {
+			leaflet.append (view);
 		}
 
-		leaflet.append (view);
 		leaflet.visible_child = view;
 		return view;
 	}
