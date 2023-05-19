@@ -267,11 +267,11 @@ msgstr "Zein da zure zerbitzaria?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
-"Oraindik konturik ez baduzu, <a href=\"https://joinmastodon.org/"
-"servers\">hautatu zerbitzari bat eta eman izena</a>."
+"Oraindik konturik ez baduzu, <a href=\"https://joinmastodon.org/servers"
+"\">hautatu zerbitzari bat eta eman izena</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
