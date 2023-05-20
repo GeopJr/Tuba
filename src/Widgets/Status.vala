@@ -641,7 +641,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	private void on_reply (API.Status x) {
-		reply_cb (x);
+		if (reply_cb != null)
+			reply_cb (x);
 	}
 
 	private void on_reply_button_clicked () {
