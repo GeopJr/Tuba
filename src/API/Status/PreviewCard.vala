@@ -137,10 +137,9 @@ public class Tuba.API.PreviewCard : Entity {
 
 	public bool is_bookwyrm {
         get {
-			bool title_bw = title.last_index_of ("- BookWyrm") > 0;
-			bool url_bw = url.last_index_of ("/book/") > -1;
-
-			return kind == "link" && title_bw && url_bw;
+			Regex regex_bw = new GLib.Regex ("/book/\\d+/s/[-_a-z0-9]*");
+			
+			return kind == "link" && regex_bw.match (url);
 		}
     }
 
