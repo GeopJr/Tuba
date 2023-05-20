@@ -19,6 +19,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		var gtk_settings = Gtk.Settings.get_default ();
 	}
 
+	private Views.Base main_base;
 	public MainWindow (Adw.Application app) {
 		Object (
 			application: app,
@@ -27,7 +28,8 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			resizable: true
 		);
 		sidebar.set_sidebar_selected_item(0);
-		open_view (new Views.Main ());
+		main_base = new Views.Main ();
+		open_view (main_base);
 
 		if (Build.PROFILE == "development") {
 			this.add_css_class ("devel");
@@ -126,7 +128,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		if ((leaflet.visible_child == view) || (last_view != null && last_view.label == view.label && !view.is_profile)) return view;
 
 		if (last_view != null && !last_view.is_main && view.is_sidebar_item) {
-			leaflet.prepend(view);
+			leaflet.insert_child_after (view, main_base);
 		} else {
 			leaflet.append (view);
 		}
@@ -143,9 +145,6 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 		if (last_view == null) return true;
 
-		if (last_view.is_sidebar_item)
-			sidebar.set_sidebar_selected_item(0);
-		
 		leaflet.navigate (Adw.NavigationDirection.BACK);
 		return true;
 	}
@@ -169,6 +168,9 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	void on_view_changed () {
 		var view = leaflet.visible_child as Views.Base;
 		on_child_transition ();
+
+		if (view.is_main)
+			sidebar.set_sidebar_selected_item(0);
 
 		if (last_view != null) {
 			last_view.current = false;
