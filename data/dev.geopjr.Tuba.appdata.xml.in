@@ -54,6 +54,15 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.3.1" date="2023-05-20">
+        <description>
+          <ul>
+              <li>Fixed crash when replying to posts outside of a thread</li>
+              <li>Fixed polls not getting updated</li>
+              <li>Fixed broken navigation on nested views</li>
+          </ul>
+        </description>
+    </release>
     <release version="0.3.0" date="2023-05-20">
         <description>
           <ul>
