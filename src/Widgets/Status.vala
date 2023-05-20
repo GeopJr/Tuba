@@ -522,7 +522,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			poll.hide ();
 		} else {
 			poll.status_parent = status.formal;
-			poll.poll = status.formal.poll;
+			status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE);
 		}
 
 		if (!settings.hide_preview_cards && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
