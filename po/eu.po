@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 23:29+0300\n"
-"PO-Revision-Date: 2023-03-26 17:36+0000\n"
+"PO-Revision-Date: 2023-05-21 06:05+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -30,9 +30,8 @@ msgid "Fediverse Client"
 msgstr "Fedibertsorako bezeroa"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
-#, fuzzy
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
+msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;fedibertsoa;"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:9
 msgid ""
@@ -45,7 +44,6 @@ msgstr ""
 "GoToSocial, Akkoma eta bestelako Fedibertsoko plataformen laguntzaz!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
-#, fuzzy
 msgid ""
 "The Fediverse is a decentralized social network that consists of multiple "
 "interconnected platforms and communities, allowing users to communicate and "
@@ -55,7 +53,7 @@ msgid ""
 msgstr ""
 "Fedibertsoa dezentralizatutako gizarte-sarea da, elkarren artean konektatuta "
 "dauden plataforma eta komunitatez osatua. Erabiltzaileek edukia sare eta "
-"zerbitzari ezberdinen artean partekatu dazakete. Erabiltzaileen "
+"zerbitzari ezberdinen artean partekatu dazakete. Fedibertsoak erabiltzaileen "
 "pribatutasuna eta datuen jabetza defendatzen ditu, eta zentralizatutako "
 "gizarte-sareen alternatiba eskaintzen du."
 
@@ -136,12 +134,10 @@ msgid "Filter"
 msgstr "Iragazi"
 
 #: data/ui/menus.ui:80
-#, fuzzy
 msgid "Include Replies"
 msgstr "Erantzunak barne"
 
 #: data/ui/menus.ui:85
-#, fuzzy
 msgid "Include Media"
 msgstr "Multimedia barne"
 
@@ -184,15 +180,15 @@ msgstr "Bidalketen lerroen arteko tartea handiagoa egiten du"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Posting"
-msgstr ""
+msgstr "Bidalketak"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
-msgstr ""
+msgstr "Bidalketen ikusgaitasuna, defektuz"
 
 #: data/ui/dialogs/preferences.ui:77
 msgid "Default post language"
-msgstr ""
+msgstr "Bidalketen hizkuntza, defektuz"
 
 #: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
@@ -219,7 +215,6 @@ msgid "Timelines"
 msgstr "Denbora-lerroak"
 
 #: data/ui/dialogs/preferences.ui:121
-#, fuzzy
 msgid "Posts per load batch"
 msgstr "Bidalketa kopurua kargatzen duen bakoitzean"
 
@@ -237,7 +232,7 @@ msgstr "Denbora-lerro publikoen jarioa"
 
 #: data/ui/dialogs/preferences.ui:150
 msgid "Warning: This will increase memory usage"
-msgstr "Abidua: Honek memoriaren erabilera handituko du"
+msgstr "Abisua: Honek memoriaren erabilera handituko du"
 
 #: data/ui/dialogs/preferences.ui:160
 msgid "Reveal spoilers by default"
@@ -245,7 +240,7 @@ msgstr "Erakutsi izorrakiak defektuz"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Hide link preview cards"
-msgstr ""
+msgstr "Ezkutatu esteken aurrebista"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:233
 msgid "Add Account"
@@ -326,9 +321,9 @@ msgstr "Errorea konexioarekin"
 
 #. translators: the variable is the emoji or its name if it's custom
 #: src/Widgets/Status.vala:125
-#, fuzzy, c-format
+#, c-format
 msgid "React with %s"
-msgstr "%s erabiliz"
+msgstr "%s erabiliz erreakzionatu"
 
 #: src/Widgets/Status.vala:246 src/Widgets/Attachment/Item.vala:193
 #: src/Views/MediaViewer.vala:328
@@ -343,7 +338,7 @@ msgstr "Kopiatu URLa"
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:250
 msgid "View Stats"
-msgstr ""
+msgstr "Ikusi estatistikak"
 
 #: src/Widgets/Status.vala:254
 msgid "View Edit History"
@@ -394,7 +389,7 @@ msgstr "Jarri laster-marka"
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Widgets/Status.vala:749 src/Views/Profile.vala:133
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%Y(e)ko %Bren %ea"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
@@ -417,7 +412,7 @@ msgstr "Utzi jarraitzeari"
 #: src/Widgets/BookWyrmPage.vala:137
 #, c-format
 msgid "by %s"
-msgstr ""
+msgstr "%s(e)k idatzia"
 
 #: src/Widgets/Attachment/Item.vala:38 src/Widgets/Attachment/Item.vala:48
 msgid "Save Attachment"
@@ -480,7 +475,7 @@ msgstr "Bilatu"
 #. translators: as in All search results
 #: src/Views/Search.vala:40
 msgid "All"
-msgstr ""
+msgstr "Guztia"
 
 #: src/Views/Search.vala:41
 msgid "Accounts"
@@ -495,9 +490,8 @@ msgid "Hashtags"
 msgstr "Traolak"
 
 #: src/Views/Search.vala:65
-#, fuzzy
 msgid "Enter Query"
-msgstr "Sartu bilaketa"
+msgstr "Sartu kontsulta"
 
 #: src/Views/Profile.vala:35
 msgid "Profile"
@@ -507,25 +501,25 @@ msgstr "Profila"
 #. which has as value the date the profile was created on
 #: src/Views/Profile.vala:143
 msgid "Joined"
-msgstr ""
+msgstr "Batze-data"
 
 #. translators: the variable is the amount of posts a user has made
 #: src/Views/Profile.vala:163
 #, c-format
 msgid "%lld Posts"
-msgstr "%lld Bidalketak"
+msgstr "%lld bidalketa"
 
 #. translators: the variable is the amount of people a user follows
 #: src/Views/Profile.vala:168
 #, c-format
 msgid "%lld Following"
-msgstr "%lld Jarraitzen"
+msgstr "%lld jarraitzen"
 
 #. translators: the variable is the amount of followers a user has
 #: src/Views/Profile.vala:173
 #, c-format
 msgid "%lld Followers"
-msgstr "%lld Jarraitzaile"
+msgstr "%lld jarraitzaile"
 
 #: src/Views/Profile.vala:292
 #, c-format
@@ -563,7 +557,6 @@ msgstr ""
 "• Bertako erabiltzaileak jarraitzea ekidingo dizu"
 
 #: src/Views/Profile.vala:370
-#, fuzzy
 msgid "Sent follow request"
 msgstr "Jarraipen-eskaera bidalita"
 
@@ -577,7 +570,7 @@ msgstr "Jarraitzen dizu"
 
 #. translators: the variable is an account handle
 #: src/Views/Profile.vala:429
-#, fuzzy, c-format
+#, c-format
 msgid "Add or remove \"%s\" to or from a list"
 msgstr "Gehitu/kendu \"%s\" zerrendara/zerrendatik"
 
@@ -633,19 +626,19 @@ msgstr "Pantaila osoa bai/ez"
 
 #: src/Views/MediaViewer.vala:526
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Aurreko eranskina"
 
 #: src/Views/MediaViewer.vala:531
 msgid "Next Attachment"
-msgstr ""
+msgstr "Hurrengo eranskina"
 
 #: src/Views/MediaViewer.vala:549
 msgid "Zoom Out"
-msgstr ""
+msgstr "Urrundu"
 
 #: src/Views/MediaViewer.vala:554
 msgid "Zoom In"
-msgstr ""
+msgstr "Gerturatu"
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
@@ -678,7 +671,6 @@ msgid "Replies Policy"
 msgstr "Erantzunen politika"
 
 #: src/Views/Lists.vala:107
-#, fuzzy
 msgid "Show member replies to"
 msgstr "Erakutsi kideen erantzunak honi:"
 
@@ -691,7 +683,6 @@ msgid "Other members of the list"
 msgstr "Zerrendako beste kide batzuk"
 
 #: src/Views/Lists.vala:135
-#, fuzzy
 msgid "Any followed user"
 msgstr "Jarraitzen dudan edozein erabiltzaile"
 
@@ -741,7 +732,6 @@ msgid "Bookmarks"
 msgstr "Laster-markak"
 
 #: src/Views/Base.vala:6
-#, fuzzy
 msgid "Nothing to see here"
 msgstr "Ez dago zer ikusi"
 
@@ -770,7 +760,6 @@ msgstr "%Y(e)ko %bren %-e(e)an iraungiko da"
 #. %H is the hours (24h format)
 #. %m is the minutes
 #: src/Utils/DateTime.vala:40
-#, fuzzy
 msgid "expires on %b %-e, %Y %H:%m"
 msgstr "iraungitzea: %Y/%b/%-e, %H:%m"
 
@@ -785,7 +774,6 @@ msgstr "atzo iraungi zen"
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:57
-#, fuzzy
 msgid "expired on %b %-e"
 msgstr "%b/%-e iraungi zen"
 
@@ -793,7 +781,6 @@ msgstr "%b/%-e iraungi zen"
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:63
-#, fuzzy
 msgid "expired on %b %-e, %Y"
 msgstr "%Y/%b/%-e(e)an iraungi zen"
 
@@ -803,7 +790,6 @@ msgstr "%Y/%b/%-e(e)an iraungi zen"
 #. %H is the hours (24h format)
 #. %m is the minutes
 #: src/Utils/DateTime.vala:77
-#, fuzzy
 msgid "%b %-e, %Y %H:%m"
 msgstr "%Y/%b/%-e, %H:%m"
 
@@ -818,7 +804,6 @@ msgstr "Atzo"
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:94
-#, fuzzy
 msgid "%b %-e"
 msgstr "%b/%-e"
 
@@ -826,7 +811,6 @@ msgstr "%b/%-e"
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:100
-#, fuzzy
 msgid "%b %-e, %Y"
 msgstr "%Y/%b/%-e"
 
@@ -901,12 +885,12 @@ msgstr "%s(e)k zure argitalpena bultzatu du"
 #: src/Services/Accounts/InstanceAccount.vala:147
 #, c-format
 msgid "%s boosted"
-msgstr "%s(e)k bultzatu dute"
+msgstr "%s(e)k bultzatu du"
 
 #: src/Services/Accounts/InstanceAccount.vala:152
 #, c-format
 msgid "%s favorited your post"
-msgstr "%s(e)k zure argitalpena gogoko dute"
+msgstr "%s(e)k zure argitalpena gogoko du"
 
 #: src/Services/Accounts/InstanceAccount.vala:157
 #, c-format
@@ -925,7 +909,7 @@ msgstr "Bozketaren emaitzak"
 #: src/Services/Accounts/InstanceAccount.vala:172
 #, c-format
 msgid "%s edited a post"
-msgstr ""
+msgstr "%s(e)k bidalketa editatu du"
 
 #: src/Dialogs/NewAccount.vala:5
 msgid "Allow access to your account in the browser."
@@ -944,7 +928,6 @@ msgid "Please enter a valid authorization code"
 msgstr "Sartu baliozko baimen-kodea"
 
 #: src/Dialogs/NewAccount.vala:172
-#, fuzzy
 msgid "Instance failed to authorize the access token"
 msgstr "Instantziak ezin izan du kodea baimendu"
 
@@ -954,7 +937,6 @@ msgid "Hello, %s!"
 msgstr "Kaixo, %s!"
 
 #: src/Dialogs/NewAccount.vala:239
-#, fuzzy
 msgid "Server returned an error"
 msgstr "Zerbitzariak errorea itzuli du"
 
@@ -969,7 +951,6 @@ msgstr "Testua"
 
 #: src/Dialogs/Composer/EditorPage.vala:152
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:108
-#, fuzzy
 msgid "Characters Left"
 msgstr "Karaktere gehienez"
 
@@ -995,7 +976,7 @@ msgstr "Bidalketaren pribatutasuna"
 
 #: src/Dialogs/Composer/EditorPage.vala:287
 msgid "Post Language"
-msgstr ""
+msgstr "Bidalketaren hizkuntza"
 
 #: src/Dialogs/Composer/Dialog.vala:99
 msgid "_Redraft"
@@ -1085,43 +1066,43 @@ msgstr "%d aldiz erabili dute %d pertsonak azken bi egunetan"
 #: src/API/Status/PreviewCard.vala:25
 #, c-format
 msgid "You are about to open a %s video"
-msgstr ""
+msgstr "%s(e)ko bideo bat irekitzear zaude"
 
 #. translators: the variable is an external service like "Funkwhale",
 #. track as in song
 #: src/API/Status/PreviewCard.vala:29
 #, c-format
 msgid "You are about to open a %s track"
-msgstr ""
+msgstr "%s(e)ko abesti bat irekitzear zaude"
 
 #. translators: the variable is an external service like "BookWyrm"
 #: src/API/Status/PreviewCard.vala:32
 #, c-format
 msgid "You are about to open a %s book"
-msgstr ""
+msgstr "%s(e)ko liburu bat irekitzear zaude"
 
 #. translators: the variable is the app name (Tuba)
 #: src/API/Status/PreviewCard.vala:35
 #, c-format
 msgid "You are about to leave %s"
-msgstr ""
+msgstr "%s uztear zaude"
 
 #. translators: the variable is a url
 #: src/API/Status/PreviewCard.vala:48
 #, c-format
 msgid "If you proceed, \"%s\" will open in your browser."
-msgstr ""
+msgstr "Aurrera eginez gero, \"%s\" nabigatzailean irekiko da."
 
 #. translators: the first variable is the app name (Tuba),
 #. the second one is a url
 #: src/API/Status/PreviewCard.vala:52
 #, c-format
 msgid "If you proceed, %s will connect to \"%s\"."
-msgstr ""
+msgstr "Aurrera eginez gero, %s \"%s\"(e)ra konektatuko da."
 
 #: src/API/Status/PreviewCard.vala:152
 msgid "Proceed"
-msgstr ""
+msgstr "Jarraitu"
 
 #: src/API/SearchResults.vala:21
 msgid "Search returned no results"
@@ -1132,4 +1113,4 @@ msgstr "Bilaketak ez du emaitzarik eman"
 #: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "Mezurik gabeko elkarrizketa %s(r)ekin"
