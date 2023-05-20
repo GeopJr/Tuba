@@ -6,13 +6,14 @@
 # Felipe Nogueira <contato.fnog@gmail.com>, 2023.
 # Infinitive Witch <infinitivewitch@disroot.org>, 2023.
 # Cassio Gomes Pereira <cassiogomes00@gmail.com>, 2023.
+# Fúlvio Leo <fulviokaldas@outlook.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 23:29+0300\n"
 "PO-Revision-Date: 2023-05-21 06:05+0000\n"
-"Last-Translator: Infinitive Witch <infinitivewitch@disroot.org>\n"
+"Last-Translator: Fúlvio Leo <fulviokaldas@outlook.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -246,7 +247,7 @@ msgstr "Revelar spoilers por padrão"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Hide link preview cards"
-msgstr ""
+msgstr "Ocultar caixas de pré-visualização de links"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:233
 msgid "Add Account"
@@ -394,7 +395,7 @@ msgstr "Adicionar aos favoritos"
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Widgets/Status.vala:749 src/Views/Profile.vala:133
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%e de %B, %Y"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
@@ -417,7 +418,7 @@ msgstr "Parar de seguir"
 #: src/Widgets/BookWyrmPage.vala:137
 #, c-format
 msgid "by %s"
-msgstr ""
+msgstr "por %s"
 
 #: src/Widgets/Attachment/Item.vala:38 src/Widgets/Attachment/Item.vala:48
 msgid "Save Attachment"
@@ -480,7 +481,7 @@ msgstr "Pesquisa"
 #. translators: as in All search results
 #: src/Views/Search.vala:40
 msgid "All"
-msgstr ""
+msgstr "Tudo"
 
 #: src/Views/Search.vala:41
 msgid "Accounts"
@@ -506,7 +507,7 @@ msgstr "Perfil"
 #. which has as value the date the profile was created on
 #: src/Views/Profile.vala:143
 msgid "Joined"
-msgstr ""
+msgstr "Juntou-se"
 
 #. translators: the variable is the amount of posts a user has made
 #: src/Views/Profile.vala:163
@@ -630,19 +631,19 @@ msgstr "Alternar Tela-Cheia"
 
 #: src/Views/MediaViewer.vala:526
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Anexo anterior"
 
 #: src/Views/MediaViewer.vala:531
 msgid "Next Attachment"
-msgstr ""
+msgstr "Próximo anexo"
 
 #: src/Views/MediaViewer.vala:549
 msgid "Zoom Out"
-msgstr ""
+msgstr "Reduzir o Zoom"
 
 #: src/Views/MediaViewer.vala:554
 msgid "Zoom In"
-msgstr ""
+msgstr "Aumentar o Zoom"
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
@@ -913,7 +914,7 @@ msgstr "Resultados da enquete"
 #: src/Services/Accounts/InstanceAccount.vala:172
 #, c-format
 msgid "%s edited a post"
-msgstr ""
+msgstr "%s editou uma postagem"
 
 #: src/Dialogs/NewAccount.vala:5
 msgid "Allow access to your account in the browser."
@@ -980,7 +981,7 @@ msgstr "Privacidade do toot"
 
 #: src/Dialogs/Composer/EditorPage.vala:287
 msgid "Post Language"
-msgstr ""
+msgstr "Linguagem da Postagem"
 
 #: src/Dialogs/Composer/Dialog.vala:99
 msgid "_Redraft"
@@ -1070,43 +1071,43 @@ msgstr "Usado %d vezes por %d pessoas nos últimos 2 dias"
 #: src/API/Status/PreviewCard.vala:25
 #, c-format
 msgid "You are about to open a %s video"
-msgstr ""
+msgstr "Você está prestes a abrir um vídeo em %s"
 
 #. translators: the variable is an external service like "Funkwhale",
 #. track as in song
 #: src/API/Status/PreviewCard.vala:29
 #, c-format
 msgid "You are about to open a %s track"
-msgstr ""
+msgstr "Você está prestes a abrir uma faixa em %s"
 
 #. translators: the variable is an external service like "BookWyrm"
 #: src/API/Status/PreviewCard.vala:32
 #, c-format
 msgid "You are about to open a %s book"
-msgstr ""
+msgstr "Você está prestes a abrir um livro em %s"
 
 #. translators: the variable is the app name (Tuba)
 #: src/API/Status/PreviewCard.vala:35
 #, c-format
 msgid "You are about to leave %s"
-msgstr ""
+msgstr "Você está prestes a deixar %s"
 
 #. translators: the variable is a url
 #: src/API/Status/PreviewCard.vala:48
 #, c-format
 msgid "If you proceed, \"%s\" will open in your browser."
-msgstr ""
+msgstr "Se você prosseguir, \"%s\" será aberto no seu navegador."
 
 #. translators: the first variable is the app name (Tuba),
 #. the second one is a url
 #: src/API/Status/PreviewCard.vala:52
 #, c-format
 msgid "If you proceed, %s will connect to \"%s\"."
-msgstr ""
+msgstr "Se você prosseguir, %s vai se conectar a \"%s\"."
 
 #: src/API/Status/PreviewCard.vala:152
 msgid "Proceed"
-msgstr ""
+msgstr "Prosseguir"
 
 #: src/API/SearchResults.vala:21
 msgid "Search returned no results"
@@ -1117,4 +1118,4 @@ msgstr "A pesquisa retornou nenhum resultado"
 #: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "Conversa Vazia com %s"
