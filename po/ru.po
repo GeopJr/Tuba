@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 23:29+0300\n"
-"PO-Revision-Date: 2023-03-24 22:40+0000\n"
+"PO-Revision-Date: 2023-05-21 06:05+0000\n"
 "Last-Translator: Сергей Ворон <voron.s.a@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tuba/tuba/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -182,15 +182,15 @@ msgstr "Увеличивает высоту строк для постов"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Posting"
-msgstr ""
+msgstr "Постинг"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
-msgstr ""
+msgstr "Видимость постов по умолчанию"
 
 #: data/ui/dialogs/preferences.ui:77
 msgid "Default post language"
-msgstr ""
+msgstr "Язык поста по умолчанию"
 
 #: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
@@ -242,7 +242,7 @@ msgstr "Показывать спойлеры по умолчанию"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Hide link preview cards"
-msgstr ""
+msgstr "Скрыть карточки предварительного просмотра ссылок"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:233
 msgid "Add Account"
@@ -259,7 +259,7 @@ msgstr "Далее"
 
 #: data/ui/dialogs/new_account.ui:48
 msgid "What is your Server?"
-msgstr "Какой у вас сервер?"
+msgstr "Укажите ваш сервер?"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
@@ -340,11 +340,11 @@ msgstr "Копировать URL"
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:250
 msgid "View Stats"
-msgstr ""
+msgstr "Просмотр статистики"
 
 #: src/Widgets/Status.vala:254
 msgid "View Edit History"
-msgstr "Посмотреть историю изменений"
+msgstr "Просмотр истории изменений"
 
 #: src/Widgets/Status.vala:259
 msgid "Edit"
@@ -381,7 +381,7 @@ msgstr "Избранное"
 
 #: src/Widgets/Status.vala:685
 msgid "Bookmark"
-msgstr "Закладка"
+msgstr "В закладки"
 
 #. translators: this is a "long" date format shown in places like expanded posts or
 #. the profile "Joined" field. You can find all the available specifiers
@@ -391,7 +391,7 @@ msgstr "Закладка"
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Widgets/Status.vala:749 src/Views/Profile.vala:133
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%e %B %Y"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
@@ -414,7 +414,7 @@ msgstr "Отписаться"
 #: src/Widgets/BookWyrmPage.vala:137
 #, c-format
 msgid "by %s"
-msgstr ""
+msgstr "от %s"
 
 #: src/Widgets/Attachment/Item.vala:38 src/Widgets/Attachment/Item.vala:48
 msgid "Save Attachment"
@@ -446,7 +446,7 @@ msgstr "Настройки"
 
 #: src/Views/Sidebar.vala:43
 msgid "About"
-msgstr "О"
+msgstr "О программе"
 
 #: src/Views/Sidebar.vala:134
 msgid "Anonymous"
@@ -477,7 +477,7 @@ msgstr "Поиск"
 #. translators: as in All search results
 #: src/Views/Search.vala:40
 msgid "All"
-msgstr ""
+msgstr "Все"
 
 #: src/Views/Search.vala:41
 msgid "Accounts"
@@ -503,7 +503,7 @@ msgstr "Профиль"
 #. which has as value the date the profile was created on
 #: src/Views/Profile.vala:143
 msgid "Joined"
-msgstr ""
+msgstr "Присоединился"
 
 #. translators: the variable is the amount of posts a user has made
 #: src/Views/Profile.vala:163
@@ -579,7 +579,7 @@ msgstr "Добавить или удалить \"%s\" в список или и�
 #: src/Views/Profile.vala:441
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
-msgstr "Выберите список, чтобы добавить или удалить «%s» из:"
+msgstr "Выберите список, чтобы добавить или удалить \"%s\" из:"
 
 #: src/Views/Profile.vala:447
 msgid "You don't have any lists"
@@ -627,23 +627,23 @@ msgstr "Включить полноэкранный режим"
 
 #: src/Views/MediaViewer.vala:526
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Предыдущее вложение"
 
 #: src/Views/MediaViewer.vala:531
 msgid "Next Attachment"
-msgstr ""
+msgstr "Следующее вложение"
 
 #: src/Views/MediaViewer.vala:549
 msgid "Zoom Out"
-msgstr ""
+msgstr "Уменьшить"
 
 #: src/Views/MediaViewer.vala:554
 msgid "Zoom In"
-msgstr ""
+msgstr "Увеличить"
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
 msgid "Local"
-msgstr "Локальная"
+msgstr "Этот сервер"
 
 #: src/Views/Lists.vala:59
 #, c-format
@@ -753,7 +753,7 @@ msgstr "скоро истекает"
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:26
 msgid "expires on %b %-e, %Y"
-msgstr "истекает %b %-e, %Y"
+msgstr "истекает %-e %b %Y"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -762,7 +762,7 @@ msgstr "истекает %b %-e, %Y"
 #. %m is the minutes
 #: src/Utils/DateTime.vala:40
 msgid "expires on %b %-e, %Y %H:%m"
-msgstr "истекает %b %-e, %Y %H:%m"
+msgstr "истекает %-e %b %Y %H:%m"
 
 #: src/Utils/DateTime.vala:42
 msgid "expired on just now"
@@ -776,14 +776,14 @@ msgstr "истек вчера"
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:57
 msgid "expired on %b %-e"
-msgstr "истек %b %-e"
+msgstr "истек %-e %b"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:63
 msgid "expired on %b %-e, %Y"
-msgstr "истек %b %-e, %Y"
+msgstr "истек %-e %b %Y"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -792,7 +792,7 @@ msgstr "истек %b %-e, %Y"
 #. %m is the minutes
 #: src/Utils/DateTime.vala:77
 msgid "%b %-e, %Y %H:%m"
-msgstr "%b %-e, %Y %H:%m"
+msgstr "%-e %b %Y %H:%m"
 
 #: src/Utils/DateTime.vala:79
 msgid "Just now"
@@ -806,14 +806,14 @@ msgstr "Вчера"
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:94
 msgid "%b %-e"
-msgstr "%b %-e"
+msgstr "%-e %b"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:100
 msgid "%b %-e, %Y"
-msgstr "%b %-e, %Y"
+msgstr "%-e %b %Y"
 
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:51
@@ -910,7 +910,7 @@ msgstr "Результаты голосования"
 #: src/Services/Accounts/InstanceAccount.vala:172
 #, c-format
 msgid "%s edited a post"
-msgstr ""
+msgstr "%s изменил пост"
 
 #: src/Dialogs/NewAccount.vala:5
 msgid "Allow access to your account in the browser."
@@ -977,7 +977,7 @@ msgstr "Приватный пост"
 
 #: src/Dialogs/Composer/EditorPage.vala:287
 msgid "Post Language"
-msgstr ""
+msgstr "Язык поста"
 
 #: src/Dialogs/Composer/Dialog.vala:99
 msgid "_Redraft"
@@ -993,7 +993,7 @@ msgstr "_Ответить"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:28
 msgid "Edit Alt Text"
-msgstr "Редактировать описание"
+msgstr "Изменить описание"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:44
 msgid "Remove Attachment"
@@ -1067,43 +1067,43 @@ msgstr "Использовался %d раз %d людьми за последн
 #: src/API/Status/PreviewCard.vala:25
 #, c-format
 msgid "You are about to open a %s video"
-msgstr ""
+msgstr "Вы собираетесь открыть видео %s"
 
 #. translators: the variable is an external service like "Funkwhale",
 #. track as in song
 #: src/API/Status/PreviewCard.vala:29
 #, c-format
 msgid "You are about to open a %s track"
-msgstr ""
+msgstr "Вы собираетесь открыть трек %s"
 
 #. translators: the variable is an external service like "BookWyrm"
 #: src/API/Status/PreviewCard.vala:32
 #, c-format
 msgid "You are about to open a %s book"
-msgstr ""
+msgstr "Вы собираетесь открыть книгу %s"
 
 #. translators: the variable is the app name (Tuba)
 #: src/API/Status/PreviewCard.vala:35
 #, c-format
 msgid "You are about to leave %s"
-msgstr ""
+msgstr "Вы собираетесь покинуть %s"
 
 #. translators: the variable is a url
 #: src/API/Status/PreviewCard.vala:48
 #, c-format
 msgid "If you proceed, \"%s\" will open in your browser."
-msgstr ""
+msgstr "Если вы продолжите, \"%s\" откроется в вашем браузере."
 
 #. translators: the first variable is the app name (Tuba),
 #. the second one is a url
 #: src/API/Status/PreviewCard.vala:52
 #, c-format
 msgid "If you proceed, %s will connect to \"%s\"."
-msgstr ""
+msgstr "Если вы продолжите, %s подключится к \"%s\"."
 
 #: src/API/Status/PreviewCard.vala:152
 msgid "Proceed"
-msgstr ""
+msgstr "Продолжить"
 
 #: src/API/SearchResults.vala:21
 msgid "Search returned no results"
@@ -1114,4 +1114,4 @@ msgstr "Поиск не дал результатов"
 #: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "Пустой диалог с %s"
