@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 23:29+0300\n"
-"PO-Revision-Date: 2023-04-26 12:49+0000\n"
+"PO-Revision-Date: 2023-05-21 06:05+0000\n"
 "Last-Translator: Infinitive Witch <infinitivewitch@disroot.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
@@ -186,15 +186,15 @@ msgstr "Aumenta a altura da linha para postagens"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Posting"
-msgstr ""
+msgstr "Postando"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
-msgstr ""
+msgstr "Visibilidade padrão da postagem"
 
 #: data/ui/dialogs/preferences.ui:77
 msgid "Default post language"
-msgstr ""
+msgstr "Linguagem padrão da postagem"
 
 #: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
@@ -343,7 +343,7 @@ msgstr "Copiar URL"
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:250
 msgid "View Stats"
-msgstr ""
+msgstr "Visualizar Estatísticas"
 
 #: src/Widgets/Status.vala:254
 msgid "View Edit History"
