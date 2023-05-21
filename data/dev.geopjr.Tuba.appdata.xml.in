@@ -54,6 +54,14 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.3.2" date="2023-05-21">
+        <description>
+          <ul>
+              <li>Fixed severe performance issues on some devices</li>
+              <li>Fixed BookWyrm detector being too strict</li>
+          </ul>
+        </description>
+    </release>
     <release version="0.3.1" date="2023-05-20">
         <description>
           <ul>
