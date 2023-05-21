@@ -137,9 +137,7 @@ public class Tuba.API.PreviewCard : Entity {
 
 	public bool is_bookwyrm {
         get {
-			Regex regex_bw = new GLib.Regex ("/book/\\d+/s/[-_a-z0-9]*");
-			
-			return kind == "link" && regex_bw.match (url);
+			return kind == "link" && bookwyrm_regex.match (url);
 		}
     }
 
