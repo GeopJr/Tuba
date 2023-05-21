@@ -91,9 +91,6 @@ namespace Tuba {
 				warning (e.message);
 			}
 
-			// Fix some links not getting underlined
-			Environment.set_variable ("GSK_RENDERER", "cairo", false);
-
 			Intl.setlocale (LocaleCategory.ALL, "");
 			Intl.bindtextdomain(Build.GETTEXT_PACKAGE, Build.LOCALEDIR);
 			Intl.textdomain(Build.GETTEXT_PACKAGE);
