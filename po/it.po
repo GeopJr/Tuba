@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 23:29+0300\n"
-"PO-Revision-Date: 2023-05-19 20:13+0000\n"
-"Last-Translator: Nekothegamer <nekotheggamer@gmail.com>\n"
+"PO-Revision-Date: 2023-05-21 06:05+0000\n"
+"Last-Translator: Luca Ruggeri <lc.ruggeri+weblate@runbox.it>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/tuba/tuba/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Client Fediverso"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr ""
+msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:9
 msgid ""
@@ -182,7 +182,7 @@ msgstr "Rendi l'altezza della linea maggiore per i post"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Posting"
-msgstr ""
+msgstr "Inviando"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
@@ -242,7 +242,7 @@ msgstr "Mostra spoiler per default"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Hide link preview cards"
-msgstr ""
+msgstr "Nascondi le card di anteprima"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:233
 msgid "Add Account"
@@ -264,11 +264,11 @@ msgstr "Qual è il tuo server?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
-"Se non hai ancora un account, <a href=\"https://joinmastodon.org/"
-"servers\">scegli un server e registrati</a>."
+"Se non hai ancora un account, <a href=\"https://joinmastodon.org/servers"
+"\">scegli un server e registrati</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
@@ -315,7 +315,7 @@ msgstr "Vota"
 #: src/Widgets/VoteBox.vala:143
 #, c-format
 msgid "%lld voted"
-msgstr ""
+msgstr "%lld ha votato"
 
 #: src/Widgets/StatusActionButton.vala:158
 msgid "Network Error"
