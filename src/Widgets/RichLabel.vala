@@ -103,6 +103,9 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		if ("/tags/" in url) {
 			var from_url = url.split ("/tags/")[1];
 			var decoded = Uri.unescape_string (from_url) ?? from_url;
+			var param_start = decoded.index_of_char ('?');
+			if (param_start != -1)
+				decoded = decoded.slice (0, param_start);
 			app.main_window.open_view (new Views.Hashtag (decoded, null));
 			return true;
 		}
