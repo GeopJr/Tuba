@@ -126,7 +126,7 @@ public class Tuba.Request : GLib.Object {
 		var parameters = "";
 		if (pars != null) {
 			if ("?" in url)
-				parameters = "";
+				parameters = "&";
 			else
 				parameters = "?";
 
