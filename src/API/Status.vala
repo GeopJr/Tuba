@@ -6,6 +6,9 @@ public class Tuba.API.Status : Entity, Widgetizable {
 		message ("[OBJ] Destroyed "+uri);
 	}
 
+    public InstanceAccount? doas { get; set; default=null; }
+    public string? doas_id { get; set; default=null; }
+
     public string id { get; set; }
     public API.Account account { get; set; }
     public string uri { get; set; }
@@ -163,7 +166,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     }
 
     public Request action (string action) {
-        var req = new Request.POST (@"/api/v1/statuses/$(formal.id)/$action").with_account (accounts.active);
+        var req = new Request.POST (@"/api/v1/statuses/$(doas != null ? doas_id : formal.id)/$action").with_account (doas ?? accounts.active);
         req.priority = Soup.MessagePriority.HIGH;
         return req;
     }

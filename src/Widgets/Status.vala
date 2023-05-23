@@ -102,6 +102,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	private GLib.SimpleActionGroup action_group;
 	private SimpleAction edit_history_simple_action;
 	private SimpleAction stats_simple_action;
+	private SimpleAction doas_simple_action;
 
 	public bool is_conversation_open { get; set; default = false; }
 
@@ -180,8 +181,12 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		stats_simple_action = new SimpleAction ("status-stats", null);
 		stats_simple_action.activate.connect (view_stats);
 
+		doas_simple_action = new SimpleAction ("doas", null);
+		doas_simple_action.activate.connect (doas);
+
 		action_group = new GLib.SimpleActionGroup ();
 		action_group.add_action_entries (action_entries, this);
+		action_group.add_action(doas_simple_action);
 		action_group.add_action(stats_simple_action);
 		action_group.add_action(edit_history_simple_action);
 
@@ -251,6 +256,10 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		stats_menu_item.set_attribute_value("hidden-when", "action-disabled");
 		menu_model.append_item (stats_menu_item);
 
+		var doas_menu_item = new MenuItem(_("doas"), "status.doas");
+		doas_menu_item.set_attribute_value("hidden-when", "action-disabled");
+		menu_model.append_item (doas_menu_item);
+
 		var edit_history_menu_item = new MenuItem(_("View Edit History"), "status.edit-history");
 		edit_history_menu_item.set_attribute_value("hidden-when", "action-disabled");
 		menu_model.append_item (edit_history_menu_item);
@@ -277,6 +286,89 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 	private void view_stats () {
 		app.main_window.open_view (new Views.StatusStats (status.formal.id));
+	}
+
+	private void doas () {
+		var preferences_page = new Adw.PreferencesPage();
+		var preferences_group = new Adw.PreferencesGroup() {
+			title = "Select an account to act as:"
+		};
+
+		preferences_page.add (preferences_group);
+
+		var clamp = new Adw.Clamp () {
+			child = preferences_page,
+			tightening_threshold = 100,
+			valign = Align.START
+		};
+		var scroller = new Gtk.ScrolledWindow () {
+			hexpand = true,
+			vexpand = true
+		};
+		scroller.child = clamp;
+
+		var box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+		var headerbar = new Adw.HeaderBar() {
+			css_classes = { "flat" }
+		};
+
+		box.append(headerbar);
+		box.append(scroller);
+
+		var dialog = new Adw.Window() {
+			modal = true,
+			title = "doas",
+			transient_for = app.main_window,
+			content = box,
+			default_width = 460,
+			default_height = 520
+		};
+
+		accounts.saved.foreach (acc => {
+			if (acc == this.status.formal.doas || (acc == accounts.active && this.status.formal.doas == null)) return true;
+			var account_avi = new Widgets.Avatar () {
+				account = acc
+			};
+			var account_row = new Adw.ActionRow () {
+				title = acc.handle,
+				activatable = true
+			};
+			account_row.add_prefix (account_avi);
+			account_row.activated.connect (() => {
+				if (acc == accounts.active) {
+					this.remove_css_class ("doas");
+					this.status.formal.doas = null;
+					dialog.close ();
+				} else {
+					new Request.GET ("/api/v2/search")
+						.with_account (acc)
+						.with_param ("q", this.status.formal.url)
+						.with_param ("resolve", "true")
+						.then ((sess, msg, in_stream) => {
+							var parser = Network.get_parser_from_inputstream(in_stream);
+							var root = network.parse (parser);
+							var statuses = root.get_array_member ("statuses");
+							var node = statuses.get_element (0);
+							if (node != null){
+								var status = API.Status.from (node);
+								this.status.formal.doas = acc;
+								this.status.formal.doas_id = status.formal.id;
+								this.add_css_class ("doas");
+							} else {
+								this.remove_css_class ("doas");
+								this.status.formal.doas = null;
+							}
+							dialog.close ();
+						})
+						.exec ();
+				}
+			});
+
+			preferences_group.add (account_row);
+			return true;
+		});
+
+		dialog.show ();
 	}
 
 	private void on_edit (API.Status x) {
@@ -450,6 +542,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
+	const string[] DOAS_ALLOWED_LIST = { "unlisted", "public" };
 	protected virtual void bind () {
 		this.content.instance_emojis = status.formal.emojis_map;
 		this.content.content = status.formal.content;
@@ -473,6 +566,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		visibility_indicator.tooltip_text = t_visibility.name;
 
 		if (change_background_on_direct && status.formal.visibility == "direct") this.add_css_class ("direct");
+
+		doas_simple_action.set_enabled(status.formal.visibility in DOAS_ALLOWED_LIST && accounts.saved.size > 1);
 
 		avatar.account = status.formal.account;
 		reactions = status.formal.compat_status_reactions;

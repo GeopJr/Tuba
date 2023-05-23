@@ -265,6 +265,14 @@ flowboxchild {
 	background-color: darker(alpha(@warning_bg_color, .1));
 }
 
+.ttl-post.doas {
+	background-color: alpha(@purple_2, .1);
+}
+
+.ttl-post.doas:hover {
+	background-color: darker(alpha(@purple_2, .1));
+}
+
 .ttl-post-actions {
 	margin-bottom: -12px;
 }

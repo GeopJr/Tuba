@@ -45,3 +45,7 @@
 .ttl-post.direct:hover {
 	background-color: lighter(alpha(@warning_bg_color, .1));
 }
+
+.ttl-post.doas:hover {
+	background-color: lighter(alpha(@purple_2, .1));
+}
