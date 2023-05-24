@@ -57,7 +57,7 @@
                           <property name="spacing">12</property>
                           <child>
                             <object class="TubaWidgetsAvatar" id="avatar">
-                              <property name="size">64</property>
+                              <property name="size">48</property>
                               <property name="halign">start</property>
                             </object>
                           </child>
