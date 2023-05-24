@@ -66,7 +66,7 @@
                               <property name="orientation">vertical</property>
                               <property name="valign">center</property>
                               <property name="hexpand">true</property>
-                              <property name="spacing">6</property>
+                              <property name="spacing">4</property>
                               <child>
                                 <object class="TubaWidgetsEmojiLabel" id="title">
                                 </object>
