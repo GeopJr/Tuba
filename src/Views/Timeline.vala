@@ -15,7 +15,36 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public string? page_prev { get; set; }
 	Entity[] entity_queue = {};
 
+	private bool about_to_refresh = false;
+	private Gtk.Spinner pull_to_refresh_spinner;
+	private bool _is_pulling = false;
+	private bool is_pulling {
+		get {
+			return _is_pulling;
+		}
+		set {
+			if (_is_pulling != value) {
+				if (value) {
+					pull_to_refresh_spinner.spinning = true;
+					column_view.prepend (pull_to_refresh_spinner);
+					scrolled.vadjustment.value = 64;
+				} else {
+					pull_to_refresh_spinner.spinning = false;
+					column_view.remove (pull_to_refresh_spinner);
+					scrolled.vadjustment.value = scrolled.vadjustment.value - 96;
+				}
+				_is_pulling = value;
+			}			
+		}
+	}
+
 	construct {
+		pull_to_refresh_spinner = new Gtk.Spinner () {
+			height_request = 32,
+			margin_top = 32,
+			margin_bottom = 32
+		};
+
 		reached_close_to_top.connect (finish_queue);
 		app.refresh.connect (on_refresh);
 		status_button.clicked.connect (on_refresh);
@@ -30,6 +59,33 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		settings.notify["hide-preview-cards"].connect (on_refresh);
 
 		content.bind_model (model, on_create_model_widget);
+
+		scrolled.vadjustment.value_changed.connect(() => {
+			if (is_pulling && scrolled.vadjustment.value > 250) {
+				is_pulling = false;
+			}
+		});
+
+		scrolled.edge_reached.connect ((pos) => {
+			if (pos != Gtk.PositionType.TOP || !is_pulling || about_to_refresh) return;
+
+			about_to_refresh = true;
+			uint timeout = 0;
+			timeout = Timeout.add (1000, () => {
+				on_refresh ();
+				is_pulling = false;
+				about_to_refresh = false;
+				GLib.Source.remove(timeout);
+
+				return true;
+			}, Priority.LOW);
+		});
+
+		scrolled.edge_overshot.connect ((pos) => {
+			if (pos != Gtk.PositionType.TOP || is_pulling) return;
+
+			is_pulling = true;
+		});
 	}
 	~Timeline () {
 		message (@"Destroying Timeline $label");
