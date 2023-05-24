@@ -10,7 +10,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		Object (
 			root_status: status,
 			base_status: new StatusMessage () { loading = true },
-			label: _("Conversation")
+			label: _("Conversation"),
+			allow_nesting: true
 		);
 		construct_account_holder ();
 	}
