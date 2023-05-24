@@ -125,7 +125,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public Views.Base open_view (Views.Base view) {
-		if ((leaflet.visible_child == view) || (last_view != null && last_view.label == view.label && !view.is_profile)) return view;
+		if ((leaflet.visible_child == view) || (last_view != null && last_view.label == view.label && !view.allow_nesting)) return view;
 
 		if (last_view != null && !last_view.is_main && view.is_sidebar_item) {
 			leaflet.insert_child_after (view, main_base);
