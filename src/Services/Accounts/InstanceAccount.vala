@@ -185,12 +185,11 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	// Notifications
 
 	public int unread_count { get; set; default = 0; }
-	public bool has_unread { get; set; default = false; }
 	public int last_read_id { get; set; default = 0; }
 	public int last_received_id { get; set; default = 0; }
 	//  public HashMap<int,GLib.Notification> unread_toasts { get; set; default = new HashMap<int,GLib.Notification> (); }
 	//  public ArrayList<string> sent_notification_ids { get; set; default = new ArrayList<string> (); }
-	public ArrayList<Object> notification_inhibitors { get; set; default = new ArrayList<Object> (); }
+	//  public ArrayList<Object> notification_inhibitors { get; set; default = new ArrayList<Object> (); }
 	private bool passed_init_notifications = false;
 
 	public void gather_instance_info () {
@@ -231,7 +230,6 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					if (unread_count > 0) {
 						last_received_id = int.parse (array.get_object_element(0).get_string_member_with_default ("id", "-1"));
 					}
-					has_unread = unread_count > 0;
 				}
 				passed_init_notifications = true;
 			})
@@ -278,7 +276,6 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		}
 
 		unread_count = 0;
-		has_unread = false;
 
 		//  if (sent_notification_ids.size > 0) {
 		//  	sent_notification_ids.@foreach (entry => {
@@ -330,13 +327,12 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			if (id > last_received_id) {
 				last_received_id = id;
 
-				if (notification_inhibitors.is_empty) {
+				//  if (notification_inhibitors.is_empty) {
 					unread_count++;
-					has_unread = true;
 					send_toast (entity);
-				} else {
-					read_notifications (last_received_id);
-				}
+				//  } else {
+				//  	read_notifications (last_received_id);
+				//  }
 			}
 		} catch (Error e) {
 			warning (@"on_notification_event: $(e.message)");

@@ -5,6 +5,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 
 	protected InstanceAccount? last_account = null;
 
+	private Binding badge_number_binding;
 	public Notifications () {
 		Object (
 			url: "/api/v1/notifications",
@@ -14,22 +15,40 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			needs_attention: false
 		);
 		accepts = typeof (API.Notification);
+
+		stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
+	}
+
+	~Notifications () {
+		warning ("DESTROYING");
+		stream_event[InstanceAccount.EVENT_NOTIFICATION].disconnect (on_new_post);
+		badge_number_binding.unbind ();
 	}
 
 	public override void on_account_changed (InstanceAccount? acc) {
 		base.on_account_changed (acc);
 
-		if (last_account != null) {
-			last_account.notification_inhibitors.remove (this);
-			acc.stream_event[InstanceAccount.EVENT_NOTIFICATION].disconnect (on_new_post);
-			//  acc.stream_event[InstanceAccount.EVENT_NOTIFICATION].disconnect (on_new_post_badge);
-		}
+		if (badge_number_binding != null)
+			badge_number_binding.unbind ();
+		badge_number_binding = accounts.active.bind_property ("unread-count", this, "badge-number", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+			var unread_count = src.get_int ();
+			target.set_int (unread_count);
+			this.needs_attention = unread_count > 0;
 
-		last_account = acc;
-		acc.stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
+			return true;
+		});
+
+		//  if (last_account != null) {
+		//  	last_account.notification_inhibitors.remove (this);
+		//  	acc.stream_event[InstanceAccount.EVENT_NOTIFICATION].disconnect (on_new_post);
+		//  	//  acc.stream_event[InstanceAccount.EVENT_NOTIFICATION].disconnect (on_new_post_badge);
+		//  }
+
+		//  last_account = acc;
+		//  acc.stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
 		//  acc.stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post_badge);
-		acc.bind_property ("unread_count", this, "badge_number", BindingFlags.SYNC_CREATE);
-		acc.bind_property ("has_unread", this, "needs_attention", BindingFlags.SYNC_CREATE);
+		//  acc.bind_property ("unread_count", this, "badge_number", BindingFlags.SYNC_CREATE);
+		//  acc.bind_property ("has_unread", this, "needs_attention", BindingFlags.SYNC_CREATE);
 		//  acc.check_notifications ();
 		//  acc.init_notifications();
 	}
@@ -41,18 +60,18 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	public override void on_shown () {
 		base.on_shown ();
 		if (account != null) {
-			if (!account.notification_inhibitors.contains (this))
-				account.notification_inhibitors.add (this);
-
 			account.read_notifications (account.last_received_id > account.last_read_id ? account.last_received_id : account.last_read_id);
 		}
 	}
+
 	public override void on_hidden () {
 		base.on_hidden ();
 		if (account != null) {
-			if (account.notification_inhibitors.contains (this))
-				account.notification_inhibitors.remove (this);
+			account.unread_count = 0;
 		}
 	}
 
+	public override string? get_stream_url () {
+		return account != null ? @"$(account.instance)/api/v1/streaming/?stream=user:notification&access_token=$(account.access_token)" : null;
+    }
 }
