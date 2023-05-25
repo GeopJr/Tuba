@@ -39,6 +39,52 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		}
 	}
 
+	private void on_drag_begin (double x, double y) {
+		on_scroll_begin ();
+    }
+
+    private void on_drag_update (double x, double y) {
+		if (scrolled.vadjustment.value != 0.0 || (y > 0.0 && pull_to_refresh_spinner.margin_top >= 150)) return;
+
+		var new_margin = pull_to_refresh_spinner.margin_top + (int) (y + 0.5);
+		if (new_margin >= 0.0)
+			pull_to_refresh_spinner.margin_top = new_margin;
+    }
+
+	private void on_drag_end (double x, double y) {
+		on_scroll_end ();
+    }
+
+	private void on_scroll_begin () {
+		if (scrolled.vadjustment.value != 0.0) return;
+		pull_to_refresh_spinner.spinning = true;
+        this.insert_child_after (pull_to_refresh_spinner, header);
+	}
+
+	private bool on_scroll_update (double x, double y) {
+		if (scrolled.vadjustment.value != 0.0) return false;
+		if (y < 0.0 && pull_to_refresh_spinner.margin_top >= 150) return true;
+
+		var new_margin = pull_to_refresh_spinner.margin_top + ((int) (y + 0.5) * -1);
+		if (new_margin >= 0.0) {
+			pull_to_refresh_spinner.margin_top = new_margin;
+			return true;
+		}
+
+		return false;
+    }
+
+	private void on_scroll_end () {
+		if (scrolled.vadjustment.value != 0.0) return;
+        if (pull_to_refresh_spinner.margin_top >= 150) {
+            on_refresh ();
+        }
+
+		this.remove (pull_to_refresh_spinner);
+		pull_to_refresh_spinner.margin_top = 32;
+		pull_to_refresh_spinner.spinning = false;
+    }
+
 	construct {
 		pull_to_refresh_spinner = new Gtk.Spinner () {
 			height_request = 32,
@@ -61,50 +107,62 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 		content.bind_model (model, on_create_model_widget);
 
-		scrolled.vadjustment.value_changed.connect(() => {
-			if (is_pulling && scrolled.vadjustment.value > 250) {
-				is_pulling = false;
-			}
-		});
+		var drag = new Gtk.GestureDrag ();
+        drag.drag_begin.connect(on_drag_begin);
+        drag.drag_update.connect(on_drag_update);
+        drag.drag_end.connect(on_drag_end);
+        this.add_controller (drag);
 
-		scrolled.edge_reached.connect ((pos) => {
-			if (pos != Gtk.PositionType.TOP || about_to_refresh || is_scrolling_top) return;
-			if (!is_pulling) {
-				is_pulling = true;
-				return;
-			}
+		//  var scroll_event = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.VERTICAL);
+        //  scroll_event.scroll_begin.connect(on_scroll_begin);
+        //  scroll_event.scroll.connect(on_scroll_update);
+        //  scroll_event.scroll_end.connect(on_scroll_end);
+        //  this.add_controller (scroll_event);
 
-			about_to_refresh = true;
-			uint timeout = 0;
-			timeout = Timeout.add (1000, () => {
-				on_refresh ();
-				is_pulling = false;
-				about_to_refresh = false;
-				GLib.Source.remove(timeout);
+		//  scrolled.vadjustment.value_changed.connect(() => {
+		//  	if (is_pulling && scrolled.vadjustment.value > 250) {
+		//  		is_pulling = false;
+		//  	}
+		//  });
 
-				return true;
-			}, Priority.LOW);
-		});
+		//  scrolled.edge_reached.connect ((pos) => {
+		//  	if (pos != Gtk.PositionType.TOP || about_to_refresh || is_scrolling_top) return;
+		//  	if (!is_pulling) {
+		//  		is_pulling = true;
+		//  		return;
+		//  	}
 
-		scrolled.edge_overshot.connect ((pos) => {
-			if (pos != Gtk.PositionType.TOP || is_pulling || about_to_refresh) return;
+		//  	about_to_refresh = true;
+		//  	uint timeout = 0;
+		//  	timeout = Timeout.add (1000, () => {
+		//  		on_refresh ();
+		//  		is_pulling = false;
+		//  		about_to_refresh = false;
+		//  		GLib.Source.remove(timeout);
 
-			is_pulling = true;
-		});
+		//  		return true;
+		//  	}, Priority.LOW);
+		//  });
 
-		scrolled.scroll_child.connect_after ((scroll_type, _h) => {
-			if (scroll_type != Gtk.ScrollType.START) return true;
+		//  scrolled.edge_overshot.connect ((pos) => {
+		//  	if (pos != Gtk.PositionType.TOP || is_pulling || about_to_refresh) return;
 
-			is_scrolling_top = true;
+		//  	is_pulling = true;
+		//  });
 
-			uint timeout = 0;
-			timeout = Timeout.add (1000, () => {
-				is_scrolling_top = false;
-				GLib.Source.remove(timeout);
+		//  scrolled.scroll_child.connect_after ((scroll_type, _h) => {
+		//  	if (scroll_type != Gtk.ScrollType.START) return true;
 
-				return true;
-			}, Priority.LOW);
-		});
+		//  	is_scrolling_top = true;
+
+		//  	uint timeout = 0;
+		//  	timeout = Timeout.add (1000, () => {
+		//  		is_scrolling_top = false;
+		//  		GLib.Source.remove(timeout);
+
+		//  		return true;
+		//  	}, Priority.LOW);
+		//  });
 	}
 	~Timeline () {
 		message (@"Destroying Timeline $label");
