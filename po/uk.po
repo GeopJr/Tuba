@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 23:29+0300\n"
-"PO-Revision-Date: 2023-05-22 19:51+0000\n"
+"PO-Revision-Date: 2023-05-26 20:48+0000\n"
 "Last-Translator: Вова Смірнов <vovasmirnon5895@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tuba/tuba/uk/>"
 "\n"
@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "Переглядайте федеративну соціальну мережу завдяки Tuba для GNOME. "
 "Залишайтеся на зв'язку із вашими улюбленими спільнотами, сім'єю та друзями з "
-"підтримкою платформ Fediverse, по типу Mastodon, GoToSocial, Akkoma, тощо!"
+"підтримкою платформ Fediverse, як Mastodon, GoToSocial, Akkoma тощо!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
 msgid ""
@@ -57,8 +57,8 @@ msgstr ""
 "Fediverse - це децентралізована соціальна мережа, що складається з великої "
 "кількості взаємозв'язаних платформ й спільнот, що дозволяє користувачам "
 "спілкуватись й поширювати контент через різні соціальні мережі й сервери. "
-"Fediverse просуває приватність користувача і його даних, а також пропонує "
-"альтернативу централізованим соціальним платформам."
+"Він просуває приватність користувача і контроль над своїми даними, а також "
+"пропонує альтернативу централізованим соціальним платформам."
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:19
 msgid "Evangelos \"GeopJr\" Paterakis"
@@ -702,7 +702,6 @@ msgid "New list title"
 msgstr "Новий заголовок списку"
 
 #: src/Views/Lists.vala:319
-#, fuzzy
 msgid "Add list"
 msgstr "Додати список"
 
@@ -821,31 +820,31 @@ msgstr "%-e %B %Y"
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:51
 msgid "Follow System"
-msgstr ""
+msgstr "Системна"
 
 #. translators: Light mode theme
 #: src/Services/Settings.vala:54
 msgid "Light"
-msgstr ""
+msgstr "Світла"
 
 #. translators: Dark mode theme
 #: src/Services/Settings.vala:57
 msgid "Dark"
-msgstr ""
+msgstr "Темна"
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:130
 #, c-format
 msgid "%s Account"
-msgstr ""
+msgstr "Обліковий запис %s"
 
 #: src/Services/Accounts/Mastodon/Account.vala:44
 msgid "Direct Messages"
-msgstr ""
+msgstr "Особисті повідомлення"
 
 #: src/Services/Accounts/Mastodon/Account.vala:136
 msgid "Public"
-msgstr ""
+msgstr "Публічний"
 
 #: src/Services/Accounts/Mastodon/Account.vala:138
 msgid "Post to public timelines"
@@ -879,32 +878,32 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:137
 #, c-format
 msgid "%s mentioned you"
-msgstr ""
+msgstr "%s згадав(-ла) вас"
 
 #: src/Services/Accounts/InstanceAccount.vala:142
 #, c-format
 msgid "%s boosted your post"
-msgstr ""
+msgstr "%s поширив(-ла) вашу публікацію"
 
 #: src/Services/Accounts/InstanceAccount.vala:147
 #, c-format
 msgid "%s boosted"
-msgstr ""
+msgstr "%s поширив(-ла)"
 
 #: src/Services/Accounts/InstanceAccount.vala:152
 #, c-format
 msgid "%s favorited your post"
-msgstr ""
+msgstr "%s вподобав(-ла) вашу публікацію"
 
 #: src/Services/Accounts/InstanceAccount.vala:157
 #, c-format
 msgid "%s now follows you"
-msgstr ""
+msgstr "%s тепер слідкує за вами"
 
 #: src/Services/Accounts/InstanceAccount.vala:162
 #, c-format
 msgid "%s wants to follow you"
-msgstr ""
+msgstr "%s хоче слідкувати за вами"
 
 #: src/Services/Accounts/InstanceAccount.vala:167
 msgid "Poll results"
@@ -938,7 +937,7 @@ msgstr ""
 #: src/Dialogs/NewAccount.vala:181
 #, c-format
 msgid "Hello, %s!"
-msgstr ""
+msgstr "Вітаю, %s!"
 
 #: src/Dialogs/NewAccount.vala:239
 msgid "Server returned an error"
