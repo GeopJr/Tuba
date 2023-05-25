@@ -16,6 +16,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	Entity[] entity_queue = {};
 
 	private bool about_to_refresh = false;
+	private bool is_scrolling_top = false;
 	private Gtk.Spinner pull_to_refresh_spinner;
 	private bool _is_pulling = false;
 	private bool is_pulling {
@@ -67,7 +68,11 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		});
 
 		scrolled.edge_reached.connect ((pos) => {
-			if (pos != Gtk.PositionType.TOP || !is_pulling || about_to_refresh) return;
+			if (pos != Gtk.PositionType.TOP || about_to_refresh || is_scrolling_top) return;
+			if (!is_pulling) {
+				is_pulling = true;
+				return;
+			}
 
 			about_to_refresh = true;
 			uint timeout = 0;
@@ -82,9 +87,23 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		});
 
 		scrolled.edge_overshot.connect ((pos) => {
-			if (pos != Gtk.PositionType.TOP || is_pulling) return;
+			if (pos != Gtk.PositionType.TOP || is_pulling || about_to_refresh) return;
 
 			is_pulling = true;
+		});
+
+		scrolled.scroll_child.connect_after ((scroll_type, _h) => {
+			if (scroll_type != Gtk.ScrollType.START) return true;
+
+			is_scrolling_top = true;
+
+			uint timeout = 0;
+			timeout = Timeout.add (1000, () => {
+				is_scrolling_top = false;
+				GLib.Source.remove(timeout);
+
+				return true;
+			}, Priority.LOW);
 		});
 	}
 	~Timeline () {
