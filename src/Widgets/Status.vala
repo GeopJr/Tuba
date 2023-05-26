@@ -522,7 +522,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			poll.hide ();
 		} else {
 			poll.status_parent = status.formal;
-			poll.poll = status.formal.poll;
+			status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE);
 		}
 
 		if (!settings.hide_preview_cards && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
@@ -636,94 +636,13 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 	}
 
-	// Anything higher is usually very laggy
-	const int64[] IDEAL_PEERTUBE_RESOLUTION = { 720, 480, 360 };
 	void open_card_url () {
-		var peertube = status.formal.card.is_peertube;
-
-		var dlg_url = status.formal.card.url;
-		if (dlg_url.length > 64) {
-			dlg_url = status.formal.card.url.substring(0, 62) + "…";
-		}
-
-		// translators: the variable is the app name (Tuba)
-		var dlg_title = _(@"You are about to leave $(Build.NAME)");
-
-		// translators: the variable is a url
-		var dlg_body = _("If you proceed, \"%s\" will open in your browser.".printf (dlg_url));
-		if (peertube) {
-			dlg_title = _("You are about to open a PeerTube video");
-
-			// translators: the first variable is the app name (Tuba),
-			//				the second one is a url
-			dlg_body = _("If you proceed, %s will connect to \"%s\".".printf (Build.NAME, dlg_url));
-		}
-
-		var privacy_dialog = app.question (
-			dlg_title,
-			dlg_body,
-			app.main_window,
-			_("Proceed"),
-			Adw.ResponseAppearance.DESTRUCTIVE
-		);
-
-		privacy_dialog.response.connect(res => {
-			if (res == "yes") {
-				if (peertube) {
-					try {
-						var peertube_instance = GLib.Uri.parse (status.formal.card.url, GLib.UriFlags.NONE);
-						var peertube_api_video = @"https://$(peertube_instance.get_host ())/api/v1/videos/$(Path.get_basename (peertube_instance.get_path ()))";
-						new Request.GET (peertube_api_video)
-							.then ((sess, msg, in_stream) => {
-								var failed = true;
-								var parser = Network.get_parser_from_inputstream(in_stream);
-								var node = network.parse_node (parser);
-								var peertube_obj = API.PeerTube.from (node);
-
-								if (peertube_obj.url == status.formal.card.url) {
-									var peertube_file_list = peertube_obj.files;
-									if ((peertube_file_list == null || peertube_file_list.size == 0) && peertube_obj.streamingPlaylists != null && peertube_obj.streamingPlaylists.size > 0) {
-										peertube_file_list = peertube_obj.streamingPlaylists.get(0).files;
-									}
-
-									if (peertube_file_list != null && peertube_file_list.size > 0) {
-										var res_url = "";
-										peertube_file_list.foreach (file => {
-											if (file.fileDownloadUrl == "" || file.resolution == null) return true;
-											res_url = file.fileDownloadUrl;
-
-											if (file.resolution.id in IDEAL_PEERTUBE_RESOLUTION) return false;
-											return true;
-										});
-
-										if (res_url != "") {
-											failed = false;
-											app.main_window.show_media_viewer_peertube (res_url, null);
-										}
-									}
-								}
-
-								if (failed) Host.open_uri (status.formal.card.url);
-							})
-							.on_error (() => {
-								Host.open_uri (status.formal.card.url);
-							})
-							.exec ();
-					} catch {
-						Host.open_uri (status.formal.card.url);
-					}
-				} else {
-					Host.open_uri (status.formal.card.url);
-				}
-			}
-			privacy_dialog.destroy();
-		});
-
-		privacy_dialog.present ();
+		API.PreviewCard.open_special_card (status.formal.card.card_special_type, status.formal.card.url);
 	}
 
 	private void on_reply (API.Status x) {
-		reply_cb (x);
+		if (reply_cb != null)
+			reply_cb (x);
 	}
 
 	private void on_reply_button_clicked () {
@@ -827,6 +746,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		//				on https://valadoc.org/glib-2.0/GLib.DateTime.format.html
 		//				Please do not stray far from the original and only include day, month
 		//				and year.
+		//				If unsure, either leave it as-is or set it to %x.
 		var date_local = _("%B %e, %Y");
 
 		// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES

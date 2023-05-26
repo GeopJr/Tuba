@@ -41,6 +41,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 			return;
 		}
 
+		var single_attachment = list.size == 1;
 		list.@foreach (item => {
 			try {
 				var widget = item.to_widget ();
@@ -51,6 +52,10 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 				box.insert (flowboxchild, -1);
 				attachment_widgets += ((Widgets.Attachment.Image) widget);
 
+				if (single_attachment) {
+					widget.height_request = 334;
+				}
+
 				((Widgets.Attachment.Image) widget).on_any_attachment_click.connect (() => open_all_attachments(item.url));
 			} catch (Oopsie e) {
 				warning(@"Error updating attachments: $(e.message)");
@@ -58,11 +63,13 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 			return true;
 		});
 
-		box.max_children_per_line = 2;
-		box.min_children_per_line = 2;
-		// if (list.size > 1) {
-		// 	box.max_children_per_line = 2;
-		// }
+		if (single_attachment) {
+			box.max_children_per_line = 1;
+			box.min_children_per_line = 1;
+		} else {
+			box.max_children_per_line = 2;
+			box.min_children_per_line = 2;
+		}
 
 		visible = true;
 	}

@@ -317,3 +317,6 @@ GtkSourceAssistant.completion list row{
 	border-radius: 6px 6px 0px 0px;
 }
 
+.bkwm-desc {
+	padding: 12px;
+}

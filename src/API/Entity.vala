@@ -74,6 +74,7 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 			switch (prop) {
 				case "supported-mime-types":
 				case "languages":
+				case "authors":
 					return des_list_string(out val, node);
 				case "media-attachments":
 					contains = typeof (API.Attachment);
@@ -108,6 +109,9 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 					break;
 				case "files":
 					contains = typeof (API.PeerTubeFile);
+					break;
+				case "uploads":
+					contains = typeof (API.FunkwhaleTrack);
 					break;
 				default:
 					contains = typeof (Entity);

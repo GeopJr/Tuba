@@ -10,7 +10,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		Object (
 			root_status: status,
 			base_status: new StatusMessage () { loading = true },
-			label: _("Conversation")
+			label: _("Conversation"),
+			allow_nesting: true
 		);
 		construct_account_holder ();
 	}
@@ -86,7 +87,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
 					to_add_ancestors += e;
 				});
-				model.splice (model.n_items, 0, to_add_ancestors);
+				model.splice (model.get_n_items (), 0, to_add_ancestors);
 
 				model.append (root_status);
 				uint root_index;
@@ -100,7 +101,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
 					to_add_descendants += e;
 				});
-				model.splice (model.n_items, 0, to_add_descendants);
+				model.splice (model.get_n_items (), 0, to_add_descendants);
 
 				connect_threads ();
 				on_content_changed ();

@@ -18,6 +18,7 @@ namespace Tuba {
 	public static EntityCache entity_cache;
 	public static ImageCache image_cache;
 
+	public static GLib.Regex bookwyrm_regex;
 	public static GLib.Regex custom_emoji_regex;
 	public static GLib.Regex rtl_regex;
 	public static bool is_rtl;
@@ -80,6 +81,12 @@ namespace Tuba {
 			}
 
 			try {
+				bookwyrm_regex = new GLib.Regex ("/book/\\d+/s/[-_a-z0-9]*", GLib.RegexCompileFlags.OPTIMIZE);
+			} catch (GLib.RegexError e) {
+				warning (e.message);
+			}
+
+			try {
 				custom_emoji_regex = new GLib.Regex("(:[a-zA-Z0-9_]{2,}:)", GLib.RegexCompileFlags.OPTIMIZE);
 			} catch (GLib.RegexError e) {
 				warning (e.message);
@@ -90,9 +97,6 @@ namespace Tuba {
 			} catch (GLib.RegexError e) {
 				warning (e.message);
 			}
-
-			// Fix some links not getting underlined
-			Environment.set_variable ("GSK_RENDERER", "cairo", false);
 
 			Intl.setlocale (LocaleCategory.ALL, "");
 			Intl.bindtextdomain(Build.GETTEXT_PACKAGE, Build.LOCALEDIR);

@@ -19,6 +19,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		var gtk_settings = Gtk.Settings.get_default ();
 	}
 
+	private Views.Base main_base;
 	public MainWindow (Adw.Application app) {
 		Object (
 			application: app,
@@ -27,7 +28,8 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			resizable: true
 		);
 		sidebar.set_sidebar_selected_item(0);
-		open_view (new Views.Main ());
+		main_base = new Views.Main ();
+		open_view (main_base);
 
 		if (Build.PROFILE == "development") {
 			this.add_css_class ("devel");
@@ -68,13 +70,13 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		media_viewer.set_single_paintable (url, paintable);
 	}
 
-	public void show_media_viewer_peertube(string url, Paintable? preview) {
+	public void show_media_viewer_remote_video(string url, Paintable? preview, string? user_friendly_url = null) {
 		if (!is_media_viewer_visible()) {
 			main_stack.visible_child_name = "media_viewer";
 			media_viewer.clear.connect(hide_media_viewer);
 		}
 
-		media_viewer.set_peertube (url, preview);
+		media_viewer.set_remote_video (url, preview, user_friendly_url);
 	}
 
 	public void hide_media_viewer() {
@@ -83,14 +85,54 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		main_stack.visible_child_name = "main";
 	}
 
+	public void show_book (API.BookWyrm book, string? fallback = null) {
+		try {
+			var book_widget = book.to_widget ();
+			var clamp = new Adw.Clamp () {
+				child = book_widget,
+				tightening_threshold = 100,
+				valign = Align.START
+			};
+			var scroller = new Gtk.ScrolledWindow () {
+				hexpand = true,
+				vexpand = true
+			};
+			scroller.child = clamp;
+
+			var box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+			var headerbar = new Adw.HeaderBar() {
+				css_classes = { "flat" }
+			};
+
+			box.append(headerbar);
+			box.append(scroller);
+
+			var book_dialog = new Adw.Window() {
+				modal = true,
+				title = book.title,
+				transient_for = this,
+				content = box,
+				default_width = 460,
+				default_height = 520
+			};
+
+			book_dialog.show ();
+
+			((Widgets.BookWyrmPage) book_widget).selectable = true;
+		} catch {
+			if (fallback != null) Host.open_uri (fallback);
+		}
+	}
+
 	public Views.Base open_view (Views.Base view) {
-		if ((leaflet.visible_child == view) || (last_view != null && last_view.label == view.label && !view.is_profile)) return view;
+		if ((leaflet.visible_child == view) || (last_view != null && last_view.label == view.label && !view.allow_nesting)) return view;
 
 		if (last_view != null && !last_view.is_main && view.is_sidebar_item) {
-			leaflet.remove(last_view);
+			leaflet.insert_child_after (view, main_base);
+		} else {
+			leaflet.append (view);
 		}
 
-		leaflet.append (view);
 		leaflet.visible_child = view;
 		return view;
 	}
@@ -103,9 +145,6 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 		if (last_view == null) return true;
 
-		if (last_view.is_sidebar_item)
-			sidebar.set_sidebar_selected_item(0);
-		
 		leaflet.navigate (Adw.NavigationDirection.BACK);
 		return true;
 	}
@@ -129,6 +168,9 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	void on_view_changed () {
 		var view = leaflet.visible_child as Views.Base;
 		on_child_transition ();
+
+		if (view.is_main)
+			sidebar.set_sidebar_selected_item(0);
 
 		if (last_view != null) {
 			last_view.current = false;

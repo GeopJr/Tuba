@@ -10,7 +10,7 @@ public class Tuba.Views.Base : Box {
 	public bool needs_attention { get; set; default = false; }
 	public bool current { get; set; default = false; }
 	public bool is_main { get; set; default = false; }
-	public bool is_profile { get; set; default = false; }
+	public bool allow_nesting { get; set; default = false; }
 	public bool is_sidebar_item { get; set; default = false; }
 	public int badge_number { get; set; default = 0; }
 	protected SimpleActionGroup actions { get; set; default = new SimpleActionGroup (); }

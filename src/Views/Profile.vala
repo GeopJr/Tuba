@@ -33,7 +33,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 			profile: acc,
 			rs: new API.Relationship.for_account (acc),
 			label: _("Profile"),
-			is_profile: true,
+			allow_nesting: true,
 			url: @"/api/v1/accounts/$(acc.id)/statuses"
 		);
 		append_pinned(acc.id);

@@ -40,7 +40,7 @@ public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
 			// If str is an available emoji
 			string? shortcode = str.length > 2 ? str.slice(1,-1) : null;
 			if (shortcode != null && instance_emojis.has_key(shortcode)) {
-                t_t_widgets += new Widgets.Emoji(instance_emojis.get(shortcode));
+                t_t_widgets += new Widgets.Emoji(instance_emojis.get(shortcode), shortcode);
                 t_input_with_placeholder = t_input_with_placeholder.replace(@":$shortcode:", "<widget>");
 			}
 		}

@@ -123,16 +123,21 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="handle_label">
-                        <property name="label" translatable="no">Handle</property>
-                        <property name="ellipsize">end</property>
-                        <property name="single_line_mode">1</property>
-                        <property name="xalign">0</property>
-                        <property name="hexpand">1</property>
-                        <style>
-                          <class name="body" />
-                          <class name="dim-label" />
-                        </style>
+                      <object class="GtkFlowBoxChild">
+                        <property name="can-target">0</property>
+                        <child>
+                          <object class="GtkLabel" id="handle_label">
+                            <property name="label" translatable="no">Handle</property>
+                            <property name="ellipsize">end</property>
+                            <property name="single_line_mode">1</property>
+                            <property name="xalign">0</property>
+                            <property name="hexpand">1</property>
+                            <style>
+                              <class name="body" />
+                              <class name="dim-label" />
+                            </style>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
@@ -221,6 +226,7 @@
                       <object class="GtkLabel" id="spoiler_label_rev">
                         <property name="halign">start</property>
                         <property name="wrap">1</property>
+                        <property name="wrap-mode">word-char</property>
                       </object>
                     </child>
                     <style>
@@ -259,6 +265,7 @@
                                     <property name="visible">True</property>
                                     <property name="label">Spoiler Text Here</property>
                                     <property name="wrap">1</property>
+                                    <property name="wrap-mode">word-char</property>
                                   </object>
                                 </child>
                               </object>
