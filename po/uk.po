@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Andrew Nitrogenesis <nitrogenesis.developer@gmail.com>, 2023.
 # Вова Смірнов <vovasmirnon5895@gmail.com>, 2023.
+# Dan <denqwerta@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 23:29+0300\n"
 "PO-Revision-Date: 2023-05-29 21:50+0000\n"
-"Last-Translator: Вова Смірнов <vovasmirnon5895@gmail.com>\n"
+"Last-Translator: Dan <denqwerta@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tuba/tuba/uk/>"
 "\n"
 "Language: uk\n"
@@ -464,7 +465,7 @@ msgstr "Забути %s?"
 
 #: src/Views/Sidebar.vala:250
 msgid "This account will be removed from the application."
-msgstr "Цей обліковий запис буде прибрано з додатку."
+msgstr "Цей обліковий запис буде прибрано зі застосунку."
 
 #: src/Views/Sidebar.vala:252
 msgid "Forget"
