@@ -54,6 +54,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-music-note-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
+        <file>gtk/help-overlay.ui</file>
         <file>gtk/dropdown/icon.ui</file>
         <file>gtk/dropdown/full.ui</file>
         <file>gtk/dropdown/language_title.ui</file>
