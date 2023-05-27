@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 23:29+0300\n"
-"PO-Revision-Date: 2023-05-26 20:48+0000\n"
+"PO-Revision-Date: 2023-05-29 21:50+0000\n"
 "Last-Translator: Вова Смірнов <vovasmirnon5895@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tuba/tuba/uk/>"
 "\n"
@@ -106,7 +106,7 @@ msgstr "Поділитись"
 
 #: data/ui/menus.ui:29
 msgid "Moderation"
-msgstr "Модерація"
+msgstr "Керування"
 
 #: data/ui/menus.ui:31
 msgid "Hide Boosts"
@@ -853,27 +853,27 @@ msgstr ""
 #. translators: Probably follow Mastodon's translation
 #: src/Services/Accounts/Mastodon/Account.vala:143
 msgid "Unlisted"
-msgstr ""
+msgstr "Прихований"
 
 #: src/Services/Accounts/Mastodon/Account.vala:145
 msgid "Don't post to public timelines"
-msgstr ""
+msgstr "Не показується у публічних стрічках"
 
 #: src/Services/Accounts/Mastodon/Account.vala:149
 msgid "Followers Only"
-msgstr ""
+msgstr "Лише підписникам"
 
 #: src/Services/Accounts/Mastodon/Account.vala:151
 msgid "Post to followers only"
-msgstr ""
+msgstr "Показувати лише підписникам"
 
 #: src/Services/Accounts/Mastodon/Account.vala:155
 msgid "Direct"
-msgstr ""
+msgstr "Особисто"
 
 #: src/Services/Accounts/Mastodon/Account.vala:157
 msgid "Post to mentioned users only"
-msgstr ""
+msgstr "Показувати лише згаданим користувачам"
 
 #: src/Services/Accounts/InstanceAccount.vala:137
 #, c-format
@@ -907,12 +907,12 @@ msgstr "%s хоче слідкувати за вами"
 
 #: src/Services/Accounts/InstanceAccount.vala:167
 msgid "Poll results"
-msgstr ""
+msgstr "Результати опитування"
 
 #: src/Services/Accounts/InstanceAccount.vala:172
 #, c-format
 msgid "%s edited a post"
-msgstr ""
+msgstr "%s відредагував(-ла) публікацію"
 
 #: src/Dialogs/NewAccount.vala:5
 msgid "Allow access to your account in the browser."
