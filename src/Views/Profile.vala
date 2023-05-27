@@ -36,7 +36,6 @@ public class Tuba.Views.Profile : Views.Timeline {
 			allow_nesting: true,
 			url: @"/api/v1/accounts/$(acc.id)/statuses"
 		);
-		append_pinned(acc.id);
 		cover.bind (profile);
 		build_profile_stats(cover.info);
 		rs.invalidated.connect (on_rs_updated);
@@ -45,7 +44,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		message("Destroying Profile view");
 	}
 
-	public void append_pinned(string acc_id) {
+	public void append_pinned(string acc_id = profile.id) {
 		new Request.GET (@"/api/v1/accounts/$(acc_id)/statuses")
 			.with_account (account)
 			.with_param ("pinned", "true")
@@ -65,6 +64,14 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 			})
 			.exec ();
+	}
+
+	public override void on_refresh () {
+		base.on_refresh ();
+		GLib.Idle.add (() => {
+			append_pinned ();
+			return GLib.Source.REMOVE;
+		});
 	}
 
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/profile_header.ui")]
