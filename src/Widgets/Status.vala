@@ -526,113 +526,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 
 		if (!settings.hide_preview_cards && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
-			var card_obj = status.formal.card;
-			var is_video = card_obj.kind == "video";
-			var card_container = is_video ? new Gtk.Box (Orientation.VERTICAL, 0) : new Gtk.Box (Orientation.HORIZONTAL, 6);
-
-			if (card_obj.image != null) {
-				var image = new Gtk.Picture ();
-
-				#if GTK_4_8
-					image.set_property ("content-fit", 2);
-				#endif
-
-				image_cache.request_paintable (card_obj.image, (is_loaded, paintable) => {
-					image.paintable = paintable;
-				});
-
-				if (is_video) {
-					image.height_request = 250;
-					image.add_css_class ("preview_card_video");
-
-					var overlay = new Gtk.Overlay () {
-						vexpand = true,
-						hexpand = true
-					};
-
-					var icon = new Gtk.Image() {
-						valign = Gtk.Align.CENTER,
-						halign = Gtk.Align.CENTER,
-						css_classes = {"osd", "circular", "attachment-overlay-icon"},
-						icon_name = "media-playback-start-symbolic",
-						icon_size = Gtk.IconSize.LARGE
-					};
-
-					overlay.add_overlay (icon);
-					overlay.child = image;
-					card_container.append (overlay);
-				} else {
-					image.height_request = 70;
-					image.add_css_class ("preview_card_image");
-					card_container.append (image);
-				}
-
-				
-			} else if (!is_video) {
-				card_container.append (new Gtk.Image.from_icon_name("tuba-paper-symbolic") {
-					height_request = 70,
-					width_request = 70,
-					icon_size = Gtk.IconSize.LARGE
-				});
-				card_container.spacing = 0;
-			}
-
-			var body = new Gtk.Box (Orientation.VERTICAL, 6) {
-				margin_top = 6,
-				margin_bottom = 6,
-				valign = Gtk.Align.CENTER,
-				width_request = 120
-			};
-
-			if (is_video) body.margin_start = body.margin_end = 6;
-
-			var author = card_obj.provider_name;
-			if (author == "") {
-				try {
-					var uri = GLib.Uri.parse (card_obj.url, GLib.UriFlags.NONE);
-					var host = uri.get_host ();
-					if (host != null) author = host;
-				} catch {}
-			}
-
-			var author_label = new Gtk.Label (author) {
-				ellipsize = Pango.EllipsizeMode.END,
-				halign = Gtk.Align.START,
-				css_classes = {"dim-label"},
-				tooltip_text = author,
-				single_line_mode = true
-			};
-			body.append (author_label);
-
-			if (card_obj.title != "") {
-				var title_label = new Gtk.Label (card_obj.title) {
-					ellipsize = Pango.EllipsizeMode.END,
-					halign = Gtk.Align.START,
-					tooltip_text = card_obj.title,
-					single_line_mode = true
-				};
-				body.append (title_label);
-			}
-
-			if (card_obj.description != "") {
-				var description_label = new Gtk.Label (card_obj.description) {
-					ellipsize = Pango.EllipsizeMode.END,
-					halign = Gtk.Align.START,
-					css_classes = {"dim-label"},
-					tooltip_text = card_obj.description,
-					single_line_mode = true
-				};
-				body.append (description_label);
-			}
-
-			card_container.append (body);
-
-			var card = new Gtk.Button () {
-				child = card_container,
-				css_classes = {"preview_card", "frame"}
-			};
-			card.clicked.connect (open_card_url);
-			content_box.append (card);
+			try {
+				var card = status.formal.card.to_widget ();
+				((Gtk.Button) card).clicked.connect (open_card_url);
+				content_box.append (card);
+			} catch {}
 		}
 	}
 

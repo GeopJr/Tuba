@@ -317,6 +317,52 @@ GtkSourceAssistant.completion list row{
 	border-radius: 6px 6px 0px 0px;
 }
 
+.ttl-view :first-child list row:not(:first-child):not(:last-child) .preview_card.explore {
+	border-radius: 0px;
+}
+
+.ttl-view :first-child list row:not(:first-child):not(:last-child) .preview_card.explore .preview_card_image {
+	border-radius: 0px;
+}
+
+.ttl-view :first-child list row:first-child .preview_card.explore {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+}
+
+.ttl-view :first-child list row:first-child .preview_card.explore .preview_card_image:dir(ltr) {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-top-left-radius: 12px;
+}
+
+.ttl-view :first-child list row:first-child .preview_card.explore .preview_card_image:dir(rtl) {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-top-right-radius: 12px;
+}
+
+.ttl-view :first-child list row:last-child .preview_card.explore {
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px;
+}
+
+.ttl-view :first-child list row:last-child .preview_card.explore .preview_card_image:dir(ltr) {
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	border-bottom-left-radius: 12px;
+}
+
+.ttl-view :first-child list row:last-child .preview_card.explore .preview_card_image:dir(rtl) {
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 12px;
+}
+
 .bkwm-desc {
 	padding: 12px;
 }

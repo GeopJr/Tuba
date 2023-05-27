@@ -9,6 +9,7 @@ sources += files(
     'LockableToggleButton.vala',
     'MarkupView.vala',
     'Notification.vala',
+    'PreviewCard.vala',
     'RelationshipButton.vala',
     'RichLabel.vala',
     'Status.vala',
