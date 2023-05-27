@@ -321,45 +321,47 @@ GtkSourceAssistant.completion list row{
 	border-radius: 0px;
 }
 
+.ttl-view .small :first-child list row:first-child .preview_card.explore .preview_card_image,
+.ttl-view .small :first-child list row:last-child .preview_card.explore .preview_card_image,
 .ttl-view :first-child list row:not(:first-child):not(:last-child) .preview_card.explore .preview_card_image {
 	border-radius: 0px;
 }
 
-.ttl-view :first-child list row:first-child .preview_card.explore {
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
+.ttl-view box:not(.small) :first-child list row:first-child .preview_card.explore {
 	border-top-left-radius: 12px;
 	border-top-right-radius: 12px;
 }
 
-.ttl-view :first-child list row:first-child .preview_card.explore .preview_card_image:dir(ltr) {
+.ttl-view :first-child list row:first-child .preview_card.explore,
+.ttl-view :first-child list row:first-child .preview_card.explore .preview_card_image {
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
+}
+
+.ttl-view box:not(.small) :first-child list row:first-child .preview_card.explore .preview_card_image:dir(ltr) {
 	border-top-left-radius: 12px;
 }
 
-.ttl-view :first-child list row:first-child .preview_card.explore .preview_card_image:dir(rtl) {
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
+.ttl-view box:not(.small) :first-child list row:first-child .preview_card.explore .preview_card_image:dir(rtl) {
 	border-top-right-radius: 12px;
 }
 
-.ttl-view :first-child list row:last-child .preview_card.explore {
+.ttl-view :first-child list row:last-child .preview_card.explore,
+.ttl-view :first-child list row:last-child .preview_card.explore .preview_card_image {
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
+}
+
+.ttl-view box:not(.small) :first-child list row:last-child .preview_card.explore {
 	border-bottom-left-radius: 12px;
 	border-bottom-right-radius: 12px;
 }
 
-.ttl-view :first-child list row:last-child .preview_card.explore .preview_card_image:dir(ltr) {
-	border-top-left-radius: 0px;
-	border-top-right-radius: 0px;
+.ttl-view box:not(.small) :first-child list row:last-child .preview_card.explore .preview_card_image:dir(ltr) {
 	border-bottom-left-radius: 12px;
 }
 
-.ttl-view :first-child list row:last-child .preview_card.explore .preview_card_image:dir(rtl) {
-	border-top-left-radius: 0px;
-	border-top-right-radius: 0px;
+.ttl-view box:not(.small) :first-child list row:last-child .preview_card.explore .preview_card_image:dir(rtl) {
 	border-bottom-right-radius: 12px;
 }
 

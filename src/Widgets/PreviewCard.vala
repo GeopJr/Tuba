@@ -5,10 +5,18 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 
     public PreviewCard (API.PreviewCard card_obj) {
         var is_video = card_obj.kind == "video";
-		var card_container = is_video ? new Gtk.Box (Gtk.Orientation.VERTICAL, 0) : new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+		
+		Gtk.Widget card_container = new Gtk.Grid () {
+			column_spacing = 6
+		};
+
+		if (is_video)
+			card_container = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 
 		if (card_obj.image != null) {
-			var image = new Gtk.Picture ();
+			var image = new Gtk.Picture () {
+				width_request = 25
+			};
 
 			#if GTK_4_8
 				image.set_property ("content-fit", 2);
@@ -37,27 +45,25 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 
 				overlay.add_overlay (icon);
 				overlay.child = image;
-				card_container.append (overlay);
+				((Gtk.Box) card_container).append (overlay);
 			} else {
 				image.height_request = 70;
 				image.add_css_class ("preview_card_image");
-				card_container.append (image);
+				((Gtk.Grid) card_container).attach (image, 1, 1);
 			}
 
 		} else if (!is_video) {
-			card_container.append (new Gtk.Image.from_icon_name("tuba-paper-symbolic") {
+			((Gtk.Grid) card_container).attach (new Gtk.Image.from_icon_name("tuba-paper-symbolic") {
 				height_request = 70,
 				width_request = 70,
 				icon_size = Gtk.IconSize.LARGE
-			});
-			card_container.spacing = 0;
+			}, 1, 1);
 		}
 
 		var body = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
 			margin_top = 6,
 			margin_bottom = 6,
-			valign = Gtk.Align.CENTER,
-			width_request = 120
+			valign = Gtk.Align.CENTER
 		};
 
 		if (is_video) body.margin_start = body.margin_end = 6;
@@ -134,13 +140,18 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
     
                 var used_times_label = new Gtk.Label (subtitle) {
                     halign = Gtk.Align.START,
-                    css_classes = {"dim-label"}
+                    css_classes = {"dim-label"},
+					wrap = true
                 };
 
                 body.append (used_times_label);
         }
 
-		card_container.append (body);
+		if (is_video) {
+			((Gtk.Box) card_container).append (body);
+		} else {
+			((Gtk.Grid) card_container).attach (body, 2, 1, 2);
+		}
 
 		this.child = card_container;
     }
