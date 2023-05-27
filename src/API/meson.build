@@ -19,6 +19,7 @@ sources += files(
     'Relationship.vala',
     'SearchResults.vala',
     'Status.vala',
+    'Suggestion.vala',
     'Tag.vala',
     'TagHistory.vala',
 )
