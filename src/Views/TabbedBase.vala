@@ -9,6 +9,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 	protected Adw.ViewStack stack;
 
 	Views.Base? last_view = null;
+	Views.Base[] views = {};
 
 	construct {
 		base_status = null;
@@ -30,6 +31,16 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		switcher_bar.stack = switcher_title.stack = stack;
 	}
 
+	~TabbedBase () {
+		message ("Destroying TabbedBase");
+
+		foreach (var tab in views) {
+			stack.remove (tab);
+			tab.dispose ();
+		}
+		views = {};
+	}
+
 	public override void build_header () {
 		switcher_title = new Adw.ViewSwitcherTitle ();
 		bind_property ("label", switcher_title, "title", BindingFlags.SYNC_CREATE);
@@ -44,6 +55,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 	public void add_tab (Views.Base view) {
 		ID_COUNTER++;
 		view.view.add_css_class("no-transition");
+		views += view;
 		var page = stack.add_titled (view, ID_COUNTER.to_string (), view.label);
 		view.bind_property ("icon", page, "icon-name", BindingFlags.SYNC_CREATE);
 		view.bind_property ("needs-attention", page, "needs-attention", BindingFlags.SYNC_CREATE);
