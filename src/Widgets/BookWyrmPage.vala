@@ -116,6 +116,8 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
 
         if (t_obj.publishedDate != "") {
             var date_parsed = new GLib.DateTime.from_iso8601 (t_obj.publishedDate, null);
+            date_parsed = date_parsed.to_timezone (new TimeZone.local ());
+
             if (date_parsed != null)
                 append (new Gtk.Label (@"Published: $(date_parsed.format("%x"))") { wrap=true });
         }

@@ -129,6 +129,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 			if (account.created_at != null) {
 				var row = new Adw.ActionRow ();
 				var parsed_date = new GLib.DateTime.from_iso8601 (account.created_at, null);
+				parsed_date = parsed_date.to_timezone (new TimeZone.local ());
 
 				var date_local = _("%B %e, %Y");
 				var val = new Gtk.Label (parsed_date.format(date_local).replace(" ", "")) { // %e prefixes with whitespace on single digits

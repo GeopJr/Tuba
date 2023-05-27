@@ -751,6 +751,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 		// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES
 		var date_parsed = new GLib.DateTime.from_iso8601 (status.formal.created_at, null);
+		date_parsed = date_parsed.to_timezone (new TimeZone.local ());
 
 		date_label.label = date_parsed.format(@"$date_local $separator %H:%M").replace(" ", ""); // %e prefixes with whitespace on single digits
 		date_label.wrap = true;
