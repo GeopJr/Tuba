@@ -1,4 +1,4 @@
-public class Tuba.API.PreviewCard : Entity {
+public class Tuba.API.PreviewCard : Entity, Widgetizable {
 	public enum CardSpecialType {
 		BASIC,
 		PEERTUBE,
@@ -98,6 +98,7 @@ public class Tuba.API.PreviewCard : Entity {
 	public string provider_name { get; set; default=""; }
 	public string provider_url { get; set; default=""; }
 	public string? image { get; set; default=null; }
+	public Gee.ArrayList<API.TagHistory>? history { get; set; default = null; }
 	public CardSpecialType card_special_type {
 		get {
 			if (is_peertube) {
@@ -140,6 +141,10 @@ public class Tuba.API.PreviewCard : Entity {
 			return kind == "link" && bookwyrm_regex.match (url);
 		}
     }
+
+	public override Gtk.Widget to_widget () {
+		return new Widgets.PreviewCard (this);
+	}
 
 	public static void open_special_card (CardSpecialType card_special_type, string card_url) {
 		var privacy_dialog = app.question (

@@ -80,6 +80,14 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	//  	}
 	//  };
 
+	public static Place PLACE_EXPLORE = new Place () {
+		title = _("Explore"),
+		icon = "tuba-explore2-large-symbolic",
+		open_func = (win) => {
+			win.open_view (set_as_sidebar_item(new Views.Explore ()));
+		}
+	};
+
 	public static Place PLACE_LOCAL = new Place () {
 		title = _("Local"),
 		icon = "tuba-network-server-symbolic",
@@ -116,6 +124,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		places.append (PLACE_HOME);
 		//  places.append (PLACE_SEARCH);
 
+		places.append (PLACE_EXPLORE);
 		places.append (PLACE_LOCAL);
 		places.append (PLACE_FEDERATED);
 
