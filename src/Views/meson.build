@@ -3,6 +3,7 @@ sources += files(
     'Bookmarks.vala',
     'ContentBase.vala',
     'Conversations.vala',
+    'Explore.vala',
     'EditHistory.vala',
     'Favorites.vala',
     'Federated.vala',

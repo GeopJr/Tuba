@@ -52,6 +52,8 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-fullscreen-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-restore-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-music-note-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-newspaper-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-explore2-large-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/dropdown/icon.ui</file>
