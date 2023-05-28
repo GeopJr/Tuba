@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # gnu-ewm <gnu.ewm@protonmail.com>, 2023.
 # Łukasz Horodecki <dakilla@gmail.com>, 2023.
+# Karol Lademan <karol@lademan.dev>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 23:29+0300\n"
-"PO-Revision-Date: 2023-05-21 06:05+0000\n"
-"Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
+"PO-Revision-Date: 2023-05-29 21:50+0000\n"
+"Last-Translator: Karol Lademan <karol@lademan.dev>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -25,11 +26,11 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Przeglądaj fediświat"
+msgstr "Przeglądaj Fediwersum"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr "Klient dla fediświata"
+msgstr "Klient Fediwersum"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
@@ -43,7 +44,7 @@ msgid ""
 msgstr ""
 "Odkryj sfederowaną sieć społeczną z Tubą dla GNOME. Bądź w kontakcie ze "
 "swoimi ulubionymi społecznościami, rodziną i przyjaciółmi dzięki wsparciu "
-"dla popularnych platform fediświata, takich jak Mastodon, GoToSocial, Akkoma "
+"dla popularnych platform Fediwersum, takich jak Mastodon, GoToSocial, Akkoma "
 "i innych!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
@@ -54,8 +55,8 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
-"Fediświat (ang. Fediverse) to zdecentralizowana sieć społeczna, która składa "
-"się z mnóstwa połączonych ze sobą platform i społeczności, pozwalając "
+"Fediwersum (ang. Fediverse) to zdecentralizowana sieć społeczna, która "
+"składa się z mnóstwa połączonych ze sobą platform i społeczności, pozwalając "
 "użytkownikom na komunikowanie się i dzielenie treściami pomiędzy różnymi "
 "sieciami i serwerami. Promuje prywatność użytkowników oraz ich kontrolę nad "
 "swoimi danymi i stanowi alternatywę dla scentralizowanych platform mediów "
