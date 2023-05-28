@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 23:29+0300\n"
-"PO-Revision-Date: 2023-05-21 06:05+0000\n"
+"PO-Revision-Date: 2023-05-29 21:50+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -135,11 +135,11 @@ msgstr "Iragazi"
 
 #: data/ui/menus.ui:80
 msgid "Include Replies"
-msgstr "Erantzunak barne"
+msgstr "Ikusi erantzunak"
 
 #: data/ui/menus.ui:85
 msgid "Include Media"
-msgstr "Multimedia barne"
+msgstr "Ikusi multimedia"
 
 #: data/ui/menus.ui:108 src/Views/Lists.vala:283
 #: src/Services/Accounts/Mastodon/Account.vala:68
@@ -208,7 +208,7 @@ msgstr "Atzeko planoko lanak"
 
 #: data/ui/dialogs/preferences.ui:106
 msgid "Receive notifications even when the app is closed"
-msgstr "Jaso jakinarazpenak aplikazioa itxita dagoenean ere"
+msgstr "Jaso jakinarazpenak aplikazioa itxita badago ere"
 
 #: data/ui/dialogs/preferences.ui:118
 msgid "Timelines"
@@ -224,7 +224,7 @@ msgstr "Denbora-lerroen jarioa"
 
 #: data/ui/dialogs/preferences.ui:137
 msgid "Receive new posts and notifications in real-time"
-msgstr "Jaso bidalketa eta jakinarazpenak argitaratu ahala"
+msgstr "Jaso bidalketak eta jakinarazpenak argitaratu ahala"
 
 #: data/ui/dialogs/preferences.ui:148
 msgid "Stream public timelines"
@@ -379,7 +379,7 @@ msgstr "Egin gogoko"
 
 #: src/Widgets/Status.vala:685
 msgid "Bookmark"
-msgstr "Jarri laster-marka"
+msgstr "Laster-marka"
 
 #. translators: this is a "long" date format shown in places like expanded posts or
 #. the profile "Joined" field. You can find all the available specifiers
