@@ -23,7 +23,7 @@ public class Tuba.DateTime {
 			//  translators: %b is Month name (short)
 			//				 %-e is the Day number
 			//				 %Y is the year (with century)
-			return date.format (_("expires on %b %-e, %Y"));
+			return date.to_timezone (new TimeZone.local ()).format (_("expires on %b %-e, %Y"));
 		}
 	}
 
@@ -37,7 +37,7 @@ public class Tuba.DateTime {
 			//				 %Y is the year (with century)
 			//				 %H is the hours (24h format)
 			//				 %m is the minutes
-			return date.format (_("expires on %b %-e, %Y %H:%m"));
+			return date.to_timezone (new TimeZone.local ()).format (_("expires on %b %-e, %Y %H:%m"));
 		else if (delta <= TimeSpan.MINUTE)
 			return _("expired on just now");
 		else if (delta < TimeSpan.HOUR) {
@@ -54,13 +54,13 @@ public class Tuba.DateTime {
 		else if (date.get_year () == now.get_year ()) {
 			//  translators: %b is Month name (short)
 			//				 %-e is the Day number
-			return date.format (_("expired on %b %-e"));
+			return date.to_timezone (new TimeZone.local ()).format (_("expired on %b %-e"));
 		}
 		else {
 			//  translators: %b is Month name (short)
 			//				 %-e is the Day number
 			//				 %Y is the year (with century)
-			return date.format (_("expired on %b %-e, %Y"));
+			return date.to_timezone (new TimeZone.local ()).format (_("expired on %b %-e, %Y"));
 		}
 	}
 
@@ -74,7 +74,7 @@ public class Tuba.DateTime {
 			//				 %Y is the year (with century)
 			//				 %H is the hours (24h format)
 			//				 %m is the minutes
-			return date.format (_("%b %-e, %Y %H:%m"));
+			return date.to_timezone (new TimeZone.local ()).format (_("%b %-e, %Y %H:%m"));
 		else if (delta <= TimeSpan.MINUTE)
 			return _("Just now");
 		else if (delta < TimeSpan.HOUR) {
@@ -91,13 +91,13 @@ public class Tuba.DateTime {
 		else if (date.get_year () == now.get_year ()) {
 			//  translators: %b is Month name (short)
 			//				 %-e is the Day number
-			return date.format (_("%b %-e"));
+			return date.to_timezone (new TimeZone.local ()).format (_("%b %-e"));
 		}
 		else {
 			//  translators: %b is Month name (short)
 			//				 %-e is the Day number
 			//				 %Y is the year (with century)
-			return date.format (_("%b %-e, %Y"));
+			return date.to_timezone (new TimeZone.local ()).format (_("%b %-e, %Y"));
 		}
 	}
 
