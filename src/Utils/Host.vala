@@ -75,21 +75,10 @@ public class Tuba.Host {
 				.await ();
 
 			var data = msg.response_body;
-			file.create_async.begin (FileCreateFlags.PRIVATE, Priority.DEFAULT, null, (obj, res) => {
-				try {
-					FileOutputStream stream = file.create_async.end (res);
-					stream.splice_async.begin (data, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET, Priority.DEFAULT, null, (obj2, res2) => {
-						try {
-							stream.splice_async.end (res2);
-							message (@"   OK: File written to: $file_path");
-						} catch (IOError e) {
-							warning (@"Couldn't the stream: $(e.message)");
-						}
-					});
-				} catch (Error e) {
-					warning (@"Couldn't create a file: $(e.message)");
-				}
-			});
+			FileOutputStream stream = yield file.create_async (FileCreateFlags.PRIVATE);
+			yield stream.splice_async (data, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);
+
+			message (@"   OK: File written to: $file_path");
 		}
 		else
 			message ("   OK: File already exists");
