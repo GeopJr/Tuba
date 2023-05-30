@@ -144,6 +144,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 			id = "public",
 			name = _("Public"),
 			icon_name = "tuba-globe-symbolic",
+			small_icon_name = "tuba-globe-small-symbolic",
 			description = _("Post to public timelines")
 		});
 		set_visibility (new Visibility () {
@@ -151,18 +152,21 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 			// translators: Probably follow Mastodon's translation
 			name = _("Unlisted"),
 			icon_name = "tuba-padlock2-open-symbolic",
+			small_icon_name = "tuba-padlock2-open-small-symbolic",
 			description = _("Don\'t post to public timelines")
 		});
 		set_visibility (new Visibility () {
 			id = "private",
 			name = _("Followers Only"),
 			icon_name = "tuba-padlock2-symbolic",
+			small_icon_name = "tuba-padlock2-small-symbolic",
 			description = _("Post to followers only")
 		});
 		set_visibility (new Visibility () {
 			id = "direct",
 			name = _("Direct"),
 			icon_name = "tuba-mail-symbolic",
+			small_icon_name = "tuba-mail-small-symbolic",
 			description = _("Post to mentioned users only")
 		});
 	}

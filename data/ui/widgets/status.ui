@@ -147,11 +147,11 @@
                     <property name="halign">end</property>
                     <property name="valign">center</property>
                     <property name="margin_start">6</property>
-                    <property name="spacing">6</property>
+                    <property name="spacing">3</property>
                     <child>
                       <object class="GtkImage" id="pin_indicator">
                         <property name="visible">0</property>
-                        <property name="icon_name">tuba-pin-symbolic</property>
+                        <property name="icon_name">tuba-pin-small-symbolic</property>
                         <property name="icon_size">1</property>
                         <property name="tooltip_text" translatable="yes">Pinned</property>
                         <style>
@@ -162,7 +162,7 @@
                     <child>
                       <object class="GtkImage" id="edited_indicator">
                         <property name="visible">0</property>
-                        <property name="icon_name">document-edit-symbolic</property>
+                        <property name="icon_name">tuba-paper-small-symbolic</property>
                         <property name="icon_size">1</property>
                         <property name="tooltip_text" translatable="yes">Edited</property>
                         <style>

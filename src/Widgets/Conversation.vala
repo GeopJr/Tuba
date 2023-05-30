@@ -9,10 +9,10 @@ public class Tuba.Widgets.Conversation : Widgets.Status {
 		init_menu_button ();
 		conversation.bind_property ("unread", this.visibility_indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			if (src.get_boolean()) {
-				target.set_string ("tuba-mark-important-symbolic");
+				target.set_string ("tuba-mail-small-symbolic");
 				this.visibility_indicator.remove_css_class("dim-label");
 			} else {
-				target.set_string ("tuba-mail-symbolic");
+				target.set_string ("tuba-mail-open-small-symbolic");
 				this.visibility_indicator.add_css_class("dim-label");
 			}
 			return true;
