@@ -469,7 +469,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		edit_history_simple_action.set_enabled (status.formal.is_edited);
 
 		var t_visibility = accounts.active.visibility[status.formal.visibility];
-		visibility_indicator.icon_name = t_visibility.icon_name;
+		visibility_indicator.icon_name = t_visibility.small_icon_name;
 		visibility_indicator.tooltip_text = t_visibility.name;
 
 		if (change_background_on_direct && status.formal.visibility == "direct") this.add_css_class ("direct");
@@ -504,7 +504,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		if (!status.can_be_boosted) {
 			reblog_button.sensitive = false;
 			reblog_button.tooltip_text = _("This post can't be boosted");
-			reblog_button.content.icon_name = visibility_indicator.icon_name;
+			reblog_button.content.icon_name = t_visibility.icon_name;
 		}
 		else {
 			reblog_button.sensitive = true;
@@ -670,10 +670,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 		edited_indicator.valign = Gtk.Align.CENTER;
 		visibility_indicator.valign = Gtk.Align.CENTER;
-
-		// Make the icons smaller
-		edited_indicator.pixel_size = 14;
-		visibility_indicator.pixel_size = 14;
 
 		// If the application used to make the post is available
 		if (status.formal.application != null) {

@@ -151,7 +151,7 @@
                     <child>
                       <object class="GtkImage" id="pin_indicator">
                         <property name="visible">0</property>
-                        <property name="icon_name">tuba-pin-symbolic</property>
+                        <property name="icon_name">tuba-pin-small-symbolic</property>
                         <property name="icon_size">1</property>
                         <property name="tooltip_text" translatable="yes">Pinned</property>
                         <style>
