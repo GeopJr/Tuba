@@ -20,6 +20,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-padlock2-open-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-small-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-open-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-loupe-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-more-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mark-important-symbolic.svg</file>
