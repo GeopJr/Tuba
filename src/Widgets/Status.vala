@@ -656,7 +656,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 		// The bottom bar
 		var bottom_info = new Gtk.FlowBox () {
-			max_children_per_line = 100,
+			max_children_per_line = 150,
 			margin_top = 6,
 			selection_mode = SelectionMode.NONE
 		};
