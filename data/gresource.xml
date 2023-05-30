@@ -36,7 +36,6 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-plus-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-paper-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-paper-small-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-pin-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-pin-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-left-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-right-large-symbolic.svg</file>
