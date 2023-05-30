@@ -12,10 +12,14 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-online-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-smile-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-globe-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-globe-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-warning-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-padlock2-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-padlock2-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-padlock2-open-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-padlock2-open-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-loupe-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-more-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mark-important-symbolic.svg</file>
@@ -31,7 +35,9 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-trash-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-plus-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-paper-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-paper-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-pin-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-pin-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-left-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-right-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-bell-symbolic.svg</file>
