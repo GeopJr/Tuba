@@ -411,7 +411,9 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	}
 
     public void add_video (string url, Gdk.Paintable? preview, int? pos) {
-        var video = new Gtk.Video ();
+        var video = new Gtk.Video () {
+            autoplay = true
+        };
         var item = new Item (video, url, preview, null, true);
         if (pos == null) {
             carousel.append (item);
@@ -456,7 +458,9 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
     }
 
     public void set_remote_video (string url, Gdk.Paintable? preview, string? user_friendly_url = null) {
-        var video = new Gtk.Video ();
+        var video = new Gtk.Video () {
+            autoplay = true
+        };
         var item = new Item (video, user_friendly_url, preview, null, true);
 
         File file = File.new_for_uri (url);
