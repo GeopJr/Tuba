@@ -46,6 +46,7 @@ public class Tuba.HtmlUtils {
 
 	public static string replace_with_pango_markup (string str) {
 		return str
+			.replace("\n", "")
 			.replace("<strong>", "<b>")
 			.replace("</strong>", "</b>")
 			.replace("<em>", "<i>")
