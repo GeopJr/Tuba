@@ -91,13 +91,11 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 
 	private Binding sidebar_handle_short;
 	private Binding sidebar_avatar;
-	private ulong sidebar_private_signal;
 	private Binding sidebar_display_name;
 	protected virtual void on_account_changed (InstanceAccount? account) {
 		if (this.account != null) {
 			sidebar_handle_short.unbind();
 			sidebar_avatar.unbind();
-			this.account.disconnect(sidebar_private_signal);
 			sidebar_display_name.unbind ();
 		}
 
@@ -108,17 +106,6 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 		accounts_button.active = false;
 
 		if (account != null) {
-			sidebar_private_signal = this.account.notify["locked"].connect(() => {
-				uint indx;
-				var found = this.account.known_places.find (Mastodon.Account.PLACE_FOLLOW_REQUESTS, out indx);
-
-				if (this.account.locked == false && found == true) {
-					this.account.known_places.remove(indx);
-				} else if (this.account.locked == true && found == false) {
-					this.account.known_places.append(Mastodon.Account.PLACE_FOLLOW_REQUESTS);
-				}
-			});
-
 			sidebar_handle_short = this.account.bind_property("handle_short", subtitle, "label", BindingFlags.SYNC_CREATE);
 			sidebar_avatar = this.account.bind_property("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
 			sidebar_display_name = this.account.bind_property("display-name", title, "content", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
