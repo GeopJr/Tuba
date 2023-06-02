@@ -29,28 +29,28 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		Widgets.Status? last_w = null;
 		string? last_id = null;
 
-		for (var w = content.get_row_at_index (0) as Widgets.Status;
-				w != null;
-				w = w.get_next_sibling () as Widgets.Status) {
-			w.is_conversation_open = true;
+		//  for (var w = content.get_row_at_index (0) as Widgets.Status;
+		//  		w != null;
+		//  		w = w.get_next_sibling () as Widgets.Status) {
+		//  	w.is_conversation_open = true;
 
-			var id = w.status.formal.in_reply_to_id;
+		//  	var id = w.status.formal.in_reply_to_id;
 
-			if (id == last_id) {
-				Widgets.Status.ThreadRole.connect_posts (last_w, w);
-			}
+		//  	if (id == last_id) {
+		//  		Widgets.Status.ThreadRole.connect_posts (last_w, w);
+		//  	}
 
-			last_w = w;
-			last_id = w.status.formal.id;
-		}
+		//  	last_w = w;
+		//  	last_id = w.status.formal.id;
+		//  }
 
-		for (var w = content.get_row_at_index (0) as Widgets.Status;
-				w != null;
-				w = w.get_next_sibling () as Widgets.Status) {
+		//  for (var w = content.get_row_at_index (0) as Widgets.Status;
+		//  		w != null;
+		//  		w = w.get_next_sibling () as Widgets.Status) {
 
-			w.install_thread_line ();
-			w.content.selectable = true;
-		}
+		//  	w.install_thread_line ();
+		//  	w.content.selectable = true;
+		//  }
 
 		root_widget.thread_line_top.hide ();
 		root_widget.thread_line_bottom.hide ();
@@ -92,8 +92,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				model.append (root_status);
 				uint root_index;
 				model.find (root_status, out root_index);
-				root_widget = content.get_row_at_index ((int)root_index) as Widgets.Status;
-				root_widget.expand_root ();
+				//  root_widget = content.get_row_at_index ((int)root_index) as Widgets.Status;
+				//  root_widget.expand_root ();
 
 				Object[] to_add_descendants = {};
 				var descendants = root.get_array_member ("descendants");

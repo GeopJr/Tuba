@@ -85,7 +85,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 
 	public void set_sidebar_selected_item(int index) {
 		if (items != null) {
-			items.select_row(items.get_row_at_index(index));
+			//  items.select_row(items.get_row_at_index(index));
 		}
 	}
 

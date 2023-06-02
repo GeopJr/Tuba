@@ -29,7 +29,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		settings.notify["show-spoilers"].connect (on_refresh);
 		settings.notify["hide-preview-cards"].connect (on_refresh);
 
-		content.bind_model (model, on_create_model_widget);
+		//  content.bind_model (model, on_create_model_widget);
 	}
 	~Timeline () {
 		message (@"Destroying Timeline $label");
@@ -38,7 +38,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		destruct_account_holder ();
 		destruct_streamable ();
 
-		content.bind_model (null, null);
+		//  content.bind_model (null, null);
 	}
 
 	public override void dispose () {

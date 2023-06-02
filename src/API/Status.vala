@@ -128,7 +128,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
 	}
 
     public override Gtk.Widget to_widget () {
-        return new Widgets.Status (this);
+        return new Widgets.Status ();
     }
 
 	public override void open () {

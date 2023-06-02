@@ -199,18 +199,18 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		stats_simple_action.set_enabled(has_stats);
 	}
 
-	public Status (API.Status status) {
-		Object (
-			kind_instigator: status.account,
-			status: status
-		);
+	//  public Status (API.Status status) {
+	//  	Object (
+	//  		kind_instigator: status.account,
+	//  		status: status
+	//  	);
 
-		if (kind == null && status.reblog != null) {
-			kind = InstanceAccount.KIND_REMOTE_REBLOG;
-		}
+	//  	if (kind == null && status.reblog != null) {
+	//  		kind = InstanceAccount.KIND_REMOTE_REBLOG;
+	//  	}
 
-		init_menu_button ();
-	}
+	//  	init_menu_button ();
+	//  }
 	~Status () {
 		message ("Destroying Status widget");
 		if (context_menu != null) {
