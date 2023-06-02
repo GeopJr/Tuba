@@ -181,7 +181,12 @@ public class Tuba.EditorPage : ComposerPage {
 		};
 		
 		overlay.add_overlay(placeholder);
-		overlay.child = editor;
+		overlay.child = new ScrolledWindow () {
+			hexpand = true,
+			vexpand = true,
+			child = editor
+		};
+
 		content.prepend(overlay);
 	}
 
