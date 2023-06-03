@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 23:29+0300\n"
-"PO-Revision-Date: 2023-05-29 21:50+0000\n"
-"Last-Translator: Karol Lademan <karol@lademan.dev>\n"
+"PO-Revision-Date: 2023-06-04 20:48+0000\n"
+"Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -26,15 +26,15 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Przeglądaj Fediwersum"
+msgstr "Przeglądaj fediwersum"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr "Klient Fediwersum"
+msgstr "Klient fediwersum"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr "toot;wpis;mastodon;fediverse;fediświat;gotosocial;pleroma;akkoma;"
+msgstr "toot;wpis;mastodon;fediverse;fediwersum;gotosocial;pleroma;akkoma;"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:9
 msgid ""
@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "Odkryj sfederowaną sieć społeczną z Tubą dla GNOME. Bądź w kontakcie ze "
 "swoimi ulubionymi społecznościami, rodziną i przyjaciółmi dzięki wsparciu "
-"dla popularnych platform Fediwersum, takich jak Mastodon, GoToSocial, Akkoma "
+"dla popularnych platform fediwersum, takich jak Mastodon, GoToSocial, Akkoma "
 "i innych!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
@@ -104,7 +104,7 @@ msgstr "Wiadomość bezpośrednia"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
-msgstr "Kopiuj adres w fediświecie"
+msgstr "Kopiuj adres w fediwersum"
 
 #: data/ui/menus.ui:29
 msgid "Moderation"
