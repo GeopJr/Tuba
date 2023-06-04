@@ -28,6 +28,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		stream_event[InstanceAccount.EVENT_DELETE_POST].connect (on_delete_post);
 		settings.notify["show-spoilers"].connect (on_refresh);
 		settings.notify["hide-preview-cards"].connect (on_refresh);
+		settings.notify["only-op-home"].connect (on_refresh);
 
 		content.bind_model (model, on_create_model_widget);
 	}
@@ -48,6 +49,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	public virtual bool is_status_owned (API.Status status) {
 		return status.is_owned ();
+	}
+
+	public virtual bool filter (Entity entity) {
+		return true;
 	}
 
 	public override void clear () {
@@ -109,13 +114,21 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				Object[] to_add = {};
 				Network.parse_array (msg, parser, node => {
 					var e = entity_cache.lookup_or_insert (node, accepts);
-					to_add += e;
+
+					if (filter (e))
+						to_add += e;
 				});
-				model.splice (model.get_n_items (), 0, to_add);
 
 				get_pages (msg.response_headers.get_one ("Link"));
-				on_content_changed ();
-				on_request_finish ();
+
+				if (to_add.length == 0) {
+					request ();
+				} else {
+					model.splice (model.get_n_items (), 0, to_add);
+					on_content_changed ();
+					on_request_finish ();
+				}
+
 			})
 			.on_error (on_error)
 			.exec ();
@@ -169,6 +182,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public virtual void on_new_post (Streamable.Event ev) {
 		try {
 			var entity = Entity.from_json (accepts, ev.get_node ());
+
+			if (!filter (entity)) return;
 
 			if (use_queue && scrolled.vadjustment.value > 1000) {
 				entity_queue += entity;

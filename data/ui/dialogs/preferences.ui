@@ -177,6 +177,17 @@
                 </child>
               </object>
             </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Hide boosts and replies from Home</property>
+                <property name="activatable_widget">only_op_home</property>
+                <child>
+                  <object class="GtkSwitch" id="only_op_home">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
       </object>
