@@ -41,17 +41,26 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	bool passed_once = false;
     private void on_drag_update (double x, double y) {
-		if (scrolled.vadjustment.value != 0.0 || y < -32 || (y >= 150 && pull_to_refresh_spinner.margin_top >= 150) || (y <= 0 && !passed_once)) return;
+		if (scrolled.vadjustment.value != 0.0 || (y <= 0 && !passed_once)) return;
 		is_pulling = true;
 
-		if (y > 32) {
-			pull_to_refresh_spinner.margin_top = (int) y;
+		double clean_y = y;
+		if (y > 150) {
+			clean_y = 150;
+		} else if (y < -32) {
+			clean_y = -32;
+		}
+
+		if (clean_y > 32) {
+			pull_to_refresh_spinner.margin_top = (int) clean_y;
 			pull_to_refresh_spinner.height_request = 32;
-		} else if (y > 0) {
-			pull_to_refresh_spinner.height_request = (int) y;
+		} else if (clean_y > 0) {
+			pull_to_refresh_spinner.height_request = (int) clean_y;
 		} else {
+			pull_to_refresh_spinner.margin_top = 32;
 			pull_to_refresh_spinner.height_request = 0;
 		}
+
 		passed_once = true;
     }
 
