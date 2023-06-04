@@ -9,6 +9,10 @@ public class Tuba.Views.Federated : Views.Timeline {
 		);
 	}
 
+	public override bool filter (Entity entity) {
+		return ((API.Status) entity).formal.favourites_count >= 10;
+	}
+
 	public override string? get_stream_url () {
 		return account != null ? @"$(account.instance)/api/v1/streaming/?stream=public&access_token=$(account.access_token)" : null;
 	}
