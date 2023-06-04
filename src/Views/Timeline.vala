@@ -15,8 +15,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public string? page_prev { get; set; }
 	Entity[] entity_queue = {};
 
-	private bool about_to_refresh = false;
-	private bool is_scrolling_top = false;
 	private Gtk.Spinner pull_to_refresh_spinner;
 	private bool _is_pulling = false;
 	private bool is_pulling {
@@ -27,62 +25,43 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			if (_is_pulling != value) {
 				if (value) {
 					pull_to_refresh_spinner.spinning = true;
-					column_view.prepend (pull_to_refresh_spinner);
-					scrolled.vadjustment.value = 64;
+					this.insert_child_after (pull_to_refresh_spinner, header);
+					scrolled.sensitive = false;
 				} else {
 					pull_to_refresh_spinner.spinning = false;
-					column_view.remove (pull_to_refresh_spinner);
-					scrolled.vadjustment.value = scrolled.vadjustment.value - 96;
+					this.remove (pull_to_refresh_spinner);
+					scrolled.sensitive = true;
+					pull_to_refresh_spinner.margin_top = 32;
+					pull_to_refresh_spinner.height_request = 32;
 				}
 				_is_pulling = value;
 			}			
 		}
 	}
 
-	private void on_drag_begin (double x, double y) {
-		on_scroll_begin ();
-    }
-
+	bool passed_once = false;
     private void on_drag_update (double x, double y) {
-		if (scrolled.vadjustment.value != 0.0 || (y > 0.0 && pull_to_refresh_spinner.margin_top >= 150)) return;
+		if (scrolled.vadjustment.value != 0.0 || y < -32 || (y >= 150 && pull_to_refresh_spinner.margin_top >= 150) || (y <= 0 && !passed_once)) return;
+		is_pulling = true;
 
-		var new_margin = pull_to_refresh_spinner.margin_top + (int) (y + 0.5);
-		if (new_margin >= 0.0)
-			pull_to_refresh_spinner.margin_top = new_margin;
+		if (y > 32) {
+			pull_to_refresh_spinner.margin_top = (int) y;
+			pull_to_refresh_spinner.height_request = 32;
+		} else if (y > 0) {
+			pull_to_refresh_spinner.height_request = (int) y;
+		} else {
+			pull_to_refresh_spinner.height_request = 0;
+		}
+		passed_once = true;
     }
 
 	private void on_drag_end (double x, double y) {
-		on_scroll_end ();
-    }
-
-	private void on_scroll_begin () {
-		if (scrolled.vadjustment.value != 0.0) return;
-		pull_to_refresh_spinner.spinning = true;
-        this.insert_child_after (pull_to_refresh_spinner, header);
-	}
-
-	private bool on_scroll_update (double x, double y) {
-		if (scrolled.vadjustment.value != 0.0) return false;
-		if (y < 0.0 && pull_to_refresh_spinner.margin_top >= 150) return true;
-
-		var new_margin = pull_to_refresh_spinner.margin_top + ((int) (y + 0.5) * -1);
-		if (new_margin >= 0.0) {
-			pull_to_refresh_spinner.margin_top = new_margin;
-			return true;
-		}
-
-		return false;
-    }
-
-	private void on_scroll_end () {
-		if (scrolled.vadjustment.value != 0.0) return;
-        if (pull_to_refresh_spinner.margin_top >= 150) {
+        if (scrolled.vadjustment.value == 0.0 && pull_to_refresh_spinner.margin_top >= 125) {
             on_refresh ();
         }
 
-		this.remove (pull_to_refresh_spinner);
-		pull_to_refresh_spinner.margin_top = 32;
-		pull_to_refresh_spinner.spinning = false;
+		is_pulling = false;
+		passed_once = false;
     }
 
 	construct {
@@ -108,61 +87,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		content.bind_model (model, on_create_model_widget);
 
 		var drag = new Gtk.GestureDrag ();
-        drag.drag_begin.connect(on_drag_begin);
         drag.drag_update.connect(on_drag_update);
         drag.drag_end.connect(on_drag_end);
         this.add_controller (drag);
-
-		//  var scroll_event = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.VERTICAL);
-        //  scroll_event.scroll_begin.connect(on_scroll_begin);
-        //  scroll_event.scroll.connect(on_scroll_update);
-        //  scroll_event.scroll_end.connect(on_scroll_end);
-        //  this.add_controller (scroll_event);
-
-		//  scrolled.vadjustment.value_changed.connect(() => {
-		//  	if (is_pulling && scrolled.vadjustment.value > 250) {
-		//  		is_pulling = false;
-		//  	}
-		//  });
-
-		//  scrolled.edge_reached.connect ((pos) => {
-		//  	if (pos != Gtk.PositionType.TOP || about_to_refresh || is_scrolling_top) return;
-		//  	if (!is_pulling) {
-		//  		is_pulling = true;
-		//  		return;
-		//  	}
-
-		//  	about_to_refresh = true;
-		//  	uint timeout = 0;
-		//  	timeout = Timeout.add (1000, () => {
-		//  		on_refresh ();
-		//  		is_pulling = false;
-		//  		about_to_refresh = false;
-		//  		GLib.Source.remove(timeout);
-
-		//  		return true;
-		//  	}, Priority.LOW);
-		//  });
-
-		//  scrolled.edge_overshot.connect ((pos) => {
-		//  	if (pos != Gtk.PositionType.TOP || is_pulling || about_to_refresh) return;
-
-		//  	is_pulling = true;
-		//  });
-
-		//  scrolled.scroll_child.connect_after ((scroll_type, _h) => {
-		//  	if (scroll_type != Gtk.ScrollType.START) return true;
-
-		//  	is_scrolling_top = true;
-
-		//  	uint timeout = 0;
-		//  	timeout = Timeout.add (1000, () => {
-		//  		is_scrolling_top = false;
-		//  		GLib.Source.remove(timeout);
-
-		//  		return true;
-		//  	}, Priority.LOW);
-		//  });
 	}
 	~Timeline () {
 		message (@"Destroying Timeline $label");
