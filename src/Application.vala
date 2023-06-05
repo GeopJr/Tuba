@@ -298,6 +298,9 @@ namespace Tuba {
 
 			if (win != null)
 				dlg.transient_for = win;
+
+			dlg.add_response("ok", _("OK"));
+
 			return dlg;
 		}
 
