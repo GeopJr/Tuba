@@ -39,9 +39,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		}
 	}
 
-	bool passed_once = false;
     private void on_drag_update (double x, double y) {
-		if (scrolled.vadjustment.value != 0.0 || (y <= 0 && !passed_once)) return;
+		if (scrolled.vadjustment.value != 0.0 || (y <= 0 && !is_pulling)) return;
 		is_pulling = true;
 
 		double clean_y = y;
@@ -60,8 +59,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			pull_to_refresh_spinner.margin_top = 32;
 			pull_to_refresh_spinner.height_request = 0;
 		}
-
-		passed_once = true;
     }
 
 	private void on_drag_end (double x, double y) {
@@ -70,7 +67,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
         }
 
 		is_pulling = false;
-		passed_once = false;
     }
 
 	construct {
