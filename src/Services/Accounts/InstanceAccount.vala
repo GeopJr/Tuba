@@ -187,9 +187,6 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public int unread_count { get; set; default = 0; }
 	public int last_read_id { get; set; default = 0; }
 	public int last_received_id { get; set; default = 0; }
-	//  public HashMap<int,GLib.Notification> unread_toasts { get; set; default = new HashMap<int,GLib.Notification> (); }
-	//  public ArrayList<string> sent_notification_ids { get; set; default = new ArrayList<string> (); }
-	//  public ArrayList<Object> notification_inhibitors { get; set; default = new ArrayList<Object> (); }
 	private bool passed_init_notifications = false;
 
 	public void gather_instance_info () {
@@ -327,12 +324,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			if (id > last_received_id) {
 				last_received_id = id;
 
-				//  if (notification_inhibitors.is_empty) {
-					unread_count++;
-					send_toast (entity);
-				//  } else {
-				//  	read_notifications (last_received_id);
-				//  }
+				unread_count++;
+				send_toast (entity);
 			}
 		} catch (Error e) {
 			warning (@"on_notification_event: $(e.message)");

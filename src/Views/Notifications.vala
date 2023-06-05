@@ -20,7 +20,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	}
 
 	~Notifications () {
-		warning ("DESTROYING");
+		warning ("Destroying Notifications");
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].disconnect (on_new_post);
 		badge_number_binding.unbind ();
 	}
@@ -30,6 +30,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 
 		if (badge_number_binding != null)
 			badge_number_binding.unbind ();
+
 		badge_number_binding = accounts.active.bind_property ("unread-count", this, "badge-number", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			var unread_count = src.get_int ();
 			target.set_int (unread_count);
@@ -37,25 +38,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 
 			return true;
 		});
-
-		//  if (last_account != null) {
-		//  	last_account.notification_inhibitors.remove (this);
-		//  	acc.stream_event[InstanceAccount.EVENT_NOTIFICATION].disconnect (on_new_post);
-		//  	//  acc.stream_event[InstanceAccount.EVENT_NOTIFICATION].disconnect (on_new_post_badge);
-		//  }
-
-		//  last_account = acc;
-		//  acc.stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
-		//  acc.stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post_badge);
-		//  acc.bind_property ("unread_count", this, "badge_number", BindingFlags.SYNC_CREATE);
-		//  acc.bind_property ("has_unread", this, "needs_attention", BindingFlags.SYNC_CREATE);
-		//  acc.check_notifications ();
-		//  acc.init_notifications();
 	}
-
-	//  public virtual void on_new_post_badge (Streamable.Event ev) {
-	//  	needs_attention = true;
-	//  }
 
 	public override void on_shown () {
 		base.on_shown ();
