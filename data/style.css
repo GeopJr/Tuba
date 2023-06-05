@@ -288,6 +288,10 @@ flowboxchild {
 	border-radius: 6px;
 }
 
+.about .app-version{color:#fff;text-shadow:-1px -1px 0#000,1px -1px 0#000,-1px 1px 0#000,1px 1px 0#000;background:linear-gradient(150deg,#fdd81755 0,#66338b55 8.3%,#fff5 16.6%,#f4aec855 24.9%,#7bcce555 33.2%,#94551655 41.5%,#0005 49.8%,#e2201655 58.1%,#f2891755 66.4%,#efe52455 74.7%,#78b82a55 83%,#2c58a4 91.3%,#6d238055 100%);}
+
+.about .app-version:hover {background:radial-gradient(circle at 9.75% 50%,#0000 6.66%,#7902aa 6.7%,#0000 8.4%),conic-gradient(at 26.66% 50%,#0000 222.75deg,#ffd800 0 317.25deg,#0000 0),conic-gradient(at 33% 50%,#0000 222.75deg,white 0 317.25deg,#0000 0),conic-gradient(at 39% 50%,#0000 222.75deg,#ffa6b9 0 317.25deg,#0000 0),conic-gradient(at 45.66% 50%,#0000 222.75deg,#00d2ff 0 317.25deg,#0000 0),conic-gradient(at 52% 50%,#0000 222.75deg,#753000 0 317.25deg,#0000 0),conic-gradient(at 58.33% 50%,#0000 222.75deg,#000 0 317.25deg,#0000 0),linear-gradient(to bottom,#e40303,#e40303 16.67%,#ff8c00 16.67%,#ff8c00 33.33%,#ffed00 33.33%,#ffed00 50%,#008026 50%,#008026 66.67%,#004dff 66.67%,#004dff 83.33%,#750787 83.33%,#750787);}
+
 /* Composer auto completion */
 GtkSourceAssistant.completion list row{
 	padding: 6px 12px 6px 12px;
