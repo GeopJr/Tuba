@@ -121,14 +121,15 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 				get_pages (msg.response_headers.get_one ("Link"));
 
-				if (to_add.length == 0) {
+				if (to_add.length == 0 && !is_last_page) {
 					request ();
 				} else {
 					model.splice (model.get_n_items (), 0, to_add);
 					on_content_changed ();
 					on_request_finish ();
-				}
 
+					if (model.get_n_items() < settings.timeline_page_size && !is_last_page) request ();
+				}
 			})
 			.on_error (on_error)
 			.exec ();
