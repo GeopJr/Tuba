@@ -34,6 +34,7 @@ public class Tuba.Request : GLib.Object {
 	HashMap<string, string>? pars;
 	Soup.Multipart? form_data;
 	public GLib.Cancellable cancellable;
+	public bool insecure { get; set; default=false; }
 
 	weak Gtk.Widget? ctx;
 	bool has_ctx = false;
@@ -108,6 +109,11 @@ public class Tuba.Request : GLib.Object {
 		return this;
 	}
 
+	public Request is_insecure () {
+		this.insecure = true;
+		return this;
+	}
+
 	public Request with_param (string name, string val) {
 		if (pars == null)
 			pars = new HashMap<string, string> ();
@@ -165,8 +171,8 @@ public class Tuba.Request : GLib.Object {
 			msg.uri = t_uri;
 		}
 
-		if (account != null && account.access_token != null) {
-			msg.request_headers.remove ("Authorization");
+		msg.request_headers.remove ("Authorization");
+		if (account != null && account.access_token != null && !insecure) {
 			msg.request_headers.append ("Authorization", @"Bearer $(account.access_token)");
 		}
 

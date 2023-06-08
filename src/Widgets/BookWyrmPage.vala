@@ -67,6 +67,7 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
 
             foreach (var author in t_obj.authors) {
                 new Request.GET (@"$author.json")
+                    .is_insecure ()
                     .then ((sess, msg, in_stream) => {
                         var parser = Network.get_parser_from_inputstream(in_stream);
                         var node = network.parse_node (parser);
