@@ -9,6 +9,8 @@ public class Tuba.Host {
 		if (!(":" in uri))
 			uri = "file://" + _uri;
 
+		if (settings.strip_tracking)
+			uri = Tracking.strip_utm (uri);
 		message (@"Opening URI: $uri");
 		try {
 			var success = AppInfo.launch_default_for_uri (uri, null);

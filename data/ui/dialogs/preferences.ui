@@ -111,6 +111,17 @@
                 </child>
               </object>
             </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Strip tracking parameters from links</property>
+                <property name="activatable_widget">strip_tracking</property>
+                <child>
+                  <object class="GtkSwitch" id="strip_tracking">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
         <child>
