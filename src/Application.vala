@@ -56,7 +56,9 @@ namespace Tuba {
 			{ "refresh", refresh_activated },
 			{ "search", search_activated },
 			{ "quit", quit_activated },
-			{ "back-home", back_home_activated }
+			{ "back-home", back_home_activated },
+			{ "scroll-page-down", scroll_view_page_down },
+			{ "scroll-page-up", scroll_view_page_up }
 		};
 
 		construct {
@@ -72,6 +74,8 @@ namespace Tuba {
 		public string[] ACCEL_QUIT = {"<Ctrl>Q"};
 		public string[] ACCEL_CLOSE = {"<Ctrl>W"};
 		public string[] ACCEL_BACK_HOME = {"<Alt>Home"};
+		public string[] ACCEL_SCROLL_PAGE_DOWN = {"Page_Down"};
+		public string[] ACCEL_SCROLL_PAGE_UP = {"Page_Up"};
 
 		public static int main (string[] args) {
 			try {
@@ -150,6 +154,8 @@ namespace Tuba {
 			set_accels_for_action ("app.quit", ACCEL_QUIT);
 			set_accels_for_action ("window.close", ACCEL_CLOSE);
 			set_accels_for_action ("app.back-home", ACCEL_BACK_HOME);
+			set_accels_for_action ("app.scroll-page-down", ACCEL_SCROLL_PAGE_DOWN);
+			set_accels_for_action ("app.scroll-page-up", ACCEL_SCROLL_PAGE_UP);
 			add_action_entries (app_entries, this);
 		}
 
@@ -233,6 +239,14 @@ namespace Tuba {
 
 		void back_home_activated () {
 			main_window.go_back_to_start ();
+		}
+
+		void scroll_view_page_down () {
+			main_window.scroll_view_page ();
+		}
+
+		void scroll_view_page_up () {
+			main_window.scroll_view_page (true);
 		}
 
 		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s".printf(

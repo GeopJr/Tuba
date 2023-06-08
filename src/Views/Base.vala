@@ -92,6 +92,10 @@ public class Tuba.Views.Base : Box {
 		scrolled.scroll_child (Gtk.ScrollType.START, false);
 	}
 
+	public virtual void scroll_page (bool up = false) {
+		scrolled.scroll_child (up ? Gtk.ScrollType.PAGE_BACKWARD : Gtk.ScrollType.PAGE_FORWARD, false);
+	}
+
 	public override void dispose () {
 		actions.dispose ();
 		base.dispose ();
