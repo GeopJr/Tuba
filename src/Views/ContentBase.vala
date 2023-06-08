@@ -30,7 +30,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 				bottom_reached_locked = true;
 				on_bottom_reached ();
 			}
-			
+
 			var is_close_to_top = scrolled.vadjustment.value <= 1000;
 			scroll_to_top.visible = !is_close_to_top && scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper;
 

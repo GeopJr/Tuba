@@ -89,7 +89,7 @@ public class Tuba.Views.Base : Box {
 	}
 
 	private void on_scroll_to_top () {
-		scrolled.vadjustment.value = 0.0;
+		scrolled.scroll_child (Gtk.ScrollType.START, false);
 	}
 
 	public override void dispose () {

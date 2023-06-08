@@ -15,7 +15,67 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public string? page_prev { get; set; }
 	Entity[] entity_queue = {};
 
+	private Gtk.Spinner pull_to_refresh_spinner;
+	private bool _is_pulling = false;
+	private bool is_pulling {
+		get {
+			return _is_pulling;
+		}
+		set {
+			if (_is_pulling != value) {
+				if (value) {
+					pull_to_refresh_spinner.spinning = true;
+					this.insert_child_after (pull_to_refresh_spinner, header);
+					scrolled.sensitive = false;
+				} else {
+					pull_to_refresh_spinner.spinning = false;
+					this.remove (pull_to_refresh_spinner);
+					scrolled.sensitive = true;
+					pull_to_refresh_spinner.margin_top = 32;
+					pull_to_refresh_spinner.height_request = 32;
+				}
+				_is_pulling = value;
+			}			
+		}
+	}
+
+    private void on_drag_update (double x, double y) {
+		if (scrolled.vadjustment.value != 0.0 || (y <= 0 && !is_pulling)) return;
+		is_pulling = true;
+
+		double clean_y = y;
+		if (y > 150) {
+			clean_y = 150;
+		} else if (y < -32) {
+			clean_y = -32;
+		}
+
+		if (clean_y > 32) {
+			pull_to_refresh_spinner.margin_top = (int) clean_y;
+			pull_to_refresh_spinner.height_request = 32;
+		} else if (clean_y > 0) {
+			pull_to_refresh_spinner.height_request = (int) clean_y;
+		} else {
+			pull_to_refresh_spinner.margin_top = 32;
+			pull_to_refresh_spinner.height_request = 0;
+		}
+    }
+
+	private void on_drag_end (double x, double y) {
+        if (scrolled.vadjustment.value == 0.0 && pull_to_refresh_spinner.margin_top >= 125) {
+            on_refresh ();
+        }
+
+		is_pulling = false;
+    }
+
 	construct {
+		pull_to_refresh_spinner = new Gtk.Spinner () {
+			height_request = 32,
+			margin_top = 32,
+			margin_bottom = 32
+		};
+
 		reached_close_to_top.connect (finish_queue);
 		app.refresh.connect (on_refresh);
 		status_button.clicked.connect (on_refresh);
@@ -30,6 +90,11 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		settings.notify["hide-preview-cards"].connect (on_refresh);
 
 		content.bind_model (model, on_create_model_widget);
+
+		var drag = new Gtk.GestureDrag ();
+        drag.drag_update.connect(on_drag_update);
+        drag.drag_end.connect(on_drag_end);
+        this.add_controller (drag);
 	}
 	~Timeline () {
 		message (@"Destroying Timeline $label");
