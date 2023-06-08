@@ -64,7 +64,7 @@ namespace Tuba {
 		}
 
 		public string[] ACCEL_ABOUT = {"F1"};
-		public string[] ACCEL_NEW_POST = {"<Ctrl>T"};
+		public string[] ACCEL_NEW_POST = {"<Ctrl>T", "<Ctrl>N"};
 		public string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left", "Escape", "<Alt>KP_Left", "Pointer_DfltBtnPrev"};
 		public string[] ACCEL_REFRESH = {"<Ctrl>R", "F5"};
 		public string[] ACCEL_SEARCH = {"<Ctrl>F"};
