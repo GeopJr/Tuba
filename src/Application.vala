@@ -56,6 +56,7 @@ namespace Tuba {
 			{ "refresh", refresh_activated },
 			{ "search", search_activated },
 			{ "quit", quit_activated },
+			{ "back-home", back_home_activated }
 		};
 
 		construct {
@@ -70,6 +71,7 @@ namespace Tuba {
 		public string[] ACCEL_SEARCH = {"<Ctrl>F"};
 		public string[] ACCEL_QUIT = {"<Ctrl>Q"};
 		public string[] ACCEL_CLOSE = {"<Ctrl>W"};
+		public string[] ACCEL_BACK_HOME = {"<Alt>Home"};
 
 		public static int main (string[] args) {
 			try {
@@ -147,6 +149,7 @@ namespace Tuba {
 			set_accels_for_action ("app.search", ACCEL_SEARCH);
 			set_accels_for_action ("app.quit", ACCEL_QUIT);
 			set_accels_for_action ("window.close", ACCEL_CLOSE);
+			set_accels_for_action ("app.back-home", ACCEL_BACK_HOME);
 			add_action_entries (app_entries, this);
 		}
 
@@ -226,6 +229,10 @@ namespace Tuba {
 
 		void refresh_activated () {
 			refresh ();
+		}
+
+		void back_home_activated () {
+			main_window.go_back_to_start ();
 		}
 
 		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s".printf(
