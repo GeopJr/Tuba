@@ -28,6 +28,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 		this.insert_action_group ("composer", action_group);
 		add_binding_action (Gdk.Key.Escape, 0, "composer.exit", null);
+		add_binding_action (Gdk.Key.W, Gdk.ModifierType.CONTROL_MASK, "composer.exit", null);
+		add_binding_action (Gdk.Key.Q, Gdk.ModifierType.CONTROL_MASK, "composer.exit", null);
 
 		transient_for = app.main_window;
 		title_switcher.stack = stack;
