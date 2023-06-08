@@ -55,7 +55,7 @@ namespace Tuba {
 			{ "back", back_activated },
 			{ "refresh", refresh_activated },
 			{ "search", search_activated },
-			{ "quit", quit_activated }
+			{ "quit", quit_activated },
 		};
 
 		construct {
@@ -69,6 +69,7 @@ namespace Tuba {
 		public string[] ACCEL_REFRESH = {"<Ctrl>R", "F5"};
 		public string[] ACCEL_SEARCH = {"<Ctrl>F"};
 		public string[] ACCEL_QUIT = {"<Ctrl>Q"};
+		public string[] ACCEL_CLOSE = {"<Ctrl>W"};
 
 		public static int main (string[] args) {
 			try {
@@ -145,6 +146,7 @@ namespace Tuba {
 			set_accels_for_action ("app.refresh", ACCEL_REFRESH);
 			set_accels_for_action ("app.search", ACCEL_SEARCH);
 			set_accels_for_action ("app.quit", ACCEL_QUIT);
+			set_accels_for_action ("window.close", ACCEL_CLOSE);
 			add_action_entries (app_entries, this);
 		}
 
