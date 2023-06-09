@@ -89,6 +89,8 @@ public class Tuba.Tracking {
 
     public static string strip_utm_fallback (string url) {
         var split_url = url.split_set ("?", 2);
+        if (split_url[1].index_of_char ('&') == -1) return url;
+
         var search_terms = split_url[1].split_set ("&");
         var str = @"$(split_url[0])?";
 
