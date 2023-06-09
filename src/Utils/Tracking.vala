@@ -52,8 +52,10 @@ public class Tuba.Tracking {
 
         var split_url = url.split_set ("?", 2);
         var search_terms = split_url[1].split_set ("&");
-
         var str = @"$(split_url[0])?";
+
+        var fragment_offset = split_url[1].last_index_of_char ('#');
+        var fragment = fragment_offset > -1 ? split_url[1].substring(fragment_offset) : "";
 
         foreach (var param in search_terms) {
             var not_tracking_id = true;
@@ -70,6 +72,6 @@ public class Tuba.Tracking {
             }
         }
 
-        return str.slice(0, -1);
+        return @"$(str.slice(0, -1))$fragment";
     }
 }
