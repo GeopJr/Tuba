@@ -38,8 +38,6 @@ public class Tuba.Tracking {
         "oft_id", "oft_k", "oft_lk", "oft_d", "oft_c", "oft_ck", "oft_ids", "oft_sk",
         // https://github.com/brave/brave-browser/issues/11580
         "igshid",
-        // iOS non-sense
-        "gbraid", "wbraid",
     };
 
     /*
