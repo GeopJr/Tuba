@@ -91,13 +91,13 @@ public class Tuba.Tracking {
         var split_url = url.split_set ("?", 2);
         if (split_url[1].index_of_char ('&') == -1) return url;
 
-        var search_terms = split_url[1].split_set ("&");
+        var query_params = split_url[1].split_set ("&");
         var str = @"$(split_url[0])?";
 
         var fragment_offset = split_url[1].last_index_of_char ('#');
         var fragment = fragment_offset > -1 ? split_url[1].substring(fragment_offset) : "";
 
-        foreach (var param in search_terms) {
+        foreach (var param in query_params) {
             var not_tracking_id = true;
 
             foreach (var id in tracking_ids) {
