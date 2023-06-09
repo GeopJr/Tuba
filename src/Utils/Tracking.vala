@@ -61,7 +61,8 @@ public class Tuba.Tracking {
             var not_tracking_id = true;
 
             foreach (var id in tracking_ids) {
-                if (id in param) {
+                var index_of_eq = param.index_of_char ('=');
+                if (index_of_eq > -1 && id in param.slice (0, index_of_eq).down ()) {
                     not_tracking_id = false;
                     break;
                 }
