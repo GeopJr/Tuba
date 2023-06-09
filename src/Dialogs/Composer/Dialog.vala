@@ -51,12 +51,13 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	protected virtual signal void build () {
 		var p_edit = new EditorPage ();
 		var p_attach = new AttachmentsPage ();
+		var p_poll = new PollPage ();
 
 		p_edit.ctrl_return_pressed.connect (() => {
 			if (commit_button.sensitive) on_commit ();
 		});
 
-		setup_pages ({p_edit, p_attach});
+		setup_pages ({p_edit, p_attach, p_poll});
 
 		if (editing) p_edit.edit_mode = true;
 		p_edit.editor_grab_focus ();
