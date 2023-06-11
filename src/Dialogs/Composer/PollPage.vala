@@ -2,6 +2,7 @@ public class Tuba.PollPage : ComposerPage {
 	public class Poll : Adw.EntryRow {
 		public bool is_valid { get; private set; default=false; }
 		public Gtk.Button delete_button { get; private set; }
+		public signal void deleted (Poll row);
 
 		construct {
 			delete_button = new Gtk.Button () {
@@ -10,24 +11,32 @@ public class Tuba.PollPage : ComposerPage {
 				halign = Gtk.Align.CENTER,
 				css_classes = { "flat", "circular", "error" }
 			};
+			delete_button.clicked.connect (on_delete_button_clicked);
 
 			add_suffix (delete_button);
-			changed.connect (() => {
-				var text_count = text.char_count ();
-				var passed_limit = text_count > accounts.active.instance_info.compat_status_poll_max_characters;
-	
-				if (passed_limit || text_count == 0) {
-					add_css_class ("error");
-				} else {
-					remove_css_class ("error");
-				}
-
-				is_valid = !passed_limit && text_count > 0;
-			});
+			changed.connect (check_valid);
+			check_valid ();
 		}
 
 		~Poll () {
 			is_valid = false;
+		}
+
+		private void on_delete_button_clicked () {
+			deleted (this);
+		}
+
+		private void check_valid () {
+			var text_count = text.char_count ();
+			var passed_limit = text_count > accounts.active.instance_info.compat_status_poll_max_characters;
+	
+			if (passed_limit || text_count == 0) {
+				add_css_class ("error");
+			} else {
+				remove_css_class ("error");
+			}
+
+			is_valid = !passed_limit && text_count > 0;
 		}
 	}
 
@@ -76,6 +85,11 @@ public class Tuba.PollPage : ComposerPage {
 		add_poll_action_button.sensitive = poll_options_amount < accounts.active.instance_info.compat_status_poll_max_options;
 	}
 
+	// Using lambdas causes memory leaks
+	private void add_poll_row_without_title () {
+		add_poll_row ();
+	}
+
 	public override void on_build (Dialogs.Compose dialog, API.Status status) {
 		base.on_build (dialog, status);
 
@@ -99,7 +113,7 @@ public class Tuba.PollPage : ComposerPage {
 			tooltip_text = _("Add Poll"),
 			css_classes = {"flat"}
 		};
-		add_poll_action_button.clicked.connect(() => add_poll_row ());
+		add_poll_action_button.clicked.connect(add_poll_row_without_title);
 
 		var multi_button = new Gtk.ToggleButton() {
 			icon_name = "tuba-circle-outline-thick-symbolic",
@@ -163,7 +177,7 @@ public class Tuba.PollPage : ComposerPage {
 		poll_list.append (row);
 
 		bind_property ("can-delete", row.delete_button, "visible", GLib.BindingFlags.SYNC_CREATE);
-		row.delete_button.clicked.connect(() => remove_poll_row (row));
+		row.deleted.connect(remove_poll_row);
 		row.bind_property ("is-valid", this, "is-valid", GLib.BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_boolean (!check_invalid ());
 

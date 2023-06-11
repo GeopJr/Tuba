@@ -41,6 +41,10 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	}
 	~Compose () {
 		message ("Destroying composer");
+		foreach (var page in t_pages) {
+			page.dispose ();
+		}
+		t_pages = {};
 	}
 
 	void on_exit () {

@@ -14,6 +14,10 @@ public class Tuba.ComposerPage : Gtk.Box {
 	protected Box content;
 	protected ActionBar bottom_bar;
 
+	~ComposerPage () {
+		message (@"Destroying $title Page");
+	}
+
 	construct {
 		orientation = Orientation.VERTICAL;
 

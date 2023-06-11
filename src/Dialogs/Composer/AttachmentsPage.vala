@@ -60,6 +60,12 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	protected ListBox list;
 	protected Gtk.Button add_media_action_button;
 
+	public override void dispose () {
+		if (list != null)
+			list.bind_model (null, null);
+		base.dispose ();
+	}
+
 	public override void on_build (Dialogs.Compose dialog, API.Status status) {
 		base.on_build (dialog, status);
 
