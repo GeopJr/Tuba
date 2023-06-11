@@ -5,7 +5,7 @@ public class Tuba.ComposerPage : Gtk.Box {
 	public string title { get; set; }
 	public string icon_name { get; set; }
 	public uint badge_number { get; set; default = 0; }
-	public bool can_publish { get; set; default = false; }
+	public virtual bool can_publish { get; set; default = false; }
 
 	protected weak Dialogs.Compose dialog;
 	protected weak API.Status status;
