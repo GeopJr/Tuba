@@ -156,6 +156,13 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		}
 	}
 
+	public void scroll_view_page (bool up = false) {
+		var c_view = leaflet.visible_child as Views.Base;
+		if (c_view != null) {
+			c_view.scroll_page (up);
+		}
+	}
+
 	// public override bool delete_event (Gdk.EventAny event) {
 	// 	window = null;
 	// 	return app.on_window_closed ();

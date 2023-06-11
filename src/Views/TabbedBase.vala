@@ -123,6 +123,12 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		// }
 	}
 
+	public override void scroll_page (bool up = false) {
+		var c_scrolled = stack.visible_child as Views.Base;
+		if (c_scrolled != null)
+			c_scrolled.scroll_page (up);
+	}
+
 	void on_view_switched () {
 		var view = stack.visible_child as Views.Base;
 		if (view.view.has_css_class("no-transition")) {
