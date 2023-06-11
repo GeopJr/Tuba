@@ -56,6 +56,50 @@ public class Tuba.API.Instance : Entity {
 		}
     }
 
+    public int64 compat_status_poll_max_characters {
+        get {
+            var compat_polls = compat_status_polls;
+            if (compat_polls != null) {
+                return compat_polls.compat_status_poll_max_characters;
+            }
+
+            return 50;
+        }
+    }
+
+    public int64 compat_status_poll_max_options {
+        get {
+            var compat_polls = compat_status_polls;
+            if (compat_polls != null) {
+                return compat_polls.max_options;
+            }
+
+            return 4;
+        }
+    }
+
+    public int64 compat_status_poll_min_expiration {
+        get {
+            var compat_polls = compat_status_polls;
+            if (compat_polls != null) {
+                return compat_polls.min_expiration;
+            }
+
+            return 300;
+        }
+    }
+
+    public int64 compat_status_poll_max_expiration {
+        get {
+            var compat_polls = compat_status_polls;
+            if (compat_polls != null) {
+                return compat_polls.max_expiration;
+            }
+
+            return 2629746;
+        }
+    }
+
     public static API.Instance from (Json.Node node) throws Error {
         return Entity.from_json (typeof (API.Instance), node) as API.Instance;
 	}

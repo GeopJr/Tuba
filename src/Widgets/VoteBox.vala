@@ -71,7 +71,7 @@ public class Tuba.Widgets.VoteBox: Box {
             //if it is own poll
             if(poll.expired || poll.voted){
                 // If multiple, Checkbox else radioButton
-                var percentage = ((double)p.votes_count/poll.votes_count)*100;
+                var percentage = poll.votes_count > 0 ? ((double)p.votes_count/poll.votes_count)*100 : 0.0;
 
                 var provider = new Gtk.CssProvider ();
                 provider.load_from_data(generate_css_style((int) percentage).data);

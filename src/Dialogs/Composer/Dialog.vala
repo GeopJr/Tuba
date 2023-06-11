@@ -41,6 +41,10 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	}
 	~Compose () {
 		message ("Destroying composer");
+		foreach (var page in t_pages) {
+			page.dispose ();
+		}
+		t_pages = {};
 	}
 
 	void on_exit () {
@@ -51,12 +55,20 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	protected virtual signal void build () {
 		var p_edit = new EditorPage ();
 		var p_attach = new AttachmentsPage ();
+		var p_poll = new PollPage ();
 
 		p_edit.ctrl_return_pressed.connect (() => {
 			if (commit_button.sensitive) on_commit ();
 		});
 
-		setup_pages ({p_edit, p_attach});
+		setup_pages ({p_edit, p_attach, p_poll});
+
+		// Composer rules
+		// 1. Either attachments or polls
+		// 2. Poll needs edit to be valid
+		p_attach.bind_property ("can-publish", p_poll, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
+		p_poll.bind_property ("is-valid", p_attach, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
+		p_edit.bind_property ("can-publish", p_poll, "can-publish", GLib.BindingFlags.SYNC_CREATE);
 
 		if (editing) p_edit.edit_mode = true;
 		p_edit.editor_grab_focus ();
@@ -74,7 +86,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	private void update_commit_button () {
 		var allow = false;
 		foreach (var page in t_pages) {
-			allow = allow || page.can_publish;
+			allow = allow || (page.can_publish && page.visible);
 			if (allow) break;
 		}
 		commit_button.sensitive = allow;

@@ -60,6 +60,12 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	protected ListBox list;
 	protected Gtk.Button add_media_action_button;
 
+	public override void dispose () {
+		if (list != null)
+			list.bind_model (null, null);
+		base.dispose ();
+	}
+
 	public override void on_build (Dialogs.Compose dialog, API.Status status) {
 		base.on_build (dialog, status);
 
@@ -293,7 +299,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	}
 
 	public override void on_modify_req (Request req) {
-		if (can_publish){
+		if (can_publish && this.visible){
 			for (var i = 0; i < attachments.get_n_items (); i++) {
 				var attachment = attachments.get_item (i) as API.Attachment;
 				req.with_form_data ("media_ids[]", attachment.id);

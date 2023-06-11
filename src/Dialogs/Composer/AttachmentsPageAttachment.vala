@@ -7,6 +7,10 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 	private unowned Dialogs.Compose compose_dialog;
 	protected string id;
 
+	~AttachmentsPageAttachment () {
+		message ("Destroying AttachmentsPageAttachment");
+	}
+
     public AttachmentsPageAttachment (string attachment_id, File? file, Dialogs.Compose dialog, API.Attachment? t_entity){
 		id = attachment_id;
 		attachment_file = file;
