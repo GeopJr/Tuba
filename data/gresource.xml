@@ -61,8 +61,6 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-newspaper-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-explore2-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-text-justify-left-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-square-outline-thick-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-circle-outline-thick-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/dropdown/icon.ui</file>

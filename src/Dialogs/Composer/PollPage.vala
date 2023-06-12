@@ -116,7 +116,7 @@ public class Tuba.PollPage : ComposerPage {
 		add_poll_action_button.clicked.connect(add_poll_row_without_title);
 
 		var multi_button = new Gtk.ToggleButton() {
-			icon_name = "tuba-circle-outline-thick-symbolic",
+			icon_name = "radio-checked-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			tooltip_text = _("Enable Multiple Choice"),
@@ -125,7 +125,7 @@ public class Tuba.PollPage : ComposerPage {
 		multi_button.bind_property ("active", this, "multiple-choice", GLib.BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			var multi_button_active = src.get_boolean ();
 			target.set_boolean (multi_button_active);
-			multi_button.icon_name = multi_button_active ? "tuba-square-outline-thick-symbolic" : "tuba-circle-outline-thick-symbolic";
+			multi_button.icon_name = multi_button_active ? "checkbox-checked-symbolic" : "radio-checked-symbolic";
 			multi_button.tooltip_text = multi_button_active ? _("Disable Multiple Choice") : _("Enable Multiple Choice");
 			return true;
 		});
