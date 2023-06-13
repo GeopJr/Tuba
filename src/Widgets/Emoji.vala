@@ -4,15 +4,19 @@ using Gdk;
 public class Tuba.Widgets.Emoji : Adw.Bin {
 
 	protected Image image;
+	public string? shortcode { get; set; } 
 
 	construct {
 		image = new Gtk.Image ();
         child = image;
 	}
 
-    public Emoji (string emoji_url, string? shortcode = null) {
-		if (shortcode != null)
-			image.tooltip_text = shortcode;
+    public Emoji (string emoji_url, string? t_shortcode = null) {
+		if (t_shortcode != null) {
+			image.tooltip_text = t_shortcode;
+			shortcode = t_shortcode;
+		}
+
 		image_cache.request_paintable (emoji_url, on_cache_response);
 	}
 
