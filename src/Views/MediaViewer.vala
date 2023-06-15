@@ -224,10 +224,6 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         overlay.add_overlay (generate_media_buttons ());
         overlay.child = carousel;
 
-        image_cache = new ImageCache () {
-            maintenance_secs = 60 * 5
-        };
-
         var drag = new Gtk.GestureDrag ();
         drag.drag_begin.connect(on_drag_begin);
         drag.drag_update.connect(on_drag_update);

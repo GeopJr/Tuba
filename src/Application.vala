@@ -127,7 +127,9 @@ namespace Tuba {
 				streams = new Streams ();
 				network = new Network ();
 				entity_cache = new EntityCache ();
-				image_cache = new ImageCache ();
+				image_cache = new ImageCache () {
+					maintenance_secs = 60 * 5
+				};
 				accounts = new SecretAccountStore();
 				accounts.init ();
 

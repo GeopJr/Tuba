@@ -9,12 +9,6 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 	protected int empty_triggers = 0;
     protected ImageCache image_cache;
 
-	construct {
-        image_cache = new ImageCache () {
-            maintenance_secs = 60
-        };
-	}
-
 	public virtual bool is_trigger (Gtk.TextIter iter, unichar ch) {
 		if (this.trigger_char == null) {
 			return this.set_input_capture (true);
