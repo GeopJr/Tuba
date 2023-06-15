@@ -16,6 +16,11 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		set { commit_button.add_css_class (value); }
 	}
 	public bool editing { get; set; default=false; }
+	private bool _working = false;
+	public bool working {
+		get { return _working; }
+		set { _working = value; update_commit_button (); update_pages (); }
+	}
 
 	ulong build_sigid;
 
@@ -87,11 +92,25 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	private void update_commit_button () {
 		var allow = false;
-		foreach (var page in t_pages) {
-			allow = allow || (page.can_publish && page.visible);
-			if (allow) break;
+		if (!working) {
+			foreach (var page in t_pages) {
+				allow = allow || (page.can_publish && page.visible);
+				if (allow) break;
+			}
 		}
 		commit_button.sensitive = allow;
+	}
+
+	private void update_pages () {
+		var allow = false;
+
+		if (!working) {
+			allow = true;
+		}
+
+		foreach (var page in t_pages) {
+			page.sensitive = allow;
+		}
 	}
 
 	[GtkChild] unowned Adw.ViewSwitcherTitle title_switcher;
@@ -190,14 +209,14 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	}
 
 	[GtkCallback] void on_commit () {
-		//working = true
+		working = true;
 		transaction.begin ((obj, res) => {
 			try {
 				transaction.end (res);
 				// on_close ();
 			}
 			catch (Error e) {
-				// working = false;
+				working = false;
 				// on_error (0, e.message);
 				warning (e.message);
 			}
