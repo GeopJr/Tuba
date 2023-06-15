@@ -17,12 +17,14 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
 			shortcode = t_shortcode;
 		}
 
-		image_cache.request_paintable (emoji_url, on_cache_response);
+		GLib.Idle.add (() => {
+			image_cache.request_paintable (emoji_url, on_cache_response);
+			return GLib.Source.REMOVE;
+		});
 	}
 
 	void on_cache_response (bool is_loaded, owned Paintable? data) {
-		var image_widget = (child as Image);
-		if (child != null && image_widget != null)
-			image_widget.paintable = data;
+		if (image != null)
+			image.paintable = data;
 	}
 }
