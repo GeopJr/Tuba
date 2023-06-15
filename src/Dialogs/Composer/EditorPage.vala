@@ -190,85 +190,8 @@ public class Tuba.EditorPage : ComposerPage {
 		content.prepend(overlay);
 	}
 
-	private Gee.HashMap<string, Gee.ArrayList<API.Emoji>> gen_emojis_cat_map () {
-		var res = new Gee.HashMap<string, Gee.ArrayList<API.Emoji>>();
-		var emojis = accounts.active.instance_emojis;
-
-		if (emojis != null && emojis.size > 0) {
-			emojis.@foreach (e => {
-				if (!e.visible_in_picker) return true;
-
-				if (res.has_key(e.category)) {
-					var array = res.get (e.category);
-					array.add (e);
-				} else {
-					var array = new Gee.ArrayList<API.Emoji> ();
-					array.add (e);
-					res.set(e.category, array);
-				}
-
-				return true;
-			});
-
-			if (res.has_key (_("Other"))) {
-				var val = res.get (_("Other"));
-				res.unset (_("Other"));
-				res.set (_("Other"), val);
-			}
-		}
-
-		return res;
-	}
-
 	protected EmojiChooser emoji_picker;
 	protected void install_emoji_picker () {
-		var categorized_custom_emojis = gen_emojis_cat_map ();
-
-		var custom_emojis_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
-		var custom_emojis_scrolled = new Gtk.ScrolledWindow () {
-			hscrollbar_policy = Gtk.PolicyType.NEVER,
-			height_request = 360
-		};
-		custom_emojis_scrolled.child = custom_emojis_box;
-
-		categorized_custom_emojis.@foreach (e => {
-			custom_emojis_box.append (new Gtk.Label (e.key) {
-				wrap = true,
-				wrap_mode = Pango.WrapMode.WORD_CHAR,
-				halign = Gtk.Align.START
-			});
-
-			var emojis_flowbox = new Gtk.FlowBox () {
-				homogeneous = true,
-				column_spacing = 6,
-				row_spacing = 6,
-				max_children_per_line = 6,
-				min_children_per_line = 6,
-				selection_mode = SelectionMode.NONE
-			};
-
-
-			e.value.@foreach (emoji => {
-				var emoji_btn = new Gtk.Button () {
-					css_classes = { "flat" },
-					child = new Widgets.Emoji (emoji.url, emoji.shortcode)
-				};
-				emoji_btn.clicked.connect (on_custom_emoji_picked);
-
-				emojis_flowbox.append (emoji_btn);
-
-				return true;
-			});
-
-			custom_emojis_box.append (emojis_flowbox);
-
-			return true;
-		});
-
-		var custom_popover = new Gtk.Popover () {
-			child = custom_emojis_scrolled
-		};
-
 		emoji_picker = new EmojiChooser();
 		var emoji_button = new MenuButton() {
 			icon_name = "tuba-smile-symbolic",
@@ -276,9 +199,10 @@ public class Tuba.EditorPage : ComposerPage {
 			tooltip_text = _("Emoji Picker")
 		};
 
-		var emoji_button2 = new MenuButton() {
-			icon_name = "tuba-smile-symbolic",
-			popover = custom_popover,
+		var custom_emoji_picker = new Widgets.CustomEmojiChooser ();
+		var custom_emoji_button = new MenuButton () {
+			icon_name = "tuba-cat-symbolic",
+			popover = custom_emoji_picker,
 			tooltip_text = _("Emoji Picker")
 		};
 
@@ -287,18 +211,12 @@ public class Tuba.EditorPage : ComposerPage {
 		};
 
 		linked_buttons.append (emoji_button);
-		linked_buttons.append (emoji_button2);
+		linked_buttons.append (custom_emoji_button);
 
 		add_button(linked_buttons);
 
 		emoji_picker.emoji_picked.connect(on_emoji_picked);
-	}
-
-	protected void on_custom_emoji_picked(Gtk.Button emoji_btn) {
-		var emoji = emoji_btn.child as Widgets.Emoji;
-		if (emoji != null) {
-			on_emoji_picked (@":$(emoji.shortcode):");
-		}
+		custom_emoji_picker.emoji_picked.connect(on_emoji_picked);
 	}
 
 	protected void on_emoji_picked(string emoji_unicode) {
