@@ -110,8 +110,6 @@ public class Tuba.Widgets.MarkupView : Box {
 				case "span":
 				case "markup":
 				case "pre":
-				case "ul":
-				case "ol":
 				case "body":
 				case "p":
 					blockquote_handler (node);
@@ -134,6 +132,11 @@ public class Tuba.Widgets.MarkupView : Box {
 						blockquote_handler_text += "</a>";
 					}
 					break;
+				case "ul":
+				case "ol":
+					traverse_and_handle (v, root, default_handler);
+					v.write_chunk ("\n");
+					break;
 				case "li":
 					blockquote_handler_text += "\n• ";
 					blockquote_handler (node);
@@ -153,8 +156,6 @@ public class Tuba.Widgets.MarkupView : Box {
 			case "span":
 			case "markup":
 			case "pre":
-			case "ul":
-			case "ol":
 				traverse_and_handle (v, root, default_handler);
 				break;
 			case "body":
@@ -206,6 +207,11 @@ public class Tuba.Widgets.MarkupView : Box {
 				v.write_chunk (@"</$(root->name)>");
 			break;
 
+			case "ul":
+			case "ol":
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("\n");
+				break;
 			case "li":
 				v.write_chunk ("\n• ");
 				traverse_and_handle (v, root, default_handler);
