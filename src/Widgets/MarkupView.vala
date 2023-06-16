@@ -134,8 +134,8 @@ public class Tuba.Widgets.MarkupView : Box {
 					break;
 				case "ul":
 				case "ol":
-					traverse_and_handle (v, root, default_handler);
-					v.write_chunk ("\n");
+					blockquote_handler (node);
+					blockquote_handler_text += "\n";
 					break;
 				case "li":
 					blockquote_handler_text += "\n• ";
