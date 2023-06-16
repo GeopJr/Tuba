@@ -19,7 +19,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	private bool _working = false;
 	public bool working {
 		get { return _working; }
-		set { _working = value; update_commit_button (); update_pages (); }
+		set { _working = value; this.sensitive = !_working; }
 	}
 
 	ulong build_sigid;
@@ -99,18 +99,6 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			}
 		}
 		commit_button.sensitive = allow;
-	}
-
-	private void update_pages () {
-		var allow = false;
-
-		if (!working) {
-			allow = true;
-		}
-
-		foreach (var page in t_pages) {
-			page.sensitive = allow;
-		}
 	}
 
 	[GtkChild] unowned Adw.ViewSwitcherTitle title_switcher;
@@ -209,6 +197,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	}
 
 	[GtkCallback] void on_commit () {
+		if (working)
+			return; // avoid double send
 		working = true;
 		transaction.begin ((obj, res) => {
 			try {
