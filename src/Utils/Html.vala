@@ -51,8 +51,8 @@ public class Tuba.HtmlUtils {
 			.replace("</strong>", "</b>")
 			.replace("<em>", "<i>")
 			.replace("</em>", "</i>")
-			.replace("<code>", "<span font_family=\"monospace\">")
-			.replace("</code>", "</span>\n")
+			//  .replace("<code>", "<span font_family=\"monospace\">")
+			//  .replace("</code>", "</span>\n")
 			.replace("<del>", "<s>")
 			.replace("</del>", "</s>");
 	}

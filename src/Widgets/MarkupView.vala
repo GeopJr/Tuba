@@ -169,6 +169,10 @@ public class Tuba.Widgets.MarkupView : Box {
 				traverse_and_handle (v, root, default_handler);
 				break;
 			case "code":
+				v.write_chunk ("<span font_family=\"monospace\">");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("</span>");
+				break;
 			case "blockquote":
 				v.commit_chunk ();
 
