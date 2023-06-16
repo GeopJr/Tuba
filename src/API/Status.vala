@@ -36,7 +36,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public Gee.ArrayList<API.Emoji>? emojis { get; set; }
     public API.PreviewCard? card { get; set; default = null; }
 
-    private string _language;
+    private string _language = settings.default_language;
     public string language { 
         get {
             return _language;
