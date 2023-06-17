@@ -142,7 +142,7 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
 		});
 
         if (categorized_custom_emojis.has_key (_("Other")))
-            create_category (_("Other"), categorized_custom_emojis.get(_("Other")));
+            create_category (categorized_custom_emojis.size > 1 ? _("Other") : _("Custom Emojis"), categorized_custom_emojis.get(_("Other")));
 
         is_populated = true;
     }
