@@ -35,7 +35,11 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
     private GLib.ListStore list_store = new GLib.ListStore (typeof (API.Emoji));
 	construct {
         this.add_css_class ("emoji-picker");
-        custom_emojis_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+        custom_emojis_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            margin_end = 6,
+            margin_bottom = 6,
+            margin_start = 6
+        };
 		custom_emojis_scrolled = new Gtk.ScrolledWindow () {
 			hscrollbar_policy = Gtk.PolicyType.NEVER,
 			height_request = 360
@@ -187,7 +191,6 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
             wrap = true,
             wrap_mode = Pango.WrapMode.WORD_CHAR,
             halign = Gtk.Align.START,
-            margin_start = 12,
             margin_top = 3
         };
     }
