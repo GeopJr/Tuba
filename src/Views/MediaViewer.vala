@@ -201,7 +201,6 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
     private Gee.ArrayList<Item> items = new Gee.ArrayList<Item> ();
 	protected Gtk.Button fullscreen_btn;
 	protected Adw.HeaderBar headerbar;
-    protected ImageCache image_cache;
     private Adw.Carousel carousel;
     private Adw.CarouselIndicatorDots carousel_dots;
 
