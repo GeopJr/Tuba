@@ -201,7 +201,6 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
     private Gee.ArrayList<Item> items = new Gee.ArrayList<Item> ();
 	protected Gtk.Button fullscreen_btn;
 	protected Adw.HeaderBar headerbar;
-    protected ImageCache image_cache;
     private Adw.Carousel carousel;
     private Adw.CarouselIndicatorDots carousel_dots;
 
@@ -223,10 +222,6 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         };
         overlay.add_overlay (generate_media_buttons ());
         overlay.child = carousel;
-
-        image_cache = new ImageCache () {
-            maintenance_secs = 60 * 5
-        };
 
         var drag = new Gtk.GestureDrag ();
         drag.drag_begin.connect(on_drag_begin);

@@ -26,6 +26,7 @@ public class Tuba.EditorPage : ComposerPage {
 		install_languages (status.language);
 		add_button (new Gtk.Separator (Orientation.VERTICAL));
 		install_cw (status.spoiler_text);
+		add_button (new Gtk.Separator (Orientation.VERTICAL));
 		install_emoji_picker();
 
 		validate ();
@@ -199,9 +200,18 @@ public class Tuba.EditorPage : ComposerPage {
 			tooltip_text = _("Emoji Picker")
 		};
 
+		var custom_emoji_picker = new Widgets.CustomEmojiChooser ();
+		var custom_emoji_button = new MenuButton () {
+			icon_name = "tuba-cat-symbolic",
+			popover = custom_emoji_picker,
+			tooltip_text = _("Custom Emoji Picker")
+		};
+
 		add_button(emoji_button);
+		add_button(custom_emoji_button);
 
 		emoji_picker.emoji_picked.connect(on_emoji_picked);
+		custom_emoji_picker.emoji_picked.connect(on_emoji_picked);
 	}
 
 	protected void on_emoji_picked(string emoji_unicode) {

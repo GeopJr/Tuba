@@ -3,6 +3,7 @@ sources += files(
     'Background.vala',
     'BookWyrmPage.vala',
     'Conversation.vala',
+    'CustomEmojiChooser.vala',
     'Emoji.vala',
     'EmojiLabel.vala',
     'LabelWithWidgets.vala',
