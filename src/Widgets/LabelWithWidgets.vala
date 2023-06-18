@@ -1,5 +1,5 @@
 // LabelWithWidgets is ported from Fractal
-// https://gitlab.gnome.org/GNOME/fractal/-/blob/071bfa9e2ad1574e675b2f90c3218565f9953f08/src/components/label_with_widgets.rs
+// https://gitlab.gnome.org/GNOME/fractal/-/blob/3f8a7e8bd06441d83a5f052a2ae68d7d228dfcd0/src/components/label_with_widgets.rs
 
 // How to use:
 // Set `text` to the label's content but use the `placeholder` keyword where widgets should be placed.
@@ -73,9 +73,6 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         label.set_parent(this);
 
         label.activate_link.connect((url) => activate_link(url));
-        label.notify["label"].connect(() => {
-            invalidate_child_widgets();
-        });        
     }
     ~LabelWithWidgets (){
         label.unparent();
@@ -86,6 +83,12 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     
     private void allocate_shapes() {
         var child_size_changed = false;
+
+        if (text == "") return;
+        if (widgets.length == 0) {
+            label.attributes = null;
+            return;
+        }
 
         for (var i = 0; i < widgets.length; i++) {
             Gtk.Widget child = widgets[i];
@@ -209,36 +212,36 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     }
     
     private void update_label() {
-        if (this.ellipsize) {
-            // Workaround: if both wrap and ellipsize are set, and there are
-            // widgets inserted, GtkLabel reports an erroneous minimum width.
-            label.wrap = false;
-            label.ellipsize = Pango.EllipsizeMode.END;
-    
-            if (text != null) {
-                _text = _text.replace(placeholder, OBJECT_REPLACEMENT_CHARACTER);
+        var old_label = label.label;
+        var old_ellipsize = label.ellipsize == Pango.EllipsizeMode.END;
+        var new_ellipsize = this.ellipsize;
+        var new_label = _text.replace(placeholder, OBJECT_REPLACEMENT_CHARACTER);
 
-                int pos = _text.index_of_char('\n');
-                if (pos >= 0) {
-                    _text = _text.substring(0, pos) + "…";
-                }
-
-                label.label = _text;
-            }
-        } else {
-            label.wrap = true;
-            label.wrap_mode = Pango.WrapMode.WORD_CHAR;
-
-            // The lines check is Tuba specific for statuses that overflow their row
-            label.ellipsize = lines != 100 ? Pango.EllipsizeMode.NONE : Pango.EllipsizeMode.END;
-    
-            if (text != null) {
-                _text = _text.replace(placeholder, OBJECT_REPLACEMENT_CHARACTER);
-                label.label = _text;
+        if (new_ellipsize) {
+            int pos = new_label.index_of_char('\n');
+            if (pos >= 0) {
+                new_label = new_label.substring(0, pos) + "…";
             }
         }
-    
-        invalidate_child_widgets();
+
+        if (old_ellipsize != new_ellipsize || old_label != new_label) {
+            if (new_ellipsize) {
+                // Workaround: if both wrap and ellipsize are set, and there are
+                // widgets inserted, GtkLabel reports an erroneous minimum width.
+                label.wrap = false;
+                label.ellipsize = Pango.EllipsizeMode.END;
+            } else {
+                label.wrap = true;
+                label.wrap_mode = Pango.WrapMode.WORD_CHAR;
+
+                // The lines check is Tuba specific for statuses that overflow their row
+                label.ellipsize = lines != 100 ? Pango.EllipsizeMode.NONE : Pango.EllipsizeMode.END;
+            }
+
+            _text = new_label;
+            label.label = _text;
+            invalidate_child_widgets();
+        }
     }
     
     public void append_child(Gtk.Widget child) {
@@ -281,6 +284,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             widget_widths[i] = 0;
             widget_heights[i] = 0;
         }
+        this.allocate_shapes();
         this.queue_resize();
     }
     
