@@ -30,6 +30,14 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	protected SliceListModel account_items;
 	protected FlattenListModel item_model;
 
+	public static Place KEYBOARD_SHORTCUTS = new Place () {
+		title = _("Keyboard Shortcuts"),
+		icon = "input-keyboard-symbolic",
+		selectable = false,
+		open_func = () => {
+			app.main_window.lookup_action ("show-help-overlay").activate (null);
+		}
+	};
 	public static Place PREFERENCES = new Place () {
 			title = _("Preferences"),
 			icon = "tuba-gear-symbolic",
@@ -51,6 +59,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	construct {
 		app_items = new GLib.ListStore (typeof (Place));
 		app_items.append (PREFERENCES);
+		app_items.append (KEYBOARD_SHORTCUTS);
 		app_items.append (ABOUT);
 
 		account_items = new SliceListModel (null, 0, 15);
