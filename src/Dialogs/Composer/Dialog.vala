@@ -190,16 +190,16 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	}
 
 	[GtkCallback] void on_commit () {
-		//working = true
+		this.sensitive = false;
 		transaction.begin ((obj, res) => {
 			try {
 				transaction.end (res);
 				// on_close ();
-			}
-			catch (Error e) {
-				// working = false;
+			} catch (Error e) {
 				// on_error (0, e.message);
 				warning (e.message);
+			} finally {
+				this.sensitive = true;
 			}
 		});
 	}
