@@ -136,18 +136,18 @@ public abstract class Tuba.AccountStore : GLib.Object {
 	public Gee.ArrayList<BackendTest> backend_tests = new Gee.ArrayList<BackendTest> ();
 
 	public async void guess_backend (InstanceAccount account) throws GLib.Error {
-		var req = new Request.GET ("/api/v1/instance")
-			.with_account (account);
-		yield req.await ();
+		//  var req = new Request.GET ("/api/v1/instance")
+		//  	.with_account (account);
+		//  yield req.await ();
 
-		var parser = Network.get_parser_from_inputstream(req.response_body);
-		var root = network.parse (parser);
+		//  var parser = Network.get_parser_from_inputstream(req.response_body);
+		//  var root = network.parse (parser);
 
-		string? backend = null;
-		backend_tests.foreach (test => {
-			backend = test.get_backend (root);
-			return true;
-		});
+		string? backend = "Mastodon";
+		//  backend_tests.foreach (test => {
+		//  	backend = test.get_backend (root);
+		//  	return true;
+		//  });
 
 		if (backend == null)
 			throw new Oopsie.INTERNAL ("This instance is unsupported.");

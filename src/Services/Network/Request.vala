@@ -70,9 +70,15 @@ public class Tuba.Request : GLib.Object {
 
 	private string? t_content_type = null;
 	private Bytes? t_body_bytes = null;
-	public void set_request_body_from_bytes (string? content_type, Bytes? bytes)  {
+	public void set_request_body_from_bytes (string? content_type, Bytes? bytes) {
 		t_content_type = content_type;
 		t_body_bytes = bytes;
+	}
+
+	public Request body (string? content_type, Bytes? bytes) {
+		t_content_type = content_type;
+		t_body_bytes = bytes;
+		return this;
 	}
 
 	public Request then (owned Network.SuccessCallback cb) {

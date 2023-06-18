@@ -11,6 +11,7 @@ sources += files(
     'Instance.vala',
     'List.vala',
     'Mention.vala',
+    'Misskey.vala',
     'Notification.vala',
     'PeerTube.vala',
     'Pleroma.vala',

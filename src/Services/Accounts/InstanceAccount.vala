@@ -25,6 +25,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public string? client_id { get; set; }
 	public string? client_secret { get; set; }
 	public string? access_token { get; set; }
+	public string? i { get; set; default=null; }
 	public Error? error { get; set; } //TODO: use this field when server invalidates the auth token
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
@@ -121,12 +122,14 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	public async void verify_credentials () throws Error {
-		var req = new Request.GET ("/api/v1/accounts/verify_credentials").with_account (this);
+		//  var req = new Request.GET ("/api/v1/accounts/verify_credentials").with_account (this);
+		var req = new Request.POST ("/api/show").with_account (this).body ("application/json", new Bytes.take(API.Misskey.JSON.get_show_userid (this.id).data));
 		yield req.await ();
 
 		var parser = Network.get_parser_from_inputstream(req.response_body);
 		var node = network.parse_node (parser);
-		var updated = API.Account.from (node);
+		//  var updated = API.Account.from (node);
+		var updated = API.Misskey.to_mastodon_account (node);
 		patch (updated);
 
 		message (@"$handle: profile updated");

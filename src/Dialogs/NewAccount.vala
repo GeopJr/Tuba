@@ -124,22 +124,42 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	async void register_client () throws Error {
 		message ("Registering client");
 
-		var msg = new Request.POST (@"/api/v1/apps")
+		//  var msg = new Request.POST (@"/api/v1/apps")
+		//  	.with_account (account)
+		//  	.with_form_data ("client_name", Build.NAME)
+		//  	.with_form_data ("redirect_uris", redirect_uri = setup_redirect_uri ())
+		//  	.with_form_data ("scopes", scopes)
+		//  	.with_form_data ("website", Build.WEBSITE);
+
+		var msg = new Request.POST ("/api/app/create")
 			.with_account (account)
-			.with_form_data ("client_name", Build.NAME)
-			.with_form_data ("redirect_uris", redirect_uri = setup_redirect_uri ())
-			.with_form_data ("scopes", scopes)
-			.with_form_data ("website", Build.WEBSITE);
+			.body ("application/json", new Bytes.take(Tuba.API.Misskey.JSON.get_app (setup_redirect_uri ()).data));
 		yield msg.await ();
 
 		var parser = Network.get_parser_from_inputstream(msg.response_body);
 		var root = network.parse (parser);
-		account.client_id = root.get_string_member ("client_id");
-		account.client_secret = root.get_string_member ("client_secret");
+		//  account.client_id = root.get_string_member ("client_id");
+		//  account.client_secret = root.get_string_member ("client_secret");
+		account.client_id = root.get_string_member ("id");
+		account.client_secret = root.get_string_member ("secret");
 		message ("OK: Instance registered client");
 
 		deck.visible_child = code_step;
-		open_confirmation_page ();
+		//  open_confirmation_page ();
+
+		var mk_msg = new Request.POST ("/api/auth/session/generate")
+			.with_account (account)
+			.body ("application/json", new Bytes.take(Tuba.API.Misskey.JSON.get_session_generate (account.client_secret).data));
+		yield mk_msg.await ();
+
+		parser = Network.get_parser_from_inputstream(mk_msg.response_body);
+		root = network.parse (parser);
+		var callbackurl = root.get_string_member ("url");
+		warning (account.client_id);
+		warning (account.client_secret);
+		warning (callbackurl);
+		Host.open_uri (callbackurl);
+		//  Process.exit (0);
 	}
 
 	void open_confirmation_page () {
@@ -155,18 +175,25 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			throw new Oopsie.USER (_("Please enter a valid authorization code"));
 
 		message ("Requesting access token");
-		var token_req = new Request.POST (@"/oauth/token")
+		//  var token_req = new Request.POST (@"/oauth/token")
+		//  	.with_account (account)
+		//  	.with_param ("client_id", account.client_id)
+		//  	.with_param ("client_secret", account.client_secret)
+		//  	.with_param ("redirect_uri", redirect_uri)
+		//  	.with_param ("grant_type", "authorization_code")
+		//  	.with_param ("code", code_entry.text);
+		//  yield token_req.await ();
+
+		var token_req = new Request.POST ("/api/auth/session/userkey")
 			.with_account (account)
-			.with_param ("client_id", account.client_id)
-			.with_param ("client_secret", account.client_secret)
-			.with_param ("redirect_uri", redirect_uri)
-			.with_param ("grant_type", "authorization_code")
-			.with_param ("code", code_entry.text);
+			.body ("application/json", new Bytes.take(Tuba.API.Misskey.JSON.get_session_userkey (account.client_secret, code_entry.text).data));
 		yield token_req.await ();
 
 		var parser = Network.get_parser_from_inputstream(token_req.response_body);
 		var root = network.parse (parser);
-		account.access_token = root.get_string_member ("access_token");
+		//  account.access_token = root.get_string_member ("access_token");
+		account.access_token = root.get_string_member ("accessToken");
+		account.i = API.Misskey.generate_i (account.access_token, account.client_secret);
 
 		if (account.access_token == null)
 			throw new Oopsie.INSTANCE (_("Instance failed to authorize the access token"));
