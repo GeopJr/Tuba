@@ -40,10 +40,6 @@ public class Tuba.Tracking {
         "igshid",
     };
 
-    /*
-     * https://datatracker.ietf.org/doc/html/rfc1738#section-3.3
-     * An URL takes the form: http://<host>:<port>/<path>?<searchpart>
-     */
     public static string strip_utm (string url) {
         if (!("?" in url)) return url;
 

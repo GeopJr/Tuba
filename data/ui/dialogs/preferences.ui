@@ -115,6 +115,7 @@
               <object class="AdwActionRow">
                 <property name="title" translatable="yes">Strip tracking parameters from links</property>
                 <property name="activatable_widget">strip_tracking</property>
+                <property name="subtitle" translatable="yes">It can lead to broken links</property>
                 <child>
                   <object class="GtkSwitch" id="strip_tracking">
                     <property name="valign">center</property>
