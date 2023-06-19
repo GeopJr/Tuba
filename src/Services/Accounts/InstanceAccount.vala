@@ -132,7 +132,9 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		var parser = Network.get_parser_from_inputstream(req.response_body);
 		var node = network.parse_node (parser);
 		//  var updated = API.Account.from (node);
-		var updated = API.Misskey.to_mastodon_account (node);
+		var mk_account = API.Misskey.User.from (node);
+		mk_account.host = this.instance;
+		var updated = (API.Account) mk_account.to_mastodon ();
 		patch (updated);
 
 		message (@"$handle: profile updated");

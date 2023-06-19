@@ -188,14 +188,15 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		new Request.POST (get_req_url ())
 			.with_account (account)
 			.with_ctx (this)
-			.body (Tuba.API.Misskey.JSON.get_timeline (settings.timeline_page_size))
+			.body ("application/json", new Bytes.take(Tuba.API.Misskey.JSON.get_timeline (settings.timeline_page_size).data))
 			.then ((sess, msg, in_stream) => {
 				var parser = Network.get_parser_from_inputstream(in_stream);
 		
 				Object[] to_add = {};
 				Network.parse_array (msg, parser, node => {
-					var e = entity_cache.lookup_or_insert (node, accepts);
-					to_add += e;
+					var e = entity_cache.lookup_or_insert (node, typeof (API.Misskey.Note));
+					
+					to_add += (API.Status) ((API.Misskey.Note) e).to_mastodon ();
 				});
 				model.splice (model.get_n_items (), 0, to_add);
 		

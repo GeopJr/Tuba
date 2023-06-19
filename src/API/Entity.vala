@@ -6,7 +6,7 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 		return true;
 	}
 
-	static bool is_spec_valid (ref ParamSpec spec) {
+	public static bool is_spec_valid (ref ParamSpec spec) {
 		return ParamFlags.WRITABLE in spec.flags;
 	}
 

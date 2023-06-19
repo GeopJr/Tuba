@@ -195,7 +195,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		var root = network.parse (parser);
 		//  account.access_token = root.get_string_member ("access_token");
 		account.access_token = root.get_string_member ("accessToken");
-		account.i = API.Misskey.generate_i (account.access_token, account.client_secret);
+		account.i = API.Misskey.Utils.generate_i (account.access_token, account.client_secret);
 
 		if (account.access_token == null)
 			throw new Oopsie.INSTANCE (_("Instance failed to authorize the access token"));
