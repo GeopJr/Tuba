@@ -93,6 +93,23 @@ public class Tuba.API.Misskey : Object {
             generator.set_root (builder.get_root ());
             return generator.to_data (null);
         }
+
+        public static string get_timeline (int limit = 20) {
+            var builder = new Json.Builder ();
+            builder.begin_object ();
+
+            builder.set_member_name ("i");
+            builder.add_string_value (accounts.active.i);
+
+            builder.set_member_name ("limit");
+            builder.add_int_value (limit);
+
+            builder.end_object ();
+
+            var generator = new Json.Generator ();
+            generator.set_root (builder.get_root ());
+            return generator.to_data (null);
+        }
     }
 
     public static string generate_i (string secret, string access_token) {

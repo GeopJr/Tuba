@@ -84,7 +84,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		}
 		else {
 			message (@"Activating $(account.handle)...");
-			account.verify_credentials.begin ((obj, res) => {
+			account.verify_credentials.begin (null, (obj, res) => {
 				try {
 					account.verify_credentials.end (res);
 					account.error = null;

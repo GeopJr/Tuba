@@ -121,9 +121,12 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		return Entity.from_json (type, node);
 	}
 
-	public async void verify_credentials () throws Error {
+	public async void verify_credentials (string? t_id = null) throws Error {
 		//  var req = new Request.GET ("/api/v1/accounts/verify_credentials").with_account (this);
-		var req = new Request.POST ("/api/show").with_account (this).body ("application/json", new Bytes.take(API.Misskey.JSON.get_show_userid (this.id).data));
+		warning (t_id);
+		var req = new Request.POST ("/api/users/show")
+			.with_account (this)
+			.body ("application/json", new Bytes.take(API.Misskey.JSON.get_show_userid (t_id).data));
 		yield req.await ();
 
 		var parser = Network.get_parser_from_inputstream(req.response_body);

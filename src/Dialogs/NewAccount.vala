@@ -184,6 +184,8 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		//  	.with_param ("code", code_entry.text);
 		//  yield token_req.await ();
 
+		warning (account.client_secret);
+		warning (code_entry.text);
 		var token_req = new Request.POST ("/api/auth/session/userkey")
 			.with_account (account)
 			.body ("application/json", new Bytes.take(Tuba.API.Misskey.JSON.get_session_userkey (account.client_secret, code_entry.text).data));
@@ -198,7 +200,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		if (account.access_token == null)
 			throw new Oopsie.INSTANCE (_("Instance failed to authorize the access token"));
 
-		yield account.verify_credentials ();
+		yield account.verify_credentials (root.get_member ("user").get_object ().get_string_member ("id"));
 
 		account = accounts.create_account (account.to_json ());
 
@@ -216,22 +218,17 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		present ();
 		message (@"Received uri: $t_uri");
 
-		Uri uri;
 		try {
-			uri = Uri.parse (t_uri, UriFlags.NONE);
+			var uri = Uri.parse (t_uri, UriFlags.NONE);
+			warning (uri.get_query ());
+			var uri_params = Uri.parse_params (uri.get_query ());
+			code_entry.text = uri_params.contains ("code") ? uri_params.get ("code") : "";
+			is_working = false;
+			on_next_clicked ();	
 		} catch (GLib.UriError e) {
 			warning (e.message);
 			return;
 		}
-
-		var query = uri.get_query ();
-		var split = query.split ("=");
-		var code = split[1];
-		var code_clean = code.splice(code.index_of_char('&'), -1);
-
-		code_entry.text = code_clean;
-		is_working = false;
-		on_next_clicked ();
 	}
 
 	public void mark_errors (string error_message) {

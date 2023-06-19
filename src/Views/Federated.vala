@@ -2,7 +2,7 @@ public class Tuba.Views.Federated : Views.Timeline {
 
 	public Federated () {
 		Object (
-			url: "/api/v1/timelines/public",
+			url: "/api/notes/global-timeline",
 			is_public: true,
 			label: _("Federated"),
 			icon: "tuba-globe-symbolic"
