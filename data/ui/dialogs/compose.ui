@@ -27,7 +27,8 @@
             <child type="start">
               <object class="GtkButton" id="close_button">
                 <property name="label" translatable="yes">Cancel</property>
-                <signal name="clicked" handler="on_close" swapped="no"/>
+                <!-- <signal name="clicked" handler="on_close" swapped="no"/> -->
+                <property name="action-name">composer.exit</property>
               </object>
             </child>
             <child type="end">

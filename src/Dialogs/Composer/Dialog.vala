@@ -49,8 +49,19 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		t_pages = {};
 	}
 
+	Adw.MessageDialog? dlg;
 	void on_exit () {
-		if (!commit_button.sensitive) on_close ();
+		dlg = app.question (_("Are you sure you want to exit?"), _("Your progress will be lost."), this, _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE, "Cancel");
+		dlg.response.connect(on_dlg_response);
+		dlg.present ();
+	}
+
+	void on_dlg_response (string res) {
+		if (dlg == null) return;
+		dlg.dispose ();
+		dlg = null;
+
+		if (res == "yes") on_close ();
 	}
 
 	private ComposerPage[] t_pages = {};
@@ -185,7 +196,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		page.bind_property ("badge_number", wrapper, "badge_number", GLib.BindingFlags.SYNC_CREATE);
 	}
 
-	[GtkCallback] void on_close () {
+	void on_close () {
 		destroy ();
 	}
 
