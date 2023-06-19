@@ -73,20 +73,17 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	[GtkChild] protected unowned Stack spoiler_stack;
 	[GtkChild] protected unowned Box content_box;
 	[GtkChild] public unowned Widgets.MarkupView content;
-	[GtkChild] protected unowned Widgets.Attachment.Box attachments;
-	[GtkChild] protected unowned Button spoiler_button;
-	[GtkChild] protected unowned Label spoiler_label;
-	[GtkChild] protected unowned Label spoiler_label_rev;
-	[GtkChild] protected unowned Box spoiler_status_con;
 
-	[GtkChild] public unowned FlowBox emoji_reactions;
+	protected Gtk.Label spoiler_label;
+	protected Gtk.Label spoiler_label_rev;
+	protected Gtk.Box spoiler_status_con;
+
+	protected Gtk.FlowBox emoji_reactions;
 	[GtkChild] public unowned Box actions;
-	[GtkChild] public unowned Box fr_actions;
 
-	[GtkChild] public unowned Button accept_fr_button;
-	[GtkChild] public unowned Button decline_fr_button;
-
-	[GtkChild] public unowned Widgets.VoteBox poll;
+	public Gtk.Box fr_actions;
+	public Gtk.Button accept_fr_button;
+	public Gtk.Button decline_fr_button;
 
 	protected Button reply_button;
 	protected Adw.ButtonContent reply_button_content;
@@ -109,6 +106,16 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		get { return status.formal.compat_status_reactions; }
 		set {
 			if (value == null) return;
+			if (emoji_reactions == null) {
+				emoji_reactions = new Gtk.FlowBox () {
+					column_spacing = 6,
+					row_spacing = 6,
+					// Lower values leave space between items
+					max_children_per_line = 100
+				};
+
+				content_column.insert_child_after (emoji_reactions, spoiler_stack);
+			}
 
 			var i = 0;
 			FlowBoxChild? fb_child = null;
@@ -454,12 +461,17 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		this.content.instance_emojis = status.formal.emojis_map;
 		this.content.content = status.formal.content;
 
-		spoiler_label.label = this.spoiler_text;
-		spoiler_label_rev.label = this.spoiler_text_revealed;
+		if (status.formal.has_spoiler) {
+			content_column.prepend (create_spoiler_rev_label ());
+			spoiler_stack.add_named (create_spoiler_button (), "spoiler");
 
-		reveal_spoiler = !status.formal.has_spoiler || settings.show_spoilers;
-		update_spoiler_status ();
-		notify["reveal-spoiler"].connect(update_spoiler_status);
+			spoiler_label.label = this.spoiler_text;
+			spoiler_label_rev.label = this.spoiler_text_revealed;
+
+			reveal_spoiler = !status.formal.has_spoiler || settings.show_spoilers;
+			update_spoiler_status ();
+			notify["reveal-spoiler"].connect(update_spoiler_status);
+		}
 
 		handle_label.label = this.subtitle_text;
 		date_label.label = this.date;
@@ -477,7 +489,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		avatar.account = status.formal.account;
 		reactions = status.formal.compat_status_reactions;
 
-		attachments.list = status.formal.media_attachments;
 		name_label.instance_emojis = status.formal.account.emojis_map;
 		name_label.label = title_text;
 
@@ -518,11 +529,17 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			date_label.destroy ();
 		}
 
-		if (status.formal.poll == null){
-			poll.hide ();
-		} else {
+		if (status.formal.poll != null){
+			var poll = new Widgets.VoteBox ();
+			content_box.append (poll);
 			poll.status_parent = status.formal;
 			status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE);
+		}
+
+		if (status.formal.media_attachments != null && status.formal.media_attachments.size > 0) {
+			var attachments = new Widgets.Attachment.Box ();
+			attachments.list = status.formal.media_attachments;
+			content_box.append (attachments);
 		}
 
 		if (!settings.hide_preview_cards && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
@@ -607,7 +624,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		w.hexpand = false;
 	}
 
-	[GtkCallback] public void toggle_spoiler () {
+	protected void toggle_spoiler () {
 		reveal_spoiler = !reveal_spoiler;
 	}
 
@@ -757,4 +774,79 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 	}
 
+	public Gtk.Button create_spoiler_button () {
+		var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+			margin_bottom = 12,
+			margin_start = 12,
+			margin_end = 12,
+			margin_top = 12,
+			css_classes = { "spoiler" }
+		};
+
+		spoiler_label = new Gtk.Label (_("Show More")) {
+			wrap = true,
+			wrap_mode = Pango.WrapMode.WORD_CHAR
+		};
+
+		box.append (new Gtk.Image.from_icon_name ("tuba-warning-symbolic"));
+		box.append (spoiler_label);
+
+		var spoiler_button = new Gtk.Button () {
+			receives_default = true,
+			tooltip_text = _("Show More"),
+			child = box
+		};
+		spoiler_button.clicked.connect (toggle_spoiler);
+
+		return spoiler_button;
+	}
+
+	public Gtk.Box create_spoiler_rev_label () {
+		spoiler_status_con = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+			margin_bottom = 12,
+			visible = false,
+			css_classes = { "dim-label" }
+		};
+
+		spoiler_label_rev = new Gtk.Label ("") {
+			wrap = true,
+			wrap_mode = Pango.WrapMode.WORD_CHAR,
+			halign = Gtk.Align.START
+		};
+
+		spoiler_status_con.append (new Gtk.Image.from_icon_name ("tuba-warning-symbolic"));
+		spoiler_status_con.append (spoiler_label_rev);
+
+		return spoiler_status_con;
+	}
+
+	public Gtk.Box create_fr_actions () {
+		var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+			homogeneous = true,
+			css_classes = { "ttl-post-actions" }
+		};
+
+		decline_fr_button = new Gtk.Button.with_label (_("Decline")) {
+			tooltip_text = _("Decline"),
+			icon_name = "tuba-cross-large-symbolic",
+			halign = Gtk.Align.CENTER,
+			css_classes = { "flat", "circular", "error" }
+		};
+
+		accept_fr_button = new Gtk.Button.with_label (_("Accept")) {
+			tooltip_text = _("Accept"),
+			icon_name = "tuba-check-round-outline-symbolic",
+			halign = Gtk.Align.CENTER,
+			css_classes = { "flat", "circular", "success" }
+		};
+
+		box.append (decline_fr_button);
+		box.append (accept_fr_button);
+
+		return box;
+	}
+
+	public void insert_fr_actions () {
+		content_column.insert_child_after (create_fr_actions (), actions);
+	}
 }

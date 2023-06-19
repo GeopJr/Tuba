@@ -12,7 +12,7 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
 		var widget_status = widget as Widgets.Status;
 
 		if (widget_status != null) {
-            widget_status.fr_actions.visible = true;
+            widget_status.insert_fr_actions ();
             widget_status.decline_fr_button.clicked.connect(() => on_decline(widget_status, obj as Widgetizable));
             widget_status.accept_fr_button.clicked.connect(() => on_accept(widget_status, obj as Widgetizable));
         }
