@@ -51,7 +51,14 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	Adw.MessageDialog? dlg;
 	void on_exit () {
-		dlg = app.question (_("Are you sure you want to exit?"), _("Your progress will be lost."), this, _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE, "Cancel");
+		dlg = app.question (
+			_("Are you sure you want to exit?"),
+			_("Your progress will be lost."),
+			this,
+			_("Discard"),
+			Adw.ResponseAppearance.DESTRUCTIVE,
+			_("Cancel")
+		);
 		dlg.response.connect(on_dlg_response);
 		dlg.present ();
 	}
