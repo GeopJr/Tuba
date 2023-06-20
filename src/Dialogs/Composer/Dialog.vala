@@ -3,8 +3,103 @@ using Gee;
 
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/compose.ui")]
 public class Tuba.Dialogs.Compose : Adw.Window {
+	public class BasicStatus : Object {
+		public class BasicPoll : Object {
+			public Gee.ArrayList<string> options { get; set; default=new Gee.ArrayList <string>(); }
+			public int64 expires_in { get; set; default=0; }
+			public string expires_at { get; set; default=null; }
+			public bool multiple { get; set; }
+			public bool hide_totals { get; set; default=false; }
 
-	public API.Status status { get; construct set; }
+			public BasicPoll.from_poll (API.Poll t_poll) {
+				if (t_poll.options != null && t_poll.options.size > 0) {
+					foreach (API.PollOption p in t_poll.options){
+						options.add (p.title);
+					}
+				}
+
+				if (t_poll.expires_at != null) { 
+					var date = new GLib.DateTime.from_iso8601 (t_poll.expires_at, null);
+					var now = new GLib.DateTime.now_local ();
+					var delta = date.difference (now);
+
+					expires_in = delta / TimeSpan.SECOND;
+					expires_at = t_poll.expires_at;
+				}
+
+				multiple = t_poll.multiple;
+			}
+
+			public bool equal (BasicPoll t_poll) {
+				return
+					t_poll.multiple == multiple &&
+					BasicStatus.array_string_eq (options, t_poll.options);
+			}
+		}
+
+		public string id { get; set; }
+		public string status { get; set; }
+		public Gee.ArrayList<string> media_ids { get; set; default=new Gee.ArrayList <string>(); }
+		public BasicPoll poll { get; set; }
+		public string in_reply_to_id { get; set; }
+		public bool sensitive { get; set; }
+		public string spoiler_text { get; set; }
+		public string visibility { get; set; }
+		public string language { get; set; }
+		public Gee.ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
+
+		public BasicStatus.from_status (API.Status t_status) {
+			id = t_status.id;
+			status = t_status.content;
+
+			if (t_status.has_media()) {
+				media_attachments = t_status.media_attachments;
+
+				foreach (var t_attachment in t_status.media_attachments) {
+					media_ids.add (t_attachment.id);
+				}
+			}
+
+			if (t_status.poll != null) {
+				poll = new BasicPoll.from_poll (t_status.poll);
+			} else {
+				poll = new BasicPoll ();
+			}
+
+			in_reply_to_id = t_status.in_reply_to_id;
+			sensitive = t_status.sensitive;
+			spoiler_text = t_status.spoiler_text;
+			visibility = t_status.visibility;
+			language = t_status.language;
+		}
+
+		public bool equal (BasicStatus t_status) {
+			return
+				t_status.status == status &&
+				t_status.sensitive == sensitive &&
+				t_status.spoiler_text == spoiler_text &&
+				t_status.visibility == visibility &&
+				t_status.language == language &&
+				array_string_eq (media_ids, t_status.media_ids) &&
+				(poll != null && t_status != null ? poll.equal (t_status.poll) : poll == null && t_status == null);
+		}
+
+		public static bool array_string_eq (Gee.ArrayList<string> a1, Gee.ArrayList<string> a2) {
+			if (a1.size != a2.size) return false;
+			if (a1.size == 0 && a2.size == 0) return true;
+			var res = true;
+
+			foreach (var item in a1) {
+				res = a2.contains (item);
+				if (!res) break;
+			}
+
+			return res;
+		}
+	}
+
+	public BasicStatus original_status { get; construct set; }
+	public BasicStatus status { get; construct set; }
 
 	public delegate void SuccessCallback (API.Status cb_status);
 	protected SuccessCallback? cb;
@@ -12,9 +107,11 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	public string button_label {
 		set { commit_button.label = value; }
 	}
+
 	public string button_class {
 		set { commit_button.add_css_class (value); }
 	}
+
 	public bool editing { get; set; default=false; }
 
 	ulong build_sigid;
@@ -51,16 +148,22 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	Adw.MessageDialog? dlg;
 	void on_exit () {
-		dlg = app.question (
-			_("Are you sure you want to exit?"),
-			_("Your progress will be lost."),
-			this,
-			_("Discard"),
-			Adw.ResponseAppearance.DESTRUCTIVE,
-			_("Cancel")
-		);
-		dlg.response.connect(on_dlg_response);
-		dlg.present ();
+		push_all ();
+
+		if (status.equal (original_status)) {
+			on_close ();
+		} else {
+			dlg = app.question (
+				_("Are you sure you want to exit?"),
+				_("Your progress will be lost."),
+				this,
+				_("Discard"),
+				Adw.ResponseAppearance.DESTRUCTIVE,
+				_("Cancel")
+			);
+			dlg.response.connect(on_dlg_response);
+			dlg.present ();
+		}
 	}
 
 	void on_dlg_response (string res) {
@@ -119,7 +222,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	public Compose (API.Status template = new API.Status.empty ()) {
 		Object (
-			status: template,
+			status: new BasicStatus.from_status(template),
+			original_status: new BasicStatus.from_status(template),
 			button_label: _("_Publish"),
 			button_class: "suggested-action"
 		);
@@ -127,7 +231,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	public Compose.redraft (API.Status status) {
 		Object (
-			status: status,
+			status: new BasicStatus.from_status(status),
+			original_status: new BasicStatus.from_status(status),
 			button_label: _("_Redraft"),
 			button_class: "destructive-action"
 		);
@@ -151,7 +256,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		}
 
 		Object (
-			status: template,
+			status: new BasicStatus.from_status(template),
+			original_status: new BasicStatus.from_status(template),
 			button_label: _("_Edit"),
 			button_class: "suggested-action",
 			editing: true
@@ -171,7 +277,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		};
 
 		Object (
-			status: template,
+			status: new BasicStatus.from_status(template),
+			original_status: new BasicStatus.from_status(template),
 			button_label: _("_Reply"),
 			button_class: "suggested-action"
 		);
@@ -189,10 +296,19 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		return null;
 	}
 
+	private void push_all () {
+		foreach (var page in t_pages) {
+			page.on_push ();
+		}
+	}
+
 	protected void add_page (ComposerPage page) {
 		var wrapper = stack.add (page);
 		t_pages += page;
-		page.on_build (this, this.status);
+
+		page.dialog = this;
+		page.status = this.status;
+		page.on_build ();
 		page.on_pull ();
 
 		modify_req.connect (page.on_push);

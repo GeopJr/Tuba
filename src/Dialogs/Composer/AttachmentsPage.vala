@@ -66,8 +66,8 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		base.dispose ();
 	}
 
-	public override void on_build (Dialogs.Compose dialog, API.Status status) {
-		base.on_build (dialog, status);
+	public override void on_build () {
+		base.on_build ();
 
 		var attach_button = new Button.with_label (_("Add Media")) {
 			halign = Align.CENTER,
@@ -139,10 +139,10 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 		content.prepend (toast_overlay);
 
-		if (status.has_media()) {
+		if (status.media_attachments != null && status.media_attachments.size > 0) {
 			foreach (var t_attachment in status.media_attachments) {
-                attachments.append(t_attachment);
-            }
+				attachments.append(t_attachment);
+			}
 		}
 	}
 
@@ -298,16 +298,21 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		#endif
 	}
 
+	public override void on_push () {
+		status.media_ids.clear ();
+		for (var i = 0; i < attachments.get_n_items (); i++) {
+			var attachment = attachments.get_item (i) as API.Attachment;
+			status.media_ids.add (attachment.id);
+		}
+		status.sensitive = media_sensitive;
+	}
+
 	public override void on_modify_req (Request req) {
 		if (can_publish && this.visible){
-			for (var i = 0; i < attachments.get_n_items (); i++) {
-				var attachment = attachments.get_item (i) as API.Attachment;
-				req.with_form_data ("media_ids[]", attachment.id);
+			foreach (var m_id in status.media_ids) {
+				req.with_form_data ("media_ids[]", m_id);
 			}
-
-			if (media_sensitive) {
-				req.with_form_data ("sensitive", "true");
-			}
+			req.with_form_data ("sensitive", @"$(status.sensitive)");
 		}
 	}
 }

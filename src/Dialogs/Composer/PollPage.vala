@@ -90,8 +90,8 @@ public class Tuba.PollPage : ComposerPage {
 		add_poll_row ();
 	}
 
-	public override void on_build (Dialogs.Compose dialog, API.Status status) {
-		base.on_build (dialog, status);
+	public override void on_build () {
+		base.on_build ();
 
 		poll_list = new Gtk.ListBox () {
 			css_classes = { "boxed-list" }
@@ -152,8 +152,8 @@ public class Tuba.PollPage : ComposerPage {
 		if (status.poll != null && status.poll.options != null && status.poll.options.size > 0) {
 			multi_button.active = status.poll.multiple;
 
-			foreach (var t_row in status.poll.options) {
-				if (t_row.title != null) add_poll_row (t_row.title);
+			foreach (var option in status.poll.options) {
+				if (option != null) add_poll_row (option);
             }
 
 			install_expires_in (status.poll.expires_at);
@@ -256,20 +256,24 @@ public class Tuba.PollPage : ComposerPage {
 		add_button (expiration_button);
 	}
 
+	public override void on_push () {
+		status.poll.options.clear ();
+		foreach (var t_row in poll_options) {
+			if (t_row.text != "")
+				status.poll.options.add (t_row.text);
+		}
+
+		status.poll.multiple = multiple_choice;
+		status.poll.hide_totals = hide_totals;
+	}
+
 	public override void on_modify_req (Request req) {
 		if (is_valid && this.visible){
-			foreach (var t_row in poll_options) {
-				req.with_form_data ("poll[options][]", t_row.text);
+			foreach (var option in status.poll.options) {
+				req.with_form_data ("poll[options][]", option);
 			}
-
-			if (multiple_choice) {
-				req.with_form_data ("poll[multiple]", "true");
-			}
-
-			if (hide_totals) {
-				req.with_form_data ("poll[hide_totals]", "true");
-			}
-
+			req.with_form_data ("poll[multiple]", @"$(status.poll.multiple)");
+			req.with_form_data ("poll[hide_totals]", @"$(status.poll.hide_totals)");
 			req.with_form_data ("poll[expires_in]", @"$(((Expiration) expiration_button.selected_item).value)");
 		}
 	}

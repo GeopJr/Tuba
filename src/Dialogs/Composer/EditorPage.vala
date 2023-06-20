@@ -17,11 +17,11 @@ public class Tuba.EditorPage : ComposerPage {
 		remaining_chars = char_limit;
 	}
 
-	public override void on_build (Dialogs.Compose dialog, API.Status status) {
-		base.on_build (dialog, status);
+	public override void on_build () {
+		base.on_build ();
 
 		install_editor ();
-		install_overlay();
+		install_overlay (status.status);
 		install_visibility (status.visibility);
 		install_languages (status.language);
 		add_button (new Gtk.Separator (Orientation.VERTICAL));
@@ -38,12 +38,8 @@ public class Tuba.EditorPage : ComposerPage {
 		recount_chars ();
 	}
 
-	public override void on_pull () {
-		editor.buffer.text = dialog.status.content;
-	}
-
 	public override void on_push () {
-		status.content = editor.buffer.text;
+		status.status = editor.buffer.text;
 		status.sensitive = cw_button.active;
 		if (status.sensitive) {
 			status.spoiler_text = cw_entry.text;
@@ -59,17 +55,14 @@ public class Tuba.EditorPage : ComposerPage {
 	}
 
 	public override void on_modify_req (Request req) {
-		if (can_publish)
-			req.with_form_data ("status", status.content);
+		req.with_form_data ("status", status.status);
 		req.with_form_data ("visibility", status.visibility);
 		req.with_form_data ("language", status.language);
 
-		if (dialog.status.in_reply_to_id != null)
-			req.with_form_data ("in_reply_to_id", dialog.status.in_reply_to_id);
-		if (dialog.status.in_reply_to_account_id != null)
-			req.with_form_data ("in_reply_to_account_id", dialog.status.in_reply_to_account_id);
+		if (status.in_reply_to_id != null)
+			req.with_form_data ("in_reply_to_id", status.in_reply_to_id);
 
-		if (cw_button.active) {
+		if (status.sensitive) {
 			req.with_form_data ("sensitive", "true");
 			req.with_form_data ("spoiler_text", status.spoiler_text);
 		} else {
@@ -169,7 +162,7 @@ public class Tuba.EditorPage : ComposerPage {
 	protected Overlay overlay;
 	protected Label placeholder;
 
-	protected void install_overlay() {
+	protected void install_overlay(string t_content) {
 		overlay = new Overlay();
 		placeholder = new Label(_("What's on your mind?")) {
 			valign = Align.START,
@@ -189,6 +182,7 @@ public class Tuba.EditorPage : ComposerPage {
 		};
 
 		content.prepend(overlay);
+		editor.buffer.text = t_content;
 	}
 
 	protected EmojiChooser emoji_picker;
