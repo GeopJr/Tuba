@@ -255,13 +255,14 @@ public class Tuba.EditorPage : ComposerPage {
 	protected DropDown language_button;
 
 	private bool _edit_mode = false;
-	public bool edit_mode {
+	public override bool edit_mode {
 		get {
 			return _edit_mode;
 		}
 		set {
 			_edit_mode = value;
-			visibility_button.sensitive = !value;
+			if (visibility_button != null)
+				visibility_button.sensitive = !value;
 		}
 	}
 
@@ -270,7 +271,8 @@ public class Tuba.EditorPage : ComposerPage {
 			expression = new PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
 			factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/icon.ui"),
 			list_factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/full.ui"),
-			tooltip_text = _("Post Privacy")
+			tooltip_text = _("Post Privacy"),
+			sensitive = !edit_mode
 		};
 
 		var safe_visibility = accounts.active.visibility.has_key(default_visibility) ? default_visibility : "public";

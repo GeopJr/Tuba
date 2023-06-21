@@ -86,7 +86,9 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		empty_state.add_css_class ("compact");
 
 		// Non-empty state
-		list = new ListBox ();
+		list = new ListBox () {
+			selection_mode = SelectionMode.NONE
+		};
 		list.bind_model (attachments, on_create_list_item);
 
 		add_media_action_button = new Gtk.Button() {
@@ -152,7 +154,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 	Widget on_create_list_item (Object item) {
 		var attachment = item as API.Attachment;
-		var attachment_widget = new AttachmentsPageAttachment(attachment.id, attachment.source_file, dialog, attachment);
+		var attachment_widget = new AttachmentsPageAttachment(attachment.id, attachment.source_file, dialog, attachment, edit_mode);
 
 		attachment_widget.remove_from_model.connect(() => {
 			uint indx;
@@ -299,10 +301,16 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	}
 
 	public override void on_push () {
-		status.media_ids.clear ();
+		status.media.clear ();
+		status.media_attachments = new Gee.ArrayList<API.Attachment> ();
+
 		for (var i = 0; i < attachments.get_n_items (); i++) {
 			var attachment = attachments.get_item (i) as API.Attachment;
-			status.media_ids.add (attachment.id);
+			var attachment_page_attachment_alt = ((AttachmentsPageAttachment) list.get_row_at_index (i).child).alt_text;
+	
+			attachment.description = attachment_page_attachment_alt;
+			status.media.set (attachment.id, attachment.description);
+			status.media_attachments.add (attachment);
 		}
 		status.sensitive = media_sensitive;
 	}

@@ -39,7 +39,12 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 		public string id { get; set; }
 		public string status { get; set; }
-		public Gee.ArrayList<string> media_ids { get; set; default=new Gee.ArrayList <string>(); }
+		public Gee.Set<string> media_ids {
+			owned get {
+				return media.keys;
+			}
+		}
+		public Gee.HashMap<string, string> media { get; private set; default=new Gee.HashMap<string, string>(); }
 		public BasicPoll poll { get; set; }
 		public string in_reply_to_id { get; set; }
 		public bool sensitive { get; set; }
@@ -56,7 +61,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 				media_attachments = t_status.media_attachments;
 
 				foreach (var t_attachment in t_status.media_attachments) {
-					media_ids.add (t_attachment.id);
+					media.set (t_attachment.id, t_attachment.description ?? "");
 				}
 			}
 
@@ -84,7 +89,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 				(poll != null && t_status != null ? poll.equal (t_status.poll) : poll == null && t_status == null);
 		}
 
-		public static bool array_string_eq (Gee.ArrayList<string> a1, Gee.ArrayList<string> a2) {
+		public static bool array_string_eq (Gee.Collection<string> a1, Gee.Collection<string> a2) {
 			if (a1.size != a2.size) return false;
 			if (a1.size == 0 && a2.size == 0) return true;
 			var res = true;
@@ -193,7 +198,6 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		p_poll.bind_property ("is-valid", p_attach, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 		p_edit.bind_property ("can-publish", p_poll, "can-publish", GLib.BindingFlags.SYNC_CREATE);
 
-		if (editing) p_edit.edit_mode = true;
 		p_edit.editor_grab_focus ();
 	}
 
@@ -308,6 +312,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 		page.dialog = this;
 		page.status = this.status;
+		if (editing) page.edit_mode = true;
 		page.on_build ();
 		page.on_pull ();
 
@@ -340,6 +345,39 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	protected signal void modify_req (Request req);
 
+	protected virtual void update_alt_texts (Request req) {
+		if (
+			status.media_ids.size == 0 ||
+			original_status.media_ids.size == 0
+		) return;
+
+		int indx = 0;
+		foreach (var entry in status.media.entries) {
+			if (
+				!original_status.media_ids.contains (entry.key) ||
+				original_status.media.get (entry.key) == entry.value
+			) continue;
+
+			//  var builder = new Json.Builder ();
+			//  builder.begin_object ();
+			//  builder.set_member_name ("id");
+			//  builder.add_string_value (entry.key);
+			//  builder.set_member_name ("description");
+			//  builder.add_string_value (entry.value);
+			//  builder.end_object ();
+
+			//  var generator = new Json.Generator ();
+			//  generator.set_root (builder.get_root ());
+
+			//  req.with_form_data ("media_attributes", @"$(generator.to_data (null));type=application/json");
+
+			req.with_form_data (@"media_attributes[$indx][id]", entry.key);
+			req.with_form_data (@"media_attributes[$indx][description]", entry.value);
+
+			indx++;
+		}
+	}
+
 	protected virtual async void transaction () throws Error {
 		var publish_req = new Request () {
 			method = "POST",
@@ -354,6 +392,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			};
 		}
 		modify_req (publish_req);
+		if (editing) update_alt_texts (publish_req);
 		yield publish_req.await ();
 
 		var parser = Network.get_parser_from_inputstream(publish_req.response_body);

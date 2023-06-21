@@ -2,19 +2,22 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	protected Gtk.Picture pic;
 	protected File? attachment_file;
-	protected string? alt_text { get; set; default = null; }
+	public string? alt_text { get; private set; default = null; }
 	private const int ALT_MAX_CHARS = 1500;
 	private unowned Dialogs.Compose compose_dialog;
 	protected string id;
+	private bool edit_mode = false;
 
 	~AttachmentsPageAttachment () {
 		message ("Destroying AttachmentsPageAttachment");
 	}
 
-    public AttachmentsPageAttachment (string attachment_id, File? file, Dialogs.Compose dialog, API.Attachment? t_entity){
+    public AttachmentsPageAttachment (string attachment_id, File? file, Dialogs.Compose dialog, API.Attachment? t_entity, bool t_edit_mode = false){
+		edit_mode = t_edit_mode;
 		id = attachment_id;
 		attachment_file = file;
 		compose_dialog = dialog;
+
 		pic = new Gtk.Picture () {
 			hexpand = true,
 			vexpand = true,
@@ -28,17 +31,14 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			image_cache.request_paintable (t_entity.preview_url, on_cache_response);
 		}
 		button.child = pic;
-		if (file != null) {
-			alt_btn.tooltip_text = _("Edit Alt Text");
-			alt_btn.disconnect(alt_btn_clicked_id);
-			alt_btn.clicked.connect(() => {
-				create_alt_text_input_window().show();
-			});
-			alt_btn.add_css_class("error");
-			alt_btn.remove_css_class("flat");
-		} else {
-			alt_btn.visible = false;
-		}
+
+		alt_btn.tooltip_text = _("Edit Alt Text");
+		alt_btn.disconnect(alt_btn_clicked_id);
+		alt_btn.clicked.connect(() => {
+			create_alt_text_input_window().show();
+		});
+		alt_btn.add_css_class("error");
+		alt_btn.remove_css_class("flat");
 
 		var delete_button = new Gtk.Button() {
 			icon_name = "tuba-trash-symbolic",
@@ -54,6 +54,9 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		delete_button.add_css_class("error");
 
 		delete_button.clicked.connect(() => remove_from_model());
+
+		alt_text = t_entity.description;
+		update_alt_css (alt_text.length);
 	}
 
 	protected virtual void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
@@ -149,21 +152,29 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 		save_btn.clicked.connect(() => {
 			alt_text = alt_editor.buffer.text;
-			if (validate(alt_editor.buffer.get_char_count ()) && alt_editor.buffer.get_char_count () > 0) {
-				alt_btn.add_css_class("success");
-				alt_btn.remove_css_class("error");
-			} else {
-				alt_btn.remove_css_class("success");
-				alt_btn.add_css_class("error");
+			update_alt_css (alt_editor.buffer.get_char_count ());
+
+			if (!edit_mode) {
+				new Request.PUT (@"/api/v1/media/$(id)")
+					.with_account (accounts.active)
+					.with_param ("description", alt_text)
+					.then(() => {})
+					.exec ();
 			}
-			new Request.PUT (@"/api/v1/media/$(id)")
-				.with_account (accounts.active)
-				.with_param ("description", alt_text)
-				.then(() => {})
-				.exec ();
+
 			dialog.destroy();
 		});
 
 		return dialog;
+	}
+
+	private void update_alt_css (int text_length) {
+		if (validate(text_length) && text_length > 0) {
+			alt_btn.add_css_class("success");
+			alt_btn.remove_css_class("error");
+		} else {
+			alt_btn.remove_css_class("success");
+			alt_btn.add_css_class("error");
+		}
 	}
 }
