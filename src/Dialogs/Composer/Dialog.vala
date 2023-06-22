@@ -39,11 +39,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 		public string id { get; set; }
 		public string status { get; set; }
-		public Gee.Set<string> media_ids {
-			owned get {
-				return media.keys;
-			}
-		}
+		public Gee.ArrayList<string> media_ids { get; private set; default=new Gee.ArrayList<string>(); }
 		public Gee.HashMap<string, string> media { get; private set; default=new Gee.HashMap<string, string>(); }
 		public BasicPoll poll { get; set; }
 		public string in_reply_to_id { get; set; }
@@ -53,6 +49,16 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		public string language { get; set; }
 		public Gee.ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
 
+		public void add_media (string t_id, string? t_alt) {
+			media_ids.add (t_id);
+			media.set (t_id, t_alt ?? "");
+		}
+
+		public void clear_media () {
+			media_ids.clear ();
+			media.clear ();
+		}
+
 		public BasicStatus.from_status (API.Status t_status) {
 			id = t_status.id;
 			status = t_status.content;
@@ -61,7 +67,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 				media_attachments = t_status.media_attachments;
 
 				foreach (var t_attachment in t_status.media_attachments) {
-					media.set (t_attachment.id, t_attachment.description ?? "");
+					add_media (t_attachment.id, t_attachment.description);
 				}
 			}
 

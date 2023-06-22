@@ -301,7 +301,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	}
 
 	public override void on_push () {
-		status.media.clear ();
+		status.clear_media ();
 		status.media_attachments = new Gee.ArrayList<API.Attachment> ();
 
 		for (var i = 0; i < attachments.get_n_items (); i++) {
@@ -309,7 +309,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			var attachment_page_attachment_alt = ((AttachmentsPageAttachment) list.get_row_at_index (i).child).alt_text;
 	
 			attachment.description = attachment_page_attachment_alt;
-			status.media.set (attachment.id, attachment.description);
+			status.add_media (attachment.id, attachment.description);
 			status.media_attachments.add (attachment);
 		}
 		status.sensitive = media_sensitive;
