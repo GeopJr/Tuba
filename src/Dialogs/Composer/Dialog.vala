@@ -349,41 +349,44 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		});
 	}
 
-	protected signal void modify_req (Request req);
+	protected signal void modify_req (Json.Builder builder);
 
-	protected virtual void update_alt_texts (Request req) {
+	protected virtual void update_alt_texts (Json.Builder builder) {
 		if (
 			status.media_ids.size == 0 ||
 			original_status.media_ids.size == 0
 		) return;
 
-		int indx = 0;
+		builder.set_member_name ("media_attributes");
+		builder.begin_array ();
+
 		foreach (var entry in status.media.entries) {
 			if (
 				!original_status.media_ids.contains (entry.key) ||
 				original_status.media.get (entry.key) == entry.value
 			) continue;
 
-			//  var builder = new Json.Builder ();
-			//  builder.begin_object ();
-			//  builder.set_member_name ("id");
-			//  builder.add_string_value (entry.key);
-			//  builder.set_member_name ("description");
-			//  builder.add_string_value (entry.value);
-			//  builder.end_object ();
-
-			//  var generator = new Json.Generator ();
-			//  generator.set_root (builder.get_root ());
-
-			//  req.with_form_data ("media_attributes", @"$(generator.to_data (null));type=application/json");
-
-			req.with_form_data (@"media_attributes[$indx][id]", entry.key);
-			req.with_form_data (@"media_attributes[$indx][description]", entry.value);
-
-			indx++;
+			builder.begin_object ();
+			builder.set_member_name ("id");
+			builder.add_string_value (entry.key);
+			builder.set_member_name ("description");
+			builder.add_string_value (entry.value);
+			builder.end_object ();
 		}
+
+		builder.end_array ();
 	}
 
+	private Json.Builder populate_json_body () {
+		var builder = new Json.Builder ();
+		builder.begin_object ();
+
+		modify_req (builder);
+		if (editing) update_alt_texts (builder);
+
+		builder.end_object ();
+		return builder;
+	}
 	protected virtual async void transaction () throws Error {
 		var publish_req = new Request () {
 			method = "POST",
@@ -397,8 +400,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 				account = accounts.active
 			};
 		}
-		modify_req (publish_req);
-		if (editing) update_alt_texts (publish_req);
+		publish_req.body_json (populate_json_body ());
+
 		yield publish_req.await ();
 
 		var parser = Network.get_parser_from_inputstream(publish_req.response_body);

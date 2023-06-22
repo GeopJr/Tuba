@@ -70,7 +70,7 @@ public class Tuba.Request : GLib.Object {
 
 	private string? t_content_type = null;
 	private Bytes? t_body_bytes = null;
-	public void set_request_body_from_bytes (string? content_type, Bytes? bytes)  {
+	public void set_request_body_from_bytes (string? content_type, Bytes? bytes) {
 		t_content_type = content_type;
 		t_body_bytes = bytes;
 	}
@@ -120,6 +120,18 @@ public class Tuba.Request : GLib.Object {
 			form_data = new Soup.Multipart(FORM_MIME_TYPE_MULTIPART);
 		form_data.append_form_string(name, val);
 		return this;
+	}
+
+	public Request body (string? content_type, Bytes? bytes) {
+		t_content_type = content_type;
+		t_body_bytes = bytes;
+		return this;
+	}
+
+	public Request body_json (Json.Builder t_builder) {
+		var generator = new Json.Generator ();
+        generator.set_root (t_builder.get_root ());
+		return body ("application/json", new Bytes.take(generator.to_data (null).data));
 	}
 
 	public Request exec () {

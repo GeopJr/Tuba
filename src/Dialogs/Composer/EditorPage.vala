@@ -54,21 +54,25 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 	}
 
-	public override void on_modify_req (Request req) {
-		req.with_form_data ("status", status.status);
-		req.with_form_data ("visibility", status.visibility);
-		req.with_form_data ("language", status.language);
+	public override void on_modify_req (Json.Builder builder) {
+		builder.set_member_name ("status");
+		builder.add_string_value (status.status);
 
-		if (status.in_reply_to_id != null)
-			req.with_form_data ("in_reply_to_id", status.in_reply_to_id);
+		builder.set_member_name ("visibility");
+		builder.add_string_value (status.visibility);
 
-		if (status.sensitive) {
-			req.with_form_data ("sensitive", "true");
-			req.with_form_data ("spoiler_text", status.spoiler_text);
-		} else {
-			req.with_form_data ("sensitive", "false");
-			req.with_form_data ("spoiler_text", "");
+		builder.set_member_name ("language");
+		builder.add_string_value (status.language);
+
+		if (status.in_reply_to_id != null && !edit_mode) {
+			builder.set_member_name ("in_reply_to_id");
+			builder.add_string_value (status.in_reply_to_id);
 		}
+
+		builder.set_member_name ("sensitive");
+		builder.add_boolean_value (status.sensitive);
+		builder.set_member_name ("spoiler_text");
+		builder.add_string_value (status.sensitive ? status.spoiler_text : "");
 	}
 
 	#if MISSING_GTKSOURCEVIEW

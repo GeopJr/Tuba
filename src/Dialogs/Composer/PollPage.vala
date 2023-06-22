@@ -267,14 +267,28 @@ public class Tuba.PollPage : ComposerPage {
 		status.poll.hide_totals = hide_totals;
 	}
 
-	public override void on_modify_req (Request req) {
+	public override void on_modify_req (Json.Builder builder) {
 		if (is_valid && this.visible){
+			builder.set_member_name ("poll");
+			builder.begin_object ();
+
+			builder.set_member_name ("multiple");
+			builder.add_boolean_value (status.poll.multiple);
+
+			builder.set_member_name ("hide_totals");
+			builder.add_boolean_value (status.poll.hide_totals);
+
+			builder.set_member_name ("expires_in");
+			builder.add_int_value (((Expiration) expiration_button.selected_item).value);
+
+			builder.set_member_name ("options");
+			builder.begin_array ();
 			foreach (var option in status.poll.options) {
-				req.with_form_data ("poll[options][]", option);
+				builder.add_string_value (option);
 			}
-			req.with_form_data ("poll[multiple]", @"$(status.poll.multiple)");
-			req.with_form_data ("poll[hide_totals]", @"$(status.poll.hide_totals)");
-			req.with_form_data ("poll[expires_in]", @"$(((Expiration) expiration_button.selected_item).value)");
+			builder.end_array ();
+
+			builder.end_object ();
 		}
 	}
 }
