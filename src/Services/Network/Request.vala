@@ -68,12 +68,20 @@ public class Tuba.Request : GLib.Object {
 	// 	message ("Destroy req: "+url);
 	// }
 
-	private string? t_content_type = null;
-	private Bytes? t_body_bytes = null;
-	public void set_request_body_from_bytes (string? content_type, Bytes? bytes)  {
-		t_content_type = content_type;
-		t_body_bytes = bytes;
+	private string? content_type = null;
+	private Bytes? body_bytes = null;
+	public void set_request_body_from_bytes (string? t_content_type, Bytes? t_bytes)  {
+		content_type = t_content_type;
+		body_bytes = t_bytes;
 	}
+
+	// Unused
+	//  private bool force_replace_content_type = false;
+	//  public Request force_content_type (string new_content_type) {
+	//  	content_type = new_content_type;
+	//  	force_replace_content_type = true;
+	//  	return this;
+	//  }
 
 	public Request then (owned Network.SuccessCallback cb) {
 		this.cb = (owned) cb;
@@ -172,8 +180,11 @@ public class Tuba.Request : GLib.Object {
 
 		msg.priority = priority;
 
-		if (t_content_type != null)
-			msg.set_request_body_from_bytes(t_content_type, t_body_bytes);
+		if (content_type != null && body_bytes != null)
+			msg.set_request_body_from_bytes(content_type, body_bytes);
+
+		//  if (force_replace_content_type)
+		//  	msg.request_headers.replace ("Content-Type", content_type);
 
 		network.queue (msg, this.cancellable, (owned) cb, (owned) error_cb);
 		return this;
