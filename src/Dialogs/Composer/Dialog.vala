@@ -92,6 +92,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 				t_status.visibility == visibility &&
 				t_status.language == language &&
 				array_string_eq (media_ids, t_status.media_ids) &&
+				!alts_changed (t_status) &&
 				(poll != null && t_status != null ? poll.equal (t_status.poll) : poll == null && t_status == null);
 		}
 
@@ -103,6 +104,18 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			foreach (var item in a1) {
 				res = a2.contains (item);
 				if (!res) break;
+			}
+
+			return res;
+		}
+
+		public bool alts_changed (BasicStatus t_status) {
+			var res = false;
+
+			foreach (var entry in this.media.entries) {
+				if (!t_status.media.has_key (entry.key)) continue;
+				res = t_status.media.get (entry.key) != entry.value;
+				if (res) break;
 			}
 
 			return res;
