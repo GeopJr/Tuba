@@ -154,7 +154,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 	Widget on_create_list_item (Object item) {
 		var attachment = item as API.Attachment;
-		var attachment_widget = new AttachmentsPageAttachment(attachment.id, attachment.source_file, dialog, attachment, edit_mode);
+		var attachment_widget = new AttachmentsPageAttachment(attachment.id, attachment.source_file, dialog, attachment, edit_mode && status.media_ids.contains(attachment.id));
 
 		attachment_widget.remove_from_model.connect(() => {
 			uint indx;
