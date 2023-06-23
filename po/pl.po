@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 23:29+0300\n"
-"PO-Revision-Date: 2023-06-04 20:48+0000\n"
+"PO-Revision-Date: 2023-06-23 12:58+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 4.18.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -562,7 +562,7 @@ msgstr ""
 
 #: src/Views/Profile.vala:370
 msgid "Sent follow request"
-msgstr "Wysłano prośbę o obserwowanie"
+msgstr "Wysłano prośbę o obserwację"
 
 #: src/Views/Profile.vala:372
 msgid "Mutuals"
@@ -713,7 +713,7 @@ msgstr "Widok główny"
 #: src/Views/FollowRequests.vala:4
 #: src/Services/Accounts/Mastodon/Account.vala:100
 msgid "Follow Requests"
-msgstr "Prośby o obserwowanie"
+msgstr "Prośby o obserwację"
 
 #: src/Views/Federated.vala:7 src/Services/Accounts/Mastodon/Account.vala:92
 msgid "Federated"
