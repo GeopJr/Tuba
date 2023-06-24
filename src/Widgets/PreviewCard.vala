@@ -90,7 +90,8 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 		if (card_obj.title != "") {
 			var title_label = new Gtk.Label (card_obj.title) {
 				ellipsize = Pango.EllipsizeMode.END,
-				halign = Gtk.Align.START,
+				halign = Gtk.Align.FILL,
+				xalign = 0.0f,
 				tooltip_text = card_obj.title,
 				lines = 2,
 				wrap = true,
@@ -103,7 +104,8 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 		if (card_obj.description != "") {
 			description_label = new Gtk.Label (card_obj.description) {
 				ellipsize = Pango.EllipsizeMode.END,
-				halign = Gtk.Align.START,
+				halign = Gtk.Align.FILL,
+				xalign = 0.0f,
 				css_classes = {"caption"},
 				tooltip_text = card_obj.description,
 				single_line_mode = true
