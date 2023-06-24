@@ -60,9 +60,10 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 			}, 1, 1);
 		}
 
-		var body = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+		var body = new Gtk.Box (Gtk.Orientation.VERTICAL, 3) {
 			margin_top = 6,
 			margin_bottom = 6,
+			margin_end = 6,
 			valign = Gtk.Align.CENTER
 		};
 
@@ -80,7 +81,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 		var author_label = new Gtk.Label (author) {
 			ellipsize = Pango.EllipsizeMode.END,
 			halign = Gtk.Align.START,
-			css_classes = {"dim-label"},
+			css_classes = {"dim-label", "caption"},
 			tooltip_text = author,
 			single_line_mode = true
 		};
@@ -91,7 +92,9 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 				ellipsize = Pango.EllipsizeMode.END,
 				halign = Gtk.Align.START,
 				tooltip_text = card_obj.title,
-				single_line_mode = true
+				lines = 2,
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR
 			};
 			body.append (title_label);
 		}
@@ -101,7 +104,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 			description_label = new Gtk.Label (card_obj.description) {
 				ellipsize = Pango.EllipsizeMode.END,
 				halign = Gtk.Align.START,
-				css_classes = {"dim-label"},
+				css_classes = {"caption"},
 				tooltip_text = card_obj.description,
 				single_line_mode = true
 			};
@@ -140,7 +143,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
     
                 var used_times_label = new Gtk.Label (subtitle) {
                     halign = Gtk.Align.START,
-                    css_classes = {"dim-label"},
+                    css_classes = {"dim-label", "caption"},
 					wrap = true
                 };
 
