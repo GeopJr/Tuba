@@ -6,9 +6,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
     public PreviewCard (API.PreviewCard card_obj) {
         var is_video = card_obj.kind == "video";
 		
-		Gtk.Widget card_container = new Gtk.Grid () {
-			column_spacing = 6
-		};
+		Gtk.Widget card_container = new Gtk.Grid ();
 
 		if (is_video)
 			card_container = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -60,13 +58,13 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 			}, 1, 1);
 		}
 
-		var body = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-			margin_top = 6,
-			margin_bottom = 6,
+		var body = new Gtk.Box (Gtk.Orientation.VERTICAL, 3) {
+			margin_top = 12,
+			margin_bottom = 12,
+			margin_end = 12,
+			margin_start = 12,
 			valign = Gtk.Align.CENTER
 		};
-
-		if (is_video) body.margin_start = body.margin_end = 6;
 
 		var author = card_obj.provider_name;
 		if (author == "") {
@@ -80,7 +78,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 		var author_label = new Gtk.Label (author) {
 			ellipsize = Pango.EllipsizeMode.END,
 			halign = Gtk.Align.START,
-			css_classes = {"dim-label"},
+			css_classes = {"dim-label", "caption"},
 			tooltip_text = author,
 			single_line_mode = true
 		};
@@ -89,9 +87,12 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 		if (card_obj.title != "") {
 			var title_label = new Gtk.Label (card_obj.title) {
 				ellipsize = Pango.EllipsizeMode.END,
-				halign = Gtk.Align.START,
+				halign = Gtk.Align.FILL,
+				xalign = 0.0f,
 				tooltip_text = card_obj.title,
-				single_line_mode = true
+				lines = 2,
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR
 			};
 			body.append (title_label);
 		}
@@ -100,8 +101,9 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 		if (card_obj.description != "") {
 			description_label = new Gtk.Label (card_obj.description) {
 				ellipsize = Pango.EllipsizeMode.END,
-				halign = Gtk.Align.START,
-				css_classes = {"dim-label"},
+				halign = Gtk.Align.FILL,
+				xalign = 0.0f,
+				css_classes = {"caption"},
 				tooltip_text = card_obj.description,
 				single_line_mode = true
 			};
@@ -140,7 +142,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
     
                 var used_times_label = new Gtk.Label (subtitle) {
                     halign = Gtk.Align.START,
-                    css_classes = {"dim-label"},
+                    css_classes = {"dim-label", "caption"},
 					wrap = true
                 };
 
