@@ -8,6 +8,8 @@ public class Tuba.Tracking {
         "utm_",
         // https://github.com/brave/brave-browser/issues/4239
         "fbclid", "gclid", "msclkid", "mc_eid",
+        // New Facebook one
+        "mibexid",
         // https://github.com/brave/brave-browser/issues/9879
         "dclid",
         // https://github.com/brave/brave-browser/issues/13644
