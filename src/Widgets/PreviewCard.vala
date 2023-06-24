@@ -6,9 +6,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
     public PreviewCard (API.PreviewCard card_obj) {
         var is_video = card_obj.kind == "video";
 		
-		Gtk.Widget card_container = new Gtk.Grid () {
-			column_spacing = 6
-		};
+		Gtk.Widget card_container = new Gtk.Grid ();
 
 		if (is_video)
 			card_container = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -61,13 +59,12 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 		}
 
 		var body = new Gtk.Box (Gtk.Orientation.VERTICAL, 3) {
-			margin_top = 6,
-			margin_bottom = 6,
-			margin_end = 6,
+			margin_top = 12,
+			margin_bottom = 12,
+			margin_end = 12,
+			margin_start = 12,
 			valign = Gtk.Align.CENTER
 		};
-
-		if (is_video) body.margin_start = body.margin_end = 6;
 
 		var author = card_obj.provider_name;
 		if (author == "") {
