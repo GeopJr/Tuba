@@ -33,8 +33,9 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 
 	private Attachment.Image[] attachment_widgets;
 	protected void update () {
-		for (var w = box.get_first_child (); w != null; w = w.get_next_sibling ())
-			box.remove (w);
+		foreach (var t_aw in attachment_widgets) {
+			box.remove (t_aw);
+		}
 
 		attachment_widgets = {};
 

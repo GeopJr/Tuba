@@ -6,9 +6,10 @@ public class Tuba.ComposerPage : Gtk.Box {
 	public string icon_name { get; set; }
 	public uint badge_number { get; set; default = 0; }
 	public virtual bool can_publish { get; set; default = false; }
+	public virtual bool edit_mode { get; set; default = false; }
 
-	protected weak Dialogs.Compose dialog;
-	protected weak API.Status status;
+	public weak Dialogs.Compose dialog;
+	public Tuba.Dialogs.Compose.BasicStatus status;
 
 	ScrolledWindow scroller;
 	protected Box content;
@@ -47,10 +48,7 @@ public class Tuba.ComposerPage : Gtk.Box {
 		bottom_bar.show ();
 	}
 
-	public virtual void on_build (Dialogs.Compose dialog, API.Status status) {
-		this.dialog = dialog;
-		this.status = status;
-	}
+	public virtual void on_build () {}
 
 	// Entity -> UI state
 	public virtual void on_pull () {}
@@ -58,6 +56,6 @@ public class Tuba.ComposerPage : Gtk.Box {
 	// UI state -> Entity
 	public virtual void on_push () {}
 
-	public virtual void on_modify_req (Request req) {}
+	public virtual void on_modify_body (Json.Builder builder) {}
 
 }

@@ -280,7 +280,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	private void on_edit (API.Status x) {
-		this.status.patch(x);
+		this.status.patch (x);
 		bind ();
 	}
 

@@ -3,4 +3,5 @@ sources += files(
     'Host.vala',
     'Html.vala',
     'Locale.vala',
+    'Tracking.vala',
 )
