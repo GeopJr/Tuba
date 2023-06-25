@@ -360,16 +360,12 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
     }
 
     private void on_drag_end (double x, double y) {
-        // Don't clear if the image is zoomed in
-        // as it triggers when scrolling
         var t_item = safe_get ((int) carousel.position);
         var pic = t_item?.child_widget as Gtk.Picture;
         if (pic != null) {
             pic.set_cursor (null);
             t_item.last_x = 0.0;
             t_item.last_y = 0.0;
-
-            if (!pic.can_shrink) return;
         };
     }
 
