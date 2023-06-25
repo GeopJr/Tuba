@@ -157,11 +157,11 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		message ("Requesting access token");
 		var token_req = new Request.POST (@"/oauth/token")
 			.with_account (account)
-			.with_param ("client_id", account.client_id)
-			.with_param ("client_secret", account.client_secret)
-			.with_param ("redirect_uri", redirect_uri)
-			.with_param ("grant_type", "authorization_code")
-			.with_param ("code", code_entry.text);
+			.with_form_data ("client_id", account.client_id)
+			.with_form_data ("client_secret", account.client_secret)
+			.with_form_data ("redirect_uri", redirect_uri)
+			.with_form_data ("grant_type", "authorization_code")
+			.with_form_data ("code", code_entry.text);
 		yield token_req.await ();
 
 		var parser = Network.get_parser_from_inputstream(token_req.response_body);
