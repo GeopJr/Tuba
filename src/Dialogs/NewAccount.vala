@@ -189,11 +189,12 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		present ();
 		message (@"Received uri: $t_uri");
 
-		string code_from_params;
+		string code_from_params = "";
 		try {
 			var uri = Uri.parse (t_uri, UriFlags.NONE);
 			var uri_params = Uri.parse_params (uri.get_query ());
-			code_from_params = uri_params.contains ("code") ? uri_params.get ("code") : "";
+			if (uri_params.contains ("code"))
+				code_from_params = uri_params.get ("code");
 		} catch (GLib.UriError e) {
 			warning (e.message);
 			return;
