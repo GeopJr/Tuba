@@ -17,11 +17,11 @@ public class Tuba.EditorPage : ComposerPage {
 		remaining_chars = char_limit;
 	}
 
-	public override void on_build (Dialogs.Compose dialog, API.Status status) {
-		base.on_build (dialog, status);
+	public override void on_build () {
+		base.on_build ();
 
 		install_editor ();
-		install_overlay();
+		install_overlay (status.status);
 		install_visibility (status.visibility);
 		install_languages (status.language);
 		add_button (new Gtk.Separator (Orientation.VERTICAL));
@@ -38,12 +38,8 @@ public class Tuba.EditorPage : ComposerPage {
 		recount_chars ();
 	}
 
-	public override void on_pull () {
-		editor.buffer.text = dialog.status.content;
-	}
-
 	public override void on_push () {
-		status.content = editor.buffer.text;
+		status.status = editor.buffer.text;
 		status.sensitive = cw_button.active;
 		if (status.sensitive) {
 			status.spoiler_text = cw_entry.text;
@@ -58,24 +54,25 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 	}
 
-	public override void on_modify_req (Request req) {
-		if (can_publish)
-			req.with_form_data ("status", status.content);
-		req.with_form_data ("visibility", status.visibility);
-		req.with_form_data ("language", status.language);
+	public override void on_modify_body (Json.Builder builder) {
+		builder.set_member_name ("status");
+		builder.add_string_value (status.status);
 
-		if (dialog.status.in_reply_to_id != null)
-			req.with_form_data ("in_reply_to_id", dialog.status.in_reply_to_id);
-		if (dialog.status.in_reply_to_account_id != null)
-			req.with_form_data ("in_reply_to_account_id", dialog.status.in_reply_to_account_id);
+		builder.set_member_name ("visibility");
+		builder.add_string_value (status.visibility);
 
-		if (cw_button.active) {
-			req.with_form_data ("sensitive", "true");
-			req.with_form_data ("spoiler_text", status.spoiler_text);
-		} else {
-			req.with_form_data ("sensitive", "false");
-			req.with_form_data ("spoiler_text", "");
+		builder.set_member_name ("language");
+		builder.add_string_value (status.language);
+
+		if (status.in_reply_to_id != null && !edit_mode) {
+			builder.set_member_name ("in_reply_to_id");
+			builder.add_string_value (status.in_reply_to_id);
 		}
+
+		builder.set_member_name ("sensitive");
+		builder.add_boolean_value (status.sensitive);
+		builder.set_member_name ("spoiler_text");
+		builder.add_string_value (status.sensitive ? status.spoiler_text : "");
 	}
 
 	#if MISSING_GTKSOURCEVIEW
@@ -169,7 +166,7 @@ public class Tuba.EditorPage : ComposerPage {
 	protected Overlay overlay;
 	protected Label placeholder;
 
-	protected void install_overlay() {
+	protected void install_overlay(string t_content) {
 		overlay = new Overlay();
 		placeholder = new Label(_("What's on your mind?")) {
 			valign = Align.START,
@@ -189,6 +186,7 @@ public class Tuba.EditorPage : ComposerPage {
 		};
 
 		content.prepend(overlay);
+		editor.buffer.text = t_content;
 	}
 
 	protected EmojiChooser emoji_picker;
@@ -261,13 +259,14 @@ public class Tuba.EditorPage : ComposerPage {
 	protected DropDown language_button;
 
 	private bool _edit_mode = false;
-	public bool edit_mode {
+	public override bool edit_mode {
 		get {
 			return _edit_mode;
 		}
 		set {
 			_edit_mode = value;
-			visibility_button.sensitive = !value;
+			if (visibility_button != null)
+				visibility_button.sensitive = !value;
 		}
 	}
 
@@ -276,7 +275,8 @@ public class Tuba.EditorPage : ComposerPage {
 			expression = new PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
 			factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/icon.ui"),
 			list_factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/full.ui"),
-			tooltip_text = _("Post Privacy")
+			tooltip_text = _("Post Privacy"),
+			sensitive = !edit_mode
 		};
 
 		var safe_visibility = accounts.active.visibility.has_key(default_visibility) ? default_visibility : "public";
