@@ -371,10 +371,6 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
             if (!pic.can_shrink) return;
         };
-
-        if (Math.fabs(y) >= 200) {
-            on_back_clicked();
-        }
     }
 
     private void setup_mouse_previous_click () {
