@@ -126,7 +126,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		warning (t_id);
 		var req = new Request.POST ("/api/users/show")
 			.with_account (this)
-			.body ("application/json", new Bytes.take(API.Misskey.JSON.get_show_userid (t_id).data));
+			.body_json (API.Misskey.JSON.get_show_userid (t_id));
 		yield req.await ();
 
 		var parser = Network.get_parser_from_inputstream(req.response_body);

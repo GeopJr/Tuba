@@ -188,7 +188,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		new Request.POST (get_req_url ())
 			.with_account (account)
 			.with_ctx (this)
-			.body ("application/json", new Bytes.take(Tuba.API.Misskey.JSON.get_timeline (settings.timeline_page_size).data))
+			.body_json (Tuba.API.Misskey.JSON.get_timeline (settings.timeline_page_size))
 			.then ((sess, msg, in_stream) => {
 				var parser = Network.get_parser_from_inputstream(in_stream);
 		

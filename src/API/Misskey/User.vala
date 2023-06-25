@@ -1,4 +1,4 @@
-public class Tuba.API.Misskey.User : Tuba.Misskey.Entity, AiChanify {
+public class Tuba.API.Misskey.User : Entity, AiChanify, Json.Serializable {
     public string id { get; set; }
     public string name { get; set; }
     public string username { get; set; }
@@ -14,7 +14,7 @@ public class Tuba.API.Misskey.User : Tuba.Misskey.Entity, AiChanify {
     public int64 notesCount { get; set; }
 
     public static User from (Json.Node node) throws Error {
-		return Tuba.Misskey.Entity.from_json (typeof (API.Misskey.User), node) as API.Misskey.User;
+		return Entity.from_json (typeof (API.Misskey.User), node) as API.Misskey.User;
 	}
 
     public override Entity to_mastodon () {

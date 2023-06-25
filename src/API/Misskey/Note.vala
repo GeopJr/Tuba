@@ -1,4 +1,4 @@
-public class Tuba.API.Misskey.Note : Tuba.Misskey.Entity, AiChanify {
+public class Tuba.API.Misskey.Note : Entity, Json.Serializable, AiChanify {
 	~Note () {
 		message ("[OBJ] Destroyed "+uri);
 	}
@@ -20,6 +20,41 @@ public class Tuba.API.Misskey.Note : Tuba.Misskey.Entity, AiChanify {
     public string url { get; set; }
     public API.Misskey.Note? renote { get; set; default = null; }
 
+    public static Note from (Json.Node node) throws Error {
+		return Entity.from_json (typeof (API.Misskey.Note), node) as API.Misskey.Note;
+	}
+
+    public override bool deserialize_property (string prop, out Value val, ParamSpec spec, Json.Node node) { 
+		var success = default_deserialize_property (prop, out val, spec, node);
+
+        var type = spec.value_type;
+		if (val.type () == Type.INVALID) {
+			val.init (type);
+			spec.set_value_default (ref val);
+			type = spec.value_type;
+		}
+
+		if (type.is_a (typeof (Gee.ArrayList))) {
+			Type contains;
+
+			switch (prop) {
+				case "mentions":
+					return Entity.des_list_string(out val, node);
+				case "emojis":
+					contains = typeof (API.Misskey.Emoji);
+					break;
+				case "reactions":
+					return Entity.des_map_string_string (out val, node);
+				default:
+					contains = typeof (Entity);
+					break;
+			}
+			return des_list (out val, node, contains);
+		}
+
+		return success;
+	}
+
     public override Entity to_mastodon () {
         var masto_status = new API.Status.empty ();
         masto_status.id = id;
@@ -31,6 +66,11 @@ public class Tuba.API.Misskey.Note : Tuba.Misskey.Entity, AiChanify {
         masto_status.reblogs_count = renotesCount;
         masto_status.visibility = visibility;
         masto_status.uri = uri;
+        
+        if (renote != null) {
+            var reblog_status = renote.to_mastodon () as API.Status;
+            masto_status.reblog = reblog_status;
+        }
 
         return masto_status;
     }

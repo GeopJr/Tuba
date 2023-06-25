@@ -1,5 +1,5 @@
 public class Tuba.API.Misskey.JSON : Object {
-    public static string get_app (string callback_url) {
+    public static Json.Builder get_app (string callback_url) {
         var builder = new Json.Builder ();
         builder.begin_object ();
         builder.set_member_name ("name");
@@ -43,12 +43,10 @@ public class Tuba.API.Misskey.JSON : Object {
 
         builder.end_object ();
 
-        var generator = new Json.Generator ();
-        generator.set_root (builder.get_root ());
-        return generator.to_data (null);
+        return builder;
     }
 
-    public static string get_session_generate (string secret) {
+    public static Json.Builder get_session_generate (string secret) {
         var builder = new Json.Builder ();
         builder.begin_object ();
 
@@ -57,12 +55,10 @@ public class Tuba.API.Misskey.JSON : Object {
 
         builder.end_object ();
 
-        var generator = new Json.Generator ();
-        generator.set_root (builder.get_root ());
-        return generator.to_data (null);
+        return builder;
     }
 
-    public static string get_session_userkey (string secret, string token) {
+    public static Json.Builder get_session_userkey (string secret, string token) {
         var builder = new Json.Builder ();
         builder.begin_object ();
 
@@ -74,12 +70,10 @@ public class Tuba.API.Misskey.JSON : Object {
 
         builder.end_object ();
 
-        var generator = new Json.Generator ();
-        generator.set_root (builder.get_root ());
-        return generator.to_data (null);
+        return builder;
     }
 
-    public static string get_show_userid (string userid) {
+    public static Json.Builder get_show_userid (string userid) {
         var builder = new Json.Builder ();
         builder.begin_object ();
 
@@ -88,26 +82,22 @@ public class Tuba.API.Misskey.JSON : Object {
 
         builder.end_object ();
 
-        var generator = new Json.Generator ();
-        generator.set_root (builder.get_root ());
-        return generator.to_data (null);
+        return builder;
     }
 
-    public static string get_timeline (int limit = 20) {
+    public static Json.Builder get_timeline (int limit = 20) {
         var builder = new Json.Builder ();
         builder.begin_object ();
 
-        builder.set_member_name ("i");
-        builder.add_string_value (accounts.active.i);
+        //  builder.set_member_name ("i");
+        //  builder.add_string_value (accounts.active.i);
 
         builder.set_member_name ("limit");
         builder.add_int_value (limit);
 
         builder.end_object ();
 
-        var generator = new Json.Generator ();
-        generator.set_root (builder.get_root ());
-        return generator.to_data (null);
+        return builder;
     }
 }
 

@@ -133,7 +133,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		var msg = new Request.POST ("/api/app/create")
 			.with_account (account)
-			.body ("application/json", new Bytes.take(Tuba.API.Misskey.JSON.get_app (setup_redirect_uri ()).data));
+			.body_json (Tuba.API.Misskey.JSON.get_app (setup_redirect_uri ()));
 		yield msg.await ();
 
 		var parser = Network.get_parser_from_inputstream(msg.response_body);
@@ -149,7 +149,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		var mk_msg = new Request.POST ("/api/auth/session/generate")
 			.with_account (account)
-			.body ("application/json", new Bytes.take(Tuba.API.Misskey.JSON.get_session_generate (account.client_secret).data));
+			.body_json (Tuba.API.Misskey.JSON.get_session_generate (account.client_secret));
 		yield mk_msg.await ();
 
 		parser = Network.get_parser_from_inputstream(mk_msg.response_body);
@@ -188,7 +188,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		warning (code_entry.text);
 		var token_req = new Request.POST ("/api/auth/session/userkey")
 			.with_account (account)
-			.body ("application/json", new Bytes.take(Tuba.API.Misskey.JSON.get_session_userkey (account.client_secret, code_entry.text).data));
+			.body_json (Tuba.API.Misskey.JSON.get_session_userkey (account.client_secret, code_entry.text));
 		yield token_req.await ();
 
 		var parser = Network.get_parser_from_inputstream(token_req.response_body);
