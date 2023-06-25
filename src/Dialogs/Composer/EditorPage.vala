@@ -54,7 +54,7 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 	}
 
-	public override void on_modify_req (Json.Builder builder) {
+	public override void on_modify_body (Json.Builder builder) {
 		builder.set_member_name ("status");
 		builder.add_string_value (status.status);
 

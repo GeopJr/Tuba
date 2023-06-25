@@ -267,7 +267,7 @@ public class Tuba.PollPage : ComposerPage {
 		status.poll.hide_totals = hide_totals;
 	}
 
-	public override void on_modify_req (Json.Builder builder) {
+	public override void on_modify_body (Json.Builder builder) {
 		if (is_valid && this.visible){
 			builder.set_member_name ("poll");
 			builder.begin_object ();

@@ -335,8 +335,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		page.on_build ();
 		page.on_pull ();
 
-		modify_req.connect (page.on_push);
-		modify_req.connect (page.on_modify_req);
+		modify_body.connect (page.on_push);
+		modify_body.connect (page.on_modify_body);
 		page.bind_property ("visible", wrapper, "visible", GLib.BindingFlags.SYNC_CREATE);
 		page.bind_property ("title", wrapper, "title", GLib.BindingFlags.SYNC_CREATE);
 		page.bind_property ("icon_name", wrapper, "icon_name", GLib.BindingFlags.SYNC_CREATE);
@@ -362,7 +362,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		});
 	}
 
-	protected signal void modify_req (Json.Builder builder);
+	protected signal void modify_body (Json.Builder builder);
 
 	protected virtual void update_alt_texts (Json.Builder builder) {
 		if (
@@ -394,7 +394,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		var builder = new Json.Builder ();
 		builder.begin_object ();
 
-		modify_req (builder);
+		modify_body (builder);
 		if (editing) update_alt_texts (builder);
 
 		builder.end_object ();

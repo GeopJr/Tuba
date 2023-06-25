@@ -315,7 +315,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		status.sensitive = media_sensitive;
 	}
 
-	public override void on_modify_req (Json.Builder builder) {
+	public override void on_modify_body (Json.Builder builder) {
 		if (can_publish && this.visible){
 			builder.set_member_name ("sensitive");
 			builder.add_boolean_value (status.sensitive);

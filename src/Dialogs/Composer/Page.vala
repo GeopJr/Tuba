@@ -56,6 +56,6 @@ public class Tuba.ComposerPage : Gtk.Box {
 	// UI state -> Entity
 	public virtual void on_push () {}
 
-	public virtual void on_modify_req (Json.Builder builder) {}
+	public virtual void on_modify_body (Json.Builder builder) {}
 
 }
