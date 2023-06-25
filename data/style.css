@@ -372,3 +372,7 @@ GtkSourceAssistant.completion list row{
 .bkwm-desc {
 	padding: 12px;
 }
+
+video > overlay > revealer > controls {
+	padding: 12px;
+}

@@ -130,6 +130,18 @@ public class Tuba.Request : GLib.Object {
 		return this;
 	}
 
+	public Request body (string? t_content_type, Bytes? t_bytes) {
+		content_type = t_content_type;
+		body_bytes = t_bytes;
+		return this;
+	}
+
+	public Request body_json (Json.Builder t_builder) {
+		var generator = new Json.Generator ();
+        generator.set_root (t_builder.get_root ());
+		return body ("application/json", new Bytes.take(generator.to_data (null).data));
+	}
+
 	public Request exec () {
 		var parameters = "";
 		if (pars != null) {

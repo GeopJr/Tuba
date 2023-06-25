@@ -66,8 +66,8 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		base.dispose ();
 	}
 
-	public override void on_build (Dialogs.Compose dialog, API.Status status) {
-		base.on_build (dialog, status);
+	public override void on_build () {
+		base.on_build ();
 
 		var attach_button = new Button.with_label (_("Add Media")) {
 			halign = Align.CENTER,
@@ -86,7 +86,9 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		empty_state.add_css_class ("compact");
 
 		// Non-empty state
-		list = new ListBox ();
+		list = new ListBox () {
+			selection_mode = SelectionMode.NONE
+		};
 		list.bind_model (attachments, on_create_list_item);
 
 		add_media_action_button = new Gtk.Button() {
@@ -139,10 +141,10 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 		content.prepend (toast_overlay);
 
-		if (status.has_media()) {
+		if (status.media_attachments != null && status.media_attachments.size > 0) {
 			foreach (var t_attachment in status.media_attachments) {
-                attachments.append(t_attachment);
-            }
+				attachments.append(t_attachment);
+			}
 		}
 	}
 
@@ -152,7 +154,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 	Widget on_create_list_item (Object item) {
 		var attachment = item as API.Attachment;
-		var attachment_widget = new AttachmentsPageAttachment(attachment.id, attachment.source_file, dialog, attachment);
+		var attachment_widget = new AttachmentsPageAttachment(attachment.id, attachment.source_file, dialog, attachment, edit_mode && status.media_ids.contains(attachment.id));
 
 		attachment_widget.remove_from_model.connect(() => {
 			uint indx;
@@ -298,16 +300,32 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		#endif
 	}
 
-	public override void on_modify_req (Request req) {
-		if (can_publish && this.visible){
-			for (var i = 0; i < attachments.get_n_items (); i++) {
-				var attachment = attachments.get_item (i) as API.Attachment;
-				req.with_form_data ("media_ids[]", attachment.id);
-			}
+	public override void on_push () {
+		status.clear_media ();
+		status.media_attachments = new Gee.ArrayList<API.Attachment> ();
 
-			if (media_sensitive) {
-				req.with_form_data ("sensitive", "true");
+		for (var i = 0; i < attachments.get_n_items (); i++) {
+			var attachment = attachments.get_item (i) as API.Attachment;
+			var attachment_page_attachment_alt = ((AttachmentsPageAttachment) list.get_row_at_index (i).child).alt_text;
+	
+			attachment.description = attachment_page_attachment_alt;
+			status.add_media (attachment.id, attachment.description);
+			status.media_attachments.add (attachment);
+		}
+		status.sensitive = media_sensitive;
+	}
+
+	public override void on_modify_body (Json.Builder builder) {
+		if (can_publish && this.visible){
+			builder.set_member_name ("sensitive");
+			builder.add_boolean_value (status.sensitive);
+
+			builder.set_member_name ("media_ids");
+			builder.begin_array ();
+			foreach (var m_id in status.media_ids) {
+				builder.add_string_value (m_id);
 			}
+			builder.end_array ();
 		}
 	}
 }

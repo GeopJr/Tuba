@@ -2,19 +2,23 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	protected Gtk.Picture pic;
 	protected File? attachment_file;
-	protected string? alt_text { get; set; default = null; }
+	public string? alt_text { get; private set; default = null; }
 	private const int ALT_MAX_CHARS = 1500;
 	private unowned Dialogs.Compose compose_dialog;
 	protected string id;
+	private bool edit_mode = false;
 
 	~AttachmentsPageAttachment () {
+		close_dialog ();
 		message ("Destroying AttachmentsPageAttachment");
 	}
 
-    public AttachmentsPageAttachment (string attachment_id, File? file, Dialogs.Compose dialog, API.Attachment? t_entity){
+    public AttachmentsPageAttachment (string attachment_id, File? file, Dialogs.Compose dialog, API.Attachment? t_entity, bool t_edit_mode = false){
+		edit_mode = t_edit_mode;
 		id = attachment_id;
 		attachment_file = file;
 		compose_dialog = dialog;
+
 		pic = new Gtk.Picture () {
 			hexpand = true,
 			vexpand = true,
@@ -28,17 +32,12 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			image_cache.request_paintable (t_entity.preview_url, on_cache_response);
 		}
 		button.child = pic;
-		if (file != null) {
-			alt_btn.tooltip_text = _("Edit Alt Text");
-			alt_btn.disconnect(alt_btn_clicked_id);
-			alt_btn.clicked.connect(() => {
-				create_alt_text_input_window().show();
-			});
-			alt_btn.add_css_class("error");
-			alt_btn.remove_css_class("flat");
-		} else {
-			alt_btn.visible = false;
-		}
+
+		alt_btn.tooltip_text = _("Edit Alt Text");
+		alt_btn.disconnect(alt_btn_clicked_id);
+		alt_btn.clicked.connect(on_alt_btn_clicked);
+		alt_btn.add_css_class("error");
+		alt_btn.remove_css_class("flat");
 
 		var delete_button = new Gtk.Button() {
 			icon_name = "tuba-trash-symbolic",
@@ -53,7 +52,18 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		badge_box.remove_css_class ("linked");
 		delete_button.add_css_class("error");
 
-		delete_button.clicked.connect(() => remove_from_model());
+		delete_button.clicked.connect(on_delete_clicked);
+
+		alt_text = t_entity.description ?? "";
+		update_alt_css (alt_text.length);
+	}
+
+	private void on_alt_btn_clicked () {
+		create_alt_text_input_window().show();
+	}
+
+	private void on_delete_clicked () {
+		remove_from_model();
 	}
 
 	protected virtual void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
@@ -83,8 +93,12 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		return (ALT_MAX_CHARS - text_size).to_string();
 	}
 
+	Gtk.TextView alt_editor;
+	Adw.Window dialog;
+	Gtk.Button dialog_save_btn;
+	Gtk.Label dialog_char_counter;
 	protected Adw.Window create_alt_text_input_window () {
-		var alt_editor = new Gtk.TextView () {
+		alt_editor = new Gtk.TextView () {
 			vexpand = true,
 			hexpand = true,
 			top_margin = 6,
@@ -105,21 +119,19 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		var headerbar = new Adw.HeaderBar();
 
 		var bottom_bar = new Gtk.ActionBar ();
-		var char_counter = new Gtk.Label (remaining_alt_chars(alt_text != null ? alt_text.length : 0)) {
+		dialog_char_counter = new Gtk.Label (remaining_alt_chars(alt_text != null ? alt_text.length : 0)) {
 			margin_end = 6,
 			margin_top = 14,
 			margin_bottom = 14,
-			tooltip_text = _("Characters Left")
+			tooltip_text = _("Characters Left"),
+			css_classes = { "heading" }
 		};
-		char_counter.add_css_class ("heading");
-		bottom_bar.pack_end (char_counter);
+		bottom_bar.pack_end (dialog_char_counter);
 
-		var save_btn = new Gtk.Button.with_label(_("Save"));
-		save_btn.add_css_class("suggested-action");
-
-		save_btn.sensitive = alt_text != null && validate(alt_text.length);
-
-		headerbar.pack_end(save_btn);
+		dialog_save_btn = new Gtk.Button.with_label(_("Save"));
+		dialog_save_btn.add_css_class("suggested-action");
+		dialog_save_btn.sensitive = alt_text != null && validate(alt_text.length);
+		headerbar.pack_end(dialog_save_btn);
 
 		box.append(headerbar);
 		box.append(scroller);
@@ -127,18 +139,9 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 		if (alt_text != null)
 			alt_editor.buffer.text = alt_text;
-		alt_editor.buffer.changed.connect (() => {
-			var t_val = validate(alt_editor.buffer.get_char_count ());
-			save_btn.sensitive = t_val;
-			char_counter.label = remaining_alt_chars(alt_editor.buffer.get_char_count ());
-			if (t_val) {
-				char_counter.remove_css_class ("error");
-			} else {
-				char_counter.add_css_class ("error");
-			}
-		});
+		alt_editor.buffer.changed.connect (on_alt_editor_buffer_change);
 
-		var dialog = new Adw.Window() {
+		dialog = new Adw.Window() {
 			modal = true,
 			title = @"Alternative text for attachment",
 			transient_for = compose_dialog,
@@ -147,23 +150,56 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			default_height = 300
 		};
 
-		save_btn.clicked.connect(() => {
-			alt_text = alt_editor.buffer.text;
-			if (validate(alt_editor.buffer.get_char_count ()) && alt_editor.buffer.get_char_count () > 0) {
-				alt_btn.add_css_class("success");
-				alt_btn.remove_css_class("error");
-			} else {
-				alt_btn.remove_css_class("success");
-				alt_btn.add_css_class("error");
-			}
+		dialog_save_btn.clicked.connect(on_save_clicked);
+
+		dialog.add_binding_action (Gdk.Key.Escape, 0, "window.close", null);
+
+		return dialog;
+	}
+
+	private void on_save_clicked () {
+		alt_text = alt_editor.buffer.text;
+		update_alt_css (alt_editor.buffer.get_char_count ());
+
+		if (!edit_mode) {
 			new Request.PUT (@"/api/v1/media/$(id)")
 				.with_account (accounts.active)
 				.with_param ("description", alt_text)
 				.then(() => {})
 				.exec ();
-			dialog.destroy();
-		});
+		}
 
-		return dialog;
+		close_dialog ();
+	}
+
+	private void on_alt_editor_buffer_change () {
+		var t_val = validate(alt_editor.buffer.get_char_count ());
+		dialog_save_btn.sensitive = t_val;
+		dialog_char_counter.label = remaining_alt_chars(alt_editor.buffer.get_char_count ());
+		if (t_val) {
+			dialog_char_counter.remove_css_class ("error");
+		} else {
+			dialog_char_counter.add_css_class ("error");
+		}
+	}
+
+	private void close_dialog () {
+		if (dialog != null) {
+			dialog.destroy ();
+			dialog = null;
+			alt_editor = null;
+			dialog_save_btn = null;
+			dialog_char_counter = null;
+		}
+	}
+
+	private void update_alt_css (int text_length) {
+		if (validate(text_length) && text_length > 0) {
+			alt_btn.add_css_class("success");
+			alt_btn.remove_css_class("error");
+		} else {
+			alt_btn.remove_css_class("success");
+			alt_btn.add_css_class("error");
+		}
 	}
 }
