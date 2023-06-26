@@ -61,9 +61,19 @@ public class Tuba.Views.Profile : Views.Timeline {
 					to_add += e_status;
 				});
 				model.splice (0, 0, to_add);
-
 			})
 			.exec ();
+	}
+
+	public override Widget on_create_model_widget (Object obj) {
+		var widget = base.on_create_model_widget(obj);
+		var widget_status = widget as Widgets.Status;
+
+		if (widget_status != null) {
+            widget_status.pin_changed.connect (on_refresh);
+        }
+
+		return widget;
 	}
 
 	public override void on_refresh () {

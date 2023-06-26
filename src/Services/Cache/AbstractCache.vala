@@ -74,6 +74,14 @@ public class Tuba.AbstractCache : Object {
 		return id;
 	}
 
+	public bool remove (string id) {
+		if (contains (id)) {
+			return items.unset (get_key (id));
+		}
+
+		return false;
+	}
+
 	public bool contains (string id) {
 		return items.has_key (get_key (id));
 	}
