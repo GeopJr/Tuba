@@ -8,7 +8,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	private Binding badge_number_binding;
 	public Notifications () {
 		Object (
-			url: "/api/v1/notifications",
+			url: "/api/i/notifications",
 			label: _("Notifications"),
 			icon: "tuba-bell-symbolic",
 			badge_number: 0,

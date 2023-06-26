@@ -99,6 +99,21 @@ public class Tuba.API.Misskey.JSON : Object {
 
         return builder;
     }
+
+    public static Json.Builder get_children (string noteId) {
+        var builder = new Json.Builder ();
+        builder.begin_object ();
+
+        //  builder.set_member_name ("limit");
+        //  builder.add_int_value (limit);
+
+        builder.set_member_name ("noteId");
+        builder.add_string_value (noteId);
+
+        builder.end_object ();
+
+        return builder;
+    }
 }
 
 public class Tuba.API.Misskey.Utils : Object {
