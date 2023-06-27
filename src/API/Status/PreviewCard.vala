@@ -117,7 +117,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
         get {
 			// Disable PeerTube support for now
 			// see #253
-			#if false
+			#if true
 				bool url_pt = url.last_index_of ("/videos/watch/") > -1;
 
 				return kind == "video" && provider_name == "PeerTube" && url_pt;
