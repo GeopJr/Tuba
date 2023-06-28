@@ -180,11 +180,11 @@ flowboxchild {
 }
 
 .ttl-status-font-large {
-	font-size: 18.333333333333332px;
+	font-size: larger;
 }
 
 .ttl-status-font-large > .ttl-large-body {
-	font-size: 19px;
+	font-size: larger;
 }
 
 .ttl-large-body {
