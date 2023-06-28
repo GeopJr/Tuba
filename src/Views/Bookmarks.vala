@@ -6,6 +6,7 @@ public class Tuba.Views.Bookmarks : Views.Timeline {
             label: _("Bookmarks"),
             icon: "tuba-bookmarks-symbolic"
         );
+        accepts = typeof (API.Misskey.Bookmark);
     }
 
 }

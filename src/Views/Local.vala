@@ -6,6 +6,7 @@ public class Tuba.Views.Local : Views.Timeline {
 			label: _("Local"),
 			icon: "tuba-network-server-symbolic"
 		);
+        accepts = typeof (API.Misskey.Note);
 	}
 
     //  public override Request append_params (Request r) {

@@ -5,6 +5,7 @@ public class Tuba.Views.Home : Views.Timeline {
             label: _("Home"),
             icon: "tuba-home-symbolic"
         );
+        accepts = typeof (API.Misskey.Note);
     }
 
     public override string? get_stream_url () {

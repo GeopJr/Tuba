@@ -7,6 +7,7 @@ public class Tuba.Views.Federated : Views.Timeline {
 			label: _("Federated"),
 			icon: "tuba-globe-symbolic"
 		);
+		accepts = typeof (API.Misskey.Note);
 	}
 
 	public override string? get_stream_url () {
