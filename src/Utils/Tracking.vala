@@ -88,12 +88,16 @@ public class Tuba.Tracking {
         var split_url = url.split_set ("?", 2);
         if (split_url[1].index_of_char ('=') == -1) return url;
 
-        var query_params = split_url[1].split_set ("&");
         var str = @"$(split_url[0])?";
 
         var fragment_offset = split_url[1].last_index_of_char ('#');
-        var fragment = fragment_offset > -1 ? split_url[1].substring(fragment_offset) : "";
+        var fragment = "";
+        if (fragment_offset > -1) {
+            fragment = split_url[1].substring(fragment_offset);
+            split_url[1] = split_url[1].slice(0, fragment_offset);
+        }
 
+        var query_params = split_url[1].split_set ("&");
         foreach (var param in query_params) {
             var not_tracking_id = true;
 
