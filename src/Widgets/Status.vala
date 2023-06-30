@@ -304,7 +304,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		new Request.POST (@"/api/v1/statuses/$(status.formal.id)/$p_action")
 			.with_account (accounts.active)
 			.then (() => {
-				this.status.formal.pinned = true;
+				this.status.formal.pinned = p_action == "pin";
 				entity_cache.remove (this.status.formal.uri);
 				pin_changed ();
 			})
