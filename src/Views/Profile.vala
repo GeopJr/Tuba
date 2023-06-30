@@ -69,7 +69,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 		var widget = base.on_create_model_widget(obj);
 		var widget_status = widget as Widgets.Status;
 
-		if (widget_status != null) {
+		if (widget_status != null && profile.id == accounts.active.id) {
+			widget_status.show_toggle_pinned_action ();
             widget_status.pin_changed.connect (on_refresh);
         }
 
