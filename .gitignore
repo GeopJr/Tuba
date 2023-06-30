@@ -6,3 +6,4 @@ subprojects/packagecache
 *~
 builddir
 *.snap
+.flatpak-builder
