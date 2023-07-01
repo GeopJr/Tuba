@@ -477,6 +477,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		avatar.account = status.formal.account;
 		reactions = status.formal.compat_status_reactions;
 
+		attachments.has_spoiler = status.formal.sensitive;
 		attachments.list = status.formal.media_attachments;
 		name_label.instance_emojis = status.formal.account.emojis_map;
 		name_label.label = title_text;

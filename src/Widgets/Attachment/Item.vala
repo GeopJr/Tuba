@@ -125,10 +125,9 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		};
 
 		alt_btn = new Button.with_label("ALT") {
-			tooltip_text = _("View Alt Text")
+			tooltip_text = _("View Alt Text"),
+			css_classes = { "heading", "flat" }
 		};
-		alt_btn.add_css_class ("heading");
-		alt_btn.add_css_class ("flat");
 
 		alt_btn_clicked_id = alt_btn.clicked.connect(() => {
 			if (entity != null && entity.description != null)

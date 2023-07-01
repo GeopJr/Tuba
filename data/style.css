@@ -217,7 +217,7 @@ flowboxchild {
 	background-color: alpha(mix(@green_4, white, .8), .8);
 }
 
-.ttl-status-badge>* {
+.ttl-status-badge>*, .ttl-status-badge.sensitive-label {
 	padding: 1px 6px;
 }
 
@@ -379,4 +379,8 @@ GtkSourceAssistant.completion list row{
 
 video > overlay > revealer > controls {
 	padding: 12px;
+}
+
+.spoilered-attachment {
+	filter: blur(30px);
 }

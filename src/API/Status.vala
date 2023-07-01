@@ -99,8 +99,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
 
     public bool has_spoiler {
         get {
-            return formal.sensitive ||
-                !(formal.spoiler_text == null || formal.spoiler_text == "");
+            return !(formal.spoiler_text == null || formal.spoiler_text == "");
         }
     }
 
