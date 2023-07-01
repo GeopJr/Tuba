@@ -377,6 +377,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 			var confirmed = app.question (
 				q.printf (profile.domain),
 				_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users"), // vala-lint=line-length
+
 				app.main_window,
 				block ? _("Block") : _("Unblock"),
 				Adw.ResponseAppearance.DESTRUCTIVE

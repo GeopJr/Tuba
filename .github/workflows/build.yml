@@ -10,11 +10,11 @@ jobs:
   lint:
     name: "Vala Lint"
     runs-on: ubuntu-latest
-  steps:
-  - uses: actions/checkout@v3
-  - uses: elementary/actions/vala-lint@master
-    with:
-      conf: vala-lint.conf
+    steps:
+    - uses: actions/checkout@v3
+    - uses: elementary/actions/vala-lint@master
+      with:
+        conf: vala-lint.conf
   flatpak-builder:
     name: "Flatpak Builder"
     runs-on: ubuntu-latest

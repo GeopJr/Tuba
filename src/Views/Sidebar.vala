@@ -31,16 +31,18 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	protected FlattenListModel item_model;
 
 	public static Place KEYBOARD_SHORTCUTS = new Place () { // vala-lint=naming-convention
-		title = _("Keyboard Shortcuts"),
+
 		icon = "input-keyboard-symbolic",
+		title = _("Keyboard Shortcuts"),
 		selectable = false,
 		open_func = () => {
 			app.main_window.lookup_action ("show-help-overlay").activate (null);
 		}
 	};
 	public static Place PREFERENCES = new Place () { // vala-lint=naming-convention
-			title = _("Preferences"),
+
 			icon = "tuba-gear-symbolic",
+			title = _("Preferences"),
 			selectable = false,
 			separated = true,
 			open_func = () => {
@@ -48,8 +50,9 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 			}
 	};
 	public static Place ABOUT = new Place () { // vala-lint=naming-convention
-			title = _("About"),
+
 			icon = "tuba-about-symbolic",
+			title = _("About"),
 			selectable = false,
 			open_func = () => {
 				app.lookup_action ("about").activate (null);
