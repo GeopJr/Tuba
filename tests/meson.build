@@ -2,6 +2,9 @@ unit_tests = {
     'DateTime': files (
         meson.project_source_root() + '/src/Utils/DateTime.vala'
     ),
+    'Html': files (
+        meson.project_source_root() + '/src/Utils/Html.vala',
+    ),
     'Tracking': files (
         meson.project_source_root() + '/src/Utils/Tracking.vala'
     )

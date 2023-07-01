@@ -72,25 +72,6 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		child = widget;
 	}
 
-	public static string escape_entities (string content) {
-		return content
-			.replace ("&nbsp;", " ")
-			.replace ("'", "&apos;");
-	}
-
-	public static string restore_entities (string content) {
-		return content
-			.replace ("&lt;", "<")
-			.replace ("&gt;", ">")
-			.replace ("&apos;", "'")
-			.replace ("&quot;", "\"")
-			.replace ("&#39;", "'")
-
-			// Always last since its prone to errors
-			// like &amp;lt; => &lt; => <
-			.replace ("&amp;", "&");
-	}
-
 	public bool on_activate_link (string url) {
 		if (mentions != null){
 			mentions.@foreach (mention => {
