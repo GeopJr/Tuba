@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-01 12:28+0300\n"
-"PO-Revision-Date: 2023-07-01 10:26+0000\n"
+"PO-Revision-Date: 2023-07-01 10:28+0000\n"
 "Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/tuba/tuba/sv/>\n"
 "Language: sv\n"
@@ -846,7 +846,7 @@ msgstr "Hem"
 #: src/Views/FollowRequests.vala:4
 #: src/Services/Accounts/Mastodon/Account.vala:118
 msgid "Follow Requests"
-msgstr "Följ förfrågningar"
+msgstr "Följare förfrågningar"
 
 #: src/Views/Federated.vala:7 src/Services/Accounts/Mastodon/Account.vala:109
 msgid "Federated"
