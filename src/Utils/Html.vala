@@ -21,7 +21,10 @@ public class Tuba.HtmlUtils {
 		get {
 			if (_html_params_regex == null) {
 				try {
-					_html_params_regex = new Regex ("(class|target|rel|data-user|data-tag)=\"(.|\n)*?\"", GLib.RegexCompileFlags.OPTIMIZE | RegexCompileFlags.CASELESS);
+					_html_params_regex = new Regex (
+						"(class|target|rel|data-user|data-tag)=\"(.|\n)*?\"",
+						GLib.RegexCompileFlags.OPTIMIZE | RegexCompileFlags.CASELESS
+					);
 				} catch (GLib.RegexError e) {
 					warning (e.message);
 				}
