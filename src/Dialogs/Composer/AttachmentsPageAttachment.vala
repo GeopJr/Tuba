@@ -50,13 +50,13 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.END,
 			hexpand = true,
-			tooltip_text = _("Remove Attachment")
+			tooltip_text = _("Remove Attachment"),
+			css_classes = { "error" }
 		};
 		badge_box.append (delete_button);
 		badge_box.halign = Gtk.Align.FILL;
 		badge_box.add_css_class ("attachmentpageattachment");
 		badge_box.remove_css_class ("linked");
-		delete_button.add_css_class ("error");
 
 		delete_button.clicked.connect (on_delete_clicked);
 

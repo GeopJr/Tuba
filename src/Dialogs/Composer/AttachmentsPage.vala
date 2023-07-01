@@ -71,19 +71,19 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 		var attach_button = new Button.with_label (_("Add Media")) {
 			halign = Align.CENTER,
-			sensitive = accounts.active.instance_info.compat_status_max_media_attachments > 0
+			sensitive = accounts.active.instance_info.compat_status_max_media_attachments > 0,
+			// Empty state
+			css_classes = { "pill" }
 		};
-		// Empty state
-		attach_button.add_css_class ("pill");
 		attach_button.clicked.connect (show_file_selector);
 
 		empty_state = new Adw.StatusPage () {
 			title = _("No Media"),
 			vexpand = true,
 			icon_name = icon_name,
-			child = attach_button
+			child = attach_button,
+			css_classes = { "compact" }
 		};
-		empty_state.add_css_class ("compact");
 
 		// Non-empty state
 		list = new ListBox () {

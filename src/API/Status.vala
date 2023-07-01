@@ -182,6 +182,6 @@ public class Tuba.API.Status : Entity, Widgetizable {
 
     public Request annihilate () {
         return new Request.DELETE (@"/api/v1/statuses/$id")
-        	.with_account (accounts.active);
+            .with_account (accounts.active);
     }
 }

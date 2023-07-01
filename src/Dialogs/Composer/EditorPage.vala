@@ -147,9 +147,9 @@ public class Tuba.EditorPage : ComposerPage {
 
 		char_counter = new Label (char_limit.to_string ()) {
 			margin_end = 6,
-			tooltip_text = _("Characters Left")
+			tooltip_text = _("Characters Left"),
+			css_classes = { "heading" }
 		};
-		char_counter.add_css_class ("heading");
 		bottom_bar.pack_end (char_counter);
 		editor.buffer.changed.connect (validate);
 	}

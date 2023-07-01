@@ -16,11 +16,10 @@ public class Tuba.Views.ContentBase : Views.Base {
 		model.items_changed.connect (() => on_content_changed ());
 
 		content = new ListBox () {
-			selection_mode = SelectionMode.NONE
+			selection_mode = SelectionMode.NONE,
+			css_classes = { "content", "ttl-content" }
 		};
 		content_box.append (content);
-		content.add_css_class ("content");
-		content.add_css_class ("ttl-content");
 		content.row_activated.connect (on_content_item_activated);
 
 		content.bind_model (model, on_create_model_widget);

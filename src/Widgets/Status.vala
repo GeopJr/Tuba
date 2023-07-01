@@ -339,15 +339,14 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 		remove.response.connect (res => {
 			if (res == "yes") {
-				new Request.DELETE (@"/api/v1/statuses/$(status.formal.id)")
-					.with_account (accounts.active)
-					.then ((sess, msg, in_stream) => {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var root = network.parse (parser);
-						if (root.has_member ("error")) {
-							// TODO: Handle error (probably a toast?)
-						};
-					})
+				this.status.formal.annihilate ()
+					//  .then ((sess, msg, in_stream) => {
+					//  	var parser = Network.get_parser_from_inputstream (in_stream);
+					//  	var root = network.parse (parser);
+					//  	if (root.has_member ("error")) {
+					//  		// TODO: Handle error (probably a toast?)
+					//  	};
+					//  })
 					.exec ();
 			}
 			remove.destroy ();
@@ -537,8 +536,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		favorite_button.update_button_content (status.formal.favourites_count);
 
 		reply_button.set_child (reply_button_content);
-		reply_button.add_css_class ("ttl-status-action-reply");
-		reply_button.tooltip_text = _("Reply");
 		reply_button_content.icon_name = status.formal.in_reply_to_id != null
 			? "tuba-reply-all-symbolic"
 			: "tuba-reply-sender-symbolic";
@@ -600,17 +597,20 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 	protected virtual void append_actions () {
 		reply_button = new Button ();
-		reply_button_content = new Adw.ButtonContent ();
+		reply_button_content = new Adw.ButtonContent () {
+			css_classes = { "ttl-status-action-reply" },
+			tooltip_text = _("Reply")
+		};
 		reply_button.clicked.connect (on_reply_button_clicked);
 		actions.append (reply_button);
 
 		reblog_button = new StatusActionButton () {
 			prop_name = "reblogged",
 			action_on = "reblog",
-			action_off = "unreblog"
+			action_off = "unreblog",
+			css_classes = { "ttl-status-action-reblog" },
+			tooltip_text = _("Boost")
 		};
-		reblog_button.add_css_class ("ttl-status-action-reblog");
-		reblog_button.tooltip_text = _("Boost");
 		actions.append (reblog_button);
 
 		favorite_button = new StatusActionButton () {
@@ -618,10 +618,10 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			action_on = "favourite",
 			action_off = "unfavourite",
 			icon_name = "tuba-unstarred-symbolic",
-			icon_toggled_name = "tuba-starred-symbolic"
+			icon_toggled_name = "tuba-starred-symbolic",
+			css_classes = { "ttl-status-action-star" },
+			tooltip_text = _("Favorite")
 		};
-		favorite_button.add_css_class ("ttl-status-action-star");
-		favorite_button.tooltip_text = _("Favorite");
 		actions.append (favorite_button);
 
 		bookmark_button = new StatusActionButton () {
@@ -629,10 +629,10 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			action_on = "bookmark",
 			action_off = "unbookmark",
 			icon_name = "tuba-bookmarks-symbolic",
-			icon_toggled_name = "tuba-bookmarks-filled-symbolic"
+			icon_toggled_name = "tuba-bookmarks-filled-symbolic",
+			css_classes = { "ttl-status-action-bookmark" },
+			tooltip_text = _("Bookmark")
 		};
-		bookmark_button.add_css_class ("ttl-status-action-bookmark");
-		bookmark_button.tooltip_text = _("Bookmark");
 		actions.append (bookmark_button);
 	}
 

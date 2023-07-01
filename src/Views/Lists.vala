@@ -13,19 +13,17 @@ public class Tuba.Views.Lists : Views.Timeline {
 			edit_button = new Button () {
 				icon_name = "document-edit-symbolic",
 				valign = Align.CENTER,
-				halign = Align.CENTER
+				halign = Align.CENTER,
+				css_classes = { "flat", "circular" }
 			};
-			edit_button.add_css_class ("flat");
-			edit_button.add_css_class ("circular");
 
 			delete_button = new Button () {
 				icon_name = "tuba-trash-symbolic",
 				valign = Align.CENTER,
-				halign = Align.CENTER
+				halign = Align.CENTER,
+				css_classes = { "flat", "circular", "error" }
 			};
-			delete_button.add_css_class ("flat");
-			delete_button.add_css_class ("circular");
-			delete_button.add_css_class ("error");
+
 			delete_button.clicked.connect (on_remove_clicked);
 
 			//  this.apply.connect(on_apply);
@@ -311,8 +309,9 @@ public class Tuba.Views.Lists : Views.Timeline {
 	};
 
 	construct {
-        var add_action_bar = new ActionBar ();
-		add_action_bar.add_css_class ("ttl-box-no-shadow");
+        var add_action_bar = new ActionBar () {
+			css_classes = { "ttl-box-no-shadow" }
+		};
 
 		var child_box = new Box (Orientation.HORIZONTAL, 6);
 

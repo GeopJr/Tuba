@@ -103,10 +103,11 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		notify["entity"].connect (on_rebind);
 		add_css_class ("flat");
 
-		button = new Button ();
-		button.overflow = Overflow.HIDDEN;
+		button = new Button () {
+			css_classes = { "frame" },
+			overflow = Overflow.HIDDEN
+		};
 		button.clicked.connect (on_click);
-		button.add_css_class ("frame");
 
 		create_context_menu ();
 		gesture_click_controller = new GestureClick ();
@@ -121,7 +122,8 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 		badge_box = new Gtk.Box (Orientation.HORIZONTAL, 1) {
 			valign = Align.END,
-			halign = Align.START
+			halign = Align.START,
+			css_classes = { "linked", "ttl-status-badge" }
 		};
 
 		alt_btn = new Button.with_label ("ALT") {
@@ -135,15 +137,14 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		});
 
 		badge_box.append (alt_btn);
-		badge_box.add_css_class ("linked");
-		badge_box.add_css_class ("ttl-status-badge");
 
-		overlay = new Overlay ();
+		overlay = new Overlay () {
+			css_classes = { "attachment" }
+		};
 		overlay.child = button;
 		overlay.add_overlay (badge_box);
 
 		child = overlay;
-		child.add_css_class ("attachment");
 	}
 	~Item () {
 		message ("Destroying Attachment.Item widget");

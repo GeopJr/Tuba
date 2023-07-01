@@ -10,11 +10,7 @@ public class Tuba.Widgets.BackgroundWrapper : Gtk.Button {
 	construct {
 		background = new Tuba.Widgets.Background ();
 		child = background;
-
-		add_css_class ("flat");
-		add_css_class ("image-button");
-		add_css_class ("ttl-flat-button");
-		add_css_class ("header-image");
+		css_classes = { "flat", "image-button", "ttl-flat-button", "header-image" };
 	}
 }
 

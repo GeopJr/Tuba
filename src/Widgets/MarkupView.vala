@@ -181,10 +181,10 @@ public class Tuba.Widgets.MarkupView : Box {
 				blockquote_handler (root);
 				var text = blockquote_handler_text;
 				var label = new RichLabel (text) {
-					visible = true
+					visible = true,
+					css_classes = { "ttl-code" }
 					// markup = MarkupPolicy.DISALLOW
 				};
-				label.add_css_class ("ttl-code");
 				v.append (label);
 				break;
 			case "a":

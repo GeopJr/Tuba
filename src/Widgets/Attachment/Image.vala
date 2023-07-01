@@ -59,9 +59,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			};
 
 			if (media_kind != "AUDIO") {
-				media_icon.add_css_class ("osd");
-				media_icon.add_css_class ("circular");
-				media_icon.add_css_class ("attachment-overlay-icon");
+				media_icon.css_classes = { "osd", "circular", "attachment-overlay-icon" };
 				media_icon.icon_name = "media-playback-start-symbolic";
 			} else {
 				media_icon.icon_name = "tuba-music-note-symbolic";

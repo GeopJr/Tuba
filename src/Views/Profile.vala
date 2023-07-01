@@ -239,9 +239,9 @@ public class Tuba.Views.Profile : Views.Timeline {
 	}
 
 	protected Button build_profile_stats_button (string btn_label) {
-		var btn = new Button.with_label (btn_label);
-		btn.add_css_class ("flat");
-		btn.add_css_class ("ttl-profile-stat-button");
+		var btn = new Button.with_label (btn_label) {
+			css_classes = { "flat", "ttl-profile-stat-button" }
+		};
 
 		var child_label = btn.child as Label;
 		child_label.wrap = true;
@@ -534,10 +534,9 @@ public class Tuba.Views.Profile : Views.Timeline {
 									? _("Remove \"%s\" from \"%s\"").printf (profile.handle, list.title)
 									: _("Add \"%s\" to \"%s\"").printf (profile.handle, list.title),
 								halign = Align.CENTER,
-								valign = Align.CENTER
+								valign = Align.CENTER,
+								css_classes = { "flat", "circular" }
 							};
-							add_button.add_css_class ("flat");
-							add_button.add_css_class ("circular");
 							add_button.remove = is_already;
 
 							var row = new Adw.ActionRow () {
@@ -578,7 +577,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 			var endpoint = @"/api/v1/lists/$(list.id)/accounts/?account_ids[]=$(profile.id)";
 			var req = button.remove ? new Request.DELETE (endpoint) : new Request.POST (endpoint);
 			req
-		 		.with_account (accounts.active)
+				.with_account (accounts.active)
 				.with_ctx (this)
 				.on_error (on_error)
 				.then ((sess, msg) => {
