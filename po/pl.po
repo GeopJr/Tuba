@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # gnu-ewm <gnu.ewm@protonmail.com>, 2023.
 # Łukasz Horodecki <dakilla@gmail.com>, 2023.
+# Karol Lademan <karol@lademan.dev>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 23:29+0300\n"
-"PO-Revision-Date: 2023-05-21 06:05+0000\n"
+"PO-Revision-Date: 2023-06-23 12:58+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 4.18.1\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -25,15 +26,15 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Przeglądaj fediświat"
+msgstr "Przeglądaj fediwersum"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr "Klient dla fediświata"
+msgstr "Klient fediwersum"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr "toot;wpis;mastodon;fediverse;fediświat;gotosocial;pleroma;akkoma;"
+msgstr "toot;wpis;mastodon;fediverse;fediwersum;gotosocial;pleroma;akkoma;"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:9
 msgid ""
@@ -43,7 +44,7 @@ msgid ""
 msgstr ""
 "Odkryj sfederowaną sieć społeczną z Tubą dla GNOME. Bądź w kontakcie ze "
 "swoimi ulubionymi społecznościami, rodziną i przyjaciółmi dzięki wsparciu "
-"dla popularnych platform fediświata, takich jak Mastodon, GoToSocial, Akkoma "
+"dla popularnych platform fediwersum, takich jak Mastodon, GoToSocial, Akkoma "
 "i innych!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
@@ -54,8 +55,8 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
-"Fediświat (ang. Fediverse) to zdecentralizowana sieć społeczna, która składa "
-"się z mnóstwa połączonych ze sobą platform i społeczności, pozwalając "
+"Fediwersum (ang. Fediverse) to zdecentralizowana sieć społeczna, która "
+"składa się z mnóstwa połączonych ze sobą platform i społeczności, pozwalając "
 "użytkownikom na komunikowanie się i dzielenie treściami pomiędzy różnymi "
 "sieciami i serwerami. Promuje prywatność użytkowników oraz ich kontrolę nad "
 "swoimi danymi i stanowi alternatywę dla scentralizowanych platform mediów "
@@ -103,7 +104,7 @@ msgstr "Wiadomość bezpośrednia"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
-msgstr "Kopiuj adres w fediświecie"
+msgstr "Kopiuj adres w fediwersum"
 
 #: data/ui/menus.ui:29
 msgid "Moderation"
@@ -561,7 +562,7 @@ msgstr ""
 
 #: src/Views/Profile.vala:370
 msgid "Sent follow request"
-msgstr "Wysłano prośbę o obserwowanie"
+msgstr "Wysłano prośbę o obserwację"
 
 #: src/Views/Profile.vala:372
 msgid "Mutuals"
@@ -712,7 +713,7 @@ msgstr "Widok główny"
 #: src/Views/FollowRequests.vala:4
 #: src/Services/Accounts/Mastodon/Account.vala:100
 msgid "Follow Requests"
-msgstr "Prośby o obserwowanie"
+msgstr "Prośby o obserwację"
 
 #: src/Views/Federated.vala:7 src/Services/Accounts/Mastodon/Account.vala:92
 msgid "Federated"

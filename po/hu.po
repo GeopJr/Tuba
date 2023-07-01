@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 23:29+0300\n"
-"PO-Revision-Date: 2023-04-14 06:50+0000\n"
+"PO-Revision-Date: 2023-05-24 11:43+0000\n"
 "Last-Translator: Alfika07 <alfika07@vivaldi.net>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/tuba/tuba/hu/"
-">\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/tuba/tuba/hu/>"
+"\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -40,6 +40,10 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
+"Fedezd fel a szövetségi közösségi hálózatot a Tubával a GNOME-hoz. Maradj "
+"összeköttetésben a kedvenc közösségeiddel, családoddal és barátaiddal "
+"népszerű Fediverse felületeken, mint a Mastodon, GoToSocial, Akkoma és még "
+"sok más!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
 msgid ""
@@ -49,10 +53,16 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
+"A Fediverse egy decentralizált közösségi hálózat, amely több, egymással "
+"összekapcsolt platformból és közösségből áll, lehetővé téve a felhasználók "
+"számára a különböző hálózatokon és szervereken keresztüli kommunikációt és "
+"tartalommegosztást. Elősegíti a felhasználók magánéletét és az adatok "
+"tulajdonjogát, és alternatívát kínál a központosított közösségi "
+"médiaplatformokkal szemben."
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:19
 msgid "Evangelos \"GeopJr\" Paterakis"
-msgstr ""
+msgstr "Evangelos \"GeopJr\" Paterakis"
 
 #: data/ui/widgets/status.ui:156
 msgid "Pinned"
@@ -92,7 +102,7 @@ msgstr "Közvetlen üzenet"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
-msgstr ""
+msgstr "Leírópont másolása"
 
 #: data/ui/menus.ui:29
 msgid "Moderation"
@@ -116,7 +126,7 @@ msgstr "Tiltás"
 
 #: data/ui/menus.ui:51
 msgid "Block Domain"
-msgstr ""
+msgstr "Tartomány letiltása"
 
 #: data/ui/menus.ui:59
 msgid "Timeline"
@@ -128,11 +138,11 @@ msgstr "Szűrés"
 
 #: data/ui/menus.ui:80
 msgid "Include Replies"
-msgstr ""
+msgstr "Tartalmazza a válaszokat"
 
 #: data/ui/menus.ui:85
 msgid "Include Media"
-msgstr ""
+msgstr "Tartalmazza a médiát"
 
 #: data/ui/menus.ui:108 src/Views/Lists.vala:283
 #: src/Services/Accounts/Mastodon/Account.vala:68
@@ -173,15 +183,15 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Posting"
-msgstr ""
+msgstr "Közzététel"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
-msgstr ""
+msgstr "Bejegyzés alapértelmezett láthatósága"
 
 #: data/ui/dialogs/preferences.ui:77
 msgid "Default post language"
-msgstr ""
+msgstr "Alapértelmezett bejegyzésnyelv"
 
 #: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
@@ -193,11 +203,11 @@ msgstr "Automatikus Indítás"
 
 #: data/ui/dialogs/preferences.ui:93
 msgid "Start minimized at boot"
-msgstr ""
+msgstr "A rendszerindításkor kis méretben történő indítás"
 
 #: data/ui/dialogs/preferences.ui:104
 msgid "Background work"
-msgstr ""
+msgstr "Háttérmunka"
 
 #: data/ui/dialogs/preferences.ui:106
 msgid "Receive notifications even when the app is closed"
