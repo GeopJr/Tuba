@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-01 12:28+0300\n"
-"PO-Revision-Date: 2023-07-01 10:26+0000\n"
+"PO-Revision-Date: 2023-07-02 11:52+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -501,7 +501,7 @@ msgstr "Pozostałe"
 
 #: src/Widgets/CustomEmojiChooser.vala:154
 msgid "Custom Emojis"
-msgstr "Niestandardowe emotikonki"
+msgstr "Niestandardowe emoji"
 
 #: src/Widgets/StatusActionButton.vala:158
 msgid "Network Error"
@@ -1189,11 +1189,11 @@ msgstr "Co ci chodzi po głowie?"
 
 #: src/Dialogs/Composer/EditorPage.vala:198
 msgid "Emoji Picker"
-msgstr "Emotykonki"
+msgstr "Emoji"
 
 #: src/Dialogs/Composer/EditorPage.vala:205
 msgid "Custom Emoji Picker"
-msgstr "Emotikonki niestandardowe"
+msgstr "Niestandardowe emoji"
 
 #: src/Dialogs/Composer/EditorPage.vala:224
 msgid "Write your warning here"
