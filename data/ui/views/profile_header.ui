@@ -28,10 +28,12 @@
             <property name="valign">start</property> 
             <property name="margin-bottom">48</property>
             <property name="spacing">6</property>
+            <property name="visible">0</property>
             <child>
               <object class="GtkImage" id="cover_bot_badge">
                 <property name="icon-name">tuba-brain-augemnted-symbolic</property>
                 <property name="tooltip-text" translatable="yes">Bot</property>
+                <property name="visible">0</property>
               </object>
             </child>
             <child>
