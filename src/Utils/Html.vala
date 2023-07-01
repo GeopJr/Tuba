@@ -64,7 +64,7 @@ public class Tuba.HtmlUtils {
 			return simplified;
 		} catch (Error e) {
 			warning (@"Can't simplify string \"$str\":\n$(e.message)");
-			return remove_tags (str);
+			return str;
 		}
 	}
 
