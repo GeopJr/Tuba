@@ -314,7 +314,7 @@ namespace Tuba {
 			dialog.present ();
 		}
 
-		public Adw.MessageDialog inform (string text, string? msg = null, Gtk.Window? win = main_window){
+		public Adw.MessageDialog inform (string text, string? msg = null, Gtk.Window? win = app.main_window){
 			var dlg = new Adw.MessageDialog (
 				win,
 				text,
@@ -329,7 +329,7 @@ namespace Tuba {
 			return dlg;
 		}
 
-		public Adw.MessageDialog question (string text, string? msg = null, Gtk.Window? win = main_window, string yes_label = _("Yes"), Adw.ResponseAppearance yes_appearance = Adw.ResponseAppearance.DEFAULT, string no_label = _("Cancel"), Adw.ResponseAppearance no_appearance = Adw.ResponseAppearance.DEFAULT) {
+		public Adw.MessageDialog question (string text, string? msg = null, Gtk.Window? win = app.main_window, string yes_label = _("Yes"), Adw.ResponseAppearance yes_appearance = Adw.ResponseAppearance.DEFAULT, string no_label = _("Cancel"), Adw.ResponseAppearance no_appearance = Adw.ResponseAppearance.DEFAULT) {
 			var dlg = new Adw.MessageDialog (
 				win,
 				text,

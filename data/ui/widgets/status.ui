@@ -218,8 +218,13 @@
                     <property name="visible">0</property>
                     <property name="spacing">6</property>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkButton">
                         <property name="icon_name">tuba-warning-symbolic</property>
+                        <property name="tooltip-text" translatable="yes">Show Less</property>
+                        <signal name="clicked" handler="toggle_spoiler" swapped="no" />
+                        <style>
+                          <class name="circular" />
+                        </style>
                       </object>
                     </child>
                     <child>

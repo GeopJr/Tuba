@@ -84,24 +84,27 @@ sources = files(
 )
 subdir('src')
 
+final_deps = [
+  dependency('glib-2.0', version: '>=2.70'),
+  dependency('gee-0.8', version: '>=0.8.5'),
+  dependency('libsoup-3.0'),
+  dependency('json-glib-1.0', version: '>=1.4.4'),
+  dependency('libxml-2.0'),
+  dependency('libsecret-1', required: true),
+  gtksourceview_dep,
+  libgtk_dep,
+  libadwaita_dep
+]
+
 executable(
     meson.project_name(),
     asresources,
     sources,
-    dependencies: [
-        dependency('glib-2.0', version: '>=2.70'),
-        dependency('gee-0.8', version: '>=0.8.5'),
-        dependency('libsoup-3.0'),
-        dependency('json-glib-1.0', version: '>=1.4.4'),
-        dependency('libxml-2.0'),
-        dependency('libsecret-1', required: true),
-        gtksourceview_dep,
-        libgtk_dep,
-        libadwaita_dep,
-    ],
+    dependencies: final_deps,
     install: true,
 )
 
+subdir('tests')
 subdir('data')
 subdir('po')
 

@@ -23,6 +23,18 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	public override void open () {
 	}
 
+	public string weekly_use () {
+		int used_times = 0;
+
+		if (history != null && history.size >= 7) {
+			for (var i = 0; i < 7; i++) {
+				used_times += int.parse (history.get (i).uses);
+			}
+		}
+
+		return _("%d per week").printf (used_times);
+	}
+
 	public override Widget to_widget () {
 		var w = new Adw.ActionRow () {
 			title = @"#$name",

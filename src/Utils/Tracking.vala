@@ -48,17 +48,18 @@ public class Tuba.Tracking {
         try {
             var uri = Uri.parse (url, UriFlags.NONE);
             return strip_utm_from_uri (uri).to_string ();
-        } catch (GLib.UriError e) {
-            warning (e.message);
+        } catch {
             return strip_utm_fallback (url);
         }
     }
 
-    public static Uri strip_utm_from_uri (Uri uri) throws UriError {
-        var uri_params = Uri.parse_params (uri.get_query ());
+    public static Uri strip_utm_from_uri (Uri uri) throws Error {
         string[] res_params = {};
 
-        uri_params.foreach_remove ((key, val) => {
+        var iter = UriParamsIter (uri.get_query ());
+        string key;
+        string val;
+        while (iter.next (out key, out val)) {
             var not_tracking_id = true;
             foreach (var id in tracking_ids) {
                 if (id in key.down ()) {
@@ -68,9 +69,7 @@ public class Tuba.Tracking {
             }
 
             if (not_tracking_id) res_params += @"$key=$val";
-
-            return !not_tracking_id;
-        });
+        }
 
         string? res_query = res_params.length > 0 ? string.joinv("&", res_params) : null;
         return Uri.build (
@@ -89,12 +88,16 @@ public class Tuba.Tracking {
         var split_url = url.split_set ("?", 2);
         if (split_url[1].index_of_char ('=') == -1) return url;
 
-        var query_params = split_url[1].split_set ("&");
         var str = @"$(split_url[0])?";
 
         var fragment_offset = split_url[1].last_index_of_char ('#');
-        var fragment = fragment_offset > -1 ? split_url[1].substring(fragment_offset) : "";
+        var fragment = "";
+        if (fragment_offset > -1) {
+            fragment = split_url[1].substring(fragment_offset);
+            split_url[1] = split_url[1].slice(0, fragment_offset);
+        }
 
+        var query_params = split_url[1].split_set ("&");
         foreach (var param in query_params) {
             var not_tracking_id = true;
 

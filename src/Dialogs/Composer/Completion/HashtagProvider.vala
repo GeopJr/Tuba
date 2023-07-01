@@ -37,12 +37,15 @@ public class Tuba.HashtagProvider: Tuba.CompletionProvider {
 	}
 
 	public override void display (GtkSource.CompletionContext context, GtkSource.CompletionProposal proposal, GtkSource.CompletionCell cell) {
+		var tag = (proposal as Proposal)?.tag;
+		return_if_fail (tag != null);
+
 		switch (cell.get_column ()) {
 			case GtkSource.CompletionColumn.ICON:
 				cell.set_icon_name ("tuba-hashtag-symbolic");
 				break;
 			case GtkSource.CompletionColumn.TYPED_TEXT:
-				cell.set_text (proposal.get_typed_text ());
+				cell.set_markup (@"<b>$(tag.name)</b>\n<span alpha='50%'>$(tag.weekly_use ())</span>");
 				break;
 			default:
 				cell.text = null;

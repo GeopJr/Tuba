@@ -9,7 +9,6 @@ public class Tuba.Views.Profile : Views.Timeline {
 	public string source { get; set; default = "statuses"; }
 
 	protected Cover cover;
-	protected Label cover_badge;
 	protected MenuButton menu_button;
 
 	protected SimpleAction media_action;
@@ -23,7 +22,6 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 	construct {
 		cover = build_cover ();
-		cover_badge = cover.cover_badge;
 		cover.rsbtn.rs = this.rs;
 		column_view.prepend (cover);
 	}
@@ -44,25 +42,30 @@ public class Tuba.Views.Profile : Views.Timeline {
 		message("Destroying Profile view");
 	}
 
-	public void append_pinned(string acc_id = profile.id) {
-		new Request.GET (@"/api/v1/accounts/$(acc_id)/statuses")
-			.with_account (account)
-			.with_param ("pinned", "true")
-			.with_ctx (this)
-			.then ((sess, msg, in_stream) => {
-				var parser = Network.get_parser_from_inputstream(in_stream);
+	public bool append_pinned() {
+		if (source == "statuses") {
+			new Request.GET (@"/api/v1/accounts/$(profile.id)/statuses")
+				.with_account (account)
+				.with_param ("pinned", "true")
+				.with_ctx (this)
+				.then ((sess, msg, in_stream) => {
+					var parser = Network.get_parser_from_inputstream(in_stream);
 
-				Object[] to_add = {};
-				Network.parse_array (msg, parser, node => {
-					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
-					var e_status = e as API.Status;
-					if (e_status != null) e_status.pinned = true;
+					Object[] to_add = {};
+					Network.parse_array (msg, parser, node => {
+						var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
+						var e_status = e as API.Status;
+						if (e_status != null) e_status.pinned = true;
 
-					to_add += e_status;
-				});
-				model.splice (0, 0, to_add);
-			})
-			.exec ();
+						to_add += e_status;
+					});
+					model.splice (0, 0, to_add);
+
+				})
+				.exec ();
+		}
+
+		return GLib.Source.REMOVE;
 	}
 
 	public override Widget on_create_model_widget (Object obj) {
@@ -79,23 +82,58 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 	public override void on_refresh () {
 		base.on_refresh ();
-		GLib.Idle.add (() => {
-			append_pinned ();
-			return GLib.Source.REMOVE;
-		});
+		GLib.Idle.add (append_pinned);
 	}
 
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/profile_header.ui")]
 	protected class Cover : Box {
 
 		[GtkChild] unowned Widgets.BackgroundWrapper background;
-		[GtkChild] public unowned Label cover_badge;
+		[GtkChild] unowned Label cover_badge;
+		[GtkChild] unowned Image cover_bot_badge;
+		[GtkChild] unowned Box cover_badge_box;
 		[GtkChild] public unowned ListBox info;
 		[GtkChild] unowned Widgets.EmojiLabel display_name;
 		[GtkChild] unowned Label handle;
 		[GtkChild] unowned Widgets.Avatar avatar;
 		[GtkChild] unowned Widgets.MarkupView note;
 		[GtkChild] public unowned Widgets.RelationshipButton rsbtn;
+
+		public string cover_badge_label {
+			get {
+				return cover_badge.label;
+			}
+
+			set {
+				var has_label = value != "";
+				cover_badge.visible = has_label;
+				cover_badge.label = value;
+
+				update_cover_badge ();
+			}
+		}
+
+		public bool is_bot {
+			get {
+				return cover_bot_badge.visible;
+			}
+
+			set {
+				cover_bot_badge.visible = value;
+
+				update_cover_badge ();
+			}
+		}
+
+		private void update_cover_badge () {
+			cover_badge_box.visible = cover_badge.visible || is_bot;
+	
+			if (is_bot && !cover_badge.visible) {
+				cover_badge_box.add_css_class ("only-icon");
+			} else {
+				cover_badge_box.remove_css_class ("only-icon");
+			}
+		}
 
 		public void bind (API.Account account) {
 			display_name.instance_emojis = account.emojis_map;
@@ -104,6 +142,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 			avatar.account = account;
 			note.instance_emojis = account.emojis_map;
 			note.content = account.note;
+			cover_bot_badge.visible = account.bot;
+			update_cover_badge ();
 
 			if (account.id != accounts.active.id) rsbtn.visible = true;
 
@@ -309,7 +349,6 @@ public class Tuba.Views.Profile : Views.Timeline {
 		blocking_action.change_state.connect (v => {
 			var block = v.get_boolean ();
 			var q = block ? _("Block \"%s\"?") : _("Unblock \"%s\"?");
-			warning (q);
 
 			var confirmed = app.question (
 				q.printf (profile.handle),
@@ -393,9 +432,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 				label = _("Follows you");
 		}
 
-		cover_badge.label = label;
-		cover_badge.visible = label != "";
-
+		cover.cover_badge_label = label;
 		invalidate_actions (false);
 	}
 

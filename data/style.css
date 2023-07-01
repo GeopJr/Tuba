@@ -30,6 +30,10 @@ flowboxchild {
 	margin: 8px;
 }
 
+.cover-badge.only-icon {
+	padding: 6px;
+}
+
 .ttl-flat-button {
 	padding: 0px;
 	margin: 0px;
@@ -180,11 +184,11 @@ flowboxchild {
 }
 
 .ttl-status-font-large {
-	font-size: 18.333333333333332px;
+	font-size: larger;
 }
 
 .ttl-status-font-large > .ttl-large-body {
-	font-size: 19px;
+	font-size: larger;
 }
 
 .ttl-large-body {

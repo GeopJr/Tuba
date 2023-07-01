@@ -22,6 +22,7 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	public string header { get; set; }
 	public string avatar { get; set; }
 	public string url { get; set; }
+	public bool bot { get; set; default=false; }
 	public string created_at { get; set; }
 	public Gee.ArrayList<API.Emoji>? emojis { get; set; }
 	public int64 followers_count { get; set; }
