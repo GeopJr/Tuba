@@ -102,6 +102,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	private GLib.SimpleActionGroup action_group;
 	private SimpleAction edit_history_simple_action;
 	private SimpleAction stats_simple_action;
+	private SimpleAction toggle_pinned_simple_action;
 
 	public bool is_conversation_open { get; set; default = false; }
 
@@ -231,6 +232,13 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		create_context_menu();
 
 		if (status.formal.account.is_self ()) {
+			if (status.formal.visibility != "direct") {
+				toggle_pinned_simple_action = new SimpleAction ("toggle-pinned", null);
+				toggle_pinned_simple_action.activate.connect (toggle_pinned);
+				toggle_pinned_simple_action.set_enabled (false);
+				action_group.add_action(toggle_pinned_simple_action);
+			}
+
 			var edit_status_simple_action = new SimpleAction ("edit-status", null);
 			edit_status_simple_action.activate.connect (edit_status);
 			action_group.add_action(edit_status_simple_action);
@@ -241,6 +249,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 	}
 
+	private GLib.MenuItem pin_menu_item;
 	protected void create_context_menu() {
 		var menu_model = new GLib.Menu ();
 		menu_model.append (_("Open in Browser"), "status.open-in-browser");
@@ -256,6 +265,11 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		menu_model.append_item (edit_history_menu_item);
 
 		if (status.formal.account.is_self ()) {
+			pin_menu_item = new GLib.MenuItem (_("Pin"), "status.toggle-pinned");
+			update_toggle_pinned_label ();
+			pin_menu_item.set_attribute_value("hidden-when", "action-disabled");
+
+			menu_model.append_item (pin_menu_item);
 			menu_model.append (_("Edit"), "status.edit-status");
 			menu_model.append (_("Delete"), "status.delete-status");
 		}
@@ -282,6 +296,20 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	private void on_edit (API.Status x) {
 		this.status.patch (x);
 		bind ();
+	}
+
+	public signal void pin_changed ();
+	private void toggle_pinned () {
+		var p_action = status.formal.pinned ? "unpin" : "pin";
+		new Request.POST (@"/api/v1/statuses/$(status.formal.id)/$p_action")
+			.with_account (accounts.active)
+			.then (() => {
+				this.status.formal.pinned = p_action == "pin";
+				entity_cache.remove (this.status.formal.uri);
+				pin_changed ();
+			})
+			.on_error (() => {})
+			.exec ();
 	}
 
 	private void edit_status () {
@@ -449,6 +477,16 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		spoiler_stack.visible_child_name = reveal_spoiler ? "content" : "spoiler";
 	}
 
+	public void show_toggle_pinned_action () {
+		if (toggle_pinned_simple_action != null)
+			toggle_pinned_simple_action.set_enabled (true);
+	}
+
+	private void update_toggle_pinned_label () {
+		if (pin_menu_item != null)
+			pin_menu_item.set_label (status?.formal?.pinned ? _("Unpin") : _("Pin"));
+	}
+
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	protected virtual void bind () {
 		this.content.instance_emojis = status.formal.emojis_map;
@@ -465,6 +503,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		date_label.label = this.date;
 
 		pin_indicator.visible = status.formal.pinned;
+		update_toggle_pinned_label ();
 		edited_indicator.visible = status.formal.is_edited;
 		edit_history_simple_action.set_enabled (status.formal.is_edited);
 

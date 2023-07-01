@@ -68,6 +68,18 @@ public class Tuba.Views.Profile : Views.Timeline {
 		return GLib.Source.REMOVE;
 	}
 
+	public override Widget on_create_model_widget (Object obj) {
+		var widget = base.on_create_model_widget(obj);
+		var widget_status = widget as Widgets.Status;
+
+		if (widget_status != null && profile.id == accounts.active.id) {
+			widget_status.show_toggle_pinned_action ();
+            widget_status.pin_changed.connect (on_refresh);
+        }
+
+		return widget;
+	}
+
 	public override void on_refresh () {
 		base.on_refresh ();
 		GLib.Idle.add (append_pinned);
