@@ -66,17 +66,6 @@ namespace Tuba {
 			flags = ApplicationFlags.HANDLES_OPEN;
 		}
 
-		public const string[] ACCEL_ABOUT = {"F1"};
-		public const string[] ACCEL_NEW_POST = {"<Ctrl>T", "<Ctrl>N"};
-		public const string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left", "Escape", "<Alt>KP_Left", "Pointer_DfltBtnPrev"};
-		public const string[] ACCEL_REFRESH = {"<Ctrl>R", "F5"};
-		public const string[] ACCEL_SEARCH = {"<Ctrl>F"};
-		public const string[] ACCEL_QUIT = {"<Ctrl>Q"};
-		public const string[] ACCEL_CLOSE = {"<Ctrl>W"};
-		public const string[] ACCEL_BACK_HOME = {"<Alt>Home"};
-		public const string[] ACCEL_SCROLL_PAGE_DOWN = {"Page_Down"};
-		public const string[] ACCEL_SCROLL_PAGE_UP = {"Page_Up"};
-
 		public static int main (string[] args) {
 			try {
 				var opt_context = new OptionContext ("- Options");
@@ -152,16 +141,16 @@ namespace Tuba {
 			ColorScheme color_scheme = (ColorScheme) settings.get_enum ("color-scheme");
 			style_manager.color_scheme = color_scheme.to_adwaita_scheme ();
 
-			set_accels_for_action ("app.about", ACCEL_ABOUT);
-			set_accels_for_action ("app.compose", ACCEL_NEW_POST);
-			set_accels_for_action ("app.back", ACCEL_BACK);
-			set_accels_for_action ("app.refresh", ACCEL_REFRESH);
-			set_accels_for_action ("app.search", ACCEL_SEARCH);
-			set_accels_for_action ("app.quit", ACCEL_QUIT);
-			set_accels_for_action ("window.close", ACCEL_CLOSE);
-			set_accels_for_action ("app.back-home", ACCEL_BACK_HOME);
-			set_accels_for_action ("app.scroll-page-down", ACCEL_SCROLL_PAGE_DOWN);
-			set_accels_for_action ("app.scroll-page-up", ACCEL_SCROLL_PAGE_UP);
+			set_accels_for_action ("app.about", {"F1"});
+			set_accels_for_action ("app.compose", {"<Ctrl>T", "<Ctrl>N"});
+			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>Left", "Escape", "<Alt>KP_Left", "Pointer_DfltBtnPrev"});
+			set_accels_for_action ("app.refresh", {"<Ctrl>R", "F5"});
+			set_accels_for_action ("app.search", {"<Ctrl>F"});
+			set_accels_for_action ("app.quit", {"<Ctrl>Q"});
+			set_accels_for_action ("window.close", {"<Ctrl>W"});
+			set_accels_for_action ("app.back-home", {"<Alt>Home"});
+			set_accels_for_action ("app.scroll-page-down", {"Page_Down"});
+			set_accels_for_action ("app.scroll-page-up", {"Page_Up"});
 			add_action_entries (APP_ENTRIES, this);
 		}
 
