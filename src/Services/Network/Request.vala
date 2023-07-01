@@ -8,7 +8,7 @@ public class Tuba.Request : GLib.Object {
 			return _msg;
 		}
 		set {
-			if (cancellable != null && !cancellable.is_cancelled()) cancellable.cancel();
+			if (cancellable != null && !cancellable.is_cancelled ()) cancellable.cancel ();
 			_msg = value;
 			cancellable = new Cancellable ();
 		}
@@ -22,7 +22,7 @@ public class Tuba.Request : GLib.Object {
 			if (msg != null)
 				msg.method = value;
 		}
-		
+
 		get {
 			return msg == null ? _method : msg.method;
 		}
@@ -41,27 +41,27 @@ public class Tuba.Request : GLib.Object {
 	public Request.GET (string url) {
 		this.url = url;
 		method = "GET";
-		msg = new Soup.Message(method, url);
+		msg = new Soup.Message (method, url);
 	}
 	public Request.POST (string url) {
 		this.url = url;
 		method = "POST";
-		msg = new Soup.Message(method, url);
+		msg = new Soup.Message (method, url);
 	}
 	public Request.PUT (string url) {
 		this.url = url;
 		method = "PUT";
-		msg = new Soup.Message(method, url);
+		msg = new Soup.Message (method, url);
 	}
 	public Request.DELETE (string url) {
 		this.url = url;
 		method = "DELETE";
-		msg = new Soup.Message(method, url);
+		msg = new Soup.Message (method, url);
 	}
 	public Request.PATCH (string url) {
 		this.url = url;
 		method = "PATCH";
-		msg = new Soup.Message(method, url);
+		msg = new Soup.Message (method, url);
 	}
 
 	// ~Request () {
@@ -70,7 +70,7 @@ public class Tuba.Request : GLib.Object {
 
 	private string? content_type = null;
 	private Bytes? body_bytes = null;
-	public void set_request_body_from_bytes (string? t_content_type, Bytes? t_bytes)  {
+	public void set_request_body_from_bytes (string? t_content_type, Bytes? t_bytes) {
 		content_type = t_content_type;
 		body_bytes = t_bytes;
 	}
@@ -90,7 +90,7 @@ public class Tuba.Request : GLib.Object {
 
 	public Request then_parse_array (owned Network.NodeCallback _cb) {
 		this.cb = (sess, msg, in_stream) => {
-			var parser = Network.get_parser_from_inputstream(in_stream);
+			var parser = Network.get_parser_from_inputstream (in_stream);
 			Network.parse_array (msg, parser, (owned) _cb);
 		};
     return this;
@@ -100,7 +100,7 @@ public class Tuba.Request : GLib.Object {
 		this.has_ctx = true;
 		this.ctx = ctx;
 		this.ctx.destroy.connect (() => {
-			this.cancellable.cancel();
+			this.cancellable.cancel ();
 			this.ctx = null;
 		});
 		return this;
@@ -125,8 +125,8 @@ public class Tuba.Request : GLib.Object {
 
 	public Request with_form_data (string name, string val) {
 		if (form_data == null)
-			form_data = new Soup.Multipart(FORM_MIME_TYPE_MULTIPART);
-		form_data.append_form_string(name, val);
+			form_data = new Soup.Multipart (FORM_MIME_TYPE_MULTIPART);
+		form_data.append_form_string (name, val);
 		return this;
 	}
 
@@ -139,7 +139,7 @@ public class Tuba.Request : GLib.Object {
 	public Request body_json (Json.Builder t_builder) {
 		var generator = new Json.Generator ();
         generator.set_root (t_builder.get_root ());
-		return body ("application/json", new Bytes.take(generator.to_data (null).data));
+		return body ("application/json", new Bytes.take (generator.to_data (null).data));
 	}
 
 	public Request exec () {
@@ -193,7 +193,7 @@ public class Tuba.Request : GLib.Object {
 		msg.priority = priority;
 
 		if (content_type != null && body_bytes != null)
-			msg.set_request_body_from_bytes(content_type, body_bytes);
+			msg.set_request_body_from_bytes (content_type, body_bytes);
 
 		//  if (force_replace_content_type)
 		//  	msg.request_headers.replace ("Content-Type", content_type);
@@ -225,7 +225,7 @@ public class Tuba.Request : GLib.Object {
 		var result = "";
 		array.@foreach (i => {
 			result += @"$key[]=$i";
-			if (array.index_of (i)+1 != array.size)
+			if (array.index_of (i) + 1 != array.size)
 				result += "&";
 			return true;
 		});

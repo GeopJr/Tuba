@@ -6,10 +6,10 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	protected GestureClick gesture_click_controller { get; set; }
 	protected GestureLongPress gesture_lp_controller { get; set; }
 	protected PopoverMenu context_menu { get; set; }
-	private const GLib.ActionEntry[] action_entries = {
-		{"copy-url",        copy_url},
+	private const GLib.ActionEntry[] ACTION_ENTRIES = {
+		{"copy-url", copy_url},
 		{"open-in-browser", open_in_browser},
-		{"save-as",         save_as},
+		{"save-as", save_as},
 	};
 	private GLib.SimpleActionGroup actions;
 
@@ -29,7 +29,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	private void save_as () {
-		save_media_as(entity.url);
+		save_media_as (entity.url);
 	}
 
 	public static void save_media_as (string url) {
@@ -46,14 +46,14 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 					if (file != null) {
 		#else
 			var chooser = new FileChooserNative (_("Save Attachment"), app.main_window, Gtk.FileChooserAction.SAVE, null, null);
-			chooser.set_current_name(Path.get_basename (url));
+			chooser.set_current_name (Path.get_basename (url));
 			chooser.response.connect (id => {
 				switch (id) {
 					case ResponseType.ACCEPT:
 						var file = chooser.get_file ();
 		#endif
-						message (@"Downloading file: $(url)...");
-						download.begin(url, file, (obj, res) => {
+						message (@"Downloading file: $(url)…");
+						download.begin (url, file, (obj, res) => {
 							download.end (res);
 						});
 		#if GTK_4_10
@@ -74,7 +74,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		#endif
 	}
 
-	private static async void download(string attachment_url, File file) {
+	private static async void download (string attachment_url, File file) {
 		try {
 			var req = yield new Request.GET (attachment_url).await ();
 			var data = req.response_body;
@@ -97,7 +97,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		height_request = 164;
 
 		actions = new GLib.SimpleActionGroup ();
-		actions.add_action_entries (action_entries, this);
+		actions.add_action_entries (ACTION_ENTRIES, this);
 		this.insert_action_group ("attachment", actions);
 
 		notify["entity"].connect (on_rebind);
@@ -108,33 +108,33 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		button.clicked.connect (on_click);
 		button.add_css_class ("frame");
 
-		create_context_menu();
-		gesture_click_controller = new GestureClick();
-		gesture_lp_controller = new GestureLongPress();
-        add_controller(gesture_click_controller);
-        add_controller(gesture_lp_controller);
+		create_context_menu ();
+		gesture_click_controller = new GestureClick ();
+		gesture_lp_controller = new GestureLongPress ();
+        add_controller (gesture_click_controller);
+        add_controller (gesture_lp_controller);
 		gesture_click_controller.button = Gdk.BUTTON_SECONDARY;
 		gesture_lp_controller.button = Gdk.BUTTON_PRIMARY;
 		gesture_lp_controller.touch_only = true;
-        gesture_click_controller.pressed.connect(on_secondary_click);
-        gesture_lp_controller.pressed.connect(on_secondary_click);
+        gesture_click_controller.pressed.connect (on_secondary_click);
+        gesture_lp_controller.pressed.connect (on_secondary_click);
 
-		badge_box = new Gtk.Box(Orientation.HORIZONTAL, 1) {
+		badge_box = new Gtk.Box (Orientation.HORIZONTAL, 1) {
 			valign = Align.END,
 			halign = Align.START
 		};
 
-		alt_btn = new Button.with_label("ALT") {
+		alt_btn = new Button.with_label ("ALT") {
 			tooltip_text = _("View Alt Text"),
 			css_classes = { "heading", "flat" }
 		};
 
-		alt_btn_clicked_id = alt_btn.clicked.connect(() => {
+		alt_btn_clicked_id = alt_btn.clicked.connect (() => {
 			if (entity != null && entity.description != null)
-				create_alt_text_window(entity.description, true);
+				create_alt_text_window (entity.description, true);
 		});
 
-		badge_box.append(alt_btn);
+		badge_box.append (alt_btn);
 		badge_box.add_css_class ("linked");
 		badge_box.add_css_class ("ttl-status-badge");
 
@@ -151,7 +151,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	protected Adw.Window create_alt_text_window (string alt_text, bool show = false) {
-		var alt_label = new Label(alt_text) {
+		var alt_label = new Label (alt_text) {
 			wrap = true
 		};
 
@@ -161,15 +161,15 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 			valign = Align.START
 		};
 
-		var scrolledwindow = new ScrolledWindow() {
+		var scrolledwindow = new ScrolledWindow () {
 			child = clamp,
 			vexpand = true,
 			hexpand = true
 		};
 
-		var box = new Gtk.Box(Orientation.VERTICAL, 6);
-		var headerbar = new Adw.HeaderBar();
-		var window = new Adw.Window() {
+		var box = new Gtk.Box (Orientation.VERTICAL, 6);
+		var headerbar = new Adw.HeaderBar ();
+		var window = new Adw.Window () {
 			modal = true,
 			title = @"Alternative text for $media_kind",
 			transient_for = app.main_window,
@@ -178,28 +178,28 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 			default_height = 300
 		};
 
-		box.append(headerbar);
-		box.append(scrolledwindow);
+		box.append (headerbar);
+		box.append (scrolledwindow);
 
-		if (show) window.show();
+		if (show) window.show ();
 		alt_label.selectable = true;
 
 		return window;
 	}
 
-	protected void create_context_menu() {
+	protected void create_context_menu () {
 		var menu_model = new GLib.Menu ();
 		menu_model.append (_("Open in Browser"), "attachment.open-in-browser");
 		menu_model.append (_("Copy URL"), "attachment.copy-url");
 		menu_model.append (_("Save Media"), "attachment.save-as");
 
-		context_menu = new PopoverMenu.from_model(menu_model);
-		context_menu.set_parent(this);
+		context_menu = new PopoverMenu.from_model (menu_model);
+		context_menu.set_parent (this);
 	}
 
 	protected virtual void on_rebind () {
 		alt_btn.visible = entity != null && entity.description != null && entity.description != "";
-		media_kind = entity.kind.up();
+		media_kind = entity.kind.up ();
 	}
 
 	protected virtual void on_click () {
@@ -215,11 +215,11 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	protected virtual void on_secondary_click () {
-		gesture_click_controller.set_state(EventSequenceState.CLAIMED);
-		gesture_lp_controller.set_state(EventSequenceState.CLAIMED);
+		gesture_click_controller.set_state (EventSequenceState.CLAIMED);
+		gesture_lp_controller.set_state (EventSequenceState.CLAIMED);
 
-		if (app.main_window.is_media_viewer_visible()) return;
-		context_menu.popup();
+		if (app.main_window.is_media_viewer_visible ()) return;
+		context_menu.popup ();
 	}
 
 	protected async void open () throws Error {

@@ -51,17 +51,17 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		base.on_rebind ();
 		pic.alternative_text = entity == null ? null : entity.description;
 		image_cache.request_paintable (entity.preview_url, on_cache_response);
-		
+
 		if (media_kind in VIDEO_TYPES) {
-			media_icon = new Gtk.Image() {
+			media_icon = new Gtk.Image () {
 				valign = Gtk.Align.CENTER,
 				halign = Gtk.Align.CENTER
 			};
 
 			if (media_kind != "AUDIO") {
-				media_icon.add_css_class("osd");
-				media_icon.add_css_class("circular");
-				media_icon.add_css_class("attachment-overlay-icon");
+				media_icon.add_css_class ("osd");
+				media_icon.add_css_class ("circular");
+				media_icon.add_css_class ("attachment-overlay-icon");
 				media_icon.icon_name = "media-playback-start-symbolic";
 			} else {
 				media_icon.icon_name = "tuba-music-note-symbolic";
@@ -89,12 +89,12 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			load_image_in_media_viewer (null);
 			on_any_attachment_click (entity.url);
 		} else { // Fallback
-			base.on_click();
+			base.on_click ();
 		}
 	}
 
 	public void load_image_in_media_viewer (int? pos) {
-		app.main_window.show_media_viewer(entity.url, pic.alternative_text, media_kind in VIDEO_TYPES, pic.paintable, pos);
+		app.main_window.show_media_viewer (entity.url, pic.alternative_text, media_kind in VIDEO_TYPES, pic.paintable, pos);
 	}
 
 	public signal void on_any_attachment_click (string url) {}

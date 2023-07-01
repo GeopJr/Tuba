@@ -44,12 +44,12 @@ namespace Tuba {
 		//  public CssProvider css_provider = new CssProvider ();
 		//  public CssProvider zoom_css_provider = new CssProvider (); //FIXME: Zoom not working
 
-		public const GLib.OptionEntry[] app_options = {
+		public const GLib.OptionEntry[] APP_OPTIONS = {
 			{ "hidden", 0, 0, OptionArg.NONE, ref start_hidden, "Do not show main window on start", null },
 			{ null }
 		};
 
-		private const GLib.ActionEntry[] app_entries = {
+		private const GLib.ActionEntry[] APP_ENTRIES = {
 			{ "about", about_activated },
 			{ "compose", compose_activated },
 			{ "back", back_activated },
@@ -66,21 +66,21 @@ namespace Tuba {
 			flags = ApplicationFlags.HANDLES_OPEN;
 		}
 
-		public string[] ACCEL_ABOUT = {"F1"};
-		public string[] ACCEL_NEW_POST = {"<Ctrl>T", "<Ctrl>N"};
-		public string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left", "Escape", "<Alt>KP_Left", "Pointer_DfltBtnPrev"};
-		public string[] ACCEL_REFRESH = {"<Ctrl>R", "F5"};
-		public string[] ACCEL_SEARCH = {"<Ctrl>F"};
-		public string[] ACCEL_QUIT = {"<Ctrl>Q"};
-		public string[] ACCEL_CLOSE = {"<Ctrl>W"};
-		public string[] ACCEL_BACK_HOME = {"<Alt>Home"};
-		public string[] ACCEL_SCROLL_PAGE_DOWN = {"Page_Down"};
-		public string[] ACCEL_SCROLL_PAGE_UP = {"Page_Up"};
+		public const string[] ACCEL_ABOUT = {"F1"};
+		public const string[] ACCEL_NEW_POST = {"<Ctrl>T", "<Ctrl>N"};
+		public const string[] ACCEL_BACK = {"<Alt>BackSpace", "<Alt>Left", "Escape", "<Alt>KP_Left", "Pointer_DfltBtnPrev"};
+		public const string[] ACCEL_REFRESH = {"<Ctrl>R", "F5"};
+		public const string[] ACCEL_SEARCH = {"<Ctrl>F"};
+		public const string[] ACCEL_QUIT = {"<Ctrl>Q"};
+		public const string[] ACCEL_CLOSE = {"<Ctrl>W"};
+		public const string[] ACCEL_BACK_HOME = {"<Alt>Home"};
+		public const string[] ACCEL_SCROLL_PAGE_DOWN = {"Page_Down"};
+		public const string[] ACCEL_SCROLL_PAGE_UP = {"Page_Up"};
 
 		public static int main (string[] args) {
 			try {
 				var opt_context = new OptionContext ("- Options");
-				opt_context.add_main_entries (app_options, null);
+				opt_context.add_main_entries (APP_OPTIONS, null);
 				opt_context.parse (ref args);
 			}
 			catch (GLib.OptionError e) {
@@ -94,20 +94,24 @@ namespace Tuba {
 			}
 
 			try {
-				custom_emoji_regex = new GLib.Regex("(:[a-zA-Z0-9_]{2,}:)", GLib.RegexCompileFlags.OPTIMIZE);
+				custom_emoji_regex = new GLib.Regex ("(:[a-zA-Z0-9_]{2,}:)", GLib.RegexCompileFlags.OPTIMIZE);
 			} catch (GLib.RegexError e) {
 				warning (e.message);
 			}
 
 			try {
-				rtl_regex = new GLib.Regex("[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]", GLib.RegexCompileFlags.OPTIMIZE, GLib.RegexMatchFlags.ANCHORED);
+				rtl_regex = new GLib.Regex (
+					"[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]",
+					GLib.RegexCompileFlags.OPTIMIZE,
+					GLib.RegexMatchFlags.ANCHORED
+				);
 			} catch (GLib.RegexError e) {
 				warning (e.message);
 			}
 
 			Intl.setlocale (LocaleCategory.ALL, "");
-			Intl.bindtextdomain(Build.GETTEXT_PACKAGE, Build.LOCALEDIR);
-			Intl.textdomain(Build.GETTEXT_PACKAGE);
+			Intl.bindtextdomain (Build.GETTEXT_PACKAGE, Build.LOCALEDIR);
+			Intl.textdomain (Build.GETTEXT_PACKAGE);
 
 			app = new Application ();
 			return app.run (args);
@@ -130,7 +134,7 @@ namespace Tuba {
 				image_cache = new ImageCache () {
 					maintenance_secs = 60 * 5
 				};
-				accounts = new SecretAccountStore();
+				accounts = new SecretAccountStore ();
 				accounts.init ();
 
 				//  css_provider.load_from_resource (@"$(Build.RESOURCES)app.css");
@@ -158,7 +162,7 @@ namespace Tuba {
 			set_accels_for_action ("app.back-home", ACCEL_BACK_HOME);
 			set_accels_for_action ("app.scroll-page-down", ACCEL_SCROLL_PAGE_DOWN);
 			set_accels_for_action ("app.scroll-page-up", ACCEL_SCROLL_PAGE_UP);
-			add_action_entries (app_entries, this);
+			add_action_entries (APP_ENTRIES, this);
 		}
 
 		protected override void activate () {
@@ -190,7 +194,7 @@ namespace Tuba {
 		public void present_window (bool destroy_main = false) {
 			if (accounts.saved.is_empty) {
 				if (main_window != null && destroy_main)
-					main_window.hide();
+					main_window.hide ();
 				message ("Presenting NewAccount dialog");
 				if (add_account_window == null)
 					new Dialogs.NewAccount ();
@@ -200,13 +204,13 @@ namespace Tuba {
 				message ("Presenting MainWindow");
 				if (main_window == null) {
 					main_window = new Dialogs.MainWindow (this);
-					is_rtl = Gtk.Widget.get_default_direction() == Gtk.TextDirection.RTL;
+					is_rtl = Gtk.Widget.get_default_direction () == Gtk.TextDirection.RTL;
 				}
 				if (!start_hidden) main_window.present ();
 			}
 
 			if (main_window != null)
-				main_window.close_request.connect(on_window_closed);
+				main_window.close_request.connect (on_window_closed);
 		}
 
 		public bool on_window_closed () {
@@ -251,20 +255,23 @@ namespace Tuba {
 			main_window.scroll_view_page (true);
 		}
 
-		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s".printf(
+		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s".printf ( // vala-lint=line-length
 				GLib.Environment.get_os_info ("NAME"), GLib.Environment.get_os_info ("VERSION"),
 				Build.PREFIX,
-				(GLib.Environment.get_variable("FLATPAK_ID") != null || GLib.File.new_for_path("/.flatpak-info").query_exists()).to_string(),
+				(
+					GLib.Environment.get_variable ("FLATPAK_ID") != null
+					|| GLib.File.new_for_path ("/.flatpak-info").query_exists ()
+				).to_string (),
 				Build.VERSION, Build.PROFILE,
-				Gtk.get_major_version(), Gtk.get_minor_version(), Gtk.get_micro_version(),
+				Gtk.get_major_version (), Gtk.get_minor_version (), Gtk.get_micro_version (),
 				Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION, Gtk.MICRO_VERSION,
-				Adw.get_major_version(), Adw.get_minor_version(), Adw.get_micro_version(),
+				Adw.get_major_version (), Adw.get_minor_version (), Adw.get_micro_version (),
 				Adw.MAJOR_VERSION, Adw.MINOR_VERSION, Adw.MICRO_VERSION,
-				Soup.get_major_version(), Soup.get_minor_version(), Soup.get_micro_version(),
+				Soup.get_major_version (), Soup.get_minor_version (), Soup.get_micro_version (),
 				Soup.MAJOR_VERSION, Soup.MINOR_VERSION, Soup.MICRO_VERSION,
 				#if GTKSOURCEVIEW_5_7_1
-					"\nlibgtksourceview: %u.%u.%u (%d.%d.%d)".printf(
-						GtkSource.get_major_version(), GtkSource.get_minor_version(), GtkSource.get_micro_version(),
+					"\nlibgtksourceview: %u.%u.%u (%d.%d.%d)".printf (
+						GtkSource.get_major_version (), GtkSource.get_minor_version (), GtkSource.get_micro_version (),
 						GtkSource.MAJOR_VERSION, GtkSource.MINOR_VERSION, GtkSource.MICRO_VERSION
 					)
 				#else
@@ -314,7 +321,7 @@ namespace Tuba {
 			dialog.present ();
 		}
 
-		public Adw.MessageDialog inform (string text, string? msg = null, Gtk.Window? win = app.main_window){
+		public Adw.MessageDialog inform (string text, string? msg = null, Gtk.Window? win = app.main_window) {
 			var dlg = new Adw.MessageDialog (
 				win,
 				text,
@@ -324,23 +331,31 @@ namespace Tuba {
 			if (win != null)
 				dlg.transient_for = win;
 
-			dlg.add_response("ok", _("OK"));
+			dlg.add_response ("ok", _("OK"));
 
 			return dlg;
 		}
 
-		public Adw.MessageDialog question (string text, string? msg = null, Gtk.Window? win = app.main_window, string yes_label = _("Yes"), Adw.ResponseAppearance yes_appearance = Adw.ResponseAppearance.DEFAULT, string no_label = _("Cancel"), Adw.ResponseAppearance no_appearance = Adw.ResponseAppearance.DEFAULT) {
+		public Adw.MessageDialog question (
+			string text,
+			string? msg = null,
+			Gtk.Window? win = app.main_window,
+			string yes_label = _("Yes"),
+			Adw.ResponseAppearance yes_appearance = Adw.ResponseAppearance.DEFAULT,
+			string no_label = _("Cancel"),
+			Adw.ResponseAppearance no_appearance = Adw.ResponseAppearance.DEFAULT
+		) {
 			var dlg = new Adw.MessageDialog (
 				win,
 				text,
 				msg
 			);
 
-			dlg.add_response("no", no_label);
-			dlg.set_response_appearance("no", no_appearance);
+			dlg.add_response ("no", no_label);
+			dlg.set_response_appearance ("no", no_appearance);
 
-			dlg.add_response("yes", yes_label);
-			dlg.set_response_appearance("yes", yes_appearance);
+			dlg.add_response ("yes", yes_label);
+			dlg.set_response_appearance ("yes", yes_appearance);
 
 			if (win != null)
 				dlg.transient_for = win;

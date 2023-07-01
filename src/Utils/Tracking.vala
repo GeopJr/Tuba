@@ -3,7 +3,7 @@
 
 public class Tuba.Tracking {
     /* https://github.com/brave/brave-core/blob/5fcad3e35bac6fea795941fd8189a59d79d488bc/browser/net/brave_site_hacks_network_delegate_helper.cc#L29-L67 */
-    public const string[] tracking_ids = {
+    public const string[] TRACKING_IDS = {
         // Strip any utm_ based ones
         "utm_",
         // https://github.com/brave/brave-browser/issues/4239
@@ -61,7 +61,7 @@ public class Tuba.Tracking {
         string val;
         while (iter.next (out key, out val)) {
             var not_tracking_id = true;
-            foreach (var id in tracking_ids) {
+            foreach (var id in TRACKING_IDS) {
                 if (id in key.down ()) {
                     not_tracking_id = false;
                     break;
@@ -71,10 +71,10 @@ public class Tuba.Tracking {
             if (not_tracking_id) res_params += @"$key=$val";
         }
 
-        string? res_query = res_params.length > 0 ? string.joinv("&", res_params) : null;
+        string? res_query = res_params.length > 0 ? string.joinv ("&", res_params) : null;
         return Uri.build (
             uri.get_flags (),
-            uri.get_scheme(),
+            uri.get_scheme (),
             uri.get_userinfo (),
             uri.get_host (),
             uri.get_port (),
@@ -93,15 +93,15 @@ public class Tuba.Tracking {
         var fragment_offset = split_url[1].last_index_of_char ('#');
         var fragment = "";
         if (fragment_offset > -1) {
-            fragment = split_url[1].substring(fragment_offset);
-            split_url[1] = split_url[1].slice(0, fragment_offset);
+            fragment = split_url[1].substring (fragment_offset);
+            split_url[1] = split_url[1].slice (0, fragment_offset);
         }
 
         var query_params = split_url[1].split_set ("&");
         foreach (var param in query_params) {
             var not_tracking_id = true;
 
-            foreach (var id in tracking_ids) {
+            foreach (var id in TRACKING_IDS) {
                 var index_of_eq = param.index_of_char ('=');
                 if (index_of_eq > -1 && id in param.slice (0, index_of_eq).down ()) {
                     not_tracking_id = false;

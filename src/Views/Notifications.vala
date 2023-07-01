@@ -31,19 +31,29 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		if (badge_number_binding != null)
 			badge_number_binding.unbind ();
 
-		badge_number_binding = accounts.active.bind_property ("unread-count", this, "badge-number", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			var unread_count = src.get_int ();
-			target.set_int (unread_count);
-			this.needs_attention = unread_count > 0;
+		badge_number_binding = accounts.active.bind_property (
+			"unread-count",
+			this,
+			"badge-number",
+			BindingFlags.SYNC_CREATE,
+			(b, src, ref target) => {
+				var unread_count = src.get_int ();
+				target.set_int (unread_count);
+				this.needs_attention = unread_count > 0;
 
-			return true;
-		});
+				return true;
+			}
+		);
 	}
 
 	public override void on_shown () {
 		base.on_shown ();
 		if (account != null) {
-			account.read_notifications (account.last_received_id > account.last_read_id ? account.last_received_id : account.last_read_id);
+			account.read_notifications (
+				account.last_received_id > account.last_read_id
+					? account.last_received_id
+					: account.last_read_id
+			);
 		}
 	}
 
@@ -55,6 +65,8 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	}
 
 	public override string? get_stream_url () {
-		return account != null ? @"$(account.instance)/api/v1/streaming/?stream=user:notification&access_token=$(account.access_token)" : null;
+		return account != null
+			? @"$(account.instance)/api/v1/streaming/?stream=user:notification&access_token=$(account.access_token)"
+			: null;
     }
 }

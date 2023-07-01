@@ -16,7 +16,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned Switch larger_font_size;
     [GtkChild] unowned Switch larger_line_height;
     [GtkChild] unowned Switch strip_tracking;
-	
+
 	private bool lang_changed { get; set; default=false; }
 
 	static construct {
@@ -32,7 +32,13 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
         scheme_combo_row.selected = settings.get_enum ("color-scheme");
 
 		uint default_visibility_index;
-		if (accounts.active.visibility.has_key(settings.default_post_visibility) && accounts.active.visibility_list.find(accounts.active.visibility[settings.default_post_visibility], out default_visibility_index)) {
+		if (
+			accounts.active.visibility.has_key (settings.default_post_visibility)
+			&& accounts.active.visibility_list.find (
+				accounts.active.visibility[settings.default_post_visibility],
+				out default_visibility_index
+			)
+		) {
 			post_visibility_combo_row.selected = default_visibility_index;
 		} else {
 			post_visibility_combo_row.selected = 0;
@@ -42,7 +48,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 		setup_languages_combo_row ();
 		bind ();
         show ();
-		close_request.connect(on_window_closed);
+		close_request.connect (on_window_closed);
     }
 
     public static void open () {
@@ -62,10 +68,10 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
         settings.bind ("larger-line-height", larger_line_height, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("strip-tracking", strip_tracking, "active", SettingsBindFlags.DEFAULT);
 
-		post_visibility_combo_row.notify["selected-item"].connect(on_post_visibility_changed);
+		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 
 		ulong dlcr_id = 0;
-		dlcr_id = default_language_combo_row.notify["selected-item"].connect(() => {
+		dlcr_id = default_language_combo_row.notify["selected-item"].connect (() => {
 			lang_changed = true;
 			default_language_combo_row.disconnect (dlcr_id);
 		});
@@ -91,12 +97,21 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 			store.append (locale);
 		}
 
-		default_language_combo_row.list_factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/language.ui");
+		default_language_combo_row.list_factory = new BuilderListItemFactory.from_resource (
+			null,
+			@"$(Build.RESOURCES)gtk/dropdown/language.ui"
+		);
 		default_language_combo_row.model = store;
 
 		var default_language = settings.default_language == "" ? "en" : settings.default_language;
 		uint default_lang_index;
-		if (store.find_with_equal_func(new Tuba.Locale(default_language, null, null), Tuba.Locale.compare, out default_lang_index)) {
+		if (
+			store.find_with_equal_func (
+				new Tuba.Locale (default_language, null, null),
+				Tuba.Locale.compare,
+				out default_lang_index
+			)
+		) {
 			default_language_combo_row.selected = default_lang_index;
 		}
 	}
@@ -110,7 +125,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 					.with_account (accounts.active)
 					.with_form_data ("source[language]", new_lang)
 					.then ((sess, msg, in_stream) => {
-						var parser = Network.get_parser_from_inputstream(in_stream);
+						var parser = Network.get_parser_from_inputstream (in_stream);
 						var node = network.parse_node (parser);
 						var updated = API.Account.from (node);
 
@@ -133,14 +148,12 @@ public class Tuba.ColorSchemeListModel : Object, ListModel {
 		array.add (new ColorSchemeListItem (DARK));
 	}
 
-	public Object? get_item (uint position)
-		requires (position < array.size)
-	{
+	public Object? get_item (uint position) requires (position < array.size) {
 		return array.get ((int) position);
 	}
 
 	public Type get_item_type () {
-		return typeof(ColorSchemeListItem);
+		return typeof (ColorSchemeListItem);
 	}
 
 	public uint get_n_items () {

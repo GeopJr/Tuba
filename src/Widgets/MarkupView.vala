@@ -26,13 +26,13 @@ public class Tuba.Widgets.MarkupView : Box {
 		set {
 			_selectable = value;
 
-			var w = this.get_first_child();
+			var w = this.get_first_child ();
 			while (w != null) {
 				var label = w as RichLabel;
 				if (label != null) {
 					label.selectable = _selectable;
 				}
-				w = w.get_next_sibling();
+				w = w.get_next_sibling ();
 			};
 		}
 	}
@@ -50,7 +50,7 @@ public class Tuba.Widgets.MarkupView : Box {
 			w.destroy ();
 		}
 
-		var doc = Html.Doc.read_doc (HtmlUtils.replace_with_pango_markup(content), "", "utf8");
+		var doc = Html.Doc.read_doc (HtmlUtils.replace_with_pango_markup (content), "", "utf8");
 		if (doc != null) {
 			var root = doc->get_root_element ();
 			if (root != null) {

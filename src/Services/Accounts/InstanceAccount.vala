@@ -69,7 +69,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		destruct_streamable ();
 	}
 
-	public InstanceAccount.empty (string instance){
+	public InstanceAccount.empty (string instance) {
 		Object (
 			id: "",
 			instance: instance
@@ -124,7 +124,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		var req = new Request.GET ("/api/v1/accounts/verify_credentials").with_account (this);
 		yield req.await ();
 
-		var parser = Network.get_parser_from_inputstream(req.response_body);
+		var parser = Network.get_parser_from_inputstream (req.response_body);
 		var node = network.parse_node (parser);
 		var updated = API.Account.from (node);
 		patch (updated);
@@ -133,14 +133,20 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	public async Entity resolve (string url) throws Error {
-		message (@"Resolving URL: \"$url\"...");
+		message (@"Resolving URL: \"$url\"…");
 		var results = yield API.SearchResults.request (url, this);
 		var entity = results.first ();
 		message (@"Found $(entity.get_class ().get_name ())");
 		return entity;
 	}
 
-	public virtual void describe_kind (string kind, out string? icon, out string? descr, API.Account account, out string? descr_url) {
+	public virtual void describe_kind (
+		string kind,
+		out string? icon,
+		out string? descr,
+		API.Account account,
+		out string? descr_url
+	) {
 		switch (kind) {
 			case KIND_MENTION:
 				icon = "tuba-chat-symbolic";
@@ -203,7 +209,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		new Request.GET ("/api/v1/instance")
 			.with_account (this)
 			.then ((sess, msg, in_stream) => {
-				var parser = Network.get_parser_from_inputstream(in_stream);
+				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				instance_info = API.Instance.from (node);
 			})
@@ -214,10 +220,10 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		new Request.GET ("/api/v1/custom_emojis")
 			.with_account (this)
 			.then ((sess, msg, in_stream) => {
-				var parser = Network.get_parser_from_inputstream(in_stream);
+				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				Value res_emojis;
-				Entity.des_list(out res_emojis, node, typeof (API.Emoji));
+				Entity.des_list (out res_emojis, node, typeof (API.Emoji));
 				instance_emojis = (Gee.ArrayList<Tuba.API.Emoji>) res_emojis;
 			})
 			.exec ();
@@ -228,14 +234,14 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 		new Request.GET ("/api/v1/notifications")
 			.with_account (this)
-			.with_param ("min_id", @"$last_read_id")
+			.with_param ("min_id", last_read_id.to_string ())
 			.then ((sess, msg, in_stream) => {
-				var parser = Network.get_parser_from_inputstream(in_stream);
-				var array = Network.get_array_mstd(parser);
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var array = Network.get_array_mstd (parser);
 				if (array != null) {
-					unread_count = (int)array.get_length();
+					unread_count = (int)array.get_length ();
 					if (unread_count > 0) {
-						last_received_id = int.parse (array.get_object_element(0).get_string_member_with_default ("id", "-1"));
+						last_received_id = int.parse (array.get_object_element (0).get_string_member_with_default ("id", "-1"));
 					}
 				}
 				passed_init_notifications = true;
@@ -247,12 +253,12 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		new Request.GET ("/api/v1/markers?timeline[]=notifications")
 			.with_account (this)
 			.then ((sess, msg, in_stream) => {
-				var parser = Network.get_parser_from_inputstream(in_stream);
+				var parser = Network.get_parser_from_inputstream (in_stream);
 				var root = network.parse (parser);
-				if (!root.has_member("notifications")) return;
+				if (!root.has_member ("notifications")) return;
 				var notifications = root.get_object_member ("notifications");
 				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1") );
-				if (!passed_init_notifications) init_notifications();
+				if (!passed_init_notifications) init_notifications ();
 			})
 			.exec ();
 	}
@@ -267,16 +273,16 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				// Mark as read
 				new Request.POST ("/api/v1/markers")
 					.with_account (this)
-					.with_form_data ("notifications[last_read_id]", @"$up_to_id")
-					.then(() => {})
+					.with_form_data ("notifications[last_read_id]", up_to_id.to_string ())
+					.then (() => {})
 					.exec ();
 
 				// Pleroma FE doesn't mark them as read by just updating the marker
 				if (instance_info != null && instance_info?.pleroma != null) {
 					new Request.POST ("/api/v1/pleroma/notifications/read")
 						.with_account (this)
-						.with_form_data ("max_id", @"$up_to_id")
-						.then(() => {})
+						.with_form_data ("max_id", up_to_id.to_string ())
+						.then (() => {})
 						.exec ();
 				}
 			}

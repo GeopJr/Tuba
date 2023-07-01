@@ -81,9 +81,8 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		if (account == null) {
 			message ("Reset active account");
 			return;
-		}
-		else {
-			message (@"Activating $(account.handle)...");
+		} else {
+			message (@"Activating $(account.handle)…");
 			account.verify_credentials.begin ((obj, res) => {
 				try {
 					account.verify_credentials.end (res);
@@ -140,7 +139,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			.with_account (account);
 		yield req.await ();
 
-		var parser = Network.get_parser_from_inputstream(req.response_body);
+		var parser = Network.get_parser_from_inputstream (req.response_body);
 		var root = network.parse (parser);
 
 		string? backend = null;

@@ -7,16 +7,22 @@ public class Tuba.Widgets.Conversation : Widgets.Status {
 	public Conversation (API.Conversation entity) {
 		Object (conversation: entity, status: entity.last_status, change_background_on_direct: false);
 		init_menu_button ();
-		conversation.bind_property ("unread", this.visibility_indicator, "icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			if (src.get_boolean()) {
-				target.set_string ("tuba-mail-small-symbolic");
-				this.visibility_indicator.remove_css_class("dim-label");
-			} else {
-				target.set_string ("tuba-mail-open-small-symbolic");
-				this.visibility_indicator.add_css_class("dim-label");
+		conversation.bind_property (
+			"unread",
+			this.visibility_indicator,
+			"icon_name",
+			BindingFlags.SYNC_CREATE,
+			(b, src, ref target) => {
+				if (src.get_boolean ()) {
+					target.set_string ("tuba-mail-small-symbolic");
+					this.visibility_indicator.remove_css_class ("dim-label");
+				} else {
+					target.set_string ("tuba-mail-open-small-symbolic");
+					this.visibility_indicator.add_css_class ("dim-label");
+				}
+				return true;
 			}
-			return true;
-		});
+		);
 		// this.indicators.child_set_property (this.visibility_indicator, "position", 2);
 		this.actions.destroy ();
 	}

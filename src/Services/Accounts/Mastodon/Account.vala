@@ -22,13 +22,13 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		});
 	}
 
-	public static Place PLACE_HOME = new Place() {
-		title = _("Home"), 
+	public static Place PLACE_HOME = new Place () { // vala-lint=naming-convention
+		title = _("Home"),
 		icon = "tuba-home-symbolic",
 		open_func = win => {
 			//  win.open_view (new Views.Main ());
 			//  win.back();
-			win.go_back_to_start();
+			win.go_back_to_start ();
 		}
 	};
 
@@ -40,35 +40,35 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	//  	}
 	//  };
 
-	public static Place PLACE_MESSAGES = new Place () {
+	public static Place PLACE_MESSAGES = new Place () { // vala-lint=naming-convention
 		title = _("Direct Messages"),
 		icon = "tuba-mail-symbolic",
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Conversations ()));
+			win.open_view (set_as_sidebar_item (new Views.Conversations ()));
 		}
 	};
 
-	public static Place PLACE_BOOKMARKS = new Place () {
+	public static Place PLACE_BOOKMARKS = new Place () { // vala-lint=naming-convention
 		title = _("Bookmarks"),
 		icon = "tuba-bookmarks-symbolic",
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Bookmarks ()));
+			win.open_view (set_as_sidebar_item (new Views.Bookmarks ()));
 		}
 	};
 
-	public static Place PLACE_FAVORITES = new Place () {
+	public static Place PLACE_FAVORITES = new Place () { // vala-lint=naming-convention
 		title = _("Favorites"),
 		icon = "tuba-unstarred-symbolic",
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Favorites ()));
+			win.open_view (set_as_sidebar_item (new Views.Favorites ()));
 		}
 	};
 
-	public static Place PLACE_LISTS = new Place () {
+	public static Place PLACE_LISTS = new Place () { // vala-lint=naming-convention
 		title = _("Lists"),
 		icon = "tuba-list-compact-symbolic",
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Lists ()));
+			win.open_view (set_as_sidebar_item (new Views.Lists ()));
 		}
 	};
 
@@ -80,43 +80,43 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	//  	}
 	//  };
 
-	public static Place PLACE_EXPLORE = new Place () {
+	public static Place PLACE_EXPLORE = new Place () { // vala-lint=naming-convention
 		title = _("Explore"),
 		icon = "tuba-explore2-large-symbolic",
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Explore ()));
+			win.open_view (set_as_sidebar_item (new Views.Explore ()));
 		}
 	};
 
-	public static Place PLACE_LOCAL = new Place () {
+	public static Place PLACE_LOCAL = new Place () { // vala-lint=naming-convention
 		title = _("Local"),
 		icon = "tuba-network-server-symbolic",
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Local ()));
+			win.open_view (set_as_sidebar_item (new Views.Local ()));
 		}
 	};
 
-	public static Place PLACE_FEDERATED = new Place () {
+	public static Place PLACE_FEDERATED = new Place () { // vala-lint=naming-convention
 		title = _("Federated"),
 		icon = "tuba-globe-symbolic",
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Federated ()));
+			win.open_view (set_as_sidebar_item (new Views.Federated ()));
 		}
 	};
 
-	public static Place PLACE_FOLLOW_REQUESTS = new Place () {
+	public static Place PLACE_FOLLOW_REQUESTS = new Place () { // vala-lint=naming-convention
 		title = _("Follow Requests"),
 		icon = "tuba-address-book-new-symbolic",
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.FollowRequests ()));
+			win.open_view (set_as_sidebar_item (new Views.FollowRequests ()));
 		}
 	};
 
-	public static Place PLACE_HASHTAGS = new Place () {
+	public static Place PLACE_HASHTAGS = new Place () { // vala-lint=naming-convention
 		title = _("Hashtags"),
 		icon = "tuba-hashtag-symbolic",
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Hashtags ()));
+			win.open_view (set_as_sidebar_item (new Views.Hashtags ()));
 		}
 	};
 

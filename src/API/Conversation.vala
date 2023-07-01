@@ -11,11 +11,11 @@ public class Tuba.API.Conversation : Entity, Widgetizable {
 			foreach (var account in accounts) {
 				account_list += @"<a href='$(account.url)'>$(account.handle)</a>, ";
 			}
-			account_list = account_list.slice(0, -2);
+			account_list = account_list.slice (0, -2);
 
 			// translators: the variable is a comma separated list of account handles,
 			//				this is a state - not an action
-			return new Widgets.RichLabel(_("Empty Conversation with %s").printf(account_list)) {
+			return new Widgets.RichLabel (_("Empty Conversation with %s").printf (account_list)) {
 				margin_top = 16,
 				margin_bottom = 16,
 				margin_start = 16,

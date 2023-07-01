@@ -6,8 +6,8 @@ public class Tuba.Widgets.VoteCheckButton : CheckButton {
 
     public VoteCheckButton () {
         Object (
-        	valign: Align.CENTER
+            valign: Align.CENTER
         );
-        this.add_css_class("selection-mode");
+        this.add_css_class ("selection-mode");
     }
 }

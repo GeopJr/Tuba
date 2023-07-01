@@ -25,7 +25,7 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 	//  }
 
 	public static async Attachment upload (string uri) throws Error {
-		message (@"Uploading new media: $(uri)...");
+		message (@"Uploading new media: $(uri)…");
 
 		uint8[] contents;
 		string mime;
@@ -64,7 +64,7 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 		if (error != null || in_stream == null)
 			throw new Oopsie.INSTANCE (error);
 		else {
-			var parser = Network.get_parser_from_inputstream(in_stream);
+			var parser = Network.get_parser_from_inputstream (in_stream);
 			var node = network.parse_node (parser);
 			var entity = accounts.active.create_entity<API.Attachment> (node);
 			message (@"OK! ID $(entity.id)");
@@ -83,5 +83,4 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 			entity = this
 		};
 	}
-
 }

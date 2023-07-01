@@ -5,7 +5,7 @@ struct TestUrl {
     public string result;
 }
 
-const TestUrl[] urls = {
+const TestUrl[] URLS = {
     { "https://www.gnome.org/", "https://www.gnome.org/" },
     { "https://www.gnome.org/test", "https://www.gnome.org/test" },
     { "https://www.gnome.org/test?foo=bar", "https://www.gnome.org/test?foo=bar" },
@@ -19,7 +19,7 @@ const TestUrl[] urls = {
 };
 
 public void test_strip_utm () {
-    foreach (var test_url in urls) {
+    foreach (var test_url in URLS) {
         var stripped_url = Tuba.Tracking.strip_utm (test_url.original);
 
         assert_cmpstr (stripped_url, CompareOperator.EQ, test_url.result);
@@ -27,7 +27,7 @@ public void test_strip_utm () {
 }
 
 public void test_strip_utm_fallback () {
-    foreach (var test_url in urls) {
+    foreach (var test_url in URLS) {
         if (!("?" in test_url.original)) continue;
         var stripped_url = Tuba.Tracking.strip_utm_fallback (test_url.original);
         assert_cmpstr (stripped_url, CompareOperator.EQ, test_url.result);

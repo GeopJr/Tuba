@@ -28,7 +28,7 @@ public class Tuba.StatusActionButton : LockableToggleButton {
 		this.child = content;
 	}
 
-	~StatusActionButton() {
+	~StatusActionButton () {
 		if (object != null) {
 			object.notify[prop_name].disconnect (on_object_notify);
 		}
@@ -37,8 +37,8 @@ public class Tuba.StatusActionButton : LockableToggleButton {
 	public void bind (Object obj) {
 		this.object = obj;
 		active = get_value ();
-		set_class_enabled(active);
-		set_toggled_icon(active);
+		set_class_enabled (active);
+		set_toggled_icon (active);
 		object.notify[prop_name].connect (on_object_notify);
 	}
 
@@ -48,21 +48,21 @@ public class Tuba.StatusActionButton : LockableToggleButton {
 			content.margin_start = 0;
 			content.margin_end = 0;
 		} else {
-			content.label = @"$new_value";
+			content.label = new_value.to_string ();
 			content.margin_start = 12;
 			content.margin_end = 9;
 		}
 	}
 
-	protected void set_class_enabled(bool is_active = true) {
-		if (is_active) { 
-			add_css_class("enabled");
+	protected void set_class_enabled (bool is_active = true) {
+		if (is_active) {
+			add_css_class ("enabled");
 		} else {
-			remove_css_class("enabled");
+			remove_css_class ("enabled");
 		}
 	}
 
-	protected void set_toggled_icon(bool is_active = true) {
+	protected void set_toggled_icon (bool is_active = true) {
 		if (icon_toggled_name != null) {
 			if (content.icon_name != null && this.default_icon_name == null) {
 				default_icon_name = content.icon_name;
@@ -79,10 +79,10 @@ public class Tuba.StatusActionButton : LockableToggleButton {
 		if (locked)
 			return;
 
-		set_locked(true);
+		set_locked (true);
 		var val = get_value ();
 		active = val;
-		set_locked(false);
+		set_locked (false);
 	}
 
 	protected void set_value (bool state) {
@@ -95,7 +95,7 @@ public class Tuba.StatusActionButton : LockableToggleButton {
 	protected bool get_value () {
 		var val = Value (Type.BOOLEAN);
 		object.get_property (prop_name, ref val);
-		return val.get_boolean();
+		return val.get_boolean ();
 	}
 
 	protected override bool can_change () {
@@ -134,16 +134,16 @@ public class Tuba.StatusActionButton : LockableToggleButton {
 		var action = !active ? action_off : action_on;
 		req = entity.action (action);
 
-		set_locked(true);
-		set_class_enabled(active);
-		set_toggled_icon(active);
-		update_stats(entity, action);
+		set_locked (true);
+		set_class_enabled (active);
+		set_toggled_icon (active);
+		update_stats (entity, action);
 
-		message (@"Performing status action '$action'...");
+		message (@"Performing status action '$action'…");
 		req.await.begin ((o, res) => {
 			try {
 				var msg = req.await.end (res);
-				var parser = Network.get_parser_from_inputstream(msg.response_body);
+				var parser = Network.get_parser_from_inputstream (msg.response_body);
 				var node = network.parse_node (parser);
 
 				var jobj = node.get_object ();
@@ -154,15 +154,15 @@ public class Tuba.StatusActionButton : LockableToggleButton {
 			catch (Error e) {
 				warning (@"Couldn't perform action \"$action\" on a Status:");
 				warning (e.message);
-				update_stats(entity, active ? action_off : action_on);
+				update_stats (entity, active ? action_off : action_on);
 				var dlg = app.inform (_("Network Error"), e.message);
 				dlg.present ();
-				set_class_enabled(!active);
-				set_toggled_icon(!active);
+				set_class_enabled (!active);
+				set_toggled_icon (!active);
 			}
 
 			req = null;
-			set_locked(false);
+			set_locked (false);
 		});
 	}
 

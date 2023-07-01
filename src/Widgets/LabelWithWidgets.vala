@@ -11,9 +11,9 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     private Gtk.Widget[] widgets = {};
     private int[] widget_heights = {};
     private int[] widget_widths = {};
-    
+
     public Gtk.Label label;
-    
+
     private string _placeholder = "<widget>";
     public string placeholder {
         get {
@@ -21,10 +21,10 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         }
         set {
             _placeholder = value;
-            update_label();
+            update_label ();
         }
     }
-    
+
     private string _text = "";
     public string text {
         get {
@@ -32,11 +32,11 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         }
         set {
             _text = value;
-            update_label();
-            label.notify_property("label");
+            update_label ();
+            label.notify_property ("label");
         }
     }
-    
+
     private bool _ellipsize = false;
     public bool ellipsize {
         get {
@@ -44,10 +44,10 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         }
         set {
             _ellipsize = value;
-            update_label();
+            update_label ();
         }
     }
-    
+
     private bool _use_markup = false;
     public bool use_markup {
         get {
@@ -58,11 +58,11 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             label.use_markup = _use_markup;
         }
     }
-    
+
     const string OBJECT_REPLACEMENT_CHARACTER = "\xEF\xBF\xBC";
-    
+
     construct {
-        label = new Gtk.Label("") {
+        label = new Gtk.Label ("") {
             wrap = true,
             wrap_mode = Pango.WrapMode.WORD_CHAR,
             xalign = 0.0f,
@@ -70,18 +70,18 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             //  css_classes = {"line-height"}
         };
 
-        label.set_parent(this);
+        label.set_parent (this);
 
-        label.activate_link.connect((url) => activate_link(url));
+        label.activate_link.connect ((url) => activate_link (url));
     }
-    ~LabelWithWidgets (){
-        label.unparent();
+    ~LabelWithWidgets () {
+        label.unparent ();
         foreach (var child in widgets) {
-            child.unparent();
+            child.unparent ();
         }
     }
-    
-    private void allocate_shapes() {
+
+    private void allocate_shapes () {
         var child_size_changed = false;
 
         if (text == "") return;
@@ -94,7 +94,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             Gtk.Widget child = widgets[i];
             Gtk.Requisition size;
             Gtk.Requisition natural_size;
-            child.get_preferred_size(out size, out natural_size);
+            child.get_preferred_size (out size, out natural_size);
             int width = natural_size.width;
             int height = natural_size.height;
 
@@ -120,7 +120,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             return;
         }
 
-        var attrs = new Pango.AttrList();
+        var attrs = new Pango.AttrList ();
         int index = 0;
 
         for (var i = 0; i < widget_widths.length; i++) {
@@ -129,24 +129,24 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 
             var width = widget_widths[i];
             var height = widget_heights[i];
-            var logical_rect = Pango.Rectangle() {
+            var logical_rect = Pango.Rectangle () {
                 x = 0,
-                y = -(height - (height / 4)) * Pango.SCALE,
+                y = - (height - (height / 4)) * Pango.SCALE,
                 width = width * Pango.SCALE,
                 height = height * Pango.SCALE
             };
-    
-            var shape = Pango.AttrShape.new(logical_rect, logical_rect);
+
+            var shape = Pango.AttrShape.new (logical_rect, logical_rect);
             shape.start_index = index;
             shape.end_index = index + OBJECT_REPLACEMENT_CHARACTER.length;
-            attrs.insert(shape.copy());
-    
+            attrs.insert (shape.copy ());
+
             index = index + OBJECT_REPLACEMENT_CHARACTER.length;
         }
 
         label.attributes = attrs;
     }
-    
+
     private void allocate_children () {
         var run_iter = label.get_layout ().get_iter ();
         int i = 0;
@@ -154,10 +154,10 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         while (true) {
             var run = run_iter.get_run_readonly ();
             if (run != null) {
-                var extra_attrs = run.item.analysis.extra_attrs.copy();
+                var extra_attrs = run.item.analysis.extra_attrs.copy ();
                 bool has_shape_attr = false;
                 foreach (var attr in extra_attrs) {
-                    if (((Pango.Attribute) attr).as_shape() != null) {
+                    if (((Pango.Attribute) attr).as_shape () != null) {
                         has_shape_attr = true;
                         break;
                     }
@@ -190,37 +190,51 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
                     }
                 }
             }
-    
+
             if (!run_iter.next_run ()) {
                 break;
             }
         }
     }
-    
-    public override void size_allocate(int width, int height, int baseline) {
-        label.allocate(width, height, baseline, null);
-        this.allocate_children();
+
+    public override void size_allocate (int width, int height, int baseline) {
+        label.allocate (width, height, baseline, null);
+        this.allocate_children ();
     }
-    
-    public override Gtk.SizeRequestMode get_request_mode() {
-        return label.get_request_mode();
+
+    public override Gtk.SizeRequestMode get_request_mode () {
+        return label.get_request_mode ();
     }
-    
-    public override void measure(Gtk.Orientation orientation, int for_size, out int minimum, out int natural, out int minimum_baseline, out int natural_baseline) {
-        this.allocate_shapes();
-        this.label.measure(orientation, for_size, out minimum, out natural, out minimum_baseline, out natural_baseline);
+
+    public override void measure (
+        Gtk.Orientation orientation,
+        int for_size,
+        out int minimum,
+        out int natural,
+        out int minimum_baseline,
+        out int natural_baseline
+    ) {
+        this.allocate_shapes ();
+        this.label.measure (
+            orientation,
+            for_size,
+            out minimum,
+            out natural,
+            out minimum_baseline,
+            out natural_baseline
+        );
     }
-    
-    private void update_label() {
+
+    private void update_label () {
         var old_label = label.label;
         var old_ellipsize = label.ellipsize == Pango.EllipsizeMode.END;
         var new_ellipsize = this.ellipsize;
-        var new_label = _text.replace(placeholder, OBJECT_REPLACEMENT_CHARACTER);
+        var new_label = _text.replace (placeholder, OBJECT_REPLACEMENT_CHARACTER);
 
         if (new_ellipsize) {
-            int pos = new_label.index_of_char('\n');
+            int pos = new_label.index_of_char ('\n');
             if (pos >= 0) {
-                new_label = new_label.substring(0, pos) + "…";
+                new_label = new_label.substring (0, pos) + "…";
             }
         }
 
@@ -240,25 +254,25 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 
             _text = new_label;
             label.label = _text;
-            invalidate_child_widgets();
+            invalidate_child_widgets ();
         }
     }
-    
-    public void append_child(Gtk.Widget child) {
+
+    public void append_child (Gtk.Widget child) {
         widgets += child;
         widget_widths += 0;
         widget_heights += 0;
-    
-        child.set_parent(this);
-    
-        invalidate_child_widgets();
+
+        child.set_parent (this);
+
+        invalidate_child_widgets ();
     }
-    
-    public LabelWithWidgets.with_label_and_widgets(string t_text, Gtk.Widget[] t_widgets) {
+
+    public LabelWithWidgets.with_label_and_widgets (string t_text, Gtk.Widget[] t_widgets) {
         Object ();
-    
+
         foreach (unowned Gtk.Widget widget in t_widgets) {
-            append_child(widget);
+            append_child (widget);
         }
 
         this.text = t_text;
@@ -266,7 +280,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 
     public void set_children (Gtk.Widget[] t_widgets) {
         foreach (var child in widgets) {
-            child.unparent();
+            child.unparent ();
             child.destroy ();
         }
 
@@ -275,29 +289,29 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         widget_heights = {};
 
         foreach (unowned Gtk.Widget widget in t_widgets) {
-            append_child(widget);
+            append_child (widget);
         }
     }
-    
-    private void invalidate_child_widgets() {
+
+    private void invalidate_child_widgets () {
         for (var i = 0; i < widget_widths.length; i++) {
             widget_widths[i] = 0;
             widget_heights[i] = 0;
         }
-        this.allocate_shapes();
-        this.queue_resize();
+        this.allocate_shapes ();
+        this.queue_resize ();
     }
-    
-    private int pango_pixels(int d) {
+
+    private int pango_pixels (int d) {
         return (d + 512) >> 10;
     }
 
-    public void add_child(Gtk.Builder builder, GLib.Object child, string? type) {
+    public void add_child (Gtk.Builder builder, GLib.Object child, string? type) {
         Gtk.Widget widget = child as Gtk.Widget;
         if (widget != null) {
-            this.append_child(widget);
+            this.append_child (widget);
         } else {
-            this.parent.add_child(builder, child, type);
+            this.parent.add_child (builder, child, type);
         }
 
         base.add_child (builder, child, type);
