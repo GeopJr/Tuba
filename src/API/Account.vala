@@ -56,15 +56,15 @@ public class Tuba.API.Account : Entity, Widgetizable {
 
 	public Gee.HashMap<string, string>? emojis_map {
 		owned get {
-			return gen_emojis_map();
+			return gen_emojis_map ();
 		}
 	}
 
 	private Gee.HashMap<string, string>? gen_emojis_map () {
-		var res = new Gee.HashMap<string, string>();
+		var res = new Gee.HashMap<string, string> ();
 		if (emojis != null && emojis.size > 0) {
 			emojis.@foreach (e => {
-				res.set(e.shortcode, e.url);
+				res.set (e.shortcode, e.url);
 				return true;
 			});
 		}

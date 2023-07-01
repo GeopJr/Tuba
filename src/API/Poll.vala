@@ -1,15 +1,15 @@
 using Gee;
 using Json;
 
-public class Tuba.API.Poll : GLib.Object, Json.Serializable{
+public class Tuba.API.Poll : GLib.Object, Json.Serializable {
     public string id { get; set; }
-    public string expires_at{ get; set; }
+    public string expires_at { get; set; }
     public bool expired { get; set; }
     public bool multiple { get; set; }
     public int64 votes_count { get; set; }
     public bool voted { get; set; default = true;}
     public ArrayList<int> own_votes { get; set; }
-    public ArrayList<PollOption>? options{ get; set; default = null; }
+    public ArrayList<PollOption>? options { get; set; default = null; }
 
     public Poll (string _id) {
         id = _id;
@@ -19,10 +19,10 @@ public class Tuba.API.Poll : GLib.Object, Json.Serializable{
 		var success = default_deserialize_property (prop, out val, spec, node);
 
 		//  var type = spec.value_type;
-		if (prop=="options"){
+		if (prop == "options") {
             return Entity.des_list (out val, node, typeof (API.PollOption));
 		}
-		if (prop=="own-votes"){
+		if (prop == "own-votes") {
             return Poll.des_list_int (out val, node);
 		}
 		return success;
@@ -31,7 +31,7 @@ public class Tuba.API.Poll : GLib.Object, Json.Serializable{
 		var arr = new Gee.ArrayList<int> ();
 		if (!node.is_null ()) {
 			node.get_array ().foreach_element ((array, i, elem) => {
-				arr.add ((int)elem.get_int());
+				arr.add ((int)elem.get_int ());
 			});
 		}
 		val = arr;
@@ -47,18 +47,23 @@ public class Tuba.API.Poll : GLib.Object, Json.Serializable{
 
         return Json.gobject_deserialize (type, node) as Poll;
 	}
-    public static Request vote (InstanceAccount acc,ArrayList<PollOption> options,ArrayList<string> selection, string id) {
-        message (@"Voting poll $(id)...");
+    public static Request vote (
+        InstanceAccount acc,
+        ArrayList<PollOption> options,
+        ArrayList<string> selection,
+        string id
+    ) {
+        message (@"Voting poll $(id)…");
  		  //Creating json to send
         var builder = new Json.Builder ();
         builder.begin_object ();
         builder.set_member_name ("choices");
         builder.begin_array ();
         var row_number=0;
-        foreach (API.PollOption p in options){
-            foreach (string select in selection){
-                if (select == p.title){
-                    builder.add_string_value (row_number.to_string());
+        foreach (API.PollOption p in options) {
+            foreach (string select in selection) {
+                if (select == p.title) {
+                    builder.add_string_value (row_number.to_string ());
                 }
             }
             row_number++;
@@ -71,7 +76,7 @@ public class Tuba.API.Poll : GLib.Object, Json.Serializable{
         //Send POST MESSAGE
 		Request voting=new Request.POST (@"/api/v1/polls/$(id)/votes")
 			.with_account (acc);
-		voting.set_request_body_from_bytes("application/json", new Bytes.take(json.data));
+		voting.set_request_body_from_bytes ("application/json", new Bytes.take (json.data));
 		return voting;
     }
 }

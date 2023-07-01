@@ -131,9 +131,9 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 					widget.height_request = 334;
 				}
 
-				((Widgets.Attachment.Image) widget).on_any_attachment_click.connect (() => open_all_attachments(item.url));
+				((Widgets.Attachment.Image) widget).on_any_attachment_click.connect (() => open_all_attachments (item.url));
 			} catch (Oopsie e) {
-				warning(@"Error updating attachments: $(e.message)");
+				warning (@"Error updating attachments: $(e.message)");
 			}
 			return true;
 		});
@@ -167,7 +167,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		}
 
 		if (i > 0) {
-			app.main_window.scroll_media_viewer(main);
+			app.main_window.scroll_media_viewer (main);
 		}
 	}
 }

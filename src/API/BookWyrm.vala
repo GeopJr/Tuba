@@ -1,10 +1,10 @@
 public class Tuba.API.BookWyrm : Entity, Widgetizable {
 	public string id { get; set; default=""; }
-	public string openlibraryKey { get; set; default=""; }
+	public string openlibraryKey { get; set; default=""; } // vala-lint=naming-convention
 	public string title { get; set; default=""; }
 	public string description { get; set; default=""; }
 	public string isbn13 { get; set; default=""; }
-	public string publishedDate { get; set; default=""; }
+	public string publishedDate { get; set; default=""; } // vala-lint=naming-convention
 	public API.BookWyrmCover? cover { get; set; default=null; }
 	public Gee.ArrayList<string>? authors { get; set; default=null; }
 

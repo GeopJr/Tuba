@@ -68,7 +68,7 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
             foreach (var author in t_obj.authors) {
                 new Request.GET (@"$author.json")
                     .then ((sess, msg, in_stream) => {
-                        var parser = Network.get_parser_from_inputstream(in_stream);
+                        var parser = Network.get_parser_from_inputstream (in_stream);
                         var node = network.parse_node (parser);
                         var author_obj = API.BookWyrmAuthor.from (node);
                         if (author_obj.id == author) {
@@ -93,12 +93,12 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
 
         var btn_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
 
-        var bw_btn = new Gtk.Button.with_label("BookWyrm");
+        var bw_btn = new Gtk.Button.with_label ("BookWyrm");
         bw_btn.clicked.connect (open_on_bw);
         btn_box.append (bw_btn);
 
         if (t_obj.openlibraryKey != "") {
-            var ol_btn = new Gtk.Button.with_label("OpenLibrary");
+            var ol_btn = new Gtk.Button.with_label ("OpenLibrary");
             ol_btn.clicked.connect (open_on_openlibrary);
             btn_box.append (ol_btn);
         }

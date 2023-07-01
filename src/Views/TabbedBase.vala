@@ -2,7 +2,7 @@ using Gtk;
 
 public class Tuba.Views.TabbedBase : Views.Base {
 
-	static int ID_COUNTER = 0;
+	static int id_counter = 0;
 
 	protected Adw.ViewSwitcherTitle switcher_title;
 	protected Adw.ViewSwitcherBar switcher_bar;
@@ -53,10 +53,10 @@ public class Tuba.Views.TabbedBase : Views.Base {
 	}
 
 	public void add_tab (Views.Base view) {
-		ID_COUNTER++;
-		view.view.add_css_class("no-transition");
+		id_counter++;
+		view.view.add_css_class ("no-transition");
 		views += view;
-		var page = stack.add_titled (view, ID_COUNTER.to_string (), view.label);
+		var page = stack.add_titled (view, id_counter.to_string (), view.label);
 		view.bind_property ("icon", page, "icon-name", BindingFlags.SYNC_CREATE);
 		view.bind_property ("needs-attention", page, "needs-attention", BindingFlags.SYNC_CREATE);
 		view.bind_property ("badge-number", page, "badge-number", BindingFlags.SYNC_CREATE);
@@ -131,12 +131,12 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 	void on_view_switched () {
 		var view = stack.visible_child as Views.Base;
-		if (view.view.has_css_class("no-transition")) {
+		if (view.view.has_css_class ("no-transition")) {
 			// Timeout.add_once // glib 2.7.4
 			uint timeout = 0;
 			timeout = Timeout.add (200, () => {
-				last_view.view.remove_css_class("no-transition");
-				GLib.Source.remove(timeout);
+				last_view.view.remove_css_class ("no-transition");
+				GLib.Source.remove (timeout);
 
 				return true;
 			}, Priority.LOW);

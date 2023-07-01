@@ -38,19 +38,26 @@ public class Tuba.SecretAccountStore : AccountStore {
 			var wiki_page = "https://github.com/GeopJr/Tuba/wiki/keyring-issues";
 
 			// Let's leave this untranslated for now
-			var help_msg = "If you didn’t manually cancel it, try creating a password keyring named \"login\" using Passwords and Keys (seahorse) or KWalletManager";
+			var help_msg = "If you didn’t manually cancel it, try creating a password keyring named \"login\" using Passwords and Keys (seahorse) or KWalletManager"; // vala-lint=line-length
 
 			critical (@"Error while searching for items in the secret service: $(e.message)");
 			warning (@"$help_msg\nread more: $wiki_page");
 
 			new Dialogs.NewAccount ();
-			var dlg = app.question ("Error while searching for user accounts", @"$help_msg.", app.add_account_window, "Read More", Adw.ResponseAppearance.SUGGESTED, "Close");
+			var dlg = app.question (
+				"Error while searching for user accounts",
+				@"$help_msg.",
+				app.add_account_window,
+				"Read More",
+				Adw.ResponseAppearance.SUGGESTED,
+				"Close"
+			);
 
-			dlg.response.connect(res => {
+			dlg.response.connect (res => {
 				if (res == "yes") {
 					Host.open_uri (wiki_page);
 				}
-				dlg.destroy();
+				dlg.destroy ();
 				Process.exit (1);
 			});
 
@@ -63,7 +70,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 				new Request.GET (@"/api/v1/accounts/$(account.id)")
 					.with_account (account)
 					.then ((sess, msg, in_stream) => {
-						var parser = Network.get_parser_from_inputstream(in_stream);
+						var parser = Network.get_parser_from_inputstream (in_stream);
 						var node = network.parse_node (parser);
 						var acc = API.Account.from (node);
 

@@ -74,7 +74,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			sensitive = accounts.active.instance_info.compat_status_max_media_attachments > 0
 		};
 		// Empty state
-		attach_button.add_css_class("pill");
+		attach_button.add_css_class ("pill");
 		attach_button.clicked.connect (show_file_selector);
 
 		empty_state = new Adw.StatusPage () {
@@ -91,16 +91,16 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		};
 		list.bind_model (attachments, on_create_list_item);
 
-		add_media_action_button = new Gtk.Button() {
+		add_media_action_button = new Gtk.Button () {
 			icon_name = "tuba-plus-large-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			tooltip_text = _("Add Media"),
 			css_classes = {"flat"}
 		};
-		add_media_action_button.clicked.connect(show_file_selector);
+		add_media_action_button.clicked.connect (show_file_selector);
 
-		var sensitive_media_button = new Gtk.ToggleButton() {
+		var sensitive_media_button = new Gtk.ToggleButton () {
 			icon_name = "tuba-eye-open-negative-filled-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
@@ -108,14 +108,24 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			tooltip_text = _("Mark media as sensitive"),
 			css_classes = {"flat"}
 		};
-		sensitive_media_button.bind_property ("active", this, "media_sensitive", GLib.BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			var sensitive_media_button_active = src.get_boolean ();
-			target.set_boolean (sensitive_media_button_active);
-			sensitive_media_button.icon_name = sensitive_media_button_active ? "tuba-eye-not-looking-symbolic" : "tuba-eye-open-negative-filled-symbolic";
-			// translators: sensitive as in not safe for work or similar
-			sensitive_media_button.tooltip_text = sensitive_media_button_active ? _("Unmark media as sensitive") : _("Mark media as sensitive");
-			return true;
-		});
+		sensitive_media_button.bind_property (
+			"active",
+			this,
+			"media_sensitive",
+			GLib.BindingFlags.SYNC_CREATE,
+			(b, src, ref target) => {
+				var sensitive_media_button_active = src.get_boolean ();
+				target.set_boolean (sensitive_media_button_active);
+				sensitive_media_button.icon_name = sensitive_media_button_active
+					? "tuba-eye-not-looking-symbolic"
+					: "tuba-eye-open-negative-filled-symbolic";
+				sensitive_media_button.tooltip_text = sensitive_media_button_active
+					// translators: sensitive as in not safe for work or similar
+					? _("Unmark media as sensitive")
+					: _("Mark media as sensitive");
+				return true;
+			}
+		);
 
 		bottom_bar.pack_start (add_media_action_button);
 		bottom_bar.pack_start (sensitive_media_button);
@@ -125,7 +135,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		stack.add_named (list, "list");
 		stack.add_named (empty_state, "empty");
 
-		spinner = new Gtk.Spinner() {
+		spinner = new Gtk.Spinner () {
 			spinning = false,
 			halign = Gtk.Align.CENTER,
 			valign = Gtk.Align.CENTER,
@@ -136,14 +146,14 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		};
 		stack.add_named (spinner, "spinner");
 
-		toast_overlay = new Adw.ToastOverlay();
+		toast_overlay = new Adw.ToastOverlay ();
 		toast_overlay.child = stack;
 
 		content.prepend (toast_overlay);
 
 		if (status.media_attachments != null && status.media_attachments.size > 0) {
 			foreach (var t_attachment in status.media_attachments) {
-				attachments.append(t_attachment);
+				attachments.append (t_attachment);
 			}
 		}
 	}
@@ -154,13 +164,19 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 	Widget on_create_list_item (Object item) {
 		var attachment = item as API.Attachment;
-		var attachment_widget = new AttachmentsPageAttachment(attachment.id, attachment.source_file, dialog, attachment, edit_mode && status.media_ids.contains(attachment.id));
+		var attachment_widget = new AttachmentsPageAttachment (
+			attachment.id,
+			attachment.source_file,
+			dialog,
+			attachment,
+			edit_mode && status.media_ids.contains (attachment.id)
+		);
 
-		attachment_widget.remove_from_model.connect(() => {
+		attachment_widget.remove_from_model.connect (() => {
 			uint indx;
 			var found = attachments.find (item, out indx);
 			if (found)
-				attachments.remove(indx);
+				attachments.remove (indx);
 		});
 		return attachment_widget;
 	}
@@ -181,7 +197,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			// Disable the add media action button
 			// if we went over the amount of media
 			// the server allows.
-			add_media_action_button.sensitive = accounts.active.instance_info.compat_status_max_media_attachments > attachments_size;
+			add_media_action_button.sensitive = accounts.active.instance_info.compat_status_max_media_attachments > attachments_size; // vala-lint=line-length
 		}
 	}
 
@@ -190,8 +206,14 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			name = _("All Supported Files")
 		};
 
-		var supported_mimes = new Gee.ArrayList<string>.wrap(SUPPORTED_MIMES);
-		if (accounts.active.instance_info != null && accounts.active.instance_info.configuration != null && accounts.active.instance_info.configuration.media_attachments != null && accounts.active.instance_info.configuration.media_attachments.supported_mime_types != null && accounts.active.instance_info.configuration.media_attachments.supported_mime_types.size > 0) {
+		var supported_mimes = new Gee.ArrayList<string>.wrap (SUPPORTED_MIMES);
+		if (
+			accounts.active.instance_info != null
+			&& accounts.active.instance_info.configuration != null
+			&& accounts.active.instance_info.configuration.media_attachments != null
+			&& accounts.active.instance_info.configuration.media_attachments.supported_mime_types != null
+			&& accounts.active.instance_info.configuration.media_attachments.supported_mime_types.size > 0
+		) {
 			supported_mimes = accounts.active.instance_info.configuration.media_attachments.supported_mime_types;
 		}
 		foreach (var mime_type in supported_mimes) {
@@ -224,8 +246,10 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 					// We want to only upload as many attachments as the server
 					// accepts based on the amount we have already uploaded.
-					var allowed_attachments_amount = accounts.active.instance_info.compat_status_max_media_attachments - attachments.get_n_items ();
-					var amount_to_add = selected_files_amount > allowed_attachments_amount ? allowed_attachments_amount : selected_files_amount;
+					var allowed_attachments_amount = accounts.active.instance_info.compat_status_max_media_attachments - attachments.get_n_items (); // vala-lint=line-length
+					var amount_to_add = selected_files_amount > allowed_attachments_amount
+						? allowed_attachments_amount
+						: selected_files_amount;
 
 					File[] files_for_upload = {};
 
@@ -238,18 +262,23 @@ public class Tuba.AttachmentsPage : ComposerPage {
 								var file_content_type = file_info.get_content_type ();
 
 								if (file_content_type != null) {
-									file_content_type = file_content_type.down();
-									var file_size = file_info.get_size();
-									var skip = (file_content_type.contains("image/") &&
-									file_size >= accounts.active.instance_info.compat_status_max_image_size) ||
-									(file_content_type.contains("video/") &&
-									file_size >= accounts.active.instance_info.compat_status_max_video_size);
+									file_content_type = file_content_type.down ();
+									var file_size = file_info.get_size ();
+									var skip = (
+										file_content_type.contains ("image/")
+										&& file_size >= accounts.active.instance_info.compat_status_max_image_size
+									) || (
+										file_content_type.contains ("video/")
+										&& file_size >= accounts.active.instance_info.compat_status_max_video_size
+									);
 
 									if (skip) {
-										var toast = new Adw.Toast(_("File \"%s\" is bigger than the instance limit").printf(file.get_basename())) {
+										var toast = new Adw.Toast (
+											_("File \"%s\" is bigger than the instance limit").printf (file.get_basename ())
+										) {
 											timeout = 0
 										};
-										toast_overlay.add_toast(toast);
+										toast_overlay.add_toast (toast);
 										continue;
 									}
 								}
@@ -274,10 +303,10 @@ public class Tuba.AttachmentsPage : ComposerPage {
 							}
 							catch (Error e) {
 								warning (e.message);
-								var toast = new Adw.Toast(e.message) {
+								var toast = new Adw.Toast (e.message) {
 									timeout = 0
 								};
-								toast_overlay.add_toast(toast);
+								toast_overlay.add_toast (toast);
 							}
 							i = i + 1;
 							if (i == files_for_upload.length) uploading = false;
@@ -307,7 +336,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		for (var i = 0; i < attachments.get_n_items (); i++) {
 			var attachment = attachments.get_item (i) as API.Attachment;
 			var attachment_page_attachment_alt = ((AttachmentsPageAttachment) list.get_row_at_index (i).child).alt_text;
-	
+
 			attachment.description = attachment_page_attachment_alt;
 			status.add_media (attachment.id, attachment.description);
 			status.media_attachments.add (attachment);
@@ -316,7 +345,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	}
 
 	public override void on_modify_body (Json.Builder builder) {
-		if (can_publish && this.visible){
+		if (can_publish && this.visible) {
 			builder.set_member_name ("sensitive");
 			builder.add_boolean_value (status.sensitive);
 

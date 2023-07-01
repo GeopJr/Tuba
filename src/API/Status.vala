@@ -3,7 +3,7 @@ using Gee;
 public class Tuba.API.Status : Entity, Widgetizable {
 
 	~Status () {
-		message ("[OBJ] Destroyed "+uri);
+		message (@"[OBJ] Destroyed $uri");
 	}
 
     public string id { get; set; }
@@ -37,7 +37,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public API.PreviewCard? card { get; set; default = null; }
 
     private string _language = settings.default_language;
-    public string language { 
+    public string language {
         get {
             return _language;
         }
@@ -48,15 +48,15 @@ public class Tuba.API.Status : Entity, Widgetizable {
 
     public Gee.HashMap<string, string>? emojis_map {
 		owned get {
-			return gen_emojis_map();
+			return gen_emojis_map ();
 		}
 	}
 
     private Gee.HashMap<string, string>? gen_emojis_map () {
-        var res = new Gee.HashMap<string, string>();
+        var res = new Gee.HashMap<string, string> ();
         if (emojis != null && emojis.size > 0) {
             emojis.@foreach (e => {
-                res.set(e.shortcode, e.url);
+                res.set (e.shortcode, e.url);
                 return true;
             });
         }
@@ -104,9 +104,13 @@ public class Tuba.API.Status : Entity, Widgetizable {
     }
 
     public bool can_be_boosted {
-    	get {
-    		return this.formal.visibility != "direct" && (this.formal.visibility != "private" || this.formal.account.is_self ());
-    	}
+        get {
+            return this.formal.visibility != "direct"
+                && (
+                    this.formal.visibility != "private"
+                    || this.formal.account.is_self ()
+                );
+        }
     }
 
 	public static Status from (Json.Node node) throws Error {
@@ -115,17 +119,17 @@ public class Tuba.API.Status : Entity, Widgetizable {
 
     public Status.empty () {
         Object (
-        	id: ""
+            id: ""
         );
     }
 
 	public Status.from_account (API.Account account) {
-	    Object (
-	        id: "",
-	        account: account,
-	        created_at: account.created_at,
+        Object (
+            id: "",
+            account: account,
+            created_at: account.created_at,
             emojis: account.emojis
-	    );
+        );
 
         if (account.note == "")
             content = "";
@@ -144,7 +148,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
 		app.main_window.open_view (view);
 	}
 
-    public bool is_owned (){
+    public bool is_owned () {
         return formal.account.id == accounts.active.id;
     }
 

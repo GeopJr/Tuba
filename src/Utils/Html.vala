@@ -21,14 +21,14 @@ public class Tuba.HtmlUtils {
 	public static string simplify (string str) {
 		try {
 			var divided = str
-				.replace("<br>", "\n")
-				.replace("</br>", "")
-				.replace("<br/>", "\n")
-				.replace("<br />", "\n")
-				.replace("<p>", "")
-				.replace("</p>", "\n\n")
-				.replace("<pre>", "")
-				.replace("</pre>", "");
+				.replace ("<br>", "\n")
+				.replace ("</br>", "")
+				.replace ("<br/>", "\n")
+				.replace ("<br />", "\n")
+				.replace ("<p>", "")
+				.replace ("</p>", "\n\n")
+				.replace ("<pre>", "")
+				.replace ("</pre>", "");
 
 			var html_params = new Regex ("(class|target|rel|data-user|data-tag)=\"(.|\n)*?\"", RegexCompileFlags.CASELESS);
 			var simplified = html_params.replace (divided, -1, 0, "");
@@ -46,15 +46,15 @@ public class Tuba.HtmlUtils {
 
 	public static string replace_with_pango_markup (string str) {
 		return str
-			.replace("\n", "")
-			.replace("<strong>", "<b>")
-			.replace("</strong>", "</b>")
-			.replace("<em>", "<i>")
-			.replace("</em>", "</i>")
+			.replace ("\n", "")
+			.replace ("<strong>", "<b>")
+			.replace ("</strong>", "</b>")
+			.replace ("<em>", "<i>")
+			.replace ("</em>", "</i>")
 			//  .replace("<code>", "<span font_family=\"monospace\">")
 			//  .replace("</code>", "</span>\n")
-			.replace("<del>", "<s>")
-			.replace("</del>", "</s>");
+			.replace ("<del>", "<s>")
+			.replace ("</del>", "</s>");
 	}
 
 	public static string uri_encode (string str) {

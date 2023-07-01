@@ -4,20 +4,20 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
     public bool is_populated { get; protected set; default=false; }
 
     private Gee.HashMap<string, Gee.ArrayList<API.Emoji>> gen_emojis_cat_map () {
-		var res = new Gee.HashMap<string, Gee.ArrayList<API.Emoji>>();
+		var res = new Gee.HashMap<string, Gee.ArrayList<API.Emoji>> ();
 		var emojis = accounts.active.instance_emojis;
 
 		if (emojis != null && emojis.size > 0) {
 			emojis.@foreach (e => {
 				if (!e.visible_in_picker) return true;
 
-				if (res.has_key(e.category)) {
+				if (res.has_key (e.category)) {
 					var array = res.get (e.category);
 					array.add (e);
 				} else {
 					var array = new Gee.ArrayList<API.Emoji> ();
 					array.add (e);
-					res.set(e.category, array);
+					res.set (e.category, array);
 				}
 
 				return true;
@@ -139,7 +139,7 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
 
     protected void populate_chooser () {
         var categorized_custom_emojis = gen_emojis_cat_map ();
-        
+
         categorized_custom_emojis.@foreach (e => {
             if (e.key == _("Other")) return true;
 			create_category (e.key, e.value);
@@ -148,7 +148,12 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
 		});
 
         if (categorized_custom_emojis.has_key (_("Other")))
-            create_category (categorized_custom_emojis.size > 1 ? _("Other") : _("Custom Emojis"), categorized_custom_emojis.get(_("Other")));
+            create_category (
+                categorized_custom_emojis.size > 1
+                    ? _("Other")
+                    : _("Custom Emojis"),
+                categorized_custom_emojis.get (_("Other"))
+            );
 
         is_populated = true;
     }

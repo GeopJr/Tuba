@@ -22,13 +22,14 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		});
 	}
 
-	public static Place PLACE_HOME = new Place() {
-		title = _("Home"), 
+	public static Place PLACE_HOME = new Place () { // vala-lint=naming-convention
+
 		icon = "tuba-home-symbolic",
+		title = _("Home"),
 		open_func = win => {
 			//  win.open_view (new Views.Main ());
 			//  win.back();
-			win.go_back_to_start();
+			win.go_back_to_start ();
 		}
 	};
 
@@ -40,35 +41,39 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	//  	}
 	//  };
 
-	public static Place PLACE_MESSAGES = new Place () {
-		title = _("Direct Messages"),
+	public static Place PLACE_MESSAGES = new Place () { // vala-lint=naming-convention
+
 		icon = "tuba-mail-symbolic",
+		title = _("Direct Messages"),
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Conversations ()));
+			win.open_view (set_as_sidebar_item (new Views.Conversations ()));
 		}
 	};
 
-	public static Place PLACE_BOOKMARKS = new Place () {
-		title = _("Bookmarks"),
+	public static Place PLACE_BOOKMARKS = new Place () { // vala-lint=naming-convention
+
 		icon = "tuba-bookmarks-symbolic",
+		title = _("Bookmarks"),
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Bookmarks ()));
+			win.open_view (set_as_sidebar_item (new Views.Bookmarks ()));
 		}
 	};
 
-	public static Place PLACE_FAVORITES = new Place () {
-		title = _("Favorites"),
+	public static Place PLACE_FAVORITES = new Place () { // vala-lint=naming-convention
+
 		icon = "tuba-unstarred-symbolic",
+		title = _("Favorites"),
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Favorites ()));
+			win.open_view (set_as_sidebar_item (new Views.Favorites ()));
 		}
 	};
 
-	public static Place PLACE_LISTS = new Place () {
-		title = _("Lists"),
+	public static Place PLACE_LISTS = new Place () { // vala-lint=naming-convention
+
 		icon = "tuba-list-compact-symbolic",
+		title = _("Lists"),
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Lists ()));
+			win.open_view (set_as_sidebar_item (new Views.Lists ()));
 		}
 	};
 
@@ -80,43 +85,48 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	//  	}
 	//  };
 
-	public static Place PLACE_EXPLORE = new Place () {
-		title = _("Explore"),
+	public static Place PLACE_EXPLORE = new Place () { // vala-lint=naming-convention
+
 		icon = "tuba-explore2-large-symbolic",
+		title = _("Explore"),
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Explore ()));
+			win.open_view (set_as_sidebar_item (new Views.Explore ()));
 		}
 	};
 
-	public static Place PLACE_LOCAL = new Place () {
-		title = _("Local"),
+	public static Place PLACE_LOCAL = new Place () { // vala-lint=naming-convention
+
 		icon = "tuba-network-server-symbolic",
+		title = _("Local"),
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Local ()));
+			win.open_view (set_as_sidebar_item (new Views.Local ()));
 		}
 	};
 
-	public static Place PLACE_FEDERATED = new Place () {
-		title = _("Federated"),
+	public static Place PLACE_FEDERATED = new Place () { // vala-lint=naming-convention
+
 		icon = "tuba-globe-symbolic",
+		title = _("Federated"),
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Federated ()));
+			win.open_view (set_as_sidebar_item (new Views.Federated ()));
 		}
 	};
 
-	public static Place PLACE_FOLLOW_REQUESTS = new Place () {
-		title = _("Follow Requests"),
+	public static Place PLACE_FOLLOW_REQUESTS = new Place () { // vala-lint=naming-convention
+
 		icon = "tuba-address-book-new-symbolic",
+		title = _("Follow Requests"),
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.FollowRequests ()));
+			win.open_view (set_as_sidebar_item (new Views.FollowRequests ()));
 		}
 	};
 
-	public static Place PLACE_HASHTAGS = new Place () {
-		title = _("Hashtags"),
+	public static Place PLACE_HASHTAGS = new Place () { // vala-lint=naming-convention
+
 		icon = "tuba-hashtag-symbolic",
+		title = _("Hashtags"),
 		open_func = (win) => {
-			win.open_view (set_as_sidebar_item(new Views.Hashtags ()));
+			win.open_view (set_as_sidebar_item (new Views.Hashtags ()));
 		}
 	};
 

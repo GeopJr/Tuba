@@ -41,14 +41,14 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 			activatable = true
 		};
 		if (history != null && history.size > 0) {
-			var last_history_entry = history.get(0);
+			var last_history_entry = history.get (0);
 			var total_uses = int.parse (last_history_entry.uses);
 			var total_accounts = int.parse (last_history_entry.accounts);
 			// translators: the variables are numbers
 			var subtitle = _("Used %d times by %d people yesterday").printf (total_uses, total_accounts);
 
 			if (history.size > 1) {
-				last_history_entry = history.get(1);
+				last_history_entry = history.get (1);
 				total_uses += int.parse (last_history_entry.uses);
 				total_accounts += int.parse (last_history_entry.accounts);
 
@@ -58,7 +58,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 
 			w.subtitle = subtitle;
 		}
-		w.activated.connect(on_activated);
+		w.activated.connect (on_activated);
 		return w;
 	}
 

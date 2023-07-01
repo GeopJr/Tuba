@@ -27,7 +27,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			title: Build.NAME,
 			resizable: true
 		);
-		sidebar.set_sidebar_selected_item(0);
+		sidebar.set_sidebar_selected_item (0);
 		main_base = new Views.Main ();
 		open_view (main_base);
 
@@ -36,51 +36,51 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		}
 	}
 
-	public bool is_media_viewer_visible() {
-		return main_stack.visible_child_name == "media_viewer"; 
+	public bool is_media_viewer_visible () {
+		return main_stack.visible_child_name == "media_viewer";
 	}
 
 	public void scroll_media_viewer (int pos) {
-		if (!is_media_viewer_visible()) return;
+		if (!is_media_viewer_visible ()) return;
 
 		media_viewer.scroll_to (pos);
 	}
 
-	public void show_media_viewer(string url, string? alt_text, bool video, Paintable? preview, int? pos) {
-		if (!is_media_viewer_visible()) {
+	public void show_media_viewer (string url, string? alt_text, bool video, Paintable? preview, int? pos) {
+		if (!is_media_viewer_visible ()) {
 			main_stack.visible_child_name = "media_viewer";
-			media_viewer.clear.connect(hide_media_viewer);
+			media_viewer.clear.connect (hide_media_viewer);
 		}
 
 		if (video) {
-			media_viewer.add_video(url, preview, pos);
+			media_viewer.add_video (url, preview, pos);
 		} else {
-			media_viewer.add_image(url, alt_text, preview, pos);
+			media_viewer.add_image (url, alt_text, preview, pos);
 		}
 	}
 
 	public void show_media_viewer_single (string? url, Paintable? paintable) {
 		if (paintable == null) return;
 
-		if (!is_media_viewer_visible()) {
+		if (!is_media_viewer_visible ()) {
 			main_stack.visible_child_name = "media_viewer";
-			media_viewer.clear.connect(hide_media_viewer);
+			media_viewer.clear.connect (hide_media_viewer);
 		}
 
 		media_viewer.set_single_paintable (url, paintable);
 	}
 
-	public void show_media_viewer_remote_video(string url, Paintable? preview, string? user_friendly_url = null) {
-		if (!is_media_viewer_visible()) {
+	public void show_media_viewer_remote_video (string url, Paintable? preview, string? user_friendly_url = null) {
+		if (!is_media_viewer_visible ()) {
 			main_stack.visible_child_name = "media_viewer";
-			media_viewer.clear.connect(hide_media_viewer);
+			media_viewer.clear.connect (hide_media_viewer);
 		}
 
 		media_viewer.set_remote_video (url, preview, user_friendly_url);
 	}
 
-	public void hide_media_viewer() {
-		if (!is_media_viewer_visible()) return;
+	public void hide_media_viewer () {
+		if (!is_media_viewer_visible ()) return;
 
 		main_stack.visible_child_name = "main";
 	}
@@ -99,15 +99,15 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			};
 			scroller.child = clamp;
 
-			var box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-			var headerbar = new Adw.HeaderBar() {
+			var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+			var headerbar = new Adw.HeaderBar () {
 				css_classes = { "flat" }
 			};
 
-			box.append(headerbar);
-			box.append(scroller);
+			box.append (headerbar);
+			box.append (scroller);
 
-			var book_dialog = new Adw.Window() {
+			var book_dialog = new Adw.Window () {
 				modal = true,
 				title = book.title,
 				transient_for = this,
@@ -125,7 +125,14 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public Views.Base open_view (Views.Base view) {
-		if ((leaflet.visible_child == view) || (last_view != null && last_view.label == view.label && !view.allow_nesting)) return view;
+		if (
+			leaflet.visible_child == view
+			|| (
+				last_view != null
+				&& last_view.label == view.label
+				&& !view.allow_nesting
+			)
+		) return view;
 
 		if (last_view != null && !last_view.is_main && view.is_sidebar_item) {
 			leaflet.insert_child_after (view, main_base);
@@ -138,8 +145,8 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public bool back () {
-		if (is_media_viewer_visible()) {
-			media_viewer.clear();
+		if (is_media_viewer_visible ()) {
+			media_viewer.clear ();
 			return true;
 		};
 
@@ -151,7 +158,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	public void go_back_to_start () {
 		var navigated = true;
-		while(navigated) {
+		while (navigated) {
 			navigated = leaflet.navigate (Adw.NavigationDirection.BACK);
 		}
 	}
@@ -177,7 +184,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		on_child_transition ();
 
 		if (view.is_main)
-			sidebar.set_sidebar_selected_item(0);
+			sidebar.set_sidebar_selected_item (0);
 
 		if (last_view != null) {
 			last_view.current = false;

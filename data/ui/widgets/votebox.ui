@@ -5,7 +5,7 @@
     <property name="margin_top">12</property>
     <property name="orientation">vertical</property>
     <child>
-      <object class="GtkListBox" id="pollBox">
+      <object class="GtkListBox" id="poll_box">
         <child>
           <placeholder/>
         </child>
@@ -17,7 +17,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkBox" id="pollActionBox">
+      <object class="GtkBox">
         <property name="margin_top">10</property>
         <property name="spacing">12</property>
         <child>

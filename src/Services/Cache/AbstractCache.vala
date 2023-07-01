@@ -16,8 +16,8 @@ public class Tuba.AbstractCache : Object {
 
 		set {
 			_maintenance_secs = value;
-			GLib.Source.remove(timeout_source);
-			setup_maintenance();
+			GLib.Source.remove (timeout_source);
+			setup_maintenance ();
 		}
 	}
     public uint size {
@@ -28,7 +28,7 @@ public class Tuba.AbstractCache : Object {
         items = new HashMap<string, Object> ();
         items_in_progress = new HashMap<string, Soup.Message> ();
 
-		setup_maintenance();
+		setup_maintenance ();
     }
 
 	private void setup_maintenance () {
@@ -88,7 +88,7 @@ public class Tuba.AbstractCache : Object {
 
 	protected string insert (string id, owned Object obj) {
 		var key = get_key (id);
-		message ("Inserting: "+key);
+		message (@"Inserting: $key");
 		items.@set (key, (owned) obj);
 
 		var nobj = items.@get (key);
