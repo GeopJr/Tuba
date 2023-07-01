@@ -42,6 +42,7 @@ jobs:
     - uses: flatpak/flatpak-github-actions/flatpak-builder@v5
       with:
         bundle: "dev.geopjr.Tuba.Devel.flatpak"
+        run-tests: true
         manifest-path: "build-aux/dev.geopjr.Tuba.Devel.json"
         cache-key: flatpak-builder-${{ github.sha }}
         arch: ${{ matrix.arch }}
