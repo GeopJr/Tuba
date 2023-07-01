@@ -484,7 +484,12 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 	private void update_toggle_pinned_label () {
 		if (pin_menu_item != null)
-			pin_menu_item.set_label (status?.formal?.pinned ? _("Unpin") : _("Pin"));
+			pin_menu_item.set_label (status?.formal?.pinned
+				// translators: Unpin post from profile
+				? _("Unpin")
+				// translators: Pin post on profile
+				: _("Pin")
+			);
 	}
 
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };

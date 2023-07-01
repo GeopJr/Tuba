@@ -32,6 +32,7 @@
             <child>
               <object class="GtkImage" id="cover_bot_badge">
                 <property name="icon-name">tuba-brain-augemnted-symbolic</property>
+                <!-- translators: Tooltip on icon indicating that the user is a bot/automated account -->
                 <property name="tooltip-text" translatable="yes">Bot</property>
                 <property name="visible">0</property>
               </object>

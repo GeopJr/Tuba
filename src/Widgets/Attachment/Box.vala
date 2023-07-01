@@ -68,6 +68,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		};
 		reveal_btn = new Gtk.Button () {
 			icon_name = "tuba-eye-not-looking-symbolic",
+			// translators: Tooltip on a button that hides / blurs media marked as sensitive
 			tooltip_text = _("Hide Media"),
 			css_classes = { "osd", "circular" },
 			halign = Gtk.Align.START,
@@ -78,6 +79,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		};
 		reveal_btn.clicked.connect (hide_spoilers);
 
+		// translators: Label shown in front of blurred / sensitive media
 		reveal_text = new Gtk.Label (_("Sensitive Media")) {
 			wrap = true,
 			halign = Gtk.Align.START,

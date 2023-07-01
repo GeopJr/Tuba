@@ -110,6 +110,7 @@ public class Tuba.PollPage : ComposerPage {
 			icon_name = "tuba-plus-large-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
+			// translators: tooltip on a button that appends another poll entry / option
 			tooltip_text = _("Add Poll"),
 			css_classes = {"flat"}
 		};
@@ -126,6 +127,7 @@ public class Tuba.PollPage : ComposerPage {
 			var multi_button_active = src.get_boolean ();
 			target.set_boolean (multi_button_active);
 			multi_button.icon_name = multi_button_active ? "checkbox-checked-symbolic" : "radio-checked-symbolic";
+			// translators: multiple choice as in allow the user to pick multiple poll options
 			multi_button.tooltip_text = multi_button_active ? _("Disable Multiple Choice") : _("Enable Multiple Choice");
 			return true;
 		});
@@ -211,12 +213,21 @@ public class Tuba.PollPage : ComposerPage {
 	}
 
 	Expiration[] expirations = {
-		new Expiration (_("%d Minutes").printf (5), _("%dm").printf (5), 300),
+		// translators: the variable is a number
+		new Expiration (_("%d Minutes").printf (5), 
+		// translators: the variable is a number, m as in minutes
+		_("%dm").printf (5), 300),
 		new Expiration (_("%d Minutes").printf (30), _("%dm").printf (30), 1800),
-		new Expiration (_("%d Hour").printf (1), _("%dh").printf (1), 3600),
+		// translators: the variable is a number
+		new Expiration (_("%d Hour").printf (1), 
+		// translators: the variable is a number, h as in hours
+		_("%dh").printf (1), 3600),
 		new Expiration (_("%d Hours").printf (6), _("%dh").printf (6), 21600),
 		new Expiration (_("%d Hours").printf (12), _("%dh").printf (12), 43200),
-		new Expiration (_("%d Day").printf (1), _("%dd").printf (1), 86400),
+		// translators: the variable is a number
+		new Expiration (_("%d Day").printf (1), 
+		// translators: the variable is a number, d as in days
+		_("%dd").printf (1), 86400),
 		new Expiration (_("%d Days").printf (3), _("%dd").printf (3), 259200),
 		new Expiration (_("%d Days").printf (7), _("%dd").printf (7), 604800)
 	};

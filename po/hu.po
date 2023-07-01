@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-19 23:29+0300\n"
+"POT-Creation-Date: 2023-07-01 06:36+0300\n"
 "PO-Revision-Date: 2023-05-24 11:43+0000\n"
 "Last-Translator: Alfika07 <alfika07@vivaldi.net>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/tuba/tuba/hu/>"
-"\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/tuba/tuba/hu/"
+">\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,10 +60,6 @@ msgstr ""
 "tulajdonjogát, és alternatívát kínál a központosított közösségi "
 "médiaplatformokkal szemben."
 
-#: data/dev.geopjr.Tuba.appdata.xml.in:19
-msgid "Evangelos \"GeopJr\" Paterakis"
-msgstr "Evangelos \"GeopJr\" Paterakis"
-
 #: data/ui/widgets/status.ui:156
 msgid "Pinned"
 msgstr "Kitűzve"
@@ -72,17 +68,28 @@ msgstr "Kitűzve"
 msgid "Edited"
 msgstr "Szerkesztve"
 
-#: data/ui/widgets/status.ui:249 src/Widgets/Status.vala:343
+#. translators: Tooltip that closes content warning
+#: data/ui/widgets/status.ui:224
+msgid "Show Less"
+msgstr ""
+
+#. translators: Tooltip that opens content warning
+#: data/ui/widgets/status.ui:256 src/Widgets/Status.vala:371
 msgid "Show More"
 msgstr "Több Megjelenítése"
 
-#: data/ui/widgets/status.ui:329 data/ui/widgets/status.ui:330
+#: data/ui/widgets/status.ui:336 data/ui/widgets/status.ui:337
 msgid "Decline"
 msgstr "Elutasít"
 
-#: data/ui/widgets/status.ui:342 data/ui/widgets/status.ui:343
+#: data/ui/widgets/status.ui:349 data/ui/widgets/status.ui:350
 msgid "Accept"
 msgstr "Elfogad"
+
+#. translators: Tooltip on icon indicating that the user is a bot/automated account
+#: data/ui/views/profile_header.ui:36
+msgid "Bot"
+msgstr ""
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
@@ -120,7 +127,7 @@ msgstr "Némítás"
 msgid "Report"
 msgstr "Jelentés"
 
-#: data/ui/menus.ui:47 src/Views/Profile.vala:299 src/Views/Profile.vala:323
+#: data/ui/menus.ui:47 src/Views/Profile.vala:357 src/Views/Profile.vala:381
 msgid "Block"
 msgstr "Tiltás"
 
@@ -149,11 +156,12 @@ msgstr "Tartalmazza a médiát"
 msgid "Lists"
 msgstr "Listák"
 
-#: data/ui/menus.ui:113
+#: data/ui/menus.ui:113 data/gtk/help-overlay.ui:20
 msgid "Refresh"
 msgstr "Frissítés"
 
-#: data/ui/dialogs/preferences.ui:19 src/Views/Lists.vala:90
+#: data/ui/dialogs/preferences.ui:19 data/gtk/help-overlay.ui:11
+#: src/Views/Lists.vala:90
 msgid "General"
 msgstr "Általános"
 
@@ -213,46 +221,59 @@ msgstr "Háttérmunka"
 msgid "Receive notifications even when the app is closed"
 msgstr "Értesítések fogadása akkor is, ha az alkalmazás be van zárva"
 
-#: data/ui/dialogs/preferences.ui:118
+#: data/ui/dialogs/preferences.ui:116
+msgid "Strip tracking parameters from links"
+msgstr ""
+
+#. translators: Broken as in incorrect
+#: data/ui/dialogs/preferences.ui:119
+msgid "It can lead to broken links"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:131
 msgid "Timelines"
 msgstr "Idővonalak"
 
-#: data/ui/dialogs/preferences.ui:121
+#: data/ui/dialogs/preferences.ui:134
 msgid "Posts per load batch"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:135
+#: data/ui/dialogs/preferences.ui:148
 msgid "Stream timelines"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:137
+#: data/ui/dialogs/preferences.ui:150
 msgid "Receive new posts and notifications in real-time"
 msgstr "Új bejegyzések és értesítések fogadása valós időben"
 
-#: data/ui/dialogs/preferences.ui:148
+#: data/ui/dialogs/preferences.ui:161
 msgid "Stream public timelines"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:150
+#: data/ui/dialogs/preferences.ui:163
 msgid "Warning: This will increase memory usage"
 msgstr "Figyelmeztetés: Ez növeli a memóriahasználatot"
 
-#: data/ui/dialogs/preferences.ui:160
+#: data/ui/dialogs/preferences.ui:173
 msgid "Reveal spoilers by default"
 msgstr "Spoilerek felfedése alapértelmezés szerint"
 
-#: data/ui/dialogs/preferences.ui:171
+#: data/ui/dialogs/preferences.ui:184
 msgid "Hide link preview cards"
 msgstr ""
 
-#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:233
-msgid "Add Account"
-msgstr "Fiók hozzáadása"
-
-#: data/ui/dialogs/new_account.ui:27 data/ui/dialogs/compose.ui:29
-#: src/Application.vala:300
+#: data/ui/dialogs/compose.ui:29 data/ui/dialogs/new_account.ui:27
+#: src/Application.vala:332 src/Dialogs/Composer/Dialog.vala:186
 msgid "Cancel"
 msgstr "Mégsem"
+
+#: data/ui/dialogs/compose.ui:36 src/Dialogs/Composer/Dialog.vala:250
+msgid "_Publish"
+msgstr "_Közzététel"
+
+#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:229
+msgid "Add Account"
+msgstr "Fiók hozzáadása"
 
 #: data/ui/dialogs/new_account.ui:34 data/ui/dialogs/new_account.ui:119
 msgid "Next"
@@ -265,8 +286,8 @@ msgstr ""
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
-"\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
+"servers\">choose a server and register one</a>."
 msgstr ""
 
 #: data/ui/dialogs/new_account.ui:71
@@ -302,9 +323,136 @@ msgstr "Kész"
 msgid "Your account is connected and ready to use!"
 msgstr "A fiókja csatlakoztatva van és használatra kész!"
 
-#: data/ui/dialogs/compose.ui:35 src/Dialogs/Composer/Dialog.vala:91
-msgid "_Publish"
-msgstr "_Közzététel"
+#: data/gtk/help-overlay.ui:14
+msgid "Compose a new post"
+msgstr ""
+
+#: data/gtk/help-overlay.ui:26 src/Views/Search.vala:16 src/Views/Main.vala:19
+msgid "Search"
+msgstr "Keresés"
+
+#: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:251
+msgid "Go Back"
+msgstr "Vissza"
+
+#: data/gtk/help-overlay.ui:39
+msgid "Show Keyboard Shortcuts"
+msgstr ""
+
+#: data/gtk/help-overlay.ui:45
+msgid "Quit"
+msgstr ""
+
+#: data/gtk/help-overlay.ui:53
+msgid "Composer"
+msgstr ""
+
+#: data/gtk/help-overlay.ui:56
+msgid "Commit"
+msgstr ""
+
+#: src/Application.vala:142 src/Widgets/Attachment/Item.vala:211
+#: src/Views/Sidebar.vala:259 src/Views/MediaViewer.vala:428
+#: src/Services/Accounts/SecretAccountStore.vala:112
+#: src/Services/Accounts/SecretAccountStore.vala:146
+#: src/Services/Accounts/AccountStore.vala:43
+msgid "Error"
+msgstr "Hiba"
+
+#. translators: Name <email@domain.com> or Name https://website.example
+#: src/Application.vala:307
+msgid "translator-credits"
+msgstr ""
+
+#: src/Application.vala:327
+msgid "OK"
+msgstr ""
+
+#: src/Application.vala:332
+msgid "Yes"
+msgstr "Igen"
+
+#. translators: the variable is the emoji or its name if it's custom
+#: src/Widgets/Status.vala:126
+#, c-format
+msgid "React with %s"
+msgstr ""
+
+#: src/Widgets/Status.vala:255 src/Widgets/Attachment/Item.vala:192
+#: src/Views/MediaViewer.vala:323
+msgid "Open in Browser"
+msgstr "Megnyitás Böngészőben"
+
+#: src/Widgets/Status.vala:256 src/Widgets/Attachment/Item.vala:193
+#: src/Views/MediaViewer.vala:324
+msgid "Copy URL"
+msgstr "URL Másolása"
+
+#. translators: as in post stats (who liked and boosted)
+#: src/Widgets/Status.vala:259
+msgid "View Stats"
+msgstr ""
+
+#: src/Widgets/Status.vala:263
+msgid "View Edit History"
+msgstr "Szerkesztési Előzmények Megtekintése"
+
+#. translators: Pin post on profile
+#: src/Widgets/Status.vala:268 src/Widgets/Status.vala:491
+msgid "Pin"
+msgstr ""
+
+#: src/Widgets/Status.vala:273
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: src/Widgets/Status.vala:274 src/Widgets/Status.vala:336
+#: src/Views/Lists.vala:62
+msgid "Delete"
+msgstr "Törlés"
+
+#: src/Widgets/Status.vala:333
+msgid "Are you sure you want to delete this post?"
+msgstr "Biztosan törlöd ezt a bejegyzést?"
+
+#: src/Widgets/Status.vala:378
+msgid "Sensitive"
+msgstr "Érzékeny"
+
+#. translators: Unpin post from profile
+#: src/Widgets/Status.vala:489
+msgid "Unpin"
+msgstr ""
+
+#: src/Widgets/Status.vala:537
+msgid "Reply"
+msgstr "Válasz"
+
+#: src/Widgets/Status.vala:551
+msgid "This post can't be boosted"
+msgstr "Ezt a bejegyzést nem lehet megtolni"
+
+#: src/Widgets/Status.vala:556 src/Widgets/Status.vala:607
+msgid "Boost"
+msgstr "Megtolás"
+
+#: src/Widgets/Status.vala:618
+msgid "Favorite"
+msgstr "Kedvenc"
+
+#: src/Widgets/Status.vala:629
+msgid "Bookmark"
+msgstr "Könyvjelző"
+
+#. translators: this is a "long" date format shown in places like expanded posts or
+#. the profile "Joined" field. You can find all the available specifiers
+#. on https://valadoc.org/glib-2.0/GLib.DateTime.format.html
+#. Please do not stray far from the original and only include day, month
+#. and year.
+#. If unsure, either leave it as-is or set it to %x.
+#: src/Widgets/Status.vala:693 src/Views/Profile.vala:192
+msgid "%B %e, %Y"
+msgstr ""
 
 #: src/Widgets/VoteBox.vala:20
 msgid "Vote"
@@ -316,81 +464,43 @@ msgstr "Szavazás"
 msgid "%lld voted"
 msgstr "%lld szavazott"
 
+#. translators: the variables are numbers
+#: src/Widgets/PreviewCard.vala:132
+#, c-format
+msgid "Discussed %d times by %d people yesterday"
+msgstr ""
+
+#. translators: the variables are numbers
+#: src/Widgets/PreviewCard.vala:140
+#, c-format
+msgid "Discussed %d times by %d people in the past 2 days"
+msgstr ""
+
+#. translators: Used when there are results in the custom emoji picker
+#: src/Widgets/CustomEmojiChooser.vala:53
+#: src/Widgets/CustomEmojiChooser.vala:107
+msgid "Results"
+msgstr ""
+
+#. translators: Used when there are 0 results in the custom emoji picker
+#: src/Widgets/CustomEmojiChooser.vala:111
+msgid "No Results"
+msgstr ""
+
+#: src/Widgets/CustomEmojiChooser.vala:144
+#: src/Widgets/CustomEmojiChooser.vala:150
+#: src/Widgets/CustomEmojiChooser.vala:151 src/API/Emoji.vala:4
+#: src/API/Emoji.vala:8
+msgid "Other"
+msgstr ""
+
+#: src/Widgets/CustomEmojiChooser.vala:151
+msgid "Custom Emojis"
+msgstr ""
+
 #: src/Widgets/StatusActionButton.vala:158
 msgid "Network Error"
 msgstr "Hálózati Hiba"
-
-#. translators: the variable is the emoji or its name if it's custom
-#: src/Widgets/Status.vala:125
-#, c-format
-msgid "React with %s"
-msgstr ""
-
-#: src/Widgets/Status.vala:246 src/Widgets/Attachment/Item.vala:193
-#: src/Views/MediaViewer.vala:328
-msgid "Open in Browser"
-msgstr "Megnyitás Böngészőben"
-
-#: src/Widgets/Status.vala:247 src/Widgets/Attachment/Item.vala:194
-#: src/Views/MediaViewer.vala:329
-msgid "Copy URL"
-msgstr "URL Másolása"
-
-#. translators: as in post stats (who liked and boosted)
-#: src/Widgets/Status.vala:250
-msgid "View Stats"
-msgstr ""
-
-#: src/Widgets/Status.vala:254
-msgid "View Edit History"
-msgstr "Szerkesztési Előzmények Megtekintése"
-
-#: src/Widgets/Status.vala:259
-msgid "Edit"
-msgstr "Szerkesztés"
-
-#: src/Widgets/Status.vala:260 src/Widgets/Status.vala:308
-#: src/Views/Lists.vala:62
-msgid "Delete"
-msgstr "Törlés"
-
-#: src/Widgets/Status.vala:305
-msgid "Are you sure you want to delete this post?"
-msgstr "Biztosan törlöd ezt a bejegyzést?"
-
-#: src/Widgets/Status.vala:350
-msgid "Sensitive"
-msgstr "Érzékeny"
-
-#: src/Widgets/Status.vala:492
-msgid "Reply"
-msgstr "Válasz"
-
-#: src/Widgets/Status.vala:506
-msgid "This post can't be boosted"
-msgstr "Ezt a bejegyzést nem lehet megtolni"
-
-#: src/Widgets/Status.vala:511 src/Widgets/Status.vala:663
-msgid "Boost"
-msgstr "Megtolás"
-
-#: src/Widgets/Status.vala:674
-msgid "Favorite"
-msgstr "Kedvenc"
-
-#: src/Widgets/Status.vala:685
-msgid "Bookmark"
-msgstr "Könyvjelző"
-
-#. translators: this is a "long" date format shown in places like expanded posts or
-#. the profile "Joined" field. You can find all the available specifiers
-#. on https://valadoc.org/glib-2.0/GLib.DateTime.format.html
-#. Please do not stray far from the original and only include day, month
-#. and year.
-#. If unsure, either leave it as-is or set it to %x.
-#: src/Widgets/Status.vala:749 src/Views/Profile.vala:133
-msgid "%B %e, %Y"
-msgstr ""
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
@@ -398,8 +508,8 @@ msgstr ""
 msgid "Follow"
 msgstr "Követés"
 
-#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:299
-#: src/Views/Profile.vala:323
+#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:357
+#: src/Views/Profile.vala:381
 msgid "Unblock"
 msgstr "Blokkolás feloldása"
 
@@ -410,7 +520,7 @@ msgstr "Követés leállítása"
 
 #. translators: the variable is a comma separated
 #. list of the book authors
-#: src/Widgets/BookWyrmPage.vala:137
+#: src/Widgets/BookWyrmPage.vala:139
 #, c-format
 msgid "by %s"
 msgstr ""
@@ -423,55 +533,222 @@ msgstr "Melléklet Mentése"
 msgid "View Alt Text"
 msgstr "Helyettesítő Szöveg Megtekintése"
 
-#: src/Widgets/Attachment/Item.vala:195 src/Views/MediaViewer.vala:330
+#: src/Widgets/Attachment/Item.vala:194 src/Views/MediaViewer.vala:325
 msgid "Save Media"
 msgstr "Média Mentése"
 
-#: src/Widgets/Attachment/Item.vala:212 src/Views/Sidebar.vala:263
-#: src/Views/MediaViewer.vala:431
-#: src/Services/Accounts/SecretAccountStore.vala:112
-#: src/Services/Accounts/SecretAccountStore.vala:146
-#: src/Services/Accounts/AccountStore.vala:43 src/Application.vala:129
-msgid "Error"
-msgstr "Hiba"
+#. translators: Tooltip on a button that hides / blurs media marked as sensitive
+#: src/Widgets/Attachment/Box.vala:72
+msgid "Hide Media"
+msgstr ""
+
+#. translators: Label shown in front of blurred / sensitive media
+#: src/Widgets/Attachment/Box.vala:83
+msgid "Sensitive Media"
+msgstr ""
 
 #: src/Views/Thread.vala:13
 msgid "Conversation"
 msgstr "Beszélgetés"
 
 #: src/Views/Sidebar.vala:34
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: src/Views/Sidebar.vala:42
 msgid "Preferences"
 msgstr "Beállítások"
 
-#: src/Views/Sidebar.vala:43
+#: src/Views/Sidebar.vala:51
 msgid "About"
 msgstr ""
 
-#: src/Views/Sidebar.vala:134
+#: src/Views/Sidebar.vala:130
 msgid "Anonymous"
 msgstr "Névtelen"
 
-#: src/Views/Sidebar.vala:135
+#: src/Views/Sidebar.vala:131
 msgid "No account selected"
 msgstr "Nincs kiválasztva fiók"
 
 #. translators: the variable is an account handle
-#: src/Views/Sidebar.vala:249
+#: src/Views/Sidebar.vala:245
 #, c-format
 msgid "Forget %s?"
 msgstr ""
 
-#: src/Views/Sidebar.vala:250
+#: src/Views/Sidebar.vala:246
 msgid "This account will be removed from the application."
 msgstr "Ez a fiók el lesz távolítva az alkalmazásból."
 
-#: src/Views/Sidebar.vala:252
+#: src/Views/Sidebar.vala:248
 msgid "Forget"
 msgstr "Elfelejt"
 
-#: src/Views/Search.vala:16 src/Views/Main.vala:19
-msgid "Search"
-msgstr "Keresés"
+#: src/Views/Profile.vala:33
+msgid "Profile"
+msgstr "Profil"
+
+#. translators: as in created an account; this is used in Profiles in a row
+#. which has as value the date the profile was created on
+#: src/Views/Profile.vala:202
+msgid "Joined"
+msgstr ""
+
+#. translators: the variable is the amount of posts a user has made
+#: src/Views/Profile.vala:222
+#, c-format
+msgid "%lld Posts"
+msgstr "%lld Bejegyzések"
+
+#. translators: the variable is the amount of people a user follows
+#: src/Views/Profile.vala:227
+#, c-format
+msgid "%lld Following"
+msgstr "%lld Követve"
+
+#. translators: the variable is the amount of followers a user has
+#: src/Views/Profile.vala:232
+#, c-format
+msgid "%lld Followers"
+msgstr "%lld Követők"
+
+#: src/Views/Profile.vala:351
+#, c-format
+msgid "Block \"%s\"?"
+msgstr "Letiltja a következőt: \"%s\"?"
+
+#: src/Views/Profile.vala:351
+#, c-format
+msgid "Unblock \"%s\"?"
+msgstr "Feloldja \"%s\" letiltását?"
+
+#: src/Views/Profile.vala:375
+#, c-format
+msgid "Block Entire \"%s\"?"
+msgstr "Letiltja a teljes \"%s\"-et?"
+
+#: src/Views/Profile.vala:375
+#, c-format
+msgid "Unblock Entire \"%s\"?"
+msgstr "Feloldja a teljes \"%s\" blokkolását?"
+
+#: src/Views/Profile.vala:379
+msgid ""
+"Blocking a domain will:\n"
+"\n"
+"• Remove its public posts and notifications from your timelines\n"
+"• Remove its followers from your account\n"
+"• Prevent you from following its users"
+msgstr ""
+
+#: src/Views/Profile.vala:428
+msgid "Sent follow request"
+msgstr "Elküldött követési kérelem"
+
+#: src/Views/Profile.vala:430
+msgid "Mutuals"
+msgstr ""
+
+#: src/Views/Profile.vala:432
+msgid "Follows you"
+msgstr "Követ téged"
+
+#. translators: the variable is an account handle
+#: src/Views/Profile.vala:485
+#, c-format
+msgid "Add or remove \"%s\" to or from a list"
+msgstr ""
+
+#. translators: the variable is an account handle
+#: src/Views/Profile.vala:497
+#, c-format
+msgid "Select the list to add or remove \"%s\" to or from:"
+msgstr ""
+
+#: src/Views/Profile.vala:503
+msgid "You don't have any lists"
+msgstr "Nincsenek listái"
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:532 src/Views/Profile.vala:594
+#, c-format
+msgid "Remove \"%s\" from \"%s\""
+msgstr ""
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:532 src/Views/Profile.vala:588
+#, c-format
+msgid "Add \"%s\" to \"%s\""
+msgstr ""
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:585
+#, c-format
+msgid "User \"%s\" got removed from \"%s\""
+msgstr ""
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:591
+#, c-format
+msgid "User \"%s\" got added to \"%s\""
+msgstr ""
+
+#: src/Views/Notifications.vala:12
+msgid "Notifications"
+msgstr "Értesítések"
+
+#: src/Views/MediaViewer.vala:245
+msgid "Media Viewer"
+msgstr "Médiamegjelenítő"
+
+#: src/Views/MediaViewer.vala:258
+#, fuzzy
+msgid "Toggle Fullscreen"
+msgstr "Teljes képernyő váltása"
+
+#: src/Views/MediaViewer.vala:525
+msgid "Previous Attachment"
+msgstr ""
+
+#: src/Views/MediaViewer.vala:530
+msgid "Next Attachment"
+msgstr ""
+
+#: src/Views/MediaViewer.vala:548
+msgid "Zoom Out"
+msgstr ""
+
+#: src/Views/MediaViewer.vala:553
+msgid "Zoom In"
+msgstr ""
+
+#. translators: Shown when there are 0 results
+#: src/Views/Base.vala:6
+msgid "Nothing to see here"
+msgstr "Nincs itt semmi látnivaló"
+
+#: src/Views/Base.vala:73
+msgid "Reload"
+msgstr "Újratöltés"
+
+#: src/Views/Base.vala:129
+msgid "An Error Occurred"
+msgstr "Hiba történt"
+
+#: src/Views/StatusStats.vala:6
+msgid "Post Stats"
+msgstr ""
+
+#. translators: title for a list of people that favorited a post
+#: src/Views/StatusStats.vala:9
+msgid "Favorited By"
+msgstr ""
+
+#. translators: title for a list of people that boosted a post
+#: src/Views/StatusStats.vala:11
+msgid "Boosted By"
+msgstr ""
 
 #. translators: as in All search results
 #: src/Views/Search.vala:40
@@ -482,11 +759,12 @@ msgstr ""
 msgid "Accounts"
 msgstr "Fiókok"
 
-#: src/Views/Search.vala:42
+#: src/Views/Search.vala:42 src/Views/Explore.vala:5
 msgid "Posts"
 msgstr "Bejegyzések"
 
-#: src/Views/Search.vala:43 src/Services/Accounts/Mastodon/Account.vala:108
+#: src/Views/Search.vala:43 src/Views/Hashtags.vala:5 src/Views/Explore.vala:6
+#: src/Services/Accounts/Mastodon/Account.vala:116
 msgid "Hashtags"
 msgstr "Hashtagek"
 
@@ -494,149 +772,7 @@ msgstr "Hashtagek"
 msgid "Enter Query"
 msgstr ""
 
-#: src/Views/Profile.vala:35
-msgid "Profile"
-msgstr "Profil"
-
-#. translators: as in created an account; this is used in Profiles in a row
-#. which has as value the date the profile was created on
-#: src/Views/Profile.vala:143
-msgid "Joined"
-msgstr ""
-
-#. translators: the variable is the amount of posts a user has made
-#: src/Views/Profile.vala:163
-#, c-format
-msgid "%lld Posts"
-msgstr "%lld Bejegyzések"
-
-#. translators: the variable is the amount of people a user follows
-#: src/Views/Profile.vala:168
-#, c-format
-msgid "%lld Following"
-msgstr "%lld Követve"
-
-#. translators: the variable is the amount of followers a user has
-#: src/Views/Profile.vala:173
-#, c-format
-msgid "%lld Followers"
-msgstr "%lld Követők"
-
-#: src/Views/Profile.vala:292
-#, c-format
-msgid "Block \"%s\"?"
-msgstr "Letiltja a következőt: \"%s\"?"
-
-#: src/Views/Profile.vala:292
-#, c-format
-msgid "Unblock \"%s\"?"
-msgstr "Feloldja \"%s\" letiltását?"
-
-#: src/Views/Profile.vala:317
-#, c-format
-msgid "Block Entire \"%s\"?"
-msgstr "Letiltja a teljes \"%s\"-et?"
-
-#: src/Views/Profile.vala:317
-#, c-format
-msgid "Unblock Entire \"%s\"?"
-msgstr "Feloldja a teljes \"%s\" blokkolását?"
-
-#: src/Views/Profile.vala:321
-msgid ""
-"Blocking a domain will:\n"
-"\n"
-"• Remove its public posts and notifications from your timelines\n"
-"• Remove its followers from your account\n"
-"• Prevent you from following its users"
-msgstr ""
-
-#: src/Views/Profile.vala:370
-msgid "Sent follow request"
-msgstr "Elküldött követési kérelem"
-
-#: src/Views/Profile.vala:372
-msgid "Mutuals"
-msgstr ""
-
-#: src/Views/Profile.vala:374
-msgid "Follows you"
-msgstr "Követ téged"
-
-#. translators: the variable is an account handle
-#: src/Views/Profile.vala:429
-#, c-format
-msgid "Add or remove \"%s\" to or from a list"
-msgstr ""
-
-#. translators: the variable is an account handle
-#: src/Views/Profile.vala:441
-#, c-format
-msgid "Select the list to add or remove \"%s\" to or from:"
-msgstr ""
-
-#: src/Views/Profile.vala:447
-msgid "You don't have any lists"
-msgstr "Nincsenek listái"
-
-#. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:476 src/Views/Profile.vala:538
-#, c-format
-msgid "Remove \"%s\" from \"%s\""
-msgstr ""
-
-#. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:476 src/Views/Profile.vala:532
-#, c-format
-msgid "Add \"%s\" to \"%s\""
-msgstr ""
-
-#. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:529
-#, c-format
-msgid "User \"%s\" got removed from \"%s\""
-msgstr ""
-
-#. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:535
-#, c-format
-msgid "User \"%s\" got added to \"%s\""
-msgstr ""
-
-#: src/Views/Notifications.vala:11
-msgid "Notifications"
-msgstr "Értesítések"
-
-#: src/Views/MediaViewer.vala:250
-msgid "Media Viewer"
-msgstr "Médiamegjelenítő"
-
-#: src/Views/MediaViewer.vala:256
-msgid "Go Back"
-msgstr "Vissza"
-
-#: src/Views/MediaViewer.vala:263
-#, fuzzy
-msgid "Toggle Fullscreen"
-msgstr "Teljes képernyő váltása"
-
-#: src/Views/MediaViewer.vala:526
-msgid "Previous Attachment"
-msgstr ""
-
-#: src/Views/MediaViewer.vala:531
-msgid "Next Attachment"
-msgstr ""
-
-#: src/Views/MediaViewer.vala:549
-msgid "Zoom Out"
-msgstr ""
-
-#: src/Views/MediaViewer.vala:554
-msgid "Zoom In"
-msgstr ""
-
-#: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
+#: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:92
 msgid "Local"
 msgstr "Helyi"
 
@@ -703,17 +839,29 @@ msgid "Home"
 msgstr ""
 
 #: src/Views/FollowRequests.vala:4
-#: src/Services/Accounts/Mastodon/Account.vala:100
+#: src/Services/Accounts/Mastodon/Account.vala:108
 msgid "Follow Requests"
 msgstr "Követési kérelmek"
 
-#: src/Views/Federated.vala:7 src/Services/Accounts/Mastodon/Account.vala:92
+#: src/Views/Federated.vala:7 src/Services/Accounts/Mastodon/Account.vala:100
 msgid "Federated"
 msgstr "Szövetségi"
 
 #: src/Views/Favorites.vala:6 src/Services/Accounts/Mastodon/Account.vala:60
 msgid "Favorites"
 msgstr "Kedvencek"
+
+#: src/Views/Explore.vala:3 src/Services/Accounts/Mastodon/Account.vala:84
+msgid "Explore"
+msgstr ""
+
+#: src/Views/Explore.vala:7
+msgid "News"
+msgstr ""
+
+#: src/Views/Explore.vala:8
+msgid "For You"
+msgstr ""
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -726,18 +874,6 @@ msgstr "Beszélgetések"
 #: src/Views/Bookmarks.vala:6 src/Services/Accounts/Mastodon/Account.vala:52
 msgid "Bookmarks"
 msgstr "Könyvjelzők"
-
-#: src/Views/Base.vala:6
-msgid "Nothing to see here"
-msgstr "Nincs itt semmi látnivaló"
-
-#: src/Views/Base.vala:73
-msgid "Reload"
-msgstr "Újratöltés"
-
-#: src/Views/Base.vala:125
-msgid "An Error Occurred"
-msgstr "Hiba történt"
 
 #: src/Utils/DateTime.vala:12
 msgid "expires soon"
@@ -811,19 +947,58 @@ msgid "%b %-e, %Y"
 msgstr ""
 
 #. translators: Follow System's dark mode preference
-#: src/Services/Settings.vala:51
+#: src/Services/Settings.vala:53
 msgid "Follow System"
 msgstr "Rendszer követése"
 
 #. translators: Light mode theme
-#: src/Services/Settings.vala:54
+#: src/Services/Settings.vala:56
 msgid "Light"
 msgstr "Világos"
 
 #. translators: Dark mode theme
-#: src/Services/Settings.vala:57
+#: src/Services/Settings.vala:59
 msgid "Dark"
 msgstr "Sötét"
+
+#: src/Services/Accounts/InstanceAccount.vala:147
+#, c-format
+msgid "%s mentioned you"
+msgstr "%s megemlített téged"
+
+#: src/Services/Accounts/InstanceAccount.vala:152
+#, c-format
+msgid "%s boosted your post"
+msgstr "%s megtolta a bejegyzésedet"
+
+#: src/Services/Accounts/InstanceAccount.vala:157
+#, c-format
+msgid "%s boosted"
+msgstr ""
+
+#: src/Services/Accounts/InstanceAccount.vala:162
+#, c-format
+msgid "%s favorited your post"
+msgstr ""
+
+#: src/Services/Accounts/InstanceAccount.vala:167
+#, c-format
+msgid "%s now follows you"
+msgstr ""
+
+#: src/Services/Accounts/InstanceAccount.vala:172
+#, c-format
+msgid "%s wants to follow you"
+msgstr ""
+
+#: src/Services/Accounts/InstanceAccount.vala:177
+msgid "Poll results"
+msgstr ""
+
+#: src/Services/Accounts/InstanceAccount.vala:182
+#, c-format
+msgid "%s edited a post"
+msgstr ""
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:130
@@ -835,77 +1010,38 @@ msgstr "%s fiók"
 msgid "Direct Messages"
 msgstr "Közvetlen üzenetek"
 
-#: src/Services/Accounts/Mastodon/Account.vala:136
+#: src/Services/Accounts/Mastodon/Account.vala:145
 msgid "Public"
 msgstr "Nyilvános"
 
-#: src/Services/Accounts/Mastodon/Account.vala:138
+#: src/Services/Accounts/Mastodon/Account.vala:148
 msgid "Post to public timelines"
 msgstr "Közzététel nyilvános idővonalakon"
 
 #. translators: Probably follow Mastodon's translation
-#: src/Services/Accounts/Mastodon/Account.vala:143
+#: src/Services/Accounts/Mastodon/Account.vala:153
 msgid "Unlisted"
 msgstr "Listázatlan"
 
-#: src/Services/Accounts/Mastodon/Account.vala:145
+#: src/Services/Accounts/Mastodon/Account.vala:156
 msgid "Don't post to public timelines"
 msgstr ""
 
-#: src/Services/Accounts/Mastodon/Account.vala:149
+#: src/Services/Accounts/Mastodon/Account.vala:160
 msgid "Followers Only"
 msgstr "Csak követők"
 
-#: src/Services/Accounts/Mastodon/Account.vala:151
+#: src/Services/Accounts/Mastodon/Account.vala:163
 msgid "Post to followers only"
 msgstr "Közzététel csak követőknek"
 
-#: src/Services/Accounts/Mastodon/Account.vala:155
+#: src/Services/Accounts/Mastodon/Account.vala:167
 msgid "Direct"
 msgstr "Közvetlen"
 
-#: src/Services/Accounts/Mastodon/Account.vala:157
+#: src/Services/Accounts/Mastodon/Account.vala:170
 msgid "Post to mentioned users only"
 msgstr "Közzététel csak az említett felhasználóknak"
-
-#: src/Services/Accounts/InstanceAccount.vala:137
-#, c-format
-msgid "%s mentioned you"
-msgstr "%s megemlített téged"
-
-#: src/Services/Accounts/InstanceAccount.vala:142
-#, c-format
-msgid "%s boosted your post"
-msgstr "%s megtolta a bejegyzésedet"
-
-#: src/Services/Accounts/InstanceAccount.vala:147
-#, c-format
-msgid "%s boosted"
-msgstr ""
-
-#: src/Services/Accounts/InstanceAccount.vala:152
-#, c-format
-msgid "%s favorited your post"
-msgstr ""
-
-#: src/Services/Accounts/InstanceAccount.vala:157
-#, c-format
-msgid "%s now follows you"
-msgstr ""
-
-#: src/Services/Accounts/InstanceAccount.vala:162
-#, c-format
-msgid "%s wants to follow you"
-msgstr ""
-
-#: src/Services/Accounts/InstanceAccount.vala:167
-msgid "Poll results"
-msgstr ""
-
-#: src/Services/Accounts/InstanceAccount.vala:172
-#, c-format
-msgid "%s edited a post"
-msgstr ""
 
 #: src/Dialogs/NewAccount.vala:5
 msgid "Allow access to your account in the browser."
@@ -932,69 +1068,173 @@ msgstr ""
 msgid "Hello, %s!"
 msgstr ""
 
-#: src/Dialogs/NewAccount.vala:239
+#: src/Dialogs/NewAccount.vala:237
 msgid "Server returned an error"
 msgstr ""
 
-#: src/Dialogs/Composer/PollPage.vala:5
-msgid "Options"
-msgstr "Opciók"
+#: src/Dialogs/Composer/PollPage.vala:77
+msgid "Poll"
+msgstr ""
+
+#. translators: tooltip on a button that appends another poll entry / option
+#: src/Dialogs/Composer/PollPage.vala:114
+msgid "Add Poll"
+msgstr ""
+
+#: src/Dialogs/Composer/PollPage.vala:123
+#: src/Dialogs/Composer/PollPage.vala:131
+msgid "Enable Multiple Choice"
+msgstr ""
+
+#. translators: multiple choice as in allow the user to pick multiple poll options
+#: src/Dialogs/Composer/PollPage.vala:131
+msgid "Disable Multiple Choice"
+msgstr ""
+
+#: src/Dialogs/Composer/PollPage.vala:139
+#: src/Dialogs/Composer/PollPage.vala:146
+msgid "Hide Total Votes"
+msgstr ""
+
+#: src/Dialogs/Composer/PollPage.vala:146
+msgid "Show Total Votes"
+msgstr ""
+
+#: src/Dialogs/Composer/PollPage.vala:173
+#: src/Dialogs/Composer/PollPage.vala:208
+#, c-format
+msgid "Choice %d"
+msgstr ""
+
+#. translators: the variable is a number
+#: src/Dialogs/Composer/PollPage.vala:217
+#: src/Dialogs/Composer/PollPage.vala:220
+#, c-format
+msgid "%d Minutes"
+msgstr ""
+
+#. translators: the variable is a number, m as in minutes
+#: src/Dialogs/Composer/PollPage.vala:219
+#: src/Dialogs/Composer/PollPage.vala:220
+#, c-format
+msgid "%dm"
+msgstr ""
+
+#. translators: the variable is a number
+#: src/Dialogs/Composer/PollPage.vala:222
+#, c-format
+msgid "%d Hour"
+msgstr ""
+
+#. translators: the variable is a number, h as in hours
+#: src/Dialogs/Composer/PollPage.vala:224
+#: src/Dialogs/Composer/PollPage.vala:225
+#: src/Dialogs/Composer/PollPage.vala:226
+#, c-format
+msgid "%dh"
+msgstr ""
+
+#: src/Dialogs/Composer/PollPage.vala:225
+#: src/Dialogs/Composer/PollPage.vala:226
+#, c-format
+msgid "%d Hours"
+msgstr ""
+
+#. translators: the variable is a number
+#: src/Dialogs/Composer/PollPage.vala:228
+#, c-format
+msgid "%d Day"
+msgstr ""
+
+#. translators: the variable is a number, d as in days
+#: src/Dialogs/Composer/PollPage.vala:230
+#: src/Dialogs/Composer/PollPage.vala:231
+#: src/Dialogs/Composer/PollPage.vala:232
+#, c-format
+msgid "%dd"
+msgstr ""
+
+#: src/Dialogs/Composer/PollPage.vala:231
+#: src/Dialogs/Composer/PollPage.vala:232
+#, c-format
+msgid "%d Days"
+msgstr ""
+
+#: src/Dialogs/Composer/PollPage.vala:252
+msgid "Expiration"
+msgstr ""
 
 #. translators: "Text" as in text-based input
 #: src/Dialogs/Composer/EditorPage.vala:11
 msgid "Text"
 msgstr "Szöveg"
 
-#: src/Dialogs/Composer/EditorPage.vala:152
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:108
+#: src/Dialogs/Composer/EditorPage.vala:150
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:126
 msgid "Characters Left"
 msgstr ""
 
-#: src/Dialogs/Composer/EditorPage.vala:173
+#: src/Dialogs/Composer/EditorPage.vala:171
 msgid "What's on your mind?"
 msgstr "Mi jár a fejedben?"
 
-#: src/Dialogs/Composer/EditorPage.vala:194
+#: src/Dialogs/Composer/EditorPage.vala:198
 msgid "Emoji Picker"
 msgstr "Emojiválasztó"
 
-#: src/Dialogs/Composer/EditorPage.vala:211
+#: src/Dialogs/Composer/EditorPage.vala:205
+msgid "Custom Emoji Picker"
+msgstr ""
+
+#: src/Dialogs/Composer/EditorPage.vala:224
 msgid "Write your warning here"
 msgstr "Írd ide a figyelmeztetést"
 
-#: src/Dialogs/Composer/EditorPage.vala:226
+#: src/Dialogs/Composer/EditorPage.vala:239
 msgid "Content Warning"
 msgstr "Tartalmi figyelmeztetés"
 
-#: src/Dialogs/Composer/EditorPage.vala:264
+#: src/Dialogs/Composer/EditorPage.vala:278
 msgid "Post Privacy"
 msgstr ""
 
-#: src/Dialogs/Composer/EditorPage.vala:287
+#: src/Dialogs/Composer/EditorPage.vala:302
 msgid "Post Language"
 msgstr ""
 
-#: src/Dialogs/Composer/Dialog.vala:99
+#: src/Dialogs/Composer/Dialog.vala:181
+msgid "Are you sure you want to exit?"
+msgstr ""
+
+#: src/Dialogs/Composer/Dialog.vala:182
+msgid "Your progress will be lost."
+msgstr ""
+
+#: src/Dialogs/Composer/Dialog.vala:184
+msgid "Discard"
+msgstr ""
+
+#: src/Dialogs/Composer/Dialog.vala:259
 msgid "_Redraft"
 msgstr ""
 
-#: src/Dialogs/Composer/Dialog.vala:123
+#: src/Dialogs/Composer/Dialog.vala:284
 msgid "_Edit"
 msgstr ""
 
-#: src/Dialogs/Composer/Dialog.vala:143
+#: src/Dialogs/Composer/Dialog.vala:305
 msgid "_Reply"
 msgstr ""
 
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:28
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:36
 msgid "Edit Alt Text"
 msgstr "Helyettesítő szöveg szerkesztése"
 
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:44
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:47
 msgid "Remove Attachment"
 msgstr "Melléklet eltávolítása"
 
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:113
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:131
 msgid "Save"
 msgstr "Mentés"
 
@@ -1002,61 +1242,62 @@ msgstr "Mentés"
 msgid "Media"
 msgstr "Média"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:66
-#: src/Dialogs/Composer/AttachmentsPage.vala:90
+#: src/Dialogs/Composer/AttachmentsPage.vala:72
+#: src/Dialogs/Composer/AttachmentsPage.vala:98
 msgid "Add Media"
 msgstr "Média hozzáadása"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:75
+#: src/Dialogs/Composer/AttachmentsPage.vala:81
 msgid "No Media"
 msgstr "Nincs média"
 
 #. translators: sensitive as in not safe for work or similar
-#: src/Dialogs/Composer/AttachmentsPage.vala:100
 #: src/Dialogs/Composer/AttachmentsPage.vala:108
+#: src/Dialogs/Composer/AttachmentsPage.vala:116
 msgid "Mark media as sensitive"
 msgstr "A média érzékenynek jelölése"
 
 #. translators: sensitive as in not safe for work or similar
-#: src/Dialogs/Composer/AttachmentsPage.vala:108
+#: src/Dialogs/Composer/AttachmentsPage.vala:116
 msgid "Unmark media as sensitive"
 msgstr "Törölje a média érzékenyként való megjelölését"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:182
+#: src/Dialogs/Composer/AttachmentsPage.vala:190
 msgid "All Supported Files"
 msgstr "Minden támogatott fájl"
 
 #. translators: Open file
-#: src/Dialogs/Composer/AttachmentsPage.vala:196
-#: src/Dialogs/Composer/AttachmentsPage.vala:205
+#: src/Dialogs/Composer/AttachmentsPage.vala:204
+#: src/Dialogs/Composer/AttachmentsPage.vala:213
 msgid "Open"
 msgstr "Megnyitás"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:241
+#: src/Dialogs/Composer/AttachmentsPage.vala:249
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
 msgstr ""
 
-#. translators: Name <email@domain.com> or Name https://website.example
-#: src/Application.vala:278
-msgid "translator-credits"
+#. translators: the variable is the amount of times a hashtag was used in a week
+#: src/API/Tag.vala:35
+#, c-format
+msgid "%d per week"
 msgstr ""
 
-#: src/Application.vala:300
-msgid "Yes"
-msgstr "Igen"
-
 #. translators: the variables are numbers
-#: src/API/Tag.vala:36
+#: src/API/Tag.vala:48
 #, c-format
 msgid "Used %d times by %d people yesterday"
 msgstr ""
 
 #. translators: the variables are numbers
-#: src/API/Tag.vala:44
+#: src/API/Tag.vala:56
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
 msgstr "%d alkalommal használta %d ember az elmúlt 2 napban"
+
+#: src/API/Suggestion.vala:8
+msgid "Account not found"
+msgstr ""
 
 #. translators: the variable is an external service like "PeerTube"
 #: src/API/Status/PreviewCard.vala:25
@@ -1096,7 +1337,7 @@ msgstr ""
 msgid "If you proceed, %s will connect to \"%s\"."
 msgstr ""
 
-#: src/API/Status/PreviewCard.vala:152
+#: src/API/Status/PreviewCard.vala:154
 msgid "Proceed"
 msgstr ""
 
@@ -1110,3 +1351,9 @@ msgstr "A keresés nem adott eredményt"
 #, c-format
 msgid "Empty Conversation with %s"
 msgstr ""
+
+#~ msgid "Evangelos \"GeopJr\" Paterakis"
+#~ msgstr "Evangelos \"GeopJr\" Paterakis"
+
+#~ msgid "Options"
+#~ msgstr "Opciók"

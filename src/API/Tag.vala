@@ -31,7 +31,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 				used_times += int.parse (history.get (i).uses);
 			}
 		}
-
+		// translators: the variable is the amount of times a hashtag was used in a week
 		return _("%d per week").printf (used_times);
 	}
 

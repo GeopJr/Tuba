@@ -103,9 +103,11 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
 			});
 
             if (at_least_one) {
+                // translators: Used when there are results in the custom emoji picker
                 results_label.label = _("Results");
                 custom_emojis_scrolled.scroll_child (Gtk.ScrollType.START, false);
             } else {
+                // translators: Used when there are 0 results in the custom emoji picker
                 results_label.label = _("No Results");
             }
 

@@ -2,7 +2,7 @@ using Gtk;
 
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/base.ui")]
 public class Tuba.Views.Base : Box {
-
+	// translators: Shown when there are 0 results
 	public static string STATUS_EMPTY = _("Nothing to see here");
 
 	public string? icon { get; set; default = null; }
