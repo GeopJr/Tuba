@@ -3,7 +3,7 @@ using Gee;
 public class Tuba.API.Status : Entity, Widgetizable {
 
 	~Status () {
-		message (@"[OBJ] Destroyed $uri");
+		message (@"[OBJ] Destroyed $(uri ?? "")");
 	}
 
     public string id { get; set; }
