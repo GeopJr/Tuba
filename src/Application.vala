@@ -308,6 +308,11 @@ namespace Tuba {
 			//  dialog.translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : null;
 
 			dialog.present ();
+
+			GLib.Idle.add (() => {
+				dialog.add_css_class (Tuba.Celebrate.get_celebration_css_class (new GLib.DateTime.now ()));
+				return GLib.Source.REMOVE;
+			});
 		}
 
 		public Adw.MessageDialog inform (string text, string? msg = null, Gtk.Window? win = app.main_window) {
