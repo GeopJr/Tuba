@@ -72,8 +72,7 @@ public class Tuba.HtmlUtils {
 	}
 
 	public static string replace_with_pango_markup (string str) {
-		return str
-			.replace ("\n", "")
+		var res = str
 			.replace ("<strong>", "<b>")
 			.replace ("</strong>", "</b>")
 			.replace ("<em>", "<i>")
@@ -82,6 +81,9 @@ public class Tuba.HtmlUtils {
 			//  .replace("</code>", "</span>\n")
 			.replace ("<del>", "<s>")
 			.replace ("</del>", "</s>");
+
+		if ("<br" in str) res = res.replace ("\n", "");
+		return res;
 	}
 
 	public static string uri_encode (string str) {
