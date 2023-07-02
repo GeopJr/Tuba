@@ -219,11 +219,13 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 
 		private Binding switcher_display_name;
 		private Binding switcher_handle;
+		private Binding switcher_tooltip;
 		private Binding switcher_avatar;
 		public AccountRow (InstanceAccount? _account) {
 			if (account != null) {
 				switcher_display_name.unbind ();
 				switcher_handle.unbind ();
+				switcher_tooltip.unbind ();
 				switcher_avatar.unbind ();
 			}
 
@@ -232,6 +234,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 
 				switcher_display_name = this.account.bind_property ("display-name", this, "title", BindingFlags.SYNC_CREATE);
 				switcher_handle = this.account.bind_property ("handle", this, "subtitle", BindingFlags.SYNC_CREATE);
+				switcher_tooltip = this.account.bind_property ("handle", this, "tooltip-text", BindingFlags.SYNC_CREATE);
 				switcher_avatar = this.account.bind_property ("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
 			}
 			else {
