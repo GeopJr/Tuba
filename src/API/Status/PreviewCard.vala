@@ -45,11 +45,11 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 			switch (this) {
 				case BASIC:
 					// translators: the variable is a url
-					return _("If you proceed, \"%s\" will open in your browser.".printf (dlg_url));
+					return _("If you proceed, \"%s\" will open in your browser.").printf (dlg_url);
 				default:
 					// translators: the first variable is the app name (Tuba),
 					//				the second one is a url
-					return _("If you proceed, %s will connect to \"%s\".".printf (Build.NAME, dlg_url));
+					return _("If you proceed, %s will connect to \"%s\".").printf (Build.NAME, dlg_url);
 			}
 		}
 

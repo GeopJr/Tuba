@@ -22,7 +22,7 @@ public class Tuba.HtmlUtils {
 			if (_html_params_regex == null) {
 				try {
 					_html_params_regex = new Regex (
-						"(class|target|rel|data-user|data-tag)=\"(.|\n)*?\"",
+						"(class|target|rel|data-user|data-tag|translate)=\"(.|\n)*?\"",
 						GLib.RegexCompileFlags.OPTIMIZE | RegexCompileFlags.CASELESS
 					);
 				} catch (GLib.RegexError e) {
