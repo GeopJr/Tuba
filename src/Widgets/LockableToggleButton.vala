@@ -28,7 +28,7 @@ public abstract class Tuba.LockableToggleButton : ToggleButton {
 	}
 
 	protected void on_toggled () {
-		if (!locked && can_change()) {
+		if (!locked && can_change ()) {
 			commit_change ();
 		}
 	}

@@ -5,7 +5,7 @@ public class Tuba.API.Funkwhale : Entity {
 		res_url = "";
 		failed = true;
 		if (this.uploads != null && this.uploads.size > 0) {
-			var funkwhale_track = this.uploads.get(0);
+			var funkwhale_track = this.uploads.get (0);
 
 			if (funkwhale_track.listen_url != "") {
 				failed = false;

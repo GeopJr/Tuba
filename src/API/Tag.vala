@@ -23,20 +23,32 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	public override void open () {
 	}
 
+	public string weekly_use () {
+		int used_times = 0;
+
+		if (history != null && history.size >= 7) {
+			for (var i = 0; i < 7; i++) {
+				used_times += int.parse (history.get (i).uses);
+			}
+		}
+		// translators: the variable is the amount of times a hashtag was used in a week
+		return _("%d per week").printf (used_times);
+	}
+
 	public override Widget to_widget () {
 		var w = new Adw.ActionRow () {
 			title = @"#$name",
 			activatable = true
 		};
 		if (history != null && history.size > 0) {
-			var last_history_entry = history.get(0);
+			var last_history_entry = history.get (0);
 			var total_uses = int.parse (last_history_entry.uses);
 			var total_accounts = int.parse (last_history_entry.accounts);
 			// translators: the variables are numbers
 			var subtitle = _("Used %d times by %d people yesterday").printf (total_uses, total_accounts);
 
 			if (history.size > 1) {
-				last_history_entry = history.get(1);
+				last_history_entry = history.get (1);
 				total_uses += int.parse (last_history_entry.uses);
 				total_accounts += int.parse (last_history_entry.accounts);
 
@@ -46,7 +58,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 
 			w.subtitle = subtitle;
 		}
-		w.activated.connect(on_activated);
+		w.activated.connect (on_activated);
 		return w;
 	}
 

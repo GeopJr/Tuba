@@ -27,7 +27,7 @@ public class Tuba.EditorPage : ComposerPage {
 		add_button (new Gtk.Separator (Orientation.VERTICAL));
 		install_cw (status.spoiler_text);
 		add_button (new Gtk.Separator (Orientation.VERTICAL));
-		install_emoji_picker();
+		install_emoji_picker ();
 
 		validate ();
 	}
@@ -121,15 +121,15 @@ public class Tuba.EditorPage : ComposerPage {
 			wrap_mode = WrapMode.WORD_CHAR
 		};
 
-		var keypress_controller = new Gtk.EventControllerKey();
-        keypress_controller.key_pressed.connect((keyval, _, modifier) => {
+		var keypress_controller = new Gtk.EventControllerKey ();
+        keypress_controller.key_pressed.connect ((keyval, _, modifier) => {
             if (keyval == Gdk.Key.Return && modifier == Gdk.ModifierType.CONTROL_MASK) {
 				ctrl_return_pressed ();
 				return true;
 			}
             return false;
         });
-        editor.add_controller(keypress_controller);
+        editor.add_controller (keypress_controller);
 
 		#if !MISSING_GTKSOURCEVIEW
 			editor.completion.add_provider (new Tuba.HandleProvider ());
@@ -147,9 +147,9 @@ public class Tuba.EditorPage : ComposerPage {
 
 		char_counter = new Label (char_limit.to_string ()) {
 			margin_end = 6,
-			tooltip_text = _("Characters Left")
+			tooltip_text = _("Characters Left"),
+			css_classes = { "heading" }
 		};
-		char_counter.add_css_class ("heading");
 		bottom_bar.pack_end (char_counter);
 		editor.buffer.changed.connect (validate);
 	}
@@ -166,9 +166,9 @@ public class Tuba.EditorPage : ComposerPage {
 	protected Overlay overlay;
 	protected Label placeholder;
 
-	protected void install_overlay(string t_content) {
-		overlay = new Overlay();
-		placeholder = new Label(_("What's on your mind?")) {
+	protected void install_overlay (string t_content) {
+		overlay = new Overlay ();
+		placeholder = new Label (_("What's on your mind?")) {
 			valign = Align.START,
 			halign = Align.START,
 			justify = Justification.FILL,
@@ -177,22 +177,22 @@ public class Tuba.EditorPage : ComposerPage {
 			wrap = true,
 			sensitive = false
 		};
-		
-		overlay.add_overlay(placeholder);
+
+		overlay.add_overlay (placeholder);
 		overlay.child = new ScrolledWindow () {
 			hexpand = true,
 			vexpand = true,
 			child = editor
 		};
 
-		content.prepend(overlay);
+		content.prepend (overlay);
 		editor.buffer.text = t_content;
 	}
 
 	protected EmojiChooser emoji_picker;
 	protected void install_emoji_picker () {
-		emoji_picker = new EmojiChooser();
-		var emoji_button = new MenuButton() {
+		emoji_picker = new EmojiChooser ();
+		var emoji_button = new MenuButton () {
 			icon_name = "tuba-smile-symbolic",
 			popover = emoji_picker,
 			tooltip_text = _("Emoji Picker")
@@ -205,15 +205,15 @@ public class Tuba.EditorPage : ComposerPage {
 			tooltip_text = _("Custom Emoji Picker")
 		};
 
-		add_button(emoji_button);
-		add_button(custom_emoji_button);
+		add_button (emoji_button);
+		add_button (custom_emoji_button);
 
-		emoji_picker.emoji_picked.connect(on_emoji_picked);
-		custom_emoji_picker.emoji_picked.connect(on_emoji_picked);
+		emoji_picker.emoji_picked.connect (on_emoji_picked);
+		custom_emoji_picker.emoji_picked.connect (on_emoji_picked);
 	}
 
-	protected void on_emoji_picked(string emoji_unicode) {
-		editor.buffer.insert_at_cursor(emoji_unicode, emoji_unicode.data.length);
+	protected void on_emoji_picked (string emoji_unicode) {
+		editor.buffer.insert_at_cursor (emoji_unicode, emoji_unicode.data.length);
 	}
 
 	protected ToggleButton cw_button;
@@ -273,15 +273,20 @@ public class Tuba.EditorPage : ComposerPage {
 	protected void install_visibility (string default_visibility = settings.default_post_visibility) {
 		visibility_button = new DropDown (accounts.active.visibility_list, null) {
 			expression = new PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
-			factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/icon.ui"),
-			list_factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/full.ui"),
+			factory = new BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/icon.ui"),
+			list_factory = new BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/full.ui"),
 			tooltip_text = _("Post Privacy"),
 			sensitive = !edit_mode
 		};
 
-		var safe_visibility = accounts.active.visibility.has_key(default_visibility) ? default_visibility : "public";
+		var safe_visibility = accounts.active.visibility.has_key (default_visibility) ? default_visibility : "public";
 		uint default_visibility_index;
-		if (accounts.active.visibility_list.find(accounts.active.visibility[safe_visibility], out default_visibility_index)) {
+		if (
+			accounts.active.visibility_list.find (
+				accounts.active.visibility[safe_visibility],
+				out default_visibility_index
+			)
+		) {
 			visibility_button.selected = default_visibility_index;
 		}
 
@@ -297,15 +302,21 @@ public class Tuba.EditorPage : ComposerPage {
 
 		language_button = new DropDown (store, null) {
 			expression = new PropertyExpression (typeof (Tuba.Locale), null, "name"),
-			factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/language_title.ui"),
-			list_factory = new BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/language.ui"),
+			factory = new BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language_title.ui"),
+			list_factory = new BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language.ui"),
 			tooltip_text = _("Post Language"),
 			enable_search = true
 		};
 
 		if (locale_iso != null) {
 			uint default_lang_index;
-			if (store.find_with_equal_func(new Tuba.Locale(locale_iso, null, null), Tuba.Locale.compare, out default_lang_index)) {
+			if (
+				store.find_with_equal_func (
+					new Tuba.Locale (locale_iso, null, null),
+					Tuba.Locale.compare,
+					out default_lang_index
+				)
+			) {
 				language_button.selected = default_lang_index;
 			}
 		}

@@ -45,7 +45,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		uint timeout = 0;
 		timeout = Timeout.add (200, () => {
 			entry.grab_focus ();
-			GLib.Source.remove(timeout);
+			GLib.Source.remove (timeout);
 
 			return true;
 		}, Priority.LOW);

@@ -55,7 +55,7 @@
   </recommends>
   <releases>
     <release version="0.3.2" date="2023-05-21">
-        <description>
+        <description translatable="no">
           <ul>
               <li>Fixed severe performance issues on some devices</li>
               <li>Fixed BookWyrm detector being too strict</li>
@@ -63,7 +63,7 @@
         </description>
     </release>
     <release version="0.3.1" date="2023-05-20">
-        <description>
+        <description translatable="no">
           <ul>
               <li>Fixed crash when replying to posts outside of a thread</li>
               <li>Fixed polls not getting updated</li>
@@ -72,7 +72,7 @@
         </description>
     </release>
     <release version="0.3.0" date="2023-05-20">
-        <description>
+        <description translatable="no">
           <ul>
               <li>Added custom emoji support</li>
               <li>Added link preview cards</li>
@@ -133,7 +133,7 @@
         </description>
     </release>
     <release version="0.2.0" date="2023-04-04">
-        <description>
+        <description translatable="no">
           <ul>
               <li>Added composer autocomplete for users, hashtags and emojis</li>
               <li>Migrated to libsoup3</li>
@@ -154,7 +154,7 @@
         </description>
     </release>
     <release version="0.1.0" date="2023-03-23">
-        <description>
+        <description translatable="no">
           <ul>
               <li>Initial release</li>
           </ul>

@@ -35,7 +35,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 					pull_to_refresh_spinner.height_request = 32;
 				}
 				_is_pulling = value;
-			}			
+			}
 		}
 	}
 
@@ -92,8 +92,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		content.bind_model (model, on_create_model_widget);
 
 		var drag = new Gtk.GestureDrag ();
-        drag.drag_update.connect(on_drag_update);
-        drag.drag_end.connect(on_drag_end);
+        drag.drag_update.connect (on_drag_update);
+        drag.drag_end.connect (on_drag_end);
         this.add_controller (drag);
 	}
 	~Timeline () {
@@ -134,7 +134,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		var pages = header.split (",");
 		foreach (var page in pages) {
 			var sanitized = page
-				.replace ("<","")
+				.replace ("<", "")
 				.replace (">", "")
 				.split (";")[0];
 
@@ -155,7 +155,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	public virtual Request append_params (Request req) {
 		if (page_next == null)
-			return req.with_param ("limit", @"$(settings.timeline_page_size)");
+			return req.with_param ("limit", settings.timeline_page_size.to_string ());
 		else
 			return req;
 	}
@@ -169,7 +169,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			.with_account (account)
 			.with_ctx (this)
 			.then ((sess, msg, in_stream) => {
-				var parser = Network.get_parser_from_inputstream(in_stream);
+				var parser = Network.get_parser_from_inputstream (in_stream);
 
 				Object[] to_add = {};
 				Network.parse_array (msg, parser, node => {
@@ -257,10 +257,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		try {
 			var entity = Entity.from_json (accepts, ev.get_node ());
 			var entity_id = ((API.Status)entity).id;
-			for (uint i = 0; i < model.get_n_items(); i++) {
-				var status_obj = (API.Status)model.get_item(i);
+			for (uint i = 0; i < model.get_n_items (); i++) {
+				var status_obj = (API.Status)model.get_item (i);
 				if (status_obj.id == entity_id) {
-					model.remove(i);
+					model.remove (i);
 					model.insert (i, entity);
 					break;
 				}
@@ -274,12 +274,12 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		try {
 			var status_id = ev.get_string ();
 
-			for (uint i = 0; i < model.get_n_items(); i++) {
-				var status_obj = (API.Status)model.get_item(i);
+			for (uint i = 0; i < model.get_n_items (); i++) {
+				var status_obj = (API.Status)model.get_item (i);
 				// Not sure if there can be both the original
 				// and a boost of it at the same time.
 				if (status_obj.id == status_id || status_obj.formal.id == status_id) {
-					model.remove(i);
+					model.remove (i);
 					// If there can be both the original
 					// and boosts at the same time, then
 					// it shouldn't stop at the first find.

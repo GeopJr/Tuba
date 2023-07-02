@@ -111,7 +111,7 @@ public class Tuba.Streams : Object {
 			if (!closing) {
 				warning (@"DISCONNECTED: $name. Reconnecting in $timeout seconds.");
 				GLib.Timeout.add_seconds (timeout, start);
-				timeout = int.min (timeout*2, 6);
+				timeout = int.min (timeout * 2, 6);
 			}
 			message (@"Closing stream: $name");
 		}
@@ -132,7 +132,7 @@ public class Tuba.Streams : Object {
 			}
 		}
 
-		void decode (Bytes bytes, out Streamable.Event event) throws Error{
+		void decode (Bytes bytes, out Streamable.Event event) throws Error {
 			var msg = (string) bytes.get_data ();
 			var parser = new Json.Parser ();
 			parser.load_from_data (msg, -1);

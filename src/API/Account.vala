@@ -22,6 +22,7 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	public string header { get; set; }
 	public string avatar { get; set; }
 	public string url { get; set; }
+	public bool bot { get; set; default=false; }
 	public string created_at { get; set; }
 	public Gee.ArrayList<API.Emoji>? emojis { get; set; }
 	public int64 followers_count { get; set; }
@@ -55,15 +56,15 @@ public class Tuba.API.Account : Entity, Widgetizable {
 
 	public Gee.HashMap<string, string>? emojis_map {
 		owned get {
-			return gen_emojis_map();
+			return gen_emojis_map ();
 		}
 	}
 
 	private Gee.HashMap<string, string>? gen_emojis_map () {
-		var res = new Gee.HashMap<string, string>();
+		var res = new Gee.HashMap<string, string> ();
 		if (emojis != null && emojis.size > 0) {
 			emojis.@foreach (e => {
-				res.set(e.shortcode, e.url);
+				res.set (e.shortcode, e.url);
 				return true;
 			});
 		}

@@ -5,7 +5,7 @@ using Gee;
 public class Tuba.Dialogs.Compose : Adw.Window {
 	public class BasicStatus : Object {
 		public class BasicPoll : Object {
-			public Gee.ArrayList<string> options { get; set; default=new Gee.ArrayList <string>(); }
+			public Gee.ArrayList<string> options { get; set; default=new Gee.ArrayList <string> (); }
 			public int64 expires_in { get; set; default=0; }
 			public string expires_at { get; set; default=null; }
 			public bool multiple { get; set; }
@@ -13,12 +13,12 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 			public BasicPoll.from_poll (API.Poll t_poll) {
 				if (t_poll.options != null && t_poll.options.size > 0) {
-					foreach (API.PollOption p in t_poll.options){
+					foreach (API.PollOption p in t_poll.options) {
 						options.add (p.title);
 					}
 				}
 
-				if (t_poll.expires_at != null) { 
+				if (t_poll.expires_at != null) {
 					var date = new GLib.DateTime.from_iso8601 (t_poll.expires_at, null);
 					var now = new GLib.DateTime.now_local ();
 					var delta = date.difference (now);
@@ -32,15 +32,15 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 			public bool equal (BasicPoll t_poll) {
 				return
-					t_poll.multiple == multiple &&
-					BasicStatus.array_string_eq (options, t_poll.options);
+					t_poll.multiple == multiple
+					&& BasicStatus.array_string_eq (options, t_poll.options);
 			}
 		}
 
 		public string id { get; set; }
 		public string status { get; set; }
-		public Gee.ArrayList<string> media_ids { get; private set; default=new Gee.ArrayList<string>(); }
-		public Gee.HashMap<string, string> media { get; private set; default=new Gee.HashMap<string, string>(); }
+		public Gee.ArrayList<string> media_ids { get; private set; default=new Gee.ArrayList<string> (); }
+		public Gee.HashMap<string, string> media { get; private set; default=new Gee.HashMap<string, string> (); }
 		public BasicPoll poll { get; set; }
 		public string in_reply_to_id { get; set; }
 		public bool sensitive { get; set; }
@@ -63,7 +63,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			id = t_status.id;
 			status = t_status.content;
 
-			if (t_status.has_media()) {
+			if (t_status.has_media ()) {
 				media_attachments = t_status.media_attachments;
 
 				foreach (var t_attachment in t_status.media_attachments) {
@@ -86,14 +86,14 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 		public bool equal (BasicStatus t_status) {
 			return
-				t_status.status == status &&
-				t_status.sensitive == sensitive &&
-				t_status.spoiler_text == spoiler_text &&
-				t_status.visibility == visibility &&
-				t_status.language == language &&
-				array_string_eq (media_ids, t_status.media_ids) &&
-				!alts_changed (t_status) &&
-				(poll != null && t_status != null ? poll.equal (t_status.poll) : poll == null && t_status == null);
+				t_status.status == status
+				&& t_status.sensitive == sensitive
+				&& t_status.spoiler_text == spoiler_text
+				&& t_status.visibility == visibility
+				&& t_status.language == language
+				&& array_string_eq (media_ids, t_status.media_ids)
+				&& !alts_changed (t_status)
+				&& (poll != null && t_status != null ? poll.equal (t_status.poll) : poll == null && t_status == null);
 		}
 
 		public static bool array_string_eq (Gee.Collection<string> a1, Gee.Collection<string> a2) {
@@ -145,7 +145,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		exit_action.activate.connect (on_exit);
 
 		var action_group = new GLib.SimpleActionGroup ();
-		action_group.add_action(exit_action);
+		action_group.add_action (exit_action);
 
 		this.insert_action_group ("composer", action_group);
 		add_binding_action (Gdk.Key.Escape, 0, "composer.exit", null);
@@ -185,7 +185,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 				Adw.ResponseAppearance.DESTRUCTIVE,
 				_("Cancel")
 			);
-			dlg.response.connect(on_dlg_response);
+			dlg.response.connect (on_dlg_response);
 			dlg.present ();
 		}
 	}
@@ -213,8 +213,18 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		// Composer rules
 		// 1. Either attachments or polls
 		// 2. Poll needs edit to be valid
-		p_attach.bind_property ("can-publish", p_poll, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
-		p_poll.bind_property ("is-valid", p_attach, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
+		p_attach.bind_property (
+			"can-publish",
+			p_poll,
+			"visible",
+			GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN
+		);
+		p_poll.bind_property (
+			"is-valid",
+			p_attach,
+			"visible",
+			GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN
+		);
 		p_edit.bind_property ("can-publish", p_poll, "can-publish", GLib.BindingFlags.SYNC_CREATE);
 
 		p_edit.editor_grab_focus ();
@@ -245,8 +255,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	public Compose (API.Status template = new API.Status.empty ()) {
 		Object (
-			status: new BasicStatus.from_status(template),
-			original_status: new BasicStatus.from_status(template),
+			status: new BasicStatus.from_status (template),
+			original_status: new BasicStatus.from_status (template),
 			button_label: _("_Publish"),
 			button_class: "suggested-action"
 		);
@@ -254,8 +264,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	public Compose.redraft (API.Status status) {
 		Object (
-			status: new BasicStatus.from_status(status),
-			original_status: new BasicStatus.from_status(status),
+			status: new BasicStatus.from_status (status),
+			original_status: new BasicStatus.from_status (status),
 			button_label: _("_Redraft"),
 			button_class: "destructive-action"
 		);
@@ -279,8 +289,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		}
 
 		Object (
-			status: new BasicStatus.from_status(template),
-			original_status: new BasicStatus.from_status(template),
+			status: new BasicStatus.from_status (template),
+			original_status: new BasicStatus.from_status (template),
 			button_label: _("_Edit"),
 			button_class: "suggested-action",
 			editing: true
@@ -300,8 +310,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		};
 
 		Object (
-			status: new BasicStatus.from_status(template),
-			original_status: new BasicStatus.from_status(template),
+			status: new BasicStatus.from_status (template),
+			original_status: new BasicStatus.from_status (template),
 			button_label: _("_Reply"),
 			button_class: "suggested-action"
 		);
@@ -366,8 +376,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	protected virtual void update_alt_texts (Json.Builder builder) {
 		if (
-			status.media_ids.size == 0 ||
-			original_status.media_ids.size == 0
+			status.media_ids.size == 0
+			|| original_status.media_ids.size == 0
 		) return;
 
 		builder.set_member_name ("media_attributes");
@@ -375,8 +385,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 		foreach (var entry in status.media.entries) {
 			if (
-				!original_status.media_ids.contains (entry.key) ||
-				original_status.media.get (entry.key) == entry.value
+				!original_status.media_ids.contains (entry.key)
+				|| original_status.media.get (entry.key) == entry.value
 			) continue;
 
 			builder.begin_object ();
@@ -417,7 +427,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 		yield publish_req.await ();
 
-		var parser = Network.get_parser_from_inputstream(publish_req.response_body);
+		var parser = Network.get_parser_from_inputstream (publish_req.response_body);
 		var node = network.parse_node (parser);
 		var status = API.Status.from (node);
 		message (@"Published post with id $(status.id)");

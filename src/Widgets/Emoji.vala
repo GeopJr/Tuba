@@ -4,7 +4,7 @@ using Gdk;
 public class Tuba.Widgets.Emoji : Adw.Bin {
 
 	protected Image image;
-	public string? shortcode { get; set; } 
+	public string? shortcode { get; set; }
 
 	construct {
 		image = new Gtk.Image ();

@@ -1,6 +1,6 @@
 public class Tuba.API.PeerTube : Entity {
 	public string url { get; set; }
-	public Gee.ArrayList<API.PeerTubeStreamingPlaylist>? streamingPlaylists { get; set; default=null; }
+	public Gee.ArrayList<API.PeerTubeStreamingPlaylist>? streamingPlaylists { get; set; default=null; } // vala-lint=naming-convention
 
 	// Anything higher is usually very laggy
 	const int64[] IDEAL_PEERTUBE_RESOLUTION = { 720, 480, 360 };
@@ -9,7 +9,7 @@ public class Tuba.API.PeerTube : Entity {
 		var t_res = "";
 		if (this.url == t_url) {
 			if (this.streamingPlaylists != null && this.streamingPlaylists.size > 0) {
-				var peertube_streaming_playlist = this.streamingPlaylists.get(0);
+				var peertube_streaming_playlist = this.streamingPlaylists.get (0);
 				if (peertube_streaming_playlist.files != null && peertube_streaming_playlist.files.size > 0) {
 					peertube_streaming_playlist.files.foreach (file => {
 						if (file.fileDownloadUrl == "" || file.resolution == null) return true;

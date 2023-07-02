@@ -18,7 +18,7 @@ public class Tuba.Network : GLib.Object {
 
 	construct {
 		session = new Soup.Session () {
-			user_agent = @"$(Build.NAME)/$(Build.VERSION) libsoup/$(Soup.get_major_version()).$(Soup.get_minor_version()).$(Soup.get_micro_version()) ($(Soup.MAJOR_VERSION).$(Soup.MINOR_VERSION).$(Soup.MICRO_VERSION))"
+			user_agent = @"$(Build.NAME)/$(Build.VERSION) libsoup/$(Soup.get_major_version()).$(Soup.get_minor_version()).$(Soup.get_micro_version()) ($(Soup.MAJOR_VERSION).$(Soup.MINOR_VERSION).$(Soup.MICRO_VERSION))" // vala-lint=line-length
 		};
 		session.request_unqueued.connect (msg => {
 			requests_processing--;
@@ -27,7 +27,12 @@ public class Tuba.Network : GLib.Object {
 		});
 	}
 
-	public void queue (owned Soup.Message msg, GLib.Cancellable? cancellable, owned SuccessCallback cb, owned ErrorCallback? ecb) {
+	public void queue (
+		owned Soup.Message msg,
+		GLib.Cancellable? cancellable,
+		owned SuccessCallback cb,
+		owned ErrorCallback? ecb
+	) {
 		requests_processing++;
 		started ();
 
@@ -83,11 +88,11 @@ public class Tuba.Network : GLib.Object {
 	}
 
 	public static uint get_array_size (Json.Parser parser) {
-		return get_array_mstd(parser).get_length();
+		return get_array_mstd (parser).get_length ();
 	}
 
 	public static void parse_array (Soup.Message msg, Json.Parser parser, owned NodeCallback cb) throws Error {
-		get_array_mstd(parser).foreach_element ((array, i, node) => {
+		get_array_mstd (parser).foreach_element ((array, i, node) => {
 			try {
 				cb (node, msg);
 			} catch (Error e) {

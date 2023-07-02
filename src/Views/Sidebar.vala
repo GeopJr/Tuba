@@ -30,26 +30,29 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	protected SliceListModel account_items;
 	protected FlattenListModel item_model;
 
-	public static Place KEYBOARD_SHORTCUTS = new Place () {
-		title = _("Keyboard Shortcuts"),
+	public static Place KEYBOARD_SHORTCUTS = new Place () { // vala-lint=naming-convention
+
 		icon = "input-keyboard-symbolic",
+		title = _("Keyboard Shortcuts"),
 		selectable = false,
 		open_func = () => {
 			app.main_window.lookup_action ("show-help-overlay").activate (null);
 		}
 	};
-	public static Place PREFERENCES = new Place () {
-			title = _("Preferences"),
+	public static Place PREFERENCES = new Place () { // vala-lint=naming-convention
+
 			icon = "tuba-gear-symbolic",
+			title = _("Preferences"),
 			selectable = false,
 			separated = true,
 			open_func = () => {
 				Dialogs.Preferences.open ();
 			}
 	};
-	public static Place ABOUT = new Place () {
-			title = _("About"),
+	public static Place ABOUT = new Place () { // vala-lint=naming-convention
+
 			icon = "tuba-about-symbolic",
+			title = _("About"),
 			selectable = false,
 			open_func = () => {
 				app.lookup_action ("about").activate (null);
@@ -78,7 +81,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 
 	protected virtual void on_accounts_changed (Gee.ArrayList<InstanceAccount> accounts) {
 		var w = saved_accounts.get_first_child ();
-		while(w != null) {
+		while (w != null) {
 			saved_accounts.remove (w);
 			w = saved_accounts.get_first_child ();
 		}
@@ -92,9 +95,9 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 		saved_accounts.append (new_acc_row);
 	}
 
-	public void set_sidebar_selected_item(int index) {
+	public void set_sidebar_selected_item (int index) {
 		if (items != null) {
-			items.select_row(items.get_row_at_index(index));
+			items.select_row (items.get_row_at_index (index));
 		}
 	}
 
@@ -103,8 +106,8 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	private Binding sidebar_display_name;
 	protected virtual void on_account_changed (InstanceAccount? account) {
 		if (this.account != null) {
-			sidebar_handle_short.unbind();
-			sidebar_avatar.unbind();
+			sidebar_handle_short.unbind ();
+			sidebar_avatar.unbind ();
 			sidebar_display_name.unbind ();
 		}
 
@@ -115,13 +118,19 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 		accounts_button.active = false;
 
 		if (account != null) {
-			sidebar_handle_short = this.account.bind_property("handle_short", subtitle, "label", BindingFlags.SYNC_CREATE);
-			sidebar_avatar = this.account.bind_property("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
-			sidebar_display_name = this.account.bind_property("display-name", title, "content", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-				title.instance_emojis = this.account.emojis_map;
-				target.set_string (src.get_string ());
-				return true;
-			});
+			sidebar_handle_short = this.account.bind_property ("handle_short", subtitle, "label", BindingFlags.SYNC_CREATE);
+			sidebar_avatar = this.account.bind_property ("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
+			sidebar_display_name = this.account.bind_property (
+				"display-name",
+				title,
+				"content",
+				BindingFlags.SYNC_CREATE,
+				(b, src, ref target) => {
+					title.instance_emojis = this.account.emojis_map;
+					target.set_string (src.get_string ());
+					return true;
+				}
+			);
 
 			account_items.model = account.known_places;
 		} else {
@@ -213,17 +222,17 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 		private Binding switcher_avatar;
 		public AccountRow (InstanceAccount? _account) {
 			if (account != null) {
-				switcher_display_name.unbind();
-				switcher_handle.unbind();
-				switcher_avatar.unbind();
+				switcher_display_name.unbind ();
+				switcher_handle.unbind ();
+				switcher_avatar.unbind ();
 			}
 
 			account = _account;
 			if (account != null) {
-				
-				switcher_display_name = this.account.bind_property("display-name", this, "title", BindingFlags.SYNC_CREATE);
-				switcher_handle = this.account.bind_property("handle", this, "subtitle", BindingFlags.SYNC_CREATE);
-				switcher_avatar = this.account.bind_property("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
+
+				switcher_display_name = this.account.bind_property ("display-name", this, "title", BindingFlags.SYNC_CREATE);
+				switcher_handle = this.account.bind_property ("handle", this, "subtitle", BindingFlags.SYNC_CREATE);
+				switcher_avatar = this.account.bind_property ("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
 			}
 			else {
 				title = _("Add Account");
@@ -249,7 +258,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 				Adw.ResponseAppearance.DESTRUCTIVE
 			);
 
-			confirmed.response.connect(res => {
+			confirmed.response.connect (res => {
 				if (res == "yes") {
 					try {
 						accounts.remove (account);
@@ -260,7 +269,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 						dlg.present ();
 					}
 				}
-				confirmed.destroy();
+				confirmed.destroy ();
 			});
 
 			confirmed.present ();

@@ -3,7 +3,7 @@ using Gtk;
 public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 
 	public EmojiProvider () {
-		Object(trigger_char: ":");
+		Object (trigger_char: ":");
 	}
 
 	internal class Proposal: Object, GtkSource.CompletionProposal {
@@ -13,7 +13,7 @@ public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 			Object (emoji: entity);
 		}
 
-		public override string? get_typed_text() {
+		public override string? get_typed_text () {
 			return this.emoji.shortcode + ":";
 		}
 	}
@@ -37,7 +37,11 @@ public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 		return results;
 	}
 
-	public override void display (GtkSource.CompletionContext context, GtkSource.CompletionProposal proposal, GtkSource.CompletionCell cell) {
+	public override void display (
+		GtkSource.CompletionContext context,
+		GtkSource.CompletionProposal proposal,
+		GtkSource.CompletionCell cell
+	) {
 		var emoji = (proposal as Proposal)?.emoji;
 		return_if_fail (emoji != null);
 
@@ -57,5 +61,4 @@ public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 				break;
 		}
 	}
-
 }

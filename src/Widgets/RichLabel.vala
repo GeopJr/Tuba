@@ -12,7 +12,7 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		get { return widget.content; }
 		set {
 			widget.content = value;
-			var rtl = rtl_regex.match(value);
+			var rtl = rtl_regex.match (value);
 			if (rtl) {
 				xalign = is_rtl ? 0 : 1;
 			} else {
@@ -64,7 +64,7 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	}
 
 	construct {
-		widget = new Widgets.EmojiLabel() {
+		widget = new Widgets.EmojiLabel () {
 			use_markup = true,
 			valign = Gtk.Align.CENTER
 		};
@@ -72,27 +72,8 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		child = widget;
 	}
 
-	public static string escape_entities (string content) {
-		return content
-			.replace ("&nbsp;", " ")
-			.replace ("'", "&apos;");
-	}
-
-	public static string restore_entities (string content) {
-		return content
-			.replace ("&lt;", "<")
-			.replace ("&gt;", ">")
-			.replace ("&apos;", "'")
-			.replace ("&quot;", "\"")
-			.replace ("&#39;", "'")
-
-			// Always last since its prone to errors
-			// like &amp;lt; => &lt; => <
-			.replace ("&amp;", "&");
-	}
-
 	public bool on_activate_link (string url) {
-		if (mentions != null){
+		if (mentions != null) {
 			mentions.@foreach (mention => {
 				if (url == mention.url)
 					mention.open ();

@@ -20,10 +20,7 @@ public class Tuba.Widgets.Avatar : Button {
 	construct {
 		child = new Adw.Avatar (48, null, true);
 		halign = valign = Align.CENTER;
-		add_css_class ("flat");
-		add_css_class ("circular");
-		add_css_class ("image-button");
-		add_css_class ("ttl-flat-button");
+		css_classes = { "flat", "circular", "image-button", "ttl-flat-button" };
 
 		notify["account"].connect (on_invalidated);
 		notify["avatar-url"].connect (on_avatar_url_change);

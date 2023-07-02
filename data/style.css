@@ -30,6 +30,10 @@ flowboxchild {
 	margin: 8px;
 }
 
+.cover-badge.only-icon {
+	padding: 6px;
+}
+
 .ttl-flat-button {
 	padding: 0px;
 	margin: 0px;
@@ -180,11 +184,11 @@ flowboxchild {
 }
 
 .ttl-status-font-large {
-	font-size: 18.333333333333332px;
+	font-size: larger;
 }
 
 .ttl-status-font-large > .ttl-large-body {
-	font-size: 19px;
+	font-size: larger;
 }
 
 .ttl-large-body {
@@ -213,7 +217,7 @@ flowboxchild {
 	background-color: alpha(mix(@green_4, white, .8), .8);
 }
 
-.ttl-status-badge>* {
+.ttl-status-badge>*, .ttl-status-badge.sensitive-label {
 	padding: 1px 6px;
 }
 
@@ -375,4 +379,8 @@ GtkSourceAssistant.completion list row{
 
 video > overlay > revealer > controls {
 	padding: 12px;
+}
+
+.spoilered-attachment {
+	filter: blur(30px);
 }

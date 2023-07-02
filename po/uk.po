@@ -2,22 +2,24 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Andrew Nitrogenesis <nitrogenesis.developer@gmail.com>, 2023.
+# Вова Смірнов <vovasmirnon5895@gmail.com>, 2023.
+# Dan <denqwerta@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-19 23:29+0300\n"
-"PO-Revision-Date: 2023-04-01 01:38+0000\n"
-"Last-Translator: Andrew Nitrogenesis <nitrogenesis.developer@gmail.com>\n"
+"POT-Creation-Date: 2023-07-01 06:36+0300\n"
+"PO-Revision-Date: 2023-06-03 19:49+0000\n"
+"Last-Translator: Вова Смірнов <vovasmirnon5895@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tuba/tuba/uk/"
 ">\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -25,7 +27,7 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Подорожуйте по Федісвіту"
+msgstr "Подорожувати по Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
@@ -41,9 +43,9 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-"Переглядайте федеративну соціальну мережу із Tuba для GNOME. Залишайтеся на "
-"зв'язку із вашими улюбленими спільнотами, сім'єю та друзями з підтримкою "
-"платформ Федісвіту, по типу Mastodon, GoToSocial, Akkoma, тощо!"
+"Переглядайте федеративну соціальну мережу завдяки Tuba для GNOME. "
+"Залишайтеся на зв'язку із вашими улюбленими спільнотами, сім'єю та друзями з "
+"підтримкою платформ Fediverse, як Mastodon, GoToSocial, Akkoma тощо!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
 msgid ""
@@ -53,43 +55,50 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
-"Федісвіт (Fediverse) - це децентрализована соціальна мережа, що складається "
-"з великої кількості взаємозв'язаних платформ й спільнот, що дозволяє "
-"користувачам спілкуватись й поширювати контент через різні соціальні мережі "
-"й сервери. Федісвіт просуває приватність користувача й його даних, а також "
-"пропонує альтернативу централизованим соціальним платформам."
-
-#: data/dev.geopjr.Tuba.appdata.xml.in:19
-msgid "Evangelos \"GeopJr\" Paterakis"
-msgstr "Євангелос \"GeopJr\" Патеракіс"
+"Fediverse - це децентралізована соціальна мережа, що складається з великої "
+"кількості взаємозв'язаних платформ й спільнот, що дозволяє користувачам "
+"спілкуватись й поширювати контент через різні соціальні мережі й сервери. "
+"Він просуває приватність користувача і контроль над своїми даними, а також "
+"пропонує альтернативу централізованим соціальним платформам."
 
 #: data/ui/widgets/status.ui:156
 msgid "Pinned"
-msgstr "Закріплене"
+msgstr "Закріплено"
 
 #: data/ui/widgets/status.ui:167
 msgid "Edited"
-msgstr "Відредаговане"
+msgstr "Відредаговано"
 
-#: data/ui/widgets/status.ui:249 src/Widgets/Status.vala:343
+#. translators: Tooltip that closes content warning
+#: data/ui/widgets/status.ui:224
+msgid "Show Less"
+msgstr ""
+
+#. translators: Tooltip that opens content warning
+#: data/ui/widgets/status.ui:256 src/Widgets/Status.vala:371
 msgid "Show More"
-msgstr "Показати Більше"
+msgstr "Показати більше"
 
-#: data/ui/widgets/status.ui:329 data/ui/widgets/status.ui:330
+#: data/ui/widgets/status.ui:336 data/ui/widgets/status.ui:337
 msgid "Decline"
 msgstr "Відхилити"
 
-#: data/ui/widgets/status.ui:342 data/ui/widgets/status.ui:343
+#: data/ui/widgets/status.ui:349 data/ui/widgets/status.ui:350
 msgid "Accept"
 msgstr "Прийняти"
 
+#. translators: Tooltip on icon indicating that the user is a bot/automated account
+#: data/ui/views/profile_header.ui:36
+msgid "Bot"
+msgstr ""
+
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
-msgstr "Нова Публікація"
+msgstr "Публікувати"
 
 #: data/ui/views/sidebar/view.ui:23
 msgid "Switch Account"
-msgstr "Змінити Акаунт"
+msgstr "Змінити обліковий запис"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
@@ -97,7 +106,7 @@ msgstr "Згадати"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr "Надіслати Повідомлення"
+msgstr "Надіслати повідомлення"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
@@ -105,27 +114,27 @@ msgstr "Поділитись"
 
 #: data/ui/menus.ui:29
 msgid "Moderation"
-msgstr "Модерація"
+msgstr "Керування"
 
 #: data/ui/menus.ui:31
 msgid "Hide Boosts"
-msgstr "Сховати Поширення"
+msgstr "Сховати поширення"
 
 #: data/ui/menus.ui:36
 msgid "Mute"
-msgstr "Приглушити"
+msgstr "Заглушити"
 
 #: data/ui/menus.ui:41
 msgid "Report"
 msgstr "Поскаржитись"
 
-#: data/ui/menus.ui:47 src/Views/Profile.vala:299 src/Views/Profile.vala:323
+#: data/ui/menus.ui:47 src/Views/Profile.vala:357 src/Views/Profile.vala:381
 msgid "Block"
 msgstr "Заблокувати"
 
 #: data/ui/menus.ui:51
 msgid "Block Domain"
-msgstr "Заблокувати Домен"
+msgstr "Заблокувати домен"
 
 #: data/ui/menus.ui:59
 msgid "Timeline"
@@ -137,22 +146,23 @@ msgstr "Фільтр"
 
 #: data/ui/menus.ui:80
 msgid "Include Replies"
-msgstr "Показувати Відповіді"
+msgstr "Показувати відповіді"
 
 #: data/ui/menus.ui:85
 msgid "Include Media"
-msgstr "Показувати Медіа"
+msgstr "Показувати медіа"
 
 #: data/ui/menus.ui:108 src/Views/Lists.vala:283
 #: src/Services/Accounts/Mastodon/Account.vala:68
 msgid "Lists"
 msgstr "Списки"
 
-#: data/ui/menus.ui:113
+#: data/ui/menus.ui:113 data/gtk/help-overlay.ui:20
 msgid "Refresh"
 msgstr "Оновити"
 
-#: data/ui/dialogs/preferences.ui:19 src/Views/Lists.vala:90
+#: data/ui/dialogs/preferences.ui:19 data/gtk/help-overlay.ui:11
+#: src/Views/Lists.vala:90
 msgid "General"
 msgstr "Основне"
 
@@ -162,7 +172,7 @@ msgstr "Вигляд"
 
 #: data/ui/dialogs/preferences.ui:25
 msgid "Color Scheme"
-msgstr "Колірна Схема"
+msgstr "Колірна схема"
 
 #: data/ui/dialogs/preferences.ui:39
 msgid "Larger font size"
@@ -170,7 +180,7 @@ msgstr "Збільшити розмір шрифту"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Makes the font larger for posts"
-msgstr "Робить шрифт публікацій більше"
+msgstr "Збільшує шрифт публікацій"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Larger line height"
@@ -178,19 +188,19 @@ msgstr "Збільшити відстань між рядками"
 
 #: data/ui/dialogs/preferences.ui:53
 msgid "Makes the line height larger for posts"
-msgstr "Робить відстань рядків у постах більше"
+msgstr "Збільшує відстань рядків у постах"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Posting"
-msgstr ""
+msgstr "Публікування"
 
 #: data/ui/dialogs/preferences.ui:68
 msgid "Default post visibility"
-msgstr ""
+msgstr "Типова видимість публікації"
 
 #: data/ui/dialogs/preferences.ui:77
 msgid "Default post language"
-msgstr ""
+msgstr "Типова мова публікації"
 
 #: data/ui/dialogs/preferences.ui:88
 msgid "Behavior"
@@ -198,7 +208,7 @@ msgstr "Поведінка"
 
 #: data/ui/dialogs/preferences.ui:91
 msgid "Autostart"
-msgstr "Автоматичний запуск"
+msgstr "Автозапуск"
 
 #: data/ui/dialogs/preferences.ui:93
 msgid "Start minimized at boot"
@@ -206,52 +216,65 @@ msgstr "Запускати при вході у систему"
 
 #: data/ui/dialogs/preferences.ui:104
 msgid "Background work"
-msgstr "Фонова праця"
+msgstr "Працювати в фоні"
 
 #: data/ui/dialogs/preferences.ui:106
 msgid "Receive notifications even when the app is closed"
-msgstr "Отримувати сповіщення навіть якщо додаток закритий"
+msgstr "Отримувати сповіщення навіть якщо застосунок закритий"
 
-#: data/ui/dialogs/preferences.ui:118
+#: data/ui/dialogs/preferences.ui:116
+msgid "Strip tracking parameters from links"
+msgstr ""
+
+#. translators: Broken as in incorrect
+#: data/ui/dialogs/preferences.ui:119
+msgid "It can lead to broken links"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:131
 msgid "Timelines"
 msgstr "Стрічки"
 
-#: data/ui/dialogs/preferences.ui:121
+#: data/ui/dialogs/preferences.ui:134
 msgid "Posts per load batch"
-msgstr "Кількість предзавантажених публікацій"
+msgstr "Кількість передзавантажених публікацій"
 
-#: data/ui/dialogs/preferences.ui:135
+#: data/ui/dialogs/preferences.ui:148
 msgid "Stream timelines"
-msgstr "Моніторинг стрічок"
+msgstr "Моніторити стрічки"
 
-#: data/ui/dialogs/preferences.ui:137
+#: data/ui/dialogs/preferences.ui:150
 msgid "Receive new posts and notifications in real-time"
 msgstr "Отримувати нові пости й сповіщення у реальному часі"
 
-#: data/ui/dialogs/preferences.ui:148
+#: data/ui/dialogs/preferences.ui:161
 msgid "Stream public timelines"
 msgstr "Моніторити публічні стрічки"
 
-#: data/ui/dialogs/preferences.ui:150
+#: data/ui/dialogs/preferences.ui:163
 msgid "Warning: This will increase memory usage"
 msgstr "Попередження: Це збільшить споживання пам'яті"
 
-#: data/ui/dialogs/preferences.ui:160
+#: data/ui/dialogs/preferences.ui:173
 msgid "Reveal spoilers by default"
 msgstr "Завжди розкривати спойлери"
 
-#: data/ui/dialogs/preferences.ui:171
+#: data/ui/dialogs/preferences.ui:184
 msgid "Hide link preview cards"
-msgstr ""
+msgstr "Приховати картки попереднього перегляду посилань"
 
-#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:233
-msgid "Add Account"
-msgstr "Додати Акаунт"
-
-#: data/ui/dialogs/new_account.ui:27 data/ui/dialogs/compose.ui:29
-#: src/Application.vala:300
+#: data/ui/dialogs/compose.ui:29 data/ui/dialogs/new_account.ui:27
+#: src/Application.vala:332 src/Dialogs/Composer/Dialog.vala:186
 msgid "Cancel"
 msgstr "Скасувати"
+
+#: data/ui/dialogs/compose.ui:36 src/Dialogs/Composer/Dialog.vala:250
+msgid "_Publish"
+msgstr "_Опублікувати"
+
+#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:229
+msgid "Add Account"
+msgstr "Додати обліковий запис"
 
 #: data/ui/dialogs/new_account.ui:34 data/ui/dialogs/new_account.ui:119
 msgid "Next"
@@ -259,20 +282,20 @@ msgstr "Далі"
 
 #: data/ui/dialogs/new_account.ui:48
 msgid "What is your Server?"
-msgstr "Який у Вас сервер?"
+msgstr "Який ваш сервер?"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
-"\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
+"servers\">choose a server and register one</a>."
 msgstr ""
-"Якщо у Вас все ще немає акаунту, <a href=\"https://joinmastodon.org/uk/"
+"Якщо ви ще немає акаунту, <a href=\"https://joinmastodon.org/uk/"
 "servers\">оберіть сервер та зареєструйтеся</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
-msgstr "URL Серверу"
+msgstr "URL серверу"
 
 #: data/ui/dialogs/new_account.ui:112
 msgid "Back"
@@ -280,7 +303,7 @@ msgstr "Назад"
 
 #: data/ui/dialogs/new_account.ui:133
 msgid "Confirm Authorization"
-msgstr "Підтвердити Авторізацію"
+msgstr "Підтвердити вхід"
 
 #. translators: Do not translate "manual_auth"
 #: data/ui/dialogs/new_account.ui:153
@@ -288,12 +311,11 @@ msgid ""
 "If something went wrong, <a href=\"manual_auth\">try manual authorization</"
 "a>."
 msgstr ""
-"Якщо щось пішло не так, <a href=\"manual_auth\">спробуйте ручну авторизацію</"
-"a>."
+"Якщо щось пішло не так, <a href=\"manual_auth\">спробуйте ввійти вручну</a>."
 
 #: data/ui/dialogs/new_account.ui:163
 msgid "Authorization Code"
-msgstr "Код Авторизації"
+msgstr "Код входу"
 
 #: data/ui/dialogs/new_account.ui:203
 msgid "Done"
@@ -301,11 +323,138 @@ msgstr "Готово"
 
 #: data/ui/dialogs/new_account.ui:218
 msgid "Your account is connected and ready to use!"
-msgstr "Ваш акаунт підключений й готовий до використання!"
+msgstr "Ваш обліковий запис підключено й готово до використання!"
 
-#: data/ui/dialogs/compose.ui:35 src/Dialogs/Composer/Dialog.vala:91
-msgid "_Publish"
-msgstr "_Опублікувати"
+#: data/gtk/help-overlay.ui:14
+msgid "Compose a new post"
+msgstr ""
+
+#: data/gtk/help-overlay.ui:26 src/Views/Search.vala:16 src/Views/Main.vala:19
+msgid "Search"
+msgstr "Пошук"
+
+#: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:251
+msgid "Go Back"
+msgstr "Повернутися"
+
+#: data/gtk/help-overlay.ui:39
+msgid "Show Keyboard Shortcuts"
+msgstr ""
+
+#: data/gtk/help-overlay.ui:45
+msgid "Quit"
+msgstr ""
+
+#: data/gtk/help-overlay.ui:53
+msgid "Composer"
+msgstr ""
+
+#: data/gtk/help-overlay.ui:56
+msgid "Commit"
+msgstr ""
+
+#: src/Application.vala:142 src/Widgets/Attachment/Item.vala:211
+#: src/Views/Sidebar.vala:259 src/Views/MediaViewer.vala:428
+#: src/Services/Accounts/SecretAccountStore.vala:112
+#: src/Services/Accounts/SecretAccountStore.vala:146
+#: src/Services/Accounts/AccountStore.vala:43
+msgid "Error"
+msgstr "Помилка"
+
+#. translators: Name <email@domain.com> or Name https://website.example
+#: src/Application.vala:307
+msgid "translator-credits"
+msgstr "Володимир Смірнов <vovasmirnon5895@gmail.com>"
+
+#: src/Application.vala:327
+msgid "OK"
+msgstr ""
+
+#: src/Application.vala:332
+msgid "Yes"
+msgstr "Так"
+
+#. translators: the variable is the emoji or its name if it's custom
+#: src/Widgets/Status.vala:126
+#, c-format
+msgid "React with %s"
+msgstr "Відреагувати з %s"
+
+#: src/Widgets/Status.vala:255 src/Widgets/Attachment/Item.vala:192
+#: src/Views/MediaViewer.vala:323
+msgid "Open in Browser"
+msgstr "Відкрити у браузері"
+
+#: src/Widgets/Status.vala:256 src/Widgets/Attachment/Item.vala:193
+#: src/Views/MediaViewer.vala:324
+msgid "Copy URL"
+msgstr "Скопіювати URL"
+
+#. translators: as in post stats (who liked and boosted)
+#: src/Widgets/Status.vala:259
+msgid "View Stats"
+msgstr "Переглянути статистику"
+
+#: src/Widgets/Status.vala:263
+msgid "View Edit History"
+msgstr "Переглянути історію змін"
+
+#. translators: Pin post on profile
+#: src/Widgets/Status.vala:268 src/Widgets/Status.vala:491
+msgid "Pin"
+msgstr ""
+
+#: src/Widgets/Status.vala:273
+msgid "Edit"
+msgstr "Редагувати"
+
+#: src/Widgets/Status.vala:274 src/Widgets/Status.vala:336
+#: src/Views/Lists.vala:62
+msgid "Delete"
+msgstr "Видалити"
+
+#: src/Widgets/Status.vala:333
+msgid "Are you sure you want to delete this post?"
+msgstr "Ви впевнені, що хочете видалити цей пост?"
+
+#: src/Widgets/Status.vala:378
+msgid "Sensitive"
+msgstr "Чутливий контент"
+
+#. translators: Unpin post from profile
+#: src/Widgets/Status.vala:489
+msgid "Unpin"
+msgstr ""
+
+#: src/Widgets/Status.vala:537
+msgid "Reply"
+msgstr "Відповісти"
+
+#: src/Widgets/Status.vala:551
+msgid "This post can't be boosted"
+msgstr "Цю публікацію неможливо поширити"
+
+#: src/Widgets/Status.vala:556 src/Widgets/Status.vala:607
+msgid "Boost"
+msgstr "Поширити"
+
+#: src/Widgets/Status.vala:618
+msgid "Favorite"
+msgstr "Вподобати"
+
+#: src/Widgets/Status.vala:629
+msgid "Bookmark"
+msgstr "У закладки"
+
+#. translators: this is a "long" date format shown in places like expanded posts or
+#. the profile "Joined" field. You can find all the available specifiers
+#. on https://valadoc.org/glib-2.0/GLib.DateTime.format.html
+#. Please do not stray far from the original and only include day, month
+#. and year.
+#. If unsure, either leave it as-is or set it to %x.
+#: src/Widgets/Status.vala:693 src/Views/Profile.vala:192
+msgid "%B %e, %Y"
+msgstr "%e %B %Y"
 
 #: src/Widgets/VoteBox.vala:20
 msgid "Vote"
@@ -317,233 +466,176 @@ msgstr "Голосувати"
 msgid "%lld voted"
 msgstr "%lld проголосувало"
 
+#. translators: the variables are numbers
+#: src/Widgets/PreviewCard.vala:132
+#, c-format
+msgid "Discussed %d times by %d people yesterday"
+msgstr ""
+
+#. translators: the variables are numbers
+#: src/Widgets/PreviewCard.vala:140
+#, c-format
+msgid "Discussed %d times by %d people in the past 2 days"
+msgstr ""
+
+#. translators: Used when there are results in the custom emoji picker
+#: src/Widgets/CustomEmojiChooser.vala:53
+#: src/Widgets/CustomEmojiChooser.vala:107
+msgid "Results"
+msgstr ""
+
+#. translators: Used when there are 0 results in the custom emoji picker
+#: src/Widgets/CustomEmojiChooser.vala:111
+msgid "No Results"
+msgstr ""
+
+#: src/Widgets/CustomEmojiChooser.vala:144
+#: src/Widgets/CustomEmojiChooser.vala:150
+#: src/Widgets/CustomEmojiChooser.vala:151 src/API/Emoji.vala:4
+#: src/API/Emoji.vala:8
+msgid "Other"
+msgstr ""
+
+#: src/Widgets/CustomEmojiChooser.vala:151
+msgid "Custom Emojis"
+msgstr ""
+
 #: src/Widgets/StatusActionButton.vala:158
 msgid "Network Error"
-msgstr "Помилка Мережі"
-
-#. translators: the variable is the emoji or its name if it's custom
-#: src/Widgets/Status.vala:125
-#, c-format
-msgid "React with %s"
-msgstr "Відреагуйте із %s"
-
-#: src/Widgets/Status.vala:246 src/Widgets/Attachment/Item.vala:193
-#: src/Views/MediaViewer.vala:328
-msgid "Open in Browser"
-msgstr "Відкрити у Браузері"
-
-#: src/Widgets/Status.vala:247 src/Widgets/Attachment/Item.vala:194
-#: src/Views/MediaViewer.vala:329
-msgid "Copy URL"
-msgstr "Скопіювати URL"
-
-#. translators: as in post stats (who liked and boosted)
-#: src/Widgets/Status.vala:250
-msgid "View Stats"
-msgstr ""
-
-#: src/Widgets/Status.vala:254
-msgid "View Edit History"
-msgstr "Переглянути Історію Змін"
-
-#: src/Widgets/Status.vala:259
-msgid "Edit"
-msgstr "Відредагувати"
-
-#: src/Widgets/Status.vala:260 src/Widgets/Status.vala:308
-#: src/Views/Lists.vala:62
-msgid "Delete"
-msgstr "Видалити"
-
-#: src/Widgets/Status.vala:305
-msgid "Are you sure you want to delete this post?"
-msgstr "Ви впевнені, що хочете видалити цей пост?"
-
-#: src/Widgets/Status.vala:350
-msgid "Sensitive"
-msgstr "Чутливий Контент"
-
-#: src/Widgets/Status.vala:492
-msgid "Reply"
-msgstr "Відповісти"
-
-#: src/Widgets/Status.vala:506
-msgid "This post can't be boosted"
-msgstr "Цю публікацію неможливо поширити"
-
-#: src/Widgets/Status.vala:511 src/Widgets/Status.vala:663
-msgid "Boost"
-msgstr "Поширити"
-
-#: src/Widgets/Status.vala:674
-msgid "Favorite"
-msgstr "Вподобати"
-
-#: src/Widgets/Status.vala:685
-msgid "Bookmark"
-msgstr "У закладки"
-
-#. translators: this is a "long" date format shown in places like expanded posts or
-#. the profile "Joined" field. You can find all the available specifiers
-#. on https://valadoc.org/glib-2.0/GLib.DateTime.format.html
-#. Please do not stray far from the original and only include day, month
-#. and year.
-#. If unsure, either leave it as-is or set it to %x.
-#: src/Widgets/Status.vala:749 src/Views/Profile.vala:133
-msgid "%B %e, %Y"
-msgstr ""
+msgstr "Помилка мережі"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
 #: src/Views/Hashtag.vala:35
 msgid "Follow"
-msgstr "Підписатись"
+msgstr "Підписатися"
 
-#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:299
-#: src/Views/Profile.vala:323
+#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:357
+#: src/Views/Profile.vala:381
 msgid "Unblock"
 msgstr "Розблокувати"
 
 #: src/Widgets/RelationshipButton.vala:54 src/Views/Hashtag.vala:23
 #: src/Views/Hashtag.vala:39
 msgid "Unfollow"
-msgstr "Відписатись"
+msgstr "Відписатися"
 
 #. translators: the variable is a comma separated
 #. list of the book authors
-#: src/Widgets/BookWyrmPage.vala:137
+#: src/Widgets/BookWyrmPage.vala:139
 #, c-format
 msgid "by %s"
-msgstr ""
+msgstr "від %s"
 
 #: src/Widgets/Attachment/Item.vala:38 src/Widgets/Attachment/Item.vala:48
 msgid "Save Attachment"
-msgstr "Зберегти"
+msgstr "Зберегти вкладення"
 
 #: src/Widgets/Attachment/Item.vala:128
 msgid "View Alt Text"
-msgstr "Переглянути Опис"
+msgstr "Переглянути опис"
 
-#: src/Widgets/Attachment/Item.vala:195 src/Views/MediaViewer.vala:330
+#: src/Widgets/Attachment/Item.vala:194 src/Views/MediaViewer.vala:325
 msgid "Save Media"
-msgstr "Зберегти Медіа"
+msgstr "Зберегти медіа"
 
-#: src/Widgets/Attachment/Item.vala:212 src/Views/Sidebar.vala:263
-#: src/Views/MediaViewer.vala:431
-#: src/Services/Accounts/SecretAccountStore.vala:112
-#: src/Services/Accounts/SecretAccountStore.vala:146
-#: src/Services/Accounts/AccountStore.vala:43 src/Application.vala:129
-msgid "Error"
-msgstr "Помилка"
+#. translators: Tooltip on a button that hides / blurs media marked as sensitive
+#: src/Widgets/Attachment/Box.vala:72
+msgid "Hide Media"
+msgstr ""
+
+#. translators: Label shown in front of blurred / sensitive media
+#: src/Widgets/Attachment/Box.vala:83
+msgid "Sensitive Media"
+msgstr ""
 
 #: src/Views/Thread.vala:13
 msgid "Conversation"
 msgstr "Обговорення"
 
 #: src/Views/Sidebar.vala:34
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: src/Views/Sidebar.vala:42
 msgid "Preferences"
 msgstr "Налаштування"
 
-#: src/Views/Sidebar.vala:43
+#: src/Views/Sidebar.vala:51
 msgid "About"
 msgstr "Про Tuba"
 
-#: src/Views/Sidebar.vala:134
+#: src/Views/Sidebar.vala:130
 msgid "Anonymous"
 msgstr "Анонімний"
 
-#: src/Views/Sidebar.vala:135
+#: src/Views/Sidebar.vala:131
 msgid "No account selected"
-msgstr "Акаунт не обрано"
+msgstr "Обліковий запис не обрано"
 
 #. translators: the variable is an account handle
-#: src/Views/Sidebar.vala:249
+#: src/Views/Sidebar.vala:245
 #, c-format
 msgid "Forget %s?"
-msgstr "Забули %s?"
+msgstr "Забути %s?"
 
-#: src/Views/Sidebar.vala:250
+#: src/Views/Sidebar.vala:246
 msgid "This account will be removed from the application."
-msgstr "Акаунт буде прибрано з додатку."
+msgstr "Цей обліковий запис буде прибрано зі застосунку."
 
-#: src/Views/Sidebar.vala:252
+#: src/Views/Sidebar.vala:248
 msgid "Forget"
 msgstr "Забути"
 
-#: src/Views/Search.vala:16 src/Views/Main.vala:19
-msgid "Search"
-msgstr "Пошук"
-
-#. translators: as in All search results
-#: src/Views/Search.vala:40
-msgid "All"
-msgstr ""
-
-#: src/Views/Search.vala:41
-msgid "Accounts"
-msgstr "Акаунти"
-
-#: src/Views/Search.vala:42
-msgid "Posts"
-msgstr "Публікації"
-
-#: src/Views/Search.vala:43 src/Services/Accounts/Mastodon/Account.vala:108
-msgid "Hashtags"
-msgstr "Хештеги"
-
-#: src/Views/Search.vala:65
-msgid "Enter Query"
-msgstr "Пошук"
-
-#: src/Views/Profile.vala:35
+#: src/Views/Profile.vala:33
 msgid "Profile"
 msgstr "Профіль"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
-#: src/Views/Profile.vala:143
+#: src/Views/Profile.vala:202
 msgid "Joined"
-msgstr ""
+msgstr "Приєднався"
 
 #. translators: the variable is the amount of posts a user has made
-#: src/Views/Profile.vala:163
+#: src/Views/Profile.vala:222
 #, c-format
 msgid "%lld Posts"
-msgstr "%lld Публікації"
+msgstr "%lld публікацій"
 
 #. translators: the variable is the amount of people a user follows
-#: src/Views/Profile.vala:168
+#: src/Views/Profile.vala:227
 #, c-format
 msgid "%lld Following"
-msgstr "%lld Підписаний"
+msgstr "%lld підписок"
 
 #. translators: the variable is the amount of followers a user has
-#: src/Views/Profile.vala:173
+#: src/Views/Profile.vala:232
 #, c-format
 msgid "%lld Followers"
-msgstr "%lld Підписники"
+msgstr "%lld підписників"
 
-#: src/Views/Profile.vala:292
+#: src/Views/Profile.vala:351
 #, c-format
 msgid "Block \"%s\"?"
 msgstr "Заблокувати \"%s\"?"
 
-#: src/Views/Profile.vala:292
+#: src/Views/Profile.vala:351
 #, c-format
 msgid "Unblock \"%s\"?"
 msgstr "Розблокувати \"%s\"?"
 
-#: src/Views/Profile.vala:317
+#: src/Views/Profile.vala:375
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr "Заблокувати увесь \"%s\"?"
 
-#: src/Views/Profile.vala:317
+#: src/Views/Profile.vala:375
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr "Розблокувати увесь \"%s\"?"
 
-#: src/Views/Profile.vala:321
+#: src/Views/Profile.vala:379
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -551,204 +643,256 @@ msgid ""
 "• Remove its followers from your account\n"
 "• Prevent you from following its users"
 msgstr ""
+"Блокування домену призведе до:\n"
+"\n"
+"- Видалення його публічних дописів та сповіщень для ваших стрічок\n"
+"- Видалення його підписників з вашого акаунта\n"
+"- Заборони вам відстежувати його користувачів"
 
-#: src/Views/Profile.vala:370
+#: src/Views/Profile.vala:428
 msgid "Sent follow request"
-msgstr ""
+msgstr "Надіслати запит на підписку"
 
-#: src/Views/Profile.vala:372
+#: src/Views/Profile.vala:430
 msgid "Mutuals"
-msgstr ""
+msgstr "Взаємні підписки"
 
-#: src/Views/Profile.vala:374
+#: src/Views/Profile.vala:432
 msgid "Follows you"
-msgstr ""
+msgstr "Стежать за вами"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:429
+#: src/Views/Profile.vala:485
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
-msgstr ""
+msgstr "Додати або видалити \"%s\" до або зі списку"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:441
+#: src/Views/Profile.vala:497
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr ""
+"Виберіть список, до якого потрібно додати або з якого потрібно видалити "
+"\"%s\":"
 
-#: src/Views/Profile.vala:447
+#: src/Views/Profile.vala:503
 msgid "You don't have any lists"
-msgstr ""
+msgstr "У вас немає списків"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:476 src/Views/Profile.vala:538
+#: src/Views/Profile.vala:532 src/Views/Profile.vala:594
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
-msgstr ""
+msgstr "Видалити \"%s\" з \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:476 src/Views/Profile.vala:532
+#: src/Views/Profile.vala:532 src/Views/Profile.vala:588
 #, c-format
 msgid "Add \"%s\" to \"%s\""
-msgstr ""
+msgstr "Додати \"%s\" до \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:529
+#: src/Views/Profile.vala:585
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
-msgstr ""
+msgstr "Користувача \"%s\" було видалено з \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:535
+#: src/Views/Profile.vala:591
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
-msgstr ""
+msgstr "Користувача \"%s\" було додано до \"%s\""
 
-#: src/Views/Notifications.vala:11
+#: src/Views/Notifications.vala:12
 msgid "Notifications"
-msgstr ""
+msgstr "Сповіщення"
 
-#: src/Views/MediaViewer.vala:250
+#: src/Views/MediaViewer.vala:245
 msgid "Media Viewer"
-msgstr ""
+msgstr "Засіб перегляду медіа"
 
-#: src/Views/MediaViewer.vala:256
-msgid "Go Back"
-msgstr ""
-
-#: src/Views/MediaViewer.vala:263
+#: src/Views/MediaViewer.vala:258
 msgid "Toggle Fullscreen"
-msgstr ""
+msgstr "Увімкнути повноекранний режим"
 
-#: src/Views/MediaViewer.vala:526
+#: src/Views/MediaViewer.vala:525
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Попереднє вкладення"
 
-#: src/Views/MediaViewer.vala:531
+#: src/Views/MediaViewer.vala:530
 msgid "Next Attachment"
-msgstr ""
+msgstr "Наступне вкладення"
 
-#: src/Views/MediaViewer.vala:549
+#: src/Views/MediaViewer.vala:548
 msgid "Zoom Out"
-msgstr ""
+msgstr "Зменшити"
 
-#: src/Views/MediaViewer.vala:554
+#: src/Views/MediaViewer.vala:553
 msgid "Zoom In"
+msgstr "Збільшити"
+
+#. translators: Shown when there are 0 results
+#: src/Views/Base.vala:6
+msgid "Nothing to see here"
+msgstr "Тут немає на що дивитися"
+
+#: src/Views/Base.vala:73
+msgid "Reload"
+msgstr "Перезавантажити"
+
+#: src/Views/Base.vala:129
+msgid "An Error Occurred"
+msgstr "Виникла помилка"
+
+#: src/Views/StatusStats.vala:6
+msgid "Post Stats"
 msgstr ""
 
-#: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:84
-msgid "Local"
+#. translators: title for a list of people that favorited a post
+#: src/Views/StatusStats.vala:9
+msgid "Favorited By"
 msgstr ""
+
+#. translators: title for a list of people that boosted a post
+#: src/Views/StatusStats.vala:11
+msgid "Boosted By"
+msgstr ""
+
+#. translators: as in All search results
+#: src/Views/Search.vala:40
+msgid "All"
+msgstr "Всі"
+
+#: src/Views/Search.vala:41
+msgid "Accounts"
+msgstr "Облікові записи"
+
+#: src/Views/Search.vala:42 src/Views/Explore.vala:5
+msgid "Posts"
+msgstr "Публікації"
+
+#: src/Views/Search.vala:43 src/Views/Hashtags.vala:5 src/Views/Explore.vala:6
+#: src/Services/Accounts/Mastodon/Account.vala:116
+msgid "Hashtags"
+msgstr "Хештеги"
+
+#: src/Views/Search.vala:65
+msgid "Enter Query"
+msgstr "Введіть запит"
+
+#: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:92
+msgid "Local"
+msgstr "Цей сервер"
 
 #: src/Views/Lists.vala:59
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr ""
+msgstr "Видалити \"%s\"?"
 
 #: src/Views/Lists.vala:60
 msgid "This action cannot be reverted."
-msgstr ""
+msgstr "Ця дія не може бути скасована."
 
 #: src/Views/Lists.vala:85
 #, c-format
 msgid "Edit \"%s\""
-msgstr ""
+msgstr "Редагування \"%s\""
 
 #: src/Views/Lists.vala:93
 msgid "Info"
-msgstr ""
+msgstr "Інформація"
 
 #: src/Views/Lists.vala:97
 msgid "List Name"
-msgstr ""
+msgstr "Назва списку"
 
 #: src/Views/Lists.vala:106
 msgid "Replies Policy"
-msgstr ""
+msgstr "Політика відповідей"
 
 #: src/Views/Lists.vala:107
 msgid "Show member replies to"
-msgstr ""
+msgstr "Показати відповіді членів"
 
 #: src/Views/Lists.vala:111
 msgid "Nobody"
-msgstr ""
+msgstr "Нікому"
 
 #: src/Views/Lists.vala:123
 msgid "Other members of the list"
-msgstr ""
+msgstr "Іншим членам списку"
 
 #: src/Views/Lists.vala:135
 msgid "Any followed user"
-msgstr ""
+msgstr "Буль-якому підписнику"
 
 #: src/Views/Lists.vala:171
 msgid "Members"
-msgstr ""
+msgstr "Члени"
 
 #: src/Views/Lists.vala:175
 msgid "Remove Members"
-msgstr ""
+msgstr "Видалити членів"
 
 #: src/Views/Lists.vala:310
 msgid "New list title"
-msgstr ""
+msgstr "Новий заголовок списку"
 
 #: src/Views/Lists.vala:319
 msgid "Add list"
-msgstr ""
+msgstr "Додати список"
 
 #: src/Views/Home.vala:5 src/Services/Accounts/Mastodon/Account.vala:26
 msgid "Home"
-msgstr ""
+msgstr "Головна"
 
 #: src/Views/FollowRequests.vala:4
-#: src/Services/Accounts/Mastodon/Account.vala:100
+#: src/Services/Accounts/Mastodon/Account.vala:108
 msgid "Follow Requests"
-msgstr ""
+msgstr "Відстежувати запити"
 
-#: src/Views/Federated.vala:7 src/Services/Accounts/Mastodon/Account.vala:92
+#: src/Views/Federated.vala:7 src/Services/Accounts/Mastodon/Account.vala:100
 msgid "Federated"
-msgstr ""
+msgstr "Усі сервера"
 
 #: src/Views/Favorites.vala:6 src/Services/Accounts/Mastodon/Account.vala:60
 msgid "Favorites"
-msgstr "Улюблене"
+msgstr "Обране"
+
+#: src/Views/Explore.vala:3 src/Services/Accounts/Mastodon/Account.vala:84
+msgid "Explore"
+msgstr ""
+
+#: src/Views/Explore.vala:7
+msgid "News"
+msgstr ""
+
+#: src/Views/Explore.vala:8
+msgid "For You"
+msgstr ""
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
-msgstr ""
+msgstr "Редагувати історію"
 
 #: src/Views/Conversations.vala:5
 msgid "Conversations"
-msgstr ""
+msgstr "Розмови"
 
 #: src/Views/Bookmarks.vala:6 src/Services/Accounts/Mastodon/Account.vala:52
 msgid "Bookmarks"
-msgstr ""
-
-#: src/Views/Base.vala:6
-msgid "Nothing to see here"
-msgstr ""
-
-#: src/Views/Base.vala:73
-msgid "Reload"
-msgstr ""
-
-#: src/Views/Base.vala:125
-msgid "An Error Occurred"
-msgstr ""
+msgstr "Закладки"
 
 #: src/Utils/DateTime.vala:12
 msgid "expires soon"
-msgstr ""
+msgstr "скоро закінчується"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:26
 msgid "expires on %b %-e, %Y"
-msgstr ""
+msgstr "закінчується %-e %B %Y"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -757,28 +901,28 @@ msgstr ""
 #. %m is the minutes
 #: src/Utils/DateTime.vala:40
 msgid "expires on %b %-e, %Y %H:%m"
-msgstr ""
+msgstr "закінчується %-e %B %Y %k:%m"
 
 #: src/Utils/DateTime.vala:42
 msgid "expired on just now"
-msgstr ""
+msgstr "закінчився щойно"
 
 #: src/Utils/DateTime.vala:52
 msgid "expired yesterday"
-msgstr ""
+msgstr "закінчився вчора"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:57
 msgid "expired on %b %-e"
-msgstr ""
+msgstr "закінчився на %-e %B"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:63
 msgid "expired on %b %-e, %Y"
-msgstr ""
+msgstr "закінчився %-e %B %Y"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -787,326 +931,437 @@ msgstr ""
 #. %m is the minutes
 #: src/Utils/DateTime.vala:77
 msgid "%b %-e, %Y %H:%m"
-msgstr ""
+msgstr "%-e %B %Y %k:%m"
 
 #: src/Utils/DateTime.vala:79
 msgid "Just now"
-msgstr ""
+msgstr "Щойно"
 
 #: src/Utils/DateTime.vala:89
 msgid "Yesterday"
-msgstr ""
+msgstr "Вчора"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:94
 msgid "%b %-e"
-msgstr ""
+msgstr "%-e %B"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:100
 msgid "%b %-e, %Y"
-msgstr ""
+msgstr "%-e %B %Y"
 
 #. translators: Follow System's dark mode preference
-#: src/Services/Settings.vala:51
+#: src/Services/Settings.vala:53
 msgid "Follow System"
-msgstr ""
+msgstr "Системна"
 
 #. translators: Light mode theme
-#: src/Services/Settings.vala:54
+#: src/Services/Settings.vala:56
 msgid "Light"
-msgstr ""
+msgstr "Світла"
 
 #. translators: Dark mode theme
-#: src/Services/Settings.vala:57
+#: src/Services/Settings.vala:59
 msgid "Dark"
-msgstr ""
+msgstr "Темна"
+
+#: src/Services/Accounts/InstanceAccount.vala:147
+#, c-format
+msgid "%s mentioned you"
+msgstr "%s згадав(-ла) вас"
+
+#: src/Services/Accounts/InstanceAccount.vala:152
+#, c-format
+msgid "%s boosted your post"
+msgstr "%s поширив(-ла) вашу публікацію"
+
+#: src/Services/Accounts/InstanceAccount.vala:157
+#, c-format
+msgid "%s boosted"
+msgstr "%s поширив(-ла)"
+
+#: src/Services/Accounts/InstanceAccount.vala:162
+#, c-format
+msgid "%s favorited your post"
+msgstr "%s вподобав(-ла) вашу публікацію"
+
+#: src/Services/Accounts/InstanceAccount.vala:167
+#, c-format
+msgid "%s now follows you"
+msgstr "%s тепер слідкує за вами"
+
+#: src/Services/Accounts/InstanceAccount.vala:172
+#, c-format
+msgid "%s wants to follow you"
+msgstr "%s хоче слідкувати за вами"
+
+#: src/Services/Accounts/InstanceAccount.vala:177
+msgid "Poll results"
+msgstr "Результати опитування"
+
+#: src/Services/Accounts/InstanceAccount.vala:182
+#, c-format
+msgid "%s edited a post"
+msgstr "%s відредагував(-ла) публікацію"
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:130
 #, c-format
 msgid "%s Account"
-msgstr ""
+msgstr "Обліковий запис %s"
 
 #: src/Services/Accounts/Mastodon/Account.vala:44
 msgid "Direct Messages"
-msgstr ""
-
-#: src/Services/Accounts/Mastodon/Account.vala:136
-msgid "Public"
-msgstr ""
-
-#: src/Services/Accounts/Mastodon/Account.vala:138
-msgid "Post to public timelines"
-msgstr ""
-
-#. translators: Probably follow Mastodon's translation
-#: src/Services/Accounts/Mastodon/Account.vala:143
-msgid "Unlisted"
-msgstr ""
+msgstr "Особисті повідомлення"
 
 #: src/Services/Accounts/Mastodon/Account.vala:145
+msgid "Public"
+msgstr "Публічний"
+
+#: src/Services/Accounts/Mastodon/Account.vala:148
+msgid "Post to public timelines"
+msgstr "Публікувати до публічних стрічок"
+
+#. translators: Probably follow Mastodon's translation
+#: src/Services/Accounts/Mastodon/Account.vala:153
+msgid "Unlisted"
+msgstr "Прихований"
+
+#: src/Services/Accounts/Mastodon/Account.vala:156
 msgid "Don't post to public timelines"
-msgstr ""
+msgstr "Не показується у публічних стрічках"
 
-#: src/Services/Accounts/Mastodon/Account.vala:149
+#: src/Services/Accounts/Mastodon/Account.vala:160
 msgid "Followers Only"
-msgstr ""
+msgstr "Лише підписникам"
 
-#: src/Services/Accounts/Mastodon/Account.vala:151
+#: src/Services/Accounts/Mastodon/Account.vala:163
 msgid "Post to followers only"
-msgstr ""
+msgstr "Показувати лише підписникам"
 
-#: src/Services/Accounts/Mastodon/Account.vala:155
+#: src/Services/Accounts/Mastodon/Account.vala:167
 msgid "Direct"
-msgstr ""
+msgstr "Особисто"
 
-#: src/Services/Accounts/Mastodon/Account.vala:157
+#: src/Services/Accounts/Mastodon/Account.vala:170
 msgid "Post to mentioned users only"
-msgstr ""
-
-#: src/Services/Accounts/InstanceAccount.vala:137
-#, c-format
-msgid "%s mentioned you"
-msgstr ""
-
-#: src/Services/Accounts/InstanceAccount.vala:142
-#, c-format
-msgid "%s boosted your post"
-msgstr ""
-
-#: src/Services/Accounts/InstanceAccount.vala:147
-#, c-format
-msgid "%s boosted"
-msgstr ""
-
-#: src/Services/Accounts/InstanceAccount.vala:152
-#, c-format
-msgid "%s favorited your post"
-msgstr ""
-
-#: src/Services/Accounts/InstanceAccount.vala:157
-#, c-format
-msgid "%s now follows you"
-msgstr ""
-
-#: src/Services/Accounts/InstanceAccount.vala:162
-#, c-format
-msgid "%s wants to follow you"
-msgstr ""
-
-#: src/Services/Accounts/InstanceAccount.vala:167
-msgid "Poll results"
-msgstr ""
-
-#: src/Services/Accounts/InstanceAccount.vala:172
-#, c-format
-msgid "%s edited a post"
-msgstr ""
+msgstr "Показувати лише згаданим користувачам"
 
 #: src/Dialogs/NewAccount.vala:5
 msgid "Allow access to your account in the browser."
-msgstr ""
+msgstr "Надайте доступ до вашого облікового запису в браузері."
 
 #: src/Dialogs/NewAccount.vala:6
 msgid "Copy the authorization code from the browser and paste it below."
-msgstr ""
+msgstr "Скопіюйте код авторизації з браузера та вставте його нижче."
 
 #: src/Dialogs/NewAccount.vala:121
 msgid "Please enter a valid instance URL"
-msgstr ""
+msgstr "Будь ласка, введіть дійсну адресу сервера"
 
 #: src/Dialogs/NewAccount.vala:155
 msgid "Please enter a valid authorization code"
-msgstr ""
+msgstr "Будь ласка, введіть дійсний код авторизації"
 
 #: src/Dialogs/NewAccount.vala:172
 msgid "Instance failed to authorize the access token"
-msgstr ""
+msgstr "Серверу не вдалося авторизувати токен доступу"
 
 #: src/Dialogs/NewAccount.vala:181
 #, c-format
 msgid "Hello, %s!"
-msgstr ""
+msgstr "Вітаю, %s!"
 
-#: src/Dialogs/NewAccount.vala:239
+#: src/Dialogs/NewAccount.vala:237
 msgid "Server returned an error"
+msgstr "Сервер видав помилку"
+
+#: src/Dialogs/Composer/PollPage.vala:77
+msgid "Poll"
 msgstr ""
 
-#: src/Dialogs/Composer/PollPage.vala:5
-msgid "Options"
+#. translators: tooltip on a button that appends another poll entry / option
+#: src/Dialogs/Composer/PollPage.vala:114
+msgid "Add Poll"
+msgstr ""
+
+#: src/Dialogs/Composer/PollPage.vala:123
+#: src/Dialogs/Composer/PollPage.vala:131
+msgid "Enable Multiple Choice"
+msgstr ""
+
+#. translators: multiple choice as in allow the user to pick multiple poll options
+#: src/Dialogs/Composer/PollPage.vala:131
+msgid "Disable Multiple Choice"
+msgstr ""
+
+#: src/Dialogs/Composer/PollPage.vala:139
+#: src/Dialogs/Composer/PollPage.vala:146
+msgid "Hide Total Votes"
+msgstr ""
+
+#: src/Dialogs/Composer/PollPage.vala:146
+msgid "Show Total Votes"
+msgstr ""
+
+#: src/Dialogs/Composer/PollPage.vala:173
+#: src/Dialogs/Composer/PollPage.vala:208
+#, c-format
+msgid "Choice %d"
+msgstr ""
+
+#. translators: the variable is a number
+#: src/Dialogs/Composer/PollPage.vala:217
+#: src/Dialogs/Composer/PollPage.vala:220
+#, c-format
+msgid "%d Minutes"
+msgstr ""
+
+#. translators: the variable is a number, m as in minutes
+#: src/Dialogs/Composer/PollPage.vala:219
+#: src/Dialogs/Composer/PollPage.vala:220
+#, c-format
+msgid "%dm"
+msgstr ""
+
+#. translators: the variable is a number
+#: src/Dialogs/Composer/PollPage.vala:222
+#, c-format
+msgid "%d Hour"
+msgstr ""
+
+#. translators: the variable is a number, h as in hours
+#: src/Dialogs/Composer/PollPage.vala:224
+#: src/Dialogs/Composer/PollPage.vala:225
+#: src/Dialogs/Composer/PollPage.vala:226
+#, c-format
+msgid "%dh"
+msgstr ""
+
+#: src/Dialogs/Composer/PollPage.vala:225
+#: src/Dialogs/Composer/PollPage.vala:226
+#, c-format
+msgid "%d Hours"
+msgstr ""
+
+#. translators: the variable is a number
+#: src/Dialogs/Composer/PollPage.vala:228
+#, c-format
+msgid "%d Day"
+msgstr ""
+
+#. translators: the variable is a number, d as in days
+#: src/Dialogs/Composer/PollPage.vala:230
+#: src/Dialogs/Composer/PollPage.vala:231
+#: src/Dialogs/Composer/PollPage.vala:232
+#, c-format
+msgid "%dd"
+msgstr ""
+
+#: src/Dialogs/Composer/PollPage.vala:231
+#: src/Dialogs/Composer/PollPage.vala:232
+#, c-format
+msgid "%d Days"
+msgstr ""
+
+#: src/Dialogs/Composer/PollPage.vala:252
+msgid "Expiration"
 msgstr ""
 
 #. translators: "Text" as in text-based input
 #: src/Dialogs/Composer/EditorPage.vala:11
 msgid "Text"
-msgstr ""
+msgstr "Текст"
 
-#: src/Dialogs/Composer/EditorPage.vala:152
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:108
+#: src/Dialogs/Composer/EditorPage.vala:150
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:126
 msgid "Characters Left"
-msgstr ""
+msgstr "Залишилося символів"
 
-#: src/Dialogs/Composer/EditorPage.vala:173
+#: src/Dialogs/Composer/EditorPage.vala:171
 msgid "What's on your mind?"
-msgstr ""
+msgstr "Що у вас на думці?"
 
-#: src/Dialogs/Composer/EditorPage.vala:194
+#: src/Dialogs/Composer/EditorPage.vala:198
 msgid "Emoji Picker"
+msgstr "Вибір емодзі"
+
+#: src/Dialogs/Composer/EditorPage.vala:205
+msgid "Custom Emoji Picker"
 msgstr ""
 
-#: src/Dialogs/Composer/EditorPage.vala:211
+#: src/Dialogs/Composer/EditorPage.vala:224
 msgid "Write your warning here"
-msgstr ""
+msgstr "Напишіть ваше попередження тут"
 
-#: src/Dialogs/Composer/EditorPage.vala:226
+#: src/Dialogs/Composer/EditorPage.vala:239
 msgid "Content Warning"
-msgstr ""
+msgstr "Попередження про зміст"
 
-#: src/Dialogs/Composer/EditorPage.vala:264
+#: src/Dialogs/Composer/EditorPage.vala:278
 msgid "Post Privacy"
-msgstr ""
+msgstr "Приватність публікації"
 
-#: src/Dialogs/Composer/EditorPage.vala:287
+#: src/Dialogs/Composer/EditorPage.vala:302
 msgid "Post Language"
+msgstr "Мова публікації"
+
+#: src/Dialogs/Composer/Dialog.vala:181
+msgid "Are you sure you want to exit?"
 msgstr ""
 
-#: src/Dialogs/Composer/Dialog.vala:99
+#: src/Dialogs/Composer/Dialog.vala:182
+msgid "Your progress will be lost."
+msgstr ""
+
+#: src/Dialogs/Composer/Dialog.vala:184
+msgid "Discard"
+msgstr ""
+
+#: src/Dialogs/Composer/Dialog.vala:259
 msgid "_Redraft"
-msgstr ""
+msgstr "_Переробити"
 
-#: src/Dialogs/Composer/Dialog.vala:123
+#: src/Dialogs/Composer/Dialog.vala:284
 msgid "_Edit"
-msgstr ""
+msgstr "_Редагувати"
 
-#: src/Dialogs/Composer/Dialog.vala:143
+#: src/Dialogs/Composer/Dialog.vala:305
 msgid "_Reply"
-msgstr ""
+msgstr "_Відповісти"
 
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:28
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:36
 msgid "Edit Alt Text"
-msgstr ""
+msgstr "Редагувати опис"
 
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:44
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:47
 msgid "Remove Attachment"
-msgstr ""
+msgstr "Видалити вкладення"
 
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:113
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:131
 msgid "Save"
-msgstr ""
+msgstr "Зберегти"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:50
 msgid "Media"
-msgstr ""
+msgstr "Медіа"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:66
-#: src/Dialogs/Composer/AttachmentsPage.vala:90
+#: src/Dialogs/Composer/AttachmentsPage.vala:72
+#: src/Dialogs/Composer/AttachmentsPage.vala:98
 msgid "Add Media"
-msgstr ""
+msgstr "Додати медіа"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:75
+#: src/Dialogs/Composer/AttachmentsPage.vala:81
 msgid "No Media"
-msgstr ""
+msgstr "Без медіа"
 
 #. translators: sensitive as in not safe for work or similar
-#: src/Dialogs/Composer/AttachmentsPage.vala:100
 #: src/Dialogs/Composer/AttachmentsPage.vala:108
+#: src/Dialogs/Composer/AttachmentsPage.vala:116
 msgid "Mark media as sensitive"
-msgstr ""
+msgstr "Позначити медіа як чутливе"
 
 #. translators: sensitive as in not safe for work or similar
-#: src/Dialogs/Composer/AttachmentsPage.vala:108
+#: src/Dialogs/Composer/AttachmentsPage.vala:116
 msgid "Unmark media as sensitive"
-msgstr ""
+msgstr "Не позначати медіа як чутливе"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:182
+#: src/Dialogs/Composer/AttachmentsPage.vala:190
 msgid "All Supported Files"
-msgstr ""
+msgstr "Всі файли, що підтримуються"
 
 #. translators: Open file
-#: src/Dialogs/Composer/AttachmentsPage.vala:196
-#: src/Dialogs/Composer/AttachmentsPage.vala:205
+#: src/Dialogs/Composer/AttachmentsPage.vala:204
+#: src/Dialogs/Composer/AttachmentsPage.vala:213
 msgid "Open"
-msgstr ""
+msgstr "Відкрити"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:241
+#: src/Dialogs/Composer/AttachmentsPage.vala:249
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
-msgstr ""
+msgstr "Файл \"%s\" більший за обмеження сервера"
 
-#. translators: Name <email@domain.com> or Name https://website.example
-#: src/Application.vala:278
-msgid "translator-credits"
-msgstr ""
-
-#: src/Application.vala:300
-msgid "Yes"
+#. translators: the variable is the amount of times a hashtag was used in a week
+#: src/API/Tag.vala:35
+#, c-format
+msgid "%d per week"
 msgstr ""
 
 #. translators: the variables are numbers
-#: src/API/Tag.vala:36
+#: src/API/Tag.vala:48
 #, c-format
 msgid "Used %d times by %d people yesterday"
-msgstr ""
+msgstr "Використано %d разів %d людьми вчора"
 
 #. translators: the variables are numbers
-#: src/API/Tag.vala:44
+#: src/API/Tag.vala:56
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
+msgstr "Використано %d разів %d людьми за останні 2 дні"
+
+#: src/API/Suggestion.vala:8
+msgid "Account not found"
 msgstr ""
 
 #. translators: the variable is an external service like "PeerTube"
 #: src/API/Status/PreviewCard.vala:25
 #, c-format
 msgid "You are about to open a %s video"
-msgstr ""
+msgstr "Ви збираєтесь відкрити відео %s"
 
 #. translators: the variable is an external service like "Funkwhale",
 #. track as in song
 #: src/API/Status/PreviewCard.vala:29
 #, c-format
 msgid "You are about to open a %s track"
-msgstr ""
+msgstr "Ви збираєтесь відкрити пісню %s"
 
 #. translators: the variable is an external service like "BookWyrm"
 #: src/API/Status/PreviewCard.vala:32
 #, c-format
 msgid "You are about to open a %s book"
-msgstr ""
+msgstr "Ви збираєтесь відкрити книгу %s"
 
 #. translators: the variable is the app name (Tuba)
 #: src/API/Status/PreviewCard.vala:35
 #, c-format
 msgid "You are about to leave %s"
-msgstr ""
+msgstr "Ви збираєтесь вийти з %s"
 
 #. translators: the variable is a url
 #: src/API/Status/PreviewCard.vala:48
 #, c-format
 msgid "If you proceed, \"%s\" will open in your browser."
-msgstr ""
+msgstr "Якщо ви продовжите, \"%s\" відкриється у вашому браузері."
 
 #. translators: the first variable is the app name (Tuba),
 #. the second one is a url
 #: src/API/Status/PreviewCard.vala:52
 #, c-format
 msgid "If you proceed, %s will connect to \"%s\"."
-msgstr ""
+msgstr "Якщо ви продовжите, %s з'єднається з \"%s\"."
 
-#: src/API/Status/PreviewCard.vala:152
+#: src/API/Status/PreviewCard.vala:154
 msgid "Proceed"
-msgstr ""
+msgstr "Продовжити"
 
 #: src/API/SearchResults.vala:21
 msgid "Search returned no results"
-msgstr ""
+msgstr "В пошуку немає результатів"
 
 #. translators: the variable is a comma separated list of account handles,
 #. this is a state - not an action
 #: src/API/Conversation.vala:18
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "Порожній діалог з %s"
+
+#~ msgid "Evangelos \"GeopJr\" Paterakis"
+#~ msgstr "Evangelos \"GeopJr\" Paterakis"
+
+#~ msgid "Options"
+#~ msgstr "Налаштування"
