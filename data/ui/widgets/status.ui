@@ -111,6 +111,7 @@
                                 <property name="ellipsize">False</property>
                                 <style>
                                   <class name="font-bold" />
+                                  <class name="lww-line-height" />
                                 </style>
                               </object>
                             </child>

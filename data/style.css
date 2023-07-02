@@ -109,7 +109,7 @@ flowboxchild {
 }
 
 /*
-  Profile
+	Profile
 */
 
 .ttl-profile-cover .header-image {
@@ -246,6 +246,8 @@ flowboxchild {
 .ttl-status-heading-padding {
 	margin-top: -5px;
 	padding: 0 5px;
+	margin-left: -5px;
+	margin-right: -5px;
 }
 
 .ttl-status-avatar-actor {
@@ -383,4 +385,10 @@ video > overlay > revealer > controls {
 
 .spoilered-attachment {
 	filter: blur(30px);
+}
+
+.lww-line-height {
+	line-height: 1.8;
+	margin-top: -5px;
+	margin-bottom: -5px;
 }
