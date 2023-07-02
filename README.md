@@ -99,6 +99,7 @@ $ make install
 
 - Tuba is a fork of [Tootle](https://github.com/bleakgrey/tootle) by [Bleak Grey](https://github.com/bleakgrey)
 - Translations are managed by [Weblate](https://hosted.weblate.org/engage/tuba/)
+- Design inspiration taken from [Mastodon](https://github.com/mastodon/) & [Elk](https://github.com/elk-zone/elk)
 
 [![Translation status](https://hosted.weblate.org/widgets/tuba/-/tuba/287x66-white.png)](https://hosted.weblate.org/engage/tuba/)
 
