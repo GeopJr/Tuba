@@ -1,4 +1,4 @@
-// Celebrate is inspired by Wrap's pride.rs
+// Celebrate is inspired by Warp's pride.rs
 // https://gitlab.gnome.org/World/warp/-/blob/main/src/ui/pride.rs
 
 public class Tuba.Celebrate {
