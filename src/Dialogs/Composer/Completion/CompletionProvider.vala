@@ -55,6 +55,14 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 		GLib.Cancellable? cancellable
 	) throws Error {
 		if (!this.is_capturing_input) {
+			// If it's not capturing,
+			// check if the character before the word
+			// is the trigger
+			TextIter start;
+			context.get_bounds (out start, null);
+			if (start.backward_char ())
+				is_trigger (start, start.get_char ());
+
 			return EMPTY;
 		}
 
