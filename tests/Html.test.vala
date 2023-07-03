@@ -6,7 +6,8 @@ struct TestContent {
 }
 
 const TestContent[] PANGO_TESTS = {
-    { "\n\n<strong>te<em>st</em></strong>\n\n", "<b>te<i>st</i></b>" }
+    { "\n\n<strong>te<em>st</em></strong>\n\n", "\n\n<b>te<i>st</i></b>\n\n" },
+    { "\n<br/>\n<strong>te<em>st</em></strong>\n\n", "<br/><b>te<i>st</i></b>" },
 };
 
 const TestContent[] RESTORE_TESTS = {
