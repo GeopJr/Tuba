@@ -135,6 +135,10 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		var parser = Network.get_parser_from_inputstream (msg.response_body);
 		var root = network.parse (parser);
+
+		if (root.get_string_member ("name") != Build.NAME)
+			throw new Oopsie.INSTANCE ("Misconfigured Instance");
+
 		account.client_id = root.get_string_member ("client_id");
 		account.client_secret = root.get_string_member ("client_secret");
 		message ("OK: Instance registered client");
