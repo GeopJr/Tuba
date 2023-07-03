@@ -37,7 +37,7 @@ public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
         t_input_with_placeholder = t_input;
         t_widgets = {};
 		if (!t_input.contains (":") || instance_emojis == null) return;
-    
+
         Gtk.Widget[] t_t_widgets = {};
 		string[] emoji_arr = custom_emoji_regex.split (t_input);
         foreach (unowned string str in emoji_arr) {
