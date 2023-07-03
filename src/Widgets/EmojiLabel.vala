@@ -4,6 +4,8 @@ using Gee;
 public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
 	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
 
+    public bool smaller_emoji_pixel_size { get; set; default=false; }
+
     private string _content = "";
 	public string content { get {return _content;}
         set {
@@ -34,17 +36,17 @@ public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
     ) {
         t_input_with_placeholder = t_input;
         t_widgets = {};
-
 		if (!t_input.contains (":") || instance_emojis == null) return;
-
+    
         Gtk.Widget[] t_t_widgets = {};
-
 		string[] emoji_arr = custom_emoji_regex.split (t_input);
         foreach (unowned string str in emoji_arr) {
 			// If str is an available emoji
 			string? shortcode = str.length > 2 ? str.slice (1, -1) : null;
 			if (shortcode != null && instance_emojis.has_key (shortcode)) {
-                t_t_widgets += new Widgets.Emoji (instance_emojis.get (shortcode), shortcode);
+                t_t_widgets += new Widgets.Emoji (instance_emojis.get (shortcode), shortcode) {
+                    pixel_size = smaller_emoji_pixel_size ? 14 : -1
+                };
                 t_input_with_placeholder = t_input_with_placeholder.replace (@":$shortcode:", "<widget>");
 			}
 		}

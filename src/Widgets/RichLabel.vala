@@ -51,6 +51,11 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		set { widget.xalign = value; }
 	}
 
+	public bool smaller_emoji_pixel_size {
+		get { return widget.smaller_emoji_pixel_size; }
+		set { widget.smaller_emoji_pixel_size = value; }
+	}
+
 	public Gee.HashMap<string, string> instance_emojis {
 		get { return widget.instance_emojis; }
 		set { widget.instance_emojis = value; }

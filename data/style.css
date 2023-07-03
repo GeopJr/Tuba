@@ -392,29 +392,29 @@ video > overlay > revealer > controls {
 	margin-bottom: -5px;
 }
 
-.theme-disability.about .app-version{background:linear-gradient(45deg,#59595955 0,#59595955 37.5%,#cf728055 37.5%,#cf728055 42.5%,#eede7755 42.5%,#eede7755 47.5%,#e8e8e855 47.5%,#e8e8e855 52.5%,#7bc2e055 52.5%,#7bc2e055 57.5%,#3bb07d55 57.5%,#3bb07d55 62.5%,#59595955 62.5%,#59595955 100%)}
-.theme-disability.about .app-version:hover{background:linear-gradient(45deg,#595959 0,#595959 37.5%,#cf7280 37.5%,#cf7280 42.5%,#eede77 42.5%,#eede77 47.5%,#e8e8e8 47.5%,#e8e8e8 52.5%,#7bc2e0 52.5%,#7bc2e0 57.5%,#3bb07d 57.5%,#3bb07d 62.5%,#595959 62.5%,#595959 100%)}
-.theme-lesbian.about .app-version{background:linear-gradient(to bottom,#d1260155,#d1260155 20%,#ff8f4555 20%,#ff8f4555 40%,#fff5 40%,#fff5 60%,#cf559b55 60%,#cf559b55 80%,#9b1a5855 80%,#9b1a5855)}
-.theme-lesbian.about .app-version:hover{background:linear-gradient(to bottom,#d12601,#d12601 20%,#ff8f45 20%,#ff8f45 40%,#fff 40%,#fff 60%,#cf559b 60%,#cf559b 80%,#9b1a58 80%,#9b1a58)}
-.theme-pan.about .app-version{background:linear-gradient(to bottom,#ff218c55,#ff218c55 33.33%,#fed80055 33.33%,#fed80055 66.67%,#21b1ff55 66.67%,#21b1ff55)}
-.theme-pan.about .app-version:hover{background:linear-gradient(to bottom,#ff218c,#ff218c 33.33%,#fed800 33.33%,#fed800 66.67%,#21b1ff 66.67%,#21b1ff)}
-.theme-trans.about .app-version{background:linear-gradient(to bottom,#5ccefa55,#5ccefa55 20%,#f6a8b755 20%,#f6a8b755 40%,#fff5 40%,#fff5 60%,#f6a8b755 60%,#f6a8b755 80%,#5ccefa55 80%,#5ccefa55)}
-.theme-trans.about .app-version:hover{background:linear-gradient(to bottom,#5ccefa,#5ccefa 20%,#f6a8b7 20%,#f6a8b7 40%,#fff 40%,#fff 60%,#f6a8b7 60%,#f6a8b7 80%,#5ccefa 80%,#5ccefa)}
-.theme-bi.about .app-version{background:linear-gradient(to bottom,#d6027055,#d6027055 40%,#9a4f9655 40%,#9a4f9655 60%,#0039a955 60%,#0039a955)}
-.theme-bi.about .app-version:hover{background:linear-gradient(to bottom,#d60270,#d60270 40%,#9a4f96 40%,#9a4f96 60%,#0039a9 60%,#0039a9)}
-.theme-agender.about .app-version{background:linear-gradient(to bottom,#0005,#00000055 14.29%,#bcc4c755 14.29%,#bcc4c755 28.57%,#fff5 28.57%,#fff5 42.86%,#b7f58455 42.86%,#b7f58455 57.14%,#fff5 57.14%,#fff5 71.43%,#bcc4c755 71.43%,#bcc4c755 85.71%,#00000055 85.71%,#0005)}
-.theme-agender.about .app-version:hover{background:linear-gradient(to bottom,#000,#000 14.29%,#bcc4c7 14.29%,#bcc4c7 28.57%,#fff 28.57%,#fff 42.86%,#b7f584 42.86%,#b7f584 57.14%,#fff 57.14%,#fff 71.43%,#bcc4c7 71.43%,#bcc4c7 85.71%,#000 85.71%,#000)}
-.theme-aro.about .app-version{background:linear-gradient(to bottom,#309c3455,#309c3455 20%,#9dce6955 20%,#9dce6955 40%,#fff5 40%,#fff5 60%,#a0a0a055 60%,#a0a0a055 80%,#0005 80%,#0005)}
-.theme-aro.about .app-version:hover{background:linear-gradient(to bottom,#309c34,#309c34 20%,#9dce69 20%,#9dce69 40%,#fff 40%,#fff 60%,#a0a0a0 60%,#a0a0a0 80%,#000 80%,#000)}
-.theme-ace.about .app-version{background:linear-gradient(to bottom,#0005,#0005 25%,#a3a3a355 25%,#a3a3a355 50%,#fff5 50%,#fff5 75%,#82008055 75%,#82008055)}
-.theme-ace.about .app-version:hover{background:linear-gradient(to bottom,#000,#000 25%,#a3a3a3 25%,#a3a3a3 50%,#fff 50%,#fff 75%,#820080 75%,#820080)}
-.theme-non-binary.about .app-version{background:linear-gradient(to bottom,#fdf52f55,#fdf52f55 25%,#fff5 25%,#fff5 50%,#9d5ad255 50%,#9d5ad255 75%,#0005 75%,#0005)}
-.theme-non-binary.about .app-version:hover{background:linear-gradient(to bottom,#fdf52f,#fdf52f 25%,#fff 25%,#fff 50%,#9d5ad2 50%,#9d5ad2 75%,#000 75%,#000)}
-.theme-black-history.about .app-version{background:linear-gradient(to bottom,#e31b2355,#e31b2355 33%,#0005 33%,#0005 66%,#00853f55 66%,#00853f55)}
-.theme-black-history.about .app-version:hover{background:linear-gradient(to bottom,#e31b23,#e31b23 33%,#000 33%,#000 66%,#00853f 66%,#00853f)}
-.theme-aids.about .app-version{background:linear-gradient(to bottom,#ffffff55,#ffffff55 20%,#d1111355 20%,#d1111355 40%,#ffffff55 40%,#ffffff55 60%,#d1111355 60%,#d1111355 80%,#ffffff55 80%,#ffffff55)}
-.theme-aids.about .app-version:hover{background:linear-gradient(to bottom,#fff,#fff 20%,#d11113 20%,#d11113 40%,#fff 40%,#fff 60%,#d11113 60%,#d11113 80%,#fff 80%,#fff)}
-.theme-intersex.about .app-version{background:radial-gradient(closest-side circle at center,#ffd80055 44%,#7902aa55 44%,#7902aa55 56%,#ffd80055 56%)}
-.theme-intersex.about .app-version:hover{background:radial-gradient(closest-side circle at center,#ffd800 44%,#7902aa 44%,#7902aa 56%,#ffd800 56%)}
-.theme-autism.about .app-version{background:linear-gradient(to bottom,#e5304355,#e5304355 16.66%,#f6834755 16.66%,#f6834755 33.33%,#fac85755 33.33%,#fac85755 66.67%,#99d67155 66.67%,#99d67155 83.33%,#21ae7555 83.33%,#21ae7555)}
-.theme-autism.about .app-version:hover{background:linear-gradient(to bottom,#e53043,#e53043 16.66%,#f68347 16.66%,#f68347 33.33%,#fac857 33.33%,#fac857 66.67%,#99d671 66.67%,#99d671 83.33%,#21ae75 83.33%,#21ae75)}
+.theme-disability.about .app-version{background:linear-gradient(45deg,#59595955 0,#59595955 37.5%,#cf728055 37.5%,#cf728055 42.5%,#eede7755 42.5%,#eede7755 47.5%,#e8e8e855 47.5%,#e8e8e855 52.5%,#7bc2e055 52.5%,#7bc2e055 57.5%,#3bb07d55 57.5%,#3bb07d55 62.5%,#59595955 62.5%,#59595955 100%);}
+.theme-disability.about .app-version:hover{background:linear-gradient(45deg,#595959 0,#595959 37.5%,#cf7280 37.5%,#cf7280 42.5%,#eede77 42.5%,#eede77 47.5%,#e8e8e8 47.5%,#e8e8e8 52.5%,#7bc2e0 52.5%,#7bc2e0 57.5%,#3bb07d 57.5%,#3bb07d 62.5%,#595959 62.5%,#595959 100%);}
+.theme-lesbian.about .app-version{background:linear-gradient(to bottom,#d1260155,#d1260155 20%,#ff8f4555 20%,#ff8f4555 40%,#fff5 40%,#fff5 60%,#cf559b55 60%,#cf559b55 80%,#9b1a5855 80%,#9b1a5855);}
+.theme-lesbian.about .app-version:hover{background:linear-gradient(to bottom,#d12601,#d12601 20%,#ff8f45 20%,#ff8f45 40%,#fff 40%,#fff 60%,#cf559b 60%,#cf559b 80%,#9b1a58 80%,#9b1a58);}
+.theme-pan.about .app-version{background:linear-gradient(to bottom,#ff218c55,#ff218c55 33.33%,#fed80055 33.33%,#fed80055 66.67%,#21b1ff55 66.67%,#21b1ff55);}
+.theme-pan.about .app-version:hover{background:linear-gradient(to bottom,#ff218c,#ff218c 33.33%,#fed800 33.33%,#fed800 66.67%,#21b1ff 66.67%,#21b1ff);}
+.theme-trans.about .app-version{background:linear-gradient(to bottom,#5ccefa55,#5ccefa55 20%,#f6a8b755 20%,#f6a8b755 40%,#fff5 40%,#fff5 60%,#f6a8b755 60%,#f6a8b755 80%,#5ccefa55 80%,#5ccefa55);}
+.theme-trans.about .app-version:hover{background:linear-gradient(to bottom,#5ccefa,#5ccefa 20%,#f6a8b7 20%,#f6a8b7 40%,#fff 40%,#fff 60%,#f6a8b7 60%,#f6a8b7 80%,#5ccefa 80%,#5ccefa);}
+.theme-bi.about .app-version{background:linear-gradient(to bottom,#d6027055,#d6027055 40%,#9a4f9655 40%,#9a4f9655 60%,#0039a955 60%,#0039a955);}
+.theme-bi.about .app-version:hover{background:linear-gradient(to bottom,#d60270,#d60270 40%,#9a4f96 40%,#9a4f96 60%,#0039a9 60%,#0039a9);}
+.theme-agender.about .app-version{background:linear-gradient(to bottom,#0005,#00000055 14.29%,#bcc4c755 14.29%,#bcc4c755 28.57%,#fff5 28.57%,#fff5 42.86%,#b7f58455 42.86%,#b7f58455 57.14%,#fff5 57.14%,#fff5 71.43%,#bcc4c755 71.43%,#bcc4c755 85.71%,#00000055 85.71%,#0005);}
+.theme-agender.about .app-version:hover{background:linear-gradient(to bottom,#000,#000 14.29%,#bcc4c7 14.29%,#bcc4c7 28.57%,#fff 28.57%,#fff 42.86%,#b7f584 42.86%,#b7f584 57.14%,#fff 57.14%,#fff 71.43%,#bcc4c7 71.43%,#bcc4c7 85.71%,#000 85.71%,#000);}
+.theme-aro.about .app-version{background:linear-gradient(to bottom,#309c3455,#309c3455 20%,#9dce6955 20%,#9dce6955 40%,#fff5 40%,#fff5 60%,#a0a0a055 60%,#a0a0a055 80%,#0005 80%,#0005);}
+.theme-aro.about .app-version:hover{background:linear-gradient(to bottom,#309c34,#309c34 20%,#9dce69 20%,#9dce69 40%,#fff 40%,#fff 60%,#a0a0a0 60%,#a0a0a0 80%,#000 80%,#000);}
+.theme-ace.about .app-version{background:linear-gradient(to bottom,#0005,#0005 25%,#a3a3a355 25%,#a3a3a355 50%,#fff5 50%,#fff5 75%,#82008055 75%,#82008055);}
+.theme-ace.about .app-version:hover{background:linear-gradient(to bottom,#000,#000 25%,#a3a3a3 25%,#a3a3a3 50%,#fff 50%,#fff 75%,#820080 75%,#820080);}
+.theme-non-binary.about .app-version{background:linear-gradient(to bottom,#fdf52f55,#fdf52f55 25%,#fff5 25%,#fff5 50%,#9d5ad255 50%,#9d5ad255 75%,#0005 75%,#0005);}
+.theme-non-binary.about .app-version:hover{background:linear-gradient(to bottom,#fdf52f,#fdf52f 25%,#fff 25%,#fff 50%,#9d5ad2 50%,#9d5ad2 75%,#000 75%,#000);}
+.theme-black-history.about .app-version{background:linear-gradient(to bottom,#e31b2355,#e31b2355 33%,#0005 33%,#0005 66%,#00853f55 66%,#00853f55);}
+.theme-black-history.about .app-version:hover{background:linear-gradient(to bottom,#e31b23,#e31b23 33%,#000 33%,#000 66%,#00853f 66%,#00853f);}
+.theme-aids.about .app-version{background:linear-gradient(to bottom,#ffffff55,#ffffff55 20%,#d1111355 20%,#d1111355 40%,#ffffff55 40%,#ffffff55 60%,#d1111355 60%,#d1111355 80%,#ffffff55 80%,#ffffff55);}
+.theme-aids.about .app-version:hover{background:linear-gradient(to bottom,#fff,#fff 20%,#d11113 20%,#d11113 40%,#fff 40%,#fff 60%,#d11113 60%,#d11113 80%,#fff 80%,#fff);}
+.theme-intersex.about .app-version{background:radial-gradient(closest-side circle at center,#ffd80055 44%,#7902aa55 44%,#7902aa55 56%,#ffd80055 56%);}
+.theme-intersex.about .app-version:hover{background:radial-gradient(closest-side circle at center,#ffd800 44%,#7902aa 44%,#7902aa 56%,#ffd800 56%);}
+.theme-autism.about .app-version{background:linear-gradient(to bottom,#e5304355,#e5304355 16.66%,#f6834755 16.66%,#f6834755 33.33%,#fac85755 33.33%,#fac85755 66.67%,#99d67155 66.67%,#99d67155 83.33%,#21ae7555 83.33%,#21ae7555);}
+.theme-autism.about .app-version:hover{background:linear-gradient(to bottom,#e53043,#e53043 16.66%,#f68347 16.66%,#f68347 33.33%,#fac857 33.33%,#fac857 66.67%,#99d671 66.67%,#99d671 83.33%,#21ae75 83.33%,#21ae75);}
