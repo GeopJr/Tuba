@@ -121,6 +121,11 @@ public class Tuba.EditorPage : ComposerPage {
 			wrap_mode = WrapMode.WORD_CHAR
 		};
 
+		#if GSPELL
+			var gspell_view = Gspell.TextView.get_from_gtk_text_view (editor);
+			gspell_view.basic_setup ();
+		#endif
+
 		var keypress_controller = new Gtk.EventControllerKey ();
         keypress_controller.key_pressed.connect ((keyval, _, modifier) => {
             if (keyval == Gdk.Key.Return && modifier == Gdk.ModifierType.CONTROL_MASK) {

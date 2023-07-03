@@ -59,6 +59,7 @@ libgtk_dep = dependency('gtk4', version: '>=4.0.0', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.2', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: false, version: '>=5.6.0')
 libwebp_dep = dependency('libwebp', required: false)
+gspell = dependency('gspell-4', required: false)
 
 if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
@@ -70,6 +71,10 @@ endif
 
 if libgtk_dep.version().version_compare('>=4.10.0')
   add_project_arguments(['--define=GTK_4_10'], language: 'vala')
+endif
+
+if gspell.found ()
+  add_project_arguments(['--define=GSPELL'], language: 'vala')
 endif
 
 if not gtksourceview_dep.found ()
@@ -91,6 +96,7 @@ final_deps = [
   dependency('json-glib-1.0', version: '>=1.4.4'),
   dependency('libxml-2.0'),
   dependency('libsecret-1', required: true),
+  gspell,
   gtksourceview_dep,
   libgtk_dep,
   libadwaita_dep
