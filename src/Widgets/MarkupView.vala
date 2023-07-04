@@ -99,6 +99,16 @@ public class Tuba.Widgets.MarkupView : Box {
 			current_chunk += chunk;
 	}
 
+	void strip_chunk () {
+		if (current_chunk != null)
+			current_chunk = current_chunk.strip ();
+	}
+
+	bool chunk_ends_in_newline () {
+		if (current_chunk == null) return false;
+		return current_chunk.has_suffix ("\n");
+	}
+
 	static string blockquote_handler_text = "";
 	private static void blockquote_handler (Xml.Node* root) {
 		traverse (root, (node) => {
@@ -155,7 +165,6 @@ public class Tuba.Widgets.MarkupView : Box {
 			case "html":
 			case "span":
 			case "markup":
-			case "pre":
 				traverse_and_handle (v, root, default_handler);
 				break;
 			case "body":
@@ -163,15 +172,19 @@ public class Tuba.Widgets.MarkupView : Box {
 				v.commit_chunk ();
 				break;
 			case "p":
-				// Don't add spacing if this is the first paragraph
-				if (v.current_chunk != "" && v.current_chunk != null)
-					v.write_chunk ("\n\n");
-
+				if (!v.chunk_ends_in_newline ()) v.write_chunk ("\n");
+				v.write_chunk ("\n");
 				traverse_and_handle (v, root, default_handler);
+				break;
+			case "pre":
+				v.write_chunk ("\n");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("\n");
 				break;
 			case "code":
 				v.write_chunk ("<span font_family=\"monospace\">");
 				traverse_and_handle (v, root, default_handler);
+				v.strip_chunk ();
 				v.write_chunk ("</span>");
 				break;
 			case "blockquote":
