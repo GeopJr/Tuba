@@ -175,6 +175,7 @@ public class Tuba.Widgets.MarkupView : Box {
 				if (!v.chunk_ends_in_newline ()) v.write_chunk ("\n");
 				v.write_chunk ("\n");
 				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("\n");
 				break;
 			case "pre":
 				v.write_chunk ("\n");
