@@ -277,6 +277,7 @@ flowboxchild {
 
 .ttl-quote {
 	border-radius: 6px;
+	font-weight: initial;
 }
 
 .ttl-thread-line.top {
