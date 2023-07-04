@@ -22,6 +22,21 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	public API.Account? kind_instigator { get; set; default = null; }
+	public Widgets.Status? quoted_status { get; set; default = null; }
+
+	private bool _is_quote = false;
+	public bool is_quote {
+		get { return _is_quote; }
+		set {
+			_is_quote = value;
+			menu_button.visible = !value;
+			emoji_reactions.visible = !value;
+			fr_actions.visible = !value;
+			actions.visible = !value;
+			if (quoted_status !=null)
+				quoted_status.visible = !value;
+		}
+	}
 
 	string? _kind = null;
 	public string? kind {
@@ -498,7 +513,24 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	protected virtual void bind () {
 		this.content.instance_emojis = status.formal.emojis_map;
-		this.content.content = status.formal.content;
+		this.content.content = status.formal.clean_content;
+
+		if (status.formal.quote != null) {
+			
+			quoted_status = (Widgets.Status) status.formal.quote.to_widget ();
+			quoted_status.is_quote = true;
+			quoted_status.add_css_class ("frame");
+			quoted_status.add_css_class ("ttl-quote");
+			//  content_box.append (quoted_status);
+
+			var qbtn = new Gtk.Button () {
+				child = quoted_status,
+				css_classes = { "ttl-flat-button", "flat" }
+			};
+			qbtn.clicked.connect (quoted_status.on_open);
+			content_box.append (qbtn);
+
+		}
 
 		spoiler_label.label = this.spoiler_text;
 		spoiler_label_rev.label = this.spoiler_text_revealed;
