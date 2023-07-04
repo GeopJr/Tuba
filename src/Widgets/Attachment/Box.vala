@@ -39,7 +39,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 				foreach (var attachment_w in attachment_widgets) {
 					attachment_w.spoiler = !value;
 				}
-				reveal_btn.visible = value;
+				reveal_btn.visible = spoiler_box.can_target = value;
 				reveal_text.visible = !value;
 			}
 		}
