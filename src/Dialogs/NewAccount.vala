@@ -42,6 +42,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		reset ();
 		present ();
+		instance_entry.grab_focus ();
 	}
 
 	public bool on_manual_auth (string url) {
