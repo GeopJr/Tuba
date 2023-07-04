@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-01 12:28+0300\n"
-"PO-Revision-Date: 2023-05-21 06:05+0000\n"
+"PO-Revision-Date: 2023-07-04 17:58+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -70,7 +70,7 @@ msgstr "Bewerkt"
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:224
 msgid "Show Less"
-msgstr ""
+msgstr "Minder tonen"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:256 src/Widgets/Status.vala:371
@@ -88,7 +88,7 @@ msgstr "Accepteren"
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:36
 msgid "Bot"
-msgstr ""
+msgstr "Bot"
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
@@ -222,12 +222,12 @@ msgstr "Ontvang meldingen, zelfs als de app gesloten is"
 
 #: data/ui/dialogs/preferences.ui:116
 msgid "Strip tracking parameters from links"
-msgstr ""
+msgstr "Tracking-argumenten uit links verwijderen"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:119
 msgid "It can lead to broken links"
-msgstr ""
+msgstr "Kan leiden tot incorrecte links"
 
 #: data/ui/dialogs/preferences.ui:131
 msgid "Timelines"
@@ -326,7 +326,7 @@ msgstr "Uw account is gekoppeld en klaar voor gebruik!"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Compose a new post"
-msgstr ""
+msgstr "Nieuwe post maken"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Search.vala:16 src/Views/Main.vala:19
 msgid "Search"
@@ -338,19 +338,19 @@ msgstr "Terug"
 
 #: data/gtk/help-overlay.ui:39
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "Sneltoetsen tonen"
 
 #: data/gtk/help-overlay.ui:45
 msgid "Quit"
-msgstr ""
+msgstr "Afsluiten"
 
 #: data/gtk/help-overlay.ui:53
 msgid "Composer"
-msgstr ""
+msgstr "Samensteller"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Commit"
-msgstr ""
+msgstr "Commit"
 
 #: src/Application.vala:146 src/Widgets/Attachment/Item.vala:211
 #: src/Views/Sidebar.vala:268 src/Views/MediaViewer.vala:438
@@ -369,7 +369,7 @@ msgstr ""
 
 #: src/Application.vala:334
 msgid "OK"
-msgstr ""
+msgstr "Oké"
 
 #: src/Application.vala:343
 msgid "Yes"
@@ -403,7 +403,7 @@ msgstr "Bewerkgeschiedenis tonen"
 #. translators: Pin post on profile
 #: src/Widgets/Status.vala:268 src/Widgets/Status.vala:495
 msgid "Pin"
-msgstr ""
+msgstr "Vastzetten"
 
 #: src/Widgets/Status.vala:273
 msgid "Edit"
@@ -425,7 +425,7 @@ msgstr "Gevoelig"
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:493
 msgid "Unpin"
-msgstr ""
+msgstr "Losmaken"
 
 #: src/Widgets/Status.vala:541
 msgid "Reply"
@@ -471,24 +471,24 @@ msgstr "%lld gestemd"
 #: src/Widgets/PreviewCard.vala:132
 #, c-format
 msgid "Discussed %d times by %d people yesterday"
-msgstr ""
+msgstr "Gisteren %d keer besproken door %d personen"
 
 #. translators: the variables are numbers
 #: src/Widgets/PreviewCard.vala:140
 #, c-format
 msgid "Discussed %d times by %d people in the past 2 days"
-msgstr ""
+msgstr "In de afgelopen 2 dagen %d keer besproken door %d personen"
 
 #. translators: Used when there are results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:53
 #: src/Widgets/CustomEmojiChooser.vala:107
 msgid "Results"
-msgstr ""
+msgstr "Resultaten"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:111
 msgid "No Results"
-msgstr ""
+msgstr "Geen resultaten"
 
 #: src/Widgets/CustomEmojiChooser.vala:144
 #: src/Widgets/CustomEmojiChooser.vala:150
@@ -496,11 +496,11 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:155 src/API/Emoji.vala:4
 #: src/API/Emoji.vala:8
 msgid "Other"
-msgstr ""
+msgstr "Overig"
 
 #: src/Widgets/CustomEmojiChooser.vala:154
 msgid "Custom Emojis"
-msgstr ""
+msgstr "Aangepaste emoji's"
 
 #: src/Widgets/StatusActionButton.vala:158
 msgid "Network Error"
@@ -544,12 +544,12 @@ msgstr "Media opslaan"
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:72
 msgid "Hide Media"
-msgstr ""
+msgstr "Media verbergen"
 
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:83
 msgid "Sensitive Media"
-msgstr ""
+msgstr "Gevoelige media"
 
 #: src/Views/Thread.vala:13
 msgid "Conversation"
@@ -557,7 +557,7 @@ msgstr "Gesprek"
 
 #: src/Views/Sidebar.vala:36
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Sneltoetsen"
 
 #: src/Views/Sidebar.vala:45
 msgid "Preferences"
@@ -747,17 +747,17 @@ msgstr "Er is een fout opgetreden"
 
 #: src/Views/StatusStats.vala:6
 msgid "Post Stats"
-msgstr ""
+msgstr "Berichtstatistieken"
 
 #. translators: title for a list of people that favorited a post
 #: src/Views/StatusStats.vala:10
 msgid "Favorited By"
-msgstr ""
+msgstr "Als favoriet gemarkeerd door"
 
 #. translators: title for a list of people that boosted a post
 #: src/Views/StatusStats.vala:18
 msgid "Boosted By"
-msgstr ""
+msgstr "Geboost door"
 
 #. translators: as in All search results
 #: src/Views/Search.vala:40
@@ -845,7 +845,7 @@ msgstr "Lijst toevoegen"
 
 #: src/Views/Home.vala:5 src/Services/Accounts/Mastodon/Account.vala:28
 msgid "Home"
-msgstr "Tijdlijn"
+msgstr "Start"
 
 #: src/Views/FollowRequests.vala:4
 #: src/Services/Accounts/Mastodon/Account.vala:118
@@ -862,15 +862,15 @@ msgstr "Favorieten"
 
 #: src/Views/Explore.vala:3 src/Services/Accounts/Mastodon/Account.vala:91
 msgid "Explore"
-msgstr ""
+msgstr "Verkennen"
 
 #: src/Views/Explore.vala:7
 msgid "News"
-msgstr ""
+msgstr "Nieuws"
 
 #: src/Views/Explore.vala:8
 msgid "For You"
-msgstr ""
+msgstr "Voor u"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -1083,57 +1083,57 @@ msgstr "De server stuurde een foutmelding terug"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr ""
+msgstr "Poll"
 
 #. translators: tooltip on a button that appends another poll entry / option
 #: src/Dialogs/Composer/PollPage.vala:114
 msgid "Add Poll"
-msgstr ""
+msgstr "Poll toevoegen"
 
 #: src/Dialogs/Composer/PollPage.vala:123
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Enable Multiple Choice"
-msgstr ""
+msgstr "Meerdere antwoorden toestaan"
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Disable Multiple Choice"
-msgstr ""
+msgstr "Meerdere antwoorden niet toestaan"
 
 #: src/Dialogs/Composer/PollPage.vala:145
 #: src/Dialogs/Composer/PollPage.vala:159
 msgid "Hide Total Votes"
-msgstr ""
+msgstr "Totaal aantal stemmen verbergen"
 
 #: src/Dialogs/Composer/PollPage.vala:159
 msgid "Show Total Votes"
-msgstr ""
+msgstr "Totaal aantal stemmen tonen"
 
 #: src/Dialogs/Composer/PollPage.vala:187
 #: src/Dialogs/Composer/PollPage.vala:222
 #, c-format
 msgid "Choice %d"
-msgstr ""
+msgstr "Keuze %d"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:231
 #: src/Dialogs/Composer/PollPage.vala:234
 #, c-format
 msgid "%d Minutes"
-msgstr ""
+msgstr "%d minuten"
 
 #. translators: the variable is a number, m as in minutes
 #: src/Dialogs/Composer/PollPage.vala:233
 #: src/Dialogs/Composer/PollPage.vala:234
 #, c-format
 msgid "%dm"
-msgstr ""
+msgstr "%d m"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:236
 #, c-format
 msgid "%d Hour"
-msgstr ""
+msgstr "%d uur"
 
 #. translators: the variable is a number, h as in hours
 #: src/Dialogs/Composer/PollPage.vala:238
@@ -1141,19 +1141,19 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:240
 #, c-format
 msgid "%dh"
-msgstr ""
+msgstr "%d u"
 
 #: src/Dialogs/Composer/PollPage.vala:239
 #: src/Dialogs/Composer/PollPage.vala:240
 #, c-format
 msgid "%d Hours"
-msgstr ""
+msgstr "%d uur"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:242
 #, c-format
 msgid "%d Day"
-msgstr ""
+msgstr "%d dag"
 
 #. translators: the variable is a number, d as in days
 #: src/Dialogs/Composer/PollPage.vala:244
@@ -1161,17 +1161,17 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:246
 #, c-format
 msgid "%dd"
-msgstr ""
+msgstr "%d d"
 
 #: src/Dialogs/Composer/PollPage.vala:245
 #: src/Dialogs/Composer/PollPage.vala:246
 #, c-format
 msgid "%d Days"
-msgstr ""
+msgstr "%d dagen"
 
 #: src/Dialogs/Composer/PollPage.vala:266
 msgid "Expiration"
-msgstr ""
+msgstr "Verloopdatum"
 
 #. translators: "Text" as in text-based input
 #: src/Dialogs/Composer/EditorPage.vala:11
@@ -1193,7 +1193,7 @@ msgstr "Emojikiezer"
 
 #: src/Dialogs/Composer/EditorPage.vala:205
 msgid "Custom Emoji Picker"
-msgstr ""
+msgstr "Aangepaste-emoji-kiezer"
 
 #: src/Dialogs/Composer/EditorPage.vala:224
 msgid "Write your warning here"
@@ -1213,15 +1213,15 @@ msgstr "Bericht­taal"
 
 #: src/Dialogs/Composer/Dialog.vala:181
 msgid "Are you sure you want to exit?"
-msgstr ""
+msgstr "Weet u zeker dat u wilt asfluiten?"
 
 #: src/Dialogs/Composer/Dialog.vala:182
 msgid "Your progress will be lost."
-msgstr ""
+msgstr "Uw voortgang zal verloren gaan"
 
 #: src/Dialogs/Composer/Dialog.vala:184
 msgid "Discard"
-msgstr ""
+msgstr "Verwerpen"
 
 #: src/Dialogs/Composer/Dialog.vala:269
 msgid "_Redraft"
@@ -1290,7 +1290,7 @@ msgstr "Bestand ‘%s’ is groter dan de instantielimiet"
 #: src/API/Tag.vala:35
 #, c-format
 msgid "%d per week"
-msgstr ""
+msgstr "%d per week"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:48
@@ -1306,7 +1306,7 @@ msgstr "In de afgelopen 2 dagen %d keer gebruikt door %d personen"
 
 #: src/API/Suggestion.vala:8
 msgid "Account not found"
-msgstr ""
+msgstr "Account niet gevonden"
 
 #. translators: the variable is an external service like "PeerTube"
 #: src/API/Status/PreviewCard.vala:25
