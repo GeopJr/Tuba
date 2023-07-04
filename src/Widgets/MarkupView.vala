@@ -84,7 +84,7 @@ public class Tuba.Widgets.MarkupView : Box {
 				vexpand = true
 			};
 			if (instance_emojis != null) label.instance_emojis = instance_emojis;
-			label.label = current_chunk;
+			label.label = current_chunk.strip ();
 			append (label);
 		}
 		current_chunk = null;
@@ -97,6 +97,16 @@ public class Tuba.Widgets.MarkupView : Box {
 			current_chunk = chunk;
 		else
 			current_chunk += chunk;
+	}
+
+	void strip_chunk () {
+		if (current_chunk != null)
+			current_chunk = current_chunk.strip ();
+	}
+
+	bool chunk_ends_in_newline () {
+		if (current_chunk == null) return false;
+		return current_chunk.has_suffix ("\n");
 	}
 
 	static string blockquote_handler_text = "";
@@ -155,7 +165,6 @@ public class Tuba.Widgets.MarkupView : Box {
 			case "html":
 			case "span":
 			case "markup":
-			case "pre":
 				traverse_and_handle (v, root, default_handler);
 				break;
 			case "body":
@@ -163,15 +172,19 @@ public class Tuba.Widgets.MarkupView : Box {
 				v.commit_chunk ();
 				break;
 			case "p":
-				// Don't add spacing if this is the first paragraph
-				if (v.current_chunk != "" && v.current_chunk != null)
-					v.write_chunk ("\n\n");
-
+				if (!v.chunk_ends_in_newline ()) v.write_chunk ("\n");
+				v.write_chunk ("\n");
 				traverse_and_handle (v, root, default_handler);
+				break;
+			case "pre":
+				v.write_chunk ("\n");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("\n");
 				break;
 			case "code":
 				v.write_chunk ("<span font_family=\"monospace\">");
 				traverse_and_handle (v, root, default_handler);
+				v.strip_chunk ();
 				v.write_chunk ("</span>");
 				break;
 			case "blockquote":
@@ -179,7 +192,7 @@ public class Tuba.Widgets.MarkupView : Box {
 
 				blockquote_handler_text = "";
 				blockquote_handler (root);
-				var text = blockquote_handler_text;
+				var text = blockquote_handler_text.strip ();
 				var label = new RichLabel (text) {
 					visible = true,
 					css_classes = { "ttl-code" }
@@ -194,6 +207,49 @@ public class Tuba.Widgets.MarkupView : Box {
 					traverse_and_handle (v, root, default_handler);
 					v.write_chunk ("</a>");
 				}
+				break;
+
+			case "h1":
+				if (v.current_chunk != "" && v.current_chunk != null)
+					v.write_chunk ("\n");
+				v.write_chunk ("<b><span size=\"xx-large\">");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("</span></b>\n");
+				break;
+			case "h2":
+				if (v.current_chunk != "" && v.current_chunk != null)
+					v.write_chunk ("\n");
+				v.write_chunk ("<b><span size=\"x-large\">");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("</span></b>\n");
+				break;
+			case "h3":
+				if (v.current_chunk != "" && v.current_chunk != null)
+					v.write_chunk ("\n");
+				v.write_chunk ("<b><span size=\"large\">");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("</span></b>\n");
+				break;
+			case "h4":
+				if (v.current_chunk != "" && v.current_chunk != null)
+					v.write_chunk ("\n");
+				v.write_chunk ("<b>");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("</b>\n");
+				break;
+			case "h5":
+				if (v.current_chunk != "" && v.current_chunk != null)
+					v.write_chunk ("\n");
+				v.write_chunk ("<b><span size=\"small\">");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("</span></b>\n");
+				break;
+			case "h6":
+				if (v.current_chunk != "" && v.current_chunk != null)
+					v.write_chunk ("\n");
+				v.write_chunk ("<b><span size=\"x-small\">");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("</span></b>\n");
 				break;
 
 			case "b":
