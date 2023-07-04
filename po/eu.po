@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-01 12:28+0300\n"
-"PO-Revision-Date: 2023-05-29 21:50+0000\n"
+"PO-Revision-Date: 2023-07-04 17:58+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -68,7 +68,7 @@ msgstr "Editatua"
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:224
 msgid "Show Less"
-msgstr ""
+msgstr "Erakutsi gutxiago"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:256 src/Widgets/Status.vala:371
@@ -86,7 +86,7 @@ msgstr "Onartu"
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:36
 msgid "Bot"
-msgstr ""
+msgstr "BOTa"
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
@@ -220,12 +220,12 @@ msgstr "Jaso jakinarazpenak aplikazioa itxita badago ere"
 
 #: data/ui/dialogs/preferences.ui:116
 msgid "Strip tracking parameters from links"
-msgstr ""
+msgstr "Kendu esteketatik zelatatze parametroak"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:119
 msgid "It can lead to broken links"
-msgstr ""
+msgstr "Estekak apurt litzake"
 
 #: data/ui/dialogs/preferences.ui:131
 msgid "Timelines"
@@ -324,7 +324,7 @@ msgstr "Kontua konektatuta eta erabiltzeko prest dago!"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Compose a new post"
-msgstr ""
+msgstr "Idatzi argitalpen berria"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Search.vala:16 src/Views/Main.vala:19
 msgid "Search"
@@ -336,19 +336,21 @@ msgstr "Egin atzera"
 
 #: data/gtk/help-overlay.ui:39
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "Erakutsi teklatuaren lasterbideak"
 
 #: data/gtk/help-overlay.ui:45
 msgid "Quit"
-msgstr ""
+msgstr "Itxi"
 
 #: data/gtk/help-overlay.ui:53
+#, fuzzy
 msgid "Composer"
-msgstr ""
+msgstr "Editorea"
 
 #: data/gtk/help-overlay.ui:56
+#, fuzzy
 msgid "Commit"
-msgstr ""
+msgstr "Bidali"
 
 #: src/Application.vala:146 src/Widgets/Attachment/Item.vala:211
 #: src/Views/Sidebar.vala:268 src/Views/MediaViewer.vala:438
@@ -365,7 +367,7 @@ msgstr "Xabi <xabi@balaena.eus>"
 
 #: src/Application.vala:334
 msgid "OK"
-msgstr ""
+msgstr "Ados"
 
 #: src/Application.vala:343
 msgid "Yes"
@@ -399,7 +401,7 @@ msgstr "Ikusi edizio-historia"
 #. translators: Pin post on profile
 #: src/Widgets/Status.vala:268 src/Widgets/Status.vala:495
 msgid "Pin"
-msgstr ""
+msgstr "Finkatu"
 
 #: src/Widgets/Status.vala:273
 msgid "Edit"
@@ -421,7 +423,7 @@ msgstr "Hunkigarria"
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:493
 msgid "Unpin"
-msgstr ""
+msgstr "Utzi finkatzeari"
 
 #: src/Widgets/Status.vala:541
 msgid "Reply"
@@ -467,36 +469,37 @@ msgstr "%lld(e)k bozkatu dute"
 #: src/Widgets/PreviewCard.vala:132
 #, c-format
 msgid "Discussed %d times by %d people yesterday"
-msgstr ""
+msgstr "%d aldiz aipatu zuten %d pertsonak atzo"
 
 #. translators: the variables are numbers
 #: src/Widgets/PreviewCard.vala:140
 #, c-format
 msgid "Discussed %d times by %d people in the past 2 days"
-msgstr ""
+msgstr "%d aldiz aipatu dute %d pertsonak azken bi egunotan"
 
 #. translators: Used when there are results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:53
 #: src/Widgets/CustomEmojiChooser.vala:107
 msgid "Results"
-msgstr ""
+msgstr "Emaitzak"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:111
 msgid "No Results"
-msgstr ""
+msgstr "Ez dago emaitzarik"
 
 #: src/Widgets/CustomEmojiChooser.vala:144
 #: src/Widgets/CustomEmojiChooser.vala:150
 #: src/Widgets/CustomEmojiChooser.vala:153
 #: src/Widgets/CustomEmojiChooser.vala:155 src/API/Emoji.vala:4
 #: src/API/Emoji.vala:8
+#, fuzzy
 msgid "Other"
-msgstr ""
+msgstr "Besteren bat"
 
 #: src/Widgets/CustomEmojiChooser.vala:154
 msgid "Custom Emojis"
-msgstr ""
+msgstr "Instantziako emojiak"
 
 #: src/Widgets/StatusActionButton.vala:158
 msgid "Network Error"
@@ -540,12 +543,12 @@ msgstr "Gorde multimedia"
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:72
 msgid "Hide Media"
-msgstr ""
+msgstr "Ezkutatu multimedia"
 
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:83
 msgid "Sensitive Media"
-msgstr ""
+msgstr "Multimedia hunkigarria"
 
 #: src/Views/Thread.vala:13
 msgid "Conversation"
@@ -553,7 +556,7 @@ msgstr "Elkarrizketa"
 
 #: src/Views/Sidebar.vala:36
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Teklatuaren lasterbideak"
 
 #: src/Views/Sidebar.vala:45
 msgid "Preferences"
@@ -742,18 +745,19 @@ msgid "An Error Occurred"
 msgstr "Errorea gertatu da"
 
 #: src/Views/StatusStats.vala:6
+#, fuzzy
 msgid "Post Stats"
-msgstr ""
+msgstr "Argitalpenaren estatistikak"
 
 #. translators: title for a list of people that favorited a post
 #: src/Views/StatusStats.vala:10
 msgid "Favorited By"
-msgstr ""
+msgstr "Gogoko du(te):"
 
 #. translators: title for a list of people that boosted a post
 #: src/Views/StatusStats.vala:18
 msgid "Boosted By"
-msgstr ""
+msgstr "Bultzatu du(te):"
 
 #. translators: as in All search results
 #: src/Views/Search.vala:40
@@ -857,16 +861,17 @@ msgid "Favorites"
 msgstr "Gogokoak"
 
 #: src/Views/Explore.vala:3 src/Services/Accounts/Mastodon/Account.vala:91
+#, fuzzy
 msgid "Explore"
-msgstr ""
+msgstr "Esploratu"
 
 #: src/Views/Explore.vala:7
 msgid "News"
-msgstr ""
+msgstr "Berriak"
 
 #: src/Views/Explore.vala:8
 msgid "For You"
-msgstr ""
+msgstr "Zuretzat"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -1079,57 +1084,59 @@ msgstr "Zerbitzariak errorea itzuli du"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr ""
+msgstr "Bozketa"
 
 #. translators: tooltip on a button that appends another poll entry / option
 #: src/Dialogs/Composer/PollPage.vala:114
 msgid "Add Poll"
-msgstr ""
+msgstr "Gehitu bozketa"
 
 #: src/Dialogs/Composer/PollPage.vala:123
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Enable Multiple Choice"
-msgstr ""
+msgstr "Gaitu aukera anitzak"
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Disable Multiple Choice"
-msgstr ""
+msgstr "Ezgaitu aukera anitzak"
 
 #: src/Dialogs/Composer/PollPage.vala:145
 #: src/Dialogs/Composer/PollPage.vala:159
+#, fuzzy
 msgid "Hide Total Votes"
-msgstr ""
+msgstr "Ezkutatu emaitza totala"
 
 #: src/Dialogs/Composer/PollPage.vala:159
+#, fuzzy
 msgid "Show Total Votes"
-msgstr ""
+msgstr "Erakutsi emaitza totala"
 
 #: src/Dialogs/Composer/PollPage.vala:187
 #: src/Dialogs/Composer/PollPage.vala:222
 #, c-format
 msgid "Choice %d"
-msgstr ""
+msgstr "%d. aukera"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:231
 #: src/Dialogs/Composer/PollPage.vala:234
 #, c-format
 msgid "%d Minutes"
-msgstr ""
+msgstr "%d minutu"
 
 #. translators: the variable is a number, m as in minutes
 #: src/Dialogs/Composer/PollPage.vala:233
 #: src/Dialogs/Composer/PollPage.vala:234
 #, c-format
 msgid "%dm"
-msgstr ""
+msgstr "%dm"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:236
 #, c-format
 msgid "%d Hour"
-msgstr ""
+msgstr "Ordu %d"
 
 #. translators: the variable is a number, h as in hours
 #: src/Dialogs/Composer/PollPage.vala:238
@@ -1137,19 +1144,19 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:240
 #, c-format
 msgid "%dh"
-msgstr ""
+msgstr "%do"
 
 #: src/Dialogs/Composer/PollPage.vala:239
 #: src/Dialogs/Composer/PollPage.vala:240
 #, c-format
 msgid "%d Hours"
-msgstr ""
+msgstr "%d ordu"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:242
 #, c-format
 msgid "%d Day"
-msgstr ""
+msgstr "egun %d"
 
 #. translators: the variable is a number, d as in days
 #: src/Dialogs/Composer/PollPage.vala:244
@@ -1157,17 +1164,17 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:246
 #, c-format
 msgid "%dd"
-msgstr ""
+msgstr "%de"
 
 #: src/Dialogs/Composer/PollPage.vala:245
 #: src/Dialogs/Composer/PollPage.vala:246
 #, c-format
 msgid "%d Days"
-msgstr ""
+msgstr "%d egun"
 
 #: src/Dialogs/Composer/PollPage.vala:266
 msgid "Expiration"
-msgstr ""
+msgstr "Iraungitzea"
 
 #. translators: "Text" as in text-based input
 #: src/Dialogs/Composer/EditorPage.vala:11
@@ -1189,7 +1196,7 @@ msgstr "Txertatu emojia"
 
 #: src/Dialogs/Composer/EditorPage.vala:205
 msgid "Custom Emoji Picker"
-msgstr ""
+msgstr "Emoji hautatzailea"
 
 #: src/Dialogs/Composer/EditorPage.vala:224
 msgid "Write your warning here"
@@ -1209,15 +1216,15 @@ msgstr "Bidalketaren hizkuntza"
 
 #: src/Dialogs/Composer/Dialog.vala:181
 msgid "Are you sure you want to exit?"
-msgstr ""
+msgstr "Ziur itxi nahi duzula?"
 
 #: src/Dialogs/Composer/Dialog.vala:182
 msgid "Your progress will be lost."
-msgstr ""
+msgstr "Idatzitakoa galduko duzu."
 
 #: src/Dialogs/Composer/Dialog.vala:184
 msgid "Discard"
-msgstr ""
+msgstr "Baztertu"
 
 #: src/Dialogs/Composer/Dialog.vala:269
 msgid "_Redraft"
@@ -1286,7 +1293,7 @@ msgstr "\"%s\" fitxategia instantziak ezarritako muga baino handiagoa da"
 #: src/API/Tag.vala:35
 #, c-format
 msgid "%d per week"
-msgstr ""
+msgstr "%d asteko"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:48
@@ -1302,7 +1309,7 @@ msgstr "%d aldiz erabili dute %d pertsonak azken bi egunetan"
 
 #: src/API/Suggestion.vala:8
 msgid "Account not found"
-msgstr ""
+msgstr "Ez da kontua aurkitu"
 
 #. translators: the variable is an external service like "PeerTube"
 #: src/API/Status/PreviewCard.vala:25
