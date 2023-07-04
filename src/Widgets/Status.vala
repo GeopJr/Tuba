@@ -513,7 +513,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	protected virtual void bind () {
 		this.content.instance_emojis = status.formal.emojis_map;
-		this.content.content = status.formal.clean_content;
+		this.content.content = status.formal.content;
 
 		if (status.formal.quote != null) {
 			quoted_status = (Widgets.Status) status.formal.quote.to_widget ();

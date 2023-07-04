@@ -28,7 +28,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public string visibility { get; set; default = settings.default_post_visibility; }
     public API.Status? reblog { get; set; default = null; }
     public API.Status? quote { get; set; default = null; }
-    public API.Akkoma? akkoma { get; set; default = null; }
+    //  public API.Akkoma? akkoma { get; set; default = null; }
     public ArrayList<API.Mention>? mentions { get; set; default = null; }
     public ArrayList<API.EmojiReaction>? reactions { get; set; default = null; }
     public ArrayList<API.EmojiReaction>? emoji_reactions { get; set; default = null; }
@@ -38,15 +38,15 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public Gee.ArrayList<API.Emoji>? emojis { get; set; }
     public API.PreviewCard? card { get; set; default = null; }
 
-    public string clean_content {
-        get {
-            if (quote != null && akkoma != null && akkoma.source != null && akkoma.source.content != null) {
-                return akkoma.source.content;
-            }
+    //  public string clean_content {
+    //      get {
+    //          if (quote != null && akkoma != null && akkoma.source != null && akkoma.source.content != null) {
+    //              return akkoma.source.content;
+    //          }
 
-            return content;
-        }
-    }
+    //          return content;
+    //      }
+    //  }
 
     private string _language = settings.default_language;
     public string language {
