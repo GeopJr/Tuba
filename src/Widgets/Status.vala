@@ -33,7 +33,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			emoji_reactions.visible = !value;
 			fr_actions.visible = !value;
 			actions.visible = !value;
-			if (quoted_status !=null)
+			if (quoted_status != null)
 				quoted_status.visible = !value;
 		}
 	}
@@ -516,7 +516,6 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		this.content.content = status.formal.clean_content;
 
 		if (status.formal.quote != null) {
-			
 			quoted_status = (Widgets.Status) status.formal.quote.to_widget ();
 			quoted_status.is_quote = true;
 			quoted_status.add_css_class ("frame");
