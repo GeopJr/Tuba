@@ -84,7 +84,7 @@ public class Tuba.Widgets.MarkupView : Box {
 				vexpand = true
 			};
 			if (instance_emojis != null) label.instance_emojis = instance_emojis;
-			label.label = current_chunk;
+			label.label = current_chunk.strip ();
 			append (label);
 		}
 		current_chunk = null;
@@ -179,7 +179,7 @@ public class Tuba.Widgets.MarkupView : Box {
 
 				blockquote_handler_text = "";
 				blockquote_handler (root);
-				var text = blockquote_handler_text;
+				var text = @"\n$blockquote_handler_text";
 				var label = new RichLabel (text) {
 					visible = true,
 					css_classes = { "ttl-code" }
