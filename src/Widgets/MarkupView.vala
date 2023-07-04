@@ -179,7 +179,7 @@ public class Tuba.Widgets.MarkupView : Box {
 
 				blockquote_handler_text = "";
 				blockquote_handler (root);
-				var text = @"\n$blockquote_handler_text";
+				var text = blockquote_handler_text.strip ();
 				var label = new RichLabel (text) {
 					visible = true,
 					css_classes = { "ttl-code" }
