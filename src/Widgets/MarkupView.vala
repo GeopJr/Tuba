@@ -196,6 +196,49 @@ public class Tuba.Widgets.MarkupView : Box {
 				}
 				break;
 
+			case "h1":
+				if (v.current_chunk != "" && v.current_chunk != null)
+					v.write_chunk ("\n");
+				v.write_chunk ("<b><span size=\"xx-large\">");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("</span></b>\n");
+				break;
+			case "h2":
+				if (v.current_chunk != "" && v.current_chunk != null)
+					v.write_chunk ("\n");
+				v.write_chunk ("<b><span size=\"x-large\">");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("</span></b>\n");
+				break;
+			case "h3":
+				if (v.current_chunk != "" && v.current_chunk != null)
+					v.write_chunk ("\n");
+				v.write_chunk ("<b><span size=\"large\">");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("</span></b>\n");
+				break;
+			case "h4":
+				if (v.current_chunk != "" && v.current_chunk != null)
+					v.write_chunk ("\n");
+				v.write_chunk ("<b>");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("</b>\n");
+				break;
+			case "h5":
+				if (v.current_chunk != "" && v.current_chunk != null)
+					v.write_chunk ("\n");
+				v.write_chunk ("<b><span size=\"small\">");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("</span></b>\n");
+				break;
+			case "h6":
+				if (v.current_chunk != "" && v.current_chunk != null)
+					v.write_chunk ("\n");
+				v.write_chunk ("<b><span size=\"x-small\">");
+				traverse_and_handle (v, root, default_handler);
+				v.write_chunk ("</span></b>\n");
+				break;
+
 			case "b":
 			case "i":
 			case "u":
