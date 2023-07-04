@@ -22,7 +22,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	public API.Account? kind_instigator { get; set; default = null; }
-	public Widgets.Status? quoted_status { get; set; default = null; }
+	private Gtk.Button? quoted_status_btn { get; set; default = null; }
 
 	private bool _is_quote = false;
 	public bool is_quote {
@@ -33,8 +33,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			emoji_reactions.visible = !value;
 			fr_actions.visible = !value;
 			actions.visible = !value;
-			if (quoted_status != null)
-				quoted_status.visible = !value;
+			if (quoted_status_btn != null)
+				quoted_status_btn.visible = !value;
 		}
 	}
 
@@ -515,20 +515,22 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		this.content.instance_emojis = status.formal.emojis_map;
 		this.content.content = status.formal.content;
 
-		if (status.formal.quote != null) {
-			quoted_status = (Widgets.Status) status.formal.quote.to_widget ();
-			quoted_status.is_quote = true;
-			quoted_status.add_css_class ("frame");
-			quoted_status.add_css_class ("ttl-quote");
-			//  content_box.append (quoted_status);
+		if (status.formal.quote != null && !is_quote) {
+			try {
+				var quoted_status = (Widgets.Status) status.formal.quote.to_widget ();
+				quoted_status.is_quote = true;
+				quoted_status.add_css_class ("frame");
+				quoted_status.add_css_class ("ttl-quote");
 
-			var qbtn = new Gtk.Button () {
-				child = quoted_status,
-				css_classes = { "ttl-flat-button", "flat" }
-			};
-			qbtn.clicked.connect (quoted_status.on_open);
-			content_box.append (qbtn);
-
+				quoted_status_btn = new Gtk.Button () {
+					child = quoted_status,
+					css_classes = { "ttl-flat-button", "flat" }
+				};
+				quoted_status_btn.clicked.connect (quoted_status.on_open);
+				content_box.append (quoted_status_btn);
+			} catch {
+				critical (@"Widgets.Status ($(status.formal.id)): Couldn't build quote");
+			}
 		}
 
 		spoiler_label.label = this.spoiler_text;
