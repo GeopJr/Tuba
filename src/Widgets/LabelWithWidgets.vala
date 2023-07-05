@@ -217,7 +217,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         this.allocate_shapes ();
         this.label.measure (
             orientation,
-            for_size,
+            for_size == -1 ? 0 : for_size,
             out minimum,
             out natural,
             out minimum_baseline,
