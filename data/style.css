@@ -275,6 +275,11 @@ flowboxchild {
 	margin-bottom: -12px;
 }
 
+.ttl-quote {
+	border-radius: 6px;
+	font-weight: initial;
+}
+
 .ttl-thread-line.top {
 	margin-top: -18px;
 	margin-bottom: -3px;

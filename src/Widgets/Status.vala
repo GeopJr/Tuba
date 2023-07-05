@@ -22,6 +22,21 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	public API.Account? kind_instigator { get; set; default = null; }
+	private Gtk.Button? quoted_status_btn { get; set; default = null; }
+
+	private bool _is_quote = false;
+	public bool is_quote {
+		get { return _is_quote; }
+		set {
+			_is_quote = value;
+			menu_button.visible = !value;
+			emoji_reactions.visible = !value;
+			fr_actions.visible = !value;
+			actions.visible = !value;
+			if (quoted_status_btn != null)
+				quoted_status_btn.visible = !value;
+		}
+	}
 
 	string? _kind = null;
 	public string? kind {
@@ -499,6 +514,24 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	protected virtual void bind () {
 		this.content.instance_emojis = status.formal.emojis_map;
 		this.content.content = status.formal.content;
+
+		if (status.formal.quote != null && !is_quote) {
+			try {
+				var quoted_status = (Widgets.Status) status.formal.quote.to_widget ();
+				quoted_status.is_quote = true;
+				quoted_status.add_css_class ("frame");
+				quoted_status.add_css_class ("ttl-quote");
+
+				quoted_status_btn = new Gtk.Button () {
+					child = quoted_status,
+					css_classes = { "ttl-flat-button", "flat" }
+				};
+				quoted_status_btn.clicked.connect (quoted_status.on_open);
+				content_box.append (quoted_status_btn);
+			} catch {
+				critical (@"Widgets.Status ($(status.formal.id)): Couldn't build quote");
+			}
+		}
 
 		spoiler_label.label = this.spoiler_text;
 		spoiler_label_rev.label = this.spoiler_text_revealed;
