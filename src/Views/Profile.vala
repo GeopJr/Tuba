@@ -99,6 +99,9 @@ public class Tuba.Views.Profile : Views.Timeline {
 		[GtkChild] unowned Widgets.MarkupView note;
 		[GtkChild] public unowned Widgets.RelationshipButton rsbtn;
 
+		~Cover () {
+			message ("Destroying Profile Cover");
+		}
 		public string cover_badge_label {
 			get {
 				return cover_badge.label;
@@ -135,6 +138,16 @@ public class Tuba.Views.Profile : Views.Timeline {
 			}
 		}
 
+		private string avi_url { get; set; default=""; }
+		private string header_url { get; set; default=""; }
+		void open_header_in_media_viewer () {
+			app.main_window.show_media_viewer_single (header_url, background.paintable);
+		}
+
+		void open_pfp_in_media_viewer () {
+			app.main_window.show_media_viewer_single (avi_url, avatar.custom_image);
+		}
+
 		public void bind (API.Account account) {
 			display_name.instance_emojis = account.emojis_map;
 			display_name.content = account.display_name;
@@ -148,13 +161,16 @@ public class Tuba.Views.Profile : Views.Timeline {
 			if (account.id != accounts.active.id) rsbtn.visible = true;
 
 			if (account.header.contains ("/headers/original/missing.png")) {
+				header_url = "";
 				avatar.bind_property ("custom_image", background, "paintable", GLib.BindingFlags.SYNC_CREATE);
 			} else {
+				header_url = account.header ?? "";
 				image_cache.request_paintable (account.header, on_cache_response);
-				background.clicked.connect (() => app.main_window.show_media_viewer_single (account.header, background.paintable));
+				background.clicked.connect (open_header_in_media_viewer);
 			}
 
-			avatar.clicked.connect (() => app.main_window.show_media_viewer_single (account.avatar, avatar.custom_image));
+			avi_url = account.avatar ?? "";
+			avatar.clicked.connect (open_pfp_in_media_viewer);
 
 			if (account.fields != null) {
 				foreach (API.AccountField f in account.fields) {
