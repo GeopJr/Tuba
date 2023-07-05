@@ -15,6 +15,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool hide_preview_cards { get; set; }
 	public bool larger_font_size { get; set; }
 	public bool larger_line_height { get; set; }
+	public bool scale_emoji_hover { get; set; }
 	public bool aggressive_resolving { get; set; }
 	public bool strip_tracking { get; set; }
 
@@ -34,6 +35,7 @@ public class Tuba.Settings : GLib.Settings {
 		init ("larger-line-height");
 		init ("aggressive-resolving");
 		init ("strip-tracking");
+		init ("scale-emoji-hover");
 	}
 
 	void init (string key) {

@@ -358,4 +358,12 @@ namespace Tuba {
 
 	}
 
+	public static void toggle_css (Gtk.Widget wdg, bool state, string style) {
+		if (state) {
+			wdg.add_css_class (style);
+		} else {
+			wdg.remove_css_class (style);
+		}
+	}
+
 }

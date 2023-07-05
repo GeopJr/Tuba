@@ -45,6 +45,9 @@
 		<key name="larger-line-height" type="b">
 			<default>false</default>
 		</key>
+		<key name="scale-emoji-hover" type="b">
+			<default>true</default>
+		</key>
 		<key name="aggressive-resolving" type="b">
 			<default>false</default>
 		</key>

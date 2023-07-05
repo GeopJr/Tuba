@@ -102,6 +102,13 @@ public class Tuba.Views.Profile : Views.Timeline {
 		~Cover () {
 			message ("Destroying Profile Cover");
 		}
+
+		construct {
+			if (!settings.scale_emoji_hover)
+				note.remove_css_class ("lww-scale-emoji-hover");
+			settings.notify["scale-emoji-hover"].connect (() => Tuba.toggle_css (note, settings.scale_emoji_hover, "lww-scale-emoji-hover"));
+		}
+
 		public string cover_badge_label {
 			get {
 				return cover_badge.label;

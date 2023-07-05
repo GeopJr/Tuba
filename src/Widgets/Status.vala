@@ -42,8 +42,10 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	public string? kind {
 		get { return _kind; }
 		set {
-			_kind = value;
-			change_kind ();
+			if (value != _kind) {
+				_kind = value;
+				change_kind ();
+			}
 		}
 	}
 
@@ -163,6 +165,12 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		}
 	}
 
+	void settings_updated () {
+		Tuba.toggle_css (this, settings.larger_font_size, "ttl-status-font-large");
+		Tuba.toggle_css (this, settings.larger_line_height, "ttl-status-line-height-large");
+		Tuba.toggle_css (this, settings.scale_emoji_hover, "lww-scale-emoji-hover");
+	}
+
 	construct {
 		name_label.use_markup = false;
 		avatar_overlay.set_size_request (avatar.size, avatar.size);
@@ -173,22 +181,14 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		if (settings.larger_line_height)
 			add_css_class ("ttl-status-line-height-large");
 
+		if (!settings.scale_emoji_hover)
+			remove_css_class ("lww-scale-emoji-hover");
+
 		rebuild_actions ();
 
-		settings.notify["larger-font-size"].connect (() => {
-			if (settings.larger_font_size) {
-				add_css_class ("ttl-status-font-large");
-			} else {
-				remove_css_class ("ttl-status-font-large");
-			}
-		});
-		settings.notify["larger-line-height"].connect (() => {
-			if (settings.larger_line_height) {
-				add_css_class ("ttl-status-line-height-large");
-			} else {
-				remove_css_class ("ttl-status-line-height-large");
-			}
-		});
+		settings.notify["larger-font-size"].connect (settings_updated);
+		settings.notify["larger-line-height"].connect (settings_updated);
+		settings.notify["scale-emoji-hover"].connect (settings_updated);
 
 		edit_history_simple_action = new SimpleAction ("edit-history", null);
 		edit_history_simple_action.activate.connect (view_edit_history);

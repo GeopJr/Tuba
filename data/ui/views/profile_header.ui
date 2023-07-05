@@ -121,6 +121,9 @@
         <child>
           <object class="TubaWidgetsMarkupView" id="note">
             <property name="margin_top">6</property>
+            <style>
+              <class name="lww-scale-emoji-hover" />
+            </style>
           </object>
         </child>
         <layout>
