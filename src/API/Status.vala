@@ -96,7 +96,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     string? get_modified_url () {
         if (this.t_url == null) {
             if (this.uri == null) return null;
-            return this.uri.replace ("/activity", "");
+            return this.uri.replace (@"$id/activity", id);
         }
         return this.t_url;
     }
