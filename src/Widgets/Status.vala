@@ -510,11 +510,13 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			);
 	}
 
+	private Gtk.Button prev_card;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	protected virtual void bind () {
 		this.content.instance_emojis = status.formal.emojis_map;
 		this.content.content = status.formal.content;
 
+		if (quoted_status_btn != null) content_box.remove (quoted_status_btn);
 		if (status.formal.quote != null && !is_quote) {
 			try {
 				var quoted_status = (Widgets.Status) status.formal.quote.to_widget ();
@@ -606,11 +608,12 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE);
 		}
 
+		if (prev_card != null) content_box.remove (prev_card);
 		if (!settings.hide_preview_cards && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
 			try {
-				var card = status.formal.card.to_widget ();
-				((Gtk.Button) card).clicked.connect (open_card_url);
-				content_box.append (card);
+				prev_card = (Gtk.Button) status.formal.card.to_widget ();
+				prev_card.clicked.connect (open_card_url);
+				content_box.append (prev_card);
 			} catch {}
 		}
 	}
