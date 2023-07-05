@@ -1,17 +1,21 @@
 public class Tuba.API.Conversation : Entity, Widgetizable {
 
 	public string id { get; set; }
-	public Gee.ArrayList<API.Account> accounts { get; set; }
+	public Gee.ArrayList<API.Account>? accounts { get; set; }
 	public bool unread { get; set; default = false; }
 	public API.Status? last_status { get; set; default = null; }
 
     public override Gtk.Widget to_widget () {
 		if (last_status == null) {
 			var account_list = "";
-			foreach (var account in accounts) {
-				account_list += @"<a href='$(account.url)'>$(account.handle)</a>, ";
+			if (accounts != null) {
+				foreach (var account in accounts) {
+					account_list += @"<a href='$(account.url)'>$(account.handle)</a>, ";
+				}
+				account_list = account_list.slice (0, -2);
+			} else {
+				account_list = @"<a href='$(Tuba.accounts.active.url)'>$(Tuba.accounts.active.handle)</a>";
 			}
-			account_list = account_list.slice (0, -2);
 
 			// translators: the variable is a comma separated list of account handles,
 			//				this is a state - not an action
