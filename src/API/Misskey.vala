@@ -120,7 +120,7 @@ public class Tuba.API.Misskey.Utils : Object {
     public static string generate_i (string secret, string access_token) {
         string pre_c = @"$access_token$secret";
         Checksum checksum = new Checksum (ChecksumType.SHA256);
-    
+
         checksum.update (pre_c.data, -1);
         return checksum.get_string ();
     }

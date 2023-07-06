@@ -181,7 +181,7 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 	public static bool des_map_string_string (out Value val, Json.Node node) {
 		var map = new Gee.HashMap<string, string> ();
 		if (!node.is_null ()) {
-            node.get_object ().foreach_member((obj, t_key, t_node) => {
+            node.get_object ().foreach_member ((obj, t_key, t_node) => {
                 map.set (t_key, (string) t_node.get_string ());
             });
 		}
@@ -192,7 +192,7 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
     public static bool des_map (out Value val, Json.Node node, Type type) {
         var map = new Gee.HashMap<string, Entity> ();
 		if (!node.is_null ()) {
-            node.get_object ().foreach_member((obj, t_key, t_node) => {
+            node.get_object ().foreach_member ((obj, t_key, t_node) => {
                 try {
                     var t_obj = Entity.from_json (type, t_node);
                     map.set (t_key, t_obj);

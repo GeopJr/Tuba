@@ -1,6 +1,6 @@
 public class Tuba.API.Misskey.Note : Entity, Widgetizable, Json.Serializable, AiChanify {
 	~Note () {
-		message ("[OBJ] Destroyed "+uri);
+		message (@"[OBJ] Destroyed $uri");
 	}
 
     public string id { get; set; }
@@ -25,7 +25,7 @@ public class Tuba.API.Misskey.Note : Entity, Widgetizable, Json.Serializable, Ai
 		return Entity.from_json (typeof (API.Misskey.Note), node) as API.Misskey.Note;
 	}
 
-    public override bool deserialize_property (string prop, out Value val, ParamSpec spec, Json.Node node) { 
+    public override bool deserialize_property (string prop, out Value val, ParamSpec spec, Json.Node node) {
 		var success = default_deserialize_property (prop, out val, spec, node);
 
         var type = spec.value_type;
@@ -40,7 +40,7 @@ public class Tuba.API.Misskey.Note : Entity, Widgetizable, Json.Serializable, Ai
 
 			switch (prop) {
 				case "mentions":
-					return Entity.des_list_string(out val, node);
+					return Entity.des_list_string (out val, node);
 				case "emojis":
 					contains = typeof (API.Misskey.Emoji);
 					break;
@@ -68,7 +68,7 @@ public class Tuba.API.Misskey.Note : Entity, Widgetizable, Json.Serializable, Ai
         masto_status.visibility = visibility;
         masto_status.uri = uri;
         masto_status.created_at = createdAt;
-        
+
         if (renote != null) {
             var reblog_status = renote.to_mastodon () as API.Status;
 

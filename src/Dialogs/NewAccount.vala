@@ -153,7 +153,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			.body_json (Tuba.API.Misskey.JSON.get_session_generate (account.client_secret));
 		yield mk_msg.await ();
 
-		parser = Network.get_parser_from_inputstream(mk_msg.response_body);
+		parser = Network.get_parser_from_inputstream (mk_msg.response_body);
 		root = network.parse (parser);
 		var callbackurl = root.get_string_member ("url");
 		warning (account.client_id);
