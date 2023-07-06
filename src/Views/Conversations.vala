@@ -14,4 +14,20 @@ public class Tuba.Views.Conversations : Views.Timeline {
             ? @"$(account.instance)/api/v1/streaming/?stream=direct&access_token=$(account.access_token)"
             : null;
     }
+
+    public override void on_delete_post (Streamable.Event ev) {
+		try {
+			var convo_id = ev.get_string ();
+
+			for (uint i = 0; i < model.get_n_items (); i++) {
+				var convo_obj = (API.Conversation) model.get_item (i);
+				if (convo_obj.last_status?.id == convo_id) {
+					model.remove (i);
+					break;
+				}
+			}
+		} catch (Error e) {
+			warning (@"Error getting String from json: $(e.message)");
+		}
+	}
 }
