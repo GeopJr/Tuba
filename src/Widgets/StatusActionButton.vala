@@ -150,8 +150,7 @@ public class Tuba.StatusActionButton : LockableToggleButton {
 				var received_value = jobj.get_boolean_member (prop_name);
 				set_value (received_value);
 				message (@"Status action '$action' complete");
-			}
-			catch (Error e) {
+			} catch (Error e) {
 				warning (@"Couldn't perform action \"$action\" on a Status:");
 				warning (e.message);
 				update_stats (entity, active ? action_off : action_on);
@@ -159,6 +158,7 @@ public class Tuba.StatusActionButton : LockableToggleButton {
 				dlg.present ();
 				set_class_enabled (!active);
 				set_toggled_icon (!active);
+				active = !active;
 			}
 
 			req = null;
