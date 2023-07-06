@@ -196,10 +196,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				Network.parse_array (msg, parser, node => {
 					var e = entity_cache.lookup_or_insert (node, accepts);
 					
-					if (accepts == typeof (API.Misskey.Bookmark)) {
-						to_add += (API.Status) ((API.Misskey.Bookmark) e).to_mastodon ();
-					} else if (accepts == typeof (API.Misskey.Note)) {
-						to_add += (API.Status) ((API.Misskey.Note) e).to_mastodon ();
+					var e_aichanified = e as API.Misskey.AiChanify;
+					if (e_aichanified != null) {
+						to_add += (Entity) e_aichanified.to_mastodon ();
 					}
 				});
 				model.splice (model.get_n_items (), 0, to_add);
