@@ -51,6 +51,9 @@
 		<key name="strip-tracking" type="b">
 			<default>true</default>
 		</key>
+		<key name="letterbox-media" type="b">
+			<default>false</default>
+		</key>
 
 		<key name="window-x" type="i">
 			<default>-1</default>
