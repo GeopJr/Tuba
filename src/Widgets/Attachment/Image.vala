@@ -26,9 +26,11 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		}
 	}
 
-	void cover_content_fit () {
-		pic.set_property ("content-fit", settings.letterbox_media ? 1 : 2);
-	}
+	#if GTK_4_8
+		void update_pic_content_fit () {
+			pic.set_property ("content-fit", settings.letterbox_media ? 1 : 2);
+		}
+	#endif
 
 	construct {
 		pic = new Picture () {
@@ -41,8 +43,8 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		};
 
 		#if GTK_4_8
-			cover_content_fit ();
-			settings.notify["letterbox-media"].connect (cover_content_fit);
+			update_pic_content_fit ();
+			settings.notify["letterbox-media"].connect (update_pic_content_fit);
 		#endif
 
 		media_overlay = new Overlay ();
