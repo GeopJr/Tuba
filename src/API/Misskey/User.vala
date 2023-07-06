@@ -1,4 +1,4 @@
-public class Tuba.API.Misskey.User : Entity, AiChanify, Json.Serializable {
+public class Tuba.API.Misskey.User : Entity, Widgetizable, AiChanify, Json.Serializable {
     public string id { get; set; }
     public string name { get; set; }
     public string username { get; set; }
@@ -33,4 +33,8 @@ public class Tuba.API.Misskey.User : Entity, AiChanify, Json.Serializable {
 
         return masto_acc;
     }
+
+    public override Gtk.Widget to_widget () {
+		return to_mastodon ().to_widget ();
+	}
 }

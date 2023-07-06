@@ -1,4 +1,4 @@
-public class Tuba.API.Misskey.Note : Entity, Json.Serializable, AiChanify {
+public class Tuba.API.Misskey.Note : Entity, Widgetizable, Json.Serializable, AiChanify {
 	~Note () {
 		message ("[OBJ] Destroyed "+uri);
 	}
@@ -75,4 +75,8 @@ public class Tuba.API.Misskey.Note : Entity, Json.Serializable, AiChanify {
 
         return masto_status;
     }
+
+    public override Gtk.Widget to_widget () {
+		return to_mastodon ().to_widget ();
+	}
 }
