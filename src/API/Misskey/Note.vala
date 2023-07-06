@@ -4,7 +4,7 @@ public class Tuba.API.Misskey.Note : Entity, Json.Serializable, AiChanify {
 	}
 
     public string id { get; set; }
-    public string createdAt { get; set; default = "0"; }
+    public string createdAt { get; set; default = ""; }
     public string text { get; set; default = ""; }
     public string? cw { get; set; default = null; }
     public API.Misskey.User user { get; set; }
@@ -66,6 +66,7 @@ public class Tuba.API.Misskey.Note : Entity, Json.Serializable, AiChanify {
         masto_status.reblogs_count = renotesCount;
         masto_status.visibility = visibility;
         masto_status.uri = uri;
+        masto_status.created_at = createdAt;
         
         if (renote != null) {
             var reblog_status = renote.to_mastodon () as API.Status;
