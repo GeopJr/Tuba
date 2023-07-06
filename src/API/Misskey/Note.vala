@@ -11,6 +11,7 @@ public class Tuba.API.Misskey.Note : Entity, Widgetizable, Json.Serializable, Ai
     public string? replyId { get; set; default = null; }
     public string visibility { get; set; default = settings.default_post_visibility; }
     public Gee.ArrayList<string>? mentions { get; set; default = null; }
+    public Gee.ArrayList<string>? fileIds { get; set; default = null; }
     //  public API.Poll? poll { get; set; default = null; }
     public Gee.ArrayList<API.Misskey.Emoji>? emojis { get; set; }
     public Gee.HashMap<string, string>? reactions { get; set; default = null; }
@@ -70,7 +71,12 @@ public class Tuba.API.Misskey.Note : Entity, Widgetizable, Json.Serializable, Ai
         
         if (renote != null) {
             var reblog_status = renote.to_mastodon () as API.Status;
-            masto_status.reblog = reblog_status;
+
+            if (text == null && (fileIds == null || fileIds.size == 0)) {
+                masto_status.reblog = reblog_status;
+            } else {
+                masto_status.quote = reblog_status;
+            }
         }
 
         return masto_status;
