@@ -109,6 +109,7 @@
                               <object class="TubaWidgetsRichLabel" id="name_label">
                                 <property name="visible">True</property>
                                 <property name="ellipsize">False</property>
+                                <property name="smaller-emoji-pixel-size">True</property>
                                 <style>
                                   <class name="font-bold" />
                                 </style>
@@ -218,8 +219,14 @@
                     <property name="visible">0</property>
                     <property name="spacing">6</property>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkButton">
                         <property name="icon_name">tuba-warning-symbolic</property>
+                        <!-- translators: Tooltip that closes content warning -->
+                        <property name="tooltip-text" translatable="yes">Show Less</property>
+                        <signal name="clicked" handler="toggle_spoiler" swapped="no" />
+                        <style>
+                          <class name="circular" />
+                        </style>
                       </object>
                     </child>
                     <child>
@@ -246,6 +253,7 @@
                         <property name="child">
                           <object class="GtkButton" id="spoiler_button">
                             <property name="receives_default">1</property>
+                            <!-- translators: Tooltip that opens content warning -->
                             <property name="tooltip_text" translatable="yes">Show More</property>
                             <signal name="clicked" handler="toggle_spoiler" swapped="no" />
                             <child>

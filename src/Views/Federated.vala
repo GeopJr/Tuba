@@ -11,7 +11,8 @@ public class Tuba.Views.Federated : Views.Timeline {
 	}
 
 	public override string? get_stream_url () {
-		return account != null ? @"$(account.instance)/api/v1/streaming/?stream=public&access_token=$(account.access_token)" : null;
+		return account != null
+			? @"$(account.instance)/api/v1/streaming/?stream=public&access_token=$(account.access_token)"
+			: null;
 	}
-
 }

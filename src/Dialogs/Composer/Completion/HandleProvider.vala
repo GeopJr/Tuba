@@ -3,7 +3,7 @@ using Gtk;
 public class Tuba.HandleProvider: Tuba.CompletionProvider {
 
 	public HandleProvider () {
-		Object(trigger_char: "@");
+		Object (trigger_char: "@");
 	}
 
 	internal class Proposal: Object, GtkSource.CompletionProposal {
@@ -13,7 +13,7 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 			Object (account: entity);
 		}
 
-		public override string? get_typed_text() {
+		public override string? get_typed_text () {
 			return this.account.handle.offset (1) + " ";
 		}
 	}
@@ -22,10 +22,10 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 		var word = context.get_word ();
 
 		var req = API.Account.search (word);
-		yield req.await();
+		yield req.await ();
 
 		var results = new GLib.ListStore (typeof (Object));
-		var parser = Network.get_parser_from_inputstream(req.response_body);
+		var parser = Network.get_parser_from_inputstream (req.response_body);
 		Network.parse_array (req.msg, parser, node => {
 			var entity = entity_cache.lookup_or_insert (node, typeof (API.Account));
 			if (entity is API.Account) {
@@ -37,7 +37,11 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 		return results;
 	}
 
-	public override void display (GtkSource.CompletionContext context, GtkSource.CompletionProposal proposal, GtkSource.CompletionCell cell) {
+	public override void display (
+		GtkSource.CompletionContext context,
+		GtkSource.CompletionProposal proposal,
+		GtkSource.CompletionCell cell
+	) {
 		var account = (proposal as Proposal)?.account;
 		return_if_fail (account != null);
 
@@ -58,5 +62,4 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 				break;
 		}
 	}
-
 }

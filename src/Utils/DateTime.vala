@@ -7,7 +7,7 @@ public class Tuba.DateTime {
 		var now = new GLib.DateTime.now_local ();
 		var delta = date.difference (now);
 		if (delta < 0) {
-			return humanize(iso8601);
+			return humanize (iso8601);
 		} else if (delta <= TimeSpan.MINUTE) {
 			return _("expires soon");
 		} else if (delta < TimeSpan.HOUR) {

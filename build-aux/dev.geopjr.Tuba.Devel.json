@@ -55,6 +55,23 @@
             ]
         },
         {
+            "name" : "gspell-4",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dgi_doc=false",
+                "-Dgtk_doc=false",
+                "-Ddemo=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/geopjr-forks/gspell-4.git",
+                    "branch" : "main",
+                    "commit": "3daa2cf19b17d04bf142ad35e4abfeba811a7b4f"
+                }
+            ]
+        },
+        {
             "name": "tuba",
             "builddir": true,
             "buildsystem": "meson",

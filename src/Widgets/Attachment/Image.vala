@@ -8,6 +8,24 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	protected Gtk.Picture pic;
 	protected Overlay media_overlay;
 
+	private bool _spoiler = false;
+	public bool spoiler {
+		get {
+			return _spoiler;
+		}
+
+		set {
+			_spoiler = value;
+			if (value) {
+				pic.add_css_class ("spoilered-attachment");
+			} else {
+				pic.remove_css_class ("spoilered-attachment");
+			}
+
+			if (media_icon != null) media_icon.visible = !value;
+		}
+	}
+
 	construct {
 		pic = new Picture () {
 			hexpand = true,
@@ -28,30 +46,29 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		button.child = media_overlay;
 	}
 
+	protected Gtk.Image? media_icon = null;
 	protected override void on_rebind () {
 		base.on_rebind ();
 		pic.alternative_text = entity == null ? null : entity.description;
 		image_cache.request_paintable (entity.preview_url, on_cache_response);
-		
+
 		if (media_kind in VIDEO_TYPES) {
-			var icon = new Gtk.Image() {
+			media_icon = new Gtk.Image () {
 				valign = Gtk.Align.CENTER,
 				halign = Gtk.Align.CENTER
 			};
 
 			if (media_kind != "AUDIO") {
-				icon.add_css_class("osd");
-				icon.add_css_class("circular");
-				icon.add_css_class("attachment-overlay-icon");
-				icon.icon_name = "media-playback-start-symbolic";
+				media_icon.css_classes = { "osd", "circular", "attachment-overlay-icon" };
+				media_icon.icon_name = "media-playback-start-symbolic";
 			} else {
-				icon.icon_name = "tuba-music-note-symbolic";
+				media_icon.icon_name = "tuba-music-note-symbolic";
 			}
 
-			media_overlay.add_overlay (icon);
+			media_overlay.add_overlay (media_icon);
 
 			// Doesn't get applied sometimes when set above
-			icon.icon_size = Gtk.IconSize.LARGE;
+			media_icon.icon_size = Gtk.IconSize.LARGE;
 		}
 	}
 
@@ -59,17 +76,23 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		pic.paintable = data;
 	}
 
+	public signal void spoiler_revealed ();
 	protected override void on_click () {
+		if (pic.has_css_class ("spoilered-attachment")) {
+			spoiler_revealed ();
+			return;
+		}
+
 		if (media_kind in ALLOWED_TYPES) {
 			load_image_in_media_viewer (null);
 			on_any_attachment_click (entity.url);
 		} else { // Fallback
-			base.on_click();
+			base.on_click ();
 		}
 	}
 
 	public void load_image_in_media_viewer (int? pos) {
-		app.main_window.show_media_viewer(entity.url, pic.alternative_text, media_kind in VIDEO_TYPES, pic.paintable, pos);
+		app.main_window.show_media_viewer (entity.url, pic.alternative_text, media_kind in VIDEO_TYPES, pic.paintable, pos);
 	}
 
 	public signal void on_any_attachment_click (string url) {}

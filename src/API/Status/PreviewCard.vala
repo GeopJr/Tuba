@@ -22,14 +22,14 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 			switch (this) {
 				case PEERTUBE:
 					// translators: the variable is an external service like "PeerTube"
-					return _("You are about to open a %s video").printf (@"$this");
+					return _("You are about to open a %s video").printf (this.to_string ());
 				case FUNKWHALE:
 					// translators: the variable is an external service like "Funkwhale",
 					//				track as in song
-					return _("You are about to open a %s track").printf (@"$this");
+					return _("You are about to open a %s track").printf (this.to_string ());
 				case BOOKWYRM:
 					// translators: the variable is an external service like "BookWyrm"
-					return _("You are about to open a %s book").printf (@"$this");
+					return _("You are about to open a %s book").printf (this.to_string ());
 				default:
 					// translators: the variable is the app name (Tuba)
 					return _("You are about to leave %s").printf (Build.NAME);
@@ -39,17 +39,17 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 		public string to_dialog_body (string t_url) {
 			var dlg_url = t_url;
 			if (dlg_url.length > 64) {
-				dlg_url = t_url.substring(0, 62) + "…";
+				dlg_url = t_url.substring (0, 62) + "…";
 			}
 
 			switch (this) {
 				case BASIC:
 					// translators: the variable is a url
-					return _("If you proceed, \"%s\" will open in your browser.".printf (dlg_url));
+					return _("If you proceed, \"%s\" will open in your browser.").printf (dlg_url);
 				default:
 					// translators: the first variable is the app name (Tuba),
 					//				the second one is a url
-					return _("If you proceed, %s will connect to \"%s\".".printf (Build.NAME, dlg_url));
+					return _("If you proceed, %s will connect to \"%s\".").printf (Build.NAME, dlg_url);
 			}
 		}
 
@@ -155,10 +155,10 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 			Adw.ResponseAppearance.DESTRUCTIVE
 		);
 
-		privacy_dialog.response.connect(res => {
+		privacy_dialog.response.connect (res => {
 			if (res == "yes") {
 				if (card_special_type.open_special_card (card_url)) {
-					privacy_dialog.destroy();
+					privacy_dialog.destroy ();
 					return;
 				};
 				string special_api_url = "";
@@ -167,15 +167,15 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 					card_special_type.parse_url (card_url, out special_host, out special_api_url);
 				} catch {
 					Host.open_uri (card_url);
-					privacy_dialog.destroy();
+					privacy_dialog.destroy ();
 					return;
 				}
-				
+
 
 				new Request.GET (special_api_url)
 					.then ((sess, msg, in_stream) => {
 						bool failed = true;
-						var parser = Network.get_parser_from_inputstream(in_stream);
+						var parser = Network.get_parser_from_inputstream (in_stream);
 						var node = network.parse_node (parser);
 						string res_url = "";
 						API.BookWyrm? bookwyrm_obj = null;
@@ -216,7 +216,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 					})
 					.exec ();
 			}
-			privacy_dialog.destroy();
+			privacy_dialog.destroy ();
 		});
 
 		privacy_dialog.present ();

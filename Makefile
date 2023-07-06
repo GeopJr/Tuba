@@ -1,4 +1,4 @@
-.PHONY: all install uninstall build
+.PHONY: all install uninstall build test
 PREFIX ?= /usr
 
 # Remove the devel headerbar style:
@@ -17,3 +17,6 @@ install:
 
 uninstall:
 	sudo ninja uninstall -C builddir
+
+test:
+	ninja test -C builddir

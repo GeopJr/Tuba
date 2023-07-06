@@ -1,6 +1,7 @@
 sources += files(
     'Account.vala',
     'AccountField.vala',
+    # 'Akkoma.vala', # uneeded for now
     'Attachment.vala',
     'BookWyrm.vala',
     'Conversation.vala',
@@ -26,6 +27,7 @@ sources += files(
 )
 
 subdir('Account')
+# subdir('Akkoma')
 subdir('BookWyrm')
 subdir('Funkwhale')
 subdir('Instance')

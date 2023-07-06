@@ -3,7 +3,7 @@ using Gee;
 public class Tuba.API.Status : Entity, Widgetizable {
 
 	~Status () {
-		message ("[OBJ] Destroyed "+uri);
+		message (@"[OBJ] Destroyed $(uri ?? "")");
 	}
 
     public string id { get; set; }
@@ -27,6 +27,8 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public string? edited_at { get; set; default = null; }
     public string visibility { get; set; default = settings.default_post_visibility; }
     public API.Status? reblog { get; set; default = null; }
+    public API.Status? quote { get; set; default = null; }
+    //  public API.Akkoma? akkoma { get; set; default = null; }
     public ArrayList<API.Mention>? mentions { get; set; default = null; }
     public ArrayList<API.EmojiReaction>? reactions { get; set; default = null; }
     public ArrayList<API.EmojiReaction>? emoji_reactions { get; set; default = null; }
@@ -36,8 +38,18 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public Gee.ArrayList<API.Emoji>? emojis { get; set; }
     public API.PreviewCard? card { get; set; default = null; }
 
+    //  public string clean_content {
+    //      get {
+    //          if (quote != null && akkoma != null && akkoma.source != null && akkoma.source.content != null) {
+    //              return akkoma.source.content;
+    //          }
+
+    //          return content;
+    //      }
+    //  }
+
     private string _language = settings.default_language;
-    public string language { 
+    public string language {
         get {
             return _language;
         }
@@ -48,15 +60,15 @@ public class Tuba.API.Status : Entity, Widgetizable {
 
     public Gee.HashMap<string, string>? emojis_map {
 		owned get {
-			return gen_emojis_map();
+			return gen_emojis_map ();
 		}
 	}
 
     private Gee.HashMap<string, string>? gen_emojis_map () {
-        var res = new Gee.HashMap<string, string>();
+        var res = new Gee.HashMap<string, string> ();
         if (emojis != null && emojis.size > 0) {
             emojis.@foreach (e => {
-                res.set(e.shortcode, e.url);
+                res.set (e.shortcode, e.url);
                 return true;
             });
         }
@@ -84,7 +96,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     string? get_modified_url () {
         if (this.t_url == null) {
             if (this.uri == null) return null;
-            return this.uri.replace ("/activity", "");
+            return this.uri.replace (@"$id/activity", id);
         }
         return this.t_url;
     }
@@ -99,15 +111,18 @@ public class Tuba.API.Status : Entity, Widgetizable {
 
     public bool has_spoiler {
         get {
-            return formal.sensitive ||
-                !(formal.spoiler_text == null || formal.spoiler_text == "");
+            return !(formal.spoiler_text == null || formal.spoiler_text == "");
         }
     }
 
     public bool can_be_boosted {
-    	get {
-    		return this.formal.visibility != "direct" && (this.formal.visibility != "private" || this.formal.account.is_self ());
-    	}
+        get {
+            return this.formal.visibility != "direct"
+                && (
+                    this.formal.visibility != "private"
+                    || this.formal.account.is_self ()
+                );
+        }
     }
 
 	public static Status from (Json.Node node) throws Error {
@@ -116,17 +131,17 @@ public class Tuba.API.Status : Entity, Widgetizable {
 
     public Status.empty () {
         Object (
-        	id: ""
+            id: ""
         );
     }
 
 	public Status.from_account (API.Account account) {
-	    Object (
-	        id: "",
-	        account: account,
-	        created_at: account.created_at,
+        Object (
+            id: "",
+            account: account,
+            created_at: account.created_at,
             emojis: account.emojis
-	    );
+        );
 
         if (account.note == "")
             content = "";
@@ -145,7 +160,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
 		app.main_window.open_view (view);
 	}
 
-    public bool is_owned (){
+    public bool is_owned () {
         return formal.account.id == accounts.active.id;
     }
 
@@ -179,6 +194,6 @@ public class Tuba.API.Status : Entity, Widgetizable {
 
     public Request annihilate () {
         return new Request.DELETE (@"/api/v1/statuses/$id")
-        	.with_account (accounts.active);
+            .with_account (accounts.active);
     }
 }

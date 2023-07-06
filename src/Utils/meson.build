@@ -1,4 +1,5 @@
 sources += files(
+    'Celebrate.vala',
     'DateTime.vala',
     'Host.vala',
     'Html.vala',

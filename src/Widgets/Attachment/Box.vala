@@ -15,7 +15,40 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		}
 	}
 
+	private bool _has_spoiler = false;
+	public bool has_spoiler {
+		get {
+			return _has_spoiler;
+		}
+
+		set {
+			_has_spoiler = value;
+			if (value) spoiler_revealed = false;
+		}
+	}
+
+	private bool _spoiler_revealed = false;
+	public bool spoiler_revealed {
+		get {
+			return _spoiler_revealed;
+		}
+
+		set {
+			_spoiler_revealed = value;
+			if (has_spoiler) {
+				foreach (var attachment_w in attachment_widgets) {
+					attachment_w.spoiler = !value;
+				}
+				reveal_btn.visible = spoiler_box.can_target = value;
+				reveal_text.visible = !value;
+			}
+		}
+	}
+
 	protected Gtk.FlowBox box;
+	protected Gtk.Button reveal_btn;
+	protected Gtk.Label reveal_text;
+	protected Gtk.Box spoiler_box;
 
 	construct {
 		visible = false;
@@ -28,7 +61,45 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 			row_spacing = 6,
 			selection_mode = SelectionMode.NONE
 		};
-		child = box;
+
+		spoiler_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+			halign = Gtk.Align.START,
+			valign = Gtk.Align.START,
+		};
+		reveal_btn = new Gtk.Button () {
+			icon_name = "tuba-eye-not-looking-symbolic",
+			// translators: Tooltip on a button that hides / blurs media marked as sensitive
+			tooltip_text = _("Hide Media"),
+			css_classes = { "osd", "circular" },
+			halign = Gtk.Align.START,
+			valign = Gtk.Align.START,
+			margin_start = 6,
+			margin_top = 6,
+			visible = false
+		};
+		reveal_btn.clicked.connect (hide_spoilers);
+
+		// translators: Label shown in front of blurred / sensitive media
+		reveal_text = new Gtk.Label (_("Sensitive Media")) {
+			wrap = true,
+			halign = Gtk.Align.START,
+			valign = Gtk.Align.START,
+			vexpand = true,
+			css_classes = { "osd", "heading", "ttl-status-badge", "sensitive-label" },
+			visible = false
+		};
+		spoiler_box.append (reveal_btn);
+		spoiler_box.append (reveal_text);
+
+		var overlay = new Gtk.Overlay ();
+		overlay.child = box;
+		overlay.add_overlay (spoiler_box);
+
+		child = overlay;
+	}
+
+	void hide_spoilers () {
+		spoiler_revealed = false;
 	}
 
 	private Attachment.Image[] attachment_widgets;
@@ -54,14 +125,15 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 				};
 				box.insert (flowboxchild, -1);
 				attachment_widgets += ((Widgets.Attachment.Image) widget);
+				((Widgets.Attachment.Image) widget).spoiler_revealed.connect (on_spoiler_reveal);
 
 				if (single_attachment) {
 					widget.height_request = 334;
 				}
 
-				((Widgets.Attachment.Image) widget).on_any_attachment_click.connect (() => open_all_attachments(item.url));
+				((Widgets.Attachment.Image) widget).on_any_attachment_click.connect (() => open_all_attachments (item.url));
 			} catch (Oopsie e) {
-				warning(@"Error updating attachments: $(e.message)");
+				warning (@"Error updating attachments: $(e.message)");
 			}
 			return true;
 		});
@@ -75,6 +147,11 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		}
 
 		visible = true;
+		spoiler_revealed = false;
+	}
+
+	private void on_spoiler_reveal () {
+		spoiler_revealed = true;
 	}
 
 	private void open_all_attachments (string url) {
@@ -90,7 +167,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		}
 
 		if (i > 0) {
-			app.main_window.scroll_media_viewer(main);
+			app.main_window.scroll_media_viewer (main);
 		}
 	}
 }

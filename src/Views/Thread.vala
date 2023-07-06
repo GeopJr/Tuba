@@ -22,7 +22,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 
 	public override void on_account_changed (InstanceAccount? acc) {
 		account = acc;
-		request ();
+		GLib.Idle.add (request);
 	}
 
 	void connect_threads () {
@@ -52,17 +52,19 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			w.content.selectable = true;
 		}
 
-		root_widget.thread_line_top.hide ();
-		root_widget.thread_line_bottom.hide ();
+		if (root_widget != null) {
+			root_widget.thread_line_top.hide ();
+			root_widget.thread_line_bottom.hide ();
+		}
 	}
 
 	private void on_replied (API.Status t_status) {
 		var found = false;
 		if (t_status.in_reply_to_id != null) {
-			for (uint i = 0; i < model.get_n_items(); i++) {
-				var status_obj = (API.Status)model.get_item(i);
+			for (uint i = 0; i < model.get_n_items (); i++) {
+				var status_obj = (API.Status)model.get_item (i);
 				if (status_obj.id == t_status.in_reply_to_id) {
-					model.insert (i+1, t_status);
+					model.insert (i + 1, t_status);
 					found = true;
 					break;
 				}
@@ -73,12 +75,12 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		connect_threads ();
 	}
 
-	public void request () {
+	public bool request () {
 		new Request.GET (@"/api/v1/statuses/$(root_status.id)/context")
 			.with_account (account)
 			.with_ctx (this)
 			.then ((sess, msg, in_stream) => {
-				var parser = Network.get_parser_from_inputstream(in_stream);
+				var parser = Network.get_parser_from_inputstream (in_stream);
 				var root = network.parse (parser);
 
 				Object[] to_add_ancestors = {};
@@ -92,8 +94,11 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				model.append (root_status);
 				uint root_index;
 				model.find (root_status, out root_index);
-				root_widget = content.get_row_at_index ((int)root_index) as Widgets.Status;
-				root_widget.expand_root ();
+
+				if (root_widget != null) {
+					root_widget = content.get_row_at_index ((int)root_index) as Widgets.Status;
+					root_widget.expand_root ();
+				}
 
 				Object[] to_add_descendants = {};
 				var descendants = root.get_array_member ("descendants");
@@ -112,6 +117,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				// scrolled.vadjustment.value = (double)(y*-1);
 			})
 			.exec ();
+
+		return GLib.Source.REMOVE;
 	}
 
 	public static void open_from_link (string q) {
@@ -120,11 +127,11 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			.with_param ("q", q)
 			.with_param ("resolve", "true")
 			.then ((sess, msg, in_stream) => {
-				var parser = Network.get_parser_from_inputstream(in_stream);
+				var parser = Network.get_parser_from_inputstream (in_stream);
 				var root = network.parse (parser);
 				var statuses = root.get_array_member ("statuses");
 				var node = statuses.get_element (0);
-				if (node != null){
+				if (node != null) {
 					var status = API.Status.from (node);
 					app.main_window.open_view (new Views.Thread (status));
 				}
@@ -134,8 +141,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			.exec ();
 	}
 
-	public override Gtk.Widget on_create_model_widget(Object obj) {
-		var widget = base.on_create_model_widget(obj);
+	public override Gtk.Widget on_create_model_widget (Object obj) {
+		var widget = base.on_create_model_widget (obj);
 		var widget_status = widget as Widgets.Status;
 
 		widget_status.reply_cb = on_replied;

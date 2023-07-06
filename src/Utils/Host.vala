@@ -17,10 +17,10 @@ public class Tuba.Host {
 			if (!success)
 				throw new Oopsie.USER ("launch_default_for_uri() failed");
 		}
-		catch (Error e){
+		catch (Error e) {
 			#if GTK_4_10
-				var launcher = new Gtk.UriLauncher(uri);
-				launcher.launch.begin(app.active_window, null, (obj, res) => {
+				var launcher = new Gtk.UriLauncher (uri);
+				launcher.launch.begin (app.active_window, null, (obj, res) => {
 					try {
 						launcher.launch.end (res);
 					} catch (Error e) {
@@ -28,17 +28,17 @@ public class Tuba.Host {
 					}
 				});
 			#else
-				Gtk.show_uri(app.active_window, uri, Gdk.CURRENT_TIME);
+				Gtk.show_uri (app.active_window, uri, Gdk.CURRENT_TIME);
 			#endif
 		}
 		return true;
 	}
 
 	public static void copy (string str) {
-		Display display = Display.get_default();
+		Display display = Display.get_default ();
 		if (display == null) return;
 
-		display.get_clipboard().set_text(str);
+		display.get_clipboard ().set_text (str);
 	}
 
 	public static string get_uri_host (string uri) {
@@ -50,7 +50,7 @@ public class Tuba.Host {
 	}
 
 	public async static string download (string url) throws Error {
-		message (@"Downloading file: $url...");
+		message (@"Downloading file: $url…");
 
 		var file_name = Path.get_basename (url);
 		var dir_name = Path.get_dirname (url);

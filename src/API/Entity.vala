@@ -75,7 +75,7 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 				case "supported-mime-types":
 				case "languages":
 				case "authors":
-					return des_list_string(out val, node);
+					return des_list_string (out val, node);
 				case "media-attachments":
 					contains = typeof (API.Attachment);
 					break;
@@ -143,7 +143,7 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 		var arr = new Gee.ArrayList<string> ();
 		if (!node.is_null ()) {
 			node.get_array ().foreach_element ((array, i, elem) => {
-				var obj = (string) elem.get_string();
+				var obj = (string) elem.get_string ();
 				arr.add (obj);
 			});
 		}

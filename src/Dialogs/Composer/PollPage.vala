@@ -29,7 +29,7 @@ public class Tuba.PollPage : ComposerPage {
 		private void check_valid () {
 			var text_count = text.char_count ();
 			var passed_limit = text_count > accounts.active.instance_info.compat_status_poll_max_characters;
-	
+
 			if (passed_limit || text_count == 0) {
 				add_css_class ("error");
 			} else {
@@ -54,7 +54,7 @@ public class Tuba.PollPage : ComposerPage {
 		};
 	}
 
-	Gee.ArrayList<Tuba.PollPage.Poll> poll_options = new Gee.ArrayList<Tuba.PollPage.Poll>();
+	Gee.ArrayList<Tuba.PollPage.Poll> poll_options = new Gee.ArrayList<Tuba.PollPage.Poll> ();
 	Gtk.ListBox poll_list;
 	Gtk.Button add_poll_action_button;
 	public bool hide_totals { get; set; default=false; }
@@ -106,44 +106,60 @@ public class Tuba.PollPage : ComposerPage {
 
 		content.prepend (clamp);
 
-		add_poll_action_button = new Gtk.Button() {
+		add_poll_action_button = new Gtk.Button () {
 			icon_name = "tuba-plus-large-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
+			// translators: tooltip on a button that appends another poll entry / option
 			tooltip_text = _("Add Poll"),
 			css_classes = {"flat"}
 		};
-		add_poll_action_button.clicked.connect(add_poll_row_without_title);
+		add_poll_action_button.clicked.connect (add_poll_row_without_title);
 
-		var multi_button = new Gtk.ToggleButton() {
+		var multi_button = new Gtk.ToggleButton () {
 			icon_name = "radio-checked-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			tooltip_text = _("Enable Multiple Choice"),
 			css_classes = {"flat"}
 		};
-		multi_button.bind_property ("active", this, "multiple-choice", GLib.BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			var multi_button_active = src.get_boolean ();
-			target.set_boolean (multi_button_active);
-			multi_button.icon_name = multi_button_active ? "checkbox-checked-symbolic" : "radio-checked-symbolic";
-			multi_button.tooltip_text = multi_button_active ? _("Disable Multiple Choice") : _("Enable Multiple Choice");
-			return true;
-		});
+		multi_button.bind_property (
+			"active",
+			this,
+			"multiple-choice",
+			GLib.BindingFlags.SYNC_CREATE,
+			(b, src, ref target) => {
+				var multi_button_active = src.get_boolean ();
+				target.set_boolean (multi_button_active);
+				multi_button.icon_name = multi_button_active ? "checkbox-checked-symbolic" : "radio-checked-symbolic";
+				// translators: multiple choice as in allow the user to pick multiple poll options
+				multi_button.tooltip_text = multi_button_active ? _("Disable Multiple Choice") : _("Enable Multiple Choice");
+				return true;
+			}
+		);
 
-		var sensitive_media_button = new Gtk.ToggleButton() {
+		var sensitive_media_button = new Gtk.ToggleButton () {
 			icon_name = "tuba-eye-open-negative-filled-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			tooltip_text = _("Hide Total Votes"),
 			css_classes = {"flat"}
 		};
-		sensitive_media_button.bind_property ("active", this, "hide-totals", GLib.BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			var sensitive_media_button_active = src.get_boolean ();
-			target.set_boolean (sensitive_media_button_active);
-			sensitive_media_button.icon_name = sensitive_media_button_active ? "tuba-eye-not-looking-symbolic" : "tuba-eye-open-negative-filled-symbolic";
-			sensitive_media_button.tooltip_text = sensitive_media_button_active ? _("Show Total Votes") : _("Hide Total Votes");
-			return true;
-		});
+		sensitive_media_button.bind_property (
+			"active",
+			this,
+			"hide-totals",
+			GLib.BindingFlags.SYNC_CREATE,
+			(b, src, ref target) => {
+				var sensitive_media_button_active = src.get_boolean ();
+				target.set_boolean (sensitive_media_button_active);
+				sensitive_media_button.icon_name = sensitive_media_button_active
+					? "tuba-eye-not-looking-symbolic"
+					: "tuba-eye-open-negative-filled-symbolic";
+				sensitive_media_button.tooltip_text = sensitive_media_button_active ? _("Show Total Votes") : _("Hide Total Votes");
+				return true;
+			}
+		);
 
 		bottom_bar.pack_start (add_poll_action_button);
 		bottom_bar.pack_start (multi_button);
@@ -177,7 +193,7 @@ public class Tuba.PollPage : ComposerPage {
 		poll_list.append (row);
 
 		bind_property ("can-delete", row.delete_button, "visible", GLib.BindingFlags.SYNC_CREATE);
-		row.deleted.connect(remove_poll_row);
+		row.deleted.connect (remove_poll_row);
 		row.bind_property ("is-valid", this, "is-valid", GLib.BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_boolean (!check_invalid ());
 
@@ -211,12 +227,21 @@ public class Tuba.PollPage : ComposerPage {
 	}
 
 	Expiration[] expirations = {
-		new Expiration (_("%d Minutes").printf (5), _("%dm").printf (5), 300),
+		// translators: the variable is a number
+		new Expiration (_("%d Minutes").printf (5),
+		// translators: the variable is a number, m as in minutes
+		_("%dm").printf (5), 300),
 		new Expiration (_("%d Minutes").printf (30), _("%dm").printf (30), 1800),
-		new Expiration (_("%d Hour").printf (1), _("%dh").printf (1), 3600),
+		// translators: the variable is a number
+		new Expiration (_("%d Hour").printf (1),
+		// translators: the variable is a number, h as in hours
+		_("%dh").printf (1), 3600),
 		new Expiration (_("%d Hours").printf (6), _("%dh").printf (6), 21600),
 		new Expiration (_("%d Hours").printf (12), _("%dh").printf (12), 43200),
-		new Expiration (_("%d Day").printf (1), _("%dd").printf (1), 86400),
+		// translators: the variable is a number
+		new Expiration (_("%d Day").printf (1),
+		// translators: the variable is a number, d as in days
+		_("%dd").printf (1), 86400),
 		new Expiration (_("%d Days").printf (3), _("%dd").printf (3), 259200),
 		new Expiration (_("%d Days").printf (7), _("%dd").printf (7), 604800)
 	};
@@ -236,8 +261,8 @@ public class Tuba.PollPage : ComposerPage {
 
 		expiration_button = new Gtk.DropDown (store, null) {
 			expression = new Gtk.PropertyExpression (typeof (Expiration), null, "text"),
-			factory = new Gtk.BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/expiration_title.ui"),
-			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, Build.RESOURCES+"gtk/dropdown/expiration.ui"),
+			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/expiration_title.ui"),
+			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/expiration.ui"),
 			tooltip_text = _("Expiration"),
 			enable_search = false
 		};
@@ -248,7 +273,13 @@ public class Tuba.PollPage : ComposerPage {
 			var delta = date.difference (now);
 
 			uint default_exp_index;
-			if (store.find_with_equal_func(new Expiration(null, null, delta / TimeSpan.SECOND), Expiration.compare, out default_exp_index)) {
+			if (
+				store.find_with_equal_func (
+					new Expiration (null, null, delta / TimeSpan.SECOND),
+					Expiration.compare,
+					out default_exp_index
+				)
+			) {
 				expiration_button.selected = default_exp_index;
 			}
 		}
@@ -268,7 +299,7 @@ public class Tuba.PollPage : ComposerPage {
 	}
 
 	public override void on_modify_body (Json.Builder builder) {
-		if (is_valid && this.visible){
+		if (is_valid && this.visible) {
 			builder.set_member_name ("poll");
 			builder.begin_object ();
 

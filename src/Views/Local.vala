@@ -16,7 +16,9 @@ public class Tuba.Views.Local : Views.Timeline {
     //  }
 
     public override string? get_stream_url () {
-        return account != null ? @"$(account.instance)/api/v1/streaming/?stream=public:local&access_token=$(account.access_token)" : null;
+        return account != null
+            ? @"$(account.instance)/api/v1/streaming/?stream=public:local&access_token=$(account.access_token)"
+            : null;
     }
 
 }

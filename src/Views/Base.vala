@@ -2,8 +2,8 @@ using Gtk;
 
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/base.ui")]
 public class Tuba.Views.Base : Box {
-
-	public static string STATUS_EMPTY = _("Nothing to see here");
+	// translators: Shown when there are 0 results
+	public static string STATUS_EMPTY = _("Nothing to see here"); // vala-lint=naming-convention
 
 	public string? icon { get; set; default = null; }
 	public string label { get; set; default = ""; }
@@ -82,10 +82,10 @@ public class Tuba.Views.Base : Box {
 
 		//  scrolled.get_style_context ().add_class (Dialogs.MainWindow.ZOOM_CLASS);
 
-		scroll_to_top.clicked.connect(on_scroll_to_top);
+		scroll_to_top.clicked.connect (on_scroll_to_top);
 	}
 	~Base () {
-		message ("Destroying base "+label);
+		message (@"Destroying base $label");
 	}
 
 	private void on_scroll_to_top () {

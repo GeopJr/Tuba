@@ -2,7 +2,7 @@ using Gtk;
 
 public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvider {
 
-	public static GLib.ListStore EMPTY = new GLib.ListStore (typeof (Object));
+	public static GLib.ListStore EMPTY = new GLib.ListStore (typeof (Object)); // vala-lint=naming-convention
 
 	public string? trigger_char { get; construct; }
 	protected bool is_capturing_input { get; set; default = false; }
@@ -50,8 +50,19 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 		this.set_input_capture (false);
 	}
 
-	public async GLib.ListModel populate_async (GtkSource.CompletionContext context, GLib.Cancellable? cancellable) throws Error {
+	public async GLib.ListModel populate_async (
+		GtkSource.CompletionContext context,
+		GLib.Cancellable? cancellable
+	) throws Error {
 		if (!this.is_capturing_input) {
+			// If it's not capturing,
+			// check if the character before the word
+			// is the trigger
+			TextIter start;
+			context.get_bounds (out start, null);
+			if (start.backward_char ())
+				is_trigger (start, start.get_char ());
+
 			return EMPTY;
 		}
 
@@ -73,8 +84,14 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 		return suggestions;
 	}
 
-	public abstract void display (GtkSource.CompletionContext context, GtkSource.CompletionProposal proposal, GtkSource.CompletionCell cell);
+	public abstract void display (
+		GtkSource.CompletionContext context,
+		GtkSource.CompletionProposal proposal,
+		GtkSource.CompletionCell cell
+	);
 
-	public abstract async GLib.ListModel suggest (GtkSource.CompletionContext context, GLib.Cancellable? cancellable) throws Error;
-
+	public abstract async GLib.ListModel suggest (
+		GtkSource.CompletionContext context,
+		GLib.Cancellable? cancellable
+	) throws Error;
 }

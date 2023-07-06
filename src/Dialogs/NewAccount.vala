@@ -5,7 +5,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	const string AUTO_AUTH_DESCRIPTION = _("Allow access to your account in the browser.");
 	const string CODE_AUTH_DESCRIPTION = _("Copy the authorization code from the browser and paste it below.");
 
-	const string scopes = "read write follow";
+	const string SCOPES = "read write follow";
 
 	protected bool is_working { get; set; default = false; }
 	protected string? redirect_uri { get; set; }
@@ -33,15 +33,16 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		app.add_account_window = this;
 		app.add_window (this);
 
-		bind_property("use-auto-auth", auth_page, "description", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+		bind_property ("use-auto-auth", auth_page, "description", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			target.set_string (src.get_boolean () ? AUTO_AUTH_DESCRIPTION : CODE_AUTH_DESCRIPTION);
 			return true;
 		});
 
-		manual_auth_label.activate_link.connect(on_manual_auth);
+		manual_auth_label.activate_link.connect (on_manual_auth);
 
 		reset ();
 		present ();
+		instance_entry.grab_focus ();
 	}
 
 	public bool on_manual_auth (string url) {
@@ -49,7 +50,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			use_auto_auth = false;
 			register_client.begin ();
 		} else {
-			warning(@"Expected \"manual_auth\", instead got \"$(url)\"");
+			warning (@"Expected \"manual_auth\", instead got \"$(url)\"");
 		}
 
 		return true;
@@ -114,7 +115,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			.replace (":", "")
 			.replace ("https", "")
 			.replace ("http", "");
-		account.instance = "https://"+str;
+		account.instance = @"https://$str";
 		instance_entry.text = str;
 
 		if (str.char_count () <= 0 || !("." in account.instance))
@@ -136,7 +137,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			.body_json (Tuba.API.Misskey.JSON.get_app (setup_redirect_uri ()));
 		yield msg.await ();
 
-		var parser = Network.get_parser_from_inputstream(msg.response_body);
+		var parser = Network.get_parser_from_inputstream (msg.response_body);
 		var root = network.parse (parser);
 		//  account.client_id = root.get_string_member ("client_id");
 		//  account.client_secret = root.get_string_member ("client_secret");
@@ -165,7 +166,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	void open_confirmation_page () {
 		message ("Opening permission request page");
 
-		var pars = @"scope=$scopes&response_type=code&redirect_uri=$redirect_uri&client_id=$(account.client_id)";
+		var pars = @"scope=$SCOPES&response_type=code&redirect_uri=$redirect_uri&client_id=$(account.client_id)";
 		var url = @"$(account.instance)/oauth/authorize?$pars";
 		Host.open_uri (url);
 	}
@@ -191,7 +192,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			.body_json (Tuba.API.Misskey.JSON.get_session_userkey (account.client_secret, code_entry.text));
 		yield token_req.await ();
 
-		var parser = Network.get_parser_from_inputstream(token_req.response_body);
+		var parser = Network.get_parser_from_inputstream (token_req.response_body);
 		var root = network.parse (parser);
 		//  account.access_token = root.get_string_member ("access_token");
 		account.access_token = root.get_string_member ("accessToken");
@@ -218,33 +219,36 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		present ();
 		message (@"Received uri: $t_uri");
 
+		string code_from_params = "";
 		try {
 			var uri = Uri.parse (t_uri, UriFlags.NONE);
-			warning (uri.get_query ());
 			var uri_params = Uri.parse_params (uri.get_query ());
-			code_entry.text = uri_params.contains ("code") ? uri_params.get ("code") : "";
-			is_working = false;
-			on_next_clicked ();	
+			if (uri_params.contains ("code"))
+				code_from_params = uri_params.get ("code");
 		} catch (GLib.UriError e) {
 			warning (e.message);
 			return;
 		}
+
+		code_entry.text = code_from_params;
+		is_working = false;
+		on_next_clicked ();
 	}
 
 	public void mark_errors (string error_message) {
-		instance_entry.add_css_class("error");
+		instance_entry.add_css_class ("error");
 		instance_entry_error.label = error_message;
 
-		code_entry.add_css_class("error");
+		code_entry.add_css_class ("error");
 		code_entry_error.label = error_message;
 	}
 
 	[GtkCallback]
 	public void clear_errors () {
-		instance_entry.remove_css_class("error");
+		instance_entry.remove_css_class ("error");
 		instance_entry_error.label = "";
 
-		code_entry.remove_css_class("error");
+		code_entry.remove_css_class ("error");
 		code_entry_error.label = "";
 	}
 
@@ -261,11 +265,11 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			}
 			catch (Oopsie.INSTANCE e) {
 				oopsie (_("Server returned an error"), e.message);
-				mark_errors(e.message);
+				mark_errors (e.message);
 			}
 			catch (Error e) {
 				oopsie (e.message);
-				mark_errors(e.message);
+				mark_errors (e.message);
 			}
 			is_working = false;
 		});
@@ -275,7 +279,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	void on_done_clicked () {
 		app.present_window ();
 		app.add_account_window = null;
-		destroy();
+		destroy ();
 	}
 
 	[GtkCallback]
@@ -290,6 +294,4 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		deck.can_navigate_back = deck.visible_child != done_step;
 	}
-
 }
-

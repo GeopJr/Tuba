@@ -62,6 +62,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-explore2-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-text-justify-left-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-cat-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-brain-augemnted-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/help-overlay.ui</file>
