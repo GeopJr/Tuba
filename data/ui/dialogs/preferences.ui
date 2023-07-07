@@ -70,6 +70,20 @@
                 </child>
               </object>
             </child>
+            <child>
+              <object class="AdwActionRow">
+                <!-- translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox" -->
+                <property name="title" translatable="yes">Letterbox Media</property>
+                <property name="activatable_widget">letterbox_media</property>
+                <!-- translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint" -->
+                <property name="subtitle" translatable="yes">Scale down and letterbox media to fill the image containers instead of stretching and cropping them</property>
+                <child>
+                  <object class="GtkSwitch" id="letterbox_media">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
         <child>

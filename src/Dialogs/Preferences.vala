@@ -17,6 +17,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned Switch larger_line_height;
     [GtkChild] unowned Switch scale_emoji_hover;
     [GtkChild] unowned Switch strip_tracking;
+    [GtkChild] unowned Switch letterbox_media;
 
 	private bool lang_changed { get; set; default=false; }
 
@@ -69,6 +70,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
         settings.bind ("larger-line-height", larger_line_height, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("scale-emoji-hover", scale_emoji_hover, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("strip-tracking", strip_tracking, "active", SettingsBindFlags.DEFAULT);
+        settings.bind ("letterbox-media", letterbox_media, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 

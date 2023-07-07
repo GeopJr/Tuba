@@ -13,7 +13,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 
 	construct {
 		model = new GLib.ListStore (typeof (Widgetizable));
-		model.items_changed.connect (() => on_content_changed ());
+		model.items_changed.connect (on_content_changed);
 
 		content = new ListBox () {
 			selection_mode = SelectionMode.NONE,

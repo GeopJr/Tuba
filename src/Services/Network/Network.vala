@@ -45,7 +45,8 @@ public class Tuba.Network : GLib.Object {
 				var status = msg.status_code;
 				if (status == Soup.Status.OK) {
 					try {
-						cb (session, msg, in_stream);
+						if (cb != null)
+							cb (session, msg, in_stream);
 					} catch (Error e) {
 						warning (@"Error in session: $(e.message)");
 					}
@@ -60,6 +61,9 @@ public class Tuba.Network : GLib.Object {
 				}
 			} catch (GLib.Error e) {
 				warning (e.message);
+				if (ecb != null) {
+					ecb ((int32) e.code, e.message);
+				}
 			}
 		});
 	}

@@ -26,6 +26,12 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		}
 	}
 
+	#if GTK_4_8
+		void update_pic_content_fit () {
+			pic.set_property ("content-fit", settings.letterbox_media ? 1 : 2);
+		}
+	#endif
+
 	construct {
 		pic = new Picture () {
 			hexpand = true,
@@ -37,7 +43,8 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		};
 
 		#if GTK_4_8
-			pic.set_property ("content-fit", 2);
+			update_pic_content_fit ();
+			settings.notify["letterbox-media"].connect (update_pic_content_fit);
 		#endif
 
 		media_overlay = new Overlay ();
