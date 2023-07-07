@@ -17,6 +17,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool larger_line_height { get; set; }
 	public bool aggressive_resolving { get; set; }
 	public bool strip_tracking { get; set; }
+	public bool letterbox_media { get; set; }
 
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
@@ -34,6 +35,7 @@ public class Tuba.Settings : GLib.Settings {
 		init ("larger-line-height");
 		init ("aggressive-resolving");
 		init ("strip-tracking");
+		init ("letterbox-media");
 	}
 
 	void init (string key) {
