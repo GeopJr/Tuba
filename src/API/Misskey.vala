@@ -85,7 +85,7 @@ public class Tuba.API.Misskey.JSON : Object {
         return builder;
     }
 
-    public static Json.Builder get_timeline (int limit = 20) {
+    public static Json.Builder get_timeline (int limit = 20, string? userId = null) {
         var builder = new Json.Builder ();
         builder.begin_object ();
 
@@ -94,6 +94,11 @@ public class Tuba.API.Misskey.JSON : Object {
 
         builder.set_member_name ("limit");
         builder.add_int_value (limit);
+
+        if (userId != null) {
+            builder.set_member_name ("userId");
+            builder.add_string_value (userId);
+        }
 
         builder.end_object ();
 

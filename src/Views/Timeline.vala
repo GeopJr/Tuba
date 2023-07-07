@@ -7,6 +7,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public bool is_public { get; construct set; default = false; }
 	public Type accepts { get; set; default = typeof (API.Status); }
 	public bool use_queue { get; set; default = true; }
+	public bool with_user_id { get; set; default=false; }
 
 	protected InstanceAccount? account { get; set; default = null; }
 
@@ -188,7 +189,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		new Request.POST (get_req_url ())
 			.with_account (account)
 			.with_ctx (this)
-			.body_json (Tuba.API.Misskey.JSON.get_timeline (settings.timeline_page_size))
+			.body_json (Tuba.API.Misskey.JSON.get_timeline (settings.timeline_page_size, with_user_id ? account.id : null))
 			.then ((sess, msg, in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 
