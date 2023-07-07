@@ -371,7 +371,6 @@
     </property>
     <style>
       <class name="ttl-post" />
-      <class name="lww-scale-emoji-hover" />
     </style>
   </template>
 </interface>

@@ -181,8 +181,8 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		if (settings.larger_line_height)
 			add_css_class ("ttl-status-line-height-large");
 
-		if (!settings.scale_emoji_hover)
-			remove_css_class ("lww-scale-emoji-hover");
+		if (settings.scale_emoji_hover)
+			add_css_class ("lww-scale-emoji-hover");
 
 		rebuild_actions ();
 

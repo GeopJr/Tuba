@@ -104,8 +104,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 		}
 
 		construct {
-			if (!settings.scale_emoji_hover)
-				note.remove_css_class ("lww-scale-emoji-hover");
+			if (settings.scale_emoji_hover)
+				note.add_css_class ("lww-scale-emoji-hover");
 			settings.notify["scale-emoji-hover"].connect (() => Tuba.toggle_css (note, settings.scale_emoji_hover, "lww-scale-emoji-hover"));
 		}
 
