@@ -431,3 +431,13 @@ video > overlay > revealer > controls {
 .lww-scale-emoji-hover .lww-emoji:hover {
 	transform: scale(2);
 }
+
+.ttl-poll-row:first-child{
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+}
+
+.ttl-poll-row:last-child{
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px;
+}
