@@ -60,6 +60,18 @@
             </child>
             <child>
               <object class="AdwActionRow">
+                <property name="title" translatable="yes">Scale up custom emojis on hover</property>
+                <property name="activatable_widget">scale_emoji_hover</property>
+                <property name="subtitle" translatable="yes">Makes custom emojis slightly bigger when you hover over them</property>
+                <child>
+                  <object class="GtkSwitch" id="scale_emoji_hover">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
                 <!-- translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox" -->
                 <property name="title" translatable="yes">Letterbox Media</property>
                 <property name="activatable_widget">letterbox_media</property>

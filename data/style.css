@@ -423,3 +423,11 @@ video > overlay > revealer > controls {
 .theme-intersex.about .app-version:hover{background:radial-gradient(closest-side circle at center,#ffd800 44%,#7902aa 44%,#7902aa 56%,#ffd800 56%);}
 .theme-autism.about .app-version{background:linear-gradient(to bottom,#e5304355,#e5304355 16.66%,#f6834755 16.66%,#f6834755 33.33%,#fac85755 33.33%,#fac85755 66.67%,#99d67155 66.67%,#99d67155 83.33%,#21ae7555 83.33%,#21ae7555);}
 .theme-autism.about .app-version:hover{background:linear-gradient(to bottom,#e53043,#e53043 16.66%,#f68347 16.66%,#f68347 33.33%,#fac857 33.33%,#fac857 66.67%,#99d671 66.67%,#99d671 83.33%,#21ae75 83.33%,#21ae75);}
+
+.lww-scale-emoji-hover .lww-emoji {
+	transition-duration: 150ms;
+}
+
+.lww-scale-emoji-hover .lww-emoji:hover {
+	transform: scale(2);
+}

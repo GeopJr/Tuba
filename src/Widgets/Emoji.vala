@@ -11,7 +11,9 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
 	}
 
 	construct {
-		image = new Gtk.Image ();
+		image = new Gtk.Image () {
+			css_classes = { "lww-emoji" }
+		};
         child = image;
 	}
 
