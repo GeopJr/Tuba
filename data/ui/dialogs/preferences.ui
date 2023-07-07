@@ -60,9 +60,9 @@
             </child>
             <child>
               <object class="AdwActionRow">
-                <property name="title" translatable="yes">Scale custom emojis on hover</property>
+                <property name="title" translatable="yes">Scale up custom emojis on hover</property>
                 <property name="activatable_widget">scale_emoji_hover</property>
-                <property name="subtitle" translatable="yes">Makes custom emojis slightly bigger when you hover over them on posts</property>
+                <property name="subtitle" translatable="yes">Makes custom emojis slightly bigger when you hover over them</property>
                 <child>
                   <object class="GtkSwitch" id="scale_emoji_hover">
                     <property name="valign">center</property>
