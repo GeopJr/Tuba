@@ -61,6 +61,9 @@ public class Tuba.Network : GLib.Object {
 				}
 			} catch (GLib.Error e) {
 				warning (e.message);
+				if (ecb != null) {
+					ecb ((int32) e.code, e.message);
+				}
 			}
 		});
 	}
