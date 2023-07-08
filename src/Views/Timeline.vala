@@ -195,6 +195,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		clear ();
 		base_status = new StatusMessage () { loading = true };
 		GLib.Idle.add (request);
+		GLib.Idle.add (stream_reconnect);
 	}
 
 

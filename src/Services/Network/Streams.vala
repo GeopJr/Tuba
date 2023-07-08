@@ -9,6 +9,14 @@ public class Tuba.Streams : Object {
 		default = new HashTable<string, Connection> (GLib.str_hash, GLib.str_equal);
 	}
 
+	public void reconnect (string? url) {
+		if (url == null) return;
+
+		if (connections.contains (url)) {
+			connections.get (url).reconnect_if_failed ();
+		}
+	}
+
 	public void subscribe (string? url, Streamable s) {
 		if (url == null)
 			return;
@@ -51,6 +59,7 @@ public class Tuba.Streams : Object {
 
 		protected bool closing = false;
 		protected int timeout = 1;
+		public bool unable_to_start { get; private set; default=false; }
 
 		public string name {
 			owned get {
@@ -72,11 +81,20 @@ public class Tuba.Streams : Object {
 					socket.error.connect (on_error);
 					socket.closed.connect (on_closed);
 					socket.message.connect (on_message);
+					unable_to_start = false;
 				} catch (Error e) {
-					warning (@"Error opening stream: $(e.message)");
+					warning (@"Error opening stream: $(e.message) ($(e.code))");
+					unable_to_start = true;
 				}
 			});
 			return false;
+		}
+
+		public void reconnect_if_failed () {
+			if (unable_to_start && subscribers.size > 0) {
+				message (@"RECONNECTING: $name");
+				start ();
+			}
 		}
 
 		public void add (Streamable s) {

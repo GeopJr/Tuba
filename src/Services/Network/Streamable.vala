@@ -29,6 +29,13 @@ public abstract interface Tuba.Streamable : Object {
     [Signal (detailed = true)]
     public signal void stream_event (Event ev);
 
+	public bool stream_reconnect () {
+		if (subscribed)
+			streams.reconnect (t_connection_url);
+
+		return GLib.Source.REMOVE;
+	}
+
 	void subscribe () {
 		streams.unsubscribe (t_connection_url, this);
 		streams.subscribe (get_stream_url (), this);
