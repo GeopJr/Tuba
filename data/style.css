@@ -441,3 +441,7 @@ video > overlay > revealer > controls {
 	border-bottom-left-radius: 12px;
 	border-bottom-right-radius: 12px;
 }
+
+.picker-emoji-button {
+	padding: 5px;
+}

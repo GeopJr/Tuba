@@ -9,6 +9,10 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
 		get { return image.pixel_size; }
 		set { image.pixel_size = value; }
 	}
+	public Gtk.IconSize icon_size {
+		get { return image.icon_size; }
+		set { image.icon_size = value; }
+	}
 
 	construct {
 		image = new Gtk.Image () {
