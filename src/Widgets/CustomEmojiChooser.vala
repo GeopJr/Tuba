@@ -163,7 +163,6 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
             css_classes = { "flat", "picker-emoji-button" },
             child = new Widgets.Emoji (emoji.url, emoji.shortcode) { icon_size = Gtk.IconSize.LARGE }
         };
-        emoji_btn.set_css_name ("emoji");
 
         emoji_btn.clicked.connect (on_custom_emoji_picked);
         return emoji_btn;
