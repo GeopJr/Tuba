@@ -141,6 +141,11 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	ulong build_sigid;
 
 	construct {
+		if (app.main_window.default_width <= 500) {
+			this.default_height = app.main_window.default_height;
+			this.default_width = app.main_window.default_width;
+		}
+
 		var exit_action = new SimpleAction ("exit", null);
 		exit_action.activate.connect (on_exit);
 
