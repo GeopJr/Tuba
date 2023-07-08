@@ -146,7 +146,9 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	void open_confirmation_page () {
 		message ("Opening permission request page");
 
-		var pars = @"scope=$SCOPES&response_type=code&redirect_uri=$redirect_uri&client_id=$(account.client_id)";
+		var esc_scopes = Uri.escape_string (SCOPES);
+		var esc_redirect = Uri.escape_string (redirect_uri);
+		var pars = @"scope=$esc_scopes&response_type=code&redirect_uri=$esc_redirect&client_id=$(Uri.escape_string (account.client_id))";
 		var url = @"$(account.instance)/oauth/authorize?$pars";
 		Host.open_uri (url);
 	}
