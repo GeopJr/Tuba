@@ -128,14 +128,17 @@ public class Tuba.SecretAccountStore : AccountStore {
 		);
 	}
 
-	void account_to_secret (InstanceAccount account) {
+	void account_to_secret (owned InstanceAccount account) {
 		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
 		attrs["login"] = account.handle;
 		attrs["version"] = VERSION;
 
 		var generator = new Json.Generator ();
+		// TODO cleanup
 		account.instance_info = null;
 		account.instance_emojis = null;
+		account.source = null;
+		account.emojis = null;
 		generator.set_root (account.to_json ());
 		var secret = generator.to_data (null);
 		// translators: The variable is the backend like "Mastodon"

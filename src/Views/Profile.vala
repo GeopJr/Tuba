@@ -296,9 +296,22 @@ public class Tuba.Views.Profile : Views.Timeline {
 		menu_button.icon_name = "tuba-view-more-symbolic";
 		header.pack_end (menu_button);
 
+		if (profile.is_self ()) {
+			var edit_btn = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+				tooltip_text = _("Edit Profile")
+			};
+			edit_btn.clicked.connect (open_edit_page);
+			header.pack_end (edit_btn);
+		}
+
 		//  rs_button = new Widgets.RelationshipButton () {
 		//  	rs = this.rs
 		//  };
+	}
+
+	private void open_edit_page () {
+		var dialog = new Dialogs.ProfileEdit (profile);
+		dialog.show ();
 	}
 
 	protected virtual Cover build_cover () {
