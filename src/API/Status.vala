@@ -193,7 +193,10 @@ public class Tuba.API.Status : Entity, Widgetizable {
     }
 
     public Request annihilate () {
-        return new Request.DELETE (@"/api/v1/statuses/$id")
-            .with_account (accounts.active);
+        //  return new Request.DELETE (@"/api/v1/statuses/$id")
+        //      .with_account (accounts.active);
+        return new Request.POST ("/api/notes/delete")
+            .with_account (accounts.active)
+			.body_json (API.Misskey.JSON.get_delete_note (id));
     }
 }

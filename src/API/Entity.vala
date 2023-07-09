@@ -6,7 +6,7 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 		return true;
 	}
 
-	static bool is_spec_valid (ref ParamSpec spec) {
+	public static bool is_spec_valid (ref ParamSpec spec) {
 		return ParamFlags.WRITABLE in spec.flags;
 	}
 
@@ -176,6 +176,33 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 		var node = new Json.Node (NodeType.ARRAY);
 		node.set_array (arr);
 		return node;
+	}
+
+	public static bool des_map_string_string (out Value val, Json.Node node) {
+		var map = new Gee.HashMap<string, string> ();
+		if (!node.is_null ()) {
+            node.get_object ().foreach_member ((obj, t_key, t_node) => {
+                map.set (t_key, (string) t_node.get_string ());
+            });
+		}
+		val = map;
+		return true;
+	}
+
+    public static bool des_map (out Value val, Json.Node node, Type type) {
+        var map = new Gee.HashMap<string, Entity> ();
+		if (!node.is_null ()) {
+            node.get_object ().foreach_member ((obj, t_key, t_node) => {
+                try {
+                    var t_obj = Entity.from_json (type, t_node);
+                    map.set (t_key, t_obj);
+                } catch (Error e) {
+					warning (@"Error getting Entity from json: $(e.message)");
+				}
+            });
+		}
+		val = map;
+		return true;
 	}
 
 }

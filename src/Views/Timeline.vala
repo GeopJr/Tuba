@@ -7,6 +7,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public bool is_public { get; construct set; default = false; }
 	public Type accepts { get; set; default = typeof (API.Status); }
 	public bool use_queue { get; set; default = true; }
+	public bool with_user_id { get; set; default=false; }
 
 	protected InstanceAccount? account { get; set; default = null; }
 
@@ -165,20 +166,45 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual bool request () {
-		append_params (new Request.GET (get_req_url ()))
+		//  append_params (new Request.GET (get_req_url ()))
+		//  	.with_account (account)
+		//  	.with_ctx (this)
+		//  	.then ((sess, msg, in_stream) => {
+		//  		var parser = Network.get_parser_from_inputstream(in_stream);
+
+		//  		Object[] to_add = {};
+		//  		Network.parse_array (msg, parser, node => {
+		//  			var e = entity_cache.lookup_or_insert (node, accepts);
+		//  			to_add += e;
+		//  		});
+		//  		model.splice (model.get_n_items (), 0, to_add);
+
+		//  		get_pages (msg.response_headers.get_one ("Link"));
+		//  		on_content_changed ();
+		//  		on_request_finish ();
+		//  	})
+		//  	.on_error (on_error)
+		//  	.exec ();
+
+		new Request.POST (get_req_url ())
 			.with_account (account)
 			.with_ctx (this)
+			.body_json (Tuba.API.Misskey.JSON.get_timeline (settings.timeline_page_size, with_user_id ? account.id : null))
 			.then ((sess, msg, in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 
 				Object[] to_add = {};
 				Network.parse_array (msg, parser, node => {
 					var e = entity_cache.lookup_or_insert (node, accepts);
-					to_add += e;
+
+					var e_aichanified = e as API.Misskey.AiChanify;
+					if (e_aichanified != null) {
+						to_add += (Entity) e_aichanified.to_mastodon ();
+					}
 				});
 				model.splice (model.get_n_items (), 0, to_add);
 
-				get_pages (msg.response_headers.get_one ("Link"));
+				//  get_pages (msg.response_headers.get_one ("Link"));
 				on_content_changed ();
 				on_request_finish ();
 			})

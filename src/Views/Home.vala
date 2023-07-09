@@ -1,10 +1,11 @@
 public class Tuba.Views.Home : Views.Timeline {
     public Home () {
         Object (
-            url: "/api/v1/timelines/home",
+            url: "/api/notes/timeline",
             label: _("Home"),
             icon: "tuba-home-symbolic"
         );
+        accepts = typeof (API.Misskey.Note);
     }
 
     public override string? get_stream_url () {

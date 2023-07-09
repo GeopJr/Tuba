@@ -2,10 +2,11 @@ public class Tuba.Views.Bookmarks : Views.Timeline {
 
     public Bookmarks () {
         Object (
-            url: "/api/v1/bookmarks",
+            url: "/api/i/favorites",
             label: _("Bookmarks"),
             icon: "tuba-bookmarks-symbolic"
         );
+        accepts = typeof (API.Misskey.Bookmark);
     }
 
 }

@@ -119,4 +119,9 @@ public class Tuba.API.Account : Entity, Widgetizable {
 		}
 	}
 
+	public Account.empty (string t_id = "") {
+        Object (
+			id: t_id
+        );
+    }
 }
