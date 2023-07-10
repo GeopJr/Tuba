@@ -116,7 +116,7 @@ flowboxchild {
 	background: grey;
 }
 
-.ttl-profile-cover avatar {
+.ttl-profile-cover avatar, .profile-editor avatar {
 	border: 6px solid @theme_base_color;
 	background: @theme_base_color;
 }
@@ -444,4 +444,12 @@ video > overlay > revealer > controls {
 
 .picker-emoji-button {
 	padding: 5px;
+}
+
+.background-none {
+	background: none;
+}
+
+.profile-editor .background-cover {
+	border-radius: 12px;
 }

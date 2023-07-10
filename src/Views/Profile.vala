@@ -311,7 +311,23 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 	private void open_edit_page () {
 		var dialog = new Dialogs.ProfileEdit (profile);
+		dialog.saved.connect (on_edit_save);
 		dialog.show ();
+	}
+
+	private void on_edit_save () {
+		if (profile.is_self ()) {
+			rs.invalidated.disconnect (on_rs_updated);
+			column_view.remove (cover);
+			cover = null;
+
+			cover = build_cover ();
+			cover.rsbtn.rs = this.rs;
+			column_view.prepend (cover);
+			cover.bind (accounts.active);
+			build_profile_stats (cover.info);
+			rs.invalidated.connect (on_rs_updated);
+		}
 	}
 
 	protected virtual Cover build_cover () {
