@@ -95,8 +95,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				uint root_index;
 				model.find (root_status, out root_index);
 
+				root_widget = content.get_row_at_index ((int)root_index) as Widgets.Status;
 				if (root_widget != null) {
-					root_widget = content.get_row_at_index ((int)root_index) as Widgets.Status;
 					root_widget.expand_root ();
 				}
 
