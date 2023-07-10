@@ -133,53 +133,6 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 			margin_bottom = 24
 		};
 
-		var avi_edit_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
-			css_classes = { "osd", "circular" },
-			tooltip_text = _("Edit Profile Picture"),
-			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER
-		};
-
-		avi_edit_button.clicked.connect (on_avi_button_clicked);
-
-		avi = new Avatar () {
-			size = 120
-		};
-
-		var avi_overlay = new Gtk.Overlay () {
-			child = avi,
-			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER
-		};
-		avi_overlay.add_overlay (avi_edit_button);
-
-		var background_edit_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
-			css_classes = { "osd", "circular" },
-			tooltip_text = _("Edit Header Picture"),
-			valign = Gtk.Align.START,
-			halign = Gtk.Align.START,
-			margin_start = 6,
-			margin_top = 6
-		};
-		background_edit_button.clicked.connect (on_header_button_clicked);
-
-		background = new Widgets.Background () {
-			height_request = 128,
-			css_classes = { "background-cover" }
-		};
-
-		var background_overlay = new Gtk.Overlay () {
-			vexpand = true,
-			hexpand = true,
-			child = background
-		};
-		background_overlay.add_overlay (background_edit_button);
-
-		var images_overlay = new Gtk.Overlay () {
-			child = background_overlay
-		};
-		images_overlay.add_overlay (avi_overlay);
-
 		var profile_info_box = new Gtk.ListBox () {
 			css_classes = { "boxed-list" },
 			selection_mode = Gtk.SelectionMode.NONE
@@ -229,7 +182,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 			title = _("Fields")
 		};
 
-		content_box.append (images_overlay);
+		content_box.append (create_header_avi_widget ());
 		content_box.append (profile_info_box);
 		content_box.append (fields_box);
 
@@ -265,6 +218,56 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		box.append (scroller);
 
 		content = box;
+	}
+
+	Gtk.Widget create_header_avi_widget () {
+		var avi_edit_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+			css_classes = { "osd", "circular" },
+			tooltip_text = _("Edit Profile Picture"),
+			valign = Gtk.Align.CENTER,
+			halign = Gtk.Align.CENTER
+		};
+		avi_edit_button.clicked.connect (on_avi_button_clicked);
+
+		avi = new Avatar () {
+			size = 120
+		};
+
+		var avi_overlay = new Gtk.Overlay () {
+			child = avi,
+			valign = Gtk.Align.CENTER,
+			halign = Gtk.Align.CENTER
+		};
+		avi_overlay.add_overlay (avi_edit_button);
+
+		var background_edit_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+			css_classes = { "osd", "circular" },
+			tooltip_text = _("Edit Header Picture"),
+			valign = Gtk.Align.START,
+			halign = Gtk.Align.START,
+			margin_start = 6,
+			margin_top = 6
+		};
+		background_edit_button.clicked.connect (on_header_button_clicked);
+
+		background = new Widgets.Background () {
+			height_request = 128,
+			css_classes = { "background-cover" }
+		};
+
+		var background_overlay = new Gtk.Overlay () {
+			vexpand = true,
+			hexpand = true,
+			child = background
+		};
+		background_overlay.add_overlay (background_edit_button);
+
+		var images_overlay = new Gtk.Overlay () {
+			child = background_overlay
+		};
+		images_overlay.add_overlay (avi_overlay);
+
+		return images_overlay;
 	}
 
 	void on_close () {
