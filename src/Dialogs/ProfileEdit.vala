@@ -3,10 +3,44 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		message (@"Destroying ProfileEdit for $(profile.handle)");
 	}
 
-	public class Avatar : Widgets.Avatar {
-		public new Gdk.Paintable? custom_image {
+	public class Avatar : Adw.Bin {
+		Adw.Avatar avatar;
+
+		private string _url = "";
+		public string url {
+			get {
+				return _url;
+			}
+
+			set {
+				_url = value;
+				image_cache.request_paintable (value, on_cache_response);
+			}
+		}
+
+		public string text {
+			get { return avatar.text; }
+			set { avatar.text = value; }
+		}
+
+		public int size {
+			get { return avatar.size; }
+			set { avatar.size = value; }
+		}
+
+		public Gdk.Paintable? custom_image {
 			get { return avatar.custom_image; }
 			set { avatar.custom_image = value; }
+		}
+
+		construct {
+			avatar = new Adw.Avatar (48, "d", false);
+			child = avatar;
+			halign = valign = Gtk.Align.CENTER;
+		}
+
+		void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
+			custom_image = data;
 		}
 	}
 
@@ -287,7 +321,8 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 	public ProfileEdit (API.Account acc) {
 		profile = acc;
 		image_cache.request_paintable (acc.header, on_cache_response);
-		avi.account = acc;
+		avi.url = acc.avatar;
+		avi.text = acc.display_name;
 		name_row.text = acc.display_name;
 		bio_text_view.buffer.text = acc.source?.note ?? "";
 
