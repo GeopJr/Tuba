@@ -128,7 +128,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		);
 	}
 
-	void account_to_secret (owned InstanceAccount account) {
+	void account_to_secret (InstanceAccount account) {
 		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
 		attrs["login"] = account.handle;
 		attrs["version"] = VERSION;
@@ -144,6 +144,9 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 		builder.set_member_name ("username");
 		builder.add_string_value (account.username);
+
+		builder.set_member_name ("display-name");
+		builder.add_string_value (account.display_name);
 
 		builder.set_member_name ("acct");
 		builder.add_string_value (account.acct);
