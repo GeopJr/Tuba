@@ -320,7 +320,13 @@ public class Tuba.Views.Profile : Views.Timeline {
 			rs.invalidated.disconnect (on_rs_updated);
 			column_view.remove (cover);
 			cover = null;
-			entity_cache.remove (profile.id);
+
+			for (uint i = 0; i < model.get_n_items (); i++) {
+				var status_obj = (API.Status)model.get_item (i);
+				if (status_obj.formal.account.id == profile.id) {
+					entity_cache.remove (status_obj.formal.uri);
+				}
+			}
 
 			cover = build_cover ();
 			cover.rsbtn.rs = this.rs;
