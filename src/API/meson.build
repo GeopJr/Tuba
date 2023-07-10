@@ -14,7 +14,6 @@ sources += files(
     'Mention.vala',
     'Notification.vala',
     'PeerTube.vala',
-    'Pleroma.vala',
     'Poll.vala',
     'PollOption.vala',
     'Relationship.vala',
@@ -31,4 +30,5 @@ subdir('BookWyrm')
 subdir('Funkwhale')
 subdir('Instance')
 subdir('PeerTube')
+subdir('Pleroma')
 subdir('Status')

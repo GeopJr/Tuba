@@ -32,7 +32,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public ArrayList<API.Mention>? mentions { get; set; default = null; }
     public ArrayList<API.EmojiReaction>? reactions { get; set; default = null; }
     public ArrayList<API.EmojiReaction>? emoji_reactions { get; set; default = null; }
-    public API.Pleroma? pleroma { get; set; default = null; }
+    public API.Pleroma.Status? pleroma { get; set; default = null; }
     public ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
     public API.Poll? poll { get; set; default = null; }
     public Gee.ArrayList<API.Emoji>? emojis { get; set; }
