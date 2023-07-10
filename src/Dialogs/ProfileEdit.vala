@@ -287,13 +287,13 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		save.begin ((obj, res) => {
 			try {
 				save.end (res);
+				on_close ();
 			} catch (GLib.Error e) {
 				critical (e.message);
 				var dlg = app.inform (_("Error"), e.message);
 				dlg.present ();
 			} finally {
 				this.sensitive = true;
-				on_close ();
 			}
 		});
 	}
