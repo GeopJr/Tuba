@@ -328,6 +328,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 			cover.bind (accounts.active);
 			build_profile_stats (cover.info);
 			rs.invalidated.connect (on_rs_updated);
+
+			on_refresh ();
 		}
 	}
 
