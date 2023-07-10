@@ -137,50 +137,50 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 		// Save only what we need
 		var builder = new Json.Builder ();
-        builder.begin_object ();
+		builder.begin_object ();
 
-        builder.set_member_name ("id");
-        builder.add_string_value (account.id);
+		builder.set_member_name ("id");
+		builder.add_string_value (account.id);
 
 		builder.set_member_name ("username");
-        builder.add_string_value (account.username);
+		builder.add_string_value (account.username);
 
 		builder.set_member_name ("acct");
-        builder.add_string_value (account.acct);
+		builder.add_string_value (account.acct);
 
 		builder.set_member_name ("header");
-        builder.add_string_value (account.header);
+		builder.add_string_value (account.header);
 
 		builder.set_member_name ("avatar");
-        builder.add_string_value (account.avatar);
+		builder.add_string_value (account.avatar);
 
 		builder.set_member_name ("url");
-        builder.add_string_value (account.url);
+		builder.add_string_value (account.url);
 
 		builder.set_member_name ("instance");
-        builder.add_string_value (account.instance);
+		builder.add_string_value (account.instance);
 
 		builder.set_member_name ("client-id");
-        builder.add_string_value (account.client_id);
+		builder.add_string_value (account.client_id);
 
 		builder.set_member_name ("client-secret");
-        builder.add_string_value (account.client_secret);
+		builder.add_string_value (account.client_secret);
 
 		builder.set_member_name ("access-token");
-        builder.add_string_value (account.access_token);
+		builder.add_string_value (account.access_token);
 
 		builder.set_member_name ("handle");
-        builder.add_string_value (account.handle);
+		builder.add_string_value (account.handle);
 
 		builder.set_member_name ("backend");
-        builder.add_string_value (account.backend);
+		builder.add_string_value (account.backend);
 
 		// If display name has emojis it's
 		// better to save and load them
 		// so users don't see their shortcode
 		// while verify_credentials is running
 		builder.set_member_name ("emojis");
-        builder.begin_array ();
+		builder.begin_array ();
 		if (account.emojis?.size > 0) {
 			foreach (var emoji in account.emojis) {
 					builder.begin_object ();
@@ -194,9 +194,9 @@ public class Tuba.SecretAccountStore : AccountStore {
 					builder.end_object ();
 			}
 		}
-        builder.end_array ();
+		builder.end_array ();
 
-        builder.end_object ();
+		builder.end_object ();
 		generator.set_root (builder.get_root ());
 		var secret = generator.to_data (null);
 		// translators: The variable is the backend like "Mastodon"
