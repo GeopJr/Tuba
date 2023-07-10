@@ -450,6 +450,10 @@ video > overlay > revealer > controls {
 	background: none;
 }
 
+.profile-editor .background-none text {
+	background: none;
+}
+
 .profile-editor .background-cover {
 	border-radius: 12px;
 }
