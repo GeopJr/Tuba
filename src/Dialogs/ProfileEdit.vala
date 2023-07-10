@@ -211,19 +211,30 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		scroller.child = clamp;
 
 		var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-		var headerbar = new Adw.HeaderBar ();
+		var headerbar = new Adw.HeaderBar () {
+			show_end_title_buttons = false,
+			show_start_title_buttons = false
+		};
 
 		var save_btn = new Gtk.Button.with_label (_("Save")) {
 			css_classes = { "suggested-action" }
 		};
 		save_btn.clicked.connect (on_save_clicked);
 
+		var close_btn = new Gtk.Button.with_label (_("Close"));
+		close_btn.clicked.connect (on_close);
+
+		headerbar.pack_start (close_btn);
 		headerbar.pack_end (save_btn);
 
 		box.append (headerbar);
 		box.append (scroller);
 
 		content = box;
+	}
+
+	void on_close () {
+		destroy ();
 	}
 
 	void on_avi_button_clicked () {
@@ -245,7 +256,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 				dlg.present ();
 			} finally {
 				this.sensitive = true;
-				destroy ();
+				on_close ();
 			}
 		});
 	}
