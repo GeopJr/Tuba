@@ -124,7 +124,11 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		var req = new Request.GET ("/api/v1/accounts/verify_credentials").with_account (this);
 		yield req.await ();
 
-		var parser = Network.get_parser_from_inputstream (req.response_body);
+		update_object (req.response_body);
+	}
+
+	public void update_object (InputStream in_stream) throws Error {
+		var parser = Network.get_parser_from_inputstream (in_stream);
 		var node = network.parse_node (parser);
 		var updated = API.Account.from (node);
 		patch (updated);
