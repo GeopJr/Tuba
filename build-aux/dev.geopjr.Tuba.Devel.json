@@ -65,9 +65,9 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "https://github.com/geopjr-forks/gspell-4.git",
-                    "branch" : "main",
-                    "commit": "3daa2cf19b17d04bf142ad35e4abfeba811a7b4f"
+                    "url" : "https://gitlab.gnome.org/otrocodigo/gspell.git",
+                    "branch" : "gtk4-beta",
+                    "commit": "365dee2087e22ac5e1c3e82db456e35db896f393"
                 }
             ]
         },
