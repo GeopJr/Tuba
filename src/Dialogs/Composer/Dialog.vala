@@ -137,10 +137,17 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	}
 
 	public bool editing { get; set; default=false; }
+	public bool mobile { get; set; default=false; }
 
 	ulong build_sigid;
 
 	construct {
+		if (app.main_window.default_width <= 500) {
+			this.default_height = 500;
+			this.default_width = app.main_window.default_width;
+			mobile = true;
+		}
+
 		var exit_action = new SimpleAction ("exit", null);
 		exit_action.activate.connect (on_exit);
 
@@ -341,6 +348,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 		page.dialog = this;
 		page.status = this.status;
+		if (mobile) page.action_bar_on_top = true;
 		if (editing) page.edit_mode = true;
 		page.on_build ();
 		page.on_pull ();
