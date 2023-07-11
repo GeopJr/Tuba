@@ -456,4 +456,5 @@ video > overlay > revealer > controls {
 
 .profile-editor .background-cover {
 	border-radius: 12px;
+	background-color: @shade_color;
 }
