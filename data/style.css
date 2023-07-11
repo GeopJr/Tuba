@@ -117,8 +117,8 @@ flowboxchild {
 }
 
 .ttl-profile-cover avatar, .profile-editor avatar {
-	border: 6px solid @theme_base_color;
-	background: @theme_base_color;
+	border: 6px solid @dialog_bg_color;
+	background: @dialog_bg_color;
 }
 
 .large .header-image {
