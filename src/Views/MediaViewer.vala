@@ -565,7 +565,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             // Media buttons overlap the video
             // controller, so position them higher
             if (safe_get ((int) pos)?.is_video) {
-                media_buttons.margin_bottom = 40;
+                media_buttons.margin_bottom = 68;
                 zoom_btns.visible = false;
             } else {
                 media_buttons.margin_bottom = 18;
