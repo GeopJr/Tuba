@@ -69,6 +69,8 @@ public class Tuba.Streams : Object {
 			network.session.websocket_connect_async.begin (msg, null, null, 0, null, (obj, res) => {
 				try {
 					socket = network.session.websocket_connect_async.end (res);
+					socket.keepalive_interval = 30;
+
 					socket.error.connect (on_error);
 					socket.closed.connect (on_closed);
 					socket.message.connect (on_message);
