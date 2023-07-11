@@ -130,6 +130,13 @@ public class Tuba.Request : GLib.Object {
 		return this;
 	}
 
+	public Request with_form_data_file (string name, string mime, Bytes buffer) {
+		if (form_data == null)
+			form_data = new Soup.Multipart (FORM_MIME_TYPE_MULTIPART);
+		form_data.append_form_file (name, mime.replace ("/", "."), mime, buffer);
+		return this;
+	}
+
 	public Request body (string? t_content_type, Bytes? t_bytes) {
 		content_type = t_content_type;
 		body_bytes = t_bytes;

@@ -4,7 +4,37 @@ public class Tuba.API.Instance : Entity {
 	public int64 max_toot_chars { get; set; default = 0; }
 	public API.Mastodon.Configuration.Polls? poll_limits { get; set; default = null; }
 	public int64 upload_limit { get; set; default = 0; }
-    public API.Pleroma? pleroma { get; set; default = null; }
+    public API.Pleroma.Instance? pleroma { get; set; default = null; }
+
+    public int64 compat_fields_limits_max_fields {
+        get {
+            if (pleroma != null && pleroma.metadata != null && pleroma.metadata.fields_limits != null) {
+                return pleroma.metadata.fields_limits.max_fields;
+            }
+
+            return 4;
+        }
+    }
+
+    public int64 compat_fields_limits_name_length {
+        get {
+            if (pleroma != null && pleroma.metadata != null && pleroma.metadata.fields_limits != null) {
+                return pleroma.metadata.fields_limits.name_length;
+            }
+
+            return 255;
+        }
+    }
+
+    public int64 compat_fields_limits_value_length {
+        get {
+            if (pleroma != null && pleroma.metadata != null && pleroma.metadata.fields_limits != null) {
+                return pleroma.metadata.fields_limits.value_length;
+            }
+
+            return 255;
+        }
+    }
 
     public int64 compat_status_max_media_attachments {
         get {

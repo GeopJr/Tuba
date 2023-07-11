@@ -296,9 +296,47 @@ public class Tuba.Views.Profile : Views.Timeline {
 		menu_button.icon_name = "tuba-view-more-symbolic";
 		header.pack_end (menu_button);
 
+		if (profile.is_self ()) {
+			var edit_btn = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+				tooltip_text = _("Edit Profile")
+			};
+			edit_btn.clicked.connect (open_edit_page);
+			header.pack_end (edit_btn);
+		}
+
 		//  rs_button = new Widgets.RelationshipButton () {
 		//  	rs = this.rs
 		//  };
+	}
+
+	private void open_edit_page () {
+		var dialog = new Dialogs.ProfileEdit (profile);
+		dialog.saved.connect (on_edit_save);
+		dialog.show ();
+	}
+
+	private void on_edit_save () {
+		if (profile.is_self ()) {
+			rs.invalidated.disconnect (on_rs_updated);
+			column_view.remove (cover);
+			cover = null;
+
+			for (uint i = 0; i < model.get_n_items (); i++) {
+				var status_obj = (API.Status)model.get_item (i);
+				if (status_obj.formal.account.id == profile.id) {
+					entity_cache.remove (status_obj.formal.uri);
+				}
+			}
+
+			cover = build_cover ();
+			cover.rsbtn.rs = this.rs;
+			column_view.prepend (cover);
+			cover.bind (accounts.active);
+			build_profile_stats (cover.info);
+			rs.invalidated.connect (on_rs_updated);
+
+			on_refresh ();
+		}
 	}
 
 	protected virtual Cover build_cover () {

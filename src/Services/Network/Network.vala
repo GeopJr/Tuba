@@ -56,7 +56,15 @@ public class Tuba.Network : GLib.Object {
 					if (ecb == null) {
 						critical (@"Request \"$(msg.uri.to_string ())\" failed: $status $(msg.reason_phrase)");
 					} else {
-						ecb ((int32) status, msg.reason_phrase);
+						string error_msg = msg.reason_phrase;
+
+						try {
+							var parser = Network.get_parser_from_inputstream (in_stream);
+							var root = network.parse (parser);
+							error_msg = root.get_string_member_with_default ("error", msg.reason_phrase);
+						} catch {}
+
+						ecb ((int32) status, error_msg);
 					}
 				}
 			} catch (GLib.Error e) {
