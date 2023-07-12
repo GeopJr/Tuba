@@ -244,6 +244,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         gesture.scale_changed.connect ((zm) => safe_get ((int) carousel.position)?.zoom (zm));
         add_controller (gesture);
 
+        var motion = new Gtk.EventControllerMotion ();
+        motion.motion.connect (on_motion);
+        add_controller (motion);
+
 		orientation = Gtk.Orientation.VERTICAL;
         spacing = 0;
 
@@ -298,6 +302,25 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	~MediaViewer () {
 		message ("Destroying MediaViewer");
 	}
+
+    protected void on_motion (double x, double y) {
+        on_reveal_media_buttons ();
+    }
+
+    uint revealer_timeout = 0;
+    protected void on_reveal_media_buttons () {
+        media_buttons_revealer.set_reveal_child (true);
+
+        if (revealer_timeout > 0) GLib.Source.remove (revealer_timeout);
+        revealer_timeout = Timeout.add (5 * 1000, on_hide_media_buttons, Priority.LOW);
+    }
+
+    protected bool on_hide_media_buttons () {
+        media_buttons_revealer.set_reveal_child (false);
+        revealer_timeout = 0;
+
+        return GLib.Source.REMOVE;
+    }
 
     protected bool on_keypress (uint keyval, uint keycode, Gdk.ModifierType state) {
         // Don't handle it if there's
@@ -501,7 +524,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
     private Gtk.Button zoom_out_btn;
     private Gtk.Button zoom_in_btn;
-    private Gtk.Box generate_media_buttons () {
+    private Gtk.Revealer media_buttons_revealer;
+    private Gtk.Widget generate_media_buttons () {
         var media_buttons = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
             valign = Gtk.Align.END,
@@ -583,7 +607,13 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         media_buttons.append (page_btns);
         media_buttons.append (zoom_btns);
 
-        return media_buttons;
+        media_buttons_revealer = new Gtk.Revealer () {
+            child = media_buttons,
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            valign = Gtk.Align.END
+        };
+
+        return media_buttons_revealer;
     }
 
     public void on_zoom_change () {
