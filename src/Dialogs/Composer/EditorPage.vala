@@ -121,7 +121,15 @@ public class Tuba.EditorPage : ComposerPage {
 			wrap_mode = WrapMode.WORD_CHAR
 		};
 
-		#if GSPELL
+		#if LIBSPELLING && !MISSING_GTKSOURCEVIEW
+			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
+
+			editor.extra_menu = adapter.get_menu_model ();
+			editor.insert_action_group ("spelling", adapter);
+			adapter.enabled = true;
+		#endif
+
+		#if GSPELL && (MISSING_GTKSOURCEVIEW || !LIBSPELLING)
 			var gspell_view = Gspell.TextView.get_from_gtk_text_view (editor);
 			gspell_view.basic_setup ();
 		#endif
