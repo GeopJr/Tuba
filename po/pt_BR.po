@@ -7,13 +7,14 @@
 # Infinitive Witch <infinitivewitch@disroot.org>, 2023.
 # Cassio Gomes Pereira <cassiogomes00@gmail.com>, 2023.
 # Fúlvio Leo <fulviokaldas@outlook.com>, 2023.
+# Daimar Stein <570cxat11@relay.firefox.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-01 12:28+0300\n"
-"PO-Revision-Date: 2023-05-21 06:05+0000\n"
-"Last-Translator: Fúlvio Leo <fulviokaldas@outlook.com>\n"
+"PO-Revision-Date: 2023-07-14 15:47+0000\n"
+"Last-Translator: Daimar Stein <570cxat11@relay.firefox.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -75,7 +76,7 @@ msgstr "Editado"
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:224
 msgid "Show Less"
-msgstr ""
+msgstr "Mostrar Menos"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:256 src/Widgets/Status.vala:371
@@ -93,7 +94,7 @@ msgstr "Aceitar"
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:36
 msgid "Bot"
-msgstr ""
+msgstr "Robô"
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
@@ -342,11 +343,11 @@ msgstr "Voltar"
 
 #: data/gtk/help-overlay.ui:39
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "Exibir Atalhos de Teclado"
 
 #: data/gtk/help-overlay.ui:45
 msgid "Quit"
-msgstr ""
+msgstr "Sair"
 
 #: data/gtk/help-overlay.ui:53
 msgid "Composer"
@@ -371,7 +372,7 @@ msgstr "Infinitive Witch <infinitivewitch@disroot.org>"
 
 #: src/Application.vala:334
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/Application.vala:343
 msgid "Yes"
@@ -485,12 +486,12 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:53
 #: src/Widgets/CustomEmojiChooser.vala:107
 msgid "Results"
-msgstr ""
+msgstr "Resultados"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:111
 msgid "No Results"
-msgstr ""
+msgstr "Sem Resultados"
 
 #: src/Widgets/CustomEmojiChooser.vala:144
 #: src/Widgets/CustomEmojiChooser.vala:150
@@ -559,7 +560,7 @@ msgstr "Conversa"
 
 #: src/Views/Sidebar.vala:36
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Atalhos de Teclado"
 
 #: src/Views/Sidebar.vala:45
 msgid "Preferences"
@@ -863,15 +864,15 @@ msgstr "Favoritos"
 
 #: src/Views/Explore.vala:3 src/Services/Accounts/Mastodon/Account.vala:91
 msgid "Explore"
-msgstr ""
+msgstr "Explore"
 
 #: src/Views/Explore.vala:7
 msgid "News"
-msgstr ""
+msgstr "Notícias"
 
 #: src/Views/Explore.vala:8
 msgid "For You"
-msgstr ""
+msgstr "Para Você"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -1084,12 +1085,12 @@ msgstr "O servidor retornou um erro"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr ""
+msgstr "Enquete"
 
 #. translators: tooltip on a button that appends another poll entry / option
 #: src/Dialogs/Composer/PollPage.vala:114
 msgid "Add Poll"
-msgstr ""
+msgstr "Adicionar Enquete"
 
 #: src/Dialogs/Composer/PollPage.vala:123
 #: src/Dialogs/Composer/PollPage.vala:136
@@ -1128,13 +1129,13 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:234
 #, c-format
 msgid "%dm"
-msgstr ""
+msgstr "%dm"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:236
 #, c-format
 msgid "%d Hour"
-msgstr ""
+msgstr "%d Hora"
 
 #. translators: the variable is a number, h as in hours
 #: src/Dialogs/Composer/PollPage.vala:238
@@ -1142,19 +1143,19 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:240
 #, c-format
 msgid "%dh"
-msgstr ""
+msgstr "%dh"
 
 #: src/Dialogs/Composer/PollPage.vala:239
 #: src/Dialogs/Composer/PollPage.vala:240
 #, c-format
 msgid "%d Hours"
-msgstr ""
+msgstr "%d Horas"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:242
 #, c-format
 msgid "%d Day"
-msgstr ""
+msgstr "%d Dia"
 
 #. translators: the variable is a number, d as in days
 #: src/Dialogs/Composer/PollPage.vala:244
@@ -1162,13 +1163,13 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:246
 #, c-format
 msgid "%dd"
-msgstr ""
+msgstr "%dd"
 
 #: src/Dialogs/Composer/PollPage.vala:245
 #: src/Dialogs/Composer/PollPage.vala:246
 #, c-format
 msgid "%d Days"
-msgstr ""
+msgstr "%d Dias"
 
 #: src/Dialogs/Composer/PollPage.vala:266
 msgid "Expiration"
@@ -1222,7 +1223,7 @@ msgstr ""
 
 #: src/Dialogs/Composer/Dialog.vala:184
 msgid "Discard"
-msgstr ""
+msgstr "Descartar"
 
 #: src/Dialogs/Composer/Dialog.vala:269
 msgid "_Redraft"
@@ -1291,7 +1292,7 @@ msgstr "Arquivo \"%s\" é maior que o limite da instância"
 #: src/API/Tag.vala:35
 #, c-format
 msgid "%d per week"
-msgstr ""
+msgstr "%d por semana"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:48
@@ -1307,7 +1308,7 @@ msgstr "Usado %d vezes por %d pessoas nos últimos 2 dias"
 
 #: src/API/Suggestion.vala:8
 msgid "Account not found"
-msgstr ""
+msgstr "Conta não encontrada"
 
 #. translators: the variable is an external service like "PeerTube"
 #: src/API/Status/PreviewCard.vala:25
