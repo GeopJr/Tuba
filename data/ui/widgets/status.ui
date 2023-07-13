@@ -231,9 +231,10 @@
                     </child>
                     <child>
                       <object class="GtkLabel" id="spoiler_label_rev">
-                        <property name="halign">start</property>
                         <property name="wrap">1</property>
                         <property name="wrap-mode">word-char</property>
+                        <property name="hexpand">1</property>
+                        <property name="xalign">0</property>
                       </object>
                     </child>
                     <style>
