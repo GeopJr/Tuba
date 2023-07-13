@@ -221,6 +221,7 @@
                     <child>
                       <object class="GtkButton">
                         <property name="icon_name">tuba-warning-symbolic</property>
+                        <property name="valign">center</property>
                         <!-- translators: Tooltip that closes content warning -->
                         <property name="tooltip-text" translatable="yes">Show Less</property>
                         <signal name="clicked" handler="toggle_spoiler" swapped="no" />
