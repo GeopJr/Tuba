@@ -47,6 +47,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             }
         }
 
+        public bool is_zoomed_in { get; set; default=false; }
+
         public void update_adjustment (double x, double y) {
             scroller.hadjustment.value = scroller.hadjustment.value - x + last_x;
             scroller.vadjustment.value = scroller.vadjustment.value - y + last_y;
@@ -58,7 +60,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
             var diff = total_zoom + zoom_level - 1;
             if (diff <= 1.0) {
-                ((Gtk.Picture) child_widget).can_shrink = true;
+                is_zoomed_in = false;
                 child_widget.set_size_request (-1, -1);
                 total_zoom = 1.0;
 
@@ -68,8 +70,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
                 return;
             }
-
-            ((Gtk.Picture) child_widget).can_shrink = false;
+            is_zoomed_in = true;
 
             var new_width = child_widget.get_width () * zoom_level;
             var new_height = child_widget.get_height () * zoom_level;
@@ -352,7 +353,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
     private void on_drag_begin (double x, double y) {
         var t_item = safe_get ((int) carousel.position);
         var pic = t_item?.child_widget as Gtk.Picture;
-        if (pic != null && !pic.can_shrink) {
+        if (pic != null && t_item.is_zoomed_in) {
             pic.set_cursor (new Gdk.Cursor.from_name ("grabbing", null));
             t_item.last_x = 0.0;
             t_item.last_y = 0.0;
@@ -362,7 +363,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
     private void on_drag_update (double x, double y) {
         var t_item = safe_get ((int) carousel.position);
         var pic = t_item?.child_widget as Gtk.Picture;
-        if (pic != null && !pic.can_shrink) {
+        if (pic != null && t_item.is_zoomed_in) {
             t_item.update_adjustment (x, y);
             t_item.last_x = x;
             t_item.last_y = y;
