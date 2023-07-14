@@ -524,12 +524,12 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         };
 
         var prev_btn = new Gtk.Button.from_icon_name ("go-previous-symbolic") {
-            css_classes = {"circular", "osd"},
+            css_classes = {"circular", "osd", "media-viewer-fab"},
             tooltip_text = _("Previous Attachment")
         };
 
         var next_btn = new Gtk.Button.from_icon_name ("go-next-symbolic") {
-            css_classes = {"circular", "osd"},
+            css_classes = {"circular", "osd", "media-viewer-fab"},
             tooltip_text = _("Next Attachment")
         };
 
@@ -547,12 +547,12 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         page_btns.append (next_btn);
 
         zoom_out_btn = new Gtk.Button.from_icon_name ("zoom-out-symbolic") {
-            css_classes = {"circular", "osd"},
+            css_classes = {"circular", "osd", "media-viewer-fab"},
             tooltip_text = _("Zoom Out")
         };
 
         zoom_in_btn = new Gtk.Button.from_icon_name ("zoom-in-symbolic") {
-            css_classes = {"circular", "osd"},
+            css_classes = {"circular", "osd", "media-viewer-fab"},
             tooltip_text = _("Zoom In")
         };
 
