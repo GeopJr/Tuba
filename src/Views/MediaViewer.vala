@@ -36,28 +36,50 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         }
 
         private double _total_zoom = 1.0;
-        private double total_zoom {
+        public double total_zoom {
             get {
                 return _total_zoom;
             }
 
-            set {
+            private set {
                 _total_zoom = value;
                 emit_zoom_changed ();
             }
         }
 
-        public bool is_zoomed_in { get; set; default=false; }
+        private bool _is_zoomed_in = false;
+        public bool is_zoomed_in {
+            get {
+                return _is_zoomed_in || !can_zoom_out;
+            }
+
+            private set {
+                _is_zoomed_in = value;
+            }
+        }
+
+        public int child_width {
+            get {
+                return child_widget.get_width ();
+            }
+        }
+
+        public int child_height {
+            get {
+                return child_widget.get_height ();
+            }
+        }
 
         public void update_adjustment (double x, double y) {
             scroller.hadjustment.value = scroller.hadjustment.value - x + last_x;
             scroller.vadjustment.value = scroller.vadjustment.value - y + last_y;
         }
 
-        public void zoom (double zoom_level) {
+        public void zoom (double zoom_level, int? old_width = null, int? old_height = null) {
             // Don't zoom on video
             if (is_video) return;
 
+            // FIXME
             var diff = total_zoom + zoom_level - 1;
             if (diff <= 1.0) {
                 is_zoomed_in = false;
@@ -72,8 +94,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             }
             is_zoomed_in = true;
 
-            var new_width = child_widget.get_width () * zoom_level;
-            var new_height = child_widget.get_height () * zoom_level;
+            var new_width = (old_width ?? child_width) * zoom_level;
+            var new_height = (old_height ?? child_height) * zoom_level;
             child_widget.set_size_request ((int) new_width, (int) new_height);
 
             // Center the viewport
@@ -242,7 +264,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
         // Pinch to zoom
         var gesture = new Gtk.GestureZoom ();
-        gesture.scale_changed.connect ((zm) => safe_get ((int) carousel.position)?.zoom (zm));
+        gesture.scale_changed.connect (on_scale_changed);
+        gesture.end.connect (on_scale_end);
         add_controller (gesture);
 
 		orientation = Gtk.Orientation.VERTICAL;
@@ -299,6 +322,23 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	~MediaViewer () {
 		message ("Destroying MediaViewer");
 	}
+
+    int? old_height;
+    int? old_width;
+    protected void on_scale_changed (double scale) {
+        var t_item = safe_get ((int) carousel.position);
+        if (t_item != null) {
+            if (old_height == null) old_height = t_item.child_height;
+            if (old_width == null) old_width = t_item.child_width;
+
+            t_item.zoom (scale, old_width, old_height);
+        }
+    }
+
+    protected void on_scale_end (Gdk.EventSequence? sequence) {
+        old_height = null;
+        old_width = null;
+    }
 
     protected bool on_keypress (uint keyval, uint keycode, Gdk.ModifierType state) {
         // Don't handle it if there's
