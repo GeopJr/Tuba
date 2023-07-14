@@ -171,6 +171,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             return scroller;
         }
 
+        public void on_double_click () {
+            zoom (can_zoom_out ? -2.5 : 2.5);
+        }
+
         private void emit_zoom_changed () {
             if (media_viewer != null) media_viewer.zoom_changed ();
         }
@@ -285,6 +289,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         append (carousel_dots);
 
 		setup_mouse_previous_click ();
+        setup_double_click ();
 	}
 	~MediaViewer () {
 		message ("Destroying MediaViewer");
@@ -395,8 +400,21 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         add_controller (gesture);
     }
 
+    private void setup_double_click () {
+        var gesture = new Gtk.GestureClick () {
+            button = 1
+        };
+        gesture.pressed.connect (on_double_click);
+        add_controller (gesture);
+    }
+
     private void handle_mouse_previous_click (int n_press, double x, double y) {
         on_back_clicked ();
+    }
+
+    private void on_double_click (int n_press, double x, double y) {
+        if (n_press != 2) return;
+        safe_get ((int) carousel.position)?.on_double_click ();
     }
 
 	public virtual signal void clear () {
