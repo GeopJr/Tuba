@@ -132,8 +132,9 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
                 valign = Gtk.Align.CENTER,
                 vexpand = true,
                 hexpand = true,
-                width_request = 32,
-                height_request = 32
+                width_request = 35, // 32 + 3
+                height_request = 35,
+                css_classes = { "osd", "circular-spinner" }
             };
 
             overlay.add_overlay (spinner);
