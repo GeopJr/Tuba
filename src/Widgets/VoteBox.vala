@@ -1,7 +1,6 @@
 using Gtk;
 using Gdk;
 using Gee;
-using GLib;
 
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/votebox.ui")]
 public class Tuba.Widgets.VoteBox: Box {
@@ -63,7 +62,8 @@ public class Tuba.Widgets.VoteBox: Box {
 		//creates the entries of poll
         foreach (API.PollOption p in poll.options) {
             var row = new Adw.ActionRow () {
-                css_classes = { "ttl-poll-row" }
+                css_classes = { "ttl-poll-row" },
+                use_markup = false
             };
 
             //if it is own poll
@@ -87,10 +87,10 @@ public class Tuba.Widgets.VoteBox: Box {
                 }
 
                 row.subtitle = "%.1f%%".printf (percentage);
-                row.title = Markup.escape_text (p.title);
+                row.title = p.title;
                 poll_box.append (row);
             } else {
-                row.title = Markup.escape_text (p.title);
+                row.title = p.title;
                 var check_option = new Widgets.VoteCheckButton ();
 
                 if (!poll.multiple) {
