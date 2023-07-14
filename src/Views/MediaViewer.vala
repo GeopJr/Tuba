@@ -1,7 +1,7 @@
 // Mostly inspired by Loupe https://gitlab.gnome.org/Incubator/loupe
 
 public class Tuba.Views.MediaViewer : Gtk.Box {
-    const double MAX_ZOOM = 3.5;
+    const double MAX_ZOOM = 20;
     private signal void zoom_changed ();
 
     public class Item : Adw.Bin {
@@ -19,7 +19,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
         public bool can_zoom_in {
             get {
-                return total_zoom < MAX_ZOOM;
+                return scroller.hadjustment.upper < scroller.hadjustment.page_size * MAX_ZOOM
+                && scroller.vadjustment.upper < scroller.vadjustment.page_size * MAX_ZOOM;
             }
         }
 
@@ -27,34 +28,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             get {
                 // If either horizontal or vertical scrollbar is visible,
                 // you should also be able to zoom out
-                return total_zoom > 1.0
-                    && (
+                return (
                         scroller.hadjustment.upper > scroller.hadjustment.page_size
                         || scroller.vadjustment.upper > scroller.vadjustment.page_size
                     );
-            }
-        }
-
-        private double _total_zoom = 1.0;
-        public double total_zoom {
-            get {
-                return _total_zoom;
-            }
-
-            private set {
-                _total_zoom = value;
-                emit_zoom_changed ();
-            }
-        }
-
-        private bool _is_zoomed_in = false;
-        public bool is_zoomed_in {
-            get {
-                return _is_zoomed_in || !can_zoom_out;
-            }
-
-            private set {
-                _is_zoomed_in = value;
             }
         }
 
@@ -78,24 +55,14 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         public void zoom (double zoom_level, int? old_width = null, int? old_height = null) {
             // Don't zoom on video
             if (is_video) return;
-
-            // FIXME
-            var diff = total_zoom + zoom_level - 1;
-            if (diff <= 1.0) {
-                is_zoomed_in = false;
-                child_widget.set_size_request (-1, -1);
-                total_zoom = 1.0;
-
-                return;
-            } else if (diff > MAX_ZOOM) {
-                total_zoom = MAX_ZOOM;
-
-                return;
-            }
-            is_zoomed_in = true;
+            if ((zoom_level > 1.0 && !can_zoom_in) || (zoom_level < 1.0 && !can_zoom_out) || zoom_level == 1.0) return;
 
             var new_width = (old_width ?? child_width) * zoom_level;
             var new_height = (old_height ?? child_height) * zoom_level;
+
+            if (new_width < scroller.hadjustment.page_size) new_width = scroller.hadjustment.page_size;
+            if (new_height < scroller.vadjustment.page_size) new_height = scroller.vadjustment.page_size;
+
             child_widget.set_size_request ((int) new_width, (int) new_height);
 
             // Center the viewport
@@ -104,8 +71,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
             scroller.hadjustment.upper = new_width;
             scroller.hadjustment.value = (new_width - scroller.hadjustment.page_size) / 2;
-
-            total_zoom = diff;
+            emit_zoom_changed ();
         }
 
         // Stepped zoom
@@ -394,7 +360,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
     private void on_drag_begin (double x, double y) {
         var t_item = safe_get ((int) carousel.position);
         var pic = t_item?.child_widget as Gtk.Picture;
-        if (pic != null && t_item.is_zoomed_in) {
+        if (pic != null && t_item.can_zoom_out) {
             pic.set_cursor (new Gdk.Cursor.from_name ("grabbing", null));
             t_item.last_x = 0.0;
             t_item.last_y = 0.0;
@@ -404,7 +370,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
     private void on_drag_update (double x, double y) {
         var t_item = safe_get ((int) carousel.position);
         var pic = t_item?.child_widget as Gtk.Picture;
-        if (pic != null && t_item.is_zoomed_in) {
+        if (pic != null && t_item.can_zoom_out) {
             t_item.update_adjustment (x, y);
             t_item.last_x = x;
             t_item.last_y = y;
