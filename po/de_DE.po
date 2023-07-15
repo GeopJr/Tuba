@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-01 12:28+0300\n"
+"POT-Creation-Date: 2023-07-15 03:24+0300\n"
 "PO-Revision-Date: 2023-07-07 07:50+0000\n"
 "Last-Translator: Jummit <jummit@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tuba/tuba/de/>\n"
@@ -62,29 +62,29 @@ msgstr ""
 "Benutzer und das Dateneigentum und bietet eine Alternative zu "
 "zentralisierten Social-Media-Plattformen."
 
-#: data/ui/widgets/status.ui:156
+#: data/ui/widgets/status.ui:157
 msgid "Pinned"
 msgstr "Gepinnt"
 
-#: data/ui/widgets/status.ui:167
+#: data/ui/widgets/status.ui:168
 msgid "Edited"
 msgstr "Bearbeitet"
 
 #. translators: Tooltip that closes content warning
-#: data/ui/widgets/status.ui:224
+#: data/ui/widgets/status.ui:225
 msgid "Show Less"
 msgstr "Weniger Zeigen"
 
 #. translators: Tooltip that opens content warning
-#: data/ui/widgets/status.ui:256 src/Widgets/Status.vala:371
+#: data/ui/widgets/status.ui:257 src/Widgets/Status.vala:385
 msgid "Show More"
 msgstr "Zeige Mehr"
 
-#: data/ui/widgets/status.ui:336 data/ui/widgets/status.ui:337
+#: data/ui/widgets/status.ui:337 data/ui/widgets/status.ui:338
 msgid "Decline"
 msgstr "Ablehnen"
 
-#: data/ui/widgets/status.ui:349 data/ui/widgets/status.ui:350
+#: data/ui/widgets/status.ui:350 data/ui/widgets/status.ui:351
 msgid "Accept"
 msgstr "Annehmen"
 
@@ -129,7 +129,7 @@ msgstr "Stummschalten"
 msgid "Report"
 msgstr "Melden"
 
-#: data/ui/menus.ui:47 src/Views/Profile.vala:357 src/Views/Profile.vala:382
+#: data/ui/menus.ui:47 src/Views/Profile.vala:422 src/Views/Profile.vala:447
 msgid "Block"
 msgstr "Blockieren"
 
@@ -153,7 +153,7 @@ msgstr "Antworten einschließen"
 msgid "Include Media"
 msgstr "Medien einbeziehen"
 
-#: data/ui/menus.ui:108 src/Views/Lists.vala:283
+#: data/ui/menus.ui:108 src/Views/Lists.vala:281
 #: src/Services/Accounts/Mastodon/Account.vala:74
 msgid "Lists"
 msgstr "Listen"
@@ -163,7 +163,7 @@ msgid "Refresh"
 msgstr "Neu Laden"
 
 #: data/ui/dialogs/preferences.ui:19 data/gtk/help-overlay.ui:11
-#: src/Views/Lists.vala:90
+#: src/Views/Lists.vala:88
 msgid "General"
 msgstr "Allgemein"
 
@@ -191,89 +191,109 @@ msgstr "Größere Zeilenhöhe"
 msgid "Makes the line height larger for posts"
 msgstr "Vergrößert die Zeilenhöhe für Beiträge"
 
+#: data/ui/dialogs/preferences.ui:63
+msgid "Scale up custom emojis on hover"
+msgstr ""
+
 #: data/ui/dialogs/preferences.ui:65
+msgid "Makes custom emojis slightly bigger when you hover over them"
+msgstr ""
+
+#. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
+#: data/ui/dialogs/preferences.ui:76
+msgid "Letterbox Media"
+msgstr ""
+
+#. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
+#: data/ui/dialogs/preferences.ui:79
+msgid ""
+"Scale down and letterbox media to fill the image containers instead of "
+"stretching and cropping them"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:91
 msgid "Posting"
 msgstr "Posting"
 
-#: data/ui/dialogs/preferences.ui:68
+#: data/ui/dialogs/preferences.ui:94
 msgid "Default post visibility"
 msgstr "Sichtbarkeit neuer Beiträge"
 
-#: data/ui/dialogs/preferences.ui:77
+#: data/ui/dialogs/preferences.ui:103
 msgid "Default post language"
 msgstr "Sprache neuer Beiträge"
 
-#: data/ui/dialogs/preferences.ui:88
+#: data/ui/dialogs/preferences.ui:114
 msgid "Behavior"
 msgstr "Verhalten"
 
-#: data/ui/dialogs/preferences.ui:91
+#: data/ui/dialogs/preferences.ui:117
 msgid "Autostart"
 msgstr "Autostart"
 
-#: data/ui/dialogs/preferences.ui:93
+#: data/ui/dialogs/preferences.ui:119
 msgid "Start minimized at boot"
 msgstr "Mit dem System minimiert starten"
 
-#: data/ui/dialogs/preferences.ui:104
+#: data/ui/dialogs/preferences.ui:130
 msgid "Background work"
 msgstr "Hintergrundarbeit"
 
-#: data/ui/dialogs/preferences.ui:106
+#: data/ui/dialogs/preferences.ui:132
 msgid "Receive notifications even when the app is closed"
 msgstr "Erhalte Benachrichtigungen auch wenn die App geschlossen ist"
 
-#: data/ui/dialogs/preferences.ui:116
+#: data/ui/dialogs/preferences.ui:142
 msgid "Strip tracking parameters from links"
 msgstr "Entferne Tracking-Parameter aus Links"
 
 #. translators: Broken as in incorrect
-#: data/ui/dialogs/preferences.ui:119
+#: data/ui/dialogs/preferences.ui:145
 msgid "It can lead to broken links"
 msgstr "Kann zu defekten Links führen"
 
-#: data/ui/dialogs/preferences.ui:131
+#: data/ui/dialogs/preferences.ui:157
 msgid "Timelines"
 msgstr "Zeitleisten"
 
-#: data/ui/dialogs/preferences.ui:134
+#: data/ui/dialogs/preferences.ui:160
 msgid "Posts per load batch"
 msgstr "Posts pro Ladevorgang"
 
-#: data/ui/dialogs/preferences.ui:148
+#: data/ui/dialogs/preferences.ui:174
 msgid "Stream timelines"
 msgstr "Zeitleisten streamen"
 
-#: data/ui/dialogs/preferences.ui:150
+#: data/ui/dialogs/preferences.ui:176
 msgid "Receive new posts and notifications in real-time"
 msgstr "Neue Beiträge und Benachrichtigungen in Echtzeit erhalten"
 
-#: data/ui/dialogs/preferences.ui:161
+#: data/ui/dialogs/preferences.ui:187
 msgid "Stream public timelines"
 msgstr "Öffentliche Zeitleisten streamen"
 
-#: data/ui/dialogs/preferences.ui:163
+#: data/ui/dialogs/preferences.ui:189
 msgid "Warning: This will increase memory usage"
 msgstr "Warnung: Dies erhöht die Speichernutzung"
 
-#: data/ui/dialogs/preferences.ui:173
+#: data/ui/dialogs/preferences.ui:199
 msgid "Reveal spoilers by default"
 msgstr "Spoiler standardmäßig aufdecken"
 
-#: data/ui/dialogs/preferences.ui:184
+#: data/ui/dialogs/preferences.ui:210
 msgid "Hide link preview cards"
 msgstr "Linkvorschau verbergen"
 
 #: data/ui/dialogs/compose.ui:29 data/ui/dialogs/new_account.ui:27
-#: src/Application.vala:345 src/Dialogs/Composer/Dialog.vala:186
+#: src/Dialogs/Composer/Dialog.vala:193 src/Application.vala:339
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: data/ui/dialogs/compose.ui:36 src/Dialogs/Composer/Dialog.vala:260
+#: data/ui/dialogs/compose.ui:36 src/Dialogs/Composer/Dialog.vala:267
 msgid "_Publish"
 msgstr "Veröffentlichen"
 
-#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:238
+#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:241
 msgid "Add Account"
 msgstr "Konto hinzufügen"
 
@@ -288,11 +308,11 @@ msgstr "Auf welchem Server bist du?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
-"\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
+"servers\">choose a server and register one</a>."
 msgstr ""
-"Wenn du noch kein Account hast, <a href=\"https://joinmastodon.org/servers"
-"\">wähle einen Server aus und registriere einen</a>."
+"Wenn du noch kein Account hast, <a href=\"https://joinmastodon.org/"
+"servers\">wähle einen Server aus und registriere einen</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
@@ -355,96 +375,89 @@ msgstr "Verfasser"
 msgid "Commit"
 msgstr "Commit"
 
-#: src/Application.vala:146 src/Widgets/Attachment/Item.vala:211
-#: src/Views/Sidebar.vala:268 src/Views/MediaViewer.vala:438
-#: src/Services/Accounts/SecretAccountStore.vala:119
-#: src/Services/Accounts/SecretAccountStore.vala:153
-#: src/Services/Accounts/AccountStore.vala:43
-msgid "Error"
-msgstr "Fehler"
+#: src/Widgets/VoteBox.vala:17
+msgid "Vote"
+msgstr "Wählen"
 
-#. translators: Name <email@domain.com> or Name https://website.example
-#: src/Application.vala:314
-msgid "translator-credits"
-msgstr "Feliks Weber <feliks@notabit.eu>"
+#. translators: the variable is the amount of people that voted
+#: src/Widgets/VoteBox.vala:137
+#, c-format
+msgid "%lld voted"
+msgstr "%lld haben abgestimmt"
 
-#: src/Application.vala:334
-msgid "OK"
-msgstr "OK"
-
-#: src/Application.vala:343
-msgid "Yes"
-msgstr "Ja"
+#: src/Widgets/StatusActionButton.vala:157
+msgid "Network Error"
+msgstr "Netzwerkfehler"
 
 #. translators: the variable is the emoji or its name if it's custom
-#: src/Widgets/Status.vala:126
+#: src/Widgets/Status.vala:143
 #, c-format
 msgid "React with %s"
 msgstr "Mit %s reagieren"
 
-#: src/Widgets/Status.vala:255 src/Widgets/Attachment/Item.vala:192
+#: src/Widgets/Status.vala:270 src/Widgets/Attachment/Item.vala:193
 #: src/Views/MediaViewer.vala:333
 msgid "Open in Browser"
 msgstr "Im Browser öffnen"
 
-#: src/Widgets/Status.vala:256 src/Widgets/Attachment/Item.vala:193
+#: src/Widgets/Status.vala:271 src/Widgets/Attachment/Item.vala:194
 #: src/Views/MediaViewer.vala:334
 msgid "Copy URL"
 msgstr "URL kopieren"
 
 #. translators: as in post stats (who liked and boosted)
-#: src/Widgets/Status.vala:259
+#: src/Widgets/Status.vala:274
 msgid "View Stats"
 msgstr "Statistiken ansehen"
 
-#: src/Widgets/Status.vala:263
+#: src/Widgets/Status.vala:278
 msgid "View Edit History"
 msgstr "Bearbeitungsverlauf anzeigen"
 
 #. translators: Pin post on profile
-#: src/Widgets/Status.vala:268 src/Widgets/Status.vala:495
+#: src/Widgets/Status.vala:283 src/Widgets/Status.vala:509
 msgid "Pin"
 msgstr "Pinnen"
 
-#: src/Widgets/Status.vala:273
+#: src/Widgets/Status.vala:288
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: src/Widgets/Status.vala:274 src/Widgets/Status.vala:336
-#: src/Views/Lists.vala:62
+#: src/Widgets/Status.vala:289 src/Widgets/Status.vala:351
+#: src/Views/Lists.vala:60
 msgid "Delete"
 msgstr "Löschen"
 
-#: src/Widgets/Status.vala:333
+#: src/Widgets/Status.vala:348
 msgid "Are you sure you want to delete this post?"
 msgstr "Möchten du diesen Beitrag wirklich löschen?"
 
-#: src/Widgets/Status.vala:378
+#: src/Widgets/Status.vala:392
 msgid "Sensitive"
 msgstr "Kritisch"
 
 #. translators: Unpin post from profile
-#: src/Widgets/Status.vala:493
+#: src/Widgets/Status.vala:507
 msgid "Unpin"
 msgstr "Entpinnen"
 
-#: src/Widgets/Status.vala:541
-msgid "Reply"
-msgstr "Antworten"
-
-#: src/Widgets/Status.vala:557
+#: src/Widgets/Status.vala:589
 msgid "This post can't be boosted"
 msgstr "Dieser Beitrag kann nicht geteilt werden"
 
-#: src/Widgets/Status.vala:562 src/Widgets/Status.vala:613
+#: src/Widgets/Status.vala:594 src/Widgets/Status.vala:648
 msgid "Boost"
 msgstr "Boosts"
 
-#: src/Widgets/Status.vala:624
+#: src/Widgets/Status.vala:638
+msgid "Reply"
+msgstr "Antworten"
+
+#: src/Widgets/Status.vala:659
 msgid "Favorite"
 msgstr "Favorit"
 
-#: src/Widgets/Status.vala:635
+#: src/Widgets/Status.vala:670
 msgid "Bookmark"
 msgstr "Lesezeichen"
 
@@ -454,19 +467,25 @@ msgstr "Lesezeichen"
 #. Please do not stray far from the original and only include day, month
 #. and year.
 #. If unsure, either leave it as-is or set it to %x.
-#: src/Widgets/Status.vala:699 src/Views/Profile.vala:192
+#: src/Widgets/Status.vala:735 src/Views/Profile.vala:219
 msgid "%B %e, %Y"
 msgstr "%e. %B, %Y"
 
-#: src/Widgets/VoteBox.vala:17
-msgid "Vote"
-msgstr "Wählen"
+#: src/Widgets/RelationshipButton.vala:31
+#: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
+#: src/Views/Hashtag.vala:35
+msgid "Follow"
+msgstr "Folgen"
 
-#. translators: the variable is the amount of people that voted
-#: src/Widgets/VoteBox.vala:136
-#, c-format
-msgid "%lld voted"
-msgstr "%lld haben abgestimmt"
+#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:422
+#: src/Views/Profile.vala:447
+msgid "Unblock"
+msgstr "Entblocken"
+
+#: src/Widgets/RelationshipButton.vala:54 src/Views/Hashtag.vala:23
+#: src/Views/Hashtag.vala:39
+msgid "Unfollow"
+msgstr "Nicht mehr folgen"
 
 #. translators: the variables are numbers
 #: src/Widgets/PreviewCard.vala:132
@@ -503,26 +522,6 @@ msgstr "Sonstige"
 msgid "Custom Emojis"
 msgstr "Eigene Emojis"
 
-#: src/Widgets/StatusActionButton.vala:158
-msgid "Network Error"
-msgstr "Netzwerkfehler"
-
-#: src/Widgets/RelationshipButton.vala:31
-#: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
-#: src/Views/Hashtag.vala:35
-msgid "Follow"
-msgstr "Folgen"
-
-#: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:357
-#: src/Views/Profile.vala:382
-msgid "Unblock"
-msgstr "Entblocken"
-
-#: src/Widgets/RelationshipButton.vala:54 src/Views/Hashtag.vala:23
-#: src/Views/Hashtag.vala:39
-msgid "Unfollow"
-msgstr "Nicht mehr folgen"
-
 #. translators: the variable is a comma separated
 #. list of the book authors
 #: src/Widgets/BookWyrmPage.vala:139
@@ -534,13 +533,21 @@ msgstr "von %s"
 msgid "Save Attachment"
 msgstr "Anhang speichern"
 
-#: src/Widgets/Attachment/Item.vala:128
+#: src/Widgets/Attachment/Item.vala:130
 msgid "View Alt Text"
 msgstr "Alt-Text anzeigen"
 
-#: src/Widgets/Attachment/Item.vala:194 src/Views/MediaViewer.vala:335
+#: src/Widgets/Attachment/Item.vala:195 src/Views/MediaViewer.vala:335
 msgid "Save Media"
 msgstr "Medien Speichern"
+
+#: src/Widgets/Attachment/Item.vala:212 src/Views/MediaViewer.vala:430
+#: src/Views/Sidebar.vala:271 src/Services/Accounts/SecretAccountStore.vala:124
+#: src/Services/Accounts/SecretAccountStore.vala:222
+#: src/Services/Accounts/AccountStore.vala:43 src/Dialogs/ProfileEdit.vala:298
+#: src/Application.vala:135
+msgid "Error"
+msgstr "Fehler"
 
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:72
@@ -552,9 +559,47 @@ msgstr "Medien ausblenden"
 msgid "Sensitive Media"
 msgstr "Kritische Medien"
 
+#: src/Views/MediaViewer.vala:255
+msgid "Media Viewer"
+msgstr "Medienbetrachter"
+
+#: src/Views/MediaViewer.vala:268
+msgid "Toggle Fullscreen"
+msgstr "Vollbild ein-/ausschalten"
+
+#: src/Views/MediaViewer.vala:527
+msgid "Previous Attachment"
+msgstr "Vorheriger Anhang"
+
+#: src/Views/MediaViewer.vala:532
+msgid "Next Attachment"
+msgstr "Nächster Anhang"
+
+#: src/Views/MediaViewer.vala:550
+msgid "Zoom Out"
+msgstr "Herauszoomen"
+
+#: src/Views/MediaViewer.vala:555
+msgid "Zoom In"
+msgstr "Vergrößern"
+
 #: src/Views/Thread.vala:13
 msgid "Conversation"
 msgstr "Gespräche"
+
+#: src/Views/StatusStats.vala:6
+msgid "Post Stats"
+msgstr "Beitrags-Statistiken"
+
+#. translators: title for a list of people that favorited a post
+#: src/Views/StatusStats.vala:10
+msgid "Favorited By"
+msgstr "Favorisiert Von"
+
+#. translators: title for a list of people that boosted a post
+#: src/Views/StatusStats.vala:18
+msgid "Boosted By"
+msgstr "Geboosted Von"
 
 #: src/Views/Sidebar.vala:36
 msgid "Keyboard Shortcuts"
@@ -577,188 +622,18 @@ msgid "No account selected"
 msgstr "Kein Konto ausgewählt"
 
 #. translators: the variable is an account handle
-#: src/Views/Sidebar.vala:254
+#: src/Views/Sidebar.vala:257
 #, c-format
 msgid "Forget %s?"
 msgstr "%s vergessen?"
 
-#: src/Views/Sidebar.vala:255
+#: src/Views/Sidebar.vala:258
 msgid "This account will be removed from the application."
 msgstr "Dieses Konto wird von der Applikation entfernt."
 
-#: src/Views/Sidebar.vala:257
+#: src/Views/Sidebar.vala:260
 msgid "Forget"
 msgstr "Vergessen"
-
-#: src/Views/Profile.vala:33
-msgid "Profile"
-msgstr "Profil"
-
-#. translators: as in created an account; this is used in Profiles in a row
-#. which has as value the date the profile was created on
-#: src/Views/Profile.vala:202
-msgid "Joined"
-msgstr "Beigetretten"
-
-#. translators: the variable is the amount of posts a user has made
-#: src/Views/Profile.vala:222
-#, c-format
-msgid "%lld Posts"
-msgstr "%lld Beiträge"
-
-#. translators: the variable is the amount of people a user follows
-#: src/Views/Profile.vala:227
-#, c-format
-msgid "%lld Following"
-msgstr "%lld Folgt"
-
-#. translators: the variable is the amount of followers a user has
-#: src/Views/Profile.vala:232
-#, c-format
-msgid "%lld Followers"
-msgstr "%lld Folgende"
-
-#: src/Views/Profile.vala:351
-#, c-format
-msgid "Block \"%s\"?"
-msgstr "\"%s\" blockieren?"
-
-#: src/Views/Profile.vala:351
-#, c-format
-msgid "Unblock \"%s\"?"
-msgstr "\"%s\" nicht mehr blockieren?"
-
-#: src/Views/Profile.vala:375
-#, c-format
-msgid "Block Entire \"%s\"?"
-msgstr "Blockiere alles von \"%s\"?"
-
-#: src/Views/Profile.vala:375
-#, c-format
-msgid "Unblock Entire \"%s\"?"
-msgstr "Nicht mehr alles von \"%s\" blockieren?"
-
-#: src/Views/Profile.vala:379
-msgid ""
-"Blocking a domain will:\n"
-"\n"
-"• Remove its public posts and notifications from your timelines\n"
-"• Remove its followers from your account\n"
-"• Prevent you from following its users"
-msgstr ""
-"Eine Domain zu blockieren wird:\n"
-"\n"
-"• Öffentliche Beiträge und Benachrichtigungen der Domain von deinen "
-"Zeitleisten entfernen\n"
-"• Alle Follower von der Domain von deinem Account entfernen\n"
-"• Dich davon abhalten Leuten von der Domain zu folgen"
-
-#: src/Views/Profile.vala:429
-msgid "Sent follow request"
-msgstr "Sende Folgeanfrage"
-
-#: src/Views/Profile.vala:431
-msgid "Mutuals"
-msgstr "Gegenseitig"
-
-#: src/Views/Profile.vala:433
-msgid "Follows you"
-msgstr "Folgt dir"
-
-#. translators: the variable is an account handle
-#: src/Views/Profile.vala:486
-#, c-format
-msgid "Add or remove \"%s\" to or from a list"
-msgstr "Füge \"%s\" zu oder entferne es von einer Liste"
-
-#. translators: the variable is an account handle
-#: src/Views/Profile.vala:498
-#, c-format
-msgid "Select the list to add or remove \"%s\" to or from:"
-msgstr "Wähle die Liste zu der \"%s\" hinzugefügt oder entfernt werden soll:"
-
-#: src/Views/Profile.vala:504
-msgid "You don't have any lists"
-msgstr "Du hast keine Listen"
-
-#. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:534 src/Views/Profile.vala:597
-#, c-format
-msgid "Remove \"%s\" from \"%s\""
-msgstr "Entferne \"%s\" von \"%s\""
-
-#. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:535 src/Views/Profile.vala:591
-#, c-format
-msgid "Add \"%s\" to \"%s\""
-msgstr "Füge \"%s\" zu \"%s\" hinzu"
-
-#. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:588
-#, c-format
-msgid "User \"%s\" got removed from \"%s\""
-msgstr "Nutzer \"%s\" wurde von \"%s\" entfernt"
-
-#. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:594
-#, c-format
-msgid "User \"%s\" got added to \"%s\""
-msgstr "Nutzer \"%s\" wurde zu \"%s\" hinzugefügt"
-
-#: src/Views/Notifications.vala:12
-msgid "Notifications"
-msgstr "Benachrichtigungen"
-
-#: src/Views/MediaViewer.vala:255
-msgid "Media Viewer"
-msgstr "Medienbetrachter"
-
-#: src/Views/MediaViewer.vala:268
-msgid "Toggle Fullscreen"
-msgstr "Vollbild ein-/ausschalten"
-
-#: src/Views/MediaViewer.vala:535
-msgid "Previous Attachment"
-msgstr "Vorheriger Anhang"
-
-#: src/Views/MediaViewer.vala:540
-msgid "Next Attachment"
-msgstr "Nächster Anhang"
-
-#: src/Views/MediaViewer.vala:558
-msgid "Zoom Out"
-msgstr "Herauszoomen"
-
-#: src/Views/MediaViewer.vala:563
-msgid "Zoom In"
-msgstr "Vergrößern"
-
-#. translators: Shown when there are 0 results
-#: src/Views/Base.vala:6
-msgid "Nothing to see here"
-msgstr "Es gibt hier nichts zu sehen"
-
-#: src/Views/Base.vala:73
-msgid "Reload"
-msgstr "Neu Laden"
-
-#: src/Views/Base.vala:129
-msgid "An Error Occurred"
-msgstr "Ein Fehler ist aufgetreten"
-
-#: src/Views/StatusStats.vala:6
-msgid "Post Stats"
-msgstr "Beitrags-Statistiken"
-
-#. translators: title for a list of people that favorited a post
-#: src/Views/StatusStats.vala:10
-msgid "Favorited By"
-msgstr "Favorisiert Von"
-
-#. translators: title for a list of people that boosted a post
-#: src/Views/StatusStats.vala:18
-msgid "Boosted By"
-msgstr "Geboosted Von"
 
 #. translators: as in All search results
 #: src/Views/Search.vala:40
@@ -782,65 +657,188 @@ msgstr "Hashtags"
 msgid "Enter Query"
 msgstr "Abfrage eingeben"
 
+#: src/Views/Profile.vala:33
+msgid "Profile"
+msgstr "Profil"
+
+#. translators: as in created an account; this is used in Profiles in a row
+#. which has as value the date the profile was created on
+#: src/Views/Profile.vala:229
+msgid "Joined"
+msgstr "Beigetretten"
+
+#. translators: the variable is the amount of posts a user has made
+#: src/Views/Profile.vala:249
+#, c-format
+msgid "%lld Posts"
+msgstr "%lld Beiträge"
+
+#. translators: the variable is the amount of people a user follows
+#: src/Views/Profile.vala:254
+#, c-format
+msgid "%lld Following"
+msgstr "%lld Folgt"
+
+#. translators: the variable is the amount of followers a user has
+#: src/Views/Profile.vala:259
+#, c-format
+msgid "%lld Followers"
+msgstr "%lld Folgende"
+
+#: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:127
+msgid "Edit Profile"
+msgstr ""
+
+#: src/Views/Profile.vala:416
+#, c-format
+msgid "Block \"%s\"?"
+msgstr "\"%s\" blockieren?"
+
+#: src/Views/Profile.vala:416
+#, c-format
+msgid "Unblock \"%s\"?"
+msgstr "\"%s\" nicht mehr blockieren?"
+
+#: src/Views/Profile.vala:440
+#, c-format
+msgid "Block Entire \"%s\"?"
+msgstr "Blockiere alles von \"%s\"?"
+
+#: src/Views/Profile.vala:440
+#, c-format
+msgid "Unblock Entire \"%s\"?"
+msgstr "Nicht mehr alles von \"%s\" blockieren?"
+
+#: src/Views/Profile.vala:444
+msgid ""
+"Blocking a domain will:\n"
+"\n"
+"• Remove its public posts and notifications from your timelines\n"
+"• Remove its followers from your account\n"
+"• Prevent you from following its users"
+msgstr ""
+"Eine Domain zu blockieren wird:\n"
+"\n"
+"• Öffentliche Beiträge und Benachrichtigungen der Domain von deinen "
+"Zeitleisten entfernen\n"
+"• Alle Follower von der Domain von deinem Account entfernen\n"
+"• Dich davon abhalten Leuten von der Domain zu folgen"
+
+#: src/Views/Profile.vala:494
+msgid "Sent follow request"
+msgstr "Sende Folgeanfrage"
+
+#: src/Views/Profile.vala:496
+msgid "Mutuals"
+msgstr "Gegenseitig"
+
+#: src/Views/Profile.vala:498
+msgid "Follows you"
+msgstr "Folgt dir"
+
+#. translators: the variable is an account handle
+#: src/Views/Profile.vala:551
+#, c-format
+msgid "Add or remove \"%s\" to or from a list"
+msgstr "Füge \"%s\" zu oder entferne es von einer Liste"
+
+#. translators: the variable is an account handle
+#: src/Views/Profile.vala:563
+#, c-format
+msgid "Select the list to add or remove \"%s\" to or from:"
+msgstr "Wähle die Liste zu der \"%s\" hinzugefügt oder entfernt werden soll:"
+
+#: src/Views/Profile.vala:569
+msgid "You don't have any lists"
+msgstr "Du hast keine Listen"
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:599 src/Views/Profile.vala:661
+#, c-format
+msgid "Remove \"%s\" from \"%s\""
+msgstr "Entferne \"%s\" von \"%s\""
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:600 src/Views/Profile.vala:655
+#, c-format
+msgid "Add \"%s\" to \"%s\""
+msgstr "Füge \"%s\" zu \"%s\" hinzu"
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:652
+#, c-format
+msgid "User \"%s\" got removed from \"%s\""
+msgstr "Nutzer \"%s\" wurde von \"%s\" entfernt"
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:658
+#, c-format
+msgid "User \"%s\" got added to \"%s\""
+msgstr "Nutzer \"%s\" wurde zu \"%s\" hinzugefügt"
+
+#: src/Views/Notifications.vala:12
+msgid "Notifications"
+msgstr "Benachrichtigungen"
+
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:100
 msgid "Local"
 msgstr "Lokal"
 
-#: src/Views/Lists.vala:59
+#: src/Views/Lists.vala:57
 #, c-format
 msgid "Delete \"%s\"?"
 msgstr "Lösche \"%s\"?"
 
-#: src/Views/Lists.vala:60
+#: src/Views/Lists.vala:58
 msgid "This action cannot be reverted."
 msgstr "Diese Aktion kann nicht rückgängig gemacht werden."
 
-#: src/Views/Lists.vala:85
+#: src/Views/Lists.vala:83
 #, c-format
 msgid "Edit \"%s\""
 msgstr "\"%s\" bearbeiten"
 
-#: src/Views/Lists.vala:93
+#: src/Views/Lists.vala:91
 msgid "Info"
 msgstr "Info"
 
-#: src/Views/Lists.vala:97
+#: src/Views/Lists.vala:95
 msgid "List Name"
 msgstr "Listenname"
 
-#: src/Views/Lists.vala:106
+#: src/Views/Lists.vala:104
 msgid "Replies Policy"
 msgstr "Antwortrichtlinie"
 
-#: src/Views/Lists.vala:107
+#: src/Views/Lists.vala:105
 msgid "Show member replies to"
 msgstr "Zeige Mitglieder-Antworten"
 
-#: src/Views/Lists.vala:111
+#: src/Views/Lists.vala:109
 msgid "Nobody"
 msgstr "Niemanden"
 
-#: src/Views/Lists.vala:123
+#: src/Views/Lists.vala:121
 msgid "Other members of the list"
 msgstr "Anderen Mitgliedern der Liste"
 
-#: src/Views/Lists.vala:135
+#: src/Views/Lists.vala:133
 msgid "Any followed user"
 msgstr "Jedem folgendem Nutzer"
 
-#: src/Views/Lists.vala:171
+#: src/Views/Lists.vala:169
 msgid "Members"
 msgstr "Mitglieder"
 
-#: src/Views/Lists.vala:175
+#: src/Views/Lists.vala:173
 msgid "Remove Members"
 msgstr "Mitglieder entfernen"
 
-#: src/Views/Lists.vala:310
+#: src/Views/Lists.vala:308
 msgid "New list title"
 msgstr "Neuer Listentitel"
 
-#: src/Views/Lists.vala:319
+#: src/Views/Lists.vala:318
 msgid "Add list"
 msgstr "Liste hinzufügen"
 
@@ -884,6 +882,19 @@ msgstr "Konversationen"
 #: src/Views/Bookmarks.vala:6 src/Services/Accounts/Mastodon/Account.vala:56
 msgid "Bookmarks"
 msgstr "Lesezeichen"
+
+#. translators: Shown when there are 0 results
+#: src/Views/Base.vala:6
+msgid "Nothing to see here"
+msgstr "Es gibt hier nichts zu sehen"
+
+#: src/Views/Base.vala:73
+msgid "Reload"
+msgstr "Neu Laden"
+
+#: src/Views/Base.vala:129
+msgid "An Error Occurred"
+msgstr "Ein Fehler ist aufgetreten"
 
 #: src/Utils/DateTime.vala:12
 msgid "expires soon"
@@ -957,61 +968,22 @@ msgid "%b %-e, %Y"
 msgstr "%-e. %b, %Y"
 
 #. translators: Follow System's dark mode preference
-#: src/Services/Settings.vala:53
+#: src/Services/Settings.vala:57
 msgid "Follow System"
 msgstr "System folgen"
 
 #. translators: Light mode theme
-#: src/Services/Settings.vala:56
+#: src/Services/Settings.vala:60
 msgid "Light"
 msgstr "Hell"
 
 #. translators: Dark mode theme
-#: src/Services/Settings.vala:59
+#: src/Services/Settings.vala:63
 msgid "Dark"
 msgstr "Dunkel"
 
-#: src/Services/Accounts/InstanceAccount.vala:153
-#, c-format
-msgid "%s mentioned you"
-msgstr "%s hat dich erwähnt"
-
-#: src/Services/Accounts/InstanceAccount.vala:158
-#, c-format
-msgid "%s boosted your post"
-msgstr "%s hat deinen Beitrag geboostet"
-
-#: src/Services/Accounts/InstanceAccount.vala:163
-#, c-format
-msgid "%s boosted"
-msgstr "%s boostet"
-
-#: src/Services/Accounts/InstanceAccount.vala:168
-#, c-format
-msgid "%s favorited your post"
-msgstr "%s hat deinen Beitrag favorisiert"
-
-#: src/Services/Accounts/InstanceAccount.vala:173
-#, c-format
-msgid "%s now follows you"
-msgstr "%s folgt dir jetzt"
-
-#: src/Services/Accounts/InstanceAccount.vala:178
-#, c-format
-msgid "%s wants to follow you"
-msgstr "%s möchte dir folgen"
-
-#: src/Services/Accounts/InstanceAccount.vala:183
-msgid "Poll results"
-msgstr "Umfrageergebnisse"
-
-#: src/Services/Accounts/InstanceAccount.vala:188
-#, c-format
-msgid "%s edited a post"
-msgstr "%s hat einen Beitrag bearbeitet"
-
 #. translators: The variable is the backend like "Mastodon"
-#: src/Services/Accounts/SecretAccountStore.vala:137
+#: src/Services/Accounts/SecretAccountStore.vala:206
 #, c-format
 msgid "%s Account"
 msgstr "%s Konten"
@@ -1053,6 +1025,109 @@ msgstr "Direkt"
 msgid "Post to mentioned users only"
 msgstr "Nur zu erwähnten Nutzern posten"
 
+#: src/Services/Accounts/InstanceAccount.vala:157
+#, c-format
+msgid "%s mentioned you"
+msgstr "%s hat dich erwähnt"
+
+#: src/Services/Accounts/InstanceAccount.vala:162
+#, c-format
+msgid "%s boosted your post"
+msgstr "%s hat deinen Beitrag geboostet"
+
+#: src/Services/Accounts/InstanceAccount.vala:167
+#, c-format
+msgid "%s boosted"
+msgstr "%s boostet"
+
+#: src/Services/Accounts/InstanceAccount.vala:172
+#, c-format
+msgid "%s favorited your post"
+msgstr "%s hat deinen Beitrag favorisiert"
+
+#: src/Services/Accounts/InstanceAccount.vala:177
+#, c-format
+msgid "%s now follows you"
+msgstr "%s folgt dir jetzt"
+
+#: src/Services/Accounts/InstanceAccount.vala:182
+#, c-format
+msgid "%s wants to follow you"
+msgstr "%s möchte dir folgen"
+
+#: src/Services/Accounts/InstanceAccount.vala:187
+msgid "Poll results"
+msgstr "Umfrageergebnisse"
+
+#: src/Services/Accounts/InstanceAccount.vala:192
+#, c-format
+msgid "%s edited a post"
+msgstr "%s hat einen Beitrag bearbeitet"
+
+#. tanslators: profile field label or title
+#: src/Dialogs/ProfileEdit.vala:85
+msgid "Label"
+msgstr ""
+
+#. translators: profile field content
+#: src/Dialogs/ProfileEdit.vala:93
+msgid "Content"
+msgstr ""
+
+#: src/Dialogs/ProfileEdit.vala:116
+#: src/Dialogs/Composer/AttachmentsPage.vala:206
+msgid "All Supported Files"
+msgstr "Alle unterstützten Dateien"
+
+#: src/Dialogs/ProfileEdit.vala:145
+msgid "Display Name"
+msgstr ""
+
+#. translators: profile bio or description
+#: src/Dialogs/ProfileEdit.vala:151
+msgid "Bio"
+msgstr ""
+
+#: src/Dialogs/ProfileEdit.vala:171 src/Dialogs/Composer/EditorPage.vala:218
+msgid "Custom Emoji Picker"
+msgstr "Eigene-Emoji-Auswahl"
+
+#. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
+#: src/Dialogs/ProfileEdit.vala:186
+msgid "Fields"
+msgstr ""
+
+#: src/Dialogs/ProfileEdit.vala:210
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:137
+msgid "Save"
+msgstr "Speichern"
+
+#: src/Dialogs/ProfileEdit.vala:215
+msgid "Close"
+msgstr ""
+
+#: src/Dialogs/ProfileEdit.vala:230
+msgid "Edit Profile Picture"
+msgstr ""
+
+#. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
+#: src/Dialogs/ProfileEdit.vala:250
+msgid "Edit Header Picture"
+msgstr ""
+
+#. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
+#: src/Dialogs/ProfileEdit.vala:360
+#, c-format
+msgid "Field %d"
+msgstr ""
+
+#. translators: Open file
+#: src/Dialogs/ProfileEdit.vala:375 src/Dialogs/ProfileEdit.vala:383
+#: src/Dialogs/Composer/AttachmentsPage.vala:226
+#: src/Dialogs/Composer/AttachmentsPage.vala:235
+msgid "Open"
+msgstr "Öffnen"
+
 #: src/Dialogs/NewAccount.vala:5
 msgid "Allow access to your account in the browser."
 msgstr "Erlaube den Zugriff auf Ihr Konto im Browser."
@@ -1061,24 +1136,24 @@ msgstr "Erlaube den Zugriff auf Ihr Konto im Browser."
 msgid "Copy the authorization code from the browser and paste it below."
 msgstr "Kopiere den Autorisierungscode vom Browser und fügen ihn unten ein."
 
-#: src/Dialogs/NewAccount.vala:121
+#: src/Dialogs/NewAccount.vala:122
 msgid "Please enter a valid instance URL"
 msgstr "Bitte gib eine valide Instanz-URL an"
 
-#: src/Dialogs/NewAccount.vala:155
+#: src/Dialogs/NewAccount.vala:158
 msgid "Please enter a valid authorization code"
 msgstr "Bitte gib einen validen Autorisierungscode an"
 
-#: src/Dialogs/NewAccount.vala:172
+#: src/Dialogs/NewAccount.vala:175
 msgid "Instance failed to authorize the access token"
 msgstr "Die Instanz konnte das Autorisierungstoken nicht finden"
 
-#: src/Dialogs/NewAccount.vala:181
+#: src/Dialogs/NewAccount.vala:184
 #, c-format
 msgid "Hello, %s!"
 msgstr "Hallo, %s!"
 
-#: src/Dialogs/NewAccount.vala:237
+#: src/Dialogs/NewAccount.vala:240
 msgid "Server returned an error"
 msgstr "Der Server gab einen Fehler zurück"
 
@@ -1179,60 +1254,56 @@ msgstr "Verfallsdatum"
 msgid "Text"
 msgstr "Text"
 
-#: src/Dialogs/Composer/EditorPage.vala:150
+#: src/Dialogs/Composer/EditorPage.vala:163
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:132
 msgid "Characters Left"
 msgstr "Verbleibende Zeichen"
 
-#: src/Dialogs/Composer/EditorPage.vala:171
+#: src/Dialogs/Composer/EditorPage.vala:184
 msgid "What's on your mind?"
 msgstr "Was hast du auf dem Herzen?"
 
-#: src/Dialogs/Composer/EditorPage.vala:198
+#: src/Dialogs/Composer/EditorPage.vala:211
 msgid "Emoji Picker"
 msgstr "Emoji-Auswahl"
 
-#: src/Dialogs/Composer/EditorPage.vala:205
-msgid "Custom Emoji Picker"
-msgstr "Eigene-Emoji-Auswahl"
-
-#: src/Dialogs/Composer/EditorPage.vala:224
+#: src/Dialogs/Composer/EditorPage.vala:237
 msgid "Write your warning here"
 msgstr "Schreibe deine Warnung hier"
 
-#: src/Dialogs/Composer/EditorPage.vala:239
+#: src/Dialogs/Composer/EditorPage.vala:252
 msgid "Content Warning"
 msgstr "Inhaltswarnung"
 
-#: src/Dialogs/Composer/EditorPage.vala:278
+#: src/Dialogs/Composer/EditorPage.vala:291
 msgid "Post Privacy"
 msgstr "Post-Sichtbarkeit"
 
-#: src/Dialogs/Composer/EditorPage.vala:307
+#: src/Dialogs/Composer/EditorPage.vala:320
 msgid "Post Language"
 msgstr "Beitragssprache"
 
-#: src/Dialogs/Composer/Dialog.vala:181
+#: src/Dialogs/Composer/Dialog.vala:188
 msgid "Are you sure you want to exit?"
 msgstr "Bist du sicher dass du abbrechen möchtest?"
 
-#: src/Dialogs/Composer/Dialog.vala:182
+#: src/Dialogs/Composer/Dialog.vala:189
 msgid "Your progress will be lost."
 msgstr "Dein Fortschritt geht verloren."
 
-#: src/Dialogs/Composer/Dialog.vala:184
+#: src/Dialogs/Composer/Dialog.vala:191
 msgid "Discard"
 msgstr "Verwerfen"
 
-#: src/Dialogs/Composer/Dialog.vala:269
+#: src/Dialogs/Composer/Dialog.vala:276
 msgid "_Redraft"
 msgstr "Neu erstellen"
 
-#: src/Dialogs/Composer/Dialog.vala:294
+#: src/Dialogs/Composer/Dialog.vala:301
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
-#: src/Dialogs/Composer/Dialog.vala:315
+#: src/Dialogs/Composer/Dialog.vala:322
 msgid "_Reply"
 msgstr "_Antworten"
 
@@ -1243,10 +1314,6 @@ msgstr "Alt-Text bearbeiten"
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:53
 msgid "Remove Attachment"
 msgstr "Anhang entfernen"
-
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:137
-msgid "Save"
-msgstr "Speichern"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:50
 msgid "Media"
@@ -1272,20 +1339,23 @@ msgstr "Medien als kritisch markieren"
 msgid "Unmark media as sensitive"
 msgstr "Medien als nicht kritisch markieren"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:206
-msgid "All Supported Files"
-msgstr "Alle unterstützten Dateien"
-
-#. translators: Open file
-#: src/Dialogs/Composer/AttachmentsPage.vala:226
-#: src/Dialogs/Composer/AttachmentsPage.vala:235
-msgid "Open"
-msgstr "Öffnen"
-
 #: src/Dialogs/Composer/AttachmentsPage.vala:277
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
 msgstr "Datei \"%s\" ist größer als das Instanzlimit"
+
+#. translators: Name <email@domain.com> or Name https://website.example
+#: src/Application.vala:303
+msgid "translator-credits"
+msgstr "Feliks Weber <feliks@notabit.eu>"
+
+#: src/Application.vala:328
+msgid "OK"
+msgstr "OK"
+
+#: src/Application.vala:337
+msgid "Yes"
+msgstr "Ja"
 
 #. translators: the variable is the amount of times a hashtag was used in a week
 #: src/API/Tag.vala:35
@@ -1357,7 +1427,7 @@ msgstr "Suche ergab keine Ergebnisse"
 
 #. translators: the variable is a comma separated list of account handles,
 #. this is a state - not an action
-#: src/API/Conversation.vala:18
+#: src/API/Conversation.vala:22
 #, c-format
 msgid "Empty Conversation with %s"
 msgstr "Leeres Gespräch mit %s"
