@@ -71,20 +71,23 @@ msgid "Edited"
 msgstr "Edytowany"
 
 #. translators: Tooltip that closes content warning
-#: data/ui/widgets/status.ui:226
+#: data/ui/widgets/status.ui:226 data/ui/widgets/status.ui:225
 msgid "Show Less"
 msgstr "Pokaż mniej"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:259 src/Widgets/Status.vala:385
+#: data/ui/widgets/status.ui:257
 msgid "Show More"
 msgstr "Pokaż więcej"
 
 #: data/ui/widgets/status.ui:339 data/ui/widgets/status.ui:340
+#: data/ui/widgets/status.ui:337 data/ui/widgets/status.ui:338
 msgid "Decline"
 msgstr "Odrzuć"
 
 #: data/ui/widgets/status.ui:352 data/ui/widgets/status.ui:353
+#: data/ui/widgets/status.ui:350 data/ui/widgets/status.ui:351
 msgid "Accept"
 msgstr "Akceptuj"
 
@@ -193,16 +196,16 @@ msgstr "Zwiększa wysokość linii wpisów"
 
 #: data/ui/dialogs/preferences.ui:63
 msgid "Scale up custom emojis on hover"
-msgstr ""
+msgstr "Powiększaj emoji po najechaniu"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Makes custom emojis slightly bigger when you hover over them"
-msgstr ""
+msgstr "Powiększa trochę niestandardowe emoji gdy nad nie najedziesz"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:76
 msgid "Letterbox Media"
-msgstr ""
+msgstr "Efekt letterbox"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:79
@@ -210,6 +213,7 @@ msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
+"Pomniejsz media i dodaj pasy po bokach, zamiast rozciągać i docinać do ramki"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:90
@@ -221,81 +225,82 @@ msgstr ""
 msgid "Expand pictures to fill the media viewer by default"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:105
+#: data/ui/dialogs/preferences.ui:105 data/ui/dialogs/preferences.ui:91
 msgid "Posting"
 msgstr "Ustawienia wpisów"
 
-#: data/ui/dialogs/preferences.ui:108
+#: data/ui/dialogs/preferences.ui:108 data/ui/dialogs/preferences.ui:94
 msgid "Default post visibility"
 msgstr "Domyślna widoczność wpisów"
 
-#: data/ui/dialogs/preferences.ui:117
+#: data/ui/dialogs/preferences.ui:117 data/ui/dialogs/preferences.ui:103
 msgid "Default post language"
 msgstr "Domyślny język wpisów"
 
-#: data/ui/dialogs/preferences.ui:128
+#: data/ui/dialogs/preferences.ui:128 data/ui/dialogs/preferences.ui:114
 msgid "Behavior"
 msgstr "Zachowanie"
 
-#: data/ui/dialogs/preferences.ui:131
+#: data/ui/dialogs/preferences.ui:131 data/ui/dialogs/preferences.ui:117
 msgid "Autostart"
 msgstr "Automatyczny start"
 
-#: data/ui/dialogs/preferences.ui:133
+#: data/ui/dialogs/preferences.ui:133 data/ui/dialogs/preferences.ui:119
 msgid "Start minimized at boot"
 msgstr "Uruchamiaj zminimalizowaną przy zalogowaniu"
 
-#: data/ui/dialogs/preferences.ui:144
+#: data/ui/dialogs/preferences.ui:144 data/ui/dialogs/preferences.ui:130
 msgid "Background work"
 msgstr "Praca w tle"
 
-#: data/ui/dialogs/preferences.ui:146
+#: data/ui/dialogs/preferences.ui:146 data/ui/dialogs/preferences.ui:132
 msgid "Receive notifications even when the app is closed"
 msgstr "Otrzymuj powiadomienia nawet wtedy, gdy aplikacja jest zamknięta"
 
-#: data/ui/dialogs/preferences.ui:156
+#: data/ui/dialogs/preferences.ui:156 data/ui/dialogs/preferences.ui:142
 msgid "Strip tracking parameters from links"
 msgstr "Usuń parametry śledzenia z odnośników"
 
 #. translators: Broken as in incorrect
-#: data/ui/dialogs/preferences.ui:159
+#: data/ui/dialogs/preferences.ui:159 data/ui/dialogs/preferences.ui:145
 msgid "It can lead to broken links"
 msgstr "To może psuć niektóre odnośniki"
 
-#: data/ui/dialogs/preferences.ui:171
+#: data/ui/dialogs/preferences.ui:171 data/ui/dialogs/preferences.ui:157
 msgid "Timelines"
 msgstr "Osie czasu"
 
-#: data/ui/dialogs/preferences.ui:174
+#: data/ui/dialogs/preferences.ui:174 data/ui/dialogs/preferences.ui:160
 msgid "Posts per load batch"
 msgstr "Wielkość porcji wpisów"
 
-#: data/ui/dialogs/preferences.ui:188
+#: data/ui/dialogs/preferences.ui:188 data/ui/dialogs/preferences.ui:174
 msgid "Stream timelines"
 msgstr "Odświeżaj osie czasu"
 
-#: data/ui/dialogs/preferences.ui:190
+#: data/ui/dialogs/preferences.ui:190 data/ui/dialogs/preferences.ui:176
 msgid "Receive new posts and notifications in real-time"
 msgstr "Otrzymuj na żywo nowe wpisy i powiadomienia"
 
-#: data/ui/dialogs/preferences.ui:201
+#: data/ui/dialogs/preferences.ui:201 data/ui/dialogs/preferences.ui:187
 msgid "Stream public timelines"
 msgstr "Odświeżaj publiczne osie czasu"
 
-#: data/ui/dialogs/preferences.ui:203
+#: data/ui/dialogs/preferences.ui:203 data/ui/dialogs/preferences.ui:189
 msgid "Warning: This will increase memory usage"
 msgstr "Uwaga: to zwiększy użycie pamięci"
 
-#: data/ui/dialogs/preferences.ui:213
+#: data/ui/dialogs/preferences.ui:213 data/ui/dialogs/preferences.ui:199
 msgid "Reveal spoilers by default"
 msgstr "Domyślnie odsłaniaj drażliwą zawartość"
 
-#: data/ui/dialogs/preferences.ui:224
+#: data/ui/dialogs/preferences.ui:224 data/ui/dialogs/preferences.ui:210
 msgid "Hide link preview cards"
 msgstr "Ukryj karty podglądu odnośników"
 
 #: data/ui/dialogs/compose.ui:29 data/ui/dialogs/new_account.ui:27
 #: src/Dialogs/Composer/Dialog.vala:193 src/Application.vala:341
+#: src/Application.vala:339
 msgid "Cancel"
 msgstr "Anuluj"
 
@@ -318,11 +323,11 @@ msgstr "Na jakim serwerze masz konto?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
-"Jeżeli nie masz jeszcze konta, <a href=\"https://joinmastodon.org/"
-"servers\">wybierz serwer i je załóż</a>."
+"Jeżeli nie masz jeszcze konta, <a href=\"https://joinmastodon.org/servers"
+"\">wybierz serwer i je załóż</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
@@ -366,6 +371,7 @@ msgid "Search"
 msgstr "Wyszukiwanie"
 
 #: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:264
+#: src/Views/MediaViewer.vala:261
 msgid "Go Back"
 msgstr "Wróć"
 
@@ -390,7 +396,7 @@ msgid "Vote"
 msgstr "Głosuj"
 
 #. translators: the variable is the amount of people that voted
-#: src/Widgets/VoteBox.vala:138
+#: src/Widgets/VoteBox.vala:138 src/Widgets/VoteBox.vala:137
 #, c-format
 msgid "%lld voted"
 msgstr "%lld zagłosowało"
@@ -406,12 +412,12 @@ msgid "React with %s"
 msgstr "Zareaguj za pomocą %s"
 
 #: src/Widgets/Status.vala:270 src/Widgets/Attachment/Item.vala:193
-#: src/Views/MediaViewer.vala:372
+#: src/Views/MediaViewer.vala:372 src/Views/MediaViewer.vala:333
 msgid "Open in Browser"
 msgstr "Otwórz w przeglądarce"
 
 #: src/Widgets/Status.vala:271 src/Widgets/Attachment/Item.vala:194
-#: src/Views/MediaViewer.vala:373
+#: src/Views/MediaViewer.vala:373 src/Views/MediaViewer.vala:334
 msgid "Copy URL"
 msgstr "Kopiuj adres URL"
 
@@ -548,6 +554,7 @@ msgid "View Alt Text"
 msgstr "Zobacz opis"
 
 #: src/Widgets/Attachment/Item.vala:195 src/Views/MediaViewer.vala:374
+#: src/Views/MediaViewer.vala:335
 msgid "Save Media"
 msgstr "Pobierz"
 
@@ -555,7 +562,8 @@ msgstr "Pobierz"
 #: src/Views/Sidebar.vala:271 src/Services/Accounts/SecretAccountStore.vala:124
 #: src/Services/Accounts/SecretAccountStore.vala:222
 #: src/Services/Accounts/AccountStore.vala:43 src/Dialogs/ProfileEdit.vala:298
-#: src/Application.vala:140
+#: src/Application.vala:140 src/Views/MediaViewer.vala:430
+#: src/Application.vala:135
 msgid "Error"
 msgstr "Błąd"
 
@@ -569,27 +577,27 @@ msgstr "Ukryj zawartość"
 msgid "Sensitive Media"
 msgstr "Zawartość drażliwa"
 
-#: src/Views/MediaViewer.vala:258
+#: src/Views/MediaViewer.vala:258 src/Views/MediaViewer.vala:255
 msgid "Media Viewer"
 msgstr "Przeglądarka multimediów"
 
-#: src/Views/MediaViewer.vala:271
+#: src/Views/MediaViewer.vala:271 src/Views/MediaViewer.vala:268
 msgid "Toggle Fullscreen"
 msgstr "Przełącz tryb pełnoekranowy"
 
-#: src/Views/MediaViewer.vala:589
+#: src/Views/MediaViewer.vala:589 src/Views/MediaViewer.vala:527
 msgid "Previous Attachment"
 msgstr "Poprzedni załącznik"
 
-#: src/Views/MediaViewer.vala:594
+#: src/Views/MediaViewer.vala:594 src/Views/MediaViewer.vala:532
 msgid "Next Attachment"
 msgstr "Następny załącznik"
 
-#: src/Views/MediaViewer.vala:612
+#: src/Views/MediaViewer.vala:612 src/Views/MediaViewer.vala:550
 msgid "Zoom Out"
 msgstr "Oddal"
 
-#: src/Views/MediaViewer.vala:617
+#: src/Views/MediaViewer.vala:617 src/Views/MediaViewer.vala:555
 msgid "Zoom In"
 msgstr "Przybliż"
 
@@ -697,7 +705,7 @@ msgstr "%lld obserwujących"
 
 #: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:127
 msgid "Edit Profile"
-msgstr ""
+msgstr "Edytuj profil"
 
 #: src/Views/Profile.vala:416
 #, c-format
@@ -977,17 +985,17 @@ msgid "%b %-e, %Y"
 msgstr "%-e %b %Y"
 
 #. translators: Follow System's dark mode preference
-#: src/Services/Settings.vala:59
+#: src/Services/Settings.vala:59 src/Services/Settings.vala:57
 msgid "Follow System"
 msgstr "Jak w systemie"
 
 #. translators: Light mode theme
-#: src/Services/Settings.vala:62
+#: src/Services/Settings.vala:62 src/Services/Settings.vala:60
 msgid "Light"
 msgstr "Jasny"
 
 #. translators: Dark mode theme
-#: src/Services/Settings.vala:65
+#: src/Services/Settings.vala:65 src/Services/Settings.vala:63
 msgid "Dark"
 msgstr "Ciemny"
 
@@ -1076,12 +1084,12 @@ msgstr "Edycja wpisu przez %s"
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:85
 msgid "Label"
-msgstr ""
+msgstr "Nazwa"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:93
 msgid "Content"
-msgstr ""
+msgstr "Zawartość"
 
 #: src/Dialogs/ProfileEdit.vala:116
 #: src/Dialogs/Composer/AttachmentsPage.vala:206
@@ -1090,12 +1098,12 @@ msgstr "Wszystkie obsługiwane pliki"
 
 #: src/Dialogs/ProfileEdit.vala:145
 msgid "Display Name"
-msgstr ""
+msgstr "Widoczna nazwa"
 
 #. translators: profile bio or description
 #: src/Dialogs/ProfileEdit.vala:151
 msgid "Bio"
-msgstr ""
+msgstr "Biogram"
 
 #: src/Dialogs/ProfileEdit.vala:171 src/Dialogs/Composer/EditorPage.vala:218
 msgid "Custom Emoji Picker"
@@ -1104,7 +1112,7 @@ msgstr "Niestandardowe emoji"
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:186
 msgid "Fields"
-msgstr ""
+msgstr "Pola"
 
 #: src/Dialogs/ProfileEdit.vala:210
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:137
@@ -1113,22 +1121,22 @@ msgstr "Zapisz"
 
 #: src/Dialogs/ProfileEdit.vala:215
 msgid "Close"
-msgstr ""
+msgstr "Zamknij"
 
 #: src/Dialogs/ProfileEdit.vala:230
 msgid "Edit Profile Picture"
-msgstr ""
+msgstr "Edytuj awatar"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:250
 msgid "Edit Header Picture"
-msgstr ""
+msgstr "Edytuj obrazek nagłówka"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:360
 #, c-format
 msgid "Field %d"
-msgstr ""
+msgstr "Pole %d"
 
 #. translators: Open file
 #: src/Dialogs/ProfileEdit.vala:375 src/Dialogs/ProfileEdit.vala:383
@@ -1354,15 +1362,15 @@ msgid "File \"%s\" is bigger than the instance limit"
 msgstr "Plik \"%s\" jest większy niż limit serwera"
 
 #. translators: Name <email@domain.com> or Name https://website.example
-#: src/Application.vala:305
+#: src/Application.vala:305 src/Application.vala:303
 msgid "translator-credits"
 msgstr "Łukasz Horodecki http://pol.social/@LukaszHorodecki"
 
-#: src/Application.vala:330
+#: src/Application.vala:330 src/Application.vala:328
 msgid "OK"
 msgstr "OK"
 
-#: src/Application.vala:339
+#: src/Application.vala:339 src/Application.vala:337
 msgid "Yes"
 msgstr "Tak"
 
