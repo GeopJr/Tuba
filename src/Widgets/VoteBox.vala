@@ -62,7 +62,8 @@ public class Tuba.Widgets.VoteBox: Box {
 		//creates the entries of poll
         foreach (API.PollOption p in poll.options) {
             var row = new Adw.ActionRow () {
-                css_classes = { "ttl-poll-row" }
+                css_classes = { "ttl-poll-row" },
+                use_markup = false
             };
 
             //if it is own poll
