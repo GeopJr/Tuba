@@ -55,13 +55,15 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         public void zoom (double zoom_level, int? old_width = null, int? old_height = null) {
             // Don't zoom on video
             if (is_video) return;
-            if ((zoom_level > 1.0 && !can_zoom_in) || (zoom_level < 1.0 && !can_zoom_out) || zoom_level == 1.0) return;
+            if ((zoom_level > 1.0 && !can_zoom_in) || (zoom_level < 1.0 && !can_zoom_out && settings.media_viewer_expand_pictures) || zoom_level == 1.0) return;
 
             var new_width = (old_width ?? child_width) * zoom_level;
             var new_height = (old_height ?? child_height) * zoom_level;
 
-            if (new_width < scroller.hadjustment.page_size) new_width = scroller.hadjustment.page_size;
-            if (new_height < scroller.vadjustment.page_size) new_height = scroller.vadjustment.page_size;
+            if (settings.media_viewer_expand_pictures) {
+                if (new_width < scroller.hadjustment.page_size) new_width = scroller.hadjustment.page_size;
+                if (new_height < scroller.vadjustment.page_size) new_height = scroller.vadjustment.page_size;
+            }
 
             child_widget.set_size_request ((int) new_width, (int) new_height);
 
@@ -461,6 +463,11 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
     public void add_image (string url, string? alt_text, Gdk.Paintable? preview, int? pos) {
         var picture = new Gtk.Picture ();
+
+        if (!settings.media_viewer_expand_pictures) {
+            picture.valign = picture.halign = Gtk.Align.CENTER;
+        }
+
         var item = new Item (picture, url, preview, this);
         if (pos == null) {
             carousel.append (item);
@@ -499,6 +506,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
     public void set_single_paintable (string url, Gdk.Paintable paintable) {
         var picture = new Gtk.Picture ();
         picture.paintable = paintable;
+
+        if (!settings.media_viewer_expand_pictures) {
+            picture.valign = picture.halign = Gtk.Align.CENTER;
+        }
 
         var item = new Item.static (picture, url, this);
         carousel.append (item);
