@@ -22,9 +22,11 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			toast.set_body (body);
 		}
 
-		var icon_file = GLib.File.new_for_uri (account.avatar);
-		var icon = new FileIcon (icon_file);
-		toast.set_icon (icon);
+        if (!Tuba.is_flatpak) {
+            var icon_file = GLib.File.new_for_uri (account.avatar);
+            var icon = new FileIcon (icon_file);
+            toast.set_icon (icon);
+        }
 
 		// toast.add_button_with_target_value (_("Read"), "mastodon.read_notification", id);
 

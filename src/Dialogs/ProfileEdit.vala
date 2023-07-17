@@ -81,6 +81,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 			expanded = t_key != null || t_value != null;
 			key_row = new Adw.EntryRow () {
 				input_purpose = Gtk.InputPurpose.FREE_FORM,
+				// tanslators: profile field label or title
 				title = _("Label"),
 				text = t_key ?? ""
 			};
@@ -88,6 +89,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 
 			value_row = new Adw.EntryRow () {
 				input_purpose = Gtk.InputPurpose.FREE_FORM,
+				// translators: profile field content
 				title = _("Content"),
 				text = t_value ?? ""
 			};
@@ -145,6 +147,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		name_row.changed.connect (on_name_row_changed);
 
 		bio_row = new Adw.ExpanderRow () {
+			// translators: profile bio or description
 			title = _("Bio"),
 			expanded = false
 		};
@@ -179,6 +182,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		profile_info_box.append (bio_row);
 
 		fields_box = new Adw.PreferencesGroup () {
+			// translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 			title = _("Fields")
 		};
 
@@ -242,6 +246,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 
 		var background_edit_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
 			css_classes = { "osd", "circular" },
+			// translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 			tooltip_text = _("Edit Header Picture"),
 			valign = Gtk.Align.START,
 			halign = Gtk.Align.START,
@@ -351,6 +356,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 
 	private void add_field (string? key, string? value) {
 		var field = new Field (key, value, max_key_length, max_value_length);
+		// translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 		field.title = _("Field %d").printf (fields.size + 1);
 
 		fields.add (field);

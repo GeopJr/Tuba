@@ -25,6 +25,8 @@ namespace Tuba {
 
 	public static bool start_hidden = false;
 
+	public static bool is_flatpak = false;
+
 	public class Application : Adw.Application {
 
 		public Dialogs.MainWindow? main_window { get; set; }
@@ -97,6 +99,9 @@ namespace Tuba {
 			} catch (GLib.RegexError e) {
 				warning (e.message);
 			}
+
+			is_flatpak = GLib.Environment.get_variable ("FLATPAK_ID") != null
+			|| GLib.File.new_for_path ("/.flatpak-info").query_exists ();
 
 			Intl.setlocale (LocaleCategory.ALL, "");
 			Intl.bindtextdomain (Build.GETTEXT_PACKAGE, Build.LOCALEDIR);
@@ -247,10 +252,7 @@ namespace Tuba {
 		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s".printf ( // vala-lint=line-length
 				GLib.Environment.get_os_info ("NAME"), GLib.Environment.get_os_info ("VERSION"),
 				Build.PREFIX,
-				(
-					GLib.Environment.get_variable ("FLATPAK_ID") != null
-					|| GLib.File.new_for_path ("/.flatpak-info").query_exists ()
-				).to_string (),
+				Tuba.is_flatpak.to_string (),
 				Build.VERSION, Build.PROFILE,
 				Gtk.get_major_version (), Gtk.get_minor_version (), Gtk.get_micro_version (),
 				Gtk.MAJOR_VERSION, Gtk.MINOR_VERSION, Gtk.MICRO_VERSION,

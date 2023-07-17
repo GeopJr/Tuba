@@ -213,8 +213,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	construct {
         carousel = new Adw.Carousel () {
             vexpand = true,
-            hexpand = true,
-            css_classes = {"osd"}
+            hexpand = true
         };
 
         // Move between media using the arrow keys
@@ -241,6 +240,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         gesture.end.connect (on_scale_end);
         add_controller (gesture);
 
+        var motion = new Gtk.EventControllerMotion ();
+        motion.motion.connect (on_motion);
+        add_controller (motion);
+
 		orientation = Gtk.Orientation.VERTICAL;
         spacing = 0;
 
@@ -252,7 +255,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             title_widget = new Gtk.Label (_("Media Viewer")) {
                 css_classes = {"title"}
             },
-			css_classes = {"flat", "media-viewer-headerbar"}
+			css_classes = {"flat"}
         };
         var back_btn = new Gtk.Button.from_icon_name ("tuba-left-large-symbolic") {
             tooltip_text = _("Go Back")
@@ -277,7 +280,6 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
         carousel_dots = new Adw.CarouselIndicatorDots () {
             carousel = carousel,
-            css_classes = {"osd"},
             visible = false
         };
 
@@ -312,6 +314,25 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
     protected void on_scale_end (Gdk.EventSequence? sequence) {
         old_height = null;
         old_width = null;
+    }
+
+    protected void on_motion (double x, double y) {
+        on_reveal_media_buttons ();
+    }
+
+    uint revealer_timeout = 0;
+    protected void on_reveal_media_buttons () {
+        media_buttons_revealer.set_reveal_child (true);
+
+        if (revealer_timeout > 0) GLib.Source.remove (revealer_timeout);
+        revealer_timeout = Timeout.add (5 * 1000, on_hide_media_buttons, Priority.LOW);
+    }
+
+    protected bool on_hide_media_buttons () {
+        media_buttons_revealer.set_reveal_child (false);
+        revealer_timeout = 0;
+
+        return GLib.Source.REMOVE;
     }
 
     protected bool on_keypress (uint keyval, uint keycode, Gdk.ModifierType state) {
@@ -538,7 +559,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
     private Gtk.Button zoom_out_btn;
     private Gtk.Button zoom_in_btn;
-    private Gtk.Box generate_media_buttons () {
+    private Gtk.Revealer media_buttons_revealer;
+    private Gtk.Widget generate_media_buttons () {
         var media_buttons = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
             valign = Gtk.Align.END,
@@ -620,7 +642,13 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         media_buttons.append (page_btns);
         media_buttons.append (zoom_btns);
 
-        return media_buttons;
+        media_buttons_revealer = new Gtk.Revealer () {
+            child = media_buttons,
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            valign = Gtk.Align.END
+        };
+
+        return media_buttons_revealer;
     }
 
     public void on_zoom_change () {
