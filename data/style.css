@@ -453,3 +453,13 @@ video > overlay > revealer > controls {
 	border-radius: 12px;
 	background-color: @shade_color;
 }
+
+.media-viewer-fab {
+	min-width: 42px;
+	min-height: 42px;
+}
+
+.circular-spinner {
+	border-radius: 100%;
+	padding: 3px;
+}

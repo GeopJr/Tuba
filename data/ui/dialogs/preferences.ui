@@ -84,6 +84,18 @@
                 </child>
               </object>
             </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Expand pictures in media viewer</property>
+                <property name="activatable_widget">media_viewer_expand_pictures</property>
+                <property name="subtitle" translatable="yes">Expand pictures to fill the media viewer by default</property>
+                <child>
+                  <object class="GtkSwitch" id="media_viewer_expand_pictures">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
         <child>

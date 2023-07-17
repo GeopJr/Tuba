@@ -19,6 +19,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool aggressive_resolving { get; set; }
 	public bool strip_tracking { get; set; }
 	public bool letterbox_media { get; set; }
+	public bool media_viewer_expand_pictures { get; set; }
 
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
@@ -38,6 +39,7 @@ public class Tuba.Settings : GLib.Settings {
 		init ("strip-tracking");
 		init ("scale-emoji-hover");
 		init ("letterbox-media");
+		init ("media-viewer-expand-pictures");
 	}
 
 	void init (string key) {
