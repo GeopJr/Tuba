@@ -68,23 +68,20 @@ msgid "Edited"
 msgstr "Redigerad"
 
 #. translators: Tooltip that closes content warning
-#: data/ui/widgets/status.ui:226 data/ui/widgets/status.ui:225
+#: data/ui/widgets/status.ui:226
 msgid "Show Less"
 msgstr "Visa mindre"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:259 src/Widgets/Status.vala:385
-#: data/ui/widgets/status.ui:257
 msgid "Show More"
 msgstr "Visa mer"
 
 #: data/ui/widgets/status.ui:339 data/ui/widgets/status.ui:340
-#: data/ui/widgets/status.ui:337 data/ui/widgets/status.ui:338
 msgid "Decline"
 msgstr "Avböj"
 
 #: data/ui/widgets/status.ui:352 data/ui/widgets/status.ui:353
-#: data/ui/widgets/status.ui:350 data/ui/widgets/status.ui:351
 msgid "Accept"
 msgstr "Acceptera"
 
@@ -223,82 +220,81 @@ msgstr ""
 msgid "Expand pictures to fill the media viewer by default"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:105 data/ui/dialogs/preferences.ui:91
+#: data/ui/dialogs/preferences.ui:105
 msgid "Posting"
 msgstr "Publicerar inlägget"
 
-#: data/ui/dialogs/preferences.ui:108 data/ui/dialogs/preferences.ui:94
+#: data/ui/dialogs/preferences.ui:108
 msgid "Default post visibility"
 msgstr "Standard inläggssynlighet"
 
-#: data/ui/dialogs/preferences.ui:117 data/ui/dialogs/preferences.ui:103
+#: data/ui/dialogs/preferences.ui:117
 msgid "Default post language"
 msgstr "Standardspråk för inlägg"
 
-#: data/ui/dialogs/preferences.ui:128 data/ui/dialogs/preferences.ui:114
+#: data/ui/dialogs/preferences.ui:128
 msgid "Behavior"
 msgstr "Beteende"
 
-#: data/ui/dialogs/preferences.ui:131 data/ui/dialogs/preferences.ui:117
+#: data/ui/dialogs/preferences.ui:131
 msgid "Autostart"
 msgstr "Starta automatiskt"
 
-#: data/ui/dialogs/preferences.ui:133 data/ui/dialogs/preferences.ui:119
+#: data/ui/dialogs/preferences.ui:133
 msgid "Start minimized at boot"
 msgstr "Starta minimerad vid uppstart"
 
-#: data/ui/dialogs/preferences.ui:144 data/ui/dialogs/preferences.ui:130
+#: data/ui/dialogs/preferences.ui:144
 msgid "Background work"
 msgstr "Bakgrundsjobb"
 
-#: data/ui/dialogs/preferences.ui:146 data/ui/dialogs/preferences.ui:132
+#: data/ui/dialogs/preferences.ui:146
 msgid "Receive notifications even when the app is closed"
 msgstr "Få aviseringar även när programmet är avstängt"
 
-#: data/ui/dialogs/preferences.ui:156 data/ui/dialogs/preferences.ui:142
+#: data/ui/dialogs/preferences.ui:156
 msgid "Strip tracking parameters from links"
 msgstr "Ta bort spårningsparametrar från länkar"
 
 #. translators: Broken as in incorrect
-#: data/ui/dialogs/preferences.ui:159 data/ui/dialogs/preferences.ui:145
+#: data/ui/dialogs/preferences.ui:159
 msgid "It can lead to broken links"
 msgstr "Det kan leda till trasiga länkar"
 
-#: data/ui/dialogs/preferences.ui:171 data/ui/dialogs/preferences.ui:157
+#: data/ui/dialogs/preferences.ui:171
 msgid "Timelines"
 msgstr "Tidslinjer"
 
-#: data/ui/dialogs/preferences.ui:174 data/ui/dialogs/preferences.ui:160
+#: data/ui/dialogs/preferences.ui:174
 msgid "Posts per load batch"
 msgstr "Inlägg per laddningsgrupp"
 
-#: data/ui/dialogs/preferences.ui:188 data/ui/dialogs/preferences.ui:174
+#: data/ui/dialogs/preferences.ui:188
 msgid "Stream timelines"
 msgstr "Ström tidslinjer"
 
-#: data/ui/dialogs/preferences.ui:190 data/ui/dialogs/preferences.ui:176
+#: data/ui/dialogs/preferences.ui:190
 msgid "Receive new posts and notifications in real-time"
 msgstr "Få nya inlägg och aviseringar i realtid"
 
-#: data/ui/dialogs/preferences.ui:201 data/ui/dialogs/preferences.ui:187
+#: data/ui/dialogs/preferences.ui:201
 msgid "Stream public timelines"
 msgstr "Ström publika tidslinjer"
 
-#: data/ui/dialogs/preferences.ui:203 data/ui/dialogs/preferences.ui:189
+#: data/ui/dialogs/preferences.ui:203
 msgid "Warning: This will increase memory usage"
 msgstr "Varning: Detta ökar minnesanvändningen"
 
-#: data/ui/dialogs/preferences.ui:213 data/ui/dialogs/preferences.ui:199
+#: data/ui/dialogs/preferences.ui:213
 msgid "Reveal spoilers by default"
 msgstr "Avslöja spoilers som standard"
 
-#: data/ui/dialogs/preferences.ui:224 data/ui/dialogs/preferences.ui:210
+#: data/ui/dialogs/preferences.ui:224
 msgid "Hide link preview cards"
 msgstr "Dölj länkförhandsgranskningskort"
 
 #: data/ui/dialogs/compose.ui:29 data/ui/dialogs/new_account.ui:27
 #: src/Dialogs/Composer/Dialog.vala:193 src/Application.vala:341
-#: src/Application.vala:339
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -368,7 +364,6 @@ msgid "Search"
 msgstr "Sök"
 
 #: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:264
-#: src/Views/MediaViewer.vala:261
 msgid "Go Back"
 msgstr "Gå tillbaka"
 
@@ -393,7 +388,7 @@ msgid "Vote"
 msgstr "Rösta"
 
 #. translators: the variable is the amount of people that voted
-#: src/Widgets/VoteBox.vala:138 src/Widgets/VoteBox.vala:137
+#: src/Widgets/VoteBox.vala:138
 #, c-format
 msgid "%lld voted"
 msgstr "%lld röstat"
@@ -409,12 +404,12 @@ msgid "React with %s"
 msgstr "Reagera med %s"
 
 #: src/Widgets/Status.vala:270 src/Widgets/Attachment/Item.vala:193
-#: src/Views/MediaViewer.vala:372 src/Views/MediaViewer.vala:333
+#: src/Views/MediaViewer.vala:372
 msgid "Open in Browser"
 msgstr "Öppna i webbläsare"
 
 #: src/Widgets/Status.vala:271 src/Widgets/Attachment/Item.vala:194
-#: src/Views/MediaViewer.vala:373 src/Views/MediaViewer.vala:334
+#: src/Views/MediaViewer.vala:373
 msgid "Copy URL"
 msgstr "Kopiera URL"
 
@@ -551,7 +546,6 @@ msgid "View Alt Text"
 msgstr "Visa alternativ text"
 
 #: src/Widgets/Attachment/Item.vala:195 src/Views/MediaViewer.vala:374
-#: src/Views/MediaViewer.vala:335
 msgid "Save Media"
 msgstr "Spara media"
 
@@ -559,8 +553,7 @@ msgstr "Spara media"
 #: src/Views/Sidebar.vala:271 src/Services/Accounts/SecretAccountStore.vala:124
 #: src/Services/Accounts/SecretAccountStore.vala:222
 #: src/Services/Accounts/AccountStore.vala:43 src/Dialogs/ProfileEdit.vala:298
-#: src/Application.vala:140 src/Views/MediaViewer.vala:430
-#: src/Application.vala:135
+#: src/Application.vala:140
 msgid "Error"
 msgstr "Fel"
 
@@ -574,27 +567,27 @@ msgstr "Dölj media"
 msgid "Sensitive Media"
 msgstr "Känsligt media"
 
-#: src/Views/MediaViewer.vala:258 src/Views/MediaViewer.vala:255
+#: src/Views/MediaViewer.vala:258
 msgid "Media Viewer"
 msgstr "Mediavisare"
 
-#: src/Views/MediaViewer.vala:271 src/Views/MediaViewer.vala:268
+#: src/Views/MediaViewer.vala:271
 msgid "Toggle Fullscreen"
 msgstr "Växla helskärm"
 
-#: src/Views/MediaViewer.vala:589 src/Views/MediaViewer.vala:527
+#: src/Views/MediaViewer.vala:589
 msgid "Previous Attachment"
 msgstr "Föregående bilaga"
 
-#: src/Views/MediaViewer.vala:594 src/Views/MediaViewer.vala:532
+#: src/Views/MediaViewer.vala:594
 msgid "Next Attachment"
 msgstr "Nästa bilaga"
 
-#: src/Views/MediaViewer.vala:612 src/Views/MediaViewer.vala:550
+#: src/Views/MediaViewer.vala:612
 msgid "Zoom Out"
 msgstr "Zooma ut"
 
-#: src/Views/MediaViewer.vala:617 src/Views/MediaViewer.vala:555
+#: src/Views/MediaViewer.vala:617
 msgid "Zoom In"
 msgstr "Zooma in"
 
@@ -982,17 +975,17 @@ msgid "%b %-e, %Y"
 msgstr "%m %-d, %Å"
 
 #. translators: Follow System's dark mode preference
-#: src/Services/Settings.vala:59 src/Services/Settings.vala:57
+#: src/Services/Settings.vala:59
 msgid "Follow System"
 msgstr "Följ system"
 
 #. translators: Light mode theme
-#: src/Services/Settings.vala:62 src/Services/Settings.vala:60
+#: src/Services/Settings.vala:62
 msgid "Light"
 msgstr "Ljust"
 
 #. translators: Dark mode theme
-#: src/Services/Settings.vala:65 src/Services/Settings.vala:63
+#: src/Services/Settings.vala:65
 msgid "Dark"
 msgstr "Mörkt"
 
@@ -1359,15 +1352,15 @@ msgid "File \"%s\" is bigger than the instance limit"
 msgstr "Fil \"%s\" är större än instansbegränsningen"
 
 #. translators: Name <email@domain.com> or Name https://website.example
-#: src/Application.vala:305 src/Application.vala:303
+#: src/Application.vala:305
 msgid "translator-credits"
 msgstr "Luna Jernberg <lunajernberg@gnome.org>"
 
-#: src/Application.vala:330 src/Application.vala:328
+#: src/Application.vala:330
 msgid "OK"
 msgstr "OK"
 
-#: src/Application.vala:339 src/Application.vala:337
+#: src/Application.vala:339
 msgid "Yes"
 msgstr "Ja"
 

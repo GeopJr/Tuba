@@ -316,11 +316,11 @@ msgstr "あなたのサーバーは？"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
-"アカウントをお持ちでないなら、<a href=\"https://joinmastodon.org/ja/"
-"servers\">サーバーを選んで登録しましょう</a>。"
+"アカウントをお持ちでないなら、<a href=\"https://joinmastodon.org/ja/servers"
+"\">サーバーを選んで登録しましょう</a>。"
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
