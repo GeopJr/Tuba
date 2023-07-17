@@ -86,8 +86,10 @@
             </child>
             <child>
               <object class="AdwActionRow">
+                <!-- translators: expand as in enlarge -->
                 <property name="title" translatable="yes">Expand pictures in media viewer</property>
                 <property name="activatable_widget">media_viewer_expand_pictures</property>
+                <!-- translators: expand as in enlarge -->
                 <property name="subtitle" translatable="yes">Expand pictures to fill the media viewer by default</property>
                 <child>
                   <object class="GtkSwitch" id="media_viewer_expand_pictures">

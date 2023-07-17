@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-15 03:24+0300\n"
+"POT-Creation-Date: 2023-07-18 01:52+0300\n"
 "PO-Revision-Date: 2023-07-14 15:47+0000\n"
 "Last-Translator: Daimar Stein <570cxat11@relay.firefox.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
@@ -74,20 +74,20 @@ msgid "Edited"
 msgstr "Editado"
 
 #. translators: Tooltip that closes content warning
-#: data/ui/widgets/status.ui:225
+#: data/ui/widgets/status.ui:226
 msgid "Show Less"
 msgstr "Mostrar Menos"
 
 #. translators: Tooltip that opens content warning
-#: data/ui/widgets/status.ui:257 src/Widgets/Status.vala:385
+#: data/ui/widgets/status.ui:259 src/Widgets/Status.vala:385
 msgid "Show More"
 msgstr "Mostrar Mais"
 
-#: data/ui/widgets/status.ui:337 data/ui/widgets/status.ui:338
+#: data/ui/widgets/status.ui:339 data/ui/widgets/status.ui:340
 msgid "Decline"
 msgstr "Rejeitar"
 
-#: data/ui/widgets/status.ui:350 data/ui/widgets/status.ui:351
+#: data/ui/widgets/status.ui:352 data/ui/widgets/status.ui:353
 msgid "Accept"
 msgstr "Aceitar"
 
@@ -214,81 +214,91 @@ msgid ""
 "stretching and cropping them"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:91
+#. translators: expand as in enlarge
+#: data/ui/dialogs/preferences.ui:90
+msgid "Expand pictures in media viewer"
+msgstr ""
+
+#. translators: expand as in enlarge
+#: data/ui/dialogs/preferences.ui:93
+msgid "Expand pictures to fill the media viewer by default"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:105
 msgid "Posting"
 msgstr "Postando"
 
-#: data/ui/dialogs/preferences.ui:94
+#: data/ui/dialogs/preferences.ui:108
 msgid "Default post visibility"
 msgstr "Visibilidade padrão da postagem"
 
-#: data/ui/dialogs/preferences.ui:103
+#: data/ui/dialogs/preferences.ui:117
 msgid "Default post language"
 msgstr "Linguagem padrão da postagem"
 
-#: data/ui/dialogs/preferences.ui:114
+#: data/ui/dialogs/preferences.ui:128
 msgid "Behavior"
 msgstr "Comportamento"
 
-#: data/ui/dialogs/preferences.ui:117
+#: data/ui/dialogs/preferences.ui:131
 msgid "Autostart"
 msgstr "Inicialização automática"
 
-#: data/ui/dialogs/preferences.ui:119
+#: data/ui/dialogs/preferences.ui:133
 msgid "Start minimized at boot"
 msgstr "Inicia minimizado na inicialização"
 
-#: data/ui/dialogs/preferences.ui:130
+#: data/ui/dialogs/preferences.ui:144
 msgid "Background work"
 msgstr "Trabalhar em segundo plano"
 
-#: data/ui/dialogs/preferences.ui:132
+#: data/ui/dialogs/preferences.ui:146
 msgid "Receive notifications even when the app is closed"
 msgstr "Receba notificações mesmo quando o aplicativo está fechado"
 
-#: data/ui/dialogs/preferences.ui:142
+#: data/ui/dialogs/preferences.ui:156
 msgid "Strip tracking parameters from links"
 msgstr ""
 
 #. translators: Broken as in incorrect
-#: data/ui/dialogs/preferences.ui:145
+#: data/ui/dialogs/preferences.ui:159
 msgid "It can lead to broken links"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:157
+#: data/ui/dialogs/preferences.ui:171
 msgid "Timelines"
 msgstr "Linhas do tempo"
 
-#: data/ui/dialogs/preferences.ui:160
+#: data/ui/dialogs/preferences.ui:174
 msgid "Posts per load batch"
 msgstr "Postagens em lote"
 
-#: data/ui/dialogs/preferences.ui:174
+#: data/ui/dialogs/preferences.ui:188
 msgid "Stream timelines"
 msgstr "Linhas do tempo contínua"
 
-#: data/ui/dialogs/preferences.ui:176
+#: data/ui/dialogs/preferences.ui:190
 msgid "Receive new posts and notifications in real-time"
 msgstr "Receba novos toots e notificações em tempo real"
 
-#: data/ui/dialogs/preferences.ui:187
+#: data/ui/dialogs/preferences.ui:201
 msgid "Stream public timelines"
 msgstr "Linhas do tempo públicas contínuas"
 
-#: data/ui/dialogs/preferences.ui:189
+#: data/ui/dialogs/preferences.ui:203
 msgid "Warning: This will increase memory usage"
 msgstr "Aviso: Isso vai aumentar o uso de memória"
 
-#: data/ui/dialogs/preferences.ui:199
+#: data/ui/dialogs/preferences.ui:213
 msgid "Reveal spoilers by default"
 msgstr "Revelar spoilers por padrão"
 
-#: data/ui/dialogs/preferences.ui:210
+#: data/ui/dialogs/preferences.ui:224
 msgid "Hide link preview cards"
 msgstr "Ocultar caixas de pré-visualização de links"
 
 #: data/ui/dialogs/compose.ui:29 data/ui/dialogs/new_account.ui:27
-#: src/Dialogs/Composer/Dialog.vala:193 src/Application.vala:339
+#: src/Dialogs/Composer/Dialog.vala:193 src/Application.vala:341
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -357,7 +367,7 @@ msgstr ""
 msgid "Search"
 msgstr "Pesquisa"
 
-#: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:261
+#: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:264
 msgid "Go Back"
 msgstr "Voltar"
 
@@ -382,7 +392,7 @@ msgid "Vote"
 msgstr "Votar"
 
 #. translators: the variable is the amount of people that voted
-#: src/Widgets/VoteBox.vala:137
+#: src/Widgets/VoteBox.vala:138
 #, c-format
 msgid "%lld voted"
 msgstr "%lld votaram"
@@ -398,12 +408,12 @@ msgid "React with %s"
 msgstr "Reagir com %s"
 
 #: src/Widgets/Status.vala:270 src/Widgets/Attachment/Item.vala:193
-#: src/Views/MediaViewer.vala:333
+#: src/Views/MediaViewer.vala:372
 msgid "Open in Browser"
 msgstr "Abrir no navegador"
 
 #: src/Widgets/Status.vala:271 src/Widgets/Attachment/Item.vala:194
-#: src/Views/MediaViewer.vala:334
+#: src/Views/MediaViewer.vala:373
 msgid "Copy URL"
 msgstr "Copiar URL"
 
@@ -539,15 +549,15 @@ msgstr "Salvar Anexo"
 msgid "View Alt Text"
 msgstr "Ver Texto Alternativo"
 
-#: src/Widgets/Attachment/Item.vala:195 src/Views/MediaViewer.vala:335
+#: src/Widgets/Attachment/Item.vala:195 src/Views/MediaViewer.vala:374
 msgid "Save Media"
 msgstr "Salvar Mídia"
 
-#: src/Widgets/Attachment/Item.vala:212 src/Views/MediaViewer.vala:430
+#: src/Widgets/Attachment/Item.vala:212 src/Views/MediaViewer.vala:482
 #: src/Views/Sidebar.vala:271 src/Services/Accounts/SecretAccountStore.vala:124
 #: src/Services/Accounts/SecretAccountStore.vala:222
 #: src/Services/Accounts/AccountStore.vala:43 src/Dialogs/ProfileEdit.vala:298
-#: src/Application.vala:135
+#: src/Application.vala:140
 msgid "Error"
 msgstr "Erro"
 
@@ -561,27 +571,27 @@ msgstr ""
 msgid "Sensitive Media"
 msgstr ""
 
-#: src/Views/MediaViewer.vala:255
+#: src/Views/MediaViewer.vala:258
 msgid "Media Viewer"
 msgstr "Visualizador de Mídia"
 
-#: src/Views/MediaViewer.vala:268
+#: src/Views/MediaViewer.vala:271
 msgid "Toggle Fullscreen"
 msgstr "Alternar Tela-Cheia"
 
-#: src/Views/MediaViewer.vala:527
+#: src/Views/MediaViewer.vala:589
 msgid "Previous Attachment"
 msgstr "Anexo anterior"
 
-#: src/Views/MediaViewer.vala:532
+#: src/Views/MediaViewer.vala:594
 msgid "Next Attachment"
 msgstr "Próximo anexo"
 
-#: src/Views/MediaViewer.vala:550
+#: src/Views/MediaViewer.vala:612
 msgid "Zoom Out"
 msgstr "Reduzir o Zoom"
 
-#: src/Views/MediaViewer.vala:555
+#: src/Views/MediaViewer.vala:617
 msgid "Zoom In"
 msgstr "Aumentar o Zoom"
 
@@ -969,17 +979,17 @@ msgid "%b %-e, %Y"
 msgstr "%-e de %b de %Y"
 
 #. translators: Follow System's dark mode preference
-#: src/Services/Settings.vala:57
+#: src/Services/Settings.vala:59
 msgid "Follow System"
 msgstr "Seguir Sistema"
 
 #. translators: Light mode theme
-#: src/Services/Settings.vala:60
+#: src/Services/Settings.vala:62
 msgid "Light"
 msgstr "Claro"
 
 #. translators: Dark mode theme
-#: src/Services/Settings.vala:63
+#: src/Services/Settings.vala:65
 msgid "Dark"
 msgstr "Escuro"
 
@@ -1346,15 +1356,15 @@ msgid "File \"%s\" is bigger than the instance limit"
 msgstr "Arquivo \"%s\" é maior que o limite da instância"
 
 #. translators: Name <email@domain.com> or Name https://website.example
-#: src/Application.vala:303
+#: src/Application.vala:305
 msgid "translator-credits"
 msgstr "Infinitive Witch <infinitivewitch@disroot.org>"
 
-#: src/Application.vala:328
+#: src/Application.vala:330
 msgid "OK"
 msgstr "OK"
 
-#: src/Application.vala:337
+#: src/Application.vala:339
 msgid "Yes"
 msgstr "Sim"
 
