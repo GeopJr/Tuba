@@ -63,6 +63,9 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             if (settings.media_viewer_expand_pictures) {
                 if (new_width < scroller.hadjustment.page_size) new_width = scroller.hadjustment.page_size;
                 if (new_height < scroller.vadjustment.page_size) new_height = scroller.vadjustment.page_size;
+            } else {
+                if (new_width < 0) new_width = -1;
+                if (new_height < 0) new_height = -1;
             }
 
             child_widget.set_size_request ((int) new_width, (int) new_height);
