@@ -213,7 +213,8 @@ msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
-"Pomniejsz media i dodaj pasy po bokach, zamiast rozciągać i docinać do ramki"
+"Pomniejsza media i dodaje pasy po bokach, zamiast rozciągać i docinać do "
+"ramki"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:90
