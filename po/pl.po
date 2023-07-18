@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 01:52+0300\n"
-"PO-Revision-Date: 2023-07-18 05:55+0000\n"
+"PO-Revision-Date: 2023-07-19 01:05+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -274,7 +274,7 @@ msgstr "Wielkość porcji wpisów"
 
 #: data/ui/dialogs/preferences.ui:188
 msgid "Stream timelines"
-msgstr "Odświeżaj osie czasu"
+msgstr "Odświeżanie osi czasu"
 
 #: data/ui/dialogs/preferences.ui:190
 msgid "Receive new posts and notifications in real-time"
@@ -282,7 +282,7 @@ msgstr "Otrzymuj na żywo nowe wpisy i powiadomienia"
 
 #: data/ui/dialogs/preferences.ui:201
 msgid "Stream public timelines"
-msgstr "Odświeżaj publiczne osie czasu"
+msgstr "Odświeżanie publicznych osi czasu"
 
 #: data/ui/dialogs/preferences.ui:203
 msgid "Warning: This will increase memory usage"
@@ -290,11 +290,11 @@ msgstr "Uwaga: to zwiększy użycie pamięci"
 
 #: data/ui/dialogs/preferences.ui:213
 msgid "Reveal spoilers by default"
-msgstr "Domyślnie odsłaniaj drażliwą zawartość"
+msgstr "Domyślne odsłanianie drażliwej zawartości"
 
 #: data/ui/dialogs/preferences.ui:224
 msgid "Hide link preview cards"
-msgstr "Ukryj karty podglądu odnośników"
+msgstr "Ukrywanie kart podglądu odnośników"
 
 #: data/ui/dialogs/compose.ui:29 data/ui/dialogs/new_account.ui:27
 #: src/Dialogs/Composer/Dialog.vala:193 src/Application.vala:341
