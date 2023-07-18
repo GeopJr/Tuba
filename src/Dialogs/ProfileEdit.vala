@@ -108,7 +108,11 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 	private Avatar avi { get; set; }
 	private Adw.EntryRow name_row { get; set; }
 	private Adw.ExpanderRow bio_row { get; set; }
-	private Gtk.TextView bio_text_view { get; set; }
+	#if MISSING_GTKSOURCEVIEW
+		private Gtk.TextView bio_text_view { get; set; }
+	#else
+		private GtkSource.View bio_text_view { get; set; }
+	#endif
 	private Adw.PreferencesGroup fields_box { get; set; }
 	private Widgets.Background background { get; set; }
 
@@ -152,7 +156,11 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 			expanded = false
 		};
 
-		bio_text_view = new Gtk.TextView () {
+		#if MISSING_GTKSOURCEVIEW
+			bio_text_view = new Gtk.TextView () {
+		#else
+			bio_text_view = new GtkSource.View () {
+		#endif
 			margin_bottom = 6,
 			margin_top = 6,
 			margin_end = 6,
@@ -163,6 +171,26 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		};
 		bio_row.add_row (bio_text_view);
 		bio_text_view.buffer.changed.connect (on_bio_text_changed);
+
+		#if !MISSING_GTKSOURCEVIEW
+			var manager = GtkSource.StyleSchemeManager.get_default ();
+			var scheme = manager.get_scheme ("adwaita");
+			var buffer = bio_text_view.buffer as GtkSource.Buffer;
+			buffer.style_scheme = scheme;
+		#endif
+
+		#if LIBSPELLING && !MISSING_GTKSOURCEVIEW
+			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) bio_text_view.buffer, Spelling.Checker.get_default ());
+
+			bio_text_view.extra_menu = adapter.get_menu_model ();
+			bio_text_view.insert_action_group ("spelling", adapter);
+			adapter.enabled = true;
+		#endif
+
+		#if GSPELL && (MISSING_GTKSOURCEVIEW || !LIBSPELLING)
+			var gspell_view = Gspell.TextView.get_from_gtk_text_view (bio_text_view);
+			gspell_view.basic_setup ();
+		#endif
 
 		var custom_emoji_picker = new Widgets.CustomEmojiChooser ();
 		var custom_emoji_button = new Gtk.MenuButton () {
