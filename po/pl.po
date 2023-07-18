@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 01:52+0300\n"
-"PO-Revision-Date: 2023-07-02 11:52+0000\n"
+"PO-Revision-Date: 2023-07-18 05:55+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -193,7 +193,7 @@ msgstr "Zwiększa wysokość linii wpisów"
 
 #: data/ui/dialogs/preferences.ui:63
 msgid "Scale up custom emojis on hover"
-msgstr "Powiększaj emoji po najechaniu"
+msgstr "Powiększanie niestandardowych emoji po najechaniu"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Makes custom emojis slightly bigger when you hover over them"
@@ -210,18 +210,18 @@ msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
-"Pomniejsza media i dodaje pasy po bokach, zamiast rozciągać i docinać do "
-"ramki"
+"Pomniejsza media i dodaje pasy po bokach, by wypełnić ramkę, zamiast "
+"rozciągać je i docinać"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:90
 msgid "Expand pictures in media viewer"
-msgstr ""
+msgstr "Powiększ obrazy w przeglądarce mediów"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:93
 msgid "Expand pictures to fill the media viewer by default"
-msgstr ""
+msgstr "Domyślnie powiększa obrazy tak, by wypełnić okno przeglądarki mediów"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Posting"
@@ -257,12 +257,12 @@ msgstr "Otrzymuj powiadomienia nawet wtedy, gdy aplikacja jest zamknięta"
 
 #: data/ui/dialogs/preferences.ui:156
 msgid "Strip tracking parameters from links"
-msgstr "Usuń parametry śledzenia z odnośników"
+msgstr "Usuwanie parametrów śledzenia z odnośników"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:159
 msgid "It can lead to broken links"
-msgstr "To może psuć niektóre odnośniki"
+msgstr "Uwaga: to może psuć niektóre odnośniki"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Timelines"
