@@ -425,6 +425,7 @@ video > overlay > revealer > controls {
 
 .lww-scale-emoji-hover .lww-emoji:hover {
 	transform: scale(2);
+	filter: drop-shadow(0 0 1px #202020);
 }
 
 .ttl-poll-row:first-child{
