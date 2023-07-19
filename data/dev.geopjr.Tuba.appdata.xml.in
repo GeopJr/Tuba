@@ -54,6 +54,101 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.4.0" date="2023-07-XX">
+        <description translatable="no">
+          <ul>
+              <li>Added explore tab</li>
+              <li>Added pull to refresh</li>
+              <li>Added composer poll page</li>
+              <li>Added profile info editing</li>
+              <li>Added custom emoji picker</li>
+              <li>Added tracking id striping from links</li>
+              <li>Added somewhat pixelfed support</li>
+              <li>Added media alt text editing</li>
+              <li>Added confirmation dialog on composer exit</li>
+              <li>Updated preview card design in posts</li>
+              <li>Increased padding on video controls</li>
+              <li>Added bot badge on profiles of automated accounts</li>
+              <li>Added blur on sensitive media</li>
+              <li>Added ability to pin posts on profile</li>
+              <li>Added re-triggering composer's autocomplete when editing a pre-triggered word</li>
+              <li>Added composer spell checking</li>
+              <li>Added handling h1-h6 elements in posts</li>
+              <li>Added quoted posts in posts</li>
+              <li>Decreased sidebar width</li>
+              <li>Added smaller icons for indicators</li>
+              <li>Added video autoplay</li>
+              <li>Keep follow requests always visible</li>
+              <li>Added confirmation action on inform dialogs</li>
+              <li>Added more keyboard shortcuts</li>
+              <li>Added handling code elements in posts</li>
+              <li>Added making composer insensitive after publishing</li>
+              <li>Added keyboard shortcuts tab and window</li>
+              <li>Added pointing users to the libsecret wiki page on libsecret errors</li>
+              <li>Added removing empty conversations</li>
+              <li>Added hiding revealed posts</li>
+              <li>Added weekly tag uses in composer's autocomplete</li>
+              <li>Added app version easter egg based on current day's events</li>
+              <li>Removed drag-to-dismiss media viewer</li>
+              <li>Added letterbox images setting</li>
+              <li>Added scaling up emojis on hover setting</li>
+              <li>Added moving composer actionbar to top on narrow windows</li>
+              <li>Changed media viewer background color to a lighter one</li>
+              <li>Added auto-hiding media viewer buttons</li>
+              <li>Expanded revealed label in posts</li>
+              <li>Increased media viewer button sizes</li>
+              <li>Added background on media viewer loading spinner</li>
+              <li>Added double click to zoom-in/zoom-out on media viewer</li>
+              <li>Added disabling expanding picture by default in media viewer setting</li>
+              <li>Vertically centered vote checkboxes</li>
+              <li>Fixed request params being invalid if they are not empty</li>
+              <li>Removed params from tag urls</li>
+              <li>Fixed opening threads from withing a thread view</li>
+              <li>Fixed memory leak in views with tabs</li>
+              <li>Fixed reloading pinned posts on profile reload</li>
+              <li>Fixed freezing on video downloading</li>
+              <li>Fixed dates not being in local timezone</li>
+              <li>Fixed media attachments not clearing on edit</li>
+              <li>Removed excess newlines from posts</li>
+              <li>Fixed composer editor not scrolling with cursor</li>
+              <li>Fixed notifications getting mixed up after previous refactor</li>
+              <li>Fixed default language when it's null</li>
+              <li>Fixed last items in lists in posts being mixed</li>
+              <li>Fixed lists in blockquotes in posts</li>
+              <li>Fixed default language missing in posts</li>
+              <li>Fixed memory leak in composer's attachments page</li>
+              <li>Fixed large font setting being smaller that default</li>
+              <li>Fixed prepending pinned posts on profile tabs other than posts</li>
+              <li>Fixed inform / question dialogs not showing up</li>
+              <li>Fixed segfault when dismissing thread view too soon</li>
+              <li>Fixed parsing url when adding new account</li>
+              <li>Optimized some regex and widget construction instances</li>
+              <li>Fixed potential infinite loop when simplifying html</li>
+              <li>Fixed posts not wrapping if there are more custom emojis than lines</li>
+              <li>Removed 'translate' attribute from profile fields</li>
+              <li>Fixed preview card dialogs gettext</li>
+              <li>Fixed custom emojis in posts' name labels being taller than the label</li>
+              <li>Fixed posts' headings not being aligned with the post content</li>
+              <li>Fixed displaying code elements as inline or blocks in posts</li>
+              <li>Removed dynamically status widgets on rebind</li>
+              <li>Fixed memory leak in profile cover</li>
+              <li>Fixed modified url replacement</li>
+              <li>Fixed lockable togglebutton state on error not being reset</li>
+              <li>Fixed handling conversation delete events</li>
+              <li>Fixed segfault when network cb is null</li>
+              <li>Fixed not calling ecb on pre-request error</li>
+              <li>Fixed not encoding url params when adding new accounts</li>
+              <li>Fixed freezing due to measuring some posts with custom emojis</li>
+              <li>Fixed websocket connections closing after a while</li>
+              <li>Disabled markup in poll rows</li>
+              <li>Vertically centered reveal label icon</li>
+              <li>Fixed notifications not working on flatpak</li>
+              <li>Fixed pinch-to-zoom not feeling natural</li>
+              <li>Fixed jumping when switching between zoomed-in and not zoomed-in</li>
+              <li>Read the full changelog on the repo</li>
+          </ul>
+        </description>
+    </release>
     <release version="0.3.2" date="2023-05-21">
         <description translatable="no">
           <ul>
