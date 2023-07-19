@@ -229,7 +229,13 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             vexpand = true,
             hexpand = true
         };
-        overlay.add_overlay (generate_media_buttons ());
+
+        Gtk.Widget zoom_btns;
+        Gtk.Widget page_btns;
+        generate_media_buttons (out page_btns, out zoom_btns);
+
+        overlay.add_overlay (page_btns);
+        overlay.add_overlay (zoom_btns);
         overlay.child = carousel;
 
         var drag = new Gtk.GestureDrag ();
@@ -326,14 +332,16 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
     uint revealer_timeout = 0;
     protected void on_reveal_media_buttons () {
-        media_buttons_revealer.set_reveal_child (true);
+        page_buttons_revealer.set_reveal_child (true);
+        zoom_buttons_revealer.set_reveal_child (true);
 
         if (revealer_timeout > 0) GLib.Source.remove (revealer_timeout);
         revealer_timeout = Timeout.add (5 * 1000, on_hide_media_buttons, Priority.LOW);
     }
 
     protected bool on_hide_media_buttons () {
-        media_buttons_revealer.set_reveal_child (false);
+        page_buttons_revealer.set_reveal_child (false);
+        zoom_buttons_revealer.set_reveal_child (false);
         revealer_timeout = 0;
 
         return GLib.Source.REMOVE;
@@ -563,27 +571,11 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
     private Gtk.Button zoom_out_btn;
     private Gtk.Button zoom_in_btn;
-    private Gtk.Revealer media_buttons_revealer;
-    private Gtk.Widget generate_media_buttons () {
-        var media_buttons = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
-            valign = Gtk.Align.END,
-            margin_end = 18,
-            margin_start = 18,
-            margin_bottom = 18
-        };
-
-        var page_btns = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
-            valign = Gtk.Align.END,
-            halign = Gtk.Align.START
-        };
-
-        var zoom_btns = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
-            valign = Gtk.Align.END,
-            halign = Gtk.Align.END,
-            hexpand = true,
-            visible = false
-        };
+    private Gtk.Revealer page_buttons_revealer;
+    private Gtk.Revealer zoom_buttons_revealer;
+    private void generate_media_buttons (out Gtk.Revealer page_btns, out Gtk.Revealer zoom_btns) {
+        var t_page_btns = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+        var t_zoom_btns = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
 
         var prev_btn = new Gtk.Button.from_icon_name ("go-previous-symbolic") {
             css_classes = {"circular", "osd", "media-viewer-fab"},
@@ -605,8 +597,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             next_btn.visible = has_more_than_1_item;
         });
 
-        page_btns.append (prev_btn);
-        page_btns.append (next_btn);
+        t_page_btns.append (prev_btn);
+        t_page_btns.append (next_btn);
 
         zoom_out_btn = new Gtk.Button.from_icon_name ("zoom-out-symbolic") {
             css_classes = {"circular", "osd", "media-viewer-fab"},
@@ -628,11 +620,11 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             // Media buttons overlap the video
             // controller, so position them higher
             if (safe_get ((int) pos)?.is_video) {
-                media_buttons.margin_bottom = 68;
-                zoom_btns.visible = false;
+                page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 68;
+                zoom_buttons_revealer.visible = false;
             } else {
-                media_buttons.margin_bottom = 18;
-                zoom_btns.visible = true;
+                page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 18;
+                zoom_buttons_revealer.visible = true;
             }
 
             on_zoom_change ();
@@ -640,19 +632,30 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
         zoom_changed.connect (on_zoom_change);
 
-        zoom_btns.append (zoom_out_btn);
-        zoom_btns.append (zoom_in_btn);
+        t_zoom_btns.append (zoom_out_btn);
+        t_zoom_btns.append (zoom_in_btn);
 
-        media_buttons.append (page_btns);
-        media_buttons.append (zoom_btns);
-
-        media_buttons_revealer = new Gtk.Revealer () {
-            child = media_buttons,
+        zoom_buttons_revealer = new Gtk.Revealer () {
+            child = t_zoom_btns,
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-            valign = Gtk.Align.END
+            valign = Gtk.Align.END,
+            halign = Gtk.Align.END,
+            margin_end = 18,
+            margin_bottom = 18,
+            visible = false
         };
 
-        return media_buttons_revealer;
+        page_buttons_revealer = new Gtk.Revealer () {
+            child = t_page_btns,
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            valign = Gtk.Align.END,
+            halign = Gtk.Align.START,
+            margin_start = 18,
+            margin_bottom = 18
+        };
+
+        page_btns = page_buttons_revealer;
+        zoom_btns = zoom_buttons_revealer;
     }
 
     public void on_zoom_change () {
