@@ -22,6 +22,13 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
 
 				return true;
 			});
+
+            res.@foreach (e => {
+                e.value.sort ((a, b) => a.shortcode.collate (b.shortcode));
+
+                return true;
+            });
+
 		}
 
 		return res;
@@ -139,21 +146,27 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
 
     protected void populate_chooser () {
         var categorized_custom_emojis = gen_emojis_cat_map ();
+        var categories_keys = new Gee.ArrayList<string>.wrap (categorized_custom_emojis.keys.to_array ());
+        categories_keys.sort ((a, b) => a.collate (b));
 
-        categorized_custom_emojis.@foreach (e => {
-            if (e.key == _("Other")) return true;
-			create_category (e.key, e.value);
-
-			return true;
-		});
-
-        if (categorized_custom_emojis.has_key (_("Other")))
+        if (categorized_custom_emojis.has_key (_("Other"))) {
             create_category (
                 categorized_custom_emojis.size > 1
                     ? _("Other")
                     : _("Custom Emojis"),
                 categorized_custom_emojis.get (_("Other"))
             );
+
+            categories_keys.remove (_("Other"));
+        }
+
+
+        foreach (var t_shortcode in categories_keys) {
+            create_category (
+                t_shortcode,
+                categorized_custom_emojis.get (t_shortcode)
+            );
+        };
 
         is_populated = true;
     }
