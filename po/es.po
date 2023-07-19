@@ -10,9 +10,8 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 01:52+0300\n"
-"PO-Revision-Date: 2023-07-12 16:51+0000\n"
-"Last-Translator: Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted."
-"weblate.org>\n"
+"PO-Revision-Date: 2023-07-19 01:05+0000\n"
+"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tuba/tuba/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -193,16 +192,18 @@ msgstr "Aumenta la altura de las líneas de las publicaciones"
 
 #: data/ui/dialogs/preferences.ui:63
 msgid "Scale up custom emojis on hover"
-msgstr ""
+msgstr "Ampliar emojis personalizados al pasar el ratón por encima"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Makes custom emojis slightly bigger when you hover over them"
 msgstr ""
+"Los emojis personalizados aumentan ligeramente de tamaño al pasar el ratón "
+"por encima de ellos"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:76
 msgid "Letterbox Media"
-msgstr ""
+msgstr "Mantener proporciones al mostrar medios"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:79
@@ -210,20 +211,22 @@ msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
+"Escalar medios para que llenen el espacio del contenedor sin cambiar sus "
+"proporciones sin recortarlos"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:90
 msgid "Expand pictures in media viewer"
-msgstr ""
+msgstr "Ampliar las imágenes en el visor multimedia"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:93
 msgid "Expand pictures to fill the media viewer by default"
-msgstr ""
+msgstr "Ampliar las imágenes para completar el visor multimedia predeterminado"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Posting"
-msgstr "Publicar"
+msgstr "Publicación"
 
 #: data/ui/dialogs/preferences.ui:108
 msgid "Default post visibility"
@@ -318,8 +321,8 @@ msgstr "¿Cuál es su servidor?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
 "Si aún no tiene cuenta, <a href=\"https://joinmastodon.org/servers\">elija "
 "un servidor y registre una</a>."
@@ -383,7 +386,7 @@ msgstr "Compositor"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Commit"
-msgstr "Confirmación"
+msgstr "Confirmar"
 
 #: src/Widgets/VoteBox.vala:17
 msgid "Vote"
@@ -418,7 +421,7 @@ msgstr "Copiar URL"
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:274
 msgid "View Stats"
-msgstr "Ver las estadísticas"
+msgstr "Ver estadísticas"
 
 #: src/Widgets/Status.vala:278
 msgid "View Edit History"
@@ -479,7 +482,7 @@ msgstr "Marcador"
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Widgets/Status.vala:735 src/Views/Profile.vala:219
 msgid "%B %e, %Y"
-msgstr "%B %e, %Y"
+msgstr "%e de %B de %Y"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
@@ -579,7 +582,7 @@ msgstr "Conmutar pantalla completa"
 
 #: src/Views/MediaViewer.vala:589
 msgid "Previous Attachment"
-msgstr "Archivo Adjunto anterior"
+msgstr "Adjunto anterior"
 
 #: src/Views/MediaViewer.vala:594
 msgid "Next Attachment"
@@ -587,11 +590,11 @@ msgstr "Adjunto siguiente"
 
 #: src/Views/MediaViewer.vala:612
 msgid "Zoom Out"
-msgstr "Alejar"
+msgstr "Reducir"
 
 #: src/Views/MediaViewer.vala:617
 msgid "Zoom In"
-msgstr "Acercar"
+msgstr "Ampliar"
 
 #: src/Views/Thread.vala:13
 msgid "Conversation"
@@ -639,7 +642,7 @@ msgstr "¿Olvidar %s?"
 
 #: src/Views/Sidebar.vala:258
 msgid "This account will be removed from the application."
-msgstr "Esta aplicación será eliminada de la aplicación."
+msgstr "Esta cuenta se eliminará de la aplicación."
 
 #: src/Views/Sidebar.vala:260
 msgid "Forget"
@@ -675,7 +678,7 @@ msgstr "Perfil"
 #. which has as value the date the profile was created on
 #: src/Views/Profile.vala:229
 msgid "Joined"
-msgstr "Ingreso en"
+msgstr "Se unió el"
 
 #. translators: the variable is the amount of posts a user has made
 #: src/Views/Profile.vala:249
@@ -697,7 +700,7 @@ msgstr "%lld Seguidores"
 
 #: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:127
 msgid "Edit Profile"
-msgstr ""
+msgstr "Editar perfil"
 
 #: src/Views/Profile.vala:416
 #, c-format
@@ -1053,7 +1056,7 @@ msgstr "%s ha impulsado"
 #: src/Services/Accounts/InstanceAccount.vala:172
 #, c-format
 msgid "%s favorited your post"
-msgstr "%s ha marcado como favorito su publicación"
+msgstr "%s ha marcado como favorita su publicación"
 
 #: src/Services/Accounts/InstanceAccount.vala:177
 #, c-format
@@ -1077,12 +1080,12 @@ msgstr "%s ha editado una publicación"
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:85
 msgid "Label"
-msgstr ""
+msgstr "Etiqueta"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:93
 msgid "Content"
-msgstr ""
+msgstr "Contenido"
 
 #: src/Dialogs/ProfileEdit.vala:116
 #: src/Dialogs/Composer/AttachmentsPage.vala:206
@@ -1091,12 +1094,12 @@ msgstr "Todos los archivos compatibles"
 
 #: src/Dialogs/ProfileEdit.vala:145
 msgid "Display Name"
-msgstr ""
+msgstr "Nombre a mostrar"
 
 #. translators: profile bio or description
 #: src/Dialogs/ProfileEdit.vala:151
 msgid "Bio"
-msgstr ""
+msgstr "Bio"
 
 #: src/Dialogs/ProfileEdit.vala:171 src/Dialogs/Composer/EditorPage.vala:218
 msgid "Custom Emoji Picker"
@@ -1105,7 +1108,7 @@ msgstr "Selector de emoji personalizado"
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:186
 msgid "Fields"
-msgstr ""
+msgstr "Metadatos de perfil"
 
 #: src/Dialogs/ProfileEdit.vala:210
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:137
@@ -1114,22 +1117,22 @@ msgstr "Guardar"
 
 #: src/Dialogs/ProfileEdit.vala:215
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #: src/Dialogs/ProfileEdit.vala:230
 msgid "Edit Profile Picture"
-msgstr ""
+msgstr "Editar imagen de perfil"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:250
 msgid "Edit Header Picture"
-msgstr ""
+msgstr "Editar imagen de cabecera"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:360
 #, c-format
 msgid "Field %d"
-msgstr ""
+msgstr "Campo %d"
 
 #. translators: Open file
 #: src/Dialogs/ProfileEdit.vala:375 src/Dialogs/ProfileEdit.vala:383
@@ -1149,15 +1152,15 @@ msgstr ""
 
 #: src/Dialogs/NewAccount.vala:122
 msgid "Please enter a valid instance URL"
-msgstr "Por favor, introduce una URL de una instancia válida"
+msgstr "Por favor, introduzca una URL de una instancia válida"
 
 #: src/Dialogs/NewAccount.vala:158
 msgid "Please enter a valid authorization code"
-msgstr "Por favor, introduce un código de autorización válido"
+msgstr "Por favor, introduzca un código de autorización válido"
 
 #: src/Dialogs/NewAccount.vala:175
 msgid "Instance failed to authorize the access token"
-msgstr "La instancia falló al autorizar el token de acceso"
+msgstr "La instancia falló al autorizar el testigo de acceso"
 
 #: src/Dialogs/NewAccount.vala:184
 #, c-format
@@ -1280,7 +1283,7 @@ msgstr "Selector de emoji"
 
 #: src/Dialogs/Composer/EditorPage.vala:237
 msgid "Write your warning here"
-msgstr "Escribe tu advertencia aquí"
+msgstr "Escriba su advertencia aquí"
 
 #: src/Dialogs/Composer/EditorPage.vala:252
 msgid "Content Warning"

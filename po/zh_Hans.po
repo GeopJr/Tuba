@@ -312,8 +312,8 @@ msgstr "您的服务器是什么？"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
 "如果您还没有账户，请<a href=\"https://joinmastodon.org/zh/servers\">选择一个"
 "服务器并注册账户</a>。"

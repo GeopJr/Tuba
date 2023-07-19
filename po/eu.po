@@ -187,24 +187,31 @@ msgid "Makes the line height larger for posts"
 msgstr "Bidalketen lerroen arteko tartea handiagoa egiten du"
 
 #: data/ui/dialogs/preferences.ui:63
+#, fuzzy
 msgid "Scale up custom emojis on hover"
-msgstr ""
+msgstr "Handitu emojiak sagua goinetik pasatzean"
 
 #: data/ui/dialogs/preferences.ui:65
+#, fuzzy
 msgid "Makes custom emojis slightly bigger when you hover over them"
 msgstr ""
+"Zerbitzarik emojiak apur bat handitzen ditu sagua gainetik pasatzen duzunean"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:76
+#, fuzzy
 msgid "Letterbox Media"
-msgstr ""
+msgstr "Letterbox multimedia"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:79
+#, fuzzy
 msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
+"Murriztu multimedia edukia irudiaren eremua betetzeko, luzatu eta moztu "
+"beharrean"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:90
@@ -313,11 +320,11 @@ msgstr "Zein da zure zerbitzaria?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
-"Oraindik konturik ez baduzu, <a href=\"https://joinmastodon.org/"
-"servers\">hautatu zerbitzari bat eta eman izena</a>."
+"Oraindik konturik ez baduzu, <a href=\"https://joinmastodon.org/servers"
+"\">hautatu zerbitzari bat eta eman izena</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
@@ -696,7 +703,7 @@ msgstr "%lld jarraitzaile"
 
 #: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:127
 msgid "Edit Profile"
-msgstr ""
+msgstr "Editatu profila"
 
 #: src/Views/Profile.vala:416
 #, c-format
@@ -1077,12 +1084,12 @@ msgstr "%s(e)k bidalketa editatu du"
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:85
 msgid "Label"
-msgstr ""
+msgstr "Etiketa"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:93
 msgid "Content"
-msgstr ""
+msgstr "Edukia"
 
 #: src/Dialogs/ProfileEdit.vala:116
 #: src/Dialogs/Composer/AttachmentsPage.vala:206
@@ -1091,12 +1098,12 @@ msgstr "Bateragarriak diren fitxategi guztiak"
 
 #: src/Dialogs/ProfileEdit.vala:145
 msgid "Display Name"
-msgstr ""
+msgstr "Pantaila-izena"
 
 #. translators: profile bio or description
 #: src/Dialogs/ProfileEdit.vala:151
 msgid "Bio"
-msgstr ""
+msgstr "Biografia"
 
 #: src/Dialogs/ProfileEdit.vala:171 src/Dialogs/Composer/EditorPage.vala:218
 msgid "Custom Emoji Picker"
@@ -1105,7 +1112,7 @@ msgstr "Emoji hautatzailea"
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:186
 msgid "Fields"
-msgstr ""
+msgstr "Eremuak"
 
 #: src/Dialogs/ProfileEdit.vala:210
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:137
@@ -1114,22 +1121,22 @@ msgstr "Gorde"
 
 #: src/Dialogs/ProfileEdit.vala:215
 msgid "Close"
-msgstr ""
+msgstr "Itxi"
 
 #: src/Dialogs/ProfileEdit.vala:230
 msgid "Edit Profile Picture"
-msgstr ""
+msgstr "Editatu profileko irudia"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:250
 msgid "Edit Header Picture"
-msgstr ""
+msgstr "Editatu goiburuko irudia"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:360
 #, c-format
 msgid "Field %d"
-msgstr ""
+msgstr "%d. eremua"
 
 #. translators: Open file
 #: src/Dialogs/ProfileEdit.vala:375 src/Dialogs/ProfileEdit.vala:383

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 01:52+0300\n"
-"PO-Revision-Date: 2023-07-01 10:28+0000\n"
+"PO-Revision-Date: 2023-07-18 05:55+0000\n"
 "Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/tuba/tuba/sv/>\n"
 "Language: sv\n"
@@ -190,16 +190,16 @@ msgstr "Gör linjehöjden större för inlägg"
 
 #: data/ui/dialogs/preferences.ui:63
 msgid "Scale up custom emojis on hover"
-msgstr ""
+msgstr "Skala upp anpassade emojis när du håller muspekaren över dom"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Makes custom emojis slightly bigger when you hover over them"
-msgstr ""
+msgstr "Gör anpassade emojis något större när du håller muspekaren över dem"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:76
 msgid "Letterbox Media"
-msgstr ""
+msgstr "Letterbox Media"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:79
@@ -207,16 +207,18 @@ msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
+"Skala ner och ta hand om letterbox media för att fylla bildbehållarna "
+"istället för att sträcka ut och beskära dem"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:90
 msgid "Expand pictures in media viewer"
-msgstr ""
+msgstr "Expendera bilder i mediavisare"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:93
 msgid "Expand pictures to fill the media viewer by default"
-msgstr ""
+msgstr "Expandera bilder till att fylla mediavisare som standard"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Posting"
@@ -315,11 +317,11 @@ msgstr "Vad är din server?"
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
 msgid ""
-"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
-"servers\">choose a server and register one</a>."
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
+"\">choose a server and register one</a>."
 msgstr ""
-"Om du inte har ett konto än, <a href=\"https://joinmastodon.org/"
-"servers\">välj en server och registrera ett</a>."
+"Om du inte har ett konto än, <a href=\"https://joinmastodon.org/servers"
+"\">välj en server och registrera ett</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
@@ -693,7 +695,7 @@ msgstr "%lld Följare"
 
 #: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:127
 msgid "Edit Profile"
-msgstr ""
+msgstr "Redigera profil"
 
 #: src/Views/Profile.vala:416
 #, c-format
@@ -1072,12 +1074,12 @@ msgstr "%s redigerade ett inlägg"
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:85
 msgid "Label"
-msgstr ""
+msgstr "Etikett"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:93
 msgid "Content"
-msgstr ""
+msgstr "Innehåll"
 
 #: src/Dialogs/ProfileEdit.vala:116
 #: src/Dialogs/Composer/AttachmentsPage.vala:206
@@ -1086,12 +1088,12 @@ msgstr "Alla stödda filer"
 
 #: src/Dialogs/ProfileEdit.vala:145
 msgid "Display Name"
-msgstr ""
+msgstr "Visningsnamn"
 
 #. translators: profile bio or description
 #: src/Dialogs/ProfileEdit.vala:151
 msgid "Bio"
-msgstr ""
+msgstr "Biografi"
 
 #: src/Dialogs/ProfileEdit.vala:171 src/Dialogs/Composer/EditorPage.vala:218
 msgid "Custom Emoji Picker"
@@ -1100,7 +1102,7 @@ msgstr "Anpassad Emoji väljare"
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:186
 msgid "Fields"
-msgstr ""
+msgstr "Fält"
 
 #: src/Dialogs/ProfileEdit.vala:210
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:137
@@ -1109,22 +1111,22 @@ msgstr "Spara"
 
 #: src/Dialogs/ProfileEdit.vala:215
 msgid "Close"
-msgstr ""
+msgstr "Stäng"
 
 #: src/Dialogs/ProfileEdit.vala:230
 msgid "Edit Profile Picture"
-msgstr ""
+msgstr "Redigera profilbild"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:250
 msgid "Edit Header Picture"
-msgstr ""
+msgstr "Redigera huvudbild"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:360
 #, c-format
 msgid "Field %d"
-msgstr ""
+msgstr "Fält %d"
 
 #. translators: Open file
 #: src/Dialogs/ProfileEdit.vala:375 src/Dialogs/ProfileEdit.vala:383
