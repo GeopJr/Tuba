@@ -19,6 +19,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
         public bool can_zoom_in {
             get {
+                if (is_video) return false;
                 return scroller.hadjustment.upper < scroller.hadjustment.page_size * MAX_ZOOM
                 && scroller.vadjustment.upper < scroller.vadjustment.page_size * MAX_ZOOM;
             }
@@ -26,12 +27,12 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
         public bool can_zoom_out {
             get {
+                if (is_video) return false;
+
                 // If either horizontal or vertical scrollbar is visible,
                 // you should also be able to zoom out
-                return (
-                        scroller.hadjustment.upper > scroller.hadjustment.page_size
-                        || scroller.vadjustment.upper > scroller.vadjustment.page_size
-                    );
+                return scroller.hadjustment.upper > scroller.hadjustment.page_size
+                        || scroller.vadjustment.upper > scroller.vadjustment.page_size;
             }
         }
 
