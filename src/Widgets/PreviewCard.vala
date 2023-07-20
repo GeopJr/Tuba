@@ -142,7 +142,8 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
                 }
 
                 var used_times_label = new Gtk.Label (subtitle) {
-                    halign = Gtk.Align.START,
+                    halign = Gtk.Align.FILL,
+					xalign = 0.0f,
                     css_classes = {"dim-label", "caption"},
 					wrap = true
                 };
