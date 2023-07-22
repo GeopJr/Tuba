@@ -9,7 +9,6 @@ public class Tuba.Views.Main : Views.TabbedBase {
 
 	public override void build_header () {
 		base.build_header ();
-		back_button.hide ();
 
 		var search_button = new Gtk.Button ();
 		search_button.icon_name = "tuba-loupe-large-symbolic";
@@ -21,41 +20,25 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		header.pack_start (sidebar_button);
 		sidebar_button.icon_name = "tuba-dock-left-symbolic";
 
-		header.show_start_title_buttons = false;
 		app.notify["main-window"].connect (() => {
 			if (app.main_window == null) {
 				sidebar_button.hide ();
 				return;
 			}
 
-			app.main_window.flap.bind_property (
-				"folded",
+			app.main_window.split_view.bind_property (
+				"collapsed",
 				sidebar_button,
 				"visible",
-				BindingFlags.SYNC_CREATE,
-				(b, src, ref target) => {
-					var state = src.get_boolean ();
-					target.set_boolean (state);
-
-					var sidebar = app.main_window.flap.flap as Views.Sidebar;
-					if (sidebar != null) sidebar.show_window_controls = !state;
-					header.show_start_title_buttons = state;
-
-					return true;
-				}
+				BindingFlags.SYNC_CREATE
 			);
 
-			app.main_window.flap.bind_property (
-				"reveal-flap",
+			app.main_window.split_view.bind_property (
+				"show-sidebar",
 				sidebar_button,
 				"active",
 				BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL
 			);
-			//  app.main_window.flap.bind_property ("reveal-flap", sidebar_button, "icon-name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			//  	var state = src.get_boolean ();
-			//  	target.set_string (state ? "sidebar-hide-symbolic" : "sidebar-show-symbolic" );
-			//  	return true;
-			//  });
 		});
 
 	}

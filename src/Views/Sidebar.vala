@@ -9,18 +9,6 @@ public class Tuba.Views.Sidebar : Gtk.Box, AccountHolder {
 	[GtkChild] unowned Widgets.Avatar avatar;
 	[GtkChild] unowned Widgets.EmojiLabel title;
 	[GtkChild] unowned Gtk.Label subtitle;
-	[GtkChild] unowned Adw.HeaderBar sb_header;
-
-	private bool _show_window_controls = false;
-	public bool show_window_controls {
-		get {
-			return _show_window_controls;
-		}
-		set {
-			_show_window_controls = value;
-			sb_header.show_start_title_buttons = value;
-		}
-	}
 
 	protected InstanceAccount? account { get; set; default = null; }
 
@@ -56,6 +44,10 @@ public class Tuba.Views.Sidebar : Gtk.Box, AccountHolder {
 				app.lookup_action ("about").activate (null);
 			}
 	};
+
+	static construct {
+		typeof (Widgets.EmojiLabel).ensure ();
+	}
 
 	construct {
 		app_items = new GLib.ListStore (typeof (Place));
@@ -149,9 +141,9 @@ public class Tuba.Views.Sidebar : Gtk.Box, AccountHolder {
 		if (account == null) return;
 		account.open ();
 
-		var flap = app.main_window.flap;
-        if (flap.folded)
-			flap.reveal_flap = false;
+        var split_view = app.main_window.split_view;
+        if (split_view.collapsed)
+			split_view.show_sidebar = false;
 	}
 
 
@@ -188,9 +180,9 @@ public class Tuba.Views.Sidebar : Gtk.Box, AccountHolder {
 		if (row.place.open_func != null)
 			row.place.open_func (app.main_window);
 
-        var flap = app.main_window.flap;
-        if (flap.folded)
-			flap.reveal_flap = false;
+        var split_view = app.main_window.split_view;
+        if (split_view.collapsed)
+			split_view.show_sidebar = false;
 	}
 
 	void on_item_header_update (Gtk.ListBoxRow _row, Gtk.ListBoxRow? _before) {

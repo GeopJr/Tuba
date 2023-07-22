@@ -13,12 +13,6 @@
         <property name="centering_policy">strict</property>
         <property name="visible">True</property>
         <property name="hexpand">True</property>
-        <child>
-          <object class="GtkButton" id="back_button">
-            <property name="icon_name">tuba-left-large-symbolic</property>
-            <signal name="clicked" handler="on_close" swapped="no" />
-          </object>
-        </child>
       </object>
     </child>
 
