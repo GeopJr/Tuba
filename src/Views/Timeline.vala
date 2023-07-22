@@ -22,11 +22,11 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			if (_is_pulling != value) {
 				if (value) {
 					pull_to_refresh_spinner.spinning = true;
-					this.insert_child_after (pull_to_refresh_spinner, header);
+					scrolled_overlay.add_overlay (pull_to_refresh_spinner);
 					scrolled.sensitive = false;
 				} else {
 					pull_to_refresh_spinner.spinning = false;
-					this.remove (pull_to_refresh_spinner);
+					scrolled_overlay.remove_overlay (pull_to_refresh_spinner);
 					scrolled.sensitive = true;
 					pull_to_refresh_spinner.margin_top = 32;
 					pull_to_refresh_spinner.height_request = 32;
@@ -70,7 +70,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		pull_to_refresh_spinner = new Gtk.Spinner () {
 			height_request = 32,
 			margin_top = 32,
-			margin_bottom = 32
+			margin_bottom = 32,
+			halign = Gtk.Align.FILL,
+			valign = Gtk.Align.START
 		};
 
 		reached_close_to_top.connect (finish_queue);

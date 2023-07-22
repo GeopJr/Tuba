@@ -16,8 +16,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		bar = new Gtk.SearchBar () {
 			search_mode_enabled = true
 		};
-		prepend (bar);
-		reorder_child_after (bar, header);
+		toolbar_view.add_top_bar (bar);
 
 		entry = new Gtk.SearchEntry () {
 			width_chars = 25,

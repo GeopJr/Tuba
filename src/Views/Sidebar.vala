@@ -1,5 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/view.ui")]
-public class Tuba.Views.Sidebar : Gtk.Box, AccountHolder {
+public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	[GtkChild] unowned Gtk.ToggleButton accounts_button;
 	[GtkChild] unowned Gtk.Stack mode;
@@ -47,6 +47,7 @@ public class Tuba.Views.Sidebar : Gtk.Box, AccountHolder {
 
 	static construct {
 		typeof (Widgets.EmojiLabel).ensure ();
+		set_layout_manager_type (typeof (Gtk.BinLayout));
 	}
 
 	construct {

@@ -1,5 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/base.ui")]
-public class Tuba.Views.Base : Gtk.Box {
+public class Tuba.Views.Base : Adw.BreakpointBin {
 	// translators: Shown when there are 0 results
 	public static string STATUS_EMPTY = _("Nothing to see here"); // vala-lint=naming-convention
 
@@ -29,6 +29,7 @@ public class Tuba.Views.Base : Gtk.Box {
 	}
 
 	[GtkChild] protected unowned Adw.HeaderBar header;
+	[GtkChild] protected unowned Adw.ToolbarView toolbar_view;
 
 	[GtkChild] protected unowned Gtk.ScrolledWindow scrolled;
 	[GtkChild] protected unowned Gtk.Overlay scrolled_overlay;
@@ -76,8 +77,6 @@ public class Tuba.Views.Base : Gtk.Box {
 			_base_status = value;
 		}
 	}
-
-
 	construct {
 		build_actions ();
 		build_header ();
