@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 01:52+0300\n"
 "PO-Revision-Date: 2023-07-22 06:29+0000\n"
-"Last-Translator: Xalis Ratt <xalisratt@linux.pl>\n"
+"Last-Translator: Вова Смірнов <vovasmirnon5895@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tuba/tuba/uk/>"
 "\n"
 "Language: uk\n"
@@ -859,8 +859,9 @@ msgstr "Головна"
 
 #: src/Views/FollowRequests.vala:4
 #: src/Services/Accounts/Mastodon/Account.vala:118
+#, fuzzy
 msgid "Follow Requests"
-msgstr "Відстежувати запити"
+msgstr "Запити на підписку"
 
 #: src/Views/Federated.vala:7 src/Services/Accounts/Mastodon/Account.vala:109
 msgid "Federated"
