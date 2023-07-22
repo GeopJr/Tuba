@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Ali Galal <ali.sameh.galal@gmail.com>, 2023.
+# ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 01:52+0300\n"
-"PO-Revision-Date: 2023-05-03 03:58+0000\n"
-"Last-Translator: Ali Galal <ali.sameh.galal@gmail.com>\n"
+"PO-Revision-Date: 2023-07-24 16:04+0000\n"
+"Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -16,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
-msgstr ""
+msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
-msgstr ""
+msgstr "تصفح الفديفرس"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
@@ -32,7 +33,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr ""
+msgstr "تبويق;ماستدون;الفديفرس;غوتو سوشل;بليروما;أكوما;"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:9
 msgid ""
@@ -51,8 +52,9 @@ msgid ""
 msgstr ""
 
 #: data/ui/widgets/status.ui:157
+#, fuzzy
 msgid "Pinned"
-msgstr ""
+msgstr "مثبت"
 
 #: data/ui/widgets/status.ui:168
 msgid "Edited"
@@ -70,7 +72,7 @@ msgstr "إظهار المزيد"
 
 #: data/ui/widgets/status.ui:339 data/ui/widgets/status.ui:340
 msgid "Decline"
-msgstr ""
+msgstr "رفض"
 
 #: data/ui/widgets/status.ui:352 data/ui/widgets/status.ui:353
 msgid "Accept"
@@ -79,7 +81,7 @@ msgstr "موافقة"
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:36
 msgid "Bot"
-msgstr ""
+msgstr "حساب آلي"
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
@@ -104,7 +106,7 @@ msgstr "نسخ المعرف"
 
 #: data/ui/menus.ui:29
 msgid "Moderation"
-msgstr ""
+msgstr "الإشراف"
 
 #: data/ui/menus.ui:31
 msgid "Hide Boosts"
@@ -134,7 +136,7 @@ msgstr "الخط الزمني"
 
 #: data/ui/menus.ui:61
 msgid "Filter"
-msgstr ""
+msgstr "تصفية"
 
 #: data/ui/menus.ui:80
 msgid "Include Replies"
@@ -147,7 +149,7 @@ msgstr ""
 #: data/ui/menus.ui:108 src/Views/Lists.vala:281
 #: src/Services/Accounts/Mastodon/Account.vala:74
 msgid "Lists"
-msgstr ""
+msgstr "القوائم"
 
 #: data/ui/menus.ui:113 data/gtk/help-overlay.ui:20
 msgid "Refresh"
@@ -163,9 +165,8 @@ msgid "Appearance"
 msgstr "المظهر"
 
 #: data/ui/dialogs/preferences.ui:25
-#, fuzzy
 msgid "Color Scheme"
-msgstr "لون الثمة"
+msgstr "نظام الألوان"
 
 #: data/ui/dialogs/preferences.ui:39
 #, fuzzy
@@ -208,7 +209,7 @@ msgstr ""
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:90
 msgid "Expand pictures in media viewer"
-msgstr ""
+msgstr "توسيع الصور في عارض الوسائط"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:93
@@ -229,11 +230,11 @@ msgstr "لغة النشر الافتراضية"
 
 #: data/ui/dialogs/preferences.ui:128
 msgid "Behavior"
-msgstr ""
+msgstr "السلوك"
 
 #: data/ui/dialogs/preferences.ui:131
 msgid "Autostart"
-msgstr ""
+msgstr "تشغيل تلقائي"
 
 #: data/ui/dialogs/preferences.ui:133
 msgid "Start minimized at boot"
