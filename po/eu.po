@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 01:52+0300\n"
-"PO-Revision-Date: 2023-07-22 06:29+0000\n"
+"PO-Revision-Date: 2023-07-24 16:04+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -39,7 +39,7 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-"Esploratu federatutako web soziala GNOMErako Tuba-rekin. Mantendu harremana "
+"Arakatu federatutako web soziala GNOMErako Tuba-rekin. Mantendu harremana "
 "zure komunitate gogokoenekin eta familia eta lagunekin, Mastodon, "
 "GoToSocial, Akkoma eta bestelako Fedibertsoko plataformen laguntzaz!"
 
@@ -869,7 +869,7 @@ msgstr "Gogokoak"
 
 #: src/Views/Explore.vala:3 src/Services/Accounts/Mastodon/Account.vala:91
 msgid "Explore"
-msgstr "Esploratu"
+msgstr "Arakatu"
 
 #: src/Views/Explore.vala:7
 msgid "News"
