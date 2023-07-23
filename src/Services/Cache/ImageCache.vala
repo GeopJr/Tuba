@@ -40,7 +40,7 @@ public class Tuba.ImageCache : AbstractCache {
                         return;
                     }
 
-                    // message (@"[*] $key");
+                    // debug (@"[*] $key");
                     insert (url, paintable);
                     Signal.emit_by_name (download_msg, "finished");
 
@@ -58,7 +58,7 @@ public class Tuba.ImageCache : AbstractCache {
 		else {
 			// This image is either cached or already downloading, so we can serve the result immediately.
 
-            //message ("[/]: %s", key);
+            //debug ("[/]: %s", key);
             ulong id = 0;
             id = download_msg.finished.connect (() => {
                 cb (true, lookup (key) as Gdk.Paintable);

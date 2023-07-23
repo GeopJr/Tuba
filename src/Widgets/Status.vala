@@ -203,7 +203,7 @@ public class Tuba.Widgets.Status : Adw.Bin {
 		init_menu_button ();
 	}
 	~Status () {
-		message ("Destroying Status widget");
+		debug ("Destroying Status widget");
 		if (context_menu != null) {
 			context_menu.menu_model = null;
 			context_menu.dispose ();

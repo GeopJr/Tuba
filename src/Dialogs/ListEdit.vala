@@ -1,7 +1,7 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/list_edit.ui")]
 public class Tuba.Dialogs.ListEdit : Adw.PreferencesWindow {
 	~ListEdit () {
-		message ("Destroying ListEdit");
+		debug ("Destroying ListEdit");
 	}
 
     public enum RepliesPolicy {

@@ -23,7 +23,7 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
     }
 
     ~BookWyrmPage () {
-		message ("Destroying BookWyrmPage");
+		debug ("Destroying BookWyrmPage");
 	}
 
     public BookWyrmPage (API.BookWyrm t_obj) {

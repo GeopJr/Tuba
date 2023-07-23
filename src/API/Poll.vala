@@ -50,7 +50,7 @@ public class Tuba.API.Poll : GLib.Object, Json.Serializable {
         Gee.ArrayList<string> selection,
         string id
     ) {
-        message (@"Voting poll $(id)…");
+        debug (@"Voting poll $(id)…");
  		  //Creating json to send
         var builder = new Json.Builder ();
         builder.begin_object ();

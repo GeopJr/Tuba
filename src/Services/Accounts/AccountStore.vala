@@ -44,7 +44,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 	}
 
 	public virtual void add (InstanceAccount account) throws GLib.Error {
-		message (@"Adding new account: $(account.handle)");
+		debug (@"Adding new account: $(account.handle)");
 		saved.add (account);
 		changed (saved);
 		save ();
@@ -52,7 +52,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 	}
 
 	public virtual void remove (InstanceAccount account) throws GLib.Error {
-		message (@"Removing account: $(account.handle)");
+		debug (@"Removing account: $(account.handle)");
 		account.removed ();
 		saved.remove (account);
 		changed (saved);
@@ -77,10 +77,10 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			active.deactivated ();
 
 		if (account == null) {
-			message ("Reset active account");
+			debug ("Reset active account");
 			return;
 		} else {
-			message (@"Activating $(account.handle)…");
+			debug (@"Activating $(account.handle)…");
 			entity_cache.nuke ();
 			account.verify_credentials.begin ((obj, res) => {
 				try {
@@ -151,7 +151,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			throw new Oopsie.INTERNAL ("This instance is unsupported.");
 		else {
 			account.backend = backend;
-			message (@"$(account.instance) is using $(account.backend)");
+			debug (@"$(account.instance) is using $(account.backend)");
 		}
 	}
 

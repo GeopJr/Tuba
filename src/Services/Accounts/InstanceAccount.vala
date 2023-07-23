@@ -130,14 +130,14 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		var updated = API.Account.from (node);
 		patch (updated);
 
-		message (@"$handle: profile updated");
+		debug (@"$handle: profile updated");
 	}
 
 	public async Entity resolve (string url) throws Error {
-		message (@"Resolving URL: \"$url\"…");
+		debug (@"Resolving URL: \"$url\"…");
 		var results = yield API.SearchResults.request (url, this);
 		var entity = results.first ();
-		message (@"Found $(entity.get_class ().get_name ())");
+		debug (@"Found $(entity.get_class ().get_name ())");
 		return entity;
 	}
 
@@ -265,7 +265,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	public void read_notifications (int up_to_id) {
-		message (@"Reading notifications up to id $up_to_id");
+		debug (@"Reading notifications up to id $up_to_id");
 
 		if (up_to_id > last_read_id) {
 			last_read_id = up_to_id;
@@ -306,7 +306,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	//  public void read_notification (int id) {
 	//  	if (id <= last_read_id) {
-	//  		message (@"Read notification with id: $id");
+	//  		debug (@"Read notification with id: $id");
 	//  		app.withdraw_notification (id.to_string ());
 	//  		unread_toasts.unset (id);
 	//  	}

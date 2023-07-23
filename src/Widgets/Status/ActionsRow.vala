@@ -123,7 +123,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			req = this.status.unbookmark_req ();
 		}
 
-		message (@"Performing status action '$action'…");
+		debug (@"Performing status action '$action'…");
 		mastodon_action (status_btn, req, action);
 	}
 
@@ -145,7 +145,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		}
 		status_btn.amount += status_btn.active ? 1 : -1;
 
-		message (@"Performing status action '$action'…");
+		debug (@"Performing status action '$action'…");
 		mastodon_action (status_btn, req, action, "favourites-count");
 	}
 
@@ -167,7 +167,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		}
 		status_btn.amount += status_btn.active ? 1 : -1;
 
-		message (@"Performing status action '$action'…");
+		debug (@"Performing status action '$action'…");
 		mastodon_action (status_btn, req, action, "reblogs-count");
 	}
 
@@ -202,7 +202,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 				//  }
 
 				//  this.status.patch (e);
-				message (@"Status action '$action' complete");
+				debug (@"Status action '$action' complete");
 			} catch (Error e) {
 				warning (@"Couldn't perform action \"$action\" on a Status:");
 				warning (e.message);

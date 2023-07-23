@@ -116,7 +116,7 @@ namespace Tuba {
 			try {
 				var lines = troubleshooting.split ("\n");
 				foreach (unowned string line in lines) {
-					message (line);
+					debug (line);
 				}
 				Adw.init ();
 				GtkSource.init ();
@@ -189,12 +189,12 @@ namespace Tuba {
 			if (accounts.saved.is_empty) {
 				if (main_window != null && destroy_main)
 					main_window.hide ();
-				message ("Presenting NewAccount dialog");
+				debug ("Presenting NewAccount dialog");
 				if (add_account_window == null)
 					new Dialogs.NewAccount ();
 				add_account_window.present ();
 			} else {
-				message ("Presenting MainWindow");
+				debug ("Presenting MainWindow");
 				if (main_window == null) {
 					main_window = new Dialogs.MainWindow (this);
 					is_rtl = Gtk.Widget.get_default_direction () == Gtk.TextDirection.RTL;

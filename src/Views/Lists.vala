@@ -171,7 +171,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 	}
 
 	~Lists () {
-		message ("Destroying Lists view");
+		debug ("Destroying Lists view");
 	}
 
     public override void on_request_finish () {

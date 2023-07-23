@@ -10,7 +10,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	~AttachmentsPageAttachment () {
 		close_dialog ();
-		message ("Destroying AttachmentsPageAttachment");
+		debug ("Destroying AttachmentsPageAttachment");
 	}
 
     public AttachmentsPageAttachment (

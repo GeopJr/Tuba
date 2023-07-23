@@ -1,12 +1,12 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/profile_edit.ui")]
 public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 	~ProfileEdit () {
-		message (@"Destroying ProfileEdit for $(profile.handle)");
+		debug (@"Destroying ProfileEdit for $(profile.handle)");
 	}
 
 	public class Field : Adw.ExpanderRow {
 		~Field () {
-			message ("Destroying ProfileEdit.Field");
+			debug ("Destroying ProfileEdit.Field");
 		}
 
 		Adw.EntryRow key_row;

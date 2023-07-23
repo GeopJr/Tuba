@@ -167,7 +167,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		});
 	}
 	~Compose () {
-		message ("Destroying composer");
+		debug ("Destroying composer");
 		foreach (var page in t_pages) {
 			page.dispose ();
 		}
@@ -437,7 +437,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		var parser = Network.get_parser_from_inputstream (publish_req.response_body);
 		var node = network.parse_node (parser);
 		var status = API.Status.from (node);
-		message (@"Published post with id $(status.id)");
+		debug (@"Published post with id $(status.id)");
 		if (cb != null) cb (status);
 
 		on_close ();

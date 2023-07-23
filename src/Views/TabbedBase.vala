@@ -32,7 +32,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 	}
 
 	~TabbedBase () {
-		message ("Destroying TabbedBase");
+		debug ("Destroying TabbedBase");
 
 		foreach (var tab in views) {
 			stack.remove (tab);

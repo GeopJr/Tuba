@@ -35,7 +35,7 @@ public class Tuba.AbstractCache : Object {
 	}
 
 	bool maintenance_func () {
-		// message ("maintenance start");
+		// debug ("maintenance start");
 		if (size > 0) {
 			uint cleared = 0;
 			var iter = items.map_iterator ();
@@ -51,17 +51,17 @@ public class Tuba.AbstractCache : Object {
 				// }
 				if (obj.ref_count < min_ref_count) {
 					cleared++;
-					message (@"Freeing: $(iter.get_key ())");
+					debug (@"Freeing: $(iter.get_key ())");
 					iter.unset ();
 					obj.dispose ();
 				}
 			}
 
 			if (cleared > 0)
-				message (@"Freed $cleared items from cache. Size: $size");
+				debug (@"Freed $cleared items from cache. Size: $size");
 		}
 
-		// message ("maintenance end");
+		// debug ("maintenance end");
 		return Source.CONTINUE;
 	}
 
@@ -87,7 +87,7 @@ public class Tuba.AbstractCache : Object {
 
 	protected string insert (string id, owned Object obj) {
 		var key = get_key (id);
-		message (@"Inserting: $key");
+		debug (@"Inserting: $key");
 		items.@set (key, (owned) obj);
 
 		var nobj = items.@get (key);
@@ -97,7 +97,7 @@ public class Tuba.AbstractCache : Object {
 	}
 
 	public void nuke () {
-		message ("Clearing cache");
+		debug ("Clearing cache");
 		items.clear ();
 		items_in_progress.clear ();
 	}

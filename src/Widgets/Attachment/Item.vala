@@ -41,7 +41,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 			try {
 				var file = chooser.save.end (res);
 				if (file != null) {
-					message (@"Downloading file: $(url)…");
+					debug (@"Downloading file: $(url)…");
 					download.begin (url, file, (obj, res) => {
 						download.end (res);
 					});
@@ -62,7 +62,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 			try {
 				stream.splice (data, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);
 
-				message (@"   OK: File written to: $(file.get_path ())");
+				debug (@"   OK: File written to: $(file.get_path ())");
 			} catch (GLib.IOError e) {
 				warning (e.message);
 				//  app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
@@ -124,7 +124,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		child = overlay;
 	}
 	~Item () {
-		message ("Destroying Attachment.Item widget");
+		debug ("Destroying Attachment.Item widget");
 		context_menu.unparent ();
 	}
 

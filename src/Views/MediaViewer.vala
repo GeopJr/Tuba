@@ -157,7 +157,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		}
 
 		~Item () {
-			message ("Destroying MediaViewer.Item");
+			debug ("Destroying MediaViewer.Item");
 
 			if (is_video) {
 				last_used_volume = ((Gtk.Video) child_widget).media_stream.muted ? 0.0 : ((Gtk.Video) child_widget).media_stream.volume;
@@ -330,7 +330,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		setup_double_click ();
 	}
 	~MediaViewer () {
-		message ("Destroying MediaViewer");
+		debug ("Destroying MediaViewer");
 	}
 
 	int? old_height;

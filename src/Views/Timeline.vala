@@ -99,7 +99,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
         this.add_controller (drag);
 	}
 	~Timeline () {
-		message (@"Destroying Timeline $label");
+		debug (@"Destroying Timeline $label");
 
 		entity_queue = {};
 		destruct_account_holder ();

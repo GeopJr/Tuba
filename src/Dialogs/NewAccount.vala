@@ -75,7 +75,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	}
 
 	void reset () {
-		message ("Reset state");
+		debug ("Reset state");
 		clear_errors ();
 		use_auto_auth = true;
 		account = new InstanceAccount.empty (account.instance);
@@ -103,7 +103,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	}
 
 	void setup_instance () throws Error {
-		message ("Checking instance URL");
+		debug ("Checking instance URL");
 
 		var str = instance_entry.text
 			.replace ("/", "")
@@ -118,7 +118,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	}
 
 	async void register_client () throws Error {
-		message ("Registering client");
+		debug ("Registering client");
 
 		var msg = new Request.POST ("/api/v1/apps")
 			.with_account (account)
@@ -136,14 +136,14 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		account.client_id = root.get_string_member ("client_id");
 		account.client_secret = root.get_string_member ("client_secret");
-		message ("OK: Instance registered client");
+		debug ("OK: Instance registered client");
 
 		deck.visible_child = code_step;
 		open_confirmation_page ();
 	}
 
 	void open_confirmation_page () {
-		message ("Opening permission request page");
+		debug ("Opening permission request page");
 
 		var esc_scopes = Uri.escape_string (SCOPES);
 		var esc_redirect = Uri.escape_string (redirect_uri);
@@ -156,7 +156,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		if (code_entry.text.char_count () <= 10)
 			throw new Oopsie.USER (_("Please enter a valid authorization code"));
 
-		message ("Requesting access token");
+		debug ("Requesting access token");
 		var token_req = new Request.POST ("/oauth/token")
 			.with_account (account)
 			.with_form_data ("client_id", account.client_id)
@@ -177,19 +177,19 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		account = accounts.create_account (account.to_json ());
 
-		message ("Saving account");
+		debug ("Saving account");
 		accounts.add (account);
 
 		done_page.title = _("Hello, %s!").printf (account.display_name);
 		deck.visible_child = done_step;
 
-		message ("Switching to account");
+		debug ("Switching to account");
 		accounts.activate (account);
 	}
 
 	public void redirect (string t_uri) {
 		present ();
-		message (@"Received uri: $t_uri");
+		debug (@"Received uri: $t_uri");
 
 		string code_from_params = "";
 		try {

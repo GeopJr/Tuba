@@ -1,7 +1,7 @@
 public class Tuba.API.Status : Entity, Widgetizable {
 
 	~Status () {
-		message (@"[OBJ] Destroyed $(uri ?? "")");
+		debug (@"[OBJ] Destroyed $(uri ?? "")");
 	}
 
     public string id { get; set; }

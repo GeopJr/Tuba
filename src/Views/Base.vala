@@ -99,7 +99,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		scroll_to_top.clicked.connect (on_scroll_to_top);
 	}
 	~Base () {
-		message (@"Destroying base $label");
+		debug (@"Destroying base $label");
 	}
 
 	private void on_scroll_to_top () {
