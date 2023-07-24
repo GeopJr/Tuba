@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 01:52+0300\n"
-"PO-Revision-Date: 2023-07-22 06:29+0000\n"
+"PO-Revision-Date: 2023-07-25 18:04+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/tuba/tuba/fi/>\n"
 "Language: fi\n"
@@ -39,6 +39,9 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
+"Selaa liittoutunutta sosiaalista verkkoa Tuballa. Pysy yhdistettynä "
+"suosikkiyhteisöihisi, perheeseesi ja kavereihisi suosituilla "
+"liittoversumialustoilla kuten Mastodon, GoToSocial, Akkoma ja niin edelleen!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
 msgid ""
@@ -48,6 +51,12 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
+"Fediverse (vapaasti suomennettuna liittoversumi) on hajautettu sosiaalinen "
+"verkko, joka koostuu useista toisiinsa yhdistetyistä alustoista ja "
+"yhteisöistä, näin sallien käyttäjien keskustella ja jakaa sisältöä eri "
+"verkkojen sekä palvelinten välillä. Se edistää käyttäjien yksityisyyttä ja "
+"datan omistusoikeutta, ja tarjoaa vaihtoehdon keskittyneille sosiaalisen "
+"median alustoille."
 
 #: data/ui/widgets/status.ui:157
 msgid "Pinned"
@@ -470,7 +479,7 @@ msgstr "Kirjanmerkki"
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Widgets/Status.vala:735 src/Views/Profile.vala:219
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%e. %Bta %Y"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
@@ -1068,7 +1077,7 @@ msgstr "%s muokkasi viestiä"
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:85
 msgid "Label"
-msgstr ""
+msgstr "Otsikko"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:93
@@ -1087,7 +1096,7 @@ msgstr "Näyttönimi"
 #. translators: profile bio or description
 #: src/Dialogs/ProfileEdit.vala:151
 msgid "Bio"
-msgstr ""
+msgstr "Kuvaus"
 
 #: src/Dialogs/ProfileEdit.vala:171 src/Dialogs/Composer/EditorPage.vala:218
 msgid "Custom Emoji Picker"
