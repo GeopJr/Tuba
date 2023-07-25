@@ -63,6 +63,60 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		var dnd_controller = new Gtk.DropTarget (typeof (Gdk.FileList), Gdk.DragAction.COPY);
         dnd_controller.drop.connect (on_drag_drop);
         this.add_controller (dnd_controller);
+
+		var keypress_controller = new Gtk.EventControllerKey ();
+        keypress_controller.key_pressed.connect (on_key_pressed);
+		this.add_controller (keypress_controller);
+	}
+
+	private bool on_key_pressed (uint keyval, uint keycode, Gdk.ModifierType modifier) {
+		if ((keyval == Gdk.Key.v || keyval == Gdk.Key.V) && modifier == Gdk.ModifierType.CONTROL_MASK) {
+			on_clipboard_paste.begin ((obj, res) => {
+				on_clipboard_paste.end (res);
+			});
+			return true;
+		}
+		return false;
+	}
+
+	private async void on_clipboard_paste () {
+		File[] files = {};
+		bool text_failed = false;
+		Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+
+		try {
+			var copied_file_paths = yield clipboard.read_text_async (null);
+			if (copied_file_paths == null) {
+				text_failed = true;
+			} else {
+				var copied_file_paths_arr = copied_file_paths.split ("\n");
+				foreach (var copied_file_path in copied_file_paths_arr) {
+					File tmp_file = File.new_for_path (copied_file_path);
+					if (tmp_file.query_exists ()) {
+						files += tmp_file;
+					}
+				}
+			}
+		} catch (Error e) {
+			text_failed = true;
+		}
+
+		if (text_failed) {
+			try {
+				var copied_texture = yield clipboard.read_texture_async (null);
+				if (copied_texture == null) return;
+
+				FileIOStream stream;
+				files += yield File.new_tmp_async ("tuba-XXXXXX.png", GLib.Priority.DEFAULT, null, out stream);
+
+				OutputStream ostream = stream.output_stream;
+				yield ostream.write_bytes_async (copied_texture.save_to_png_bytes ());
+			} catch (Error e) {
+				warning (@"Couldn't get texture from clipboard: $(e.message)");
+			}
+		}
+
+		yield upload_files (files);
 	}
 
 	private bool on_drag_drop (Value val, double x, double y) {
