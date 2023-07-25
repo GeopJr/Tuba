@@ -33,6 +33,10 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	public GLib.ListStore attachments;
 	public Adw.ToastOverlay toast_overlay;
 	public bool media_sensitive { get; set; default = false; }
+	private FileFilter filter = new FileFilter () {
+			name = _("All Supported Files")
+	};
+	private Gee.ArrayList<string> supported_mimes = new Gee.ArrayList<string>.wrap (SUPPORTED_MIMES);
 
 	bool _uploading = false;
 	private bool uploading {
@@ -50,6 +54,8 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			title: _("Media"),
 			icon_name: "tuba-clip-attachment-symbolic"
 		);
+
+		populate_filter ();
 
 		attachments = new GLib.ListStore (typeof (API.Attachment));
 		attachments.items_changed.connect (on_attachments_changed);
@@ -226,12 +232,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		}
 	}
 
-	void show_file_selector () {
-		var filter = new FileFilter () {
-			name = _("All Supported Files")
-		};
-
-		var supported_mimes = new Gee.ArrayList<string>.wrap (SUPPORTED_MIMES);
+	private void populate_filter () {
 		if (
 			accounts.active.instance_info != null
 			&& accounts.active.instance_info.configuration != null
@@ -241,10 +242,13 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		) {
 			supported_mimes = accounts.active.instance_info.configuration.media_attachments.supported_mime_types;
 		}
-		foreach (var mime_type in supported_mimes) {
-			filter.add_mime_type (mime_type);
-		}
 
+		foreach (var mime_type in supported_mimes) {
+			filter.add_mime_type (mime_type.down ());
+		}
+	}
+
+	void show_file_selector () {
 		#if GTK_4_10
 			var chooser = new FileDialog () {
 				// translators: Open file
@@ -300,6 +304,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 	private async void upload_files (File[] files) {
 		var selected_files_amount = files.length;
+		if (selected_files_amount == 0) return;
 
 		// We want to only upload as many attachments as the server
 		// accepts based on the amount we have already uploaded.
@@ -319,6 +324,8 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 					if (file_content_type != null) {
 						file_content_type = file_content_type.down ();
+						if (!supported_mimes.contains (file_content_type)) continue;
+
 						var file_size = file_info.get_size ();
 						var skip = (
 							file_content_type.contains ("image/")
