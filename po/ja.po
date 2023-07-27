@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 01:52+0300\n"
-"PO-Revision-Date: 2023-03-29 09:37+0000\n"
+"PO-Revision-Date: 2023-07-22 06:29+0000\n"
 "Last-Translator: Gnuey56 <gnuey56@proton.me>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/tuba/tuba/ja/>\n"
 "Language: ja\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -68,7 +68,7 @@ msgstr "編集済み"
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:226
 msgid "Show Less"
-msgstr ""
+msgstr "表示を減らす"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:259 src/Widgets/Status.vala:385
@@ -76,7 +76,6 @@ msgid "Show More"
 msgstr "もっと見る"
 
 #: data/ui/widgets/status.ui:339 data/ui/widgets/status.ui:340
-#, fuzzy
 msgid "Decline"
 msgstr "拒否"
 
@@ -87,7 +86,7 @@ msgstr "許可"
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:36
 msgid "Bot"
-msgstr ""
+msgstr "ボット"
 
 #: data/ui/views/sidebar/view.ui:16
 #, fuzzy
@@ -191,37 +190,38 @@ msgstr "投稿文の段落間隔を大きくします"
 
 #: data/ui/dialogs/preferences.ui:63
 msgid "Scale up custom emojis on hover"
-msgstr ""
+msgstr "ホバー時にカスタム絵文字を拡大する"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Makes custom emojis slightly bigger when you hover over them"
-msgstr ""
+msgstr "カスタム絵文字をホバー時に少し大きくします"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:76
 msgid "Letterbox Media"
-msgstr ""
+msgstr "レターボックス式メディア"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:79
 msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
-msgstr ""
+msgstr "画像コンテナを引き伸ばしたりトリミングしたりするのではなく、メディアを縮小し"
+"てレターボックス化して画像コンテナを埋め尽くします"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:90
 msgid "Expand pictures in media viewer"
-msgstr ""
+msgstr "メディアビューアーで画像を拡大する"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:93
 msgid "Expand pictures to fill the media viewer by default"
-msgstr ""
+msgstr "デフォルトで画像をメディアビューアーを埋め尽くすように拡大する"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Posting"
-msgstr ""
+msgstr "投稿"
 
 #: data/ui/dialogs/preferences.ui:108
 msgid "Default post visibility"
@@ -594,7 +594,7 @@ msgstr ""
 
 #: src/Views/Thread.vala:13
 msgid "Conversation"
-msgstr "やりとり"
+msgstr "会話"
 
 #: src/Views/StatusStats.vala:6
 msgid "Post Stats"

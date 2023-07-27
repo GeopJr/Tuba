@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 01:52+0300\n"
-"PO-Revision-Date: 2023-07-04 17:58+0000\n"
+"PO-Revision-Date: 2023-07-24 16:04+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -39,7 +39,7 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-"Esploratu federatutako web soziala GNOMErako Tuba-rekin. Mantendu harremana "
+"Arakatu federatutako web soziala GNOMErako Tuba-rekin. Mantendu harremana "
 "zure komunitate gogokoenekin eta familia eta lagunekin, Mastodon, "
 "GoToSocial, Akkoma eta bestelako Fedibertsoko plataformen laguntzaz!"
 
@@ -187,25 +187,21 @@ msgid "Makes the line height larger for posts"
 msgstr "Bidalketen lerroen arteko tartea handiagoa egiten du"
 
 #: data/ui/dialogs/preferences.ui:63
-#, fuzzy
 msgid "Scale up custom emojis on hover"
-msgstr "Handitu emojiak sagua goinetik pasatzean"
+msgstr "Handitu emojiak sagua gainetik pasatzean"
 
 #: data/ui/dialogs/preferences.ui:65
-#, fuzzy
 msgid "Makes custom emojis slightly bigger when you hover over them"
 msgstr ""
-"Zerbitzarik emojiak apur bat handitzen ditu sagua gainetik pasatzen duzunean"
+"Zerbitzariko emojiak apur bat handitzen ditu sagua gainetik pasatzen duzunean"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:76
-#, fuzzy
 msgid "Letterbox Media"
 msgstr "Letterbox multimedia"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:79
-#, fuzzy
 msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
@@ -216,16 +212,16 @@ msgstr ""
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:90
 msgid "Expand pictures in media viewer"
-msgstr ""
+msgstr "Handitu irudiak multimedia ikustailean"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:93
 msgid "Expand pictures to fill the media viewer by default"
-msgstr ""
+msgstr "Handitu irudiak multimedia ikustailearen eremua betetzeko defektuz"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Posting"
-msgstr "Bidalketak"
+msgstr "Bidalketa"
 
 #: data/ui/dialogs/preferences.ui:108
 msgid "Default post visibility"
@@ -380,12 +376,10 @@ msgid "Quit"
 msgstr "Itxi"
 
 #: data/gtk/help-overlay.ui:53
-#, fuzzy
 msgid "Composer"
 msgstr "Editorea"
 
 #: data/gtk/help-overlay.ui:56
-#, fuzzy
 msgid "Commit"
 msgstr "Bidali"
 
@@ -529,7 +523,6 @@ msgstr "Ez dago emaitzarik"
 #: src/Widgets/CustomEmojiChooser.vala:153
 #: src/Widgets/CustomEmojiChooser.vala:155 src/API/Emoji.vala:4
 #: src/API/Emoji.vala:8
-#, fuzzy
 msgid "Other"
 msgstr "Besteren bat"
 
@@ -603,7 +596,6 @@ msgid "Conversation"
 msgstr "Elkarrizketa"
 
 #: src/Views/StatusStats.vala:6
-#, fuzzy
 msgid "Post Stats"
 msgstr "Argitalpenaren estatistikak"
 
@@ -619,7 +611,7 @@ msgstr "Bultzatu du(te):"
 
 #: src/Views/Sidebar.vala:36
 msgid "Keyboard Shortcuts"
-msgstr "Teklatuaren lasterbideak"
+msgstr "Lasterbideak"
 
 #: src/Views/Sidebar.vala:45
 msgid "Preferences"
@@ -876,9 +868,8 @@ msgid "Favorites"
 msgstr "Gogokoak"
 
 #: src/Views/Explore.vala:3 src/Services/Accounts/Mastodon/Account.vala:91
-#, fuzzy
 msgid "Explore"
-msgstr "Esploratu"
+msgstr "Arakatu"
 
 #: src/Views/Explore.vala:7
 msgid "News"
@@ -1181,7 +1172,7 @@ msgstr "Bozketa"
 #. translators: tooltip on a button that appends another poll entry / option
 #: src/Dialogs/Composer/PollPage.vala:114
 msgid "Add Poll"
-msgstr "Gehitu bozketa"
+msgstr "Gehitu aukera"
 
 #: src/Dialogs/Composer/PollPage.vala:123
 #: src/Dialogs/Composer/PollPage.vala:136
@@ -1195,14 +1186,12 @@ msgstr "Ezgaitu aukera anitzak"
 
 #: src/Dialogs/Composer/PollPage.vala:145
 #: src/Dialogs/Composer/PollPage.vala:159
-#, fuzzy
 msgid "Hide Total Votes"
-msgstr "Ezkutatu emaitza totala"
+msgstr "Ezkutatu bozka kopurua"
 
 #: src/Dialogs/Composer/PollPage.vala:159
-#, fuzzy
 msgid "Show Total Votes"
-msgstr "Erakutsi emaitza totala"
+msgstr "Erakutsi bozka kopurua"
 
 #: src/Dialogs/Composer/PollPage.vala:187
 #: src/Dialogs/Composer/PollPage.vala:222
@@ -1312,7 +1301,7 @@ msgstr "Idatzitakoa galduko duzu."
 
 #: src/Dialogs/Composer/Dialog.vala:191
 msgid "Discard"
-msgstr "Baztertu"
+msgstr "Bai, ziur"
 
 #: src/Dialogs/Composer/Dialog.vala:276
 msgid "_Redraft"
