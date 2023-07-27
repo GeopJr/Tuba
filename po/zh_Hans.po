@@ -19,11 +19,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.18-dev\n"
 
-#: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
+#: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
 msgstr "Tuba"
 
-#: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
+#: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
 msgstr "浏览 Fediverse"
 
@@ -35,7 +35,7 @@ msgstr "Fediverse 客户端"
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
 msgstr ""
 
-#: data/dev.geopjr.Tuba.appdata.xml.in:9
+#: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
 "Explore the federated social web with Tuba for GNOME. Stay connected to your "
 "favorite communities, family and friends with support for popular Fediverse "
@@ -44,7 +44,7 @@ msgstr ""
 "使用 Tuba for GNOME 探索联合社交网络。支持流行的Fediverse平台如 Mastodon、"
 "GoToSocial、Akkoma 等，与您喜爱的社区、家人和朋友保持联系！"
 
-#: data/dev.geopjr.Tuba.appdata.xml.in:12
+#: data/dev.geopjr.Tuba.metainfo.xml.in:12
 msgid ""
 "The Fediverse is a decentralized social network that consists of multiple "
 "interconnected platforms and communities, allowing users to communicate and "
