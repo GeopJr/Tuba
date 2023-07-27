@@ -20,6 +20,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool strip_tracking { get; set; }
 	public bool letterbox_media { get; set; }
 	public bool media_viewer_expand_pictures { get; set; }
+	public bool enlarge_custom_emojis { get; set; }
 
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
@@ -40,6 +41,7 @@ public class Tuba.Settings : GLib.Settings {
 		init ("scale-emoji-hover");
 		init ("letterbox-media");
 		init ("media-viewer-expand-pictures");
+		init ("enlarge-custom-emojis");
 	}
 
 	void init (string key) {

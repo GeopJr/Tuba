@@ -60,6 +60,18 @@
             </child>
             <child>
               <object class="AdwActionRow">
+                <property name="title" translatable="yes">Enlarge custom emojis</property>
+                <property name="activatable_widget">enlarge_custom_emojis</property>
+                <property name="subtitle" translatable="yes">Enlarges custom emojis</property>
+                <child>
+                  <object class="GtkSwitch" id="enlarge_custom_emojis">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
                 <property name="title" translatable="yes">Scale up custom emojis on hover</property>
                 <property name="activatable_widget">scale_emoji_hover</property>
                 <property name="subtitle" translatable="yes">Makes custom emojis slightly bigger when you hover over them</property>
