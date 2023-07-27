@@ -178,7 +178,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 		dialog = new Adw.Window () {
 			modal = true,
-			title = "Alternative text for attachment",
+			title = _("Alternative text for attachment"),
 			transient_for = compose_dialog,
 			content = box,
 			default_width = 400,
