@@ -55,6 +55,6 @@ if appstream_util.found()
     test(
         'Validate appstream file',
         appstream_util,
-        args: ['validate-relax', appstream_file],
+        args: ['validate-relax', '--nonet', appstream_file],
     )
 endif
