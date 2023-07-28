@@ -20,11 +20,11 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 5.0-dev\n"
 
-#: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
+#: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
 msgstr "Tuba"
 
-#: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
+#: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
 msgstr "Przeglądaj fediwersum"
 
@@ -36,7 +36,7 @@ msgstr "Klient fediwersum"
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
 msgstr "toot;wpis;mastodon;fediverse;fediwersum;gotosocial;pleroma;akkoma;"
 
-#: data/dev.geopjr.Tuba.appdata.xml.in:9
+#: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
 "Explore the federated social web with Tuba for GNOME. Stay connected to your "
 "favorite communities, family and friends with support for popular Fediverse "
@@ -47,7 +47,7 @@ msgstr ""
 "dla popularnych platform fediwersum, takich jak Mastodon, GoToSocial, Akkoma "
 "i innych!"
 
-#: data/dev.geopjr.Tuba.appdata.xml.in:12
+#: data/dev.geopjr.Tuba.metainfo.xml.in:12
 msgid ""
 "The Fediverse is a decentralized social network that consists of multiple "
 "interconnected platforms and communities, allowing users to communicate and "
