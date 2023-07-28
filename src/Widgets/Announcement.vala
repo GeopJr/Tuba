@@ -31,7 +31,7 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 			// translators: the variable is the emoji or its name if it's custom
 			tooltip_text = _("React with %s").printf (reaction.name);
 			shortcode = reaction.name;
-			
+
 			var badge = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 			if (reaction.url != null) {
 				badge.append (new Widgets.Emoji (reaction.url));
