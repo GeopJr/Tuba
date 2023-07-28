@@ -115,7 +115,7 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 
 		content.instance_emojis = t_announcement.emojis_map;
 		content.content = t_announcement.content;
-		attention_indicator.visible = t_announcement.read;
+		attention_indicator.visible = !t_announcement.read;
 
 		var instance_title = accounts.active.instance_info.title;
 		var instance_thumbnail = accounts.active.instance_info.thumbnail;
