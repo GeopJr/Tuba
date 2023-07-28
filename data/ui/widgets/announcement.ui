@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0" />
+  <template class="TubaWidgetsAnnouncement" parent="GtkListBoxRow">
+    <property name="child">
+      <object class="GtkBox">
+        <property name="margin-start">18</property>
+        <property name="margin-end">18</property>
+        <property name="margin_top">15</property>
+        <property name="margin_bottom">18</property>
+        <property name="hexpand">1</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">14</property>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="AdwAvatar" id="avatar">
+                <property name="size">48</property>
+                <property name="valign">start</property>
+                <property name="visible">true</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkBox">
+                <property name="vexpand">1</property>
+                <property name="spacing">6</property>
+                <property name="valign">start</property>
+                <child>
+                  <object class="GtkFlowBox">
+                    <property name="selection-mode">none</property>
+                    <property name="column_spacing">6</property>
+                    <!-- Lower values leave space between items -->
+                    <property name="max_children_per_line">100</property>
+                    <child>
+                      <object class="GtkFlowBoxChild">
+                        <property name="focusable">0</property>
+                        <child>
+                          <object class="TubaWidgetsRichLabel" id="name_label">
+                            <property name="visible">True</property>
+                            <property name="ellipsize">False</property>
+                            <property name="use-markup">False</property>
+                            <property name="smaller-emoji-pixel-size">True</property>
+                            <style>
+                              <class name="font-bold" />
+                              <class name="ttl-name-button" />
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkFlowBoxChild">
+                        <property name="can-target">0</property>
+                        <child>
+                          <object class="GtkLabel" id="handle_label">
+                            <property name="label" translatable="no">Handle</property>
+                            <property name="ellipsize">end</property>
+                            <property name="single_line_mode">1</property>
+                            <property name="xalign">0</property>
+                            <property name="hexpand">1</property>
+                            <style>
+                              <class name="body" />
+                              <class name="dim-label" />
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
+                    <property name="margin_start">6</property>
+                    <property name="spacing">3</property>
+                    <child>
+                      <object class="GtkImage" id="attention_indicator">
+                        <property name="visible">0</property>
+                        <property name="icon_name">tuba-important-small-symbolic</property>
+                        <property name="icon_size">1</property>
+                        <property name="tooltip_text" translatable="yes">Unread</property>
+                        <style>
+                          <class name="attention" />
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImage" id="edited_indicator">
+                        <property name="visible">0</property>
+                        <property name="icon_name">tuba-paper-small-symbolic</property>
+                        <property name="icon_size">1</property>
+                        <property name="tooltip_text" translatable="yes">Edited</property>
+                        <style>
+                          <class name="dim-label" />
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="date_label">
+                        <property name="label" translatable="no">Yesterday</property>
+                        <property name="xalign">0</property>
+                        <style>
+                          <class name="body" />
+                          <class name="dim-label" />
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
+                <style>
+                  <class name="ttl-status-content" />
+                </style>
+                <child>
+                  <object class="TubaWidgetsMarkupView" id="content">
+                    <property name="visible">True</property>
+                    <property name="hexpand">False</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkFlowBox" id="emoji_reactions">
+                <property name="margin-top">16</property>
+                <property name="visible">0</property>
+                <property name="column_spacing">6</property>
+                <property name="row_spacing">6</property>
+                <!-- Lower values leave space between items -->
+                <property name="max_children_per_line">100</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </property>
+    <style>
+      <class name="ttl-post" />
+    </style>
+  </template>
+</interface>

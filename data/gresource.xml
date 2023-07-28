@@ -63,6 +63,8 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-text-justify-left-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-cat-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-brain-augemnted-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-lightbulb-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-important-small-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/help-overlay.ui</file>
@@ -78,6 +80,7 @@
         <file>ui/views/sidebar/view.ui</file>
         <file>ui/views/sidebar/account.ui</file>
         <file>ui/views/sidebar/item.ui</file>
+        <file>ui/widgets/announcement.ui</file>
         <file>ui/widgets/status.ui</file>
         <file>ui/widgets/votebox.ui</file>
         <file>ui/dialogs/new_account.ui</file>

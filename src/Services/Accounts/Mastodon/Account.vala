@@ -130,6 +130,15 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		}
 	};
 
+	public static Place PLACE_ANNOUNCEMENTS = new Place () { // vala-lint=naming-convention
+
+		icon = "tuba-lightbulb-symbolic",
+		title = _("Announcements"),
+		open_func = (win) => {
+			win.open_view (set_as_sidebar_item (new Views.Announcements ()));
+		}
+	};
+
 	public override void register_known_places (GLib.ListStore places) {
 		places.append (PLACE_HOME);
 		//  places.append (PLACE_SEARCH);
@@ -144,6 +153,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 		places.append (PLACE_HASHTAGS);
 		places.append (PLACE_FOLLOW_REQUESTS);
+		places.append (PLACE_ANNOUNCEMENTS);
 	}
 
 	construct {
