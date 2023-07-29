@@ -76,7 +76,7 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
 
         entry.activate.connect (search);
         entry.search_changed.connect (search);
-        entry.stop_search.connect (search);
+        entry.stop_search.connect (on_close);
     }
 
     protected void search () {
