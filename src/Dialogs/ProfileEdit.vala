@@ -415,7 +415,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 
 			chooser.response.connect (id => {
 				switch (id) {
-					case ResponseType.ACCEPT:
+					case Gtk.ResponseType.ACCEPT:
 						var file = chooser.get_file ();
 		#endif
 
