@@ -120,7 +120,7 @@ namespace Tuba {
 				}
 				Adw.init ();
 
-				#if MISSING_GTKSOURCEVIEW
+				#if !MISSING_GTKSOURCEVIEW
 					GtkSource.init ();
 				#endif
 
