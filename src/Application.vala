@@ -119,7 +119,10 @@ namespace Tuba {
 					message (line);
 				}
 				Adw.init ();
-				GtkSource.init ();
+
+				#if MISSING_GTKSOURCEVIEW
+					GtkSource.init ();
+				#endif
 
 				settings = new Settings ();
 				streams = new Streams ();
