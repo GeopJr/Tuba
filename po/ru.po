@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-18 01:52+0300\n"
 "PO-Revision-Date: 2023-05-21 06:05+0000\n"
-"Last-Translator: Сергей Ворон <voron.s.a@gmail.com>\n"
+"Last-Translator: ashed <craysy@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tuba/tuba/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgstr "Изменено"
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:226
 msgid "Show Less"
-msgstr ""
+msgstr "Показать меньше"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:259 src/Widgets/Status.vala:385
@@ -88,7 +88,7 @@ msgstr "Принять"
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:36
 msgid "Bot"
-msgstr ""
+msgstr "Бот"
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
@@ -178,7 +178,7 @@ msgstr "Увеличить размер шрифта"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Makes the font larger for posts"
-msgstr "Увеличивает шрифт для постов"
+msgstr "Увеличивает размер шрифта для постов"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Larger line height"
@@ -190,16 +190,16 @@ msgstr "Увеличивает высоту строк для постов"
 
 #: data/ui/dialogs/preferences.ui:63
 msgid "Scale up custom emojis on hover"
-msgstr ""
+msgstr "Масштабировать пользовательские смайлики при наведении"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Makes custom emojis slightly bigger when you hover over them"
-msgstr ""
+msgstr "Увеличивает пользовательские смайлики при наведении курсора"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:76
 msgid "Letterbox Media"
-msgstr ""
+msgstr "Просмотрщик медиа"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:79
@@ -207,16 +207,18 @@ msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
+"Уменьшить масштаб и просмотрщик, чтобы заполнить контейнеры изображений вместо "
+"растягивания и обрезки"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:90
 msgid "Expand pictures in media viewer"
-msgstr ""
+msgstr "Заполнять изображением просмотрщик мультимедиа"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:93
 msgid "Expand pictures to fill the media viewer by default"
-msgstr ""
+msgstr "Заполнять изображением область просмотра мультимедиа"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Posting"
@@ -240,7 +242,7 @@ msgstr "Автозапуск"
 
 #: data/ui/dialogs/preferences.ui:133
 msgid "Start minimized at boot"
-msgstr "Запускать в свернутом виде при загрузке"
+msgstr "Запускать в свёрнутом виде при загрузке"
 
 #: data/ui/dialogs/preferences.ui:144
 msgid "Background work"
@@ -252,12 +254,12 @@ msgstr "Получать уведомления, даже когда прило�
 
 #: data/ui/dialogs/preferences.ui:156
 msgid "Strip tracking parameters from links"
-msgstr ""
+msgstr "Удалить параметры отслеживания из ссылок"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:159
 msgid "It can lead to broken links"
-msgstr ""
+msgstr "Это может привести к битым ссылкам"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Timelines"
@@ -356,7 +358,7 @@ msgstr "Ваша учетная запись подключена и готов�
 
 #: data/gtk/help-overlay.ui:14
 msgid "Compose a new post"
-msgstr ""
+msgstr "Создать новый пост"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Search.vala:16 src/Views/Main.vala:19
 msgid "Search"
@@ -368,19 +370,19 @@ msgstr "Вернуться"
 
 #: data/gtk/help-overlay.ui:39
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "Показать сочетания клавиш"
 
 #: data/gtk/help-overlay.ui:45
 msgid "Quit"
-msgstr ""
+msgstr "Выход"
 
 #: data/gtk/help-overlay.ui:53
 msgid "Composer"
-msgstr ""
+msgstr "Композер"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Commit"
-msgstr ""
+msgstr "Коммит"
 
 #: src/Widgets/VoteBox.vala:17
 msgid "Vote"
@@ -1039,7 +1041,7 @@ msgstr "%s упомянул вас"
 #: src/Services/Accounts/InstanceAccount.vala:162
 #, c-format
 msgid "%s boosted your post"
-msgstr "%s продвинул вашу пост"
+msgstr "%s продвинул ваш пост"
 
 #: src/Services/Accounts/InstanceAccount.vala:167
 #, c-format
@@ -1087,21 +1089,21 @@ msgstr "Все поддерживаемые файлы"
 
 #: src/Dialogs/ProfileEdit.vala:145
 msgid "Display Name"
-msgstr ""
+msgstr "Отображаемое имя"
 
 #. translators: profile bio or description
 #: src/Dialogs/ProfileEdit.vala:151
 msgid "Bio"
-msgstr ""
+msgstr "Био"
 
 #: src/Dialogs/ProfileEdit.vala:171 src/Dialogs/Composer/EditorPage.vala:218
 msgid "Custom Emoji Picker"
-msgstr ""
+msgstr "Пользовательский выбор эмодзи"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:186
 msgid "Fields"
-msgstr ""
+msgstr "Поля"
 
 #: src/Dialogs/ProfileEdit.vala:210
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:137
@@ -1110,22 +1112,22 @@ msgstr "Сохранить"
 
 #: src/Dialogs/ProfileEdit.vala:215
 msgid "Close"
-msgstr ""
+msgstr "Закрыть"
 
 #: src/Dialogs/ProfileEdit.vala:230
 msgid "Edit Profile Picture"
-msgstr ""
+msgstr "Редактировать изображение профиля"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:250
 msgid "Edit Header Picture"
-msgstr ""
+msgstr "Редактировать изображение заголовка"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:360
 #, c-format
 msgid "Field %d"
-msgstr ""
+msgstr "Поле %d"
 
 #. translators: Open file
 #: src/Dialogs/ProfileEdit.vala:375 src/Dialogs/ProfileEdit.vala:383
@@ -1165,37 +1167,37 @@ msgstr "Сервер вернул ошибку"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr ""
+msgstr "Голосование"
 
 #. translators: tooltip on a button that appends another poll entry / option
 #: src/Dialogs/Composer/PollPage.vala:114
 msgid "Add Poll"
-msgstr ""
+msgstr "Добавить голосование"
 
 #: src/Dialogs/Composer/PollPage.vala:123
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Enable Multiple Choice"
-msgstr ""
+msgstr "Включить множественный выбор"
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Disable Multiple Choice"
-msgstr ""
+msgstr "Отключить множественный выбор"
 
 #: src/Dialogs/Composer/PollPage.vala:145
 #: src/Dialogs/Composer/PollPage.vala:159
 msgid "Hide Total Votes"
-msgstr ""
+msgstr "Скрыть Всего голосов"
 
 #: src/Dialogs/Composer/PollPage.vala:159
 msgid "Show Total Votes"
-msgstr ""
+msgstr "Показать Всего голосов"
 
 #: src/Dialogs/Composer/PollPage.vala:187
 #: src/Dialogs/Composer/PollPage.vala:222
 #, c-format
 msgid "Choice %d"
-msgstr ""
+msgstr "Выбор %d"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:231
@@ -1209,13 +1211,13 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:234
 #, c-format
 msgid "%dm"
-msgstr ""
+msgstr "%dm"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:236
 #, c-format
 msgid "%d Hour"
-msgstr ""
+msgstr "%d Час"
 
 #. translators: the variable is a number, h as in hours
 #: src/Dialogs/Composer/PollPage.vala:238
@@ -1223,19 +1225,19 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:240
 #, c-format
 msgid "%dh"
-msgstr ""
+msgstr "%dh"
 
 #: src/Dialogs/Composer/PollPage.vala:239
 #: src/Dialogs/Composer/PollPage.vala:240
 #, c-format
 msgid "%d Hours"
-msgstr ""
+msgstr "%d Часов"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:242
 #, c-format
 msgid "%d Day"
-msgstr ""
+msgstr "%d День"
 
 #. translators: the variable is a number, d as in days
 #: src/Dialogs/Composer/PollPage.vala:244
@@ -1243,17 +1245,17 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:246
 #, c-format
 msgid "%dd"
-msgstr ""
+msgstr "%dd"
 
 #: src/Dialogs/Composer/PollPage.vala:245
 #: src/Dialogs/Composer/PollPage.vala:246
 #, c-format
 msgid "%d Days"
-msgstr ""
+msgstr "%d Дней"
 
 #: src/Dialogs/Composer/PollPage.vala:266
 msgid "Expiration"
-msgstr ""
+msgstr "Истечение"
 
 #. translators: "Text" as in text-based input
 #: src/Dialogs/Composer/EditorPage.vala:11
@@ -1291,15 +1293,15 @@ msgstr "Язык поста"
 
 #: src/Dialogs/Composer/Dialog.vala:188
 msgid "Are you sure you want to exit?"
-msgstr ""
+msgstr "Вы уверены, что хотите выйти?"
 
 #: src/Dialogs/Composer/Dialog.vala:189
 msgid "Your progress will be lost."
-msgstr ""
+msgstr "Ваш прогресс будет потерян."
 
 #: src/Dialogs/Composer/Dialog.vala:191
 msgid "Discard"
-msgstr ""
+msgstr "Отбросить"
 
 #: src/Dialogs/Composer/Dialog.vala:276
 msgid "_Redraft"
@@ -1353,7 +1355,7 @@ msgstr "Файл \"%s\" превышает лимит сервера"
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:305
 msgid "translator-credits"
-msgstr "Сергей Ворон <voron@duck.com>"
+msgstr "Сергей Ворон <voron@duck.com>, ashed <craysy@gmail.com>"
 
 #: src/Application.vala:330
 msgid "OK"
@@ -1367,7 +1369,7 @@ msgstr "Да"
 #: src/API/Tag.vala:35
 #, c-format
 msgid "%d per week"
-msgstr ""
+msgstr "%d в неделю"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:48
@@ -1383,7 +1385,7 @@ msgstr "Использовался %d раз %d людьми за последн
 
 #: src/API/Suggestion.vala:8
 msgid "Account not found"
-msgstr ""
+msgstr "Аккаунт не найден"
 
 #. translators: the variable is an external service like "PeerTube"
 #: src/API/Status/PreviewCard.vala:25
