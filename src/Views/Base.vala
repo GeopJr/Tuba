@@ -8,12 +8,27 @@ public class Tuba.Views.Base : Box {
 	public string? icon { get; set; default = null; }
 	public string label { get; set; default = ""; }
 	public bool needs_attention { get; set; default = false; }
-	public bool current { get; set; default = false; }
 	public bool is_main { get; set; default = false; }
 	public bool allow_nesting { get; set; default = false; }
 	public bool is_sidebar_item { get; set; default = false; }
 	public int badge_number { get; set; default = 0; }
 	protected SimpleActionGroup actions { get; set; default = new SimpleActionGroup (); }
+
+	private bool _current = false;
+	public bool current {
+		get {
+			return _current;
+		}
+
+		set {
+			_current = value;
+			if (value) {
+				on_shown ();
+			} else {
+				on_hidden ();
+			}
+		}
+	}
 
 	[GtkChild] protected unowned Adw.HeaderBar header;
 	[GtkChild] protected unowned Button back_button;
@@ -72,15 +87,6 @@ public class Tuba.Views.Base : Box {
 
 		status_button.label = _("Reload");
 		base_status = new StatusMessage () { loading = true };
-
-		notify["current"].connect (() => {
-			if (current)
-				on_shown ();
-			else
-				on_hidden ();
-		});
-
-		//  scrolled.get_style_context ().add_class (Dialogs.MainWindow.ZOOM_CLASS);
 
 		scroll_to_top.clicked.connect (on_scroll_to_top);
 	}
