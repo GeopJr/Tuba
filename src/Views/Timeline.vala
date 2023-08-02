@@ -7,6 +7,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public bool is_public { get; construct set; default = false; }
 	public Type accepts { get; set; default = typeof (API.Status); }
 	public bool use_queue { get; set; default = true; }
+	public int badge_number { get; set; default = 0; }
+	public bool needs_attention { get; set; default = false; }
 
 	protected InstanceAccount? account { get; set; default = null; }
 
@@ -254,6 +256,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_edit_post (Streamable.Event ev) {
+		if (accepts != typeof (API.Status)) return;
 		try {
 			var entity = Entity.from_json (accepts, ev.get_node ());
 			var entity_id = ((API.Status)entity).id;
@@ -271,6 +274,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_delete_post (Streamable.Event ev) {
+		if (accepts != typeof (API.Status)) return;
 		try {
 			var status_id = ev.get_string ();
 

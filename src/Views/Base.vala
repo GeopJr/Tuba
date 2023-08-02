@@ -7,11 +7,9 @@ public class Tuba.Views.Base : Box {
 
 	public string? icon { get; set; default = null; }
 	public string label { get; set; default = ""; }
-	public bool needs_attention { get; set; default = false; }
 	public bool is_main { get; set; default = false; }
 	public bool allow_nesting { get; set; default = false; }
 	public bool is_sidebar_item { get; set; default = false; }
-	public int badge_number { get; set; default = 0; }
 	protected SimpleActionGroup actions { get; set; default = new SimpleActionGroup (); }
 
 	private bool _current = false;
@@ -90,6 +88,7 @@ public class Tuba.Views.Base : Box {
 
 		scroll_to_top.clicked.connect (on_scroll_to_top);
 	}
+
 	~Base () {
 		message (@"Destroying base $label");
 	}
