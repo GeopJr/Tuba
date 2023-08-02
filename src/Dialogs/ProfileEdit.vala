@@ -114,7 +114,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		private GtkSource.View bio_text_view { get; set; }
 	#endif
 	private Adw.PreferencesGroup fields_box { get; set; }
-	private Widgets.Background background { get; set; }
+	private Gtk.Picture background { get; set; }
 
 	Gtk.FileFilter filter = new Gtk.FileFilter () {
 		name = _("All Supported Files")
@@ -283,9 +283,10 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		};
 		background_edit_button.clicked.connect (on_header_button_clicked);
 
-		background = new Widgets.Background () {
+		background = new Gtk.Picture () {
+			content_fit = Gtk.ContentFit.COVER,
+			css_classes = { "background-cover" },
 			height_request = 128,
-			css_classes = { "background-cover" }
 		};
 
 		var background_overlay = new Gtk.Overlay () {
