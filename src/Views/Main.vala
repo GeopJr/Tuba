@@ -17,9 +17,7 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		var search_button = new Button ();
 		search_button.icon_name = "tuba-loupe-large-symbolic";
 		search_button.tooltip_text = _("Search");
-		search_button.clicked.connect ((source) => {
-			app.main_window.open_view (new Views.Search ());
-		});
+		search_button.clicked.connect (open_search);
 		header.pack_end (search_button);
 
 		var sidebar_button = new ToggleButton ();
@@ -65,4 +63,7 @@ public class Tuba.Views.Main : Views.TabbedBase {
 
 	}
 
+	void open_search () {
+		app.main_window.open_view (new Views.Search ());
+	}
 }
