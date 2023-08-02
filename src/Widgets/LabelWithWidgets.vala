@@ -11,7 +11,6 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     private Gtk.Widget[] widgets = {};
     private int[] widget_heights = {};
     private int[] widget_widths = {};
-    private int last_for_size = 0;
 
     public Gtk.Label label;
 
@@ -99,9 +98,9 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             int width = natural_size.width;
             int height = natural_size.height;
 
-            if (widget_widths.length > 0) {
-                int old_width = widget_widths[i];
-                int old_height = widget_heights[i];
+            int old_width = widget_widths[i];
+            int old_height = widget_heights[i];
+            if (old_width > 0 || old_height > 0) {
                 if (old_width != width || old_height != height) {
                     widget_widths[i] = width;
                     widget_heights[i] = height;
@@ -170,9 +169,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
                         var width = widget_widths[i];
                         var height = widget_heights[i];
 
-                        Pango.Rectangle ink_rect;
                         Pango.Rectangle logical_rect;
-                        run_iter.get_run_extents (out ink_rect, out logical_rect);
+                        run_iter.get_run_extents (null, out logical_rect);
 
                         int offset_x;
                         int offset_y;
@@ -181,8 +179,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
                         var allocation = Gtk.Allocation () {
                             x = pango_pixels (logical_rect.x) + offset_x,
                             y = pango_pixels (logical_rect.y) + offset_y,
-                            height = width,
-                            width = height
+                            height = height,
+                            width = width
                         };
                         widget.allocate_size (allocation, -1);
                         i++;
@@ -218,18 +216,15 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         this.allocate_shapes ();
         this.label.measure (
             orientation,
-            (orientation == Gtk.Orientation.VERTICAL && for_size == -1) ? last_for_size : for_size,
+            for_size,
             out minimum,
             out natural,
             out minimum_baseline,
             out natural_baseline
         );
-        if (orientation == Gtk.Orientation.HORIZONTAL)
-            last_for_size = for_size;
     }
 
     private void update_label () {
-        last_for_size = 0;
         var old_label = label.label;
         var old_ellipsize = label.ellipsize == Pango.EllipsizeMode.END;
         var new_ellipsize = this.ellipsize;
