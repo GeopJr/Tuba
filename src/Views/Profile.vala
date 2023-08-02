@@ -173,7 +173,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 			if (account.header.contains ("/headers/original/missing.png")) {
 				header_url = "";
-				avatar.bind_property ("custom_image", background, "paintable", GLib.BindingFlags.SYNC_CREATE);
+				background.paintable = avatar.custom_image;
 			} else {
 				header_url = account.header ?? "";
 				image_cache.request_paintable (account.header, on_cache_response);

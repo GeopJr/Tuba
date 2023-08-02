@@ -3,11 +3,17 @@ using Gdk;
 
 public class Tuba.Widgets.Avatar : Button {
 
-	public API.Account? account { get; set; }
+	public API.Account? account {
+		set {
+			on_invalidated (value);
+		}
+	}
+
 	public int size {
 		get { return avatar.size; }
 		set { avatar.size = value; }
 	}
+
 	public Paintable? custom_image {
 		get { return avatar.custom_image; }
 	}
@@ -15,30 +21,35 @@ public class Tuba.Widgets.Avatar : Button {
 	protected Adw.Avatar? avatar {
 		get { return child as Adw.Avatar; }
 	}
-	public string? avatar_url { get; set; }
+
+	string? _avatar_url = null;
+	public string? avatar_url {
+		get {
+			return _avatar_url;
+		}
+
+		set {
+			_avatar_url = value;
+
+			if (value != null) {
+				image_cache.request_paintable (value, on_cache_response);
+			}
+		}
+	}
 
 	construct {
 		child = new Adw.Avatar (48, null, true);
 		halign = valign = Align.CENTER;
 		css_classes = { "flat", "circular", "image-button", "ttl-flat-button" };
 
-		notify["account"].connect (on_invalidated);
-		notify["avatar-url"].connect (on_avatar_url_change);
 		on_invalidated ();
 	}
 
-	void on_avatar_url_change () {
-		if (avatar_url == null) return;
-
-		image_cache.request_paintable (avatar_url, on_cache_response);
-	}
-
-	void on_invalidated () {
+	void on_invalidated (API.Account? account = null) {
 		if (account == null) {
 			avatar.text = "d";
 			avatar.show_initials = false;
-		}
-		else {
+		} else {
 			avatar.text = account.display_name;
 			avatar.show_initials = true;
 			image_cache.request_paintable (account.avatar, on_cache_response);
