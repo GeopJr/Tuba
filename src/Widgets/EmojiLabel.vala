@@ -1,6 +1,3 @@
-using Gtk;
-using Gee;
-
 public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
 	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
 
