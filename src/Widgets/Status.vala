@@ -230,6 +230,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	~Status () {
 		message ("Destroying Status widget");
 		if (context_menu != null) {
+			context_menu.menu_model = null;
 			context_menu.dispose ();
 		}
 	}
