@@ -78,6 +78,7 @@
         <file>ui/views/sidebar/view.ui</file>
         <file>ui/views/sidebar/account.ui</file>
         <file>ui/views/sidebar/item.ui</file>
+        <file>ui/widgets/bookwyrmpage.ui</file>
         <file>ui/widgets/status.ui</file>
         <file>ui/widgets/votebox.ui</file>
         <file>ui/dialogs/new_account.ui</file>
