@@ -196,8 +196,7 @@ namespace Tuba {
 				if (add_account_window == null)
 					new Dialogs.NewAccount ();
 				add_account_window.present ();
-			}
-			else {
+			} else {
 				message ("Presenting MainWindow");
 				if (main_window == null) {
 					main_window = new Dialogs.MainWindow (this);

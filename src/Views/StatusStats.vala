@@ -3,7 +3,7 @@ public class Tuba.Views.StatusStats : Views.TabbedBase {
 	Views.ContentBase boosted;
 
     public StatusStats (string status_id) {
-        Object ( label: _("Post Stats") );
+        Object (label: _("Post Stats"));
 
 		favorited = add_timeline_tab (
 			// translators: title for a list of people that favorited a post
