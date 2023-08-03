@@ -9,8 +9,9 @@ project(
     ],
 )
 
+# https://gitlab.gnome.org/GNOME/vala/-/issues/1413#note_1707480
 if meson.get_compiler ('c').get_id () == 'clang'
-  add_project_arguments('-Wno-incompatible-function-pointer-types', language : 'c')
+  add_project_arguments('-Wno-incompatible-function-pointer-types', language: 'c')
 endif
 
 devel = get_option('devel')
