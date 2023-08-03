@@ -13,6 +13,7 @@
 ./data/ui/dialogs/compose.ui
 ./data/ui/dialogs/new_account.ui
 ./data/ui/dialogs/main.ui
+./data/ui/dialogs/profile_edit.ui
 ./data/gtk/help-overlay.ui
 ./data/gtk/dropdown/expiration_title.ui
 ./data/gtk/dropdown/expiration.ui

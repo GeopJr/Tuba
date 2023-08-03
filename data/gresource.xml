@@ -85,6 +85,7 @@
         <file>ui/dialogs/compose.ui</file>
         <file>ui/dialogs/main.ui</file>
         <file>ui/dialogs/preferences.ui</file>
+        <file>ui/dialogs/profile_edit.ui</file>
         <file>ui/menus.ui</file>
     </gresource>
 </gresources>

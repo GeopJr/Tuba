@@ -1,47 +1,7 @@
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/profile_edit.ui")]
 public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 	~ProfileEdit () {
 		message (@"Destroying ProfileEdit for $(profile.handle)");
-	}
-
-	public class Avatar : Adw.Bin {
-		Adw.Avatar avatar;
-
-		private string _url = "";
-		public string url {
-			get {
-				return _url;
-			}
-
-			set {
-				_url = value;
-				image_cache.request_paintable (value, on_cache_response);
-			}
-		}
-
-		public string text {
-			get { return avatar.text; }
-			set { avatar.text = value; }
-		}
-
-		public int size {
-			get { return avatar.size; }
-			set { avatar.size = value; }
-		}
-
-		public Gdk.Paintable? custom_image {
-			get { return avatar.custom_image; }
-			set { avatar.custom_image = value; }
-		}
-
-		construct {
-			avatar = new Adw.Avatar (48, "d", false);
-			child = avatar;
-			halign = valign = Gtk.Align.CENTER;
-		}
-
-		void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-			custom_image = data;
-		}
 	}
 
 	public class Field : Adw.ExpanderRow {
@@ -105,16 +65,12 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		}
 	}
 
-	private Avatar avi { get; set; }
-	private Adw.EntryRow name_row { get; set; }
-	private Adw.ExpanderRow bio_row { get; set; }
-	#if MISSING_GTKSOURCEVIEW
-		private Gtk.TextView bio_text_view { get; set; }
-	#else
-		private GtkSource.View bio_text_view { get; set; }
-	#endif
-	private Adw.PreferencesGroup fields_box { get; set; }
-	private Gtk.Picture background { get; set; }
+	[GtkChild] unowned Adw.EntryRow name_row;
+	[GtkChild] unowned Adw.ExpanderRow bio_row;
+	[GtkChild] unowned GtkSource.View bio_text_view;
+	[GtkChild] unowned Adw.Avatar avi;
+	[GtkChild] unowned Gtk.Picture background;
+	[GtkChild] unowned Adw.PreferencesGroup fields_box;
 
 	Gtk.FileFilter filter = new Gtk.FileFilter () {
 		name = _("All Supported Files")
@@ -125,61 +81,17 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		filter.add_mime_type ("image/png");
 		filter.add_mime_type ("image/gif");
 
-		add_css_class ("profile-editor");
 		add_binding_action (Gdk.Key.Escape, 0, "window.close", null);
-
-		title = _("Edit Profile");
-		modal = true;
 		transient_for = app.main_window;
-		default_width = 460;
-		default_height = 520;
 
-		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 24) {
-			margin_top = 24,
-			margin_bottom = 24
-		};
-
-		var profile_info_box = new Gtk.ListBox () {
-			css_classes = { "boxed-list" },
-			selection_mode = Gtk.SelectionMode.NONE
-		};
-
-		name_row = new Adw.EntryRow () {
-			input_purpose = Gtk.InputPurpose.FREE_FORM,
-			title = _("Display Name")
-		};
-		name_row.changed.connect (on_name_row_changed);
-
-		bio_row = new Adw.ExpanderRow () {
-			// translators: profile bio or description
-			title = _("Bio"),
-			expanded = false
-		};
-
-		#if MISSING_GTKSOURCEVIEW
-			bio_text_view = new Gtk.TextView () {
-		#else
-			bio_text_view = new GtkSource.View () {
-		#endif
-			margin_bottom = 6,
-			margin_top = 6,
-			margin_end = 6,
-			margin_start = 6,
-			wrap_mode = Gtk.WrapMode.WORD_CHAR,
-			css_classes = { "background-none" },
-			accepts_tab = false
-		};
-		bio_row.add_row (bio_text_view);
 		bio_text_view.buffer.changed.connect (on_bio_text_changed);
 
-		#if !MISSING_GTKSOURCEVIEW
-			var manager = GtkSource.StyleSchemeManager.get_default ();
-			var scheme = manager.get_scheme ("adwaita");
-			var buffer = bio_text_view.buffer as GtkSource.Buffer;
-			buffer.style_scheme = scheme;
-		#endif
+		var manager = GtkSource.StyleSchemeManager.get_default ();
+		var scheme = manager.get_scheme ("adwaita");
+		var buffer = bio_text_view.buffer as GtkSource.Buffer;
+		buffer.style_scheme = scheme;
 
-		#if LIBSPELLING && !MISSING_GTKSOURCEVIEW
+		#if LIBSPELLING
 			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) bio_text_view.buffer, Spelling.Checker.get_default ());
 
 			bio_text_view.extra_menu = adapter.get_menu_model ();
@@ -191,131 +103,24 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 			var gspell_view = Gspell.TextView.get_from_gtk_text_view (bio_text_view);
 			gspell_view.basic_setup ();
 		#endif
-
-		var custom_emoji_picker = new Widgets.CustomEmojiChooser ();
-		var custom_emoji_button = new Gtk.MenuButton () {
-			icon_name = "tuba-cat-symbolic",
-			popover = custom_emoji_picker,
-			tooltip_text = _("Custom Emoji Picker"),
-			css_classes = { "circular" },
-			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER
-		};
-		custom_emoji_picker.emoji_picked.connect (on_bio_emoji_picked);
-		bio_row.bind_property ("expanded", custom_emoji_button, "sensitive", GLib.BindingFlags.SYNC_CREATE);
-		// FIXME: add_suffix on libadwaita 1.4
-		bio_row.add_action (custom_emoji_button);
-
-		profile_info_box.append (name_row);
-		profile_info_box.append (bio_row);
-
-		fields_box = new Adw.PreferencesGroup () {
-			// translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-			title = _("Fields")
-		};
-
-		content_box.append (create_header_avi_widget ());
-		content_box.append (profile_info_box);
-		content_box.append (fields_box);
-
-		var clamp = new Adw.Clamp () {
-			child = content_box,
-			tightening_threshold = 100,
-			valign = Gtk.Align.START
-		};
-		var scroller = new Gtk.ScrolledWindow () {
-			hexpand = true,
-			vexpand = true
-		};
-		scroller.child = clamp;
-
-		var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-		var headerbar = new Adw.HeaderBar () {
-			show_end_title_buttons = false,
-			show_start_title_buttons = false
-		};
-
-		var save_btn = new Gtk.Button.with_label (_("Save")) {
-			css_classes = { "suggested-action" }
-		};
-		save_btn.clicked.connect (on_save_clicked);
-
-		var close_btn = new Gtk.Button.with_label (_("Close"));
-		close_btn.clicked.connect (on_close);
-
-		headerbar.pack_start (close_btn);
-		headerbar.pack_end (save_btn);
-
-		box.append (headerbar);
-		box.append (scroller);
-
-		content = box;
 	}
 
-	Gtk.Widget create_header_avi_widget () {
-		var avi_edit_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
-			css_classes = { "osd", "circular" },
-			tooltip_text = _("Edit Profile Picture"),
-			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER
-		};
-		avi_edit_button.clicked.connect (on_avi_button_clicked);
-
-		avi = new Avatar () {
-			size = 120
-		};
-
-		var avi_overlay = new Gtk.Overlay () {
-			child = avi,
-			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER
-		};
-		avi_overlay.add_overlay (avi_edit_button);
-
-		var background_edit_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
-			css_classes = { "osd", "circular" },
-			// translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-			tooltip_text = _("Edit Header Picture"),
-			valign = Gtk.Align.START,
-			halign = Gtk.Align.START,
-			margin_start = 6,
-			margin_top = 6
-		};
-		background_edit_button.clicked.connect (on_header_button_clicked);
-
-		background = new Gtk.Picture () {
-			content_fit = Gtk.ContentFit.COVER,
-			css_classes = { "background-cover" },
-			height_request = 128,
-		};
-
-		var background_overlay = new Gtk.Overlay () {
-			vexpand = true,
-			hexpand = true,
-			child = background
-		};
-		background_overlay.add_overlay (background_edit_button);
-
-		var images_overlay = new Gtk.Overlay () {
-			child = background_overlay
-		};
-		images_overlay.add_overlay (avi_overlay);
-
-		return images_overlay;
-	}
-
+	[GtkCallback]
 	void on_close () {
 		destroy ();
 	}
 
+	[GtkCallback]
 	void on_avi_button_clicked () {
 		choose_file (false);
 	}
 
+	[GtkCallback]
 	void on_header_button_clicked () {
 		choose_file (true);
 	}
 
+	[GtkCallback]
 	void on_save_clicked () {
 		this.sensitive = false;
 		save.begin ((obj, res) => {
@@ -332,6 +137,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		});
 	}
 
+	[GtkCallback]
 	void on_bio_emoji_picked (string emoji_unicode) {
 		bio_text_view.buffer.insert_at_cursor (emoji_unicode, emoji_unicode.data.length);
 	}
@@ -340,6 +146,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		return wdg.has_css_class ("error");
 	}
 
+	[GtkCallback]
 	void on_name_row_changed () {
 		var valid = name_row.text.length <= 30;
 		Tuba.toggle_css (name_row, !valid, "error");
@@ -357,8 +164,8 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 	int64 max_value_length;
 	public ProfileEdit (API.Account acc) {
 		profile = acc;
-		image_cache.request_paintable (acc.header, on_cache_response);
-		avi.url = acc.avatar;
+		image_cache.request_paintable (acc.header, on_background_cache_response);
+		image_cache.request_paintable (acc.avatar, on_avi_cache_response);
 		avi.text = acc.display_name;
 		name_row.text = acc.display_name;
 		bio_text_view.buffer.text = acc.source?.note ?? "";
@@ -392,8 +199,14 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		fields_box.add (field);
 	}
 
-	void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		background.paintable = data;
+	void on_background_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
+		if (is_loaded)
+			background.paintable = data;
+	}
+
+	void on_avi_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
+		if (is_loaded)
+			avi.custom_image = data;
 	}
 
 	File new_avi;
