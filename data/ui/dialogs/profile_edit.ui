@@ -55,8 +55,8 @@
                       <object class="GtkOverlay">
                         <child type="overlay">
                           <object class="GtkOverlay">
-                            <property name="vexpand">1</property>
-                            <property name="hexpand">1</property>
+                            <property name="valign">center</property>
+                            <property name="halign">center</property>
                             <property name="child">
                               <object class="AdwAvatar" id="avi">
                                 <property name="size">120</property>
