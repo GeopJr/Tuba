@@ -9,6 +9,10 @@ project(
     ],
 )
 
+if meson.get_compiler ('c').get_id () == 'clang'
+  add_project_arguments('-Wno-incompatible-function-pointer-types', language : 'c')
+endif
+
 devel = get_option('devel')
 distro = get_option('distro')
 
