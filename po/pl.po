@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-19 22:14+0300\n"
-"PO-Revision-Date: 2023-07-19 01:05+0000\n"
+"PO-Revision-Date: 2023-08-03 23:36+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -551,9 +551,9 @@ msgstr "Zobacz opis"
 
 #. translators: the variable is the media type (for example VIDEO)
 #: src/Widgets/Attachment/Item.vala:176
-#, c-format
+#, c-format, fuzzy
 msgid "Alternative text for %s"
-msgstr ""
+msgstr "Opis dla %s"
 
 #: src/Widgets/Attachment/Item.vala:196 src/Views/MediaViewer.vala:383
 msgid "Save Media"
@@ -1334,7 +1334,7 @@ msgstr "Usuń załącznik"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:181
 msgid "Alternative text for attachment"
-msgstr ""
+msgstr "Opis załącznika"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:50
 msgid "Media"
