@@ -201,6 +201,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		}
 	}
 
+	File? last_used_folder;
 	void show_file_selector () {
 		var filter = new FileFilter () {
 			name = _("All Supported Files")
@@ -227,9 +228,15 @@ public class Tuba.AttachmentsPage : ComposerPage {
 				modal = true,
 				default_filter = filter
 			};
+
+			if (!Tuba.is_flatpak && last_used_folder != null)
+				chooser.initial_folder = last_used_folder;
+
 			chooser.open_multiple.begin (dialog, null, (obj, res) => {
 				try {
-				var files = chooser.open_multiple.end (res);
+					var files = chooser.open_multiple.end (res);
+					if (!Tuba.is_flatpak && files.get_n_items () > 0)
+						last_used_folder = ((File) files.get_item (0)).get_parent ();
 		#else
 			// translators: Open file
 			var chooser = new FileChooserNative (_("Open"), dialog, Gtk.FileChooserAction.OPEN, null, null) {
@@ -237,10 +244,20 @@ public class Tuba.AttachmentsPage : ComposerPage {
 				filter = filter
 			};
 
+			if (!Tuba.is_flatpak && last_used_folder != null) {
+				try {
+					chooser.set_current_folder (last_used_folder);
+				} catch {
+					last_used_folder = null;
+				}
+			}
+
 			chooser.response.connect (id => {
 				switch (id) {
 					case ResponseType.ACCEPT:
 						var files = chooser.get_files ();
+						if (!Tuba.is_flatpak)
+							last_used_folder = chooser.get_current_folder ();
 		#endif
 					var selected_files_amount = files.get_n_items ();
 
