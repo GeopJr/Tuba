@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 01:52+0300\n"
-"PO-Revision-Date: 2023-05-22 19:51+0000\n"
+"POT-Creation-Date: 2023-07-19 22:14+0300\n"
+"PO-Revision-Date: 2023-07-25 18:04+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/tuba/tuba/fi/>\n"
 "Language: fi\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -39,6 +39,9 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
+"Selaa liittoutunutta sosiaalista verkkoa Tuballa. Pysy yhdistettynä "
+"suosikkiyhteisöihisi, perheeseesi ja kavereihisi suosituilla "
+"liittoversumialustoilla kuten Mastodon, GoToSocial, Akkoma ja niin edelleen!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
 msgid ""
@@ -48,6 +51,12 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
+"Fediverse (vapaasti suomennettuna liittoversumi) on hajautettu sosiaalinen "
+"verkko, joka koostuu useista toisiinsa yhdistetyistä alustoista ja "
+"yhteisöistä, näin sallien käyttäjien keskustella ja jakaa sisältöä eri "
+"verkkojen sekä palvelinten välillä. Se edistää käyttäjien yksityisyyttä ja "
+"datan omistusoikeutta, ja tarjoaa vaihtoehdon keskittyneille sosiaalisen "
+"median alustoille."
 
 #: data/ui/widgets/status.ui:157
 msgid "Pinned"
@@ -60,7 +69,7 @@ msgstr "Muokattu"
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:226
 msgid "Show Less"
-msgstr ""
+msgstr "Näytä vähemmän"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:259 src/Widgets/Status.vala:385
@@ -78,7 +87,7 @@ msgstr "Hyväksy"
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:36
 msgid "Bot"
-msgstr ""
+msgstr "Botti"
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
@@ -180,16 +189,18 @@ msgstr "Suurentaa viestien rivikorkeutta"
 
 #: data/ui/dialogs/preferences.ui:63
 msgid "Scale up custom emojis on hover"
-msgstr ""
+msgstr "Suurenna mukautettuja emojeja kohdistaessa hiirellä"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Makes custom emojis slightly bigger when you hover over them"
 msgstr ""
+"Suurentaa hieman mukautettuja emojeja kun siirrät hiiren osoittimen niiden "
+"päälle"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:76
 msgid "Letterbox Media"
-msgstr ""
+msgstr "Suorakulmiomainen media"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:79
@@ -197,28 +208,30 @@ msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
+"Pienennä ja tee mediasta suorakulmiomaista kuvaelementtien täyttämiseksi sen "
+"sijaan, että kuvat venytetään ja rajataan"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:90
 msgid "Expand pictures in media viewer"
-msgstr ""
+msgstr "Laajenna kuvia mediakatselimessa"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:93
 msgid "Expand pictures to fill the media viewer by default"
-msgstr ""
+msgstr "Laajenna kuvat mediakatselimen täyttämiseksi oletusarvoisesti"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Posting"
-msgstr ""
+msgstr "Viestien lähettäminen"
 
 #: data/ui/dialogs/preferences.ui:108
 msgid "Default post visibility"
-msgstr ""
+msgstr "Viestien oletusnäkyvyys"
 
 #: data/ui/dialogs/preferences.ui:117
 msgid "Default post language"
-msgstr ""
+msgstr "Viestien oletuskieli"
 
 #: data/ui/dialogs/preferences.ui:128
 msgid "Behavior"
@@ -242,12 +255,12 @@ msgstr "Vastaanota ilmoitukset vaikka sovellus olisi suljettu"
 
 #: data/ui/dialogs/preferences.ui:156
 msgid "Strip tracking parameters from links"
-msgstr ""
+msgstr "Poista seurantaparametrit linkeistä"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:159
 msgid "It can lead to broken links"
-msgstr ""
+msgstr "Voi aiheuttaa rikkinäisiä linkkejä"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Timelines"
@@ -255,7 +268,7 @@ msgstr "Aikajanat"
 
 #: data/ui/dialogs/preferences.ui:174
 msgid "Posts per load batch"
-msgstr ""
+msgstr "Viestejä per latauserä"
 
 #: data/ui/dialogs/preferences.ui:188
 msgid "Stream timelines"
@@ -275,11 +288,11 @@ msgstr "Varoitus: tämä kasvattaa muistinkäyttöä"
 
 #: data/ui/dialogs/preferences.ui:213
 msgid "Reveal spoilers by default"
-msgstr ""
+msgstr "Näytä juonipaljastukset oletuksena"
 
 #: data/ui/dialogs/preferences.ui:224
 msgid "Hide link preview cards"
-msgstr ""
+msgstr "Piilota linkkien esikatselukortit"
 
 #: data/ui/dialogs/compose.ui:29 data/ui/dialogs/new_account.ui:27
 #: src/Dialogs/Composer/Dialog.vala:193 src/Application.vala:341
@@ -346,31 +359,31 @@ msgstr "Tilisi on yhdistetty ja valmis käytettäväksi!"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Compose a new post"
-msgstr ""
+msgstr "Kirjoita uusi viesti"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Search.vala:16 src/Views/Main.vala:19
 msgid "Search"
 msgstr "Etsi"
 
-#: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:264
+#: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:271
 msgid "Go Back"
 msgstr "Takaisin"
 
 #: data/gtk/help-overlay.ui:39
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "Näytä pikanäppäimet"
 
 #: data/gtk/help-overlay.ui:45
 msgid "Quit"
-msgstr ""
+msgstr "Lopeta"
 
 #: data/gtk/help-overlay.ui:53
 msgid "Composer"
-msgstr ""
+msgstr "Viestin kirjoitus"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Commit"
-msgstr ""
+msgstr "Lähetä"
 
 #: src/Widgets/VoteBox.vala:17
 msgid "Vote"
@@ -392,20 +405,20 @@ msgstr "Verkkovirhe"
 msgid "React with %s"
 msgstr "Reagoi käyttäen %s"
 
-#: src/Widgets/Status.vala:270 src/Widgets/Attachment/Item.vala:193
-#: src/Views/MediaViewer.vala:372
+#: src/Widgets/Status.vala:270 src/Widgets/Attachment/Item.vala:194
+#: src/Views/MediaViewer.vala:381
 msgid "Open in Browser"
 msgstr "Avaa selaimessa"
 
-#: src/Widgets/Status.vala:271 src/Widgets/Attachment/Item.vala:194
-#: src/Views/MediaViewer.vala:373
+#: src/Widgets/Status.vala:271 src/Widgets/Attachment/Item.vala:195
+#: src/Views/MediaViewer.vala:382
 msgid "Copy URL"
 msgstr "Kopioi osoite"
 
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:274
 msgid "View Stats"
-msgstr ""
+msgstr "Näytä tilastot"
 
 #: src/Widgets/Status.vala:278
 msgid "View Edit History"
@@ -414,7 +427,7 @@ msgstr "Näytä muokkaushistoria"
 #. translators: Pin post on profile
 #: src/Widgets/Status.vala:283 src/Widgets/Status.vala:509
 msgid "Pin"
-msgstr ""
+msgstr "Kiinnitä"
 
 #: src/Widgets/Status.vala:288
 msgid "Edit"
@@ -436,7 +449,7 @@ msgstr "Arkaluonteinen"
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:507
 msgid "Unpin"
-msgstr ""
+msgstr "Poista kiinnitys"
 
 #: src/Widgets/Status.vala:589
 msgid "This post can't be boosted"
@@ -466,7 +479,7 @@ msgstr "Kirjanmerkki"
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Widgets/Status.vala:735 src/Views/Profile.vala:219
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%e. %Bta %Y"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
@@ -488,24 +501,25 @@ msgstr "Lopeta seuraaminen"
 #: src/Widgets/PreviewCard.vala:132
 #, c-format
 msgid "Discussed %d times by %d people yesterday"
-msgstr ""
+msgstr "Keskusteltu %d kertaa %d ihmisen toimesta eilen"
 
 #. translators: the variables are numbers
 #: src/Widgets/PreviewCard.vala:140
 #, c-format
 msgid "Discussed %d times by %d people in the past 2 days"
 msgstr ""
+"Keskusteltu %d kertaa %d ihmisen toimesta viimeisen kahden päivän aikana"
 
 #. translators: Used when there are results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:53
 #: src/Widgets/CustomEmojiChooser.vala:107
 msgid "Results"
-msgstr ""
+msgstr "Tulokset"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:111
 msgid "No Results"
-msgstr ""
+msgstr "Ei tuloksia"
 
 #: src/Widgets/CustomEmojiChooser.vala:144
 #: src/Widgets/CustomEmojiChooser.vala:150
@@ -513,11 +527,11 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:155 src/API/Emoji.vala:4
 #: src/API/Emoji.vala:8
 msgid "Other"
-msgstr ""
+msgstr "Muu"
 
 #: src/Widgets/CustomEmojiChooser.vala:154
 msgid "Custom Emojis"
-msgstr ""
+msgstr "Mukautetut emojit"
 
 #. translators: the variable is a comma separated
 #. list of the book authors
@@ -534,14 +548,20 @@ msgstr "Tallenna liite"
 msgid "View Alt Text"
 msgstr "Näytä vaihtoehtoinen teksti"
 
-#: src/Widgets/Attachment/Item.vala:195 src/Views/MediaViewer.vala:374
+#. translators: the variable is the media type (for example VIDEO)
+#: src/Widgets/Attachment/Item.vala:176
+#, c-format
+msgid "Alternative text for %s"
+msgstr ""
+
+#: src/Widgets/Attachment/Item.vala:196 src/Views/MediaViewer.vala:383
 msgid "Save Media"
 msgstr "Tallenna media"
 
-#: src/Widgets/Attachment/Item.vala:212 src/Views/MediaViewer.vala:482
+#: src/Widgets/Attachment/Item.vala:213 src/Views/MediaViewer.vala:491
 #: src/Views/Sidebar.vala:271 src/Services/Accounts/SecretAccountStore.vala:124
 #: src/Services/Accounts/SecretAccountStore.vala:222
-#: src/Services/Accounts/AccountStore.vala:43 src/Dialogs/ProfileEdit.vala:298
+#: src/Services/Accounts/AccountStore.vala:43 src/Dialogs/ProfileEdit.vala:326
 #: src/Application.vala:140
 msgid "Error"
 msgstr "Virhe"
@@ -549,34 +569,34 @@ msgstr "Virhe"
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:72
 msgid "Hide Media"
-msgstr ""
+msgstr "Piilota media"
 
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:83
 msgid "Sensitive Media"
-msgstr ""
+msgstr "Arkaluonteinen media"
 
-#: src/Views/MediaViewer.vala:258
+#: src/Views/MediaViewer.vala:265
 msgid "Media Viewer"
 msgstr "Mediakatselin"
 
-#: src/Views/MediaViewer.vala:271
+#: src/Views/MediaViewer.vala:278
 msgid "Toggle Fullscreen"
 msgstr "Koko näyttö päällä/pois"
 
-#: src/Views/MediaViewer.vala:589
+#: src/Views/MediaViewer.vala:582
 msgid "Previous Attachment"
 msgstr "Edellinen liite"
 
-#: src/Views/MediaViewer.vala:594
+#: src/Views/MediaViewer.vala:587
 msgid "Next Attachment"
 msgstr "Seuraava liite"
 
-#: src/Views/MediaViewer.vala:612
+#: src/Views/MediaViewer.vala:605
 msgid "Zoom Out"
 msgstr "Loitonna"
 
-#: src/Views/MediaViewer.vala:617
+#: src/Views/MediaViewer.vala:610
 msgid "Zoom In"
 msgstr "Lähennä"
 
@@ -586,21 +606,21 @@ msgstr "Keskustelu"
 
 #: src/Views/StatusStats.vala:6
 msgid "Post Stats"
-msgstr ""
+msgstr "Viestin tilastot"
 
 #. translators: title for a list of people that favorited a post
 #: src/Views/StatusStats.vala:10
 msgid "Favorited By"
-msgstr ""
+msgstr "Lisännyt suosikkeihin"
 
 #. translators: title for a list of people that boosted a post
 #: src/Views/StatusStats.vala:18
 msgid "Boosted By"
-msgstr ""
+msgstr "Tehostanut"
 
 #: src/Views/Sidebar.vala:36
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Pikanäppäimet"
 
 #: src/Views/Sidebar.vala:45
 msgid "Preferences"
@@ -682,9 +702,9 @@ msgstr "%lld Seurataan"
 msgid "%lld Followers"
 msgstr "%lld Seuraajia"
 
-#: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:127
+#: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:131
 msgid "Edit Profile"
-msgstr ""
+msgstr "Muokkaa profiilia"
 
 #: src/Views/Profile.vala:416
 #, c-format
@@ -857,15 +877,15 @@ msgstr "Suosikit"
 
 #: src/Views/Explore.vala:3 src/Services/Accounts/Mastodon/Account.vala:91
 msgid "Explore"
-msgstr ""
+msgstr "Selaa"
 
 #: src/Views/Explore.vala:7
 msgid "News"
-msgstr ""
+msgstr "Uutiset"
 
 #: src/Views/Explore.vala:8
 msgid "For You"
-msgstr ""
+msgstr "Sinulle"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -1053,72 +1073,72 @@ msgstr "%s haluaa seurata sinua"
 
 #: src/Services/Accounts/InstanceAccount.vala:187
 msgid "Poll results"
-msgstr "Kyselyn tulokset"
+msgstr "Äänestyksen tulokset"
 
 #: src/Services/Accounts/InstanceAccount.vala:192
 #, c-format
 msgid "%s edited a post"
-msgstr ""
+msgstr "%s muokkasi viestiä"
 
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:85
 msgid "Label"
-msgstr ""
+msgstr "Otsikko"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:93
 msgid "Content"
-msgstr ""
+msgstr "Sisältö"
 
-#: src/Dialogs/ProfileEdit.vala:116
+#: src/Dialogs/ProfileEdit.vala:120
 #: src/Dialogs/Composer/AttachmentsPage.vala:206
 msgid "All Supported Files"
 msgstr "Kaikki tuetut tiedostot"
 
-#: src/Dialogs/ProfileEdit.vala:145
+#: src/Dialogs/ProfileEdit.vala:149
 msgid "Display Name"
-msgstr ""
+msgstr "Näyttönimi"
 
 #. translators: profile bio or description
-#: src/Dialogs/ProfileEdit.vala:151
+#: src/Dialogs/ProfileEdit.vala:155
 msgid "Bio"
-msgstr ""
+msgstr "Kuvaus"
 
-#: src/Dialogs/ProfileEdit.vala:171 src/Dialogs/Composer/EditorPage.vala:218
+#: src/Dialogs/ProfileEdit.vala:199 src/Dialogs/Composer/EditorPage.vala:218
 msgid "Custom Emoji Picker"
-msgstr ""
+msgstr "Mukautettu emojivalitsin"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:186
+#: src/Dialogs/ProfileEdit.vala:214
 msgid "Fields"
-msgstr ""
+msgstr "Kentät"
 
-#: src/Dialogs/ProfileEdit.vala:210
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:137
+#: src/Dialogs/ProfileEdit.vala:238
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:166
 msgid "Save"
 msgstr "Tallenna"
 
-#: src/Dialogs/ProfileEdit.vala:215
+#: src/Dialogs/ProfileEdit.vala:243
 msgid "Close"
-msgstr ""
+msgstr "Sulje"
 
-#: src/Dialogs/ProfileEdit.vala:230
+#: src/Dialogs/ProfileEdit.vala:258
 msgid "Edit Profile Picture"
-msgstr ""
+msgstr "Muokkaa profiilikuvaa"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:250
+#: src/Dialogs/ProfileEdit.vala:278
 msgid "Edit Header Picture"
-msgstr ""
+msgstr "Muokkaa otsakekuvaa"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:360
+#: src/Dialogs/ProfileEdit.vala:388
 #, c-format
 msgid "Field %d"
-msgstr ""
+msgstr "Kenttä %d"
 
 #. translators: Open file
-#: src/Dialogs/ProfileEdit.vala:375 src/Dialogs/ProfileEdit.vala:383
+#: src/Dialogs/ProfileEdit.vala:403 src/Dialogs/ProfileEdit.vala:411
 #: src/Dialogs/Composer/AttachmentsPage.vala:226
 #: src/Dialogs/Composer/AttachmentsPage.vala:235
 msgid "Open"
@@ -1136,76 +1156,76 @@ msgstr "Kopioi valtuutuskoodi selaimesta ja liitä se alapuolelle."
 msgid "Please enter a valid instance URL"
 msgstr "Kirjoita kelvollinen instanssin osoite"
 
-#: src/Dialogs/NewAccount.vala:158
+#: src/Dialogs/NewAccount.vala:162
 msgid "Please enter a valid authorization code"
 msgstr "Kirjoita kelvollinen valtuutuskoodi"
 
-#: src/Dialogs/NewAccount.vala:175
+#: src/Dialogs/NewAccount.vala:179
 msgid "Instance failed to authorize the access token"
 msgstr "Instanssi epäonnistui pääsypoletin valtuutuksessa"
 
-#: src/Dialogs/NewAccount.vala:184
+#: src/Dialogs/NewAccount.vala:188
 #, c-format
 msgid "Hello, %s!"
 msgstr "Hei, %s!"
 
-#: src/Dialogs/NewAccount.vala:240
+#: src/Dialogs/NewAccount.vala:244
 msgid "Server returned an error"
 msgstr "Palvelin palautti virheen"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr ""
+msgstr "Äänestys"
 
 #. translators: tooltip on a button that appends another poll entry / option
 #: src/Dialogs/Composer/PollPage.vala:114
 msgid "Add Poll"
-msgstr ""
+msgstr "Lisää äänestys"
 
 #: src/Dialogs/Composer/PollPage.vala:123
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Enable Multiple Choice"
-msgstr ""
+msgstr "Käytä monivalintavastauksia"
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Disable Multiple Choice"
-msgstr ""
+msgstr "Poista monivalintavastaukset käytöstä"
 
 #: src/Dialogs/Composer/PollPage.vala:145
 #: src/Dialogs/Composer/PollPage.vala:159
 msgid "Hide Total Votes"
-msgstr ""
+msgstr "Piilota äänten yhteismäärä"
 
 #: src/Dialogs/Composer/PollPage.vala:159
 msgid "Show Total Votes"
-msgstr ""
+msgstr "Näytä äänten yhteismäärä"
 
 #: src/Dialogs/Composer/PollPage.vala:187
 #: src/Dialogs/Composer/PollPage.vala:222
 #, c-format
 msgid "Choice %d"
-msgstr ""
+msgstr "Valinta %d"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:231
 #: src/Dialogs/Composer/PollPage.vala:234
 #, c-format
 msgid "%d Minutes"
-msgstr ""
+msgstr "%d minuuttia"
 
 #. translators: the variable is a number, m as in minutes
 #: src/Dialogs/Composer/PollPage.vala:233
 #: src/Dialogs/Composer/PollPage.vala:234
 #, c-format
 msgid "%dm"
-msgstr ""
+msgstr "%d min"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:236
 #, c-format
 msgid "%d Hour"
-msgstr ""
+msgstr "%d tunti"
 
 #. translators: the variable is a number, h as in hours
 #: src/Dialogs/Composer/PollPage.vala:238
@@ -1213,19 +1233,19 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:240
 #, c-format
 msgid "%dh"
-msgstr ""
+msgstr "%d t"
 
 #: src/Dialogs/Composer/PollPage.vala:239
 #: src/Dialogs/Composer/PollPage.vala:240
 #, c-format
 msgid "%d Hours"
-msgstr ""
+msgstr "%d tuntia"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:242
 #, c-format
 msgid "%d Day"
-msgstr ""
+msgstr "%d päivä"
 
 #. translators: the variable is a number, d as in days
 #: src/Dialogs/Composer/PollPage.vala:244
@@ -1233,17 +1253,17 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:246
 #, c-format
 msgid "%dd"
-msgstr ""
+msgstr "%d pv"
 
 #: src/Dialogs/Composer/PollPage.vala:245
 #: src/Dialogs/Composer/PollPage.vala:246
 #, c-format
 msgid "%d Days"
-msgstr ""
+msgstr "%d päivää"
 
 #: src/Dialogs/Composer/PollPage.vala:266
 msgid "Expiration"
-msgstr ""
+msgstr "Vanheneminen"
 
 #. translators: "Text" as in text-based input
 #: src/Dialogs/Composer/EditorPage.vala:11
@@ -1251,7 +1271,7 @@ msgid "Text"
 msgstr "Teksti"
 
 #: src/Dialogs/Composer/EditorPage.vala:163
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:132
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:161
 msgid "Characters Left"
 msgstr "Merkkejä jäljellä"
 
@@ -1277,19 +1297,19 @@ msgstr "Viestin yksityisyys"
 
 #: src/Dialogs/Composer/EditorPage.vala:320
 msgid "Post Language"
-msgstr ""
+msgstr "Viestin kieli"
 
 #: src/Dialogs/Composer/Dialog.vala:188
 msgid "Are you sure you want to exit?"
-msgstr ""
+msgstr "Haluatko varmasti poistua?"
 
 #: src/Dialogs/Composer/Dialog.vala:189
 msgid "Your progress will be lost."
-msgstr ""
+msgstr "Tiedot katoavat."
 
 #: src/Dialogs/Composer/Dialog.vala:191
 msgid "Discard"
-msgstr ""
+msgstr "Hylkää"
 
 #: src/Dialogs/Composer/Dialog.vala:276
 msgid "_Redraft"
@@ -1310,6 +1330,10 @@ msgstr "Muokkaa vaihtoehtoista tekstiä"
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:53
 msgid "Remove Attachment"
 msgstr "Poista liite"
+
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:181
+msgid "Alternative text for attachment"
+msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:50
 msgid "Media"
@@ -1347,7 +1371,7 @@ msgstr "Jiri Grönroos"
 
 #: src/Application.vala:330
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/Application.vala:339
 msgid "Yes"
@@ -1357,7 +1381,7 @@ msgstr "Kyllä"
 #: src/API/Tag.vala:35
 #, c-format
 msgid "%d per week"
-msgstr ""
+msgstr "%d kertaa viikossa"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:48
@@ -1373,32 +1397,32 @@ msgstr "Käytetty %d kertaa %d ihmisen toimesta viimeisen kahden päivän aikana
 
 #: src/API/Suggestion.vala:8
 msgid "Account not found"
-msgstr ""
+msgstr "Tiliä ei löydy"
 
 #. translators: the variable is an external service like "PeerTube"
 #: src/API/Status/PreviewCard.vala:25
 #, c-format
 msgid "You are about to open a %s video"
-msgstr ""
+msgstr "Olet aikeissa avata \"%s\"-videon"
 
 #. translators: the variable is an external service like "Funkwhale",
 #. track as in song
 #: src/API/Status/PreviewCard.vala:29
 #, c-format
 msgid "You are about to open a %s track"
-msgstr ""
+msgstr "Olet aikeissa avata \"%s\"-kappaleen"
 
 #. translators: the variable is an external service like "BookWyrm"
 #: src/API/Status/PreviewCard.vala:32
 #, c-format
 msgid "You are about to open a %s book"
-msgstr ""
+msgstr "Olet aikeissa avata \"%s\"-kirjan"
 
 #. translators: the variable is the app name (Tuba)
 #: src/API/Status/PreviewCard.vala:35
 #, c-format
 msgid "You are about to leave %s"
-msgstr ""
+msgstr "Olet aikeissa poistua %s-sovelluksesta"
 
 #. translators: the variable is a url
 #: src/API/Status/PreviewCard.vala:48
@@ -1411,7 +1435,7 @@ msgstr "Jos jatkat, \"%s\" avautuu selaimeen."
 #: src/API/Status/PreviewCard.vala:52
 #, c-format
 msgid "If you proceed, %s will connect to \"%s\"."
-msgstr ""
+msgstr "Jos jatkat, %s yhdistää osoitteeseen \"%s\"."
 
 #: src/API/Status/PreviewCard.vala:154
 msgid "Proceed"
@@ -1426,7 +1450,7 @@ msgstr "Ei hakutuloksia"
 #: src/API/Conversation.vala:22
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "Tyhjä keskustelu käyttäjän %s kanssa"
 
 #~ msgid "Evangelos \"GeopJr\" Paterakis"
 #~ msgstr "Evangelos \"GeopJr\" Paterakis"

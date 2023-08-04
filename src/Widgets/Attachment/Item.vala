@@ -172,7 +172,8 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		var headerbar = new Adw.HeaderBar ();
 		var window = new Adw.Window () {
 			modal = true,
-			title = @"Alternative text for $media_kind",
+			// translators: the variable is the media type (for example VIDEO)
+			title = _("Alternative text for %s").printf (media_kind),
 			transient_for = app.main_window,
 			content = box,
 			default_width = 400,

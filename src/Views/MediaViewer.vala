@@ -3,6 +3,7 @@
 public class Tuba.Views.MediaViewer : Gtk.Box {
     const double MAX_ZOOM = 20;
     private signal void zoom_changed ();
+    static double last_used_volume = 1.0;
 
     public class Item : Adw.Bin {
         private Gtk.Stack stack;
@@ -157,6 +158,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             message ("Destroying MediaViewer.Item");
 
             if (is_video) {
+                last_used_volume = ((Gtk.Video) child_widget).media_stream.muted ? 0.0 : ((Gtk.Video) child_widget).media_stream.volume;
                 ((Gtk.Video) child_widget).media_stream.stream_unprepared ();
                 ((Gtk.Video) child_widget).set_file (null);
                 ((Gtk.Video) child_widget).set_media_stream (null);
@@ -170,6 +172,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         public void done () {
             spinner.spinning = false;
             stack.visible_child_name = "child";
+            if (is_video) {
+                ((Gtk.Video) child_widget).media_stream.volume = 1.0 - last_used_volume;
+                ((Gtk.Video) child_widget).media_stream.volume = last_used_volume;
+            };
         }
 
         private Gtk.Widget setup_scrolledwindow (Gtk.Widget child) {
@@ -229,7 +235,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	construct {
         carousel = new Adw.Carousel () {
             vexpand = true,
-            hexpand = true
+            hexpand = true,
+            css_classes = {"osd"}
         };
 
         // Move between media using the arrow keys
@@ -277,7 +284,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             title_widget = new Gtk.Label (_("Media Viewer")) {
                 css_classes = {"title"}
             },
-			css_classes = {"flat"}
+			css_classes = {"flat", "media-viewer-headerbar"}
         };
         var back_btn = new Gtk.Button.from_icon_name ("tuba-left-large-symbolic") {
             tooltip_text = _("Go Back")
@@ -302,6 +309,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
         carousel_dots = new Adw.CarouselIndicatorDots () {
             carousel = carousel,
+            css_classes = {"osd"},
             visible = false
         };
 

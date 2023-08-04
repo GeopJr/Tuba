@@ -18,6 +18,7 @@
             <property name="label">Label</property>
             <property name="xalign">0</property>
             <property name="hexpand">1</property>
+            <property name="ellipsize">end</property>
           </object>
         </child>
 
