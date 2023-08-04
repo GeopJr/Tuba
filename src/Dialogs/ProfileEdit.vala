@@ -429,7 +429,6 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 					last_used_folder = null;
 				}
 			}
-				
 
 			chooser.response.connect (id => {
 				switch (id) {
