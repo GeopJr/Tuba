@@ -192,19 +192,21 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 			gspell_view.basic_setup ();
 		#endif
 
-		var custom_emoji_picker = new Widgets.CustomEmojiChooser ();
-		var custom_emoji_button = new Gtk.MenuButton () {
-			icon_name = "tuba-cat-symbolic",
-			popover = custom_emoji_picker,
-			tooltip_text = _("Custom Emoji Picker"),
-			css_classes = { "circular" },
-			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER
-		};
-		custom_emoji_picker.emoji_picked.connect (on_bio_emoji_picked);
-		bio_row.bind_property ("expanded", custom_emoji_button, "sensitive", GLib.BindingFlags.SYNC_CREATE);
-		// FIXME: add_suffix on libadwaita 1.4
-		bio_row.add_action (custom_emoji_button);
+		if (accounts.active.instance_emojis?.size > 0) {
+			var custom_emoji_picker = new Widgets.CustomEmojiChooser ();
+			var custom_emoji_button = new Gtk.MenuButton () {
+				icon_name = "tuba-cat-symbolic",
+				popover = custom_emoji_picker,
+				tooltip_text = _("Custom Emoji Picker"),
+				css_classes = { "circular" },
+				valign = Gtk.Align.CENTER,
+				halign = Gtk.Align.CENTER
+			};
+			custom_emoji_picker.emoji_picked.connect (on_bio_emoji_picked);
+			bio_row.bind_property ("expanded", custom_emoji_button, "sensitive", GLib.BindingFlags.SYNC_CREATE);
+			// FIXME: add_suffix on libadwaita 1.4
+			bio_row.add_action (custom_emoji_button);
+		}
 
 		profile_info_box.append (name_row);
 		profile_info_box.append (bio_row);
