@@ -45,7 +45,9 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 					var file = chooser.save.end (res);
 					if (file != null) {
 		#else
-			var chooser = new FileChooserNative (_("Save Attachment"), app.main_window, Gtk.FileChooserAction.SAVE, null, null);
+			var chooser = new FileChooserNative (_("Save Attachment"), app.main_window, Gtk.FileChooserAction.SAVE, null, null) {
+				modal = true
+			};
 			chooser.set_current_name (Path.get_basename (url));
 			chooser.response.connect (id => {
 				switch (id) {

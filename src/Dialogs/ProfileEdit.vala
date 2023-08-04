@@ -412,7 +412,8 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		#else
 			var chooser = new Gtk.FileChooserNative (_("Open"), this, Gtk.FileChooserAction.OPEN, null, null) {
 				select_multiple = false,
-				filter = filter
+				filter = filter,
+				modal = true
 			};
 
 			chooser.response.connect (id => {
