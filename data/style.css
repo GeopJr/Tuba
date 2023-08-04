@@ -133,7 +133,7 @@ flowboxchild {
 
 @keyframes bounce {
 	0% { -gtk-icon-transform: translateY(-5px); }
-    50% { -gtk-icon-transform: translateY(5px); }
+	50% { -gtk-icon-transform: translateY(5px); }
 	100% {}
 }
 
@@ -495,5 +495,3 @@ video > overlay > revealer > controls {
 	border-radius: 100%;
 	padding: 3px;
 }
-
-
