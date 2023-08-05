@@ -210,19 +210,20 @@ public class Tuba.EditorPage : ComposerPage {
 			popover = emoji_picker,
 			tooltip_text = _("Emoji Picker")
 		};
-
-		var custom_emoji_picker = new Widgets.CustomEmojiChooser ();
-		var custom_emoji_button = new MenuButton () {
-			icon_name = "tuba-cat-symbolic",
-			popover = custom_emoji_picker,
-			tooltip_text = _("Custom Emoji Picker")
-		};
-
 		add_button (emoji_button);
-		add_button (custom_emoji_button);
-
 		emoji_picker.emoji_picked.connect (on_emoji_picked);
-		custom_emoji_picker.emoji_picked.connect (on_emoji_picked);
+
+		if (accounts.active.instance_emojis?.size > 0) {
+			var custom_emoji_picker = new Widgets.CustomEmojiChooser ();
+			var custom_emoji_button = new MenuButton () {
+				icon_name = "tuba-cat-symbolic",
+				popover = custom_emoji_picker,
+				tooltip_text = _("Custom Emoji Picker")
+			};
+
+			add_button (custom_emoji_button);
+			custom_emoji_picker.emoji_picked.connect (on_emoji_picked);
+		}
 	}
 
 	protected void on_emoji_picked (string emoji_unicode) {

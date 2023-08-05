@@ -234,7 +234,8 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			// translators: Open file
 			var chooser = new FileChooserNative (_("Open"), dialog, Gtk.FileChooserAction.OPEN, null, null) {
 				select_multiple = true,
-				filter = filter
+				filter = filter,
+				modal = true
 			};
 
 			chooser.response.connect (id => {

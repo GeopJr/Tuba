@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 01:52+0300\n"
+"POT-Creation-Date: 2023-07-19 22:14+0300\n"
 "PO-Revision-Date: 2023-07-24 16:04+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
@@ -363,7 +363,7 @@ msgstr "Idatzi argitalpen berria"
 msgid "Search"
 msgstr "Bilatu"
 
-#: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:264
+#: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:271
 msgid "Go Back"
 msgstr "Egin atzera"
 
@@ -403,13 +403,13 @@ msgstr "Errorea konexioarekin"
 msgid "React with %s"
 msgstr "%s erabiliz erreakzionatu"
 
-#: src/Widgets/Status.vala:270 src/Widgets/Attachment/Item.vala:193
-#: src/Views/MediaViewer.vala:372
+#: src/Widgets/Status.vala:270 src/Widgets/Attachment/Item.vala:194
+#: src/Views/MediaViewer.vala:381
 msgid "Open in Browser"
 msgstr "Ireki nabigatzailean"
 
-#: src/Widgets/Status.vala:271 src/Widgets/Attachment/Item.vala:194
-#: src/Views/MediaViewer.vala:373
+#: src/Widgets/Status.vala:271 src/Widgets/Attachment/Item.vala:195
+#: src/Views/MediaViewer.vala:382
 msgid "Copy URL"
 msgstr "Kopiatu URLa"
 
@@ -545,14 +545,20 @@ msgstr "Gorde eranskinak"
 msgid "View Alt Text"
 msgstr "Ikusi deskribapena"
 
-#: src/Widgets/Attachment/Item.vala:195 src/Views/MediaViewer.vala:374
+#. translators: the variable is the media type (for example VIDEO)
+#: src/Widgets/Attachment/Item.vala:176
+#, c-format
+msgid "Alternative text for %s"
+msgstr ""
+
+#: src/Widgets/Attachment/Item.vala:196 src/Views/MediaViewer.vala:383
 msgid "Save Media"
 msgstr "Gorde multimedia"
 
-#: src/Widgets/Attachment/Item.vala:212 src/Views/MediaViewer.vala:482
+#: src/Widgets/Attachment/Item.vala:213 src/Views/MediaViewer.vala:491
 #: src/Views/Sidebar.vala:271 src/Services/Accounts/SecretAccountStore.vala:124
 #: src/Services/Accounts/SecretAccountStore.vala:222
-#: src/Services/Accounts/AccountStore.vala:43 src/Dialogs/ProfileEdit.vala:298
+#: src/Services/Accounts/AccountStore.vala:43 src/Dialogs/ProfileEdit.vala:326
 #: src/Application.vala:140
 msgid "Error"
 msgstr "Errorea"
@@ -567,27 +573,27 @@ msgstr "Ezkutatu multimedia"
 msgid "Sensitive Media"
 msgstr "Multimedia hunkigarria"
 
-#: src/Views/MediaViewer.vala:258
+#: src/Views/MediaViewer.vala:265
 msgid "Media Viewer"
 msgstr "Multimedia ikuslea"
 
-#: src/Views/MediaViewer.vala:271
+#: src/Views/MediaViewer.vala:278
 msgid "Toggle Fullscreen"
 msgstr "Pantaila osoa bai/ez"
 
-#: src/Views/MediaViewer.vala:589
+#: src/Views/MediaViewer.vala:582
 msgid "Previous Attachment"
 msgstr "Aurreko eranskina"
 
-#: src/Views/MediaViewer.vala:594
+#: src/Views/MediaViewer.vala:587
 msgid "Next Attachment"
 msgstr "Hurrengo eranskina"
 
-#: src/Views/MediaViewer.vala:612
+#: src/Views/MediaViewer.vala:605
 msgid "Zoom Out"
 msgstr "Urrundu"
 
-#: src/Views/MediaViewer.vala:617
+#: src/Views/MediaViewer.vala:610
 msgid "Zoom In"
 msgstr "Gerturatu"
 
@@ -693,7 +699,7 @@ msgstr "%lld jarraitzen"
 msgid "%lld Followers"
 msgstr "%lld jarraitzaile"
 
-#: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:127
+#: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:131
 msgid "Edit Profile"
 msgstr "Editatu profila"
 
@@ -1082,55 +1088,55 @@ msgstr "Etiketa"
 msgid "Content"
 msgstr "Edukia"
 
-#: src/Dialogs/ProfileEdit.vala:116
+#: src/Dialogs/ProfileEdit.vala:120
 #: src/Dialogs/Composer/AttachmentsPage.vala:206
 msgid "All Supported Files"
 msgstr "Bateragarriak diren fitxategi guztiak"
 
-#: src/Dialogs/ProfileEdit.vala:145
+#: src/Dialogs/ProfileEdit.vala:149
 msgid "Display Name"
 msgstr "Pantaila-izena"
 
 #. translators: profile bio or description
-#: src/Dialogs/ProfileEdit.vala:151
+#: src/Dialogs/ProfileEdit.vala:155
 msgid "Bio"
 msgstr "Biografia"
 
-#: src/Dialogs/ProfileEdit.vala:171 src/Dialogs/Composer/EditorPage.vala:218
+#: src/Dialogs/ProfileEdit.vala:199 src/Dialogs/Composer/EditorPage.vala:218
 msgid "Custom Emoji Picker"
 msgstr "Emoji hautatzailea"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:186
+#: src/Dialogs/ProfileEdit.vala:214
 msgid "Fields"
 msgstr "Eremuak"
 
-#: src/Dialogs/ProfileEdit.vala:210
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:137
+#: src/Dialogs/ProfileEdit.vala:238
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:166
 msgid "Save"
 msgstr "Gorde"
 
-#: src/Dialogs/ProfileEdit.vala:215
+#: src/Dialogs/ProfileEdit.vala:243
 msgid "Close"
 msgstr "Itxi"
 
-#: src/Dialogs/ProfileEdit.vala:230
+#: src/Dialogs/ProfileEdit.vala:258
 msgid "Edit Profile Picture"
 msgstr "Editatu profileko irudia"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:250
+#: src/Dialogs/ProfileEdit.vala:278
 msgid "Edit Header Picture"
 msgstr "Editatu goiburuko irudia"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:360
+#: src/Dialogs/ProfileEdit.vala:388
 #, c-format
 msgid "Field %d"
 msgstr "%d. eremua"
 
 #. translators: Open file
-#: src/Dialogs/ProfileEdit.vala:375 src/Dialogs/ProfileEdit.vala:383
+#: src/Dialogs/ProfileEdit.vala:403 src/Dialogs/ProfileEdit.vala:411
 #: src/Dialogs/Composer/AttachmentsPage.vala:226
 #: src/Dialogs/Composer/AttachmentsPage.vala:235
 msgid "Open"
@@ -1148,20 +1154,20 @@ msgstr "Kopiatu nabigatzaileko baimen-kodea eta itsatsi ondoren."
 msgid "Please enter a valid instance URL"
 msgstr "Sartu instantziaren baliozko URLa"
 
-#: src/Dialogs/NewAccount.vala:158
+#: src/Dialogs/NewAccount.vala:162
 msgid "Please enter a valid authorization code"
 msgstr "Sartu baliozko baimen-kodea"
 
-#: src/Dialogs/NewAccount.vala:175
+#: src/Dialogs/NewAccount.vala:179
 msgid "Instance failed to authorize the access token"
 msgstr "Instantziak ezin izan du kodea baimendu"
 
-#: src/Dialogs/NewAccount.vala:184
+#: src/Dialogs/NewAccount.vala:188
 #, c-format
 msgid "Hello, %s!"
 msgstr "Kaixo, %s!"
 
-#: src/Dialogs/NewAccount.vala:240
+#: src/Dialogs/NewAccount.vala:244
 msgid "Server returned an error"
 msgstr "Zerbitzariak errorea itzuli du"
 
@@ -1263,7 +1269,7 @@ msgid "Text"
 msgstr "Testua"
 
 #: src/Dialogs/Composer/EditorPage.vala:163
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:132
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:161
 msgid "Characters Left"
 msgstr "Karaktere gehienez"
 
@@ -1322,6 +1328,10 @@ msgstr "Editatu deskribapena"
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:53
 msgid "Remove Attachment"
 msgstr "Kendu eranskina(k)"
+
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:181
+msgid "Alternative text for attachment"
+msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:50
 msgid "Media"
