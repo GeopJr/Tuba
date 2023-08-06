@@ -5,6 +5,7 @@ public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
 	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
 
     public bool smaller_emoji_pixel_size { get; set; default=false; }
+    public bool large_emojis { get; set; default=false; }
 
     private string _content = "";
 	public string content { get {return _content;}
@@ -45,7 +46,8 @@ public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
 			string? shortcode = str.length > 2 ? str.slice (1, -1) : null;
 			if (shortcode != null && instance_emojis.has_key (shortcode)) {
                 t_t_widgets += new Widgets.Emoji (instance_emojis.get (shortcode), shortcode) {
-                    pixel_size = smaller_emoji_pixel_size ? 14 : -1
+                    pixel_size = smaller_emoji_pixel_size ? 14 : -1,
+                    icon_size = large_emojis ? Gtk.IconSize.LARGE : Gtk.IconSize.INHERIT
                 };
                 t_input_with_placeholder = t_input_with_placeholder.replace (@":$shortcode:", "<widget>");
 			}
