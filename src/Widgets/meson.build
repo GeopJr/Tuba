@@ -1,4 +1,5 @@
 sources += files(
+    'Announcement.vala',
     'Avatar.vala',
     'Background.vala',
     'BookWyrmPage.vala',
