@@ -33,6 +33,10 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	public GLib.ListStore attachments;
 	public Adw.ToastOverlay toast_overlay;
 	public bool media_sensitive { get; set; default = false; }
+	private FileFilter filter = new FileFilter () {
+			name = _("All Supported Files")
+	};
+	private Gee.ArrayList<string> supported_mimes = new Gee.ArrayList<string>.wrap (SUPPORTED_MIMES);
 
 	bool _uploading = false;
 	private bool uploading {
@@ -51,9 +55,36 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			icon_name: "tuba-clip-attachment-symbolic"
 		);
 
+		populate_filter ();
+
 		attachments = new GLib.ListStore (typeof (API.Attachment));
 		attachments.items_changed.connect (on_attachments_changed);
+
+		var dnd_controller = new Gtk.DropTarget (typeof (Gdk.FileList), Gdk.DragAction.COPY);
+        dnd_controller.drop.connect (on_drag_drop);
+        this.add_controller (dnd_controller);
 	}
+
+	private bool on_drag_drop (Value val, double x, double y) {
+		if (!add_media_action_button.sensitive) return false;
+
+		var file_list = val as Gdk.FileList;
+		if (file_list == null) return false;
+
+		var files = file_list.get_files ();
+		if (files.length () == 0) return false;
+
+		File[] files_to_upload = {};
+		foreach (var file in files) {
+			files_to_upload += file;
+		}
+
+		upload_files.begin (files_to_upload, (obj, res) => {
+			upload_files.end (res);
+		});
+
+        return true;
+    }
 
 	protected Adw.ViewStack stack;
 	protected Adw.StatusPage empty_state;
@@ -201,12 +232,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		}
 	}
 
-	void show_file_selector () {
-		var filter = new FileFilter () {
-			name = _("All Supported Files")
-		};
-
-		var supported_mimes = new Gee.ArrayList<string>.wrap (SUPPORTED_MIMES);
+	private void populate_filter () {
 		if (
 			accounts.active.instance_info != null
 			&& accounts.active.instance_info.configuration != null
@@ -216,10 +242,13 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		) {
 			supported_mimes = accounts.active.instance_info.configuration.media_attachments.supported_mime_types;
 		}
-		foreach (var mime_type in supported_mimes) {
-			filter.add_mime_type (mime_type);
-		}
 
+		foreach (var mime_type in supported_mimes) {
+			filter.add_mime_type (mime_type.down ());
+		}
+	}
+
+	void show_file_selector () {
 		#if GTK_4_10
 			var chooser = new FileDialog () {
 				// translators: Open file
@@ -243,76 +272,20 @@ public class Tuba.AttachmentsPage : ComposerPage {
 					case ResponseType.ACCEPT:
 						var files = chooser.get_files ();
 		#endif
-					var selected_files_amount = files.get_n_items ();
 
-					// We want to only upload as many attachments as the server
-					// accepts based on the amount we have already uploaded.
-					var allowed_attachments_amount = accounts.active.instance_info.compat_status_max_media_attachments - attachments.get_n_items (); // vala-lint=line-length
-					var amount_to_add = selected_files_amount > allowed_attachments_amount
-						? allowed_attachments_amount
-						: selected_files_amount;
+			File[] files_to_upload = {};
+			var amount_of_files = files.get_n_items ();
+			for (var i = 0; i < amount_of_files; i++) {
+				var file = files.get_item (i) as File;
 
-					File[] files_for_upload = {};
+				if (file != null)
+					files_to_upload += file;
+			}
 
-					for (var i = 0; i < amount_to_add; i++) {
-						var file = files.get_item (i) as File;
+			upload_files.begin (files_to_upload, (obj, res) => {
+				upload_files.end (res);
+			});
 
-						if (accounts.active.instance_info.compat_status_max_image_size > 0) {
-							try {
-								var file_info = file.query_info ("standard::size,standard::content-type", 0);
-								var file_content_type = file_info.get_content_type ();
-
-								if (file_content_type != null) {
-									file_content_type = file_content_type.down ();
-									var file_size = file_info.get_size ();
-									var skip = (
-										file_content_type.contains ("image/")
-										&& file_size >= accounts.active.instance_info.compat_status_max_image_size
-									) || (
-										file_content_type.contains ("video/")
-										&& file_size >= accounts.active.instance_info.compat_status_max_video_size
-									);
-
-									if (skip) {
-										var toast = new Adw.Toast (
-											_("File \"%s\" is bigger than the instance limit").printf (file.get_basename ())
-										) {
-											timeout = 0
-										};
-										toast_overlay.add_toast (toast);
-										continue;
-									}
-								}
-
-							} catch (Error e) {
-								warning (e.message);
-							}
-						}
-
-						files_for_upload += file;
-					}
-
-					var i = 0;
-					foreach (var file in files_for_upload) {
-						uploading = true;
-						API.Attachment.upload.begin (file.get_uri (), (obj, res) => {
-							try {
-								var attachment = API.Attachment.upload.end (res);
-								attachment.source_file = file;
-
-								attachments.append (attachment);
-							}
-							catch (Error e) {
-								warning (e.message);
-								var toast = new Adw.Toast (e.message) {
-									timeout = 0
-								};
-								toast_overlay.add_toast (toast);
-							}
-							i = i + 1;
-							if (i == files_for_upload.length) uploading = false;
-						});
-					}
 		#if GTK_4_10
 				} catch (Error e) {
 					// User dismissing the dialog also ends here so don't make it sound like
@@ -328,6 +301,80 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			chooser.ref ();
 			chooser.show ();
 		#endif
+	}
+
+	private async void upload_files (File[] files) {
+		var selected_files_amount = files.length;
+		if (selected_files_amount == 0) return;
+
+		// We want to only upload as many attachments as the server
+		// accepts based on the amount we have already uploaded.
+		var allowed_attachments_amount = accounts.active.instance_info.compat_status_max_media_attachments - attachments.get_n_items (); // vala-lint=line-length
+		var amount_to_add = selected_files_amount > allowed_attachments_amount
+			? allowed_attachments_amount
+			: selected_files_amount;
+
+		File[] files_for_upload = {};
+		for (var i = 0; i < amount_to_add; i++) {
+			var file = files[i];
+
+			if (accounts.active.instance_info.compat_status_max_image_size > 0) {
+				try {
+					var file_info = file.query_info ("standard::size,standard::content-type", 0);
+					var file_content_type = file_info.get_content_type ();
+
+					if (file_content_type != null) {
+						file_content_type = file_content_type.down ();
+						if (!supported_mimes.contains (file_content_type)) continue;
+
+						var file_size = file_info.get_size ();
+						var skip = (
+							file_content_type.contains ("image/")
+							&& file_size >= accounts.active.instance_info.compat_status_max_image_size
+						) || (
+							file_content_type.contains ("video/")
+							&& file_size >= accounts.active.instance_info.compat_status_max_video_size
+						);
+
+						if (skip) {
+							var toast = new Adw.Toast (
+								_("File \"%s\" is bigger than the instance limit").printf (file.get_basename ())
+							) {
+								timeout = 0
+							};
+							toast_overlay.add_toast (toast);
+							continue;
+						}
+					}
+
+				} catch (Error e) {
+					warning (e.message);
+				}
+			}
+
+			files_for_upload += file;
+		}
+
+		var i = 0;
+		foreach (var file13 in files_for_upload) {
+			uploading = true;
+			API.Attachment.upload.begin (file13.get_uri (), (obj, res) => {
+				try {
+					var attachment = API.Attachment.upload.end (res);
+					attachment.source_file = file13;
+
+					attachments.append (attachment);
+				} catch (Error e) {
+					warning (e.message);
+					var toast = new Adw.Toast (e.message) {
+						timeout = 0
+					};
+					toast_overlay.add_toast (toast);
+				}
+				i = i + 1;
+				if (i == files_for_upload.length) uploading = false;
+			});
+		}
 	}
 
 	public override void on_push () {
