@@ -3,7 +3,10 @@
     "runtime": "org.gnome.Platform",
     "runtime-version": "44",
     "sdk": "org.gnome.Sdk",
-    "sdk-extensions" : ["org.freedesktop.Sdk.Extension.vala"],
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.vala",
+        "org.freedesktop.Sdk.Extension.llvm16"
+    ],
     "build-options" : {
         "prepend-path" : "/usr/lib/sdk/vala/bin/",
         "prepend-ld-library-path" : "/usr/lib/sdk/vala/lib"
@@ -75,6 +78,13 @@
             "config-opts" : [
                 "-Ddevel=true"
             ],
+            "build-options":{
+                "append-path": "/usr/lib/sdk/llvm16/bin",
+                "prepend-ld-library-path": "/usr/lib/sdk/llvm16/lib",
+                "env": {
+                    "CC": "clang"
+                }
+            },
             "sources": [
                 {
                     "type": "dir",

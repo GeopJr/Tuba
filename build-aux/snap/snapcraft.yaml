@@ -33,7 +33,10 @@ parts:
       - --prefix=/usr
       - -Ddevel=true
     parse-info: [usr/share/metainfo/dev.geopjr.Tuba.metainfo.xml]
+    build-environment:
+      - CC: "clang"
     build-packages:
+      - clang
       - libjson-glib-dev
       - libsecret-1-dev
   cleanup:
