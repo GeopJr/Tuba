@@ -399,6 +399,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 
 	File new_avi;
 	File new_header;
+	File? last_used_folder;
 	void choose_file (bool for_header = false) {
 		#if GTK_4_10
 			var chooser = new Gtk.FileDialog () {
@@ -406,9 +407,15 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 				modal = true,
 				default_filter = filter
 			};
+
+			if (!Tuba.is_flatpak && last_used_folder != null)
+				chooser.initial_folder = last_used_folder;
+
 			chooser.open.begin (this, null, (obj, res) => {
 				try {
-				var file = chooser.open.end (res);
+					var file = chooser.open.end (res);
+					if (!Tuba.is_flatpak)
+						last_used_folder = file.get_parent ();
 		#else
 			var chooser = new Gtk.FileChooserNative (_("Open"), this, Gtk.FileChooserAction.OPEN, null, null) {
 				select_multiple = false,
@@ -416,10 +423,20 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 				modal = true
 			};
 
+			if (!Tuba.is_flatpak && last_used_folder != null) {
+				try {
+					chooser.set_current_folder (last_used_folder);
+				} catch {
+					last_used_folder = null;
+				}
+			}
+
 			chooser.response.connect (id => {
 				switch (id) {
 					case Gtk.ResponseType.ACCEPT:
 						var file = chooser.get_file ();
+						if (!Tuba.is_flatpak)
+							last_used_folder = chooser.get_current_folder ();
 		#endif
 
 				try {
