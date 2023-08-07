@@ -342,8 +342,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	//  	has_unread = unread_count > 0;
 	//  }
 
-	private Gee.HashMap<string, int> sent_notifications = new Gee.HashMap<string, int>();
-	private const string[] grouped_kinds = {
+	private Gee.HashMap<string, int> sent_notifications = new Gee.HashMap<string, int> ();
+	private const string[] GROUPED_KINDS = {
 		KIND_FAVOURITE,
 		KIND_REBLOG,
 		KIND_MENTION
@@ -352,14 +352,14 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		var id = obj.id;
 		var others = 0;
 
-		if (obj.status != null && obj.kind in grouped_kinds) {
+		if (obj.status != null && obj.kind in GROUPED_KINDS) {
 			id = @"$(obj.status.id)-$(obj.kind)";
 			if (sent_notifications.has_key (id)) {
 				others = sent_notifications.get (id) + 1;
 			}
 			sent_notifications.set (id, others);
 		}
-		
+
 		var toast = obj.to_toast (this, others);
 		app.send_notification (id, toast);
 		//  sent_notification_ids.add(id);

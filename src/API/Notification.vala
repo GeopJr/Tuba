@@ -12,7 +12,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 	// TODO: notification actions
 	public virtual GLib.Notification to_toast (InstanceAccount issuer, int others = 0) {
         Tuba.InstanceAccount.Kind res_kind;
-        
+
         var kind_actor_name = account.display_name;
         if (others > 0) {
             kind_actor_name = _("%s & %d others").printf (account.display_name, others);
