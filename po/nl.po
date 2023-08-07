@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 01:52+0300\n"
+"POT-Creation-Date: 2023-07-19 22:14+0300\n"
 "PO-Revision-Date: 2023-07-04 17:58+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
@@ -362,7 +362,7 @@ msgstr "Nieuwe post maken"
 msgid "Search"
 msgstr "Zoeken"
 
-#: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:264
+#: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:271
 msgid "Go Back"
 msgstr "Terug"
 
@@ -402,13 +402,13 @@ msgstr "Verbindingsfout"
 msgid "React with %s"
 msgstr "Reageren met %s"
 
-#: src/Widgets/Status.vala:270 src/Widgets/Attachment/Item.vala:193
-#: src/Views/MediaViewer.vala:372
+#: src/Widgets/Status.vala:270 src/Widgets/Attachment/Item.vala:194
+#: src/Views/MediaViewer.vala:381
 msgid "Open in Browser"
 msgstr "Openen in browser"
 
-#: src/Widgets/Status.vala:271 src/Widgets/Attachment/Item.vala:194
-#: src/Views/MediaViewer.vala:373
+#: src/Widgets/Status.vala:271 src/Widgets/Attachment/Item.vala:195
+#: src/Views/MediaViewer.vala:382
 msgid "Copy URL"
 msgstr "URL kopiëren"
 
@@ -544,14 +544,20 @@ msgstr "Bijlage opslaan"
 msgid "View Alt Text"
 msgstr "Alt-tekst tonen"
 
-#: src/Widgets/Attachment/Item.vala:195 src/Views/MediaViewer.vala:374
+#. translators: the variable is the media type (for example VIDEO)
+#: src/Widgets/Attachment/Item.vala:176
+#, c-format
+msgid "Alternative text for %s"
+msgstr ""
+
+#: src/Widgets/Attachment/Item.vala:196 src/Views/MediaViewer.vala:383
 msgid "Save Media"
 msgstr "Media opslaan"
 
-#: src/Widgets/Attachment/Item.vala:212 src/Views/MediaViewer.vala:482
+#: src/Widgets/Attachment/Item.vala:213 src/Views/MediaViewer.vala:491
 #: src/Views/Sidebar.vala:271 src/Services/Accounts/SecretAccountStore.vala:124
 #: src/Services/Accounts/SecretAccountStore.vala:222
-#: src/Services/Accounts/AccountStore.vala:43 src/Dialogs/ProfileEdit.vala:298
+#: src/Services/Accounts/AccountStore.vala:43 src/Dialogs/ProfileEdit.vala:326
 #: src/Application.vala:140
 msgid "Error"
 msgstr "Foutmelding"
@@ -566,27 +572,27 @@ msgstr "Media verbergen"
 msgid "Sensitive Media"
 msgstr "Gevoelige media"
 
-#: src/Views/MediaViewer.vala:258
+#: src/Views/MediaViewer.vala:265
 msgid "Media Viewer"
 msgstr "Mediaweergave"
 
-#: src/Views/MediaViewer.vala:271
+#: src/Views/MediaViewer.vala:278
 msgid "Toggle Fullscreen"
 msgstr "Volledig scherm omschakelen"
 
-#: src/Views/MediaViewer.vala:589
+#: src/Views/MediaViewer.vala:582
 msgid "Previous Attachment"
 msgstr "Vorige bijlage"
 
-#: src/Views/MediaViewer.vala:594
+#: src/Views/MediaViewer.vala:587
 msgid "Next Attachment"
 msgstr "Volgende bijlage"
 
-#: src/Views/MediaViewer.vala:612
+#: src/Views/MediaViewer.vala:605
 msgid "Zoom Out"
 msgstr "Uitzoomen"
 
-#: src/Views/MediaViewer.vala:617
+#: src/Views/MediaViewer.vala:610
 msgid "Zoom In"
 msgstr "Inzoomen"
 
@@ -692,7 +698,7 @@ msgstr "%lld Volgend"
 msgid "%lld Followers"
 msgstr "%lld Volgers"
 
-#: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:127
+#: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:131
 msgid "Edit Profile"
 msgstr ""
 
@@ -1081,55 +1087,55 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: src/Dialogs/ProfileEdit.vala:116
+#: src/Dialogs/ProfileEdit.vala:120
 #: src/Dialogs/Composer/AttachmentsPage.vala:206
 msgid "All Supported Files"
 msgstr "Alle ondersteunde bestanden"
 
-#: src/Dialogs/ProfileEdit.vala:145
+#: src/Dialogs/ProfileEdit.vala:149
 msgid "Display Name"
 msgstr ""
 
 #. translators: profile bio or description
-#: src/Dialogs/ProfileEdit.vala:151
+#: src/Dialogs/ProfileEdit.vala:155
 msgid "Bio"
 msgstr ""
 
-#: src/Dialogs/ProfileEdit.vala:171 src/Dialogs/Composer/EditorPage.vala:218
+#: src/Dialogs/ProfileEdit.vala:199 src/Dialogs/Composer/EditorPage.vala:218
 msgid "Custom Emoji Picker"
 msgstr "Aangepaste-emoji-kiezer"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:186
+#: src/Dialogs/ProfileEdit.vala:214
 msgid "Fields"
 msgstr ""
 
-#: src/Dialogs/ProfileEdit.vala:210
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:137
+#: src/Dialogs/ProfileEdit.vala:238
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:166
 msgid "Save"
 msgstr "Opslaan"
 
-#: src/Dialogs/ProfileEdit.vala:215
+#: src/Dialogs/ProfileEdit.vala:243
 msgid "Close"
 msgstr ""
 
-#: src/Dialogs/ProfileEdit.vala:230
+#: src/Dialogs/ProfileEdit.vala:258
 msgid "Edit Profile Picture"
 msgstr ""
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:250
+#: src/Dialogs/ProfileEdit.vala:278
 msgid "Edit Header Picture"
 msgstr ""
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:360
+#: src/Dialogs/ProfileEdit.vala:388
 #, c-format
 msgid "Field %d"
 msgstr ""
 
 #. translators: Open file
-#: src/Dialogs/ProfileEdit.vala:375 src/Dialogs/ProfileEdit.vala:383
+#: src/Dialogs/ProfileEdit.vala:403 src/Dialogs/ProfileEdit.vala:411
 #: src/Dialogs/Composer/AttachmentsPage.vala:226
 #: src/Dialogs/Composer/AttachmentsPage.vala:235
 msgid "Open"
@@ -1147,20 +1153,20 @@ msgstr "Kopieer de autorisatiecode van de browser en plak deze hieronder."
 msgid "Please enter a valid instance URL"
 msgstr "Voer een geldige instantie-url in"
 
-#: src/Dialogs/NewAccount.vala:158
+#: src/Dialogs/NewAccount.vala:162
 msgid "Please enter a valid authorization code"
 msgstr "Voer een geldige verificatiecode in"
 
-#: src/Dialogs/NewAccount.vala:175
+#: src/Dialogs/NewAccount.vala:179
 msgid "Instance failed to authorize the access token"
 msgstr "De verificatiecode kan niet worden goedgekeurd"
 
-#: src/Dialogs/NewAccount.vala:184
+#: src/Dialogs/NewAccount.vala:188
 #, c-format
 msgid "Hello, %s!"
 msgstr "Hallo, %s!"
 
-#: src/Dialogs/NewAccount.vala:240
+#: src/Dialogs/NewAccount.vala:244
 msgid "Server returned an error"
 msgstr "De server stuurde een foutmelding terug"
 
@@ -1262,7 +1268,7 @@ msgid "Text"
 msgstr "Tekst"
 
 #: src/Dialogs/Composer/EditorPage.vala:163
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:132
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:161
 msgid "Characters Left"
 msgstr "Aantal resterende tekens"
 
@@ -1321,6 +1327,10 @@ msgstr "Alt-tekst bewerken"
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:53
 msgid "Remove Attachment"
 msgstr "Bijlage verwijderen"
+
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:181
+msgid "Alternative text for attachment"
+msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:50
 msgid "Media"

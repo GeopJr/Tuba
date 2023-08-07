@@ -1,0 +1,32 @@
+public class Tuba.API.Announcement : Entity, Widgetizable {
+	public string id { get; set; }
+	public string content { get; set; }
+	public bool published { get; set; default=true; }
+	public string published_at { get; set; }
+	public string updated_at { get; set; }
+	public bool read { get; set; default=true; }
+	public Gee.ArrayList<API.Emoji>? emojis { get; set; }
+	public Gee.ArrayList<API.EmojiReaction>? reactions { get; set; default = null; }
+
+	public Gee.HashMap<string, string>? emojis_map {
+		owned get {
+			return gen_emojis_map ();
+		}
+	}
+
+    private Gee.HashMap<string, string>? gen_emojis_map () {
+        var res = new Gee.HashMap<string, string> ();
+        if (emojis != null && emojis.size > 0) {
+            emojis.@foreach (e => {
+                res.set (e.shortcode, e.url);
+                return true;
+            });
+        }
+
+        return res;
+    }
+
+	public override Gtk.Widget to_widget () {
+        return new Widgets.Announcement (this);
+    }
+}

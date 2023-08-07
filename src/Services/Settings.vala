@@ -20,6 +20,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool strip_tracking { get; set; }
 	public bool letterbox_media { get; set; }
 	public bool media_viewer_expand_pictures { get; set; }
+	public bool enlarge_custom_emojis { get; set; }
 
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
@@ -27,7 +28,7 @@ public class Tuba.Settings : GLib.Settings {
 		init ("color-scheme");
 		init ("default-post-visibility");
 		init ("autostart");
-		init ("work-in-background");
+		init ("work-in-background", true);
 		init ("timeline-page-size");
 		init ("live-updates");
 		init ("public-live-updates");
@@ -40,10 +41,20 @@ public class Tuba.Settings : GLib.Settings {
 		init ("scale-emoji-hover");
 		init ("letterbox-media");
 		init ("media-viewer-expand-pictures");
+		init ("enlarge-custom-emojis");
+
+		changed.connect (on_changed);
 	}
 
-	void init (string key) {
+	string[] apply_instantly_keys = {};
+	void init (string key, bool apply_instantly = false) {
 		bind (key, this, key, SettingsBindFlags.DEFAULT);
+
+		if (apply_instantly) apply_instantly_keys += key;
+	}
+
+	void on_changed (string key) {
+		if (key in apply_instantly_keys) apply ();
 	}
 }
 

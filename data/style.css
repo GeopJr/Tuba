@@ -234,6 +234,11 @@ flowboxchild {
 	background: alpha(@success_bg_color, 0.1);
 }
 
+.media-viewer-headerbar {
+	background: rgba(0, 0, 0, .7);
+	color: white;
+}
+
 .ttl-status-heading {
 	font-size: 13px;
 }
@@ -462,4 +467,8 @@ video > overlay > revealer > controls {
 .circular-spinner {
 	border-radius: 100%;
 	padding: 3px;
+}
+
+.attention {
+	color: @yellow_4;
 }

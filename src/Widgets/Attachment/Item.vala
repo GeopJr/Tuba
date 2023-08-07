@@ -45,7 +45,9 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 					var file = chooser.save.end (res);
 					if (file != null) {
 		#else
-			var chooser = new FileChooserNative (_("Save Attachment"), app.main_window, Gtk.FileChooserAction.SAVE, null, null);
+			var chooser = new FileChooserNative (_("Save Attachment"), app.main_window, Gtk.FileChooserAction.SAVE, null, null) {
+				modal = true
+			};
 			chooser.set_current_name (Path.get_basename (url));
 			chooser.response.connect (id => {
 				switch (id) {
@@ -172,7 +174,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		var headerbar = new Adw.HeaderBar ();
 		var window = new Adw.Window () {
 			modal = true,
-			title = @"Alternative text for $media_kind",
+			title = _("Alternative text for attachment"),
 			transient_for = app.main_window,
 			content = box,
 			default_width = 400,

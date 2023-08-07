@@ -54,6 +54,24 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.4.1" date="2023-08-05">
+        <description translatable="no">
+          <ul>
+              <li>Fixed News' discussed label not being aligned properly</li>
+              <li>Fixed some strings being untranslatable</li>
+              <li>Fixed sidebar having horizontal overflow in some languages</li>
+              <li>Fixed custom emoji chooser not getting dismissed on Esc</li>
+              <li>Added showing error dialogs when composer fails</li>
+              <li>Fixed work-in-background setting not being able to be saved</li>
+              <li>Reverted the media viewer background color change</li>
+              <li>Fixed volume on videos not matching the actual value</li>
+              <li>Fixed videos playing even when not visible</li>
+              <li>Fixed custom emoji picker not listing emojis alphabetically</li>
+              <li>Fixed custom emoji picker button being visible even if there are no emojis</li>
+              <li>Read the full changelog on the repo</li>
+          </ul>
+        </description>
+    </release>
     <release version="0.4.0" date="2023-07-19">
         <description translatable="no">
           <ul>
