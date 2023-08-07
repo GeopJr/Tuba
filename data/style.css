@@ -132,8 +132,8 @@ flowboxchild {
 }
 
 @keyframes bounce {
-	0% { -gtk-icon-transform: translateY(-5px); }
-	50% { -gtk-icon-transform: translateY(5px); }
+	0% { -gtk-icon-transform: translateY(-3px); }
+	50% { -gtk-icon-transform: translateY(3px); }
 	100% {}
 }
 
