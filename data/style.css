@@ -126,6 +126,33 @@ flowboxchild {
 }
 
 /* Status action icons */
+@keyframes rotate_star {
+	from { -gtk-icon-transform: rotate(-72deg); }
+	to {}
+}
+
+@keyframes bounce {
+	0% { -gtk-icon-transform: translateY(-3px); }
+	50% { -gtk-icon-transform: translateY(3px); }
+	100% {}
+}
+
+@keyframes rotate_half {
+	from { -gtk-icon-transform: rotate(-180deg); }
+	to {}
+}
+
+.ttl-status-action-reblog.enabled image {
+	animation: rotate_half 0.4s ease;
+}
+
+.ttl-status-action-bookmark.enabled image {
+	animation: bounce 0.4s ease;
+}
+
+.ttl-status-action-star.enabled image {
+	animation: rotate_star 0.4s ease;
+}
 
 .ttl-status-action-star:hover,
 .ttl-status-action-star.enabled {
