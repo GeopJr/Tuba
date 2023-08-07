@@ -312,6 +312,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 						.then (() => {})
 						.exec ();
 				}
+
+				sent_notifications.clear ();
 			}
 		}
 
@@ -340,9 +342,25 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	//  	has_unread = unread_count > 0;
 	//  }
 
+	private Gee.HashMap<string, int> sent_notifications = new Gee.HashMap<string, int>();
+	private const string[] grouped_kinds = {
+		KIND_FAVOURITE,
+		KIND_REBLOG,
+		KIND_MENTION
+	};
 	public void send_toast (API.Notification obj) {
-		var toast = obj.to_toast (this);
 		var id = obj.id;
+		var others = 0;
+
+		if (obj.status != null && obj.kind in grouped_kinds) {
+			id = @"$(obj.status.id)-$(obj.kind)";
+			if (sent_notifications.has_key (id)) {
+				others = sent_notifications.get (id) + 1;
+			}
+			sent_notifications.set (id, others);
+		}
+		
+		var toast = obj.to_toast (this, others);
 		app.send_notification (id, toast);
 		//  sent_notification_ids.add(id);
 	}
