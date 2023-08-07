@@ -10,6 +10,9 @@ unit_tests = {
     ),
     'Tracking': files (
         meson.project_source_root() + '/src/Utils/Tracking.vala'
+    ),
+    'Units': files (
+        meson.project_source_root() + '/src/Utils/Units.vala'
     )
 }
 

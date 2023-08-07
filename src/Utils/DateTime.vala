@@ -104,5 +104,4 @@ public class Tuba.DateTime {
 	public static bool is_same_day (GLib.DateTime d1, GLib.DateTime d2) {
 		return (d1.get_day_of_year () == d2.get_day_of_year ()) && (d1.get_year () == d2.get_year ());
 	}
-
 }
