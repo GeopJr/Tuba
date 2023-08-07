@@ -1,6 +1,9 @@
 using Gtk;
 
 public class Tuba.AttachmentsPage : ComposerPage {
+	~AttachmentsPage () {
+		context_menu.unparent ();
+	}
 
 	// https://github.com/tootsuite/mastodon/blob/master/app/models/media_attachment.rb
 	public const string[] SUPPORTED_MIMES = {
@@ -49,6 +52,13 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		}
 	}
 
+	protected PopoverMenu context_menu { get; set; }
+	private const GLib.ActionEntry[] ACTION_ENTRIES = {
+		{"paste-from-clipboard", on_clipboard_paste}
+	};
+
+	Gtk.GestureClick click_controller;
+	Gtk.GestureLongPress long_press_controller;
 	public AttachmentsPage () {
 		Object (
 			title: _("Media"),
@@ -60,6 +70,16 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		attachments = new GLib.ListStore (typeof (API.Attachment));
 		attachments.items_changed.connect (on_attachments_changed);
 
+		var actions = new GLib.SimpleActionGroup ();
+		actions.add_action_entries (ACTION_ENTRIES, this);
+		this.insert_action_group ("attachmentspage", actions);
+
+		var menu_model = new GLib.Menu ();
+		menu_model.append (_("Paste"), "attachmentspage.paste-from-clipboard");
+
+		context_menu = new PopoverMenu.from_model (menu_model);
+		context_menu.set_parent (this);
+
 		var dnd_controller = new Gtk.DropTarget (typeof (Gdk.FileList), Gdk.DragAction.COPY);
         dnd_controller.drop.connect (on_drag_drop);
         this.add_controller (dnd_controller);
@@ -67,19 +87,64 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		var keypress_controller = new Gtk.EventControllerKey ();
         keypress_controller.key_pressed.connect (on_key_pressed);
 		this.add_controller (keypress_controller);
+
+		click_controller = new Gtk.GestureClick () {
+            button = Gdk.BUTTON_SECONDARY
+        };
+		click_controller.pressed.connect (on_click);
+		this.add_controller (click_controller);
+
+		long_press_controller = new Gtk.GestureLongPress () {
+			touch_only = true,
+			button = Gdk.BUTTON_PRIMARY
+		};
+		long_press_controller.pressed.connect (on_long_press);
+		this.add_controller (long_press_controller);
+	}
+
+	private void on_click (int n_press, double x, double y) {
+		if (!show_context_menu (x, y)) return;
+
+		click_controller.set_state (EventSequenceState.CLAIMED);
+	}
+
+	private void on_long_press (double x, double y) {
+		if (!show_context_menu (x, y)) return;
+
+		long_press_controller.set_state (EventSequenceState.CLAIMED);
+	}
+
+	private bool show_context_menu (double x, double y) {
+		if (!add_media_action_button.sensitive) return false;
+		message ("Context menu triggered");
+
+		Gdk.Rectangle rectangle = {
+			(int) x,
+			(int) y,
+			0,
+			0
+		};
+		context_menu.set_pointing_to (rectangle);
+		context_menu.popup ();
+
+		return true;
 	}
 
 	private bool on_key_pressed (uint keyval, uint keycode, Gdk.ModifierType modifier) {
 		if ((keyval == Gdk.Key.v || keyval == Gdk.Key.V) && modifier == Gdk.ModifierType.CONTROL_MASK) {
-			on_clipboard_paste.begin ((obj, res) => {
-				on_clipboard_paste.end (res);
-			});
+			on_clipboard_paste ();
 			return true;
 		}
 		return false;
 	}
 
-	private async void on_clipboard_paste () {
+	private void on_clipboard_paste () {
+		on_clipboard_paste_async.begin ((obj, res) => {
+			on_clipboard_paste_async.end (res);
+		});
+	}
+
+	private async void on_clipboard_paste_async () {
 		File[] files = {};
 		bool from_value_failed = false;
 		Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
