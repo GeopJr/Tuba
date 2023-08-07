@@ -81,27 +81,27 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 	private async void on_clipboard_paste () {
 		File[] files = {};
-		//  bool text_failed = false;
+		bool from_value_failed = false;
 		Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 
-		//  try {
-		//  	var copied_file_paths = yield clipboard.read_text_async (null);
-		//  	if (copied_file_paths == null) {
-		//  		text_failed = true;
-		//  	} else {
-		//  		var copied_file_paths_arr = copied_file_paths.split ("\n");
-		//  		foreach (var copied_file_path in copied_file_paths_arr) {
-		//  			File tmp_file = File.new_for_path (copied_file_path);
-		//  			if (tmp_file.query_exists ()) {
-		//  				files += tmp_file;
-		//  			}
-		//  		}
-		//  	}
-		//  } catch (Error e) {
-		//  	text_failed = true;
-		//  }
+		try {
+			var copied_value = yield clipboard.read_value_async (typeof (File), 0, null);
 
-		//  if (text_failed) {
+			if (copied_value == null) {
+				from_value_failed = true;
+			} else {
+				var copied_file = copied_value as File;
+				if (copied_file == null) {
+					from_value_failed = true;
+				} else {
+					files += copied_file;
+				}
+			}
+		} catch (Error e) {
+			from_value_failed = true;
+		}
+
+		if (from_value_failed) {
 			try {
 				var copied_texture = yield clipboard.read_texture_async (null);
 				if (copied_texture == null) return;
@@ -114,7 +114,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			} catch (Error e) {
 				warning (@"Couldn't get texture from clipboard: $(e.message)");
 			}
-		//  }
+		}
 
 		yield upload_files (files);
 	}
