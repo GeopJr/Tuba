@@ -110,7 +110,8 @@ final_deps = [
   libspelling,
   gtksourceview_dep,
   libgtk_dep,
-  libadwaita_dep
+  libadwaita_dep,
+  meson.get_compiler('c').find_library('m', required: false)
 ]
 
 executable(
