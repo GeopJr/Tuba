@@ -60,8 +60,46 @@ namespace Tuba {
 			{ "quit", quit_activated },
 			{ "back-home", back_home_activated },
 			{ "scroll-page-down", scroll_view_page_down },
-			{ "scroll-page-up", scroll_view_page_up }
+			{ "scroll-page-up", scroll_view_page_up },
+			{ "open-status-url", open_status_url, "s" },
+			{ "answer-follow-request", answer_follow_request, "(sb)" },
+			{ "follow-back", follow_back, "s" },
+			{ "reply-to-status-uri", reply_to_status_uri, "s" },
+			{ "remove-from-followers", remove_from_followers, "s" },
 		};
+
+		private void remove_from_followers (GLib.SimpleAction action, GLib.Variant? value) {
+			if (value == null) return;
+
+			accounts.active?.remove_from_followers (value.get_string ());
+		}
+
+		private void reply_to_status_uri (GLib.SimpleAction action, GLib.Variant? value) {
+			if (value == null) return;
+
+			accounts.active?.reply_to_status_uri (value.get_string ());
+		}
+
+		private void follow_back (GLib.SimpleAction action, GLib.Variant? value) {
+			if (value == null) return;
+
+			accounts.active?.follow_back (value.get_string ());
+		}
+
+		private void open_status_url (GLib.SimpleAction action, GLib.Variant? value) {
+			if (value == null) return;
+
+			accounts.active?.open_status_url (value.get_string ());
+		}
+
+		private void answer_follow_request (GLib.SimpleAction action, GLib.Variant? value) {
+			if (value == null) return;
+
+			accounts.active?.answer_follow_request (
+				value.get_child_value (0).get_string (),
+				value.get_child_value (1).get_boolean ()
+			);
+		}
 
 		construct {
 			application_id = Build.DOMAIN;
