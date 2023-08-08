@@ -60,7 +60,7 @@ asresources = gnome.compile_resources(
     c_name: 'as',
 )
 
-libgtk_dep = dependency('gtk4', version: '>=4.0.0', required: true)
+libgtk_dep = dependency('gtk4', version: '>=4.10.0', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.2', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
 libwebp_dep = dependency('libwebp', required: false)
