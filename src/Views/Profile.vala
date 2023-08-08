@@ -246,17 +246,17 @@ public class Tuba.Views.Profile : Views.Timeline {
 		};
 
 		// translators: the variable is the amount of posts a user has made
-		var btn = build_profile_stats_button (_("%lld Posts").printf (profile.statuses_count));
+		var btn = build_profile_stats_button (_("%s Posts").printf (Tuba.Units.shorten (profile.statuses_count)));
 		btn.clicked.connect (() => change_timeline_source ("statuses"));
 		box.append (btn);
 
 		// translators: the variable is the amount of people a user follows
-		btn = build_profile_stats_button (_("%lld Following").printf (profile.following_count));
+		btn = build_profile_stats_button (_("%s Following").printf (Tuba.Units.shorten (profile.following_count)));
 		btn.clicked.connect (() => change_timeline_source ("following"));
 		box.append (btn);
 
 		// translators: the variable is the amount of followers a user has
-		btn = build_profile_stats_button (_("%lld Followers").printf (profile.followers_count));
+		btn = build_profile_stats_button (_("%s Followers").printf (Tuba.Units.shorten (profile.followers_count)));
 		btn.clicked.connect (() => change_timeline_source ("followers"));
 		box.append (btn);
 

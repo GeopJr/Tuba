@@ -5,4 +5,5 @@ sources += files(
     'Html.vala',
     'Locale.vala',
     'Tracking.vala',
+    'Units.vala',
 )

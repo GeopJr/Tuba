@@ -48,7 +48,7 @@ public class Tuba.StatusActionButton : LockableToggleButton {
 			content.margin_start = 0;
 			content.margin_end = 0;
 		} else {
-			content.label = new_value.to_string ();
+			content.label = Tuba.Units.shorten (new_value);
 			content.margin_start = 12;
 			content.margin_end = 9;
 		}
