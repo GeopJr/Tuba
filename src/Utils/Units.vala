@@ -38,18 +38,37 @@ public class Tuba.Units {
     };
 
     public static string shorten (int64 unit) {
-        if (unit < 1000) return unit.to_string ();
+        if (
+            unit == 0
+            || (unit < 0 && unit > -1000)
+            || (unit > 0 && unit < 1000)
+        ) return unit.to_string ();
+
+        // If unit is negative, make it positive
+        // and later add the `-` prefix
+        bool is_negative = unit < 0;
+        if (is_negative) unit = unit * -1;
 
         for (var i = 1; i < SHORT_UNITS.length; i++) {
             var short_unit = SHORT_UNITS[i];
             if (unit >= short_unit.top) continue;
 
-            var shortened_unit = "%.1f".printf (Math.trunc (((double) unit / SHORT_UNITS[i - 1].top) * 10.0) / 10.0);
+            // We want the string to always have one decimal point
+            // We first devide by the previous top value | 1312 / 1000 => 1.312
+            // then multiply by 10 | 13.12
+            // trunc it | 13
+            // and then devide by 10 | 1.3
+            var shortened_unit = "%.1f".printf (
+                Math.trunc (((double) unit / SHORT_UNITS[i - 1].top) * 10.0) / 10.0
+            );
+
+            // If it ends in .0 (13.0) or has more than 3 characters (999.9)
+            // remove the last two (13, 999)
             if (shortened_unit.has_suffix ("0") || shortened_unit.length > 3) {
                 shortened_unit = shortened_unit.slice (0, shortened_unit.length - 2);
             }
 
-            return @"$shortened_unit$(short_unit.symbol)";
+            return @"$(is_negative ? "-" : "")$shortened_unit$(short_unit.symbol)";
         }
 
         return "♾️";
