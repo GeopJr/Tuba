@@ -75,11 +75,7 @@ public class Tuba.EditorPage : ComposerPage {
 		builder.add_string_value (status.sensitive ? status.spoiler_text : "");
 	}
 
-	#if MISSING_GTKSOURCEVIEW
-		protected TextView editor;
-	#else
-		protected GtkSource.View editor;
-	#endif
+	protected GtkSource.View editor;
 	protected Label char_counter;
 
 	public void editor_grab_focus () {
@@ -89,9 +85,7 @@ public class Tuba.EditorPage : ComposerPage {
 	protected void install_editor () {
 		recount_chars.connect (() => {
 			remaining_chars = char_limit;
-			#if !MISSING_GTKSOURCEVIEW
-				editor.show_completion ();
-			#endif
+			editor.show_completion ();
 		});
 		recount_chars.connect_after (() => {
 			placeholder.visible = remaining_chars == char_limit;
@@ -105,11 +99,8 @@ public class Tuba.EditorPage : ComposerPage {
 			}
 		});
 
-		#if MISSING_GTKSOURCEVIEW
-			editor = new TextView () {
-		#else
-			editor = new GtkSource.View () {
-		#endif
+
+		editor = new GtkSource.View () {
 			vexpand = true,
 			hexpand = true,
 			top_margin = 6,
@@ -121,7 +112,7 @@ public class Tuba.EditorPage : ComposerPage {
 			wrap_mode = WrapMode.WORD_CHAR
 		};
 
-		#if LIBSPELLING && !MISSING_GTKSOURCEVIEW
+		#if LIBSPELLING
 			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
 
 			editor.extra_menu = adapter.get_menu_model ();
@@ -129,7 +120,7 @@ public class Tuba.EditorPage : ComposerPage {
 			adapter.enabled = true;
 		#endif
 
-		#if GSPELL && (MISSING_GTKSOURCEVIEW || !LIBSPELLING)
+		#if GSPELL && !LIBSPELLING
 			var gspell_view = Gspell.TextView.get_from_gtk_text_view (editor);
 			gspell_view.basic_setup ();
 		#endif
@@ -144,15 +135,13 @@ public class Tuba.EditorPage : ComposerPage {
         });
         editor.add_controller (keypress_controller);
 
-		#if !MISSING_GTKSOURCEVIEW
-			editor.completion.add_provider (new Tuba.HandleProvider ());
-			editor.completion.add_provider (new Tuba.HashtagProvider ());
-			editor.completion.add_provider (new Tuba.EmojiProvider ());
-			editor.completion.select_on_show = true;
-			editor.completion.show_icons = true;
-			editor.completion.page_size = 3;
-			update_style_scheme ();
-		#endif
+		editor.completion.add_provider (new Tuba.HandleProvider ());
+		editor.completion.add_provider (new Tuba.HashtagProvider ());
+		editor.completion.add_provider (new Tuba.EmojiProvider ());
+		editor.completion.select_on_show = true;
+		editor.completion.show_icons = true;
+		editor.completion.page_size = 3;
+		update_style_scheme ();
 
 		recount_chars.connect (() => {
 			remaining_chars -= editor.buffer.get_char_count ();
@@ -167,14 +156,12 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.buffer.changed.connect (validate);
 	}
 
-	#if !MISSING_GTKSOURCEVIEW
-		protected void update_style_scheme () {
-			var manager = GtkSource.StyleSchemeManager.get_default ();
-			var scheme = manager.get_scheme ("adwaita");
-			var buffer = editor.buffer as GtkSource.Buffer;
-			buffer.style_scheme = scheme;
-		}
-	#endif
+	protected void update_style_scheme () {
+		var manager = GtkSource.StyleSchemeManager.get_default ();
+		var scheme = manager.get_scheme ("adwaita");
+		var buffer = editor.buffer as GtkSource.Buffer;
+		buffer.style_scheme = scheme;
+	}
 
 	protected Overlay overlay;
 	protected Label placeholder;

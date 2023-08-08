@@ -100,7 +100,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 			adapter.enabled = true;
 		#endif
 
-		#if GSPELL && (MISSING_GTKSOURCEVIEW || !LIBSPELLING)
+		#if GSPELL && !LIBSPELLING
 			var gspell_view = Gspell.TextView.get_from_gtk_text_view (bio_text_view);
 			gspell_view.basic_setup ();
 		#endif
