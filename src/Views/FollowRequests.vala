@@ -22,7 +22,7 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
 
     public void on_accept (Widgets.Status widget_status, Widgetizable widget) {
         widget_status.fr_actions.sensitive = false;
-        new Request.POST (@"/api/v1/follow_requests/$(widget_status.kind_instigator.id)/authorize")
+        widget_status.kind_instigator.accept_follow_request ()
 			.with_account (accounts.active)
 			.then ((sess, msg, in_stream) => {
                 var parser = Network.get_parser_from_inputstream (in_stream);
@@ -30,9 +30,9 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
 				var relationship = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
                 if (relationship.followed_by == true) {
                     uint indx;
-		            var found = model.find (widget, out indx);
-		            if (found)
-			            model.remove (indx);
+                    var found = model.find (widget, out indx);
+                    if (found)
+                        model.remove (indx);
                 } else {
                     widget_status.fr_actions.sensitive = true;
                 }
@@ -42,13 +42,13 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
 
     public void on_decline (Widgets.Status widget_status, Widgetizable widget) {
         widget_status.fr_actions.sensitive = false;
-        new Request.POST (@"/api/v1/follow_requests/$(widget_status.kind_instigator.id)/reject")
+        widget_status.kind_instigator.decline_follow_request ()
 			.with_account (accounts.active)
 			.then ((sess, msg) => {
                 uint indx;
-		        var found = model.find (widget, out indx);
-		        if (found)
-			        model.remove (indx);
+                var found = model.find (widget, out indx);
+                if (found)
+                    model.remove (indx);
 			})
 			.exec ();
     }

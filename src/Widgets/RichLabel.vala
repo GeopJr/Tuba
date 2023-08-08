@@ -112,8 +112,7 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 					Host.open_uri (url);
 				}
 			});
-		}
-		else {
+		} else {
 			Host.open_uri (url);
 		}
 
