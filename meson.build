@@ -71,10 +71,6 @@ if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
 endif
 
-if libgtk_dep.version().version_compare('>=4.8.0')
-  add_project_arguments(['--define=GTK_4_8'], language: 'vala')
-endif
-
 if libspelling.found ()
   add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
 endif

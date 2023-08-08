@@ -13,12 +13,9 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 
 		if (card_obj.image != null) {
 			var image = new Gtk.Picture () {
-				width_request = 25
+				width_request = 25,
+				content_fit = Gtk.ContentFit.COVER
 			};
-
-			#if GTK_4_8
-				image.set_property ("content-fit", 2);
-			#endif
 
 			image_cache.request_paintable (card_obj.image, (is_loaded, paintable) => {
 				image.paintable = paintable;
