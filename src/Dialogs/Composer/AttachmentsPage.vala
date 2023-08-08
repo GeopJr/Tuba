@@ -368,58 +368,35 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	}
 
 	void show_file_selector () {
-		#if GTK_4_10
-			var chooser = new FileDialog () {
-				// translators: Open file
-				title = _("Open"),
-				modal = true,
-				default_filter = filter
-			};
-			chooser.open_multiple.begin (dialog, null, (obj, res) => {
-				try {
-				var files = chooser.open_multiple.end (res);
-		#else
+		var chooser = new FileDialog () {
 			// translators: Open file
-			var chooser = new FileChooserNative (_("Open"), dialog, Gtk.FileChooserAction.OPEN, null, null) {
-				select_multiple = true,
-				filter = filter,
-				modal = true
-			};
+			title = _("Open"),
+			modal = true,
+			default_filter = filter
+		};
+		chooser.open_multiple.begin (dialog, null, (obj, res) => {
+			try {
+				var files = chooser.open_multiple.end (res);
 
-			chooser.response.connect (id => {
-				switch (id) {
-					case ResponseType.ACCEPT:
-						var files = chooser.get_files ();
-		#endif
+				File[] files_to_upload = {};
+				var amount_of_files = files.get_n_items ();
+				for (var i = 0; i < amount_of_files; i++) {
+					var file = files.get_item (i) as File;
 
-			File[] files_to_upload = {};
-			var amount_of_files = files.get_n_items ();
-			for (var i = 0; i < amount_of_files; i++) {
-				var file = files.get_item (i) as File;
+					if (file != null)
+						files_to_upload += file;
+				}
 
-				if (file != null)
-					files_to_upload += file;
+				upload_files.begin (files_to_upload, (obj, res) => {
+					upload_files.end (res);
+				});
+
+			} catch (Error e) {
+				// User dismissing the dialog also ends here so don't make it sound like
+				// it's an error
+				warning (@"Couldn't get the result of FileDialog for AttachmentsPage: $(e.message)");
 			}
-
-			upload_files.begin (files_to_upload, (obj, res) => {
-				upload_files.end (res);
-			});
-
-		#if GTK_4_10
-				} catch (Error e) {
-					// User dismissing the dialog also ends here so don't make it sound like
-					// it's an error
-					warning (@"Couldn't get the result of FileDialog for AttachmentsPage: $(e.message)");
-				}
-			});
-		#else
-						break;
-				}
-				chooser.unref ();
-			});
-			chooser.ref ();
-			chooser.show ();
-		#endif
+		});
 	}
 
 	private async void upload_files (File[] files) {

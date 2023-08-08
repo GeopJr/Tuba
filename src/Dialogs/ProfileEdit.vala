@@ -217,7 +217,6 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 	File new_avi;
 	File new_header;
 	void choose_file (bool for_header = false) {
-		#if GTK_4_10
 			var chooser = new Gtk.FileDialog () {
 				title = _("Open"),
 				modal = true,
@@ -225,50 +224,29 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 			};
 			chooser.open.begin (this, null, (obj, res) => {
 				try {
-				var file = chooser.open.end (res);
-		#else
-			var chooser = new Gtk.FileChooserNative (_("Open"), this, Gtk.FileChooserAction.OPEN, null, null) {
-				select_multiple = false,
-				filter = filter,
-				modal = true
-			};
+					var file = chooser.open.end (res);
 
-			chooser.response.connect (id => {
-				switch (id) {
-					case Gtk.ResponseType.ACCEPT:
-						var file = chooser.get_file ();
-		#endif
+					try {
+						var texture = Gdk.Texture.from_file (file);
 
-				try {
-					var texture = Gdk.Texture.from_file (file);
+						if (for_header) {
+							new_header = file;
+							background.paintable = texture;
+						} else {
+							new_avi = file;
+							avi.custom_image = texture;
+						}
 
-					if (for_header) {
-						new_header = file;
-						background.paintable = texture;
-					} else {
-						new_avi = file;
-						avi.custom_image = texture;
+					} catch (Error e) {
+						critical (@"Couldn't construct Texture from file $(e.message)");
 					}
 
-				} catch (Error e) {
-					critical (@"Couldn't construct Texture from file $(e.message)");
-				}
-
-		#if GTK_4_10
 				} catch (Error e) {
 					// User dismissing the dialog also ends here so don't make it sound like
 					// it's an error
 					warning (@"Couldn't get the result of FileDialog for ProfileEdit: $(e.message)");
 				}
 			});
-		#else
-						break;
-				}
-				chooser.unref ();
-			});
-			chooser.ref ();
-			chooser.show ();
-		#endif
 	}
 
 	public signal void saved ();
