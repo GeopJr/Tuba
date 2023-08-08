@@ -1,20 +1,40 @@
 public class Tuba.Units {
+    public enum ShortUnitType {
+		NONE,
+		THOUSAND,
+		MILLION,
+		BILLION;
+
+		public string to_string () {
+			switch (this) {
+				case THOUSAND:
+                    // translators: short unit suffix for thousands
+                    //              3000 => 3k
+					return _("k");
+				case MILLION:
+                    // translators: short unit suffix for millions
+                    //              3000000 => 3M
+					return _("M");
+                case BILLION:
+                    // translators: short unit suffix for billions
+                    //              3000000000 => 3G
+                    return _("G");
+				default:
+					return "";
+			}
+		}
+	}
+
     public struct ShortUnit {
         int64 top;
-        string symbol;
+        ShortUnitType symbol;
     }
 
     public const ShortUnit[] SHORT_UNITS = {
-        { 1000, "" },
-        // translators: short unit suffix for thousands
-        //              3000 => 3k
-        { 1000000, "k" },
-        // translators: short unit suffix for millions
-        //              3000000 => 3M
-        { 1000000000, "M" },
-        // translators: short unit suffix for billions
-        //              3000000000 => 3G
-        { 1000000000000, "G" }
+        { 1000, ShortUnitType.NONE },
+        { 1000000, ShortUnitType.THOUSAND },
+        { 1000000000, ShortUnitType.MILLION },
+        { 1000000000000, ShortUnitType.BILLION }
     };
 
     public static string shorten (int64 unit) {
