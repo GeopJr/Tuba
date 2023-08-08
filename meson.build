@@ -1,13 +1,18 @@
 project(
     'dev.geopjr.Tuba',
     ['c', 'vala'],
-    version: '0.4.0',
+    version: '0.4.1',
     meson_version: '>= 0.56.0',
     default_options: [
         'warning_level=2',
         'werror=false',
     ],
 )
+
+# https://gitlab.gnome.org/GNOME/vala/-/issues/1413#note_1707480
+if meson.get_compiler ('c').get_id () == 'clang'
+  add_project_arguments('-Wno-incompatible-function-pointer-types', language: 'c')
+endif
 
 devel = get_option('devel')
 distro = get_option('distro')

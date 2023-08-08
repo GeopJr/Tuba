@@ -1,4 +1,8 @@
 public class Tuba.API.Instance : Entity {
+	public string uri { get; set; default=""; }
+	public string title { get; set; default=""; }
+	public string thumbnail { get; set; default=null; }
+
 	public Gee.ArrayList<string>? languages { get; set; }
 	public API.Mastodon.Configurations? configuration { get; set; default = null; }
 	public int64 max_toot_chars { get; set; default = 0; }

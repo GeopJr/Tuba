@@ -71,6 +71,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 	[GtkChild] unowned Adw.Avatar avi;
 	[GtkChild] unowned Gtk.Picture background;
 	[GtkChild] unowned Adw.PreferencesGroup fields_box;
+	[GtkChild] unowned Gtk.MenuButton cepbtn;
 
 	Gtk.FileFilter filter = new Gtk.FileFilter () {
 		name = _("All Supported Files")
@@ -103,6 +104,10 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 			var gspell_view = Gspell.TextView.get_from_gtk_text_view (bio_text_view);
 			gspell_view.basic_setup ();
 		#endif
+
+		if (accounts.active.instance_emojis?.size > 0) {
+			cepbtn.visible = true;
+		}
 	}
 
 	[GtkCallback]
@@ -224,7 +229,8 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		#else
 			var chooser = new Gtk.FileChooserNative (_("Open"), this, Gtk.FileChooserAction.OPEN, null, null) {
 				select_multiple = false,
-				filter = filter
+				filter = filter,
+				modal = true
 			};
 
 			chooser.response.connect (id => {

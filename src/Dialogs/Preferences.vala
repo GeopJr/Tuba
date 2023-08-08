@@ -19,6 +19,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned Switch strip_tracking;
     [GtkChild] unowned Switch letterbox_media;
     [GtkChild] unowned Switch media_viewer_expand_pictures;
+    [GtkChild] unowned Switch enlarge_custom_emojis;
 
 	private bool lang_changed { get; set; default=false; }
 
@@ -73,6 +74,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
         settings.bind ("strip-tracking", strip_tracking, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("letterbox-media", letterbox_media, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("media-viewer-expand-pictures", media_viewer_expand_pictures, "active", SettingsBindFlags.DEFAULT);
+        settings.bind ("enlarge-custom-emojis", enlarge_custom_emojis, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 

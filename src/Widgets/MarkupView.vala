@@ -81,7 +81,8 @@ public class Tuba.Widgets.MarkupView : Box {
 				visible = true,
 				// markup = MarkupPolicy.TRUST,
 				selectable = _selectable,
-				vexpand = true
+				vexpand = true,
+				large_emojis = settings.enlarge_custom_emojis
 			};
 			if (instance_emojis != null) label.instance_emojis = instance_emojis;
 			label.label = current_chunk.strip ();

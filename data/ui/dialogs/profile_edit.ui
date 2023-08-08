@@ -130,11 +130,12 @@
                             <!-- translators: profile bio or description -->
                             <property name="title" translatable="yes">Bio</property>
                             <child type="action">
-                              <object class="GtkMenuButton">
+                              <object class="GtkMenuButton" id="cepbtn">
                                 <property name="sensitive" bind-source="bio_row" bind-property="expanded" bind-flags="sync-create"/>
                                 <style>
                                   <class name="circular"/>
                                 </style>
+                                <property name="visible">0</property>
                                 <property name="popover">custom_emoji_picker</property>
                                 <property name="valign">center</property>
                                 <property name="halign">center</property>
