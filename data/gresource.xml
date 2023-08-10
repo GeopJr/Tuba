@@ -84,6 +84,7 @@
         <file>ui/widgets/announcement.ui</file>
         <file>ui/widgets/status.ui</file>
         <file>ui/widgets/votebox.ui</file>
+        <file>ui/widgets/preview_card.ui</file>
         <file>ui/dialogs/list_edit.ui</file>
         <file>ui/dialogs/new_account.ui</file>
         <file>ui/dialogs/compose.ui</file>
