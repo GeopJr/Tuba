@@ -1,6 +1,4 @@
-using Gtk;
-
-public class Tuba.Widgets.RelationshipButton : Button {
+public class Tuba.Widgets.RelationshipButton : Gtk.Button {
 
 	public API.Relationship? rs { get; set; }
 	protected SourceFunc? fn = null;

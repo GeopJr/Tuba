@@ -1,9 +1,7 @@
-using Gtk;
-
 public class Tuba.Views.ContentBase : Views.Base {
 
 	public GLib.ListStore model;
-	protected ListBox content;
+	protected Gtk.ListBox content;
 	private bool bottom_reached_locked = false;
 	protected signal void reached_close_to_top ();
 
@@ -15,8 +13,8 @@ public class Tuba.Views.ContentBase : Views.Base {
 		model = new GLib.ListStore (typeof (Widgetizable));
 		model.items_changed.connect (on_content_changed);
 
-		content = new ListBox () {
-			selection_mode = SelectionMode.NONE,
+		content = new Gtk.ListBox () {
+			selection_mode = Gtk.SelectionMode.NONE,
 			css_classes = { "content", "ttl-content" }
 		};
 		content_box.append (content);
@@ -65,7 +63,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 	}
 
 
-	public virtual Widget on_create_model_widget (Object obj) {
+	public virtual Gtk.Widget on_create_model_widget (Object obj) {
 		var obj_widgetable = obj as Widgetizable;
 		if (obj_widgetable == null)
 			Process.exit (0);
@@ -87,7 +85,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 		}, Priority.LOW);
 	}
 
-	public virtual void on_content_item_activated (ListBoxRow row) {
+	public virtual void on_content_item_activated (Gtk.ListBoxRow row) {
 		Signal.emit_by_name (row, "open");
 	}
 

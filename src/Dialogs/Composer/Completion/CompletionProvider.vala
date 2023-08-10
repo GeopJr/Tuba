@@ -1,5 +1,3 @@
-using Gtk;
-
 public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvider {
 
 	public static GLib.ListStore EMPTY = new GLib.ListStore (typeof (Object)); // vala-lint=naming-convention
@@ -35,8 +33,8 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 	}
 
 	public virtual void activate (GtkSource.CompletionContext context, GtkSource.CompletionProposal proposal) {
-		TextIter start;
-		TextIter end;
+		Gtk.TextIter start;
+		Gtk.TextIter end;
 		context.get_bounds (out start, out end);
 
 		var buffer = start.get_buffer ();
@@ -58,7 +56,7 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 			// If it's not capturing,
 			// check if the character before the word
 			// is the trigger
-			TextIter start;
+			Gtk.TextIter start;
 			context.get_bounds (out start, null);
 			if (start.backward_char ())
 				is_trigger (start, start.get_char ());

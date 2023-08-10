@@ -1,25 +1,23 @@
-using Gtk;
-
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/preferences.ui")]
 public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 
     [GtkChild] unowned Adw.ComboRow scheme_combo_row;
     [GtkChild] unowned Adw.ComboRow post_visibility_combo_row;
     [GtkChild] unowned Adw.ComboRow default_language_combo_row;
-    [GtkChild] unowned Switch autostart;
-    [GtkChild] unowned Switch work_in_background;
-    [GtkChild] unowned SpinButton timeline_page_size;
-    [GtkChild] unowned Switch live_updates;
-    [GtkChild] unowned Switch public_live_updates;
-    [GtkChild] unowned Switch show_spoilers;
-    [GtkChild] unowned Switch hide_preview_cards;
-    [GtkChild] unowned Switch larger_font_size;
-    [GtkChild] unowned Switch larger_line_height;
-    [GtkChild] unowned Switch scale_emoji_hover;
-    [GtkChild] unowned Switch strip_tracking;
-    [GtkChild] unowned Switch letterbox_media;
-    [GtkChild] unowned Switch media_viewer_expand_pictures;
-    [GtkChild] unowned Switch enlarge_custom_emojis;
+    [GtkChild] unowned Gtk.Switch autostart;
+    [GtkChild] unowned Gtk.Switch work_in_background;
+    [GtkChild] unowned Gtk.SpinButton timeline_page_size;
+    [GtkChild] unowned Gtk.Switch live_updates;
+    [GtkChild] unowned Gtk.Switch public_live_updates;
+    [GtkChild] unowned Gtk.Switch show_spoilers;
+    [GtkChild] unowned Gtk.Switch hide_preview_cards;
+    [GtkChild] unowned Gtk.Switch larger_font_size;
+    [GtkChild] unowned Gtk.Switch larger_line_height;
+    [GtkChild] unowned Gtk.Switch scale_emoji_hover;
+    [GtkChild] unowned Gtk.Switch strip_tracking;
+    [GtkChild] unowned Gtk.Switch letterbox_media;
+    [GtkChild] unowned Gtk.Switch media_viewer_expand_pictures;
+    [GtkChild] unowned Gtk.Switch enlarge_custom_emojis;
 
 	private bool lang_changed { get; set; default=false; }
 
@@ -105,7 +103,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 			store.append (locale);
 		}
 
-		default_language_combo_row.list_factory = new BuilderListItemFactory.from_resource (
+		default_language_combo_row.list_factory = new Gtk.BuilderListItemFactory.from_resource (
 			null,
 			@"$(Build.RESOURCES)gtk/dropdown/language.ui"
 		);

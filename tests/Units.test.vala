@@ -1,5 +1,3 @@
-using GLib;
-
 struct TestUnits {
     public int64 original;
     public string result;

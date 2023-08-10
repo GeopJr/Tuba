@@ -1,5 +1,3 @@
-using Json;
-
 public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 
 	public virtual bool is_local (InstanceAccount account) {
@@ -164,7 +162,7 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 	static Json.Node ser_list (string prop, Value val, ParamSpec spec) {
 		var list = (Gee.ArrayList<Entity>) val;
 		if (list == null)
-			return new Json.Node (NodeType.NULL);
+			return new Json.Node (Json.NodeType.NULL);
 
 		var arr = new Json.Array ();
 		list.@foreach (e => {
@@ -173,7 +171,7 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 			return true;
 		});
 
-		var node = new Json.Node (NodeType.ARRAY);
+		var node = new Json.Node (Json.NodeType.ARRAY);
 		node.set_array (arr);
 		return node;
 	}

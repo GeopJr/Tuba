@@ -1,11 +1,9 @@
-using Gtk;
-
 // This button prevents changes to its "active" property while it's locked.
 //
 // This widget is intended to be used with Statuses where their properties
 // can be used to drive network requests.
 
-public abstract class Tuba.LockableToggleButton : ToggleButton {
+public abstract class Tuba.LockableToggleButton : Gtk.ToggleButton {
 
 	uint _locks = 0;
 	public bool locked {

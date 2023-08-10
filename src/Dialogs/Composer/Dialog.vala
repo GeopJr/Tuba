@@ -1,6 +1,3 @@
-using Gtk;
-using Gee;
-
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/compose.ui")]
 public class Tuba.Dialogs.Compose : Adw.Window {
 	public class BasicStatus : Object {
@@ -256,7 +253,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	}
 
 	[GtkChild] unowned Adw.ViewSwitcherTitle title_switcher;
-	[GtkChild] unowned Button commit_button;
+	[GtkChild] unowned Gtk.Button commit_button;
 
 	[GtkChild] unowned Adw.ViewStack stack;
 

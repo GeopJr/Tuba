@@ -1,8 +1,5 @@
-using Gtk;
-using Gdk;
-
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/status.ui")]
-public class Tuba.Widgets.Status : ListBoxRow {
+public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 
 	API.Status? _bound_status = null;
 	public API.Status? status {
@@ -62,56 +59,56 @@ public class Tuba.Widgets.Status : ListBoxRow {
 
 	public Dialogs.Compose.SuccessCallback? reply_cb;
 
-	[GtkChild] protected unowned Box status_box;
-	[GtkChild] protected unowned Box avatar_side;
-	[GtkChild] protected unowned Box title_box;
-	[GtkChild] protected unowned Box content_side;
-	[GtkChild] protected unowned FlowBox name_flowbox;
-	[GtkChild] public unowned MenuButton menu_button;
+	[GtkChild] protected unowned Gtk.Box status_box;
+	[GtkChild] protected unowned Gtk.Box avatar_side;
+	[GtkChild] protected unowned Gtk.Box title_box;
+	[GtkChild] protected unowned Gtk.Box content_side;
+	[GtkChild] protected unowned Gtk.FlowBox name_flowbox;
+	[GtkChild] public unowned Gtk.MenuButton menu_button;
 
-	[GtkChild] protected unowned Image header_icon;
+	[GtkChild] protected unowned Gtk.Image header_icon;
 	[GtkChild] protected unowned Widgets.RichLabel header_label;
-	[GtkChild] protected unowned Button header_button;
-	[GtkChild] public unowned Image thread_line_top;
-	[GtkChild] public unowned Image thread_line_bottom;
+	[GtkChild] protected unowned Gtk.Button header_button;
+	[GtkChild] public unowned Gtk.Image thread_line_top;
+	[GtkChild] public unowned Gtk.Image thread_line_bottom;
 
 	[GtkChild] public unowned Widgets.Avatar avatar;
-	[GtkChild] public unowned Overlay avatar_overlay;
-	[GtkChild] protected unowned Button name_button;
+	[GtkChild] public unowned Gtk.Overlay avatar_overlay;
+	[GtkChild] protected unowned Gtk.Button name_button;
 	[GtkChild] protected unowned Widgets.RichLabel name_label;
-	[GtkChild] protected unowned Label handle_label;
-	[GtkChild] protected unowned Box indicators;
-	[GtkChild] protected unowned Label date_label;
-	[GtkChild] protected unowned Image pin_indicator;
-	[GtkChild] protected unowned Image edited_indicator;
-	[GtkChild] protected unowned Image visibility_indicator;
+	[GtkChild] protected unowned Gtk.Label handle_label;
+	[GtkChild] protected unowned Gtk.Box indicators;
+	[GtkChild] protected unowned Gtk.Label date_label;
+	[GtkChild] protected unowned Gtk.Image pin_indicator;
+	[GtkChild] protected unowned Gtk.Image edited_indicator;
+	[GtkChild] protected unowned Gtk.Image visibility_indicator;
 
-	[GtkChild] protected unowned Box content_column;
-	[GtkChild] protected unowned Stack spoiler_stack;
-	[GtkChild] protected unowned Box content_box;
+	[GtkChild] protected unowned Gtk.Box content_column;
+	[GtkChild] protected unowned Gtk.Stack spoiler_stack;
+	[GtkChild] protected unowned Gtk.Box content_box;
 	[GtkChild] public unowned Widgets.MarkupView content;
 	[GtkChild] protected unowned Widgets.Attachment.Box attachments;
-	[GtkChild] protected unowned Button spoiler_button;
-	[GtkChild] protected unowned Label spoiler_label;
-	[GtkChild] protected unowned Label spoiler_label_rev;
-	[GtkChild] protected unowned Box spoiler_status_con;
+	[GtkChild] protected unowned Gtk.Button spoiler_button;
+	[GtkChild] protected unowned Gtk.Label spoiler_label;
+	[GtkChild] protected unowned Gtk.Label spoiler_label_rev;
+	[GtkChild] protected unowned Gtk.Box spoiler_status_con;
 
-	[GtkChild] public unowned FlowBox emoji_reactions;
-	[GtkChild] public unowned Box actions;
-	[GtkChild] public unowned Box fr_actions;
+	[GtkChild] public unowned Gtk.FlowBox emoji_reactions;
+	[GtkChild] public unowned Gtk.Box actions;
+	[GtkChild] public unowned Gtk.Box fr_actions;
 
-	[GtkChild] public unowned Button accept_fr_button;
-	[GtkChild] public unowned Button decline_fr_button;
+	[GtkChild] public unowned Gtk.Button accept_fr_button;
+	[GtkChild] public unowned Gtk.Button decline_fr_button;
 
 	[GtkChild] public unowned Widgets.VoteBox poll;
 
-	protected Button reply_button;
+	protected Gtk.Button reply_button;
 	protected Adw.ButtonContent reply_button_content;
 	protected StatusActionButton reblog_button;
 	protected StatusActionButton favorite_button;
 	protected StatusActionButton bookmark_button;
 
-	protected PopoverMenu context_menu { get; set; }
+	protected Gtk.PopoverMenu context_menu { get; set; }
 	private const GLib.ActionEntry[] ACTION_ENTRIES = {
 		{"copy-url", copy_url},
 		{"open-in-browser", open_in_browser}
@@ -129,7 +126,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			if (value == null) return;
 
 			var i = 0;
-			FlowBoxChild? fb_child = null;
+			Gtk.FlowBoxChild? fb_child = null;
 			while ((fb_child = emoji_reactions.get_child_at_index (i)) != null) {
 				emoji_reactions.remove (fb_child);
 				i = i + 1;
@@ -138,19 +135,19 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			foreach (API.EmojiReaction p in value) {
 				if (p.count <= 0) return;
 
-				var badge_button = new Button () {
+				var badge_button = new Gtk.Button () {
 					// translators: the variable is the emoji or its name if it's custom
 					tooltip_text = _("React with %s").printf (p.name)
 				};
-				var badge = new Box (Orientation.HORIZONTAL, 6);
+				var badge = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 
 				if (p.url != null) {
 					badge.append (new Widgets.Emoji (p.url));
 				} else {
-					badge.append (new Label (p.name));
+					badge.append (new Gtk.Label (p.name));
 				}
 
-				badge.append (new Label (p.count.to_string ()));
+				badge.append (new Gtk.Label (p.count.to_string ()));
 				badge_button.child = badge;
 
 				if (p.me == true) {
@@ -290,7 +287,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 			menu_model.append (_("Delete"), "status.delete-status");
 		}
 
-		context_menu = new PopoverMenu.from_model (menu_model);
+		context_menu = new Gtk.PopoverMenu.from_model (menu_model);
 	}
 
 	private void copy_url () {
@@ -633,7 +630,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	protected virtual void append_actions () {
-		reply_button = new Button ();
+		reply_button = new Gtk.Button ();
 		reply_button_content = new Adw.ButtonContent () {
 			css_classes = { "ttl-status-action-reply" },
 			tooltip_text = _("Reply")
@@ -687,7 +684,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		for (var w = actions.get_first_child (); w != null; w = w.get_next_sibling ()) {
 			w.add_css_class ("flat");
 			w.add_css_class ("circular");
-			w.halign = Align.START;
+			w.halign = Gtk.Align.START;
 			w.hexpand = true;
 		}
 
@@ -746,7 +743,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 		var bottom_info = new Gtk.FlowBox () {
 			max_children_per_line = 150,
 			margin_top = 6,
-			selection_mode = SelectionMode.NONE
+			selection_mode = Gtk.SelectionMode.NONE
 		};
 
 		// Insert it after the post content
@@ -782,7 +779,7 @@ public class Tuba.Widgets.Status : ListBoxRow {
 	}
 
 	// Adds *separator* between all *flowbox* children
-	private void add_separators_to_expanded_bottom (FlowBox flowbox, string separator = "·") {
+	private void add_separators_to_expanded_bottom (Gtk.FlowBox flowbox, string separator = "·") {
 		var i = 0;
 		var child = flowbox.get_child_at_index (i);
 		while (child != null) {

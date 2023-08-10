@@ -1,6 +1,3 @@
-using GLib;
-using Gdk;
-
 public class Tuba.Host {
 
 	// Open a URI in the user's default application
@@ -31,7 +28,7 @@ public class Tuba.Host {
 	}
 
 	public static void copy (string str) {
-		Display display = Display.get_default ();
+		Gdk.Display display = Gdk.Display.get_default ();
 		if (display == null) return;
 
 		display.get_clipboard ().set_text (str);

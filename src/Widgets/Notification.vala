@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.Widgets.Notification : Widgets.Status {
 
     public API.Notification notification { get; construct set; }

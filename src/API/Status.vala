@@ -1,5 +1,3 @@
-using Gee;
-
 public class Tuba.API.Status : Entity, Widgetizable {
 
 	~Status () {
@@ -29,11 +27,11 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public API.Status? reblog { get; set; default = null; }
     public API.Status? quote { get; set; default = null; }
     //  public API.Akkoma? akkoma { get; set; default = null; }
-    public ArrayList<API.Mention>? mentions { get; set; default = null; }
-    public ArrayList<API.EmojiReaction>? reactions { get; set; default = null; }
-    public ArrayList<API.EmojiReaction>? emoji_reactions { get; set; default = null; }
+    public Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
+    public Gee.ArrayList<API.EmojiReaction>? reactions { get; set; default = null; }
+    public Gee.ArrayList<API.EmojiReaction>? emoji_reactions { get; set; default = null; }
     public API.Pleroma.Status? pleroma { get; set; default = null; }
-    public ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
+    public Gee.ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
     public API.Poll? poll { get; set; default = null; }
     public Gee.ArrayList<API.Emoji>? emojis { get; set; }
     public API.PreviewCard? card { get; set; default = null; }
@@ -76,7 +74,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
         return res;
     }
 
-    public ArrayList<API.EmojiReaction>? compat_status_reactions {
+    public Gee.ArrayList<API.EmojiReaction>? compat_status_reactions {
         get {
 			if (emoji_reactions != null) {
                 return emoji_reactions;

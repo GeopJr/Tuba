@@ -1,8 +1,4 @@
-using Gtk;
-using Gdk;
-
-public class Tuba.Widgets.Avatar : Button {
-
+public class Tuba.Widgets.Avatar : Gtk.Button {
 	public API.Account? account {
 		set {
 			on_invalidated (value);
@@ -14,7 +10,7 @@ public class Tuba.Widgets.Avatar : Button {
 		set { avatar.size = value; }
 	}
 
-	public Paintable? custom_image {
+	public Gdk.Paintable? custom_image {
 		get { return avatar.custom_image; }
 	}
 
@@ -39,7 +35,7 @@ public class Tuba.Widgets.Avatar : Button {
 
 	construct {
 		child = new Adw.Avatar (48, null, true);
-		halign = valign = Align.CENTER;
+		halign = valign = Gtk.Align.CENTER;
 		css_classes = { "flat", "circular", "image-button", "ttl-flat-button" };
 
 		on_invalidated ();
@@ -56,8 +52,7 @@ public class Tuba.Widgets.Avatar : Button {
 		}
 	}
 
-	void on_cache_response (bool is_loaded, owned Paintable? data) {
+	void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
 		avatar.custom_image = data;
 	}
-
 }

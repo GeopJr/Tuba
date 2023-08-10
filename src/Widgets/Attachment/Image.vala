@@ -1,12 +1,9 @@
-using Gtk;
-using Gdk;
-
 public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	const string[] ALLOWED_TYPES = {"IMAGE", "VIDEO", "GIFV", "AUDIO"};
 	const string[] VIDEO_TYPES = {"GIFV", "VIDEO", "AUDIO"};
 
 	protected Gtk.Picture pic;
-	protected Overlay media_overlay;
+	protected Gtk.Overlay media_overlay;
 
 	private bool _spoiler = false;
 	public bool spoiler {
@@ -31,7 +28,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	}
 
 	construct {
-		pic = new Picture () {
+		pic = new Gtk.Picture () {
 			hexpand = true,
 			vexpand = true,
 			can_shrink = true,
@@ -43,7 +40,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		update_pic_content_fit ();
 		settings.notify["letterbox-media"].connect (update_pic_content_fit);
 
-		media_overlay = new Overlay ();
+		media_overlay = new Gtk.Overlay ();
 		media_overlay.child = pic;
 
 		button.child = media_overlay;
@@ -75,7 +72,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		}
 	}
 
-	protected virtual void on_cache_response (bool is_loaded, owned Paintable? data) {
+	protected virtual void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
 		pic.paintable = data;
 	}
 

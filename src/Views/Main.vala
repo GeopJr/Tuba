@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.Views.Main : Views.TabbedBase {
 
 	public Main () {
@@ -14,13 +12,13 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		base.build_header ();
 		back_button.hide ();
 
-		var search_button = new Button ();
+		var search_button = new Gtk.Button ();
 		search_button.icon_name = "tuba-loupe-large-symbolic";
 		search_button.tooltip_text = _("Search");
 		search_button.clicked.connect (open_search);
 		header.pack_end (search_button);
 
-		var sidebar_button = new ToggleButton ();
+		var sidebar_button = new Gtk.ToggleButton ();
 		header.pack_start (sidebar_button);
 		sidebar_button.icon_name = "tuba-dock-left-symbolic";
 

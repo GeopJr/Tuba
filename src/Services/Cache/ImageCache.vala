@@ -1,17 +1,15 @@
-using Gdk;
-
 public class Tuba.ImageCache : AbstractCache {
 
-	public delegate void OnItemChangedFn (bool is_loaded, owned Paintable? data);
+	public delegate void OnItemChangedFn (bool is_loaded, owned Gdk.Paintable? data);
 
-	protected async Paintable decode (owned Soup.Message msg, owned InputStream in_stream) throws Error {
+	protected async Gdk.Paintable decode (owned Soup.Message msg, owned InputStream in_stream) throws Error {
 		var code = msg.status_code;
 		if (code != Soup.Status.OK) {
 			var error = msg.reason_phrase;
 			throw new Oopsie.INSTANCE (@"Server returned $error");
 		}
 
-        var pixbuf = yield new Pixbuf.from_stream_async (in_stream);
+        var pixbuf = yield new Gdk.Pixbuf.from_stream_async (in_stream);
 
         return Gdk.Texture.for_pixbuf (pixbuf);
 	}
@@ -22,7 +20,7 @@ public class Tuba.ImageCache : AbstractCache {
 
 		var key = get_key (url);
 		if (contains (key)) {
-			cb (true, lookup (key) as Paintable);
+			cb (true, lookup (key) as Gdk.Paintable);
 			return;
 		}
 
@@ -34,7 +32,7 @@ public class Tuba.ImageCache : AbstractCache {
             download_msg = new Soup.Message ("GET", url);
             network.queue (download_msg, null, (sess, mess, t_in_stream) => {
                 decode.begin (download_msg, t_in_stream, (obj, async_res) => {
-                    Paintable? paintable = null;
+                    Gdk.Paintable? paintable = null;
                     try {
                         paintable = decode.end (async_res);
                     }
@@ -65,7 +63,7 @@ public class Tuba.ImageCache : AbstractCache {
             //message ("[/]: %s", key);
             ulong id = 0;
             id = download_msg.finished.connect (() => {
-                cb (true, lookup (key) as Paintable);
+                cb (true, lookup (key) as Gdk.Paintable);
 
                 download_msg.disconnect (id);
             });

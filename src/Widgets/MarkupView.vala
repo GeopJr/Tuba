@@ -1,6 +1,4 @@
-using Gtk;
-
-public class Tuba.Widgets.MarkupView : Box {
+public class Tuba.Widgets.MarkupView : Gtk.Box {
 
 	public delegate void NodeFn (Xml.Node* node);
 	public delegate void NodeHandlerFn (MarkupView view, Xml.Node* node);
@@ -38,7 +36,7 @@ public class Tuba.Widgets.MarkupView : Box {
 	}
 
 	construct {
-		orientation = Orientation.VERTICAL;
+		orientation = Gtk.Orientation.VERTICAL;
 		spacing = 12;
 	}
 

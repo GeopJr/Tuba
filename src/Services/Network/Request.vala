@@ -1,6 +1,3 @@
-using Soup;
-using Gee;
-
 public class Tuba.Request : GLib.Object {
 	private Soup.Message _msg;
 	public Soup.Message msg {
@@ -31,7 +28,7 @@ public class Tuba.Request : GLib.Object {
 	public weak InstanceAccount? account { get; set; default = null; }
 	Network.SuccessCallback? cb;
 	Network.ErrorCallback? error_cb;
-	HashMap<string, string>? pars;
+	Gee.HashMap<string, string>? pars;
 	Soup.Multipart? form_data;
 	public GLib.Cancellable cancellable;
 
@@ -118,21 +115,21 @@ public class Tuba.Request : GLib.Object {
 
 	public Request with_param (string name, string val) {
 		if (pars == null)
-			pars = new HashMap<string, string> ();
+			pars = new Gee.HashMap<string, string> ();
 		pars[name] = val;
 		return this;
 	}
 
 	public Request with_form_data (string name, string val) {
 		if (form_data == null)
-			form_data = new Soup.Multipart (FORM_MIME_TYPE_MULTIPART);
+			form_data = new Soup.Multipart (Soup.FORM_MIME_TYPE_MULTIPART);
 		form_data.append_form_string (name, val);
 		return this;
 	}
 
 	public Request with_form_data_file (string name, string mime, Bytes buffer) {
 		if (form_data == null)
-			form_data = new Soup.Multipart (FORM_MIME_TYPE_MULTIPART);
+			form_data = new Soup.Multipart (Soup.FORM_MIME_TYPE_MULTIPART);
 		form_data.append_form_file (name, mime.replace ("/", "."), mime, buffer);
 		return this;
 	}

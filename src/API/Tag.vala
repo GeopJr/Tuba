@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.API.Tag : Entity, Widgetizable {
 
     public string name { get; set; }
@@ -35,7 +33,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 		return _("%d per week").printf (used_times);
 	}
 
-	public override Widget to_widget () {
+	public override Gtk.Widget to_widget () {
 		var w = new Adw.ActionRow () {
 			title = @"#$name",
 			activatable = true

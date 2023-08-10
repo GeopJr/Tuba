@@ -1,26 +1,24 @@
-using Gtk;
-
 public class Tuba.Views.Lists : Views.Timeline {
 
     public class Row : Adw.ActionRow {
 		public API.List? list;
-		Button delete_button;
-		Button edit_button;
+		Gtk.Button delete_button;
+		Gtk.Button edit_button;
 
 		construct {
-			var action_box = new Box (Orientation.HORIZONTAL, 6);
+			var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 
-			edit_button = new Button () {
+			edit_button = new Gtk.Button () {
 				icon_name = "document-edit-symbolic",
-				valign = Align.CENTER,
-				halign = Align.CENTER,
+				valign = Gtk.Align.CENTER,
+				halign = Gtk.Align.CENTER,
 				css_classes = { "flat", "circular" }
 			};
 
-			delete_button = new Button () {
+			delete_button = new Gtk.Button () {
 				icon_name = "tuba-trash-symbolic",
-				valign = Align.CENTER,
-				halign = Align.CENTER,
+				valign = Gtk.Align.CENTER,
+				halign = Gtk.Align.CENTER,
 				css_classes = { "flat", "circular", "error" }
 			};
 
@@ -96,7 +94,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 		get { return false; }
 	}
 
-	public override Widget on_create_model_widget (Object obj) {
+	public override Gtk.Widget on_create_model_widget (Object obj) {
 		var widget = base.on_create_model_widget (obj);
 		var widget_row = widget as Row;
 
@@ -137,25 +135,25 @@ public class Tuba.Views.Lists : Views.Timeline {
 			.exec ();
 	}
 
-	public void on_action_bar_activate (EntryBuffer buffer) {
+	public void on_action_bar_activate (Gtk.EntryBuffer buffer) {
 		if (buffer.length > 0)
 				create_list (buffer.text);
 		buffer.set_text ("".data);
 	}
 
-	Entry child_entry = new Entry () {
-		input_purpose = InputPurpose.FREE_FORM,
+	Gtk.Entry child_entry = new Gtk.Entry () {
+		input_purpose = Gtk.InputPurpose.FREE_FORM,
 		placeholder_text = _("New list title")
 	};
 
 	construct {
-        var add_action_bar = new ActionBar () {
+        var add_action_bar = new Gtk.ActionBar () {
 			css_classes = { "ttl-box-no-shadow" }
 		};
 
-		var child_box = new Box (Orientation.HORIZONTAL, 6);
+		var child_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 
-		var add_button = new Button.with_label (_("Add list")) {
+		var add_button = new Gtk.Button.with_label (_("Add list")) {
 			sensitive = false
 		};
 

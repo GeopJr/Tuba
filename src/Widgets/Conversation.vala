@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.Widgets.Conversation : Widgets.Status {
 
 	public API.Conversation conversation { get; construct set; }

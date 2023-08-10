@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.HandleProvider: Tuba.CompletionProvider {
 
 	public HandleProvider () {

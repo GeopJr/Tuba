@@ -1,5 +1,3 @@
-using GLib;
-
 public class Tuba.DateTime {
 
 	public static string humanize_left (string iso8601) {

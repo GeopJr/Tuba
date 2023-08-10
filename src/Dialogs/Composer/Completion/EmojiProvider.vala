@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 
 	public EmojiProvider () {

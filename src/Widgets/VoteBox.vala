@@ -1,17 +1,13 @@
-using Gtk;
-using Gdk;
-using Gee;
-
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/votebox.ui")]
-public class Tuba.Widgets.VoteBox: Box {
-	[GtkChild] protected unowned ListBox poll_box;
-	[GtkChild] protected unowned Button button_vote;
-    [GtkChild] protected unowned Label people_label;
-    [GtkChild] protected unowned Label expires_label;
+public class Tuba.Widgets.VoteBox : Gtk.Box {
+	[GtkChild] protected unowned Gtk.ListBox poll_box;
+	[GtkChild] protected unowned Gtk.Button button_vote;
+    [GtkChild] protected unowned Gtk.Label people_label;
+    [GtkChild] protected unowned Gtk.Label expires_label;
 
 	public API.Poll? poll { get; set;}
 	public API.Status? status_parent { get; set; }
-    protected ArrayList<string> selected_index = new ArrayList<string> ();
+    protected Gee.ArrayList<string> selected_index = new Gee.ArrayList<string> ();
 
 	construct {
         button_vote.set_label (_("Vote"));
@@ -37,7 +33,7 @@ public class Tuba.Widgets.VoteBox: Box {
         Widgets.VoteCheckButton group_radio_option = null;
 
 		//clear all existing entries
-		Widget entry = poll_box.get_first_child ();
+		Gtk.Widget entry = poll_box.get_first_child ();
 		while (entry != null) {
 			poll_box.remove (entry);
 			entry = poll_box.get_first_child ();
@@ -82,7 +78,7 @@ public class Tuba.Widgets.VoteBox: Box {
 
                 foreach (int own_vote in poll.own_votes) {
                     if (own_vote == row_number) {
-                        row.add_suffix (new Image.from_icon_name ("tuba-check-round-outline-symbolic"));
+                        row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic"));
                     }
                 }
 
@@ -115,7 +111,7 @@ public class Tuba.Widgets.VoteBox: Box {
                 foreach (int own_vote in poll.own_votes) {
                     if (own_vote == row_number) {
                         check_option.set_active (true);
-                        row.add_suffix (new Image.from_icon_name ("tuba-check-round-outline-symbolic"));
+                        row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic"));
                         if (!selected_index.contains (p.title)) {
                             selected_index.add (p.title);
                         }

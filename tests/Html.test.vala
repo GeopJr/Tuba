@@ -1,5 +1,3 @@
-using GLib;
-
 struct TestContent {
     public string original;
     public string sanitized;

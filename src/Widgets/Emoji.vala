@@ -1,9 +1,6 @@
-using Gtk;
-using Gdk;
-
 public class Tuba.Widgets.Emoji : Adw.Bin {
 
-	protected Image image;
+	protected Gtk.Image image;
 	public string? shortcode { get; set; }
 	public int pixel_size {
 		get { return image.pixel_size; }
@@ -33,7 +30,7 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
 		});
 	}
 
-	void on_cache_response (bool is_loaded, owned Paintable? data) {
+	void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
 		if (image != null)
 			image.paintable = data;
 	}

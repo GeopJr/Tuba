@@ -1,6 +1,3 @@
-using Soup;
-using Gee;
-
 public class Tuba.Streams : Object {
 
 	protected HashTable<string, Connection> connections {
@@ -45,9 +42,9 @@ public class Tuba.Streams : Object {
 	// }
 
 	protected class Connection : Object {
-		public ArrayList<Streamable> subscribers;
-		protected WebsocketConnection socket;
-		protected Message msg;
+		public Gee.ArrayList<Streamable> subscribers;
+		protected Soup.WebsocketConnection socket;
+		protected Soup.Message msg;
 
 		protected bool closing = false;
 		protected int timeout = 1;
@@ -60,8 +57,8 @@ public class Tuba.Streams : Object {
 		}
 
 		public Connection (string url) {
-			this.subscribers = new ArrayList<Streamable> ();
-			this.msg = new Message ("GET", url);
+			this.subscribers = new Gee.ArrayList<Streamable> ();
+			this.msg = new Soup.Message ("GET", url);
 		}
 
 		public bool start () {

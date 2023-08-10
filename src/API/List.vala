@@ -1,7 +1,4 @@
-using Gtk;
-
 public class Tuba.API.List : Entity, Widgetizable {
-
     public string id { get; set; }
     public string title { get; set; }
     public string? replies_policy { get; set; default = null; }

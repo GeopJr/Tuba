@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.StatusActionButton : LockableToggleButton {
 
 	public Request req { get; set; default = null; }

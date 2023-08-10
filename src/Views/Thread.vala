@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 
 	protected InstanceAccount? account { get; set; }

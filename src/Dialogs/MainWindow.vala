@@ -1,6 +1,3 @@
-using Gtk;
-using Gdk;
-
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/main.ui")]
 public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	public const string ZOOM_CLASS = "ttl-scalable";
@@ -8,7 +5,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	[GtkChild] public unowned Adw.Flap flap;
 	[GtkChild] unowned Adw.Leaflet leaflet;
 	[GtkChild] unowned Views.Sidebar sidebar;
-	[GtkChild] unowned Stack main_stack;
+	[GtkChild] unowned Gtk.Stack main_stack;
 	[GtkChild] unowned Views.MediaViewer media_viewer;
 
 	Views.Base? last_view = null;
@@ -46,7 +43,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		media_viewer.scroll_to (pos);
 	}
 
-	public void show_media_viewer (string url, string? alt_text, bool video, Paintable? preview, int? pos) {
+	public void show_media_viewer (string url, string? alt_text, bool video, Gdk.Paintable? preview, int? pos) {
 		if (!is_media_viewer_visible ()) {
 			main_stack.visible_child_name = "media_viewer";
 			media_viewer.clear.connect (hide_media_viewer);
@@ -59,7 +56,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		}
 	}
 
-	public void show_media_viewer_single (string? url, Paintable? paintable) {
+	public void show_media_viewer_single (string? url, Gdk.Paintable? paintable) {
 		if (paintable == null) return;
 
 		if (!is_media_viewer_visible ()) {
@@ -70,7 +67,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		media_viewer.set_single_paintable (url, paintable);
 	}
 
-	public void show_media_viewer_remote_video (string url, Paintable? preview, string? user_friendly_url = null) {
+	public void show_media_viewer_remote_video (string url, Gdk.Paintable? preview, string? user_friendly_url = null) {
 		if (!is_media_viewer_visible ()) {
 			main_stack.visible_child_name = "media_viewer";
 			media_viewer.clear.connect (hide_media_viewer);
@@ -91,7 +88,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			var clamp = new Adw.Clamp () {
 				child = book_widget,
 				tightening_threshold = 100,
-				valign = Align.START
+				valign = Gtk.Align.START
 			};
 			var scroller = new Gtk.ScrolledWindow () {
 				hexpand = true,
@@ -204,7 +201,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		if (leaflet.child_transition_running)
 			return;
 
-		Widget unused_child = null;
+		Gtk.Widget unused_child = null;
 		while ((unused_child = leaflet.get_adjacent_child (Adw.NavigationDirection.FORWARD)) != null) {
 			leaflet.remove (unused_child);
 			unused_child.dispose ();

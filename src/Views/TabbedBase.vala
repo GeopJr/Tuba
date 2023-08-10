@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.Views.TabbedBase : Views.Base {
 
 	static int id_counter = 0;
@@ -14,12 +12,12 @@ public class Tuba.Views.TabbedBase : Views.Base {
 	construct {
 		base_status = null;
 
-		var states_box = states.get_parent () as Box;
+		var states_box = states.get_parent () as Gtk.Box;
 		if (states_box != null)
 			states_box.remove (states);
 		view.remove_css_class ("ttl-view");
 
-		var scrolled_overlay_box = scrolled_overlay.get_parent () as Box;
+		var scrolled_overlay_box = scrolled_overlay.get_parent () as Gtk.Box;
 		if (scrolled_overlay_box != null)
 			scrolled_overlay_box.remove (scrolled_overlay);
 		insert_child_after (states, header);

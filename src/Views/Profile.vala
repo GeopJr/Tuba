@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.Views.Profile : Views.Timeline {
 
 	public API.Account profile { get; construct set; }
@@ -9,7 +7,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 	public string source { get; set; default = "statuses"; }
 
 	protected Cover cover;
-	protected MenuButton menu_button;
+	protected Gtk.MenuButton menu_button;
 
 	protected SimpleAction media_action;
 	protected SimpleAction replies_action;
@@ -68,7 +66,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		return GLib.Source.REMOVE;
 	}
 
-	public override Widget on_create_model_widget (Object obj) {
+	public override Gtk.Widget on_create_model_widget (Object obj) {
 		var widget = base.on_create_model_widget (obj);
 		var widget_status = widget as Widgets.Status;
 
@@ -86,15 +84,15 @@ public class Tuba.Views.Profile : Views.Timeline {
 	}
 
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/profile_header.ui")]
-	protected class Cover : Box {
+	protected class Cover : Gtk.Box {
 
 		[GtkChild] unowned Widgets.Background background;
-		[GtkChild] unowned Label cover_badge;
-		[GtkChild] unowned Image cover_bot_badge;
-		[GtkChild] unowned Box cover_badge_box;
-		[GtkChild] public unowned ListBox info;
+		[GtkChild] unowned Gtk.Label cover_badge;
+		[GtkChild] unowned Gtk.Image cover_bot_badge;
+		[GtkChild] unowned Gtk.Box cover_badge_box;
+		[GtkChild] public unowned Gtk.ListBox info;
 		[GtkChild] unowned Widgets.EmojiLabel display_name;
-		[GtkChild] unowned Label handle;
+		[GtkChild] unowned Gtk.Label handle;
 		[GtkChild] unowned Widgets.Avatar avatar;
 		[GtkChild] unowned Widgets.MarkupView note;
 		[GtkChild] public unowned Widgets.RelationshipButton rsbtn;
@@ -239,9 +237,9 @@ public class Tuba.Views.Profile : Views.Timeline {
 		}
 	}
 
-	protected void build_profile_stats (ListBox info) {
+	protected void build_profile_stats (Gtk.ListBox info) {
 		var row = new Gtk.ListBoxRow ();
-		var box = new Box (Orientation.HORIZONTAL, 0) {
+		var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
 			homogeneous = true
 		};
 
@@ -265,14 +263,14 @@ public class Tuba.Views.Profile : Views.Timeline {
 		info.append (row);
 	}
 
-	protected Button build_profile_stats_button (string btn_label) {
-		var btn = new Button.with_label (btn_label) {
+	protected Gtk.Button build_profile_stats_button (string btn_label) {
+		var btn = new Gtk.Button.with_label (btn_label) {
 			css_classes = { "flat", "ttl-profile-stat-button" }
 		};
 
-		var child_label = btn.child as Label;
+		var child_label = btn.child as Gtk.Label;
 		child_label.wrap = true;
-		child_label.justify = Justification.CENTER;
+		child_label.justify = Gtk.Justification.CENTER;
 
 		return btn;
 	}
@@ -288,8 +286,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 	protected override void build_header () {
 		base.build_header ();
 
-		menu_button = new MenuButton ();
-		var menu_builder = new Builder.from_resource (@"$(Build.RESOURCES)ui/menus.ui");
+		menu_button = new Gtk.MenuButton ();
+		var menu_builder = new Gtk.Builder.from_resource (@"$(Build.RESOURCES)ui/menus.ui");
 		var menu = "profile-menu";
 		menu_button.menu_model = menu_builder.get_object (menu) as MenuModel;
 		menu_button.popover.width_request = 250;
@@ -522,25 +520,25 @@ public class Tuba.Views.Profile : Views.Timeline {
 		network.on_error);
 	}
 
-	public class RowButton : Button {
+	public class RowButton : Gtk.Button {
 		public bool remove { get; set; default = false; }
 	}
 
 	public Adw.Window create_ar_list_dialog () {
-		var spinner = new Spinner () {
+		var spinner = new Gtk.Spinner () {
 			spinning = true,
-			halign = Align.CENTER,
-			valign = Align.CENTER,
+			halign = Gtk.Align.CENTER,
+			valign = Gtk.Align.CENTER,
 			vexpand = true,
 			hexpand = true,
 			width_request = 32,
 			height_request = 32
 		};
-		var box = new Box (Orientation.VERTICAL, 6);
+		var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
 		var headerbar = new Adw.HeaderBar ();
 		var toast_overlay = new Adw.ToastOverlay () {
 			vexpand = true,
-			valign = Align.CENTER
+			valign = Gtk.Align.CENTER
 		};
 		toast_overlay.child = spinner;
 
@@ -598,8 +596,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 								tooltip_text = is_already
 									? _("Remove \"%s\" from \"%s\"").printf (profile.handle, list.title)
 									: _("Add \"%s\" to \"%s\"").printf (profile.handle, list.title),
-								halign = Align.CENTER,
-								valign = Align.CENTER,
+								halign = Gtk.Align.CENTER,
+								valign = Gtk.Align.CENTER,
 								css_classes = { "flat", "circular" }
 							};
 							add_button.remove = is_already;
@@ -621,7 +619,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 							preferences_page.add (preferences_group);
 
 							toast_overlay.child = preferences_page;
-							toast_overlay.valign = Align.FILL;
+							toast_overlay.valign = Gtk.Align.FILL;
 						} else {
 							toast_overlay.child = no_lists_page;
 						}

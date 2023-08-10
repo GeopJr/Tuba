@@ -1,6 +1,3 @@
-using Gtk;
-using Gdk;
-
 public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamable {
 
 	protected InstanceAccount? last_account = null;

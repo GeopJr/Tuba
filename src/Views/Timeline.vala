@@ -1,6 +1,3 @@
-using Gtk;
-using Gdk;
-
 public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase {
 
 	public string url { get; construct set; }

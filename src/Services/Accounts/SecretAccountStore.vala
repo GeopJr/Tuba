@@ -1,18 +1,16 @@
-using Secret;
-
 public class Tuba.SecretAccountStore : AccountStore {
 
 	const string VERSION = "1";
 
 	Secret.Schema schema;
-	GLib.HashTable<string,SchemaAttributeType> schema_attributes;
+	GLib.HashTable<string,Secret.SchemaAttributeType> schema_attributes;
 
 	public override void init () throws GLib.Error {
 		message (@"Using libsecret v$(Secret.MAJOR_VERSION).$(Secret.MINOR_VERSION).$(Secret.MICRO_VERSION)");
 
-		schema_attributes = new GLib.HashTable<string,SchemaAttributeType> (str_hash, str_equal);
-		schema_attributes["login"] = SchemaAttributeType.STRING;
-		schema_attributes["version"] = SchemaAttributeType.STRING;
+		schema_attributes = new GLib.HashTable<string,Secret.SchemaAttributeType> (str_hash, str_equal);
+		schema_attributes["login"] = Secret.SchemaAttributeType.STRING;
+		schema_attributes["version"] = Secret.SchemaAttributeType.STRING;
 		schema = new Secret.Schema.newv (
 			Build.DOMAIN,
 			Secret.SchemaFlags.DONT_MATCH_NAME,

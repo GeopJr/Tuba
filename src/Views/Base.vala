@@ -1,7 +1,5 @@
-using Gtk;
-
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/base.ui")]
-public class Tuba.Views.Base : Box {
+public class Tuba.Views.Base : Gtk.Box {
 	// translators: Shown when there are 0 results
 	public static string STATUS_EMPTY = _("Nothing to see here"); // vala-lint=naming-convention
 
@@ -31,21 +29,21 @@ public class Tuba.Views.Base : Box {
 	}
 
 	[GtkChild] protected unowned Adw.HeaderBar header;
-	[GtkChild] protected unowned Button back_button;
+	[GtkChild] protected unowned Gtk.Button back_button;
 
-	[GtkChild] protected unowned ScrolledWindow scrolled;
-	[GtkChild] protected unowned Overlay scrolled_overlay;
-	[GtkChild] protected unowned Button scroll_to_top;
-	[GtkChild] protected unowned Box view;
+	[GtkChild] protected unowned Gtk.ScrolledWindow scrolled;
+	[GtkChild] protected unowned Gtk.Overlay scrolled_overlay;
+	[GtkChild] protected unowned Gtk.Button scroll_to_top;
+	[GtkChild] protected unowned Gtk.Box view;
 	[GtkChild] protected unowned Adw.Clamp clamp;
-	[GtkChild] protected unowned Box column_view;
-	[GtkChild] protected unowned Stack states;
-	[GtkChild] protected unowned Box content_box;
-	[GtkChild] protected unowned Button status_button;
-	[GtkChild] unowned Stack status_stack;
-	[GtkChild] unowned Label status_title_label;
-	[GtkChild] unowned Label status_message_label;
-	[GtkChild] unowned Spinner status_spinner;
+	[GtkChild] protected unowned Gtk.Box column_view;
+	[GtkChild] protected unowned Gtk.Stack states;
+	[GtkChild] protected unowned Gtk.Box content_box;
+	[GtkChild] protected unowned Gtk.Button status_button;
+	[GtkChild] unowned Gtk.Stack status_stack;
+	[GtkChild] unowned Gtk.Label status_title_label;
+	[GtkChild] unowned Gtk.Label status_message_label;
+	[GtkChild] unowned Gtk.Spinner status_spinner;
 
 	public class StatusMessage : Object {
 		public string title = STATUS_EMPTY;

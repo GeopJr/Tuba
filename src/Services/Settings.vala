@@ -1,5 +1,3 @@
-using GLib;
-
 public class Tuba.Settings : GLib.Settings {
 
 	public string active_account { get; set; }

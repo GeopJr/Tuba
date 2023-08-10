@@ -1,5 +1,3 @@
-using Gtk;
-
 namespace Tuba {
 	public errordomain Oopsie {
 		USER,
@@ -293,7 +291,7 @@ namespace Tuba {
 				application_name = Build.NAME,
 				version = Build.VERSION,
 				support_url = Build.SUPPORT_WEBSITE,
-				license_type = License.GPL_3_0_ONLY,
+				license_type = Gtk.License.GPL_3_0_ONLY,
 				copyright = COPYRIGHT,
 				developers = DEVELOPERS,
 				artists = ARTISTS,

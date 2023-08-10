@@ -1,12 +1,9 @@
-using Gtk;
-using Gee;
-
 public class Tuba.Widgets.RichLabel : Adw.Bin {
 
 	Widgets.EmojiLabel widget;
 
 	// TODO: We can parse <a> tags and extract resolvable URIs now
-	public weak ArrayList<API.Mention>? mentions;
+	public weak Gee.ArrayList<API.Mention>? mentions;
 
 	public string label {
 		get { return widget.content; }
