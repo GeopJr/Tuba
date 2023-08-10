@@ -7,8 +7,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public bool is_public { get; construct set; default = false; }
 	public Type accepts { get; set; default = typeof (API.Status); }
 	public bool use_queue { get; set; default = true; }
-	public int badge_number { get; set; default = 0; }
-	public bool needs_attention { get; set; default = false; }
 
 	protected InstanceAccount? account { get; set; default = null; }
 
@@ -86,8 +84,12 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 		construct_streamable ();
 		stream_event[InstanceAccount.EVENT_NEW_POST].connect (on_new_post);
-		stream_event[InstanceAccount.EVENT_EDIT_POST].connect (on_edit_post);
-		stream_event[InstanceAccount.EVENT_DELETE_POST].connect (on_delete_post);
+
+		if (accepts == typeof (API.Status)) {
+			stream_event[InstanceAccount.EVENT_EDIT_POST].connect (on_edit_post);
+			stream_event[InstanceAccount.EVENT_DELETE_POST].connect (on_delete_post);
+		}
+
 		settings.notify["show-spoilers"].connect (on_refresh);
 		settings.notify["hide-preview-cards"].connect (on_refresh);
 		settings.notify["enlarge-custom-emojis"].connect (on_refresh);
@@ -257,7 +259,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_edit_post (Streamable.Event ev) {
-		if (accepts != typeof (API.Status)) return;
 		try {
 			var entity = Entity.from_json (accepts, ev.get_node ());
 			var entity_id = ((API.Status)entity).id;
@@ -275,7 +276,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_delete_post (Streamable.Event ev) {
-		if (accepts != typeof (API.Status)) return;
 		try {
 			var status_id = ev.get_string ();
 
