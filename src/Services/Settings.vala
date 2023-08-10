@@ -22,6 +22,8 @@ public class Tuba.Settings : GLib.Settings {
 	public bool media_viewer_expand_pictures { get; set; }
 	public bool enlarge_custom_emojis { get; set; }
 
+	public string[] muted_notifications { get; set; default = {}; }
+
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
 		init ("active-account");

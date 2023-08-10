@@ -21,6 +21,28 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned Switch media_viewer_expand_pictures;
     [GtkChild] unowned Switch enlarge_custom_emojis;
 
+    [GtkChild] unowned Switch new_followers_notifications_switch;
+    [GtkChild] unowned Switch new_follower_requests_notifications_switch;
+    [GtkChild] unowned Switch favorites_notifications_switch;
+    [GtkChild] unowned Switch mentions_notifications_switch;
+    [GtkChild] unowned Switch boosts_notifications_switch;
+    [GtkChild] unowned Switch poll_results_notifications_switch;
+    [GtkChild] unowned Switch edits_notifications_switch;
+
+	void update_notification_mutes () {
+		string[] res = {};
+
+		if (!new_followers_notifications_switch.active) res += InstanceAccount.KIND_FOLLOW;
+		if (!new_follower_requests_notifications_switch.active) res += InstanceAccount.KIND_FOLLOW_REQUEST;
+		if (!favorites_notifications_switch.active) res += InstanceAccount.KIND_FAVOURITE;
+		if (!mentions_notifications_switch.active) res += InstanceAccount.KIND_MENTION;
+		if (!boosts_notifications_switch.active) res += InstanceAccount.KIND_REBLOG;
+		if (!poll_results_notifications_switch.active) res += InstanceAccount.KIND_POLL;
+		if (!edits_notifications_switch.active) res += InstanceAccount.KIND_EDITED;
+
+		settings.muted_notifications = res;
+	}
+
 	private bool lang_changed { get; set; default=false; }
 
 	static construct {
@@ -143,6 +165,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 			}
 		}
 
+		update_notification_mutes ();
 		return false;
 	}
 }
