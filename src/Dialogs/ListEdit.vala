@@ -5,15 +5,15 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesWindow {
 	}
 
     public enum RepliesPolicy {
-        None,
-        List,
-        Followed;
+        NONE,
+        LIST,
+        FOLLOWED;
 
         public string to_string () {
 			switch (this) {
-				case List:
+				case LIST:
 					return "list";
-                case Followed:
+                case FOLLOWED:
 					return "followed";
                 default:
                     return "none";
@@ -23,18 +23,18 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesWindow {
         public static RepliesPolicy from_string (string policy) {
             switch (policy) {
 				case "list":
-					return List;
+					return LIST;
                 case "followed":
-					return Followed;
+					return FOLLOWED;
                 default:
-                    return None;
+                    return NONE;
 			}
         }
     }
 
     private API.List list { get; set; }
     private Gee.ArrayList<string> memebers_to_be_removed { get; default=new Gee.ArrayList<string> (); }
-    public RepliesPolicy replies_policy_active { get; private set; default=RepliesPolicy.None; }
+    public RepliesPolicy replies_policy_active { get; private set; default=RepliesPolicy.NONE; }
 
     [GtkChild] unowned Adw.EntryRow title_row;
     [GtkChild] unowned Gtk.CheckButton none_radio;
@@ -60,27 +60,27 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesWindow {
     [GtkCallback]
     private void on_radio_toggled () {
         if (none_radio.active) {
-            replies_policy_active = RepliesPolicy.None;
+            replies_policy_active = RepliesPolicy.NONE;
             return;
         }
 
         if (list_radio.active) {
-            replies_policy_active = RepliesPolicy.List;
+            replies_policy_active = RepliesPolicy.LIST;
             return;
         }
 
         if (followed_radio.active) {
-            replies_policy_active = RepliesPolicy.Followed;
+            replies_policy_active = RepliesPolicy.FOLLOWED;
             return;
         }
     }
 
     private void update_active_radio_button (RepliesPolicy replies_policy) {
         switch (replies_policy) {
-            case RepliesPolicy.List:
+            case RepliesPolicy.LIST:
                 list_radio.active = true;
                 break;
-            case RepliesPolicy.Followed:
+            case RepliesPolicy.FOLLOWED:
                 followed_radio.active = true;
                 break;
             default:
