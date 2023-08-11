@@ -113,15 +113,6 @@ public class Tuba.Views.Lists : Views.Timeline {
 			model.remove (indx);
 	}
 
-    public Lists () {
-        Object (
-			url: "/api/v1/lists",
-            label: _("Lists"),
-            icon: "tuba-list-compact-symbolic"
-        );
-        accepts = typeof (API.List);
-    }
-
 	public void create_list (string list_name) {
 		new Request.POST ("/api/v1/lists")
 			.with_account (accounts.active)
@@ -147,6 +138,11 @@ public class Tuba.Views.Lists : Views.Timeline {
 	};
 
 	construct {
+		url = "/api/v1/lists";
+        label = _("Lists");
+        icon = "tuba-list-compact-symbolic";
+        accepts = typeof (API.List);
+
         var add_action_bar = new Gtk.ActionBar () {
 			css_classes = { "ttl-box-no-shadow" }
 		};

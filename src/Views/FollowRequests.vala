@@ -1,9 +1,8 @@
 public class Tuba.Views.FollowRequests : Views.Timeline {
-
-    public FollowRequests () {
+    construct {
+        url = "tuba-address-book-new-symbolic";
         label = _("Follow Requests");
-        icon = "tuba-address-book-new-symbolic";
-        url = "/api/v1/follow_requests";
+        icon = "/api/v1/follow_requests";
         accepts = typeof (API.Account);
     }
 
@@ -30,9 +29,9 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
 				var relationship = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
                 if (relationship.followed_by == true) {
                     uint indx;
-		            var found = model.find (widget, out indx);
-		            if (found)
-			            model.remove (indx);
+                    var found = model.find (widget, out indx);
+                    if (found)
+                        model.remove (indx);
                 } else {
                     widget_status.fr_actions.sensitive = true;
                 }
@@ -46,9 +45,9 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
 			.with_account (accounts.active)
 			.then ((sess, msg) => {
                 uint indx;
-		        var found = model.find (widget, out indx);
-		        if (found)
-			        model.remove (indx);
+                var found = model.find (widget, out indx);
+                if (found)
+                    model.remove (indx);
 			})
 			.exec ();
     }

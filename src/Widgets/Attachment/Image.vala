@@ -34,7 +34,6 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			can_shrink = true,
 			keep_aspect_ratio = true,
 			css_classes = {"attachment-picture"}
-			//  content_fit = ContentFit.COVER // GTK 4.8
 		};
 
 		update_pic_content_fit ();

@@ -10,8 +10,8 @@ public class Tuba.Views.Search : Views.TabbedBase {
 	Views.ContentBase statuses_tab;
 	Views.ContentBase hashtags_tab;
 
-	public Search () {
-		Object (label: _("Search"));
+	construct {
+		label = _("Search");
 
 		bar = new Gtk.SearchBar () {
 			search_mode_enabled = true
