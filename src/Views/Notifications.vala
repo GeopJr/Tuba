@@ -8,7 +8,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
         icon = "tuba-bell-symbolic";
         accepts = typeof (API.Notification);
 		badge_number = 0;
-		needs_attention = true;
+		needs_attention = false;
 
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
     }
