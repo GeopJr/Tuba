@@ -93,7 +93,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	[GtkChild] protected unowned Gtk.Label spoiler_label_rev;
 	[GtkChild] protected unowned Gtk.Box spoiler_status_con;
 
-	[GtkChild] public unowned Gtk.FlowBox emoji_reactions;
 	[GtkChild] public unowned Gtk.Box actions;
 	[GtkChild] public unowned Gtk.Box fr_actions;
 
@@ -120,45 +119,14 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 
 	public bool is_conversation_open { get; set; default = false; }
 
+	protected Adw.Bin emoji_reactions;
 	public Gee.ArrayList<API.EmojiReaction>? reactions {
 		get { return status.formal.compat_status_reactions; }
 		set {
 			if (value == null) return;
 
-			var i = 0;
-			Gtk.FlowBoxChild? fb_child = null;
-			while ((fb_child = emoji_reactions.get_child_at_index (i)) != null) {
-				emoji_reactions.remove (fb_child);
-				i = i + 1;
-			}
-
-			foreach (API.EmojiReaction p in value) {
-				if (p.count <= 0) return;
-
-				var badge_button = new Gtk.Button () {
-					// translators: the variable is the emoji or its name if it's custom
-					tooltip_text = _("React with %s").printf (p.name)
-				};
-				var badge = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-
-				if (p.url != null) {
-					badge.append (new Widgets.Emoji (p.url));
-				} else {
-					badge.append (new Gtk.Label (p.name));
-				}
-
-				badge.append (new Gtk.Label (p.count.to_string ()));
-				badge_button.child = badge;
-
-				if (p.me == true) {
-					badge_button.add_css_class ("accent");
-				}
-
-				//  emoji_reactions.append(badge_button); // GTK >= 4.5
-				emoji_reactions.insert (badge_button, -1);
-			}
-
-			emoji_reactions.visible = value.size > 0;
+			emoji_reactions = new ReactionsRow (value);
+			content_column.insert_child_after (emoji_reactions, spoiler_stack);
 		}
 	}
 

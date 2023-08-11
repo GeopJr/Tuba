@@ -22,3 +22,4 @@ sources += files(
 )
 
 subdir('Attachment')
+subdir('Status')
