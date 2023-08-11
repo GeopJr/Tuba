@@ -20,6 +20,8 @@ public class Tuba.Settings : GLib.Settings {
 	public bool media_viewer_expand_pictures { get; set; }
 	public bool enlarge_custom_emojis { get; set; }
 
+	public string[] muted_notification_types { get; set; default = {}; }
+
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
 		init ("active-account");
@@ -40,6 +42,7 @@ public class Tuba.Settings : GLib.Settings {
 		init ("letterbox-media");
 		init ("media-viewer-expand-pictures");
 		init ("enlarge-custom-emojis");
+		init ("muted-notification-types");
 
 		changed.connect (on_changed);
 	}

@@ -315,6 +315,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	//  }
 
 	public void send_toast (API.Notification obj) {
+		if (obj.kind != null && (obj.kind in settings.muted_notification_types)) return;
+
 		var toast = obj.to_toast (this);
 		var id = obj.id;
 		app.send_notification (id, toast);

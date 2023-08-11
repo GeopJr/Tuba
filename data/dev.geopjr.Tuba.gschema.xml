@@ -76,6 +76,8 @@
 		<key name="window-h" type="i">
 			<default>700</default>
 		</key>
-
+		<key name="muted-notification-types" type="as">
+			<default>[]</default>
+		</key>
 	</schema>
 </schemalist>
