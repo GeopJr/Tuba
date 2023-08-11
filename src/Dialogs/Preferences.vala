@@ -2,6 +2,10 @@ using Gtk;
 
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/preferences.ui")]
 public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
+	struct NotificationTypeMute {
+		public Gtk.Switch switch_widget;
+		public string event;
+	}
 
     [GtkChild] unowned Adw.ComboRow scheme_combo_row;
     [GtkChild] unowned Adw.ComboRow post_visibility_combo_row;
@@ -21,26 +25,30 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned Switch media_viewer_expand_pictures;
     [GtkChild] unowned Switch enlarge_custom_emojis;
 
-    [GtkChild] unowned Switch new_followers_notifications_switch;
-    [GtkChild] unowned Switch new_follower_requests_notifications_switch;
-    [GtkChild] unowned Switch favorites_notifications_switch;
-    [GtkChild] unowned Switch mentions_notifications_switch;
-    [GtkChild] unowned Switch boosts_notifications_switch;
-    [GtkChild] unowned Switch poll_results_notifications_switch;
-    [GtkChild] unowned Switch edits_notifications_switch;
+    [GtkChild] unowned Gtk.Switch new_followers_notifications_switch;
+    [GtkChild] unowned Gtk.Switch new_follower_requests_notifications_switch;
+    [GtkChild] unowned Gtk.Switch favorites_notifications_switch;
+    [GtkChild] unowned Gtk.Switch mentions_notifications_switch;
+    [GtkChild] unowned Gtk.Switch boosts_notifications_switch;
+    [GtkChild] unowned Gtk.Switch poll_results_notifications_switch;
+    [GtkChild] unowned Gtk.Switch edits_notifications_switch;
+
+	NotificationTypeMute[] notification_type_mutes;
 
 	void update_notification_mutes () {
 		string[] res = {};
 
-		if (!new_followers_notifications_switch.active) res += InstanceAccount.KIND_FOLLOW;
-		if (!new_follower_requests_notifications_switch.active) res += InstanceAccount.KIND_FOLLOW_REQUEST;
-		if (!favorites_notifications_switch.active) res += InstanceAccount.KIND_FAVOURITE;
-		if (!mentions_notifications_switch.active) res += InstanceAccount.KIND_MENTION;
-		if (!boosts_notifications_switch.active) res += InstanceAccount.KIND_REBLOG;
-		if (!poll_results_notifications_switch.active) res += InstanceAccount.KIND_POLL;
-		if (!edits_notifications_switch.active) res += InstanceAccount.KIND_EDITED;
+		foreach (var notification_type_mute in notification_type_mutes) {
+			if (!notification_type_mute.switch_widget.active) res += notification_type_mute.event;
+		}
 
-		settings.muted_notifications = res;
+		settings.muted_notification_types = res;
+	}
+
+	void update_notification_mutes_switches () {
+		foreach (var notification_type_mute in notification_type_mutes) {
+			notification_type_mute.switch_widget.active = !(notification_type_mute.event in settings.muted_notification_types);
+		}
 	}
 
 	private bool lang_changed { get; set; default=false; }
@@ -72,10 +80,25 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 		}
 
 		setup_languages_combo_row ();
+		setup_notification_mutes ();
 		bind ();
         show ();
 		close_request.connect (on_window_closed);
     }
+
+	void setup_notification_mutes () {
+		notification_type_mutes = {
+			{ new_followers_notifications_switch, InstanceAccount.KIND_FOLLOW },
+			{ new_follower_requests_notifications_switch, InstanceAccount.KIND_FOLLOW_REQUEST },
+			{ favorites_notifications_switch, InstanceAccount.KIND_FAVOURITE },
+			{ mentions_notifications_switch, InstanceAccount.KIND_MENTION },
+			{ boosts_notifications_switch, InstanceAccount.KIND_REBLOG},
+			{ poll_results_notifications_switch, InstanceAccount.KIND_POLL},
+			{ edits_notifications_switch, InstanceAccount.KIND_EDITED }
+		};
+
+		update_notification_mutes_switches ();
+	}
 
     public static void open () {
         new Preferences ();
