@@ -320,42 +320,6 @@
                     </style>
                   </object>
                 </child>
-                <child>
-                  <object class="GtkBox" id="fr_actions">
-                    <property name="visible">0</property>
-                    <property name="homogeneous">1</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkButton" id="decline_fr_button">
-                        <property name="label" translatable="yes">Decline</property>
-                        <property name="tooltip_text" translatable="yes">Decline</property>
-                        <property name="icon_name">tuba-cross-large-symbolic</property>
-                        <property name="halign">center</property>
-                        <style>
-                          <class name="flat" />
-                          <class name="circular" />
-                          <class name="error" />
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="accept_fr_button">
-                        <property name="label" translatable="yes">Accept</property>
-                        <property name="tooltip_text" translatable="yes">Accept</property>
-                        <property name="icon_name">tuba-check-round-outline-symbolic</property>
-                        <property name="halign">center</property>
-                        <style>
-                          <class name="flat" />
-                          <class name="circular" />
-                          <class name="success" />
-                        </style>
-                      </object>
-                    </child>
-                    <style>
-                      <class name="ttl-post-actions" />
-                    </style>
-                  </object>
-                </child>
               </object>
             </child>
           </object>

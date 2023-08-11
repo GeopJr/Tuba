@@ -21,6 +21,7 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	public API.Account? kind_instigator { get; set; default = null; }
 	private Gtk.Button? quoted_status_btn { get; set; default = null; }
 
+	// TODO: remove everything but polls, attachments and content
 	private bool _is_quote = false;
 	public bool is_quote {
 		get { return _is_quote; }
@@ -28,7 +29,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 			_is_quote = value;
 			menu_button.visible = !value;
 			emoji_reactions.visible = !value;
-			fr_actions.visible = !value;
 			actions.visible = !value;
 			if (quoted_status_btn != null)
 				quoted_status_btn.visible = !value;
@@ -83,7 +83,8 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	[GtkChild] protected unowned Gtk.Image edited_indicator;
 	[GtkChild] protected unowned Gtk.Image visibility_indicator;
 
-	[GtkChild] protected unowned Gtk.Box content_column;
+	// TODO: move to function
+	[GtkChild] public unowned Gtk.Box content_column;
 	[GtkChild] protected unowned Gtk.Stack spoiler_stack;
 	[GtkChild] protected unowned Gtk.Box content_box;
 	[GtkChild] public unowned Widgets.MarkupView content;
@@ -94,11 +95,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	[GtkChild] protected unowned Gtk.Box spoiler_status_con;
 
 	[GtkChild] public unowned Gtk.Box actions;
-	[GtkChild] public unowned Gtk.Box fr_actions;
-
-	[GtkChild] public unowned Gtk.Button accept_fr_button;
-	[GtkChild] public unowned Gtk.Button decline_fr_button;
-
 	[GtkChild] public unowned Widgets.VoteBox poll;
 
 	protected Gtk.Button reply_button;
