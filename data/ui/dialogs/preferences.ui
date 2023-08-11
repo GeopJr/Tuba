@@ -243,6 +243,95 @@
             </child>
           </object>
         </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Push Notifications</property>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">New Followers</property>
+                <property name="activatable-widget">new_followers_notifications_switch</property>
+                <child>
+                  <object class="GtkSwitch" id="new_followers_notifications_switch">
+                    <property name="valign">center</property>
+                    <property name="active">1</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">New Follower Requests</property>
+                <property name="activatable-widget">new_follower_requests_notifications_switch</property>
+                <child>
+                  <object class="GtkSwitch" id="new_follower_requests_notifications_switch">
+                    <property name="valign">center</property>
+                    <property name="active">1</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Favorites</property>
+                <property name="activatable-widget">favorites_notifications_switch</property>
+                <child>
+                  <object class="GtkSwitch" id="favorites_notifications_switch">
+                    <property name="valign">center</property>
+                    <property name="active">1</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Mentions</property>
+                <property name="activatable-widget">mentions_notifications_switch</property>
+                <child>
+                  <object class="GtkSwitch" id="mentions_notifications_switch">
+                    <property name="valign">center</property>
+                    <property name="active">1</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Boosts</property>
+                <property name="activatable-widget">boosts_notifications_switch</property>
+                <child>
+                  <object class="GtkSwitch" id="boosts_notifications_switch">
+                    <property name="valign">center</property>
+                    <property name="active">1</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Poll Results</property>
+                <property name="activatable-widget">poll_results_notifications_switch</property>
+                <child>
+                  <object class="GtkSwitch" id="poll_results_notifications_switch">
+                    <property name="valign">center</property>
+                    <property name="active">1</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Edits</property>
+                <property name="activatable-widget">edits_notifications_switch</property>
+                <child>
+                  <object class="GtkSwitch" id="edits_notifications_switch">
+                    <property name="valign">center</property>
+                    <property name="active">1</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
   </template>
