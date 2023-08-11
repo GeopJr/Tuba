@@ -35,7 +35,7 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 				badge_button.add_css_class ("accent");
 			}
 
-			reaction_box.append(badge_button);
+			reaction_box.append (badge_button);
 		}
 
 		reaction_box.visible = reactions.size > 0;
