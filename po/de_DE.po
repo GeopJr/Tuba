@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-19 22:14+0300\n"
-"PO-Revision-Date: 2023-07-07 07:50+0000\n"
+"PO-Revision-Date: 2023-08-12 12:32+0000\n"
 "Last-Translator: Jummit <jummit@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tuba/tuba/de/>\n"
 "Language: de_DE\n"
@@ -193,16 +193,18 @@ msgstr "Vergrößert die Zeilenhöhe für Beiträge"
 
 #: data/ui/dialogs/preferences.ui:63
 msgid "Scale up custom emojis on hover"
-msgstr ""
+msgstr "Vergrössere nutzerdefinierte Emojis beim darüberfahren"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Makes custom emojis slightly bigger when you hover over them"
 msgstr ""
+"Vergrössert nutzerdefinierte Emojis ein wenig wenn du mit der Maus "
+"darüberfährst"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:76
 msgid "Letterbox Media"
-msgstr ""
+msgstr "Mediengröße"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:79
@@ -210,16 +212,18 @@ msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
+"Medien runterskalieren und einpassen um die Bildbehälter zu füllen anstatt "
+"sie zu strecken und zuzuschneiden"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:90
 msgid "Expand pictures in media viewer"
-msgstr ""
+msgstr "Vergrössere Bilder in der Medienansicht"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:93
 msgid "Expand pictures to fill the media viewer by default"
-msgstr ""
+msgstr "Vergrössere Bilder standardmässig so dass sie die Medienansicht füllen"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Posting"
@@ -551,7 +555,7 @@ msgstr "Alt-Text anzeigen"
 #: src/Widgets/Attachment/Item.vala:176
 #, c-format
 msgid "Alternative text for %s"
-msgstr ""
+msgstr "Alternativer Text für %s"
 
 #: src/Widgets/Attachment/Item.vala:196 src/Views/MediaViewer.vala:383
 msgid "Save Media"
@@ -703,7 +707,7 @@ msgstr "%lld Folgende"
 
 #: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:131
 msgid "Edit Profile"
-msgstr ""
+msgstr "Profil Editieren"
 
 #: src/Views/Profile.vala:416
 #, c-format
@@ -1088,7 +1092,7 @@ msgstr ""
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:93
 msgid "Content"
-msgstr ""
+msgstr "Inhalt"
 
 #: src/Dialogs/ProfileEdit.vala:120
 #: src/Dialogs/Composer/AttachmentsPage.vala:206
@@ -1097,12 +1101,12 @@ msgstr "Alle unterstützten Dateien"
 
 #: src/Dialogs/ProfileEdit.vala:149
 msgid "Display Name"
-msgstr ""
+msgstr "Anzeigename"
 
 #. translators: profile bio or description
 #: src/Dialogs/ProfileEdit.vala:155
 msgid "Bio"
-msgstr ""
+msgstr "Über mich"
 
 #: src/Dialogs/ProfileEdit.vala:199 src/Dialogs/Composer/EditorPage.vala:218
 msgid "Custom Emoji Picker"
@@ -1111,7 +1115,7 @@ msgstr "Eigene-Emoji-Auswahl"
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:214
 msgid "Fields"
-msgstr ""
+msgstr "Felder"
 
 #: src/Dialogs/ProfileEdit.vala:238
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:166
@@ -1120,22 +1124,22 @@ msgstr "Speichern"
 
 #: src/Dialogs/ProfileEdit.vala:243
 msgid "Close"
-msgstr ""
+msgstr "Schließen"
 
 #: src/Dialogs/ProfileEdit.vala:258
 msgid "Edit Profile Picture"
-msgstr ""
+msgstr "Profilbild Ändern"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:278
 msgid "Edit Header Picture"
-msgstr ""
+msgstr "Titelbild Ändern"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:388
 #, c-format
 msgid "Field %d"
-msgstr ""
+msgstr "Feld %d"
 
 #. translators: Open file
 #: src/Dialogs/ProfileEdit.vala:403 src/Dialogs/ProfileEdit.vala:411
@@ -1333,7 +1337,7 @@ msgstr "Anhang entfernen"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:181
 msgid "Alternative text for attachment"
-msgstr ""
+msgstr "Alternativer Text für Anhang"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:50
 msgid "Media"
