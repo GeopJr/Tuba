@@ -79,6 +79,14 @@ if libgtk_dep.version().version_compare('>=4.10.0')
   add_project_arguments(['--define=GTK_4_10'], language: 'vala')
 endif
 
+if libgtk_dep.version().version_compare('>=4.12.0')
+  add_project_arguments(['--define=GTK_4_12'], language: 'vala')
+endif
+
+if meson.get_compiler('vala').version().version_compare('>=0.56.11')
+  add_project_arguments(['--define=VALAC_05611'], language: 'vala')
+endif
+
 if libspelling.found ()
   add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
 endif
