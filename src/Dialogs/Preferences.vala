@@ -1,35 +1,35 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/preferences.ui")]
 public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 	struct NotificationTypeMute {
-		public Gtk.Switch switch_widget;
+		public Adw.SwitchRow switch_widget;
 		public string event;
 	}
 
     [GtkChild] unowned Adw.ComboRow scheme_combo_row;
     [GtkChild] unowned Adw.ComboRow post_visibility_combo_row;
     [GtkChild] unowned Adw.ComboRow default_language_combo_row;
-    [GtkChild] unowned Gtk.Switch autostart;
-    [GtkChild] unowned Gtk.Switch work_in_background;
-    [GtkChild] unowned Gtk.SpinButton timeline_page_size;
-    [GtkChild] unowned Gtk.Switch live_updates;
-    [GtkChild] unowned Gtk.Switch public_live_updates;
-    [GtkChild] unowned Gtk.Switch show_spoilers;
-    [GtkChild] unowned Gtk.Switch hide_preview_cards;
-    [GtkChild] unowned Gtk.Switch larger_font_size;
-    [GtkChild] unowned Gtk.Switch larger_line_height;
-    [GtkChild] unowned Gtk.Switch scale_emoji_hover;
-    [GtkChild] unowned Gtk.Switch strip_tracking;
-    [GtkChild] unowned Gtk.Switch letterbox_media;
-    [GtkChild] unowned Gtk.Switch media_viewer_expand_pictures;
-    [GtkChild] unowned Gtk.Switch enlarge_custom_emojis;
+    [GtkChild] unowned Adw.SwitchRow autostart;
+    [GtkChild] unowned Adw.SwitchRow work_in_background;
+    [GtkChild] unowned Adw.SpinRow timeline_page_size;
+    [GtkChild] unowned Adw.SwitchRow live_updates;
+    [GtkChild] unowned Adw.SwitchRow public_live_updates;
+    [GtkChild] unowned Adw.SwitchRow show_spoilers;
+    [GtkChild] unowned Adw.SwitchRow hide_preview_cards;
+    [GtkChild] unowned Adw.SwitchRow larger_font_size;
+    [GtkChild] unowned Adw.SwitchRow larger_line_height;
+    [GtkChild] unowned Adw.SwitchRow scale_emoji_hover;
+    [GtkChild] unowned Adw.SwitchRow strip_tracking;
+    [GtkChild] unowned Adw.SwitchRow letterbox_media;
+    [GtkChild] unowned Adw.SwitchRow media_viewer_expand_pictures;
+    [GtkChild] unowned Adw.SwitchRow enlarge_custom_emojis;
 
-    [GtkChild] unowned Gtk.Switch new_followers_notifications_switch;
-    [GtkChild] unowned Gtk.Switch new_follower_requests_notifications_switch;
-    [GtkChild] unowned Gtk.Switch favorites_notifications_switch;
-    [GtkChild] unowned Gtk.Switch mentions_notifications_switch;
-    [GtkChild] unowned Gtk.Switch boosts_notifications_switch;
-    [GtkChild] unowned Gtk.Switch poll_results_notifications_switch;
-    [GtkChild] unowned Gtk.Switch edits_notifications_switch;
+    [GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
+    [GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
+    [GtkChild] unowned Adw.SwitchRow favorites_notifications_switch;
+    [GtkChild] unowned Adw.SwitchRow mentions_notifications_switch;
+    [GtkChild] unowned Adw.SwitchRow boosts_notifications_switch;
+    [GtkChild] unowned Adw.SwitchRow poll_results_notifications_switch;
+    [GtkChild] unowned Adw.SwitchRow edits_notifications_switch;
 
 	NotificationTypeMute[] notification_type_mutes;
 
