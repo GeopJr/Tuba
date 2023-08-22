@@ -10,10 +10,10 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	protected bool use_auto_auth { get; set; default = true; }
 	protected InstanceAccount account { get; set; default = new InstanceAccount.empty (""); }
 
-	[GtkChild] unowned Adw.Leaflet deck;
-	[GtkChild] unowned Gtk.Box instance_step;
-	[GtkChild] unowned Gtk.Box code_step;
-	[GtkChild] unowned Gtk.Box done_step;
+	[GtkChild] unowned Adw.NavigationView deck;
+	[GtkChild] unowned Adw.NavigationPage instance_step;
+	[GtkChild] unowned Adw.NavigationPage code_step;
+	[GtkChild] unowned Adw.NavigationPage done_step;
 
 	[GtkChild] unowned Adw.EntryRow instance_entry;
 	[GtkChild] unowned Gtk.Label instance_entry_error;
@@ -79,7 +79,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		clear_errors ();
 		use_auto_auth = true;
 		account = new InstanceAccount.empty (account.instance);
-		deck.visible_child = instance_step;
+		deck.pop_to_page (instance_step);
 	}
 
 	void oopsie (string title, string msg = "") {
@@ -89,7 +89,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	}
 
 	async void step () throws Error {
-		if (deck.visible_child == instance_step) {
+		if (deck.visible_page == instance_step) {
 			setup_instance ();
 			yield accounts.guess_backend (account);
 		}
@@ -138,7 +138,9 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		account.client_secret = root.get_string_member ("client_secret");
 		debug ("OK: Instance registered client");
 
-		deck.visible_child = code_step;
+		if (deck.visible_page != code_step) {
+			deck.push (code_step);
+		}
 		open_confirmation_page ();
 	}
 
@@ -181,7 +183,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		accounts.add (account);
 
 		done_page.title = _("Hello, %s!").printf (account.display_name);
-		deck.visible_child = done_step;
+		deck.push (done_step);
 
 		debug ("Switching to account");
 		accounts.activate (account);
@@ -257,13 +259,5 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	[GtkCallback]
 	void on_back_clicked () {
 		reset ();
-	}
-
-	[GtkCallback]
-	void on_visible_child_notify () {
-		if (!deck.child_transition_running && deck.visible_child == instance_step)
-			reset ();
-
-		deck.can_navigate_back = deck.visible_child != done_step;
 	}
 }
