@@ -259,7 +259,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     }
 
     public void append_child (Gtk.Widget child) {
-        widgets += LWWWidget() {
+        widgets += LWWWidget () {
             widget = child,
             width = 0,
             height = 0
