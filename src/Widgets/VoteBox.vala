@@ -42,21 +42,16 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
         int64 winner_p = 0;
         Widgets.VoteCheckButton group_radio_option = null;
 
-		//clear all existing entries
+		// Clear all existing entries
 		Gtk.Widget entry = poll_box.get_first_child ();
 		while (entry != null) {
 			poll_box.remove (entry);
 			entry = poll_box.get_first_child ();
 		}
-		//Reset button visibility
-		button_vote.set_visible (false);
-        if (!poll.expired && !poll.voted) {
-            button_vote.set_visible (true);
-		}
 
-        //  if (poll.expired) {
-        //      poll_box.sensitive = false;
-        //  }
+		// Reset button visibility
+        button_vote.visible = !poll.expired && !poll.voted;
+
         if (poll.expired || poll.voted) {
             foreach (API.PollOption p in poll.options) {
                 if (p.votes_count > winner_p) {
@@ -65,20 +60,20 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
             }
         }
 
-		//creates the entries of poll
+		// Create the entries of poll
         foreach (API.PollOption p in poll.options) {
             var row = new Adw.ActionRow () {
                 css_classes = { "ttl-poll-row" },
-                use_markup = false
+                use_markup = false,
+                title = p.title
             };
 
-            //if it is own poll
+            // If it is own poll
             if (poll.expired || poll.voted) {
                 // If multiple, Checkbox else radioButton
                 var percentage = poll.votes_count > 0 ? ((double)p.votes_count / poll.votes_count) * 100 : 0.0;
 
                 var provider = new Gtk.CssProvider ();
-
                 #if GTK_4_12
                     provider.load_from_string (generate_css_style ((int) percentage));
                 #else
@@ -98,15 +93,15 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 
                 foreach (int own_vote in poll.own_votes) {
                     if (own_vote == row_number) {
-                        row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic"));
+                        row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic") {
+                            tooltip_text = _("Voted")
+                        });
                     }
                 }
 
                 row.subtitle = "%.1f%%".printf (percentage);
-                row.title = p.title;
                 poll_box.append (row);
             } else {
-                row.title = p.title;
                 var check_option = new Widgets.VoteCheckButton ();
 
                 if (!poll.multiple) {
@@ -122,8 +117,11 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 
                 foreach (int own_vote in poll.own_votes) {
                     if (own_vote == row_number) {
-                        check_option.set_active (true);
-                        row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic"));
+                        check_option.active = true;
+                        row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic"){
+                            tooltip_text = _("Voted")
+                        });
+
                         if (!selected_index.contains (p.title)) {
                             selected_index.add (p.title);
                         }
@@ -131,7 +129,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
                 }
 
                 if (poll.expired || poll.voted) {
-                    check_option.set_sensitive (false);
+                    check_option.sensitive = false;
                 }
 
                 row.add_prefix (check_option);
@@ -139,6 +137,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 
                 poll_box.append (row);
             }
+
             row_number++;
         }
 
