@@ -25,6 +25,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         }
     }
 
+    private string _label_text = "";
     private string _text = "";
     public string text {
         get {
@@ -124,7 +125,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         int index = 0;
 
         for (var i = 0; i < widget_widths.length; i++) {
-            index = label.get_text ().index_of (OBJECT_REPLACEMENT_CHARACTER, index);
+            index = _label_text.index_of (OBJECT_REPLACEMENT_CHARACTER, index);
             if (index < 0) break;
 
             var width = widget_widths[i];
@@ -254,6 +255,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 
             _text = new_label;
             label.label = _text;
+            _label_text = label.get_text ();
             invalidate_child_widgets ();
         }
     }
