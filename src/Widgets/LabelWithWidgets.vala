@@ -149,6 +149,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     }
 
     private void allocate_children () {
+        if (widgets.length == 0) return;
+
         var run_iter = label.get_layout ().get_iter ();
         int i = 0;
 
