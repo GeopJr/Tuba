@@ -11,17 +11,27 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 
 	construct {
         button_vote.set_label (_("Vote"));
-        button_vote.clicked.connect ((button) =>{
-            Request voting = API.Poll.vote (accounts.active, poll.options, selected_index, poll.id);
-            voting.then ((sess, mess, in_stream) => {
-                var parser = Network.get_parser_from_inputstream (in_stream);
-                status_parent.poll = API.Poll.from_json (typeof (API.Poll), network.parse_node (parser));
-            })
-            .on_error ((code, reason) => {}).exec ();
-        });
+        button_vote.clicked.connect (on_vote_button_clicked);
         notify["poll"].connect (update);
         button_vote.sensitive = false;
 	}
+
+    private void  on_vote_button_clicked (Gtk.Button button) {
+        button.sensitive = false;
+        API.Poll.vote (accounts.active, poll.options, selected_index, poll.id)
+            .then ((sess, mess, in_stream) => {
+                var parser = Network.get_parser_from_inputstream (in_stream);
+                status_parent.poll = API.Poll.from_json (typeof (API.Poll), network.parse_node (parser));
+
+                button.sensitive = true;
+            })
+            .on_error ((code, reason) => {
+                var dlg = app.inform (_("Error"), reason);
+                dlg.present ();
+                button.sensitive = true;
+            })
+            .exec ();
+    }
 
     public string generate_css_style (int percentage) {
         return @".ttl-poll-$(percentage).ttl-poll-winner { background: linear-gradient(to right, alpha(@accent_bg_color, .5) $(percentage)%, transparent 0%); } .ttl-poll-$(percentage) { background: linear-gradient(to right, alpha(@view_fg_color, .1) $(percentage)%, transparent 0%); }"; // vala-lint=line-length
@@ -108,15 +118,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 				}
 
                 check_option.poll_title = p.title;
-                check_option.toggled.connect ((radio) => {
-                    var radio_votebutton = radio as Widgets.VoteCheckButton;
-                    if (selected_index.contains (radio_votebutton.poll_title)) {
-                        selected_index.remove (radio_votebutton.poll_title);
-                    } else {
-                        selected_index.add (radio_votebutton.poll_title);
-                    }
-                    button_vote.sensitive = selected_index.size > 0;
-                });
+                check_option.toggled.connect (on_check_option_toggeled);
 
                 foreach (int own_vote in poll.own_votes) {
                     if (own_vote == row_number) {
@@ -146,4 +148,15 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
             ? DateTime.humanize_ago (poll.expires_at)
             : DateTime.humanize_left (poll.expires_at);
 	}
+
+    private void on_check_option_toggeled (Gtk.CheckButton radio) {
+        var radio_votebutton = radio as Widgets.VoteCheckButton;
+        if (selected_index.contains (radio_votebutton.poll_title)) {
+            selected_index.remove (radio_votebutton.poll_title);
+        } else {
+            selected_index.add (radio_votebutton.poll_title);
+        }
+
+        button_vote.sensitive = selected_index.size > 0;
+    }
 }
