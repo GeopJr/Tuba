@@ -184,10 +184,57 @@ public class Tuba.API.Status : Entity, Widgetizable {
         return result;
     }
 
-    public Request action (string action) {
+    private Request action (string action) {
         var req = new Request.POST (@"/api/v1/statuses/$(formal.id)/$action").with_account (accounts.active);
         req.priority = Soup.MessagePriority.HIGH;
         return req;
+    }
+
+    public Request favourite_req () {
+        return action ("favourite");
+    }
+
+    public Request unfavourite_req () {
+        return action ("unfavourite");
+    }
+
+    public Request bookmark_req () {
+        return action ("bookmark");
+    }
+
+    public Request unbookmark_req () {
+        return action ("unbookmark");
+    }
+
+    public enum ReblogVisibility {
+        PUBLIC,
+        UNLISTED,
+        PRIVATE;
+
+        public string to_string () {
+			switch (this) {
+				case PUBLIC:
+					return "public";
+				case UNLISTED:
+					return "unlisted";
+				case PRIVATE:
+					return "private";
+				default:
+					return "";
+			}
+		}
+    }
+
+    public Request reblog_req (ReblogVisibility? visibility = null) {
+        var req = action ("reblog");
+        if (visibility != null)
+            req.with_form_data ("visibility", visibility.to_string ());
+
+        return req;
+    }
+
+    public Request unreblog_req () {
+        return action ("unreblog");
     }
 
     public Request annihilate () {
