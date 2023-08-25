@@ -7,29 +7,31 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-19 22:14+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-08-25 19:51+0000\n"
+"Last-Translator: R_SACI <rgebbid@gmail.com>\n"
+"Language-Team: Kabyle <https://hosted.weblate.org/projects/tuba/tuba/kab/>\n"
 "Language: kab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
-msgstr ""
+msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
-msgstr ""
+msgstr "Snirem Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr ""
+msgstr "Amsaɣ n Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr ""
+msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:9
 msgid ""
@@ -49,29 +51,29 @@ msgstr ""
 
 #: data/ui/widgets/status.ui:157
 msgid "Pinned"
-msgstr ""
+msgstr "Inteḍ"
 
 #: data/ui/widgets/status.ui:168
 msgid "Edited"
-msgstr ""
+msgstr "Yettwaẓreg"
 
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:226
 msgid "Show Less"
-msgstr ""
+msgstr "Sken drus"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:259 src/Widgets/Status.vala:385
 msgid "Show More"
-msgstr ""
+msgstr "Sken ugar"
 
 #: data/ui/widgets/status.ui:339 data/ui/widgets/status.ui:340
 msgid "Decline"
-msgstr ""
+msgstr "Agi"
 
 #: data/ui/widgets/status.ui:352 data/ui/widgets/status.ui:353
 msgid "Accept"
-msgstr ""
+msgstr "Qbel"
 
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:36
