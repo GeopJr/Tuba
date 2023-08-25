@@ -37,6 +37,6 @@ public class Tuba.Widgets.FollowRequestRow : Gtk.Box {
 	}
 
 	public FollowRequestRow (string t_id) {
-		id = t_id;
+		Object (id: t_id);
 	}
 }
