@@ -8,7 +8,6 @@ sources += files(
     'Emoji.vala',
     'EmojiLabel.vala',
     'LabelWithWidgets.vala',
-    'LockableToggleButton.vala',
     'MarkupView.vala',
     'Notification.vala',
     'PreviewCard.vala',

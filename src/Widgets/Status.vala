@@ -97,12 +97,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	[GtkChild] public unowned Gtk.Box actions;
 	[GtkChild] public unowned Widgets.VoteBox poll;
 
-	protected Gtk.Button reply_button;
-	protected Adw.ButtonContent reply_button_content;
-	protected StatusActionButton reblog_button;
-	protected StatusActionButton favorite_button;
-	protected StatusActionButton bookmark_button;
-
 	protected Gtk.PopoverMenu context_menu { get; set; }
 	private const GLib.ActionEntry[] ACTION_ENTRIES = {
 		{"copy-url", copy_url},
@@ -145,8 +139,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		if (settings.scale_emoji_hover)
 			add_css_class ("lww-scale-emoji-hover");
 
-		rebuild_actions ();
-
 		settings.notify["larger-font-size"].connect (settings_updated);
 		settings.notify["larger-line-height"].connect (settings_updated);
 		settings.notify["scale-emoji-hover"].connect (settings_updated);
@@ -166,12 +158,10 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 
 		name_button.clicked.connect (() => name_label.on_activate_link (status.formal.account.handle));
 
-		show_view_stats_action ();
-		reblog_button.content.notify["label"].connect (show_view_stats_action);
-		favorite_button.content.notify["label"].connect (show_view_stats_action);
+		stats_simple_action.set_enabled (false);
 	}
 
-	private bool has_stats { get { return reblog_button.content.label != "" || favorite_button.content.label != ""; } }
+	private bool has_stats { get { return status.formal.reblogs_count != 0 || status.formal.favourites_count != 0; } }
 	private void show_view_stats_action () {
 		stats_simple_action.set_enabled (has_stats);
 	}
@@ -475,6 +465,10 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	private Gtk.Button prev_card;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	protected virtual void bind () {
+		var action_row = new ActionsRow (this.status.formal);
+		action_row.reply.connect (on_reply_button_clicked);
+		content_column.append (action_row);
+
 		this.content.instance_emojis = status.formal.emojis_map;
 		this.content.content = status.formal.content;
 
@@ -526,38 +520,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		name_label.instance_emojis = status.formal.account.emojis_map;
 		name_label.label = title_text;
 
-		// Actions
-		reblog_button.bind (status.formal);
-		bookmark_button.bind (status.formal);
-		favorite_button.bind (status.formal);
-		favorite_button.update_button_content (status.formal.favourites_count);
-
-		reply_button.set_child (reply_button_content);
-		reply_button_content.icon_name = status.formal.in_reply_to_id != null
-			? "tuba-reply-all-symbolic"
-			: "tuba-reply-sender-symbolic";
-		if (status.formal.replies_count > 0) {
-			reply_button_content.margin_start = 12;
-			reply_button_content.margin_end = 9;
-			reply_button_content.label = status.formal.replies_count.to_string ();
-		} else {
-			reply_button_content.margin_start = 0;
-			reply_button_content.margin_end = 0;
-			reply_button_content.label = "";
-		}
-
-		if (!status.can_be_boosted) {
-			reblog_button.sensitive = false;
-			reblog_button.tooltip_text = _("This post can't be boosted");
-			reblog_button.content.icon_name = t_visibility.icon_name;
-		}
-		else {
-			reblog_button.sensitive = true;
-			reblog_button.tooltip_text = _("Boost");
-			reblog_button.content.icon_name = "tuba-media-playlist-repeat-symbolic";
-			reblog_button.update_button_content (status.formal.reblogs_count);
-		}
-
 		if (status.id == "") {
 			actions.destroy ();
 			date_label.destroy ();
@@ -578,6 +540,10 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 				content_box.append (prev_card);
 			} catch {}
 		}
+
+		show_view_stats_action ();
+		status.formal.notify["reblogs-count"].connect (show_view_stats_action);
+		status.formal.notify["favourites-count"].connect (show_view_stats_action);
 	}
 
 	void open_card_url () {
@@ -591,69 +557,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 
 	private void on_reply_button_clicked () {
 		new Dialogs.Compose.reply (status.formal, on_reply);
-	}
-
-	protected virtual void append_actions () {
-		reply_button = new Gtk.Button ();
-		reply_button_content = new Adw.ButtonContent () {
-			css_classes = { "ttl-status-action-reply" },
-			tooltip_text = _("Reply")
-		};
-		reply_button.clicked.connect (on_reply_button_clicked);
-		actions.append (reply_button);
-
-		reblog_button = new StatusActionButton () {
-			prop_name = "reblogged",
-			action_on = "reblog",
-			action_off = "unreblog",
-			css_classes = { "ttl-status-action-reblog" },
-			tooltip_text = _("Boost")
-		};
-		actions.append (reblog_button);
-
-		favorite_button = new StatusActionButton () {
-			prop_name = "favourited",
-			action_on = "favourite",
-			action_off = "unfavourite",
-			icon_name = "tuba-unstarred-symbolic",
-			icon_toggled_name = "tuba-starred-symbolic",
-			css_classes = { "ttl-status-action-star" },
-			tooltip_text = _("Favorite")
-		};
-		actions.append (favorite_button);
-
-		bookmark_button = new StatusActionButton () {
-			prop_name = "bookmarked",
-			action_on = "bookmark",
-			action_off = "unbookmark",
-			icon_name = "tuba-bookmarks-symbolic",
-			icon_toggled_name = "tuba-bookmarks-filled-symbolic",
-			css_classes = { "ttl-status-action-bookmark" },
-			tooltip_text = _("Bookmark")
-		};
-		actions.append (bookmark_button);
-	}
-
-	void rebuild_actions () {
-		for (var w = actions.get_first_child (); w != null; w = w.get_next_sibling ())
-			actions.remove (w);
-
-		append_actions ();
-
-		// var menu_button = new MenuButton (); //TODO: Status menu
-		// menu_button.icon_name = "tuba-view-more-symbolic";
-		// menu_button.get_first_child ().add_css_class ("flat");
-		// actions.append (menu_button);
-
-		for (var w = actions.get_first_child (); w != null; w = w.get_next_sibling ()) {
-			w.add_css_class ("flat");
-			w.add_css_class ("circular");
-			w.halign = Gtk.Align.START;
-			w.hexpand = true;
-		}
-
-		var w = actions.get_last_child ();
-		w.hexpand = false;
 	}
 
 	[GtkCallback] public void toggle_spoiler () {
