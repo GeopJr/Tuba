@@ -155,10 +155,13 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		action_group.add_action (edit_history_simple_action);
 
 		this.insert_action_group ("status", action_group);
-
-		name_button.clicked.connect (() => name_label.on_activate_link (status.formal.account.handle));
-
 		stats_simple_action.set_enabled (false);
+
+		name_button.clicked.connect (on_name_button_clicked);
+	}
+
+	private void on_name_button_clicked () {
+		name_label.on_activate_link (status.formal.account.handle);
 	}
 
 	private bool has_stats { get { return status.formal.reblogs_count != 0 || status.formal.favourites_count != 0; } }
