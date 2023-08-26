@@ -97,7 +97,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	[GtkChild] protected unowned Gtk.Stack spoiler_stack;
 	[GtkChild] protected unowned Gtk.Box content_box;
 	[GtkChild] public unowned Widgets.MarkupView content;
-	[GtkChild] protected unowned Widgets.Attachment.Box attachments;
 	[GtkChild] protected unowned Gtk.Button spoiler_button;
 	[GtkChild] protected unowned Gtk.Label spoiler_label;
 	[GtkChild] protected unowned Gtk.Label spoiler_label_rev;
@@ -479,6 +478,7 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	}
 
 	private Gtk.Button prev_card;
+	private Widgets.Attachment.Box attachments;
 	private Widgets.VoteBox poll;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	ulong[] formal_handler_ids = {};
@@ -552,8 +552,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		avatar.account = status.formal.account;
 		reactions = status.formal.compat_status_reactions;
 
-		attachments.has_spoiler = status.formal.sensitive;
-		attachments.list = status.formal.media_attachments;
 		name_label.instance_emojis = status.formal.account.emojis_map;
 		name_label.label = title_text;
 
@@ -562,6 +560,14 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 			poll = new Widgets.VoteBox ();
 			status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 			content_box.append (poll);
+		}
+
+		if (attachments != null) content_box.remove (attachments);
+		if (status.formal.has_media) {
+			attachments = new Widgets.Attachment.Box ();
+			attachments.has_spoiler = status.formal.sensitive;
+			attachments.list = status.formal.media_attachments;
+			content_box.append (attachments);
 		}
 
 		if (prev_card != null) content_box.remove (prev_card);

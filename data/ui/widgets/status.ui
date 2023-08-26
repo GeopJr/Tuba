@@ -300,9 +300,6 @@
                                 <property name="hexpand">False</property>
                               </object>
                             </child>
-                            <child>
-                              <object class="TubaWidgetsAttachmentBox" id="attachments" />
-                            </child>
                           </object>
                         </property>
                       </object>
