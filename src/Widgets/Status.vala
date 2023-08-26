@@ -27,7 +27,7 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		get { return _is_quote; }
 		set {
 			_is_quote = value;
-			
+
 			Gtk.Widget?[] widgets_to_toggle = {
 				menu_button,
 				emoji_reactions,
@@ -199,6 +199,7 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		if (context_menu == null) {
 			create_actions ();
 		}
+
 		menu_button.popover = context_menu;
 		menu_button.visible = true;
 	}
@@ -283,7 +284,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 				entity_cache.remove (this.status.formal.uri);
 				pin_changed ();
 			})
-			.on_error (() => {})
 			.exec ();
 	}
 
@@ -687,7 +687,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	}
 
 	// Threads
-
 	public enum ThreadRole {
 		NONE,
 		START,
@@ -737,5 +736,4 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 				break;
 		}
 	}
-
 }

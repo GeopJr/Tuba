@@ -1,5 +1,4 @@
 public class Tuba.Views.Profile : Views.Timeline {
-
 	public API.Account profile { get; construct set; }
 	public API.Relationship rs { get; construct set; }
 	public bool include_replies { get; set; default = false; }

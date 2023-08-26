@@ -1,5 +1,4 @@
 public class Tuba.EntityCache : AbstractCache {
-
 	// Must return unique id for each JSON entity node
 	protected string? get_node_cache_id (owned Json.Node node) {
 		var obj = node.get_object ();
@@ -40,5 +39,4 @@ public class Tuba.EntityCache : AbstractCache {
 
 		return entity;
 	}
-
 }

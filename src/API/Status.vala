@@ -166,7 +166,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
 
     public bool has_media {
         get {
-            return  media_attachments != null && !media_attachments.is_empty;
+            return media_attachments != null && !media_attachments.is_empty;
         }
     }
 

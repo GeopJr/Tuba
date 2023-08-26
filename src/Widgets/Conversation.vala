@@ -23,7 +23,6 @@ public class Tuba.Widgets.Conversation : Widgets.Status {
 			}
 		);
 
-		// this.indicators.child_set_property (this.visibility_indicator, "position", 2);
 		this.actions.destroy ();
 	}
 

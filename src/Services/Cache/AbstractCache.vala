@@ -18,6 +18,7 @@ public class Tuba.AbstractCache : Object {
 			setup_maintenance ();
 		}
 	}
+
     public uint size {
         get { return items.size; }
     }
@@ -100,5 +101,4 @@ public class Tuba.AbstractCache : Object {
 		items.clear ();
 		items_in_progress.clear ();
 	}
-
 }

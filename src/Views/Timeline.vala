@@ -113,10 +113,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		base.dispose ();
 	}
 
-	public virtual bool is_status_owned (API.Status status) {
-		return status.is_owned ();
-	}
-
 	public override void clear () {
 		this.page_prev = null;
 		this.page_next = null;
