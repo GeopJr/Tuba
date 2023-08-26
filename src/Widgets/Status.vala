@@ -190,7 +190,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	}
 
 	protected void init_menu_button () {
-		check_actions ();
 		if (context_menu == null) {
 			create_actions ();
 		}
@@ -325,14 +324,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		remove.present ();
 	}
 
-	private void check_actions () {
-		if (kind == InstanceAccount.KIND_FOLLOW || kind == InstanceAccount.KIND_FOLLOW_REQUEST) {
-			actions.visible = false;
-			visibility_indicator.visible = false;
-			date_label.visible = false;
-		}
-	}
-
 	protected string spoiler_text {
 		owned get {
 			var text = status.formal.spoiler_text;
@@ -392,7 +383,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		string icon = null;
 		string descr = null;
 		string label_url = null;
-		check_actions ();
 		accounts.active.describe_kind (this.kind, out icon, out descr, this.kind_instigator, out label_url);
 
 		if (icon == null) {
