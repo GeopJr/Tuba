@@ -106,7 +106,8 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
     }
 
 	void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		cover.paintable = data;
+        if (is_loaded)
+            cover.paintable = data;
 	}
 
     [GtkCallback]

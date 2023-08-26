@@ -531,8 +531,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         if (alt_text != null) picture.alternative_text = alt_text;
 
 		image_cache.request_paintable (url, (is_loaded, data) => {
-            picture.paintable = data;
             if (is_loaded) {
+                picture.paintable = data;
                 item.done ();
             }
         });

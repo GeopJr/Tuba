@@ -47,7 +47,8 @@ public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 			case GtkSource.CompletionColumn.ICON:
 				var image = new Gtk.Image ();
 				image_cache.request_paintable (emoji.url, (is_loaded, paintable) => {
-					image.paintable = paintable;
+					if (is_loaded)
+						image.paintable = paintable;
 				});
 				cell.set_widget (image);
 				break;

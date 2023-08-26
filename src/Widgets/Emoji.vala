@@ -31,7 +31,7 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
 	}
 
 	void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		if (image != null)
+		if (image != null && is_loaded)
 			image.paintable = data;
 	}
 }

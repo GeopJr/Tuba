@@ -233,7 +233,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 		}
 
 		void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-			background.paintable = data;
+			if (is_loaded)
+				background.paintable = data;
 		}
 	}
 

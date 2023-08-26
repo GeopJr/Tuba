@@ -48,7 +48,8 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 				var avatar = new Adw.Avatar (32, null, true);
 				avatar.name = account.display_name;
 				image_cache.request_paintable (account.avatar, (is_loaded, paintable) => {
-					avatar.custom_image = paintable;
+					if (is_loaded)
+						avatar.custom_image = paintable;
 				});
 				cell.set_widget (avatar);
 				break;
