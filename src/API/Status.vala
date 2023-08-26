@@ -158,13 +158,17 @@ public class Tuba.API.Status : Entity, Widgetizable {
 		app.main_window.open_view (view);
 	}
 
-    public bool is_owned () {
-        return formal.account.id == accounts.active.id;
+    public bool is_mine {
+        get {
+            return formal.account.id == accounts.active.id;
+        }
     }
 
-	public bool has_media () {
-		return media_attachments != null && !media_attachments.is_empty;
-	}
+    public bool has_media {
+        get {
+            return  media_attachments != null && !media_attachments.is_empty;
+        }
+    }
 
     public virtual string get_reply_mentions () {
         var result = "";
