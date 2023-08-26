@@ -389,7 +389,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	}
 
 	Widgets.Avatar? actor_avatar = null;
-	ulong actor_avatar_singal;
 	ulong header_button_activate;
 	private Binding actor_avatar_binding;
 	const string[] SHOULD_SHOW_ACTOR_AVATAR = {
@@ -422,16 +421,15 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 
 				if (this.kind_instigator != null) {
 					actor_avatar_binding = this.bind_property ("kind_instigator", actor_avatar, "account", BindingFlags.SYNC_CREATE);
-					actor_avatar_singal = actor_avatar.clicked.connect (open_kind_instigator_account);
+					actor_avatar.clicked.connect (open_kind_instigator_account);
 				} else {
 					actor_avatar_binding = status.bind_property ("account", actor_avatar, "account", BindingFlags.SYNC_CREATE);
-					actor_avatar_singal = actor_avatar.clicked.connect (open_status_account);
+					actor_avatar.clicked.connect (open_status_account);
 				}
 			}
 			avatar.add_css_class ("ttl-status-avatar-border");
 			avatar_overlay.child = actor_avatar;
 		} else if (actor_avatar != null) {
-			actor_avatar.disconnect (actor_avatar_singal);
 			actor_avatar_binding.unbind ();
 
 			avatar_overlay.child = null;
