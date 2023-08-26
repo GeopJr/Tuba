@@ -13,6 +13,10 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		bind ();
 	}
 
+	~ActionsRow () {
+		unbind ();
+	}
+
 	Binding[] bindings = {};
 	public void bind () {
 		if (bindings.length != 0) return;
