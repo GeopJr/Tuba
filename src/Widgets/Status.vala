@@ -338,9 +338,27 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	public string spoiler_text_revealed { get; set; default = _("Sensitive"); }
 	public bool reveal_spoiler { get; set; default = true; }
 
+	// separator between the bottom bar items
+	string expanded_separator = "·";
 	protected string date {
 		owned get {
-			return DateTime.humanize (status.formal.created_at);
+			if (expanded) {
+				// translators: this is a "long" date format shown in places like expanded posts or
+				//				the profile "Joined" field. You can find all the available specifiers
+				//				on https://valadoc.org/glib-2.0/GLib.DateTime.format.html
+				//				Please do not stray far from the original and only include day, month
+				//				and year.
+				//				If unsure, either leave it as-is or set it to %x.
+				var date_local = _("%B %e, %Y");
+
+				// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES
+				var date_parsed = new GLib.DateTime.from_iso8601 (status.formal.edited_at ?? status.formal.created_at, null);
+				date_parsed = date_parsed.to_timezone (new TimeZone.local ());
+
+				return date_parsed.format (@"$date_local $expanded_separator %H:%M").replace (" ", ""); // %e prefixes with whitespace on single digits
+			} else {
+				return DateTime.humanize (status.formal.edited_at ?? status.formal.created_at);
+			}
 		}
 	}
 
@@ -560,13 +578,14 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		status.formal.account.open ();
 	}
 
+	bool expanded = false;
 	public void expand_root () {
+		if (expanded) return;
+
+		expanded = true;
 		activatable = false;
 		content.selectable = true;
 		content.add_css_class ("ttl-large-body");
-
-		// separator between the bottom bar items
-		var separator = "·";
 
 		// Move the avatar & thread line into the name box
 		status_box.remove (avatar_side);
@@ -584,19 +603,7 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 			indicators.remove (edited_indicator);
 		indicators.remove (visibility_indicator);
 
-		// translators: this is a "long" date format shown in places like expanded posts or
-		//				the profile "Joined" field. You can find all the available specifiers
-		//				on https://valadoc.org/glib-2.0/GLib.DateTime.format.html
-		//				Please do not stray far from the original and only include day, month
-		//				and year.
-		//				If unsure, either leave it as-is or set it to %x.
-		var date_local = _("%B %e, %Y");
-
-		// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES
-		var date_parsed = new GLib.DateTime.from_iso8601 (status.formal.created_at, null);
-		date_parsed = date_parsed.to_timezone (new TimeZone.local ());
-
-		date_label.label = date_parsed.format (@"$date_local $separator %H:%M").replace (" ", ""); // %e prefixes with whitespace on single digits
+		date_label.label = this.date;
 		date_label.wrap = true;
 
 		// The bottom bar
@@ -635,11 +642,11 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 			bottom_info.append (application_label);
 		}
 
-		add_separators_to_expanded_bottom (bottom_info, separator);
+		add_separators_to_expanded_bottom (bottom_info);
 	}
 
 	// Adds *separator* between all *flowbox* children
-	private void add_separators_to_expanded_bottom (Gtk.FlowBox flowbox, string separator = "·") {
+	private void add_separators_to_expanded_bottom (Gtk.FlowBox flowbox, string separator = expanded_separator) {
 		var i = 0;
 		var child = flowbox.get_child_at_index (i);
 		while (child != null) {
