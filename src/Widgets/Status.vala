@@ -528,7 +528,11 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		visibility_indicator.icon_name = t_visibility.small_icon_name;
 		visibility_indicator.tooltip_text = t_visibility.name;
 
-		if (change_background_on_direct && status.formal.visibility == "direct") this.add_css_class ("direct");
+		if (change_background_on_direct && status.formal.visibility == "direct") {
+			this.add_css_class ("direct");
+		} else {
+			this.remove_css_class ("direct");
+		}
 
 		avatar.account = status.formal.account;
 		reactions = status.formal.compat_status_reactions;
