@@ -27,11 +27,20 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		get { return _is_quote; }
 		set {
 			_is_quote = value;
-			menu_button.visible = !value;
-			emoji_reactions.visible = !value;
-			actions.visible = !value;
-			if (quoted_status_btn != null)
-				quoted_status_btn.visible = !value;
+			
+			Gtk.Widget?[] widgets_to_toggle = {
+				menu_button,
+				emoji_reactions,
+				actions,
+				quoted_status_btn,
+				prev_card
+			};
+
+			foreach (var widget in widgets_to_toggle) {
+				if (widget != null) {
+					widget.visible = !value;
+				}
+			}
 		}
 	}
 
