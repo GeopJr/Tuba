@@ -301,9 +301,6 @@
                               </object>
                             </child>
                             <child>
-                              <object class="TubaWidgetsVoteBox" id="poll" />
-                            </child>
-                            <child>
                               <object class="TubaWidgetsAttachmentBox" id="attachments" />
                             </child>
                           </object>

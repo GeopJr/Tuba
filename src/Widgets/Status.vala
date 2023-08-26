@@ -104,8 +104,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	[GtkChild] protected unowned Gtk.Box spoiler_status_con;
 
 	public ActionsRow actions { get; private set; }
-	[GtkChild] public unowned Widgets.VoteBox poll;
-
 	protected Gtk.PopoverMenu context_menu { get; set; }
 	private const GLib.ActionEntry[] ACTION_ENTRIES = {
 		{"copy-url", copy_url},
@@ -481,6 +479,7 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	}
 
 	private Gtk.Button prev_card;
+	private Widgets.VoteBox poll;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	ulong[] formal_handler_ids = {};
 	ulong[] this_handler_ids = {};
@@ -558,16 +557,11 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		name_label.instance_emojis = status.formal.account.emojis_map;
 		name_label.label = title_text;
 
-		if (status.id == "") {
-			actions.destroy ();
-			date_label.destroy ();
-		}
-
-		if (status.formal.poll == null) {
-			poll.hide ();
-		} else {
-			poll.status_parent = status.formal;
-			status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE);
+		if (poll != null) content_box.remove (poll);
+		if (status.formal.poll != null) {
+			poll = new Widgets.VoteBox ();
+			status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
+			content_box.append (poll);
 		}
 
 		if (prev_card != null) content_box.remove (prev_card);

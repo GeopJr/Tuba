@@ -6,7 +6,6 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
     [GtkChild] protected unowned Gtk.Label expires_label;
 
 	public API.Poll? poll { get; set;}
-	public API.Status? status_parent { get; set; }
     protected Gee.ArrayList<string> selected_index = new Gee.ArrayList<string> ();
 
 	construct {
@@ -21,7 +20,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
         API.Poll.vote (accounts.active, poll.options, selected_index, poll.id)
             .then ((sess, mess, in_stream) => {
                 var parser = Network.get_parser_from_inputstream (in_stream);
-                status_parent.poll = API.Poll.from_json (typeof (API.Poll), network.parse_node (parser));
+                poll = API.Poll.from_json (typeof (API.Poll), network.parse_node (parser));
 
                 button.sensitive = true;
             })
