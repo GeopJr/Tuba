@@ -482,10 +482,18 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 
 	private Gtk.Button prev_card;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
+	ulong[] formal_handler_ids = {};
+	ulong[] this_handler_ids = {};
 	protected virtual void bind () {
-		var action_row = new ActionsRow (this.status.formal);
-		action_row.reply.connect (on_reply_button_clicked);
-		content_column.append (action_row);
+		foreach (var handler_id in formal_handler_ids) {
+			status.formal.disconnect (handler_id);
+		}
+		formal_handler_ids = {};
+
+		foreach (var handler_id in this_handler_ids) {
+			this.disconnect (handler_id);
+		}
+		this_handler_ids = {};
 
 		this.content.instance_emojis = status.formal.emojis_map;
 		this.content.content = status.formal.content;
@@ -514,7 +522,7 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 
 		reveal_spoiler = !status.formal.has_spoiler || settings.show_spoilers;
 		update_spoiler_status ();
-		notify["reveal-spoiler"].connect (update_spoiler_status);
+		this_handler_ids += notify["reveal-spoiler"].connect (update_spoiler_status);
 
 		handle_label.label = this.subtitle_text;
 		date_label.label = this.date;
@@ -564,8 +572,8 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		}
 
 		show_view_stats_action ();
-		status.formal.notify["reblogs-count"].connect (show_view_stats_action);
-		status.formal.notify["favourites-count"].connect (show_view_stats_action);
+		formal_handler_ids += status.formal.notify["reblogs-count"].connect (show_view_stats_action);
+		formal_handler_ids += status.formal.notify["favourites-count"].connect (show_view_stats_action);
 	}
 
 	void open_card_url () {
