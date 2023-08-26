@@ -103,7 +103,7 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	[GtkChild] protected unowned Gtk.Label spoiler_label_rev;
 	[GtkChild] protected unowned Gtk.Box spoiler_status_con;
 
-	[GtkChild] public unowned Gtk.Box actions;
+	public ActionsRow actions { get; private set; }
 	[GtkChild] public unowned Widgets.VoteBox poll;
 
 	protected Gtk.PopoverMenu context_menu { get; set; }
@@ -494,6 +494,9 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 			this.disconnect (handler_id);
 		}
 		this_handler_ids = {};
+		actions = new ActionsRow (this.status.formal);
+		actions.reply.connect (on_reply_button_clicked);
+		content_column.append (actions);
 
 		this.content.instance_emojis = status.formal.emojis_map;
 		this.content.content = status.formal.content;
