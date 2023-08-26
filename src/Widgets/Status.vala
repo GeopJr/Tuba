@@ -494,6 +494,11 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 			this.disconnect (handler_id);
 		}
 		this_handler_ids = {};
+
+		if (actions != null) {
+			actions.unbind ();
+			content_column.remove (actions);
+		}
 		actions = new ActionsRow (this.status.formal);
 		actions.reply.connect (on_reply_button_clicked);
 		content_column.append (actions);
