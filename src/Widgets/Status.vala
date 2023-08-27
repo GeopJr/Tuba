@@ -21,7 +21,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	public API.Account? kind_instigator { get; set; default = null; }
 	private Gtk.Button? quoted_status_btn { get; set; default = null; }
 
-	// TODO: remove everything but polls, attachments and content
 	private bool _is_quote = false;
 	public bool is_quote {
 		get { return _is_quote; }
