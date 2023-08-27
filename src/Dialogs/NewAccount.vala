@@ -65,9 +65,6 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			if (!use_auto_auth)
 				throw new Oopsie.INTERNAL ("Using manual auth method");
 
-			//  GLib.Process.spawn_command_line_sync (@"xdg-mime default $(Build.DOMAIN).desktop x-scheme-handler/tuba");
-
-			//  message ("Successfully associated MIME type for automatic authorization");
 			return "tuba://auth_code";
 		}
 		catch (Error e) {

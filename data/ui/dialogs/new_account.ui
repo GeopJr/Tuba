@@ -117,6 +117,7 @@
                   <object class="GtkButton">
                     <property name="receives_default">1</property>
                     <property name="label" translatable="yes">Next</property>
+                    <property name="visible" bind-source="TubaDialogsNewAccount" bind-property="use-auto-auth" bind-flags="sync-create|invert-boolean"/>
                     <property name="sensitive" bind-source="TubaDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
                     <signal name="clicked" handler="on_next_clicked" swapped="no"/>
                     <style>
