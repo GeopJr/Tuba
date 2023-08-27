@@ -203,7 +203,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 			case "a":
 				var href = root->get_prop ("href");
 				if (href != null) {
-					v.write_chunk ("<a href='" + GLib.Markup.escape_text (href) + "'>");
+					v.write_chunk (@"<a href='$(GLib.Markup.escape_text (href))'>");
 					traverse_and_handle (v, root, default_handler);
 					v.write_chunk ("</a>");
 				}

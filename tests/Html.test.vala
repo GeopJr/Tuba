@@ -15,12 +15,12 @@ const TestContent[] RESTORE_TESTS = {
 
 const TestContent[] SIMPLIFY_TESTS = {
     {
-        "<a class=\"proletariat\" href\"https://tuba.geopjr.dev/\" target=\"_blank\">Tuba</a>\n",
-        "<a  href\"https://tuba.geopjr.dev/\" >Tuba</a>"
+        "<a class=\"proletariat\" href=\"https://tuba.geopjr.dev/\" target=\"_blank\">Tuba</a>\n",
+        "<a href='https://tuba.geopjr.dev/'>Tuba</a>"
     },
     {
-        "<p>Everything is going to be<br />okay</p><footer>🐱</footer>",
-        "Everything is going to be\nokay\n\n<footer>🐱</footer>"
+        "<p>Everything is going to be<br />okay</p><div>🐱</div>",
+        "Everything is going to be\nokay\n\n🐱"
     }
 };
 
