@@ -166,7 +166,7 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	}
 
 	private void on_name_button_clicked () {
-		name_label.on_activate_link (status.formal.account.handle);
+		status.formal.account.open();
 	}
 
 	private bool has_stats { get { return status.formal.reblogs_count != 0 || status.formal.favourites_count != 0; } }
