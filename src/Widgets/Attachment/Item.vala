@@ -111,10 +111,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 			css_classes = { "heading", "flat" }
 		};
 
-		alt_btn_clicked_id = alt_btn.clicked.connect (() => {
-			if (entity != null && entity.description != null)
-				create_alt_text_window (entity.description, true);
-		});
+		alt_btn_clicked_id = alt_btn.clicked.connect (on_alt_text_btn_clicked);
 
 		badge_box.append (alt_btn);
 
@@ -129,6 +126,11 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	~Item () {
 		message ("Destroying Attachment.Item widget");
 		context_menu.unparent ();
+	}
+
+	private void on_alt_text_btn_clicked () {
+		if (entity != null && entity.description != null)
+			create_alt_text_window (entity.description, true);
 	}
 
 	protected Adw.Window create_alt_text_window (string alt_text, bool show = false) {
