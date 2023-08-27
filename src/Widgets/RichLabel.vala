@@ -1,8 +1,6 @@
 public class Tuba.Widgets.RichLabel : Adw.Bin {
-
 	Widgets.EmojiLabel widget;
 
-	// TODO: We can parse <a> tags and extract resolvable URIs now
 	public weak Gee.ArrayList<API.Mention>? mentions;
 
 	public string label {
@@ -81,11 +79,18 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 
 	public bool on_activate_link (string url) {
 		if (mentions != null) {
+			bool found = false;
 			mentions.@foreach (mention => {
-				if (url == mention.url)
+				if (url == mention.url) {
 					mention.open ();
+					found = true;
+					return false;
+				}
+
 				return true;
 			});
+
+			if (found) return true;
 		}
 
 		if ("/tags/" in url) {
