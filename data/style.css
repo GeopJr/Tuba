@@ -219,7 +219,7 @@ flowboxchild {
 }
 
 .ttl-large-body {
-	font-size: 16px;
+	font-size: larger;
 }
 
 .ttl-status-line-height-large {
@@ -267,7 +267,7 @@ flowboxchild {
 }
 
 .ttl-status-heading {
-	font-size: 13px;
+	font-size: small;
 }
 
 .ttl-status-heading-padding {
