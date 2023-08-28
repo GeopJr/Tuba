@@ -498,16 +498,9 @@ public class Tuba.Widgets.Status : Adw.Bin {
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	ulong[] formal_handler_ids = {};
 	ulong[] this_handler_ids = {};
+	Binding[] bindings = {};
 	protected virtual void bind () {
-		foreach (var handler_id in formal_handler_ids) {
-			status.formal.disconnect (handler_id);
-		}
-		formal_handler_ids = {};
-
-		foreach (var handler_id in this_handler_ids) {
-			this.disconnect (handler_id);
-		}
-		this_handler_ids = {};
+		soft_unbind ();
 
 		if (actions != null) {
 			actions.unbind ();
@@ -574,7 +567,7 @@ public class Tuba.Widgets.Status : Adw.Bin {
 		if (poll != null) content_box.remove (poll);
 		if (status.formal.poll != null) {
 			poll = new Widgets.VoteBox ();
-			status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
+			bindings += status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 			content_box.append (poll);
 		}
 
@@ -599,6 +592,23 @@ public class Tuba.Widgets.Status : Adw.Bin {
 		formal_handler_ids += status.formal.notify["reblogs-count"].connect (show_view_stats_action);
 		formal_handler_ids += status.formal.notify["favourites-count"].connect (show_view_stats_action);
 		formal_handler_ids += status.formal.notify["tuba-thread-role"].connect (install_thread_line);
+	}
+
+	public void soft_unbind () {
+		foreach (var handler_id in formal_handler_ids) {
+			status.formal.disconnect (handler_id);
+		}
+		formal_handler_ids = {};
+
+		foreach (var handler_id in this_handler_ids) {
+			this.disconnect (handler_id);
+		}
+		this_handler_ids = {};
+
+		foreach (var binding in bindings) {
+			binding.unbind ();
+		}
+		bindings = {};
 	}
 
 	void open_card_url () {
