@@ -1,7 +1,7 @@
 public class Tuba.Views.ContentBase : Views.Base {
 
 	public GLib.ListStore model;
-	protected Gtk.ListBox content;
+	protected Gtk.ListView content;
 	private bool bottom_reached_locked = false;
 	protected signal void reached_close_to_top ();
 
@@ -10,17 +10,16 @@ public class Tuba.Views.ContentBase : Views.Base {
 	}
 
 	construct {
-		model = new GLib.ListStore (typeof (Widgetizable));
-		model.items_changed.connect (on_content_changed);
+		Gtk.SignalListItemFactory signallistitemfactory = new Gtk.SignalListItemFactory ();
+		signallistitemfactory.bind.connect (bind_listitem_cb);
 
-		content = new Gtk.ListBox () {
-			selection_mode = Gtk.SelectionMode.NONE,
-			css_classes = { "content", "ttl-content" }
+		model = new GLib.ListStore (typeof (Widgetizable));
+		content = new Gtk.ListView (new Gtk.NoSelection (model), signallistitemfactory) {
+			css_classes = { "content", "background" },
+			single_click_activate = true
 		};
 		content_box.append (content);
-		content.row_activated.connect (on_content_item_activated);
-
-		content.bind_model (model, on_create_model_widget);
+		content.activate.connect (on_content_item_activated);
 
 		scrolled.vadjustment.value_changed.connect (() => {
 			if (
@@ -42,9 +41,11 @@ public class Tuba.Views.ContentBase : Views.Base {
 		message ("Destroying ContentBase");
 	}
 
+	private void bind_listitem_cb (GLib.Object item) {
+		(item as Gtk.ListItem).child = on_create_model_widget ((item as Gtk.ListItem).item);
+	}
+
 	public override void dispose () {
-		if (content != null)
-			content.bind_model (null, null);
 		base.dispose ();
 	}
 
@@ -85,8 +86,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 		}, Priority.LOW);
 	}
 
-	public virtual void on_content_item_activated (Gtk.ListBoxRow row) {
-		Signal.emit_by_name (row, "open");
+	public virtual void on_content_item_activated (uint pos) {
+		((Widgetizable) ((ListModel) content.model).get_item (pos)).open ();
 	}
-
 }

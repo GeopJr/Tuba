@@ -91,8 +91,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		settings.notify["hide-preview-cards"].connect (on_refresh);
 		settings.notify["enlarge-custom-emojis"].connect (on_refresh);
 
-		content.bind_model (model, on_create_model_widget);
-
 		var drag = new Gtk.GestureDrag ();
         drag.drag_update.connect (on_drag_update);
         drag.drag_end.connect (on_drag_end);
@@ -104,8 +102,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		entity_queue = {};
 		destruct_account_holder ();
 		destruct_streamable ();
-
-		content.bind_model (null, null);
 	}
 
 	public override void dispose () {

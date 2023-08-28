@@ -36,6 +36,8 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public Gee.ArrayList<API.Emoji>? emojis { get; set; }
     public API.PreviewCard? card { get; set; default = null; }
 
+	public Tuba.Views.Thread.ThreadRole tuba_thread_role { get; set; default = Tuba.Views.Thread.ThreadRole.NONE; }
+
     //  public string clean_content {
     //      get {
     //          if (quote != null && akkoma != null && akkoma.source != null && akkoma.source.content != null) {

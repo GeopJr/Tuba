@@ -1,5 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/status.ui")]
-public class Tuba.Widgets.Status : Gtk.ListBoxRow {
+public class Tuba.Widgets.Status : Adw.Bin {
 
 	API.Status? _bound_status = null;
 	public API.Status? status {
@@ -20,6 +20,24 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 
 	public API.Account? kind_instigator { get; set; default = null; }
 	private Gtk.Button? quoted_status_btn { get; set; default = null; }
+	public bool enable_thread_lines { get; set; default = false; }
+
+	private bool _can_be_opened = true;
+	public bool can_be_opened {
+		get {
+			return _can_be_opened;
+		}
+
+		set {
+			_can_be_opened = value;
+
+			if (value) {
+				this.add_css_class ("activatable");
+			} else {
+				this.remove_css_class ("activatable");
+			}
+		}
+	}
 
 	private bool _is_quote = false;
 	public bool is_quote {
@@ -111,8 +129,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	private SimpleAction edit_history_simple_action;
 	private SimpleAction stats_simple_action;
 	private SimpleAction toggle_pinned_simple_action;
-
-	public bool is_conversation_open { get; set; default = false; }
 
 	protected Adw.Bin emoji_reactions;
 	public Gee.ArrayList<API.EmojiReaction>? reactions {
@@ -582,6 +598,7 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		show_view_stats_action ();
 		formal_handler_ids += status.formal.notify["reblogs-count"].connect (show_view_stats_action);
 		formal_handler_ids += status.formal.notify["favourites-count"].connect (show_view_stats_action);
+		formal_handler_ids += status.formal.notify["tuba-thread-role"].connect (install_thread_line);
 	}
 
 	void open_card_url () {
@@ -610,7 +627,6 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 		if (expanded) return;
 
 		expanded = true;
-		activatable = false;
 		content.selectable = true;
 		content.add_css_class ("ttl-large-body");
 
@@ -687,52 +703,25 @@ public class Tuba.Widgets.Status : Gtk.ListBoxRow {
 	}
 
 	// Threads
-	public enum ThreadRole {
-		NONE,
-		START,
-		MIDDLE,
-		END;
-
-		public static void connect_posts (Widgets.Status? prev, Widgets.Status curr) {
-			if (prev == null) {
-				curr.thread_role = NONE;
-				return;
-			}
-
-			switch (prev.thread_role) {
-				case NONE:
-					prev.thread_role = START;
-					curr.thread_role = END;
-					break;
-				default:
-					prev.thread_role = MIDDLE;
-					curr.thread_role = END;
-					break;
-			}
-		}
-	}
-
-	public ThreadRole thread_role { get; set; default = ThreadRole.NONE; }
-
 	public void install_thread_line () {
-		var l_t = thread_line_top;
-		var l_b = thread_line_bottom;
-		switch (thread_role) {
+		if (expanded || !enable_thread_lines) return;
+
+		switch (status.formal.tuba_thread_role) {
 			case NONE:
-				l_t.visible = false;
-				l_b.visible = false;
+				thread_line_top.visible = false;
+				thread_line_bottom.visible = false;
 				break;
 			case START:
-				l_t.visible = false;
-				l_b.visible = true;
+				thread_line_top.visible = false;
+				thread_line_bottom.visible = true;
 				break;
 			case MIDDLE:
-				l_t.visible = true;
-				l_b.visible = true;
+				thread_line_top.visible = true;
+				thread_line_bottom.visible = true;
 				break;
 			case END:
-				l_t.visible = true;
-				l_b.visible = false;
+				thread_line_top.visible = true;
+				thread_line_bottom.visible = false;
 				break;
 		}
 	}

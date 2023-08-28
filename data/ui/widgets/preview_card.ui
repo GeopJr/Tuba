@@ -39,6 +39,9 @@
                 <property name="lines">2</property>
                 <property name="wrap">1</property>
                 <property name="wrap-mode">word-char</property>
+                <style>
+                  <class name="font-bold"/>
+                </style>
               </object>
             </child>
             <child>

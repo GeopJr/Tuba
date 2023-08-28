@@ -19,6 +19,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	}
 
 	public override void open () {
+		app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url)));
 	}
 
 	public string weekly_use () {
@@ -36,8 +37,10 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	public override Gtk.Widget to_widget () {
 		var w = new Adw.ActionRow () {
 			title = @"#$name",
-			activatable = true
+			activatable = true,
+			css_classes = { "card", "activatable", "card-spacing" }
 		};
+
 		if (history != null && history.size > 0) {
 			var last_history_entry = history.get (0);
 			var total_uses = int.parse (last_history_entry.uses);
@@ -56,11 +59,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 
 			w.subtitle = subtitle;
 		}
-		w.activated.connect (on_activated);
-		return w;
-	}
 
-	protected void on_activated () {
-		app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url)));
+		return w;
 	}
 }

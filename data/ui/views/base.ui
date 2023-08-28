@@ -5,7 +5,9 @@
   <template class="TubaViewsBase" parent="GtkBox">
     <property name="orientation">vertical</property>
     <property name="width_request">360</property>
-
+    <style>
+      <class name="background"/>
+    </style>
     <child>
       <object class="AdwHeaderBar" id="header">
         <property name="centering_policy">strict</property>

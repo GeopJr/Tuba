@@ -61,6 +61,11 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		set { widget.instance_emojis = value; }
 	}
 
+	public int lines {
+		get { return widget.lines; }
+		set { widget.lines = value; }
+	}
+
 	public RichLabel (string? text = null) {
 		if (text != null)
 			label = text;

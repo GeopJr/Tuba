@@ -290,6 +290,11 @@ flowboxchild {
 	background-color: @popover_bg_color;
 }
 
+.card-spacing {
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+
 .ttl-post.direct {
 	background-color: alpha(@warning_bg_color, .1);
 }
@@ -356,54 +361,6 @@ GtkSourceAssistant.completion list row{
 
 .preview_card_video {
 	border-radius: 6px 6px 0px 0px;
-}
-
-.ttl-view :first-child list row:not(:first-child):not(:last-child) .preview_card.explore {
-	border-radius: 0px;
-}
-
-.ttl-view .small :first-child list row:first-child .preview_card.explore .preview_card_image,
-.ttl-view .small :first-child list row:last-child .preview_card.explore .preview_card_image,
-.ttl-view :first-child list row:not(:first-child):not(:last-child) .preview_card.explore .preview_card_image {
-	border-radius: 0px;
-}
-
-.ttl-view box:not(.small) :first-child list row:first-child .preview_card.explore {
-	border-top-left-radius: 12px;
-	border-top-right-radius: 12px;
-}
-
-.ttl-view :first-child list row:first-child .preview_card.explore,
-.ttl-view :first-child list row:first-child .preview_card.explore .preview_card_image {
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-}
-
-.ttl-view box:not(.small) :first-child list row:first-child .preview_card.explore .preview_card_image:dir(ltr) {
-	border-top-left-radius: 12px;
-}
-
-.ttl-view box:not(.small) :first-child list row:first-child .preview_card.explore .preview_card_image:dir(rtl) {
-	border-top-right-radius: 12px;
-}
-
-.ttl-view :first-child list row:last-child .preview_card.explore,
-.ttl-view :first-child list row:last-child .preview_card.explore .preview_card_image {
-	border-top-left-radius: 0px;
-	border-top-right-radius: 0px;
-}
-
-.ttl-view box:not(.small) :first-child list row:last-child .preview_card.explore {
-	border-bottom-left-radius: 12px;
-	border-bottom-right-radius: 12px;
-}
-
-.ttl-view box:not(.small) :first-child list row:last-child .preview_card.explore .preview_card_image:dir(ltr) {
-	border-bottom-left-radius: 12px;
-}
-
-.ttl-view box:not(.small) :first-child list row:last-child .preview_card.explore .preview_card_image:dir(rtl) {
-	border-bottom-right-radius: 12px;
 }
 
 .bkwm-desc {
@@ -498,4 +455,29 @@ video > overlay > revealer > controls {
 
 .attention {
 	color: @yellow_4;
+}
+
+
+.ttl-view listview>row.activatable:selected:hover,
+.ttl-view listview>row.activatable:hover {
+	background-color:transparent;
+}
+
+.ttl-view listview>row.activatable:selected:active,
+.ttl-view listview>row.activatable:active {
+	box-shadow: none;
+}
+
+.ttl-view .content {
+	padding: 15px;
+}
+
+.ttl-view .small .content row .card {
+	border-left: none;
+	border-right: none;
+	border-radius: 0px;
+}
+	
+.ttl-view .small .content {
+	padding: 0px;
 }

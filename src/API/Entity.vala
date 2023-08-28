@@ -9,6 +9,8 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 	}
 
 	public override unowned ParamSpec? find_property (string name) {
+		if (name.has_prefix ("tuba_")) return null;
+
 		switch (name) {
 			case "type":
 				return get_class ().find_property ("kind");

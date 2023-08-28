@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0" />
-  <template class="TubaWidgetsStatus" parent="GtkListBoxRow">
+  <template class="TubaWidgetsStatus" parent="AdwBin">
     <property name="child">
       <object class="GtkBox" id="status_box">
         <property name="margin-start">18</property>
@@ -108,8 +108,9 @@
                             <child>
                               <object class="TubaWidgetsRichLabel" id="name_label">
                                 <property name="visible">True</property>
-                                <property name="ellipsize">False</property>
+                                <property name="ellipsize">True</property>
                                 <property name="smaller-emoji-pixel-size">True</property>
+                                <property name="lines">-1</property>
                                 <style>
                                   <class name="font-bold" />
                                 </style>
@@ -314,6 +315,9 @@
     </property>
     <style>
       <class name="ttl-post" />
+      <class name="card-spacing" />
+      <class name="card" />
+      <class name="activatable" />
     </style>
   </template>
 </interface>
