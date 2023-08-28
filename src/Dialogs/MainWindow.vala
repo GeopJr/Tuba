@@ -1,7 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/main.ui")]
 public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
-	public const string ZOOM_CLASS = "ttl-scalable";
-
 	[GtkChild] public unowned Adw.Flap flap;
 	[GtkChild] unowned Adw.Leaflet leaflet;
 	[GtkChild] unowned Views.Sidebar sidebar;
