@@ -11,6 +11,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         private Gtk.Spinner spinner;
         private Gtk.ScrolledWindow scroller;
 
+        private bool is_done = false;
         private Views.MediaViewer? media_viewer { get; set; default=null; }
         public Gtk.Widget child_widget { get; private set; }
         public bool is_video { get; private set; default=false; }
@@ -18,15 +19,20 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         public double last_x { get; set; default=0.0; }
         public double last_y { get; set; default=0.0; }
 
+        private bool pre_playing = false; 
         public bool playing {
             get {
                 if (!is_video) return false;
-                return ((Gtk.Video) child_widget).media_stream.playing;
+                return is_done ? ((Gtk.Video) child_widget).media_stream.playing : pre_playing;
             }
 
             set {
                 if (!is_video) return;
-                ((Gtk.Video) child_widget).media_stream.playing = value;
+                if (is_done) {
+                    ((Gtk.Video) child_widget).media_stream.playing = value;
+                } else {
+                    pre_playing = value;
+                }
             }
         }
 
@@ -175,7 +181,9 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             if (is_video) {
                 ((Gtk.Video) child_widget).media_stream.volume = 1.0 - last_used_volume;
                 ((Gtk.Video) child_widget).media_stream.volume = last_used_volume;
+                ((Gtk.Video) child_widget).media_stream.playing = pre_playing;
             };
+            is_done = true;
         }
 
         private Gtk.Widget setup_scrolledwindow (Gtk.Widget child) {
