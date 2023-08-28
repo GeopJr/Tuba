@@ -128,7 +128,7 @@
                 <property name="title" translatable="yes">Default post language</property>
 
                 <property name="expression">
-                  <lookup type="TubaLocale" name="name"/>
+                  <lookup type="TubaLocalesLocale" name="name"/>
                 </property>
               </object>
             </child>

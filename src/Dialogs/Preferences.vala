@@ -142,24 +142,18 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 	}
 
 	private void setup_languages_combo_row () {
-		var store = new GLib.ListStore (typeof (Locale));
-
-		foreach (var locale in app.locales) {
-			store.append (locale);
-		}
-
 		default_language_combo_row.list_factory = new Gtk.BuilderListItemFactory.from_resource (
 			null,
 			@"$(Build.RESOURCES)gtk/dropdown/language.ui"
 		);
-		default_language_combo_row.model = store;
+		default_language_combo_row.model = app.app_locales.list_store;
 
 		var default_language = settings.default_language == "" ? "en" : settings.default_language;
 		uint default_lang_index;
 		if (
-			store.find_with_equal_func (
-				new Tuba.Locale (default_language, null, null),
-				Tuba.Locale.compare,
+			app.app_locales.list_store.find_with_equal_func (
+				new Tuba.Locales.Locale (default_language, null, null),
+				Tuba.Locales.Locale.compare,
 				out default_lang_index
 			)
 		) {
@@ -169,8 +163,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 
 	private bool on_window_closed () {
 		if (lang_changed) {
-			var new_lang = ((Tuba.Locale) default_language_combo_row.selected_item).locale;
-			if (settings.default_language != ((Tuba.Locale) default_language_combo_row.selected_item).locale) {
+			var new_lang = ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale;
+			if (settings.default_language != ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale) {
 
 				new Request.PATCH ("/api/v1/accounts/update_credentials")
 					.with_account (accounts.active)

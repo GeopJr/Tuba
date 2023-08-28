@@ -48,7 +48,7 @@ public class Tuba.EditorPage : ComposerPage {
 			status.visibility = instance_visibility.id;
 
 		if (language_button != null && language_button.selected_item != null) {
-			status.language = ((Tuba.Locale) language_button.selected_item).locale;
+			status.language = ((Tuba.Locales.Locale) language_button.selected_item).locale;
 		}
 	}
 
@@ -293,14 +293,8 @@ public class Tuba.EditorPage : ComposerPage {
 	}
 
 	protected void install_languages (string? locale_iso) {
-		var store = new GLib.ListStore (typeof (Locale));
-
-		foreach (var locale in app.locales) {
-			store.append (locale);
-		}
-
-		language_button = new Gtk.DropDown (store, null) {
-			expression = new Gtk.PropertyExpression (typeof (Tuba.Locale), null, "name"),
+		language_button = new Gtk.DropDown (app.app_locales.list_store, null) {
+			expression = new Gtk.PropertyExpression (typeof (Tuba.Locales.Locale), null, "name"),
 			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language_title.ui"),
 			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language.ui"),
 			tooltip_text = _("Post Language"),
@@ -310,9 +304,9 @@ public class Tuba.EditorPage : ComposerPage {
 		if (locale_iso != null) {
 			uint default_lang_index;
 			if (
-				store.find_with_equal_func (
-					new Tuba.Locale (locale_iso, null, null),
-					Tuba.Locale.compare,
+				app.app_locales.list_store.find_with_equal_func (
+					new Tuba.Locales.Locale (locale_iso, null, null),
+					Tuba.Locales.Locale.compare,
 					out default_lang_index
 				)
 			) {

@@ -30,7 +30,7 @@ namespace Tuba {
 		public Dialogs.MainWindow? main_window { get; set; }
 		public Dialogs.NewAccount? add_account_window { get; set; }
 
-		public Gee.ArrayList<Tuba.Locale> locales { owned get { return generate_iso_639_1 (); } }
+		public Locales app_locales { get; construct set; }
 
 		// These are used for the GTK Inspector
 		public Settings app_settings { get {return Tuba.settings; } }
@@ -64,6 +64,8 @@ namespace Tuba {
 		construct {
 			application_id = Build.DOMAIN;
 			flags = ApplicationFlags.HANDLES_OPEN;
+
+			app_locales = new Tuba.Locales ();
 		}
 
 		public static int main (string[] args) {
