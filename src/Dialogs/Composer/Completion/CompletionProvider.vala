@@ -19,10 +19,10 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 	protected bool set_input_capture (bool state) {
 		this.is_capturing_input = state;
 		if (state) {
-			message ("Capturing input");
+			debug ("Capturing input");
 		}
 		else {
-			message ("Stopped capturing input");
+			debug ("Stopped capturing input");
 			this.empty_triggers = 0;
 		}
 		return state;
@@ -66,7 +66,7 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 
 		var word = context.get_word ();
 		if (word == "") {
-			message ("Empty trigger");
+			debug ("Empty trigger");
 			this.empty_triggers++;
 
 			if (this.empty_triggers > 1) {

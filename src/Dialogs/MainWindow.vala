@@ -1,7 +1,7 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/main.ui")]
 public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
-	[GtkChild] public unowned Adw.Flap flap;
-	[GtkChild] unowned Adw.Leaflet leaflet;
+	[GtkChild] unowned Adw.NavigationView navigation_view;
+	[GtkChild] public unowned Adw.OverlaySplitView split_view;
 	[GtkChild] unowned Views.Sidebar sidebar;
 	[GtkChild] unowned Gtk.Stack main_stack;
 	[GtkChild] unowned Views.MediaViewer media_viewer;
@@ -14,7 +14,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		var gtk_settings = Gtk.Settings.get_default ();
 	}
 
-	private Views.Base main_base;
+	private Adw.NavigationPage main_page;
 	public MainWindow (Adw.Application app) {
 		Object (
 			application: app,
@@ -23,8 +23,8 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			resizable: true
 		);
 		sidebar.set_sidebar_selected_item (0);
-		main_base = new Views.Main ();
-		open_view (main_base);
+		main_page = new Adw.NavigationPage (new Views.Main (), "Main");
+		navigation_view.add (main_page);
 
 		if (Build.PROFILE == "development") {
 			this.add_css_class ("devel");
@@ -121,7 +121,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	public Views.Base open_view (Views.Base view) {
 		if (
-			leaflet.visible_child == view
+			navigation_view?.visible_page?.child == view
 			|| (
 				last_view != null
 				&& last_view.label == view.label
@@ -129,13 +129,13 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			)
 		) return view;
 
-		if (last_view != null && !last_view.is_main && view.is_sidebar_item) {
-			leaflet.insert_child_after (view, main_base);
+		Adw.NavigationPage page = new Adw.NavigationPage (view, view.label);
+		if (view.is_sidebar_item && navigation_view.visible_page != main_page) {
+			navigation_view.replace ({ main_page, page });
 		} else {
-			leaflet.append (view);
+			navigation_view.push (page);
 		}
 
-		leaflet.visible_child = view;
 		return view;
 	}
 
@@ -147,19 +147,19 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 		if (last_view == null) return true;
 
-		leaflet.navigate (Adw.NavigationDirection.BACK);
+		navigation_view.pop ();
 		return true;
 	}
 
 	public void go_back_to_start () {
 		var navigated = true;
 		while (navigated) {
-			navigated = leaflet.navigate (Adw.NavigationDirection.BACK);
+			navigated = navigation_view.pop ();
 		}
 	}
 
 	public void scroll_view_page (bool up = false) {
-		var c_view = leaflet.visible_child as Views.Base;
+		var c_view = navigation_view.visible_page.child as Views.Base;
 		if (c_view != null) {
 			c_view.scroll_page (up);
 		}
@@ -174,9 +174,8 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	public void switch_timeline (int32 num) {}
 
 	[GtkCallback]
-	void on_view_changed () {
-		var view = leaflet.visible_child as Views.Base;
-		on_child_transition ();
+	void on_visible_page_changed () {
+		var view = navigation_view.visible_page.child as Views.Base;
 
 		if (view.is_main)
 			sidebar.set_sidebar_selected_item (0);
@@ -193,17 +192,4 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 		last_view = view;
 	}
-
-	[GtkCallback]
-	void on_child_transition () {
-		if (leaflet.child_transition_running)
-			return;
-
-		Gtk.Widget unused_child = null;
-		while ((unused_child = leaflet.get_adjacent_child (Adw.NavigationDirection.FORWARD)) != null) {
-			leaflet.remove (unused_child);
-			unused_child.dispose ();
-		}
-	}
-
 }

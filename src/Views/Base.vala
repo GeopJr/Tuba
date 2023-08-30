@@ -1,5 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/base.ui")]
-public class Tuba.Views.Base : Gtk.Box {
+public class Tuba.Views.Base : Adw.BreakpointBin {
 	// translators: Shown when there are 0 results
 	public static string STATUS_EMPTY = _("Nothing to see here"); // vala-lint=naming-convention
 
@@ -29,7 +29,7 @@ public class Tuba.Views.Base : Gtk.Box {
 	}
 
 	[GtkChild] protected unowned Adw.HeaderBar header;
-	[GtkChild] protected unowned Gtk.Button back_button;
+	[GtkChild] protected unowned Adw.ToolbarView toolbar_view;
 
 	[GtkChild] protected unowned Gtk.ScrolledWindow scrolled;
 	[GtkChild] protected unowned Gtk.Overlay scrolled_overlay;
@@ -77,8 +77,6 @@ public class Tuba.Views.Base : Gtk.Box {
 			_base_status = value;
 		}
 	}
-
-
 	construct {
 		build_actions ();
 		build_header ();
@@ -86,10 +84,22 @@ public class Tuba.Views.Base : Gtk.Box {
 		status_button.label = _("Reload");
 		base_status = new StatusMessage () { loading = true };
 
+		// HACK to prevent memory leaks due to ref cycles.
+		// Unfortunately, Vala seems to create ref cycles out of thin air,
+		// especially when closures are involved, see e.g.
+		// https://gitlab.gnome.org/GNOME/vala/-/issues/957
+		// To work around that, we forcefully run dispose () -- which breaks any
+		// ref cycles -- when we get removed from our parent widget, the
+		// navigation view.
+		notify["parent"].connect (() => {
+			if (parent == null)
+				dispose ();
+		});
+
 		scroll_to_top.clicked.connect (on_scroll_to_top);
 	}
 	~Base () {
-		message (@"Destroying base $label");
+		debug (@"Destroying base $label");
 	}
 
 	private void on_scroll_to_top () {
@@ -137,10 +147,4 @@ public class Tuba.Views.Base : Gtk.Box {
 		status_button.visible = true;
 		status_button.sensitive = true;
 	}
-
-	[GtkCallback]
-	void on_close () {
-		app.main_window.back ();
-	}
-
 }

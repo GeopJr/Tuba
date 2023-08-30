@@ -37,7 +37,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		construct_account_holder ();
 	}
 	~Thread () {
-		message ("Destroying Thread");
+		debug ("Destroying Thread");
 		destruct_account_holder ();
 	}
 

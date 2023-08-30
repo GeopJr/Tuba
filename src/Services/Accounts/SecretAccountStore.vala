@@ -6,7 +6,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 	GLib.HashTable<string,Secret.SchemaAttributeType> schema_attributes;
 
 	public override void init () throws GLib.Error {
-		message (@"Using libsecret v$(Secret.MAJOR_VERSION).$(Secret.MINOR_VERSION).$(Secret.MICRO_VERSION)");
+		debug (@"Using libsecret v$(Secret.MAJOR_VERSION).$(Secret.MINOR_VERSION).$(Secret.MICRO_VERSION)");
 
 		schema_attributes = new GLib.HashTable<string,Secret.SchemaAttributeType> (str_hash, str_equal);
 		schema_attributes["login"] = Secret.SchemaAttributeType.STRING;
@@ -91,7 +91,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		});
 		changed (saved);
 
-		message (@"Loaded $(saved.size) accounts");
+		debug (@"Loaded $(saved.size) accounts");
 	}
 
 	public override void save () throws GLib.Error {
@@ -99,7 +99,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 			account_to_secret (account);
 			return true;
 		});
-		message (@"Saved $(saved.size) accounts");
+		debug (@"Saved $(saved.size) accounts");
 	}
 
 	public override void remove (InstanceAccount account) throws GLib.Error {
@@ -213,7 +213,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 			(obj, async_res) => {
 				try {
 					Secret.password_store.end (async_res);
-					message (@"Saved secret for $(account.handle)");
+					debug (@"Saved secret for $(account.handle)");
 				}
 				catch (GLib.Error e) {
 					warning (e.message);

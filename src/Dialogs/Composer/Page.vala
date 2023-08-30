@@ -28,7 +28,7 @@ public class Tuba.ComposerPage : Gtk.Box {
 	}
 
 	~ComposerPage () {
-		message (@"Destroying $title Page");
+		debug (@"Destroying $title Page");
 	}
 
 	construct {

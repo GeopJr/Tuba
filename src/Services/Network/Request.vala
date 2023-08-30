@@ -62,7 +62,7 @@ public class Tuba.Request : GLib.Object {
 	}
 
 	// ~Request () {
-	// 	message ("Destroy req: "+url);
+	// 	debug ("Destroy req: "+url);
 	// }
 
 	private string? content_type = null;

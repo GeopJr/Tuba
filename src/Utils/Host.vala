@@ -8,7 +8,7 @@ public class Tuba.Host {
 
 		if (settings.strip_tracking)
 			uri = Tracking.strip_utm (uri);
-		message (@"Opening URI: $uri");
+		debug (@"Opening URI: $uri");
 		try {
 			var success = AppInfo.launch_default_for_uri (uri, null);
 			if (!success)
@@ -43,7 +43,7 @@ public class Tuba.Host {
 	}
 
 	public async static string download (string url) throws Error {
-		message (@"Downloading file: $url…");
+		debug (@"Downloading file: $url…");
 
 		var file_name = Path.get_basename (url);
 		var dir_name = Path.get_dirname (url);
@@ -73,10 +73,10 @@ public class Tuba.Host {
 			FileOutputStream stream = yield file.create_async (FileCreateFlags.PRIVATE);
 			yield stream.splice_async (data, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);
 
-			message (@"   OK: File written to: $file_path");
+			debug (@"   OK: File written to: $file_path");
 		}
 		else
-			message ("   OK: File already exists");
+			debug ("   OK: File already exists");
 
 		return file_path;
 	}

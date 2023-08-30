@@ -167,11 +167,11 @@ public class Tuba.Views.Lists : Views.Timeline {
 		child_box.append (add_button);
 
 		add_action_bar.set_center_widget (child_box);
-		insert_child_after (add_action_bar, header);
+		toolbar_view.add_top_bar (add_action_bar);
 	}
 
 	~Lists () {
-		message ("Destroying Lists view");
+		debug ("Destroying Lists view");
 	}
 
     public override void on_request_finish () {

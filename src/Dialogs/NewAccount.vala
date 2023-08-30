@@ -10,10 +10,10 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	protected bool use_auto_auth { get; set; default = true; }
 	protected InstanceAccount account { get; set; default = new InstanceAccount.empty (""); }
 
-	[GtkChild] unowned Adw.Leaflet deck;
-	[GtkChild] unowned Gtk.Box instance_step;
-	[GtkChild] unowned Gtk.Box code_step;
-	[GtkChild] unowned Gtk.Box done_step;
+	[GtkChild] unowned Adw.NavigationView deck;
+	[GtkChild] unowned Adw.NavigationPage instance_step;
+	[GtkChild] unowned Adw.NavigationPage code_step;
+	[GtkChild] unowned Adw.NavigationPage done_step;
 
 	[GtkChild] unowned Adw.EntryRow instance_entry;
 	[GtkChild] unowned Gtk.Label instance_entry_error;
@@ -75,11 +75,11 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	}
 
 	void reset () {
-		message ("Reset state");
+		debug ("Reset state");
 		clear_errors ();
 		use_auto_auth = true;
 		account = new InstanceAccount.empty (account.instance);
-		deck.visible_child = instance_step;
+		deck.pop_to_page (instance_step);
 	}
 
 	void oopsie (string title, string msg = "") {
@@ -89,7 +89,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	}
 
 	async void step () throws Error {
-		if (deck.visible_child == instance_step) {
+		if (deck.visible_page == instance_step) {
 			setup_instance ();
 			yield accounts.guess_backend (account);
 		}
@@ -103,7 +103,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	}
 
 	void setup_instance () throws Error {
-		message ("Checking instance URL");
+		debug ("Checking instance URL");
 
 		var str = instance_entry.text
 			.replace ("/", "")
@@ -118,7 +118,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	}
 
 	async void register_client () throws Error {
-		message ("Registering client");
+		debug ("Registering client");
 
 		var msg = new Request.POST ("/api/v1/apps")
 			.with_account (account)
@@ -136,14 +136,16 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		account.client_id = root.get_string_member ("client_id");
 		account.client_secret = root.get_string_member ("client_secret");
-		message ("OK: Instance registered client");
+		debug ("OK: Instance registered client");
 
-		deck.visible_child = code_step;
+		if (deck.visible_page != code_step) {
+			deck.push (code_step);
+		}
 		open_confirmation_page ();
 	}
 
 	void open_confirmation_page () {
-		message ("Opening permission request page");
+		debug ("Opening permission request page");
 
 		var esc_scopes = Uri.escape_string (SCOPES);
 		var esc_redirect = Uri.escape_string (redirect_uri);
@@ -156,7 +158,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		if (code_entry.text.char_count () <= 10)
 			throw new Oopsie.USER (_("Please enter a valid authorization code"));
 
-		message ("Requesting access token");
+		debug ("Requesting access token");
 		var token_req = new Request.POST ("/oauth/token")
 			.with_account (account)
 			.with_form_data ("client_id", account.client_id)
@@ -177,19 +179,19 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		account = accounts.create_account (account.to_json ());
 
-		message ("Saving account");
+		debug ("Saving account");
 		accounts.add (account);
 
 		done_page.title = _("Hello, %s!").printf (account.display_name);
-		deck.visible_child = done_step;
+		deck.push (done_step);
 
-		message ("Switching to account");
+		debug ("Switching to account");
 		accounts.activate (account);
 	}
 
 	public void redirect (string t_uri) {
 		present ();
-		message (@"Received uri: $t_uri");
+		debug (@"Received uri: $t_uri");
 
 		string code_from_params = "";
 		try {
@@ -257,13 +259,5 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	[GtkCallback]
 	void on_back_clicked () {
 		reset ();
-	}
-
-	[GtkCallback]
-	void on_visible_child_notify () {
-		if (!deck.child_transition_running && deck.visible_child == instance_step)
-			reset ();
-
-		deck.can_navigate_back = deck.visible_child != done_step;
 	}
 }

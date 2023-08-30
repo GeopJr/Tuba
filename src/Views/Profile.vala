@@ -37,7 +37,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		content.header_factory = header_factory;
 	}
 	~Profile () {
-		message ("Destroying Profile view");
+		debug ("Destroying Profile view");
 	}
 
 	private void on_create_header (Object object) {
@@ -108,7 +108,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		[GtkChild] public unowned Widgets.RelationshipButton rsbtn;
 
 		~Cover () {
-			message ("Destroying Profile Cover");
+			debug ("Destroying Profile Cover");
 		}
 
 		void toggle_scale_emoji_hover () {

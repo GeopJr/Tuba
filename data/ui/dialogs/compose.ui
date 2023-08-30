@@ -19,7 +19,7 @@
             <property name="centering-policy">strict</property>
 
             <child type="title">
-              <object class="AdwViewSwitcherTitle" id="title_switcher">
+              <object class="AdwViewSwitcher" id="title_switcher">
                 <!-- <property name="title" translatable="yes">Title</property> -->
                 <!-- <property name="subtitle" translatable="yes">Subtitle</property> -->
               </object>
@@ -51,7 +51,6 @@
         <child>
           <object class="AdwViewSwitcherBar" id="switcher_bar">
             <property name="stack">stack</property>
-            <property name="reveal" bind-source="title_switcher" bind-property="title-visible" bind-flags="sync-create"/>
           </object>
         </child>
       </object>

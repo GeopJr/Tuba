@@ -31,7 +31,7 @@ public class Tuba.Network : GLib.Object {
 		requests_processing++;
 		started ();
 
-		message (@"$(msg.method): $(msg.uri.to_string ())");
+		debug (@"$(msg.method): $(msg.uri.to_string ())");
 
 		session.send_async.begin (msg, 0, cancellable, (obj, res) => {
 			try {

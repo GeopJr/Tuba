@@ -43,7 +43,7 @@ public class Tuba.API.Relationship : Entity {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				invalidate (node);
-				message (@"Performed \"$operation\" on Relationship $id");
+				debug (@"Performed \"$operation\" on Relationship $id");
 			});
 
 		if (param != null)

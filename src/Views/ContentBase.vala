@@ -38,7 +38,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 		});
 	}
 	~ContentBase () {
-		message ("Destroying ContentBase");
+		debug ("Destroying ContentBase");
 	}
 
 	private void bind_listitem_cb (GLib.Object item) {

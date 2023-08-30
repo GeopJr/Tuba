@@ -157,6 +157,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		add_binding_action (Gdk.Key.Q, Gdk.ModifierType.CONTROL_MASK, "composer.exit", null);
 
 		transient_for = app.main_window;
+		title_switcher.policy = WIDE;
 		title_switcher.stack = stack;
 
 		build_sigid = notify["status"].connect (() => {
@@ -167,7 +168,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		});
 	}
 	~Compose () {
-		message ("Destroying composer");
+		debug ("Destroying composer");
 		foreach (var page in t_pages) {
 			page.dispose ();
 		}
@@ -252,7 +253,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		commit_button.sensitive = allow;
 	}
 
-	[GtkChild] unowned Adw.ViewSwitcherTitle title_switcher;
+	[GtkChild] unowned Adw.ViewSwitcher title_switcher;
 	[GtkChild] unowned Gtk.Button commit_button;
 
 	[GtkChild] unowned Adw.ViewStack stack;
@@ -437,7 +438,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		var parser = Network.get_parser_from_inputstream (publish_req.response_body);
 		var node = network.parse_node (parser);
 		var status = API.Status.from (node);
-		message (@"Published post with id $(status.id)");
+		debug (@"Published post with id $(status.id)");
 		if (cb != null) cb (status);
 
 		on_close ();

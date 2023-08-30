@@ -24,7 +24,7 @@ public class Tuba.EntityCache : AbstractCache {
 			// Entity can be reused from cache
 			if (!force && contains (id)) {
 				entity = lookup (get_key (id)) as Entity;
-				message (@"Reused: $id");
+				debug (@"Reused: $id");
 			}
 			// It's a new instance and we need to store it
 			else {

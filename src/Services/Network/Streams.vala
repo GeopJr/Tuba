@@ -62,7 +62,7 @@ public class Tuba.Streams : Object {
 		}
 
 		public bool start () {
-			message (@"Opening stream: $name");
+			debug (@"Opening stream: $name");
 			network.session.websocket_connect_async.begin (msg, null, null, 0, null, (obj, res) => {
 				try {
 					socket = network.session.websocket_connect_async.end (res);
@@ -90,7 +90,7 @@ public class Tuba.Streams : Object {
 			}
 
 			if (subscribers.size <= 0) {
-				message (@"Closing: $name");
+				debug (@"Closing: $name");
 				closing = true;
 				if (socket != null)
 					socket.close (0, null);
@@ -112,7 +112,7 @@ public class Tuba.Streams : Object {
 				GLib.Timeout.add_seconds (timeout, start);
 				timeout = int.min (timeout * 2, 6);
 			}
-			message (@"Closing stream: $name");
+			debug (@"Closing stream: $name");
 		}
 
 		protected virtual void on_message (int i, Bytes bytes) {
@@ -121,7 +121,7 @@ public class Tuba.Streams : Object {
 				decode (bytes, out ev);
 
 				subscribers.@foreach (s => {
-					message (@"$(name): $(ev.type) for $(s.get_subscriber_name ())");
+					debug (@"$(name): $(ev.type) for $(s.get_subscriber_name ())");
 					s.stream_event[ev.type] (ev);
 					return true;
 				});

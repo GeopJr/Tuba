@@ -114,7 +114,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 	private bool show_context_menu (double x, double y) {
 		if (!add_media_action_button.sensitive) return false;
-		message ("Context menu triggered");
+		debug ("Context menu triggered");
 
 		Gdk.Rectangle rectangle = {
 			(int) x,
