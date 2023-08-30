@@ -5,6 +5,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	[GtkChild] unowned Gtk.Stack mode;
 	[GtkChild] unowned Gtk.ListBox items;
 	[GtkChild] unowned Gtk.ListBox saved_accounts;
+	[GtkChild] unowned Widgets.Avatar accounts_button_avi;
 
 	[GtkChild] unowned Widgets.Avatar avatar;
 	[GtkChild] unowned Widgets.EmojiLabel title;
@@ -95,6 +96,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	private Binding sidebar_handle_short;
 	private Binding sidebar_avatar;
 	private Binding sidebar_display_name;
+	private Binding sidebar_avatar_btn;
 	protected virtual void on_account_changed (InstanceAccount? account) {
 		if (this.account != null) {
 			sidebar_handle_short.unbind ();
@@ -111,6 +113,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		if (account != null) {
 			sidebar_handle_short = this.account.bind_property ("handle_short", subtitle, "label", BindingFlags.SYNC_CREATE);
 			sidebar_avatar = this.account.bind_property ("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
+			sidebar_avatar_btn = this.account.bind_property("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
 			sidebar_display_name = this.account.bind_property (
 				"display-name",
 				title,
@@ -131,6 +134,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			subtitle.label = _("No account selected");
 			avatar.account = null;
 			account_items.model = null;
+			accounts_button_avi.account = null;
 		}
 	}
 
