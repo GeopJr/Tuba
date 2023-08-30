@@ -4,20 +4,21 @@
 # Mek 101 <mek101-dev.inv@slmail.me>, 2023.
 # Luca Ruggeri <lc.ruggeri+weblate@runbox.it>, 2023.
 # Nekothegamer <nekotheggamer@gmail.com>, 2023.
+# Davide <davide.ferracin@protonmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-19 22:14+0300\n"
-"PO-Revision-Date: 2023-05-21 06:05+0000\n"
-"Last-Translator: Luca Ruggeri <lc.ruggeri+weblate@runbox.it>\n"
+"PO-Revision-Date: 2023-08-30 10:53+0000\n"
+"Last-Translator: Davide <davide.ferracin@protonmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/tuba/tuba/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -70,7 +71,7 @@ msgstr "Modificato"
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:226
 msgid "Show Less"
-msgstr ""
+msgstr "Mostra di meno"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:259 src/Widgets/Status.vala:385
@@ -88,7 +89,7 @@ msgstr "Accetta"
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:36
 msgid "Bot"
-msgstr ""
+msgstr "Bot"
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
@@ -190,7 +191,7 @@ msgstr "Rendi l'altezza della linea maggiore per i post"
 
 #: data/ui/dialogs/preferences.ui:63
 msgid "Scale up custom emojis on hover"
-msgstr ""
+msgstr "Ingrandisci gli emoji personalizzati sotto il cursore"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Makes custom emojis slightly bigger when you hover over them"
