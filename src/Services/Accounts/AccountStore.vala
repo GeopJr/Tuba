@@ -1,11 +1,9 @@
-using Gee;
-
 public abstract class Tuba.AccountStore : GLib.Object {
 
-	public ArrayList<InstanceAccount> saved { get; set; default = new ArrayList<InstanceAccount> (); }
+	public Gee.ArrayList<InstanceAccount> saved { get; set; default = new Gee.ArrayList<InstanceAccount> (); }
 	public InstanceAccount? active { get; set; default = null; }
 
-	public signal void changed (ArrayList<InstanceAccount> accounts);
+	public signal void changed (Gee.ArrayList<InstanceAccount> accounts);
 	public signal void switched (InstanceAccount? account);
 
 	public bool ensure_active_account () {
@@ -83,6 +81,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			return;
 		} else {
 			message (@"Activating $(account.handle)…");
+			entity_cache.nuke ();
 			account.verify_credentials.begin ((obj, res) => {
 				try {
 					account.verify_credentials.end (res);

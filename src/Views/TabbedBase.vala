@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.Views.TabbedBase : Views.Base {
 
 	static int id_counter = 0;
@@ -14,19 +12,21 @@ public class Tuba.Views.TabbedBase : Views.Base {
 	construct {
 		base_status = null;
 
-		var states_box = states.get_parent () as Box;
-		if (states_box != null)
-			states_box.remove (states);
-		view.remove_css_class ("ttl-view");
+		//  var states_box = states.get_parent () as Gtk.Box;
+		//  if (states_box != null)
+		//  	states_box.remove (states);
+		//  view.remove_css_class ("ttl-view");
 
-		var scrolled_overlay_box = scrolled_overlay.get_parent () as Box;
+		scrolled_overlay.child = null;
+
+		var scrolled_overlay_box = scrolled_overlay.get_parent () as Gtk.Box;
 		if (scrolled_overlay_box != null)
 			scrolled_overlay_box.remove (scrolled_overlay);
 		insert_child_after (states, header);
 
 		stack = new Adw.ViewStack ();
 		stack.notify["visible-child"].connect (on_view_switched);
-		content_box.append (stack);
+		scrolled.child = stack;
 
 		switcher_bar.stack = switcher_title.stack = stack;
 	}
@@ -54,7 +54,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 	public void add_tab (Views.Base view) {
 		id_counter++;
-		view.view.add_css_class ("no-transition");
+		view.content_box.add_css_class ("no-transition");
 		views += view;
 		var page = stack.add_titled (view, id_counter.to_string (), view.label);
 		view.bind_property ("icon", page, "icon-name", BindingFlags.SYNC_CREATE);
@@ -131,15 +131,10 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 	void on_view_switched () {
 		var view = stack.visible_child as Views.Base;
-		if (view.view.has_css_class ("no-transition")) {
-			// Timeout.add_once // glib 2.7.4
-			uint timeout = 0;
-			timeout = Timeout.add (200, () => {
-				last_view.view.remove_css_class ("no-transition");
-				GLib.Source.remove (timeout);
-
-				return true;
-			}, Priority.LOW);
+		if (view.content_box.has_css_class ("no-transition")) {
+			Timeout.add_once (200, () => {
+				last_view.content_box.remove_css_class ("no-transition");
+			});
 		}
 
 		if (last_view != null) {

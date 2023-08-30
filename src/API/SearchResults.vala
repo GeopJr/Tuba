@@ -1,10 +1,8 @@
-using Gee;
-
 public class Tuba.API.SearchResults : Entity {
 
-	public ArrayList<API.Account> accounts { get; set; }
-	public ArrayList<API.Status> statuses { get; set; }
-	public ArrayList<API.Tag> hashtags { get; set; }
+	public Gee.ArrayList<API.Account> accounts { get; set; }
+	public Gee.ArrayList<API.Status> statuses { get; set; }
+	public Gee.ArrayList<API.Tag> hashtags { get; set; }
 
 	public static SearchResults from (Json.Node node) throws Error {
 		return Entity.from_json (typeof (SearchResults), node) as SearchResults;

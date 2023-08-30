@@ -1,6 +1,5 @@
 public class Tuba.Views.Local : Views.Federated {
-
-    public Local () {
+    construct {
         label = _("Local");
         icon = "tuba-network-server-symbolic";
     }
@@ -16,5 +15,4 @@ public class Tuba.Views.Local : Views.Federated {
             ? @"$(account.instance)/api/v1/streaming/?stream=public:local&access_token=$(account.access_token)"
             : null;
     }
-
 }

@@ -1,6 +1,3 @@
-using Gee;
-using Json;
-
 public class Tuba.API.Poll : GLib.Object, Json.Serializable {
     public string id { get; set; }
     public string expires_at { get; set; }
@@ -8,8 +5,8 @@ public class Tuba.API.Poll : GLib.Object, Json.Serializable {
     public bool multiple { get; set; }
     public int64 votes_count { get; set; }
     public bool voted { get; set; default = true;}
-    public ArrayList<int> own_votes { get; set; }
-    public ArrayList<PollOption>? options { get; set; default = null; }
+    public Gee.ArrayList<int> own_votes { get; set; }
+    public Gee.ArrayList<PollOption>? options { get; set; default = null; }
 
     public Poll (string _id) {
         id = _id;
@@ -49,8 +46,8 @@ public class Tuba.API.Poll : GLib.Object, Json.Serializable {
 	}
     public static Request vote (
         InstanceAccount acc,
-        ArrayList<PollOption> options,
-        ArrayList<string> selection,
+        Gee.ArrayList<PollOption> options,
+        Gee.ArrayList<string> selection,
         string id
     ) {
         message (@"Voting poll $(id)…");

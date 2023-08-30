@@ -5,6 +5,14 @@ public class Tuba.API.Notification : Entity, Widgetizable {
     public string? kind { get; set; default = null; }
     public API.Status? status { get; set; default = null; }
 
+    public override void open () {
+        if (status != null) {
+            status.open ();
+        } else {
+            account.open ();
+        }
+    }
+
     public override Gtk.Widget to_widget () {
         return new Widgets.Notification (this);
     }

@@ -1,5 +1,3 @@
-using GLib;
-
 public class Tuba.Settings : GLib.Settings {
 
 	public string active_account { get; set; }
@@ -23,29 +21,35 @@ public class Tuba.Settings : GLib.Settings {
 	public bool enlarge_custom_emojis { get; set; }
 
 	public string[] muted_notification_types { get; set; default = {}; }
+	private string[] keys_to_init = {
+		"active-account",
+		"color-scheme",
+		"default-post-visibility",
+		"autostart",
+		"timeline-page-size",
+		"live-updates",
+		"public-live-updates",
+		"show-spoilers",
+		"hide-preview-cards",
+		"larger-font-size",
+		"larger-line-height",
+		"aggressive-resolving",
+		"strip-tracking",
+		"scale-emoji-hover",
+		"letterbox-media",
+		"media-viewer-expand-pictures",
+		"enlarge-custom-emojis",
+		"muted-notification-types"
+	};
 
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
-		init ("active-account");
-		init ("color-scheme");
-		init ("default-post-visibility");
-		init ("autostart");
-		init ("work-in-background", true);
-		init ("timeline-page-size");
-		init ("live-updates");
-		init ("public-live-updates");
-		init ("show-spoilers");
-		init ("hide-preview-cards");
-		init ("larger-font-size");
-		init ("larger-line-height");
-		init ("aggressive-resolving");
-		init ("strip-tracking");
-		init ("scale-emoji-hover");
-		init ("letterbox-media");
-		init ("media-viewer-expand-pictures");
-		init ("enlarge-custom-emojis");
-		init ("muted-notification-types");
 
+		foreach (var key in keys_to_init) {
+			init (key);
+		}
+
+		init ("work-in-background", true);
 		changed.connect (on_changed);
 	}
 

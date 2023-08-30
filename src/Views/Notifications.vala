@@ -1,23 +1,17 @@
-using Gtk;
-using Gdk;
-
 public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamable {
-
 	protected InstanceAccount? last_account = null;
-
 	private Binding badge_number_binding;
-	public Notifications () {
-		Object (
-			url: "/api/v1/notifications",
-			label: _("Notifications"),
-			icon: "tuba-bell-symbolic",
-			badge_number: 0,
-			needs_attention: false
-		);
-		accepts = typeof (API.Notification);
+
+	construct {
+        url = "/api/v1/notifications";
+        label = _("Notifications");
+        icon = "tuba-bell-symbolic";
+        accepts = typeof (API.Notification);
+		badge_number = 0;
+		needs_attention = false;
 
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
-	}
+    }
 
 	~Notifications () {
 		warning ("Destroying Notifications");

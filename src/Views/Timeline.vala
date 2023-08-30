@@ -1,6 +1,3 @@
-using Gtk;
-using Gdk;
-
 public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase {
 
 	public string url { get; construct set; }
@@ -84,13 +81,15 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 		construct_streamable ();
 		stream_event[InstanceAccount.EVENT_NEW_POST].connect (on_new_post);
-		stream_event[InstanceAccount.EVENT_EDIT_POST].connect (on_edit_post);
-		stream_event[InstanceAccount.EVENT_DELETE_POST].connect (on_delete_post);
+
+		if (accepts == typeof (API.Status)) {
+			stream_event[InstanceAccount.EVENT_EDIT_POST].connect (on_edit_post);
+			stream_event[InstanceAccount.EVENT_DELETE_POST].connect (on_delete_post);
+		}
+
 		settings.notify["show-spoilers"].connect (on_refresh);
 		settings.notify["hide-preview-cards"].connect (on_refresh);
 		settings.notify["enlarge-custom-emojis"].connect (on_refresh);
-
-		content.bind_model (model, on_create_model_widget);
 
 		var drag = new Gtk.GestureDrag ();
         drag.drag_update.connect (on_drag_update);
@@ -103,17 +102,11 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		entity_queue = {};
 		destruct_account_holder ();
 		destruct_streamable ();
-
-		content.bind_model (null, null);
 	}
 
 	public override void dispose () {
 		destruct_streamable ();
 		base.dispose ();
-	}
-
-	public virtual bool is_status_owned (API.Status status) {
-		return status.is_owned ();
 	}
 
 	public override void clear () {

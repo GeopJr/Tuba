@@ -1,10 +1,31 @@
-using Gtk;
-
 public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
+	public enum ThreadRole {
+		NONE,
+		START,
+		MIDDLE,
+		END;
+
+		public static void connect_posts (API.Status? prev, API.Status curr) {
+			if (prev == null) {
+				curr.tuba_thread_role = NONE;
+				return;
+			}
+
+			switch (prev.tuba_thread_role) {
+				case NONE:
+					prev.tuba_thread_role = START;
+					curr.tuba_thread_role = END;
+					break;
+				default:
+					prev.tuba_thread_role = MIDDLE;
+					curr.tuba_thread_role = END;
+					break;
+			}
+		}
+	}
 
 	protected InstanceAccount? account { get; set; }
-	public API.Status root_status { get; set; }
-	protected unowned Widgets.Status root_widget;
+	public unowned API.Status root_status { get; set; }
 
 	public Thread (API.Status status) {
 		Object (
@@ -26,35 +47,18 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 	}
 
 	void connect_threads () {
-		Widgets.Status? last_w = null;
+		API.Status? last_status = null;
 		string? last_id = null;
-
-		for (var w = content.get_row_at_index (0) as Widgets.Status;
-				w != null;
-				w = w.get_next_sibling () as Widgets.Status) {
-			w.is_conversation_open = true;
-
-			var id = w.status.formal.in_reply_to_id;
+		for (var pos = 0; pos < model.n_items; pos++) {
+			var status = model.get_item (pos) as API.Status;
+			var id = status.formal.in_reply_to_id;
 
 			if (id == last_id) {
-				Widgets.Status.ThreadRole.connect_posts (last_w, w);
+				ThreadRole.connect_posts (last_status, status);
 			}
 
-			last_w = w;
-			last_id = w.status.formal.id;
-		}
-
-		for (var w = content.get_row_at_index (0) as Widgets.Status;
-				w != null;
-				w = w.get_next_sibling () as Widgets.Status) {
-
-			w.install_thread_line ();
-			w.content.selectable = true;
-		}
-
-		if (root_widget != null) {
-			root_widget.thread_line_top.hide ();
-			root_widget.thread_line_bottom.hide ();
+			last_id = status.formal.id;
+			last_status = status;
 		}
 	}
 
@@ -89,16 +93,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
 					to_add_ancestors += e;
 				});
+				to_add_ancestors += root_status;
 				model.splice (model.get_n_items (), 0, to_add_ancestors);
-
-				model.append (root_status);
-				uint root_index;
-				model.find (root_status, out root_index);
-
-				root_widget = content.get_row_at_index ((int)root_index) as Widgets.Status;
-				if (root_widget != null) {
-					root_widget.expand_root ();
-				}
 
 				Object[] to_add_descendants = {};
 				var descendants = root.get_array_member ("descendants");
@@ -111,10 +107,15 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				connect_threads ();
 				on_content_changed ();
 
-				//FIXME: scroll to expanded post
-				// int x,y;
-				// translate_coordinates (root_widget, 0, header.get_allocated_height (), out x, out y);
-				// scrolled.vadjustment.value = (double)(y*-1);
+				#if GTK_4_12
+					uint timeout = 0;
+					timeout = Timeout.add (1000, () => {
+						content.scroll_to (to_add_ancestors.length, Gtk.ListScrollFlags.FOCUS, null);
+
+						GLib.Source.remove (timeout);
+						return true;
+					}, Priority.LOW);
+                #endif
 			})
 			.exec ();
 
@@ -146,6 +147,10 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		var widget_status = widget as Widgets.Status;
 
 		widget_status.reply_cb = on_replied;
+		widget_status.enable_thread_lines = true;
+		widget_status.content.selectable = true;
+
+		if (((API.Status) obj).id == root_status.id) widget_status.expand_root ();
 
 		return widget_status;
 	}

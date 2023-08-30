@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.Widgets.Conversation : Widgets.Status {
 
 	public API.Conversation conversation { get; construct set; }
@@ -20,10 +18,11 @@ public class Tuba.Widgets.Conversation : Widgets.Status {
 					target.set_string ("tuba-mail-open-small-symbolic");
 					this.visibility_indicator.add_css_class ("dim-label");
 				}
+
 				return true;
 			}
 		);
-		// this.indicators.child_set_property (this.visibility_indicator, "position", 2);
+
 		this.actions.destroy ();
 	}
 

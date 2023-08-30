@@ -1,16 +1,14 @@
-using Gtk;
-
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/view.ui")]
-public class Tuba.Views.Sidebar : Box, AccountHolder {
+public class Tuba.Views.Sidebar : Gtk.Box, AccountHolder {
 
-	[GtkChild] unowned ToggleButton accounts_button;
-	[GtkChild] unowned Stack mode;
-	[GtkChild] unowned ListBox items;
-	[GtkChild] unowned ListBox saved_accounts;
+	[GtkChild] unowned Gtk.ToggleButton accounts_button;
+	[GtkChild] unowned Gtk.Stack mode;
+	[GtkChild] unowned Gtk.ListBox items;
+	[GtkChild] unowned Gtk.ListBox saved_accounts;
 
 	[GtkChild] unowned Widgets.Avatar avatar;
 	[GtkChild] unowned Widgets.EmojiLabel title;
-	[GtkChild] unowned Label subtitle;
+	[GtkChild] unowned Gtk.Label subtitle;
 	[GtkChild] unowned Adw.HeaderBar sb_header;
 
 	private bool _show_window_controls = false;
@@ -27,8 +25,8 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	protected InstanceAccount? account { get; set; default = null; }
 
 	protected GLib.ListStore app_items;
-	protected SliceListModel account_items;
-	protected FlattenListModel item_model;
+	protected Gtk.SliceListModel account_items;
+	protected Gtk.FlattenListModel item_model;
 
 	public static Place KEYBOARD_SHORTCUTS = new Place () { // vala-lint=naming-convention
 
@@ -65,12 +63,12 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 		app_items.append (KEYBOARD_SHORTCUTS);
 		app_items.append (ABOUT);
 
-		account_items = new SliceListModel (null, 0, 15);
+		account_items = new Gtk.SliceListModel (null, 0, 15);
 
 		var models = new GLib.ListStore (typeof (Object));
 		models.append (account_items);
 		models.append (app_items);
-		item_model = new FlattenListModel (models);
+		item_model = new Gtk.FlattenListModel (models);
 
 		items.bind_model (item_model, on_item_create);
 		items.set_header_func (on_item_header_update);
@@ -160,11 +158,11 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 	// Item
 
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/item.ui")]
-	protected class ItemRow : ListBoxRow {
+	protected class ItemRow : Gtk.ListBoxRow {
 		public Place place;
 
-		[GtkChild] unowned Image icon;
-		[GtkChild] unowned Label label;
+		[GtkChild] unowned Gtk.Image icon;
+		[GtkChild] unowned Gtk.Label label;
 		//  [GtkChild] unowned Label badge;
 
 		public ItemRow (Place place) {
@@ -181,11 +179,11 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 		}
 	}
 
-	Widget on_item_create (Object obj) {
+	Gtk.Widget on_item_create (Object obj) {
 		return new ItemRow (obj as Place);
 	}
 
-	[GtkCallback] void on_item_activated (ListBoxRow _row) {
+	[GtkCallback] void on_item_activated (Gtk.ListBoxRow _row) {
 		var row = _row as ItemRow;
 		if (row.place.open_func != null)
 			row.place.open_func (app.main_window);
@@ -195,14 +193,14 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 			flap.reveal_flap = false;
 	}
 
-	void on_item_header_update (ListBoxRow _row, ListBoxRow? _before) {
+	void on_item_header_update (Gtk.ListBoxRow _row, Gtk.ListBoxRow? _before) {
 		var row = _row as ItemRow;
 		var before = _before as ItemRow;
 
 		row.set_header (null);
 
 		if (row.place.separated && before != null && !before.place.separated) {
-			row.set_header (new Separator (Orientation.HORIZONTAL));
+			row.set_header (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 		}
 	}
 
@@ -215,7 +213,7 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 		public InstanceAccount? account;
 
 		[GtkChild] unowned Widgets.Avatar avatar;
-		[GtkChild] unowned Button forget;
+		[GtkChild] unowned Gtk.Button forget;
 
 		private Binding switcher_display_name;
 		private Binding switcher_handle;
@@ -280,16 +278,16 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 
 	}
 
-	void on_account_header_update (ListBoxRow _row, ListBoxRow? _before) {
+	void on_account_header_update (Gtk.ListBoxRow _row, Gtk.ListBoxRow? _before) {
 		var row = _row as AccountRow;
 
 		row.set_header (null);
 
 		if (row.account == null && _before != null)
-			row.set_header (new Separator (Orientation.HORIZONTAL));
+			row.set_header (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 	}
 
-	[GtkCallback] void on_account_activated (ListBoxRow _row) {
+	[GtkCallback] void on_account_activated (Gtk.ListBoxRow _row) {
 		var row = _row as AccountRow;
 		if (row.account != null)
 			accounts.activate (row.account);

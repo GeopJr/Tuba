@@ -1,5 +1,3 @@
-using Gtk;
-
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/preferences.ui")]
 public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 	struct NotificationTypeMute {
@@ -10,20 +8,20 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned Adw.ComboRow scheme_combo_row;
     [GtkChild] unowned Adw.ComboRow post_visibility_combo_row;
     [GtkChild] unowned Adw.ComboRow default_language_combo_row;
-    [GtkChild] unowned Switch autostart;
-    [GtkChild] unowned Switch work_in_background;
-    [GtkChild] unowned SpinButton timeline_page_size;
-    [GtkChild] unowned Switch live_updates;
-    [GtkChild] unowned Switch public_live_updates;
-    [GtkChild] unowned Switch show_spoilers;
-    [GtkChild] unowned Switch hide_preview_cards;
-    [GtkChild] unowned Switch larger_font_size;
-    [GtkChild] unowned Switch larger_line_height;
-    [GtkChild] unowned Switch scale_emoji_hover;
-    [GtkChild] unowned Switch strip_tracking;
-    [GtkChild] unowned Switch letterbox_media;
-    [GtkChild] unowned Switch media_viewer_expand_pictures;
-    [GtkChild] unowned Switch enlarge_custom_emojis;
+    [GtkChild] unowned Gtk.Switch autostart;
+    [GtkChild] unowned Gtk.Switch work_in_background;
+    [GtkChild] unowned Gtk.SpinButton timeline_page_size;
+    [GtkChild] unowned Gtk.Switch live_updates;
+    [GtkChild] unowned Gtk.Switch public_live_updates;
+    [GtkChild] unowned Gtk.Switch show_spoilers;
+    [GtkChild] unowned Gtk.Switch hide_preview_cards;
+    [GtkChild] unowned Gtk.Switch larger_font_size;
+    [GtkChild] unowned Gtk.Switch larger_line_height;
+    [GtkChild] unowned Gtk.Switch scale_emoji_hover;
+    [GtkChild] unowned Gtk.Switch strip_tracking;
+    [GtkChild] unowned Gtk.Switch letterbox_media;
+    [GtkChild] unowned Gtk.Switch media_viewer_expand_pictures;
+    [GtkChild] unowned Gtk.Switch enlarge_custom_emojis;
 
     [GtkChild] unowned Gtk.Switch new_followers_notifications_switch;
     [GtkChild] unowned Gtk.Switch new_follower_requests_notifications_switch;
@@ -144,24 +142,18 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 	}
 
 	private void setup_languages_combo_row () {
-		var store = new GLib.ListStore (typeof (Locale));
-
-		foreach (var locale in app.locales) {
-			store.append (locale);
-		}
-
-		default_language_combo_row.list_factory = new BuilderListItemFactory.from_resource (
+		default_language_combo_row.list_factory = new Gtk.BuilderListItemFactory.from_resource (
 			null,
 			@"$(Build.RESOURCES)gtk/dropdown/language.ui"
 		);
-		default_language_combo_row.model = store;
+		default_language_combo_row.model = app.app_locales.list_store;
 
 		var default_language = settings.default_language == "" ? "en" : settings.default_language;
 		uint default_lang_index;
 		if (
-			store.find_with_equal_func (
-				new Tuba.Locale (default_language, null, null),
-				Tuba.Locale.compare,
+			app.app_locales.list_store.find_with_equal_func (
+				new Tuba.Locales.Locale (default_language, null, null),
+				Tuba.Locales.Locale.compare,
 				out default_lang_index
 			)
 		) {
@@ -171,8 +163,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 
 	private bool on_window_closed () {
 		if (lang_changed) {
-			var new_lang = ((Tuba.Locale) default_language_combo_row.selected_item).locale;
-			if (settings.default_language != ((Tuba.Locale) default_language_combo_row.selected_item).locale) {
+			var new_lang = ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale;
+			if (settings.default_language != ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale) {
 
 				new Request.PATCH ("/api/v1/accounts/update_credentials")
 					.with_account (accounts.active)

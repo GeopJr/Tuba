@@ -46,10 +46,13 @@ jobs:
         manifest-path: "build-aux/dev.geopjr.Tuba.Devel.json"
         cache-key: flatpak-builder-${{ github.sha }}
         arch: ${{ matrix.arch }}
+        repository-name: gnome-nightly
+        repository-url: https://nightly.gnome.org/gnome-nightly.flatpakrepo # until GNOME 45
   snap-builder:
     name: "Snap Builder"
     runs-on: ubuntu-latest
     needs: [ lint ]
+    if: ${{ false }} # disable until GNOME 45 runtimes get added
     strategy:
       matrix:
         arch: [x86_64, aarch64]

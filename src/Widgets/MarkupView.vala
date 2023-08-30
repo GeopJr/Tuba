@@ -1,6 +1,4 @@
-using Gtk;
-
-public class Tuba.Widgets.MarkupView : Box {
+public class Tuba.Widgets.MarkupView : Gtk.Box {
 
 	public delegate void NodeFn (Xml.Node* node);
 	public delegate void NodeHandlerFn (MarkupView view, Xml.Node* node);
@@ -19,6 +17,7 @@ public class Tuba.Widgets.MarkupView : Box {
 	}
 
 	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
+	public weak Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
 
 	private bool _selectable = false;
 	public bool selectable {
@@ -38,7 +37,7 @@ public class Tuba.Widgets.MarkupView : Box {
 	}
 
 	construct {
-		orientation = Orientation.VERTICAL;
+		orientation = Gtk.Orientation.VERTICAL;
 		spacing = 12;
 	}
 
@@ -85,6 +84,8 @@ public class Tuba.Widgets.MarkupView : Box {
 				large_emojis = settings.enlarge_custom_emojis
 			};
 			if (instance_emojis != null) label.instance_emojis = instance_emojis;
+			if (mentions != null) label.mentions = mentions;
+
 			label.label = current_chunk.strip ();
 			append (label);
 		}
@@ -205,7 +206,7 @@ public class Tuba.Widgets.MarkupView : Box {
 			case "a":
 				var href = root->get_prop ("href");
 				if (href != null) {
-					v.write_chunk ("<a href='" + GLib.Markup.escape_text (href) + "'>");
+					v.write_chunk (@"<a href='$(GLib.Markup.escape_text (href))'>");
 					traverse_and_handle (v, root, default_handler);
 					v.write_chunk ("</a>");
 				}

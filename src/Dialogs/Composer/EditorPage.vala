@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.EditorPage : ComposerPage {
 
 	protected int64 char_limit { get; set; default = 500; }
@@ -24,9 +22,9 @@ public class Tuba.EditorPage : ComposerPage {
 		install_overlay (status.status);
 		install_visibility (status.visibility);
 		install_languages (status.language);
-		add_button (new Gtk.Separator (Orientation.VERTICAL));
+		add_button (new Gtk.Separator (Gtk.Orientation.VERTICAL));
 		install_cw (status.spoiler_text);
-		add_button (new Gtk.Separator (Orientation.VERTICAL));
+		add_button (new Gtk.Separator (Gtk.Orientation.VERTICAL));
 		install_emoji_picker ();
 
 		validate ();
@@ -50,7 +48,7 @@ public class Tuba.EditorPage : ComposerPage {
 			status.visibility = instance_visibility.id;
 
 		if (language_button != null && language_button.selected_item != null) {
-			status.language = ((Tuba.Locale) language_button.selected_item).locale;
+			status.language = ((Tuba.Locales.Locale) language_button.selected_item).locale;
 		}
 	}
 
@@ -75,12 +73,8 @@ public class Tuba.EditorPage : ComposerPage {
 		builder.add_string_value (status.sensitive ? status.spoiler_text : "");
 	}
 
-	#if MISSING_GTKSOURCEVIEW
-		protected TextView editor;
-	#else
-		protected GtkSource.View editor;
-	#endif
-	protected Label char_counter;
+	protected GtkSource.View editor;
+	protected Gtk.Label char_counter;
 
 	public void editor_grab_focus () {
 		editor.grab_focus ();
@@ -89,9 +83,7 @@ public class Tuba.EditorPage : ComposerPage {
 	protected void install_editor () {
 		recount_chars.connect (() => {
 			remaining_chars = char_limit;
-			#if !MISSING_GTKSOURCEVIEW
-				editor.show_completion ();
-			#endif
+			editor.show_completion ();
 		});
 		recount_chars.connect_after (() => {
 			placeholder.visible = remaining_chars == char_limit;
@@ -105,11 +97,8 @@ public class Tuba.EditorPage : ComposerPage {
 			}
 		});
 
-		#if MISSING_GTKSOURCEVIEW
-			editor = new TextView () {
-		#else
-			editor = new GtkSource.View () {
-		#endif
+
+		editor = new GtkSource.View () {
 			vexpand = true,
 			hexpand = true,
 			top_margin = 6,
@@ -118,10 +107,10 @@ public class Tuba.EditorPage : ComposerPage {
 			left_margin = 6,
 			pixels_below_lines = 6,
 			accepts_tab = false,
-			wrap_mode = WrapMode.WORD_CHAR
+			wrap_mode = Gtk.WrapMode.WORD_CHAR
 		};
 
-		#if LIBSPELLING && !MISSING_GTKSOURCEVIEW
+		#if LIBSPELLING
 			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
 
 			editor.extra_menu = adapter.get_menu_model ();
@@ -129,7 +118,7 @@ public class Tuba.EditorPage : ComposerPage {
 			adapter.enabled = true;
 		#endif
 
-		#if GSPELL && (MISSING_GTKSOURCEVIEW || !LIBSPELLING)
+		#if GSPELL && !LIBSPELLING
 			var gspell_view = Gspell.TextView.get_from_gtk_text_view (editor);
 			gspell_view.basic_setup ();
 		#endif
@@ -144,21 +133,19 @@ public class Tuba.EditorPage : ComposerPage {
         });
         editor.add_controller (keypress_controller);
 
-		#if !MISSING_GTKSOURCEVIEW
-			editor.completion.add_provider (new Tuba.HandleProvider ());
-			editor.completion.add_provider (new Tuba.HashtagProvider ());
-			editor.completion.add_provider (new Tuba.EmojiProvider ());
-			editor.completion.select_on_show = true;
-			editor.completion.show_icons = true;
-			editor.completion.page_size = 3;
-			update_style_scheme ();
-		#endif
+		editor.completion.add_provider (new Tuba.HandleProvider ());
+		editor.completion.add_provider (new Tuba.HashtagProvider ());
+		editor.completion.add_provider (new Tuba.EmojiProvider ());
+		editor.completion.select_on_show = true;
+		editor.completion.show_icons = true;
+		editor.completion.page_size = 3;
+		update_style_scheme ();
 
 		recount_chars.connect (() => {
 			remaining_chars -= editor.buffer.get_char_count ();
 		});
 
-		char_counter = new Label (char_limit.to_string ()) {
+		char_counter = new Gtk.Label (char_limit.to_string ()) {
 			margin_end = 6,
 			tooltip_text = _("Characters Left"),
 			css_classes = { "heading" }
@@ -167,24 +154,22 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.buffer.changed.connect (validate);
 	}
 
-	#if !MISSING_GTKSOURCEVIEW
-		protected void update_style_scheme () {
-			var manager = GtkSource.StyleSchemeManager.get_default ();
-			var scheme = manager.get_scheme ("adwaita");
-			var buffer = editor.buffer as GtkSource.Buffer;
-			buffer.style_scheme = scheme;
-		}
-	#endif
+	protected void update_style_scheme () {
+		var manager = GtkSource.StyleSchemeManager.get_default ();
+		var scheme = manager.get_scheme ("adwaita");
+		var buffer = editor.buffer as GtkSource.Buffer;
+		buffer.style_scheme = scheme;
+	}
 
-	protected Overlay overlay;
-	protected Label placeholder;
+	protected Gtk.Overlay overlay;
+	protected Gtk.Label placeholder;
 
 	protected void install_overlay (string t_content) {
-		overlay = new Overlay ();
-		placeholder = new Label (_("What's on your mind?")) {
-			valign = Align.START,
-			halign = Align.START,
-			justify = Justification.FILL,
+		overlay = new Gtk.Overlay ();
+		placeholder = new Gtk.Label (_("What's on your mind?")) {
+			valign = Gtk.Align.START,
+			halign = Gtk.Align.START,
+			justify = Gtk.Justification.FILL,
 			margin_top = 6,
 			margin_start = 6,
 			wrap = true,
@@ -192,7 +177,7 @@ public class Tuba.EditorPage : ComposerPage {
 		};
 
 		overlay.add_overlay (placeholder);
-		overlay.child = new ScrolledWindow () {
+		overlay.child = new Gtk.ScrolledWindow () {
 			hexpand = true,
 			vexpand = true,
 			child = editor
@@ -202,10 +187,10 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.buffer.text = t_content;
 	}
 
-	protected EmojiChooser emoji_picker;
+	protected Gtk.EmojiChooser emoji_picker;
 	protected void install_emoji_picker () {
-		emoji_picker = new EmojiChooser ();
-		var emoji_button = new MenuButton () {
+		emoji_picker = new Gtk.EmojiChooser ();
+		var emoji_button = new Gtk.MenuButton () {
 			icon_name = "tuba-smile-symbolic",
 			popover = emoji_picker,
 			tooltip_text = _("Emoji Picker")
@@ -215,7 +200,7 @@ public class Tuba.EditorPage : ComposerPage {
 
 		if (accounts.active.instance_emojis?.size > 0) {
 			var custom_emoji_picker = new Widgets.CustomEmojiChooser ();
-			var custom_emoji_button = new MenuButton () {
+			var custom_emoji_button = new Gtk.MenuButton () {
 				icon_name = "tuba-cat-symbolic",
 				popover = custom_emoji_picker,
 				tooltip_text = _("Custom Emoji Picker")
@@ -230,8 +215,8 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.buffer.insert_at_cursor (emoji_unicode, emoji_unicode.data.length);
 	}
 
-	protected ToggleButton cw_button;
-	protected Entry cw_entry;
+	protected Gtk.ToggleButton cw_button;
+	protected Gtk.Entry cw_entry;
 
 	protected void install_cw (string? cw_text) {
 		cw_entry = new Gtk.Entry () {
@@ -248,7 +233,7 @@ public class Tuba.EditorPage : ComposerPage {
 		revealer.add_css_class ("view");
 		content.prepend (revealer);
 
-		cw_button = new ToggleButton () {
+		cw_button = new Gtk.ToggleButton () {
 			icon_name = "tuba-warning-symbolic",
 			tooltip_text = _("Content Warning")
 		};
@@ -269,8 +254,8 @@ public class Tuba.EditorPage : ComposerPage {
 
 
 
-	protected DropDown visibility_button;
-	protected DropDown language_button;
+	protected Gtk.DropDown visibility_button;
+	protected Gtk.DropDown language_button;
 
 	private bool _edit_mode = false;
 	public override bool edit_mode {
@@ -285,10 +270,10 @@ public class Tuba.EditorPage : ComposerPage {
 	}
 
 	protected void install_visibility (string default_visibility = settings.default_post_visibility) {
-		visibility_button = new DropDown (accounts.active.visibility_list, null) {
-			expression = new PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
-			factory = new BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/icon.ui"),
-			list_factory = new BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/full.ui"),
+		visibility_button = new Gtk.DropDown (accounts.active.visibility_list, null) {
+			expression = new Gtk.PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
+			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/icon.ui"),
+			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/full.ui"),
 			tooltip_text = _("Post Privacy"),
 			sensitive = !edit_mode
 		};
@@ -308,16 +293,10 @@ public class Tuba.EditorPage : ComposerPage {
 	}
 
 	protected void install_languages (string? locale_iso) {
-		var store = new GLib.ListStore (typeof (Locale));
-
-		foreach (var locale in app.locales) {
-			store.append (locale);
-		}
-
-		language_button = new DropDown (store, null) {
-			expression = new PropertyExpression (typeof (Tuba.Locale), null, "name"),
-			factory = new BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language_title.ui"),
-			list_factory = new BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language.ui"),
+		language_button = new Gtk.DropDown (app.app_locales.list_store, null) {
+			expression = new Gtk.PropertyExpression (typeof (Tuba.Locales.Locale), null, "name"),
+			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language_title.ui"),
+			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language.ui"),
 			tooltip_text = _("Post Language"),
 			enable_search = true
 		};
@@ -325,9 +304,9 @@ public class Tuba.EditorPage : ComposerPage {
 		if (locale_iso != null) {
 			uint default_lang_index;
 			if (
-				store.find_with_equal_func (
-					new Tuba.Locale (locale_iso, null, null),
-					Tuba.Locale.compare,
+				app.app_locales.list_store.find_with_equal_func (
+					new Tuba.Locales.Locale (locale_iso, null, null),
+					Tuba.Locales.Locale.compare,
 					out default_lang_index
 				)
 			) {

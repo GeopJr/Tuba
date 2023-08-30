@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0" />
-  <template class="TubaWidgetsStatus" parent="GtkListBoxRow">
+  <template class="TubaWidgetsStatus" parent="AdwBin">
     <property name="child">
       <object class="GtkBox" id="status_box">
         <property name="margin-start">18</property>
@@ -108,8 +108,9 @@
                             <child>
                               <object class="TubaWidgetsRichLabel" id="name_label">
                                 <property name="visible">True</property>
-                                <property name="ellipsize">False</property>
+                                <property name="ellipsize">True</property>
                                 <property name="smaller-emoji-pixel-size">True</property>
+                                <property name="lines">-1</property>
                                 <style>
                                   <class name="font-bold" />
                                 </style>
@@ -129,10 +130,11 @@
                         <child>
                           <object class="GtkLabel" id="handle_label">
                             <property name="label" translatable="no">Handle</property>
-                            <property name="ellipsize">end</property>
                             <property name="single_line_mode">1</property>
                             <property name="xalign">0</property>
                             <property name="hexpand">1</property>
+                            <property name="wrap">1</property>
+                            <property name="wrap-mode">word-char</property>
                             <style>
                               <class name="body" />
                               <class name="dim-label" />
@@ -300,69 +302,10 @@
                                 <property name="hexpand">False</property>
                               </object>
                             </child>
-                            <child>
-                              <object class="TubaWidgetsVoteBox" id="poll" />
-                            </child>
-                            <child>
-                              <object class="TubaWidgetsAttachmentBox" id="attachments" />
-                            </child>
                           </object>
                         </property>
                       </object>
                     </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkFlowBox" id="emoji_reactions">
-                    <property name="visible">0</property>
-                    <property name="column_spacing">6</property>
-                    <property name="row_spacing">6</property>
-                    <!-- Lower values leave space between items -->
-                    <property name="max_children_per_line">100</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkBox" id="actions">
-                    <property name="spacing">6</property>
-                    <style>
-                      <class name="ttl-post-actions" />
-                    </style>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkBox" id="fr_actions">
-                    <property name="visible">0</property>
-                    <property name="homogeneous">1</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkButton" id="decline_fr_button">
-                        <property name="label" translatable="yes">Decline</property>
-                        <property name="tooltip_text" translatable="yes">Decline</property>
-                        <property name="icon_name">tuba-cross-large-symbolic</property>
-                        <property name="halign">center</property>
-                        <style>
-                          <class name="flat" />
-                          <class name="circular" />
-                          <class name="error" />
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="accept_fr_button">
-                        <property name="label" translatable="yes">Accept</property>
-                        <property name="tooltip_text" translatable="yes">Accept</property>
-                        <property name="icon_name">tuba-check-round-outline-symbolic</property>
-                        <property name="halign">center</property>
-                        <style>
-                          <class name="flat" />
-                          <class name="circular" />
-                          <class name="success" />
-                        </style>
-                      </object>
-                    </child>
-                    <style>
-                      <class name="ttl-post-actions" />
-                    </style>
                   </object>
                 </child>
               </object>
@@ -373,6 +316,9 @@
     </property>
     <style>
       <class name="ttl-post" />
+      <class name="card-spacing" />
+      <class name="card" />
+      <class name="activatable" />
     </style>
   </template>
 </interface>

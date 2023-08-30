@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.ComposerPage : Gtk.Box {
 
 	public string title { get; set; }
@@ -11,9 +9,9 @@ public class Tuba.ComposerPage : Gtk.Box {
 	public weak Dialogs.Compose dialog;
 	public Tuba.Dialogs.Compose.BasicStatus status;
 
-	ScrolledWindow scroller;
-	protected Box content;
-	protected ActionBar bottom_bar;
+	Gtk.ScrolledWindow scroller;
+	protected Gtk.Box content;
+	protected Gtk.ActionBar bottom_bar;
 
 	private bool _action_bar_on_top = false;
 	public bool action_bar_on_top {
@@ -34,18 +32,18 @@ public class Tuba.ComposerPage : Gtk.Box {
 	}
 
 	construct {
-		orientation = Orientation.VERTICAL;
+		orientation = Gtk.Orientation.VERTICAL;
 
-		scroller = new ScrolledWindow () {
+		scroller = new Gtk.ScrolledWindow () {
 			hexpand = true,
 			vexpand = true
 		};
 		append (scroller);
 
-		content = new Box (Orientation.VERTICAL, 0);
+		content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		scroller.child = content;
 
-		bottom_bar = new ActionBar () {
+		bottom_bar = new Gtk.ActionBar () {
 			visible = false
 		};
 
@@ -56,7 +54,7 @@ public class Tuba.ComposerPage : Gtk.Box {
 		}
 	}
 
-	protected void add_button (Widget widget) {
+	protected void add_button (Gtk.Widget widget) {
 		bottom_bar.pack_start (widget);
 
 		widget.add_css_class ("flat");

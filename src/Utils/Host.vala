@@ -1,6 +1,3 @@
-using GLib;
-using Gdk;
-
 public class Tuba.Host {
 
 	// Open a URI in the user's default application
@@ -18,24 +15,20 @@ public class Tuba.Host {
 				throw new Oopsie.USER ("launch_default_for_uri() failed");
 		}
 		catch (Error e) {
-			#if GTK_4_10
-				var launcher = new Gtk.UriLauncher (uri);
-				launcher.launch.begin (app.active_window, null, (obj, res) => {
-					try {
-						launcher.launch.end (res);
-					} catch (Error e) {
-						warning (@"Error opening uri \"$uri\": $(e.message)");
-					}
-				});
-			#else
-				Gtk.show_uri (app.active_window, uri, Gdk.CURRENT_TIME);
-			#endif
+			var launcher = new Gtk.UriLauncher (uri);
+			launcher.launch.begin (app.active_window, null, (obj, res) => {
+				try {
+					launcher.launch.end (res);
+				} catch (Error e) {
+					warning (@"Error opening uri \"$uri\": $(e.message)");
+				}
+			});
 		}
 		return true;
 	}
 
 	public static void copy (string str) {
-		Display display = Display.get_default ();
+		Gdk.Display display = Gdk.Display.get_default ();
 		if (display == null) return;
 
 		display.get_clipboard ().set_text (str);

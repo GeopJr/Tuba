@@ -1,5 +1,3 @@
-using Gtk;
-
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/new_account.ui")]
 public class Tuba.Dialogs.NewAccount: Adw.Window {
 	const string AUTO_AUTH_DESCRIPTION = _("Allow access to your account in the browser.");
@@ -13,15 +11,15 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	protected InstanceAccount account { get; set; default = new InstanceAccount.empty (""); }
 
 	[GtkChild] unowned Adw.Leaflet deck;
-	[GtkChild] unowned Box instance_step;
-	[GtkChild] unowned Box code_step;
-	[GtkChild] unowned Box done_step;
+	[GtkChild] unowned Gtk.Box instance_step;
+	[GtkChild] unowned Gtk.Box code_step;
+	[GtkChild] unowned Gtk.Box done_step;
 
 	[GtkChild] unowned Adw.EntryRow instance_entry;
-	[GtkChild] unowned Label instance_entry_error;
+	[GtkChild] unowned Gtk.Label instance_entry_error;
 
 	[GtkChild] unowned Adw.EntryRow code_entry;
-	[GtkChild] unowned Label code_entry_error;
+	[GtkChild] unowned Gtk.Label code_entry_error;
 
 	[GtkChild] unowned Adw.StatusPage auth_page;
 	[GtkChild] unowned Adw.StatusPage done_page;
@@ -67,9 +65,6 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			if (!use_auto_auth)
 				throw new Oopsie.INTERNAL ("Using manual auth method");
 
-			//  GLib.Process.spawn_command_line_sync (@"xdg-mime default $(Build.DOMAIN).desktop x-scheme-handler/tuba");
-
-			//  message ("Successfully associated MIME type for automatic authorization");
 			return "tuba://auth_code";
 		}
 		catch (Error e) {

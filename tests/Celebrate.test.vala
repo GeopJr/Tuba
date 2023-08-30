@@ -1,5 +1,3 @@
-using GLib;
-
 struct TestCelebrate {
     public DateTime date;
     public string[] css_classes;

@@ -1,11 +1,7 @@
-using Gtk;
-using GLib;
-using Gee;
-
 public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 
-	ArrayList<API.Attachment>? _list = null;
-	public ArrayList<API.Attachment>? list {
+	Gee.ArrayList<API.Attachment>? _list = null;
+	public Gee.ArrayList<API.Attachment>? list {
 		get {
 			return _list;
 		}
@@ -54,12 +50,12 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		visible = false;
 		hexpand = true;
 
-		box = new FlowBox () {
+		box = new Gtk.FlowBox () {
 			homogeneous = true,
 			activate_on_single_click = true,
 			column_spacing = 6,
 			row_spacing = 6,
-			selection_mode = SelectionMode.NONE
+			selection_mode = Gtk.SelectionMode.NONE
 		};
 
 		spoiler_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {

@@ -1,6 +1,3 @@
-using GLib;
-using Gee;
-
 public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public const string EVENT_NEW_POST = "update";
@@ -20,7 +17,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public string? backend { set; get; }
 	public API.Instance? instance_info { get; set; }
-	public ArrayList<API.Emoji>? instance_emojis { get; set; }
+	public Gee.ArrayList<API.Emoji>? instance_emojis { get; set; }
 	public string? instance { get; set; }
 	public string? client_id { get; set; }
 	public string? client_secret { get; set; }
@@ -29,7 +26,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
 
-	public HashMap<Type,Type> type_overrides = new HashMap<Type,Type> ();
+	public Gee.HashMap<Type,Type> type_overrides = new Gee.HashMap<Type,Type> ();
 
 	public new string handle_short {
 		owned get { return @"@$username"; }
@@ -94,7 +91,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			}
 		}
 	}
-	public HashMap<string,Visibility> visibility = new HashMap<string,Visibility> ();
+	public Gee.HashMap<string,Visibility> visibility = new Gee.HashMap<string,Visibility> ();
 	public ListStore visibility_list = new ListStore (typeof (Visibility));
 	public void set_visibility (Visibility obj) {
 		this.visibility[obj.id] = obj;

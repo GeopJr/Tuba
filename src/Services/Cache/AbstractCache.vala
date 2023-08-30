@@ -1,11 +1,9 @@
-using Gee;
-
 public class Tuba.AbstractCache : Object {
 
 	public const string DATA_MIN_REF_COUNT = "refs";
 
-    protected Map<string, Object> items;
-    protected Map<string, Soup.Message> items_in_progress;
+    protected Gee.Map<string, Object> items;
+    protected Gee.Map<string, Soup.Message> items_in_progress;
 
 	private uint timeout_source;
 	private int _maintenance_secs = 5;
@@ -20,13 +18,14 @@ public class Tuba.AbstractCache : Object {
 			setup_maintenance ();
 		}
 	}
+
     public uint size {
         get { return items.size; }
     }
 
     construct {
-        items = new HashMap<string, Object> ();
-        items_in_progress = new HashMap<string, Soup.Message> ();
+        items = new Gee.HashMap<string, Object> ();
+        items_in_progress = new Gee.HashMap<string, Soup.Message> ();
 
 		setup_maintenance ();
     }
@@ -102,5 +101,4 @@ public class Tuba.AbstractCache : Object {
 		items.clear ();
 		items_in_progress.clear ();
 	}
-
 }

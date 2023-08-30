@@ -1,6 +1,3 @@
-using Gtk;
-using Gee;
-
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/compose.ui")]
 public class Tuba.Dialogs.Compose : Adw.Window {
 	public class BasicStatus : Object {
@@ -63,7 +60,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			id = t_status.id;
 			status = t_status.content;
 
-			if (t_status.has_media ()) {
+			if (t_status.has_media) {
 				media_attachments = t_status.media_attachments;
 
 				foreach (var t_attachment in t_status.media_attachments) {
@@ -256,7 +253,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	}
 
 	[GtkChild] unowned Adw.ViewSwitcherTitle title_switcher;
-	[GtkChild] unowned Button commit_button;
+	[GtkChild] unowned Gtk.Button commit_button;
 
 	[GtkChild] unowned Adw.ViewStack stack;
 

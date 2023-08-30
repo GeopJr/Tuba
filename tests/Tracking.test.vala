@@ -1,5 +1,3 @@
-using GLib;
-
 struct TestUrl {
     public string original;
     public string result;
