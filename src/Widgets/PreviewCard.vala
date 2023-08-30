@@ -91,7 +91,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 
         if (card_obj.kind == "link" && card_obj.history != null && card_obj.history.size > 0) {
 				this.remove_css_class ("frame");
-				//  this.add_css_class ("explore");
+				this.add_css_class ("explore");
 				this.add_css_class ("card-spacing");
 				this.add_css_class ("card");
 				this.add_css_class ("activatable");

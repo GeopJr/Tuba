@@ -28,10 +28,10 @@ public class Tuba.Views.Lists : Views.Timeline {
 			action_box.append (edit_button);
 			action_box.append (delete_button);
 
-			this.activated.connect (() => open ());
 			this.activatable = true;
-
 			this.add_suffix (action_box);
+			this.add_css_class ("card");
+			this.add_css_class ("card-spacing");
 		}
 
 		public Row (API.List? list) {
@@ -79,14 +79,6 @@ public class Tuba.Views.Lists : Views.Timeline {
 			return new Dialogs.ListEdit (t_list) {
 				transient_for = app.main_window
 			};
-		}
-
-		public virtual signal void open () {
-			if (this.list == null)
-				return;
-
-			var view = new Views.List (list);
-			app.main_window.open_view (view);
 		}
     }
 

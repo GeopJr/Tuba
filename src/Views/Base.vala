@@ -34,11 +34,11 @@ public class Tuba.Views.Base : Gtk.Box {
 	[GtkChild] protected unowned Gtk.ScrolledWindow scrolled;
 	[GtkChild] protected unowned Gtk.Overlay scrolled_overlay;
 	[GtkChild] protected unowned Gtk.Button scroll_to_top;
-	[GtkChild] protected unowned Gtk.Box view;
-	[GtkChild] protected unowned Adw.Clamp clamp;
-	[GtkChild] protected unowned Gtk.Box column_view;
+	//  [GtkChild] protected unowned Gtk.Box view;
+	//  [GtkChild] protected unowned Adw.Clamp clamp;
+	//  [GtkChild] protected unowned Gtk.Box column_view;
 	[GtkChild] protected unowned Gtk.Stack states;
-	[GtkChild] protected unowned Gtk.Box content_box;
+	[GtkChild] protected unowned Adw.ClampScrollable content_box;
 	[GtkChild] protected unowned Gtk.Button status_button;
 	[GtkChild] unowned Gtk.Stack status_stack;
 	[GtkChild] unowned Gtk.Label status_title_label;

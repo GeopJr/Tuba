@@ -18,7 +18,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 			css_classes = { "content", "background" },
 			single_click_activate = true
 		};
-		content_box.append (content);
+		content_box.child = content;
 		content.activate.connect (on_content_item_activated);
 
 		scrolled.vadjustment.value_changed.connect (() => {
@@ -42,7 +42,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 	}
 
 	private void bind_listitem_cb (GLib.Object item) {
-		(item as Gtk.ListItem).child = on_create_model_widget ((item as Gtk.ListItem).item);
+		((Gtk.ListItem) item).child = on_create_model_widget (((Gtk.ListItem) item).item);
 	}
 
 	public override void dispose () {

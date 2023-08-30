@@ -17,12 +17,6 @@ public class Tuba.Views.Profile : Views.Timeline {
 	protected SimpleAction ar_list_action;
 	//  protected SimpleAction source_action;
 
-	construct {
-		cover = build_cover ();
-		cover.rsbtn.rs = this.rs;
-		column_view.prepend (cover);
-	}
-
 	public Profile (API.Account acc) {
 		Object (
 			profile: acc,
@@ -31,12 +25,29 @@ public class Tuba.Views.Profile : Views.Timeline {
 			allow_nesting: true,
 			url: @"/api/v1/accounts/$(acc.id)/statuses"
 		);
-		cover.bind (profile);
+
+		cover = new Cover (profile);
+		cover.rsbtn.rs = this.rs;
+
 		build_profile_stats (cover.info);
 		rs.invalidated.connect (on_rs_updated);
+
+		var header_factory = new Gtk.SignalListItemFactory ();
+		header_factory.setup.connect (on_create_header);
+		content.header_factory = header_factory;
 	}
 	~Profile () {
 		message ("Destroying Profile view");
+	}
+
+	private void on_create_header (Object object) {
+		unowned var header = (Gtk.ListHeader) object;
+		header.child = cover;
+
+		// FIXME
+		Timeout.add_once (250, () => {
+			scrolled.vadjustment.value = 0.0;
+		});
 	}
 
 	public bool append_pinned () {
@@ -100,12 +111,6 @@ public class Tuba.Views.Profile : Views.Timeline {
 			message ("Destroying Profile Cover");
 		}
 
-		construct {
-			if (settings.scale_emoji_hover)
-				note.add_css_class ("lww-scale-emoji-hover");
-			settings.notify["scale-emoji-hover"].connect (toggle_scale_emoji_hover);
-		}
-
 		void toggle_scale_emoji_hover () {
 			Tuba.toggle_css (note, settings.scale_emoji_hover, "lww-scale-emoji-hover");
 		}
@@ -156,7 +161,11 @@ public class Tuba.Views.Profile : Views.Timeline {
 			app.main_window.show_media_viewer_single (avi_url, avatar.custom_image);
 		}
 
-		public void bind (API.Account account) {
+		public Cover (API.Account account) {
+			if (settings.scale_emoji_hover)
+				note.add_css_class ("lww-scale-emoji-hover");
+			settings.notify["scale-emoji-hover"].connect (toggle_scale_emoji_hover);
+
 			display_name.instance_emojis = account.emojis_map;
 			display_name.content = account.display_name;
 			handle.label = account.handle;
@@ -316,7 +325,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 	private void on_edit_save () {
 		if (profile.is_self ()) {
 			rs.invalidated.disconnect (on_rs_updated);
-			column_view.remove (cover);
+			//  column_view.remove (cover);
 			cover = null;
 
 			for (uint i = 0; i < model.get_n_items (); i++) {
@@ -326,19 +335,14 @@ public class Tuba.Views.Profile : Views.Timeline {
 				}
 			}
 
-			cover = build_cover ();
+			cover = new Cover (accounts.active);
 			cover.rsbtn.rs = this.rs;
-			column_view.prepend (cover);
-			cover.bind (accounts.active);
+			//  column_view.prepend (cover);
 			build_profile_stats (cover.info);
 			rs.invalidated.connect (on_rs_updated);
 
 			on_refresh ();
 		}
-	}
-
-	protected virtual Cover build_cover () {
-		return new Cover ();
 	}
 
 	protected override void build_actions () {

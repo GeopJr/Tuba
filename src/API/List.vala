@@ -11,4 +11,7 @@ public class Tuba.API.List : Entity, Widgetizable {
         return new Views.Lists.Row (this);
     }
 
+    public override void open () {
+		app.main_window.open_view (new Views.List (this));
+    }
 }
