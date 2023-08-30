@@ -437,8 +437,8 @@ public class Tuba.Widgets.Status : Adw.Bin {
 					size = 34,
 					valign = Gtk.Align.START,
 					halign = Gtk.Align.START,
-					css_classes = {"ttl-status-avatar-actor"}
 				};
+				actor_avatar.add_css_class ("ttl-status-avatar-actor");
 
 				if (this.kind_instigator != null) {
 					actor_avatar_binding = this.bind_property ("kind_instigator", actor_avatar, "account", BindingFlags.SYNC_CREATE);
