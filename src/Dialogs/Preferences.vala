@@ -80,7 +80,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 		setup_languages_combo_row ();
 		setup_notification_mutes ();
 		bind ();
-        show ();
 		close_request.connect (on_window_closed);
     }
 
@@ -99,7 +98,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 	}
 
     public static void open () {
-        new Preferences ();
+        new Preferences ().show ();
     }
 
 	void bind () {
