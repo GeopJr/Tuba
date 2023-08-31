@@ -470,6 +470,13 @@ video > overlay > revealer > controls {
 	padding-bottom: 32px;
 }
 
+.ttl-view .small.content :not(:last-child) .card {
+	border-bottom: 1px @borders solid;
+}
+
+.ttl-view .small.content .card {
+	box-shadow: none;
+}
 .ttl-view .small .preview_card.explore .preview_card_image {
 	border-radius: 0px;
 }
