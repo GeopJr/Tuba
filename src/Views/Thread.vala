@@ -25,7 +25,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 	}
 
 	protected InstanceAccount? account { get; set; }
-	public unowned API.Status root_status { get; set; }
+	public API.Status root_status { get; set; }
 
 	public Thread (API.Status status) {
 		Object (
