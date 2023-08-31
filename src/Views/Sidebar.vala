@@ -1,11 +1,11 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/view.ui")]
 public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
-
 	[GtkChild] unowned Gtk.ToggleButton accounts_button;
 	[GtkChild] unowned Gtk.Stack mode;
 	[GtkChild] unowned Gtk.ListBox items;
 	[GtkChild] unowned Gtk.ListBox saved_accounts;
 	[GtkChild] unowned Widgets.Avatar accounts_button_avi;
+	[GtkChild] unowned Gtk.MenuButton menu_btn;
 
 	[GtkChild] unowned Widgets.Avatar avatar;
 	[GtkChild] unowned Widgets.EmojiLabel title;
@@ -17,46 +17,19 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	protected Gtk.SliceListModel account_items;
 	protected Gtk.FlattenListModel item_model;
 
-	public static Place KEYBOARD_SHORTCUTS = new Place () { // vala-lint=naming-convention
-
-		icon = "input-keyboard-symbolic",
-		title = _("Keyboard Shortcuts"),
-		selectable = false,
-		open_func = () => {
-			app.main_window.lookup_action ("show-help-overlay").activate (null);
-		}
-	};
-	public static Place PREFERENCES = new Place () { // vala-lint=naming-convention
-
-			icon = "tuba-gear-symbolic",
-			title = _("Preferences"),
-			selectable = false,
-			separated = true,
-			open_func = () => {
-				Dialogs.Preferences.open ();
-			}
-	};
-	public static Place ABOUT = new Place () { // vala-lint=naming-convention
-
-			icon = "tuba-about-symbolic",
-			title = _("About"),
-			selectable = false,
-			open_func = () => {
-				app.lookup_action ("about").activate (null);
-			}
-	};
-
 	static construct {
 		typeof (Widgets.EmojiLabel).ensure ();
 		set_layout_manager_type (typeof (Gtk.BinLayout));
 	}
 
 	construct {
-		app_items = new GLib.ListStore (typeof (Place));
-		app_items.append (PREFERENCES);
-		app_items.append (KEYBOARD_SHORTCUTS);
-		app_items.append (ABOUT);
+		var menu_model = new GLib.Menu ();
+		menu_model.append (_("Preferences"), "app.open-preferences");
+		menu_model.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
+		menu_model.append (_("About"), "app.about");
+		menu_btn.menu_model = menu_model;
 
+		app_items = new GLib.ListStore (typeof (Place));
 		account_items = new Gtk.SliceListModel (null, 0, 15);
 
 		var models = new GLib.ListStore (typeof (Object));

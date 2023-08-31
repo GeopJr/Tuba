@@ -58,7 +58,8 @@ namespace Tuba {
 			{ "quit", quit_activated },
 			{ "back-home", back_home_activated },
 			{ "scroll-page-down", scroll_view_page_down },
-			{ "scroll-page-up", scroll_view_page_up }
+			{ "scroll-page-up", scroll_view_page_up },
+			{ "open-preferences", open_preferences }
 		};
 
 		construct {
@@ -246,6 +247,10 @@ namespace Tuba {
 
 		void scroll_view_page_up () {
 			main_window.scroll_view_page (true);
+		}
+
+		void open_preferences () {
+			Dialogs.Preferences.open ();
 		}
 
 		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s".printf ( // vala-lint=line-length
