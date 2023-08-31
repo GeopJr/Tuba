@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-19 22:14+0300\n"
-"PO-Revision-Date: 2023-08-31 17:50+0000\n"
+"PO-Revision-Date: 2023-08-31 19:20+0000\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/tuba/tuba/tr/>\n"
 "Language: tr\n"
@@ -357,7 +357,7 @@ msgstr "Hesabınız bağlandı ve kullanıma hazır!"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Compose a new post"
-msgstr "Yeni ileti oluştur"
+msgstr "Yeni İleti Oluştur"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Search.vala:16 src/Views/Main.vala:19
 msgid "Search"
@@ -401,7 +401,7 @@ msgstr "Ağ Hatası"
 #: src/Widgets/Status.vala:143
 #, c-format
 msgid "React with %s"
-msgstr "%s tekpi verdi"
+msgstr "%s etkileşimi"
 
 #: src/Widgets/Status.vala:270 src/Widgets/Attachment/Item.vala:194
 #: src/Views/MediaViewer.vala:381
@@ -463,11 +463,11 @@ msgstr "Yanıtla"
 
 #: src/Widgets/Status.vala:659
 msgid "Favorite"
-msgstr "Gözde"
+msgstr "Gözdelere Ekle"
 
 #: src/Widgets/Status.vala:670
 msgid "Bookmark"
-msgstr "Yer İmi"
+msgstr "Yer İmlerine Ekle"
 
 #. translators: this is a "long" date format shown in places like expanded posts or
 #. the profile "Joined" field. You can find all the available specifiers
@@ -608,12 +608,12 @@ msgstr "İleti İstatistikleri"
 #. translators: title for a list of people that favorited a post
 #: src/Views/StatusStats.vala:10
 msgid "Favorited By"
-msgstr "Gözdelere ekleyen"
+msgstr "Gözdelere Eklendi"
 
 #. translators: title for a list of people that boosted a post
 #: src/Views/StatusStats.vala:18
 msgid "Boosted By"
-msgstr "Yeniden Gönderen"
+msgstr "Yeniden Gönderildi"
 
 #: src/Views/Sidebar.vala:36
 msgid "Keyboard Shortcuts"
@@ -743,7 +743,7 @@ msgstr "Takip isteği gönderildi"
 
 #: src/Views/Profile.vala:496
 msgid "Mutuals"
-msgstr "Ortak"
+msgstr "Karşılıklı"
 
 #: src/Views/Profile.vala:498
 msgid "Follows you"
@@ -837,7 +837,7 @@ msgstr "Listenin diğer üyeleri"
 
 #: src/Views/Lists.vala:133
 msgid "Any followed user"
-msgstr "Herhangi takip eden kullanıcı"
+msgstr "Takip edilen herhangi bir kullanıcı"
 
 #: src/Views/Lists.vala:169
 msgid "Members"
@@ -1070,7 +1070,7 @@ msgstr "%s sizi takip etmek istiyor"
 
 #: src/Services/Accounts/InstanceAccount.vala:187
 msgid "Poll results"
-msgstr "Oylama sonuçları"
+msgstr "Anket sonuçları"
 
 #: src/Services/Accounts/InstanceAccount.vala:192
 #, c-format
