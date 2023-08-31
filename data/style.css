@@ -488,3 +488,7 @@ video > overlay > revealer > controls {
 .compose-button {
 	padding: 8px;
 }
+
+.sidebar-item {
+	padding: 3px 14px;
+}

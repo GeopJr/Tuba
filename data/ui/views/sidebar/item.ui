@@ -2,10 +2,16 @@
 <interface>
   <template class="TubaViewsSidebarItemRow" parent="GtkListBoxRow">
     <property name="activatable">1</property>
+    <style>
+      <class name="sidebar-item" />
+    </style>
     <child>
       <object class="GtkBox">
         <property name="orientation">horizontal</property>
-        <property name="spacing">6</property>
+        <property name="spacing">12</property>
+        <style>
+          <class name="font-bold" />
+        </style>
 
         <child>
           <object class="GtkImage" id="icon">
