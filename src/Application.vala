@@ -59,7 +59,8 @@ namespace Tuba {
 			{ "back-home", back_home_activated },
 			{ "scroll-page-down", scroll_view_page_down },
 			{ "scroll-page-up", scroll_view_page_up },
-			{ "open-preferences", open_preferences }
+			{ "open-preferences", open_preferences },
+			{ "open-current-account-profile", open_current_account_profile }
 		};
 
 		construct {
@@ -251,6 +252,17 @@ namespace Tuba {
 
 		void open_preferences () {
 			Dialogs.Preferences.open ();
+		}
+
+		void open_current_account_profile () {
+			accounts.active.open ();
+			close_sidebar ();
+		}
+
+		private void close_sidebar () {
+			var split_view = app.main_window.split_view;
+			if (split_view.collapsed)
+				split_view.show_sidebar = false;
 		}
 
 		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s".printf ( // vala-lint=line-length

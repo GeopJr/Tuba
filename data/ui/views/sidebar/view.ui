@@ -47,76 +47,12 @@
                       <object class="GtkStackPage">
                         <property name="name">items</property>
                         <property name="child">
-                          <object class="GtkBox">
-                            <property name="orientation">vertical</property>
-
-                            <!-- Header -->
-                            <child>
-                              <object class="GtkButton">
-                                <signal name="clicked" handler="on_open" />
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="orientation">vertical</property>
-                                    <property name="margin-start">12</property>
-                                    <property name="margin-end">12</property>
-                                    <property name="margin-top">12</property>
-                                    <property name="margin-bottom">12</property>
-                                    <property name="spacing">12</property>
-                                    <child>
-                                      <object class="TubaWidgetsAvatar" id="avatar">
-                                        <property name="size">48</property>
-                                        <property name="halign">start</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkBox">
-                                        <property name="orientation">vertical</property>
-                                        <property name="valign">center</property>
-                                        <property name="hexpand">true</property>
-                                        <property name="spacing">4</property>
-                                        <child>
-                                          <object class="TubaWidgetsEmojiLabel" id="title">
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="GtkLabel" id="subtitle">
-                                            <property name="label">Handle</property>
-                                            <property name="xalign">0</property>
-                                            <property name="lines">0</property>
-                                            <property name="wrap">1</property>
-                                            <property name="wrap_mode">word-char</property>
-                                            <style>
-                                              <class name="body" />
-                                              <class name="dim-label" />
-                                            </style>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <style>
-                                  <class name="flat" />
-                                  <class name="no-border-radius" />
-                                </style>
-                              </object>
-                            </child>
-
-                            <child>
-                              <object class="GtkSeparator">
-                              </object>
-                            </child>
-
-                            <child>
-                              <object class="GtkListBox" id="items">
-                                <property name="selection_mode">single</property>
-                                <signal name="row_activated" handler="on_item_activated" />
-                                <style>
-                                  <class name="navigation-sidebar" />
-                                </style>
-                              </object>
-                            </child>
-
+                          <object class="GtkListBox" id="items">
+                            <property name="selection_mode">single</property>
+                            <signal name="row_activated" handler="on_item_activated" />
+                            <style>
+                              <class name="navigation-sidebar" />
+                            </style>
                           </object>
                         </property>
                       </object>
