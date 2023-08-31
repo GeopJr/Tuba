@@ -33,7 +33,6 @@
 ./src/Widgets/PreviewCard.vala
 ./src/Widgets/Notification.vala
 ./src/Widgets/MarkupView.vala
-./src/Widgets/LockableToggleButton.vala
 ./src/Widgets/LabelWithWidgets.vala
 ./src/Widgets/EmojiLabel.vala
 ./src/Widgets/Emoji.vala
