@@ -311,7 +311,9 @@ namespace Tuba {
 			dialog.present ();
 
 			GLib.Idle.add (() => {
-				dialog.add_css_class (Tuba.Celebrate.get_celebration_css_class (new GLib.DateTime.now ()));
+				var style = Tuba.Celebrate.get_celebration_css_class (new GLib.DateTime.now ());
+				if (style != "")
+					dialog.add_css_class (style);
 				return GLib.Source.REMOVE;
 			});
 		}
