@@ -113,7 +113,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		if (account != null) {
 			sidebar_handle_short = this.account.bind_property ("handle_short", subtitle, "label", BindingFlags.SYNC_CREATE);
 			sidebar_avatar = this.account.bind_property ("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
-			sidebar_avatar_btn = this.account.bind_property("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
+			sidebar_avatar_btn = this.account.bind_property ("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
 			sidebar_display_name = this.account.bind_property (
 				"display-name",
 				title,
