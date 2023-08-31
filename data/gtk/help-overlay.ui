@@ -27,11 +27,10 @@
                 <property name="action-name">app.search</property>
               </object>
             </child>
-            <!-- Too many, causes overflow -->
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes">Go Back</property>
-                <property name="action-name">app.back</property>
+                <property name="accelerator">&lt;alt&gt;Left Escape</property>
               </object>
             </child>
             <child>
@@ -42,8 +41,32 @@
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes">Close Window</property>
+                <property name="action-name">window.close</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes">Quit</property>
                 <property name="action-name">app.quit</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes">About</property>
+                <property name="action-name">app.about</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes">Scroll Up</property>
+                <property name="action-name">app.scroll-page-up</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes">Scroll Down</property>
+                <property name="action-name">app.scroll-page-down</property>
               </object>
             </child>
           </object>
