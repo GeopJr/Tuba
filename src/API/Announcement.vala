@@ -29,4 +29,21 @@ public class Tuba.API.Announcement : Entity, Widgetizable {
 	public override Gtk.Widget to_widget () {
         return new Widgets.Announcement (this);
     }
+
+	public override void open () {
+		if (this.read) return;
+
+		new Request.POST (@"/api/v1/announcements/$(this.id)/dismiss")
+			.with_account (accounts.active)
+			.then (() => {
+				this.read = true;
+			})
+			.on_error ((code, message) => {
+				warning (@"Error while dismissing announcement: $code $message");
+
+				var dlg = app.inform (_("Error"), message);
+				dlg.present ();
+			})
+			.exec ();
+	}
 }
