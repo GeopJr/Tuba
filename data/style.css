@@ -474,6 +474,10 @@ video > overlay > revealer > controls {
 	border-radius: 0px;
 }
 
+.ttl-view .small.content .card.card-spacing {
+	margin: 0px;
+}
+
 .compose-button {
 	padding: 8px;
 }
