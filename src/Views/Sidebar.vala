@@ -7,10 +7,6 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	[GtkChild] unowned Widgets.Avatar accounts_button_avi;
 	[GtkChild] unowned Gtk.MenuButton menu_btn;
 
-	[GtkChild] unowned Widgets.Avatar avatar;
-	[GtkChild] unowned Widgets.EmojiLabel title;
-	[GtkChild] unowned Gtk.Label subtitle;
-
 	protected InstanceAccount? account { get; set; default = null; }
 
 	protected GLib.ListStore app_items;
@@ -24,9 +20,17 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	construct {
 		var menu_model = new GLib.Menu ();
-		menu_model.append (_("Preferences"), "app.open-preferences");
-		menu_model.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
-		menu_model.append (_("About"), "app.about");
+
+		var account_submenu_model = new GLib.Menu ();
+		account_submenu_model.append (_("Open Profile"), "app.open-current-account-profile");
+		menu_model.append_section (null, account_submenu_model);
+
+		var misc_submenu_model = new GLib.Menu ();
+		misc_submenu_model.append (_("Preferences"), "app.open-preferences");
+		misc_submenu_model.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
+		misc_submenu_model.append (_("About"), "app.about");
+		menu_model.append_section (null, misc_submenu_model);
+
 		menu_btn.menu_model = menu_model;
 
 		app_items = new GLib.ListStore (typeof (Place));
@@ -66,15 +70,10 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		}
 	}
 
-	private Binding sidebar_handle_short;
-	private Binding sidebar_avatar;
-	private Binding sidebar_display_name;
 	private Binding sidebar_avatar_btn;
 	protected virtual void on_account_changed (InstanceAccount? account) {
 		if (this.account != null) {
-			sidebar_handle_short.unbind ();
-			sidebar_avatar.unbind ();
-			sidebar_display_name.unbind ();
+			sidebar_avatar_btn.unbind ();
 		}
 
 		if (app?.main_window != null)
@@ -84,28 +83,11 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		accounts_button.active = false;
 
 		if (account != null) {
-			sidebar_handle_short = this.account.bind_property ("handle_short", subtitle, "label", BindingFlags.SYNC_CREATE);
-			sidebar_avatar = this.account.bind_property ("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
 			sidebar_avatar_btn = this.account.bind_property ("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
-			sidebar_display_name = this.account.bind_property (
-				"display-name",
-				title,
-				"content",
-				BindingFlags.SYNC_CREATE,
-				(b, src, ref target) => {
-					title.instance_emojis = this.account.emojis_map;
-					target.set_string (src.get_string ());
-					return true;
-				}
-			);
-
 			account_items.model = account.known_places;
 		} else {
 			saved_accounts.unselect_all ();
 
-			title.content = _("Anonymous");
-			subtitle.label = _("No account selected");
-			avatar.account = null;
 			account_items.model = null;
 			accounts_button_avi.account = null;
 		}
@@ -114,16 +96,6 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	[GtkCallback] void on_mode_changed () {
 		mode.visible_child_name = accounts_button.active ? "saved_accounts" : "items";
 	}
-
-	[GtkCallback] void on_open () {
-		if (account == null) return;
-		account.open ();
-
-        var split_view = app.main_window.split_view;
-        if (split_view.collapsed)
-			split_view.show_sidebar = false;
-	}
-
 
 	// Item
 
