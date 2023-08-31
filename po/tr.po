@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-19 22:14+0300\n"
-"PO-Revision-Date: 2023-06-23 12:58+0000\n"
+"PO-Revision-Date: 2023-08-31 17:50+0000\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/tuba/tuba/tr/>\n"
 "Language: tr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.1\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -23,7 +23,7 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
-msgstr ""
+msgstr "Fediverseʼe Göz Atın"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
@@ -31,7 +31,7 @@ msgstr "Fediverse İstemcisi"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr ""
+msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:9
 msgid ""
@@ -39,6 +39,9 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
+"GNOME için Tuba ile federe sosyal ağı keşfedin. Mastodon, GoToSocial, Akkoma "
+"ve benzeri popüler Fediverse platformlarını destekleyerek en sevdiğiniz "
+"topluluklara, ailenize ve arkadaşlarınıza bağlı kalın!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
 msgid ""
@@ -48,148 +51,153 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
+"Fediverse, kullanıcıların farklı ağlar ve sunucular arasında iletişim "
+"kurmasına ve içerik paylaşmasını sağlayan, birbirine bağlı birden fazla "
+"platform ve topluluktan oluşan merkezi olmayan bir sosyal ağdır. Kullanıcı "
+"gizliliğini ve veri sahipliğini teşvik eder ve merkezi sosyal medya "
+"platformlarına bir alternatif sunar."
 
 #: data/ui/widgets/status.ui:157
 msgid "Pinned"
-msgstr ""
+msgstr "Sabitlenmiş"
 
 #: data/ui/widgets/status.ui:168
 msgid "Edited"
-msgstr ""
+msgstr "Düzenlendi"
 
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:226
 msgid "Show Less"
-msgstr ""
+msgstr "Daha Azını Göster"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:259 src/Widgets/Status.vala:385
 msgid "Show More"
-msgstr ""
+msgstr "Daha Çoğunu Göster"
 
 #: data/ui/widgets/status.ui:339 data/ui/widgets/status.ui:340
 msgid "Decline"
-msgstr ""
+msgstr "Reddet"
 
 #: data/ui/widgets/status.ui:352 data/ui/widgets/status.ui:353
 msgid "Accept"
-msgstr ""
+msgstr "Kabul Et"
 
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:36
 msgid "Bot"
-msgstr ""
+msgstr "Bot"
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
-msgstr ""
+msgstr "Oluştur"
 
 #: data/ui/views/sidebar/view.ui:23
 msgid "Switch Account"
-msgstr ""
+msgstr "Hesap Değiştir"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
-msgstr ""
+msgstr "Atıf"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr ""
+msgstr "Doğrudan İleti"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
-msgstr ""
+msgstr "Tutacağı Kopyala"
 
 #: data/ui/menus.ui:29
 msgid "Moderation"
-msgstr ""
+msgstr "Yönetim"
 
 #: data/ui/menus.ui:31
 msgid "Hide Boosts"
-msgstr ""
+msgstr "Yeniden Gönderileri Gizle"
 
 #: data/ui/menus.ui:36
 msgid "Mute"
-msgstr ""
+msgstr "Sessiz"
 
 #: data/ui/menus.ui:41
 msgid "Report"
-msgstr ""
+msgstr "Bildir"
 
 #: data/ui/menus.ui:47 src/Views/Profile.vala:422 src/Views/Profile.vala:447
 msgid "Block"
-msgstr ""
+msgstr "Engelle"
 
 #: data/ui/menus.ui:51
 msgid "Block Domain"
-msgstr ""
+msgstr "Alan Adını Engelle"
 
 #: data/ui/menus.ui:59
 msgid "Timeline"
-msgstr ""
+msgstr "Zaman çizgisi"
 
 #: data/ui/menus.ui:61
 msgid "Filter"
-msgstr ""
+msgstr "Süz"
 
 #: data/ui/menus.ui:80
 msgid "Include Replies"
-msgstr ""
+msgstr "Yanıtları İçer"
 
 #: data/ui/menus.ui:85
 msgid "Include Media"
-msgstr ""
+msgstr "Ortamları İçer"
 
 #: data/ui/menus.ui:108 src/Views/Lists.vala:281
 #: src/Services/Accounts/Mastodon/Account.vala:74
 msgid "Lists"
-msgstr ""
+msgstr "Listeler"
 
 #: data/ui/menus.ui:113 data/gtk/help-overlay.ui:20
 msgid "Refresh"
-msgstr ""
+msgstr "Yenile"
 
 #: data/ui/dialogs/preferences.ui:19 data/gtk/help-overlay.ui:11
 #: src/Views/Lists.vala:88
 msgid "General"
-msgstr ""
+msgstr "Genel"
 
 #: data/ui/dialogs/preferences.ui:22
 msgid "Appearance"
-msgstr ""
+msgstr "Görünüm"
 
 #: data/ui/dialogs/preferences.ui:25
 msgid "Color Scheme"
-msgstr ""
+msgstr "Renk Şeması"
 
 #: data/ui/dialogs/preferences.ui:39
 msgid "Larger font size"
-msgstr ""
+msgstr "Daha büyük yazı tipi boyutu"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Makes the font larger for posts"
-msgstr ""
+msgstr "İleti yazı tiplerini büyütür"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Larger line height"
-msgstr ""
+msgstr "Daha büyük satır yüksekliği"
 
 #: data/ui/dialogs/preferences.ui:53
 msgid "Makes the line height larger for posts"
-msgstr ""
+msgstr "İleti satır yüksekliğini artırır"
 
 #: data/ui/dialogs/preferences.ui:63
 msgid "Scale up custom emojis on hover"
-msgstr ""
+msgstr "Üstüne gelince özel emojileri büyüt"
 
 #: data/ui/dialogs/preferences.ui:65
 msgid "Makes custom emojis slightly bigger when you hover over them"
-msgstr ""
+msgstr "Özel emojilerin üzerine geldiğinizde biraz daha büyük olmasını sağlar"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:76
 msgid "Letterbox Media"
-msgstr ""
+msgstr "Posta Kutusu Ortamı"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:79
@@ -197,110 +205,113 @@ msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
+"Görüntü kaplarını genişletmek ve kırpmak yerine doldurmak için ortamı "
+"küçültün ve posta kutusu yapın"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:90
 msgid "Expand pictures in media viewer"
-msgstr ""
+msgstr "Ortam görüntüleyicide fotoğrafları genişlet"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:93
 msgid "Expand pictures to fill the media viewer by default"
 msgstr ""
+"Öntanımlı olarak, ortam görüntüleyiciyi doldurmak için fotoğrafları genişlet"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Posting"
-msgstr ""
+msgstr "Gönderim"
 
 #: data/ui/dialogs/preferences.ui:108
 msgid "Default post visibility"
-msgstr ""
+msgstr "Öntanımlı ileti görünürlüğü"
 
 #: data/ui/dialogs/preferences.ui:117
 msgid "Default post language"
-msgstr ""
+msgstr "Öntanımlı ileti dili"
 
 #: data/ui/dialogs/preferences.ui:128
 msgid "Behavior"
-msgstr ""
+msgstr "Davranış"
 
 #: data/ui/dialogs/preferences.ui:131
 msgid "Autostart"
-msgstr ""
+msgstr "Kendiliğinden Başlat"
 
 #: data/ui/dialogs/preferences.ui:133
 msgid "Start minimized at boot"
-msgstr ""
+msgstr "Başlangıçta simge durumunda başlat"
 
 #: data/ui/dialogs/preferences.ui:144
 msgid "Background work"
-msgstr ""
+msgstr "Arka plan çalışması"
 
 #: data/ui/dialogs/preferences.ui:146
 msgid "Receive notifications even when the app is closed"
-msgstr ""
+msgstr "Uygulama kapalı olsa bile bildirimleri al"
 
 #: data/ui/dialogs/preferences.ui:156
 msgid "Strip tracking parameters from links"
-msgstr ""
+msgstr "Takip parametrelerini bağlantılardan temizle"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:159
 msgid "It can lead to broken links"
-msgstr ""
+msgstr "Kırık bağlara neden olabilir"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Timelines"
-msgstr ""
+msgstr "Zaman çizelgeleri"
 
 #: data/ui/dialogs/preferences.ui:174
 msgid "Posts per load batch"
-msgstr ""
+msgstr "Yükleme yığını başına ileti"
 
 #: data/ui/dialogs/preferences.ui:188
 msgid "Stream timelines"
-msgstr ""
+msgstr "Akış zaman çizelgeleri"
 
 #: data/ui/dialogs/preferences.ui:190
 msgid "Receive new posts and notifications in real-time"
-msgstr ""
+msgstr "Yeni iletileri ve bildirimleri gerçek zamanlı olarak al"
 
 #: data/ui/dialogs/preferences.ui:201
 msgid "Stream public timelines"
-msgstr ""
+msgstr "Genel zaman çizelgelerine akış"
 
 #: data/ui/dialogs/preferences.ui:203
 msgid "Warning: This will increase memory usage"
-msgstr ""
+msgstr "Uyarı: Bu bellek kullanımını artıracak"
 
 #: data/ui/dialogs/preferences.ui:213
 msgid "Reveal spoilers by default"
-msgstr ""
+msgstr "Süpriz bozanları öntanımlı olarak göster"
 
 #: data/ui/dialogs/preferences.ui:224
 msgid "Hide link preview cards"
-msgstr ""
+msgstr "Bağlantı önizleme kartlarını gizle"
 
 #: data/ui/dialogs/compose.ui:29 data/ui/dialogs/new_account.ui:27
 #: src/Dialogs/Composer/Dialog.vala:193 src/Application.vala:341
 msgid "Cancel"
-msgstr ""
+msgstr "İptal Et"
 
 #: data/ui/dialogs/compose.ui:36 src/Dialogs/Composer/Dialog.vala:267
 msgid "_Publish"
-msgstr ""
+msgstr "_Yayımla"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:241
 msgid "Add Account"
-msgstr ""
+msgstr "Hesap Ekle"
 
 #: data/ui/dialogs/new_account.ui:34 data/ui/dialogs/new_account.ui:119
 msgid "Next"
-msgstr ""
+msgstr "Sonraki"
 
 #: data/ui/dialogs/new_account.ui:48
 msgid "What is your Server?"
-msgstr ""
+msgstr "Sunucunuz nedir?"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:50
@@ -308,18 +319,20 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/servers"
 "\">choose a server and register one</a>."
 msgstr ""
+"Henüz hesabınız yoksa <a href=\"https://joinmastodon.org/servers\">bir "
+"sunucu seçip kayıt olun</a>."
 
 #: data/ui/dialogs/new_account.ui:71
 msgid "Server URL"
-msgstr ""
+msgstr "Sunucu URL"
 
 #: data/ui/dialogs/new_account.ui:112
 msgid "Back"
-msgstr ""
+msgstr "Geri"
 
 #: data/ui/dialogs/new_account.ui:133
 msgid "Confirm Authorization"
-msgstr ""
+msgstr "Yetkilendirmeyi Doğrula"
 
 #. translators: Do not translate "manual_auth"
 #: data/ui/dialogs/new_account.ui:153
@@ -327,132 +340,134 @@ msgid ""
 "If something went wrong, <a href=\"manual_auth\">try manual authorization</"
 "a>."
 msgstr ""
+"Bir şeyler ters giderse, <a href=\"manual_auth\">elle yetkilendirmeyi "
+"deneyin</a>."
 
 #: data/ui/dialogs/new_account.ui:163
 msgid "Authorization Code"
-msgstr ""
+msgstr "Yetkilendirme Kodu"
 
 #: data/ui/dialogs/new_account.ui:203
 msgid "Done"
-msgstr ""
+msgstr "Tamamlandı"
 
 #: data/ui/dialogs/new_account.ui:218
 msgid "Your account is connected and ready to use!"
-msgstr ""
+msgstr "Hesabınız bağlandı ve kullanıma hazır!"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Compose a new post"
-msgstr ""
+msgstr "Yeni ileti oluştur"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Search.vala:16 src/Views/Main.vala:19
 msgid "Search"
-msgstr ""
+msgstr "Ara"
 
 #: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:271
 msgid "Go Back"
-msgstr ""
+msgstr "Geri Dön"
 
 #: data/gtk/help-overlay.ui:39
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "Klavye Kısayollarını Göster"
 
 #: data/gtk/help-overlay.ui:45
 msgid "Quit"
-msgstr ""
+msgstr "Çık"
 
 #: data/gtk/help-overlay.ui:53
 msgid "Composer"
-msgstr ""
+msgstr "Oluşturucu"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Commit"
-msgstr ""
+msgstr "Gönder"
 
 #: src/Widgets/VoteBox.vala:17
 msgid "Vote"
-msgstr ""
+msgstr "Oyla"
 
 #. translators: the variable is the amount of people that voted
 #: src/Widgets/VoteBox.vala:138
 #, c-format
 msgid "%lld voted"
-msgstr ""
+msgstr "%lld oy"
 
 #: src/Widgets/StatusActionButton.vala:157
 msgid "Network Error"
-msgstr ""
+msgstr "Ağ Hatası"
 
 #. translators: the variable is the emoji or its name if it's custom
 #: src/Widgets/Status.vala:143
 #, c-format
 msgid "React with %s"
-msgstr ""
+msgstr "%s tekpi verdi"
 
 #: src/Widgets/Status.vala:270 src/Widgets/Attachment/Item.vala:194
 #: src/Views/MediaViewer.vala:381
 msgid "Open in Browser"
-msgstr ""
+msgstr "Tarayıcıda Aç"
 
 #: src/Widgets/Status.vala:271 src/Widgets/Attachment/Item.vala:195
 #: src/Views/MediaViewer.vala:382
 msgid "Copy URL"
-msgstr ""
+msgstr "URL’yi Kopyala"
 
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:274
 msgid "View Stats"
-msgstr ""
+msgstr "İstatistikleri Göster"
 
 #: src/Widgets/Status.vala:278
 msgid "View Edit History"
-msgstr ""
+msgstr "Düzenleme Geçmişini Göster"
 
 #. translators: Pin post on profile
 #: src/Widgets/Status.vala:283 src/Widgets/Status.vala:509
 msgid "Pin"
-msgstr ""
+msgstr "Sabitle"
 
 #: src/Widgets/Status.vala:288
 msgid "Edit"
-msgstr ""
+msgstr "Düzenle"
 
 #: src/Widgets/Status.vala:289 src/Widgets/Status.vala:351
 #: src/Views/Lists.vala:60
 msgid "Delete"
-msgstr ""
+msgstr "Sil"
 
 #: src/Widgets/Status.vala:348
 msgid "Are you sure you want to delete this post?"
-msgstr ""
+msgstr "Bu iletiyi silmek istediğinize emin misiniz?"
 
 #: src/Widgets/Status.vala:392
 msgid "Sensitive"
-msgstr ""
+msgstr "Hassas"
 
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:507
 msgid "Unpin"
-msgstr ""
+msgstr "Sabitlemeyi Kaldır"
 
 #: src/Widgets/Status.vala:589
 msgid "This post can't be boosted"
-msgstr ""
+msgstr "Bu ileti yeniden gönderilemez"
 
 #: src/Widgets/Status.vala:594 src/Widgets/Status.vala:648
 msgid "Boost"
-msgstr ""
+msgstr "Yeniden Gönder"
 
 #: src/Widgets/Status.vala:638
 msgid "Reply"
-msgstr ""
+msgstr "Yanıtla"
 
 #: src/Widgets/Status.vala:659
 msgid "Favorite"
-msgstr ""
+msgstr "Gözde"
 
 #: src/Widgets/Status.vala:670
 msgid "Bookmark"
-msgstr ""
+msgstr "Yer İmi"
 
 #. translators: this is a "long" date format shown in places like expanded posts or
 #. the profile "Joined" field. You can find all the available specifiers
@@ -462,46 +477,46 @@ msgstr ""
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Widgets/Status.vala:735 src/Views/Profile.vala:219
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%-e %B %Y"
 
 #: src/Widgets/RelationshipButton.vala:31
 #: src/Widgets/RelationshipButton.vala:64 src/Views/Hashtag.vala:20
 #: src/Views/Hashtag.vala:35
 msgid "Follow"
-msgstr ""
+msgstr "Takip Et"
 
 #: src/Widgets/RelationshipButton.vala:41 src/Views/Profile.vala:422
 #: src/Views/Profile.vala:447
 msgid "Unblock"
-msgstr ""
+msgstr "Engellemeyi Kaldır"
 
 #: src/Widgets/RelationshipButton.vala:54 src/Views/Hashtag.vala:23
 #: src/Views/Hashtag.vala:39
 msgid "Unfollow"
-msgstr ""
+msgstr "Takibi Bırak"
 
 #. translators: the variables are numbers
 #: src/Widgets/PreviewCard.vala:132
 #, c-format
 msgid "Discussed %d times by %d people yesterday"
-msgstr ""
+msgstr "Dün %d defa %d kişi tarafından konuşuldu"
 
 #. translators: the variables are numbers
 #: src/Widgets/PreviewCard.vala:140
 #, c-format
 msgid "Discussed %d times by %d people in the past 2 days"
-msgstr ""
+msgstr "Son 2 günde %d defa %d kişi tarafından konuşuldu"
 
 #. translators: Used when there are results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:53
 #: src/Widgets/CustomEmojiChooser.vala:107
 msgid "Results"
-msgstr ""
+msgstr "Sonuçlar"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:111
 msgid "No Results"
-msgstr ""
+msgstr "Sonuç Yok"
 
 #: src/Widgets/CustomEmojiChooser.vala:144
 #: src/Widgets/CustomEmojiChooser.vala:150
@@ -509,36 +524,36 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:155 src/API/Emoji.vala:4
 #: src/API/Emoji.vala:8
 msgid "Other"
-msgstr ""
+msgstr "Diğer"
 
 #: src/Widgets/CustomEmojiChooser.vala:154
 msgid "Custom Emojis"
-msgstr ""
+msgstr "Özel Emojiler"
 
 #. translators: the variable is a comma separated
 #. list of the book authors
 #: src/Widgets/BookWyrmPage.vala:139
 #, c-format
 msgid "by %s"
-msgstr ""
+msgstr "%s tarafından"
 
 #: src/Widgets/Attachment/Item.vala:38 src/Widgets/Attachment/Item.vala:48
 msgid "Save Attachment"
-msgstr ""
+msgstr "Eki Kaydet"
 
 #: src/Widgets/Attachment/Item.vala:130
 msgid "View Alt Text"
-msgstr ""
+msgstr "Alt Metni Göster"
 
 #. translators: the variable is the media type (for example VIDEO)
 #: src/Widgets/Attachment/Item.vala:176
 #, c-format
 msgid "Alternative text for %s"
-msgstr ""
+msgstr "%s için alternatif metin"
 
 #: src/Widgets/Attachment/Item.vala:196 src/Views/MediaViewer.vala:383
 msgid "Save Media"
-msgstr ""
+msgstr "Ortamı Kaydet"
 
 #: src/Widgets/Attachment/Item.vala:213 src/Views/MediaViewer.vala:491
 #: src/Views/Sidebar.vala:271 src/Services/Accounts/SecretAccountStore.vala:124
@@ -546,167 +561,167 @@ msgstr ""
 #: src/Services/Accounts/AccountStore.vala:43 src/Dialogs/ProfileEdit.vala:326
 #: src/Application.vala:140
 msgid "Error"
-msgstr ""
+msgstr "Hata"
 
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:72
 msgid "Hide Media"
-msgstr ""
+msgstr "Ortamı Gizle"
 
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:83
 msgid "Sensitive Media"
-msgstr ""
+msgstr "Hassas Ortam"
 
 #: src/Views/MediaViewer.vala:265
 msgid "Media Viewer"
-msgstr ""
+msgstr "Ortam Görüntüleyici"
 
 #: src/Views/MediaViewer.vala:278
 msgid "Toggle Fullscreen"
-msgstr ""
+msgstr "Tam Ekranı Aç/Kapat"
 
 #: src/Views/MediaViewer.vala:582
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Önceki Ek"
 
 #: src/Views/MediaViewer.vala:587
 msgid "Next Attachment"
-msgstr ""
+msgstr "Sonraki Ek"
 
 #: src/Views/MediaViewer.vala:605
 msgid "Zoom Out"
-msgstr ""
+msgstr "Uzaklaştır"
 
 #: src/Views/MediaViewer.vala:610
 msgid "Zoom In"
-msgstr ""
+msgstr "Yakınlaştır"
 
 #: src/Views/Thread.vala:13
 msgid "Conversation"
-msgstr ""
+msgstr "Konuşma"
 
 #: src/Views/StatusStats.vala:6
 msgid "Post Stats"
-msgstr ""
+msgstr "İleti İstatistikleri"
 
 #. translators: title for a list of people that favorited a post
 #: src/Views/StatusStats.vala:10
 msgid "Favorited By"
-msgstr ""
+msgstr "Gözdelere ekleyen"
 
 #. translators: title for a list of people that boosted a post
 #: src/Views/StatusStats.vala:18
 msgid "Boosted By"
-msgstr ""
+msgstr "Yeniden Gönderen"
 
 #: src/Views/Sidebar.vala:36
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Klavye Kısayolları"
 
 #: src/Views/Sidebar.vala:45
 msgid "Preferences"
-msgstr ""
+msgstr "Tercihler"
 
 #: src/Views/Sidebar.vala:55
 msgid "About"
-msgstr ""
+msgstr "Hakkında"
 
 #: src/Views/Sidebar.vala:139
 msgid "Anonymous"
-msgstr ""
+msgstr "Anonim"
 
 #: src/Views/Sidebar.vala:140
 msgid "No account selected"
-msgstr ""
+msgstr "Hesap seçilmedi"
 
 #. translators: the variable is an account handle
 #: src/Views/Sidebar.vala:257
 #, c-format
 msgid "Forget %s?"
-msgstr ""
+msgstr "%s unutulsun mu?"
 
 #: src/Views/Sidebar.vala:258
 msgid "This account will be removed from the application."
-msgstr ""
+msgstr "Bu hesap uygulamadan kaldırılacak."
 
 #: src/Views/Sidebar.vala:260
 msgid "Forget"
-msgstr ""
+msgstr "Unut"
 
 #. translators: as in All search results
 #: src/Views/Search.vala:40
 msgid "All"
-msgstr ""
+msgstr "Tümü"
 
 #: src/Views/Search.vala:41
 msgid "Accounts"
-msgstr ""
+msgstr "Hesaplar"
 
 #: src/Views/Search.vala:42 src/Views/Explore.vala:5
 msgid "Posts"
-msgstr ""
+msgstr "İletiler"
 
 #: src/Views/Search.vala:43 src/Views/Hashtags.vala:5 src/Views/Explore.vala:6
 #: src/Services/Accounts/Mastodon/Account.vala:127
 msgid "Hashtags"
-msgstr ""
+msgstr "Etiketler"
 
 #: src/Views/Search.vala:65
 msgid "Enter Query"
-msgstr ""
+msgstr "Sorgu Gir"
 
 #: src/Views/Profile.vala:33
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
 #: src/Views/Profile.vala:229
 msgid "Joined"
-msgstr ""
+msgstr "Katıldı"
 
 #. translators: the variable is the amount of posts a user has made
 #: src/Views/Profile.vala:249
 #, c-format
 msgid "%lld Posts"
-msgstr ""
+msgstr "%lld İleti"
 
 #. translators: the variable is the amount of people a user follows
 #: src/Views/Profile.vala:254
 #, c-format
 msgid "%lld Following"
-msgstr ""
+msgstr "%lld Takip Edilen"
 
 #. translators: the variable is the amount of followers a user has
 #: src/Views/Profile.vala:259
 #, c-format
 msgid "%lld Followers"
-msgstr ""
+msgstr "%lld Takipçi"
 
 #: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:131
 msgid "Edit Profile"
-msgstr ""
+msgstr "Profili Düzenle"
 
 #: src/Views/Profile.vala:416
 #, c-format
 msgid "Block \"%s\"?"
-msgstr ""
+msgstr "\"%s\" engellensin mi?"
 
 #: src/Views/Profile.vala:416
 #, c-format
 msgid "Unblock \"%s\"?"
-msgstr ""
+msgstr "\"%s\" engeli kaldırılsın mı?"
 
 #: src/Views/Profile.vala:440
 #, c-format
 msgid "Block Entire \"%s\"?"
-msgstr ""
+msgstr "Tüm \"%s\" engellensin mi?"
 
 #: src/Views/Profile.vala:440
 #, c-format
 msgid "Unblock Entire \"%s\"?"
-msgstr ""
+msgstr "Tüm \"%s\" engeli kaldırılsın mı?"
 
 #: src/Views/Profile.vala:444
 msgid ""
@@ -716,189 +731,194 @@ msgid ""
 "• Remove its followers from your account\n"
 "• Prevent you from following its users"
 msgstr ""
+"Bir alan adını engellemek:\n"
+"\n"
+"- Herkese açık gönderilerini ve bildirimlerini zaman çizelgesinden kaldırır\n"
+"- Takipçilerini hesabınızdan kaldırır\n"
+"- Kullanıcılarını takip etmenizi engeller"
 
 #: src/Views/Profile.vala:494
 msgid "Sent follow request"
-msgstr ""
+msgstr "Takip isteği gönderildi"
 
 #: src/Views/Profile.vala:496
 msgid "Mutuals"
-msgstr ""
+msgstr "Ortak"
 
 #: src/Views/Profile.vala:498
 msgid "Follows you"
-msgstr ""
+msgstr "Seni takip ediyor"
 
 #. translators: the variable is an account handle
 #: src/Views/Profile.vala:551
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
-msgstr ""
+msgstr "\"%s\" listeye ekle ya da listeden kaldır"
 
 #. translators: the variable is an account handle
 #: src/Views/Profile.vala:563
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
-msgstr ""
+msgstr "\"%s\" eklemek/kaldırmak istediğiniz listeyi seçin:"
 
 #: src/Views/Profile.vala:569
 msgid "You don't have any lists"
-msgstr ""
+msgstr "Henüz listeniz yok"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:599 src/Views/Profile.vala:661
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
-msgstr ""
+msgstr "\"%s\", \"%s\" listesinden kaldır"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:600 src/Views/Profile.vala:655
 #, c-format
 msgid "Add \"%s\" to \"%s\""
-msgstr ""
+msgstr "\"%s\", \"%s\" listesine ekle"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:652
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
-msgstr ""
+msgstr "\"%s\" kullanıcısı \"%s\" listesinden kaldırıldı"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:658
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
-msgstr ""
+msgstr "\"%s\" kullanıcısı \"%s\" listesine eklendi"
 
 #: src/Views/Notifications.vala:12
 msgid "Notifications"
-msgstr ""
+msgstr "Bildirimler"
 
 #: src/Views/Local.vala:4 src/Services/Accounts/Mastodon/Account.vala:100
 msgid "Local"
-msgstr ""
+msgstr "Yerel"
 
 #: src/Views/Lists.vala:57
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr ""
+msgstr "\"%s\" silinsin mi?"
 
 #: src/Views/Lists.vala:58
 msgid "This action cannot be reverted."
-msgstr ""
+msgstr "Bu eylem geri alınamaz."
 
 #: src/Views/Lists.vala:83
 #, c-format
 msgid "Edit \"%s\""
-msgstr ""
+msgstr "\"%s\" düzenle"
 
 #: src/Views/Lists.vala:91
 msgid "Info"
-msgstr ""
+msgstr "Bilgi"
 
 #: src/Views/Lists.vala:95
 msgid "List Name"
-msgstr ""
+msgstr "Liste Adı"
 
 #: src/Views/Lists.vala:104
 msgid "Replies Policy"
-msgstr ""
+msgstr "Yanıtlama İlkesi"
 
 #: src/Views/Lists.vala:105
 msgid "Show member replies to"
-msgstr ""
+msgstr "Yanıtlayan üyeleri göster"
 
 #: src/Views/Lists.vala:109
 msgid "Nobody"
-msgstr ""
+msgstr "Hiçkimse"
 
 #: src/Views/Lists.vala:121
 msgid "Other members of the list"
-msgstr ""
+msgstr "Listenin diğer üyeleri"
 
 #: src/Views/Lists.vala:133
 msgid "Any followed user"
-msgstr ""
+msgstr "Herhangi takip eden kullanıcı"
 
 #: src/Views/Lists.vala:169
 msgid "Members"
-msgstr ""
+msgstr "Üyeler"
 
 #: src/Views/Lists.vala:173
 msgid "Remove Members"
-msgstr ""
+msgstr "Üyeleri Kaldır"
 
 #: src/Views/Lists.vala:308
 msgid "New list title"
-msgstr ""
+msgstr "Yeni liste başlığı"
 
 #: src/Views/Lists.vala:318
 msgid "Add list"
-msgstr ""
+msgstr "Liste ekle"
 
 #: src/Views/Home.vala:5 src/Services/Accounts/Mastodon/Account.vala:28
 msgid "Home"
-msgstr ""
+msgstr "Ev"
 
 #: src/Views/FollowRequests.vala:4
 #: src/Services/Accounts/Mastodon/Account.vala:118
 msgid "Follow Requests"
-msgstr ""
+msgstr "Takip İstekleri"
 
 #: src/Views/Federated.vala:7 src/Services/Accounts/Mastodon/Account.vala:109
 msgid "Federated"
-msgstr ""
+msgstr "Birleşmiş"
 
 #: src/Views/Favorites.vala:6 src/Services/Accounts/Mastodon/Account.vala:65
 msgid "Favorites"
-msgstr ""
+msgstr "Gözdeler"
 
 #: src/Views/Explore.vala:3 src/Services/Accounts/Mastodon/Account.vala:91
 msgid "Explore"
-msgstr ""
+msgstr "Keşfet"
 
 #: src/Views/Explore.vala:7
 msgid "News"
-msgstr ""
+msgstr "Haberler"
 
 #: src/Views/Explore.vala:8
 msgid "For You"
-msgstr ""
+msgstr "Sizin İçin"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
-msgstr ""
+msgstr "Düzenleme Geçmişi"
 
 #: src/Views/Conversations.vala:5
 msgid "Conversations"
-msgstr ""
+msgstr "Konuşmalar"
 
 #: src/Views/Bookmarks.vala:6 src/Services/Accounts/Mastodon/Account.vala:56
 msgid "Bookmarks"
-msgstr ""
+msgstr "Yer İmleri"
 
 #. translators: Shown when there are 0 results
 #: src/Views/Base.vala:6
 msgid "Nothing to see here"
-msgstr ""
+msgstr "Gösterilecek hiç bir şey yok"
 
 #: src/Views/Base.vala:73
 msgid "Reload"
-msgstr ""
+msgstr "Yeniden Yükle"
 
 #: src/Views/Base.vala:129
 msgid "An Error Occurred"
-msgstr ""
+msgstr "Hata Oluştu"
 
 #: src/Utils/DateTime.vala:12
 msgid "expires soon"
-msgstr ""
+msgstr "yakında sona erecek"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:26
 msgid "expires on %b %-e, %Y"
-msgstr ""
+msgstr "sona erme tarihi %b %-e, %Y"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -907,28 +927,28 @@ msgstr ""
 #. %m is the minutes
 #: src/Utils/DateTime.vala:40
 msgid "expires on %b %-e, %Y %H:%m"
-msgstr ""
+msgstr "sona ekme tarihi %b %-e, %Y %H:%m"
 
 #: src/Utils/DateTime.vala:42
 msgid "expired on just now"
-msgstr ""
+msgstr "şimdi sona erdi"
 
 #: src/Utils/DateTime.vala:52
 msgid "expired yesterday"
-msgstr ""
+msgstr "dün sona erdi"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:57
 msgid "expired on %b %-e"
-msgstr ""
+msgstr "%-e %b tarihinde sona erdi"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:63
 msgid "expired on %b %-e, %Y"
-msgstr ""
+msgstr "%-e %b %Y tarihinde sona erdi"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -937,272 +957,272 @@ msgstr ""
 #. %m is the minutes
 #: src/Utils/DateTime.vala:77
 msgid "%b %-e, %Y %H:%m"
-msgstr ""
+msgstr "%-e %b %Y, %H:%m"
 
 #: src/Utils/DateTime.vala:79
 msgid "Just now"
-msgstr ""
+msgstr "Şimdi"
 
 #: src/Utils/DateTime.vala:89
 msgid "Yesterday"
-msgstr ""
+msgstr "Dün"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:94
 msgid "%b %-e"
-msgstr ""
+msgstr "%-e %b"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:100
 msgid "%b %-e, %Y"
-msgstr ""
+msgstr "%-e %b %Y"
 
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:59
 msgid "Follow System"
-msgstr ""
+msgstr "Sistemi İzle"
 
 #. translators: Light mode theme
 #: src/Services/Settings.vala:62
 msgid "Light"
-msgstr ""
+msgstr "Açık"
 
 #. translators: Dark mode theme
 #: src/Services/Settings.vala:65
 msgid "Dark"
-msgstr ""
+msgstr "Koyu"
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:206
 #, c-format
 msgid "%s Account"
-msgstr ""
+msgstr "%s Hesabı"
 
 #: src/Services/Accounts/Mastodon/Account.vala:47
 msgid "Direct Messages"
-msgstr ""
+msgstr "Doğrudan İletiler"
 
 #: src/Services/Accounts/Mastodon/Account.vala:155
 msgid "Public"
-msgstr ""
+msgstr "Genel"
 
 #: src/Services/Accounts/Mastodon/Account.vala:158
 msgid "Post to public timelines"
-msgstr ""
+msgstr "Genel zaman çizelgelerine gönder"
 
 #. translators: Probably follow Mastodon's translation
 #: src/Services/Accounts/Mastodon/Account.vala:163
 msgid "Unlisted"
-msgstr ""
+msgstr "Listelenmemiş"
 
 #: src/Services/Accounts/Mastodon/Account.vala:166
 msgid "Don't post to public timelines"
-msgstr ""
+msgstr "Genel zaman çizelgesine gönderme"
 
 #: src/Services/Accounts/Mastodon/Account.vala:170
 msgid "Followers Only"
-msgstr ""
+msgstr "Yalnızca Takipçiler"
 
 #: src/Services/Accounts/Mastodon/Account.vala:173
 msgid "Post to followers only"
-msgstr ""
+msgstr "Yalnızca takipçilere gönder"
 
 #: src/Services/Accounts/Mastodon/Account.vala:177
 msgid "Direct"
-msgstr ""
+msgstr "Doğrudan"
 
 #: src/Services/Accounts/Mastodon/Account.vala:180
 msgid "Post to mentioned users only"
-msgstr ""
+msgstr "Yalnızca atıf yapılan kullanıcılara gönder"
 
 #: src/Services/Accounts/InstanceAccount.vala:157
 #, c-format
 msgid "%s mentioned you"
-msgstr ""
+msgstr "%s size atıf yaptı"
 
 #: src/Services/Accounts/InstanceAccount.vala:162
 #, c-format
 msgid "%s boosted your post"
-msgstr ""
+msgstr "%s iletinizi yeniden gönderdi"
 
 #: src/Services/Accounts/InstanceAccount.vala:167
 #, c-format
 msgid "%s boosted"
-msgstr ""
+msgstr "%s yeniden gönderdi"
 
 #: src/Services/Accounts/InstanceAccount.vala:172
 #, c-format
 msgid "%s favorited your post"
-msgstr ""
+msgstr "%s iletinizi gözdelere ekledi"
 
 #: src/Services/Accounts/InstanceAccount.vala:177
 #, c-format
 msgid "%s now follows you"
-msgstr ""
+msgstr "%s artık sizi takip ediyor"
 
 #: src/Services/Accounts/InstanceAccount.vala:182
 #, c-format
 msgid "%s wants to follow you"
-msgstr ""
+msgstr "%s sizi takip etmek istiyor"
 
 #: src/Services/Accounts/InstanceAccount.vala:187
 msgid "Poll results"
-msgstr ""
+msgstr "Oylama sonuçları"
 
 #: src/Services/Accounts/InstanceAccount.vala:192
 #, c-format
 msgid "%s edited a post"
-msgstr ""
+msgstr "%s bir iletiyi düzenledi"
 
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:85
 msgid "Label"
-msgstr ""
+msgstr "Etiket"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:93
 msgid "Content"
-msgstr ""
+msgstr "İçerik"
 
 #: src/Dialogs/ProfileEdit.vala:120
 #: src/Dialogs/Composer/AttachmentsPage.vala:206
 msgid "All Supported Files"
-msgstr ""
+msgstr "Tüm Desteklenen Dosyalar"
 
 #: src/Dialogs/ProfileEdit.vala:149
 msgid "Display Name"
-msgstr ""
+msgstr "Görünüm Adı"
 
 #. translators: profile bio or description
 #: src/Dialogs/ProfileEdit.vala:155
 msgid "Bio"
-msgstr ""
+msgstr "Bio"
 
 #: src/Dialogs/ProfileEdit.vala:199 src/Dialogs/Composer/EditorPage.vala:218
 msgid "Custom Emoji Picker"
-msgstr ""
+msgstr "Özel Emoji Seçici"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:214
 msgid "Fields"
-msgstr ""
+msgstr "Alanlar"
 
 #: src/Dialogs/ProfileEdit.vala:238
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:166
 msgid "Save"
-msgstr ""
+msgstr "Kaydet"
 
 #: src/Dialogs/ProfileEdit.vala:243
 msgid "Close"
-msgstr ""
+msgstr "Kapat"
 
 #: src/Dialogs/ProfileEdit.vala:258
 msgid "Edit Profile Picture"
-msgstr ""
+msgstr "Profil Fotoğrafını Düzenle"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:278
 msgid "Edit Header Picture"
-msgstr ""
+msgstr "Başlık Fotoğrafını Düzenle"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:388
 #, c-format
 msgid "Field %d"
-msgstr ""
+msgstr "Alan %d"
 
 #. translators: Open file
 #: src/Dialogs/ProfileEdit.vala:403 src/Dialogs/ProfileEdit.vala:411
 #: src/Dialogs/Composer/AttachmentsPage.vala:226
 #: src/Dialogs/Composer/AttachmentsPage.vala:235
 msgid "Open"
-msgstr ""
+msgstr "Aç"
 
 #: src/Dialogs/NewAccount.vala:5
 msgid "Allow access to your account in the browser."
-msgstr ""
+msgstr "Tarayıcıda hesabınıza erişime izin verin."
 
 #: src/Dialogs/NewAccount.vala:6
 msgid "Copy the authorization code from the browser and paste it below."
-msgstr ""
+msgstr "Yetkilendirme kodunu tarayıcıdan kopyalayıp aşağıya yapıştırın."
 
 #: src/Dialogs/NewAccount.vala:122
 msgid "Please enter a valid instance URL"
-msgstr ""
+msgstr "Geçerli bir örnek URL giriniz"
 
 #: src/Dialogs/NewAccount.vala:162
 msgid "Please enter a valid authorization code"
-msgstr ""
+msgstr "Geçerli bir yetkilendirme kodu giriniz"
 
 #: src/Dialogs/NewAccount.vala:179
 msgid "Instance failed to authorize the access token"
-msgstr ""
+msgstr "Örnek, erişim jetonunu yetkilendirilemedi"
 
 #: src/Dialogs/NewAccount.vala:188
 #, c-format
 msgid "Hello, %s!"
-msgstr ""
+msgstr "Merhaba, %s!"
 
 #: src/Dialogs/NewAccount.vala:244
 msgid "Server returned an error"
-msgstr ""
+msgstr "Sunucu hata döndürdü"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr ""
+msgstr "Anket"
 
 #. translators: tooltip on a button that appends another poll entry / option
 #: src/Dialogs/Composer/PollPage.vala:114
 msgid "Add Poll"
-msgstr ""
+msgstr "Anket Ekle"
 
 #: src/Dialogs/Composer/PollPage.vala:123
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Enable Multiple Choice"
-msgstr ""
+msgstr "Çoklu Seçimi Etkinleştir"
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Disable Multiple Choice"
-msgstr ""
+msgstr "Çoklu Seçimi Devre Dışı Bırak"
 
 #: src/Dialogs/Composer/PollPage.vala:145
 #: src/Dialogs/Composer/PollPage.vala:159
 msgid "Hide Total Votes"
-msgstr ""
+msgstr "Toplam Oyları Gizle"
 
 #: src/Dialogs/Composer/PollPage.vala:159
 msgid "Show Total Votes"
-msgstr ""
+msgstr "Toplam Oyları Göster"
 
 #: src/Dialogs/Composer/PollPage.vala:187
 #: src/Dialogs/Composer/PollPage.vala:222
 #, c-format
 msgid "Choice %d"
-msgstr ""
+msgstr "Seçim %d"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:231
 #: src/Dialogs/Composer/PollPage.vala:234
 #, c-format
 msgid "%d Minutes"
-msgstr ""
+msgstr "%d Dakika"
 
 #. translators: the variable is a number, m as in minutes
 #: src/Dialogs/Composer/PollPage.vala:233
 #: src/Dialogs/Composer/PollPage.vala:234
 #, c-format
 msgid "%dm"
-msgstr ""
+msgstr "%dm"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:236
 #, c-format
 msgid "%d Hour"
-msgstr ""
+msgstr "%d Saat"
 
 #. translators: the variable is a number, h as in hours
 #: src/Dialogs/Composer/PollPage.vala:238
@@ -1210,19 +1230,19 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:240
 #, c-format
 msgid "%dh"
-msgstr ""
+msgstr "%dh"
 
 #: src/Dialogs/Composer/PollPage.vala:239
 #: src/Dialogs/Composer/PollPage.vala:240
 #, c-format
 msgid "%d Hours"
-msgstr ""
+msgstr "%d Saat"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:242
 #, c-format
 msgid "%d Day"
-msgstr ""
+msgstr "%d Gün"
 
 #. translators: the variable is a number, d as in days
 #: src/Dialogs/Composer/PollPage.vala:244
@@ -1230,201 +1250,203 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:246
 #, c-format
 msgid "%dd"
-msgstr ""
+msgstr "%dd"
 
 #: src/Dialogs/Composer/PollPage.vala:245
 #: src/Dialogs/Composer/PollPage.vala:246
 #, c-format
 msgid "%d Days"
-msgstr ""
+msgstr "%d Gün"
 
 #: src/Dialogs/Composer/PollPage.vala:266
 msgid "Expiration"
-msgstr ""
+msgstr "Sona erme"
 
 #. translators: "Text" as in text-based input
 #: src/Dialogs/Composer/EditorPage.vala:11
 msgid "Text"
-msgstr ""
+msgstr "Metin"
 
 #: src/Dialogs/Composer/EditorPage.vala:163
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:161
 msgid "Characters Left"
-msgstr ""
+msgstr "Kalan Karakter"
 
 #: src/Dialogs/Composer/EditorPage.vala:184
 msgid "What's on your mind?"
-msgstr ""
+msgstr "Aklınızdaki nedir?"
 
 #: src/Dialogs/Composer/EditorPage.vala:211
 msgid "Emoji Picker"
-msgstr ""
+msgstr "Emoji Seçici"
 
 #: src/Dialogs/Composer/EditorPage.vala:237
 msgid "Write your warning here"
-msgstr ""
+msgstr "Uyarınızı buraya yazın"
 
 #: src/Dialogs/Composer/EditorPage.vala:252
 msgid "Content Warning"
-msgstr ""
+msgstr "İçerik Uyarısı"
 
 #: src/Dialogs/Composer/EditorPage.vala:291
 msgid "Post Privacy"
-msgstr ""
+msgstr "İleti Gizliliği"
 
 #: src/Dialogs/Composer/EditorPage.vala:320
 msgid "Post Language"
-msgstr ""
+msgstr "İleti Dili"
 
 #: src/Dialogs/Composer/Dialog.vala:188
 msgid "Are you sure you want to exit?"
-msgstr ""
+msgstr "Çıkmak istediğinize emin misiniz?"
 
 #: src/Dialogs/Composer/Dialog.vala:189
 msgid "Your progress will be lost."
-msgstr ""
+msgstr "İlerlemeniz kaybolacak."
 
 #: src/Dialogs/Composer/Dialog.vala:191
 msgid "Discard"
-msgstr ""
+msgstr "Gözden Çıkar"
 
 #: src/Dialogs/Composer/Dialog.vala:276
 msgid "_Redraft"
-msgstr ""
+msgstr "_Yeniden Taslakla"
 
 #: src/Dialogs/Composer/Dialog.vala:301
 msgid "_Edit"
-msgstr ""
+msgstr "Dü_zenle"
 
 #: src/Dialogs/Composer/Dialog.vala:322
 msgid "_Reply"
-msgstr ""
+msgstr "_Yanıtla"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:42
 msgid "Edit Alt Text"
-msgstr ""
+msgstr "Alt Metni Düzenle"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:53
 msgid "Remove Attachment"
-msgstr ""
+msgstr "Eki Kaldır"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:181
 msgid "Alternative text for attachment"
-msgstr ""
+msgstr "Ek için alternatif metin"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:50
 msgid "Media"
-msgstr ""
+msgstr "Ortam"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:72
 #: src/Dialogs/Composer/AttachmentsPage.vala:98
 msgid "Add Media"
-msgstr ""
+msgstr "Ortam Ekle"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:81
 msgid "No Media"
-msgstr ""
+msgstr "Ortam Yok"
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:108
 #: src/Dialogs/Composer/AttachmentsPage.vala:125
 msgid "Mark media as sensitive"
-msgstr ""
+msgstr "Ortamı hassas olarak imle"
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:124
 msgid "Unmark media as sensitive"
-msgstr ""
+msgstr "Ortamın hassas olarak imlenmesini kaldır"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:277
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
-msgstr ""
+msgstr "\"%s\" dosyası örnek sınırından büyük"
 
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:305
 msgid "translator-credits"
 msgstr ""
+"Sabri Ünal <libreajans@gmail.com>\n"
+"Weblate Katkıcıları"
 
 #: src/Application.vala:330
 msgid "OK"
-msgstr ""
+msgstr "Tamam"
 
 #: src/Application.vala:339
 msgid "Yes"
-msgstr ""
+msgstr "Evet"
 
 #. translators: the variable is the amount of times a hashtag was used in a week
 #: src/API/Tag.vala:35
 #, c-format
 msgid "%d per week"
-msgstr ""
+msgstr "%d her hafta"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:48
 #, c-format
 msgid "Used %d times by %d people yesterday"
-msgstr ""
+msgstr "Dün %d defa %d kişi tarafından kullanıldı"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:56
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
-msgstr ""
+msgstr "Son 2 günde %d defa %d kişi tarafından kullanıldı"
 
 #: src/API/Suggestion.vala:8
 msgid "Account not found"
-msgstr ""
+msgstr "Hesap bulunamadı"
 
 #. translators: the variable is an external service like "PeerTube"
 #: src/API/Status/PreviewCard.vala:25
 #, c-format
 msgid "You are about to open a %s video"
-msgstr ""
+msgstr "%s videosunu açmak üzeresiniz"
 
 #. translators: the variable is an external service like "Funkwhale",
 #. track as in song
 #: src/API/Status/PreviewCard.vala:29
 #, c-format
 msgid "You are about to open a %s track"
-msgstr ""
+msgstr "%s parçasını açmak üzeresiniz"
 
 #. translators: the variable is an external service like "BookWyrm"
 #: src/API/Status/PreviewCard.vala:32
 #, c-format
 msgid "You are about to open a %s book"
-msgstr ""
+msgstr "%s kitabını açmak üzeresiniz"
 
 #. translators: the variable is the app name (Tuba)
 #: src/API/Status/PreviewCard.vala:35
 #, c-format
 msgid "You are about to leave %s"
-msgstr ""
+msgstr "%s uygulamasından ayrılmak üzeresiniz"
 
 #. translators: the variable is a url
 #: src/API/Status/PreviewCard.vala:48
 #, c-format
 msgid "If you proceed, \"%s\" will open in your browser."
-msgstr ""
+msgstr "Sürdürürseniz, \"%s\" tarayıcınızda açılacak."
 
 #. translators: the first variable is the app name (Tuba),
 #. the second one is a url
 #: src/API/Status/PreviewCard.vala:52
 #, c-format
 msgid "If you proceed, %s will connect to \"%s\"."
-msgstr ""
+msgstr "Sürdürürseniz %s, \"%s\" adresine bağlanacak."
 
 #: src/API/Status/PreviewCard.vala:154
 msgid "Proceed"
-msgstr ""
+msgstr "Sürdür"
 
 #: src/API/SearchResults.vala:21
 msgid "Search returned no results"
-msgstr ""
+msgstr "Arama sonuç döndürmedi"
 
 #. translators: the variable is a comma separated list of account handles,
 #. this is a state - not an action
 #: src/API/Conversation.vala:22
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "%s İle Konuşma Boş"
