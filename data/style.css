@@ -473,3 +473,8 @@ video > overlay > revealer > controls {
 .ttl-view .small .preview_card.explore .preview_card_image {
 	border-radius: 0px;
 }
+
+.ttl-view .small.content .card.card-spacing {
+	margin: 0px;
+}
+
