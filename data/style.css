@@ -485,3 +485,6 @@ video > overlay > revealer > controls {
 	margin: 0px;
 }
 
+.compose-button {
+	padding: 8px;
+}
