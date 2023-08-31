@@ -33,6 +33,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 
 	[GtkChild] protected unowned Gtk.ScrolledWindow scrolled;
 	[GtkChild] protected unowned Gtk.Overlay scrolled_overlay;
+	[GtkChild] protected unowned Gtk.Revealer scroll_to_top_rev;
 	[GtkChild] protected unowned Gtk.Button scroll_to_top;
 	//  [GtkChild] protected unowned Gtk.Box view;
 	//  [GtkChild] protected unowned Adw.Clamp clamp;

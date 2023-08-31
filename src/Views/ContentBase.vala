@@ -21,24 +21,26 @@ public class Tuba.Views.ContentBase : Views.Base {
 		content_box.child = content;
 		content.activate.connect (on_content_item_activated);
 
-		scrolled.vadjustment.value_changed.connect (() => {
-			if (
-				!bottom_reached_locked
-				&& scrolled.vadjustment.value > scrolled.vadjustment.upper - scrolled.vadjustment.page_size * 2
-			) {
-				bottom_reached_locked = true;
-				on_bottom_reached ();
-			}
-
-			var is_close_to_top = scrolled.vadjustment.value <= 1000;
-			scroll_to_top.visible = !is_close_to_top
-				&& scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper;
-
-			if (is_close_to_top) reached_close_to_top ();
-		});
+		scrolled.vadjustment.value_changed.connect (on_scrolled_vadjustment_value_change);
 	}
 	~ContentBase () {
 		debug ("Destroying ContentBase");
+	}
+
+	protected virtual void on_scrolled_vadjustment_value_change () {
+		if (
+			!bottom_reached_locked
+			&& scrolled.vadjustment.value > scrolled.vadjustment.upper - scrolled.vadjustment.page_size * 2
+		) {
+			bottom_reached_locked = true;
+			on_bottom_reached ();
+		}
+
+		var is_close_to_top = scrolled.vadjustment.value <= 1000;
+		scroll_to_top_rev.reveal_child = !is_close_to_top
+			&& scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper;
+
+		if (is_close_to_top) reached_close_to_top ();
 	}
 
 	private void bind_listitem_cb (GLib.Object item) {

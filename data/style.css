@@ -473,3 +473,7 @@ video > overlay > revealer > controls {
 .ttl-view .small .preview_card.explore .preview_card_image {
 	border-radius: 0px;
 }
+
+.compose-button {
+	padding: 8px;
+}

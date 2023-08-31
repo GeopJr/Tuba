@@ -13,23 +13,28 @@
       <object class="AdwToolbarView" id="toolbar_view">
 
         <child type="top">
-          <object class="AdwHeaderBar" id="header"/>
+          <object class="AdwHeaderBar" id="header" />
         </child>
 
         <property name="content">
           <object class="GtkOverlay" id="scrolled_overlay">
             <child type="overlay">
-              <object class="GtkButton" id="scroll_to_top">
-                <property name="icon-name">go-top-symbolic</property>
+              <object class="GtkRevealer" id="scroll_to_top_rev">
+                <property name="transition_type">crossfade</property>
+                <property name="reveal-child">0</property>
                 <property name="valign">end</property>
                 <property name="halign">end</property>
                 <property name="margin_end">16</property>
                 <property name="margin_bottom">16</property>
-                <property name="visible">0</property>
-                <style>
-                  <class name="circular" />
-                  <class name="osd" />
-                </style>
+                <property name="child">
+                  <object class="GtkButton" id="scroll_to_top">
+                    <property name="icon-name">go-top-symbolic</property>
+                    <style>
+                      <class name="circular" />
+                      <class name="osd" />
+                    </style>
+                  </object>
+                </property>
               </object>
             </child>
 
