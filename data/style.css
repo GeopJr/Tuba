@@ -426,15 +426,15 @@ video > overlay > revealer > controls {
 	box-shadow: none;
 }
 
-.ttl-view .content :first-child .card.card-spacing {
+.ttl-view .content .card.card-spacing :first-child {
 	margin-top: 0px;
 }
 
-.ttl-view .content :last-child .card.card-spacing {
+.ttl-view .content .card.card-spacing:last-child {
 	margin-bottom: 0px;
 }
 
-.ttl-view .small.content row .card {
+.ttl-view .small.content .card {
 	border-left: none;
 	border-right: none;
 	border-radius: 0px;
@@ -470,7 +470,7 @@ video > overlay > revealer > controls {
 	padding-bottom: 32px;
 }
 
-.ttl-view .small.content :not(:last-child) .card {
+.ttl-view .small.content .card:not(:last-child) {
 	border-bottom: 1px @borders solid;
 }
 
