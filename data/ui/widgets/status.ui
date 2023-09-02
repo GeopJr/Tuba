@@ -40,6 +40,7 @@
                 <property name="margin_top">3</property>
                 <child type="overlay">
                   <object class="TubaWidgetsAvatar" id="avatar">
+                    <property name="overflow">hidden</property>
                     <property name="size">48</property>
                     <property name="valign">start</property>
                     <property name="visible">true</property>
