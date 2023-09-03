@@ -144,8 +144,20 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 						blockquote_handler_text += "</a>";
 					}
 					break;
-				case "ul":
 				case "ol":
+					int li_count = 1;
+					for (var iter = node->children; iter != null; iter = iter->next) {
+						if (iter->name == "li") {
+							blockquote_handler_text += @"\n$li_count. ";
+							blockquote_handler (iter);
+
+							li_count++;
+						} else break;
+					}
+					blockquote_handler_text += "\n";
+
+					break;
+				case "ul":
 					blockquote_handler (node);
 					blockquote_handler_text += "\n";
 					break;
@@ -266,8 +278,20 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				v.write_chunk (@"</$(root->name)>");
 			break;
 
-			case "ul":
 			case "ol":
+				int li_count = 1;
+				for (var iter = root->children; iter != null; iter = iter->next) {
+					if (iter->name == "li") {
+						v.write_chunk (@"\n$li_count. ");
+						traverse_and_handle (v, iter, default_handler);
+
+						li_count++;
+					} else break;
+				}
+				v.write_chunk ("\n");
+
+				break;
+			case "ul":
 				traverse_and_handle (v, root, default_handler);
 				v.write_chunk ("\n");
 				break;
