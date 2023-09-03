@@ -43,7 +43,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 		if (is_close_to_top) reached_close_to_top ();
 	}
 
-	private void bind_listitem_cb (GLib.Object item) {
+	protected virtual void bind_listitem_cb (GLib.Object item) {
 		((Gtk.ListItem) item).child = on_create_model_widget (((Gtk.ListItem) item).item);
 	}
 

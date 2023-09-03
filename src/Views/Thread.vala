@@ -108,13 +108,15 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				on_content_changed ();
 
 				#if GTK_4_12
-					uint timeout = 0;
-					timeout = Timeout.add (1000, () => {
-						content.scroll_to (to_add_ancestors.length, Gtk.ListScrollFlags.FOCUS, null);
+					if (to_add_ancestors.length > 0) {
+						uint timeout = 0;
+						timeout = Timeout.add (1000, () => {
+							content.scroll_to (to_add_ancestors.length, Gtk.ListScrollFlags.FOCUS, null);
 
-						GLib.Source.remove (timeout);
-						return true;
-					}, Priority.LOW);
+							GLib.Source.remove (timeout);
+							return true;
+						}, Priority.LOW);
+					}
                 #endif
 			})
 			.exec ();
@@ -155,4 +157,10 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		return widget_status;
 	}
 
+	protected override void bind_listitem_cb (GLib.Object item) {
+		base.bind_listitem_cb (item);
+
+		if (((API.Status) ((Gtk.ListItem) item).item).id == root_status.id)
+			((Gtk.ListItem) item).activatable = false;
+	}
 }
