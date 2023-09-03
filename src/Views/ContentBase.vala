@@ -50,6 +50,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 		if (gtklistitemwidget != null) {
 			gtklistitemwidget.add_css_class ("card");
 			gtklistitemwidget.add_css_class ("card-spacing");
+			gtklistitemwidget.focusable = true;
 
 			// Thread lines overflow slightly
 			gtklistitemwidget.overflow = Gtk.Overflow.HIDDEN;
