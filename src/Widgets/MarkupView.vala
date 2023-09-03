@@ -188,9 +188,27 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				v.write_chunk ("\n");
 				break;
 			case "pre":
-				v.write_chunk ("\n");
-				traverse_and_handle (v, root, default_handler);
-				v.write_chunk ("\n");
+				if (
+					root->children != null
+					&& root->children->name == "code"
+					&& root->children->children != null
+					&& root->children->children->name == "text"
+					&& root->children->children->content != null
+				) {
+					v.commit_chunk ();
+
+					var label = new RichLabel (root->children->children->content.strip ()) {
+						visible = true,
+						css_classes = { "ttl-code", "monospace" }
+						// markup = MarkupPolicy.DISALLOW
+					};
+
+					v.append (label);
+				} else {
+					v.write_chunk ("\n");
+					traverse_and_handle (v, root, default_handler);
+					v.write_chunk ("\n");
+				}
 				break;
 			case "code":
 				v.write_chunk ("<span font_family=\"monospace\">");

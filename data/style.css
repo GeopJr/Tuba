@@ -54,6 +54,10 @@ flowboxchild {
 	font-style: italic;
 }
 
+.monospace {
+	font-family: monospace;
+}
+
 .ttl-label-emoji-no-click:hover {
 	background: transparent;
 }
