@@ -426,11 +426,11 @@ video > overlay > revealer > controls {
 	box-shadow: none;
 }
 
-.ttl-view .content .card.card-spacing :first-child {
+.ttl-view .content row:first-child {
 	margin-top: 0px;
 }
 
-.ttl-view .content .card.card-spacing:last-child {
+.ttl-view .content row:last-child {
 	margin-bottom: 0px;
 }
 
