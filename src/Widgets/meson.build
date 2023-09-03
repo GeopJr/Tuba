@@ -11,6 +11,7 @@ sources += files(
     'MarkupView.vala',
     'Notification.vala',
     'PreviewCard.vala',
+    'ProfileCover.vala',
     'RelationshipButton.vala',
     'RichLabel.vala',
     'Status.vala',

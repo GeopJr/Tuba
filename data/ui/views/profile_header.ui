@@ -1,141 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <template class="TubaViewsProfileCover" parent="GtkBox">
+  <requires lib="gtk" version="4.0" />
+  <template class="TubaWidgetsCover" parent="GtkBox">
     <property name="margin_bottom">16</property>
     <property name="orientation">vertical</property>
 
     <child>
       <object class="GtkListBox" id="info">
-      <property name="selection_mode">none</property>
-      <property name="activate_on_single_click">0</property>
+        <property name="selection_mode">none</property>
+        <property name="activate_on_single_click">0</property>
         <style>
-          <class name="content"/>
+          <class name="content" />
         </style>
         <child>
 
-<object class="GtkListBoxRow">
-  <property name="activatable">false</property>
-  <child>
-
-  <object class="GtkGrid">
-    <property name="row_homogeneous">0</property>
-    <child>
-      <object class="GtkOverlay">
-        <child type="overlay">
-          <object class="GtkBox" id="cover_badge_box">
-            <property name="halign">end</property> 
-            <property name="valign">start</property> 
-            <property name="margin-bottom">48</property>
-            <property name="spacing">6</property>
-            <property name="visible">0</property>
+          <object class="GtkListBoxRow">
+            <property name="activatable">false</property>
             <child>
-              <object class="GtkImage" id="cover_bot_badge">
-                <property name="icon-name">tuba-brain-augemnted-symbolic</property>
-                <!-- translators: Tooltip on icon indicating that the user is a bot/automated account -->
-                <property name="tooltip-text" translatable="yes">Bot</property>
-                <property name="visible">0</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="cover_badge"> 
-                <property name="label">Follows you</property> 
-                <property name="xalign">0</property> 
-                <property name="visible">0</property> 
-              </object>
-            </child>
-            <style> 
-              <class name="linked" />
-              <class name="badge"/> 
-              <class name="heading"/> 
-              <class name="osd"/> 
-              <class name="cover-badge"/>
-              <class name="only-icon"/>
-            </style> 
-          </object> 
-        </child>
-        <property name="child">
-          <object class="TubaWidgetsBackground" id="background">
-            <property name="hexpand">1</property>
-            <property name="vexpand">1</property>
-            <property name="height-request">224</property>
-            <property name="margin-bottom">50</property>
-          </object>
-        </property>
-      </object>
-    </child>
-    <child>
-      <object class="TubaWidgetsAvatar" id="avatar">
-        <property name="halign">start</property>
-        <property name="valign">end</property>
-        <property name="margin-start">12</property>
-        <property name="margin-end">12</property>
-        <property name="size">100</property>
-        <layout>
-          <property name="column">0</property>
-          <property name="row">0</property>
-          <property name="row-span">1</property>
-        </layout>
-      </object>
-    </child>
-    <child>
-      <object class="TubaWidgetsRelationshipButton" id="rsbtn">
-        <property name="halign">end</property>
-        <property name="valign">end</property>
-        <property name="margin-start">12</property>
-        <property name="margin-end">12</property>
-        <property name="visible">0</property>
-        <layout>
-          <property name="column">0</property>
-          <property name="row">0</property>
-          <property name="row-span">1</property>
-        </layout>
-      </object>
-    </child>
-    <child>
-      <object class="GtkBox">
-        <property name="margin_top">6</property>
-        <property name="margin_bottom">12</property>
-        <property name="margin_start">12</property>
-        <property name="margin_end">12</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">6</property>
-        <child>
-          <object class="TubaWidgetsEmojiLabel" id="display_name">
-            <!-- <property name="label">Unknown</property> -->
-            <style>
-              <class name="title-3"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="handle">
-            <property name="label">@unknown@no.where</property>
-            <property name="xalign">0</property>
-            <style>
-              <class name="dim-label"/>
-            </style>
-          </object>
-        </child>
 
-        <child>
-          <object class="TubaWidgetsMarkupView" id="note">
-            <property name="margin_top">6</property>
+              <object class="GtkGrid">
+                <property name="row_homogeneous">0</property>
+                <child>
+                  <object class="GtkOverlay">
+                    <child type="overlay">
+                      <object class="GtkBox" id="cover_badge_box">
+                        <property name="halign">end</property>
+                        <property name="valign">start</property>
+                        <property name="margin-bottom">48</property>
+                        <property name="spacing">6</property>
+                        <property name="visible">0</property>
+                        <child>
+                          <object class="GtkImage" id="cover_bot_badge">
+                            <property name="icon-name">tuba-brain-augemnted-symbolic</property>
+                            <!-- translators: Tooltip on icon indicating that the user is a bot/automated account -->
+                            <property name="tooltip-text" translatable="yes">Bot</property>
+                            <property name="visible">0</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="cover_badge">
+                            <property name="label">Follows you</property>
+                            <property name="xalign">0</property>
+                            <property name="visible">0</property>
+                          </object>
+                        </child>
+                        <style>
+                          <class name="linked" />
+                          <class name="badge" />
+                          <class name="heading" />
+                          <class name="osd" />
+                          <class name="cover-badge" />
+                          <class name="only-icon" />
+                        </style>
+                      </object>
+                    </child>
+                    <property name="child">
+                      <object class="TubaWidgetsBackground" id="background">
+                        <property name="hexpand">1</property>
+                        <property name="vexpand">1</property>
+                        <property name="height-request">224</property>
+                        <property name="margin-bottom">50</property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="TubaWidgetsAvatar" id="avatar">
+                    <property name="halign">start</property>
+                    <property name="valign">end</property>
+                    <property name="margin-start">12</property>
+                    <property name="margin-end">12</property>
+                    <property name="size">100</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="row">0</property>
+                      <property name="row-span">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="TubaWidgetsRelationshipButton" id="rsbtn">
+                    <property name="halign">end</property>
+                    <property name="valign">end</property>
+                    <property name="margin-start">12</property>
+                    <property name="margin-end">12</property>
+                    <property name="visible">0</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="row">0</property>
+                      <property name="row-span">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="margin_top">6</property>
+                    <property name="margin_bottom">12</property>
+                    <property name="margin_start">12</property>
+                    <property name="margin_end">12</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="TubaWidgetsEmojiLabel" id="display_name">
+                        <!-- <property name="label">Unknown</property> -->
+                        <style>
+                          <class name="title-3" />
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="handle">
+                        <property name="label">@unknown@no.where</property>
+                        <property name="xalign">0</property>
+                        <style>
+                          <class name="dim-label" />
+                        </style>
+                      </object>
+                    </child>
+
+                    <child>
+                      <object class="TubaWidgetsMarkupView" id="note">
+                        <property name="margin_top">6</property>
+                      </object>
+                    </child>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="row">4</property>
+                      <property name="row-span">1</property>
+                      <property name="column-span">2</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+
+            </child>
           </object>
         </child>
-        <layout>
-          <property name="column">0</property>
-          <property name="row">4</property>
-          <property name="row-span">1</property>
-          <property name="column-span">2</property>
-        </layout>
-      </object>
-    </child>
-  </object>
-
-  </child>
-</object>
-</child>
 
         <!-- <child> -->
         <!--   <object class="GtkListBoxRow"> -->
@@ -153,9 +153,9 @@
       </object>
     </child>
 
-        <style>
-          <class name="ttl-profile-cover"/>
-        </style>
+    <style>
+      <class name="ttl-profile-cover" />
+    </style>
 
   </template>
 </interface>
