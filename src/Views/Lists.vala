@@ -30,8 +30,6 @@ public class Tuba.Views.Lists : Views.Timeline {
 
 			this.activatable = true;
 			this.add_suffix (action_box);
-			this.add_css_class ("card");
-			this.add_css_class ("card-spacing");
 		}
 
 		public Row (API.List? list) {

@@ -45,6 +45,16 @@ public class Tuba.Views.ContentBase : Views.Base {
 
 	protected virtual void bind_listitem_cb (GLib.Object item) {
 		((Gtk.ListItem) item).child = on_create_model_widget (((Gtk.ListItem) item).item);
+
+		var gtklistitemwidget = ((Gtk.ListItem) item).child.get_parent ();
+		if (gtklistitemwidget != null) {
+			gtklistitemwidget.add_css_class ("card");
+			gtklistitemwidget.add_css_class ("card-spacing");
+			gtklistitemwidget.focusable = true;
+
+			// Thread lines overflow slightly
+			gtklistitemwidget.overflow = Gtk.Overflow.HIDDEN;
+		}
 	}
 
 	public override void dispose () {
