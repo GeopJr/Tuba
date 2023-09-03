@@ -198,7 +198,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				var text = blockquote_handler_text.strip ();
 				var label = new RichLabel (text) {
 					visible = true,
-					css_classes = { "ttl-code" }
+					css_classes = { "ttl-code", "italic" }
 					// markup = MarkupPolicy.DISALLOW
 				};
 				v.append (label);

@@ -45,10 +45,13 @@ flowboxchild {
 }
 
 .ttl-code {
-	font-family: monospace;
 	padding: 12px;
 	background: rgba(150, 150, 150, .1);
 	border-radius: 6px;
+}
+
+.italic {
+	font-style: italic;
 }
 
 .ttl-label-emoji-no-click:hover {
