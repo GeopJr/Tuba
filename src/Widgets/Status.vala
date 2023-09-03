@@ -686,7 +686,8 @@ public class Tuba.Widgets.Status : Adw.Bin {
 			var application_label = new Gtk.Label (application_link) {
 				wrap = true,
 				use_markup = has_link,
-				halign = Gtk.Align.START
+				halign = Gtk.Align.START,
+				css_classes = { "body" }
 			};
 
 			// If it's not an anchor, it should follow the styling of the other items
