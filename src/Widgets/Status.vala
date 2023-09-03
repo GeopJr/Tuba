@@ -134,6 +134,7 @@ public class Tuba.Widgets.Status : Adw.Bin {
 	public Gee.ArrayList<API.EmojiReaction>? reactions {
 		get { return status.formal.compat_status_reactions; }
 		set {
+			if (emoji_reactions != null) content_column.remove (emoji_reactions);
 			if (value == null) return;
 
 			emoji_reactions = new ReactionsRow (value);
