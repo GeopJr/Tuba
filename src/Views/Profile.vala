@@ -87,6 +87,13 @@ public class Tuba.Views.Profile : Views.Timeline {
 		return widget;
 	}
 
+	protected override void bind_listitem_cb (GLib.Object item) {
+		base.bind_listitem_cb (item);
+
+		if (((((Gtk.ListItem) item).item) as ProfileAccount) != null)
+			((Gtk.ListItem) item).activatable = false;
+	}
+
 	public override void on_refresh () {
 		base.on_refresh ();
 		GLib.Idle.add (append_pinned);
