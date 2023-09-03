@@ -492,3 +492,8 @@ video > overlay > revealer > controls {
 .sidebar-item {
 	padding: 3px 14px;
 }
+
+.ttl-separator {
+	background-color: transparent;
+	min-height: 8px;
+}

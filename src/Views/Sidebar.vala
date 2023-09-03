@@ -142,7 +142,9 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		row.set_header (null);
 
 		if (row.place.separated && before != null && !before.place.separated) {
-			row.set_header (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+			row.set_header (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+				css_classes = { "ttl-separator" }
+			});
 		}
 	}
 
@@ -226,7 +228,9 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		row.set_header (null);
 
 		if (row.account == null && _before != null)
-			row.set_header (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+			row.set_header (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+				css_classes = { "ttl-separator" }
+			});
 	}
 
 	[GtkCallback] void on_account_activated (Gtk.ListBoxRow _row) {

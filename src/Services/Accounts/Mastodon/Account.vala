@@ -89,6 +89,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 		icon = "tuba-explore2-large-symbolic",
 		title = _("Explore"),
+		separated = true,
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item (new Views.Explore ()));
 		}
@@ -141,19 +142,21 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public override void register_known_places (GLib.ListStore places) {
 		places.append (PLACE_HOME);
+		//  places.append (PLACE_NOTIFICATIONS);
+		//  places.append (PLACE_CONVERSATIONS);
 		//  places.append (PLACE_SEARCH);
+		places.append (PLACE_FAVORITES);
+		places.append (PLACE_BOOKMARKS);
+		places.append (PLACE_HASHTAGS);
 
 		places.append (PLACE_EXPLORE);
 		places.append (PLACE_LOCAL);
 		places.append (PLACE_FEDERATED);
-
-		places.append (PLACE_FAVORITES);
-		places.append (PLACE_BOOKMARKS);
 		places.append (PLACE_LISTS);
 
-		places.append (PLACE_HASHTAGS);
-		places.append (PLACE_FOLLOW_REQUESTS);
+		// TODO: Move to menu button?
 		places.append (PLACE_ANNOUNCEMENTS);
+		places.append (PLACE_FOLLOW_REQUESTS);
 	}
 
 	construct {
