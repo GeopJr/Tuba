@@ -136,6 +136,11 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					blockquote_handler (node);
 					blockquote_handler_text += @"</$(node->name)>";
 				break;
+				case "code":
+					blockquote_handler_text += "<span font_family=\"monospace\">";
+					blockquote_handler (node);
+					blockquote_handler_text += "</span>";
+					break;
 				case "a":
 					var href = node->get_prop ("href");
 					if (href != null) {
