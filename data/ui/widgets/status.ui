@@ -316,9 +316,6 @@
     </property>
     <style>
       <class name="ttl-post" />
-      <class name="card-spacing" />
-      <class name="card" />
-      <class name="activatable" />
     </style>
   </template>
 </interface>

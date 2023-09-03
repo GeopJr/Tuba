@@ -37,8 +37,7 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	public override Gtk.Widget to_widget () {
 		var w = new Adw.ActionRow () {
 			title = @"#$name",
-			activatable = true,
-			css_classes = { "card", "activatable", "card-spacing" }
+			activatable = true
 		};
 
 		if (history != null && history.size > 0) {
