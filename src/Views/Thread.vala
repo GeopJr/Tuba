@@ -155,4 +155,10 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		return widget_status;
 	}
 
+	protected override void bind_listitem_cb (GLib.Object item) {
+		base.bind_listitem_cb (item);
+
+		if (((API.Status) ((Gtk.ListItem) item).item).id == root_status.id)
+			((Gtk.ListItem) item).activatable = false;
+	}
 }
