@@ -162,6 +162,9 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					blockquote_handler_text += "\n";
 					break;
 				default:
+					for (var iter = root->children; iter != null; iter = iter->next) {
+						blockquote_handler (iter);
+					}
 					break;
 			}
 		});
