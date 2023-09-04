@@ -129,7 +129,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	}
 
 	private bool on_key_pressed (uint keyval, uint keycode, Gdk.ModifierType modifier) {
-		if ((keycode == 55) && modifier == Gdk.ModifierType.CONTROL_MASK) {
+		if ((keyval == Gdk.Key.v || keyval == Gdk.Key.V || keycode == 55) && modifier == Gdk.ModifierType.CONTROL_MASK) {
 			on_clipboard_paste ();
 			return true;
 		}
