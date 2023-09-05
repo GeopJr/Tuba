@@ -53,7 +53,8 @@ class Tuba.Blurhash {
 	}
 
 	// Decodes a Base83 string partially from `start` to `end`.
-	// WARNING: sanitize start and end manually.
+	// WARNING: sanitize start and end manually, this is only used
+	//			here and only on valid blurhashes.
 	private static int decode_partial (string str, int start, int end) {
 		if (start > end || end >= str.length) return 0;
 		return Base83.decode (str.slice (start, end));
