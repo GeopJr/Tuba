@@ -36,7 +36,7 @@ class Tuba.Blurhash {
 				char character = value[i];
 
 				int index = -1;
-				for (int j = 0; j < CHARACTERS.length; j++) {
+				for (int j = 0; j < 83; j++) {
 					if (CHARACTERS[j] == character) {
 						index = j;
 						break;
