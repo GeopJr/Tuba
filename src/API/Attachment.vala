@@ -4,7 +4,8 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 	public string kind { get; set; default = "unknown"; }
 	public string url { get; set; }
 	public string? description { get; set; }
-	public string? t_preview_url { get; set; }
+	public string? blurhash { get; set; default=null; }
+	private string? t_preview_url { get; set; }
 	public string? preview_url {
 		set { this.t_preview_url = value; }
 		get { return (this.t_preview_url == null || this.t_preview_url == "") ? url : t_preview_url; }

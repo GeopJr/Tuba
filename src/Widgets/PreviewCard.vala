@@ -20,14 +20,28 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 
 		Gtk.Widget image_widget;
 		if (card_obj.image != null) {
+			bool picture_loaded = false;
 			var image = new Gtk.Picture () {
 				width_request = 25,
 				content_fit = Gtk.ContentFit.COVER
 			};
 
+			GLib.Idle.add (() => {
+				if (card_obj.blurhash == null || picture_loaded) return GLib.Source.REMOVE;
+
+				var pixbuf = Tuba.Blurhash.blurhash_to_pixbuf (card_obj.blurhash, 32, 32);
+				if (pixbuf != null && !picture_loaded) {
+					image.paintable = Gdk.Texture.for_pixbuf (pixbuf);
+				}
+
+				return GLib.Source.REMOVE;
+			});
+
 			image_cache.request_paintable (card_obj.image, (is_loaded, paintable) => {
-				if (is_loaded)
+				if (is_loaded) {
+					picture_loaded = true;
 					image.paintable = paintable;
+				}
 			});
 
 			if (is_video) {
