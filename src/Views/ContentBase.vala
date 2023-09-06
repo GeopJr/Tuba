@@ -66,6 +66,13 @@ public class Tuba.Views.ContentBase : Views.Base {
 		model.remove_all ();
 	}
 
+	protected void clear_all_but_first () {
+		base.clear ();
+
+		if (model.n_items > 1)
+			model.splice (1, model.n_items - 1, {});
+	}
+
 	public override void on_content_changed () {
 		if (empty) {
 			base_status = new StatusMessage ();

@@ -156,12 +156,9 @@ flowboxchild {
 	min-height: 32px;
 }
 
-.ttl-profile-stat-button:first-child {
-	border-bottom-left-radius: 12px;
-}
-
-.ttl-profile-stat-button:last-child {
-	border-bottom-right-radius: 12px;
+.small .ttl-profile-cover>.content {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
 }
 
 .ttl-box-no-shadow>revealer>box {
