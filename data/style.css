@@ -205,7 +205,7 @@ flowboxchild {
 
 .ttl-status-badge.sensitive-label {
 	padding: 10px 32px;
-    border-radius: 9999px;
+	border-radius: 9999px;
 }
 
 .ttl-status-badge>button>label {

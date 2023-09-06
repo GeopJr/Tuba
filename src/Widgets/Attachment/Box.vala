@@ -71,7 +71,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		reveal_btn.clicked.connect (hide_spoilers);
 
 		// translators: Label shown in front of blurred / sensitive media
-		reveal_text = new Gtk.Label (_("Sensitive Media")) {
+		reveal_text = new Gtk.Label (_("Show Sensitive Content")) {
 			wrap = true,
 			halign = Gtk.Align.CENTER,
 			valign = Gtk.Align.CENTER,
