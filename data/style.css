@@ -199,8 +199,13 @@ flowboxchild {
 	background-color: alpha(mix(@green_4, white, .8), .8);
 }
 
-.ttl-status-badge>*, .ttl-status-badge.sensitive-label {
+.ttl-status-badge>* {
 	padding: 1px 6px;
+}
+
+.ttl-status-badge.sensitive-label {
+	padding: 10px 32px;
+    border-radius: 9999px;
 }
 
 .ttl-status-badge>button>label {
