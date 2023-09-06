@@ -3,14 +3,12 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public string url { get; construct set; }
 	public bool is_public { get; construct set; default = false; }
 	public Type accepts { get; set; default = typeof (API.Status); }
-	public bool use_queue { get; set; default = true; }
 
 	protected InstanceAccount? account { get; set; default = null; }
 
 	public bool is_last_page { get; set; default = false; }
 	public string? page_next { get; set; }
 	public string? page_prev { get; set; }
-	Entity[] entity_queue = {};
 
 	private Gtk.Spinner pull_to_refresh_spinner;
 	private bool _is_pulling = false;
@@ -75,7 +73,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			valign = Gtk.Align.START
 		};
 
-		reached_close_to_top.connect (finish_queue);
 		app.refresh.connect (on_refresh);
 		status_button.clicked.connect (on_refresh);
 
@@ -101,7 +98,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	~Timeline () {
 		debug (@"Destroying Timeline $label");
 
-		entity_queue = {};
 		destruct_account_holder ();
 		destruct_streamable ();
 	}
@@ -185,7 +181,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_refresh () {
-		entity_queue = {};
 		scrolled.vadjustment.value = 0;
 		status_button.sensitive = false;
 		clear ();
@@ -229,24 +224,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	public virtual void on_new_post (Streamable.Event ev) {
 		try {
-			var entity = Entity.from_json (accepts, ev.get_node ());
-
-			if (use_queue && scrolled.vadjustment.value > 1000) {
-				entity_queue += entity;
-				return;
-			}
-
-			model.insert (0, entity);
+			model.insert (0, Entity.from_json (accepts, ev.get_node ()));
 		} catch (Error e) {
 			warning (@"Error getting Entity from json: $(e.message)");
 		}
-	}
-
-	private void finish_queue () {
-		if (entity_queue.length == 0) return;
-		model.splice (0, 0, (Object[])entity_queue);
-
-		entity_queue = {};
 	}
 
 	public virtual void on_edit_post (Streamable.Event ev) {
