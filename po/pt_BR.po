@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-19 22:14+0300\n"
-"PO-Revision-Date: 2023-09-04 18:52+0000\n"
+"PO-Revision-Date: 2023-09-07 11:56+0000\n"
 "Last-Translator: Dalton Scavassa <daltux@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
@@ -384,11 +384,11 @@ msgstr "Sair"
 
 #: data/gtk/help-overlay.ui:53
 msgid "Composer"
-msgstr ""
+msgstr "Compositor"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Commit"
-msgstr ""
+msgstr "Confirmar"
 
 #: src/Widgets/VoteBox.vala:17
 msgid "Vote"
@@ -432,7 +432,7 @@ msgstr "Visualizar Histórico de Edição"
 #. translators: Pin post on profile
 #: src/Widgets/Status.vala:283 src/Widgets/Status.vala:509
 msgid "Pin"
-msgstr ""
+msgstr "Fixar"
 
 #: src/Widgets/Status.vala:288
 msgid "Edit"
