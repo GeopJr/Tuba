@@ -437,6 +437,7 @@ public class Tuba.Widgets.Status : Adw.Bin {
 					size = 34,
 					valign = Gtk.Align.START,
 					halign = Gtk.Align.START,
+					overflow = Gtk.Overflow.HIDDEN
 				};
 				actor_avatar.add_css_class ("ttl-status-avatar-actor");
 
