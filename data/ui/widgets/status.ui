@@ -109,9 +109,9 @@
                             <child>
                               <object class="TubaWidgetsRichLabel" id="name_label">
                                 <property name="visible">True</property>
-                                <property name="ellipsize">True</property>
+                                <property name="ellipsize">0</property>
                                 <property name="smaller-emoji-pixel-size">True</property>
-                                <property name="lines">-1</property>
+                                <property name="lines">100</property>
                                 <style>
                                   <class name="font-bold" />
                                 </style>

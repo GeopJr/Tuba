@@ -47,6 +47,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             return _ellipsize;
         }
         set {
+            if (_ellipsize == value) return;
+
             _ellipsize = value;
             update_label ();
         }
@@ -58,6 +60,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             return _use_markup;
         }
         set {
+            if (_use_markup == value) return;
+
             _use_markup = value;
             label.use_markup = _use_markup;
         }
