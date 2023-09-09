@@ -4,7 +4,6 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 
 	protected Gtk.Picture pic;
 	protected Gtk.Overlay media_overlay;
-	private bool picture_loaded = false;
 
 	private bool _spoiler = false;
 	public bool spoiler {
@@ -49,10 +48,8 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	protected Gtk.Image? media_icon = null;
 	protected override void on_rebind () {
 		base.on_rebind ();
-		picture_loaded = false;
 		pic.alternative_text = entity == null ? null : entity.description;
 
-		GLib.Idle.add (decode_blurhash);
 		image_cache.request_paintable (entity.preview_url, on_cache_response);
 
 		if (media_kind in VIDEO_TYPES) {
@@ -75,21 +72,11 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		}
 	}
 
-	protected virtual bool decode_blurhash () {
-		if (entity.blurhash == null || picture_loaded) return GLib.Source.REMOVE;
-
-		var pixbuf = Tuba.Blurhash.blurhash_to_pixbuf (entity.blurhash, 32, 32);
-		if (pixbuf != null && !picture_loaded) {
-			pic.paintable = Gdk.Texture.for_pixbuf (pixbuf);
-		}
-
-		return GLib.Source.REMOVE;
-	}
-
 	protected virtual void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
 		if (is_loaded) {
-			picture_loaded = true;
 			pic.paintable = data;
+		} else {
+			pic.paintable = blurhash_cache.lookup_or_decode (entity.blurhash);
 		}
 	}
 
