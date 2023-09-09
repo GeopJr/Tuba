@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-19 22:14+0300\n"
 "PO-Revision-Date: 2023-09-10 02:11+0000\n"
-"Last-Translator: Dalton Scavassa <daltux@users.noreply.hosted.weblate.org>\n"
+"Last-Translator: Daimar Stein <570cxat11@relay.firefox.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -1211,7 +1211,7 @@ msgstr "Exibir votos totais"
 #: src/Dialogs/Composer/PollPage.vala:222
 #, c-format
 msgid "Choice %d"
-msgstr ""
+msgstr "Escolha %d"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:231
