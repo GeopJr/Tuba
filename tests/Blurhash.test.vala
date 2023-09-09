@@ -60,11 +60,11 @@ const TestBlurhashRatio[] BLURHASH_RATIO_TESTS = {
 
 const TestBlurhashData[] BLURHASH_TO_DATA_TESTS = {
     { "invalid", 0, 0, 0, 0 },
-    { "L00000fQfQfQfQfQfQfQfQfQfQfQ", 255, 6, 6, 6 },
-    { "LGF5]+Yk^6#M@-5c,1J5@[or[Q6.", 255, 173, 129, 188 },
-    { "L6PZfSjE.AyE_3t7t7R**0o#DgR4", 255, 230, 228, 225 },
-    { "LKO2:N%2Tw=w]~RBVZRi};RPxuwH", 255, 243, 194, 173 },
-    { "LEHLk~WB2yk8pyo0adR*.7kCMdnj", 255, 159, 175, 181 }
+    { "L00000fQfQfQfQfQfQfQfQfQfQfQ", 6, 6, 6, 255 },
+    { "LGF5]+Yk^6#M@-5c,1J5@[or[Q6.", 173, 129, 188, 255 },
+    { "L6PZfSjE.AyE_3t7t7R**0o#DgR4", 230, 228, 225, 255 },
+    { "LKO2:N%2Tw=w]~RBVZRi};RPxuwH", 243, 194, 173, 255 },
+    { "LEHLk~WB2yk8pyo0adR*.7kCMdnj", 159, 175, 181, 255 }
 };
 
 public void test_base83_decode () {
@@ -107,10 +107,10 @@ public void test_blurhash_data () {
             assert (res == null);
         } else {
             assert (res != null);
-            assert_cmpuint (res[7], CompareOperator.EQ, test_blurhash_data.data_1);
-            assert_cmpuint (res[8], CompareOperator.EQ, test_blurhash_data.data_2);
-            assert_cmpuint (res[9], CompareOperator.EQ, test_blurhash_data.data_3);
-            assert_cmpuint (res[10], CompareOperator.EQ, test_blurhash_data.data_4);
+            assert_cmpuint (res[8], CompareOperator.EQ, test_blurhash_data.data_1);
+            assert_cmpuint (res[9], CompareOperator.EQ, test_blurhash_data.data_2);
+            assert_cmpuint (res[10], CompareOperator.EQ, test_blurhash_data.data_3);
+            assert_cmpuint (res[11], CompareOperator.EQ, test_blurhash_data.data_4);
         }
     }
 }
