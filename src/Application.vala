@@ -15,6 +15,7 @@ namespace Tuba {
 
 	public static EntityCache entity_cache;
 	public static ImageCache image_cache;
+	public static BlurhashCache blurhash_cache;
 
 	public static GLib.Regex bookwyrm_regex;
 	public static GLib.Regex custom_emoji_regex;
@@ -129,6 +130,9 @@ namespace Tuba {
 				entity_cache = new EntityCache ();
 				image_cache = new ImageCache () {
 					maintenance_secs = 60 * 5
+				};
+				blurhash_cache = new BlurhashCache () {
+					maintenance_secs = 30
 				};
 				accounts = new SecretAccountStore ();
 				accounts.init ();

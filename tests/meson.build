@@ -1,4 +1,7 @@
 unit_tests = {
+    'Blurhash': files (
+        meson.project_source_root() + '/src/Utils/Blurhash.vala'
+    ),
     'Celebrate': files (
         meson.project_source_root() + '/src/Utils/Celebrate.vala'
     ),
