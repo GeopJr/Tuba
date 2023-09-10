@@ -98,6 +98,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 	public string provider_name { get; set; default=""; }
 	public string provider_url { get; set; default=""; }
 	public string? image { get; set; default=null; }
+	public string? blurhash { get; set; default=null; }
 	public Gee.ArrayList<API.TagHistory>? history { get; set; default = null; }
 	public CardSpecialType card_special_type {
 		get {

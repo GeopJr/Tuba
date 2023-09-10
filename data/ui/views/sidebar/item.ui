@@ -9,10 +9,6 @@
       <object class="GtkBox">
         <property name="orientation">horizontal</property>
         <property name="spacing">12</property>
-        <style>
-          <class name="font-bold" />
-        </style>
-
         <child>
           <object class="GtkImage" id="icon">
             <property name="icon_name">horizontal</property>

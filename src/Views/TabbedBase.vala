@@ -48,12 +48,15 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		switcher_bar = new Adw.ViewSwitcherBar ();
 		toolbar_view.add_bottom_bar (switcher_bar);
 
+		var title_header = new Adw.WindowTitle (label, "");
+		bind_property ("label", title_header, "title", BindingFlags.SYNC_CREATE);
+
 		var condition = new Adw.BreakpointCondition.length (
 			Adw.BreakpointConditionLengthType.MAX_WIDTH,
 			550, Adw.LengthUnit.SP
 		);
 		var breakpoint = new Adw.Breakpoint (condition);
-		breakpoint.add_setter (header, "title-widget", (Gtk.Widget ?) null);
+		breakpoint.add_setter (header, "title-widget", title_header);
 		breakpoint.add_setter (switcher_bar, "reveal", true);
 		add_breakpoint (breakpoint);
 	}
