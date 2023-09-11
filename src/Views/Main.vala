@@ -32,9 +32,9 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		app.main_window.bind_property ("is-mobile", switcher, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.bind_property ("is-mobile", title_header, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.notify["is-mobile"].connect (() => {
-			update_fake_button (!app.main_window.is_mobile);
-
 			if (app.main_window.is_home) {
+				update_fake_button (!app.main_window.is_mobile);
+
 				if (app.main_window.is_mobile) {
 					app.main_window.set_sidebar_selected_item (0);
 				} else {
