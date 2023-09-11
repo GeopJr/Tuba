@@ -37,7 +37,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	public static Place PLACE_NOTIFICATIONS = new Place () { // vala-lint=naming-convention
 
 		title = _("Notifications"),
-		icon = "tuba-bell-symbolic",
+		icon = "tuba-bell-outline-symbolic",
 		open_func = win => {
 			win.go_back_to_start ();
 			((Views.TabbedBase) win.main_page.child).change_page_to_named ("2");
@@ -47,21 +47,21 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	public static Place PLACE_CONVERSATIONS = new Place () { // vala-lint=naming-convention
 
 		title = _("Conversations"),
-		icon = "tuba-mail-symbolic",
+		icon = "mail-unread-symbolic",
 		open_func = win => {
 			win.go_back_to_start ();
 			((Views.TabbedBase) win.main_page.child).change_page_to_named ("3");
 		}
 	};
 
-	public static Place PLACE_MESSAGES = new Place () { // vala-lint=naming-convention
+	//  public static Place PLACE_MESSAGES = new Place () { // vala-lint=naming-convention
 
-		icon = "tuba-mail-symbolic",
-		title = _("Direct Messages"),
-		open_func = (win) => {
-			win.open_view (set_as_sidebar_item (new Views.Conversations ()));
-		}
-	};
+	//  	icon = "tuba-mail-symbolic",
+	//  	title = _("Direct Messages"),
+	//  	open_func = (win) => {
+	//  		win.open_view (set_as_sidebar_item (new Views.Conversations ()));
+	//  	}
+	//  };
 
 	public static Place PLACE_BOOKMARKS = new Place () { // vala-lint=naming-convention
 
@@ -210,7 +210,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		set_visibility (new Visibility () {
 			id = "direct",
 			name = _("Direct"),
-			icon_name = "tuba-mail-symbolic",
+			icon_name = "mail-unread-symbolic",
 			small_icon_name = "tuba-mail-small-symbolic",
 			description = _("Post to mentioned users only")
 		});

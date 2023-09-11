@@ -18,7 +18,6 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-padlock2-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-padlock2-open-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-padlock2-open-small-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-open-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-loupe-large-symbolic.svg</file>
@@ -40,7 +39,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-pin-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-left-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-right-large-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-bell-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-bell-outline-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-list-compact-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-clip-attachment-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-people-symbolic.svg</file>
@@ -94,4 +93,3 @@
         <file>ui/menus.ui</file>
     </gresource>
 </gresources>
-

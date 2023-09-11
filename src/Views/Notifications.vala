@@ -5,7 +5,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	construct {
         url = "/api/v1/notifications";
         label = _("Notifications");
-        icon = "tuba-bell-symbolic";
+        icon = "tuba-bell-outline-symbolic";
         accepts = typeof (API.Notification);
 		badge_number = 0;
 		needs_attention = false;
