@@ -7,6 +7,11 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		add_tab (new Views.Conversations ());
     }
 
+	public string visible_child_name {
+		get {
+			return stack.visible_child_name;
+		}
+	}
 	private Gtk.Button search_button;
 	private Gtk.Button fake_back_button;
 	private void update_fake_button (bool input = false) {
@@ -22,8 +27,8 @@ public class Tuba.Views.Main : Views.TabbedBase {
 	}
 
 	private void go_home () {
-		app.main_window.set_sidebar_selected_item (0);
 		((Views.TabbedBase) app.main_window.main_page.child).change_page_to_named ("1");
+		app.main_window.update_selected_home_item ();
 	}
 
 	private void bind () {
@@ -32,25 +37,7 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		app.main_window.bind_property ("is-mobile", switcher, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.bind_property ("is-mobile", title_header, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.notify["is-mobile"].connect (() => {
-			if (app.main_window.is_home) {
-				update_fake_button (!app.main_window.is_mobile);
-
-				if (app.main_window.is_mobile) {
-					app.main_window.set_sidebar_selected_item (0);
-				} else {
-					switch (stack.visible_child_name) {
-						case "1":
-							app.main_window.set_sidebar_selected_item (0);
-							break;
-						case "2":
-							app.main_window.set_sidebar_selected_item (1);
-							break;
-						case "3":
-							app.main_window.set_sidebar_selected_item (2);
-							break;
-					}
-				}
-			}
+			update_fake_button (!app.main_window.is_mobile);
 		});
 		update_fake_button (!app.main_window.is_mobile);
 	}
