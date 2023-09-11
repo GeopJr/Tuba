@@ -111,6 +111,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			this.place = place;
 			place.bind_property ("title", label, "label", BindingFlags.SYNC_CREATE);
 			place.bind_property ("icon", icon, "icon-name", BindingFlags.SYNC_CREATE);
+			place.bind_property ("visible", this, "visible", BindingFlags.SYNC_CREATE);
 			//  place.bind_property ("badge", badge, "label", BindingFlags.SYNC_CREATE);
 			//  place.bind_property ("badge", badge, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 			//  	target.set_boolean (src.get_int () > 0);

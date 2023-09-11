@@ -5,6 +5,9 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	[GtkChild] unowned Views.Sidebar sidebar;
 	[GtkChild] unowned Gtk.Stack main_stack;
 	[GtkChild] unowned Views.MediaViewer media_viewer;
+	[GtkChild] unowned Adw.Breakpoint breakpoint;
+
+	public bool is_mobile { get; set; default = false; }
 
 	Views.Base? last_view = null;
 
@@ -12,9 +15,20 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		construct_saveable (settings);
 
 		var gtk_settings = Gtk.Settings.get_default ();
+		breakpoint.add_setter (this, "is-mobile", true);
 	}
 
-	private Adw.NavigationPage main_page;
+	public bool is_home {
+		get {
+			return navigation_view.navigation_stack.get_n_items () == 1;
+		}
+	}
+
+	public void set_sidebar_selected_item (int pos) {
+		sidebar.set_sidebar_selected_item (pos);
+	}
+
+	public Adw.NavigationPage main_page;
 	public MainWindow (Adw.Application app) {
 		Object (
 			application: app,
@@ -23,7 +37,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			resizable: true
 		);
 		sidebar.set_sidebar_selected_item (0);
-		main_page = new Adw.NavigationPage (new Views.Main (), "Main");
+		main_page = new Adw.NavigationPage (new Views.Main (), _("Home"));
 		navigation_view.add (main_page);
 
 		if (Build.PROFILE == "development") {
@@ -156,6 +170,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		while (navigated) {
 			navigated = navigation_view.pop ();
 		}
+		((Views.TabbedBase) main_page.child).change_page_to_named ("1");
 	}
 
 	public void scroll_view_page (bool up = false) {
