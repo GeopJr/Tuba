@@ -34,6 +34,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 				var unread_count = src.get_int ();
 				target.set_int (unread_count);
 				this.needs_attention = unread_count > 0;
+				Tuba.Mastodon.Account.PLACE_NOTIFICATIONS.badge = unread_count;
 
 				return true;
 			}
