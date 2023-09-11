@@ -12,6 +12,13 @@ public class Tuba.Views.Main : Views.TabbedBase {
 			return stack.visible_child_name;
 		}
 	}
+
+	private bool toolbar_view_mobile_style {
+		set {
+			toolbar_view.bottom_bar_style = toolbar_view.top_bar_style = value ? Adw.ToolbarStyle.RAISED : Adw.ToolbarStyle.FLAT;
+		}
+	}
+
 	private Gtk.Button search_button;
 	private Gtk.Button fake_back_button;
 	private void update_fake_button (bool input = false) {
@@ -38,8 +45,10 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		app.main_window.bind_property ("is-mobile", title_header, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.notify["is-mobile"].connect (() => {
 			update_fake_button (!app.main_window.is_mobile);
+			toolbar_view_mobile_style = app.main_window.is_mobile;
 		});
 		update_fake_button (!app.main_window.is_mobile);
+		toolbar_view_mobile_style = app.main_window.is_mobile;
 	}
 
 	public override void build_header () {
