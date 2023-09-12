@@ -9,13 +9,14 @@
 # Fúlvio Leo <fulviokaldas@outlook.com>, 2023.
 # Daimar Stein <570cxat11@relay.firefox.com>, 2023.
 # Dalton Scavassa <daltux@users.noreply.hosted.weblate.org>, 2023.
+# Daltux <daltux@users.noreply.hosted.weblate.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-19 22:14+0300\n"
-"PO-Revision-Date: 2023-09-10 02:11+0000\n"
-"Last-Translator: Daimar Stein <570cxat11@relay.firefox.com>\n"
+"PO-Revision-Date: 2023-09-13 12:53+0000\n"
+"Last-Translator: Daltux <daltux@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -31,11 +32,11 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.appdata.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Navegue pelo Fediverse"
+msgstr "Navegue pelo Fediverso"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr "Cliente para o Fediverse"
+msgstr "Cliente para o Fediverso"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
@@ -47,10 +48,9 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-"Explore a rede social federada com o Tuba para o GNOME. Mantenha-se "
-"conectado às suas comunidades favoritas, familiares e amigos com suporte "
-"para plataformas populares do Fediverse, como Mastodon, GoToSocial, Akkoma "
-"&amp; mais!"
+"Explore a rede social federada com Tuba para GNOME. Mantenha-se conectado a "
+"suas comunidades favoritas, familiares e amigos com suporte para plataformas "
+"populares do Fediverso, como Mastodon, GoToSocial, Akkoma &amp; mais!"
 
 #: data/dev.geopjr.Tuba.appdata.xml.in:12
 msgid ""
@@ -60,11 +60,11 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
-"O Fediverse é uma rede social descentralizada que consiste em múltiplas "
+"O Fediverso é uma rede social descentralizada que consiste em múltiplas "
 "plataformas e comunidades interligadas, permitindo que os usuários se "
-"comuniquem e compartilhem conteúdos em diferentes redes e servidores. Ele "
-"promove a privacidade do usuário e a propriedade dos dados e oferece uma "
-"alternativa às plataformas centralizadas de mídia social."
+"comuniquem e compartilhem conteúdos através de diferentes redes e "
+"servidores. Ele promove a privacidade do usuário e a propriedade dos dados, "
+"e oferece uma alternativa às plataformas centralizadas de mídia social."
 
 #: data/ui/widgets/status.ui:157
 msgid "Pinned"
@@ -77,12 +77,12 @@ msgstr "Editado"
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:226
 msgid "Show Less"
-msgstr "Mostrar Menos"
+msgstr "Mostrar menos"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:259 src/Widgets/Status.vala:385
 msgid "Show More"
-msgstr "Mostrar Mais"
+msgstr "Mostrar mais"
 
 #: data/ui/widgets/status.ui:339 data/ui/widgets/status.ui:340
 msgid "Decline"
@@ -99,11 +99,11 @@ msgstr "Robô"
 
 #: data/ui/views/sidebar/view.ui:16
 msgid "Compose"
-msgstr "Compor"
+msgstr "Redigir"
 
 #: data/ui/views/sidebar/view.ui:23
 msgid "Switch Account"
-msgstr "Trocar de Conta"
+msgstr "Trocar de conta"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
@@ -612,7 +612,7 @@ msgstr "Conversa"
 
 #: src/Views/StatusStats.vala:6
 msgid "Post Stats"
-msgstr "Estatísticas da postagem"
+msgstr "Status da postagem"
 
 #. translators: title for a list of people that favorited a post
 #: src/Views/StatusStats.vala:10
@@ -1191,21 +1191,21 @@ msgstr "Adicionar Enquete"
 #: src/Dialogs/Composer/PollPage.vala:123
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Enable Multiple Choice"
-msgstr "Ativar múltipla escolha"
+msgstr "Habilitar múltipla escolha"
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Disable Multiple Choice"
-msgstr "Desativar múltipla escolha"
+msgstr "Desabilitar múltipla escolha"
 
 #: src/Dialogs/Composer/PollPage.vala:145
 #: src/Dialogs/Composer/PollPage.vala:159
 msgid "Hide Total Votes"
-msgstr "Ocultar votos totais"
+msgstr "Ocultar o total de votos"
 
 #: src/Dialogs/Composer/PollPage.vala:159
 msgid "Show Total Votes"
-msgstr "Exibir votos totais"
+msgstr "Exibir o total de votos"
 
 #: src/Dialogs/Composer/PollPage.vala:187
 #: src/Dialogs/Composer/PollPage.vala:222
