@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-19 22:14+0300\n"
 "PO-Revision-Date: 2023-09-13 12:53+0000\n"
-"Last-Translator: Daltux <daltux@users.noreply.hosted.weblate.org>\n"
+"Last-Translator: Daimar Stein <570cxat11@relay.firefox.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -263,12 +263,12 @@ msgstr "Receba notificações mesmo quando o aplicativo está fechado"
 
 #: data/ui/dialogs/preferences.ui:156
 msgid "Strip tracking parameters from links"
-msgstr "Tirar parâmetros de rastreamento dos links"
+msgstr "Remover parâmetros de rastreamento dos links"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:159
 msgid "It can lead to broken links"
-msgstr "Pode levar a links quebrados"
+msgstr "Isso pode levar a links quebrados"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Timelines"
@@ -508,13 +508,13 @@ msgstr "Parar de seguir"
 #: src/Widgets/PreviewCard.vala:132
 #, c-format
 msgid "Discussed %d times by %d people yesterday"
-msgstr "Comentado %d vezes por %d pessoas ontem"
+msgstr "Discutido %d vezes por %d pessoas ontem"
 
 #. translators: the variables are numbers
 #: src/Widgets/PreviewCard.vala:140
 #, c-format
 msgid "Discussed %d times by %d people in the past 2 days"
-msgstr "Comentado %d vezes por %d pessoas nos últimos 2 dias"
+msgstr "Discutido %d vezes por %d pessoas nos últimos 2 dias"
 
 #. translators: Used when there are results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:53
@@ -533,7 +533,7 @@ msgstr "Sem Resultados"
 #: src/Widgets/CustomEmojiChooser.vala:155 src/API/Emoji.vala:4
 #: src/API/Emoji.vala:8
 msgid "Other"
-msgstr "Outro"
+msgstr "Outros"
 
 #: src/Widgets/CustomEmojiChooser.vala:154
 msgid "Custom Emojis"
