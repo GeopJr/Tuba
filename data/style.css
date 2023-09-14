@@ -1,6 +1,9 @@
 .ttl-sidebar .badge {
-	padding: 2px 12px;
-	border-radius: 999px;
+	font-weight: bold;
+	font-size: 0.8em;
+	border-radius: 10px;
+	min-width: 0.7em;
+	padding: 2px 5px;
 	background: @accent_bg_color;
 	color: @text_view_bg;
 }
