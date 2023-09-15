@@ -3,12 +3,18 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public string url { get; construct set; }
 	public bool is_public { get; construct set; default = false; }
 	public Type accepts { get; set; default = typeof (API.Status); }
+	#if !USE_LISTVIEW
+		public bool use_queue { get; set; default = true; }
+	#endif
 
 	protected InstanceAccount? account { get; set; default = null; }
 
 	public bool is_last_page { get; set; default = false; }
 	public string? page_next { get; set; }
 	public string? page_prev { get; set; }
+	#if !USE_LISTVIEW
+		Entity[] entity_queue = {};
+	#endif
 
 	private Gtk.Spinner pull_to_refresh_spinner;
 	private bool _is_pulling = false;
@@ -75,6 +81,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			css_classes = { "osd", "circular-spinner" }
 		};
 
+		#if !USE_LISTVIEW
+			reached_close_to_top.connect (finish_queue);
+		#endif
+
 		app.refresh.connect (on_refresh);
 		status_button.clicked.connect (on_refresh);
 
@@ -92,6 +102,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		settings.notify["hide-preview-cards"].connect (on_refresh);
 		settings.notify["enlarge-custom-emojis"].connect (on_refresh);
 
+		#if !USE_LISTVIEW
+			content.bind_model (model, on_create_model_widget);
+		#endif
+
 		var drag = new Gtk.GestureDrag ();
         drag.drag_update.connect (on_drag_update);
         drag.drag_end.connect (on_drag_end);
@@ -102,6 +116,11 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 		destruct_account_holder ();
 		destruct_streamable ();
+
+		#if !USE_LISTVIEW
+			content.bind_model (null, null);
+			entity_queue = {};
+		#endif
 	}
 
 	public override void dispose () {
@@ -183,6 +202,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_refresh () {
+		#if !USE_LISTVIEW
+			entity_queue = {};
+		#endif
 		scrolled.vadjustment.value = 0;
 		status_button.sensitive = false;
 		clear ();
@@ -226,11 +248,32 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	public virtual void on_new_post (Streamable.Event ev) {
 		try {
-			model.insert (0, Entity.from_json (accepts, ev.get_node ()));
+			#if USE_LISTVIEW
+				model.insert (0, Entity.from_json (accepts, ev.get_node ()));
+			#else
+				var entity = Entity.from_json (accepts, ev.get_node ());
+
+				if (use_queue && scrolled.vadjustment.value > 1000) {
+					entity_queue += entity;
+					return;
+				}
+
+				model.insert (0, entity);
+			#endif
 		} catch (Error e) {
 			warning (@"Error getting Entity from json: $(e.message)");
 		}
 	}
+
+	#if !USE_LISTVIEW
+		private void finish_queue () {
+			if (entity_queue.length == 0) return;
+			model.splice (0, 0, (Object[])entity_queue);
+
+			entity_queue = {};
+		}
+	#endif
+
 
 	public virtual void on_edit_post (Streamable.Event ev) {
 		try {

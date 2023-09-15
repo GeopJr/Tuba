@@ -28,6 +28,10 @@ public class Tuba.Views.Lists : Views.Timeline {
 			action_box.append (edit_button);
 			action_box.append (delete_button);
 
+			#if !USE_LISTVIEW
+				this.activated.connect (() => open ());
+			#endif
+
 			this.activatable = true;
 			this.add_suffix (action_box);
 		}
@@ -78,6 +82,16 @@ public class Tuba.Views.Lists : Views.Timeline {
 				transient_for = app.main_window
 			};
 		}
+
+		#if !USE_LISTVIEW
+			public virtual signal void open () {
+				if (this.list == null)
+					return;
+
+				var view = new Views.List (list);
+				app.main_window.open_view (view);
+			}
+		#endif
     }
 
 	public new bool empty {
