@@ -60,11 +60,11 @@ const TestBlurhashRatio[] BLURHASH_RATIO_TESTS = {
 
 const TestBlurhashData[] BLURHASH_TO_DATA_TESTS = {
     { "invalid", 0, 0, 0, 0 },
-    { "L00000fQfQfQfQfQfQfQfQfQfQfQ", 6, 6, 6, 255 },
-    { "LGF5]+Yk^6#M@-5c,1J5@[or[Q6.", 173, 129, 188, 255 },
-    { "L6PZfSjE.AyE_3t7t7R**0o#DgR4", 230, 228, 225, 255 },
-    { "LKO2:N%2Tw=w]~RBVZRi};RPxuwH", 243, 194, 173, 255 },
-    { "LEHLk~WB2yk8pyo0adR*.7kCMdnj", 159, 175, 181, 255 }
+    { "L00000fQfQfQfQfQfQfQfQfQfQfQ", 0, 0, 0, 255 },
+    { "LGF5]+Yk^6#M@-5c,1J5@[or[Q6.", 172, 120, 180, 255 },
+    { "L6PZfSjE.AyE_3t7t7R**0o#DgR4", 228, 227, 224, 255 },
+    { "LKO2:N%2Tw=w]~RBVZRi};RPxuwH", 237, 188, 167, 255 },
+    { "LEHLk~WB2yk8pyo0adR*.7kCMdnj", 153, 170, 176, 255 }
 };
 
 public void test_base83_decode () {
