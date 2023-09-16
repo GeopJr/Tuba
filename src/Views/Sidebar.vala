@@ -23,6 +23,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 		var account_submenu_model = new GLib.Menu ();
 		account_submenu_model.append (_("Open Profile"), "app.open-current-account-profile");
+		account_submenu_model.append (_("Refresh"), "app.refresh");
 		menu_model.append_section (null, account_submenu_model);
 
 		var misc_submenu_model = new GLib.Menu ();

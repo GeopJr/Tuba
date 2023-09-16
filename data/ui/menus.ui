@@ -109,10 +109,6 @@
         <attribute name="action">view.ar_list</attribute>
         <attribute name="hidden-when">action-disabled</attribute>
       </item>
-      <item>
-        <attribute name="label" translatable="yes">Refresh</attribute>
-        <attribute name="action">app.refresh</attribute>
-      </item>
     </section>
 
   </menu>
