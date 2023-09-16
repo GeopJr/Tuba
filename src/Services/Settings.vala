@@ -9,7 +9,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool live_updates { get; set; }
 	public bool public_live_updates { get; set; }
 	public bool show_spoilers { get; set; }
-	public bool hide_preview_cards { get; set; }
+	public bool show_preview_cards { get; set; }
 	public bool larger_font_size { get; set; }
 	public bool larger_line_height { get; set; }
 	public bool scale_emoji_hover { get; set; }
@@ -28,7 +28,7 @@ public class Tuba.Settings : GLib.Settings {
 		"live-updates",
 		"public-live-updates",
 		"show-spoilers",
-		"hide-preview-cards",
+		"show-preview-cards",
 		"larger-font-size",
 		"larger-line-height",
 		"aggressive-resolving",

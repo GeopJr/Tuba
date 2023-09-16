@@ -146,8 +146,8 @@
               </object>
             </child>
             <child>
-              <object class="AdwSwitchRow" id="hide_preview_cards">
-                <property name="title" translatable="yes">Hide link preview cards</property>
+              <object class="AdwSwitchRow" id="show_preview_cards">
+                <property name="title" translatable="yes">Show link preview cards</property>
               </object>
             </child>
           </object>

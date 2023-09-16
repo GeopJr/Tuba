@@ -582,7 +582,7 @@ public class Tuba.Widgets.Status : Adw.Bin {
 		}
 
 		if (prev_card != null) content_box.remove (prev_card);
-		if (!settings.hide_preview_cards && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
+		if (!settings.show_preview_cards && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
 			try {
 				prev_card = (Gtk.Button) status.formal.card.to_widget ();
 				prev_card.clicked.connect (open_card_url);

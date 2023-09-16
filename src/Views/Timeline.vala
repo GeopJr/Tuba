@@ -89,7 +89,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		}
 
 		settings.notify["show-spoilers"].connect (on_refresh);
-		settings.notify["hide-preview-cards"].connect (on_refresh);
+		settings.notify["show-preview-cards"].connect (on_refresh);
 		settings.notify["enlarge-custom-emojis"].connect (on_refresh);
 
 		var drag = new Gtk.GestureDrag ();
