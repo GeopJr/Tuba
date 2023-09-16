@@ -18,9 +18,6 @@
 		<key name="default-post-visibility" type="s">
 			<default>'public'</default>
 		</key>
-		<key name="autostart" type="b">
-			<default>false</default>
-		</key>
 		<key name="work-in-background" type="b">
 			<default>false</default>
 		</key>

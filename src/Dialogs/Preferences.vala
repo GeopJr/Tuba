@@ -8,7 +8,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned Adw.ComboRow scheme_combo_row;
     [GtkChild] unowned Adw.ComboRow post_visibility_combo_row;
     [GtkChild] unowned Adw.ComboRow default_language_combo_row;
-    [GtkChild] unowned Adw.SwitchRow autostart;
     [GtkChild] unowned Adw.SwitchRow work_in_background;
     [GtkChild] unowned Adw.SpinRow timeline_page_size;
     [GtkChild] unowned Adw.SwitchRow live_updates;
@@ -103,7 +102,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 
 	void bind () {
         //  settings.bind ("dark-theme", dark_theme, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("autostart", autostart, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("work-in-background", work_in_background, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("timeline-page-size", timeline_page_size.adjustment, "value", SettingsBindFlags.DEFAULT);
         settings.bind ("live-updates", live_updates, "active", SettingsBindFlags.DEFAULT);

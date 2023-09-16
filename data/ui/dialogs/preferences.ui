@@ -102,13 +102,6 @@
           <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Behavior</property>
             <child>
-              <object class="AdwSwitchRow" id="autostart">
-                <property name="title" translatable="yes">Autostart</property>
-                <property name="subtitle" translatable="yes">Start minimized at boot</property>
-                <property name="sensitive">0</property>
-              </object>
-            </child>
-            <child>
               <object class="AdwSwitchRow" id="work_in_background">
                 <property name="title" translatable="yes">Background work</property>
                 <property name="subtitle" translatable="yes">Receive notifications even when the app is closed</property>

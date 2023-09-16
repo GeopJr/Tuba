@@ -4,7 +4,6 @@ public class Tuba.Settings : GLib.Settings {
 	public string default_language { get; set; default = "en"; }
 	public ColorScheme color_scheme { get; set; }
 	public string default_post_visibility { get; set; default = "public"; }
-	public bool autostart { get; set; }
 	public bool work_in_background { get; set; }
 	public int timeline_page_size { get; set; }
 	public bool live_updates { get; set; }
@@ -25,7 +24,6 @@ public class Tuba.Settings : GLib.Settings {
 		"active-account",
 		"color-scheme",
 		"default-post-visibility",
-		"autostart",
 		"timeline-page-size",
 		"live-updates",
 		"public-live-updates",
