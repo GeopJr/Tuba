@@ -73,6 +73,12 @@
                 <property name="subtitle" translatable="yes">Expand pictures to fill the media viewer by default</property>
               </object>
             </child>
+            <child>
+              <object class="AdwSwitchRow" id="use_blurhash">
+                <property name="title" translatable="no">BlurHash</property>
+                <property name="subtitle" translatable="yes">Show a blurred version of the media while they are loading</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>
