@@ -23,14 +23,14 @@
             <child>
               <object class="AdwComboRow" id="scheme_combo_row">
                 <property name="title" translatable="yes">Color Scheme</property>
-                <signal name="notify::selected-item" handler="on_scheme_changed" swapped="no"/>
+                <signal name="notify::selected-item" handler="on_scheme_changed" swapped="no" />
 
                 <property name="model">
-                  <object class="TubaColorSchemeListModel"/>
+                  <object class="TubaColorSchemeListModel" />
                 </property>
 
                 <property name="expression">
-                  <lookup type="TubaColorSchemeListItem" name="name"/>
+                  <lookup type="TubaColorSchemeListItem" name="name" />
                 </property>
               </object>
             </child>
@@ -73,6 +73,16 @@
                 <property name="subtitle" translatable="yes">Expand pictures to fill the media viewer by default</property>
               </object>
             </child>
+            <child>
+              <object class="AdwSwitchRow" id="show_spoilers">
+                <property name="title" translatable="yes">Reveal spoilers by default</property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwSwitchRow" id="show_preview_cards">
+                <property name="title" translatable="yes">Show link preview cards</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>
@@ -83,7 +93,7 @@
                 <property name="title" translatable="yes">Default post visibility</property>
 
                 <property name="expression">
-                  <lookup type="TubaInstanceAccountVisibility" name="name"/>
+                  <lookup type="TubaInstanceAccountVisibility" name="name" />
                 </property>
               </object>
             </child>
@@ -92,7 +102,7 @@
                 <property name="title" translatable="yes">Default post language</property>
 
                 <property name="expression">
-                  <lookup type="TubaLocalesLocale" name="name"/>
+                  <lookup type="TubaLocalesLocale" name="name" />
                 </property>
               </object>
             </child>
@@ -135,23 +145,19 @@
             </child>
             <child>
               <object class="AdwSwitchRow" id="public_live_updates">
-                <property name="sensitive" bind-source="live_updates" bind-property="active" bind-flags="sync-create"/>
+                <property name="sensitive" bind-source="live_updates" bind-property="active" bind-flags="sync-create" />
                 <property name="title" translatable="yes">Stream public timelines</property>
                 <property name="subtitle" translatable="yes">Warning: This will increase memory usage</property>
               </object>
             </child>
-            <child>
-              <object class="AdwSwitchRow" id="show_spoilers">
-                <property name="title" translatable="yes">Reveal spoilers by default</property>
-              </object>
-            </child>
-            <child>
-              <object class="AdwSwitchRow" id="show_preview_cards">
-                <property name="title" translatable="yes">Show link preview cards</property>
-              </object>
-            </child>
           </object>
         </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwPreferencesPage">
+        <property name="icon_name">tuba-bell-symbolic</property>
+        <property name="title" translatable="yes">Notifications</property>
         <child>
           <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Push Notifications</property>
