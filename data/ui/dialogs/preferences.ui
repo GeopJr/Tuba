@@ -96,6 +96,16 @@
                 </property>
               </object>
             </child>
+            <child>
+              <object class="AdwComboRow" id="default_content_type_combo_row">
+                <property name="visible">0</property>
+                <property name="title" translatable="yes">Default post content type</property>
+
+                <property name="expression">
+                  <lookup type="TubaInstanceAccountStatusContentType" name="title"/>
+                </property>
+              </object>
+            </child>
           </object>
         </child>
         <child>

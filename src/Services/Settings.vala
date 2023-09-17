@@ -19,9 +19,10 @@ public class Tuba.Settings : GLib.Settings {
 	public bool letterbox_media { get; set; }
 	public bool media_viewer_expand_pictures { get; set; }
 	public bool enlarge_custom_emojis { get; set; }
+	public string default_content_type { get; set; default = "text/plain"; }
 
 	public string[] muted_notification_types { get; set; default = {}; }
-	private string[] keys_to_init = {
+	private static string[] keys_to_init = {
 		"active-account",
 		"color-scheme",
 		"default-post-visibility",
@@ -39,7 +40,8 @@ public class Tuba.Settings : GLib.Settings {
 		"letterbox-media",
 		"media-viewer-expand-pictures",
 		"enlarge-custom-emojis",
-		"muted-notification-types"
+		"muted-notification-types",
+		"default-content-type"
 	};
 
 	public Settings () {
