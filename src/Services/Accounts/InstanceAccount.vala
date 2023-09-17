@@ -165,17 +165,17 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				descr_url = account.url;
 				break;
 			case KIND_FAVOURITE:
-				icon = "tuba-starred-symbolic";
+				icon = "starred-symbolic";
 				descr = _("%s favorited your post").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_FOLLOW:
-				icon = "tuba-contact-new-symbolic";
+				icon = "contact-new-symbolic";
 				descr = _("%s now follows you").printf (account.display_name);
 				descr_url = account.url;
 				break;
 			case KIND_FOLLOW_REQUEST:
-				icon = "tuba-contact-new-symbolic";
+				icon = "contact-new-symbolic";
 				descr = _("%s wants to follow you").printf (account.display_name);
 				descr_url = account.url;
 				break;

@@ -18,7 +18,7 @@
     <property name="default_height">400</property>
     <child>
       <object class="AdwPreferencesPage">
-        <property name="icon-name">tuba-gear-symbolic</property>
+        <property name="icon-name">tuba-settings-symbolic</property>
         <property name="title" translatable="yes">General</property>
         <child>
           <object class="AdwPreferencesGroup">

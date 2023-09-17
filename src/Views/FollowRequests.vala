@@ -2,7 +2,7 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
     construct {
         url = "/api/v1/follow_requests";
         label = _("Follow Requests");
-        icon = "tuba-address-book-new-symbolic";
+        icon = "address-book-new-symbolic";
         accepts = typeof (API.Account);
     }
 

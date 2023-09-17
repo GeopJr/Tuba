@@ -115,7 +115,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		var menu = "profile-menu";
 		menu_button.menu_model = menu_builder.get_object (menu) as MenuModel;
 		menu_button.popover.width_request = 250;
-		menu_button.icon_name = "tuba-view-more-symbolic";
+		menu_button.icon_name = "view-more-symbolic";
 		header.pack_end (menu_button);
 
 		if (profile.account.is_self ()) {
@@ -367,7 +367,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		};
 
 		var no_lists_page = new Adw.StatusPage () {
-			icon_name = "tuba-error-symbolic",
+			icon_name = "dialog-error-symbolic",
 			vexpand = true,
 			title = _("You don't have any lists")
 		};

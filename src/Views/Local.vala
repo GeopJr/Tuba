@@ -1,7 +1,7 @@
 public class Tuba.Views.Local : Views.Federated {
     construct {
         label = _("Local");
-        icon = "tuba-network-server-symbolic";
+        icon = "network-server-symbolic";
     }
 
     public override Request append_params (Request r) {

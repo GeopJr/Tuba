@@ -7,7 +7,6 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-hashtag-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-bookmarks-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-bookmarks-filled-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-starred-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-unstarred-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-online-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-smile-symbolic.svg</file>
@@ -22,18 +21,15 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-open-small-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-loupe-large-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-more-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mark-important-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-reply-sender-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-reply-all-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-media-playlist-repeat-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-sentiment-dissatisfied-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-network-server-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-key-password-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-key-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-check-round-outline-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-gear-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-settings-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-clipboard-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-trash-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-plus-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-paper-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-paper-small-symbolic.svg</file>
@@ -42,21 +38,13 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-right-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-bell-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-list-compact-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-clip-attachment-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-people-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-home-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-chat-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-contact-new-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-dock-left-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-about-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-error-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-minus-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-cross-large-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-address-book-new-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-eye-open-negative-filled-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-eye-not-looking-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-fullscreen-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-restore-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-music-note-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-newspaper-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-explore2-large-symbolic.svg</file>
@@ -94,4 +82,3 @@
         <file>ui/menus.ui</file>
     </gresource>
 </gresources>
-
