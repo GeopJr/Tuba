@@ -1,6 +1,6 @@
 // Blurhash decoding in pure Vala inspired by
 // https://github.com/woltapp/blurhash and https://github.com/mad-gooze/fast-blurhash/
-class Tuba.Blurhash {
+public class Tuba.Blurhash {
 	struct AverageColor {
 		int r;
 		int g;
