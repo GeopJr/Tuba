@@ -184,8 +184,12 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 
 	public static void default_handler (MarkupView v, Xml.Node* root) {
 		switch (root->name) {
-			case "html":
 			case "span":
+				string? classes = root->get_prop ("class");
+				if (classes == null || !classes.contains ("quote-inline"))
+					traverse_and_handle (v, root, default_handler);
+				break;
+			case "html":
 			case "markup":
 				traverse_and_handle (v, root, default_handler);
 				break;
