@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <object class="GtkPopover" id="account_switcher_popover_menu">
+    <property name="autohide">1</property>
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="propagate-natural-width">1</property>
+        <property name="propagate-natural-height">1</property>
+        <property name="max-content-width">300</property>
+        <property name="max-content-height">400</property>
+        <property name="child">
+          
+      <object class="GtkListBox" id="saved_accounts">
+        <property name="selection_mode">single</property>
+        <signal name="row_activated" handler="on_account_activated" />
+        <style>
+          <class name="ttl-account-switcher" />
+          <class name="navigation-sidebar" />
+        </style>
+      </object>
+    </property>
+    </object>
+    
+    
+    </child>
+  </object>
+
   <template class="TubaViewsSidebar" parent="GtkWidget">
     <property name="width_request">200</property>
     <property name="hexpand">false</property>
@@ -9,9 +34,9 @@
         <child type="top">
           <object class="AdwHeaderBar">
             <child type="start">
-              <object class="GtkToggleButton" id="accounts_button">
-                <signal name="toggled" handler="on_mode_changed" />
+              <object class="GtkMenuButton" id="accounts_button">
                 <property name="tooltip_text" translatable="yes">Switch Account</property>
+                <property name="popover">account_switcher_popover_menu</property>
                 <child>
                   <object class="TubaWidgetsAvatar" id="accounts_button_avi">
                     <property name="size">26</property>
@@ -39,41 +64,12 @@
             <property name="child">
               <object class="GtkViewport">
                 <child>
-                  <object class="GtkStack" id="mode">
-                    <property name="transition_type">crossfade</property>
-
-                    <!-- Account actions -->
-                    <child>
-                      <object class="GtkStackPage">
-                        <property name="name">items</property>
-                        <property name="child">
-                          <object class="GtkListBox" id="items">
-                            <property name="selection_mode">single</property>
-                            <signal name="row_activated" handler="on_item_activated" />
-                            <style>
-                              <class name="navigation-sidebar" />
-                            </style>
-                          </object>
-                        </property>
-                      </object>
-                    </child>
-
-                    <!-- Active account menu -->
-                    <child>
-                      <object class="GtkStackPage">
-                        <property name="name">saved_accounts</property>
-                        <property name="child">
-                          <object class="GtkListBox" id="saved_accounts">
-                            <property name="selection_mode">single</property>
-                            <signal name="row_activated" handler="on_account_activated" />
-                            <style>
-                              <class name="navigation-sidebar" />
-                            </style>
-                          </object>
-                        </property>
-                      </object>
-                    </child>
-
+                  <object class="GtkListBox" id="items">
+                    <property name="selection_mode">single</property>
+                    <signal name="row_activated" handler="on_item_activated" />
+                    <style>
+                      <class name="navigation-sidebar" />
+                    </style>
                   </object>
                 </child>
               </object>
