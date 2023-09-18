@@ -64,9 +64,14 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-brain-augemnted-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-lightbulb-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-important-small-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-code-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-markdown-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-rich-text-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/help-overlay.ui</file>
+        <file>gtk/dropdown/content_type_title.ui</file>
+        <file>gtk/dropdown/content_type.ui</file>
         <file>gtk/dropdown/icon.ui</file>
         <file>gtk/dropdown/full.ui</file>
         <file>gtk/dropdown/language_title.ui</file>

@@ -1,6 +1,6 @@
 // Blurhash decoding in pure Vala inspired by
 // https://github.com/woltapp/blurhash and https://github.com/mad-gooze/fast-blurhash/
-class Tuba.Blurhash {
+public class Tuba.Blurhash {
 	struct AverageColor {
 		int r;
 		int g;
@@ -56,7 +56,11 @@ class Tuba.Blurhash {
 	// WARNING: sanitize start and end manually, this is only used
 	//			here and only on valid blurhashes.
 	private static int decode_partial (string str, int start, int end) {
-		if (start > end || end >= str.length) return 0;
+		if (start > end) return 0;
+
+		int str_length = str.length;
+		if (end >= str_length) end = str_length;
+
 		return Base83.decode (str.slice (start, end));
 	}
 

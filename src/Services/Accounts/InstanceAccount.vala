@@ -206,6 +206,56 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public int last_received_id { get; set; default = 0; }
 	private bool passed_init_notifications = false;
 
+	public class StatusContentType : Object {
+		public string mime { get; construct set; }
+		public string icon_name { get; construct set; }
+		public string title { get; construct set; }
+
+		public StatusContentType (string content_type) {
+			mime = content_type;
+
+			switch (content_type.down ()) {
+				case "text/plain":
+					icon_name = "tuba-paper-symbolic";
+					title = _("Plain Text");
+					break;
+				case "text/html":
+					icon_name = "tuba-code-symbolic";
+					title = "HTML";
+					break;
+				case "text/markdown":
+					icon_name = "tuba-markdown-symbolic";
+					title = "Markdown";
+					break;
+				case "text/bbcode":
+					icon_name = "tuba-rich-text-symbolic";
+					title = "BBCode";
+					break;
+				case "text/x.misskeymarkdown":
+					icon_name = "tuba-rich-text-symbolic";
+					title = "MFM";
+					break;
+				default:
+					icon_name = "tuba-rich-text-symbolic";
+
+					int slash = content_type.index_of_char ('/');
+					int ct_l = content_type.length;
+					if (slash == -1 || slash == ct_l) {
+						title = content_type.up ();
+					} else {
+						title = content_type.slice (slash + 1, ct_l).up ();
+					}
+
+					break;
+			}
+		}
+
+		public static EqualFunc<string> compare = (a, b) => {
+			return ((StatusContentType) a).mime == ((StatusContentType) b).mime;
+		};
+	}
+
+	public GLib.ListStore supported_mime_types = new GLib.ListStore (typeof (StatusContentType));
 	public void gather_instance_info () {
 		new Request.GET ("/api/v1/instance")
 			.with_account (this)
@@ -213,6 +263,14 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				instance_info = API.Instance.from (node);
+
+				var content_types = instance_info.compat_supported_mime_types;
+				if (content_types != null) {
+					supported_mime_types.remove_all ();
+					foreach (string content_type in content_types) {
+						supported_mime_types.append (new StatusContentType (content_type));
+					}
+				}
 			})
 			.exec ();
 	}

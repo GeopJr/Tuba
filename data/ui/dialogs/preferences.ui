@@ -73,6 +73,12 @@
                 <property name="subtitle" translatable="yes">Expand pictures to fill the media viewer by default</property>
               </object>
             </child>
+            <child>
+              <object class="AdwSwitchRow" id="use_blurhash">
+                <property name="title" translatable="no">BlurHash</property>
+                <property name="subtitle" translatable="yes">Show a blurred version of the media until they fully load</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>
@@ -93,6 +99,16 @@
 
                 <property name="expression">
                   <lookup type="TubaLocalesLocale" name="name"/>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwComboRow" id="default_content_type_combo_row">
+                <property name="visible">0</property>
+                <property name="title" translatable="yes">Default post content type</property>
+
+                <property name="expression">
+                  <lookup type="TubaInstanceAccountStatusContentType" name="title"/>
                 </property>
               </object>
             </child>

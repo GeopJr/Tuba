@@ -47,12 +47,12 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 		if (clean_y > 32) {
 			pull_to_refresh_spinner.margin_top = (int) clean_y;
-			pull_to_refresh_spinner.height_request = 32;
+			pull_to_refresh_spinner.height_request = pull_to_refresh_spinner.width_request = 32;
 		} else if (clean_y > 0) {
-			pull_to_refresh_spinner.height_request = (int) clean_y;
+			pull_to_refresh_spinner.height_request = pull_to_refresh_spinner.width_request = (int) clean_y;
 		} else {
 			pull_to_refresh_spinner.margin_top = 32;
-			pull_to_refresh_spinner.height_request = 0;
+			pull_to_refresh_spinner.height_request = pull_to_refresh_spinner.width_request = 0;
 		}
     }
 
@@ -67,10 +67,12 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	construct {
 		pull_to_refresh_spinner = new Gtk.Spinner () {
 			height_request = 32,
+			width_request = 32,
 			margin_top = 32,
 			margin_bottom = 32,
-			halign = Gtk.Align.FILL,
-			valign = Gtk.Align.START
+			halign = Gtk.Align.CENTER,
+			valign = Gtk.Align.START,
+			css_classes = { "osd", "circular-spinner" }
 		};
 
 		app.refresh.connect (on_refresh);

@@ -28,7 +28,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 			image_cache.request_paintable (card_obj.image, (is_loaded, paintable) => {
 				if (is_loaded) {
 					image.paintable = paintable;
-				} else {
+				} else if (settings.use_blurhash) {
 					image.paintable = blurhash_cache.lookup_or_decode (card_obj.blurhash);
 				}
 			});
