@@ -4,7 +4,7 @@
     <property name="width_request">360</property>
     <property name="height_request">600</property>
     <child>
-      <object class="AdwBreakpoint">
+      <object class="AdwBreakpoint" id="breakpoint">
         <condition>max-width: 700sp</condition>
         <setter object="split_view" property="collapsed">true</setter>
       </object>
