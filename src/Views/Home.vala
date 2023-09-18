@@ -40,7 +40,7 @@ public class Tuba.Views.Home : Views.Timeline {
         last_direction_down = direction_down;
 
         if (!direction_down && show_on_adjustment == -1) {
-            show_on_adjustment = last_adjustment - 100;
+            show_on_adjustment = last_adjustment - 200;
             if (show_on_adjustment <= 0) show_on_adjustment = last_adjustment;
         } else if (direction_down) {
             show_on_adjustment = -1;
