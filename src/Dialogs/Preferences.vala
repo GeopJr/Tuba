@@ -22,6 +22,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned Adw.SwitchRow letterbox_media;
     [GtkChild] unowned Adw.SwitchRow media_viewer_expand_pictures;
     [GtkChild] unowned Adw.SwitchRow enlarge_custom_emojis;
+    [GtkChild] unowned Adw.SwitchRow use_blurhash;
 
     [GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
     [GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
@@ -117,6 +118,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
         settings.bind ("letterbox-media", letterbox_media, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("media-viewer-expand-pictures", media_viewer_expand_pictures, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("enlarge-custom-emojis", enlarge_custom_emojis, "active", SettingsBindFlags.DEFAULT);
+        settings.bind ("use-blurhash", use_blurhash, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 

@@ -19,6 +19,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool letterbox_media { get; set; }
 	public bool media_viewer_expand_pictures { get; set; }
 	public bool enlarge_custom_emojis { get; set; }
+	public bool use_blurhash { get; set; }
 
 	public string[] muted_notification_types { get; set; default = {}; }
 	private string[] keys_to_init = {
@@ -39,7 +40,8 @@ public class Tuba.Settings : GLib.Settings {
 		"letterbox-media",
 		"media-viewer-expand-pictures",
 		"enlarge-custom-emojis",
-		"muted-notification-types"
+		"muted-notification-types",
+		"use-blurhash"
 	};
 
 	public Settings () {
