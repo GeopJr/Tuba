@@ -7,6 +7,7 @@ public class Tuba.API.Pleroma.Instance : Entity {
 		}
 
 		public FieldLimits? fields_limits { get; set; default = null; }
+		public string[]? post_formats { get; set; default = null; }
 	}
 
 	public Metadata? metadata { get; set; default = null; }

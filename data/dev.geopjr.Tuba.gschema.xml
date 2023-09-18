@@ -63,6 +63,9 @@
 		<key name="enlarge-custom-emojis" type="b">
 			<default>false</default>
 		</key>
+		<key name="default-content-type" type="s">
+			<default>'text/plain'</default>
+		</key>
 		<key name="use-blurhash" type="b">
 			<default>true</default>
 		</key>
