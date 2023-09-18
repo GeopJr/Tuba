@@ -76,7 +76,7 @@
             <child>
               <object class="AdwSwitchRow" id="use_blurhash">
                 <property name="title" translatable="no">BlurHash</property>
-                <property name="subtitle" translatable="yes">Show a blurred version of the media while they are loading</property>
+                <property name="subtitle" translatable="yes">Show a blurred version of the media until they fully load</property>
               </object>
             </child>
           </object>
