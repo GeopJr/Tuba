@@ -40,6 +40,7 @@
                 <property name="margin_top">3</property>
                 <child type="overlay">
                   <object class="TubaWidgetsAvatar" id="avatar">
+                    <property name="overflow">hidden</property>
                     <property name="size">48</property>
                     <property name="valign">start</property>
                     <property name="visible">true</property>
@@ -108,9 +109,9 @@
                             <child>
                               <object class="TubaWidgetsRichLabel" id="name_label">
                                 <property name="visible">True</property>
-                                <property name="ellipsize">True</property>
+                                <property name="ellipsize">0</property>
                                 <property name="smaller-emoji-pixel-size">True</property>
-                                <property name="lines">-1</property>
+                                <property name="lines">100</property>
                                 <style>
                                   <class name="font-bold" />
                                 </style>

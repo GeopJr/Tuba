@@ -3,7 +3,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 	public GLib.ListStore model;
 	protected Gtk.ListView content;
 	private bool bottom_reached_locked = false;
-	protected signal void reached_close_to_top ();
+	//  protected signal void reached_close_to_top ();
 
 	public bool empty {
 		get { return model.get_n_items () <= 0; }
@@ -40,7 +40,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 		scroll_to_top_rev.reveal_child = !is_close_to_top
 			&& scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper;
 
-		if (is_close_to_top) reached_close_to_top ();
+		//  if (is_close_to_top) reached_close_to_top ();
 	}
 
 	protected virtual void bind_listitem_cb (GLib.Object item) {
@@ -64,6 +64,13 @@ public class Tuba.Views.ContentBase : Views.Base {
 	public override void clear () {
 		base.clear ();
 		model.remove_all ();
+	}
+
+	protected void clear_all_but_first () {
+		base.clear ();
+
+		if (model.n_items > 1)
+			model.splice (1, model.n_items - 1, {});
 	}
 
 	public override void on_content_changed () {

@@ -5,6 +5,9 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	[GtkChild] unowned Views.Sidebar sidebar;
 	[GtkChild] unowned Gtk.Stack main_stack;
 	[GtkChild] unowned Views.MediaViewer media_viewer;
+	[GtkChild] unowned Adw.Breakpoint breakpoint;
+
+	public bool is_mobile { get; set; default = false; }
 
 	Views.Base? last_view = null;
 
@@ -12,9 +15,17 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		construct_saveable (settings);
 
 		var gtk_settings = Gtk.Settings.get_default ();
+		breakpoint.add_setter (this, "is-mobile", true);
+		notify["is-mobile"].connect (update_selected_home_item);
 	}
 
-	private Adw.NavigationPage main_page;
+	public bool is_home {
+		get {
+			return navigation_view.navigation_stack.get_n_items () == 1;
+		}
+	}
+
+	public Adw.NavigationPage main_page;
 	public MainWindow (Adw.Application app) {
 		Object (
 			application: app,
@@ -23,7 +34,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			resizable: true
 		);
 		sidebar.set_sidebar_selected_item (0);
-		main_page = new Adw.NavigationPage (new Views.Main (), "Main");
+		main_page = new Adw.NavigationPage (new Views.Main (), _("Home"));
 		navigation_view.add (main_page);
 
 		if (Build.PROFILE == "development") {
@@ -156,6 +167,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		while (navigated) {
 			navigated = navigation_view.pop ();
 		}
+		((Views.TabbedBase) main_page.child).change_page_to_named ("1");
 	}
 
 	public void scroll_view_page (bool up = false) {
@@ -173,12 +185,35 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	//FIXME: switch timelines with 1-4. Should be moved to Views.TabbedBase
 	public void switch_timeline (int32 num) {}
 
+	public void update_selected_home_item () {
+		if (is_home) {
+			if (is_mobile) {
+				sidebar.set_sidebar_selected_item (0);
+			} else {
+				var main_view = main_page.child as Views.Main;
+				if (main_view == null) return;
+
+				switch (main_view.visible_child_name) {
+					case "1":
+						sidebar.set_sidebar_selected_item (0);
+						break;
+					case "2":
+						sidebar.set_sidebar_selected_item (1);
+						break;
+					case "3":
+						sidebar.set_sidebar_selected_item (2);
+						break;
+				}
+			}
+		}
+	}
+
 	[GtkCallback]
 	void on_visible_page_changed () {
 		var view = navigation_view.visible_page.child as Views.Base;
 
 		if (view.is_main)
-			sidebar.set_sidebar_selected_item (0);
+			update_selected_home_item ();
 
 		if (last_view != null) {
 			last_view.current = false;

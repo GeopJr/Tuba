@@ -49,6 +49,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	protected override void on_rebind () {
 		base.on_rebind ();
 		pic.alternative_text = entity == null ? null : entity.description;
+
 		image_cache.request_paintable (entity.preview_url, on_cache_response);
 
 		if (media_kind in VIDEO_TYPES) {
@@ -72,8 +73,11 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	}
 
 	protected virtual void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		if (is_loaded)
+		if (is_loaded) {
 			pic.paintable = data;
+		} else if (settings.use_blurhash) {
+			pic.paintable = blurhash_cache.lookup_or_decode (entity.blurhash);
+		}
 	}
 
 	public signal void spoiler_revealed ();

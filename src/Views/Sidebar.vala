@@ -23,6 +23,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 		var account_submenu_model = new GLib.Menu ();
 		account_submenu_model.append (_("Open Profile"), "app.open-current-account-profile");
+		account_submenu_model.append (_("Refresh"), "app.refresh");
 		menu_model.append_section (null, account_submenu_model);
 
 		var misc_submenu_model = new GLib.Menu ();
@@ -105,17 +106,18 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 		[GtkChild] unowned Gtk.Image icon;
 		[GtkChild] unowned Gtk.Label label;
-		//  [GtkChild] unowned Label badge;
+		[GtkChild] unowned Gtk.Label badge;
 
 		public ItemRow (Place place) {
 			this.place = place;
 			place.bind_property ("title", label, "label", BindingFlags.SYNC_CREATE);
 			place.bind_property ("icon", icon, "icon-name", BindingFlags.SYNC_CREATE);
-			//  place.bind_property ("badge", badge, "label", BindingFlags.SYNC_CREATE);
-			//  place.bind_property ("badge", badge, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			//  	target.set_boolean (src.get_int () > 0);
-			//  	return true;
-			//  });
+			place.bind_property ("visible", this, "visible", BindingFlags.SYNC_CREATE);
+			place.bind_property ("badge", badge, "label", BindingFlags.SYNC_CREATE);
+			place.bind_property ("badge", badge, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+				target.set_boolean (src.get_int () > 0);
+				return true;
+			});
 
 			place.bind_property ("selectable", this, "selectable", BindingFlags.SYNC_CREATE);
 		}
@@ -142,7 +144,9 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		row.set_header (null);
 
 		if (row.place.separated && before != null && !before.place.separated) {
-			row.set_header (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+			row.set_header (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+				css_classes = { "ttl-separator" }
+			});
 		}
 	}
 

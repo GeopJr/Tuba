@@ -1,6 +1,9 @@
 .ttl-sidebar .badge {
-	padding: 2px 12px;
-	border-radius: 999px;
+	font-weight: bold;
+	font-size: 0.8em;
+	border-radius: 10px;
+	min-width: 0.7em;
+	padding: 2px 5px;
 	background: @accent_bg_color;
 	color: @text_view_bg;
 }
@@ -45,10 +48,17 @@ flowboxchild {
 }
 
 .ttl-code {
-	font-family: monospace;
 	padding: 12px;
 	background: rgba(150, 150, 150, .1);
 	border-radius: 6px;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.monospace {
+	font-family: monospace;
 }
 
 .ttl-label-emoji-no-click:hover {
@@ -156,12 +166,9 @@ flowboxchild {
 	min-height: 32px;
 }
 
-.ttl-profile-stat-button:first-child {
-	border-bottom-left-radius: 12px;
-}
-
-.ttl-profile-stat-button:last-child {
-	border-bottom-right-radius: 12px;
+.small .ttl-profile-cover>.content {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
 }
 
 .ttl-box-no-shadow>revealer>box {
@@ -202,8 +209,13 @@ flowboxchild {
 	background-color: alpha(mix(@green_4, white, .8), .8);
 }
 
-.ttl-status-badge>*, .ttl-status-badge.sensitive-label {
+.ttl-status-badge>* {
 	padding: 1px 6px;
+}
+
+.ttl-status-badge.sensitive-label {
+	padding: 10px 32px;
+	border-radius: 9999px;
 }
 
 .ttl-status-badge>button>label {
@@ -491,4 +503,9 @@ video > overlay > revealer > controls {
 
 .sidebar-item {
 	padding: 3px 14px;
+}
+
+.ttl-separator {
+	background-color: transparent;
+	min-height: 8px;
 }

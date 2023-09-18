@@ -134,6 +134,7 @@ public class Tuba.Widgets.Status : Adw.Bin {
 	public Gee.ArrayList<API.EmojiReaction>? reactions {
 		get { return status.formal.compat_status_reactions; }
 		set {
+			if (emoji_reactions != null) content_column.remove (emoji_reactions);
 			if (value == null) return;
 
 			emoji_reactions = new ReactionsRow (value);
@@ -437,6 +438,7 @@ public class Tuba.Widgets.Status : Adw.Bin {
 					size = 34,
 					valign = Gtk.Align.START,
 					halign = Gtk.Align.START,
+					overflow = Gtk.Overflow.HIDDEN
 				};
 				actor_avatar.add_css_class ("ttl-status-avatar-actor");
 
