@@ -509,3 +509,41 @@ video > overlay > revealer > controls {
 	background-color: transparent;
 	min-height: 8px;
 }
+
+.ttl-account-switcher {
+	padding: 0;
+}
+
+.ttl-account-switcher row {
+	border-radius: 10px;
+	margin: 3px 0px;
+}
+
+.ttl-account-switcher row:first-child {
+	margin-top: 0px;
+}
+
+.ttl-account-switcher .new-account {
+	margin-bottom: 0px;
+}
+
+.ttl-account-switcher separator {
+	margin: 3px 0px;
+}
+
+.ttl-account-switcher row:selected avatar {
+	border: 2px solid @accent_bg_color;
+}
+
+.ttl-account-switcher .blue-checkmark {
+	color: @light_1;
+	border-radius: 9999px;
+	border: solid @accent_bg_color 2px;
+	background-color: @accent_bg_color;
+	margin-bottom: 6px;
+	opacity: 0;
+}
+
+.ttl-account-switcher row:selected .blue-checkmark {
+	opacity: 1;
+}
