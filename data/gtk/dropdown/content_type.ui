@@ -1,0 +1,33 @@
+<interface>
+	<template class="GtkListItem">
+		<property name="child">
+			<object class="GtkBox">
+				<property name="orientation">horizontal</property>
+				<property name="spacing">6</property>
+				<child>
+					<object class="GtkImage">
+						<property name="margin-start">6</property>
+						<property name="margin-end">6</property>
+						<property name="margin-top">6</property>
+						<property name="margin-bottom">6</property>
+						<binding name="icon_name">
+							<lookup name="icon_name" type="TubaInstanceAccountStatusContentType">
+								<lookup name="item">GtkListItem</lookup>
+							</lookup>
+						</binding>
+					</object>
+				</child>
+				<child>
+					<object class="GtkLabel">
+						<property name="xalign">0</property>
+						<binding name="label">
+							<lookup name="title" type="TubaInstanceAccountStatusContentType">
+								<lookup name="item">GtkListItem</lookup>
+							</lookup>
+						</binding>
+					</object>
+				</child>
+			</object>
+		</property>
+	</template>
+</interface>

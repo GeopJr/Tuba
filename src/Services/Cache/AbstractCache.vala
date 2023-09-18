@@ -1,11 +1,9 @@
-using Gee;
-
 public class Tuba.AbstractCache : Object {
 
 	public const string DATA_MIN_REF_COUNT = "refs";
 
-    protected Map<string, Object> items;
-    protected Map<string, Soup.Message> items_in_progress;
+    protected Gee.Map<string, Object> items;
+    protected Gee.Map<string, Soup.Message> items_in_progress;
 
 	private uint timeout_source;
 	private int _maintenance_secs = 5;
@@ -20,13 +18,14 @@ public class Tuba.AbstractCache : Object {
 			setup_maintenance ();
 		}
 	}
+
     public uint size {
         get { return items.size; }
     }
 
     construct {
-        items = new HashMap<string, Object> ();
-        items_in_progress = new HashMap<string, Soup.Message> ();
+        items = new Gee.HashMap<string, Object> ();
+        items_in_progress = new Gee.HashMap<string, Soup.Message> ();
 
 		setup_maintenance ();
     }
@@ -36,7 +35,7 @@ public class Tuba.AbstractCache : Object {
 	}
 
 	bool maintenance_func () {
-		// message ("maintenance start");
+		// debug ("maintenance start");
 		if (size > 0) {
 			uint cleared = 0;
 			var iter = items.map_iterator ();
@@ -52,17 +51,17 @@ public class Tuba.AbstractCache : Object {
 				// }
 				if (obj.ref_count < min_ref_count) {
 					cleared++;
-					message (@"Freeing: $(iter.get_key ())");
+					debug (@"Freeing: $(iter.get_key ())");
 					iter.unset ();
 					obj.dispose ();
 				}
 			}
 
 			if (cleared > 0)
-				message (@"Freed $cleared items from cache. Size: $size");
+				debug (@"Freed $cleared items from cache. Size: $size");
 		}
 
-		// message ("maintenance end");
+		// debug ("maintenance end");
 		return Source.CONTINUE;
 	}
 
@@ -86,9 +85,9 @@ public class Tuba.AbstractCache : Object {
 		return items.has_key (get_key (id));
 	}
 
-	protected string insert (string id, owned Object obj) {
+	protected virtual string insert (string id, owned Object obj) {
 		var key = get_key (id);
-		message (@"Inserting: $key");
+		debug (@"Inserting: $key");
 		items.@set (key, (owned) obj);
 
 		var nobj = items.@get (key);
@@ -98,9 +97,8 @@ public class Tuba.AbstractCache : Object {
 	}
 
 	public void nuke () {
-		message ("Clearing cache");
+		debug ("Clearing cache");
 		items.clear ();
 		items_in_progress.clear ();
 	}
-
 }

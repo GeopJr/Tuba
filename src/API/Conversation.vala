@@ -45,7 +45,6 @@ public class Tuba.API.Conversation : Entity, Widgetizable {
 			.then (() => {
 				unread = false;
 			})
-			.on_error (() => {})
 			.exec ();
 	}
 

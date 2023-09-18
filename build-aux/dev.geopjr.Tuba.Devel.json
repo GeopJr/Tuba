@@ -1,13 +1,8 @@
 {
     "app-id": "dev.geopjr.Tuba",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "44",
+    "runtime-version": "45beta",
     "sdk": "org.gnome.Sdk",
-    "sdk-extensions" : ["org.freedesktop.Sdk.Extension.vala"],
-    "build-options" : {
-        "prepend-path" : "/usr/lib/sdk/vala/bin/",
-        "prepend-ld-library-path" : "/usr/lib/sdk/vala/lib"
-    },
     "command": "dev.geopjr.Tuba",
     "finish-args": [
         "--device=dri",

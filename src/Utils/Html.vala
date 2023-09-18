@@ -1,73 +1,91 @@
 public class Tuba.HtmlUtils {
-
-	public const string FALLBACK_TEXT = "[ There was an error parsing this text ]";
-
-	private static Regex? _all_tags_regex;
-	public static Regex? all_tags_regex {
-		get {
-			if (_all_tags_regex == null) {
-				try {
-					_all_tags_regex = new Regex ("<(.|\n)*?>", GLib.RegexCompileFlags.OPTIMIZE | RegexCompileFlags.CASELESS);
-				} catch (GLib.RegexError e) {
-					warning (e.message);
-				}
-			}
-			return _all_tags_regex;
-		}
-	}
-
-	private static Regex? _html_params_regex;
-	public static Regex? html_params_regex {
-		get {
-			if (_html_params_regex == null) {
-				try {
-					_html_params_regex = new Regex (
-						"(class|target|rel|data-user|data-tag|translate)=\"(.|\n)*?\"",
-						GLib.RegexCompileFlags.OPTIMIZE | RegexCompileFlags.CASELESS
-					);
-				} catch (GLib.RegexError e) {
-					warning (e.message);
-				}
-			}
-			return _html_params_regex;
-		}
-	}
-
 	public static string remove_tags (string content) {
-		try {
-			//TODO: remove this when simplify() uses the HTML parsing class
-			var fixed_paragraphs = simplify (content);
+		var fixed_paragraphs = content;
 
-			return restore_entities (all_tags_regex?.replace (fixed_paragraphs, -1, 0, "") ?? fixed_paragraphs);
-		} catch (Error e) {
-			warning (e.message);
-			return FALLBACK_TEXT;
+		var doc = Html.Doc.read_doc (HtmlUtils.replace_with_pango_markup (content), "", "utf8");
+		if (doc != null) {
+			var root = doc->get_root_element ();
+			if (root != null) {
+				var t_content = fixed_paragraphs;
+				remove_tags_handler (root, out t_content);
+				fixed_paragraphs = t_content;
+			}
+		}
+		delete doc;
+
+		return restore_entities (fixed_paragraphs);
+	}
+
+	private static void remove_tags_handler (Xml.Node* root, out string content) {
+		content = "";
+		switch (root->name) {
+			case "br":
+				content += "\n";
+				break;
+			case "text":
+				if (root->content != null)
+					content += GLib.Markup.escape_text (root->content);
+				break;
+			default:
+				for (var iter = root->children; iter != null; iter = iter->next) {
+					var t_content = "";
+					remove_tags_handler (iter, out t_content);
+					content += t_content;
+				}
+				if (root->name == "p") content += "\n";
+
+				break;
 		}
 	}
 
-	//TODO: Perhaps this should use the HTML parser class
-	//      since we depend on it anyway
 	public static string simplify (string str) {
-		try {
-			var divided = str
-				.replace ("<br>", "\n")
-				.replace ("</br>", "")
-				.replace ("<br/>", "\n")
-				.replace ("<br />", "\n")
-				.replace ("<p>", "")
-				.replace ("</p>", "\n\n")
-				.replace ("<pre>", "")
-				.replace ("</pre>", "");
+		var simplified = str;
 
-			var simplified = html_params_regex?.replace (divided, -1, 0, "") ?? divided;
+		var doc = Html.Doc.read_doc (str, "", "utf8");
+		if (doc != null) {
+			var root = doc->get_root_element ();
+			if (root != null) {
+				var t_content = simplified;
+				simplify_handler (root, out t_content);
+				simplified = t_content;
+			}
+		}
+		delete doc;
 
-			while (simplified.has_suffix ("\n"))
-				simplified = simplified.slice (0, simplified.last_index_of ("\n"));
+		return simplified.strip ();
+	}
 
-			return simplified;
-		} catch (Error e) {
-			warning (@"Can't simplify string \"$str\":\n$(e.message)");
-			return str;
+	private static void simplify_handler (Xml.Node* root, out string content) {
+		content = "";
+		switch (root->name) {
+			case "a":
+				var href = root->get_prop ("href");
+				if (href != null) {
+					content += @"<a href='$(GLib.Markup.escape_text (href))'>";
+					for (var iter = root->children; iter != null; iter = iter->next) {
+						var t_content = "";
+						simplify_handler (iter, out t_content);
+						content += t_content;
+					}
+					content += "</a>";
+				}
+				break;
+			case "br":
+				content += "\n";
+				break;
+			case "text":
+				if (root->content != null)
+					content += GLib.Markup.escape_text (root->content);
+				break;
+			default:
+				for (var iter = root->children; iter != null; iter = iter->next) {
+					var t_content = "";
+					simplify_handler (iter, out t_content);
+					content += t_content;
+				}
+				if (root->name == "p") content += "\n\n";
+
+				break;
 		}
 	}
 

@@ -1,6 +1,4 @@
-using Gtk;
-
-public class Tuba.Widgets.RelationshipButton : Button {
+public class Tuba.Widgets.RelationshipButton : Gtk.Button {
 
 	public API.Relationship? rs { get; set; }
 	protected SourceFunc? fn = null;
@@ -42,9 +40,9 @@ public class Tuba.Widgets.RelationshipButton : Button {
 			// icon_name = "changes-allow-symbolic";
 			fn = () => {
 				if (rs.domain_blocking)
-					activate_action ("domain_blocking", "");
+					activate_action ("domain_blocking", null);
 				else if (rs.blocking)
-					activate_action ("view.blocking", "");
+					activate_action ("view.blocking", null);
 				return true;
 			};
 			add_css_class ("destructive-action");
