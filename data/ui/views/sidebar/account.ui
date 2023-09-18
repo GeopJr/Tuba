@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="TubaViewsSidebarAccountRow" parent="AdwActionRow">
-    <property name="height_request">64</property>
-    <property name="title_lines">1</property>
-    <property name="subtitle_lines">1</property>
-    <property name="activatable">1</property>
+	<template class="TubaViewsSidebarAccountRow" parent="AdwActionRow">
+		<property name="height_request">64</property>
+		<property name="title_lines">1</property>
+		<property name="subtitle_lines">1</property>
+		<property name="activatable">1</property>
 
-    <child type="prefix">
-      <object class="GtkOverlay">
-        <child>
-          <object class="TubaWidgetsAvatar" id="avatar">
-            <property name="size">42</property>
-            <signal name="clicked" handler="on_open" />
-          </object>
-        </child>
-        <child type="overlay">
-          <object class="GtkImage" id="checkmark">
-            <property name="focusable">0</property>
-            <property name="halign">end</property>
-            <property name="valign">end</property>
-            <property name="icon-name">emblem-ok-symbolic</property>
-            <property name="pixel-size">11</property>
-            <style>
-              <class name="blue-checkmark" />
-            </style>
-          </object>
-        </child>
-      </object>
-    </child>
+		<child type="prefix">
+			<object class="GtkOverlay">
+				<child>
+					<object class="TubaWidgetsAvatar" id="avatar">
+						<property name="size">42</property>
+						<signal name="clicked" handler="on_open" />
+					</object>
+				</child>
+				<child type="overlay">
+					<object class="GtkImage" id="checkmark">
+						<property name="focusable">0</property>
+						<property name="halign">end</property>
+						<property name="valign">end</property>
+						<property name="icon-name">emblem-ok-symbolic</property>
+						<property name="pixel-size">11</property>
+						<style>
+							<class name="blue-checkmark" />
+						</style>
+					</object>
+				</child>
+			</object>
+		</child>
 
-    <child type="suffix">
-      <object class="GtkButton" id="forget">
-        <property name="icon-name">tuba-trash-symbolic</property>
-        <property name="valign">center</property>
-        <!-- translators: Forget as in 'Remove Account' -->
-        <property name="tooltip-text">Forget Account</property>
-        <signal name="clicked" handler="on_forget" swapped="no" />
-        <style>
-          <class name="circular" />
-        </style>
-      </object>
-    </child>
+		<child type="suffix">
+			<object class="GtkButton" id="forget">
+				<property name="icon-name">tuba-trash-symbolic</property>
+				<property name="valign">center</property>
+				<!-- translators: Forget as in 'Remove Account' -->
+				<property name="tooltip-text">Forget Account</property>
+				<signal name="clicked" handler="on_forget" swapped="no" />
+				<style>
+					<class name="circular" />
+				</style>
+			</object>
+		</child>
 
-  </template>
+	</template>
 </interface>
