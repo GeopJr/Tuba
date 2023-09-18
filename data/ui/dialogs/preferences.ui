@@ -172,7 +172,7 @@
 		</child>
 		<child>
 			<object class="AdwPreferencesPage">
-				<property name="icon_name">tuba-bell-symbolic</property>
+				<property name="icon_name">tuba-bell-outline-symbolic</property>
 				<property name="title" translatable="yes">Notifications</property>
 				<child>
 					<object class="AdwPreferencesGroup">
