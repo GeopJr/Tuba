@@ -9,13 +9,12 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned Adw.ComboRow post_visibility_combo_row;
     [GtkChild] unowned Adw.ComboRow default_language_combo_row;
     [GtkChild] unowned Adw.ComboRow default_content_type_combo_row;
-    [GtkChild] unowned Adw.SwitchRow autostart;
     [GtkChild] unowned Adw.SwitchRow work_in_background;
     [GtkChild] unowned Adw.SpinRow timeline_page_size;
     [GtkChild] unowned Adw.SwitchRow live_updates;
     [GtkChild] unowned Adw.SwitchRow public_live_updates;
     [GtkChild] unowned Adw.SwitchRow show_spoilers;
-    [GtkChild] unowned Adw.SwitchRow hide_preview_cards;
+    [GtkChild] unowned Adw.SwitchRow show_preview_cards;
     [GtkChild] unowned Adw.SwitchRow larger_font_size;
     [GtkChild] unowned Adw.SwitchRow larger_line_height;
     [GtkChild] unowned Adw.SwitchRow scale_emoji_hover;
@@ -110,13 +109,12 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 
 	void bind () {
         //  settings.bind ("dark-theme", dark_theme, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("autostart", autostart, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("work-in-background", work_in_background, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("timeline-page-size", timeline_page_size.adjustment, "value", SettingsBindFlags.DEFAULT);
         settings.bind ("live-updates", live_updates, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("public-live-updates", public_live_updates, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("show-spoilers", show_spoilers, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("hide-preview-cards", hide_preview_cards, "active", SettingsBindFlags.DEFAULT);
+        settings.bind ("show-preview-cards", show_preview_cards, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("larger-font-size", larger_font_size, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("larger-line-height", larger_line_height, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("scale-emoji-hover", scale_emoji_hover, "active", SettingsBindFlags.DEFAULT);
