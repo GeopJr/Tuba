@@ -8,6 +8,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned Adw.ComboRow scheme_combo_row;
     [GtkChild] unowned Adw.ComboRow post_visibility_combo_row;
     [GtkChild] unowned Adw.ComboRow default_language_combo_row;
+    [GtkChild] unowned Adw.ComboRow default_content_type_combo_row;
     [GtkChild] unowned Adw.SwitchRow work_in_background;
     [GtkChild] unowned Adw.SpinRow timeline_page_size;
     [GtkChild] unowned Adw.SwitchRow live_updates;
@@ -21,6 +22,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned Adw.SwitchRow letterbox_media;
     [GtkChild] unowned Adw.SwitchRow media_viewer_expand_pictures;
     [GtkChild] unowned Adw.SwitchRow enlarge_custom_emojis;
+    [GtkChild] unowned Adw.SwitchRow use_blurhash;
 
     [GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
     [GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
@@ -76,6 +78,11 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 			on_post_visibility_changed ();
 		}
 
+		if (accounts.active.supported_mime_types.n_items > 1) {
+			default_content_type_combo_row.visible = true;
+			setup_content_type_combo_row ();
+		}
+
 		setup_languages_combo_row ();
 		setup_notification_mutes ();
 		bind ();
@@ -115,6 +122,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
         settings.bind ("letterbox-media", letterbox_media, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("media-viewer-expand-pictures", media_viewer_expand_pictures, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("enlarge-custom-emojis", enlarge_custom_emojis, "active", SettingsBindFlags.DEFAULT);
+        settings.bind ("use-blurhash", use_blurhash, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 
@@ -158,6 +166,21 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 		}
 	}
 
+	private void setup_content_type_combo_row () {
+		default_content_type_combo_row.model = accounts.active.supported_mime_types;
+
+		uint default_content_type_index;
+		if (
+			accounts.active.supported_mime_types.find_with_equal_func (
+				new Tuba.InstanceAccount.StatusContentType (settings.default_content_type),
+				Tuba.InstanceAccount.StatusContentType.compare,
+				out default_content_type_index
+			)
+		) {
+			default_content_type_combo_row.selected = default_content_type_index;
+		}
+	}
+
 	private bool on_window_closed () {
 		if (lang_changed) {
 			var new_lang = ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale;
@@ -176,6 +199,9 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 					.exec ();
 			}
 		}
+
+		if (default_content_type_combo_row.visible)
+			settings.default_content_type = ((Tuba.InstanceAccount.StatusContentType) default_content_type_combo_row.selected_item).mime;
 
 		update_notification_mutes ();
 		return false;

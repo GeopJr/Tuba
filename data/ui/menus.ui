@@ -16,7 +16,7 @@
         <attribute name="label" translatable="yes">Direct Message</attribute>
         <attribute name="action">view.mention</attribute>
         <attribute name="target">direct</attribute>
-        <attribute name="verb-icon">tuba-mail-symbolic</attribute>
+        <attribute name="verb-icon">mail-unread-symbolic</attribute>
       </item>
       <item>
         <attribute name="label" translatable="yes">Copy Handle</attribute>

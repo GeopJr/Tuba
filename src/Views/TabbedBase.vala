@@ -5,6 +5,11 @@ public class Tuba.Views.TabbedBase : Views.Base {
 	protected Adw.ViewSwitcher switcher;
 	protected Adw.ViewSwitcherBar switcher_bar;
 	protected Adw.ViewStack stack;
+	protected Adw.WindowTitle title_header;
+
+	public void change_page_to_named (string page_name) {
+		stack.visible_child_name = page_name;
+	}
 
 	Views.Base? last_view = null;
 	Views.Base[] views = {};
@@ -48,7 +53,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		switcher_bar = new Adw.ViewSwitcherBar ();
 		toolbar_view.add_bottom_bar (switcher_bar);
 
-		var title_header = new Adw.WindowTitle (label, "");
+		title_header = new Adw.WindowTitle (label, "");
 		bind_property ("label", title_header, "title", BindingFlags.SYNC_CREATE);
 
 		var condition = new Adw.BreakpointCondition.length (
@@ -138,7 +143,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 			c_scrolled.scroll_page (up);
 	}
 
-	void on_view_switched () {
+	protected virtual void on_view_switched () {
 		var view = stack.visible_child as Views.Base;
 		if (view.content_box.has_css_class ("no-transition")) {
 			Timeout.add_once (200, () => {

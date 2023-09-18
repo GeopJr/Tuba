@@ -292,7 +292,8 @@ namespace Tuba {
 
 		void about_activated () {
 			const string[] ARTISTS = {
-				"Tobias Bernard"
+				"Tobias Bernard",
+				"Jakub Steiner"
 			};
 
 			const string[] DESIGNERS = {

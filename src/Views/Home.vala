@@ -29,13 +29,29 @@ public class Tuba.Views.Home : Views.Timeline {
         scrolled_overlay.add_overlay (compose_button_rev);
     }
 
-    double last_adjustment = 0.0;
+    double last_adjustment = 0;
+    double show_on_adjustment = -1;
+    bool last_direction_down = false;
     protected override void on_scrolled_vadjustment_value_change () {
         base.on_scrolled_vadjustment_value_change ();
 
-        if (scrolled.vadjustment.value > 1000)
-            compose_button_rev.reveal_child = scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper;
-        last_adjustment = scrolled.vadjustment.value;
+        double trunced = Math.trunc (scrolled.vadjustment.value);
+        bool direction_down = trunced == last_adjustment ? last_direction_down : trunced > last_adjustment;
+        last_direction_down = direction_down;
+
+        if (!direction_down && show_on_adjustment == -1) {
+            show_on_adjustment = last_adjustment - 200;
+            if (show_on_adjustment <= 0) show_on_adjustment = last_adjustment;
+        } else if (direction_down) {
+            show_on_adjustment = -1;
+        }
+
+        if (compose_button_rev.reveal_child && direction_down)
+            compose_button_rev.reveal_child = false;
+        else if (!compose_button_rev.reveal_child && !direction_down && trunced <= show_on_adjustment)
+            compose_button_rev.reveal_child = true;
+
+        last_adjustment = trunced;
     }
 
     public override string? get_stream_url () {

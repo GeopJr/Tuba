@@ -75,7 +75,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	protected virtual void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
 		if (is_loaded) {
 			pic.paintable = data;
-		} else {
+		} else if (settings.use_blurhash) {
 			pic.paintable = blurhash_cache.lookup_or_decode (entity.blurhash);
 		}
 	}
