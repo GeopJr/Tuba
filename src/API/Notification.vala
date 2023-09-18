@@ -18,12 +18,18 @@ public class Tuba.API.Notification : Entity, Widgetizable {
     }
 
 	// TODO: notification actions
-	public virtual GLib.Notification to_toast (InstanceAccount issuer) {
-		string descr;
-		string descr_url;
-		issuer.describe_kind (kind, null, out descr, account, out descr_url);
+	public virtual GLib.Notification to_toast (InstanceAccount issuer, int others = 0) {
+        Tuba.InstanceAccount.Kind res_kind;
 
-		var toast = new GLib.Notification ( HtmlUtils.remove_tags (descr) );
+        var kind_actor_name = account.display_name;
+        if (others > 0) {
+            //  translators: <user> (& <amount> others) <actions>
+            //               for example: GeopJr (& 10 others) mentioned you
+            kind_actor_name = _("%s (& %d others)").printf (account.display_name, others);
+        }
+
+		issuer.describe_kind (kind, out res_kind, kind_actor_name);
+		var toast = new GLib.Notification (res_kind.description);
 		if (status != null) {
 			var body = "";
 			body += HtmlUtils.remove_tags (status.content);

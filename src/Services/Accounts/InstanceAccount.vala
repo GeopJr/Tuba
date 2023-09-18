@@ -141,58 +141,81 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		return entity;
 	}
 
+	public struct Kind {
+		string? icon;
+		string? description;
+		string? url;
+	}
+
 	public virtual void describe_kind (
 		string kind,
-		out string? icon,
-		out string? descr,
-		API.Account account,
-		out string? descr_url
+		out Kind result,
+		string? actor_name = null,
+		string? callback_url = null
 	) {
 		switch (kind) {
 			case KIND_MENTION:
-				icon = "tuba-chat-symbolic";
-				descr = _("%s mentioned you").printf (account.display_name);
-				descr_url = account.url;
+				result = {
+					"tuba-chat-symbolic",
+					_("%s mentioned you").printf (actor_name),
+					callback_url
+				};
 				break;
 			case KIND_REBLOG:
-				icon = "tuba-media-playlist-repeat-symbolic";
-				descr = _("%s boosted your post").printf (account.display_name);
-				descr_url = account.url;
+				result = {
+					"tuba-media-playlist-repeat-symbolic",
+					_("%s boosted your post").printf (actor_name),
+					callback_url
+				};
 				break;
 			case KIND_REMOTE_REBLOG:
-				icon = "tuba-media-playlist-repeat-symbolic";
-				descr = _("%s boosted").printf (account.display_name);
-				descr_url = account.url;
+				result = {
+					"tuba-media-playlist-repeat-symbolic",
+					_("%s boosted").printf (actor_name),
+					callback_url
+				};
 				break;
 			case KIND_FAVOURITE:
-				icon = "tuba-starred-symbolic";
-				descr = _("%s favorited your post").printf (account.display_name);
-				descr_url = account.url;
+				result = {
+					"tuba-starred-symbolic",
+					_("%s favorited your post").printf (actor_name),
+					callback_url
+				};
 				break;
 			case KIND_FOLLOW:
-				icon = "tuba-contact-new-symbolic";
-				descr = _("%s now follows you").printf (account.display_name);
-				descr_url = account.url;
+				result = {
+					"tuba-contact-new-symbolic",
+					_("%s now follows you").printf (actor_name),
+					callback_url
+				};
 				break;
 			case KIND_FOLLOW_REQUEST:
-				icon = "tuba-contact-new-symbolic";
-				descr = _("%s wants to follow you").printf (account.display_name);
-				descr_url = account.url;
+				result = {
+					"tuba-contact-new-symbolic",
+					_("%s wants to follow you").printf (actor_name),
+					callback_url
+				};
 				break;
 			case KIND_POLL:
-				icon = "tuba-check-round-outline-symbolic";
-				descr = _("Poll results");
-				descr_url = null;
+				result = {
+					"tuba-check-round-outline-symbolic",
+					_("Poll results"),
+					null
+				};
 				break;
 			case KIND_EDITED:
-				icon = "document-edit-symbolic";
-				descr = _("%s edited a post").printf (account.display_name);
-				descr_url = null;
+				result = {
+					"document-edit-symbolic",
+					_("%s edited a post").printf (actor_name),
+					null
+				};
 				break;
 			default:
-				icon = null;
-				descr = null;
-				descr_url = null;
+				result = {
+					null,
+					null,
+					null
+				};
 				break;
 		}
 	}
@@ -344,6 +367,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 						.then (() => {})
 						.exec ();
 				}
+
+				sent_notifications.clear ();
 			}
 		}
 
@@ -372,11 +397,27 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	//  	has_unread = unread_count > 0;
 	//  }
 
+	private Gee.HashMap<string, int> sent_notifications = new Gee.HashMap<string, int> ();
+	private const string[] GROUPED_KINDS = {
+		KIND_FAVOURITE,
+		KIND_REBLOG,
+		KIND_MENTION
+	};
 	public void send_toast (API.Notification obj) {
 		if (obj.kind != null && (obj.kind in settings.muted_notification_types)) return;
 
-		var toast = obj.to_toast (this);
 		var id = obj.id;
+		var others = 0;
+
+		if (settings.group_push_notifications && obj.status != null && obj.kind in GROUPED_KINDS) {
+			id = @"$(obj.status.id)-$(obj.kind)";
+			if (sent_notifications.has_key (id)) {
+				others = sent_notifications.get (id) + 1;
+			}
+			sent_notifications.set (id, others);
+		}
+
+		var toast = obj.to_toast (this, others);
 		app.send_notification (id, toast);
 		//  sent_notification_ids.add(id);
 	}
