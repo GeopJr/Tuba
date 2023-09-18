@@ -231,6 +231,10 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					icon_name = "tuba-rich-text-symbolic";
 					title = "BBCode";
 					break;
+				case "text/x.misskeymarkdown":
+					icon_name = "tuba-rich-text-symbolic";
+					title = "MFM";
+					break;
 				default:
 					icon_name = "tuba-rich-text-symbolic";
 
