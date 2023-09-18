@@ -233,7 +233,15 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					break;
 				default:
 					icon_name = "tuba-rich-text-symbolic";
-					title = content_type.split ("/")[-1].up ();
+
+					int slash = content_type.index_of_char ('/');
+					int ct_l = content_type.length;
+					if (slash == -1 || slash == ct_l) {
+						title = content_type.up ();
+					} else {
+						title = content_type.slice (slash + 1, ct_l).up ();
+					}
+
 					break;
 			}
 		}
