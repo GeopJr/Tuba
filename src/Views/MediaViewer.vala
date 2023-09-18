@@ -372,9 +372,22 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	}
 
 	protected bool on_keypress (uint keyval, uint keycode, Gdk.ModifierType state) {
-		// Don't handle it if there's
-		// a modifier
-		if (state != 0) return false;
+		if (state != 0) {
+			if (state != Gdk.ModifierType.CONTROL_MASK) return false;
+
+			switch (keyval) {
+				case Gdk.Key.equal:
+					safe_get ((int) carousel.position)?.zoom_in ();
+					break;
+				case Gdk.Key.minus:
+					safe_get ((int) carousel.position)?.zoom_out ();
+					break;
+				default:
+					return false;
+			}
+
+			return true;
+		}
 
 		switch (keyval) {
 			case Gdk.Key.Left:
