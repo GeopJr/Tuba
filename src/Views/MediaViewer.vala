@@ -231,10 +231,12 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             hexpand = true
         };
 
+        Gtk.Widget zoom_btns;
         Gtk.Widget page_btns;
-        generate_media_buttons (out page_btns);
+        generate_media_buttons (out page_btns, out zoom_btns);
 
         overlay.add_overlay (page_btns);
+        overlay.add_overlay (zoom_btns);
         overlay.child = carousel;
 
         var drag = new Gtk.GestureDrag ();
@@ -333,6 +335,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
     uint revealer_timeout = 0;
     protected void on_reveal_media_buttons () {
         page_buttons_revealer.set_reveal_child (true);
+        zoom_buttons_revealer.set_reveal_child (true);
 
         if (revealer_timeout > 0) GLib.Source.remove (revealer_timeout);
         revealer_timeout = Timeout.add (5 * 1000, on_hide_media_buttons, Priority.LOW);
@@ -340,6 +343,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
     protected bool on_hide_media_buttons () {
         page_buttons_revealer.set_reveal_child (false);
+        zoom_buttons_revealer.set_reveal_child (false);
         revealer_timeout = 0;
 
         return GLib.Source.REMOVE;
@@ -580,9 +584,13 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		}, Priority.LOW);
     }
 
+    private Gtk.Button zoom_out_btn;
+    private Gtk.Button zoom_in_btn;
     private Gtk.Revealer page_buttons_revealer;
-    private void generate_media_buttons (out Gtk.Revealer page_btns) {
+    private Gtk.Revealer zoom_buttons_revealer;
+    private void generate_media_buttons (out Gtk.Revealer page_btns, out Gtk.Revealer zoom_btns) {
         var t_page_btns = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+        var t_zoom_btns = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
 
         var prev_btn = new Gtk.Button.from_icon_name ("go-previous-symbolic") {
             css_classes = {"circular", "osd", "media-viewer-fab"},
@@ -607,6 +615,19 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         t_page_btns.append (prev_btn);
         t_page_btns.append (next_btn);
 
+        zoom_out_btn = new Gtk.Button.from_icon_name ("zoom-out-symbolic") {
+            css_classes = {"circular", "osd", "media-viewer-fab"},
+            tooltip_text = _("Zoom Out")
+        };
+
+        zoom_in_btn = new Gtk.Button.from_icon_name ("zoom-in-symbolic") {
+            css_classes = {"circular", "osd", "media-viewer-fab"},
+            tooltip_text = _("Zoom In")
+        };
+
+        zoom_out_btn.clicked.connect (() => safe_get ((int) carousel.position)?.zoom_out ());
+        zoom_in_btn.clicked.connect (() => safe_get ((int) carousel.position)?.zoom_in ());
+
         carousel.page_changed.connect ((pos) => {
             prev_btn.sensitive = pos > 0;
             next_btn.sensitive = pos < items.size - 1;
@@ -614,14 +635,30 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
             // Media buttons overlap the video
             // controller, so position them higher
             if (safe_get ((int) pos)?.is_video) {
-                page_buttons_revealer.margin_bottom = 68;
+                page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 68;
+                zoom_buttons_revealer.visible = false;
             } else {
-                page_buttons_revealer.margin_bottom = 18;
+                page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 18;
+                zoom_buttons_revealer.visible = true;
             }
 
             on_zoom_change ();
         });
+
         zoom_changed.connect (on_zoom_change);
+
+        t_zoom_btns.append (zoom_out_btn);
+        t_zoom_btns.append (zoom_in_btn);
+
+        zoom_buttons_revealer = new Gtk.Revealer () {
+            child = t_zoom_btns,
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            valign = Gtk.Align.END,
+            halign = Gtk.Align.END,
+            margin_end = 18,
+            margin_bottom = 18,
+            visible = false
+        };
 
         page_buttons_revealer = new Gtk.Revealer () {
             child = t_page_btns,
@@ -633,10 +670,14 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
         };
 
         page_btns = page_buttons_revealer;
+        zoom_btns = zoom_buttons_revealer;
     }
 
     public void on_zoom_change () {
+        zoom_in_btn.sensitive = safe_get ((int) carousel.position)?.can_zoom_in;
+
         bool can_zoom_out = safe_get ((int) carousel.position)?.can_zoom_out ?? false;
+        zoom_out_btn.sensitive = can_zoom_out;
         carousel.interactive = !can_zoom_out;
     }
 
