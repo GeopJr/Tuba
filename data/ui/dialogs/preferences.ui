@@ -219,6 +219,13 @@
 								<property name="active">1</property>
 							</object>
 						</child>
+						<child>
+							<object class="AdwSwitchRow" id="group_push_notifications">
+								<property name="title" translatable="yes">Group</property>
+								<property name="subtitle" translatable="yes">Combine recently pushed notifications of the same type and post</property>
+								<property name="active">1</property>
+							</object>
+						</child>
 					</object>
 				</child>
 			</object>

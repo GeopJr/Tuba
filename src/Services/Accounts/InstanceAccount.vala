@@ -409,7 +409,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		var id = obj.id;
 		var others = 0;
 
-		if (obj.status != null && obj.kind in GROUPED_KINDS) {
+		if (settings.group_push_notifications && obj.status != null && obj.kind in GROUPED_KINDS) {
 			id = @"$(obj.status.id)-$(obj.kind)";
 			if (sent_notifications.has_key (id)) {
 				others = sent_notifications.get (id) + 1;
