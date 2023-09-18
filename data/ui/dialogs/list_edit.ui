@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwPreferencesPage" id="members_page">
+    <property name="icon-name">tuba-people-symbolic</property>
+    <property name="title" translatable="yes">Members</property>
+    <child>
+      <object class="AdwPreferencesGroup" id="members_group">
+        <property name="title" translatable="yes">Remove Members</property>
+      </object>
+    </child>
+  </object>
+  <template class="TubaDialogsListEdit" parent="AdwPreferencesWindow">
+    <signal name="close-request" handler="on_close" swapped="no"/>
+    <property name="modal">1</property>
+    <property name="default_width">500</property>
+    <property name="default_height">400</property>
+    <child>
+      <object class="AdwPreferencesPage">
+        <property name="icon-name">tuba-gear-symbolic</property>
+        <property name="title" translatable="yes">General</property>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Info</property>
+            <child>
+              <object class="AdwEntryRow" id="title_row">
+                <property name="input-purpose">free-form</property>
+                <property name="title" translatable="yes">List Name</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Replies Policy</property>
+            <property name="description" translatable="yes">Show member replies to</property>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Nobody</property>
+                <property name="activatable-widget">none_radio</property>
+                <child type="prefix">
+                  <object class="GtkCheckButton" id="none_radio">
+                    <signal name="toggled" handler="on_radio_toggled" swapped="no"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Other members of the list</property>
+                <property name="activatable-widget">list_radio</property>
+                <child type="prefix">
+                  <object class="GtkCheckButton" id="list_radio">
+                    <property name="group">none_radio</property>
+                    <signal name="toggled" handler="on_radio_toggled" swapped="no"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Any followed user</property>
+                <property name="activatable-widget">followed_radio</property>
+                <child type="prefix">
+                  <object class="GtkCheckButton" id="followed_radio">
+                    <property name="group">none_radio</property>
+                    <signal name="toggled" handler="on_radio_toggled" swapped="no"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

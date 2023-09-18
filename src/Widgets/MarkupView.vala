@@ -1,6 +1,4 @@
-using Gtk;
-
-public class Tuba.Widgets.MarkupView : Box {
+public class Tuba.Widgets.MarkupView : Gtk.Box {
 
 	public delegate void NodeFn (Xml.Node* node);
 	public delegate void NodeHandlerFn (MarkupView view, Xml.Node* node);
@@ -19,6 +17,7 @@ public class Tuba.Widgets.MarkupView : Box {
 	}
 
 	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
+	public weak Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
 
 	private bool _selectable = false;
 	public bool selectable {
@@ -38,7 +37,7 @@ public class Tuba.Widgets.MarkupView : Box {
 	}
 
 	construct {
-		orientation = Orientation.VERTICAL;
+		orientation = Gtk.Orientation.VERTICAL;
 		spacing = 12;
 	}
 
@@ -81,9 +80,12 @@ public class Tuba.Widgets.MarkupView : Box {
 				visible = true,
 				// markup = MarkupPolicy.TRUST,
 				selectable = _selectable,
-				vexpand = true
+				vexpand = true,
+				large_emojis = settings.enlarge_custom_emojis
 			};
 			if (instance_emojis != null) label.instance_emojis = instance_emojis;
+			if (mentions != null) label.mentions = mentions;
+
 			label.label = current_chunk.strip ();
 			append (label);
 		}
@@ -134,6 +136,11 @@ public class Tuba.Widgets.MarkupView : Box {
 					blockquote_handler (node);
 					blockquote_handler_text += @"</$(node->name)>";
 				break;
+				case "code":
+					blockquote_handler_text += "<span font_family=\"monospace\">";
+					blockquote_handler (node);
+					blockquote_handler_text += "</span>";
+					break;
 				case "a":
 					var href = node->get_prop ("href");
 					if (href != null) {
@@ -142,8 +149,20 @@ public class Tuba.Widgets.MarkupView : Box {
 						blockquote_handler_text += "</a>";
 					}
 					break;
-				case "ul":
 				case "ol":
+					int li_count = 1;
+					for (var iter = node->children; iter != null; iter = iter->next) {
+						if (iter->name == "li") {
+							blockquote_handler_text += @"\n$li_count. ";
+							blockquote_handler (iter);
+
+							li_count++;
+						} else break;
+					}
+					blockquote_handler_text += "\n";
+
+					break;
+				case "ul":
 					blockquote_handler (node);
 					blockquote_handler_text += "\n";
 					break;
@@ -155,6 +174,9 @@ public class Tuba.Widgets.MarkupView : Box {
 					blockquote_handler_text += "\n";
 					break;
 				default:
+					for (var iter = root->children; iter != null; iter = iter->next) {
+						blockquote_handler (iter);
+					}
 					break;
 			}
 		});
@@ -162,8 +184,12 @@ public class Tuba.Widgets.MarkupView : Box {
 
 	public static void default_handler (MarkupView v, Xml.Node* root) {
 		switch (root->name) {
-			case "html":
 			case "span":
+				string? classes = root->get_prop ("class");
+				if (classes == null || !classes.contains ("quote-inline"))
+					traverse_and_handle (v, root, default_handler);
+				break;
+			case "html":
 			case "markup":
 				traverse_and_handle (v, root, default_handler);
 				break;
@@ -178,9 +204,27 @@ public class Tuba.Widgets.MarkupView : Box {
 				v.write_chunk ("\n");
 				break;
 			case "pre":
-				v.write_chunk ("\n");
-				traverse_and_handle (v, root, default_handler);
-				v.write_chunk ("\n");
+				if (
+					root->children != null
+					&& root->children->name == "code"
+					&& root->children->children != null
+					&& root->children->children->name == "text"
+					&& root->children->children->content != null
+				) {
+					v.commit_chunk ();
+
+					var label = new RichLabel (root->children->children->content.strip ()) {
+						visible = true,
+						css_classes = { "ttl-code", "monospace" }
+						// markup = MarkupPolicy.DISALLOW
+					};
+
+					v.append (label);
+				} else {
+					v.write_chunk ("\n");
+					traverse_and_handle (v, root, default_handler);
+					v.write_chunk ("\n");
+				}
 				break;
 			case "code":
 				v.write_chunk ("<span font_family=\"monospace\">");
@@ -196,7 +240,7 @@ public class Tuba.Widgets.MarkupView : Box {
 				var text = blockquote_handler_text.strip ();
 				var label = new RichLabel (text) {
 					visible = true,
-					css_classes = { "ttl-code" }
+					css_classes = { "ttl-code", "italic" }
 					// markup = MarkupPolicy.DISALLOW
 				};
 				v.append (label);
@@ -204,7 +248,7 @@ public class Tuba.Widgets.MarkupView : Box {
 			case "a":
 				var href = root->get_prop ("href");
 				if (href != null) {
-					v.write_chunk ("<a href='" + GLib.Markup.escape_text (href) + "'>");
+					v.write_chunk (@"<a href='$(GLib.Markup.escape_text (href))'>");
 					traverse_and_handle (v, root, default_handler);
 					v.write_chunk ("</a>");
 				}
@@ -264,8 +308,20 @@ public class Tuba.Widgets.MarkupView : Box {
 				v.write_chunk (@"</$(root->name)>");
 			break;
 
-			case "ul":
 			case "ol":
+				int li_count = 1;
+				for (var iter = root->children; iter != null; iter = iter->next) {
+					if (iter->name == "li") {
+						v.write_chunk (@"\n$li_count. ");
+						traverse_and_handle (v, iter, default_handler);
+
+						li_count++;
+					} else break;
+				}
+				v.write_chunk ("\n");
+
+				break;
+			case "ul":
 				traverse_and_handle (v, root, default_handler);
 				v.write_chunk ("\n");
 				break;

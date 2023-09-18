@@ -1,9 +1,7 @@
-using Gee;
-
 public class Tuba.API.Status : Entity, Widgetizable {
 
 	~Status () {
-		message (@"[OBJ] Destroyed $(uri ?? "")");
+		debug (@"[OBJ] Destroyed $(uri ?? "")");
 	}
 
     public string id { get; set; }
@@ -29,14 +27,16 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public API.Status? reblog { get; set; default = null; }
     public API.Status? quote { get; set; default = null; }
     //  public API.Akkoma? akkoma { get; set; default = null; }
-    public ArrayList<API.Mention>? mentions { get; set; default = null; }
-    public ArrayList<API.EmojiReaction>? reactions { get; set; default = null; }
-    public ArrayList<API.EmojiReaction>? emoji_reactions { get; set; default = null; }
+    public Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
+    public Gee.ArrayList<API.EmojiReaction>? reactions { get; set; default = null; }
+    public Gee.ArrayList<API.EmojiReaction>? emoji_reactions { get; set; default = null; }
     public API.Pleroma.Status? pleroma { get; set; default = null; }
-    public ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
+    public Gee.ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
     public API.Poll? poll { get; set; default = null; }
     public Gee.ArrayList<API.Emoji>? emojis { get; set; }
     public API.PreviewCard? card { get; set; default = null; }
+
+	public Tuba.Views.Thread.ThreadRole tuba_thread_role { get; set; default = Tuba.Views.Thread.ThreadRole.NONE; }
 
     //  public string clean_content {
     //      get {
@@ -76,7 +76,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
         return res;
     }
 
-    public ArrayList<API.EmojiReaction>? compat_status_reactions {
+    public Gee.ArrayList<API.EmojiReaction>? compat_status_reactions {
         get {
 			if (emoji_reactions != null) {
                 return emoji_reactions;
@@ -160,13 +160,17 @@ public class Tuba.API.Status : Entity, Widgetizable {
 		app.main_window.open_view (view);
 	}
 
-    public bool is_owned () {
-        return formal.account.id == accounts.active.id;
+    public bool is_mine {
+        get {
+            return formal.account.id == accounts.active.id;
+        }
     }
 
-	public bool has_media () {
-		return media_attachments != null && !media_attachments.is_empty;
-	}
+    public bool has_media {
+        get {
+            return media_attachments != null && !media_attachments.is_empty;
+        }
+    }
 
     public virtual string get_reply_mentions () {
         var result = "";
@@ -186,10 +190,57 @@ public class Tuba.API.Status : Entity, Widgetizable {
         return result;
     }
 
-    public Request action (string action) {
+    private Request action (string action) {
         var req = new Request.POST (@"/api/v1/statuses/$(formal.id)/$action").with_account (accounts.active);
         req.priority = Soup.MessagePriority.HIGH;
         return req;
+    }
+
+    public Request favourite_req () {
+        return action ("favourite");
+    }
+
+    public Request unfavourite_req () {
+        return action ("unfavourite");
+    }
+
+    public Request bookmark_req () {
+        return action ("bookmark");
+    }
+
+    public Request unbookmark_req () {
+        return action ("unbookmark");
+    }
+
+    public enum ReblogVisibility {
+        PUBLIC,
+        UNLISTED,
+        PRIVATE;
+
+        public string to_string () {
+			switch (this) {
+				case PUBLIC:
+					return "public";
+				case UNLISTED:
+					return "unlisted";
+				case PRIVATE:
+					return "private";
+				default:
+					return "";
+			}
+		}
+    }
+
+    public Request reblog_req (ReblogVisibility? visibility = null) {
+        var req = action ("reblog");
+        if (visibility != null)
+            req.with_form_data ("visibility", visibility.to_string ());
+
+        return req;
+    }
+
+    public Request unreblog_req () {
+        return action ("unreblog");
     }
 
     public Request annihilate () {

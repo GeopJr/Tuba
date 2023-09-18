@@ -4,7 +4,8 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 	public string kind { get; set; default = "unknown"; }
 	public string url { get; set; }
 	public string? description { get; set; }
-	public string? t_preview_url { get; set; }
+	public string? blurhash { get; set; default=null; }
+	private string? t_preview_url { get; set; }
 	public string? preview_url {
 		set { this.t_preview_url = value; }
 		get { return (this.t_preview_url == null || this.t_preview_url == "") ? url : t_preview_url; }
@@ -25,7 +26,7 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 	//  }
 
 	public static async Attachment upload (string uri) throws Error {
-		message (@"Uploading new media: $(uri)…");
+		debug (@"Uploading new media: $(uri)…");
 
 		uint8[] contents;
 		string mime;
@@ -67,7 +68,7 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 			var parser = Network.get_parser_from_inputstream (in_stream);
 			var node = network.parse_node (parser);
 			var entity = accounts.active.create_entity<API.Attachment> (node);
-			message (@"OK! ID $(entity.id)");
+			debug (@"OK! ID $(entity.id)");
 			return entity;
 		}
 	}

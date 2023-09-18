@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 01:52+0300\n"
-"PO-Revision-Date: 2023-07-04 17:58+0000\n"
+"POT-Creation-Date: 2023-07-19 22:14+0300\n"
+"PO-Revision-Date: 2023-07-24 16:04+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -39,7 +39,7 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-"Esploratu federatutako web soziala GNOMErako Tuba-rekin. Mantendu harremana "
+"Arakatu federatutako web soziala GNOMErako Tuba-rekin. Mantendu harremana "
 "zure komunitate gogokoenekin eta familia eta lagunekin, Mastodon, "
 "GoToSocial, Akkoma eta bestelako Fedibertsoko plataformen laguntzaz!"
 
@@ -187,25 +187,21 @@ msgid "Makes the line height larger for posts"
 msgstr "Bidalketen lerroen arteko tartea handiagoa egiten du"
 
 #: data/ui/dialogs/preferences.ui:63
-#, fuzzy
 msgid "Scale up custom emojis on hover"
-msgstr "Handitu emojiak sagua goinetik pasatzean"
+msgstr "Handitu emojiak sagua gainetik pasatzean"
 
 #: data/ui/dialogs/preferences.ui:65
-#, fuzzy
 msgid "Makes custom emojis slightly bigger when you hover over them"
 msgstr ""
-"Zerbitzarik emojiak apur bat handitzen ditu sagua gainetik pasatzen duzunean"
+"Zerbitzariko emojiak apur bat handitzen ditu sagua gainetik pasatzen duzunean"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:76
-#, fuzzy
 msgid "Letterbox Media"
 msgstr "Letterbox multimedia"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:79
-#, fuzzy
 msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
@@ -216,16 +212,16 @@ msgstr ""
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:90
 msgid "Expand pictures in media viewer"
-msgstr ""
+msgstr "Handitu irudiak multimedia ikustailean"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:93
 msgid "Expand pictures to fill the media viewer by default"
-msgstr ""
+msgstr "Handitu irudiak multimedia ikustailearen eremua betetzeko defektuz"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Posting"
-msgstr "Bidalketak"
+msgstr "Bidalketa"
 
 #: data/ui/dialogs/preferences.ui:108
 msgid "Default post visibility"
@@ -367,7 +363,7 @@ msgstr "Idatzi argitalpen berria"
 msgid "Search"
 msgstr "Bilatu"
 
-#: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:264
+#: data/gtk/help-overlay.ui:33 src/Views/MediaViewer.vala:271
 msgid "Go Back"
 msgstr "Egin atzera"
 
@@ -380,12 +376,10 @@ msgid "Quit"
 msgstr "Itxi"
 
 #: data/gtk/help-overlay.ui:53
-#, fuzzy
 msgid "Composer"
 msgstr "Editorea"
 
 #: data/gtk/help-overlay.ui:56
-#, fuzzy
 msgid "Commit"
 msgstr "Bidali"
 
@@ -409,13 +403,13 @@ msgstr "Errorea konexioarekin"
 msgid "React with %s"
 msgstr "%s erabiliz erreakzionatu"
 
-#: src/Widgets/Status.vala:270 src/Widgets/Attachment/Item.vala:193
-#: src/Views/MediaViewer.vala:372
+#: src/Widgets/Status.vala:270 src/Widgets/Attachment/Item.vala:194
+#: src/Views/MediaViewer.vala:381
 msgid "Open in Browser"
 msgstr "Ireki nabigatzailean"
 
-#: src/Widgets/Status.vala:271 src/Widgets/Attachment/Item.vala:194
-#: src/Views/MediaViewer.vala:373
+#: src/Widgets/Status.vala:271 src/Widgets/Attachment/Item.vala:195
+#: src/Views/MediaViewer.vala:382
 msgid "Copy URL"
 msgstr "Kopiatu URLa"
 
@@ -529,7 +523,6 @@ msgstr "Ez dago emaitzarik"
 #: src/Widgets/CustomEmojiChooser.vala:153
 #: src/Widgets/CustomEmojiChooser.vala:155 src/API/Emoji.vala:4
 #: src/API/Emoji.vala:8
-#, fuzzy
 msgid "Other"
 msgstr "Besteren bat"
 
@@ -552,14 +545,20 @@ msgstr "Gorde eranskinak"
 msgid "View Alt Text"
 msgstr "Ikusi deskribapena"
 
-#: src/Widgets/Attachment/Item.vala:195 src/Views/MediaViewer.vala:374
+#. translators: the variable is the media type (for example VIDEO)
+#: src/Widgets/Attachment/Item.vala:176
+#, c-format
+msgid "Alternative text for %s"
+msgstr ""
+
+#: src/Widgets/Attachment/Item.vala:196 src/Views/MediaViewer.vala:383
 msgid "Save Media"
 msgstr "Gorde multimedia"
 
-#: src/Widgets/Attachment/Item.vala:212 src/Views/MediaViewer.vala:482
+#: src/Widgets/Attachment/Item.vala:213 src/Views/MediaViewer.vala:491
 #: src/Views/Sidebar.vala:271 src/Services/Accounts/SecretAccountStore.vala:124
 #: src/Services/Accounts/SecretAccountStore.vala:222
-#: src/Services/Accounts/AccountStore.vala:43 src/Dialogs/ProfileEdit.vala:298
+#: src/Services/Accounts/AccountStore.vala:43 src/Dialogs/ProfileEdit.vala:326
 #: src/Application.vala:140
 msgid "Error"
 msgstr "Errorea"
@@ -574,27 +573,27 @@ msgstr "Ezkutatu multimedia"
 msgid "Sensitive Media"
 msgstr "Multimedia hunkigarria"
 
-#: src/Views/MediaViewer.vala:258
+#: src/Views/MediaViewer.vala:265
 msgid "Media Viewer"
 msgstr "Multimedia ikuslea"
 
-#: src/Views/MediaViewer.vala:271
+#: src/Views/MediaViewer.vala:278
 msgid "Toggle Fullscreen"
 msgstr "Pantaila osoa bai/ez"
 
-#: src/Views/MediaViewer.vala:589
+#: src/Views/MediaViewer.vala:582
 msgid "Previous Attachment"
 msgstr "Aurreko eranskina"
 
-#: src/Views/MediaViewer.vala:594
+#: src/Views/MediaViewer.vala:587
 msgid "Next Attachment"
 msgstr "Hurrengo eranskina"
 
-#: src/Views/MediaViewer.vala:612
+#: src/Views/MediaViewer.vala:605
 msgid "Zoom Out"
 msgstr "Urrundu"
 
-#: src/Views/MediaViewer.vala:617
+#: src/Views/MediaViewer.vala:610
 msgid "Zoom In"
 msgstr "Gerturatu"
 
@@ -603,7 +602,6 @@ msgid "Conversation"
 msgstr "Elkarrizketa"
 
 #: src/Views/StatusStats.vala:6
-#, fuzzy
 msgid "Post Stats"
 msgstr "Argitalpenaren estatistikak"
 
@@ -619,7 +617,7 @@ msgstr "Bultzatu du(te):"
 
 #: src/Views/Sidebar.vala:36
 msgid "Keyboard Shortcuts"
-msgstr "Teklatuaren lasterbideak"
+msgstr "Lasterbideak"
 
 #: src/Views/Sidebar.vala:45
 msgid "Preferences"
@@ -701,7 +699,7 @@ msgstr "%lld jarraitzen"
 msgid "%lld Followers"
 msgstr "%lld jarraitzaile"
 
-#: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:127
+#: src/Views/Profile.vala:301 src/Dialogs/ProfileEdit.vala:131
 msgid "Edit Profile"
 msgstr "Editatu profila"
 
@@ -876,9 +874,8 @@ msgid "Favorites"
 msgstr "Gogokoak"
 
 #: src/Views/Explore.vala:3 src/Services/Accounts/Mastodon/Account.vala:91
-#, fuzzy
 msgid "Explore"
-msgstr "Esploratu"
+msgstr "Arakatu"
 
 #: src/Views/Explore.vala:7
 msgid "News"
@@ -1091,55 +1088,55 @@ msgstr "Etiketa"
 msgid "Content"
 msgstr "Edukia"
 
-#: src/Dialogs/ProfileEdit.vala:116
+#: src/Dialogs/ProfileEdit.vala:120
 #: src/Dialogs/Composer/AttachmentsPage.vala:206
 msgid "All Supported Files"
 msgstr "Bateragarriak diren fitxategi guztiak"
 
-#: src/Dialogs/ProfileEdit.vala:145
+#: src/Dialogs/ProfileEdit.vala:149
 msgid "Display Name"
 msgstr "Pantaila-izena"
 
 #. translators: profile bio or description
-#: src/Dialogs/ProfileEdit.vala:151
+#: src/Dialogs/ProfileEdit.vala:155
 msgid "Bio"
 msgstr "Biografia"
 
-#: src/Dialogs/ProfileEdit.vala:171 src/Dialogs/Composer/EditorPage.vala:218
+#: src/Dialogs/ProfileEdit.vala:199 src/Dialogs/Composer/EditorPage.vala:218
 msgid "Custom Emoji Picker"
 msgstr "Emoji hautatzailea"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:186
+#: src/Dialogs/ProfileEdit.vala:214
 msgid "Fields"
 msgstr "Eremuak"
 
-#: src/Dialogs/ProfileEdit.vala:210
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:137
+#: src/Dialogs/ProfileEdit.vala:238
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:166
 msgid "Save"
 msgstr "Gorde"
 
-#: src/Dialogs/ProfileEdit.vala:215
+#: src/Dialogs/ProfileEdit.vala:243
 msgid "Close"
 msgstr "Itxi"
 
-#: src/Dialogs/ProfileEdit.vala:230
+#: src/Dialogs/ProfileEdit.vala:258
 msgid "Edit Profile Picture"
 msgstr "Editatu profileko irudia"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:250
+#: src/Dialogs/ProfileEdit.vala:278
 msgid "Edit Header Picture"
 msgstr "Editatu goiburuko irudia"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:360
+#: src/Dialogs/ProfileEdit.vala:388
 #, c-format
 msgid "Field %d"
 msgstr "%d. eremua"
 
 #. translators: Open file
-#: src/Dialogs/ProfileEdit.vala:375 src/Dialogs/ProfileEdit.vala:383
+#: src/Dialogs/ProfileEdit.vala:403 src/Dialogs/ProfileEdit.vala:411
 #: src/Dialogs/Composer/AttachmentsPage.vala:226
 #: src/Dialogs/Composer/AttachmentsPage.vala:235
 msgid "Open"
@@ -1157,20 +1154,20 @@ msgstr "Kopiatu nabigatzaileko baimen-kodea eta itsatsi ondoren."
 msgid "Please enter a valid instance URL"
 msgstr "Sartu instantziaren baliozko URLa"
 
-#: src/Dialogs/NewAccount.vala:158
+#: src/Dialogs/NewAccount.vala:162
 msgid "Please enter a valid authorization code"
 msgstr "Sartu baliozko baimen-kodea"
 
-#: src/Dialogs/NewAccount.vala:175
+#: src/Dialogs/NewAccount.vala:179
 msgid "Instance failed to authorize the access token"
 msgstr "Instantziak ezin izan du kodea baimendu"
 
-#: src/Dialogs/NewAccount.vala:184
+#: src/Dialogs/NewAccount.vala:188
 #, c-format
 msgid "Hello, %s!"
 msgstr "Kaixo, %s!"
 
-#: src/Dialogs/NewAccount.vala:240
+#: src/Dialogs/NewAccount.vala:244
 msgid "Server returned an error"
 msgstr "Zerbitzariak errorea itzuli du"
 
@@ -1181,7 +1178,7 @@ msgstr "Bozketa"
 #. translators: tooltip on a button that appends another poll entry / option
 #: src/Dialogs/Composer/PollPage.vala:114
 msgid "Add Poll"
-msgstr "Gehitu bozketa"
+msgstr "Gehitu aukera"
 
 #: src/Dialogs/Composer/PollPage.vala:123
 #: src/Dialogs/Composer/PollPage.vala:136
@@ -1195,14 +1192,12 @@ msgstr "Ezgaitu aukera anitzak"
 
 #: src/Dialogs/Composer/PollPage.vala:145
 #: src/Dialogs/Composer/PollPage.vala:159
-#, fuzzy
 msgid "Hide Total Votes"
-msgstr "Ezkutatu emaitza totala"
+msgstr "Ezkutatu bozka kopurua"
 
 #: src/Dialogs/Composer/PollPage.vala:159
-#, fuzzy
 msgid "Show Total Votes"
-msgstr "Erakutsi emaitza totala"
+msgstr "Erakutsi bozka kopurua"
 
 #: src/Dialogs/Composer/PollPage.vala:187
 #: src/Dialogs/Composer/PollPage.vala:222
@@ -1274,7 +1269,7 @@ msgid "Text"
 msgstr "Testua"
 
 #: src/Dialogs/Composer/EditorPage.vala:163
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:132
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:161
 msgid "Characters Left"
 msgstr "Karaktere gehienez"
 
@@ -1312,7 +1307,7 @@ msgstr "Idatzitakoa galduko duzu."
 
 #: src/Dialogs/Composer/Dialog.vala:191
 msgid "Discard"
-msgstr "Baztertu"
+msgstr "Bai, ziur"
 
 #: src/Dialogs/Composer/Dialog.vala:276
 msgid "_Redraft"
@@ -1333,6 +1328,10 @@ msgstr "Editatu deskribapena"
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:53
 msgid "Remove Attachment"
 msgstr "Kendu eranskina(k)"
+
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:181
+msgid "Alternative text for attachment"
+msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:50
 msgid "Media"

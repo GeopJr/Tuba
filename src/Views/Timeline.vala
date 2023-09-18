@@ -1,19 +1,14 @@
-using Gtk;
-using Gdk;
-
 public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase {
 
 	public string url { get; construct set; }
 	public bool is_public { get; construct set; default = false; }
 	public Type accepts { get; set; default = typeof (API.Status); }
-	public bool use_queue { get; set; default = true; }
 
 	protected InstanceAccount? account { get; set; default = null; }
 
 	public bool is_last_page { get; set; default = false; }
 	public string? page_next { get; set; }
 	public string? page_prev { get; set; }
-	Entity[] entity_queue = {};
 
 	private Gtk.Spinner pull_to_refresh_spinner;
 	private bool _is_pulling = false;
@@ -25,11 +20,11 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			if (_is_pulling != value) {
 				if (value) {
 					pull_to_refresh_spinner.spinning = true;
-					this.insert_child_after (pull_to_refresh_spinner, header);
+					scrolled_overlay.add_overlay (pull_to_refresh_spinner);
 					scrolled.sensitive = false;
 				} else {
 					pull_to_refresh_spinner.spinning = false;
-					this.remove (pull_to_refresh_spinner);
+					scrolled_overlay.remove_overlay (pull_to_refresh_spinner);
 					scrolled.sensitive = true;
 					pull_to_refresh_spinner.margin_top = 32;
 					pull_to_refresh_spinner.height_request = 32;
@@ -52,12 +47,12 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 		if (clean_y > 32) {
 			pull_to_refresh_spinner.margin_top = (int) clean_y;
-			pull_to_refresh_spinner.height_request = 32;
+			pull_to_refresh_spinner.height_request = pull_to_refresh_spinner.width_request = 32;
 		} else if (clean_y > 0) {
-			pull_to_refresh_spinner.height_request = (int) clean_y;
+			pull_to_refresh_spinner.height_request = pull_to_refresh_spinner.width_request = (int) clean_y;
 		} else {
 			pull_to_refresh_spinner.margin_top = 32;
-			pull_to_refresh_spinner.height_request = 0;
+			pull_to_refresh_spinner.height_request = pull_to_refresh_spinner.width_request = 0;
 		}
     }
 
@@ -72,11 +67,14 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	construct {
 		pull_to_refresh_spinner = new Gtk.Spinner () {
 			height_request = 32,
+			width_request = 32,
 			margin_top = 32,
-			margin_bottom = 32
+			margin_bottom = 32,
+			halign = Gtk.Align.CENTER,
+			valign = Gtk.Align.START,
+			css_classes = { "osd", "circular-spinner" }
 		};
 
-		reached_close_to_top.connect (finish_queue);
 		app.refresh.connect (on_refresh);
 		status_button.clicked.connect (on_refresh);
 
@@ -84,12 +82,15 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 		construct_streamable ();
 		stream_event[InstanceAccount.EVENT_NEW_POST].connect (on_new_post);
-		stream_event[InstanceAccount.EVENT_EDIT_POST].connect (on_edit_post);
-		stream_event[InstanceAccount.EVENT_DELETE_POST].connect (on_delete_post);
+
+		if (accepts == typeof (API.Status)) {
+			stream_event[InstanceAccount.EVENT_EDIT_POST].connect (on_edit_post);
+			stream_event[InstanceAccount.EVENT_DELETE_POST].connect (on_delete_post);
+		}
+
 		settings.notify["show-spoilers"].connect (on_refresh);
 		settings.notify["hide-preview-cards"].connect (on_refresh);
-
-		content.bind_model (model, on_create_model_widget);
+		settings.notify["enlarge-custom-emojis"].connect (on_refresh);
 
 		var drag = new Gtk.GestureDrag ();
         drag.drag_update.connect (on_drag_update);
@@ -97,22 +98,15 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
         this.add_controller (drag);
 	}
 	~Timeline () {
-		message (@"Destroying Timeline $label");
+		debug (@"Destroying Timeline $label");
 
-		entity_queue = {};
 		destruct_account_holder ();
 		destruct_streamable ();
-
-		content.bind_model (null, null);
 	}
 
 	public override void dispose () {
 		destruct_streamable ();
 		base.dispose ();
-	}
-
-	public virtual bool is_status_owned (API.Status status) {
-		return status.is_owned ();
 	}
 
 	public override void clear () {
@@ -189,7 +183,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_refresh () {
-		entity_queue = {};
 		scrolled.vadjustment.value = 0;
 		status_button.sensitive = false;
 		clear ();
@@ -233,24 +226,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	public virtual void on_new_post (Streamable.Event ev) {
 		try {
-			var entity = Entity.from_json (accepts, ev.get_node ());
-
-			if (use_queue && scrolled.vadjustment.value > 1000) {
-				entity_queue += entity;
-				return;
-			}
-
-			model.insert (0, entity);
+			model.insert (0, Entity.from_json (accepts, ev.get_node ()));
 		} catch (Error e) {
 			warning (@"Error getting Entity from json: $(e.message)");
 		}
-	}
-
-	private void finish_queue () {
-		if (entity_queue.length == 0) return;
-		model.splice (0, 0, (Object[])entity_queue);
-
-		entity_queue = {};
 	}
 
 	public virtual void on_edit_post (Streamable.Event ev) {

@@ -1,27 +1,24 @@
-using Gtk;
-
 public class Tuba.Views.Search : Views.TabbedBase {
 
 	public string query { get; set; default = ""; }
-	protected SearchBar bar;
+	protected Gtk.SearchBar bar;
 	protected Adw.Clamp bar_clamp;
-	protected SearchEntry entry;
+	protected Gtk.SearchEntry entry;
 
 	Views.ContentBase all_tab;
 	Views.ContentBase accounts_tab;
 	Views.ContentBase statuses_tab;
 	Views.ContentBase hashtags_tab;
 
-	public Search () {
-		Object (label: _("Search"));
+	construct {
+		label = _("Search");
 
-		bar = new SearchBar () {
+		bar = new Gtk.SearchBar () {
 			search_mode_enabled = true
 		};
-		prepend (bar);
-		reorder_child_after (bar, header);
+		toolbar_view.add_top_bar (bar);
 
-		entry = new SearchEntry () {
+		entry = new Gtk.SearchEntry () {
 			width_chars = 25,
 			text = query
 		};

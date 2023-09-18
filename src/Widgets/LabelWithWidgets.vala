@@ -8,11 +8,13 @@
 // `LabelWithWidgets.with_label_and_widgets` to construct it with the desired text and widgets.
 
 public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Accessible {
-    private Gtk.Widget[] widgets = {};
-    private int[] widget_heights = {};
-    private int[] widget_widths = {};
-    private int last_for_size = 0;
+    struct LWWWidget {
+        public Gtk.Widget widget;
+        public int height;
+        public int width;
+    }
 
+    private LWWWidget[] widgets = {};
     public Gtk.Label label;
 
     private string _placeholder = "<widget>";
@@ -26,6 +28,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         }
     }
 
+    private string _label_text = "";
     private string _text = "";
     public string text {
         get {
@@ -44,6 +47,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             return _ellipsize;
         }
         set {
+            if (_ellipsize == value) return;
+
             _ellipsize = value;
             update_label ();
         }
@@ -55,6 +60,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             return _use_markup;
         }
         set {
+            if (_use_markup == value) return;
+
             _use_markup = value;
             label.use_markup = _use_markup;
         }
@@ -78,7 +85,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     ~LabelWithWidgets () {
         label.unparent ();
         foreach (var child in widgets) {
-            child.unparent ();
+            child.widget.unparent ();
         }
     }
 
@@ -92,25 +99,24 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         }
 
         for (var i = 0; i < widgets.length; i++) {
-            Gtk.Widget child = widgets[i];
             Gtk.Requisition size;
             Gtk.Requisition natural_size;
-            child.get_preferred_size (out size, out natural_size);
+            widgets[i].widget.get_preferred_size (out size, out natural_size);
             int width = natural_size.width;
             int height = natural_size.height;
 
-            if (widget_widths.length > 0) {
-                int old_width = widget_widths[i];
-                int old_height = widget_heights[i];
+            int old_width = widgets[i].width;
+            int old_height = widgets[i].height;
+            if (old_width > 0 || old_height > 0) {
                 if (old_width != width || old_height != height) {
-                    widget_widths[i] = width;
-                    widget_heights[i] = height;
+                    widgets[i].width = width;
+                    widgets[i].height = height;
 
                     child_size_changed = true;
                 }
             } else {
-                widget_widths[i] = width;
-                widget_heights[i] = height;
+                widgets[i].width = width;
+                widgets[i].height = height;
 
                 child_size_changed = true;
             }
@@ -124,17 +130,15 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         var attrs = new Pango.AttrList ();
         int index = 0;
 
-        for (var i = 0; i < widget_widths.length; i++) {
-            index = label.get_text ().index_of (OBJECT_REPLACEMENT_CHARACTER, index);
+        for (var i = 0; i < widgets.length; i++) {
+            index = _label_text.index_of (OBJECT_REPLACEMENT_CHARACTER, index);
             if (index < 0) break;
 
-            var width = widget_widths[i];
-            var height = widget_heights[i];
             var logical_rect = Pango.Rectangle () {
                 x = 0,
-                y = - (height - (height / 4)) * Pango.SCALE,
-                width = width * Pango.SCALE,
-                height = height * Pango.SCALE
+                y = - (widgets[i].height - (widgets[i].height / 4)) * Pango.SCALE,
+                width = widgets[i].width * Pango.SCALE,
+                height = widgets[i].height * Pango.SCALE
             };
 
             var shape = Pango.AttrShape.new (logical_rect, logical_rect);
@@ -149,6 +153,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     }
 
     private void allocate_children () {
+        if (widgets.length == 0) return;
+
         var run_iter = label.get_layout ().get_iter ();
         int i = 0;
 
@@ -166,13 +172,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 
                 if (has_shape_attr) {
                     if (i < widgets.length) {
-                        var widget = widgets[i];
-                        var width = widget_widths[i];
-                        var height = widget_heights[i];
-
-                        Pango.Rectangle ink_rect;
                         Pango.Rectangle logical_rect;
-                        run_iter.get_run_extents (out ink_rect, out logical_rect);
+                        run_iter.get_run_extents (null, out logical_rect);
 
                         int offset_x;
                         int offset_y;
@@ -181,10 +182,10 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
                         var allocation = Gtk.Allocation () {
                             x = pango_pixels (logical_rect.x) + offset_x,
                             y = pango_pixels (logical_rect.y) + offset_y,
-                            height = width,
-                            width = height
+                            height = widgets[i].height,
+                            width = widgets[i].width
                         };
-                        widget.allocate_size (allocation, -1);
+                        widgets[i].widget.allocate_size (allocation, -1);
                         i++;
                     } else {
                         break;
@@ -218,18 +219,15 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         this.allocate_shapes ();
         this.label.measure (
             orientation,
-            (orientation == Gtk.Orientation.VERTICAL && for_size == -1) ? last_for_size : for_size,
+            for_size,
             out minimum,
             out natural,
             out minimum_baseline,
             out natural_baseline
         );
-        if (orientation == Gtk.Orientation.HORIZONTAL)
-            last_for_size = for_size;
     }
 
     private void update_label () {
-        last_for_size = 0;
         var old_label = label.label;
         var old_ellipsize = label.ellipsize == Pango.EllipsizeMode.END;
         var new_ellipsize = this.ellipsize;
@@ -259,17 +257,18 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 
             _text = new_label;
             label.label = _text;
+            _label_text = label.get_text ();
             invalidate_child_widgets ();
         }
     }
 
     public void append_child (Gtk.Widget child) {
-        widgets += child;
-        widget_widths += 0;
-        widget_heights += 0;
-
+        widgets += LWWWidget () {
+            widget = child,
+            width = 0,
+            height = 0
+        };
         child.set_parent (this);
-
         invalidate_child_widgets ();
     }
 
@@ -285,23 +284,19 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 
     public void set_children (Gtk.Widget[] t_widgets) {
         foreach (var child in widgets) {
-            child.unparent ();
-            child.destroy ();
+            child.widget.unparent ();
+            child.widget.destroy ();
         }
-
         widgets = {};
-        widget_widths = {};
-        widget_heights = {};
-
         foreach (unowned Gtk.Widget widget in t_widgets) {
             append_child (widget);
         }
     }
 
     private void invalidate_child_widgets () {
-        for (var i = 0; i < widget_widths.length; i++) {
-            widget_widths[i] = 0;
-            widget_heights[i] = 0;
+        for (var i = 0; i < widgets.length; i++) {
+            widgets[i].width = 0;
+            widgets[i].height = 0;
         }
         this.allocate_shapes ();
         this.queue_resize ();

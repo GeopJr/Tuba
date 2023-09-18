@@ -1,23 +1,17 @@
-using Gtk;
-using Gdk;
-
 public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamable {
-
 	protected InstanceAccount? last_account = null;
-
 	private Binding badge_number_binding;
-	public Notifications () {
-		Object (
-			url: "/api/v1/notifications",
-			label: _("Notifications"),
-			icon: "tuba-bell-symbolic",
-			badge_number: 0,
-			needs_attention: false
-		);
-		accepts = typeof (API.Notification);
+
+	construct {
+        url = "/api/v1/notifications";
+        label = _("Notifications");
+        icon = "tuba-bell-outline-symbolic";
+        accepts = typeof (API.Notification);
+		badge_number = 0;
+		needs_attention = false;
 
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
-	}
+    }
 
 	~Notifications () {
 		warning ("Destroying Notifications");
@@ -40,6 +34,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 				var unread_count = src.get_int ();
 				target.set_int (unread_count);
 				this.needs_attention = unread_count > 0;
+				Tuba.Mastodon.Account.PLACE_NOTIFICATIONS.badge = unread_count;
 
 				return true;
 			}

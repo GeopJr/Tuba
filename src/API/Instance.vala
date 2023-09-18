@@ -1,10 +1,24 @@
 public class Tuba.API.Instance : Entity {
+	public string uri { get; set; default=""; }
+	public string title { get; set; default=""; }
+	public string thumbnail { get; set; default=null; }
+
 	public Gee.ArrayList<string>? languages { get; set; }
 	public API.Mastodon.Configurations? configuration { get; set; default = null; }
 	public int64 max_toot_chars { get; set; default = 0; }
 	public API.Mastodon.Configuration.Polls? poll_limits { get; set; default = null; }
 	public int64 upload_limit { get; set; default = 0; }
     public API.Pleroma.Instance? pleroma { get; set; default = null; }
+
+    public string[]? compat_supported_mime_types {
+        get {
+            if (pleroma != null && pleroma.metadata != null) {
+                return pleroma.metadata.post_formats;
+            }
+
+            return configuration?.statuses?.supported_mime_types;
+        }
+    }
 
     public int64 compat_fields_limits_max_fields {
         get {

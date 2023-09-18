@@ -1,4 +1,5 @@
 sources += files(
+    'Announcement.vala',
     'Avatar.vala',
     'Background.vala',
     'BookWyrmPage.vala',
@@ -7,10 +8,10 @@ sources += files(
     'Emoji.vala',
     'EmojiLabel.vala',
     'LabelWithWidgets.vala',
-    'LockableToggleButton.vala',
     'MarkupView.vala',
     'Notification.vala',
     'PreviewCard.vala',
+    'ProfileCover.vala',
     'RelationshipButton.vala',
     'RichLabel.vala',
     'Status.vala',
@@ -21,3 +22,4 @@ sources += files(
 )
 
 subdir('Attachment')
+subdir('Status')

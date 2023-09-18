@@ -1,16 +1,11 @@
-using Soup;
-using GLib;
-using Gdk;
-using Json;
-
 public class Tuba.Network : GLib.Object {
 
 	public signal void started ();
 	public signal void finished ();
 
 	public delegate void ErrorCallback (int32 code, string reason);
-	public delegate void SuccessCallback (Session session, Message msg, InputStream in_stream) throws Error;
-	public delegate void NodeCallback (Json.Node node, Message msg) throws Error;
+	public delegate void SuccessCallback (Soup.Session session, Soup.Message msg, InputStream in_stream) throws Error;
+	public delegate void NodeCallback (Json.Node node, Soup.Message msg) throws Error;
 	public delegate void ObjectCallback (Json.Object node) throws Error;
 
 	public Soup.Session session { get; set; }
@@ -36,7 +31,7 @@ public class Tuba.Network : GLib.Object {
 		requests_processing++;
 		started ();
 
-		message (@"$(msg.method): $(msg.uri.to_string ())");
+		debug (@"$(msg.method): $(msg.uri.to_string ())");
 
 		session.send_async.begin (msg, 0, cancellable, (obj, res) => {
 			try {

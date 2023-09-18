@@ -12,9 +12,12 @@ public class Tuba.Views.EditHistory : Views.Timeline {
 		var widget_status = widget as Widgets.Status;
 
 		widget_status.actions.visible = false;
-		widget_status.activatable = false;
+		widget_status.can_be_opened = false;
 		widget_status.menu_button.visible = false;
+		widget_status.content.selectable = true;
 
-		return widget;
+		return widget_status;
 	}
+
+    public override void on_content_item_activated (uint pos) {}
 }

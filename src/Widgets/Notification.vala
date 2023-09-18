@@ -1,7 +1,4 @@
-using Gtk;
-
 public class Tuba.Widgets.Notification : Widgets.Status {
-
     public API.Notification notification { get; construct set; }
 
     public Notification (API.Notification obj) {
@@ -17,6 +14,12 @@ public class Tuba.Widgets.Notification : Widgets.Status {
             kind: obj.kind,
             status: status
         );
+
+        if (obj.kind == InstanceAccount.KIND_FOLLOW || obj.kind == InstanceAccount.KIND_FOLLOW_REQUEST) {
+            actions.visible = false;
+            visibility_indicator.visible = false;
+            date_label.visible = false;
+        }
     }
 
 }

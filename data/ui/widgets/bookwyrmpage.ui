@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <requires lib="gtk" version="4.0"/>
+    <template class="TubaWidgetsBookWyrmPage" parent="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="margin-bottom">12</property>
+        <property name="spacing">14</property>
+        <child>
+            <object class="GtkBox">
+                <property name="orientation">horizontal</property>
+                <property name="spacing">32</property>
+                <child>
+                    <object class="GtkPicture" id="cover">
+                        <property name="height-request">200</property>
+                        <property name="content-fit">cover</property>
+                        <style>
+                            <class name="attachment-picture"/>
+                        </style>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">6</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">1</property>
+                        <child>
+                            <object class="GtkLabel" id="title">
+                                <property name="wrap">1</property>
+                                <property name="halign">start</property>
+                                <style>
+                                    <class name="title-1"/>
+                                </style>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="authors">
+                                <property name="wrap">1</property>
+                                <property name="use-markup">1</property>
+                                <property name="halign">start</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="isbn">
+                                <property name="wrap">1</property>
+                                <property name="halign">start</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox">
+                <property name="orientation">horizontal</property>
+                <property name="spacing">12</property>
+                <child>
+                    <object class="GtkButton">
+                        <property name="label">BookWyrm</property>
+                        <signal name="clicked" handler="open_on_bw" swapped="no"/>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkButton" id="ol_btn">
+                        <property name="label">OpenLibrary</property>
+                        <signal name="clicked" handler="open_on_openlibrary" swapped="no"/>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="description">
+                <property name="wrap">1</property>
+                <style>
+                    <class name="card"/>
+                    <class name="bkwm-desc"/>
+                </style>
+            </object>
+        </child>
+        <child>
+            <object class="GtkLabel" id="date">
+                <property name="wrap">1</property>
+            </object>
+        </child>
+    </template>
+</interface>

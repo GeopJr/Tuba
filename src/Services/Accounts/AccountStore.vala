@@ -1,11 +1,9 @@
-using Gee;
-
 public abstract class Tuba.AccountStore : GLib.Object {
 
-	public ArrayList<InstanceAccount> saved { get; set; default = new ArrayList<InstanceAccount> (); }
+	public Gee.ArrayList<InstanceAccount> saved { get; set; default = new Gee.ArrayList<InstanceAccount> (); }
 	public InstanceAccount? active { get; set; default = null; }
 
-	public signal void changed (ArrayList<InstanceAccount> accounts);
+	public signal void changed (Gee.ArrayList<InstanceAccount> accounts);
 	public signal void switched (InstanceAccount? account);
 
 	public bool ensure_active_account () {
@@ -46,7 +44,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 	}
 
 	public virtual void add (InstanceAccount account) throws GLib.Error {
-		message (@"Adding new account: $(account.handle)");
+		debug (@"Adding new account: $(account.handle)");
 		saved.add (account);
 		changed (saved);
 		save ();
@@ -54,7 +52,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 	}
 
 	public virtual void remove (InstanceAccount account) throws GLib.Error {
-		message (@"Removing account: $(account.handle)");
+		debug (@"Removing account: $(account.handle)");
 		account.removed ();
 		saved.remove (account);
 		changed (saved);
@@ -79,10 +77,11 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			active.deactivated ();
 
 		if (account == null) {
-			message ("Reset active account");
+			debug ("Reset active account");
 			return;
 		} else {
-			message (@"Activating $(account.handle)…");
+			debug (@"Activating $(account.handle)…");
+			entity_cache.nuke ();
 			account.verify_credentials.begin ((obj, res) => {
 				try {
 					account.verify_credentials.end (res);
@@ -152,7 +151,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			throw new Oopsie.INTERNAL ("This instance is unsupported.");
 		else {
 			account.backend = backend;
-			message (@"$(account.instance) is using $(account.backend)");
+			debug (@"$(account.instance) is using $(account.backend)");
 		}
 	}
 

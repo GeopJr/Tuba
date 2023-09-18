@@ -1,12 +1,9 @@
-using Gtk;
-using Gdk;
-
 public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	const string[] ALLOWED_TYPES = {"IMAGE", "VIDEO", "GIFV", "AUDIO"};
 	const string[] VIDEO_TYPES = {"GIFV", "VIDEO", "AUDIO"};
 
 	protected Gtk.Picture pic;
-	protected Overlay media_overlay;
+	protected Gtk.Overlay media_overlay;
 
 	private bool _spoiler = false;
 	public bool spoiler {
@@ -26,28 +23,23 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		}
 	}
 
-	#if GTK_4_8
-		void update_pic_content_fit () {
-			pic.set_property ("content-fit", settings.letterbox_media ? 1 : 2);
-		}
-	#endif
+	void update_pic_content_fit () {
+		pic.content_fit = settings.letterbox_media ? Gtk.ContentFit.CONTAIN : Gtk.ContentFit.COVER;
+	}
 
 	construct {
-		pic = new Picture () {
+		pic = new Gtk.Picture () {
 			hexpand = true,
 			vexpand = true,
 			can_shrink = true,
 			keep_aspect_ratio = true,
 			css_classes = {"attachment-picture"}
-			//  content_fit = ContentFit.COVER // GTK 4.8
 		};
 
-		#if GTK_4_8
-			update_pic_content_fit ();
-			settings.notify["letterbox-media"].connect (update_pic_content_fit);
-		#endif
+		update_pic_content_fit ();
+		settings.notify["letterbox-media"].connect (update_pic_content_fit);
 
-		media_overlay = new Overlay ();
+		media_overlay = new Gtk.Overlay ();
 		media_overlay.child = pic;
 
 		button.child = media_overlay;
@@ -57,6 +49,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	protected override void on_rebind () {
 		base.on_rebind ();
 		pic.alternative_text = entity == null ? null : entity.description;
+
 		image_cache.request_paintable (entity.preview_url, on_cache_response);
 
 		if (media_kind in VIDEO_TYPES) {
@@ -79,8 +72,12 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		}
 	}
 
-	protected virtual void on_cache_response (bool is_loaded, owned Paintable? data) {
-		pic.paintable = data;
+	protected virtual void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
+		if (is_loaded) {
+			pic.paintable = data;
+		} else if (settings.use_blurhash) {
+			pic.paintable = blurhash_cache.lookup_or_decode (entity.blurhash);
+		}
 	}
 
 	public signal void spoiler_revealed ();

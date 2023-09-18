@@ -1,5 +1,3 @@
-using GLib;
-
 struct TestDate {
     public string iso8601;
     public string left;
@@ -9,7 +7,19 @@ struct TestDate {
 
 TestDate[] get_dates () {
     TestDate[] res = {
-        { "2002-06-29T18:00:00.000Z", "Jun 29, 2002", "expired on Jun 29, 2002", "Jun 29, 2002" }
+        {
+            new DateTime.local (
+                2002,
+                6,
+                29,
+                18,
+                0,
+                0.0
+            ).to_string (),
+            "Jun 29, 2002",
+            "expired on Jun 29, 2002",
+            "Jun 29, 2002"
+        }
     };
 
     var time_now = new GLib.DateTime.now_local ();

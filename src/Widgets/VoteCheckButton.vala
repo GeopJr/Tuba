@@ -1,11 +1,8 @@
-using Gtk;
-using Gdk;
-
-public class Tuba.Widgets.VoteCheckButton : CheckButton {
+public class Tuba.Widgets.VoteCheckButton : Gtk.CheckButton {
 	public string poll_title { get; set;}
 
     construct {
-        valign = Align.CENTER;
+        valign = Gtk.Align.CENTER;
         css_classes = { "selection-mode" };
     }
 }
