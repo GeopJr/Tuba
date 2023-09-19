@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-19 22:14+0300\n"
-"PO-Revision-Date: 2023-07-18 05:55+0000\n"
+"PO-Revision-Date: 2023-08-07 12:33+0000\n"
 "Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/tuba/tuba/sv/>\n"
 "Language: sv\n"
@@ -549,7 +549,7 @@ msgstr "Visa alternativ text"
 #: src/Widgets/Attachment/Item.vala:176
 #, c-format
 msgid "Alternative text for %s"
-msgstr ""
+msgstr "Alternativ text för %s"
 
 #: src/Widgets/Attachment/Item.vala:196 src/Views/MediaViewer.vala:383
 msgid "Save Media"
@@ -1330,7 +1330,7 @@ msgstr "Ta bort bilaga"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:181
 msgid "Alternative text for attachment"
-msgstr ""
+msgstr "Alternativ text för bilaga"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:50
 msgid "Media"
