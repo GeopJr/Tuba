@@ -35,8 +35,8 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_NOTIFICATIONS = new Place () { // vala-lint=naming-convention
 
-		title = _("Notifications"),
 		icon = "tuba-bell-outline-symbolic",
+		title = _("Notifications"),
 		open_func = win => {
 			win.go_back_to_start ();
 			((Views.TabbedBase) win.main_page.child).change_page_to_named ("2");
@@ -45,8 +45,8 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_CONVERSATIONS = new Place () { // vala-lint=naming-convention
 
-		title = _("Conversations"),
 		icon = "mail-unread-symbolic",
+		title = _("Conversations"),
 		open_func = win => {
 			win.go_back_to_start ();
 			((Views.TabbedBase) win.main_page.child).change_page_to_named ("3");
@@ -91,8 +91,8 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_SEARCH = new Place () { // vala-lint=naming-convention
 
-		title = _("Search"),
 		icon = "system-search-symbolic",
+		title = _("Search"),
 		open_func = (win) => {
 			win.open_view (new Views.Search ());
 		}
