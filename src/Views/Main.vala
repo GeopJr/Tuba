@@ -38,17 +38,30 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		app.main_window.update_selected_home_item ();
 	}
 
+	protected override Gtk.Widget header_widget {
+		get {
+			return header.title_widget;
+		}
+		set {
+			if (app?.main_window?.is_mobile == true) {
+				header.title_widget = value;
+			}
+		}
+	}
+
 	private void bind () {
 		app.main_window.bind_property ("is-mobile", search_button, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.bind_property ("is-mobile", switcher_bar, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.bind_property ("is-mobile", switcher, "visible", GLib.BindingFlags.SYNC_CREATE);
-		app.main_window.bind_property ("is-mobile", title_header, "visible", GLib.BindingFlags.SYNC_CREATE);
-		app.main_window.notify["is-mobile"].connect (() => {
-			update_fake_button (!app.main_window.is_mobile);
-			toolbar_view_mobile_style = app.main_window.is_mobile;
-		});
+
+		app.main_window.notify["is-mobile"].connect (notify_bind);
+		notify_bind ();
+	}
+
+	private void notify_bind () {
 		update_fake_button (!app.main_window.is_mobile);
 		toolbar_view_mobile_style = app.main_window.is_mobile;
+		if (!app.main_window.is_mobile) header.title_widget = title_header;
 	}
 
 	public override void build_header () {
@@ -68,23 +81,18 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		fake_back_button.clicked.connect (go_home);
 		header.pack_start (fake_back_button);
 
-		ulong main_window_notify = 0;
-		main_window_notify = app.notify["main-window"].connect (() => {
-			bind ();
-
-			app.disconnect (main_window_notify);
-		});
-
 		var sidebar_button = new Gtk.ToggleButton ();
 		header.pack_start (sidebar_button);
 		sidebar_button.icon_name = "tuba-dock-left-symbolic";
 
-		app.notify["main-window"].connect (() => {
+		ulong main_window_notify = 0;
+		main_window_notify = app.notify["main-window"].connect (() => {
 			if (app.main_window == null) {
 				sidebar_button.hide ();
 				return;
 			}
 
+			bind ();
 			app.main_window.split_view.bind_property (
 				"collapsed",
 				sidebar_button,
@@ -98,6 +106,8 @@ public class Tuba.Views.Main : Views.TabbedBase {
 				"active",
 				BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL
 			);
+
+			app.disconnect (main_window_notify);
 		});
 
 	}

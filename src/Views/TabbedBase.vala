@@ -46,6 +46,15 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		views = {};
 	}
 
+	protected virtual Gtk.Widget header_widget {
+		get {
+			return header.title_widget;
+		}
+		set {
+			header.title_widget = value;
+		}
+	}
+
 	public override void build_header () {
 		switcher = new Adw.ViewSwitcher () { policy = Adw.ViewSwitcherPolicy.WIDE };
 		header.title_widget = switcher;
@@ -61,7 +70,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 			550, Adw.LengthUnit.SP
 		);
 		var breakpoint = new Adw.Breakpoint (condition);
-		breakpoint.add_setter (header, "title-widget", title_header);
+		breakpoint.add_setter (this, "header-widget", title_header);
 		breakpoint.add_setter (switcher_bar, "reveal", true);
 		add_breakpoint (breakpoint);
 	}
