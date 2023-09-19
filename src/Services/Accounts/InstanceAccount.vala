@@ -452,8 +452,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	// Notification actions
 	public virtual void open_status_url (string url) {}
-	public virtual void answer_follow_request (string fr_id, bool accept) {}
-	public virtual void follow_back (string acc_id) {}
-	public virtual void reply_to_status_uri (string uri) {}
-	public virtual void remove_from_followers (string acc_id) {}
+	public virtual void answer_follow_request (string issuer_id, string fr_id, bool accept) {}
+	public virtual void follow_back (string issuer_id, string acc_id) {}
+	public virtual void reply_to_status_uri (string issuer_id, string uri) {}
+	public virtual void remove_from_followers (string issuer_id, string acc_id) {}
 }

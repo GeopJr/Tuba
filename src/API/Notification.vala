@@ -58,24 +58,24 @@ public class Tuba.API.Notification : Entity, Widgetizable {
                     toast.add_button_with_target_value (
                         _("Remove from Followers"),
                         "app.remove-from-followers",
-                        new Variant.string (account.id)
+                        new Variant.tuple ({accounts.active.id, account.id})
                     );
                     toast.add_button_with_target_value (
                         _("Follow Back"),
                         "app.follow-back",
-                        new Variant.string (account.id)
+                        new Variant.tuple ({accounts.active.id, account.id})
                     );
                     break;
                 case InstanceAccount.KIND_FOLLOW_REQUEST:
                     toast.add_button_with_target_value (
                         _("Decline"),
                         "app.answer-follow-request",
-                        new Variant.tuple ({account.id, false})
+                        new Variant.tuple ({accounts.active.id, account.id, false})
                     );
                     toast.add_button_with_target_value (
                         _("Accept"),
                         "app.answer-follow-request",
-                        new Variant.tuple ({account.id, true})
+                        new Variant.tuple ({accounts.active.id, account.id, true})
                     );
                     break;
             }

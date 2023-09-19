@@ -236,25 +236,57 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		});
 	}
 
-	public override void answer_follow_request (string fr_id, bool accept) {
+	private bool check_issuer (string issuer_id) {
+		if (issuer_id == this.id) return true;
+
+		var dlg = app.inform (
+			_("Error"),
+			//  translators: this error shows up when the user clicks a button
+			//				 in a desktop notification that was pushed for a
+			//				 different account
+			_("Notification was pushed for a different account")
+		);
+		dlg.present ();
+
+		return false;
+	}
+
+	public override void answer_follow_request (string issuer_id, string fr_id, bool accept) {
+		if (!check_issuer (issuer_id)) return;
+
 		new Request.POST (@"/api/v1/follow_requests/$fr_id/$(accept ? "authorize" : "reject")")
             .with_account (this)
 			.exec ();
 	}
 
-	public override void follow_back (string acc_id) {
-		new Request.POST (@"/api/v1/accounts/$acc_id/follow")
-            .with_account (this)
-			.exec ();
+	public override void follow_back (string issuer_id, string acc_id) {
+		if (!check_issuer (issuer_id)) return;
+
+		API.Relationship relationship = new API.Relationship.for_account_id (acc_id);
+
+		ulong invalidate_signal_id = 0;
+		invalidate_signal_id = relationship.invalidated.connect (() => {
+			if (!relationship.following) {
+				new Request.POST (@"/api/v1/accounts/$acc_id/follow")
+					.with_account (this)
+					.exec ();
+			}
+
+			relationship.disconnect (invalidate_signal_id);
+		});
 	}
 
-	public override void remove_from_followers (string acc_id) {
+	public override void remove_from_followers (string issuer_id, string acc_id) {
+		if (!check_issuer (issuer_id)) return;
+
 		new Request.POST (@"/api/v1/accounts/$acc_id/remove_from_followers")
             .with_account (this)
 			.exec ();
 	}
 
-	public override void reply_to_status_uri (string uri) {
+	public override void reply_to_status_uri (string issuer_id, string uri) {
+		if (!check_issuer (issuer_id)) return;
+
 		if (entity_cache.contains (uri)) {
 			var status = entity_cache.lookup (uri) as API.Status;
 			new Dialogs.Compose.reply (status.formal);
