@@ -50,7 +50,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
                         toast.add_button_with_target_value (
                             _("Reply…"),
                             "app.reply-to-status-uri",
-                            new Variant.string (status.uri)
+                            new Variant.tuple ({accounts.active.id, status.uri})
                         );
                     }
                     break;
