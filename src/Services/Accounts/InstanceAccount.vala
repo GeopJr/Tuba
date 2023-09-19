@@ -400,8 +400,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	private Gee.HashMap<string, int> sent_notifications = new Gee.HashMap<string, int> ();
 	private const string[] GROUPED_KINDS = {
 		KIND_FAVOURITE,
-		KIND_REBLOG,
-		KIND_MENTION
+		KIND_REBLOG
 	};
 	public void send_toast (API.Notification obj) {
 		if (obj.kind != null && (obj.kind in settings.muted_notification_types)) return;
