@@ -4,6 +4,15 @@ public class Tuba.EditorPage : ComposerPage {
 	protected int64 remaining_chars { get; set; default = 0; }
 	public signal void ctrl_return_pressed ();
 
+	private bool hide_dropdown_arrows {
+		set {
+			Gtk.DropDown?[] dropdown_widgets = {visibility_button, language_button, content_type_button};
+			foreach (Gtk.DropDown? dropdown in dropdown_widgets) {
+				if (dropdown != null) dropdown.show_arrow = !value;
+			}
+		}
+	}
+
 	construct {
 		//  translators: "Text" as in text-based input
 		title = _("Text");
@@ -17,13 +26,14 @@ public class Tuba.EditorPage : ComposerPage {
 
 	public override void on_build () {
 		base.on_build ();
+		bool supports_mime_types = accounts.active.supported_mime_types.n_items > 1;
 
 		install_editor ();
 		install_overlay (status.status);
 		install_visibility (status.visibility);
 		install_languages (status.language);
 
-		if (accounts.active.supported_mime_types.n_items > 1)
+		if (supports_mime_types)
 			install_content_type_button (settings.default_content_type);
 		add_button (new Gtk.Separator (Gtk.Orientation.VERTICAL));
 		install_cw (status.spoiler_text);
@@ -31,6 +41,8 @@ public class Tuba.EditorPage : ComposerPage {
 		install_emoji_picker ();
 
 		validate ();
+
+		if (supports_mime_types) hide_dropdown_arrows = true;
 	}
 
 	protected virtual signal void recount_chars () {}
