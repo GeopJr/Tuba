@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-19 04:30+0300\n"
-"PO-Revision-Date: 2023-09-10 02:11+0000\n"
+"PO-Revision-Date: 2023-09-19 17:01+0000\n"
 "Last-Translator: Сергей Ворон <voron.s.a@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tuba/tuba/ru/>\n"
 "Language: ru\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -87,7 +87,7 @@ msgstr "Показать сочетания клавиш"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Close Window"
-msgstr ""
+msgstr "Закрыть окно"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Quit"
@@ -99,11 +99,11 @@ msgstr "О программе"
 
 #: data/gtk/help-overlay.ui:62
 msgid "Scroll Up"
-msgstr ""
+msgstr "Прокрутить вверх"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Down"
-msgstr ""
+msgstr "Прокрутить вниз"
 
 #: data/gtk/help-overlay.ui:76
 msgid "Composer"
@@ -235,7 +235,7 @@ msgstr "Увеличивает высоту строк для постов"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Enlarge custom emojis"
-msgstr ""
+msgstr "Увеличить пользовательские эмодзи"
 
 #: data/ui/dialogs/preferences.ui:56
 msgid "Scale up custom emojis on hover"
@@ -271,7 +271,7 @@ msgstr "Заполнять изображением область просмо�
 
 #: data/ui/dialogs/preferences.ui:79
 msgid "Show a blurred version of the media until they fully load"
-msgstr ""
+msgstr "Показывать размытую версию медиа файлов до их полной загрузки"
 
 #: data/ui/dialogs/preferences.ui:84
 msgid "Reveal spoilers by default"
@@ -279,7 +279,7 @@ msgstr "Показывать спойлеры по умолчанию"
 
 #: data/ui/dialogs/preferences.ui:89
 msgid "Show link preview cards"
-msgstr ""
+msgstr "Показывать карточки предварительного просмотра ссылок"
 
 #: data/ui/dialogs/preferences.ui:96
 msgid "Posting"
@@ -295,7 +295,7 @@ msgstr "Язык поста по умолчанию"
 
 #: data/ui/dialogs/preferences.ui:118
 msgid "Default post content type"
-msgstr ""
+msgstr "Тип контента поста по умолчанию"
 
 #: data/ui/dialogs/preferences.ui:129
 msgid "Behavior"
@@ -351,15 +351,15 @@ msgstr "Уведомления"
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:180
 msgid "Push Notifications"
-msgstr ""
+msgstr "Всплывающие уведомления"
 
 #: data/ui/dialogs/preferences.ui:183
 msgid "New Followers"
-msgstr ""
+msgstr "Новые подписчики"
 
 #: data/ui/dialogs/preferences.ui:189
 msgid "New Follower Requests"
-msgstr ""
+msgstr "Новые запросы подписчиков"
 
 #: data/ui/dialogs/preferences.ui:195
 #: src/Services/Accounts/Mastodon/Account.vala:77 src/Views/Favorites.vala:4
@@ -368,29 +368,29 @@ msgstr "Избранное"
 
 #: data/ui/dialogs/preferences.ui:201
 msgid "Mentions"
-msgstr ""
+msgstr "Упоминания"
 
 #: data/ui/dialogs/preferences.ui:207
 msgid "Boosts"
-msgstr ""
+msgstr "Продвижения"
 
 #: data/ui/dialogs/preferences.ui:213
 msgid "Poll Results"
-msgstr ""
+msgstr "Результаты опроса"
 
 #: data/ui/dialogs/preferences.ui:219
 msgid "Edits"
-msgstr ""
+msgstr "Правки"
 
 #: data/ui/dialogs/preferences.ui:225
 msgid "Group"
-msgstr ""
+msgstr "Группа"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/ui/dialogs/preferences.ui:227
 msgid ""
 "Combine recently pushed notifications of the same type and post into one"
-msgstr ""
+msgstr "Объединять недавно отправленные уведомления одного типа и пост в одно"
 
 #: data/ui/dialogs/profile_edit.ui:13 src/Views/Profile.vala:123
 msgid "Edit Profile"
@@ -496,11 +496,11 @@ msgstr "Сменить аккаунт"
 
 #: data/ui/views/sidebar/view.ui:54
 msgid "Menu"
-msgstr ""
+msgstr "Меню"
 
 #: data/ui/widgets/announcement.ui:88
 msgid "Unread"
-msgstr ""
+msgstr "Не прочитано"
 
 #: data/ui/widgets/announcement.ui:99 data/ui/widgets/status.ui:171
 msgid "Edited"
@@ -552,19 +552,19 @@ msgstr "Прочее"
 #: src/API/Notification.vala:28
 #, c-format
 msgid "%s (& %d others)"
-msgstr ""
+msgstr "%s (& %d других)"
 
 #: src/API/Notification.vala:51
 msgid "Reply…"
-msgstr ""
+msgstr "Ответ…"
 
 #: src/API/Notification.vala:59
 msgid "Remove from Followers"
-msgstr ""
+msgstr "Удалить из подписчиков"
 
 #: src/API/Notification.vala:64
 msgid "Follow Back"
-msgstr ""
+msgstr "Подписаться обратно"
 
 #: src/API/Notification.vala:71 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
@@ -695,7 +695,7 @@ msgstr "Медиа"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:76
 msgid "Paste"
-msgstr ""
+msgstr "Вставить"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:220
 #: src/Dialogs/Composer/AttachmentsPage.vala:246
@@ -783,7 +783,7 @@ msgstr "Язык поста"
 
 #: src/Dialogs/Composer/EditorPage.vala:338
 msgid "Post Content Type"
-msgstr ""
+msgstr "Тип контента поста"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
@@ -971,7 +971,7 @@ msgstr "%s изменил пост"
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:244
 msgid "Plain Text"
-msgstr ""
+msgstr "Простой текст"
 
 #: src/Services/Accounts/Mastodon/Account.vala:49
 #: src/Views/Conversations.vala:4
@@ -1007,7 +1007,7 @@ msgstr "Хэштеги"
 #: src/Services/Accounts/Mastodon/Account.vala:150
 #: src/Views/Announcements.vala:4
 msgid "Announcements"
-msgstr ""
+msgstr "Объявления"
 
 #: src/Services/Accounts/Mastodon/Account.vala:189
 msgid "Public"
@@ -1047,7 +1047,7 @@ msgstr "Опубликовать только для упомянутых пол
 #. different account
 #: src/Services/Accounts/Mastodon/Account.vala:247
 msgid "Notification was pushed for a different account"
-msgstr ""
+msgstr "Уведомление было отправлено для другого аккаунта"
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:204
@@ -1145,19 +1145,19 @@ msgstr "%-e %b %Y"
 #. 3000 => 3k
 #: src/Utils/Units.vala:13
 msgid "k"
-msgstr ""
+msgstr "тыс."
 
 #. translators: short unit suffix for millions
 #. 3000000 => 3M
 #: src/Utils/Units.vala:17
 msgid "M"
-msgstr ""
+msgstr "млн"
 
 #. translators: short unit suffix for billions
 #. 3000000000 => 3G
 #: src/Utils/Units.vala:21
 msgid "G"
-msgstr ""
+msgstr "млрд"
 
 #. translators: Shown when there are 0 results
 #: src/Views/Base.vala:4
@@ -1361,7 +1361,7 @@ msgstr "Введите запрос"
 
 #: src/Views/Sidebar.vala:24
 msgid "Open Profile"
-msgstr ""
+msgstr "Открыть профиль"
 
 #: src/Views/Sidebar.vala:29
 msgid "Preferences"
@@ -1417,7 +1417,7 @@ msgstr "Скрыть медиа"
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:74
 msgid "Show Sensitive Content"
-msgstr ""
+msgstr "Показать деликатный контент"
 
 #: src/Widgets/Attachment/Item.vala:35
 msgid "Save Attachment"
@@ -1431,7 +1431,7 @@ msgstr "Просмотр описания"
 #: src/Widgets/BookWyrmPage.vala:83
 #, c-format
 msgid "Published: %s"
-msgstr ""
+msgstr "Опубликовано: %s"
 
 #. translators: the variable is a comma separated
 #. list of the book authors
@@ -1487,19 +1487,19 @@ msgstr "Присоединился"
 #: src/Widgets/ProfileCover.vala:169
 #, c-format
 msgid "%s Posts"
-msgstr ""
+msgstr "%s Постов"
 
 #. translators: the variable is the amount of people a user follows
 #: src/Widgets/ProfileCover.vala:174
 #, c-format
 msgid "%s Following"
-msgstr ""
+msgstr "%s Подписок"
 
 #. translators: the variable is the amount of followers a user has
 #: src/Widgets/ProfileCover.vala:179
 #, c-format
 msgid "%s Followers"
-msgstr ""
+msgstr "%s Подписчиков"
 
 #: src/Widgets/Status/ActionsRow.vala:35 src/Widgets/Status/ActionsRow.vala:79
 msgid "Boost"
@@ -1562,7 +1562,7 @@ msgstr "Голосование"
 
 #: src/Widgets/VoteBox.vala:96 src/Widgets/VoteBox.vala:121
 msgid "Voted"
-msgstr ""
+msgstr "Проголосовал"
 
 #. translators: the variable is the amount of people that voted
 #: src/Widgets/VoteBox.vala:144
