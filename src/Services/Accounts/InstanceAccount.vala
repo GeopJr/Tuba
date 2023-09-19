@@ -1,6 +1,3 @@
-using GLib;
-using Gee;
-
 public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public const string EVENT_NEW_POST = "update";
@@ -20,7 +17,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public string? backend { set; get; }
 	public API.Instance? instance_info { get; set; }
-	public ArrayList<API.Emoji>? instance_emojis { get; set; }
+	public Gee.ArrayList<API.Emoji>? instance_emojis { get; set; }
 	public string? instance { get; set; }
 	public string? client_id { get; set; }
 	public string? client_secret { get; set; }
@@ -29,7 +26,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
 
-	public HashMap<Type,Type> type_overrides = new HashMap<Type,Type> ();
+	public Gee.HashMap<Type,Type> type_overrides = new Gee.HashMap<Type,Type> ();
 
 	public new string handle_short {
 		owned get { return @"@$username"; }
@@ -94,7 +91,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			}
 		}
 	}
-	public HashMap<string,Visibility> visibility = new HashMap<string,Visibility> ();
+	public Gee.HashMap<string,Visibility> visibility = new Gee.HashMap<string,Visibility> ();
 	public ListStore visibility_list = new ListStore (typeof (Visibility));
 	public void set_visibility (Visibility obj) {
 		this.visibility[obj.id] = obj;
@@ -133,69 +130,92 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		var updated = API.Account.from (node);
 		patch (updated);
 
-		message (@"$handle: profile updated");
+		debug (@"$handle: profile updated");
 	}
 
 	public async Entity resolve (string url) throws Error {
-		message (@"Resolving URL: \"$url\"…");
+		debug (@"Resolving URL: \"$url\"…");
 		var results = yield API.SearchResults.request (url, this);
 		var entity = results.first ();
-		message (@"Found $(entity.get_class ().get_name ())");
+		debug (@"Found $(entity.get_class ().get_name ())");
 		return entity;
+	}
+
+	public struct Kind {
+		string? icon;
+		string? description;
+		string? url;
 	}
 
 	public virtual void describe_kind (
 		string kind,
-		out string? icon,
-		out string? descr,
-		API.Account account,
-		out string? descr_url
+		out Kind result,
+		string? actor_name = null,
+		string? callback_url = null
 	) {
 		switch (kind) {
 			case KIND_MENTION:
-				icon = "tuba-chat-symbolic";
-				descr = _("%s mentioned you").printf (account.display_name);
-				descr_url = account.url;
+				result = {
+					"tuba-chat-symbolic",
+					_("%s mentioned you").printf (actor_name),
+					callback_url
+				};
 				break;
 			case KIND_REBLOG:
-				icon = "tuba-media-playlist-repeat-symbolic";
-				descr = _("%s boosted your post").printf (account.display_name);
-				descr_url = account.url;
+				result = {
+					"tuba-media-playlist-repeat-symbolic",
+					_("%s boosted your post").printf (actor_name),
+					callback_url
+				};
 				break;
 			case KIND_REMOTE_REBLOG:
-				icon = "tuba-media-playlist-repeat-symbolic";
-				descr = _("%s boosted").printf (account.display_name);
-				descr_url = account.url;
+				result = {
+					"tuba-media-playlist-repeat-symbolic",
+					_("%s boosted").printf (actor_name),
+					callback_url
+				};
 				break;
 			case KIND_FAVOURITE:
-				icon = "tuba-starred-symbolic";
-				descr = _("%s favorited your post").printf (account.display_name);
-				descr_url = account.url;
+				result = {
+					"tuba-starred-symbolic",
+					_("%s favorited your post").printf (actor_name),
+					callback_url
+				};
 				break;
 			case KIND_FOLLOW:
-				icon = "tuba-contact-new-symbolic";
-				descr = _("%s now follows you").printf (account.display_name);
-				descr_url = account.url;
+				result = {
+					"tuba-contact-new-symbolic",
+					_("%s now follows you").printf (actor_name),
+					callback_url
+				};
 				break;
 			case KIND_FOLLOW_REQUEST:
-				icon = "tuba-contact-new-symbolic";
-				descr = _("%s wants to follow you").printf (account.display_name);
-				descr_url = account.url;
+				result = {
+					"tuba-contact-new-symbolic",
+					_("%s wants to follow you").printf (actor_name),
+					callback_url
+				};
 				break;
 			case KIND_POLL:
-				icon = "tuba-check-round-outline-symbolic";
-				descr = _("Poll results");
-				descr_url = null;
+				result = {
+					"tuba-check-round-outline-symbolic",
+					_("Poll results"),
+					null
+				};
 				break;
 			case KIND_EDITED:
-				icon = "document-edit-symbolic";
-				descr = _("%s edited a post").printf (account.display_name);
-				descr_url = null;
+				result = {
+					"document-edit-symbolic",
+					_("%s edited a post").printf (actor_name),
+					null
+				};
 				break;
 			default:
-				icon = null;
-				descr = null;
-				descr_url = null;
+				result = {
+					null,
+					null,
+					null
+				};
 				break;
 		}
 	}
@@ -209,6 +229,56 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public int last_received_id { get; set; default = 0; }
 	private bool passed_init_notifications = false;
 
+	public class StatusContentType : Object {
+		public string mime { get; construct set; }
+		public string icon_name { get; construct set; }
+		public string title { get; construct set; }
+
+		public StatusContentType (string content_type) {
+			mime = content_type;
+
+			switch (content_type.down ()) {
+				case "text/plain":
+					icon_name = "tuba-paper-symbolic";
+					title = _("Plain Text");
+					break;
+				case "text/html":
+					icon_name = "tuba-code-symbolic";
+					title = "HTML";
+					break;
+				case "text/markdown":
+					icon_name = "tuba-markdown-symbolic";
+					title = "Markdown";
+					break;
+				case "text/bbcode":
+					icon_name = "tuba-rich-text-symbolic";
+					title = "BBCode";
+					break;
+				case "text/x.misskeymarkdown":
+					icon_name = "tuba-rich-text-symbolic";
+					title = "MFM";
+					break;
+				default:
+					icon_name = "tuba-rich-text-symbolic";
+
+					int slash = content_type.index_of_char ('/');
+					int ct_l = content_type.length;
+					if (slash == -1 || slash == ct_l) {
+						title = content_type.up ();
+					} else {
+						title = content_type.slice (slash + 1, ct_l).up ();
+					}
+
+					break;
+			}
+		}
+
+		public static EqualFunc<string> compare = (a, b) => {
+			return ((StatusContentType) a).mime == ((StatusContentType) b).mime;
+		};
+	}
+
+	public GLib.ListStore supported_mime_types = new GLib.ListStore (typeof (StatusContentType));
 	public void gather_instance_info () {
 		new Request.GET ("/api/v1/instance")
 			.with_account (this)
@@ -216,6 +286,14 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				instance_info = API.Instance.from (node);
+
+				var content_types = instance_info.compat_supported_mime_types;
+				if (content_types != null) {
+					supported_mime_types.remove_all ();
+					foreach (string content_type in content_types) {
+						supported_mime_types.append (new StatusContentType (content_type));
+					}
+				}
 			})
 			.exec ();
 	}
@@ -268,7 +346,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	public void read_notifications (int up_to_id) {
-		message (@"Reading notifications up to id $up_to_id");
+		debug (@"Reading notifications up to id $up_to_id");
 
 		if (up_to_id > last_read_id) {
 			last_read_id = up_to_id;
@@ -289,6 +367,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 						.then (() => {})
 						.exec ();
 				}
+
+				sent_notifications.clear ();
 			}
 		}
 
@@ -309,7 +389,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	//  public void read_notification (int id) {
 	//  	if (id <= last_read_id) {
-	//  		message (@"Read notification with id: $id");
+	//  		debug (@"Read notification with id: $id");
 	//  		app.withdraw_notification (id.to_string ());
 	//  		unread_toasts.unset (id);
 	//  	}
@@ -317,9 +397,27 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	//  	has_unread = unread_count > 0;
 	//  }
 
+	private Gee.HashMap<string, int> sent_notifications = new Gee.HashMap<string, int> ();
+	private const string[] GROUPED_KINDS = {
+		KIND_FAVOURITE,
+		KIND_REBLOG,
+		KIND_MENTION
+	};
 	public void send_toast (API.Notification obj) {
-		var toast = obj.to_toast (this);
+		if (obj.kind != null && (obj.kind in settings.muted_notification_types)) return;
+
 		var id = obj.id;
+		var others = 0;
+
+		if (settings.group_push_notifications && obj.status != null && obj.kind in GROUPED_KINDS) {
+			id = @"$(obj.status.id)-$(obj.kind)";
+			if (sent_notifications.has_key (id)) {
+				others = sent_notifications.get (id) + 1;
+			}
+			sent_notifications.set (id, others);
+		}
+
+		var toast = obj.to_toast (this, others);
 		app.send_notification (id, toast);
 		//  sent_notification_ids.add(id);
 	}

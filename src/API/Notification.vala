@@ -5,18 +5,31 @@ public class Tuba.API.Notification : Entity, Widgetizable {
     public string? kind { get; set; default = null; }
     public API.Status? status { get; set; default = null; }
 
+    public override void open () {
+        if (status != null) {
+            status.open ();
+        } else {
+            account.open ();
+        }
+    }
+
     public override Gtk.Widget to_widget () {
         return new Widgets.Notification (this);
     }
 
-	public virtual GLib.Notification to_toast (InstanceAccount issuer) {
+	public virtual GLib.Notification to_toast (InstanceAccount issuer, int others = 0) {
+        Tuba.InstanceAccount.Kind res_kind;
         bool should_show_buttons = issuer == accounts.active;
 
-		string descr;
-		string descr_url;
-		issuer.describe_kind (kind, null, out descr, account, out descr_url);
+        var kind_actor_name = account.display_name;
+        if (others > 0) {
+            //  translators: <user> (& <amount> others) <actions>
+            //               for example: GeopJr (& 10 others) mentioned you
+            kind_actor_name = _("%s (& %d others)").printf (account.display_name, others);
+        }
 
-		var toast = new GLib.Notification ( HtmlUtils.remove_tags (descr) );
+		issuer.describe_kind (kind, out res_kind, kind_actor_name);
+		var toast = new GLib.Notification (res_kind.description);
 		if (status != null) {
 			var body = "";
 			body += HtmlUtils.remove_tags (status.content);

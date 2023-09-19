@@ -1,9 +1,8 @@
 public class Tuba.Views.FollowRequests : Views.Timeline {
-
-    public FollowRequests () {
+    construct {
+        url = "/api/v1/follow_requests";
         label = _("Follow Requests");
         icon = "tuba-address-book-new-symbolic";
-        url = "/api/v1/follow_requests";
         accepts = typeof (API.Account);
     }
 
@@ -12,18 +11,19 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
 		var widget_status = widget as Widgets.Status;
 
 		if (widget_status != null) {
-            widget_status.fr_actions.visible = true;
-            widget_status.decline_fr_button.clicked.connect (() => on_decline (widget_status, obj as Widgetizable));
-            widget_status.accept_fr_button.clicked.connect (() => on_accept (widget_status, obj as Widgetizable));
+            var fr_row = new Widgets.FollowRequestRow (widget_status.kind_instigator.id);
+            fr_row.declined.connect ((fr_row, req) => on_decline (fr_row, req, obj as Widgetizable));
+            fr_row.accepted.connect ((fr_row, req) => on_accept (fr_row, req, obj as Widgetizable));
+
+            widget_status.content_column.append (fr_row);
         }
 
 		return widget;
 	}
 
-    public void on_accept (Widgets.Status widget_status, Widgetizable widget) {
-        widget_status.fr_actions.sensitive = false;
-        widget_status.kind_instigator.accept_follow_request ()
-			.with_account (accounts.active)
+    public void on_accept (Widgets.FollowRequestRow fr_row, Request req, Widgetizable widget) {
+        fr_row.sensitive = false;
+        req
 			.then ((sess, msg, in_stream) => {
                 var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
@@ -34,16 +34,15 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
                     if (found)
                         model.remove (indx);
                 } else {
-                    widget_status.fr_actions.sensitive = true;
+                    fr_row.sensitive = true;
                 }
 			})
 			.exec ();
     }
 
-    public void on_decline (Widgets.Status widget_status, Widgetizable widget) {
-        widget_status.fr_actions.sensitive = false;
-        widget_status.kind_instigator.decline_follow_request ()
-			.with_account (accounts.active)
+    public void on_decline (Widgets.FollowRequestRow fr_row, Request req, Widgetizable widget) {
+        fr_row.sensitive = false;
+        req
 			.then ((sess, msg) => {
                 uint indx;
                 var found = model.find (widget, out indx);

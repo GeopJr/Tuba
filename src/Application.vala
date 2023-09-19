@@ -1,5 +1,3 @@
-using Gtk;
-
 namespace Tuba {
 	public errordomain Oopsie {
 		USER,
@@ -17,6 +15,7 @@ namespace Tuba {
 
 	public static EntityCache entity_cache;
 	public static ImageCache image_cache;
+	public static BlurhashCache blurhash_cache;
 
 	public static GLib.Regex bookwyrm_regex;
 	public static GLib.Regex custom_emoji_regex;
@@ -32,7 +31,7 @@ namespace Tuba {
 		public Dialogs.MainWindow? main_window { get; set; }
 		public Dialogs.NewAccount? add_account_window { get; set; }
 
-		public Gee.ArrayList<Tuba.Locale> locales { owned get { return generate_iso_639_1 (); } }
+		public Locales app_locales { get; construct set; }
 
 		// These are used for the GTK Inspector
 		public Settings app_settings { get {return Tuba.settings; } }
@@ -66,6 +65,8 @@ namespace Tuba {
 			{ "follow-back", follow_back, "s" },
 			{ "reply-to-status-uri", reply_to_status_uri, "s" },
 			{ "remove-from-followers", remove_from_followers, "s" },
+			{ "open-preferences", open_preferences },
+			{ "open-current-account-profile", open_current_account_profile }
 		};
 
 		private void remove_from_followers (GLib.SimpleAction action, GLib.Variant? value) {
@@ -104,6 +105,8 @@ namespace Tuba {
 		construct {
 			application_id = Build.DOMAIN;
 			flags = ApplicationFlags.HANDLES_OPEN;
+
+			app_locales = new Tuba.Locales ();
 		}
 
 		public static int main (string[] args) {
@@ -154,13 +157,10 @@ namespace Tuba {
 			try {
 				var lines = troubleshooting.split ("\n");
 				foreach (unowned string line in lines) {
-					message (line);
+					debug (line);
 				}
 				Adw.init ();
-
-				#if !MISSING_GTKSOURCEVIEW
-					GtkSource.init ();
-				#endif
+				GtkSource.init ();
 
 				settings = new Settings ();
 				streams = new Streams ();
@@ -168,6 +168,9 @@ namespace Tuba {
 				entity_cache = new EntityCache ();
 				image_cache = new ImageCache () {
 					maintenance_secs = 60 * 5
+				};
+				blurhash_cache = new BlurhashCache () {
+					maintenance_secs = 30
 				};
 				accounts = new SecretAccountStore ();
 				accounts.init ();
@@ -230,13 +233,12 @@ namespace Tuba {
 			if (accounts.saved.is_empty) {
 				if (main_window != null && destroy_main)
 					main_window.hide ();
-				message ("Presenting NewAccount dialog");
+				debug ("Presenting NewAccount dialog");
 				if (add_account_window == null)
 					new Dialogs.NewAccount ();
 				add_account_window.present ();
-			}
-			else {
-				message ("Presenting MainWindow");
+			} else {
+				debug ("Presenting MainWindow");
 				if (main_window == null) {
 					main_window = new Dialogs.MainWindow (this);
 					is_rtl = Gtk.Widget.get_default_direction () == Gtk.TextDirection.RTL;
@@ -290,6 +292,21 @@ namespace Tuba {
 			main_window.scroll_view_page (true);
 		}
 
+		void open_preferences () {
+			Dialogs.Preferences.open ();
+		}
+
+		void open_current_account_profile () {
+			accounts.active.open ();
+			close_sidebar ();
+		}
+
+		private void close_sidebar () {
+			var split_view = app.main_window.split_view;
+			if (split_view.collapsed)
+				split_view.show_sidebar = false;
+		}
+
 		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s".printf ( // vala-lint=line-length
 				GLib.Environment.get_os_info ("NAME"), GLib.Environment.get_os_info ("VERSION"),
 				Build.PREFIX,
@@ -313,7 +330,8 @@ namespace Tuba {
 
 		void about_activated () {
 			const string[] ARTISTS = {
-				"Tobias Bernard"
+				"Tobias Bernard",
+				"Jakub Steiner"
 			};
 
 			const string[] DESIGNERS = {
@@ -335,7 +353,7 @@ namespace Tuba {
 				application_name = Build.NAME,
 				version = Build.VERSION,
 				support_url = Build.SUPPORT_WEBSITE,
-				license_type = License.GPL_3_0_ONLY,
+				license_type = Gtk.License.GPL_3_0_ONLY,
 				copyright = COPYRIGHT,
 				developers = DEVELOPERS,
 				artists = ARTISTS,
@@ -353,7 +371,9 @@ namespace Tuba {
 			dialog.present ();
 
 			GLib.Idle.add (() => {
-				dialog.add_css_class (Tuba.Celebrate.get_celebration_css_class (new GLib.DateTime.now ()));
+				var style = Tuba.Celebrate.get_celebration_css_class (new GLib.DateTime.now ());
+				if (style != "")
+					dialog.add_css_class (style);
 				return GLib.Source.REMOVE;
 			});
 		}

@@ -1,5 +1,4 @@
 public class Tuba.Views.Hashtag : Views.Timeline {
-
     bool t_following = false;
     string t_tag = "";
     public Hashtag (string tag, bool? following = null, string? url_basename = null) {

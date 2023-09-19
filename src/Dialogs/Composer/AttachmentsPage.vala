@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.AttachmentsPage : ComposerPage {
 	~AttachmentsPage () {
 		context_menu.unparent ();
@@ -36,7 +34,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	public GLib.ListStore attachments;
 	public Adw.ToastOverlay toast_overlay;
 	public bool media_sensitive { get; set; default = false; }
-	private FileFilter filter = new FileFilter () {
+	private Gtk.FileFilter filter = new Gtk.FileFilter () {
 			name = _("All Supported Files")
 	};
 	private Gee.ArrayList<string> supported_mimes = new Gee.ArrayList<string>.wrap (SUPPORTED_MIMES);
@@ -52,7 +50,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		}
 	}
 
-	protected PopoverMenu context_menu { get; set; }
+	protected Gtk.PopoverMenu context_menu { get; set; }
 	private const GLib.ActionEntry[] ACTION_ENTRIES = {
 		{"paste-from-clipboard", on_clipboard_paste}
 	};
@@ -77,7 +75,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		var menu_model = new GLib.Menu ();
 		menu_model.append (_("Paste"), "attachmentspage.paste-from-clipboard");
 
-		context_menu = new PopoverMenu.from_model (menu_model);
+		context_menu = new Gtk.PopoverMenu.from_model (menu_model);
 		context_menu.set_parent (this);
 
 		var dnd_controller = new Gtk.DropTarget (typeof (Gdk.FileList), Gdk.DragAction.COPY);
@@ -105,18 +103,18 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	private void on_click (int n_press, double x, double y) {
 		if (!show_context_menu (x, y)) return;
 
-		click_controller.set_state (EventSequenceState.CLAIMED);
+		click_controller.set_state (Gtk.EventSequenceState.CLAIMED);
 	}
 
 	private void on_long_press (double x, double y) {
 		if (!show_context_menu (x, y)) return;
 
-		long_press_controller.set_state (EventSequenceState.CLAIMED);
+		long_press_controller.set_state (Gtk.EventSequenceState.CLAIMED);
 	}
 
 	private bool show_context_menu (double x, double y) {
 		if (!add_media_action_button.sensitive) return false;
-		message ("Context menu triggered");
+		debug ("Context menu triggered");
 
 		Gdk.Rectangle rectangle = {
 			(int) x,
@@ -207,7 +205,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 	protected Adw.ViewStack stack;
 	protected Adw.StatusPage empty_state;
-	protected ListBox list;
+	protected Gtk.ListBox list;
 	protected Gtk.Button add_media_action_button;
 
 	public override void dispose () {
@@ -219,8 +217,8 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	public override void on_build () {
 		base.on_build ();
 
-		var attach_button = new Button.with_label (_("Add Media")) {
-			halign = Align.CENTER,
+		var attach_button = new Gtk.Button.with_label (_("Add Media")) {
+			halign = Gtk.Align.CENTER,
 			sensitive = accounts.active.instance_info.compat_status_max_media_attachments > 0,
 			// Empty state
 			css_classes = { "pill" }
@@ -236,8 +234,8 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		};
 
 		// Non-empty state
-		list = new ListBox () {
-			selection_mode = SelectionMode.NONE
+		list = new Gtk.ListBox () {
+			selection_mode = Gtk.SelectionMode.NONE
 		};
 		list.bind_model (attachments, on_create_list_item);
 
@@ -312,7 +310,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		on_attachments_changed ();
 	}
 
-	Widget on_create_list_item (Object item) {
+	Gtk.Widget on_create_list_item (Object item) {
 		var attachment = item as API.Attachment;
 		var attachment_widget = new AttachmentsPageAttachment (
 			attachment.id,
@@ -368,58 +366,35 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	}
 
 	void show_file_selector () {
-		#if GTK_4_10
-			var chooser = new FileDialog () {
-				// translators: Open file
-				title = _("Open"),
-				modal = true,
-				default_filter = filter
-			};
-			chooser.open_multiple.begin (dialog, null, (obj, res) => {
-				try {
-				var files = chooser.open_multiple.end (res);
-		#else
+		var chooser = new Gtk.FileDialog () {
 			// translators: Open file
-			var chooser = new FileChooserNative (_("Open"), dialog, Gtk.FileChooserAction.OPEN, null, null) {
-				select_multiple = true,
-				filter = filter,
-				modal = true
-			};
+			title = _("Open"),
+			modal = true,
+			default_filter = filter
+		};
+		chooser.open_multiple.begin (dialog, null, (obj, res) => {
+			try {
+				var files = chooser.open_multiple.end (res);
 
-			chooser.response.connect (id => {
-				switch (id) {
-					case ResponseType.ACCEPT:
-						var files = chooser.get_files ();
-		#endif
+				File[] files_to_upload = {};
+				var amount_of_files = files.get_n_items ();
+				for (var i = 0; i < amount_of_files; i++) {
+					var file = files.get_item (i) as File;
 
-			File[] files_to_upload = {};
-			var amount_of_files = files.get_n_items ();
-			for (var i = 0; i < amount_of_files; i++) {
-				var file = files.get_item (i) as File;
+					if (file != null)
+						files_to_upload += file;
+				}
 
-				if (file != null)
-					files_to_upload += file;
+				upload_files.begin (files_to_upload, (obj, res) => {
+					upload_files.end (res);
+				});
+
+			} catch (Error e) {
+				// User dismissing the dialog also ends here so don't make it sound like
+				// it's an error
+				warning (@"Couldn't get the result of FileDialog for AttachmentsPage: $(e.message)");
 			}
-
-			upload_files.begin (files_to_upload, (obj, res) => {
-				upload_files.end (res);
-			});
-
-		#if GTK_4_10
-				} catch (Error e) {
-					// User dismissing the dialog also ends here so don't make it sound like
-					// it's an error
-					warning (@"Couldn't get the result of FileDialog for AttachmentsPage: $(e.message)");
-				}
-			});
-		#else
-						break;
-				}
-				chooser.unref ();
-			});
-			chooser.ref ();
-			chooser.show ();
-		#endif
+		});
 	}
 
 	private async void upload_files (File[] files) {

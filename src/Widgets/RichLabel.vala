@@ -1,12 +1,7 @@
-using Gtk;
-using Gee;
-
 public class Tuba.Widgets.RichLabel : Adw.Bin {
-
 	Widgets.EmojiLabel widget;
 
-	// TODO: We can parse <a> tags and extract resolvable URIs now
-	public weak ArrayList<API.Mention>? mentions;
+	public weak Gee.ArrayList<API.Mention>? mentions;
 
 	public string label {
 		get { return widget.content; }
@@ -66,6 +61,11 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		set { widget.instance_emojis = value; }
 	}
 
+	public int lines {
+		get { return widget.lines; }
+		set { widget.lines = value; }
+	}
+
 	public RichLabel (string? text = null) {
 		if (text != null)
 			label = text;
@@ -84,11 +84,18 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 
 	public bool on_activate_link (string url) {
 		if (mentions != null) {
+			bool found = false;
 			mentions.@foreach (mention => {
-				if (url == mention.url)
+				if (url == mention.url) {
 					mention.open ();
+					found = true;
+					return false;
+				}
+
 				return true;
 			});
+
+			if (found) return true;
 		}
 
 		if ("/tags/" in url) {
@@ -122,5 +129,4 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	public static bool should_resolve_url (string url) {
 		return settings.aggressive_resolving || "@" in url || "user" in url;
 	}
-
 }

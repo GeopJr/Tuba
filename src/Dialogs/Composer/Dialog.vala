@@ -1,6 +1,3 @@
-using Gtk;
-using Gee;
-
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/compose.ui")]
 public class Tuba.Dialogs.Compose : Adw.Window {
 	public class BasicStatus : Object {
@@ -47,6 +44,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		public string spoiler_text { get; set; }
 		public string visibility { get; set; }
 		public string language { get; set; }
+		public string content_type { get; set; }
 		public Gee.ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
 
 		public void add_media (string t_id, string? t_alt) {
@@ -63,7 +61,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			id = t_status.id;
 			status = t_status.content;
 
-			if (t_status.has_media ()) {
+			if (t_status.has_media) {
 				media_attachments = t_status.media_attachments;
 
 				foreach (var t_attachment in t_status.media_attachments) {
@@ -160,6 +158,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		add_binding_action (Gdk.Key.Q, Gdk.ModifierType.CONTROL_MASK, "composer.exit", null);
 
 		transient_for = app.main_window;
+		title_switcher.policy = WIDE;
 		title_switcher.stack = stack;
 
 		build_sigid = notify["status"].connect (() => {
@@ -170,7 +169,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		});
 	}
 	~Compose () {
-		message ("Destroying composer");
+		debug ("Destroying composer");
 		foreach (var page in t_pages) {
 			page.dispose ();
 		}
@@ -255,8 +254,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		commit_button.sensitive = allow;
 	}
 
-	[GtkChild] unowned Adw.ViewSwitcherTitle title_switcher;
-	[GtkChild] unowned Button commit_button;
+	[GtkChild] unowned Adw.ViewSwitcher title_switcher;
+	[GtkChild] unowned Gtk.Button commit_button;
 
 	[GtkChild] unowned Adw.ViewStack stack;
 
@@ -440,7 +439,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		var parser = Network.get_parser_from_inputstream (publish_req.response_body);
 		var node = network.parse_node (parser);
 		var status = API.Status.from (node);
-		message (@"Published post with id $(status.id)");
+		debug (@"Published post with id $(status.id)");
 		if (cb != null) cb (status);
 
 		on_close ();

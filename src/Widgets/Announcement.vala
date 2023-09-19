@@ -125,8 +125,6 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		settings.notify["larger-font-size"].connect (settings_updated);
 		settings.notify["larger-line-height"].connect (settings_updated);
 		settings.notify["scale-emoji-hover"].connect (settings_updated);
-
-		open.connect (on_open);
 	}
 
     public Announcement (API.Announcement t_announcement) {
@@ -156,6 +154,8 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		if (instance_thumbnail != "") image_cache.request_paintable (instance_thumbnail, on_cache_response);
 
 		reactions = t_announcement.reactions;
+
+		announcement.bind_property ("read", attention_indicator, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 	}
 
 	void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
@@ -177,24 +177,6 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 			.on_error ((code, message) => {
 				warning (@"Error while reacting to announcement: $code $message");
 				btn.sensitive = true;
-
-				var dlg = app.inform (_("Error"), message);
-				dlg.present ();
-			})
-			.exec ();
-	}
-
-	private void on_open () {
-		if (announcement.read) return;
-
-		new Request.POST (@"/api/v1/announcements/$(announcement.id)/dismiss")
-			.with_account (accounts.active)
-			.then (() => {
-				announcement.read = true;
-				attention_indicator.visible = false;
-			})
-			.on_error ((code, message) => {
-				warning (@"Error while dismissing announcement: $code $message");
 
 				var dlg = app.inform (_("Error"), message);
 				dlg.present ();

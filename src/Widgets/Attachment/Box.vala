@@ -1,11 +1,7 @@
-using Gtk;
-using GLib;
-using Gee;
-
 public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 
-	ArrayList<API.Attachment>? _list = null;
-	public ArrayList<API.Attachment>? list {
+	Gee.ArrayList<API.Attachment>? _list = null;
+	public Gee.ArrayList<API.Attachment>? list {
 		get {
 			return _list;
 		}
@@ -39,7 +35,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 				foreach (var attachment_w in attachment_widgets) {
 					attachment_w.spoiler = !value;
 				}
-				reveal_btn.visible = spoiler_box.can_target = value;
+				reveal_btn.visible = value;
 				reveal_text.visible = !value;
 			}
 		}
@@ -48,24 +44,19 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 	protected Gtk.FlowBox box;
 	protected Gtk.Button reveal_btn;
 	protected Gtk.Label reveal_text;
-	protected Gtk.Box spoiler_box;
 
 	construct {
 		visible = false;
 		hexpand = true;
 
-		box = new FlowBox () {
+		box = new Gtk.FlowBox () {
 			homogeneous = true,
 			activate_on_single_click = true,
 			column_spacing = 6,
 			row_spacing = 6,
-			selection_mode = SelectionMode.NONE
+			selection_mode = Gtk.SelectionMode.NONE
 		};
 
-		spoiler_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-			halign = Gtk.Align.START,
-			valign = Gtk.Align.START,
-		};
 		reveal_btn = new Gtk.Button () {
 			icon_name = "tuba-eye-not-looking-symbolic",
 			// translators: Tooltip on a button that hides / blurs media marked as sensitive
@@ -80,20 +71,20 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		reveal_btn.clicked.connect (hide_spoilers);
 
 		// translators: Label shown in front of blurred / sensitive media
-		reveal_text = new Gtk.Label (_("Sensitive Media")) {
+		reveal_text = new Gtk.Label (_("Show Sensitive Content")) {
 			wrap = true,
-			halign = Gtk.Align.START,
-			valign = Gtk.Align.START,
+			halign = Gtk.Align.CENTER,
+			valign = Gtk.Align.CENTER,
 			vexpand = true,
 			css_classes = { "osd", "heading", "ttl-status-badge", "sensitive-label" },
-			visible = false
+			visible = false,
+			can_target = false
 		};
-		spoiler_box.append (reveal_btn);
-		spoiler_box.append (reveal_text);
 
 		var overlay = new Gtk.Overlay ();
 		overlay.child = box;
-		overlay.add_overlay (spoiler_box);
+		overlay.add_overlay (reveal_btn);
+		overlay.add_overlay (reveal_text);
 
 		child = overlay;
 	}

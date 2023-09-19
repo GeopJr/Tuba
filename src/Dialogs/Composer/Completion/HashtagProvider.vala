@@ -1,5 +1,3 @@
-using Gtk;
-
 public class Tuba.HashtagProvider: Tuba.CompletionProvider {
 
 	public HashtagProvider () {

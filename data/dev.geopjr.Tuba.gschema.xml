@@ -18,9 +18,6 @@
 		<key name="default-post-visibility" type="s">
 			<default>'public'</default>
 		</key>
-		<key name="autostart" type="b">
-			<default>false</default>
-		</key>
 		<key name="work-in-background" type="b">
 			<default>false</default>
 		</key>
@@ -36,8 +33,8 @@
 		<key name="show-spoilers" type="b">
 			<default>false</default>
 		</key>
-		<key name="hide-preview-cards" type="b">
-			<default>false</default>
+		<key name="show-preview-cards" type="b">
+			<default>true</default>
 		</key>
 		<key name="larger-font-size" type="b">
 			<default>false</default>
@@ -63,6 +60,15 @@
 		<key name="enlarge-custom-emojis" type="b">
 			<default>false</default>
 		</key>
+		<key name="default-content-type" type="s">
+			<default>'text/plain'</default>
+		</key>
+		<key name="use-blurhash" type="b">
+			<default>true</default>
+		</key>
+		<key name="group-push-notifications" type="b">
+			<default>false</default>
+		</key>
 
 		<key name="window-x" type="i">
 			<default>-1</default>
@@ -76,6 +82,8 @@
 		<key name="window-h" type="i">
 			<default>700</default>
 		</key>
-
+		<key name="muted-notification-types" type="as">
+			<default>[]</default>
+		</key>
 	</schema>
 </schemalist>

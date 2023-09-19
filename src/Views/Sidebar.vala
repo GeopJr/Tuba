@@ -1,76 +1,45 @@
-using Gtk;
-
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/view.ui")]
-public class Tuba.Views.Sidebar : Box, AccountHolder {
-
-	[GtkChild] unowned ToggleButton accounts_button;
-	[GtkChild] unowned Stack mode;
-	[GtkChild] unowned ListBox items;
-	[GtkChild] unowned ListBox saved_accounts;
-
-	[GtkChild] unowned Widgets.Avatar avatar;
-	[GtkChild] unowned Widgets.EmojiLabel title;
-	[GtkChild] unowned Label subtitle;
-	[GtkChild] unowned Adw.HeaderBar sb_header;
-
-	private bool _show_window_controls = false;
-	public bool show_window_controls {
-		get {
-			return _show_window_controls;
-		}
-		set {
-			_show_window_controls = value;
-			sb_header.show_start_title_buttons = value;
-		}
-	}
+public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
+	[GtkChild] unowned Gtk.ListBox items;
+	[GtkChild] unowned Gtk.ListBox saved_accounts;
+	[GtkChild] unowned Widgets.Avatar accounts_button_avi;
+	[GtkChild] unowned Gtk.MenuButton menu_btn;
+	[GtkChild] unowned Gtk.Popover account_switcher_popover_menu;
 
 	protected InstanceAccount? account { get; set; default = null; }
 
 	protected GLib.ListStore app_items;
-	protected SliceListModel account_items;
-	protected FlattenListModel item_model;
+	protected Gtk.SliceListModel account_items;
+	protected Gtk.FlattenListModel item_model;
 
-	public static Place KEYBOARD_SHORTCUTS = new Place () { // vala-lint=naming-convention
-
-		icon = "input-keyboard-symbolic",
-		title = _("Keyboard Shortcuts"),
-		selectable = false,
-		open_func = () => {
-			app.main_window.lookup_action ("show-help-overlay").activate (null);
-		}
-	};
-	public static Place PREFERENCES = new Place () { // vala-lint=naming-convention
-
-			icon = "tuba-gear-symbolic",
-			title = _("Preferences"),
-			selectable = false,
-			separated = true,
-			open_func = () => {
-				Dialogs.Preferences.open ();
-			}
-	};
-	public static Place ABOUT = new Place () { // vala-lint=naming-convention
-
-			icon = "tuba-about-symbolic",
-			title = _("About"),
-			selectable = false,
-			open_func = () => {
-				app.lookup_action ("about").activate (null);
-			}
-	};
+	static construct {
+		typeof (Widgets.EmojiLabel).ensure ();
+		set_layout_manager_type (typeof (Gtk.BinLayout));
+	}
 
 	construct {
-		app_items = new GLib.ListStore (typeof (Place));
-		app_items.append (PREFERENCES);
-		app_items.append (KEYBOARD_SHORTCUTS);
-		app_items.append (ABOUT);
+		var menu_model = new GLib.Menu ();
 
-		account_items = new SliceListModel (null, 0, 15);
+		var account_submenu_model = new GLib.Menu ();
+		account_submenu_model.append (_("Open Profile"), "app.open-current-account-profile");
+		account_submenu_model.append (_("Refresh"), "app.refresh");
+		menu_model.append_section (null, account_submenu_model);
+
+		var misc_submenu_model = new GLib.Menu ();
+		misc_submenu_model.append (_("Preferences"), "app.open-preferences");
+		misc_submenu_model.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
+		misc_submenu_model.append (_("About"), "app.about");
+		menu_model.append_section (null, misc_submenu_model);
+
+		menu_btn.menu_model = menu_model;
+
+		app_items = new GLib.ListStore (typeof (Place));
+		account_items = new Gtk.SliceListModel (null, 0, 15);
 
 		var models = new GLib.ListStore (typeof (Object));
 		models.append (account_items);
 		models.append (app_items);
-		item_model = new FlattenListModel (models);
+		item_model = new Gtk.FlattenListModel (models);
 
 		items.bind_model (item_model, on_item_create);
 		items.set_header_func (on_item_header_update);
@@ -87,11 +56,17 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 		}
 
 		accounts.foreach (acc => {
-			saved_accounts.append (new AccountRow (acc));
+			AccountRow row = new AccountRow (acc);
+			saved_accounts.append (row);
+			if (acc.handle == this.account.handle)
+				saved_accounts.select_row (row);
+
 			return true;
 		});
 
-		var new_acc_row = new AccountRow (null);
+		var new_acc_row = new AccountRow (null) {
+			css_classes = { "new-account" }
+		};
 		saved_accounts.append (new_acc_row);
 	}
 
@@ -101,121 +76,88 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 		}
 	}
 
-	private Binding sidebar_handle_short;
-	private Binding sidebar_avatar;
-	private Binding sidebar_display_name;
+	private Binding sidebar_avatar_btn;
 	protected virtual void on_account_changed (InstanceAccount? account) {
 		if (this.account != null) {
-			sidebar_handle_short.unbind ();
-			sidebar_avatar.unbind ();
-			sidebar_display_name.unbind ();
+			sidebar_avatar_btn.unbind ();
 		}
 
 		if (app?.main_window != null)
 			app.main_window.go_back_to_start ();
 
 		this.account = account;
-		accounts_button.active = false;
 
 		if (account != null) {
-			sidebar_handle_short = this.account.bind_property ("handle_short", subtitle, "label", BindingFlags.SYNC_CREATE);
-			sidebar_avatar = this.account.bind_property ("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
-			sidebar_display_name = this.account.bind_property (
-				"display-name",
-				title,
-				"content",
-				BindingFlags.SYNC_CREATE,
-				(b, src, ref target) => {
-					title.instance_emojis = this.account.emojis_map;
-					target.set_string (src.get_string ());
-					return true;
-				}
-			);
-
+			sidebar_avatar_btn = this.account.bind_property ("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
 			account_items.model = account.known_places;
 		} else {
 			saved_accounts.unselect_all ();
 
-			title.content = _("Anonymous");
-			subtitle.label = _("No account selected");
-			avatar.account = null;
 			account_items.model = null;
+			accounts_button_avi.account = null;
 		}
 	}
 
-	[GtkCallback] void on_mode_changed () {
-		mode.visible_child_name = accounts_button.active ? "saved_accounts" : "items";
-	}
-
-	[GtkCallback] void on_open () {
-		if (account == null) return;
-		account.open ();
-
-		var flap = app.main_window.flap;
-        if (flap.folded)
-			flap.reveal_flap = false;
-	}
-
-
 	// Item
-
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/item.ui")]
-	protected class ItemRow : ListBoxRow {
+	protected class ItemRow : Gtk.ListBoxRow {
 		public Place place;
 
-		[GtkChild] unowned Image icon;
-		[GtkChild] unowned Label label;
-		//  [GtkChild] unowned Label badge;
+		[GtkChild] unowned Gtk.Image icon;
+		[GtkChild] unowned Gtk.Label label;
+		[GtkChild] unowned Gtk.Label badge;
 
 		public ItemRow (Place place) {
 			this.place = place;
 			place.bind_property ("title", label, "label", BindingFlags.SYNC_CREATE);
 			place.bind_property ("icon", icon, "icon-name", BindingFlags.SYNC_CREATE);
-			//  place.bind_property ("badge", badge, "label", BindingFlags.SYNC_CREATE);
-			//  place.bind_property ("badge", badge, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			//  	target.set_boolean (src.get_int () > 0);
-			//  	return true;
-			//  });
+			place.bind_property ("visible", this, "visible", BindingFlags.SYNC_CREATE);
+			place.bind_property ("badge", badge, "label", BindingFlags.SYNC_CREATE);
+			place.bind_property ("badge", badge, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+				target.set_boolean (src.get_int () > 0);
+				return true;
+			});
 
 			place.bind_property ("selectable", this, "selectable", BindingFlags.SYNC_CREATE);
 		}
 	}
 
-	Widget on_item_create (Object obj) {
+	Gtk.Widget on_item_create (Object obj) {
 		return new ItemRow (obj as Place);
 	}
 
-	[GtkCallback] void on_item_activated (ListBoxRow _row) {
+	[GtkCallback] void on_item_activated (Gtk.ListBoxRow _row) {
 		var row = _row as ItemRow;
 		if (row.place.open_func != null)
 			row.place.open_func (app.main_window);
 
-        var flap = app.main_window.flap;
-        if (flap.folded)
-			flap.reveal_flap = false;
+        var split_view = app.main_window.split_view;
+        if (split_view.collapsed)
+			split_view.show_sidebar = false;
 	}
 
-	void on_item_header_update (ListBoxRow _row, ListBoxRow? _before) {
+	void on_item_header_update (Gtk.ListBoxRow _row, Gtk.ListBoxRow? _before) {
 		var row = _row as ItemRow;
 		var before = _before as ItemRow;
 
 		row.set_header (null);
 
 		if (row.place.separated && before != null && !before.place.separated) {
-			row.set_header (new Separator (Orientation.HORIZONTAL));
+			row.set_header (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+				css_classes = { "ttl-separator" }
+			});
 		}
 	}
 
 
 
 	// Account
-
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/account.ui")]
 	protected class AccountRow : Adw.ActionRow {
 		public InstanceAccount? account;
 
 		[GtkChild] unowned Widgets.Avatar avatar;
-		[GtkChild] unowned Button forget;
+		[GtkChild] unowned Gtk.Button forget;
 
 		private Binding switcher_display_name;
 		private Binding switcher_handle;
@@ -280,16 +222,18 @@ public class Tuba.Views.Sidebar : Box, AccountHolder {
 
 	}
 
-	void on_account_header_update (ListBoxRow _row, ListBoxRow? _before) {
+	void on_account_header_update (Gtk.ListBoxRow _row, Gtk.ListBoxRow? _before) {
 		var row = _row as AccountRow;
 
 		row.set_header (null);
 
 		if (row.account == null && _before != null)
-			row.set_header (new Separator (Orientation.HORIZONTAL));
+			row.set_header (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 	}
 
-	[GtkCallback] void on_account_activated (ListBoxRow _row) {
+	[GtkCallback] void on_account_activated (Gtk.ListBoxRow _row) {
+		account_switcher_popover_menu.popdown ();
+
 		var row = _row as AccountRow;
 		if (row.account != null)
 			accounts.activate (row.account);

@@ -1,5 +1,3 @@
-using GLib;
-
 struct TestDate {
     public string iso8601;
     public string left;

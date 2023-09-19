@@ -1,36 +1,50 @@
-using Gtk;
-
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/base.ui")]
-public class Tuba.Views.Base : Box {
+public class Tuba.Views.Base : Adw.BreakpointBin {
 	// translators: Shown when there are 0 results
 	public static string STATUS_EMPTY = _("Nothing to see here"); // vala-lint=naming-convention
 
 	public string? icon { get; set; default = null; }
 	public string label { get; set; default = ""; }
 	public bool needs_attention { get; set; default = false; }
-	public bool current { get; set; default = false; }
 	public bool is_main { get; set; default = false; }
 	public bool allow_nesting { get; set; default = false; }
 	public bool is_sidebar_item { get; set; default = false; }
 	public int badge_number { get; set; default = 0; }
 	protected SimpleActionGroup actions { get; set; default = new SimpleActionGroup (); }
 
-	[GtkChild] protected unowned Adw.HeaderBar header;
-	[GtkChild] protected unowned Button back_button;
+	private bool _current = false;
+	public bool current {
+		get {
+			return _current;
+		}
 
-	[GtkChild] protected unowned ScrolledWindow scrolled;
-	[GtkChild] protected unowned Overlay scrolled_overlay;
-	[GtkChild] protected unowned Button scroll_to_top;
-	[GtkChild] protected unowned Box view;
-	[GtkChild] protected unowned Adw.Clamp clamp;
-	[GtkChild] protected unowned Box column_view;
-	[GtkChild] protected unowned Stack states;
-	[GtkChild] protected unowned Box content_box;
-	[GtkChild] protected unowned Button status_button;
-	[GtkChild] unowned Stack status_stack;
-	[GtkChild] unowned Label status_title_label;
-	[GtkChild] unowned Label status_message_label;
-	[GtkChild] unowned Spinner status_spinner;
+		set {
+			_current = value;
+			if (value) {
+				on_shown ();
+			} else {
+				on_hidden ();
+			}
+		}
+	}
+
+	[GtkChild] protected unowned Adw.HeaderBar header;
+	[GtkChild] protected unowned Adw.ToolbarView toolbar_view;
+
+	[GtkChild] protected unowned Gtk.ScrolledWindow scrolled;
+	[GtkChild] protected unowned Gtk.Overlay scrolled_overlay;
+	[GtkChild] protected unowned Gtk.Revealer scroll_to_top_rev;
+	[GtkChild] protected unowned Gtk.Button scroll_to_top;
+	//  [GtkChild] protected unowned Gtk.Box view;
+	//  [GtkChild] protected unowned Adw.Clamp clamp;
+	//  [GtkChild] protected unowned Gtk.Box column_view;
+	[GtkChild] protected unowned Gtk.Stack states;
+	[GtkChild] protected unowned Adw.ClampScrollable content_box;
+	[GtkChild] protected unowned Gtk.Button status_button;
+	[GtkChild] unowned Gtk.Stack status_stack;
+	[GtkChild] unowned Gtk.Label status_title_label;
+	[GtkChild] unowned Gtk.Label status_message_label;
+	[GtkChild] unowned Gtk.Spinner status_spinner;
 
 	public class StatusMessage : Object {
 		public string title = STATUS_EMPTY;
@@ -64,8 +78,6 @@ public class Tuba.Views.Base : Box {
 			_base_status = value;
 		}
 	}
-
-
 	construct {
 		build_actions ();
 		build_header ();
@@ -73,19 +85,22 @@ public class Tuba.Views.Base : Box {
 		status_button.label = _("Reload");
 		base_status = new StatusMessage () { loading = true };
 
-		notify["current"].connect (() => {
-			if (current)
-				on_shown ();
-			else
-				on_hidden ();
+		// HACK to prevent memory leaks due to ref cycles.
+		// Unfortunately, Vala seems to create ref cycles out of thin air,
+		// especially when closures are involved, see e.g.
+		// https://gitlab.gnome.org/GNOME/vala/-/issues/957
+		// To work around that, we forcefully run dispose () -- which breaks any
+		// ref cycles -- when we get removed from our parent widget, the
+		// navigation view.
+		notify["parent"].connect (() => {
+			if (parent == null)
+				dispose ();
 		});
-
-		//  scrolled.get_style_context ().add_class (Dialogs.MainWindow.ZOOM_CLASS);
 
 		scroll_to_top.clicked.connect (on_scroll_to_top);
 	}
 	~Base () {
-		message (@"Destroying base $label");
+		debug (@"Destroying base $label");
 	}
 
 	private void on_scroll_to_top () {
@@ -133,10 +148,4 @@ public class Tuba.Views.Base : Box {
 		status_button.visible = true;
 		status_button.sensitive = true;
 	}
-
-	[GtkCallback]
-	void on_close () {
-		app.main_window.back ();
-	}
-
 }

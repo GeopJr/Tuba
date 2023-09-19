@@ -1,6 +1,3 @@
-using GLib;
-using Gdk;
-
 public class Tuba.Host {
 
 	// Open a URI in the user's default application
@@ -11,31 +8,27 @@ public class Tuba.Host {
 
 		if (settings.strip_tracking)
 			uri = Tracking.strip_utm (uri);
-		message (@"Opening URI: $uri");
+		debug (@"Opening URI: $uri");
 		try {
 			var success = AppInfo.launch_default_for_uri (uri, null);
 			if (!success)
 				throw new Oopsie.USER ("launch_default_for_uri() failed");
 		}
 		catch (Error e) {
-			#if GTK_4_10
-				var launcher = new Gtk.UriLauncher (uri);
-				launcher.launch.begin (app.active_window, null, (obj, res) => {
-					try {
-						launcher.launch.end (res);
-					} catch (Error e) {
-						warning (@"Error opening uri \"$uri\": $(e.message)");
-					}
-				});
-			#else
-				Gtk.show_uri (app.active_window, uri, Gdk.CURRENT_TIME);
-			#endif
+			var launcher = new Gtk.UriLauncher (uri);
+			launcher.launch.begin (app.active_window, null, (obj, res) => {
+				try {
+					launcher.launch.end (res);
+				} catch (Error e) {
+					warning (@"Error opening uri \"$uri\": $(e.message)");
+				}
+			});
 		}
 		return true;
 	}
 
 	public static void copy (string str) {
-		Display display = Display.get_default ();
+		Gdk.Display display = Gdk.Display.get_default ();
 		if (display == null) return;
 
 		display.get_clipboard ().set_text (str);
@@ -50,7 +43,7 @@ public class Tuba.Host {
 	}
 
 	public async static string download (string url) throws Error {
-		message (@"Downloading file: $url…");
+		debug (@"Downloading file: $url…");
 
 		var file_name = Path.get_basename (url);
 		var dir_name = Path.get_dirname (url);
@@ -80,10 +73,10 @@ public class Tuba.Host {
 			FileOutputStream stream = yield file.create_async (FileCreateFlags.PRIVATE);
 			yield stream.splice_async (data, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);
 
-			message (@"   OK: File written to: $file_path");
+			debug (@"   OK: File written to: $file_path");
 		}
 		else
-			message ("   OK: File already exists");
+			debug ("   OK: File already exists");
 
 		return file_path;
 	}

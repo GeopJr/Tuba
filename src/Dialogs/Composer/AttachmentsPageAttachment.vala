@@ -10,7 +10,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	~AttachmentsPageAttachment () {
 		close_dialog ();
-		message ("Destroying AttachmentsPageAttachment");
+		debug ("Destroying AttachmentsPageAttachment");
 	}
 
     public AttachmentsPageAttachment (
@@ -73,7 +73,8 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 	}
 
 	protected virtual void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		pic.paintable = data;
+		if (is_loaded)
+			pic.paintable = data;
 	}
 
 	public virtual signal void remove_from_model () {}
@@ -99,20 +100,12 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		return (ALT_MAX_CHARS - text_size).to_string ();
 	}
 
-	#if MISSING_GTKSOURCEVIEW
-		protected Gtk.TextView alt_editor;
-	#else
-		protected GtkSource.View alt_editor;
-	#endif
+	GtkSource.View alt_editor;
 	Adw.Window dialog;
 	Gtk.Button dialog_save_btn;
 	Gtk.Label dialog_char_counter;
 	protected Adw.Window create_alt_text_input_window () {
-		#if MISSING_GTKSOURCEVIEW
-			alt_editor = new Gtk.TextView () {
-		#else
-			alt_editor = new GtkSource.View () {
-		#endif
+		alt_editor = new GtkSource.View () {
 			vexpand = true,
 			hexpand = true,
 			top_margin = 6,
@@ -124,14 +117,12 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			wrap_mode = Gtk.WrapMode.WORD_CHAR
 		};
 
-		#if !MISSING_GTKSOURCEVIEW
-			var manager = GtkSource.StyleSchemeManager.get_default ();
-			var scheme = manager.get_scheme ("adwaita");
-			var buffer = alt_editor.buffer as GtkSource.Buffer;
-			buffer.style_scheme = scheme;
-		#endif
+		var manager = GtkSource.StyleSchemeManager.get_default ();
+		var scheme = manager.get_scheme ("adwaita");
+		var buffer = alt_editor.buffer as GtkSource.Buffer;
+		buffer.style_scheme = scheme;
 
-		#if LIBSPELLING && !MISSING_GTKSOURCEVIEW
+		#if LIBSPELLING
 			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) alt_editor.buffer, Spelling.Checker.get_default ());
 
 			alt_editor.extra_menu = adapter.get_menu_model ();
@@ -139,7 +130,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			adapter.enabled = true;
 		#endif
 
-		#if GSPELL && (MISSING_GTKSOURCEVIEW || !LIBSPELLING)
+		#if GSPELL && !LIBSPELLING
 			var gspell_view = Gspell.TextView.get_from_gtk_text_view (alt_editor);
 			gspell_view.basic_setup ();
 		#endif
