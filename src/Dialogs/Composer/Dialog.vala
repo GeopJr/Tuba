@@ -369,9 +369,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		transaction.begin ((obj, res) => {
 			try {
 				transaction.end (res);
-				// on_close ();
 			} catch (Error e) {
-				// on_error (0, e.message);
 				warning (e.message);
 				var dlg = app.inform (_("Error"), e.message);
 				dlg.present ();

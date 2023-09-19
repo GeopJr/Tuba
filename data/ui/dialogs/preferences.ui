@@ -176,6 +176,7 @@
 				<property name="title" translatable="yes">Notifications</property>
 				<child>
 					<object class="AdwPreferencesGroup">
+						<!-- translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb. -->
 						<property name="title" translatable="yes">Push Notifications</property>
 						<child>
 							<object class="AdwSwitchRow" id="new_followers_notifications_switch">
@@ -222,7 +223,8 @@
 						<child>
 							<object class="AdwSwitchRow" id="group_push_notifications">
 								<property name="title" translatable="yes">Group</property>
-								<property name="subtitle" translatable="yes">Combine recently pushed notifications of the same type and post</property>
+								<!-- translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones. -->
+								<property name="subtitle" translatable="yes">Combine recently pushed notifications of the same type and post into one</property>
 								<property name="active">1</property>
 							</object>
 						</child>

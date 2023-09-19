@@ -240,6 +240,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			switch (content_type.down ()) {
 				case "text/plain":
 					icon_name = "tuba-paper-symbolic";
+					// translators: this is a content type
 					title = _("Plain Text");
 					break;
 				case "text/html":
