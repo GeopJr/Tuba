@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-19 04:30+0300\n"
-"PO-Revision-Date: 2023-08-25 19:51+0000\n"
+"PO-Revision-Date: 2023-09-21 13:41+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/tuba/tuba/fr/>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -89,7 +89,7 @@ msgstr "Afficher les raccourcis clavier"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Close Window"
-msgstr ""
+msgstr "Fermer la fenêtre"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Quit"
@@ -237,7 +237,7 @@ msgstr "Agrandit la hauteur de ligne pour les publications"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Enlarge custom emojis"
-msgstr ""
+msgstr "Agrandir les emojis personnalisés"
 
 #: data/ui/dialogs/preferences.ui:56
 msgid "Scale up custom emojis on hover"
@@ -283,7 +283,7 @@ msgstr "Toujours révéler les messages avec avertissements de contenu"
 
 #: data/ui/dialogs/preferences.ui:89
 msgid "Show link preview cards"
-msgstr ""
+msgstr "Afficher les encadrés de prévisualisation des liens"
 
 #: data/ui/dialogs/preferences.ui:96
 msgid "Posting"
@@ -359,11 +359,11 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:183
 msgid "New Followers"
-msgstr ""
+msgstr "Nouveaux abonnés"
 
 #: data/ui/dialogs/preferences.ui:189
 msgid "New Follower Requests"
-msgstr ""
+msgstr "Nouvelles demandes d’abonnement"
 
 #: data/ui/dialogs/preferences.ui:195
 #: src/Services/Accounts/Mastodon/Account.vala:77 src/Views/Favorites.vala:4
@@ -372,19 +372,19 @@ msgstr "Favoris"
 
 #: data/ui/dialogs/preferences.ui:201
 msgid "Mentions"
-msgstr ""
+msgstr "Mentions"
 
 #: data/ui/dialogs/preferences.ui:207
 msgid "Boosts"
-msgstr ""
+msgstr "Partages"
 
 #: data/ui/dialogs/preferences.ui:213
 msgid "Poll Results"
-msgstr ""
+msgstr "Résultats de sondage"
 
 #: data/ui/dialogs/preferences.ui:219
 msgid "Edits"
-msgstr ""
+msgstr "Modifications"
 
 #: data/ui/dialogs/preferences.ui:225
 msgid "Group"
@@ -500,7 +500,7 @@ msgstr "Changer de compte"
 
 #: data/ui/views/sidebar/view.ui:54
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: data/ui/widgets/announcement.ui:88
 msgid "Unread"
@@ -556,7 +556,7 @@ msgstr "Autre"
 #: src/API/Notification.vala:28
 #, c-format
 msgid "%s (& %d others)"
-msgstr ""
+msgstr "%s (et %d autres)"
 
 #: src/API/Notification.vala:51
 msgid "Reply…"
@@ -564,11 +564,11 @@ msgstr ""
 
 #: src/API/Notification.vala:59
 msgid "Remove from Followers"
-msgstr ""
+msgstr "Supprimer des abonnés"
 
 #: src/API/Notification.vala:64
 msgid "Follow Back"
-msgstr ""
+msgstr "Suivre en retour"
 
 #: src/API/Notification.vala:71 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
@@ -699,7 +699,7 @@ msgstr "Média"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:76
 msgid "Paste"
-msgstr ""
+msgstr "Coller"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:220
 #: src/Dialogs/Composer/AttachmentsPage.vala:246
@@ -1012,7 +1012,7 @@ msgstr "Hashtags"
 #: src/Services/Accounts/Mastodon/Account.vala:150
 #: src/Views/Announcements.vala:4
 msgid "Announcements"
-msgstr ""
+msgstr "Annonces"
 
 #: src/Services/Accounts/Mastodon/Account.vala:189
 msgid "Public"
@@ -1368,7 +1368,7 @@ msgstr "Entrer une requête"
 
 #: src/Views/Sidebar.vala:24
 msgid "Open Profile"
-msgstr ""
+msgstr "Ouvrir le profil"
 
 #: src/Views/Sidebar.vala:29
 msgid "Preferences"
@@ -1424,7 +1424,7 @@ msgstr "Masquer le média"
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:74
 msgid "Show Sensitive Content"
-msgstr ""
+msgstr "Afficher le contenu sensible"
 
 #: src/Widgets/Attachment/Item.vala:35
 msgid "Save Attachment"
@@ -1438,7 +1438,7 @@ msgstr "Voir le texte de description"
 #: src/Widgets/BookWyrmPage.vala:83
 #, c-format
 msgid "Published: %s"
-msgstr ""
+msgstr "Publié le : %s"
 
 #. translators: the variable is a comma separated
 #. list of the book authors
@@ -1494,7 +1494,7 @@ msgstr "Ici depuis"
 #: src/Widgets/ProfileCover.vala:169
 #, c-format
 msgid "%s Posts"
-msgstr ""
+msgstr "%s Publications"
 
 #. translators: the variable is the amount of people a user follows
 #: src/Widgets/ProfileCover.vala:174
