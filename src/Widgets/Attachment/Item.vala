@@ -187,7 +187,8 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		menu_model.append_item (copy_media_menu_item);
 
 		context_menu = new Gtk.PopoverMenu.from_model (menu_model) {
-			has_arrow = false
+			has_arrow = false,
+			halign = Gtk.Align.START
 		};
 		context_menu.set_parent (this);
 	}

@@ -316,7 +316,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		};
 
 		context_menu = new Gtk.PopoverMenu.from_model (menu_model) {
-			has_arrow = false
+			has_arrow = false,
+			halign = Gtk.Align.START
 		};
 		context_menu.set_parent (this);
 
