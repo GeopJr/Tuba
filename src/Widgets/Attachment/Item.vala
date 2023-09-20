@@ -104,7 +104,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		gesture_lp_controller.button = Gdk.BUTTON_PRIMARY;
 		gesture_lp_controller.touch_only = true;
         gesture_click_controller.pressed.connect (on_secondary_click);
-        gesture_lp_controller.pressed.connect (on_secondary_click);
+        gesture_lp_controller.pressed.connect (on_long_press);
 
 		badge_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 1) {
 			valign = Gtk.Align.END,
@@ -186,7 +186,9 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		copy_media_menu_item.set_attribute_value ("hidden-when", "action-disabled");
 		menu_model.append_item (copy_media_menu_item);
 
-		context_menu = new Gtk.PopoverMenu.from_model (menu_model);
+		context_menu = new Gtk.PopoverMenu.from_model (menu_model) {
+			has_arrow = false
+		};
 		context_menu.set_parent (this);
 	}
 
@@ -209,11 +211,22 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		});
 	}
 
-	protected virtual void on_secondary_click () {
+	private void on_long_press (double x, double y) {
+		on_secondary_click (1, x, y);
+	}
+
+	protected virtual void on_secondary_click (int n_press, double x, double y) {
 		gesture_click_controller.set_state (Gtk.EventSequenceState.CLAIMED);
 		gesture_lp_controller.set_state (Gtk.EventSequenceState.CLAIMED);
 
 		if (app.main_window.is_media_viewer_visible ()) return;
+		Gdk.Rectangle rectangle = {
+			(int) x,
+			(int) y,
+			0,
+			0
+		};
+		context_menu.set_pointing_to (rectangle);
 		context_menu.popup ();
 	}
 

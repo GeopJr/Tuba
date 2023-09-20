@@ -75,7 +75,9 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		var menu_model = new GLib.Menu ();
 		menu_model.append (_("Paste"), "attachmentspage.paste-from-clipboard");
 
-		context_menu = new Gtk.PopoverMenu.from_model (menu_model);
+		context_menu = new Gtk.PopoverMenu.from_model (menu_model) {
+			has_arrow = false
+		};
 		context_menu.set_parent (this);
 
 		var dnd_controller = new Gtk.DropTarget (typeof (Gdk.FileList), Gdk.DragAction.COPY);
@@ -122,6 +124,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			0,
 			0
 		};
+
 		context_menu.set_pointing_to (rectangle);
 		context_menu.popup ();
 
