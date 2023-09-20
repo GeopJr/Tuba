@@ -6,9 +6,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		END;
 
 		public static void connect_posts (API.Status? prev, API.Status curr) {
-			curr.tuba_thread_role = NONE;
 			if (prev == null) return;
-			prev.tuba_thread_role = NONE;
 
 			switch (prev.tuba_thread_role) {
 				case NONE:
@@ -50,6 +48,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		string? last_id = null;
 		for (var pos = 0; pos < model.n_items; pos++) {
 			var status = model.get_item (pos) as API.Status;
+			status.tuba_thread_role = ThreadRole.NONE;
+
 			var id = status.formal.in_reply_to_id;
 
 			if (id == last_id) {
