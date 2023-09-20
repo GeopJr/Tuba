@@ -315,7 +315,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 			menu_model = menu_model
 		};
 
-		context_menu = new Gtk.PopoverMenu.from_model (menu_model);
+		context_menu = new Gtk.PopoverMenu.from_model (menu_model) {
+			has_arrow = false,
+			halign = Gtk.Align.START
+		};
 		context_menu.set_parent (this);
 
 		end_box.append (fullscreen_btn);
@@ -515,6 +518,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 			0,
 			0
 		};
+
 		context_menu.set_pointing_to (rectangle);
 		context_menu.popup ();
 	}
