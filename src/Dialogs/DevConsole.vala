@@ -67,30 +67,47 @@ public class Tuba.Dialogs.Dev : Adw.PreferencesWindow {
 		};
 		notification_badge_row.notify["value"].connect (() => update_notification_badge (notification_badge_row.value));
 
-		var notification_entry_row = new Adw.EntryRow () {
-			title = "Prepend from JSON",
-			show_apply_button = true
-		};
-		notification_entry_row.apply.connect (() => new_notification (notification_entry_row.text));
-
 		notifications_group.add (notification_badge_row);
-		notifications_group.add (notification_entry_row);
 		general_settings.add (notifications_group);
 
-		var status_group = new Adw.PreferencesGroup () {
-			title = "Status"
+		var json_group = new Adw.PreferencesGroup () {
+			title = "Entities"
 		};
 
 		var status_entry_row = new Adw.EntryRow () {
-			title = "Prepend from JSON",
+			title = "Prepend Status from JSON",
 			show_apply_button = true
 		};
 		status_entry_row.apply.connect (() => new_post (status_entry_row.text));
 
-		status_group.add (status_entry_row);
-		general_settings.add (status_group);
+		var notification_entry_row = new Adw.EntryRow () {
+			title = "Prepend Notification from JSON",
+			show_apply_button = true
+		};
+		notification_entry_row.apply.connect (() => new_notification (notification_entry_row.text));
+
+		var profile_entry_row = new Adw.EntryRow () {
+			title = "Open Profile from JSON",
+			show_apply_button = true
+		};
+		profile_entry_row.apply.connect (() => open_account (profile_entry_row.text));
+
+		json_group.add (status_entry_row);
+		json_group.add (notification_entry_row);
+		json_group.add (profile_entry_row);
+		general_settings.add (json_group);
 
 		this.add (general_settings);
+	}
+
+	private void open_account (string? json) {
+		if (json == null || json.length == 0) return;
+
+		var parser = new Json.Parser ();
+		parser.load_from_data (json, -1);
+		API.Account acc = (API.Account) Entity.from_json (typeof (API.Account), parser.steal_root ());
+
+		app.main_window.open_view (new Views.Profile (acc));
 	}
 
 	private void new_notification (string? json) {
