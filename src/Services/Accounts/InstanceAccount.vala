@@ -61,6 +61,24 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		this.construct_streamable ();
 		this.stream_event[EVENT_NOTIFICATION].connect (on_notification_event);
 		this.register_known_places (this.known_places);
+
+		#if DEV_MODE
+			app.dev_new_notification.connect (node => {
+				try {
+					var entity = create_entity<API.Notification> (node);
+
+					var id = int.parse (entity.id);
+					if (id > last_received_id) {
+						last_received_id = id;
+
+						unread_count++;
+						send_toast (entity);
+					}
+				} catch (Error e) {
+					warning (@"on_notification_event: $(e.message)");
+				}
+			});
+		#endif
 	}
 	~InstanceAccount () {
 		destruct_streamable ();

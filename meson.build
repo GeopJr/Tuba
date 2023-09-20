@@ -44,6 +44,11 @@ if devel
   endif
 endif
 
+devmode = false
+if devmode
+  add_project_arguments(['--define=DEV_MODE'], language: 'vala')
+endif
+
 configure_file(output: 'config.h', configuration: config)
 
 add_project_arguments (

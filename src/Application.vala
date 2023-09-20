@@ -42,6 +42,11 @@ namespace Tuba {
 		public signal void refresh ();
 		public signal void toast (string title);
 
+		#if DEV_MODE
+			public signal void dev_new_post (Json.Node node);
+			public signal void dev_new_notification (Json.Node node);
+		#endif
+
 		//  public CssProvider css_provider = new CssProvider ();
 		//  public CssProvider zoom_css_provider = new CssProvider (); //FIXME: Zoom not working
 
@@ -51,6 +56,11 @@ namespace Tuba {
 		};
 
 		private const GLib.ActionEntry[] APP_ENTRIES = {
+			#if DEV_MODE
+			 	// vala-lint=block-opening-brace-space-before
+				{ "dev-only-window", dev_only_window_activated },
+			#endif
+			 // vala-lint=block-opening-brace-space-before
 			{ "about", about_activated },
 			{ "compose", compose_activated },
 			{ "back", back_activated },
@@ -68,6 +78,12 @@ namespace Tuba {
 			{ "open-preferences", open_preferences },
 			{ "open-current-account-profile", open_current_account_profile }
 		};
+
+		#if DEV_MODE
+			private void dev_only_window_activated () {
+				new Dialogs.Dev ().show ();
+			}
+		#endif
 
 		private void remove_from_followers (GLib.SimpleAction action, GLib.Variant? value) {
 			if (value == null) return;
@@ -200,6 +216,9 @@ namespace Tuba {
 			ColorScheme color_scheme = (ColorScheme) settings.get_enum ("color-scheme");
 			style_manager.color_scheme = color_scheme.to_adwaita_scheme ();
 
+			#if DEV_MODE
+				set_accels_for_action ("app.dev-only-window", {"F2"});
+			#endif
 			set_accels_for_action ("app.about", {"F1"});
 			set_accels_for_action ("app.compose", {"<Ctrl>T", "<Ctrl>N"});
 			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>Left", "Escape", "<Alt>KP_Left", "Pointer_DfltBtnPrev"});
@@ -224,7 +243,10 @@ namespace Tuba {
 		}
 
 		protected override void shutdown () {
-			settings.apply ();
+			#if !DEV_MODE
+				settings.apply ();
+			#endif
+
 			base.shutdown ();
 		}
 
