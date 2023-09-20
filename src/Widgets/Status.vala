@@ -1,5 +1,9 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/status.ui")]
-public class Tuba.Widgets.Status : Adw.Bin {
+#if USE_LISTVIEW
+	public class Tuba.Widgets.Status : Adw.Bin {
+#else
+	public class Tuba.Widgets.Status : Gtk.ListBoxRow {
+#endif
 
 	API.Status? _bound_status = null;
 	public API.Status? status {
