@@ -235,6 +235,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	protected Adw.HeaderBar headerbar;
 	private Adw.Carousel carousel;
 	private Adw.CarouselIndicatorDots carousel_dots;
+	protected SimpleAction copy_media_simple_action;
+	protected Gtk.PopoverMenu context_menu { get; set; }
 
 	construct {
 		carousel = new Adw.Carousel () {
@@ -282,6 +284,11 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
 		var actions = new GLib.SimpleActionGroup ();
 		actions.add_action_entries (ACTION_ENTRIES, this);
+
+		copy_media_simple_action = new SimpleAction ("copy-media", null);
+		copy_media_simple_action.activate.connect (copy_media);
+		actions.add_action (copy_media_simple_action);
+
 		this.insert_action_group ("mediaviewer", actions);
 
 		headerbar = new Adw.HeaderBar () {
@@ -302,10 +309,14 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		};
 		fullscreen_btn.clicked.connect (toggle_fullscreen);
 
+		var menu_model = create_actions_menu ();
 		var actions_btn = new Gtk.MenuButton () {
 			icon_name = "tuba-view-more-symbolic",
-			menu_model = create_actions_menu ()
+			menu_model = menu_model
 		};
+
+		context_menu = new Gtk.PopoverMenu.from_model (menu_model);
+		context_menu.set_parent (this);
 
 		end_box.append (fullscreen_btn);
 		end_box.append (actions_btn);
@@ -328,9 +339,11 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
 		setup_mouse_previous_click ();
 		setup_double_click ();
+		setup_mouse_secondary_click ();
 	}
 	~MediaViewer () {
 		debug ("Destroying MediaViewer");
+		context_menu.unparent ();
 	}
 
 	int? old_height;
@@ -419,6 +432,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		menu_model.append (_("Copy URL"), "mediaviewer.copy-url");
 		menu_model.append (_("Save Media"), "mediaviewer.save-as");
 
+		var copy_media_menu_item = new MenuItem (_("Copy Media"), "mediaviewer.copy-media");
+		copy_media_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+		menu_model.append_item (copy_media_menu_item);
+
 		return menu_model;
 	}
 
@@ -472,12 +489,34 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		add_controller (gesture);
 	}
 
+	private void setup_mouse_secondary_click () {
+		var gesture = new Gtk.GestureClick () {
+			button = Gdk.BUTTON_SECONDARY,
+			propagation_phase = Gtk.PropagationPhase.CAPTURE
+		};
+		gesture.pressed.connect (on_secondary_click);
+		add_controller (gesture);
+	}
+
 	private void setup_double_click () {
 		var gesture = new Gtk.GestureClick () {
 			button = 1
 		};
 		gesture.pressed.connect (on_double_click);
 		add_controller (gesture);
+	}
+
+	private void on_secondary_click (int n_press, double x, double y) {
+		debug ("Context menu triggered");
+
+		Gdk.Rectangle rectangle = {
+			(int) x,
+			(int) y,
+			0,
+			0
+		};
+		context_menu.set_pointing_to (rectangle);
+		context_menu.popup ();
 	}
 
 	private void handle_mouse_previous_click (int n_press, double x, double y) {
@@ -658,10 +697,12 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 				page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 68;
 				zoom_buttons_revealer.visible = false;
 				play_video ((int) pos);
+				copy_media_simple_action.set_enabled (false);
 			} else {
 				page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 18;
 				zoom_buttons_revealer.visible = true;
 				pause_all_videos ();
+				copy_media_simple_action.set_enabled (true);
 			}
 
 			on_zoom_change ();
@@ -723,5 +764,18 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 			item.playing = false;
 			return true;
 		});
+	}
+
+	protected void copy_media () {
+		debug ("Begin copy-media action");
+		Gtk.Picture? pic = safe_get ((int) carousel.position)?.child_widget as Gtk.Picture;
+		if (pic == null || pic.paintable == null) return;
+
+		Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+		Gdk.Texture texture = pic.paintable as Gdk.Texture;
+		if (texture == null) return;
+
+		clipboard.set_texture (texture);
+		debug ("End copy-media action");
 	}
 }
