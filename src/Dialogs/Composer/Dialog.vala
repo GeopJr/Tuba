@@ -167,6 +167,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 			disconnect (build_sigid);
 		});
+
+		stack.notify["visible-child"].connect (on_view_switched);
 	}
 	~Compose () {
 		debug ("Destroying composer");
@@ -174,6 +176,13 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			page.dispose ();
 		}
 		t_pages = {};
+	}
+
+	void on_view_switched () {
+		var child = stack.visible_child as ComposerPage;
+		if (child != null) {
+			this.title = child.title;
+		}
 	}
 
 	Adw.MessageDialog? dlg;
