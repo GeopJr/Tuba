@@ -44,6 +44,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		public string spoiler_text { get; set; }
 		public string visibility { get; set; }
 		public string language { get; set; }
+		public string content_type { get; set; }
 		public Gee.ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
 
 		public void add_media (string t_id, string? t_alt) {
@@ -166,6 +167,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 			disconnect (build_sigid);
 		});
+
+		stack.notify["visible-child"].connect (on_view_switched);
 	}
 	~Compose () {
 		debug ("Destroying composer");
@@ -173,6 +176,13 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			page.dispose ();
 		}
 		t_pages = {};
+	}
+
+	void on_view_switched () {
+		var child = stack.visible_child as ComposerPage;
+		if (child != null) {
+			this.title = child.title;
+		}
 	}
 
 	Adw.MessageDialog? dlg;
@@ -368,9 +378,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		transaction.begin ((obj, res) => {
 			try {
 				transaction.end (res);
-				// on_close ();
 			} catch (Error e) {
-				// on_error (0, e.message);
 				warning (e.message);
 				var dlg = app.inform (_("Error"), e.message);
 				dlg.present ();

@@ -1,11 +1,10 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/view.ui")]
 public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
-	[GtkChild] unowned Gtk.ToggleButton accounts_button;
-	[GtkChild] unowned Gtk.Stack mode;
 	[GtkChild] unowned Gtk.ListBox items;
 	[GtkChild] unowned Gtk.ListBox saved_accounts;
 	[GtkChild] unowned Widgets.Avatar accounts_button_avi;
 	[GtkChild] unowned Gtk.MenuButton menu_btn;
+	[GtkChild] unowned Gtk.Popover account_switcher_popover_menu;
 
 	protected InstanceAccount? account { get; set; default = null; }
 
@@ -23,6 +22,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 		var account_submenu_model = new GLib.Menu ();
 		account_submenu_model.append (_("Open Profile"), "app.open-current-account-profile");
+		account_submenu_model.append (_("Refresh"), "app.refresh");
 		menu_model.append_section (null, account_submenu_model);
 
 		var misc_submenu_model = new GLib.Menu ();
@@ -56,11 +56,17 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		}
 
 		accounts.foreach (acc => {
-			saved_accounts.append (new AccountRow (acc));
+			AccountRow row = new AccountRow (acc);
+			saved_accounts.append (row);
+			if (acc.handle == this.account.handle)
+				saved_accounts.select_row (row);
+
 			return true;
 		});
 
-		var new_acc_row = new AccountRow (null);
+		var new_acc_row = new AccountRow (null) {
+			css_classes = { "new-account" }
+		};
 		saved_accounts.append (new_acc_row);
 	}
 
@@ -80,7 +86,6 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			app.main_window.go_back_to_start ();
 
 		this.account = account;
-		accounts_button.active = false;
 
 		if (account != null) {
 			sidebar_avatar_btn = this.account.bind_property ("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
@@ -93,29 +98,25 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		}
 	}
 
-	[GtkCallback] void on_mode_changed () {
-		mode.visible_child_name = accounts_button.active ? "saved_accounts" : "items";
-	}
-
 	// Item
-
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/item.ui")]
 	protected class ItemRow : Gtk.ListBoxRow {
 		public Place place;
 
 		[GtkChild] unowned Gtk.Image icon;
 		[GtkChild] unowned Gtk.Label label;
-		//  [GtkChild] unowned Label badge;
+		[GtkChild] unowned Gtk.Label badge;
 
 		public ItemRow (Place place) {
 			this.place = place;
 			place.bind_property ("title", label, "label", BindingFlags.SYNC_CREATE);
 			place.bind_property ("icon", icon, "icon-name", BindingFlags.SYNC_CREATE);
-			//  place.bind_property ("badge", badge, "label", BindingFlags.SYNC_CREATE);
-			//  place.bind_property ("badge", badge, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			//  	target.set_boolean (src.get_int () > 0);
-			//  	return true;
-			//  });
+			place.bind_property ("visible", this, "visible", BindingFlags.SYNC_CREATE);
+			place.bind_property ("badge", badge, "label", BindingFlags.SYNC_CREATE);
+			place.bind_property ("badge", badge, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
+				target.set_boolean (src.get_int () > 0);
+				return true;
+			});
 
 			place.bind_property ("selectable", this, "selectable", BindingFlags.SYNC_CREATE);
 		}
@@ -142,14 +143,15 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		row.set_header (null);
 
 		if (row.place.separated && before != null && !before.place.separated) {
-			row.set_header (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+			row.set_header (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+				css_classes = { "ttl-separator" }
+			});
 		}
 	}
 
 
 
 	// Account
-
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/account.ui")]
 	protected class AccountRow : Adw.ActionRow {
 		public InstanceAccount? account;
@@ -230,6 +232,8 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	}
 
 	[GtkCallback] void on_account_activated (Gtk.ListBoxRow _row) {
+		account_switcher_popover_menu.popdown ();
+
 		var row = _row as AccountRow;
 		if (row.account != null)
 			accounts.activate (row.account);

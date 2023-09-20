@@ -1,6 +1,9 @@
 .ttl-sidebar .badge {
-	padding: 2px 12px;
-	border-radius: 999px;
+	font-weight: bold;
+	font-size: 0.8em;
+	border-radius: 10px;
+	min-width: 0.7em;
+	padding: 2px 5px;
 	background: @accent_bg_color;
 	color: @text_view_bg;
 }
@@ -486,9 +489,14 @@ video > overlay > revealer > controls {
 	padding-bottom: 32px;
 }
 
-/* .ttl-view .small.content .card:not(:last-child) { */
-.ttl-view .small.fake-content .card:not(:last-child) {
+/* .ttl-view .small.content .card { */
+.ttl-view .small.fake-content .card {
 	border-bottom: 1px @borders solid;
+}
+
+/* .ttl-view .small.content .card:first-child { */
+.ttl-view .small.fake-content .card:first-child {
+	border-top: 1px @borders solid;
 }
 
 /* .ttl-view .small.content .card { */
@@ -517,4 +525,47 @@ video > overlay > revealer > controls {
 	padding-right: 0;
 	margin-left: 18px;
 	margin-right: 18px;
+}
+
+.ttl-separator {
+	background-color: transparent;
+	min-height: 8px;
+}
+
+.ttl-account-switcher {
+	padding: 0;
+}
+
+.ttl-account-switcher row {
+	border-radius: 10px;
+	margin: 3px 0px;
+}
+
+.ttl-account-switcher row:first-child {
+	margin-top: 0px;
+}
+
+.ttl-account-switcher .new-account {
+	margin-bottom: 0px;
+}
+
+.ttl-account-switcher separator {
+	margin: 3px 0px;
+}
+
+.ttl-account-switcher row:selected avatar {
+	border: 2px solid @accent_bg_color;
+}
+
+.ttl-account-switcher .blue-checkmark {
+	color: @light_1;
+	border-radius: 9999px;
+	border: solid @accent_bg_color 2px;
+	background-color: @accent_bg_color;
+	margin-bottom: 6px;
+	opacity: 0;
+}
+
+.ttl-account-switcher row:selected .blue-checkmark {
+	opacity: 1;
 }

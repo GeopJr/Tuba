@@ -119,4 +119,13 @@ public class Tuba.API.Account : Entity, Widgetizable {
 		}
 	}
 
+	public Request accept_follow_request () {
+        return new Request.POST (@"/api/v1/follow_requests/$id/authorize")
+            .with_account (accounts.active);
+    }
+
+	public Request decline_follow_request () {
+        return new Request.POST (@"/api/v1/follow_requests/$id/reject")
+            .with_account (accounts.active);
+    }
 }

@@ -30,6 +30,11 @@ public class Tuba.API.Relationship : Entity {
 		request ();
 	}
 
+	public Relationship.for_account_id (string t_id) {
+		Object (id: t_id);
+		request ();
+	}
+
 	public void request () {
 		new Request.GET ("/api/v1/accounts/relationships")
 			.with_account (accounts.active)

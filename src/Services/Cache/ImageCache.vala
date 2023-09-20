@@ -9,7 +9,7 @@ public class Tuba.ImageCache : AbstractCache {
 			throw new Oopsie.INSTANCE (@"Server returned $error");
 		}
 
-        return Gdk.Texture.for_pixbuf (yield new Gdk.Pixbuf.from_stream_async (in_stream));
+        return Gdk.Texture.for_pixbuf ((yield new Gdk.Pixbuf.from_stream_async (in_stream)).apply_embedded_orientation ());
 	}
 
 	public void request_paintable (string? url, owned OnItemChangedFn cb) {

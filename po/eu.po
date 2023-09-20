@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-19 22:14+0300\n"
-"PO-Revision-Date: 2023-07-24 16:04+0000\n"
+"PO-Revision-Date: 2023-08-05 16:48+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -549,7 +549,7 @@ msgstr "Ikusi deskribapena"
 #: src/Widgets/Attachment/Item.vala:176
 #, c-format
 msgid "Alternative text for %s"
-msgstr ""
+msgstr "%sren ordezko testua"
 
 #: src/Widgets/Attachment/Item.vala:196 src/Views/MediaViewer.vala:383
 msgid "Save Media"
@@ -1331,7 +1331,7 @@ msgstr "Kendu eranskina(k)"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:181
 msgid "Alternative text for attachment"
-msgstr ""
+msgstr "Eranskinaren ordezko testua"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:50
 msgid "Media"
