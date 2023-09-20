@@ -73,11 +73,17 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		}
 	}
 
+	protected SimpleAction copy_media_simple_action;
 	construct {
 		height_request = 164;
 
 		actions = new GLib.SimpleActionGroup ();
 		actions.add_action_entries (ACTION_ENTRIES, this);
+
+		copy_media_simple_action = new SimpleAction ("copy-media", null);
+		copy_media_simple_action.activate.connect (copy_media);
+		actions.add_action (copy_media_simple_action);
+
 		this.insert_action_group ("attachment", actions);
 
 		notify["entity"].connect (on_rebind);
@@ -176,9 +182,15 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		menu_model.append (_("Copy URL"), "attachment.copy-url");
 		menu_model.append (_("Save Media"), "attachment.save-as");
 
+		var copy_media_menu_item = new MenuItem (_("Copy Media"), "attachment.copy-media");
+		copy_media_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+		menu_model.append_item (copy_media_menu_item);
+
 		context_menu = new Gtk.PopoverMenu.from_model (menu_model);
 		context_menu.set_parent (this);
 	}
+
+	protected virtual void copy_media () {}
 
 	protected virtual void on_rebind () {
 		alt_btn.visible = entity != null && entity.description != null && entity.description != "";
