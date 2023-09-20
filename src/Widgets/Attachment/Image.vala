@@ -45,10 +45,12 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		button.child = media_overlay;
 	}
 
+	const string[] CAN_COPY_KINDS = { "IMAGE" };
 	protected Gtk.Image? media_icon = null;
 	protected override void on_rebind () {
 		base.on_rebind ();
 		pic.alternative_text = entity == null ? null : entity.description;
+
 		image_cache.request_paintable (entity.preview_url, on_cache_response);
 
 		if (media_kind in VIDEO_TYPES) {
@@ -69,11 +71,36 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			// Doesn't get applied sometimes when set above
 			media_icon.icon_size = Gtk.IconSize.LARGE;
 		}
+
+		copy_media_simple_action.set_enabled (media_kind in CAN_COPY_KINDS);
+	}
+
+	protected override void copy_media () {
+		debug ("Begin copy-media action");
+		Host.download.begin (entity.url, (obj, res) => {
+			try {
+				string path = Host.download.end (res);
+
+				Gdk.Texture texture = Gdk.Texture.from_filename (path);
+				if (texture == null) return;
+
+				Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+				clipboard.set_texture (texture);
+			} catch (Error e) {
+				var dlg = app.inform (_("Error"), e.message);
+				dlg.present ();
+			}
+
+			debug ("End copy-media action");
+		});
 	}
 
 	protected virtual void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		if (is_loaded)
+		if (is_loaded) {
 			pic.paintable = data;
+		} else if (settings.use_blurhash) {
+			pic.paintable = blurhash_cache.lookup_or_decode (entity.blurhash);
+		}
 	}
 
 	public signal void spoiler_revealed ();

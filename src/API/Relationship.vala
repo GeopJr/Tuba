@@ -12,8 +12,26 @@ public class Tuba.API.Relationship : Entity {
 	public bool blocking { get; set; default = false; }
 	public bool domain_blocking { get; set; default = false; }
 
+	public string to_string () {
+		string label = "";
+
+		if (requested)
+			label = _("Sent follow request");
+		else if (followed_by && following)
+			label = _("Mutuals");
+		else if (followed_by)
+			label = _("Follows you");
+
+		return label;
+	}
+
 	public Relationship.for_account (API.Account acc) {
 		Object (id: acc.id);
+		request ();
+	}
+
+	public Relationship.for_account_id (string t_id) {
+		Object (id: t_id);
 		request ();
 	}
 

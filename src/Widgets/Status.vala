@@ -1,5 +1,9 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/status.ui")]
-public class Tuba.Widgets.Status : Adw.Bin {
+#if USE_LISTVIEW
+	public class Tuba.Widgets.Status : Adw.Bin {
+#else
+	public class Tuba.Widgets.Status : Gtk.ListBoxRow {
+#endif
 
 	API.Status? _bound_status = null;
 	public API.Status? status {
@@ -134,6 +138,7 @@ public class Tuba.Widgets.Status : Adw.Bin {
 	public Gee.ArrayList<API.EmojiReaction>? reactions {
 		get { return status.formal.compat_status_reactions; }
 		set {
+			if (emoji_reactions != null) content_column.remove (emoji_reactions);
 			if (value == null) return;
 
 			emoji_reactions = new ReactionsRow (value);
@@ -418,12 +423,10 @@ public class Tuba.Widgets.Status : Adw.Bin {
 		InstanceAccount.KIND_FAVOURITE
 	};
 	protected virtual void change_kind () {
-		string icon = null;
-		string descr = null;
-		string label_url = null;
-		accounts.active.describe_kind (this.kind, out icon, out descr, this.kind_instigator, out label_url);
+		Tuba.InstanceAccount.Kind res_kind;
+		accounts.active.describe_kind (this.kind, out res_kind, this.kind_instigator.display_name, this.kind_instigator.url);
 
-		if (icon == null) {
+		if (res_kind.icon == null) {
 			//  status_box.margin_top = 18;
 			return;
 		};
@@ -437,6 +440,7 @@ public class Tuba.Widgets.Status : Adw.Bin {
 					size = 34,
 					valign = Gtk.Align.START,
 					halign = Gtk.Align.START,
+					overflow = Gtk.Overflow.HIDDEN
 				};
 				actor_avatar.add_css_class ("ttl-status-avatar-actor");
 
@@ -456,12 +460,13 @@ public class Tuba.Widgets.Status : Adw.Bin {
 			avatar_overlay.child = null;
 		}
 
-		header_icon.icon_name = icon;
+		header_icon.icon_name = res_kind.icon;
 		header_label.instance_emojis = this.kind_instigator.emojis_map;
-		header_label.label = descr;
+		header_label.label = res_kind.description;
 
 		if (header_button_activate > 0) header_button.disconnect (header_button_activate);
-		header_button_activate = header_button.clicked.connect (() => header_label.on_activate_link (label_url));
+		if (res_kind.url != null)
+			header_button_activate = header_button.clicked.connect (() => header_label.on_activate_link (res_kind.url));
 	}
 
 	private void open_kind_instigator_account () {
@@ -580,7 +585,7 @@ public class Tuba.Widgets.Status : Adw.Bin {
 		}
 
 		if (prev_card != null) content_box.remove (prev_card);
-		if (!settings.hide_preview_cards && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
+		if (!settings.show_preview_cards && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
 			try {
 				prev_card = (Gtk.Button) status.formal.card.to_widget ();
 				prev_card.clicked.connect (open_card_url);

@@ -7,6 +7,10 @@ public class Tuba.Streams : Object {
 	}
 
 	public void subscribe (string? url, Streamable s) {
+		#if DEV_MODE
+			return;
+		#endif
+
 		if (url == null)
 			return;
 

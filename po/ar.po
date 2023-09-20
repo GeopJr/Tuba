@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-07-19 22:14+0300\n"
-"PO-Revision-Date: 2023-07-24 16:04+0000\n"
+"PO-Revision-Date: 2023-08-25 19:51+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.appdata.xml.in:6
 msgid "Tuba"
@@ -29,7 +29,7 @@ msgstr "تصفح الفديفرس"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr ""
+msgstr "برنامج للفديفرس"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
@@ -52,7 +52,6 @@ msgid ""
 msgstr ""
 
 #: data/ui/widgets/status.ui:157
-#, fuzzy
 msgid "Pinned"
 msgstr "مثبت"
 
@@ -100,7 +99,6 @@ msgid "Direct Message"
 msgstr "رسالة مباشرة"
 
 #: data/ui/menus.ui:22
-#, fuzzy
 msgid "Copy Handle"
 msgstr "نسخ المعرف"
 
@@ -125,12 +123,10 @@ msgid "Block"
 msgstr "حظر"
 
 #: data/ui/menus.ui:51
-#, fuzzy
 msgid "Block Domain"
 msgstr "حظر النطاق"
 
 #: data/ui/menus.ui:59
-#, fuzzy
 msgid "Timeline"
 msgstr "الخط الزمني"
 
@@ -169,12 +165,10 @@ msgid "Color Scheme"
 msgstr "نظام الألوان"
 
 #: data/ui/dialogs/preferences.ui:39
-#, fuzzy
 msgid "Larger font size"
 msgstr "حجم خط أكبر"
 
 #: data/ui/dialogs/preferences.ui:41
-#, fuzzy
 msgid "Makes the font larger for posts"
 msgstr "جعل الخط أكبر للمنشورات"
 
@@ -245,9 +239,8 @@ msgid "Background work"
 msgstr "العمل في الخلفية"
 
 #: data/ui/dialogs/preferences.ui:146
-#, fuzzy
 msgid "Receive notifications even when the app is closed"
-msgstr "الحصول على إشعارات حتى لو أُغلق التطبيق"
+msgstr "تلقي إشعارات حتى لو أُغلق التطبيق"
 
 #: data/ui/dialogs/preferences.ui:156
 msgid "Strip tracking parameters from links"
@@ -259,7 +252,6 @@ msgid "It can lead to broken links"
 msgstr ""
 
 #: data/ui/dialogs/preferences.ui:171
-#, fuzzy
 msgid "Timelines"
 msgstr "الخطوط الزمنية"
 

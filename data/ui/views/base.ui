@@ -154,7 +154,8 @@
                         <property name="vexpand">1</property>
                         <property name="hscrollbar_policy">never</property>
                         <property name="child">
-                          <object class="AdwClampScrollable" id="content_box">
+                          <!-- <object class="AdwClampScrollable" id="content_box"> -->
+                          <object class="AdwClamp" id="content_box">
                             <property name="vexpand">1</property>
                             <property name="visible">True</property>
                             <property name="maximum_size">670</property>

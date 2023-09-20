@@ -17,6 +17,7 @@
 ./src/API/Conversation.vala
 ./src/API/Emoji.vala
 ./src/API/Notification.vala
+./src/API/Relationship.vala
 ./src/API/SearchResults.vala
 ./src/API/Status/PreviewCard.vala
 ./src/API/Suggestion.vala
@@ -27,6 +28,7 @@
 ./src/Dialogs/Composer/Dialog.vala
 ./src/Dialogs/Composer/EditorPage.vala
 ./src/Dialogs/Composer/PollPage.vala
+./src/Dialogs/MainWindow.vala
 ./src/Dialogs/NewAccount.vala
 ./src/Dialogs/ProfileEdit.vala
 ./src/Services/Accounts/AccountStore.vala
@@ -64,6 +66,7 @@
 ./src/Widgets/BookWyrmPage.vala
 ./src/Widgets/CustomEmojiChooser.vala
 ./src/Widgets/PreviewCard.vala
+./src/Widgets/ProfileCover.vala
 ./src/Widgets/RelationshipButton.vala
 ./src/Widgets/Status/ActionsRow.vala
 ./src/Widgets/Status/FollowRequestRow.vala

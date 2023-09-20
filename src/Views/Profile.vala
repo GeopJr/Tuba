@@ -1,13 +1,23 @@
 public class Tuba.Views.Profile : Views.Timeline {
-	public API.Account profile { get; construct set; }
-	public API.Relationship rs { get; construct set; }
+	public class ProfileAccount : Widgetizable, GLib.Object {
+		public API.Account account { get; construct set; }
+		public API.Relationship rs { get; construct set; }
+
+		public ProfileAccount (API.Account t_acc) {
+			Object (account: t_acc, rs: new API.Relationship.for_account (t_acc));
+		}
+
+		public override Gtk.Widget to_widget () {
+			return new Widgets.Cover (this);
+		}
+	}
+
+	public ProfileAccount profile { get; construct set; }
 	public bool include_replies { get; set; default = false; }
 	public bool only_media { get; set; default = false; }
 	public string source { get; set; default = "statuses"; }
 
-	protected Cover cover;
 	protected Gtk.MenuButton menu_button;
-
 	protected SimpleAction media_action;
 	protected SimpleAction replies_action;
 	protected SimpleAction muting_action;
@@ -19,40 +29,22 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 	public Profile (API.Account acc) {
 		Object (
-			profile: acc,
-			rs: new API.Relationship.for_account (acc),
+			profile: new ProfileAccount (acc),
 			label: _("Profile"),
 			allow_nesting: true,
 			url: @"/api/v1/accounts/$(acc.id)/statuses"
 		);
 
-		cover = new Cover (profile);
-		cover.rsbtn.rs = this.rs;
-
-		build_profile_stats (cover.info);
-		rs.invalidated.connect (on_rs_updated);
-
-		var header_factory = new Gtk.SignalListItemFactory ();
-		header_factory.setup.connect (on_create_header);
-		content.header_factory = header_factory;
+		model.insert (0, profile);
+		profile.rs.invalidated.connect (on_rs_updated);
 	}
 	~Profile () {
 		debug ("Destroying Profile view");
 	}
 
-	private void on_create_header (Object object) {
-		unowned var header = (Gtk.ListHeader) object;
-		header.child = cover;
-
-		// FIXME
-		Timeout.add_once (250, () => {
-			scrolled.vadjustment.value = 0.0;
-		});
-	}
-
 	public bool append_pinned () {
 		if (source == "statuses") {
-			new Request.GET (@"/api/v1/accounts/$(profile.id)/statuses")
+			new Request.GET (@"/api/v1/accounts/$(profile.account.id)/statuses")
 				.with_account (account)
 				.with_param ("pinned", "true")
 				.with_ctx (this)
@@ -67,7 +59,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 						to_add += e_status;
 					});
-					model.splice (0, 0, to_add);
+					model.splice (1, 0, to_add);
 
 				})
 				.exec ();
@@ -78,9 +70,16 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 	public override Gtk.Widget on_create_model_widget (Object obj) {
 		var widget = base.on_create_model_widget (obj);
+
+		var widget_cover = widget as Widgets.Cover;
+		if (widget_cover != null) {
+			widget_cover.rs_invalidated.connect (on_rs_updated);
+			widget_cover.timeline_change.connect (change_timeline_source);
+		}
+
 		var widget_status = widget as Widgets.Status;
 
-		if (widget_status != null && profile.id == accounts.active.id) {
+		if (widget_status != null && profile.account.id == accounts.active.id) {
 			widget_status.show_toggle_pinned_action ();
             widget_status.pin_changed.connect (on_refresh);
         }
@@ -88,207 +87,25 @@ public class Tuba.Views.Profile : Views.Timeline {
 		return widget;
 	}
 
+	#if USE_LISTVIEW
+		protected override void bind_listitem_cb (GLib.Object item) {
+			base.bind_listitem_cb (item);
+
+			if (((((Gtk.ListItem) item).item) as ProfileAccount) != null)
+				((Gtk.ListItem) item).activatable = false;
+		}
+	#endif
+
 	public override void on_refresh () {
 		base.on_refresh ();
 		GLib.Idle.add (append_pinned);
-	}
-
-	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/profile_header.ui")]
-	protected class Cover : Gtk.Box {
-
-		[GtkChild] unowned Widgets.Background background;
-		[GtkChild] unowned Gtk.Label cover_badge;
-		[GtkChild] unowned Gtk.Image cover_bot_badge;
-		[GtkChild] unowned Gtk.Box cover_badge_box;
-		[GtkChild] public unowned Gtk.ListBox info;
-		[GtkChild] unowned Widgets.EmojiLabel display_name;
-		[GtkChild] unowned Gtk.Label handle;
-		[GtkChild] unowned Widgets.Avatar avatar;
-		[GtkChild] unowned Widgets.MarkupView note;
-		[GtkChild] public unowned Widgets.RelationshipButton rsbtn;
-
-		~Cover () {
-			debug ("Destroying Profile Cover");
-		}
-
-		void toggle_scale_emoji_hover () {
-			Tuba.toggle_css (note, settings.scale_emoji_hover, "lww-scale-emoji-hover");
-		}
-
-		public string cover_badge_label {
-			get {
-				return cover_badge.label;
-			}
-
-			set {
-				var has_label = value != "";
-				cover_badge.visible = has_label;
-				cover_badge.label = value;
-
-				update_cover_badge ();
-			}
-		}
-
-		public bool is_bot {
-			get {
-				return cover_bot_badge.visible;
-			}
-
-			set {
-				cover_bot_badge.visible = value;
-
-				update_cover_badge ();
-			}
-		}
-
-		private void update_cover_badge () {
-			cover_badge_box.visible = cover_badge.visible || is_bot;
-
-			if (is_bot && !cover_badge.visible) {
-				cover_badge_box.add_css_class ("only-icon");
-			} else {
-				cover_badge_box.remove_css_class ("only-icon");
-			}
-		}
-
-		private string avi_url { get; set; default=""; }
-		private string header_url { get; set; default=""; }
-		void open_header_in_media_viewer () {
-			app.main_window.show_media_viewer_single (header_url, background.paintable);
-		}
-
-		void open_pfp_in_media_viewer () {
-			app.main_window.show_media_viewer_single (avi_url, avatar.custom_image);
-		}
-
-		public Cover (API.Account account) {
-			if (settings.scale_emoji_hover)
-				note.add_css_class ("lww-scale-emoji-hover");
-			settings.notify["scale-emoji-hover"].connect (toggle_scale_emoji_hover);
-
-			display_name.instance_emojis = account.emojis_map;
-			display_name.content = account.display_name;
-			handle.label = account.handle;
-			avatar.account = account;
-			note.instance_emojis = account.emojis_map;
-			note.content = account.note;
-			cover_bot_badge.visible = account.bot;
-			update_cover_badge ();
-
-			if (account.id != accounts.active.id) rsbtn.visible = true;
-
-			if (account.header.contains ("/headers/original/missing.png")) {
-				header_url = "";
-				background.paintable = avatar.custom_image;
-			} else {
-				header_url = account.header ?? "";
-				image_cache.request_paintable (account.header, on_cache_response);
-				background.clicked.connect (open_header_in_media_viewer);
-			}
-
-			avi_url = account.avatar ?? "";
-			avatar.clicked.connect (open_pfp_in_media_viewer);
-
-			if (account.fields != null) {
-				foreach (API.AccountField f in account.fields) {
-					var row = new Adw.ActionRow ();
-					var val = new Widgets.RichLabel (HtmlUtils.simplify (f.val));
-					val.hexpand = true;
-					val.xalign = 1;
-					row.title = f.name;
-
-					info.append (row);
-
-					if (f.verified_at != null) {
-						var verified_date = f.verified_at.slice (0, f.verified_at.last_index_of ("T"));
-						var verified_label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-						var verified_checkmark = new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic") {
-							tooltip_text = _(@"Ownership of this link was checked on $verified_date")
-						};
-
-						verified_label_box.append (val);
-						verified_label_box.append (verified_checkmark);
-
-						row.add_suffix (verified_label_box);
-						row.add_css_class ("ttl-verified-field");
-					} else {
-						row.add_suffix (val);
-					};
-				}
-			}
-
-			if (account.created_at != null) {
-				var row = new Adw.ActionRow ();
-				var parsed_date = new GLib.DateTime.from_iso8601 (account.created_at, null);
-				parsed_date = parsed_date.to_timezone (new TimeZone.local ());
-
-				var date_local = _("%B %e, %Y");
-				var val = new Gtk.Label (parsed_date.format (date_local).replace (" ", "")) { // %e prefixes with whitespace on single digits
-					wrap = true,
-					xalign = 1,
-					hexpand = true,
-					tooltip_text = parsed_date.format ("%F")
-				};
-
-				// translators: as in created an account; this is used in Profiles in a row
-				//				which has as value the date the profile was created on
-				row.title = _("Joined");
-
-				info.append (row);
-				row.add_suffix (val);
-				row.add_prefix (new Gtk.Image.from_icon_name ("tuba-contact-new-symbolic"));
-			}
-		}
-
-		void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-			if (is_loaded)
-				background.paintable = data;
-		}
-	}
-
-	protected void build_profile_stats (Gtk.ListBox info) {
-		var row = new Gtk.ListBoxRow ();
-		var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-			homogeneous = true
-		};
-
-		// translators: the variable is the amount of posts a user has made
-		var btn = build_profile_stats_button (_("%s Posts").printf (Tuba.Units.shorten (profile.statuses_count)));
-		btn.clicked.connect (() => change_timeline_source ("statuses"));
-		box.append (btn);
-
-		// translators: the variable is the amount of people a user follows
-		btn = build_profile_stats_button (_("%s Following").printf (Tuba.Units.shorten (profile.following_count)));
-		btn.clicked.connect (() => change_timeline_source ("following"));
-		box.append (btn);
-
-		// translators: the variable is the amount of followers a user has
-		btn = build_profile_stats_button (_("%s Followers").printf (Tuba.Units.shorten (profile.followers_count)));
-		btn.clicked.connect (() => change_timeline_source ("followers"));
-		box.append (btn);
-
-		row.activatable = false;
-		row.child = box;
-		info.append (row);
-	}
-
-	protected Gtk.Button build_profile_stats_button (string btn_label) {
-		var btn = new Gtk.Button.with_label (btn_label) {
-			css_classes = { "flat", "ttl-profile-stat-button" }
-		};
-
-		var child_label = btn.child as Gtk.Label;
-		child_label.wrap = true;
-		child_label.justify = Gtk.Justification.CENTER;
-
-		return btn;
 	}
 
 	protected void change_timeline_source (string t_source) {
 		source = t_source;
 		accepts = t_source == "statuses" ? typeof (API.Status) : typeof (API.Account);
 
-		url = @"/api/v1/accounts/$(profile.id)/$t_source";
+		url = @"/api/v1/accounts/$(profile.account.id)/$t_source";
 		invalidate_actions (true);
 	}
 
@@ -303,7 +120,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		menu_button.icon_name = "tuba-view-more-symbolic";
 		header.pack_end (menu_button);
 
-		if (profile.is_self ()) {
+		if (profile.account.is_self ()) {
 			var edit_btn = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
 				tooltip_text = _("Edit Profile")
 			};
@@ -317,32 +134,29 @@ public class Tuba.Views.Profile : Views.Timeline {
 	}
 
 	private void open_edit_page () {
-		var dialog = new Dialogs.ProfileEdit (profile);
+		var dialog = new Dialogs.ProfileEdit (profile.account);
 		dialog.saved.connect (on_edit_save);
 		dialog.show ();
 	}
 
 	private void on_edit_save () {
-		if (profile.is_self ()) {
-			rs.invalidated.disconnect (on_rs_updated);
-			//  column_view.remove (cover);
-			cover = null;
+		if (profile.account.is_self ()) {
+			model.remove (0);
 
 			for (uint i = 0; i < model.get_n_items (); i++) {
 				var status_obj = (API.Status)model.get_item (i);
-				if (status_obj.formal.account.id == profile.id) {
+				if (status_obj.formal.account.id == profile.account.id) {
 					entity_cache.remove (status_obj.formal.uri);
 				}
 			}
 
-			cover = new Cover (accounts.active);
-			cover.rsbtn.rs = this.rs;
-			//  column_view.prepend (cover);
-			build_profile_stats (cover.info);
-			rs.invalidated.connect (on_rs_updated);
-
+			model.insert (0, new ProfileAccount (accounts.active));
 			on_refresh ();
 		}
+	}
+
+	protected override void clear () {
+		base.clear_all_but_first ();
 	}
 
 	protected override void build_actions () {
@@ -368,7 +182,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		//  	source_action.set_state (source);
 		//  	accepts = (source == "statuses" ? typeof (API.Status) : typeof (API.Account));
 
-		//  	url = @"/api/v1/accounts/$(profile.id)/$source";
+		//  	url = @"/api/v1/accounts/$(profile.account.id)/$source";
 		//  	invalidate_actions (true);
 		//  });
 		//  actions.add_action (source_action);
@@ -382,33 +196,33 @@ public class Tuba.Views.Profile : Views.Timeline {
 		mention_action.activate.connect (v => {
 			var status = new API.Status.empty ();
 			status.visibility = v.get_string ();
-			status.content = @"$(profile.handle) ";
+			status.content = @"$(profile.account.handle) ";
 			new Dialogs.Compose (status);
 		});
 		actions.add_action (mention_action);
 
 		var copy_handle_action = new SimpleAction ("copy_handle", null);
 		copy_handle_action.activate.connect (v => {
-			Host.copy (profile.full_handle);
+			Host.copy (profile.account.full_handle);
 		});
 		actions.add_action (copy_handle_action);
 
 		muting_action = new SimpleAction.stateful ("muting", null, false);
 		muting_action.change_state.connect (v => {
 			var state = v.get_boolean ();
-			rs.modify (state ? "mute" : "unmute");
+			profile.rs.modify (state ? "mute" : "unmute");
 		});
 		actions.add_action (muting_action);
 
 		hiding_reblogs_action = new SimpleAction.stateful ("hiding_reblogs", null, false);
 		hiding_reblogs_action.change_state.connect (v => {
-			if (!rs.following) {
+			if (!profile.rs.following) {
 				warning ("Trying to hide boosts while not following an account.");
 				return;
 			}
 
 			var state = !v.get_boolean ();
-			rs.modify ("follow", "reblogs", state.to_string ());
+			profile.rs.modify ("follow", "reblogs", state.to_string ());
 		});
 		actions.add_action (hiding_reblogs_action);
 
@@ -418,7 +232,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 			var q = block ? _("Block \"%s\"?") : _("Unblock \"%s\"?");
 
 			var confirmed = app.question (
-				q.printf (profile.handle),
+				q.printf (profile.account.handle),
 				null,
 				app.main_window,
 				block ? _("Block") : _("Unblock"),
@@ -427,7 +241,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 			confirmed.response.connect (res => {
 				if (res == "yes") {
-					rs.modify (block ? "block" : "unblock");
+					profile.rs.modify (block ? "block" : "unblock");
 				}
 				confirmed.destroy ();
 			});
@@ -442,7 +256,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 			var q = block ? _("Block Entire \"%s\"?") : _("Unblock Entire \"%s\"?");
 			warning (q);
 			var confirmed = app.question (
-				q.printf (profile.domain),
+				q.printf (profile.account.domain),
 				_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users"), // vala-lint=line-length
 
 				app.main_window,
@@ -454,9 +268,9 @@ public class Tuba.Views.Profile : Views.Timeline {
 				if (res == "yes") {
 					var req = new Request.POST ("/api/v1/domain_blocks")
 					.with_account (accounts.active)
-					.with_param ("domain", profile.domain)
+					.with_param ("domain", profile.account.domain)
 					.then (() => {
-						rs.request ();
+						profile.rs.request ();
 					});
 
 				if (!block) req.method = "DELETE";
@@ -475,13 +289,13 @@ public class Tuba.Views.Profile : Views.Timeline {
 	void invalidate_actions (bool refresh) {
 		replies_action.set_enabled (accepts == typeof (API.Status));
 		media_action.set_enabled (accepts == typeof (API.Status));
-		muting_action.set_state (rs.muting);
-		hiding_reblogs_action.set_state (!rs.showing_reblogs);
-		hiding_reblogs_action.set_enabled (rs.following);
-		blocking_action.set_state (rs.blocking);
-		domain_blocking_action.set_state (rs.domain_blocking);
-		domain_blocking_action.set_enabled (accounts.active.domain != profile.domain);
-		ar_list_action.set_enabled (profile.id != accounts.active.id && rs.following);
+		muting_action.set_state (profile.rs.muting);
+		hiding_reblogs_action.set_state (!profile.rs.showing_reblogs);
+		hiding_reblogs_action.set_enabled (profile.rs.following);
+		blocking_action.set_state (profile.rs.blocking);
+		domain_blocking_action.set_state (profile.rs.domain_blocking);
+		domain_blocking_action.set_enabled (accounts.active.domain != profile.account.domain);
+		ar_list_action.set_enabled (profile.account.id != accounts.active.id && profile.rs.following);
 
 		if (refresh) {
 			page_next = null;
@@ -490,17 +304,6 @@ public class Tuba.Views.Profile : Views.Timeline {
 	}
 
 	void on_rs_updated () {
-		var label = "";
-		if (cover.rsbtn.sensitive = rs != null) {
-			if (rs.requested)
-				label = _("Sent follow request");
-			else if (rs.followed_by && rs.following)
-				label = _("Mutuals");
-			else if (rs.followed_by)
-				label = _("Follows you");
-		}
-
-		cover.cover_badge_label = label;
 		invalidate_actions (false);
 	}
 
@@ -550,7 +353,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		box.append (toast_overlay);
 		var dialog = new Adw.Window () {
 			// translators: the variable is an account handle
-			title = _("Add or remove \"%s\" to or from a list").printf (profile.handle),
+			title = _("Add or remove \"%s\" to or from a list").printf (profile.account.handle),
 			modal = true,
 			transient_for = app.main_window,
 			content = box,
@@ -562,7 +365,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		var preferences_page = new Adw.PreferencesPage ();
 		var preferences_group = new Adw.PreferencesGroup () {
 			// translators: the variable is an account handle
-			title = _("Select the list to add or remove \"%s\" to or from:").printf (profile.handle)
+			title = _("Select the list to add or remove \"%s\" to or from:").printf (profile.account.handle)
 		};
 
 		var no_lists_page = new Adw.StatusPage () {
@@ -578,7 +381,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 			.then ((sess, msg, in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				if (Network.get_array_size (parser) > 0) {
-					new Request.GET (@"/api/v1/accounts/$(profile.id)/lists")
+					new Request.GET (@"/api/v1/accounts/$(profile.account.id)/lists")
 					.with_account (accounts.active)
 					.with_ctx (this)
 					.on_error (on_error)
@@ -598,8 +401,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 							var add_button = new RowButton () {
 								icon_name = is_already ? "tuba-minus-large-symbolic" : "tuba-plus-large-symbolic",
 								tooltip_text = is_already
-									? _("Remove \"%s\" from \"%s\"").printf (profile.handle, list.title)
-									: _("Add \"%s\" to \"%s\"").printf (profile.handle, list.title),
+									? _("Remove \"%s\" from \"%s\"").printf (profile.account.handle, list.title)
+									: _("Add \"%s\" to \"%s\"").printf (profile.account.handle, list.title),
 								halign = Gtk.Align.CENTER,
 								valign = Gtk.Align.CENTER,
 								css_classes = { "flat", "circular" }
@@ -641,7 +444,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 	public void handle_list_edit (API.List list, Adw.ActionRow row, Adw.ToastOverlay toast_overlay, RowButton button) {
 			row.sensitive = false;
 
-			var endpoint = @"/api/v1/lists/$(list.id)/accounts/?account_ids[]=$(profile.id)";
+			var endpoint = @"/api/v1/lists/$(list.id)/accounts/?account_ids[]=$(profile.account.id)";
 			var req = button.remove ? new Request.DELETE (endpoint) : new Request.POST (endpoint);
 			req
 				.with_account (accounts.active)
@@ -651,16 +454,16 @@ public class Tuba.Views.Profile : Views.Timeline {
 					var toast_msg = "";
 					if (button.remove) {
 						//  translators: First variable is a handle, second variable is a list name
-						toast_msg = _("User \"%s\" got removed from \"%s\"").printf (profile.handle, list.title);
+						toast_msg = _("User \"%s\" got removed from \"%s\"").printf (profile.account.handle, list.title);
 						button.icon_name = "tuba-plus-large-symbolic";
 						//  translators: First variable is a handle, second variable is a list name
-						button.tooltip_text = _("Add \"%s\" to \"%s\"").printf (profile.handle, list.title);
+						button.tooltip_text = _("Add \"%s\" to \"%s\"").printf (profile.account.handle, list.title);
 					} else {
 						//  translators: First variable is a handle, second variable is a list name
-						toast_msg = _("User \"%s\" got added to \"%s\"").printf (profile.handle, list.title);
+						toast_msg = _("User \"%s\" got added to \"%s\"").printf (profile.account.handle, list.title);
 						button.icon_name = "tuba-minus-large-symbolic";
 						//  translators: First variable is a handle, second variable is a list name
-						button.tooltip_text = _("Remove \"%s\" from \"%s\"").printf (profile.handle, list.title);
+						button.tooltip_text = _("Remove \"%s\" from \"%s\"").printf (profile.account.handle, list.title);
 					}
 
 					button.remove = !button.remove;

@@ -85,7 +85,7 @@ public class Tuba.AbstractCache : Object {
 		return items.has_key (get_key (id));
 	}
 
-	protected string insert (string id, owned Object obj) {
+	protected virtual string insert (string id, owned Object obj) {
 		var key = get_key (id);
 		debug (@"Inserting: $key");
 		items.@set (key, (owned) obj);

@@ -1,5 +1,4 @@
 public class Tuba.Mastodon.Account : InstanceAccount {
-
 	public const string BACKEND = "Mastodon";
 
 	class Test : AccountStore.BackendTest {
@@ -30,25 +29,38 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 			//  win.open_view (new Views.Main ());
 			//  win.back();
 			win.go_back_to_start ();
+			((Views.TabbedBase) win.main_page.child).change_page_to_named ("1");
 		}
 	};
 
-	//  public static Place PLACE_NOTIFICATIONS = new Place () {
-	//  	title = _("Notifications"),
-	//  	icon = "tuba-bell-symbolic",
-	//  	open_func = win => {
-	//  		win.open_view (new Views.Notifications ());
+	public static Place PLACE_NOTIFICATIONS = new Place () { // vala-lint=naming-convention
+
+		icon = "tuba-bell-outline-symbolic",
+		title = _("Notifications"),
+		open_func = win => {
+			win.go_back_to_start ();
+			((Views.TabbedBase) win.main_page.child).change_page_to_named ("2");
+		}
+	};
+
+	public static Place PLACE_CONVERSATIONS = new Place () { // vala-lint=naming-convention
+
+		icon = "mail-unread-symbolic",
+		title = _("Conversations"),
+		open_func = win => {
+			win.go_back_to_start ();
+			((Views.TabbedBase) win.main_page.child).change_page_to_named ("3");
+		}
+	};
+
+	//  public static Place PLACE_MESSAGES = new Place () { // vala-lint=naming-convention
+
+	//  	icon = "tuba-mail-symbolic",
+	//  	title = _("Direct Messages"),
+	//  	open_func = (win) => {
+	//  		win.open_view (set_as_sidebar_item (new Views.Conversations ()));
 	//  	}
 	//  };
-
-	public static Place PLACE_MESSAGES = new Place () { // vala-lint=naming-convention
-
-		icon = "tuba-mail-symbolic",
-		title = _("Direct Messages"),
-		open_func = (win) => {
-			win.open_view (set_as_sidebar_item (new Views.Conversations ()));
-		}
-	};
 
 	public static Place PLACE_BOOKMARKS = new Place () { // vala-lint=naming-convention
 
@@ -77,18 +89,20 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		}
 	};
 
-	//  public static Place PLACE_SEARCH = new Place () {
-	//  	title = _("Search"),
-	//  	icon = "system-search-symbolic",
-	//  	open_func = (win) => {
-	//  		win.open_view (new Views.Search ());
-	//  	}
-	//  };
+	public static Place PLACE_SEARCH = new Place () { // vala-lint=naming-convention
+
+		icon = "system-search-symbolic",
+		title = _("Search"),
+		open_func = (win) => {
+			win.open_view (new Views.Search ());
+		}
+	};
 
 	public static Place PLACE_EXPLORE = new Place () { // vala-lint=naming-convention
 
 		icon = "tuba-explore2-large-symbolic",
 		title = _("Explore"),
+		separated = true,
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item (new Views.Explore ()));
 		}
@@ -140,20 +154,30 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	};
 
 	public override void register_known_places (GLib.ListStore places) {
+		ulong main_window_notify = 0;
+		main_window_notify = app.notify["main-window"].connect (() => {
+			app.main_window.bind_property ("is-mobile", PLACE_NOTIFICATIONS, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
+			app.main_window.bind_property ("is-mobile", PLACE_CONVERSATIONS, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
+			app.main_window.bind_property ("is-mobile", PLACE_SEARCH, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
+			app.disconnect (main_window_notify);
+		});
+
 		places.append (PLACE_HOME);
-		//  places.append (PLACE_SEARCH);
+		places.append (PLACE_NOTIFICATIONS);
+		places.append (PLACE_CONVERSATIONS);
+		places.append (PLACE_SEARCH);
+		places.append (PLACE_FAVORITES);
+		places.append (PLACE_BOOKMARKS);
+		places.append (PLACE_HASHTAGS);
 
 		places.append (PLACE_EXPLORE);
 		places.append (PLACE_LOCAL);
 		places.append (PLACE_FEDERATED);
-
-		places.append (PLACE_FAVORITES);
-		places.append (PLACE_BOOKMARKS);
 		places.append (PLACE_LISTS);
 
-		places.append (PLACE_HASHTAGS);
-		places.append (PLACE_FOLLOW_REQUESTS);
+		// TODO: Move to menu button?
 		places.append (PLACE_ANNOUNCEMENTS);
+		places.append (PLACE_FOLLOW_REQUESTS);
 	}
 
 	construct {
@@ -185,7 +209,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		set_visibility (new Visibility () {
 			id = "direct",
 			name = _("Direct"),
-			icon_name = "tuba-mail-symbolic",
+			icon_name = "mail-unread-symbolic",
 			small_icon_name = "tuba-mail-small-symbolic",
 			description = _("Post to mentioned users only")
 		});
@@ -194,5 +218,91 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	private static Views.Base set_as_sidebar_item (Views.Base view) {
 		view.is_sidebar_item = true;
 		return view;
+	}
+
+	// Notification actions
+	public override void open_status_url (string url) {
+		if (!Widgets.RichLabel.should_resolve_url (url)) return;
+
+		resolve.begin (url, (obj, res) => {
+			try {
+				resolve.end (res).open ();
+				app.main_window.present ();
+			} catch (Error e) {
+				warning (@"Failed to resolve URL \"$url\":");
+				warning (e.message);
+				Host.open_uri (url);
+			}
+		});
+	}
+
+	private bool check_issuer (string issuer_id) {
+		if (issuer_id == this.id) return true;
+
+		var dlg = app.inform (
+			_("Error"),
+			//  translators: this error shows up when the user clicks a button
+			//				 in a desktop notification that was pushed for a
+			//				 different account
+			_("Notification was pushed for a different account")
+		);
+		dlg.present ();
+
+		return false;
+	}
+
+	public override void answer_follow_request (string issuer_id, string fr_id, bool accept) {
+		if (!check_issuer (issuer_id)) return;
+
+		new Request.POST (@"/api/v1/follow_requests/$fr_id/$(accept ? "authorize" : "reject")")
+            .with_account (this)
+			.exec ();
+	}
+
+	public override void follow_back (string issuer_id, string acc_id) {
+		if (!check_issuer (issuer_id)) return;
+
+		API.Relationship relationship = new API.Relationship.for_account_id (acc_id);
+
+		ulong invalidate_signal_id = 0;
+		invalidate_signal_id = relationship.invalidated.connect (() => {
+			if (!relationship.following) {
+				new Request.POST (@"/api/v1/accounts/$acc_id/follow")
+					.with_account (this)
+					.exec ();
+			}
+
+			relationship.disconnect (invalidate_signal_id);
+		});
+	}
+
+	public override void remove_from_followers (string issuer_id, string acc_id) {
+		if (!check_issuer (issuer_id)) return;
+
+		new Request.POST (@"/api/v1/accounts/$acc_id/remove_from_followers")
+            .with_account (this)
+			.exec ();
+	}
+
+	public override void reply_to_status_uri (string issuer_id, string uri) {
+		if (!check_issuer (issuer_id)) return;
+
+		if (entity_cache.contains (uri)) {
+			var status = entity_cache.lookup (uri) as API.Status;
+			new Dialogs.Compose.reply (status.formal);
+		} else {
+			resolve.begin (uri, (obj, res) => {
+				try {
+					var status = resolve.end (res) as API.Status;
+					if (status != null) {
+						new Dialogs.Compose.reply (status.formal);
+						app.main_window.present ();
+					}
+				} catch (Error e) {
+					warning (@"Failed to resolve URL \"$url\":");
+					warning (e.message);
+				}
+			});
+		}
 	}
 }

@@ -9,6 +9,8 @@ project(
     ],
 )
 
+# add_project_arguments(['--define=USE_LISTVIEW'], language: 'vala')
+
 # https://gitlab.gnome.org/GNOME/vala/-/issues/1413#note_1707480
 if meson.get_compiler ('c').get_id () == 'clang'
   add_project_arguments('-Wno-incompatible-function-pointer-types', language: 'c')
@@ -40,6 +42,11 @@ if devel
     version = '@0@-@1@'.format(branch, revision)
     config.set_quoted('VERSION', version)
   endif
+endif
+
+devmode = false
+if devmode
+  add_project_arguments(['--define=DEV_MODE'], language: 'vala')
 endif
 
 configure_file(output: 'config.h', configuration: config)

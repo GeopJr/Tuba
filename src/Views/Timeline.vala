@@ -3,14 +3,18 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public string url { get; construct set; }
 	public bool is_public { get; construct set; default = false; }
 	public Type accepts { get; set; default = typeof (API.Status); }
-	public bool use_queue { get; set; default = true; }
+	#if !USE_LISTVIEW
+		public bool use_queue { get; set; default = true; }
+	#endif
 
 	protected InstanceAccount? account { get; set; default = null; }
 
 	public bool is_last_page { get; set; default = false; }
 	public string? page_next { get; set; }
 	public string? page_prev { get; set; }
-	Entity[] entity_queue = {};
+	#if !USE_LISTVIEW
+		Entity[] entity_queue = {};
+	#endif
 
 	private Gtk.Spinner pull_to_refresh_spinner;
 	private bool _is_pulling = false;
@@ -49,12 +53,12 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 		if (clean_y > 32) {
 			pull_to_refresh_spinner.margin_top = (int) clean_y;
-			pull_to_refresh_spinner.height_request = 32;
+			pull_to_refresh_spinner.height_request = pull_to_refresh_spinner.width_request = 32;
 		} else if (clean_y > 0) {
-			pull_to_refresh_spinner.height_request = (int) clean_y;
+			pull_to_refresh_spinner.height_request = pull_to_refresh_spinner.width_request = (int) clean_y;
 		} else {
 			pull_to_refresh_spinner.margin_top = 32;
-			pull_to_refresh_spinner.height_request = 0;
+			pull_to_refresh_spinner.height_request = pull_to_refresh_spinner.width_request = 0;
 		}
     }
 
@@ -69,13 +73,18 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	construct {
 		pull_to_refresh_spinner = new Gtk.Spinner () {
 			height_request = 32,
+			width_request = 32,
 			margin_top = 32,
 			margin_bottom = 32,
-			halign = Gtk.Align.FILL,
-			valign = Gtk.Align.START
+			halign = Gtk.Align.CENTER,
+			valign = Gtk.Align.START,
+			css_classes = { "osd", "circular-spinner" }
 		};
 
-		reached_close_to_top.connect (finish_queue);
+		#if !USE_LISTVIEW
+			reached_close_to_top.connect (finish_queue);
+		#endif
+
 		app.refresh.connect (on_refresh);
 		status_button.clicked.connect (on_refresh);
 
@@ -90,8 +99,12 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		}
 
 		settings.notify["show-spoilers"].connect (on_refresh);
-		settings.notify["hide-preview-cards"].connect (on_refresh);
+		settings.notify["show-preview-cards"].connect (on_refresh);
 		settings.notify["enlarge-custom-emojis"].connect (on_refresh);
+
+		#if !USE_LISTVIEW
+			content.bind_model (model, on_create_model_widget);
+		#endif
 
 		var drag = new Gtk.GestureDrag ();
         drag.drag_update.connect (on_drag_update);
@@ -101,9 +114,13 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	~Timeline () {
 		debug (@"Destroying Timeline $label");
 
-		entity_queue = {};
 		destruct_account_holder ();
 		destruct_streamable ();
+
+		#if !USE_LISTVIEW
+			content.bind_model (null, null);
+			entity_queue = {};
+		#endif
 	}
 
 	public override void dispose () {
@@ -185,7 +202,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_refresh () {
-		entity_queue = {};
+		#if !USE_LISTVIEW
+			entity_queue = {};
+		#endif
 		scrolled.vadjustment.value = 0;
 		status_button.sensitive = false;
 		clear ();
@@ -229,25 +248,32 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	public virtual void on_new_post (Streamable.Event ev) {
 		try {
-			var entity = Entity.from_json (accepts, ev.get_node ());
+			#if USE_LISTVIEW
+				model.insert (0, Entity.from_json (accepts, ev.get_node ()));
+			#else
+				var entity = Entity.from_json (accepts, ev.get_node ());
 
-			if (use_queue && scrolled.vadjustment.value > 1000) {
-				entity_queue += entity;
-				return;
-			}
+				if (use_queue && scrolled.vadjustment.value > 1000) {
+					entity_queue += entity;
+					return;
+				}
 
-			model.insert (0, entity);
+				model.insert (0, entity);
+			#endif
 		} catch (Error e) {
 			warning (@"Error getting Entity from json: $(e.message)");
 		}
 	}
 
-	private void finish_queue () {
-		if (entity_queue.length == 0) return;
-		model.splice (0, 0, (Object[])entity_queue);
+	#if !USE_LISTVIEW
+		private void finish_queue () {
+			if (entity_queue.length == 0) return;
+			model.splice (0, 0, (Object[])entity_queue);
 
-		entity_queue = {};
-	}
+			entity_queue = {};
+		}
+	#endif
+
 
 	public virtual void on_edit_post (Streamable.Event ev) {
 		try {

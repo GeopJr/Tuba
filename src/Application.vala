@@ -15,6 +15,7 @@ namespace Tuba {
 
 	public static EntityCache entity_cache;
 	public static ImageCache image_cache;
+	public static BlurhashCache blurhash_cache;
 
 	public static GLib.Regex bookwyrm_regex;
 	public static GLib.Regex custom_emoji_regex;
@@ -41,6 +42,11 @@ namespace Tuba {
 		public signal void refresh ();
 		public signal void toast (string title);
 
+		#if DEV_MODE
+			public signal void dev_new_post (Json.Node node);
+			public signal void dev_new_notification (Json.Node node);
+		#endif
+
 		//  public CssProvider css_provider = new CssProvider ();
 		//  public CssProvider zoom_css_provider = new CssProvider (); //FIXME: Zoom not working
 
@@ -50,6 +56,11 @@ namespace Tuba {
 		};
 
 		private const GLib.ActionEntry[] APP_ENTRIES = {
+			#if DEV_MODE
+			 	// vala-lint=block-opening-brace-space-before
+				{ "dev-only-window", dev_only_window_activated },
+			#endif
+			 // vala-lint=block-opening-brace-space-before
 			{ "about", about_activated },
 			{ "compose", compose_activated },
 			{ "back", back_activated },
@@ -59,9 +70,63 @@ namespace Tuba {
 			{ "back-home", back_home_activated },
 			{ "scroll-page-down", scroll_view_page_down },
 			{ "scroll-page-up", scroll_view_page_up },
+			{ "open-status-url", open_status_url, "s" },
+			{ "answer-follow-request", answer_follow_request, "(ssb)" },
+			{ "follow-back", follow_back, "(ss)" },
+			{ "reply-to-status-uri", reply_to_status_uri, "(ss)" },
+			{ "remove-from-followers", remove_from_followers, "(ss)" },
 			{ "open-preferences", open_preferences },
 			{ "open-current-account-profile", open_current_account_profile }
 		};
+
+		#if DEV_MODE
+			private void dev_only_window_activated () {
+				new Dialogs.Dev ().show ();
+			}
+		#endif
+
+		private void remove_from_followers (GLib.SimpleAction action, GLib.Variant? value) {
+			if (value == null) return;
+
+			accounts.active?.remove_from_followers (
+				value.get_child_value (0).get_string (),
+				value.get_child_value (1).get_string ()
+			);
+		}
+
+		private void reply_to_status_uri (GLib.SimpleAction action, GLib.Variant? value) {
+			if (value == null) return;
+
+			accounts.active?.reply_to_status_uri (
+				value.get_child_value (0).get_string (),
+				value.get_child_value (1).get_string ()
+			);
+		}
+
+		private void follow_back (GLib.SimpleAction action, GLib.Variant? value) {
+			if (value == null) return;
+
+			accounts.active?.follow_back (
+				value.get_child_value (0).get_string (),
+				value.get_child_value (1).get_string ()
+			);
+		}
+
+		private void open_status_url (GLib.SimpleAction action, GLib.Variant? value) {
+			if (value == null) return;
+
+			accounts.active?.open_status_url (value.get_string ());
+		}
+
+		private void answer_follow_request (GLib.SimpleAction action, GLib.Variant? value) {
+			if (value == null) return;
+
+			accounts.active?.answer_follow_request (
+				value.get_child_value (0).get_string (),
+				value.get_child_value (1).get_string (),
+				value.get_child_value (2).get_boolean ()
+			);
+		}
 
 		construct {
 			application_id = Build.DOMAIN;
@@ -130,6 +195,9 @@ namespace Tuba {
 				image_cache = new ImageCache () {
 					maintenance_secs = 60 * 5
 				};
+				blurhash_cache = new BlurhashCache () {
+					maintenance_secs = 30
+				};
 				accounts = new SecretAccountStore ();
 				accounts.init ();
 
@@ -148,6 +216,9 @@ namespace Tuba {
 			ColorScheme color_scheme = (ColorScheme) settings.get_enum ("color-scheme");
 			style_manager.color_scheme = color_scheme.to_adwaita_scheme ();
 
+			#if DEV_MODE
+				set_accels_for_action ("app.dev-only-window", {"F2"});
+			#endif
 			set_accels_for_action ("app.about", {"F1"});
 			set_accels_for_action ("app.compose", {"<Ctrl>T", "<Ctrl>N"});
 			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>Left", "Escape", "<Alt>KP_Left", "Pointer_DfltBtnPrev"});
@@ -172,7 +243,10 @@ namespace Tuba {
 		}
 
 		protected override void shutdown () {
-			settings.apply ();
+			#if !DEV_MODE
+				settings.apply ();
+			#endif
+
 			base.shutdown ();
 		}
 
@@ -288,7 +362,8 @@ namespace Tuba {
 
 		void about_activated () {
 			const string[] ARTISTS = {
-				"Tobias Bernard"
+				"Tobias Bernard",
+				"Jakub Steiner"
 			};
 
 			const string[] DESIGNERS = {

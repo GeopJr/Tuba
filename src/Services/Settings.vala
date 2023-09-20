@@ -4,13 +4,12 @@ public class Tuba.Settings : GLib.Settings {
 	public string default_language { get; set; default = "en"; }
 	public ColorScheme color_scheme { get; set; }
 	public string default_post_visibility { get; set; default = "public"; }
-	public bool autostart { get; set; }
 	public bool work_in_background { get; set; }
 	public int timeline_page_size { get; set; }
 	public bool live_updates { get; set; }
 	public bool public_live_updates { get; set; }
 	public bool show_spoilers { get; set; }
-	public bool hide_preview_cards { get; set; }
+	public bool show_preview_cards { get; set; }
 	public bool larger_font_size { get; set; }
 	public bool larger_line_height { get; set; }
 	public bool scale_emoji_hover { get; set; }
@@ -19,18 +18,20 @@ public class Tuba.Settings : GLib.Settings {
 	public bool letterbox_media { get; set; }
 	public bool media_viewer_expand_pictures { get; set; }
 	public bool enlarge_custom_emojis { get; set; }
+	public string default_content_type { get; set; default = "text/plain"; }
+	public bool use_blurhash { get; set; }
+	public bool group_push_notifications { get; set; }
 
 	public string[] muted_notification_types { get; set; default = {}; }
-	private string[] keys_to_init = {
+	private static string[] keys_to_init = {
 		"active-account",
 		"color-scheme",
 		"default-post-visibility",
-		"autostart",
 		"timeline-page-size",
 		"live-updates",
 		"public-live-updates",
 		"show-spoilers",
-		"hide-preview-cards",
+		"show-preview-cards",
 		"larger-font-size",
 		"larger-line-height",
 		"aggressive-resolving",
@@ -39,7 +40,10 @@ public class Tuba.Settings : GLib.Settings {
 		"letterbox-media",
 		"media-viewer-expand-pictures",
 		"enlarge-custom-emojis",
-		"muted-notification-types"
+		"muted-notification-types",
+		"default-content-type",
+		"use-blurhash",
+		"group-push-notifications"
 	};
 
 	public Settings () {
@@ -61,7 +65,9 @@ public class Tuba.Settings : GLib.Settings {
 	}
 
 	void on_changed (string key) {
-		if (key in apply_instantly_keys) apply ();
+		#if !DEV_MODE
+			if (key in apply_instantly_keys) apply ();
+		#endif
 	}
 }
 
