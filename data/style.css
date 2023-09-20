@@ -539,6 +539,8 @@ video > overlay > revealer > controls {
 .ttl-account-switcher row {
 	border-radius: 10px;
 	margin: 3px 0px;
+	padding-right: 0px;
+	padding-left: 0px;
 }
 
 .ttl-account-switcher row:first-child {

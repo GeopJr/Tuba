@@ -33,6 +33,7 @@
 			<object class="GtkButton" id="forget">
 				<property name="icon-name">tuba-trash-symbolic</property>
 				<property name="valign">center</property>
+				<property name="margin-start">6</property>
 				<!-- translators: Forget as in 'Remove Account' -->
 				<property name="tooltip-text">Forget Account</property>
 				<signal name="clicked" handler="on_forget" swapped="no" />
