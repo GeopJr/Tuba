@@ -3,16 +3,25 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	private Binding badge_number_binding;
 
 	construct {
-        url = "/api/v1/notifications";
-        label = _("Notifications");
-        icon = "tuba-bell-outline-symbolic";
-        accepts = typeof (API.Notification);
+		url = "/api/v1/notifications";
+		label = _("Notifications");
+		icon = "tuba-bell-outline-symbolic";
+		accepts = typeof (API.Notification);
 		badge_number = 0;
 		needs_attention = false;
 
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
-    }
 
+		#if DEV_MODE
+			app.dev_new_notification.connect (node => {
+				try {
+					model.insert (0, Entity.from_json (accepts, node));
+				} catch (Error e) {
+					warning (@"Error getting Entity from json: $(e.message)");
+				}
+			});
+		#endif
+	}
 	~Notifications () {
 		warning ("Destroying Notifications");
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].disconnect (on_new_post);
@@ -63,5 +72,5 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		return account != null
 			? @"$(account.instance)/api/v1/streaming/?stream=user:notification&access_token=$(account.access_token)"
 			: null;
-    }
+	}
 }

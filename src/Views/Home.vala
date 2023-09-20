@@ -27,6 +27,16 @@ public class Tuba.Views.Home : Views.Timeline {
 		});
 
         scrolled_overlay.add_overlay (compose_button_rev);
+
+        #if DEV_MODE
+            app.dev_new_post.connect (node => {
+                try {
+                    model.insert (0, Entity.from_json (accepts, node));
+                } catch (Error e) {
+                    warning (@"Error getting Entity from json: $(e.message)");
+                }
+            });
+        #endif
     }
 
     double last_adjustment = 0;

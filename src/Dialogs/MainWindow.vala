@@ -37,9 +37,11 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		main_page = new Adw.NavigationPage (new Views.Main (), _("Home"));
 		navigation_view.add (main_page);
 
-		if (Build.PROFILE == "development") {
-			this.add_css_class ("devel");
-		}
+		#if !DEV_MODE
+			if (Build.PROFILE == "development") {
+				this.add_css_class ("devel");
+			}
+		#endif
 	}
 
 	public bool is_media_viewer_visible () {
