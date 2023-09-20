@@ -241,7 +241,10 @@ namespace Tuba {
 		}
 
 		protected override void shutdown () {
-			settings.apply ();
+			#if !DEV_MODE
+				settings.apply ();
+			#endif
+
 			base.shutdown ();
 		}
 

@@ -65,7 +65,9 @@ public class Tuba.Settings : GLib.Settings {
 	}
 
 	void on_changed (string key) {
-		if (key in apply_instantly_keys) apply ();
+		#if !DEV_MODE
+			if (key in apply_instantly_keys) apply ();
+		#endif
 	}
 }
 
