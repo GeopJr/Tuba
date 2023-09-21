@@ -195,21 +195,21 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				break;
 			case KIND_FAVOURITE:
 				result = {
-					"tuba-starred-symbolic",
+					"starred-symbolic",
 					_("%s favorited your post").printf (actor_name),
 					callback_url
 				};
 				break;
 			case KIND_FOLLOW:
 				result = {
-					"tuba-contact-new-symbolic",
+					"contact-new-symbolic",
 					_("%s now follows you").printf (actor_name),
 					callback_url
 				};
 				break;
 			case KIND_FOLLOW_REQUEST:
 				result = {
-					"tuba-contact-new-symbolic",
+					"contact-new-symbolic",
 					_("%s wants to follow you").printf (actor_name),
 					callback_url
 				};

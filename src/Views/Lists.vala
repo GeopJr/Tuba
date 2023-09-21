@@ -16,7 +16,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 			};
 
 			delete_button = new Gtk.Button () {
-				icon_name = "tuba-trash-symbolic",
+				icon_name = "user-trash-symbolic",
 				valign = Gtk.Align.CENTER,
 				halign = Gtk.Align.CENTER,
 				css_classes = { "flat", "circular", "error" }

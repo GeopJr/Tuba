@@ -3,7 +3,7 @@ public class Tuba.Views.Home : Views.Timeline {
     construct {
         url = "/api/v1/timelines/home";
         label = _("Home");
-        icon = "tuba-home-symbolic";
+        icon = "user-home-symbolic";
 
         scroll_to_top_rev.margin_end = 32;
         scroll_to_top_rev.margin_bottom = 80;

@@ -46,7 +46,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		alt_btn.remove_css_class ("flat");
 
 		var delete_button = new Gtk.Button () {
-			icon_name = "tuba-trash-symbolic",
+			icon_name = "user-trash-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.END,
 			hexpand = true,

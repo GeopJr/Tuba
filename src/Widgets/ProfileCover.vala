@@ -153,7 +153,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
             info.append (row);
             row.add_suffix (val);
-            row.add_prefix (new Gtk.Image.from_icon_name ("tuba-contact-new-symbolic"));
+            row.add_prefix (new Gtk.Image.from_icon_name ("contact-new-symbolic"));
         }
 
         build_profile_stats (profile.account);

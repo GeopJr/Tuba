@@ -37,7 +37,7 @@
                 <property name="content">
                   <object class="AdwStatusPage">
                     <property name="vexpand">1</property>
-                    <property name="icon_name">tuba-network-server-symbolic</property>
+                    <property name="icon_name">network-server-symbolic</property>
                     <property name="title" translatable="yes">What is your Server?</property>
                     <!-- translators: Please replace the joinmastodon.org/servers link with the one for your language if available -->
                     <property name="description" translatable="yes">If you don&apos;t have an account yet, &lt;a href=&quot;https://joinmastodon.org/servers&quot;&gt;choose a server and register one&lt;/a&gt;.</property>
@@ -114,7 +114,7 @@
                 <property name="content">
                   <object class="AdwStatusPage" id="auth_page">
                     <property name="vexpand">1</property>
-                    <property name="icon_name">tuba-key-password-symbolic</property>
+                    <property name="icon_name">tuba-key-symbolic</property>
                     <property name="title" translatable="yes">Confirm Authorization</property>
                     <style>
                         <class name="compact"/>

@@ -60,7 +60,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	public AttachmentsPage () {
 		Object (
 			title: _("Media"),
-			icon_name: "tuba-clip-attachment-symbolic"
+			icon_name: "mail-attachment-symbolic"
 		);
 
 		populate_filter ();

@@ -31,7 +31,7 @@
 
 		<child type="suffix">
 			<object class="GtkButton" id="forget">
-				<property name="icon-name">tuba-trash-symbolic</property>
+				<property name="icon-name">user-trash-symbolic</property>
 				<property name="valign">center</property>
 				<property name="margin-start">6</property>
 				<!-- translators: Forget as in 'Remove Account' -->

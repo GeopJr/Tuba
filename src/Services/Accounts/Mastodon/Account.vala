@@ -23,7 +23,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_HOME = new Place () { // vala-lint=naming-convention
 
-		icon = "tuba-home-symbolic",
+		icon = "user-home-symbolic",
 		title = _("Home"),
 		open_func = win => {
 			//  win.open_view (new Views.Main ());
@@ -110,7 +110,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_LOCAL = new Place () { // vala-lint=naming-convention
 
-		icon = "tuba-network-server-symbolic",
+		icon = "network-server-symbolic",
 		title = _("Local"),
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item (new Views.Local ()));
@@ -128,7 +128,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_FOLLOW_REQUESTS = new Place () { // vala-lint=naming-convention
 
-		icon = "tuba-address-book-new-symbolic",
+		icon = "address-book-new-symbolic",
 		title = _("Follow Requests"),
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item (new Views.FollowRequests ()));
