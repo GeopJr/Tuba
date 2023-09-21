@@ -12,10 +12,8 @@
     <property name="default_height">520</property>
     <property name="title" translatable="1">Edit Profile</property>
     <child>
-      <object class="GtkBox">
-        <property name="orientation">vertical</property>
-        <property name="spacing">0</property>
-        <child>
+      <object class="AdwToolbarView">
+        <child type="top">
           <object class="AdwHeaderBar">
             <property name="show-end-title-buttons">0</property>
             <property name="show-start-title-buttons">0</property>
@@ -37,7 +35,7 @@
             </child>
           </object>
         </child>
-        <child>
+        <property name="content">
           <object class="GtkScrolledWindow">
             <property name="hexpand">1</property>
             <property name="vexpand">1</property>
@@ -171,7 +169,7 @@
               </object>
             </child>
           </object>
-        </child>
+        </property>
       </object>
     </child>
     <style>
