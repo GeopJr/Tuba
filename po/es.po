@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-21 05:14+0300\n"
-"PO-Revision-Date: 2023-09-20 20:02+0000\n"
-"Last-Translator: Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted."
-"weblate.org>\n"
+"PO-Revision-Date: 2023-09-22 03:55+0000\n"
+"Last-Translator: Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted.weblate"
+".org>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tuba/tuba/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -253,7 +253,7 @@ msgstr ""
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:63
 msgid "Letterbox Media"
-msgstr "Mantener proporciones al mostrar medios"
+msgstr "Mantener proporciones al mostrar multimedia"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:65
@@ -261,7 +261,7 @@ msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
-"Escalar medios para que llenen el espacio del contenedor sin cambiar sus "
+"Escalar multimedia para que llenen el espacio del contenedor sin cambiar sus "
 "proporciones sin recortarlos"
 
 #. translators: expand as in enlarge
@@ -1255,11 +1255,11 @@ msgstr "Copiar URL"
 
 #: src/Views/MediaViewer.vala:436 src/Widgets/Attachment/Item.vala:183
 msgid "Save Media"
-msgstr "Guardar medios"
+msgstr "Guardar multimedia"
 
 #: src/Views/MediaViewer.vala:438 src/Widgets/Attachment/Item.vala:185
 msgid "Copy Media"
-msgstr ""
+msgstr "Copiar multimedia"
 
 #: src/Views/MediaViewer.vala:660
 msgid "Previous Attachment"
@@ -1427,7 +1427,7 @@ msgstr "Reaccionar con %s"
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:63
 msgid "Hide Media"
-msgstr "Ocultar medios"
+msgstr "Ocultar multimedia"
 
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:74
