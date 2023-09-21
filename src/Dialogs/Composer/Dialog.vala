@@ -138,7 +138,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	public bool mobile { get; set; default=false; }
 
 	ulong build_sigid;
-
+	public signal void on_paste_activated (string page_title);
 	construct {
 		if (app.main_window.default_width <= 500) {
 			this.default_height = 500;
@@ -146,16 +146,21 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 			mobile = true;
 		}
 
+		var paste_action = new SimpleAction ("paste", null);
+		paste_action.activate.connect (emit_paste_signal);
+
 		var exit_action = new SimpleAction ("exit", null);
 		exit_action.activate.connect (on_exit);
 
 		var action_group = new GLib.SimpleActionGroup ();
+		action_group.add_action (paste_action);
 		action_group.add_action (exit_action);
 
 		this.insert_action_group ("composer", action_group);
 		add_binding_action (Gdk.Key.Escape, 0, "composer.exit", null);
 		add_binding_action (Gdk.Key.W, Gdk.ModifierType.CONTROL_MASK, "composer.exit", null);
 		add_binding_action (Gdk.Key.Q, Gdk.ModifierType.CONTROL_MASK, "composer.exit", null);
+		add_binding_action (Gdk.Key.V, Gdk.ModifierType.CONTROL_MASK, "composer.paste", null);
 
 		transient_for = app.main_window;
 		title_switcher.policy = WIDE;
@@ -183,6 +188,10 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		if (child != null) {
 			this.title = child.title;
 		}
+	}
+
+	void emit_paste_signal () {
+		on_paste_activated (this.title);
 	}
 
 	Adw.MessageDialog? dlg;
