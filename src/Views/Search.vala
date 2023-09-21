@@ -55,6 +55,17 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		return true;
 	}
 
+	void append_results (Gee.ArrayList<Entity> array, Views.ContentBase tab) {
+		if (!array.is_empty) {
+			array.@foreach (e => {
+				append_entity (all_tab, e);
+				append_entity (tab, e);
+
+				return true;
+			});
+		}
+	}
+
 	void request () {
 		query = entry.text.chug ().chomp ();
 		if (query == "") {
@@ -68,31 +79,13 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		API.SearchResults.request.begin (query, accounts.active, (obj, res) => {
 			try {
 				var results = API.SearchResults.request.end (res);
+				bool hashtag = query.has_prefix ("#");
 
-				if (!results.accounts.is_empty) {
-					results.accounts.@foreach (e => {
-						append_entity (all_tab, e);
-						append_entity (accounts_tab, e);
+				if (hashtag) append_results (results.hashtags, hashtags_tab);
 
-						return true;
-					});
-				}
-				if (!results.statuses.is_empty) {
-					results.statuses.@foreach (e => {
-						append_entity (all_tab, e);
-						append_entity (statuses_tab, e);
-
-						return true;
-					});
-				}
-				if (!results.hashtags.is_empty) {
-					results.hashtags.@foreach (e => {
-						append_entity (all_tab, e);
-						append_entity (hashtags_tab, e);
-
-						return true;
-					});
-				}
+				append_results (results.accounts, accounts_tab);
+				append_results (results.statuses, statuses_tab);
+				if (!hashtag) append_results (results.hashtags, hashtags_tab);
 
 				base_status = new StatusMessage ();
 

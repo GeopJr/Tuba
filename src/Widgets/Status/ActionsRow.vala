@@ -41,13 +41,13 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 
 			return true;
 		});
-		bindings += this.status.bind_property ("reblogged", reblog_button, "active", GLib.BindingFlags.SYNC_CREATE);
+		bindings += this.status.bind_property ("reblogged", reblog_button, "active", GLib.BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 		bindings += this.status.bind_property ("reblogs-count", reblog_button, "amount", GLib.BindingFlags.SYNC_CREATE);
 
-		bindings += this.status.bind_property ("favourited", favorite_button, "active", GLib.BindingFlags.SYNC_CREATE);
+		bindings += this.status.bind_property ("favourited", favorite_button, "active", GLib.BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 		bindings += this.status.bind_property ("favourites-count", favorite_button, "amount", GLib.BindingFlags.SYNC_CREATE);
 
-		bindings += this.status.bind_property ("bookmarked", bookmark_button, "active", GLib.BindingFlags.SYNC_CREATE);
+		bindings += this.status.bind_property ("bookmarked", bookmark_button, "active", GLib.BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 	}
 
 	public void unbind () {

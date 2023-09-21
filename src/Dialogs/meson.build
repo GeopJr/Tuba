@@ -7,4 +7,8 @@ sources += files(
     'Saveable.vala',
 )
 
+if devmode
+  sources += files ('DevConsole.vala')
+endif
+
 subdir('Composer')

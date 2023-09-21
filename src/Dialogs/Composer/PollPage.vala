@@ -184,6 +184,7 @@ public class Tuba.PollPage : ComposerPage {
 
 	private void add_poll_row (string? content = null) {
 		var row = new Tuba.PollPage.Poll () {
+			// translators: the variable is a number
 			title = _("Choice %d").printf (poll_options.size + 1)
 		};
 

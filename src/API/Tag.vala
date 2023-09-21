@@ -19,7 +19,9 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	}
 
 	public override void open () {
-		app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url)));
+		#if USE_LISTVIEW
+			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url)));
+		#endif
 	}
 
 	public string weekly_use () {
@@ -59,6 +61,16 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 			w.subtitle = subtitle;
 		}
 
+		#if !USE_LISTVIEW
+			w.activated.connect (on_activated);
+		#endif
+
 		return w;
 	}
+
+	#if !USE_LISTVIEW
+		protected void on_activated () {
+			app.main_window.open_view (new Views.Hashtag (name, following, Path.get_basename (url)));
+		}
+	#endif
 }

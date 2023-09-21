@@ -81,7 +81,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	protected override void on_rebind () {}
 
-	protected override void on_secondary_click () {}
+	protected override void on_secondary_click (int n_press, double x, double y) {}
 
 	protected override void on_click () {
 		if (attachment_file != null) {

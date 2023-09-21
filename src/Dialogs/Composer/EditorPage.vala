@@ -4,6 +4,15 @@ public class Tuba.EditorPage : ComposerPage {
 	protected int64 remaining_chars { get; set; default = 0; }
 	public signal void ctrl_return_pressed ();
 
+	private bool hide_dropdown_arrows {
+		set {
+			Gtk.DropDown?[] dropdown_widgets = {visibility_button, language_button, content_type_button};
+			foreach (Gtk.DropDown? dropdown in dropdown_widgets) {
+				if (dropdown != null) dropdown.show_arrow = !value;
+			}
+		}
+	}
+
 	construct {
 		//  translators: "Text" as in text-based input
 		title = _("Text");
@@ -17,17 +26,23 @@ public class Tuba.EditorPage : ComposerPage {
 
 	public override void on_build () {
 		base.on_build ();
+		bool supports_mime_types = accounts.active.supported_mime_types.n_items > 1;
 
 		install_editor ();
 		install_overlay (status.status);
 		install_visibility (status.visibility);
 		install_languages (status.language);
+
+		if (supports_mime_types)
+			install_content_type_button (settings.default_content_type);
 		add_button (new Gtk.Separator (Gtk.Orientation.VERTICAL));
 		install_cw (status.spoiler_text);
 		add_button (new Gtk.Separator (Gtk.Orientation.VERTICAL));
 		install_emoji_picker ();
 
 		validate ();
+
+		if (supports_mime_types) hide_dropdown_arrows = true;
 	}
 
 	protected virtual signal void recount_chars () {}
@@ -50,6 +65,10 @@ public class Tuba.EditorPage : ComposerPage {
 		if (language_button != null && language_button.selected_item != null) {
 			status.language = ((Tuba.Locales.Locale) language_button.selected_item).locale;
 		}
+
+		if (content_type_button != null && content_type_button.selected_item != null) {
+			status.content_type = ((Tuba.InstanceAccount.StatusContentType) content_type_button.selected_item).mime;
+		}
 	}
 
 	public override void on_modify_body (Json.Builder builder) {
@@ -61,6 +80,11 @@ public class Tuba.EditorPage : ComposerPage {
 
 		builder.set_member_name ("language");
 		builder.add_string_value (status.language);
+
+		if (status.content_type != null) {
+			builder.set_member_name ("content_type");
+			builder.add_string_value (status.content_type);
+		}
 
 		if (status.in_reply_to_id != null && !edit_mode) {
 			builder.set_member_name ("in_reply_to_id");
@@ -256,6 +280,7 @@ public class Tuba.EditorPage : ComposerPage {
 
 	protected Gtk.DropDown visibility_button;
 	protected Gtk.DropDown language_button;
+	protected Gtk.DropDown content_type_button;
 
 	private bool _edit_mode = false;
 	public override bool edit_mode {
@@ -315,5 +340,30 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 
 		add_button (language_button);
+	}
+
+	protected void install_content_type_button (string? content_type) {
+		content_type_button = new Gtk.DropDown (accounts.active.supported_mime_types, null) {
+			expression = new Gtk.PropertyExpression (typeof (Tuba.InstanceAccount.StatusContentType), null, "title"),
+			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/content_type_title.ui"),
+			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/content_type.ui"),
+			tooltip_text = _("Post Content Type"),
+			enable_search = false
+		};
+
+		if (content_type != null) {
+			uint default_content_type_index;
+			if (
+				accounts.active.supported_mime_types.find_with_equal_func (
+					new Tuba.InstanceAccount.StatusContentType (content_type),
+					Tuba.InstanceAccount.StatusContentType.compare,
+					out default_content_type_index
+				)
+			) {
+				content_type_button.selected = default_content_type_index;
+			}
+		}
+
+		add_button (content_type_button);
 	}
 }
