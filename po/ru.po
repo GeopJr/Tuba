@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-21 05:14+0300\n"
-"PO-Revision-Date: 2023-09-19 17:01+0000\n"
+"PO-Revision-Date: 2023-09-22 03:55+0000\n"
 "Last-Translator: Сергей Ворон <voron.s.a@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tuba/tuba/ru/>\n"
 "Language: ru\n"
@@ -1249,7 +1249,7 @@ msgstr "Сохранить медиа"
 
 #: src/Views/MediaViewer.vala:438 src/Widgets/Attachment/Item.vala:185
 msgid "Copy Media"
-msgstr ""
+msgstr "Копировать медиа"
 
 #: src/Views/MediaViewer.vala:660
 msgid "Previous Attachment"
