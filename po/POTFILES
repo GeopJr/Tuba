@@ -62,6 +62,7 @@
 ./src/Views/Thread.vala
 ./src/Widgets/Announcement.vala
 ./src/Widgets/Attachment/Box.vala
+./src/Widgets/Attachment/Image.vala
 ./src/Widgets/Attachment/Item.vala
 ./src/Widgets/BookWyrmPage.vala
 ./src/Widgets/CustomEmojiChooser.vala
