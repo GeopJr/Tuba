@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-19 04:30+0300\n"
+"POT-Creation-Date: 2023-09-21 05:14+0300\n"
 "PO-Revision-Date: 2023-08-31 19:20+0000\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/tuba/tuba/tr/>\n"
@@ -71,11 +71,11 @@ msgid "Refresh"
 msgstr "Yenile"
 
 #: data/gtk/help-overlay.ui:26 src/Services/Accounts/Mastodon/Account.vala:95
-#: src/Views/Main.vala:59 src/Views/Search.vala:14
+#: src/Views/Main.vala:72 src/Views/Search.vala:14
 msgid "Search"
 msgstr "Ara"
 
-#: data/gtk/help-overlay.ui:32 src/Views/MediaViewer.vala:294
+#: data/gtk/help-overlay.ui:32 src/Views/MediaViewer.vala:301
 msgid "Go Back"
 msgstr "Geri Dön"
 
@@ -111,13 +111,13 @@ msgstr "Oluşturucu"
 msgid "Commit"
 msgstr "Gönder"
 
-#: data/ui/dialogs/compose.ui:29 data/ui/dialogs/new_account.ui:20
-#: data/ui/dialogs/profile_edit.ui:24 src/Application.vala:412
-#: src/Dialogs/Composer/Dialog.vala:192
+#: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:20
+#: data/ui/dialogs/profile_edit.ui:24 src/Application.vala:434
+#: src/Dialogs/Composer/Dialog.vala:210
 msgid "Cancel"
 msgstr "İptal Et"
 
-#: data/ui/dialogs/compose.ui:36 src/Dialogs/Composer/Dialog.vala:266
+#: data/ui/dialogs/compose.ui:43 src/Dialogs/Composer/Dialog.vala:284
 msgid "_Publish"
 msgstr "_Yayımla"
 
@@ -391,7 +391,7 @@ msgid ""
 "Combine recently pushed notifications of the same type and post into one"
 msgstr ""
 
-#: data/ui/dialogs/profile_edit.ui:13 src/Views/Profile.vala:123
+#: data/ui/dialogs/profile_edit.ui:13 src/Views/Profile.vala:125
 msgid "Edit Profile"
 msgstr "Profili Düzenle"
 
@@ -418,7 +418,7 @@ msgstr "Görünüm Adı"
 msgid "Bio"
 msgstr "Bio"
 
-#: data/ui/dialogs/profile_edit.ui:142 src/Dialogs/Composer/EditorPage.vala:218
+#: data/ui/dialogs/profile_edit.ui:142 src/Dialogs/Composer/EditorPage.vala:230
 msgid "Custom Emoji Picker"
 msgstr "Özel Emoji Seçici"
 
@@ -455,7 +455,7 @@ msgstr "Sessiz"
 msgid "Report"
 msgstr "Bildir"
 
-#: data/ui/menus.ui:47 src/Views/Profile.vala:236 src/Views/Profile.vala:261
+#: data/ui/menus.ui:47 src/Views/Profile.vala:238 src/Views/Profile.vala:263
 msgid "Block"
 msgstr "Engelle"
 
@@ -480,7 +480,7 @@ msgid "Include Media"
 msgstr "Ortamları İçer"
 
 #: data/ui/menus.ui:108 src/Services/Accounts/Mastodon/Account.vala:86
-#: src/Views/Lists.vala:132
+#: src/Views/Lists.vala:146
 msgid "Lists"
 msgstr "Listeler"
 
@@ -501,33 +501,33 @@ msgstr ""
 msgid "Unread"
 msgstr ""
 
-#: data/ui/widgets/announcement.ui:99 data/ui/widgets/status.ui:171
+#: data/ui/widgets/announcement.ui:99 data/ui/widgets/status.ui:172
 msgid "Edited"
 msgstr "Düzenlendi"
 
-#: data/ui/widgets/status.ui:160
+#: data/ui/widgets/status.ui:161
 msgid "Pinned"
 msgstr "Sabitlenmiş"
 
 #. translators: Tooltip that closes content warning
-#: data/ui/widgets/status.ui:229
+#: data/ui/widgets/status.ui:230
 msgid "Show Less"
 msgstr "Daha Azını Göster"
 
 #. translators: Tooltip that opens content warning
-#: data/ui/widgets/status.ui:262 src/Widgets/Status.vala:353
+#: data/ui/widgets/status.ui:263 src/Widgets/Status.vala:357
 msgid "Show More"
 msgstr "Daha Çoğunu Göster"
 
-#: src/API/Announcement.vala:44 src/Application.vala:194
-#: src/Dialogs/Composer/Dialog.vala:374 src/Dialogs/ProfileEdit.vala:137
+#: src/API/Announcement.vala:44 src/Application.vala:210
+#: src/Dialogs/Composer/Dialog.vala:392 src/Dialogs/ProfileEdit.vala:137
 #: src/Services/Accounts/AccountStore.vala:41
 #: src/Services/Accounts/Mastodon/Account.vala:243
 #: src/Services/Accounts/SecretAccountStore.vala:122
 #: src/Services/Accounts/SecretAccountStore.vala:220
-#: src/Views/MediaViewer.vala:526 src/Views/Sidebar.vala:213
-#: src/Widgets/Announcement.vala:181 src/Widgets/Attachment/Item.vala:194
-#: src/Widgets/VoteBox.vala:28
+#: src/Views/MediaViewer.vala:569 src/Views/Sidebar.vala:213
+#: src/Widgets/Announcement.vala:181 src/Widgets/Attachment/Image.vala:90
+#: src/Widgets/Attachment/Item.vala:209 src/Widgets/VoteBox.vala:28
 msgid "Error"
 msgstr "Hata"
 
@@ -636,35 +636,35 @@ msgid "Account not found"
 msgstr "Hesap bulunamadı"
 
 #. translators: the variable is the amount of times a hashtag was used in a week
-#: src/API/Tag.vala:34
+#: src/API/Tag.vala:36
 #, c-format
 msgid "%d per week"
 msgstr "%d her hafta"
 
 #. translators: the variables are numbers
-#: src/API/Tag.vala:48
+#: src/API/Tag.vala:50
 #, c-format
 msgid "Used %d times by %d people yesterday"
 msgstr "Dün %d defa %d kişi tarafından kullanıldı"
 
 #. translators: the variables are numbers
-#: src/API/Tag.vala:56
+#: src/API/Tag.vala:58
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
 msgstr "Son 2 günde %d defa %d kişi tarafından kullanıldı"
 
 #. translators: Name <email@domain.com> or Name https://website.example
-#: src/Application.vala:374
+#: src/Application.vala:396
 msgid "translator-credits"
 msgstr ""
 "Sabri Ünal <libreajans@gmail.com>\n"
 "Weblate Katkıcıları"
 
-#: src/Application.vala:401
+#: src/Application.vala:423
 msgid "OK"
 msgstr "Tamam"
 
-#: src/Application.vala:410
+#: src/Application.vala:432
 msgid "Yes"
 msgstr "Evet"
 
@@ -677,12 +677,12 @@ msgid "Remove Attachment"
 msgstr "Eki Kaldır"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:152
-#: src/Dialogs/Composer/EditorPage.vala:162
+#: src/Dialogs/Composer/EditorPage.vala:174
 msgid "Characters Left"
 msgstr "Kalan Karakter"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:172
-#: src/Widgets/Attachment/Item.vala:157
+#: src/Widgets/Attachment/Item.vala:163
 msgid "Alternative text for attachment"
 msgstr "Ek için alternatif metin"
 
@@ -698,91 +698,91 @@ msgstr "Ortam"
 msgid "Paste"
 msgstr ""
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:220
-#: src/Dialogs/Composer/AttachmentsPage.vala:246
+#: src/Dialogs/Composer/AttachmentsPage.vala:212
+#: src/Dialogs/Composer/AttachmentsPage.vala:238
 msgid "Add Media"
 msgstr "Ortam Ekle"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:229
+#: src/Dialogs/Composer/AttachmentsPage.vala:221
 msgid "No Media"
 msgstr "Ortam Yok"
 
 #. translators: sensitive as in not safe for work or similar
-#: src/Dialogs/Composer/AttachmentsPage.vala:256
-#: src/Dialogs/Composer/AttachmentsPage.vala:273
+#: src/Dialogs/Composer/AttachmentsPage.vala:248
+#: src/Dialogs/Composer/AttachmentsPage.vala:265
 msgid "Mark media as sensitive"
 msgstr "Ortamı hassas olarak imle"
 
 #. translators: sensitive as in not safe for work or similar
-#: src/Dialogs/Composer/AttachmentsPage.vala:272
+#: src/Dialogs/Composer/AttachmentsPage.vala:264
 msgid "Unmark media as sensitive"
 msgstr "Ortamın hassas olarak imlenmesini kaldır"
 
 #. translators: Open file
-#: src/Dialogs/Composer/AttachmentsPage.vala:371
+#: src/Dialogs/Composer/AttachmentsPage.vala:369
 #: src/Dialogs/ProfileEdit.vala:221
 msgid "Open"
 msgstr "Aç"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:435
+#: src/Dialogs/Composer/AttachmentsPage.vala:433
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
 msgstr "\"%s\" dosyası örnek sınırından büyük"
 
-#: src/Dialogs/Composer/Dialog.vala:187
+#: src/Dialogs/Composer/Dialog.vala:205
 msgid "Are you sure you want to exit?"
 msgstr "Çıkmak istediğinize emin misiniz?"
 
-#: src/Dialogs/Composer/Dialog.vala:188
+#: src/Dialogs/Composer/Dialog.vala:206
 msgid "Your progress will be lost."
 msgstr "İlerlemeniz kaybolacak."
 
-#: src/Dialogs/Composer/Dialog.vala:190
+#: src/Dialogs/Composer/Dialog.vala:208
 msgid "Discard"
 msgstr "Gözden Çıkar"
 
-#: src/Dialogs/Composer/Dialog.vala:275
+#: src/Dialogs/Composer/Dialog.vala:293
 msgid "_Redraft"
 msgstr "_Yeniden Taslakla"
 
-#: src/Dialogs/Composer/Dialog.vala:300
+#: src/Dialogs/Composer/Dialog.vala:318
 msgid "_Edit"
 msgstr "Dü_zenle"
 
-#: src/Dialogs/Composer/Dialog.vala:321
+#: src/Dialogs/Composer/Dialog.vala:339
 msgid "_Reply"
 msgstr "_Yanıtla"
 
 #. translators: "Text" as in text-based input
-#: src/Dialogs/Composer/EditorPage.vala:9
+#: src/Dialogs/Composer/EditorPage.vala:18
 msgid "Text"
 msgstr "Metin"
 
-#: src/Dialogs/Composer/EditorPage.vala:181
+#: src/Dialogs/Composer/EditorPage.vala:193
 msgid "What's on your mind?"
 msgstr "Aklınızdaki nedir?"
 
-#: src/Dialogs/Composer/EditorPage.vala:208
+#: src/Dialogs/Composer/EditorPage.vala:220
 msgid "Emoji Picker"
 msgstr "Emoji Seçici"
 
-#: src/Dialogs/Composer/EditorPage.vala:235
+#: src/Dialogs/Composer/EditorPage.vala:247
 msgid "Write your warning here"
 msgstr "Uyarınızı buraya yazın"
 
-#: src/Dialogs/Composer/EditorPage.vala:250
+#: src/Dialogs/Composer/EditorPage.vala:262
 msgid "Content Warning"
 msgstr "İçerik Uyarısı"
 
-#: src/Dialogs/Composer/EditorPage.vala:290
+#: src/Dialogs/Composer/EditorPage.vala:302
 msgid "Post Privacy"
 msgstr "İleti Gizliliği"
 
-#: src/Dialogs/Composer/EditorPage.vala:313
+#: src/Dialogs/Composer/EditorPage.vala:325
 msgid "Post Language"
 msgstr "İleti Dili"
 
-#: src/Dialogs/Composer/EditorPage.vala:338
+#: src/Dialogs/Composer/EditorPage.vala:350
 msgid "Post Content Type"
 msgstr ""
 
@@ -881,7 +881,7 @@ msgstr "Sona erme"
 
 #: src/Dialogs/MainWindow.vala:37
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
-#: src/Views/Main.vala:66
+#: src/Views/Main.vala:79
 msgid "Home"
 msgstr "Ev"
 
@@ -930,47 +930,47 @@ msgstr "İçerik"
 msgid "Field %d"
 msgstr "Alan %d"
 
-#: src/Services/Accounts/InstanceAccount.vala:160
+#: src/Services/Accounts/InstanceAccount.vala:178
 #, c-format
 msgid "%s mentioned you"
 msgstr "%s size atıf yaptı"
 
-#: src/Services/Accounts/InstanceAccount.vala:167
+#: src/Services/Accounts/InstanceAccount.vala:185
 #, c-format
 msgid "%s boosted your post"
 msgstr "%s iletinizi yeniden gönderdi"
 
-#: src/Services/Accounts/InstanceAccount.vala:174
+#: src/Services/Accounts/InstanceAccount.vala:192
 #, c-format
 msgid "%s boosted"
 msgstr "%s yeniden gönderdi"
 
-#: src/Services/Accounts/InstanceAccount.vala:181
+#: src/Services/Accounts/InstanceAccount.vala:199
 #, c-format
 msgid "%s favorited your post"
 msgstr "%s iletinizi gözdelere ekledi"
 
-#: src/Services/Accounts/InstanceAccount.vala:188
+#: src/Services/Accounts/InstanceAccount.vala:206
 #, c-format
 msgid "%s now follows you"
 msgstr "%s artık sizi takip ediyor"
 
-#: src/Services/Accounts/InstanceAccount.vala:195
+#: src/Services/Accounts/InstanceAccount.vala:213
 #, c-format
 msgid "%s wants to follow you"
 msgstr "%s sizi takip etmek istiyor"
 
-#: src/Services/Accounts/InstanceAccount.vala:202
+#: src/Services/Accounts/InstanceAccount.vala:220
 msgid "Poll results"
 msgstr "Anket sonuçları"
 
-#: src/Services/Accounts/InstanceAccount.vala:209
+#: src/Services/Accounts/InstanceAccount.vala:227
 #, c-format
 msgid "%s edited a post"
 msgstr "%s bir iletiyi düzenledi"
 
 #. translators: this is a content type
-#: src/Services/Accounts/InstanceAccount.vala:244
+#: src/Services/Accounts/InstanceAccount.vala:262
 msgid "Plain Text"
 msgstr ""
 
@@ -1057,17 +1057,17 @@ msgid "%s Account"
 msgstr "%s Hesabı"
 
 #. translators: Follow System's dark mode preference
-#: src/Services/Settings.vala:81
+#: src/Services/Settings.vala:83
 msgid "Follow System"
 msgstr "Sistemi İzle"
 
 #. translators: Light mode theme
-#: src/Services/Settings.vala:84
+#: src/Services/Settings.vala:86
 msgid "Light"
 msgstr "Açık"
 
 #. translators: Dark mode theme
-#: src/Services/Settings.vala:87
+#: src/Services/Settings.vala:89
 msgid "Dark"
 msgstr "Koyu"
 
@@ -1165,11 +1165,11 @@ msgstr ""
 msgid "Nothing to see here"
 msgstr "Gösterilecek hiç bir şey yok"
 
-#: src/Views/Base.vala:85
+#: src/Views/Base.vala:89
 msgid "Reload"
 msgstr "Yeniden Yükle"
 
-#: src/Views/Base.vala:144
+#: src/Views/Base.vala:148
 msgid "An Error Occurred"
 msgstr "Hata Oluştu"
 
@@ -1204,63 +1204,67 @@ msgstr "Takibi Bırak"
 msgid "Compose"
 msgstr "Oluştur"
 
-#: src/Views/Lists.vala:53
+#: src/Views/Lists.vala:57
 #, c-format
 msgid "Delete \"%s\"?"
 msgstr "\"%s\" silinsin mi?"
 
-#: src/Views/Lists.vala:54
+#: src/Views/Lists.vala:58
 msgid "This action cannot be reverted."
 msgstr "Bu eylem geri alınamaz."
 
-#: src/Views/Lists.vala:56 src/Widgets/Status.vala:266
-#: src/Widgets/Status.vala:327
+#: src/Views/Lists.vala:60 src/Widgets/Status.vala:270
+#: src/Widgets/Status.vala:331
 msgid "Delete"
 msgstr "Sil"
 
-#: src/Views/Lists.vala:127
+#: src/Views/Lists.vala:141
 msgid "New list title"
 msgstr "Yeni liste başlığı"
 
-#: src/Views/Lists.vala:142
+#: src/Views/Lists.vala:156
 msgid "Add list"
 msgstr "Liste ekle"
 
-#: src/Views/MediaViewer.vala:288
+#: src/Views/MediaViewer.vala:295
 msgid "Media Viewer"
 msgstr "Ortam Görüntüleyici"
 
-#: src/Views/MediaViewer.vala:301
+#: src/Views/MediaViewer.vala:308
 msgid "Toggle Fullscreen"
 msgstr "Tam Ekranı Aç/Kapat"
 
-#: src/Views/MediaViewer.vala:418 src/Widgets/Attachment/Item.vala:175
-#: src/Widgets/Status.vala:247
+#: src/Views/MediaViewer.vala:434 src/Widgets/Attachment/Item.vala:181
+#: src/Widgets/Status.vala:251
 msgid "Open in Browser"
 msgstr "Tarayıcıda Aç"
 
-#: src/Views/MediaViewer.vala:419 src/Widgets/Attachment/Item.vala:176
-#: src/Widgets/Status.vala:248
+#: src/Views/MediaViewer.vala:435 src/Widgets/Attachment/Item.vala:182
+#: src/Widgets/Status.vala:252
 msgid "Copy URL"
 msgstr "URL’yi Kopyala"
 
-#: src/Views/MediaViewer.vala:420 src/Widgets/Attachment/Item.vala:177
+#: src/Views/MediaViewer.vala:436 src/Widgets/Attachment/Item.vala:183
 msgid "Save Media"
 msgstr "Ortamı Kaydet"
 
-#: src/Views/MediaViewer.vala:617
+#: src/Views/MediaViewer.vala:438 src/Widgets/Attachment/Item.vala:185
+msgid "Copy Media"
+msgstr ""
+
+#: src/Views/MediaViewer.vala:660
 msgid "Previous Attachment"
 msgstr "Önceki Ek"
 
-#: src/Views/MediaViewer.vala:622
+#: src/Views/MediaViewer.vala:665
 msgid "Next Attachment"
 msgstr "Sonraki Ek"
 
-#: src/Views/MediaViewer.vala:640
+#: src/Views/MediaViewer.vala:683
 msgid "Zoom Out"
 msgstr "Uzaklaştır"
 
-#: src/Views/MediaViewer.vala:645
+#: src/Views/MediaViewer.vala:688
 msgid "Zoom In"
 msgstr "Yakınlaştır"
 
@@ -1268,32 +1272,32 @@ msgstr "Yakınlaştır"
 msgid "Profile"
 msgstr "Profil"
 
-#: src/Views/Profile.vala:230
+#: src/Views/Profile.vala:232
 #, c-format
 msgid "Block \"%s\"?"
 msgstr "\"%s\" engellensin mi?"
 
-#: src/Views/Profile.vala:230
+#: src/Views/Profile.vala:232
 #, c-format
 msgid "Unblock \"%s\"?"
 msgstr "\"%s\" engeli kaldırılsın mı?"
 
-#: src/Views/Profile.vala:236 src/Views/Profile.vala:261
+#: src/Views/Profile.vala:238 src/Views/Profile.vala:263
 #: src/Widgets/RelationshipButton.vala:39
 msgid "Unblock"
 msgstr "Engellemeyi Kaldır"
 
-#: src/Views/Profile.vala:254
+#: src/Views/Profile.vala:256
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr "Tüm \"%s\" engellensin mi?"
 
-#: src/Views/Profile.vala:254
+#: src/Views/Profile.vala:256
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr "Tüm \"%s\" engeli kaldırılsın mı?"
 
-#: src/Views/Profile.vala:258
+#: src/Views/Profile.vala:260
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -1308,41 +1312,41 @@ msgstr ""
 "- Kullanıcılarını takip etmenizi engeller"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:354
+#: src/Views/Profile.vala:356
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
 msgstr "\"%s\" listeye ekle ya da listeden kaldır"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:366
+#: src/Views/Profile.vala:368
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr "\"%s\" eklemek/kaldırmak istediğiniz listeyi seçin:"
 
-#: src/Views/Profile.vala:372
+#: src/Views/Profile.vala:374
 msgid "You don't have any lists"
 msgstr "Henüz listeniz yok"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:402 src/Views/Profile.vala:464
+#: src/Views/Profile.vala:404 src/Views/Profile.vala:466
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr "\"%s\", \"%s\" listesinden kaldır"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:403 src/Views/Profile.vala:458
+#: src/Views/Profile.vala:405 src/Views/Profile.vala:460
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr "\"%s\", \"%s\" listesine ekle"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:455
+#: src/Views/Profile.vala:457
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr "\"%s\" kullanıcısı \"%s\" listesinden kaldırıldı"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:461
+#: src/Views/Profile.vala:463
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr "\"%s\" kullanıcısı \"%s\" listesine eklendi"
@@ -1356,7 +1360,7 @@ msgstr "Tümü"
 msgid "Accounts"
 msgstr "Hesaplar"
 
-#: src/Views/Search.vala:62
+#: src/Views/Search.vala:73
 msgid "Enter Query"
 msgstr "Sorgu Gir"
 
@@ -1400,7 +1404,7 @@ msgstr "Gözdelere Eklendi"
 msgid "Boosted By"
 msgstr "Yeniden Gönderildi"
 
-#: src/Views/Thread.vala:34
+#: src/Views/Thread.vala:31
 msgid "Conversation"
 msgstr "Konuşma"
 
@@ -1424,7 +1428,7 @@ msgstr ""
 msgid "Save Attachment"
 msgstr "Eki Kaydet"
 
-#: src/Widgets/Attachment/Item.vala:110
+#: src/Widgets/Attachment/Item.vala:116
 msgid "View Alt Text"
 msgstr "Alt Metni Göster"
 
@@ -1474,7 +1478,7 @@ msgstr "Son 2 günde %d defa %d kişi tarafından konuşuldu"
 #. Please do not stray far from the original and only include day, month
 #. and year.
 #. If unsure, either leave it as-is or set it to %x.
-#: src/Widgets/ProfileCover.vala:142 src/Widgets/Status.vala:374
+#: src/Widgets/ProfileCover.vala:142 src/Widgets/Status.vala:378
 msgid "%B %e, %Y"
 msgstr "%-e %B %Y"
 
@@ -1527,33 +1531,33 @@ msgid "Network Error"
 msgstr "Ağ Hatası"
 
 #. translators: as in post stats (who liked and boosted)
-#: src/Widgets/Status.vala:251
+#: src/Widgets/Status.vala:255
 msgid "View Stats"
 msgstr "İstatistikleri Göster"
 
-#: src/Widgets/Status.vala:255
+#: src/Widgets/Status.vala:259
 msgid "View Edit History"
 msgstr "Düzenleme Geçmişini Göster"
 
 #. translators: Pin post on profile
-#: src/Widgets/Status.vala:260 src/Widgets/Status.vala:492
+#: src/Widgets/Status.vala:264 src/Widgets/Status.vala:496
 msgid "Pin"
 msgstr "Sabitle"
 
-#: src/Widgets/Status.vala:265
+#: src/Widgets/Status.vala:269
 msgid "Edit"
 msgstr "Düzenle"
 
-#: src/Widgets/Status.vala:324
+#: src/Widgets/Status.vala:328
 msgid "Are you sure you want to delete this post?"
 msgstr "Bu iletiyi silmek istediğinize emin misiniz?"
 
-#: src/Widgets/Status.vala:360
+#: src/Widgets/Status.vala:364
 msgid "Sensitive"
 msgstr "Hassas"
 
 #. translators: Unpin post from profile
-#: src/Widgets/Status.vala:490
+#: src/Widgets/Status.vala:494
 msgid "Unpin"
 msgstr "Sabitlemeyi Kaldır"
 

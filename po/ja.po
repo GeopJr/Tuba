@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-19 04:30+0300\n"
+"POT-Creation-Date: 2023-09-21 05:14+0300\n"
 "PO-Revision-Date: 2023-07-22 06:29+0000\n"
 "Last-Translator: Gnuey56 <gnuey56@proton.me>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/tuba/tuba/ja/>\n"
@@ -71,11 +71,11 @@ msgid "Refresh"
 msgstr "更新"
 
 #: data/gtk/help-overlay.ui:26 src/Services/Accounts/Mastodon/Account.vala:95
-#: src/Views/Main.vala:59 src/Views/Search.vala:14
+#: src/Views/Main.vala:72 src/Views/Search.vala:14
 msgid "Search"
 msgstr "検索"
 
-#: data/gtk/help-overlay.ui:32 src/Views/MediaViewer.vala:294
+#: data/gtk/help-overlay.ui:32 src/Views/MediaViewer.vala:301
 msgid "Go Back"
 msgstr "戻る"
 
@@ -111,13 +111,13 @@ msgstr ""
 msgid "Commit"
 msgstr ""
 
-#: data/ui/dialogs/compose.ui:29 data/ui/dialogs/new_account.ui:20
-#: data/ui/dialogs/profile_edit.ui:24 src/Application.vala:412
-#: src/Dialogs/Composer/Dialog.vala:192
+#: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:20
+#: data/ui/dialogs/profile_edit.ui:24 src/Application.vala:434
+#: src/Dialogs/Composer/Dialog.vala:210
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: data/ui/dialogs/compose.ui:36 src/Dialogs/Composer/Dialog.vala:266
+#: data/ui/dialogs/compose.ui:43 src/Dialogs/Composer/Dialog.vala:284
 msgid "_Publish"
 msgstr "投稿(_P)"
 
@@ -391,7 +391,7 @@ msgid ""
 "Combine recently pushed notifications of the same type and post into one"
 msgstr ""
 
-#: data/ui/dialogs/profile_edit.ui:13 src/Views/Profile.vala:123
+#: data/ui/dialogs/profile_edit.ui:13 src/Views/Profile.vala:125
 msgid "Edit Profile"
 msgstr ""
 
@@ -418,7 +418,7 @@ msgstr ""
 msgid "Bio"
 msgstr ""
 
-#: data/ui/dialogs/profile_edit.ui:142 src/Dialogs/Composer/EditorPage.vala:218
+#: data/ui/dialogs/profile_edit.ui:142 src/Dialogs/Composer/EditorPage.vala:230
 msgid "Custom Emoji Picker"
 msgstr ""
 
@@ -456,7 +456,7 @@ msgstr "ミュート"
 msgid "Report"
 msgstr "報告"
 
-#: data/ui/menus.ui:47 src/Views/Profile.vala:236 src/Views/Profile.vala:261
+#: data/ui/menus.ui:47 src/Views/Profile.vala:238 src/Views/Profile.vala:263
 msgid "Block"
 msgstr "ブロック"
 
@@ -481,7 +481,7 @@ msgid "Include Media"
 msgstr "メディアを含める"
 
 #: data/ui/menus.ui:108 src/Services/Accounts/Mastodon/Account.vala:86
-#: src/Views/Lists.vala:132
+#: src/Views/Lists.vala:146
 msgid "Lists"
 msgstr "リスト"
 
@@ -502,33 +502,33 @@ msgstr ""
 msgid "Unread"
 msgstr ""
 
-#: data/ui/widgets/announcement.ui:99 data/ui/widgets/status.ui:171
+#: data/ui/widgets/announcement.ui:99 data/ui/widgets/status.ui:172
 msgid "Edited"
 msgstr "編集済み"
 
-#: data/ui/widgets/status.ui:160
+#: data/ui/widgets/status.ui:161
 msgid "Pinned"
 msgstr "ピン留め"
 
 #. translators: Tooltip that closes content warning
-#: data/ui/widgets/status.ui:229
+#: data/ui/widgets/status.ui:230
 msgid "Show Less"
 msgstr "表示を減らす"
 
 #. translators: Tooltip that opens content warning
-#: data/ui/widgets/status.ui:262 src/Widgets/Status.vala:353
+#: data/ui/widgets/status.ui:263 src/Widgets/Status.vala:357
 msgid "Show More"
 msgstr "もっと見る"
 
-#: src/API/Announcement.vala:44 src/Application.vala:194
-#: src/Dialogs/Composer/Dialog.vala:374 src/Dialogs/ProfileEdit.vala:137
+#: src/API/Announcement.vala:44 src/Application.vala:210
+#: src/Dialogs/Composer/Dialog.vala:392 src/Dialogs/ProfileEdit.vala:137
 #: src/Services/Accounts/AccountStore.vala:41
 #: src/Services/Accounts/Mastodon/Account.vala:243
 #: src/Services/Accounts/SecretAccountStore.vala:122
 #: src/Services/Accounts/SecretAccountStore.vala:220
-#: src/Views/MediaViewer.vala:526 src/Views/Sidebar.vala:213
-#: src/Widgets/Announcement.vala:181 src/Widgets/Attachment/Item.vala:194
-#: src/Widgets/VoteBox.vala:28
+#: src/Views/MediaViewer.vala:569 src/Views/Sidebar.vala:213
+#: src/Widgets/Announcement.vala:181 src/Widgets/Attachment/Image.vala:90
+#: src/Widgets/Attachment/Item.vala:209 src/Widgets/VoteBox.vala:28
 msgid "Error"
 msgstr "エラー"
 
@@ -637,33 +637,33 @@ msgid "Account not found"
 msgstr ""
 
 #. translators: the variable is the amount of times a hashtag was used in a week
-#: src/API/Tag.vala:34
+#: src/API/Tag.vala:36
 #, c-format
 msgid "%d per week"
 msgstr ""
 
 #. translators: the variables are numbers
-#: src/API/Tag.vala:48
+#: src/API/Tag.vala:50
 #, c-format
 msgid "Used %d times by %d people yesterday"
 msgstr "昨日は、%d人が%d回使用しました"
 
 #. translators: the variables are numbers
-#: src/API/Tag.vala:56
+#: src/API/Tag.vala:58
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
 msgstr "2日間で%d人が%d回使用しました"
 
 #. translators: Name <email@domain.com> or Name https://website.example
-#: src/Application.vala:374
+#: src/Application.vala:396
 msgid "translator-credits"
 msgstr "Gnuey56 <gnuey56@proton.me>"
 
-#: src/Application.vala:401
+#: src/Application.vala:423
 msgid "OK"
 msgstr ""
 
-#: src/Application.vala:410
+#: src/Application.vala:432
 msgid "Yes"
 msgstr "はい"
 
@@ -676,12 +676,12 @@ msgid "Remove Attachment"
 msgstr "添付を削除"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:152
-#: src/Dialogs/Composer/EditorPage.vala:162
+#: src/Dialogs/Composer/EditorPage.vala:174
 msgid "Characters Left"
 msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:172
-#: src/Widgets/Attachment/Item.vala:157
+#: src/Widgets/Attachment/Item.vala:163
 msgid "Alternative text for attachment"
 msgstr ""
 
@@ -697,91 +697,91 @@ msgstr "メディア"
 msgid "Paste"
 msgstr ""
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:220
-#: src/Dialogs/Composer/AttachmentsPage.vala:246
+#: src/Dialogs/Composer/AttachmentsPage.vala:212
+#: src/Dialogs/Composer/AttachmentsPage.vala:238
 msgid "Add Media"
 msgstr "メディアを追加"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:229
+#: src/Dialogs/Composer/AttachmentsPage.vala:221
 msgid "No Media"
 msgstr "メディアはありません"
 
 #. translators: sensitive as in not safe for work or similar
-#: src/Dialogs/Composer/AttachmentsPage.vala:256
-#: src/Dialogs/Composer/AttachmentsPage.vala:273
+#: src/Dialogs/Composer/AttachmentsPage.vala:248
+#: src/Dialogs/Composer/AttachmentsPage.vala:265
 msgid "Mark media as sensitive"
 msgstr "メディアを閲覧注意に設定"
 
 #. translators: sensitive as in not safe for work or similar
-#: src/Dialogs/Composer/AttachmentsPage.vala:272
+#: src/Dialogs/Composer/AttachmentsPage.vala:264
 msgid "Unmark media as sensitive"
 msgstr "閲覧注意を取り消し"
 
 #. translators: Open file
-#: src/Dialogs/Composer/AttachmentsPage.vala:371
+#: src/Dialogs/Composer/AttachmentsPage.vala:369
 #: src/Dialogs/ProfileEdit.vala:221
 msgid "Open"
 msgstr "開く"
 
-#: src/Dialogs/Composer/AttachmentsPage.vala:435
+#: src/Dialogs/Composer/AttachmentsPage.vala:433
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
 msgstr "ファイル\"%s\"はインスタンスの限界容量を越えています"
 
-#: src/Dialogs/Composer/Dialog.vala:187
+#: src/Dialogs/Composer/Dialog.vala:205
 msgid "Are you sure you want to exit?"
 msgstr ""
 
-#: src/Dialogs/Composer/Dialog.vala:188
+#: src/Dialogs/Composer/Dialog.vala:206
 msgid "Your progress will be lost."
 msgstr ""
 
-#: src/Dialogs/Composer/Dialog.vala:190
+#: src/Dialogs/Composer/Dialog.vala:208
 msgid "Discard"
 msgstr ""
 
-#: src/Dialogs/Composer/Dialog.vala:275
+#: src/Dialogs/Composer/Dialog.vala:293
 msgid "_Redraft"
 msgstr "再投稿(_R)"
 
-#: src/Dialogs/Composer/Dialog.vala:300
+#: src/Dialogs/Composer/Dialog.vala:318
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: src/Dialogs/Composer/Dialog.vala:321
+#: src/Dialogs/Composer/Dialog.vala:339
 msgid "_Reply"
 msgstr "リプライ(_R)"
 
 #. translators: "Text" as in text-based input
-#: src/Dialogs/Composer/EditorPage.vala:9
+#: src/Dialogs/Composer/EditorPage.vala:18
 msgid "Text"
 msgstr "文章"
 
-#: src/Dialogs/Composer/EditorPage.vala:181
+#: src/Dialogs/Composer/EditorPage.vala:193
 msgid "What's on your mind?"
 msgstr "今なにしてる？"
 
-#: src/Dialogs/Composer/EditorPage.vala:208
+#: src/Dialogs/Composer/EditorPage.vala:220
 msgid "Emoji Picker"
 msgstr "絵文字ピッカー"
 
-#: src/Dialogs/Composer/EditorPage.vala:235
+#: src/Dialogs/Composer/EditorPage.vala:247
 msgid "Write your warning here"
 msgstr "コンテンツの警告を記入"
 
-#: src/Dialogs/Composer/EditorPage.vala:250
+#: src/Dialogs/Composer/EditorPage.vala:262
 msgid "Content Warning"
 msgstr "閲覧注意"
 
-#: src/Dialogs/Composer/EditorPage.vala:290
+#: src/Dialogs/Composer/EditorPage.vala:302
 msgid "Post Privacy"
 msgstr "公開範囲"
 
-#: src/Dialogs/Composer/EditorPage.vala:313
+#: src/Dialogs/Composer/EditorPage.vala:325
 msgid "Post Language"
 msgstr ""
 
-#: src/Dialogs/Composer/EditorPage.vala:338
+#: src/Dialogs/Composer/EditorPage.vala:350
 msgid "Post Content Type"
 msgstr ""
 
@@ -880,7 +880,7 @@ msgstr ""
 
 #: src/Dialogs/MainWindow.vala:37
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
-#: src/Views/Main.vala:66
+#: src/Views/Main.vala:79
 msgid "Home"
 msgstr "ホーム"
 
@@ -929,47 +929,47 @@ msgstr ""
 msgid "Field %d"
 msgstr ""
 
-#: src/Services/Accounts/InstanceAccount.vala:160
+#: src/Services/Accounts/InstanceAccount.vala:178
 #, c-format
 msgid "%s mentioned you"
 msgstr "%s さんがあなたに言及しました"
 
-#: src/Services/Accounts/InstanceAccount.vala:167
+#: src/Services/Accounts/InstanceAccount.vala:185
 #, c-format
 msgid "%s boosted your post"
 msgstr "%s さんがあなたの投稿をブースト"
 
-#: src/Services/Accounts/InstanceAccount.vala:174
+#: src/Services/Accounts/InstanceAccount.vala:192
 #, c-format
 msgid "%s boosted"
 msgstr "%s さんがブースト"
 
-#: src/Services/Accounts/InstanceAccount.vala:181
+#: src/Services/Accounts/InstanceAccount.vala:199
 #, c-format
 msgid "%s favorited your post"
 msgstr "%s さんがあなたの投稿をお気に入りに"
 
-#: src/Services/Accounts/InstanceAccount.vala:188
+#: src/Services/Accounts/InstanceAccount.vala:206
 #, c-format
 msgid "%s now follows you"
 msgstr "%s さんが今あなたをフォローしました"
 
-#: src/Services/Accounts/InstanceAccount.vala:195
+#: src/Services/Accounts/InstanceAccount.vala:213
 #, fuzzy, c-format
 msgid "%s wants to follow you"
 msgstr "%s さんがあなたをフォローしたがっています"
 
-#: src/Services/Accounts/InstanceAccount.vala:202
+#: src/Services/Accounts/InstanceAccount.vala:220
 msgid "Poll results"
 msgstr "投票結果"
 
-#: src/Services/Accounts/InstanceAccount.vala:209
+#: src/Services/Accounts/InstanceAccount.vala:227
 #, c-format
 msgid "%s edited a post"
 msgstr ""
 
 #. translators: this is a content type
-#: src/Services/Accounts/InstanceAccount.vala:244
+#: src/Services/Accounts/InstanceAccount.vala:262
 msgid "Plain Text"
 msgstr ""
 
@@ -1056,17 +1056,17 @@ msgid "%s Account"
 msgstr "%s アカウント"
 
 #. translators: Follow System's dark mode preference
-#: src/Services/Settings.vala:81
+#: src/Services/Settings.vala:83
 msgid "Follow System"
 msgstr "システムに従う"
 
 #. translators: Light mode theme
-#: src/Services/Settings.vala:84
+#: src/Services/Settings.vala:86
 msgid "Light"
 msgstr "明るい"
 
 #. translators: Dark mode theme
-#: src/Services/Settings.vala:87
+#: src/Services/Settings.vala:89
 msgid "Dark"
 msgstr "暗い"
 
@@ -1164,11 +1164,11 @@ msgstr ""
 msgid "Nothing to see here"
 msgstr "ここには何もありません"
 
-#: src/Views/Base.vala:85
+#: src/Views/Base.vala:89
 msgid "Reload"
 msgstr "読み込み"
 
-#: src/Views/Base.vala:144
+#: src/Views/Base.vala:148
 msgid "An Error Occurred"
 msgstr "エラーが発生しました"
 
@@ -1204,63 +1204,67 @@ msgstr "フォロー解除"
 msgid "Compose"
 msgstr "投稿"
 
-#: src/Views/Lists.vala:53
+#: src/Views/Lists.vala:57
 #, c-format
 msgid "Delete \"%s\"?"
 msgstr "\"%s\"を削除しますか？"
 
-#: src/Views/Lists.vala:54
+#: src/Views/Lists.vala:58
 msgid "This action cannot be reverted."
 msgstr "このアクションは元に戻せません。"
 
-#: src/Views/Lists.vala:56 src/Widgets/Status.vala:266
-#: src/Widgets/Status.vala:327
+#: src/Views/Lists.vala:60 src/Widgets/Status.vala:270
+#: src/Widgets/Status.vala:331
 msgid "Delete"
 msgstr "削除"
 
-#: src/Views/Lists.vala:127
+#: src/Views/Lists.vala:141
 msgid "New list title"
 msgstr "新しいリストのタイトル"
 
-#: src/Views/Lists.vala:142
+#: src/Views/Lists.vala:156
 msgid "Add list"
 msgstr "リストを追加"
 
-#: src/Views/MediaViewer.vala:288
+#: src/Views/MediaViewer.vala:295
 msgid "Media Viewer"
 msgstr "メディアビューアー"
 
-#: src/Views/MediaViewer.vala:301
+#: src/Views/MediaViewer.vala:308
 msgid "Toggle Fullscreen"
 msgstr "フルスクリーンの切り替え"
 
-#: src/Views/MediaViewer.vala:418 src/Widgets/Attachment/Item.vala:175
-#: src/Widgets/Status.vala:247
+#: src/Views/MediaViewer.vala:434 src/Widgets/Attachment/Item.vala:181
+#: src/Widgets/Status.vala:251
 msgid "Open in Browser"
 msgstr "ブラウザーで開く"
 
-#: src/Views/MediaViewer.vala:419 src/Widgets/Attachment/Item.vala:176
-#: src/Widgets/Status.vala:248
+#: src/Views/MediaViewer.vala:435 src/Widgets/Attachment/Item.vala:182
+#: src/Widgets/Status.vala:252
 msgid "Copy URL"
 msgstr "URLをコピー"
 
-#: src/Views/MediaViewer.vala:420 src/Widgets/Attachment/Item.vala:177
+#: src/Views/MediaViewer.vala:436 src/Widgets/Attachment/Item.vala:183
 msgid "Save Media"
 msgstr "メディアを保存"
 
-#: src/Views/MediaViewer.vala:617
+#: src/Views/MediaViewer.vala:438 src/Widgets/Attachment/Item.vala:185
+msgid "Copy Media"
+msgstr ""
+
+#: src/Views/MediaViewer.vala:660
 msgid "Previous Attachment"
 msgstr ""
 
-#: src/Views/MediaViewer.vala:622
+#: src/Views/MediaViewer.vala:665
 msgid "Next Attachment"
 msgstr ""
 
-#: src/Views/MediaViewer.vala:640
+#: src/Views/MediaViewer.vala:683
 msgid "Zoom Out"
 msgstr ""
 
-#: src/Views/MediaViewer.vala:645
+#: src/Views/MediaViewer.vala:688
 msgid "Zoom In"
 msgstr ""
 
@@ -1268,32 +1272,32 @@ msgstr ""
 msgid "Profile"
 msgstr "プロフィール"
 
-#: src/Views/Profile.vala:230
+#: src/Views/Profile.vala:232
 #, c-format
 msgid "Block \"%s\"?"
 msgstr "\"%s\"をブロックしますか？"
 
-#: src/Views/Profile.vala:230
+#: src/Views/Profile.vala:232
 #, c-format
 msgid "Unblock \"%s\"?"
 msgstr "\"%s\"のブロックを解除しますか？"
 
-#: src/Views/Profile.vala:236 src/Views/Profile.vala:261
+#: src/Views/Profile.vala:238 src/Views/Profile.vala:263
 #: src/Widgets/RelationshipButton.vala:39
 msgid "Unblock"
 msgstr "ブロック解除"
 
-#: src/Views/Profile.vala:254
+#: src/Views/Profile.vala:256
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr ""
 
-#: src/Views/Profile.vala:254
+#: src/Views/Profile.vala:256
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr ""
 
-#: src/Views/Profile.vala:258
+#: src/Views/Profile.vala:260
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -1303,41 +1307,41 @@ msgid ""
 msgstr ""
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:354
+#: src/Views/Profile.vala:356
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
 msgstr "\"%s\"をリストから追加・削除"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:366
+#: src/Views/Profile.vala:368
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr ""
 
-#: src/Views/Profile.vala:372
+#: src/Views/Profile.vala:374
 msgid "You don't have any lists"
 msgstr "リストがありません"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:402 src/Views/Profile.vala:464
+#: src/Views/Profile.vala:404 src/Views/Profile.vala:466
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr ""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:403 src/Views/Profile.vala:458
+#: src/Views/Profile.vala:405 src/Views/Profile.vala:460
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr ""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:455
+#: src/Views/Profile.vala:457
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr ""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:461
+#: src/Views/Profile.vala:463
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr ""
@@ -1351,7 +1355,7 @@ msgstr ""
 msgid "Accounts"
 msgstr "アカウント"
 
-#: src/Views/Search.vala:62
+#: src/Views/Search.vala:73
 msgid "Enter Query"
 msgstr "クエリを入力"
 
@@ -1395,7 +1399,7 @@ msgstr ""
 msgid "Boosted By"
 msgstr ""
 
-#: src/Views/Thread.vala:34
+#: src/Views/Thread.vala:31
 msgid "Conversation"
 msgstr "会話"
 
@@ -1420,7 +1424,7 @@ msgstr ""
 msgid "Save Attachment"
 msgstr "添付ファイルを保存"
 
-#: src/Widgets/Attachment/Item.vala:110
+#: src/Widgets/Attachment/Item.vala:116
 msgid "View Alt Text"
 msgstr "説明を表示"
 
@@ -1470,7 +1474,7 @@ msgstr ""
 #. Please do not stray far from the original and only include day, month
 #. and year.
 #. If unsure, either leave it as-is or set it to %x.
-#: src/Widgets/ProfileCover.vala:142 src/Widgets/Status.vala:374
+#: src/Widgets/ProfileCover.vala:142 src/Widgets/Status.vala:378
 msgid "%B %e, %Y"
 msgstr ""
 
@@ -1523,33 +1527,33 @@ msgid "Network Error"
 msgstr "ネットワークエラー"
 
 #. translators: as in post stats (who liked and boosted)
-#: src/Widgets/Status.vala:251
+#: src/Widgets/Status.vala:255
 msgid "View Stats"
 msgstr ""
 
-#: src/Widgets/Status.vala:255
+#: src/Widgets/Status.vala:259
 msgid "View Edit History"
 msgstr "編集履歴を見る"
 
 #. translators: Pin post on profile
-#: src/Widgets/Status.vala:260 src/Widgets/Status.vala:492
+#: src/Widgets/Status.vala:264 src/Widgets/Status.vala:496
 msgid "Pin"
 msgstr ""
 
-#: src/Widgets/Status.vala:265
+#: src/Widgets/Status.vala:269
 msgid "Edit"
 msgstr "編集"
 
-#: src/Widgets/Status.vala:324
+#: src/Widgets/Status.vala:328
 msgid "Are you sure you want to delete this post?"
 msgstr "この投稿を削除しますか？"
 
-#: src/Widgets/Status.vala:360
+#: src/Widgets/Status.vala:364
 msgid "Sensitive"
 msgstr "センシティブ"
 
 #. translators: Unpin post from profile
-#: src/Widgets/Status.vala:490
+#: src/Widgets/Status.vala:494
 msgid "Unpin"
 msgstr ""
 
