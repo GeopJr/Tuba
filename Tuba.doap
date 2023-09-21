@@ -10,6 +10,8 @@
 	<homepage rdf:resource="https://github.com/GeopJr/Tuba" />
 	<bug-database rdf:resource="https://github.com/GeopJr/Tuba/issues" />
 	<programming-language>Vala</programming-language>
+	<platform>GTK 4</platform>
+	<platform>Libadwaita</platform>  
 	<maintainer>
 		<foaf:Person>
 			<foaf:name>Evangelos "GeopJr" Paterakis</foaf:name>

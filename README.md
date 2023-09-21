@@ -5,9 +5,9 @@
 <h3 align="center">Browse the Fediverse</h3>
 <p align="center">
   <br />
-    <a href="./CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.1-1970e3.svg?style=for-the-badge&labelColor=A2C4FA" alt="Contributor Covenant v2.1" /></a>
-    <a href="./LICENSE"><img src="https://img.shields.io/badge/LICENSE-GPL--3.0-1970e3.svg?style=for-the-badge&labelColor=A2C4FA" alt="License GPL-3.0" /></a>
-    <a href="https://github.com/GeopJr/Tuba/actions/workflows/build.yml"><img alt="GitHub CI Status" src="https://img.shields.io/github/actions/workflow/status/GeopJr/Tuba/build.yml?branch=main&style=for-the-badge&labelColor=A2C4FA"></a>
+    <a href="./CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Code%20of%20Conduct-GNOME-f5c211.svg?style=for-the-badge&labelColor=f9f06b" alt="Contributor Covenant v2.1" /></a>
+    <a href="./LICENSE"><img src="https://img.shields.io/badge/LICENSE-GPL--3.0-f5c211.svg?style=for-the-badge&labelColor=f9f06b" alt="License GPL-3.0" /></a>
+    <a href="https://github.com/GeopJr/Tuba/actions/workflows/build.yml"><img alt="GitHub CI Status" src="https://img.shields.io/github/actions/workflow/status/GeopJr/Tuba/build.yml?branch=main&style=for-the-badge&labelColor=f9f06b"></a>
     <a href='https://stopthemingmy.app'><img width='193.455' alt='Please do not theme this app' src='https://stopthemingmy.app/badge.svg'/></a>
 </p>
 

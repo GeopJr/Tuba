@@ -23,7 +23,7 @@ body:
 - type: textarea
   attributes:
     label: Logs and/or Screenshots
-    description: Terminal logs are often invaluable. If you can, launch the app from terminal and paste the output here. Please remove instance domains and post ids before creating this issue for privacy reasons.
+    description: Terminal logs are often invaluable. If you can, launch the app from terminal and paste the output here. Please remove instance domains and post ids before creating this issue for privacy reasons. If there are no useful logs available, run `G_MESSAGES_DEBUG=Tuba flatpak run dev.geopjr.Tuba` for a verbose output.
     value: |
       ```
       <paste your logs here>
@@ -70,7 +70,7 @@ body:
     label: Troubleshooting information
     description: You can find this info under About > Troubleshooting > Debugging Information.
   validations:
-    required: true
+    required: false
 - type: textarea
   attributes:
     label: Additional Context
