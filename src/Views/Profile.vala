@@ -341,7 +341,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 			width_request = 32,
 			height_request = 32
 		};
-		var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+		var toolbar_view = new Adw.ToolbarView ();
 		var headerbar = new Adw.HeaderBar ();
 		var toast_overlay = new Adw.ToastOverlay () {
 			vexpand = true,
@@ -349,14 +349,14 @@ public class Tuba.Views.Profile : Views.Timeline {
 		};
 		toast_overlay.child = spinner;
 
-		box.append (headerbar);
-		box.append (toast_overlay);
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.set_content (toast_overlay);
 		var dialog = new Adw.Window () {
 			// translators: the variable is an account handle
 			title = _("Add or remove \"%s\" to or from a list").printf (profile.account.handle),
 			modal = true,
 			transient_for = app.main_window,
-			content = box,
+			content = toolbar_view,
 			default_width = 600,
 			default_height = 550
 		};
