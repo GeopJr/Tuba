@@ -85,10 +85,6 @@ public class Tuba.AttachmentsPage : ComposerPage {
         dnd_controller.drop.connect (on_drag_drop);
         this.add_controller (dnd_controller);
 
-		var keypress_controller = new Gtk.EventControllerKey ();
-        keypress_controller.key_pressed.connect (on_key_pressed);
-		this.add_controller (keypress_controller);
-
 		click_controller = new Gtk.GestureClick () {
             button = Gdk.BUTTON_SECONDARY
         };
@@ -130,14 +126,6 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		context_menu.popup ();
 
 		return true;
-	}
-
-	private bool on_key_pressed (uint keyval, uint keycode, Gdk.ModifierType modifier) {
-		if ((keyval == Gdk.Key.v || keyval == Gdk.Key.V) && modifier == Gdk.ModifierType.CONTROL_MASK) {
-			on_clipboard_paste ();
-			return true;
-		}
-		return false;
 	}
 
 	private void on_clipboard_paste () {
@@ -308,6 +296,12 @@ public class Tuba.AttachmentsPage : ComposerPage {
 				attachments.append (t_attachment);
 			}
 		}
+
+		if (dialog != null) dialog.on_paste_activated.connect (on_paste_activated);
+	}
+
+	void on_paste_activated (string page_title) {
+		if (page_title == this.title) on_clipboard_paste ();
 	}
 
 	public override void on_pull () {
