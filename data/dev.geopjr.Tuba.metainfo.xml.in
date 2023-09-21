@@ -54,6 +54,34 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.5.0" date="2023-09-22">
+      <description translatable="no">
+        <ul>
+            <li>Visual refinements to match the state of the art of GNOME apps</li>
+            <li>Added larger custom emojis option</li>
+            <li>Added instance announcements tab</li>
+            <li>Added drag and drop support to the media tab of the composer</li>
+            <li>Added paste support to the media tab of the composer</li>
+            <li>Added animations to post action buttons</li>
+            <li>Numerical values will now be shortened</li>
+            <li>Added option to mute some push notifications</li>
+            <li>Fixed some fonts not respecting the large text accessibility option</li>
+            <li>Added support for ordered lists in posts</li>
+            <li>Added BlurHash support</li>
+            <li>Fixed special font decorations not being rendered inside blockquotes</li>
+            <li>Added orientation auto-fix on media with incorrect metadata</li>
+            <li>Added a refresh entry to the main menu</li>
+            <li>Added support for hiding the quote post footer text</li>
+            <li>Added zooming support using the Ctrl key in the Media Viewer</li>
+            <li>Removed unused settings</li>
+            <li>Added support for grouping similar push notifications</li>
+            <li>Added push notification actions</li>
+            <li>Added support for changing the content type when available</li>
+            <li>Added support for showing relevant search result types first</li>
+            <li>Removed embeding all icons</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.4.1" date="2023-08-05">
         <description translatable="no">
           <ul>
