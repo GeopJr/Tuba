@@ -131,7 +131,7 @@ public class Tuba.Dialogs.Dev : Adw.PreferencesWindow {
 	}
 
 	private void update_notification_badge (double value) {
-		Tuba.Mastodon.Account.PLACE_NOTIFICATIONS.badge = (int) value;
+		accounts.active.unread_count = (int) value;
 	}
 
 	private void update_window_size (WindowSize windowsize) {
