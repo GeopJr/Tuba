@@ -75,10 +75,15 @@ public class Tuba.Views.Profile : Views.Timeline {
 		if (widget_cover != null) {
 			widget_cover.rs_invalidated.connect (on_rs_updated);
 			widget_cover.timeline_change.connect (change_timeline_source);
+
+			return new Gtk.ListBoxRow () {
+				focusable = true,
+				activatable = false,
+				child = widget_cover
+			};
 		}
 
 		var widget_status = widget as Widgets.Status;
-
 		if (widget_status != null && profile.account.id == accounts.active.id) {
 			widget_status.show_toggle_pinned_action ();
             widget_status.pin_changed.connect (on_refresh);
