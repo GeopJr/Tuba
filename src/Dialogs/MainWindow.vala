@@ -107,19 +107,17 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			};
 			scroller.child = clamp;
 
-			var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-			var headerbar = new Adw.HeaderBar () {
-				css_classes = { "flat" }
-			};
+			var toolbar_view = new Adw.ToolbarView ();
+			var headerbar = new Adw.HeaderBar ();
 
-			box.append (headerbar);
-			box.append (scroller);
+			toolbar_view.add_top_bar (headerbar);
+			toolbar_view.set_content (scroller);
 
 			var book_dialog = new Adw.Window () {
 				modal = true,
 				title = book.title,
 				transient_for = this,
-				content = box,
+				content = toolbar_view,
 				default_width = 460,
 				default_height = 520
 			};

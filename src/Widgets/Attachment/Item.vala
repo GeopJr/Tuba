@@ -153,22 +153,24 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		var scrolledwindow = new Gtk.ScrolledWindow () {
 			child = clamp,
 			vexpand = true,
-			hexpand = true
+			hexpand = true,
+			margin_bottom = 6,
+			margin_top = 6
 		};
 
-		var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+		var toolbar_view = new Adw.ToolbarView ();
 		var headerbar = new Adw.HeaderBar ();
 		var window = new Adw.Window () {
 			modal = true,
 			title = _("Alternative text for attachment"),
 			transient_for = app.main_window,
-			content = box,
+			content = toolbar_view,
 			default_width = 400,
 			default_height = 300
 		};
 
-		box.append (headerbar);
-		box.append (scrolledwindow);
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.set_content (scrolledwindow);
 
 		if (show) window.show ();
 		alt_label.selectable = true;
