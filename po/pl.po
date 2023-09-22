@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
-"PO-Revision-Date: 2023-09-22 12:31+0000\n"
+"PO-Revision-Date: 2023-09-24 07:18+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -497,7 +497,7 @@ msgstr "Bot"
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:38
 msgid "Forget Account"
-msgstr ""
+msgstr "Zapomnij konto"
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
@@ -505,7 +505,7 @@ msgstr "Przełącz konto"
 
 #: data/ui/views/sidebar/view.ui:54
 msgid "Menu"
-msgstr "Menu"
+msgstr "Menu główne"
 
 #: data/ui/widgets/announcement.ui:88
 msgid "Unread"
