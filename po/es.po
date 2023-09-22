@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
-"PO-Revision-Date: 2023-09-22 03:55+0000\n"
-"Last-Translator: Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted."
-"weblate.org>\n"
+"PO-Revision-Date: 2023-09-22 13:42+0000\n"
+"Last-Translator: Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted.weblate"
+".org>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tuba/tuba/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -503,7 +503,7 @@ msgstr "Bot"
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:38
 msgid "Forget Account"
-msgstr ""
+msgstr "Olvidar cuenta"
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
