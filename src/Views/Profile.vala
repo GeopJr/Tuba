@@ -364,8 +364,9 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 		var preferences_page = new Adw.PreferencesPage ();
 		var preferences_group = new Adw.PreferencesGroup () {
+			title = _("Lists"),
 			// translators: the variable is an account handle
-			title = _("Select the list to add or remove \"%s\" to or from:").printf (profile.account.handle)
+			description = _("Select the list to add or remove \"%s\" to or from:").printf (profile.account.handle)
 		};
 
 		var no_lists_page = new Adw.StatusPage () {
