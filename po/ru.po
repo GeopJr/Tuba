@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
-"PO-Revision-Date: 2023-09-22 03:55+0000\n"
+"PO-Revision-Date: 2023-09-22 13:42+0000\n"
 "Last-Translator: Сергей Ворон <voron.s.a@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tuba/tuba/ru/>\n"
 "Language: ru\n"
@@ -494,7 +494,7 @@ msgstr "Бот"
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:38
 msgid "Forget Account"
-msgstr ""
+msgstr "Забыть аккаунт"
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
