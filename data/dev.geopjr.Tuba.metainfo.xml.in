@@ -61,7 +61,7 @@
             <li>Added larger custom emojis option</li>
             <li>Added instance announcements tab</li>
             <li>Added drag and drop support to the media tab of the composer</li>
-            <li>Added paste support to the media tab of the composer</li>
+            <li>Added clipboard paste support to the media tab of the composer</li>
             <li>Added animations to post action buttons</li>
             <li>Numerical values will now be shortened</li>
             <li>Added option to mute some push notifications</li>
@@ -78,7 +78,9 @@
             <li>Added push notification actions</li>
             <li>Added support for changing the content type when available</li>
             <li>Added support for showing relevant search result types first</li>
+            <li>Added support for copying media</li>
             <li>Removed embeding all icons</li>
+            <li>Read the full changelog on the repo</li>
         </ul>
       </description>
     </release>
