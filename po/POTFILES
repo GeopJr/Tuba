@@ -9,6 +9,7 @@
 ./data/ui/dialogs/profile_edit.ui
 ./data/ui/menus.ui
 ./data/ui/views/profile_header.ui
+./data/ui/views/sidebar/account.ui
 ./data/ui/views/sidebar/view.ui
 ./data/ui/widgets/announcement.ui
 ./data/ui/widgets/status.ui
