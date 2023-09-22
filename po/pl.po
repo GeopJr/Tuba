@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-21 05:14+0300\n"
-"PO-Revision-Date: 2023-09-22 03:55+0000\n"
+"PO-Revision-Date: 2023-09-22 12:31+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -379,7 +379,7 @@ msgstr "Podbicia"
 
 #: data/ui/dialogs/preferences.ui:213
 msgid "Poll Results"
-msgstr "Wyniki głosowań"
+msgstr "Wyniki ankiet"
 
 #: data/ui/dialogs/preferences.ui:219
 msgid "Edits"
@@ -790,12 +790,12 @@ msgstr "Format wpisu"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr "Głosowanie"
+msgstr "Ankieta"
 
 #. translators: tooltip on a button that appends another poll entry / option
 #: src/Dialogs/Composer/PollPage.vala:114
 msgid "Add Poll"
-msgstr "Dodaj głosowanie"
+msgstr "Dodaj ankietę"
 
 #: src/Dialogs/Composer/PollPage.vala:123
 #: src/Dialogs/Composer/PollPage.vala:136
@@ -964,7 +964,7 @@ msgstr "%s chce cię obserwować"
 
 #: src/Services/Accounts/InstanceAccount.vala:220
 msgid "Poll results"
-msgstr "Wyniki sondy"
+msgstr "Wyniki ankiety"
 
 #: src/Services/Accounts/InstanceAccount.vala:227
 #, c-format
