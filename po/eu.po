@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
-"PO-Revision-Date: 2023-08-05 16:48+0000\n"
+"PO-Revision-Date: 2023-09-24 07:18+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -85,7 +85,7 @@ msgstr "Erakutsi teklatuaren lasterbideak"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Close Window"
-msgstr ""
+msgstr "Itxi leihoa"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Quit"
@@ -97,11 +97,11 @@ msgstr "Honi buruz"
 
 #: data/gtk/help-overlay.ui:62
 msgid "Scroll Up"
-msgstr ""
+msgstr "Korritu gora"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Down"
-msgstr ""
+msgstr "Korritu behera"
 
 #: data/gtk/help-overlay.ui:76
 msgid "Composer"
@@ -234,7 +234,7 @@ msgstr "Bidalketen lerroen arteko tartea handiagoa egiten du"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Enlarge custom emojis"
-msgstr ""
+msgstr "Handitu zerbitzariko emojiak"
 
 #: data/ui/dialogs/preferences.ui:56
 msgid "Scale up custom emojis on hover"
@@ -271,7 +271,7 @@ msgstr "Handitu irudiak multimedia ikustailearen eremua betetzeko defektuz"
 
 #: data/ui/dialogs/preferences.ui:79
 msgid "Show a blurred version of the media until they fully load"
-msgstr ""
+msgstr "Irudi lauso bat erakutsi multimedia osorik kargatu arte"
 
 #: data/ui/dialogs/preferences.ui:84
 msgid "Reveal spoilers by default"
@@ -279,7 +279,7 @@ msgstr "Erakutsi izorrakiak defektuz"
 
 #: data/ui/dialogs/preferences.ui:89
 msgid "Show link preview cards"
-msgstr ""
+msgstr "Erakutsi esteken aurreikuspena"
 
 #: data/ui/dialogs/preferences.ui:96
 msgid "Posting"
@@ -295,7 +295,7 @@ msgstr "Bidalketen hizkuntza, defektuz"
 
 #: data/ui/dialogs/preferences.ui:118
 msgid "Default post content type"
-msgstr ""
+msgstr "Bidalketen eduki mota, defektuz"
 
 #: data/ui/dialogs/preferences.ui:129
 msgid "Behavior"
@@ -351,15 +351,15 @@ msgstr "Jakinarazpenak"
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:180
 msgid "Push Notifications"
-msgstr ""
+msgstr "Push jakinarazpenak"
 
 #: data/ui/dialogs/preferences.ui:183
 msgid "New Followers"
-msgstr ""
+msgstr "Jarraitzaile berriak"
 
 #: data/ui/dialogs/preferences.ui:189
 msgid "New Follower Requests"
-msgstr ""
+msgstr "Jarraipen-eskaera berriak"
 
 #: data/ui/dialogs/preferences.ui:195
 #: src/Services/Accounts/Mastodon/Account.vala:77 src/Views/Favorites.vala:4
@@ -368,29 +368,31 @@ msgstr "Gogokoak"
 
 #: data/ui/dialogs/preferences.ui:201
 msgid "Mentions"
-msgstr ""
+msgstr "Aipamenak"
 
 #: data/ui/dialogs/preferences.ui:207
 msgid "Boosts"
-msgstr ""
+msgstr "Bultzadak"
 
 #: data/ui/dialogs/preferences.ui:213
 msgid "Poll Results"
-msgstr ""
+msgstr "Bozketaren emaitza"
 
 #: data/ui/dialogs/preferences.ui:219
 msgid "Edits"
-msgstr ""
+msgstr "Edizioak"
 
 #: data/ui/dialogs/preferences.ui:225
 msgid "Group"
-msgstr ""
+msgstr "Multzokatu"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/ui/dialogs/preferences.ui:227
 msgid ""
 "Combine recently pushed notifications of the same type and post into one"
 msgstr ""
+"Elkartu berriki jasotako mota bereko jakinarazpenak eta bakarra balitz "
+"erakutsi"
 
 #: data/ui/dialogs/profile_edit.ui:13 src/Views/Profile.vala:125
 msgid "Edit Profile"
@@ -493,7 +495,7 @@ msgstr "BOTa"
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:38
 msgid "Forget Account"
-msgstr ""
+msgstr "Utzi kontua gogoratzeari"
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
@@ -501,11 +503,11 @@ msgstr "Aldatu kontua"
 
 #: data/ui/views/sidebar/view.ui:54
 msgid "Menu"
-msgstr ""
+msgstr "Menua"
 
 #: data/ui/widgets/announcement.ui:88
 msgid "Unread"
-msgstr ""
+msgstr "Irakurri gabekoa"
 
 #: data/ui/widgets/announcement.ui:99 data/ui/widgets/status.ui:172
 msgid "Edited"
@@ -557,19 +559,19 @@ msgstr "Besteren bat"
 #: src/API/Notification.vala:28
 #, c-format
 msgid "%s (& %d others)"
-msgstr ""
+msgstr "%s (eta beste %d(e)k)"
 
 #: src/API/Notification.vala:51
 msgid "Reply…"
-msgstr ""
+msgstr "Erantzun…"
 
 #: src/API/Notification.vala:59
 msgid "Remove from Followers"
-msgstr ""
+msgstr "Kendu jarraitzaileetatik"
 
 #: src/API/Notification.vala:64
 msgid "Follow Back"
-msgstr ""
+msgstr "Jarraitu berari ere"
 
 #: src/API/Notification.vala:71 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
@@ -635,7 +637,7 @@ msgstr "Aurrera eginez gero, %s \"%s\"(e)ra konektatuko da."
 
 #: src/API/Status/PreviewCard.vala:155
 msgid "Proceed"
-msgstr "Jarraitu"
+msgstr "Egin aurrera"
 
 #: src/API/Suggestion.vala:12
 msgid "Account not found"
@@ -700,7 +702,7 @@ msgstr "Multimedia"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:76
 msgid "Paste"
-msgstr ""
+msgstr "Itsatsi"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:212
 #: src/Dialogs/Composer/AttachmentsPage.vala:238
@@ -788,7 +790,7 @@ msgstr "Bidalketaren hizkuntza"
 
 #: src/Dialogs/Composer/EditorPage.vala:350
 msgid "Post Content Type"
-msgstr ""
+msgstr "Bidalketaren eduki mota"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
@@ -976,7 +978,7 @@ msgstr "%s(e)k bidalketa editatu du"
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:262
 msgid "Plain Text"
-msgstr ""
+msgstr "Testu hutsa"
 
 #: src/Services/Accounts/Mastodon/Account.vala:49
 #: src/Views/Conversations.vala:4
@@ -1012,7 +1014,7 @@ msgstr "Traolak"
 #: src/Services/Accounts/Mastodon/Account.vala:150
 #: src/Views/Announcements.vala:4
 msgid "Announcements"
-msgstr ""
+msgstr "Iragarpenak"
 
 #: src/Services/Accounts/Mastodon/Account.vala:189
 msgid "Public"
@@ -1052,7 +1054,7 @@ msgstr "Argitaratu aipatutako erabiltzaileentzat bakarrik"
 #. different account
 #: src/Services/Accounts/Mastodon/Account.vala:247
 msgid "Notification was pushed for a different account"
-msgstr ""
+msgstr "Jakinarazpena beste kontu batentzat bidali da"
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:204
@@ -1150,19 +1152,19 @@ msgstr "%Y/%b/%-e"
 #. 3000 => 3k
 #: src/Utils/Units.vala:13
 msgid "k"
-msgstr ""
+msgstr "mila"
 
 #. translators: short unit suffix for millions
 #. 3000000 => 3M
 #: src/Utils/Units.vala:17
 msgid "M"
-msgstr ""
+msgstr "milioi"
 
 #. translators: short unit suffix for billions
 #. 3000000000 => 3G
 #: src/Utils/Units.vala:21
 msgid "G"
-msgstr ""
+msgstr "bilioi"
 
 #. translators: Shown when there are 0 results
 #: src/Views/Base.vala:4
@@ -1254,7 +1256,7 @@ msgstr "Gorde multimedia"
 
 #: src/Views/MediaViewer.vala:438 src/Widgets/Attachment/Item.vala:187
 msgid "Copy Media"
-msgstr ""
+msgstr "Kopiatu multimedia"
 
 #: src/Views/MediaViewer.vala:660
 msgid "Previous Attachment"
@@ -1371,7 +1373,7 @@ msgstr "Sartu kontsulta"
 
 #: src/Views/Sidebar.vala:24
 msgid "Open Profile"
-msgstr ""
+msgstr "Ireki profila"
 
 #: src/Views/Sidebar.vala:29
 msgid "Preferences"
@@ -1427,7 +1429,7 @@ msgstr "Ezkutatu multimedia"
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:74
 msgid "Show Sensitive Content"
-msgstr ""
+msgstr "Erakutsi eduki hunkigarria"
 
 #: src/Widgets/Attachment/Item.vala:35
 msgid "Save Attachment"
@@ -1441,7 +1443,7 @@ msgstr "Ikusi deskribapena"
 #: src/Widgets/BookWyrmPage.vala:83
 #, c-format
 msgid "Published: %s"
-msgstr ""
+msgstr "Argitalpen-data: %s"
 
 #. translators: the variable is a comma separated
 #. list of the book authors
@@ -1497,19 +1499,19 @@ msgstr "Batze-data"
 #: src/Widgets/ProfileCover.vala:169
 #, c-format
 msgid "%s Posts"
-msgstr ""
+msgstr "%s bidalketa"
 
 #. translators: the variable is the amount of people a user follows
 #: src/Widgets/ProfileCover.vala:174
 #, c-format
 msgid "%s Following"
-msgstr ""
+msgstr "%s jarraitzen"
 
 #. translators: the variable is the amount of followers a user has
 #: src/Widgets/ProfileCover.vala:179
 #, c-format
 msgid "%s Followers"
-msgstr ""
+msgstr "%s jarraitzaile"
 
 #: src/Widgets/Status/ActionsRow.vala:35 src/Widgets/Status/ActionsRow.vala:79
 msgid "Boost"
@@ -1572,7 +1574,7 @@ msgstr "Bozkatu"
 
 #: src/Widgets/VoteBox.vala:96 src/Widgets/VoteBox.vala:121
 msgid "Voted"
-msgstr ""
+msgstr "Bozka emanda"
 
 #. translators: the variable is the amount of people that voted
 #: src/Widgets/VoteBox.vala:144
