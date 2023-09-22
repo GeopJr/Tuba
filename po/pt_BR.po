@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-21 05:14+0300\n"
+"POT-Creation-Date: 2023-09-22 11:28+0300\n"
 "PO-Revision-Date: 2023-09-13 12:53+0000\n"
 "Last-Translator: Daimar Stein <570cxat11@relay.firefox.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
@@ -121,7 +121,7 @@ msgid "Commit"
 msgstr "Confirmar"
 
 #: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:20
-#: data/ui/dialogs/profile_edit.ui:24 src/Application.vala:434
+#: data/ui/dialogs/profile_edit.ui:22 src/Application.vala:434
 #: src/Dialogs/Composer/Dialog.vala:210
 msgid "Cancel"
 msgstr "Cancelar"
@@ -167,6 +167,7 @@ msgid "Any followed user"
 msgstr "Qualquer usuário seguido"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:183
+#: src/Views/Sidebar.vala:187
 msgid "Add Account"
 msgstr "Adicionar conta"
 
@@ -404,35 +405,35 @@ msgstr ""
 msgid "Edit Profile"
 msgstr "Editar perfil"
 
-#: data/ui/dialogs/profile_edit.ui:31
+#: data/ui/dialogs/profile_edit.ui:29
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:157
 msgid "Save"
 msgstr "Salvar"
 
-#: data/ui/dialogs/profile_edit.ui:69
+#: data/ui/dialogs/profile_edit.ui:67
 msgid "Edit Profile Picture"
 msgstr "Editar imegem do perfil"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: data/ui/dialogs/profile_edit.ui:98
+#: data/ui/dialogs/profile_edit.ui:96
 msgid "Edit Header Picture"
 msgstr "Editar imagem do cabeçalho"
 
-#: data/ui/dialogs/profile_edit.ui:123
+#: data/ui/dialogs/profile_edit.ui:121
 msgid "Display Name"
 msgstr "Nome de exibição"
 
 #. translators: profile bio or description
-#: data/ui/dialogs/profile_edit.ui:131
+#: data/ui/dialogs/profile_edit.ui:129
 msgid "Bio"
 msgstr "Biografia"
 
-#: data/ui/dialogs/profile_edit.ui:142 src/Dialogs/Composer/EditorPage.vala:230
+#: data/ui/dialogs/profile_edit.ui:140 src/Dialogs/Composer/EditorPage.vala:230
 msgid "Custom Emoji Picker"
 msgstr "Seletor de emoji personalizado"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: data/ui/dialogs/profile_edit.ui:166
+#: data/ui/dialogs/profile_edit.ui:164
 msgid "Fields"
 msgstr "Campos"
 
@@ -489,7 +490,7 @@ msgid "Include Media"
 msgstr "Incluir Mídia"
 
 #: data/ui/menus.ui:108 src/Services/Accounts/Mastodon/Account.vala:86
-#: src/Views/Lists.vala:146
+#: src/Views/Lists.vala:146 src/Views/Profile.vala:367
 msgid "Lists"
 msgstr "Listas"
 
@@ -497,6 +498,11 @@ msgstr "Listas"
 #: data/ui/views/profile_header.ui:35
 msgid "Bot"
 msgstr "Robô"
+
+#. translators: Forget as in 'Remove Account'
+#: data/ui/views/sidebar/account.ui:38
+msgid "Forget Account"
+msgstr ""
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
@@ -534,9 +540,9 @@ msgstr "Mostrar mais"
 #: src/Services/Accounts/Mastodon/Account.vala:243
 #: src/Services/Accounts/SecretAccountStore.vala:122
 #: src/Services/Accounts/SecretAccountStore.vala:220
-#: src/Views/MediaViewer.vala:569 src/Views/Sidebar.vala:213
+#: src/Views/MediaViewer.vala:569 src/Views/Sidebar.vala:217
 #: src/Widgets/Announcement.vala:181 src/Widgets/Attachment/Image.vala:90
-#: src/Widgets/Attachment/Item.vala:209 src/Widgets/VoteBox.vala:28
+#: src/Widgets/Attachment/Item.vala:211 src/Widgets/VoteBox.vala:28
 msgid "Error"
 msgstr "Erro"
 
@@ -689,7 +695,7 @@ msgid "Characters Left"
 msgstr "Caracteres restantes"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:172
-#: src/Widgets/Attachment/Item.vala:163
+#: src/Widgets/Attachment/Item.vala:165
 msgid "Alternative text for attachment"
 msgstr "Texto alternativo para o anexo"
 
@@ -1241,21 +1247,21 @@ msgstr "Visualizador de Mídia"
 msgid "Toggle Fullscreen"
 msgstr "Alternar Tela-Cheia"
 
-#: src/Views/MediaViewer.vala:434 src/Widgets/Attachment/Item.vala:181
+#: src/Views/MediaViewer.vala:434 src/Widgets/Attachment/Item.vala:183
 #: src/Widgets/Status.vala:251
 msgid "Open in Browser"
 msgstr "Abrir no navegador"
 
-#: src/Views/MediaViewer.vala:435 src/Widgets/Attachment/Item.vala:182
+#: src/Views/MediaViewer.vala:435 src/Widgets/Attachment/Item.vala:184
 #: src/Widgets/Status.vala:252
 msgid "Copy URL"
 msgstr "Copiar URL"
 
-#: src/Views/MediaViewer.vala:436 src/Widgets/Attachment/Item.vala:183
+#: src/Views/MediaViewer.vala:436 src/Widgets/Attachment/Item.vala:185
 msgid "Save Media"
 msgstr "Salvar Mídia"
 
-#: src/Views/MediaViewer.vala:438 src/Widgets/Attachment/Item.vala:185
+#: src/Views/MediaViewer.vala:438 src/Widgets/Attachment/Item.vala:187
 msgid "Copy Media"
 msgstr ""
 
@@ -1325,35 +1331,35 @@ msgid "Add or remove \"%s\" to or from a list"
 msgstr "Adicionar ou remover \"%s\" para o de uma lista"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:368
+#: src/Views/Profile.vala:369
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr "Selecione a lista para adicionar ou remover \"%s\"para ou de:"
 
-#: src/Views/Profile.vala:374
+#: src/Views/Profile.vala:375
 msgid "You don't have any lists"
 msgstr "Você não tem nenhuma lista"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:404 src/Views/Profile.vala:466
+#: src/Views/Profile.vala:405 src/Views/Profile.vala:467
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr "Remover \"%s\" de \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:405 src/Views/Profile.vala:460
+#: src/Views/Profile.vala:406 src/Views/Profile.vala:461
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr "Adicionar \"%s\" em \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:457
+#: src/Views/Profile.vala:458
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr "Usuário \"%s\" foi removido de \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:463
+#: src/Views/Profile.vala:464
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr "Usuário \"%s\" foi adicionado em \"%s\""
@@ -1384,16 +1390,16 @@ msgid "Keyboard Shortcuts"
 msgstr "Atalhos de Teclado"
 
 #. translators: the variable is an account handle
-#: src/Views/Sidebar.vala:199
+#: src/Views/Sidebar.vala:203
 #, c-format
 msgid "Forget %s?"
 msgstr "Esquecer de %s?"
 
-#: src/Views/Sidebar.vala:200
+#: src/Views/Sidebar.vala:204
 msgid "This account will be removed from the application."
 msgstr "Esta conta será removida do aplicativo."
 
-#: src/Views/Sidebar.vala:202
+#: src/Views/Sidebar.vala:206
 msgid "Forget"
 msgstr "Esquecer"
 

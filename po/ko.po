@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-21 05:14+0300\n"
+"POT-Creation-Date: 2023-09-22 11:28+0300\n"
 "PO-Revision-Date: 2023-07-08 21:52+0000\n"
 "Last-Translator: JS Ahn <freirepublik@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/tuba/tuba/ko/>\n"
@@ -107,7 +107,7 @@ msgid "Commit"
 msgstr ""
 
 #: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:20
-#: data/ui/dialogs/profile_edit.ui:24 src/Application.vala:434
+#: data/ui/dialogs/profile_edit.ui:22 src/Application.vala:434
 #: src/Dialogs/Composer/Dialog.vala:210
 msgid "Cancel"
 msgstr "취소"
@@ -153,6 +153,7 @@ msgid "Any followed user"
 msgstr ""
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:183
+#: src/Views/Sidebar.vala:187
 msgid "Add Account"
 msgstr "계정 추가"
 
@@ -385,35 +386,35 @@ msgstr ""
 msgid "Edit Profile"
 msgstr ""
 
-#: data/ui/dialogs/profile_edit.ui:31
+#: data/ui/dialogs/profile_edit.ui:29
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:157
 msgid "Save"
 msgstr "저장"
 
-#: data/ui/dialogs/profile_edit.ui:69
+#: data/ui/dialogs/profile_edit.ui:67
 msgid "Edit Profile Picture"
 msgstr ""
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: data/ui/dialogs/profile_edit.ui:98
+#: data/ui/dialogs/profile_edit.ui:96
 msgid "Edit Header Picture"
 msgstr ""
 
-#: data/ui/dialogs/profile_edit.ui:123
+#: data/ui/dialogs/profile_edit.ui:121
 msgid "Display Name"
 msgstr ""
 
 #. translators: profile bio or description
-#: data/ui/dialogs/profile_edit.ui:131
+#: data/ui/dialogs/profile_edit.ui:129
 msgid "Bio"
 msgstr ""
 
-#: data/ui/dialogs/profile_edit.ui:142 src/Dialogs/Composer/EditorPage.vala:230
+#: data/ui/dialogs/profile_edit.ui:140 src/Dialogs/Composer/EditorPage.vala:230
 msgid "Custom Emoji Picker"
 msgstr ""
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: data/ui/dialogs/profile_edit.ui:166
+#: data/ui/dialogs/profile_edit.ui:164
 msgid "Fields"
 msgstr ""
 
@@ -470,7 +471,7 @@ msgid "Include Media"
 msgstr ""
 
 #: data/ui/menus.ui:108 src/Services/Accounts/Mastodon/Account.vala:86
-#: src/Views/Lists.vala:146
+#: src/Views/Lists.vala:146 src/Views/Profile.vala:367
 msgid "Lists"
 msgstr "리스트"
 
@@ -478,6 +479,11 @@ msgstr "리스트"
 #: data/ui/views/profile_header.ui:35
 msgid "Bot"
 msgstr "봇"
+
+#. translators: Forget as in 'Remove Account'
+#: data/ui/views/sidebar/account.ui:38
+msgid "Forget Account"
+msgstr ""
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
@@ -515,9 +521,9 @@ msgstr "더보기"
 #: src/Services/Accounts/Mastodon/Account.vala:243
 #: src/Services/Accounts/SecretAccountStore.vala:122
 #: src/Services/Accounts/SecretAccountStore.vala:220
-#: src/Views/MediaViewer.vala:569 src/Views/Sidebar.vala:213
+#: src/Views/MediaViewer.vala:569 src/Views/Sidebar.vala:217
 #: src/Widgets/Announcement.vala:181 src/Widgets/Attachment/Image.vala:90
-#: src/Widgets/Attachment/Item.vala:209 src/Widgets/VoteBox.vala:28
+#: src/Widgets/Attachment/Item.vala:211 src/Widgets/VoteBox.vala:28
 msgid "Error"
 msgstr ""
 
@@ -670,7 +676,7 @@ msgid "Characters Left"
 msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:172
-#: src/Widgets/Attachment/Item.vala:163
+#: src/Widgets/Attachment/Item.vala:165
 msgid "Alternative text for attachment"
 msgstr ""
 
@@ -1222,21 +1228,21 @@ msgstr ""
 msgid "Toggle Fullscreen"
 msgstr ""
 
-#: src/Views/MediaViewer.vala:434 src/Widgets/Attachment/Item.vala:181
+#: src/Views/MediaViewer.vala:434 src/Widgets/Attachment/Item.vala:183
 #: src/Widgets/Status.vala:251
 msgid "Open in Browser"
 msgstr ""
 
-#: src/Views/MediaViewer.vala:435 src/Widgets/Attachment/Item.vala:182
+#: src/Views/MediaViewer.vala:435 src/Widgets/Attachment/Item.vala:184
 #: src/Widgets/Status.vala:252
 msgid "Copy URL"
 msgstr "URL 복사"
 
-#: src/Views/MediaViewer.vala:436 src/Widgets/Attachment/Item.vala:183
+#: src/Views/MediaViewer.vala:436 src/Widgets/Attachment/Item.vala:185
 msgid "Save Media"
 msgstr "미디어 저장"
 
-#: src/Views/MediaViewer.vala:438 src/Widgets/Attachment/Item.vala:185
+#: src/Views/MediaViewer.vala:438 src/Widgets/Attachment/Item.vala:187
 msgid "Copy Media"
 msgstr ""
 
@@ -1301,35 +1307,35 @@ msgid "Add or remove \"%s\" to or from a list"
 msgstr ""
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:368
+#: src/Views/Profile.vala:369
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr ""
 
-#: src/Views/Profile.vala:374
+#: src/Views/Profile.vala:375
 msgid "You don't have any lists"
 msgstr ""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:404 src/Views/Profile.vala:466
+#: src/Views/Profile.vala:405 src/Views/Profile.vala:467
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr ""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:405 src/Views/Profile.vala:460
+#: src/Views/Profile.vala:406 src/Views/Profile.vala:461
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr ""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:457
+#: src/Views/Profile.vala:458
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr ""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:463
+#: src/Views/Profile.vala:464
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr ""
@@ -1360,16 +1366,16 @@ msgid "Keyboard Shortcuts"
 msgstr "키보드 단축키"
 
 #. translators: the variable is an account handle
-#: src/Views/Sidebar.vala:199
+#: src/Views/Sidebar.vala:203
 #, c-format
 msgid "Forget %s?"
 msgstr ""
 
-#: src/Views/Sidebar.vala:200
+#: src/Views/Sidebar.vala:204
 msgid "This account will be removed from the application."
 msgstr ""
 
-#: src/Views/Sidebar.vala:202
+#: src/Views/Sidebar.vala:206
 msgid "Forget"
 msgstr ""
 

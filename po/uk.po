@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-21 05:14+0300\n"
+"POT-Creation-Date: 2023-09-22 11:28+0300\n"
 "PO-Revision-Date: 2023-07-24 16:04+0000\n"
 "Last-Translator: Вова Смірнов <vovasmirnon5895@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tuba/tuba/uk/"
@@ -117,7 +117,7 @@ msgid "Commit"
 msgstr "Відправити"
 
 #: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:20
-#: data/ui/dialogs/profile_edit.ui:24 src/Application.vala:434
+#: data/ui/dialogs/profile_edit.ui:22 src/Application.vala:434
 #: src/Dialogs/Composer/Dialog.vala:210
 msgid "Cancel"
 msgstr "Скасувати"
@@ -163,6 +163,7 @@ msgid "Any followed user"
 msgstr "Буль-якому підписнику"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:183
+#: src/Views/Sidebar.vala:187
 msgid "Add Account"
 msgstr "Додати обліковий запис"
 
@@ -397,35 +398,35 @@ msgstr ""
 msgid "Edit Profile"
 msgstr "Редагувати профіль"
 
-#: data/ui/dialogs/profile_edit.ui:31
+#: data/ui/dialogs/profile_edit.ui:29
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:157
 msgid "Save"
 msgstr "Зберегти"
 
-#: data/ui/dialogs/profile_edit.ui:69
+#: data/ui/dialogs/profile_edit.ui:67
 msgid "Edit Profile Picture"
 msgstr "Змінити зображення профілю"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: data/ui/dialogs/profile_edit.ui:98
+#: data/ui/dialogs/profile_edit.ui:96
 msgid "Edit Header Picture"
 msgstr "Змінити зображення заголовка"
 
-#: data/ui/dialogs/profile_edit.ui:123
+#: data/ui/dialogs/profile_edit.ui:121
 msgid "Display Name"
 msgstr "Видиме ім'я"
 
 #. translators: profile bio or description
-#: data/ui/dialogs/profile_edit.ui:131
+#: data/ui/dialogs/profile_edit.ui:129
 msgid "Bio"
 msgstr "Про себе"
 
-#: data/ui/dialogs/profile_edit.ui:142 src/Dialogs/Composer/EditorPage.vala:230
+#: data/ui/dialogs/profile_edit.ui:140 src/Dialogs/Composer/EditorPage.vala:230
 msgid "Custom Emoji Picker"
 msgstr "Користувацькі емодзі"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: data/ui/dialogs/profile_edit.ui:166
+#: data/ui/dialogs/profile_edit.ui:164
 msgid "Fields"
 msgstr "Поля"
 
@@ -482,7 +483,7 @@ msgid "Include Media"
 msgstr "Показувати медіа"
 
 #: data/ui/menus.ui:108 src/Services/Accounts/Mastodon/Account.vala:86
-#: src/Views/Lists.vala:146
+#: src/Views/Lists.vala:146 src/Views/Profile.vala:367
 msgid "Lists"
 msgstr "Списки"
 
@@ -490,6 +491,11 @@ msgstr "Списки"
 #: data/ui/views/profile_header.ui:35
 msgid "Bot"
 msgstr "Бот"
+
+#. translators: Forget as in 'Remove Account'
+#: data/ui/views/sidebar/account.ui:38
+msgid "Forget Account"
+msgstr ""
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
@@ -527,9 +533,9 @@ msgstr "Показати більше"
 #: src/Services/Accounts/Mastodon/Account.vala:243
 #: src/Services/Accounts/SecretAccountStore.vala:122
 #: src/Services/Accounts/SecretAccountStore.vala:220
-#: src/Views/MediaViewer.vala:569 src/Views/Sidebar.vala:213
+#: src/Views/MediaViewer.vala:569 src/Views/Sidebar.vala:217
 #: src/Widgets/Announcement.vala:181 src/Widgets/Attachment/Image.vala:90
-#: src/Widgets/Attachment/Item.vala:209 src/Widgets/VoteBox.vala:28
+#: src/Widgets/Attachment/Item.vala:211 src/Widgets/VoteBox.vala:28
 msgid "Error"
 msgstr "Помилка"
 
@@ -682,7 +688,7 @@ msgid "Characters Left"
 msgstr "Залишилося символів"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:172
-#: src/Widgets/Attachment/Item.vala:163
+#: src/Widgets/Attachment/Item.vala:165
 msgid "Alternative text for attachment"
 msgstr ""
 
@@ -1235,21 +1241,21 @@ msgstr "Засіб перегляду медіа"
 msgid "Toggle Fullscreen"
 msgstr "Увімкнути повноекранний режим"
 
-#: src/Views/MediaViewer.vala:434 src/Widgets/Attachment/Item.vala:181
+#: src/Views/MediaViewer.vala:434 src/Widgets/Attachment/Item.vala:183
 #: src/Widgets/Status.vala:251
 msgid "Open in Browser"
 msgstr "Відкрити у браузері"
 
-#: src/Views/MediaViewer.vala:435 src/Widgets/Attachment/Item.vala:182
+#: src/Views/MediaViewer.vala:435 src/Widgets/Attachment/Item.vala:184
 #: src/Widgets/Status.vala:252
 msgid "Copy URL"
 msgstr "Скопіювати URL"
 
-#: src/Views/MediaViewer.vala:436 src/Widgets/Attachment/Item.vala:183
+#: src/Views/MediaViewer.vala:436 src/Widgets/Attachment/Item.vala:185
 msgid "Save Media"
 msgstr "Зберегти медіа"
 
-#: src/Views/MediaViewer.vala:438 src/Widgets/Attachment/Item.vala:185
+#: src/Views/MediaViewer.vala:438 src/Widgets/Attachment/Item.vala:187
 msgid "Copy Media"
 msgstr ""
 
@@ -1319,37 +1325,37 @@ msgid "Add or remove \"%s\" to or from a list"
 msgstr "Додати або видалити \"%s\" до або зі списку"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:368
+#: src/Views/Profile.vala:369
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr ""
 "Виберіть список, до якого потрібно додати або з якого потрібно видалити "
 "\"%s\":"
 
-#: src/Views/Profile.vala:374
+#: src/Views/Profile.vala:375
 msgid "You don't have any lists"
 msgstr "У вас немає списків"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:404 src/Views/Profile.vala:466
+#: src/Views/Profile.vala:405 src/Views/Profile.vala:467
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr "Видалити \"%s\" з \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:405 src/Views/Profile.vala:460
+#: src/Views/Profile.vala:406 src/Views/Profile.vala:461
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr "Додати \"%s\" до \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:457
+#: src/Views/Profile.vala:458
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr "Користувача \"%s\" було видалено з \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:463
+#: src/Views/Profile.vala:464
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr "Користувача \"%s\" було додано до \"%s\""
@@ -1380,16 +1386,16 @@ msgid "Keyboard Shortcuts"
 msgstr "Комбінації клавіш"
 
 #. translators: the variable is an account handle
-#: src/Views/Sidebar.vala:199
+#: src/Views/Sidebar.vala:203
 #, c-format
 msgid "Forget %s?"
 msgstr "Забути %s?"
 
-#: src/Views/Sidebar.vala:200
+#: src/Views/Sidebar.vala:204
 msgid "This account will be removed from the application."
 msgstr "Цей обліковий запис буде прибрано зі застосунку."
 
-#: src/Views/Sidebar.vala:202
+#: src/Views/Sidebar.vala:206
 msgid "Forget"
 msgstr "Забути"
 
