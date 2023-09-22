@@ -35,7 +35,7 @@
 				<property name="valign">center</property>
 				<property name="margin-start">6</property>
 				<!-- translators: Forget as in 'Remove Account' -->
-				<property name="tooltip-text">Forget Account</property>
+				<property name="tooltip-text" translatable="yes">Forget Account</property>
 				<signal name="clicked" handler="on_forget" swapped="no" />
 				<style>
 					<class name="circular" />

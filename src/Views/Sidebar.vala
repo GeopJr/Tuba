@@ -184,6 +184,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 				avatar.account = null;
 				selectable = false;
 				forget.hide ();
+				tooltip_text = _("Add Account");
 			}
 		}
 
@@ -194,9 +195,12 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		}
 
 		[GtkCallback] void on_forget () {
+			// The String#replace below replaces the @ with <zero-width>@
+			// so it wraps cleanly
+
 			var confirmed = app.question (
 				// translators: the variable is an account handle
-				_("Forget %s?".printf (account.handle)),
+				_("Forget %s?").printf (account.handle.replace ("@", "​@")),
 				_("This account will be removed from the application."),
 				app.main_window,
 				_("Forget"),

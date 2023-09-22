@@ -141,7 +141,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		};
 		scroller.child = alt_editor;
 
-		var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+		var toolbar_view = new Adw.ToolbarView ();
 		var headerbar = new Adw.HeaderBar ();
 
 		var bottom_bar = new Gtk.ActionBar ();
@@ -159,9 +159,9 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		dialog_save_btn.sensitive = alt_text != null && validate (alt_text.length);
 		headerbar.pack_end (dialog_save_btn);
 
-		box.append (headerbar);
-		box.append (scroller);
-		box.append (bottom_bar);
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.set_content (scroller);
+		toolbar_view.add_bottom_bar (bottom_bar);
 
 		if (alt_text != null)
 			alt_editor.buffer.text = alt_text;
@@ -171,7 +171,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			modal = true,
 			title = _("Alternative text for attachment"),
 			transient_for = compose_dialog,
-			content = box,
+			content = toolbar_view,
 			default_width = 400,
 			default_height = 300
 		};

@@ -21,6 +21,7 @@
   <url type="bugtracker">https://github.com/GeopJr/Tuba/issues</url>
   <url type="translate">https://hosted.weblate.org/engage/tuba/</url>
   <url type="donation">https://geopjr.dev/donate</url>
+  <url type="contact">https://matrix.to/#/#tuba:gnome.org</url>
   <screenshots>
     <screenshot type="default">
       <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-1.png</image>
