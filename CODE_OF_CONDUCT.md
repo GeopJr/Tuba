@@ -27,7 +27,7 @@ All participants in GNOME community spaces are subject to the Code of Conduct. T
 
 ## Reporting an Incident
 
-If you believe that someone is violating the Code of Conduct, or have any other concerns, please [contact the Code of Conduct committee](gnome-code-of-conduct-reporter-guide.md).
+If you believe that someone is violating the Code of Conduct, or have any other concerns, please [contact the Code of Conduct committee](https://wiki.gnome.org/Foundation/CodeOfConduct/ReporterGuide).
 
 ## Our Standards
 
@@ -94,21 +94,21 @@ The GNOME community prioritizes marginalized people's safety over privileged peo
  * Criticizing racist, sexist, cissexist, or otherwise oppressive behavior or assumptions
  * Communicating boundaries or criticizing oppressive behavior in a "tone" you don't find congenial
 
-The examples listed above are not against the Code of Conduct. If you have questions about the above statements, please [read our document on Supporting Diversity](supporting-diversity.md).
+The examples listed above are not against the Code of Conduct. If you have questions about the above statements, please [read our document on Supporting Diversity](https://wiki.gnome.org/Foundation/CodeOfConduct/SupportingDiversity).
 
 Outreach and diversity efforts directed at under-represented groups are permitted under the code of conduct. For example, a social event for women would not be classified as being outside the Code of Conduct under this provision.
 
 Basic expectations for conduct are not covered by the "reverse-ism clause" and would be enforced irrespective of the demographics of those involved. For example, racial discrimination will not be tolerated, irrespective of the race of those involved. Nor would unwanted sexual attention be tolerated, whatever someone's gender or sexual orientation. Members of our community have the right to expect that participants in the project will uphold these standards.
 
-If a participant engages in behavior that violates this code of conduct, the GNOME Code of Conduct committee may take any action they deem appropriate. Examples of consequences are outlined in the [Committee Procedures Guide](gnome-code-of-conduct-committee-procedures.md).
+If a participant engages in behavior that violates this code of conduct, the GNOME Code of Conduct committee may take any action they deem appropriate. Examples of consequences are outlined in the [Committee Procedures Guide](https://wiki.gnome.org/Foundation/CodeOfConduct/CommitteeProcedures).
 
 ## Procedure for Handling Incidents
 
- * [Reporter Guide](gnome-code-of-conduct-reporter-guide.md)
+ * [Reporter Guide](https://wiki.gnome.org/Foundation/CodeOfConduct/ReporterGuide)
 
- * [Moderator Procedures](gnome-code-of-conduct-moderator-procedures.md)
+ * [Moderator Procedures](https://wiki.gnome.org/Foundation/CodeOfConduct/ModeratorProcedures)
 
- * [Committee Procedures Guide](gnome-code-of-conduct-committee-procedures.md)
+ * [Committee Procedures Guide](https://wiki.gnome.org/Foundation/CodeOfConduct/CommitteeProcedures)
 
 ## License
 
