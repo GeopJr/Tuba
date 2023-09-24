@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-    <img alt="Screenshot of the Tuba app in light and mobile view. The current view is the main one on the 'Home' tab. The 'Notifications' tab has the number 15 in an accent-colored bubble. There are 3 posts visible by BASIL, AUBREY and HERO (only the boost tag) showcasing some of Tuba's features: 1. Image attachments, 2. custom emojis, 3. content warnings, 4. reboosts, 5. notification badges, 6.post indicators, 7. post actions." src="https://i.imgur.com/jKmFZou.png">
+    <img alt="Screenshot of the Tuba app in light and mobile view. The current view is the main one on the 'Home' tab. The 'Notifications' tab has the number 15 in an accent-colored bubble. There are 3 posts visible by BASIL, AUBREY and HERO (only the boost tag) showcasing some of Tuba's features: 1. Image attachments, 2. custom emojis, 3. content warnings, 4. reboosts, 5. notification badges, 6.post indicators, 7. post actions." src="https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-1.png">
 </p>
 
 # Install
