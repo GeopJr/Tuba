@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
 "PO-Revision-Date: 2023-09-24 07:18+0000\n"
-"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
+"Last-Translator: Sajad Mousavi <s.sajad.mousavi@gmail.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgstr "ایجاد فرسته‌ای جدید"
 
 #: data/gtk/help-overlay.ui:20 src/Views/Sidebar.vala:25
 msgid "Refresh"
-msgstr "بازخوانی"
+msgstr "تازه‌سازی"
 
 #: data/gtk/help-overlay.ui:26 src/Services/Accounts/Mastodon/Account.vala:95
 #: src/Views/Main.vala:72 src/Views/Search.vala:14
@@ -1485,7 +1485,7 @@ msgstr "در ۲ روز گذشته %Id بار بین %Id نفر بحث شده"
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Widgets/ProfileCover.vala:142 src/Widgets/Status.vala:378
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%B %e, %Y"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
