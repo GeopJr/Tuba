@@ -5,22 +5,23 @@
 # Вова Смірнов <vovasmirnon5895@gmail.com>, 2023.
 # Dan <denqwerta@gmail.com>, 2023.
 # Xalis Ratt <xalisratt@linux.pl>, 2023.
+# volkov <d2oo1dle2x@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
-"PO-Revision-Date: 2023-07-24 16:04+0000\n"
-"Last-Translator: Вова Смірнов <vovasmirnon5895@gmail.com>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/tuba/tuba/uk/"
-">\n"
+"PO-Revision-Date: 2023-09-25 06:26+0000\n"
+"Last-Translator: volkov <d2oo1dle2x@gmail.com>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/tuba/tuba/uk/>"
+"\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -36,7 +37,9 @@ msgstr "Клієнт Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
+msgstr ""
+"toot;mastodon;fediverse;gotosocial;pleroma;akkoma;труба;соціальна;мережа;маст"
+"адонт;"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
@@ -65,7 +68,7 @@ msgstr ""
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:22
 #: data/ui/dialogs/preferences.ui:19
 msgid "General"
-msgstr "Основне"
+msgstr "Загальні"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Compose a new post"
@@ -86,11 +89,11 @@ msgstr "Повернутися"
 
 #: data/gtk/help-overlay.ui:38
 msgid "Show Keyboard Shortcuts"
-msgstr "Показати комбінації клавіш"
+msgstr "Показати клавіатурні скорочення"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Close Window"
-msgstr ""
+msgstr "Закрити вікно"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Quit"
@@ -102,15 +105,15 @@ msgstr "Про Tuba"
 
 #: data/gtk/help-overlay.ui:62
 msgid "Scroll Up"
-msgstr ""
+msgstr "Прокрутити вгору"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Down"
-msgstr ""
+msgstr "Прокрути вниз"
 
 #: data/gtk/help-overlay.ui:76
 msgid "Composer"
-msgstr ""
+msgstr "Композитор"
 
 #: data/gtk/help-overlay.ui:79
 msgid "Commit"
