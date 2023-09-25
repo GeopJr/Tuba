@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
 "PO-Revision-Date: 2023-09-26 16:00+0000\n"
-"Last-Translator: volkov <d2oo1dle2x@gmail.com>\n"
+"Last-Translator: Xalis Ratt <xalisratt@linux.pl>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tuba/tuba/uk/>"
 "\n"
 "Language: uk\n"
@@ -113,7 +113,7 @@ msgstr "Прокрути вниз"
 
 #: data/gtk/help-overlay.ui:76
 msgid "Composer"
-msgstr "Композитор"
+msgstr "Редактор"
 
 #: data/gtk/help-overlay.ui:79
 msgid "Commit"
