@@ -1,6 +1,7 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/profile_header.ui")]
 protected class Tuba.Widgets.Cover : Gtk.Box {
 
+    [GtkChild] unowned Gtk.FlowBox roles;
     [GtkChild] unowned Widgets.Background background;
     [GtkChild] unowned Gtk.Label cover_badge;
     [GtkChild] unowned Gtk.Image cover_bot_badge;
@@ -83,6 +84,19 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
         note.content = profile.account.note;
         cover_bot_badge.visible = profile.account.bot;
         update_cover_badge ();
+
+        if (profile.account.roles != null && profile.account.roles.size > 0) {
+            roles.visible = true;
+
+            foreach (API.AccountRole role in profile.account.roles) {
+                roles.append (
+                    new Gtk.FlowBoxChild () {
+                        child = role.to_widget (),
+                        css_classes = { "profile-role-border-radius" }
+                    }
+                );
+            }
+        }
 
         if (profile.account.id != accounts.active.id) {
             profile.rs.invalidated.connect (() => {

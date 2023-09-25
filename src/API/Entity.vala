@@ -113,6 +113,9 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 				case "uploads":
 					contains = typeof (API.FunkwhaleTrack);
 					break;
+				case "roles":
+					contains = typeof (API.AccountRole);
+					break;
 				default:
 					contains = typeof (Entity);
 					break;
