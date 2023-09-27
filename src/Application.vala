@@ -128,6 +128,33 @@ namespace Tuba {
 			);
 		}
 
+		private void handle_web_ap (Uri uri) {
+			if (accounts.active == null) return;
+
+			string clean_url = Uri.join (
+				uri.get_flags (),
+				"https",
+				uri.get_userinfo (),
+				uri.get_host (),
+				uri.get_port (),
+				uri.get_path (),
+				uri.get_query (),
+				uri.get_fragment ()
+			);
+
+			accounts.active.resolve.begin (clean_url, (obj, res) => {
+				try {
+					accounts.active.resolve.end (res).open ();
+				} catch (Error e) {
+					string msg = @"Failed to resolve URL \"$uri\": $(e.message)";
+					warning (msg);
+
+					var dlg = inform (_("Error"), msg);
+					dlg.present ();
+				}
+			});
+		}
+
 		construct {
 			application_id = Build.DOMAIN;
 			flags = ApplicationFlags.HANDLES_OPEN;
@@ -233,7 +260,9 @@ namespace Tuba {
 			add_action_entries (APP_ENTRIES, this);
 		}
 
+		private bool activated = false;
 		protected override void activate () {
+			activated = true;
 			present_window ();
 
 			if (start_hidden) {
@@ -252,13 +281,41 @@ namespace Tuba {
 		}
 
 		public override void open (File[] files, string hint) {
+			if (!activated) activate ();
+
 			foreach (File file in files) {
-				string uri = file.get_uri ();
-				if (add_account_window != null)
-					add_account_window.redirect (uri);
-				else
-					warning (@"Received an unexpected uri to open: $uri");
-				return;
+				string unparsed_uri = file.get_uri ();
+
+				try {
+					Uri uri = Uri.parse (unparsed_uri, UriFlags.NONE);
+					string scheme = uri.get_scheme ();
+
+					switch (scheme) {
+						case "tuba":
+							// translators: the variable is a uri scheme like 'https'
+							if (add_account_window == null)
+								throw new Error.literal (-1, 1, _("'%s://' may only be used when adding a new account").printf (scheme));
+							add_account_window.redirect (uri);
+
+							break;
+						case "web+ap":
+							// translators: the variable is a uri scheme like 'https'
+							if (add_account_window != null)
+								throw new Error.literal (-1, 2, _("'%s://' may not be used when adding a new account").printf (scheme));
+							handle_web_ap (uri);
+
+							break;
+						default:
+							// translators: the first variable is the app name ('Tuba'),
+							//				the second one is a uri scheme like 'https'
+							throw new Error.literal (-1, 3, _("%s does not accept '%s://'").printf (Build.NAME, scheme));
+					}
+				} catch (GLib.Error e) {
+					string msg = @"Couldn't open $unparsed_uri: $(e.message)";
+					warning (msg);
+					var dlg = inform (_("Error"), msg);
+					dlg.present ();
+				}
 			}
 		}
 
