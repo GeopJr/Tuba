@@ -5,6 +5,14 @@ public class Tuba.API.Conversation : Entity, Widgetizable {
 	public bool unread { get; set; default = false; }
 	public API.Status? last_status { get; set; default = null; }
 
+	public override Type deserialize_array_type (string prop) {
+		if (prop == "accounts") {
+			return typeof (API.Account);
+		}
+
+		return base.deserialize_array_type (prop);
+	}
+
     public override Gtk.Widget to_widget () {
 		if (last_status == null) {
 			var account_list = "";

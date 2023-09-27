@@ -10,6 +10,14 @@ public class Tuba.API.Instance : Entity {
 	public int64 upload_limit { get; set; default = 0; }
     public API.Pleroma.Instance? pleroma { get; set; default = null; }
 
+    public override Type deserialize_array_type (string prop) {
+		if (prop == "languages") {
+			return Type.STRING;
+		}
+
+		return base.deserialize_array_type (prop);
+	}
+
     public string[]? compat_supported_mime_types {
         get {
             if (pleroma != null && pleroma.metadata != null) {

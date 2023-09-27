@@ -56,6 +56,10 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 		return Json.gobject_to_data (this, out len);
 	}
 
+	public virtual Type deserialize_array_type (string prop) {
+		return typeof (Entity);
+	}
+
 	public override bool deserialize_property (string prop, out Value val, ParamSpec spec, Json.Node node) {
 		// debug (@"deserializing $prop of type $(val.type_name ())");
 		var success = default_deserialize_property (prop, out val, spec, node);
@@ -68,55 +72,13 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 		}
 
 		if (type.is_a (typeof (Gee.ArrayList))) {
-			Type contains;
+			Type contains = deserialize_array_type (prop);
 
-			//There has to be a better way
-			switch (prop) {
-				case "supported-mime-types":
-				case "languages":
-				case "authors":
+			switch (contains) {
+				case Type.STRING:
 					return des_list_string (out val, node);
-				case "media-attachments":
-					contains = typeof (API.Attachment);
-					break;
-				case "mentions":
-					contains = typeof (API.Mention);
-					break;
-				case "emojis":
-					contains = typeof (API.Emoji);
-					break;
-				case "emoji-reactions":
-				case "reactions":
-					contains = typeof (API.EmojiReaction);
-					break;
-				case "fields":
-					contains = typeof (API.AccountField);
-					break;
-				case "accounts":
-					contains = typeof (API.Account);
-					break;
-				case "statuses":
-					contains = typeof (API.Status);
-					break;
-				case "hashtags":
-					contains = typeof (API.Tag);
-					break;
-				case "history":
-					contains = typeof (API.TagHistory);
-					break;
-				case "streamingPlaylists":
-					contains = typeof (API.PeerTubeStreamingPlaylist);
-					break;
-				case "files":
-					contains = typeof (API.PeerTubeFile);
-					break;
-				case "uploads":
-					contains = typeof (API.FunkwhaleTrack);
-					break;
-				default:
-					contains = typeof (Entity);
-					break;
 			}
+
 			return des_list (out val, node, contains);
 		}
 

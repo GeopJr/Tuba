@@ -8,6 +8,14 @@ public class Tuba.API.BookWyrm : Entity, Widgetizable {
 	public API.BookWyrmCover? cover { get; set; default=null; }
 	public Gee.ArrayList<string>? authors { get; set; default=null; }
 
+	public override Type deserialize_array_type (string prop) {
+		if (prop == "authors") {
+			return Type.STRING;
+		}
+
+		return base.deserialize_array_type (prop);
+	}
+
 	public static BookWyrm from (Json.Node node) throws Error {
 		return Entity.from_json (typeof (API.BookWyrm), node) as API.BookWyrm;
 	}

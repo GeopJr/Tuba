@@ -29,4 +29,12 @@ public class Tuba.API.PeerTube : Entity {
 	public static PeerTube from (Json.Node node) throws Error {
 		return Entity.from_json (typeof (API.PeerTube), node) as API.PeerTube;
 	}
+
+	public override Type deserialize_array_type (string prop) {
+		if (prop == "streamingPlaylists") {
+			return typeof (API.PeerTubeStreamingPlaylist);
+		}
+
+		return base.deserialize_array_type (prop);
+	}
 }

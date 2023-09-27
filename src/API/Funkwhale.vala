@@ -14,6 +14,14 @@ public class Tuba.API.Funkwhale : Entity {
 		}
 	}
 
+	public override Type deserialize_array_type (string prop) {
+		if (prop == "uploads") {
+			return typeof (API.FunkwhaleTrack);
+		}
+
+		return base.deserialize_array_type (prop);
+	}
+
 	public static Funkwhale from (Json.Node node) throws Error {
 		return Entity.from_json (typeof (API.Funkwhale), node) as API.Funkwhale;
 	}

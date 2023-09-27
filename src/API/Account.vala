@@ -31,6 +31,17 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	public Gee.ArrayList<API.AccountField>? fields { get; set; default = null; }
 	public AccountSource? source { get; set; default = null; }
 
+	public override Type deserialize_array_type (string prop) {
+		switch (prop) {
+			case "emojis":
+				return typeof (API.Emoji);
+			case "fields":
+				return typeof (API.AccountField);
+		}
+
+		return base.deserialize_array_type (prop);
+	}
+
 	public string handle {
 		owned get {
 			return "@" + acct;
