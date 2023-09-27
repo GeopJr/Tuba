@@ -11,6 +11,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	protected GLib.ListStore app_items;
 	protected Gtk.SliceListModel account_items;
 	protected Gtk.FlattenListModel item_model;
+	protected GLib.ListStore accounts_model;
 
 	static construct {
 		typeof (Widgets.EmojiLabel).ensure ();
@@ -19,6 +20,9 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	construct {
 		var menu_model = new GLib.Menu ();
+
+		accounts_model = new GLib.ListStore (typeof (Object));
+		saved_accounts.bind_model (accounts_model, on_accounts_row_create);
 
 		var account_submenu_model = new GLib.Menu ();
 		account_submenu_model.append (_("Open Profile"), "app.open-current-account-profile");
@@ -48,26 +52,31 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		construct_account_holder ();
 	}
 
-	protected virtual void on_accounts_changed (Gee.ArrayList<InstanceAccount> accounts) {
-		var w = saved_accounts.get_first_child ();
-		while (w != null) {
-			saved_accounts.remove (w);
-			w = saved_accounts.get_first_child ();
-		}
+	public virtual Gtk.Widget on_accounts_row_create (Object obj) {
+		var row = new AccountRow (obj as InstanceAccount);
 
+		return row;
+	}
+
+	protected virtual void on_accounts_changed (Gee.ArrayList<InstanceAccount> accounts) {
+		accounts_model.remove_all ();
+
+		Object[] accounts_to_add = {};
 		accounts.foreach (acc => {
-			AccountRow row = new AccountRow (acc);
-			saved_accounts.append (row);
-			if (acc.handle == this.account.handle)
-				saved_accounts.select_row (row);
+			accounts_to_add += acc;
 
 			return true;
 		});
+		accounts_to_add += new Object ();
 
-		var new_acc_row = new AccountRow (null) {
-			css_classes = { "new-account" }
-		};
-		saved_accounts.append (new_acc_row);
+		accounts_model.splice (0, 0, accounts_to_add);
+		update_selected_account ();
+	}
+
+	private void update_selected_account () {
+		uint index;
+		if (accounts_model.find (account, out index))
+			saved_accounts.select_row (saved_accounts.get_row_at_index ((int) index));
 	}
 
 	public void set_sidebar_selected_item (int index) {
@@ -90,6 +99,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		if (account != null) {
 			sidebar_avatar_btn = this.account.bind_property ("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
 			account_items.model = account.known_places;
+			update_selected_account ();
 		} else {
 			saved_accounts.unselect_all ();
 
