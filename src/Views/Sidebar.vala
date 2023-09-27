@@ -54,6 +54,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	public virtual Gtk.Widget on_accounts_row_create (Object obj) {
 		var row = new AccountRow (obj as InstanceAccount);
+		row.forget_signal.connect (popdown);
 
 		return row;
 	}
@@ -169,6 +170,8 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		[GtkChild] unowned Widgets.Avatar avatar;
 		[GtkChild] unowned Gtk.Button forget;
 
+		public signal void forget_signal ();
+
 		private Binding switcher_display_name;
 		private Binding switcher_handle;
 		private Binding switcher_tooltip;
@@ -205,6 +208,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		}
 
 		[GtkCallback] void on_forget () {
+			forget_signal ();
 			// The String#replace below replaces the @ with <zero-width>@
 			// so it wraps cleanly
 
@@ -236,6 +240,10 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	}
 
+	void popdown () {
+		account_switcher_popover_menu.popdown ();
+	}
+
 	void on_account_header_update (Gtk.ListBoxRow _row, Gtk.ListBoxRow? _before) {
 		var row = _row as AccountRow;
 
@@ -246,7 +254,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	}
 
 	[GtkCallback] void on_account_activated (Gtk.ListBoxRow _row) {
-		account_switcher_popover_menu.popdown ();
+		popdown ();
 
 		var row = _row as AccountRow;
 		if (row.account != null)
