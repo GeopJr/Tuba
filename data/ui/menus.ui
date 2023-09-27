@@ -25,6 +25,11 @@
       </item>
     </section>
 
+    <item>
+      <attribute name="label" translatable="yes">Open in Browser</attribute>
+      <attribute name="action">view.open_in_browser</attribute>
+    </item>
+
     <section>
         <attribute name="label" translatable="yes">Moderation</attribute>
         <item>
