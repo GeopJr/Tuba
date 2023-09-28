@@ -11,6 +11,7 @@ public class Tuba.API.Relationship : Entity {
 	public bool requested { get; set; default = false; }
 	public bool blocking { get; set; default = false; }
 	public bool domain_blocking { get; set; default = false; }
+	public bool notifying { get; set; default = false; }
 
 	public string to_string () {
 		string label = "";

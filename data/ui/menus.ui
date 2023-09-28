@@ -25,6 +25,12 @@
       </item>
     </section>
 
+    <item>
+      <attribute name="label" translatable="yes">Notify me on new posts</attribute>
+      <attribute name="action">view.notify_on_post</attribute>
+      <attribute name="hidden-when">action-disabled</attribute>
+    </item>
+
     <section>
         <attribute name="label" translatable="yes">Moderation</attribute>
         <item>

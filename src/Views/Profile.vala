@@ -25,6 +25,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 	protected SimpleAction blocking_action;
 	protected SimpleAction domain_blocking_action;
 	protected SimpleAction ar_list_action;
+	protected SimpleAction notify_on_new_post_action;
 	//  protected SimpleAction source_action;
 
 	public Profile (API.Account acc) {
@@ -181,6 +182,13 @@ public class Tuba.Views.Profile : Views.Timeline {
 		});
 		actions.add_action (replies_action);
 
+		notify_on_new_post_action = new SimpleAction.stateful ("notify_on_post", null, false);
+		notify_on_new_post_action.change_state.connect (v => {
+			profile.rs.modify ("follow", "notify", v.get_boolean ().to_string ());
+			invalidate_actions (false);
+		});
+		actions.add_action (notify_on_new_post_action);
+
 		//  source_action = new SimpleAction.stateful ("source", VariantType.STRING, source);
 		//  source_action.change_state.connect (v => {
 		//  	source = v.get_string ();
@@ -301,6 +309,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 		domain_blocking_action.set_state (profile.rs.domain_blocking);
 		domain_blocking_action.set_enabled (accounts.active.domain != profile.account.domain);
 		ar_list_action.set_enabled (profile.account.id != accounts.active.id && profile.rs.following);
+		notify_on_new_post_action.set_enabled (profile.account.id != accounts.active.id && profile.rs.following);
+		notify_on_new_post_action.set_state (profile.rs.notifying);
 
 		if (refresh) {
 			page_next = null;
