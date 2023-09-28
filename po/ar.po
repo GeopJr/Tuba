@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
-"PO-Revision-Date: 2023-08-25 19:51+0000\n"
+"PO-Revision-Date: 2023-09-29 08:01+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -58,7 +58,7 @@ msgstr "عام"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Compose a new post"
-msgstr ""
+msgstr "تحرير منشور جديد"
 
 #: data/gtk/help-overlay.ui:20 src/Views/Sidebar.vala:25
 msgid "Refresh"
@@ -67,49 +67,49 @@ msgstr "تحديث"
 #: data/gtk/help-overlay.ui:26 src/Services/Accounts/Mastodon/Account.vala:95
 #: src/Views/Main.vala:72 src/Views/Search.vala:14
 msgid "Search"
-msgstr ""
+msgstr "البحث"
 
 #: data/gtk/help-overlay.ui:32 src/Views/MediaViewer.vala:301
 msgid "Go Back"
-msgstr ""
+msgstr "العودة"
 
 #: data/gtk/help-overlay.ui:38
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "إظهار اختصارات لوحة المفاتيح"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Close Window"
-msgstr ""
+msgstr "أغلق النافذة"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Quit"
-msgstr ""
+msgstr "الخروج"
 
 #: data/gtk/help-overlay.ui:56 src/Views/Sidebar.vala:31
 msgid "About"
-msgstr ""
+msgstr "عنْ"
 
 #: data/gtk/help-overlay.ui:62
 msgid "Scroll Up"
-msgstr ""
+msgstr "تمرير إلى الأعلى"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Down"
-msgstr ""
+msgstr "تمرير إلى الأسفل"
 
 #: data/gtk/help-overlay.ui:76
 msgid "Composer"
-msgstr ""
+msgstr "كتابة"
 
 #: data/gtk/help-overlay.ui:79
 msgid "Commit"
-msgstr ""
+msgstr "أرسِل"
 
 #: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:20
 #: data/ui/dialogs/profile_edit.ui:22 src/Application.vala:434
 #: src/Dialogs/Composer/Dialog.vala:210
 msgid "Cancel"
-msgstr ""
+msgstr "ألغِ"
 
 #: data/ui/dialogs/compose.ui:43 src/Dialogs/Composer/Dialog.vala:284
 msgid "_Publish"
@@ -117,23 +117,23 @@ msgstr ""
 
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
-msgstr ""
+msgstr "الأعضاء"
 
 #: data/ui/dialogs/list_edit.ui:10
 msgid "Remove Members"
-msgstr ""
+msgstr "تنحية أعضاء"
 
 #: data/ui/dialogs/list_edit.ui:25
 msgid "Info"
-msgstr ""
+msgstr "معلومات"
 
 #: data/ui/dialogs/list_edit.ui:29
 msgid "List Name"
-msgstr ""
+msgstr "اسم القائمة"
 
 #: data/ui/dialogs/list_edit.ui:36
 msgid "Replies Policy"
-msgstr ""
+msgstr "سياسة الردود"
 
 #: data/ui/dialogs/list_edit.ui:37
 msgid "Show member replies to"
@@ -173,11 +173,11 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:64
 msgid "Server URL"
-msgstr ""
+msgstr "الرابط التشعبي URL للخادم"
 
 #: data/ui/dialogs/new_account.ui:118
 msgid "Confirm Authorization"
-msgstr ""
+msgstr "تأكيد التصريح"
 
 #. translators: Do not translate "manual_auth"
 #: data/ui/dialogs/new_account.ui:138
@@ -188,11 +188,11 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:148
 msgid "Authorization Code"
-msgstr ""
+msgstr "رمز التصريح"
 
 #: data/ui/dialogs/new_account.ui:187
 msgid "Done"
-msgstr ""
+msgstr "تم"
 
 #: data/ui/dialogs/new_account.ui:202
 msgid "Your account is connected and ready to use!"
@@ -333,7 +333,7 @@ msgstr ""
 #: src/Services/Accounts/Mastodon/Account.vala:39
 #: src/Views/Notifications.vala:7
 msgid "Notifications"
-msgstr ""
+msgstr "الإشعارات"
 
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:180
@@ -342,24 +342,24 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:183
 msgid "New Followers"
-msgstr ""
+msgstr "متابعون جدد"
 
 #: data/ui/dialogs/preferences.ui:189
 msgid "New Follower Requests"
-msgstr ""
+msgstr "طلبات المتابعة الجديدة"
 
 #: data/ui/dialogs/preferences.ui:195
 #: src/Services/Accounts/Mastodon/Account.vala:77 src/Views/Favorites.vala:4
 msgid "Favorites"
-msgstr ""
+msgstr "المفضّلة"
 
 #: data/ui/dialogs/preferences.ui:201
 msgid "Mentions"
-msgstr ""
+msgstr "الإشارات"
 
 #: data/ui/dialogs/preferences.ui:207
 msgid "Boosts"
-msgstr ""
+msgstr "إعادات النشر"
 
 #: data/ui/dialogs/preferences.ui:213
 msgid "Poll Results"
@@ -367,7 +367,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:219
 msgid "Edits"
-msgstr ""
+msgstr "التعديلات"
 
 #: data/ui/dialogs/preferences.ui:225
 msgid "Group"
@@ -381,30 +381,30 @@ msgstr ""
 
 #: data/ui/dialogs/profile_edit.ui:13 src/Views/Profile.vala:125
 msgid "Edit Profile"
-msgstr ""
+msgstr "تعديل الملف الشخصي"
 
 #: data/ui/dialogs/profile_edit.ui:29
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:157
 msgid "Save"
-msgstr ""
+msgstr "احفظ"
 
 #: data/ui/dialogs/profile_edit.ui:67
 msgid "Edit Profile Picture"
-msgstr ""
+msgstr "تغيير صورة الملف التعريفي"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:96
 msgid "Edit Header Picture"
-msgstr ""
+msgstr "تغيير صورة الرأسية"
 
 #: data/ui/dialogs/profile_edit.ui:121
 msgid "Display Name"
-msgstr ""
+msgstr "الإسم المعروض"
 
 #. translators: profile bio or description
 #: data/ui/dialogs/profile_edit.ui:129
 msgid "Bio"
-msgstr ""
+msgstr "السيرة الذاتية"
 
 #: data/ui/dialogs/profile_edit.ui:140 src/Dialogs/Composer/EditorPage.vala:230
 msgid "Custom Emoji Picker"
@@ -413,7 +413,7 @@ msgstr ""
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:164
 msgid "Fields"
-msgstr ""
+msgstr "الحقول"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
@@ -433,7 +433,7 @@ msgstr "الإشراف"
 
 #: data/ui/menus.ui:31
 msgid "Hide Boosts"
-msgstr ""
+msgstr "إخفاء المُعاد نشرها"
 
 #: data/ui/menus.ui:36
 msgid "Mute"
@@ -488,7 +488,7 @@ msgstr "تبديل الحساب"
 
 #: data/ui/views/sidebar/view.ui:54
 msgid "Menu"
-msgstr ""
+msgstr "القائمة"
 
 #: data/ui/widgets/announcement.ui:88
 msgid "Unread"
@@ -522,7 +522,7 @@ msgstr "إظهار المزيد"
 #: src/Widgets/Announcement.vala:181 src/Widgets/Attachment/Image.vala:90
 #: src/Widgets/Attachment/Item.vala:211 src/Widgets/VoteBox.vala:28
 msgid "Error"
-msgstr ""
+msgstr "خطأ"
 
 #. translators: the variable is a comma separated list of account handles,
 #. this is a state - not an action
@@ -548,7 +548,7 @@ msgstr ""
 
 #: src/API/Notification.vala:51
 msgid "Reply…"
-msgstr ""
+msgstr "ردّ…"
 
 #: src/API/Notification.vala:59
 msgid "Remove from Followers"
@@ -576,7 +576,7 @@ msgstr ""
 
 #: src/API/Relationship.vala:23
 msgid "Follows you"
-msgstr ""
+msgstr "يتابعك"
 
 #: src/API/SearchResults.vala:19
 msgid "Search returned no results"
@@ -622,11 +622,11 @@ msgstr ""
 
 #: src/API/Status/PreviewCard.vala:155
 msgid "Proceed"
-msgstr ""
+msgstr "مواصلة"
 
 #: src/API/Suggestion.vala:12
 msgid "Account not found"
-msgstr ""
+msgstr "لم يُعثر على الحساب"
 
 #. translators: the variable is the amount of times a hashtag was used in a week
 #: src/API/Tag.vala:36
@@ -653,15 +653,15 @@ msgstr ""
 
 #: src/Application.vala:423
 msgid "OK"
-msgstr ""
+msgstr "حسنا"
 
 #: src/Application.vala:432
 msgid "Yes"
-msgstr ""
+msgstr "نعم"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:42
 msgid "Edit Alt Text"
-msgstr ""
+msgstr "تعديل النص البديل"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:53
 msgid "Remove Attachment"
@@ -679,20 +679,20 @@ msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:38 src/Dialogs/ProfileEdit.vala:77
 msgid "All Supported Files"
-msgstr ""
+msgstr "جميع الملفات المدعومة"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:62
 msgid "Media"
-msgstr ""
+msgstr "الوسائط"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:76
 msgid "Paste"
-msgstr ""
+msgstr "لصق"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:212
 #: src/Dialogs/Composer/AttachmentsPage.vala:238
 msgid "Add Media"
-msgstr ""
+msgstr "إضافة وسائط"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:221
 msgid "No Media"
@@ -713,7 +713,7 @@ msgstr ""
 #: src/Dialogs/Composer/AttachmentsPage.vala:369
 #: src/Dialogs/ProfileEdit.vala:221
 msgid "Open"
-msgstr ""
+msgstr "افتح"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:433
 #, c-format
@@ -747,11 +747,11 @@ msgstr ""
 #. translators: "Text" as in text-based input
 #: src/Dialogs/Composer/EditorPage.vala:18
 msgid "Text"
-msgstr ""
+msgstr "نص"
 
 #: src/Dialogs/Composer/EditorPage.vala:193
 msgid "What's on your mind?"
-msgstr ""
+msgstr "ما الذي يدور في بالك؟"
 
 #: src/Dialogs/Composer/EditorPage.vala:220
 msgid "Emoji Picker"
@@ -767,11 +767,11 @@ msgstr ""
 
 #: src/Dialogs/Composer/EditorPage.vala:302
 msgid "Post Privacy"
-msgstr ""
+msgstr "خصوصية المنشور"
 
 #: src/Dialogs/Composer/EditorPage.vala:325
 msgid "Post Language"
-msgstr ""
+msgstr "لغة النشر"
 
 #: src/Dialogs/Composer/EditorPage.vala:350
 msgid "Post Content Type"
@@ -779,12 +779,12 @@ msgstr ""
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr ""
+msgstr "استطلاع رأي"
 
 #. translators: tooltip on a button that appends another poll entry / option
 #: src/Dialogs/Composer/PollPage.vala:114
 msgid "Add Poll"
-msgstr ""
+msgstr "إضافة استطلاع للرأي"
 
 #: src/Dialogs/Composer/PollPage.vala:123
 #: src/Dialogs/Composer/PollPage.vala:136
@@ -810,7 +810,7 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:223
 #, c-format
 msgid "Choice %d"
-msgstr ""
+msgstr "الخيار %d"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:232
@@ -874,7 +874,7 @@ msgstr ""
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
 #: src/Views/Main.vala:79
 msgid "Home"
-msgstr ""
+msgstr "الرئيسي"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
@@ -899,7 +899,7 @@ msgstr ""
 #: src/Dialogs/NewAccount.vala:185
 #, c-format
 msgid "Hello, %s!"
-msgstr ""
+msgstr "مرحباً %s!"
 
 #: src/Dialogs/NewAccount.vala:241
 msgid "Server returned an error"
