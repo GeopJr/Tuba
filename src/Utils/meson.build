@@ -7,4 +7,5 @@ sources += files(
     'Locale.vala',
     'Tracking.vala',
     'Units.vala',
+    'WebApHandler.vala',
 )
