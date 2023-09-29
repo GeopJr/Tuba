@@ -131,18 +131,7 @@ namespace Tuba {
 		private void handle_web_ap (Uri uri) {
 			if (accounts.active == null) return;
 
-			string clean_url = Uri.join (
-				uri.get_flags (),
-				"https",
-				uri.get_userinfo (),
-				uri.get_host (),
-				uri.get_port (),
-				uri.get_path (),
-				uri.get_query (),
-				uri.get_fragment ()
-			);
-
-			accounts.active.resolve.begin (clean_url, (obj, res) => {
+			accounts.active.resolve.begin (WebApHandler.from_uri (uri), (obj, res) => {
 				try {
 					accounts.active.resolve.end (res).open ();
 				} catch (Error e) {
