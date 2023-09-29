@@ -28,7 +28,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		var misc_submenu_model = new GLib.Menu ();
 		misc_submenu_model.append (_("Preferences"), "app.open-preferences");
 		misc_submenu_model.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
-		misc_submenu_model.append (_("About"), "app.about");
+		misc_submenu_model.append (_("About %s").printf (Build.NAME), "app.about");
 		menu_model.append_section (null, misc_submenu_model);
 
 		menu_btn.menu_model = menu_model;
