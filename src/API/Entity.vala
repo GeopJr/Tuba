@@ -77,6 +77,8 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 			switch (contains) {
 				case Type.STRING:
 					return des_list_string (out val, node);
+				case Type.INT:
+					return des_list_int (out val, node);
 			}
 
 			return des_list (out val, node, contains);
@@ -105,8 +107,18 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 		var arr = new Gee.ArrayList<string> ();
 		if (!node.is_null ()) {
 			node.get_array ().foreach_element ((array, i, elem) => {
-				var obj = (string) elem.get_string ();
-				arr.add (obj);
+				arr.add ((string) elem.get_string ());
+			});
+		}
+		val = arr;
+		return true;
+	}
+
+	public static bool des_list_int (out Value val, Json.Node node) {
+		var arr = new Gee.ArrayList<int> ();
+		if (!node.is_null ()) {
+			node.get_array ().foreach_element ((array, i, elem) => {
+				arr.add ((int) elem.get_int ());
 			});
 		}
 		val = arr;
