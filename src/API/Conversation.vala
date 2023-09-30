@@ -6,8 +6,9 @@ public class Tuba.API.Conversation : Entity, Widgetizable {
 	public API.Status? last_status { get; set; default = null; }
 
 	public override Type deserialize_array_type (string prop) {
-		if (prop == "accounts") {
-			return typeof (API.Account);
+		switch (prop) {
+			case "accounts":
+				return typeof (API.Account);
 		}
 
 		return base.deserialize_array_type (prop);

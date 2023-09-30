@@ -9,8 +9,9 @@ public class Tuba.API.BookWyrm : Entity, Widgetizable {
 	public Gee.ArrayList<string>? authors { get; set; default=null; }
 
 	public override Type deserialize_array_type (string prop) {
-		if (prop == "authors") {
-			return Type.STRING;
+		switch (prop) {
+			case "authors":
+				return Type.STRING;
 		}
 
 		return base.deserialize_array_type (prop);

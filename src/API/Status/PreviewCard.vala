@@ -115,8 +115,9 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 	}
 
 	public override Type deserialize_array_type (string prop) {
-		if (prop == "history") {
-			return typeof (API.TagHistory);
+		switch (prop) {
+			case "history":
+				return typeof (API.TagHistory);
 		}
 
 		return base.deserialize_array_type (prop);

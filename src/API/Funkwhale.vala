@@ -15,8 +15,9 @@ public class Tuba.API.Funkwhale : Entity {
 	}
 
 	public override Type deserialize_array_type (string prop) {
-		if (prop == "uploads") {
-			return typeof (API.FunkwhaleTrack);
+		switch (prop) {
+			case "uploads":
+				return typeof (API.FunkwhaleTrack);
 		}
 
 		return base.deserialize_array_type (prop);

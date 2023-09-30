@@ -11,8 +11,9 @@ public class Tuba.API.Instance : Entity {
     public API.Pleroma.Instance? pleroma { get; set; default = null; }
 
     public override Type deserialize_array_type (string prop) {
-		if (prop == "languages") {
-			return Type.STRING;
+        switch (prop) {
+			case "languages":
+				return Type.STRING;
 		}
 
 		return base.deserialize_array_type (prop);

@@ -4,8 +4,9 @@ public class Tuba.API.AccountSource : Entity {
 	public Gee.ArrayList<API.AccountField>? fields { get; set; default=null; }
 
 	public override Type deserialize_array_type (string prop) {
-		if (prop == "fields") {
-			return typeof (API.AccountField);
+		switch (prop) {
+			case "fields":
+				return typeof (API.AccountField);
 		}
 
 		return base.deserialize_array_type (prop);

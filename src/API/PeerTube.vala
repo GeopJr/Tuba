@@ -31,8 +31,9 @@ public class Tuba.API.PeerTube : Entity {
 	}
 
 	public override Type deserialize_array_type (string prop) {
-		if (prop == "streamingPlaylists") {
-			return typeof (API.PeerTubeStreamingPlaylist);
+		switch (prop) {
+			case "streamingPlaylists":
+				return typeof (API.PeerTubeStreamingPlaylist);
 		}
 
 		return base.deserialize_array_type (prop);
