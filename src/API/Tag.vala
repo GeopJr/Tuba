@@ -5,6 +5,15 @@ public class Tuba.API.Tag : Entity, Widgetizable {
 	public Gee.ArrayList<API.TagHistory>? history { get; set; default = null; }
 	public bool following { get; set; default = false; }
 
+	public override Type deserialize_array_type (string prop) {
+		switch (prop) {
+			case "history":
+				return typeof (API.TagHistory);
+		}
+
+		return base.deserialize_array_type (prop);
+	}
+
 	public static Tag from (Json.Node node) throws Error {
 		return Entity.from_json (typeof (API.Tag), node) as API.Tag;
 	}

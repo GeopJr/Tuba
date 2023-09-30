@@ -114,6 +114,15 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 		}
 	}
 
+	public override Type deserialize_array_type (string prop) {
+		switch (prop) {
+			case "history":
+				return typeof (API.TagHistory);
+		}
+
+		return base.deserialize_array_type (prop);
+	}
+
     public bool is_peertube {
         get {
 			// Disable PeerTube support for now

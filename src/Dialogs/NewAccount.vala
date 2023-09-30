@@ -189,13 +189,12 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		accounts.activate (account);
 	}
 
-	public void redirect (string t_uri) {
+	public void redirect (Uri uri) {
 		present ();
-		debug (@"Received uri: $t_uri");
+		debug (@"Received uri: $uri");
 
 		string code_from_params = "";
 		try {
-			var uri = Uri.parse (t_uri, UriFlags.NONE);
 			var uri_params = Uri.parse_params (uri.get_query ());
 			if (uri_params.contains ("code"))
 				code_from_params = uri_params.get ("code");

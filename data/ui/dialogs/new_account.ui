@@ -11,10 +11,12 @@
         <signal name="popped" handler="on_back_clicked" swapped="no"/>
         <child>
           <object class="AdwNavigationPage" id="instance_step">
+            <property name="title">Instance</property>
             <property name="child">
               <object class="AdwToolbarView">
                 <child type="top">
                   <object class="AdwHeaderBar">
+                    <property name="show-title">0</property>
                     <child>
                       <object class="GtkButton">
                         <property name="label" translatable="yes">Cancel</property>
@@ -93,10 +95,12 @@
         </child>
         <child>
           <object class="AdwNavigationPage" id="code_step">
+            <property name="title">Authorization Code</property>
             <property name="child">
               <object class="AdwToolbarView">
                 <child type="top">
                   <object class="AdwHeaderBar">
+                    <property name="show-title">0</property>
                     <child type="end">
                       <object class="GtkButton">
                         <property name="receives_default">1</property>
@@ -175,12 +179,14 @@
         </child>
         <child>
           <object class="AdwNavigationPage" id="done_step">
+            <property name="title">Done</property>
             <property name="can-pop">0</property>
             <property name="child">
               <object class="AdwToolbarView">
                 <child type="top">
                   <object class="AdwHeaderBar">
                     <property name="show-back-button">0</property>
+                    <property name="show-title">0</property>
                     <child type="end">
                       <object class="GtkButton">
                         <property name="receives_default">1</property>

@@ -11,6 +11,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	protected GLib.ListStore app_items;
 	protected Gtk.SliceListModel account_items;
 	protected Gtk.FlattenListModel item_model;
+	protected GLib.ListStore accounts_model;
 
 	static construct {
 		typeof (Widgets.EmojiLabel).ensure ();
@@ -20,6 +21,9 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	construct {
 		var menu_model = new GLib.Menu ();
 
+		accounts_model = new GLib.ListStore (typeof (Object));
+		saved_accounts.bind_model (accounts_model, on_accounts_row_create);
+
 		var account_submenu_model = new GLib.Menu ();
 		account_submenu_model.append (_("Open Profile"), "app.open-current-account-profile");
 		account_submenu_model.append (_("Refresh"), "app.refresh");
@@ -28,7 +32,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		var misc_submenu_model = new GLib.Menu ();
 		misc_submenu_model.append (_("Preferences"), "app.open-preferences");
 		misc_submenu_model.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
-		misc_submenu_model.append (_("About"), "app.about");
+		misc_submenu_model.append (_("About %s").printf (Build.NAME), "app.about");
 		menu_model.append_section (null, misc_submenu_model);
 
 		menu_btn.menu_model = menu_model;
@@ -48,26 +52,32 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		construct_account_holder ();
 	}
 
-	protected virtual void on_accounts_changed (Gee.ArrayList<InstanceAccount> accounts) {
-		var w = saved_accounts.get_first_child ();
-		while (w != null) {
-			saved_accounts.remove (w);
-			w = saved_accounts.get_first_child ();
-		}
+	public virtual Gtk.Widget on_accounts_row_create (Object obj) {
+		var row = new AccountRow (obj as InstanceAccount);
+		row.forget_signal.connect (popdown);
 
+		return row;
+	}
+
+	protected virtual void on_accounts_changed (Gee.ArrayList<InstanceAccount> accounts) {
+		accounts_model.remove_all ();
+
+		Object[] accounts_to_add = {};
 		accounts.foreach (acc => {
-			AccountRow row = new AccountRow (acc);
-			saved_accounts.append (row);
-			if (acc.handle == this.account.handle)
-				saved_accounts.select_row (row);
+			accounts_to_add += acc;
 
 			return true;
 		});
+		accounts_to_add += new Object ();
 
-		var new_acc_row = new AccountRow (null) {
-			css_classes = { "new-account" }
-		};
-		saved_accounts.append (new_acc_row);
+		accounts_model.splice (0, 0, accounts_to_add);
+		update_selected_account ();
+	}
+
+	private void update_selected_account () {
+		uint index;
+		if (accounts_model.find (account, out index))
+			saved_accounts.select_row (saved_accounts.get_row_at_index ((int) index));
 	}
 
 	public void set_sidebar_selected_item (int index) {
@@ -90,6 +100,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		if (account != null) {
 			sidebar_avatar_btn = this.account.bind_property ("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
 			account_items.model = account.known_places;
+			update_selected_account ();
 		} else {
 			saved_accounts.unselect_all ();
 
@@ -159,6 +170,8 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		[GtkChild] unowned Widgets.Avatar avatar;
 		[GtkChild] unowned Gtk.Button forget;
 
+		public signal void forget_signal ();
+
 		private Binding switcher_display_name;
 		private Binding switcher_handle;
 		private Binding switcher_tooltip;
@@ -195,6 +208,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		}
 
 		[GtkCallback] void on_forget () {
+			forget_signal ();
 			// The String#replace below replaces the @ with <zero-width>@
 			// so it wraps cleanly
 
@@ -226,6 +240,10 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	}
 
+	void popdown () {
+		account_switcher_popover_menu.popdown ();
+	}
+
 	void on_account_header_update (Gtk.ListBoxRow _row, Gtk.ListBoxRow? _before) {
 		var row = _row as AccountRow;
 
@@ -236,7 +254,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	}
 
 	[GtkCallback] void on_account_activated (Gtk.ListBoxRow _row) {
-		account_switcher_popover_menu.popdown ();
+		popdown ();
 
 		var row = _row as AccountRow;
 		if (row.account != null)

@@ -37,6 +37,7 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesWindow {
     public RepliesPolicy replies_policy_active { get; private set; default=RepliesPolicy.NONE; }
 
     [GtkChild] unowned Adw.EntryRow title_row;
+    [GtkChild] unowned Adw.SwitchRow hide_from_home_row;
     [GtkChild] unowned Gtk.CheckButton none_radio;
     [GtkChild] unowned Gtk.CheckButton list_radio;
     [GtkChild] unowned Gtk.CheckButton followed_radio;
@@ -49,9 +50,16 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesWindow {
         }
     }
 
+    public bool is_exclusive {
+        get {
+            return hide_from_home_row.active;
+        }
+    }
+
     public ListEdit (API.List t_list) {
         list = t_list;
         title_row.text = t_list.title;
+        hide_from_home_row.active = t_list.exclusive;
 
         update_active_radio_button (RepliesPolicy.from_string (t_list.replies_policy));
         update_members ();
@@ -147,15 +155,18 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesWindow {
     }
 
     private void on_apply () {
-        if (list.title != list_title || RepliesPolicy.from_string (list.replies_policy) != replies_policy_active) {
+        if (list.title != list_title || RepliesPolicy.from_string (list.replies_policy) != replies_policy_active || list.exclusive != is_exclusive) {
             var replies_policy_string = replies_policy_active.to_string ();
+
             new Request.PUT (@"/api/v1/lists/$(list.id)")
                 .with_account (accounts.active)
                 .with_param ("title", list_title)
                 .with_param ("replies_policy", replies_policy_string)
+                .with_param ("exclusive", is_exclusive.to_string ())
                 .then (() => {
                     list.title = list_title;
                     list.replies_policy = replies_policy_string;
+                    list.exclusive = is_exclusive;
                 })
                 .exec ();
         }
