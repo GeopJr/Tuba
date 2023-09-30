@@ -4,6 +4,19 @@ public class Tuba.API.SearchResults : Entity {
 	public Gee.ArrayList<API.Status> statuses { get; set; }
 	public Gee.ArrayList<API.Tag> hashtags { get; set; }
 
+	public override Type deserialize_array_type (string prop) {
+		switch (prop) {
+			case "accounts":
+				return typeof (API.Account);
+			case "statuses":
+				return typeof (API.Status);
+			case "hashtags":
+				return typeof (API.Tag);
+		}
+
+		return base.deserialize_array_type (prop);
+	}
+
 	public static SearchResults from (Json.Node node) throws Error {
 		return Entity.from_json (typeof (SearchResults), node) as SearchResults;
 	}

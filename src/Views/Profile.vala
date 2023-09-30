@@ -220,6 +220,12 @@ public class Tuba.Views.Profile : Views.Timeline {
 		});
 		actions.add_action (copy_handle_action);
 
+		var open_in_browser_action = new SimpleAction ("open_in_browser", null);
+		open_in_browser_action.activate.connect (v => {
+			Host.open_uri (profile.account.url);
+		});
+		actions.add_action (open_in_browser_action);
+
 		muting_action = new SimpleAction.stateful ("muting", null, false);
 		muting_action.change_state.connect (v => {
 			var state = v.get_boolean ();

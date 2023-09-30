@@ -8,6 +8,17 @@ public class Tuba.API.Announcement : Entity, Widgetizable {
 	public Gee.ArrayList<API.Emoji>? emojis { get; set; }
 	public Gee.ArrayList<API.EmojiReaction>? reactions { get; set; default = null; }
 
+	public override Type deserialize_array_type (string prop) {
+		switch (prop) {
+			case "reactions":
+				return typeof (API.EmojiReaction);
+			case "emojis":
+				return typeof (API.Emoji);
+		}
+
+		return base.deserialize_array_type (prop);
+	}
+
 	public Gee.HashMap<string, string>? emojis_map {
 		owned get {
 			return gen_emojis_map ();
