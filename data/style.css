@@ -572,6 +572,15 @@ video > overlay > revealer > controls {
 	opacity: 1;
 }
 
+.scroll-to-top-btn {
+	transition-duration: 200ms;
+	transition-property: margin-bottom;
+}
+
+.scroll-to-top-btn.composer-btn-revealed {
+	margin-bottom: 56px;
+}
+
 .profile-role {
 	background-color: alpha(currentColor, .1);
 	padding: 4px 11px;
