@@ -41,7 +41,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
 			case "reactions":
 			case "emoji-reactions":
 				return typeof (API.EmojiReaction);
-			case "mention":
+			case "mentions":
 				return typeof (API.Mention);
             case "media-attachments":
 				return typeof (API.Attachment);
