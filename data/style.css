@@ -571,3 +571,14 @@ video > overlay > revealer > controls {
 .ttl-account-switcher row:selected .blue-checkmark {
 	opacity: 1;
 }
+
+.profile-role {
+	background-color: alpha(currentColor, .1);
+	padding: 4px 11px;
+	font-size: 12.2px;
+	font-weight: 500;
+}
+
+.profile-role-border-radius {
+	border-radius: 9999px;
+}

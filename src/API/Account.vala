@@ -28,6 +28,7 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	public int64 followers_count { get; set; }
 	public int64 following_count { get; set; }
 	public int64 statuses_count { get; set; }
+	public Gee.ArrayList<API.AccountRole>? roles { get; set; default = null; }
 	public Gee.ArrayList<API.AccountField>? fields { get; set; default = null; }
 	public AccountSource? source { get; set; default = null; }
 
@@ -37,6 +38,8 @@ public class Tuba.API.Account : Entity, Widgetizable {
 				return typeof (API.Emoji);
 			case "fields":
 				return typeof (API.AccountField);
+			case "roles":
+				return typeof (API.AccountRole);
 		}
 
 		return base.deserialize_array_type (prop);
