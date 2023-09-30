@@ -36,6 +36,22 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public Gee.ArrayList<API.Emoji>? emojis { get; set; }
     public API.PreviewCard? card { get; set; default = null; }
 
+    public override Type deserialize_array_type (string prop) {
+		switch (prop) {
+			case "reactions":
+			case "emoji-reactions":
+				return typeof (API.EmojiReaction);
+			case "mention":
+				return typeof (API.Mention);
+            case "media-attachments":
+				return typeof (API.Attachment);
+            case "emojis":
+				return typeof (API.Emoji);
+		}
+
+		return base.deserialize_array_type (prop);
+	}
+
 	public Tuba.Views.Thread.ThreadRole tuba_thread_role { get; set; default = Tuba.Views.Thread.ThreadRole.NONE; }
 
     //  public string clean_content {

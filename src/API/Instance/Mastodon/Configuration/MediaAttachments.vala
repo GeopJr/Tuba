@@ -5,4 +5,13 @@ public class Tuba.API.Mastodon.Configuration.MediaAttachments : Entity {
 	public int64 video_size_limit { get; set; }
 	public int64 video_frame_rate_limit { get; set; }
 	public int64 video_matrix_limit { get; set; }
+
+	public override Type deserialize_array_type (string prop) {
+		switch (prop) {
+			case "supported-mime-types":
+				return Type.STRING;
+		}
+
+		return base.deserialize_array_type (prop);
+	}
 }
