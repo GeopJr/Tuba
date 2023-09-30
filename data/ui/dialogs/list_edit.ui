@@ -22,11 +22,15 @@
         <property name="title" translatable="yes">General</property>
         <child>
           <object class="AdwPreferencesGroup">
-            <property name="title" translatable="yes">Info</property>
             <child>
               <object class="AdwEntryRow" id="title_row">
                 <property name="input-purpose">free-form</property>
                 <property name="title" translatable="yes">List Name</property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwSwitchRow" id="hide_from_home_row">
+                <property name="title" translatable="yes">Hide these posts from home</property>
               </object>
             </child>
           </object>

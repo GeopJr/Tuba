@@ -133,6 +133,7 @@ public class Tuba.EditorPage : ComposerPage {
 			accepts_tab = false,
 			wrap_mode = Gtk.WrapMode.WORD_CHAR
 		};
+		editor.remove_css_class ("view");
 
 		#if LIBSPELLING
 			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());

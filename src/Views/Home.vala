@@ -39,12 +39,12 @@ public class Tuba.Views.Home : Views.Timeline {
 
         ulong main_window_notify = 0;
         main_window_notify = app.notify["main-window"].connect (() => {
+			app.disconnect (main_window_notify);
+
 			app.main_window.notify["is-mobile"].connect (() => {
                 if (!app.main_window.is_mobile)
                         compose_button_rev.reveal_child = true;
             });
-
-			app.disconnect (main_window_notify);
 		});
     }
 

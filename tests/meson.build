@@ -16,6 +16,9 @@ unit_tests = {
     ),
     'Units': files (
         meson.project_source_root() + '/src/Utils/Units.vala'
+    ),
+    'WebApHandler': files (
+        meson.project_source_root() + '/src/Utils/WebApHandler.vala'
     )
 }
 
