@@ -45,3 +45,11 @@
 .ttl-post.direct:hover {
 	background-color: lighter(alpha(@warning_bg_color, .1));
 }
+
+.preview_card:not(.explore), .preview_card:not(.explore) image:not(.attachment-overlay-icon) {
+	background-color: rgba(255,255,255,0.05);
+}
+
+.preview_card:not(.explore):hover {
+	background-color: rgba(255,255,255,0.1);
+}
