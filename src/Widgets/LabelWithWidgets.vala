@@ -75,6 +75,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             wrap_mode = Pango.WrapMode.WORD_CHAR,
             xalign = 0.0f,
             valign = Gtk.Align.START,
+            use_markup = false
             //  css_classes = {"lww-line-height"}
         };
 

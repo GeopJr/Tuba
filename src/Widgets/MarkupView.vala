@@ -81,7 +81,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				// markup = MarkupPolicy.TRUST,
 				selectable = _selectable,
 				vexpand = true,
-				large_emojis = settings.enlarge_custom_emojis
+				large_emojis = settings.enlarge_custom_emojis,
+				use_markup = true
 			};
 			if (instance_emojis != null) label.instance_emojis = instance_emojis;
 			if (mentions != null) label.mentions = mentions;
@@ -116,7 +117,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		traverse (root, (node) => {
 			switch (node->name) {
 				case "text":
-					blockquote_handler_text += node->content;
+					blockquote_handler_text += GLib.Markup.escape_text (node->content);
 					break;
 				case "html":
 				case "span":
@@ -215,7 +216,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 
 					var label = new RichLabel (root->children->children->content.strip ()) {
 						visible = true,
-						css_classes = { "ttl-code", "monospace" }
+						css_classes = { "ttl-code", "monospace" },
+						use_markup = false
 						// markup = MarkupPolicy.DISALLOW
 					};
 
@@ -240,7 +242,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				var text = blockquote_handler_text.strip ();
 				var label = new RichLabel (text) {
 					visible = true,
-					css_classes = { "ttl-code", "italic" }
+					css_classes = { "ttl-code", "italic" },
+					use_markup = true
 					// markup = MarkupPolicy.DISALLOW
 				};
 				v.append (label);

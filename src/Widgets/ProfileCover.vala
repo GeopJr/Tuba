@@ -123,9 +123,11 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
         if (profile.account.fields != null) {
             foreach (API.AccountField f in profile.account.fields) {
                 var row = new Adw.ActionRow ();
-                var val = new Widgets.RichLabel (HtmlUtils.simplify (f.val));
-                val.hexpand = true;
-                val.xalign = 1;
+                var val = new Widgets.RichLabel (HtmlUtils.simplify (f.val)) {
+                    use_markup = true,
+                    hexpand = true,
+                    xalign = 1
+                };
                 row.title = f.name;
 
                 info.append (row);
