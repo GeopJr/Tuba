@@ -183,6 +183,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 
 
 				new Request.GET (special_api_url)
+					.is_insecure ()
 					.then ((sess, msg, in_stream) => {
 						bool failed = true;
 						var parser = Network.get_parser_from_inputstream (in_stream);
