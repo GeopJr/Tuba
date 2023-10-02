@@ -593,9 +593,13 @@ video > overlay > revealer > controls {
 }
 
 .preview_card:not(.explore), .preview_card:not(.explore) image:not(.attachment-overlay-icon) {
-	background-color: rgba(0,0,0,0.05);
+	background-color: alpha(currentColor, 0.0625);
 }
 
 .preview_card:not(.explore):hover {
-	background-color: rgba(0,0,0,0.1);
+	background-color: alpha(currentColor, 0.125);
+}
+
+.preview_card:not(.explore):active {
+	background-color: alpha(currentColor, 0.1625);
 }
