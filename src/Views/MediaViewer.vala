@@ -391,12 +391,15 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		if (state != 0) {
 			if (state != Gdk.ModifierType.CONTROL_MASK) return false;
 
+			Item? page = safe_get ((int) carousel.position);
+			if (page == null) return false;
+
 			switch (keyval) {
 				case Gdk.Key.equal:
-					safe_get ((int) carousel.position)?.zoom_in ();
+					page.zoom_in ();
 					break;
 				case Gdk.Key.minus:
-					safe_get ((int) carousel.position)?.zoom_out ();
+					page.zoom_out ();
 					break;
 				default:
 					return false;
@@ -443,20 +446,31 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	}
 
 	private void copy_url () {
-		Host.copy (safe_get ((int) carousel.position)?.url);
+		Item? page = safe_get ((int) carousel.position);
+		if (page == null) return;
+
+		Host.copy (page.url);
 	}
 
 	private void open_in_browser () {
-		Host.open_uri (safe_get ((int) carousel.position)?.url);
+		Item? page = safe_get ((int) carousel.position);
+		if (page == null) return;
+
+		Host.open_uri (page.url);
 	}
 
 	private void save_as () {
-		Widgets.Attachment.Item.save_media_as (safe_get ((int) carousel.position)?.url);
+		Item? page = safe_get ((int) carousel.position);
+		if (page == null) return;
+
+		Widgets.Attachment.Item.save_media_as (page.url);
 	}
 
 	private void on_drag_begin (double x, double y) {
 		var t_item = safe_get ((int) carousel.position);
-		var pic = t_item?.child_widget as Gtk.Picture;
+		if (t_item == null) return;
+
+		var pic = t_item.child_widget as Gtk.Picture;
 		if (pic != null && t_item.can_zoom_out) {
 			pic.set_cursor (new Gdk.Cursor.from_name ("grabbing", null));
 			t_item.last_x = 0.0;
@@ -466,7 +480,9 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
 	private void on_drag_update (double x, double y) {
 		var t_item = safe_get ((int) carousel.position);
-		var pic = t_item?.child_widget as Gtk.Picture;
+		if (t_item == null) return;
+
+		var pic = t_item.child_widget as Gtk.Picture;
 		if (pic != null && t_item.can_zoom_out) {
 			t_item.update_adjustment (x, y);
 			t_item.last_x = x;
@@ -476,7 +492,9 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
 	private void on_drag_end (double x, double y) {
 		var t_item = safe_get ((int) carousel.position);
-		var pic = t_item?.child_widget as Gtk.Picture;
+		if (t_item == null) return;
+
+		var pic = t_item.child_widget as Gtk.Picture;
 		if (pic != null) {
 			pic.set_cursor (null);
 			t_item.last_x = 0.0;
@@ -529,7 +547,11 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
 	private void on_double_click (int n_press, double x, double y) {
 		if (n_press != 2) return;
-		safe_get ((int) carousel.position)?.on_double_click ();
+
+		Item? page = safe_get ((int) carousel.position);
+		if (page == null) return;
+
+		page.on_double_click ();
 	}
 
 	public virtual signal void clear () {
@@ -688,16 +710,27 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 			tooltip_text = _("Zoom In")
 		};
 
-		zoom_out_btn.clicked.connect (() => safe_get ((int) carousel.position)?.zoom_out ());
-		zoom_in_btn.clicked.connect (() => safe_get ((int) carousel.position)?.zoom_in ());
+		zoom_out_btn.clicked.connect (() => {
+			Item? page = safe_get ((int) carousel.position);
+			if (page == null) return;
+
+			page.zoom_out ();
+		});
+		zoom_in_btn.clicked.connect (() => {
+			Item? page = safe_get ((int) carousel.position);
+			if (page == null) return;
+
+			page.zoom_in ();
+		});
 
 		carousel.page_changed.connect ((pos) => {
 			prev_btn.sensitive = pos > 0;
 			next_btn.sensitive = pos < items.size - 1;
 
+			Item? page = safe_get ((int) pos);
 			// Media buttons overlap the video
 			// controller, so position them higher
-			if (safe_get ((int) pos)?.is_video) {
+			if (page != null && page.is_video) {
 				page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 68;
 				zoom_buttons_revealer.visible = false;
 				play_video ((int) pos);
@@ -739,9 +772,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	}
 
 	public void on_zoom_change () {
-		zoom_in_btn.sensitive = safe_get ((int) carousel.position)?.can_zoom_in;
+		Item? page = safe_get ((int) carousel.position);
+		zoom_in_btn.sensitive = page == null ? false : page.can_zoom_in;
 
-		bool can_zoom_out = safe_get ((int) carousel.position)?.can_zoom_out ?? false;
+		bool can_zoom_out = page == null ? false : page.can_zoom_out;
 		zoom_out_btn.sensitive = can_zoom_out;
 		carousel.interactive = !can_zoom_out;
 	}
@@ -749,7 +783,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	// ArrayList will segfault if we #get
 	// out of bounds
 	private Item? safe_get (int pos) {
-		if (items.size > pos) return items.get (pos);
+		if (items.size > pos && pos > -1) return items.get (pos);
 
 		return null;
 	}
@@ -772,7 +806,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
 	protected void copy_media () {
 		debug ("Begin copy-media action");
-		Gtk.Picture? pic = safe_get ((int) carousel.position)?.child_widget as Gtk.Picture;
+		Item? page = safe_get ((int) carousel.position);
+		if (page == null) return;
+
+		Gtk.Picture? pic = page.child_widget as Gtk.Picture;
 		if (pic == null || pic.paintable == null) return;
 
 		Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
