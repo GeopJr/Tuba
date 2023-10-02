@@ -591,3 +591,11 @@ video > overlay > revealer > controls {
 .profile-role-border-radius {
 	border-radius: 9999px;
 }
+
+.preview_card:not(.explore), .preview_card:not(.explore) image:not(.attachment-overlay-icon) {
+	background-color: rgba(0,0,0,0.05);
+}
+
+.preview_card:not(.explore):hover {
+	background-color: rgba(0,0,0,0.1);
+}

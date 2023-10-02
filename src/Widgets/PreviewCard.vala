@@ -1,7 +1,7 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/preview_card.ui")]
 public class Tuba.Widgets.PreviewCard : Gtk.Button {
     construct {
-        this.css_classes = {"preview_card", "frame"};
+        this.css_classes = {"preview_card", "frame", "flat"};
     }
 
 	[GtkChild] unowned Gtk.Box box;
@@ -60,7 +60,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 			}
 		} else {
 			image_widget = new Gtk.Image.from_icon_name (
-				is_video ? "media-playback-start-symbolic" : "tuba-paper-symbolic"
+				is_video ? "media-playback-start-symbolic" : "tuba-earth-symbolic"
 			) {
 				height_request = 70,
 				width_request = 70,
@@ -95,7 +95,6 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
         if (card_obj.kind == "link" && card_obj.history != null && card_obj.history.size > 0) {
 				this.remove_css_class ("frame");
 				this.add_css_class ("explore");
-				this.add_css_class ("flat");
 
 				this.clicked.connect (() => Host.open_uri (card_obj.url));
 
