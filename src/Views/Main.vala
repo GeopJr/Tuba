@@ -38,14 +38,13 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		app.main_window.update_selected_home_item ();
 	}
 
-	protected override Gtk.Widget header_widget {
+	protected override bool title_stack_page_visible {
 		get {
-			return header.title_widget;
+			return title_stack.visible_child_name == "title";
 		}
+
 		set {
-			if (app?.main_window?.is_mobile == true) {
-				header.title_widget = value;
-			}
+			title_stack.visible_child_name = app.main_window.is_mobile && value ? "switcher" : "title";
 		}
 	}
 
@@ -53,6 +52,7 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		app.main_window.bind_property ("is-mobile", search_button, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.bind_property ("is-mobile", switcher_bar, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.bind_property ("is-mobile", switcher, "visible", GLib.BindingFlags.SYNC_CREATE);
+		app.main_window.bind_property ("is-mobile", this, "title-stack-page-visible", GLib.BindingFlags.SYNC_CREATE);
 
 		app.main_window.notify["is-mobile"].connect (notify_bind);
 		notify_bind ();
@@ -61,7 +61,6 @@ public class Tuba.Views.Main : Views.TabbedBase {
 	private void notify_bind () {
 		update_fake_button (!app.main_window.is_mobile);
 		toolbar_view_mobile_style = app.main_window.is_mobile;
-		if (!app.main_window.is_mobile) header.title_widget = title_header;
 	}
 
 	public override void build_header () {
