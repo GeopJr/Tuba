@@ -465,7 +465,7 @@ video > overlay > revealer > controls {
 	padding: 0px;
 }
 
-.ttl-post {
+.card-spacing {
 	background-color: @card_bg_color;
 }
 
