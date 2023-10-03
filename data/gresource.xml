@@ -55,6 +55,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-code-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-markdown-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-rich-text-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-earth-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/help-overlay.ui</file>
