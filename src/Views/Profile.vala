@@ -76,11 +76,15 @@ public class Tuba.Views.Profile : Views.Timeline {
 		if (widget_cover != null) {
 			widget_cover.rs_invalidated.connect (on_rs_updated);
 			widget_cover.timeline_change.connect (change_timeline_source);
+			widget_cover.remove_css_class ("card");
+			widget_cover.remove_css_class ("card-spacing");
 
 			return new Gtk.ListBoxRow () {
 				focusable = true,
 				activatable = false,
-				child = widget_cover
+				child = widget_cover,
+				css_classes = { "card-spacing", "card" },
+				overflow = Gtk.Overflow.HIDDEN
 			};
 		}
 
