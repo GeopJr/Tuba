@@ -465,6 +465,10 @@ video > overlay > revealer > controls {
 	padding: 0px;
 }
 
+.card-spacing {
+	background-color: @card_bg_color;
+}
+
 /* .ttl-view:not(.no-transition) .large.content,
 .ttl-view:not(.no-transition) .small.content { */
 .ttl-view:not(.no-transition) .large.fake-content,
