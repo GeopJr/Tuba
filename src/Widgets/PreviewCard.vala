@@ -1,7 +1,7 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/preview_card.ui")]
 public class Tuba.Widgets.PreviewCard : Gtk.Button {
     construct {
-        this.css_classes = {"preview_card", "frame", "flat"};
+        this.css_classes = {"preview_card", "flat"};
     }
 
 	[GtkChild] unowned Gtk.Box box;
@@ -93,7 +93,6 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 		}
 
         if (card_obj.kind == "link" && card_obj.history != null && card_obj.history.size > 0) {
-				this.remove_css_class ("frame");
 				this.add_css_class ("explore");
 
 				this.clicked.connect (() => Host.open_uri (card_obj.url));
