@@ -113,6 +113,7 @@
                                 <property name="ellipsize">0</property>
                                 <property name="smaller-emoji-pixel-size">True</property>
                                 <property name="lines">100</property>
+                                <property name="use-markup">1</property>
                                 <style>
                                   <class name="font-bold" />
                                 </style>
