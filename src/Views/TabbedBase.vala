@@ -5,7 +5,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 	protected Adw.ViewSwitcher switcher;
 	protected Adw.ViewSwitcherBar switcher_bar;
 	protected Adw.ViewStack stack;
-	protected Adw.WindowTitle title_header;
+	protected Gtk.Stack title_stack;
 
 	public void change_page_to_named (string page_name) {
 		stack.visible_child_name = page_name;
@@ -46,31 +46,36 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		views = {};
 	}
 
-	protected virtual Gtk.Widget header_widget {
+	protected virtual bool title_stack_page_visible {
 		get {
-			return header.title_widget;
+			return title_stack.visible_child_name == "title";
 		}
+
 		set {
-			header.title_widget = value;
+			title_stack.visible_child_name = value ? "title" : "switcher";
 		}
 	}
 
 	public override void build_header () {
+		title_stack = new Gtk.Stack ();
+		header.title_widget = title_stack;
+
 		switcher = new Adw.ViewSwitcher () { policy = Adw.ViewSwitcherPolicy.WIDE };
-		header.title_widget = switcher;
+		title_stack.add_named (switcher, "switcher");
 
 		switcher_bar = new Adw.ViewSwitcherBar ();
 		toolbar_view.add_bottom_bar (switcher_bar);
 
-		title_header = new Adw.WindowTitle (label, "");
+		var title_header = new Adw.WindowTitle (label, "");
 		bind_property ("label", title_header, "title", BindingFlags.SYNC_CREATE);
+		title_stack.add_named (title_header, "title");
 
 		var condition = new Adw.BreakpointCondition.length (
 			Adw.BreakpointConditionLengthType.MAX_WIDTH,
 			550, Adw.LengthUnit.SP
 		);
 		var breakpoint = new Adw.Breakpoint (condition);
-		breakpoint.add_setter (this, "header-widget", title_header);
+		breakpoint.add_setter (title_stack, "visible-child-name", "title");
 		breakpoint.add_setter (switcher_bar, "reveal", true);
 		add_breakpoint (breakpoint);
 	}
