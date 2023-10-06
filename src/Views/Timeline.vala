@@ -201,6 +201,17 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		return GLib.Source.REMOVE;
 	}
 
+	public override void on_error (int32 code, string reason) {
+		if (base_status == null) {
+			warning (@"Error while refreshing $label: $code $reason");
+
+			var dlg = app.inform (_("Network Error"), reason);
+			dlg.present ();
+		} else {
+			base.on_error (code, reason);
+		}
+	}
+
 	public virtual void on_refresh () {
 		#if !USE_LISTVIEW
 			entity_queue = {};
