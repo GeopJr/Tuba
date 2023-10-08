@@ -209,15 +209,16 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					root->children != null
 					&& root->children->name == "code"
 					&& root->children->children != null
-					&& root->children->children->name == "text"
-					&& root->children->children->content != null
 				) {
 					v.commit_chunk ();
 
-					var label = new RichLabel (root->children->children->content.strip ()) {
+					blockquote_handler_text = "";
+					blockquote_handler (root);
+					var text = blockquote_handler_text.strip ();
+					var label = new RichLabel (text) {
 						visible = true,
 						css_classes = { "ttl-code", "monospace" },
-						use_markup = false
+						use_markup = true
 						// markup = MarkupPolicy.DISALLOW
 					};
 
