@@ -173,7 +173,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			return req;
 	}
 
+	bool has_finished_request = false;
 	public virtual void on_request_finish () {
+		has_finished_request = true;
 		base.on_bottom_reached ();
 	}
 
@@ -209,6 +211,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		status_button.sensitive = false;
 		clear ();
 		base_status = new StatusMessage () { loading = true };
+		has_finished_request = false;
 		GLib.Idle.add (request);
 	}
 
@@ -247,6 +250,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_new_post (Streamable.Event ev) {
+		if (!has_finished_request) return;
+
 		try {
 			#if USE_LISTVIEW
 				model.insert (0, Entity.from_json (accepts, ev.get_node ()));
