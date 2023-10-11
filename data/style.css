@@ -377,6 +377,11 @@ video > overlay > revealer > controls {
 .theme-intersex.about .app-version:hover{background:radial-gradient(closest-side circle at center,#ffd800 44%,#7902aa 44%,#7902aa 56%,#ffd800 56%);}
 .theme-autism.about .app-version{background:linear-gradient(to bottom,#e5304355,#e5304355 16.66%,#f6834755 16.66%,#f6834755 33.33%,#fac85755 33.33%,#fac85755 66.67%,#99d67155 66.67%,#99d67155 83.33%,#21ae7555 83.33%,#21ae7555);}
 .theme-autism.about .app-version:hover{background:linear-gradient(to bottom,#e53043,#e53043 16.66%,#f68347 16.66%,#f68347 33.33%,#fac857 33.33%,#fac857 66.67%,#99d671 66.67%,#99d671 83.33%,#21ae75 83.33%,#21ae75);}
+.theme-halloween.about .main-page{background-image:radial-gradient(225px circle at 10% 6%,@light_1 0%,@light_4 80%,#000 100%);margin-top:-46px;padding-top:46px;}
+.theme-halloween.about .main-page .title-1,.theme-halloween.about windowcontrols{color:@orange_3;text-shadow:-1px -1px 0#000,1px -1px 0#000,-1px 1px 0#000,1px 1px 0#000;}
+.theme-halloween.about .app-version{background: alpha(@orange_3,.5);}
+.theme-halloween.about .app-version:hover{background:@orange_3;}
+.theme-halloween.about preferencesgroup{filter:drop-shadow(0 10px 1rem @orange_3);}
 
 .lww-scale-emoji-hover .lww-emoji {
 	transition-duration: 150ms;

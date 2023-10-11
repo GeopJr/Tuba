@@ -15,7 +15,8 @@ public class Tuba.Celebrate {
         ARO,
         ACE,
         NON_BINARY,
-        AUTISM;
+        AUTISM,
+        HALLOWEEN;
 
 		public string to_string () {
 			switch (this) {
@@ -45,6 +46,8 @@ public class Tuba.Celebrate {
 					return "non-binary";
                 case AUTISM:
 					return "autism";
+                case HALLOWEEN:
+                    return "halloween";
                 default:
                     assert_not_reached ();
 			}
@@ -78,6 +81,8 @@ public class Tuba.Celebrate {
         { 23, 9, CelebrateStyle.BI },
         // Agender Pride Day
         { 19, 5, CelebrateStyle.AGENDER },
+        // 🎃 Halloween 🕸️
+        { 31, 10, CelebrateStyle.HALLOWEEN },
     };
 
     const Celebration[] CELEBRATIONS_WEEKS = {
