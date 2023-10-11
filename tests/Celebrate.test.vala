@@ -122,7 +122,7 @@ private TestCelebrate[] get_celebrate_tests () {
         },
         TestCelebrate () {
             date = new GLib.DateTime.local (2023, 10, 31, 0, 0, 0),
-            css_classes = { "theme-black-history" }
+            css_classes = { "theme-black-history", "theme-halloween" }
         },
         TestCelebrate () { date = new GLib.DateTime.local (2023, 9, 30, 23, 59, 0), css_classes = { } },
         TestCelebrate () { date = new GLib.DateTime.local (2023, 11, 1, 0, 0, 0), css_classes = { } },
