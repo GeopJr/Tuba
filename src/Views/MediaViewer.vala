@@ -236,6 +236,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	private Adw.Carousel carousel;
 	private Adw.CarouselIndicatorDots carousel_dots;
 	protected SimpleAction copy_media_simple_action;
+	private Tuba.Widgets.ScaleRevealer scale_revealer;
 	protected Gtk.PopoverMenu context_menu { get; set; }
 
 	construct {
@@ -259,9 +260,14 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		Gtk.Widget page_btns;
 		generate_media_buttons (out page_btns, out zoom_btns);
 
+		scale_revealer = new Tuba.Widgets.ScaleRevealer () {
+			child = carousel
+		};
+		scale_revealer.transition_done.connect (on_scale_revealer_transition_end);
+
 		overlay.add_overlay (page_btns);
 		overlay.add_overlay (zoom_btns);
-		overlay.child = carousel;
+		overlay.child = scale_revealer;
 
 		var drag = new Gtk.GestureDrag ();
 		drag.drag_begin.connect (on_drag_begin);
@@ -349,6 +355,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		context_menu.unparent ();
 	}
 
+	private void on_scale_revealer_transition_end () {
+		if (!scale_revealer.reveal_child) this.visible = false;
+	}
+
 	int? old_height;
 	int? old_width;
 	protected void on_scale_changed (double scale) {
@@ -426,6 +436,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
 	protected void on_back_clicked () {
 		clear ();
+		scale_revealer.reveal_child = false;
 	}
 
 	protected void toggle_fullscreen () {
@@ -564,10 +575,22 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		});
 
 		items.clear ();
+		revealed = false;
 	}
 
 	private async string download_video (string url) throws Error {
 		return yield Host.download (url);
+	}
+
+	private bool revealed = false;
+	public void reveal (Gtk.Widget widget) {
+		if (revealed) return;
+
+		this.visible = true;
+		scale_revealer.source_widget = widget;
+		scale_revealer.reveal_child = true;
+
+		revealed = true;
 	}
 
 	public void add_video (string url, Gdk.Paintable? preview, int? pos) {

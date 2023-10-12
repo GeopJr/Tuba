@@ -3,7 +3,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	[GtkChild] unowned Adw.NavigationView navigation_view;
 	[GtkChild] public unowned Adw.OverlaySplitView split_view;
 	[GtkChild] unowned Views.Sidebar sidebar;
-	[GtkChild] unowned Gtk.Stack main_stack;
+	//  [GtkChild] unowned Gtk.Stack main_stack;
 	[GtkChild] unowned Views.MediaViewer media_viewer;
 	[GtkChild] unowned Adw.Breakpoint breakpoint;
 
@@ -45,7 +45,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public bool is_media_viewer_visible () {
-		return main_stack.visible_child_name == "media_viewer";
+		return media_viewer.visible;
 	}
 
 	public void scroll_media_viewer (int pos) {
@@ -54,9 +54,15 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		media_viewer.scroll_to (pos);
 	}
 
+	public void temp_reveal_media_viewer (Gtk.Widget widget) {
+		//  if (is_media_viewer_visible ())
+		media_viewer.reveal (widget);
+	}
+
 	public void show_media_viewer (string url, string? alt_text, bool video, Gdk.Paintable? preview, int? pos) {
 		if (!is_media_viewer_visible ()) {
-			main_stack.visible_child_name = "media_viewer";
+			//  main_stack.visible_child_name = "media_viewer";
+			//  media_viewer.visible = true;
 			media_viewer.clear.connect (hide_media_viewer);
 		}
 
@@ -71,7 +77,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		if (paintable == null) return;
 
 		if (!is_media_viewer_visible ()) {
-			main_stack.visible_child_name = "media_viewer";
+			//  main_stack.visible_child_name = "media_viewer";
 			media_viewer.clear.connect (hide_media_viewer);
 		}
 
@@ -80,7 +86,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	public void show_media_viewer_remote_video (string url, Gdk.Paintable? preview, string? user_friendly_url = null) {
 		if (!is_media_viewer_visible ()) {
-			main_stack.visible_child_name = "media_viewer";
+			//  main_stack.visible_child_name = "media_viewer";
 			media_viewer.clear.connect (hide_media_viewer);
 		}
 
@@ -90,7 +96,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	public void hide_media_viewer () {
 		if (!is_media_viewer_visible ()) return;
 
-		main_stack.visible_child_name = "main";
+		//  main_stack.visible_child_name = "main";
 	}
 
 	public void show_book (API.BookWyrm book, string? fallback = null) {

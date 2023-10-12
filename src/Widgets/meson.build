@@ -14,6 +14,7 @@ sources += files(
     'ProfileCover.vala',
     'RelationshipButton.vala',
     'RichLabel.vala',
+    'ScaleRevealer.vala',
     'Status.vala',
     'StatusActionButton.vala',
     'VoteBox.vala',

@@ -120,6 +120,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 
 	public void load_image_in_media_viewer (int? pos) {
 		app.main_window.show_media_viewer (entity.url, pic.alternative_text, media_kind in VIDEO_TYPES, pic.paintable, pos);
+		app.main_window.temp_reveal_media_viewer (this);
 	}
 
 	public signal void on_any_attachment_click (string url) {}
