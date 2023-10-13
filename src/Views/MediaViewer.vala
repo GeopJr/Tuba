@@ -62,9 +62,10 @@ public class Tuba.Attachment {
 }
 
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/media_viewer.ui")]
-public class Tuba.Views.MediaViewer : Adw.Bin {
+public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	const double MAX_ZOOM = 20;
 	static double last_used_volume = 1.0;
+	const uint CANCEL_SWIPE_ANIMATION_DURATION = 400;
 
 	public class Item : Adw.Bin {
 		private Gtk.Stack stack;
@@ -288,6 +289,7 @@ public class Tuba.Views.MediaViewer : Adw.Bin {
 
 	[GtkChild] unowned Gtk.PopoverMenu context_menu;
 	[GtkChild] unowned Gtk.Button fullscreen_btn;
+	[GtkChild] unowned Adw.HeaderBar headerbar;
 
 	[GtkChild] unowned Gtk.Revealer page_buttons_revealer;
 	[GtkChild] unowned Gtk.Button prev_btn;
@@ -340,15 +342,120 @@ public class Tuba.Views.MediaViewer : Adw.Bin {
 		setup_mouse_previous_click ();
 		setup_double_click ();
 		setup_mouse_secondary_click ();
+		setup_swipe_close ();
 	}
 	~MediaViewer () {
 		debug ("Destroying MediaViewer");
 		context_menu.unparent ();
 	}
 
+	private double swipe_progress { get; set; }
+	public Adw.SwipeTracker swipe_tracker;
+	private void setup_swipe_close () {
+		swipe_tracker = new Adw.SwipeTracker (this) {
+			orientation = Gtk.Orientation.VERTICAL,
+			enabled = true,
+			allow_mouse_drag = true
+		};
+		swipe_tracker.update_swipe.connect (on_update_swipe);
+		swipe_tracker.end_swipe.connect (on_end_swipe);
+	}
+
+	private void on_update_swipe (double progress) {
+		headerbar.opacity = 0.0;
+		this.swipe_progress = progress;
+		this.queue_allocate ();
+		this.queue_draw ();
+	}
+
+	private void on_end_swipe (double velocity, double to) {
+		if (to == 0.0) {
+			var target = new Adw.CallbackAnimationTarget (swipe_animation_target_cb);
+			var animation = new Adw.TimedAnimation (this, swipe_progress, 0.0, CANCEL_SWIPE_ANIMATION_DURATION, target) {
+				easing = Adw.Easing.EASE_OUT_QUART
+			};
+			animation.done.connect (on_swipe_animation_end);
+			animation.play ();
+		} else {
+			clear ();
+			headerbar.opacity = 1.0;
+		}
+	}
+
+	private void swipe_animation_target_cb (double value) {
+		this.swipe_progress = value;
+		this.queue_allocate ();
+		this.queue_draw ();
+	}
+
+	private void on_swipe_animation_end () {
+		headerbar.opacity = 1.0;
+	}
+
+	public override void size_allocate (int width, int height, int baseline) {
+        int swipe_y_offset = (int) (-height * swipe_progress);
+		Gtk.Allocation allocation = Gtk.Allocation () {
+			x = 0,
+			y = swipe_y_offset,
+			width = width,
+			height = height
+		};
+		scale_revealer.allocate_size (allocation, baseline);
+    }
+
+	public override void snapshot (Gtk.Snapshot snapshot) {
+		double progress = double.min (
+			1.0 - swipe_progress.abs (),
+			scale_revealer.animation.value
+		);
+
+		if (progress > 0.0) {
+			Gdk.RGBA background_color = Gdk.RGBA () {
+				red = 0.0f,
+				green = 0.0f,
+				blue = 0.0f,
+				alpha = (float) progress
+			};
+			Graphene.Rect bounds = Graphene.Rect () {
+				origin = Graphene.Point () { x = 0.0f, y = 0.0f },
+				size = Graphene.Size () { width = (float) this.get_width (), height = (float) this.get_height () }
+			};
+
+			snapshot.append_color (background_color, bounds);
+		}
+
+		this.snapshot_child (scale_revealer, snapshot);
+	}
+
+	public double get_cancel_progress () {
+		return 0.0;
+	}
+
+	public double get_distance () {
+		return (double) this.get_height ();
+	}
+
+	public double get_progress () {
+		return swipe_progress;
+	}
+
+	public double[] get_snap_points () {
+		return {-1.0, 0.0, 1.0};
+	}
+
+	public Gdk.Rectangle get_swipe_area (Adw.NavigationDirection navigation_direction, bool is_drag) {
+		return {
+			0,
+			0,
+			this.get_width (),
+			this.get_height ()
+		};
+	}
+
 	private void on_scale_revealer_transition_end () {
 		if (!scale_revealer.reveal_child) {
 			this.visible = false;
+			swipe_progress = 0.0;
 			scale_revealer.source_widget = null;
 			reset_media_viewer ();
 		}
@@ -739,6 +846,7 @@ public class Tuba.Views.MediaViewer : Adw.Bin {
 		bool can_zoom_out = page == null ? false : page.can_zoom_out;
 		zoom_out_btn.sensitive = can_zoom_out;
 		carousel.interactive = !can_zoom_out;
+		swipe_tracker.enabled = !can_zoom_out;
 	}
 
 	// ArrayList will segfault if we #get

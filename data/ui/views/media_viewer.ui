@@ -20,7 +20,7 @@
 			<attribute name="hidden-when">action-disabled</attribute>
 		</item>
 	</menu>
-	<template class="TubaViewsMediaViewer" parent="AdwBin">
+	<template class="TubaViewsMediaViewer" parent="GtkWidget">
 		<object class="GtkPopoverMenu" id="context_menu">
 			<property name="menu-model">menu-model</property>
 			<property name="has-arrow">0</property>
@@ -34,7 +34,7 @@
 							<class name="media-viewer" />
 						</style>
 						<child type="top">
-							<object class="AdwHeaderBar">
+							<object class="AdwHeaderBar" id="headerbar">
 								<property name="centering-policy">strict</property>
 								<property name="title-widget">
 									<object class="GtkLabel">
