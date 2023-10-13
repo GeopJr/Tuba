@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+	<requires lib="gtk" version="4.0" />
+	<menu id="menu-model">
+		<item>
+			<attribute name="label" translatable="yes">Open in Browser</attribute>
+			<attribute name="action">mediaviewer.open-in-browser</attribute>
+		</item>
+		<item>
+			<attribute name="label" translatable="yes">Copy URL</attribute>
+			<attribute name="action">mediaviewer.copy-url</attribute>
+		</item>
+		<item>
+			<attribute name="label" translatable="yes">Save Media</attribute>
+			<attribute name="action">mediaviewer.save-as</attribute>
+		</item>
+		<item>
+			<attribute name="label" translatable="yes">Copy Media</attribute>
+			<attribute name="action">mediaviewer.copy-media</attribute>
+			<attribute name="hidden-when">action-disabled</attribute>
+		</item>
+	</menu>
+	<template class="TubaViewsMediaViewer" parent="AdwBin">
+		<object class="GtkPopoverMenu" id="context_menu">
+			<property name="menu-model">menu-model</property>
+			<property name="has-arrow">0</property>
+			<property name="halign">start</property>
+		</object>
+		<child>
+			<object class="TubaWidgetsScaleRevealer" id="scale_revealer">
+				<property name="child">
+					<object class="AdwToolbarView">
+						<style>
+							<class name="media-viewer" />
+						</style>
+						<child type="top">
+							<object class="AdwHeaderBar">
+								<property name="centering-policy">strict</property>
+								<property name="title-widget">
+									<object class="GtkLabel">
+										<property name="label" translatable="yes">Media Viewer</property>
+										<style>
+											<class name="title" />
+										</style>
+									</object>
+								</property>
+								<child type="start">
+									<object class="GtkButton">
+										<property name="icon-name">tuba-left-large-symbolic</property>
+										<property name="tooltip-text" translatable="yes">Go Back</property>
+										<signal name="clicked" handler="clear" swapped="no" />
+									</object>
+								</child>
+								<child type="end">
+									<object class="GtkButton" id="fullscreen_btn">
+										<property name="icon-name">view-fullscreen-symbolic</property>
+										<property name="tooltip-text" translatable="yes">Toggle Fullscreen</property>
+										<signal name="clicked" handler="toggle_fullscreen" swapped="no" />
+									</object>
+								</child>
+								<child type="end">
+									<object class="GtkMenuButton">
+										<property name="menu-model">menu-model</property>
+										<property name="icon-name">view-more-symbolic</property>
+										<property name="tooltip-text" translatable="yes">Menu</property>
+									</object>
+								</child>
+							</object>
+						</child>
+						<property name="content">
+							<object class="GtkBox">
+								<property name="orientation">vertical</property>
+								<property name="hexpand">1</property>
+								<property name="vexpand">1</property>
+								<child>
+									<object class="GtkOverlay">
+										<property name="hexpand">1</property>
+										<property name="vexpand">1</property>
+										<child type="overlay">
+											<object class="GtkRevealer" id="page_buttons_revealer">
+												<property name="transition_type">crossfade</property>
+												<property name="reveal-child">0</property>
+												<property name="visible">0</property>
+												<property name="valign">end</property>
+												<property name="halign">start</property>
+												<property name="margin_end">18</property>
+												<property name="margin_bottom">18</property>
+												<property name="child">
+													<object class="GtkBox">
+														<property name="orientation">horizontal</property>
+														<property name="spacing">12</property>
+														<child>
+															<object class="GtkButton" id="prev_btn">
+																<property name="icon-name">go-previous-symbolic</property>
+																<property name="tooltip-text" translatable="yes">Previous Attachment</property>
+																<signal name="clicked" handler="on_previous_clicked" swapped="no" />
+																<style>
+																	<class name="osd" />
+																	<class name="media-viewer-fab" />
+																	<class name="circular" />
+																</style>
+															</object>
+														</child>
+														<child>
+															<object class="GtkButton" id="next_btn">
+																<property name="icon-name">go-next-symbolic</property>
+																<property name="tooltip-text" translatable="yes">Next Attachment</property>
+																<signal name="clicked" handler="on_next_clicked" swapped="no" />
+																<style>
+																	<class name="osd" />
+																	<class name="media-viewer-fab" />
+																	<class name="circular" />
+																</style>
+															</object>
+														</child>
+													</object>
+												</property>
+											</object>
+										</child>
+										<child type="overlay">
+											<object class="GtkRevealer" id="zoom_buttons_revealer">
+												<property name="transition_type">crossfade</property>
+												<property name="reveal-child">0</property>
+												<property name="visible">0</property>
+												<property name="valign">end</property>
+												<property name="halign">end</property>
+												<property name="margin_end">18</property>
+												<property name="margin_bottom">18</property>
+												<property name="child">
+													<object class="GtkBox">
+														<property name="orientation">horizontal</property>
+														<property name="spacing">12</property>
+														<child>
+															<object class="GtkButton" id="zoom_out_btn">
+																<property name="icon-name">zoom-out-symbolic</property>
+																<property name="tooltip-text" translatable="yes">Zoom Out</property>
+																<signal name="clicked" handler="on_zoom_out_clicked" swapped="no" />
+																<style>
+																	<class name="osd" />
+																	<class name="media-viewer-fab" />
+																	<class name="circular" />
+																</style>
+															</object>
+														</child>
+														<child>
+															<object class="GtkButton" id="zoom_in_btn">
+																<property name="icon-name">zoom-in-symbolic</property>
+																<property name="tooltip-text" translatable="yes">Zoom In</property>
+																<signal name="clicked" handler="on_zoom_in_clicked" swapped="no" />
+																<style>
+																	<class name="osd" />
+																	<class name="media-viewer-fab" />
+																	<class name="circular" />
+																</style>
+															</object>
+														</child>
+													</object>
+												</property>
+											</object>
+										</child>
+										<property name="child">
+											<object class="AdwCarousel" id="carousel">
+												<property name="hexpand">1</property>
+												<property name="vexpand">1</property>
+											</object>
+										</property>
+									</object>
+								</child>
+								<child>
+									<object class="AdwCarouselIndicatorDots" id="carousel_dots">
+										<property name="carousel">carousel</property>
+										<property name="visible">0</property>
+									</object>
+								</child>
+							</object>
+						</property>
+					</object>
+				</property>
+			</object>
+		</child>
+	</template>
+</interface>

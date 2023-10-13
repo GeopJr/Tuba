@@ -61,7 +61,8 @@ public class Tuba.Attachment {
     }
 }
 
-public class Tuba.Views.MediaViewer : Gtk.Box {
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/media_viewer.ui")]
+public class Tuba.Views.MediaViewer : Adw.Bin {
 	const double MAX_ZOOM = 20;
 	static double last_used_volume = 1.0;
 
@@ -283,43 +284,28 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	};
 
 	private Gee.ArrayList<Item> items = new Gee.ArrayList<Item> ();
-	protected Gtk.Button fullscreen_btn;
-	protected Adw.HeaderBar headerbar;
-	private Adw.Carousel carousel;
-	private Adw.CarouselIndicatorDots carousel_dots;
 	protected SimpleAction copy_media_simple_action;
-	private Tuba.Widgets.ScaleRevealer scale_revealer;
-	protected Gtk.PopoverMenu context_menu { get; set; }
+
+	[GtkChild] unowned Gtk.PopoverMenu context_menu;
+	[GtkChild] unowned Gtk.Button fullscreen_btn;
+
+	[GtkChild] unowned Gtk.Revealer page_buttons_revealer;
+	[GtkChild] unowned Gtk.Button prev_btn;
+	[GtkChild] unowned Gtk.Button next_btn;
+
+	[GtkChild] unowned Gtk.Revealer zoom_buttons_revealer;
+	[GtkChild] unowned Gtk.Button zoom_out_btn;
+	[GtkChild] unowned Gtk.Button zoom_in_btn;
+
+	[GtkChild] unowned Tuba.Widgets.ScaleRevealer scale_revealer;
+	[GtkChild] unowned Adw.Carousel carousel;
+	[GtkChild] unowned Adw.CarouselIndicatorDots carousel_dots;
 
 	construct {
-		carousel = new Adw.Carousel () {
-			vexpand = true,
-			hexpand = true,
-			css_classes = {"osd"}
-		};
-
 		// Move between media using the arrow keys
 		var keypresscontroller = new Gtk.EventControllerKey ();
 		keypresscontroller.key_pressed.connect (on_keypress);
 		add_controller (keypresscontroller);
-
-		var overlay = new Gtk.Overlay () {
-			vexpand = true,
-			hexpand = true
-		};
-
-		Gtk.Widget zoom_btns;
-		Gtk.Widget page_btns;
-		generate_media_buttons (out page_btns, out zoom_btns);
-
-		scale_revealer = new Tuba.Widgets.ScaleRevealer () {
-			child = carousel
-		};
-		scale_revealer.transition_done.connect (on_scale_revealer_transition_end);
-
-		overlay.add_overlay (page_btns);
-		overlay.add_overlay (zoom_btns);
-		overlay.child = scale_revealer;
 
 		var drag = new Gtk.GestureDrag ();
 		drag.drag_begin.connect (on_drag_begin);
@@ -337,9 +323,6 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		motion.motion.connect (on_motion);
 		add_controller (motion);
 
-		orientation = Gtk.Orientation.VERTICAL;
-		spacing = 0;
-
 		var actions = new GLib.SimpleActionGroup ();
 		actions.add_action_entries (ACTION_ENTRIES, this);
 
@@ -349,54 +332,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
 		this.insert_action_group ("mediaviewer", actions);
 
-		headerbar = new Adw.HeaderBar () {
-			title_widget = new Gtk.Label (_("Media Viewer")) {
-				css_classes = {"title"}
-			},
-			css_classes = {"flat", "media-viewer-headerbar"}
-		};
-		var back_btn = new Gtk.Button.from_icon_name ("tuba-left-large-symbolic") {
-			tooltip_text = _("Go Back")
-		};
-		back_btn.clicked.connect (on_back_clicked);
-		headerbar.pack_start (back_btn);
-
-		var end_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-		fullscreen_btn = new Gtk.Button.from_icon_name ("view-fullscreen-symbolic") {
-			tooltip_text = _("Toggle Fullscreen")
-		};
-		fullscreen_btn.clicked.connect (toggle_fullscreen);
-
-		var menu_model = create_actions_menu ();
-		var actions_btn = new Gtk.MenuButton () {
-			icon_name = "view-more-symbolic",
-			menu_model = menu_model
-		};
-
-		context_menu = new Gtk.PopoverMenu.from_model (menu_model) {
-			has_arrow = false,
-			halign = Gtk.Align.START
-		};
+		carousel.notify["n-pages"].connect (on_carousel_n_pages_changed);
+		carousel.page_changed.connect (on_carousel_page_changed);
+		scale_revealer.transition_done.connect (on_scale_revealer_transition_end);
 		context_menu.set_parent (this);
-
-		end_box.append (fullscreen_btn);
-		end_box.append (actions_btn);
-		headerbar.pack_end (end_box);
-
-		carousel_dots = new Adw.CarouselIndicatorDots () {
-			carousel = carousel,
-			css_classes = {"osd"},
-			visible = false
-		};
-
-		carousel.bind_property ("n_pages", carousel_dots, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_boolean (src.get_uint () > 1);
-			return true;
-		});
-
-		append (headerbar);
-		append (overlay);
-		append (carousel_dots);
 
 		setup_mouse_previous_click ();
 		setup_double_click ();
@@ -408,7 +347,11 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	}
 
 	private void on_scale_revealer_transition_end () {
-		if (!scale_revealer.reveal_child) this.visible = false;
+		if (!scale_revealer.reveal_child) {
+			this.visible = false;
+			scale_revealer.source_widget = null;
+			reset_media_viewer ();
+		}
 	}
 
 	int? old_height;
@@ -486,26 +429,15 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		return true;
 	}
 
-	protected void on_back_clicked () {
-		clear ();
+	[GtkCallback]
+	public void clear () {
+		if (!revealed) reset_media_viewer ();
 		scale_revealer.reveal_child = false;
 	}
 
-	protected void toggle_fullscreen () {
+	[GtkCallback]
+	private void toggle_fullscreen () {
 		this.fullscreen = !this._fullscreen;
-	}
-
-	protected GLib.Menu create_actions_menu () {
-		var menu_model = new GLib.Menu ();
-		menu_model.append (_("Open in Browser"), "mediaviewer.open-in-browser");
-		menu_model.append (_("Copy URL"), "mediaviewer.copy-url");
-		menu_model.append (_("Save Media"), "mediaviewer.save-as");
-
-		var copy_media_menu_item = new MenuItem (_("Copy Media"), "mediaviewer.copy-media");
-		copy_media_menu_item.set_attribute_value ("hidden-when", "action-disabled");
-		menu_model.append_item (copy_media_menu_item);
-
-		return menu_model;
 	}
 
 	private void copy_url () {
@@ -605,7 +537,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	}
 
 	private void handle_mouse_previous_click (int n_press, double x, double y) {
-		on_back_clicked ();
+		clear ();
 	}
 
 	private void on_double_click (int n_press, double x, double y) {
@@ -617,7 +549,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		page.on_double_click ();
 	}
 
-	public virtual signal void clear () {
+	private void reset_media_viewer () {
 		this.fullscreen = false;
 
 		items.foreach ((item) => {
@@ -744,106 +676,60 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		}, Priority.LOW);
 	}
 
-	private Gtk.Button zoom_out_btn;
-	private Gtk.Button zoom_in_btn;
-	private Gtk.Revealer page_buttons_revealer;
-	private Gtk.Revealer zoom_buttons_revealer;
-	private void generate_media_buttons (out Gtk.Revealer page_btns, out Gtk.Revealer zoom_btns) {
-		var t_page_btns = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
-		var t_zoom_btns = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+	[GtkCallback]
+    private void on_previous_clicked () {
+        scroll_to (((int) carousel.position) - 1, false);
+    }
 
-		var prev_btn = new Gtk.Button.from_icon_name ("go-previous-symbolic") {
-			css_classes = {"circular", "osd", "media-viewer-fab"},
-			tooltip_text = _("Previous Attachment")
-		};
+	[GtkCallback]
+    private void on_next_clicked () {
+        scroll_to (((int) carousel.position) + 1, false);
+    }
 
-		var next_btn = new Gtk.Button.from_icon_name ("go-next-symbolic") {
-			css_classes = {"circular", "osd", "media-viewer-fab"},
-			tooltip_text = _("Next Attachment")
-		};
-
-		prev_btn.clicked.connect (() => scroll_to (((int) carousel.position) - 1, false));
-		next_btn.clicked.connect (() => scroll_to (((int) carousel.position) + 1, false));
-
-		carousel.notify["n-pages"].connect (() => {
-			var has_more_than_1_item = carousel.n_pages > 1;
-
-			prev_btn.visible = has_more_than_1_item;
-			next_btn.visible = has_more_than_1_item;
-		});
-
-		t_page_btns.append (prev_btn);
-		t_page_btns.append (next_btn);
-
-		zoom_out_btn = new Gtk.Button.from_icon_name ("zoom-out-symbolic") {
-			css_classes = {"circular", "osd", "media-viewer-fab"},
-			tooltip_text = _("Zoom Out")
-		};
-
-		zoom_in_btn = new Gtk.Button.from_icon_name ("zoom-in-symbolic") {
-			css_classes = {"circular", "osd", "media-viewer-fab"},
-			tooltip_text = _("Zoom In")
-		};
-
-		zoom_out_btn.clicked.connect (() => {
-			Item? page = safe_get ((int) carousel.position);
+	[GtkCallback]
+    private void on_zoom_out_clicked () {
+        Item? page = safe_get ((int) carousel.position);
 			if (page == null) return;
 
 			page.zoom_out ();
-		});
-		zoom_in_btn.clicked.connect (() => {
-			Item? page = safe_get ((int) carousel.position);
+    }
+
+	[GtkCallback]
+    private void on_zoom_in_clicked () {
+        Item? page = safe_get ((int) carousel.position);
 			if (page == null) return;
 
 			page.zoom_in ();
-		});
+    }
 
-		carousel.page_changed.connect ((pos) => {
-			prev_btn.sensitive = pos > 0;
-			next_btn.sensitive = pos < items.size - 1;
+	private void on_carousel_page_changed (uint pos) {
+		prev_btn.sensitive = pos > 0;
+		next_btn.sensitive = pos < items.size - 1;
 
-			Item? page = safe_get ((int) pos);
-			// Media buttons overlap the video
-			// controller, so position them higher
-			if (page != null && page.is_video) {
-				page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 68;
-				zoom_buttons_revealer.visible = false;
-				play_video ((int) pos);
-				copy_media_simple_action.set_enabled (false);
-			} else {
-				page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 18;
-				zoom_buttons_revealer.visible = true;
-				pause_all_videos ();
-				copy_media_simple_action.set_enabled (true);
-			}
+		Item? page = safe_get ((int) pos);
+		// Media buttons overlap the video
+		// controller, so position them higher
+		if (page != null && page.is_video) {
+			page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 68;
+			zoom_buttons_revealer.visible = false;
+			play_video ((int) pos);
+			copy_media_simple_action.set_enabled (false);
+		} else {
+			page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 18;
+			zoom_buttons_revealer.visible = true;
+			pause_all_videos ();
+			copy_media_simple_action.set_enabled (true);
+		}
 
-			on_zoom_change ();
-		});
+		on_zoom_change ();
+	}
 
-		t_zoom_btns.append (zoom_out_btn);
-		t_zoom_btns.append (zoom_in_btn);
+	private void on_carousel_n_pages_changed () {
+		bool has_more_than_1_item = carousel.n_pages > 1;
 
-		zoom_buttons_revealer = new Gtk.Revealer () {
-			child = t_zoom_btns,
-			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-			valign = Gtk.Align.END,
-			halign = Gtk.Align.END,
-			margin_end = 18,
-			margin_bottom = 18,
-			visible = false
-		};
-
-		page_buttons_revealer = new Gtk.Revealer () {
-			child = t_page_btns,
-			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-			valign = Gtk.Align.END,
-			halign = Gtk.Align.START,
-			margin_start = 18,
-			margin_bottom = 18
-		};
-
-		page_btns = page_buttons_revealer;
-		zoom_btns = zoom_buttons_revealer;
+		carousel_dots.visible = has_more_than_1_item;
+		prev_btn.visible = has_more_than_1_item;
+		next_btn.visible = has_more_than_1_item;
 	}
 
 	public void on_zoom_change () {

@@ -69,6 +69,7 @@
         <file>gtk/dropdown/expiration.ui</file>
 
         <file>ui/views/base.ui</file>
+        <file>ui/views/media_viewer.ui</file>
         <file>ui/views/profile_header.ui</file>
         <file>ui/views/sidebar/view.ui</file>
         <file>ui/views/sidebar/account.ui</file>

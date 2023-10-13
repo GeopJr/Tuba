@@ -221,7 +221,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		gesture_click_controller.set_state (Gtk.EventSequenceState.CLAIMED);
 		gesture_lp_controller.set_state (Gtk.EventSequenceState.CLAIMED);
 
-		if (app.main_window.is_media_viewer_visible ()) return;
+		if (app.main_window.is_media_viewer_visible) return;
 		Gdk.Rectangle rectangle = {
 			(int) x,
 			(int) y,

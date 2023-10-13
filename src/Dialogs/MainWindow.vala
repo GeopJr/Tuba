@@ -44,19 +44,14 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		#endif
 	}
 
-	public bool is_media_viewer_visible () {
-		return media_viewer.visible;
+	public bool is_media_viewer_visible {
+		get { return media_viewer.visible; }
 	}
 
 	public void scroll_media_viewer (int pos) {
-		if (!is_media_viewer_visible ()) return;
+		if (!is_media_viewer_visible) return;
 
 		media_viewer.scroll_to (pos);
-	}
-
-	public void temp_reveal_media_viewer (Gtk.Widget widget) {
-		//  if (is_media_viewer_visible ())
-		media_viewer.reveal (widget);
 	}
 
 	public void show_media_viewer (
@@ -73,7 +68,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 		media_viewer.add_media (url, media_type, preview, pos, as_is, user_friendly_url);
 
-		if (!is_media_viewer_visible ()) {
+		if (!is_media_viewer_visible) {
 			if (source_widget != null) {
 				media_viewer.reveal (source_widget);
 			} else {
@@ -83,12 +78,11 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public void show_media_viewer_remote_video (string url, Gdk.Paintable? preview, string? user_friendly_url = null) {
-		if (!is_media_viewer_visible ()) {
-			//  main_stack.visible_child_name = "media_viewer";
-			//  media_viewer.clear.connect (hide_media_viewer);
-		}
-
 		media_viewer.set_remote_video (url, preview, user_friendly_url);
+
+		if (!is_media_viewer_visible) {
+			media_viewer.visible = true;
+		}
 	}
 
 	public void show_book (API.BookWyrm book, string? fallback = null) {
@@ -149,7 +143,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public bool back () {
-		if (is_media_viewer_visible ()) {
+		if (is_media_viewer_visible) {
 			media_viewer.clear ();
 			return true;
 		};
