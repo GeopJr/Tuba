@@ -1,7 +1,4 @@
 public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
-	const string[] ALLOWED_TYPES = {"IMAGE", "VIDEO", "GIFV", "AUDIO"};
-	const string[] VIDEO_TYPES = {"GIFV", "VIDEO", "AUDIO"};
-
 	protected Gtk.Picture pic;
 	protected Gtk.Overlay media_overlay;
 
@@ -45,7 +42,6 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		button.child = media_overlay;
 	}
 
-	const string[] CAN_COPY_KINDS = { "IMAGE" };
 	protected Gtk.Image? media_icon = null;
 	protected override void on_rebind () {
 		base.on_rebind ();
@@ -53,13 +49,13 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 
 		image_cache.request_paintable (entity.preview_url, on_cache_response);
 
-		if (media_kind in VIDEO_TYPES) {
+		if (media_kind.is_video ()) {
 			media_icon = new Gtk.Image () {
 				valign = Gtk.Align.CENTER,
 				halign = Gtk.Align.CENTER
 			};
 
-			if (media_kind != "AUDIO") {
+			if (media_kind != Tuba.Attachment.MediaType.AUDIO) {
 				media_icon.css_classes = { "osd", "circular", "attachment-overlay-icon" };
 				media_icon.icon_name = "media-playback-start-symbolic";
 			} else {
@@ -72,7 +68,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			media_icon.icon_size = Gtk.IconSize.LARGE;
 		}
 
-		copy_media_simple_action.set_enabled (media_kind in CAN_COPY_KINDS);
+		copy_media_simple_action.set_enabled (media_kind.can_copy ());
 	}
 
 	protected override void copy_media () {
@@ -110,7 +106,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			return;
 		}
 
-		if (media_kind in ALLOWED_TYPES) {
+		if (media_kind != Tuba.Attachment.MediaType.UNKNOWN) {
 			load_image_in_media_viewer (null);
 			on_any_attachment_click (entity.url);
 		} else { // Fallback
@@ -119,8 +115,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	}
 
 	public void load_image_in_media_viewer (int? pos) {
-		app.main_window.show_media_viewer (entity.url, pic.alternative_text, media_kind in VIDEO_TYPES, pic.paintable, pos);
-		app.main_window.temp_reveal_media_viewer (this);
+		app.main_window.show_media_viewer (entity.url, media_kind, pic.paintable, pos, this, false, pic.alternative_text);
 	}
 
 	public signal void on_any_attachment_click (string url) {}

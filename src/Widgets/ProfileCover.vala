@@ -64,11 +64,11 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
     private string avi_url { get; set; default=""; }
     private string header_url { get; set; default=""; }
     void open_header_in_media_viewer () {
-        app.main_window.show_media_viewer_single (header_url, background.paintable);
+        app.main_window.show_media_viewer (header_url, Tuba.Attachment.MediaType.IMAGE, background.paintable, null, background, true);
     }
 
     void open_pfp_in_media_viewer () {
-        app.main_window.show_media_viewer_single (avi_url, avatar.custom_image);
+        app.main_window.show_media_viewer (avi_url, Tuba.Attachment.MediaType.IMAGE, avatar.custom_image, null, avatar, true);
     }
 
     public Cover (Views.Profile.ProfileAccount profile) {

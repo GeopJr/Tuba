@@ -1,5 +1,66 @@
 // Mostly inspired by Loupe https://gitlab.gnome.org/Incubator/loupe
 
+public class Tuba.Attachment {
+	public enum MediaType {
+        IMAGE,
+        VIDEO,
+        GIFV,
+		AUDIO,
+		UNKNOWN;
+
+		public bool can_copy () {
+			switch (this) {
+				case IMAGE:
+					return true;
+				default:
+					return false;
+			}
+		}
+
+		public bool is_video () {
+			switch (this) {
+				case VIDEO:
+				case GIFV:
+				case AUDIO:
+					return true;
+				default:
+					return false;
+			}
+		}
+
+        public string to_string () {
+			switch (this) {
+				case IMAGE:
+					return "IMAGE";
+				case VIDEO:
+					return "VIDEO";
+				case GIFV:
+					return "GIFV";
+				case AUDIO:
+					return "AUDIO";
+				default:
+					return "UNKNOWN";
+			}
+		}
+
+		public static MediaType from_string (string media_type) {
+			string media_type_up = media_type.up ();
+			switch (media_type_up) {
+				case "IMAGE":
+					return IMAGE;
+				case "VIDEO":
+					return VIDEO;
+				case "GIFV":
+					return GIFV;
+				case "AUDIO":
+					return AUDIO;
+				default:
+					return UNKNOWN;
+			}
+		}
+    }
+}
+
 public class Tuba.Views.MediaViewer : Gtk.Box {
 	const double MAX_ZOOM = 20;
 	static double last_used_volume = 1.0;
@@ -138,22 +199,13 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 			Gdk.Paintable? paintable,
 			bool t_is_video = false
 		) {
-			child_widget = child;
-			is_video = t_is_video;
+			this.child_widget = child;
+			this.is_video = t_is_video;
 
 			stack.add_named (setup_scrolledwindow (child), "child");
 			this.url = t_url;
 
 			if (paintable != null) overlay.child = new Gtk.Picture.for_paintable (paintable);
-		}
-
-		public Item.static (Gtk.Widget child, string t_url) {
-			child_widget = child;
-
-			stack.add_named (setup_scrolledwindow (child), "child");
-			this.url = t_url;
-
-			done ();
 		}
 
 		~Item () {
@@ -593,9 +645,62 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		revealed = true;
 	}
 
-	public void add_video (string url, Gdk.Paintable? preview, int? pos) {
-		var video = new Gtk.Video ();
-		var item = new Item (video, url, preview, true);
+	public void add_media (
+		string url,
+		Tuba.Attachment.MediaType media_type,
+		Gdk.Paintable? preview,
+		int? pos = null,
+		bool as_is = false,
+		string? alt_text = null,
+		string? user_friendly_url = null
+	) {
+		Item item;
+		string final_friendly_url = user_friendly_url == null ? url : user_friendly_url;
+		Gdk.Paintable? final_preview = as_is ? null : preview;
+
+		if (media_type.is_video ()) {
+			var video = new Gtk.Video ();
+			item = new Item (video, final_friendly_url, final_preview, true);
+
+			if (!as_is) {
+				download_video.begin (url, (obj, res) => {
+					try {
+						var path = download_video.end (res);
+						video.set_filename (path);
+						item.done ();
+					}
+					catch (Error e) {
+						var dlg = app.inform (_("Error"), e.message);
+						dlg.present ();
+					}
+				});
+			}
+		} else {
+			var picture = new Gtk.Picture ();
+
+			if (!settings.media_viewer_expand_pictures) {
+				picture.valign = picture.halign = Gtk.Align.CENTER;
+			}
+
+			item = new Item (picture, final_friendly_url, final_preview);
+			item.zoom_changed.connect (on_zoom_change);
+
+			if (alt_text != null) picture.alternative_text = alt_text;
+
+			if (!as_is) {
+				image_cache.request_paintable (url, (is_loaded, data) => {
+					if (is_loaded) {
+						picture.paintable = data;
+						item.done ();
+					}
+				});
+			} else {
+				picture.paintable = preview;
+			}
+		}
+
+		if (as_is) item.done ();
+
 		if (pos == null) {
 			carousel.append (item);
 			items.add (item);
@@ -603,45 +708,6 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 			carousel.insert (item, pos);
 			items.insert (pos, item);
 		}
-
-		download_video.begin (url, (obj, res) => {
-			try {
-				var path = download_video.end (res);
-				video.set_filename (path);
-				item.done ();
-			}
-			catch (Error e) {
-				var dlg = app.inform (_("Error"), e.message);
-				dlg.present ();
-			}
-		});
-	}
-
-	public void add_image (string url, string? alt_text, Gdk.Paintable? preview, int? pos) {
-		var picture = new Gtk.Picture ();
-
-		if (!settings.media_viewer_expand_pictures) {
-			picture.valign = picture.halign = Gtk.Align.CENTER;
-		}
-
-		var item = new Item (picture, url, preview);
-		item.zoom_changed.connect (on_zoom_change);
-		if (pos == null) {
-			carousel.append (item);
-			items.add (item);
-		} else {
-			carousel.insert (item, pos);
-			items.insert (pos, item);
-		}
-
-		if (alt_text != null) picture.alternative_text = alt_text;
-
-		image_cache.request_paintable (url, (is_loaded, data) => {
-			if (is_loaded) {
-				picture.paintable = data;
-				item.done ();
-			}
-		});
 	}
 
 	public void set_remote_video (string url, Gdk.Paintable? preview, string? user_friendly_url = null) {
@@ -656,20 +722,6 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		items.add (item);
 
 		carousel.page_changed (0);
-	}
-
-	public void set_single_paintable (string url, Gdk.Paintable paintable) {
-		var picture = new Gtk.Picture ();
-		picture.paintable = paintable;
-
-		if (!settings.media_viewer_expand_pictures) {
-			picture.valign = picture.halign = Gtk.Align.CENTER;
-		}
-
-		var item = new Item.static (picture, url);
-		item.zoom_changed.connect (on_zoom_change);
-		carousel.append (item);
-		items.add (item);
 	}
 
 	public void scroll_to (int pos, bool should_timeout = true) {

@@ -1,5 +1,4 @@
 public class Tuba.Widgets.Attachment.Item : Adw.Bin {
-
 	public API.Attachment entity { get; set; default = null; }
 	protected Gtk.GestureClick gesture_click_controller { get; set; }
 	protected Gtk.GestureLongPress gesture_lp_controller { get; set; }
@@ -16,7 +15,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	protected Gtk.Button alt_btn;
 	protected Gtk.Box badge_box;
 	protected ulong alt_btn_clicked_id;
-	protected string media_kind;
+	protected Tuba.Attachment.MediaType media_kind;
 
 	private void copy_url () {
 		Host.copy (entity.url);
@@ -199,7 +198,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	protected virtual void on_rebind () {
 		alt_btn.visible = entity != null && entity.description != null && entity.description != "";
-		media_kind = entity.kind.up ();
+		media_kind = Tuba.Attachment.MediaType.from_string (entity.kind);
 	}
 
 	protected virtual void on_click () {
