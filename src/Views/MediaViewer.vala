@@ -783,7 +783,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		// https://gitlab.gnome.org/GNOME/libadwaita/-/issues/597
 		// https://gitlab.gnome.org/GNOME/libadwaita/-/merge_requests/827
 		uint timeout = 0;
-		timeout = Timeout.add (1000, () => {
+		timeout = Timeout.add (250, () => {
 			if (pos < items.size)
 				carousel.scroll_to (carousel.get_nth_page (pos), true);
 			GLib.Source.remove (timeout);
