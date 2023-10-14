@@ -80,7 +80,7 @@ public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 		this.queue_draw ();
 	}
 
-	const Graphene.Rect fallback_bounds = {
+	const Graphene.Rect FALLBACK_BOUNDS = {
 		{ 0.0f, 0.0f },
 		{ 100.0f, 100.0f }
 	};
@@ -97,12 +97,12 @@ public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 
 		// Vala will complain about possibly unassigned local variable
 		// if source_bounds doesn't have a default value
-		Graphene.Rect source_bounds = fallback_bounds;
+		Graphene.Rect source_bounds = FALLBACK_BOUNDS;
 
 		// let's avoid reassigning source_bounds by splitting it into
 		// two if statements
 		if (this.source_widget != null) {
-			if (!this.source_widget.compute_bounds (this, out source_bounds)) source_bounds = fallback_bounds;
+			if (!this.source_widget.compute_bounds (this, out source_bounds)) source_bounds = FALLBACK_BOUNDS;
 		}
 
 		float x_scale = source_bounds.get_width () / this.get_width ();
