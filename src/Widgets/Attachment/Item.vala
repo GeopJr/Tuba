@@ -167,6 +167,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 			default_width = 400,
 			default_height = 300
 		};
+		window.add_binding_action (Gdk.Key.Escape, 0, "window.close", null);
 
 		toolbar_view.add_top_bar (headerbar);
 		toolbar_view.set_content (scrolledwindow);
