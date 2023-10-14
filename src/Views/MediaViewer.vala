@@ -226,6 +226,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		}
 
 		public void done () {
+			if (is_done) return;
+
 			spinner.spinning = false;
 			stack.visible_child_name = "child";
 			if (is_video) {
@@ -672,6 +674,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 	private void reset_media_viewer () {
 		this.fullscreen = false;
+		todo_items.clear ();
 
 		items.foreach ((item) => {
 			carousel.remove (item);
@@ -688,7 +691,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	private bool revealed = false;
-	public void reveal (Gtk.Widget widget) {
+	public void reveal (Gtk.Widget? widget) {
 		if (revealed) return;
 
 		this.visible = true;
@@ -696,6 +699,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		scale_revealer.reveal_child = true;
 
 		revealed = true;
+		do_todo_items ();
 	}
 
 	public void add_media (
@@ -705,7 +709,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		int? pos = null,
 		bool as_is = false,
 		string? alt_text = null,
-		string? user_friendly_url = null
+		string? user_friendly_url = null,
+		bool stream = false
 	) {
 		Item item;
 		string final_friendly_url = user_friendly_url == null ? url : user_friendly_url;
@@ -715,12 +720,15 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			var video = new Gtk.Video ();
 			item = new Item (video, final_friendly_url, final_preview, true);
 
-			if (!as_is) {
+			if (stream) {
+				File file = File.new_for_uri (url);
+				video.set_file (file);
+			} else if (!as_is) {
 				download_video.begin (url, (obj, res) => {
 					try {
 						var path = download_video.end (res);
 						video.set_filename (path);
-						item.done ();
+						add_todo_item (item);
 					}
 					catch (Error e) {
 						var dlg = app.inform (_("Error"), e.message);
@@ -744,15 +752,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				image_cache.request_paintable (url, (is_loaded, data) => {
 					if (is_loaded) {
 						picture.paintable = data;
-						item.done ();
+						add_todo_item (item);
 					}
 				});
 			} else {
 				picture.paintable = preview;
 			}
 		}
-
-		if (as_is) item.done ();
 
 		if (pos == null) {
 			carousel.append (item);
@@ -761,20 +767,28 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			carousel.insert (item, pos);
 			items.insert (pos, item);
 		}
+
+		if (as_is || stream) add_todo_item (item);
 	}
 
-	public void set_remote_video (string url, Gdk.Paintable? preview, string? user_friendly_url = null) {
-		var video = new Gtk.Video ();
-		var item = new Item (video, user_friendly_url, preview, true);
+	private Gee.ArrayList<string> todo_items = new Gee.ArrayList<string> ();
+	private void add_todo_item (Item todo_item) {
+		if (revealed) {
+			todo_item.done ();
+		} else {
+			todo_items.add (todo_item.url);
+		}
+	}
+	private void do_todo_items () {
+		if (todo_items.size == 0 || items.size == 0) return;
 
-		File file = File.new_for_uri (url);
-		video.set_file (file);
-		item.done ();
-
-		carousel.append (item);
-		items.add (item);
-
-		carousel.page_changed (0);
+		items.foreach (item => {
+			if (todo_items.contains (item.url)) {
+				item.done ();
+				todo_items.remove (item.url);
+			}
+			return true;
+		});
 	}
 
 	public void scroll_to (int pos, bool should_timeout = true) {

@@ -215,7 +215,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 							Host.open_uri (card_url);
 						} else {
 							if (bookwyrm_obj == null) {
-								app.main_window.show_media_viewer_remote_video (res_url, null, card_url);
+								app.main_window.show_media_viewer (res_url, Tuba.Attachment.MediaType.VIDEO, null, 0, null, false, null, card_url, true);
 							} else {
 								app.main_window.show_book (bookwyrm_obj, card_url);
 							}

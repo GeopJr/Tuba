@@ -74,27 +74,16 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		Gtk.Widget? source_widget = null,
 		bool as_is = false,
 		string? alt_text = null,
-		string? user_friendly_url = null
+		string? user_friendly_url = null,
+		bool stream = false
 	) {
 		if (as_is && preview == null) return;
 
-		media_viewer.add_media (url, media_type, preview, pos, as_is, user_friendly_url);
+		media_viewer.add_media (url, media_type, preview, pos, as_is, alt_text, user_friendly_url, stream);
 
 		if (!is_media_viewer_visible) {
-			if (source_widget != null) {
-				media_viewer.reveal (source_widget);
-				media_viewer_source_widget = source_widget;
-			} else {
-				media_viewer.visible = true;
-			}
-		}
-	}
-
-	public void show_media_viewer_remote_video (string url, Gdk.Paintable? preview, string? user_friendly_url = null) {
-		media_viewer.set_remote_video (url, preview, user_friendly_url);
-
-		if (!is_media_viewer_visible) {
-			media_viewer.visible = true;
+			media_viewer.reveal (source_widget);
+			media_viewer_source_widget = source_widget;
 		}
 	}
 
