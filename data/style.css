@@ -235,6 +235,10 @@ flowboxchild {
 	color: white;
 }
 
+.media-viewer .top-bar {
+	background-image: none;
+}
+
 .ttl-status-heading {
 	font-size: small;
 }
