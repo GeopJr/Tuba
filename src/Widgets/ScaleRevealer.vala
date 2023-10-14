@@ -68,7 +68,8 @@ public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 
 	private void on_animation_end () {
 		if (!reveal_child) {
-			source_widget.opacity = 1.0;
+			if (source_widget != null)
+				source_widget.opacity = 1.0;
 			this.visible = false;
 		}
 
@@ -78,6 +79,11 @@ public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 	private void animation_target_cb (double value) {
 		this.queue_draw ();
 	}
+
+	const Graphene.Rect fallback_bounds = {
+		{ 0.0f, 0.0f },
+		{ 100.0f, 100.0f }
+	};
 
 	public override void snapshot (Gtk.Snapshot snapshot) {
 		if (this.child == null) return;
@@ -89,11 +95,15 @@ public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 		}
 		var rev_progress = (1.0 - progress).abs ();
 
-		Graphene.Rect source_bounds;
-		if (!this.source_widget.compute_bounds (this, out source_bounds)) source_bounds = Graphene.Rect () {
-			origin = Graphene.Point () { x = 0.0f, y = 0.0f },
-			size = Graphene.Size () { width = 100.0f, height = 100.0f }
-		};
+		// Vala will complain about possibly unassigned local variable
+		// if source_bounds doesn't have a default value
+		Graphene.Rect source_bounds = fallback_bounds;
+
+		// let's avoid reassigning source_bounds by splitting it into
+		// two if statements
+		if (this.source_widget != null) {
+			if (!this.source_widget.compute_bounds (this, out source_bounds)) source_bounds = fallback_bounds;
+		}
 
 		float x_scale = source_bounds.get_width () / this.get_width ();
 		float y_scale = source_bounds.get_height () / this.get_height ();
@@ -107,6 +117,7 @@ public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 		snapshot.translate (Graphene.Point () { x = x, y = y });
 		snapshot.scale (x_scale, y_scale);
 
+		if (source_widget == null) return;
 		if (source_widget_texture == null) {
 			warning ("The source widget texture is None, using child snapshot as fallback");
 			this.snapshot_child (this.child, snapshot);
