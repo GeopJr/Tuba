@@ -306,8 +306,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	private double swipe_children_opacity {
 		set {
 			headerbar.opacity =
-			carousel_dots.opacity = 
-			page_buttons_revealer.opacity = 
+			carousel_dots.opacity =
+			page_buttons_revealer.opacity =
 			zoom_buttons_revealer.opacity = value;
 		}
 	}
