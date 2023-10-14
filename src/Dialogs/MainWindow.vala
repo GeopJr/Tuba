@@ -17,6 +17,18 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		var gtk_settings = Gtk.Settings.get_default ();
 		breakpoint.add_setter (this, "is-mobile", true);
 		notify["is-mobile"].connect (update_selected_home_item);
+		media_viewer.bind_property ("visible", split_view, "can-focus", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
+		media_viewer.notify["visible"].connect (on_media_viewer_toggle);
+	}
+
+	private weak Gtk.Widget? media_viewer_source_widget;
+	private void on_media_viewer_toggle () {
+		if (is_media_viewer_visible || media_viewer_source_widget == null) return;
+
+		Gtk.Widget focusable_widget = media_viewer_source_widget;
+		while (focusable_widget != null && !focusable_widget.focusable) focusable_widget = focusable_widget.get_parent ();
+		if (focusable_widget != null) focusable_widget.grab_focus ();
+		media_viewer_source_widget = null;
 	}
 
 	public bool is_home {
@@ -71,6 +83,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		if (!is_media_viewer_visible) {
 			if (source_widget != null) {
 				media_viewer.reveal (source_widget);
+				media_viewer_source_widget = source_widget;
 			} else {
 				media_viewer.visible = true;
 			}

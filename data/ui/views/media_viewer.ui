@@ -21,6 +21,7 @@
 		</item>
 	</menu>
 	<template class="TubaViewsMediaViewer" parent="GtkWidget">
+		<property name="focusable">1</property>
 		<object class="GtkPopoverMenu" id="context_menu">
 			<property name="menu-model">menu-model</property>
 			<property name="has-arrow">0</property>

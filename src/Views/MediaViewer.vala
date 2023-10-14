@@ -343,6 +343,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		this.insert_action_group ("mediaviewer", actions);
 
+		this.notify["visible"].connect (on_visible_toggle);
 		carousel.notify["n-pages"].connect (on_carousel_n_pages_changed);
 		carousel.page_changed.connect (on_carousel_page_changed);
 		scale_revealer.transition_done.connect (on_scale_revealer_transition_end);
@@ -356,6 +357,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	~MediaViewer () {
 		debug ("Destroying MediaViewer");
 		context_menu.unparent ();
+	}
+
+	private void on_visible_toggle () {
+		if (this.visible) this.grab_focus ();
 	}
 
 	private double swipe_progress { get; set; }
