@@ -1,4 +1,4 @@
-// Mostly inspired by Loupe https://gitlab.gnome.org/Incubator/loupe
+// Mostly inspired by Loupe https://gitlab.gnome.org/GNOME/loupe and Fractal https://gitlab.gnome.org/GNOME/fractal
 
 public class Tuba.Attachment {
 	public enum MediaType {
@@ -303,6 +303,15 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	[GtkChild] unowned Adw.Carousel carousel;
 	[GtkChild] unowned Adw.CarouselIndicatorDots carousel_dots;
 
+	private double swipe_children_opacity {
+		set {
+			headerbar.opacity =
+			carousel_dots.opacity = 
+			page_buttons_revealer.opacity = 
+			zoom_buttons_revealer.opacity = value;
+		}
+	}
+
 	construct {
 		// Move between media using the arrow keys
 		var keypresscontroller = new Gtk.EventControllerKey ();
@@ -362,7 +371,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	private void on_update_swipe (double progress) {
-		headerbar.opacity = 0.0;
+		this.swipe_children_opacity = 0.0;
 		this.swipe_progress = progress;
 		this.queue_allocate ();
 		this.queue_draw ();
@@ -378,7 +387,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			animation.play ();
 		} else {
 			clear ();
-			headerbar.opacity = 1.0;
+			this.swipe_children_opacity = 1.0;
 		}
 	}
 
@@ -389,7 +398,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	private void on_swipe_animation_end () {
-		headerbar.opacity = 1.0;
+		this.swipe_children_opacity = 1.0;
 	}
 
 	public override void size_allocate (int width, int height, int baseline) {

@@ -1,3 +1,6 @@
+// ScaleRevealer is ported from Fractal
+// https://gitlab.gnome.org/GNOME/fractal/-/blob/e1976cd4e182cc8513d52c1a985a4fce9a056ad2/src/components/scale_revealer.rs
+
 public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 	const uint ANIMATION_DURATION = 250;
 
