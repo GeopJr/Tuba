@@ -209,15 +209,16 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					root->children != null
 					&& root->children->name == "code"
 					&& root->children->children != null
-					&& root->children->children->name == "text"
-					&& root->children->children->content != null
 				) {
 					v.commit_chunk ();
 
-					var label = new RichLabel (root->children->children->content.strip ()) {
+					blockquote_handler_text = "";
+					blockquote_handler (root->children);
+					var text = blockquote_handler_text.strip ();
+					var label = new RichLabel (text) {
 						visible = true,
 						css_classes = { "ttl-code", "monospace" },
-						use_markup = false
+						use_markup = true
 						// markup = MarkupPolicy.DISALLOW
 					};
 
@@ -229,7 +230,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				}
 				break;
 			case "code":
-				v.write_chunk ("<span font_family=\"monospace\">");
+				v.write_chunk ("<span background=\"#9696961a\" font_family=\"monospace\">");
 				traverse_and_handle (v, root, default_handler);
 				v.strip_chunk ();
 				v.write_chunk ("</span>");
