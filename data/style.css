@@ -231,9 +231,12 @@ flowboxchild {
 	background: alpha(@success_bg_color, 0.1);
 }
 
-.media-viewer-headerbar {
-	background: rgba(0, 0, 0, .7);
+.media-viewer {
 	color: white;
+}
+
+.media-viewer .top-bar {
+	background-image: none;
 }
 
 .ttl-status-heading {
