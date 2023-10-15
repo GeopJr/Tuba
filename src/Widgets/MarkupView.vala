@@ -213,7 +213,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					v.commit_chunk ();
 
 					blockquote_handler_text = "";
-					blockquote_handler (root);
+					blockquote_handler (root->children);
 					var text = blockquote_handler_text.strip ();
 					var label = new RichLabel (text) {
 						visible = true,
