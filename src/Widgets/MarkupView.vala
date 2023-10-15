@@ -230,7 +230,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				}
 				break;
 			case "code":
-				v.write_chunk ("<span font_family=\"monospace\">");
+				v.write_chunk ("<span background=\"#9696961a\" font_family=\"monospace\">");
 				traverse_and_handle (v, root, default_handler);
 				v.strip_chunk ();
 				v.write_chunk ("</span>");
