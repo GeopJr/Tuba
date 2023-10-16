@@ -79,6 +79,7 @@
 										<property name="vexpand">1</property>
 										<child type="overlay">
 											<object class="GtkRevealer" id="page_buttons_revealer">
+												<property name="overflow">visible</property>
 												<property name="transition_type">crossfade</property>
 												<property name="reveal-child">0</property>
 												<property name="visible">0</property>
@@ -120,6 +121,7 @@
 										</child>
 										<child type="overlay">
 											<object class="GtkRevealer" id="zoom_buttons_revealer">
+												<property name="overflow">visible</property>
 												<property name="transition_type">crossfade</property>
 												<property name="reveal-child">0</property>
 												<property name="visible">0</property>

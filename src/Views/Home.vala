@@ -14,6 +14,7 @@ public class Tuba.Views.Home : Views.Timeline {
             valign = halign = Gtk.Align.END,
             margin_end = 24,
             reveal_child = true,
+            overflow = Gtk.Overflow.VISIBLE,
             child = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
                 action_name = "app.compose",
                 tooltip_text = _("Compose"),
