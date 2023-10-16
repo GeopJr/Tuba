@@ -19,6 +19,11 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		notify["is-mobile"].connect (update_selected_home_item);
 		media_viewer.bind_property ("visible", split_view, "can-focus", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 		media_viewer.notify["visible"].connect (on_media_viewer_toggle);
+		settings.notify["darken-images-on-dark-mode"].connect (settings_updated);
+	}
+
+	private void settings_updated () {
+		Tuba.toggle_css (this, settings.darken_images_on_dark_mode, "ttl-darken-images");
 	}
 
 	private weak Gtk.Widget? media_viewer_source_widget;

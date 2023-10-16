@@ -24,6 +24,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned Adw.SwitchRow enlarge_custom_emojis;
     [GtkChild] unowned Adw.SwitchRow use_blurhash;
     [GtkChild] unowned Adw.SwitchRow group_push_notifications;
+    [GtkChild] unowned Adw.SwitchRow darken_images_on_dark_mode;
 
     [GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
     [GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
@@ -125,6 +126,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
         settings.bind ("enlarge-custom-emojis", enlarge_custom_emojis, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("use-blurhash", use_blurhash, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("group-push-notifications", group_push_notifications, "active", SettingsBindFlags.DEFAULT);
+        settings.bind ("darken-images-on-dark-mode", darken_images_on_dark_mode, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 

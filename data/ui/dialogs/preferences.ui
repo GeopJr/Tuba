@@ -89,6 +89,11 @@
 								<property name="title" translatable="yes">Show link preview cards</property>
 							</object>
 						</child>
+						<child>
+							<object class="AdwSwitchRow" id="darken_images_on_dark_mode">
+								<property name="title" translatable="yes">Darken images on dark mode</property>
+							</object>
+						</child>
 					</object>
 				</child>
 				<child>
