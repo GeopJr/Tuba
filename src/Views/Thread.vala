@@ -34,7 +34,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		construct_account_holder ();
 	}
 	~Thread () {
-		debug ("Destroying Thread");
+		critical ("Destroying Thread");
 		destruct_account_holder ();
 	}
 
@@ -78,6 +78,58 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		connect_threads ();
 	}
 
+	private bool _reveal_spoilers = settings.show_spoilers;
+	private bool reveal_spoilers {
+		get {
+			return _reveal_spoilers;
+		}
+
+		set {
+			for (var pos = 0; pos < model.n_items; pos++) {
+				var status = model.get_item (pos) as API.Status;
+
+				if (status.has_spoiler)
+					status.tuba_spoiler_revealed = value;
+			}
+			_reveal_spoilers = value;
+		}
+	}
+
+	private Gtk.ToggleButton spoiler_toggle_button;
+	protected override void build_header () {
+		base.build_header ();
+
+		spoiler_toggle_button = new Gtk.ToggleButton () {
+			icon_name = "tuba-eye-open-negative-filled-symbolic",
+			tooltip_text = _("Reveal Spoilers"),
+			active = _reveal_spoilers,
+			visible = false
+		};
+		spoiler_toggle_button.toggled.connect (spoiler_toggle_button_toggled);
+
+		header.pack_end (spoiler_toggle_button);
+	}
+
+	private void spoiler_toggle_button_toggled () {
+		var spoiler_toggle_button_active = spoiler_toggle_button.active;
+		spoiler_toggle_button.icon_name = spoiler_toggle_button_active
+			? "tuba-eye-not-looking-symbolic"
+			: "tuba-eye-open-negative-filled-symbolic";
+		spoiler_toggle_button.tooltip_text = spoiler_toggle_button_active ? _("Hide Spoilers") : _("Reveal Spoilers");
+		reveal_spoilers = spoiler_toggle_button_active;
+	}
+
+	public override void on_content_changed () {
+		for (uint i = 0; i < model.n_items; i++) {
+			var status = (API.Status) model.get_item (i);
+			if (status.has_spoiler) {
+				spoiler_toggle_button.visible = true;
+				break;
+			}
+		}
+		base.on_content_changed ();
+	}
+
 	public bool request () {
 		new Request.GET (@"/api/v1/statuses/$(root_status.id)/context")
 			.with_account (account)
@@ -116,7 +168,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 							return true;
 						}, Priority.LOW);
 					}
-                #endif
+				#endif
 			})
 			.exec ();
 
