@@ -63,6 +63,7 @@ namespace Tuba {
 			 // vala-lint=block-opening-brace-space-before
 			{ "about", about_activated },
 			{ "compose", compose_activated },
+			{ "compose_direct", compose_direct_activated },
 			{ "back", back_activated },
 			{ "refresh", refresh_activated },
 			{ "search", search_activated },
@@ -343,6 +344,12 @@ namespace Tuba {
 			if (accounts.active.instance_info == null) return;
 
 			new Dialogs.Compose ();
+		}
+
+		void compose_direct_activated() {
+			if (accounts.active.instance_info == null) return;
+
+			new Dialogs.Compose.direct ();
 		}
 
 		void back_activated () {

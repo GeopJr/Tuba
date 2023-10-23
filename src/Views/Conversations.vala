@@ -1,10 +1,21 @@
 public class Tuba.Views.Conversations : Views.Timeline {
+	Gtk.Button compose_button;
     construct {
         url = "/api/v1/conversations";
         label = _("Conversations");
         icon = "mail-unread-symbolic";
         accepts = typeof (API.Conversation);
         stream_event[InstanceAccount.EVENT_CONVERSATION].connect (on_new_post);
+
+ 		compose_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+                action_name = "app.compose_direct",
+                tooltip_text = _("Compose"),
+                css_classes = { "circular", "compose-button", "suggested-action" },
+                margin_bottom = 24,
+                margin_end = 24,
+                valign = halign = Gtk.Align.END,
+        };
+ 		scrolled_overlay.add_overlay(compose_button);
     }
 
     public override string? get_stream_url () {

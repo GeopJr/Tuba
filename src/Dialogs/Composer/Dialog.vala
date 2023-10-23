@@ -286,6 +286,19 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		);
 	}
 
+	public Compose.direct (API.Status template = new API.Status.empty ()) {
+		Object (
+			status: new BasicStatus.from_status (template) {
+				visibility = "direct",
+			},
+			original_status: new BasicStatus.from_status (template) {
+				visibility = "direct",
+			},
+			button_label: _("_Publish"),
+			button_class: "suggested-action"
+		);
+	}
+
 	public Compose.redraft (API.Status status) {
 		Object (
 			status: new BasicStatus.from_status (status),
