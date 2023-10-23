@@ -151,7 +151,7 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		handle_label.label = @"@$instance_uri";
 		avatar.text = name_label.label = instance_title;
 		if (instance_title != "") avatar.show_initials = true;
-		if (instance_thumbnail != "") image_cache.request_paintable (instance_thumbnail, on_cache_response);
+		if (instance_thumbnail != "") Tuba.ImageCache.request_paintable (instance_thumbnail, on_cache_response);
 
 		reactions = t_announcement.reactions;
 

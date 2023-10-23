@@ -749,7 +749,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			if (alt_text != null) picture.alternative_text = alt_text;
 
 			if (!as_is) {
-				image_cache.request_paintable (url, (is_loaded, data) => {
+				Tuba.ImageCache.request_paintable (url, (is_loaded, data) => {
 					if (is_loaded) {
 						picture.paintable = data;
 						add_todo_item (item);

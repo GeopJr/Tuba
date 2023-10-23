@@ -31,7 +31,7 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
         title.label = t_obj.title;
 
         if (t_obj.cover != null && t_obj.cover.url != null && t_obj.cover.url != "") {
-            image_cache.request_paintable (t_obj.cover.url, on_cache_response);
+            Tuba.ImageCache.request_paintable (t_obj.cover.url, on_cache_response);
 
             if (t_obj.cover.name != "") {
                 cover.alternative_text = cover.tooltip_text = t_obj.cover.name;

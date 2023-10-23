@@ -13,9 +13,9 @@ namespace Tuba {
 	public static Network network;
 	public static Streams streams;
 
-	public static EntityCache entity_cache;
-	public static ImageCache image_cache;
-	public static BlurhashCache blurhash_cache;
+	//  public static EntityCache entity_cache;
+	//  public static ImageCache image_cache;
+	//  public static BlurhashCache blurhash_cache;
 
 	public static GLib.Regex bookwyrm_regex;
 	public static GLib.Regex custom_emoji_regex;
@@ -23,8 +23,8 @@ namespace Tuba {
 	public static bool is_rtl;
 
 	public static bool start_hidden = false;
-
 	public static bool is_flatpak = false;
+	public static string cache_path;
 
 	public class Application : Adw.Application {
 
@@ -161,6 +161,8 @@ namespace Tuba {
 				warning (e.message);
 			}
 
+			cache_path = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, GLib.Environment.get_user_cache_dir (), Build.NAME.down ());
+
 			try {
 				bookwyrm_regex = new GLib.Regex ("/book/\\d+/s/[-_a-z0-9]*", GLib.RegexCompileFlags.OPTIMIZE);
 			} catch (GLib.RegexError e) {
@@ -207,13 +209,13 @@ namespace Tuba {
 				settings = new Settings ();
 				streams = new Streams ();
 				network = new Network ();
-				entity_cache = new EntityCache ();
-				image_cache = new ImageCache () {
-					maintenance_secs = 60 * 5
-				};
-				blurhash_cache = new BlurhashCache () {
-					maintenance_secs = 30
-				};
+				//  entity_cache = new EntityCache ();
+				//  image_cache = new ImageCache () {
+				//  	maintenance_secs = 60 * 5
+				//  };
+				//  blurhash_cache = new BlurhashCache () {
+				//  	maintenance_secs = 30
+				//  };
 				accounts = new SecretAccountStore ();
 				accounts.init ();
 

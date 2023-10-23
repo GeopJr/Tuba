@@ -9,12 +9,24 @@ public class Tuba.Network : GLib.Object {
 	public delegate void ObjectCallback (Json.Object node) throws Error;
 
 	public Soup.Session session { get; set; }
+	private Soup.Cache cache;
 	int requests_processing = 0;
 
+	public void clear_cache () {
+		cache.clear ();
+	}
+
 	construct {
+        cache = new Soup.Cache (
+			GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "media"),
+			Soup.CacheType.SINGLE_USER
+		);
+        cache.set_max_size (1024 * 1024 * 100);
+
 		session = new Soup.Session () {
 			user_agent = @"$(Build.NAME)/$(Build.VERSION) libsoup/$(Soup.get_major_version()).$(Soup.get_minor_version()).$(Soup.get_micro_version()) ($(Soup.MAJOR_VERSION).$(Soup.MINOR_VERSION).$(Soup.MICRO_VERSION))" // vala-lint=line-length
 		};
+		session.add_feature (cache);
 		session.request_unqueued.connect (msg => {
 			requests_processing--;
 			if (requests_processing <= 0)

@@ -47,7 +47,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		base.on_rebind ();
 		pic.alternative_text = entity == null ? null : entity.description;
 
-		image_cache.request_paintable (entity.preview_url, on_cache_response);
+		Tuba.ImageCache.request_paintable (entity.preview_url, on_cache_response);
 
 		if (media_kind.is_video ()) {
 			media_icon = new Gtk.Image () {
@@ -95,7 +95,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		if (is_loaded) {
 			pic.paintable = data;
 		} else if (settings.use_blurhash) {
-			pic.paintable = blurhash_cache.lookup_or_decode (entity.blurhash);
+			pic.paintable = Tuba.BlurhashCache.lookup_or_decode (entity.blurhash);
 		}
 	}
 

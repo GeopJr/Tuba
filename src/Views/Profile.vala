@@ -54,7 +54,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 					Object[] to_add = {};
 					Network.parse_array (msg, parser, node => {
-						var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
+						var e = Tuba.EntityCache.lookup_or_insert (node, typeof (API.Status));
 						var e_status = e as API.Status;
 						if (e_status != null) e_status.pinned = true;
 
@@ -153,12 +153,12 @@ public class Tuba.Views.Profile : Views.Timeline {
 		if (profile.account.is_self ()) {
 			model.remove (0);
 
-			for (uint i = 0; i < model.get_n_items (); i++) {
-				var status_obj = (API.Status)model.get_item (i);
-				if (status_obj.formal.account.id == profile.account.id) {
-					entity_cache.remove (status_obj.formal.uri);
-				}
-			}
+			//  for (uint i = 0; i < model.get_n_items (); i++) {
+			//  	var status_obj = (API.Status)model.get_item (i);
+			//  	if (status_obj.formal.account.id == profile.account.id) {
+			//  		Tuba.EntityCache.remove (status_obj.formal.uri);
+			//  	}
+			//  }
 
 			model.insert (0, new ProfileAccount (accounts.active));
 			on_refresh ();

@@ -25,11 +25,11 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 				content_fit = Gtk.ContentFit.COVER
 			};
 
-			image_cache.request_paintable (card_obj.image, (is_loaded, paintable) => {
+			Tuba.ImageCache.request_paintable (card_obj.image, (is_loaded, paintable) => {
 				if (is_loaded) {
 					image.paintable = paintable;
 				} else if (settings.use_blurhash) {
-					image.paintable = blurhash_cache.lookup_or_decode (card_obj.blurhash);
+					image.paintable = Tuba.BlurhashCache.lookup_or_decode (card_obj.blurhash);
 				}
 			});
 

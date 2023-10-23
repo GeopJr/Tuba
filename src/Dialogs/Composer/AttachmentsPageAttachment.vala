@@ -35,7 +35,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			pic.file = file;
 		} else {
 			entity = t_entity;
-			image_cache.request_paintable (t_entity.preview_url, on_cache_response);
+			Tuba.ImageCache.request_paintable (t_entity.preview_url, on_cache_response);
 		}
 		button.child = pic;
 

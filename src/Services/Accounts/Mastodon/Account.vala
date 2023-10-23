@@ -287,10 +287,10 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	public override void reply_to_status_uri (string issuer_id, string uri) {
 		if (!check_issuer (issuer_id)) return;
 
-		if (entity_cache.contains (uri)) {
-			var status = entity_cache.lookup (uri) as API.Status;
-			new Dialogs.Compose.reply (status.formal);
-		} else {
+		//  if (Tuba.EntityCache.contains (uri)) {
+		//  	var status = Tuba.EntityCache.lookup (uri) as API.Status;
+		//  	new Dialogs.Compose.reply (status.formal);
+		//  } else {
 			resolve.begin (uri, (obj, res) => {
 				try {
 					var status = resolve.end (res) as API.Status;
@@ -303,6 +303,6 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 					warning (e.message);
 				}
 			});
-		}
+		//  }
 	}
 }

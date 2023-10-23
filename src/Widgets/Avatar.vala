@@ -28,7 +28,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 			_avatar_url = value;
 
 			if (value != null) {
-				image_cache.request_paintable (value, on_cache_response);
+				Tuba.ImageCache.request_paintable (value, on_cache_response);
 			}
 		}
 	}
@@ -48,7 +48,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 		} else {
 			avatar.text = account.display_name;
 			avatar.show_initials = true;
-			image_cache.request_paintable (account.avatar, on_cache_response);
+			Tuba.ImageCache.request_paintable (account.avatar, on_cache_response);
 		}
 	}
 

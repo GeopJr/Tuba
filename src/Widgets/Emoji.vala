@@ -25,7 +25,7 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
 		}
 
 		GLib.Idle.add (() => {
-			image_cache.request_paintable (emoji_url, on_cache_response);
+			Tuba.ImageCache.request_paintable (emoji_url, on_cache_response);
 			return GLib.Source.REMOVE;
 		});
 	}

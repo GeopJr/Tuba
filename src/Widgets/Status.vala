@@ -301,7 +301,6 @@
 			.with_account (accounts.active)
 			.then (() => {
 				this.status.formal.pinned = p_action == "pin";
-				entity_cache.remove (this.status.formal.uri);
 				pin_changed ();
 			})
 			.exec ();

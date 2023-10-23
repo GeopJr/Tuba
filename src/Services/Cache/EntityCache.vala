@@ -1,4 +1,4 @@
-public class Tuba.EntityCache : AbstractCache {
+public class Tuba.EntityCache {
 	// Must return unique id for each JSON entity node
 	protected string? get_node_cache_id (owned Json.Node node) {
 		var obj = node.get_object ();
@@ -9,32 +9,14 @@ public class Tuba.EntityCache : AbstractCache {
 		return null;
 	}
 
-	public Entity lookup_or_insert (owned Json.Node node, owned Type type, bool force = false) {
+	public static Entity lookup_or_insert (owned Json.Node node, owned Type type, bool force = false) {
 		Entity entity = null;
-		var id = get_node_cache_id (node);
+		//  var id = get_node_cache_id (node);
 
-		// Entity can't be cached
-		if (id == null) {
-			try {
-				entity = Entity.from_json (type, node);
-			} catch (Error e) {
-				warning (@"Error getting Entity from json: $(e.message)");
-			}
-		} else {
-			// Entity can be reused from cache
-			if (!force && contains (id)) {
-				entity = lookup (get_key (id)) as Entity;
-				debug (@"Reused: $id");
-			}
-			// It's a new instance and we need to store it
-			else {
-				try {
-					entity = Entity.from_json (type, node);
-				} catch (Error e) {
-					warning (@"Error getting Entity from json: $(e.message)");
-				}
-				insert (id, entity);
-			}
+		try {
+			entity = Entity.from_json (type, node);
+		} catch (Error e) {
+			warning (@"Error getting Entity from json: $(e.message)");
 		}
 
 		return entity;
