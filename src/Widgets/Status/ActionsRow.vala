@@ -189,7 +189,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 
 				//  var parser = Network.get_parser_from_inputstream (msg.response_body);
 				//  var node = network.parse_node (parser);
-				//  var e = Tuba.EntityCache.lookup_or_insert (node, typeof (API.Status), true);
+				//  var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status), true);
 
 				//  if (count_property != null) {
 				//  	int64 e_property_count;

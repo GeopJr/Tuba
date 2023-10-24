@@ -35,7 +35,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			pic.file = file;
 		} else {
 			entity = t_entity;
-			Tuba.ImageCache.request_paintable (t_entity.preview_url, on_cache_response);
+			Tuba.Helper.Image.request_paintable (t_entity.preview_url, null, on_cache_response);
 		}
 		button.child = pic;
 
@@ -72,9 +72,8 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		remove_from_model ();
 	}
 
-	protected virtual void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		if (is_loaded)
-			pic.paintable = data;
+	protected virtual void on_cache_response (owned Gdk.Paintable? data) {
+		pic.paintable = data;
 	}
 
 	public virtual signal void remove_from_model () {}

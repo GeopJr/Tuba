@@ -25,13 +25,12 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
 		}
 
 		GLib.Idle.add (() => {
-			Tuba.ImageCache.request_paintable (emoji_url, on_cache_response);
+			Tuba.Helper.Image.request_paintable (emoji_url, null, on_cache_response);
 			return GLib.Source.REMOVE;
 		});
 	}
 
-	void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		if (image != null && is_loaded)
-			image.paintable = data;
+	void on_cache_response (owned Gdk.Paintable? data) {
+		image.paintable = data;
 	}
 }

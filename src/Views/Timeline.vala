@@ -188,7 +188,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 				Object[] to_add = {};
 				Network.parse_array (msg, parser, node => {
-					var e = Tuba.EntityCache.lookup_or_insert (node, accepts);
+					var e = Tuba.Helper.Entity.from_json (node, accepts);
 					to_add += e;
 				});
 				model.splice (model.get_n_items (), 0, to_add);

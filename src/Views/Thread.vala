@@ -89,7 +89,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				Object[] to_add_ancestors = {};
 				var ancestors = root.get_array_member ("ancestors");
 				ancestors.foreach_element ((array, i, node) => {
-					var e = Tuba.EntityCache.lookup_or_insert (node, typeof (API.Status));
+					var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
 					to_add_ancestors += e;
 				});
 				to_add_ancestors += root_status;
@@ -98,7 +98,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				Object[] to_add_descendants = {};
 				var descendants = root.get_array_member ("descendants");
 				descendants.foreach_element ((array, i, node) => {
-					var e = Tuba.EntityCache.lookup_or_insert (node, typeof (API.Status));
+					var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
 					to_add_descendants += e;
 				});
 				model.splice (model.get_n_items (), 0, to_add_descendants);

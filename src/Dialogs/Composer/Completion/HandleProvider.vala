@@ -25,7 +25,7 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 		var results = new GLib.ListStore (typeof (Object));
 		var parser = Network.get_parser_from_inputstream (req.response_body);
 		Network.parse_array (req.msg, parser, node => {
-			var entity = Tuba.EntityCache.lookup_or_insert (node, typeof (API.Account));
+			var entity = Tuba.Helper.Entity.from_json (node, typeof (API.Account));
 			if (entity is API.Account) {
 				var proposal = new Proposal (entity as API.Account);
 				results.append (proposal);
@@ -47,9 +47,8 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 			case GtkSource.CompletionColumn.ICON:
 				var avatar = new Adw.Avatar (32, null, true);
 				avatar.name = account.display_name;
-				Tuba.ImageCache.request_paintable (account.avatar, (is_loaded, paintable) => {
-					if (is_loaded)
-						avatar.custom_image = paintable;
+				Tuba.Helper.Image.request_paintable (account.avatar, null, (paintable) => {
+					avatar.custom_image = paintable;
 				});
 				cell.set_widget (avatar);
 				break;

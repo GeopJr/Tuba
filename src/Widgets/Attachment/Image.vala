@@ -47,7 +47,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		base.on_rebind ();
 		pic.alternative_text = entity == null ? null : entity.description;
 
-		Tuba.ImageCache.request_paintable (entity.preview_url, on_cache_response);
+		Tuba.Helper.Image.request_paintable (entity.preview_url, entity.blurhash, on_cache_response);
 
 		if (media_kind.is_video ()) {
 			media_icon = new Gtk.Image () {
@@ -91,12 +91,8 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		});
 	}
 
-	protected virtual void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		if (is_loaded) {
-			pic.paintable = data;
-		} else if (settings.use_blurhash) {
-			pic.paintable = Tuba.BlurhashCache.lookup_or_decode (entity.blurhash);
-		}
+	protected virtual void on_cache_response (owned Gdk.Paintable? data) {
+		pic.paintable = data;
 	}
 
 	public signal void spoiler_revealed ();

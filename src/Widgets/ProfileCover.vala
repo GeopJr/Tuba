@@ -113,7 +113,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
             background.paintable = avatar.custom_image;
         } else {
             header_url = profile.account.header ?? "";
-            Tuba.ImageCache.request_paintable (profile.account.header, on_cache_response);
+            Tuba.Helper.Image.request_paintable (profile.account.header, null, on_cache_response);
             background.clicked.connect (open_header_in_media_viewer);
         }
 
@@ -213,8 +213,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		return btn;
 	}
 
-    void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-        if (is_loaded)
-            background.paintable = data;
+    void on_cache_response (owned Gdk.Paintable? data) {
+        background.paintable = data;
     }
 }

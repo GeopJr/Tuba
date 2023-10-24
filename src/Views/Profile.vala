@@ -54,7 +54,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 					Object[] to_add = {};
 					Network.parse_array (msg, parser, node => {
-						var e = Tuba.EntityCache.lookup_or_insert (node, typeof (API.Status));
+						var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
 						var e_status = e as API.Status;
 						if (e_status != null) e_status.pinned = true;
 
