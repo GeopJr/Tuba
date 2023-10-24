@@ -82,6 +82,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 
 				Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 				clipboard.set_texture (texture);
+				app.toast (_("Copied image to clipboard"));
 			} catch (Error e) {
 				var dlg = app.inform (_("Error"), e.message);
 				dlg.present ();

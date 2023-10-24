@@ -40,7 +40,7 @@ namespace Tuba {
 		public Streams app_streams { get {return Tuba.streams; } }
 
 		public signal void refresh ();
-		public signal void toast (string title);
+		public signal void toast (string title, uint timeout = 5);
 
 		#if DEV_MODE
 			public signal void dev_new_post (Json.Node node);

@@ -568,6 +568,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		if (page == null) return;
 
 		Host.copy (page.url);
+		app.toast (_("Copied media url to clipboard"));
 	}
 
 	private void open_in_browser () {
@@ -913,6 +914,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		if (texture == null) return;
 
 		clipboard.set_texture (texture);
+		app.toast (_("Copied image to clipboard"));
 		debug ("End copy-media action");
 	}
 }
