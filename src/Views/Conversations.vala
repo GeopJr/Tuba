@@ -15,7 +15,7 @@ public class Tuba.Views.Conversations : Views.Timeline {
                 margin_end = 24,
                 valign = halign = Gtk.Align.END,
         };
- 		scrolled_overlay.add_overlay(compose_button);
+ 		scrolled_overlay.add_overlay (compose_button);
     }
 
     public override string? get_stream_url () {

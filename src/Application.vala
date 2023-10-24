@@ -346,7 +346,7 @@ namespace Tuba {
 			new Dialogs.Compose ();
 		}
 
-		void compose_direct_activated() {
+		void compose_direct_activated () {
 			if (accounts.active.instance_info == null) return;
 
 			new Dialogs.Compose.direct ();
