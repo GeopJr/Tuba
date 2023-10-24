@@ -7,9 +7,9 @@ public class Tuba.Views.Conversations : Views.Timeline {
         accepts = typeof (API.Conversation);
         stream_event[InstanceAccount.EVENT_CONVERSATION].connect (on_new_post);
 
- 		compose_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+ 		compose_button = new Gtk.Button.from_icon_name ("mail-unread-symbolic") {
                 action_name = "app.compose_direct",
-                tooltip_text = _("Compose"),
+                tooltip_text = _("Compose message"),
                 css_classes = { "circular", "compose-button", "suggested-action" },
                 margin_bottom = 24,
                 margin_end = 24,
