@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
-"PO-Revision-Date: 2023-08-12 12:32+0000\n"
+"PO-Revision-Date: 2023-10-30 05:05+0000\n"
 "Last-Translator: Jummit <jummit@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tuba/tuba/de/>\n"
 "Language: de_DE\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -73,7 +73,7 @@ msgstr "Neuen Beitrag verfassen"
 
 #: data/gtk/help-overlay.ui:20 src/Views/Sidebar.vala:25
 msgid "Refresh"
-msgstr "Neu Laden"
+msgstr "Aktualisieren"
 
 #: data/gtk/help-overlay.ui:26 src/Services/Accounts/Mastodon/Account.vala:95
 #: src/Views/Main.vala:72 src/Views/Search.vala:14
@@ -90,7 +90,7 @@ msgstr "Tastaturkürzel zeigen"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Close Window"
-msgstr ""
+msgstr "Fenster Schließen"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Quit"
@@ -102,11 +102,11 @@ msgstr "Über"
 
 #: data/gtk/help-overlay.ui:62
 msgid "Scroll Up"
-msgstr ""
+msgstr "Hochscrollen"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Down"
-msgstr ""
+msgstr "Runterscrollen"
 
 #: data/gtk/help-overlay.ui:76
 msgid "Composer"
@@ -239,7 +239,7 @@ msgstr "Vergrößert die Zeilenhöhe für Beiträge"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Enlarge custom emojis"
-msgstr ""
+msgstr "Nutzerdefinierte Emojis vergrößern"
 
 #: data/ui/dialogs/preferences.ui:56
 msgid "Scale up custom emojis on hover"
@@ -278,6 +278,8 @@ msgstr "Vergrössere Bilder standardmässig so dass sie die Medienansicht fülle
 #: data/ui/dialogs/preferences.ui:79
 msgid "Show a blurred version of the media until they fully load"
 msgstr ""
+"Zeige eine verschwommene Version von Medien bis sie vollständig geladen "
+"wurden"
 
 #: data/ui/dialogs/preferences.ui:84
 msgid "Reveal spoilers by default"
@@ -285,7 +287,7 @@ msgstr "Spoiler standardmäßig aufdecken"
 
 #: data/ui/dialogs/preferences.ui:89
 msgid "Show link preview cards"
-msgstr ""
+msgstr "Zeige Linkvorschau-Karten"
 
 #: data/ui/dialogs/preferences.ui:96
 msgid "Posting"
@@ -301,7 +303,7 @@ msgstr "Sprache neuer Beiträge"
 
 #: data/ui/dialogs/preferences.ui:118
 msgid "Default post content type"
-msgstr ""
+msgstr "Inhaltstyp für neue Beiträge"
 
 #: data/ui/dialogs/preferences.ui:129
 msgid "Behavior"
@@ -357,15 +359,15 @@ msgstr "Benachrichtigungen"
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:180
 msgid "Push Notifications"
-msgstr ""
+msgstr "Push-Benachrichtigungen"
 
 #: data/ui/dialogs/preferences.ui:183
 msgid "New Followers"
-msgstr ""
+msgstr "Neue Folgende"
 
 #: data/ui/dialogs/preferences.ui:189
 msgid "New Follower Requests"
-msgstr ""
+msgstr "Neue Folgeanfragen"
 
 #: data/ui/dialogs/preferences.ui:195
 #: src/Services/Accounts/Mastodon/Account.vala:77 src/Views/Favorites.vala:4
@@ -374,29 +376,29 @@ msgstr "Favoriten"
 
 #: data/ui/dialogs/preferences.ui:201
 msgid "Mentions"
-msgstr ""
+msgstr "Erwähnungen"
 
 #: data/ui/dialogs/preferences.ui:207
 msgid "Boosts"
-msgstr ""
+msgstr "Boosts"
 
 #: data/ui/dialogs/preferences.ui:213
 msgid "Poll Results"
-msgstr ""
+msgstr "Umfrageergebnisse"
 
 #: data/ui/dialogs/preferences.ui:219
 msgid "Edits"
-msgstr ""
+msgstr "Änderungen"
 
 #: data/ui/dialogs/preferences.ui:225
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/ui/dialogs/preferences.ui:227
 msgid ""
 "Combine recently pushed notifications of the same type and post into one"
-msgstr ""
+msgstr "Vereine kürzliche Push-Benachichtigungen der selben Art und Post"
 
 #: data/ui/dialogs/profile_edit.ui:13 src/Views/Profile.vala:125
 msgid "Edit Profile"
@@ -499,7 +501,7 @@ msgstr "Bot"
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:38
 msgid "Forget Account"
-msgstr ""
+msgstr "Account vergessen"
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
@@ -507,11 +509,11 @@ msgstr "Konto Wechseln"
 
 #: data/ui/views/sidebar/view.ui:54
 msgid "Menu"
-msgstr ""
+msgstr "Menü"
 
 #: data/ui/widgets/announcement.ui:88
 msgid "Unread"
-msgstr ""
+msgstr "Ungelesen"
 
 #: data/ui/widgets/announcement.ui:99 data/ui/widgets/status.ui:172
 msgid "Edited"
@@ -563,19 +565,19 @@ msgstr "Sonstige"
 #: src/API/Notification.vala:28
 #, c-format
 msgid "%s (& %d others)"
-msgstr ""
+msgstr "%s (& %d andere)"
 
 #: src/API/Notification.vala:51
 msgid "Reply…"
-msgstr ""
+msgstr "Antworten…"
 
 #: src/API/Notification.vala:59
 msgid "Remove from Followers"
-msgstr ""
+msgstr "Von Folgenden entfernen"
 
 #: src/API/Notification.vala:64
 msgid "Follow Back"
-msgstr ""
+msgstr "Zurückfolgen"
 
 #: src/API/Notification.vala:71 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
@@ -706,7 +708,7 @@ msgstr "Medien"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:76
 msgid "Paste"
-msgstr ""
+msgstr "Einfügen"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:212
 #: src/Dialogs/Composer/AttachmentsPage.vala:238
@@ -794,7 +796,7 @@ msgstr "Beitragssprache"
 
 #: src/Dialogs/Composer/EditorPage.vala:350
 msgid "Post Content Type"
-msgstr ""
+msgstr "Post-Inhaltstyp"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
@@ -927,7 +929,7 @@ msgstr "Der Server gab einen Fehler zurück"
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
 msgid "Label"
-msgstr ""
+msgstr "Bezeichnung"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:53
@@ -982,7 +984,7 @@ msgstr "%s hat einen Beitrag bearbeitet"
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:262
 msgid "Plain Text"
-msgstr ""
+msgstr "Klartext"
 
 #: src/Services/Accounts/Mastodon/Account.vala:49
 #: src/Views/Conversations.vala:4
@@ -1018,7 +1020,7 @@ msgstr "Hashtags"
 #: src/Services/Accounts/Mastodon/Account.vala:150
 #: src/Views/Announcements.vala:4
 msgid "Announcements"
-msgstr ""
+msgstr "Ankündigungen"
 
 #: src/Services/Accounts/Mastodon/Account.vala:189
 msgid "Public"
@@ -1058,7 +1060,7 @@ msgstr "Nur zu erwähnten Nutzern posten"
 #. different account
 #: src/Services/Accounts/Mastodon/Account.vala:247
 msgid "Notification was pushed for a different account"
-msgstr ""
+msgstr "Benachrichtigung wurde für einen anderen Account gepusht"
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:204
@@ -1156,19 +1158,19 @@ msgstr "%-e. %b, %Y"
 #. 3000 => 3k
 #: src/Utils/Units.vala:13
 msgid "k"
-msgstr ""
+msgstr "k"
 
 #. translators: short unit suffix for millions
 #. 3000000 => 3M
 #: src/Utils/Units.vala:17
 msgid "M"
-msgstr ""
+msgstr "Mio"
 
 #. translators: short unit suffix for billions
 #. 3000000000 => 3G
 #: src/Utils/Units.vala:21
 msgid "G"
-msgstr ""
+msgstr "Mrd"
 
 #. translators: Shown when there are 0 results
 #: src/Views/Base.vala:4
@@ -1260,7 +1262,7 @@ msgstr "Medien Speichern"
 
 #: src/Views/MediaViewer.vala:438 src/Widgets/Attachment/Item.vala:187
 msgid "Copy Media"
-msgstr ""
+msgstr "Medien kopieren"
 
 #: src/Views/MediaViewer.vala:660
 msgid "Previous Attachment"
@@ -1377,7 +1379,7 @@ msgstr "Abfrage eingeben"
 
 #: src/Views/Sidebar.vala:24
 msgid "Open Profile"
-msgstr ""
+msgstr "Profil anzeigen"
 
 #: src/Views/Sidebar.vala:29
 msgid "Preferences"
@@ -1433,7 +1435,7 @@ msgstr "Medien ausblenden"
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:74
 msgid "Show Sensitive Content"
-msgstr ""
+msgstr "Kritischen Inhalt anzeigen"
 
 #: src/Widgets/Attachment/Item.vala:35
 msgid "Save Attachment"
@@ -1447,7 +1449,7 @@ msgstr "Alt-Text anzeigen"
 #: src/Widgets/BookWyrmPage.vala:83
 #, c-format
 msgid "Published: %s"
-msgstr ""
+msgstr "Veröffentlicht: %s"
 
 #. translators: the variable is a comma separated
 #. list of the book authors
@@ -1503,19 +1505,19 @@ msgstr "Beigetretten"
 #: src/Widgets/ProfileCover.vala:169
 #, c-format
 msgid "%s Posts"
-msgstr ""
+msgstr "%s Beiträge"
 
 #. translators: the variable is the amount of people a user follows
 #: src/Widgets/ProfileCover.vala:174
 #, c-format
 msgid "%s Following"
-msgstr ""
+msgstr "Folgt %s"
 
 #. translators: the variable is the amount of followers a user has
 #: src/Widgets/ProfileCover.vala:179
 #, c-format
 msgid "%s Followers"
-msgstr ""
+msgstr "%s Folgende"
 
 #: src/Widgets/Status/ActionsRow.vala:35 src/Widgets/Status/ActionsRow.vala:79
 msgid "Boost"
@@ -1578,7 +1580,7 @@ msgstr "Wählen"
 
 #: src/Widgets/VoteBox.vala:96 src/Widgets/VoteBox.vala:121
 msgid "Voted"
-msgstr ""
+msgstr "Abgestimmte"
 
 #. translators: the variable is the amount of people that voted
 #: src/Widgets/VoteBox.vala:144
