@@ -3,6 +3,7 @@ sources += files(
     'AttachmentsPageAttachment.vala',
     'Dialog.vala',
     'EditorPage.vala',
+    'NewDialog.vala',
     'Page.vala',
     'PollPage.vala',
 )
