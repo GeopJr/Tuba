@@ -4,6 +4,7 @@ sources += files(
     'Dialog.vala',
     'EditorPage.vala',
     'NewDialog.vala',
+    'NewDialogEditor.vala',
     'Page.vala',
     'PollPage.vala',
 )

@@ -16,9 +16,39 @@
 					</object>
 				</child>
 				<property name="content">
-					<!-- content -->
-					<object class="GtkLabel">
-						<property name="label" translatable="yes">Public</property>
+					<object class="GtkScrolledWindow">
+						<property name="hexpand">1</property>
+						<property name="vexpand">1</property>
+						<child>
+							<object class="AdwClamp">
+								<property name="valign">start</property>
+								<property name="tightening-threshold">100</property>
+								<child>
+									<object class="GtkBox" id="status_box">
+										<property name="orientation">vertical</property>
+										<property name="vexpand">1</property>
+										<property name="valign">start</property>
+										<property name="spacing">30</property>
+										<child>
+											<object class="GtkLabel" id="status_title">
+												<property name="label" translatable="yes">New Post</property>
+												<property name="wrap">1</property>
+												<property name="wrap-mode">word-char</property>
+												<style>
+													<class name="title-1" />
+												</style>
+											</object>
+										</child>
+										<child>
+											<object class="GtkBox" id="main_box">
+												<property name="vexpand">1</property>
+												<property name="orientation">vertical</property>
+											</object>
+										</child>
+									</object>
+								</child>
+							</object>
+						</child>
 					</object>
 				</property>
 				<child type="bottom">
@@ -32,6 +62,7 @@
 								<child>
 									<object class="GtkMenuButton" id="native_emojis_button">
 										<property name="icon-name">tuba-sentiment-satisfied-symbolic</property>
+										<property name="tooltip-text" translatable="yes">Emoji Picker</property>
 										<style>
 											<class name="flat" />
 										</style>
@@ -40,6 +71,7 @@
 								<child>
 									<object class="GtkMenuButton" id="custom_emojis_button">
 										<property name="icon-name">tuba-bear-symbolic</property>
+										<property name="tooltip-text" translatable="yes">Custom Emoji Picker</property>
 										<style>
 											<class name="flat" />
 										</style>
@@ -77,19 +109,9 @@
 							</object>
 						</child>
 						<child>
-							<object class="GtkBox">
+							<object class="GtkBox" id="dropdowns_box">
 								<property name="orientation">horizontal</property>
-								<child>
-									<object class="GtkLabel">
-										<property name="label" translatable="yes">Public</property>
-									</object>
-								</child>
-
-								<child>
-									<object class="GtkLabel">
-										<property name="label" translatable="yes">EN</property>
-									</object>
-								</child>
+								<property name="spacing">12</property>
 								<layout>
 									<property name="column">0</property>
 									<property name="row">1</property>
@@ -98,10 +120,10 @@
 						</child>
 						<child>
 							<object class="GtkLabel" id="counter_label">
-								<property name="label" translatable="yes">200 / 500</property>
 								<property name="halign">end</property>
 								<property name="valign">center</property>
 								<property name="ellipsize">end</property>
+								<property name="margin-start">12</property>
 								<style>
 									<class name="font-bold" />
 									<class name="accented-color" />

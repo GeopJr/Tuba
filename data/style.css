@@ -618,3 +618,11 @@ video > overlay > revealer > controls {
 .composer-bottom-padding {
 	padding: 2rem;
 }
+
+.font-large {
+	font-size: large;
+}
+
+.dropdown-border-radius > button {
+	border-radius: 9999px;
+}
