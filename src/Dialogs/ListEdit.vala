@@ -107,7 +107,7 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesWindow {
                 if (Network.get_array_size (parser) > 0) {
                     this.add (members_page);
 
-                    Network.parse_array (msg, parser, node => {
+                    Network.parse_array (parser, node => {
                         var member = API.Account.from (node);
                         var avi = new Widgets.Avatar () {
                             account = member,

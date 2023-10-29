@@ -42,7 +42,7 @@ public class Tuba.API.Relationship : Entity {
 			.with_param ("id", id)
 			.then ((sess, msg, in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
-				Network.parse_array (msg, parser, node => {
+				Network.parse_array (parser, node => {
 					invalidate (node);
 				});
 			})

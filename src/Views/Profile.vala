@@ -53,7 +53,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 					var parser = Network.get_parser_from_inputstream (in_stream);
 
 					Object[] to_add = {};
-					Network.parse_array (msg, parser, node => {
+					Network.parse_array (parser, node => {
 						var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
 						var e_status = e as API.Status;
 						if (e_status != null) e_status.pinned = true;
@@ -416,11 +416,11 @@ public class Tuba.Views.Profile : Views.Timeline {
 						var in_list = new Gee.ArrayList<string> ();
 
 						var parser2 = Network.get_parser_from_inputstream (in_stream2);
-						Network.parse_array (msg2, parser2, node => {
+						Network.parse_array (parser2, node => {
 							var list = API.List.from (node);
 							in_list.add (list.id);
 						});
-						Network.parse_array (msg, parser, node => {
+						Network.parse_array (parser, node => {
 							var list = API.List.from (node);
 							var is_already = in_list.contains (list.id);
 

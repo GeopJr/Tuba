@@ -187,7 +187,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				var parser = Network.get_parser_from_inputstream (in_stream);
 
 				Object[] to_add = {};
-				Network.parse_array (msg, parser, node => {
+				Network.parse_array (parser, node => {
 					var e = Tuba.Helper.Entity.from_json (node, accepts);
 					to_add += e;
 				});

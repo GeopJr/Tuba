@@ -5,7 +5,7 @@ public class Tuba.Network : GLib.Object {
 
 	public delegate void ErrorCallback (int32 code, string reason);
 	public delegate void SuccessCallback (Soup.Session session, Soup.Message msg, InputStream in_stream) throws Error;
-	public delegate void NodeCallback (Json.Node node, Soup.Message msg) throws Error;
+	public delegate void NodeCallback (Json.Node node) throws Error;
 	public delegate void ObjectCallback (Json.Object node) throws Error;
 
 	public Soup.Session session { get; set; }
@@ -110,10 +110,10 @@ public class Tuba.Network : GLib.Object {
 		return get_array_mstd (parser).get_length ();
 	}
 
-	public static void parse_array (Soup.Message msg, Json.Parser parser, owned NodeCallback cb) throws Error {
+	public static void parse_array (Json.Parser parser, owned NodeCallback cb) throws Error {
 		get_array_mstd (parser).foreach_element ((array, i, node) => {
 			try {
-				cb (node, msg);
+				cb (node);
 			} catch (Error e) {
 				warning (@"Error parsing array: $(e.message)");
 			}
