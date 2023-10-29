@@ -24,7 +24,9 @@ public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 		if (this.source_widget == null) {
 			source_widget_texture = null;
 		} else {
-			source_widget_texture = render_widget_to_texture (this.source_widget);
+			var t_source_widget_texture = render_widget_to_texture (this.source_widget);
+			if (t_source_widget_texture != null)
+				source_widget_texture = t_source_widget_texture;
 			this.source_widget.opacity = 0.0;
 		}
 	}
@@ -133,7 +135,7 @@ public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 
 		if (source_widget == null) return;
 		if (source_widget_texture == null) {
-			// The source widget texture is None, using child snapshot as fallback
+			warning ("The source widget texture is None, using child snapshot as fallback");
 			this.snapshot_child (this.child, snapshot);
 		} else {
 			if (progress > 0.0) {
