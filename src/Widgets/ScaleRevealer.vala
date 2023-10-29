@@ -6,8 +6,28 @@ public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 
 	public signal void transition_done ();
 	public Adw.TimedAnimation animation { get; construct set; }
-	public Gtk.Widget? source_widget { get; set; }
+	private Gtk.Widget? _source_widget = null;
+	public Gtk.Widget? source_widget {
+		get {
+			return _source_widget;
+		}
+		set {
+			if (_source_widget != null)
+				_source_widget.opacity = 1.0;
+			_source_widget = value;
+			update_source_widget ();
+		}
+	}
 	public Gdk.Texture? source_widget_texture { get; set; }
+
+	private void update_source_widget () {
+		if (this.source_widget == null) {
+			source_widget_texture = null;
+		} else {
+			source_widget_texture = render_widget_to_texture (this.source_widget);
+			this.source_widget.opacity = 0.0;
+		}
+	}
 
 	private bool _reveal_child = false;
 	public bool reveal_child {
@@ -22,13 +42,7 @@ public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 			if (value) {
 				animation.value_to = 1.0;
 				this.visible = true;
-
-				if (source_widget == null) {
-					source_widget_texture = null;
-				} else {
-					source_widget_texture = render_widget_to_texture (this.source_widget);
-					source_widget.opacity = 0.0;
-				}
+				update_source_widget ();
 			} else {
 				animation.value_to = 0.0;
 			}
@@ -119,7 +133,7 @@ public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 
 		if (source_widget == null) return;
 		if (source_widget_texture == null) {
-			warning ("The source widget texture is None, using child snapshot as fallback");
+			// The source widget texture is None, using child snapshot as fallback
 			this.snapshot_child (this.child, snapshot);
 		} else {
 			if (progress > 0.0) {
