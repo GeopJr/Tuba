@@ -373,8 +373,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			enabled = true,
 			allow_mouse_drag = true
 		};
+		swipe_tracker.prepare.connect (on_swipe_tracker_prepare);
 		swipe_tracker.update_swipe.connect (on_update_swipe);
 		swipe_tracker.end_swipe.connect (on_end_swipe);
+	}
+
+	private void on_swipe_tracker_prepare (Adw.NavigationDirection direction) {
+		update_revealer_widget ();
 	}
 
 	private void on_update_swipe (double progress) {
@@ -673,6 +678,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	private void reset_media_viewer () {
+		revealer_widgets.clear ();
 		this.fullscreen = false;
 		todo_items.clear ();
 
@@ -684,6 +690,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		items.clear ();
 		revealed = false;
+	}
+
+	private void update_revealer_widget () {
+		if (revealed && revealer_widgets.has_key ((int) carousel.position))
+			scale_revealer.source_widget = revealer_widgets.get ((int) carousel.position);
 	}
 
 	private async string download_video (string url) throws Error {
@@ -702,6 +713,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		do_todo_items ();
 	}
 
+	public Gee.HashMap<int, Gtk.Widget> revealer_widgets = new Gee.HashMap<int, Gtk.Widget> ();
 	public void add_media (
 		string url,
 		Tuba.Attachment.MediaType media_type,
@@ -710,11 +722,14 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		bool as_is = false,
 		string? alt_text = null,
 		string? user_friendly_url = null,
-		bool stream = false
+		bool stream = false,
+		Gtk.Widget? revealer_widget = null
 	) {
 		Item item;
 		string final_friendly_url = user_friendly_url == null ? url : user_friendly_url;
 		Gdk.Paintable? final_preview = as_is ? null : preview;
+		if (revealer_widget != null)
+			revealer_widgets.set (pos == null ? items.size : pos, revealer_widget);
 
 		if (media_type.is_video ()) {
 			var video = new Gtk.Video ();

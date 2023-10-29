@@ -79,7 +79,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	) {
 		if (as_is && preview == null) return;
 
-		media_viewer.add_media (url, media_type, preview, pos, as_is, alt_text, user_friendly_url, stream);
+		media_viewer.add_media (url, media_type, preview, pos, as_is, alt_text, user_friendly_url, stream, source_widget);
 
 		if (!is_media_viewer_visible) {
 			media_viewer.reveal (source_widget);
