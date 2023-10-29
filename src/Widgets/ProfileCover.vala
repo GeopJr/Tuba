@@ -213,7 +213,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		return btn;
 	}
 
-    void on_cache_response (owned Gdk.Paintable? data) {
+    void on_cache_response (Gdk.Paintable? data) {
         background.paintable = data;
     }
 }

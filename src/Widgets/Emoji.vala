@@ -30,7 +30,7 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
 		});
 	}
 
-	void on_cache_response (owned Gdk.Paintable? data) {
+	void on_cache_response (Gdk.Paintable? data) {
 		image.paintable = data;
 	}
 }

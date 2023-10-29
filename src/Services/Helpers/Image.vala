@@ -1,7 +1,7 @@
 public class Tuba.Helper.Image {
-	public delegate void OnItemChangedFn (owned Gdk.Paintable? data);
+	public delegate void OnItemChangedFn (Gdk.Paintable? data);
 
-	protected static async Gdk.Paintable decode (owned Soup.Message msg, owned InputStream in_stream) throws Error {
+	protected static async Gdk.Paintable decode (Soup.Message msg, InputStream in_stream) throws Error {
 		if (msg.status_code != Soup.Status.OK) {
 			throw new Oopsie.INSTANCE (@"Server returned $(msg.reason_phrase)");
 		}

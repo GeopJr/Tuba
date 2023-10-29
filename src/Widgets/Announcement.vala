@@ -158,7 +158,7 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		announcement.bind_property ("read", attention_indicator, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 	}
 
-	void on_cache_response (owned Gdk.Paintable? data) {
+	void on_cache_response (Gdk.Paintable? data) {
 		avatar.custom_image = data;
 	}
 

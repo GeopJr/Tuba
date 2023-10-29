@@ -204,11 +204,11 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		fields_box.add (field);
 	}
 
-	void on_background_cache_response (owned Gdk.Paintable? data) {
+	void on_background_cache_response (Gdk.Paintable? data) {
 		background.paintable = data;
 	}
 
-	void on_avi_cache_response (owned Gdk.Paintable? data) {
+	void on_avi_cache_response (Gdk.Paintable? data) {
 		avi.custom_image = data;
 	}
 

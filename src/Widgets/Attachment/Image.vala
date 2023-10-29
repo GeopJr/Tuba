@@ -91,7 +91,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		});
 	}
 
-	protected virtual void on_cache_response (owned Gdk.Paintable? data) {
+	protected virtual void on_cache_response (Gdk.Paintable? data) {
 		pic.paintable = data;
 	}
 

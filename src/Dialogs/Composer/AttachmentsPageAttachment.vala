@@ -72,7 +72,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		remove_from_model ();
 	}
 
-	protected virtual void on_cache_response (owned Gdk.Paintable? data) {
+	protected virtual void on_cache_response (Gdk.Paintable? data) {
 		pic.paintable = data;
 	}
 

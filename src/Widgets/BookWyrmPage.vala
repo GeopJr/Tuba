@@ -105,7 +105,7 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
         return _("by %s").printf (string.joinv (", ", author_labels));
     }
 
-	void on_cache_response (owned Gdk.Paintable? data) {
+	void on_cache_response (Gdk.Paintable? data) {
         cover.paintable = data;
 	}
 

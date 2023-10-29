@@ -52,7 +52,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 		}
 	}
 
-	void on_cache_response (owned Gdk.Paintable? data) {
+	void on_cache_response (Gdk.Paintable? data) {
 		avatar.custom_image = data;
 	}
 }
