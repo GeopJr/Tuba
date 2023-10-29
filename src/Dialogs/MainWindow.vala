@@ -6,6 +6,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	//  [GtkChild] unowned Gtk.Stack main_stack;
 	[GtkChild] unowned Views.MediaViewer media_viewer;
 	[GtkChild] unowned Adw.Breakpoint breakpoint;
+	[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 
 	public bool is_mobile { get; set; default = false; }
 
@@ -19,6 +20,14 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		notify["is-mobile"].connect (update_selected_home_item);
 		media_viewer.bind_property ("visible", split_view, "can-focus", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 		media_viewer.notify["visible"].connect (on_media_viewer_toggle);
+
+		app.toast.connect (add_toast);
+	}
+
+	private void add_toast (string content, uint timeout = 0) {
+		toast_overlay.add_toast (new Adw.Toast (content) {
+			timeout = timeout
+		});
 	}
 
 	private weak Gtk.Widget? media_viewer_source_widget;

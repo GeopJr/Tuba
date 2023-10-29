@@ -221,6 +221,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		var copy_handle_action = new SimpleAction ("copy_handle", null);
 		copy_handle_action.activate.connect (v => {
 			Host.copy (profile.account.full_handle);
+			app.toast (_("Copied handle to clipboard"));
 		});
 		actions.add_action (copy_handle_action);
 
