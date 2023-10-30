@@ -48,26 +48,26 @@ public class Tuba.Streams : Object {
 	protected class Connection : Object {
 		public Gee.ArrayList<Streamable> subscribers;
 		protected Soup.WebsocketConnection socket;
-		protected Soup.Message msg;
 
 		protected bool closing = false;
 		protected int timeout = 1;
 
+		public string url { get; private set; }
+
 		public string name {
 			owned get {
-				var url = msg.get_uri ().to_string ();
 				return url.slice (0, url.last_index_of ("&access_token"));
 			}
 		}
 
 		public Connection (string url) {
 			this.subscribers = new Gee.ArrayList<Streamable> ();
-			this.msg = new Soup.Message ("GET", url);
+			this.url = url;
 		}
 
 		public bool start () {
 			debug (@"Opening stream: $name");
-			network.session.websocket_connect_async.begin (msg, null, null, 0, null, (obj, res) => {
+			network.session.websocket_connect_async.begin (new Soup.Message ("GET", url), null, null, 0, null, (obj, res) => {
 				try {
 					socket = network.session.websocket_connect_async.end (res);
 					socket.keepalive_interval = 30;
