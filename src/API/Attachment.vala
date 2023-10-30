@@ -51,7 +51,7 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 		string? error = null;
 		InputStream? in_stream = null;
 		network.queue (msg, null,
-			(sess, mess, t_is) => {
+			(mess, t_is) => {
 				in_stream = t_is;
 				upload.callback ();
 			},

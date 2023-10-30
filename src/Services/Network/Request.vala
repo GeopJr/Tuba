@@ -86,7 +86,7 @@ public class Tuba.Request : GLib.Object {
 	}
 
 	public Request then_parse_array (owned Network.NodeCallback _cb) {
-		this.cb = (sess, msg, in_stream) => {
+		this.cb = (msg, in_stream) => {
 			var parser = Network.get_parser_from_inputstream (in_stream);
 			Network.parse_array (parser, (owned) _cb);
 		};
@@ -212,7 +212,7 @@ public class Tuba.Request : GLib.Object {
 			error = reason;
 			await.callback ();
 		};
-		this.cb = (sess, msg, in_stream) => {
+		this.cb = (msg, in_stream) => {
 			this.response_body = in_stream;
 			await.callback ();
 		};

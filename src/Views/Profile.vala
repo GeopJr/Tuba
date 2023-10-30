@@ -49,7 +49,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 				.with_account (account)
 				.with_param ("pinned", "true")
 				.with_ctx (this)
-				.then ((sess, msg, in_stream) => {
+				.then ((msg, in_stream) => {
 					var parser = Network.get_parser_from_inputstream (in_stream);
 
 					Object[] to_add = {};
@@ -343,7 +343,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 
 	public static void open_from_id (string id) {
 		var msg = new Soup.Message ("GET", @"$(accounts.active.instance)/api/v1/accounts/$id");
-		network.queue (msg, null, (sess, mess, in_stream) => {
+		network.queue (msg, null, (mess, in_stream) => {
 			var parser = Network.get_parser_from_inputstream (in_stream);
 			var node = network.parse_node (parser);
 			var acc = API.Account.from (node);
@@ -404,14 +404,14 @@ public class Tuba.Views.Profile : Views.Timeline {
 			.with_account (accounts.active)
 			.with_ctx (this)
 			.on_error (on_error)
-			.then ((sess, msg, in_stream) => {
+			.then ((msg, in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				if (Network.get_array_size (parser) > 0) {
 					new Request.GET (@"/api/v1/accounts/$(profile.account.id)/lists")
 					.with_account (accounts.active)
 					.with_ctx (this)
 					.on_error (on_error)
-					.then ((sess2, msg2, in_stream2) => {
+					.then ((msg2, in_stream2) => {
 						var added = false;
 						var in_list = new Gee.ArrayList<string> ();
 
@@ -476,7 +476,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 				.with_account (accounts.active)
 				.with_ctx (this)
 				.on_error (on_error)
-				.then ((sess, msg) => {
+				.then ((msg) => {
 					var toast_msg = "";
 					if (button.remove) {
 						//  translators: First variable is a handle, second variable is a list name

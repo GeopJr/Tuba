@@ -18,7 +18,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
     private void on_vote_button_clicked (Gtk.Button button) {
         button.sensitive = false;
         API.Poll.vote (accounts.active, poll.options, selected_index, poll.id)
-            .then ((sess, mess, in_stream) => {
+            .then ((mess, in_stream) => {
                 var parser = Network.get_parser_from_inputstream (in_stream);
                 poll = API.Poll.from (network.parse_node (parser));
 

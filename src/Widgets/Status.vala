@@ -309,7 +309,7 @@
 	private void edit_status () {
 		new Request.GET (@"/api/v1/statuses/$(status.formal.id)/source")
 			.with_account (accounts.active)
-			.then ((sess, msg, in_stream) => {
+			.then ((msg, in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				var source = API.StatusSource.from (node);
@@ -334,7 +334,7 @@
 		remove.response.connect (res => {
 			if (res == "yes") {
 				this.status.formal.annihilate ()
-					//  .then ((sess, msg, in_stream) => {
+					//  .then ((msg, in_stream) => {
 					//  	var parser = Network.get_parser_from_inputstream (in_stream);
 					//  	var root = network.parse (parser);
 					//  	if (root.has_member ("error")) {

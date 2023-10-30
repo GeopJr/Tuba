@@ -4,7 +4,7 @@ public class Tuba.Network : GLib.Object {
 	public signal void finished ();
 
 	public delegate void ErrorCallback (int32 code, string reason);
-	public delegate void SuccessCallback (Soup.Session session, Soup.Message msg, InputStream in_stream) throws Error;
+	public delegate void SuccessCallback (Soup.Message msg, InputStream in_stream) throws Error;
 	public delegate void NodeCallback (Json.Node node) throws Error;
 	public delegate void ObjectCallback (Json.Object node) throws Error;
 
@@ -53,7 +53,7 @@ public class Tuba.Network : GLib.Object {
 				if (status == Soup.Status.OK) {
 					try {
 						if (cb != null)
-							cb (session, msg, in_stream);
+							cb (msg, in_stream);
 					} catch (Error e) {
 						warning (@"Error in session: $(e.message)");
 					}

@@ -183,7 +183,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		append_params (new Request.GET (get_req_url ()))
 			.with_account (account)
 			.with_ctx (this)
-			.then ((sess, msg, in_stream) => {
+			.then ((msg, in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 
 				Object[] to_add = {};

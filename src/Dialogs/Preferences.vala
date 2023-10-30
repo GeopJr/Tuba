@@ -191,7 +191,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 				new Request.PATCH ("/api/v1/accounts/update_credentials")
 					.with_account (accounts.active)
 					.with_form_data ("source[language]", new_lang)
-					.then ((sess, msg, in_stream) => {
+					.then ((msg, in_stream) => {
 						var parser = Network.get_parser_from_inputstream (in_stream);
 						var node = network.parse_node (parser);
 						var updated = API.Account.from (node);

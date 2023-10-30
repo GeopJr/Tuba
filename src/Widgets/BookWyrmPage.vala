@@ -43,7 +43,7 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
         if (t_obj.authors != null && t_obj.authors.size > 0) {
             foreach (var author in t_obj.authors) {
                 new Request.GET (@"$author.json")
-                    .then ((sess, msg, in_stream) => {
+                    .then ((msg, in_stream) => {
                         var parser = Network.get_parser_from_inputstream (in_stream);
                         var node = network.parse_node (parser);
                         var author_obj = API.BookWyrmAuthor.from (node);

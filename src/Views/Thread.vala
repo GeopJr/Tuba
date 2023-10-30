@@ -82,7 +82,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		new Request.GET (@"/api/v1/statuses/$(root_status.id)/context")
 			.with_account (account)
 			.with_ctx (this)
-			.then ((sess, msg, in_stream) => {
+			.then ((msg, in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var root = network.parse (parser);
 
@@ -128,7 +128,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			.with_account ()
 			.with_param ("q", q)
 			.with_param ("resolve", "true")
-			.then ((sess, msg, in_stream) => {
+			.then ((msg, in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var root = network.parse (parser);
 				var statuses = root.get_array_member ("statuses");

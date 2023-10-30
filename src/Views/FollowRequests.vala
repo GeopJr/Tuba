@@ -24,7 +24,7 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
     public void on_accept (Widgets.FollowRequestRow fr_row, Request req, Widgetizable widget) {
         fr_row.sensitive = false;
         req
-			.then ((sess, msg, in_stream) => {
+			.then ((msg, in_stream) => {
                 var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				var relationship = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
@@ -43,7 +43,7 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
     public void on_decline (Widgets.FollowRequestRow fr_row, Request req, Widgetizable widget) {
         fr_row.sensitive = false;
         req
-			.then ((sess, msg) => {
+			.then ((msg) => {
                 uint indx;
                 var found = model.find (widget, out indx);
                 if (found)

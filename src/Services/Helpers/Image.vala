@@ -24,7 +24,7 @@ public class Tuba.Helper.Image {
 		}
 
 		var download_msg = new Soup.Message ("GET", url);
-		network.queue (download_msg, null, (sess, mess, t_in_stream) => {
+		network.queue (download_msg, null, (mess, t_in_stream) => {
 			decode.begin (download_msg, t_in_stream, (obj, async_res) => {
 				has_loaded = true;
 				Gdk.Paintable? paintable = null;
