@@ -4,7 +4,7 @@ public class Tuba.Network : GLib.Object {
 	public signal void finished ();
 
 	public delegate void ErrorCallback (int32 code, string reason);
-	public delegate void SuccessCallback (Soup.Message msg, InputStream in_stream) throws Error;
+	public delegate void SuccessCallback (InputStream in_stream, Soup.MessageHeaders? response_headers = null) throws Error;
 	public delegate void NodeCallback (Json.Node node) throws Error;
 	public delegate void ObjectCallback (Json.Object node) throws Error;
 
@@ -34,11 +34,16 @@ public class Tuba.Network : GLib.Object {
 		});
 	}
 
+	public enum ExtraData {
+		RESPONSE_HEADERS
+	}
+
 	public void queue (
 		owned Soup.Message msg,
 		GLib.Cancellable? cancellable,
 		owned SuccessCallback cb,
-		owned ErrorCallback? ecb
+		owned ErrorCallback? ecb,
+		ExtraData? extra_data = null
 	) {
 		requests_processing++;
 		started ();
@@ -53,7 +58,7 @@ public class Tuba.Network : GLib.Object {
 				if (status == Soup.Status.OK) {
 					try {
 						if (cb != null)
-							cb (msg, in_stream);
+							cb (in_stream, extra_data == ExtraData.RESPONSE_HEADERS ? msg.response_headers : null);
 					} catch (Error e) {
 						warning (@"Error in session: $(e.message)");
 					}

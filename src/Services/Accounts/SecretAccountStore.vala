@@ -72,7 +72,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 			if (account != null && account.id != "") {
 				new Request.GET (@"/api/v1/accounts/$(account.id)")
 					.with_account (account)
-					.then ((msg, in_stream) => {
+					.then ((in_stream) => {
 						var parser = Network.get_parser_from_inputstream (in_stream);
 						var node = network.parse_node (parser);
 						var acc = API.Account.from (node);

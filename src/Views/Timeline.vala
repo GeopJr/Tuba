@@ -183,7 +183,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		append_params (new Request.GET (get_req_url ()))
 			.with_account (account)
 			.with_ctx (this)
-			.then ((msg, in_stream) => {
+			.with_extra_data (Tuba.Network.ExtraData.RESPONSE_HEADERS)
+			.then ((in_stream, headers) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 
 				Object[] to_add = {};
@@ -193,7 +194,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				});
 				model.splice (model.get_n_items (), 0, to_add);
 
-				get_pages (msg.response_headers.get_one ("Link"));
+				if (headers != null)
+					get_pages (headers.get_one ("Link"));
 				on_content_changed ();
 				on_request_finish ();
 			})
