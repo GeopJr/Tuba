@@ -16,8 +16,7 @@ public class Tuba.Streams : Object {
 
 		if (connections.contains (url)) {
 			connections[url].add (s);
-		}
-		else {
+		} else {
 			var con = new Connection (url);
 			connections[url] = con;
 			con.add (s);
@@ -111,6 +110,7 @@ public class Tuba.Streams : Object {
 		}
 
 		void on_closed () {
+			socket = null;
 			if (!closing) {
 				warning (@"DISCONNECTED: $name. Reconnecting in $timeout seconds.");
 				GLib.Timeout.add_seconds (timeout, start);
@@ -124,8 +124,9 @@ public class Tuba.Streams : Object {
 				Streamable.Event ev;
 				decode (bytes, out ev);
 
+				warning ("GOT MSG");
 				subscribers.@foreach (s => {
-					debug (@"$(name): $(ev.type) for $(s.get_subscriber_name ())");
+					warning (@"$(name): $(ev.type) for $(s.get_subscriber_name ())");
 					s.stream_event[ev.type] (ev);
 					return true;
 				});
