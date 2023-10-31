@@ -90,11 +90,13 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
                     row.add_css_class ("ttl-poll-winner");
                 }
 
-                foreach (int own_vote in poll.own_votes) {
-                    if (own_vote == row_number) {
-                        row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic") {
-                            tooltip_text = _("Voted")
-                        });
+                if (poll.own_votes != null) {
+                    foreach (int own_vote in poll.own_votes) {
+                        if (own_vote == row_number) {
+                            row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic") {
+                                tooltip_text = _("Voted")
+                            });
+                        }
                     }
                 }
 
@@ -114,15 +116,17 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
                 check_option.poll_title = p.title;
                 check_option.toggled.connect (on_check_option_toggeled);
 
-                foreach (int own_vote in poll.own_votes) {
-                    if (own_vote == row_number) {
-                        check_option.active = true;
-                        row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic") {
-                            tooltip_text = _("Voted")
-                        });
+                if (poll.own_votes != null) {
+                    foreach (int own_vote in poll.own_votes) {
+                        if (own_vote == row_number) {
+                            check_option.active = true;
+                            row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic") {
+                                tooltip_text = _("Voted")
+                            });
 
-                        if (!selected_index.contains (p.title)) {
-                            selected_index.add (p.title);
+                            if (!selected_index.contains (p.title)) {
+                                selected_index.add (p.title);
+                            }
                         }
                     }
                 }
