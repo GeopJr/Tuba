@@ -124,9 +124,8 @@ public class Tuba.Streams : Object {
 				Streamable.Event ev;
 				decode (bytes, out ev);
 
-				warning ("GOT MSG");
 				subscribers.@foreach (s => {
-					warning (@"$(name): $(ev.type) for $(s.get_subscriber_name ())");
+					debug (@"$(name): $(ev.type) for $(s.get_subscriber_name ())");
 					s.stream_event[ev.type] (ev);
 					return true;
 				});
