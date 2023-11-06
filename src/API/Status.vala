@@ -245,6 +245,19 @@ public class Tuba.API.Status : Entity, Widgetizable {
 					return "";
 			}
 		}
+
+        public static ReblogVisibility? from_string (string id) {
+            switch (id) {
+				case "public":
+					return PUBLIC;
+				case "unlisted":
+					return UNLISTED;
+				case "private":
+					return PRIVATE;
+				default:
+					return null;
+			}
+        }
     }
 
     public Request reblog_req (ReblogVisibility? visibility = null) {

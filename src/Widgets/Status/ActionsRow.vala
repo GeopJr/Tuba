@@ -58,9 +58,9 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		bindings = {};
 	}
 
-    construct {
-        this.add_css_class ("ttl-post-actions");
-        this.spacing = 6;
+	construct {
+		this.add_css_class ("ttl-post-actions");
+		this.spacing = 6;
 
 		reply_button = new StatusActionButton.with_icon_name ("tuba-reply-sender-symbolic") {
 			active = false,
@@ -100,7 +100,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		};
 		bookmark_button.clicked.connect (on_bookmark_button_clicked);
 		this.append (bookmark_button);
-    }
+	}
 
 	private void on_reply_button_clicked (Gtk.Button btn) {
 		reply (btn);
@@ -154,21 +154,109 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		if (status_btn.working) return;
 
 		status_btn.block_clicked ();
-		status_btn.active = !status_btn.active;
 
-		string action;
-		Request req;
-		if (status_btn.active) {
-			action = "reblog";
-			req = this.status.reblog_req ();
+		if (!status_btn.active && settings.advanced_boost_dialog) {
+			Gtk.ListBox visibility_box = new Gtk.ListBox () {
+				css_classes = {"content"},
+				selection_mode = Gtk.SelectionMode.NONE
+			};
+
+			Gtk.CheckButton? group = null; // hashmap is not ordered
+			Gee.HashMap<API.Status.ReblogVisibility, Gtk.CheckButton> check_buttons = new Gee.HashMap<API.Status.ReblogVisibility, Gtk.CheckButton> ();
+			for (int i = 0; i < accounts.active.visibility_list.n_items; i++) {
+				var visibility = (InstanceAccount.Visibility) accounts.active.visibility_list.get_item (i);
+				var reblog_visibility = API.Status.ReblogVisibility.from_string (visibility.id);
+				if (reblog_visibility == null) continue;
+
+				var checkbutton = new Gtk.CheckButton () {
+					css_classes = {"selection-mode"},
+					active = settings.default_post_visibility == visibility.id
+				};
+				check_buttons.set (reblog_visibility, checkbutton);
+
+				if (group != null) {
+					checkbutton.group = group;
+				} else {
+					group = checkbutton;
+				}
+
+				var visibility_row = new Adw.ActionRow () {
+					title = visibility.name,
+					subtitle = visibility.description,
+					activatable_widget = checkbutton
+				};
+				visibility_row.add_prefix (new Gtk.Image.from_icon_name (visibility.icon_name));
+				visibility_row.add_prefix (checkbutton);
+
+				visibility_box.append (visibility_row);
+			}
+
+			var dlg = new Adw.MessageDialog (
+				app.main_window,
+				_("Boost with Visibility"),
+				null
+			) {
+				extra_child = visibility_box
+			};
+			dlg.add_responses (
+				"no", _("Cancel"),
+				//  "quote", _("Quote"),
+				"yes", _("Boost")
+			);
+			dlg.set_response_appearance ("yes", Adw.ResponseAppearance.SUGGESTED);
+			dlg.transient_for = app.main_window;
+
+			dlg.response.connect (res => {
+				dlg.destroy ();
+
+				switch (res) {
+					case "yes":
+						API.Status.ReblogVisibility? reblog_visibility = null;
+						check_buttons.foreach (e => {
+							if (((Gtk.CheckButton) e.value).active) {
+								reblog_visibility = (API.Status.ReblogVisibility) e.key;
+								return false;
+							}
+
+							return true;
+						});
+
+						commit_boost (status_btn, reblog_visibility);
+						break;
+					//  case "quote":
+					//  	break;
+					default:
+						status_btn.unblock_clicked ();
+						break;
+				}
+
+				group = null;
+				check_buttons.clear ();
+			});
+
+			dlg.present ();
 		} else {
-			action = "unreblog";
-			req = this.status.unreblog_req ();
+			commit_boost (status_btn);
 		}
-		status_btn.amount += status_btn.active ? 1 : -1;
+	}
 
-		debug (@"Performing status action '$action'…");
-		mastodon_action (status_btn, req, action, "reblogs-count");
+	private void commit_boost (StatusActionButton status_btn, API.Status.ReblogVisibility? visibility = null) {
+			status_btn.active = !status_btn.active;
+
+			string action;
+			Request req;
+			if (status_btn.active) {
+				action = "reblog";
+				req = this.status.reblog_req (visibility);
+			} else {
+				action = "unreblog";
+				req = this.status.unreblog_req ();
+			}
+
+			status_btn.amount += status_btn.active ? 1 : -1;
+			debug (@"Performing status action '$action'…");
+			status_btn.unblock_clicked ();
+			mastodon_action (status_btn, req, action, "reblogs-count");
 	}
 
 	private void mastodon_action (StatusActionButton status_btn, Request req, string action, string? count_property = null) {
