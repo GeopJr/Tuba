@@ -18,29 +18,19 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	}
 
 	Binding[] bindings = {};
+	ulong[] status_notify_signals = {};
 	public void bind () {
 		if (bindings.length != 0) return;
 
 		bindings += this.status.bind_property ("replies-count", reply_button, "amount", GLib.BindingFlags.SYNC_CREATE);
-		bindings += this.status.bind_property ("in-reply-to-id", reply_button, "default_icon_name", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_string (src.get_string () != null ? "tuba-reply-all-symbolic" : "tuba-reply-sender-symbolic");
-			return true;
-		});
 
-		bindings += this.status.bind_property ("can-be-boosted", reblog_button, "sensitive", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			bool src_val = src.get_boolean ();
-			target.set_boolean (src_val);
+		status_notify_signals += this.status.notify["in-reply-to-id"].connect (in_reply_to_id_notify_func);
+		in_reply_to_id_notify_func ();
 
-			if (src_val) {
-				reblog_button.tooltip_text = _("Boost");
-				reblog_button.default_icon_name = "tuba-media-playlist-repeat-symbolic";
-			} else {
-				reblog_button.tooltip_text = _("This post can't be boosted");
-				reblog_button.default_icon_name = accounts.active.visibility[this.status.visibility].icon_name;
-			}
+		status_notify_signals += this.status.notify["can-be-boosted"].connect (can_be_boosted_notify_func);
+		can_be_boosted_notify_func ();
 
-			return true;
-		});
+		bindings += this.status.bind_property ("can-be-boosted", reblog_button, "sensitive", BindingFlags.SYNC_CREATE);
 		bindings += this.status.bind_property ("reblogged", reblog_button, "active", GLib.BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 		bindings += this.status.bind_property ("reblogs-count", reblog_button, "amount", GLib.BindingFlags.SYNC_CREATE);
 
@@ -50,12 +40,35 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		bindings += this.status.bind_property ("bookmarked", bookmark_button, "active", GLib.BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 	}
 
+	private void in_reply_to_id_notify_func () {
+		reply_button.default_icon_name = this.status.in_reply_to_id != null ? "tuba-reply-all-symbolic" : "tuba-reply-sender-symbolic";
+	}
+
+	private void can_be_boosted_notify_func () {
+		bool src_val = this.status.can_be_boosted;
+		reblog_button.sensitive = src_val;
+
+		if (src_val) {
+			reblog_button.tooltip_text = _("Boost");
+			reblog_button.default_icon_name = "tuba-media-playlist-repeat-symbolic";
+		} else {
+			reblog_button.tooltip_text = _("This post can't be boosted");
+			reblog_button.default_icon_name = accounts.active.visibility[this.status.visibility].icon_name;
+		}
+	}
+
 	public void unbind () {
 		foreach (var binding in bindings) {
 			binding.unbind ();
 		}
 
+		foreach (var signal_id in status_notify_signals) {
+			if (GLib.SignalHandler.is_connected (this.status, signal_id))
+				this.status.disconnect (signal_id);
+		}
+
 		bindings = {};
+		status_notify_signals = {};
 	}
 
 	construct {
