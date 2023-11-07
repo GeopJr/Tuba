@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
-"PO-Revision-Date: 2023-11-07 11:39+0000\n"
+"PO-Revision-Date: 2023-11-08 12:34+0000\n"
 "Last-Translator: Will Thompson <will@willthompson.co.uk>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
 "tuba/tuba/en_GB/>\n"
@@ -53,6 +53,11 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
+"The Fediverse is a decentralised social network that consists of multiple "
+"interconnected platforms and communities, allowing users to communicate and "
+"share content across different networks and servers. It promotes user "
+"privacy and data ownership, and offers an alternative to centralised social "
+"media platforms."
 
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:22
 #: data/ui/dialogs/preferences.ui:19
@@ -180,7 +185,7 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:118
 msgid "Confirm Authorization"
-msgstr ""
+msgstr "Confirm Authorisation"
 
 #. translators: Do not translate "manual_auth"
 #: data/ui/dialogs/new_account.ui:138
@@ -188,10 +193,12 @@ msgid ""
 "If something went wrong, <a href=\"manual_auth\">try manual authorization</"
 "a>."
 msgstr ""
+"If something went wrong, <a href=\"manual_auth\">try manual "
+"authorisation</a>."
 
 #: data/ui/dialogs/new_account.ui:148
 msgid "Authorization Code"
-msgstr ""
+msgstr "Authorisation Code"
 
 #: data/ui/dialogs/new_account.ui:187
 msgid "Done"
@@ -289,7 +296,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:129
 msgid "Behavior"
-msgstr ""
+msgstr "Behaviour"
 
 #: data/ui/dialogs/preferences.ui:132
 msgid "Background work"
@@ -885,7 +892,7 @@ msgstr ""
 
 #: src/Dialogs/NewAccount.vala:4
 msgid "Copy the authorization code from the browser and paste it below."
-msgstr ""
+msgstr "Copy the authorisation code from the browser and paste it below."
 
 #: src/Dialogs/NewAccount.vala:117
 msgid "Please enter a valid instance URL"
@@ -893,11 +900,11 @@ msgstr ""
 
 #: src/Dialogs/NewAccount.vala:159
 msgid "Please enter a valid authorization code"
-msgstr ""
+msgstr "Please enter a valid authorisation code"
 
 #: src/Dialogs/NewAccount.vala:176
 msgid "Instance failed to authorize the access token"
-msgstr ""
+msgstr "Instance failed to authorise the access token"
 
 #: src/Dialogs/NewAccount.vala:185
 #, c-format
