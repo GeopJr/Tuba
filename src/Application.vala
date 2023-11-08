@@ -267,6 +267,7 @@ namespace Tuba {
 			#if !DEV_MODE
 				settings.apply ();
 			#endif
+			network.flush_cache ();
 
 			base.shutdown ();
 		}

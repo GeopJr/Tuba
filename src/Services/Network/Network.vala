@@ -16,11 +16,17 @@ public class Tuba.Network : GLib.Object {
 		cache.clear ();
 	}
 
+	public void flush_cache () {
+		this.cache.flush ();
+        this.cache.dump ();
+	}
+
 	construct {
         cache = new Soup.Cache (
 			GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "soup"),
 			Soup.CacheType.SINGLE_USER
 		);
+		cache.load ();
         cache.set_max_size (1024 * 1024 * 100);
 
 		session = new Soup.Session () {
