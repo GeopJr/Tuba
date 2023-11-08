@@ -18,7 +18,7 @@ public class Tuba.Network : GLib.Object {
 
 	construct {
         cache = new Soup.Cache (
-			GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "media"),
+			GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "soup"),
 			Soup.CacheType.SINGLE_USER
 		);
         cache.set_max_size (1024 * 1024 * 100);
