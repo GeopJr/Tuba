@@ -751,7 +751,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			if (!as_is) {
 				Tuba.Helper.Image.request_paintable (url, null, (data) => {
 					picture.paintable = data;
-					add_todo_item (item);
+					if (data != null)
+						add_todo_item (item);
 				});
 			} else {
 				picture.paintable = preview;
