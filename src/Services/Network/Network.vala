@@ -14,16 +14,18 @@ public class Tuba.Network : GLib.Object {
 
 	public void clear_cache () {
 		cache.clear ();
+		Tuba.Helper.Image.clear_cache ();
 	}
 
 	public void flush_cache () {
 		this.cache.flush ();
         this.cache.dump ();
+		Tuba.Helper.Image.flush_cache ();
 	}
 
 	construct {
         cache = new Soup.Cache (
-			GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "soup"),
+			GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "soup", "misc"),
 			Soup.CacheType.SINGLE_USER
 		);
 		cache.load ();
