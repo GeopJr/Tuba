@@ -9,13 +9,15 @@ public abstract class Tuba.AccountStore : GLib.Object {
 	public bool ensure_active_account () {
 		var has_active = false;
 		var account = find_by_handle (settings.active_account);
+		var clear_cache = false;
 
 		if (account == null && !saved.is_empty) {
 			account = saved[0];
+			clear_cache = true;
 		}
 
 		has_active = account != null;
-		activate (account);
+		activate (account, clear_cache);
 
 		if (!has_active)
 			app.present_window (true);
@@ -72,7 +74,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			return iter.@get ();
 	}
 
-	public void activate (InstanceAccount? account) {
+	public void activate (InstanceAccount? account, bool clear_cache = false) {
 		if (active != null)
 			active.deactivated ();
 
@@ -81,7 +83,8 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			return;
 		} else {
 			debug (@"Activating $(account.handle)…");
-			network.clear_cache ();
+			if (clear_cache)
+				network.clear_cache ();
 			account.verify_credentials.begin ((obj, res) => {
 				try {
 					account.verify_credentials.end (res);
