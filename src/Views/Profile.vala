@@ -337,9 +337,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 		if (page_next == null && source == "statuses") {
 			req.with_param ("exclude_replies", (!include_replies).to_string ());
 			req.with_param ("only_media", only_media.to_string ());
-			return base.append_params (req);
 		}
-		else return req;
+		return base.append_params (req);
 	}
 
 	public static void open_from_id (string id) {
