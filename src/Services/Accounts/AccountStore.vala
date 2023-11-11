@@ -8,7 +8,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 
 	public bool ensure_active_account () {
 		var has_active = false;
-		var account = find_by_handle (settings.active_account);
+		var account = find_by_uuid (settings.active_account);
 
 		if (account == null && !saved.is_empty) {
 			account = saved[0];
@@ -60,9 +60,10 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		ensure_active_account ();
 	}
 
-	public InstanceAccount? find_by_handle (string handle) {
+	public InstanceAccount? find_by_uuid (string uuid) {
+		if (!GLib.Uuid.string_is_valid (uuid)) return null;
 		var iter = saved.filter (acc => {
-			return acc.handle == handle;
+			return acc.uuid == uuid;
 		});
 		iter.next ();
 
@@ -86,7 +87,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 				try {
 					account.verify_credentials.end (res);
 					account.error = null;
-					settings.active_account = account.handle;
+					settings.active_account = account.uuid;
 					if (account.source != null && account.source.language != null && account.source.language != "")
 						settings.default_language = account.source.language;
 				}
@@ -114,6 +115,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		if (account == null)
 			throw new Oopsie.INTERNAL (@"Account $handle has unknown backend: $backend");
 
+		if (account.uuid == null || !GLib.Uuid.string_is_valid (account.uuid)) account.uuid = GLib.Uuid.string_random ();
 		return account;
 	}
 
