@@ -15,6 +15,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_REMOTE_REBLOG = "__remote-reblog";
 	public const string KIND_EDITED = "update";
 
+	public string uuid { get; set; }
 	public string? backend { set; get; }
 	public API.Instance? instance_info { get; set; }
 	public Gee.ArrayList<API.Emoji>? instance_emojis { get; set; }

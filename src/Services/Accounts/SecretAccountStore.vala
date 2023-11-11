@@ -1,6 +1,6 @@
 public class Tuba.SecretAccountStore : AccountStore {
 
-	const string VERSION = "1";
+	const string VERSION = "2";
 
 	Secret.Schema schema;
 	GLib.HashTable<string,Secret.SchemaAttributeType> schema_attributes;
@@ -107,7 +107,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
 		attrs["version"] = VERSION;
-		attrs["login"] = account.handle;
+		attrs["login"] = account.uuid;
 
 		Secret.password_clearv.begin (
 			schema,
@@ -128,7 +128,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 	void account_to_secret (InstanceAccount account) {
 		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
-		attrs["login"] = account.handle;
+		attrs["login"] = account.uuid;
 		attrs["version"] = VERSION;
 
 		var generator = new Json.Generator ();
@@ -175,6 +175,9 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 		builder.set_member_name ("backend");
 		builder.add_string_value (account.backend);
+
+		builder.set_member_name ("uuid");
+		builder.add_string_value (account.uuid);
 
 		// If display name has emojis it's
 		// better to save and load them
