@@ -1,6 +1,7 @@
 public class Tuba.API.Relationship : Entity {
 
 	public signal void invalidated ();
+	public bool tuba_has_loaded { get; set; default=false; }
 
 	public string id { get; set; default = ""; }
 	public bool following { get; set; default = false; }
@@ -49,9 +50,28 @@ public class Tuba.API.Relationship : Entity {
 			.exec ();
 	}
 
+	public static async Gee.HashMap<string, API.Relationship> request_many (string[] ids) throws Error {
+		Gee.HashMap<string, API.Relationship> res = new Gee.HashMap<string, API.Relationship> ();
+
+		var id_array = Request.array2string (new Gee.ArrayList<string>.wrap (ids), "id");
+		var req = new Request.GET (@"/api/v1/accounts/relationships?$id_array")
+			.with_account (accounts.active);
+		yield req.await ();
+
+		var parser = Network.get_parser_from_inputstream (req.response_body);
+		Network.parse_array (req.msg, parser, node => {
+			API.Relationship entity = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
+			entity.tuba_has_loaded = true;
+			res.set (entity.id, entity);
+		});
+
+		return res;
+	}
+
 	void invalidate (Json.Node node) throws Error {
 		var rs = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
 		patch (rs);
+		tuba_has_loaded = true;
 		invalidated ();
 	}
 
@@ -69,6 +89,26 @@ public class Tuba.API.Relationship : Entity {
 			req.with_param (param, val);
 
 		req.exec ();
+	}
+
+	public void question_modify_block (string handle, bool block = true) {
+		var q = block ? _("Block \"%s\"?") : _("Unblock \"%s\"?");
+		var confirmed = app.question (
+			q.printf (handle),
+			null,
+			app.main_window,
+			block ? _("Block") : _("Unblock"),
+			Adw.ResponseAppearance.DESTRUCTIVE
+		);
+
+		confirmed.response.connect (res => {
+			if (res == "yes") {
+				modify (block ? "block" : "unblock");
+			}
+			confirmed.destroy ();
+		});
+
+		confirmed.present ();
 	}
 
 }

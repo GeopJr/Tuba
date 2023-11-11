@@ -102,7 +102,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 	}
 
 	public Views.ContentBase add_timeline_tab (string label, string icon, string url, Type accepts) {
-		var tab = new Views.Timeline () {
+		var tab = new Views.Accounts () {
 			url = url,
 			label = label,
 			icon = icon,

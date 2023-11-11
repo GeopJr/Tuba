@@ -1,4 +1,4 @@
-public class Tuba.Views.Profile : Views.Timeline {
+public class Tuba.Views.Profile : Views.Accounts {
 	public class ProfileAccount : Widgetizable, GLib.Object {
 		public API.Account account { get; construct set; }
 		public API.Relationship rs { get; construct set; }
@@ -253,24 +253,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		blocking_action = new SimpleAction.stateful ("blocking", null, false);
 		blocking_action.change_state.connect (v => {
 			var block = v.get_boolean ();
-			var q = block ? _("Block \"%s\"?") : _("Unblock \"%s\"?");
-
-			var confirmed = app.question (
-				q.printf (profile.account.handle),
-				null,
-				app.main_window,
-				block ? _("Block") : _("Unblock"),
-				Adw.ResponseAppearance.DESTRUCTIVE
-			);
-
-			confirmed.response.connect (res => {
-				if (res == "yes") {
-					profile.rs.modify (block ? "block" : "unblock");
-				}
-				confirmed.destroy ();
-			});
-
-			confirmed.present ();
+			profile.rs.question_modify_block (profile.account.handle, block);
 		});
 		actions.add_action (blocking_action);
 
@@ -278,7 +261,6 @@ public class Tuba.Views.Profile : Views.Timeline {
 		domain_blocking_action.change_state.connect (v => {
 			var block = v.get_boolean ();
 			var q = block ? _("Block Entire \"%s\"?") : _("Unblock Entire \"%s\"?");
-			warning (q);
 			var confirmed = app.question (
 				q.printf (profile.account.domain),
 				_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users"), // vala-lint=line-length
