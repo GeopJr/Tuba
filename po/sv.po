@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
-"PO-Revision-Date: 2023-10-11 09:01+0000\n"
+"PO-Revision-Date: 2023-11-13 20:05+0000\n"
 "Last-Translator: sköldpadda <weblate@turtle.garden>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/tuba/tuba/sv/>\n"
 "Language: sv\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -1503,7 +1503,7 @@ msgstr "%s inlägg"
 #: src/Widgets/ProfileCover.vala:174
 #, c-format
 msgid "%s Following"
-msgstr "%s följare"
+msgstr "Följer %s"
 
 #. translators: the variable is the amount of followers a user has
 #: src/Widgets/ProfileCover.vala:179
@@ -1513,7 +1513,7 @@ msgstr "%s följare"
 
 #: src/Widgets/Status/ActionsRow.vala:35 src/Widgets/Status/ActionsRow.vala:79
 msgid "Boost"
-msgstr "Förstärkningar"
+msgstr "Förstärka"
 
 #: src/Widgets/Status/ActionsRow.vala:38
 msgid "This post can't be boosted"
