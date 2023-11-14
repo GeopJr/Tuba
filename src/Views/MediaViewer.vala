@@ -765,11 +765,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			if (alt_text != null) picture.alternative_text = alt_text;
 
 			if (!as_is) {
-				image_cache.request_paintable (url, (is_loaded, data) => {
-					if (is_loaded) {
-						picture.paintable = data;
+				Tuba.Helper.Image.request_paintable (url, null, (data) => {
+					picture.paintable = data;
+					if (data != null)
 						add_todo_item (item);
-					}
 				});
 			} else {
 				picture.paintable = preview;

@@ -4,17 +4,37 @@ public class Tuba.Network : GLib.Object {
 	public signal void finished ();
 
 	public delegate void ErrorCallback (int32 code, string reason);
-	public delegate void SuccessCallback (Soup.Session session, Soup.Message msg, InputStream in_stream) throws Error;
-	public delegate void NodeCallback (Json.Node node, Soup.Message msg) throws Error;
+	public delegate void SuccessCallback (InputStream in_stream, Soup.MessageHeaders? response_headers = null) throws Error;
+	public delegate void NodeCallback (Json.Node node) throws Error;
 	public delegate void ObjectCallback (Json.Object node) throws Error;
 
 	public Soup.Session session { get; set; }
+	private Soup.Cache cache;
 	int requests_processing = 0;
 
+	public void clear_cache () {
+		cache.clear ();
+		Tuba.Helper.Image.clear_cache ();
+	}
+
+	public void flush_cache () {
+		this.cache.flush ();
+        this.cache.dump ();
+		Tuba.Helper.Image.flush_cache ();
+	}
+
 	construct {
+        cache = new Soup.Cache (
+			GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "soup", "misc"),
+			Soup.CacheType.SINGLE_USER
+		);
+		cache.load ();
+        cache.set_max_size (1024 * 1024 * 100);
+
 		session = new Soup.Session () {
 			user_agent = @"$(Build.NAME)/$(Build.VERSION) libsoup/$(Soup.get_major_version()).$(Soup.get_minor_version()).$(Soup.get_micro_version()) ($(Soup.MAJOR_VERSION).$(Soup.MINOR_VERSION).$(Soup.MICRO_VERSION))" // vala-lint=line-length
 		};
+		session.add_feature (cache);
 		session.request_unqueued.connect (msg => {
 			requests_processing--;
 			if (requests_processing <= 0)
@@ -22,11 +42,16 @@ public class Tuba.Network : GLib.Object {
 		});
 	}
 
+	public enum ExtraData {
+		RESPONSE_HEADERS
+	}
+
 	public void queue (
 		owned Soup.Message msg,
 		GLib.Cancellable? cancellable,
 		owned SuccessCallback cb,
-		owned ErrorCallback? ecb
+		owned ErrorCallback? ecb,
+		ExtraData? extra_data = null
 	) {
 		requests_processing++;
 		started ();
@@ -41,7 +66,7 @@ public class Tuba.Network : GLib.Object {
 				if (status == Soup.Status.OK) {
 					try {
 						if (cb != null)
-							cb (session, msg, in_stream);
+							cb (in_stream, extra_data == ExtraData.RESPONSE_HEADERS ? msg.response_headers : null);
 					} catch (Error e) {
 						warning (@"Error in session: $(e.message)");
 					}
@@ -98,10 +123,10 @@ public class Tuba.Network : GLib.Object {
 		return get_array_mstd (parser).get_length ();
 	}
 
-	public static void parse_array (Soup.Message msg, Json.Parser parser, owned NodeCallback cb) throws Error {
+	public static void parse_array (Json.Parser parser, owned NodeCallback cb) throws Error {
 		get_array_mstd (parser).foreach_element ((array, i, node) => {
 			try {
-				cb (node, msg);
+				cb (node);
 			} catch (Error e) {
 				warning (@"Error parsing array: $(e.message)");
 			}
