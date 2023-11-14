@@ -31,7 +31,7 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
         title.label = t_obj.title;
 
         if (t_obj.cover != null && t_obj.cover.url != null && t_obj.cover.url != "") {
-            image_cache.request_paintable (t_obj.cover.url, on_cache_response);
+            Tuba.Helper.Image.request_paintable (t_obj.cover.url, null, on_cache_response);
 
             if (t_obj.cover.name != "") {
                 cover.alternative_text = cover.tooltip_text = t_obj.cover.name;
@@ -43,7 +43,7 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
         if (t_obj.authors != null && t_obj.authors.size > 0) {
             foreach (var author in t_obj.authors) {
                 new Request.GET (@"$author.json")
-                    .then ((sess, msg, in_stream) => {
+                    .then ((in_stream) => {
                         var parser = Network.get_parser_from_inputstream (in_stream);
                         var node = network.parse_node (parser);
                         var author_obj = API.BookWyrmAuthor.from (node);
@@ -105,9 +105,8 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
         return _("by %s").printf (string.joinv (", ", author_labels));
     }
 
-	void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-        if (is_loaded)
-            cover.paintable = data;
+	void on_cache_response (Gdk.Paintable? data) {
+        cover.paintable = data;
 	}
 
     [GtkCallback]

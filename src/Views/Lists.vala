@@ -121,7 +121,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 		new Request.POST ("/api/v1/lists")
 			.with_account (accounts.active)
 			.with_param ("title", list_name)
-			.then ((sess, msg, in_stream) => {
+			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				var list = API.List.from (node);

@@ -169,8 +169,8 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 	int64 max_value_length;
 	public ProfileEdit (API.Account acc) {
 		profile = acc;
-		image_cache.request_paintable (acc.header, on_background_cache_response);
-		image_cache.request_paintable (acc.avatar, on_avi_cache_response);
+		Tuba.Helper.Image.request_paintable (acc.header, null, on_background_cache_response);
+		Tuba.Helper.Image.request_paintable (acc.avatar, null, on_avi_cache_response);
 		avi.text = acc.display_name;
 		name_row.text = acc.display_name;
 		bio_text_view.buffer.text = acc.source?.note ?? "";
@@ -204,14 +204,12 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		fields_box.add (field);
 	}
 
-	void on_background_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		if (is_loaded)
-			background.paintable = data;
+	void on_background_cache_response (Gdk.Paintable? data) {
+		background.paintable = data;
 	}
 
-	void on_avi_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		if (is_loaded)
-			avi.custom_image = data;
+	void on_avi_cache_response (Gdk.Paintable? data) {
+		avi.custom_image = data;
 	}
 
 	File new_avi;

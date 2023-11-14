@@ -258,7 +258,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 		var row = _row as AccountRow;
 		if (row.account != null)
-			accounts.activate (row.account);
+			accounts.activate (row.account, true);
 		else
 			new Dialogs.NewAccount ().present ();
 	}

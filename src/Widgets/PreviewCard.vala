@@ -25,12 +25,8 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 				content_fit = Gtk.ContentFit.COVER
 			};
 
-			image_cache.request_paintable (card_obj.image, (is_loaded, paintable) => {
-				if (is_loaded) {
-					image.paintable = paintable;
-				} else if (settings.use_blurhash) {
-					image.paintable = blurhash_cache.lookup_or_decode (card_obj.blurhash);
-				}
+			Tuba.Helper.Image.request_paintable (card_obj.image, card_obj.blurhash, (paintable) => {
+				image.paintable = paintable;
 			});
 
 			if (is_video) {
