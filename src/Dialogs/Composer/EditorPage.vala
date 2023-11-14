@@ -1,5 +1,5 @@
 public class Tuba.EditorPage : ComposerPage {
-
+	public bool force_cursor_at_start { get; construct set; default=false; }
 	protected int64 char_limit { get; set; default = 500; }
 	protected int64 remaining_chars { get; set; default = 0; }
 	public signal void ctrl_return_pressed ();
@@ -22,6 +22,12 @@ public class Tuba.EditorPage : ComposerPage {
 		if (char_limit_api > 0)
 			char_limit = char_limit_api;
 		remaining_chars = char_limit;
+	}
+
+	public void set_cursor_at_start () {
+		Gtk.TextIter star_iter;
+		editor.buffer.get_start_iter (out star_iter);
+		editor.buffer.place_cursor (star_iter);
 	}
 
 	public override void on_build () {
@@ -210,6 +216,7 @@ public class Tuba.EditorPage : ComposerPage {
 
 		content.prepend (overlay);
 		editor.buffer.text = t_content;
+		if (force_cursor_at_start) set_cursor_at_start ();
 	}
 
 	protected Gtk.EmojiChooser emoji_picker;

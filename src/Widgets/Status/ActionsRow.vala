@@ -213,7 +213,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			};
 			dlg.add_responses (
 				"no", _("Cancel"),
-				//  "quote", _("Quote"),
+				"quote", _("Quote"),
 				"yes", _("Boost")
 			);
 			dlg.set_response_appearance ("yes", Adw.ResponseAppearance.SUGGESTED);
@@ -224,6 +224,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 
 				switch (res) {
 					case "yes":
+					case "quote":
 						API.Status.ReblogVisibility? reblog_visibility = null;
 						check_buttons.foreach (e => {
 							if (((Gtk.CheckButton) e.value).active) {
@@ -234,10 +235,22 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 							return true;
 						});
 
-						commit_boost (status_btn, reblog_visibility);
+						switch (res) {
+							case "yes":
+								commit_boost (status_btn, reblog_visibility);
+								break;
+							case "quote":
+								// TODO: use quote_id for supported backends
+								new Dialogs.Compose (new API.Status.empty () {
+									visibility = reblog_visibility == null ? settings.default_post_visibility : reblog_visibility.to_string (),
+									content = @"\n\nRE: $(status.formal.url ?? status.formal.account.url)"
+								}, true);
+								status_btn.unblock_clicked ();
+								break;
+							default:
+								assert_not_reached ();
+						}
 						break;
-					//  case "quote":
-					//  	break;
 					default:
 						status_btn.unblock_clicked ();
 						break;
@@ -268,7 +281,6 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 
 			status_btn.amount += status_btn.active ? 1 : -1;
 			debug (@"Performing status action '$action'…");
-			status_btn.unblock_clicked ();
 			mastodon_action (status_btn, req, action, "reblogs-count");
 	}
 

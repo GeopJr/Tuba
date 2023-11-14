@@ -122,6 +122,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	public BasicStatus original_status { get; construct set; }
 	public BasicStatus status { get; construct set; }
+	public bool force_cursor_at_start { get; construct set; default=false; }
 
 	public delegate void SuccessCallback (API.Status cb_status);
 	protected SuccessCallback? cb;
@@ -224,7 +225,9 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	private ComposerPage[] t_pages = {};
 	protected virtual signal void build () {
-		var p_edit = new EditorPage ();
+		var p_edit = new EditorPage () {
+			force_cursor_at_start = force_cursor_at_start
+		};
 		var p_attach = new AttachmentsPage ();
 		var p_poll = new PollPage ();
 
@@ -277,12 +280,13 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	[GtkChild] unowned Adw.ViewStack stack;
 
-	public Compose (API.Status template = new API.Status.empty ()) {
+	public Compose (API.Status template = new API.Status.empty (), bool t_force_cursor_at_start = false) {
 		Object (
 			status: new BasicStatus.from_status (template),
 			original_status: new BasicStatus.from_status (template),
 			button_label: _("_Publish"),
-			button_class: "suggested-action"
+			button_class: "suggested-action",
+			force_cursor_at_start: t_force_cursor_at_start
 		);
 	}
 
