@@ -221,6 +221,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 		var copy_handle_action = new SimpleAction ("copy_handle", null);
 		copy_handle_action.activate.connect (v => {
 			Host.copy (profile.account.full_handle);
+			app.toast (_("Copied handle to clipboard"));
 		});
 		actions.add_action (copy_handle_action);
 
@@ -336,9 +337,8 @@ public class Tuba.Views.Profile : Views.Timeline {
 		if (page_next == null && source == "statuses") {
 			req.with_param ("exclude_replies", (!include_replies).to_string ());
 			req.with_param ("only_media", only_media.to_string ());
-			return base.append_params (req);
 		}
-		else return req;
+		return base.append_params (req);
 	}
 
 	public static void open_from_id (string id) {

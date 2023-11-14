@@ -275,6 +275,7 @@
 
 	private void copy_url () {
 		Host.copy (status.formal.url ?? status.formal.account.url);
+		app.toast (_("Copied post url to clipboard"));
 	}
 
 	private void open_in_browser () {

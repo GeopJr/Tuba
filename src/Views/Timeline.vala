@@ -128,13 +128,22 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		base.dispose ();
 	}
 
-	public override void clear () {
+	private void cleanup_timeline_api () {
 		this.page_prev = null;
 		this.page_next = null;
 		this.is_last_page = false;
 		this.needs_attention = false;
 		this.badge_number = 0;
+	}
+
+	public override void clear () {
+		cleanup_timeline_api ();
 		base.clear ();
+	}
+
+	protected override void clear_all_but_first () {
+		cleanup_timeline_api ();
+		base.clear_all_but_first ();
 	}
 
 	public void get_pages (string? header) {

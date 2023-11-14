@@ -98,7 +98,7 @@ public class Tuba.Network : GLib.Object {
 
 	public void on_error (int32 code, string message) {
 		warning (message);
-		app.toast (message);
+		app.toast (message, 0);
 	}
 
 	public Json.Node parse_node (Json.Parser parser) {
