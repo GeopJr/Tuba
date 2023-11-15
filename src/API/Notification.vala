@@ -14,7 +14,13 @@ public class Tuba.API.Notification : Entity, Widgetizable {
     }
 
     public override Gtk.Widget to_widget () {
-        return new Widgets.Notification (this);
+        switch (kind) {
+            case InstanceAccount.KIND_FOLLOW:
+            case InstanceAccount.KIND_FOLLOW_REQUEST:
+                return account.to_widget ();
+            default:
+                return new Widgets.Notification (this);
+        }
     }
 
 	public virtual GLib.Notification to_toast (InstanceAccount issuer, int others = 0) {
