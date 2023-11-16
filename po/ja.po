@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Gnuey56 <gnuey56@proton.me>, 2023.
+# Scott Anecito <scott.anecito@linux.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
-"PO-Revision-Date: 2023-11-17 16:57+0000\n"
-"Last-Translator: Gnuey56 <gnuey56@proton.me>\n"
+"PO-Revision-Date: 2023-11-17 16:58+0000\n"
+"Last-Translator: Scott Anecito <scott.anecito@linux.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/tuba/tuba/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -502,7 +503,7 @@ msgstr "アカウントを切り替える"
 
 #: data/ui/views/sidebar/view.ui:54
 msgid "Menu"
-msgstr ""
+msgstr "メニュー"
 
 #: data/ui/widgets/announcement.ui:88
 msgid "Unread"
@@ -551,7 +552,7 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:157
 #: src/Widgets/CustomEmojiChooser.vala:160
 msgid "Other"
-msgstr ""
+msgstr "その他"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
