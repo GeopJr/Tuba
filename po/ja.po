@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
-"PO-Revision-Date: 2023-07-22 06:29+0000\n"
+"PO-Revision-Date: 2023-11-17 16:57+0000\n"
 "Last-Translator: Gnuey56 <gnuey56@proton.me>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/tuba/tuba/ja/>\n"
 "Language: ja\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.2\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -64,7 +64,7 @@ msgstr "一般"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Compose a new post"
-msgstr ""
+msgstr "新しい投稿を書く"
 
 #: data/gtk/help-overlay.ui:20 src/Views/Sidebar.vala:25
 msgid "Refresh"
@@ -81,15 +81,15 @@ msgstr "戻る"
 
 #: data/gtk/help-overlay.ui:38
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "キーボードショートカットを表示"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Close Window"
-msgstr ""
+msgstr "ウィンドウを閉じる"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Quit"
-msgstr ""
+msgstr "終了"
 
 #: data/gtk/help-overlay.ui:56 src/Views/Sidebar.vala:31
 msgid "About"
@@ -97,11 +97,11 @@ msgstr "このアプリについて"
 
 #: data/gtk/help-overlay.ui:62
 msgid "Scroll Up"
-msgstr ""
+msgstr "スクロールアップ"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Down"
-msgstr ""
+msgstr "スクロールダウン"
 
 #: data/gtk/help-overlay.ui:76
 msgid "Composer"
@@ -235,7 +235,7 @@ msgstr "投稿文の段落間隔を大きくします"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Enlarge custom emojis"
-msgstr ""
+msgstr "カスタム絵文字を拡大"
 
 #: data/ui/dialogs/preferences.ui:56
 msgid "Scale up custom emojis on hover"
@@ -271,7 +271,7 @@ msgstr "デフォルトで画像をメディアビューアーを埋め尽くす
 
 #: data/ui/dialogs/preferences.ui:79
 msgid "Show a blurred version of the media until they fully load"
-msgstr ""
+msgstr "メディアが完全に読み込まれるまで、ぼかしたメディアを表示する"
 
 #: data/ui/dialogs/preferences.ui:84
 msgid "Reveal spoilers by default"
@@ -279,7 +279,7 @@ msgstr "非表示のコンテンツをデフォルトで表示"
 
 #: data/ui/dialogs/preferences.ui:89
 msgid "Show link preview cards"
-msgstr ""
+msgstr "リンクプレビューカードを表示"
 
 #: data/ui/dialogs/preferences.ui:96
 msgid "Posting"
@@ -287,15 +287,15 @@ msgstr "投稿"
 
 #: data/ui/dialogs/preferences.ui:99
 msgid "Default post visibility"
-msgstr ""
+msgstr "デフォルトの投稿の公開範囲"
 
 #: data/ui/dialogs/preferences.ui:108
 msgid "Default post language"
-msgstr ""
+msgstr "デフォルトの投稿の言語"
 
 #: data/ui/dialogs/preferences.ui:118
 msgid "Default post content type"
-msgstr ""
+msgstr "デフォルトの投稿の種類"
 
 #: data/ui/dialogs/preferences.ui:129
 msgid "Behavior"
@@ -311,12 +311,12 @@ msgstr "アプリが閉じられても通知を受信します"
 
 #: data/ui/dialogs/preferences.ui:138
 msgid "Strip tracking parameters from links"
-msgstr ""
+msgstr "トラッキングパラメータをリンクから取り除く"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:140
 msgid "It can lead to broken links"
-msgstr ""
+msgstr "リンクを壊してしまう可能性があります"
 
 #: data/ui/dialogs/preferences.ui:147
 msgid "Timelines"
@@ -351,15 +351,15 @@ msgstr "通知"
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:180
 msgid "Push Notifications"
-msgstr ""
+msgstr "プッシュ通知"
 
 #: data/ui/dialogs/preferences.ui:183
 msgid "New Followers"
-msgstr ""
+msgstr "新しいフォロワー"
 
 #: data/ui/dialogs/preferences.ui:189
 msgid "New Follower Requests"
-msgstr ""
+msgstr "新しいフォローリクエスト"
 
 #: data/ui/dialogs/preferences.ui:195
 #: src/Services/Accounts/Mastodon/Account.vala:77 src/Views/Favorites.vala:4
@@ -368,23 +368,23 @@ msgstr "お気に入り"
 
 #: data/ui/dialogs/preferences.ui:201
 msgid "Mentions"
-msgstr ""
+msgstr "メンション"
 
 #: data/ui/dialogs/preferences.ui:207
 msgid "Boosts"
-msgstr ""
+msgstr "ブースト"
 
 #: data/ui/dialogs/preferences.ui:213
 msgid "Poll Results"
-msgstr ""
+msgstr "投票結果"
 
 #: data/ui/dialogs/preferences.ui:219
 msgid "Edits"
-msgstr ""
+msgstr "編集"
 
 #: data/ui/dialogs/preferences.ui:225
 msgid "Group"
-msgstr ""
+msgstr "グループ"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/ui/dialogs/preferences.ui:227
@@ -394,7 +394,7 @@ msgstr ""
 
 #: data/ui/dialogs/profile_edit.ui:13 src/Views/Profile.vala:125
 msgid "Edit Profile"
-msgstr ""
+msgstr "プロファイルを編集"
 
 #: data/ui/dialogs/profile_edit.ui:29
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:157
@@ -403,12 +403,12 @@ msgstr "保存"
 
 #: data/ui/dialogs/profile_edit.ui:67
 msgid "Edit Profile Picture"
-msgstr ""
+msgstr "プロファイル画像を編集"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:96
 msgid "Edit Header Picture"
-msgstr ""
+msgstr "ヘッダー画像を編集"
 
 #: data/ui/dialogs/profile_edit.ui:121
 msgid "Display Name"
