@@ -248,12 +248,9 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
                 label.wrap = false;
                 label.ellipsize = Pango.EllipsizeMode.END;
             } else {
+                label.ellipsize = Pango.EllipsizeMode.NONE;
                 label.wrap = true;
                 label.wrap_mode = Pango.WrapMode.WORD_CHAR;
-
-                // The lines check is Tuba specific for statuses that overflow their row
-                if (lines == 100 && widgets.length > 100) lines = widgets.length;
-                label.ellipsize = lines < 100 ? Pango.EllipsizeMode.NONE : Pango.EllipsizeMode.END;
             }
 
             _text = new_label;

@@ -69,8 +69,6 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	public RichLabel (string? text = null) {
 		if (text != null)
 			label = text;
-
-		widget.lines = 100;
 	}
 
 	construct {
