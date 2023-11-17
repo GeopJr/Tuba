@@ -41,19 +41,6 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         }
     }
 
-    private bool _ellipsize = false;
-    public bool ellipsize {
-        get {
-            return _ellipsize;
-        }
-        set {
-            if (_ellipsize == value) return;
-
-            _ellipsize = value;
-            update_label ();
-        }
-    }
-
     private bool _use_markup = false;
     public bool use_markup {
         get {
@@ -75,7 +62,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             wrap_mode = Pango.WrapMode.WORD_CHAR,
             xalign = 0.0f,
             valign = Gtk.Align.START,
-            use_markup = false
+            use_markup = false,
+            ellipsize = Pango.EllipsizeMode.NONE
             //  css_classes = {"lww-line-height"}
         };
 
@@ -230,28 +218,11 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 
     private void update_label () {
         var old_label = label.label;
-        var old_ellipsize = label.ellipsize == Pango.EllipsizeMode.END;
-        var new_ellipsize = this.ellipsize;
         var new_label = _text.replace (placeholder, OBJECT_REPLACEMENT_CHARACTER);
 
-        if (new_ellipsize) {
-            int pos = new_label.index_of_char ('\n');
-            if (pos >= 0) {
-                new_label = new_label.substring (0, pos) + "…";
-            }
-        }
-
-        if (old_ellipsize != new_ellipsize || old_label != new_label) {
-            if (new_ellipsize) {
-                // Workaround: if both wrap and ellipsize are set, and there are
-                // widgets inserted, GtkLabel reports an erroneous minimum width.
-                label.wrap = false;
-                label.ellipsize = Pango.EllipsizeMode.END;
-            } else {
-                label.ellipsize = Pango.EllipsizeMode.NONE;
-                label.wrap = true;
-                label.wrap_mode = Pango.WrapMode.WORD_CHAR;
-            }
+        if (old_label != new_label) {
+            label.wrap = true;
+            label.wrap_mode = Pango.WrapMode.WORD_CHAR;
 
             _text = new_label;
             label.label = _text;
