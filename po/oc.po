@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Nicolas <nicolas.miard@zaclys.net>, 2023.
+# Quentin PAGÈS <quentinantonin@free.fr>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
 "PO-Revision-Date: 2023-11-18 16:43+0000\n"
-"Last-Translator: Nicolas <nicolas.miard@zaclys.net>\n"
+"Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
 "Language-Team: Occitan <https://hosted.weblate.org/projects/tuba/tuba/oc/>\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
@@ -415,29 +416,29 @@ msgstr ""
 
 #: data/ui/dialogs/profile_edit.ui:121
 msgid "Display Name"
-msgstr ""
+msgstr "Nom d'afichatge"
 
 #. translators: profile bio or description
 #: data/ui/dialogs/profile_edit.ui:129
 msgid "Bio"
-msgstr ""
+msgstr "Bio"
 
 #: data/ui/dialogs/profile_edit.ui:140 src/Dialogs/Composer/EditorPage.vala:230
 msgid "Custom Emoji Picker"
-msgstr ""
+msgstr "Selector d’emoji personalizat"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:164
 msgid "Fields"
-msgstr ""
+msgstr "Camps"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
-msgstr ""
+msgstr "Mencion"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr ""
+msgstr "Messatge dirèct"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
