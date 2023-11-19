@@ -13,12 +13,6 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		}
 	}
 
-	private bool toolbar_view_mobile_style {
-		set {
-			toolbar_view.bottom_bar_style = toolbar_view.top_bar_style = value ? Adw.ToolbarStyle.RAISED : Adw.ToolbarStyle.FLAT;
-		}
-	}
-
 	private Gtk.Button search_button;
 	protected override void on_view_switched () {
 		base.on_view_switched ();
@@ -45,13 +39,6 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		app.main_window.bind_property ("is-mobile", switcher_bar, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.bind_property ("is-mobile", switcher, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.bind_property ("is-mobile", this, "title-stack-page-visible", GLib.BindingFlags.SYNC_CREATE);
-
-		app.main_window.notify["is-mobile"].connect (notify_bind);
-		notify_bind ();
-	}
-
-	private void notify_bind () {
-		toolbar_view_mobile_style = app.main_window.is_mobile;
 	}
 
 	public override void build_header () {
