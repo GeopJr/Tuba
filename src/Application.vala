@@ -192,6 +192,8 @@ namespace Tuba {
 			Intl.bindtextdomain (Build.GETTEXT_PACKAGE, Build.LOCALEDIR);
 			Intl.textdomain (Build.GETTEXT_PACKAGE);
 
+			GLib.Environment.unset_variable ("GTK_THEME");
+
 			app = new Application ();
 			return app.run (args);
 		}
