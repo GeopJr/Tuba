@@ -24,21 +24,10 @@ public class Tuba.Views.Main : Views.TabbedBase {
 	//  	app.main_window.update_selected_home_item ();
 	//  }
 
-	protected override bool title_stack_page_visible {
-		get {
-			return title_stack.visible_child_name == "title";
-		}
-
-		set {
-			title_stack.visible_child_name = app.main_window.is_mobile && value ? "switcher" : "title";
-		}
-	}
-
 	private void bind () {
 		app.main_window.bind_property ("is-mobile", search_button, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.bind_property ("is-mobile", switcher_bar, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.bind_property ("is-mobile", switcher, "visible", GLib.BindingFlags.SYNC_CREATE);
-		app.main_window.bind_property ("is-mobile", this, "title-stack-page-visible", GLib.BindingFlags.SYNC_CREATE);
 	}
 
 	public override void build_header () {
