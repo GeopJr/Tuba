@@ -217,6 +217,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	private static Views.Base set_as_sidebar_item (Views.Base view) {
 		view.is_sidebar_item = true;
+		view.show_back_button = false;
 		return view;
 	}
 
