@@ -12,6 +12,16 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	public int badge_number { get; set; default = 0; }
 	protected SimpleActionGroup actions { get; set; default = new SimpleActionGroup (); }
 
+	public bool show_back_button {
+		get {
+			return header.show_back_button;
+		}
+
+		set {
+			header.show_back_button = value;
+		}
+	}
+
 	private bool _current = false;
 	public bool current {
 		get {
