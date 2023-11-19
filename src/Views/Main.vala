@@ -39,12 +39,6 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		app.main_window.bind_property ("is-mobile", switcher_bar, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.bind_property ("is-mobile", switcher, "visible", GLib.BindingFlags.SYNC_CREATE);
 		app.main_window.bind_property ("is-mobile", this, "title-stack-page-visible", GLib.BindingFlags.SYNC_CREATE);
-
-		app.main_window.notify["is-mobile"].connect (notify_bind);
-		notify_bind ();
-	}
-
-	private void notify_bind () {
 	}
 
 	public override void build_header () {
