@@ -57,6 +57,7 @@
 										<property name="menu-model">menu-model</property>
 										<property name="icon-name">view-more-symbolic</property>
 										<property name="tooltip-text" translatable="yes">Menu</property>
+										<property name="primary">1</property>
 									</object>
 								</child>
 								<child type="end">

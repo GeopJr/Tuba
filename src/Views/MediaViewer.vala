@@ -548,6 +548,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			case Gdk.Key.KP_Right:
 				scroll_to (((int) carousel.position) + 1, false);
 				break;
+			case Gdk.Key.F11:
+				toggle_fullscreen ();
+				break;
 			default:
 				return false;
 		}
