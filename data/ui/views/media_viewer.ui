@@ -69,11 +69,7 @@
 							</object>
 						</child>
 						<property name="content">
-							<object class="GtkBox">
-								<property name="orientation">vertical</property>
-								<property name="hexpand">1</property>
-								<property name="vexpand">1</property>
-								<child>
+
 									<object class="GtkOverlay">
 										<property name="hexpand">1</property>
 										<property name="vexpand">1</property>
@@ -168,14 +164,7 @@
 											</object>
 										</property>
 									</object>
-								</child>
-								<child>
-									<object class="AdwCarouselIndicatorDots" id="carousel_dots">
-										<property name="carousel">carousel</property>
-										<property name="visible">0</property>
-									</object>
-								</child>
-							</object>
+
 						</property>
 					</object>
 				</property>
