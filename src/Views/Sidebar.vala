@@ -54,7 +54,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	public virtual Gtk.Widget on_accounts_row_create (Object obj) {
 		var row = new AccountRow (obj as InstanceAccount);
-		row.forget_signal.connect (popdown);
+		row.popdown_signal.connect (popdown);
 
 		return row;
 	}
@@ -170,7 +170,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		[GtkChild] unowned Widgets.Avatar avatar;
 		[GtkChild] unowned Gtk.Button forget;
 
-		public signal void forget_signal ();
+		public signal void popdown_signal ();
 
 		private Binding switcher_display_name;
 		private Binding switcher_handle;
@@ -186,29 +186,32 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 			account = _account;
 			if (account != null) {
-
 				switcher_display_name = this.account.bind_property ("display-name", this, "title", BindingFlags.SYNC_CREATE);
 				switcher_handle = this.account.bind_property ("handle", this, "subtitle", BindingFlags.SYNC_CREATE);
 				switcher_tooltip = this.account.bind_property ("handle", this, "tooltip-text", BindingFlags.SYNC_CREATE);
 				switcher_avatar = this.account.bind_property ("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
-			}
-			else {
+			} else {
 				title = _("Add Account");
 				avatar.account = null;
 				selectable = false;
 				forget.hide ();
 				tooltip_text = _("Add Account");
+				avatar.icon_name = "tuba-plus-large-symbolic";
+				avatar.remove_css_class ("flat");
 			}
 		}
 
 		[GtkCallback] void on_open () {
 			if (account != null) {
 				account.resolve_open (accounts.active);
+			} else {
+				new Dialogs.NewAccount ().present ();
 			}
+			popdown_signal ();
 		}
 
 		[GtkCallback] void on_forget () {
-			forget_signal ();
+			popdown_signal ();
 			// The String#replace below replaces the @ with <zero-width>@
 			// so it wraps cleanly
 
