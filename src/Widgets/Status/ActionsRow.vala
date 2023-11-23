@@ -116,7 +116,30 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	}
 
 	private void on_reply_button_clicked (Gtk.Button btn) {
-		reply (btn);
+		if (settings.reply_to_old_post_reminder && Tuba.DateTime.is_3_months_old (status.formal.created_at)) {
+			var old_reply_reminder = app.question (
+				_("This post is %s").printf (Tuba.DateTime.humanize_old (status.formal.created_at)),
+				_("You can still reply, but it may no longer be relevant"),
+				app.main_window,
+				_("Ok"),
+				Adw.ResponseAppearance.SUGGESTED,
+				_("Don't remind me again")
+			);
+
+			old_reply_reminder.response.connect (res => {
+				old_reply_reminder.destroy ();
+				switch (res) {
+					case "no":
+						settings.reply_to_old_post_reminder = false;
+						break;
+				}
+				reply (btn);
+			});
+
+			old_reply_reminder.present ();
+		} else {
+			reply (btn);
+		}
 	}
 
 	private void on_bookmark_button_clicked (Gtk.Button btn) {
