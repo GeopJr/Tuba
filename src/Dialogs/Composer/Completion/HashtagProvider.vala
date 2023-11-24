@@ -16,9 +16,7 @@ public class Tuba.HashtagProvider: Tuba.CompletionProvider {
 		}
 	}
 
-	public override async ListModel suggest (GtkSource.CompletionContext context, Cancellable? cancellable) throws Error {
-		var word = context.get_word ();
-
+	public override async ListModel suggest (string word, Cancellable? cancellable) throws Error {
 		var req = API.Tag.search (word);
 		yield req.await ();
 

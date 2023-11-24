@@ -16,9 +16,7 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 		}
 	}
 
-	public override async ListModel suggest (GtkSource.CompletionContext context, Cancellable? cancellable) throws Error {
-		var word = context.get_word ();
-
+	public override async ListModel suggest (string word, Cancellable? cancellable) throws Error {
 		var req = API.Account.search (word);
 		yield req.await ();
 

@@ -36,6 +36,7 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 		Gtk.TextIter start;
 		Gtk.TextIter end;
 		context.get_bounds (out start, out end);
+		end.forward_word_end ();
 
 		var buffer = start.get_buffer ();
 		var new_content = proposal.get_typed_text ();
@@ -58,13 +59,13 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 			// is the trigger
 			Gtk.TextIter start;
 			context.get_bounds (out start, null);
-			if (start.backward_char ())
-				is_trigger (start, start.get_char ());
+			if (start.backward_char () && is_trigger (start, start.get_char ()))
+				return yield populate_async (context, cancellable);
 
 			return EMPTY;
 		}
 
-		var word = context.get_word ();
+		string word = get_whole_word (context);
 		if (word == "") {
 			debug ("Empty trigger");
 			this.empty_triggers++;
@@ -75,9 +76,9 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 			return EMPTY;
 		}
 
-		var suggestions = yield this.suggest (context, cancellable);
+		var suggestions = yield this.suggest (word, cancellable);
 
-		if (word != context.get_word ())
+		if (word != get_whole_word (context))
 			return EMPTY;
 		return suggestions;
 	}
@@ -89,7 +90,16 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 	);
 
 	public abstract async GLib.ListModel suggest (
-		GtkSource.CompletionContext context,
+		string word,
 		GLib.Cancellable? cancellable
 	) throws Error;
+
+	public string get_whole_word (GtkSource.CompletionContext context) {
+		Gtk.TextIter start;
+		Gtk.TextIter end;
+		context.get_bounds (out start, out end);
+
+		end.forward_word_end ();
+		return start.get_text (end);
+	}
 }
