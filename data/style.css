@@ -610,3 +610,35 @@ video > overlay > revealer > controls {
 .preview_card:not(.explore):active {
 	background-color: alpha(currentColor, 0.1625);
 }
+
+GtkSourceAssistant {
+	background: @popover_bg_color;
+	padding: 8px;
+	/* border-radius of child + padding */
+	border-radius: 14px;
+
+}
+
+GtkSourceAssistant scrolledwindow undershoot {
+	background-image: none;
+	box-shadow: none;
+}
+
+GtkSourceAssistant scrolledwindow .cell.icon {
+	padding: 0;
+}
+
+GtkSourceAssistant row {
+	border-radius: 6px;
+	margin: 6px 0;
+	padding: 6px;
+}
+
+GtkSourceAssistant row:selected {
+	background: alpha(@accent_bg_color, .33);
+}
+
+GtkSourceAssistant row:first-child,
+GtkSourceAssistant row:last-child {
+	margin: 0;
+}
