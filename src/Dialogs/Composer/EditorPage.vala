@@ -146,7 +146,11 @@ public class Tuba.EditorPage : ComposerPage {
 
 			editor.extra_menu = adapter.get_menu_model ();
 			editor.insert_action_group ("spelling", adapter);
-			adapter.enabled = true;
+
+			adapter.enabled = settings.spellchecker_enabled;
+			adapter.notify["enabled"].connect (() => {
+				settings.spellchecker_enabled = adapter.enabled;
+			});
 		#endif
 
 		#if GSPELL && !LIBSPELLING
