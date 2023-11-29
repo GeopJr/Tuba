@@ -324,30 +324,26 @@
 	}
 
 	private void delete_status () {
-		var remove = app.question (
-			_("Are you sure you want to delete this post?"),
+		app.question.begin (
+			{_("Are you sure you want to delete this post?"), false},
 			null,
 			app.main_window,
-			_("Delete"),
-			Adw.ResponseAppearance.DESTRUCTIVE
-		);
-
-		remove.response.connect (res => {
-			if (res == "yes") {
-				this.status.formal.annihilate ()
-					//  .then ((in_stream) => {
-					//  	var parser = Network.get_parser_from_inputstream (in_stream);
-					//  	var root = network.parse (parser);
-					//  	if (root.has_member ("error")) {
-					//  		// TODO: Handle error (probably a toast?)
-					//  	};
-					//  })
-					.exec ();
+			{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+			false,
+			(obj, res) => {
+				if (app.question.end (res)) {
+					this.status.formal.annihilate ()
+						//  .then ((in_stream) => {
+						//  	var parser = Network.get_parser_from_inputstream (in_stream);
+						//  	var root = network.parse (parser);
+						//  	if (root.has_member ("error")) {
+						//  		// TODO: Handle error (probably a toast?)
+						//  	};
+						//  })
+						.exec ();
+				}
 			}
-			remove.destroy ();
-		});
-
-		remove.present ();
+		);
 	}
 
 	protected string spoiler_text {
