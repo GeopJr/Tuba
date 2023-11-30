@@ -638,6 +638,7 @@ GtkSourceAssistant row {
 
 GtkSourceAssistant row:selected {
 	background: alpha(@accent_bg_color, .33);
+	color: currentColor;
 }
 
 GtkSourceAssistant row:first-child,
