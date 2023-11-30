@@ -625,7 +625,9 @@ GtkSourceAssistant scrolledwindow undershoot {
 }
 
 GtkSourceAssistant scrolledwindow .cell.icon {
-	padding: 0;
+	padding-left: 0;
+	padding-top: 0;
+	padding-bottom: 0;
 }
 
 GtkSourceAssistant row {
