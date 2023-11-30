@@ -435,8 +435,9 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			sent_notifications.set (id, others);
 		}
 
-		var toast = obj.to_toast (this, others);
-		app.send_notification (id, toast);
+		obj.to_toast.begin (this, others, (_obj, res) => {
+			app.send_notification (id, obj.to_toast.end (res));
+		});
 		//  sent_notification_ids.add(id);
 	}
 

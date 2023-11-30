@@ -212,33 +212,26 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 		[GtkCallback] void on_forget () {
 			popdown_signal ();
-			// The String#replace below replaces the @ with <zero-width>@
-			// so it wraps cleanly
-
-			var confirmed = app.question (
+			app.question.begin (
 				// translators: the variable is an account handle
-				_("Forget %s?").printf (account.handle.replace ("@", "​@")),
-				_("This account will be removed from the application."),
+				{_("Forget %s?").printf ("<span segment=\"word\">@%s</span><span segment=\"word\">@%s</span>".printf (account.username, account.domain)), true},
+				{_("This account will be removed from the application."), false},
 				app.main_window,
-				_("Forget"),
-				Adw.ResponseAppearance.DESTRUCTIVE
-			);
-
-			confirmed.response.connect (res => {
-				if (res == "yes") {
-					try {
-						accounts.remove (account);
-					}
-					catch (Error e) {
-						warning (e.message);
-						var dlg = app.inform (_("Error"), e.message);
-						dlg.present ();
+				{ { _("Forget"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
+				false,
+				(obj, res) => {
+					if (app.question.end (res)) {
+						try {
+							accounts.remove (account);
+						} catch (Error e) {
+							warning (e.message);
+							var dlg = app.inform (_("Error"), e.message);
+							dlg.present ();
+						}
 					}
 				}
-				confirmed.destroy ();
-			});
-
-			confirmed.present ();
+			);
 		}
 
 	}

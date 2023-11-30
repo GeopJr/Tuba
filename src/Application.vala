@@ -479,30 +479,56 @@ namespace Tuba {
 			return dlg;
 		}
 
-		public Adw.MessageDialog question (
-			string text,
-			string? msg = null,
+		public struct QuestionButton {
+			public string label;
+			public Adw.ResponseAppearance appearance;
+		}
+
+		public struct QuestionButtons {
+			public QuestionButton yes;
+			public QuestionButton no;
+		}
+
+		public struct QuestionText {
+			public string text;
+			public bool use_markup;
+		}
+
+		public async bool question (
+			QuestionText title,
+			QuestionText? msg = null,
 			Gtk.Window? win = app.main_window,
-			string yes_label = _("Yes"),
-			Adw.ResponseAppearance yes_appearance = Adw.ResponseAppearance.DEFAULT,
-			string no_label = _("Cancel"),
-			Adw.ResponseAppearance no_appearance = Adw.ResponseAppearance.DEFAULT
+			QuestionButtons buttons = {
+				{ _("Yes"), Adw.ResponseAppearance.DEFAULT },
+				{ _("Cancel"), Adw.ResponseAppearance.DEFAULT }
+			},
+			Gtk.Widget? extra_child = null,
+			bool skip = false // skip the dialog, used for preferences to avoid duplicate code
 		) {
+			if (skip) return true;
+
 			var dlg = new Adw.MessageDialog (
 				win,
-				text,
-				msg
+				title.text,
+				msg == null ? null : msg.text
 			);
 
-			dlg.add_response ("no", no_label);
-			dlg.set_response_appearance ("no", no_appearance);
+			dlg.heading_use_markup = title.use_markup;
+			if (msg != null) dlg.body_use_markup = msg.use_markup;
 
-			dlg.add_response ("yes", yes_label);
-			dlg.set_response_appearance ("yes", yes_appearance);
+			dlg.add_response ("no", buttons.no.label);
+			dlg.set_response_appearance ("no", buttons.no.appearance);
+
+			dlg.add_response ("yes", buttons.yes.label);
+			dlg.set_response_appearance ("yes", buttons.yes.appearance);
 
 			if (win != null)
 				dlg.transient_for = win;
-			return dlg;
+
+			if (extra_child != null)
+				dlg.extra_child = extra_child;
+
+			return (yield dlg.choose (null)) == "yes";
 		}
 
 	}

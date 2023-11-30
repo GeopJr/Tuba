@@ -53,28 +53,25 @@ public class Tuba.Views.Lists : Views.Timeline {
 		public virtual signal void remove_from_model (API.List? t_list);
 
 		void on_remove_clicked () {
-			var remove = app.question (
-				_("Delete \"%s\"?").printf (this.list.title),
-				_("This action cannot be reverted."),
+			app.question.begin (
+				{_("Delete \"%s\"?").printf (this.list.title), false},
+				{_("This action cannot be reverted."), false},
 				app.main_window,
-				_("Delete"),
-				Adw.ResponseAppearance.DESTRUCTIVE
-			);
-
-			remove.response.connect (res => {
-				if (res == "yes") {
-					new Request.DELETE (@"/api/v1/lists/$(list.id)")
-						.with_account (accounts.active)
-						.then (() => {
-							remove_from_model (this.list);
-							this.destroy ();
-						})
-						.exec ();
+				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
+				false,
+				(obj, res) => {
+					if (app.question.end (res)) {
+						new Request.DELETE (@"/api/v1/lists/$(list.id)")
+							.with_account (accounts.active)
+							.then (() => {
+								remove_from_model (this.list);
+								this.destroy ();
+							})
+							.exec ();
+					}
 				}
-				remove.destroy ();
-			});
-
-			remove.present ();
+			);
 		}
 
 		public Adw.PreferencesWindow create_edit_preferences_window (API.List t_list) {
