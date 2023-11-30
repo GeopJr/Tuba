@@ -158,11 +158,6 @@ public class Tuba.EditorPage : ComposerPage {
 			adapter.notify["enabled"].connect (update_spelling_settings);
 		#endif
 
-		#if GSPELL && !LIBSPELLING
-			var gspell_view = Gspell.TextView.get_from_gtk_text_view (editor);
-			gspell_view.basic_setup ();
-		#endif
-
 		var keypress_controller = new Gtk.EventControllerKey ();
         keypress_controller.key_pressed.connect ((keyval, _, modifier) => {
             if (keyval == Gdk.Key.Return && (modifier == Gdk.ModifierType.CONTROL_MASK || modifier == (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.LOCK_MASK))) {
