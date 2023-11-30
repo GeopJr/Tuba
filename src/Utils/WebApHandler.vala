@@ -4,7 +4,7 @@ public class Tuba.WebApHandler {
 		return Uri.join (
 			uri.get_flags (),
 			"https",
-			uri.get_userinfo (),
+			null,
 			uri.get_host (),
 			uri.get_port (),
 			uri.get_path (),
