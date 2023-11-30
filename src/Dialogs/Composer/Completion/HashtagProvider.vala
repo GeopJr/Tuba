@@ -44,7 +44,9 @@ public class Tuba.HashtagProvider: Tuba.CompletionProvider {
 
 		switch (cell.get_column ()) {
 			case GtkSource.CompletionColumn.ICON:
-				cell.set_icon_name ("tuba-hashtag-symbolic");
+				cell.set_widget (new Gtk.Image.from_icon_name ("tuba-hashtag-symbolic") {
+					pixel_size = 24
+				});
 				break;
 			case GtkSource.CompletionColumn.TYPED_TEXT:
 				cell.set_markup (@"<b>$(tag.name)</b>\n<span alpha='50%'>$(tag.weekly_use ())</span>");
