@@ -62,6 +62,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 				width_request = 70,
 				icon_size = Gtk.IconSize.LARGE
 			};
+			image_widget.add_css_class ("preview_card_image");
 
 			box.orientation = Gtk.Orientation.HORIZONTAL;
 			box.homogeneous = false;
