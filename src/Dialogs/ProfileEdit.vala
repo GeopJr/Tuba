@@ -100,11 +100,6 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 			adapter.enabled = true;
 		#endif
 
-		#if GSPELL && !LIBSPELLING
-			var gspell_view = Gspell.TextView.get_from_gtk_text_view (bio_text_view);
-			gspell_view.basic_setup ();
-		#endif
-
 		if (accounts.active.instance_emojis?.size > 0) {
 			cepbtn.visible = true;
 		}
