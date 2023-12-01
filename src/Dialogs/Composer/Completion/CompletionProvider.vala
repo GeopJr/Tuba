@@ -20,8 +20,7 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 		this.is_capturing_input = state;
 		if (state) {
 			debug ("Capturing input");
-		}
-		else {
+		} else {
 			debug ("Stopped capturing input");
 			this.empty_triggers = 0;
 		}
@@ -36,10 +35,16 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 		Gtk.TextIter start;
 		Gtk.TextIter end;
 		context.get_bounds (out start, out end);
-		end.forward_word_end ();
+
+		// Go forwards until we find a space
+		// aka get the full string - even if it's not considered a word
+		// by pango
+		end.forward_find_char ((e) => e.isspace (), null);
+		// plus a space since we are appending one below
+		end.forward_char ();
 
 		var buffer = start.get_buffer ();
-		var new_content = proposal.get_typed_text ();
+		var new_content = proposal.get_typed_text () + " ";
 
 		buffer.begin_user_action ();
 		buffer.@delete (ref start, ref end);

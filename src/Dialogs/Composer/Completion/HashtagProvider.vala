@@ -12,7 +12,7 @@ public class Tuba.HashtagProvider: Tuba.CompletionProvider {
 		}
 
 		public override string? get_typed_text () {
-			return this.tag.name + " ";
+			return this.tag.name;
 		}
 	}
 

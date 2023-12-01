@@ -12,7 +12,7 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 		}
 
 		public override string? get_typed_text () {
-			return this.account.handle.offset (1) + " ";
+			return this.account.handle.offset (1);
 		}
 	}
 
