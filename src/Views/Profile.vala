@@ -255,22 +255,16 @@ public class Tuba.Views.Profile : Views.Timeline {
 			var block = v.get_boolean ();
 			var q = block ? _("Block \"%s\"?") : _("Unblock \"%s\"?");
 
-			var confirmed = app.question (
-				q.printf (profile.account.handle),
+			app.question.begin (
+				{q.printf (profile.account.handle), false},
 				null,
 				app.main_window,
-				block ? _("Block") : _("Unblock"),
-				Adw.ResponseAppearance.DESTRUCTIVE
-			);
-
-			confirmed.response.connect (res => {
-				if (res == "yes") {
-					profile.rs.modify (block ? "block" : "unblock");
+				{ { block ? _("Block") : _("Unblock"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				false,
+				(obj, res) => {
+					if (app.question.end (res)) profile.rs.modify (block ? "block" : "unblock");
 				}
-				confirmed.destroy ();
-			});
-
-			confirmed.present ();
+			);
 		});
 		actions.add_action (blocking_action);
 
@@ -279,31 +273,27 @@ public class Tuba.Views.Profile : Views.Timeline {
 			var block = v.get_boolean ();
 			var q = block ? _("Block Entire \"%s\"?") : _("Unblock Entire \"%s\"?");
 			warning (q);
-			var confirmed = app.question (
-				q.printf (profile.account.domain),
-				_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users"), // vala-lint=line-length
+			app.question.begin (
+				{q.printf (profile.account.domain), false},
+				{_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users"), false},
 
 				app.main_window,
-				block ? _("Block") : _("Unblock"),
-				Adw.ResponseAppearance.DESTRUCTIVE
-			);
+				{ { block ? _("Block") : _("Unblock"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				false,
+				(obj, res) => {
+					if (app.question.end (res)) {
+						var req = new Request.POST ("/api/v1/domain_blocks")
+							.with_account (accounts.active)
+							.with_param ("domain", profile.account.domain)
+							.then (() => {
+								profile.rs.request ();
+							});
 
-			confirmed.response.connect (res => {
-				if (res == "yes") {
-					var req = new Request.POST ("/api/v1/domain_blocks")
-					.with_account (accounts.active)
-					.with_param ("domain", profile.account.domain)
-					.then (() => {
-						profile.rs.request ();
-					});
-
-				if (!block) req.method = "DELETE";
-				req.exec ();
+						if (!block) req.method = "DELETE";
+						req.exec ();
+					}
 				}
-				confirmed.destroy ();
-			});
-
-			confirmed.present ();
+			);
 		});
 		actions.add_action (domain_blocking_action);
 

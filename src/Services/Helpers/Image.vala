@@ -20,7 +20,7 @@ public class Tuba.Helper.Image {
 	public static void flush_cache () {
 		new Helper.Image ();
 		cache.flush ();
-        cache.dump ();
+		cache.dump ();
 	}
 
 	static construct {
@@ -29,12 +29,24 @@ public class Tuba.Helper.Image {
 			Soup.CacheType.SINGLE_USER
 		);
 		cache.load ();
-        cache.set_max_size (1024 * 1024 * 100);
+		cache.set_max_size (1024 * 1024 * 100);
 
 		session = new Soup.Session () {
 			user_agent = @"$(Build.NAME)/$(Build.VERSION) libsoup/$(Soup.get_major_version()).$(Soup.get_minor_version()).$(Soup.get_micro_version()) ($(Soup.MAJOR_VERSION).$(Soup.MINOR_VERSION).$(Soup.MICRO_VERSION))" // vala-lint=line-length
 		};
 		session.add_feature (cache);
+	}
+
+	public static async Bytes? request_bytes (string url) {
+		new Helper.Image ();
+
+		var download_msg = new Soup.Message ("GET", url);
+		try {
+			return yield session.send_and_read_async (download_msg, 0, null);
+		} catch (Error e) {
+			warning (@"Failed to download and read image at \"$url\": $(e.message)");
+			return null;
+		}
 	}
 
 	public static void request_paintable (string? url, string? blurhash, owned OnItemChangedFn cb) {
@@ -63,7 +75,7 @@ public class Tuba.Helper.Image {
 					try {
 						paintable = decode.end (async_res);
 					} catch (Error e) {
-						warning (@"Failed to download image at \"$url\". $(e.message).");
+						warning (@"Failed to download image at \"$url\": $(e.message)");
 						cb (null);
 
 						return;
