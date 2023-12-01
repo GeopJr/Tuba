@@ -9,8 +9,7 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 	public virtual bool is_trigger (Gtk.TextIter iter, unichar ch) {
 		if (this.trigger_char == null) {
 			return this.set_input_capture (true);
-		}
-		else if (ch.to_string () == this.trigger_char) {
+		} else if (ch.to_string () == this.trigger_char) {
 			return this.set_input_capture (true);
 		}
 		return false;
@@ -36,10 +35,14 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 		Gtk.TextIter end;
 		context.get_bounds (out start, out end);
 
-		// Go forwards until we find a space
-		// aka get the full string - even if it's not considered a word
-		// by pango
-		end.forward_find_char ((e) => e.isspace (), null);
+		// If end is ' ', it's already the
+		// end of the word. Proceeding will
+		// capture more than needed
+		if (end.get_char () != ' ')
+			// Go forwards until we find a space
+			// aka get the full string - even if
+			// it's not considered a word by pango
+			end.forward_find_char ((e) => e.isspace (), null);
 		// plus a space since we are appending one below
 		end.forward_char ();
 
@@ -104,7 +107,10 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 		Gtk.TextIter end;
 		context.get_bounds (out start, out end);
 
-		end.forward_word_end ();
+		// If end is ':', everything until
+		// a newline will be treated as a word
+		if (end.get_char () != ':')
+			end.forward_word_end ();
 		return start.get_text (end);
 	}
 }
