@@ -1,9 +1,85 @@
 public class Tuba.Settings : GLib.Settings {
+	class Account : GLib.Settings {
+		public string default_language { get; set; default = "en"; }
+		public string default_post_visibility { get; set; default = "public"; }
+		public string default_content_type { get; set; default = "text/plain"; }
+		public string[] muted_notification_types { get; set; default = {}; }
 
-	public string active_account { get; set; }
-	public string default_language { get; set; default = "en"; }
+		private static string[] keys_to_init = {
+			"default-post-visibility",
+			"muted-notification-types",
+			"default-content-type"
+		};
+
+		public Account (string id) {
+			Object (schema_id: @"$(Build.DOMAIN).Account", path: @"/$(Build.DOMAIN.replace (".", "/"))/accounts/$id/");
+			this.delay ();
+
+			foreach (var key in keys_to_init) {
+				init (key);
+			}
+		}
+
+		void init (string key) {
+			bind (key, this, key, SettingsBindFlags.DEFAULT);
+		}
+	}
+
+	private Account active_account_settings { get; set; }
+	private string _active_account = "";
+	public string active_account {
+		get {
+			return _active_account;
+		}
+
+		set {
+			_active_account = value;
+			if (active_account_settings != null) active_account_settings.apply ();
+			active_account_settings = new Account (value);
+		}
+	}
+
+	public string default_language {
+		get {
+			return active_account_settings.default_language;
+		}
+
+		set {
+			active_account_settings.default_language = value;
+		}
+	}
+
+	public string default_post_visibility {
+		get {
+			return active_account_settings.default_post_visibility;
+		}
+
+		set {
+			active_account_settings.default_post_visibility = value;
+		}
+	}
+
+	public string default_content_type {
+		get {
+			return active_account_settings.default_content_type;
+		}
+
+		set {
+			active_account_settings.default_content_type = value;
+		}
+	}
+
+	public string[] muted_notification_types {
+		get {
+			return active_account_settings.muted_notification_types;
+		}
+
+		set {
+			active_account_settings.muted_notification_types = value;
+		}
+	}
+
 	public ColorScheme color_scheme { get; set; }
-	public string default_post_visibility { get; set; default = "public"; }
 	public bool work_in_background { get; set; }
 	public int timeline_page_size { get; set; }
 	public bool live_updates { get; set; }
@@ -18,17 +94,14 @@ public class Tuba.Settings : GLib.Settings {
 	public bool letterbox_media { get; set; }
 	public bool media_viewer_expand_pictures { get; set; }
 	public bool enlarge_custom_emojis { get; set; }
-	public string default_content_type { get; set; default = "text/plain"; }
 	public bool use_blurhash { get; set; }
 	public bool group_push_notifications { get; set; }
 	public bool advanced_boost_dialog { get; set; }
 	public bool spellchecker_enabled { get; set; }
 
-	public string[] muted_notification_types { get; set; default = {}; }
 	private static string[] keys_to_init = {
 		"active-account",
 		"color-scheme",
-		"default-post-visibility",
 		"timeline-page-size",
 		"live-updates",
 		"public-live-updates",
@@ -42,8 +115,6 @@ public class Tuba.Settings : GLib.Settings {
 		"letterbox-media",
 		"media-viewer-expand-pictures",
 		"enlarge-custom-emojis",
-		"muted-notification-types",
-		"default-content-type",
 		"use-blurhash",
 		"group-push-notifications",
 		"advanced-boost-dialog",
@@ -72,6 +143,12 @@ public class Tuba.Settings : GLib.Settings {
 		#if !DEV_MODE
 			if (key in apply_instantly_keys) apply ();
 		#endif
+	}
+
+	public void apply_all () {
+		if (active_account_settings != null) active_account_settings.apply ();
+
+		this.apply ();
 	}
 }
 

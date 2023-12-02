@@ -267,7 +267,7 @@ namespace Tuba {
 
 		protected override void shutdown () {
 			#if !DEV_MODE
-				settings.apply ();
+				settings.apply_all ();
 			#endif
 			network.flush_cache ();
 
