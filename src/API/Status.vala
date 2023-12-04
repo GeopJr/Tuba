@@ -53,6 +53,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
 	}
 
 	public Tuba.Views.Thread.ThreadRole tuba_thread_role { get; set; default = Tuba.Views.Thread.ThreadRole.NONE; }
+    public bool tuba_spoiler_revealed { get; set; default = settings.show_spoilers; }
 
     //  public string clean_content {
     //      get {
