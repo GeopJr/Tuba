@@ -134,14 +134,14 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		new Request.GET (@"/api/v1/statuses/$(root_status.id)/context")
 			.with_account (account)
 			.with_ctx (this)
-			.then ((sess, msg, in_stream) => {
+			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var root = network.parse (parser);
 
 				Object[] to_add_ancestors = {};
 				var ancestors = root.get_array_member ("ancestors");
 				ancestors.foreach_element ((array, i, node) => {
-					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
+					var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
 					to_add_ancestors += e;
 				});
 				to_add_ancestors += root_status;
@@ -150,7 +150,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				Object[] to_add_descendants = {};
 				var descendants = root.get_array_member ("descendants");
 				descendants.foreach_element ((array, i, node) => {
-					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
+					var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
 					to_add_descendants += e;
 				});
 				model.splice (model.get_n_items (), 0, to_add_descendants);
@@ -180,7 +180,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			.with_account ()
 			.with_param ("q", q)
 			.with_param ("resolve", "true")
-			.then ((sess, msg, in_stream) => {
+			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var root = network.parse (parser);
 				var statuses = root.get_array_member ("statuses");

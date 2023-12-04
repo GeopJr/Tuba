@@ -28,7 +28,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 			_avatar_url = value;
 
 			if (value != null) {
-				image_cache.request_paintable (value, on_cache_response);
+				Tuba.Helper.Image.request_paintable (value, null, on_cache_response);
 			}
 		}
 	}
@@ -48,12 +48,11 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 		} else {
 			avatar.text = account.display_name;
 			avatar.show_initials = true;
-			image_cache.request_paintable (account.avatar, on_cache_response);
+			Tuba.Helper.Image.request_paintable (account.avatar, null, on_cache_response);
 		}
 	}
 
-	void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		if (is_loaded)
-			avatar.custom_image = data;
+	void on_cache_response (Gdk.Paintable? data) {
+		avatar.custom_image = data;
 	}
 }

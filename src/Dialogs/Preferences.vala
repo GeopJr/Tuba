@@ -24,6 +24,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
     [GtkChild] unowned Adw.SwitchRow enlarge_custom_emojis;
     [GtkChild] unowned Adw.SwitchRow use_blurhash;
     [GtkChild] unowned Adw.SwitchRow group_push_notifications;
+    [GtkChild] unowned Adw.SwitchRow advanced_boost_dialog;
 
     [GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
     [GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
@@ -125,6 +126,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
         settings.bind ("enlarge-custom-emojis", enlarge_custom_emojis, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("use-blurhash", use_blurhash, "active", SettingsBindFlags.DEFAULT);
         settings.bind ("group-push-notifications", group_push_notifications, "active", SettingsBindFlags.DEFAULT);
+        settings.bind ("advanced-boost-dialog", advanced_boost_dialog, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 
@@ -191,7 +193,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 				new Request.PATCH ("/api/v1/accounts/update_credentials")
 					.with_account (accounts.active)
 					.with_form_data ("source[language]", new_lang)
-					.then ((sess, msg, in_stream) => {
+					.then ((in_stream) => {
 						var parser = Network.get_parser_from_inputstream (in_stream);
 						var node = network.parse_node (parser);
 						var updated = API.Account.from (node);

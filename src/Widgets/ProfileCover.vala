@@ -113,7 +113,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
             background.paintable = avatar.custom_image;
         } else {
             header_url = profile.account.header ?? "";
-            image_cache.request_paintable (profile.account.header, on_cache_response);
+            Tuba.Helper.Image.request_paintable (profile.account.header, null, on_cache_response);
             background.clicked.connect (open_header_in_media_viewer);
         }
 
@@ -183,16 +183,19 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 		// translators: the variable is the amount of posts a user has made
 		var btn = build_profile_stats_button (_("%s Posts").printf (Tuba.Units.shorten (account.statuses_count)));
+        btn.tooltip_text = _("%s Posts").printf (account.statuses_count.to_string ());
 		btn.clicked.connect (() => timeline_change ("statuses"));
 		box.append (btn);
 
 		// translators: the variable is the amount of people a user follows
 		btn = build_profile_stats_button (_("%s Following").printf (Tuba.Units.shorten (account.following_count)));
+        btn.tooltip_text = _("%s Following").printf (account.following_count.to_string ());
 		btn.clicked.connect (() => timeline_change ("following"));
 		box.append (btn);
 
 		// translators: the variable is the amount of followers a user has
 		btn = build_profile_stats_button (_("%s Followers").printf (Tuba.Units.shorten (account.followers_count)));
+        btn.tooltip_text = _("%s Followers").printf (account.followers_count.to_string ());
 		btn.clicked.connect (() => timeline_change ("followers"));
 		box.append (btn);
 
@@ -213,8 +216,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		return btn;
 	}
 
-    void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-        if (is_loaded)
-            background.paintable = data;
+    void on_cache_response (Gdk.Paintable? data) {
+        background.paintable = data;
     }
 }

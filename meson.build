@@ -71,7 +71,6 @@ libgtk_dep = dependency('gtk4', version: '>=4.11.3', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.4', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
 libwebp_dep = dependency('libwebp', required: false)
-gspell = dependency('gspell-4', required: false)
 libspelling = dependency('libspelling-1', required: false)
 
 if not libwebp_dep.found ()
@@ -90,10 +89,6 @@ if libspelling.found ()
   add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
 endif
 
-if gspell.found ()
-  add_project_arguments(['--define=GSPELL'], language: 'vala')
-endif
-
 if gtksourceview_dep.version().version_compare('>=5.7.1')
   add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
 endif
@@ -110,7 +105,6 @@ final_deps = [
   dependency('json-glib-1.0', version: '>=1.4.4'),
   dependency('libxml-2.0'),
   dependency('libsecret-1', required: true),
-  gspell,
   libspelling,
   gtksourceview_dep,
   libgtk_dep,

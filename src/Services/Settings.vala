@@ -21,6 +21,8 @@ public class Tuba.Settings : GLib.Settings {
 	public string default_content_type { get; set; default = "text/plain"; }
 	public bool use_blurhash { get; set; }
 	public bool group_push_notifications { get; set; }
+	public bool advanced_boost_dialog { get; set; }
+	public bool spellchecker_enabled { get; set; }
 
 	public string[] muted_notification_types { get; set; default = {}; }
 	private static string[] keys_to_init = {
@@ -43,7 +45,9 @@ public class Tuba.Settings : GLib.Settings {
 		"muted-notification-types",
 		"default-content-type",
 		"use-blurhash",
-		"group-push-notifications"
+		"group-push-notifications",
+		"advanced-boost-dialog",
+		"spellchecker-enabled"
 	};
 
 	public Settings () {

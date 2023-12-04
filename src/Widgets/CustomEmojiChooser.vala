@@ -34,12 +34,16 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
 		return res;
 	}
 
+    ~CustomEmojiChooser () {
+        debug ("Destroying CustomEmojiChooser");
+    }
+
     private Gtk.Box custom_emojis_box;
     private Gtk.SearchEntry entry;
     private Gtk.FlowBox results;
     private Gtk.Label results_label;
     private Gtk.ScrolledWindow custom_emojis_scrolled;
-    private GLib.ListStore list_store = new GLib.ListStore (typeof (API.Emoji));
+
 	construct {
         this.add_css_class ("emoji-picker");
         custom_emojis_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
@@ -64,12 +68,6 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
         results = create_emoji_box ();
         custom_emojis_box.append (results);
 
-        results.bind_model (list_store, model => {
-            var emoji = model as API.Emoji;
-            if (emoji == null) Process.exit (0);
-            return create_emoji_button (emoji);
-        });
-
         entry = new Gtk.SearchEntry () {
 			text = query,
             hexpand = true
@@ -86,9 +84,17 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
         entry.stop_search.connect (on_close);
     }
 
+    private void add_to_results (API.Emoji emoji) {
+        results.append (create_emoji_button (emoji));
+    }
+
+    private void remove_all_from_results () {
+        results.remove_all ();
+    }
+
     protected void search () {
         query = entry.text.chug ().chomp ().down ().replace (":", "");
-        list_store.remove_all ();
+        remove_all_from_results ();
 
 		if (query == "") {
             results_label.visible = false;
@@ -103,7 +109,7 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
 				if (!e.visible_in_picker) return true;
 				if (query in e.shortcode) {
                     at_least_one = true;
-                    list_store.append (e);
+                    add_to_results (e);
                 };
 
 				return true;

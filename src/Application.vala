@@ -13,9 +13,9 @@ namespace Tuba {
 	public static Network network;
 	public static Streams streams;
 
-	public static EntityCache entity_cache;
-	public static ImageCache image_cache;
-	public static BlurhashCache blurhash_cache;
+	//  public static EntityCache entity_cache;
+	//  public static ImageCache image_cache;
+	//  public static BlurhashCache blurhash_cache;
 
 	public static GLib.Regex bookwyrm_regex;
 	public static GLib.Regex custom_emoji_regex;
@@ -23,8 +23,8 @@ namespace Tuba {
 	public static bool is_rtl;
 
 	public static bool start_hidden = false;
-
 	public static bool is_flatpak = false;
+	public static string cache_path;
 
 	public class Application : Adw.Application {
 
@@ -40,7 +40,7 @@ namespace Tuba {
 		public Streams app_streams { get {return Tuba.streams; } }
 
 		public signal void refresh ();
-		public signal void toast (string title);
+		public signal void toast (string title, uint timeout = 5);
 
 		#if DEV_MODE
 			public signal void dev_new_post (Json.Node node);
@@ -161,6 +161,8 @@ namespace Tuba {
 				warning (e.message);
 			}
 
+			cache_path = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, GLib.Environment.get_user_cache_dir (), Build.NAME.down ());
+
 			try {
 				bookwyrm_regex = new GLib.Regex ("/book/\\d+/s/[-_a-z0-9]*", GLib.RegexCompileFlags.OPTIMIZE);
 			} catch (GLib.RegexError e) {
@@ -190,6 +192,8 @@ namespace Tuba {
 			Intl.bindtextdomain (Build.GETTEXT_PACKAGE, Build.LOCALEDIR);
 			Intl.textdomain (Build.GETTEXT_PACKAGE);
 
+			GLib.Environment.unset_variable ("GTK_THEME");
+
 			app = new Application ();
 			return app.run (args);
 		}
@@ -207,13 +211,13 @@ namespace Tuba {
 				settings = new Settings ();
 				streams = new Streams ();
 				network = new Network ();
-				entity_cache = new EntityCache ();
-				image_cache = new ImageCache () {
-					maintenance_secs = 60 * 5
-				};
-				blurhash_cache = new BlurhashCache () {
-					maintenance_secs = 30
-				};
+				//  entity_cache = new EntityCache ();
+				//  image_cache = new ImageCache () {
+				//  	maintenance_secs = 60 * 5
+				//  };
+				//  blurhash_cache = new BlurhashCache () {
+				//  	maintenance_secs = 30
+				//  };
 				accounts = new SecretAccountStore ();
 				accounts.init ();
 
@@ -265,6 +269,7 @@ namespace Tuba {
 			#if !DEV_MODE
 				settings.apply ();
 			#endif
+			network.flush_cache ();
 
 			base.shutdown ();
 		}
@@ -474,30 +479,51 @@ namespace Tuba {
 			return dlg;
 		}
 
-		public Adw.MessageDialog question (
-			string text,
-			string? msg = null,
+		public struct QuestionButton {
+			public string label;
+			public Adw.ResponseAppearance appearance;
+		}
+
+		public struct QuestionButtons {
+			public QuestionButton yes;
+			public QuestionButton no;
+		}
+
+		public struct QuestionText {
+			public string text;
+			public bool use_markup;
+		}
+
+		public async bool question (
+			QuestionText title,
+			QuestionText? msg = null,
 			Gtk.Window? win = app.main_window,
-			string yes_label = _("Yes"),
-			Adw.ResponseAppearance yes_appearance = Adw.ResponseAppearance.DEFAULT,
-			string no_label = _("Cancel"),
-			Adw.ResponseAppearance no_appearance = Adw.ResponseAppearance.DEFAULT
+			QuestionButtons buttons = {
+				{ _("Yes"), Adw.ResponseAppearance.DEFAULT },
+				{ _("Cancel"), Adw.ResponseAppearance.DEFAULT }
+			},
+			bool skip = false // skip the dialog, used for preferences to avoid duplicate code
 		) {
+			if (skip) return true;
+
 			var dlg = new Adw.MessageDialog (
 				win,
-				text,
-				msg
+				title.text,
+				msg == null ? null : msg.text
 			);
 
-			dlg.add_response ("no", no_label);
-			dlg.set_response_appearance ("no", no_appearance);
+			dlg.heading_use_markup = title.use_markup;
+			if (msg != null) dlg.body_use_markup = msg.use_markup;
 
-			dlg.add_response ("yes", yes_label);
-			dlg.set_response_appearance ("yes", yes_appearance);
+			dlg.add_response ("no", buttons.no.label);
+			dlg.set_response_appearance ("no", buttons.no.appearance);
+
+			dlg.add_response ("yes", buttons.yes.label);
+			dlg.set_response_appearance ("yes", buttons.yes.appearance);
 
 			if (win != null)
 				dlg.transient_for = win;
-			return dlg;
+			return (yield dlg.choose (null)) == "yes";
 		}
 
 	}

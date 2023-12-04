@@ -47,24 +47,17 @@ public class Tuba.SecretAccountStore : AccountStore {
 			warning (@"$help_msg\nread more: $wiki_page");
 
 			new Dialogs.NewAccount ();
-			var dlg = app.question (
-				"Error while searching for user accounts",
-				@"$help_msg.",
+			app.question.begin (
+				{"Error while searching for user accounts", false},
+				{@"$help_msg.", false},
 				app.add_account_window,
-				"Read More",
-				Adw.ResponseAppearance.SUGGESTED,
-				"Close"
-			);
-
-			dlg.response.connect (res => {
-				if (res == "yes") {
-					Host.open_uri (wiki_page);
+				{ {"Read More", Adw.ResponseAppearance.SUGGESTED }, { "Close", Adw.ResponseAppearance.DEFAULT } },
+				false,
+				(obj, res) => {
+					if (app.question.end (res)) Host.open_uri (wiki_page);
+					Process.exit (1);
 				}
-				dlg.destroy ();
-				Process.exit (1);
-			});
-
-			dlg.present ();
+			);
 		}
 
 		secrets.foreach (item => {
@@ -72,7 +65,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 			if (account != null && account.id != "") {
 				new Request.GET (@"/api/v1/accounts/$(account.id)")
 					.with_account (account)
-					.then ((sess, msg, in_stream) => {
+					.then ((in_stream) => {
 						var parser = Network.get_parser_from_inputstream (in_stream);
 						var node = network.parse_node (parser);
 						var acc = API.Account.from (node);
