@@ -240,11 +240,11 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 								commit_boost (status_btn, reblog_visibility);
 								break;
 							case "quote":
-								// TODO: use quote_id for supported backends
+								bool supports_quotes = accounts.active.instance_info.supports_quote_posting;
 								new Dialogs.Compose (new API.Status.empty () {
 									visibility = reblog_visibility == null ? settings.default_post_visibility : reblog_visibility.to_string (),
-									content = @"\n\nRE: $(status.formal.url ?? status.formal.account.url)"
-								}, true);
+									content = supports_quotes ? "" : @"\n\nRE: $(status.formal.url ?? status.formal.account.url)"
+								}, !supports_quotes, status.formal.id);
 								status_btn.unblock_clicked ();
 								break;
 							default:
