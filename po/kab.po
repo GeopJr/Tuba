@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
-"PO-Revision-Date: 2023-08-25 19:51+0000\n"
+"PO-Revision-Date: 2023-10-09 08:03+0000\n"
 "Last-Translator: R_SACI <rgebbid@gmail.com>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/tuba/tuba/kab/>\n"
 "Language: kab\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -52,7 +52,7 @@ msgstr ""
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:22
 #: data/ui/dialogs/preferences.ui:19
 msgid "General"
-msgstr ""
+msgstr "Amatu"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Compose a new post"
@@ -60,16 +60,16 @@ msgstr ""
 
 #: data/gtk/help-overlay.ui:20 src/Views/Sidebar.vala:25
 msgid "Refresh"
-msgstr ""
+msgstr "Snirem"
 
 #: data/gtk/help-overlay.ui:26 src/Services/Accounts/Mastodon/Account.vala:95
 #: src/Views/Main.vala:72 src/Views/Search.vala:14
 msgid "Search"
-msgstr ""
+msgstr "Nadi"
 
 #: data/gtk/help-overlay.ui:32 src/Views/MediaViewer.vala:301
 msgid "Go Back"
-msgstr ""
+msgstr "Ɣer deffir"
 
 #: data/gtk/help-overlay.ui:38
 msgid "Show Keyboard Shortcuts"
@@ -77,61 +77,61 @@ msgstr ""
 
 #: data/gtk/help-overlay.ui:44
 msgid "Close Window"
-msgstr ""
+msgstr "Mdel asfaylu"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Quit"
-msgstr ""
+msgstr "Ffeɣ"
 
 #: data/gtk/help-overlay.ui:56 src/Views/Sidebar.vala:31
 msgid "About"
-msgstr ""
+msgstr "Ɣef"
 
 #: data/gtk/help-overlay.ui:62
 msgid "Scroll Up"
-msgstr ""
+msgstr "Drurem d asawen"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Down"
-msgstr ""
+msgstr "Drurem d akessar"
 
 #: data/gtk/help-overlay.ui:76
 msgid "Composer"
-msgstr ""
+msgstr "Aru"
 
 #: data/gtk/help-overlay.ui:79
 msgid "Commit"
-msgstr ""
+msgstr "Azen"
 
 #: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:20
 #: data/ui/dialogs/profile_edit.ui:22 src/Application.vala:434
 #: src/Dialogs/Composer/Dialog.vala:210
 msgid "Cancel"
-msgstr ""
+msgstr "Sefsex"
 
 #: data/ui/dialogs/compose.ui:43 src/Dialogs/Composer/Dialog.vala:284
 msgid "_Publish"
-msgstr ""
+msgstr "_Suffeɣ"
 
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
-msgstr ""
+msgstr "Iɛeggalen"
 
 #: data/ui/dialogs/list_edit.ui:10
 msgid "Remove Members"
-msgstr ""
+msgstr "Kkes iɛeggalen"
 
 #: data/ui/dialogs/list_edit.ui:25
 msgid "Info"
-msgstr ""
+msgstr "Talɣut"
 
 #: data/ui/dialogs/list_edit.ui:29
 msgid "List Name"
-msgstr ""
+msgstr "Isem n tebdart"
 
 #: data/ui/dialogs/list_edit.ui:36
 msgid "Replies Policy"
-msgstr ""
+msgstr "Tasertit n tririt"
 
 #: data/ui/dialogs/list_edit.ui:37
 msgid "Show member replies to"

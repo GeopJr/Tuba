@@ -4,20 +4,21 @@
 # bittin1ddc447d824349b2 <bittin@reimu.nl>, 2023.
 # Evangelos Paterakis <evan@geopjr.dev>, 2023.
 # Luna Jernberg <droidbittin@gmail.com>, 2023.
+# sköldpadda <weblate@turtle.garden>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-22 11:28+0300\n"
-"PO-Revision-Date: 2023-08-07 12:33+0000\n"
-"Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
+"PO-Revision-Date: 2023-11-13 20:05+0000\n"
+"Last-Translator: sköldpadda <weblate@turtle.garden>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/tuba/tuba/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -87,7 +88,7 @@ msgstr "Visa Tangentbordsgenvägar"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Close Window"
-msgstr ""
+msgstr "Stäng fönster"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Quit"
@@ -99,11 +100,11 @@ msgstr "Om"
 
 #: data/gtk/help-overlay.ui:62
 msgid "Scroll Up"
-msgstr ""
+msgstr "Skrolla upp"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Down"
-msgstr ""
+msgstr "Skrolla ned"
 
 #: data/gtk/help-overlay.ui:76
 msgid "Composer"
@@ -235,7 +236,7 @@ msgstr "Gör linjehöjden större för inlägg"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Enlarge custom emojis"
-msgstr ""
+msgstr "Förstora anpassade emojis"
 
 #: data/ui/dialogs/preferences.ui:56
 msgid "Scale up custom emojis on hover"
@@ -248,7 +249,7 @@ msgstr "Gör anpassade emojis något större när du håller muspekaren över de
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:63
 msgid "Letterbox Media"
-msgstr "Letterbox Media"
+msgstr "Letterboxa media"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:65
@@ -271,7 +272,7 @@ msgstr "Expandera bilder till att fylla mediavisare som standard"
 
 #: data/ui/dialogs/preferences.ui:79
 msgid "Show a blurred version of the media until they fully load"
-msgstr ""
+msgstr "Visa en suddig version av media tills de laddas helt"
 
 #: data/ui/dialogs/preferences.ui:84
 msgid "Reveal spoilers by default"
@@ -279,7 +280,7 @@ msgstr "Avslöja spoilers som standard"
 
 #: data/ui/dialogs/preferences.ui:89
 msgid "Show link preview cards"
-msgstr ""
+msgstr "Visa kort för förhandsgranskning av länkar"
 
 #: data/ui/dialogs/preferences.ui:96
 msgid "Posting"
@@ -295,7 +296,7 @@ msgstr "Standardspråk för inlägg"
 
 #: data/ui/dialogs/preferences.ui:118
 msgid "Default post content type"
-msgstr ""
+msgstr "Standardinnehållstyp för inlägg"
 
 #: data/ui/dialogs/preferences.ui:129
 msgid "Behavior"
@@ -351,15 +352,15 @@ msgstr "Notifikationer"
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:180
 msgid "Push Notifications"
-msgstr ""
+msgstr "Pushnotifikationer"
 
 #: data/ui/dialogs/preferences.ui:183
 msgid "New Followers"
-msgstr ""
+msgstr "Nya följare"
 
 #: data/ui/dialogs/preferences.ui:189
 msgid "New Follower Requests"
-msgstr ""
+msgstr "Nya förfrågningar om följare"
 
 #: data/ui/dialogs/preferences.ui:195
 #: src/Services/Accounts/Mastodon/Account.vala:77 src/Views/Favorites.vala:4
@@ -368,29 +369,29 @@ msgstr "Favoriter"
 
 #: data/ui/dialogs/preferences.ui:201
 msgid "Mentions"
-msgstr ""
+msgstr "Omnämnanden"
 
 #: data/ui/dialogs/preferences.ui:207
 msgid "Boosts"
-msgstr ""
+msgstr "Förstärkningar"
 
 #: data/ui/dialogs/preferences.ui:213
 msgid "Poll Results"
-msgstr ""
+msgstr "Omröstningsresultat"
 
 #: data/ui/dialogs/preferences.ui:219
 msgid "Edits"
-msgstr ""
+msgstr "Redigeringar"
 
 #: data/ui/dialogs/preferences.ui:225
 msgid "Group"
-msgstr ""
+msgstr "Grupp"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/ui/dialogs/preferences.ui:227
 msgid ""
 "Combine recently pushed notifications of the same type and post into one"
-msgstr ""
+msgstr "Kombinera nyligen skickade meddelanden av samma typ och inlägg till ett"
 
 #: data/ui/dialogs/profile_edit.ui:13 src/Views/Profile.vala:125
 msgid "Edit Profile"
@@ -488,12 +489,12 @@ msgstr "Listor"
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:35
 msgid "Bot"
-msgstr "Bot"
+msgstr "Botkonto"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:38
 msgid "Forget Account"
-msgstr ""
+msgstr "Glöm konto"
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
@@ -501,11 +502,11 @@ msgstr "Byt konto"
 
 #: data/ui/views/sidebar/view.ui:54
 msgid "Menu"
-msgstr ""
+msgstr "Meny"
 
 #: data/ui/widgets/announcement.ui:88
 msgid "Unread"
-msgstr ""
+msgstr "Oläst"
 
 #: data/ui/widgets/announcement.ui:99 data/ui/widgets/status.ui:172
 msgid "Edited"
@@ -513,7 +514,7 @@ msgstr "Redigerad"
 
 #: data/ui/widgets/status.ui:161
 msgid "Pinned"
-msgstr "Fäst"
+msgstr "Fästa inlägg"
 
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:230
@@ -557,19 +558,19 @@ msgstr "Annat"
 #: src/API/Notification.vala:28
 #, c-format
 msgid "%s (& %d others)"
-msgstr ""
+msgstr "%s (& %d andra)"
 
 #: src/API/Notification.vala:51
 msgid "Reply…"
-msgstr ""
+msgstr "Svara…"
 
 #: src/API/Notification.vala:59
 msgid "Remove from Followers"
-msgstr ""
+msgstr "Ta bort från följare"
 
 #: src/API/Notification.vala:64
 msgid "Follow Back"
-msgstr ""
+msgstr "Följ tillbaka"
 
 #: src/API/Notification.vala:71 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
@@ -700,7 +701,7 @@ msgstr "Media"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:76
 msgid "Paste"
-msgstr ""
+msgstr "Klistra in"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:212
 #: src/Dialogs/Composer/AttachmentsPage.vala:238
@@ -788,7 +789,7 @@ msgstr "Inläggsspråk"
 
 #: src/Dialogs/Composer/EditorPage.vala:350
 msgid "Post Content Type"
-msgstr ""
+msgstr "Inläggsinnehållstyp"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
@@ -976,7 +977,7 @@ msgstr "%s redigerade ett inlägg"
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:262
 msgid "Plain Text"
-msgstr ""
+msgstr "Oformatterad text"
 
 #: src/Services/Accounts/Mastodon/Account.vala:49
 #: src/Views/Conversations.vala:4
@@ -1012,7 +1013,7 @@ msgstr "Hashtaggar"
 #: src/Services/Accounts/Mastodon/Account.vala:150
 #: src/Views/Announcements.vala:4
 msgid "Announcements"
-msgstr ""
+msgstr "Tillkännagivanden"
 
 #: src/Services/Accounts/Mastodon/Account.vala:189
 msgid "Public"
@@ -1052,7 +1053,7 @@ msgstr "Posta till endast nämnda användare"
 #. different account
 #: src/Services/Accounts/Mastodon/Account.vala:247
 msgid "Notification was pushed for a different account"
-msgstr ""
+msgstr "Avisering skickades för ett annat konto"
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:204
@@ -1114,7 +1115,7 @@ msgstr "gick ut den %m-%d"
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:61
 msgid "expired on %b %-e, %Y"
-msgstr "går ut på %m-%d, %Å"
+msgstr "gick ut på %m-%d, %Å"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -1150,19 +1151,19 @@ msgstr "%m %-d, %Å"
 #. 3000 => 3k
 #: src/Utils/Units.vala:13
 msgid "k"
-msgstr ""
+msgstr "k"
 
 #. translators: short unit suffix for millions
 #. 3000000 => 3M
 #: src/Utils/Units.vala:17
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #. translators: short unit suffix for billions
 #. 3000000000 => 3G
 #: src/Utils/Units.vala:21
 msgid "G"
-msgstr ""
+msgstr "G"
 
 #. translators: Shown when there are 0 results
 #: src/Views/Base.vala:4
@@ -1254,7 +1255,7 @@ msgstr "Spara media"
 
 #: src/Views/MediaViewer.vala:438 src/Widgets/Attachment/Item.vala:187
 msgid "Copy Media"
-msgstr ""
+msgstr "Kopiera media"
 
 #: src/Views/MediaViewer.vala:660
 msgid "Previous Attachment"
@@ -1370,7 +1371,7 @@ msgstr "Ange sökfråga"
 
 #: src/Views/Sidebar.vala:24
 msgid "Open Profile"
-msgstr ""
+msgstr "Öppna profil"
 
 #: src/Views/Sidebar.vala:29
 msgid "Preferences"
@@ -1426,7 +1427,7 @@ msgstr "Dölj media"
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:74
 msgid "Show Sensitive Content"
-msgstr ""
+msgstr "Visa känsligt innehåll"
 
 #: src/Widgets/Attachment/Item.vala:35
 msgid "Save Attachment"
@@ -1440,7 +1441,7 @@ msgstr "Visa alternativ text"
 #: src/Widgets/BookWyrmPage.vala:83
 #, c-format
 msgid "Published: %s"
-msgstr ""
+msgstr "Publicerad: %s"
 
 #. translators: the variable is a comma separated
 #. list of the book authors
@@ -1496,23 +1497,23 @@ msgstr "Gick med"
 #: src/Widgets/ProfileCover.vala:169
 #, c-format
 msgid "%s Posts"
-msgstr ""
+msgstr "%s inlägg"
 
 #. translators: the variable is the amount of people a user follows
 #: src/Widgets/ProfileCover.vala:174
 #, c-format
 msgid "%s Following"
-msgstr ""
+msgstr "Följer %s"
 
 #. translators: the variable is the amount of followers a user has
 #: src/Widgets/ProfileCover.vala:179
 #, c-format
 msgid "%s Followers"
-msgstr ""
+msgstr "%s följare"
 
 #: src/Widgets/Status/ActionsRow.vala:35 src/Widgets/Status/ActionsRow.vala:79
 msgid "Boost"
-msgstr "Förstärkningar"
+msgstr "Förstärka"
 
 #: src/Widgets/Status/ActionsRow.vala:38
 msgid "This post can't be boosted"
@@ -1571,7 +1572,7 @@ msgstr "Rösta"
 
 #: src/Widgets/VoteBox.vala:96 src/Widgets/VoteBox.vala:121
 msgid "Voted"
-msgstr ""
+msgstr "Röstat"
 
 #. translators: the variable is the amount of people that voted
 #: src/Widgets/VoteBox.vala:144
