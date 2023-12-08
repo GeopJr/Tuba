@@ -8,7 +8,8 @@ const TestUrl[] URLS = {
     { "web+ap://www.gnome.org/test", "https://www.gnome.org/test" },
     { "web+ap://www.gnome.org/test?foo=bar", "https://www.gnome.org/test?foo=bar" },
     { "web+ap://www.gnome.org/test?foo=bar&fizz=buzz", "https://www.gnome.org/test?foo=bar&fizz=buzz" },
-    { "web+ap://www.gnome.org/test?foo=bar&fizz=buzz#main", "https://www.gnome.org/test?foo=bar&fizz=buzz#main" }
+    { "web+ap://www.gnome.org/test?foo=bar&fizz=buzz#main", "https://www.gnome.org/test?foo=bar&fizz=buzz#main" },
+    { "web+ap://tuba@gnome.org/test", "https://gnome.org/test" }
 };
 
 public void test_web_ap_handler () {

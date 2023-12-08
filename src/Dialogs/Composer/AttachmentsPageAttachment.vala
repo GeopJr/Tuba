@@ -129,11 +129,6 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			adapter.enabled = true;
 		#endif
 
-		#if GSPELL && !LIBSPELLING
-			var gspell_view = Gspell.TextView.get_from_gtk_text_view (alt_editor);
-			gspell_view.basic_setup ();
-		#endif
-
 		var scroller = new Gtk.ScrolledWindow () {
 			hexpand = true,
 			vexpand = true

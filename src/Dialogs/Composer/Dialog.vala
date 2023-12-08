@@ -195,32 +195,23 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		on_paste_activated (this.title);
 	}
 
-	Adw.MessageDialog? dlg;
 	void on_exit () {
 		push_all ();
 
 		if (status.equal (original_status)) {
 			on_close ();
 		} else {
-			dlg = app.question (
-				_("Are you sure you want to exit?"),
-				_("Your progress will be lost."),
+			app.question.begin (
+				{_("Are you sure you want to exit?"), false},
+				{_("Your progress will be lost."), false},
 				this,
-				_("Discard"),
-				Adw.ResponseAppearance.DESTRUCTIVE,
-				_("Cancel")
+				{ { _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				false,
+				(obj, res) => {
+					if (app.question.end (res)) on_close ();
+				}
 			);
-			dlg.response.connect (on_dlg_response);
-			dlg.present ();
 		}
-	}
-
-	void on_dlg_response (string res) {
-		if (dlg == null) return;
-		dlg.dispose ();
-		dlg = null;
-
-		if (res == "yes") on_close ();
 	}
 
 	private ComposerPage[] t_pages = {};

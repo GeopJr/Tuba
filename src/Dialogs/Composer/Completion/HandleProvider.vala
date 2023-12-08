@@ -12,13 +12,11 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 		}
 
 		public override string? get_typed_text () {
-			return this.account.handle.offset (1) + " ";
+			return this.account.handle.offset (1);
 		}
 	}
 
-	public override async ListModel suggest (GtkSource.CompletionContext context, Cancellable? cancellable) throws Error {
-		var word = context.get_word ();
-
+	public override async ListModel suggest (string word, Cancellable? cancellable) throws Error {
 		var req = API.Account.search (word);
 		yield req.await ();
 
@@ -45,7 +43,7 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 
 		switch (cell.get_column ()) {
 			case GtkSource.CompletionColumn.ICON:
-				var avatar = new Adw.Avatar (32, null, true);
+				var avatar = new Adw.Avatar (36, null, true);
 				avatar.name = account.display_name;
 				Tuba.Helper.Image.request_paintable (account.avatar, null, (paintable) => {
 					avatar.custom_image = paintable;

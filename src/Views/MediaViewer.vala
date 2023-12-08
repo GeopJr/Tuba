@@ -735,6 +735,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		if (media_type.is_video ()) {
 			var video = new Gtk.Video ();
+			if (media_type == Tuba.Attachment.MediaType.GIFV) {
+				video.loop = true;
+				video.autoplay = true;
+			}
+
 			item = new Item (video, final_friendly_url, final_preview, true);
 
 			if (stream) {

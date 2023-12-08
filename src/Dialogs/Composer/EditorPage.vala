@@ -110,6 +110,13 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.grab_focus ();
 	}
 
+	#if LIBSPELLING
+		protected Spelling.TextBufferAdapter adapter;
+		private void update_spelling_settings () {
+			settings.spellchecker_enabled = adapter.enabled;
+		}
+	#endif
+
 	protected void install_editor () {
 		recount_chars.connect (() => {
 			remaining_chars = char_limit;
@@ -142,16 +149,13 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.remove_css_class ("view");
 
 		#if LIBSPELLING
-			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
+			adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
 
 			editor.extra_menu = adapter.get_menu_model ();
 			editor.insert_action_group ("spelling", adapter);
-			adapter.enabled = true;
-		#endif
 
-		#if GSPELL && !LIBSPELLING
-			var gspell_view = Gspell.TextView.get_from_gtk_text_view (editor);
-			gspell_view.basic_setup ();
+			adapter.enabled = settings.spellchecker_enabled;
+			adapter.notify["enabled"].connect (update_spelling_settings);
 		#endif
 
 		var keypress_controller = new Gtk.EventControllerKey ();

@@ -16,9 +16,7 @@ public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 		}
 	}
 
-	public override async ListModel suggest (GtkSource.CompletionContext context, Cancellable? cancellable) throws Error {
-		var word = context.get_word ();
-
+	public override async ListModel suggest (string word, Cancellable? cancellable) throws Error {
 		var results = new GLib.ListStore (typeof (Object));
 		var emojis = accounts.active.instance_emojis;
 
@@ -45,7 +43,9 @@ public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 
 		switch (cell.get_column ()) {
 			case GtkSource.CompletionColumn.ICON:
-				var image = new Gtk.Image ();
+				var image = new Gtk.Image () {
+					pixel_size = 36
+				};
 				Tuba.Helper.Image.request_paintable (emoji.url, null, (paintable) => {
 					image.paintable = paintable;
 				});

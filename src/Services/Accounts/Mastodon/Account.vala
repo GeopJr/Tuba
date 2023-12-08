@@ -94,7 +94,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		icon = "system-search-symbolic",
 		title = _("Search"),
 		open_func = (win) => {
-			win.open_view (new Views.Search ());
+			win.open_view (set_as_sidebar_item (new Views.Search ()));
 		}
 	};
 
