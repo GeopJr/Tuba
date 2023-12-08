@@ -10,13 +10,16 @@ public class Tuba.DateTime {
 			return _("expires soon");
 		} else if (delta < TimeSpan.HOUR) {
 			var minutes = delta / TimeSpan.MINUTE;
-			return _(@"$(minutes)m left");
+			// tranlators: the variable is a number, `m` as in minutes in short form
+			return _("%sm left").printf (minutes.to_string ());
 		} else if (delta <= TimeSpan.DAY) {
 			var hours = delta / TimeSpan.HOUR;
-			return _(@"$(hours)h left");
+			// tranlators: the variable is a number, `h` as in hours in short form
+			return _("%sh left").printf (hours.to_string ());
 		} else if (delta <= (TimeSpan.DAY * 60)) {
 			var days = delta / TimeSpan.DAY;
-			return _(@"$(days)d left");
+			// tranlators: the variable is a number, `d` as in days in short form
+			return _("%sd left").printf (days.to_string ());
 		} else {
 			//  translators: %b is Month name (short)
 			//				 %-e is the Day number
@@ -40,11 +43,13 @@ public class Tuba.DateTime {
 			return _("expired on just now");
 		else if (delta < TimeSpan.HOUR) {
 			var minutes = delta / TimeSpan.MINUTE;
-			return _(@"expired $(minutes)m ago");
+			// tranlators: the variable is a number, `m` as in minutes in short form
+			return _("expired %sm ago").printf (minutes.to_string ());
 		}
 		else if (delta <= TimeSpan.DAY) {
 			var hours = delta / TimeSpan.HOUR;
-			return _(@"expired $(hours)h ago");
+			// tranlators: the variable is a number, `h` as in hours in short form
+			return _("expired %sh ago").printf (hours.to_string ());
 		}
 		else if (is_same_day (now, date.add_days (1))) {
 			return _("expired yesterday");
@@ -77,11 +82,13 @@ public class Tuba.DateTime {
 			return _("Just now");
 		else if (delta < TimeSpan.HOUR) {
 			var minutes = delta / TimeSpan.MINUTE;
-			return _(@"$(minutes)m");
+			// tranlators: the variable is a number, `m` as in minutes in short form
+			return _("%sm").printf (minutes.to_string ());
 		}
 		else if (delta <= TimeSpan.DAY) {
 			var hours = delta / TimeSpan.HOUR;
-			return _(@"$(hours)h");
+			// tranlators: the variable is a number, `h` as in hours in short form
+			return _("%sh").printf (hours.to_string ());
 		}
 		else if (is_same_day (now, date.add_days (1))) {
 			return _("Yesterday");
