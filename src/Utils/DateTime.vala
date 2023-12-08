@@ -159,6 +159,7 @@ public class Tuba.DateTime {
 	public static bool is_3_months_old (string iso8601) {
 		var date = new GLib.DateTime.from_iso8601 (iso8601, null);
 		var now = new GLib.DateTime.now_local ();
+		if (now.difference (date) < 0) return false;
 
 		var date_month = date.get_month ();
 		var now_month = now.get_month ();
