@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-08 06:46+0200\n"
-"PO-Revision-Date: 2023-11-13 20:05+0000\n"
-"Last-Translator: sköldpadda <weblate@turtle.garden>\n"
+"PO-Revision-Date: 2023-12-08 07:33+0000\n"
+"Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/tuba/tuba/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2-dev\n"
+"X-Generator: Weblate 5.3-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -67,7 +67,7 @@ msgstr "Allmänt"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "Visa inställningar"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose a new post"
@@ -124,7 +124,7 @@ msgstr "Mediavisare"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "Fullskärm"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:148
 msgid "Zoom In"
@@ -145,22 +145,22 @@ msgstr "Nästa bilaga"
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "Zooma in"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Zooma ut"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Föregående bilaga"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Next Attachment"
-msgstr ""
+msgstr "Nästa bilaga"
 
 #: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:22
 #: data/ui/dialogs/profile_edit.ui:22 src/API/Status/PreviewCard.vala:164
@@ -189,7 +189,7 @@ msgstr "Listnamn"
 
 #: data/ui/dialogs/list_edit.ui:33
 msgid "Hide these posts from home"
-msgstr ""
+msgstr "Dölj dessa inlägg från hem"
 
 #: data/ui/dialogs/list_edit.ui:40
 msgid "Replies Policy"
@@ -372,11 +372,11 @@ msgstr "Det kan leda till trasiga länkar"
 
 #: data/ui/dialogs/preferences.ui:145
 msgid "Advanced boost dialog"
-msgstr ""
+msgstr "Avancerad förstärknings dialogruta"
 
 #: data/ui/dialogs/preferences.ui:146
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr ""
+msgstr "Ändra förstärkningsynlighet, citera och bekräfta förstärkningen"
 
 #: data/ui/dialogs/preferences.ui:153
 msgid "Timelines"
@@ -508,7 +508,7 @@ msgstr "Öppna i webbläsare"
 
 #: data/ui/menus.ui:33
 msgid "Notify me on new posts"
-msgstr ""
+msgstr "Meddela mig om nya inlägg"
 
 #: data/ui/menus.ui:39
 msgid "Moderation"
@@ -751,20 +751,20 @@ msgstr "Använd %d gånger av %d person under de senaste 2 dagarna"
 #: src/Application.vala:291
 #, c-format
 msgid "'%s://' may only be used when adding a new account"
-msgstr ""
+msgstr "'%s://' kan endast användas när du lägger till ett nytt konto"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:298
 #, c-format
 msgid "'%s://' may not be used when adding a new account"
-msgstr ""
+msgstr "'%s://' får inte användas när du lägger till ett nytt konto"
 
 #. translators: the first variable is the app name ('Tuba'),
 #. the second one is a uri scheme like 'https'
 #: src/Application.vala:305
 #, c-format
 msgid "%s does not accept '%s://'"
-msgstr ""
+msgstr "%s accepterar inte '%s://'"
 
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:450
@@ -1189,19 +1189,19 @@ msgstr "går snart ut"
 #: src/Utils/DateTime.vala:14
 #, c-format
 msgid "%sm left"
-msgstr ""
+msgstr "%sm kvar"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:18
 #, c-format
 msgid "%sh left"
-msgstr ""
+msgstr "%st kvar"
 
 #. tranlators: the variable is a number, `d` as in days in short form
 #: src/Utils/DateTime.vala:22
 #, c-format
 msgid "%sd left"
-msgstr ""
+msgstr "%sd kvar"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -1227,13 +1227,13 @@ msgstr "gick ut nyss"
 #: src/Utils/DateTime.vala:47
 #, c-format
 msgid "expired %sm ago"
-msgstr ""
+msgstr "gick ut för %sm sedan"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:52
 #, c-format
 msgid "expired %sh ago"
-msgstr ""
+msgstr "gick ut för %st sedan"
 
 #: src/Utils/DateTime.vala:55
 msgid "expired yesterday"
@@ -1270,13 +1270,13 @@ msgstr "Just nu"
 #: src/Utils/DateTime.vala:86
 #, c-format
 msgid "%sm"
-msgstr ""
+msgstr "%sm"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:91
 #, c-format
 msgid "%sh"
-msgstr ""
+msgstr "%st"
 
 #: src/Utils/DateTime.vala:94
 msgid "Yesterday"
@@ -1299,48 +1299,48 @@ msgstr "%m %-d, %Å"
 #. tranlators: less than 1 minute old
 #: src/Utils/DateTime.vala:118
 msgid "less than a minute old"
-msgstr ""
+msgstr "mindre än en minut gammal"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:122
 #, c-format
 msgid "%s minutes old"
-msgstr ""
+msgstr "%s minuter gammal"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:126
 #, c-format
 msgid "an hour old"
 msgid_plural "%s hours old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "en timme gammal"
+msgstr[1] "%s timmar gammal"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:141 src/Utils/DateTime.vala:161
 #, c-format
 msgid "%d months old"
-msgstr ""
+msgstr "%d månader gammal"
 
 #. tranlators: 1 day old
 #: src/Utils/DateTime.vala:147
 msgid "a day old"
-msgstr ""
+msgstr "en dag gammal"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:150
 #, c-format
 msgid "%d days old"
-msgstr ""
+msgstr "%d dagar gammal"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:156
 #, c-format
 msgid "%d years old"
-msgstr ""
+msgstr "%d år gammal"
 
 #: src/Utils/DateTime.vala:158
 msgid "a year old"
-msgstr ""
+msgstr "ett år gammal"
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k
@@ -1428,11 +1428,11 @@ msgstr "Lägg till lista"
 
 #: src/Views/MediaViewer.vala:577
 msgid "Copied media url to clipboard"
-msgstr ""
+msgstr "Kopierade media url till urklipp"
 
 #: src/Views/MediaViewer.vala:936 src/Widgets/Attachment/Image.vala:85
 msgid "Copied image to clipboard"
-msgstr ""
+msgstr "Kopierade bild till urklipp"
 
 #: src/Views/Profile.vala:34
 msgid "Profile"
@@ -1440,7 +1440,7 @@ msgstr "Profil"
 
 #: src/Views/Profile.vala:224
 msgid "Copied handle to clipboard"
-msgstr ""
+msgstr "Kopierade smeknamn till urklipp"
 
 #: src/Views/Profile.vala:256
 #, c-format
@@ -1549,7 +1549,7 @@ msgstr "Tangentbordsgenvägar"
 #: src/Views/Sidebar.vala:35
 #, c-format
 msgid "About %s"
-msgstr ""
+msgstr "Om %s"
 
 #. translators: the variable is an account handle
 #: src/Views/Sidebar.vala:217
@@ -1585,11 +1585,11 @@ msgstr "Konversation"
 
 #: src/Views/Thread.vala:104 src/Views/Thread.vala:118
 msgid "Reveal Spoilers"
-msgstr ""
+msgstr "Avslöja spoilers"
 
 #: src/Views/Thread.vala:118
 msgid "Hide Spoilers"
-msgstr ""
+msgstr "Dölj spoilers"
 
 #: src/Views/Timeline.vala:221 src/Widgets/Status/ActionsRow.vala:343
 msgid "Network Error"
@@ -1613,7 +1613,7 @@ msgstr "Visa känsligt innehåll"
 
 #: src/Widgets/Attachment/Item.vala:22
 msgid "Copied attachment url to clipboard"
-msgstr ""
+msgstr "Kopierade den bifogade webbadressen till urklipp"
 
 #: src/Widgets/Attachment/Item.vala:35
 msgid "Save Attachment"
@@ -1621,7 +1621,7 @@ msgstr "Spara bilaga"
 
 #: src/Widgets/Attachment/Item.vala:47
 msgid "Saved Media"
-msgstr ""
+msgstr "Sparat media"
 
 #: src/Widgets/Attachment/Item.vala:117
 msgid "View Alt Text"
@@ -1721,7 +1721,7 @@ msgstr "Redigera"
 
 #: src/Widgets/Status.vala:278
 msgid "Copied post url to clipboard"
-msgstr ""
+msgstr "Kopierade inläggets url till urklipp"
 
 #: src/Widgets/Status.vala:328
 msgid "Are you sure you want to delete this post?"
@@ -1762,25 +1762,25 @@ msgstr "Bokmärk"
 #: src/Widgets/Status/ActionsRow.vala:123
 #, c-format
 msgid "This post is %s"
-msgstr ""
+msgstr "Denna post är %s"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon-android/tree/master/mastodon/src/main/res
 #. in the `strings.xml` file inside the `values-` folder that matches your locale under the `old_post_sheet_text` key
 #: src/Widgets/Status/ActionsRow.vala:126
 msgid "You can still reply, but it may no longer be relevant."
-msgstr ""
+msgstr "Du kan fortfarande svara, men det kanske inte längre är relevant."
 
 #: src/Widgets/Status/ActionsRow.vala:128
 msgid "Don't remind me again"
-msgstr ""
+msgstr "Påminn mig inte igen"
 
 #: src/Widgets/Status/ActionsRow.vala:229
 msgid "Boost with Visibility"
-msgstr ""
+msgstr "Förstärk med visibilitet"
 
 #: src/Widgets/Status/ActionsRow.vala:236
 msgid "Quote"
-msgstr ""
+msgstr "Citera"
 
 #: src/Widgets/VoteBox.vala:12
 msgid "Vote"
