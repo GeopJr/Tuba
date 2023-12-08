@@ -103,14 +103,20 @@ public class Tuba.DateTime {
 		var date = new GLib.DateTime.from_iso8601 (iso8601, null);
 		var now = new GLib.DateTime.now_local ();
 		var delta = now.difference (date);
-		if (delta <= TimeSpan.MINUTE)
+		if (delta < 0) {
+			// non-translated: the date should always be in the past
+			return "in the future";
+		} else if (delta <= TimeSpan.MINUTE)
+			// tranlators: less than 1 minute old
 			return _("less than a minute old");
 		else if (delta < TimeSpan.HOUR) {
 			var minutes = delta / TimeSpan.MINUTE;
-			return _(@"$(minutes) minutes old");
+			// tranlators: the variable is a number
+			return _("%s minutes old").printf (minutes.to_string ());
 		} else if (delta <= TimeSpan.DAY) {
 			var hours = delta / TimeSpan.HOUR;
-			return _(@"$(hours) hours old");
+			// tranlators: the variable is a number
+			return GLib.ngettext ("an hour old", "%s hours old", (ulong) hours).printf (hours.to_string ());
 		}
 
 		var date_day_oty = date.get_day_of_year ();
@@ -124,20 +130,28 @@ public class Tuba.DateTime {
 
 		if (date_year == now_year) {
 			if (now_month > date_month) {
-				return _(@"$(now_month - date_month) months old");
-			} else if (now_day_oty == date_day_oty) {
+				// tranlators: the variable is a number
+				return _("%d months old").printf (now_month - date_month);
+			}
+
+			var day_diff = now_day_oty - date_day_oty;
+			if (now_day_oty == date_day_oty || day_diff == 1) {
+				// tranlators: 1 day old
 				return _("a day old");
 			} else {
-				return _(@"$(now_day_oty - date_day_oty) days old");
+				// tranlators: the variable is a number
+				return _("%d days old").printf (day_diff);
 			}
 		} else {
 			var year_diff = now_year - date_year;
 			if (year_diff > 1) {
-				return _(@"$(year_diff) years old");
+				// tranlators: the variable is a number
+				return _("%d years old").printf (year_diff);
 			} else if (year_diff == 1) {
 				return _("a year old");
 			} else {
-				return _(@"$(now_month + 12 - date_month) months old");
+				// tranlators: the variable is a number
+				return _("%d months old").printf (now_month + 12 - date_month);
 			}
 		}
 	}
