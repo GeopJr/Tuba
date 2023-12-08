@@ -3,6 +3,7 @@ struct TestDate {
     public string left;
     public string ago;
     public string human;
+    public string? old;
 }
 
 TestDate[] get_dates () {
@@ -18,7 +19,8 @@ TestDate[] get_dates () {
             ).to_string (),
             "Jun 29, 2002",
             "expired on Jun 29, 2002",
-            "Jun 29, 2002"
+            "Jun 29, 2002",
+            null // variable
         }
     };
 
@@ -29,7 +31,8 @@ TestDate[] get_dates () {
         iso8601 = one_day.to_string (),
         left = "23h left",
         ago = one_day.format ("expires on %b %-e, %Y %H:%m"),
-        human = one_day.format ("%b %-e, %Y %H:%m")
+        human = one_day.format ("%b %-e, %Y %H:%m"),
+        old = "in the future"
     };
 
     var m_one_day = time_now.add_days (-1);
@@ -37,7 +40,8 @@ TestDate[] get_dates () {
         iso8601 = m_one_day.to_string (),
         left = "Yesterday",
         ago = "expired yesterday",
-        human = "Yesterday"
+        human = "Yesterday",
+        old = "a day old"
     };
 
     var one_hour = time_now.add_hours (1);
@@ -45,7 +49,8 @@ TestDate[] get_dates () {
         iso8601 = one_hour.to_string (),
         left = "59m left",
         ago = one_hour.format ("expires on %b %-e, %Y %H:%m"),
-        human = one_hour.format ("%b %-e, %Y %H:%m")
+        human = one_hour.format ("%b %-e, %Y %H:%m"),
+        old = "in the future"
     };
 
     var m_one_hour = time_now.add_hours (-1);
@@ -53,7 +58,8 @@ TestDate[] get_dates () {
         iso8601 = m_one_hour.to_string (),
         left = "1h",
         ago = "expired 1h ago",
-        human = "1h"
+        human = "1h",
+        old = "an hour old"
     };
 
     var two_minutes = time_now.add_minutes (2);
@@ -61,7 +67,8 @@ TestDate[] get_dates () {
         iso8601 = two_minutes.to_string (),
         left = "1m left",
         ago = two_minutes.format ("expires on %b %-e, %Y %H:%m"),
-        human = two_minutes.format ("%b %-e, %Y %H:%m")
+        human = two_minutes.format ("%b %-e, %Y %H:%m"),
+        old = "in the future"
     };
 
     var m_two_minutes = time_now.add_minutes (-2);
@@ -69,7 +76,8 @@ TestDate[] get_dates () {
         iso8601 = m_two_minutes.to_string (),
         left = "2m",
         ago = "expired 2m ago",
-        human = "2m"
+        human = "2m",
+        old = "2 minutes old"
     };
 
     var twenty_seconds = time_now.add_seconds (20);
@@ -77,7 +85,8 @@ TestDate[] get_dates () {
         iso8601 = twenty_seconds.to_string (),
         left = "expires soon",
         ago = twenty_seconds.format ("expires on %b %-e, %Y %H:%m"),
-        human = twenty_seconds.format ("%b %-e, %Y %H:%m")
+        human = twenty_seconds.format ("%b %-e, %Y %H:%m"),
+        old = "in the future"
     };
 
     var m_twenty_seconds = time_now.add_seconds (-20);
@@ -85,7 +94,26 @@ TestDate[] get_dates () {
         iso8601 = m_twenty_seconds.to_string (),
         left = "Just now",
         ago = "expired on just now",
-        human = "Just now"
+        human = "Just now",
+        old = "less than a minute old"
+    };
+
+    var m_four_months = time_now.add_months (-4);
+    res += TestDate () {
+        iso8601 = m_four_months.to_string (),
+        left = "Aug 8",
+        ago = "expired on Aug 8",
+        human = "Aug 8",
+        old = "4 months old"
+    };
+
+    var m_fourteen_months = time_now.add_months (-14);
+    res += TestDate () {
+        iso8601 = m_fourteen_months.to_string (),
+        left = "Oct 8, 2022",
+        ago = "expired on Oct 8, 2022",
+        human = "Oct 8, 2022",
+        old = "a year old"
     };
 
     return res;
@@ -115,11 +143,73 @@ public void test_humanize () {
     }
 }
 
+public void test_old () {
+    foreach (var test_date in get_dates ()) {
+        if (test_date.old == null) continue;
+        var old_date = Tuba.DateTime.humanize_old (test_date.iso8601);
+
+        assert_cmpstr (old_date, CompareOperator.EQ, test_date.old);
+    }
+}
+
+struct Test3Months {
+    public string iso8601;
+    public bool res;
+}
+
+Test3Months[] get_3_months_dates () {
+    Test3Months[] res = {};
+
+    var time_now = new GLib.DateTime.now_local ();
+
+    res += Test3Months () {
+        iso8601 = time_now.add_days (1).to_string (),
+        res = false
+    };
+
+    res += Test3Months () {
+        iso8601 = time_now.add_months (2).to_string (),
+        res = false
+    };
+
+    res += Test3Months () {
+        iso8601 = time_now.add_months (-2).to_string (),
+        res = false
+    };
+
+    res += Test3Months () {
+        iso8601 = time_now.add_months (3).to_string (),
+        res = false
+    };
+
+    res += Test3Months () {
+        iso8601 = time_now.add_months (-3).to_string (),
+        res = false
+    };
+
+    res += Test3Months () {
+        iso8601 = time_now.add_months (-13).to_string (),
+        res = true
+    };
+
+    return res;
+}
+
+public void test_3_months () {
+    foreach (var test_date in get_3_months_dates ()) {
+        var is_3_months_old = Tuba.DateTime.is_3_months_old (test_date.iso8601);
+
+        assert_true (is_3_months_old == test_date.res);
+    }
+}
+
 public int main (string[] args) {
     Test.init (ref args);
 
     Test.add_func ("/test_left", test_left);
     Test.add_func ("/test_ago", test_ago);
     Test.add_func ("/test_humanize", test_humanize);
+    Test.add_func ("/test_old", test_old);
+    Test.add_func ("/test_3_months", test_3_months);
     return Test.run ();
 }
