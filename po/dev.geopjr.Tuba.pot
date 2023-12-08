@@ -50,10 +50,6 @@ msgid ""
 "media platforms."
 msgstr ""
 
-#: data/dev.geopjr.Tuba.metainfo.xml.in:19
-msgid "Evangelos \"GeopJr\" Paterakis"
-msgstr ""
-
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:22
 #: data/ui/dialogs/preferences.ui:19
 msgid "General"
