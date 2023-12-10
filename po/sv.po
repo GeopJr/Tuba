@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-12-08 07:33+0000\n"
+"PO-Revision-Date: 2023-12-11 14:46+0000\n"
 "Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/tuba/tuba/sv/>\n"
 "Language: sv\n"
@@ -1298,12 +1298,11 @@ msgstr "%m %-d, %Å"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:120
-#, fuzzy, c-format
-#| msgid "less than a minute old"
+#, c-format
 msgid "less than a minute old"
 msgid_plural "%s minutes old"
 msgstr[0] "mindre än en minut gammal"
-msgstr[1] "mindre än en minut gammal"
+msgstr[1] "%s minuter gammal"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:125
@@ -1321,21 +1320,19 @@ msgstr "%d månader gammal"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:146
-#, fuzzy, c-format
-#| msgid "a day old"
+#, c-format
 msgid "a day old"
 msgid_plural "%d days old"
 msgstr[0] "en dag gammal"
-msgstr[1] "en dag gammal"
+msgstr[1] "%s dagar gammal"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:151
-#, fuzzy, c-format
-#| msgid "a year old"
+#, c-format
 msgid "a year old"
 msgid_plural "%d years old"
 msgstr[0] "ett år gammal"
-msgstr[1] "ett år gammal"
+msgstr[1] "%s år gammal"
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k
