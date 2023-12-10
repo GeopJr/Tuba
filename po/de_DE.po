@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-12-01 02:03+0000\n"
+"PO-Revision-Date: 2023-12-11 14:46+0000\n"
 "Last-Translator: Markus Göllnitz <camelcasenick@bewares.it>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tuba/tuba/de/>\n"
 "Language: de_DE\n"
@@ -69,7 +69,7 @@ msgstr "Allgemein"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "Einstellungen anzeigen"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose a new post"
@@ -126,7 +126,7 @@ msgstr "Medienbetrachter"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "Vollbild"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:148
 msgid "Zoom In"
@@ -147,22 +147,22 @@ msgstr "Nächster Anhang"
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "Hineinzoomen"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Herauszoomen"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Vorheriger Anhang"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Next Attachment"
-msgstr ""
+msgstr "Nächster Anhang"
 
 #: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:22
 #: data/ui/dialogs/profile_edit.ui:22 src/API/Status/PreviewCard.vala:164
@@ -191,7 +191,7 @@ msgstr "Listenname"
 
 #: data/ui/dialogs/list_edit.ui:33
 msgid "Hide these posts from home"
-msgstr ""
+msgstr "Diese Art Beiträge von der Startseite ausblenden"
 
 #: data/ui/dialogs/list_edit.ui:40
 msgid "Replies Policy"
@@ -379,11 +379,11 @@ msgstr "Kann zu defekten Links führen"
 
 #: data/ui/dialogs/preferences.ui:145
 msgid "Advanced boost dialog"
-msgstr ""
+msgstr "Erweiterer Boost-Dialog"
 
 #: data/ui/dialogs/preferences.ui:146
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr ""
+msgstr "Ändere Boost-Sichtbarkeit, Zitation und bestätige Boosts"
 
 #: data/ui/dialogs/preferences.ui:153
 msgid "Timelines"
@@ -514,7 +514,7 @@ msgstr "Im Browser öffnen"
 
 #: data/ui/menus.ui:33
 msgid "Notify me on new posts"
-msgstr ""
+msgstr "Benachrichtige mich bei neuen Beiträgen"
 
 #: data/ui/menus.ui:39
 msgid "Moderation"
@@ -757,20 +757,20 @@ msgstr "%d mal von %d Personen in den letzten 2 Tagen benutzt"
 #: src/Application.vala:291
 #, c-format
 msgid "'%s://' may only be used when adding a new account"
-msgstr ""
+msgstr "'%s://' darf nur beim Hinzufügen neuer Konten genutzt werden"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:298
 #, c-format
 msgid "'%s://' may not be used when adding a new account"
-msgstr ""
+msgstr "'%s://' darf beim Hinzufügen neuer Konten nicht genutzt werden"
 
 #. translators: the first variable is the app name ('Tuba'),
 #. the second one is a uri scheme like 'https'
 #: src/Application.vala:305
 #, c-format
 msgid "%s does not accept '%s://'"
-msgstr ""
+msgstr "%s unterstützt '%s://' nicht"
 
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:450
@@ -1197,19 +1197,19 @@ msgstr "läuft bald ab"
 #: src/Utils/DateTime.vala:14
 #, c-format
 msgid "%sm left"
-msgstr ""
+msgstr "%s min verbleiben"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:18
 #, c-format
 msgid "%sh left"
-msgstr ""
+msgstr "%s h verbleiben"
 
 #. tranlators: the variable is a number, `d` as in days in short form
 #: src/Utils/DateTime.vala:22
 #, c-format
 msgid "%sd left"
-msgstr ""
+msgstr "%s Tage verbleiben"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -1235,13 +1235,13 @@ msgstr "gerade abgelaufen"
 #: src/Utils/DateTime.vala:47
 #, c-format
 msgid "expired %sm ago"
-msgstr ""
+msgstr "vor %s min abgelaufen"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:52
 #, c-format
 msgid "expired %sh ago"
-msgstr ""
+msgstr "vor %s h abgelaufen"
 
 #: src/Utils/DateTime.vala:55
 msgid "expired yesterday"
@@ -1278,13 +1278,13 @@ msgstr "Gerade jetzt"
 #: src/Utils/DateTime.vala:86
 #, c-format
 msgid "%sm"
-msgstr ""
+msgstr "%s min"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:91
 #, c-format
 msgid "%sh"
-msgstr ""
+msgstr "%s h"
 
 #: src/Utils/DateTime.vala:94
 msgid "Yesterday"
@@ -1309,38 +1309,38 @@ msgstr "%-e. %b, %Y"
 #, c-format
 msgid "less than a minute old"
 msgid_plural "%s minutes old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "vor weniger als eine Minute"
+msgstr[1] "vor %s Minuten"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:125
 #, c-format
 msgid "an hour old"
 msgid_plural "%s hours old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "vor einer Stunde"
+msgstr[1] "vor %s Stunden"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:140 src/Utils/DateTime.vala:154
 #, c-format
 msgid "%d months old"
-msgstr ""
+msgstr "vor %d Monaten"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:146
 #, c-format
 msgid "a day old"
 msgid_plural "%d days old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "vor einem Tag"
+msgstr[1] "vor %d Tagen"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:151
 #, c-format
 msgid "a year old"
 msgid_plural "%d years old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "vor einem Jahr"
+msgstr[1] "vor %d Jahren"
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k
@@ -1428,11 +1428,11 @@ msgstr "Liste hinzufügen"
 
 #: src/Views/MediaViewer.vala:577
 msgid "Copied media url to clipboard"
-msgstr ""
+msgstr "Medien-URL in die Zwischenablage kopiert"
 
 #: src/Views/MediaViewer.vala:936 src/Widgets/Attachment/Image.vala:85
 msgid "Copied image to clipboard"
-msgstr ""
+msgstr "Bild in die Zwischenablage kopiert"
 
 #: src/Views/Profile.vala:34
 msgid "Profile"
@@ -1440,7 +1440,7 @@ msgstr "Profil"
 
 #: src/Views/Profile.vala:224
 msgid "Copied handle to clipboard"
-msgstr ""
+msgstr "Handle in die Zwischenablage kopiert"
 
 #: src/Views/Profile.vala:256
 #, c-format
@@ -1550,7 +1550,7 @@ msgstr "Tastaturkürzel"
 #: src/Views/Sidebar.vala:35
 #, c-format
 msgid "About %s"
-msgstr ""
+msgstr "Über %s"
 
 #. translators: the variable is an account handle
 #: src/Views/Sidebar.vala:217
@@ -1586,11 +1586,11 @@ msgstr "Gespräche"
 
 #: src/Views/Thread.vala:104 src/Views/Thread.vala:118
 msgid "Reveal Spoilers"
-msgstr ""
+msgstr "Spoiler anzeigen"
 
 #: src/Views/Thread.vala:118
 msgid "Hide Spoilers"
-msgstr ""
+msgstr "Spoiler verstecken"
 
 #: src/Views/Timeline.vala:221 src/Widgets/Status/ActionsRow.vala:343
 msgid "Network Error"
@@ -1614,7 +1614,7 @@ msgstr "Kritischen Inhalt anzeigen"
 
 #: src/Widgets/Attachment/Item.vala:22
 msgid "Copied attachment url to clipboard"
-msgstr ""
+msgstr "Anhangs-URL in die Zwischenablage kopiert"
 
 #: src/Widgets/Attachment/Item.vala:35
 msgid "Save Attachment"
@@ -1622,7 +1622,7 @@ msgstr "Anhang speichern"
 
 #: src/Widgets/Attachment/Item.vala:47
 msgid "Saved Media"
-msgstr ""
+msgstr "Medien gespeichert"
 
 #: src/Widgets/Attachment/Item.vala:117
 msgid "View Alt Text"
@@ -1722,7 +1722,7 @@ msgstr "Bearbeiten"
 
 #: src/Widgets/Status.vala:278
 msgid "Copied post url to clipboard"
-msgstr ""
+msgstr "Beitrags-URL in die Zwischenablage kopiert"
 
 #: src/Widgets/Status.vala:328
 msgid "Are you sure you want to delete this post?"
@@ -1763,29 +1763,31 @@ msgstr "Lesezeichen"
 #: src/Widgets/Status/ActionsRow.vala:123
 #, c-format
 msgid "This post is %s"
-msgstr ""
+msgstr "Dieser Beitrag erschien %s"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon-android/tree/master/mastodon/src/main/res
 #. in the `strings.xml` file inside the `values-` folder that matches your locale under the `old_post_sheet_text` key
 #: src/Widgets/Status/ActionsRow.vala:126
 msgid "You can still reply, but it may no longer be relevant."
 msgstr ""
+"Du kannst immer noch antworten. Das ist aber möglicherweise nicht mehr "
+"relevant."
 
 #: src/Widgets/Status/ActionsRow.vala:128
 msgid "Don't remind me again"
-msgstr ""
+msgstr "Nicht noch mal erinnern"
 
 #: src/Widgets/Status/ActionsRow.vala:229
 msgid "Boost with Visibility"
-msgstr ""
+msgstr "Mit Sichtbarkeit boosten"
 
 #: src/Widgets/Status/ActionsRow.vala:236
 msgid "Quote"
-msgstr ""
+msgstr "Zitat"
 
 #: src/Widgets/VoteBox.vala:12
 msgid "Vote"
-msgstr "Wählen"
+msgstr "Abstimmen"
 
 #: src/Widgets/VoteBox.vala:97 src/Widgets/VoteBox.vala:124
 msgid "Voted"
@@ -1795,7 +1797,7 @@ msgstr "Abgestimmte"
 #: src/Widgets/VoteBox.vala:148
 #, c-format
 msgid "%lld voted"
-msgstr "%lld haben abgestimmt"
+msgstr "%lld Stimmen"
 
 #~ msgid "Info"
 #~ msgstr "Info"
