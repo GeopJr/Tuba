@@ -113,15 +113,14 @@ public class Tuba.DateTime {
 		if (delta < 0) {
 			// non-translated: the date should always be in the past
 			return "in the future";
-		} else if (delta <= TimeSpan.MINUTE)
-			// tranlators: less than 1 minute old
-			return _("less than a minute old");
-		else if (delta < TimeSpan.HOUR) {
+		} else if (delta < TimeSpan.HOUR) {
 			var minutes = delta / TimeSpan.MINUTE;
+			if (minutes == 0) minutes = 1;
 			// tranlators: the variable is a number
-			return _("%s minutes old").printf (minutes.to_string ());
+			return GLib.ngettext ("less than a minute old", "%s minutes old", (ulong) minutes).printf (minutes.to_string ());
 		} else if (delta <= TimeSpan.DAY) {
 			var hours = delta / TimeSpan.HOUR;
+			if (hours == 0) hours = 1;
 			// tranlators: the variable is a number
 			return GLib.ngettext ("an hour old", "%s hours old", (ulong) hours).printf (hours.to_string ());
 		}
@@ -142,20 +141,14 @@ public class Tuba.DateTime {
 			}
 
 			var day_diff = now_day_oty - date_day_oty;
-			if (now_day_oty == date_day_oty || day_diff == 1) {
-				// tranlators: 1 day old
-				return _("a day old");
-			} else {
-				// tranlators: the variable is a number
-				return _("%d days old").printf (day_diff);
-			}
+			if (day_diff == 0) day_diff = 1;
+			// tranlators: the variable is a number
+			return GLib.ngettext ("a day old", "%d days old", (ulong) day_diff).printf (day_diff);
 		} else {
 			var year_diff = now_year - date_year;
-			if (year_diff > 1) {
+			if (year_diff > 0) {
 				// tranlators: the variable is a number
-				return _("%d years old").printf (year_diff);
-			} else if (year_diff == 1) {
-				return _("a year old");
+				return GLib.ngettext ("a year old", "%d years old", (ulong) year_diff).printf (year_diff);
 			} else {
 				// tranlators: the variable is a number
 				return _("%d months old").printf (now_month + 12 - date_month);
