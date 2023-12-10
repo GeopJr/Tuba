@@ -331,7 +331,7 @@
 			{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 			false,
 			(obj, res) => {
-				if (app.question.end (res)) {
+				if (app.question.end (res).truthy ()) {
 					this.status.formal.annihilate ()
 						//  .then ((in_stream) => {
 						//  	var parser = Network.get_parser_from_inputstream (in_stream);
