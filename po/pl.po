@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 06:46+0200\n"
+"POT-Creation-Date: 2023-12-10 10:42+0200\n"
 "PO-Revision-Date: 2023-12-08 07:33+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
@@ -1298,19 +1298,18 @@ msgstr "%-e %b"
 msgid "%b %-e, %Y"
 msgstr "%-e %b %Y"
 
-#. tranlators: less than 1 minute old
-#: src/Utils/DateTime.vala:118
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:120
+#, fuzzy, c-format
+#| msgid "less than a minute old"
 msgid "less than a minute old"
-msgstr "mniej niż minutę"
+msgid_plural "%s minutes old"
+msgstr[0] "mniej niż minutę"
+msgstr[1] "mniej niż minutę"
+msgstr[2] "mniej niż minutę"
 
 #. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:122
-#, c-format
-msgid "%s minutes old"
-msgstr "%s minut"
-
-#. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:126
+#: src/Utils/DateTime.vala:125
 #, c-format
 msgid "an hour old"
 msgid_plural "%s hours old"
@@ -1319,31 +1318,30 @@ msgstr[1] "%s godziny"
 msgstr[2] "%s godzin"
 
 #. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:141 src/Utils/DateTime.vala:161
+#: src/Utils/DateTime.vala:140 src/Utils/DateTime.vala:154
 #, c-format
 msgid "%d months old"
 msgstr "%d miesięcy"
 
-#. tranlators: 1 day old
-#: src/Utils/DateTime.vala:147
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:146
+#, fuzzy, c-format
+#| msgid "a day old"
 msgid "a day old"
-msgstr "jeden dzień"
+msgid_plural "%d days old"
+msgstr[0] "jeden dzień"
+msgstr[1] "jeden dzień"
+msgstr[2] "jeden dzień"
 
 #. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:150
-#, c-format
-msgid "%d days old"
-msgstr "%d dni"
-
-#. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:156
-#, c-format
-msgid "%d years old"
-msgstr "%d lat"
-
-#: src/Utils/DateTime.vala:158
+#: src/Utils/DateTime.vala:151
+#, fuzzy, c-format
+#| msgid "a year old"
 msgid "a year old"
-msgstr "rok"
+msgid_plural "%d years old"
+msgstr[0] "rok"
+msgstr[1] "rok"
+msgstr[2] "rok"
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k
@@ -1798,6 +1796,18 @@ msgstr "Twój wybór"
 #, c-format
 msgid "%lld voted"
 msgstr "%lld zagłosowało"
+
+#, c-format
+#~ msgid "%s minutes old"
+#~ msgstr "%s minut"
+
+#, c-format
+#~ msgid "%d days old"
+#~ msgstr "%d dni"
+
+#, c-format
+#~ msgid "%d years old"
+#~ msgstr "%d lat"
 
 #~ msgid "Info"
 #~ msgstr "Informacje"

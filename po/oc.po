@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 06:46+0200\n"
+"POT-Creation-Date: 2023-12-10 10:42+0200\n"
 "PO-Revision-Date: 2023-11-18 16:43+0000\n"
 "Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
 "Language-Team: Occitan <https://hosted.weblate.org/projects/tuba/tuba/oc/>\n"
@@ -1298,19 +1298,16 @@ msgstr ""
 msgid "%b %-e, %Y"
 msgstr ""
 
-#. tranlators: less than 1 minute old
-#: src/Utils/DateTime.vala:118
-msgid "less than a minute old"
-msgstr ""
-
 #. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:122
+#: src/Utils/DateTime.vala:120
 #, c-format
-msgid "%s minutes old"
-msgstr ""
+msgid "less than a minute old"
+msgid_plural "%s minutes old"
+msgstr[0] ""
+msgstr[1] ""
 
 #. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:126
+#: src/Utils/DateTime.vala:125
 #, c-format
 msgid "an hour old"
 msgid_plural "%s hours old"
@@ -1318,31 +1315,26 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:141 src/Utils/DateTime.vala:161
+#: src/Utils/DateTime.vala:140 src/Utils/DateTime.vala:154
 #, c-format
 msgid "%d months old"
 msgstr ""
 
-#. tranlators: 1 day old
-#: src/Utils/DateTime.vala:147
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:146
+#, c-format
 msgid "a day old"
-msgstr ""
+msgid_plural "%d days old"
+msgstr[0] ""
+msgstr[1] ""
 
 #. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:150
+#: src/Utils/DateTime.vala:151
 #, c-format
-msgid "%d days old"
-msgstr ""
-
-#. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:156
-#, c-format
-msgid "%d years old"
-msgstr ""
-
-#: src/Utils/DateTime.vala:158
 msgid "a year old"
-msgstr ""
+msgid_plural "%d years old"
+msgstr[0] ""
+msgstr[1] ""
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k

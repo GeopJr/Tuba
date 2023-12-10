@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 06:46+0200\n"
+"POT-Creation-Date: 2023-12-10 10:42+0200\n"
 "PO-Revision-Date: 2023-12-08 16:50+0000\n"
 "Last-Translator: Daltux <134404797+daltux@users.noreply.github.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
@@ -1306,19 +1306,17 @@ msgstr "%-e de %b"
 msgid "%b %-e, %Y"
 msgstr "%-e de %b de %Y"
 
-#. tranlators: less than 1 minute old
-#: src/Utils/DateTime.vala:118
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:120
+#, fuzzy, c-format
+#| msgid "less than a minute old"
 msgid "less than a minute old"
-msgstr "há menos de um minuto"
+msgid_plural "%s minutes old"
+msgstr[0] "há menos de um minuto"
+msgstr[1] "há menos de um minuto"
 
 #. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:122
-#, c-format
-msgid "%s minutes old"
-msgstr "%s minutos atrás"
-
-#. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:126
+#: src/Utils/DateTime.vala:125
 #, c-format
 msgid "an hour old"
 msgid_plural "%s hours old"
@@ -1326,31 +1324,28 @@ msgstr[0] "uma hora atrás"
 msgstr[1] "%s horas atrás"
 
 #. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:141 src/Utils/DateTime.vala:161
+#: src/Utils/DateTime.vala:140 src/Utils/DateTime.vala:154
 #, c-format
 msgid "%d months old"
 msgstr "%d meses atrás"
 
-#. tranlators: 1 day old
-#: src/Utils/DateTime.vala:147
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:146
+#, fuzzy, c-format
+#| msgid "a day old"
 msgid "a day old"
-msgstr "um dia atrás"
+msgid_plural "%d days old"
+msgstr[0] "um dia atrás"
+msgstr[1] "um dia atrás"
 
 #. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:150
-#, c-format
-msgid "%d days old"
-msgstr "%d dias atrás"
-
-#. tranlators: the variable is a number
-#: src/Utils/DateTime.vala:156
-#, c-format
-msgid "%d years old"
-msgstr "%d anos atrás"
-
-#: src/Utils/DateTime.vala:158
+#: src/Utils/DateTime.vala:151
+#, fuzzy, c-format
+#| msgid "a year old"
 msgid "a year old"
-msgstr "um ano atrás"
+msgid_plural "%d years old"
+msgstr[0] "um ano atrás"
+msgstr[1] "um ano atrás"
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k
@@ -1806,6 +1801,18 @@ msgstr "Votado"
 #, c-format
 msgid "%lld voted"
 msgstr "%lld votaram"
+
+#, c-format
+#~ msgid "%s minutes old"
+#~ msgstr "%s minutos atrás"
+
+#, c-format
+#~ msgid "%d days old"
+#~ msgstr "%d dias atrás"
+
+#, c-format
+#~ msgid "%d years old"
+#~ msgstr "%d anos atrás"
 
 #~ msgid "Info"
 #~ msgstr "Informações"
