@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-12-09 19:04+0000\n"
+"PO-Revision-Date: 2023-12-11 14:46+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tuba/tuba/es/>\n"
 "Language: es\n"
@@ -190,7 +190,7 @@ msgstr "Nombre de la lista"
 
 #: data/ui/dialogs/list_edit.ui:33
 msgid "Hide these posts from home"
-msgstr ""
+msgstr "Ocultar estas publicaciones en el inicio"
 
 #: data/ui/dialogs/list_edit.ui:40
 msgid "Replies Policy"
@@ -378,11 +378,11 @@ msgstr "Puede provocar enlaces rotos"
 
 #: data/ui/dialogs/preferences.ui:145
 msgid "Advanced boost dialog"
-msgstr ""
+msgstr "Diálogo de impulso avanzado"
 
 #: data/ui/dialogs/preferences.ui:146
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr ""
+msgstr "Modificar la visibilidad del impulso, cotizar y confirmar el impulso"
 
 #: data/ui/dialogs/preferences.ui:153
 msgid "Timelines"
@@ -515,7 +515,7 @@ msgstr "Abrir en el navegador"
 
 #: data/ui/menus.ui:33
 msgid "Notify me on new posts"
-msgstr ""
+msgstr "Notifícame los nuevos mensajes"
 
 #: data/ui/menus.ui:39
 msgid "Moderation"
@@ -758,20 +758,20 @@ msgstr "Usado %d veces por %d personas en los últimos 2 días"
 #: src/Application.vala:291
 #, c-format
 msgid "'%s://' may only be used when adding a new account"
-msgstr ""
+msgstr "'%s://' solo puede utilizarse al añadir una nueva cuenta"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:298
 #, c-format
 msgid "'%s://' may not be used when adding a new account"
-msgstr ""
+msgstr "No se puede utilizar '%s://' al añadir una nueva cuenta"
 
 #. translators: the first variable is the app name ('Tuba'),
 #. the second one is a uri scheme like 'https'
 #: src/Application.vala:305
 #, c-format
 msgid "%s does not accept '%s://'"
-msgstr ""
+msgstr "%s no acepta '%s://'"
 
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:450
@@ -1197,19 +1197,19 @@ msgstr "expira pronto"
 #: src/Utils/DateTime.vala:14
 #, c-format
 msgid "%sm left"
-msgstr ""
+msgstr "Quedan %smin"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:18
 #, c-format
 msgid "%sh left"
-msgstr ""
+msgstr "Quedan %shr."
 
 #. tranlators: the variable is a number, `d` as in days in short form
 #: src/Utils/DateTime.vala:22
 #, c-format
 msgid "%sd left"
-msgstr ""
+msgstr "Quedan %sd"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -1235,13 +1235,13 @@ msgstr "acaba de expirar"
 #: src/Utils/DateTime.vala:47
 #, c-format
 msgid "expired %sm ago"
-msgstr ""
+msgstr "expiró hace %smin"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:52
 #, c-format
 msgid "expired %sh ago"
-msgstr ""
+msgstr "expiró hace %shr."
 
 #: src/Utils/DateTime.vala:55
 msgid "expired yesterday"
@@ -1278,13 +1278,13 @@ msgstr "Justo ahora"
 #: src/Utils/DateTime.vala:86
 #, c-format
 msgid "%sm"
-msgstr ""
+msgstr "%smin"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:91
 #, c-format
 msgid "%sh"
-msgstr ""
+msgstr "%shr."
 
 #: src/Utils/DateTime.vala:94
 msgid "Yesterday"
@@ -1309,30 +1309,30 @@ msgstr "%-e de %b de %Y"
 #, c-format
 msgid "less than a minute old"
 msgid_plural "%s minutes old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "menos de un minuto"
+msgstr[1] "menos de %s minutos"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:125
 #, c-format
 msgid "an hour old"
 msgid_plural "%s hours old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "menos de una hora"
+msgstr[1] "menos de %s horas"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:140 src/Utils/DateTime.vala:154
 #, c-format
 msgid "%d months old"
-msgstr ""
+msgstr "%d meses de antigüedad"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:146
 #, c-format
 msgid "a day old"
 msgid_plural "%d days old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "un día de antigüedad"
+msgstr[1] "%d días de antigüedad"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:151
