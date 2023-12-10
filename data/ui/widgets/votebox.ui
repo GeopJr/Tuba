@@ -27,10 +27,12 @@
         </child>
         <child>
           <object class="GtkLabel" id="people_label">
+            <property name="ellipsize">end</property>
           </object>
         </child>
         <child>
           <object class="GtkLabel" id="expires_label">
+            <property name="ellipsize">end</property>
           </object>
         </child>
       </object>
