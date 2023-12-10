@@ -128,7 +128,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 				{ { _("Reply"), Adw.ResponseAppearance.SUGGESTED }, { _("Don't remind me again"), Adw.ResponseAppearance.DEFAULT } },
 				false,
 				(obj, res) => {
-					if (!app.question.end (res)) {
+					if (app.question.end (res) == Tuba.Application.QuestionAnswer.NO) {
 						settings.reply_to_old_post_reminder = false;
 					}
 					reply (btn);

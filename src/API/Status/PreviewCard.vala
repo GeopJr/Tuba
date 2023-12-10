@@ -164,7 +164,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 			{ { _("Proceed"), Adw.ResponseAppearance.DESTRUCTIVE}, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 			false,
 			(obj, res) => {
-				if (app.question.end (res)) {
+				if (app.question.end (res).truthy ()) {
 					if (card_special_type.open_special_card (card_url)) {
 						return;
 					};
