@@ -98,7 +98,15 @@ TestDate[] get_dates () {
         old = "less than a minute old"
     };
 
-    var m_four_months = time_now.add_months (-4);
+    var some_date = new DateTime.local (
+        2023,
+        12,
+        8,
+        18,
+        0,
+        0.0
+    );
+    var m_four_months = some_date.add_months (-4);
     res += TestDate () {
         iso8601 = m_four_months.to_string (),
         left = "Aug 8",
@@ -107,7 +115,7 @@ TestDate[] get_dates () {
         old = "4 months old"
     };
 
-    var m_fourteen_months = time_now.add_months (-14);
+    var m_fourteen_months = some_date.add_months (-14);
     res += TestDate () {
         iso8601 = m_fourteen_months.to_string (),
         left = "Oct 8, 2022",
