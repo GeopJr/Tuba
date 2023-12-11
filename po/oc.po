@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-12-11 14:46+0000\n"
-"Last-Translator: Nicolas <nicolas.miard@zaclys.net>\n"
+"PO-Revision-Date: 2023-12-12 20:06+0000\n"
+"Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
 "Language-Team: Occitan <https://hosted.weblate.org/projects/tuba/tuba/oc/>\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Percorrissetz lo Fediverse"
+msgstr "Percorrissètz lo Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
@@ -40,7 +40,7 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-"Exploratz lo web social federat amb Tuba per GNOME. Demòratz connectat a "
+"Exploratz lo web social federat amb Tuba per GNOME. Demoratz connectat a "
 "vòstras comunautats preferidas, vòstra familha e vòstres amics mercé al "
 "suport de plataforma popularas del Fedivers coma Mastodon, GoToSocial, "
 "Akkoma e mai!"
@@ -57,7 +57,7 @@ msgstr ""
 "plataformas e comunautats interconnectadas, permetent als utilizator de "
 "comunicar e partejar de contengut a travèrs diferents rets e servidors. "
 "Promòu la confidencialitat de l'utilizator e la possession de las donadas, "
-"offrís una alternativa a las plataformas centralizadas de media socials."
+"ofrís una alternativa a las plataformas centralizadas de mèdia socials."
 
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:22
 #: data/ui/dialogs/preferences.ui:19
@@ -70,7 +70,7 @@ msgstr "Mostrar las preferéncias"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose a new post"
-msgstr "Compausa un messatge novèl"
+msgstr "Compausar un messatge novèl"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:29
 msgid "Refresh"
@@ -119,7 +119,7 @@ msgstr "Participar"
 
 #: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:42
 msgid "Media Viewer"
-msgstr "Mèdia visualizaire"
+msgstr "Visualizaire de mèdia"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
@@ -230,7 +230,7 @@ msgid ""
 "servers\">choose a server and register one</a>."
 msgstr ""
 "S'avètz pas encara de compte, <a href=\"https://joinmastodon.org/servers\""
-">causís un servidor e registra-te</a>."
+">causissètz un servidor e registra-vos</a>."
 
 #: data/ui/dialogs/new_account.ui:66
 msgid "Server URL"
@@ -246,7 +246,7 @@ msgid ""
 "If something went wrong, <a href=\"manual_auth\">try manual authorization</"
 "a>."
 msgstr ""
-"Se quicòm truquèt, <a href=\"manual_auth\">ensajatz una autorizacion "
+"Se quicòm a trucat, <a href=\"manual_auth\">ensajatz una autorizacion "
 "manuala</a>."
 
 #: data/ui/dialogs/new_account.ui:152
@@ -267,7 +267,7 @@ msgstr "Aparéncia"
 
 #: data/ui/dialogs/preferences.ui:25
 msgid "Color Scheme"
-msgstr "Esquema de colors"
+msgstr "Esquèma de colors"
 
 #: data/ui/dialogs/preferences.ui:39
 msgid "Larger font size"
@@ -309,23 +309,23 @@ msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
-"Demesís los media per emplenar lo contenent de l'imatge puslèu que de "
+"Demesís los mèdias per emplenar lo contenent de l'imatge puslèu que de "
 "l'estirar o lo talhar"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:71
 msgid "Expand pictures in media viewer"
-msgstr "Agrandir los imatges dins lo visualizator de media"
+msgstr "Agrandir los imatges dins la visualizaira de mèdia"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:73
 msgid "Expand pictures to fill the media viewer by default"
-msgstr "Agrandir los imatges per emplenar lo visualizator de media per defaut"
+msgstr "Agrandir los imatges per emplenar la visualizaira de mèdia per defaut"
 
 #: data/ui/dialogs/preferences.ui:79
 msgid "Show a blurred version of the media until they fully load"
 msgstr ""
-"Mostrar una version fosca del media fins a çò que siá completament cargat"
+"Mostrar una version fosca del mèdia fins a çò que siá completament cargat"
 
 #: data/ui/dialogs/preferences.ui:84
 msgid "Reveal spoilers by default"
@@ -357,7 +357,7 @@ msgstr "Compòrtament"
 
 #: data/ui/dialogs/preferences.ui:132
 msgid "Background work"
-msgstr "Trabalh al reire plan"
+msgstr "Trabalh al reireplan"
 
 #: data/ui/dialogs/preferences.ui:133
 msgid "Receive notifications even when the app is closed"
@@ -390,7 +390,7 @@ msgstr "Messatges cargats en lòts"
 
 #: data/ui/dialogs/preferences.ui:164
 msgid "Stream timelines"
-msgstr "Difusir cronologias"
+msgstr "Difusar cronologias"
 
 #: data/ui/dialogs/preferences.ui:165
 msgid "Receive new posts and notifications in real-time"
@@ -398,11 +398,11 @@ msgstr "Recebre los messatges novèls e las notificacions en temps real"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Stream public timelines"
-msgstr "Difusir las cronologias publicas"
+msgstr "Difusar las cronologias publicas"
 
 #: data/ui/dialogs/preferences.ui:172
 msgid "Warning: This will increase memory usage"
-msgstr "Attention : aquò aumentarà l'utilizacion de la memòria"
+msgstr "Atencion : aquò aumentarà l'utilizacion de la memòria"
 
 #: data/ui/dialogs/preferences.ui:182
 #: src/Services/Accounts/Mastodon/Account.vala:39
@@ -551,7 +551,7 @@ msgstr "Enclure las responsas"
 
 #: data/ui/menus.ui:95
 msgid "Include Media"
-msgstr "Enclure los media"
+msgstr "Enclure los mèdia"
 
 #: data/ui/menus.ui:118 src/Services/Accounts/Mastodon/Account.vala:86
 #: src/Views/Lists.vala:142 src/Views/Profile.vala:382
@@ -569,7 +569,7 @@ msgstr "Registrar lo mèdia"
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:189
 msgid "Copy Media"
-msgstr "Copiar media"
+msgstr "Copiar mèdia"
 
 #: data/ui/views/media_viewer.ui:59 data/ui/views/sidebar/view.ui:54
 msgid "Menu"
@@ -633,7 +633,7 @@ msgstr "Error"
 #: src/API/Conversation.vala:31
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr "Vuejar la conversa amb %s"
+msgstr "Vuejar la convèrsa amb %s"
 
 #: src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:158
@@ -690,20 +690,20 @@ msgstr "La recèrca a pas tornat cap de resultas"
 #: src/API/Status/PreviewCard.vala:25
 #, c-format
 msgid "You are about to open a %s video"
-msgstr "Sètz a mand de dubrir una %s vidèo"
+msgstr "Sètz a mand de dubrir una vidèo %s"
 
 #. translators: the variable is an external service like "Funkwhale",
 #. track as in song
 #: src/API/Status/PreviewCard.vala:29
 #, c-format
 msgid "You are about to open a %s track"
-msgstr "Sètz a mand de dubrir una %s cançon"
+msgstr "Sètz a mand de dubrir una cançon %s"
 
 #. translators: the variable is an external service like "BookWyrm"
 #: src/API/Status/PreviewCard.vala:32
 #, c-format
 msgid "You are about to open a %s book"
-msgstr "Sètz a mand de dubrir un %s libre"
+msgstr "Sètz a mand de dubrir un libre %s"
 
 #. translators: the variable is the app name (Tuba)
 #: src/API/Status/PreviewCard.vala:35
@@ -748,7 +748,7 @@ msgstr "Utilizat %d còps per %d personas ièr"
 #: src/API/Tag.vala:67
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
-msgstr "Utilizat %d còps per %d personas pendent los 2 darrèrs jorns"
+msgstr "Utilizat %d còps per %d personas pendent los darrièrs 2 jorns"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:291
@@ -823,7 +823,7 @@ msgstr "Dubrir"
 #: src/Dialogs/Composer/AttachmentsPage.vala:433
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
-msgstr "Lo fichièr \"%s\" despassa la limita acceptada pel instáncia"
+msgstr "Lo fichièr \"%s\" despassa la limita acceptada pel instància"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:42
 msgid "Edit Alt Text"
@@ -845,7 +845,7 @@ msgstr "Tèxt alternatiu per pèça junta"
 
 #: src/Dialogs/Composer/Dialog.vala:205
 msgid "Are you sure you want to exit?"
-msgstr "Setz segur de voler quitar?"
+msgstr "Sètz segur de voler quitar ?"
 
 #: src/Dialogs/Composer/Dialog.vala:206
 msgid "Your progress will be lost."
@@ -898,7 +898,7 @@ msgstr "Lenga del messatge"
 
 #: src/Dialogs/Composer/EditorPage.vala:362
 msgid "Post Content Type"
-msgstr "Tipe de contegut del messatge"
+msgstr "Tipe de contengut del messatge"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
@@ -996,7 +996,7 @@ msgstr "Expiracion"
 #: src/Dialogs/MainWindow.vala:58
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
 msgid "Home"
-msgstr "Dorsièr personal"
+msgstr "Dossièr personal"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
@@ -1008,7 +1008,7 @@ msgstr "Copiar lo còdi d'autorizacion del navegador e lo pegar aquí dejós."
 
 #: src/Dialogs/NewAccount.vala:117
 msgid "Please enter a valid instance URL"
-msgstr "Mercé de dintrar un URL d'instáncia valida"
+msgstr "Mercé de dintrar un URL d'instància valida"
 
 #: src/Dialogs/NewAccount.vala:159
 msgid "Please enter a valid authorization code"
@@ -1016,7 +1016,7 @@ msgstr "Mercé de dintrar un còdi d'autorizacion valid"
 
 #: src/Dialogs/NewAccount.vala:176
 msgid "Instance failed to authorize the access token"
-msgstr "L'instáncia manquèt d'autorizar lo geton d'accès"
+msgstr "L'instància manquèt d'autorizar lo geton d'accès"
 
 #: src/Dialogs/NewAccount.vala:185
 #, c-format
@@ -1025,7 +1025,7 @@ msgstr "Bonjorn, %s !"
 
 #: src/Dialogs/NewAccount.vala:240
 msgid "Server returned an error"
-msgstr "Lo servidor tornèt una error"
+msgstr "Lo servidor a tornat una error"
 
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
@@ -1051,7 +1051,7 @@ msgstr "%s vos a mencionat"
 #: src/Services/Accounts/InstanceAccount.vala:185
 #, c-format
 msgid "%s boosted your post"
-msgstr "%s partagèt vòstre messatge"
+msgstr "%s a partejat vòstre messatge"
 
 #: src/Services/Accounts/InstanceAccount.vala:192
 #, c-format
@@ -1544,7 +1544,7 @@ msgstr "Acorchis de clavièr"
 #: src/Views/Sidebar.vala:35
 #, c-format
 msgid "About %s"
-msgstr ""
+msgstr "A prepaus de %s"
 
 #. translators: the variable is an account handle
 #: src/Views/Sidebar.vala:217
@@ -1660,7 +1660,7 @@ msgstr "Discutit %d còps per %d personas ièr"
 #: src/Widgets/PreviewCard.vala:118
 #, c-format
 msgid "Discussed %d times by %d people in the past 2 days"
-msgstr "Discutit %d còps per %d personas las 2 darrèrs jorns"
+msgstr "Discutit %d còps per %d personas las darrièrs 2 jorns"
 
 #. translators: this is a "long" date format shown in places like expanded posts or
 #. the profile "Joined" field. You can find all the available specifiers
