@@ -2,8 +2,7 @@
 public class Tuba.Widgets.VoteBox : Gtk.Box {
 	[GtkChild] protected unowned Gtk.ListBox poll_box;
 	[GtkChild] protected unowned Gtk.Button button_vote;
-    [GtkChild] protected unowned Gtk.Label people_label;
-    [GtkChild] protected unowned Gtk.Label expires_label;
+    [GtkChild] protected unowned Gtk.Label info_label;
 
 	public API.Poll? poll { get; set;}
     protected Gee.ArrayList<string> selected_index = new Gee.ArrayList<string> ();
@@ -144,11 +143,13 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
             row_number++;
         }
 
-        // translators: the variable is the amount of people that voted
-        people_label.label = _("%lld voted").printf (poll.votes_count);
-        expires_label.label = poll.expired
-            ? DateTime.humanize_ago (poll.expires_at)
-            : DateTime.humanize_left (poll.expires_at);
+        info_label.label = "%s · %s".printf (
+            // translators: the variable is the amount of people that voted
+            _("%lld voted").printf (poll.votes_count),
+            poll.expired
+                ? DateTime.humanize_ago (poll.expires_at)
+                : DateTime.humanize_left (poll.expires_at)
+        );
 	}
 
     private void on_check_option_toggeled (Gtk.CheckButton radio) {

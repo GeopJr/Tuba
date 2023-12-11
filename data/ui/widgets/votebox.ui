@@ -26,13 +26,9 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="people_label">
-            <property name="ellipsize">end</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="expires_label">
-            <property name="ellipsize">end</property>
+          <object class="GtkLabel" id="info_label">
+            <property name="wrap">1</property>
+            <property name="wrap-mode">word-char</property>
           </object>
         </child>
       </object>
