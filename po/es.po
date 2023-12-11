@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-12-11 14:46+0000\n"
+"PO-Revision-Date: 2023-12-12 20:06+0000\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted.weblate"
 ".org>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tuba/tuba/es/>\n"
@@ -157,12 +157,12 @@ msgstr "Alejar"
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr "Archivo adjunto anterior"
+msgstr "Adjunto anterior"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Next Attachment"
-msgstr "Siguiente archivo adjunto"
+msgstr "Adjunto siguiente"
 
 #: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:22
 #: data/ui/dialogs/profile_edit.ui:22 src/API/Status/PreviewCard.vala:164
@@ -383,7 +383,7 @@ msgstr "Diálogo de impulso avanzado"
 
 #: data/ui/dialogs/preferences.ui:146
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr "Modificar la visibilidad del impulso, cotizar y confirmar el impulso"
+msgstr "Modificar la visibilidad del impulso, citar y confirmar el impulso"
 
 #: data/ui/dialogs/preferences.ui:153
 msgid "Timelines"
@@ -516,7 +516,7 @@ msgstr "Abrir en el navegador"
 
 #: data/ui/menus.ui:33
 msgid "Notify me on new posts"
-msgstr "Notifícame los nuevos mensajes"
+msgstr "Notifíqueme las publicaciones nuevas"
 
 #: data/ui/menus.ui:39
 msgid "Moderation"
@@ -759,13 +759,13 @@ msgstr "Usado %d veces por %d personas en los últimos 2 días"
 #: src/Application.vala:291
 #, c-format
 msgid "'%s://' may only be used when adding a new account"
-msgstr "'%s://' solo puede utilizarse al añadir una nueva cuenta"
+msgstr "'%s://' solo puede usarse al añadir una cuenta nueva"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:298
 #, c-format
 msgid "'%s://' may not be used when adding a new account"
-msgstr "No se puede utilizar '%s://' al añadir una nueva cuenta"
+msgstr "No se puede usar'%s://' al añadir una cuenta nueva"
 
 #. translators: the first variable is the app name ('Tuba'),
 #. the second one is a uri scheme like 'https'
@@ -1204,7 +1204,7 @@ msgstr "Quedan %smin"
 #: src/Utils/DateTime.vala:18
 #, c-format
 msgid "%sh left"
-msgstr "Quedan %shr."
+msgstr "Quedan %sh"
 
 #. tranlators: the variable is a number, `d` as in days in short form
 #: src/Utils/DateTime.vala:22
@@ -1242,7 +1242,7 @@ msgstr "expiró hace %smin"
 #: src/Utils/DateTime.vala:52
 #, c-format
 msgid "expired %sh ago"
-msgstr "expiró hace %shr."
+msgstr "expiró hace %sh"
 
 #: src/Utils/DateTime.vala:55
 msgid "expired yesterday"
@@ -1253,7 +1253,7 @@ msgstr "expiró ayer"
 #: src/Utils/DateTime.vala:60
 #, c-format
 msgid "expired on %b %-e"
-msgstr "expiro el %-e de %b"
+msgstr "expiró el %-e de %b"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -1285,7 +1285,7 @@ msgstr "%smin"
 #: src/Utils/DateTime.vala:91
 #, c-format
 msgid "%sh"
-msgstr "%shr."
+msgstr "%sh"
 
 #: src/Utils/DateTime.vala:94
 msgid "Yesterday"
@@ -1325,15 +1325,15 @@ msgstr[1] "menos de %s horas"
 #: src/Utils/DateTime.vala:140 src/Utils/DateTime.vala:154
 #, c-format
 msgid "%d months old"
-msgstr "%d meses de antigüedad"
+msgstr "%d meses"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:146
 #, c-format
 msgid "a day old"
 msgid_plural "%d days old"
-msgstr[0] "un día de antigüedad"
-msgstr[1] "%d días de antigüedad"
+msgstr[0] "un día"
+msgstr[1] "%d días"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:151
