@@ -48,12 +48,7 @@ public class Tuba.Host {
 		var file_name = Path.get_basename (url);
 		var dir_name = Path.get_dirname (url);
 
-		var dir_path = Path.build_path (
-			Path.DIR_SEPARATOR_S,
-			Environment.get_user_cache_dir (), // Environment.get_user_special_dir (UserDirectory.DOWNLOAD),
-			Build.DOMAIN,
-			get_uri_host (dir_name));
-
+		var dir_path = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "manual", "media");
 		var file_path = Path.build_path (
 			Path.DIR_SEPARATOR_S,
 			dir_path,
@@ -66,7 +61,9 @@ public class Tuba.Host {
 		var file = File.new_for_path (file_path);
 
 		if (!file.query_exists ()) {
-			var msg = yield new Request.GET (url)
+			// Disable libsoup's cache on these
+			// it's better if we handle it so it doesn't affect its limits and loading
+			var msg = yield new Request.GET (url).disable_cache ()
 				.await ();
 
 			var data = msg.response_body;
