@@ -29,6 +29,9 @@
           <object class="GtkLabel" id="info_label">
             <property name="wrap">1</property>
             <property name="wrap-mode">word-char</property>
+            <property name="xalign">1</property>
+            <property name="hexpand">1</property>
+            <property name="valign">center</property>
           </object>
         </child>
       </object>
