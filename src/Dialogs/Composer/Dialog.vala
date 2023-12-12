@@ -208,7 +208,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 				{ { _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 				false,
 				(obj, res) => {
-					if (app.question.end (res)) on_close ();
+					if (app.question.end (res).truthy ()) on_close ();
 				}
 			);
 		}

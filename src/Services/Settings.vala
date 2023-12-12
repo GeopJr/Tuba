@@ -22,6 +22,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool use_blurhash { get; set; }
 	public bool group_push_notifications { get; set; }
 	public bool advanced_boost_dialog { get; set; }
+	public bool reply_to_old_post_reminder { get; set; }
 	public bool spellchecker_enabled { get; set; }
 
 	public string[] muted_notification_types { get; set; default = {}; }
@@ -47,6 +48,7 @@ public class Tuba.Settings : GLib.Settings {
 		"use-blurhash",
 		"group-push-notifications",
 		"advanced-boost-dialog",
+		"reply-to-old-post-reminder",
 		"spellchecker-enabled"
 	};
 

@@ -60,7 +60,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 				false,
 				(obj, res) => {
-					if (app.question.end (res)) {
+					if (app.question.end (res).truthy ()) {
 						new Request.DELETE (@"/api/v1/lists/$(list.id)")
 							.with_account (accounts.active)
 							.then (() => {
