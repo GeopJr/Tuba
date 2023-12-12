@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-12-11 14:46+0000\n"
+"PO-Revision-Date: 2023-12-13 23:05+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.3-rc\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -191,7 +191,7 @@ msgstr "Nazwa listy"
 
 #: data/ui/dialogs/list_edit.ui:33
 msgid "Hide these posts from home"
-msgstr "Ukryj te wpisy ze strony głównej"
+msgstr "Ukryj te wpisy z mojej osi czasu"
 
 #: data/ui/dialogs/list_edit.ui:40
 msgid "Replies Policy"
@@ -995,7 +995,7 @@ msgstr "Czas trwania"
 #: src/Dialogs/MainWindow.vala:58
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
 msgid "Home"
-msgstr "Widok główny"
+msgstr "Twoja oś czasu"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
@@ -1223,37 +1223,37 @@ msgstr "wygasa %-e %b %Y o %H:%m"
 
 #: src/Utils/DateTime.vala:43
 msgid "expired on just now"
-msgstr "wygasł właśnie teraz"
+msgstr "wygasła właśnie teraz"
 
 #. tranlators: the variable is a number, `m` as in minutes in short form
 #: src/Utils/DateTime.vala:47
 #, c-format
 msgid "expired %sm ago"
-msgstr "Zamknięte %sm temu"
+msgstr "zamknięta %sm temu"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:52
 #, c-format
 msgid "expired %sh ago"
-msgstr "Zamknięte %sg temu"
+msgstr "zamknięta %sg temu"
 
 #: src/Utils/DateTime.vala:55
 msgid "expired yesterday"
-msgstr "wygasł wczoraj"
+msgstr "wygasła wczoraj"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:60
 #, c-format
 msgid "expired on %b %-e"
-msgstr "Zamknięte %-e %b"
+msgstr "zamknięta %-e %b"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:66
 msgid "expired on %b %-e, %Y"
-msgstr "Zamknięte %-e %b %Y"
+msgstr "zamknięta %-e %b %Y"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
