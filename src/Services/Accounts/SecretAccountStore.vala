@@ -84,7 +84,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 					account.added ();
 
 					// TODO: remove uuid fallback
-					if (force_save) save ();
+					if (force_save) safe_save ();
 			}
 		});
 		changed (saved);
