@@ -1,5 +1,4 @@
 public class Tuba.Settings : GLib.Settings {
-
 	public string active_account { get; set; }
 	public string default_language { get; set; default = "en"; }
 	public ColorScheme color_scheme { get; set; }
