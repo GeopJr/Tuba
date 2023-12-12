@@ -23,6 +23,7 @@
         <child>
           <object class="GtkButton" id="button_vote">
             <property name="visible">0</property>
+            <property name="valign">center</property>
           </object>
         </child>
         <child>
@@ -31,7 +32,6 @@
             <property name="wrap-mode">word-char</property>
             <property name="xalign">1</property>
             <property name="hexpand">1</property>
-            <property name="valign">center</property>
           </object>
         </child>
       </object>
