@@ -34,14 +34,6 @@ public class Tuba.Host {
 		display.get_clipboard ().set_text (str);
 	}
 
-	public static string get_uri_host (string uri) {
-		var p1 = uri;
-		if ("//" in uri)
-			p1 = uri.split ("//")[1];
-
-		return p1.split ("/")[0];
-	}
-
 	public async static string download (string url) throws Error {
 		debug (@"Downloading file: $url…");
 
