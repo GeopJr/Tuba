@@ -262,7 +262,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 				{ { block ? _("Block") : _("Unblock"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 				false,
 				(obj, res) => {
-					if (app.question.end (res)) profile.rs.modify (block ? "block" : "unblock");
+					if (app.question.end (res).truthy ()) profile.rs.modify (block ? "block" : "unblock");
 				}
 			);
 		});
@@ -281,7 +281,7 @@ public class Tuba.Views.Profile : Views.Timeline {
 				{ { block ? _("Block") : _("Unblock"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 				false,
 				(obj, res) => {
-					if (app.question.end (res)) {
+					if (app.question.end (res).truthy ()) {
 						var req = new Request.POST ("/api/v1/domain_blocks")
 							.with_account (accounts.active)
 							.with_param ("domain", profile.account.domain)

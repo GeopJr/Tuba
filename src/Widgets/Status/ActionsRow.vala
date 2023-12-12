@@ -116,7 +116,27 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	}
 
 	private void on_reply_button_clicked (Gtk.Button btn) {
-		reply (btn);
+		if (settings.reply_to_old_post_reminder && Tuba.DateTime.is_3_months_old (status.formal.created_at)) {
+			app.question.begin (
+				// translators: the variable is a datetime with the "old" suffix, e.g. "5 months old", "a day old", "2 years old".
+				//				The "old" suffix is translated on the datetime strings, not here
+				{_("This post is %s").printf (Tuba.DateTime.humanize_old (status.formal.created_at)), false},
+				// translators: you can find this string translated on https://github.com/mastodon/mastodon-android/tree/master/mastodon/src/main/res
+				//				in the `strings.xml` file inside the `values-` folder that matches your locale under the `old_post_sheet_text` key
+				{_("You can still reply, but it may no longer be relevant."), false},
+				app.main_window,
+				{ { _("Reply"), Adw.ResponseAppearance.SUGGESTED }, { _("Don't remind me again"), Adw.ResponseAppearance.DEFAULT } },
+				false,
+				(obj, res) => {
+					if (app.question.end (res) == Tuba.Application.QuestionAnswer.NO) {
+						settings.reply_to_old_post_reminder = false;
+					}
+					reply (btn);
+				}
+			);
+		} else {
+			reply (btn);
+		}
 	}
 
 	private void on_bookmark_button_clicked (Gtk.Button btn) {
@@ -240,11 +260,11 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 								commit_boost (status_btn, reblog_visibility);
 								break;
 							case "quote":
-								// TODO: use quote_id for supported backends
+								bool supports_quotes = status.formal.can_be_quoted && accounts.active.instance_info.supports_quote_posting;
 								new Dialogs.Compose (new API.Status.empty () {
 									visibility = reblog_visibility == null ? settings.default_post_visibility : reblog_visibility.to_string (),
-									content = @"\n\nRE: $(status.formal.url ?? status.formal.account.url)"
-								}, true);
+									content = supports_quotes ? "" : @"\n\nRE: $(status.formal.url ?? status.formal.account.url)"
+								}, !supports_quotes, status.formal.id);
 								status_btn.unblock_clicked ();
 								break;
 							default:

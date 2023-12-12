@@ -494,7 +494,32 @@ namespace Tuba {
 			public bool use_markup;
 		}
 
-		public async bool question (
+		public enum QuestionAnswer {
+			YES,
+			NO,
+			CLOSE;
+
+			public static QuestionAnswer from_string (string answer) {
+				switch (answer.down ()) {
+					case "yes":
+						return YES;
+					case "no":
+						return NO;
+					default:
+						return CLOSE;
+				}
+			}
+
+			public bool truthy () {
+				return this == YES;
+			}
+
+			public bool falsy () {
+				return this != YES;
+			}
+		}
+
+		public async QuestionAnswer question (
 			QuestionText title,
 			QuestionText? msg = null,
 			Gtk.Window? win = app.main_window,
@@ -504,7 +529,7 @@ namespace Tuba {
 			},
 			bool skip = false // skip the dialog, used for preferences to avoid duplicate code
 		) {
-			if (skip) return true;
+			if (skip) return QuestionAnswer.YES;
 
 			var dlg = new Adw.MessageDialog (
 				win,
@@ -523,7 +548,7 @@ namespace Tuba {
 
 			if (win != null)
 				dlg.transient_for = win;
-			return (yield dlg.choose (null)) == "yes";
+			return QuestionAnswer.from_string (yield dlg.choose (null));
 		}
 
 	}

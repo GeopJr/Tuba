@@ -331,7 +331,7 @@
 			{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 			false,
 			(obj, res) => {
-				if (app.question.end (res)) {
+				if (app.question.end (res).truthy ()) {
 					this.status.formal.annihilate ()
 						//  .then ((in_stream) => {
 						//  	var parser = Network.get_parser_from_inputstream (in_stream);
@@ -358,7 +358,6 @@
 		}
 	}
 	public string spoiler_text_revealed { get; set; default = _("Sensitive"); }
-	public bool reveal_spoiler { get; set; default = true; }
 
 	// separator between the bottom bar items
 	string expanded_separator = "·";
@@ -474,8 +473,8 @@
 	}
 
 	private void update_spoiler_status () {
-		spoiler_status_con.visible = reveal_spoiler && status.formal.has_spoiler;
-		spoiler_stack.visible_child_name = reveal_spoiler ? "content" : "spoiler";
+		spoiler_status_con.visible = status.formal.tuba_spoiler_revealed && status.formal.has_spoiler;
+		spoiler_stack.visible_child_name = status.formal.tuba_spoiler_revealed ? "content" : "spoiler";
 	}
 
 	public void show_toggle_pinned_action () {
@@ -537,9 +536,8 @@
 		spoiler_label.label = this.spoiler_text;
 		spoiler_label_rev.label = this.spoiler_text_revealed;
 
-		reveal_spoiler = !status.formal.has_spoiler || settings.show_spoilers;
+		status.formal.tuba_spoiler_revealed = !status.formal.has_spoiler || settings.show_spoilers;
 		update_spoiler_status ();
-		this_handler_ids += notify["reveal-spoiler"].connect (update_spoiler_status);
 
 		handle_label.label = this.subtitle_text;
 		date_label.label = this.date;
@@ -593,6 +591,7 @@
 		formal_handler_ids += status.formal.notify["reblogs-count"].connect (show_view_stats_action);
 		formal_handler_ids += status.formal.notify["favourites-count"].connect (show_view_stats_action);
 		formal_handler_ids += status.formal.notify["tuba-thread-role"].connect (install_thread_line);
+		formal_handler_ids += status.formal.notify["tuba-spoiler-revealed"].connect (update_spoiler_status);
 	}
 
 	public void soft_unbind () {
@@ -626,7 +625,7 @@
 	}
 
 	[GtkCallback] public void toggle_spoiler () {
-		reveal_spoiler = !reveal_spoiler;
+		status.formal.tuba_spoiler_revealed = !status.formal.tuba_spoiler_revealed;
 	}
 
 	[GtkCallback] public void on_avatar_clicked () {

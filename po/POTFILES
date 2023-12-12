@@ -8,6 +8,7 @@
 ./data/ui/dialogs/preferences.ui
 ./data/ui/dialogs/profile_edit.ui
 ./data/ui/menus.ui
+./data/ui/views/media_viewer.ui
 ./data/ui/views/profile_header.ui
 ./data/ui/views/sidebar/account.ui
 ./data/ui/views/sidebar/view.ui
@@ -24,8 +25,8 @@
 ./src/API/Suggestion.vala
 ./src/API/Tag.vala
 ./src/Application.vala
-./src/Dialogs/Composer/AttachmentsPageAttachment.vala
 ./src/Dialogs/Composer/AttachmentsPage.vala
+./src/Dialogs/Composer/AttachmentsPageAttachment.vala
 ./src/Dialogs/Composer/Dialog.vala
 ./src/Dialogs/Composer/EditorPage.vala
 ./src/Dialogs/Composer/PollPage.vala
@@ -48,8 +49,8 @@
 ./src/Views/Favorites.vala
 ./src/Views/Federated.vala
 ./src/Views/FollowRequests.vala
-./src/Views/Hashtags.vala
 ./src/Views/Hashtag.vala
+./src/Views/Hashtags.vala
 ./src/Views/Home.vala
 ./src/Views/Lists.vala
 ./src/Views/Local.vala
@@ -61,6 +62,7 @@
 ./src/Views/Sidebar.vala
 ./src/Views/StatusStats.vala
 ./src/Views/Thread.vala
+./src/Views/Timeline.vala
 ./src/Widgets/Announcement.vala
 ./src/Widgets/Attachment/Box.vala
 ./src/Widgets/Attachment/Image.vala
@@ -70,8 +72,8 @@
 ./src/Widgets/PreviewCard.vala
 ./src/Widgets/ProfileCover.vala
 ./src/Widgets/RelationshipButton.vala
+./src/Widgets/Status.vala
 ./src/Widgets/Status/ActionsRow.vala
 ./src/Widgets/Status/FollowRequestRow.vala
 ./src/Widgets/Status/ReactionsRow.vala
-./src/Widgets/Status.vala
 ./src/Widgets/VoteBox.vala

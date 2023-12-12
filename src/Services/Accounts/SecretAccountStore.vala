@@ -54,7 +54,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 				{ {"Read More", Adw.ResponseAppearance.SUGGESTED }, { "Close", Adw.ResponseAppearance.DEFAULT } },
 				false,
 				(obj, res) => {
-					if (app.question.end (res)) Host.open_uri (wiki_page);
+					if (app.question.end (res).truthy ()) Host.open_uri (wiki_page);
 					Process.exit (1);
 				}
 			);

@@ -76,6 +76,9 @@
 		<key name="advanced-boost-dialog" type="b">
 			<default>false</default>
 		</key>
+		<key name="reply-to-old-post-reminder" type="b">
+			<default>true</default>
+		</key>
 		<key name="spellchecker-enabled" type="b">
 			<default>true</default>
 		</key>

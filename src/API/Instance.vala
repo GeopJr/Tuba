@@ -19,6 +19,16 @@ public class Tuba.API.Instance : Entity {
 		return base.deserialize_array_type (prop);
 	}
 
+    public bool supports_quote_posting {
+        get {
+            if (pleroma != null && pleroma.metadata != null && pleroma.metadata.features != null) {
+                return "quote_posting" in pleroma.metadata.features;
+            }
+
+            return false;
+        }
+    }
+
     public string[]? compat_supported_mime_types {
         get {
             if (pleroma != null && pleroma.metadata != null) {
