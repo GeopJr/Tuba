@@ -132,6 +132,12 @@ public class Tuba.API.Status : Entity, Widgetizable {
         }
     }
 
+    public bool can_be_quoted {
+        get {
+            return this.formal.visibility != "direct" && this.formal.visibility != "private";
+        }
+    }
+
     public bool can_be_boosted {
         get {
             return this.formal.visibility != "direct"
