@@ -13,7 +13,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		schema_attributes["version"] = Secret.SchemaAttributeType.STRING;
 		schema = new Secret.Schema.newv (
 			Build.DOMAIN,
-			Secret.SchemaFlags.DONT_MATCH_NAME,
+			Secret.SchemaFlags.NONE,
 			schema_attributes
 		);
 
