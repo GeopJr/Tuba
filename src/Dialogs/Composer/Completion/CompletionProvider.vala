@@ -35,16 +35,20 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 		Gtk.TextIter end;
 		context.get_bounds (out start, out end);
 
-		// If end is ' ', it's already the
-		// end of the word. Proceeding will
-		// capture more than needed
-		if (end.get_char () != ' ')
-			// Go forwards until we find a space
-			// aka get the full string - even if
-			// it's not considered a word by pango
-			end.forward_find_char ((e) => e.isspace (), null);
-		// plus a space since we are appending one below
-		end.forward_char ();
+		// If it reports that we are not at the end
+		// of the word or line, move forward
+		if (!end.ends_word () && !end.ends_line ()) {
+			// If end is ' ', it's already the
+			// end of the word. Proceeding will
+			// capture more than needed
+			if (end.get_char () != ' ')
+				// Go forwards until we find a space
+				// aka get the full string - even if
+				// it's not considered a word by pango
+				end.forward_find_char ((e) => e.isspace (), null);
+			// plus a space since we are appending one below
+			end.forward_char ();
+		}
 
 		var buffer = start.get_buffer ();
 		var new_content = proposal.get_typed_text () + " ";
