@@ -57,8 +57,12 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 	void append_results (Gee.ArrayList<Entity> array, Views.ContentBase tab) {
 		if (!array.is_empty) {
+			int all_i = 0;
 			array.@foreach (e => {
-				append_entity (all_tab, e);
+				if (all_i < 4) {
+					append_entity (all_tab, e);
+					all_i++;
+				}
 				append_entity (tab, e);
 
 				return true;
@@ -82,10 +86,9 @@ public class Tuba.Views.Search : Views.TabbedBase {
 				bool hashtag = query.has_prefix ("#");
 
 				if (hashtag) append_results (results.hashtags, hashtags_tab);
-
 				append_results (results.accounts, accounts_tab);
-				append_results (results.statuses, statuses_tab);
 				if (!hashtag) append_results (results.hashtags, hashtags_tab);
+				append_results (results.statuses, statuses_tab);
 
 				base_status = new StatusMessage ();
 
