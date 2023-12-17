@@ -13,7 +13,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		schema_attributes["version"] = Secret.SchemaAttributeType.STRING;
 		schema = new Secret.Schema.newv (
 			Build.DOMAIN,
-			Secret.SchemaFlags.DONT_MATCH_NAME,
+			Secret.SchemaFlags.NONE,
 			schema_attributes
 		);
 
@@ -54,14 +54,16 @@ public class Tuba.SecretAccountStore : AccountStore {
 				{ {"Read More", Adw.ResponseAppearance.SUGGESTED }, { "Close", Adw.ResponseAppearance.DEFAULT } },
 				false,
 				(obj, res) => {
-					if (app.question.end (res)) Host.open_uri (wiki_page);
+					if (app.question.end (res).truthy ()) Host.open_uri (wiki_page);
 					Process.exit (1);
 				}
 			);
 		}
 
 		secrets.foreach (item => {
-			var account = secret_to_account (item);
+			// TODO: remove uuid fallback
+			bool force_save = false;
+			var account = secret_to_account (item, out force_save);
 			if (account != null && account.id != "") {
 				new Request.GET (@"/api/v1/accounts/$(account.id)")
 					.with_account (account)
@@ -80,6 +82,9 @@ public class Tuba.SecretAccountStore : AccountStore {
 					.exec ();
 					saved.add (account);
 					account.added ();
+
+					// TODO: remove uuid fallback
+					if (force_save) safe_save ();
 			}
 		});
 		changed (saved);
@@ -169,6 +174,9 @@ public class Tuba.SecretAccountStore : AccountStore {
 		builder.set_member_name ("backend");
 		builder.add_string_value (account.backend);
 
+		builder.set_member_name ("uuid");
+		builder.add_string_value (account.uuid);
+
 		// If display name has emojis it's
 		// better to save and load them
 		// so users don't see their shortcode
@@ -217,16 +225,25 @@ public class Tuba.SecretAccountStore : AccountStore {
 		);
 	}
 
-	InstanceAccount? secret_to_account (Secret.Retrievable item) {
+	InstanceAccount? secret_to_account (Secret.Retrievable item, out bool force_save) {
 		InstanceAccount? account = null;
+
+		// TODO: remove uuid fallback
+		force_save = false;
 		try {
 			var secret = item.retrieve_secret_sync ();
 			var contents = secret.get_text ();
 			var parser = new Json.Parser ();
 			parser.load_from_data (contents, -1);
-			account = accounts.create_account (parser.get_root ());
-		}
-		catch (GLib.Error e) {
+
+			// TODO: remove uuid fallback
+			var root = parser.get_root ();
+			bool had_uuid = root.get_object ().has_member ("uuid");
+			account = accounts.create_account (root);
+
+			// TODO: remove uuid fallback
+			force_save = !had_uuid && account.uuid != null;
+		} catch (GLib.Error e) {
 			warning (e.message);
 		}
 		return account;

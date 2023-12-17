@@ -152,6 +152,12 @@ public class Tuba.Request : GLib.Object {
 		return body ("application/json", new Bytes.take (generator.to_data (null).data));
 	}
 
+	private bool cache = true;
+	public Request disable_cache () {
+		cache = false;
+		return this;
+	}
+
 	public Request exec () {
 		var parameters = "";
 		if (pars != null) {
@@ -200,6 +206,7 @@ public class Tuba.Request : GLib.Object {
 			msg.request_headers.append ("Authorization", @"Bearer $(account.access_token)");
 		}
 
+		if (!cache) msg.disable_feature (typeof (Soup.Cache));
 		msg.priority = priority;
 
 		if (content_type != null && body_bytes != null)

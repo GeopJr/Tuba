@@ -208,7 +208,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 				{ { _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
 				false,
 				(obj, res) => {
-					if (app.question.end (res)) on_close ();
+					if (app.question.end (res).truthy ()) on_close ();
 				}
 			);
 		}
@@ -271,13 +271,15 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	[GtkChild] unowned Adw.ViewStack stack;
 
-	public Compose (API.Status template = new API.Status.empty (), bool t_force_cursor_at_start = false) {
+	public string? quote_id { get; set; }
+	public Compose (API.Status template = new API.Status.empty (), bool t_force_cursor_at_start = false, string? quote_id = null) {
 		Object (
 			status: new BasicStatus.from_status (template),
 			original_status: new BasicStatus.from_status (template),
 			button_label: _("_Publish"),
 			button_class: "suggested-action",
-			force_cursor_at_start: t_force_cursor_at_start
+			force_cursor_at_start: t_force_cursor_at_start,
+			quote_id: quote_id
 		);
 	}
 
@@ -426,6 +428,10 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 		modify_body (builder);
 		if (editing) update_alt_texts (builder);
+		if (quote_id != null) {
+			builder.set_member_name ("quote_id");
+			builder.add_string_value (quote_id);
+		}
 
 		builder.end_object ();
 		return builder;
