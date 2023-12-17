@@ -18,6 +18,41 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 			}
 		}
 
+		public string to_dialog_title () {
+			switch (this) {
+				case PEERTUBE:
+					// translators: the variable is an external service like "PeerTube"
+					return _("You are about to open a %s video").printf (this.to_string ());
+				case FUNKWHALE:
+					// translators: the variable is an external service like "Funkwhale",
+					//				track as in song
+					return _("You are about to open a %s track").printf (this.to_string ());
+				case BOOKWYRM:
+					// translators: the variable is an external service like "BookWyrm"
+					return _("You are about to open a %s book").printf (this.to_string ());
+				default:
+					// translators: the variable is the app name (Tuba)
+					return _("You are about to leave %s").printf (Build.NAME);
+			}
+		}
+
+		public string to_dialog_body (string t_url) {
+			var dlg_url = t_url;
+			if (dlg_url.length > 64) {
+				dlg_url = t_url.substring (0, 62) + "…";
+			}
+
+			switch (this) {
+				case BASIC:
+					// translators: the variable is a url
+					return _("If you proceed, \"%s\" will open in your browser.").printf (dlg_url);
+				default:
+					// translators: the first variable is the app name (Tuba),
+					//				the second one is a url
+					return _("If you proceed, %s will connect to \"%s\".").printf (Build.NAME, dlg_url);
+			}
+		}
+
 		public bool open_special_card (string t_url) {
 			switch (this) {
 				case BASIC:
