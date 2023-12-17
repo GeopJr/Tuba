@@ -157,72 +157,61 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 	}
 
 	public static void open_special_card (CardSpecialType card_special_type, string card_url) {
-		app.question.begin (
-			{card_special_type.to_dialog_title (), false},
-			{card_special_type.to_dialog_body (card_url), false},
-			app.main_window,
-			{ { _("Proceed"), Adw.ResponseAppearance.DESTRUCTIVE}, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
-			false,
-			(obj, res) => {
-				if (app.question.end (res).truthy ()) {
-					if (card_special_type.open_special_card (card_url)) {
-						return;
-					};
-					string special_api_url = "";
-					string special_host = "";
-					try {
-						card_special_type.parse_url (card_url, out special_host, out special_api_url);
-					} catch {
-						Host.open_uri (card_url);
-						return;
-					}
+		if (card_special_type.open_special_card (card_url)) {
+			return;
+		};
+		string special_api_url = "";
+		string special_host = "";
+		try {
+			card_special_type.parse_url (card_url, out special_host, out special_api_url);
+		} catch {
+			Host.open_uri (card_url);
+			return;
+		}
 
 
-					new Request.GET (special_api_url)
-						.then ((in_stream) => {
-							bool failed = true;
-							var parser = Network.get_parser_from_inputstream (in_stream);
-							var node = network.parse_node (parser);
-							string res_url = "";
-							API.BookWyrm? bookwyrm_obj = null;
+		new Request.GET (special_api_url)
+			.then ((in_stream) => {
+				bool failed = true;
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				string res_url = "";
+				API.BookWyrm? bookwyrm_obj = null;
 
-							switch (card_special_type) {
-								case API.PreviewCard.CardSpecialType.PEERTUBE:
-									var peertube_obj = API.PeerTube.from (node);
+				switch (card_special_type) {
+					case API.PreviewCard.CardSpecialType.PEERTUBE:
+						var peertube_obj = API.PeerTube.from (node);
 
-									peertube_obj.get_video (card_url, out res_url, out failed);
-									break;
-								case API.PreviewCard.CardSpecialType.FUNKWHALE:
-									var funkwhale_obj = API.Funkwhale.from (node);
+						peertube_obj.get_video (card_url, out res_url, out failed);
+						break;
+					case API.PreviewCard.CardSpecialType.FUNKWHALE:
+						var funkwhale_obj = API.Funkwhale.from (node);
 
-									funkwhale_obj.get_track (special_host, out res_url, out failed);
-									break;
-								case API.PreviewCard.CardSpecialType.BOOKWYRM:
-									bookwyrm_obj = API.BookWyrm.from (node);
-									res_url = bookwyrm_obj.id;
+						funkwhale_obj.get_track (special_host, out res_url, out failed);
+						break;
+					case API.PreviewCard.CardSpecialType.BOOKWYRM:
+						bookwyrm_obj = API.BookWyrm.from (node);
+						res_url = bookwyrm_obj.id;
 
-									if (bookwyrm_obj.title != null && bookwyrm_obj.title != "") failed = false;
-									break;
-								default:
-									assert_not_reached ();
-							}
-
-							if (failed || res_url == "") {
-								Host.open_uri (card_url);
-							} else {
-								if (bookwyrm_obj == null) {
-									app.main_window.show_media_viewer (res_url, Tuba.Attachment.MediaType.VIDEO, null, 0, null, false, null, card_url, true);
-								} else {
-									app.main_window.show_book (bookwyrm_obj, card_url);
-								}
-							}
-						})
-						.on_error (() => {
-							Host.open_uri (card_url);
-						})
-						.exec ();
+						if (bookwyrm_obj.title != null && bookwyrm_obj.title != "") failed = false;
+						break;
+					default:
+						assert_not_reached ();
 				}
-			}
-		);
+
+				if (failed || res_url == "") {
+					Host.open_uri (card_url);
+				} else {
+					if (bookwyrm_obj == null) {
+						app.main_window.show_media_viewer (res_url, Tuba.Attachment.MediaType.VIDEO, null, 0, null, false, null, card_url, true);
+					} else {
+						app.main_window.show_book (bookwyrm_obj, card_url);
+					}
+				}
+			})
+			.on_error (() => {
+				Host.open_uri (card_url);
+			})
+			.exec ();
 	}
 }
