@@ -26,6 +26,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 	[GtkChild] unowned Widgets.Avatar avatar;
 	[GtkChild] unowned Widgets.MarkupView note;
 	[GtkChild] unowned RelationshipButton rsbtn;
+	[GtkChild] unowned Gtk.Grid grid;
 	public signal void open ();
 
 	public API.Relationship rs {
@@ -91,7 +92,9 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 	}
 
 	private weak API.Account api_account { get; set; }
+	private string account_id = "";
 	public Account (API.Account account) {
+		account_id = account.id;
 		open.connect (account.open);
 		background.clicked.connect (account.open);
 		avatar.clicked.connect (account.open);
@@ -132,5 +135,14 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 	private void on_tuba_rs () {
 		if (api_account != null)
 			rs = api_account.tuba_rs;
+	}
+
+	public Widgets.FollowRequestRow add_fr_row () {
+		var fr_row = new Widgets.FollowRequestRow (account_id) {
+			margin_top = 6,
+			margin_bottom = 6
+		};
+		grid.attach (fr_row, 0, 5, 2, 1);
+		return fr_row;
 	}
 }
