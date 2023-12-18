@@ -1,5 +1,9 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/profile.ui")]
 public class Tuba.Widgets.Account : Gtk.ListBoxRow {
+	~Account () {
+		debug ("Destroying Widgets.Account");
+	}
+
 	public class RelationshipButton : Tuba.Widgets.RelationshipButton {
 		public override void invalidate () {
 			if (rs == null || rs.domain_blocking) {
@@ -31,13 +35,15 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 			if (value.tuba_has_loaded) {
 				cover_badge_label = rsbtn.rs.to_string ();
 			} else {
-				ulong invalidate_signal_id = 0;
-				invalidate_signal_id = rsbtn.rs.invalidated.connect (() => {
-					cover_badge_label = rsbtn.rs.to_string ();
-					rsbtn.rs.disconnect (invalidate_signal_id);
-				});
+				invalidate_signal_id = rsbtn.rs.invalidated.connect (on_rs_invalidate);
 			}
 		}
+	}
+
+	ulong invalidate_signal_id = 0;
+	private void on_rs_invalidate () {
+		cover_badge_label = rsbtn.rs.to_string ();
+		rsbtn.rs.disconnect (invalidate_signal_id);
 	}
 
 	public string cover_badge_label {
@@ -84,6 +90,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		background.paintable = data;
 	}
 
+	private weak API.Account api_account { get; set; }
 	public Account (API.Account account) {
 		open.connect (account.open);
 		background.clicked.connect (account.open);
@@ -102,9 +109,12 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		cover_bot_badge.visible = account.bot;
 
 		rsbtn.handle = account.handle;
-		account.notify["tuba-rs"].connect (() => {
+
+		if (account.tuba_rs != null)
 			rs = account.tuba_rs;
-		});
+
+		api_account = account;
+		api_account.notify["tuba-rs"].connect (on_tuba_rs);
 
 		if (account.header.contains ("/headers/original/missing.png")) {
 			background.paintable = avatar.custom_image;
@@ -117,5 +127,10 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 			_("%s Following").printf (@"<b>$(Tuba.Units.shorten (account.following_count))</b>"),
 			_("%s Followers").printf (@"<b>$(Tuba.Units.shorten (account.followers_count))</b>")
 		);
+	}
+
+	private void on_tuba_rs () {
+		if (api_account != null)
+			rs = api_account.tuba_rs;
 	}
 }

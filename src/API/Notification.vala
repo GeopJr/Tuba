@@ -17,6 +17,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		switch (kind) {
 			case InstanceAccount.KIND_FOLLOW:
 			case InstanceAccount.KIND_FOLLOW_REQUEST:
+				this.account.tuba_rs = new API.Relationship.for_account (this.account);
 				return new Widgets.Account (this.account);
 			default:
 				return new Widgets.Notification (this);
