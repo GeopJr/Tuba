@@ -186,7 +186,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		deck.push (done_step);
 
 		debug ("Switching to account");
-		accounts.activate (account);
+		accounts.activate (account, true);
 	}
 
 	public void redirect (Uri uri) {

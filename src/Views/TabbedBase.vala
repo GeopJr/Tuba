@@ -75,7 +75,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 			550, Adw.LengthUnit.SP
 		);
 		var breakpoint = new Adw.Breakpoint (condition);
-		breakpoint.add_setter (title_stack, "visible-child-name", "title");
+		breakpoint.add_setter (this, "title-stack-page-visible", true);
 		breakpoint.add_setter (switcher_bar, "reveal", true);
 		add_breakpoint (breakpoint);
 	}

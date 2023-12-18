@@ -53,6 +53,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
 	}
 
 	public Tuba.Views.Thread.ThreadRole tuba_thread_role { get; set; default = Tuba.Views.Thread.ThreadRole.NONE; }
+    public bool tuba_spoiler_revealed { get; set; default = settings.show_spoilers; }
 
     //  public string clean_content {
     //      get {
@@ -128,6 +129,12 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public bool has_spoiler {
         get {
             return !(formal.spoiler_text == null || formal.spoiler_text == "");
+        }
+    }
+
+    public bool can_be_quoted {
+        get {
+            return this.formal.visibility != "direct" && this.formal.visibility != "private";
         }
     }
 
@@ -245,6 +252,19 @@ public class Tuba.API.Status : Entity, Widgetizable {
 					return "";
 			}
 		}
+
+        public static ReblogVisibility? from_string (string id) {
+            switch (id) {
+				case "public":
+					return PUBLIC;
+				case "unlisted":
+					return UNLISTED;
+				case "private":
+					return PRIVATE;
+				default:
+					return null;
+			}
+        }
     }
 
     public Request reblog_req (ReblogVisibility? visibility = null) {

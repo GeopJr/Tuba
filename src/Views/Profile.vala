@@ -49,12 +49,12 @@ public class Tuba.Views.Profile : Views.Accounts {
 				.with_account (account)
 				.with_param ("pinned", "true")
 				.with_ctx (this)
-				.then ((sess, msg, in_stream) => {
+				.then ((in_stream) => {
 					var parser = Network.get_parser_from_inputstream (in_stream);
 
 					Object[] to_add = {};
-					Network.parse_array (msg, parser, node => {
-						var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
+					Network.parse_array (parser, node => {
+						var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
 						var e_status = e as API.Status;
 						if (e_status != null) e_status.pinned = true;
 
@@ -153,12 +153,12 @@ public class Tuba.Views.Profile : Views.Accounts {
 		if (profile.account.is_self ()) {
 			model.remove (0);
 
-			for (uint i = 0; i < model.get_n_items (); i++) {
-				var status_obj = (API.Status)model.get_item (i);
-				if (status_obj.formal.account.id == profile.account.id) {
-					entity_cache.remove (status_obj.formal.uri);
-				}
-			}
+			//  for (uint i = 0; i < model.get_n_items (); i++) {
+			//  	var status_obj = (API.Status)model.get_item (i);
+			//  	if (status_obj.formal.account.id == profile.account.id) {
+			//  		Tuba.EntityCache.remove (status_obj.formal.uri);
+			//  	}
+			//  }
 
 			model.insert (0, new ProfileAccount (accounts.active));
 			on_refresh ();
@@ -261,31 +261,27 @@ public class Tuba.Views.Profile : Views.Accounts {
 		domain_blocking_action.change_state.connect (v => {
 			var block = v.get_boolean ();
 			var q = block ? _("Block Entire \"%s\"?") : _("Unblock Entire \"%s\"?");
-			var confirmed = app.question (
-				q.printf (profile.account.domain),
-				_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users"), // vala-lint=line-length
+			app.question.begin (
+				{q.printf (profile.account.domain), false},
+				{_("Blocking a domain will:\n\n• Remove its public posts and notifications from your timelines\n• Remove its followers from your account\n• Prevent you from following its users"), false},
 
 				app.main_window,
-				block ? _("Block") : _("Unblock"),
-				Adw.ResponseAppearance.DESTRUCTIVE
-			);
+				{ { block ? _("Block") : _("Unblock"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				false,
+				(obj, res) => {
+					if (app.question.end (res).truthy ()) {
+						var req = new Request.POST ("/api/v1/domain_blocks")
+							.with_account (accounts.active)
+							.with_param ("domain", profile.account.domain)
+							.then (() => {
+								profile.rs.request ();
+							});
 
-			confirmed.response.connect (res => {
-				if (res == "yes") {
-					var req = new Request.POST ("/api/v1/domain_blocks")
-					.with_account (accounts.active)
-					.with_param ("domain", profile.account.domain)
-					.then (() => {
-						profile.rs.request ();
-					});
-
-				if (!block) req.method = "DELETE";
-				req.exec ();
+						if (!block) req.method = "DELETE";
+						req.exec ();
+					}
 				}
-				confirmed.destroy ();
-			});
-
-			confirmed.present ();
+			);
 		});
 		actions.add_action (domain_blocking_action);
 
@@ -325,7 +321,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 	public static void open_from_id (string id) {
 		var msg = new Soup.Message ("GET", @"$(accounts.active.instance)/api/v1/accounts/$id");
-		network.queue (msg, null, (sess, mess, in_stream) => {
+		network.queue (msg, null, (in_stream) => {
 			var parser = Network.get_parser_from_inputstream (in_stream);
 			var node = network.parse_node (parser);
 			var acc = API.Account.from (node);
@@ -386,23 +382,23 @@ public class Tuba.Views.Profile : Views.Accounts {
 			.with_account (accounts.active)
 			.with_ctx (this)
 			.on_error (on_error)
-			.then ((sess, msg, in_stream) => {
+			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				if (Network.get_array_size (parser) > 0) {
 					new Request.GET (@"/api/v1/accounts/$(profile.account.id)/lists")
 					.with_account (accounts.active)
 					.with_ctx (this)
 					.on_error (on_error)
-					.then ((sess2, msg2, in_stream2) => {
+					.then ((in_stream2) => {
 						var added = false;
 						var in_list = new Gee.ArrayList<string> ();
 
 						var parser2 = Network.get_parser_from_inputstream (in_stream2);
-						Network.parse_array (msg2, parser2, node => {
+						Network.parse_array (parser2, node => {
 							var list = API.List.from (node);
 							in_list.add (list.id);
 						});
-						Network.parse_array (msg, parser, node => {
+						Network.parse_array (parser, node => {
 							var list = API.List.from (node);
 							var is_already = in_list.contains (list.id);
 
@@ -458,7 +454,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 				.with_account (accounts.active)
 				.with_ctx (this)
 				.on_error (on_error)
-				.then ((sess, msg) => {
+				.then (() => {
 					var toast_msg = "";
 					if (button.remove) {
 						//  translators: First variable is a handle, second variable is a list name

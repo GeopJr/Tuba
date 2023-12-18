@@ -302,7 +302,6 @@
 			.with_account (accounts.active)
 			.then (() => {
 				this.status.formal.pinned = p_action == "pin";
-				entity_cache.remove (this.status.formal.uri);
 				pin_changed ();
 			})
 			.exec ();
@@ -311,7 +310,7 @@
 	private void edit_status () {
 		new Request.GET (@"/api/v1/statuses/$(status.formal.id)/source")
 			.with_account (accounts.active)
-			.then ((sess, msg, in_stream) => {
+			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				var source = API.StatusSource.from (node);
@@ -325,30 +324,26 @@
 	}
 
 	private void delete_status () {
-		var remove = app.question (
-			_("Are you sure you want to delete this post?"),
+		app.question.begin (
+			{_("Are you sure you want to delete this post?"), false},
 			null,
 			app.main_window,
-			_("Delete"),
-			Adw.ResponseAppearance.DESTRUCTIVE
-		);
-
-		remove.response.connect (res => {
-			if (res == "yes") {
-				this.status.formal.annihilate ()
-					//  .then ((sess, msg, in_stream) => {
-					//  	var parser = Network.get_parser_from_inputstream (in_stream);
-					//  	var root = network.parse (parser);
-					//  	if (root.has_member ("error")) {
-					//  		// TODO: Handle error (probably a toast?)
-					//  	};
-					//  })
-					.exec ();
+			{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+			false,
+			(obj, res) => {
+				if (app.question.end (res).truthy ()) {
+					this.status.formal.annihilate ()
+						//  .then ((in_stream) => {
+						//  	var parser = Network.get_parser_from_inputstream (in_stream);
+						//  	var root = network.parse (parser);
+						//  	if (root.has_member ("error")) {
+						//  		// TODO: Handle error (probably a toast?)
+						//  	};
+						//  })
+						.exec ();
+				}
 			}
-			remove.destroy ();
-		});
-
-		remove.present ();
+		);
 	}
 
 	protected string spoiler_text {
@@ -363,7 +358,6 @@
 		}
 	}
 	public string spoiler_text_revealed { get; set; default = _("Sensitive"); }
-	public bool reveal_spoiler { get; set; default = true; }
 
 	// separator between the bottom bar items
 	string expanded_separator = "·";
@@ -479,8 +473,8 @@
 	}
 
 	private void update_spoiler_status () {
-		spoiler_status_con.visible = reveal_spoiler && status.formal.has_spoiler;
-		spoiler_stack.visible_child_name = reveal_spoiler ? "content" : "spoiler";
+		spoiler_status_con.visible = status.formal.tuba_spoiler_revealed && status.formal.has_spoiler;
+		spoiler_stack.visible_child_name = status.formal.tuba_spoiler_revealed ? "content" : "spoiler";
 	}
 
 	public void show_toggle_pinned_action () {
@@ -542,9 +536,8 @@
 		spoiler_label.label = this.spoiler_text;
 		spoiler_label_rev.label = this.spoiler_text_revealed;
 
-		reveal_spoiler = !status.formal.has_spoiler || settings.show_spoilers;
+		status.formal.tuba_spoiler_revealed = !status.formal.has_spoiler || settings.show_spoilers;
 		update_spoiler_status ();
-		this_handler_ids += notify["reveal-spoiler"].connect (update_spoiler_status);
 
 		handle_label.label = this.subtitle_text;
 		date_label.label = this.date;
@@ -598,6 +591,7 @@
 		formal_handler_ids += status.formal.notify["reblogs-count"].connect (show_view_stats_action);
 		formal_handler_ids += status.formal.notify["favourites-count"].connect (show_view_stats_action);
 		formal_handler_ids += status.formal.notify["tuba-thread-role"].connect (install_thread_line);
+		formal_handler_ids += status.formal.notify["tuba-spoiler-revealed"].connect (update_spoiler_status);
 	}
 
 	public void soft_unbind () {
@@ -631,7 +625,7 @@
 	}
 
 	[GtkCallback] public void toggle_spoiler () {
-		reveal_spoiler = !reveal_spoiler;
+		status.formal.tuba_spoiler_revealed = !status.formal.tuba_spoiler_revealed;
 	}
 
 	[GtkCallback] public void on_avatar_clicked () {

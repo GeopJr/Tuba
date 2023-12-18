@@ -41,9 +41,9 @@ public class Tuba.API.Relationship : Entity {
 		new Request.GET ("/api/v1/accounts/relationships")
 			.with_account (accounts.active)
 			.with_param ("id", id)
-			.then ((sess, msg, in_stream) => {
+			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
-				Network.parse_array (msg, parser, node => {
+				Network.parse_array (parser, node => {
 					invalidate (node);
 				});
 			})
@@ -59,7 +59,7 @@ public class Tuba.API.Relationship : Entity {
 		yield req.await ();
 
 		var parser = Network.get_parser_from_inputstream (req.response_body);
-		Network.parse_array (req.msg, parser, node => {
+		Network.parse_array (parser, node => {
 			API.Relationship entity = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
 			entity.tuba_has_loaded = true;
 			res.set (entity.id, entity);
@@ -78,7 +78,7 @@ public class Tuba.API.Relationship : Entity {
 	public void modify (string operation, string? param = null, string? val = null) {
 		var req = new Request.POST (@"/api/v1/accounts/$id/$operation")
 			.with_account (accounts.active)
-			.then ((sess, msg, in_stream) => {
+			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				invalidate (node);
@@ -93,22 +93,17 @@ public class Tuba.API.Relationship : Entity {
 
 	public void question_modify_block (string handle, bool block = true) {
 		var q = block ? _("Block \"%s\"?") : _("Unblock \"%s\"?");
-		var confirmed = app.question (
-			q.printf (handle),
+
+		app.question.begin (
+			{q.printf (handle), false},
 			null,
 			app.main_window,
-			block ? _("Block") : _("Unblock"),
-			Adw.ResponseAppearance.DESTRUCTIVE
-		);
-
-		confirmed.response.connect (res => {
-			if (res == "yes") {
-				modify (block ? "block" : "unblock");
+			{ { block ? _("Block") : _("Unblock"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+			false,
+			(obj, res) => {
+				if (app.question.end (res).truthy ()) modify (block ? "block" : "unblock");
 			}
-			confirmed.destroy ();
-		});
-
-		confirmed.present ();
+		);
 	}
 
 }

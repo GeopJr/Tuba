@@ -78,18 +78,70 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		connect_threads ();
 	}
 
+	private bool _reveal_spoilers = settings.show_spoilers;
+	private bool reveal_spoilers {
+		get {
+			return _reveal_spoilers;
+		}
+
+		set {
+			for (var pos = 0; pos < model.n_items; pos++) {
+				var status = model.get_item (pos) as API.Status;
+
+				if (status.has_spoiler)
+					status.tuba_spoiler_revealed = value;
+			}
+			_reveal_spoilers = value;
+		}
+	}
+
+	private Gtk.ToggleButton spoiler_toggle_button;
+	protected override void build_header () {
+		base.build_header ();
+
+		spoiler_toggle_button = new Gtk.ToggleButton () {
+			icon_name = "tuba-eye-open-negative-filled-symbolic",
+			tooltip_text = _("Reveal Spoilers"),
+			active = _reveal_spoilers,
+			visible = false
+		};
+		spoiler_toggle_button.toggled.connect (spoiler_toggle_button_toggled);
+
+		header.pack_end (spoiler_toggle_button);
+	}
+
+	private void spoiler_toggle_button_toggled () {
+		var spoiler_toggle_button_active = spoiler_toggle_button.active;
+		spoiler_toggle_button.icon_name = spoiler_toggle_button_active
+			? "tuba-eye-not-looking-symbolic"
+			: "tuba-eye-open-negative-filled-symbolic";
+		spoiler_toggle_button.tooltip_text = spoiler_toggle_button_active ? _("Hide Spoilers") : _("Reveal Spoilers");
+		reveal_spoilers = spoiler_toggle_button_active;
+	}
+
+	public override void on_content_changed () {
+		for (uint i = 0; i < model.n_items; i++) {
+			var status = (API.Status) model.get_item (i);
+			if (status.has_spoiler) {
+				spoiler_toggle_button.visible = true;
+				break;
+			}
+		}
+		base.on_content_changed ();
+	}
+
 	public bool request () {
 		new Request.GET (@"/api/v1/statuses/$(root_status.id)/context")
 			.with_account (account)
 			.with_ctx (this)
-			.then ((sess, msg, in_stream) => {
+			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var root = network.parse (parser);
 
 				Object[] to_add_ancestors = {};
 				var ancestors = root.get_array_member ("ancestors");
 				ancestors.foreach_element ((array, i, node) => {
-					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
+					var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
 					to_add_ancestors += e;
 				});
 				to_add_ancestors += root_status;
@@ -98,7 +150,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				Object[] to_add_descendants = {};
 				var descendants = root.get_array_member ("descendants");
 				descendants.foreach_element ((array, i, node) => {
-					var e = entity_cache.lookup_or_insert (node, typeof (API.Status));
+					var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
 					to_add_descendants += e;
 				});
 				model.splice (model.get_n_items (), 0, to_add_descendants);
@@ -116,7 +168,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 							return true;
 						}, Priority.LOW);
 					}
-                #endif
+				#endif
 			})
 			.exec ();
 
@@ -128,7 +180,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			.with_account ()
 			.with_param ("q", q)
 			.with_param ("resolve", "true")
-			.then ((sess, msg, in_stream) => {
+			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var root = network.parse (parser);
 				var statuses = root.get_array_member ("statuses");

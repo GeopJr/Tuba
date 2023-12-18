@@ -94,7 +94,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		icon = "system-search-symbolic",
 		title = _("Search"),
 		open_func = (win) => {
-			win.open_view (new Views.Search ());
+			win.open_view (set_as_sidebar_item (new Views.Search ()));
 		}
 	};
 
@@ -217,6 +217,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	private static Views.Base set_as_sidebar_item (Views.Base view) {
 		view.is_sidebar_item = true;
+		view.show_back_button = false;
 		return view;
 	}
 
@@ -287,10 +288,10 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	public override void reply_to_status_uri (string issuer_id, string uri) {
 		if (!check_issuer (issuer_id)) return;
 
-		if (entity_cache.contains (uri)) {
-			var status = entity_cache.lookup (uri) as API.Status;
-			new Dialogs.Compose.reply (status.formal);
-		} else {
+		//  if (Tuba.EntityCache.contains (uri)) {
+		//  	var status = Tuba.EntityCache.lookup (uri) as API.Status;
+		//  	new Dialogs.Compose.reply (status.formal);
+		//  } else {
 			resolve.begin (uri, (obj, res) => {
 				try {
 					var status = resolve.end (res) as API.Status;
@@ -303,6 +304,6 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 					warning (e.message);
 				}
 			});
-		}
+		//  }
 	}
 }

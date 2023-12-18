@@ -303,12 +303,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 	[GtkChild] unowned Tuba.Widgets.ScaleRevealer scale_revealer;
 	[GtkChild] unowned Adw.Carousel carousel;
-	[GtkChild] unowned Adw.CarouselIndicatorDots carousel_dots;
 
 	private double swipe_children_opacity {
 		set {
 			headerbar.opacity =
-			carousel_dots.opacity =
 			page_buttons_revealer.opacity =
 			zoom_buttons_revealer.opacity = value;
 		}
@@ -550,6 +548,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			case Gdk.Key.KP_Right:
 				scroll_to (((int) carousel.position) + 1, false);
 				break;
+			case Gdk.Key.F11:
+				toggle_fullscreen ();
+				break;
 			default:
 				return false;
 		}
@@ -734,6 +735,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		if (media_type.is_video ()) {
 			var video = new Gtk.Video ();
+			if (media_type == Tuba.Attachment.MediaType.GIFV) {
+				video.loop = true;
+				video.autoplay = true;
+			}
+
 			item = new Item (video, final_friendly_url, final_preview, true);
 
 			if (stream) {
@@ -765,11 +771,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			if (alt_text != null) picture.alternative_text = alt_text;
 
 			if (!as_is) {
-				image_cache.request_paintable (url, (is_loaded, data) => {
-					if (is_loaded) {
-						picture.paintable = data;
+				Tuba.Helper.Image.request_paintable (url, null, (data) => {
+					picture.paintable = data;
+					if (data != null)
 						add_todo_item (item);
-					}
 				});
 			} else {
 				picture.paintable = preview;
@@ -879,7 +884,6 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		bool has_more_than_1_item = carousel.n_pages > 1;
 
 		page_buttons_revealer.visible = has_more_than_1_item;
-		carousel_dots.visible = has_more_than_1_item;
 	}
 
 	public void on_zoom_change () {

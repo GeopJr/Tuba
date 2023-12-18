@@ -80,9 +80,8 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		Tuba.toggle_css (note, settings.scale_emoji_hover, "lww-scale-emoji-hover");
 	}
 
-	void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		if (is_loaded)
-			background.paintable = data;
+	void on_cache_response (Gdk.Paintable? data) {
+		background.paintable = data;
 	}
 
 	public Account (API.Account account) {
@@ -110,7 +109,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		if (account.header.contains ("/headers/original/missing.png")) {
 			background.paintable = avatar.custom_image;
 		} else {
-			image_cache.request_paintable (account.header, on_cache_response);
+			Tuba.Helper.Image.request_paintable (account.header, null, on_cache_response);
 		}
 
 		stats_label.label = "<span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>".printf (
