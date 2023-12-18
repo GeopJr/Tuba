@@ -104,6 +104,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
                 rs_invalidated ();
             });
 
+            rsbtn.handle = profile.account.handle;
             rsbtn.rs = profile.rs;
             rsbtn.visible = true;
         }

@@ -645,3 +645,11 @@ GtkSourceAssistant row:first-child,
 GtkSourceAssistant row:last-child {
 	margin: 0;
 }
+
+.account-avatar {
+	margin-top: -30px;
+}
+
+.account-stats {
+	font-size: small;
+}
