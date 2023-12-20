@@ -520,7 +520,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 	protected bool on_keypress (uint keyval, uint keycode, Gdk.ModifierType state) {
 		if (state != 0) {
-			if (state != Gdk.ModifierType.CONTROL_MASK) return false;
+			if (state != Gdk.ModifierType.CONTROL_MASK && state != (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) return false;
 
 			Item? page = safe_get ((int) carousel.position);
 			if (page == null) return false;
