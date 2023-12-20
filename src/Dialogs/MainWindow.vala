@@ -8,6 +8,10 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	[GtkChild] unowned Adw.Breakpoint breakpoint;
 	[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 
+	public void set_sidebar_selected_item (int pos) {
+		sidebar.set_sidebar_selected_item (pos);
+	}
+
 	public bool is_mobile { get; set; default = false; }
 
 	Views.Base? last_view = null;
@@ -54,7 +58,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			title: Build.NAME,
 			resizable: true
 		);
-		sidebar.set_sidebar_selected_item (0);
+		set_sidebar_selected_item (0);
 		main_page = new Adw.NavigationPage (new Views.Main (), _("Home"));
 		navigation_view.add (main_page);
 
@@ -191,20 +195,20 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	public void update_selected_home_item () {
 		if (is_home) {
 			if (is_mobile) {
-				sidebar.set_sidebar_selected_item (0);
+				set_sidebar_selected_item (0);
 			} else {
 				var main_view = main_page.child as Views.Main;
 				if (main_view == null) return;
 
 				switch (main_view.visible_child_name) {
 					case "1":
-						sidebar.set_sidebar_selected_item (0);
+						set_sidebar_selected_item (0);
 						break;
 					case "2":
-						sidebar.set_sidebar_selected_item (1);
+						set_sidebar_selected_item (1);
 						break;
 					case "3":
-						sidebar.set_sidebar_selected_item (2);
+						set_sidebar_selected_item (2);
 						break;
 				}
 			}

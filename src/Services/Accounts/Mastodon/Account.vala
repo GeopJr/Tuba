@@ -30,6 +30,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 			//  win.back();
 			win.go_back_to_start ();
 			((Views.TabbedBase) win.main_page.child).change_page_to_named ("1");
+			win.set_sidebar_selected_item (0);
 		}
 	};
 
@@ -40,6 +41,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		open_func = win => {
 			win.go_back_to_start ();
 			((Views.TabbedBase) win.main_page.child).change_page_to_named ("2");
+			win.set_sidebar_selected_item (1);
 		}
 	};
 
@@ -50,6 +52,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		open_func = win => {
 			win.go_back_to_start ();
 			((Views.TabbedBase) win.main_page.child).change_page_to_named ("3");
+			win.set_sidebar_selected_item (2);
 		}
 	};
 
