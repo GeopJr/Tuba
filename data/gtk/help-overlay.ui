@@ -100,13 +100,13 @@
 						<child>
 							<object class="GtkShortcutsShortcut">
 								<property name="title" translatable="yes">Zoom In</property>
-								<property name="accelerator">&lt;ctrl&gt;plus</property>
+								<property name="accelerator">&lt;ctrl&gt;plus &lt;ctrl&gt;equal</property>
 							</object>
 						</child>
 						<child>
 							<object class="GtkShortcutsShortcut">
 								<property name="title" translatable="yes">Zoom Out</property>
-								<property name="accelerator">&lt;ctrl&gt;minus</property>
+								<property name="accelerator">&lt;ctrl&gt;minus &lt;ctrl&gt;underscore</property>
 							</object>
 						</child>
 						<child>
