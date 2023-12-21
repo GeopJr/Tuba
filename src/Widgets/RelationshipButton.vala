@@ -19,7 +19,9 @@ public class Tuba.Widgets.RelationshipButton : Gtk.Button {
 
 	public void on_clicked () {
 		if (fn != null) {
+			sensitive = false;
 			fn ();
+
 			fn = null;
 		}
 	}
