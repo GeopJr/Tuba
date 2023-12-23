@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-12-11 14:46+0000\n"
+"PO-Revision-Date: 2023-12-23 17:19+0000\n"
 "Last-Translator: Сергей Ворон <voron.s.a@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tuba/tuba/ru/>\n"
 "Language: ru\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -1195,7 +1195,7 @@ msgstr "%s минут осталось"
 #: src/Utils/DateTime.vala:18
 #, c-format
 msgid "%sh left"
-msgstr "%s часов осталось"
+msgstr "%s ч. осталось"
 
 #. tranlators: the variable is a number, `d` as in days in short form
 #: src/Utils/DateTime.vala:22
@@ -1233,7 +1233,7 @@ msgstr "истек %s минут назад"
 #: src/Utils/DateTime.vala:52
 #, c-format
 msgid "expired %sh ago"
-msgstr "истек %s часов назад"
+msgstr "истек %s ч. назад"
 
 #: src/Utils/DateTime.vala:55
 msgid "expired yesterday"
@@ -1276,7 +1276,7 @@ msgstr "%s минут"
 #: src/Utils/DateTime.vala:91
 #, c-format
 msgid "%sh"
-msgstr "%s часов"
+msgstr "%s ч."
 
 #: src/Utils/DateTime.vala:94
 msgid "Yesterday"
