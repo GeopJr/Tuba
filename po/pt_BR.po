@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-12-11 14:46+0000\n"
+"PO-Revision-Date: 2023-12-23 16:49+0000\n"
 "Last-Translator: Daltux <134404797+daltux@users.noreply.github.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -49,9 +49,9 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-"Explore a rede social federada com Tuba para GNOME. Mantenha-se conectado a "
-"suas comunidades favoritas, familiares e amigos com suporte para plataformas "
-"populares do Fediverso, como Mastodon, GoToSocial, Akkoma &amp; mais!"
+"Explore a rede social federada com Tuba para GNOME. Mantenha a conexão a "
+"suas comunidades favoritas, familiares e amigos, com suporte a plataformas "
+"populares do Fediverso como Mastodon, GoToSocial, Akkoma &amp; mais!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:12
 msgid ""
@@ -87,7 +87,7 @@ msgstr "Atualizar"
 #: data/gtk/help-overlay.ui:32 src/Services/Accounts/Mastodon/Account.vala:95
 #: src/Views/Main.vala:38 src/Views/Search.vala:14
 msgid "Search"
-msgstr "Pesquisa"
+msgstr "Procurar"
 
 #: data/gtk/help-overlay.ui:38 data/ui/views/media_viewer.ui:51
 msgid "Go Back"
@@ -95,7 +95,7 @@ msgstr "Voltar"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr "Exibir Atalhos de Teclado"
+msgstr "Exibir atalhos de teclado"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
@@ -127,7 +127,7 @@ msgstr "Confirmar"
 
 #: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:42
 msgid "Media Viewer"
-msgstr "Visualizador de Mídia"
+msgstr "Visualizador de mídia"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
@@ -135,11 +135,11 @@ msgstr "Tela cheia"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:148
 msgid "Zoom In"
-msgstr "Aumentar o Zoom"
+msgstr "Aumentar zoom"
 
 #: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:136
 msgid "Zoom Out"
-msgstr "Reduzir o Zoom"
+msgstr "Reduzir zoom"
 
 #: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:94
 msgid "Previous Attachment"
@@ -157,7 +157,7 @@ msgstr "Ampliar"
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr "Diminuir"
+msgstr "Encolher"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
@@ -196,15 +196,15 @@ msgstr "Nome da lista"
 
 #: data/ui/dialogs/list_edit.ui:33
 msgid "Hide these posts from home"
-msgstr "Ocultar estas publicações da tela inicial"
+msgstr "Ocultar da tela inicial essas publicações"
 
 #: data/ui/dialogs/list_edit.ui:40
 msgid "Replies Policy"
-msgstr "Politica de respostas"
+msgstr "Politica de visualização de respostas"
 
 #: data/ui/dialogs/list_edit.ui:41
 msgid "Show member replies to"
-msgstr "Mostrar respostas de membros para"
+msgstr "Exibir respostas feitas por membros da lista a"
 
 #: data/ui/dialogs/list_edit.ui:44
 msgid "Nobody"
@@ -286,11 +286,11 @@ msgstr "Torna maiores as fontes das publicações"
 
 #: data/ui/dialogs/preferences.ui:45
 msgid "Larger line height"
-msgstr "Maior altura da linha"
+msgstr "Altura de linha maior"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Makes the line height larger for posts"
-msgstr "Aumenta a altura das linhas das publicações"
+msgstr "Aumenta a altura das linhas de texto das publicações"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Enlarge custom emojis"
@@ -303,7 +303,7 @@ msgstr "Ampliar emojis personalizados ao serem apontados"
 #: data/ui/dialogs/preferences.ui:57
 msgid "Makes custom emojis slightly bigger when you hover over them"
 msgstr ""
-"Torna os emojis personalizados ligeiramente maiores quando passa o ponteiro "
+"Torna os emojis personalizados ligeiramente maiores quando passar o ponteiro "
 "sobre eles"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
@@ -336,7 +336,7 @@ msgstr "Exibir uma versão borrada da mídia até ser completamente carregada"
 
 #: data/ui/dialogs/preferences.ui:84
 msgid "Reveal spoilers by default"
-msgstr "Revelar spoilers por padrão"
+msgstr "Revelar conteúdo sensível por padrão"
 
 #: data/ui/dialogs/preferences.ui:89
 msgid "Show link preview cards"
@@ -386,7 +386,8 @@ msgstr "Tela de impulsionamento avançada"
 #: data/ui/dialogs/preferences.ui:146
 msgid "Change boost visibility, quote and confirm boosting"
 msgstr ""
-"Alterar visibilidade do impulsionamento, citar e confimar impusionamento"
+"Ativa a possibilidade de alterar visibilidade, citação e confimação de "
+"impusionamentos"
 
 #: data/ui/dialogs/preferences.ui:153
 msgid "Timelines"
@@ -394,7 +395,7 @@ msgstr "Cronologias"
 
 #: data/ui/dialogs/preferences.ui:156
 msgid "Posts per load batch"
-msgstr "Publicações por lote carregado"
+msgstr "Publicações por carregamento em lote"
 
 #: data/ui/dialogs/preferences.ui:164
 msgid "Stream timelines"
@@ -434,7 +435,7 @@ msgstr "Novas solicitações de seguidores"
 #: data/ui/dialogs/preferences.ui:201
 #: src/Services/Accounts/Mastodon/Account.vala:77 src/Views/Favorites.vala:4
 msgid "Favorites"
-msgstr "Favoritos"
+msgstr "Favoritas"
 
 #: data/ui/dialogs/preferences.ui:207
 msgid "Mentions"
@@ -572,7 +573,7 @@ msgstr "Copiar URL"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:187
 msgid "Save Media"
-msgstr "Salvar Mídia"
+msgstr "Salvar mídia"
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:189
 msgid "Copy Media"
@@ -691,7 +692,7 @@ msgstr "Segue você"
 
 #: src/API/SearchResults.vala:32
 msgid "Search returned no results"
-msgstr "A pesquisa retornou nenhum resultado"
+msgstr "A procura retornou nenhum resultado"
 
 #. translators: the variable is an external service like "PeerTube"
 #: src/API/Status/PreviewCard.vala:25
@@ -1068,7 +1069,7 @@ msgstr "%s impulsionou"
 #: src/Services/Accounts/InstanceAccount.vala:199
 #, c-format
 msgid "%s favorited your post"
-msgstr "%s favoritou sua publicação"
+msgstr "%s definiu sua publicação como favorita"
 
 #: src/Services/Accounts/InstanceAccount.vala:206
 #, c-format
@@ -1101,11 +1102,11 @@ msgstr "Conversas"
 
 #: src/Services/Accounts/Mastodon/Account.vala:68 src/Views/Bookmarks.vala:4
 msgid "Bookmarks"
-msgstr "Salvos"
+msgstr "Marcadores"
 
 #: src/Services/Accounts/Mastodon/Account.vala:104 src/Views/Explore.vala:3
 msgid "Explore"
-msgstr "Explore"
+msgstr "Explorar"
 
 #: src/Services/Accounts/Mastodon/Account.vala:114 src/Views/Local.vala:3
 msgid "Local"
@@ -1113,7 +1114,7 @@ msgstr "Local"
 
 #: src/Services/Accounts/Mastodon/Account.vala:123 src/Views/Federated.vala:4
 msgid "Federated"
-msgstr "Linha global"
+msgstr "Cronologia federada"
 
 #: src/Services/Accounts/Mastodon/Account.vala:132
 #: src/Views/FollowRequests.vala:4
@@ -1132,7 +1133,7 @@ msgstr "Avisos"
 
 #: src/Services/Accounts/Mastodon/Account.vala:189
 msgid "Public"
-msgstr "Público"
+msgstr "Pública"
 
 #: src/Services/Accounts/Mastodon/Account.vala:192
 msgid "Post to public timelines"
@@ -1141,7 +1142,7 @@ msgstr "Publicar em cronologias públicas"
 #. translators: Probably follow Mastodon's translation
 #: src/Services/Accounts/Mastodon/Account.vala:197
 msgid "Unlisted"
-msgstr "Não listado"
+msgstr "Não listada"
 
 #: src/Services/Accounts/Mastodon/Account.vala:200
 msgid "Don't post to public timelines"
@@ -1149,11 +1150,11 @@ msgstr "Não publicar em cronologias públicas"
 
 #: src/Services/Accounts/Mastodon/Account.vala:204
 msgid "Followers Only"
-msgstr "Apenas Seguidores"
+msgstr "Apenas seguidores"
 
 #: src/Services/Accounts/Mastodon/Account.vala:207
 msgid "Post to followers only"
-msgstr "Publicar apenas para seguidores"
+msgstr "Publicar somente para seguidores"
 
 #: src/Services/Accounts/Mastodon/Account.vala:211
 msgid "Direct"
@@ -1161,7 +1162,7 @@ msgstr "Direto"
 
 #: src/Services/Accounts/Mastodon/Account.vala:214
 msgid "Post to mentioned users only"
-msgstr "Publicar apenas para usuários mencionados"
+msgstr "Publicar apenas para perfis citados"
 
 #. translators: this error shows up when the user clicks a button
 #. in a desktop notification that was pushed for a
@@ -1482,7 +1483,7 @@ msgstr ""
 "• Remover das suas cronologias as publicações públicas e notificações desse "
 "domínio\n"
 "• Remover seguidores da sua conta que sejam desse domínio\n"
-"• Impedir que você siga seus usuários"
+"• Impedir que você siga usuários dele"
 
 #. translators: the variable is an account handle
 #: src/Views/Profile.vala:371
@@ -1575,7 +1576,7 @@ msgstr "Estatísticas da publicação"
 #. translators: title for a list of people that favorited a post
 #: src/Views/StatusStats.vala:12
 msgid "Favorited By"
-msgstr "Favorito de"
+msgstr "Favorita por"
 
 #. translators: title for a list of people that boosted a post
 #: src/Views/StatusStats.vala:20
@@ -1588,11 +1589,11 @@ msgstr "Conversa"
 
 #: src/Views/Thread.vala:104 src/Views/Thread.vala:118
 msgid "Reveal Spoilers"
-msgstr "Revelar spoilers"
+msgstr "Revelar conteúdo sensível"
 
 #: src/Views/Thread.vala:118
 msgid "Hide Spoilers"
-msgstr "Ocultar spoilers"
+msgstr "Ocultar conteúdo sensível"
 
 #: src/Views/Timeline.vala:221 src/Widgets/Status/ActionsRow.vala:343
 msgid "Network Error"
@@ -1754,11 +1755,11 @@ msgstr "Responder"
 
 #: src/Widgets/Status/ActionsRow.vala:102
 msgid "Favorite"
-msgstr "Favorito"
+msgstr "Definir como favorita"
 
 #: src/Widgets/Status/ActionsRow.vala:112
 msgid "Bookmark"
-msgstr "Marcador"
+msgstr "Definir marcador"
 
 #. translators: the variable is a datetime with the "old" suffix, e.g. "5 months old", "a day old", "2 years old".
 #. The "old" suffix is translated on the datetime strings, not here
@@ -1779,7 +1780,7 @@ msgstr "Não lembrar novamente"
 
 #: src/Widgets/Status/ActionsRow.vala:229
 msgid "Boost with Visibility"
-msgstr "Impulsionar com visibilidade"
+msgstr "Visibilidade do impulsionamento"
 
 #: src/Widgets/Status/ActionsRow.vala:236
 msgid "Quote"
