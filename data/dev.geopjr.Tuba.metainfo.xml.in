@@ -54,6 +54,13 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.6.1" date="2023-12-23">
+      <description translatable="no">
+        <ul>
+            <li>Fixed French translation</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.6.0" date="2023-12-22">
       <description translatable="no">
         <ul>
