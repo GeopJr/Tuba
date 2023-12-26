@@ -19,7 +19,7 @@ public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
     }
 
 	public EmojiLabel (string? text = null, Gee.HashMap<string, string>? emojis = null) {
-        Object ();
+        Object (max_size: 128);
 		if (text == null) return;
 
 		instance_emojis = emojis;
