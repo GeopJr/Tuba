@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-10-08 07:48+0000\n"
+"PO-Revision-Date: 2023-12-28 19:08+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -65,7 +65,7 @@ msgstr "عام"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "أظهر الخيارات"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose a new post"
@@ -122,7 +122,7 @@ msgstr "مُعايِن الوسائط"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "الشاشة الكاملة"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:148
 msgid "Zoom In"
@@ -153,12 +153,12 @@ msgstr ""
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr ""
+msgstr "المُرفَق السابق"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Next Attachment"
-msgstr ""
+msgstr "المُرفَق التالي"
 
 #: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:22
 #: data/ui/dialogs/profile_edit.ui:22 src/API/Status/PreviewCard.vala:164
@@ -187,7 +187,7 @@ msgstr "اسم القائمة"
 
 #: data/ui/dialogs/list_edit.ui:33
 msgid "Hide these posts from home"
-msgstr ""
+msgstr "إخفاء هذه المنشورات من الخيط الرئيس"
 
 #: data/ui/dialogs/list_edit.ui:40
 msgid "Replies Policy"
@@ -276,7 +276,7 @@ msgstr "جعل الخط أكبر للمنشورات"
 
 #: data/ui/dialogs/preferences.ui:45
 msgid "Larger line height"
-msgstr ""
+msgstr "طول خط أكبر"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Makes the line height larger for posts"
