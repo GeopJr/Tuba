@@ -519,6 +519,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	protected bool on_keypress (uint keyval, uint keycode, Gdk.ModifierType state) {
+		state &= Gdk.MODIFIER_MASK;
 		if (state != 0) {
 			if (state != Gdk.ModifierType.CONTROL_MASK && state != (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) return false;
 
