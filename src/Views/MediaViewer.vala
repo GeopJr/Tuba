@@ -529,10 +529,12 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			switch (keyval) {
 				case Gdk.Key.plus:
 				case Gdk.Key.equal:
+				case Gdk.Key.KP_Add:
 					page.zoom_in ();
 					break;
 				case Gdk.Key.minus:
 				case Gdk.Key.underscore:
+				case Gdk.Key.KP_Subtract:
 					page.zoom_out ();
 					break;
 				default:
