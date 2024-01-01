@@ -319,17 +319,6 @@ public class Tuba.Views.Profile : Views.Accounts {
 		return base.append_params (req);
 	}
 
-	public static void open_from_id (string id) {
-		var msg = new Soup.Message ("GET", @"$(accounts.active.instance)/api/v1/accounts/$id");
-		network.queue (msg, null, (in_stream) => {
-			var parser = Network.get_parser_from_inputstream (in_stream);
-			var node = network.parse_node (parser);
-			var acc = API.Account.from (node);
-			app.main_window.open_view (new Views.Profile (acc));
-		},
-		network.on_error);
-	}
-
 	public class RowButton : Gtk.Button {
 		public bool remove { get; set; default = false; }
 	}
