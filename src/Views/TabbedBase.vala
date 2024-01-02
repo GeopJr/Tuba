@@ -52,7 +52,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		}
 
 		set {
-			title_stack.visible_child_name = value ? "title" : "switcher";
+			title_stack.visible_child_name = (value ? "title" : "switcher");
 		}
 	}
 
@@ -70,6 +70,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		bind_property ("label", title_header, "title", BindingFlags.SYNC_CREATE);
 		title_stack.add_named (title_header, "title");
 
+		title_stack_page_visible = false;
 		var condition = new Adw.BreakpointCondition.length (
 			Adw.BreakpointConditionLengthType.MAX_WIDTH,
 			550, Adw.LengthUnit.SP
