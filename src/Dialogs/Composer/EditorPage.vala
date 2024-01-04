@@ -160,7 +160,8 @@ public class Tuba.EditorPage : ComposerPage {
 
 		var keypress_controller = new Gtk.EventControllerKey ();
         keypress_controller.key_pressed.connect ((keyval, _, modifier) => {
-            if (keyval == Gdk.Key.Return && (modifier == Gdk.ModifierType.CONTROL_MASK || modifier == (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.LOCK_MASK))) {
+            modifier &= Gdk.MODIFIER_MASK;
+            if ((keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter) && (modifier == Gdk.ModifierType.CONTROL_MASK || modifier == (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.LOCK_MASK))) {
 				ctrl_return_pressed ();
 				return true;
 			}
