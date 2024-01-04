@@ -12,16 +12,14 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		sidebar.set_sidebar_selected_item (pos);
 	}
 
-	public bool is_mobile { get; set; default = false; }
-
 	Views.Base? last_view = null;
 
 	construct {
 		construct_saveable (settings);
 
 		var gtk_settings = Gtk.Settings.get_default ();
-		breakpoint.add_setter (this, "is-mobile", true);
-		notify["is-mobile"].connect (update_selected_home_item);
+		breakpoint.add_setter (app, "is-mobile", true);
+		app.notify["is-mobile"].connect (update_selected_home_item);
 		media_viewer.bind_property ("visible", split_view, "can-focus", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 		media_viewer.notify["visible"].connect (on_media_viewer_toggle);
 
@@ -194,7 +192,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	public void update_selected_home_item () {
 		if (is_home) {
-			if (is_mobile) {
+			if (app.is_mobile) {
 				set_sidebar_selected_item (0);
 			} else {
 				var main_view = main_page.child as Views.Main;

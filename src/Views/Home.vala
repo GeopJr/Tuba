@@ -38,15 +38,10 @@ public class Tuba.Views.Home : Views.Timeline {
             });
         #endif
 
-        ulong main_window_notify = 0;
-        main_window_notify = app.notify["main-window"].connect (() => {
-			app.disconnect (main_window_notify);
-
-			app.main_window.notify["is-mobile"].connect (() => {
-                if (!app.main_window.is_mobile)
-                        compose_button_rev.reveal_child = true;
-            });
-		});
+        app.notify["is-mobile"].connect (() => {
+            if (!app.is_mobile)
+                    compose_button_rev.reveal_child = true;
+        });
     }
 
     void toggle_scroll_to_top_margin () {
@@ -58,7 +53,7 @@ public class Tuba.Views.Home : Views.Timeline {
     bool last_direction_down = false;
     protected override void on_scrolled_vadjustment_value_change () {
         base.on_scrolled_vadjustment_value_change ();
-        if (app.main_window?.is_mobile != true) return;
+        if (app.is_mobile != true) return;
 
         double trunced = Math.trunc (scrolled.vadjustment.value);
         bool direction_down = trunced == last_adjustment ? last_direction_down : trunced > last_adjustment;

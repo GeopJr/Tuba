@@ -24,14 +24,32 @@ public class Tuba.Views.Main : Views.TabbedBase {
 	//  	app.main_window.update_selected_home_item ();
 	//  }
 
+	private Gtk.Stack title_wrapper_stack;
+	public bool title_wrapper_stack_visible {
+		get {
+			return title_wrapper_stack.visible_child_name == "title";
+		}
+		set {
+			title_wrapper_stack.visible_child_name = (value ? "stack" : "title");
+		}
+	}
+
 	private void bind () {
-		app.main_window.bind_property ("is-mobile", search_button, "visible", GLib.BindingFlags.SYNC_CREATE);
-		app.main_window.bind_property ("is-mobile", switcher_bar, "visible", GLib.BindingFlags.SYNC_CREATE);
-		app.main_window.bind_property ("is-mobile", switcher, "visible", GLib.BindingFlags.SYNC_CREATE);
+		app.bind_property ("is-mobile", search_button, "visible", GLib.BindingFlags.SYNC_CREATE);
+		app.bind_property ("is-mobile", switcher_bar, "visible", GLib.BindingFlags.SYNC_CREATE);
+		app.bind_property ("is-mobile", this, "title-wrapper-stack-visible", GLib.BindingFlags.SYNC_CREATE);
 	}
 
 	public override void build_header () {
 		base.build_header ();
+		header.title_widget = null;
+
+		title_wrapper_stack = new Gtk.Stack ();
+		title_wrapper_stack.add_named (title_stack, "stack");
+		var title_header = new Adw.WindowTitle (label, "");
+		bind_property ("label", title_header, "title", BindingFlags.SYNC_CREATE);
+		title_wrapper_stack.add_named (title_header, "title");
+		header.title_widget = title_wrapper_stack;
 
 		search_button = new Gtk.Button () {
 			icon_name = "tuba-loupe-large-symbolic",
@@ -44,6 +62,7 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		header.pack_start (sidebar_button);
 		sidebar_button.icon_name = "tuba-dock-left-symbolic";
 
+		bind ();
 		ulong main_window_notify = 0;
 		main_window_notify = app.notify["main-window"].connect (() => {
 			if (app.main_window == null) {
@@ -51,7 +70,6 @@ public class Tuba.Views.Main : Views.TabbedBase {
 				return;
 			}
 
-			bind ();
 			app.main_window.split_view.bind_property (
 				"collapsed",
 				sidebar_button,
