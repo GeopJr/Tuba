@@ -30,7 +30,7 @@
             </child>
             <child>
               <object class="AdwSwitchRow" id="hide_from_home_row">
-                <property name="title" translatable="yes">Hide these posts from home</property>
+                <property name="title" translatable="yes">Hide Posts From Home</property>
               </object>
             </child>
           </object>
