@@ -143,7 +143,7 @@
 						<child>
 							<object class="AdwSwitchRow" id="advanced_boost_dialog">
 								<property name="title" translatable="yes">Advanced Boost Dialog</property>
-								<property name="subtitle" translatable="yes">Change boost visibility, quote, and confirm boosting</property>
+								<property name="subtitle" translatable="yes">Change boost visibility, quote and confirm boosting</property>
 							</object>
 						</child>
 					</object>
