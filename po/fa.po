@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Sajad Mousavi <s.sajad.mousavi@gmail.com>, 2023.
-# Danial Behzadi <dani.behzi@ubuntu.com>, 2023.
+# Danial Behzadi <dani.behzi@ubuntu.com>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-12-28 19:08+0000\n"
+"PO-Revision-Date: 2024-01-07 12:06+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
 "Language: fa\n"
@@ -931,7 +931,7 @@ msgstr "نمایش مجموع رأی‌ها"
 #: src/Dialogs/Composer/PollPage.vala:223
 #, c-format
 msgid "Choice %d"
-msgstr "گزینهٔ %dI"
+msgstr "گزینهٔ %Id"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:232
@@ -945,7 +945,7 @@ msgstr "%Id دقیقه"
 #: src/Dialogs/Composer/PollPage.vala:235
 #, c-format
 msgid "%dm"
-msgstr "%dIد"
+msgstr "%Idد"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:237
