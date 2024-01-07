@@ -519,6 +519,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	protected bool on_keypress (uint keyval, uint keycode, Gdk.ModifierType state) {
+		state &= Gdk.MODIFIER_MASK;
 		if (state != 0) {
 			if (state != Gdk.ModifierType.CONTROL_MASK && state != (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) return false;
 
@@ -528,10 +529,12 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			switch (keyval) {
 				case Gdk.Key.plus:
 				case Gdk.Key.equal:
+				case Gdk.Key.KP_Add:
 					page.zoom_in ();
 					break;
 				case Gdk.Key.minus:
 				case Gdk.Key.underscore:
+				case Gdk.Key.KP_Subtract:
 					page.zoom_out ();
 					break;
 				default:

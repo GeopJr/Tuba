@@ -161,14 +161,7 @@ public class Tuba.DateTime {
 		var now = new GLib.DateTime.now_local ();
 		if (now.difference (date) < 0) return false;
 
-		var date_month = date.get_month ();
-		var now_month = now.get_month ();
-
-		if (date.get_year () == now.get_year ()) {
-			return now_month - date_month > 3;
-		} else {
-			return now_month + 12 - date_month > 3;
-		}
+		return now.get_month () + 12 * (now.get_year () - date.get_year ()) - date.get_month () > 3;
 	}
 
 	public static bool is_same_day (GLib.DateTime d1, GLib.DateTime d2) {

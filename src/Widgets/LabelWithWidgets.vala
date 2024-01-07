@@ -164,13 +164,20 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
                         Pango.Rectangle logical_rect;
                         run_iter.get_run_extents (null, out logical_rect);
 
+                        //  int orig_x = logical_rect.x;
+                        //  int orig_y = logical_rect.y;
+                        logical_rect.x = pango_pixels (logical_rect.x);
+                        logical_rect.y = pango_pixels (logical_rect.y);
+                        //  logical_rect.width = pango_pixels (orig_x + logical_rect.width, 1024) - logical_rect.x;
+                        //  logical_rect.height = pango_pixels (orig_y + logical_rect.height, 1024) - logical_rect.y;
+
                         int offset_x;
                         int offset_y;
                         label.get_layout_offsets (out offset_x, out offset_y);
 
                         var allocation = Gtk.Allocation () {
-                            x = pango_pixels (logical_rect.x) + offset_x,
-                            y = pango_pixels (logical_rect.y) + offset_y,
+                            x = logical_rect.x + offset_x,
+                            y = logical_rect.y + offset_y,
                             height = widgets[i].height,
                             width = widgets[i].width
                         };
@@ -271,8 +278,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         this.queue_resize ();
     }
 
-    private int pango_pixels (int d) {
-        return (d + 512) >> 10;
+    private int pango_pixels (int d, int a = 0) {
+        return (d + a) >> 10;
     }
 
     public void add_child (Gtk.Builder builder, GLib.Object child, string? type) {
