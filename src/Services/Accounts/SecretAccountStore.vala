@@ -13,7 +13,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		schema_attributes["version"] = Secret.SchemaAttributeType.STRING;
 		schema = new Secret.Schema.newv (
 			Build.DOMAIN,
-			Secret.SchemaFlags.NONE,
+			Secret.SchemaFlags.DONT_MATCH_NAME,
 			schema_attributes
 		);
 
@@ -61,6 +61,19 @@ public class Tuba.SecretAccountStore : AccountStore {
 		}
 
 		secrets.foreach (item => {
+			// HACK for DONT_MATCH_NAME
+			// https://github.com/GeopJr/Tuba/pull/701
+			// "Mastodon Account" is not meant to be static
+			// and might be affected by translations, so
+			// just keep it as a fallback if xdg:schema
+			// is not available
+
+			bool skip_secret = item.label != _("Mastodon Account");
+			if (item.attributes.contains ("xdg:schema")) {
+				skip_secret = item.attributes.get ("xdg:schema") != Build.DOMAIN;
+			}
+			if (skip_secret) return;
+
 			// TODO: remove uuid fallback
 			bool force_save = false;
 			var account = secret_to_account (item, out force_save);
