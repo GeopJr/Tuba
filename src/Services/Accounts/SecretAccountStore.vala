@@ -135,9 +135,6 @@ public class Tuba.SecretAccountStore : AccountStore {
 		var builder = new Json.Builder ();
 		builder.begin_object ();
 
-		builder.set_member_name ("tuba-id");
-		builder.add_string_value (Build.DOMAIN);
-
 		builder.set_member_name ("id");
 		builder.add_string_value (account.id);
 
@@ -245,15 +242,12 @@ public class Tuba.SecretAccountStore : AccountStore {
 			// HACK: Partial makeshift secret validation
 			// see #742 #701 #114
 			if (
-				(!root_obj.has_member ("tuba-id") || root_obj.get_string_member ("tuba-id") != Build.DOMAIN)
-				&& (
-					!root_obj.has_member ("backend")
-					|| !root_obj.has_member ("acct")
-					|| !root_obj.has_member ("id")
-					|| !root_obj.has_member ("client-secret")
-					|| !root_obj.has_member ("client-id")
-					|| !root_obj.has_member ("access-token")
-				)
+				!root_obj.has_member ("backend")
+				|| !root_obj.has_member ("acct")
+				|| !root_obj.has_member ("id")
+				|| !root_obj.has_member ("client-secret")
+				|| !root_obj.has_member ("client-id")
+				|| !root_obj.has_member ("access-token")
 			) return null;
 
 			// TODO: remove uuid fallback
