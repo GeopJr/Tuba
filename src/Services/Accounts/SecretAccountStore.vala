@@ -61,19 +61,6 @@ public class Tuba.SecretAccountStore : AccountStore {
 		}
 
 		secrets.foreach (item => {
-			// HACK for DONT_MATCH_NAME
-			// https://github.com/GeopJr/Tuba/pull/701
-			// "Mastodon Account" is not meant to be static
-			// and might be affected by translations, so
-			// just keep it as a fallback if xdg:schema
-			// is not available
-
-			bool skip_secret = item.label != _("Mastodon Account");
-			if (item.attributes.contains ("xdg:schema")) {
-				skip_secret = item.attributes.get ("xdg:schema") != Build.DOMAIN;
-			}
-			if (skip_secret) return;
-
 			// TODO: remove uuid fallback
 			bool force_save = false;
 			var account = secret_to_account (item, out force_save);
@@ -147,6 +134,9 @@ public class Tuba.SecretAccountStore : AccountStore {
 		// Save only what we need
 		var builder = new Json.Builder ();
 		builder.begin_object ();
+
+		builder.set_member_name ("tuba-id");
+		builder.add_string_value (Build.DOMAIN);
 
 		builder.set_member_name ("id");
 		builder.add_string_value (account.id);
@@ -249,9 +239,25 @@ public class Tuba.SecretAccountStore : AccountStore {
 			var parser = new Json.Parser ();
 			parser.load_from_data (contents, -1);
 
-			// TODO: remove uuid fallback
 			var root = parser.get_root ();
-			bool had_uuid = root.get_object ().has_member ("uuid");
+			var root_obj = root.get_object ();
+
+			// HACK: Partial makeshift secret validation
+			// see #742 #701 #114
+			if (
+				(!root_obj.has_member ("tuba-id") || root_obj.get_string_member ("tuba-id") != Build.DOMAIN)
+				&& (
+					!root_obj.has_member ("backend")
+					|| !root_obj.has_member ("acct")
+					|| !root_obj.has_member ("id")
+					|| !root_obj.has_member ("client-secret")
+					|| !root_obj.has_member ("client-id")
+					|| !root_obj.has_member ("access-token")
+				)
+			) return null;
+
+			// TODO: remove uuid fallback
+			bool had_uuid = root_obj.has_member ("uuid");
 			account = accounts.create_account (root);
 
 			// TODO: remove uuid fallback
