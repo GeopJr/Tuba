@@ -68,10 +68,14 @@ public class Tuba.SecretAccountStore : AccountStore {
 			// just keep it as a fallback if xdg:schema
 			// is not available
 
+			string debug_log = @"SECRET-DEBUG:\nlabel: $(item.label)\nhas_schema: $(item.attributes.contains ("xdg:schema"))\n";
 			bool skip_secret = item.label != _("Mastodon Account");
 			if (item.attributes.contains ("xdg:schema")) {
 				skip_secret = item.attributes.get ("xdg:schema") != Build.DOMAIN;
+				debug_log += @"schema: $(item.attributes.get ("xdg:schema"))\ndomain: $(Build.DOMAIN)\n";
 			}
+			debug_log += @"skip: $(skip_secret)";
+			critical (debug_log);
 			if (skip_secret) return;
 
 			// TODO: remove uuid fallback
