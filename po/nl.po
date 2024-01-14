@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-09-24 07:18+0000\n"
+"PO-Revision-Date: 2023-12-28 19:08+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -66,7 +66,7 @@ msgstr "Algemeen"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "Voorkeuren tonen"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose a new post"
@@ -123,7 +123,7 @@ msgstr "Mediaweergave"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "Volledig scherm"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:148
 msgid "Zoom In"
@@ -144,22 +144,22 @@ msgstr "Volgende bijlage"
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "Inzoomen"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Uitzoomen"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Vorige bijlage"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Next Attachment"
-msgstr ""
+msgstr "Volgende bijlage"
 
 #: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:22
 #: data/ui/dialogs/profile_edit.ui:22 src/API/Status/PreviewCard.vala:164
@@ -372,7 +372,7 @@ msgstr "Kan leiden tot incorrecte links"
 
 #: data/ui/dialogs/preferences.ui:145
 msgid "Advanced boost dialog"
-msgstr ""
+msgstr "Geavanceerde boost-dialoog"
 
 #: data/ui/dialogs/preferences.ui:146
 msgid "Change boost visibility, quote and confirm boosting"
@@ -1190,19 +1190,19 @@ msgstr "verloopt binnenkort"
 #: src/Utils/DateTime.vala:14
 #, c-format
 msgid "%sm left"
-msgstr ""
+msgstr "%s m resterend"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:18
 #, c-format
 msgid "%sh left"
-msgstr ""
+msgstr "%s u resterend"
 
 #. tranlators: the variable is a number, `d` as in days in short form
 #: src/Utils/DateTime.vala:22
 #, c-format
 msgid "%sd left"
-msgstr ""
+msgstr "%s d resterend"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -1228,13 +1228,13 @@ msgstr "zojuist verlopen"
 #: src/Utils/DateTime.vala:47
 #, c-format
 msgid "expired %sm ago"
-msgstr ""
+msgstr "%s m geleden verlopen"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:52
 #, c-format
 msgid "expired %sh ago"
-msgstr ""
+msgstr "%s u geleden verlopen"
 
 #: src/Utils/DateTime.vala:55
 msgid "expired yesterday"
@@ -1271,13 +1271,13 @@ msgstr "Zojuist"
 #: src/Utils/DateTime.vala:86
 #, c-format
 msgid "%sm"
-msgstr ""
+msgstr "%s m"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:91
 #, c-format
 msgid "%sh"
-msgstr ""
+msgstr "%s u"
 
 #: src/Utils/DateTime.vala:94
 msgid "Yesterday"
@@ -1317,7 +1317,7 @@ msgstr[1] ""
 #: src/Utils/DateTime.vala:140 src/Utils/DateTime.vala:154
 #, c-format
 msgid "%d months old"
-msgstr ""
+msgstr "%d maand(en) oud"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:146
@@ -1425,7 +1425,7 @@ msgstr ""
 
 #: src/Views/MediaViewer.vala:936 src/Widgets/Attachment/Image.vala:85
 msgid "Copied image to clipboard"
-msgstr ""
+msgstr "Afbeelding naar klembord gekopieerd"
 
 #: src/Views/Profile.vala:34
 msgid "Profile"
@@ -1433,7 +1433,7 @@ msgstr "Profiel"
 
 #: src/Views/Profile.vala:224
 msgid "Copied handle to clipboard"
-msgstr ""
+msgstr "Handle gekopieerd naar klembord"
 
 #: src/Views/Profile.vala:256
 #, c-format
@@ -1543,7 +1543,7 @@ msgstr "Sneltoetsen"
 #: src/Views/Sidebar.vala:35
 #, c-format
 msgid "About %s"
-msgstr ""
+msgstr "Over %s"
 
 #. translators: the variable is an account handle
 #: src/Views/Sidebar.vala:217
@@ -1579,11 +1579,11 @@ msgstr "Gesprek"
 
 #: src/Views/Thread.vala:104 src/Views/Thread.vala:118
 msgid "Reveal Spoilers"
-msgstr ""
+msgstr "Spoilers weergeven"
 
 #: src/Views/Thread.vala:118
 msgid "Hide Spoilers"
-msgstr ""
+msgstr "Spoilers verbergen"
 
 #: src/Views/Timeline.vala:221 src/Widgets/Status/ActionsRow.vala:343
 msgid "Network Error"
@@ -1615,7 +1615,7 @@ msgstr "Bijlage opslaan"
 
 #: src/Widgets/Attachment/Item.vala:47
 msgid "Saved Media"
-msgstr ""
+msgstr "Opgeslagen media"
 
 #: src/Widgets/Attachment/Item.vala:117
 msgid "View Alt Text"
@@ -1756,7 +1756,7 @@ msgstr "Aan bladwijzers toevoegen"
 #: src/Widgets/Status/ActionsRow.vala:123
 #, c-format
 msgid "This post is %s"
-msgstr ""
+msgstr "Dit bericht is %s"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon-android/tree/master/mastodon/src/main/res
 #. in the `strings.xml` file inside the `values-` folder that matches your locale under the `old_post_sheet_text` key
@@ -1766,15 +1766,15 @@ msgstr ""
 
 #: src/Widgets/Status/ActionsRow.vala:128
 msgid "Don't remind me again"
-msgstr ""
+msgstr "Herinner mij niet opnieuw"
 
 #: src/Widgets/Status/ActionsRow.vala:229
 msgid "Boost with Visibility"
-msgstr ""
+msgstr "Boosten met zichtbaarheid"
 
 #: src/Widgets/Status/ActionsRow.vala:236
 msgid "Quote"
-msgstr ""
+msgstr "Citatie"
 
 #: src/Widgets/VoteBox.vala:12
 msgid "Vote"

@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# xabirequejo <xabi.rn@gmail.com>, 2023.
+# xabirequejo <xabi.rn@gmail.com>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-12-11 14:46+0000\n"
+"PO-Revision-Date: 2024-01-14 12:31+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -289,12 +289,13 @@ msgstr "Handitu zerbitzariko emojiak"
 
 #: data/ui/dialogs/preferences.ui:56
 msgid "Scale up custom emojis on hover"
-msgstr "Handitu emojiak sagua gainetik pasatzean"
+msgstr "Handitu emojiak sagua gainean jartzean"
 
 #: data/ui/dialogs/preferences.ui:57
 msgid "Makes custom emojis slightly bigger when you hover over them"
 msgstr ""
-"Zerbitzariko emojiak apur bat handitzen ditu sagua gainetik pasatzen duzunean"
+"Zerbitzariko emojiak apur bat handiagotuko ditu sagua gainean jartzen "
+"duzunean"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:63
