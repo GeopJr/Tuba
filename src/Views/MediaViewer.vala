@@ -292,6 +292,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	[GtkChild] unowned Gtk.PopoverMenu context_menu;
 	[GtkChild] unowned Gtk.Button fullscreen_btn;
 	[GtkChild] unowned Adw.HeaderBar headerbar;
+	[GtkChild] unowned Gtk.Button back_btn;
 
 	[GtkChild] unowned Gtk.Revealer page_buttons_revealer;
 	[GtkChild] unowned Gtk.Button prev_btn;
@@ -313,6 +314,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	construct {
+		if (is_rtl) back_btn.icon_name = "tuba-right-large-symbolic";
 		// Move between media using the arrow keys
 		var keypresscontroller = new Gtk.EventControllerKey ();
 		keypresscontroller.key_pressed.connect (on_keypress);
