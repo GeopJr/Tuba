@@ -50,7 +50,7 @@ public class Tuba.Helper.Image {
 	}
 
 	public static void request_paintable (string? url, string? blurhash, owned OnItemChangedFn cb) {
-		if (url == null) return;
+		if (url == null || url == "") return;
 		new Helper.Image ();
 		bool has_loaded = false;
 		cb (null);

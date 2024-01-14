@@ -13,7 +13,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		schema_attributes["version"] = Secret.SchemaAttributeType.STRING;
 		schema = new Secret.Schema.newv (
 			Build.DOMAIN,
-			Secret.SchemaFlags.NONE,
+			Secret.SchemaFlags.DONT_MATCH_NAME,
 			schema_attributes
 		);
 
@@ -236,9 +236,22 @@ public class Tuba.SecretAccountStore : AccountStore {
 			var parser = new Json.Parser ();
 			parser.load_from_data (contents, -1);
 
-			// TODO: remove uuid fallback
 			var root = parser.get_root ();
-			bool had_uuid = root.get_object ().has_member ("uuid");
+			var root_obj = root.get_object ();
+
+			// HACK: Partial makeshift secret validation
+			// see #742 #701 #114
+			if (
+				!root_obj.has_member ("backend")
+				|| !root_obj.has_member ("acct")
+				|| !root_obj.has_member ("id")
+				|| !root_obj.has_member ("client-secret")
+				|| !root_obj.has_member ("client-id")
+				|| !root_obj.has_member ("access-token")
+			) return null;
+
+			// TODO: remove uuid fallback
+			bool had_uuid = root_obj.has_member ("uuid");
 			account = accounts.create_account (root);
 
 			// TODO: remove uuid fallback
