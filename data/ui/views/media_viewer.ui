@@ -46,7 +46,7 @@
 									</object>
 								</property>
 								<child type="start">
-									<object class="GtkButton">
+									<object class="GtkButton" id="back_btn">
 										<property name="icon-name">tuba-left-large-symbolic</property>
 										<property name="tooltip-text" translatable="yes">Go Back</property>
 										<signal name="clicked" handler="clear" swapped="no" />
