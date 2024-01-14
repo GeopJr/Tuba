@@ -146,7 +146,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		) return view;
 
 		Adw.NavigationPage page = new Adw.NavigationPage (view, view.label);
-		if (view.is_sidebar_item && navigation_view.visible_page != main_page) {
+		if (view.is_sidebar_item) {
 			navigation_view.replace ({ main_page, page });
 		} else {
 			navigation_view.push (page);
