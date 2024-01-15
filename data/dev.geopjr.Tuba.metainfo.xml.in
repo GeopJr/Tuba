@@ -54,6 +54,24 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.6.2" date="2024-01-15">
+      <description translatable="no">
+        <ul>
+            <li>Fixed incorrect DateTime calculation on very old posts</li>
+            <li>Fixed MediaViewer not handling all instances of some keybinds</li>
+            <li>Fixed sidebar headerbar account switcher button having multiple focus targets</li>
+            <li>Fixed mentions not opening on GoToSocial</li>
+            <li>Fixed some edge cases that would leave the view without a switcher</li>
+            <li>Fixed narrow mode not showing a back button</li>
+            <li>Fixed keyring not being unlocked when looking up secrets</li>
+            <li>Fixed incorrect LabelWithWidgets size calculation</li>
+            <li>Fixed segfault on friendica when handling empty image urls</li>
+            <li>Fixed MediaViewer back button showing incorrect icon on RTL</li>
+            <li>Switched to replacing the whole Navigation stack when selecting a sidebar item</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.6.1" date="2023-12-23">
       <description translatable="no">
         <ul>
