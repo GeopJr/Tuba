@@ -76,6 +76,9 @@ public class Tuba.Streams : Object {
 					socket.message.connect (on_message);
 				} catch (Error e) {
 					warning (@"Error opening stream: $(e.message)");
+					if (e.matches (Quark.from_string ("g-tls-error-quark"), 3) || e.matches (Quark.from_string ("g-io-error-quark"), 44)) {
+						on_closed ();
+					}
 				}
 			});
 			return false;
