@@ -76,6 +76,9 @@ public class Tuba.Streams : Object {
 					socket.message.connect (on_message);
 				} catch (Error e) {
 					warning (@"Error opening stream: $(e.message)");
+					if (e.code == 3 || e.code == 44) {
+						on_closed ();
+					}
 				}
 			});
 			return false;
