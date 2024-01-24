@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Leo Li <leoli@6leo6.com>, 2023.
 # valigarmanda <valigarmanda55@gmail.com>, 2023.
+# Poesty Li <poesty7450@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-05-01 17:51+0000\n"
-"Last-Translator: valigarmanda <valigarmanda55@gmail.com>\n"
+"PO-Revision-Date: 2024-01-25 13:01+0000\n"
+"Last-Translator: Poesty Li <poesty7450@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "tuba/tuba/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -33,7 +34,7 @@ msgstr "Fediverse 客户端"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr ""
+msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
@@ -63,11 +64,11 @@ msgstr "通用"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "显示首选项"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose a new post"
-msgstr ""
+msgstr "撰写新帖文"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:29
 msgid "Refresh"
@@ -84,15 +85,15 @@ msgstr "返回"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "显示键盘快捷键"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
-msgstr ""
+msgstr "关闭窗口"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Quit"
-msgstr ""
+msgstr "退出"
 
 #: data/gtk/help-overlay.ui:62
 msgid "About"
@@ -100,19 +101,19 @@ msgstr "关于"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Up"
-msgstr ""
+msgstr "向上滚动"
 
 #: data/gtk/help-overlay.ui:74
 msgid "Scroll Down"
-msgstr ""
+msgstr "向下滚动"
 
 #: data/gtk/help-overlay.ui:82
 msgid "Composer"
-msgstr ""
+msgstr "撰写者"
 
 #: data/gtk/help-overlay.ui:85
 msgid "Commit"
-msgstr ""
+msgstr "提交"
 
 #: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:42
 msgid "Media Viewer"
@@ -120,43 +121,43 @@ msgstr "媒体查看其"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "全屏"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:148
 msgid "Zoom In"
-msgstr ""
+msgstr "放大"
 
 #: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:136
 msgid "Zoom Out"
-msgstr ""
+msgstr "缩小"
 
 #: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:94
 msgid "Previous Attachment"
-msgstr ""
+msgstr "上一个附件"
 
 #: data/gtk/help-overlay.ui:120 data/ui/views/media_viewer.ui:106
 msgid "Next Attachment"
-msgstr ""
+msgstr "下一个附件"
 
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "放大"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "缩小"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr ""
+msgstr "上一个附件"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Next Attachment"
-msgstr ""
+msgstr "下一个附件"
 
 #: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:22
 #: data/ui/dialogs/profile_edit.ui:22 src/API/Status/PreviewCard.vala:164
@@ -185,7 +186,7 @@ msgstr "列表名称"
 
 #: data/ui/dialogs/list_edit.ui:33
 msgid "Hide these posts from home"
-msgstr ""
+msgstr "从主页隐藏这些帖文"
 
 #: data/ui/dialogs/list_edit.ui:40
 msgid "Replies Policy"
@@ -282,41 +283,41 @@ msgstr "加大帖子行间距"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Enlarge custom emojis"
-msgstr ""
+msgstr "放大自定义表情"
 
 #: data/ui/dialogs/preferences.ui:56
 msgid "Scale up custom emojis on hover"
-msgstr ""
+msgstr "悬停时放大自定义表情"
 
 #: data/ui/dialogs/preferences.ui:57
 msgid "Makes custom emojis slightly bigger when you hover over them"
-msgstr ""
+msgstr "将鼠标悬停在自定义表情上时，使其略微变大"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:63
 msgid "Letterbox Media"
-msgstr ""
+msgstr "信箱媒体"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:65
 msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
-msgstr ""
+msgstr "缩小媒体以填充图像容器，而不是拉伸和裁剪它们"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:71
 msgid "Expand pictures in media viewer"
-msgstr ""
+msgstr "在媒体查看器中展开图片"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:73
 msgid "Expand pictures to fill the media viewer by default"
-msgstr ""
+msgstr "默认情况下，展开图片以填充媒体查看器"
 
 #: data/ui/dialogs/preferences.ui:79
 msgid "Show a blurred version of the media until they fully load"
-msgstr ""
+msgstr "在完全加载之前显示模糊版本的媒体"
 
 #: data/ui/dialogs/preferences.ui:84
 msgid "Reveal spoilers by default"
@@ -324,23 +325,23 @@ msgstr "默认显示隐藏内"
 
 #: data/ui/dialogs/preferences.ui:89
 msgid "Show link preview cards"
-msgstr ""
+msgstr "显示链接预览卡片"
 
 #: data/ui/dialogs/preferences.ui:96
 msgid "Posting"
-msgstr ""
+msgstr "发布中"
 
 #: data/ui/dialogs/preferences.ui:99
 msgid "Default post visibility"
-msgstr ""
+msgstr "默认帖文可见性"
 
 #: data/ui/dialogs/preferences.ui:108
 msgid "Default post language"
-msgstr ""
+msgstr "默认帖文语言"
 
 #: data/ui/dialogs/preferences.ui:118
 msgid "Default post content type"
-msgstr ""
+msgstr "默认帖文内容类型"
 
 #: data/ui/dialogs/preferences.ui:129
 msgid "Behavior"
@@ -356,20 +357,20 @@ msgstr "即使应用程序关闭也接收通知"
 
 #: data/ui/dialogs/preferences.ui:138
 msgid "Strip tracking parameters from links"
-msgstr ""
+msgstr "从链接中删除跟踪参数"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:140
 msgid "It can lead to broken links"
-msgstr ""
+msgstr "它可能会导致链接失效"
 
 #: data/ui/dialogs/preferences.ui:145
 msgid "Advanced boost dialog"
-msgstr ""
+msgstr "高级转发对话框"
 
 #: data/ui/dialogs/preferences.ui:146
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr ""
+msgstr "更改转发可见范围、引用和确认转发"
 
 #: data/ui/dialogs/preferences.ui:153
 msgid "Timelines"
@@ -404,15 +405,15 @@ msgstr "通知"
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:186
 msgid "Push Notifications"
-msgstr ""
+msgstr "推送通知"
 
 #: data/ui/dialogs/preferences.ui:189
 msgid "New Followers"
-msgstr ""
+msgstr "新的关注者"
 
 #: data/ui/dialogs/preferences.ui:195
 msgid "New Follower Requests"
-msgstr ""
+msgstr "新的关注者请求"
 
 #: data/ui/dialogs/preferences.ui:201
 #: src/Services/Accounts/Mastodon/Account.vala:77 src/Views/Favorites.vala:4
@@ -421,33 +422,33 @@ msgstr "喜欢"
 
 #: data/ui/dialogs/preferences.ui:207
 msgid "Mentions"
-msgstr ""
+msgstr "提及"
 
 #: data/ui/dialogs/preferences.ui:213
 msgid "Boosts"
-msgstr ""
+msgstr "转发"
 
 #: data/ui/dialogs/preferences.ui:219
 msgid "Poll Results"
-msgstr ""
+msgstr "投票结果"
 
 #: data/ui/dialogs/preferences.ui:225
 msgid "Edits"
-msgstr ""
+msgstr "编辑"
 
 #: data/ui/dialogs/preferences.ui:231
 msgid "Group"
-msgstr ""
+msgstr "群组"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/ui/dialogs/preferences.ui:233
 msgid ""
 "Combine recently pushed notifications of the same type and post into one"
-msgstr ""
+msgstr "将最近推送的相同类型通知合并为一个通知"
 
 #: data/ui/dialogs/profile_edit.ui:13 src/Views/Profile.vala:135
 msgid "Edit Profile"
-msgstr ""
+msgstr "编辑个人资料"
 
 #: data/ui/dialogs/profile_edit.ui:29
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:151
@@ -456,30 +457,30 @@ msgstr "保存"
 
 #: data/ui/dialogs/profile_edit.ui:67
 msgid "Edit Profile Picture"
-msgstr ""
+msgstr "编辑个人资料图片"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:96
 msgid "Edit Header Picture"
-msgstr ""
+msgstr "编辑横幅图片"
 
 #: data/ui/dialogs/profile_edit.ui:121
 msgid "Display Name"
-msgstr ""
+msgstr "显示名称"
 
 #. translators: profile bio or description
 #: data/ui/dialogs/profile_edit.ui:129
 msgid "Bio"
-msgstr ""
+msgstr "简介"
 
 #: data/ui/dialogs/profile_edit.ui:140 src/Dialogs/Composer/EditorPage.vala:242
 msgid "Custom Emoji Picker"
-msgstr ""
+msgstr "自定义表情选择器"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:164
 msgid "Fields"
-msgstr ""
+msgstr "字段"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
@@ -500,7 +501,7 @@ msgstr "在浏览器中打开"
 
 #: data/ui/menus.ui:33
 msgid "Notify me on new posts"
-msgstr ""
+msgstr "有新帖文时通知我"
 
 #: data/ui/menus.ui:39
 msgid "Moderation"
@@ -558,11 +559,11 @@ msgstr "保存媒体"
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:189
 msgid "Copy Media"
-msgstr ""
+msgstr "复制媒体"
 
 #: data/ui/views/media_viewer.ui:59 data/ui/views/sidebar/view.ui:54
 msgid "Menu"
-msgstr ""
+msgstr "菜单"
 
 #: data/ui/views/media_viewer.ui:66
 msgid "Toggle Fullscreen"
@@ -571,12 +572,12 @@ msgstr "切换全屏"
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:35
 msgid "Bot"
-msgstr ""
+msgstr "机器人"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:38
 msgid "Forget Account"
-msgstr ""
+msgstr "忘记账号"
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
@@ -584,7 +585,7 @@ msgstr "切换账户"
 
 #: data/ui/widgets/announcement.ui:88
 msgid "Unread"
-msgstr ""
+msgstr "未读"
 
 #: data/ui/widgets/announcement.ui:99 data/ui/widgets/status.ui:173
 msgid "Edited"
@@ -597,7 +598,7 @@ msgstr "已置顶"
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:231
 msgid "Show Less"
-msgstr ""
+msgstr "显示更少"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:264 src/Widgets/Status.vala:353
@@ -622,7 +623,7 @@ msgstr "错误"
 #: src/API/Conversation.vala:31
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "与 %s 的空对话"
 
 #: src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:158
@@ -630,26 +631,26 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:163
 #: src/Widgets/CustomEmojiChooser.vala:166
 msgid "Other"
-msgstr ""
+msgstr "其他"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
 #: src/API/Notification.vala:28
 #, c-format
 msgid "%s (& %d others)"
-msgstr ""
+msgstr "%s（和其他 %d 人）"
 
 #: src/API/Notification.vala:51
 msgid "Reply…"
-msgstr ""
+msgstr "回复…"
 
 #: src/API/Notification.vala:59
 msgid "Remove from Followers"
-msgstr ""
+msgstr "从关注者中移除"
 
 #: src/API/Notification.vala:64
 msgid "Follow Back"
-msgstr ""
+msgstr "回关"
 
 #: src/API/Notification.vala:71 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
@@ -679,53 +680,53 @@ msgstr "搜索无结果"
 #: src/API/Status/PreviewCard.vala:25
 #, c-format
 msgid "You are about to open a %s video"
-msgstr ""
+msgstr "你将要打开一个 %s 视频"
 
 #. translators: the variable is an external service like "Funkwhale",
 #. track as in song
 #: src/API/Status/PreviewCard.vala:29
 #, c-format
 msgid "You are about to open a %s track"
-msgstr ""
+msgstr "你将要打开一个 %s 曲目"
 
 #. translators: the variable is an external service like "BookWyrm"
 #: src/API/Status/PreviewCard.vala:32
 #, c-format
 msgid "You are about to open a %s book"
-msgstr ""
+msgstr "你将要打开一本 %s 书籍"
 
 #. translators: the variable is the app name (Tuba)
 #: src/API/Status/PreviewCard.vala:35
 #, c-format
 msgid "You are about to leave %s"
-msgstr ""
+msgstr "你将要离开 %s"
 
 #. translators: the variable is a url
 #: src/API/Status/PreviewCard.vala:48
 #, c-format
 msgid "If you proceed, \"%s\" will open in your browser."
-msgstr ""
+msgstr "如果继续，\"%s\" 将在你的浏览器中打开。"
 
 #. translators: the first variable is the app name (Tuba),
 #. the second one is a url
 #: src/API/Status/PreviewCard.vala:52
 #, c-format
 msgid "If you proceed, %s will connect to \"%s\"."
-msgstr ""
+msgstr "如果继续，%s 将连接到 \"%s\"。"
 
 #: src/API/Status/PreviewCard.vala:164
 msgid "Proceed"
-msgstr ""
+msgstr "继续"
 
 #: src/API/Suggestion.vala:12
 msgid "Account not found"
-msgstr ""
+msgstr "找不到账号"
 
 #. translators: the variable is the amount of times a hashtag was used in a week
 #: src/API/Tag.vala:45
 #, c-format
 msgid "%d per week"
-msgstr ""
+msgstr "每周 %d 次"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:59
@@ -743,20 +744,20 @@ msgstr "过去两天被使用%d次，人数%d"
 #: src/Application.vala:291
 #, c-format
 msgid "'%s://' may only be used when adding a new account"
-msgstr ""
+msgstr "只有在添加新账号时才能使用 '%s://'"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:298
 #, c-format
 msgid "'%s://' may not be used when adding a new account"
-msgstr ""
+msgstr "在添加新账号时不能使用 '%s://'"
 
 #. translators: the first variable is the app name ('Tuba'),
 #. the second one is a uri scheme like 'https'
 #: src/Application.vala:305
 #, c-format
 msgid "%s does not accept '%s://'"
-msgstr ""
+msgstr "%s 不接受 '%s://'"
 
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:450
@@ -765,7 +766,7 @@ msgstr "Leo Li <leoli@6leo6.com>"
 
 #: src/Application.vala:477
 msgid "OK"
-msgstr ""
+msgstr "确定"
 
 #: src/Application.vala:502
 msgid "Yes"
@@ -781,7 +782,7 @@ msgstr "媒体"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:76
 msgid "Paste"
-msgstr ""
+msgstr "粘贴"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:212
 #: src/Dialogs/Composer/AttachmentsPage.vala:238
@@ -830,19 +831,19 @@ msgstr "剩余字符"
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:166
 #: src/Widgets/Attachment/Item.vala:166
 msgid "Alternative text for attachment"
-msgstr ""
+msgstr "附件的替代文本"
 
 #: src/Dialogs/Composer/Dialog.vala:205
 msgid "Are you sure you want to exit?"
-msgstr ""
+msgstr "你确定要退出吗？"
 
 #: src/Dialogs/Composer/Dialog.vala:206
 msgid "Your progress will be lost."
-msgstr ""
+msgstr "你的进度将会丢失。"
 
 #: src/Dialogs/Composer/Dialog.vala:208
 msgid "Discard"
-msgstr ""
+msgstr "放弃"
 
 #: src/Dialogs/Composer/Dialog.vala:288
 msgid "_Redraft"
@@ -883,66 +884,66 @@ msgstr "发布隐私设置"
 
 #: src/Dialogs/Composer/EditorPage.vala:337
 msgid "Post Language"
-msgstr ""
+msgstr "发布语言"
 
 #: src/Dialogs/Composer/EditorPage.vala:362
 msgid "Post Content Type"
-msgstr ""
+msgstr "发布内容类型"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr ""
+msgstr "投票"
 
 #. translators: tooltip on a button that appends another poll entry / option
 #: src/Dialogs/Composer/PollPage.vala:114
 msgid "Add Poll"
-msgstr ""
+msgstr "添加投票"
 
 #: src/Dialogs/Composer/PollPage.vala:123
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Enable Multiple Choice"
-msgstr ""
+msgstr "启用多选"
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Disable Multiple Choice"
-msgstr ""
+msgstr "禁用多选"
 
 #: src/Dialogs/Composer/PollPage.vala:145
 #: src/Dialogs/Composer/PollPage.vala:159
 msgid "Hide Total Votes"
-msgstr ""
+msgstr "隐藏总投票数"
 
 #: src/Dialogs/Composer/PollPage.vala:159
 msgid "Show Total Votes"
-msgstr ""
+msgstr "显示总投票数"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:188
 #: src/Dialogs/Composer/PollPage.vala:223
 #, c-format
 msgid "Choice %d"
-msgstr ""
+msgstr "选项 %d"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:232
 #: src/Dialogs/Composer/PollPage.vala:235
 #, c-format
 msgid "%d Minutes"
-msgstr ""
+msgstr "%d 分钟"
 
 #. translators: the variable is a number, m as in minutes
 #: src/Dialogs/Composer/PollPage.vala:234
 #: src/Dialogs/Composer/PollPage.vala:235
 #, c-format
 msgid "%dm"
-msgstr ""
+msgstr "%d 分"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:237
 #, c-format
 msgid "%d Hour"
-msgstr ""
+msgstr "%d 小时"
 
 #. translators: the variable is a number, h as in hours
 #: src/Dialogs/Composer/PollPage.vala:239
@@ -950,19 +951,19 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:241
 #, c-format
 msgid "%dh"
-msgstr ""
+msgstr "%d 时"
 
 #: src/Dialogs/Composer/PollPage.vala:240
 #: src/Dialogs/Composer/PollPage.vala:241
 #, c-format
 msgid "%d Hours"
-msgstr ""
+msgstr "%d 小时"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:243
 #, c-format
 msgid "%d Day"
-msgstr ""
+msgstr "%d 天"
 
 #. translators: the variable is a number, d as in days
 #: src/Dialogs/Composer/PollPage.vala:245
@@ -970,17 +971,17 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:247
 #, c-format
 msgid "%dd"
-msgstr ""
+msgstr "%d 天"
 
 #: src/Dialogs/Composer/PollPage.vala:246
 #: src/Dialogs/Composer/PollPage.vala:247
 #, c-format
 msgid "%d Days"
-msgstr ""
+msgstr "%d 天"
 
 #: src/Dialogs/Composer/PollPage.vala:267
 msgid "Expiration"
-msgstr ""
+msgstr "终止日期"
 
 #: src/Dialogs/MainWindow.vala:58
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
@@ -1019,18 +1020,18 @@ msgstr "服务器返回了一个错误"
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
 msgid "Label"
-msgstr ""
+msgstr "标签"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:53
 msgid "Content"
-msgstr ""
+msgstr "内容"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:196
 #, c-format
 msgid "Field %d"
-msgstr ""
+msgstr "字段 %d"
 
 #: src/Services/Accounts/InstanceAccount.vala:178
 #, c-format
@@ -1069,12 +1070,12 @@ msgstr "投票结果"
 #: src/Services/Accounts/InstanceAccount.vala:227
 #, c-format
 msgid "%s edited a post"
-msgstr ""
+msgstr "%s 编辑了一条帖文"
 
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:262
 msgid "Plain Text"
-msgstr ""
+msgstr "纯文本"
 
 #: src/Services/Accounts/Mastodon/Account.vala:49
 #: src/Views/Conversations.vala:4
@@ -1087,7 +1088,7 @@ msgstr "书签"
 
 #: src/Services/Accounts/Mastodon/Account.vala:104 src/Views/Explore.vala:3
 msgid "Explore"
-msgstr ""
+msgstr "探索"
 
 #: src/Services/Accounts/Mastodon/Account.vala:114 src/Views/Local.vala:3
 msgid "Local"
@@ -1110,7 +1111,7 @@ msgstr "话题标签"
 #: src/Services/Accounts/Mastodon/Account.vala:150
 #: src/Views/Announcements.vala:4
 msgid "Announcements"
-msgstr ""
+msgstr "公告"
 
 #: src/Services/Accounts/Mastodon/Account.vala:189
 msgid "Public"
@@ -1150,7 +1151,7 @@ msgstr "只向提到的用户发帖"
 #. different account
 #: src/Services/Accounts/Mastodon/Account.vala:248
 msgid "Notification was pushed for a different account"
-msgstr ""
+msgstr "通知被推送到了其它的账号"
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:197
@@ -1181,19 +1182,19 @@ msgstr "不久后过期"
 #: src/Utils/DateTime.vala:14
 #, c-format
 msgid "%sm left"
-msgstr ""
+msgstr "%s 分后过期"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:18
 #, c-format
 msgid "%sh left"
-msgstr ""
+msgstr "%s 时后过期"
 
 #. tranlators: the variable is a number, `d` as in days in short form
 #: src/Utils/DateTime.vala:22
 #, c-format
 msgid "%sd left"
-msgstr ""
+msgstr "%s 天后过期"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -1219,13 +1220,13 @@ msgstr "已于刚刚过期"
 #: src/Utils/DateTime.vala:47
 #, c-format
 msgid "expired %sm ago"
-msgstr ""
+msgstr "%s 分前过期"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:52
 #, c-format
 msgid "expired %sh ago"
-msgstr ""
+msgstr "%s 时前过期"
 
 #: src/Utils/DateTime.vala:55
 msgid "expired yesterday"
@@ -1262,13 +1263,13 @@ msgstr "刚刚"
 #: src/Utils/DateTime.vala:86
 #, c-format
 msgid "%sm"
-msgstr ""
+msgstr "%s 分"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:91
 #, c-format
 msgid "%sh"
-msgstr ""
+msgstr "%s 时"
 
 #: src/Utils/DateTime.vala:94
 msgid "Yesterday"
@@ -1293,52 +1294,52 @@ msgstr "%Y年 %b %-e"
 #, c-format
 msgid "less than a minute old"
 msgid_plural "%s minutes old"
-msgstr[0] ""
+msgstr[0] "%s 分钟前"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:125
 #, c-format
 msgid "an hour old"
 msgid_plural "%s hours old"
-msgstr[0] ""
+msgstr[0] "%s 小时前"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:140 src/Utils/DateTime.vala:154
 #, c-format
 msgid "%d months old"
-msgstr ""
+msgstr "%d 个月前"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:146
 #, c-format
 msgid "a day old"
 msgid_plural "%d days old"
-msgstr[0] ""
+msgstr[0] "%d 天前"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:151
 #, c-format
 msgid "a year old"
 msgid_plural "%d years old"
-msgstr[0] ""
+msgstr[0] "%d 年前"
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k
 #: src/Utils/Units.vala:13
 msgid "k"
-msgstr ""
+msgstr "千"
 
 #. translators: short unit suffix for millions
 #. 3000000 => 3M
 #: src/Utils/Units.vala:17
 msgid "M"
-msgstr ""
+msgstr "百万"
 
 #. translators: short unit suffix for billions
 #. 3000000000 => 3G
 #: src/Utils/Units.vala:21
 msgid "G"
-msgstr ""
+msgstr "十亿"
 
 #. translators: Shown when there are 0 results
 #: src/Views/Base.vala:4
@@ -1363,11 +1364,11 @@ msgstr "帖子"
 
 #: src/Views/Explore.vala:7
 msgid "News"
-msgstr ""
+msgstr "新闻"
 
 #: src/Views/Explore.vala:8
 msgid "For You"
-msgstr ""
+msgstr "为你推荐"
 
 #: src/Views/Hashtag.vala:19 src/Views/Hashtag.vala:34
 #: src/Widgets/RelationshipButton.vala:29
@@ -1408,11 +1409,11 @@ msgstr "添加列表"
 
 #: src/Views/MediaViewer.vala:577
 msgid "Copied media url to clipboard"
-msgstr ""
+msgstr "已复制媒体网址到剪贴板"
 
 #: src/Views/MediaViewer.vala:936 src/Widgets/Attachment/Image.vala:85
 msgid "Copied image to clipboard"
-msgstr ""
+msgstr "已复制图像到剪贴板"
 
 #: src/Views/Profile.vala:34
 msgid "Profile"
@@ -1420,7 +1421,7 @@ msgstr "个人资料"
 
 #: src/Views/Profile.vala:224
 msgid "Copied handle to clipboard"
-msgstr ""
+msgstr "已复制句柄到剪贴板"
 
 #: src/Views/Profile.vala:256
 #, c-format
@@ -1504,7 +1505,7 @@ msgstr "用户 “%s\" 已加入 \"%s\""
 #. translators: as in All search results
 #: src/Views/Search.vala:37
 msgid "All"
-msgstr ""
+msgstr "全部"
 
 #: src/Views/Search.vala:38
 msgid "Accounts"
@@ -1516,7 +1517,7 @@ msgstr "输入查询内容"
 
 #: src/Views/Sidebar.vala:28
 msgid "Open Profile"
-msgstr ""
+msgstr "打开个人资料"
 
 #: src/Views/Sidebar.vala:33
 msgid "Preferences"
@@ -1524,12 +1525,12 @@ msgstr "偏好"
 
 #: src/Views/Sidebar.vala:34
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "键盘快捷键"
 
 #: src/Views/Sidebar.vala:35
 #, c-format
 msgid "About %s"
-msgstr ""
+msgstr "关于 %s"
 
 #. translators: the variable is an account handle
 #: src/Views/Sidebar.vala:217
@@ -1547,17 +1548,17 @@ msgstr "忘记"
 
 #: src/Views/StatusStats.vala:6
 msgid "Post Stats"
-msgstr ""
+msgstr "帖文统计"
 
 #. translators: title for a list of people that favorited a post
 #: src/Views/StatusStats.vala:12
 msgid "Favorited By"
-msgstr ""
+msgstr "喜欢自"
 
 #. translators: title for a list of people that boosted a post
 #: src/Views/StatusStats.vala:20
 msgid "Boosted By"
-msgstr ""
+msgstr "转发自"
 
 #: src/Views/Thread.vala:31
 msgid "Conversation"
@@ -1565,11 +1566,11 @@ msgstr "对话"
 
 #: src/Views/Thread.vala:104 src/Views/Thread.vala:118
 msgid "Reveal Spoilers"
-msgstr ""
+msgstr "显示剧透"
 
 #: src/Views/Thread.vala:118
 msgid "Hide Spoilers"
-msgstr ""
+msgstr "隐藏剧透"
 
 #: src/Views/Timeline.vala:221 src/Widgets/Status/ActionsRow.vala:343
 msgid "Network Error"
@@ -1584,16 +1585,16 @@ msgstr "以 %s 表态"
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:63
 msgid "Hide Media"
-msgstr ""
+msgstr "隐藏媒体"
 
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:74
 msgid "Show Sensitive Content"
-msgstr ""
+msgstr "显示敏感内容"
 
 #: src/Widgets/Attachment/Item.vala:22
 msgid "Copied attachment url to clipboard"
-msgstr ""
+msgstr "已复制附件网址到剪贴板"
 
 #: src/Widgets/Attachment/Item.vala:35
 msgid "Save Attachment"
@@ -1601,7 +1602,7 @@ msgstr "保存附件"
 
 #: src/Widgets/Attachment/Item.vala:47
 msgid "Saved Media"
-msgstr ""
+msgstr "保存的媒体"
 
 #: src/Widgets/Attachment/Item.vala:117
 msgid "View Alt Text"
@@ -1611,41 +1612,41 @@ msgstr "查看替代文本"
 #: src/Widgets/BookWyrmPage.vala:83
 #, c-format
 msgid "Published: %s"
-msgstr ""
+msgstr "发布时间：%s"
 
 #. translators: the variable is a comma separated
 #. list of the book authors
 #: src/Widgets/BookWyrmPage.vala:105
 #, c-format
 msgid "by %s"
-msgstr ""
+msgstr "作者：%s"
 
 #. translators: Used when there are results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:64
 #: src/Widgets/CustomEmojiChooser.vala:120
 msgid "Results"
-msgstr ""
+msgstr "结果"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:124
 msgid "No Results"
-msgstr ""
+msgstr "没有结果"
 
 #: src/Widgets/CustomEmojiChooser.vala:162
 msgid "Custom Emojis"
-msgstr ""
+msgstr "自定义表情符号"
 
 #. translators: the variables are numbers
 #: src/Widgets/PreviewCard.vala:110
 #, c-format
 msgid "Discussed %d times by %d people yesterday"
-msgstr ""
+msgstr "昨天被 %d 人讨论了 %d 次"
 
 #. translators: the variables are numbers
 #: src/Widgets/PreviewCard.vala:118
 #, c-format
 msgid "Discussed %d times by %d people in the past 2 days"
-msgstr ""
+msgstr "过去两天被 %d 人讨论了 %d 次"
 
 #. translators: this is a "long" date format shown in places like expanded posts or
 #. the profile "Joined" field. You can find all the available specifiers
@@ -1654,37 +1655,38 @@ msgstr ""
 #. and year.
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Widgets/ProfileCover.vala:158 src/Widgets/Status.vala:373
+#, fuzzy
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%B %e, %Y"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
 #: src/Widgets/ProfileCover.vala:168
 msgid "Joined"
-msgstr ""
+msgstr "加入于"
 
 #. translators: the variable is the amount of posts a user has made
 #: src/Widgets/ProfileCover.vala:185 src/Widgets/ProfileCover.vala:186
 #, c-format
 msgid "%s Posts"
-msgstr ""
+msgstr "%s 条帖文"
 
 #. translators: the variable is the amount of people a user follows
 #: src/Widgets/ProfileCover.vala:191 src/Widgets/ProfileCover.vala:192
 #, c-format
 msgid "%s Following"
-msgstr ""
+msgstr "正在关注 %s 人"
 
 #. translators: the variable is the amount of followers a user has
 #: src/Widgets/ProfileCover.vala:197 src/Widgets/ProfileCover.vala:198
 #, c-format
 msgid "%s Followers"
-msgstr ""
+msgstr "被 %s 人关注"
 
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:255
 msgid "View Stats"
-msgstr ""
+msgstr "查看统计"
 
 #: src/Widgets/Status.vala:259
 msgid "View Edit History"
@@ -1693,7 +1695,7 @@ msgstr "查看编辑历史"
 #. translators: Pin post on profile
 #: src/Widgets/Status.vala:264 src/Widgets/Status.vala:491
 msgid "Pin"
-msgstr ""
+msgstr "置顶"
 
 #: src/Widgets/Status.vala:269
 msgid "Edit"
@@ -1701,7 +1703,7 @@ msgstr "编辑"
 
 #: src/Widgets/Status.vala:278
 msgid "Copied post url to clipboard"
-msgstr ""
+msgstr "已复制帖文链接到剪贴板"
 
 #: src/Widgets/Status.vala:328
 msgid "Are you sure you want to delete this post?"
@@ -1714,7 +1716,7 @@ msgstr "敏感内容"
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:489
 msgid "Unpin"
-msgstr ""
+msgstr "取消置顶"
 
 #: src/Widgets/Status/ActionsRow.vala:52 src/Widgets/Status/ActionsRow.vala:92
 #: src/Widgets/Status/ActionsRow.vala:237
@@ -1742,25 +1744,25 @@ msgstr "书签"
 #: src/Widgets/Status/ActionsRow.vala:123
 #, c-format
 msgid "This post is %s"
-msgstr ""
+msgstr "此帖文为%s"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon-android/tree/master/mastodon/src/main/res
 #. in the `strings.xml` file inside the `values-` folder that matches your locale under the `old_post_sheet_text` key
 #: src/Widgets/Status/ActionsRow.vala:126
 msgid "You can still reply, but it may no longer be relevant."
-msgstr ""
+msgstr "你仍然可以回复，但可能不再相关。"
 
 #: src/Widgets/Status/ActionsRow.vala:128
 msgid "Don't remind me again"
-msgstr ""
+msgstr "不再提醒我"
 
 #: src/Widgets/Status/ActionsRow.vala:229
 msgid "Boost with Visibility"
-msgstr ""
+msgstr "带可见范围的转发"
 
 #: src/Widgets/Status/ActionsRow.vala:236
 msgid "Quote"
-msgstr ""
+msgstr "引用"
 
 #: src/Widgets/VoteBox.vala:12
 msgid "Vote"
@@ -1768,7 +1770,7 @@ msgstr "投票"
 
 #: src/Widgets/VoteBox.vala:97 src/Widgets/VoteBox.vala:124
 msgid "Voted"
-msgstr ""
+msgstr "已投票"
 
 #. translators: the variable is the amount of people that voted
 #: src/Widgets/VoteBox.vala:148
