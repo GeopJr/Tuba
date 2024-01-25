@@ -24,8 +24,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
                 button.sensitive = true;
             })
             .on_error ((code, reason) => {
-                var dlg = app.inform (_("Error"), reason);
-                dlg.present ();
+                app.toast ("%s: %s".printf (_("Error"), reason));
                 button.sensitive = true;
             })
             .exec ();

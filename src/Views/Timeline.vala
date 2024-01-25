@@ -218,8 +218,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		if (base_status == null) {
 			warning (@"Error while refreshing $label: $code $reason");
 
-			var dlg = app.inform (_("Network Error"), reason);
-			dlg.present ();
+			app.toast ("%s: %s".printf (_("Network Error"), reason));
 		} else {
 			base.on_error (code, reason);
 		}

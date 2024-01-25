@@ -177,8 +177,7 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 				warning (@"Error while reacting to announcement: $code $message");
 				btn.sensitive = true;
 
-				var dlg = app.inform (_("Error"), message);
-				dlg.present ();
+				app.toast ("%s: %s".printf (_("Error"), message));
 			})
 			.exec ();
 	}
