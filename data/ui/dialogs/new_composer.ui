@@ -34,6 +34,7 @@
 												<property name="label" translatable="yes">New Post</property>
 												<property name="wrap">1</property>
 												<property name="wrap-mode">word-char</property>
+												<property name="justify">center</property>
 												<style>
 													<class name="title-1" />
 												</style>
