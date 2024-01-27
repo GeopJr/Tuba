@@ -210,8 +210,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 				open.end (res);
 			}
 			catch (Error e) {
-				var dlg = app.inform (_("Error"), e.message);
-				dlg.present ();
+				app.toast ("%s: %s".printf (_("Error"), e.message));
 			}
 		});
 	}

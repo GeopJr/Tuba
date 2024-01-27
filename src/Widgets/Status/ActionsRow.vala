@@ -339,9 +339,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			} catch (Error e) {
 				warning (@"Couldn't perform action \"$action\" on a Status:");
 				warning (e.message);
-
-				var dlg = app.inform (_("Network Error"), e.message);
-				dlg.present ();
+				app.toast ("%s: %s".printf (_("Network Error"), e.message));
 
 				if (count_property != null)
 					status_btn.amount += status_btn.active ? -1 : 1;

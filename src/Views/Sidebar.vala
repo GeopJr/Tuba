@@ -225,8 +225,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 							accounts.remove (account);
 						} catch (Error e) {
 							warning (e.message);
-							var dlg = app.inform (_("Error"), e.message);
-							dlg.present ();
+							app.toast ("%s: %s".printf (_("Error"), e.message));
 						}
 					}
 				}

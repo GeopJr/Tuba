@@ -84,8 +84,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 				clipboard.set_texture (texture);
 				app.toast (_("Copied image to clipboard"));
 			} catch (Error e) {
-				var dlg = app.inform (_("Error"), e.message);
-				dlg.present ();
+				app.toast ("%s: %s".printf (_("Error"), e.message));
 			}
 
 			debug ("End copy-media action");
