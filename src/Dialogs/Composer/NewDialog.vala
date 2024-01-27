@@ -8,6 +8,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Window {
 
 	[GtkChild] private unowned Gtk.Box status_box;
 	[GtkChild] private unowned Gtk.Box main_box;
+	[GtkChild] private unowned Gtk.Label status_title;
 
 	[GtkChild] private unowned Gtk.MenuButton native_emojis_button;
 	[GtkChild] private unowned Gtk.MenuButton custom_emojis_button;
@@ -188,10 +189,30 @@ public class Tuba.Dialogs.NewCompose : Adw.Window {
 
 		update_remaining_chars ();
 		transient_for = app.main_window;
+		present ();
 	}
 
 	public NewCompose (API.Status template = new API.Status.empty ()) {
 		Object ();
-		present ();
+	}
+
+	public NewCompose.reply (API.Status to) {
+		Object ();
+
+		try {
+			Widgets.Status widget_status = (Widgets.Status?) to.to_widget ();
+			widget_status.add_css_class ("card");
+			widget_status.actions.visible = false;
+			widget_status.menu_button.visible = false;
+			widget_status.activatable = false;
+			widget_status.can_target = false;
+			widget_status.can_focus = false;
+
+			status_box.insert_child_after (widget_status, status_title);
+		} catch (Error e) {
+			warning (@"Couldn't create status widget: $(e.message)");
+		}
+
+		status_title.label = _("Reply to %s").printf (to.account.handle);
 	}
 }
