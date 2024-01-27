@@ -108,6 +108,15 @@ public class Tuba.Dialogs.NewCompose : Adw.Window {
 	protected Gtk.DropDown visibility_button;
 	protected Gtk.DropDown language_button;
 
+	private void append_dropdown (Gtk.DropDown dropdown) {
+		var togglebtn = dropdown.get_first_child ();
+		if (togglebtn != null) {
+			togglebtn.add_css_class ("flat");
+		}
+
+		dropdowns_box.append (dropdown);
+	}
+
 	protected void install_visibility (string default_visibility = settings.default_post_visibility) {
 		visibility_button = new Gtk.DropDown (accounts.active.visibility_list, null) {
 			expression = new Gtk.PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
@@ -129,7 +138,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Window {
 			visibility_button.selected = default_visibility_index;
 		}
 
-		dropdowns_box.append (visibility_button);
+		append_dropdown (visibility_button);
 	}
 
 	private void install_languages (string? locale_iso = null) {
@@ -156,7 +165,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Window {
 			}
 		}
 
-		dropdowns_box.append (language_button);
+		append_dropdown (language_button);
 	}
 
 	construct {
