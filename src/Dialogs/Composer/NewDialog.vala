@@ -67,7 +67,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Window {
 		}
 		set {
 			_remaining_chars = value;
-			counter_label.label = @"$value / $char_limit";
+			counter_label.label = counter_label.tooltip_text = @"$value / $char_limit";
 
 			if (value < 0) {
 				counter_label.add_css_class ("error");
