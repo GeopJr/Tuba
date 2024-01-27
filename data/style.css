@@ -658,10 +658,6 @@ GtkSourceAssistant row:last-child {
 	color: @accent_color;
 }
 
-.composer-bottom-padding {
-	padding: 2rem;
-}
-
 .font-large {
 	font-size: large;
 }

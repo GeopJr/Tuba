@@ -54,12 +54,15 @@
 				</property>
 				<child type="bottom">
 					<object class="GtkGrid" id="grid">
-						<style>
-							<class name="composer-bottom-padding" />
-						</style>
+						<property name="margin-top">20</property>
+						<property name="margin-start">32</property>
+						<property name="margin-end">32</property>
+						<property name="margin-bottom">20</property>
+						<property name="row-spacing">16</property>
 						<child>
 							<object class="GtkBox" id="btns_box">
 								<property name="orientation">horizontal</property>
+								<property name="spacing">6</property>
 								<child>
 									<object class="GtkMenuButton" id="native_emojis_button">
 										<property name="icon-name">tuba-sentiment-satisfied-symbolic</property>
