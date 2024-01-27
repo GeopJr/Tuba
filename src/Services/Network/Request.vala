@@ -32,6 +32,7 @@ public class Tuba.Request : GLib.Object {
 	Soup.Multipart? form_data;
 	public GLib.Cancellable cancellable;
 
+	Tuba.Network.ExtraData? extra_data;
 	weak Gtk.Widget? ctx;
 	bool has_ctx = false;
 
@@ -86,12 +87,17 @@ public class Tuba.Request : GLib.Object {
 	}
 
 	public Request then_parse_array (owned Network.NodeCallback _cb) {
-		this.cb = (sess, msg, in_stream) => {
+		this.cb = (in_stream) => {
 			var parser = Network.get_parser_from_inputstream (in_stream);
-			Network.parse_array (msg, parser, (owned) _cb);
+			Network.parse_array (parser, (owned) _cb);
 		};
-    return this;
-}
+		return this;
+	}
+
+	public Request with_extra_data (Tuba.Network.ExtraData xtra_data) {
+		this.extra_data = xtra_data;
+		return this;
+	}
 
 	public Request with_ctx (Gtk.Widget ctx) {
 		this.has_ctx = true;
@@ -146,6 +152,12 @@ public class Tuba.Request : GLib.Object {
 		return body ("application/json", new Bytes.take (generator.to_data (null).data));
 	}
 
+	private bool cache = true;
+	public Request disable_cache () {
+		cache = false;
+		return this;
+	}
+
 	public Request exec () {
 		var parameters = "";
 		if (pars != null) {
@@ -194,6 +206,7 @@ public class Tuba.Request : GLib.Object {
 			msg.request_headers.append ("Authorization", @"Bearer $(account.access_token)");
 		}
 
+		if (!cache) msg.disable_feature (typeof (Soup.Cache));
 		msg.priority = priority;
 
 		if (content_type != null && body_bytes != null)
@@ -202,7 +215,7 @@ public class Tuba.Request : GLib.Object {
 		//  if (force_replace_content_type)
 		//  	msg.request_headers.replace ("Content-Type", content_type);
 
-		network.queue (msg, this.cancellable, (owned) cb, (owned) error_cb);
+		network.queue (msg, this.cancellable, (owned) cb, (owned) error_cb, extra_data);
 		return this;
 	}
 
@@ -212,7 +225,7 @@ public class Tuba.Request : GLib.Object {
 			error = reason;
 			await.callback ();
 		};
-		this.cb = (sess, msg, in_stream) => {
+		this.cb = (in_stream) => {
 			this.response_body = in_stream;
 			await.callback ();
 		};

@@ -15,6 +15,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_REMOTE_REBLOG = "__remote-reblog";
 	public const string KIND_EDITED = "update";
 
+	public string uuid { get; set; }
 	public string? backend { set; get; }
 	public API.Instance? instance_info { get; set; }
 	public Gee.ArrayList<API.Emoji>? instance_emojis { get; set; }
@@ -301,7 +302,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public void gather_instance_info () {
 		new Request.GET ("/api/v1/instance")
 			.with_account (this)
-			.then ((sess, msg, in_stream) => {
+			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				instance_info = API.Instance.from (node);
@@ -320,7 +321,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public void gather_instance_custom_emojis () {
 		new Request.GET ("/api/v1/custom_emojis")
 			.with_account (this)
-			.then ((sess, msg, in_stream) => {
+			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				Value res_emojis;
@@ -336,7 +337,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		new Request.GET ("/api/v1/notifications")
 			.with_account (this)
 			.with_param ("min_id", last_read_id.to_string ())
-			.then ((sess, msg, in_stream) => {
+			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var array = Network.get_array_mstd (parser);
 				if (array != null) {
@@ -353,7 +354,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public virtual void check_notifications () {
 		new Request.GET ("/api/v1/markers?timeline[]=notifications")
 			.with_account (this)
-			.then ((sess, msg, in_stream) => {
+			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var root = network.parse (parser);
 				if (!root.has_member ("notifications")) return;
@@ -435,8 +436,9 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			sent_notifications.set (id, others);
 		}
 
-		var toast = obj.to_toast (this, others);
-		app.send_notification (id, toast);
+		obj.to_toast.begin (this, others, (_obj, res) => {
+			app.send_notification (id, obj.to_toast.end (res));
+		});
 		//  sent_notification_ids.add(id);
 	}
 

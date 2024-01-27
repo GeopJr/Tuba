@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-
 	<enum id="dev.geopjr.Tuba.ColorScheme">
 		<value value="0" nick="system"/>
 		<value value="1" nick="light"/>
 		<value value="2" nick="dark"/>
 	</enum>
+	
+	<schema id="dev.geopjr.Tuba.Account">
+		<key name="default-post-visibility" type="s">
+			<default>'public'</default>
+		</key>
+		<key name="default-content-type" type="s">
+			<default>'text/plain'</default>
+		</key>
+		<key name="muted-notification-types" type="as">
+			<default>[]</default>
+		</key>
+	</schema>
 
 	<schema path="/dev/geopjr/Tuba/" id="dev.geopjr.Tuba" gettext-domain="dev.geopjr.Tuba">
-
 		<key name="active-account" type="s">
 			<default>''</default>
 		</key>
 		<key name="color-scheme" enum="dev.geopjr.Tuba.ColorScheme">
 			<default>'system'</default>
-		</key>
-		<key name="default-post-visibility" type="s">
-			<default>'public'</default>
 		</key>
 		<key name="work-in-background" type="b">
 			<default>false</default>
@@ -60,22 +67,22 @@
 		<key name="enlarge-custom-emojis" type="b">
 			<default>false</default>
 		</key>
-		<key name="default-content-type" type="s">
-			<default>'text/plain'</default>
-		</key>
 		<key name="use-blurhash" type="b">
 			<default>true</default>
 		</key>
 		<key name="group-push-notifications" type="b">
 			<default>false</default>
 		</key>
+		<key name="advanced-boost-dialog" type="b">
+			<default>false</default>
+		</key>
+		<key name="reply-to-old-post-reminder" type="b">
+			<default>true</default>
+		</key>
+		<key name="spellchecker-enabled" type="b">
+			<default>true</default>
+		</key>
 
-		<key name="window-x" type="i">
-			<default>-1</default>
-		</key>
-		<key name="window-y" type="i">
-			<default>-1</default>
-		</key>
 		<key name="window-w" type="i">
 			<default>600</default>
 		</key>
@@ -84,9 +91,6 @@
 		</key>
 		<key name="window-maximized" type="b">
 			<default>false</default>
-		</key>
-		<key name="muted-notification-types" type="as">
-			<default>[]</default>
 		</key>
 	</schema>
 </schemalist>

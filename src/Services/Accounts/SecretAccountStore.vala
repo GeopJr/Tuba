@@ -47,32 +47,27 @@ public class Tuba.SecretAccountStore : AccountStore {
 			warning (@"$help_msg\nread more: $wiki_page");
 
 			new Dialogs.NewAccount ();
-			var dlg = app.question (
-				"Error while searching for user accounts",
-				@"$help_msg.",
+			app.question.begin (
+				{"Error while searching for user accounts", false},
+				{@"$help_msg.", false},
 				app.add_account_window,
-				"Read More",
-				Adw.ResponseAppearance.SUGGESTED,
-				"Close"
-			);
-
-			dlg.response.connect (res => {
-				if (res == "yes") {
-					Host.open_uri (wiki_page);
+				{ {"Read More", Adw.ResponseAppearance.SUGGESTED }, { "Close", Adw.ResponseAppearance.DEFAULT } },
+				false,
+				(obj, res) => {
+					if (app.question.end (res).truthy ()) Host.open_uri (wiki_page);
+					Process.exit (1);
 				}
-				dlg.destroy ();
-				Process.exit (1);
-			});
-
-			dlg.present ();
+			);
 		}
 
 		secrets.foreach (item => {
-			var account = secret_to_account (item);
+			// TODO: remove uuid fallback
+			bool force_save = false;
+			var account = secret_to_account (item, out force_save);
 			if (account != null && account.id != "") {
 				new Request.GET (@"/api/v1/accounts/$(account.id)")
 					.with_account (account)
-					.then ((sess, msg, in_stream) => {
+					.then ((in_stream) => {
 						var parser = Network.get_parser_from_inputstream (in_stream);
 						var node = network.parse_node (parser);
 						var acc = API.Account.from (node);
@@ -87,6 +82,9 @@ public class Tuba.SecretAccountStore : AccountStore {
 					.exec ();
 					saved.add (account);
 					account.added ();
+
+					// TODO: remove uuid fallback
+					if (force_save) safe_save ();
 			}
 		});
 		changed (saved);
@@ -176,6 +174,9 @@ public class Tuba.SecretAccountStore : AccountStore {
 		builder.set_member_name ("backend");
 		builder.add_string_value (account.backend);
 
+		builder.set_member_name ("uuid");
+		builder.add_string_value (account.uuid);
+
 		// If display name has emojis it's
 		// better to save and load them
 		// so users don't see their shortcode
@@ -224,16 +225,38 @@ public class Tuba.SecretAccountStore : AccountStore {
 		);
 	}
 
-	InstanceAccount? secret_to_account (Secret.Retrievable item) {
+	InstanceAccount? secret_to_account (Secret.Retrievable item, out bool force_save) {
 		InstanceAccount? account = null;
+
+		// TODO: remove uuid fallback
+		force_save = false;
 		try {
 			var secret = item.retrieve_secret_sync ();
 			var contents = secret.get_text ();
 			var parser = new Json.Parser ();
 			parser.load_from_data (contents, -1);
-			account = accounts.create_account (parser.get_root ());
-		}
-		catch (GLib.Error e) {
+
+			var root = parser.get_root ();
+			var root_obj = root.get_object ();
+
+			// HACK: Partial makeshift secret validation
+			// see #742 #701 #114
+			if (
+				!root_obj.has_member ("backend")
+				|| !root_obj.has_member ("acct")
+				|| !root_obj.has_member ("id")
+				|| !root_obj.has_member ("client-secret")
+				|| !root_obj.has_member ("client-id")
+				|| !root_obj.has_member ("access-token")
+			) return null;
+
+			// TODO: remove uuid fallback
+			bool had_uuid = root_obj.has_member ("uuid");
+			account = accounts.create_account (root);
+
+			// TODO: remove uuid fallback
+			force_save = !had_uuid && account.uuid != null;
+		} catch (GLib.Error e) {
 			warning (e.message);
 		}
 		return account;

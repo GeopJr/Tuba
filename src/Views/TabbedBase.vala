@@ -52,7 +52,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		}
 
 		set {
-			title_stack.visible_child_name = value ? "title" : "switcher";
+			title_stack.visible_child_name = (value ? "title" : "switcher");
 		}
 	}
 
@@ -70,12 +70,13 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		bind_property ("label", title_header, "title", BindingFlags.SYNC_CREATE);
 		title_stack.add_named (title_header, "title");
 
+		title_stack_page_visible = false;
 		var condition = new Adw.BreakpointCondition.length (
 			Adw.BreakpointConditionLengthType.MAX_WIDTH,
 			550, Adw.LengthUnit.SP
 		);
 		var breakpoint = new Adw.Breakpoint (condition);
-		breakpoint.add_setter (title_stack, "visible-child-name", "title");
+		breakpoint.add_setter (this, "title-stack-page-visible", true);
 		breakpoint.add_setter (switcher_bar, "reveal", true);
 		add_breakpoint (breakpoint);
 	}
@@ -102,7 +103,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 	}
 
 	public Views.ContentBase add_timeline_tab (string label, string icon, string url, Type accepts) {
-		var tab = new Views.Timeline () {
+		var tab = new Views.Accounts () {
 			url = url,
 			label = label,
 			icon = icon,

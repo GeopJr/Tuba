@@ -5,7 +5,7 @@ public class Tuba.API.Poll : Entity, Widgetizable {
     public bool multiple { get; set; }
     public int64 votes_count { get; set; }
     public bool voted { get; set; default = true;}
-    public Gee.ArrayList<int> own_votes { get; set; }
+    public Gee.ArrayList<int> own_votes { get; set; default = null; }
     public Gee.ArrayList<PollOption>? options { get; set; default = null; }
 
     public Poll (string _id) {

@@ -19,6 +19,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	private void copy_url () {
 		Host.copy (entity.url);
+		app.toast (_("Copied attachment url to clipboard"));
 	}
 
 	private void open_in_browser () {
@@ -43,6 +44,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 					debug (@"Downloading file: $(url)…");
 					download.begin (url, file, (obj, res) => {
 						download.end (res);
+						app.toast (_("Saved Media"));
 					});
 				}
 			} catch (Error e) {
@@ -208,8 +210,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 				open.end (res);
 			}
 			catch (Error e) {
-				var dlg = app.inform (_("Error"), e.message);
-				dlg.present ();
+				app.toast ("%s: %s".printf (_("Error"), e.message));
 			}
 		});
 	}

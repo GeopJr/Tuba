@@ -140,6 +140,12 @@
 								<property name="subtitle" translatable="yes">It can lead to broken links</property>
 							</object>
 						</child>
+						<child>
+							<object class="AdwSwitchRow" id="advanced_boost_dialog">
+								<property name="title" translatable="yes">Advanced boost dialog</property>
+								<property name="subtitle" translatable="yes">Change boost visibility, quote and confirm boosting</property>
+							</object>
+						</child>
 					</object>
 				</child>
 				<child>

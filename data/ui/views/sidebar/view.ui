@@ -39,6 +39,7 @@
 								<property name="popover">account_switcher_popover_menu</property>
 								<child>
 									<object class="TubaWidgetsAvatar" id="accounts_button_avi">
+										<property name="can_focus">false</property>
 										<property name="size">26</property>
 									</object>
 								</child>

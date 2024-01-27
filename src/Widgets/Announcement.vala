@@ -151,16 +151,15 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		handle_label.label = @"@$instance_uri";
 		avatar.text = name_label.label = instance_title;
 		if (instance_title != "") avatar.show_initials = true;
-		if (instance_thumbnail != "") image_cache.request_paintable (instance_thumbnail, on_cache_response);
+		if (instance_thumbnail != "") Tuba.Helper.Image.request_paintable (instance_thumbnail, null, on_cache_response);
 
 		reactions = t_announcement.reactions;
 
 		announcement.bind_property ("read", attention_indicator, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 	}
 
-	void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		if (is_loaded)
-			avatar.custom_image = data;
+	void on_cache_response (Gdk.Paintable? data) {
+		avatar.custom_image = data;
 	}
 
 	private void on_reaction_toggled (ReactButton btn) {
@@ -178,8 +177,7 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 				warning (@"Error while reacting to announcement: $code $message");
 				btn.sensitive = true;
 
-				var dlg = app.inform (_("Error"), message);
-				dlg.present ();
+				app.toast ("%s: %s".printf (_("Error"), message));
 			})
 			.exec ();
 	}

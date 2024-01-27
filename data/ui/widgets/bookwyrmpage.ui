@@ -27,7 +27,7 @@
                         <child>
                             <object class="GtkLabel" id="title">
                                 <property name="wrap">1</property>
-                                <property name="halign">start</property>
+                                <property name="xalign">0</property>
                                 <style>
                                     <class name="title-1"/>
                                 </style>
@@ -37,13 +37,13 @@
                             <object class="GtkLabel" id="authors">
                                 <property name="wrap">1</property>
                                 <property name="use-markup">1</property>
-                                <property name="halign">start</property>
+                                <property name="xalign">0</property>
                             </object>
                         </child>
                         <child>
                             <object class="GtkLabel" id="isbn">
                                 <property name="wrap">1</property>
-                                <property name="halign">start</property>
+                                <property name="xalign">0</property>
                             </object>
                         </child>
                     </object>

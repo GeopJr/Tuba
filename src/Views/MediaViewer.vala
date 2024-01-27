@@ -292,6 +292,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	[GtkChild] unowned Gtk.PopoverMenu context_menu;
 	[GtkChild] unowned Gtk.Button fullscreen_btn;
 	[GtkChild] unowned Adw.HeaderBar headerbar;
+	[GtkChild] unowned Gtk.Button back_btn;
 
 	[GtkChild] unowned Gtk.Revealer page_buttons_revealer;
 	[GtkChild] unowned Gtk.Button prev_btn;
@@ -303,18 +304,17 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 	[GtkChild] unowned Tuba.Widgets.ScaleRevealer scale_revealer;
 	[GtkChild] unowned Adw.Carousel carousel;
-	[GtkChild] unowned Adw.CarouselIndicatorDots carousel_dots;
 
 	private double swipe_children_opacity {
 		set {
 			headerbar.opacity =
-			carousel_dots.opacity =
 			page_buttons_revealer.opacity =
 			zoom_buttons_revealer.opacity = value;
 		}
 	}
 
 	construct {
+		if (is_rtl) back_btn.icon_name = "tuba-right-large-symbolic";
 		// Move between media using the arrow keys
 		var keypresscontroller = new Gtk.EventControllerKey ();
 		keypresscontroller.key_pressed.connect (on_keypress);
@@ -373,8 +373,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			enabled = true,
 			allow_mouse_drag = true
 		};
+		swipe_tracker.prepare.connect (on_swipe_tracker_prepare);
 		swipe_tracker.update_swipe.connect (on_update_swipe);
 		swipe_tracker.end_swipe.connect (on_end_swipe);
+	}
+
+	private void on_swipe_tracker_prepare (Adw.NavigationDirection direction) {
+		update_revealer_widget ();
 	}
 
 	private void on_update_swipe (double progress) {
@@ -516,17 +521,22 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	protected bool on_keypress (uint keyval, uint keycode, Gdk.ModifierType state) {
+		state &= Gdk.MODIFIER_MASK;
 		if (state != 0) {
-			if (state != Gdk.ModifierType.CONTROL_MASK) return false;
+			if (state != Gdk.ModifierType.CONTROL_MASK && state != (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) return false;
 
 			Item? page = safe_get ((int) carousel.position);
 			if (page == null) return false;
 
 			switch (keyval) {
+				case Gdk.Key.plus:
 				case Gdk.Key.equal:
+				case Gdk.Key.KP_Add:
 					page.zoom_in ();
 					break;
 				case Gdk.Key.minus:
+				case Gdk.Key.underscore:
+				case Gdk.Key.KP_Subtract:
 					page.zoom_out ();
 					break;
 				default:
@@ -544,6 +554,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			case Gdk.Key.Right:
 			case Gdk.Key.KP_Right:
 				scroll_to (((int) carousel.position) + 1, false);
+				break;
+			case Gdk.Key.F11:
+				toggle_fullscreen ();
 				break;
 			default:
 				return false;
@@ -568,6 +581,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		if (page == null) return;
 
 		Host.copy (page.url);
+		app.toast (_("Copied media url to clipboard"));
 	}
 
 	private void open_in_browser () {
@@ -673,6 +687,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	private void reset_media_viewer () {
+		revealer_widgets.clear ();
 		this.fullscreen = false;
 		todo_items.clear ();
 
@@ -684,6 +699,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		items.clear ();
 		revealed = false;
+	}
+
+	private void update_revealer_widget () {
+		if (revealed && revealer_widgets.has_key ((int) carousel.position))
+			scale_revealer.source_widget = revealer_widgets.get ((int) carousel.position);
 	}
 
 	private async string download_video (string url) throws Error {
@@ -702,6 +722,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		do_todo_items ();
 	}
 
+	public Gee.HashMap<int, Gtk.Widget> revealer_widgets = new Gee.HashMap<int, Gtk.Widget> ();
 	public void add_media (
 		string url,
 		Tuba.Attachment.MediaType media_type,
@@ -710,14 +731,22 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		bool as_is = false,
 		string? alt_text = null,
 		string? user_friendly_url = null,
-		bool stream = false
+		bool stream = false,
+		Gtk.Widget? revealer_widget = null
 	) {
 		Item item;
 		string final_friendly_url = user_friendly_url == null ? url : user_friendly_url;
 		Gdk.Paintable? final_preview = as_is ? null : preview;
+		if (revealer_widget != null)
+			revealer_widgets.set (pos == null ? items.size : pos, revealer_widget);
 
 		if (media_type.is_video ()) {
 			var video = new Gtk.Video ();
+			if (media_type == Tuba.Attachment.MediaType.GIFV) {
+				video.loop = true;
+				video.autoplay = true;
+			}
+
 			item = new Item (video, final_friendly_url, final_preview, true);
 
 			if (stream) {
@@ -749,11 +778,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			if (alt_text != null) picture.alternative_text = alt_text;
 
 			if (!as_is) {
-				image_cache.request_paintable (url, (is_loaded, data) => {
-					if (is_loaded) {
-						picture.paintable = data;
+				Tuba.Helper.Image.request_paintable (url, null, (data) => {
+					picture.paintable = data;
+					if (data != null)
 						add_todo_item (item);
-					}
 				});
 			} else {
 				picture.paintable = preview;
@@ -863,7 +891,6 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		bool has_more_than_1_item = carousel.n_pages > 1;
 
 		page_buttons_revealer.visible = has_more_than_1_item;
-		carousel_dots.visible = has_more_than_1_item;
 	}
 
 	public void on_zoom_change () {
@@ -913,6 +940,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		if (texture == null) return;
 
 		clipboard.set_texture (texture);
+		app.toast (_("Copied image to clipboard"));
 		debug ("End copy-media action");
 	}
 }
