@@ -451,7 +451,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public virtual string? get_stream_url () {
 		if (instance == null || access_token == null) return null;
-		return @"$instance/api/v1/streaming/?stream=user:notification&access_token=$access_token";
+		return @"$instance/api/v1/streaming?stream=user:notification&access_token=$access_token";
 	}
 
 	public virtual void on_notification_event (Streamable.Event ev) {
