@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the dev.geopjr.Tuba package.
-# rene-coty <irenee.thirion@e.email>, 2023.
+# rene-coty <irenee.thirion@e.email>, 2023, 2024.
 # "J. Lavoie" <j.lavoie@net-c.ca>, 2023.
 # ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>, 2023.
 # Nicolas <nicolas.miard@zaclys.net>, 2023.
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-12-23 00:09+0000\n"
+"PO-Revision-Date: 2024-01-16 06:17+0000\n"
 "Last-Translator: rene-coty <irenee.thirion@e.email>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/tuba/tuba/fr/>\n"
 "Language: fr\n"
@@ -270,7 +270,7 @@ msgstr "Apparence"
 
 #: data/ui/dialogs/preferences.ui:25
 msgid "Color Scheme"
-msgstr "hème de couleurs"
+msgstr "Thème de couleurs"
 
 #: data/ui/dialogs/preferences.ui:39
 msgid "Larger font size"
@@ -1116,7 +1116,7 @@ msgstr "Fédéré"
 #: src/Services/Accounts/Mastodon/Account.vala:132
 #: src/Views/FollowRequests.vala:4
 msgid "Follow Requests"
-msgstr "Demandes d’abonnement"
+msgstr "Demandes"
 
 #: src/Services/Accounts/Mastodon/Account.vala:141 src/Views/Explore.vala:6
 #: src/Views/Hashtags.vala:4 src/Views/Search.vala:40
@@ -1677,7 +1677,7 @@ msgstr "Discuté %d fois par %d personnes les 2 derniers jours"
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Widgets/ProfileCover.vala:158 src/Widgets/Status.vala:373
 msgid "%B %e, %Y"
-msgstr "%e %B de %Y"
+msgstr "%e %B %Y"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on

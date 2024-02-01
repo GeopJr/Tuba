@@ -2,15 +2,15 @@
 # Copyright (C) 2021 THE dev.geopjr.Tuba'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the dev.geopjr.Tuba package.
 # Óscar Fernández Díaz <oscfdezdz@tuta.io>, 2021.
-# Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted.weblate.org>, 2023.
+# Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted.weblate.org>, 2023, 2024.
 # iceCat3003 <danielespinoza0109@gmail.com>, 2023.
-# gallegonovato <fran-carro@hotmail.es>, 2023.
+# gallegonovato <fran-carro@hotmail.es>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-12-12 20:06+0000\n"
+"PO-Revision-Date: 2024-01-24 00:01+0000\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted.weblate"
 ".org>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tuba/tuba/es/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -806,7 +806,7 @@ msgstr "Añadir multimedia"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:221
 msgid "No Media"
-msgstr "Sin multimedia"
+msgstr "No hay multimedia"
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:248
@@ -1421,7 +1421,7 @@ msgstr "Eliminar"
 
 #: src/Views/Lists.vala:137
 msgid "New list title"
-msgstr "Nuevo título de la lista"
+msgstr "Título de la lista nueva"
 
 #: src/Views/Lists.vala:152
 msgid "Add list"
@@ -1534,7 +1534,7 @@ msgstr "Cuentas"
 
 #: src/Views/Search.vala:73
 msgid "Enter Query"
-msgstr "Introducir consulta"
+msgstr "Introduzca la consulta"
 
 #: src/Views/Sidebar.vala:28
 msgid "Open Profile"
