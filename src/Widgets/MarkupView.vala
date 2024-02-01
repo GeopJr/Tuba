@@ -82,7 +82,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				selectable = _selectable,
 				vexpand = true,
 				large_emojis = settings.enlarge_custom_emojis,
-				use_markup = true
+				use_markup = true,
+				fix_overflow_hack = true
 			};
 			if (instance_emojis != null) label.instance_emojis = instance_emojis;
 			if (mentions != null) label.mentions = mentions;
@@ -230,7 +231,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					var label = new RichLabel (text) {
 						visible = true,
 						css_classes = { "ttl-code", "monospace" },
-						use_markup = true
+						use_markup = true,
+						fix_overflow_hack = true
 						// markup = MarkupPolicy.DISALLOW
 					};
 
@@ -256,7 +258,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				var label = new RichLabel (text) {
 					visible = true,
 					css_classes = { "ttl-code", "italic" },
-					use_markup = true
+					use_markup = true,
+					fix_overflow_hack = true
 					// markup = MarkupPolicy.DISALLOW
 				};
 				v.append (label);
