@@ -54,6 +54,17 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         }
     }
 
+    private bool _fix_overflow_hack = false;
+    public bool fix_overflow_hack {
+        get {
+            return fix_overflow_hack;
+        }
+        set {
+            _fix_overflow_hack = value;
+            update_label ();
+        }
+    }
+
     const string OBJECT_REPLACEMENT_CHARACTER = "\xEF\xBF\xBC";
 
     construct {
@@ -226,6 +237,11 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     private void update_label () {
         var old_label = label.label;
         var new_label = _text.replace (placeholder, OBJECT_REPLACEMENT_CHARACTER);
+
+        if (_fix_overflow_hack) {
+            label.lines = int.max (100, widgets.length);
+            label.ellipsize = Pango.EllipsizeMode.END;
+        }
 
         if (old_label != new_label) {
             label.wrap = true;
