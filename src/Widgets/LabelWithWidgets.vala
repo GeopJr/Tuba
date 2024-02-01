@@ -54,6 +54,19 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         }
     }
 
+    private int _max_size = -1;
+    public int max_size {
+        get {
+            return _max_size;
+        }
+        set {
+            if (_max_size == value) return;
+
+            _max_size = value;
+            invalidate_child_widgets ();
+        }
+    }
+
     const string OBJECT_REPLACEMENT_CHARACTER = "\xEF\xBF\xBC";
 
     construct {
@@ -93,6 +106,11 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             widgets[i].widget.get_preferred_size (out size, out natural_size);
             int width = natural_size.width;
             int height = natural_size.height;
+            if (width == 0 || height == 0) return;
+            if (max_size > 0) {
+                width = int.min (width, max_size);
+                height = int.min (height, max_size);
+            }
 
             int old_width = widgets[i].width;
             int old_height = widgets[i].height;
