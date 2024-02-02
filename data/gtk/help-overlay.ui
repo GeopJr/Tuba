@@ -17,7 +17,7 @@
 						</child>
 						<child>
 							<object class="GtkShortcutsShortcut">
-								<property name="title" translatable="yes">Compose a new post</property>
+								<property name="title" translatable="yes">Compose New Post</property>
 								<property name="action-name">app.compose</property>
 							</object>
 						</child>

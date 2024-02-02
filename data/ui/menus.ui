@@ -30,7 +30,7 @@
       <attribute name="action">view.open_in_browser</attribute>
     </item>
     <item>
-      <attribute name="label" translatable="yes">Notify me on new posts</attribute>
+      <attribute name="label" translatable="yes">Receive Post Notifications</attribute>
       <attribute name="action">view.notify_on_post</attribute>
       <attribute name="hidden-when">action-disabled</attribute>
     </item>
