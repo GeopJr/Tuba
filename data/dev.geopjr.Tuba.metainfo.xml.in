@@ -54,6 +54,17 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.6.3" date="2024-02-02">
+      <description translatable="no">
+        <ul>
+            <li>Fixed websocket connections not retrying when getting reset by peer</li>
+            <li>Fixed dialogs being unresponsive when other dialogs get presented at the same time</li>
+            <li>Fixed adding users to lists on GoToSocial</li>
+            <li>Fixed post content overflowing under certain circumstances</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.6.2" date="2024-01-15">
       <description translatable="no">
         <ul>
