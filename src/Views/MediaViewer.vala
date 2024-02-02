@@ -238,6 +238,19 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			is_done = true;
 		}
 
+		private bool on_scroll (Gtk.EventControllerScroll scroll, double dx, double dy) {
+			var state = scroll.get_current_event_state () & Gdk.MODIFIER_MASK;
+			if (state != Gdk.ModifierType.CONTROL_MASK)
+				return false;
+
+			if (dy < 0)
+				zoom_in ();
+			else
+				zoom_out ();
+
+			return true;
+		}
+
 		private Gtk.Widget setup_scrolledwindow (Gtk.Widget child) {
 			// Videos shouldn't have a scrolledwindow
 			if (is_video) return child;
@@ -251,6 +264,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			// Emit zoom_changed when the scrolledwindow changes
 			scroller.vadjustment.changed.connect (emit_zoom_changed);
 			scroller.hadjustment.changed.connect (emit_zoom_changed);
+
+			var scroll = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.VERTICAL | Gtk.EventControllerScrollFlags.DISCRETE);
+			scroll.scroll.connect (on_scroll);
+			scroller.add_controller (scroll);
 
 			return scroller;
 		}
