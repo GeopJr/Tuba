@@ -28,7 +28,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	private void settings_updated () {
-		Tuba.toggle_css (this, settings.darken_images_on_dark_mode, "ttl-darken-images");
+		Tuba.toggle_css (split_view, settings.darken_images_on_dark_mode, "ttl-darken-images");
 	}
 
 	private void add_toast (string content, uint timeout = 0) {
