@@ -82,6 +82,9 @@
 		<key name="spellchecker-enabled" type="b">
 			<default>true</default>
 		</key>
+		<key name="darken-images-on-dark-mode" type="b">
+			<default>false</default>
+		</key>
 
 		<key name="window-w" type="i">
 			<default>600</default>
