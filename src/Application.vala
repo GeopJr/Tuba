@@ -77,7 +77,8 @@ namespace Tuba {
 			{ "reply-to-status-uri", reply_to_status_uri, "(ss)" },
 			{ "remove-from-followers", remove_from_followers, "(ss)" },
 			{ "open-preferences", open_preferences },
-			{ "open-current-account-profile", open_current_account_profile }
+			{ "open-current-account-profile", open_current_account_profile },
+			{ "open-announcements", open_announcements },
 		};
 
 		#if DEV_MODE
@@ -385,6 +386,11 @@ namespace Tuba {
 
 		void open_current_account_profile () {
 			accounts.active.open ();
+			close_sidebar ();
+		}
+
+		public void open_announcements () {
+			main_window.open_view (new Views.Announcements ());
 			close_sidebar ();
 		}
 

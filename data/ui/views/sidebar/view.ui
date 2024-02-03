@@ -60,21 +60,33 @@
 				</child>
 
 				<property name="content">
-					<object class="GtkScrolledWindow">
+					<object class="GtkBox">
+						<property name="orientation">vertical</property>
 						<property name="vexpand">1</property>
-						<property name="child">
-							<object class="GtkViewport">
-								<child>
-									<object class="GtkListBox" id="items">
-										<property name="selection_mode">single</property>
-										<signal name="row_activated" handler="on_item_activated" />
-										<style>
-											<class name="navigation-sidebar" />
-										</style>
-									</object>
-								</child>
+						<child>
+							<object class="AdwBanner" id="banner">
+								<property name="revealed">0</property>
+								<property name="button-label" translatable="yes">View</property>
 							</object>
-						</property>
+						</child>
+						<child>
+							<object class="GtkScrolledWindow">
+								<property name="vexpand">1</property>
+								<property name="child">
+									<object class="GtkViewport">
+										<child>
+											<object class="GtkListBox" id="items">
+												<property name="selection_mode">single</property>
+												<signal name="row_activated" handler="on_item_activated" />
+												<style>
+													<class name="navigation-sidebar" />
+												</style>
+											</object>
+										</child>
+									</object>
+								</property>
+							</object>
+						</child>
 					</object>
 				</property>
 			</object>
