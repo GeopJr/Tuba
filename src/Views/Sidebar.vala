@@ -169,6 +169,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 		[GtkChild] unowned Widgets.Avatar avatar;
 		[GtkChild] unowned Gtk.Button forget;
+		[GtkChild] unowned Gtk.Label notifications_badge;
 
 		public signal void popdown_signal ();
 
@@ -176,12 +177,16 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		private Binding switcher_handle;
 		private Binding switcher_tooltip;
 		private Binding switcher_avatar;
+		private Binding switcher_notifications;
+		private Binding switcher_notifications_visibility;
 		public AccountRow (InstanceAccount? _account) {
 			if (account != null) {
 				switcher_display_name.unbind ();
 				switcher_handle.unbind ();
 				switcher_tooltip.unbind ();
 				switcher_avatar.unbind ();
+				switcher_notifications.unbind ();
+				switcher_notifications_visibility.unbind ();
 			}
 
 			account = _account;
@@ -190,6 +195,8 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 				switcher_handle = this.account.bind_property ("handle", this, "subtitle", BindingFlags.SYNC_CREATE);
 				switcher_tooltip = this.account.bind_property ("handle", this, "tooltip-text", BindingFlags.SYNC_CREATE);
 				switcher_avatar = this.account.bind_property ("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
+				switcher_notifications = this.account.bind_property ("unread-count", notifications_badge, "label", BindingFlags.SYNC_CREATE);
+				switcher_notifications_visibility = this.account.bind_property ("unread-count", notifications_badge, "visible", BindingFlags.SYNC_CREATE, switcher_notifications_visibility_cb);
 			} else {
 				title = _("Add Account");
 				avatar.account = null;
@@ -199,6 +206,11 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 				avatar.icon_name = "tuba-plus-large-symbolic";
 				avatar.remove_css_class ("flat");
 			}
+		}
+
+		bool switcher_notifications_visibility_cb (Binding binding, Value from_value, ref Value to_value) {
+			to_value.set_boolean (from_value.get_int () > 0);
+			return true;
 		}
 
 		[GtkCallback] void on_open () {
