@@ -6,8 +6,11 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	//  [GtkChild] unowned Gtk.Stack main_stack;
 	[GtkChild] unowned Views.MediaViewer media_viewer;
 	[GtkChild] unowned Adw.Breakpoint breakpoint;
+	[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 
-	public bool is_mobile { get; set; default = false; }
+	public void set_sidebar_selected_item (int pos) {
+		sidebar.set_sidebar_selected_item (pos);
+	}
 
 	Views.Base? last_view = null;
 
@@ -15,15 +18,23 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		construct_saveable (settings);
 
 		var gtk_settings = Gtk.Settings.get_default ();
-		breakpoint.add_setter (this, "is-mobile", true);
-		notify["is-mobile"].connect (update_selected_home_item);
+		breakpoint.add_setter (app, "is-mobile", true);
+		app.notify["is-mobile"].connect (update_selected_home_item);
 		media_viewer.bind_property ("visible", split_view, "can-focus", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 		media_viewer.notify["visible"].connect (on_media_viewer_toggle);
 		settings.notify["darken-images-on-dark-mode"].connect (settings_updated);
+
+		app.toast.connect (add_toast);
 	}
 
 	private void settings_updated () {
 		Tuba.toggle_css (this, settings.darken_images_on_dark_mode, "ttl-darken-images");
+	}
+
+	private void add_toast (string content, uint timeout = 0) {
+		toast_overlay.add_toast (new Adw.Toast (content) {
+			timeout = timeout
+		});
 	}
 
 	private weak Gtk.Widget? media_viewer_source_widget;
@@ -50,7 +61,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			title: Build.NAME,
 			resizable: true
 		);
-		sidebar.set_sidebar_selected_item (0);
+		set_sidebar_selected_item (0);
 		main_page = new Adw.NavigationPage (new Views.Main (), _("Home"));
 		navigation_view.add (main_page);
 
@@ -84,7 +95,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	) {
 		if (as_is && preview == null) return;
 
-		media_viewer.add_media (url, media_type, preview, pos, as_is, alt_text, user_friendly_url, stream);
+		media_viewer.add_media (url, media_type, preview, pos, as_is, alt_text, user_friendly_url, stream, source_widget);
 
 		if (!is_media_viewer_visible) {
 			media_viewer.reveal (source_widget);
@@ -140,7 +151,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		) return view;
 
 		Adw.NavigationPage page = new Adw.NavigationPage (view, view.label);
-		if (view.is_sidebar_item && navigation_view.visible_page != main_page) {
+		if (view.is_sidebar_item) {
 			navigation_view.replace ({ main_page, page });
 		} else {
 			navigation_view.push (page);
@@ -186,21 +197,21 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	public void update_selected_home_item () {
 		if (is_home) {
-			if (is_mobile) {
-				sidebar.set_sidebar_selected_item (0);
+			if (app.is_mobile) {
+				set_sidebar_selected_item (0);
 			} else {
 				var main_view = main_page.child as Views.Main;
 				if (main_view == null) return;
 
 				switch (main_view.visible_child_name) {
 					case "1":
-						sidebar.set_sidebar_selected_item (0);
+						set_sidebar_selected_item (0);
 						break;
 					case "2":
-						sidebar.set_sidebar_selected_item (1);
+						set_sidebar_selected_item (1);
 						break;
 					case "3":
-						sidebar.set_sidebar_selected_item (2);
+						set_sidebar_selected_item (2);
 						break;
 				}
 			}

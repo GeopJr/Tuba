@@ -8,22 +8,25 @@ public class Tuba.Widgets.RelationshipButton : Gtk.Button {
 		clicked.connect (on_clicked);
 	}
 
+	public string handle { get; set; default=""; }
+
 	protected void on_bound () {
 		if (rs != null) {
 			rs.invalidated.connect (invalidate);
-			rs.request ();
 		}
 		invalidate ();
 	}
 
 	public void on_clicked () {
 		if (fn != null) {
+			sensitive = false;
 			fn ();
+
 			fn = null;
 		}
 	}
 
-	public void invalidate () {
+	public virtual void invalidate () {
 		if (rs == null) {
 			sensitive = false;
 			label = _("Follow");
@@ -42,25 +45,21 @@ public class Tuba.Widgets.RelationshipButton : Gtk.Button {
 				if (rs.domain_blocking)
 					activate_action ("domain_blocking", null);
 				else if (rs.blocking)
-					activate_action ("view.blocking", null);
+					rs.question_modify_block (handle, false);
 				return true;
 			};
 			add_css_class ("destructive-action");
 			return;
-		}
-		else if (rs.following || rs.requested) {
+		} else if (rs.following || rs.requested) {
 			label = _("Unfollow");
-			// icon_name = "list-remove-symbolic";
 			fn = () => {
 				rs.modify ("unfollow");
 				return true;
 			};
 			add_css_class ("destructive-action");
 			return;
-		}
-		else if (!rs.following) {
+		} else if (!rs.following) {
 			label = _("Follow");
-			// icon_name = "list-add-symbolic";
 			fn = () => {
 				rs.modify ("follow");
 				return true;

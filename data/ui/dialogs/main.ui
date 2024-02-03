@@ -10,20 +10,24 @@
 			</object>
 		</child>
 		<child>
-			<object class="GtkOverlay">
-				<child type="overlay">
-					<object class="TubaViewsMediaViewer" id="media_viewer">
-						<property name="visible">0</property>
-					</object>
-				</child>
+			<object class="AdwToastOverlay" id="toast_overlay">
 				<property name="child">
-					<object class="AdwOverlaySplitView" id="split_view">
-						<property name="sidebar">
-							<object class="TubaViewsSidebar" id="sidebar" />
-						</property>
-						<property name="content">
-							<object class="AdwNavigationView" id="navigation_view">
-								<signal name="notify::visible-page" handler="on_visible_page_changed" />
+					<object class="GtkOverlay">
+						<child type="overlay">
+							<object class="TubaViewsMediaViewer" id="media_viewer">
+								<property name="visible">0</property>
+							</object>
+						</child>
+						<property name="child">
+							<object class="AdwOverlaySplitView" id="split_view">
+								<property name="sidebar">
+									<object class="TubaViewsSidebar" id="sidebar" />
+								</property>
+								<property name="content">
+									<object class="AdwNavigationView" id="navigation_view">
+										<signal name="notify::visible-page" handler="on_visible_page_changed" />
+									</object>
+								</property>
 							</object>
 						</property>
 					</object>

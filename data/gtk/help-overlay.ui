@@ -1,94 +1,169 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkShortcutsWindow" id="help_overlay">
-    <property name="modal">1</property>
-    <child>
-      <object class="GtkShortcutsSection">
-        <property name="section-name">shortcuts</property>
-        <property name="max-height">10</property>
-        <child>
-          <object class="GtkShortcutsGroup">
-            <property name="title" translatable="yes">General</property>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes">Show Preferences</property>
-                <property name="action-name">app.open-preferences</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes">Compose a new post</property>
-                <property name="action-name">app.compose</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes">Refresh</property>
-                <property name="action-name">app.refresh</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes">Search</property>
-                <property name="action-name">app.search</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes">Go Back</property>
-                <property name="accelerator">&lt;alt&gt;Left Escape</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes">Show Keyboard Shortcuts</property>
-                <property name="action-name">win.show-help-overlay</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes">Close Window</property>
-                <property name="action-name">window.close</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes">Quit</property>
-                <property name="action-name">app.quit</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes">About</property>
-                <property name="action-name">app.about</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes">Scroll Up</property>
-                <property name="action-name">app.scroll-page-up</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes">Scroll Down</property>
-                <property name="action-name">app.scroll-page-down</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkShortcutsGroup">
-            <property name="title" translatable="yes">Composer</property>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes">Commit</property>
-                <property name="accelerator">&lt;ctrl&gt;Return</property>
-              </object>
-            </child>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
+	<object class="GtkShortcutsWindow" id="help_overlay">
+		<property name="modal">1</property>
+		<child>
+			<object class="GtkShortcutsSection">
+				<property name="section-name">shortcuts</property>
+				<property name="max-height">10</property>
+				<child>
+					<object class="GtkShortcutsGroup">
+						<property name="title" translatable="yes">General</property>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Show Preferences</property>
+								<property name="action-name">app.open-preferences</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Compose New Post</property>
+								<property name="action-name">app.compose</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Refresh</property>
+								<property name="action-name">app.refresh</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Search</property>
+								<property name="action-name">app.search</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Go Back</property>
+								<property name="accelerator">&lt;alt&gt;Left Escape</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Show Keyboard Shortcuts</property>
+								<property name="action-name">win.show-help-overlay</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Close Window</property>
+								<property name="action-name">window.close</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Quit</property>
+								<property name="action-name">app.quit</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">About</property>
+								<property name="action-name">app.about</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Scroll Up</property>
+								<property name="action-name">app.scroll-page-up</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Scroll Down</property>
+								<property name="action-name">app.scroll-page-down</property>
+							</object>
+						</child>
+					</object>
+				</child>
+				<child>
+					<object class="GtkShortcutsGroup">
+						<property name="title" translatable="yes">Composer</property>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Commit</property>
+								<property name="accelerator">&lt;ctrl&gt;Return</property>
+							</object>
+						</child>
+					</object>
+				</child>
+				<child>
+					<object class="GtkShortcutsGroup">
+						<property name="title" translatable="yes">Media Viewer</property>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Fullscreen</property>
+								<property name="accelerator">F11</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Zoom In</property>
+								<property name="accelerator">&lt;ctrl&gt;plus &lt;ctrl&gt;equal</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Zoom Out</property>
+								<property name="accelerator">&lt;ctrl&gt;minus &lt;ctrl&gt;underscore</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Previous Attachment</property>
+								<property name="accelerator">Left KP_Left</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Next Attachment</property>
+								<property name="accelerator">Right KP_Right</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes" context="shortcut window">Zoom In</property>
+								<property name="shortcut-type">gesture-stretch</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes" context="shortcut window">Zoom Out</property>
+								<property name="shortcut-type">gesture-pinch</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="direction">GTK_TEXT_DIR_RTL</property>
+								<property name="title" translatable="yes" context="shortcut window">Previous Attachment</property>
+								<property name="shortcut-type">gesture-two-finger-swipe-left</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="direction">GTK_TEXT_DIR_LTR</property>
+								<property name="title" translatable="yes" context="shortcut window">Next Attachment</property>
+								<property name="shortcut-type">gesture-two-finger-swipe-left</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="direction">GTK_TEXT_DIR_LTR</property>
+								<property name="title" translatable="yes" context="shortcut window">Previous Attachment</property>
+								<property name="shortcut-type">gesture-two-finger-swipe-right</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="direction">GTK_TEXT_DIR_RTL</property>
+								<property name="title" translatable="yes" context="shortcut window">Next Attachment</property>
+								<property name="shortcut-type">gesture-two-finger-swipe-right</property>
+							</object>
+						</child>
+					</object>
+				</child>
+			</object>
+		</child>
+	</object>
 </interface>

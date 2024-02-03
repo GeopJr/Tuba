@@ -51,7 +51,7 @@ public class Tuba.Views.Hashtag : Views.Timeline {
 
         new Request.POST (@"/api/v1/tags/$t_tag/$action")
             .with_account (accounts.active)
-            .then ((sess, msg, in_stream) => {
+            .then ((in_stream) => {
                 var parser = Network.get_parser_from_inputstream (in_stream);
                 var root = network.parse (parser);
 				if (!root.has_member ("following")) {
@@ -64,7 +64,7 @@ public class Tuba.Views.Hashtag : Views.Timeline {
     private void init_tag () {
         new Request.GET (@"/api/v1/tags/$t_tag")
             .with_account (accounts.active)
-            .then ((sess, msg, in_stream) => {
+            .then ((in_stream) => {
                 var parser = Network.get_parser_from_inputstream (in_stream);
                 var node = network.parse_node (parser);
 				var tag_info = API.Tag.from (node);
@@ -78,7 +78,7 @@ public class Tuba.Views.Hashtag : Views.Timeline {
         var split_url = url.split ("/");
         var tag = split_url[split_url.length - 1];
         return account != null
-            ? @"$(account.instance)/api/v1/streaming/?stream=hashtag&tag=$tag&access_token=$(account.access_token)"
+            ? @"$(account.instance)/api/v1/streaming?stream=hashtag&tag=$tag&access_token=$(account.access_token)"
             : null;
     }
 

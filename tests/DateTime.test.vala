@@ -88,6 +88,30 @@ TestDate[] get_dates () {
         human = "Just now"
     };
 
+    var some_date = new DateTime.local (
+        2023,
+        12,
+        8,
+        18,
+        0,
+        0.0
+    );
+    var m_four_months = some_date.add_months (-4);
+    res += TestDate () {
+        iso8601 = m_four_months.to_string (),
+        left = "Aug 8, 2023",
+        ago = "expired on Aug 8, 2023",
+        human = "Aug 8, 2023"
+    };
+
+    var m_fourteen_months = some_date.add_months (-14);
+    res += TestDate () {
+        iso8601 = m_fourteen_months.to_string (),
+        left = "Oct 8, 2022",
+        ago = "expired on Oct 8, 2022",
+        human = "Oct 8, 2022"
+    };
+
     return res;
 }
 
@@ -115,11 +139,63 @@ public void test_humanize () {
     }
 }
 
+struct Test3Months {
+    public string iso8601;
+    public bool res;
+}
+
+Test3Months[] get_3_months_dates () {
+    Test3Months[] res = {};
+
+    var time_now = new GLib.DateTime.now_local ();
+
+    res += Test3Months () {
+        iso8601 = time_now.add_days (1).to_string (),
+        res = false
+    };
+
+    res += Test3Months () {
+        iso8601 = time_now.add_months (2).to_string (),
+        res = false
+    };
+
+    res += Test3Months () {
+        iso8601 = time_now.add_months (-2).to_string (),
+        res = false
+    };
+
+    res += Test3Months () {
+        iso8601 = time_now.add_months (3).to_string (),
+        res = false
+    };
+
+    res += Test3Months () {
+        iso8601 = time_now.add_months (-3).to_string (),
+        res = false
+    };
+
+    res += Test3Months () {
+        iso8601 = time_now.add_months (-13).to_string (),
+        res = true
+    };
+
+    return res;
+}
+
+public void test_3_months () {
+    foreach (var test_date in get_3_months_dates ()) {
+        var is_3_months_old = Tuba.DateTime.is_3_months_old (test_date.iso8601);
+
+        assert_true (is_3_months_old == test_date.res);
+    }
+}
+
 public int main (string[] args) {
     Test.init (ref args);
 
     Test.add_func ("/test_left", test_left);
     Test.add_func ("/test_ago", test_ago);
     Test.add_func ("/test_humanize", test_humanize);
+    Test.add_func ("/test_3_months", test_3_months);
     return Test.run ();
 }

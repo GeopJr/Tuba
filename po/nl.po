@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-22 11:28+0300\n"
-"PO-Revision-Date: 2023-08-11 06:51+0000\n"
+"POT-Creation-Date: 2023-12-10 10:42+0200\n"
+"PO-Revision-Date: 2023-12-28 19:08+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -65,61 +65,112 @@ msgid "General"
 msgstr "Algemeen"
 
 #: data/gtk/help-overlay.ui:14
+msgid "Show Preferences"
+msgstr "Voorkeuren tonen"
+
+#: data/gtk/help-overlay.ui:20
 msgid "Compose a new post"
 msgstr "Nieuwe post maken"
 
-#: data/gtk/help-overlay.ui:20 src/Views/Sidebar.vala:25
+#: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:29
 msgid "Refresh"
 msgstr "Herladen"
 
-#: data/gtk/help-overlay.ui:26 src/Services/Accounts/Mastodon/Account.vala:95
-#: src/Views/Main.vala:72 src/Views/Search.vala:14
+#: data/gtk/help-overlay.ui:32 src/Services/Accounts/Mastodon/Account.vala:95
+#: src/Views/Main.vala:38 src/Views/Search.vala:14
 msgid "Search"
 msgstr "Zoeken"
 
-#: data/gtk/help-overlay.ui:32 src/Views/MediaViewer.vala:301
+#: data/gtk/help-overlay.ui:38 data/ui/views/media_viewer.ui:51
 msgid "Go Back"
 msgstr "Terug"
 
-#: data/gtk/help-overlay.ui:38
+#: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
 msgstr "Sneltoetsen tonen"
 
-#: data/gtk/help-overlay.ui:44
-msgid "Close Window"
-msgstr ""
-
 #: data/gtk/help-overlay.ui:50
+msgid "Close Window"
+msgstr "Venster sluiten"
+
+#: data/gtk/help-overlay.ui:56
 msgid "Quit"
 msgstr "Afsluiten"
 
-#: data/gtk/help-overlay.ui:56 src/Views/Sidebar.vala:31
+#: data/gtk/help-overlay.ui:62
 msgid "About"
 msgstr "Over"
 
-#: data/gtk/help-overlay.ui:62
-msgid "Scroll Up"
-msgstr ""
-
 #: data/gtk/help-overlay.ui:68
-msgid "Scroll Down"
-msgstr ""
+msgid "Scroll Up"
+msgstr "Omhoog scrollen"
 
-#: data/gtk/help-overlay.ui:76
+#: data/gtk/help-overlay.ui:74
+msgid "Scroll Down"
+msgstr "Omlaag scrollen"
+
+#: data/gtk/help-overlay.ui:82
 msgid "Composer"
 msgstr "Samensteller"
 
-#: data/gtk/help-overlay.ui:79
+#: data/gtk/help-overlay.ui:85
 msgid "Commit"
 msgstr "Commit"
 
-#: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:20
-#: data/ui/dialogs/profile_edit.ui:22 src/Application.vala:434
-#: src/Dialogs/Composer/Dialog.vala:210
+#: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:42
+msgid "Media Viewer"
+msgstr "Mediaweergave"
+
+#: data/gtk/help-overlay.ui:96
+msgid "Fullscreen"
+msgstr "Volledig scherm"
+
+#: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:148
+msgid "Zoom In"
+msgstr "Inzoomen"
+
+#: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:136
+msgid "Zoom Out"
+msgstr "Uitzoomen"
+
+#: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:94
+msgid "Previous Attachment"
+msgstr "Vorige bijlage"
+
+#: data/gtk/help-overlay.ui:120 data/ui/views/media_viewer.ui:106
+msgid "Next Attachment"
+msgstr "Volgende bijlage"
+
+#: data/gtk/help-overlay.ui:126
+msgctxt "shortcut window"
+msgid "Zoom In"
+msgstr "Inzoomen"
+
+#: data/gtk/help-overlay.ui:132
+msgctxt "shortcut window"
+msgid "Zoom Out"
+msgstr "Uitzoomen"
+
+#: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
+msgctxt "shortcut window"
+msgid "Previous Attachment"
+msgstr "Vorige bijlage"
+
+#: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
+msgctxt "shortcut window"
+msgid "Next Attachment"
+msgstr "Volgende bijlage"
+
+#: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:22
+#: data/ui/dialogs/profile_edit.ui:22 src/API/Status/PreviewCard.vala:164
+#: src/Application.vala:503 src/Dialogs/Composer/Dialog.vala:208
+#: src/Views/Lists.vala:60 src/Views/Profile.vala:262
+#: src/Views/Profile.vala:281 src/Views/Sidebar.vala:220
+#: src/Widgets/Status.vala:331 src/Widgets/Status/ActionsRow.vala:235
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: data/ui/dialogs/compose.ui:43 src/Dialogs/Composer/Dialog.vala:284
+#: data/ui/dialogs/compose.ui:43 src/Dialogs/Composer/Dialog.vala:278
 msgid "_Publish"
 msgstr "_Plaatsen"
 
@@ -131,49 +182,49 @@ msgstr "Leden"
 msgid "Remove Members"
 msgstr "Leden verwijderen"
 
-#: data/ui/dialogs/list_edit.ui:25
-msgid "Info"
-msgstr "Info"
-
-#: data/ui/dialogs/list_edit.ui:29
+#: data/ui/dialogs/list_edit.ui:28
 msgid "List Name"
 msgstr "Lijstnaam"
 
-#: data/ui/dialogs/list_edit.ui:36
+#: data/ui/dialogs/list_edit.ui:33
+msgid "Hide these posts from home"
+msgstr ""
+
+#: data/ui/dialogs/list_edit.ui:40
 msgid "Replies Policy"
 msgstr "Antwoordbeleid"
 
-#: data/ui/dialogs/list_edit.ui:37
+#: data/ui/dialogs/list_edit.ui:41
 msgid "Show member replies to"
 msgstr "Reacties van leden tonen aan"
 
-#: data/ui/dialogs/list_edit.ui:40
+#: data/ui/dialogs/list_edit.ui:44
 msgid "Nobody"
 msgstr "Niemand"
 
-#: data/ui/dialogs/list_edit.ui:51
+#: data/ui/dialogs/list_edit.ui:55
 msgid "Other members of the list"
 msgstr "Andere leden van de lijst"
 
-#: data/ui/dialogs/list_edit.ui:63
+#: data/ui/dialogs/list_edit.ui:67
 msgid "Any followed user"
 msgstr "Elke gebruiker die u volgt"
 
-#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:183
-#: src/Views/Sidebar.vala:187
+#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:194
+#: src/Views/Sidebar.vala:198
 msgid "Add Account"
 msgstr "Account toevoegen"
 
-#: data/ui/dialogs/new_account.ui:27 data/ui/dialogs/new_account.ui:103
+#: data/ui/dialogs/new_account.ui:29 data/ui/dialogs/new_account.ui:107
 msgid "Next"
 msgstr "Volgende"
 
-#: data/ui/dialogs/new_account.ui:41
+#: data/ui/dialogs/new_account.ui:43
 msgid "What is your Server?"
 msgstr "Wat is uw server?"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
-#: data/ui/dialogs/new_account.ui:43
+#: data/ui/dialogs/new_account.ui:45
 msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
@@ -181,16 +232,16 @@ msgstr ""
 "Indien u nog geen account heeft, <a href=\"https://joinmastodon.org/"
 "servers\">kies dan een server en registreer een account</a>."
 
-#: data/ui/dialogs/new_account.ui:64
+#: data/ui/dialogs/new_account.ui:66
 msgid "Server URL"
 msgstr "Server-URL"
 
-#: data/ui/dialogs/new_account.ui:118
+#: data/ui/dialogs/new_account.ui:122
 msgid "Confirm Authorization"
 msgstr "Goedkeuren"
 
 #. translators: Do not translate "manual_auth"
-#: data/ui/dialogs/new_account.ui:138
+#: data/ui/dialogs/new_account.ui:142
 msgid ""
 "If something went wrong, <a href=\"manual_auth\">try manual authorization</"
 "a>."
@@ -198,15 +249,15 @@ msgstr ""
 "Indien er iets fout ging, <a href=\"manual_auth\">probeer dan handmatige "
 "autorisatie</a>."
 
-#: data/ui/dialogs/new_account.ui:148
+#: data/ui/dialogs/new_account.ui:152
 msgid "Authorization Code"
 msgstr "Verificatiecode"
 
-#: data/ui/dialogs/new_account.ui:187
+#: data/ui/dialogs/new_account.ui:193
 msgid "Done"
 msgstr "Voltooid"
 
-#: data/ui/dialogs/new_account.ui:202
+#: data/ui/dialogs/new_account.ui:208
 msgid "Your account is connected and ready to use!"
 msgstr "Uw account is gekoppeld en klaar voor gebruik!"
 
@@ -236,7 +287,7 @@ msgstr "Maakt de regelafstand van berichten groter"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Enlarge custom emojis"
-msgstr ""
+msgstr "Aangepaste emoji's vergroten"
 
 #: data/ui/dialogs/preferences.ui:56
 msgid "Scale up custom emojis on hover"
@@ -272,7 +323,7 @@ msgstr "Breidt afbeeldingen standaard uit om de media-weergave te vullen"
 
 #: data/ui/dialogs/preferences.ui:79
 msgid "Show a blurred version of the media until they fully load"
-msgstr ""
+msgstr "Media vervagen tijdens laden"
 
 #: data/ui/dialogs/preferences.ui:84
 msgid "Reveal spoilers by default"
@@ -280,7 +331,7 @@ msgstr "Spoilers standaard weergeven"
 
 #: data/ui/dialogs/preferences.ui:89
 msgid "Show link preview cards"
-msgstr ""
+msgstr "Voorvertonings­kaarten voor links tonen"
 
 #: data/ui/dialogs/preferences.ui:96
 msgid "Posting"
@@ -296,7 +347,7 @@ msgstr "Standaard­taal van berichten"
 
 #: data/ui/dialogs/preferences.ui:118
 msgid "Default post content type"
-msgstr ""
+msgstr "Standaard­inhoudstype van berichten"
 
 #: data/ui/dialogs/preferences.ui:129
 msgid "Behavior"
@@ -319,86 +370,94 @@ msgstr "Tracking-argumenten uit links verwijderen"
 msgid "It can lead to broken links"
 msgstr "Kan leiden tot incorrecte links"
 
-#: data/ui/dialogs/preferences.ui:147
+#: data/ui/dialogs/preferences.ui:145
+msgid "Advanced boost dialog"
+msgstr "Geavanceerde boost-dialoog"
+
+#: data/ui/dialogs/preferences.ui:146
+msgid "Change boost visibility, quote and confirm boosting"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:153
 msgid "Timelines"
 msgstr "Tijdlijnen"
 
-#: data/ui/dialogs/preferences.ui:150
+#: data/ui/dialogs/preferences.ui:156
 msgid "Posts per load batch"
 msgstr "Berichten per laad-batch"
 
-#: data/ui/dialogs/preferences.ui:158
+#: data/ui/dialogs/preferences.ui:164
 msgid "Stream timelines"
 msgstr "Tijdlijnen live bijwerken"
 
-#: data/ui/dialogs/preferences.ui:159
+#: data/ui/dialogs/preferences.ui:165
 msgid "Receive new posts and notifications in real-time"
 msgstr "Ontvang nieuwe berichten en meldingen zodra ze binnenkomen"
 
-#: data/ui/dialogs/preferences.ui:165
+#: data/ui/dialogs/preferences.ui:171
 msgid "Stream public timelines"
 msgstr "Openbare tijdlijnen live bijwerken"
 
-#: data/ui/dialogs/preferences.ui:166
+#: data/ui/dialogs/preferences.ui:172
 msgid "Warning: This will increase memory usage"
 msgstr "Waarschuwing: dit verhoogt het geheugengebruik"
 
-#: data/ui/dialogs/preferences.ui:176
+#: data/ui/dialogs/preferences.ui:182
 #: src/Services/Accounts/Mastodon/Account.vala:39
 #: src/Views/Notifications.vala:7
 msgid "Notifications"
 msgstr "Meldingen"
 
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
-#: data/ui/dialogs/preferences.ui:180
+#: data/ui/dialogs/preferences.ui:186
 msgid "Push Notifications"
-msgstr ""
-
-#: data/ui/dialogs/preferences.ui:183
-msgid "New Followers"
-msgstr ""
+msgstr "Push-meldingen"
 
 #: data/ui/dialogs/preferences.ui:189
-msgid "New Follower Requests"
-msgstr ""
+msgid "New Followers"
+msgstr "Nieuwe volgers"
 
 #: data/ui/dialogs/preferences.ui:195
+msgid "New Follower Requests"
+msgstr "Nieuwe volgverzoeken"
+
+#: data/ui/dialogs/preferences.ui:201
 #: src/Services/Accounts/Mastodon/Account.vala:77 src/Views/Favorites.vala:4
 msgid "Favorites"
 msgstr "Favorieten"
 
-#: data/ui/dialogs/preferences.ui:201
-msgid "Mentions"
-msgstr ""
-
 #: data/ui/dialogs/preferences.ui:207
-msgid "Boosts"
-msgstr ""
+msgid "Mentions"
+msgstr "Benoemingen"
 
 #: data/ui/dialogs/preferences.ui:213
-msgid "Poll Results"
-msgstr ""
+msgid "Boosts"
+msgstr "Boosts"
 
 #: data/ui/dialogs/preferences.ui:219
-msgid "Edits"
-msgstr ""
+msgid "Poll Results"
+msgstr "Peiling­resultaten"
 
 #: data/ui/dialogs/preferences.ui:225
+msgid "Edits"
+msgstr "Bewerkingen"
+
+#: data/ui/dialogs/preferences.ui:231
 msgid "Group"
-msgstr ""
+msgstr "Groep"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
-#: data/ui/dialogs/preferences.ui:227
+#: data/ui/dialogs/preferences.ui:233
 msgid ""
 "Combine recently pushed notifications of the same type and post into one"
-msgstr ""
+msgstr "Meldingen van zelfde type en bericht combineren"
 
-#: data/ui/dialogs/profile_edit.ui:13 src/Views/Profile.vala:125
+#: data/ui/dialogs/profile_edit.ui:13 src/Views/Profile.vala:135
 msgid "Edit Profile"
 msgstr "Profiel bewerken"
 
 #: data/ui/dialogs/profile_edit.ui:29
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:157
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:151
 msgid "Save"
 msgstr "Opslaan"
 
@@ -420,7 +479,7 @@ msgstr "Weergave­naam"
 msgid "Bio"
 msgstr "Bio"
 
-#: data/ui/dialogs/profile_edit.ui:140 src/Dialogs/Composer/EditorPage.vala:230
+#: data/ui/dialogs/profile_edit.ui:140 src/Dialogs/Composer/EditorPage.vala:242
 msgid "Custom Emoji Picker"
 msgstr "Aangepaste-emoji-kiezer"
 
@@ -441,50 +500,80 @@ msgstr "Privébericht"
 msgid "Copy Handle"
 msgstr "Gebruikersnaam kopiëren"
 
-#: data/ui/menus.ui:29
+#: data/ui/menus.ui:29 data/ui/views/media_viewer.ui:6
+#: src/Widgets/Attachment/Item.vala:185 src/Widgets/Status.vala:251
+msgid "Open in Browser"
+msgstr "Openen in browser"
+
+#: data/ui/menus.ui:33
+msgid "Notify me on new posts"
+msgstr ""
+
+#: data/ui/menus.ui:39
 msgid "Moderation"
 msgstr "Moderatie"
 
-#: data/ui/menus.ui:31
+#: data/ui/menus.ui:41
 msgid "Hide Boosts"
 msgstr "Boosts verbergen"
 
-#: data/ui/menus.ui:36
+#: data/ui/menus.ui:46
 msgid "Mute"
 msgstr "Dempen"
 
-#: data/ui/menus.ui:41
+#: data/ui/menus.ui:51
 msgid "Report"
 msgstr "Rapporteren"
 
-#: data/ui/menus.ui:47 src/Views/Profile.vala:238 src/Views/Profile.vala:263
+#: data/ui/menus.ui:57 src/Views/Profile.vala:262 src/Views/Profile.vala:281
 msgid "Block"
 msgstr "Blokkeren"
 
-#: data/ui/menus.ui:51
+#: data/ui/menus.ui:61
 msgid "Block Domain"
 msgstr "Domeinnaam blokkeren"
 
-#: data/ui/menus.ui:59
+#: data/ui/menus.ui:69
 msgid "Timeline"
 msgstr "Tijdlijn"
 
-#: data/ui/menus.ui:61
+#: data/ui/menus.ui:71
 msgid "Filter"
 msgstr "Filteren"
 
-#: data/ui/menus.ui:80
+#: data/ui/menus.ui:90
 msgid "Include Replies"
 msgstr "Reacties tonen"
 
-#: data/ui/menus.ui:85
+#: data/ui/menus.ui:95
 msgid "Include Media"
 msgstr "Media tonen"
 
-#: data/ui/menus.ui:108 src/Services/Accounts/Mastodon/Account.vala:86
-#: src/Views/Lists.vala:146 src/Views/Profile.vala:367
+#: data/ui/menus.ui:118 src/Services/Accounts/Mastodon/Account.vala:86
+#: src/Views/Lists.vala:142 src/Views/Profile.vala:382
 msgid "Lists"
 msgstr "Lijsten"
+
+#: data/ui/views/media_viewer.ui:10 src/Widgets/Attachment/Item.vala:186
+#: src/Widgets/Status.vala:252
+msgid "Copy URL"
+msgstr "URL kopiëren"
+
+#: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:187
+msgid "Save Media"
+msgstr "Media opslaan"
+
+#: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:189
+msgid "Copy Media"
+msgstr "Media kopiëren"
+
+#: data/ui/views/media_viewer.ui:59 data/ui/views/sidebar/view.ui:54
+msgid "Menu"
+msgstr "Menu"
+
+#: data/ui/views/media_viewer.ui:66
+msgid "Toggle Fullscreen"
+msgstr "Volledig scherm omschakelen"
 
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:35
@@ -494,62 +583,59 @@ msgstr "Bot"
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:38
 msgid "Forget Account"
-msgstr ""
+msgstr "Account vergeten"
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
 msgstr "Van account wisselen"
 
-#: data/ui/views/sidebar/view.ui:54
-msgid "Menu"
-msgstr ""
-
 #: data/ui/widgets/announcement.ui:88
 msgid "Unread"
-msgstr ""
+msgstr "Ongelezen"
 
-#: data/ui/widgets/announcement.ui:99 data/ui/widgets/status.ui:172
+#: data/ui/widgets/announcement.ui:99 data/ui/widgets/status.ui:173
 msgid "Edited"
 msgstr "Bewerkt"
 
-#: data/ui/widgets/status.ui:161
+#: data/ui/widgets/status.ui:162
 msgid "Pinned"
 msgstr "Vastgemaakt"
 
 #. translators: Tooltip that closes content warning
-#: data/ui/widgets/status.ui:230
+#: data/ui/widgets/status.ui:231
 msgid "Show Less"
 msgstr "Minder tonen"
 
 #. translators: Tooltip that opens content warning
-#: data/ui/widgets/status.ui:263 src/Widgets/Status.vala:357
+#: data/ui/widgets/status.ui:264 src/Widgets/Status.vala:353
 msgid "Show More"
 msgstr "Meer tonen"
 
-#: src/API/Announcement.vala:44 src/Application.vala:210
-#: src/Dialogs/Composer/Dialog.vala:392 src/Dialogs/ProfileEdit.vala:137
-#: src/Services/Accounts/AccountStore.vala:41
-#: src/Services/Accounts/Mastodon/Account.vala:243
-#: src/Services/Accounts/SecretAccountStore.vala:122
-#: src/Services/Accounts/SecretAccountStore.vala:220
-#: src/Views/MediaViewer.vala:569 src/Views/Sidebar.vala:217
-#: src/Widgets/Announcement.vala:181 src/Widgets/Attachment/Image.vala:90
-#: src/Widgets/Attachment/Item.vala:211 src/Widgets/VoteBox.vala:28
+#: src/API/Announcement.vala:55 src/Application.vala:141
+#: src/Application.vala:230 src/Application.vala:310
+#: src/Dialogs/Composer/Dialog.vala:387 src/Dialogs/ProfileEdit.vala:132
+#: src/Services/Accounts/AccountStore.vala:43
+#: src/Services/Accounts/Mastodon/Account.vala:244
+#: src/Services/Accounts/SecretAccountStore.vala:115
+#: src/Services/Accounts/SecretAccountStore.vala:213
+#: src/Views/MediaViewer.vala:756 src/Views/Sidebar.vala:228
+#: src/Widgets/Announcement.vala:180 src/Widgets/Attachment/Image.vala:87
+#: src/Widgets/Attachment/Item.vala:213 src/Widgets/VoteBox.vala:28
 msgid "Error"
 msgstr "Foutmelding"
 
 #. translators: the variable is a comma separated list of account handles,
 #. this is a state - not an action
-#: src/API/Conversation.vala:22
+#: src/API/Conversation.vala:31
 #, c-format
 msgid "Empty Conversation with %s"
 msgstr "Leeg gesprek met %s"
 
 #: src/API/Emoji.vala:4 src/API/Emoji.vala:8
-#: src/Widgets/CustomEmojiChooser.vala:152
-#: src/Widgets/CustomEmojiChooser.vala:155
-#: src/Widgets/CustomEmojiChooser.vala:157
-#: src/Widgets/CustomEmojiChooser.vala:160
+#: src/Widgets/CustomEmojiChooser.vala:158
+#: src/Widgets/CustomEmojiChooser.vala:161
+#: src/Widgets/CustomEmojiChooser.vala:163
+#: src/Widgets/CustomEmojiChooser.vala:166
 msgid "Other"
 msgstr "Overig"
 
@@ -558,19 +644,19 @@ msgstr "Overig"
 #: src/API/Notification.vala:28
 #, c-format
 msgid "%s (& %d others)"
-msgstr ""
+msgstr "%s (en %d anderen)"
 
 #: src/API/Notification.vala:51
 msgid "Reply…"
-msgstr ""
+msgstr "Reageren…"
 
 #: src/API/Notification.vala:59
 msgid "Remove from Followers"
-msgstr ""
+msgstr "Verwijderen uit volgers"
 
 #: src/API/Notification.vala:64
 msgid "Follow Back"
-msgstr ""
+msgstr "Terugvolgen"
 
 #: src/API/Notification.vala:71 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
@@ -580,19 +666,19 @@ msgstr "Afwijzen"
 msgid "Accept"
 msgstr "Accepteren"
 
-#: src/API/Relationship.vala:19
+#: src/API/Relationship.vala:20
 msgid "Sent follow request"
 msgstr "Volgverzoek verstuurd"
 
-#: src/API/Relationship.vala:21
+#: src/API/Relationship.vala:22
 msgid "Mutuals"
 msgstr "Gelijkgestemden"
 
-#: src/API/Relationship.vala:23
+#: src/API/Relationship.vala:24
 msgid "Follows you"
 msgstr "Volgt u"
 
-#: src/API/SearchResults.vala:19
+#: src/API/SearchResults.vala:32
 msgid "Search returned no results"
 msgstr "Er zijn geen zoekresultaten"
 
@@ -634,7 +720,7 @@ msgstr "Indien u doorgaat zal ‘%s’ openen in uw browser."
 msgid "If you proceed, %s will connect to \"%s\"."
 msgstr "Indien u doorgaat zal %s verbinden met ‘%s’."
 
-#: src/API/Status/PreviewCard.vala:155
+#: src/API/Status/PreviewCard.vala:164
 msgid "Proceed"
 msgstr "Doorgaan"
 
@@ -643,55 +729,56 @@ msgid "Account not found"
 msgstr "Account niet gevonden"
 
 #. translators: the variable is the amount of times a hashtag was used in a week
-#: src/API/Tag.vala:36
+#: src/API/Tag.vala:45
 #, c-format
 msgid "%d per week"
 msgstr "%d per week"
 
 #. translators: the variables are numbers
-#: src/API/Tag.vala:50
+#: src/API/Tag.vala:59
 #, c-format
 msgid "Used %d times by %d people yesterday"
 msgstr "Gisteren %d keer gebruikt door %d personen"
 
 #. translators: the variables are numbers
-#: src/API/Tag.vala:58
+#: src/API/Tag.vala:67
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
 msgstr "In de afgelopen 2 dagen %d keer gebruikt door %d personen"
 
+#. translators: the variable is a uri scheme like 'https'
+#: src/Application.vala:291
+#, c-format
+msgid "'%s://' may only be used when adding a new account"
+msgstr ""
+
+#. translators: the variable is a uri scheme like 'https'
+#: src/Application.vala:298
+#, c-format
+msgid "'%s://' may not be used when adding a new account"
+msgstr ""
+
+#. translators: the first variable is the app name ('Tuba'),
+#. the second one is a uri scheme like 'https'
+#: src/Application.vala:305
+#, c-format
+msgid "%s does not accept '%s://'"
+msgstr ""
+
 #. translators: Name <email@domain.com> or Name https://website.example
-#: src/Application.vala:396
+#: src/Application.vala:450
 msgid "translator-credits"
 msgstr ""
 "Heimen Stoffels <vistausss@fastmail.com>\n"
 "Philip Goto https://flipflop97.github.io/"
 
-#: src/Application.vala:423
+#: src/Application.vala:477
 msgid "OK"
 msgstr "Oké"
 
-#: src/Application.vala:432
+#: src/Application.vala:502
 msgid "Yes"
 msgstr "Ja"
-
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:42
-msgid "Edit Alt Text"
-msgstr "Alt-tekst bewerken"
-
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:53
-msgid "Remove Attachment"
-msgstr "Bijlage verwijderen"
-
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:152
-#: src/Dialogs/Composer/EditorPage.vala:174
-msgid "Characters Left"
-msgstr "Aantal resterende tekens"
-
-#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:172
-#: src/Widgets/Attachment/Item.vala:165
-msgid "Alternative text for attachment"
-msgstr "Alternatieve tekst voor bijlage"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:38 src/Dialogs/ProfileEdit.vala:77
 msgid "All Supported Files"
@@ -703,7 +790,7 @@ msgstr "Media"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:76
 msgid "Paste"
-msgstr ""
+msgstr "Plakken"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:212
 #: src/Dialogs/Composer/AttachmentsPage.vala:238
@@ -727,7 +814,7 @@ msgstr "Media als niet gevoelig markeren"
 
 #. translators: Open file
 #: src/Dialogs/Composer/AttachmentsPage.vala:369
-#: src/Dialogs/ProfileEdit.vala:221
+#: src/Dialogs/ProfileEdit.vala:214
 msgid "Open"
 msgstr "Openen"
 
@@ -735,6 +822,24 @@ msgstr "Openen"
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
 msgstr "Bestand ‘%s’ is groter dan de instantielimiet"
+
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:42
+msgid "Edit Alt Text"
+msgstr "Alt-tekst bewerken"
+
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:53
+msgid "Remove Attachment"
+msgstr "Bijlage verwijderen"
+
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:146
+#: src/Dialogs/Composer/EditorPage.vala:185
+msgid "Characters Left"
+msgstr "Aantal resterende tekens"
+
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:166
+#: src/Widgets/Attachment/Item.vala:166
+msgid "Alternative text for attachment"
+msgstr "Alternatieve tekst voor bijlage"
 
 #: src/Dialogs/Composer/Dialog.vala:205
 msgid "Are you sure you want to exit?"
@@ -748,15 +853,15 @@ msgstr "Uw voortgang zal verloren gaan"
 msgid "Discard"
 msgstr "Verwerpen"
 
-#: src/Dialogs/Composer/Dialog.vala:293
+#: src/Dialogs/Composer/Dialog.vala:288
 msgid "_Redraft"
 msgstr "O_pslaan als concept"
 
-#: src/Dialogs/Composer/Dialog.vala:318
+#: src/Dialogs/Composer/Dialog.vala:313
 msgid "_Edit"
 msgstr "_Bewerken"
 
-#: src/Dialogs/Composer/Dialog.vala:339
+#: src/Dialogs/Composer/Dialog.vala:334
 msgid "_Reply"
 msgstr "Be_antwoorden"
 
@@ -765,33 +870,33 @@ msgstr "Be_antwoorden"
 msgid "Text"
 msgstr "Tekst"
 
-#: src/Dialogs/Composer/EditorPage.vala:193
+#: src/Dialogs/Composer/EditorPage.vala:204
 msgid "What's on your mind?"
 msgstr "Waar denkt u aan?"
 
-#: src/Dialogs/Composer/EditorPage.vala:220
+#: src/Dialogs/Composer/EditorPage.vala:232
 msgid "Emoji Picker"
 msgstr "Emojikiezer"
 
-#: src/Dialogs/Composer/EditorPage.vala:247
+#: src/Dialogs/Composer/EditorPage.vala:259
 msgid "Write your warning here"
 msgstr "Typ hier uw waarschuwing"
 
-#: src/Dialogs/Composer/EditorPage.vala:262
+#: src/Dialogs/Composer/EditorPage.vala:274
 msgid "Content Warning"
 msgstr "Inhoudswaarschuwing"
 
-#: src/Dialogs/Composer/EditorPage.vala:302
+#: src/Dialogs/Composer/EditorPage.vala:314
 msgid "Post Privacy"
 msgstr "Berichtprivacy"
 
-#: src/Dialogs/Composer/EditorPage.vala:325
+#: src/Dialogs/Composer/EditorPage.vala:337
 msgid "Post Language"
 msgstr "Bericht­taal"
 
-#: src/Dialogs/Composer/EditorPage.vala:350
+#: src/Dialogs/Composer/EditorPage.vala:362
 msgid "Post Content Type"
-msgstr ""
+msgstr "Inhoudstype van bericht"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
@@ -886,9 +991,8 @@ msgstr "%d dagen"
 msgid "Expiration"
 msgstr "Verloopdatum"
 
-#: src/Dialogs/MainWindow.vala:37
+#: src/Dialogs/MainWindow.vala:58
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
-#: src/Views/Main.vala:79
 msgid "Home"
 msgstr "Start"
 
@@ -917,7 +1021,7 @@ msgstr "De verificatiecode kan niet worden goedgekeurd"
 msgid "Hello, %s!"
 msgstr "Hallo, %s!"
 
-#: src/Dialogs/NewAccount.vala:241
+#: src/Dialogs/NewAccount.vala:240
 msgid "Server returned an error"
 msgstr "De server stuurde een foutmelding terug"
 
@@ -932,7 +1036,7 @@ msgid "Content"
 msgstr "Inhoud"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
-#: src/Dialogs/ProfileEdit.vala:201
+#: src/Dialogs/ProfileEdit.vala:196
 #, c-format
 msgid "Field %d"
 msgstr "Veld %d"
@@ -979,7 +1083,7 @@ msgstr "%s heeft een bericht bewerkt"
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:262
 msgid "Plain Text"
-msgstr ""
+msgstr "Platte tekst"
 
 #: src/Services/Accounts/Mastodon/Account.vala:49
 #: src/Views/Conversations.vala:4
@@ -1015,7 +1119,7 @@ msgstr "Onderwerpen"
 #: src/Services/Accounts/Mastodon/Account.vala:150
 #: src/Views/Announcements.vala:4
 msgid "Announcements"
-msgstr ""
+msgstr "Aankondigingen"
 
 #: src/Services/Accounts/Mastodon/Account.vala:189
 msgid "Public"
@@ -1053,28 +1157,28 @@ msgstr "Toon alleen aan vermelde gebruikers"
 #. translators: this error shows up when the user clicks a button
 #. in a desktop notification that was pushed for a
 #. different account
-#: src/Services/Accounts/Mastodon/Account.vala:247
+#: src/Services/Accounts/Mastodon/Account.vala:248
 msgid "Notification was pushed for a different account"
-msgstr ""
+msgstr "Melding was voor een ander account"
 
 #. translators: The variable is the backend like "Mastodon"
-#: src/Services/Accounts/SecretAccountStore.vala:204
+#: src/Services/Accounts/SecretAccountStore.vala:197
 #, c-format
 msgid "%s Account"
 msgstr "%s-account"
 
 #. translators: Follow System's dark mode preference
-#: src/Services/Settings.vala:83
+#: src/Services/Settings.vala:89
 msgid "Follow System"
 msgstr "Systeeminstelling volgen"
 
 #. translators: Light mode theme
-#: src/Services/Settings.vala:86
+#: src/Services/Settings.vala:92
 msgid "Light"
 msgstr "Licht"
 
 #. translators: Dark mode theme
-#: src/Services/Settings.vala:89
+#: src/Services/Settings.vala:95
 msgid "Dark"
 msgstr "Donker"
 
@@ -1082,10 +1186,28 @@ msgstr "Donker"
 msgid "expires soon"
 msgstr "verloopt binnenkort"
 
+#. tranlators: the variable is a number, `m` as in minutes in short form
+#: src/Utils/DateTime.vala:14
+#, c-format
+msgid "%sm left"
+msgstr "%s m resterend"
+
+#. tranlators: the variable is a number, `h` as in hours in short form
+#: src/Utils/DateTime.vala:18
+#, c-format
+msgid "%sh left"
+msgstr "%s u resterend"
+
+#. tranlators: the variable is a number, `d` as in days in short form
+#: src/Utils/DateTime.vala:22
+#, c-format
+msgid "%sd left"
+msgstr "%s d resterend"
+
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
-#: src/Utils/DateTime.vala:24
+#: src/Utils/DateTime.vala:27
 msgid "expires on %b %-e, %Y"
 msgstr "verloopt op %-e %b %Y"
 
@@ -1094,28 +1216,41 @@ msgstr "verloopt op %-e %b %Y"
 #. %Y is the year (with century)
 #. %H is the hours (24h format)
 #. %m is the minutes
-#: src/Utils/DateTime.vala:38
+#: src/Utils/DateTime.vala:41
 msgid "expires on %b %-e, %Y %H:%m"
 msgstr "verloopt op %-e %b %Y, %H:%m"
 
-#: src/Utils/DateTime.vala:40
+#: src/Utils/DateTime.vala:43
 msgid "expired on just now"
 msgstr "zojuist verlopen"
 
-#: src/Utils/DateTime.vala:50
+#. tranlators: the variable is a number, `m` as in minutes in short form
+#: src/Utils/DateTime.vala:47
+#, c-format
+msgid "expired %sm ago"
+msgstr "%s m geleden verlopen"
+
+#. tranlators: the variable is a number, `h` as in hours in short form
+#: src/Utils/DateTime.vala:52
+#, c-format
+msgid "expired %sh ago"
+msgstr "%s u geleden verlopen"
+
+#: src/Utils/DateTime.vala:55
 msgid "expired yesterday"
 msgstr "gisteren verlopen"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
-#: src/Utils/DateTime.vala:55
+#: src/Utils/DateTime.vala:60
+#, c-format
 msgid "expired on %b %-e"
 msgstr "verlopen op %-e %b"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
-#: src/Utils/DateTime.vala:61
+#: src/Utils/DateTime.vala:66
 msgid "expired on %b %-e, %Y"
 msgstr "verlopen op %-e %b %Y"
 
@@ -1124,59 +1259,110 @@ msgstr "verlopen op %-e %b %Y"
 #. %Y is the year (with century)
 #. %H is the hours (24h format)
 #. %m is the minutes
-#: src/Utils/DateTime.vala:75
+#: src/Utils/DateTime.vala:80
 msgid "%b %-e, %Y %H:%m"
 msgstr "%-e %b %Y, %H:%m"
 
-#: src/Utils/DateTime.vala:77
+#: src/Utils/DateTime.vala:82
 msgid "Just now"
 msgstr "Zojuist"
 
-#: src/Utils/DateTime.vala:87
+#. tranlators: the variable is a number, `m` as in minutes in short form
+#: src/Utils/DateTime.vala:86
+#, c-format
+msgid "%sm"
+msgstr "%s m"
+
+#. tranlators: the variable is a number, `h` as in hours in short form
+#: src/Utils/DateTime.vala:91
+#, c-format
+msgid "%sh"
+msgstr "%s u"
+
+#: src/Utils/DateTime.vala:94
 msgid "Yesterday"
 msgstr "Gisteren"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
-#: src/Utils/DateTime.vala:92
+#: src/Utils/DateTime.vala:99
+#, c-format
 msgid "%b %-e"
 msgstr "%-e %b"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
-#: src/Utils/DateTime.vala:98
+#: src/Utils/DateTime.vala:105
 msgid "%b %-e, %Y"
 msgstr "%-e %b %Y"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:120
+#, c-format
+msgid "less than a minute old"
+msgid_plural "%s minutes old"
+msgstr[0] ""
+msgstr[1] ""
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:125
+#, c-format
+msgid "an hour old"
+msgid_plural "%s hours old"
+msgstr[0] ""
+msgstr[1] ""
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:140 src/Utils/DateTime.vala:154
+#, c-format
+msgid "%d months old"
+msgstr "%d maand(en) oud"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:146
+#, c-format
+msgid "a day old"
+msgid_plural "%d days old"
+msgstr[0] ""
+msgstr[1] ""
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:151
+#, c-format
+msgid "a year old"
+msgid_plural "%d years old"
+msgstr[0] ""
+msgstr[1] ""
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k
 #: src/Utils/Units.vala:13
 msgid "k"
-msgstr ""
+msgstr "-dznd."
 
 #. translators: short unit suffix for millions
 #. 3000000 => 3M
 #: src/Utils/Units.vala:17
 msgid "M"
-msgstr ""
+msgstr "-mln."
 
 #. translators: short unit suffix for billions
 #. 3000000000 => 3G
 #: src/Utils/Units.vala:21
 msgid "G"
-msgstr ""
+msgstr "-mld."
 
 #. translators: Shown when there are 0 results
 #: src/Views/Base.vala:4
 msgid "Nothing to see here"
 msgstr "Er valt hier niks te zien"
 
-#: src/Views/Base.vala:89
+#: src/Views/Base.vala:99
 msgid "Reload"
 msgstr "Herladen"
 
-#: src/Views/Base.vala:148
+#: src/Views/Base.vala:158
 msgid "An Error Occurred"
 msgstr "Er is een fout opgetreden"
 
@@ -1207,7 +1393,7 @@ msgstr "Volgen"
 msgid "Unfollow"
 msgstr "Ontvolgen"
 
-#: src/Views/Home.vala:18
+#: src/Views/Home.vala:20
 msgid "Compose"
 msgstr "Opstellen"
 
@@ -1225,86 +1411,56 @@ msgstr "Deze actie is onomkeerbaar."
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: src/Views/Lists.vala:141
+#: src/Views/Lists.vala:137
 msgid "New list title"
 msgstr "Titel van nieuwe lijst"
 
-#: src/Views/Lists.vala:156
+#: src/Views/Lists.vala:152
 msgid "Add list"
 msgstr "Lijst toevoegen"
 
-#: src/Views/MediaViewer.vala:295
-msgid "Media Viewer"
-msgstr "Mediaweergave"
-
-#: src/Views/MediaViewer.vala:308
-msgid "Toggle Fullscreen"
-msgstr "Volledig scherm omschakelen"
-
-#: src/Views/MediaViewer.vala:434 src/Widgets/Attachment/Item.vala:183
-#: src/Widgets/Status.vala:251
-msgid "Open in Browser"
-msgstr "Openen in browser"
-
-#: src/Views/MediaViewer.vala:435 src/Widgets/Attachment/Item.vala:184
-#: src/Widgets/Status.vala:252
-msgid "Copy URL"
-msgstr "URL kopiëren"
-
-#: src/Views/MediaViewer.vala:436 src/Widgets/Attachment/Item.vala:185
-msgid "Save Media"
-msgstr "Media opslaan"
-
-#: src/Views/MediaViewer.vala:438 src/Widgets/Attachment/Item.vala:187
-msgid "Copy Media"
+#: src/Views/MediaViewer.vala:577
+msgid "Copied media url to clipboard"
 msgstr ""
 
-#: src/Views/MediaViewer.vala:660
-msgid "Previous Attachment"
-msgstr "Vorige bijlage"
+#: src/Views/MediaViewer.vala:936 src/Widgets/Attachment/Image.vala:85
+msgid "Copied image to clipboard"
+msgstr "Afbeelding naar klembord gekopieerd"
 
-#: src/Views/MediaViewer.vala:665
-msgid "Next Attachment"
-msgstr "Volgende bijlage"
-
-#: src/Views/MediaViewer.vala:683
-msgid "Zoom Out"
-msgstr "Uitzoomen"
-
-#: src/Views/MediaViewer.vala:688
-msgid "Zoom In"
-msgstr "Inzoomen"
-
-#: src/Views/Profile.vala:33
+#: src/Views/Profile.vala:34
 msgid "Profile"
 msgstr "Profiel"
 
-#: src/Views/Profile.vala:232
+#: src/Views/Profile.vala:224
+msgid "Copied handle to clipboard"
+msgstr "Handle gekopieerd naar klembord"
+
+#: src/Views/Profile.vala:256
 #, c-format
 msgid "Block \"%s\"?"
 msgstr "Wilt u ‘%s’ blokkeren?"
 
-#: src/Views/Profile.vala:232
+#: src/Views/Profile.vala:256
 #, c-format
 msgid "Unblock \"%s\"?"
 msgstr "Wilt u ‘%s’ deblokkeren?"
 
-#: src/Views/Profile.vala:238 src/Views/Profile.vala:263
+#: src/Views/Profile.vala:262 src/Views/Profile.vala:281
 #: src/Widgets/RelationshipButton.vala:39
 msgid "Unblock"
 msgstr "Deblokkeren"
 
-#: src/Views/Profile.vala:256
+#: src/Views/Profile.vala:274
 #, c-format
 msgid "Block Entire \"%s\"?"
 msgstr "Wilt u ‘%s’ in zijn geheel blokkeren?"
 
-#: src/Views/Profile.vala:256
+#: src/Views/Profile.vala:274
 #, c-format
 msgid "Unblock Entire \"%s\"?"
 msgstr "Wilt u ‘%s’ in zijn geheel deblokkeren?"
 
-#: src/Views/Profile.vala:260
+#: src/Views/Profile.vala:278
 msgid ""
 "Blocking a domain will:\n"
 "\n"
@@ -1320,41 +1476,41 @@ msgstr ""
 "  • U kunt anderen niet meer volgen"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:356
+#: src/Views/Profile.vala:371
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
 msgstr "‘%s’ toevoegen aan of verwijderen van lijst"
 
 #. translators: the variable is an account handle
-#: src/Views/Profile.vala:369
+#: src/Views/Profile.vala:384
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
 msgstr "Kies een lijst om ‘%s’ aan toe te voegen of van te verwijderen:"
 
-#: src/Views/Profile.vala:375
+#: src/Views/Profile.vala:390
 msgid "You don't have any lists"
 msgstr "U heeft nog geen lijsten"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:405 src/Views/Profile.vala:467
+#: src/Views/Profile.vala:420 src/Views/Profile.vala:482
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr "‘%s’ verwijderen van ‘%s’"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:406 src/Views/Profile.vala:461
+#: src/Views/Profile.vala:421 src/Views/Profile.vala:476
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr "‘%s’ toevoegen aan ‘%s’"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:458
+#: src/Views/Profile.vala:473
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr "‘%s’ is verwijderd van ‘%s’"
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:464
+#: src/Views/Profile.vala:479
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr "‘%s’ is toegevoegd aan ‘%s’"
@@ -1372,29 +1528,34 @@ msgstr "Accounts"
 msgid "Enter Query"
 msgstr "Voer een zoekopdracht in"
 
-#: src/Views/Sidebar.vala:24
+#: src/Views/Sidebar.vala:28
 msgid "Open Profile"
-msgstr ""
+msgstr "Profiel openen"
 
-#: src/Views/Sidebar.vala:29
+#: src/Views/Sidebar.vala:33
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: src/Views/Sidebar.vala:30
+#: src/Views/Sidebar.vala:34
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
+#: src/Views/Sidebar.vala:35
+#, c-format
+msgid "About %s"
+msgstr "Over %s"
+
 #. translators: the variable is an account handle
-#: src/Views/Sidebar.vala:203
+#: src/Views/Sidebar.vala:217
 #, c-format
 msgid "Forget %s?"
 msgstr "Wilt u ‘%s’ verwijderen?"
 
-#: src/Views/Sidebar.vala:204
+#: src/Views/Sidebar.vala:218
 msgid "This account will be removed from the application."
 msgstr "Dit account zal uit de app worden verwijderd."
 
-#: src/Views/Sidebar.vala:206
+#: src/Views/Sidebar.vala:220
 msgid "Forget"
 msgstr "Vergeten"
 
@@ -1416,6 +1577,18 @@ msgstr "Geboost door"
 msgid "Conversation"
 msgstr "Gesprek"
 
+#: src/Views/Thread.vala:104 src/Views/Thread.vala:118
+msgid "Reveal Spoilers"
+msgstr "Spoilers weergeven"
+
+#: src/Views/Thread.vala:118
+msgid "Hide Spoilers"
+msgstr "Spoilers verbergen"
+
+#: src/Views/Timeline.vala:221 src/Widgets/Status/ActionsRow.vala:343
+msgid "Network Error"
+msgstr "Verbindingsfout"
+
 #. translators: the variable is the emoji or its name if it's custom
 #: src/Widgets/Announcement.vala:32 src/Widgets/Status/ReactionsRow.vala:21
 #, c-format
@@ -1430,13 +1603,21 @@ msgstr "Media verbergen"
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:74
 msgid "Show Sensitive Content"
+msgstr "Gevoelige inhoud tonen"
+
+#: src/Widgets/Attachment/Item.vala:22
+msgid "Copied attachment url to clipboard"
 msgstr ""
 
 #: src/Widgets/Attachment/Item.vala:35
 msgid "Save Attachment"
 msgstr "Bijlage opslaan"
 
-#: src/Widgets/Attachment/Item.vala:116
+#: src/Widgets/Attachment/Item.vala:47
+msgid "Saved Media"
+msgstr "Opgeslagen media"
+
+#: src/Widgets/Attachment/Item.vala:117
 msgid "View Alt Text"
 msgstr "Alt-tekst tonen"
 
@@ -1444,7 +1625,7 @@ msgstr "Alt-tekst tonen"
 #: src/Widgets/BookWyrmPage.vala:83
 #, c-format
 msgid "Published: %s"
-msgstr ""
+msgstr "Gepubliceerd op %s"
 
 #. translators: the variable is a comma separated
 #. list of the book authors
@@ -1454,28 +1635,28 @@ msgid "by %s"
 msgstr "door %s"
 
 #. translators: Used when there are results in the custom emoji picker
-#: src/Widgets/CustomEmojiChooser.vala:60
-#: src/Widgets/CustomEmojiChooser.vala:114
+#: src/Widgets/CustomEmojiChooser.vala:64
+#: src/Widgets/CustomEmojiChooser.vala:120
 msgid "Results"
 msgstr "Resultaten"
 
 #. translators: Used when there are 0 results in the custom emoji picker
-#: src/Widgets/CustomEmojiChooser.vala:118
+#: src/Widgets/CustomEmojiChooser.vala:124
 msgid "No Results"
 msgstr "Geen resultaten"
 
-#: src/Widgets/CustomEmojiChooser.vala:156
+#: src/Widgets/CustomEmojiChooser.vala:162
 msgid "Custom Emojis"
 msgstr "Aangepaste emoji's"
 
 #. translators: the variables are numbers
-#: src/Widgets/PreviewCard.vala:115
+#: src/Widgets/PreviewCard.vala:110
 #, c-format
 msgid "Discussed %d times by %d people yesterday"
 msgstr "Gisteren %d keer besproken door %d personen"
 
 #. translators: the variables are numbers
-#: src/Widgets/PreviewCard.vala:123
+#: src/Widgets/PreviewCard.vala:118
 #, c-format
 msgid "Discussed %d times by %d people in the past 2 days"
 msgstr "In de afgelopen 2 dagen %d keer besproken door %d personen"
@@ -1486,57 +1667,33 @@ msgstr "In de afgelopen 2 dagen %d keer besproken door %d personen"
 #. Please do not stray far from the original and only include day, month
 #. and year.
 #. If unsure, either leave it as-is or set it to %x.
-#: src/Widgets/ProfileCover.vala:142 src/Widgets/Status.vala:378
+#: src/Widgets/ProfileCover.vala:158 src/Widgets/Status.vala:373
 msgid "%B %e, %Y"
 msgstr "%x"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
-#: src/Widgets/ProfileCover.vala:152
+#: src/Widgets/ProfileCover.vala:168
 msgid "Joined"
 msgstr "Lid sinds"
 
 #. translators: the variable is the amount of posts a user has made
-#: src/Widgets/ProfileCover.vala:169
+#: src/Widgets/ProfileCover.vala:185 src/Widgets/ProfileCover.vala:186
 #, c-format
 msgid "%s Posts"
-msgstr ""
+msgstr "%s berichten"
 
 #. translators: the variable is the amount of people a user follows
-#: src/Widgets/ProfileCover.vala:174
+#: src/Widgets/ProfileCover.vala:191 src/Widgets/ProfileCover.vala:192
 #, c-format
 msgid "%s Following"
-msgstr ""
+msgstr "Volgt %s"
 
 #. translators: the variable is the amount of followers a user has
-#: src/Widgets/ProfileCover.vala:179
+#: src/Widgets/ProfileCover.vala:197 src/Widgets/ProfileCover.vala:198
 #, c-format
 msgid "%s Followers"
-msgstr ""
-
-#: src/Widgets/Status/ActionsRow.vala:35 src/Widgets/Status/ActionsRow.vala:79
-msgid "Boost"
-msgstr "Boosten"
-
-#: src/Widgets/Status/ActionsRow.vala:38
-msgid "This post can't be boosted"
-msgstr "Dit bericht kan niet worden geboost"
-
-#: src/Widgets/Status/ActionsRow.vala:70
-msgid "Reply"
-msgstr "Beantwoorden"
-
-#: src/Widgets/Status/ActionsRow.vala:89
-msgid "Favorite"
-msgstr "Aan favorieten toevoegen"
-
-#: src/Widgets/Status/ActionsRow.vala:99
-msgid "Bookmark"
-msgstr "Aan bladwijzers toevoegen"
-
-#: src/Widgets/Status/ActionsRow.vala:210
-msgid "Network Error"
-msgstr "Verbindingsfout"
+msgstr "%s Volgers"
 
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:255
@@ -1548,7 +1705,7 @@ msgid "View Edit History"
 msgstr "Bewerkgeschiedenis tonen"
 
 #. translators: Pin post on profile
-#: src/Widgets/Status.vala:264 src/Widgets/Status.vala:496
+#: src/Widgets/Status.vala:264 src/Widgets/Status.vala:491
 msgid "Pin"
 msgstr "Vastzetten"
 
@@ -1556,32 +1713,85 @@ msgstr "Vastzetten"
 msgid "Edit"
 msgstr "Bewerken"
 
+#: src/Widgets/Status.vala:278
+msgid "Copied post url to clipboard"
+msgstr ""
+
 #: src/Widgets/Status.vala:328
 msgid "Are you sure you want to delete this post?"
 msgstr "Weet u zeker dat u dit bericht wilt verwijderen?"
 
-#: src/Widgets/Status.vala:364
+#: src/Widgets/Status.vala:360
 msgid "Sensitive"
 msgstr "Gevoelig"
 
 #. translators: Unpin post from profile
-#: src/Widgets/Status.vala:494
+#: src/Widgets/Status.vala:489
 msgid "Unpin"
 msgstr "Losmaken"
+
+#: src/Widgets/Status/ActionsRow.vala:52 src/Widgets/Status/ActionsRow.vala:92
+#: src/Widgets/Status/ActionsRow.vala:237
+msgid "Boost"
+msgstr "Boosten"
+
+#: src/Widgets/Status/ActionsRow.vala:55
+msgid "This post can't be boosted"
+msgstr "Dit bericht kan niet worden geboost"
+
+#: src/Widgets/Status/ActionsRow.vala:83 src/Widgets/Status/ActionsRow.vala:128
+msgid "Reply"
+msgstr "Beantwoorden"
+
+#: src/Widgets/Status/ActionsRow.vala:102
+msgid "Favorite"
+msgstr "Aan favorieten toevoegen"
+
+#: src/Widgets/Status/ActionsRow.vala:112
+msgid "Bookmark"
+msgstr "Aan bladwijzers toevoegen"
+
+#. translators: the variable is a datetime with the "old" suffix, e.g. "5 months old", "a day old", "2 years old".
+#. The "old" suffix is translated on the datetime strings, not here
+#: src/Widgets/Status/ActionsRow.vala:123
+#, c-format
+msgid "This post is %s"
+msgstr "Dit bericht is %s"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon-android/tree/master/mastodon/src/main/res
+#. in the `strings.xml` file inside the `values-` folder that matches your locale under the `old_post_sheet_text` key
+#: src/Widgets/Status/ActionsRow.vala:126
+msgid "You can still reply, but it may no longer be relevant."
+msgstr ""
+
+#: src/Widgets/Status/ActionsRow.vala:128
+msgid "Don't remind me again"
+msgstr "Herinner mij niet opnieuw"
+
+#: src/Widgets/Status/ActionsRow.vala:229
+msgid "Boost with Visibility"
+msgstr "Boosten met zichtbaarheid"
+
+#: src/Widgets/Status/ActionsRow.vala:236
+msgid "Quote"
+msgstr "Citatie"
 
 #: src/Widgets/VoteBox.vala:12
 msgid "Vote"
 msgstr "Stemmen"
 
-#: src/Widgets/VoteBox.vala:96 src/Widgets/VoteBox.vala:121
+#: src/Widgets/VoteBox.vala:97 src/Widgets/VoteBox.vala:124
 msgid "Voted"
-msgstr ""
+msgstr "Gestemd"
 
 #. translators: the variable is the amount of people that voted
-#: src/Widgets/VoteBox.vala:144
+#: src/Widgets/VoteBox.vala:148
 #, c-format
 msgid "%lld voted"
 msgstr "%lld gestemd"
+
+#~ msgid "Info"
+#~ msgstr "Info"
 
 #~ msgid "Autostart"
 #~ msgstr "Automatisch opstarten"

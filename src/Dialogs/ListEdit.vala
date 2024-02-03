@@ -102,12 +102,12 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesWindow {
     private void update_members () {
         new Request.GET (@"/api/v1/lists/$(list.id)/accounts")
             .with_account (accounts.active)
-            .then ((sess, msg, in_stream) => {
+            .then ((in_stream) => {
                 var parser = Network.get_parser_from_inputstream (in_stream);
                 if (Network.get_array_size (parser) > 0) {
                     this.add (members_page);
 
-                    Network.parse_array (msg, parser, node => {
+                    Network.parse_array (parser, node => {
                         var member = API.Account.from (node);
                         var avi = new Widgets.Avatar () {
                             account = member,
@@ -173,7 +173,7 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesWindow {
 
         if (memebers_to_be_removed.size > 0) {
             var id_array = Request.array2string (memebers_to_be_removed, "account_ids");
-            new Request.DELETE (@"/api/v1/lists/$(list.id)/accounts/?$id_array")
+            new Request.DELETE (@"/api/v1/lists/$(list.id)/accounts?$id_array")
                 .with_account (accounts.active)
                 .exec ();
         }

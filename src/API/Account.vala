@@ -1,4 +1,5 @@
 public class Tuba.API.Account : Entity, Widgetizable {
+	public API.Relationship? tuba_rs { get; set; default=null; }
 
 	public string id { get; set; }
 	public string username { get; set; }
@@ -17,7 +18,7 @@ public class Tuba.API.Account : Entity, Widgetizable {
 		}
 	}
 
-	public string note { get; set; }
+	public string note { get; set; default=""; }
 	public bool locked { get; set; }
 	public string header { get; set; }
 	public string avatar { get; set; }
@@ -107,11 +108,7 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	}
 
 	public override Gtk.Widget to_widget () {
-		var status = new API.Status.from_account (this);
-		var status_widget = new Widgets.Status (status);
-		status_widget.actions.visible = false;
-
-		return status_widget;
+		return new Widgets.Account (this);
 	}
 
 	public override void open () {

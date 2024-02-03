@@ -92,7 +92,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 		model.remove_all ();
 	}
 
-	protected void clear_all_but_first () {
+	protected virtual void clear_all_but_first () {
 		base.clear ();
 
 		if (model.n_items > 1)

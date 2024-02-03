@@ -46,10 +46,18 @@
 									</object>
 								</property>
 								<child type="start">
-									<object class="GtkButton">
+									<object class="GtkButton" id="back_btn">
 										<property name="icon-name">tuba-left-large-symbolic</property>
 										<property name="tooltip-text" translatable="yes">Go Back</property>
 										<signal name="clicked" handler="clear" swapped="no" />
+									</object>
+								</child>
+								<child type="end">
+									<object class="GtkMenuButton">
+										<property name="menu-model">menu-model</property>
+										<property name="icon-name">view-more-symbolic</property>
+										<property name="tooltip-text" translatable="yes">Menu</property>
+										<property name="primary">1</property>
 									</object>
 								</child>
 								<child type="end">
@@ -59,21 +67,10 @@
 										<signal name="clicked" handler="toggle_fullscreen" swapped="no" />
 									</object>
 								</child>
-								<child type="end">
-									<object class="GtkMenuButton">
-										<property name="menu-model">menu-model</property>
-										<property name="icon-name">view-more-symbolic</property>
-										<property name="tooltip-text" translatable="yes">Menu</property>
-									</object>
-								</child>
 							</object>
 						</child>
 						<property name="content">
-							<object class="GtkBox">
-								<property name="orientation">vertical</property>
-								<property name="hexpand">1</property>
-								<property name="vexpand">1</property>
-								<child>
+
 									<object class="GtkOverlay">
 										<property name="hexpand">1</property>
 										<property name="vexpand">1</property>
@@ -168,14 +165,7 @@
 											</object>
 										</property>
 									</object>
-								</child>
-								<child>
-									<object class="AdwCarouselIndicatorDots" id="carousel_dots">
-										<property name="carousel">carousel</property>
-										<property name="visible">0</property>
-									</object>
-								</child>
-							</object>
+
 						</property>
 					</object>
 				</property>

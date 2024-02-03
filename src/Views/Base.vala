@@ -12,6 +12,18 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	public int badge_number { get; set; default = 0; }
 	protected SimpleActionGroup actions { get; set; default = new SimpleActionGroup (); }
 
+	private bool _show_back_button = true;
+	public bool show_back_button {
+		get {
+			return _show_back_button;
+		}
+
+		set {
+			_show_back_button = value;
+			update_back_btn ();
+		}
+	}
+
 	private bool _current = false;
 	public bool current {
 		get {
@@ -82,6 +94,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 			_base_status = value;
 		}
 	}
+
 	construct {
 		build_actions ();
 		build_header ();
@@ -102,9 +115,20 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		});
 
 		scroll_to_top.clicked.connect (on_scroll_to_top);
+		app.notify["is-mobile"].connect (update_back_btn);
 	}
 	~Base () {
 		debug (@"Destroying base $label");
+	}
+
+	private void update_back_btn () {
+		header.show_back_button = app.is_mobile || show_back_button;
+
+		// HACK - show_back_button doesn't seem to have any effect when
+		// toggled on its own
+		// https://gitlab.gnome.org/GNOME/libadwaita/-/issues/775
+		header.show_start_title_buttons = !header.show_start_title_buttons;
+		header.show_start_title_buttons = !header.show_start_title_buttons;
 	}
 
 	private void on_scroll_to_top () {

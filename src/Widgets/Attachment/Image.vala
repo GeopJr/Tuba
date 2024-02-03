@@ -47,7 +47,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		base.on_rebind ();
 		pic.alternative_text = entity == null ? null : entity.description;
 
-		image_cache.request_paintable (entity.preview_url, on_cache_response);
+		Tuba.Helper.Image.request_paintable (entity.preview_url, entity.blurhash, on_cache_response);
 
 		if (media_kind.is_video ()) {
 			media_icon = new Gtk.Image () {
@@ -82,21 +82,17 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 
 				Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 				clipboard.set_texture (texture);
+				app.toast (_("Copied image to clipboard"));
 			} catch (Error e) {
-				var dlg = app.inform (_("Error"), e.message);
-				dlg.present ();
+				app.toast ("%s: %s".printf (_("Error"), e.message));
 			}
 
 			debug ("End copy-media action");
 		});
 	}
 
-	protected virtual void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		if (is_loaded) {
-			pic.paintable = data;
-		} else if (settings.use_blurhash) {
-			pic.paintable = blurhash_cache.lookup_or_decode (entity.blurhash);
-		}
+	protected virtual void on_cache_response (Gdk.Paintable? data) {
+		pic.paintable = data;
 	}
 
 	public signal void spoiler_revealed ();

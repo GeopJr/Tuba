@@ -1,5 +1,5 @@
 public class Tuba.EditorPage : ComposerPage {
-
+	public bool force_cursor_at_start { get; construct set; default=false; }
 	protected int64 char_limit { get; set; default = 500; }
 	protected int64 remaining_chars { get; set; default = 0; }
 	public signal void ctrl_return_pressed ();
@@ -22,6 +22,12 @@ public class Tuba.EditorPage : ComposerPage {
 		if (char_limit_api > 0)
 			char_limit = char_limit_api;
 		remaining_chars = char_limit;
+	}
+
+	public void set_cursor_at_start () {
+		Gtk.TextIter star_iter;
+		editor.buffer.get_start_iter (out star_iter);
+		editor.buffer.place_cursor (star_iter);
 	}
 
 	public override void on_build () {
@@ -104,6 +110,13 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.grab_focus ();
 	}
 
+	#if LIBSPELLING
+		protected Spelling.TextBufferAdapter adapter;
+		private void update_spelling_settings () {
+			settings.spellchecker_enabled = adapter.enabled;
+		}
+	#endif
+
 	protected void install_editor () {
 		recount_chars.connect (() => {
 			remaining_chars = char_limit;
@@ -136,21 +149,19 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.remove_css_class ("view");
 
 		#if LIBSPELLING
-			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
+			adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
 
 			editor.extra_menu = adapter.get_menu_model ();
 			editor.insert_action_group ("spelling", adapter);
-			adapter.enabled = true;
-		#endif
 
-		#if GSPELL && !LIBSPELLING
-			var gspell_view = Gspell.TextView.get_from_gtk_text_view (editor);
-			gspell_view.basic_setup ();
+			adapter.enabled = settings.spellchecker_enabled;
+			adapter.notify["enabled"].connect (update_spelling_settings);
 		#endif
 
 		var keypress_controller = new Gtk.EventControllerKey ();
         keypress_controller.key_pressed.connect ((keyval, _, modifier) => {
-            if (keyval == Gdk.Key.Return && (modifier == Gdk.ModifierType.CONTROL_MASK || modifier == (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.LOCK_MASK))) {
+            modifier &= Gdk.MODIFIER_MASK;
+            if ((keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter) && (modifier == Gdk.ModifierType.CONTROL_MASK || modifier == (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.LOCK_MASK))) {
 				ctrl_return_pressed ();
 				return true;
 			}
@@ -210,6 +221,7 @@ public class Tuba.EditorPage : ComposerPage {
 
 		content.prepend (overlay);
 		editor.buffer.text = t_content;
+		if (force_cursor_at_start) set_cursor_at_start ();
 	}
 
 	protected Gtk.EmojiChooser emoji_picker;

@@ -8,14 +8,12 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
 
     public override Gtk.Widget on_create_model_widget (Object obj) {
 		var widget = base.on_create_model_widget (obj);
-		var widget_status = widget as Widgets.Status;
+		var widget_account = widget as Widgets.Account;
 
-		if (widget_status != null) {
-            var fr_row = new Widgets.FollowRequestRow (widget_status.kind_instigator.id);
+		if (widget_account != null) {
+            var fr_row = widget_account.add_fr_row ();
             fr_row.declined.connect ((fr_row, req) => on_decline (fr_row, req, obj as Widgetizable));
             fr_row.accepted.connect ((fr_row, req) => on_accept (fr_row, req, obj as Widgetizable));
-
-            widget_status.content_column.append (fr_row);
         }
 
 		return widget;
@@ -24,7 +22,7 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
     public void on_accept (Widgets.FollowRequestRow fr_row, Request req, Widgetizable widget) {
         fr_row.sensitive = false;
         req
-			.then ((sess, msg, in_stream) => {
+			.then ((in_stream) => {
                 var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				var relationship = Entity.from_json (typeof (API.Relationship), node) as API.Relationship;
@@ -43,7 +41,7 @@ public class Tuba.Views.FollowRequests : Views.Timeline {
     public void on_decline (Widgets.FollowRequestRow fr_row, Request req, Widgetizable widget) {
         fr_row.sensitive = false;
         req
-			.then ((sess, msg) => {
+			.then (() => {
                 uint indx;
                 var found = model.find (widget, out indx);
                 if (found)

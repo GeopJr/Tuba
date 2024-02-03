@@ -21,7 +21,14 @@ public class Tuba.API.Mention : Entity, Widgetizable {
     }
 
 	public override void open () {
-		Views.Profile.open_from_id (id);
+        new Request.GET (@"/api/v1/accounts/$id")
+			.with_account (accounts.active)
+            .then ((in_stream) => {
+                var parser = Network.get_parser_from_inputstream (in_stream);
+                var node = network.parse_node (parser);
+                API.Account.from (node).open ();
+            })
+            .exec ();
 	}
 
 }

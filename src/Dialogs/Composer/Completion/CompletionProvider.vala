@@ -9,8 +9,7 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 	public virtual bool is_trigger (Gtk.TextIter iter, unichar ch) {
 		if (this.trigger_char == null) {
 			return this.set_input_capture (true);
-		}
-		else if (ch.to_string () == this.trigger_char) {
+		} else if (ch.to_string () == this.trigger_char) {
 			return this.set_input_capture (true);
 		}
 		return false;
@@ -20,8 +19,7 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 		this.is_capturing_input = state;
 		if (state) {
 			debug ("Capturing input");
-		}
-		else {
+		} else {
 			debug ("Stopped capturing input");
 			this.empty_triggers = 0;
 		}
@@ -37,8 +35,23 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 		Gtk.TextIter end;
 		context.get_bounds (out start, out end);
 
+		// If it reports that we are not at the end
+		// of the word or line, move forward
+		if (!end.ends_word () && !end.ends_line ()) {
+			// If end is ' ', it's already the
+			// end of the word. Proceeding will
+			// capture more than needed
+			if (end.get_char () != ' ')
+				// Go forwards until we find a space
+				// aka get the full string - even if
+				// it's not considered a word by pango
+				end.forward_find_char ((e) => e.isspace (), null);
+			// plus a space since we are appending one below
+			end.forward_char ();
+		}
+
 		var buffer = start.get_buffer ();
-		var new_content = proposal.get_typed_text ();
+		var new_content = proposal.get_typed_text () + " ";
 
 		buffer.begin_user_action ();
 		buffer.@delete (ref start, ref end);
@@ -58,13 +71,13 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 			// is the trigger
 			Gtk.TextIter start;
 			context.get_bounds (out start, null);
-			if (start.backward_char ())
-				is_trigger (start, start.get_char ());
+			if (start.backward_char () && is_trigger (start, start.get_char ()))
+				return yield populate_async (context, cancellable);
 
 			return EMPTY;
 		}
 
-		var word = context.get_word ();
+		string word = get_whole_word (context);
 		if (word == "") {
 			debug ("Empty trigger");
 			this.empty_triggers++;
@@ -75,9 +88,9 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 			return EMPTY;
 		}
 
-		var suggestions = yield this.suggest (context, cancellable);
+		var suggestions = yield this.suggest (word, cancellable);
 
-		if (word != context.get_word ())
+		if (word != get_whole_word (context))
 			return EMPTY;
 		return suggestions;
 	}
@@ -89,7 +102,19 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 	);
 
 	public abstract async GLib.ListModel suggest (
-		GtkSource.CompletionContext context,
+		string word,
 		GLib.Cancellable? cancellable
 	) throws Error;
+
+	public string get_whole_word (GtkSource.CompletionContext context) {
+		Gtk.TextIter start;
+		Gtk.TextIter end;
+		context.get_bounds (out start, out end);
+
+		// If end is ':', everything until
+		// a newline will be treated as a word
+		if (end.get_char () != ':')
+			end.forward_word_end ();
+		return start.get_text (end);
+	}
 }
