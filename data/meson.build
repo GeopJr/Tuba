@@ -58,3 +58,10 @@ if appstream_util.found()
         args: ['validate-relax', '--nonet', appstream_file],
     )
 endif
+
+manpage = configure_file(
+    input : 'dev.geopjr.Tuba.1.in',
+    output : 'dev.geopjr.Tuba.1',
+    configuration : config
+)
+install_man(manpage)
