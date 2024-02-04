@@ -14,6 +14,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public string? page_prev { get; set; }
 	#if !USE_LISTVIEW
 		Entity[] entity_queue = {};
+		protected int entity_queue_size { get; set; default=0; }
 	#endif
 
 	private Gtk.Spinner pull_to_refresh_spinner;
@@ -120,6 +121,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		#if !USE_LISTVIEW
 			content.bind_model (null, null);
 			entity_queue = {};
+			entity_queue_size = 0;
 		#endif
 	}
 
@@ -227,6 +229,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public virtual void on_refresh () {
 		#if !USE_LISTVIEW
 			entity_queue = {};
+			entity_queue_size = 0;
 		#endif
 		scrolled.vadjustment.value = 0;
 		status_button.sensitive = false;
@@ -281,6 +284,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 				if (use_queue && scrolled.vadjustment.value > 1000) {
 					entity_queue += entity;
+					entity_queue_size += 1;
 					return;
 				}
 
@@ -297,6 +301,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			model.splice (0, 0, (Object[])entity_queue);
 
 			entity_queue = {};
+			entity_queue_size = 0;
 		}
 	#endif
 

@@ -130,6 +130,8 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			});
 
 			place.bind_property ("selectable", this, "selectable", BindingFlags.SYNC_CREATE);
+
+			if (!place.needs_attention) badge.add_css_class ("no-attention");
 		}
 	}
 
