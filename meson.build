@@ -49,6 +49,10 @@ if devmode
   add_project_arguments(['--define=DEV_MODE'], language: 'vala')
 endif
 
+if host_machine.system() == 'windows'
+  add_project_arguments(['--define=WINDOWS'], language: 'vala')
+endif
+
 add_project_arguments (
   '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
   language: 'c'
