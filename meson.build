@@ -51,6 +51,7 @@ endif
 
 if host_machine.system() == 'windows'
   add_project_arguments(['--define=WINDOWS'], language: 'vala')
+  add_project_arguments('-mwindows', language: 'c')
 endif
 
 add_project_arguments (
