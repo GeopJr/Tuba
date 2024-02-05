@@ -7,3 +7,6 @@ subprojects/packagecache
 builddir
 *.snap
 .flatpak-builder
+*.exe
+/tuba_windows_portable/
+tuba_windows_portable.zip
