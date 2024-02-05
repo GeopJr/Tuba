@@ -197,7 +197,7 @@ namespace Tuba {
 			#if WINDOWS
 				GLib.Environment.set_variable ("SECRET_BACKEND", "file", false);
 				if (GLib.Environment.get_variable ("SECRET_BACKEND") == "file")
-					GLib.Environment.set_variable ("SECRET_FILE_TEST_PASSWORD", "test", false);
+					GLib.Environment.set_variable ("SECRET_FILE_TEST_PASSWORD", @"$(GGLib.Environment.get_user_name ())$(Build.DOMAIN)", false);
 			#endif
 
 			app = new Application ();
