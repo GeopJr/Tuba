@@ -173,7 +173,7 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesWindow {
 
         if (memebers_to_be_removed.size > 0) {
             var id_array = Request.array2string (memebers_to_be_removed, "account_ids");
-            new Request.DELETE (@"/api/v1/lists/$(list.id)/accounts/?$id_array")
+            new Request.DELETE (@"/api/v1/lists/$(list.id)/accounts?$id_array")
                 .with_account (accounts.active)
                 .exec ();
         }

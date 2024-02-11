@@ -78,7 +78,7 @@ public class Tuba.Views.Hashtag : Views.Timeline {
         var split_url = url.split ("/");
         var tag = split_url[split_url.length - 1];
         return account != null
-            ? @"$(account.instance)/api/v1/streaming/?stream=hashtag&tag=$tag&access_token=$(account.access_token)"
+            ? @"$(account.instance)/api/v1/streaming?stream=hashtag&tag=$tag&access_token=$(account.access_token)"
             : null;
     }
 

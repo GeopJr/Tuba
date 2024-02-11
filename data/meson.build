@@ -42,19 +42,28 @@ if desktop_utils.found()
     test('Validate desktop file', desktop_utils, args: [desktop_file])
 endif
 
-appstream_file = i18n.merge_file(
-    input: meson.project_name() + '.metainfo.xml.in',
-    output: meson.project_name() + '.metainfo.xml',
-    po_dir: join_paths(meson.project_source_root(), 'po'),
-    install: true,
-    install_dir: join_paths(get_option('datadir'), 'metainfo'),
-)
-
-appstream_util = find_program('appstream-util', required: false)
-if appstream_util.found()
-    test(
-        'Validate appstream file',
-        appstream_util,
-        args: ['validate-relax', '--nonet', appstream_file],
+if host_machine.system() != 'windows'
+    appstream_file = i18n.merge_file(
+        input: meson.project_name() + '.metainfo.xml.in',
+        output: meson.project_name() + '.metainfo.xml',
+        po_dir: join_paths(meson.project_source_root(), 'po'),
+        install: true,
+        install_dir: join_paths(get_option('datadir'), 'metainfo'),
     )
+    
+    appstream_util = find_program('appstream-util', required: false)
+    if appstream_util.found()
+        test(
+            'Validate appstream file',
+            appstream_util,
+            args: ['validate-relax', '--nonet', appstream_file],
+        )
+    endif
 endif
+
+manpage = configure_file(
+    input : 'dev.geopjr.Tuba.1.in',
+    output : 'dev.geopjr.Tuba.1',
+    configuration : config
+)
+install_man(manpage)

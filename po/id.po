@@ -1,19 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Leo Li <leoli@6leo6.com>, 2023.
-# valigarmanda <valigarmanda55@gmail.com>, 2023.
-# Poesty Li <poesty7450@gmail.com>, 2024.
+# leap123 <76893443+leap0x7b@users.noreply.github.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2024-01-25 13:01+0000\n"
-"Last-Translator: Poesty Li <poesty7450@gmail.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"tuba/tuba/zh_Hans/>\n"
-"Language: zh_Hans\n"
+"PO-Revision-Date: 2024-01-20 02:00+0000\n"
+"Last-Translator: leap123 <76893443+leap0x7b@users.noreply.github.com>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/tuba/tuba/id/>"
+"\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,11 +24,11 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "浏览 Fediverse"
+msgstr "Jelajahi Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr "Fediverse 客户端"
+msgstr "Klien Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
@@ -42,8 +40,9 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-"使用 Tuba for GNOME 探索联合社交网络。支持流行的Fediverse平台如 Mastodon、"
-"GoToSocial、Akkoma 等，与您喜爱的社区、家人和朋友保持联系！"
+"Jelajahi web sosial gabungan dengan Tuba untuk GNOME. Tetap terhubung dengan "
+"komunitas, keluarga, dan teman favorit Anda dengan dukungan untuk platform "
+"Fediverse populer seperti Mastodon, GoToSocial, Akkoma dan masih banyak lagi!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:12
 msgid ""
@@ -53,111 +52,113 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
-"Fediverse（联邦宇宙）是一个分散式的社交网络，由多个互相连接的平台和社区组成，"
-"使用户能够跨不同的网络和服务器进行通讯和共享内容。它倡导用户隐私和数据所有"
-"权，并提供了一个去中心化的社交媒体平台的替代方案。"
+"Fediverse adalah jaringan sosial terdesentralisasi yang terdiri dari "
+"beberapa platform dan komunitas yang saling berhubungan, memungkinkan "
+"pengguna untuk berkomunikasi dan berbagi konten di berbagai jaringan dan "
+"server. Ini mempromosikan privasi pengguna dan kepemilikan data, dan "
+"menawarkan alternatif terhadap platform media sosial terpusat."
 
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:22
 #: data/ui/dialogs/preferences.ui:19
 msgid "General"
-msgstr "通用"
+msgstr "Umum"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr "显示首选项"
+msgstr "Tampilkan Preferensi"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose a new post"
-msgstr "撰写新帖文"
+msgstr "Buat postingan baru"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:29
 msgid "Refresh"
-msgstr "刷新"
+msgstr "Segarkan"
 
 #: data/gtk/help-overlay.ui:32 src/Services/Accounts/Mastodon/Account.vala:95
 #: src/Views/Main.vala:38 src/Views/Search.vala:14
 msgid "Search"
-msgstr "搜索"
+msgstr "Cari"
 
 #: data/gtk/help-overlay.ui:38 data/ui/views/media_viewer.ui:51
 msgid "Go Back"
-msgstr "返回"
+msgstr "Kembali"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr "显示键盘快捷键"
+msgstr "Tampilkan Pintasan Keyboard"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
-msgstr "关闭窗口"
+msgstr "Tutup Jendela"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Quit"
-msgstr "退出"
+msgstr "Keluar"
 
 #: data/gtk/help-overlay.ui:62
 msgid "About"
-msgstr "关于"
+msgstr "Tentang"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Up"
-msgstr "向上滚动"
+msgstr "Gulir ke atas"
 
 #: data/gtk/help-overlay.ui:74
 msgid "Scroll Down"
-msgstr "向下滚动"
+msgstr "Gulir ke bawah"
 
 #: data/gtk/help-overlay.ui:82
 msgid "Composer"
-msgstr "撰写者"
+msgstr "Komposer"
 
 #: data/gtk/help-overlay.ui:85
 msgid "Commit"
-msgstr "提交"
+msgstr "Lakukan"
 
 #: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:42
 msgid "Media Viewer"
-msgstr "媒体查看其"
+msgstr "Penampil Media"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr "全屏"
+msgstr "Layar penuh"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:148
 msgid "Zoom In"
-msgstr "放大"
+msgstr "Perbesar"
 
 #: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:136
 msgid "Zoom Out"
-msgstr "缩小"
+msgstr "Perkecil"
 
 #: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:94
 msgid "Previous Attachment"
-msgstr "上一个附件"
+msgstr "Lampiran sebelumnya"
 
 #: data/gtk/help-overlay.ui:120 data/ui/views/media_viewer.ui:106
 msgid "Next Attachment"
-msgstr "下一个附件"
+msgstr "Lampiran selanjutnya"
 
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr "放大"
+msgstr "Perbesar"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr "缩小"
+msgstr "Perkecil"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr "上一个附件"
+msgstr "Lampiran sebelumnya"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Next Attachment"
-msgstr "下一个附件"
+msgstr "Lampiran selanjutnya"
 
 #: data/ui/dialogs/compose.ui:36 data/ui/dialogs/new_account.ui:22
 #: data/ui/dialogs/profile_edit.ui:22 src/API/Status/PreviewCard.vala:164
@@ -166,60 +167,60 @@ msgstr "下一个附件"
 #: src/Views/Profile.vala:281 src/Views/Sidebar.vala:220
 #: src/Widgets/Status.vala:331 src/Widgets/Status/ActionsRow.vala:235
 msgid "Cancel"
-msgstr "取消"
+msgstr "Batal"
 
 #: data/ui/dialogs/compose.ui:43 src/Dialogs/Composer/Dialog.vala:278
 msgid "_Publish"
-msgstr "发布"
+msgstr "_Terbitkan"
 
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
-msgstr "成员"
+msgstr "Anggota"
 
 #: data/ui/dialogs/list_edit.ui:10
 msgid "Remove Members"
-msgstr "移除成员"
+msgstr "Hapus anggota"
 
 #: data/ui/dialogs/list_edit.ui:28
 msgid "List Name"
-msgstr "列表名称"
+msgstr "Nama daftar"
 
 #: data/ui/dialogs/list_edit.ui:33
 msgid "Hide these posts from home"
-msgstr "从主页隐藏这些帖文"
+msgstr "Sembunyikan postingan ini dari beranda"
 
 #: data/ui/dialogs/list_edit.ui:40
 msgid "Replies Policy"
-msgstr "回复显示策略"
+msgstr "Kebijakan balasan"
 
 #: data/ui/dialogs/list_edit.ui:41
 msgid "Show member replies to"
-msgstr "显示对…的回复"
+msgstr "Tampilkan balasan anggota ke"
 
 #: data/ui/dialogs/list_edit.ui:44
 msgid "Nobody"
-msgstr "无"
+msgstr "Tidak seorang pun"
 
 #: data/ui/dialogs/list_edit.ui:55
 msgid "Other members of the list"
-msgstr "这个列表的其他成员"
+msgstr "Anggota lain dari daftar"
 
 #: data/ui/dialogs/list_edit.ui:67
 msgid "Any followed user"
-msgstr "任何已关注用户"
+msgstr "Setiap pengguna yang diikuti"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:194
 #: src/Views/Sidebar.vala:198
 msgid "Add Account"
-msgstr "添加账户"
+msgstr "Tambah akun"
 
 #: data/ui/dialogs/new_account.ui:29 data/ui/dialogs/new_account.ui:107
 msgid "Next"
-msgstr "下一步"
+msgstr "Berikutnya"
 
 #: data/ui/dialogs/new_account.ui:43
 msgid "What is your Server?"
-msgstr "您的服务器是什么？"
+msgstr "Apakah server Anda?"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:45
@@ -227,383 +228,390 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
 msgstr ""
-"如果您还没有账户，请<a href=\"https://joinmastodon.org/zh/servers\">选择一个"
-"服务器并注册账户</a>。"
+"Jika Anda belum memiliki akun, <a href=\"https://joinmastodon.org/servers\""
+">pilih server dan daftarkan</a>."
 
 #: data/ui/dialogs/new_account.ui:66
 msgid "Server URL"
-msgstr "服务器 URL"
+msgstr "URL server"
 
 #: data/ui/dialogs/new_account.ui:122
 msgid "Confirm Authorization"
-msgstr "确认授权"
+msgstr "Konfirmasikan otorisasi"
 
 #. translators: Do not translate "manual_auth"
 #: data/ui/dialogs/new_account.ui:142
 msgid ""
 "If something went wrong, <a href=\"manual_auth\">try manual authorization</"
 "a>."
-msgstr "如果出现问题，请<a href=\"manual_auth\">尝试手动授权</a>。"
+msgstr ""
+"Jika terjadi kesalahan, <a href=\"manual_auth\">coba otorisasi manual</a>."
 
 #: data/ui/dialogs/new_account.ui:152
 msgid "Authorization Code"
-msgstr "授权码"
+msgstr "Kode otorisasi"
 
 #: data/ui/dialogs/new_account.ui:193
 msgid "Done"
-msgstr "完成"
+msgstr "Selesai"
 
 #: data/ui/dialogs/new_account.ui:208
 msgid "Your account is connected and ready to use!"
-msgstr "您的账户已连接成功，可以开始使用了！"
+msgstr "Akun Anda terhubung dan siap digunakan!"
 
 #: data/ui/dialogs/preferences.ui:22
 msgid "Appearance"
-msgstr "外观"
+msgstr "Tampilan"
 
 #: data/ui/dialogs/preferences.ui:25
 msgid "Color Scheme"
-msgstr "配色方案"
+msgstr "Skema warna"
 
 #: data/ui/dialogs/preferences.ui:39
 msgid "Larger font size"
-msgstr "加大字号"
+msgstr "Ukuran font lebih besar"
 
 #: data/ui/dialogs/preferences.ui:40
 msgid "Makes the font larger for posts"
-msgstr "加大帖子字号"
+msgstr "Membuat font lebih besar di postingan"
 
 #: data/ui/dialogs/preferences.ui:45
 msgid "Larger line height"
-msgstr "加大行间距"
+msgstr "Ketinggian garis lebih besar"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Makes the line height larger for posts"
-msgstr "加大帖子行间距"
+msgstr "Membuat tinggi garis lebih besar di postingan"
 
 #: data/ui/dialogs/preferences.ui:51
 msgid "Enlarge custom emojis"
-msgstr "放大自定义表情"
+msgstr "Perbesar emoji khusus"
 
 #: data/ui/dialogs/preferences.ui:56
 msgid "Scale up custom emojis on hover"
-msgstr "悬停时放大自定义表情"
+msgstr "Perbesar emoji khusus saat mengarahkan kursor"
 
 #: data/ui/dialogs/preferences.ui:57
 msgid "Makes custom emojis slightly bigger when you hover over them"
-msgstr "将鼠标悬停在自定义表情上时，使其略微变大"
+msgstr ""
+"Membuat emoji khusus sedikit lebih besar saat Anda mengarahkan kursor ke "
+"atasnya"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:63
 msgid "Letterbox Media"
-msgstr "信箱媒体"
+msgstr "Paskan media dalam format kotak surat"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:65
 msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
-msgstr "缩小媒体以填充图像容器，而不是拉伸和裁剪它们"
+msgstr ""
+"Perkecil dan media kotak surat untuk mengisi wadah gambar alih-alih "
+"meregangkan dan memotongnya"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:71
 msgid "Expand pictures in media viewer"
-msgstr "在媒体查看器中展开图片"
+msgstr "Perluas gambar di penampil media"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:73
 msgid "Expand pictures to fill the media viewer by default"
-msgstr "默认情况下，展开图片以填充媒体查看器"
+msgstr "Perluas gambar untuk memenuhi penampil media secara default"
 
 #: data/ui/dialogs/preferences.ui:79
 msgid "Show a blurred version of the media until they fully load"
-msgstr "在完全加载之前显示模糊版本的媒体"
+msgstr "Tampilkan versi media yang buram hingga dimuat sepenuhnya"
 
 #: data/ui/dialogs/preferences.ui:84
 msgid "Reveal spoilers by default"
-msgstr "默认显示隐藏内"
+msgstr "Mengungkapkan bocoran secara default"
 
 #: data/ui/dialogs/preferences.ui:89
 msgid "Show link preview cards"
-msgstr "显示链接预览卡片"
+msgstr "Tampilkan kartu pratinjau tautan"
 
 #: data/ui/dialogs/preferences.ui:96
 msgid "Posting"
-msgstr "发布中"
+msgstr "Posting"
 
 #: data/ui/dialogs/preferences.ui:99
 msgid "Default post visibility"
-msgstr "默认帖文可见性"
+msgstr "Visibilitas postingan default"
 
 #: data/ui/dialogs/preferences.ui:108
 msgid "Default post language"
-msgstr "默认帖文语言"
+msgstr "Bahasa postingan default"
 
 #: data/ui/dialogs/preferences.ui:118
 msgid "Default post content type"
-msgstr "默认帖文内容类型"
+msgstr "Jenis konten posting default"
 
 #: data/ui/dialogs/preferences.ui:129
 msgid "Behavior"
-msgstr "行为"
+msgstr "Perilaku"
 
 #: data/ui/dialogs/preferences.ui:132
 msgid "Background work"
-msgstr "后台运行"
+msgstr "Pekerjaan latar belakang"
 
 #: data/ui/dialogs/preferences.ui:133
 msgid "Receive notifications even when the app is closed"
-msgstr "即使应用程序关闭也接收通知"
+msgstr "Terima pemberitahuan bahkan saat aplikasi ditutup"
 
 #: data/ui/dialogs/preferences.ui:138
 msgid "Strip tracking parameters from links"
-msgstr "从链接中删除跟踪参数"
+msgstr "Hapus parameter pelacakan dari tautan"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:140
 msgid "It can lead to broken links"
-msgstr "它可能会导致链接失效"
+msgstr "Ini dapat menyebabkan tautan rusak"
 
 #: data/ui/dialogs/preferences.ui:145
 msgid "Advanced boost dialog"
-msgstr "高级转发对话框"
+msgstr "Dialog boost tingkat lanjut"
 
 #: data/ui/dialogs/preferences.ui:146
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr "更改转发可见范围、引用和确认转发"
+msgstr "Ubah visibilitas boost, kutip dan konfirmasi boost"
 
 #: data/ui/dialogs/preferences.ui:153
 msgid "Timelines"
-msgstr "时间线"
+msgstr "Linimasa"
 
 #: data/ui/dialogs/preferences.ui:156
 msgid "Posts per load batch"
-msgstr "每批加载的帖子数"
+msgstr "Posting per kumpulan muatan"
 
 #: data/ui/dialogs/preferences.ui:164
 msgid "Stream timelines"
-msgstr "实时时间线"
+msgstr "Alirkan linimasa"
 
 #: data/ui/dialogs/preferences.ui:165
 msgid "Receive new posts and notifications in real-time"
-msgstr "实时接收最新帖子和通知"
+msgstr "Terima postingan dan notifikasi baru secara waktu nyata"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Stream public timelines"
-msgstr "实时公共时间线"
+msgstr "Alirkan linimasa publik"
 
 #: data/ui/dialogs/preferences.ui:172
 msgid "Warning: This will increase memory usage"
-msgstr "警告：这会增加内存占用"
+msgstr "Peringatan: Ini akan meningkatkan penggunaan memori"
 
 #: data/ui/dialogs/preferences.ui:182
 #: src/Services/Accounts/Mastodon/Account.vala:39
 #: src/Views/Notifications.vala:7
 msgid "Notifications"
-msgstr "通知"
+msgstr "Notifikasi"
 
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:186
 msgid "Push Notifications"
-msgstr "推送通知"
+msgstr "Notifikasi Dorong"
 
 #: data/ui/dialogs/preferences.ui:189
 msgid "New Followers"
-msgstr "新的关注者"
+msgstr "Pengikut baru"
 
 #: data/ui/dialogs/preferences.ui:195
 msgid "New Follower Requests"
-msgstr "新的关注者请求"
+msgstr "Permintaan pengikut baru"
 
 #: data/ui/dialogs/preferences.ui:201
 #: src/Services/Accounts/Mastodon/Account.vala:77 src/Views/Favorites.vala:4
 msgid "Favorites"
-msgstr "喜欢"
+msgstr "Favorit"
 
 #: data/ui/dialogs/preferences.ui:207
 msgid "Mentions"
-msgstr "提及"
+msgstr "Sebutan"
 
 #: data/ui/dialogs/preferences.ui:213
 msgid "Boosts"
-msgstr "转发"
+msgstr "Boost"
 
 #: data/ui/dialogs/preferences.ui:219
 msgid "Poll Results"
-msgstr "投票结果"
+msgstr "Hasil pol"
 
 #: data/ui/dialogs/preferences.ui:225
 msgid "Edits"
-msgstr "编辑"
+msgstr "Suntingan"
 
 #: data/ui/dialogs/preferences.ui:231
 msgid "Group"
-msgstr "群组"
+msgstr "Grup"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/ui/dialogs/preferences.ui:233
 msgid ""
 "Combine recently pushed notifications of the same type and post into one"
-msgstr "将最近推送的相同类型通知合并为一个通知"
+msgstr ""
+"Gabungkan pemberitahuan yang baru-baru ini dikirim dengan jenis yang sama "
+"dan kiriman menjadi satu"
 
 #: data/ui/dialogs/profile_edit.ui:13 src/Views/Profile.vala:135
 msgid "Edit Profile"
-msgstr "编辑个人资料"
+msgstr "Sunting profil"
 
 #: data/ui/dialogs/profile_edit.ui:29
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:151
 msgid "Save"
-msgstr "保存"
+msgstr "Simpan"
 
 #: data/ui/dialogs/profile_edit.ui:67
 msgid "Edit Profile Picture"
-msgstr "编辑个人资料图片"
+msgstr "Edit foto profil"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:96
 msgid "Edit Header Picture"
-msgstr "编辑横幅图片"
+msgstr "Edit gambar tajuk"
 
 #: data/ui/dialogs/profile_edit.ui:121
 msgid "Display Name"
-msgstr "显示名称"
+msgstr "Nama tampilan"
 
 #. translators: profile bio or description
 #: data/ui/dialogs/profile_edit.ui:129
 msgid "Bio"
-msgstr "简介"
+msgstr "Bio"
 
 #: data/ui/dialogs/profile_edit.ui:140 src/Dialogs/Composer/EditorPage.vala:242
 msgid "Custom Emoji Picker"
-msgstr "自定义表情选择器"
+msgstr "Pemilih emoji khusus"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:164
 msgid "Fields"
-msgstr "字段"
+msgstr "Bidang"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
-msgstr "提及"
+msgstr "Sebutan"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr "私信"
+msgstr "Pesan langsung"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
-msgstr "复制用户名"
+msgstr "Salin nama pengguna"
 
 #: data/ui/menus.ui:29 data/ui/views/media_viewer.ui:6
 #: src/Widgets/Attachment/Item.vala:185 src/Widgets/Status.vala:251
 msgid "Open in Browser"
-msgstr "在浏览器中打开"
+msgstr "Buka di browser"
 
 #: data/ui/menus.ui:33
 msgid "Notify me on new posts"
-msgstr "有新帖文时通知我"
+msgstr "Beritahu saya pada postingan baru"
 
 #: data/ui/menus.ui:39
 msgid "Moderation"
-msgstr "审核"
+msgstr "Moderasi"
 
 #: data/ui/menus.ui:41
 msgid "Hide Boosts"
-msgstr "隐藏转嘟"
+msgstr "Sembunyikan boost"
 
 #: data/ui/menus.ui:46
 msgid "Mute"
-msgstr "静音"
+msgstr "Bisukan"
 
 #: data/ui/menus.ui:51
 msgid "Report"
-msgstr "举报"
+msgstr "Laporkan"
 
 #: data/ui/menus.ui:57 src/Views/Profile.vala:262 src/Views/Profile.vala:281
 msgid "Block"
-msgstr "屏蔽"
+msgstr "Blokir"
 
 #: data/ui/menus.ui:61
 msgid "Block Domain"
-msgstr "屏蔽域名"
+msgstr "Blokir domain"
 
 #: data/ui/menus.ui:69
 msgid "Timeline"
-msgstr "时间线"
+msgstr "Linimasa"
 
 #: data/ui/menus.ui:71
 msgid "Filter"
-msgstr "过滤"
+msgstr "Saring"
 
 #: data/ui/menus.ui:90
 msgid "Include Replies"
-msgstr "包含回复"
+msgstr "Sertakan balasan"
 
 #: data/ui/menus.ui:95
 msgid "Include Media"
-msgstr "包含媒体"
+msgstr "Sertakan media"
 
 #: data/ui/menus.ui:118 src/Services/Accounts/Mastodon/Account.vala:86
 #: src/Views/Lists.vala:142 src/Views/Profile.vala:382
 msgid "Lists"
-msgstr "列表"
+msgstr "Daftar"
 
 #: data/ui/views/media_viewer.ui:10 src/Widgets/Attachment/Item.vala:186
 #: src/Widgets/Status.vala:252
 msgid "Copy URL"
-msgstr "复制链接"
+msgstr "Salin URL"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:187
 msgid "Save Media"
-msgstr "保存媒体"
+msgstr "Simpan media"
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:189
 msgid "Copy Media"
-msgstr "复制媒体"
+msgstr "Salin media"
 
 #: data/ui/views/media_viewer.ui:59 data/ui/views/sidebar/view.ui:54
 msgid "Menu"
-msgstr "菜单"
+msgstr "Menu"
 
 #: data/ui/views/media_viewer.ui:66
 msgid "Toggle Fullscreen"
-msgstr "切换全屏"
+msgstr "Beralih ke layar penuh"
 
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:35
 msgid "Bot"
-msgstr "机器人"
+msgstr "Bot"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:38
 msgid "Forget Account"
-msgstr "忘记账号"
+msgstr "Lupakan akun"
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
-msgstr "切换账户"
+msgstr "Ganti akun"
 
 #: data/ui/widgets/announcement.ui:88
 msgid "Unread"
-msgstr "未读"
+msgstr "Belum dibaca"
 
 #: data/ui/widgets/announcement.ui:99 data/ui/widgets/status.ui:173
 msgid "Edited"
-msgstr "已编辑"
+msgstr "Disunting"
 
 #: data/ui/widgets/status.ui:162
 msgid "Pinned"
-msgstr "已置顶"
+msgstr "DIsematkan"
 
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:231
 msgid "Show Less"
-msgstr "显示更少"
+msgstr "Tampilkan lebih sedikit"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:264 src/Widgets/Status.vala:353
 msgid "Show More"
-msgstr "显示更多"
+msgstr "Tampilkan lebih banyak"
 
 #: src/API/Announcement.vala:55 src/Application.vala:141
 #: src/Application.vala:230 src/Application.vala:310
@@ -616,14 +624,14 @@ msgstr "显示更多"
 #: src/Widgets/Announcement.vala:180 src/Widgets/Attachment/Image.vala:87
 #: src/Widgets/Attachment/Item.vala:213 src/Widgets/VoteBox.vala:28
 msgid "Error"
-msgstr "错误"
+msgstr "Error"
 
 #. translators: the variable is a comma separated list of account handles,
 #. this is a state - not an action
 #: src/API/Conversation.vala:31
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr "与 %s 的空对话"
+msgstr "Percakapan kosong dengan %s"
 
 #: src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:158
@@ -631,319 +639,319 @@ msgstr "与 %s 的空对话"
 #: src/Widgets/CustomEmojiChooser.vala:163
 #: src/Widgets/CustomEmojiChooser.vala:166
 msgid "Other"
-msgstr "其他"
+msgstr "Lainnya"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
 #: src/API/Notification.vala:28
 #, c-format
 msgid "%s (& %d others)"
-msgstr "%s（和其他 %d 人）"
+msgstr "%s (dan %d lainnya)"
 
 #: src/API/Notification.vala:51
 msgid "Reply…"
-msgstr "回复…"
+msgstr "Balas…"
 
 #: src/API/Notification.vala:59
 msgid "Remove from Followers"
-msgstr "从关注者中移除"
+msgstr "Hapus dari pengikut"
 
 #: src/API/Notification.vala:64
 msgid "Follow Back"
-msgstr "回关"
+msgstr "Ikuti kembali"
 
 #: src/API/Notification.vala:71 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
-msgstr "拒绝"
+msgstr "Tolak"
 
 #: src/API/Notification.vala:76 src/Widgets/Status/FollowRequestRow.vala:14
 msgid "Accept"
-msgstr "接受"
+msgstr "Terima"
 
 #: src/API/Relationship.vala:20
 msgid "Sent follow request"
-msgstr "发送关注请求"
+msgstr "Dikirim permintaan mengikuti"
 
 #: src/API/Relationship.vala:22
 msgid "Mutuals"
-msgstr "互相关注"
+msgstr "Mutual"
 
 #: src/API/Relationship.vala:24
 msgid "Follows you"
-msgstr "关注了你"
+msgstr "Mengikuti Anda"
 
 #: src/API/SearchResults.vala:32
 msgid "Search returned no results"
-msgstr "搜索无结果"
+msgstr "Pencarian tidak membuahkan hasil"
 
 #. translators: the variable is an external service like "PeerTube"
 #: src/API/Status/PreviewCard.vala:25
 #, c-format
 msgid "You are about to open a %s video"
-msgstr "你将要打开一个 %s 视频"
+msgstr "Anda akan membuka video %s"
 
 #. translators: the variable is an external service like "Funkwhale",
 #. track as in song
 #: src/API/Status/PreviewCard.vala:29
 #, c-format
 msgid "You are about to open a %s track"
-msgstr "你将要打开一个 %s 曲目"
+msgstr "Anda akan membuka trek %s"
 
 #. translators: the variable is an external service like "BookWyrm"
 #: src/API/Status/PreviewCard.vala:32
 #, c-format
 msgid "You are about to open a %s book"
-msgstr "你将要打开一本 %s 书籍"
+msgstr "Anda akan membuka buku %s"
 
 #. translators: the variable is the app name (Tuba)
 #: src/API/Status/PreviewCard.vala:35
 #, c-format
 msgid "You are about to leave %s"
-msgstr "你将要离开 %s"
+msgstr "Anda akan meninggalkan %s"
 
 #. translators: the variable is a url
 #: src/API/Status/PreviewCard.vala:48
 #, c-format
 msgid "If you proceed, \"%s\" will open in your browser."
-msgstr "如果继续，\"%s\" 将在你的浏览器中打开。"
+msgstr "Jika Anda melanjutkan, \"%s\" akan dibuka di browser Anda."
 
 #. translators: the first variable is the app name (Tuba),
 #. the second one is a url
 #: src/API/Status/PreviewCard.vala:52
 #, c-format
 msgid "If you proceed, %s will connect to \"%s\"."
-msgstr "如果继续，%s 将连接到 \"%s\"。"
+msgstr "Jika Anda melanjutkan, %s akan menghubungi ke \"%s\"."
 
 #: src/API/Status/PreviewCard.vala:164
 msgid "Proceed"
-msgstr "继续"
+msgstr "Lanjut"
 
 #: src/API/Suggestion.vala:12
 msgid "Account not found"
-msgstr "找不到账号"
+msgstr "Akun tidak ditemukan"
 
 #. translators: the variable is the amount of times a hashtag was used in a week
 #: src/API/Tag.vala:45
 #, c-format
 msgid "%d per week"
-msgstr "每周 %d 次"
+msgstr "%d per minggu"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:59
 #, c-format
 msgid "Used %d times by %d people yesterday"
-msgstr "昨天被使用%d次，人数%d"
+msgstr "Digunakan %d kali oleh %d orang kemarin"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:67
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
-msgstr "过去两天被使用%d次，人数%d"
+msgstr "Digunakan %d kali oleh %d orang dalam 2 hari terakhir"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:291
 #, c-format
 msgid "'%s://' may only be used when adding a new account"
-msgstr "只有在添加新账号时才能使用 '%s://'"
+msgstr "'%s://' hanya dapat digunakan saat menambahkan akun baru"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:298
 #, c-format
 msgid "'%s://' may not be used when adding a new account"
-msgstr "在添加新账号时不能使用 '%s://'"
+msgstr "'%s://' tidak boleh digunakan saat menambahkan akun baru"
 
 #. translators: the first variable is the app name ('Tuba'),
 #. the second one is a uri scheme like 'https'
 #: src/Application.vala:305
 #, c-format
 msgid "%s does not accept '%s://'"
-msgstr "%s 不接受 '%s://'"
+msgstr "%s tidak menerima '%s://'"
 
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:450
 msgid "translator-credits"
-msgstr "Leo Li <leoli@6leo6.com>"
+msgstr "leap123 <leapofazzam@protonmail.com>"
 
 #: src/Application.vala:477
 msgid "OK"
-msgstr "确定"
+msgstr "Oke"
 
 #: src/Application.vala:502
 msgid "Yes"
-msgstr "是"
+msgstr "Ya"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:38 src/Dialogs/ProfileEdit.vala:77
 msgid "All Supported Files"
-msgstr "所有支持的文件"
+msgstr "Semua file yang didukung"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:62
 msgid "Media"
-msgstr "媒体"
+msgstr "Media"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:76
 msgid "Paste"
-msgstr "粘贴"
+msgstr "Tempel"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:212
 #: src/Dialogs/Composer/AttachmentsPage.vala:238
 msgid "Add Media"
-msgstr "添加媒体"
+msgstr "Tambah media"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:221
 msgid "No Media"
-msgstr "没有媒体"
+msgstr "Tidak ada media"
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:248
 #: src/Dialogs/Composer/AttachmentsPage.vala:265
 msgid "Mark media as sensitive"
-msgstr "标记敏感媒体（内容可能引起不适）"
+msgstr "Tandai media sebagai sensitif"
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:264
 msgid "Unmark media as sensitive"
-msgstr "取消标记敏感媒体"
+msgstr "Hapus tanda media sebagai sensitif"
 
 #. translators: Open file
 #: src/Dialogs/Composer/AttachmentsPage.vala:369
 #: src/Dialogs/ProfileEdit.vala:214
 msgid "Open"
-msgstr "打开"
+msgstr "Buka"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:433
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
-msgstr "文件“%s”的大小超过了实例限制"
+msgstr "File \"%s\" lebih besar dari batas instansi"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:42
 msgid "Edit Alt Text"
-msgstr "编辑替代文本"
+msgstr "Sunting teks alternatif"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:53
 msgid "Remove Attachment"
-msgstr "移除附件"
+msgstr "Hapus lampiran"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:146
 #: src/Dialogs/Composer/EditorPage.vala:185
 msgid "Characters Left"
-msgstr "剩余字符"
+msgstr "Karakter tersisa"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:166
 #: src/Widgets/Attachment/Item.vala:166
 msgid "Alternative text for attachment"
-msgstr "附件的替代文本"
+msgstr "Teks alternatif untuk lampiran"
 
 #: src/Dialogs/Composer/Dialog.vala:205
 msgid "Are you sure you want to exit?"
-msgstr "你确定要退出吗？"
+msgstr "Apakah Anda yakin ingin keluar?"
 
 #: src/Dialogs/Composer/Dialog.vala:206
 msgid "Your progress will be lost."
-msgstr "你的进度将会丢失。"
+msgstr "Kemajuan Anda akan hilang."
 
 #: src/Dialogs/Composer/Dialog.vala:208
 msgid "Discard"
-msgstr "放弃"
+msgstr "Buang"
 
 #: src/Dialogs/Composer/Dialog.vala:288
 msgid "_Redraft"
-msgstr "清空"
+msgstr "_Rancang ulang"
 
 #: src/Dialogs/Composer/Dialog.vala:313
 msgid "_Edit"
-msgstr "编辑"
+msgstr "_Sunting"
 
 #: src/Dialogs/Composer/Dialog.vala:334
 msgid "_Reply"
-msgstr "回复"
+msgstr "_Balas"
 
 #. translators: "Text" as in text-based input
 #: src/Dialogs/Composer/EditorPage.vala:18
 msgid "Text"
-msgstr "文本"
+msgstr "Teks"
 
 #: src/Dialogs/Composer/EditorPage.vala:204
 msgid "What's on your mind?"
-msgstr "你在想些什么？"
+msgstr "Apa yang sedang kamu pikirkan?"
 
 #: src/Dialogs/Composer/EditorPage.vala:232
 msgid "Emoji Picker"
-msgstr "表情选择器"
+msgstr "Pemilih emoji"
 
 #: src/Dialogs/Composer/EditorPage.vala:259
 msgid "Write your warning here"
-msgstr "在这里写下你的警告"
+msgstr "Tulis peringatan Anda di sini"
 
 #: src/Dialogs/Composer/EditorPage.vala:274
 msgid "Content Warning"
-msgstr "内容警告"
+msgstr "Peringatan konten"
 
 #: src/Dialogs/Composer/EditorPage.vala:314
 msgid "Post Privacy"
-msgstr "发布隐私设置"
+msgstr "Privasi posting"
 
 #: src/Dialogs/Composer/EditorPage.vala:337
 msgid "Post Language"
-msgstr "发布语言"
+msgstr "Bahasa posting"
 
 #: src/Dialogs/Composer/EditorPage.vala:362
 msgid "Post Content Type"
-msgstr "发布内容类型"
+msgstr "Jenis konten posting"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr "投票"
+msgstr "Pol"
 
 #. translators: tooltip on a button that appends another poll entry / option
 #: src/Dialogs/Composer/PollPage.vala:114
 msgid "Add Poll"
-msgstr "添加投票"
+msgstr "Tambah pol"
 
 #: src/Dialogs/Composer/PollPage.vala:123
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Enable Multiple Choice"
-msgstr "启用多选"
+msgstr "Aktifkan pilihan ganda"
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/PollPage.vala:136
 msgid "Disable Multiple Choice"
-msgstr "禁用多选"
+msgstr "Nonaktifkan pilihan ganda"
 
 #: src/Dialogs/Composer/PollPage.vala:145
 #: src/Dialogs/Composer/PollPage.vala:159
 msgid "Hide Total Votes"
-msgstr "隐藏总投票数"
+msgstr "Sembunyikan total suara"
 
 #: src/Dialogs/Composer/PollPage.vala:159
 msgid "Show Total Votes"
-msgstr "显示总投票数"
+msgstr "Tampilkan total suara"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:188
 #: src/Dialogs/Composer/PollPage.vala:223
 #, c-format
 msgid "Choice %d"
-msgstr "选项 %d"
+msgstr "Pilihan %d"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:232
 #: src/Dialogs/Composer/PollPage.vala:235
 #, c-format
 msgid "%d Minutes"
-msgstr "%d 分钟"
+msgstr "%d menit"
 
 #. translators: the variable is a number, m as in minutes
 #: src/Dialogs/Composer/PollPage.vala:234
 #: src/Dialogs/Composer/PollPage.vala:235
 #, c-format
 msgid "%dm"
-msgstr "%d 分"
+msgstr "%dm"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:237
 #, c-format
 msgid "%d Hour"
-msgstr "%d 小时"
+msgstr "%d jam"
 
 #. translators: the variable is a number, h as in hours
 #: src/Dialogs/Composer/PollPage.vala:239
@@ -951,19 +959,19 @@ msgstr "%d 小时"
 #: src/Dialogs/Composer/PollPage.vala:241
 #, c-format
 msgid "%dh"
-msgstr "%d 时"
+msgstr "%dj"
 
 #: src/Dialogs/Composer/PollPage.vala:240
 #: src/Dialogs/Composer/PollPage.vala:241
 #, c-format
 msgid "%d Hours"
-msgstr "%d 小时"
+msgstr "%d jam"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:243
 #, c-format
 msgid "%d Day"
-msgstr "%d 天"
+msgstr "%d hari"
 
 #. translators: the variable is a number, d as in days
 #: src/Dialogs/Composer/PollPage.vala:245
@@ -971,237 +979,237 @@ msgstr "%d 天"
 #: src/Dialogs/Composer/PollPage.vala:247
 #, c-format
 msgid "%dd"
-msgstr "%d 天"
+msgstr "%dh"
 
 #: src/Dialogs/Composer/PollPage.vala:246
 #: src/Dialogs/Composer/PollPage.vala:247
 #, c-format
 msgid "%d Days"
-msgstr "%d 天"
+msgstr "%d hari"
 
 #: src/Dialogs/Composer/PollPage.vala:267
 msgid "Expiration"
-msgstr "终止日期"
+msgstr "Kedaluwarsa"
 
 #: src/Dialogs/MainWindow.vala:58
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
 msgid "Home"
-msgstr "主页"
+msgstr "Beranda"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
-msgstr "在浏览器允许中访问您的账户。"
+msgstr "Izinkan akses ke akun Anda di browser."
 
 #: src/Dialogs/NewAccount.vala:4
 msgid "Copy the authorization code from the browser and paste it below."
-msgstr "从浏览器中复制授权码并粘贴到下方。"
+msgstr "Salin kode otorisasi dari browser dan tempel di bawah."
 
 #: src/Dialogs/NewAccount.vala:117
 msgid "Please enter a valid instance URL"
-msgstr "请输入有效的实例 URL"
+msgstr "Silakan masukkan URL instansi yang valid"
 
 #: src/Dialogs/NewAccount.vala:159
 msgid "Please enter a valid authorization code"
-msgstr "请输入有效的授权码"
+msgstr "Silakan masukkan kode otorisasi yang valid"
 
 #: src/Dialogs/NewAccount.vala:176
 msgid "Instance failed to authorize the access token"
-msgstr "实例未能授权访问令牌"
+msgstr "Instansi gagal mengotorisasi token akses"
 
 #: src/Dialogs/NewAccount.vala:185
 #, c-format
 msgid "Hello, %s!"
-msgstr "你好，%s！"
+msgstr "Halo, %s!"
 
 #: src/Dialogs/NewAccount.vala:240
 msgid "Server returned an error"
-msgstr "服务器返回了一个错误"
+msgstr "Server mengembalikan error"
 
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
 msgid "Label"
-msgstr "标签"
+msgstr "Label"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:53
 msgid "Content"
-msgstr "内容"
+msgstr "Konten"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:196
 #, c-format
 msgid "Field %d"
-msgstr "字段 %d"
+msgstr "Bidang %d"
 
 #: src/Services/Accounts/InstanceAccount.vala:178
 #, c-format
 msgid "%s mentioned you"
-msgstr "%s 提到了你"
+msgstr "%s menyebut Anda"
 
 #: src/Services/Accounts/InstanceAccount.vala:185
 #, c-format
 msgid "%s boosted your post"
-msgstr "%s 转嘟了你的帖子"
+msgstr "%s mengeboost postingan Anda"
 
 #: src/Services/Accounts/InstanceAccount.vala:192
 #, c-format
 msgid "%s boosted"
-msgstr "%s 已转嘟"
+msgstr "%s diboost"
 
 #: src/Services/Accounts/InstanceAccount.vala:199
 #, c-format
 msgid "%s favorited your post"
-msgstr "%s 喜欢了你的帖子"
+msgstr "%s memfavoritkan postingan Anda"
 
 #: src/Services/Accounts/InstanceAccount.vala:206
 #, c-format
 msgid "%s now follows you"
-msgstr "%s 正在关注你"
+msgstr "%s sekarang mengikuti Anda"
 
 #: src/Services/Accounts/InstanceAccount.vala:213
 #, c-format
 msgid "%s wants to follow you"
-msgstr "%s 想要关注你"
+msgstr "%s ingin mengikuti Anda"
 
 #: src/Services/Accounts/InstanceAccount.vala:220
 msgid "Poll results"
-msgstr "投票结果"
+msgstr "Hasil pol"
 
 #: src/Services/Accounts/InstanceAccount.vala:227
 #, c-format
 msgid "%s edited a post"
-msgstr "%s 编辑了一条帖文"
+msgstr "%s menyunting postingan"
 
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:262
 msgid "Plain Text"
-msgstr "纯文本"
+msgstr "Teks biasa"
 
 #: src/Services/Accounts/Mastodon/Account.vala:49
 #: src/Views/Conversations.vala:4
 msgid "Conversations"
-msgstr "对话"
+msgstr "Percakapan"
 
 #: src/Services/Accounts/Mastodon/Account.vala:68 src/Views/Bookmarks.vala:4
 msgid "Bookmarks"
-msgstr "书签"
+msgstr "Markah"
 
 #: src/Services/Accounts/Mastodon/Account.vala:104 src/Views/Explore.vala:3
 msgid "Explore"
-msgstr "探索"
+msgstr "Jelajah"
 
 #: src/Services/Accounts/Mastodon/Account.vala:114 src/Views/Local.vala:3
 msgid "Local"
-msgstr "本站"
+msgstr "Lokal"
 
 #: src/Services/Accounts/Mastodon/Account.vala:123 src/Views/Federated.vala:4
 msgid "Federated"
-msgstr "跨站"
+msgstr "DIfederasi"
 
 #: src/Services/Accounts/Mastodon/Account.vala:132
 #: src/Views/FollowRequests.vala:4
 msgid "Follow Requests"
-msgstr "关注请求"
+msgstr "Permintaan mengikuti"
 
 #: src/Services/Accounts/Mastodon/Account.vala:141 src/Views/Explore.vala:6
 #: src/Views/Hashtags.vala:4 src/Views/Search.vala:40
 msgid "Hashtags"
-msgstr "话题标签"
+msgstr "Tagar"
 
 #: src/Services/Accounts/Mastodon/Account.vala:150
 #: src/Views/Announcements.vala:4
 msgid "Announcements"
-msgstr "公告"
+msgstr "Pengumuman"
 
 #: src/Services/Accounts/Mastodon/Account.vala:189
 msgid "Public"
-msgstr "公开"
+msgstr "Publik"
 
 #: src/Services/Accounts/Mastodon/Account.vala:192
 msgid "Post to public timelines"
-msgstr "所有人可见"
+msgstr "Posting ke linimasa publik"
 
 #. translators: Probably follow Mastodon's translation
 #: src/Services/Accounts/Mastodon/Account.vala:197
 msgid "Unlisted"
-msgstr "不公开"
+msgstr "Tidak terdaftar"
 
 #: src/Services/Accounts/Mastodon/Account.vala:200
 msgid "Don't post to public timelines"
-msgstr "对所有人可见，但不加入探索功能"
+msgstr "Jangan memposting ke linimasa publik"
 
 #: src/Services/Accounts/Mastodon/Account.vala:204
 msgid "Followers Only"
-msgstr "仅限关注者"
+msgstr "Pengikut saja"
 
 #: src/Services/Accounts/Mastodon/Account.vala:207
 msgid "Post to followers only"
-msgstr "只向关注者发帖"
+msgstr "Posting hanya ke pengikut"
 
 #: src/Services/Accounts/Mastodon/Account.vala:211
 msgid "Direct"
-msgstr "针对"
+msgstr "Langsung"
 
 #: src/Services/Accounts/Mastodon/Account.vala:214
 msgid "Post to mentioned users only"
-msgstr "只向提到的用户发帖"
+msgstr "Posting hanya ke pengguna yang disebutkan"
 
 #. translators: this error shows up when the user clicks a button
 #. in a desktop notification that was pushed for a
 #. different account
 #: src/Services/Accounts/Mastodon/Account.vala:248
 msgid "Notification was pushed for a different account"
-msgstr "通知被推送到了其它的账号"
+msgstr "Pemberitahuan dikirim untuk akun lain"
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:197
 #, c-format
 msgid "%s Account"
-msgstr "%s 账户"
+msgstr "Akun %s"
 
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:89
 msgid "Follow System"
-msgstr "跟随系统"
+msgstr "Ikuti sistem"
 
 #. translators: Light mode theme
 #: src/Services/Settings.vala:92
 msgid "Light"
-msgstr "浅色"
+msgstr "Terang"
 
 #. translators: Dark mode theme
 #: src/Services/Settings.vala:95
 msgid "Dark"
-msgstr "深色"
+msgstr "Gelap"
 
 #: src/Utils/DateTime.vala:10
 msgid "expires soon"
-msgstr "不久后过期"
+msgstr "akan segera berkedaluwarsa"
 
 #. tranlators: the variable is a number, `m` as in minutes in short form
 #: src/Utils/DateTime.vala:14
 #, c-format
 msgid "%sm left"
-msgstr "%s 分后过期"
+msgstr "%sm tersisa"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:18
 #, c-format
 msgid "%sh left"
-msgstr "%s 时后过期"
+msgstr "%sj tersisa"
 
 #. tranlators: the variable is a number, `d` as in days in short form
 #: src/Utils/DateTime.vala:22
 #, c-format
 msgid "%sd left"
-msgstr "%s 天后过期"
+msgstr "%sh tersisa"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:27
 msgid "expires on %b %-e, %Y"
-msgstr "将在%Y年 %b %-e日过期"
+msgstr "berkedaluwarsa pada %-e %b %Y"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -1210,41 +1218,41 @@ msgstr "将在%Y年 %b %-e日过期"
 #. %m is the minutes
 #: src/Utils/DateTime.vala:41
 msgid "expires on %b %-e, %Y %H:%m"
-msgstr "将在%Y年 %b %-e日%H:%m过期"
+msgstr "berkedaluwarsa pada %-e %b %Y %H:%m"
 
 #: src/Utils/DateTime.vala:43
 msgid "expired on just now"
-msgstr "已于刚刚过期"
+msgstr "berkedaluwarsa pada sekarang"
 
 #. tranlators: the variable is a number, `m` as in minutes in short form
 #: src/Utils/DateTime.vala:47
 #, c-format
 msgid "expired %sm ago"
-msgstr "%s 分前过期"
+msgstr "berkedaluwarsa %sm lalu"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:52
 #, c-format
 msgid "expired %sh ago"
-msgstr "%s 时前过期"
+msgstr "berkedaluwarsa %sj lalu"
 
 #: src/Utils/DateTime.vala:55
 msgid "expired yesterday"
-msgstr "已于昨天过期"
+msgstr "berkedaluwarsa kemarin"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:60
 #, c-format
 msgid "expired on %b %-e"
-msgstr "已于%b %-e日过期"
+msgstr "berkedaluwarsa pada %-e %b"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:66
 msgid "expired on %b %-e, %Y"
-msgstr "已于%Y年 %b %-e日%H:%m过期"
+msgstr "berkedaluwarsa pada %-e %b %Y"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -1253,200 +1261,200 @@ msgstr "已于%Y年 %b %-e日%H:%m过期"
 #. %m is the minutes
 #: src/Utils/DateTime.vala:80
 msgid "%b %-e, %Y %H:%m"
-msgstr "%Y年 %b %-e日%H:%m"
+msgstr "%-e %b %Y %H:%m"
 
 #: src/Utils/DateTime.vala:82
 msgid "Just now"
-msgstr "刚刚"
+msgstr "Sekarang"
 
 #. tranlators: the variable is a number, `m` as in minutes in short form
 #: src/Utils/DateTime.vala:86
 #, c-format
 msgid "%sm"
-msgstr "%s 分"
+msgstr "%sm"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:91
 #, c-format
 msgid "%sh"
-msgstr "%s 时"
+msgstr "%sj"
 
 #: src/Utils/DateTime.vala:94
 msgid "Yesterday"
-msgstr "昨天"
+msgstr "Kemarin"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:99
 #, c-format
 msgid "%b %-e"
-msgstr "%b %-e"
+msgstr "%-e %b"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:105
 msgid "%b %-e, %Y"
-msgstr "%Y年 %b %-e"
+msgstr "%-e %b %Y"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:120
 #, c-format
 msgid "less than a minute old"
 msgid_plural "%s minutes old"
-msgstr[0] "%s 分钟前"
+msgstr[0] "berumur %s menit"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:125
 #, c-format
 msgid "an hour old"
 msgid_plural "%s hours old"
-msgstr[0] "%s 小时前"
+msgstr[0] "berumur %s jam"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:140 src/Utils/DateTime.vala:154
 #, c-format
 msgid "%d months old"
-msgstr "%d 个月前"
+msgstr "berumur %d bulan"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:146
 #, c-format
 msgid "a day old"
 msgid_plural "%d days old"
-msgstr[0] "%d 天前"
+msgstr[0] "berumur %d hari"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:151
 #, c-format
 msgid "a year old"
 msgid_plural "%d years old"
-msgstr[0] "%d 年前"
+msgstr[0] "berumur %d tahun"
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k
 #: src/Utils/Units.vala:13
 msgid "k"
-msgstr "千"
+msgstr "rb"
 
 #. translators: short unit suffix for millions
 #. 3000000 => 3M
 #: src/Utils/Units.vala:17
 msgid "M"
-msgstr "百万"
+msgstr "j"
 
 #. translators: short unit suffix for billions
 #. 3000000000 => 3G
 #: src/Utils/Units.vala:21
 msgid "G"
-msgstr "十亿"
+msgstr "G"
 
 #. translators: Shown when there are 0 results
 #: src/Views/Base.vala:4
 msgid "Nothing to see here"
-msgstr "这里什么都没有"
+msgstr "Tidak ada yang bisa dilihat di sini"
 
 #: src/Views/Base.vala:99
 msgid "Reload"
-msgstr "重新加载"
+msgstr "Muat ulang"
 
 #: src/Views/Base.vala:158
 msgid "An Error Occurred"
-msgstr "出现了一个错误"
+msgstr "Terjadi error"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
-msgstr "编辑历史"
+msgstr "Riwayat suntingan"
 
 #: src/Views/Explore.vala:5 src/Views/Search.vala:39
 msgid "Posts"
-msgstr "帖子"
+msgstr "Posting"
 
 #: src/Views/Explore.vala:7
 msgid "News"
-msgstr "新闻"
+msgstr "Berita"
 
 #: src/Views/Explore.vala:8
 msgid "For You"
-msgstr "为你推荐"
+msgstr "Untuk anda"
 
 #: src/Views/Hashtag.vala:19 src/Views/Hashtag.vala:34
 #: src/Widgets/RelationshipButton.vala:29
 #: src/Widgets/RelationshipButton.vala:62
 msgid "Follow"
-msgstr "关注"
+msgstr "Ikuti"
 
 #: src/Views/Hashtag.vala:22 src/Views/Hashtag.vala:38
 #: src/Widgets/RelationshipButton.vala:52
 msgid "Unfollow"
-msgstr "取消关注"
+msgstr "Berhenti mengikuti"
 
 #: src/Views/Home.vala:20
 msgid "Compose"
-msgstr "撰写"
+msgstr "Tulis"
 
 #: src/Views/Lists.vala:57
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr "删除 \"%s\"？"
+msgstr "Hapus \"%s\"?"
 
 #: src/Views/Lists.vala:58
 msgid "This action cannot be reverted."
-msgstr "此操作无法撤销。"
+msgstr "Tindakan ini tidak dapat dikembalikan."
 
 #: src/Views/Lists.vala:60 src/Widgets/Status.vala:270
 #: src/Widgets/Status.vala:331
 msgid "Delete"
-msgstr "删除"
+msgstr "Hapus"
 
 #: src/Views/Lists.vala:137
 msgid "New list title"
-msgstr "新建列表标题"
+msgstr "Judul daftar baru"
 
 #: src/Views/Lists.vala:152
 msgid "Add list"
-msgstr "添加列表"
+msgstr "Tambah daftar"
 
 #: src/Views/MediaViewer.vala:577
 msgid "Copied media url to clipboard"
-msgstr "已复制媒体网址到剪贴板"
+msgstr "URL media disalin ke papan klip"
 
 #: src/Views/MediaViewer.vala:936 src/Widgets/Attachment/Image.vala:85
 msgid "Copied image to clipboard"
-msgstr "已复制图像到剪贴板"
+msgstr "Gambar disalin ke papan klip"
 
 #: src/Views/Profile.vala:34
 msgid "Profile"
-msgstr "个人资料"
+msgstr "Profil"
 
 #: src/Views/Profile.vala:224
 msgid "Copied handle to clipboard"
-msgstr "已复制句柄到剪贴板"
+msgstr "Nama pengguna disalin ke papan klip"
 
 #: src/Views/Profile.vala:256
 #, c-format
 msgid "Block \"%s\"?"
-msgstr "屏蔽 \"%s\"？"
+msgstr "Blokir \"%s\"?"
 
 #: src/Views/Profile.vala:256
 #, c-format
 msgid "Unblock \"%s\"?"
-msgstr "取消屏蔽 \"%s\"？"
+msgstr "Buka blokir \"%s\"?"
 
 #: src/Views/Profile.vala:262 src/Views/Profile.vala:281
 #: src/Widgets/RelationshipButton.vala:39
 msgid "Unblock"
-msgstr "取消屏蔽"
+msgstr "Buka blokir"
 
 #: src/Views/Profile.vala:274
 #, c-format
 msgid "Block Entire \"%s\"?"
-msgstr "屏蔽整个 \"%s\"？"
+msgstr "Blokir seluruh \"%s\"?"
 
 #: src/Views/Profile.vala:274
 #, c-format
 msgid "Unblock Entire \"%s\"?"
-msgstr "取消屏蔽整个 \"%s\"？"
+msgstr "Buka blokir seluruh \"%s\"?"
 
 #: src/Views/Profile.vala:278
 msgid ""
@@ -1456,197 +1464,197 @@ msgid ""
 "• Remove its followers from your account\n"
 "• Prevent you from following its users"
 msgstr ""
-"屏蔽一个实例将会：\n"
+"Memblokir domain akan:\n"
 "\n"
-"• 从您的时间线中删除该实例的公共帖子和通知\n"
-"• 从您的账户中移除属于该实例的关注者\n"
-"• 防止您关注该实例的用户"
+"• Hapus postingan publik dan notifikasinya dari linimasa Anda\n"
+"• Hapus pengikutnya dari akun Anda\n"
+"• Mencegah Anda mengikuti penggunanya"
 
 #. translators: the variable is an account handle
 #: src/Views/Profile.vala:371
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
-msgstr "将 \"%s\" 添加到列表中或从列表中移除"
+msgstr "Tambahkan atau hapus \"%s\" ke atau dari daftar"
 
 #. translators: the variable is an account handle
 #: src/Views/Profile.vala:384
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
-msgstr "请选择需要将 \"%s\" 添加到其中或从其中移除的列表："
+msgstr "Pilih daftar untuk menambah atau menghapus \"%s\" ke atau dari:"
 
 #: src/Views/Profile.vala:390
 msgid "You don't have any lists"
-msgstr "您当前没有任何列表"
+msgstr "Anda tidak memiliki daftar apa pun"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:420 src/Views/Profile.vala:482
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
-msgstr "将 \"%s\" 从 \"%s\" 中移除"
+msgstr "Hapus \"%s\" dari \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:421 src/Views/Profile.vala:476
 #, c-format
 msgid "Add \"%s\" to \"%s\""
-msgstr "将 \"%s\" 加入 \"%s\""
+msgstr "Tambahkan \"%s\" ke \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:473
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
-msgstr "用户 “%s\" 已从 \"%s\" 中移除"
+msgstr "Pengguna \"%s\" dihapus dari \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:479
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
-msgstr "用户 “%s\" 已加入 \"%s\""
+msgstr "Pengguna \"%s\" ditambahkan ke \"%s\""
 
 #. translators: as in All search results
 #: src/Views/Search.vala:37
 msgid "All"
-msgstr "全部"
+msgstr "Semua"
 
 #: src/Views/Search.vala:38
 msgid "Accounts"
-msgstr "账户"
+msgstr "Akun"
 
 #: src/Views/Search.vala:73
 msgid "Enter Query"
-msgstr "输入查询内容"
+msgstr "Masukkan kueri"
 
 #: src/Views/Sidebar.vala:28
 msgid "Open Profile"
-msgstr "打开个人资料"
+msgstr "Buka profil"
 
 #: src/Views/Sidebar.vala:33
 msgid "Preferences"
-msgstr "偏好"
+msgstr "Preferensi"
 
 #: src/Views/Sidebar.vala:34
 msgid "Keyboard Shortcuts"
-msgstr "键盘快捷键"
+msgstr "Pintasan keyboard"
 
 #: src/Views/Sidebar.vala:35
 #, c-format
 msgid "About %s"
-msgstr "关于 %s"
+msgstr "Tentang %s"
 
 #. translators: the variable is an account handle
 #: src/Views/Sidebar.vala:217
 #, c-format
 msgid "Forget %s?"
-msgstr "忘记 %s？"
+msgstr "Lupakan %s?"
 
 #: src/Views/Sidebar.vala:218
 msgid "This account will be removed from the application."
-msgstr "将从应用程序中删除此账户。"
+msgstr "Akun ini akan dihapus dari aplikasi."
 
 #: src/Views/Sidebar.vala:220
 msgid "Forget"
-msgstr "忘记"
+msgstr "Lupakan"
 
 #: src/Views/StatusStats.vala:6
 msgid "Post Stats"
-msgstr "帖文统计"
+msgstr "Statistik posting"
 
 #. translators: title for a list of people that favorited a post
 #: src/Views/StatusStats.vala:12
 msgid "Favorited By"
-msgstr "喜欢自"
+msgstr "Difavoritkan oleh"
 
 #. translators: title for a list of people that boosted a post
 #: src/Views/StatusStats.vala:20
 msgid "Boosted By"
-msgstr "转发自"
+msgstr "Diboost oleh"
 
 #: src/Views/Thread.vala:31
 msgid "Conversation"
-msgstr "对话"
+msgstr "Percakapan"
 
 #: src/Views/Thread.vala:104 src/Views/Thread.vala:118
 msgid "Reveal Spoilers"
-msgstr "显示剧透"
+msgstr "Ungkapkan bocoran"
 
 #: src/Views/Thread.vala:118
 msgid "Hide Spoilers"
-msgstr "隐藏剧透"
+msgstr "Sembunyikan bocoran"
 
 #: src/Views/Timeline.vala:221 src/Widgets/Status/ActionsRow.vala:343
 msgid "Network Error"
-msgstr "网络错误"
+msgstr "Error jaringan"
 
 #. translators: the variable is the emoji or its name if it's custom
 #: src/Widgets/Announcement.vala:32 src/Widgets/Status/ReactionsRow.vala:21
 #, c-format
 msgid "React with %s"
-msgstr "以 %s 表态"
+msgstr "Bereaksi dengan %s"
 
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:63
 msgid "Hide Media"
-msgstr "隐藏媒体"
+msgstr "Sembunyikan media"
 
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:74
 msgid "Show Sensitive Content"
-msgstr "显示敏感内容"
+msgstr "Tampilkan konten sensitif"
 
 #: src/Widgets/Attachment/Item.vala:22
 msgid "Copied attachment url to clipboard"
-msgstr "已复制附件网址到剪贴板"
+msgstr "URL lampiran disalin ke papan klip"
 
 #: src/Widgets/Attachment/Item.vala:35
 msgid "Save Attachment"
-msgstr "保存附件"
+msgstr "Simpan lampiran"
 
 #: src/Widgets/Attachment/Item.vala:47
 msgid "Saved Media"
-msgstr "保存的媒体"
+msgstr "Lampiran tersimpan"
 
 #: src/Widgets/Attachment/Item.vala:117
 msgid "View Alt Text"
-msgstr "查看替代文本"
+msgstr "Lihat teks alternatif"
 
 #. translators: the variable is the date the book was published
 #: src/Widgets/BookWyrmPage.vala:83
 #, c-format
 msgid "Published: %s"
-msgstr "发布时间：%s"
+msgstr "Diterbitkan: %s"
 
 #. translators: the variable is a comma separated
 #. list of the book authors
 #: src/Widgets/BookWyrmPage.vala:105
 #, c-format
 msgid "by %s"
-msgstr "作者：%s"
+msgstr "dari %s"
 
 #. translators: Used when there are results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:64
 #: src/Widgets/CustomEmojiChooser.vala:120
 msgid "Results"
-msgstr "结果"
+msgstr "Hasil"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:124
 msgid "No Results"
-msgstr "没有结果"
+msgstr "Tidak ada hasil"
 
 #: src/Widgets/CustomEmojiChooser.vala:162
 msgid "Custom Emojis"
-msgstr "自定义表情符号"
+msgstr "Emoji khusus"
 
 #. translators: the variables are numbers
 #: src/Widgets/PreviewCard.vala:110
 #, c-format
 msgid "Discussed %d times by %d people yesterday"
-msgstr "昨天被 %d 人讨论了 %d 次"
+msgstr "Dibahas %d kali oleh %d orang kemarin"
 
 #. translators: the variables are numbers
 #: src/Widgets/PreviewCard.vala:118
 #, c-format
 msgid "Discussed %d times by %d people in the past 2 days"
-msgstr "过去两天被 %d 人讨论了 %d 次"
+msgstr "Dibahas %d kali oleh %d orang dalam 2 hari terakhir"
 
 #. translators: this is a "long" date format shown in places like expanded posts or
 #. the profile "Joined" field. You can find all the available specifiers
@@ -1655,168 +1663,124 @@ msgstr "过去两天被 %d 人讨论了 %d 次"
 #. and year.
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Widgets/ProfileCover.vala:158 src/Widgets/Status.vala:373
-#, fuzzy
 msgid "%B %e, %Y"
-msgstr "%B %e, %Y"
+msgstr "%e %B %Y"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
 #: src/Widgets/ProfileCover.vala:168
 msgid "Joined"
-msgstr "加入于"
+msgstr "Bergabung"
 
 #. translators: the variable is the amount of posts a user has made
 #: src/Widgets/ProfileCover.vala:185 src/Widgets/ProfileCover.vala:186
 #, c-format
 msgid "%s Posts"
-msgstr "%s 条帖文"
+msgstr "%s posting"
 
 #. translators: the variable is the amount of people a user follows
 #: src/Widgets/ProfileCover.vala:191 src/Widgets/ProfileCover.vala:192
 #, c-format
 msgid "%s Following"
-msgstr "正在关注 %s 人"
+msgstr "%s mengikuti"
 
 #. translators: the variable is the amount of followers a user has
 #: src/Widgets/ProfileCover.vala:197 src/Widgets/ProfileCover.vala:198
 #, c-format
 msgid "%s Followers"
-msgstr "被 %s 人关注"
+msgstr "%s pengikut"
 
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:255
 msgid "View Stats"
-msgstr "查看统计"
+msgstr "Lihat statistik"
 
 #: src/Widgets/Status.vala:259
 msgid "View Edit History"
-msgstr "查看编辑历史"
+msgstr "Lihat riwayat suntingan"
 
 #. translators: Pin post on profile
 #: src/Widgets/Status.vala:264 src/Widgets/Status.vala:491
 msgid "Pin"
-msgstr "置顶"
+msgstr "Sematkan"
 
 #: src/Widgets/Status.vala:269
 msgid "Edit"
-msgstr "编辑"
+msgstr "Sunting"
 
 #: src/Widgets/Status.vala:278
 msgid "Copied post url to clipboard"
-msgstr "已复制帖文链接到剪贴板"
+msgstr "URL posting disalin ke papan klip"
 
 #: src/Widgets/Status.vala:328
 msgid "Are you sure you want to delete this post?"
-msgstr "您确定要删除这篇帖子吗？"
+msgstr "Apakah Anda yakin ingin menghapus postingan ini?"
 
 #: src/Widgets/Status.vala:360
 msgid "Sensitive"
-msgstr "敏感内容"
+msgstr "Sensitif"
 
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:489
 msgid "Unpin"
-msgstr "取消置顶"
+msgstr "Lepas sematan"
 
 #: src/Widgets/Status/ActionsRow.vala:52 src/Widgets/Status/ActionsRow.vala:92
 #: src/Widgets/Status/ActionsRow.vala:237
 msgid "Boost"
-msgstr "转嘟"
+msgstr "Boost"
 
 #: src/Widgets/Status/ActionsRow.vala:55
 msgid "This post can't be boosted"
-msgstr "这篇帖子不能被转嘟"
+msgstr "Postingan ini tidak bisa diboost"
 
 #: src/Widgets/Status/ActionsRow.vala:83 src/Widgets/Status/ActionsRow.vala:128
 msgid "Reply"
-msgstr "回复"
+msgstr "Balas"
 
 #: src/Widgets/Status/ActionsRow.vala:102
 msgid "Favorite"
-msgstr "喜欢"
+msgstr "Favoritkan"
 
 #: src/Widgets/Status/ActionsRow.vala:112
 msgid "Bookmark"
-msgstr "书签"
+msgstr "Markah"
 
 #. translators: the variable is a datetime with the "old" suffix, e.g. "5 months old", "a day old", "2 years old".
 #. The "old" suffix is translated on the datetime strings, not here
 #: src/Widgets/Status/ActionsRow.vala:123
 #, c-format
 msgid "This post is %s"
-msgstr "此帖文为%s"
+msgstr "Postingan ini %s"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon-android/tree/master/mastodon/src/main/res
 #. in the `strings.xml` file inside the `values-` folder that matches your locale under the `old_post_sheet_text` key
 #: src/Widgets/Status/ActionsRow.vala:126
 msgid "You can still reply, but it may no longer be relevant."
-msgstr "你仍然可以回复，但可能不再相关。"
+msgstr "Anda masih dapat membalas, namun mungkin sudah tidak relevan lagi."
 
 #: src/Widgets/Status/ActionsRow.vala:128
 msgid "Don't remind me again"
-msgstr "不再提醒我"
+msgstr "Jangan ingatkan saya lagi"
 
 #: src/Widgets/Status/ActionsRow.vala:229
 msgid "Boost with Visibility"
-msgstr "带可见范围的转发"
+msgstr "Boost dengan visibilitas"
 
 #: src/Widgets/Status/ActionsRow.vala:236
 msgid "Quote"
-msgstr "引用"
+msgstr "Kutip"
 
 #: src/Widgets/VoteBox.vala:12
 msgid "Vote"
-msgstr "投票"
+msgstr "Pilih"
 
 #: src/Widgets/VoteBox.vala:97 src/Widgets/VoteBox.vala:124
 msgid "Voted"
-msgstr "已投票"
+msgstr "Dipilih"
 
 #. translators: the variable is the amount of people that voted
 #: src/Widgets/VoteBox.vala:148
 #, c-format
 msgid "%lld voted"
-msgstr "%lld 人已投票"
-
-#~ msgid "Info"
-#~ msgstr "信息"
-
-#~ msgid "Autostart"
-#~ msgstr "开机自启"
-
-#~ msgid "Start minimized at boot"
-#~ msgstr "启动时最小化"
-
-#~ msgid "Back"
-#~ msgstr "上一步"
-
-#~ msgid "Anonymous"
-#~ msgstr "匿名"
-
-#~ msgid "No account selected"
-#~ msgstr "未选择账户"
-
-#, c-format
-#~ msgid "%lld Posts"
-#~ msgstr "%lld 帖子"
-
-#, c-format
-#~ msgid "%lld Following"
-#~ msgstr "%lld 正在关注"
-
-#, c-format
-#~ msgid "%lld Followers"
-#~ msgstr "%lld 关注者"
-
-#, c-format
-#~ msgid "Edit \"%s\""
-#~ msgstr "编辑 \"%s\""
-
-#~ msgid "Direct Messages"
-#~ msgstr "私信"
-
-#~ msgid "Evangelos \"GeopJr\" Paterakis"
-#~ msgstr "Evangelos \"GeopJr\" Paterakis"
-
-#~ msgid "Options"
-#~ msgstr "选项"
+msgstr "%lld memilih"

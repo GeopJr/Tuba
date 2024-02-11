@@ -437,7 +437,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	public void handle_list_edit (API.List list, Adw.ActionRow row, Adw.ToastOverlay toast_overlay, RowButton button) {
 			row.sensitive = false;
 
-			var endpoint = @"/api/v1/lists/$(list.id)/accounts/?account_ids[]=$(profile.account.id)";
+			var endpoint = @"/api/v1/lists/$(list.id)/accounts?account_ids[]=$(profile.account.id)";
 			var req = button.remove ? new Request.DELETE (endpoint) : new Request.POST (endpoint);
 			req
 				.with_account (accounts.active)

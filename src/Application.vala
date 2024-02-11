@@ -194,6 +194,11 @@ namespace Tuba {
 			Intl.textdomain (Build.GETTEXT_PACKAGE);
 
 			GLib.Environment.unset_variable ("GTK_THEME");
+			#if WINDOWS
+				GLib.Environment.set_variable ("SECRET_BACKEND", "file", false);
+				if (GLib.Environment.get_variable ("SECRET_BACKEND") == "file")
+					GLib.Environment.set_variable ("SECRET_FILE_TEST_PASSWORD", @"$(GLib.Environment.get_user_name ())$(Build.DOMAIN)", false);
+			#endif
 
 			app = new Application ();
 			return app.run (args);

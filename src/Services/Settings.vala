@@ -99,6 +99,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool advanced_boost_dialog { get; set; }
 	public bool reply_to_old_post_reminder { get; set; }
 	public bool spellchecker_enabled { get; set; }
+	public bool darken_images_on_dark_mode { get; set; }
 
 	private static string[] keys_to_init = {
 		"active-account",
@@ -120,7 +121,8 @@ public class Tuba.Settings : GLib.Settings {
 		"group-push-notifications",
 		"advanced-boost-dialog",
 		"reply-to-old-post-reminder",
-		"spellchecker-enabled"
+		"spellchecker-enabled",
+		"darken-images-on-dark-mode"
 	};
 
 	public Settings () {
