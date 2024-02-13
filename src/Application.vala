@@ -353,7 +353,7 @@ namespace Tuba {
 		void compose_activated () {
 			if (accounts.active.instance_info == null) return;
 
-			new Dialogs.Compose ();
+			new Dialogs.NewCompose ();
 		}
 
 		void back_activated () {

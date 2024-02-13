@@ -653,3 +653,15 @@ GtkSourceAssistant row:last-child {
 .account-stats {
 	font-size: small;
 }
+
+.accented-color {
+	color: @accent_color;
+}
+
+.font-large {
+	font-size: large;
+}
+
+.dropdown-border-radius > button {
+	border-radius: 9999px;
+}
