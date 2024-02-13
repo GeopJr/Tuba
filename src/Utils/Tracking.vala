@@ -40,6 +40,8 @@ public class Tuba.Tracking {
         "oft_id", "oft_k", "oft_lk", "oft_d", "oft_c", "oft_ck", "oft_ids", "oft_sk",
         // https://github.com/brave/brave-browser/issues/11580
         "igshid",
+        // Instagram Threads
+        "ad_id", "adset_id", "campaign_id", "ad_name", "adset_name", "campaign_name", "placement",
     };
 
     public static string strip_utm (string url) {
