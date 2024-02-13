@@ -58,7 +58,16 @@ public class Tuba.EditorPage : ComposerPage {
 	}
 
 	public override void on_push () {
-		status.status = editor.buffer.text;
+		if (settings.strip_tracking) {
+			status.status = Tracking.cleanup_content_with_uris (
+				editor.buffer.text,
+				Tracking.extract_uris (editor.buffer.text),
+				Tracking.CleanupType.STRIP_TRACKING
+			);
+		} else {
+			status.status = editor.buffer.text;
+		}
+
 		status.sensitive = cw_button.active;
 		if (status.sensitive) {
 			status.spoiler_text = cw_entry.text;

@@ -118,4 +118,52 @@ public class Tuba.Tracking {
 
         return @"$(str.slice(0, -1))$fragment";
     }
+
+    // Mastodon's url regex depends on other libraries and gets computed on runtime.
+    // It includes every single TLD among other things. Let's instead use GLib's Uri
+    // which will promote writing URIs fully (including the scheme).
+    public static GLib.Uri[] extract_uris (string content) {
+        GLib.Uri[] res = {};
+        if (content.length == 0 || !("://" in content)) return res;
+
+        foreach (var word in content.split_set (" \n\r\t'\"()[]")) {
+            if (!("://" in word)) continue;
+            try {
+                res += GLib.Uri.parse (word, GLib.UriFlags.ENCODED);
+            } catch {}
+        }
+
+        return res;
+    }
+
+    public enum CleanupType {
+        STRIP_TRACKING,
+        SPECIFIC_LENGTH;
+    }
+
+    public static string cleanup_content_with_uris (owned string content, GLib.Uri[] uris, CleanupType cleanup_type, int characters_reserved_per_url = 23) {
+        if (uris.length == 0) return content;
+
+        switch (cleanup_type) {
+            case CleanupType.STRIP_TRACKING:
+                foreach (var uri in uris) {
+                    if (uri.get_query () == null) continue;
+                    try {
+                        string stripped = strip_utm_from_uri (uri).to_string ();
+                        content = content.replace (uri.to_string (), stripped);
+                    } catch {}
+                }
+                break;
+            case CleanupType.SPECIFIC_LENGTH:
+                if (characters_reserved_per_url <= 0) break;
+                string replacement = string.nfill (characters_reserved_per_url, 'X');
+                foreach (var uri in uris) {
+                    content = content.replace (uri.to_string (), replacement);
+                }
+                break;
+            default: break;
+        }
+
+        return content;
+    }
 }
