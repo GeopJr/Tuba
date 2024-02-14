@@ -13,6 +13,7 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 	}
 
+	public Adw.ToastOverlay toast_overlay;
 	construct {
 		//  translators: "Text" as in text-based input
 		title = _("Text");
@@ -22,6 +23,8 @@ public class Tuba.EditorPage : ComposerPage {
 		if (char_limit_api > 0)
 			char_limit = char_limit_api;
 		remaining_chars = char_limit;
+
+		toast_overlay = new Adw.ToastOverlay ();
 	}
 
 	public void set_cursor_at_start () {
@@ -60,10 +63,10 @@ public class Tuba.EditorPage : ComposerPage {
 	protected void on_paste (Gdk.Clipboard clp) {
 		if (!settings.strip_tracking) return;
 		var clean_buffer = Tracking.cleanup_content_with_uris (
-				editor.buffer.text,
-				Tracking.extract_uris (editor.buffer.text),
-				Tracking.CleanupType.STRIP_TRACKING
-			);
+			editor.buffer.text,
+			Tracking.extract_uris (editor.buffer.text),
+			Tracking.CleanupType.STRIP_TRACKING
+		);
 		if (clean_buffer == editor.buffer.text) return;
 
 		Gtk.TextIter start_iter;
@@ -73,6 +76,19 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.buffer.delete (ref start_iter, ref end_iter);
 		editor.buffer.insert (ref start_iter, clean_buffer, -1);
 		editor.buffer.end_user_action ();
+
+		var toast = new Adw.Toast (
+			_("Stripped tracking parameters")
+		) {
+			timeout = 3,
+			button_label = _("Undo")
+		};
+		toast.button_clicked.connect (undo);
+		toast_overlay.add_toast (toast);
+	}
+
+	private void undo () {
+		editor.buffer.undo ();
 	}
 
 	public override void on_push () {
@@ -238,7 +254,8 @@ public class Tuba.EditorPage : ComposerPage {
 			child = editor
 		};
 
-		content.prepend (overlay);
+		toast_overlay.child = overlay;
+		content.prepend (toast_overlay);
 		editor.buffer.text = t_content;
 		if (force_cursor_at_start) set_cursor_at_start ();
 	}
