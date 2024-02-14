@@ -57,17 +57,26 @@ public class Tuba.EditorPage : ComposerPage {
 		recount_chars ();
 	}
 
-	public override void on_push () {
-		if (settings.strip_tracking) {
-			status.status = Tracking.cleanup_content_with_uris (
+	protected void on_paste (Gdk.Clipboard clp) {
+		if (!settings.strip_tracking) return;
+		var clean_buffer = Tracking.cleanup_content_with_uris (
 				editor.buffer.text,
 				Tracking.extract_uris (editor.buffer.text),
 				Tracking.CleanupType.STRIP_TRACKING
 			);
-		} else {
-			status.status = editor.buffer.text;
-		}
+		if (clean_buffer == editor.buffer.text) return;
 
+		Gtk.TextIter start_iter;
+		Gtk.TextIter end_iter;
+		editor.buffer.get_bounds (out start_iter, out end_iter);
+		editor.buffer.begin_user_action ();
+		editor.buffer.delete (ref start_iter, ref end_iter);
+		editor.buffer.insert (ref start_iter, clean_buffer, -1);
+		editor.buffer.end_user_action ();
+	}
+
+	public override void on_push () {
+		status.status = editor.buffer.text;
 		status.sensitive = cw_button.active;
 		if (status.sensitive) {
 			status.spoiler_text = cw_entry.text;
@@ -197,6 +206,7 @@ public class Tuba.EditorPage : ComposerPage {
 		};
 		bottom_bar.pack_end (char_counter);
 		editor.buffer.changed.connect (validate);
+		editor.buffer.paste_done.connect (on_paste);
 	}
 
 	protected void update_style_scheme () {
