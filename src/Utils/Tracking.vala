@@ -144,13 +144,28 @@ public class Tuba.Tracking {
     public static string cleanup_content_with_uris (owned string content, GLib.Uri[] uris, CleanupType cleanup_type, int characters_reserved_per_url = 23) {
         if (uris.length == 0) return content;
 
+        int last_index = 0;
         switch (cleanup_type) {
             case CleanupType.STRIP_TRACKING:
                 foreach (var uri in uris) {
                     if (uri.get_query () == null) continue;
                     try {
                         string stripped = strip_utm_from_uri (uri).to_string ();
-                        content = content.replace (uri.to_string (), stripped);
+                        string original = uri.to_string ();
+
+                        // 1 extra arguments for `string string.replace (string, string)' ???
+                        // content = content.replace (uri.to_string (), stripped, 1);
+                        last_index = content.index_of (original, last_index);
+                        if (last_index == -1) {
+                            last_index = 0;
+                            continue;
+                        }
+
+                        StringBuilder builder = new StringBuilder (content);
+                        builder.erase (last_index, original.length);
+                        builder.insert (last_index, stripped);
+
+                        content = builder.str;
                     } catch {}
                 }
                 break;
@@ -158,7 +173,19 @@ public class Tuba.Tracking {
                 if (characters_reserved_per_url <= 0) break;
                 string replacement = string.nfill (characters_reserved_per_url, 'X');
                 foreach (var uri in uris) {
-                    content = content.replace (uri.to_string (), replacement);
+                    string original = uri.to_string ();
+
+                    last_index = content.index_of (original, last_index);
+                    if (last_index == -1) {
+                        last_index = 0;
+                        continue;
+                    }
+
+                    StringBuilder builder = new StringBuilder (content);
+                    builder.erase (last_index, original.length);
+                    builder.insert (last_index, replacement);
+
+                    content = builder.str;
                 }
                 break;
             default: break;

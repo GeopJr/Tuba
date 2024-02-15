@@ -59,6 +59,14 @@ TestUrlCleanup[] get_cleanup_urls () {
         replaced_content = "https://www.gnome.org/"
     };
 
+    res += TestUrlCleanup () {
+        content = "https://www.gnome.org/test?oft_c=1312 https://www.gnome.org/test?foo=bar&oft_c=1312 https://www.gnome.org/test?oft_c=1312&foo=bar&ad_id=1312",
+        uris = {GLib.Uri.build (GLib.UriFlags.ENCODED, "https", null, "www.gnome.org", -1, "/test", "oft_c=1312", null), GLib.Uri.build (GLib.UriFlags.ENCODED, "https", null, "www.gnome.org", -1, "/test", "foo=bar&oft_c=1312", null), GLib.Uri.build (GLib.UriFlags.ENCODED, "https", null, "www.gnome.org", -1, "/test", "oft_c=1312&foo=bar&ad_id=1312", null)},
+        stripped_content = "https://www.gnome.org/test https://www.gnome.org/test?foo=bar https://www.gnome.org/test?foo=bar",
+        characters_reserved_per_url = 1,
+        replaced_content = "X X X"
+    };
+
     return res;
 }
 
