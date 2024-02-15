@@ -11,7 +11,8 @@
 
     <child>
       <object class="AdwToolbarView" id="toolbar_view">
-
+        <property name="top-bar-style">flat</property>
+        <property name="bottom-bar-style">flat</property>
         <child type="top">
           <object class="AdwHeaderBar" id="header" />
         </child>
@@ -26,6 +27,7 @@
                 <property name="halign">end</property>
                 <property name="margin_end">16</property>
                 <property name="margin_bottom">16</property>
+                <property name="overflow">visible</property>
                 <property name="child">
                   <object class="GtkButton" id="scroll_to_top">
                     <property name="icon-name">go-top-symbolic</property>

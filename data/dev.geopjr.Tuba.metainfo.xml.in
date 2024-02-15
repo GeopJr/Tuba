@@ -16,12 +16,15 @@
   <provides>
     <binary>dev.geopjr.Tuba</binary>
   </provides>
+  <launchable type="desktop-id">dev.geopjr.Tuba.desktop</launchable>
   <developer_name translatable="no">Evangelos "GeopJr" Paterakis</developer_name>
   <url type="homepage">https://tuba.geopjr.dev/</url>
   <url type="bugtracker">https://github.com/GeopJr/Tuba/issues</url>
   <url type="translate">https://hosted.weblate.org/engage/tuba/</url>
   <url type="donation">https://geopjr.dev/donate</url>
   <url type="contact">https://matrix.to/#/#tuba:gnome.org</url>
+  <url type="vcs-browser">https://github.com/GeopJr/Tuba/</url>
+  <url type="contribute">https://github.com/GeopJr/Tuba#contributing</url>
   <screenshots>
     <screenshot type="default">
       <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-1.png</image>
@@ -42,10 +45,6 @@
     <content_attribute id="social-contacts">intense</content_attribute>
   </content_rating>
   <translation type="gettext">dev.geopjr.Tuba</translation>
-  <custom>
-    <value key="Purism::form_factor">workstation</value>
-    <value key="Purism::form_factor">mobile</value>
-  </custom>
   <requires>
     <display_length compare="ge">360</display_length>
   </requires>
@@ -55,6 +54,87 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.6.3" date="2024-02-02">
+      <description translatable="no">
+        <ul>
+            <li>Fixed websocket connections not retrying when getting reset by peer</li>
+            <li>Fixed dialogs being unresponsive when other dialogs get presented at the same time</li>
+            <li>Fixed adding users to lists on GoToSocial</li>
+            <li>Fixed post content overflowing under certain circumstances</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.6.2" date="2024-01-15">
+      <description translatable="no">
+        <ul>
+            <li>Fixed incorrect DateTime calculation on very old posts</li>
+            <li>Fixed MediaViewer not handling all instances of some keybinds</li>
+            <li>Fixed sidebar headerbar account switcher button having multiple focus targets</li>
+            <li>Fixed mentions not opening on GoToSocial</li>
+            <li>Fixed some edge cases that would leave the view without a switcher</li>
+            <li>Fixed narrow mode not showing a back button</li>
+            <li>Fixed keyring not being unlocked when looking up secrets</li>
+            <li>Fixed incorrect LabelWithWidgets size calculation</li>
+            <li>Fixed segfault on friendica when handling empty image urls</li>
+            <li>Fixed MediaViewer back button showing incorrect icon on RTL</li>
+            <li>Switched to replacing the whole Navigation stack when selecting a sidebar item</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.6.1" date="2023-12-23">
+      <description translatable="no">
+        <ul>
+            <li>Fixed French translation</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.6.0" date="2023-12-22">
+      <description translatable="no">
+        <ul>
+            <li>Added MediaViewer enter and leave transitions</li>
+            <li>Added web+ap support</li>
+            <li>Redesigned account widgets</li>
+            <li>Added a button to toggle all spoilers in threads</li>
+            <li>Replaced manually caching with libsoup's built-in caching</li>
+            <li>Added advanced boost dialog to choose boost visibility and quote posts</li>
+            <li>Added keeping track of the spellchecker enabled state</li>
+            <li>Added dismissible warning when replying to posts older than 3 months</li>
+            <li>Added subscribing for notifications on new account posts</li>
+            <li>Added the option to hide accounts in list from the Home timeline</li>
+            <li>Added the ability to open profiles in browser</li>
+            <li>Added profile badges</li>
+            <li>Added keeping track of the window maximized state</li>
+            <li>Removed the preview card warning dialog</li>
+            <li>Redesigned the completion provider popups</li>
+            <li>Added per-account settings</li>
+            <li>Added more shortcuts</li>
+            <li>Fixed floating button reveal animation not playing from the bottom of the window</li>
+            <li>Fixed account switcher selection not being updated when adding a new account</li>
+            <li>Fixed mention resolving based on provided mentions not working</li>
+            <li>Fixed inconsistencies in card and focus styling</li>
+            <li>Fixed conditions that would leave the main window without a view switcher</li>
+            <li>Fixed certain post elements not being rendered</li>
+            <li>Fixed MediaViewer crash when triggering certain shortcuts while the animation is in progress</li>
+            <li>Fixed certain shortcuts not working with caps lock on</li>
+            <li>Fixed occasional duplicate posts at the top of timelines</li>
+            <li>Fixed profile timelines returning less posts on every refresh</li>
+            <li>Fixed entities not being updated in the same session showing outdated info</li>
+            <li>Fixed memory leaks and segfaults found</li>
+            <li>Fixed websockets not recovering after disconnecting</li>
+            <li>Fixed some instances of incorrect label measuring</li>
+            <li>Removed back arrow from sidebar pages</li>
+            <li>Fixed bookwyrm page title not filling all available space</li>
+            <li>Fixed flatpak notifications not including the avatar of the issuer</li>
+            <li>Fixed composer word capturing to match the whole word rather than from the start until the cursor</li>
+            <li>Fixed composer completion provider replacement not replacing the whole word</li>
+            <li>Fixed votebox labels overflowing the window</li>
+            <li>Fixed sidebar main page items not being marked as selected in some cases</li>
+            <li>Read the full changelog on the repo</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.5.0" date="2023-09-22">
       <description translatable="no">
         <ul>

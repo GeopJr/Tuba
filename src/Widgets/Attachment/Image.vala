@@ -1,7 +1,4 @@
 public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
-	const string[] ALLOWED_TYPES = {"IMAGE", "VIDEO", "GIFV", "AUDIO"};
-	const string[] VIDEO_TYPES = {"GIFV", "VIDEO", "AUDIO"};
-
 	protected Gtk.Picture pic;
 	protected Gtk.Overlay media_overlay;
 
@@ -45,21 +42,20 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		button.child = media_overlay;
 	}
 
-	const string[] CAN_COPY_KINDS = { "IMAGE" };
 	protected Gtk.Image? media_icon = null;
 	protected override void on_rebind () {
 		base.on_rebind ();
 		pic.alternative_text = entity == null ? null : entity.description;
 
-		image_cache.request_paintable (entity.preview_url, on_cache_response);
+		Tuba.Helper.Image.request_paintable (entity.preview_url, entity.blurhash, on_cache_response);
 
-		if (media_kind in VIDEO_TYPES) {
+		if (media_kind.is_video ()) {
 			media_icon = new Gtk.Image () {
 				valign = Gtk.Align.CENTER,
 				halign = Gtk.Align.CENTER
 			};
 
-			if (media_kind != "AUDIO") {
+			if (media_kind != Tuba.Attachment.MediaType.AUDIO) {
 				media_icon.css_classes = { "osd", "circular", "attachment-overlay-icon" };
 				media_icon.icon_name = "media-playback-start-symbolic";
 			} else {
@@ -72,7 +68,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			media_icon.icon_size = Gtk.IconSize.LARGE;
 		}
 
-		copy_media_simple_action.set_enabled (media_kind in CAN_COPY_KINDS);
+		copy_media_simple_action.set_enabled (media_kind.can_copy ());
 	}
 
 	protected override void copy_media () {
@@ -86,21 +82,17 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 
 				Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 				clipboard.set_texture (texture);
+				app.toast (_("Copied image to clipboard"));
 			} catch (Error e) {
-				var dlg = app.inform (_("Error"), e.message);
-				dlg.present ();
+				app.toast ("%s: %s".printf (_("Error"), e.message));
 			}
 
 			debug ("End copy-media action");
 		});
 	}
 
-	protected virtual void on_cache_response (bool is_loaded, owned Gdk.Paintable? data) {
-		if (is_loaded) {
-			pic.paintable = data;
-		} else if (settings.use_blurhash) {
-			pic.paintable = blurhash_cache.lookup_or_decode (entity.blurhash);
-		}
+	protected virtual void on_cache_response (Gdk.Paintable? data) {
+		pic.paintable = data;
 	}
 
 	public signal void spoiler_revealed ();
@@ -110,7 +102,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			return;
 		}
 
-		if (media_kind in ALLOWED_TYPES) {
+		if (media_kind != Tuba.Attachment.MediaType.UNKNOWN) {
 			load_image_in_media_viewer (null);
 			on_any_attachment_click (entity.url);
 		} else { // Fallback
@@ -119,7 +111,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	}
 
 	public void load_image_in_media_viewer (int? pos) {
-		app.main_window.show_media_viewer (entity.url, pic.alternative_text, media_kind in VIDEO_TYPES, pic.paintable, pos);
+		app.main_window.show_media_viewer (entity.url, media_kind, pic.paintable, pos, this, false, pic.alternative_text);
 	}
 
 	public signal void on_any_attachment_click (string url) {}

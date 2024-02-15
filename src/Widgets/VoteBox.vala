@@ -2,8 +2,7 @@
 public class Tuba.Widgets.VoteBox : Gtk.Box {
 	[GtkChild] protected unowned Gtk.ListBox poll_box;
 	[GtkChild] protected unowned Gtk.Button button_vote;
-    [GtkChild] protected unowned Gtk.Label people_label;
-    [GtkChild] protected unowned Gtk.Label expires_label;
+    [GtkChild] protected unowned Gtk.Label info_label;
 
 	public API.Poll? poll { get; set;}
     protected Gee.ArrayList<string> selected_index = new Gee.ArrayList<string> ();
@@ -18,15 +17,14 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
     private void on_vote_button_clicked (Gtk.Button button) {
         button.sensitive = false;
         API.Poll.vote (accounts.active, poll.options, selected_index, poll.id)
-            .then ((sess, mess, in_stream) => {
+            .then ((in_stream) => {
                 var parser = Network.get_parser_from_inputstream (in_stream);
                 poll = API.Poll.from (network.parse_node (parser));
 
                 button.sensitive = true;
             })
             .on_error ((code, reason) => {
-                var dlg = app.inform (_("Error"), reason);
-                dlg.present ();
+                app.toast ("%s: %s".printf (_("Error"), reason));
                 button.sensitive = true;
             })
             .exec ();
@@ -90,11 +88,13 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
                     row.add_css_class ("ttl-poll-winner");
                 }
 
-                foreach (int own_vote in poll.own_votes) {
-                    if (own_vote == row_number) {
-                        row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic") {
-                            tooltip_text = _("Voted")
-                        });
+                if (poll.own_votes != null) {
+                    foreach (int own_vote in poll.own_votes) {
+                        if (own_vote == row_number) {
+                            row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic") {
+                                tooltip_text = _("Voted")
+                            });
+                        }
                     }
                 }
 
@@ -114,15 +114,17 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
                 check_option.poll_title = p.title;
                 check_option.toggled.connect (on_check_option_toggeled);
 
-                foreach (int own_vote in poll.own_votes) {
-                    if (own_vote == row_number) {
-                        check_option.active = true;
-                        row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic") {
-                            tooltip_text = _("Voted")
-                        });
+                if (poll.own_votes != null) {
+                    foreach (int own_vote in poll.own_votes) {
+                        if (own_vote == row_number) {
+                            check_option.active = true;
+                            row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic") {
+                                tooltip_text = _("Voted")
+                            });
 
-                        if (!selected_index.contains (p.title)) {
-                            selected_index.add (p.title);
+                            if (!selected_index.contains (p.title)) {
+                                selected_index.add (p.title);
+                            }
                         }
                     }
                 }
@@ -140,11 +142,13 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
             row_number++;
         }
 
-        // translators: the variable is the amount of people that voted
-        people_label.label = _("%lld voted").printf (poll.votes_count);
-        expires_label.label = poll.expired
-            ? DateTime.humanize_ago (poll.expires_at)
-            : DateTime.humanize_left (poll.expires_at);
+        info_label.label = "%s · %s".printf (
+            // translators: the variable is the amount of people that voted
+            _("%lld voted").printf (poll.votes_count),
+            poll.expired
+                ? DateTime.humanize_ago (poll.expires_at)
+                : DateTime.humanize_left (poll.expires_at)
+        );
 	}
 
     private void on_check_option_toggeled (Gtk.CheckButton radio) {

@@ -122,6 +122,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	public BasicStatus original_status { get; construct set; }
 	public BasicStatus status { get; construct set; }
+	public bool force_cursor_at_start { get; construct set; default=false; }
 
 	public delegate void SuccessCallback (API.Status cb_status);
 	protected SuccessCallback? cb;
@@ -194,37 +195,30 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		on_paste_activated (this.title);
 	}
 
-	Adw.MessageDialog? dlg;
 	void on_exit () {
 		push_all ();
 
 		if (status.equal (original_status)) {
 			on_close ();
 		} else {
-			dlg = app.question (
-				_("Are you sure you want to exit?"),
-				_("Your progress will be lost."),
+			app.question.begin (
+				{_("Are you sure you want to exit?"), false},
+				{_("Your progress will be lost."), false},
 				this,
-				_("Discard"),
-				Adw.ResponseAppearance.DESTRUCTIVE,
-				_("Cancel")
+				{ { _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				false,
+				(obj, res) => {
+					if (app.question.end (res).truthy ()) on_close ();
+				}
 			);
-			dlg.response.connect (on_dlg_response);
-			dlg.present ();
 		}
-	}
-
-	void on_dlg_response (string res) {
-		if (dlg == null) return;
-		dlg.dispose ();
-		dlg = null;
-
-		if (res == "yes") on_close ();
 	}
 
 	private ComposerPage[] t_pages = {};
 	protected virtual signal void build () {
-		var p_edit = new EditorPage ();
+		var p_edit = new EditorPage () {
+			force_cursor_at_start = force_cursor_at_start
+		};
 		var p_attach = new AttachmentsPage ();
 		var p_poll = new PollPage ();
 
@@ -277,12 +271,15 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 	[GtkChild] unowned Adw.ViewStack stack;
 
-	public Compose (API.Status template = new API.Status.empty ()) {
+	public string? quote_id { get; set; }
+	public Compose (API.Status template = new API.Status.empty (), bool t_force_cursor_at_start = false, string? quote_id = null) {
 		Object (
 			status: new BasicStatus.from_status (template),
 			original_status: new BasicStatus.from_status (template),
 			button_label: _("_Publish"),
-			button_class: "suggested-action"
+			button_class: "suggested-action",
+			force_cursor_at_start: t_force_cursor_at_start,
+			quote_id: quote_id
 		);
 	}
 
@@ -389,7 +386,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 				transaction.end (res);
 			} catch (Error e) {
 				warning (e.message);
-				var dlg = app.inform (_("Error"), e.message);
+				var dlg = app.inform (_("Error"), e.message, this);
 				dlg.present ();
 			} finally {
 				this.sensitive = true;
@@ -431,6 +428,10 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 		modify_body (builder);
 		if (editing) update_alt_texts (builder);
+		if (quote_id != null) {
+			builder.set_member_name ("quote_id");
+			builder.add_string_value (quote_id);
+		}
 
 		builder.end_object ();
 		return builder;

@@ -36,25 +36,25 @@
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="larger_font_size">
-								<property name="title" translatable="yes">Larger font size</property>
-								<property name="subtitle" translatable="yes">Makes the font larger for posts</property>
+								<property name="title" translatable="yes">Large Text</property>
+								<property name="subtitle" translatable="yes">Increase the size of text in posts</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="larger_line_height">
-								<property name="title" translatable="yes">Larger line height</property>
-								<property name="subtitle" translatable="yes">Makes the line height larger for posts</property>
+								<property name="title" translatable="yes">Large Line Height</property>
+								<property name="subtitle" translatable="yes">Increase the line height in posts</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="enlarge_custom_emojis">
-								<property name="title" translatable="yes">Enlarge custom emojis</property>
+								<property name="title" translatable="yes">Large Custom Emojis</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="scale_emoji_hover">
-								<property name="title" translatable="yes">Scale up custom emojis on hover</property>
-								<property name="subtitle" translatable="yes">Makes custom emojis slightly bigger when you hover over them</property>
+								<property name="title" translatable="yes">Scale Custom Emojis on Hover</property>
+								<property name="subtitle" translatable="yes">Slightly increases the size of custom emojis when you hover over them</property>
 							</object>
 						</child>
 						<child>
@@ -68,7 +68,7 @@
 						<child>
 							<object class="AdwSwitchRow" id="media_viewer_expand_pictures">
 								<!-- translators: expand as in enlarge -->
-								<property name="title" translatable="yes">Expand pictures in media viewer</property>
+								<property name="title" translatable="yes">Expand Pictures in Media Viewer</property>
 								<!-- translators: expand as in enlarge -->
 								<property name="subtitle" translatable="yes">Expand pictures to fill the media viewer by default</property>
 							</object>
@@ -81,12 +81,17 @@
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="show_spoilers">
-								<property name="title" translatable="yes">Reveal spoilers by default</property>
+								<property name="title" translatable="yes">Reveal Spoilers by Default</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="show_preview_cards">
-								<property name="title" translatable="yes">Show link preview cards</property>
+								<property name="title" translatable="yes">Show Link Preview Cards</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="darken_images_on_dark_mode">
+								<property name="title" translatable="yes">Darken images on dark mode</property>
 							</object>
 						</child>
 					</object>
@@ -96,7 +101,7 @@
 						<property name="title" translatable="yes">Posting</property>
 						<child>
 							<object class="AdwComboRow" id="post_visibility_combo_row">
-								<property name="title" translatable="yes">Default post visibility</property>
+								<property name="title" translatable="yes">Default Post Visibility</property>
 
 								<property name="expression">
 									<lookup type="TubaInstanceAccountVisibility" name="name" />
@@ -105,7 +110,7 @@
 						</child>
 						<child>
 							<object class="AdwComboRow" id="default_language_combo_row">
-								<property name="title" translatable="yes">Default post language</property>
+								<property name="title" translatable="yes">Default Post Language</property>
 
 								<property name="expression">
 									<lookup type="TubaLocalesLocale" name="name" />
@@ -115,7 +120,7 @@
 						<child>
 							<object class="AdwComboRow" id="default_content_type_combo_row">
 								<property name="visible">0</property>
-								<property name="title" translatable="yes">Default post content type</property>
+								<property name="title" translatable="yes">Default Post Content Type</property>
 
 								<property name="expression">
 									<lookup type="TubaInstanceAccountStatusContentType" name="title" />
@@ -129,15 +134,21 @@
 						<property name="title" translatable="yes">Behavior</property>
 						<child>
 							<object class="AdwSwitchRow" id="work_in_background">
-								<property name="title" translatable="yes">Background work</property>
-								<property name="subtitle" translatable="yes">Receive notifications even when the app is closed</property>
+								<property name="title" translatable="yes">Run in Background</property>
+								<property name="subtitle" translatable="yes">Fetch notifications while the app is closed</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="strip_tracking">
-								<property name="title" translatable="yes">Strip tracking parameters from links</property>
+								<property name="title" translatable="yes">Strip Tracking Parameters From Links</property>
 								<!-- translators: Broken as in incorrect -->
-								<property name="subtitle" translatable="yes">It can lead to broken links</property>
+								<property name="subtitle" translatable="yes">This option can lead to broken links when enabled</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="advanced_boost_dialog">
+								<property name="title" translatable="yes">Advanced Boost Dialog</property>
+								<property name="subtitle" translatable="yes">Change boost visibility, quote and confirm boosting</property>
 							</object>
 						</child>
 					</object>
@@ -147,7 +158,7 @@
 						<property name="title" translatable="yes">Timelines</property>
 						<child>
 							<object class="AdwSpinRow" id="timeline_page_size">
-								<property name="title" translatable="yes">Posts per load batch</property>
+								<property name="title" translatable="yes">Posts per Load Batch</property>
 								<property name="text">10</property>
 								<property name="adjustment">page_adjustment</property>
 								<property name="value">10</property>
@@ -155,14 +166,14 @@
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="live_updates">
-								<property name="title" translatable="yes">Stream timelines</property>
+								<property name="title" translatable="yes">Stream Timelines</property>
 								<property name="subtitle" translatable="yes">Receive new posts and notifications in real-time</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="public_live_updates">
 								<property name="sensitive" bind-source="live_updates" bind-property="active" bind-flags="sync-create" />
-								<property name="title" translatable="yes">Stream public timelines</property>
+								<property name="title" translatable="yes">Stream Public Timelines</property>
 								<property name="subtitle" translatable="yes">Warning: This will increase memory usage</property>
 							</object>
 						</child>

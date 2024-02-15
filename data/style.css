@@ -231,9 +231,12 @@ flowboxchild {
 	background: alpha(@success_bg_color, 0.1);
 }
 
-.media-viewer-headerbar {
-	background: rgba(0, 0, 0, .7);
+.media-viewer {
 	color: white;
+}
+
+.media-viewer .top-bar {
+	background-image: none;
 }
 
 .ttl-status-heading {
@@ -606,4 +609,47 @@ video > overlay > revealer > controls {
 
 .preview_card:not(.explore):active {
 	background-color: alpha(currentColor, 0.1625);
+}
+
+GtkSourceAssistant {
+	background: @popover_bg_color;
+	padding: 8px;
+	/* border-radius of child + padding */
+	border-radius: 14px;
+
+}
+
+GtkSourceAssistant scrolledwindow undershoot {
+	background-image: none;
+	box-shadow: none;
+}
+
+GtkSourceAssistant scrolledwindow .cell.icon {
+	padding-left: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+GtkSourceAssistant row {
+	border-radius: 6px;
+	margin: 6px 0;
+	padding: 6px;
+}
+
+GtkSourceAssistant row:selected {
+	background: alpha(@accent_bg_color, .33);
+	color: currentColor;
+}
+
+GtkSourceAssistant row:first-child,
+GtkSourceAssistant row:last-child {
+	margin: 0;
+}
+
+.account-avatar {
+	margin-top: -30px;
+}
+
+.account-stats {
+	font-size: small;
 }

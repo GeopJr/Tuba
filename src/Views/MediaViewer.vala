@@ -1,8 +1,71 @@
-// Mostly inspired by Loupe https://gitlab.gnome.org/Incubator/loupe
+// Mostly inspired by Loupe https://gitlab.gnome.org/GNOME/loupe and Fractal https://gitlab.gnome.org/GNOME/fractal
 
-public class Tuba.Views.MediaViewer : Gtk.Box {
+public class Tuba.Attachment {
+	public enum MediaType {
+        IMAGE,
+        VIDEO,
+        GIFV,
+		AUDIO,
+		UNKNOWN;
+
+		public bool can_copy () {
+			switch (this) {
+				case IMAGE:
+					return true;
+				default:
+					return false;
+			}
+		}
+
+		public bool is_video () {
+			switch (this) {
+				case VIDEO:
+				case GIFV:
+				case AUDIO:
+					return true;
+				default:
+					return false;
+			}
+		}
+
+        public string to_string () {
+			switch (this) {
+				case IMAGE:
+					return "IMAGE";
+				case VIDEO:
+					return "VIDEO";
+				case GIFV:
+					return "GIFV";
+				case AUDIO:
+					return "AUDIO";
+				default:
+					return "UNKNOWN";
+			}
+		}
+
+		public static MediaType from_string (string media_type) {
+			string media_type_up = media_type.up ();
+			switch (media_type_up) {
+				case "IMAGE":
+					return IMAGE;
+				case "VIDEO":
+					return VIDEO;
+				case "GIFV":
+					return GIFV;
+				case "AUDIO":
+					return AUDIO;
+				default:
+					return UNKNOWN;
+			}
+		}
+    }
+}
+
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/media_viewer.ui")]
+public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	const double MAX_ZOOM = 20;
 	static double last_used_volume = 1.0;
+	const uint CANCEL_SWIPE_ANIMATION_DURATION = 400;
 
 	public class Item : Adw.Bin {
 		private Gtk.Stack stack;
@@ -138,22 +201,13 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 			Gdk.Paintable? paintable,
 			bool t_is_video = false
 		) {
-			child_widget = child;
-			is_video = t_is_video;
+			this.child_widget = child;
+			this.is_video = t_is_video;
 
 			stack.add_named (setup_scrolledwindow (child), "child");
 			this.url = t_url;
 
 			if (paintable != null) overlay.child = new Gtk.Picture.for_paintable (paintable);
-		}
-
-		public Item.static (Gtk.Widget child, string t_url) {
-			child_widget = child;
-
-			stack.add_named (setup_scrolledwindow (child), "child");
-			this.url = t_url;
-
-			done ();
 		}
 
 		~Item () {
@@ -172,6 +226,8 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		}
 
 		public void done () {
+			if (is_done) return;
+
 			spinner.spinning = false;
 			stack.visible_child_name = "child";
 			if (is_video) {
@@ -180,6 +236,19 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 				((Gtk.Video) child_widget).media_stream.playing = pre_playing;
 			};
 			is_done = true;
+		}
+
+		private bool on_scroll (Gtk.EventControllerScroll scroll, double dx, double dy) {
+			var state = scroll.get_current_event_state () & Gdk.MODIFIER_MASK;
+			if (state != Gdk.ModifierType.CONTROL_MASK)
+				return false;
+
+			if (dy < 0)
+				zoom_in ();
+			else
+				zoom_out ();
+
+			return true;
 		}
 
 		private Gtk.Widget setup_scrolledwindow (Gtk.Widget child) {
@@ -195,6 +264,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 			// Emit zoom_changed when the scrolledwindow changes
 			scroller.vadjustment.changed.connect (emit_zoom_changed);
 			scroller.hadjustment.changed.connect (emit_zoom_changed);
+
+			var scroll = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.VERTICAL | Gtk.EventControllerScrollFlags.DISCRETE);
+			scroll.scroll.connect (on_scroll);
+			scroller.add_controller (scroll);
 
 			return scroller;
 		}
@@ -231,37 +304,38 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	};
 
 	private Gee.ArrayList<Item> items = new Gee.ArrayList<Item> ();
-	protected Gtk.Button fullscreen_btn;
-	protected Adw.HeaderBar headerbar;
-	private Adw.Carousel carousel;
-	private Adw.CarouselIndicatorDots carousel_dots;
 	protected SimpleAction copy_media_simple_action;
-	protected Gtk.PopoverMenu context_menu { get; set; }
+
+	[GtkChild] unowned Gtk.PopoverMenu context_menu;
+	[GtkChild] unowned Gtk.Button fullscreen_btn;
+	[GtkChild] unowned Adw.HeaderBar headerbar;
+	[GtkChild] unowned Gtk.Button back_btn;
+
+	[GtkChild] unowned Gtk.Revealer page_buttons_revealer;
+	[GtkChild] unowned Gtk.Button prev_btn;
+	[GtkChild] unowned Gtk.Button next_btn;
+
+	[GtkChild] unowned Gtk.Revealer zoom_buttons_revealer;
+	[GtkChild] unowned Gtk.Button zoom_out_btn;
+	[GtkChild] unowned Gtk.Button zoom_in_btn;
+
+	[GtkChild] unowned Tuba.Widgets.ScaleRevealer scale_revealer;
+	[GtkChild] unowned Adw.Carousel carousel;
+
+	private double swipe_children_opacity {
+		set {
+			headerbar.opacity =
+			page_buttons_revealer.opacity =
+			zoom_buttons_revealer.opacity = value;
+		}
+	}
 
 	construct {
-		carousel = new Adw.Carousel () {
-			vexpand = true,
-			hexpand = true,
-			css_classes = {"osd"}
-		};
-
+		if (is_rtl) back_btn.icon_name = "tuba-right-large-symbolic";
 		// Move between media using the arrow keys
 		var keypresscontroller = new Gtk.EventControllerKey ();
 		keypresscontroller.key_pressed.connect (on_keypress);
 		add_controller (keypresscontroller);
-
-		var overlay = new Gtk.Overlay () {
-			vexpand = true,
-			hexpand = true
-		};
-
-		Gtk.Widget zoom_btns;
-		Gtk.Widget page_btns;
-		generate_media_buttons (out page_btns, out zoom_btns);
-
-		overlay.add_overlay (page_btns);
-		overlay.add_overlay (zoom_btns);
-		overlay.child = carousel;
 
 		var drag = new Gtk.GestureDrag ();
 		drag.drag_begin.connect (on_drag_begin);
@@ -279,9 +353,6 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		motion.motion.connect (on_motion);
 		add_controller (motion);
 
-		orientation = Gtk.Orientation.VERTICAL;
-		spacing = 0;
-
 		var actions = new GLib.SimpleActionGroup ();
 		actions.add_action_entries (ACTION_ENTRIES, this);
 
@@ -291,62 +362,141 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 
 		this.insert_action_group ("mediaviewer", actions);
 
-		headerbar = new Adw.HeaderBar () {
-			title_widget = new Gtk.Label (_("Media Viewer")) {
-				css_classes = {"title"}
-			},
-			css_classes = {"flat", "media-viewer-headerbar"}
-		};
-		var back_btn = new Gtk.Button.from_icon_name ("tuba-left-large-symbolic") {
-			tooltip_text = _("Go Back")
-		};
-		back_btn.clicked.connect (on_back_clicked);
-		headerbar.pack_start (back_btn);
-
-		var end_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-		fullscreen_btn = new Gtk.Button.from_icon_name ("view-fullscreen-symbolic") {
-			tooltip_text = _("Toggle Fullscreen")
-		};
-		fullscreen_btn.clicked.connect (toggle_fullscreen);
-
-		var menu_model = create_actions_menu ();
-		var actions_btn = new Gtk.MenuButton () {
-			icon_name = "view-more-symbolic",
-			menu_model = menu_model
-		};
-
-		context_menu = new Gtk.PopoverMenu.from_model (menu_model) {
-			has_arrow = false,
-			halign = Gtk.Align.START
-		};
+		this.notify["visible"].connect (on_visible_toggle);
+		carousel.notify["n-pages"].connect (on_carousel_n_pages_changed);
+		carousel.page_changed.connect (on_carousel_page_changed);
+		scale_revealer.transition_done.connect (on_scale_revealer_transition_end);
 		context_menu.set_parent (this);
-
-		end_box.append (fullscreen_btn);
-		end_box.append (actions_btn);
-		headerbar.pack_end (end_box);
-
-		carousel_dots = new Adw.CarouselIndicatorDots () {
-			carousel = carousel,
-			css_classes = {"osd"},
-			visible = false
-		};
-
-		carousel.bind_property ("n_pages", carousel_dots, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_boolean (src.get_uint () > 1);
-			return true;
-		});
-
-		append (headerbar);
-		append (overlay);
-		append (carousel_dots);
 
 		setup_mouse_previous_click ();
 		setup_double_click ();
 		setup_mouse_secondary_click ();
+		setup_swipe_close ();
 	}
 	~MediaViewer () {
 		debug ("Destroying MediaViewer");
 		context_menu.unparent ();
+	}
+
+	private void on_visible_toggle () {
+		if (this.visible) this.grab_focus ();
+	}
+
+	private double swipe_progress { get; set; }
+	public Adw.SwipeTracker swipe_tracker;
+	private void setup_swipe_close () {
+		swipe_tracker = new Adw.SwipeTracker (this) {
+			orientation = Gtk.Orientation.VERTICAL,
+			enabled = true,
+			allow_mouse_drag = true
+		};
+		swipe_tracker.prepare.connect (on_swipe_tracker_prepare);
+		swipe_tracker.update_swipe.connect (on_update_swipe);
+		swipe_tracker.end_swipe.connect (on_end_swipe);
+	}
+
+	private void on_swipe_tracker_prepare (Adw.NavigationDirection direction) {
+		update_revealer_widget ();
+	}
+
+	private void on_update_swipe (double progress) {
+		this.swipe_children_opacity = 0.0;
+		this.swipe_progress = progress;
+		this.queue_allocate ();
+		this.queue_draw ();
+	}
+
+	private void on_end_swipe (double velocity, double to) {
+		if (to == 0.0) {
+			var target = new Adw.CallbackAnimationTarget (swipe_animation_target_cb);
+			var animation = new Adw.TimedAnimation (this, swipe_progress, 0.0, CANCEL_SWIPE_ANIMATION_DURATION, target) {
+				easing = Adw.Easing.EASE_OUT_QUART
+			};
+			animation.done.connect (on_swipe_animation_end);
+			animation.play ();
+		} else {
+			clear ();
+			this.swipe_children_opacity = 1.0;
+		}
+	}
+
+	private void swipe_animation_target_cb (double value) {
+		this.swipe_progress = value;
+		this.queue_allocate ();
+		this.queue_draw ();
+	}
+
+	private void on_swipe_animation_end () {
+		this.swipe_children_opacity = 1.0;
+	}
+
+	public override void size_allocate (int width, int height, int baseline) {
+        int swipe_y_offset = (int) (-height * swipe_progress);
+		Gtk.Allocation allocation = Gtk.Allocation () {
+			x = 0,
+			y = swipe_y_offset,
+			width = width,
+			height = height
+		};
+		scale_revealer.allocate_size (allocation, baseline);
+    }
+
+	public override void snapshot (Gtk.Snapshot snapshot) {
+		double progress = double.min (
+			1.0 - swipe_progress.abs (),
+			scale_revealer.animation.value
+		);
+
+		if (progress > 0.0) {
+			Gdk.RGBA background_color = Gdk.RGBA () {
+				red = 0.0f,
+				green = 0.0f,
+				blue = 0.0f,
+				alpha = (float) progress
+			};
+			Graphene.Rect bounds = Graphene.Rect () {
+				origin = Graphene.Point () { x = 0.0f, y = 0.0f },
+				size = Graphene.Size () { width = (float) this.get_width (), height = (float) this.get_height () }
+			};
+
+			snapshot.append_color (background_color, bounds);
+		}
+
+		this.snapshot_child (scale_revealer, snapshot);
+	}
+
+	public double get_cancel_progress () {
+		return 0.0;
+	}
+
+	public double get_distance () {
+		return (double) this.get_height ();
+	}
+
+	public double get_progress () {
+		return swipe_progress;
+	}
+
+	public double[] get_snap_points () {
+		return {-1.0, 0.0, 1.0};
+	}
+
+	public Gdk.Rectangle get_swipe_area (Adw.NavigationDirection navigation_direction, bool is_drag) {
+		return {
+			0,
+			0,
+			this.get_width (),
+			this.get_height ()
+		};
+	}
+
+	private void on_scale_revealer_transition_end () {
+		if (!scale_revealer.reveal_child) {
+			this.visible = false;
+			swipe_progress = 0.0;
+			scale_revealer.source_widget = null;
+			reset_media_viewer ();
+		}
 	}
 
 	int? old_height;
@@ -388,17 +538,22 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	}
 
 	protected bool on_keypress (uint keyval, uint keycode, Gdk.ModifierType state) {
+		state &= Gdk.MODIFIER_MASK;
 		if (state != 0) {
-			if (state != Gdk.ModifierType.CONTROL_MASK) return false;
+			if (state != Gdk.ModifierType.CONTROL_MASK && state != (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) return false;
 
 			Item? page = safe_get ((int) carousel.position);
 			if (page == null) return false;
 
 			switch (keyval) {
+				case Gdk.Key.plus:
 				case Gdk.Key.equal:
+				case Gdk.Key.KP_Add:
 					page.zoom_in ();
 					break;
 				case Gdk.Key.minus:
+				case Gdk.Key.underscore:
+				case Gdk.Key.KP_Subtract:
 					page.zoom_out ();
 					break;
 				default:
@@ -417,6 +572,9 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 			case Gdk.Key.KP_Right:
 				scroll_to (((int) carousel.position) + 1, false);
 				break;
+			case Gdk.Key.F11:
+				toggle_fullscreen ();
+				break;
 			default:
 				return false;
 		}
@@ -424,25 +582,15 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		return true;
 	}
 
-	protected void on_back_clicked () {
-		clear ();
+	[GtkCallback]
+	public void clear () {
+		if (!revealed) reset_media_viewer ();
+		scale_revealer.reveal_child = false;
 	}
 
-	protected void toggle_fullscreen () {
+	[GtkCallback]
+	private void toggle_fullscreen () {
 		this.fullscreen = !this._fullscreen;
-	}
-
-	protected GLib.Menu create_actions_menu () {
-		var menu_model = new GLib.Menu ();
-		menu_model.append (_("Open in Browser"), "mediaviewer.open-in-browser");
-		menu_model.append (_("Copy URL"), "mediaviewer.copy-url");
-		menu_model.append (_("Save Media"), "mediaviewer.save-as");
-
-		var copy_media_menu_item = new MenuItem (_("Copy Media"), "mediaviewer.copy-media");
-		copy_media_menu_item.set_attribute_value ("hidden-when", "action-disabled");
-		menu_model.append_item (copy_media_menu_item);
-
-		return menu_model;
 	}
 
 	private void copy_url () {
@@ -450,6 +598,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		if (page == null) return;
 
 		Host.copy (page.url);
+		app.toast (_("Copied media url to clipboard"));
 	}
 
 	private void open_in_browser () {
@@ -542,7 +691,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 	}
 
 	private void handle_mouse_previous_click (int n_press, double x, double y) {
-		on_back_clicked ();
+		clear ();
 	}
 
 	private void on_double_click (int n_press, double x, double y) {
@@ -554,8 +703,10 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		page.on_double_click ();
 	}
 
-	public virtual signal void clear () {
+	private void reset_media_viewer () {
+		revealer_widgets.clear ();
 		this.fullscreen = false;
+		todo_items.clear ();
 
 		items.foreach ((item) => {
 			carousel.remove (item);
@@ -564,15 +715,96 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		});
 
 		items.clear ();
+		revealed = false;
+	}
+
+	private void update_revealer_widget () {
+		if (revealed && revealer_widgets.has_key ((int) carousel.position))
+			scale_revealer.source_widget = revealer_widgets.get ((int) carousel.position);
 	}
 
 	private async string download_video (string url) throws Error {
 		return yield Host.download (url);
 	}
 
-	public void add_video (string url, Gdk.Paintable? preview, int? pos) {
-		var video = new Gtk.Video ();
-		var item = new Item (video, url, preview, true);
+	private bool revealed = false;
+	public void reveal (Gtk.Widget? widget) {
+		if (revealed) return;
+
+		this.visible = true;
+		scale_revealer.source_widget = widget;
+		scale_revealer.reveal_child = true;
+
+		revealed = true;
+		do_todo_items ();
+	}
+
+	public Gee.HashMap<int, Gtk.Widget> revealer_widgets = new Gee.HashMap<int, Gtk.Widget> ();
+	public void add_media (
+		string url,
+		Tuba.Attachment.MediaType media_type,
+		Gdk.Paintable? preview,
+		int? pos = null,
+		bool as_is = false,
+		string? alt_text = null,
+		string? user_friendly_url = null,
+		bool stream = false,
+		Gtk.Widget? revealer_widget = null
+	) {
+		Item item;
+		string final_friendly_url = user_friendly_url == null ? url : user_friendly_url;
+		Gdk.Paintable? final_preview = as_is ? null : preview;
+		if (revealer_widget != null)
+			revealer_widgets.set (pos == null ? items.size : pos, revealer_widget);
+
+		if (media_type.is_video ()) {
+			var video = new Gtk.Video ();
+			if (media_type == Tuba.Attachment.MediaType.GIFV) {
+				video.loop = true;
+				video.autoplay = true;
+			}
+
+			item = new Item (video, final_friendly_url, final_preview, true);
+
+			if (stream) {
+				File file = File.new_for_uri (url);
+				video.set_file (file);
+			} else if (!as_is) {
+				download_video.begin (url, (obj, res) => {
+					try {
+						var path = download_video.end (res);
+						video.set_filename (path);
+						add_todo_item (item);
+					}
+					catch (Error e) {
+						var dlg = app.inform (_("Error"), e.message);
+						dlg.present ();
+					}
+				});
+			}
+		} else {
+			var picture = new Gtk.Picture ();
+
+			if (!settings.media_viewer_expand_pictures) {
+				picture.valign = picture.halign = Gtk.Align.CENTER;
+			}
+
+			item = new Item (picture, final_friendly_url, final_preview);
+			item.zoom_changed.connect (on_zoom_change);
+
+			if (alt_text != null) picture.alternative_text = alt_text;
+
+			if (!as_is) {
+				Tuba.Helper.Image.request_paintable (url, null, (data) => {
+					picture.paintable = data;
+					if (data != null)
+						add_todo_item (item);
+				});
+			} else {
+				picture.paintable = preview;
+			}
+		}
+
 		if (pos == null) {
 			carousel.append (item);
 			items.add (item);
@@ -581,72 +813,27 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 			items.insert (pos, item);
 		}
 
-		download_video.begin (url, (obj, res) => {
-			try {
-				var path = download_video.end (res);
-				video.set_filename (path);
-				item.done ();
-			}
-			catch (Error e) {
-				var dlg = app.inform (_("Error"), e.message);
-				dlg.present ();
-			}
-		});
+		if (as_is || stream) add_todo_item (item);
 	}
 
-	public void add_image (string url, string? alt_text, Gdk.Paintable? preview, int? pos) {
-		var picture = new Gtk.Picture ();
-
-		if (!settings.media_viewer_expand_pictures) {
-			picture.valign = picture.halign = Gtk.Align.CENTER;
-		}
-
-		var item = new Item (picture, url, preview);
-		item.zoom_changed.connect (on_zoom_change);
-		if (pos == null) {
-			carousel.append (item);
-			items.add (item);
+	private Gee.ArrayList<string> todo_items = new Gee.ArrayList<string> ();
+	private void add_todo_item (Item todo_item) {
+		if (revealed) {
+			todo_item.done ();
 		} else {
-			carousel.insert (item, pos);
-			items.insert (pos, item);
+			todo_items.add (todo_item.url);
 		}
+	}
+	private void do_todo_items () {
+		if (todo_items.size == 0 || items.size == 0) return;
 
-		if (alt_text != null) picture.alternative_text = alt_text;
-
-		image_cache.request_paintable (url, (is_loaded, data) => {
-			if (is_loaded) {
-				picture.paintable = data;
+		items.foreach (item => {
+			if (todo_items.contains (item.url)) {
 				item.done ();
+				todo_items.remove (item.url);
 			}
+			return true;
 		});
-	}
-
-	public void set_remote_video (string url, Gdk.Paintable? preview, string? user_friendly_url = null) {
-		var video = new Gtk.Video ();
-		var item = new Item (video, user_friendly_url, preview, true);
-
-		File file = File.new_for_uri (url);
-		video.set_file (file);
-		item.done ();
-
-		carousel.append (item);
-		items.add (item);
-
-		carousel.page_changed (0);
-	}
-
-	public void set_single_paintable (string url, Gdk.Paintable paintable) {
-		var picture = new Gtk.Picture ();
-		picture.paintable = paintable;
-
-		if (!settings.media_viewer_expand_pictures) {
-			picture.valign = picture.halign = Gtk.Align.CENTER;
-		}
-
-		var item = new Item.static (picture, url);
-		item.zoom_changed.connect (on_zoom_change);
-		carousel.append (item);
-		items.add (item);
 	}
 
 	public void scroll_to (int pos, bool should_timeout = true) {
@@ -660,7 +847,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		// https://gitlab.gnome.org/GNOME/libadwaita/-/issues/597
 		// https://gitlab.gnome.org/GNOME/libadwaita/-/merge_requests/827
 		uint timeout = 0;
-		timeout = Timeout.add (1000, () => {
+		timeout = Timeout.add (250, () => {
 			if (pos < items.size)
 				carousel.scroll_to (carousel.get_nth_page (pos), true);
 			GLib.Source.remove (timeout);
@@ -669,106 +856,58 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		}, Priority.LOW);
 	}
 
-	private Gtk.Button zoom_out_btn;
-	private Gtk.Button zoom_in_btn;
-	private Gtk.Revealer page_buttons_revealer;
-	private Gtk.Revealer zoom_buttons_revealer;
-	private void generate_media_buttons (out Gtk.Revealer page_btns, out Gtk.Revealer zoom_btns) {
-		var t_page_btns = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
-		var t_zoom_btns = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+	[GtkCallback]
+    private void on_previous_clicked () {
+        scroll_to (((int) carousel.position) - 1, false);
+    }
 
-		var prev_btn = new Gtk.Button.from_icon_name ("go-previous-symbolic") {
-			css_classes = {"circular", "osd", "media-viewer-fab"},
-			tooltip_text = _("Previous Attachment")
-		};
+	[GtkCallback]
+    private void on_next_clicked () {
+        scroll_to (((int) carousel.position) + 1, false);
+    }
 
-		var next_btn = new Gtk.Button.from_icon_name ("go-next-symbolic") {
-			css_classes = {"circular", "osd", "media-viewer-fab"},
-			tooltip_text = _("Next Attachment")
-		};
-
-		prev_btn.clicked.connect (() => scroll_to (((int) carousel.position) - 1, false));
-		next_btn.clicked.connect (() => scroll_to (((int) carousel.position) + 1, false));
-
-		carousel.notify["n-pages"].connect (() => {
-			var has_more_than_1_item = carousel.n_pages > 1;
-
-			prev_btn.visible = has_more_than_1_item;
-			next_btn.visible = has_more_than_1_item;
-		});
-
-		t_page_btns.append (prev_btn);
-		t_page_btns.append (next_btn);
-
-		zoom_out_btn = new Gtk.Button.from_icon_name ("zoom-out-symbolic") {
-			css_classes = {"circular", "osd", "media-viewer-fab"},
-			tooltip_text = _("Zoom Out")
-		};
-
-		zoom_in_btn = new Gtk.Button.from_icon_name ("zoom-in-symbolic") {
-			css_classes = {"circular", "osd", "media-viewer-fab"},
-			tooltip_text = _("Zoom In")
-		};
-
-		zoom_out_btn.clicked.connect (() => {
-			Item? page = safe_get ((int) carousel.position);
+	[GtkCallback]
+    private void on_zoom_out_clicked () {
+        Item? page = safe_get ((int) carousel.position);
 			if (page == null) return;
 
 			page.zoom_out ();
-		});
-		zoom_in_btn.clicked.connect (() => {
-			Item? page = safe_get ((int) carousel.position);
+    }
+
+	[GtkCallback]
+    private void on_zoom_in_clicked () {
+        Item? page = safe_get ((int) carousel.position);
 			if (page == null) return;
 
 			page.zoom_in ();
-		});
+    }
 
-		carousel.page_changed.connect ((pos) => {
-			prev_btn.sensitive = pos > 0;
-			next_btn.sensitive = pos < items.size - 1;
+	private void on_carousel_page_changed (uint pos) {
+		prev_btn.sensitive = pos > 0;
+		next_btn.sensitive = pos < items.size - 1;
 
-			Item? page = safe_get ((int) pos);
-			// Media buttons overlap the video
-			// controller, so position them higher
-			if (page != null && page.is_video) {
-				page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 68;
-				zoom_buttons_revealer.visible = false;
-				play_video ((int) pos);
-				copy_media_simple_action.set_enabled (false);
-			} else {
-				page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 18;
-				zoom_buttons_revealer.visible = true;
-				pause_all_videos ();
-				copy_media_simple_action.set_enabled (true);
-			}
+		Item? page = safe_get ((int) pos);
+		// Media buttons overlap the video
+		// controller, so position them higher
+		if (page != null && page.is_video) {
+			page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 68;
+			zoom_buttons_revealer.visible = false;
+			play_video ((int) pos);
+			copy_media_simple_action.set_enabled (false);
+		} else {
+			page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 18;
+			zoom_buttons_revealer.visible = true;
+			pause_all_videos ();
+			copy_media_simple_action.set_enabled (true);
+		}
 
-			on_zoom_change ();
-		});
+		on_zoom_change ();
+	}
 
-		t_zoom_btns.append (zoom_out_btn);
-		t_zoom_btns.append (zoom_in_btn);
+	private void on_carousel_n_pages_changed () {
+		bool has_more_than_1_item = carousel.n_pages > 1;
 
-		zoom_buttons_revealer = new Gtk.Revealer () {
-			child = t_zoom_btns,
-			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-			valign = Gtk.Align.END,
-			halign = Gtk.Align.END,
-			margin_end = 18,
-			margin_bottom = 18,
-			visible = false
-		};
-
-		page_buttons_revealer = new Gtk.Revealer () {
-			child = t_page_btns,
-			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-			valign = Gtk.Align.END,
-			halign = Gtk.Align.START,
-			margin_start = 18,
-			margin_bottom = 18
-		};
-
-		page_btns = page_buttons_revealer;
-		zoom_btns = zoom_buttons_revealer;
+		page_buttons_revealer.visible = has_more_than_1_item;
 	}
 
 	public void on_zoom_change () {
@@ -778,6 +917,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		bool can_zoom_out = page == null ? false : page.can_zoom_out;
 		zoom_out_btn.sensitive = can_zoom_out;
 		carousel.interactive = !can_zoom_out;
+		swipe_tracker.enabled = !can_zoom_out;
 	}
 
 	// ArrayList will segfault if we #get
@@ -817,6 +957,7 @@ public class Tuba.Views.MediaViewer : Gtk.Box {
 		if (texture == null) return;
 
 		clipboard.set_texture (texture);
+		app.toast (_("Copied image to clipboard"));
 		debug ("End copy-media action");
 	}
 }

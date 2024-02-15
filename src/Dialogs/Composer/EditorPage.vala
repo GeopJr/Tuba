@@ -1,5 +1,5 @@
 public class Tuba.EditorPage : ComposerPage {
-
+	public bool force_cursor_at_start { get; construct set; default=false; }
 	protected int64 char_limit { get; set; default = 500; }
 	protected int64 remaining_chars { get; set; default = 0; }
 	public signal void ctrl_return_pressed ();
@@ -37,6 +37,7 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 	}
 
+	public Adw.ToastOverlay toast_overlay;
 	construct {
 		//  translators: "Text" as in text-based input
 		title = _("Text");
@@ -46,6 +47,14 @@ public class Tuba.EditorPage : ComposerPage {
 		if (char_limit_api > 0)
 			char_limit = char_limit_api;
 		remaining_chars = char_limit;
+
+		toast_overlay = new Adw.ToastOverlay ();
+	}
+
+	public void set_cursor_at_start () {
+		Gtk.TextIter star_iter;
+		editor.buffer.get_start_iter (out star_iter);
+		editor.buffer.place_cursor (star_iter);
 	}
 
 	public override void on_build () {
@@ -70,6 +79,37 @@ public class Tuba.EditorPage : ComposerPage {
 		cw_entry.buffer.inserted_text.connect (on_content_changed);
 		cw_entry.buffer.deleted_text.connect (on_content_changed);
 		editor.buffer.changed.connect (on_content_changed);
+	}
+
+	protected void on_paste (Gdk.Clipboard clp) {
+		if (!settings.strip_tracking) return;
+		var clean_buffer = Tracking.cleanup_content_with_uris (
+			editor.buffer.text,
+			Tracking.extract_uris (editor.buffer.text),
+			Tracking.CleanupType.STRIP_TRACKING
+		);
+		if (clean_buffer == editor.buffer.text) return;
+
+		Gtk.TextIter start_iter;
+		Gtk.TextIter end_iter;
+		editor.buffer.get_bounds (out start_iter, out end_iter);
+		editor.buffer.begin_user_action ();
+		editor.buffer.delete (ref start_iter, ref end_iter);
+		editor.buffer.insert (ref start_iter, clean_buffer, -1);
+		editor.buffer.end_user_action ();
+
+		var toast = new Adw.Toast (
+			_("Stripped tracking parameters")
+		) {
+			timeout = 3,
+			button_label = _("Undo")
+		};
+		toast.button_clicked.connect (undo);
+		toast_overlay.add_toast (toast);
+	}
+
+	private void undo () {
+		editor.buffer.undo ();
 	}
 
 	public override void on_push () {
@@ -125,6 +165,13 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.grab_focus ();
 	}
 
+	#if LIBSPELLING
+		protected Spelling.TextBufferAdapter adapter;
+		private void update_spelling_settings () {
+			settings.spellchecker_enabled = adapter.enabled;
+		}
+	#endif
+
 	protected void install_editor () {
 		editor = new GtkSource.View () {
 			vexpand = true,
@@ -140,21 +187,19 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.remove_css_class ("view");
 
 		#if LIBSPELLING
-			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
+			adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
 
 			editor.extra_menu = adapter.get_menu_model ();
 			editor.insert_action_group ("spelling", adapter);
-			adapter.enabled = true;
-		#endif
 
-		#if GSPELL && !LIBSPELLING
-			var gspell_view = Gspell.TextView.get_from_gtk_text_view (editor);
-			gspell_view.basic_setup ();
+			adapter.enabled = settings.spellchecker_enabled;
+			adapter.notify["enabled"].connect (update_spelling_settings);
 		#endif
 
 		var keypress_controller = new Gtk.EventControllerKey ();
         keypress_controller.key_pressed.connect ((keyval, _, modifier) => {
-            if (keyval == Gdk.Key.Return && (modifier == Gdk.ModifierType.CONTROL_MASK || modifier == (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.LOCK_MASK))) {
+            modifier &= Gdk.MODIFIER_MASK;
+            if ((keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter) && (modifier == Gdk.ModifierType.CONTROL_MASK || modifier == (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.LOCK_MASK))) {
 				ctrl_return_pressed ();
 				return true;
 			}
@@ -176,6 +221,7 @@ public class Tuba.EditorPage : ComposerPage {
 			css_classes = { "heading" }
 		};
 		bottom_bar.pack_end (char_counter);
+		editor.buffer.paste_done.connect (on_paste);
 	}
 
 	protected void update_style_scheme () {
@@ -207,8 +253,10 @@ public class Tuba.EditorPage : ComposerPage {
 			child = editor
 		};
 
-		content.prepend (overlay);
+		toast_overlay.child = overlay;
+		content.prepend (toast_overlay);
 		editor.buffer.text = t_content;
+		if (force_cursor_at_start) set_cursor_at_start ();
 	}
 
 	protected Gtk.EmojiChooser emoji_picker;

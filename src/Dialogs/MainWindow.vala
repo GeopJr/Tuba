@@ -3,11 +3,14 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	[GtkChild] unowned Adw.NavigationView navigation_view;
 	[GtkChild] public unowned Adw.OverlaySplitView split_view;
 	[GtkChild] unowned Views.Sidebar sidebar;
-	[GtkChild] unowned Gtk.Stack main_stack;
+	//  [GtkChild] unowned Gtk.Stack main_stack;
 	[GtkChild] unowned Views.MediaViewer media_viewer;
 	[GtkChild] unowned Adw.Breakpoint breakpoint;
+	[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 
-	public bool is_mobile { get; set; default = false; }
+	public void set_sidebar_selected_item (int pos) {
+		sidebar.set_sidebar_selected_item (pos);
+	}
 
 	Views.Base? last_view = null;
 
@@ -15,8 +18,33 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		construct_saveable (settings);
 
 		var gtk_settings = Gtk.Settings.get_default ();
-		breakpoint.add_setter (this, "is-mobile", true);
-		notify["is-mobile"].connect (update_selected_home_item);
+		breakpoint.add_setter (app, "is-mobile", true);
+		app.notify["is-mobile"].connect (update_selected_home_item);
+		media_viewer.bind_property ("visible", split_view, "can-focus", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
+		media_viewer.notify["visible"].connect (on_media_viewer_toggle);
+		settings.notify["darken-images-on-dark-mode"].connect (settings_updated);
+
+		app.toast.connect (add_toast);
+	}
+
+	private void settings_updated () {
+		Tuba.toggle_css (split_view, settings.darken_images_on_dark_mode, "ttl-darken-images");
+	}
+
+	private void add_toast (string content, uint timeout = 0) {
+		toast_overlay.add_toast (new Adw.Toast (content) {
+			timeout = timeout
+		});
+	}
+
+	private weak Gtk.Widget? media_viewer_source_widget;
+	private void on_media_viewer_toggle () {
+		if (is_media_viewer_visible || media_viewer_source_widget == null) return;
+
+		Gtk.Widget focusable_widget = media_viewer_source_widget;
+		while (focusable_widget != null && !focusable_widget.focusable) focusable_widget = focusable_widget.get_parent ();
+		if (focusable_widget != null) focusable_widget.grab_focus ();
+		media_viewer_source_widget = null;
 	}
 
 	public bool is_home {
@@ -33,7 +61,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			title: Build.NAME,
 			resizable: true
 		);
-		sidebar.set_sidebar_selected_item (0);
+		set_sidebar_selected_item (0);
 		main_page = new Adw.NavigationPage (new Views.Main (), _("Home"));
 		navigation_view.add (main_page);
 
@@ -44,53 +72,35 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		#endif
 	}
 
-	public bool is_media_viewer_visible () {
-		return main_stack.visible_child_name == "media_viewer";
+	public bool is_media_viewer_visible {
+		get { return media_viewer.visible; }
 	}
 
 	public void scroll_media_viewer (int pos) {
-		if (!is_media_viewer_visible ()) return;
+		if (!is_media_viewer_visible) return;
 
 		media_viewer.scroll_to (pos);
 	}
 
-	public void show_media_viewer (string url, string? alt_text, bool video, Gdk.Paintable? preview, int? pos) {
-		if (!is_media_viewer_visible ()) {
-			main_stack.visible_child_name = "media_viewer";
-			media_viewer.clear.connect (hide_media_viewer);
+	public void show_media_viewer (
+		string url,
+		Tuba.Attachment.MediaType media_type,
+		Gdk.Paintable? preview,
+		int? pos = null,
+		Gtk.Widget? source_widget = null,
+		bool as_is = false,
+		string? alt_text = null,
+		string? user_friendly_url = null,
+		bool stream = false
+	) {
+		if (as_is && preview == null) return;
+
+		media_viewer.add_media (url, media_type, preview, pos, as_is, alt_text, user_friendly_url, stream, source_widget);
+
+		if (!is_media_viewer_visible) {
+			media_viewer.reveal (source_widget);
+			media_viewer_source_widget = source_widget;
 		}
-
-		if (video) {
-			media_viewer.add_video (url, preview, pos);
-		} else {
-			media_viewer.add_image (url, alt_text, preview, pos);
-		}
-	}
-
-	public void show_media_viewer_single (string? url, Gdk.Paintable? paintable) {
-		if (paintable == null) return;
-
-		if (!is_media_viewer_visible ()) {
-			main_stack.visible_child_name = "media_viewer";
-			media_viewer.clear.connect (hide_media_viewer);
-		}
-
-		media_viewer.set_single_paintable (url, paintable);
-	}
-
-	public void show_media_viewer_remote_video (string url, Gdk.Paintable? preview, string? user_friendly_url = null) {
-		if (!is_media_viewer_visible ()) {
-			main_stack.visible_child_name = "media_viewer";
-			media_viewer.clear.connect (hide_media_viewer);
-		}
-
-		media_viewer.set_remote_video (url, preview, user_friendly_url);
-	}
-
-	public void hide_media_viewer () {
-		if (!is_media_viewer_visible ()) return;
-
-		main_stack.visible_child_name = "main";
 	}
 
 	public void show_book (API.BookWyrm book, string? fallback = null) {
@@ -141,7 +151,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		) return view;
 
 		Adw.NavigationPage page = new Adw.NavigationPage (view, view.label);
-		if (view.is_sidebar_item && navigation_view.visible_page != main_page) {
+		if (view.is_sidebar_item) {
 			navigation_view.replace ({ main_page, page });
 		} else {
 			navigation_view.push (page);
@@ -151,7 +161,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public bool back () {
-		if (is_media_viewer_visible ()) {
+		if (is_media_viewer_visible) {
 			media_viewer.clear ();
 			return true;
 		};
@@ -187,21 +197,21 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	public void update_selected_home_item () {
 		if (is_home) {
-			if (is_mobile) {
-				sidebar.set_sidebar_selected_item (0);
+			if (app.is_mobile) {
+				set_sidebar_selected_item (0);
 			} else {
 				var main_view = main_page.child as Views.Main;
 				if (main_view == null) return;
 
 				switch (main_view.visible_child_name) {
 					case "1":
-						sidebar.set_sidebar_selected_item (0);
+						set_sidebar_selected_item (0);
 						break;
 					case "2":
-						sidebar.set_sidebar_selected_item (1);
+						set_sidebar_selected_item (1);
 						break;
 					case "3":
-						sidebar.set_sidebar_selected_item (2);
+						set_sidebar_selected_item (2);
 						break;
 				}
 			}

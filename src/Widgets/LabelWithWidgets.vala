@@ -41,19 +41,6 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         }
     }
 
-    private bool _ellipsize = false;
-    public bool ellipsize {
-        get {
-            return _ellipsize;
-        }
-        set {
-            if (_ellipsize == value) return;
-
-            _ellipsize = value;
-            update_label ();
-        }
-    }
-
     private bool _use_markup = false;
     public bool use_markup {
         get {
@@ -67,6 +54,17 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         }
     }
 
+    private bool _fix_overflow_hack = false;
+    public bool fix_overflow_hack {
+        get {
+            return fix_overflow_hack;
+        }
+        set {
+            _fix_overflow_hack = value;
+            update_label ();
+        }
+    }
+
     const string OBJECT_REPLACEMENT_CHARACTER = "\xEF\xBF\xBC";
 
     construct {
@@ -75,7 +73,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             wrap_mode = Pango.WrapMode.WORD_CHAR,
             xalign = 0.0f,
             valign = Gtk.Align.START,
-            use_markup = false
+            use_markup = false,
+            ellipsize = Pango.EllipsizeMode.NONE
             //  css_classes = {"lww-line-height"}
         };
 
@@ -176,13 +175,20 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
                         Pango.Rectangle logical_rect;
                         run_iter.get_run_extents (null, out logical_rect);
 
+                        //  int orig_x = logical_rect.x;
+                        //  int orig_y = logical_rect.y;
+                        logical_rect.x = pango_pixels (logical_rect.x);
+                        logical_rect.y = pango_pixels (logical_rect.y);
+                        //  logical_rect.width = pango_pixels (orig_x + logical_rect.width, 1024) - logical_rect.x;
+                        //  logical_rect.height = pango_pixels (orig_y + logical_rect.height, 1024) - logical_rect.y;
+
                         int offset_x;
                         int offset_y;
                         label.get_layout_offsets (out offset_x, out offset_y);
 
                         var allocation = Gtk.Allocation () {
-                            x = pango_pixels (logical_rect.x) + offset_x,
-                            y = pango_pixels (logical_rect.y) + offset_y,
+                            x = logical_rect.x + offset_x,
+                            y = logical_rect.y + offset_y,
                             height = widgets[i].height,
                             width = widgets[i].width
                         };
@@ -230,31 +236,17 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 
     private void update_label () {
         var old_label = label.label;
-        var old_ellipsize = label.ellipsize == Pango.EllipsizeMode.END;
-        var new_ellipsize = this.ellipsize;
         var new_label = _text.replace (placeholder, OBJECT_REPLACEMENT_CHARACTER);
 
-        if (new_ellipsize) {
-            int pos = new_label.index_of_char ('\n');
-            if (pos >= 0) {
-                new_label = new_label.substring (0, pos) + "…";
-            }
+        if (_fix_overflow_hack) {
+            label.lines = int.max (100, widgets.length);
+            label.ellipsize = Pango.EllipsizeMode.END;
+            label.width_chars = 1;
         }
 
-        if (old_ellipsize != new_ellipsize || old_label != new_label) {
-            if (new_ellipsize) {
-                // Workaround: if both wrap and ellipsize are set, and there are
-                // widgets inserted, GtkLabel reports an erroneous minimum width.
-                label.wrap = false;
-                label.ellipsize = Pango.EllipsizeMode.END;
-            } else {
-                label.wrap = true;
-                label.wrap_mode = Pango.WrapMode.WORD_CHAR;
-
-                // The lines check is Tuba specific for statuses that overflow their row
-                if (lines == 100 && widgets.length > 100) lines = widgets.length;
-                label.ellipsize = lines < 100 ? Pango.EllipsizeMode.NONE : Pango.EllipsizeMode.END;
-            }
+        if (old_label != new_label) {
+            label.wrap = true;
+            label.wrap_mode = Pango.WrapMode.WORD_CHAR;
 
             _text = new_label;
             label.label = _text;
@@ -303,8 +295,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         this.queue_resize ();
     }
 
-    private int pango_pixels (int d) {
-        return (d + 512) >> 10;
+    private int pango_pixels (int d, int a = 0) {
+        return (d + a) >> 10;
     }
 
     public void add_child (Gtk.Builder builder, GLib.Object child, string? type) {

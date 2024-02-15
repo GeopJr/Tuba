@@ -54,7 +54,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	public virtual Gtk.Widget on_accounts_row_create (Object obj) {
 		var row = new AccountRow (obj as InstanceAccount);
-		row.forget_signal.connect (popdown);
+		row.popdown_signal.connect (popdown);
 
 		return row;
 	}
@@ -169,73 +169,79 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 		[GtkChild] unowned Widgets.Avatar avatar;
 		[GtkChild] unowned Gtk.Button forget;
+		[GtkChild] unowned Gtk.Label notifications_badge;
 
-		public signal void forget_signal ();
+		public signal void popdown_signal ();
 
 		private Binding switcher_display_name;
 		private Binding switcher_handle;
 		private Binding switcher_tooltip;
 		private Binding switcher_avatar;
+		private Binding switcher_notifications;
+		private Binding switcher_notifications_visibility;
 		public AccountRow (InstanceAccount? _account) {
 			if (account != null) {
 				switcher_display_name.unbind ();
 				switcher_handle.unbind ();
 				switcher_tooltip.unbind ();
 				switcher_avatar.unbind ();
+				switcher_notifications.unbind ();
+				switcher_notifications_visibility.unbind ();
 			}
 
 			account = _account;
 			if (account != null) {
-
 				switcher_display_name = this.account.bind_property ("display-name", this, "title", BindingFlags.SYNC_CREATE);
 				switcher_handle = this.account.bind_property ("handle", this, "subtitle", BindingFlags.SYNC_CREATE);
 				switcher_tooltip = this.account.bind_property ("handle", this, "tooltip-text", BindingFlags.SYNC_CREATE);
 				switcher_avatar = this.account.bind_property ("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
-			}
-			else {
+				switcher_notifications = this.account.bind_property ("unread-count", notifications_badge, "label", BindingFlags.SYNC_CREATE);
+				switcher_notifications_visibility = this.account.bind_property ("unread-count", notifications_badge, "visible", BindingFlags.SYNC_CREATE, switcher_notifications_visibility_cb);
+			} else {
 				title = _("Add Account");
 				avatar.account = null;
 				selectable = false;
 				forget.hide ();
 				tooltip_text = _("Add Account");
+				avatar.icon_name = "tuba-plus-large-symbolic";
+				avatar.remove_css_class ("flat");
 			}
+		}
+
+		bool switcher_notifications_visibility_cb (Binding binding, Value from_value, ref Value to_value) {
+			to_value.set_boolean (from_value.get_int () > 0);
+			return true;
 		}
 
 		[GtkCallback] void on_open () {
 			if (account != null) {
 				account.resolve_open (accounts.active);
+			} else {
+				new Dialogs.NewAccount ().present ();
 			}
+			popdown_signal ();
 		}
 
 		[GtkCallback] void on_forget () {
-			forget_signal ();
-			// The String#replace below replaces the @ with <zero-width>@
-			// so it wraps cleanly
-
-			var confirmed = app.question (
+			popdown_signal ();
+			app.question.begin (
 				// translators: the variable is an account handle
-				_("Forget %s?").printf (account.handle.replace ("@", "​@")),
-				_("This account will be removed from the application."),
+				{_("Forget %s?").printf ("<span segment=\"word\">@%s</span><span segment=\"word\">@%s</span>".printf (account.username, account.domain)), true},
+				{_("This account will be removed from the application."), false},
 				app.main_window,
-				_("Forget"),
-				Adw.ResponseAppearance.DESTRUCTIVE
-			);
-
-			confirmed.response.connect (res => {
-				if (res == "yes") {
-					try {
-						accounts.remove (account);
-					}
-					catch (Error e) {
-						warning (e.message);
-						var dlg = app.inform (_("Error"), e.message);
-						dlg.present ();
+				{ { _("Forget"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				false,
+				(obj, res) => {
+					if (app.question.end (res).truthy ()) {
+						try {
+							accounts.remove (account);
+						} catch (Error e) {
+							warning (e.message);
+							app.toast ("%s: %s".printf (_("Error"), e.message));
+						}
 					}
 				}
-				confirmed.destroy ();
-			});
-
-			confirmed.present ();
+			);
 		}
 
 	}
@@ -258,7 +264,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 		var row = _row as AccountRow;
 		if (row.account != null)
-			accounts.activate (row.account);
+			accounts.activate (row.account, true);
 		else
 			new Dialogs.NewAccount ().present ();
 	}

@@ -14,6 +14,7 @@ public class Tuba.Views.Home : Views.Timeline {
             valign = halign = Gtk.Align.END,
             margin_end = 24,
             reveal_child = true,
+            overflow = Gtk.Overflow.VISIBLE,
             child = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
                 action_name = "app.compose",
                 tooltip_text = _("Compose"),
@@ -37,15 +38,10 @@ public class Tuba.Views.Home : Views.Timeline {
             });
         #endif
 
-        ulong main_window_notify = 0;
-        main_window_notify = app.notify["main-window"].connect (() => {
-			app.disconnect (main_window_notify);
-
-			app.main_window.notify["is-mobile"].connect (() => {
-                if (!app.main_window.is_mobile)
-                        compose_button_rev.reveal_child = true;
-            });
-		});
+        app.notify["is-mobile"].connect (() => {
+            if (!app.is_mobile)
+                    compose_button_rev.reveal_child = true;
+        });
     }
 
     void toggle_scroll_to_top_margin () {
@@ -57,7 +53,7 @@ public class Tuba.Views.Home : Views.Timeline {
     bool last_direction_down = false;
     protected override void on_scrolled_vadjustment_value_change () {
         base.on_scrolled_vadjustment_value_change ();
-        if (app.main_window?.is_mobile != true) return;
+        if (app.is_mobile != true) return;
 
         double trunced = Math.trunc (scrolled.vadjustment.value);
         bool direction_down = trunced == last_adjustment ? last_direction_down : trunced > last_adjustment;
@@ -80,7 +76,7 @@ public class Tuba.Views.Home : Views.Timeline {
 
     public override string? get_stream_url () {
         return account != null
-            ? @"$(account.instance)/api/v1/streaming/?stream=user&access_token=$(account.access_token)"
+            ? @"$(account.instance)/api/v1/streaming?stream=user&access_token=$(account.access_token)"
             : null;
     }
 }

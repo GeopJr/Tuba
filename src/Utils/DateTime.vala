@@ -10,13 +10,16 @@ public class Tuba.DateTime {
 			return _("expires soon");
 		} else if (delta < TimeSpan.HOUR) {
 			var minutes = delta / TimeSpan.MINUTE;
-			return _(@"$(minutes)m left");
+			// tranlators: the variable is a number, `m` as in minutes in short form
+			return _("%sm left").printf (minutes.to_string ());
 		} else if (delta <= TimeSpan.DAY) {
 			var hours = delta / TimeSpan.HOUR;
-			return _(@"$(hours)h left");
+			// tranlators: the variable is a number, `h` as in hours in short form
+			return _("%sh left").printf (hours.to_string ());
 		} else if (delta <= (TimeSpan.DAY * 60)) {
 			var days = delta / TimeSpan.DAY;
-			return _(@"$(days)d left");
+			// tranlators: the variable is a number, `d` as in days in short form
+			return _("%sd left").printf (days.to_string ());
 		} else {
 			//  translators: %b is Month name (short)
 			//				 %-e is the Day number
@@ -40,11 +43,13 @@ public class Tuba.DateTime {
 			return _("expired on just now");
 		else if (delta < TimeSpan.HOUR) {
 			var minutes = delta / TimeSpan.MINUTE;
-			return _(@"expired $(minutes)m ago");
+			// tranlators: the variable is a number, `m` as in minutes in short form
+			return _("expired %sm ago").printf (minutes.to_string ());
 		}
 		else if (delta <= TimeSpan.DAY) {
 			var hours = delta / TimeSpan.HOUR;
-			return _(@"expired $(hours)h ago");
+			// tranlators: the variable is a number, `h` as in hours in short form
+			return _("expired %sh ago").printf (hours.to_string ());
 		}
 		else if (is_same_day (now, date.add_days (1))) {
 			return _("expired yesterday");
@@ -77,11 +82,13 @@ public class Tuba.DateTime {
 			return _("Just now");
 		else if (delta < TimeSpan.HOUR) {
 			var minutes = delta / TimeSpan.MINUTE;
-			return _(@"$(minutes)m");
+			// tranlators: the variable is a number, `m` as in minutes in short form
+			return _("%sm").printf (minutes.to_string ());
 		}
 		else if (delta <= TimeSpan.DAY) {
 			var hours = delta / TimeSpan.HOUR;
-			return _(@"$(hours)h");
+			// tranlators: the variable is a number, `h` as in hours in short form
+			return _("%sh").printf (hours.to_string ());
 		}
 		else if (is_same_day (now, date.add_days (1))) {
 			return _("Yesterday");
@@ -97,6 +104,64 @@ public class Tuba.DateTime {
 			//				 %Y is the year (with century)
 			return date.to_timezone (new TimeZone.local ()).format (_("%b %-e, %Y"));
 		}
+	}
+
+	public static string humanize_old (string iso8601) {
+		var date = new GLib.DateTime.from_iso8601 (iso8601, null);
+		var now = new GLib.DateTime.now_local ();
+		var delta = now.difference (date);
+		if (delta < 0) {
+			// non-translated: the date should always be in the past
+			return "in the future";
+		} else if (delta < TimeSpan.HOUR) {
+			var minutes = delta / TimeSpan.MINUTE;
+			if (minutes == 0) minutes = 1;
+			// tranlators: the variable is a number
+			return GLib.ngettext ("less than a minute old", "%s minutes old", (ulong) minutes).printf (minutes.to_string ());
+		} else if (delta <= TimeSpan.DAY) {
+			var hours = delta / TimeSpan.HOUR;
+			if (hours == 0) hours = 1;
+			// tranlators: the variable is a number
+			return GLib.ngettext ("an hour old", "%s hours old", (ulong) hours).printf (hours.to_string ());
+		}
+
+		var date_day_oty = date.get_day_of_year ();
+		var now_day_oty = now.get_day_of_year ();
+
+		var date_month = date.get_month ();
+		var now_month = now.get_month ();
+
+		var date_year = date.get_year ();
+		var now_year = now.get_year ();
+
+		if (date_year == now_year) {
+			if (now_month > date_month) {
+				// tranlators: the variable is a number
+				return _("%d months old").printf (now_month - date_month);
+			}
+
+			var day_diff = now_day_oty - date_day_oty;
+			if (day_diff == 0) day_diff = 1;
+			// tranlators: the variable is a number
+			return GLib.ngettext ("a day old", "%d days old", (ulong) day_diff).printf (day_diff);
+		} else {
+			var year_diff = now_year - date_year;
+			if (year_diff > 0) {
+				// tranlators: the variable is a number
+				return GLib.ngettext ("a year old", "%d years old", (ulong) year_diff).printf (year_diff);
+			} else {
+				// tranlators: the variable is a number
+				return _("%d months old").printf (now_month + 12 - date_month);
+			}
+		}
+	}
+
+	public static bool is_3_months_old (string iso8601) {
+		var date = new GLib.DateTime.from_iso8601 (iso8601, null);
+		var now = new GLib.DateTime.now_local ();
+		if (now.difference (date) < 0) return false;
+
+		return now.get_month () + 12 * (now.get_year () - date.get_year ()) - date.get_month () > 3;
 	}
 
 	public static bool is_same_day (GLib.DateTime d1, GLib.DateTime d2) {

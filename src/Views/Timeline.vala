@@ -128,13 +128,22 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		base.dispose ();
 	}
 
-	public override void clear () {
+	private void cleanup_timeline_api () {
 		this.page_prev = null;
 		this.page_next = null;
 		this.is_last_page = false;
 		this.needs_attention = false;
 		this.badge_number = 0;
+	}
+
+	public override void clear () {
+		cleanup_timeline_api ();
 		base.clear ();
+	}
+
+	protected override void clear_all_but_first () {
+		cleanup_timeline_api ();
+		base.clear_all_but_first ();
 	}
 
 	public void get_pages (string? header) {
@@ -173,7 +182,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			return req;
 	}
 
+	bool has_finished_request = false;
 	public virtual void on_request_finish () {
+		has_finished_request = true;
 		base.on_bottom_reached ();
 	}
 
@@ -181,17 +192,19 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		append_params (new Request.GET (get_req_url ()))
 			.with_account (account)
 			.with_ctx (this)
-			.then ((sess, msg, in_stream) => {
+			.with_extra_data (Tuba.Network.ExtraData.RESPONSE_HEADERS)
+			.then ((in_stream, headers) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 
 				Object[] to_add = {};
-				Network.parse_array (msg, parser, node => {
-					var e = entity_cache.lookup_or_insert (node, accepts);
+				Network.parse_array (parser, node => {
+					var e = Tuba.Helper.Entity.from_json (node, accepts);
 					to_add += e;
 				});
 				model.splice (model.get_n_items (), 0, to_add);
 
-				get_pages (msg.response_headers.get_one ("Link"));
+				if (headers != null)
+					get_pages (headers.get_one ("Link"));
 				on_content_changed ();
 				on_request_finish ();
 			})
@@ -199,6 +212,16 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			.exec ();
 
 		return GLib.Source.REMOVE;
+	}
+
+	public override void on_error (int32 code, string reason) {
+		if (base_status == null) {
+			warning (@"Error while refreshing $label: $code $reason");
+
+			app.toast ("%s: %s".printf (_("Network Error"), reason));
+		} else {
+			base.on_error (code, reason);
+		}
 	}
 
 	public virtual void on_refresh () {
@@ -209,6 +232,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		status_button.sensitive = false;
 		clear ();
 		base_status = new StatusMessage () { loading = true };
+		has_finished_request = false;
 		GLib.Idle.add (request);
 	}
 
@@ -247,6 +271,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_new_post (Streamable.Event ev) {
+		if (!has_finished_request) return;
+
 		try {
 			#if USE_LISTVIEW
 				model.insert (0, Entity.from_json (accepts, ev.get_node ()));

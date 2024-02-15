@@ -82,7 +82,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				selectable = _selectable,
 				vexpand = true,
 				large_emojis = settings.enlarge_custom_emojis,
-				use_markup = true
+				use_markup = true,
+				fix_overflow_hack = true
 			};
 			if (instance_emojis != null) label.instance_emojis = instance_emojis;
 			if (mentions != null) label.mentions = mentions;
@@ -183,6 +184,17 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		});
 	}
 
+	public static void list_item_handler (MarkupView v, Xml.Node* root) {
+		switch (root->name) {
+			case "p":
+				traverse_and_handle (v, root, default_handler);
+				break;
+			default:
+				default_handler (v, root);
+				break;
+		}
+	}
+
 	public static void default_handler (MarkupView v, Xml.Node* root) {
 		switch (root->name) {
 			case "span":
@@ -199,6 +211,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				v.commit_chunk ();
 				break;
 			case "p":
+				if (root->children == null && root->content == null) break;
 				if (!v.chunk_ends_in_newline ()) v.write_chunk ("\n");
 				v.write_chunk ("\n");
 				traverse_and_handle (v, root, default_handler);
@@ -209,15 +222,17 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					root->children != null
 					&& root->children->name == "code"
 					&& root->children->children != null
-					&& root->children->children->name == "text"
-					&& root->children->children->content != null
 				) {
 					v.commit_chunk ();
 
-					var label = new RichLabel (root->children->children->content.strip ()) {
+					blockquote_handler_text = "";
+					blockquote_handler (root->children);
+					var text = blockquote_handler_text.strip ();
+					var label = new RichLabel (text) {
 						visible = true,
 						css_classes = { "ttl-code", "monospace" },
-						use_markup = false
+						use_markup = true,
+						fix_overflow_hack = true
 						// markup = MarkupPolicy.DISALLOW
 					};
 
@@ -229,7 +244,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				}
 				break;
 			case "code":
-				v.write_chunk ("<span font_family=\"monospace\">");
+				v.write_chunk ("<span background=\"#9696961a\" font_family=\"monospace\">");
 				traverse_and_handle (v, root, default_handler);
 				v.strip_chunk ();
 				v.write_chunk ("</span>");
@@ -243,7 +258,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				var label = new RichLabel (text) {
 					visible = true,
 					css_classes = { "ttl-code", "italic" },
-					use_markup = true
+					use_markup = true,
+					fix_overflow_hack = true
 					// markup = MarkupPolicy.DISALLOW
 				};
 				v.append (label);
@@ -316,10 +332,10 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				for (var iter = root->children; iter != null; iter = iter->next) {
 					if (iter->name == "li") {
 						v.write_chunk (@"\n$li_count. ");
-						traverse_and_handle (v, iter, default_handler);
+						traverse_and_handle (v, iter, list_item_handler);
 
 						li_count++;
-					} else break;
+					} else continue;
 				}
 				v.write_chunk ("\n");
 
@@ -330,7 +346,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				break;
 			case "li":
 				v.write_chunk ("\n• ");
-				traverse_and_handle (v, root, default_handler);
+				traverse_and_handle (v, root, list_item_handler);
 				break;
 			case "br":
 				v.write_chunk ("\n");

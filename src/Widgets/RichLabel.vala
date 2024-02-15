@@ -31,11 +31,6 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		set { widget.selectable = value; }
 	}
 
-	public bool ellipsize {
-		get { return widget.ellipsize; }
-		set { widget.ellipsize = value; }
-	}
-
 	public bool single_line_mode {
 		get { return widget.single_line_mode; }
 		set { widget.single_line_mode = value; }
@@ -66,11 +61,19 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		set { widget.lines = value; }
 	}
 
+	// #756
+	public bool fix_overflow_hack {
+		get {
+			return widget.fix_overflow_hack;
+		}
+		set {
+			widget.fix_overflow_hack = value;
+		}
+	}
+
 	public RichLabel (string? text = null) {
 		if (text != null)
 			label = text;
-
-		widget.lines = 100;
 	}
 
 	construct {

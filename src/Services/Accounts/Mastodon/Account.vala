@@ -30,6 +30,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 			//  win.back();
 			win.go_back_to_start ();
 			((Views.TabbedBase) win.main_page.child).change_page_to_named ("1");
+			win.set_sidebar_selected_item (0);
 		}
 	};
 
@@ -40,6 +41,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		open_func = win => {
 			win.go_back_to_start ();
 			((Views.TabbedBase) win.main_page.child).change_page_to_named ("2");
+			win.set_sidebar_selected_item (1);
 		}
 	};
 
@@ -50,6 +52,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		open_func = win => {
 			win.go_back_to_start ();
 			((Views.TabbedBase) win.main_page.child).change_page_to_named ("3");
+			win.set_sidebar_selected_item (2);
 		}
 	};
 
@@ -94,7 +97,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		icon = "system-search-symbolic",
 		title = _("Search"),
 		open_func = (win) => {
-			win.open_view (new Views.Search ());
+			win.open_view (set_as_sidebar_item (new Views.Search ()));
 		}
 	};
 
@@ -154,13 +157,9 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	};
 
 	public override void register_known_places (GLib.ListStore places) {
-		ulong main_window_notify = 0;
-		main_window_notify = app.notify["main-window"].connect (() => {
-			app.main_window.bind_property ("is-mobile", PLACE_NOTIFICATIONS, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
-			app.main_window.bind_property ("is-mobile", PLACE_CONVERSATIONS, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
-			app.main_window.bind_property ("is-mobile", PLACE_SEARCH, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
-			app.disconnect (main_window_notify);
-		});
+		app.bind_property ("is-mobile", PLACE_NOTIFICATIONS, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
+		app.bind_property ("is-mobile", PLACE_CONVERSATIONS, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
+		app.bind_property ("is-mobile", PLACE_SEARCH, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 
 		places.append (PLACE_HOME);
 		places.append (PLACE_NOTIFICATIONS);
@@ -217,6 +216,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	private static Views.Base set_as_sidebar_item (Views.Base view) {
 		view.is_sidebar_item = true;
+		view.show_back_button = false;
 		return view;
 	}
 
@@ -287,10 +287,10 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 	public override void reply_to_status_uri (string issuer_id, string uri) {
 		if (!check_issuer (issuer_id)) return;
 
-		if (entity_cache.contains (uri)) {
-			var status = entity_cache.lookup (uri) as API.Status;
-			new Dialogs.Compose.reply (status.formal);
-		} else {
+		//  if (Tuba.EntityCache.contains (uri)) {
+		//  	var status = Tuba.EntityCache.lookup (uri) as API.Status;
+		//  	new Dialogs.Compose.reply (status.formal);
+		//  } else {
 			resolve.begin (uri, (obj, res) => {
 				try {
 					var status = resolve.end (res) as API.Status;
@@ -303,6 +303,6 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 					warning (e.message);
 				}
 			});
-		}
+		//  }
 	}
 }
