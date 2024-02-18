@@ -54,6 +54,7 @@ if host_machine.system() == 'windows'
   add_project_arguments('-mwindows', language: 'c')
 endif
 
+add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
 add_project_arguments (
   '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
   language: 'c'
@@ -105,6 +106,7 @@ final_deps = [
   dependency('json-glib-1.0', version: '>=1.4.4'),
   dependency('libxml-2.0'),
   dependency('libsecret-1', required: true),
+  dependency('icu-uc'),
   libspelling,
   gtksourceview_dep,
   libgtk_dep,
