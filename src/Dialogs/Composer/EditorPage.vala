@@ -17,7 +17,28 @@ public class Tuba.EditorPage : ComposerPage {
 		int64 res = char_limit;
 		if (cw_button.active)
 				res -= (int64) cw_entry.buffer.length;
-		res -= editor.buffer.get_char_count ();
+
+		string replaced_urls = Tracking.cleanup_content_with_uris (
+			editor.buffer.text,
+			Tracking.extract_uris (editor.buffer.text),
+			Tracking.CleanupType.SPECIFIC_LENGTH,
+			accounts.active.instance_info.compat_status_characters_reserved_per_url
+		);
+
+		var icu_err = Icu.ErrorCode.ZERO_ERROR;
+		var icu_text = Icu.Text.open_utf8 (null, replaced_urls.data, ref icu_err);
+		var word_breaker = Icu.BreakIterator.open (
+			CHARACTER, ((Tuba.Locales.Locale) language_button.selected_item).locale, null, -1, ref icu_err
+		);
+		word_breaker.set_utext (icu_text, ref icu_err);
+
+		if (icu_err.is_success ()) {
+			while (word_breaker.next () != Icu.BreakIterator.DONE) {
+				res -= 1;
+			}
+		} else {
+			res -= replaced_urls.length;
+		}
 
 		remaining_chars = res;
 	}
@@ -197,15 +218,15 @@ public class Tuba.EditorPage : ComposerPage {
 		#endif
 
 		var keypress_controller = new Gtk.EventControllerKey ();
-        keypress_controller.key_pressed.connect ((keyval, _, modifier) => {
-            modifier &= Gdk.MODIFIER_MASK;
-            if ((keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter) && (modifier == Gdk.ModifierType.CONTROL_MASK || modifier == (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.LOCK_MASK))) {
+		keypress_controller.key_pressed.connect ((keyval, _, modifier) => {
+			modifier &= Gdk.MODIFIER_MASK;
+			if ((keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter) && (modifier == Gdk.ModifierType.CONTROL_MASK || modifier == (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.LOCK_MASK))) {
 				ctrl_return_pressed ();
 				return true;
 			}
-            return false;
-        });
-        editor.add_controller (keypress_controller);
+			return false;
+		});
+		editor.add_controller (keypress_controller);
 
 		editor.completion.add_provider (new Tuba.HandleProvider ());
 		editor.completion.add_provider (new Tuba.HashtagProvider ());
