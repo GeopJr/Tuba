@@ -49,7 +49,7 @@ if devmode
   add_project_arguments(['--define=DEV_MODE'], language: 'vala')
 endif
 
-if host_machine.system() == 'windows'
+if host_machine.system() == 'windows' || host_machine.system() == 'darwin'
   add_project_arguments(['--define=WINDOWS'], language: 'vala')
   add_project_arguments('-mwindows', language: 'c')
 endif
