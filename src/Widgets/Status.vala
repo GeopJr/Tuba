@@ -107,7 +107,7 @@
 	[GtkChild] protected unowned Gtk.Button name_button;
 	[GtkChild] protected unowned Widgets.RichLabel name_label;
 	[GtkChild] protected unowned Gtk.Label handle_label;
-	[GtkChild] protected unowned Gtk.Box indicators;
+	[GtkChild] public unowned Gtk.Box indicators;
 	[GtkChild] protected unowned Gtk.Label date_label;
 	[GtkChild] protected unowned Gtk.Image pin_indicator;
 	[GtkChild] protected unowned Gtk.Image edited_indicator;
@@ -127,7 +127,8 @@
 	protected Gtk.PopoverMenu context_menu { get; set; }
 	private const GLib.ActionEntry[] ACTION_ENTRIES = {
 		{"copy-url", copy_url},
-		{"open-in-browser", open_in_browser}
+		{"open-in-browser", open_in_browser},
+		{"report", report_status}
 	};
 	private GLib.SimpleActionGroup action_group;
 	private SimpleAction edit_history_simple_action;
@@ -268,6 +269,8 @@
 			menu_model.append_item (pin_menu_item);
 			menu_model.append (_("Edit"), "status.edit-status");
 			menu_model.append (_("Delete"), "status.delete-status");
+		} else {
+			menu_model.append (_("Report"), "status.report");
 		}
 
 		context_menu = new Gtk.PopoverMenu.from_model (menu_model);
@@ -280,6 +283,10 @@
 
 	private void open_in_browser () {
 		Host.open_uri (status.formal.url ?? status.formal.account.url);
+	}
+
+	private void report_status () {
+		new Dialogs.Report (status.formal);
 	}
 
 	private void view_edit_history () {

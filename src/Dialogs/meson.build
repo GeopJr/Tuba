@@ -4,6 +4,7 @@ sources += files(
     'NewAccount.vala',
     'Preferences.vala',
     'ProfileEdit.vala',
+    'Report.vala',
     'Saveable.vala',
 )
 
