@@ -136,7 +136,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
                 if (f.verified_at != null) {
                     var verified_date = f.verified_at.slice (0, f.verified_at.last_index_of ("T"));
                     var verified_label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-                    var verified_checkmark = new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic") {
+                    var verified_checkmark = new Gtk.Image.from_icon_name ("tuba-verified-checkmark-symbolic") {
                         tooltip_text = _(@"Ownership of this link was checked on $verified_date")
                     };
 
