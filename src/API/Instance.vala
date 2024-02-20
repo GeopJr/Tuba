@@ -1,4 +1,9 @@
 public class Tuba.API.Instance : Entity {
+	public class Rule : Entity {
+		public string id { get; set; default=""; }
+		public string text { get; set; default=""; }
+	}
+
 	public string uri { get; set; default=""; }
 	public string title { get; set; default=""; }
 	public string thumbnail { get; set; default=null; }
@@ -9,11 +14,14 @@ public class Tuba.API.Instance : Entity {
 	public API.Mastodon.Configuration.Polls? poll_limits { get; set; default = null; }
 	public int64 upload_limit { get; set; default = 0; }
 	public API.Pleroma.Instance? pleroma { get; set; default = null; }
+	public Gee.ArrayList<Rule>? rules { get; set; }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
 			case "languages":
 				return Type.STRING;
+			case "rules":
+				return typeof (Rule);
 		}
 
 		return base.deserialize_array_type (prop);
