@@ -123,15 +123,23 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			place.bind_property ("title", label, "label", BindingFlags.SYNC_CREATE);
 			place.bind_property ("icon", icon, "icon-name", BindingFlags.SYNC_CREATE);
 			place.bind_property ("visible", this, "visible", BindingFlags.SYNC_CREATE);
+			place.bind_property ("selectable", this, "selectable", BindingFlags.SYNC_CREATE);
 			place.bind_property ("badge", badge, "label", BindingFlags.SYNC_CREATE);
 			place.bind_property ("badge", badge, "visible", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
 				target.set_boolean (src.get_int () > 0);
 				return true;
 			});
 
-			place.bind_property ("selectable", this, "selectable", BindingFlags.SYNC_CREATE);
+			place.notify["needs-attention"].connect (on_attention_change);
+			on_attention_change ();
+		}
 
-			if (!place.needs_attention) badge.add_css_class ("no-attention");
+		void on_attention_change () {
+			if (this.place.needs_attention) {
+				badge.remove_css_class ("no-attention");
+			} else {
+				badge.add_css_class ("no-attention");
+			}
 		}
 	}
 
