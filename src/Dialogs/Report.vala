@@ -37,10 +37,6 @@ public class Tuba.Dialogs.Report : Adw.Window {
 	}
 
 	Adw.Carousel carousel;
-	bool has_rules;
-	Gee.HashMap<Category, Gtk.CheckButton> check_buttons;
-	Gee.HashMap<string, Gtk.CheckButton> rules_buttons;
-	Gee.HashMap<string, Gtk.CheckButton> status_buttons;
 	Gtk.Stack page_3_stack;
 	Adw.StatusPage page_3_error;
 	Gtk.Button next_button;
@@ -49,11 +45,16 @@ public class Tuba.Dialogs.Report : Adw.Window {
 	Adw.PreferencesPage page_2;
 	Adw.PreferencesPage page_3;
 	Adw.PreferencesPage page_4;
-	Category[] categories;
-	string account_id;
 	Adw.SwitchRow forward_switch;
 	Adw.EntryRow additional_info;
+
+	Gee.HashMap<Category, Gtk.CheckButton> check_buttons = new Gee.HashMap<Category, Gtk.CheckButton> ();
+	Gee.HashMap<string, Gtk.CheckButton> rules_buttons = new Gee.HashMap<string, Gtk.CheckButton> ();
+	Gee.HashMap<string, Gtk.CheckButton> status_buttons = new Gee.HashMap<string, Gtk.CheckButton> ();
+	Category[] categories = {Category.SPAM};
+	string account_id = "";
 	string? status_id = null;
+	bool has_rules = false;
 	construct {
 		var back_action = new SimpleAction ("back", null);
 		back_action.activate.connect (on_back);
@@ -66,7 +67,6 @@ public class Tuba.Dialogs.Report : Adw.Window {
 
 		has_rules = accounts.active.instance_info.rules != null && accounts.active.instance_info.rules.size > 0;
 
-		categories = {Category.SPAM};
 		if (has_rules) categories += Category.VIOLATION;
 		categories += Category.OTHER;
 
@@ -146,7 +146,6 @@ public class Tuba.Dialogs.Report : Adw.Window {
 		group_1.set_description (_("Choose the best match"));
 
 		Gtk.CheckButton? group = null;
-		check_buttons = new Gee.HashMap<Category, Gtk.CheckButton> ();
 		foreach (Category category in categories) {
 			var checkbutton = new Gtk.CheckButton () {
 				css_classes = {"selection-mode"}
@@ -190,7 +189,6 @@ public class Tuba.Dialogs.Report : Adw.Window {
 		//				this shown above a list of checkbox options where the user can select multiple
 		group_2.set_description (_("Select all that apply"));
 
-		rules_buttons = new Gee.HashMap<string, Gtk.CheckButton> ();
 		foreach (var rule in accounts.active.instance_info.rules) {
 			var checkbutton = new Gtk.CheckButton () {
 				css_classes = {"selection-mode"}
@@ -381,6 +379,9 @@ public class Tuba.Dialogs.Report : Adw.Window {
 		});
 
 		msg
+			.then (() => {
+				app.toast (_("Submitted Report Successfully"));
+			})
 			.on_error ((code, message) => {
 				warning (@"Error while submitting report: $code $message");
 
@@ -441,7 +442,6 @@ public class Tuba.Dialogs.Report : Adw.Window {
 			.with_param ("exclude_reblogs", "true")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				status_buttons = new Gee.HashMap<string, Gtk.CheckButton> ();
 				var listbox = new Gtk.ListBox () {
 					selection_mode = Gtk.SelectionMode.NONE,
 					css_classes = {"boxed-list"}
