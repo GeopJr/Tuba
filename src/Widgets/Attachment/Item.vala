@@ -59,7 +59,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		try {
 			var req = yield new Request.GET (attachment_url).await ();
 			var data = req.response_body;
-			FileOutputStream stream = file.create (FileCreateFlags.PRIVATE);
+			FileOutputStream stream = file.replace (null, false, FileCreateFlags.PRIVATE);
 			try {
 				stream.splice (data, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);
 
