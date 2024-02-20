@@ -5,7 +5,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 	const string SCOPES = "read write follow";
 
-	#if WINDOWS
+	#if WINDOWS || DARWIN
 		const bool SHOULD_AUTO_AUTH = false;
 	#else
 		const bool SHOULD_AUTO_AUTH = true;
