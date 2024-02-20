@@ -316,21 +316,25 @@ public class Tuba.Dialogs.Report : Adw.Window {
 
 		if (additional_info.text != "") msg.with_form_data ("comment", additional_info.text);
 
+		Category category = Category.OTHER;
 		check_buttons.foreach (e => {
 			if (((Gtk.CheckButton) e.value).active) {
-				msg.with_form_data ("category", ((Category) e.key).to_string ());
+				category = (Category) e.key
 				return false;
 			}
 
 			return true;
 		});
+		msg.with_form_data ("category", category.to_string ());
 
+		if (category == Category.VIOLATION) {
 		rules_buttons.foreach (e => {
 			if (((Gtk.CheckButton) e.value).active) {
 				msg.with_form_data ("rule_ids[]", ((string) e.key));
 			}
 			return true;
 		});
+		}
 
 		status_buttons.foreach (e => {
 			if (((Gtk.CheckButton) e.value).active) {
