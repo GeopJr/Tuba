@@ -107,6 +107,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 	}
 
 	public Report (API.Account account, string? status_id = null) {
+		// translators: the variable is an account handle
 		this.title = _("Reporting %s").printf (@"$(account.username)@$(account.domain)");
 		this.status_id = status_id;
 		populate_posts (account.id, status_id);
@@ -128,10 +129,20 @@ public class Tuba.Dialogs.Report : Adw.Window {
 			vexpand = true,
 			valign = Gtk.Align.CENTER
 		};
-		var group_1 = new Adw.PreferencesGroup () {
-			title = _("Tell us what's going on with this post")
-		};
-		// Why isn't this a property?
+		var group_1 = new Adw.PreferencesGroup ();
+
+		if (status_id == null) {
+			// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+			//				this is meant for reporting users
+			group_1.title = _("Tell us what's going on with this account");
+		} else {
+			// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+			//				this is meant for reporting posts
+			group_1.title = _("Tell us what's going on with this post");
+		}
+
+		// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+		//				this is shown above a list of radio-button options where the user can only choose one
 		group_1.set_description (_("Choose the best match"));
 
 		Gtk.CheckButton? group = null;
@@ -171,8 +182,12 @@ public class Tuba.Dialogs.Report : Adw.Window {
 			valign = Gtk.Align.CENTER
 		};
 		var group_2 = new Adw.PreferencesGroup () {
+			// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 			title = _("Which rules are being violated?")
 		};
+
+		// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+		//				this shown above a list of checkbox options where the user can select multiple
 		group_2.set_description (_("Select all that apply"));
 
 		rules_buttons = new Gee.HashMap<string, Gtk.CheckButton> ();
@@ -205,6 +220,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 		page_3_error = new Adw.StatusPage () {
 			vexpand = true,
 			hexpand = true,
+			// translators: 'fetch' as in get
 			title = _("Couldn't fetch all user's posts")
 		};
 		page_3_stack = new Gtk.Stack () {
@@ -227,11 +243,17 @@ public class Tuba.Dialogs.Report : Adw.Window {
 		group_3 = new Adw.PreferencesGroup ();
 
 		if (status_id == null) {
+			// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+			//				this is shown above a list of posts. The user is meant to choose any that should be included in the report
 			group_3.title = _("Are there any posts that back up this report?");
 		} else {
+			// translators: this is the same as 'Are there any posts that back up this report?' but for when you are reporting a post
+			//				that's why it asks about choosing 'other' posts
 			group_3.title = _("Are there any other posts that back up this report?");
 		}
 
+		// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+		//				this shown above a list of checkbox options where the user can select multiple
 		group_3.set_description (_("Select all that apply"));
 		page_3.add (group_3);
 		carousel.append (page_3_stack);
@@ -244,10 +266,14 @@ public class Tuba.Dialogs.Report : Adw.Window {
 			valign = Gtk.Align.CENTER
 		};
 		var group_4 = new Adw.PreferencesGroup () {
+			// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+			//				this is shown at the top of the last page of the report dialog
 			title = _("Is there anything else you think we should know?")
 		};
 
 		additional_info = new Adw.EntryRow () {
+			// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+			//				additional comments to be included in the report
 			title = _("Additional Comments")
 		};
 		additional_info.changed.connect (on_additional_info_changed);
@@ -255,6 +281,8 @@ public class Tuba.Dialogs.Report : Adw.Window {
 
 		if (accounts.active.domain != domain) {
 			forward_switch = new Adw.SwitchRow () {
+				// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+				//				the variable is an instance name e.g. 'Forward to mastodon.social'
 				title = _("Forward to %s").printf (domain),
 				active = true
 			};
@@ -297,6 +325,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 			carousel.scroll_to (page_to, true);
 		} else {
 			app.question.begin (
+				// translators: submit the report
 				{_("Are you sure you want to submit?"), false},
 				null,
 				this,
@@ -343,6 +372,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 			});
 		}
 
+		if (status_id != null) msg.with_form_data ("status_ids[]", status_id);
 		status_buttons.foreach (e => {
 			if (((Gtk.CheckButton) e.value).active) {
 				msg.with_form_data ("status_ids[]", ((string) e.key));
@@ -444,7 +474,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 
 				if (status_buttons.size == 0) {
 					page_3.visible = false;
-					page_3_error.description = _("%s. You can continue with the report however.").printf ("No posts found");
+					page_3_error.description = _("%s. You can continue with the report however.").printf (_("No posts found"));
 					page_3_stack.visible_child_name = "error";
 
 					return;
@@ -454,6 +484,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 				page_3_stack.visible_child_name = "main";
 			})
 			.on_error ((code, message) => {
+				// translators: the variable is an error
 				page_3_error.description = _("%s. You can continue with the report however.").printf (message);
 				page_3_stack.visible_child_name = "error";
 			})
