@@ -380,7 +380,14 @@ public class Tuba.Dialogs.Report : Adw.Window {
 			return true;
 		});
 
-		msg.exec ();
+		msg
+			.on_error ((code, message) => {
+				warning (@"Error while submitting report: $code $message");
+
+				// translators: the variable is an error
+				app.toast (_("Couldn't submit report: %s").printf (message), 0);
+			})
+			.exec ();
 	}
 
 	private void on_additional_info_changed () {
