@@ -80,9 +80,9 @@ public class Tuba.Helper.Image {
 		}
 
 		fetch_paintable.begin (url, (obj, res) => {
-			var res = fetch_paintable.end (res);
+			var result = fetch_paintable.end (res);
 			has_loaded = true;
-			cb (res);
+			cb (result);
 		});
 	}
 }
