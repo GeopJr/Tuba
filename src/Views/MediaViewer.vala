@@ -612,7 +612,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		Item? page = safe_get ((int) carousel.position);
 		if (page == null) return;
 
-		Widgets.Attachment.Item.save_media_as (page.url);
+		Widgets.Attachment.Item.save_media_as.begin (page.url);
 	}
 
 	private void on_drag_begin (double x, double y) {
