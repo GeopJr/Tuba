@@ -53,6 +53,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 	string account_id;
 	Adw.SwitchRow forward_switch;
 	Adw.EntryRow additional_info;
+	string? status_id = null;
 	construct {
 		var back_action = new SimpleAction ("back", null);
 		back_action.activate.connect (on_back);
@@ -105,17 +106,18 @@ public class Tuba.Dialogs.Report : Adw.Window {
 		this.content = toolbarview;
 	}
 
-	public Report (API.Status status) {
-		this.title = _("Reporting %s").printf (@"$(status.account.username)@$(status.account.domain)");
-		populate_posts (status.account.id, status.id);
-		account_id = status.account.id;
+	public Report (API.Account account, string? status_id = null) {
+		this.title = _("Reporting %s").printf (@"$(account.username)@$(account.domain)");
+		this.status_id = status_id;
+		populate_posts (account.id, status_id);
+		account_id = account.id;
 
 		install_page_1 ();
 		if (has_rules) {
 			install_page_2 ();
 		}
 		install_page_3 ();
-		install_page_4 (status.account.domain);
+		install_page_4 (account.domain);
 
 		this.present ();
 	}
@@ -222,9 +224,14 @@ public class Tuba.Dialogs.Report : Adw.Window {
 		page_3_stack.add_named (page_3, "main");
 		page_3_stack.add_named (page_3_error, "error");
 
-		group_3 = new Adw.PreferencesGroup () {
-			title = _("Are there any other posts that back up this report?")
-		};
+		group_3 = new Adw.PreferencesGroup ();
+
+		if (status_id == null) {
+			group_3.title = _("Are there any posts that back up this report?");
+		} else {
+			group_3.title = _("Are there any other posts that back up this report?");
+		}
+
 		group_3.set_description (_("Select all that apply"));
 		page_3.add (group_3);
 		carousel.append (page_3_stack);
@@ -328,12 +335,12 @@ public class Tuba.Dialogs.Report : Adw.Window {
 		msg.with_form_data ("category", category.to_string ());
 
 		if (category == Category.VIOLATION) {
-		rules_buttons.foreach (e => {
-			if (((Gtk.CheckButton) e.value).active) {
-				msg.with_form_data ("rule_ids[]", ((string) e.key));
-			}
-			return true;
-		});
+			rules_buttons.foreach (e => {
+				if (((Gtk.CheckButton) e.value).active) {
+					msg.with_form_data ("rule_ids[]", ((string) e.key));
+				}
+				return true;
+			});
 		}
 
 		status_buttons.foreach (e => {

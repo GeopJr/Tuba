@@ -286,7 +286,7 @@
 	}
 
 	private void report_status () {
-		new Dialogs.Report (status.formal);
+		new Dialogs.Report (status.formal.account, status.formal.id);
 	}
 
 	private void view_edit_history () {
