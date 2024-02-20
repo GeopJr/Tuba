@@ -15,7 +15,7 @@ public class Tuba.EditorPage : ComposerPage {
 
 	private void count_chars () {
 		int64 res = char_limit;
-		if (cw_button.active)
+		if (cw_button != null && cw_button.active)
 				res -= (int64) cw_entry.buffer.length;
 
 		string replaced_urls = Tracking.cleanup_content_with_uris (
@@ -28,7 +28,7 @@ public class Tuba.EditorPage : ComposerPage {
 		var icu_err = Icu.ErrorCode.ZERO_ERROR;
 		var icu_text = Icu.Text.open_utf8 (null, replaced_urls.data, ref icu_err);
 		var word_breaker = Icu.BreakIterator.open (
-			CHARACTER, ((Tuba.Locales.Locale) language_button.selected_item).locale, null, -1, ref icu_err
+			CHARACTER, ((Tuba.Locales.Locale) language_button?.selected_item)?.locale ?? "en", null, -1, ref icu_err
 		);
 		word_breaker.set_utext (icu_text, ref icu_err);
 
@@ -99,7 +99,6 @@ public class Tuba.EditorPage : ComposerPage {
 		cw_button.toggled.connect (on_content_changed);
 		cw_entry.buffer.inserted_text.connect (on_content_changed);
 		cw_entry.buffer.deleted_text.connect (on_content_changed);
-		editor.buffer.changed.connect (on_content_changed);
 	}
 
 	protected void on_paste (Gdk.Clipboard clp) {
@@ -243,6 +242,7 @@ public class Tuba.EditorPage : ComposerPage {
 		};
 		bottom_bar.pack_end (char_counter);
 		editor.buffer.paste_done.connect (on_paste);
+		editor.buffer.changed.connect (on_content_changed);
 	}
 
 	protected void update_style_scheme () {
