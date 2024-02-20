@@ -355,7 +355,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 		Category category = Category.OTHER;
 		check_buttons.foreach (e => {
 			if (((Gtk.CheckButton) e.value).active) {
-				category = (Category) e.key
+				category = (Category) e.key;
 				return false;
 			}
 
@@ -428,7 +428,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 		}
 	}
 
-	private void populate_posts (string account_id, string status_id) {
+	private void populate_posts (string account_id, string? status_id = null) {
 		new Request.GET (@"/api/v1/accounts/$(account_id)/statuses")
 			.with_param ("exclude_replies", "false")
 			.with_param ("exclude_reblogs", "true")
@@ -444,7 +444,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 
 				Network.parse_array (parser, node => {
 					var status = API.Status.from (node);
-					if (status.id == status_id) return;
+					if (status_id != null && status.id == status_id) return;
 					status.spoiler_text = null;
 					status.tuba_spoiler_revealed = true;
 					status.sensitive = false;
