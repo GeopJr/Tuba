@@ -455,6 +455,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 					status.spoiler_text = null;
 					status.tuba_spoiler_revealed = true;
 					status.sensitive = false;
+					status.card = null;
 
 					var widget_status = status.to_widget () as Widgets.Status;
 					if (widget_status == null) return;
