@@ -1,7 +1,7 @@
 # Spanish translations for dev.geopjr.Tuba package.
 # Copyright (C) 2021 THE dev.geopjr.Tuba'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the dev.geopjr.Tuba package.
-# Óscar Fernández Díaz <oscfdezdz@tuta.io>, 2021.
+# Óscar Fernández Díaz <oscfdezdz@tuta.io>, 2021, 2024.
 # Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted.weblate.org>, 2023, 2024.
 # iceCat3003 <danielespinoza0109@gmail.com>, 2023.
 # gallegonovato <fran-carro@hotmail.es>, 2023, 2024.
@@ -10,16 +10,15 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2024-02-10 00:02+0000\n"
-"Last-Translator: Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted.weblate"
-".org>\n"
+"PO-Revision-Date: 2024-02-22 22:02+0000\n"
+"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tuba/tuba/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -720,14 +719,14 @@ msgstr "Está a punto de abandonar %s"
 #: src/API/Status/PreviewCard.vala:48
 #, c-format
 msgid "If you proceed, \"%s\" will open in your browser."
-msgstr "Si continúa, \"%s\" se abrirá en su navegador."
+msgstr "Si continúa, «%s» se abrirá en su navegador."
 
 #. translators: the first variable is the app name (Tuba),
 #. the second one is a url
 #: src/API/Status/PreviewCard.vala:52
 #, c-format
 msgid "If you proceed, %s will connect to \"%s\"."
-msgstr "Si continúa, %s se conectará a \"%s\"."
+msgstr "Si continúa, %s se conectará a «%s»."
 
 #: src/API/Status/PreviewCard.vala:164
 msgid "Proceed"
@@ -781,7 +780,7 @@ msgstr "Óscar Fernández Díaz <oscfdezdz@tuta.io>"
 
 #: src/Application.vala:477
 msgid "OK"
-msgstr "De acuerdo"
+msgstr "Aceptar"
 
 #: src/Application.vala:502
 msgid "Yes"
@@ -828,7 +827,7 @@ msgstr "Abrir"
 #: src/Dialogs/Composer/AttachmentsPage.vala:433
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
-msgstr "El archivo \"%s\" es mayor que el límite de la instancia"
+msgstr "El archivo «%s» es mayor que el límite de la instancia"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:42
 msgid "Edit Alt Text"
@@ -1408,7 +1407,7 @@ msgstr "Redactar"
 #: src/Views/Lists.vala:57
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr "¿Eliminar \"%s\"?"
+msgstr "¿Eliminar «%s»?"
 
 #: src/Views/Lists.vala:58
 msgid "This action cannot be reverted."
@@ -1446,12 +1445,12 @@ msgstr "Copiar enlace al portapapeles"
 #: src/Views/Profile.vala:256
 #, c-format
 msgid "Block \"%s\"?"
-msgstr "¿Bloquear \"%s\"?"
+msgstr "¿Bloquear «%s»?"
 
 #: src/Views/Profile.vala:256
 #, c-format
 msgid "Unblock \"%s\"?"
-msgstr "¿Desbloquear \"%s\"?"
+msgstr "¿Desbloquear «%s»?"
 
 #: src/Views/Profile.vala:262 src/Views/Profile.vala:281
 #: src/Widgets/RelationshipButton.vala:39
@@ -1461,12 +1460,12 @@ msgstr "Desbloquear"
 #: src/Views/Profile.vala:274
 #, c-format
 msgid "Block Entire \"%s\"?"
-msgstr "¿Bloquear por completo \"%s\"?"
+msgstr "¿Bloquear por completo «%s»?"
 
 #: src/Views/Profile.vala:274
 #, c-format
 msgid "Unblock Entire \"%s\"?"
-msgstr "¿Desbloquear por completo \"%s\"?"
+msgstr "¿Desbloquear por completo «%s»?"
 
 #: src/Views/Profile.vala:278
 msgid ""
@@ -1487,13 +1486,13 @@ msgstr ""
 #: src/Views/Profile.vala:371
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
-msgstr "Añadir o eliminar \"%s\" de una lista"
+msgstr "Añadir o eliminar «%s» de una lista"
 
 #. translators: the variable is an account handle
 #: src/Views/Profile.vala:384
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
-msgstr "Seleccione la lista a la que añadir o de la que quitar \"%s\":"
+msgstr "Seleccione la lista a la que añadir o de la que quitar «%s»:"
 
 #: src/Views/Profile.vala:390
 msgid "You don't have any lists"
@@ -1503,25 +1502,25 @@ msgstr "No tiene ninguna lista"
 #: src/Views/Profile.vala:420 src/Views/Profile.vala:482
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
-msgstr "Eliminar \"%s\" de \"%s\""
+msgstr "Eliminar «%s» de «%s»"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:421 src/Views/Profile.vala:476
 #, c-format
 msgid "Add \"%s\" to \"%s\""
-msgstr "Añadir \"%s\" a \"%s\""
+msgstr "Añadir «%s» a «%s»"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:473
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
-msgstr "El usuario \"%s\" ha sido eliminado de \"%s\""
+msgstr "El usuario «%s» ha sido eliminado de «%s»"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:479
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
-msgstr "El usuario \"%s\" ha sido añadido a \"%s\""
+msgstr "El usuario «%s» ha sido añadido a «%s»"
 
 #. translators: as in All search results
 #: src/Views/Search.vala:37
