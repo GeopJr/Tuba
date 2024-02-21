@@ -42,6 +42,8 @@ public class Tuba.Tracking {
 		"igshid",
 		// Instagram Threads
 		"ad_id", "adset_id", "campaign_id", "ad_name", "adset_name", "campaign_name", "placement",
+		// Reddit
+		"share_id", "ref", "ref_share",
 	};
 
 	public static string strip_utm (string url) {
