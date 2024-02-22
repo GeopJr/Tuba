@@ -419,6 +419,7 @@
 	Widgets.Avatar? actor_avatar = null;
 	ulong header_button_activate;
 	private Binding actor_avatar_binding;
+	string? header_kind_url = null;
 	const string[] SHOULD_SHOW_ACTOR_AVATAR = {
 		InstanceAccount.KIND_REBLOG,
 		InstanceAccount.KIND_REMOTE_REBLOG,
@@ -465,10 +466,16 @@
 		header_icon.icon_name = res_kind.icon;
 		header_label.instance_emojis = this.kind_instigator.emojis_map;
 		header_label.label = res_kind.description;
+		header_kind_url = res_kind.url;
 
 		if (header_button_activate > 0) header_button.disconnect (header_button_activate);
-		if (res_kind.url != null)
-			header_button_activate = header_button.clicked.connect (() => header_label.on_activate_link (res_kind.url));
+		if (header_kind_url != null)
+			header_button_activate = header_button.clicked.connect (on_header_button_clicked);
+	}
+
+	private void on_header_button_clicked () {
+		if (header_kind_url != null)
+			header_label.on_activate_link (header_kind_url);
 	}
 
 	private void open_kind_instigator_account () {
