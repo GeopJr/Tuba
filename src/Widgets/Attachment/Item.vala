@@ -183,7 +183,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		var menu_model = new GLib.Menu ();
 		menu_model.append (_("Open in Browser"), "attachment.open-in-browser");
 		menu_model.append (_("Copy URL"), "attachment.copy-url");
-		menu_model.append (_("Save Media"), "attachment.save-as");
+		menu_model.append (_("Save Media…"), "attachment.save-as");
 
 		var copy_media_menu_item = new MenuItem (_("Copy Media"), "attachment.copy-media");
 		copy_media_menu_item.set_attribute_value ("hidden-when", "action-disabled");

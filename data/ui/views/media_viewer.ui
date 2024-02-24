@@ -11,7 +11,7 @@
 			<attribute name="action">mediaviewer.copy-url</attribute>
 		</item>
 		<item>
-			<attribute name="label" translatable="yes">Save Media</attribute>
+			<attribute name="label" translatable="yes">Save Media…</attribute>
 			<attribute name="action">mediaviewer.save-as</attribute>
 		</item>
 		<item>
