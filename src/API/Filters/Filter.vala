@@ -7,6 +7,10 @@ public class Tuba.API.Filters.Filter : Entity {
 	public Gee.ArrayList<FilterKeyword> keywords { get; set; }
 	public Gee.ArrayList<FilterStatus> statuses { get; set; }
 
+	public static Filter from (Json.Node node) throws Error {
+		return Entity.from_json (typeof (Filter), node) as Filter;
+	}
+
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
 			case "context":
