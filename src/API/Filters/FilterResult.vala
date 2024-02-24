@@ -5,8 +5,8 @@ public class Tuba.API.Filters.FilterResult : Entity {
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
-			case "keyword_matches":
-			case "status_matches":
+			case "keyword-matches":
+			case "status-matches":
 				return Type.STRING;
 		}
 

@@ -123,6 +123,9 @@
 	[GtkChild] protected unowned Gtk.Label spoiler_label_rev;
 	[GtkChild] protected unowned Gtk.Box spoiler_status_con;
 
+	[GtkChild] protected unowned Gtk.Stack filter_stack;
+	[GtkChild] protected unowned Gtk.Label filter_label;
+
 	public ActionsRow actions { get; private set; }
 	protected Gtk.PopoverMenu context_menu { get; set; }
 	private const GLib.ActionEntry[] ACTION_ENTRIES = {
@@ -516,6 +519,17 @@
 	protected virtual void bind () {
 		soft_unbind ();
 
+		if (this.status.formal.filtered != null && this.status.formal.filtered.size > 0) {
+			filter_stack.visible_child_name = "filter";
+
+			string? filter_warn = this.status.formal.tuba_filter_warn;
+			if (filter_warn != null) {
+				filter_label.label = _("Filtered: %s").printf (filter_warn);
+			} else {
+				filter_label.label = _("Filtered");
+			}
+		}
+
 		if (actions != null) {
 			actions.unbind ();
 			content_column.remove (actions);
@@ -609,6 +623,8 @@
 	}
 
 	public void soft_unbind () {
+		filter_stack.visible_child_name = "status";
+
 		foreach (var handler_id in formal_handler_ids) {
 			status.formal.disconnect (handler_id);
 		}
@@ -640,6 +656,12 @@
 
 	[GtkCallback] public void toggle_spoiler () {
 		status.formal.tuba_spoiler_revealed = !status.formal.tuba_spoiler_revealed;
+	}
+
+	[GtkCallback] public void toggle_filter () {
+		if (this.status.formal.filtered != null && this.status.formal.filtered.size > 0) {
+			filter_stack.visible_child_name = filter_stack.visible_child_name == "filter" ? "status" : "filter";
+		}
 	}
 
 	[GtkCallback] public void on_avatar_clicked () {
