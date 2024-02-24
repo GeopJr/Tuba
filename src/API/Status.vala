@@ -35,6 +35,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public API.Poll? poll { get; set; default = null; }
     public Gee.ArrayList<API.Emoji>? emojis { get; set; }
     public API.PreviewCard? card { get; set; default = null; }
+    public API.Filters.FilterResult? filtered { get; set; default = null; }
 
     public override Type deserialize_array_type (string prop) {
 		switch (prop) {
