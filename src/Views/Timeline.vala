@@ -278,7 +278,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public virtual bool should_hide (Entity entity) {
 		var status_entity = entity as API.Status;
 		if (status_entity != null && status_entity.filtered != null) {
-			return status_entity.filtered.filter.tuba_hidden;
+			return status_entity.formal.filtered.filter.tuba_hidden;
 		}
 
 		return false;
