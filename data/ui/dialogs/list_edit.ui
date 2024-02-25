@@ -11,11 +11,11 @@
       </object>
     </child>
   </object>
-  <template class="TubaDialogsListEdit" parent="AdwPreferencesWindow">
-    <signal name="close-request" handler="on_close" swapped="no"/>
-    <property name="modal">1</property>
-    <property name="default_width">500</property>
-    <property name="default_height">400</property>
+  <template class="TubaDialogsListEdit" parent="AdwPreferencesDialog">
+    <signal name="closed" handler="on_close" swapped="no"/>
+    <property name="content-width">500</property>
+    <property name="content-height">450</property>
+    <property name="search-enabled">True</property>
     <child>
       <object class="AdwPreferencesPage">
         <property name="icon-name">tuba-settings-symbolic</property>

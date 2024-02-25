@@ -1,5 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/list_edit.ui")]
-public class Tuba.Dialogs.ListEdit : Adw.PreferencesWindow {
+public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 	~ListEdit () {
 		debug ("Destroying ListEdit");
 	}
@@ -146,12 +146,10 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesWindow {
     }
 
     [GtkCallback]
-    private bool on_close () {
+    private void on_close () {
         on_apply ();
         hide ();
-        destroy ();
-
-        return false;
+        force_close ();
     }
 
     private void on_apply () {
