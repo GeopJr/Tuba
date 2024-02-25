@@ -237,7 +237,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 			//				 different account
 			_("Notification was pushed for a different account")
 		);
-		dlg.present ();
+		dlg.present (app.main_window);
 
 		return false;
 	}

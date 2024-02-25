@@ -118,7 +118,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 				catch (GLib.Error e) {
 					warning (e.message);
 					var dlg = app.inform (_("Error"), e.message);
-					dlg.present ();
+					dlg.present (app.main_window);
 				}
 			}
 		);
@@ -219,7 +219,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 				catch (GLib.Error e) {
 					warning (e.message);
 					var dlg = app.inform (_("Error"), e.message);
-					dlg.present ();
+					dlg.present (app.main_window);
 				}
 			}
 		);

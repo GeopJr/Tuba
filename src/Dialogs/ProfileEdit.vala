@@ -129,8 +129,8 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 				on_close ();
 			} catch (GLib.Error e) {
 				critical (e.message);
-				var dlg = app.inform (_("Error"), e.message, this);
-				dlg.present ();
+				var dlg = app.inform (_("Error"), e.message);
+				dlg.present (this);
 			} finally {
 				this.sensitive = true;
 			}

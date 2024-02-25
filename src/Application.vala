@@ -141,7 +141,7 @@ namespace Tuba {
 					warning (msg);
 
 					var dlg = inform (_("Error"), msg);
-					dlg.present ();
+					dlg.present (app.main_window);
 				}
 			});
 		}
@@ -235,7 +235,7 @@ namespace Tuba {
 			catch (Error e) {
 				var msg = "Could not start application: %s".printf (e.message);
 				var dlg = inform (_("Error"), msg);
-				dlg.present ();
+				dlg.present (app.main_window);
 				error (msg);
 			}
 
@@ -315,7 +315,7 @@ namespace Tuba {
 					string msg = @"Couldn't open $unparsed_uri: $(e.message)";
 					warning (msg);
 					var dlg = inform (_("Error"), msg);
-					dlg.present ();
+					dlg.present (app.main_window);
 				}
 			}
 		}
@@ -476,15 +476,11 @@ namespace Tuba {
 			});
 		}
 
-		public Adw.MessageDialog inform (string text, string? msg = null, Gtk.Window? win = app.main_window) {
-			var dlg = new Adw.MessageDialog (
-				win,
+		public Adw.AlertDialog inform (string text, string? msg = null) {
+			var dlg = new Adw.AlertDialog (
 				text,
 				msg
 			);
-
-			if (win != null)
-				dlg.transient_for = win;
 
 			dlg.add_response ("ok", _("OK"));
 
@@ -534,7 +530,7 @@ namespace Tuba {
 		public async QuestionAnswer question (
 			QuestionText title,
 			QuestionText? msg = null,
-			Gtk.Window? win = app.main_window,
+			Gtk.Widget? win = app.main_window,
 			QuestionButtons buttons = {
 				{ _("Yes"), Adw.ResponseAppearance.DEFAULT },
 				{ _("Cancel"), Adw.ResponseAppearance.DEFAULT }
@@ -543,8 +539,7 @@ namespace Tuba {
 		) {
 			if (skip) return QuestionAnswer.YES;
 
-			var dlg = new Adw.MessageDialog (
-				win,
+			var dlg = new Adw.AlertDialog (
 				title.text,
 				msg == null ? null : msg.text
 			);
@@ -558,9 +553,7 @@ namespace Tuba {
 			dlg.add_response ("yes", buttons.yes.label);
 			dlg.set_response_appearance ("yes", buttons.yes.appearance);
 
-			if (win != null)
-				dlg.transient_for = win;
-			return QuestionAnswer.from_string (yield dlg.choose (null));
+			return QuestionAnswer.from_string (yield dlg.choose (win, null));
 		}
 
 	}

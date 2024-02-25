@@ -833,7 +833,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 					}
 					catch (Error e) {
 						var dlg = app.inform (_("Error"), e.message);
-						dlg.present ();
+						dlg.present (app.main_window);
 					}
 				});
 			}

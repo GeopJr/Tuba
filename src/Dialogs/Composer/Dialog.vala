@@ -386,8 +386,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 				transaction.end (res);
 			} catch (Error e) {
 				warning (e.message);
-				var dlg = app.inform (_("Error"), e.message, this);
-				dlg.present ();
+				var dlg = app.inform (_("Error"), e.message);
+				dlg.present (this);
 			} finally {
 				this.sensitive = true;
 			}
