@@ -146,7 +146,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	private void open_edit_page () {
 		var dialog = new Dialogs.ProfileEdit (profile.account);
 		dialog.saved.connect (on_edit_save);
-		dialog.show ();
+		dialog.present (app.main_window);
 	}
 
 	private void on_edit_save () {
