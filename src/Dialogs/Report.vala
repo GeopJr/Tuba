@@ -1,4 +1,4 @@
-public class Tuba.Dialogs.Report : Adw.Window {
+public class Tuba.Dialogs.Report : Adw.Dialog {
 	~Report () {
 		debug ("Destroying Report");
 	}
@@ -70,10 +70,9 @@ public class Tuba.Dialogs.Report : Adw.Window {
 		if (has_rules) categories += Category.VIOLATION;
 		categories += Category.OTHER;
 
-		this.transient_for = app.main_window;
-		this.modal = true;
-		this.default_height = 520;
-		this.default_width = 460;
+		this.content_height = 520;
+		this.content_width = 460;
+		this.can_close = false;
 
 		var toolbarview = new Adw.ToolbarView ();
 		var headerbar = new Adw.HeaderBar () {
@@ -103,7 +102,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 		toolbarview.add_bottom_bar (new Adw.CarouselIndicatorDots () {
 			carousel = carousel
 		});
-		this.content = toolbarview;
+		this.child = toolbarview;
 	}
 
 	public Report (API.Account account, string? status_id = null) {
@@ -120,7 +119,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 		install_page_3 ();
 		install_page_4 (account.domain);
 
-		this.present ();
+		this.present (app.main_window);
 	}
 
 	private void install_page_1 () {
@@ -304,7 +303,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 			next_button.sensitive = true;
 			carousel.scroll_to (page_to, true);
 		} else {
-			this.close ();
+			this.force_close ();
 		}
 	}
 
@@ -332,7 +331,7 @@ public class Tuba.Dialogs.Report : Adw.Window {
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {
 						submit ();
-						this.destroy ();
+						this.force_close ();
 					}
 				}
 			);
