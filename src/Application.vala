@@ -386,7 +386,7 @@ namespace Tuba {
 		}
 
 		void open_preferences () {
-			new Dialogs.Preferences ().present ();
+			new Dialogs.Preferences ().present (main_window);
 		}
 
 		void open_current_account_profile () {
@@ -446,10 +446,7 @@ namespace Tuba {
 
 			const string COPYRIGHT = "© 2022 bleak_grey\n© 2022 Evangelos \"GeopJr\" Paterakis";
 
-			var dialog = new Adw.AboutWindow () {
-				transient_for = main_window,
-				modal = true,
-
+			var dialog = new Adw.AboutDialog () {
 				application_icon = Build.DOMAIN,
 				application_name = Build.NAME,
 				version = Build.VERSION,
@@ -469,7 +466,7 @@ namespace Tuba {
 			// Static functions seem to avoid this peculiar behavior.
 			//  dialog.translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : null;
 
-			dialog.present ();
+			dialog.present (main_window);
 
 			GLib.Idle.add (() => {
 				var style = Tuba.Celebrate.get_celebration_css_class (new GLib.DateTime.now ());

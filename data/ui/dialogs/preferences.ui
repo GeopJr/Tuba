@@ -12,7 +12,8 @@
 		<property name="step_increment">1</property>
 		<property name="page_increment">1</property>
 	</object>
-	<template class="TubaDialogsPreferences" parent="AdwPreferencesWindow">
+	<template class="TubaDialogsPreferences" parent="AdwPreferencesDialog">
+	  <property name="search-enabled">True</property>
 		<child>
 			<object class="AdwPreferencesPage">
 				<property name="icon_name">tuba-settings-symbolic</property>
