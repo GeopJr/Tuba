@@ -1,37 +1,69 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/preferences.ui")]
 public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 	class FilterRow : Adw.ExpanderRow {
-		public API.Filters.Filter filter;
+		private API.Filters.Filter filter;
+		private Dialogs.Preferences win;
+		public signal void filter_deleted (FilterRow self);
 
-		public FilterRow (API.Filters.Filter filter) {
+		public FilterRow (API.Filters.Filter filter, Dialogs.Preferences win) { // TODO: check if win leaks
 			this.filter = filter;
+			this.win = win;
 			this.title = filter.title;
 			this.subtitle = _("%d keywords").printf (filter.keywords.size);
+			this.activatable = false;
 
-			this.add_suffix (new Gtk.Button.from_icon_name ("user-trash-symbolic") {
+			var delete_btn = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
 				css_classes = { "circular", "flat", "error" },
 				tooltip_text = _("Delete"),
 				valign = Gtk.Align.CENTER
-			});
+			};
+			delete_btn.clicked.connect (on_delete);
+			this.add_suffix (delete_btn);
 
-			this.add_suffix (new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+			var edit_btn = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
 				css_classes = { "circular", "flat" },
 				tooltip_text = _("Edit"),
 				valign = Gtk.Align.CENTER
-			});
+			};
+			edit_btn.clicked.connect (on_edit);
+			this.add_suffix (edit_btn);
 
-			if (filter.keywords.size > 0 && filter.keywords.size <= 10) {
-				this.enable_expansion = true;
-				filter.keywords.@foreach (e => {
-					this.add_row (new Gtk.Label (e.keyword) {
-						ellipsize = Pango.EllipsizeMode.END,
-						halign = Gtk.Align.START
-					});
-					return true;
+			filter.keywords.@foreach (e => {
+				this.add_row (new Gtk.Label (e.keyword) {
+					ellipsize = Pango.EllipsizeMode.END,
+					halign = Gtk.Align.START,
+					margin_bottom = 8,
+					margin_end = 8,
+					margin_start = 8,
+					margin_top = 8
 				});
-			} else {
-				this.enable_expansion = false;
-			}
+				return true;
+			});
+		}
+
+		private void on_edit () {
+			new Dialogs.FilterEdit (win, filter);
+		}
+
+		private void on_delete () {
+			app.question.begin (
+				// translators: the variable is a filter name
+				{_("Are you sure you want to delete %s?").printf (filter.title), false},
+				null,
+				this.win,
+				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				false,
+				(obj, res) => {
+					if (app.question.end (res).truthy ()) {
+						new Request.DELETE (@"/api/v2/filters/$(filter.id)")
+							.with_account (accounts.active)
+							.then (() => {
+								filter_deleted (this);
+							}) // TODO: error handling
+							.exec ();
+					}
+				}
+			);
 		}
 	}
 
@@ -140,10 +172,16 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				Network.parse_array (parser, node => {
-					keywords_group.add (new FilterRow (API.Filters.Filter.from (node)));
+					var row = new FilterRow (API.Filters.Filter.from (node), this);
+					row.filter_deleted.connect (on_filter_delete);
+					keywords_group.add (row);
 				});
 			})
 			.exec ();
+	}
+
+	void on_filter_delete (FilterRow row) {
+		keywords_group.remove (row);
 	}
 
 	void setup_notification_mutes () {

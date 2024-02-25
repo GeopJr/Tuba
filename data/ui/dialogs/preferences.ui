@@ -245,7 +245,7 @@
 		</child>
 		<child>
 			<object class="AdwPreferencesPage" id="filters_page">
-				<property name="icon_name">tuba-bell-outline-symbolic</property>
+				<property name="icon_name">tuba-funnel-symbolic</property>
 				<property name="title" translatable="yes">Filters</property>
 				<property name="visible">0</property>
 				<child>

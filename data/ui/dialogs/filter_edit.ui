@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="TubaDialogsFilterEdit" parent="AdwWindow">
+    <property name="modal">1</property>
+    <property name="default_width">460</property>
+    <property name="default_height">520</property>
+    <property name="title" translatable="1">Edit Filter</property>
+    <child>
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <property name="show-end-title-buttons">0</property>
+            <property name="show-start-title-buttons">0</property>
+            <child type="start">
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Cancel</property>
+                <signal name="clicked" handler="on_close" swapped="no"/>
+              </object>
+            </child>
+            <child type="end">
+              <object class="GtkButton" id="save_btn">
+                <property name="receives_default">1</property>
+                <property name="sensitive">0</property>
+                <property name="label" translatable="yes">Save</property>
+                <!-- <signal name="clicked" handler="on_save_clicked" swapped="no"/> -->
+                <style>
+                  <class name="suggested-action"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+        <property name="content">
+          <object class="GtkScrolledWindow">
+            <property name="hexpand">1</property>
+            <property name="vexpand">1</property>
+            <child>
+              <object class="AdwClamp">
+                <property name="valign">start</property>
+                <property name="tightening-threshold">100</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="margin-top">24</property>
+                    <property name="margin-bottom">24</property>
+                    <property name="spacing">24</property>
+                    <child>
+                      <object class="GtkListBox">
+                        <property name="selection-mode">none</property>
+                        <style>
+                          <class name="boxed-list"/>
+                        </style>
+                        <child>
+                          <object class="AdwEntryRow" id="title_row">
+                            <property name="input-purpose">free-form</property>
+                            <property name="title" translatable="yes">Title</property>
+                            <signal name="changed" handler="on_title_row_changed" swapped="no"/>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwComboRow" id="expire_in_row">
+                            <property name="title" translatable="yes">Expires In</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwPreferencesGroup" id="context_group">
+                        <property name="title" translatable="yes">Contexts</property>
+                        <property name="description" translatable="yes">One or multiple contexts where the filter should apply</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwPreferencesGroup" id="keywords_group">
+                        <property name="title" translatable="yes">Keywords or Phrases</property>
+                        <child type="header-suffix">
+                          <object class="GtkButton">
+                            <property name="valign">center</property>
+                            <signal name="clicked" handler="add_keyword_row" swapped="no"/>
+                            <child>
+                              <object class="AdwButtonContent">
+                                <property name="icon-name">tuba-plus-large-symbolic</property>
+                                <property name="label">Add Keyword</property>
+                              </object>
+                            </child>
+                            <style>
+                              <class name="flat" />
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </property>
+      </object>
+    </child>
+    <style>
+      <class name="profile-editor"/>
+    </style>
+  </template>
+</interface>

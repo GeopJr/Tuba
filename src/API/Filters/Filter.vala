@@ -34,20 +34,28 @@ public class Tuba.API.Filters.Filter : Entity {
 		HOME,
 		NOTIFICATIONS,
 		PUBLIC,
+		THREAD,
 		ACCOUNT;
 
 		public string to_string () {
 			switch (this) {
-				case HOME:
-					return "home";
-				case NOTIFICATIONS:
-					return "notifications";
-				case PUBLIC:
-					return "public";
-				case ACCOUNT:
-					return "account";
-				default:
-					assert_not_reached ();
+				case HOME: return _("Home &amp; Lists");
+				case NOTIFICATIONS: return _("Notifications");
+				case PUBLIC: return _("Public Timelines");
+				case THREAD: return _("Conversations");
+				case ACCOUNT: return _("Profiles");
+				default: assert_not_reached ();
+			}
+		}
+
+		public string to_api () {
+			switch (this) {
+				case HOME: return "home";
+				case NOTIFICATIONS: return "notifications";
+				case PUBLIC: return "public";
+				case THREAD: return "thread";
+				case ACCOUNT: return "account";
+				default: assert_not_reached ();
 			}
 		}
 
@@ -59,6 +67,8 @@ public class Tuba.API.Filters.Filter : Entity {
 					return NOTIFICATIONS;
 				case "public":
 					return PUBLIC;
+				case "thread":
+					return THREAD;
 				case "account":
 					return ACCOUNT;
 				default:
