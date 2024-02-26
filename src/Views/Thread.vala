@@ -23,6 +23,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 
 	protected InstanceAccount? account { get; set; }
 	public API.Status root_status { get; set; }
+	public weak Widgets.Status? root_status_widget { get; set; default=null; }
 
 	public Thread (API.Status status) {
 		Object (
@@ -128,6 +129,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			}
 		}
 		base.on_content_changed ();
+		if (root_status_widget != null)
+			root_status_widget.grab_focus ();
 	}
 
 	public bool request () {
@@ -210,6 +213,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				widget_status.activatable = false;
 			#endif
 			widget_status.expand_root ();
+			root_status_widget = widget_status;
 		}
 
 		return widget_status;
