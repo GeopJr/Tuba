@@ -1,15 +1,21 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/preferences.ui")]
 public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
+	~Preferences () {
+		debug ("Destroying Preferences");
+	}
+
 	class FilterRow : Adw.ExpanderRow {
 		private API.Filters.Filter filter;
-		private Dialogs.Preferences win;
+		private weak Dialogs.Preferences win;
 		public signal void filter_deleted (FilterRow self);
 
-		public FilterRow (API.Filters.Filter filter, Dialogs.Preferences win) { // TODO: check if win leaks
+		~FilterRow () {
+			labels = {};
+		}
+
+		public FilterRow (API.Filters.Filter filter, Dialogs.Preferences win) {
 			this.filter = filter;
 			this.win = win;
-			this.title = filter.title;
-			this.subtitle = _("%d keywords").printf (filter.keywords.size);
 			this.activatable = false;
 
 			var delete_btn = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
@@ -28,21 +34,42 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 			edit_btn.clicked.connect (on_edit);
 			this.add_suffix (edit_btn);
 
-			filter.keywords.@foreach (e => {
-				this.add_row (new Gtk.Label (e.keyword) {
+			populate_from_filter ();
+		}
+
+		Gtk.Widget[] labels = {};
+		private void populate_from_filter () {
+			this.title = this.filter.title;
+			this.subtitle = GLib.ngettext ("%d keyword", "%d keywords", (ulong) this.filter.keywords.size).printf (this.filter.keywords.size);
+
+			foreach (var label in labels) {
+				this.remove (label.get_parent ());
+			}
+			labels = {};
+
+			this.filter.keywords.@foreach (e => {
+				var label = new Gtk.Label (e.keyword) {
 					ellipsize = Pango.EllipsizeMode.END,
 					halign = Gtk.Align.START,
 					margin_bottom = 8,
 					margin_end = 8,
 					margin_start = 8,
 					margin_top = 8
-				});
+				};
+				labels += label;
+				this.add_row (label);
 				return true;
 			});
 		}
 
 		private void on_edit () {
-			new Dialogs.FilterEdit (win, filter);
+			var dlg = new Dialogs.FilterEdit (win, filter);
+			dlg.saved.connect (on_save);
+		}
+
+		private void on_save (API.Filters.Filter filter) {
+			this.filter = filter;
+			populate_from_filter ();
 		}
 
 		private void on_delete () {
@@ -59,7 +86,14 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 							.with_account (accounts.active)
 							.then (() => {
 								filter_deleted (this);
-							}) // TODO: error handling
+							})
+							.on_error ((code, message) => {
+								// translators: the variable is an error message
+								win.add_toast (new Adw.Toast (_("Couldn't delete filter: %s").printf (message)) {
+									timeout = 0
+								});
+								warning (@"Couldn't delete filter $(this.filter.id): $code $message");
+							})
 							.exec ();
 					}
 				}
@@ -102,7 +136,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 	[GtkChild] unowned Adw.SwitchRow poll_results_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow edits_notifications_switch;
 
-	[GtkChild] unowned Adw.PreferencesPage filters_page;
+	//  [GtkChild] unowned Adw.PreferencesPage filters_page;
 	[GtkChild] unowned Adw.PreferencesGroup keywords_group;
 
 	NotificationTypeMute[] notification_type_mutes;
@@ -131,7 +165,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 
 	construct {
 		transient_for = app.main_window;
-
 		post_visibility_combo_row.model = accounts.active.visibility_list;
 
 		// Setup scheme combo row
@@ -168,8 +201,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 		new Request.GET ("/api/v2/filters")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
-				filters_page.visible = true; // Backend supports it
-
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				Network.parse_array (parser, node => {
 					var row = new FilterRow (API.Filters.Filter.from (node), this);
@@ -198,10 +229,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 		update_notification_mutes_switches ();
 	}
 
-	public static void open () {
-		new Preferences ().show ();
-	}
-
+	ulong dlcr_id = 0;
 	void bind () {
 		//  settings.bind ("dark-theme", dark_theme, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("work-in-background", work_in_background, "active", SettingsBindFlags.DEFAULT);
@@ -224,11 +252,12 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 
-		ulong dlcr_id = 0;
-		dlcr_id = default_language_combo_row.notify["selected-item"].connect (() => {
-			lang_changed = true;
-			default_language_combo_row.disconnect (dlcr_id);
-		});
+		dlcr_id = default_language_combo_row.notify["selected-item"].connect (dlcr_cb);
+	}
+
+	private void dlcr_cb () {
+		lang_changed = true;
+		default_language_combo_row.disconnect (dlcr_id);
 	}
 
 	[GtkCallback]
@@ -238,6 +267,18 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 
 		style_manager.color_scheme = selected_item.adwaita_scheme;
 		settings.color_scheme = selected_item.color_scheme;
+	}
+
+	[GtkCallback]
+	private void add_keyword_row () {
+		var dlg = new Dialogs.FilterEdit (this);
+		dlg.saved.connect (on_filter_save);
+	}
+
+	private void on_filter_save (API.Filters.Filter filter) {
+		var row = new FilterRow (filter, this);
+		row.filter_deleted.connect (on_filter_delete);
+		keywords_group.add (row);
 	}
 
 	private void on_post_visibility_changed () {

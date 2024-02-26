@@ -247,13 +247,14 @@
 			<object class="AdwPreferencesPage" id="filters_page">
 				<property name="icon_name">tuba-funnel-symbolic</property>
 				<property name="title" translatable="yes">Filters</property>
-				<property name="visible">0</property>
+				<property name="visible">1</property>
 				<child>
 					<object class="AdwPreferencesGroup" id="keywords_group">
 						<property name="title" translatable="yes">Keywords</property>
 						<child type="header-suffix">
 							<object class="GtkButton">
 								<property name="valign">center</property>
+								<signal name="clicked" handler="add_keyword_row" swapped="no" />
 								<child>
 									<object class="AdwButtonContent">
 										<property name="icon-name">tuba-plus-large-symbolic</property>

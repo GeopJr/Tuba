@@ -385,7 +385,7 @@ namespace Tuba {
 		}
 
 		void open_preferences () {
-			Dialogs.Preferences.open ();
+			new Dialogs.Preferences ().present ();
 		}
 
 		void open_current_account_profile () {
