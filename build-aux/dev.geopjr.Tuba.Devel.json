@@ -1,7 +1,7 @@
 {
     "app-id": "dev.geopjr.Tuba",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "45beta",
+    "runtime-version": "46beta",
     "sdk": "org.gnome.Sdk",
     "command": "dev.geopjr.Tuba",
     "finish-args": [
