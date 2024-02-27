@@ -158,6 +158,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 	}
 
 	private bool lang_changed { get; set; default=false; }
+	private bool privacy_changed { get; set; default=false; }
 
 	static construct {
 		typeof (ColorSchemeListModel).ensure ();
@@ -251,7 +252,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 		settings.bind ("darken-images-on-dark-mode", darken_images_on_dark_mode, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
-
 		dlcr_id = default_language_combo_row.notify["selected-item"].connect (dlcr_cb);
 	}
 
@@ -283,6 +283,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 
 	private void on_post_visibility_changed () {
 		settings.default_post_visibility = (string) ((InstanceAccount.Visibility) post_visibility_combo_row.selected_item).id;
+		privacy_changed = true;
 	}
 
 	private void setup_languages_combo_row () {
@@ -337,6 +338,13 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 					})
 					.exec ();
 			}
+		}
+
+		if (privacy_changed && settings.default_post_visibility != "direct") {
+			new Request.PATCH ("/api/v1/accounts/update_credentials")
+				.with_account (accounts.active)
+				.with_form_data ("source[privacy]", settings.default_post_visibility)
+				.exec ();
 		}
 
 		if (default_content_type_combo_row.visible)
