@@ -201,7 +201,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				Object[] to_add = {};
 				Network.parse_array (parser, node => {
 					var e = Tuba.Helper.Entity.from_json (node, accepts);
-					to_add += e;
+					if (!(should_hide (e))) to_add += e;
 				});
 				model.splice (model.get_n_items (), 0, to_add);
 
@@ -273,8 +273,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		return null;
 	}
 
-	// TODO: check if we even have to handle this ourselves.
-	//		 I really don't think we should.
 	public virtual bool should_hide (Entity entity) {
 		var status_entity = entity as API.Status;
 		if (status_entity != null) {

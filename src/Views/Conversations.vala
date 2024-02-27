@@ -7,6 +7,15 @@ public class Tuba.Views.Conversations : Views.Timeline {
         stream_event[InstanceAccount.EVENT_CONVERSATION].connect (on_new_post);
     }
 
+    public override bool should_hide (Entity entity) {
+		var conversation_entity = entity as API.Conversation;
+		if (conversation_entity != null && conversation_entity.last_status != null) {
+			return base.should_hide (conversation_entity.last_status);
+		}
+
+		return false;
+	}
+
     public override string? get_stream_url () {
 		return account != null
             ? @"$(account.instance)/api/v1/streaming?stream=direct&access_token=$(account.access_token)"
