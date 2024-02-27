@@ -660,4 +660,5 @@ GtkSourceAssistant row:last-child {
 
 .filter {
 	margin: -2px;
+	border-radius: 0;
 }
