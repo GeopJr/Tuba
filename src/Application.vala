@@ -248,7 +248,7 @@ namespace Tuba {
 			set_accels_for_action ("app.about", {"F1"});
 			set_accels_for_action ("app.open-preferences", {"<Ctrl>comma"});
 			set_accels_for_action ("app.compose", {"<Ctrl>T", "<Ctrl>N"});
-			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>Left", "Escape", "<Alt>KP_Left", "Pointer_DfltBtnPrev"});
+			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>KP_Left"});
 			set_accels_for_action ("app.refresh", {"<Ctrl>R", "F5"});
 			set_accels_for_action ("app.search", {"<Ctrl>F"});
 			set_accels_for_action ("app.quit", {"<Ctrl>Q"});

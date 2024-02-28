@@ -301,6 +301,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		{"copy-url", copy_url},
 		{"open-in-browser", open_in_browser},
 		{"save-as", save_as},
+		{"fullscreen", toggle_fullscreen},
+		{"zoom-in", zoom_in_action},
+		{"zoom-out", zoom_out_action},
+		{"scroll-next", on_next_clicked},
+		{"scroll-back", on_previous_clicked}
 	};
 
 	private Gee.ArrayList<Item> items = new Gee.ArrayList<Item> ();
@@ -332,10 +337,91 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 	construct {
 		if (is_rtl) back_btn.icon_name = "tuba-right-large-symbolic";
-		// Move between media using the arrow keys
-		var keypresscontroller = new Gtk.EventControllerKey ();
-		keypresscontroller.key_pressed.connect (on_keypress);
-		add_controller (keypresscontroller);
+
+		var shortcutscontroller = new Gtk.ShortcutController ();
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("Escape"),
+			new Gtk.NamedAction ("app.back")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Alt>Left"),
+			new Gtk.NamedAction ("app.back")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("Pointer_DfltBtnPrev"),
+			new Gtk.NamedAction ("app.back")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("F11"),
+			new Gtk.NamedAction ("mediaviewer.fullscreen")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>plus"),
+			new Gtk.NamedAction ("mediaviewer.zoom-in")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>plus"),
+			new Gtk.NamedAction ("mediaviewer.zoom-in")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>equal"),
+			new Gtk.NamedAction ("mediaviewer.zoom-in")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>equal"),
+			new Gtk.NamedAction ("mediaviewer.zoom-in")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>KP_Add"),
+			new Gtk.NamedAction ("mediaviewer.zoom-in")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>KP_Add"),
+			new Gtk.NamedAction ("mediaviewer.zoom-in")
+		));
+
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>minus"),
+			new Gtk.NamedAction ("mediaviewer.zoom-out")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>minus"),
+			new Gtk.NamedAction ("mediaviewer.zoom-out")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>underscore"),
+			new Gtk.NamedAction ("mediaviewer.zoom-out")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>underscore"),
+			new Gtk.NamedAction ("mediaviewer.zoom-out")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>KP_Subtract"),
+			new Gtk.NamedAction ("mediaviewer.zoom-out")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>KP_Subtract"),
+			new Gtk.NamedAction ("mediaviewer.zoom-out")
+		));
+
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("Left"),
+			new Gtk.NamedAction ("mediaviewer.scroll-back")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("KP_Left"),
+			new Gtk.NamedAction ("mediaviewer.scroll-back")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("Right"),
+			new Gtk.NamedAction ("mediaviewer.scroll-next")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("KP_Right"),
+			new Gtk.NamedAction ("mediaviewer.scroll-next")
+		));
+		add_controller (shortcutscontroller);
 
 		var drag = new Gtk.GestureDrag ();
 		drag.drag_begin.connect (on_drag_begin);
@@ -537,49 +623,18 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		return GLib.Source.REMOVE;
 	}
 
-	protected bool on_keypress (uint keyval, uint keycode, Gdk.ModifierType state) {
-		state &= Gdk.MODIFIER_MASK;
-		if (state != 0) {
-			if (state != Gdk.ModifierType.CONTROL_MASK && state != (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) return false;
+	private void zoom_in_action () {
+		Item? page = safe_get ((int) carousel.position);
+		if (page == null) return;
 
-			Item? page = safe_get ((int) carousel.position);
-			if (page == null) return false;
+		page.zoom_in ();
+	}
 
-			switch (keyval) {
-				case Gdk.Key.plus:
-				case Gdk.Key.equal:
-				case Gdk.Key.KP_Add:
-					page.zoom_in ();
-					break;
-				case Gdk.Key.minus:
-				case Gdk.Key.underscore:
-				case Gdk.Key.KP_Subtract:
-					page.zoom_out ();
-					break;
-				default:
-					return false;
-			}
+	private void zoom_out_action () {
+		Item? page = safe_get ((int) carousel.position);
+		if (page == null) return;
 
-			return true;
-		}
-
-		switch (keyval) {
-			case Gdk.Key.Left:
-			case Gdk.Key.KP_Left:
-				scroll_to (((int) carousel.position) - 1, false);
-				break;
-			case Gdk.Key.Right:
-			case Gdk.Key.KP_Right:
-				scroll_to (((int) carousel.position) + 1, false);
-				break;
-			case Gdk.Key.F11:
-				toggle_fullscreen ();
-				break;
-			default:
-				return false;
-		}
-
-		return true;
+		page.zoom_out ();
 	}
 
 	[GtkCallback]
