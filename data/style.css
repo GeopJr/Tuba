@@ -657,3 +657,8 @@ GtkSourceAssistant row:last-child {
 .account-stats {
 	font-size: small;
 }
+
+.filter {
+	margin: -2px;
+	border-radius: 0;
+}

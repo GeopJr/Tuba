@@ -201,7 +201,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				Object[] to_add = {};
 				Network.parse_array (parser, node => {
 					var e = Tuba.Helper.Entity.from_json (node, accepts);
-					to_add += e;
+					if (!(should_hide (e))) to_add += e;
 				});
 				model.splice (model.get_n_items (), 0, to_add);
 
@@ -273,6 +273,15 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		return null;
 	}
 
+	public virtual bool should_hide (Entity entity) {
+		var status_entity = entity as API.Status;
+		if (status_entity != null) {
+			return status_entity.formal.tuba_filter_hidden;
+		}
+
+		return false;
+	}
+
 	public virtual void on_new_post (Streamable.Event ev) {
 		if (!has_finished_request) return;
 
@@ -281,6 +290,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				model.insert (0, Entity.from_json (accepts, ev.get_node ()));
 			#else
 				var entity = Entity.from_json (accepts, ev.get_node ());
+				if (should_hide (entity)) return;
 
 				if (use_queue && scrolled.vadjustment.value > 1000) {
 					entity_queue += entity;
