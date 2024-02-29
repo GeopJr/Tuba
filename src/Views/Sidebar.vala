@@ -194,9 +194,6 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	void view_announcements_cb () {
 		app.open_announcements ();
-
-		if (this.account != null)
-			this.account.unread_announcements = 0;
 	}
 
 	// Account

@@ -399,6 +399,7 @@ namespace Tuba {
 				dismiss_all_announcements = true // dismiss all by default I guess
 			});
 			close_sidebar ();
+			if (accounts.active != null) accounts.active.unread_announcements = 0;
 		}
 
 		private void close_sidebar () {
