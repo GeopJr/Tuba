@@ -2,10 +2,9 @@
 <interface>
   <requires lib="gtk" version="4.0" />
   <requires lib="libadwaita" version="1.0" />
-  <template class="TubaDialogsFilterEdit" parent="AdwWindow">
-    <property name="modal">1</property>
-    <property name="default_width">460</property>
-    <property name="default_height">520</property>
+  <template class="TubaDialogsFilterEdit" parent="AdwDialog">
+    <property name="content_width">460</property>
+    <property name="content_height">520</property>
     <property name="title" translatable="1">Edit Filter</property>
     <child>
       <object class="AdwToolbarView">

@@ -1,5 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/filter_edit.ui")]
-public class Tuba.Dialogs.FilterEdit : Adw.Window {
+public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
 	[GtkChild] unowned Adw.EntryRow title_row;
 	[GtkChild] unowned Adw.ComboRow expire_in_row;
 	[GtkChild] unowned Adw.PreferencesGroup context_group;
@@ -99,8 +99,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.Window {
 	}
 
 	string? filter_id = null;
-	public FilterEdit (Gtk.Window win, API.Filters.Filter? filter = null) {
-		this.transient_for = win;
+	public FilterEdit (Gtk.Widget win, API.Filters.Filter? filter = null) {
 		populate_exp_row ();
 
 		if (filter != null) {
@@ -127,7 +126,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.Window {
 		}
 
 		validate ();
-		this.present ();
+		this.present (win);
 	}
 
 	class ExpWrapper : Object {
@@ -247,7 +246,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.Window {
 
 	[GtkCallback]
 	void on_close () {
-		destroy ();
+		force_close ();
 	}
 
 	[GtkCallback]
