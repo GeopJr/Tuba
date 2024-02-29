@@ -25,21 +25,21 @@ public class Tuba.API.Announcement : Entity, Widgetizable {
 		}
 	}
 
-    private Gee.HashMap<string, string>? gen_emojis_map () {
-        var res = new Gee.HashMap<string, string> ();
-        if (emojis != null && emojis.size > 0) {
-            emojis.@foreach (e => {
-                res.set (e.shortcode, e.url);
-                return true;
-            });
-        }
+	private Gee.HashMap<string, string>? gen_emojis_map () {
+		var res = new Gee.HashMap<string, string> ();
+		if (emojis != null && emojis.size > 0) {
+			emojis.@foreach (e => {
+				res.set (e.shortcode, e.url);
+				return true;
+			});
+		}
 
-        return res;
-    }
+		return res;
+	}
 
 	public override Gtk.Widget to_widget () {
-        return new Widgets.Announcement (this);
-    }
+		return new Widgets.Announcement (this);
+	}
 
 	public override void open () {
 		if (this.read) return;

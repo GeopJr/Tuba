@@ -148,15 +148,6 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		}
 	};
 
-	public static Place PLACE_ANNOUNCEMENTS = new Place () { // vala-lint=naming-convention
-
-		icon = "tuba-lightbulb-symbolic",
-		title = _("Announcements"),
-		open_func = (win) => {
-			win.open_view (set_as_sidebar_item (new Views.Announcements ()));
-		}
-	};
-
 	public override void register_known_places (GLib.ListStore places) {
 		app.bind_property ("is-mobile", PLACE_NOTIFICATIONS, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 		app.bind_property ("is-mobile", PLACE_CONVERSATIONS, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
@@ -176,7 +167,6 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		places.append (PLACE_LISTS);
 
 		// TODO: Move to menu button?
-		places.append (PLACE_ANNOUNCEMENTS);
 		places.append (PLACE_FOLLOW_REQUESTS);
 	}
 

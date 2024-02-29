@@ -48,6 +48,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public virtual signal void activated () {
 		gather_instance_info ();
 		gather_instance_custom_emojis ();
+		check_announcements ();
 	}
 	public virtual signal void deactivated () {}
 	public virtual signal void added () {
@@ -243,6 +244,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	// Notifications
 
+	public int unread_announcements { get; set; default = 0; }
 	public int unread_count { get; set; default = 0; }
 	public int last_read_id { get; set; default = 0; }
 	public int last_received_id { get; set; default = 0; }
@@ -359,8 +361,25 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				var root = network.parse (parser);
 				if (!root.has_member ("notifications")) return;
 				var notifications = root.get_object_member ("notifications");
-				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1") );
+				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1"));
 				if (!passed_init_notifications) init_notifications ();
+			})
+			.exec ();
+	}
+
+	public void check_announcements () {
+		new Request.GET ("/api/v1/announcements")
+			.with_account (this)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var array = Network.get_array_mstd (parser);
+				if (array != null) {
+					int t_unread_announcements = 0;
+					array.foreach_element ((array, i, node) => {
+						if (node.get_object ().get_boolean_member_with_default ("read", true) == false) t_unread_announcements += 1;
+					});
+					unread_announcements = t_unread_announcements;
+				}
 			})
 			.exec ();
 	}

@@ -5,6 +5,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	[GtkChild] unowned Widgets.Avatar accounts_button_avi;
 	[GtkChild] unowned Gtk.MenuButton menu_btn;
 	[GtkChild] unowned Gtk.Popover account_switcher_popover_menu;
+	[GtkChild] unowned Adw.Banner banner;
 
 	protected InstanceAccount? account { get; set; default = null; }
 
@@ -12,6 +13,18 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	protected Gtk.SliceListModel account_items;
 	protected Gtk.FlattenListModel item_model;
 	protected GLib.ListStore accounts_model;
+
+	public int unread_announcements {
+		set {
+			if (value > 0) {
+				banner.revealed = true;
+				// tanslators: used in a banner, the variable is the number of unread announcements
+				banner.title = GLib.ngettext ("%d Announcement", "%d Announcements", (ulong) value).printf (value);
+			} else {
+				banner.revealed = false;
+			}
+		}
+	}
 
 	static construct {
 		typeof (Widgets.EmojiLabel).ensure ();
@@ -30,6 +43,10 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		menu_model.append_section (null, account_submenu_model);
 
 		var misc_submenu_model = new GLib.Menu ();
+		misc_submenu_model.append (_("Announcements"), "app.open-announcements");
+		menu_model.append_section (null, misc_submenu_model);
+
+		misc_submenu_model = new GLib.Menu ();
 		misc_submenu_model.append (_("Preferences"), "app.open-preferences");
 		misc_submenu_model.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
 		misc_submenu_model.append (_("About %s").printf (Build.NAME), "app.about");
@@ -50,6 +67,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		saved_accounts.set_header_func (on_account_header_update);
 
 		construct_account_holder ();
+		banner.button_clicked.connect (view_announcements_cb);
 	}
 
 	public virtual Gtk.Widget on_accounts_row_create (Object obj) {
@@ -87,10 +105,13 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	}
 
 	private Binding sidebar_avatar_btn;
+	private Binding announcements_banner;
 	protected virtual void on_account_changed (InstanceAccount? account) {
 		if (this.account != null) {
 			sidebar_avatar_btn.unbind ();
+			announcements_banner.unbind ();
 		}
+		unread_announcements = 0;
 
 		if (app?.main_window != null)
 			app.main_window.go_back_to_start ();
@@ -98,6 +119,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		this.account = account;
 
 		if (account != null) {
+			announcements_banner = this.account.bind_property ("unread-announcements", this, "unread-announcements", BindingFlags.SYNC_CREATE);
 			sidebar_avatar_btn = this.account.bind_property ("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
 			account_items.model = account.known_places;
 			update_selected_account ();
@@ -152,8 +174,8 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		if (row.place.open_func != null)
 			row.place.open_func (app.main_window);
 
-        var split_view = app.main_window.split_view;
-        if (split_view.collapsed)
+		var split_view = app.main_window.split_view;
+		if (split_view.collapsed)
 			split_view.show_sidebar = false;
 	}
 
@@ -171,6 +193,9 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	}
 
 
+	void view_announcements_cb () {
+		app.open_announcements ();
+	}
 
 	// Account
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/account.ui")]
@@ -278,5 +303,4 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		else
 			new Dialogs.NewAccount ().present ();
 	}
-
 }
