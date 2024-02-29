@@ -18,7 +18,8 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		set {
 			if (value > 0) {
 				banner.revealed = true;
-				banner.title = _("%d unread announcements").printf (value);
+				// tanslators: used in a banner, the variable is the number of unread announcements
+				banner.title = GLib.ngettext ("%d Announcement", "%d Announcements", (ulong) value).printf (value);
 			} else {
 				banner.revealed = false;
 			}
