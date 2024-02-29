@@ -19,20 +19,20 @@ endif
 devel = get_option('devel')
 distro = get_option('distro')
 
-# Setup configuration file, accessed via vapi/build.vapi
+# Setup configuration file
 config = configuration_data()
-config.set_quoted('EXEC_NAME', meson.project_name())
-config.set_quoted('GETTEXT_PACKAGE', meson.project_name())
-config.set_quoted('LOCALEDIR', join_paths(get_option('prefix'), get_option('localedir')))
-config.set_quoted('DOMAIN', meson.project_name ())
-config.set_quoted('G_LOG_DOMAIN', 'Tuba')
-config.set_quoted('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) + '/')
-config.set_quoted('VERSION', meson.project_version())
-config.set_quoted('PREFIX', get_option('prefix'))
-config.set_quoted('NAME', 'Tuba')
-config.set_quoted('WEBSITE', 'https://github.com/GeopJr/Tuba')
-config.set_quoted('SUPPORT_WEBSITE', 'https://github.com/GeopJr/Tuba/issues')
-config.set_quoted('PROFILE', devel ? 'development' : 'production')
+config.set('EXEC_NAME', meson.project_name())
+config.set('GETTEXT_PACKAGE', meson.project_name())
+config.set('LOCALEDIR', join_paths(get_option('prefix'), get_option('localedir')))
+config.set('DOMAIN', meson.project_name ())
+config.set('G_LOG_DOMAIN', 'Tuba')
+config.set('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) + '/')
+config.set('VERSION', meson.project_version())
+config.set('PREFIX', get_option('prefix'))
+config.set('NAME', 'Tuba')
+config.set('WEBSITE', 'https://github.com/GeopJr/Tuba')
+config.set('SUPPORT_WEBSITE', 'https://github.com/GeopJr/Tuba/issues')
+config.set('PROFILE', devel ? 'development' : 'production')
 
 if devel
   git = find_program('git')
@@ -40,7 +40,7 @@ if devel
     branch = run_command('git', 'branch', '--show-current', check: true).stdout().strip()
     revision = run_command('git', 'rev-parse', '--short', 'HEAD', check: true).stdout().strip()
     version = '@0@-@1@'.format(branch, revision)
-    config.set_quoted('VERSION', version)
+    config.set('VERSION', version)
   endif
 endif
 
@@ -49,10 +49,15 @@ if devmode
   add_project_arguments(['--define=DEV_MODE'], language: 'vala')
 endif
 
-configure_file(output: 'config.h', configuration: config)
+if host_machine.system() == 'windows'
+  add_project_arguments(['--define=WINDOWS'], language: 'vala')
+  add_project_arguments('-mwindows', language: 'c')
+elif host_machine.system() == 'darwin'
+  add_project_arguments(['--define=DARWIN'], language: 'vala')
+endif
 
+add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
 add_project_arguments (
-  '--include','config.h',
   '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
   language: 'c'
 )
@@ -93,9 +98,7 @@ if gtksourceview_dep.version().version_compare('>=5.7.1')
   add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
 endif
 
-sources = files(
-    'vapi/build.vapi',
-)
+sources = files()
 subdir('src')
 
 final_deps = [
@@ -105,6 +108,7 @@ final_deps = [
   dependency('json-glib-1.0', version: '>=1.4.4'),
   dependency('libxml-2.0'),
   dependency('libsecret-1', required: true),
+  dependency('icu-uc'),
   libspelling,
   gtksourceview_dep,
   libgtk_dep,

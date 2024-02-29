@@ -25,6 +25,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 		icon = "user-home-symbolic",
 		title = _("Home"),
+		needs_attention = false,
 		open_func = win => {
 			//  win.open_view (new Views.Main ());
 			//  win.back();

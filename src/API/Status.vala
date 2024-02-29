@@ -35,6 +35,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     public API.Poll? poll { get; set; default = null; }
     public Gee.ArrayList<API.Emoji>? emojis { get; set; }
     public API.PreviewCard? card { get; set; default = null; }
+    public Gee.ArrayList<API.Filters.FilterResult>? filtered { get; set; default = null; }
 
     public override Type deserialize_array_type (string prop) {
 		switch (prop) {
@@ -47,9 +48,45 @@ public class Tuba.API.Status : Entity, Widgetizable {
 				return typeof (API.Attachment);
             case "emojis":
 				return typeof (API.Emoji);
+			case "filtered":
+				return typeof (API.Filters.FilterResult);
 		}
 
 		return base.deserialize_array_type (prop);
+	}
+
+	public bool tuba_filter_hidden {
+		get {
+			if (filtered == null || filtered.size == 0) return false;
+
+			bool res = false;
+			filtered.@foreach (e => {
+				if (e.filter.tuba_hidden) {
+					res = true;
+					return false;
+				}
+				return true;
+			});
+
+			return res;
+		}
+	}
+
+	public string? tuba_filter_warn {
+		owned get {
+			if (filtered == null || filtered.size == 0) return null;
+
+			string? res = null;
+			filtered.@foreach (e => {
+				if (!e.filter.tuba_hidden) {
+					res = e.filter.title;
+					return false;
+				}
+				return true;
+			});
+
+			return res;
+		}
 	}
 
 	public Tuba.Views.Thread.ThreadRole tuba_thread_role { get; set; default = Tuba.Views.Thread.ThreadRole.NONE; }

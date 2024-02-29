@@ -241,6 +241,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         if (_fix_overflow_hack) {
             label.lines = int.max (100, widgets.length);
             label.ellipsize = Pango.EllipsizeMode.END;
+            label.width_chars = 1;
         }
 
         if (old_label != new_label) {

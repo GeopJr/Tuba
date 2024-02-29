@@ -476,6 +476,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public virtual void on_notification_event (Streamable.Event ev) {
 		try {
 			var entity = create_entity<API.Notification> (ev.get_node ());
+			if (entity.status != null && entity.status.formal.tuba_filter_hidden) return;
 
 			var id = int.parse (entity.id);
 			if (id > last_received_id) {

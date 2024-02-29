@@ -107,7 +107,7 @@
 	[GtkChild] protected unowned Gtk.Button name_button;
 	[GtkChild] protected unowned Widgets.RichLabel name_label;
 	[GtkChild] protected unowned Gtk.Label handle_label;
-	[GtkChild] protected unowned Gtk.Box indicators;
+	[GtkChild] public unowned Gtk.Box indicators;
 	[GtkChild] protected unowned Gtk.Label date_label;
 	[GtkChild] protected unowned Gtk.Image pin_indicator;
 	[GtkChild] protected unowned Gtk.Image edited_indicator;
@@ -123,11 +123,15 @@
 	[GtkChild] protected unowned Gtk.Label spoiler_label_rev;
 	[GtkChild] protected unowned Gtk.Box spoiler_status_con;
 
+	[GtkChild] protected unowned Gtk.Stack filter_stack;
+	[GtkChild] protected unowned Gtk.Label filter_label;
+
 	public ActionsRow actions { get; private set; }
 	protected Gtk.PopoverMenu context_menu { get; set; }
 	private const GLib.ActionEntry[] ACTION_ENTRIES = {
 		{"copy-url", copy_url},
-		{"open-in-browser", open_in_browser}
+		{"open-in-browser", open_in_browser},
+		{"report", report_status}
 	};
 	private GLib.SimpleActionGroup action_group;
 	private SimpleAction edit_history_simple_action;
@@ -268,6 +272,8 @@
 			menu_model.append_item (pin_menu_item);
 			menu_model.append (_("Edit"), "status.edit-status");
 			menu_model.append (_("Delete"), "status.delete-status");
+		} else {
+			menu_model.append (_("Report"), "status.report");
 		}
 
 		context_menu = new Gtk.PopoverMenu.from_model (menu_model);
@@ -280,6 +286,10 @@
 
 	private void open_in_browser () {
 		Host.open_uri (status.formal.url ?? status.formal.account.url);
+	}
+
+	private void report_status () {
+		new Dialogs.Report (status.formal.account, status.formal.id);
 	}
 
 	private void view_edit_history () {
@@ -412,6 +422,7 @@
 	Widgets.Avatar? actor_avatar = null;
 	ulong header_button_activate;
 	private Binding actor_avatar_binding;
+	string? header_kind_url = null;
 	const string[] SHOULD_SHOW_ACTOR_AVATAR = {
 		InstanceAccount.KIND_REBLOG,
 		InstanceAccount.KIND_REMOTE_REBLOG,
@@ -458,10 +469,16 @@
 		header_icon.icon_name = res_kind.icon;
 		header_label.instance_emojis = this.kind_instigator.emojis_map;
 		header_label.label = res_kind.description;
+		header_kind_url = res_kind.url;
 
 		if (header_button_activate > 0) header_button.disconnect (header_button_activate);
-		if (res_kind.url != null)
-			header_button_activate = header_button.clicked.connect (() => header_label.on_activate_link (res_kind.url));
+		if (header_kind_url != null)
+			header_button_activate = header_button.clicked.connect (on_header_button_clicked);
+	}
+
+	private void on_header_button_clicked () {
+		if (header_kind_url != null)
+			header_label.on_activate_link (header_kind_url);
 	}
 
 	private void open_kind_instigator_account () {
@@ -501,6 +518,17 @@
 	Binding[] bindings = {};
 	protected virtual void bind () {
 		soft_unbind ();
+
+		if (this.status.formal.filtered != null && this.status.formal.filtered.size > 0) {
+			filter_stack.visible_child_name = "filter";
+
+			string? filter_warn = this.status.formal.tuba_filter_warn;
+			if (filter_warn != null) {
+				filter_label.label = _("Filtered: %s").printf (filter_warn);
+			} else {
+				filter_label.label = _("Filtered");
+			}
+		}
 
 		if (actions != null) {
 			actions.unbind ();
@@ -595,6 +623,8 @@
 	}
 
 	public void soft_unbind () {
+		filter_stack.visible_child_name = "status";
+
 		foreach (var handler_id in formal_handler_ids) {
 			status.formal.disconnect (handler_id);
 		}
@@ -626,6 +656,12 @@
 
 	[GtkCallback] public void toggle_spoiler () {
 		status.formal.tuba_spoiler_revealed = !status.formal.tuba_spoiler_revealed;
+	}
+
+	[GtkCallback] public void toggle_filter () {
+		if (this.status.formal.filtered != null && this.status.formal.filtered.size > 0) {
+			filter_stack.visible_child_name = filter_stack.visible_child_name == "filter" ? "status" : "filter";
+		}
 	}
 
 	[GtkCallback] public void on_avatar_clicked () {

@@ -8,6 +8,10 @@
 	color: @text_view_bg;
 }
 
+.ttl-sidebar .badge.no-attention {
+	background: alpha(@sidebar_fg_color, .4);
+}
+
 .font-bold {
 	font-weight: bold;
 }
@@ -652,4 +656,9 @@ GtkSourceAssistant row:last-child {
 
 .account-stats {
 	font-size: small;
+}
+
+.filter {
+	margin: -2px;
+	border-radius: 0;
 }

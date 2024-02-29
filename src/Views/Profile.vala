@@ -231,6 +231,12 @@ public class Tuba.Views.Profile : Views.Accounts {
 		});
 		actions.add_action (open_in_browser_action);
 
+		var report_action = new SimpleAction ("report", null);
+		report_action.activate.connect (v => {
+			new Dialogs.Report (profile.account);
+		});
+		actions.add_action (report_action);
+
 		muting_action = new SimpleAction.stateful ("muting", null, false);
 		muting_action.change_state.connect (v => {
 			var state = v.get_boolean ();

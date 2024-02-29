@@ -195,6 +195,11 @@ namespace Tuba {
 			Intl.textdomain (Build.GETTEXT_PACKAGE);
 
 			GLib.Environment.unset_variable ("GTK_THEME");
+			#if WINDOWS || DARWIN
+				GLib.Environment.set_variable ("SECRET_BACKEND", "file", false);
+				if (GLib.Environment.get_variable ("SECRET_BACKEND") == "file")
+					GLib.Environment.set_variable ("SECRET_FILE_TEST_PASSWORD", @"$(GLib.Environment.get_user_name ())$(Build.DOMAIN)", false);
+			#endif
 
 			app = new Application ();
 			return app.run (args);
@@ -244,7 +249,7 @@ namespace Tuba {
 			set_accels_for_action ("app.about", {"F1"});
 			set_accels_for_action ("app.open-preferences", {"<Ctrl>comma"});
 			set_accels_for_action ("app.compose", {"<Ctrl>T", "<Ctrl>N"});
-			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>Left", "Escape", "<Alt>KP_Left", "Pointer_DfltBtnPrev"});
+			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>KP_Left"});
 			set_accels_for_action ("app.refresh", {"<Ctrl>R", "F5"});
 			set_accels_for_action ("app.search", {"<Ctrl>F"});
 			set_accels_for_action ("app.quit", {"<Ctrl>Q"});
@@ -381,7 +386,7 @@ namespace Tuba {
 		}
 
 		void open_preferences () {
-			Dialogs.Preferences.open ();
+			new Dialogs.Preferences ().present ();
 		}
 
 		void open_current_account_profile () {

@@ -27,43 +27,41 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	private void save_as () {
-		save_media_as (entity.url);
+		save_media_as.begin (entity.url);
 	}
 
-	public static void save_media_as (string url) {
+	public static async void save_media_as (string url) {
 		var chooser = new Gtk.FileDialog () {
 			title = _("Save Attachment"),
 			modal = true,
 			initial_name = Path.get_basename (url)
 		};
 
-		chooser.save.begin (app.main_window, null, (obj, res) => {
-			try {
-				var file = chooser.save.end (res);
-				if (file != null) {
-					debug (@"Downloading file: $(url)…");
-					download.begin (url, file, (obj, res) => {
-						download.end (res);
-						app.toast (_("Saved Media"));
-					});
-				}
-			} catch (Error e) {
-				// User dismissing the dialog also ends here so don't make it sound like
-				// it's an error
-				warning (@"Couldn't get the result of FileDialog for attachment: $(e.message)");
+		try {
+			var file = yield chooser.save (app.main_window, null);
+			if (file != null) {
+				debug (@"Downloading file: $(url)…");
+				bool success = yield download (url, file);
+				app.toast (success ? _("Saved Media") : _("Couldn't Save Media"));
 			}
-		});
+		} catch (Error e) {
+			// User dismissing the dialog also ends here so don't make it sound like
+			// it's an error
+			warning (@"Couldn't get the result of FileDialog for attachment: $(e.message)");
+		}
 	}
 
-	private static async void download (string attachment_url, File file) {
+	private static async bool download (string attachment_url, File file) {
+		bool res = false;
 		try {
 			var req = yield new Request.GET (attachment_url).await ();
 			var data = req.response_body;
-			FileOutputStream stream = file.create (FileCreateFlags.PRIVATE);
+			FileOutputStream stream = file.replace (null, false, FileCreateFlags.PRIVATE);
 			try {
 				stream.splice (data, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);
 
 				debug (@"   OK: File written to: $(file.get_path ())");
+				res = true;
 			} catch (GLib.IOError e) {
 				warning (e.message);
 				//  app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
@@ -72,6 +70,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 			warning (e.message);
 			//  app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
 		}
+		return res;
 	}
 
 	protected SimpleAction copy_media_simple_action;
@@ -184,7 +183,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		var menu_model = new GLib.Menu ();
 		menu_model.append (_("Open in Browser"), "attachment.open-in-browser");
 		menu_model.append (_("Copy URL"), "attachment.copy-url");
-		menu_model.append (_("Save Media"), "attachment.save-as");
+		menu_model.append (_("Save Media…"), "attachment.save-as");
 
 		var copy_media_menu_item = new MenuItem (_("Copy Media"), "attachment.copy-media");
 		copy_media_menu_item.set_attribute_value ("hidden-when", "action-disabled");

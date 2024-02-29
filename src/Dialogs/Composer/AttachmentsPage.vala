@@ -246,7 +246,8 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			halign = Gtk.Align.CENTER,
 			// translators: sensitive as in not safe for work or similar
 			tooltip_text = _("Mark media as sensitive"),
-			css_classes = {"flat"}
+			css_classes = {"flat"},
+			active = status.sensitive
 		};
 		sensitive_media_button.bind_property (
 			"active",
