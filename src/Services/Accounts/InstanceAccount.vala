@@ -376,7 +376,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				if (array != null) {
 					int t_unread_announcements = 0;
 					array.foreach_element ((array, i, node) => {
-						if (node.get_object ().get_boolean_member_with_default ("read" , true) == false) t_unread_announcements += 1;
+						if (node.get_object ().get_boolean_member_with_default ("read", true) == false) t_unread_announcements += 1;
 					});
 					unread_announcements = t_unread_announcements;
 				}

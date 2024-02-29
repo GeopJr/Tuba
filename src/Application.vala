@@ -395,7 +395,9 @@ namespace Tuba {
 		}
 
 		public void open_announcements () {
-			main_window.open_view (new Views.Announcements ());
+			main_window.open_view (new Views.Announcements () {
+				dismiss_all_announcements = true // dismiss all by default I guess
+			});
 			close_sidebar ();
 		}
 
