@@ -168,13 +168,13 @@ namespace Tuba {
 			try {
 				bookwyrm_regex = new GLib.Regex ("/book/\\d+/s/[-_a-z0-9]*", GLib.RegexCompileFlags.OPTIMIZE);
 			} catch (GLib.RegexError e) {
-				warning (e.message);
+				critical (e.message);
 			}
 
 			try {
 				custom_emoji_regex = new GLib.Regex ("(:[a-zA-Z0-9_]{2,}:)", GLib.RegexCompileFlags.OPTIMIZE);
 			} catch (GLib.RegexError e) {
-				warning (e.message);
+				critical (e.message);
 			}
 
 			try {
@@ -184,7 +184,7 @@ namespace Tuba {
 					GLib.RegexMatchFlags.ANCHORED
 				);
 			} catch (GLib.RegexError e) {
-				warning (e.message);
+				critical (e.message);
 			}
 
 			is_flatpak = GLib.Environment.get_variable ("FLATPAK_ID") != null
