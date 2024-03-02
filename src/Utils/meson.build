@@ -1,6 +1,7 @@
 sources += files(
     'Blurhash.vala',
     'Celebrate.vala',
+    'Counting.vala',
     'DateTime.vala',
     'Host.vala',
     'Html.vala',
