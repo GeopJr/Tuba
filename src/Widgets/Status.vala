@@ -509,7 +509,7 @@
 			);
 	}
 
-	private Gtk.Button prev_card;
+	protected Gtk.Button prev_card;
 	private Widgets.Attachment.Box attachments;
 	private Widgets.VoteBox poll;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
