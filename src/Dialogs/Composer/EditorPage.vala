@@ -16,7 +16,7 @@ public class Tuba.EditorPage : ComposerPage {
 	private void count_chars () {
 		int64 res = char_limit;
 		if (cw_button != null && cw_button.active)
-				res -= (int64) cw_entry.buffer.length;
+				res -= Counting.chars (cw_entry.text, ((Tuba.Locales.Locale) language_button?.selected_item)?.locale ?? "en");
 
 		string replaced_urls = Tracking.cleanup_content_with_uris (
 			editor.buffer.text,
@@ -24,21 +24,9 @@ public class Tuba.EditorPage : ComposerPage {
 			Tracking.CleanupType.SPECIFIC_LENGTH,
 			accounts.active.instance_info.compat_status_characters_reserved_per_url
 		);
+		string replaced_mentions = Counting.replace_mentions (replaced_urls);
 
-		var icu_err = Icu.ErrorCode.ZERO_ERROR;
-		var icu_text = Icu.Text.open_utf8 (null, replaced_urls.data, ref icu_err);
-		var word_breaker = Icu.BreakIterator.open (
-			CHARACTER, ((Tuba.Locales.Locale) language_button?.selected_item)?.locale ?? "en", null, -1, ref icu_err
-		);
-		word_breaker.set_utext (icu_text, ref icu_err);
-
-		if (icu_err.is_success ()) {
-			while (word_breaker.next () != Icu.BreakIterator.DONE) {
-				res -= 1;
-			}
-		} else {
-			res -= replaced_urls.length;
-		}
+		res -= Counting.chars (replaced_mentions, ((Tuba.Locales.Locale) language_button?.selected_item)?.locale ?? "en");
 
 		remaining_chars = res;
 	}
@@ -97,8 +85,7 @@ public class Tuba.EditorPage : ComposerPage {
 		if (supports_mime_types) hide_dropdown_arrows = true;
 
 		cw_button.toggled.connect (on_content_changed);
-		cw_entry.buffer.inserted_text.connect (on_content_changed);
-		cw_entry.buffer.deleted_text.connect (on_content_changed);
+		cw_entry.changed.connect (on_content_changed);
 	}
 
 	protected void on_paste (Gdk.Clipboard clp) {
