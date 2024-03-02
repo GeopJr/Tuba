@@ -16,7 +16,7 @@ public class Tuba.EditorPage : ComposerPage {
 	private void count_chars () {
 		int64 res = char_limit;
 		if (cw_button != null && cw_button.active)
-				res -= (int64) cw_entry.buffer.length;
+				res -= Counting.chars (cw_entry.text, ((Tuba.Locales.Locale) language_button?.selected_item)?.locale ?? "en");
 
 		string replaced_urls = Tracking.cleanup_content_with_uris (
 			editor.buffer.text,
@@ -85,8 +85,7 @@ public class Tuba.EditorPage : ComposerPage {
 		if (supports_mime_types) hide_dropdown_arrows = true;
 
 		cw_button.toggled.connect (on_content_changed);
-		cw_entry.buffer.inserted_text.connect (on_content_changed);
-		cw_entry.buffer.deleted_text.connect (on_content_changed);
+		cw_entry.changed.connect (on_content_changed);
 	}
 
 	protected void on_paste (Gdk.Clipboard clp) {
