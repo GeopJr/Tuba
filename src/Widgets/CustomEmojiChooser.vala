@@ -44,6 +44,9 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
     private Gtk.Label results_label;
     private Gtk.ScrolledWindow custom_emojis_scrolled;
 
+    private Gtk.FlowBox recents;
+    private Gtk.Label recents_label;
+
 	construct {
         this.add_css_class ("emoji-picker");
         custom_emojis_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
@@ -68,6 +71,14 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
         results = create_emoji_box ();
         custom_emojis_box.append (results);
 
+        recents_label = create_category_label (_("Recently Used"));
+        recents_label.visible = false;
+        custom_emojis_box.append (recents_label);
+
+        recents = create_emoji_box ();
+        recents.visible = false;
+        custom_emojis_box.append (recents);
+
         entry = new Gtk.SearchEntry () {
 			text = query,
             hexpand = true
@@ -90,6 +101,57 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
 
     private void remove_all_from_results () {
         results.remove_all ();
+    }
+
+    private void populate_recents () {
+        recents.remove_all ();
+
+        if (settings.recently_used_custom_emojis.length == 0) {
+            recents.visible = false;
+            recents_label.visible = false;
+            return;
+        }
+
+        Gee.HashMap<string, API.Emoji> recents_to_api = new Gee.HashMap<string, API.Emoji> ();
+        int total = settings.recently_used_custom_emojis.length;
+        accounts.active.instance_emojis.@foreach (e => {
+            if (!e.visible_in_picker) return true;
+
+            if (e.shortcode in settings.recently_used_custom_emojis) {
+                recents_to_api.set (e.shortcode, e);
+                total -= 1;
+            }
+
+            if (total < 1) return false;
+
+            return true;
+        });
+
+        for (int i = 0; i < settings.recently_used_custom_emojis.length; i++) {
+            recents.append (create_emoji_button (recents_to_api.get (settings.recently_used_custom_emojis[i])));
+        }
+
+        recents.visible = true;
+        recents_label.visible = true;
+    }
+
+    static int max_recents = 12;
+    private void update_recents (string shortcode) {
+        string[] res = {};
+        res += shortcode;
+
+        if (shortcode in settings.recently_used_custom_emojis) {
+            foreach (var emoji in settings.recently_used_custom_emojis) {
+                if (emoji != shortcode) res += emoji;
+            }
+        } else {
+            // remove last one
+            for (int i = 0; i < (settings.recently_used_custom_emojis.length < max_recents ? settings.recently_used_custom_emojis.length : max_recents - 1); i++) {
+                res += settings.recently_used_custom_emojis[i];
+            }
+        }
+
+        settings.recently_used_custom_emojis = res;
     }
 
     protected void search () {
@@ -132,6 +194,7 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
 		var emoji = emoji_btn.child as Emoji;
 		if (emoji != null) {
             on_close ();
+            update_recents (emoji.shortcode);
 			emoji_picked (@":$(emoji.shortcode):");
 		}
 	}
@@ -144,6 +207,7 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
         base.show ();
 
         GLib.Idle.add (() => {
+            populate_recents ();
             if (!is_populated) populate_chooser ();
             entry.grab_focus ();
             return GLib.Source.REMOVE;
