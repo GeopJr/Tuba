@@ -2,20 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # R_SACI <rgebbid@gmail.com>, 2023.
+# ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-10 10:42+0200\n"
-"PO-Revision-Date: 2023-10-09 08:03+0000\n"
-"Last-Translator: R_SACI <rgebbid@gmail.com>\n"
+"PO-Revision-Date: 2024-03-08 16:01+0000\n"
+"Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/tuba/tuba/kab/>\n"
 "Language: kab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -56,11 +57,11 @@ msgstr "Amatu"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "Sken-d ismenyifen"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose a new post"
-msgstr ""
+msgstr "Aru yiwet n tsuffeɣt"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:29
 msgid "Refresh"
@@ -77,7 +78,7 @@ msgstr "Ɣer deffir"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "Sken-d anegzumen n unasiw"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
@@ -113,15 +114,15 @@ msgstr ""
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "Agdil ačuran"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:148
 msgid "Zoom In"
-msgstr ""
+msgstr "Semɣeṛ"
 
 #: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:136
 msgid "Zoom Out"
-msgstr ""
+msgstr "Semẓi"
 
 #: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:94
 msgid "Previous Attachment"
@@ -134,12 +135,12 @@ msgstr ""
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "Semɣeṛ"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Semẓi"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
@@ -190,7 +191,7 @@ msgstr ""
 
 #: data/ui/dialogs/list_edit.ui:44
 msgid "Nobody"
-msgstr ""
+msgstr "Ula yiwen"
 
 #: data/ui/dialogs/list_edit.ui:55
 msgid "Other members of the list"
@@ -207,11 +208,11 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:29 data/ui/dialogs/new_account.ui:107
 msgid "Next"
-msgstr ""
+msgstr "Uḍfir"
 
 #: data/ui/dialogs/new_account.ui:43
 msgid "What is your Server?"
-msgstr ""
+msgstr "D acu-t uqeddac-ik·im?"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:45
@@ -241,15 +242,15 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:193
 msgid "Done"
-msgstr ""
+msgstr "Immed"
 
 #: data/ui/dialogs/new_account.ui:208
 msgid "Your account is connected and ready to use!"
-msgstr ""
+msgstr "Amiḍan-inek·inem yeqqen yernu yewjed i useqdec!"
 
 #: data/ui/dialogs/preferences.ui:22
 msgid "Appearance"
-msgstr ""
+msgstr "Udem"
 
 #: data/ui/dialogs/preferences.ui:25
 msgid "Color Scheme"
@@ -319,7 +320,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:96
 msgid "Posting"
-msgstr ""
+msgstr "Asuffeɣ"
 
 #: data/ui/dialogs/preferences.ui:99
 msgid "Default post visibility"
@@ -327,7 +328,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:108
 msgid "Default post language"
-msgstr ""
+msgstr "Tutlayt tamezwrut n tsuffeɣt"
 
 #: data/ui/dialogs/preferences.ui:118
 msgid "Default post content type"
@@ -335,7 +336,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:129
 msgid "Behavior"
-msgstr ""
+msgstr "Tikli"
 
 #: data/ui/dialogs/preferences.ui:132
 msgid "Background work"
@@ -343,7 +344,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:133
 msgid "Receive notifications even when the app is closed"
-msgstr ""
+msgstr "Awi-d ilɣa ɣas yemdel usnas"
 
 #: data/ui/dialogs/preferences.ui:138
 msgid "Strip tracking parameters from links"
@@ -390,7 +391,7 @@ msgstr ""
 #: src/Services/Accounts/Mastodon/Account.vala:39
 #: src/Views/Notifications.vala:7
 msgid "Notifications"
-msgstr ""
+msgstr "Ilɣa"
 
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:186
@@ -408,7 +409,7 @@ msgstr ""
 #: data/ui/dialogs/preferences.ui:201
 #: src/Services/Accounts/Mastodon/Account.vala:77 src/Views/Favorites.vala:4
 msgid "Favorites"
-msgstr ""
+msgstr "Imenyafen"
 
 #: data/ui/dialogs/preferences.ui:207
 msgid "Mentions"
@@ -443,7 +444,7 @@ msgstr ""
 #: data/ui/dialogs/profile_edit.ui:29
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:151
 msgid "Save"
-msgstr ""
+msgstr "Sekles"
 
 #: data/ui/dialogs/profile_edit.ui:67
 msgid "Edit Profile Picture"
@@ -461,7 +462,7 @@ msgstr ""
 #. translators: profile bio or description
 #: data/ui/dialogs/profile_edit.ui:129
 msgid "Bio"
-msgstr ""
+msgstr "Tameddurt"
 
 #: data/ui/dialogs/profile_edit.ui:140 src/Dialogs/Composer/EditorPage.vala:242
 msgid "Custom Emoji Picker"
@@ -474,11 +475,11 @@ msgstr ""
 
 #: data/ui/menus.ui:10
 msgid "Mention"
-msgstr ""
+msgstr "Bder-it-id"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr ""
+msgstr "Izen usrid"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
@@ -487,7 +488,7 @@ msgstr ""
 #: data/ui/menus.ui:29 data/ui/views/media_viewer.ui:6
 #: src/Widgets/Attachment/Item.vala:185 src/Widgets/Status.vala:251
 msgid "Open in Browser"
-msgstr ""
+msgstr "Ldi deg uminig"
 
 #: data/ui/menus.ui:33
 msgid "Notify me on new posts"
@@ -503,7 +504,7 @@ msgstr ""
 
 #: data/ui/menus.ui:46
 msgid "Mute"
-msgstr ""
+msgstr "Sgugem"
 
 #: data/ui/menus.ui:51
 msgid "Report"
@@ -511,7 +512,7 @@ msgstr ""
 
 #: data/ui/menus.ui:57 src/Views/Profile.vala:262 src/Views/Profile.vala:281
 msgid "Block"
-msgstr ""
+msgstr "Sewḥel"
 
 #: data/ui/menus.ui:61
 msgid "Block Domain"
@@ -523,7 +524,7 @@ msgstr ""
 
 #: data/ui/menus.ui:71
 msgid "Filter"
-msgstr ""
+msgstr "Sizdeg"
 
 #: data/ui/menus.ui:90
 msgid "Include Replies"
@@ -536,7 +537,7 @@ msgstr ""
 #: data/ui/menus.ui:118 src/Services/Accounts/Mastodon/Account.vala:86
 #: src/Views/Lists.vala:142 src/Views/Profile.vala:382
 msgid "Lists"
-msgstr ""
+msgstr "Tibdar"
 
 #: data/ui/views/media_viewer.ui:10 src/Widgets/Attachment/Item.vala:186
 #: src/Widgets/Status.vala:252
@@ -549,11 +550,11 @@ msgstr ""
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:189
 msgid "Copy Media"
-msgstr ""
+msgstr "Nɣel amidya"
 
 #: data/ui/views/media_viewer.ui:59 data/ui/views/sidebar/view.ui:54
 msgid "Menu"
-msgstr ""
+msgstr "Umuɣ"
 
 #: data/ui/views/media_viewer.ui:66
 msgid "Toggle Fullscreen"
@@ -562,16 +563,16 @@ msgstr ""
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:35
 msgid "Bot"
-msgstr ""
+msgstr "Aṛubut"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:38
 msgid "Forget Account"
-msgstr ""
+msgstr "Ttu amiḍan"
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
-msgstr ""
+msgstr "Beddel amiḍan"
 
 #: data/ui/widgets/announcement.ui:88
 msgid "Unread"
@@ -606,7 +607,7 @@ msgstr "Sken ugar"
 #: src/Widgets/Announcement.vala:180 src/Widgets/Attachment/Image.vala:87
 #: src/Widgets/Attachment/Item.vala:213 src/Widgets/VoteBox.vala:28
 msgid "Error"
-msgstr ""
+msgstr "Tuccḍa"
 
 #. translators: the variable is a comma separated list of account handles,
 #. this is a state - not an action
@@ -621,18 +622,18 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:163
 #: src/Widgets/CustomEmojiChooser.vala:166
 msgid "Other"
-msgstr ""
+msgstr "Wayeḍ"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
 #: src/API/Notification.vala:28
 #, c-format
 msgid "%s (& %d others)"
-msgstr ""
+msgstr "%s (akked %d nniḍen)"
 
 #: src/API/Notification.vala:51
 msgid "Reply…"
-msgstr ""
+msgstr "Err…"
 
 #: src/API/Notification.vala:59
 msgid "Remove from Followers"
@@ -640,7 +641,7 @@ msgstr ""
 
 #: src/API/Notification.vala:64
 msgid "Follow Back"
-msgstr ""
+msgstr "Ḍfer-it"
 
 #: src/API/Notification.vala:71 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
@@ -664,13 +665,13 @@ msgstr ""
 
 #: src/API/SearchResults.vala:32
 msgid "Search returned no results"
-msgstr ""
+msgstr "Anadi ur d-yerri ara igmaḍ"
 
 #. translators: the variable is an external service like "PeerTube"
 #: src/API/Status/PreviewCard.vala:25
 #, c-format
 msgid "You are about to open a %s video"
-msgstr ""
+msgstr "Aql-ik·m tettedduḍ ad teldiḍ tavidyut n %s"
 
 #. translators: the variable is an external service like "Funkwhale",
 #. track as in song
@@ -689,7 +690,7 @@ msgstr ""
 #: src/API/Status/PreviewCard.vala:35
 #, c-format
 msgid "You are about to leave %s"
-msgstr ""
+msgstr "Aql-ik·m tettedduḍ ad teǧǧeḍ %s"
 
 #. translators: the variable is a url
 #: src/API/Status/PreviewCard.vala:48
@@ -702,27 +703,27 @@ msgstr ""
 #: src/API/Status/PreviewCard.vala:52
 #, c-format
 msgid "If you proceed, %s will connect to \"%s\"."
-msgstr ""
+msgstr "Ma tkemmleḍ, %s ad yeqqen ɣer \"%s\"."
 
 #: src/API/Status/PreviewCard.vala:164
 msgid "Proceed"
-msgstr ""
+msgstr "Kemmel"
 
 #: src/API/Suggestion.vala:12
 msgid "Account not found"
-msgstr ""
+msgstr "Ulac amiḍan"
 
 #. translators: the variable is the amount of times a hashtag was used in a week
 #: src/API/Tag.vala:45
 #, c-format
 msgid "%d per week"
-msgstr ""
+msgstr "%d deg ddurt"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:59
 #, c-format
 msgid "Used %d times by %d people yesterday"
-msgstr ""
+msgstr "Sseqdacen %d n tikkal kra n %d n yimdanen iḍelli"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:67
@@ -752,15 +753,15 @@ msgstr ""
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:450
 msgid "translator-credits"
-msgstr ""
+msgstr "Irénée Thirion"
 
 #: src/Application.vala:477
 msgid "OK"
-msgstr ""
+msgstr "IH"
 
 #: src/Application.vala:502
 msgid "Yes"
-msgstr ""
+msgstr "Ih"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:38 src/Dialogs/ProfileEdit.vala:77
 msgid "All Supported Files"
@@ -772,16 +773,16 @@ msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:76
 msgid "Paste"
-msgstr ""
+msgstr "Senṭeḍ"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:212
 #: src/Dialogs/Composer/AttachmentsPage.vala:238
 msgid "Add Media"
-msgstr ""
+msgstr "Rnu amidya"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:221
 msgid "No Media"
-msgstr ""
+msgstr "Ulac amidya"
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:248
@@ -798,7 +799,7 @@ msgstr ""
 #: src/Dialogs/Composer/AttachmentsPage.vala:369
 #: src/Dialogs/ProfileEdit.vala:214
 msgid "Open"
-msgstr ""
+msgstr "Ldi"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:433
 #, c-format
@@ -816,7 +817,7 @@ msgstr ""
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:146
 #: src/Dialogs/Composer/EditorPage.vala:185
 msgid "Characters Left"
-msgstr ""
+msgstr "Isekkilen i d-yeqqimen"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:166
 #: src/Widgets/Attachment/Item.vala:166
@@ -825,7 +826,7 @@ msgstr ""
 
 #: src/Dialogs/Composer/Dialog.vala:205
 msgid "Are you sure you want to exit?"
-msgstr ""
+msgstr "Tetḥeqqeḍ tebɣiḍ ad teffɣeḍ?"
 
 #: src/Dialogs/Composer/Dialog.vala:206
 msgid "Your progress will be lost."
@@ -833,7 +834,7 @@ msgstr ""
 
 #: src/Dialogs/Composer/Dialog.vala:208
 msgid "Discard"
-msgstr ""
+msgstr "Sefsex"
 
 #: src/Dialogs/Composer/Dialog.vala:288
 msgid "_Redraft"
@@ -845,16 +846,16 @@ msgstr ""
 
 #: src/Dialogs/Composer/Dialog.vala:334
 msgid "_Reply"
-msgstr ""
+msgstr "E_rr"
 
 #. translators: "Text" as in text-based input
 #: src/Dialogs/Composer/EditorPage.vala:18
 msgid "Text"
-msgstr ""
+msgstr "Aḍris"
 
 #: src/Dialogs/Composer/EditorPage.vala:204
 msgid "What's on your mind?"
-msgstr ""
+msgstr "D acu ay yellan deg lbal-inek·inem?"
 
 #: src/Dialogs/Composer/EditorPage.vala:232
 msgid "Emoji Picker"
@@ -870,11 +871,11 @@ msgstr ""
 
 #: src/Dialogs/Composer/EditorPage.vala:314
 msgid "Post Privacy"
-msgstr ""
+msgstr "Tabaḍnit n tsuffeɣt"
 
 #: src/Dialogs/Composer/EditorPage.vala:337
 msgid "Post Language"
-msgstr ""
+msgstr "Tutlayt n tsuffeɣt"
 
 #: src/Dialogs/Composer/EditorPage.vala:362
 msgid "Post Content Type"
@@ -920,7 +921,7 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:235
 #, c-format
 msgid "%d Minutes"
-msgstr ""
+msgstr "%d n tisdatin"
 
 #. translators: the variable is a number, m as in minutes
 #: src/Dialogs/Composer/PollPage.vala:234
@@ -933,7 +934,7 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:237
 #, c-format
 msgid "%d Hour"
-msgstr ""
+msgstr "%d n wesrag"
 
 #. translators: the variable is a number, h as in hours
 #: src/Dialogs/Composer/PollPage.vala:239
@@ -947,13 +948,13 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:241
 #, c-format
 msgid "%d Hours"
-msgstr ""
+msgstr "%d n yisragen"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:243
 #, c-format
 msgid "%d Day"
-msgstr ""
+msgstr "%d n wass"
 
 #. translators: the variable is a number, d as in days
 #: src/Dialogs/Composer/PollPage.vala:245
@@ -967,7 +968,7 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:247
 #, c-format
 msgid "%d Days"
-msgstr ""
+msgstr "%d n wussan"
 
 #: src/Dialogs/Composer/PollPage.vala:267
 msgid "Expiration"
@@ -976,15 +977,15 @@ msgstr ""
 #: src/Dialogs/MainWindow.vala:58
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
 msgid "Home"
-msgstr ""
+msgstr "Udmawan"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
-msgstr ""
+msgstr "Ssireg anekcum ɣer umiḍan-ik·im deg uminig."
 
 #: src/Dialogs/NewAccount.vala:4
 msgid "Copy the authorization code from the browser and paste it below."
-msgstr ""
+msgstr "Nɣel tangalt n usireg seg yiminig sakin senṭeḍ-itt ddaw-a."
 
 #: src/Dialogs/NewAccount.vala:117
 msgid "Please enter a valid instance URL"
@@ -992,7 +993,7 @@ msgstr ""
 
 #: src/Dialogs/NewAccount.vala:159
 msgid "Please enter a valid authorization code"
-msgstr ""
+msgstr "Ttxil-k·m, sekcem tangalt n usireg iṣeḥḥan"
 
 #: src/Dialogs/NewAccount.vala:176
 msgid "Instance failed to authorize the access token"
@@ -1001,16 +1002,16 @@ msgstr ""
 #: src/Dialogs/NewAccount.vala:185
 #, c-format
 msgid "Hello, %s!"
-msgstr ""
+msgstr "Azul a %s!"
 
 #: src/Dialogs/NewAccount.vala:240
 msgid "Server returned an error"
-msgstr ""
+msgstr "Aqeddac yerra-d tuccḍa"
 
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
 msgid "Label"
-msgstr ""
+msgstr "Tabzimt"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:53
@@ -1051,7 +1052,7 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:213
 #, c-format
 msgid "%s wants to follow you"
-msgstr ""
+msgstr "%s yebɣa ad k·m-yeḍfer"
 
 #: src/Services/Accounts/InstanceAccount.vala:220
 msgid "Poll results"
@@ -1065,16 +1066,16 @@ msgstr ""
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:262
 msgid "Plain Text"
-msgstr ""
+msgstr "Aḍris amsari"
 
 #: src/Services/Accounts/Mastodon/Account.vala:49
 #: src/Views/Conversations.vala:4
 msgid "Conversations"
-msgstr ""
+msgstr "Idiwenniyen"
 
 #: src/Services/Accounts/Mastodon/Account.vala:68 src/Views/Bookmarks.vala:4
 msgid "Bookmarks"
-msgstr ""
+msgstr "Ticraḍ"
 
 #: src/Services/Accounts/Mastodon/Account.vala:104 src/Views/Explore.vala:3
 msgid "Explore"
@@ -1082,7 +1083,7 @@ msgstr ""
 
 #: src/Services/Accounts/Mastodon/Account.vala:114 src/Views/Local.vala:3
 msgid "Local"
-msgstr ""
+msgstr "Adigan"
 
 #: src/Services/Accounts/Mastodon/Account.vala:123 src/Views/Federated.vala:4
 msgid "Federated"
@@ -1096,7 +1097,7 @@ msgstr ""
 #: src/Services/Accounts/Mastodon/Account.vala:141 src/Views/Explore.vala:6
 #: src/Views/Hashtags.vala:4 src/Views/Search.vala:40
 msgid "Hashtags"
-msgstr ""
+msgstr "Ihacṭagen"
 
 #: src/Services/Accounts/Mastodon/Account.vala:150
 #: src/Views/Announcements.vala:4
@@ -1130,7 +1131,7 @@ msgstr ""
 
 #: src/Services/Accounts/Mastodon/Account.vala:211
 msgid "Direct"
-msgstr ""
+msgstr "Srid"
 
 #: src/Services/Accounts/Mastodon/Account.vala:214
 msgid "Post to mentioned users only"
@@ -1147,7 +1148,7 @@ msgstr ""
 #: src/Services/Accounts/SecretAccountStore.vala:197
 #, c-format
 msgid "%s Account"
-msgstr ""
+msgstr "Amiḍan n %s"
 
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:89
@@ -1157,12 +1158,12 @@ msgstr ""
 #. translators: Light mode theme
 #: src/Services/Settings.vala:92
 msgid "Light"
-msgstr ""
+msgstr "Aceɛlal"
 
 #. translators: Dark mode theme
 #: src/Services/Settings.vala:95
 msgid "Dark"
-msgstr ""
+msgstr "Ubrik"
 
 #: src/Utils/DateTime.vala:10
 msgid "expires soon"
@@ -1243,7 +1244,7 @@ msgstr ""
 #. %m is the minutes
 #: src/Utils/DateTime.vala:80
 msgid "%b %-e, %Y %H:%m"
-msgstr ""
+msgstr "%-e %b, %Y %H : %m"
 
 #: src/Utils/DateTime.vala:82
 msgid "Just now"
@@ -1263,59 +1264,59 @@ msgstr ""
 
 #: src/Utils/DateTime.vala:94
 msgid "Yesterday"
-msgstr ""
+msgstr "Iḍelli"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #: src/Utils/DateTime.vala:99
 #, c-format
 msgid "%b %-e"
-msgstr ""
+msgstr "%-e %b"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:105
 msgid "%b %-e, %Y"
-msgstr ""
+msgstr "%-e %b, %Y"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:120
 #, c-format
 msgid "less than a minute old"
 msgid_plural "%s minutes old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ur tewwiḍ ara dqiqa"
+msgstr[1] "%s n tesdidin aya"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:125
 #, c-format
 msgid "an hour old"
 msgid_plural "%s hours old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "n wesrag aya"
+msgstr[1] "%s n yisragen aya"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:140 src/Utils/DateTime.vala:154
 #, c-format
 msgid "%d months old"
-msgstr ""
+msgstr "%d n wayyuren aya"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:146
 #, c-format
 msgid "a day old"
 msgid_plural "%d days old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "n wass aya"
+msgstr[1] "%d n wussan aya"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:151
 #, c-format
 msgid "a year old"
 msgid_plural "%d years old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Assegas aya"
+msgstr[1] "%d n iseggasen aya"
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k
@@ -1338,11 +1339,11 @@ msgstr ""
 #. translators: Shown when there are 0 results
 #: src/Views/Base.vala:4
 msgid "Nothing to see here"
-msgstr ""
+msgstr "Ulac d acu ara twaliḍ da"
 
 #: src/Views/Base.vala:99
 msgid "Reload"
-msgstr ""
+msgstr "Smiren"
 
 #: src/Views/Base.vala:158
 msgid "An Error Occurred"
@@ -1354,11 +1355,11 @@ msgstr ""
 
 #: src/Views/Explore.vala:5 src/Views/Search.vala:39
 msgid "Posts"
-msgstr ""
+msgstr "Tisuffaɣ"
 
 #: src/Views/Explore.vala:7
 msgid "News"
-msgstr ""
+msgstr "Isallen"
 
 #: src/Views/Explore.vala:8
 msgid "For You"
@@ -1368,7 +1369,7 @@ msgstr ""
 #: src/Widgets/RelationshipButton.vala:29
 #: src/Widgets/RelationshipButton.vala:62
 msgid "Follow"
-msgstr ""
+msgstr "Ḍfeṛ"
 
 #: src/Views/Hashtag.vala:22 src/Views/Hashtag.vala:38
 #: src/Widgets/RelationshipButton.vala:52
@@ -1377,7 +1378,7 @@ msgstr ""
 
 #: src/Views/Home.vala:20
 msgid "Compose"
-msgstr ""
+msgstr "Aru"
 
 #: src/Views/Lists.vala:57
 #, c-format
@@ -1391,11 +1392,11 @@ msgstr ""
 #: src/Views/Lists.vala:60 src/Widgets/Status.vala:270
 #: src/Widgets/Status.vala:331
 msgid "Delete"
-msgstr ""
+msgstr "Kkes"
 
 #: src/Views/Lists.vala:137
 msgid "New list title"
-msgstr ""
+msgstr "Azwel n wumuɣ amaynut"
 
 #: src/Views/Lists.vala:152
 msgid "Add list"
@@ -1411,7 +1412,7 @@ msgstr ""
 
 #: src/Views/Profile.vala:34
 msgid "Profile"
-msgstr ""
+msgstr "Amaɣnu"
 
 #: src/Views/Profile.vala:224
 msgid "Copied handle to clipboard"
@@ -1430,7 +1431,7 @@ msgstr ""
 #: src/Views/Profile.vala:262 src/Views/Profile.vala:281
 #: src/Widgets/RelationshipButton.vala:39
 msgid "Unblock"
-msgstr ""
+msgstr "Serreḥ-as"
 
 #: src/Views/Profile.vala:274
 #, c-format
@@ -1471,13 +1472,13 @@ msgstr ""
 #: src/Views/Profile.vala:420 src/Views/Profile.vala:482
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
-msgstr ""
+msgstr "Kkes \"%s\" seg \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:421 src/Views/Profile.vala:476
 #, c-format
 msgid "Add \"%s\" to \"%s\""
-msgstr ""
+msgstr "Rnu \"%s\" ɣer \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:473
@@ -1494,11 +1495,11 @@ msgstr ""
 #. translators: as in All search results
 #: src/Views/Search.vala:37
 msgid "All"
-msgstr ""
+msgstr "Akk"
 
 #: src/Views/Search.vala:38
 msgid "Accounts"
-msgstr ""
+msgstr "Imiḍanen"
 
 #: src/Views/Search.vala:73
 msgid "Enter Query"
@@ -1506,11 +1507,11 @@ msgstr ""
 
 #: src/Views/Sidebar.vala:28
 msgid "Open Profile"
-msgstr ""
+msgstr "Ldi amaɣnu"
 
 #: src/Views/Sidebar.vala:33
 msgid "Preferences"
-msgstr ""
+msgstr "Imenyafen"
 
 #: src/Views/Sidebar.vala:34
 msgid "Keyboard Shortcuts"
@@ -1519,7 +1520,7 @@ msgstr ""
 #: src/Views/Sidebar.vala:35
 #, c-format
 msgid "About %s"
-msgstr ""
+msgstr "Ɣef %s"
 
 #. translators: the variable is an account handle
 #: src/Views/Sidebar.vala:217
@@ -1529,11 +1530,11 @@ msgstr ""
 
 #: src/Views/Sidebar.vala:218
 msgid "This account will be removed from the application."
-msgstr ""
+msgstr "Amiḍan-a ad yettwakkes seg usnas."
 
 #: src/Views/Sidebar.vala:220
 msgid "Forget"
-msgstr ""
+msgstr "Ttu"
 
 #: src/Views/StatusStats.vala:6
 msgid "Post Stats"
@@ -1551,7 +1552,7 @@ msgstr ""
 
 #: src/Views/Thread.vala:31
 msgid "Conversation"
-msgstr ""
+msgstr "Adiwenni"
 
 #: src/Views/Thread.vala:104 src/Views/Thread.vala:118
 msgid "Reveal Spoilers"
@@ -1591,7 +1592,7 @@ msgstr ""
 
 #: src/Widgets/Attachment/Item.vala:47
 msgid "Saved Media"
-msgstr ""
+msgstr "Yettwasekles umidya"
 
 #: src/Widgets/Attachment/Item.vala:117
 msgid "View Alt Text"
@@ -1601,7 +1602,7 @@ msgstr ""
 #: src/Widgets/BookWyrmPage.vala:83
 #, c-format
 msgid "Published: %s"
-msgstr ""
+msgstr "Yettwasuffɣed ass n: %s"
 
 #. translators: the variable is a comma separated
 #. list of the book authors
@@ -1614,7 +1615,7 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:64
 #: src/Widgets/CustomEmojiChooser.vala:120
 msgid "Results"
-msgstr ""
+msgstr "Igmaḍ"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:124
@@ -1645,19 +1646,19 @@ msgstr ""
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Widgets/ProfileCover.vala:158 src/Widgets/Status.vala:373
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%e %B %Y"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
 #: src/Widgets/ProfileCover.vala:168
 msgid "Joined"
-msgstr ""
+msgstr "Da seg ass n"
 
 #. translators: the variable is the amount of posts a user has made
 #: src/Widgets/ProfileCover.vala:185 src/Widgets/ProfileCover.vala:186
 #, c-format
 msgid "%s Posts"
-msgstr ""
+msgstr "%s n tsuffaɣ"
 
 #. translators: the variable is the amount of people a user follows
 #: src/Widgets/ProfileCover.vala:191 src/Widgets/ProfileCover.vala:192
@@ -1683,11 +1684,11 @@ msgstr ""
 #. translators: Pin post on profile
 #: src/Widgets/Status.vala:264 src/Widgets/Status.vala:491
 msgid "Pin"
-msgstr ""
+msgstr "Senṭeḍ"
 
 #: src/Widgets/Status.vala:269
 msgid "Edit"
-msgstr ""
+msgstr "Ẓreg"
 
 #: src/Widgets/Status.vala:278
 msgid "Copied post url to clipboard"
@@ -1704,12 +1705,12 @@ msgstr ""
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:489
 msgid "Unpin"
-msgstr ""
+msgstr "Senser"
 
 #: src/Widgets/Status/ActionsRow.vala:52 src/Widgets/Status/ActionsRow.vala:92
 #: src/Widgets/Status/ActionsRow.vala:237
 msgid "Boost"
-msgstr ""
+msgstr "Bḍu"
 
 #: src/Widgets/Status/ActionsRow.vala:55
 msgid "This post can't be boosted"
@@ -1717,22 +1718,22 @@ msgstr ""
 
 #: src/Widgets/Status/ActionsRow.vala:83 src/Widgets/Status/ActionsRow.vala:128
 msgid "Reply"
-msgstr ""
+msgstr "Err"
 
 #: src/Widgets/Status/ActionsRow.vala:102
 msgid "Favorite"
-msgstr ""
+msgstr "Smenyef"
 
 #: src/Widgets/Status/ActionsRow.vala:112
 msgid "Bookmark"
-msgstr ""
+msgstr "Tacreḍt"
 
 #. translators: the variable is a datetime with the "old" suffix, e.g. "5 months old", "a day old", "2 years old".
 #. The "old" suffix is translated on the datetime strings, not here
 #: src/Widgets/Status/ActionsRow.vala:123
 #, c-format
 msgid "This post is %s"
-msgstr ""
+msgstr "Tasuffeɣt-a ɣur-s %s"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon-android/tree/master/mastodon/src/main/res
 #. in the `strings.xml` file inside the `values-` folder that matches your locale under the `old_post_sheet_text` key
@@ -1742,7 +1743,7 @@ msgstr ""
 
 #: src/Widgets/Status/ActionsRow.vala:128
 msgid "Don't remind me again"
-msgstr ""
+msgstr "Ur ttεawad ara ad yi-d-tesmektiḍ"
 
 #: src/Widgets/Status/ActionsRow.vala:229
 msgid "Boost with Visibility"
