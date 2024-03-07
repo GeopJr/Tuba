@@ -147,6 +147,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 				last_view != null
 				&& last_view.label == view.label
 				&& !view.allow_nesting
+				&& view.uid == last_view.uid
 			)
 		) return view;
 
