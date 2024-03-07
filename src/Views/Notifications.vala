@@ -9,6 +9,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		accepts = typeof (API.Notification);
 		badge_number = 0;
 		needs_attention = false;
+		empty_state_title = _("No Notifications");
 
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
 

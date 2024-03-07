@@ -41,7 +41,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		}
 	}
 
-    private void on_drag_update (double x, double y) {
+	private void on_drag_update (double x, double y) {
 		if (scrolled.vadjustment.value != 0.0 || (y <= 0 && !is_pulling)) return;
 		is_pulling = true;
 
@@ -61,17 +61,19 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			pull_to_refresh_spinner.margin_top = 32;
 			pull_to_refresh_spinner.height_request = pull_to_refresh_spinner.width_request = 0;
 		}
-    }
+	}
 
 	private void on_drag_end (double x, double y) {
-        if (scrolled.vadjustment.value == 0.0 && pull_to_refresh_spinner.margin_top >= 125) {
-            on_refresh ();
-        }
+		if (scrolled.vadjustment.value == 0.0 && pull_to_refresh_spinner.margin_top >= 125) {
+			on_refresh ();
+		}
 
 		is_pulling = false;
-    }
+	}
 
 	construct {
+		empty_state_title = _("No Posts");
+
 		pull_to_refresh_spinner = new Gtk.Spinner () {
 			height_request = 32,
 			width_request = 32,
@@ -108,9 +110,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		#endif
 
 		var drag = new Gtk.GestureDrag ();
-        drag.drag_update.connect (on_drag_update);
-        drag.drag_end.connect (on_drag_end);
-        this.add_controller (drag);
+		drag.drag_update.connect (on_drag_update);
+		drag.drag_end.connect (on_drag_end);
+		this.add_controller (drag);
 	}
 	~Timeline () {
 		debug (@"Destroying Timeline $label");
