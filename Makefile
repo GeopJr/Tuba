@@ -52,7 +52,7 @@ __windows_copy_deps:
 	cp -r /mingw64/lib/gdk-pixbuf-2.0 $(PREFIX)/lib/gdk-pixbuf-2.0
 
 	cp -f /mingw64/share/gtksourceview-5/styles/Adwaita.xml /mingw64/share/gtksourceview-5/styles/Adwaita-dark.xml ${PREFIX}/share/gtksourceview-5/styles/
-	cp -f /mingw64/share/gtksourceview-5/language-specs/markdown.lang /mingw64/share/gtksourceview-5/language-specs/html.lang ${PREFIX}/share/gtksourceview-5/language-specs/
+	cp -r /mingw64/share/gtksourceview-5/language-specs/ ${PREFIX}/share/gtksourceview-5/language-specs/
 
 	ldd $(PREFIX)/lib/gio/*/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 
