@@ -69,17 +69,6 @@
                                     <property name="orientation">vertical</property>
                                     <property name="spacing">16</property>
                                     <child>
-                                      <object class="GtkImage">
-                                        <property name="width_request">128</property>
-                                        <property name="height_request">128</property>
-                                        <property name="pixel_size">128</property>
-                                        <property name="icon_name">dev.geopjr.Tuba-symbolic</property>
-                                        <style>
-                                          <class name="dim-label" />
-                                        </style>
-                                      </object>
-                                    </child>
-                                    <child>
                                       <object class="GtkStack" id="status_stack">
                                         <property name="transition_type">crossfade</property>
                                         <child>
