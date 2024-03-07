@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="fedi-basic" _name="Fedi Basic Highlighting" version="2.0" _section="Markup">
+	<styles>
+		<style id="hashtag" name="Hashtag" map-to="rust:attribute" />
+		<style id="mention" name="Mention" map-to="rust:lifetime" />
+		<style id="emoji" name="Emoji" map-to="rust:macro" />
+	</styles>
+	<definitions>
+		<context id="hashtag" style-ref="hashtag">
+			<match>#([^\s]+)</match>
+		</context>
+		<context id="mention" style-ref="mention">
+			<match>@[a-zA-Z0-9_]+(@[a-zA-Z0-9_\.]+)?</match>
+		</context>
+		<context id="emoji" style-ref="emoji">
+			<match>:[a-zA-Z0-9_]{2,}:</match>
+		</context>
+		<context id="fedi-syntax">
+			<include>
+				<context ref="hashtag"/>
+				<context ref="mention"/>
+				<context ref="emoji"/>
+			</include>
+		</context>
+		<context id="fedi-basic">
+			<include>
+				<context ref="fedi-syntax"/>
+			</include>
+		</context>
+	</definitions>
+</language>
