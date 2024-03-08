@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme id="Fedi-dark" _name="Fedi-dark" version="1.0" parent-scheme="Adwaita-dark">
+  <author>GeopJr</author>
+  <_description>Syntax highlighting for Tuba</_description>
+
+  <metadata>
+    <property name="variant">dark</property>
+    <property name="light-variant">Fedi</property>
+  </metadata>
+
+  <!-- "style '<name>' not defined" so just override unused ones -->
+  <style name="rust:attribute"         foreground="blue_2" bold="true"/>
+  <style name="rust:lifetime"          foreground="blue_2" bold="true"/>
+  <style name="rust:macro"             foreground="blue_2" bold="true"/>
+</style-scheme>
