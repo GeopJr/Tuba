@@ -371,7 +371,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			modal = true,
 			default_filter = filter
 		};
-		chooser.open_multiple.begin (dialog, null, (obj, res) => {
+		chooser.open_multiple.begin (app.main_window, null, (obj, res) => {
 			try {
 				var files = chooser.open_multiple.end (res);
 
