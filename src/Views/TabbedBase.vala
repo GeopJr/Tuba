@@ -92,17 +92,19 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		view.header.hide ();
 	}
 
-	public Views.ContentBase add_list_tab (string label, string icon) {
+	public Views.ContentBase add_list_tab (string label, string icon, string? empty_state_title = null) {
 		var tab = new Views.ContentBase ();
 		tab.label = label;
 		tab.icon = icon;
+
+		if (empty_state_title != null) tab.empty_state_title = empty_state_title;
 
 		add_tab (tab);
 
 		return tab;
 	}
 
-	public Views.ContentBase add_timeline_tab (string label, string icon, string url, Type accepts) {
+	public Views.ContentBase add_timeline_tab (string label, string icon, string url, Type accepts, string? empty_state_title = null) {
 		var tab = new Views.Accounts () {
 			url = url,
 			label = label,
@@ -111,6 +113,8 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		};
 		tab.label = label;
 		tab.icon = icon;
+
+		if (empty_state_title != null) tab.empty_state_title = empty_state_title;
 
 		add_tab (tab);
 

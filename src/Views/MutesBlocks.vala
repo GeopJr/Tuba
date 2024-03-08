@@ -11,14 +11,16 @@ public class Tuba.Views.MutesBlocks : Views.TabbedBase {
 			_("Mutes"),
 			"audio-volume-muted-symbolic",
 			"/api/v1/mutes",
-			typeof (API.Account)
+			typeof (API.Account),
+			_("No Muted Accounts")
 		);
 
 		blocks = add_timeline_tab (
 			_("Blocks"),
 			"tuba-error-symbolic",
 			"/api/v1/blocks",
-			typeof (API.Account)
+			typeof (API.Account),
+			_("No Blocked Accounts")
 		);
 	}
 }

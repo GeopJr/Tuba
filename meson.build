@@ -31,7 +31,11 @@ config.set('VERSION', meson.project_version())
 config.set('PREFIX', get_option('prefix'))
 config.set('NAME', 'Tuba')
 config.set('WEBSITE', 'https://github.com/GeopJr/Tuba')
-config.set('SUPPORT_WEBSITE', 'https://github.com/GeopJr/Tuba/issues')
+config.set('ISSUES_WEBSITE', 'https://github.com/GeopJr/Tuba/issues')
+config.set('SUPPORT_WEBSITE', 'https://matrix.to/#/#tuba:gnome.org')
+config.set('DONATE_WEBSITE', 'https://geopjr.dev/donate')
+config.set('TRANSLATE_WEBSITE', 'https://hosted.weblate.org/engage/tuba/')
+config.set('WIKI_WEBSITE', 'https://github.com/GeopJr/Tuba/wiki')
 config.set('PROFILE', devel ? 'development' : 'production')
 
 if devel

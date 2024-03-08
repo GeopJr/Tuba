@@ -179,7 +179,9 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 	#endif
 
+	GtkSource.LanguageManager lang_manager;
 	protected void install_editor () {
+		lang_manager = new GtkSource.LanguageManager ();
 		editor = new GtkSource.View () {
 			vexpand = true,
 			hexpand = true,
@@ -192,6 +194,7 @@ public class Tuba.EditorPage : ComposerPage {
 			wrap_mode = Gtk.WrapMode.WORD_CHAR
 		};
 		editor.remove_css_class ("view");
+		editor.add_css_class ("reset");
 
 		#if LIBSPELLING
 			adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
@@ -220,6 +223,10 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.completion.select_on_show = true;
 		editor.completion.show_icons = true;
 		editor.completion.page_size = 3;
+		((GtkSource.Buffer) editor.buffer).highlight_matching_brackets = true;
+		((GtkSource.Buffer) editor.buffer).highlight_syntax = true;
+
+		Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
 		update_style_scheme ();
 
 		char_counter = new Gtk.Label (char_limit.to_string ()) {
@@ -234,9 +241,15 @@ public class Tuba.EditorPage : ComposerPage {
 
 	protected void update_style_scheme () {
 		var manager = GtkSource.StyleSchemeManager.get_default ();
-		var scheme = manager.get_scheme ("adwaita");
-		var buffer = editor.buffer as GtkSource.Buffer;
-		buffer.style_scheme = scheme;
+		string scheme_name = "Fedi";
+		if (Adw.StyleManager.get_default ().dark) scheme_name += "-dark";
+		((GtkSource.Buffer) editor.buffer).style_scheme = manager.get_scheme (scheme_name);
+	}
+
+	protected void update_language_highlight () {
+		var syntax = ((Tuba.InstanceAccount.StatusContentType) content_type_button.selected_item).syntax;
+		((GtkSource.Buffer) editor.buffer).set_language (null); // setter is not nullable?
+		((GtkSource.Buffer) editor.buffer).set_language (lang_manager.get_language (syntax));
 	}
 
 	protected Gtk.Overlay overlay;
@@ -414,5 +427,8 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 
 		add_button (content_type_button);
+
+		content_type_button.notify["selected-item"].connect (update_language_highlight);
+		update_language_highlight ();
 	}
 }

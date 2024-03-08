@@ -49,7 +49,10 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 			w.destroy ();
 		}
 
-		var doc = Html.Doc.read_doc (HtmlUtils.replace_with_pango_markup (content), "", "utf8");
+		string to_parse = HtmlUtils.replace_with_pango_markup (content);
+		if (to_parse == "") return;
+
+		var doc = Html.Doc.read_doc (to_parse, "", "utf8");
 		if (doc != null) {
 			var root = doc->get_root_element ();
 			if (root != null) {

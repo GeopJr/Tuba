@@ -34,10 +34,10 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		status_button.clicked.connect (request);
 
 		// translators: as in All search results
-		all_tab = add_list_tab (_("All"), "tuba-loupe-large-symbolic");
-		accounts_tab = add_list_tab (_("Accounts"), "tuba-people-symbolic");
-		statuses_tab = add_list_tab (_("Posts"), "tuba-chat-symbolic");
-		hashtags_tab = add_list_tab (_("Hashtags"), "tuba-hashtag-symbolic");
+		all_tab = add_list_tab (_("All"), "tuba-loupe-large-symbolic", _("No Results"));
+		accounts_tab = add_list_tab (_("Accounts"), "tuba-people-symbolic", _("No Results"));
+		statuses_tab = add_list_tab (_("Posts"), "tuba-chat-symbolic", _("No Results"));
+		hashtags_tab = add_list_tab (_("Hashtags"), "tuba-hashtag-symbolic", _("No Results"));
 
 		uint timeout = 0;
 		timeout = Timeout.add (200, () => {
