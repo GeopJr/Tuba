@@ -2,16 +2,19 @@ public class Tuba.HtmlUtils {
 	public static string remove_tags (string content) {
 		var fixed_paragraphs = content;
 
-		var doc = Html.Doc.read_doc (HtmlUtils.replace_with_pango_markup (content), "", "utf8");
-		if (doc != null) {
-			var root = doc->get_root_element ();
-			if (root != null) {
-				var t_content = fixed_paragraphs;
-				remove_tags_handler (root, out t_content);
-				fixed_paragraphs = t_content;
+		string to_parse = HtmlUtils.replace_with_pango_markup (content);
+		if (to_parse != "") {
+			var doc = Html.Doc.read_doc (to_parse, "", "utf8");
+			if (doc != null) {
+				var root = doc->get_root_element ();
+				if (root != null) {
+					var t_content = fixed_paragraphs;
+					remove_tags_handler (root, out t_content);
+					fixed_paragraphs = t_content;
+				}
 			}
+			delete doc;
 		}
-		delete doc;
 
 		return restore_entities (fixed_paragraphs);
 	}
@@ -40,17 +43,18 @@ public class Tuba.HtmlUtils {
 
 	public static string simplify (string str) {
 		var simplified = str;
-
-		var doc = Html.Doc.read_doc (str, "", "utf8");
-		if (doc != null) {
-			var root = doc->get_root_element ();
-			if (root != null) {
-				var t_content = simplified;
-				simplify_handler (root, out t_content);
-				simplified = t_content;
+		if (simplified != "") {
+			var doc = Html.Doc.read_doc (str, "", "utf8");
+			if (doc != null) {
+				var root = doc->get_root_element ();
+				if (root != null) {
+					var t_content = simplified;
+					simplify_handler (root, out t_content);
+					simplified = t_content;
+				}
 			}
+			delete doc;
 		}
-		delete doc;
 
 		return simplified.strip ();
 	}
