@@ -149,7 +149,7 @@
                                 <property name="wrap-mode">word-char</property>
                                 <property name="accepts-tab">0</property>
                                 <style>
-                                  <class name="background-none"/>
+                                  <class name="reset"/>
                                 </style>
                               </object>
                             </child>

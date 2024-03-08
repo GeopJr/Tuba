@@ -115,11 +115,11 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			accepts_tab = false,
 			wrap_mode = Gtk.WrapMode.WORD_CHAR
 		};
+		alt_editor.remove_css_class ("view");
+		alt_editor.add_css_class ("reset");
 
-		var manager = GtkSource.StyleSchemeManager.get_default ();
-		var scheme = manager.get_scheme ("adwaita");
-		var buffer = alt_editor.buffer as GtkSource.Buffer;
-		buffer.style_scheme = scheme;
+		Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
+		update_style_scheme ();
 
 		#if LIBSPELLING
 			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) alt_editor.buffer, Spelling.Checker.get_default ());
@@ -171,6 +171,13 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		dialog_save_btn.clicked.connect (on_save_clicked);
 
 		return dialog;
+	}
+
+	protected void update_style_scheme () {
+		var manager = GtkSource.StyleSchemeManager.get_default ();
+		string scheme_name = "Adwaita";
+		if (Adw.StyleManager.get_default ().dark) scheme_name += "-dark";
+		((GtkSource.Buffer) alt_editor.buffer).style_scheme = manager.get_scheme (scheme_name);
 	}
 
 	private void on_save_clicked () {
