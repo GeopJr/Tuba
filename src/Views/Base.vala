@@ -1,7 +1,8 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/base.ui")]
 public class Tuba.Views.Base : Adw.BreakpointBin {
-	// translators: Shown when there are 0 results
+	// translators: Fallback shown when there are 0 results
 	public static string STATUS_EMPTY = _("Nothing to see here"); // vala-lint=naming-convention
+	public string empty_state_title { get; set; default=STATUS_EMPTY; }
 
 	public string? icon { get; set; default = null; }
 	public string label { get; set; default = ""; }
@@ -63,7 +64,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	[GtkChild] unowned Gtk.Spinner status_spinner;
 
 	public class StatusMessage : Object {
-		public string title = STATUS_EMPTY;
+		public string? title = null;
 		public string? message = null;
 		public bool loading = false;
 	}
@@ -85,8 +86,8 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 				} else {
 					status_stack.visible_child_name = "message";
 					status_spinner.spinning = false;
+					status_title_label.label = value.title == null ? empty_state_title : value.title;
 
-					status_title_label.label = value.title;
 					if (value.message != null)
 						status_message_label.label = value.message;
 				}
