@@ -10,6 +10,7 @@ jobs:
   msys2:
     name: "Windows Builder"
     runs-on: windows-latest
+    if: ${{ false }} # disable until msys2 updates deps to GNOME 46
     defaults:
       run:
         shell: msys2 {0}

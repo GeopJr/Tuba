@@ -42,10 +42,10 @@ parts:
     plugin: nil
     build-snaps:  # List all content-snaps and base snaps you're using here
       - core22
-      - gnome-42-2204
-      - gnome-42-2204-sdk
+      - gnome-46-2404
+      - gnome-46-2404-sdk
     override-prime: |
       set -eux
-      for snap in "core22" "gnome-42-2204" "gnome-42-2204-sdk"; do  # List all content-snaps and base snaps you're using here
+      for snap in "core22" "gnome-46-2404" "gnome-46-2404-sdk"; do  # List all content-snaps and base snaps you're using here
           cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
       done

@@ -136,10 +136,10 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	private void on_alt_text_btn_clicked () {
 		if (entity != null && entity.description != null)
-			create_alt_text_window (entity.description, true);
+			create_alt_text_dialog (entity.description, true);
 	}
 
-	protected Adw.Window create_alt_text_window (string alt_text, bool show = false) {
+	protected Adw.Dialog create_alt_text_dialog (string alt_text, bool show = false) {
 		var alt_label = new Gtk.Label (alt_text) {
 			wrap = true
 		};
@@ -160,20 +160,17 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 		var toolbar_view = new Adw.ToolbarView ();
 		var headerbar = new Adw.HeaderBar ();
-		var window = new Adw.Window () {
-			modal = true,
+		var window = new Adw.Dialog () {
 			title = _("Alternative text for attachment"),
-			transient_for = app.main_window,
-			content = toolbar_view,
-			default_width = 400,
-			default_height = 300
+			child = toolbar_view,
+			content_width = 400,
+			content_height = 300
 		};
-		window.add_binding_action (Gdk.Key.Escape, 0, "window.close", null);
 
 		toolbar_view.add_top_bar (headerbar);
 		toolbar_view.set_content (scrolledwindow);
 
-		if (show) window.show ();
+		if (show) window.present (app.main_window);
 		alt_label.selectable = true;
 
 		return window;

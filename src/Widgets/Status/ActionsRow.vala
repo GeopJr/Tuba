@@ -224,8 +224,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 				visibility_box.append (visibility_row);
 			}
 
-			var dlg = new Adw.MessageDialog (
-				app.main_window,
+			var dlg = new Adw.AlertDialog (
 				_("Boost with Visibility"),
 				null
 			) {
@@ -237,7 +236,6 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 				"yes", _("Boost")
 			);
 			dlg.set_response_appearance ("yes", Adw.ResponseAppearance.SUGGESTED);
-			dlg.transient_for = app.main_window;
 
 			dlg.response.connect (res => {
 				dlg.destroy ();
@@ -280,7 +278,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 				check_buttons.clear ();
 			});
 
-			dlg.present ();
+			dlg.present (app.main_window);
 		} else {
 			commit_boost (status_btn);
 		}

@@ -45,7 +45,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 					return true;
 				});
 				edit_button.clicked.connect (() => {
-					create_edit_preferences_window (this.list).show ();
+					create_edit_preferences_dialog (this.list).present (app.main_window);
 				});
 			}
 		}
@@ -73,10 +73,8 @@ public class Tuba.Views.Lists : Views.Timeline {
 			);
 		}
 
-		public Adw.PreferencesWindow create_edit_preferences_window (API.List t_list) {
-			return new Dialogs.ListEdit (t_list) {
-				transient_for = app.main_window
-			};
+		public Adw.PreferencesDialog create_edit_preferences_dialog (API.List t_list) {
+			return new Dialogs.ListEdit (t_list);
 		}
 
 		#if !USE_LISTVIEW

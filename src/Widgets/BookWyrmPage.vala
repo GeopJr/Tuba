@@ -75,15 +75,8 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
         }
 
         if (t_obj.publishedDate != "") {
-            var date_parsed = new GLib.DateTime.from_iso8601 (t_obj.publishedDate, null);
-            date_parsed = date_parsed.to_timezone (new TimeZone.local ());
-
-            if (date_parsed != null) {
-                // translators: the variable is the date the book was published
-                date.label = _("Published: %s").printf (date_parsed.format ("%x"));
-            } else {
-                date.visible = false;
-            }
+            // translators: the variable is the date the book was published
+            date.label = _("Published: %s").printf (t_obj.publishedDate);
         } else {
             date.visible = false;
         }

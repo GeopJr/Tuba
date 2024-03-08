@@ -53,7 +53,7 @@ public class Tuba.API.Announcement : Entity, Widgetizable {
 				warning (@"Error while dismissing announcement: $code $message");
 
 				var dlg = app.inform (_("Error"), message);
-				dlg.present ();
+				dlg.present (app.main_window);
 			})
 			.exec ();
 	}

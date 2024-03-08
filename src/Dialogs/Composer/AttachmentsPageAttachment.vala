@@ -65,7 +65,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 	}
 
 	private void on_alt_btn_clicked () {
-		create_alt_text_input_window ().show ();
+		create_alt_text_input_dialog ().present (compose_dialog);
 	}
 
 	private void on_delete_clicked () {
@@ -100,10 +100,10 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 	}
 
 	GtkSource.View alt_editor;
-	Adw.Window dialog;
+	Adw.Dialog dialog;
 	Gtk.Button dialog_save_btn;
 	Gtk.Label dialog_char_counter;
-	protected Adw.Window create_alt_text_input_window () {
+	protected Adw.Dialog create_alt_text_input_dialog () {
 		alt_editor = new GtkSource.View () {
 			vexpand = true,
 			hexpand = true,
@@ -161,18 +161,14 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			alt_editor.buffer.text = alt_text;
 		alt_editor.buffer.changed.connect (on_alt_editor_buffer_change);
 
-		dialog = new Adw.Window () {
-			modal = true,
+		dialog = new Adw.Dialog () {
 			title = _("Alternative text for attachment"),
-			transient_for = compose_dialog,
-			content = toolbar_view,
-			default_width = 400,
-			default_height = 300
+			child = toolbar_view,
+			content_width = 400,
+			content_height = 300
 		};
 
 		dialog_save_btn.clicked.connect (on_save_clicked);
-
-		dialog.add_binding_action (Gdk.Key.Escape, 0, "window.close", null);
 
 		return dialog;
 	}
@@ -204,7 +200,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	private void close_dialog () {
 		if (dialog != null) {
-			dialog.destroy ();
+			dialog.force_close ();
 			dialog = null;
 			alt_editor = null;
 			dialog_save_btn = null;

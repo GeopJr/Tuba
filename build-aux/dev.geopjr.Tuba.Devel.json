@@ -1,7 +1,7 @@
 {
     "app-id": "dev.geopjr.Tuba",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "45beta",
+    "runtime-version": "46beta",
     "sdk": "org.gnome.Sdk",
     "command": "dev.geopjr.Tuba",
     "finish-args": [
@@ -10,7 +10,6 @@
         "--share=network",
         "--socket=fallback-x11",
         "--socket=wayland",
-        "--env=GDK_PIXBUF_MODULE_FILE=/app/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache",
         "--socket=pulseaudio"
     ],
     "cleanup": [
@@ -26,29 +25,6 @@
         "*.a"
     ],
     "modules": [
-        {
-            "name" : "webp-pixbuf-loader",
-            "buildsystem" : "meson",
-            "config-opts" : [
-                "-Dgdk_pixbuf_moduledir=/app/lib/gdk-pixbuf-2.0/2.10.0/loaders/"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://github.com/aruiz/webp-pixbuf-loader.git",
-                    "tag" : "0.2.4",
-                    "commit": "a35014104a226265e44fe30fcdb4df9305af3466"
-                }
-            ]
-        },
-        {
-            "name" : "update-pixbuf-loaders",
-            "buildsystem" : "simple",
-            "build-commands" : [
-                "GDK_PIXBUF_MODULEDIR=/app/lib/gdk-pixbuf-2.0/2.10.0/loaders/ gdk-pixbuf-query-loaders > /app/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache",
-                "gdk-pixbuf-query-loaders >> /app/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
-            ]
-        },
         {
             "name" : "libspelling",
             "buildsystem" : "meson",

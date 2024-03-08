@@ -71,15 +71,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
                 var percentage = poll.votes_count > 0 ? ((double)p.votes_count / poll.votes_count) * 100 : 0.0;
 
                 var provider = new Gtk.CssProvider ();
-                #if GTK_4_12
-                    provider.load_from_string (generate_css_style ((int) percentage));
-                #else
-                    #if VALAC_05611
-                        provider.load_from_data (generate_css_style ((int) percentage), -1);
-                    #else
-                        provider.load_from_data (generate_css_style ((int) percentage).data);
-                    #endif
-                #endif
+                provider.load_from_string (generate_css_style ((int) percentage));
 
                 row.get_style_context ().add_provider (provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 row.add_css_class (@"ttl-poll-$((int) percentage)");

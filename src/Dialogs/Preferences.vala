@@ -1,5 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/preferences.ui")]
-public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
+public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	~Preferences () {
 		debug ("Destroying Preferences");
 	}
@@ -165,7 +165,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 	}
 
 	construct {
-		transient_for = app.main_window;
 		post_visibility_combo_row.model = accounts.active.visibility_list;
 
 		// Setup scheme combo row
@@ -194,7 +193,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 		setup_notification_mutes ();
 		setup_filters ();
 		bind ();
-		close_request.connect (on_window_closed);
+		closed.connect (on_window_closed);
 	}
 
 	void setup_filters () {
@@ -321,7 +320,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 		}
 	}
 
-	private bool on_window_closed () {
+	private void on_window_closed () {
 		if (lang_changed) {
 			var new_lang = ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale;
 			if (settings.default_language != ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale) {
@@ -351,7 +350,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 			settings.default_content_type = ((Tuba.InstanceAccount.StatusContentType) default_content_type_combo_row.selected_item).mime;
 
 		update_notification_mutes ();
-		return false;
 	}
 }
 

@@ -1,5 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/compose.ui")]
-public class Tuba.Dialogs.Compose : Adw.Window {
+public class Tuba.Dialogs.Compose : Adw.Dialog {
 	public class BasicStatus : Object {
 		public class BasicPoll : Object {
 			public Gee.ArrayList<string> options { get; set; default=new Gee.ArrayList <string> (); }
@@ -136,17 +136,10 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	}
 
 	public bool editing { get; set; default=false; }
-	public bool mobile { get; set; default=false; }
 
 	ulong build_sigid;
 	public signal void on_paste_activated (string page_title);
 	construct {
-		if (app.main_window.default_width <= 500) {
-			this.default_height = 500;
-			this.default_width = app.main_window.default_width;
-			mobile = true;
-		}
-
 		var paste_action = new SimpleAction ("paste", null);
 		paste_action.activate.connect (emit_paste_signal);
 
@@ -163,13 +156,12 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		add_binding_action (Gdk.Key.Q, Gdk.ModifierType.CONTROL_MASK, "composer.exit", null);
 		add_binding_action (Gdk.Key.V, Gdk.ModifierType.CONTROL_MASK, "composer.paste", null);
 
-		transient_for = app.main_window;
 		title_switcher.policy = WIDE;
 		title_switcher.stack = stack;
 
 		build_sigid = notify["status"].connect (() => {
 			build ();
-			present ();
+			present (app.main_window);
 
 			disconnect (build_sigid);
 		});
@@ -179,6 +171,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	~Compose () {
 		debug ("Destroying composer");
 		foreach (var page in t_pages) {
+			page.unparent ();
 			page.dispose ();
 		}
 		t_pages = {};
@@ -362,7 +355,6 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 		page.dialog = this;
 		page.status = this.status;
-		if (mobile) page.action_bar_on_top = true;
 		if (editing) page.edit_mode = true;
 		page.on_build ();
 		page.on_pull ();
@@ -376,7 +368,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	}
 
 	void on_close () {
-		destroy ();
+		this.force_close ();
 	}
 
 	[GtkCallback] void on_commit () {
@@ -386,8 +378,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 				transaction.end (res);
 			} catch (Error e) {
 				warning (e.message);
-				var dlg = app.inform (_("Error"), e.message, this);
-				dlg.present ();
+				var dlg = app.inform (_("Error"), e.message);
+				dlg.present (this);
 			} finally {
 				this.sensitive = true;
 			}

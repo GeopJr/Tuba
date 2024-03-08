@@ -162,7 +162,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	private void open_edit_page () {
 		var dialog = new Dialogs.ProfileEdit (profile.account);
 		dialog.saved.connect (on_edit_save);
-		dialog.show ();
+		dialog.present (app.main_window);
 	}
 
 	private void on_edit_save () {
@@ -221,7 +221,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 		//  actions.add_action (source_action);
 		ar_list_action = new SimpleAction ("ar_list", null);
 		ar_list_action.activate.connect (v => {
-			create_ar_list_dialog ().show ();
+			create_ar_list_dialog ().present (app.main_window);
 		});
 		actions.add_action (ar_list_action);
 
@@ -345,7 +345,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 		public bool remove { get; set; default = false; }
 	}
 
-	public Adw.Window create_ar_list_dialog () {
+	public Adw.Dialog create_ar_list_dialog () {
 		var spinner = new Gtk.Spinner () {
 			spinning = true,
 			halign = Gtk.Align.CENTER,
@@ -365,14 +365,12 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 		toolbar_view.add_top_bar (headerbar);
 		toolbar_view.set_content (toast_overlay);
-		var dialog = new Adw.Window () {
+		var dialog = new Adw.Dialog () {
 			// translators: the variable is an account handle
 			title = _("Add or remove \"%s\" to or from a list").printf (profile.account.handle),
-			modal = true,
-			transient_for = app.main_window,
-			content = toolbar_view,
-			default_width = 600,
-			default_height = 550
+			child = toolbar_view,
+			content_width = 600,
+			content_height = 550
 		};
 		spinner.start ();
 
