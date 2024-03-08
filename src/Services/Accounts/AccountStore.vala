@@ -91,8 +91,13 @@ public abstract class Tuba.AccountStore : GLib.Object {
 					account.verify_credentials.end (res);
 					account.error = null;
 					settings.active_account = account.uuid;
-					if (account.source != null && account.source.language != null && account.source.language != "")
-						settings.default_language = account.source.language;
+					if (account.source != null) {
+						if (account.source.language != null && account.source.language != "") settings.default_language = account.source.language;
+						if (account.source.privacy != null && account.source.privacy != "") {
+							string visibility_id = account.source.privacy.down ();
+							if (account.visibility.has_key (visibility_id)) settings.default_post_visibility = visibility_id;
+						}
+					}
 				}
 				catch (Error e) {
 					warning (@"Couldn't activate account $(account.handle):");
