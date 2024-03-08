@@ -97,6 +97,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 							string visibility_id = account.source.privacy.down ();
 							if (account.visibility.has_key (visibility_id)) settings.default_post_visibility = visibility_id;
 						}
+						account.unreviewed_follow_requests = account.source.follow_requests_count;
 					}
 				}
 				catch (Error e) {

@@ -64,7 +64,11 @@
 						<property name="orientation">vertical</property>
 						<property name="vexpand">1</property>
 						<child>
-							<object class="AdwBanner" id="banner">
+							<object class="AdwBanner" id="announcements_banner">
+								<property name="revealed">0</property>
+								<property name="button-label" translatable="yes">View</property>
+							</object>
+							<object class="AdwBanner" id="fr_banner">
 								<property name="revealed">0</property>
 								<property name="button-label" translatable="yes">View</property>
 							</object>

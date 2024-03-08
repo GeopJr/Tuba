@@ -244,6 +244,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	// Notifications
 
+	public int unreviewed_follow_requests { get; set; default = 0; }
 	public int unread_announcements { get; set; default = 0; }
 	public int unread_count { get; set; default = 0; }
 	public int last_read_id { get; set; default = 0; }
@@ -484,6 +485,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		try {
 			var entity = create_entity<API.Notification> (ev.get_node ());
 			if (entity.status != null && entity.status.formal.tuba_filter_hidden) return;
+			if (entity.kind == InstanceAccount.KIND_FOLLOW_REQUEST) unreviewed_follow_requests += 1;
 
 			var id = int.parse (entity.id);
 			if (id > last_received_id) {

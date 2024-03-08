@@ -79,6 +79,7 @@ namespace Tuba {
 			{ "open-preferences", open_preferences },
 			{ "open-current-account-profile", open_current_account_profile },
 			{ "open-announcements", open_announcements },
+			{ "open-follow-requests", open_follow_requests },
 			{ "open-mutes-blocks", open_mutes_blocks }
 		};
 
@@ -401,6 +402,12 @@ namespace Tuba {
 			});
 			close_sidebar ();
 			if (accounts.active != null) accounts.active.unread_announcements = 0;
+		}
+
+		public void open_follow_requests () {
+			main_window.open_view (new Views.FollowRequests ());
+			close_sidebar ();
+			if (accounts.active != null) accounts.active.unreviewed_follow_requests = 0;
 		}
 
 		public void open_mutes_blocks () {
