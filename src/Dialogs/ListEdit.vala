@@ -148,7 +148,6 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
     [GtkCallback]
     private void on_close () {
         on_apply ();
-        hide ();
         force_close ();
     }
 

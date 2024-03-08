@@ -15,7 +15,6 @@
     <signal name="closed" handler="on_close" swapped="no"/>
     <property name="content-width">500</property>
     <property name="content-height">450</property>
-    <property name="search-enabled">True</property>
     <child>
       <object class="AdwPreferencesPage">
         <property name="icon-name">tuba-settings-symbolic</property>

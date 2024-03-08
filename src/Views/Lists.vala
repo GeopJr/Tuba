@@ -74,7 +74,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 		}
 
 		public Adw.PreferencesDialog create_edit_preferences_dialog (API.List t_list) {
-			return new Dialogs.ListEdit (t_list) {};
+			return new Dialogs.ListEdit (t_list);
 		}
 
 		#if !USE_LISTVIEW
