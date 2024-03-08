@@ -39,7 +39,9 @@ public class Tuba.API.Filters.Filter : Entity {
 
 		public string to_string () {
 			switch (this) {
+				// translators: Leave &amp; as is, it gets converted to &
 				case HOME: return _("Home &amp; Lists");
+
 				case NOTIFICATIONS: return _("Notifications");
 				case PUBLIC: return _("Public Timelines");
 				case THREAD: return _("Conversations");

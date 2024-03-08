@@ -22,11 +22,11 @@ test:
 	ninja test -C builddir
 
 potfiles:
-	find ./ -type f -name "*.in" | sort > po/POTFILES
+	find ./ -not -path '*/.*' -type f -name "*.in" | sort > po/POTFILES
 	echo "" >> po/POTFILES
-	find ./ -type f -name "*.ui" -exec grep -l "translatable=\"yes\"" {} \; | sort >> po/POTFILES
+	find ./ -not -path '*/.*' -type f -name "*.ui" -exec grep -l "translatable=\"yes\"" {} \; | sort >> po/POTFILES
 	echo "" >> po/POTFILES
-	find ./ -type f -name "*.vala" -exec grep -l "_(\"" {} \; | sort >> po/POTFILES
+	find ./ -not -path '*/.*' -type f -name "*.vala" -exec grep -l "_(\"" {} \; | sort >> po/POTFILES
 
 windows: PREFIX = $(PWD)/tuba_windows_portable
 windows: __windows_pre build install __windows_set_icon __windows_copy_deps __windows_schemas __windows_copy_icons __windows_cleanup __windows_package

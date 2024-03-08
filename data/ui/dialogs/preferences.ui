@@ -92,7 +92,7 @@
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="darken_images_on_dark_mode">
-								<property name="title" translatable="yes">Darken images on dark mode</property>
+								<property name="title" translatable="yes">Darken Images on Dark Mode</property>
 							</object>
 						</child>
 					</object>
