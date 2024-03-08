@@ -78,7 +78,13 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 				case BOOKWYRM:
 					var bookwyrm_instance = GLib.Uri.parse (t_url, GLib.UriFlags.NONE);
 					special_host = bookwyrm_instance.get_host ();
-					var bookwyrm_id = Path.get_basename (Path.get_dirname (Path.get_dirname (t_url)));
+
+					var bookwyrm_path = bookwyrm_instance.get_path ();
+					var b_id_start = bookwyrm_path.index_of_char ('/', 1);
+					var b_id_end = bookwyrm_path.index_of_char ('/', b_id_start + 1) - 1;
+					if (b_id_end <= -1) b_id_end = bookwyrm_path.length - 1;
+					var bookwyrm_id = bookwyrm_path.substring (b_id_start + 1, b_id_end - b_id_start);
+
 					special_api_url = @"https://$(special_host)/book/$(bookwyrm_id).json";
 					break;
 				default:
@@ -168,7 +174,6 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 			Host.open_uri (card_url);
 			return;
 		}
-
 
 		new Request.GET (special_api_url)
 			.then ((in_stream) => {

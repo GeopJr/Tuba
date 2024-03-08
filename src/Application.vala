@@ -168,7 +168,7 @@ namespace Tuba {
 			cache_path = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, GLib.Environment.get_user_cache_dir (), Build.NAME.down ());
 
 			try {
-				bookwyrm_regex = new GLib.Regex ("/book/\\d+/s/[-_a-z0-9]*", GLib.RegexCompileFlags.OPTIMIZE);
+				bookwyrm_regex = new GLib.Regex ("/book/\\d+(/?$|/s/[-_a-z0-9]*)", GLib.RegexCompileFlags.OPTIMIZE);
 			} catch (GLib.RegexError e) {
 				critical (e.message);
 			}

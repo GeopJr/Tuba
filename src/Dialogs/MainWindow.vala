@@ -131,16 +131,14 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			toolbar_view.add_top_bar (headerbar);
 			toolbar_view.set_content (scroller);
 
-			var book_dialog = new Adw.Window () {
-				modal = true,
+			var book_dialog = new Adw.Dialog () {
 				title = book.title,
-				transient_for = this,
-				content = toolbar_view,
-				default_width = 460,
-				default_height = 520
+				child = toolbar_view,
+				content_width = 460,
+				content_height = 640
 			};
 
-			book_dialog.show ();
+			book_dialog.present (this);
 
 			((Widgets.BookWyrmPage) book_widget).selectable = true;
 		} catch {
