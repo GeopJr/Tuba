@@ -18,6 +18,7 @@ sources += files(
     'Local.vala',
     'Main.vala',
     'MediaViewer.vala',
+    'MutesBlocks.vala',
     'Notifications.vala',
     'Profile.vala',
     'Search.vala',
