@@ -79,7 +79,8 @@ namespace Tuba {
 			{ "open-preferences", open_preferences },
 			{ "open-current-account-profile", open_current_account_profile },
 			{ "open-announcements", open_announcements },
-			{ "open-follow-requests", open_follow_requests }
+			{ "open-follow-requests", open_follow_requests },
+			{ "open-mutes-blocks", open_mutes_blocks }
 		};
 
 		#if DEV_MODE
@@ -409,6 +410,11 @@ namespace Tuba {
 			if (accounts.active != null) accounts.active.unreviewed_follow_requests = 0;
 		}
 
+		public void open_mutes_blocks () {
+			main_window.open_view (new Views.MutesBlocks ());
+			close_sidebar ();
+		}
+
 		private void close_sidebar () {
 			var split_view = app.main_window.split_view;
 			if (split_view.collapsed)
@@ -460,6 +466,7 @@ namespace Tuba {
 				application_icon = Build.DOMAIN,
 				application_name = Build.NAME,
 				version = Build.VERSION,
+				issue_url = Build.ISSUES_WEBSITE,
 				support_url = Build.SUPPORT_WEBSITE,
 				license_type = Gtk.License.GPL_3_0_ONLY,
 				copyright = COPYRIGHT,
@@ -471,6 +478,12 @@ namespace Tuba {
 				// translators: Name <email@domain.com> or Name https://website.example
 				translator_credits = _("translator-credits")
 			};
+
+			// translators: Wiki pages / Guides
+			dialog.add_link (_("Wiki"), Build.WIKI_WEBSITE);
+
+			dialog.add_link (_("Translate"), Build.TRANSLATE_WEBSITE);
+			dialog.add_link (_("Donate"), Build.DONATE_WEBSITE);
 
 			// For some obscure reason, const arrays produce duplicates in the credits.
 			// Static functions seem to avoid this peculiar behavior.

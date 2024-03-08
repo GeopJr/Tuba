@@ -255,6 +255,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		public string mime { get; construct set; }
 		public string icon_name { get; construct set; }
 		public string title { get; construct set; }
+		public string syntax { get; construct set; }
 
 		public StatusContentType (string content_type) {
 			mime = content_type;
@@ -264,25 +265,31 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					icon_name = "tuba-paper-symbolic";
 					// translators: this is a content type
 					title = _("Plain Text");
+					syntax = "fedi-basic";
 					break;
 				case "text/html":
 					icon_name = "tuba-code-symbolic";
 					title = "HTML";
+					syntax = "fedi-html";
 					break;
 				case "text/markdown":
 					icon_name = "tuba-markdown-symbolic";
 					title = "Markdown";
+					syntax = "fedi-markdown";
 					break;
 				case "text/bbcode":
 					icon_name = "tuba-rich-text-symbolic";
 					title = "BBCode";
+					syntax = "fedi-basic";
 					break;
 				case "text/x.misskeymarkdown":
 					icon_name = "tuba-rich-text-symbolic";
 					title = "MFM";
+					syntax = "fedi-basic";
 					break;
 				default:
 					icon_name = "tuba-rich-text-symbolic";
+					syntax = "fedi-basic";
 
 					int slash = content_type.index_of_char ('/');
 					int ct_l = content_type.length;

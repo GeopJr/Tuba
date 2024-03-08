@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="fedi-html" _name="Fedi Flavoured HTML" version="2.0" _section="Markup">
+	<definitions>
+		<context id="fedi-html">
+			<include>
+				<context ref="fedi-basic:fedi-basic"/>
+				<context ref="html:html"/>
+			</include>
+		</context>
+	</definitions>
+</language>

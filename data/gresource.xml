@@ -58,6 +58,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-earth-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-verified-checkmark-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-funnel-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-error-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/help-overlay.ui</file>

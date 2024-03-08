@@ -662,3 +662,8 @@ GtkSourceAssistant row:last-child {
 	margin: -2px;
 	border-radius: 0;
 }
+
+.sourceview.reset {
+	background: transparent;
+	color: currentColor;
+}

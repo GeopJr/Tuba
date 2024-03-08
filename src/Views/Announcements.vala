@@ -5,6 +5,7 @@ public class Tuba.Views.Announcements : Views.Timeline {
 		label = _("Announcements");
 		icon = "tuba-lightbulb-symbolic";
 		accepts = typeof (API.Announcement);
+		empty_state_title = _("No Announcements");
 	}
 
 	public void dismiss_all () {

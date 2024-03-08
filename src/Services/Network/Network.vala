@@ -31,7 +31,7 @@ public class Tuba.Network : GLib.Object {
 		cache.load ();
         cache.set_max_size (1024 * 1024 * 100);
 
-		session = new Soup.Session () {
+		session = new Soup.Session.with_options ("max-conns", 64, "max-conns-per-host", 64) {
 			user_agent = @"$(Build.NAME)/$(Build.VERSION) libsoup/$(Soup.get_major_version()).$(Soup.get_minor_version()).$(Soup.get_micro_version()) ($(Soup.MAJOR_VERSION).$(Soup.MINOR_VERSION).$(Soup.MICRO_VERSION))" // vala-lint=line-length
 		};
 		session.add_feature (cache);

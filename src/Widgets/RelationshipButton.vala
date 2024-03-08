@@ -50,6 +50,13 @@ public class Tuba.Widgets.RelationshipButton : Gtk.Button {
 			};
 			add_css_class ("destructive-action");
 			return;
+		} else if (rs.muting) {
+			label = _("Unmute");
+			fn = () => {
+				rs.modify ("unmute");
+				return true;
+			};
+			add_css_class ("destructive-action");
 		} else if (rs.following || rs.requested) {
 			label = _("Unfollow");
 			fn = () => {
