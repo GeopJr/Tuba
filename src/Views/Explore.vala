@@ -1,6 +1,7 @@
 public class Tuba.Views.Explore : Views.TabbedBase {
 	construct {
 		label = _("Explore");
+		uid = 1;
 
 		add_timeline_tab (_("Posts"), "tuba-chat-symbolic", "/api/v1/trends/statuses", typeof (API.Status));
 		add_timeline_tab (_("Hashtags"), "tuba-hashtag-symbolic", "/api/v1/trends/tags", typeof (API.Tag), _("No Hashtags"));

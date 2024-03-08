@@ -11,6 +11,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	public bool allow_nesting { get; set; default = false; }
 	public bool is_sidebar_item { get; set; default = false; }
 	public int badge_number { get; set; default = 0; }
+	public int uid { get; set; default = -1; }
 	protected SimpleActionGroup actions { get; set; default = new SimpleActionGroup (); }
 
 	private bool _show_back_button = true;
