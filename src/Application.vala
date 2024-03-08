@@ -79,6 +79,7 @@ namespace Tuba {
 			{ "open-preferences", open_preferences },
 			{ "open-current-account-profile", open_current_account_profile },
 			{ "open-announcements", open_announcements },
+			{ "open-mutes-blocks", open_mutes_blocks }
 		};
 
 		#if DEV_MODE
@@ -400,6 +401,11 @@ namespace Tuba {
 			});
 			close_sidebar ();
 			if (accounts.active != null) accounts.active.unread_announcements = 0;
+		}
+
+		public void open_mutes_blocks () {
+			main_window.open_view (new Views.MutesBlocks ());
+			close_sidebar ();
 		}
 
 		private void close_sidebar () {
