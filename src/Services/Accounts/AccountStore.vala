@@ -93,8 +93,11 @@ public abstract class Tuba.AccountStore : GLib.Object {
 					settings.active_account = account.uuid;
 					if (account.source != null && account.source.language != null && account.source.language != "")
 						settings.default_language = account.source.language;
-				}
-				catch (Error e) {
+
+					// TODO: Clean it up after merging the other PR
+					if (account.source != null)
+						account.unreviewed_follow_requests = account.source.follow_requests_count;
+				} catch (Error e) {
 					warning (@"Couldn't activate account $(account.handle):");
 					warning (e.message);
 					account.error = e;
