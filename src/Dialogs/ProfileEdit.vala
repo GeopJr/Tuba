@@ -82,12 +82,10 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 		filter.add_mime_type ("image/png");
 		filter.add_mime_type ("image/gif");
 
+		bio_text_view.remove_css_class ("view");
 		bio_text_view.buffer.changed.connect (on_bio_text_changed);
-
-		var manager = GtkSource.StyleSchemeManager.get_default ();
-		var scheme = manager.get_scheme ("adwaita");
-		var buffer = bio_text_view.buffer as GtkSource.Buffer;
-		buffer.style_scheme = scheme;
+		Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
+		update_style_scheme ();
 
 		#if LIBSPELLING
 			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) bio_text_view.buffer, Spelling.Checker.get_default ());
@@ -100,6 +98,13 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 		if (accounts.active.instance_emojis?.size > 0) {
 			cepbtn.visible = true;
 		}
+	}
+
+	protected void update_style_scheme () {
+		var manager = GtkSource.StyleSchemeManager.get_default ();
+		string scheme_name = "Adwaita";
+		if (Adw.StyleManager.get_default ().dark) scheme_name += "-dark";
+		((GtkSource.Buffer) bio_text_view.buffer).style_scheme = manager.get_scheme (scheme_name);
 	}
 
 	[GtkCallback]
