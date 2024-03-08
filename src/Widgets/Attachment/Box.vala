@@ -146,19 +146,28 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 	}
 
 	private void open_all_attachments (string url) {
-		var i = 0;
-		var main = 0;
-		foreach (var at_widget in attachment_widgets) {
-			if (at_widget.entity.url != url) {
-				at_widget.load_image_in_media_viewer (i);
-			} else {
-				main = i;
-			};
-			i += 1;
-		}
+		int attachment_length = attachment_widgets.length;
+		for (int i = 0; i < attachment_length; i++) {
+			bool? is_main = null;
+			if (attachment_length > 1)
+				is_main = attachment_widgets[i].entity.url == url;
 
-		if (i > 0) {
-			app.main_window.scroll_media_viewer (main);
+			app.main_window.show_media_viewer (
+				attachment_widgets[i].entity.url,
+				attachment_widgets[i].media_kind,
+				attachment_widgets[i].pic.paintable,
+				attachment_widgets[i],
+				false,
+				attachment_widgets[i].pic.alternative_text,
+				null,
+				false,
+				is_main,
+				is_main == null
+			);
+
+			if (is_main == true) {
+				app.main_window.reveal_media_viewer_manually (attachment_widgets[i]);
+			}
 		}
 	}
 }

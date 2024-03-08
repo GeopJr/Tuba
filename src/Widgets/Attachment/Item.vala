@@ -15,7 +15,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	protected Gtk.Button alt_btn;
 	protected Gtk.Box badge_box;
 	protected ulong alt_btn_clicked_id;
-	protected Tuba.Attachment.MediaType media_kind;
+	public Tuba.Attachment.MediaType media_kind { get; protected set; }
 
 	private void copy_url () {
 		Host.copy (entity.url);

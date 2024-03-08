@@ -79,28 +79,36 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	public void scroll_media_viewer (int pos) {
 		if (!is_media_viewer_visible) return;
 
-		media_viewer.scroll_to (pos);
+		media_viewer.scroll_to (pos, false);
 	}
 
 	public void show_media_viewer (
 		string url,
 		Tuba.Attachment.MediaType media_type,
 		Gdk.Paintable? preview,
-		int? pos = null,
 		Gtk.Widget? source_widget = null,
 		bool as_is = false,
 		string? alt_text = null,
 		string? user_friendly_url = null,
-		bool stream = false
+		bool stream = false,
+		bool? load_and_scroll = null,
+		bool reveal_media_viewer = true
 	) {
 		if (as_is && preview == null) return;
 
-		media_viewer.add_media (url, media_type, preview, pos, as_is, alt_text, user_friendly_url, stream, source_widget);
+		media_viewer.add_media (url, media_type, preview, as_is, alt_text, user_friendly_url, stream, source_widget, load_and_scroll);
 
-		if (!is_media_viewer_visible) {
+		if (reveal_media_viewer) {
 			media_viewer.reveal (source_widget);
 			media_viewer_source_widget = source_widget;
 		}
+	}
+
+	public void reveal_media_viewer_manually (Gtk.Widget? source_widget = null) {
+		if (is_media_viewer_visible) return;
+
+		media_viewer.reveal (source_widget);
+		media_viewer_source_widget = source_widget;
 	}
 
 	public void show_book (API.BookWyrm book, string? fallback = null) {
@@ -147,6 +155,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 				last_view != null
 				&& last_view.label == view.label
 				&& !view.allow_nesting
+				&& view.uid == last_view.uid
 			)
 		) return view;
 

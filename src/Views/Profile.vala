@@ -91,8 +91,8 @@ public class Tuba.Views.Profile : Views.Accounts {
 		var widget_status = widget as Widgets.Status;
 		if (widget_status != null && profile.account.id == accounts.active.id) {
 			widget_status.show_toggle_pinned_action ();
-            widget_status.pin_changed.connect (on_refresh);
-        }
+			widget_status.pin_changed.connect (on_refresh);
+		}
 
 		return widget;
 	}
@@ -113,7 +113,23 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 	protected void change_timeline_source (string t_source) {
 		source = t_source;
-		accepts = t_source == "statuses" ? typeof (API.Status) : typeof (API.Account);
+
+		switch (t_source) {
+			case "statuses":
+				accepts = typeof (API.Status);
+				empty_state_title = _("No Posts");
+				break;
+			case "followers":
+				accepts = typeof (API.Account);
+				empty_state_title = _("No Followers");
+				break;
+			case "following":
+				accepts = typeof (API.Account);
+				empty_state_title = _("This user doesn't follow anyone yet");
+				break;
+			default:
+				assert_not_reached ();
+		}
 
 		url = @"/api/v1/accounts/$(profile.account.id)/$t_source";
 		invalidate_actions (true);

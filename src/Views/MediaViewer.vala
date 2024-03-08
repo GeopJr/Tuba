@@ -517,7 +517,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	public override void size_allocate (int width, int height, int baseline) {
-        int swipe_y_offset = (int) (-height * swipe_progress);
+		int swipe_y_offset = (int) (-height * swipe_progress);
 		Gtk.Allocation allocation = Gtk.Allocation () {
 			x = 0,
 			y = swipe_y_offset,
@@ -525,7 +525,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			height = height
 		};
 		scale_revealer.allocate_size (allocation, baseline);
-    }
+	}
 
 	public override void snapshot (Gtk.Snapshot snapshot) {
 		double progress = double.min (
@@ -582,6 +582,15 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			swipe_progress = 0.0;
 			scale_revealer.source_widget = null;
 			reset_media_viewer ();
+		} else if (load_and_scroll_to != -1) {
+			var scroll_to_widget = safe_get (load_and_scroll_to);
+			for (int i = 0; i < load_and_scroll_to; i++) {
+				var item = safe_get (i);
+				if (item != null) {
+					item.visible = true;
+					carousel.scroll_to (scroll_to_widget, false);
+				} else break;
+			}
 		}
 	}
 
@@ -641,6 +650,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	public void clear () {
 		if (!revealed) reset_media_viewer ();
 		scale_revealer.reveal_child = false;
+		load_and_scroll_to = -1;
 	}
 
 	[GtkCallback]
@@ -794,23 +804,24 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		do_todo_items ();
 	}
 
+	int load_and_scroll_to = -1;
 	public Gee.HashMap<int, Gtk.Widget> revealer_widgets = new Gee.HashMap<int, Gtk.Widget> ();
 	public void add_media (
 		string url,
 		Tuba.Attachment.MediaType media_type,
 		Gdk.Paintable? preview,
-		int? pos = null,
 		bool as_is = false,
 		string? alt_text = null,
 		string? user_friendly_url = null,
 		bool stream = false,
-		Gtk.Widget? revealer_widget = null
+		Gtk.Widget? revealer_widget = null,
+		bool? load_and_scroll = null
 	) {
 		Item item;
 		string final_friendly_url = user_friendly_url == null ? url : user_friendly_url;
 		Gdk.Paintable? final_preview = as_is ? null : preview;
 		if (revealer_widget != null)
-			revealer_widgets.set (pos == null ? items.size : pos, revealer_widget);
+			revealer_widgets.set (items.size, revealer_widget);
 
 		if (media_type.is_video ()) {
 			var video = new Gtk.Video ();
@@ -860,13 +871,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			}
 		}
 
-		if (pos == null) {
-			carousel.append (item);
-			items.add (item);
-		} else {
-			carousel.insert (item, pos);
-			items.insert (pos, item);
-		}
+		if (load_and_scroll == false && load_and_scroll_to == -1) item.visible = false;
+		if (load_and_scroll == true) load_and_scroll_to = items.size;
+		carousel.append (item);
+		items.add (item);
 
 		if (as_is || stream) add_todo_item (item);
 	}
@@ -891,34 +899,19 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		});
 	}
 
-	public void scroll_to (int pos, bool should_timeout = true) {
+	public void scroll_to (int pos, bool animate = true) {
 		if (pos >= items.size || pos < 0) return;
-
-		if (!should_timeout) {
-			carousel.scroll_to (carousel.get_nth_page (pos), true);
-			return;
-		}
-
-		// https://gitlab.gnome.org/GNOME/libadwaita/-/issues/597
-		// https://gitlab.gnome.org/GNOME/libadwaita/-/merge_requests/827
-		uint timeout = 0;
-		timeout = Timeout.add (250, () => {
-			if (pos < items.size)
-				carousel.scroll_to (carousel.get_nth_page (pos), true);
-			GLib.Source.remove (timeout);
-
-			return true;
-		}, Priority.LOW);
+		carousel.scroll_to (carousel.get_nth_page (pos), animate);
 	}
 
 	[GtkCallback]
     private void on_previous_clicked () {
-        scroll_to (((int) carousel.position) - 1, false);
+        scroll_to (((int) carousel.position) - 1);
     }
 
 	[GtkCallback]
     private void on_next_clicked () {
-        scroll_to (((int) carousel.position) + 1, false);
+        scroll_to (((int) carousel.position) + 1);
     }
 
 	[GtkCallback]
@@ -962,6 +955,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	private void on_carousel_n_pages_changed () {
 		bool has_more_than_1_item = carousel.n_pages > 1;
 
+		if (!has_more_than_1_item) on_carousel_page_changed (0);
 		page_buttons_revealer.visible = has_more_than_1_item;
 	}
 
