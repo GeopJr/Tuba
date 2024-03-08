@@ -453,6 +453,7 @@ namespace Tuba {
 				application_icon = Build.DOMAIN,
 				application_name = Build.NAME,
 				version = Build.VERSION,
+				issue_url = Build.ISSUES_WEBSITE,
 				support_url = Build.SUPPORT_WEBSITE,
 				license_type = Gtk.License.GPL_3_0_ONLY,
 				copyright = COPYRIGHT,
@@ -464,6 +465,12 @@ namespace Tuba {
 				// translators: Name <email@domain.com> or Name https://website.example
 				translator_credits = _("translator-credits")
 			};
+
+			// translators: Wiki pages / Guides
+			dialog.add_link (_("Wiki"), Build.WIKI_WEBSITE);
+
+			dialog.add_link (_("Translate"), Build.TRANSLATE_WEBSITE);
+			dialog.add_link (_("Donate"), Build.DONATE_WEBSITE);
 
 			// For some obscure reason, const arrays produce duplicates in the credits.
 			// Static functions seem to avoid this peculiar behavior.
