@@ -76,18 +76,13 @@ asresources = gnome.compile_resources(
     c_name: 'as',
 )
 
-libgtk_dep = dependency('gtk4', version: '>=4.11.3', required: true)
-libadwaita_dep = dependency('libadwaita-1', version: '>=1.4', required: true)
+libadwaita_dep = dependency('libadwaita-1', version: '>=1.5', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
 libwebp_dep = dependency('libwebp', required: false)
 libspelling = dependency('libspelling-1', required: false)
 
 if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
-endif
-
-if libgtk_dep.version().version_compare('>=4.12.0')
-  add_project_arguments(['--define=GTK_4_12'], language: 'vala')
 endif
 
 if meson.get_compiler('vala').version().version_compare('>=0.56.11')
@@ -115,7 +110,7 @@ final_deps = [
   dependency('icu-uc'),
   libspelling,
   gtksourceview_dep,
-  libgtk_dep,
+  dependency('gtk4', version: '>=4.13.4', required: true),
   libadwaita_dep,
   meson.get_compiler('c').find_library('m', required: false)
 ]

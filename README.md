@@ -43,13 +43,11 @@ Package Name | Required Version
 :--- |---:|
 meson | 0.56
 valac | 0.48
-libglib-2.0-dev | 2.76.0
 libjson-glib-dev | 1.4.4
 libxml2-dev | 2.9.10
 libgee-0.8-dev | 0.8.5
 libsoup3.0-dev | 3.0.0
-libgtk-4-dev | 4.11.3
-libadwaita-1.0-dev | 1.4
+libadwaita-1.0-dev | 1.5
 libsecret-1-dev | 0.20
 
 </details>

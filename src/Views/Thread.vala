@@ -163,7 +163,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				connect_threads ();
 				on_content_changed ();
 
-				#if GTK_4_12 && USE_LISTVIEW
+				#if USE_LISTVIEW
 					if (to_add_ancestors.length > 0) {
 						uint timeout = 0;
 						timeout = Timeout.add (1000, () => {
