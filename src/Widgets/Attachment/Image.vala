@@ -1,5 +1,5 @@
 public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
-	protected Gtk.Picture pic;
+	public Gtk.Picture pic { get; private set; }
 	protected Gtk.Overlay media_overlay;
 
 	private bool _spoiler = false;
@@ -103,15 +103,10 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		}
 
 		if (media_kind != Tuba.Attachment.MediaType.UNKNOWN) {
-			load_image_in_media_viewer (null);
 			on_any_attachment_click (entity.url);
 		} else { // Fallback
 			base.on_click ();
 		}
-	}
-
-	public void load_image_in_media_viewer (int? pos) {
-		app.main_window.show_media_viewer (entity.url, media_kind, pic.paintable, pos, this, false, pic.alternative_text);
 	}
 
 	public signal void on_any_attachment_click (string url) {}
