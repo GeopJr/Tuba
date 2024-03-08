@@ -1,6 +1,6 @@
 // DEV ONLY WINDOW
 // Do not translate
-public class Tuba.Dialogs.Dev : Adw.PreferencesWindow {
+public class Tuba.Dialogs.Dev : Adw.PreferencesDialog {
 	public class WindowSize : Object {
 		public int w { get; construct set; }
 		public int h { get; construct set; }

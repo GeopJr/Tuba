@@ -85,7 +85,7 @@ namespace Tuba {
 
 		#if DEV_MODE
 			private void dev_only_window_activated () {
-				new Dialogs.Dev ().show ();
+				new Dialogs.Dev ().present (main_window);
 			}
 		#endif
 
