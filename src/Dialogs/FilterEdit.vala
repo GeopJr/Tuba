@@ -22,10 +22,10 @@ public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
 		WEEK_1;
 
 		public string to_string () {
-			switch (this) {
-				// Use variables to avoid increasing translator work
-				// unless they don't exist already
+			// Use variables to avoid increasing translator work
+			// unless they don't exist already
 
+			switch (this) {
 				case NEVER: return _("Never");
 				case MINUTES_30: return _("%d Minutes").printf (30);
 				case HOUR_1: return _("%d Hour").printf (1);

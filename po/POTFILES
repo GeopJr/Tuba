@@ -1,8 +1,11 @@
+./data/dev.geopjr.Tuba.1.in
 ./data/dev.geopjr.Tuba.desktop.in
 ./data/dev.geopjr.Tuba.metainfo.xml.in
+./src/Build.vala.in
 
 ./data/gtk/help-overlay.ui
 ./data/ui/dialogs/compose.ui
+./data/ui/dialogs/filter_edit.ui
 ./data/ui/dialogs/list_edit.ui
 ./data/ui/dialogs/new_account.ui
 ./data/ui/dialogs/preferences.ui
@@ -13,11 +16,13 @@
 ./data/ui/views/sidebar/account.ui
 ./data/ui/views/sidebar/view.ui
 ./data/ui/widgets/announcement.ui
+./data/ui/widgets/profile.ui
 ./data/ui/widgets/status.ui
 
 ./src/API/Announcement.vala
 ./src/API/Conversation.vala
 ./src/API/Emoji.vala
+./src/API/Filters/Filter.vala
 ./src/API/Notification.vala
 ./src/API/Relationship.vala
 ./src/API/SearchResults.vala
@@ -30,9 +35,12 @@
 ./src/Dialogs/Composer/Dialog.vala
 ./src/Dialogs/Composer/EditorPage.vala
 ./src/Dialogs/Composer/PollPage.vala
+./src/Dialogs/FilterEdit.vala
 ./src/Dialogs/MainWindow.vala
 ./src/Dialogs/NewAccount.vala
+./src/Dialogs/Preferences.vala
 ./src/Dialogs/ProfileEdit.vala
+./src/Dialogs/Report.vala
 ./src/Services/Accounts/AccountStore.vala
 ./src/Services/Accounts/InstanceAccount.vala
 ./src/Services/Accounts/Mastodon/Account.vala
@@ -56,6 +64,7 @@
 ./src/Views/Local.vala
 ./src/Views/Main.vala
 ./src/Views/MediaViewer.vala
+./src/Views/MutesBlocks.vala
 ./src/Views/Notifications.vala
 ./src/Views/Profile.vala
 ./src/Views/Search.vala
@@ -63,6 +72,7 @@
 ./src/Views/StatusStats.vala
 ./src/Views/Thread.vala
 ./src/Views/Timeline.vala
+./src/Widgets/Account.vala
 ./src/Widgets/Announcement.vala
 ./src/Widgets/Attachment/Box.vala
 ./src/Widgets/Attachment/Image.vala
