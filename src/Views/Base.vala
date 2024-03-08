@@ -1,9 +1,7 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/base.ui")]
 public class Tuba.Views.Base : Adw.BreakpointBin {
-	// translators: Shown when there are 0 results
-	public static string STATUS_EMPTY = _("Nothing to see here"); // vala-lint=naming-convention
-
 	// translators: Fallback shown when there are 0 results
+	public static string STATUS_EMPTY = _("Nothing to see here"); // vala-lint=naming-convention
 	public string empty_state_title { get; set; default=STATUS_EMPTY; }
 
 	public string? icon { get; set; default = null; }
