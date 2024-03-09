@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: 2024-03-09 11:33+0000\n"
+"PO-Revision-Date: 2024-03-09 22:19+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -219,7 +219,7 @@ msgstr "Słowa kluczowe lub zwroty"
 
 #: data/ui/dialogs/filter_edit.ui:92
 msgid "Add Keyword"
-msgstr ""
+msgstr "Dodaj słowo kluczowe"
 
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
@@ -514,7 +514,7 @@ msgstr "Słowa kluczowe"
 
 #: data/ui/dialogs/preferences.ui:262
 msgid "Add Filter…"
-msgstr ""
+msgstr "Dodaj filtr…"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:151
 msgid "Edit Profile"
@@ -1219,37 +1219,38 @@ msgstr "Pole %d"
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:24
 msgid "It's spam"
-msgstr ""
+msgstr "To spam"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:27
 msgid "It violates server rules"
-msgstr ""
+msgstr "Narusza regulamin serwera"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:30
 msgid "It's something else"
-msgstr ""
+msgstr "Coś innego"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:39
 msgid "Malicious links, fake engagement, or repetitive replies"
 msgstr ""
+"Niebezpieczne linki, fałszywe zaangażowanie lub powtarzające się odpowiedzi"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:42
 msgid "You are aware that it breaks specific rules"
-msgstr ""
+msgstr "Zdajesz sobie sprawę, że narusza to konkretne zasady"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:45
 msgid "The issue does not fit into other categories"
-msgstr ""
+msgstr "Zgłoszenie nie pasuje do żadnej z pozostałych kategorii"
 
 #. translators: the variable is an account handle
 #: src/Dialogs/Report.vala:122
