@@ -2,21 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Alfika07 <alfika07@vivaldi.net>, 2023.
+# rdbende <rdbende@proton.me>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 01:34+0200\n"
-"PO-Revision-Date: 2023-05-24 11:43+0000\n"
-"Last-Translator: Alfika07 <alfika07@vivaldi.net>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/tuba/tuba/hu/"
-">\n"
+"PO-Revision-Date: 2024-03-09 11:33+0000\n"
+"Last-Translator: rdbende <rdbende@proton.me>\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/tuba/tuba/hu/>"
+"\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -24,11 +25,11 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Böngéssz a Fediverse-ben"
+msgstr "Böngéssz a Fediverzumban"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr "Fediverse kliens"
+msgstr "Fediverzum kliens"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
@@ -50,10 +51,10 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
-"A Fediverse egy decentralizált közösségi hálózat, amely több, egymással "
+"A fediverzum egy decentralizált közösségi hálózat, amely több, egymással "
 "összekapcsolt platformból és közösségből áll, lehetővé téve a felhasználók "
 "számára a különböző hálózatokon és szervereken keresztüli kommunikációt és "
-"tartalommegosztást. Elősegíti a felhasználók magánéletét és az adatok "
+"tartalommegosztást. Ösztönzi a felhasználók adatainak védelmét és "
 "tulajdonjogát, és alternatívát kínál a központosított közösségi "
 "médiaplatformokkal szemben."
 
@@ -64,11 +65,11 @@ msgstr "Általános"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "Beállítások megnyitása"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "Bejegyzés létrehozása"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:56
 msgid "Refresh"
@@ -85,35 +86,35 @@ msgstr "Vissza"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "Gyorsbillentyűk megjelenítése"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
-msgstr ""
+msgstr "Ablak bezárása"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Quit"
-msgstr ""
+msgstr "Kilépés"
 
 #: data/gtk/help-overlay.ui:62
 msgid "About"
-msgstr ""
+msgstr "Névjegy"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Up"
-msgstr ""
+msgstr "Görgetés felfelé"
 
 #: data/gtk/help-overlay.ui:74
 msgid "Scroll Down"
-msgstr ""
+msgstr "Görgetés lefelé"
 
 #: data/gtk/help-overlay.ui:82
 msgid "Composer"
-msgstr ""
+msgstr "Bejegyzésszerkesztő"
 
 #: data/gtk/help-overlay.ui:85
 msgid "Commit"
-msgstr ""
+msgstr "Közzététel"
 
 #: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:42
 msgid "Media Viewer"
@@ -121,43 +122,43 @@ msgstr "Médiamegjelenítő"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "Teljes képernyős mód"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:148
 msgid "Zoom In"
-msgstr ""
+msgstr "Nagyítás"
 
 #: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:136
 msgid "Zoom Out"
-msgstr ""
+msgstr "Kicsinyítés"
 
 #: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:94
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Előző csatolmány"
 
 #: data/gtk/help-overlay.ui:120 data/ui/views/media_viewer.ui:106
 msgid "Next Attachment"
-msgstr ""
+msgstr "Következő csatolmány"
 
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "Nagyítás"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Kicsinyítés"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Előző csatolmány"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Next Attachment"
-msgstr ""
+msgstr "Következő csatolmány"
 
 #: data/ui/dialogs/compose.ui:35 data/ui/dialogs/filter_edit.ui:17
 #: data/ui/dialogs/new_account.ui:22 data/ui/dialogs/profile_edit.ui:21
@@ -176,7 +177,7 @@ msgstr "_Közzététel"
 
 #: data/ui/dialogs/filter_edit.ui:8
 msgid "Edit Filter"
-msgstr ""
+msgstr "Szűrő szerkesztése"
 
 #: data/ui/dialogs/filter_edit.ui:25 data/ui/dialogs/profile_edit.ui:28
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:151
@@ -185,31 +186,31 @@ msgstr "Mentés"
 
 #: data/ui/dialogs/filter_edit.ui:59
 msgid "Title"
-msgstr ""
+msgstr "Név"
 
 #: data/ui/dialogs/filter_edit.ui:65
 msgid "Expires In"
-msgstr ""
+msgstr "Lejárat"
 
 #: data/ui/dialogs/filter_edit.ui:70
 msgid "Hide Completely"
-msgstr ""
+msgstr "Elrejtés teljesen"
 
 #: data/ui/dialogs/filter_edit.ui:71
 msgid "Otherwise a warning will be used"
-msgstr ""
+msgstr "Egyébként csak egy figyelmeztetés lesz"
 
 #: data/ui/dialogs/filter_edit.ui:78
 msgid "Contexts"
-msgstr ""
+msgstr "Helyek"
 
 #: data/ui/dialogs/filter_edit.ui:79
 msgid "One or multiple contexts where the filter should apply"
-msgstr ""
+msgstr "Azok a helyek ahol a szűrő érvényesüljön"
 
 #: data/ui/dialogs/filter_edit.ui:84
 msgid "Keywords or Phrases"
-msgstr ""
+msgstr "Kulcsszavak vagy kifejezések"
 
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
@@ -225,7 +226,7 @@ msgstr "Listanév"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
-msgstr ""
+msgstr "Bejegyzések elrejtése a kezdőlapról"
 
 #: data/ui/dialogs/list_edit.ui:39
 msgid "Replies Policy"
@@ -259,7 +260,7 @@ msgstr "Következő"
 
 #: data/ui/dialogs/new_account.ui:43
 msgid "What is your Server?"
-msgstr ""
+msgstr "Melyik szerveren vagy?"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:45
@@ -267,6 +268,8 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
 msgstr ""
+"Ha még nincs fiókod, <a href=\"https://joinmastodon.org/servers\">válassz "
+"egy szervert és regisztrálj</a>."
 
 #: data/ui/dialogs/new_account.ui:66
 msgid "Server URL"
@@ -274,7 +277,7 @@ msgstr "Szerver URL"
 
 #: data/ui/dialogs/new_account.ui:122
 msgid "Confirm Authorization"
-msgstr "Engedélyezés megerősítése"
+msgstr "Hozzáférés jóváhagyása"
 
 #. translators: Do not translate "manual_auth"
 #: data/ui/dialogs/new_account.ui:142
@@ -282,12 +285,12 @@ msgid ""
 "If something went wrong, <a href=\"manual_auth\">try manual authorization</"
 "a>."
 msgstr ""
-"Ha hiba történt, próbálkozzon a <a href=\"manual_auth\">kézi "
+"Ha hiba történt, próbálkozz a <a href=\"manual_auth\">kézi "
 "engedélyezéssel</a>."
 
 #: data/ui/dialogs/new_account.ui:152
 msgid "Authorization Code"
-msgstr "Megerősítő Kód"
+msgstr "Megerősítő kód"
 
 #: data/ui/dialogs/new_account.ui:193
 msgid "Done"
@@ -295,7 +298,7 @@ msgstr "Kész"
 
 #: data/ui/dialogs/new_account.ui:208
 msgid "Your account is connected and ready to use!"
-msgstr "A fiókja csatlakoztatva van és használatra kész!"
+msgstr "Fiókod csatlakoztatva van és használatra kész!"
 
 #: data/ui/dialogs/preferences.ui:23
 msgid "Appearance"
@@ -307,36 +310,36 @@ msgstr "Színséma"
 
 #: data/ui/dialogs/preferences.ui:40
 msgid "Large Text"
-msgstr ""
+msgstr "Nagy szöveg"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Increase the size of text in posts"
-msgstr ""
+msgstr "A bejegyzések betűméretének növelése"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Large Line Height"
-msgstr ""
+msgstr "Nagy sorköz"
 
 #: data/ui/dialogs/preferences.ui:47
 msgid "Increase the line height in posts"
-msgstr ""
+msgstr "A bejegyzések sorközének növelése"
 
 #: data/ui/dialogs/preferences.ui:52
 msgid "Large Custom Emojis"
-msgstr ""
+msgstr "Nagyobb egyedi emojik"
 
 #: data/ui/dialogs/preferences.ui:57
 msgid "Scale Custom Emojis on Hover"
-msgstr ""
+msgstr "Egyedi emojik nagyítása rámutatáskor"
 
 #: data/ui/dialogs/preferences.ui:58
 msgid "Slightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "Megnöveli az egyedi emojik méretét, amikor az egérrel rájuk mutatsz"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:64
 msgid "Letterbox Media"
-msgstr ""
+msgstr "Média méretének igazítása"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:66
@@ -344,48 +347,52 @@ msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
+"A média méretének csökkentése és illesztése a képkeretekhez nyújtás és vágás "
+"helyett"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:72
 msgid "Expand Pictures in Media Viewer"
-msgstr ""
+msgstr "Képek nagyítása a médiamegjelenítőben"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:74
 msgid "Expand pictures to fill the media viewer by default"
-msgstr ""
+msgstr "A képek nagyítása a médiamegjelenítő kitöltésére"
 
 #: data/ui/dialogs/preferences.ui:80
 msgid "Show a blurred version of the media until they fully load"
 msgstr ""
+"Médiatartalom elhomályosított változatának megjelenítése, amíg teljesen be "
+"nem töltődik"
 
 #: data/ui/dialogs/preferences.ui:85
 msgid "Reveal Spoilers by Default"
-msgstr ""
+msgstr "Spoilerek felfedése alapértelmezés szerint"
 
 #: data/ui/dialogs/preferences.ui:90
 msgid "Show Link Preview Cards"
-msgstr ""
+msgstr "Link előnézetek megjelenítése"
 
 #: data/ui/dialogs/preferences.ui:95
 msgid "Darken Images on Dark Mode"
-msgstr ""
+msgstr "Képek sötétítése sötét módban"
 
 #: data/ui/dialogs/preferences.ui:102
 msgid "Posting"
-msgstr "Közzététel"
+msgstr "Bejegyzések"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Default Post Visibility"
-msgstr ""
+msgstr "Bejegyzés alapértelmezett láthatósága"
 
 #: data/ui/dialogs/preferences.ui:114
 msgid "Default Post Language"
-msgstr ""
+msgstr "Alapértelmezett bejegyzésnyelv"
 
 #: data/ui/dialogs/preferences.ui:124
 msgid "Default Post Content Type"
-msgstr ""
+msgstr "Alapértelmezett bejegyzéstípus"
 
 #: data/ui/dialogs/preferences.ui:135
 msgid "Behavior"
@@ -393,28 +400,28 @@ msgstr "Viselkedés"
 
 #: data/ui/dialogs/preferences.ui:138
 msgid "Run in Background"
-msgstr ""
+msgstr "Háttérmunka"
 
 #: data/ui/dialogs/preferences.ui:139
 msgid "Fetch notifications while the app is closed"
-msgstr ""
+msgstr "Értesítések fogadása akkor is, ha az alkalmazás be van zárva"
 
 #: data/ui/dialogs/preferences.ui:144
 msgid "Strip Tracking Parameters From Links"
-msgstr ""
+msgstr "Nyomkövető paraméterek eltávolítása a linkekről"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:146
 msgid "This option can lead to broken links when enabled"
-msgstr ""
+msgstr "Előfordulhat, hogy egyes linkek nem működnek miatta"
 
 #: data/ui/dialogs/preferences.ui:151
 msgid "Advanced Boost Dialog"
-msgstr ""
+msgstr "Rákérdezés megtoláskor"
 
 #: data/ui/dialogs/preferences.ui:152
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr ""
+msgstr "Megtolás láthatóságának beállítása, idézés és a megtolás megerősítése"
 
 #: data/ui/dialogs/preferences.ui:159
 msgid "Timelines"
@@ -422,11 +429,11 @@ msgstr "Idővonalak"
 
 #: data/ui/dialogs/preferences.ui:162
 msgid "Posts per Load Batch"
-msgstr ""
+msgstr "Bejegyzések száma betöltési kötegenként"
 
 #: data/ui/dialogs/preferences.ui:170
 msgid "Stream Timelines"
-msgstr ""
+msgstr "Valós idejű idővonalak"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Receive new posts and notifications in real-time"
@@ -434,11 +441,11 @@ msgstr "Új bejegyzések és értesítések fogadása valós időben"
 
 #: data/ui/dialogs/preferences.ui:177
 msgid "Stream Public Timelines"
-msgstr ""
+msgstr "Valós idejű nyilvános idővonalak"
 
 #: data/ui/dialogs/preferences.ui:178
 msgid "Warning: This will increase memory usage"
-msgstr "Figyelmeztetés: Ez növeli a memóriahasználatot"
+msgstr "Figyelem: Ez növeli a memóriahasználatot"
 
 #: data/ui/dialogs/preferences.ui:188 src/API/Filters/Filter.vala:45
 #: src/Services/Accounts/Mastodon/Account.vala:41
@@ -449,15 +456,15 @@ msgstr "Értesítések"
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:192
 msgid "Push Notifications"
-msgstr ""
+msgstr "Push értesítések"
 
 #: data/ui/dialogs/preferences.ui:195
 msgid "New Followers"
-msgstr ""
+msgstr "Új követők"
 
 #: data/ui/dialogs/preferences.ui:201
 msgid "New Follower Requests"
-msgstr ""
+msgstr "Új követési kérelmek"
 
 #: data/ui/dialogs/preferences.ui:207
 #: src/Services/Accounts/Mastodon/Account.vala:81 src/Views/Favorites.vala:4
@@ -466,29 +473,29 @@ msgstr "Kedvencek"
 
 #: data/ui/dialogs/preferences.ui:213
 msgid "Mentions"
-msgstr ""
+msgstr "Említések"
 
 #: data/ui/dialogs/preferences.ui:219
 msgid "Boosts"
-msgstr ""
+msgstr "Megtolások"
 
 #: data/ui/dialogs/preferences.ui:225
 msgid "Poll Results"
-msgstr ""
+msgstr "Szavazási eredmények"
 
 #: data/ui/dialogs/preferences.ui:231
 msgid "Edits"
-msgstr ""
+msgstr "Szerkesztések"
 
 #: data/ui/dialogs/preferences.ui:237
 msgid "Group"
-msgstr ""
+msgstr "Csoportosítás"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/ui/dialogs/preferences.ui:239
 msgid ""
 "Combine recently pushed notifications of the same type and post into one"
-msgstr ""
+msgstr "Azonos típusú, nemrégiben küldött értesítések egyesítése"
 
 #: data/ui/dialogs/preferences.ui:250
 msgid "Filters"
@@ -535,20 +542,20 @@ msgstr "Említés"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr "Közvetlen üzenet"
+msgstr "Privát üzenet küldése"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
-msgstr "Leírópont másolása"
+msgstr "Becenév másolása"
 
 #: data/ui/menus.ui:29 data/ui/views/media_viewer.ui:6
 #: src/Widgets/Attachment/Item.vala:181 src/Widgets/Status.vala:255
 msgid "Open in Browser"
-msgstr "Megnyitás Böngészőben"
+msgstr "Megnyitás böngészőben"
 
 #: data/ui/menus.ui:33
 msgid "Receive Post Notifications"
-msgstr ""
+msgstr "Értesítés bejegyzésekről"
 
 #: data/ui/menus.ui:39
 msgid "Moderation"
@@ -556,7 +563,7 @@ msgstr "Moderáció"
 
 #: data/ui/menus.ui:41
 msgid "Hide Boosts"
-msgstr "Megtolások Elrejtése"
+msgstr "Megtolások elrejtése"
 
 #: data/ui/menus.ui:46
 msgid "Mute"
@@ -583,10 +590,12 @@ msgid "Filter"
 msgstr "Szűrés"
 
 #: data/ui/menus.ui:88
+#, fuzzy
 msgid "Include Replies"
 msgstr "Tartalmazza a válaszokat"
 
 #: data/ui/menus.ui:93
+#, fuzzy
 msgid "Include Media"
 msgstr "Tartalmazza a médiát"
 
@@ -602,15 +611,15 @@ msgstr "URL Másolása"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:183
 msgid "Save Media…"
-msgstr ""
+msgstr "Média mentése…"
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:185
 msgid "Copy Media"
-msgstr ""
+msgstr "Média másolása"
 
 #: data/ui/views/media_viewer.ui:59 data/ui/views/sidebar/view.ui:55
 msgid "Menu"
-msgstr ""
+msgstr "Menü megnyitása"
 
 #: data/ui/views/media_viewer.ui:66
 #, fuzzy
@@ -625,7 +634,7 @@ msgstr ""
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:50
 msgid "Forget Account"
-msgstr ""
+msgstr "Fiók leválasztása"
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
@@ -634,11 +643,11 @@ msgstr "Fiókváltás"
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:70 data/ui/views/sidebar/view.ui:75
 msgid "View"
-msgstr ""
+msgstr "Megtekintés"
 
 #: data/ui/widgets/announcement.ui:87
 msgid "Unread"
-msgstr ""
+msgstr "Olvasatlan"
 
 #: data/ui/widgets/announcement.ui:98 data/ui/widgets/status.ui:180
 msgid "Edited"
@@ -651,17 +660,17 @@ msgstr "Kitűzve"
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:238
 msgid "Show Less"
-msgstr ""
+msgstr "Kevesebb mutatása"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:271 src/Widgets/Status.vala:363
 msgid "Show More"
-msgstr "Több Megjelenítése"
+msgstr "Több mutatása"
 
 #. translators: Tooltip that opens filter
 #: data/ui/widgets/status.ui:336
 msgid "Show Anyway"
-msgstr ""
+msgstr "Mutatás mindenképp"
 
 #: src/API/Announcement.vala:55 src/Application.vala:145
 #: src/Application.vala:239 src/Application.vala:319
@@ -689,16 +698,16 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:227
 #: src/Widgets/CustomEmojiChooser.vala:230
 msgid "Other"
-msgstr ""
+msgstr "Egyéb"
 
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
 msgid "Home &amp; Lists"
-msgstr ""
+msgstr "Kezdőlap és listák"
 
 #: src/API/Filters/Filter.vala:46
 msgid "Public Timelines"
-msgstr ""
+msgstr "Nyilvános idővonalak"
 
 #: src/API/Filters/Filter.vala:47
 #: src/Services/Accounts/Mastodon/Account.vala:52
@@ -708,42 +717,42 @@ msgstr "Beszélgetések"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "Profilok"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
 #: src/API/Notification.vala:35
 #, c-format
 msgid "%s (& %d others)"
-msgstr ""
+msgstr "%s (és %d társa)"
 
 #: src/API/Notification.vala:58
 msgid "Reply…"
-msgstr ""
+msgstr "Válasz…"
 
 #: src/API/Notification.vala:66
 msgid "Remove from Followers"
-msgstr ""
+msgstr "Eltávolítás a követők közül"
 
 #: src/API/Notification.vala:71
 msgid "Follow Back"
-msgstr ""
+msgstr "Követés viszonzása"
 
 #: src/API/Notification.vala:78 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
-msgstr "Elutasít"
+msgstr "Elutasítás"
 
 #: src/API/Notification.vala:83 src/Widgets/Status/FollowRequestRow.vala:14
 msgid "Accept"
-msgstr "Elfogad"
+msgstr "Elfogadás"
 
 #: src/API/Relationship.vala:21
 msgid "Sent follow request"
-msgstr "Elküldött követési kérelem"
+msgstr "Követési kérelmet küldött"
 
 #: src/API/Relationship.vala:23
 msgid "Mutuals"
-msgstr ""
+msgstr "Ismerős"
 
 #: src/API/Relationship.vala:25
 msgid "Follows you"
@@ -752,17 +761,17 @@ msgstr "Követ téged"
 #: src/API/Relationship.vala:95
 #, c-format
 msgid "Block \"%s\"?"
-msgstr "Letiltja a következőt: \"%s\"?"
+msgstr "Letiltod őt: „%s”?"
 
 #: src/API/Relationship.vala:95
 #, c-format
 msgid "Unblock \"%s\"?"
-msgstr "Feloldja \"%s\" letiltását?"
+msgstr "Feloldod „%s” tiltását?"
 
 #: src/API/Relationship.vala:101 src/Views/Profile.vala:291
 #: src/Widgets/RelationshipButton.vala:42
 msgid "Unblock"
-msgstr "Blokkolás feloldása"
+msgstr "Tiltás feloldása"
 
 #: src/API/SearchResults.vala:32
 msgid "Search returned no results"
@@ -772,32 +781,32 @@ msgstr "A keresés nem adott eredményt"
 #: src/API/Status/PreviewCard.vala:25
 #, c-format
 msgid "You are about to open a %s video"
-msgstr ""
+msgstr "Egy %s videót fogsz megnyitni"
 
 #. translators: the variable is an external service like "Funkwhale",
 #. track as in song
 #: src/API/Status/PreviewCard.vala:29
 #, c-format
 msgid "You are about to open a %s track"
-msgstr ""
+msgstr "Egy %s számot fogsz megnyitni"
 
 #. translators: the variable is an external service like "BookWyrm"
 #: src/API/Status/PreviewCard.vala:32
 #, c-format
 msgid "You are about to open a %s book"
-msgstr ""
+msgstr "Egy %s könyvet fogsz megnyitni"
 
 #. translators: the variable is the app name (Tuba)
 #: src/API/Status/PreviewCard.vala:35
 #, c-format
 msgid "You are about to leave %s"
-msgstr ""
+msgstr "Elhagyod a %s alkalmazást"
 
 #. translators: the variable is a url
 #: src/API/Status/PreviewCard.vala:48
 #, c-format
 msgid "If you proceed, \"%s\" will open in your browser."
-msgstr ""
+msgstr "Ha folytatod, „%s” megnyílik a böngészőben."
 
 #. translators: the first variable is the app name (Tuba),
 #. the second one is a url
