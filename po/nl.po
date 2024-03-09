@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 01:34+0200\n"
-"PO-Revision-Date: 2024-03-09 11:33+0000\n"
+"PO-Revision-Date: 2024-03-09 21:21+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
 "Language: nl\n"
@@ -88,7 +88,7 @@ msgstr "Terug"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr "Sneltoetsen tonen"
+msgstr "Snel­toetsen tonen"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
@@ -120,7 +120,7 @@ msgstr "Commit"
 
 #: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:42
 msgid "Media Viewer"
-msgstr "Mediaweergave"
+msgstr "Media­weergave"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
@@ -192,15 +192,15 @@ msgstr "Titel"
 
 #: data/ui/dialogs/filter_edit.ui:65
 msgid "Expires In"
-msgstr ""
+msgstr "Verloopt na"
 
 #: data/ui/dialogs/filter_edit.ui:70
 msgid "Hide Completely"
-msgstr ""
+msgstr "Volledig verbergen"
 
 #: data/ui/dialogs/filter_edit.ui:71
 msgid "Otherwise a warning will be used"
-msgstr ""
+msgstr "Anders wordt er een waarschuwing gebruikt"
 
 #: data/ui/dialogs/filter_edit.ui:78
 msgid "Contexts"
@@ -212,7 +212,7 @@ msgstr "Eén of meerdere contexten waarop het filter moet worden toegepast"
 
 #: data/ui/dialogs/filter_edit.ui:84
 msgid "Keywords or Phrases"
-msgstr ""
+msgstr "Tref­woorden of zinnen"
 
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
@@ -228,7 +228,7 @@ msgstr "Lijstnaam"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
-msgstr ""
+msgstr "Berichten van start verbergen"
 
 #: data/ui/dialogs/list_edit.ui:39
 msgid "Replies Policy"
@@ -296,7 +296,7 @@ msgstr "Verificatiecode"
 
 #: data/ui/dialogs/new_account.ui:193
 msgid "Done"
-msgstr "Voltooid"
+msgstr "Klaar"
 
 #: data/ui/dialogs/new_account.ui:208
 msgid "Your account is connected and ready to use!"
@@ -312,31 +312,31 @@ msgstr "Kleurenschema"
 
 #: data/ui/dialogs/preferences.ui:40
 msgid "Large Text"
-msgstr ""
+msgstr "Grote tekst"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Increase the size of text in posts"
-msgstr ""
+msgstr "Vergroot de tekst­grootte in berichten"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Large Line Height"
-msgstr ""
+msgstr "Grote regel­hoogte"
 
 #: data/ui/dialogs/preferences.ui:47
 msgid "Increase the line height in posts"
-msgstr ""
+msgstr "Vergroot de regel­hoogte in berichten"
 
 #: data/ui/dialogs/preferences.ui:52
 msgid "Large Custom Emojis"
-msgstr ""
+msgstr "Grote aan­gepaste emoji's"
 
 #: data/ui/dialogs/preferences.ui:57
 msgid "Scale Custom Emojis on Hover"
-msgstr ""
+msgstr "Aan­gepaste emoji's schalen bij aan­wijzen"
 
 #: data/ui/dialogs/preferences.ui:58
 msgid "Slightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "Vergroot aan­gepaste emoji's lichtelijk wanneer u deze aan­wijst"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:64
@@ -349,18 +349,18 @@ msgid ""
 "Scale down and letterbox media to fill the image containers instead of "
 "stretching and cropping them"
 msgstr ""
-"Schaalt media om de afbeeldingscontainers te vullen in plaats van bij te "
+"Schaalt media om de afbeeldings­containers te vullen in plaats van bij te "
 "snijden"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:72
 msgid "Expand Pictures in Media Viewer"
-msgstr ""
+msgstr "Afbeeldingen uitbreiden in media­weergave"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:74
 msgid "Expand pictures to fill the media viewer by default"
-msgstr "Breidt afbeeldingen standaard uit om de media-weergave te vullen"
+msgstr "Breidt afbeeldingen standaard uit om de media­weergave te vullen"
 
 #: data/ui/dialogs/preferences.ui:80
 msgid "Show a blurred version of the media until they fully load"
@@ -368,15 +368,15 @@ msgstr "Media vervagen tijdens laden"
 
 #: data/ui/dialogs/preferences.ui:85
 msgid "Reveal Spoilers by Default"
-msgstr ""
+msgstr "Spoilers standaard onthullen"
 
 #: data/ui/dialogs/preferences.ui:90
 msgid "Show Link Preview Cards"
-msgstr ""
+msgstr "Voorvertonings­kaarten voor links tonen"
 
 #: data/ui/dialogs/preferences.ui:95
 msgid "Darken Images on Dark Mode"
-msgstr ""
+msgstr "Afbeeldingen dimmen in donkere modus"
 
 #: data/ui/dialogs/preferences.ui:102
 msgid "Posting"
@@ -384,15 +384,15 @@ msgstr "Berichten plaatsen"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Default Post Visibility"
-msgstr ""
+msgstr "Standaard­berichtzichtbaarheid"
 
 #: data/ui/dialogs/preferences.ui:114
 msgid "Default Post Language"
-msgstr ""
+msgstr "Standaard­berichttaal"
 
 #: data/ui/dialogs/preferences.ui:124
 msgid "Default Post Content Type"
-msgstr ""
+msgstr "Standaard­inhoudstype van bericht"
 
 #: data/ui/dialogs/preferences.ui:135
 msgid "Behavior"
@@ -400,11 +400,11 @@ msgstr "Gedrag"
 
 #: data/ui/dialogs/preferences.ui:138
 msgid "Run in Background"
-msgstr ""
+msgstr "Op achter­grond uitvoeren"
 
 #: data/ui/dialogs/preferences.ui:139
 msgid "Fetch notifications while the app is closed"
-msgstr ""
+msgstr "Haalt meldingen op wanneer de app is gesloten"
 
 #: data/ui/dialogs/preferences.ui:144
 msgid "Strip Tracking Parameters From Links"
@@ -417,7 +417,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:151
 msgid "Advanced Boost Dialog"
-msgstr ""
+msgstr "Geavanceerde boost-dialoog"
 
 #: data/ui/dialogs/preferences.ui:152
 msgid "Change boost visibility, quote and confirm boosting"
@@ -425,15 +425,15 @@ msgstr "Pas boost-zichtbaarheid aan, citeer en bevestig boosten"
 
 #: data/ui/dialogs/preferences.ui:159
 msgid "Timelines"
-msgstr "Tijdlijnen"
+msgstr "Tĳd­lĳnen"
 
 #: data/ui/dialogs/preferences.ui:162
 msgid "Posts per Load Batch"
-msgstr ""
+msgstr "Berichten per laad­batch"
 
 #: data/ui/dialogs/preferences.ui:170
 msgid "Stream Timelines"
-msgstr ""
+msgstr "Tijd­lijnen streamen"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Receive new posts and notifications in real-time"
@@ -441,7 +441,7 @@ msgstr "Ontvang nieuwe berichten en meldingen zodra ze binnenkomen"
 
 #: data/ui/dialogs/preferences.ui:177
 msgid "Stream Public Timelines"
-msgstr ""
+msgstr "Publieke tijd­lijnen streamen"
 
 #: data/ui/dialogs/preferences.ui:178
 msgid "Warning: This will increase memory usage"
@@ -555,7 +555,7 @@ msgstr "Openen in browser"
 
 #: data/ui/menus.ui:33
 msgid "Receive Post Notifications"
-msgstr ""
+msgstr "Bericht­meldingen ontvangen"
 
 #: data/ui/menus.ui:39
 msgid "Moderation"
@@ -609,7 +609,7 @@ msgstr "URL kopiëren"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:183
 msgid "Save Media…"
-msgstr ""
+msgstr "Media opslaan…"
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:185
 msgid "Copy Media"
@@ -667,7 +667,7 @@ msgstr "Meer tonen"
 #. translators: Tooltip that opens filter
 #: data/ui/widgets/status.ui:336
 msgid "Show Anyway"
-msgstr ""
+msgstr "Toch tonen"
 
 #: src/API/Announcement.vala:55 src/Application.vala:145
 #: src/Application.vala:239 src/Application.vala:319
@@ -680,7 +680,7 @@ msgstr ""
 #: src/Widgets/Announcement.vala:180 src/Widgets/Attachment/Image.vala:87
 #: src/Widgets/Attachment/Item.vala:209 src/Widgets/VoteBox.vala:27
 msgid "Error"
-msgstr "Foutmelding"
+msgstr "Fout"
 
 #. translators: the variable is a comma separated list of account handles,
 #. this is a state - not an action
@@ -700,11 +700,11 @@ msgstr "Overig"
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
 msgid "Home &amp; Lists"
-msgstr ""
+msgstr "Start en lijsten"
 
 #: src/API/Filters/Filter.vala:46
 msgid "Public Timelines"
-msgstr ""
+msgstr "Publieke tijd­lijnen"
 
 #: src/API/Filters/Filter.vala:47
 #: src/Services/Accounts/Mastodon/Account.vala:52
@@ -975,7 +975,7 @@ msgstr "Tekst"
 
 #: src/Dialogs/Composer/EditorPage.vala:109
 msgid "Stripped tracking parameters"
-msgstr ""
+msgstr "Volg­argumenten verwijderd"
 
 #: src/Dialogs/Composer/EditorPage.vala:112
 msgid "Undo"
@@ -1007,7 +1007,7 @@ msgstr "Bericht­taal"
 
 #: src/Dialogs/Composer/EditorPage.vala:412
 msgid "Post Content Type"
-msgstr "Inhoudstype van bericht"
+msgstr "Inhouds­type van bericht"
 
 #: src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
@@ -1109,11 +1109,11 @@ msgstr "Nooit"
 
 #: src/Dialogs/FilterEdit.vala:35
 msgid "1 Week"
-msgstr ""
+msgstr "1 week"
 
 #: src/Dialogs/FilterEdit.vala:125
 msgid "New Filter"
-msgstr ""
+msgstr "Nieuw filter"
 
 #: src/Dialogs/FilterEdit.vala:190
 msgid "Keyword"
@@ -1121,7 +1121,7 @@ msgstr "Tref­woord"
 
 #: src/Dialogs/FilterEdit.vala:193
 msgid "Match Whole Word"
-msgstr ""
+msgstr "Overeen­komen met hele woord"
 
 #: src/Dialogs/FilterEdit.vala:200 src/Dialogs/Preferences.vala:23
 #: src/Dialogs/Preferences.vala:81 src/Views/Lists.vala:60
@@ -1211,7 +1211,7 @@ msgstr "Veld %d"
 #: src/Dialogs/Report.vala:110
 #, c-format
 msgid "Reporting %s"
-msgstr ""
+msgstr "%s rapporteren"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting users
@@ -1269,14 +1269,14 @@ msgstr ""
 #. additional comments to be included in the report
 #: src/Dialogs/Report.vala:274
 msgid "Additional Comments"
-msgstr ""
+msgstr "Aan­vullende opmerkingen"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. the variable is an instance name e.g. 'Forward to mastodon.social'
 #: src/Dialogs/Report.vala:283
 #, c-format
 msgid "Forward to %s"
-msgstr ""
+msgstr "Doorsturen naar %s"
 
 #. translators: submit the report
 #: src/Dialogs/Report.vala:326
@@ -1309,7 +1309,7 @@ msgstr ""
 
 #: src/Dialogs/Report.vala:484
 msgid "No posts found"
-msgstr ""
+msgstr "Geen berichten gevonden"
 
 #: src/Services/Accounts/InstanceAccount.vala:180
 #, c-format
@@ -1614,7 +1614,7 @@ msgstr "Aankondigingen"
 
 #: src/Views/Announcements.vala:8
 msgid "No Announcements"
-msgstr ""
+msgstr "Geen aan­kondigingen"
 
 #. translators: Fallback shown when there are 0 results
 #: src/Views/Base.vala:4
@@ -1631,11 +1631,11 @@ msgstr "Er is een fout opgetreden"
 
 #: src/Views/Bookmarks.vala:6
 msgid "No Bookmarks"
-msgstr ""
+msgstr "Geen blad­wijzers"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
-msgstr ""
+msgstr "Geen gesprekken"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -1643,7 +1643,7 @@ msgstr "Geschiedenis bewerken"
 
 #: src/Views/EditHistory.vala:7
 msgid "No Edit History"
-msgstr ""
+msgstr "Geen bewerkings­geschiedenis"
 
 #: src/Views/Explore.vala:6 src/Views/Search.vala:39
 msgid "Posts"
@@ -1651,7 +1651,7 @@ msgstr "Berichten"
 
 #: src/Views/Explore.vala:7 src/Views/Hashtags.vala:7
 msgid "No Hashtags"
-msgstr ""
+msgstr "Geen hash­tags"
 
 #: src/Views/Explore.vala:8
 msgid "News"
@@ -1659,7 +1659,7 @@ msgstr "Nieuws"
 
 #: src/Views/Explore.vala:8
 msgid "No News"
-msgstr ""
+msgstr "Geen nieuws"
 
 #: src/Views/Explore.vala:9
 msgid "For You"
@@ -1667,11 +1667,11 @@ msgstr "Voor u"
 
 #: src/Views/Explore.vala:9
 msgid "No Suggestions"
-msgstr ""
+msgstr "Geen suggesties"
 
 #: src/Views/Favorites.vala:5 src/Views/StatusStats.vala:16
 msgid "No Favorites"
-msgstr ""
+msgstr "Geen favorieten"
 
 #: src/Views/FollowRequests.vala:4 src/Views/Sidebar.vala:61
 msgid "Follow Requests"
@@ -1679,7 +1679,7 @@ msgstr "Volgverzoeken"
 
 #: src/Views/FollowRequests.vala:7
 msgid "No Follow Requests"
-msgstr ""
+msgstr "Geen volg­verzoeken"
 
 #: src/Views/Hashtag.vala:19 src/Views/Hashtag.vala:34
 #: src/Widgets/RelationshipButton.vala:32
@@ -1727,23 +1727,23 @@ msgstr "Afbeelding naar klembord gekopieerd"
 
 #: src/Views/MutesBlocks.vala:6 src/Views/Sidebar.vala:62
 msgid "Mutes & Blocks"
-msgstr ""
+msgstr "Gedempt en geblokkeerd"
 
 #: src/Views/MutesBlocks.vala:11
 msgid "Mutes"
-msgstr ""
+msgstr "Gedempt"
 
 #: src/Views/MutesBlocks.vala:15
 msgid "No Muted Accounts"
-msgstr ""
+msgstr "Geen gedempte accounts"
 
 #: src/Views/MutesBlocks.vala:19
 msgid "Blocks"
-msgstr ""
+msgstr "Geblokkeerd"
 
 #: src/Views/MutesBlocks.vala:23
 msgid "No Blocked Accounts"
-msgstr ""
+msgstr "Geen geblokkeerde accounts"
 
 #: src/Views/Notifications.vala:12
 msgid "No Notifications"
@@ -1920,7 +1920,7 @@ msgstr "Geboost door"
 
 #: src/Views/StatusStats.vala:25
 msgid "No Boosts"
-msgstr ""
+msgstr "Geen boosts"
 
 #: src/Views/Thread.vala:32
 msgid "Conversation"
@@ -1936,7 +1936,7 @@ msgstr "Spoilers verbergen"
 
 #: src/Views/Timeline.vala:225 src/Widgets/Status/ActionsRow.vala:340
 msgid "Network Error"
-msgstr "Verbindingsfout"
+msgstr "Verbindings­fout"
 
 #. translators: the variable is the amount of posts a user has made
 #: src/Widgets/Account.vala:129 src/Widgets/ProfileCover.vala:185
@@ -1989,7 +1989,7 @@ msgstr "Opgeslagen media"
 
 #: src/Widgets/Attachment/Item.vala:45
 msgid "Couldn't Save Media"
-msgstr ""
+msgstr "Kon media niet opslaan"
 
 #: src/Widgets/Attachment/Item.vala:116
 msgid "View Alt Text"
@@ -2016,7 +2016,7 @@ msgstr "Resultaten"
 
 #: src/Widgets/CustomEmojiChooser.vala:74
 msgid "Recently Used"
-msgstr ""
+msgstr "Onlangs gebruikt"
 
 #: src/Widgets/CustomEmojiChooser.vala:226
 msgid "Custom Emojis"
@@ -2052,7 +2052,7 @@ msgstr "Lid sinds"
 
 #: src/Widgets/RelationshipButton.vala:54
 msgid "Unmute"
-msgstr ""
+msgstr "Ontdempen"
 
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:259
@@ -2088,11 +2088,11 @@ msgstr "Losmaken"
 #: src/Widgets/Status.vala:527
 #, c-format
 msgid "Filtered: %s"
-msgstr ""
+msgstr "Gefilterd: %s"
 
 #: src/Widgets/Status.vala:529
 msgid "Filtered"
-msgstr ""
+msgstr "Gefilterd"
 
 #: src/Widgets/Status/ActionsRow.vala:52 src/Widgets/Status/ActionsRow.vala:92
 #: src/Widgets/Status/ActionsRow.vala:236
