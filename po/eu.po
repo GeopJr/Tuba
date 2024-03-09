@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: 2024-03-09 22:47+0000\n"
+"PO-Revision-Date: 2024-03-09 23:04+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -69,7 +69,7 @@ msgstr "Erakutsi hobespenak"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr "Idatzi argitalpen berria"
+msgstr "Idatzi bidalketa berria"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:56
 msgid "Refresh"
@@ -230,7 +230,7 @@ msgstr "Zerrendaren izena"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
-msgstr "Ezkutatu argitalpenak Hasieratik"
+msgstr "Ezkutatu bidalketak Hasiera jariotik"
 
 #: data/ui/dialogs/list_edit.ui:39
 msgid "Replies Policy"
@@ -318,7 +318,7 @@ msgstr "Testu handia"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Increase the size of text in posts"
-msgstr "Handiagotu testuaren tamaina argitalpenetan"
+msgstr "Handiagotu testuaren tamaina bidalketetan"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Large Line Height"
@@ -326,7 +326,7 @@ msgstr "Lerroarte handia"
 
 #: data/ui/dialogs/preferences.ui:47
 msgid "Increase the line height in posts"
-msgstr "Handiagotu lerroartea argitalpenetan"
+msgstr "Handiagotu lerroartea bidalketetan"
 
 #: data/ui/dialogs/preferences.ui:52
 msgid "Large Custom Emojis"
@@ -386,15 +386,15 @@ msgstr "Bidalketa"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Default Post Visibility"
-msgstr "Argitalpenaren ikusgaitasuna, defektuz"
+msgstr "Bidalketaren ikusgaitasuna, defektuz"
 
 #: data/ui/dialogs/preferences.ui:114
 msgid "Default Post Language"
-msgstr "Argitalpenaren hizkuntza, defektuz"
+msgstr "Bidalketaren hizkuntza, defektuz"
 
 #: data/ui/dialogs/preferences.ui:124
 msgid "Default Post Content Type"
-msgstr "Argitalpenaren edukiaren mota, defektuz"
+msgstr "Bidalketaren eduki-mota, defektuz"
 
 #: data/ui/dialogs/preferences.ui:135
 msgid "Behavior"
@@ -563,7 +563,7 @@ msgstr "Ireki nabigatzailean"
 
 #: data/ui/menus.ui:33
 msgid "Receive Post Notifications"
-msgstr "Jaso argitalpenen jakinarazpenak"
+msgstr "Jaso bidalketen jakinarazpenak"
 
 #: data/ui/menus.ui:39
 msgid "Moderation"
@@ -1285,7 +1285,7 @@ msgstr "Hautatu dagozkion guztiak"
 #. translators: 'fetch' as in get
 #: src/Dialogs/Report.vala:233
 msgid "Couldn't fetch all user's posts"
-msgstr "Ezin izan dira erabiltzailearen argitalpen guztiak eskuratu"
+msgstr "Ezin izan dira erabiltzailearen bidalketa guztiak eskuratu"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of posts. The user is meant to choose any that should be included in the report
@@ -1349,7 +1349,7 @@ msgstr "%s. Edonola ere salaketarekin jarrai dezakezu."
 
 #: src/Dialogs/Report.vala:496
 msgid "No posts found"
-msgstr "Ez da argitalpenik aurkitu"
+msgstr "Ez da bidalketarik aurkitu"
 
 #: src/Services/Accounts/InstanceAccount.vala:180
 #, c-format
@@ -1359,7 +1359,7 @@ msgstr "%s(e)k aipatu zaitu"
 #: src/Services/Accounts/InstanceAccount.vala:187
 #, c-format
 msgid "%s boosted your post"
-msgstr "%s(e)k zure argitalpena bultzatu du"
+msgstr "%s(e)k zure bidalketa bultzatu du"
 
 #: src/Services/Accounts/InstanceAccount.vala:194
 #, c-format
@@ -1369,7 +1369,7 @@ msgstr "%s(e)k bultzatu du"
 #: src/Services/Accounts/InstanceAccount.vala:201
 #, c-format
 msgid "%s favorited your post"
-msgstr "%s(e)k zure argitalpena gogoko du"
+msgstr "%s(e)k zure bidalketa gogoko du"
 
 #: src/Services/Accounts/InstanceAccount.vala:208
 #, c-format
@@ -1795,7 +1795,7 @@ msgstr "Profila"
 
 #: src/Views/Profile.vala:120 src/Views/Timeline.vala:75
 msgid "No Posts"
-msgstr "Ez dago argitalpenik"
+msgstr "Ez dago bidalketarik"
 
 #: src/Views/Profile.vala:124
 msgid "No Followers"
@@ -1911,7 +1911,7 @@ msgstr[1] "%d jarraipen-eskaera"
 
 #: src/Views/Sidebar.vala:54
 msgid "New Post"
-msgstr "Argitalpen berria"
+msgstr "Bidalketa berria"
 
 #: src/Views/Sidebar.vala:55
 msgid "Open Profile"
@@ -1946,7 +1946,7 @@ msgstr "Ahaztu"
 
 #: src/Views/StatusStats.vala:6
 msgid "Post Stats"
-msgstr "Argitalpenaren estatistikak"
+msgstr "Bidalketaren estatistikak"
 
 #. translators: title for a list of people that favorited a post
 #: src/Views/StatusStats.vala:12
