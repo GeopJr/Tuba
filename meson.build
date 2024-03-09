@@ -63,6 +63,7 @@ endif
 add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
 add_project_arguments (
   '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
+  '-DG_LOG_DOMAIN="Tuba"',
   language: 'c'
 )
 
