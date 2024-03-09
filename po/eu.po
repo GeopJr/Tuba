@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: 2024-03-09 22:25+0000\n"
+"PO-Revision-Date: 2024-03-09 22:47+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -40,9 +40,9 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-"Arakatu federatutako gizarte-weba GNOMErako Tubarekin. Mantendu harremanetan "
-"zure gogoko komunitateekin, familiarekin eta lagunekin Mastodon, GoToSocial, "
-"Akkoma eta bestelako plataformekin!"
+"Arakatu federatutako web soziala GNOMErako Tuba-rekin. Mantendu harremana "
+"zure komunitate gogokoenekin eta familia eta lagunekin Mastodon, GoToSocial, "
+"Akkoma eta bestelako Fedibertsoko plataformei esker!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:12
 msgid ""
@@ -1215,13 +1215,13 @@ msgstr "%d. eremua"
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:24
 msgid "It's spam"
-msgstr "Mezu baztergarria da"
+msgstr "SPAMa da"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:27
 msgid "It violates server rules"
-msgstr "Zerbitzariaren arauak hausten ditu"
+msgstr "Zerbitzariko arau bat edo gehiago urratzen d(it)u"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
@@ -1233,7 +1233,7 @@ msgstr "Beste zerbait da"
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:39
 msgid "Malicious links, fake engagement, or repetitive replies"
-msgstr "Esteka maltzurra, interakzio faltsua, erantzun errepikakorra"
+msgstr "Esteka maltzurrak, elkarrekintza faltsua, edo erantzun errepikakorrak"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
@@ -1245,7 +1245,7 @@ msgstr "Arau zehatzak hausten dituela dakizu"
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:45
 msgid "The issue does not fit into other categories"
-msgstr "Arazoa ez dator bat beste kategoriekin"
+msgstr "Arazoa ez da beste kategorietan sartzen"
 
 #. translators: the variable is an account handle
 #: src/Dialogs/Report.vala:122
@@ -1257,13 +1257,13 @@ msgstr "%s salatzen"
 #. this is meant for reporting users
 #: src/Dialogs/Report.vala:148
 msgid "Tell us what's going on with this account"
-msgstr "Esaguzu zer arazo dagoen kontu honekin"
+msgstr "Esan zer arazo dagoen kontu honekin"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting posts
 #: src/Dialogs/Report.vala:152
 msgid "Tell us what's going on with this post"
-msgstr "Esaguzu zer arazo dagoen argitalpen honekin"
+msgstr "Esan zer arazo dagoen bidalketa honekin"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of radio-button options where the user can only choose one
@@ -1291,19 +1291,19 @@ msgstr "Ezin izan dira erabiltzailearen argitalpen guztiak eskuratu"
 #. this is shown above a list of posts. The user is meant to choose any that should be included in the report
 #: src/Dialogs/Report.vala:257
 msgid "Are there any posts that back up this report?"
-msgstr "Ba al dago salaketa hau sostengatzen duen argitalpenik?"
+msgstr "Ba al dago salaketa hau sostengatzen duen bidalketarik?"
 
 #. translators: this is the same as 'Are there any posts that back up this report?' but for when you are reporting a post
 #. that's why it asks about choosing 'other' posts
 #: src/Dialogs/Report.vala:261
 msgid "Are there any other posts that back up this report?"
-msgstr "Ba al dago salaketa hau sostengatzen duen beste argitalpenik?"
+msgstr "Ba al dago salaketa sostengatzen duen beste bidalketarik?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown at the top of the last page of the report dialog
 #: src/Dialogs/Report.vala:280
 msgid "Is there anything else you think we should know?"
-msgstr "Jakin beharko genukeen beste zerbait al dago?"
+msgstr "Ba al dago jakin beharko genukeen beste ezer?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. additional comments to be included in the report
