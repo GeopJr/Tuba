@@ -259,7 +259,7 @@
 								<child>
 									<object class="AdwButtonContent">
 										<property name="icon-name">tuba-plus-large-symbolic</property>
-										<property name="label">Add Filter</property>
+										<property name="label" translatable="yes">Add Filter…</property>
 									</object>
 								</child>
 								<style>

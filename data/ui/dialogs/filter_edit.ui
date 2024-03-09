@@ -89,7 +89,7 @@
                                 <child>
                                   <object class="AdwButtonContent">
                                     <property name="icon-name">tuba-plus-large-symbolic</property>
-                                    <property name="label">Add Keyword</property>
+                                    <property name="label" translatable="yes">Add Keyword</property>
                                   </object>
                                 </child>
                                 <style>

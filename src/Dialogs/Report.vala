@@ -19,18 +19,30 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 
 		public string to_title () {
 			switch (this) {
-				case SPAM: return "It's spam";
-				case VIOLATION: return "It violates server rules";
-				case OTHER: return "It's something else";
+				// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+				//				this is a radio option title when reporting a post or account
+				case SPAM: return _("It's spam");
+				// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+				//				this is a radio option title when reporting a post or account
+				case VIOLATION: return _("It violates server rules");
+				// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+				//				this is a radio option title when reporting a post or account
+				case OTHER: return _("It's something else");
 				default: assert_not_reached ();
 			}
 		}
 
 		public string to_description () {
 			switch (this) {
-				case SPAM: return "Malicious links, fake engagement, or repetitive replies";
-				case VIOLATION: return "You are aware that it breaks specific rules";
-				case OTHER: return "The issue does not fit into other categories";
+				// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+				//				this is a radio option subtitle when reporting a post or account
+				case SPAM: return _("Malicious links, fake engagement, or repetitive replies");
+				// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+				//				this is a radio option subtitle when reporting a post or account
+				case VIOLATION: return _("You are aware that it breaks specific rules");
+				// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+				//				this is a radio option subtitle when reporting a post or account
+				case OTHER: return _("The issue does not fit into other categories");
 				default: assert_not_reached ();
 			}
 		}
