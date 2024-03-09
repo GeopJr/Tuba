@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 01:34+0200\n"
-"PO-Revision-Date: 2024-02-15 17:02+0000\n"
+"PO-Revision-Date: 2024-03-09 11:33+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -41,6 +41,9 @@ msgid ""
 "your favorite communities, family and friends with support for popular "
 "Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
+" Verken het federatieve sociale web met Tuba voor GNOME. Blijf verbonden met "
+"uw favoriete gemeen­schappen, familie en vrienden met onder­steuning voor "
+"populaire Fediversum­platforms zoals Mastodon, GoToSocial, Akkoma en meer!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:13
 msgid ""
@@ -68,7 +71,7 @@ msgstr "Voorkeuren tonen"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "Nieuw bericht opstellen"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:56
 msgid "Refresh"
@@ -176,7 +179,7 @@ msgstr "_Plaatsen"
 
 #: data/ui/dialogs/filter_edit.ui:8
 msgid "Edit Filter"
-msgstr ""
+msgstr "Filter bewerken"
 
 #: data/ui/dialogs/filter_edit.ui:25 data/ui/dialogs/profile_edit.ui:28
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:151
@@ -185,7 +188,7 @@ msgstr "Opslaan"
 
 #: data/ui/dialogs/filter_edit.ui:59
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: data/ui/dialogs/filter_edit.ui:65
 msgid "Expires In"
@@ -201,11 +204,11 @@ msgstr ""
 
 #: data/ui/dialogs/filter_edit.ui:78
 msgid "Contexts"
-msgstr ""
+msgstr "Contexten"
 
 #: data/ui/dialogs/filter_edit.ui:79
 msgid "One or multiple contexts where the filter should apply"
-msgstr ""
+msgstr "Eén of meerdere contexten waarop het filter moet worden toegepast"
 
 #: data/ui/dialogs/filter_edit.ui:84
 msgid "Keywords or Phrases"
@@ -496,11 +499,11 @@ msgstr "Meldingen van zelfde type en bericht combineren"
 
 #: data/ui/dialogs/preferences.ui:250
 msgid "Filters"
-msgstr ""
+msgstr "Filters"
 
 #: data/ui/dialogs/preferences.ui:254
 msgid "Keywords"
-msgstr ""
+msgstr "Tref­woorden"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:151
 msgid "Edit Profile"
@@ -637,7 +640,7 @@ msgstr "Van account wisselen"
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:70 data/ui/views/sidebar/view.ui:75
 msgid "View"
-msgstr ""
+msgstr "Bekijken"
 
 #: data/ui/widgets/announcement.ui:87
 msgid "Unread"
@@ -711,7 +714,7 @@ msgstr "Gesprekken"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "Profielen"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
@@ -862,15 +865,15 @@ msgstr ""
 #. translators: Wiki pages / Guides
 #: src/Application.vala:480
 msgid "Wiki"
-msgstr ""
+msgstr "Wiki"
 
 #: src/Application.vala:482
 msgid "Translate"
-msgstr ""
+msgstr "Vertalen"
 
 #: src/Application.vala:483
 msgid "Donate"
-msgstr ""
+msgstr "Doneren"
 
 #: src/Application.vala:505
 msgid "OK"
@@ -976,7 +979,7 @@ msgstr ""
 
 #: src/Dialogs/Composer/EditorPage.vala:112
 msgid "Undo"
-msgstr ""
+msgstr "Ongedaan maken"
 
 #: src/Dialogs/Composer/EditorPage.vala:260
 msgid "What's on your mind?"
@@ -1102,7 +1105,7 @@ msgstr "Verloopdatum"
 
 #: src/Dialogs/FilterEdit.vala:29
 msgid "Never"
-msgstr ""
+msgstr "Nooit"
 
 #: src/Dialogs/FilterEdit.vala:35
 msgid "1 Week"
@@ -1114,7 +1117,7 @@ msgstr ""
 
 #: src/Dialogs/FilterEdit.vala:190
 msgid "Keyword"
-msgstr ""
+msgstr "Tref­woord"
 
 #: src/Dialogs/FilterEdit.vala:193
 msgid "Match Whole Word"
@@ -1282,11 +1285,11 @@ msgstr ""
 
 #: src/Dialogs/Report.vala:329 src/Dialogs/Report.vala:411
 msgid "Submit"
-msgstr ""
+msgstr "Indienen"
 
 #: src/Dialogs/Report.vala:382
 msgid "Submitted Report Successfully"
-msgstr ""
+msgstr "Rapport succesvol ingediend"
 
 #. translators: the variable is an error
 #: src/Dialogs/Report.vala:388
@@ -1708,7 +1711,7 @@ msgstr "Titel van nieuwe lijst"
 
 #: src/Views/Lists.vala:143
 msgid "No Lists"
-msgstr ""
+msgstr "Geen lijsten"
 
 #: src/Views/Lists.vala:151
 msgid "Add list"
@@ -1744,7 +1747,7 @@ msgstr ""
 
 #: src/Views/Notifications.vala:12
 msgid "No Notifications"
-msgstr ""
+msgstr "Geen meldingen"
 
 #: src/Views/Profile.vala:34
 msgid "Profile"
@@ -1752,11 +1755,11 @@ msgstr "Profiel"
 
 #: src/Views/Profile.vala:120 src/Views/Timeline.vala:75
 msgid "No Posts"
-msgstr ""
+msgstr "Geen berichten"
 
 #: src/Views/Profile.vala:124
 msgid "No Followers"
-msgstr ""
+msgstr "Geen volgers"
 
 #: src/Views/Profile.vala:128
 msgid "This user doesn't follow anyone yet"
@@ -1868,7 +1871,7 @@ msgstr[1] ""
 
 #: src/Views/Sidebar.vala:54
 msgid "New Post"
-msgstr ""
+msgstr "Nieuw bericht"
 
 #: src/Views/Sidebar.vala:55
 msgid "Open Profile"
