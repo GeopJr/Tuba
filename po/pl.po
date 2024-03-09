@@ -2,23 +2,23 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # gnu-ewm <gnu.ewm@protonmail.com>, 2023.
-# Łukasz Horodecki <dakilla@gmail.com>, 2023.
+# Łukasz Horodecki <dakilla@gmail.com>, 2023, 2024.
 # Karol Lademan <karol@lademan.dev>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 01:34+0200\n"
-"PO-Revision-Date: 2023-12-13 23:05+0000\n"
+"PO-Revision-Date: 2024-03-09 11:33+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.3-rc\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -43,6 +43,10 @@ msgid ""
 "your favorite communities, family and friends with support for popular "
 "Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
+" Odkrywaj sfederowaną sieć społeczną z Tubą dla GNOME. Bądź w kontakcie ze "
+"swoimi ulubionymi społecznościami, rodziną i przyjaciółmi dzięki wsparciu "
+"dla popularnych platform fediwersum, takich jak Mastodon, GoToSocial, Akkoma "
+"i innych!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:13
 msgid ""
@@ -70,7 +74,7 @@ msgstr "Wyświetlenie preferencji"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "Utwórz wpis"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:56
 msgid "Refresh"
@@ -178,7 +182,7 @@ msgstr "_Publikuj"
 
 #: data/ui/dialogs/filter_edit.ui:8
 msgid "Edit Filter"
-msgstr ""
+msgstr "Edytuj filtr"
 
 #: data/ui/dialogs/filter_edit.ui:25 data/ui/dialogs/profile_edit.ui:28
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:151
@@ -187,31 +191,31 @@ msgstr "Zapisz"
 
 #: data/ui/dialogs/filter_edit.ui:59
 msgid "Title"
-msgstr ""
+msgstr "Tytuł"
 
 #: data/ui/dialogs/filter_edit.ui:65
 msgid "Expires In"
-msgstr ""
+msgstr "Wygaśnie po"
 
 #: data/ui/dialogs/filter_edit.ui:70
 msgid "Hide Completely"
-msgstr ""
+msgstr "Ukryj całkowicie"
 
 #: data/ui/dialogs/filter_edit.ui:71
 msgid "Otherwise a warning will be used"
-msgstr ""
+msgstr "W przeciwny przypadku zobaczysz ostrzeżenie"
 
 #: data/ui/dialogs/filter_edit.ui:78
 msgid "Contexts"
-msgstr ""
+msgstr "Kontekst"
 
 #: data/ui/dialogs/filter_edit.ui:79
 msgid "One or multiple contexts where the filter should apply"
-msgstr ""
+msgstr "Jedno lub wiele miejsc, w których filtr zostanie zastosowany"
 
 #: data/ui/dialogs/filter_edit.ui:84
 msgid "Keywords or Phrases"
-msgstr ""
+msgstr "Słowa kluczowe lub zwroty"
 
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
@@ -227,7 +231,7 @@ msgstr "Nazwa listy"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
-msgstr ""
+msgstr "Ukryj wpisy z twojej osi czasu"
 
 #: data/ui/dialogs/list_edit.ui:39
 msgid "Replies Policy"
@@ -311,31 +315,31 @@ msgstr "Schemat kolorów"
 
 #: data/ui/dialogs/preferences.ui:40
 msgid "Large Text"
-msgstr ""
+msgstr "Większy rozmiar czcionki"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Increase the size of text in posts"
-msgstr ""
+msgstr "Zwiększa czcionkę wpisów"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Large Line Height"
-msgstr ""
+msgstr "Większa wysokość linii"
 
 #: data/ui/dialogs/preferences.ui:47
 msgid "Increase the line height in posts"
-msgstr ""
+msgstr "Zwiększa wysokość linii wpisów"
 
 #: data/ui/dialogs/preferences.ui:52
 msgid "Large Custom Emojis"
-msgstr ""
+msgstr "Większy rozmiar niestandardowych emoji"
 
 #: data/ui/dialogs/preferences.ui:57
 msgid "Scale Custom Emojis on Hover"
-msgstr ""
+msgstr "Powiększanie niestandardowych emoji po najechaniu"
 
 #: data/ui/dialogs/preferences.ui:58
 msgid "Slightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "Powiększa trochę niestandardowe emoji, gdy nad nie najedziesz"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:64
@@ -354,7 +358,7 @@ msgstr ""
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:72
 msgid "Expand Pictures in Media Viewer"
-msgstr ""
+msgstr "Powiększanie obrazów w przeglądarce mediów"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:74
@@ -367,15 +371,15 @@ msgstr "Pokazuje rozmazaną wersję obrazów zanim się całkowicie załadują"
 
 #: data/ui/dialogs/preferences.ui:85
 msgid "Reveal Spoilers by Default"
-msgstr ""
+msgstr "Domyślne odsłanianie drażliwej zawartości"
 
 #: data/ui/dialogs/preferences.ui:90
 msgid "Show Link Preview Cards"
-msgstr ""
+msgstr "Pokazywanie kart podglądu odnośników"
 
 #: data/ui/dialogs/preferences.ui:95
 msgid "Darken Images on Dark Mode"
-msgstr ""
+msgstr "Przyciemnianie obrazów przy używaniu ciemnego stylu"
 
 #: data/ui/dialogs/preferences.ui:102
 msgid "Posting"
@@ -383,15 +387,15 @@ msgstr "Ustawienia wpisów"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Default Post Visibility"
-msgstr ""
+msgstr "Domyślna widoczność wpisu"
 
 #: data/ui/dialogs/preferences.ui:114
 msgid "Default Post Language"
-msgstr ""
+msgstr "Domyślny język wpisu"
 
 #: data/ui/dialogs/preferences.ui:124
 msgid "Default Post Content Type"
-msgstr ""
+msgstr "Domyślny rodzaj zawartości wpisu"
 
 #: data/ui/dialogs/preferences.ui:135
 msgid "Behavior"
@@ -399,24 +403,24 @@ msgstr "Zachowanie"
 
 #: data/ui/dialogs/preferences.ui:138
 msgid "Run in Background"
-msgstr ""
+msgstr "Praca w tle"
 
 #: data/ui/dialogs/preferences.ui:139
 msgid "Fetch notifications while the app is closed"
-msgstr ""
+msgstr "Pobieraj powiadomienia, gdy aplikacja jest zamknięta"
 
 #: data/ui/dialogs/preferences.ui:144
 msgid "Strip Tracking Parameters From Links"
-msgstr ""
+msgstr "Usuwanie parametrów śledzenia z odnośników"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:146
 msgid "This option can lead to broken links when enabled"
-msgstr ""
+msgstr "Gdy włączone, może psuć niektóre odnośniki"
 
 #: data/ui/dialogs/preferences.ui:151
 msgid "Advanced Boost Dialog"
-msgstr ""
+msgstr "Rozbudowany dialog podbicia"
 
 #: data/ui/dialogs/preferences.ui:152
 msgid "Change boost visibility, quote and confirm boosting"
@@ -428,11 +432,11 @@ msgstr "Osie czasu"
 
 #: data/ui/dialogs/preferences.ui:162
 msgid "Posts per Load Batch"
-msgstr ""
+msgstr "Wielkość ładowanej porcji wpisów"
 
 #: data/ui/dialogs/preferences.ui:170
 msgid "Stream Timelines"
-msgstr ""
+msgstr "Odświeżanie osi czasu"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Receive new posts and notifications in real-time"
@@ -440,7 +444,7 @@ msgstr "Otrzymuj na żywo nowe wpisy i powiadomienia"
 
 #: data/ui/dialogs/preferences.ui:177
 msgid "Stream Public Timelines"
-msgstr ""
+msgstr "Odświeżanie publicznych osi czasu"
 
 #: data/ui/dialogs/preferences.ui:178
 msgid "Warning: This will increase memory usage"
@@ -498,11 +502,11 @@ msgstr "Grupuj niedawne powiadomienia tego samego typu w jedno"
 
 #: data/ui/dialogs/preferences.ui:250
 msgid "Filters"
-msgstr ""
+msgstr "Filtry"
 
 #: data/ui/dialogs/preferences.ui:254
 msgid "Keywords"
-msgstr ""
+msgstr "Słowa kluczowe"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:151
 msgid "Edit Profile"
@@ -554,7 +558,7 @@ msgstr "Otwórz w przeglądarce"
 
 #: data/ui/menus.ui:33
 msgid "Receive Post Notifications"
-msgstr ""
+msgstr "Otrzymuj powiadomienia o wpisach"
 
 #: data/ui/menus.ui:39
 msgid "Moderation"
@@ -608,7 +612,7 @@ msgstr "Kopiuj adres URL"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:183
 msgid "Save Media…"
-msgstr ""
+msgstr "Pobierz…"
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:185
 msgid "Copy Media"
@@ -639,7 +643,7 @@ msgstr "Przełącz konto"
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:70 data/ui/views/sidebar/view.ui:75
 msgid "View"
-msgstr ""
+msgstr "Pokaż"
 
 #: data/ui/widgets/announcement.ui:87
 msgid "Unread"
@@ -666,7 +670,7 @@ msgstr "Pokaż więcej"
 #. translators: Tooltip that opens filter
 #: data/ui/widgets/status.ui:336
 msgid "Show Anyway"
-msgstr ""
+msgstr "Pokaż mimo wszystko"
 
 #: src/API/Announcement.vala:55 src/Application.vala:145
 #: src/Application.vala:239 src/Application.vala:319
@@ -699,11 +703,11 @@ msgstr "Pozostałe"
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
 msgid "Home &amp; Lists"
-msgstr ""
+msgstr "Twoja oś czasu i listy"
 
 #: src/API/Filters/Filter.vala:46
 msgid "Public Timelines"
-msgstr ""
+msgstr "Publiczne osie czasu"
 
 #: src/API/Filters/Filter.vala:47
 #: src/Services/Accounts/Mastodon/Account.vala:52
@@ -713,7 +717,7 @@ msgstr "Rozmowy"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "Profile"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
@@ -860,15 +864,15 @@ msgstr "Łukasz Horodecki http://pol.social/@LukaszHorodecki"
 #. translators: Wiki pages / Guides
 #: src/Application.vala:480
 msgid "Wiki"
-msgstr ""
+msgstr "Wiki"
 
 #: src/Application.vala:482
 msgid "Translate"
-msgstr ""
+msgstr "Przetłumacz"
 
 #: src/Application.vala:483
 msgid "Donate"
-msgstr ""
+msgstr "Wspomóż"
 
 #: src/Application.vala:505
 msgid "OK"
@@ -970,11 +974,11 @@ msgstr "Tekst"
 
 #: src/Dialogs/Composer/EditorPage.vala:109
 msgid "Stripped tracking parameters"
-msgstr ""
+msgstr "Usunięte parametry śledzenia"
 
 #: src/Dialogs/Composer/EditorPage.vala:112
 msgid "Undo"
-msgstr ""
+msgstr "Cofnij"
 
 #: src/Dialogs/Composer/EditorPage.vala:260
 msgid "What's on your mind?"
@@ -1100,23 +1104,23 @@ msgstr "Czas trwania"
 
 #: src/Dialogs/FilterEdit.vala:29
 msgid "Never"
-msgstr ""
+msgstr "Nigdy"
 
 #: src/Dialogs/FilterEdit.vala:35
 msgid "1 Week"
-msgstr ""
+msgstr "1 tygodniu"
 
 #: src/Dialogs/FilterEdit.vala:125
 msgid "New Filter"
-msgstr ""
+msgstr "Nowy filtr"
 
 #: src/Dialogs/FilterEdit.vala:190
 msgid "Keyword"
-msgstr ""
+msgstr "Słowo kluczowe"
 
 #: src/Dialogs/FilterEdit.vala:193
 msgid "Match Whole Word"
-msgstr ""
+msgstr "Dopasuj całe słowo"
 
 #: src/Dialogs/FilterEdit.vala:200 src/Dialogs/Preferences.vala:23
 #: src/Dialogs/Preferences.vala:81 src/Views/Lists.vala:60
@@ -1127,7 +1131,7 @@ msgstr "Usuń"
 #: src/Dialogs/FilterEdit.vala:297
 #, c-format
 msgid "Couldn't edit filter: %s"
-msgstr ""
+msgstr "Nie udało się edytować filtra: %s"
 
 #: src/Dialogs/MainWindow.vala:65
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
@@ -1171,21 +1175,21 @@ msgstr "Edytuj"
 #, c-format
 msgid "%d keyword"
 msgid_plural "%d keywords"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d słowo kluczowe"
+msgstr[1] "%d słowa kluczowe"
+msgstr[2] "%d słów kluczowych"
 
 #. translators: the variable is a filter name
 #: src/Dialogs/Preferences.vala:78
 #, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr ""
+msgstr "Czy na pewno chcesz usunąć %s?"
 
 #. translators: the variable is an error message
 #: src/Dialogs/Preferences.vala:92
 #, c-format
 msgid "Couldn't delete filter: %s"
-msgstr ""
+msgstr "Nie udało się usunąć filtra: %s"
 
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
@@ -1207,91 +1211,91 @@ msgstr "Pole %d"
 #: src/Dialogs/Report.vala:110
 #, c-format
 msgid "Reporting %s"
-msgstr ""
+msgstr "Zgłaszanie %s"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting users
 #: src/Dialogs/Report.vala:136
 msgid "Tell us what's going on with this account"
-msgstr ""
+msgstr "Powiedz nam, co jest nie tak z tym kontem"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting posts
 #: src/Dialogs/Report.vala:140
 msgid "Tell us what's going on with this post"
-msgstr ""
+msgstr "Powiedz nam, co jest nie tak z tym wpisem"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of radio-button options where the user can only choose one
 #: src/Dialogs/Report.vala:145
 msgid "Choose the best match"
-msgstr ""
+msgstr "Wybierz najbardziej pasującą opcję"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Report.vala:184
 msgid "Which rules are being violated?"
-msgstr ""
+msgstr "Które zasady zostały złamane?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this shown above a list of checkbox options where the user can select multiple
 #: src/Dialogs/Report.vala:189 src/Dialogs/Report.vala:254
 msgid "Select all that apply"
-msgstr ""
+msgstr "Wybierz wszystkie pasujące"
 
 #. translators: 'fetch' as in get
 #: src/Dialogs/Report.vala:221
 msgid "Couldn't fetch all user's posts"
-msgstr ""
+msgstr "Nie udało się pobrać wszystkich wpisów z tego konta"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of posts. The user is meant to choose any that should be included in the report
 #: src/Dialogs/Report.vala:245
 msgid "Are there any posts that back up this report?"
-msgstr ""
+msgstr "Czy są jakieś wpisy, które obrazują opisany w zgłoszeniu problem?"
 
 #. translators: this is the same as 'Are there any posts that back up this report?' but for when you are reporting a post
 #. that's why it asks about choosing 'other' posts
 #: src/Dialogs/Report.vala:249
 msgid "Are there any other posts that back up this report?"
-msgstr ""
+msgstr "Czy są jakieś inne wpisy, które obrazują opisany w zgłoszeniu problem?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown at the top of the last page of the report dialog
 #: src/Dialogs/Report.vala:268
 msgid "Is there anything else you think we should know?"
-msgstr ""
+msgstr "Czy jest jeszcze coś, co uważasz, że powinniśmy wiedzieć?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. additional comments to be included in the report
 #: src/Dialogs/Report.vala:274
 msgid "Additional Comments"
-msgstr ""
+msgstr "Dodatkowe komentarze"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. the variable is an instance name e.g. 'Forward to mastodon.social'
 #: src/Dialogs/Report.vala:283
 #, c-format
 msgid "Forward to %s"
-msgstr ""
+msgstr "Przekaż na %s"
 
 #. translators: submit the report
 #: src/Dialogs/Report.vala:326
 msgid "Are you sure you want to submit?"
-msgstr ""
+msgstr "Czy na pewno chcesz wysłać?"
 
 #: src/Dialogs/Report.vala:329 src/Dialogs/Report.vala:411
 msgid "Submit"
-msgstr ""
+msgstr "Wyślij"
 
 #: src/Dialogs/Report.vala:382
 msgid "Submitted Report Successfully"
-msgstr ""
+msgstr "Zgłoszenie zostało pomyślnie wysłane"
 
 #. translators: the variable is an error
 #: src/Dialogs/Report.vala:388
 #, c-format
 msgid "Couldn't submit report: %s"
-msgstr ""
+msgstr "Nie udało się wysłać zgłoszenia: %s"
 
 #: src/Dialogs/Report.vala:407
 msgid "Back"
@@ -1301,11 +1305,11 @@ msgstr "Wstecz"
 #: src/Dialogs/Report.vala:484 src/Dialogs/Report.vala:495
 #, c-format
 msgid "%s. You can continue with the report however."
-msgstr ""
+msgstr "%s. Możesz i tak kontynuować zgłaszanie."
 
 #: src/Dialogs/Report.vala:484
 msgid "No posts found"
-msgstr ""
+msgstr "Nie znaleziono wpisów"
 
 #: src/Services/Accounts/InstanceAccount.vala:180
 #, c-format
@@ -1614,7 +1618,7 @@ msgstr "Ogłoszenia"
 
 #: src/Views/Announcements.vala:8
 msgid "No Announcements"
-msgstr ""
+msgstr "Brak ogłoszeń"
 
 #. translators: Fallback shown when there are 0 results
 #: src/Views/Base.vala:4
@@ -1631,11 +1635,11 @@ msgstr "Wystąpił błąd"
 
 #: src/Views/Bookmarks.vala:6
 msgid "No Bookmarks"
-msgstr ""
+msgstr "Brak zakładek"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
-msgstr ""
+msgstr "Brak rozmów"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -1643,7 +1647,7 @@ msgstr "Historia edycji"
 
 #: src/Views/EditHistory.vala:7
 msgid "No Edit History"
-msgstr ""
+msgstr "Brak historii edycji"
 
 #: src/Views/Explore.vala:6 src/Views/Search.vala:39
 msgid "Posts"
@@ -1651,7 +1655,7 @@ msgstr "Wpisy"
 
 #: src/Views/Explore.vala:7 src/Views/Hashtags.vala:7
 msgid "No Hashtags"
-msgstr ""
+msgstr "Brak hasztagów"
 
 #: src/Views/Explore.vala:8
 msgid "News"
@@ -1659,7 +1663,7 @@ msgstr "Aktualności"
 
 #: src/Views/Explore.vala:8
 msgid "No News"
-msgstr ""
+msgstr "Brak aktualności"
 
 #: src/Views/Explore.vala:9
 msgid "For You"
@@ -1667,11 +1671,11 @@ msgstr "Dla ciebie"
 
 #: src/Views/Explore.vala:9
 msgid "No Suggestions"
-msgstr ""
+msgstr "Brak podpowiedzi"
 
 #: src/Views/Favorites.vala:5 src/Views/StatusStats.vala:16
 msgid "No Favorites"
-msgstr ""
+msgstr "Brak polubionych"
 
 #: src/Views/FollowRequests.vala:4 src/Views/Sidebar.vala:61
 msgid "Follow Requests"
@@ -1679,7 +1683,7 @@ msgstr "Prośby o obserwację"
 
 #: src/Views/FollowRequests.vala:7
 msgid "No Follow Requests"
-msgstr ""
+msgstr "Brak próśb o obserwację"
 
 #: src/Views/Hashtag.vala:19 src/Views/Hashtag.vala:34
 #: src/Widgets/RelationshipButton.vala:32
@@ -1711,7 +1715,7 @@ msgstr "Nazwa nowej listy"
 
 #: src/Views/Lists.vala:143
 msgid "No Lists"
-msgstr ""
+msgstr "Brak list"
 
 #: src/Views/Lists.vala:151
 msgid "Add list"
@@ -1727,27 +1731,27 @@ msgstr "Skopiowano obraz do schowka"
 
 #: src/Views/MutesBlocks.vala:6 src/Views/Sidebar.vala:62
 msgid "Mutes & Blocks"
-msgstr ""
+msgstr "Wyciszenia i bloki"
 
 #: src/Views/MutesBlocks.vala:11
 msgid "Mutes"
-msgstr ""
+msgstr "Wyciszenia"
 
 #: src/Views/MutesBlocks.vala:15
 msgid "No Muted Accounts"
-msgstr ""
+msgstr "Brak wyciszonych kont"
 
 #: src/Views/MutesBlocks.vala:19
 msgid "Blocks"
-msgstr ""
+msgstr "Bloki"
 
 #: src/Views/MutesBlocks.vala:23
 msgid "No Blocked Accounts"
-msgstr ""
+msgstr "Brak zablokowanych kont"
 
 #: src/Views/Notifications.vala:12
 msgid "No Notifications"
-msgstr ""
+msgstr "Brak powiadomień"
 
 #: src/Views/Profile.vala:34
 msgid "Profile"
@@ -1755,15 +1759,15 @@ msgstr "Profil"
 
 #: src/Views/Profile.vala:120 src/Views/Timeline.vala:75
 msgid "No Posts"
-msgstr ""
+msgstr "Brak wpisów"
 
 #: src/Views/Profile.vala:124
 msgid "No Followers"
-msgstr ""
+msgstr "Brak obserwujących"
 
 #: src/Views/Profile.vala:128
 msgid "This user doesn't follow anyone yet"
-msgstr ""
+msgstr "Ten użytkownik jeszcze nikogo nie obserwuje"
 
 #: src/Views/Profile.vala:240
 msgid "Copied handle to clipboard"
@@ -1857,22 +1861,22 @@ msgstr "Wpisz zapytanie"
 #, c-format
 msgid "%d Announcement"
 msgid_plural "%d Announcements"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d ogłoszenie"
+msgstr[1] "%d ogłoszenia"
+msgstr[2] "%d ogłoszeń"
 
 #. tanslators: used in a banner, the variable is the number of unreviewed follow requests
 #: src/Views/Sidebar.vala:35
 #, c-format
 msgid "%d Follow Request"
 msgid_plural "%d Follow Requests"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d prośba o obserwację"
+msgstr[1] "%d prośby o obserwację"
+msgstr[2] "%d próśb o obserwację"
 
 #: src/Views/Sidebar.vala:54
 msgid "New Post"
-msgstr ""
+msgstr "Nowy wpis"
 
 #: src/Views/Sidebar.vala:55
 msgid "Open Profile"
@@ -1921,7 +1925,7 @@ msgstr "Podbicia"
 
 #: src/Views/StatusStats.vala:25
 msgid "No Boosts"
-msgstr ""
+msgstr "Brak podbić"
 
 #: src/Views/Thread.vala:32
 msgid "Conversation"
@@ -1990,7 +1994,7 @@ msgstr "Zapisano media"
 
 #: src/Widgets/Attachment/Item.vala:45
 msgid "Couldn't Save Media"
-msgstr ""
+msgstr "Nie udało się zapisać mediów"
 
 #: src/Widgets/Attachment/Item.vala:116
 msgid "View Alt Text"
@@ -2017,7 +2021,7 @@ msgstr "Wyniki"
 
 #: src/Widgets/CustomEmojiChooser.vala:74
 msgid "Recently Used"
-msgstr ""
+msgstr "Ostatnio używane"
 
 #: src/Widgets/CustomEmojiChooser.vala:226
 msgid "Custom Emojis"
@@ -2053,7 +2057,7 @@ msgstr "Data dołączenia"
 
 #: src/Widgets/RelationshipButton.vala:54
 msgid "Unmute"
-msgstr ""
+msgstr "Wyłącz wyciszenie"
 
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:259
@@ -2089,11 +2093,11 @@ msgstr "Odepnij"
 #: src/Widgets/Status.vala:527
 #, c-format
 msgid "Filtered: %s"
-msgstr ""
+msgstr "Zastosowany filtr: %s"
 
 #: src/Widgets/Status.vala:529
 msgid "Filtered"
-msgstr ""
+msgstr "Zastosowany filtr"
 
 #: src/Widgets/Status/ActionsRow.vala:52 src/Widgets/Status/ActionsRow.vala:92
 #: src/Widgets/Status/ActionsRow.vala:236
