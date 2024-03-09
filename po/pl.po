@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 01:34+0200\n"
+"POT-Creation-Date: 2024-03-09 23:56+0200\n"
 "PO-Revision-Date: 2024-03-09 11:33+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
@@ -39,16 +39,16 @@ msgstr "toot;wpis;mastodon;fediverse;fediwersum;gotosocial;pleroma;akkoma;"
 #. translators: Leave &amp; as is, it gets converted to &
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
-"Explore the federated social web with Tuba for GNOME. Stay connected to "
-"your favorite communities, family and friends with support for popular "
-"Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
+"Explore the federated social web with Tuba for GNOME. Stay connected to your "
+"favorite communities, family and friends with support for popular Fediverse "
+"platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
 "Odkrywaj sfederowaną sieć społeczną z Tubą dla GNOME. Bądź w kontakcie ze "
 "swoimi ulubionymi społecznościami, rodziną i przyjaciółmi dzięki wsparciu "
 "dla popularnych platform fediwersum, takich jak Mastodon, GoToSocial, Akkoma "
 "i innych!"
 
-#: data/dev.geopjr.Tuba.metainfo.xml.in:13
+#: data/dev.geopjr.Tuba.metainfo.xml.in:12
 msgid ""
 "The Fediverse is a decentralized social network that consists of multiple "
 "interconnected platforms and communities, allowing users to communicate and "
@@ -169,8 +169,8 @@ msgstr "Następny załącznik"
 #: data/ui/dialogs/new_account.ui:22 data/ui/dialogs/profile_edit.ui:21
 #: src/API/Relationship.vala:101 src/Application.vala:556
 #: src/Dialogs/Composer/Dialog.vala:201 src/Dialogs/Preferences.vala:81
-#: src/Dialogs/Report.vala:82 src/Dialogs/Report.vala:329
-#: src/Dialogs/Report.vala:405 src/Views/Lists.vala:60
+#: src/Dialogs/Report.vala:94 src/Dialogs/Report.vala:341
+#: src/Dialogs/Report.vala:417 src/Views/Lists.vala:60
 #: src/Views/Profile.vala:291 src/Views/Sidebar.vala:291
 #: src/Widgets/Status.vala:341 src/Widgets/Status/ActionsRow.vala:234
 msgid "Cancel"
@@ -217,6 +217,10 @@ msgstr "Jedno lub wiele miejsc, w których filtr zostanie zastosowany"
 msgid "Keywords or Phrases"
 msgstr "Słowa kluczowe lub zwroty"
 
+#: data/ui/dialogs/filter_edit.ui:92
+msgid "Add Keyword"
+msgstr ""
+
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
 msgstr "Osoby na liście"
@@ -259,7 +263,7 @@ msgid "Add Account"
 msgstr "Dodaj konto"
 
 #: data/ui/dialogs/new_account.ui:29 data/ui/dialogs/new_account.ui:107
-#: src/Dialogs/Report.vala:84 src/Dialogs/Report.vala:413
+#: src/Dialogs/Report.vala:96 src/Dialogs/Report.vala:425
 msgid "Next"
 msgstr "Dalej"
 
@@ -507,6 +511,10 @@ msgstr "Filtry"
 #: data/ui/dialogs/preferences.ui:254
 msgid "Keywords"
 msgstr "Słowa kluczowe"
+
+#: data/ui/dialogs/preferences.ui:262
+msgid "Add Filter…"
+msgstr ""
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:151
 msgid "Edit Profile"
@@ -1207,107 +1215,143 @@ msgstr "Zawartość"
 msgid "Field %d"
 msgstr "Pole %d"
 
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:24
+msgid "It's spam"
+msgstr ""
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:27
+msgid "It violates server rules"
+msgstr ""
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:30
+msgid "It's something else"
+msgstr ""
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:39
+msgid "Malicious links, fake engagement, or repetitive replies"
+msgstr ""
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:42
+msgid "You are aware that it breaks specific rules"
+msgstr ""
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:45
+msgid "The issue does not fit into other categories"
+msgstr ""
+
 #. translators: the variable is an account handle
-#: src/Dialogs/Report.vala:110
+#: src/Dialogs/Report.vala:122
 #, c-format
 msgid "Reporting %s"
 msgstr "Zgłaszanie %s"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting users
-#: src/Dialogs/Report.vala:136
+#: src/Dialogs/Report.vala:148
 msgid "Tell us what's going on with this account"
 msgstr "Powiedz nam, co jest nie tak z tym kontem"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting posts
-#: src/Dialogs/Report.vala:140
+#: src/Dialogs/Report.vala:152
 msgid "Tell us what's going on with this post"
 msgstr "Powiedz nam, co jest nie tak z tym wpisem"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of radio-button options where the user can only choose one
-#: src/Dialogs/Report.vala:145
+#: src/Dialogs/Report.vala:157
 msgid "Choose the best match"
 msgstr "Wybierz najbardziej pasującą opcję"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-#: src/Dialogs/Report.vala:184
+#: src/Dialogs/Report.vala:196
 msgid "Which rules are being violated?"
 msgstr "Które zasady zostały złamane?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this shown above a list of checkbox options where the user can select multiple
-#: src/Dialogs/Report.vala:189 src/Dialogs/Report.vala:254
+#: src/Dialogs/Report.vala:201 src/Dialogs/Report.vala:266
 msgid "Select all that apply"
 msgstr "Wybierz wszystkie pasujące"
 
 #. translators: 'fetch' as in get
-#: src/Dialogs/Report.vala:221
+#: src/Dialogs/Report.vala:233
 msgid "Couldn't fetch all user's posts"
 msgstr "Nie udało się pobrać wszystkich wpisów z tego konta"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of posts. The user is meant to choose any that should be included in the report
-#: src/Dialogs/Report.vala:245
+#: src/Dialogs/Report.vala:257
 msgid "Are there any posts that back up this report?"
 msgstr "Czy są jakieś wpisy, które obrazują opisany w zgłoszeniu problem?"
 
 #. translators: this is the same as 'Are there any posts that back up this report?' but for when you are reporting a post
 #. that's why it asks about choosing 'other' posts
-#: src/Dialogs/Report.vala:249
+#: src/Dialogs/Report.vala:261
 msgid "Are there any other posts that back up this report?"
 msgstr "Czy są jakieś inne wpisy, które obrazują opisany w zgłoszeniu problem?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown at the top of the last page of the report dialog
-#: src/Dialogs/Report.vala:268
+#: src/Dialogs/Report.vala:280
 msgid "Is there anything else you think we should know?"
 msgstr "Czy jest jeszcze coś, co uważasz, że powinniśmy wiedzieć?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. additional comments to be included in the report
-#: src/Dialogs/Report.vala:274
+#: src/Dialogs/Report.vala:286
 msgid "Additional Comments"
 msgstr "Dodatkowe komentarze"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. the variable is an instance name e.g. 'Forward to mastodon.social'
-#: src/Dialogs/Report.vala:283
+#: src/Dialogs/Report.vala:295
 #, c-format
 msgid "Forward to %s"
 msgstr "Przekaż na %s"
 
 #. translators: submit the report
-#: src/Dialogs/Report.vala:326
+#: src/Dialogs/Report.vala:338
 msgid "Are you sure you want to submit?"
 msgstr "Czy na pewno chcesz wysłać?"
 
-#: src/Dialogs/Report.vala:329 src/Dialogs/Report.vala:411
+#: src/Dialogs/Report.vala:341 src/Dialogs/Report.vala:423
 msgid "Submit"
 msgstr "Wyślij"
 
-#: src/Dialogs/Report.vala:382
+#: src/Dialogs/Report.vala:394
 msgid "Submitted Report Successfully"
 msgstr "Zgłoszenie zostało pomyślnie wysłane"
 
 #. translators: the variable is an error
-#: src/Dialogs/Report.vala:388
+#: src/Dialogs/Report.vala:400
 #, c-format
 msgid "Couldn't submit report: %s"
 msgstr "Nie udało się wysłać zgłoszenia: %s"
 
-#: src/Dialogs/Report.vala:407
+#: src/Dialogs/Report.vala:419
 msgid "Back"
 msgstr "Wstecz"
 
 #. translators: the variable is an error
-#: src/Dialogs/Report.vala:484 src/Dialogs/Report.vala:495
+#: src/Dialogs/Report.vala:496 src/Dialogs/Report.vala:507
 #, c-format
 msgid "%s. You can continue with the report however."
 msgstr "%s. Możesz i tak kontynuować zgłaszanie."
 
-#: src/Dialogs/Report.vala:484
+#: src/Dialogs/Report.vala:496
 msgid "No posts found"
 msgstr "Nie znaleziono wpisów"
 
