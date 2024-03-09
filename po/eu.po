@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 01:34+0200\n"
-"PO-Revision-Date: 2024-01-14 12:31+0000\n"
+"PO-Revision-Date: 2024-03-09 21:21+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -40,6 +40,9 @@ msgid ""
 "your favorite communities, family and friends with support for popular "
 "Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
+" Arakatu federatutako gizarte-weba GNOMErako Tubarekin. Mantendu "
+"harremanetan zure gogoko komunitateekin, familiarekin eta lagunekin "
+"Mastodon, GoToSocial, Akkoma eta bestelako plataformekin!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:13
 msgid ""
@@ -66,7 +69,7 @@ msgstr "Erakutsi hobespenak"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "Idatzi argitalpen berria"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:56
 msgid "Refresh"
@@ -174,7 +177,7 @@ msgstr "_Argitaratu"
 
 #: data/ui/dialogs/filter_edit.ui:8
 msgid "Edit Filter"
-msgstr ""
+msgstr "Editatu iragazkia"
 
 #: data/ui/dialogs/filter_edit.ui:25 data/ui/dialogs/profile_edit.ui:28
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:151
@@ -183,31 +186,31 @@ msgstr "Gorde"
 
 #: data/ui/dialogs/filter_edit.ui:59
 msgid "Title"
-msgstr ""
+msgstr "Titulua"
 
 #: data/ui/dialogs/filter_edit.ui:65
 msgid "Expires In"
-msgstr ""
+msgstr "Iraungitze-data:"
 
 #: data/ui/dialogs/filter_edit.ui:70
 msgid "Hide Completely"
-msgstr ""
+msgstr "Ezkutatu guztiz"
 
 #: data/ui/dialogs/filter_edit.ui:71
 msgid "Otherwise a warning will be used"
-msgstr ""
+msgstr "Bestela, ohar bat erakutsiko da"
 
 #: data/ui/dialogs/filter_edit.ui:78
 msgid "Contexts"
-msgstr ""
+msgstr "Testuinguruak"
 
 #: data/ui/dialogs/filter_edit.ui:79
 msgid "One or multiple contexts where the filter should apply"
-msgstr ""
+msgstr "Iragazkia erabili beharko litzatekeen testuinguru bat edo gehiago"
 
 #: data/ui/dialogs/filter_edit.ui:84
 msgid "Keywords or Phrases"
-msgstr ""
+msgstr "Gako-hitzak edo esaldiak"
 
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
@@ -223,7 +226,7 @@ msgstr "Zerrendaren izena"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
-msgstr ""
+msgstr "Ezkutatu argitalpenak Hasieratik"
 
 #: data/ui/dialogs/list_edit.ui:39
 msgid "Replies Policy"
@@ -307,31 +310,31 @@ msgstr "Koloreak"
 
 #: data/ui/dialogs/preferences.ui:40
 msgid "Large Text"
-msgstr ""
+msgstr "Testu handia"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Increase the size of text in posts"
-msgstr ""
+msgstr "Handiagotu testuaren tamaina argitalpenetan"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Large Line Height"
-msgstr ""
+msgstr "Lerroarte handia"
 
 #: data/ui/dialogs/preferences.ui:47
 msgid "Increase the line height in posts"
-msgstr ""
+msgstr "Handiagotu lerroartea argitalpenetan"
 
 #: data/ui/dialogs/preferences.ui:52
 msgid "Large Custom Emojis"
-msgstr ""
+msgstr "Instantziako emoji handiak"
 
 #: data/ui/dialogs/preferences.ui:57
 msgid "Scale Custom Emojis on Hover"
-msgstr ""
+msgstr "Handiagotu instantziako emojiak sagua gainetik pasatzean"
 
 #: data/ui/dialogs/preferences.ui:58
 msgid "Slightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "Handiagotu apur bat instantziako emojiak sagua gainetik pasatzean"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:64
@@ -350,7 +353,7 @@ msgstr ""
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:72
 msgid "Expand Pictures in Media Viewer"
-msgstr ""
+msgstr "Handiagotu irudiak multimedia ikustailean"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:74
@@ -363,15 +366,15 @@ msgstr "Irudi lauso bat erakutsi multimedia osorik kargatu arte"
 
 #: data/ui/dialogs/preferences.ui:85
 msgid "Reveal Spoilers by Default"
-msgstr ""
+msgstr "Erakutsi izorrakiak defektuz"
 
 #: data/ui/dialogs/preferences.ui:90
 msgid "Show Link Preview Cards"
-msgstr ""
+msgstr "Erakutsi esteken aurrebista-txartela"
 
 #: data/ui/dialogs/preferences.ui:95
 msgid "Darken Images on Dark Mode"
-msgstr ""
+msgstr "Ilundu irudiak Modu Iluna erabiltzean"
 
 #: data/ui/dialogs/preferences.ui:102
 msgid "Posting"
@@ -379,15 +382,15 @@ msgstr "Bidalketa"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Default Post Visibility"
-msgstr ""
+msgstr "Argitalpenaren ikusgaitasuna, defektuz"
 
 #: data/ui/dialogs/preferences.ui:114
 msgid "Default Post Language"
-msgstr ""
+msgstr "Argitalpenaren hizkuntza, defektuz"
 
 #: data/ui/dialogs/preferences.ui:124
 msgid "Default Post Content Type"
-msgstr ""
+msgstr "Argitalpenaren edukiaren mota, defektuz"
 
 #: data/ui/dialogs/preferences.ui:135
 msgid "Behavior"
@@ -395,24 +398,24 @@ msgstr "Jarrera"
 
 #: data/ui/dialogs/preferences.ui:138
 msgid "Run in Background"
-msgstr ""
+msgstr "Exekutatu atzeko planoan"
 
 #: data/ui/dialogs/preferences.ui:139
 msgid "Fetch notifications while the app is closed"
-msgstr ""
+msgstr "Eskuratu jakinarazpenak aplikazioa itxita dagoenean"
 
 #: data/ui/dialogs/preferences.ui:144
 msgid "Strip Tracking Parameters From Links"
-msgstr ""
+msgstr "Kendu esteketatik aztarnarien-parametroak"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:146
 msgid "This option can lead to broken links when enabled"
-msgstr ""
+msgstr "Aukera gaituz gero, estekak apur daitezke"
 
 #: data/ui/dialogs/preferences.ui:151
 msgid "Advanced Boost Dialog"
-msgstr ""
+msgstr "Bultzaden aukera aurreratuak"
 
 #: data/ui/dialogs/preferences.ui:152
 msgid "Change boost visibility, quote and confirm boosting"
@@ -424,11 +427,11 @@ msgstr "Denbora-lerroak"
 
 #: data/ui/dialogs/preferences.ui:162
 msgid "Posts per Load Batch"
-msgstr ""
+msgstr "Bidalketa kopurua kargatzen duen bakoitzean"
 
 #: data/ui/dialogs/preferences.ui:170
 msgid "Stream Timelines"
-msgstr ""
+msgstr "Denbora-lerroen jarioa"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Receive new posts and notifications in real-time"
@@ -436,7 +439,7 @@ msgstr "Jaso bidalketak eta jakinarazpenak argitaratu ahala"
 
 #: data/ui/dialogs/preferences.ui:177
 msgid "Stream Public Timelines"
-msgstr ""
+msgstr "Denbora-lerro publikoen jarioa"
 
 #: data/ui/dialogs/preferences.ui:178
 msgid "Warning: This will increase memory usage"
@@ -496,11 +499,11 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:250
 msgid "Filters"
-msgstr ""
+msgstr "Iragazkiak"
 
 #: data/ui/dialogs/preferences.ui:254
 msgid "Keywords"
-msgstr ""
+msgstr "Hitz-gakoak"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:151
 msgid "Edit Profile"
@@ -552,7 +555,7 @@ msgstr "Ireki nabigatzailean"
 
 #: data/ui/menus.ui:33
 msgid "Receive Post Notifications"
-msgstr ""
+msgstr "Jaso argitalpenen jakinarazpenak"
 
 #: data/ui/menus.ui:39
 msgid "Moderation"
@@ -606,7 +609,7 @@ msgstr "Kopiatu URLa"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:183
 msgid "Save Media…"
-msgstr ""
+msgstr "Gorde multimedia…"
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:185
 msgid "Copy Media"
@@ -637,7 +640,7 @@ msgstr "Aldatu kontua"
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:70 data/ui/views/sidebar/view.ui:75
 msgid "View"
-msgstr ""
+msgstr "Ikusi"
 
 #: data/ui/widgets/announcement.ui:87
 msgid "Unread"
@@ -664,7 +667,7 @@ msgstr "Erakutsi gehiago"
 #. translators: Tooltip that opens filter
 #: data/ui/widgets/status.ui:336
 msgid "Show Anyway"
-msgstr ""
+msgstr "Ikusi hala ere"
 
 #: src/API/Announcement.vala:55 src/Application.vala:145
 #: src/Application.vala:239 src/Application.vala:319
@@ -697,11 +700,11 @@ msgstr "Besteren bat"
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
 msgid "Home &amp; Lists"
-msgstr ""
+msgstr "Hasiera eta zerrendak"
 
 #: src/API/Filters/Filter.vala:46
 msgid "Public Timelines"
-msgstr ""
+msgstr "Denbora-lerro publikoak"
 
 #: src/API/Filters/Filter.vala:47
 #: src/Services/Accounts/Mastodon/Account.vala:52
@@ -711,7 +714,7 @@ msgstr "Elkarrizketak"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "Profilak"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
@@ -858,15 +861,15 @@ msgstr "Xabi <xabi@balaena.eus>"
 #. translators: Wiki pages / Guides
 #: src/Application.vala:480
 msgid "Wiki"
-msgstr ""
+msgstr "Wikia"
 
 #: src/Application.vala:482
 msgid "Translate"
-msgstr ""
+msgstr "Itzuli"
 
 #: src/Application.vala:483
 msgid "Donate"
-msgstr ""
+msgstr "Dohaintza egin"
 
 #: src/Application.vala:505
 msgid "OK"
@@ -968,11 +971,11 @@ msgstr "Testua"
 
 #: src/Dialogs/Composer/EditorPage.vala:109
 msgid "Stripped tracking parameters"
-msgstr ""
+msgstr "Kendutako jarraipen-parametroak"
 
 #: src/Dialogs/Composer/EditorPage.vala:112
 msgid "Undo"
-msgstr ""
+msgstr "Desegin"
 
 #: src/Dialogs/Composer/EditorPage.vala:260
 msgid "What's on your mind?"
@@ -1098,23 +1101,23 @@ msgstr "Iraungitzea"
 
 #: src/Dialogs/FilterEdit.vala:29
 msgid "Never"
-msgstr ""
+msgstr "Inoiz ez"
 
 #: src/Dialogs/FilterEdit.vala:35
 msgid "1 Week"
-msgstr ""
+msgstr "Astebete"
 
 #: src/Dialogs/FilterEdit.vala:125
 msgid "New Filter"
-msgstr ""
+msgstr "Iragazki berria"
 
 #: src/Dialogs/FilterEdit.vala:190
 msgid "Keyword"
-msgstr ""
+msgstr "Hitz-gakoa"
 
 #: src/Dialogs/FilterEdit.vala:193
 msgid "Match Whole Word"
-msgstr ""
+msgstr "Bat etorri hitz osoarekin"
 
 #: src/Dialogs/FilterEdit.vala:200 src/Dialogs/Preferences.vala:23
 #: src/Dialogs/Preferences.vala:81 src/Views/Lists.vala:60
@@ -1125,7 +1128,7 @@ msgstr "Ezabatu"
 #: src/Dialogs/FilterEdit.vala:297
 #, c-format
 msgid "Couldn't edit filter: %s"
-msgstr ""
+msgstr "Ezin izan da iragazkia editatu: %s"
 
 #: src/Dialogs/MainWindow.vala:65
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
@@ -1169,20 +1172,20 @@ msgstr "Editatu"
 #, c-format
 msgid "%d keyword"
 msgid_plural "%d keywords"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Traola %d"
+msgstr[1] "%d traola"
 
 #. translators: the variable is a filter name
 #: src/Dialogs/Preferences.vala:78
 #, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr ""
+msgstr "Ziur %s ezabatu nahi duzula?"
 
 #. translators: the variable is an error message
 #: src/Dialogs/Preferences.vala:92
 #, c-format
 msgid "Couldn't delete filter: %s"
-msgstr ""
+msgstr "Ezin izan da iragazkia ezabatu: %s"
 
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
@@ -1204,91 +1207,91 @@ msgstr "%d. eremua"
 #: src/Dialogs/Report.vala:110
 #, c-format
 msgid "Reporting %s"
-msgstr ""
+msgstr "%s salatzen"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting users
 #: src/Dialogs/Report.vala:136
 msgid "Tell us what's going on with this account"
-msgstr ""
+msgstr "Esaguzu zer arazo dagoen kontu honekin"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting posts
 #: src/Dialogs/Report.vala:140
 msgid "Tell us what's going on with this post"
-msgstr ""
+msgstr "Esaguzu zer arazo dagoen argitalpen honekin"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of radio-button options where the user can only choose one
 #: src/Dialogs/Report.vala:145
 msgid "Choose the best match"
-msgstr ""
+msgstr "Aukeratu hobekien doakiona"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Report.vala:184
 msgid "Which rules are being violated?"
-msgstr ""
+msgstr "Zer arau hausten ari da?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this shown above a list of checkbox options where the user can select multiple
 #: src/Dialogs/Report.vala:189 src/Dialogs/Report.vala:254
 msgid "Select all that apply"
-msgstr ""
+msgstr "Hautatu dagozkion guztiak"
 
 #. translators: 'fetch' as in get
 #: src/Dialogs/Report.vala:221
 msgid "Couldn't fetch all user's posts"
-msgstr ""
+msgstr "Ezin izan dira erabiltzailearen argitalpen guztiak eskuratu"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of posts. The user is meant to choose any that should be included in the report
 #: src/Dialogs/Report.vala:245
 msgid "Are there any posts that back up this report?"
-msgstr ""
+msgstr "Ba al dago salaketa hau sostengatzen duen argitalpenik?"
 
 #. translators: this is the same as 'Are there any posts that back up this report?' but for when you are reporting a post
 #. that's why it asks about choosing 'other' posts
 #: src/Dialogs/Report.vala:249
 msgid "Are there any other posts that back up this report?"
-msgstr ""
+msgstr "Ba al dago salaketa hau sostengatzen duen beste argitalpenik?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown at the top of the last page of the report dialog
 #: src/Dialogs/Report.vala:268
 msgid "Is there anything else you think we should know?"
-msgstr ""
+msgstr "Jakin beharko genukeen beste zerbait al dago?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. additional comments to be included in the report
 #: src/Dialogs/Report.vala:274
 msgid "Additional Comments"
-msgstr ""
+msgstr "Iruzkin gehigarriak"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. the variable is an instance name e.g. 'Forward to mastodon.social'
 #: src/Dialogs/Report.vala:283
 #, c-format
 msgid "Forward to %s"
-msgstr ""
+msgstr "Birbidali %s(e)ra"
 
 #. translators: submit the report
 #: src/Dialogs/Report.vala:326
 msgid "Are you sure you want to submit?"
-msgstr ""
+msgstr "Ziur bidali nahi duzula?"
 
 #: src/Dialogs/Report.vala:329 src/Dialogs/Report.vala:411
 msgid "Submit"
-msgstr ""
+msgstr "Bidali"
 
 #: src/Dialogs/Report.vala:382
 msgid "Submitted Report Successfully"
-msgstr ""
+msgstr "Salaketa behar bezala bidali da"
 
 #. translators: the variable is an error
 #: src/Dialogs/Report.vala:388
 #, c-format
 msgid "Couldn't submit report: %s"
-msgstr ""
+msgstr "Ezin izan da salaketa bidali: %s"
 
 #: src/Dialogs/Report.vala:407
 msgid "Back"
@@ -1298,11 +1301,11 @@ msgstr "Atzera"
 #: src/Dialogs/Report.vala:484 src/Dialogs/Report.vala:495
 #, c-format
 msgid "%s. You can continue with the report however."
-msgstr ""
+msgstr "%s. Edonola ere salaketarekin jarrai dezakezu."
 
 #: src/Dialogs/Report.vala:484
 msgid "No posts found"
-msgstr ""
+msgstr "Ez da argitalpenik aurkitu"
 
 #: src/Services/Accounts/InstanceAccount.vala:180
 #, c-format
@@ -1607,7 +1610,7 @@ msgstr "Iragarpenak"
 
 #: src/Views/Announcements.vala:8
 msgid "No Announcements"
-msgstr ""
+msgstr "Ez dago iragarpenik"
 
 #. translators: Fallback shown when there are 0 results
 #: src/Views/Base.vala:4
@@ -1624,11 +1627,11 @@ msgstr "Errorea gertatu da"
 
 #: src/Views/Bookmarks.vala:6
 msgid "No Bookmarks"
-msgstr ""
+msgstr "Ez dago laster-markarik"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
-msgstr ""
+msgstr "Ez dago elkarrizketarik"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -1636,7 +1639,7 @@ msgstr "Edizio-historia"
 
 #: src/Views/EditHistory.vala:7
 msgid "No Edit History"
-msgstr ""
+msgstr "Ez dago edizio-historiarik"
 
 #: src/Views/Explore.vala:6 src/Views/Search.vala:39
 msgid "Posts"
@@ -1644,15 +1647,15 @@ msgstr "Bidalketak"
 
 #: src/Views/Explore.vala:7 src/Views/Hashtags.vala:7
 msgid "No Hashtags"
-msgstr ""
+msgstr "Ez dago traolarik"
 
 #: src/Views/Explore.vala:8
 msgid "News"
-msgstr "Berriak"
+msgstr "Albisteak"
 
 #: src/Views/Explore.vala:8
 msgid "No News"
-msgstr ""
+msgstr "Ez dago albisterik"
 
 #: src/Views/Explore.vala:9
 msgid "For You"
@@ -1660,11 +1663,11 @@ msgstr "Zuretzat"
 
 #: src/Views/Explore.vala:9
 msgid "No Suggestions"
-msgstr ""
+msgstr "Ez dago iradokizunik"
 
 #: src/Views/Favorites.vala:5 src/Views/StatusStats.vala:16
 msgid "No Favorites"
-msgstr ""
+msgstr "Ez dago gogokorik"
 
 #: src/Views/FollowRequests.vala:4 src/Views/Sidebar.vala:61
 msgid "Follow Requests"
@@ -1672,7 +1675,7 @@ msgstr "Jarraipen-eskaerak"
 
 #: src/Views/FollowRequests.vala:7
 msgid "No Follow Requests"
-msgstr ""
+msgstr "Ez dago jarraipen-eskaerarik"
 
 #: src/Views/Hashtag.vala:19 src/Views/Hashtag.vala:34
 #: src/Widgets/RelationshipButton.vala:32
@@ -1704,7 +1707,7 @@ msgstr "Zerrenda berriaren izena"
 
 #: src/Views/Lists.vala:143
 msgid "No Lists"
-msgstr ""
+msgstr "Ez dago zerrendarik"
 
 #: src/Views/Lists.vala:151
 msgid "Add list"
@@ -1720,27 +1723,27 @@ msgstr "Irudia arbelera kopiatu da"
 
 #: src/Views/MutesBlocks.vala:6 src/Views/Sidebar.vala:62
 msgid "Mutes & Blocks"
-msgstr ""
+msgstr "Mutututakoak eta blokeatutakoak"
 
 #: src/Views/MutesBlocks.vala:11
 msgid "Mutes"
-msgstr ""
+msgstr "Mutututakoak"
 
 #: src/Views/MutesBlocks.vala:15
 msgid "No Muted Accounts"
-msgstr ""
+msgstr "Ez dago mutututako konturik"
 
 #: src/Views/MutesBlocks.vala:19
 msgid "Blocks"
-msgstr ""
+msgstr "Blokeatutakoak"
 
 #: src/Views/MutesBlocks.vala:23
 msgid "No Blocked Accounts"
-msgstr ""
+msgstr "Ez dago blokeatutako konturik"
 
 #: src/Views/Notifications.vala:12
 msgid "No Notifications"
-msgstr ""
+msgstr "Ez dago jakinarazpenik"
 
 #: src/Views/Profile.vala:34
 msgid "Profile"
@@ -1748,15 +1751,15 @@ msgstr "Profila"
 
 #: src/Views/Profile.vala:120 src/Views/Timeline.vala:75
 msgid "No Posts"
-msgstr ""
+msgstr "Ez dago argitalpenik"
 
 #: src/Views/Profile.vala:124
 msgid "No Followers"
-msgstr ""
+msgstr "Ez dago jarraitzailerik"
 
 #: src/Views/Profile.vala:128
 msgid "This user doesn't follow anyone yet"
-msgstr ""
+msgstr "Erabiltzaile honek oraindik ez dio inori jarraitzen"
 
 #: src/Views/Profile.vala:240
 msgid "Copied handle to clipboard"
@@ -1851,20 +1854,20 @@ msgstr "Sartu kontsulta"
 #, c-format
 msgid "%d Announcement"
 msgid_plural "%d Announcements"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Iragarpen %d"
+msgstr[1] "%d iragarpen"
 
 #. tanslators: used in a banner, the variable is the number of unreviewed follow requests
 #: src/Views/Sidebar.vala:35
 #, c-format
 msgid "%d Follow Request"
 msgid_plural "%d Follow Requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Jarraipen-eskaera %d"
+msgstr[1] "%d jarraipen-eskaera"
 
 #: src/Views/Sidebar.vala:54
 msgid "New Post"
-msgstr ""
+msgstr "Argitalpen berria"
 
 #: src/Views/Sidebar.vala:55
 msgid "Open Profile"
@@ -1913,7 +1916,7 @@ msgstr "Bultzatu du(te):"
 
 #: src/Views/StatusStats.vala:25
 msgid "No Boosts"
-msgstr ""
+msgstr "Ez dago bultzadarik"
 
 #: src/Views/Thread.vala:32
 msgid "Conversation"
@@ -1982,7 +1985,7 @@ msgstr "Multimedia gorde da"
 
 #: src/Widgets/Attachment/Item.vala:45
 msgid "Couldn't Save Media"
-msgstr ""
+msgstr "Ezin izan da multimedia gorde"
 
 #: src/Widgets/Attachment/Item.vala:116
 msgid "View Alt Text"
@@ -2009,7 +2012,7 @@ msgstr "Emaitzak"
 
 #: src/Widgets/CustomEmojiChooser.vala:74
 msgid "Recently Used"
-msgstr ""
+msgstr "Berriki erabilita"
 
 #: src/Widgets/CustomEmojiChooser.vala:226
 msgid "Custom Emojis"
@@ -2045,7 +2048,7 @@ msgstr "Batze-data"
 
 #: src/Widgets/RelationshipButton.vala:54
 msgid "Unmute"
-msgstr ""
+msgstr "Utzi mututzeari"
 
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:259
@@ -2081,11 +2084,11 @@ msgstr "Utzi finkatzeari"
 #: src/Widgets/Status.vala:527
 #, c-format
 msgid "Filtered: %s"
-msgstr ""
+msgstr "Iragazita: %s"
 
 #: src/Widgets/Status.vala:529
 msgid "Filtered"
-msgstr ""
+msgstr "Iragazita"
 
 #: src/Widgets/Status/ActionsRow.vala:52 src/Widgets/Status/ActionsRow.vala:92
 #: src/Widgets/Status/ActionsRow.vala:236
