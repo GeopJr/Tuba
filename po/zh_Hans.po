@@ -39,11 +39,11 @@ msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
 #. translators: Leave &amp; as is, it gets converted to &
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
-" Explore the federated social web with Tuba for GNOME. Stay connected to "
+"Explore the federated social web with Tuba for GNOME. Stay connected to "
 "your favorite communities, family and friends with support for popular "
 "Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-" 使用 Tuba for GNOME 探索联邦社交网络。通过支持流行的 Fediverse 平台（如 "
+"使用 Tuba for GNOME 探索联邦社交网络。通过支持流行的 Fediverse 平台（如 "
 "Mastodon、GoToSocial、Akkoma 等），与您喜爱的社区、家人和朋友保持联系！"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:13
@@ -2137,14 +2137,6 @@ msgstr "已投票"
 #, c-format
 msgid "%lld voted"
 msgstr "%lld 人已投票"
-
-#~ msgid ""
-#~ "Explore the federated social web with Tuba for GNOME. Stay connected to "
-#~ "your favorite communities, family and friends with support for popular "
-#~ "Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
-#~ msgstr ""
-#~ "使用 Tuba for GNOME 探索联合社交网络。支持流行的Fediverse平台如 Mastodon、"
-#~ "GoToSocial、Akkoma 等，与您喜爱的社区、家人和朋友保持联系！"
 
 #~ msgid "Compose a new post"
 #~ msgstr "撰写新帖文"

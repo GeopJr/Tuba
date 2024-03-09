@@ -38,10 +38,13 @@ msgstr "تبويق;ماستدون;الفديفرس;غوتو سوشل;بليرو�
 #. translators: Leave &amp; as is, it gets converted to &
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
-" Explore the federated social web with Tuba for GNOME. Stay connected to "
+"Explore the federated social web with Tuba for GNOME. Stay connected to "
 "your favorite communities, family and friends with support for popular "
 "Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
+"استكشف الويب الاجتماعي الموحد مع Tuba لبيئة سطح المكتب GNOME. ابق على "
+"اتصال مع مجتمعاتك المفضلة وعائلتك وأصدقائك باستخدام دعم منصات الفديفيرس "
+"الشهيرة مثل ماستدون، جوتوسوشال، أكوما، وغيرها!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:13
 msgid ""
@@ -2163,15 +2166,6 @@ msgstr ""
 #, c-format
 msgid "%lld voted"
 msgstr ""
-
-#~ msgid ""
-#~ "Explore the federated social web with Tuba for GNOME. Stay connected to "
-#~ "your favorite communities, family and friends with support for popular "
-#~ "Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
-#~ msgstr ""
-#~ "استكشف الويب الاجتماعي الموحد مع Tuba لبيئة سطح المكتب GNOME. ابق على "
-#~ "اتصال مع مجتمعاتك المفضلة وعائلتك وأصدقائك باستخدام دعم منصات الفديفيرس "
-#~ "الشهيرة مثل ماستدون، جوتوسوشال، أكوما، وغيرها!"
 
 #~ msgid "Compose a new post"
 #~ msgstr "تحرير منشور جديد"
