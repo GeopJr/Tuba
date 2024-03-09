@@ -38,11 +38,11 @@ msgstr "tülk;mastodon;fediverzum;gotosocial;pleroma;akkoma;"
 #. translators: Leave &amp; as is, it gets converted to &
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
-" Explore the federated social web with Tuba for GNOME. Stay connected to "
+"Explore the federated social web with Tuba for GNOME. Stay connected to "
 "your favorite communities, family and friends with support for popular "
 "Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-" Fedezd fel a föderált közösségi hálót a Tubával. Maradj kapcsolatban "
+"Fedezd fel a föderált közösségi hálót a Tubával. Maradj kapcsolatban "
 "kedvenc közösségeiddel, családoddal és barátaiddal a népszerű Fediverzum "
 "platformokon, mint a Mastodon, GoToSocial, Akkoma és sok más!"
 
@@ -2153,16 +2153,6 @@ msgstr "Szavaztál"
 #, c-format
 msgid "%lld voted"
 msgstr "%lld szavazott"
-
-#~ msgid ""
-#~ "Explore the federated social web with Tuba for GNOME. Stay connected to "
-#~ "your favorite communities, family and friends with support for popular "
-#~ "Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
-#~ msgstr ""
-#~ "Fedezd fel a szövetségi közösségi hálózatot a Tubával a GNOME-hoz. Maradj "
-#~ "összeköttetésben a kedvenc közösségeiddel, családoddal és barátaiddal "
-#~ "népszerű Fediverse felületeken, mint a Mastodon, GoToSocial, Akkoma és "
-#~ "még sok más!"
 
 #~ msgid "Larger font size"
 #~ msgstr "Nagyobb betűméret"

@@ -38,10 +38,13 @@ msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
 #. translators: Leave &amp; as is, it gets converted to &
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
-" Explore the federated social web with Tuba for GNOME. Stay connected to "
+"Explore the federated social web with Tuba for GNOME. Stay connected to "
 "your favorite communities, family and friends with support for popular "
 "Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
+"Праглядзіце аб'яднаную сацыяльную сетку з Tuba для GNOME. Заставайцеся на "
+"сувязі са сваімі любімымі супольнасцямі, сям'ёй і сябрамі з падтрымкай "
+"такіх платформаў Fediverse, як Mastodon, GoToSocial, Akkoma і іншых!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:13
 msgid ""
@@ -2136,12 +2139,3 @@ msgstr ""
 #, c-format
 msgid "%lld voted"
 msgstr ""
-
-#~ msgid ""
-#~ "Explore the federated social web with Tuba for GNOME. Stay connected to "
-#~ "your favorite communities, family and friends with support for popular "
-#~ "Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
-#~ msgstr ""
-#~ "Праглядзіце аб'яднаную сацыяльную сетку з Tuba для GNOME. Заставайцеся на "
-#~ "сувязі са сваімі любімымі супольнасцямі, сям'ёй і сябрамі з падтрымкай "
-#~ "такіх платформаў Fediverse, як Mastodon, GoToSocial, Akkoma і іншых!"
