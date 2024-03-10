@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: 2024-03-09 23:04+0000\n"
+"PO-Revision-Date: 2024-03-11 01:01+0000\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tuba/tuba/es/>\n"
 "Language: es\n"
@@ -69,7 +69,7 @@ msgstr "General"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr "Mostrar las preferencias"
+msgstr "Mostrar Preferencias"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
@@ -491,7 +491,7 @@ msgstr "Impulsos"
 
 #: data/ui/dialogs/preferences.ui:225
 msgid "Poll Results"
-msgstr "Resultados de la encuesta"
+msgstr "Resultados de las encuestas"
 
 #: data/ui/dialogs/preferences.ui:231
 msgid "Edits"
@@ -499,7 +499,7 @@ msgstr "Ediciones"
 
 #: data/ui/dialogs/preferences.ui:237
 msgid "Group"
-msgstr "Grupo"
+msgstr "Agrupar"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/ui/dialogs/preferences.ui:239
@@ -765,7 +765,7 @@ msgstr "Enviar petición de seguimiento"
 
 #: src/API/Relationship.vala:23
 msgid "Mutuals"
-msgstr "Mutuas"
+msgstr "Mutuos"
 
 #: src/API/Relationship.vala:25
 msgid "Follows you"
@@ -1272,7 +1272,7 @@ msgstr "Cuéntenos lo que está pasando con esta cuenta"
 #. this is meant for reporting posts
 #: src/Dialogs/Report.vala:152
 msgid "Tell us what's going on with this post"
-msgstr "Cuéntanos lo que está pasando con esta publicación"
+msgstr "Cuéntenos lo que está pasando con esta publicación"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of radio-button options where the user can only choose one
