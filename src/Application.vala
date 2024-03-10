@@ -160,8 +160,7 @@ namespace Tuba {
 				var opt_context = new OptionContext ("- Options");
 				opt_context.add_main_entries (APP_OPTIONS, null);
 				opt_context.parse (ref args);
-			}
-			catch (GLib.OptionError e) {
+			} catch (GLib.OptionError e) {
 				warning (e.message);
 			}
 
