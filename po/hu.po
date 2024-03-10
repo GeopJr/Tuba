@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: 2024-03-09 21:21+0000\n"
+"PO-Revision-Date: 2024-03-11 01:01+0000\n"
 "Last-Translator: rdbende <rdbende@proton.me>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/tuba/tuba/hu/"
-">\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/tuba/tuba/hu/>"
+"\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -217,7 +217,7 @@ msgstr "Kulcsszavak vagy kifejezések"
 
 #: data/ui/dialogs/filter_edit.ui:92
 msgid "Add Keyword"
-msgstr ""
+msgstr "Új kulcsszó"
 
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
@@ -514,7 +514,7 @@ msgstr "Kulcsszavak"
 
 #: data/ui/dialogs/preferences.ui:262
 msgid "Add Filter…"
-msgstr ""
+msgstr "Új szűrő…"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:151
 msgid "Edit Profile"
@@ -1218,37 +1218,37 @@ msgstr "%d. mező"
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:24
 msgid "It's spam"
-msgstr ""
+msgstr "Ez kéretlen tartalom"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:27
 msgid "It violates server rules"
-msgstr ""
+msgstr "Sérti a szerver szabályait"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:30
 msgid "It's something else"
-msgstr ""
+msgstr "Valami más"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:39
 msgid "Malicious links, fake engagement, or repetitive replies"
-msgstr ""
+msgstr "Rosszindulatú hivatkozások, hamis interakció, vagy ismétlődő válaszok"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:42
 msgid "You are aware that it breaks specific rules"
-msgstr ""
+msgstr "Tudod, hogy mely konkrét szabályokat sérti meg"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:45
 msgid "The issue does not fit into other categories"
-msgstr ""
+msgstr "Az eset nem illik egyik kategóriába sem"
 
 #. translators: the variable is an account handle
 #: src/Dialogs/Report.vala:122
