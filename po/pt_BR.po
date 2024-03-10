@@ -7,7 +7,7 @@
 # Infinitive Witch <infinitivewitch@disroot.org>, 2023.
 # Cassio Gomes Pereira <cassiogomes00@gmail.com>, 2023.
 # Fúlvio Leo <fulviokaldas@outlook.com>, 2023.
-# Daimar Stein <570cxat11@relay.firefox.com>, 2023.
+# Daimar Stein <570cxat11@relay.firefox.com>, 2023, 2024.
 # Dalton Scavassa <daltux@users.noreply.hosted.weblate.org>, 2023.
 # Daltux <daltux@users.noreply.hosted.weblate.org>, 2023.
 # Daltux <134404797+daltux@users.noreply.github.com>, 2023, 2024.
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
 "PO-Revision-Date: 2024-03-11 01:01+0000\n"
-"Last-Translator: Daltux <134404797+daltux@users.noreply.github.com>\n"
+"Last-Translator: Daimar Stein <570cxat11@relay.firefox.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -1119,7 +1119,7 @@ msgstr "%d dias"
 
 #: src/Dialogs/Composer/PollPage.vala:267
 msgid "Expiration"
-msgstr "Vencimento"
+msgstr "Expiração"
 
 #: src/Dialogs/FilterEdit.vala:29
 msgid "Never"
