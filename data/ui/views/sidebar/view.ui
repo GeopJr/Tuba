@@ -69,6 +69,8 @@
 								<!-- translators: Button on a banner -->
 								<property name="button-label" translatable="yes">View</property>
 							</object>
+						</child>
+						<child>
 							<object class="AdwBanner" id="fr_banner">
 								<property name="revealed">0</property>
 								<!-- translators: Button on a banner -->
