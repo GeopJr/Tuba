@@ -46,7 +46,11 @@ public class Tuba.Views.Home : Views.Timeline {
         });
 
         this.bind_property ("entity-queue-size", this, "badge-number", BindingFlags.SYNC_CREATE);
-        this.bind_property ("badge-number", Tuba.Mastodon.Account.PLACE_HOME, "badge", BindingFlags.SYNC_CREATE);
+        this.bind_property ("badge-number", Tuba.Mastodon.Account.PLACE_HOME, "badge", BindingFlags.SYNC_CREATE
+            #if DEV_MODE
+                | BindingFlags.BIDIRECTIONAL
+            #endif
+        );
     }
 
     void toggle_scroll_to_top_margin () {
