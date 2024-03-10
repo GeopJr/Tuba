@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: 2024-03-09 21:21+0000\n"
+"PO-Revision-Date: 2024-03-11 01:01+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
 "Language: nl\n"
@@ -216,7 +216,7 @@ msgstr "Tref­woorden of zinnen"
 
 #: data/ui/dialogs/filter_edit.ui:92
 msgid "Add Keyword"
-msgstr ""
+msgstr "Tref­woord toe­voegen"
 
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
@@ -412,12 +412,12 @@ msgstr "Haalt meldingen op wanneer de app is gesloten"
 
 #: data/ui/dialogs/preferences.ui:144
 msgid "Strip Tracking Parameters From Links"
-msgstr ""
+msgstr "Volg­argumenten uit links verwijderen"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:146
 msgid "This option can lead to broken links when enabled"
-msgstr ""
+msgstr "Deze optie kan mogelijk leiden tot niet-werkende links"
 
 #: data/ui/dialogs/preferences.ui:151
 msgid "Advanced Boost Dialog"
@@ -511,7 +511,7 @@ msgstr "Tref­woorden"
 
 #: data/ui/dialogs/preferences.ui:262
 msgid "Add Filter…"
-msgstr ""
+msgstr "Filter toe­voegen…"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:151
 msgid "Edit Profile"
@@ -1140,7 +1140,7 @@ msgstr "Verwijderen"
 #: src/Dialogs/FilterEdit.vala:297
 #, c-format
 msgid "Couldn't edit filter: %s"
-msgstr ""
+msgstr "Kon filter niet bewerken: %s"
 
 #: src/Dialogs/MainWindow.vala:65
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
@@ -1184,20 +1184,20 @@ msgstr "Bewerken"
 #, c-format
 msgid "%d keyword"
 msgid_plural "%d keywords"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d tref­woord"
+msgstr[1] "%d tref­woorden"
 
 #. translators: the variable is a filter name
 #: src/Dialogs/Preferences.vala:78
 #, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr ""
+msgstr "Weet u zeker dat u %s wilt verwijderen?"
 
 #. translators: the variable is an error message
 #: src/Dialogs/Preferences.vala:92
 #, c-format
 msgid "Couldn't delete filter: %s"
-msgstr ""
+msgstr "Kon filter niet verwijderen: %s"
 
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
@@ -1219,37 +1219,37 @@ msgstr "Veld %d"
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:24
 msgid "It's spam"
-msgstr ""
+msgstr "Het is spam"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:27
 msgid "It violates server rules"
-msgstr ""
+msgstr "Het schendt server­regels"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:30
 msgid "It's something else"
-msgstr ""
+msgstr "Het is iets anders"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:39
 msgid "Malicious links, fake engagement, or repetitive replies"
-msgstr ""
+msgstr "Schadelijke links, neppe betrokken­heid of herhalende antwoorden"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:42
 msgid "You are aware that it breaks specific rules"
-msgstr ""
+msgstr "U bent u ervan bewust dat het specifieke regels overtreedt"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:45
 msgid "The issue does not fit into other categories"
-msgstr ""
+msgstr "Het probleem past niet in andere categorieën"
 
 #. translators: the variable is an account handle
 #: src/Dialogs/Report.vala:122
