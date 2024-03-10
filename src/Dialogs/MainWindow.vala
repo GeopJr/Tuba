@@ -18,6 +18,8 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		construct_saveable (settings);
 
 		var gtk_settings = Gtk.Settings.get_default ();
+		if (gtk_settings != null) gtk_settings.gtk_label_select_on_focus = false;
+
 		breakpoint.add_setter (app, "is-mobile", true);
 		app.notify["is-mobile"].connect (update_selected_home_item);
 		media_viewer.bind_property ("visible", split_view, "can-focus", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
