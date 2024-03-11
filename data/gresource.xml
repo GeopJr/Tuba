@@ -24,7 +24,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-reply-sender-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-reply-all-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-media-playlist-repeat-symbolic.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-sentiment-dissatisfied-symbolic.svg</file>
+        <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-sentiment-dissatisfied-symbolic.svg</file> -->
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-key-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-check-round-outline-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-settings-symbolic.svg</file>
@@ -59,6 +59,8 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-verified-checkmark-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-funnel-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-error-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-sad-computer-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-background-app-ghost-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/help-overlay.ui</file>

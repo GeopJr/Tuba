@@ -59,6 +59,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		[GtkChild] protected unowned Adw.Clamp content_box;
 	#endif
 	[GtkChild] protected unowned Gtk.Button status_button;
+	[GtkChild] unowned Gtk.Image status_image;
 	[GtkChild] unowned Gtk.Stack status_stack;
 	[GtkChild] unowned Gtk.Label status_title_label;
 	[GtkChild] unowned Gtk.Label status_message_label;
@@ -76,6 +77,10 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 			return _base_status;
 		}
 		set {
+			status_image.visible = false;
+			status_image.icon_name = "tuba-background-app-ghost-symbolic";
+			status_button.visible = false;
+
 			if (value == null) {
 				states.visible_child_name = "content";
 				status_spinner.spinning = false;
@@ -87,7 +92,13 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 				} else {
 					status_stack.visible_child_name = "message";
 					status_spinner.spinning = false;
-					status_title_label.label = value.title == null ? empty_state_title : value.title;
+
+					if (value.title == null) {
+						status_title_label.label = empty_state_title;
+						status_image.visible = true;
+					} else {
+						status_title_label.label = value.title;
+					}
 
 					if (value.message != null)
 						status_message_label.label = value.message;
@@ -175,6 +186,8 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 			message = reason
 		};
 
+		status_image.icon_name = "tuba-sad-computer-symbolic";
+		status_image.visible = true;
 		status_button.visible = true;
 		status_button.sensitive = true;
 	}
