@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: 2024-03-09 21:21+0000\n"
+"PO-Revision-Date: 2024-03-12 20:01+0000\n"
 "Last-Translator: Poesty Li <poesty7450@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "tuba/tuba/zh_Hans/>\n"
@@ -214,7 +214,7 @@ msgstr "关键词或词组"
 
 #: data/ui/dialogs/filter_edit.ui:92
 msgid "Add Keyword"
-msgstr ""
+msgstr "添加关键词"
 
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
@@ -436,7 +436,7 @@ msgstr "流式时间线"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Receive new posts and notifications in real-time"
-msgstr "实时接收最新帖子和通知"
+msgstr "实时接收最新帖文和通知"
 
 #: data/ui/dialogs/preferences.ui:177
 msgid "Stream Public Timelines"
@@ -506,7 +506,7 @@ msgstr "关键词"
 
 #: data/ui/dialogs/preferences.ui:262
 msgid "Add Filter…"
-msgstr ""
+msgstr "添加过滤器…"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:151
 msgid "Edit Profile"
@@ -566,7 +566,7 @@ msgstr "审核"
 
 #: data/ui/menus.ui:41
 msgid "Hide Boosts"
-msgstr "隐藏转嘟"
+msgstr "隐藏转发"
 
 #: data/ui/menus.ui:46
 msgid "Mute"
@@ -1209,37 +1209,37 @@ msgstr "字段 %d"
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:24
 msgid "It's spam"
-msgstr ""
+msgstr "垃圾信息"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:27
 msgid "It violates server rules"
-msgstr ""
+msgstr "内容违反服务器规则"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:30
 msgid "It's something else"
-msgstr ""
+msgstr "其它原因"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:39
 msgid "Malicious links, fake engagement, or repetitive replies"
-msgstr ""
+msgstr "恶意链接、虚假互动或重复回复"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:42
 msgid "You are aware that it breaks specific rules"
-msgstr ""
+msgstr "您清楚它违反了特定的规则"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:45
 msgid "The issue does not fit into other categories"
-msgstr ""
+msgstr "此问题不符合其它类别"
 
 #. translators: the variable is an account handle
 #: src/Dialogs/Report.vala:122
@@ -1353,17 +1353,17 @@ msgstr "%s 提到了您"
 #: src/Services/Accounts/InstanceAccount.vala:187
 #, c-format
 msgid "%s boosted your post"
-msgstr "%s 转嘟了您的帖子"
+msgstr "%s 转发了您的帖文"
 
 #: src/Services/Accounts/InstanceAccount.vala:194
 #, c-format
 msgid "%s boosted"
-msgstr "%s 已转嘟"
+msgstr "%s 已转发"
 
 #: src/Services/Accounts/InstanceAccount.vala:201
 #, c-format
 msgid "%s favorited your post"
-msgstr "%s 喜欢了您的帖子"
+msgstr "%s 喜欢了您的帖文"
 
 #: src/Services/Accounts/InstanceAccount.vala:208
 #, c-format
@@ -1677,7 +1677,7 @@ msgstr "暂无编辑历史"
 
 #: src/Views/Explore.vala:6 src/Views/Search.vala:39
 msgid "Posts"
-msgstr "帖子"
+msgstr "帖文"
 
 #: src/Views/Explore.vala:7 src/Views/Hashtags.vala:7
 msgid "No Hashtags"
@@ -1819,7 +1819,7 @@ msgid ""
 msgstr ""
 "屏蔽一个实例将会：\n"
 "\n"
-"• 从您的时间线中删除该实例的公共帖子和通知\n"
+"• 从您的时间线中删除该实例的公共帖文和通知\n"
 "• 从您的账户中移除属于该实例的关注者\n"
 "• 防止您关注该实例的用户"
 
@@ -2102,7 +2102,7 @@ msgstr "已复制帖文链接到剪贴板"
 
 #: src/Widgets/Status.vala:338
 msgid "Are you sure you want to delete this post?"
-msgstr "您确定要删除这篇帖子吗？"
+msgstr "您确定要删除此帖文吗？"
 
 #: src/Widgets/Status.vala:370
 msgid "Sensitive"
@@ -2125,11 +2125,11 @@ msgstr "已过滤"
 #: src/Widgets/Status/ActionsRow.vala:52 src/Widgets/Status/ActionsRow.vala:92
 #: src/Widgets/Status/ActionsRow.vala:236
 msgid "Boost"
-msgstr "转嘟"
+msgstr "转发"
 
 #: src/Widgets/Status/ActionsRow.vala:55
 msgid "This post can't be boosted"
-msgstr "这篇帖子不能被转嘟"
+msgstr "此帖文不能被转发"
 
 #: src/Widgets/Status/ActionsRow.vala:83 src/Widgets/Status/ActionsRow.vala:128
 msgid "Reply"
