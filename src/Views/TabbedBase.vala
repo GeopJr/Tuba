@@ -83,7 +83,6 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 	public void add_tab (Views.Base view) {
 		id_counter++;
-		view.content_box.add_css_class ("no-transition");
 		views += view;
 		var page = stack.add_titled (view, id_counter.to_string (), view.label);
 		view.bind_property ("icon", page, "icon-name", BindingFlags.SYNC_CREATE);
@@ -164,11 +163,6 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 	protected virtual void on_view_switched () {
 		var view = stack.visible_child as Views.Base;
-		if (view.content_box.has_css_class ("no-transition")) {
-			Timeout.add_once (200, () => {
-				last_view.content_box.remove_css_class ("no-transition");
-			});
-		}
 
 		if (last_view != null) {
 			last_view.current = false;

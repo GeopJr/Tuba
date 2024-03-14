@@ -217,7 +217,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	protected Gtk.Button build_profile_stats_button (string btn_label) {
 		var btn = new Gtk.Button.with_label (btn_label) {
 			css_classes = { "flat", "ttl-profile-stat-button" },
-			hexpand = true
+			hexpand = true,
+            height_request = 32
 		};
 
 		var child_label = btn.child as Gtk.Label;
