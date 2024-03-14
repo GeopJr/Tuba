@@ -17,7 +17,11 @@
     <binary>dev.geopjr.Tuba</binary>
   </provides>
   <launchable type="desktop-id">dev.geopjr.Tuba.desktop</launchable>
+  <!-- developer_name tag deprecated with Appstream 1.0 -->
   <developer_name translatable="no">Evangelos "GeopJr" Paterakis</developer_name>
+  <developer id="dev.geopjr">
+    <name translatable="no">Evangelos "GeopJr" Paterakis</name>
+  </developer>
   <url type="homepage">https://tuba.geopjr.dev/</url>
   <url type="bugtracker">https://github.com/GeopJr/Tuba/issues</url>
   <url type="translate">https://hosted.weblate.org/engage/tuba/</url>
@@ -39,6 +43,10 @@
       <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-4.png</image>
     </screenshot>
   </screenshots>
+  <branding>
+    <color type="primary" scheme_preference="light">#ece5c7</color>
+    <color type="primary" scheme_preference="dark">#66593b</color>
+  </branding>
   <content_rating type="oars-1.1">
     <content_attribute id="social-chat">moderate</content_attribute>
     <content_attribute id="social-audio">moderate</content_attribute>
