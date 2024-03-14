@@ -170,10 +170,6 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 	}
 	~Compose () {
 		debug ("Destroying composer");
-		foreach (var page in t_pages) {
-			page.unparent ();
-			page.dispose ();
-		}
 		t_pages = {};
 	}
 
@@ -369,6 +365,10 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 
 	void on_close () {
 		this.force_close ();
+		foreach (var page in t_pages) {
+			stack.remove (page);
+			page.dispose ();
+		}
 	}
 
 	[GtkCallback] void on_commit () {
