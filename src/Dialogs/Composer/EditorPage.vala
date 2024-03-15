@@ -165,12 +165,8 @@ public class Tuba.EditorPage : ComposerPage {
 		builder.add_string_value (status.sensitive ? status.spoiler_text : "");
 	}
 
-	protected GtkSource.View editor;
+	public GtkSource.View editor;
 	protected Gtk.Label char_counter;
-
-	public void editor_grab_focus () {
-		editor.grab_focus ();
-	}
 
 	#if LIBSPELLING
 		protected Spelling.TextBufferAdapter adapter;

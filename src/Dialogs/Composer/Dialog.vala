@@ -229,7 +229,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		);
 		p_edit.bind_property ("can-publish", p_poll, "can-publish", GLib.BindingFlags.SYNC_CREATE);
 
-		p_edit.editor_grab_focus ();
+		this.focus_widget = p_edit.editor;
 	}
 
 	private void setup_pages (ComposerPage[] pages) {
