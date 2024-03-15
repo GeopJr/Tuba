@@ -68,15 +68,6 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 	string? status_id = null;
 	bool has_rules = false;
 	construct {
-		var back_action = new SimpleAction ("back", null);
-		back_action.activate.connect (on_back);
-
-		var action_group = new GLib.SimpleActionGroup ();
-		action_group.add_action (back_action);
-
-		this.insert_action_group ("report", action_group);
-		this.add_binding_action (Gdk.Key.Escape, 0, "report.back", null);
-
 		has_rules = accounts.active.instance_info.rules != null && accounts.active.instance_info.rules.size > 0;
 
 		if (has_rules) categories += Category.VIOLATION;
@@ -115,6 +106,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 			carousel = carousel
 		});
 		this.child = toolbarview;
+		this.close_attempt.connect (on_back);
 	}
 
 	public Report (API.Account account, string? status_id = null) {
