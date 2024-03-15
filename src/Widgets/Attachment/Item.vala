@@ -159,7 +159,9 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		};
 
 		var toolbar_view = new Adw.ToolbarView ();
-		var headerbar = new Adw.HeaderBar ();
+		var headerbar = new Adw.HeaderBar () {
+			centering_policy = Adw.CenteringPolicy.STRICT
+		};
 		var window = new Adw.Dialog () {
 			title = _("Alternative text for attachment"),
 			child = toolbar_view,

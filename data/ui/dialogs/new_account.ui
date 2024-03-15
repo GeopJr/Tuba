@@ -17,6 +17,7 @@
                 <child type="top">
                   <object class="AdwHeaderBar">
                     <property name="show-title">0</property>
+                    <property name="centering-policy">strict</property>
                     <child>
                       <object class="GtkButton">
                         <property name="label" translatable="yes">Cancel</property>
@@ -100,6 +101,7 @@
               <object class="AdwToolbarView">
                 <child type="top">
                   <object class="AdwHeaderBar">
+                    <property name="centering-policy">strict</property>
                     <property name="show-title">0</property>
                     <child type="end">
                       <object class="GtkButton">
@@ -185,6 +187,7 @@
               <object class="AdwToolbarView">
                 <child type="top">
                   <object class="AdwHeaderBar">
+                    <property name="centering-policy">strict</property>
                     <property name="show-back-button">0</property>
                     <property name="show-title">0</property>
                     <child type="end">

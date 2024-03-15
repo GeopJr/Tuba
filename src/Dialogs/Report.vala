@@ -89,7 +89,8 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		var toolbarview = new Adw.ToolbarView ();
 		var headerbar = new Adw.HeaderBar () {
 			show_end_title_buttons = false,
-			show_start_title_buttons = false
+			show_start_title_buttons = false,
+			centering_policy = Adw.CenteringPolicy.STRICT
 		};
 		back_button = new Gtk.Button.with_label (_("Cancel"));
 		back_button.clicked.connect (on_back);
