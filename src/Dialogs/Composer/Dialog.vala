@@ -143,17 +143,10 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		var paste_action = new SimpleAction ("paste", null);
 		paste_action.activate.connect (emit_paste_signal);
 
-		var exit_action = new SimpleAction ("exit", null);
-		exit_action.activate.connect (on_exit);
-
 		var action_group = new GLib.SimpleActionGroup ();
 		action_group.add_action (paste_action);
-		action_group.add_action (exit_action);
 
 		this.insert_action_group ("composer", action_group);
-		add_binding_action (Gdk.Key.Escape, 0, "composer.exit", null);
-		add_binding_action (Gdk.Key.W, Gdk.ModifierType.CONTROL_MASK, "composer.exit", null);
-		add_binding_action (Gdk.Key.Q, Gdk.ModifierType.CONTROL_MASK, "composer.exit", null);
 		add_binding_action (Gdk.Key.V, Gdk.ModifierType.CONTROL_MASK, "composer.paste", null);
 
 		title_switcher.policy = WIDE;
@@ -167,7 +160,9 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		});
 
 		stack.notify["visible-child"].connect (on_view_switched);
+		this.close_attempt.connect (on_exit);
 	}
+
 	~Compose () {
 		debug ("Destroying composer");
 		t_pages = {};
@@ -184,7 +179,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		on_paste_activated (this.title);
 	}
 
-	void on_exit () {
+	[GtkCallback] void on_exit () {
 		push_all ();
 
 		if (status.equal (original_status)) {
