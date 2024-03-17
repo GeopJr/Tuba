@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 01:34+0200\n"
-"PO-Revision-Date: 2024-03-09 21:21+0000\n"
+"POT-Creation-Date: 2024-03-09 23:56+0200\n"
+"PO-Revision-Date: 2024-03-12 20:01+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
 "Language: nl\n"
@@ -24,11 +24,11 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Verken de Fediverse"
+msgstr "Verken het fediversum"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr "Fediverse-cliënt"
+msgstr "Fediversum­cliënt"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
@@ -37,15 +37,15 @@ msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;fediversum;"
 #. translators: Leave &amp; as is, it gets converted to &
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
-"Explore the federated social web with Tuba for GNOME. Stay connected to "
-"your favorite communities, family and friends with support for popular "
-"Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
+"Explore the federated social web with Tuba for GNOME. Stay connected to your "
+"favorite communities, family and friends with support for popular Fediverse "
+"platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
 "Verken het federatieve sociale web met Tuba voor GNOME. Blijf verbonden met "
 "uw favoriete gemeen­schappen, familie en vrienden met onder­steuning voor "
-"populaire Fediversum­platforms zoals Mastodon, GoToSocial, Akkoma en meer!"
+"populaire fediversum­platforms zoals Mastodon, GoToSocial, Akkoma en meer!"
 
-#: data/dev.geopjr.Tuba.metainfo.xml.in:13
+#: data/dev.geopjr.Tuba.metainfo.xml.in:12
 msgid ""
 "The Fediverse is a decentralized social network that consists of multiple "
 "interconnected platforms and communities, allowing users to communicate and "
@@ -53,12 +53,12 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
-"De Fediverse is een gedecentraliseerd sociaal netwerk dat bestaat uit "
-"meerdere onderling verbonden platforms en gemeenschappen, waardoor "
+"Het fediversum is een gedecentraliseerd sociaal netwerk dat bestaat uit "
+"meerdere onderling verbonden platforms en gemeen­schappen, waardoor "
 "gebruikers kunnen communiceren en inhoud kunnen delen via verschillende "
 "netwerken en servers. Het bevordert de privacy van gebruikers en het "
 "eigendom van gegevens, en biedt een alternatief voor gecentraliseerde "
-"sociale mediaplatforms."
+"sociale media­platforms."
 
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:20
@@ -166,8 +166,8 @@ msgstr "Volgende bijlage"
 #: data/ui/dialogs/new_account.ui:22 data/ui/dialogs/profile_edit.ui:21
 #: src/API/Relationship.vala:101 src/Application.vala:556
 #: src/Dialogs/Composer/Dialog.vala:201 src/Dialogs/Preferences.vala:81
-#: src/Dialogs/Report.vala:82 src/Dialogs/Report.vala:329
-#: src/Dialogs/Report.vala:405 src/Views/Lists.vala:60
+#: src/Dialogs/Report.vala:94 src/Dialogs/Report.vala:341
+#: src/Dialogs/Report.vala:417 src/Views/Lists.vala:60
 #: src/Views/Profile.vala:291 src/Views/Sidebar.vala:291
 #: src/Widgets/Status.vala:341 src/Widgets/Status/ActionsRow.vala:234
 msgid "Cancel"
@@ -214,6 +214,10 @@ msgstr "Eén of meerdere contexten waarop het filter moet worden toegepast"
 msgid "Keywords or Phrases"
 msgstr "Tref­woorden of zinnen"
 
+#: data/ui/dialogs/filter_edit.ui:92
+msgid "Add Keyword"
+msgstr "Tref­woord toe­voegen"
+
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
 msgstr "Leden"
@@ -256,7 +260,7 @@ msgid "Add Account"
 msgstr "Account toevoegen"
 
 #: data/ui/dialogs/new_account.ui:29 data/ui/dialogs/new_account.ui:107
-#: src/Dialogs/Report.vala:84 src/Dialogs/Report.vala:413
+#: src/Dialogs/Report.vala:96 src/Dialogs/Report.vala:425
 msgid "Next"
 msgstr "Volgende"
 
@@ -408,12 +412,12 @@ msgstr "Haalt meldingen op wanneer de app is gesloten"
 
 #: data/ui/dialogs/preferences.ui:144
 msgid "Strip Tracking Parameters From Links"
-msgstr ""
+msgstr "Volg­argumenten uit links verwijderen"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:146
 msgid "This option can lead to broken links when enabled"
-msgstr ""
+msgstr "Deze optie kan mogelijk leiden tot niet-werkende links"
 
 #: data/ui/dialogs/preferences.ui:151
 msgid "Advanced Boost Dialog"
@@ -504,6 +508,10 @@ msgstr "Filters"
 #: data/ui/dialogs/preferences.ui:254
 msgid "Keywords"
 msgstr "Tref­woorden"
+
+#: data/ui/dialogs/preferences.ui:262
+msgid "Add Filter…"
+msgstr "Filter toe­voegen…"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:151
 msgid "Edit Profile"
@@ -860,7 +868,7 @@ msgstr "‘%s’ accepteert geen ‘%s://’"
 msgid "translator-credits"
 msgstr ""
 "Heimen Stoffels <vistausss@fastmail.com>\n"
-"Philip Goto https://flipflop97.github.io/"
+"Philip Goto https://philipgoto.nl/"
 
 #. translators: Wiki pages / Guides
 #: src/Application.vala:480
@@ -1132,7 +1140,7 @@ msgstr "Verwijderen"
 #: src/Dialogs/FilterEdit.vala:297
 #, c-format
 msgid "Couldn't edit filter: %s"
-msgstr ""
+msgstr "Kon filter niet bewerken: %s"
 
 #: src/Dialogs/MainWindow.vala:65
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
@@ -1176,20 +1184,20 @@ msgstr "Bewerken"
 #, c-format
 msgid "%d keyword"
 msgid_plural "%d keywords"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d tref­woord"
+msgstr[1] "%d tref­woorden"
 
 #. translators: the variable is a filter name
 #: src/Dialogs/Preferences.vala:78
 #, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr ""
+msgstr "Weet u zeker dat u %s wilt verwijderen?"
 
 #. translators: the variable is an error message
 #: src/Dialogs/Preferences.vala:92
 #, c-format
 msgid "Couldn't delete filter: %s"
-msgstr ""
+msgstr "Kon filter niet verwijderen: %s"
 
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
@@ -1207,107 +1215,143 @@ msgstr "Inhoud"
 msgid "Field %d"
 msgstr "Veld %d"
 
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:24
+msgid "It's spam"
+msgstr "Het is spam"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:27
+msgid "It violates server rules"
+msgstr "Het schendt server­regels"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:30
+msgid "It's something else"
+msgstr "Het is iets anders"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:39
+msgid "Malicious links, fake engagement, or repetitive replies"
+msgstr "Schadelijke links, neppe betrokken­heid of herhalende antwoorden"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:42
+msgid "You are aware that it breaks specific rules"
+msgstr "U bent u ervan bewust dat het specifieke regels overtreedt"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:45
+msgid "The issue does not fit into other categories"
+msgstr "Het probleem past niet in andere categorieën"
+
 #. translators: the variable is an account handle
-#: src/Dialogs/Report.vala:110
+#: src/Dialogs/Report.vala:122
 #, c-format
 msgid "Reporting %s"
 msgstr "%s rapporteren"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting users
-#: src/Dialogs/Report.vala:136
+#: src/Dialogs/Report.vala:148
 msgid "Tell us what's going on with this account"
-msgstr ""
+msgstr "Vertel ons wat er aan de hand is met dit account"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting posts
-#: src/Dialogs/Report.vala:140
+#: src/Dialogs/Report.vala:152
 msgid "Tell us what's going on with this post"
-msgstr ""
+msgstr "Vertel ons wat er aan de hand is met dit bericht"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of radio-button options where the user can only choose one
-#: src/Dialogs/Report.vala:145
+#: src/Dialogs/Report.vala:157
 msgid "Choose the best match"
-msgstr ""
+msgstr "Kies de beste overeen­komst"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-#: src/Dialogs/Report.vala:184
+#: src/Dialogs/Report.vala:196
 msgid "Which rules are being violated?"
-msgstr ""
+msgstr "Welke regels worden er geschonden?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this shown above a list of checkbox options where the user can select multiple
-#: src/Dialogs/Report.vala:189 src/Dialogs/Report.vala:254
+#: src/Dialogs/Report.vala:201 src/Dialogs/Report.vala:266
 msgid "Select all that apply"
-msgstr ""
+msgstr "Selecteer alles wat van toe­passing is"
 
 #. translators: 'fetch' as in get
-#: src/Dialogs/Report.vala:221
+#: src/Dialogs/Report.vala:233
 msgid "Couldn't fetch all user's posts"
-msgstr ""
+msgstr "Kon niet alle berichten van de gebruiker ophalen"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of posts. The user is meant to choose any that should be included in the report
-#: src/Dialogs/Report.vala:245
+#: src/Dialogs/Report.vala:257
 msgid "Are there any posts that back up this report?"
-msgstr ""
+msgstr "Zijn er berichten die deze rapportage onder­steunen?"
 
 #. translators: this is the same as 'Are there any posts that back up this report?' but for when you are reporting a post
 #. that's why it asks about choosing 'other' posts
-#: src/Dialogs/Report.vala:249
+#: src/Dialogs/Report.vala:261
 msgid "Are there any other posts that back up this report?"
-msgstr ""
+msgstr "Zijn er nog andere berichten die deze rapportage onder­steunen?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown at the top of the last page of the report dialog
-#: src/Dialogs/Report.vala:268
+#: src/Dialogs/Report.vala:280
 msgid "Is there anything else you think we should know?"
-msgstr ""
+msgstr "Is er nog iets anders dat we volgens u moeten weten?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. additional comments to be included in the report
-#: src/Dialogs/Report.vala:274
+#: src/Dialogs/Report.vala:286
 msgid "Additional Comments"
 msgstr "Aan­vullende opmerkingen"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. the variable is an instance name e.g. 'Forward to mastodon.social'
-#: src/Dialogs/Report.vala:283
+#: src/Dialogs/Report.vala:295
 #, c-format
 msgid "Forward to %s"
 msgstr "Doorsturen naar %s"
 
 #. translators: submit the report
-#: src/Dialogs/Report.vala:326
+#: src/Dialogs/Report.vala:338
 msgid "Are you sure you want to submit?"
-msgstr ""
+msgstr "Weet u zeker dat u wilt indienen?"
 
-#: src/Dialogs/Report.vala:329 src/Dialogs/Report.vala:411
+#: src/Dialogs/Report.vala:341 src/Dialogs/Report.vala:423
 msgid "Submit"
 msgstr "Indienen"
 
-#: src/Dialogs/Report.vala:382
+#: src/Dialogs/Report.vala:394
 msgid "Submitted Report Successfully"
 msgstr "Rapport succesvol ingediend"
 
 #. translators: the variable is an error
-#: src/Dialogs/Report.vala:388
+#: src/Dialogs/Report.vala:400
 #, c-format
 msgid "Couldn't submit report: %s"
-msgstr ""
+msgstr "Kon rapport niet indienen: %s"
 
-#: src/Dialogs/Report.vala:407
+#: src/Dialogs/Report.vala:419
 msgid "Back"
 msgstr "Terug"
 
 #. translators: the variable is an error
-#: src/Dialogs/Report.vala:484 src/Dialogs/Report.vala:495
+#: src/Dialogs/Report.vala:496 src/Dialogs/Report.vala:507
 #, c-format
 msgid "%s. You can continue with the report however."
-msgstr ""
+msgstr "%s. U kunt echter door­gaan met het rapporteren."
 
-#: src/Dialogs/Report.vala:484
+#: src/Dialogs/Report.vala:496
 msgid "No posts found"
 msgstr "Geen berichten gevonden"
 
@@ -1763,7 +1807,7 @@ msgstr "Geen volgers"
 
 #: src/Views/Profile.vala:128
 msgid "This user doesn't follow anyone yet"
-msgstr ""
+msgstr "Deze gebruiker volgt nog niemand"
 
 #: src/Views/Profile.vala:240
 msgid "Copied handle to clipboard"
@@ -1858,16 +1902,16 @@ msgstr "Voer een zoekopdracht in"
 #, c-format
 msgid "%d Announcement"
 msgid_plural "%d Announcements"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d aan­kondiging"
+msgstr[1] "%d aan­kondigingen"
 
 #. tanslators: used in a banner, the variable is the number of unreviewed follow requests
 #: src/Views/Sidebar.vala:35
 #, c-format
 msgid "%d Follow Request"
 msgid_plural "%d Follow Requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d volg­verzoek"
+msgstr[1] "%d volg­verzoeken"
 
 #: src/Views/Sidebar.vala:54
 msgid "New Post"

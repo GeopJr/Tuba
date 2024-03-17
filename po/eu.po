@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 01:34+0200\n"
-"PO-Revision-Date: 2024-03-09 21:21+0000\n"
+"POT-Creation-Date: 2024-03-09 23:56+0200\n"
+"PO-Revision-Date: 2024-03-09 23:04+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -36,15 +36,15 @@ msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;fedibertsoa;"
 #. translators: Leave &amp; as is, it gets converted to &
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
-"Explore the federated social web with Tuba for GNOME. Stay connected to "
-"your favorite communities, family and friends with support for popular "
-"Fediverse platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
+"Explore the federated social web with Tuba for GNOME. Stay connected to your "
+"favorite communities, family and friends with support for popular Fediverse "
+"platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-"Arakatu federatutako gizarte-weba GNOMErako Tubarekin. Mantendu "
-"harremanetan zure gogoko komunitateekin, familiarekin eta lagunekin "
-"Mastodon, GoToSocial, Akkoma eta bestelako plataformekin!"
+"Arakatu federatutako web soziala GNOMErako Tuba-rekin. Mantendu harremana "
+"zure komunitate gogokoenekin eta familia eta lagunekin Mastodon, GoToSocial, "
+"Akkoma eta bestelako Fedibertsoko plataformei esker!"
 
-#: data/dev.geopjr.Tuba.metainfo.xml.in:13
+#: data/dev.geopjr.Tuba.metainfo.xml.in:12
 msgid ""
 "The Fediverse is a decentralized social network that consists of multiple "
 "interconnected platforms and communities, allowing users to communicate and "
@@ -69,7 +69,7 @@ msgstr "Erakutsi hobespenak"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr "Idatzi argitalpen berria"
+msgstr "Idatzi bidalketa berria"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:56
 msgid "Refresh"
@@ -164,8 +164,8 @@ msgstr "Hurrengo eranskina"
 #: data/ui/dialogs/new_account.ui:22 data/ui/dialogs/profile_edit.ui:21
 #: src/API/Relationship.vala:101 src/Application.vala:556
 #: src/Dialogs/Composer/Dialog.vala:201 src/Dialogs/Preferences.vala:81
-#: src/Dialogs/Report.vala:82 src/Dialogs/Report.vala:329
-#: src/Dialogs/Report.vala:405 src/Views/Lists.vala:60
+#: src/Dialogs/Report.vala:94 src/Dialogs/Report.vala:341
+#: src/Dialogs/Report.vala:417 src/Views/Lists.vala:60
 #: src/Views/Profile.vala:291 src/Views/Sidebar.vala:291
 #: src/Widgets/Status.vala:341 src/Widgets/Status/ActionsRow.vala:234
 msgid "Cancel"
@@ -212,6 +212,10 @@ msgstr "Iragazkia erabili beharko litzatekeen testuinguru bat edo gehiago"
 msgid "Keywords or Phrases"
 msgstr "Gako-hitzak edo esaldiak"
 
+#: data/ui/dialogs/filter_edit.ui:92
+msgid "Add Keyword"
+msgstr "Gehitu gako-hitza"
+
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
 msgstr "Kideak"
@@ -226,7 +230,7 @@ msgstr "Zerrendaren izena"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
-msgstr "Ezkutatu argitalpenak Hasieratik"
+msgstr "Ezkutatu bidalketak Hasiera jariotik"
 
 #: data/ui/dialogs/list_edit.ui:39
 msgid "Replies Policy"
@@ -254,7 +258,7 @@ msgid "Add Account"
 msgstr "Gehitu kontua"
 
 #: data/ui/dialogs/new_account.ui:29 data/ui/dialogs/new_account.ui:107
-#: src/Dialogs/Report.vala:84 src/Dialogs/Report.vala:413
+#: src/Dialogs/Report.vala:96 src/Dialogs/Report.vala:425
 msgid "Next"
 msgstr "Hurrengoa"
 
@@ -314,7 +318,7 @@ msgstr "Testu handia"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Increase the size of text in posts"
-msgstr "Handiagotu testuaren tamaina argitalpenetan"
+msgstr "Handiagotu testuaren tamaina bidalketetan"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Large Line Height"
@@ -322,7 +326,7 @@ msgstr "Lerroarte handia"
 
 #: data/ui/dialogs/preferences.ui:47
 msgid "Increase the line height in posts"
-msgstr "Handiagotu lerroartea argitalpenetan"
+msgstr "Handiagotu lerroartea bidalketetan"
 
 #: data/ui/dialogs/preferences.ui:52
 msgid "Large Custom Emojis"
@@ -382,15 +386,15 @@ msgstr "Bidalketa"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Default Post Visibility"
-msgstr "Argitalpenaren ikusgaitasuna, defektuz"
+msgstr "Bidalketaren ikusgaitasuna, defektuz"
 
 #: data/ui/dialogs/preferences.ui:114
 msgid "Default Post Language"
-msgstr "Argitalpenaren hizkuntza, defektuz"
+msgstr "Bidalketaren hizkuntza, defektuz"
 
 #: data/ui/dialogs/preferences.ui:124
 msgid "Default Post Content Type"
-msgstr "Argitalpenaren edukiaren mota, defektuz"
+msgstr "Bidalketaren eduki-mota, defektuz"
 
 #: data/ui/dialogs/preferences.ui:135
 msgid "Behavior"
@@ -505,6 +509,10 @@ msgstr "Iragazkiak"
 msgid "Keywords"
 msgstr "Hitz-gakoak"
 
+#: data/ui/dialogs/preferences.ui:262
+msgid "Add Filter…"
+msgstr "Gehitu iragazkia…"
+
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:151
 msgid "Edit Profile"
 msgstr "Editatu profila"
@@ -555,7 +563,7 @@ msgstr "Ireki nabigatzailean"
 
 #: data/ui/menus.ui:33
 msgid "Receive Post Notifications"
-msgstr "Jaso argitalpenen jakinarazpenak"
+msgstr "Jaso bidalketen jakinarazpenak"
 
 #: data/ui/menus.ui:39
 msgid "Moderation"
@@ -1203,109 +1211,145 @@ msgstr "Edukia"
 msgid "Field %d"
 msgstr "%d. eremua"
 
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:24
+msgid "It's spam"
+msgstr "SPAMa da"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:27
+msgid "It violates server rules"
+msgstr "Zerbitzariko arau bat edo gehiago urratzen d(it)u"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:30
+msgid "It's something else"
+msgstr "Beste zerbait da"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:39
+msgid "Malicious links, fake engagement, or repetitive replies"
+msgstr "Esteka maltzurrak, elkarrekintza faltsua, edo erantzun errepikakorrak"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:42
+msgid "You are aware that it breaks specific rules"
+msgstr "Arau zehatzak hausten dituela dakizu"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:45
+msgid "The issue does not fit into other categories"
+msgstr "Arazoa ez da beste kategorietan sartzen"
+
 #. translators: the variable is an account handle
-#: src/Dialogs/Report.vala:110
+#: src/Dialogs/Report.vala:122
 #, c-format
 msgid "Reporting %s"
 msgstr "%s salatzen"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting users
-#: src/Dialogs/Report.vala:136
+#: src/Dialogs/Report.vala:148
 msgid "Tell us what's going on with this account"
-msgstr "Esaguzu zer arazo dagoen kontu honekin"
+msgstr "Esan zer arazo dagoen kontu honekin"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting posts
-#: src/Dialogs/Report.vala:140
+#: src/Dialogs/Report.vala:152
 msgid "Tell us what's going on with this post"
-msgstr "Esaguzu zer arazo dagoen argitalpen honekin"
+msgstr "Esan zer arazo dagoen bidalketa honekin"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of radio-button options where the user can only choose one
-#: src/Dialogs/Report.vala:145
+#: src/Dialogs/Report.vala:157
 msgid "Choose the best match"
 msgstr "Aukeratu hobekien doakiona"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-#: src/Dialogs/Report.vala:184
+#: src/Dialogs/Report.vala:196
 msgid "Which rules are being violated?"
 msgstr "Zer arau hausten ari da?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this shown above a list of checkbox options where the user can select multiple
-#: src/Dialogs/Report.vala:189 src/Dialogs/Report.vala:254
+#: src/Dialogs/Report.vala:201 src/Dialogs/Report.vala:266
 msgid "Select all that apply"
 msgstr "Hautatu dagozkion guztiak"
 
 #. translators: 'fetch' as in get
-#: src/Dialogs/Report.vala:221
+#: src/Dialogs/Report.vala:233
 msgid "Couldn't fetch all user's posts"
-msgstr "Ezin izan dira erabiltzailearen argitalpen guztiak eskuratu"
+msgstr "Ezin izan dira erabiltzailearen bidalketa guztiak eskuratu"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of posts. The user is meant to choose any that should be included in the report
-#: src/Dialogs/Report.vala:245
+#: src/Dialogs/Report.vala:257
 msgid "Are there any posts that back up this report?"
-msgstr "Ba al dago salaketa hau sostengatzen duen argitalpenik?"
+msgstr "Ba al dago salaketa hau sostengatzen duen bidalketarik?"
 
 #. translators: this is the same as 'Are there any posts that back up this report?' but for when you are reporting a post
 #. that's why it asks about choosing 'other' posts
-#: src/Dialogs/Report.vala:249
+#: src/Dialogs/Report.vala:261
 msgid "Are there any other posts that back up this report?"
-msgstr "Ba al dago salaketa hau sostengatzen duen beste argitalpenik?"
+msgstr "Ba al dago salaketa sostengatzen duen beste bidalketarik?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown at the top of the last page of the report dialog
-#: src/Dialogs/Report.vala:268
+#: src/Dialogs/Report.vala:280
 msgid "Is there anything else you think we should know?"
-msgstr "Jakin beharko genukeen beste zerbait al dago?"
+msgstr "Ba al dago jakin beharko genukeen beste ezer?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. additional comments to be included in the report
-#: src/Dialogs/Report.vala:274
+#: src/Dialogs/Report.vala:286
 msgid "Additional Comments"
 msgstr "Iruzkin gehigarriak"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. the variable is an instance name e.g. 'Forward to mastodon.social'
-#: src/Dialogs/Report.vala:283
+#: src/Dialogs/Report.vala:295
 #, c-format
 msgid "Forward to %s"
 msgstr "Birbidali %s(e)ra"
 
 #. translators: submit the report
-#: src/Dialogs/Report.vala:326
+#: src/Dialogs/Report.vala:338
 msgid "Are you sure you want to submit?"
 msgstr "Ziur bidali nahi duzula?"
 
-#: src/Dialogs/Report.vala:329 src/Dialogs/Report.vala:411
+#: src/Dialogs/Report.vala:341 src/Dialogs/Report.vala:423
 msgid "Submit"
 msgstr "Bidali"
 
-#: src/Dialogs/Report.vala:382
+#: src/Dialogs/Report.vala:394
 msgid "Submitted Report Successfully"
 msgstr "Salaketa behar bezala bidali da"
 
 #. translators: the variable is an error
-#: src/Dialogs/Report.vala:388
+#: src/Dialogs/Report.vala:400
 #, c-format
 msgid "Couldn't submit report: %s"
 msgstr "Ezin izan da salaketa bidali: %s"
 
-#: src/Dialogs/Report.vala:407
+#: src/Dialogs/Report.vala:419
 msgid "Back"
 msgstr "Atzera"
 
 #. translators: the variable is an error
-#: src/Dialogs/Report.vala:484 src/Dialogs/Report.vala:495
+#: src/Dialogs/Report.vala:496 src/Dialogs/Report.vala:507
 #, c-format
 msgid "%s. You can continue with the report however."
 msgstr "%s. Edonola ere salaketarekin jarrai dezakezu."
 
-#: src/Dialogs/Report.vala:484
+#: src/Dialogs/Report.vala:496
 msgid "No posts found"
-msgstr "Ez da argitalpenik aurkitu"
+msgstr "Ez da bidalketarik aurkitu"
 
 #: src/Services/Accounts/InstanceAccount.vala:180
 #, c-format
@@ -1315,7 +1359,7 @@ msgstr "%s(e)k aipatu zaitu"
 #: src/Services/Accounts/InstanceAccount.vala:187
 #, c-format
 msgid "%s boosted your post"
-msgstr "%s(e)k zure argitalpena bultzatu du"
+msgstr "%s(e)k zure bidalketa bultzatu du"
 
 #: src/Services/Accounts/InstanceAccount.vala:194
 #, c-format
@@ -1325,7 +1369,7 @@ msgstr "%s(e)k bultzatu du"
 #: src/Services/Accounts/InstanceAccount.vala:201
 #, c-format
 msgid "%s favorited your post"
-msgstr "%s(e)k zure argitalpena gogoko du"
+msgstr "%s(e)k zure bidalketa gogoko du"
 
 #: src/Services/Accounts/InstanceAccount.vala:208
 #, c-format
@@ -1751,7 +1795,7 @@ msgstr "Profila"
 
 #: src/Views/Profile.vala:120 src/Views/Timeline.vala:75
 msgid "No Posts"
-msgstr "Ez dago argitalpenik"
+msgstr "Ez dago bidalketarik"
 
 #: src/Views/Profile.vala:124
 msgid "No Followers"
@@ -1867,7 +1911,7 @@ msgstr[1] "%d jarraipen-eskaera"
 
 #: src/Views/Sidebar.vala:54
 msgid "New Post"
-msgstr "Argitalpen berria"
+msgstr "Bidalketa berria"
 
 #: src/Views/Sidebar.vala:55
 msgid "Open Profile"
@@ -1902,7 +1946,7 @@ msgstr "Ahaztu"
 
 #: src/Views/StatusStats.vala:6
 msgid "Post Stats"
-msgstr "Argitalpenaren estatistikak"
+msgstr "Bidalketaren estatistikak"
 
 #. translators: title for a list of people that favorited a post
 #: src/Views/StatusStats.vala:12
