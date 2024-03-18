@@ -7,13 +7,14 @@
 # FineFindus <FineFindus@users.noreply.hosted.weblate.org>, 2023.
 # Markus Göllnitz <camelcasenick@bewares.it>, 2023.
 # Konstantin Tutsch <mail@konstantintutsch.com>, 2024.
+# Max Harmathy <max.harmathy@web.de>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
 "PO-Revision-Date: 2024-03-18 17:02+0000\n"
-"Last-Translator: Konstantin Tutsch <mail@konstantintutsch.com>\n"
+"Last-Translator: Max Harmathy <max.harmathy@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tuba/tuba/de/>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +29,7 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Surfe im Fediverse"
+msgstr "Das Fediverse durchforsten"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
