@@ -77,6 +77,9 @@ public class Tuba.EditorPage : ComposerPage {
 
 		if (supports_mime_types)
 			install_content_type_button (settings.default_content_type);
+		else
+			((GtkSource.Buffer) editor.buffer).set_language (lang_manager.get_language ("fedi-basic"));
+
 		add_button (new Gtk.Separator (Gtk.Orientation.VERTICAL));
 		install_cw (status.spoiler_text);
 		add_button (new Gtk.Separator (Gtk.Orientation.VERTICAL));
