@@ -62,7 +62,7 @@
     <control>touch</control>
   </recommends>
   <releases>
-    <release version="0.7.0" date="2024-03-16">
+    <release version="0.7.0" date="2024-03-20">
       <description translatable="no">
         <ul>
             <li>Visual refinements to match the state of the art of GNOME apps</li>
