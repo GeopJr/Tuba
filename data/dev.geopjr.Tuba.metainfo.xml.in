@@ -62,6 +62,39 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.7.0" date="2024-03-20">
+      <description translatable="no">
+        <ul>
+            <li>Visual refinements to match the state of the art of GNOME apps</li>
+            <li>Added filter handling and editing support</li>
+            <li>Added post and user reporting</li>
+            <li>Added Mutes and Blocks pages</li>
+            <li>Added banners for unread Announcements and Follow Requests</li>
+            <li>Added syntax highlighting in the Composer</li>
+            <li>Added badge on 'Home' for new posts</li>
+            <li>Added recent emojis in the Custom Emoji Chooser</li>
+            <li>Added stripping tracking parameters from URLs on paste</li>
+            <li>Added notification badges on Account Switcher entries</li>
+            <li>Added the option to darken images on dark mode</li>
+            <li>Redesigned the timeline status pages</li>
+            <li>Added support for all special character counting cases</li>
+            <li>Added 'New Post' to the main menu</li>
+            <li>Added the ability to zoom using ctrl and the mouse wheel on the Media Viewer</li>
+            <li>Added manpage</li>
+            <li>Added Windows builds</li>
+            <li>Added more tracking IDs to the stripping list</li>
+            <li>Added posting visibility syncing with the instance</li>
+            <li>Fixed Media Viewer not opening the correct attachment right away and instead scrolling to it</li>
+            <li>Fixed bugs involving multiple attachments and animations in the Media Viewer</li>
+            <li>Fixed navigation not working between nested pages and non-nested pages of the same name</li>
+            <li>Fixed issues preventing Windows and macOS builds</li>
+            <li>Fixed replacing files when saving attachments</li>
+            <li>Fixed media sensitivity not being kept when editing posts</li>
+            <li>Fixed other minor bugs and memory leaks</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.6.3" date="2024-02-02">
       <description translatable="no">
         <ul>
