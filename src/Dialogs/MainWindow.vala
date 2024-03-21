@@ -44,7 +44,6 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		if (is_media_viewer_visible || media_viewer_source_widget == null) return;
 
 		Gtk.Widget focusable_widget = media_viewer_source_widget;
-		while (focusable_widget != null && !focusable_widget.focusable) focusable_widget = focusable_widget.get_parent ();
 		if (focusable_widget != null) focusable_widget.grab_focus ();
 		media_viewer_source_widget = null;
 	}
@@ -64,6 +63,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			resizable: true
 		);
 		set_sidebar_selected_item (0);
+		navigation_view.popped.connect (on_popped);
 		main_page = new Adw.NavigationPage (new Views.Main (), _("Home"));
 		navigation_view.add (main_page);
 
@@ -101,16 +101,16 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		media_viewer.add_media (url, media_type, preview, as_is, alt_text, user_friendly_url, stream, source_widget, load_and_scroll);
 
 		if (reveal_media_viewer) {
+			media_viewer_source_widget = app.main_window.get_focus ();
 			media_viewer.reveal (source_widget);
-			media_viewer_source_widget = source_widget;
 		}
 	}
 
 	public void reveal_media_viewer_manually (Gtk.Widget? source_widget = null) {
 		if (is_media_viewer_visible) return;
 
+		media_viewer_source_widget = app.main_window.get_focus ();
 		media_viewer.reveal (source_widget);
-		media_viewer_source_widget = source_widget;
 	}
 
 	public void show_book (API.BookWyrm book, string? fallback = null) {
@@ -165,10 +165,16 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		if (view.is_sidebar_item) {
 			navigation_view.replace ({ main_page, page });
 		} else {
+			if (last_view != null) last_view.update_last_widget ();
 			navigation_view.push (page);
 		}
 
 		return view;
+	}
+
+	public void on_popped () {
+		var content_base = navigation_view.visible_page.child as Views.Base;
+		if (content_base != null && content_base.last_widget != null) content_base.last_widget.grab_focus ();
 	}
 
 	public bool back () {

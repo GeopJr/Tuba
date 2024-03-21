@@ -13,6 +13,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	public int badge_number { get; set; default = 0; }
 	public int uid { get; set; default = -1; }
 	protected SimpleActionGroup actions { get; set; default = new SimpleActionGroup (); }
+	public weak Gtk.Widget? last_widget { get; private set; default=null; }
 
 	private bool _show_back_button = true;
 	public bool show_back_button {
@@ -131,6 +132,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		app.notify["is-mobile"].connect (update_back_btn);
 	}
 	~Base () {
+		this.last_widget = null;
 		debug (@"Destroying base $label");
 	}
 
@@ -166,6 +168,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	}
 
 	public virtual void clear () {
+		this.last_widget = null;
 		base_status = null;
 	}
 
@@ -190,5 +193,9 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		status_image.visible = true;
 		status_button.visible = true;
 		status_button.sensitive = true;
+	}
+
+	public void update_last_widget () {
+		this.last_widget = app.main_window.get_focus ();
 	}
 }
