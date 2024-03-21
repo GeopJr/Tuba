@@ -64,6 +64,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			resizable: true
 		);
 		set_sidebar_selected_item (0);
+		navigation_view.popped.connect (on_popped);
 		main_page = new Adw.NavigationPage (new Views.Main (), _("Home"));
 		navigation_view.add (main_page);
 
@@ -165,10 +166,16 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		if (view.is_sidebar_item) {
 			navigation_view.replace ({ main_page, page });
 		} else {
+			if (last_view != null) last_view.update_last_widget ();
 			navigation_view.push (page);
 		}
 
 		return view;
+	}
+
+	public void on_popped () {
+		var content_base = navigation_view.visible_page.child as Views.Base;
+		if (content_base != null && content_base.last_widget != null) content_base.last_widget.grab_focus ();
 	}
 
 	public bool back () {
