@@ -582,8 +582,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			swipe_progress = 0.0;
 			scale_revealer.source_widget = null;
 			reset_media_viewer ();
-		} else if (load_and_scroll_to != -1) {
+			return;
+		}
+
+		revealed = true;
+		if (load_and_scroll_to != -1) {
 			var scroll_to_widget = safe_get (load_and_scroll_to);
+			do_todo_item (scroll_to_widget);
 			for (int i = 0; i < load_and_scroll_to; i++) {
 				var item = safe_get (i);
 				if (item != null) {
@@ -592,6 +597,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				} else break;
 			}
 		}
+
+		do_todo_items ();
+		on_carousel_page_changed ((int) carousel.position);
 	}
 
 	int? old_height;
@@ -799,9 +807,6 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		this.visible = true;
 		scale_revealer.source_widget = widget;
 		scale_revealer.reveal_child = true;
-
-		revealed = true;
-		do_todo_items ();
 	}
 
 	int load_and_scroll_to = -1;
@@ -841,8 +846,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 						var path = download_video.end (res);
 						video.set_filename (path);
 						add_todo_item (item);
-					}
-					catch (Error e) {
+					} catch (Error e) {
 						var dlg = app.inform (_("Error"), e.message);
 						dlg.present (app.main_window);
 					}
@@ -887,13 +891,18 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			todo_items.add (todo_item.url);
 		}
 	}
+
+	private void do_todo_item (Item item) {
+		item.done ();
+		todo_items.remove (item.url);
+	}
+
 	private void do_todo_items () {
 		if (todo_items.size == 0 || items.size == 0) return;
 
 		items.foreach (item => {
 			if (todo_items.contains (item.url)) {
-				item.done ();
-				todo_items.remove (item.url);
+				do_todo_item (item);
 			}
 			return true;
 		});
