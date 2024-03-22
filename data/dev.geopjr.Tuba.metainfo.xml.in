@@ -44,8 +44,8 @@
     </screenshot>
   </screenshots>
   <branding>
-    <color type="primary" scheme_preference="light">#ece5c7</color>
-    <color type="primary" scheme_preference="dark">#66593b</color>
+    <color type="primary" scheme_preference="light">#a0eef3</color>
+    <color type="primary" scheme_preference="dark">#3a3ed7</color>
   </branding>
   <content_rating type="oars-1.1">
     <content_attribute id="social-chat">moderate</content_attribute>
