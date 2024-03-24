@@ -962,10 +962,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	private void on_carousel_n_pages_changed () {
-		bool has_more_than_1_item = carousel.n_pages > 1;
-
-		if (!has_more_than_1_item) on_carousel_page_changed (0);
-		page_buttons_revealer.visible = has_more_than_1_item;
+		page_buttons_revealer.visible = carousel.n_pages > 1;
 	}
 
 	public void on_zoom_change () {
