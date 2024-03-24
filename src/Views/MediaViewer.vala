@@ -476,13 +476,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			enabled = true,
 			allow_mouse_drag = true
 		};
-		swipe_tracker.prepare.connect (on_swipe_tracker_prepare);
 		swipe_tracker.update_swipe.connect (on_update_swipe);
 		swipe_tracker.end_swipe.connect (on_end_swipe);
-	}
-
-	private void on_swipe_tracker_prepare (Adw.NavigationDirection direction) {
-		update_revealer_widget ();
 	}
 
 	private void on_update_swipe (double progress) {
@@ -791,9 +786,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		revealed = false;
 	}
 
-	private void update_revealer_widget () {
-		if (revealed && revealer_widgets.has_key ((int) carousel.position))
-			scale_revealer.source_widget = revealer_widgets.get ((int) carousel.position);
+	private void update_revealer_widget (int pos = -1) {
+		int new_pos = pos == -1 ? (int) carousel.position : pos;
+		if (revealed && revealer_widgets.has_key (new_pos))
+			scale_revealer.source_widget = revealer_widgets.get (new_pos);
 	}
 
 	private async string download_video (string url) throws Error {
@@ -940,6 +936,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
     }
 
 	private void on_carousel_page_changed (uint pos) {
+		update_revealer_widget ((int) pos);
+
 		prev_btn.sensitive = pos > 0;
 		next_btn.sensitive = pos < items.size - 1;
 
