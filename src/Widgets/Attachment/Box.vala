@@ -122,7 +122,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 					widget.height_request = 334;
 				}
 
-				((Widgets.Attachment.Image) widget).on_any_attachment_click.connect (() => open_all_attachments (item.url));
+				((Widgets.Attachment.Image) widget).on_any_attachment_click.connect (open_all_attachments);
 			} catch (Oopsie e) {
 				warning (@"Error updating attachments: $(e.message)");
 			}
