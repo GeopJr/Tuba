@@ -2,21 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # leap123 <76893443+leap0x7b@users.noreply.github.com>, 2024.
+# Reza Almanda <rezaalmanda27@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: 2024-01-20 02:00+0000\n"
-"Last-Translator: leap123 <76893443+leap0x7b@users.noreply.github.com>\n"
-"Language-Team: Indonesian <https://hosted.weblate.org/projects/tuba/tuba/id/"
-">\n"
+"PO-Revision-Date: 2024-03-24 21:02+0000\n"
+"Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/tuba/tuba/id/>"
+"\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -70,7 +71,7 @@ msgstr "Tampilkan Preferensi"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "Tulis Posting Baru"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:56
 msgid "Refresh"
@@ -178,7 +179,7 @@ msgstr "_Terbitkan"
 
 #: data/ui/dialogs/filter_edit.ui:8
 msgid "Edit Filter"
-msgstr ""
+msgstr "Ubah Filter"
 
 #: data/ui/dialogs/filter_edit.ui:25 data/ui/dialogs/profile_edit.ui:28
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:151
@@ -187,35 +188,35 @@ msgstr "Simpan"
 
 #: data/ui/dialogs/filter_edit.ui:59
 msgid "Title"
-msgstr ""
+msgstr "Judul"
 
 #: data/ui/dialogs/filter_edit.ui:65
 msgid "Expires In"
-msgstr ""
+msgstr "Berakhir Dalam"
 
 #: data/ui/dialogs/filter_edit.ui:70
 msgid "Hide Completely"
-msgstr ""
+msgstr "Sembunyikan Sepenuhnya"
 
 #: data/ui/dialogs/filter_edit.ui:71
 msgid "Otherwise a warning will be used"
-msgstr ""
+msgstr "Jika tidak, peringatan akan digunakan"
 
 #: data/ui/dialogs/filter_edit.ui:78
 msgid "Contexts"
-msgstr ""
+msgstr "Konteks"
 
 #: data/ui/dialogs/filter_edit.ui:79
 msgid "One or multiple contexts where the filter should apply"
-msgstr ""
+msgstr "Satu atau beberapa konteks di mana filter harus diterapkan"
 
 #: data/ui/dialogs/filter_edit.ui:84
 msgid "Keywords or Phrases"
-msgstr ""
+msgstr "Kata kunci atau frasa"
 
 #: data/ui/dialogs/filter_edit.ui:92
 msgid "Add Keyword"
-msgstr ""
+msgstr "Tambahkan Kata Kunci"
 
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
@@ -231,7 +232,7 @@ msgstr "Nama daftar"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
-msgstr ""
+msgstr "Sembunyikan Postingan Dari Beranda"
 
 #: data/ui/dialogs/list_edit.ui:39
 msgid "Replies Policy"
@@ -314,11 +315,11 @@ msgstr "Skema warna"
 
 #: data/ui/dialogs/preferences.ui:40
 msgid "Large Text"
-msgstr ""
+msgstr "Teks Besar"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Increase the size of text in posts"
-msgstr ""
+msgstr "Perbesar ukuran teks dalam postingan"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Large Line Height"
