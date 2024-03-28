@@ -62,6 +62,18 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.7.1" date="2024-03-28">
+      <description translatable="no">
+        <ul>
+            <li>Fixed syntax highlighting not working on vanilla Mastodon instances</li>
+            <li>Fixed keyboard navigation losing focus between page changes</li>
+            <li>Fixed MediaViewer regressions with videos due to a race condition</li>
+            <li>Fixed MediaViewer showing the wrong widget when dismissing without using gestures</li>
+            <li>Fixed overlay icon missing its background on audio attachments with thumbnails</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.7.0" date="2024-03-20">
       <description translatable="no">
         <ul>

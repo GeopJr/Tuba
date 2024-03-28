@@ -34,7 +34,7 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "https://gitlab.gnome.org/chergert/libspelling.git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libspelling.git",
                     "branch" : "main"
                 }
             ]
