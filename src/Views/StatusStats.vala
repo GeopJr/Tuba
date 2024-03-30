@@ -12,7 +12,8 @@ public class Tuba.Views.StatusStats : Views.TabbedBase {
 			_("Favorited By"),
 			"starred-symbolic",
 			@"/api/v1/statuses/$(status_id)/favourited_by",
-			typeof (API.Account)
+			typeof (API.Account),
+			_("No Favorites")
 		);
 
 		boosted = add_timeline_tab (
@@ -20,7 +21,8 @@ public class Tuba.Views.StatusStats : Views.TabbedBase {
 			_("Boosted By"),
 			"tuba-media-playlist-repeat-symbolic",
 			@"/api/v1/statuses/$(status_id)/reblogged_by",
-			typeof (API.Account)
+			typeof (API.Account),
+			_("No Boosts")
 		);
     }
 }

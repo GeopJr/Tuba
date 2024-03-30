@@ -1,39 +1,143 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/preferences.ui")]
-public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
+public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
+	~Preferences () {
+		debug ("Destroying Preferences");
+	}
+
+	class FilterRow : Adw.ExpanderRow {
+		private API.Filters.Filter filter;
+		private weak Dialogs.Preferences win;
+		public signal void filter_deleted (FilterRow self);
+
+		~FilterRow () {
+			labels = {};
+		}
+
+		public FilterRow (API.Filters.Filter filter, Dialogs.Preferences win) {
+			this.filter = filter;
+			this.win = win;
+			this.activatable = false;
+
+			var delete_btn = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
+				css_classes = { "circular", "flat", "error" },
+				tooltip_text = _("Delete"),
+				valign = Gtk.Align.CENTER
+			};
+			delete_btn.clicked.connect (on_delete);
+			this.add_suffix (delete_btn);
+
+			var edit_btn = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+				css_classes = { "circular", "flat" },
+				tooltip_text = _("Edit"),
+				valign = Gtk.Align.CENTER
+			};
+			edit_btn.clicked.connect (on_edit);
+			this.add_suffix (edit_btn);
+
+			populate_from_filter ();
+		}
+
+		Gtk.Widget[] labels = {};
+		private void populate_from_filter () {
+			this.title = this.filter.title;
+			this.subtitle = GLib.ngettext ("%d keyword", "%d keywords", (ulong) this.filter.keywords.size).printf (this.filter.keywords.size);
+
+			foreach (var label in labels) {
+				this.remove (label.get_parent ());
+			}
+			labels = {};
+
+			this.filter.keywords.@foreach (e => {
+				var label = new Gtk.Label (e.keyword) {
+					ellipsize = Pango.EllipsizeMode.END,
+					halign = Gtk.Align.START,
+					margin_bottom = 8,
+					margin_end = 8,
+					margin_start = 8,
+					margin_top = 8
+				};
+				labels += label;
+				this.add_row (label);
+				return true;
+			});
+		}
+
+		private void on_edit () {
+			var dlg = new Dialogs.FilterEdit (win, filter);
+			dlg.saved.connect (on_save);
+		}
+
+		private void on_save (API.Filters.Filter filter) {
+			this.filter = filter;
+			populate_from_filter ();
+		}
+
+		private void on_delete () {
+			app.question.begin (
+				// translators: the variable is a filter name
+				{_("Are you sure you want to delete %s?").printf (filter.title), false},
+				null,
+				this.win,
+				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				false,
+				(obj, res) => {
+					if (app.question.end (res).truthy ()) {
+						new Request.DELETE (@"/api/v2/filters/$(filter.id)")
+							.with_account (accounts.active)
+							.then (() => {
+								filter_deleted (this);
+							})
+							.on_error ((code, message) => {
+								// translators: the variable is an error message
+								win.add_toast (new Adw.Toast (_("Couldn't delete filter: %s").printf (message)) {
+									timeout = 0
+								});
+								warning (@"Couldn't delete filter $(this.filter.id): $code $message");
+							})
+							.exec ();
+					}
+				}
+			);
+		}
+	}
+
 	struct NotificationTypeMute {
 		public Adw.SwitchRow switch_widget;
 		public string event;
 	}
 
-    [GtkChild] unowned Adw.ComboRow scheme_combo_row;
-    [GtkChild] unowned Adw.ComboRow post_visibility_combo_row;
-    [GtkChild] unowned Adw.ComboRow default_language_combo_row;
-    [GtkChild] unowned Adw.ComboRow default_content_type_combo_row;
-    [GtkChild] unowned Adw.SwitchRow work_in_background;
-    [GtkChild] unowned Adw.SpinRow timeline_page_size;
-    [GtkChild] unowned Adw.SwitchRow live_updates;
-    [GtkChild] unowned Adw.SwitchRow public_live_updates;
-    [GtkChild] unowned Adw.SwitchRow show_spoilers;
-    [GtkChild] unowned Adw.SwitchRow show_preview_cards;
-    [GtkChild] unowned Adw.SwitchRow larger_font_size;
-    [GtkChild] unowned Adw.SwitchRow larger_line_height;
-    [GtkChild] unowned Adw.SwitchRow scale_emoji_hover;
-    [GtkChild] unowned Adw.SwitchRow strip_tracking;
-    [GtkChild] unowned Adw.SwitchRow letterbox_media;
-    [GtkChild] unowned Adw.SwitchRow media_viewer_expand_pictures;
-    [GtkChild] unowned Adw.SwitchRow enlarge_custom_emojis;
-    [GtkChild] unowned Adw.SwitchRow use_blurhash;
-    [GtkChild] unowned Adw.SwitchRow group_push_notifications;
-    [GtkChild] unowned Adw.SwitchRow advanced_boost_dialog;
-    [GtkChild] unowned Adw.SwitchRow darken_images_on_dark_mode;
+	[GtkChild] unowned Adw.ComboRow scheme_combo_row;
+	[GtkChild] unowned Adw.ComboRow post_visibility_combo_row;
+	[GtkChild] unowned Adw.ComboRow default_language_combo_row;
+	[GtkChild] unowned Adw.ComboRow default_content_type_combo_row;
+	[GtkChild] unowned Adw.SwitchRow work_in_background;
+	[GtkChild] unowned Adw.SpinRow timeline_page_size;
+	[GtkChild] unowned Adw.SwitchRow live_updates;
+	[GtkChild] unowned Adw.SwitchRow public_live_updates;
+	[GtkChild] unowned Adw.SwitchRow show_spoilers;
+	[GtkChild] unowned Adw.SwitchRow show_preview_cards;
+	[GtkChild] unowned Adw.SwitchRow larger_font_size;
+	[GtkChild] unowned Adw.SwitchRow larger_line_height;
+	[GtkChild] unowned Adw.SwitchRow scale_emoji_hover;
+	[GtkChild] unowned Adw.SwitchRow strip_tracking;
+	[GtkChild] unowned Adw.SwitchRow letterbox_media;
+	[GtkChild] unowned Adw.SwitchRow media_viewer_expand_pictures;
+	[GtkChild] unowned Adw.SwitchRow enlarge_custom_emojis;
+	[GtkChild] unowned Adw.SwitchRow use_blurhash;
+	[GtkChild] unowned Adw.SwitchRow group_push_notifications;
+	[GtkChild] unowned Adw.SwitchRow advanced_boost_dialog;
+	[GtkChild] unowned Adw.SwitchRow darken_images_on_dark_mode;
 
-    [GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
-    [GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
-    [GtkChild] unowned Adw.SwitchRow favorites_notifications_switch;
-    [GtkChild] unowned Adw.SwitchRow mentions_notifications_switch;
-    [GtkChild] unowned Adw.SwitchRow boosts_notifications_switch;
-    [GtkChild] unowned Adw.SwitchRow poll_results_notifications_switch;
-    [GtkChild] unowned Adw.SwitchRow edits_notifications_switch;
+	[GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
+	[GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
+	[GtkChild] unowned Adw.SwitchRow favorites_notifications_switch;
+	[GtkChild] unowned Adw.SwitchRow mentions_notifications_switch;
+	[GtkChild] unowned Adw.SwitchRow boosts_notifications_switch;
+	[GtkChild] unowned Adw.SwitchRow poll_results_notifications_switch;
+	[GtkChild] unowned Adw.SwitchRow edits_notifications_switch;
+
+	//  [GtkChild] unowned Adw.PreferencesPage filters_page;
+	[GtkChild] unowned Adw.PreferencesGroup keywords_group;
 
 	NotificationTypeMute[] notification_type_mutes;
 
@@ -54,18 +158,17 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 	}
 
 	private bool lang_changed { get; set; default=false; }
+	private bool privacy_changed { get; set; default=false; }
 
 	static construct {
 		typeof (ColorSchemeListModel).ensure ();
 	}
 
-    construct {
-        transient_for = app.main_window;
-
+	construct {
 		post_visibility_combo_row.model = accounts.active.visibility_list;
 
-        // Setup scheme combo row
-        scheme_combo_row.selected = settings.get_enum ("color-scheme");
+		// Setup scheme combo row
+		scheme_combo_row.selected = settings.get_enum ("color-scheme");
 
 		uint default_visibility_index;
 		if (
@@ -88,9 +191,29 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 
 		setup_languages_combo_row ();
 		setup_notification_mutes ();
+		setup_filters ();
 		bind ();
-		close_request.connect (on_window_closed);
-    }
+		closed.connect (on_window_closed);
+	}
+
+	void setup_filters () {
+		// Only support v2 filters
+		new Request.GET ("/api/v2/filters")
+			.with_account (accounts.active)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				Network.parse_array (parser, node => {
+					var row = new FilterRow (API.Filters.Filter.from (node), this);
+					row.filter_deleted.connect (on_filter_delete);
+					keywords_group.add (row);
+				});
+			})
+			.exec ();
+	}
+
+	void on_filter_delete (FilterRow row) {
+		keywords_group.remove (row);
+	}
 
 	void setup_notification_mutes () {
 		notification_type_mutes = {
@@ -106,37 +229,34 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 		update_notification_mutes_switches ();
 	}
 
-    public static void open () {
-        new Preferences ().show ();
-    }
-
+	ulong dlcr_id = 0;
 	void bind () {
-        //  settings.bind ("dark-theme", dark_theme, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("work-in-background", work_in_background, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("timeline-page-size", timeline_page_size.adjustment, "value", SettingsBindFlags.DEFAULT);
-        settings.bind ("live-updates", live_updates, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("public-live-updates", public_live_updates, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("show-spoilers", show_spoilers, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("show-preview-cards", show_preview_cards, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("larger-font-size", larger_font_size, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("larger-line-height", larger_line_height, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("scale-emoji-hover", scale_emoji_hover, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("strip-tracking", strip_tracking, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("letterbox-media", letterbox_media, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("media-viewer-expand-pictures", media_viewer_expand_pictures, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("enlarge-custom-emojis", enlarge_custom_emojis, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("use-blurhash", use_blurhash, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("group-push-notifications", group_push_notifications, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("advanced-boost-dialog", advanced_boost_dialog, "active", SettingsBindFlags.DEFAULT);
-        settings.bind ("darken-images-on-dark-mode", darken_images_on_dark_mode, "active", SettingsBindFlags.DEFAULT);
+		//  settings.bind ("dark-theme", dark_theme, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("work-in-background", work_in_background, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("timeline-page-size", timeline_page_size.adjustment, "value", SettingsBindFlags.DEFAULT);
+		settings.bind ("live-updates", live_updates, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("public-live-updates", public_live_updates, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("show-spoilers", show_spoilers, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("show-preview-cards", show_preview_cards, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("larger-font-size", larger_font_size, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("larger-line-height", larger_line_height, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("scale-emoji-hover", scale_emoji_hover, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("strip-tracking", strip_tracking, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("letterbox-media", letterbox_media, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("media-viewer-expand-pictures", media_viewer_expand_pictures, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("enlarge-custom-emojis", enlarge_custom_emojis, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("use-blurhash", use_blurhash, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("group-push-notifications", group_push_notifications, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("advanced-boost-dialog", advanced_boost_dialog, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("darken-images-on-dark-mode", darken_images_on_dark_mode, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
+		dlcr_id = default_language_combo_row.notify["selected-item"].connect (dlcr_cb);
+	}
 
-		ulong dlcr_id = 0;
-		dlcr_id = default_language_combo_row.notify["selected-item"].connect (() => {
-			lang_changed = true;
-			default_language_combo_row.disconnect (dlcr_id);
-		});
+	private void dlcr_cb () {
+		lang_changed = true;
+		default_language_combo_row.disconnect (dlcr_id);
 	}
 
 	[GtkCallback]
@@ -148,8 +268,21 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 		settings.color_scheme = selected_item.color_scheme;
 	}
 
+	[GtkCallback]
+	private void add_keyword_row () {
+		var dlg = new Dialogs.FilterEdit (this);
+		dlg.saved.connect (on_filter_save);
+	}
+
+	private void on_filter_save (API.Filters.Filter filter) {
+		var row = new FilterRow (filter, this);
+		row.filter_deleted.connect (on_filter_delete);
+		keywords_group.add (row);
+	}
+
 	private void on_post_visibility_changed () {
 		settings.default_post_visibility = (string) ((InstanceAccount.Visibility) post_visibility_combo_row.selected_item).id;
+		privacy_changed = true;
 	}
 
 	private void setup_languages_combo_row () {
@@ -187,7 +320,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 		}
 	}
 
-	private bool on_window_closed () {
+	private void on_window_closed () {
 		if (lang_changed) {
 			var new_lang = ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale;
 			if (settings.default_language != ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale) {
@@ -206,11 +339,17 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesWindow {
 			}
 		}
 
+		if (privacy_changed && settings.default_post_visibility != "direct") {
+			new Request.PATCH ("/api/v1/accounts/update_credentials")
+				.with_account (accounts.active)
+				.with_form_data ("source[privacy]", settings.default_post_visibility)
+				.exec ();
+		}
+
 		if (default_content_type_combo_row.visible)
 			settings.default_content_type = ((Tuba.InstanceAccount.StatusContentType) default_content_type_combo_row.selected_item).mime;
 
 		update_notification_mutes ();
-		return false;
 	}
 }
 

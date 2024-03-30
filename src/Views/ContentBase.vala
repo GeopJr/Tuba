@@ -89,7 +89,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 
 	public override void clear () {
 		base.clear ();
-		model.remove_all ();
+		this.model.remove_all ();
 	}
 
 	protected virtual void clear_all_but_first () {
@@ -102,8 +102,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 	public override void on_content_changed () {
 		if (empty) {
 			base_status = new StatusMessage ();
-		}
-		else {
+		} else {
 			base_status = null;
 		}
 	}

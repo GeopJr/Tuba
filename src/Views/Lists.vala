@@ -1,6 +1,6 @@
 public class Tuba.Views.Lists : Views.Timeline {
 
-    public class Row : Adw.ActionRow {
+	public class Row : Adw.ActionRow {
 		public API.List? list;
 		Gtk.Button delete_button;
 		Gtk.Button edit_button;
@@ -45,7 +45,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 					return true;
 				});
 				edit_button.clicked.connect (() => {
-					create_edit_preferences_window (this.list).show ();
+					create_edit_preferences_dialog (this.list).present (app.main_window);
 				});
 			}
 		}
@@ -73,10 +73,8 @@ public class Tuba.Views.Lists : Views.Timeline {
 			);
 		}
 
-		public Adw.PreferencesWindow create_edit_preferences_window (API.List t_list) {
-			return new Dialogs.ListEdit (t_list) {
-				transient_for = app.main_window
-			};
+		public Adw.PreferencesDialog create_edit_preferences_dialog (API.List t_list) {
+			return new Dialogs.ListEdit (t_list);
 		}
 
 		#if !USE_LISTVIEW
@@ -88,7 +86,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 				app.main_window.open_view (view);
 			}
 		#endif
-    }
+	}
 
 	public new bool empty {
 		get { return false; }
@@ -139,11 +137,12 @@ public class Tuba.Views.Lists : Views.Timeline {
 
 	construct {
 		url = "/api/v1/lists";
-        label = _("Lists");
-        icon = "tuba-list-compact-symbolic";
-        accepts = typeof (API.List);
+		label = _("Lists");
+		icon = "tuba-list-compact-symbolic";
+		accepts = typeof (API.List);
+		empty_state_title = _("No Lists");
 
-        var add_action_bar = new Gtk.ActionBar () {
+		var add_action_bar = new Gtk.ActionBar () {
 			css_classes = { "ttl-box-no-shadow" }
 		};
 
@@ -182,9 +181,9 @@ public class Tuba.Views.Lists : Views.Timeline {
 		debug ("Destroying Lists view");
 	}
 
-    public override void on_request_finish () {
+	public override void on_request_finish () {
 		base.on_request_finish ();
 		on_content_changed ();
-    }
+	}
 
 }

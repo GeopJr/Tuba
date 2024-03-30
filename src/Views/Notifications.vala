@@ -9,6 +9,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		accepts = typeof (API.Notification);
 		badge_number = 0;
 		needs_attention = false;
+		empty_state_title = _("No Notifications");
 
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
 
@@ -22,6 +23,16 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			});
 		#endif
 	}
+
+	public override bool should_hide (Entity entity) {
+		var notification_entity = entity as API.Notification;
+		if (notification_entity != null && notification_entity.status != null) {
+			return base.should_hide (notification_entity.status);
+		}
+
+		return false;
+	}
+
 	~Notifications () {
 		warning ("Destroying Notifications");
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].disconnect (on_new_post);

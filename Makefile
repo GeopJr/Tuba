@@ -22,11 +22,11 @@ test:
 	ninja test -C builddir
 
 potfiles:
-	find ./ -type f -name "*.in" | sort > po/POTFILES
+	find ./ -not -path '*/.*' -type f -name "*.in" | sort > po/POTFILES
 	echo "" >> po/POTFILES
-	find ./ -type f -name "*.ui" -exec grep -l "translatable=\"yes\"" {} \; | sort >> po/POTFILES
+	find ./ -not -path '*/.*' -type f -name "*.ui" -exec grep -l "translatable=\"yes\"" {} \; | sort >> po/POTFILES
 	echo "" >> po/POTFILES
-	find ./ -type f -name "*.vala" -exec grep -l "_(\"" {} \; | sort >> po/POTFILES
+	find ./ -not -path '*/.*' -type f -name "*.vala" -exec grep -l "_(\"" {} \; | sort >> po/POTFILES
 
 windows: PREFIX = $(PWD)/tuba_windows_portable
 windows: __windows_pre build install __windows_set_icon __windows_copy_deps __windows_schemas __windows_copy_icons __windows_cleanup __windows_package
@@ -50,6 +50,10 @@ __windows_copy_deps:
 	cp -f /mingw64/bin/libwebp-7.dll /mingw64/bin/librsvg-2-2.dll /mingw64/bin/libgnutls-30.dll /mingw64/bin/libgthread-2.0-0.dll /mingw64/bin/libgmp-10.dll /mingw64/bin/libproxy-1.dll ${PREFIX}/bin
 	cp -r /mingw64/lib/gio/ $(PREFIX)/lib
 	cp -r /mingw64/lib/gdk-pixbuf-2.0 $(PREFIX)/lib/gdk-pixbuf-2.0
+
+	cp -f /mingw64/share/gtksourceview-5/styles/Adwaita.xml /mingw64/share/gtksourceview-5/styles/Adwaita-dark.xml ${PREFIX}/share/gtksourceview-5/styles/
+	cp -f /mingw64/share/gtksourceview-5/language-specs/xml.lang /mingw64/share/gtksourceview-5/language-specs/markdown.lang /mingw64/share/gtksourceview-5/language-specs/html.lang ${PREFIX}/share/gtksourceview-5/language-specs/
+
 	ldd $(PREFIX)/lib/gio/*/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 
 __windows_schemas:

@@ -6,6 +6,10 @@ public class Tuba.Helper.Image {
 			throw new Oopsie.INSTANCE (@"Server returned $(msg.reason_phrase)");
 		}
 
+		//  if (msg.response_headers.get_content_type (null) == "image/gif") {
+		//  	//  return Gtk.MediaFile.for_input_stream (in_stream);
+		//  }
+
 		return Gdk.Texture.for_pixbuf ((yield new Gdk.Pixbuf.from_stream_async (in_stream)).apply_embedded_orientation ());
 	}
 
@@ -31,7 +35,7 @@ public class Tuba.Helper.Image {
 		cache.load ();
 		cache.set_max_size (1024 * 1024 * 100);
 
-		session = new Soup.Session () {
+		session = new Soup.Session.with_options ("max-conns", 64, "max-conns-per-host", 64) {
 			user_agent = @"$(Build.NAME)/$(Build.VERSION) libsoup/$(Soup.get_major_version()).$(Soup.get_minor_version()).$(Soup.get_micro_version()) ($(Soup.MAJOR_VERSION).$(Soup.MINOR_VERSION).$(Soup.MICRO_VERSION))" // vala-lint=line-length
 		};
 		session.add_feature (cache);
@@ -45,6 +49,17 @@ public class Tuba.Helper.Image {
 			return yield session.send_and_read_async (download_msg, 0, null);
 		} catch (Error e) {
 			warning (@"Failed to download and read image at \"$url\": $(e.message)");
+			return null;
+		}
+	}
+
+	private static async Gdk.Paintable? fetch_paintable (string url) {
+		var download_msg = new Soup.Message ("GET", url);
+		try {
+			var in_stream = yield session.send_async (download_msg, 0, null);
+			return yield decode (download_msg, in_stream);
+		} catch (Error e) {
+			warning (@"Failed to download image at \"$url\": $(e.message)");
 			return null;
 		}
 	}
@@ -64,30 +79,10 @@ public class Tuba.Helper.Image {
 			});
 		}
 
-		var download_msg = new Soup.Message ("GET", url);
-		session.send_async.begin (download_msg, 0, null, (obj, res) => {
-			try {
-				var in_stream = session.send_async.end (res);
-
-				decode.begin (download_msg, in_stream, (obj, async_res) => {
-					has_loaded = true;
-					Gdk.Paintable? paintable = null;
-					try {
-						paintable = decode.end (async_res);
-					} catch (Error e) {
-						warning (@"Failed to download image at \"$url\": $(e.message)");
-						cb (null);
-
-						return;
-					}
-
-					cb (paintable);
-				});
-			} catch (GLib.Error e) {
-				warning (e.message);
-				has_loaded = true;
-				cb (null);
-			}
+		fetch_paintable.begin (url, (obj, res) => {
+			var result = fetch_paintable.end (res);
+			has_loaded = true;
+			cb (result);
 		});
 	}
 }

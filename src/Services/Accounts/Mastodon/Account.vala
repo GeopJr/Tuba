@@ -25,6 +25,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 		icon = "user-home-symbolic",
 		title = _("Home"),
+		needs_attention = false,
 		open_func = win => {
 			//  win.open_view (new Views.Main ());
 			//  win.back();
@@ -129,30 +130,12 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		}
 	};
 
-	public static Place PLACE_FOLLOW_REQUESTS = new Place () { // vala-lint=naming-convention
-
-		icon = "address-book-new-symbolic",
-		title = _("Follow Requests"),
-		open_func = (win) => {
-			win.open_view (set_as_sidebar_item (new Views.FollowRequests ()));
-		}
-	};
-
 	public static Place PLACE_HASHTAGS = new Place () { // vala-lint=naming-convention
 
 		icon = "tuba-hashtag-symbolic",
 		title = _("Hashtags"),
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item (new Views.Hashtags ()));
-		}
-	};
-
-	public static Place PLACE_ANNOUNCEMENTS = new Place () { // vala-lint=naming-convention
-
-		icon = "tuba-lightbulb-symbolic",
-		title = _("Announcements"),
-		open_func = (win) => {
-			win.open_view (set_as_sidebar_item (new Views.Announcements ()));
 		}
 	};
 
@@ -173,10 +156,6 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		places.append (PLACE_LOCAL);
 		places.append (PLACE_FEDERATED);
 		places.append (PLACE_LISTS);
-
-		// TODO: Move to menu button?
-		places.append (PLACE_ANNOUNCEMENTS);
-		places.append (PLACE_FOLLOW_REQUESTS);
 	}
 
 	construct {
@@ -246,7 +225,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 			//				 different account
 			_("Notification was pushed for a different account")
 		);
-		dlg.present ();
+		dlg.present (app.main_window);
 
 		return false;
 	}

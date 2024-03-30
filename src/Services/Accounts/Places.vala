@@ -6,6 +6,7 @@ public class Tuba.Place : Object {
 	public bool separated { get; set; default = false; }
 	public bool selectable { get; set; default = true; }
 	public bool visible { get; set; default = true; }
+	public bool needs_attention { get; construct set; default=true; }
 
 	[CCode (has_target = false)]
 	public delegate void OpenFunc (Dialogs.MainWindow window);

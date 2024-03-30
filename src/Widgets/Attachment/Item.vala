@@ -15,7 +15,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	protected Gtk.Button alt_btn;
 	protected Gtk.Box badge_box;
 	protected ulong alt_btn_clicked_id;
-	protected Tuba.Attachment.MediaType media_kind;
+	public Tuba.Attachment.MediaType media_kind { get; protected set; }
 
 	private void copy_url () {
 		Host.copy (entity.url);
@@ -27,43 +27,41 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	private void save_as () {
-		save_media_as (entity.url);
+		save_media_as.begin (entity.url);
 	}
 
-	public static void save_media_as (string url) {
+	public static async void save_media_as (string url) {
 		var chooser = new Gtk.FileDialog () {
 			title = _("Save Attachment"),
 			modal = true,
 			initial_name = Path.get_basename (url)
 		};
 
-		chooser.save.begin (app.main_window, null, (obj, res) => {
-			try {
-				var file = chooser.save.end (res);
-				if (file != null) {
-					debug (@"Downloading file: $(url)…");
-					download.begin (url, file, (obj, res) => {
-						download.end (res);
-						app.toast (_("Saved Media"));
-					});
-				}
-			} catch (Error e) {
-				// User dismissing the dialog also ends here so don't make it sound like
-				// it's an error
-				warning (@"Couldn't get the result of FileDialog for attachment: $(e.message)");
+		try {
+			var file = yield chooser.save (app.main_window, null);
+			if (file != null) {
+				debug (@"Downloading file: $(url)…");
+				bool success = yield download (url, file);
+				app.toast (success ? _("Saved Media") : _("Couldn't Save Media"));
 			}
-		});
+		} catch (Error e) {
+			// User dismissing the dialog also ends here so don't make it sound like
+			// it's an error
+			warning (@"Couldn't get the result of FileDialog for attachment: $(e.message)");
+		}
 	}
 
-	private static async void download (string attachment_url, File file) {
+	private static async bool download (string attachment_url, File file) {
+		bool res = false;
 		try {
 			var req = yield new Request.GET (attachment_url).await ();
 			var data = req.response_body;
-			FileOutputStream stream = file.create (FileCreateFlags.PRIVATE);
+			FileOutputStream stream = file.replace (null, false, FileCreateFlags.PRIVATE);
 			try {
 				stream.splice (data, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);
 
 				debug (@"   OK: File written to: $(file.get_path ())");
+				res = true;
 			} catch (GLib.IOError e) {
 				warning (e.message);
 				//  app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
@@ -72,6 +70,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 			warning (e.message);
 			//  app.inform (Gtk.MessageType.ERROR, _("Error"), e.message);
 		}
+		return res;
 	}
 
 	protected SimpleAction copy_media_simple_action;
@@ -137,10 +136,10 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	private void on_alt_text_btn_clicked () {
 		if (entity != null && entity.description != null)
-			create_alt_text_window (entity.description, true);
+			create_alt_text_dialog (entity.description, true);
 	}
 
-	protected Adw.Window create_alt_text_window (string alt_text, bool show = false) {
+	protected Adw.Dialog create_alt_text_dialog (string alt_text, bool show = false) {
 		var alt_label = new Gtk.Label (alt_text) {
 			wrap = true
 		};
@@ -160,21 +159,20 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		};
 
 		var toolbar_view = new Adw.ToolbarView ();
-		var headerbar = new Adw.HeaderBar ();
-		var window = new Adw.Window () {
-			modal = true,
-			title = _("Alternative text for attachment"),
-			transient_for = app.main_window,
-			content = toolbar_view,
-			default_width = 400,
-			default_height = 300
+		var headerbar = new Adw.HeaderBar () {
+			centering_policy = Adw.CenteringPolicy.STRICT
 		};
-		window.add_binding_action (Gdk.Key.Escape, 0, "window.close", null);
+		var window = new Adw.Dialog () {
+			title = _("Alternative text for attachment"),
+			child = toolbar_view,
+			content_width = 400,
+			content_height = 300
+		};
 
 		toolbar_view.add_top_bar (headerbar);
 		toolbar_view.set_content (scrolledwindow);
 
-		if (show) window.show ();
+		if (show) window.present (app.main_window);
 		alt_label.selectable = true;
 
 		return window;
@@ -184,7 +182,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		var menu_model = new GLib.Menu ();
 		menu_model.append (_("Open in Browser"), "attachment.open-in-browser");
 		menu_model.append (_("Copy URL"), "attachment.copy-url");
-		menu_model.append (_("Save Media"), "attachment.save-as");
+		menu_model.append (_("Save Media…"), "attachment.save-as");
 
 		var copy_media_menu_item = new MenuItem (_("Copy Media"), "attachment.copy-media");
 		copy_media_menu_item.set_attribute_value ("hidden-when", "action-disabled");

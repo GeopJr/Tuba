@@ -1,5 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/profile_edit.ui")]
-public class Tuba.Dialogs.ProfileEdit : Adw.Window {
+public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 	~ProfileEdit () {
 		debug (@"Destroying ProfileEdit for $(profile.handle)");
 	}
@@ -82,15 +82,10 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		filter.add_mime_type ("image/png");
 		filter.add_mime_type ("image/gif");
 
-		add_binding_action (Gdk.Key.Escape, 0, "window.close", null);
-		transient_for = app.main_window;
-
+		bio_text_view.remove_css_class ("view");
 		bio_text_view.buffer.changed.connect (on_bio_text_changed);
-
-		var manager = GtkSource.StyleSchemeManager.get_default ();
-		var scheme = manager.get_scheme ("adwaita");
-		var buffer = bio_text_view.buffer as GtkSource.Buffer;
-		buffer.style_scheme = scheme;
+		Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
+		update_style_scheme ();
 
 		#if LIBSPELLING
 			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) bio_text_view.buffer, Spelling.Checker.get_default ());
@@ -105,9 +100,16 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 		}
 	}
 
+	protected void update_style_scheme () {
+		var manager = GtkSource.StyleSchemeManager.get_default ();
+		string scheme_name = "Adwaita";
+		if (Adw.StyleManager.get_default ().dark) scheme_name += "-dark";
+		((GtkSource.Buffer) bio_text_view.buffer).style_scheme = manager.get_scheme (scheme_name);
+	}
+
 	[GtkCallback]
 	void on_close () {
-		destroy ();
+		force_close ();
 	}
 
 	[GtkCallback]
@@ -129,8 +131,8 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 				on_close ();
 			} catch (GLib.Error e) {
 				critical (e.message);
-				var dlg = app.inform (_("Error"), e.message, this);
-				dlg.present ();
+				var dlg = app.inform (_("Error"), e.message);
+				dlg.present (this);
 			} finally {
 				this.sensitive = true;
 			}
@@ -215,7 +217,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Window {
 				modal = true,
 				default_filter = filter
 			};
-			chooser.open.begin (this, null, (obj, res) => {
+			chooser.open.begin (app.main_window, null, (obj, res) => {
 				try {
 					var file = chooser.open.end (res);
 

@@ -1,6 +1,6 @@
 // DEV ONLY WINDOW
 // Do not translate
-public class Tuba.Dialogs.Dev : Adw.PreferencesWindow {
+public class Tuba.Dialogs.Dev : Adw.PreferencesDialog {
 	public class WindowSize : Object {
 		public int w { get; construct set; }
 		public int h { get; construct set; }
@@ -56,19 +56,43 @@ public class Tuba.Dialogs.Dev : Adw.PreferencesWindow {
 		appearance_group.add (window_size_cr);
 		general_settings.add (appearance_group);
 
-		var notifications_group = new Adw.PreferencesGroup () {
-			title = "Notifications"
+		var counters_group = new Adw.PreferencesGroup () {
+			title = "Counters"
 		};
 
+		var home_badge_row = new Adw.SpinRow.with_range (0, 200, 1.0) {
+			title = "Home",
+			value = Tuba.Mastodon.Account.PLACE_HOME.badge,
+
+		};
+		home_badge_row.notify["value"].connect (() => update_home_badge (home_badge_row.value));
+
 		var notification_badge_row = new Adw.SpinRow.with_range (0, 200, 1.0) {
-			title = "Badge",
+			title = "Notifications",
 			value = Tuba.Mastodon.Account.PLACE_NOTIFICATIONS.badge,
 
 		};
 		notification_badge_row.notify["value"].connect (() => update_notification_badge (notification_badge_row.value));
 
-		notifications_group.add (notification_badge_row);
-		general_settings.add (notifications_group);
+		var unread_announcements_row = new Adw.SpinRow.with_range (0, 200, 1.0) {
+			title = "Unread Announcements",
+			value = accounts.active.unread_announcements,
+
+		};
+		unread_announcements_row.notify["value"].connect (() => update_unread_announcements (unread_announcements_row.value));
+
+		var unreviewed_follow_requests_row = new Adw.SpinRow.with_range (0, 200, 1.0) {
+			title = "Unreviewed Follow Requests",
+			value = accounts.active.unreviewed_follow_requests,
+
+		};
+		unreviewed_follow_requests_row.notify["value"].connect (() => update_unreviewd_fr (unreviewed_follow_requests_row.value));
+
+		counters_group.add (home_badge_row);
+		counters_group.add (notification_badge_row);
+		counters_group.add (unread_announcements_row);
+		counters_group.add (unreviewed_follow_requests_row);
+		general_settings.add (counters_group);
 
 		var json_group = new Adw.PreferencesGroup () {
 			title = "Entities"
@@ -130,8 +154,20 @@ public class Tuba.Dialogs.Dev : Adw.PreferencesWindow {
 		((Gtk.ListItem) item).child = new Gtk.Label (((WindowSize)((Gtk.ListItem) item).item).name);
 	}
 
+	private void update_home_badge (double value) {
+		Tuba.Mastodon.Account.PLACE_HOME.badge = (int) value;
+	}
+
 	private void update_notification_badge (double value) {
 		accounts.active.unread_count = (int) value;
+	}
+
+	private void update_unread_announcements (double value) {
+		accounts.active.unread_announcements = (int) value;
+	}
+
+	private void update_unreviewd_fr (double value) {
+		accounts.active.unreviewed_follow_requests = (int) value;
 	}
 
 	private void update_window_size (WindowSize windowsize) {

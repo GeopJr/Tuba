@@ -23,6 +23,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 
 	protected InstanceAccount? account { get; set; }
 	public API.Status root_status { get; set; }
+	public weak Widgets.Status? root_status_widget { get; set; default=null; }
 
 	public Thread (API.Status status) {
 		Object (
@@ -128,6 +129,8 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			}
 		}
 		base.on_content_changed ();
+		if (root_status_widget != null)
+			root_status_widget.grab_focus ();
 	}
 
 	public bool request () {
@@ -141,8 +144,9 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				Object[] to_add_ancestors = {};
 				var ancestors = root.get_array_member ("ancestors");
 				ancestors.foreach_element ((array, i, node) => {
-					var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
-					to_add_ancestors += e;
+					var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+					if (!e.formal.tuba_filter_hidden)
+						to_add_ancestors += e;
 				});
 				to_add_ancestors += root_status;
 				model.splice (model.get_n_items (), 0, to_add_ancestors);
@@ -150,15 +154,16 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				Object[] to_add_descendants = {};
 				var descendants = root.get_array_member ("descendants");
 				descendants.foreach_element ((array, i, node) => {
-					var e = Tuba.Helper.Entity.from_json (node, typeof (API.Status));
-					to_add_descendants += e;
+					var e = (API.Status) Tuba.Helper.Entity.from_json (node, typeof (API.Status));
+					if (!e.formal.tuba_filter_hidden)
+						to_add_descendants += e;
 				});
 				model.splice (model.get_n_items (), 0, to_add_descendants);
 
 				connect_threads ();
 				on_content_changed ();
 
-				#if GTK_4_12 && USE_LISTVIEW
+				#if USE_LISTVIEW
 					if (to_add_ancestors.length > 0) {
 						uint timeout = 0;
 						timeout = Timeout.add (1000, () => {
@@ -208,6 +213,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				widget_status.activatable = false;
 			#endif
 			widget_status.expand_root ();
+			root_status_widget = widget_status;
 		}
 
 		return widget_status;

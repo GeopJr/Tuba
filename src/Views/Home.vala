@@ -4,6 +4,8 @@ public class Tuba.Views.Home : Views.Timeline {
         url = "/api/v1/timelines/home";
         label = _("Home");
         icon = "user-home-symbolic";
+        badge_number = 0;
+		needs_attention = false;
 
         scroll_to_top_rev.margin_end = 32;
         scroll_to_top_rev.margin_bottom = 24;
@@ -42,6 +44,13 @@ public class Tuba.Views.Home : Views.Timeline {
             if (!app.is_mobile)
                     compose_button_rev.reveal_child = true;
         });
+
+        this.bind_property ("entity-queue-size", this, "badge-number", BindingFlags.SYNC_CREATE);
+        this.bind_property ("badge-number", Tuba.Mastodon.Account.PLACE_HOME, "badge", BindingFlags.SYNC_CREATE
+            #if DEV_MODE
+                | BindingFlags.BIDIRECTIONAL
+            #endif
+        );
     }
 
     void toggle_scroll_to_top_margin () {

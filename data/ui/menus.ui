@@ -48,12 +48,6 @@
         </item>
         <section>
           <item>
-            <attribute name="label" translatable="yes">Report</attribute>
-            <attribute name="action">view.report</attribute>
-            <!-- TODO: Reporting users -->
-            <attribute name="hidden-when">action-missing</attribute>
-          </item>
-          <item>
             <attribute name="label" translatable="yes">Block</attribute>
             <attribute name="action">view.blocking</attribute>
           </item>
@@ -61,6 +55,10 @@
             <attribute name="label" translatable="yes">Block Domain</attribute>
             <attribute name="action">view.domain_blocking</attribute>
             <!-- <attribute name="hidden-when">action-disabled</attribute> -->
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">Report</attribute>
+            <attribute name="action">view.report</attribute>
           </item>
         </section>
     </section>

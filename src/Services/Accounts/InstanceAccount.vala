@@ -48,6 +48,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public virtual signal void activated () {
 		gather_instance_info ();
 		gather_instance_custom_emojis ();
+		check_announcements ();
 	}
 	public virtual signal void deactivated () {}
 	public virtual signal void added () {
@@ -243,6 +244,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	// Notifications
 
+	public int unreviewed_follow_requests { get; set; default = 0; }
+	public int unread_announcements { get; set; default = 0; }
 	public int unread_count { get; set; default = 0; }
 	public int last_read_id { get; set; default = 0; }
 	public int last_received_id { get; set; default = 0; }
@@ -252,6 +255,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		public string mime { get; construct set; }
 		public string icon_name { get; construct set; }
 		public string title { get; construct set; }
+		public string syntax { get; construct set; }
 
 		public StatusContentType (string content_type) {
 			mime = content_type;
@@ -261,25 +265,31 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					icon_name = "tuba-paper-symbolic";
 					// translators: this is a content type
 					title = _("Plain Text");
+					syntax = "fedi-basic";
 					break;
 				case "text/html":
 					icon_name = "tuba-code-symbolic";
 					title = "HTML";
+					syntax = "fedi-html";
 					break;
 				case "text/markdown":
 					icon_name = "tuba-markdown-symbolic";
 					title = "Markdown";
+					syntax = "fedi-markdown";
 					break;
 				case "text/bbcode":
 					icon_name = "tuba-rich-text-symbolic";
 					title = "BBCode";
+					syntax = "fedi-basic";
 					break;
 				case "text/x.misskeymarkdown":
 					icon_name = "tuba-rich-text-symbolic";
 					title = "MFM";
+					syntax = "fedi-basic";
 					break;
 				default:
 					icon_name = "tuba-rich-text-symbolic";
+					syntax = "fedi-basic";
 
 					int slash = content_type.index_of_char ('/');
 					int ct_l = content_type.length;
@@ -359,8 +369,25 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				var root = network.parse (parser);
 				if (!root.has_member ("notifications")) return;
 				var notifications = root.get_object_member ("notifications");
-				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1") );
+				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1"));
 				if (!passed_init_notifications) init_notifications ();
+			})
+			.exec ();
+	}
+
+	public void check_announcements () {
+		new Request.GET ("/api/v1/announcements")
+			.with_account (this)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var array = Network.get_array_mstd (parser);
+				if (array != null) {
+					int t_unread_announcements = 0;
+					array.foreach_element ((array, i, node) => {
+						if (node.get_object ().get_boolean_member_with_default ("read", true) == false) t_unread_announcements += 1;
+					});
+					unread_announcements = t_unread_announcements;
+				}
 			})
 			.exec ();
 	}
@@ -457,6 +484,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public virtual void on_notification_event (Streamable.Event ev) {
 		try {
 			var entity = create_entity<API.Notification> (ev.get_node ());
+			if (entity.status != null && entity.status.formal.tuba_filter_hidden) return;
+			if (entity.kind == InstanceAccount.KIND_FOLLOW_REQUEST) unreviewed_follow_requests += 1;
 
 			var id = int.parse (entity.id);
 			if (id > last_received_id) {

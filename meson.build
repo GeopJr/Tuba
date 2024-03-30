@@ -1,7 +1,7 @@
 project(
     'dev.geopjr.Tuba',
     ['c', 'vala'],
-    version: '0.6.3',
+    version: '0.7.1',
     meson_version: '>= 0.56.0',
     default_options: [
         'warning_level=2',
@@ -31,7 +31,11 @@ config.set('VERSION', meson.project_version())
 config.set('PREFIX', get_option('prefix'))
 config.set('NAME', 'Tuba')
 config.set('WEBSITE', 'https://github.com/GeopJr/Tuba')
-config.set('SUPPORT_WEBSITE', 'https://github.com/GeopJr/Tuba/issues')
+config.set('ISSUES_WEBSITE', 'https://github.com/GeopJr/Tuba/issues')
+config.set('SUPPORT_WEBSITE', 'https://matrix.to/#/#tuba:gnome.org')
+config.set('DONATE_WEBSITE', 'https://geopjr.dev/donate')
+config.set('TRANSLATE_WEBSITE', 'https://hosted.weblate.org/engage/tuba/')
+config.set('WIKI_WEBSITE', 'https://github.com/GeopJr/Tuba/wiki')
 config.set('PROFILE', devel ? 'development' : 'production')
 
 if devel
@@ -52,10 +56,14 @@ endif
 if host_machine.system() == 'windows'
   add_project_arguments(['--define=WINDOWS'], language: 'vala')
   add_project_arguments('-mwindows', language: 'c')
+elif host_machine.system() == 'darwin'
+  add_project_arguments(['--define=DARWIN'], language: 'vala')
 endif
 
+add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
 add_project_arguments (
   '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
+  '-DG_LOG_DOMAIN="Tuba"',
   language: 'c'
 )
 
@@ -69,18 +77,13 @@ asresources = gnome.compile_resources(
     c_name: 'as',
 )
 
-libgtk_dep = dependency('gtk4', version: '>=4.11.3', required: true)
-libadwaita_dep = dependency('libadwaita-1', version: '>=1.4', required: true)
+libadwaita_dep = dependency('libadwaita-1', version: '>=1.5', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
 libwebp_dep = dependency('libwebp', required: false)
 libspelling = dependency('libspelling-1', required: false)
 
 if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
-endif
-
-if libgtk_dep.version().version_compare('>=4.12.0')
-  add_project_arguments(['--define=GTK_4_12'], language: 'vala')
 endif
 
 if meson.get_compiler('vala').version().version_compare('>=0.56.11')
@@ -105,9 +108,10 @@ final_deps = [
   dependency('json-glib-1.0', version: '>=1.4.4'),
   dependency('libxml-2.0'),
   dependency('libsecret-1', required: true),
+  dependency('icu-uc'),
   libspelling,
   gtksourceview_dep,
-  libgtk_dep,
+  dependency('gtk4', version: '>=4.13.4', required: true),
   libadwaita_dep,
   meson.get_compiler('c').find_library('m', required: false)
 ]

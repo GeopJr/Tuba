@@ -77,12 +77,15 @@ namespace Tuba {
 			{ "reply-to-status-uri", reply_to_status_uri, "(ss)" },
 			{ "remove-from-followers", remove_from_followers, "(ss)" },
 			{ "open-preferences", open_preferences },
-			{ "open-current-account-profile", open_current_account_profile }
+			{ "open-current-account-profile", open_current_account_profile },
+			{ "open-announcements", open_announcements },
+			{ "open-follow-requests", open_follow_requests },
+			{ "open-mutes-blocks", open_mutes_blocks }
 		};
 
 		#if DEV_MODE
 			private void dev_only_window_activated () {
-				new Dialogs.Dev ().show ();
+				new Dialogs.Dev ().present (main_window);
 			}
 		#endif
 
@@ -140,7 +143,7 @@ namespace Tuba {
 					warning (msg);
 
 					var dlg = inform (_("Error"), msg);
-					dlg.present ();
+					dlg.present (app.main_window);
 				}
 			});
 		}
@@ -157,23 +160,22 @@ namespace Tuba {
 				var opt_context = new OptionContext ("- Options");
 				opt_context.add_main_entries (APP_OPTIONS, null);
 				opt_context.parse (ref args);
-			}
-			catch (GLib.OptionError e) {
+			} catch (GLib.OptionError e) {
 				warning (e.message);
 			}
 
 			cache_path = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, GLib.Environment.get_user_cache_dir (), Build.NAME.down ());
 
 			try {
-				bookwyrm_regex = new GLib.Regex ("/book/\\d+/s/[-_a-z0-9]*", GLib.RegexCompileFlags.OPTIMIZE);
+				bookwyrm_regex = new GLib.Regex ("/book/\\d+(/?$|/s/[-_a-z0-9]*)", GLib.RegexCompileFlags.OPTIMIZE);
 			} catch (GLib.RegexError e) {
-				warning (e.message);
+				critical (e.message);
 			}
 
 			try {
 				custom_emoji_regex = new GLib.Regex ("(:[a-zA-Z0-9_]{2,}:)", GLib.RegexCompileFlags.OPTIMIZE);
 			} catch (GLib.RegexError e) {
-				warning (e.message);
+				critical (e.message);
 			}
 
 			try {
@@ -183,7 +185,7 @@ namespace Tuba {
 					GLib.RegexMatchFlags.ANCHORED
 				);
 			} catch (GLib.RegexError e) {
-				warning (e.message);
+				critical (e.message);
 			}
 
 			is_flatpak = GLib.Environment.get_variable ("FLATPAK_ID") != null
@@ -194,11 +196,12 @@ namespace Tuba {
 			Intl.textdomain (Build.GETTEXT_PACKAGE);
 
 			GLib.Environment.unset_variable ("GTK_THEME");
-			#if WINDOWS
+			#if WINDOWS || DARWIN
 				GLib.Environment.set_variable ("SECRET_BACKEND", "file", false);
 				if (GLib.Environment.get_variable ("SECRET_BACKEND") == "file")
 					GLib.Environment.set_variable ("SECRET_FILE_TEST_PASSWORD", @"$(GLib.Environment.get_user_name ())$(Build.DOMAIN)", false);
 			#endif
+			GLib.Environment.set_variable ("GSK_RENDERER", "gl", false);
 
 			app = new Application ();
 			return app.run (args);
@@ -234,7 +237,7 @@ namespace Tuba {
 			catch (Error e) {
 				var msg = "Could not start application: %s".printf (e.message);
 				var dlg = inform (_("Error"), msg);
-				dlg.present ();
+				dlg.present (app.main_window);
 				error (msg);
 			}
 
@@ -248,7 +251,7 @@ namespace Tuba {
 			set_accels_for_action ("app.about", {"F1"});
 			set_accels_for_action ("app.open-preferences", {"<Ctrl>comma"});
 			set_accels_for_action ("app.compose", {"<Ctrl>T", "<Ctrl>N"});
-			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>Left", "Escape", "<Alt>KP_Left", "Pointer_DfltBtnPrev"});
+			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>KP_Left"});
 			set_accels_for_action ("app.refresh", {"<Ctrl>R", "F5"});
 			set_accels_for_action ("app.search", {"<Ctrl>F"});
 			set_accels_for_action ("app.quit", {"<Ctrl>Q"});
@@ -314,7 +317,7 @@ namespace Tuba {
 					string msg = @"Couldn't open $unparsed_uri: $(e.message)";
 					warning (msg);
 					var dlg = inform (_("Error"), msg);
-					dlg.present ();
+					dlg.present (app.main_window);
 				}
 			}
 		}
@@ -385,11 +388,30 @@ namespace Tuba {
 		}
 
 		void open_preferences () {
-			Dialogs.Preferences.open ();
+			new Dialogs.Preferences ().present (main_window);
 		}
 
 		void open_current_account_profile () {
 			accounts.active.open ();
+			close_sidebar ();
+		}
+
+		public void open_announcements () {
+			main_window.open_view (new Views.Announcements () {
+				dismiss_all_announcements = true // dismiss all by default I guess
+			});
+			close_sidebar ();
+			if (accounts.active != null) accounts.active.unread_announcements = 0;
+		}
+
+		public void open_follow_requests () {
+			main_window.open_view (new Views.FollowRequests ());
+			close_sidebar ();
+			if (accounts.active != null) accounts.active.unreviewed_follow_requests = 0;
+		}
+
+		public void open_mutes_blocks () {
+			main_window.open_view (new Views.MutesBlocks ());
 			close_sidebar ();
 		}
 
@@ -437,13 +459,11 @@ namespace Tuba {
 
 			const string COPYRIGHT = "© 2022 bleak_grey\n© 2022 Evangelos \"GeopJr\" Paterakis";
 
-			var dialog = new Adw.AboutWindow () {
-				transient_for = main_window,
-				modal = true,
-
+			var dialog = new Adw.AboutDialog () {
 				application_icon = Build.DOMAIN,
 				application_name = Build.NAME,
 				version = Build.VERSION,
+				issue_url = Build.ISSUES_WEBSITE,
 				support_url = Build.SUPPORT_WEBSITE,
 				license_type = Gtk.License.GPL_3_0_ONLY,
 				copyright = COPYRIGHT,
@@ -456,11 +476,17 @@ namespace Tuba {
 				translator_credits = _("translator-credits")
 			};
 
+			// translators: Wiki pages / Guides
+			dialog.add_link (_("Wiki"), Build.WIKI_WEBSITE);
+
+			dialog.add_link (_("Translate"), Build.TRANSLATE_WEBSITE);
+			dialog.add_link (_("Donate"), Build.DONATE_WEBSITE);
+
 			// For some obscure reason, const arrays produce duplicates in the credits.
 			// Static functions seem to avoid this peculiar behavior.
 			//  dialog.translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : null;
 
-			dialog.present ();
+			dialog.present (main_window);
 
 			GLib.Idle.add (() => {
 				var style = Tuba.Celebrate.get_celebration_css_class (new GLib.DateTime.now ());
@@ -470,15 +496,11 @@ namespace Tuba {
 			});
 		}
 
-		public Adw.MessageDialog inform (string text, string? msg = null, Gtk.Window? win = app.main_window) {
-			var dlg = new Adw.MessageDialog (
-				win,
+		public Adw.AlertDialog inform (string text, string? msg = null) {
+			var dlg = new Adw.AlertDialog (
 				text,
 				msg
 			);
-
-			if (win != null)
-				dlg.transient_for = win;
 
 			dlg.add_response ("ok", _("OK"));
 
@@ -528,7 +550,7 @@ namespace Tuba {
 		public async QuestionAnswer question (
 			QuestionText title,
 			QuestionText? msg = null,
-			Gtk.Window? win = app.main_window,
+			Gtk.Widget? win = app.main_window,
 			QuestionButtons buttons = {
 				{ _("Yes"), Adw.ResponseAppearance.DEFAULT },
 				{ _("Cancel"), Adw.ResponseAppearance.DEFAULT }
@@ -537,8 +559,7 @@ namespace Tuba {
 		) {
 			if (skip) return QuestionAnswer.YES;
 
-			var dlg = new Adw.MessageDialog (
-				win,
+			var dlg = new Adw.AlertDialog (
 				title.text,
 				msg == null ? null : msg.text
 			);
@@ -552,9 +573,7 @@ namespace Tuba {
 			dlg.add_response ("yes", buttons.yes.label);
 			dlg.set_response_appearance ("yes", buttons.yes.appearance);
 
-			if (win != null)
-				dlg.transient_for = win;
-			return QuestionAnswer.from_string (yield dlg.choose (null));
+			return QuestionAnswer.from_string (yield dlg.choose (win, null));
 		}
 
 	}

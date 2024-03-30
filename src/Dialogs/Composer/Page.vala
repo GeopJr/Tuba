@@ -13,20 +13,6 @@ public class Tuba.ComposerPage : Gtk.Box {
 	protected Gtk.Box content;
 	protected Gtk.ActionBar bottom_bar;
 
-	private bool _action_bar_on_top = false;
-	public bool action_bar_on_top {
-		get {
-			return _action_bar_on_top;
-		}
-		set {
-			_action_bar_on_top = value;
-
-			if (bottom_bar != null) {
-				reorder_child_after (bottom_bar, value ? null : scroller);
-			}
-		}
-	}
-
 	~ComposerPage () {
 		debug (@"Destroying $title Page");
 	}
@@ -47,11 +33,7 @@ public class Tuba.ComposerPage : Gtk.Box {
 			visible = false
 		};
 
-		if (action_bar_on_top) {
-			prepend (bottom_bar);
-		} else {
-			append (bottom_bar);
-		}
+		append (bottom_bar);
 	}
 
 	protected void add_button (Gtk.Widget widget) {

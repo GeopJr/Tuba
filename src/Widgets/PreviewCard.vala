@@ -80,7 +80,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 		author_label.label = author;
 
 		if (card_obj.title != "") {
-			title_label.label = title_label.tooltip_text = card_obj.title;
+			title_label.label = title_label.tooltip_text = card_obj.title.strip ();
 			title_label.visible = true;
 		}
 

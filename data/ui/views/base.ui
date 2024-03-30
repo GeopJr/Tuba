@@ -14,7 +14,9 @@
         <property name="top-bar-style">flat</property>
         <property name="bottom-bar-style">flat</property>
         <child type="top">
-          <object class="AdwHeaderBar" id="header" />
+          <object class="AdwHeaderBar" id="header">
+            <property name="centering-policy">strict</property>
+          </object>
         </child>
 
         <property name="content">
@@ -69,11 +71,12 @@
                                     <property name="orientation">vertical</property>
                                     <property name="spacing">16</property>
                                     <child>
-                                      <object class="GtkImage">
+                                      <object class="GtkImage" id="status_image">
                                         <property name="width_request">128</property>
                                         <property name="height_request">128</property>
                                         <property name="pixel_size">128</property>
-                                        <property name="icon_name">dev.geopjr.Tuba-symbolic</property>
+                                        <property name="icon_name">tuba-background-app-ghost-symbolic</property>
+                                        <property name="visible">0</property>
                                         <style>
                                           <class name="dim-label" />
                                         </style>

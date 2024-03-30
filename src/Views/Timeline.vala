@@ -14,6 +14,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public string? page_prev { get; set; }
 	#if !USE_LISTVIEW
 		Entity[] entity_queue = {};
+		protected int entity_queue_size { get; set; default=0; }
 	#endif
 
 	private Gtk.Spinner pull_to_refresh_spinner;
@@ -40,7 +41,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		}
 	}
 
-    private void on_drag_update (double x, double y) {
+	private void on_drag_update (double x, double y) {
 		if (scrolled.vadjustment.value != 0.0 || (y <= 0 && !is_pulling)) return;
 		is_pulling = true;
 
@@ -60,17 +61,19 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			pull_to_refresh_spinner.margin_top = 32;
 			pull_to_refresh_spinner.height_request = pull_to_refresh_spinner.width_request = 0;
 		}
-    }
+	}
 
 	private void on_drag_end (double x, double y) {
-        if (scrolled.vadjustment.value == 0.0 && pull_to_refresh_spinner.margin_top >= 125) {
-            on_refresh ();
-        }
+		if (scrolled.vadjustment.value == 0.0 && pull_to_refresh_spinner.margin_top >= 125) {
+			on_refresh ();
+		}
 
 		is_pulling = false;
-    }
+	}
 
 	construct {
+		empty_state_title = _("No Posts");
+
 		pull_to_refresh_spinner = new Gtk.Spinner () {
 			height_request = 32,
 			width_request = 32,
@@ -107,9 +110,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		#endif
 
 		var drag = new Gtk.GestureDrag ();
-        drag.drag_update.connect (on_drag_update);
-        drag.drag_end.connect (on_drag_end);
-        this.add_controller (drag);
+		drag.drag_update.connect (on_drag_update);
+		drag.drag_end.connect (on_drag_end);
+		this.add_controller (drag);
 	}
 	~Timeline () {
 		debug (@"Destroying Timeline $label");
@@ -120,6 +123,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		#if !USE_LISTVIEW
 			content.bind_model (null, null);
 			entity_queue = {};
+			entity_queue_size = 0;
 		#endif
 	}
 
@@ -199,7 +203,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				Object[] to_add = {};
 				Network.parse_array (parser, node => {
 					var e = Tuba.Helper.Entity.from_json (node, accepts);
-					to_add += e;
+					if (!(should_hide (e))) to_add += e;
 				});
 				model.splice (model.get_n_items (), 0, to_add);
 
@@ -227,6 +231,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public virtual void on_refresh () {
 		#if !USE_LISTVIEW
 			entity_queue = {};
+			entity_queue_size = 0;
 		#endif
 		scrolled.vadjustment.value = 0;
 		status_button.sensitive = false;
@@ -270,6 +275,15 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		return null;
 	}
 
+	public virtual bool should_hide (Entity entity) {
+		var status_entity = entity as API.Status;
+		if (status_entity != null) {
+			return status_entity.formal.tuba_filter_hidden;
+		}
+
+		return false;
+	}
+
 	public virtual void on_new_post (Streamable.Event ev) {
 		if (!has_finished_request) return;
 
@@ -278,9 +292,11 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				model.insert (0, Entity.from_json (accepts, ev.get_node ()));
 			#else
 				var entity = Entity.from_json (accepts, ev.get_node ());
+				if (should_hide (entity)) return;
 
 				if (use_queue && scrolled.vadjustment.value > 1000) {
 					entity_queue += entity;
+					entity_queue_size += 1;
 					return;
 				}
 
@@ -297,6 +313,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			model.splice (0, 0, (Object[])entity_queue);
 
 			entity_queue = {};
+			entity_queue_size = 0;
 		}
 	#endif
 

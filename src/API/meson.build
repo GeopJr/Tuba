@@ -28,6 +28,7 @@ sources += files(
 subdir('Account')
 # subdir('Akkoma')
 subdir('BookWyrm')
+subdir('Filters')
 subdir('Funkwhale')
 subdir('Instance')
 subdir('PeerTube')

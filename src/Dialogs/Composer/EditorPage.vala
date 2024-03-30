@@ -13,6 +13,40 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 	}
 
+	private void count_chars () {
+		int64 res = char_limit;
+		if (cw_button != null && cw_button.active)
+				res -= Counting.chars (cw_entry.text, ((Tuba.Locales.Locale) language_button?.selected_item)?.locale ?? "en");
+
+		string replaced_urls = Tracking.cleanup_content_with_uris (
+			editor.buffer.text,
+			Tracking.extract_uris (editor.buffer.text),
+			Tracking.CleanupType.SPECIFIC_LENGTH,
+			accounts.active.instance_info.compat_status_characters_reserved_per_url
+		);
+		string replaced_mentions = Counting.replace_mentions (replaced_urls);
+
+		res -= Counting.chars (replaced_mentions, ((Tuba.Locales.Locale) language_button?.selected_item)?.locale ?? "en");
+
+		remaining_chars = res;
+	}
+
+	private void on_content_changed () {
+		editor.show_completion ();
+		count_chars ();
+
+		placeholder.visible = remaining_chars == char_limit;
+		char_counter.label = remaining_chars.to_string ();
+		if (remaining_chars < 0) {
+			char_counter.add_css_class ("error");
+			can_publish = false;
+		} else {
+			char_counter.remove_css_class ("error");
+			can_publish = remaining_chars != char_limit;
+		}
+	}
+
+	public Adw.ToastOverlay toast_overlay;
 	construct {
 		//  translators: "Text" as in text-based input
 		title = _("Text");
@@ -22,6 +56,8 @@ public class Tuba.EditorPage : ComposerPage {
 		if (char_limit_api > 0)
 			char_limit = char_limit_api;
 		remaining_chars = char_limit;
+
+		toast_overlay = new Adw.ToastOverlay ();
 	}
 
 	public void set_cursor_at_start () {
@@ -41,20 +77,49 @@ public class Tuba.EditorPage : ComposerPage {
 
 		if (supports_mime_types)
 			install_content_type_button (settings.default_content_type);
+		else
+			((GtkSource.Buffer) editor.buffer).set_language (lang_manager.get_language ("fedi-basic"));
+
 		add_button (new Gtk.Separator (Gtk.Orientation.VERTICAL));
 		install_cw (status.spoiler_text);
 		add_button (new Gtk.Separator (Gtk.Orientation.VERTICAL));
 		install_emoji_picker ();
 
-		validate ();
-
 		if (supports_mime_types) hide_dropdown_arrows = true;
+
+		cw_button.toggled.connect (on_content_changed);
+		cw_entry.changed.connect (on_content_changed);
 	}
 
-	protected virtual signal void recount_chars () {}
+	protected void on_paste (Gdk.Clipboard clp) {
+		if (!settings.strip_tracking) return;
+		var clean_buffer = Tracking.cleanup_content_with_uris (
+			editor.buffer.text,
+			Tracking.extract_uris (editor.buffer.text),
+			Tracking.CleanupType.STRIP_TRACKING
+		);
+		if (clean_buffer == editor.buffer.text) return;
 
-	protected void validate () {
-		recount_chars ();
+		Gtk.TextIter start_iter;
+		Gtk.TextIter end_iter;
+		editor.buffer.get_bounds (out start_iter, out end_iter);
+		editor.buffer.begin_user_action ();
+		editor.buffer.delete (ref start_iter, ref end_iter);
+		editor.buffer.insert (ref start_iter, clean_buffer, -1);
+		editor.buffer.end_user_action ();
+
+		var toast = new Adw.Toast (
+			_("Stripped tracking parameters")
+		) {
+			timeout = 3,
+			button_label = _("Undo")
+		};
+		toast.button_clicked.connect (undo);
+		toast_overlay.add_toast (toast);
+	}
+
+	private void undo () {
+		editor.buffer.undo ();
 	}
 
 	public override void on_push () {
@@ -103,12 +168,8 @@ public class Tuba.EditorPage : ComposerPage {
 		builder.add_string_value (status.sensitive ? status.spoiler_text : "");
 	}
 
-	protected GtkSource.View editor;
+	public GtkSource.View editor;
 	protected Gtk.Label char_counter;
-
-	public void editor_grab_focus () {
-		editor.grab_focus ();
-	}
 
 	#if LIBSPELLING
 		protected Spelling.TextBufferAdapter adapter;
@@ -117,24 +178,9 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 	#endif
 
+	GtkSource.LanguageManager lang_manager;
 	protected void install_editor () {
-		recount_chars.connect (() => {
-			remaining_chars = char_limit;
-			editor.show_completion ();
-		});
-		recount_chars.connect_after (() => {
-			placeholder.visible = remaining_chars == char_limit;
-			char_counter.label = remaining_chars.to_string ();
-			if (remaining_chars < 0) {
-				char_counter.add_css_class ("error");
-				can_publish = false;
-			} else {
-				char_counter.remove_css_class ("error");
-				can_publish = remaining_chars != char_limit;
-			}
-		});
-
-
+		lang_manager = new GtkSource.LanguageManager ();
 		editor = new GtkSource.View () {
 			vexpand = true,
 			hexpand = true,
@@ -147,6 +193,7 @@ public class Tuba.EditorPage : ComposerPage {
 			wrap_mode = Gtk.WrapMode.WORD_CHAR
 		};
 		editor.remove_css_class ("view");
+		editor.add_css_class ("reset");
 
 		#if LIBSPELLING
 			adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
@@ -159,15 +206,15 @@ public class Tuba.EditorPage : ComposerPage {
 		#endif
 
 		var keypress_controller = new Gtk.EventControllerKey ();
-        keypress_controller.key_pressed.connect ((keyval, _, modifier) => {
-            modifier &= Gdk.MODIFIER_MASK;
-            if ((keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter) && (modifier == Gdk.ModifierType.CONTROL_MASK || modifier == (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.LOCK_MASK))) {
+		keypress_controller.key_pressed.connect ((keyval, _, modifier) => {
+			modifier &= Gdk.MODIFIER_MASK;
+			if ((keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter) && (modifier == Gdk.ModifierType.CONTROL_MASK || modifier == (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.LOCK_MASK))) {
 				ctrl_return_pressed ();
 				return true;
 			}
-            return false;
-        });
-        editor.add_controller (keypress_controller);
+			return false;
+		});
+		editor.add_controller (keypress_controller);
 
 		editor.completion.add_provider (new Tuba.HandleProvider ());
 		editor.completion.add_provider (new Tuba.HashtagProvider ());
@@ -175,11 +222,11 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.completion.select_on_show = true;
 		editor.completion.show_icons = true;
 		editor.completion.page_size = 3;
-		update_style_scheme ();
+		((GtkSource.Buffer) editor.buffer).highlight_matching_brackets = true;
+		((GtkSource.Buffer) editor.buffer).highlight_syntax = true;
 
-		recount_chars.connect (() => {
-			remaining_chars -= editor.buffer.get_char_count ();
-		});
+		Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
+		update_style_scheme ();
 
 		char_counter = new Gtk.Label (char_limit.to_string ()) {
 			margin_end = 6,
@@ -187,14 +234,21 @@ public class Tuba.EditorPage : ComposerPage {
 			css_classes = { "heading" }
 		};
 		bottom_bar.pack_end (char_counter);
-		editor.buffer.changed.connect (validate);
+		editor.buffer.paste_done.connect (on_paste);
+		editor.buffer.changed.connect (on_content_changed);
 	}
 
 	protected void update_style_scheme () {
 		var manager = GtkSource.StyleSchemeManager.get_default ();
-		var scheme = manager.get_scheme ("adwaita");
-		var buffer = editor.buffer as GtkSource.Buffer;
-		buffer.style_scheme = scheme;
+		string scheme_name = "Fedi";
+		if (Adw.StyleManager.get_default ().dark) scheme_name += "-dark";
+		((GtkSource.Buffer) editor.buffer).style_scheme = manager.get_scheme (scheme_name);
+	}
+
+	protected void update_language_highlight () {
+		var syntax = ((Tuba.InstanceAccount.StatusContentType) content_type_button.selected_item).syntax;
+		((GtkSource.Buffer) editor.buffer).set_language (null); // setter is not nullable?
+		((GtkSource.Buffer) editor.buffer).set_language (lang_manager.get_language (syntax));
 	}
 
 	protected Gtk.Overlay overlay;
@@ -219,7 +273,8 @@ public class Tuba.EditorPage : ComposerPage {
 			child = editor
 		};
 
-		content.prepend (overlay);
+		toast_overlay.child = overlay;
+		content.prepend (toast_overlay);
 		editor.buffer.text = t_content;
 		if (force_cursor_at_start) set_cursor_at_start ();
 	}
@@ -262,8 +317,7 @@ public class Tuba.EditorPage : ComposerPage {
 			margin_end = 6,
 			margin_start = 6
 		};
-		cw_entry.buffer.inserted_text.connect (validate);
-		cw_entry.buffer.deleted_text.connect (validate);
+
 		var revealer = new Gtk.Revealer () {
 			child = cw_entry
 		};
@@ -274,7 +328,6 @@ public class Tuba.EditorPage : ComposerPage {
 			icon_name = "tuba-warning-symbolic",
 			tooltip_text = _("Content Warning")
 		};
-		cw_button.toggled.connect (validate);
 		cw_button.bind_property ("active", revealer, "reveal_child", GLib.BindingFlags.SYNC_CREATE);
 		add_button (cw_button);
 
@@ -282,11 +335,6 @@ public class Tuba.EditorPage : ComposerPage {
 			cw_entry.buffer.set_text ((uint8[]) cw_text);
 			cw_button.active = true;
 		}
-
-		recount_chars.connect (() => {
-			if (cw_button.active)
-				remaining_chars -= (int) cw_entry.buffer.length;
-		});
 	}
 
 
@@ -378,5 +426,8 @@ public class Tuba.EditorPage : ComposerPage {
 		}
 
 		add_button (content_type_button);
+
+		content_type_button.notify["selected-item"].connect (update_language_highlight);
+		update_language_highlight ();
 	}
 }

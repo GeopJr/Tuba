@@ -5,7 +5,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 	const string SCOPES = "read write follow";
 
-	#if WINDOWS
+	#if WINDOWS || DARWIN
 		const bool SHOULD_AUTO_AUTH = false;
 	#else
 		const bool SHOULD_AUTO_AUTH = true;
@@ -90,8 +90,8 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 	void oopsie (string title, string msg = "") {
 		warning (@"$title   $msg.");
-		var dlg = app.inform (title, msg, this);
-		dlg.present ();
+		var dlg = app.inform (title, msg);
+		dlg.present (this);
 	}
 
 	async void step () throws Error {

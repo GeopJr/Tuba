@@ -1,7 +1,8 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/base.ui")]
 public class Tuba.Views.Base : Adw.BreakpointBin {
-	// translators: Shown when there are 0 results
+	// translators: Fallback shown when there are 0 results
 	public static string STATUS_EMPTY = _("Nothing to see here"); // vala-lint=naming-convention
+	public string empty_state_title { get; set; default=STATUS_EMPTY; }
 
 	public string? icon { get; set; default = null; }
 	public string label { get; set; default = ""; }
@@ -10,7 +11,9 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	public bool allow_nesting { get; set; default = false; }
 	public bool is_sidebar_item { get; set; default = false; }
 	public int badge_number { get; set; default = 0; }
+	public int uid { get; set; default = -1; }
 	protected SimpleActionGroup actions { get; set; default = new SimpleActionGroup (); }
+	public weak Gtk.Widget? last_widget { get; private set; default=null; }
 
 	private bool _show_back_button = true;
 	public bool show_back_button {
@@ -57,13 +60,14 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		[GtkChild] protected unowned Adw.Clamp content_box;
 	#endif
 	[GtkChild] protected unowned Gtk.Button status_button;
+	[GtkChild] unowned Gtk.Image status_image;
 	[GtkChild] unowned Gtk.Stack status_stack;
 	[GtkChild] unowned Gtk.Label status_title_label;
 	[GtkChild] unowned Gtk.Label status_message_label;
 	[GtkChild] unowned Gtk.Spinner status_spinner;
 
 	public class StatusMessage : Object {
-		public string title = STATUS_EMPTY;
+		public string? title = null;
 		public string? message = null;
 		public bool loading = false;
 	}
@@ -74,6 +78,10 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 			return _base_status;
 		}
 		set {
+			status_image.visible = false;
+			status_image.icon_name = "tuba-background-app-ghost-symbolic";
+			status_button.visible = false;
+
 			if (value == null) {
 				states.visible_child_name = "content";
 				status_spinner.spinning = false;
@@ -86,7 +94,13 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 					status_stack.visible_child_name = "message";
 					status_spinner.spinning = false;
 
-					status_title_label.label = value.title;
+					if (value.title == null) {
+						status_title_label.label = empty_state_title;
+						status_image.visible = true;
+					} else {
+						status_title_label.label = value.title;
+					}
+
 					if (value.message != null)
 						status_message_label.label = value.message;
 				}
@@ -118,6 +132,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		app.notify["is-mobile"].connect (update_back_btn);
 	}
 	~Base () {
+		this.last_widget = null;
 		debug (@"Destroying base $label");
 	}
 
@@ -153,6 +168,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	}
 
 	public virtual void clear () {
+		this.last_widget = null;
 		base_status = null;
 	}
 
@@ -173,7 +189,13 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 			message = reason
 		};
 
+		status_image.icon_name = "tuba-sad-computer-symbolic";
+		status_image.visible = true;
 		status_button.visible = true;
 		status_button.sensitive = true;
+	}
+
+	public void update_last_widget () {
+		this.last_widget = app.main_window.get_focus ();
 	}
 }

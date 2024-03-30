@@ -18,6 +18,8 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		construct_saveable (settings);
 
 		var gtk_settings = Gtk.Settings.get_default ();
+		if (gtk_settings != null) gtk_settings.gtk_label_select_on_focus = false;
+
 		breakpoint.add_setter (app, "is-mobile", true);
 		app.notify["is-mobile"].connect (update_selected_home_item);
 		media_viewer.bind_property ("visible", split_view, "can-focus", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
@@ -42,7 +44,6 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		if (is_media_viewer_visible || media_viewer_source_widget == null) return;
 
 		Gtk.Widget focusable_widget = media_viewer_source_widget;
-		while (focusable_widget != null && !focusable_widget.focusable) focusable_widget = focusable_widget.get_parent ();
 		if (focusable_widget != null) focusable_widget.grab_focus ();
 		media_viewer_source_widget = null;
 	}
@@ -62,6 +63,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			resizable: true
 		);
 		set_sidebar_selected_item (0);
+		navigation_view.popped.connect (on_popped);
 		main_page = new Adw.NavigationPage (new Views.Main (), _("Home"));
 		navigation_view.add (main_page);
 
@@ -79,28 +81,36 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	public void scroll_media_viewer (int pos) {
 		if (!is_media_viewer_visible) return;
 
-		media_viewer.scroll_to (pos);
+		media_viewer.scroll_to (pos, false);
 	}
 
 	public void show_media_viewer (
 		string url,
 		Tuba.Attachment.MediaType media_type,
 		Gdk.Paintable? preview,
-		int? pos = null,
 		Gtk.Widget? source_widget = null,
 		bool as_is = false,
 		string? alt_text = null,
 		string? user_friendly_url = null,
-		bool stream = false
+		bool stream = false,
+		bool? load_and_scroll = null,
+		bool reveal_media_viewer = true
 	) {
 		if (as_is && preview == null) return;
 
-		media_viewer.add_media (url, media_type, preview, pos, as_is, alt_text, user_friendly_url, stream, source_widget);
+		media_viewer.add_media (url, media_type, preview, as_is, alt_text, user_friendly_url, stream, source_widget, load_and_scroll);
 
-		if (!is_media_viewer_visible) {
+		if (reveal_media_viewer) {
+			media_viewer_source_widget = app.main_window.get_focus ();
 			media_viewer.reveal (source_widget);
-			media_viewer_source_widget = source_widget;
 		}
+	}
+
+	public void reveal_media_viewer_manually (Gtk.Widget? source_widget = null) {
+		if (is_media_viewer_visible) return;
+
+		media_viewer_source_widget = app.main_window.get_focus ();
+		media_viewer.reveal (source_widget);
 	}
 
 	public void show_book (API.BookWyrm book, string? fallback = null) {
@@ -118,21 +128,21 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			scroller.child = clamp;
 
 			var toolbar_view = new Adw.ToolbarView ();
-			var headerbar = new Adw.HeaderBar ();
+			var headerbar = new Adw.HeaderBar () {
+				centering_policy = Adw.CenteringPolicy.STRICT
+			};
 
 			toolbar_view.add_top_bar (headerbar);
 			toolbar_view.set_content (scroller);
 
-			var book_dialog = new Adw.Window () {
-				modal = true,
+			var book_dialog = new Adw.Dialog () {
 				title = book.title,
-				transient_for = this,
-				content = toolbar_view,
-				default_width = 460,
-				default_height = 520
+				child = toolbar_view,
+				content_width = 460,
+				content_height = 640
 			};
 
-			book_dialog.show ();
+			book_dialog.present (this);
 
 			((Widgets.BookWyrmPage) book_widget).selectable = true;
 		} catch {
@@ -147,6 +157,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 				last_view != null
 				&& last_view.label == view.label
 				&& !view.allow_nesting
+				&& view.uid == last_view.uid
 			)
 		) return view;
 
@@ -154,10 +165,16 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		if (view.is_sidebar_item) {
 			navigation_view.replace ({ main_page, page });
 		} else {
+			if (last_view != null) last_view.update_last_widget ();
 			navigation_view.push (page);
 		}
 
 		return view;
+	}
+
+	public void on_popped () {
+		var content_base = navigation_view.visible_page.child as Views.Base;
+		if (content_base != null && content_base.last_widget != null) content_base.last_widget.grab_focus ();
 	}
 
 	public bool back () {

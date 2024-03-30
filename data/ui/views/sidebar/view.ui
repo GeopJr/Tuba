@@ -33,6 +33,7 @@
 			<object class="AdwToolbarView">
 				<child type="top">
 					<object class="AdwHeaderBar">
+						<property name="centering-policy">strict</property>
 						<child type="start">
 							<object class="GtkMenuButton" id="accounts_button">
 								<property name="tooltip_text" translatable="yes">Switch Account</property>
@@ -60,21 +61,41 @@
 				</child>
 
 				<property name="content">
-					<object class="GtkScrolledWindow">
+					<object class="GtkBox">
+						<property name="orientation">vertical</property>
 						<property name="vexpand">1</property>
-						<property name="child">
-							<object class="GtkViewport">
-								<child>
-									<object class="GtkListBox" id="items">
-										<property name="selection_mode">single</property>
-										<signal name="row_activated" handler="on_item_activated" />
-										<style>
-											<class name="navigation-sidebar" />
-										</style>
-									</object>
-								</child>
+						<child>
+							<object class="AdwBanner" id="announcements_banner">
+								<property name="revealed">0</property>
+								<!-- translators: Button on a banner -->
+								<property name="button-label" translatable="yes">View</property>
 							</object>
-						</property>
+						</child>
+						<child>
+							<object class="AdwBanner" id="fr_banner">
+								<property name="revealed">0</property>
+								<!-- translators: Button on a banner -->
+								<property name="button-label" translatable="yes">View</property>
+							</object>
+						</child>
+						<child>
+							<object class="GtkScrolledWindow">
+								<property name="vexpand">1</property>
+								<property name="child">
+									<object class="GtkViewport">
+										<child>
+											<object class="GtkListBox" id="items">
+												<property name="selection_mode">single</property>
+												<signal name="row_activated" handler="on_item_activated" />
+												<style>
+													<class name="navigation-sidebar" />
+												</style>
+											</object>
+										</child>
+									</object>
+								</property>
+							</object>
+						</child>
 					</object>
 				</property>
 			</object>

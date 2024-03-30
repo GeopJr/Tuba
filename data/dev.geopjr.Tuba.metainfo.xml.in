@@ -17,7 +17,11 @@
     <binary>dev.geopjr.Tuba</binary>
   </provides>
   <launchable type="desktop-id">dev.geopjr.Tuba.desktop</launchable>
-  <developer_name translatable="no">Evangelos "GeopJr" Paterakis</developer_name>
+  <!-- developer_name tag deprecated with Appstream 1.0 -->
+  <developer_name translate="no">Evangelos "GeopJr" Paterakis</developer_name>
+  <developer id="dev.geopjr">
+    <name translate="no">Evangelos "GeopJr" Paterakis</name>
+  </developer>
   <url type="homepage">https://tuba.geopjr.dev/</url>
   <url type="bugtracker">https://github.com/GeopJr/Tuba/issues</url>
   <url type="translate">https://hosted.weblate.org/engage/tuba/</url>
@@ -39,6 +43,10 @@
       <image type="source">https://media.githubusercontent.com/media/GeopJr/Tuba/main/data/screenshots/screenshot-4.png</image>
     </screenshot>
   </screenshots>
+  <branding>
+    <color type="primary" scheme_preference="light">#a0eef3</color>
+    <color type="primary" scheme_preference="dark">#3a3ed7</color>
+  </branding>
   <content_rating type="oars-1.1">
     <content_attribute id="social-chat">moderate</content_attribute>
     <content_attribute id="social-audio">moderate</content_attribute>
@@ -54,8 +62,53 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.7.1" date="2024-03-28">
+      <description translate="no">
+        <ul>
+            <li>Fixed syntax highlighting not working on vanilla Mastodon instances</li>
+            <li>Fixed keyboard navigation losing focus between page changes</li>
+            <li>Fixed MediaViewer regressions with videos due to a race condition</li>
+            <li>Fixed MediaViewer showing the wrong widget when dismissing without using gestures</li>
+            <li>Fixed overlay icon missing its background on audio attachments with thumbnails</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.7.0" date="2024-03-20">
+      <description translate="no">
+        <ul>
+            <li>Visual refinements to match the state of the art of GNOME apps</li>
+            <li>Added filter handling and editing support</li>
+            <li>Added post and user reporting</li>
+            <li>Added Mutes and Blocks pages</li>
+            <li>Added banners for unread Announcements and Follow Requests</li>
+            <li>Added syntax highlighting in the Composer</li>
+            <li>Added badge on 'Home' for new posts</li>
+            <li>Added recent emojis in the Custom Emoji Chooser</li>
+            <li>Added stripping tracking parameters from URLs on paste</li>
+            <li>Added notification badges on Account Switcher entries</li>
+            <li>Added the option to darken images on dark mode</li>
+            <li>Redesigned the timeline status pages</li>
+            <li>Added support for all special character counting cases</li>
+            <li>Added 'New Post' to the main menu</li>
+            <li>Added the ability to zoom using ctrl and the mouse wheel on the Media Viewer</li>
+            <li>Added manpage</li>
+            <li>Added Windows builds</li>
+            <li>Added more tracking IDs to the stripping list</li>
+            <li>Added posting visibility syncing with the instance</li>
+            <li>Fixed Media Viewer not opening the correct attachment right away and instead scrolling to it</li>
+            <li>Fixed bugs involving multiple attachments and animations in the Media Viewer</li>
+            <li>Fixed navigation not working between nested pages and non-nested pages of the same name</li>
+            <li>Fixed issues preventing Windows and macOS builds</li>
+            <li>Fixed replacing files when saving attachments</li>
+            <li>Fixed media sensitivity not being kept when editing posts</li>
+            <li>Fixed other minor bugs and memory leaks</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.6.3" date="2024-02-02">
-      <description translatable="no">
+      <description translate="no">
         <ul>
             <li>Fixed websocket connections not retrying when getting reset by peer</li>
             <li>Fixed dialogs being unresponsive when other dialogs get presented at the same time</li>
@@ -66,7 +119,7 @@
       </description>
     </release>
     <release version="0.6.2" date="2024-01-15">
-      <description translatable="no">
+      <description translate="no">
         <ul>
             <li>Fixed incorrect DateTime calculation on very old posts</li>
             <li>Fixed MediaViewer not handling all instances of some keybinds</li>
@@ -84,14 +137,14 @@
       </description>
     </release>
     <release version="0.6.1" date="2023-12-23">
-      <description translatable="no">
+      <description translate="no">
         <ul>
             <li>Fixed French translation</li>
         </ul>
       </description>
     </release>
     <release version="0.6.0" date="2023-12-22">
-      <description translatable="no">
+      <description translate="no">
         <ul>
             <li>Added MediaViewer enter and leave transitions</li>
             <li>Added web+ap support</li>
@@ -136,7 +189,7 @@
       </description>
     </release>
     <release version="0.5.0" date="2023-09-22">
-      <description translatable="no">
+      <description translate="no">
         <ul>
             <li>Visual refinements to match the state of the art of GNOME apps</li>
             <li>Added larger custom emojis option</li>
@@ -167,7 +220,7 @@
       </description>
     </release>
     <release version="0.4.1" date="2023-08-05">
-        <description translatable="no">
+        <description translate="no">
           <ul>
               <li>Fixed News' discussed label not being aligned properly</li>
               <li>Fixed some strings being untranslatable</li>
@@ -185,7 +238,7 @@
         </description>
     </release>
     <release version="0.4.0" date="2023-07-19">
-        <description translatable="no">
+        <description translate="no">
           <ul>
               <li>Added explore tab</li>
               <li>Added pull to refresh</li>
@@ -280,7 +333,7 @@
         </description>
     </release>
     <release version="0.3.2" date="2023-05-21">
-        <description translatable="no">
+        <description translate="no">
           <ul>
               <li>Fixed severe performance issues on some devices</li>
               <li>Fixed BookWyrm detector being too strict</li>
@@ -288,7 +341,7 @@
         </description>
     </release>
     <release version="0.3.1" date="2023-05-20">
-        <description translatable="no">
+        <description translate="no">
           <ul>
               <li>Fixed crash when replying to posts outside of a thread</li>
               <li>Fixed polls not getting updated</li>
@@ -297,7 +350,7 @@
         </description>
     </release>
     <release version="0.3.0" date="2023-05-20">
-        <description translatable="no">
+        <description translate="no">
           <ul>
               <li>Added custom emoji support</li>
               <li>Added link preview cards</li>
@@ -358,7 +411,7 @@
         </description>
     </release>
     <release version="0.2.0" date="2023-04-04">
-        <description translatable="no">
+        <description translate="no">
           <ul>
               <li>Added composer autocomplete for users, hashtags and emojis</li>
               <li>Migrated to libsoup3</li>
@@ -379,7 +432,7 @@
         </description>
     </release>
     <release version="0.1.0" date="2023-03-23">
-        <description translatable="no">
+        <description translate="no">
           <ul>
               <li>Initial release</li>
           </ul>

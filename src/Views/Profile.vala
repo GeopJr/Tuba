@@ -91,8 +91,8 @@ public class Tuba.Views.Profile : Views.Accounts {
 		var widget_status = widget as Widgets.Status;
 		if (widget_status != null && profile.account.id == accounts.active.id) {
 			widget_status.show_toggle_pinned_action ();
-            widget_status.pin_changed.connect (on_refresh);
-        }
+			widget_status.pin_changed.connect (on_refresh);
+		}
 
 		return widget;
 	}
@@ -113,7 +113,23 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 	protected void change_timeline_source (string t_source) {
 		source = t_source;
-		accepts = t_source == "statuses" ? typeof (API.Status) : typeof (API.Account);
+
+		switch (t_source) {
+			case "statuses":
+				accepts = typeof (API.Status);
+				empty_state_title = _("No Posts");
+				break;
+			case "followers":
+				accepts = typeof (API.Account);
+				empty_state_title = _("No Followers");
+				break;
+			case "following":
+				accepts = typeof (API.Account);
+				empty_state_title = _("This user doesn't follow anyone yet");
+				break;
+			default:
+				assert_not_reached ();
+		}
 
 		url = @"/api/v1/accounts/$(profile.account.id)/$t_source";
 		invalidate_actions (true);
@@ -146,7 +162,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	private void open_edit_page () {
 		var dialog = new Dialogs.ProfileEdit (profile.account);
 		dialog.saved.connect (on_edit_save);
-		dialog.show ();
+		dialog.present (app.main_window);
 	}
 
 	private void on_edit_save () {
@@ -205,7 +221,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 		//  actions.add_action (source_action);
 		ar_list_action = new SimpleAction ("ar_list", null);
 		ar_list_action.activate.connect (v => {
-			create_ar_list_dialog ().show ();
+			create_ar_list_dialog ().present (app.main_window);
 		});
 		actions.add_action (ar_list_action);
 
@@ -230,6 +246,12 @@ public class Tuba.Views.Profile : Views.Accounts {
 			Host.open_uri (profile.account.url);
 		});
 		actions.add_action (open_in_browser_action);
+
+		var report_action = new SimpleAction ("report", null);
+		report_action.activate.connect (v => {
+			new Dialogs.Report (profile.account);
+		});
+		actions.add_action (report_action);
 
 		muting_action = new SimpleAction.stateful ("muting", null, false);
 		muting_action.change_state.connect (v => {
@@ -323,7 +345,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 		public bool remove { get; set; default = false; }
 	}
 
-	public Adw.Window create_ar_list_dialog () {
+	public Adw.Dialog create_ar_list_dialog () {
 		var spinner = new Gtk.Spinner () {
 			spinning = true,
 			halign = Gtk.Align.CENTER,
@@ -334,7 +356,9 @@ public class Tuba.Views.Profile : Views.Accounts {
 			height_request = 32
 		};
 		var toolbar_view = new Adw.ToolbarView ();
-		var headerbar = new Adw.HeaderBar ();
+		var headerbar = new Adw.HeaderBar () {
+			centering_policy = Adw.CenteringPolicy.STRICT
+		};
 		var toast_overlay = new Adw.ToastOverlay () {
 			vexpand = true,
 			valign = Gtk.Align.CENTER
@@ -343,14 +367,12 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 		toolbar_view.add_top_bar (headerbar);
 		toolbar_view.set_content (toast_overlay);
-		var dialog = new Adw.Window () {
+		var dialog = new Adw.Dialog () {
 			// translators: the variable is an account handle
 			title = _("Add or remove \"%s\" to or from a list").printf (profile.account.handle),
-			modal = true,
-			transient_for = app.main_window,
-			content = toolbar_view,
-			default_width = 600,
-			default_height = 550
+			child = toolbar_view,
+			content_width = 600,
+			content_height = 550
 		};
 		spinner.start ();
 

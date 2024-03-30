@@ -1,5 +1,5 @@
 public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
-	protected Gtk.Picture pic;
+	public Gtk.Picture pic { get; private set; }
 	protected Gtk.Overlay media_overlay;
 
 	private bool _spoiler = false;
@@ -43,11 +43,15 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	}
 
 	protected Gtk.Image? media_icon = null;
+	ulong pic_paintable_id = 0;
 	protected override void on_rebind () {
 		base.on_rebind ();
 		pic.alternative_text = entity == null ? null : entity.description;
 
-		Tuba.Helper.Image.request_paintable (entity.preview_url, entity.blurhash, on_cache_response);
+		if (pic_paintable_id != 0) {
+			pic.disconnect (pic_paintable_id);
+			pic_paintable_id = 0;
+		}
 
 		if (media_kind.is_video ()) {
 			media_icon = new Gtk.Image () {
@@ -59,6 +63,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 				media_icon.css_classes = { "osd", "circular", "attachment-overlay-icon" };
 				media_icon.icon_name = "media-playback-start-symbolic";
 			} else {
+				pic_paintable_id = pic.notify["paintable"].connect (on_audio_paintable_notify);
 				media_icon.icon_name = "tuba-music-note-symbolic";
 			}
 
@@ -68,7 +73,21 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			media_icon.icon_size = Gtk.IconSize.LARGE;
 		}
 
+		Tuba.Helper.Image.request_paintable (entity.preview_url, entity.blurhash, on_cache_response);
 		copy_media_simple_action.set_enabled (media_kind.can_copy ());
+	}
+
+	private void on_audio_paintable_notify () {
+		if (media_icon == null) return;
+
+		// toggle icon size so it applies
+		media_icon.icon_size = Gtk.IconSize.NORMAL;
+		if (pic.paintable == null) {
+			media_icon.css_classes = {};
+		} else {
+			media_icon.css_classes = { "osd", "circular", "attachment-overlay-icon" };
+		}
+		media_icon.icon_size = Gtk.IconSize.LARGE;
 	}
 
 	protected override void copy_media () {
@@ -103,15 +122,10 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 		}
 
 		if (media_kind != Tuba.Attachment.MediaType.UNKNOWN) {
-			load_image_in_media_viewer (null);
 			on_any_attachment_click (entity.url);
 		} else { // Fallback
 			base.on_click ();
 		}
-	}
-
-	public void load_image_in_media_viewer (int? pos) {
-		app.main_window.show_media_viewer (entity.url, media_kind, pic.paintable, pos, this, false, pic.alternative_text);
 	}
 
 	public signal void on_any_attachment_click (string url) {}

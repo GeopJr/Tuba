@@ -5,6 +5,9 @@ unit_tests = {
     'Celebrate': files (
         meson.project_source_root() + '/src/Utils/Celebrate.vala'
     ),
+    'Counting': files (
+        meson.project_source_root() + '/src/Utils/Counting.vala'
+    ),
     'DateTime': files (
         meson.project_source_root() + '/src/Utils/DateTime.vala'
     ),

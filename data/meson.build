@@ -28,6 +28,56 @@ install_data(
     ),
 )
 
+install_data(
+    join_paths('langs', 'fedi.xml'),
+    install_dir: join_paths(
+        get_option('prefix'),
+        get_option('datadir'),
+        'gtksourceview-5',
+        'styles',
+    ),
+)
+
+install_data(
+    join_paths('langs', 'fedi-dark.xml'),
+    install_dir: join_paths(
+        get_option('prefix'),
+        get_option('datadir'),
+        'gtksourceview-5',
+        'styles',
+    ),
+)
+
+install_data(
+    join_paths('langs', 'fedi-basic.lang'),
+    install_dir: join_paths(
+        get_option('prefix'),
+        get_option('datadir'),
+        'gtksourceview-5',
+        'language-specs',
+    ),
+)
+
+install_data(
+    join_paths('langs', 'fedi-html.lang'),
+    install_dir: join_paths(
+        get_option('prefix'),
+        get_option('datadir'),
+        'gtksourceview-5',
+        'language-specs',
+    ),
+)
+
+install_data(
+    join_paths('langs', 'fedi-markdown.lang'),
+    install_dir: join_paths(
+        get_option('prefix'),
+        get_option('datadir'),
+        'gtksourceview-5',
+        'language-specs',
+    ),
+)
+
 desktop_file = i18n.merge_file(
     input: meson.project_name() + '.desktop.in',
     output: meson.project_name() + '.desktop',
@@ -42,7 +92,7 @@ if desktop_utils.found()
     test('Validate desktop file', desktop_utils, args: [desktop_file])
 endif
 
-if host_machine.system() != 'windows'
+if host_machine.system() != 'windows' and host_machine.system() != 'darwin'
     appstream_file = i18n.merge_file(
         input: meson.project_name() + '.metainfo.xml.in',
         output: meson.project_name() + '.metainfo.xml',

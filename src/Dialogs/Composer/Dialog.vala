@@ -1,5 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/compose.ui")]
-public class Tuba.Dialogs.Compose : Adw.Window {
+public class Tuba.Dialogs.Compose : Adw.Dialog {
 	public class BasicStatus : Object {
 		public class BasicPoll : Object {
 			public Gee.ArrayList<string> options { get; set; default=new Gee.ArrayList <string> (); }
@@ -136,51 +136,35 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	}
 
 	public bool editing { get; set; default=false; }
-	public bool mobile { get; set; default=false; }
 
 	ulong build_sigid;
 	public signal void on_paste_activated (string page_title);
 	construct {
-		if (app.main_window.default_width <= 500) {
-			this.default_height = 500;
-			this.default_width = app.main_window.default_width;
-			mobile = true;
-		}
-
 		var paste_action = new SimpleAction ("paste", null);
 		paste_action.activate.connect (emit_paste_signal);
 
-		var exit_action = new SimpleAction ("exit", null);
-		exit_action.activate.connect (on_exit);
-
 		var action_group = new GLib.SimpleActionGroup ();
 		action_group.add_action (paste_action);
-		action_group.add_action (exit_action);
 
 		this.insert_action_group ("composer", action_group);
-		add_binding_action (Gdk.Key.Escape, 0, "composer.exit", null);
-		add_binding_action (Gdk.Key.W, Gdk.ModifierType.CONTROL_MASK, "composer.exit", null);
-		add_binding_action (Gdk.Key.Q, Gdk.ModifierType.CONTROL_MASK, "composer.exit", null);
 		add_binding_action (Gdk.Key.V, Gdk.ModifierType.CONTROL_MASK, "composer.paste", null);
 
-		transient_for = app.main_window;
 		title_switcher.policy = WIDE;
 		title_switcher.stack = stack;
 
 		build_sigid = notify["status"].connect (() => {
 			build ();
-			present ();
+			present (app.main_window);
 
 			disconnect (build_sigid);
 		});
 
 		stack.notify["visible-child"].connect (on_view_switched);
+		this.close_attempt.connect (on_exit);
 	}
+
 	~Compose () {
 		debug ("Destroying composer");
-		foreach (var page in t_pages) {
-			page.dispose ();
-		}
 		t_pages = {};
 	}
 
@@ -195,7 +179,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		on_paste_activated (this.title);
 	}
 
-	void on_exit () {
+	[GtkCallback] void on_exit () {
 		push_all ();
 
 		if (status.equal (original_status)) {
@@ -245,7 +229,7 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 		);
 		p_edit.bind_property ("can-publish", p_poll, "can-publish", GLib.BindingFlags.SYNC_CREATE);
 
-		p_edit.editor_grab_focus ();
+		this.focus_widget = p_edit.editor;
 	}
 
 	private void setup_pages (ComposerPage[] pages) {
@@ -362,7 +346,6 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 
 		page.dialog = this;
 		page.status = this.status;
-		if (mobile) page.action_bar_on_top = true;
 		if (editing) page.edit_mode = true;
 		page.on_build ();
 		page.on_pull ();
@@ -376,7 +359,11 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 	}
 
 	void on_close () {
-		destroy ();
+		this.force_close ();
+		foreach (var page in t_pages) {
+			stack.remove (page);
+			page.dispose ();
+		}
 	}
 
 	[GtkCallback] void on_commit () {
@@ -386,8 +373,8 @@ public class Tuba.Dialogs.Compose : Adw.Window {
 				transaction.end (res);
 			} catch (Error e) {
 				warning (e.message);
-				var dlg = app.inform (_("Error"), e.message, this);
-				dlg.present ();
+				var dlg = app.inform (_("Error"), e.message);
+				dlg.present (this);
 			} finally {
 				this.sensitive = true;
 			}
