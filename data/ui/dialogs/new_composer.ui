@@ -2,13 +2,12 @@
 <interface>
 	<requires lib="gtk" version="4.0" />
 	<requires lib="Adw" version="1.0" />
-	<template class="TubaDialogsNewCompose" parent="AdwWindow">
-		<property name="modal">1</property>
-		<property name="default_width">500</property>
-		<property name="default_height">400</property>
+	<template class="TubaDialogsNewCompose" parent="AdwDialog">
+		<property name="content_width">500</property>
+		<property name="content_height">400</property>
 		<property name="width_request">360</property>
 		<property name="height_request">200</property>
-		<property name="content">
+		<child>
 			<object class="AdwToolbarView">
 				<child type="top">
 					<object class="AdwHeaderBar">
@@ -19,6 +18,7 @@
 					<object class="GtkScrolledWindow">
 						<property name="hexpand">1</property>
 						<property name="vexpand">1</property>
+						<property name="max-content-height">400</property>
 						<child>
 							<object class="AdwClamp">
 								<property name="valign">start</property>
@@ -158,6 +158,6 @@
 					</object>
 				</child>
 			</object>
-		</property>
+		</child>
 	</template>
 </interface>

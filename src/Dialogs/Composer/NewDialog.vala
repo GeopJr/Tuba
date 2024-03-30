@@ -1,5 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/new_composer.ui")]
-public class Tuba.Dialogs.NewCompose : Adw.Window {
+public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Gtk.Label counter_label;
 	[GtkChild] private unowned Gtk.Button post_btn;
 	[GtkChild] private unowned Gtk.Box btns_box;
@@ -98,6 +98,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Window {
 		main_box.append (editor);
 
 		editor.notify["char-count"].connect (update_remaining_chars);
+		this.focus_widget = editor;
 	}
 
 	private void update_remaining_chars () {
@@ -188,8 +189,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Window {
 		install_languages ();
 
 		update_remaining_chars ();
-		transient_for = app.main_window;
-		present ();
+		present (app.main_window);
 	}
 
 	public NewCompose (API.Status template = new API.Status.empty ()) {
