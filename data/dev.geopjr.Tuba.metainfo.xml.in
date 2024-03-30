@@ -18,9 +18,9 @@
   </provides>
   <launchable type="desktop-id">dev.geopjr.Tuba.desktop</launchable>
   <!-- developer_name tag deprecated with Appstream 1.0 -->
-  <developer_name translatable="no">Evangelos "GeopJr" Paterakis</developer_name>
+  <developer_name translate="no">Evangelos "GeopJr" Paterakis</developer_name>
   <developer id="dev.geopjr">
-    <name translatable="no">Evangelos "GeopJr" Paterakis</name>
+    <name translate="no">Evangelos "GeopJr" Paterakis</name>
   </developer>
   <url type="homepage">https://tuba.geopjr.dev/</url>
   <url type="bugtracker">https://github.com/GeopJr/Tuba/issues</url>
@@ -63,7 +63,7 @@
   </recommends>
   <releases>
     <release version="0.7.1" date="2024-03-28">
-      <description translatable="no">
+      <description translate="no">
         <ul>
             <li>Fixed syntax highlighting not working on vanilla Mastodon instances</li>
             <li>Fixed keyboard navigation losing focus between page changes</li>
@@ -75,7 +75,7 @@
       </description>
     </release>
     <release version="0.7.0" date="2024-03-20">
-      <description translatable="no">
+      <description translate="no">
         <ul>
             <li>Visual refinements to match the state of the art of GNOME apps</li>
             <li>Added filter handling and editing support</li>
@@ -108,7 +108,7 @@
       </description>
     </release>
     <release version="0.6.3" date="2024-02-02">
-      <description translatable="no">
+      <description translate="no">
         <ul>
             <li>Fixed websocket connections not retrying when getting reset by peer</li>
             <li>Fixed dialogs being unresponsive when other dialogs get presented at the same time</li>
@@ -119,7 +119,7 @@
       </description>
     </release>
     <release version="0.6.2" date="2024-01-15">
-      <description translatable="no">
+      <description translate="no">
         <ul>
             <li>Fixed incorrect DateTime calculation on very old posts</li>
             <li>Fixed MediaViewer not handling all instances of some keybinds</li>
@@ -137,14 +137,14 @@
       </description>
     </release>
     <release version="0.6.1" date="2023-12-23">
-      <description translatable="no">
+      <description translate="no">
         <ul>
             <li>Fixed French translation</li>
         </ul>
       </description>
     </release>
     <release version="0.6.0" date="2023-12-22">
-      <description translatable="no">
+      <description translate="no">
         <ul>
             <li>Added MediaViewer enter and leave transitions</li>
             <li>Added web+ap support</li>
@@ -189,7 +189,7 @@
       </description>
     </release>
     <release version="0.5.0" date="2023-09-22">
-      <description translatable="no">
+      <description translate="no">
         <ul>
             <li>Visual refinements to match the state of the art of GNOME apps</li>
             <li>Added larger custom emojis option</li>
@@ -220,7 +220,7 @@
       </description>
     </release>
     <release version="0.4.1" date="2023-08-05">
-        <description translatable="no">
+        <description translate="no">
           <ul>
               <li>Fixed News' discussed label not being aligned properly</li>
               <li>Fixed some strings being untranslatable</li>
@@ -238,7 +238,7 @@
         </description>
     </release>
     <release version="0.4.0" date="2023-07-19">
-        <description translatable="no">
+        <description translate="no">
           <ul>
               <li>Added explore tab</li>
               <li>Added pull to refresh</li>
@@ -333,7 +333,7 @@
         </description>
     </release>
     <release version="0.3.2" date="2023-05-21">
-        <description translatable="no">
+        <description translate="no">
           <ul>
               <li>Fixed severe performance issues on some devices</li>
               <li>Fixed BookWyrm detector being too strict</li>
@@ -341,7 +341,7 @@
         </description>
     </release>
     <release version="0.3.1" date="2023-05-20">
-        <description translatable="no">
+        <description translate="no">
           <ul>
               <li>Fixed crash when replying to posts outside of a thread</li>
               <li>Fixed polls not getting updated</li>
@@ -350,7 +350,7 @@
         </description>
     </release>
     <release version="0.3.0" date="2023-05-20">
-        <description translatable="no">
+        <description translate="no">
           <ul>
               <li>Added custom emoji support</li>
               <li>Added link preview cards</li>
@@ -411,7 +411,7 @@
         </description>
     </release>
     <release version="0.2.0" date="2023-04-04">
-        <description translatable="no">
+        <description translate="no">
           <ul>
               <li>Added composer autocomplete for users, hashtags and emojis</li>
               <li>Migrated to libsoup3</li>
@@ -432,7 +432,7 @@
         </description>
     </release>
     <release version="0.1.0" date="2023-03-23">
-        <description translatable="no">
+        <description translate="no">
           <ul>
               <li>Initial release</li>
           </ul>
