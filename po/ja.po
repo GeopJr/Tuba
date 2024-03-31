@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: 2024-03-30 09:02+0000\n"
+"PO-Revision-Date: 2024-03-31 13:01+0000\n"
 "Last-Translator: Gnuey56 <gnuey56@proton.me>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/tuba/tuba/ja/>\n"
 "Language: ja\n"
@@ -53,10 +53,10 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
-"Fediverse とは、複数の相互接続されたプラットフォームやコミュニティからなる、"
-"脱中央集権的（分散型）なソーシャルネットワークであり、サーバーやネットワーク"
-"を越えての会話・コンテンツの共有を可能とします。これはユーザーのプライバシー"
-"とデータのコントロールの向上させ、他の中央集権化された SNS "
+"Fediverse は、複数の相互接続されたプラットフォームやコミュニティからなる、脱"
+"中央集権的（分散型）なソーシャルネットワークであり、サーバーやネットワークを"
+"越えての会話やコンテンツの共有を可能とします。これにより、ユーザーのプライバ"
+"シーとデータのコントロールの向上させ、他の中央集権化された SNS "
 "プラットフォームの代替を提供します。"
 
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
@@ -190,12 +190,13 @@ msgid "Title"
 msgstr "タイトル"
 
 #: data/ui/dialogs/filter_edit.ui:65
+#, fuzzy
 msgid "Expires In"
-msgstr ""
+msgstr "制限時間"
 
 #: data/ui/dialogs/filter_edit.ui:70
 msgid "Hide Completely"
-msgstr ""
+msgstr "完全に隠す"
 
 #: data/ui/dialogs/filter_edit.ui:71
 msgid "Otherwise a warning will be used"
