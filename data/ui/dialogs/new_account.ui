@@ -64,7 +64,7 @@
                                   <object class="AdwPreferencesGroup">
                                     <child>
                                       <object class="AdwEntryRow" id="instance_entry">
-                                        <property name="title" translatable="true">Server URL</property>
+                                        <property name="title" translatable="yes">Server URL</property>
                                         <property name="input_purpose">url</property>
                                         <signal name="entry_activated" handler="on_next_clicked" swapped="no"/>
                                         <signal name="changed" handler="clear_errors" swapped="no"/>
@@ -151,7 +151,7 @@
                                     <property name="visible" bind-source="TubaDialogsNewAccount" bind-property="use_auto_auth" bind-flags="sync-create|invert-boolean"/>
                                     <child>
                                       <object class="AdwEntryRow" id="code_entry">
-                                        <property name="title" translatable="true">Authorization Code</property>
+                                        <property name="title" translatable="yes">Authorization Code</property>
                                         <signal name="entry_activated" handler="on_next_clicked" swapped="no"/>
                                         <signal name="changed" handler="clear_errors" swapped="no"/>
                                       </object>
@@ -208,7 +208,7 @@
                     <property name="vexpand">1</property>
                     <property name="icon_name">tuba-check-round-outline-symbolic</property>
                     <property name="title">Hello!</property>
-                    <property name="description" translatable="true">Your account is connected and ready to use!</property>
+                    <property name="description" translatable="yes">Your account is connected and ready to use!</property>
                     <style>
                         <class name="compact"/>
                     </style>
