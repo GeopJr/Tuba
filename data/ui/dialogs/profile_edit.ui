@@ -9,7 +9,7 @@
   <template class="TubaDialogsProfileEdit" parent="AdwDialog">
     <property name="content_width">460</property>
     <property name="content_height">520</property>
-    <property name="title" translatable="1">Edit Profile</property>
+    <property name="title" translatable="yes">Edit Profile</property>
     <child>
       <object class="AdwToolbarView">
         <child type="top">
