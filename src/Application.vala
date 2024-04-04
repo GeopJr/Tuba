@@ -201,7 +201,11 @@ namespace Tuba {
 				if (GLib.Environment.get_variable ("SECRET_BACKEND") == "file")
 					GLib.Environment.set_variable ("SECRET_FILE_TEST_PASSWORD", @"$(GLib.Environment.get_user_name ())$(Build.DOMAIN)", false);
 			#endif
+
 			GLib.Environment.set_variable ("GSK_RENDERER", "gl", false);
+			if (GLib.Environment.get_variable ("GSK_RENDERER") == "gl") {
+				GLib.Environment.set_variable ("GDK_DEBUG", "gl-no-fractional", false);
+			}
 
 			app = new Application ();
 			return app.run (args);
