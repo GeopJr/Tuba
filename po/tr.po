@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: 2024-03-15 22:02+0000\n"
+"PO-Revision-Date: 2024-04-06 20:01+0000\n"
 "Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/tuba/tuba/tr/>\n"
 "Language: tr\n"
@@ -191,7 +191,7 @@ msgstr "Başlık"
 
 #: data/ui/dialogs/filter_edit.ui:65
 msgid "Expires In"
-msgstr ""
+msgstr "Süresi Dolacak"
 
 #: data/ui/dialogs/filter_edit.ui:70
 msgid "Hide Completely"
@@ -199,19 +199,19 @@ msgstr "Tamamen Gizle"
 
 #: data/ui/dialogs/filter_edit.ui:71
 msgid "Otherwise a warning will be used"
-msgstr ""
+msgstr "Aksi takdirde uyarı kullanılacak"
 
 #: data/ui/dialogs/filter_edit.ui:78
 msgid "Contexts"
-msgstr ""
+msgstr "Bağlamlar"
 
 #: data/ui/dialogs/filter_edit.ui:79
 msgid "One or multiple contexts where the filter should apply"
-msgstr ""
+msgstr "Süzgecin uygulanması gereken bir ya da birden çok bağlam"
 
 #: data/ui/dialogs/filter_edit.ui:84
 msgid "Keywords or Phrases"
-msgstr ""
+msgstr "Anahtar Kelimeler ya da İfadeler"
 
 #: data/ui/dialogs/filter_edit.ui:92
 msgid "Add Keyword"
@@ -335,11 +335,11 @@ msgstr "Geniş Özel Emojiler"
 
 #: data/ui/dialogs/preferences.ui:57
 msgid "Scale Custom Emojis on Hover"
-msgstr ""
+msgstr "Üzerine Gelindiğinde Özel Emojileri Ölçekle"
 
 #: data/ui/dialogs/preferences.ui:58
 msgid "Slightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "Özel emojilerin üzerine geldiğinizde boyutlarını biraz artırır"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:64
@@ -417,11 +417,11 @@ msgstr "Takip Parametrelerini Bağlantılardan Temizle"
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:146
 msgid "This option can lead to broken links when enabled"
-msgstr ""
+msgstr "Bu seçenek etkinleştirildiğinde kırık bağlantılara neden olabilir"
 
 #: data/ui/dialogs/preferences.ui:151
 msgid "Advanced Boost Dialog"
-msgstr ""
+msgstr "Gelişmiş Yeniden Gönderi İletişim Kutusu"
 
 #: data/ui/dialogs/preferences.ui:152
 msgid "Change boost visibility, quote and confirm boosting"
@@ -435,11 +435,11 @@ msgstr "Zaman çizelgeleri"
 
 #: data/ui/dialogs/preferences.ui:162
 msgid "Posts per Load Batch"
-msgstr ""
+msgstr "Yükleme Yığını Başına Gönderi"
 
 #: data/ui/dialogs/preferences.ui:170
 msgid "Stream Timelines"
-msgstr ""
+msgstr "Akış Zaman Çizelgeleri"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Receive new posts and notifications in real-time"
@@ -447,7 +447,7 @@ msgstr "Yeni iletileri ve bildirimleri gerçek zamanlı olarak al"
 
 #: data/ui/dialogs/preferences.ui:177
 msgid "Stream Public Timelines"
-msgstr ""
+msgstr "Genel Zaman Çizelgelerini Akıt"
 
 #: data/ui/dialogs/preferences.ui:178
 msgid "Warning: This will increase memory usage"
@@ -1243,7 +1243,7 @@ msgstr "Zararlı bağlantılar, sahte etkileşim ya da yinelenen yanıtlar"
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:42
 msgid "You are aware that it breaks specific rules"
-msgstr ""
+msgstr "Bunun belirli kuralları ihlal ettiğinin farkındasınız"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
@@ -1261,13 +1261,13 @@ msgstr "%s bildiriliyor"
 #. this is meant for reporting users
 #: src/Dialogs/Report.vala:148
 msgid "Tell us what's going on with this account"
-msgstr ""
+msgstr "Bize bu hesapta neler olduğunu anlatın"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting posts
 #: src/Dialogs/Report.vala:152
 msgid "Tell us what's going on with this post"
-msgstr ""
+msgstr "Bize bu gönderide neler olduğunu anlatın"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of radio-button options where the user can only choose one
@@ -1284,7 +1284,7 @@ msgstr "Hangi kurallar ihlal edildi?"
 #. this shown above a list of checkbox options where the user can select multiple
 #: src/Dialogs/Report.vala:201 src/Dialogs/Report.vala:266
 msgid "Select all that apply"
-msgstr ""
+msgstr "Geçerli olan tümünü seç"
 
 #. translators: 'fetch' as in get
 #: src/Dialogs/Report.vala:233
@@ -1349,7 +1349,7 @@ msgstr "Geri"
 #: src/Dialogs/Report.vala:496 src/Dialogs/Report.vala:507
 #, c-format
 msgid "%s. You can continue with the report however."
-msgstr ""
+msgstr "%s. Ancak bildiriye devam edebilirsiniz."
 
 #: src/Dialogs/Report.vala:496
 msgid "No posts found"
@@ -1695,7 +1695,7 @@ msgstr "İletiler"
 
 #: src/Views/Explore.vala:7 src/Views/Hashtags.vala:7
 msgid "No Hashtags"
-msgstr ""
+msgstr "Etiket Yok"
 
 #: src/Views/Explore.vala:8
 msgid "News"
@@ -1963,7 +1963,7 @@ msgstr "Yeniden Gönderildi"
 
 #: src/Views/StatusStats.vala:25
 msgid "No Boosts"
-msgstr ""
+msgstr "Yeniden Gönderi Yok"
 
 #: src/Views/Thread.vala:32
 msgid "Conversation"
