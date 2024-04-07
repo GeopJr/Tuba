@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Gnuey56 <gnuey56@proton.me>, 2023.
+# Gnuey56 <gnuey56@proton.me>, 2023, 2024.
 # Scott Anecito <scott.anecito@linux.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: 2023-12-23 16:49+0000\n"
+"PO-Revision-Date: 2024-03-31 13:01+0000\n"
 "Last-Translator: Gnuey56 <gnuey56@proton.me>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/tuba/tuba/ja/>\n"
 "Language: ja\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -41,7 +41,7 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-"連合するソーシャルウェブをGNOME向けクライアントの Tuba とともに探索しましょ"
+"連合するソーシャルウェブを GNOME 向けクライアントの Tuba とともに探索しましょ"
 "う。Mastodon、GoToSocial、Akkomaなどの人気のFediverseプラットフォームをサポー"
 "トしており、お気に入りのコミュニティ、家族や友達とつながることができます！"
 
@@ -53,11 +53,11 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
-"Fediverse とは、複数の相互接続されたプラットフォームやコミュニティからなる、"
-"脱中央集権的（分散型）なソーシャルネットワークであり、サーバーやネットワーク"
-"を越えての会話・コンテンツの共有を可能とします。これはユーザーのプライバシー"
-"とデータのコントロールの向上させ、他の中央集権化されたSNSプラットフォームの代"
-"替を提供します。"
+"Fediverse は、複数の相互接続されたプラットフォームやコミュニティからなる、脱"
+"中央集権的（分散型）なソーシャルネットワークであり、サーバーやネットワークを"
+"越えての会話やコンテンツの共有を可能とします。これにより、ユーザーのプライバ"
+"シーとデータのコントロールの向上させ、他の中央集権化された SNS "
+"プラットフォームの代替を提供します。"
 
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:20
@@ -66,11 +66,11 @@ msgstr "一般"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "設定を表示"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "新しい投稿"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:56
 msgid "Refresh"
@@ -123,7 +123,7 @@ msgstr "メディアビューアー"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "全画面表示"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:148
 msgid "Zoom In"
@@ -144,22 +144,22 @@ msgstr "次の添付ファイル"
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "拡大"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "縮小"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr ""
+msgstr "前の添付ファイル"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Next Attachment"
-msgstr ""
+msgstr "次の添付ファイル"
 
 #: data/ui/dialogs/compose.ui:35 data/ui/dialogs/filter_edit.ui:17
 #: data/ui/dialogs/new_account.ui:22 data/ui/dialogs/profile_edit.ui:21
@@ -178,7 +178,7 @@ msgstr "投稿(_P)"
 
 #: data/ui/dialogs/filter_edit.ui:8
 msgid "Edit Filter"
-msgstr ""
+msgstr "フィルターを編集"
 
 #: data/ui/dialogs/filter_edit.ui:25 data/ui/dialogs/profile_edit.ui:28
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:151
@@ -187,15 +187,16 @@ msgstr "保存"
 
 #: data/ui/dialogs/filter_edit.ui:59
 msgid "Title"
-msgstr ""
+msgstr "タイトル"
 
 #: data/ui/dialogs/filter_edit.ui:65
+#, fuzzy
 msgid "Expires In"
-msgstr ""
+msgstr "制限時間"
 
 #: data/ui/dialogs/filter_edit.ui:70
 msgid "Hide Completely"
-msgstr ""
+msgstr "完全に隠す"
 
 #: data/ui/dialogs/filter_edit.ui:71
 msgid "Otherwise a warning will be used"
