@@ -5,12 +5,14 @@ public class Tuba.Settings : GLib.Settings {
 		public string default_content_type { get; set; default = "text/plain"; }
 		public string[] muted_notification_types { get; set; default = {}; }
 		public string[] recently_used_custom_emojis { get; set; default = {}; }
+		public string notifications_filter { get; set; default = "all"; }
 
 		private static string[] keys_to_init = {
 			"default-post-visibility",
 			"muted-notification-types",
 			"default-content-type",
-			"recently-used-custom-emojis"
+			"recently-used-custom-emojis",
+			"notifications-filter"
 		};
 
 		public Account (string id) {
@@ -88,6 +90,16 @@ public class Tuba.Settings : GLib.Settings {
 
 		set {
 			active_account_settings.recently_used_custom_emojis = value;
+		}
+	}
+
+	public string notifications_filter {
+		get {
+			return active_account_settings.notifications_filter;
+		}
+
+		set {
+			active_account_settings.notifications_filter = value;
 		}
 	}
 
