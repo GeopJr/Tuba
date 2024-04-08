@@ -205,8 +205,12 @@
 			status: status
 		);
 
-		if (kind == null && status.reblog != null) {
-			kind = InstanceAccount.KIND_REMOTE_REBLOG;
+		if (kind == null) {
+			if (status.reblog != null) {
+				kind = InstanceAccount.KIND_REMOTE_REBLOG;
+			} else if (status.in_reply_to_id != null || status.in_reply_to_account_id != null) {
+				kind = InstanceAccount.KIND_REPLY;
+			}
 		}
 
 		init_menu_button ();
@@ -432,8 +436,10 @@
 		Tuba.InstanceAccount.Kind res_kind;
 		accounts.active.describe_kind (this.kind, out res_kind, this.kind_instigator.display_name, this.kind_instigator.url);
 
+		if (header_button_activate > 0) header_button.disconnect (header_button_activate);
 		if (res_kind.icon == null) {
 			//  status_box.margin_top = 18;
+			header_icon.visible = header_button.visible = false;
 			return;
 		};
 
@@ -471,9 +477,11 @@
 		header_label.label = res_kind.description;
 		header_kind_url = res_kind.url;
 
-		if (header_button_activate > 0) header_button.disconnect (header_button_activate);
-		if (header_kind_url != null)
+		if (header_kind_url != null) {
 			header_button_activate = header_button.clicked.connect (on_header_button_clicked);
+		} else {
+			header_button_activate = header_button.clicked.connect (on_open);
+		}
 	}
 
 	private void on_header_button_clicked () {
