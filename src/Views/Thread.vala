@@ -207,6 +207,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		widget_status.reply_cb = on_replied;
 		widget_status.enable_thread_lines = true;
 		widget_status.content.selectable = true;
+		widget_status.kind = null;
 
 		if (((API.Status) obj).id == root_status.id) {
 			#if !USE_LISTVIEW

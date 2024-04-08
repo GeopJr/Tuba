@@ -14,6 +14,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_FOLLOW_REQUEST = "follow_request";
 	public const string KIND_REMOTE_REBLOG = "__remote-reblog";
 	public const string KIND_EDITED = "update";
+	public const string KIND_REPLY = "tuba_reply";
 
 	public string uuid { get; set; }
 	public string? backend { set; get; }
@@ -168,7 +169,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	public virtual void describe_kind (
-		string kind,
+		string? kind,
 		out Kind result,
 		string? actor_name = null,
 		string? callback_url = null
@@ -227,6 +228,13 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				result = {
 					"document-edit-symbolic",
 					_("%s edited a post").printf (actor_name),
+					null
+				};
+				break;
+			case KIND_REPLY:
+				result = {
+					"tuba-reply-sender-symbolic",
+					_("In Reply"),
 					null
 				};
 				break;
