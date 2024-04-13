@@ -22,7 +22,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
     }
 
     void toggle_scale_emoji_hover () {
-        Tuba.toggle_css (note, settings.scale_emoji_hover, "lww-scale-emoji-hover");
+        Tuba.toggle_css (this, settings.scale_emoji_hover, "lww-scale-emoji-hover");
     }
 
     public string cover_badge_label {
@@ -73,7 +73,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
     public Cover (Views.Profile.ProfileAccount profile) {
         if (settings.scale_emoji_hover)
-            note.add_css_class ("lww-scale-emoji-hover");
+            this.add_css_class ("lww-scale-emoji-hover");
         settings.notify["scale-emoji-hover"].connect (toggle_scale_emoji_hover);
 
         display_name.instance_emojis = profile.account.emojis_map;
