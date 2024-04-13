@@ -230,6 +230,10 @@ flowboxchild {
 	padding: 1px 6px;
 }
 
+.ttl-profile-field {
+	padding: 6px 12px;
+}
+
 .ttl-verified-field {
 	color: @success_color;
 	background: alpha(@success_bg_color, 0.1);
