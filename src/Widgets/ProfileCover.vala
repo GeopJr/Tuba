@@ -134,7 +134,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
                 };
 
                 var title_label = new Widgets.EmojiLabel () {
-                    use_markup = false
+                    use_markup = false,
+                    css_classes = {"dim-label", "subtitle"}
                 };
                 title_label.instance_emojis = profile.account.emojis_map;
                 title_label.content = f.name;
