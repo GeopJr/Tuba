@@ -123,16 +123,27 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
         if (profile.account.fields != null) {
             foreach (API.AccountField f in profile.account.fields) {
-                var row = new Adw.ActionRow ();
+                var row = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+                    css_classes = {"ttl-profile-field"}
+                };
                 var val = new Widgets.RichLabel (HtmlUtils.simplify (f.val)) {
                     use_markup = true,
                     hexpand = true,
-                    xalign = 1
+                    xalign = 0,
+                    selectable = true
                 };
-                row.title = f.name;
 
-                info.append (row);
+                var title_label = new Widgets.EmojiLabel () {
+                    use_markup = false
+                };
+                title_label.instance_emojis = profile.account.emojis_map;
+                title_label.content = f.name;
+                row.append (title_label);
 
+                info.append (new Gtk.ListBoxRow () {
+                    child = row,
+                    activatable = false
+                });
                 if (f.verified_at != null) {
                     var verified_date = f.verified_at.slice (0, f.verified_at.last_index_of ("T"));
                     var verified_label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -141,12 +152,12 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
                     };
 
                     verified_label_box.append (val);
-                    verified_label_box.append (verified_checkmark);
+                    verified_label_box.prepend (verified_checkmark);
 
-                    row.add_suffix (verified_label_box);
+                    row.append (verified_label_box);
                     row.add_css_class ("ttl-verified-field");
                 } else {
-                    row.add_suffix (val);
+                    row.append (val);
                 };
             }
         }
