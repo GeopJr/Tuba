@@ -265,7 +265,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			scroller.vadjustment.changed.connect (emit_zoom_changed);
 			scroller.hadjustment.changed.connect (emit_zoom_changed);
 
-			var scroll = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.VERTICAL | Gtk.EventControllerScrollFlags.DISCRETE);
+			var scroll = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.BOTH_AXES | Gtk.EventControllerScrollFlags.DISCRETE);
 			scroll.scroll.connect (on_scroll);
 			scroller.add_controller (scroll);
 
