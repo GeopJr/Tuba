@@ -1,0 +1,113 @@
+{
+    "app-id" : "dev.geopjr.reproducer",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "46",
+    "sdk" : "org.gnome.Sdk",
+    "command" : "reproducer",
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.vala"
+    ],
+    "tags" : [
+        "devel",
+        "development",
+        "nightly"
+    ],
+    "desktop-file-name-prefix" : "(Development) ",
+    "finish-args" : [
+        "--device=dri",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--talk-name=org.gtk.vfs",
+        "--talk-name=org.gtk.vfs.*"
+    ],
+    "cleanup" : [
+        "/include",
+        "/lib/pkgconfig",
+        "/share/pkgconfig",
+        "/share/aclocal",
+        "/man",
+        "/share/man",
+        "/share/gtk-doc",
+        "*.la",
+        ".a",
+        "/lib/girepository-1.0",
+        "/share/gir-1.0",
+        "/share/doc"
+    ],
+    "modules" : [
+        {
+            "name" : "libsass",
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "config-opts" : [
+                "--libdir=/app/lib"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/lazka/libsass.git",
+                    "branch" : "meson"
+                }
+            ]
+        },
+        {
+            "name" : "sassc",
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "config-opts" : [
+                "--libdir=/app/lib"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/lazka/sassc.git",
+                    "branch" : "meson"
+                }
+            ]
+        },
+        {
+            "name" : "gtk",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dvulkan=disabled"
+            ],
+            "sources" : [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/gtk.git",
+                    "branch": "main"
+                }
+            ]
+        },
+        {
+            "name" : "reproducer",
+            "buildsystem" : "simple",
+            "builddir" : true,
+            "config-opts" : [
+                "--libdir=/app/lib",
+                "-Dbuildtype=debugoptimized",
+                "-Ddemo-profile=devel"
+            ],
+            "build-commands": [
+                "valac --target-glib=2.74 --pkg gtk4 --pkg libadwaita-1 reproducer.vala",
+                "install -D -m 0755 reproducer /app/bin/reproducer",
+                "install -D -m 0644 reproducer.desktop /app/share/applications/dev.geopjr.reproducer.desktop"
+            ],
+            "sources" : [
+                {
+                    "type" : "file",
+                    "path" : "./reproducer.vala"
+                },
+                {
+                    "type" : "file",
+                    "path" : "./reproducer.desktop"
+                }
+            ]
+        }
+    ],
+    "build-options" : {
+        "prepend-path" : "/usr/lib/sdk/vala/bin/",
+        "prepend-ld-library-path" : "/usr/lib/sdk/vala/lib"
+    }
+}

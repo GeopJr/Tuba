@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+StartupWMClass=reproducer
+Exec=reproducer %F
+Name=reproducer
+GenericName=reproducer
+Comment=reproducer
+Terminal=false
+Icon=dev.geopjr.reproducer
+Categories=Utility;
+Keywords=reproducer;
+# Translators: Do NOT translate or transliterate this text (these are enum types)!
+X-Purism-FormFactor=Workstation;Mobile;
