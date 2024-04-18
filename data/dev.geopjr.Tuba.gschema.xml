@@ -88,6 +88,9 @@
 		<key name="darken-images-on-dark-mode" type="b">
 			<default>false</default>
 		</key>
+		<key name="media-viewer-last-used-volume" type="d">
+			<default>1.0</default>
+		</key>
 
 		<key name="window-w" type="i">
 			<default>600</default>

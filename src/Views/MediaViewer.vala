@@ -234,8 +234,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				((Gtk.Video) child_widget).media_stream.volume = 1.0 - last_used_volume;
 				((Gtk.Video) child_widget).media_stream.volume = last_used_volume;
 				((Gtk.Video) child_widget).media_stream.playing = pre_playing;
+				((Gtk.Video) child_widget).media_stream.notify["volume"].connect (on_manual_volume_change);
 			};
 			is_done = true;
+		}
+
+		private void on_manual_volume_change () {
+			settings.media_viewer_last_used_volume = ((Gtk.Video) child_widget).media_stream.volume;
 		}
 
 		private bool on_scroll (Gtk.EventControllerScroll scroll, double dx, double dy) {
@@ -336,6 +341,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	construct {
+		last_used_volume = settings.media_viewer_last_used_volume.clamp (0.0, 1.0);
 		if (is_rtl) back_btn.icon_name = "tuba-right-large-symbolic";
 
 		var shortcutscontroller = new Gtk.ShortcutController ();

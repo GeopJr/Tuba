@@ -112,6 +112,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool reply_to_old_post_reminder { get; set; }
 	public bool spellchecker_enabled { get; set; }
 	public bool darken_images_on_dark_mode { get; set; }
+	public double media_viewer_last_used_volume { get; set; }
 
 	private static string[] keys_to_init = {
 		"active-account",
@@ -134,7 +135,8 @@ public class Tuba.Settings : GLib.Settings {
 		"advanced-boost-dialog",
 		"reply-to-old-post-reminder",
 		"spellchecker-enabled",
-		"darken-images-on-dark-mode"
+		"darken-images-on-dark-mode",
+		"media-viewer-last-used-volume"
 	};
 
 	public Settings () {
