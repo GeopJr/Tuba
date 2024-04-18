@@ -1,0 +1,146 @@
+From ec504b00e635c9bd5cb88ea2acf120c4d02ebc41 Mon Sep 17 00:00:00 2001
+From: Sergey Bugaev <bugaevc@gmail.com>
+Date: Wed, 15 Nov 2023 13:46:55 +0300
+Subject: [PATCH 1/2] boxlayout: Measure a single variable-size child directly
+
+Since commit 76c46739447023368db4c3e6d008b52ff4b249e0
+"boxlayout: Fix broken min-size-for-opposite-size", GtkBoxLayout runs a
+binary search to determine its minimum size along the opposite
+orientation, trying different sizes and seeing if its children fit the
+provided for_size constraint along the natural orientation. This is only
+done if any of the box's children are not constant-size.
+
+A notable source of non-constant-size-ness in a widget tree is a
+GtkLabel with wrap = true, which runs a single Pango layout to measure
+its height-for-width, and its own binary search, each time doing a Pango
+layout, in case it has to measure its width-for-height. So if a
+wrappable label is located in a horizontal box, there will be two levels
+of binary searches performed. Moreover, the amount of nested binary
+searches gets amplified if the label is wrapped into several layers of
+boxes of alternating orientations, which causes a huge number of Pango
+layouts to be performed.
+
+This has been found to be a source of *major* performance issues in
+Fractal [0] and Paper Plane [1] chat apps.
+
+[0]: https://gitlab.gnome.org/GNOME/fractal/-/issues/1183
+[1]: https://github.com/paper-plane-developers/paper-plane/issues/379
+
+Partly address the issue by noticing that the common case is actually
+the box having a single non-constant-size child, and a number of
+constant-size children; for example, this can be a wrappable label with
+the message text (height-for-width), sender's avatar (constant-size),
+and a non-wrappable label with the date/time the message was sent (also
+constant-size). This is also true of the many layers of outer boxes;
+where the inner box is the only non-constant-size child.
+
+In this simple and common case, we can ask the single non-constant-size
+child for its minimum size in the opposite orientation directly, without
+running a binary search. This cuts down on the number of Pango layouts
+dramatically.
+
+Signed-off-by: Sergey Bugaev <bugaevc@gmail.com>
+---
+ gtk/gtkboxlayout.c | 34 +++++++++++++++++++++++++++++++---
+ 1 file changed, 31 insertions(+), 3 deletions(-)
+
+diff --git a/gtk/gtkboxlayout.c b/gtk/gtkboxlayout.c
+index 1555c17bc72..ea22665f8df 100644
+--- a/gtk/gtkboxlayout.c
++++ b/gtk/gtkboxlayout.c
+@@ -390,6 +390,8 @@ gtk_box_layout_compute_opposite_size (GtkBoxLayout *self,
+  */
+ #define MAX_ALLOWED_SIZE (1 << 20)
+ 
++#define STRINGIFY_ORIENTATION(orientation) ((orientation) == GTK_ORIENTATION_HORIZONTAL ? "width" : "height")
++
+ static int
+ distribute_remaining_size (GtkRequestedSize *sizes,
+                            gsize             n_sizes,
+@@ -404,6 +406,32 @@ distribute_remaining_size (GtkRequestedSize *sizes,
+   if (n_sizes == 0)
+     return available;
+ 
++  if (n_sizes == 1)
++    {
++      gtk_widget_measure (sizes[0].data,
++                          OPPOSITE_ORIENTATION (orientation),
++                          available,
++                          &min, NULL,
++                          NULL, NULL);
++      gtk_widget_measure (sizes[0].data,
++                          orientation,
++                          min,
++                          &sizes[0].minimum_size, &sizes[0].natural_size,
++                          NULL, NULL);
++
++      if (G_LIKELY (sizes[0].minimum_size <= available))
++        return available - sizes[0].minimum_size;
++      else
++        g_warning ("%s %p reports minimum %s of %d for %s of %d, but minimum %s of %d for %s of %d",
++                   G_OBJECT_TYPE_NAME (sizes[0].data), sizes[0].data,
++                   STRINGIFY_ORIENTATION (OPPOSITE_ORIENTATION (orientation)), min,
++                   STRINGIFY_ORIENTATION (orientation), available,
++                   STRINGIFY_ORIENTATION (orientation), sizes[0].minimum_size,
++                   STRINGIFY_ORIENTATION (OPPOSITE_ORIENTATION (orientation)), min);
++        /* Proceed to binary search, which only relies on measurements
++         * in one orientation being consistent.  */
++    }
++
+   for (i = 0; i < n_sizes; i++)
+     {
+       gtk_widget_measure (sizes[i].data,
+@@ -443,10 +471,10 @@ distribute_remaining_size (GtkRequestedSize *sizes,
+                 {
+                   g_critical ("%s %p reports a minimum %s of %u, but minimum %s for %s of %u is %u. Expect overlapping widgets.",
+                               G_OBJECT_TYPE_NAME (sizes[i].data), sizes[i].data,
+-                              orientation == GTK_ORIENTATION_HORIZONTAL ? "width" : "height",
++                              STRINGIFY_ORIENTATION (orientation),
+                               check_min,
+-                              orientation == GTK_ORIENTATION_HORIZONTAL ? "width" : "height",
+-                              orientation == GTK_ORIENTATION_HORIZONTAL ? "height" : "width",
++                              STRINGIFY_ORIENTATION (orientation),
++                              STRINGIFY_ORIENTATION (OPPOSITE_ORIENTATION (orientation)),
+                               MAX_ALLOWED_SIZE, sizes[i].minimum_size);
+                   sizes[i].minimum_size = check_min;
+                   sizes[i].natural_size = check_nat;
+-- 
+GitLab
+
+
+From 73ca57e6c6c482165eb03b1c44181b8399f47309 Mon Sep 17 00:00:00 2001
+From: Sergey Bugaev <bugaevc@gmail.com>
+Date: Wed, 15 Nov 2023 14:08:17 +0300
+Subject: [PATCH 2/2] flowbox: Report constant-size request mode when empty
+
+Constant size widgets are much easier for the layout machinery to deal
+with; in particular this can help GtkBoxLayout to hit a faster measuring
+path.
+
+This is prompted by the Fractal app using a GtkFlowBox to display emoji
+reactions to a chat message. For most messages, there are no reactions,
+so the GtkFlowBox could report being constant-size, which would enable
+the containing GtkBox'es to do their layout much faster.
+
+Signed-off-by: Sergey Bugaev <bugaevc@gmail.com>
+---
+ gtk/gtkflowbox.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/gtk/gtkflowbox.c b/gtk/gtkflowbox.c
+index 93c3f8ec467..64d438fc4f4 100644
+--- a/gtk/gtkflowbox.c
++++ b/gtk/gtkflowbox.c
+@@ -1915,6 +1915,9 @@ gtk_flow_box_get_request_mode (GtkWidget *widget)
+ {
+   GtkFlowBox *box = GTK_FLOW_BOX (widget);
+ 
++  if (get_visible_children (box) == 0)
++    return GTK_SIZE_REQUEST_CONSTANT_SIZE;
++
+   return (BOX_PRIV (box)->orientation == GTK_ORIENTATION_HORIZONTAL) ?
+     GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH : GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT;
+ }
+-- 
+GitLab
+

@@ -26,6 +26,54 @@
     ],
     "modules": [
         {
+            "name" : "libsass",
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "config-opts" : [
+                "--libdir=/app/lib"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/lazka/libsass.git",
+                    "branch" : "meson"
+                }
+            ]
+        },
+        {
+            "name" : "sassc",
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "config-opts" : [
+                "--libdir=/app/lib"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/lazka/sassc.git",
+                    "branch" : "meson"
+                }
+            ]
+        },
+        {
+            "name" : "gtk",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dvulkan=disabled"
+            ],
+            "sources" : [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/bugaevc/gtk.git",
+                    "branch": "label-lines"
+                },
+                {
+                    "type": "patch",
+                    "path": "box.patch"
+                }
+            ]
+        },
+        {
             "name" : "libspelling",
             "buildsystem" : "meson",
             "config-opts" : [
