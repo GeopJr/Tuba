@@ -129,6 +129,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
                 selection_mode = Gtk.SelectionMode.NONE,
                 css_classes = {"ttl-profile-fields-box"}
             };
+            var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
             int total_fields = profile.account.fields.size;
 
             foreach (API.AccountField f in profile.account.fields) {
@@ -149,6 +150,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
                 title_label.content = f.name;
 
                 fields_box.append (row);
+                sizegroup.add_widget (row);
                 if (f.verified_at != null) {
                     var verified_date = f.verified_at.slice (0, f.verified_at.last_index_of ("T"));
                     var verified_label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -195,6 +197,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
                 row.append (val);
 
                 fields_box.append (row);
+                sizegroup.add_widget (row);
             }
 
             var fields_row = new Gtk.ListBoxRow () {
