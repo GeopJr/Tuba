@@ -22,7 +22,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
     }
 
     void toggle_scale_emoji_hover () {
-        Tuba.toggle_css (note, settings.scale_emoji_hover, "lww-scale-emoji-hover");
+        Tuba.toggle_css (this, settings.scale_emoji_hover, "lww-scale-emoji-hover");
     }
 
     public string cover_badge_label {
@@ -71,9 +71,10 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
         app.main_window.show_media_viewer (avi_url, Tuba.Attachment.MediaType.IMAGE, avatar.custom_image, avatar, true);
     }
 
+    Gtk.FlowBox fields_box;
     public Cover (Views.Profile.ProfileAccount profile) {
         if (settings.scale_emoji_hover)
-            note.add_css_class ("lww-scale-emoji-hover");
+            this.add_css_class ("lww-scale-emoji-hover");
         settings.notify["scale-emoji-hover"].connect (toggle_scale_emoji_hover);
 
         display_name.instance_emojis = profile.account.emojis_map;
@@ -121,29 +122,35 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
         avi_url = profile.account.avatar ?? "";
         avatar.clicked.connect (open_pfp_in_media_viewer);
 
-        if (profile.account.fields != null) {
+        if (profile.account.fields != null || profile.account.created_at != null) {
+            fields_box = new Gtk.FlowBox () {
+                max_children_per_line = app.is_mobile ? 1 : 2,
+                min_children_per_line = 1,
+                selection_mode = Gtk.SelectionMode.NONE,
+                css_classes = {"ttl-profile-fields-box"}
+            };
+            var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
+            int total_fields = profile.account.fields.size;
+
             foreach (API.AccountField f in profile.account.fields) {
                 var row = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
                     css_classes = {"ttl-profile-field"}
                 };
                 var val = new Widgets.RichLabel (HtmlUtils.simplify (f.val)) {
                     use_markup = true,
-                    hexpand = true,
                     xalign = 0,
                     selectable = true
                 };
 
                 var title_label = new Widgets.EmojiLabel () {
-                    use_markup = false
+                    use_markup = false,
+                    css_classes = {"dim-label"}
                 };
                 title_label.instance_emojis = profile.account.emojis_map;
                 title_label.content = f.name;
-                row.append (title_label);
 
-                info.append (new Gtk.ListBoxRow () {
-                    child = row,
-                    activatable = false
-                });
+                fields_box.append (row);
+                sizegroup.add_widget (row);
                 if (f.verified_at != null) {
                     var verified_date = f.verified_at.slice (0, f.verified_at.last_index_of ("T"));
                     var verified_label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -151,40 +158,67 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
                         tooltip_text = _(@"Ownership of this link was checked on $verified_date")
                     };
 
-                    verified_label_box.append (val);
-                    verified_label_box.prepend (verified_checkmark);
+                    verified_label_box.append (title_label);
+                    verified_label_box.append (verified_checkmark);
 
                     row.append (verified_label_box);
                     row.add_css_class ("ttl-verified-field");
                 } else {
-                    row.append (val);
+                    row.append (title_label);
                 };
+
+                row.append (val);
             }
-        }
 
-        if (profile.account.created_at != null) {
-            var row = new Adw.ActionRow ();
-            var parsed_date = new GLib.DateTime.from_iso8601 (profile.account.created_at, null);
-            parsed_date = parsed_date.to_timezone (new TimeZone.local ());
+            if (profile.account.created_at != null) {
+                total_fields += 1;
+                var row = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+                    css_classes = {"ttl-profile-field"}
+                };
+                var parsed_date = new GLib.DateTime.from_iso8601 (profile.account.created_at, null);
+                parsed_date = parsed_date.to_timezone (new TimeZone.local ());
 
-            var date_local = _("%B %e, %Y");
-            var val = new Gtk.Label (parsed_date.format (date_local).replace (" ", "")) { // %e prefixes with whitespace on single digits
-                wrap = true,
-                xalign = 1,
-                hexpand = true,
-                tooltip_text = parsed_date.format ("%F")
+                var date_local = _("%B %e, %Y");
+                var val = new Gtk.Label (parsed_date.format (date_local).replace (" ", "")) { // %e prefixes with whitespace on single digits
+                    wrap = true,
+                    xalign = 0,
+                    hexpand = true,
+                    tooltip_text = parsed_date.format ("%F")
+                };
+
+                var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+                // translators: as in created an account; this is used in Profiles in a row
+                //				which has as value the date the profile was created on
+                title_box.append (new Gtk.Label (_("Joined")) {
+                    css_classes = {"dim-label"}
+                });
+                title_box.prepend (new Gtk.Image.from_icon_name ("contact-new-symbolic"));
+                row.append (title_box);
+                row.append (val);
+
+                fields_box.append (row);
+                sizegroup.add_widget (row);
+            }
+
+            var fields_row = new Gtk.ListBoxRow () {
+                child = fields_box,
+                activatable = false,
+                css_classes = {"ttl-profile-fields-box-container"}
             };
 
-            // translators: as in created an account; this is used in Profiles in a row
-            //				which has as value the date the profile was created on
-            row.title = _("Joined");
+            if (total_fields % 2 != 0) {
+                fields_row.add_css_class ("odd");
+            }
 
-            info.append (row);
-            row.add_suffix (val);
-            row.add_prefix (new Gtk.Image.from_icon_name ("contact-new-symbolic"));
+            info.append (fields_row);
+		    app.notify["is-mobile"].connect (update_fields_max_columns);
         }
 
         build_profile_stats (profile.account);
+    }
+
+    private void update_fields_max_columns () {
+        fields_box.max_children_per_line = app.is_mobile ? 1 : 2;
     }
 
     protected void build_profile_stats (API.Account account) {
