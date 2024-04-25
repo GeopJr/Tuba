@@ -843,8 +843,16 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			item = new Item (video, final_friendly_url, final_preview, true);
 
 			if (stream) {
-				File file = File.new_for_uri (url);
-				video.set_file (file);
+				Helper.Video.request.begin (url, (obj, res) => {
+					try {
+						video.set_media_stream (Gtk.MediaFile.for_input_stream (Helper.Video.request.end (res)));
+						add_todo_item (item);
+					} catch (Oopsie e) {
+						warning (e.message);
+						var dlg = app.inform (_("Error"), e.message);
+						dlg.present (app.main_window);
+					}
+				});
 			} else if (!as_is) {
 				download_video.begin (url, (obj, res) => {
 					try {
