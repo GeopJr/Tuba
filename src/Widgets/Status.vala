@@ -546,6 +546,7 @@
 		actions.reply.connect (on_reply_button_clicked);
 		content_column.append (actions);
 
+		this.content.has_quote = status.formal.quote != null;
 		this.content.mentions = status.formal.mentions;
 		this.content.instance_emojis = status.formal.emojis_map;
 		this.content.content = status.formal.content;
