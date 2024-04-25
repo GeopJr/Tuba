@@ -164,6 +164,7 @@ namespace Tuba {
 				warning (e.message);
 			}
 
+			Clapper.init (ref args);
 			cache_path = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, GLib.Environment.get_user_cache_dir (), Build.NAME.down ());
 
 			try {
@@ -195,6 +196,7 @@ namespace Tuba {
 			Intl.bindtextdomain (Build.GETTEXT_PACKAGE, Build.LOCALEDIR);
 			Intl.textdomain (Build.GETTEXT_PACKAGE);
 
+			GLib.Environment.set_variable ("CLAPPER_USE_PLAYBIN3", "1", false);
 			GLib.Environment.unset_variable ("GTK_THEME");
 			#if WINDOWS || DARWIN
 				GLib.Environment.set_variable ("SECRET_BACKEND", "file", false);

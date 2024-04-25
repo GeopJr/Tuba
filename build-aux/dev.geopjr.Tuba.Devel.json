@@ -3,6 +3,15 @@
     "runtime": "org.gnome.Platform",
     "runtime-version": "46",
     "sdk": "org.gnome.Sdk",
+    "add-extensions": {
+        "org.freedesktop.Platform.ffmpeg-full": {
+            "version": "23.08",
+            "directory": "lib/ffmpeg",
+            "add-ld-path": ".",
+            "no-autodownload": false,
+            "autodelete": false
+        }
+    },
     "command": "dev.geopjr.Tuba",
     "finish-args": [
         "--device=dri",
@@ -10,7 +19,13 @@
         "--share=network",
         "--socket=fallback-x11",
         "--socket=wayland",
-        "--socket=pulseaudio"
+        "--socket=pulseaudio",
+        "--filesystem=xdg-run/pipewire-0:ro",
+        "--filesystem=xdg-run/gvfsd",
+        "--own-name=org.mpris.MediaPlayer2.ClapperValaTest",
+        "--talk-name=org.gtk.vfs.*",
+        "--env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0",
+        "--env=GST_PLUGIN_FEATURE_RANK=vah264dec:MAX,vah265dec:MAX,vavp9dec:MAX,vaav1dec:MAX"
     ],
     "cleanup": [
         "/include",
@@ -25,6 +40,9 @@
         "*.a"
     ],
     "modules": [
+        "clapper/gstreamer.json",
+        "clapper/gtuber.json",
+        "clapper/clapper.json",
         {
             "name" : "libspelling",
             "buildsystem" : "meson",
@@ -53,5 +71,8 @@
                 }
             ]
         }
+    ],
+    "cleanup-commands": [
+        "mkdir -p /app/lib/ffmpeg"
     ]
 }

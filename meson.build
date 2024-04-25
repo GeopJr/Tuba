@@ -81,6 +81,8 @@ libadwaita_dep = dependency('libadwaita-1', version: '>=1.5', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
 libwebp_dep = dependency('libwebp', required: false)
 libspelling = dependency('libspelling-1', required: false)
+clapper_dep = dependency('clapper-0.0', required: false)
+clapper_gtk_dep = dependency('clapper-gtk-0.0', required: false)
 
 if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
@@ -98,6 +100,13 @@ if gtksourceview_dep.version().version_compare('>=5.7.1')
   add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
 endif
 
+if clapper_dep.found () and clapper_dep.version().version_compare('>=0.6.0') and clapper_gtk_dep.found ()
+  add_project_arguments(['--define=CLAPPER'], language: 'vala')
+  if (clapper_dep.get_variable('features').split().contains('mpris'))
+    add_project_arguments(['--define=CLAPPER_MPRIS'], language: 'vala')
+  endif
+endif
+
 sources = files()
 subdir('src')
 
@@ -113,7 +122,9 @@ final_deps = [
   gtksourceview_dep,
   dependency('gtk4', version: '>=4.13.4', required: true),
   libadwaita_dep,
-  meson.get_compiler('c').find_library('m', required: false)
+  meson.get_compiler('c').find_library('m', required: false),
+  clapper_dep,
+  clapper_gtk_dep
 ]
 
 executable(

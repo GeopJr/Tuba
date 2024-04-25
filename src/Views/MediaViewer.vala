@@ -85,13 +85,32 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		public bool playing {
 			get {
 				if (!is_video) return false;
-				return is_done ? ((Gtk.Video) child_widget).media_stream.playing : pre_playing;
+				if (!is_done) return pre_playing;
+				#if CLAPPER
+					switch (((ClapperGtk.Video) child_widget).player.state) {
+						case Clapper.PlayerState.PAUSED:
+						case Clapper.PlayerState.STOPPED:
+							return false;
+						default:
+							return true;
+					}
+				#else
+					return ((Gtk.Video) child_widget).media_stream.playing;
+				#endif
 			}
 
 			set {
 				if (!is_video) return;
 				if (is_done) {
-					((Gtk.Video) child_widget).media_stream.playing = value;
+					#if CLAPPER
+						if (value) {
+							((ClapperGtk.Video) child_widget).player.play ();
+						} else {
+							((ClapperGtk.Video) child_widget).player.pause ();
+						}
+					#else
+						((Gtk.Video) child_widget).media_stream.playing = value;
+					#endif
 				} else {
 					pre_playing = value;
 				}
@@ -214,10 +233,17 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			debug ("Destroying MediaViewer.Item");
 
 			if (is_video) {
-				last_used_volume = ((Gtk.Video) child_widget).media_stream.muted ? 0.0 : ((Gtk.Video) child_widget).media_stream.volume;
-				((Gtk.Video) child_widget).media_stream.stream_unprepared ();
-				((Gtk.Video) child_widget).set_file (null);
-				((Gtk.Video) child_widget).set_media_stream (null);
+				#if CLAPPER
+					ClapperGtk.Video child_wdgt = (ClapperGtk.Video) child_widget;
+					last_used_volume = child_wdgt.player.mute ? 0.0 : child_wdgt.player.volume;
+					child_wdgt.player.queue.clear ();
+				#else
+					Gtk.Video child_wdgt = (Gtk.Video) child_widget;
+					last_used_volume = child_wdgt.media_stream.muted ? 0.0 : child_wdgt.media_stream.volume;
+					child_wdgt.media_stream.stream_unprepared ();
+					child_wdgt.set_file (null);
+					child_wdgt.set_media_stream (null);
+				#endif
 			} else {
 				((Gtk.Picture) child_widget).paintable = null;
 			}
@@ -231,16 +257,34 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			spinner.spinning = false;
 			stack.visible_child_name = "child";
 			if (is_video) {
-				((Gtk.Video) child_widget).media_stream.volume = 1.0 - last_used_volume;
-				((Gtk.Video) child_widget).media_stream.volume = last_used_volume;
-				((Gtk.Video) child_widget).media_stream.playing = pre_playing;
-				((Gtk.Video) child_widget).media_stream.notify["volume"].connect (on_manual_volume_change);
+				#if CLAPPER
+					var player = ((ClapperGtk.Video) child_widget).player;
+				#else
+					var player = ((Gtk.Video) child_widget).media_stream;
+					player.volume = 1.0 - last_used_volume;
+				#endif
+				player.volume = last_used_volume;
+				#if CLAPPER
+					if (pre_playing) {
+						player.play ();
+					} else {
+						player.pause ();
+					}
+				#else
+					player.playing = pre_playing;
+				#endif
+				player.notify["volume"].connect (on_manual_volume_change);
 			};
 			is_done = true;
 		}
 
 		private void on_manual_volume_change () {
-			settings.media_viewer_last_used_volume = ((Gtk.Video) child_widget).media_stream.volume;
+			settings.media_viewer_last_used_volume =
+			#if CLAPPER
+				((ClapperGtk.Video) child_widget).player.volume;
+			#else
+				((Gtk.Video) child_widget).media_stream.volume;
+			#endif
 		}
 
 		private bool on_scroll (Gtk.EventControllerScroll scroll, double dx, double dy) {
@@ -831,32 +875,61 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			revealer_widgets.set (items.size, revealer_widget);
 
 		if (media_type.is_video ()) {
-			var video = new Gtk.Video ();
-
-			video.graphics_offload = Gtk.GraphicsOffloadEnabled.ENABLED;
+			#if CLAPPER
+				var video = new ClapperGtk.Video () {
+					auto_inhibit = true
+				};
+				video.add_fading_overlay (new ClapperGtk.SimpleControls () {
+					valign = Gtk.Align.END
+				});
+				#if CLAPPER_MPRIS
+				    var mpris = new Clapper.Mpris (
+				      "org.mpris.MediaPlayer2.ClapperValaTest",
+				      Build.NAME,
+					  null
+					);
+				    video.player.add_feature (mpris);
+				#endif
+				video.player.audio_filter = Gst.ElementFactory.make ("scaletempo", null);
+			#else
+				var video = new Gtk.Video ();
+				video.graphics_offload = Gtk.GraphicsOffloadEnabled.ENABLED;
+			#endif
 
 			if (media_type == Tuba.Attachment.MediaType.GIFV) {
-				video.loop = true;
-				video.autoplay = true;
+				#if CLAPPER
+					video.player.autoplay = true;
+				#else
+					video.loop = true;
+					video.autoplay = true;
+				#endif
 			}
 
 			item = new Item (video, final_friendly_url, final_preview, true);
 
-			if (stream) {
-				File file = File.new_for_uri (url);
-				video.set_file (file);
-			} else if (!as_is) {
-				download_video.begin (url, (obj, res) => {
-					try {
-						var path = download_video.end (res);
-						video.set_filename (path);
-						add_todo_item (item);
-					} catch (Error e) {
-						var dlg = app.inform (_("Error"), e.message);
-						dlg.present (app.main_window);
-					}
-				});
-			}
+			#if CLAPPER
+				var clp_item = new Clapper.MediaItem (url);
+				video.player.queue.add_item (clp_item);
+				video.player.queue.select_item (clp_item);
+				add_todo_item (item);
+			#else
+				if (stream) {
+					File file = File.new_for_uri (url);
+					video.set_file (file);
+					add_todo_item (item);
+				} else if (!as_is) {
+					download_video.begin (url, (obj, res) => {
+						try {
+							var path = download_video.end (res);
+							video.set_filename (path);
+							add_todo_item (item);
+						} catch (Error e) {
+							var dlg = app.inform (_("Error"), e.message);
+							dlg.present (app.main_window);
+						}
+					});
+				}
+			#endif
 		} else {
 			var picture = new Gtk.Picture ();
 

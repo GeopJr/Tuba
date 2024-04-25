@@ -1,0 +1,23 @@
+GStreamer does not support DRM modifiers passing across pipeline
+elements. Do not blindly assume LINEAR on desktop, as Intel GPUs
+use tiling formats. Do not set wrong modifiers... and pray that
+default behavior will pick up the right one.
+---
+diff --git a/subprojects/gst-plugins-base/gst-libs/gst/gl/egl/gsteglimage.c b/subprojects/gst-plugins-base/gst-libs/gst/gl/egl/gsteglimage.c
+index 906f56e381..63b62aaf8d 100644
+--- a/subprojects/gst-plugins-base/gst-libs/gst/gl/egl/gsteglimage.c
++++ b/subprojects/gst-plugins-base/gst-libs/gst/gl/egl/gsteglimage.c
+@@ -882,8 +882,13 @@ gst_egl_image_from_dmabuf_direct_target (GstGLContext * context,
+     return NULL;
+ 
+   fourcc = _drm_direct_fourcc_from_info (in_info);
++
++#if (defined(__i386__) || defined(_M_IX86) || defined(__x86_64__) || defined(_M_X64))
++  with_modifiers = FALSE;
++#else
+   with_modifiers = gst_gl_context_check_feature (context,
+       "EGL_EXT_image_dma_buf_import_modifiers");
++#endif
+ 
+   /* EGL DMABuf importation supports a maximum of 3 planes */
+   if (G_UNLIKELY (n_planes > 3))
