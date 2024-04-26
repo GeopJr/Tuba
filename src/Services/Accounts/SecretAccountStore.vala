@@ -65,31 +65,45 @@ public class Tuba.SecretAccountStore : AccountStore {
 			bool force_save = false;
 			var account = secret_to_account (item, out force_save);
 			if (account != null && account.id != "") {
-				new Request.GET (@"/api/v1/accounts/$(account.id)")
-					.with_account (account)
-					.then ((in_stream) => {
-						var parser = Network.get_parser_from_inputstream (in_stream);
-						var node = network.parse_node (parser);
-						var acc = API.Account.from (node);
+				try {
+					//  bool can_reach = network_monitor.can_reach (new NetworkAddress (account.instance, 80));
+					//  if (!can_reach) {
+					//  	cant_reach_instance_notify (account.instance);
+					//  } else {
+						new Request.GET (@"/api/v1/accounts/$(account.id)")
+							.with_account (account)
+							.then ((in_stream) => {
+								var parser = Network.get_parser_from_inputstream (in_stream);
+								var node = network.parse_node (parser);
+								var acc = API.Account.from (node);
 
-						if (account.display_name != acc.display_name || account.avatar != acc.avatar) {
-							account.display_name = acc.display_name;
-							account.avatar = acc.avatar;
+								if (account.display_name != acc.display_name || account.avatar != acc.avatar) {
+									account.display_name = acc.display_name;
+									account.avatar = acc.avatar;
 
-							account_to_secret (account);
-						}
-					})
-					.exec ();
-					saved.add (account);
-					account.added ();
+									account_to_secret (account);
+								}
+							})
+							.exec ();
+							saved.add (account);
+							account.added ();
 
-					// TODO: remove uuid fallback
-					if (force_save) safe_save ();
+							// TODO: remove uuid fallback
+							if (force_save) safe_save ();
+					//  }
+				} catch (Error e) {
+					cant_reach_instance_notify (account.instance, e.message);
+				}
 			}
 		});
 		changed (saved);
 
 		debug (@"Loaded $(saved.size) accounts");
+	}
+
+	private void cant_reach_instance_notify (string instance, string error_msg = "") {
+		var error_msg_formatted = error_msg == "" ? error_msg : @": $error_msg";
+		error (@"Couldn't reach $instance$error_msg_formatted");
 	}
 
 	public override void save () throws GLib.Error {
