@@ -216,6 +216,15 @@ namespace Tuba {
 		}
 
 		private void on_network_change (bool online) {
+			// We really need to avoid triggering it unnecessarily
+			// wait 5 seconds before triggering it
+			// also don't trust the 'online' status
+			GLib.Timeout.add_once (5000, on_network_change_cb);
+		}
+
+		private void on_network_change_cb () {
+			bool online = network_monitor.network_available;
+
 			// Avoid triggering it as much as possible
 			// as it causes websocket reconnects and
 			// timeline refreshes
