@@ -24,6 +24,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public string? client_id { get; set; }
 	public string? client_secret { get; set; }
 	public string? access_token { get; set; }
+	public bool needs_update { get; set; default=false; }
 	public Error? error { get; set; } //TODO: use this field when server invalidates the auth token
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
@@ -89,7 +90,29 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				}
 			});
 		#endif
+
+		app.notify["is-online"].connect (on_network_change);
 	}
+
+	private void on_network_change () {
+		if (is_active && needs_update && app.is_online) {
+			needs_update = false;
+			new Request.GET (@"/api/v1/accounts/$(this.id)")
+				.with_account (account)
+				.then ((in_stream) => {
+					var parser = Network.get_parser_from_inputstream (in_stream);
+					var node = network.parse_node (parser);
+					var acc = API.Account.from (node);
+
+					if (this.display_name != acc.display_name || this.avatar != acc.avatar) {
+						this.display_name = acc.display_name;
+						this.avatar = acc.avatar;
+					}
+				})
+			.exec ();
+		}
+	}
+
 	~InstanceAccount () {
 		destruct_streamable ();
 	}

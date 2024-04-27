@@ -66,10 +66,11 @@ public class Tuba.SecretAccountStore : AccountStore {
 			var account = secret_to_account (item, out force_save);
 			if (account != null && account.id != "") {
 				try {
-					//  bool can_reach = network_monitor.can_reach (new NetworkAddress (account.instance, 80));
-					//  if (!can_reach) {
-					//  	cant_reach_instance_notify (account.instance);
-					//  } else {
+					bool can_reach = network_monitor.can_reach (new NetworkAddress (account.instance, 80));
+					if (!can_reach) {
+						cant_reach_instance_notify (account.instance);
+						account.needs_update = true;
+					} else {
 						new Request.GET (@"/api/v1/accounts/$(account.id)")
 							.with_account (account)
 							.then ((in_stream) => {
@@ -85,15 +86,16 @@ public class Tuba.SecretAccountStore : AccountStore {
 								}
 							})
 							.exec ();
-							saved.add (account);
-							account.added ();
-
-							// TODO: remove uuid fallback
-							if (force_save) safe_save ();
-					//  }
+					}
 				} catch (Error e) {
 					cant_reach_instance_notify (account.instance, e.message);
+					account.needs_update = true;
 				}
+				saved.add (account);
+				account.added ();
+
+				// TODO: remove uuid fallback
+				if (force_save) safe_save ();
 			}
 		});
 		changed (saved);
