@@ -3,6 +3,7 @@ public class Tuba.Dialogs.Offline : Adw.Window {
 		if (network_monitor.network_available || app.is_online) return;
 		this.transient_for = win;
 		this.modal = true;
+		this.resizable = false;
 		this.default_height = 382;
 		this.default_width = 360;
 
