@@ -372,8 +372,6 @@ namespace Tuba {
 
 			if (main_window != null)
 				main_window.close_request.connect (on_window_closed);
-
-			on_network_change_cb ();
 		}
 
 		public bool on_window_closed () {
