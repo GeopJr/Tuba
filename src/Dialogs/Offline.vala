@@ -1,23 +1,25 @@
 public class Tuba.Dialogs.Offline : Adw.Window {
-	construct {
+	public Offline (Gtk.Window win) {
 		if (network_monitor.network_available || app.is_online) return;
+		this.transient_for = win;
 		this.modal = true;
+		this.default_height = 382;
+		this.default_width = 360;
 
-		this.default_height = this.default_width = 360;
-		var toolbar_view = new Adw.ToolbarView () {
-			extend_content_to_top_edge = true,
-			content = new Adw.StatusPage () {
+		var exit_btn = new Gtk.Button.with_label (_("Quit")) {
+			css_classes = {"pill"},
+			halign = Gtk.Align.CENTER
+		};
+		exit_btn.clicked.connect (on_quit);
+
+		this.content = new Gtk.WindowHandle () {
+			child = new Adw.StatusPage () {
 				icon_name = "network-wireless-offline-symbolic",
 				title = _("Offline"),
-				//  description = _("") // ???
+				description = _("No Network Connection"),
+				child = exit_btn
 			}
 		};
-
-		toolbar_view.add_top_bar (new Adw.HeaderBar () {
-			show_title = false
-		});
-
-		this.content = toolbar_view;
 
 		present ();
 		app.notify["is-online"].connect (on_network_change);
@@ -30,9 +32,13 @@ public class Tuba.Dialogs.Offline : Adw.Window {
 		return base.close_request ();
 	}
 
+	void on_quit () {
+		this.close ();
+	}
+
 	void on_network_change () {
 		if (app.is_online) {
-			close_request ();
+			this.close ();
 		}
 	}
 }

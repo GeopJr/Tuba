@@ -224,7 +224,7 @@ namespace Tuba {
 			is_online = online;
 			if (!is_online) {
 				foreach (var win in app.get_windows ()) {
-					new Dialogs.Offline ().transient_for = win;
+					new Dialogs.Offline (win);
 				}
 			}
 		}
