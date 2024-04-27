@@ -39,7 +39,6 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 		css_classes = { "flat", "circular", "image-button", "ttl-flat-button" };
 
 		on_invalidated ();
-		app.notify["is-online"].connect (on_network_change);
 	}
 
 	void on_invalidated (API.Account? account = null) {
@@ -55,13 +54,5 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 
 	void on_cache_response (Gdk.Paintable? data) {
 		avatar.custom_image = data;
-	}
-
-	protected void on_network_change () {
-		// FIXME
-		//  if (app.is_online && avatar.get_custom_image () == null && this.avatar_url != null) {
-		//  	// trigger it again
-		//  	this.avatar_url = this.avatar_url;
-		//  }
 	}
 }
