@@ -32,7 +32,7 @@ namespace Tuba {
 		public Dialogs.MainWindow? main_window { get; set; }
 		public Dialogs.NewAccount? add_account_window { get; set; }
 		public bool is_mobile { get; set; default=false; }
-		public bool is_online { get; set; default=true; }
+		public bool is_online { get; private set; default=true; }
 
 		public Locales app_locales { get; construct set; }
 
