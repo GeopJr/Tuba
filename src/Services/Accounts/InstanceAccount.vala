@@ -98,7 +98,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		if (is_active && needs_update && app.is_online) {
 			needs_update = false;
 			new Request.GET (@"/api/v1/accounts/$(this.id)")
-				.with_account (account)
+				.with_account (this)
 				.then ((in_stream) => {
 					var parser = Network.get_parser_from_inputstream (in_stream);
 					var node = network.parse_node (parser);
