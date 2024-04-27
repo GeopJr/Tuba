@@ -280,7 +280,6 @@ namespace Tuba {
 			set_accels_for_action ("app.scroll-page-up", {"Page_Up"});
 			add_action_entries (APP_ENTRIES, this);
 
-			on_network_change (network_monitor.get_network_available ());
 			network_monitor.network_changed.connect (on_network_change);
 		}
 
@@ -364,6 +363,8 @@ namespace Tuba {
 
 			if (main_window != null)
 				main_window.close_request.connect (on_window_closed);
+
+			on_network_change_cb ();
 		}
 
 		public bool on_window_closed () {
