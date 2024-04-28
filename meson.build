@@ -19,23 +19,26 @@ endif
 devel = get_option('devel')
 distro = get_option('distro')
 
+branding = import('keyval').load('branding.conf')
+
 # Setup configuration file
 config = configuration_data()
 config.set('EXEC_NAME', meson.project_name())
 config.set('GETTEXT_PACKAGE', meson.project_name())
 config.set('LOCALEDIR', join_paths(get_option('prefix'), get_option('localedir')))
 config.set('DOMAIN', meson.project_name ())
-config.set('G_LOG_DOMAIN', 'Tuba')
+config.set('G_LOG_DOMAIN', branding.get('NAME', 'Tuba'))
 config.set('RESOURCES', '/' + '/'.join(meson.project_name().split('.')) + '/')
 config.set('VERSION', meson.project_version())
 config.set('PREFIX', get_option('prefix'))
-config.set('NAME', 'Tuba')
-config.set('WEBSITE', 'https://github.com/GeopJr/Tuba')
-config.set('ISSUES_WEBSITE', 'https://github.com/GeopJr/Tuba/issues')
-config.set('SUPPORT_WEBSITE', 'https://matrix.to/#/#tuba:gnome.org')
-config.set('DONATE_WEBSITE', 'https://geopjr.dev/donate')
-config.set('TRANSLATE_WEBSITE', 'https://hosted.weblate.org/engage/tuba/')
-config.set('WIKI_WEBSITE', 'https://github.com/GeopJr/Tuba/wiki')
+config.set('NAME', branding.get('NAME', 'Tuba'))
+config.set('WEBSITE', branding.get('WEBSITE', 'https://github.com/GeopJr/Tuba'))
+config.set('ISSUES_WEBSITE', branding.get('ISSUES_WEBSITE', 'https://github.com/GeopJr/Tuba/issues'))
+config.set('SUPPORT_WEBSITE', branding.get('SUPPORT_WEBSITE', 'https://matrix.to/#/#tuba:gnome.org'))
+config.set('DONATE_WEBSITE', branding.get('DONATE_WEBSITE', 'https://geopjr.dev/donate'))
+config.set('TRANSLATE_WEBSITE', branding.get('TRANSLATE_WEBSITE', 'https://hosted.weblate.org/engage/tuba/'))
+config.set('WIKI_WEBSITE', branding.get('WIKI_WEBSITE', 'https://github.com/GeopJr/Tuba/wiki'))
+config.set('LIMIT_TO_INSTANCE', branding.get('LIMIT_TO_INSTANCE', ''))
 config.set('PROFILE', devel ? 'development' : 'production')
 
 if devel
@@ -63,7 +66,7 @@ endif
 add_project_arguments(['--vapidir=' + meson.project_source_root() / 'vapi'], language: 'vala')
 add_project_arguments (
   '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
-  '-DG_LOG_DOMAIN="Tuba"',
+  '-DG_LOG_DOMAIN="@0@"'.format(config.get('G_LOG_DOMAIN')),
   language: 'c'
 )
 
