@@ -20,6 +20,7 @@ devel = get_option('devel')
 distro = get_option('distro')
 
 branding = import('keyval').load('branding.conf')
+assert(branding.get('NAME') != '', 'Branding: Name cannot be empty.')
 
 # Setup configuration file
 config = configuration_data()
