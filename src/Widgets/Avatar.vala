@@ -83,7 +83,6 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 
 			if (_avatar_url.contains ("#")) {
 				new_avi = _avatar_url.slice (0, _avatar_url.index_of_char ('#'));
-				this.avatar_url = @"$new_avi#$new_uuid";
 			}
 
 			this.avatar_url = @"$new_avi#$new_uuid";
