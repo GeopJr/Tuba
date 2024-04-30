@@ -4,7 +4,7 @@ namespace Build {
     public const string DOMAIN = "@DOMAIN@";
     public const string RESOURCES = "@RESOURCES@";
     public const string PROFILE = "@PROFILE@";
-    public const string LIMIT_TO_INSTANCE = "@LIMIT_TO_INSTANCE@";
+    public const string DEFAULT_INSTANCE = "@DEFAULT_INSTANCE@";
 
     public const string GETTEXT_PACKAGE = "@GETTEXT_PACKAGE@";
     public const string LOCALEDIR = "@LOCALEDIR@";

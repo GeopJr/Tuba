@@ -38,7 +38,7 @@ config.set('SUPPORT_WEBSITE', branding.get('SUPPORT_WEBSITE', 'https://matrix.to
 config.set('DONATE_WEBSITE', branding.get('DONATE_WEBSITE', 'https://geopjr.dev/donate'))
 config.set('TRANSLATE_WEBSITE', branding.get('TRANSLATE_WEBSITE', 'https://hosted.weblate.org/engage/tuba/'))
 config.set('WIKI_WEBSITE', branding.get('WIKI_WEBSITE', 'https://github.com/GeopJr/Tuba/wiki'))
-config.set('LIMIT_TO_INSTANCE', branding.get('LIMIT_TO_INSTANCE', ''))
+config.set('DEFAULT_INSTANCE', branding.get('DEFAULT_INSTANCE', ''))
 config.set('PROFILE', devel ? 'development' : 'production')
 
 if devel
