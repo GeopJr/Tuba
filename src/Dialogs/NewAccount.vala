@@ -47,6 +47,9 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		reset ();
 		present ();
 		instance_entry.grab_focus ();
+
+		if (Build.DEFAULT_INSTANCE != "")
+			instance_entry.text = Build.DEFAULT_INSTANCE;
 	}
 
 	public bool on_manual_auth (string url) {
