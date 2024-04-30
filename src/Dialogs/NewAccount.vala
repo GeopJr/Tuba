@@ -130,8 +130,11 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			.with_account (account)
 			.with_form_data ("client_name", Build.NAME)
 			.with_form_data ("redirect_uris", redirect_uri = setup_redirect_uri ())
-			.with_form_data ("scopes", SCOPES)
-			.with_form_data ("website", Build.WEBSITE);
+			.with_form_data ("scopes", SCOPES);
+
+		if (Build.WEBSITE != "")
+			msg.with_form_data ("website", Build.WEBSITE);
+
 		yield msg.await ();
 
 		var parser = Network.get_parser_from_inputstream (msg.response_body);
