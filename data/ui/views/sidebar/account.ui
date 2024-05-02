@@ -11,6 +11,7 @@
 				<child>
 					<object class="TubaWidgetsAvatar" id="avatar">
 						<property name="size">42</property>
+						<property name="retry-on-network-changes">1</property>
 						<signal name="clicked" handler="on_open" />
 					</object>
 				</child>

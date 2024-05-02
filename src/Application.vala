@@ -12,6 +12,7 @@ namespace Tuba {
 	public static AccountStore accounts;
 	public static Network network;
 	public static Streams streams;
+	public static NetworkMonitor network_monitor;
 
 	//  public static EntityCache entity_cache;
 	//  public static ImageCache image_cache;
@@ -31,6 +32,7 @@ namespace Tuba {
 		public Dialogs.MainWindow? main_window { get; set; }
 		public Dialogs.NewAccount? add_account_window { get; set; }
 		public bool is_mobile { get; set; default=false; }
+		public bool is_online { get; private set; default=true; }
 
 		public Locales app_locales { get; construct set; }
 
@@ -207,8 +209,33 @@ namespace Tuba {
 				GLib.Environment.set_variable ("GDK_DEBUG", "gl-no-fractional", false);
 			}
 
+			network_monitor = NetworkMonitor.get_default ();
+
 			app = new Application ();
 			return app.run (args);
+		}
+
+		private void on_network_change (bool online) {
+			// We really need to avoid triggering it unnecessarily
+			// wait 5 seconds before triggering it
+			// also don't trust the 'online' status
+			GLib.Timeout.add_once (5000, on_network_change_cb);
+		}
+
+		private void on_network_change_cb () {
+			bool online = network_monitor.network_available;
+
+			// Avoid triggering it as much as possible
+			// as it causes websocket reconnects and
+			// timeline refreshes
+			if (is_online == online) return;
+
+			is_online = online;
+			if (!is_online) {
+				foreach (var win in app.get_windows ()) {
+					new Dialogs.Offline (win);
+				}
+			}
 		}
 
 		protected override void startup () {
@@ -237,11 +264,8 @@ namespace Tuba {
 				//  css_provider.load_from_resource (@"$(Build.RESOURCES)app.css");
 				//  StyleContext.add_provider_for_display (Gdk.Display.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 				//  StyleContext.add_provider_for_display (Gdk.Display.get_default (), zoom_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-			}
-			catch (Error e) {
+			} catch (Error e) {
 				var msg = "Could not start application: %s".printf (e.message);
-				var dlg = inform (_("Error"), msg);
-				dlg.present (app.main_window);
 				error (msg);
 			}
 
@@ -264,6 +288,9 @@ namespace Tuba {
 			set_accels_for_action ("app.scroll-page-down", {"Page_Down"});
 			set_accels_for_action ("app.scroll-page-up", {"Page_Up"});
 			add_action_entries (APP_ENTRIES, this);
+
+			if (settings.monitor_network)
+				network_monitor.network_changed.connect (on_network_change);
 		}
 
 		private bool activated = false;
@@ -275,6 +302,7 @@ namespace Tuba {
 				start_hidden = false;
 				return;
 			}
+
 			settings.delay ();
 		}
 

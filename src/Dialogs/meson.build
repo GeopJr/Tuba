@@ -3,6 +3,7 @@ sources += files(
     'ListEdit.vala',
     'MainWindow.vala',
     'NewAccount.vala',
+    'Offline.vala',
     'Preferences.vala',
     'ProfileEdit.vala',
     'Report.vala',

@@ -51,11 +51,20 @@ public abstract interface Tuba.Streamable : Object {
 
 		notify["subscribed"].connect (update_stream);
 		notify["stream_url"].connect (update_stream);
+		app.notify["is-online"].connect (on_network_change);
 		update_stream ();
 	}
 
 	protected void destruct_streamable () {
 		unsubscribe ();
+	}
+
+	protected void on_network_change () {
+		if (app.is_online) {
+			update_stream ();
+		} else {
+			unsubscribe ();
+		}
 	}
 
 	protected void update_stream () {

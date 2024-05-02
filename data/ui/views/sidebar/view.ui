@@ -42,6 +42,7 @@
 									<object class="TubaWidgetsAvatar" id="accounts_button_avi">
 										<property name="can_focus">false</property>
 										<property name="size">26</property>
+										<property name="retry-on-network-changes">1</property>
 									</object>
 								</child>
 								<style>
