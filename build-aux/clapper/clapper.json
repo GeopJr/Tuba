@@ -6,8 +6,7 @@
         "-Dclapper-gtk=enabled",
         "-Dclapper-app=disabled",
         "-Dintrospection=enabled",
-        "-Dvapi=enabled",
-        "-Dc_args=\"-DHAVE_GST_PATCHES=1\""
+        "-Dvapi=enabled"
     ],
     "cleanup": [
         "/include",

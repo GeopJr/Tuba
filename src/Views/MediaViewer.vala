@@ -884,7 +884,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				});
 				#if CLAPPER_MPRIS
 				    var mpris = new Clapper.Mpris (
-				      "org.mpris.MediaPlayer2.ClapperValaTest",
+				      "org.mpris.MediaPlayer2.Tuba",
 				      Build.NAME,
 					  null
 					);

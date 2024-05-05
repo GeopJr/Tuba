@@ -20,12 +20,8 @@
         "--socket=fallback-x11",
         "--socket=wayland",
         "--socket=pulseaudio",
-        "--filesystem=xdg-run/pipewire-0:ro",
-        "--filesystem=xdg-run/gvfsd",
-        "--own-name=org.mpris.MediaPlayer2.ClapperValaTest",
-        "--talk-name=org.gtk.vfs.*",
-        "--env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0",
-        "--env=GST_PLUGIN_FEATURE_RANK=vah264dec:MAX,vah265dec:MAX,vavp9dec:MAX,vaav1dec:MAX"
+        "--own-name=org.mpris.MediaPlayer2.Tuba",
+        "--env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0"
     ],
     "cleanup": [
         "/include",
@@ -41,7 +37,6 @@
     ],
     "modules": [
         "clapper/gstreamer.json",
-        "clapper/gtuber.json",
         "clapper/clapper.json",
         {
             "name" : "libspelling",

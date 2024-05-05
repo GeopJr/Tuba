@@ -164,7 +164,9 @@ namespace Tuba {
 				warning (e.message);
 			}
 
-			Clapper.init (ref args);
+			#if CLAPPER
+				Clapper.init (ref args);
+			#endif
 			cache_path = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, GLib.Environment.get_user_cache_dir (), Build.NAME.down ());
 
 			try {

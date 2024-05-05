@@ -65,21 +65,9 @@
         {
             "type": "git",
             "url": "https://gitlab.freedesktop.org/gstreamer/gstreamer.git",
-            "tag": "1.22.8",
-            "commit": "4af14db10e8355f980bbf79733af004e59d255fc",
+            "tag": "1.24.3",
+            "commit": "da69285863780ce0ebb51482edcf1d54c7c29533",
             "disable-submodules": true
-        },
-        {
-            "type": "patch",
-            "path": "gst-plugins-base-do-not-use-drm-modifiers-on-desktop.patch"
-        },
-        {
-            "type": "patch",
-            "path": "gst-plugins-good-dashdemux2-improve-initial-representation-selection.patch"
-        },
-        {
-            "type": "patch",
-            "path": "gst-plugins-good-dashdemux2-play-last-subfragment.patch"
         }
     ]
 }
