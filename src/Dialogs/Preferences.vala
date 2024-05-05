@@ -18,7 +18,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			this.win = win;
 			this.activatable = false;
 
-			var delete_btn = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
+			var delete_btn = new Gtk.Button.from_icon_name ("tuba-user-trash-symbolic") {
 				css_classes = { "circular", "flat", "error" },
 				tooltip_text = _("Delete"),
 				valign = Gtk.Align.CENTER
@@ -26,7 +26,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			delete_btn.clicked.connect (on_delete);
 			this.add_suffix (delete_btn);
 
-			var edit_btn = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+			var edit_btn = new Gtk.Button.from_icon_name ("tuba-edit-symbolic") {
 				css_classes = { "circular", "flat" },
 				tooltip_text = _("Edit"),
 				valign = Gtk.Align.CENTER

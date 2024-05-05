@@ -228,21 +228,21 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				break;
 			case KIND_FAVOURITE:
 				result = {
-					"starred-symbolic",
+					"tuba-starred-symbolic",
 					_("%s favorited your post").printf (actor_name),
 					callback_url
 				};
 				break;
 			case KIND_FOLLOW:
 				result = {
-					"contact-new-symbolic",
+					"tuba-contact-new-symbolic",
 					_("%s now follows you").printf (actor_name),
 					callback_url
 				};
 				break;
 			case KIND_FOLLOW_REQUEST:
 				result = {
-					"contact-new-symbolic",
+					"tuba-contact-new-symbolic",
 					_("%s wants to follow you").printf (actor_name),
 					callback_url
 				};
@@ -256,7 +256,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				break;
 			case KIND_EDITED:
 				result = {
-					"document-edit-symbolic",
+					"tuba-edit-symbolic",
 					_("%s edited a post").printf (actor_name),
 					null
 				};

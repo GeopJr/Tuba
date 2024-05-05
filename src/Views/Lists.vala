@@ -9,14 +9,14 @@ public class Tuba.Views.Lists : Views.Timeline {
 			var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 
 			edit_button = new Gtk.Button () {
-				icon_name = "document-edit-symbolic",
+				icon_name = "tuba-edit-symbolic",
 				valign = Gtk.Align.CENTER,
 				halign = Gtk.Align.CENTER,
 				css_classes = { "flat", "circular" }
 			};
 
 			delete_button = new Gtk.Button () {
-				icon_name = "user-trash-symbolic",
+				icon_name = "tuba-user-trash-symbolic",
 				valign = Gtk.Align.CENTER,
 				halign = Gtk.Align.CENTER,
 				css_classes = { "flat", "circular", "error" }

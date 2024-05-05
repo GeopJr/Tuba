@@ -53,7 +53,7 @@
 						</child>
 						<child type="end">
 							<object class="GtkMenuButton" id="menu_btn">
-								<property name="icon-name">open-menu-symbolic</property>
+								<property name="icon-name">tuba-menu-large-symbolic</property>
 								<property name="tooltip_text" translatable="yes">Menu</property>
 								<property name="primary">1</property>
 							</object>

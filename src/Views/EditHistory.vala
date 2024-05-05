@@ -3,7 +3,7 @@ public class Tuba.Views.EditHistory : Views.Timeline {
 		Object (
 			url: @"/api/v1/statuses/$(status_id)/history",
 			label: _("Edit History"),
-			icon: "document-edit-symbolic",
+			icon: "tuba-edit-symbolic",
 			empty_state_title: _("No Edit History")
 		);
 	}

@@ -9,7 +9,7 @@ public class Tuba.Views.MutesBlocks : Views.TabbedBase {
 	public MutesBlocks () {
 		mutes = add_timeline_tab (
 			_("Mutes"),
-			"audio-volume-muted-symbolic",
+			"tuba-audio-volume-muted-symbolic",
 			"/api/v1/mutes",
 			typeof (API.Account),
 			_("No Muted Accounts")

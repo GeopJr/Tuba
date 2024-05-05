@@ -15,7 +15,7 @@ public class Tuba.Dialogs.Offline : Adw.Window {
 
 		this.content = new Gtk.WindowHandle () {
 			child = new Adw.StatusPage () {
-				icon_name = "network-wireless-offline-symbolic",
+				icon_name = "tuba-network-wireless-offline-symbolic",
 				title = _("Offline"),
 				description = _("No Network Connection"),
 				child = exit_btn

@@ -291,11 +291,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		set {
 			if (value) {
 				app.main_window.fullscreen ();
-				fullscreen_btn.icon_name = "view-restore-symbolic";
+				fullscreen_btn.icon_name = "tuba-arrows-pointing-inward-symbolic";
 				_fullscreen = true;
 			} else {
 				app.main_window.unfullscreen ();
-				fullscreen_btn.icon_name = "view-fullscreen-symbolic";
+				fullscreen_btn.icon_name = "tuba-arrows-pointing-outward-symbolic";
 				_fullscreen = false;
 			}
 		}

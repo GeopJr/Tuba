@@ -43,7 +43,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 					valign = Gtk.Align.CENTER,
 					halign = Gtk.Align.CENTER,
 					css_classes = {"osd", "circular", "attachment-overlay-icon"},
-					icon_name = "media-playback-start-symbolic",
+					icon_name = "tuba-play-large-symbolic",
 					icon_size = Gtk.IconSize.LARGE
 				});
 
@@ -56,7 +56,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 			}
 		} else {
 			image_widget = new Gtk.Image.from_icon_name (
-				is_video ? "media-playback-start-symbolic" : "tuba-earth-symbolic"
+				is_video ? "tuba-play-large-symbolic" : "tuba-earth-symbolic"
 			) {
 				height_request = 70,
 				width_request = 70,

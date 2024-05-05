@@ -10,7 +10,7 @@ public class Tuba.Views.StatusStats : Views.TabbedBase {
 		favorited = add_timeline_tab (
 			// translators: title for a list of people that favorited a post
 			_("Favorited By"),
-			"starred-symbolic",
+			"tuba-starred-symbolic",
 			@"/api/v1/statuses/$(status_id)/favourited_by",
 			typeof (API.Account),
 			_("No Favorites")

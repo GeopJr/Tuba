@@ -3,7 +3,7 @@ public class Tuba.Views.Home : Views.Timeline {
     construct {
         url = "/api/v1/timelines/home";
         label = _("Home");
-        icon = "user-home-symbolic";
+        icon = "tuba-user-home-symbolic";
         badge_number = 0;
 		needs_attention = false;
 
@@ -17,7 +17,7 @@ public class Tuba.Views.Home : Views.Timeline {
             margin_end = 24,
             reveal_child = true,
             overflow = Gtk.Overflow.VISIBLE,
-            child = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+            child = new Gtk.Button.from_icon_name ("tuba-edit-symbolic") {
                 action_name = "app.compose",
                 tooltip_text = _("Compose"),
                 css_classes = { "circular", "compose-button", "suggested-action" },

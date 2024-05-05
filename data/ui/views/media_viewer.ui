@@ -55,14 +55,14 @@
 								<child type="end">
 									<object class="GtkMenuButton">
 										<property name="menu-model">menu-model</property>
-										<property name="icon-name">view-more-symbolic</property>
+										<property name="icon-name">tuba-view-more-symbolic</property>
 										<property name="tooltip-text" translatable="yes">Menu</property>
 										<property name="primary">1</property>
 									</object>
 								</child>
 								<child type="end">
 									<object class="GtkButton" id="fullscreen_btn">
-										<property name="icon-name">view-fullscreen-symbolic</property>
+										<property name="icon-name">tuba-arrows-pointing-outward-symbolic</property>
 										<property name="tooltip-text" translatable="yes">Toggle Fullscreen</property>
 										<signal name="clicked" handler="toggle_fullscreen" swapped="no" />
 									</object>
@@ -90,7 +90,7 @@
 														<property name="spacing">12</property>
 														<child>
 															<object class="GtkButton" id="prev_btn">
-																<property name="icon-name">go-previous-symbolic</property>
+																<property name="icon-name">tuba-go-previous-symbolic</property>
 																<property name="tooltip-text" translatable="yes">Previous Attachment</property>
 																<signal name="clicked" handler="on_previous_clicked" swapped="no" />
 																<style>
@@ -102,7 +102,7 @@
 														</child>
 														<child>
 															<object class="GtkButton" id="next_btn">
-																<property name="icon-name">go-next-symbolic</property>
+																<property name="icon-name">tuba-go-next-symbolic</property>
 																<property name="tooltip-text" translatable="yes">Next Attachment</property>
 																<signal name="clicked" handler="on_next_clicked" swapped="no" />
 																<style>
@@ -132,7 +132,7 @@
 														<property name="spacing">12</property>
 														<child>
 															<object class="GtkButton" id="zoom_out_btn">
-																<property name="icon-name">zoom-out-symbolic</property>
+																<property name="icon-name">tuba-zoom-out-symbolic</property>
 																<property name="tooltip-text" translatable="yes">Zoom Out</property>
 																<signal name="clicked" handler="on_zoom_out_clicked" swapped="no" />
 																<style>
@@ -144,7 +144,7 @@
 														</child>
 														<child>
 															<object class="GtkButton" id="zoom_in_btn">
-																<property name="icon-name">zoom-in-symbolic</property>
+																<property name="icon-name">tuba-zoom-in-symbolic</property>
 																<property name="tooltip-text" translatable="yes">Zoom In</property>
 																<signal name="clicked" handler="on_zoom_in_clicked" swapped="no" />
 																<style>

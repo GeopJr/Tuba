@@ -62,6 +62,34 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-sad-computer-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-background-app-ghost-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-address-book-new-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-arrows-pointing-inward-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-arrows-pointing-outward-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-audio-volume-muted-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-check-plain-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-checkbox-checked-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-contact-new-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-copy-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-edit-find-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-edit-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-go-next-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-go-previous-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-go-top-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-attachment-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-unread-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-menu-large-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-minus-circle-filled-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-network-server-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-network-wireless-offline-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-play-large-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-radio-checked-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-starred-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-user-home-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-user-trash-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-more-horizontal-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-more-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-zoom-in-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-zoom-out-symbolic.svg</file>
 
         <file>gtk/help-overlay.ui</file>
         <file>gtk/dropdown/content_type_title.ui</file>

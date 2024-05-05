@@ -192,7 +192,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
                 title_box.append (new Gtk.Label (_("Joined")) {
                     css_classes = {"dim-label"}
                 });
-                title_box.prepend (new Gtk.Image.from_icon_name ("contact-new-symbolic"));
+                title_box.prepend (new Gtk.Image.from_icon_name ("tuba-contact-new-symbolic"));
                 row.append (title_box);
                 row.append (val);
 

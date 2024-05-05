@@ -195,7 +195,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
 			this.add_suffix (word_switch);
 			this.activates_default = false;
 
-			var delete_btn = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
+			var delete_btn = new Gtk.Button.from_icon_name ("tuba-user-trash-symbolic") {
 				css_classes = { "circular", "flat", "error" },
 				tooltip_text = _("Delete"),
 				valign = Gtk.Align.CENTER

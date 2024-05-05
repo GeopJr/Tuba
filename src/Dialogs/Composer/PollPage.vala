@@ -6,7 +6,7 @@ public class Tuba.PollPage : ComposerPage {
 
 		construct {
 			delete_button = new Gtk.Button () {
-				icon_name = "user-trash-symbolic",
+				icon_name = "tuba-user-trash-symbolic",
 				valign = Gtk.Align.CENTER,
 				halign = Gtk.Align.CENTER,
 				css_classes = { "flat", "circular", "error" }
@@ -117,7 +117,7 @@ public class Tuba.PollPage : ComposerPage {
 		add_poll_action_button.clicked.connect (add_poll_row_without_title);
 
 		var multi_button = new Gtk.ToggleButton () {
-			icon_name = "radio-checked-symbolic",
+			icon_name = "tuba-radio-checked-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			tooltip_text = _("Enable Multiple Choice"),
@@ -131,7 +131,7 @@ public class Tuba.PollPage : ComposerPage {
 			(b, src, ref target) => {
 				var multi_button_active = src.get_boolean ();
 				target.set_boolean (multi_button_active);
-				multi_button.icon_name = multi_button_active ? "checkbox-checked-symbolic" : "radio-checked-symbolic";
+				multi_button.icon_name = multi_button_active ? "tuba-checkbox-checked-symbolic" : "tuba-radio-checked-symbolic";
 				// translators: multiple choice as in allow the user to pick multiple poll options
 				multi_button.tooltip_text = multi_button_active ? _("Disable Multiple Choice") : _("Enable Multiple Choice");
 				return true;

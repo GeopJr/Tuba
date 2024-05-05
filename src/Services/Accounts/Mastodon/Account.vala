@@ -23,7 +23,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_HOME = new Place () { // vala-lint=naming-convention
 
-		icon = "user-home-symbolic",
+		icon = "tuba-user-home-symbolic",
 		title = _("Home"),
 		needs_attention = false,
 		open_func = win => {
@@ -48,7 +48,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_CONVERSATIONS = new Place () { // vala-lint=naming-convention
 
-		icon = "mail-unread-symbolic",
+		icon = "tuba-mail-unread-symbolic",
 		title = _("Conversations"),
 		open_func = win => {
 			win.go_back_to_start ();
@@ -95,7 +95,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_SEARCH = new Place () { // vala-lint=naming-convention
 
-		icon = "system-search-symbolic",
+		icon = "tuba-edit-find-symbolic",
 		title = _("Search"),
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item (new Views.Search ()));
@@ -114,7 +114,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_LOCAL = new Place () { // vala-lint=naming-convention
 
-		icon = "network-server-symbolic",
+		icon = "tuba-network-server-symbolic",
 		title = _("Local"),
 		open_func = (win) => {
 			win.open_view (set_as_sidebar_item (new Views.Local ()));
@@ -187,7 +187,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		set_visibility (new Visibility () {
 			id = "direct",
 			name = _("Direct"),
-			icon_name = "mail-unread-symbolic",
+			icon_name = "tuba-mail-unread-symbolic",
 			small_icon_name = "tuba-mail-small-symbolic",
 			description = _("Post to mentioned users only")
 		});

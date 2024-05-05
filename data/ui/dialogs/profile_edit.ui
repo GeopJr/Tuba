@@ -63,7 +63,7 @@
                             </property>
                             <child type="overlay">
                               <object class="GtkButton">
-                                <property name="icon-name">document-edit-symbolic</property>
+                                <property name="icon-name">tuba-edit-symbolic</property>
                                 <property name="tooltip-text" translatable="yes">Edit Profile Picture</property>
                                 <property name="valign">center</property>
                                 <property name="halign">center</property>
@@ -91,7 +91,7 @@
                             </property>
                             <child type="overlay">
                               <object class="GtkButton">
-                                <property name="icon-name">document-edit-symbolic</property>
+                                <property name="icon-name">tuba-edit-symbolic</property>
                                 <!-- translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form) -->
                                 <property name="tooltip-text" translatable="yes">Edit Header Picture</property>
                                 <property name="valign">start</property>
