@@ -67,11 +67,17 @@ public class Tuba.Widgets.RelationshipButton : Gtk.Button {
 			return;
 		} else if (!rs.following) {
 			label = _("Follow");
+			add_css_class ("suggested-action");
+
+			if (rs.blocked_by) {
+				this.sensitive = false;
+				return;
+			}
+
 			fn = () => {
 				rs.modify ("follow");
 				return true;
 			};
-			add_css_class ("suggested-action");
 			return;
 		}
 
