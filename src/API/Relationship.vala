@@ -11,6 +11,7 @@ public class Tuba.API.Relationship : Entity {
 	public bool muting_notifications { get; set; default = false; }
 	public bool requested { get; set; default = false; }
 	public bool blocking { get; set; default = false; }
+	public bool blocked_by { get; set; default = false; }
 	public bool domain_blocking { get; set; default = false; }
 	public bool notifying { get; set; default = false; }
 	public string? note { get; set; default = null; }
@@ -24,6 +25,9 @@ public class Tuba.API.Relationship : Entity {
 			label = _("Mutuals");
 		else if (followed_by)
 			label = _("Follows you");
+		else if (blocked_by)
+			// translators: as in, you've been blocked by them
+			label = _("Blocks you");
 
 		return label;
 	}

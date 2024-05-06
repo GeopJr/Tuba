@@ -27,6 +27,14 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		settings.notify["darken-images-on-dark-mode"].connect (settings_updated);
 
 		app.toast.connect (add_toast);
+		app.notify["is-online"].connect (on_network_change);
+	}
+
+	private void on_network_change () {
+		if (app.is_online) {
+			go_back_to_start ();
+			app.refresh ();
+		}
 	}
 
 	private void settings_updated () {
