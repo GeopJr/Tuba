@@ -25,7 +25,8 @@ public class Tuba.API.Relationship : Entity {
 		else if (followed_by)
 			label = _("Follows you");
 		else if (blocked_by)
-			label = _("Blocked");
+			// translators: as in, you've been blocked by them
+			label = _("Blocks you");
 
 		return label;
 	}
