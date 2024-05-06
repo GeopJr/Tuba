@@ -54,6 +54,7 @@
                             <property name="size">48</property>
                             <property name="valign">start</property>
                             <property name="visible">true</property>
+                            <property name="allow-mini-profile">1</property>
                             <signal name="clicked" handler="on_avatar_clicked" swapped="no" />
                           </object>
                         </child>

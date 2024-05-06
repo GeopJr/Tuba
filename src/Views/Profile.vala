@@ -10,6 +10,10 @@ public class Tuba.Views.Profile : Views.Accounts {
 		public override Gtk.Widget to_widget () {
 			return new Widgets.Cover (this);
 		}
+
+		public Gtk.Widget to_mini_widget () {
+			return new Widgets.Cover (this, true);
+		}
 	}
 
 	public ProfileAccount profile { get; construct set; }
