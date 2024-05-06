@@ -13,6 +13,10 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
     [GtkChild] unowned Widgets.MarkupView note;
     [GtkChild] public unowned Widgets.RelationshipButton rsbtn;
 
+    [GtkChild] unowned Adw.EntryRow note_entry_row;
+    [GtkChild] unowned Gtk.ListBoxRow note_row;
+    [GtkChild] unowned Gtk.Label note_error;
+
     public API.Relationship rs { get; construct set; }
     public signal void rs_invalidated ();
     public signal void timeline_change (string timeline);
@@ -36,6 +40,26 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
             cover_badge.label = value;
 
             update_cover_badge ();
+        }
+    }
+
+    public string note_error_label {
+        get {
+            return note_error.label;
+        }
+
+        set {
+            note_entry_row.show_apply_button = note_entry_row.text != rsbtn.rs.note && value == "";
+            if (note_error.label == value) return;
+
+            note_error.visible = value != "";
+            note_error.label = value;
+
+            if (value != "") {
+                note_entry_row.add_css_class ("error");
+            } else {
+                note_entry_row.remove_css_class ("error");
+            }
         }
     }
 
@@ -100,8 +124,13 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
         }
 
         if (profile.account.id != accounts.active.id) {
+            note_entry_row.notify["text"].connect (on_note_changed);
+
             profile.rs.invalidated.connect (() => {
                 cover_badge_label = profile.rs.to_string ();
+                note_row.visible = profile.rs.note != null;
+                if (note_row.visible) note_entry_row.text = profile.rs.note;
+
                 rs_invalidated ();
             });
 
@@ -275,4 +304,20 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
     void on_cache_response (Gdk.Paintable? data) {
         background.paintable = data;
     }
+
+    [GtkCallback]
+	void on_note_apply () {
+		if (!note_row.visible) return;
+        if (note_error_label != "") return;
+        rsbtn.rs.modify_note (note_entry_row.text);
+	}
+
+	void on_note_changed () {
+		if (note_entry_row.text.length >= 2000) {
+            note_error_label = _("Error: Note is over 2000 characters long");
+            return;
+        }
+
+        note_error_label = "";
+	}
 }

@@ -497,6 +497,10 @@ video > overlay > revealer > controls {
 	background-color: @card_bg_color;
 }
 
+.ttl-profile-cover > .content {
+	background: none;
+}
+
 /* .ttl-view:not(.no-transition) .large.content,
 .ttl-view:not(.no-transition) .small.content { */
 .ttl-view:not(.no-transition) .large.fake-content,
