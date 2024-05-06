@@ -18,6 +18,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 
 	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
 	public weak Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
+	public bool has_quote { get; set; default=false; }
 
 	private bool _selectable = false;
 	public bool selectable {
@@ -202,7 +203,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		switch (root->name) {
 			case "span":
 				string? classes = root->get_prop ("class");
-				if (classes == null || !classes.contains ("quote-inline"))
+				if (!v.has_quote || classes == null || !classes.contains ("quote-inline"))
 					traverse_and_handle (v, root, default_handler);
 				break;
 			case "html":

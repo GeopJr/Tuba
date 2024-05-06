@@ -27,8 +27,25 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 		set {
 			_avatar_url = value;
 
-			if (value != null) {
+			if (value != null && (!retry_on_network_changes || (retry_on_network_changes && app.is_online))) {
 				Tuba.Helper.Image.request_paintable (value, null, on_cache_response);
+			}
+		}
+	}
+
+	bool _retry_on_network_changes = false;
+	public bool retry_on_network_changes {
+		get {
+			return _retry_on_network_changes;
+		}
+
+		set {
+			if (_retry_on_network_changes == value) return;
+
+			if (value) {
+				app.notify["is-online"].connect (on_network_change);
+			} else {
+				app.notify["is-online"].disconnect (on_network_change);
 			}
 		}
 	}
@@ -48,11 +65,27 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 		} else {
 			avatar.text = account.display_name;
 			avatar.show_initials = true;
-			Tuba.Helper.Image.request_paintable (account.avatar, null, on_cache_response);
+			avatar_url = account.avatar;
 		}
 	}
 
 	void on_cache_response (Gdk.Paintable? data) {
 		avatar.custom_image = data;
+	}
+
+	private void on_network_change () {
+		if (app.is_online && _avatar_url != null && custom_image == null) {
+			// If the previous avi url failed or is pending,
+			// libsoup might crash if we queue it again
+			// so instead add a UUID as a fragment
+			string new_uuid = GLib.Uuid.string_random ();
+			string new_avi = _avatar_url;
+
+			if (_avatar_url.contains ("#")) {
+				new_avi = _avatar_url.slice (0, _avatar_url.index_of_char ('#'));
+			}
+
+			this.avatar_url = @"$new_avi#$new_uuid";
+		}
 	}
 }

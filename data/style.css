@@ -230,6 +230,23 @@ flowboxchild {
 	padding: 1px 6px;
 }
 
+.ttl-profile-fields-box > flowboxchild > .ttl-profile-field {
+	border-bottom: solid 1px @sidebar_border_color;
+	border-right: solid 1px @sidebar_border_color;
+}
+
+.ttl-profile-fields-box-container.odd > .ttl-profile-fields-box > flowboxchild:last-child > .ttl-profile-field { 
+	border-bottom: none;
+}
+
+.ttl-profile-fields-box-container:not(.odd) {
+	border: none;
+}
+
+.ttl-profile-fields-box-container {
+	margin-right: -1px; /* much simplier than complex nth-child selectors */
+}
+
 .ttl-profile-field {
 	padding: 6px 12px;
 }
