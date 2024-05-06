@@ -452,7 +452,8 @@
 					size = 34,
 					valign = Gtk.Align.START,
 					halign = Gtk.Align.START,
-					overflow = Gtk.Overflow.HIDDEN
+					overflow = Gtk.Overflow.HIDDEN,
+					allow_mini_profile = true
 				};
 				actor_avatar.add_css_class ("ttl-status-avatar-actor");
 

@@ -1,7 +1,44 @@
 public class Tuba.Widgets.Avatar : Gtk.Button {
+	weak API.Account? _account = null;
 	public API.Account? account {
 		set {
 			on_invalidated (value);
+			_account = value;
+		}
+	}
+
+	Gtk.EventController[] _controllers = {};
+	bool _allow_mini_profile = false;
+	public bool allow_mini_profile {
+		get { return _allow_mini_profile; }
+		set {
+			if (_allow_mini_profile == value) return;
+
+			_allow_mini_profile = value;
+			if (value) {
+				var gesture_click = new Gtk.GestureClick () {
+					button = Gdk.BUTTON_SECONDARY,
+					propagation_phase = Gtk.PropagationPhase.CAPTURE
+				};
+				gesture_click.pressed.connect (on_right_click);
+				add_controller (gesture_click);
+				_controllers += gesture_click;
+
+				var gesture_lp = new Gtk.GestureLongPress () {
+					touch_only = true,
+					button = Gdk.BUTTON_PRIMARY,
+					propagation_phase = Gtk.PropagationPhase.CAPTURE
+				};
+				gesture_lp.pressed.connect (on_long_press);
+				add_controller (gesture_lp);
+				_controllers += gesture_lp;
+			} else {
+				foreach (Gtk.EventController controller in _controllers) {
+					remove_controller (controller);
+				}
+
+				_controllers = {};
+			}
 		}
 	}
 
@@ -86,6 +123,58 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 			}
 
 			this.avatar_url = @"$new_avi#$new_uuid";
+		}
+	}
+
+	Gtk.Popover? mini_profile = null;
+	private void on_right_click (int n_press, double x, double y) {
+		if (n_press != 1) return;
+
+		show_mini_profile ();
+	}
+
+	private void on_long_press (double x, double y) {
+		show_mini_profile ();
+	}
+
+	private void show_mini_profile () {
+		if (_account == null) return;
+
+		if (mini_profile == null) {
+			mini_profile = new Gtk.Popover () {
+				child = new Gtk.ScrolledWindow () {
+					child = new Views.Profile.ProfileAccount (_account).to_mini_widget (),
+					hexpand = true,
+					vexpand = true,
+					hscrollbar_policy = Gtk.PolicyType.NEVER,
+					max_content_height = 500,
+					width_request = 360,
+					propagate_natural_height = true
+				}
+			};
+			mini_profile.set_parent (this);
+			mini_profile.closed.connect (clear_mini);
+		}
+
+		mini_profile.popup ();
+	}
+
+	private void clear_mini () {
+		if (mini_profile == null) return;
+
+		mini_profile.unparent ();
+		mini_profile.dispose ();
+		mini_profile = null;
+	}
+
+	~Avatar () {
+		clear_mini ();
+
+		if (_controllers.length > 0) {
+			foreach (Gtk.EventController controller in _controllers) {
+				remove_controller (controller);
+			}
+			_controllers = {};
 		}
 	}
 }

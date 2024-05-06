@@ -95,11 +95,15 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
         app.main_window.show_media_viewer (avi_url, Tuba.Attachment.MediaType.IMAGE, avatar.custom_image, avatar, true);
     }
 
+    bool _mini = false;
     Gtk.FlowBox fields_box;
-    public Cover (Views.Profile.ProfileAccount profile) {
+    public Cover (Views.Profile.ProfileAccount profile, bool mini = false) {
         if (settings.scale_emoji_hover)
             this.add_css_class ("lww-scale-emoji-hover");
         settings.notify["scale-emoji-hover"].connect (toggle_scale_emoji_hover);
+
+        _mini = mini;
+        if (mini) note_row.sensitive = false;
 
         display_name.instance_emojis = profile.account.emojis_map;
         display_name.content = profile.account.display_name;
@@ -125,15 +129,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
         if (profile.account.id != accounts.active.id) {
             note_entry_row.notify["text"].connect (on_note_changed);
-
-            profile.rs.invalidated.connect (() => {
-                cover_badge_label = profile.rs.to_string ();
-                note_row.visible = profile.rs.note != null;
-                if (note_row.visible) note_entry_row.text = profile.rs.note;
-
-                rs_invalidated ();
-            });
-
+            profile.rs.invalidated.connect (on_rs_invalidation);
             rsbtn.handle = profile.account.handle;
             rsbtn.rs = profile.rs;
             rsbtn.visible = true;
@@ -145,11 +141,14 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
         } else {
             header_url = profile.account.header ?? "";
             Tuba.Helper.Image.request_paintable (profile.account.header, null, on_cache_response);
-            background.clicked.connect (open_header_in_media_viewer);
+
+            if (!mini)
+                background.clicked.connect (open_header_in_media_viewer);
         }
 
         avi_url = profile.account.avatar ?? "";
-        avatar.clicked.connect (open_pfp_in_media_viewer);
+        if (!mini)
+            avatar.clicked.connect (open_pfp_in_media_viewer);
 
         if (profile.account.fields != null || profile.account.created_at != null) {
             fields_box = new Gtk.FlowBox () {
@@ -243,7 +242,19 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		    app.notify["is-mobile"].connect (update_fields_max_columns);
         }
 
-        build_profile_stats (profile.account);
+        if (!mini) {
+            build_profile_stats (profile.account);
+        } else {
+            background.height_request = 64;
+        }
+    }
+
+    private void on_rs_invalidation (API.Relationship rs) {
+        cover_badge_label = rs.to_string ();
+        note_row.visible = _mini ? rs.note != "" : rs.note != null;
+        if (note_row.visible) note_entry_row.text = rs.note;
+
+        rs_invalidated ();
     }
 
     private void update_fields_max_columns () {
