@@ -364,6 +364,27 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 						supported_mime_types.append (new StatusContentType (content_type));
 					}
 				}
+
+				if (instance_info.pleroma == null) {
+					gather_v2_instance_info ();
+				} else if (instance_info.pleroma.metadata != null && instance_info.pleroma.metadata.features != null) {
+					instance_info.tuba_can_translate = "akkoma:machine_translation" in instance_info.pleroma.metadata.features;
+				}
+			})
+			.exec ();
+	}
+
+	private void gather_v2_instance_info () {
+		new Request.GET ("/api/v2/instance")
+			.with_account (this)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				var instance_v2 = API.InstanceV2.from (node);
+
+				if (instance_v2 != null && instance_v2.configuration != null && instance_v2.configuration.translation != null) {
+					instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
+				}
 			})
 			.exec ();
 	}

@@ -250,6 +250,10 @@
 			var delete_status_simple_action = new SimpleAction ("delete-status", null);
 			delete_status_simple_action.activate.connect (delete_status);
 			action_group.add_action (delete_status_simple_action);
+		} else if (status.formal.visibility == "public" && accounts.active.instance_info.tuba_can_translate) {
+			var translate_simple_action = new SimpleAction ("translate", null);
+			translate_simple_action.activate.connect (translate);
+			action_group.add_action (translate_simple_action);
 		}
 	}
 
@@ -277,6 +281,10 @@
 			menu_model.append (_("Edit"), "status.edit-status");
 			menu_model.append (_("Delete"), "status.delete-status");
 		} else {
+			if (status.formal.visibility == "public" && accounts.active.instance_info.tuba_can_translate) { // TODO: change locale != desktop locale
+				menu_model.append (_("Translate"), "status.translate");
+			}
+
 			menu_model.append (_("Report"), "status.report");
 		}
 
@@ -358,6 +366,29 @@
 				}
 			}
 		);
+	}
+
+	private void translate () {
+		// TODO: akkoma
+		new Request.POST (@"/api/v1/statuses/$(status.formal.id)/translate")
+			.with_account (accounts.active)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				var translation = API.Translation.from (node);
+
+				// TODO: display 'revert' on the popover button
+				// TODO: replace contents
+				// TODO: keep track of originals
+				//		 maybe make a 'translation' property
+				//		 and if it exists, bind uses those
+				//		 this way we don't modify the status obj
+			})
+			.on_error ((code, message) => {
+				warning (@"Couldn't translate $(status.formal.id): $code $message");
+				app.toast (_("Couldn't translate: %s").printf (message));
+			})
+			.exec ();
 	}
 
 	protected string spoiler_text {
