@@ -80,11 +80,11 @@ public class Tuba.SecretAccountStore : AccountStore {
 						}
 					})
 					.exec ();
-					saved.add (account);
-					account.added ();
+				saved.add (account);
+				account.added ();
 
-					// TODO: remove uuid fallback
-					if (force_save) safe_save ();
+				// TODO: remove uuid fallback
+				if (force_save) safe_save ();
 			}
 		});
 		changed (saved);

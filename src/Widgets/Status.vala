@@ -452,7 +452,8 @@
 					size = 34,
 					valign = Gtk.Align.START,
 					halign = Gtk.Align.START,
-					overflow = Gtk.Overflow.HIDDEN
+					overflow = Gtk.Overflow.HIDDEN,
+					allow_mini_profile = true
 				};
 				actor_avatar.add_css_class ("ttl-status-avatar-actor");
 
@@ -546,6 +547,7 @@
 		actions.reply.connect (on_reply_button_clicked);
 		content_column.append (actions);
 
+		this.content.has_quote = status.formal.quote != null;
 		this.content.mentions = status.formal.mentions;
 		this.content.instance_emojis = status.formal.emojis_map;
 		this.content.content = status.formal.content;

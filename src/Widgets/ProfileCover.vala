@@ -13,6 +13,10 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
     [GtkChild] unowned Widgets.MarkupView note;
     [GtkChild] public unowned Widgets.RelationshipButton rsbtn;
 
+    [GtkChild] unowned Adw.EntryRow note_entry_row;
+    [GtkChild] unowned Gtk.ListBoxRow note_row;
+    [GtkChild] unowned Gtk.Label note_error;
+
     public API.Relationship rs { get; construct set; }
     public signal void rs_invalidated ();
     public signal void timeline_change (string timeline);
@@ -22,7 +26,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
     }
 
     void toggle_scale_emoji_hover () {
-        Tuba.toggle_css (note, settings.scale_emoji_hover, "lww-scale-emoji-hover");
+        Tuba.toggle_css (this, settings.scale_emoji_hover, "lww-scale-emoji-hover");
     }
 
     public string cover_badge_label {
@@ -36,6 +40,26 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
             cover_badge.label = value;
 
             update_cover_badge ();
+        }
+    }
+
+    public string note_error_label {
+        get {
+            return note_error.label;
+        }
+
+        set {
+            note_entry_row.show_apply_button = note_entry_row.text != rsbtn.rs.note && value == "";
+            if (note_error.label == value) return;
+
+            note_error.visible = value != "";
+            note_error.label = value;
+
+            if (value != "") {
+                note_entry_row.add_css_class ("error");
+            } else {
+                note_entry_row.remove_css_class ("error");
+            }
         }
     }
 
@@ -71,10 +95,15 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
         app.main_window.show_media_viewer (avi_url, Tuba.Attachment.MediaType.IMAGE, avatar.custom_image, avatar, true);
     }
 
-    public Cover (Views.Profile.ProfileAccount profile) {
+    bool _mini = false;
+    Gtk.FlowBox fields_box;
+    public Cover (Views.Profile.ProfileAccount profile, bool mini = false) {
         if (settings.scale_emoji_hover)
-            note.add_css_class ("lww-scale-emoji-hover");
+            this.add_css_class ("lww-scale-emoji-hover");
         settings.notify["scale-emoji-hover"].connect (toggle_scale_emoji_hover);
+
+        _mini = mini;
+        if (mini) note_row.sensitive = false;
 
         display_name.instance_emojis = profile.account.emojis_map;
         display_name.content = profile.account.display_name;
@@ -99,11 +128,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
         }
 
         if (profile.account.id != accounts.active.id) {
-            profile.rs.invalidated.connect (() => {
-                cover_badge_label = profile.rs.to_string ();
-                rs_invalidated ();
-            });
-
+            note_entry_row.notify["text"].connect (on_note_changed);
+            profile.rs.invalidated.connect (on_rs_invalidation);
             rsbtn.handle = profile.account.handle;
             rsbtn.rs = profile.rs;
             rsbtn.visible = true;
@@ -115,35 +141,44 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
         } else {
             header_url = profile.account.header ?? "";
             Tuba.Helper.Image.request_paintable (profile.account.header, null, on_cache_response);
-            background.clicked.connect (open_header_in_media_viewer);
+
+            if (!mini)
+                background.clicked.connect (open_header_in_media_viewer);
         }
 
         avi_url = profile.account.avatar ?? "";
-        avatar.clicked.connect (open_pfp_in_media_viewer);
+        if (!mini)
+            avatar.clicked.connect (open_pfp_in_media_viewer);
 
-        if (profile.account.fields != null) {
+        if (profile.account.fields != null || profile.account.created_at != null) {
+            fields_box = new Gtk.FlowBox () {
+                max_children_per_line = app.is_mobile ? 1 : 2,
+                min_children_per_line = 1,
+                selection_mode = Gtk.SelectionMode.NONE,
+                css_classes = {"ttl-profile-fields-box"}
+            };
+            var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
+            int total_fields = profile.account.fields.size;
+
             foreach (API.AccountField f in profile.account.fields) {
                 var row = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
                     css_classes = {"ttl-profile-field"}
                 };
                 var val = new Widgets.RichLabel (HtmlUtils.simplify (f.val)) {
                     use_markup = true,
-                    hexpand = true,
                     xalign = 0,
                     selectable = true
                 };
 
                 var title_label = new Widgets.EmojiLabel () {
-                    use_markup = false
+                    use_markup = false,
+                    css_classes = {"dim-label"}
                 };
                 title_label.instance_emojis = profile.account.emojis_map;
                 title_label.content = f.name;
-                row.append (title_label);
 
-                info.append (new Gtk.ListBoxRow () {
-                    child = row,
-                    activatable = false
-                });
+                fields_box.append (row);
+                sizegroup.add_widget (row);
                 if (f.verified_at != null) {
                     var verified_date = f.verified_at.slice (0, f.verified_at.last_index_of ("T"));
                     var verified_label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -151,40 +186,79 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
                         tooltip_text = _(@"Ownership of this link was checked on $verified_date")
                     };
 
-                    verified_label_box.append (val);
-                    verified_label_box.prepend (verified_checkmark);
+                    verified_label_box.append (title_label);
+                    verified_label_box.append (verified_checkmark);
 
                     row.append (verified_label_box);
                     row.add_css_class ("ttl-verified-field");
                 } else {
-                    row.append (val);
+                    row.append (title_label);
                 };
+
+                row.append (val);
             }
-        }
 
-        if (profile.account.created_at != null) {
-            var row = new Adw.ActionRow ();
-            var parsed_date = new GLib.DateTime.from_iso8601 (profile.account.created_at, null);
-            parsed_date = parsed_date.to_timezone (new TimeZone.local ());
+            if (profile.account.created_at != null) {
+                total_fields += 1;
+                var row = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+                    css_classes = {"ttl-profile-field"}
+                };
+                var parsed_date = new GLib.DateTime.from_iso8601 (profile.account.created_at, null);
+                parsed_date = parsed_date.to_timezone (new TimeZone.local ());
 
-            var date_local = _("%B %e, %Y");
-            var val = new Gtk.Label (parsed_date.format (date_local).replace (" ", "")) { // %e prefixes with whitespace on single digits
-                wrap = true,
-                xalign = 1,
-                hexpand = true,
-                tooltip_text = parsed_date.format ("%F")
+                var date_local = _("%B %e, %Y");
+                var val = new Gtk.Label (parsed_date.format (date_local).replace (" ", "")) { // %e prefixes with whitespace on single digits
+                    wrap = true,
+                    xalign = 0,
+                    hexpand = true,
+                    tooltip_text = parsed_date.format ("%F")
+                };
+
+                var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+                // translators: as in created an account; this is used in Profiles in a row
+                //				which has as value the date the profile was created on
+                title_box.append (new Gtk.Label (_("Joined")) {
+                    css_classes = {"dim-label"}
+                });
+                title_box.prepend (new Gtk.Image.from_icon_name ("contact-new-symbolic"));
+                row.append (title_box);
+                row.append (val);
+
+                fields_box.append (row);
+                sizegroup.add_widget (row);
+            }
+
+            var fields_row = new Gtk.ListBoxRow () {
+                child = fields_box,
+                activatable = false,
+                css_classes = {"ttl-profile-fields-box-container"}
             };
 
-            // translators: as in created an account; this is used in Profiles in a row
-            //				which has as value the date the profile was created on
-            row.title = _("Joined");
+            if (total_fields % 2 != 0) {
+                fields_row.add_css_class ("odd");
+            }
 
-            info.append (row);
-            row.add_suffix (val);
-            row.add_prefix (new Gtk.Image.from_icon_name ("contact-new-symbolic"));
+            info.append (fields_row);
+		    app.notify["is-mobile"].connect (update_fields_max_columns);
         }
 
-        build_profile_stats (profile.account);
+        if (!mini) {
+            build_profile_stats (profile.account);
+        } else {
+            background.height_request = 64;
+        }
+    }
+
+    private void on_rs_invalidation (API.Relationship rs) {
+        cover_badge_label = rs.to_string ();
+        note_row.visible = _mini ? rs.note != "" : rs.note != null;
+        if (note_row.visible) note_entry_row.text = rs.note;
+
+        rs_invalidated ();
+    }
+
+    private void update_fields_max_columns () {
+        fields_box.max_children_per_line = app.is_mobile ? 1 : 2;
     }
 
     protected void build_profile_stats (API.Account account) {
@@ -241,4 +315,20 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
     void on_cache_response (Gdk.Paintable? data) {
         background.paintable = data;
     }
+
+    [GtkCallback]
+	void on_note_apply () {
+		if (!note_row.visible) return;
+        if (note_error_label != "") return;
+        rsbtn.rs.modify_note (note_entry_row.text);
+	}
+
+	void on_note_changed () {
+		if (note_entry_row.text.length >= 2000) {
+            note_error_label = _("Error: Note is over 2000 characters long");
+            return;
+        }
+
+        note_error_label = "";
+	}
 }

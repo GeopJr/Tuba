@@ -7,7 +7,7 @@
 	</styles>
 	<definitions>
 		<context id="hashtag" style-ref="hashtag">
-			<match>(?:\W|^)#([^\s]+)</match>
+			<match>(?:\W|^)#([\p{L}_0-9]+)</match>
 		</context>
 		<context id="mention" style-ref="mention">
 			<match>(?:\W|^)@[a-zA-Z0-9_]+(@[a-zA-Z0-9_\.]+)?</match>
