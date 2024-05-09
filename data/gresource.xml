@@ -61,6 +61,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-error-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-sad-computer-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-background-app-ghost-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-heart-broken-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/help-overlay.ui</file>
