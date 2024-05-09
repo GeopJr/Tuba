@@ -136,7 +136,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	private void on_alt_text_btn_clicked () {
 		if (entity != null && entity.description != null)
-			create_alt_text_dialog (entity.description, true);
+			create_alt_text_dialog (entity.tuba_translated_alt_text == null ? entity.description : entity.tuba_translated_alt_text, true);
 	}
 
 	protected Adw.Dialog create_alt_text_dialog (string alt_text, bool show = false) {

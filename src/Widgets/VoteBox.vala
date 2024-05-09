@@ -7,6 +7,8 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 	public API.Poll? poll { get; set;}
     protected Gee.ArrayList<string> selected_index = new Gee.ArrayList<string> ();
 
+    public API.Translation? translation { get; set; default=null; }
+
 	construct {
         button_vote.set_label (_("Vote"));
         button_vote.clicked.connect (on_vote_button_clicked);
@@ -34,7 +36,30 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
         return @".ttl-poll-$(percentage).ttl-poll-winner { background: linear-gradient(to right, alpha(@accent_bg_color, .5) $(percentage)%, transparent 0%); } .ttl-poll-$(percentage) { background: linear-gradient(to right, alpha(@view_fg_color, .1) $(percentage)%, transparent 0%); }"; // vala-lint=line-length
     }
 
+    void update_translations () {
+        if (poll.options != null && poll.options.size > 0) {
+            if (
+                translation != null
+                && translation.poll != null
+                && translation.poll.id != ""
+                && translation.poll.id == poll.id
+                && translation.poll.options.size > 0
+            ) {
+                for (int i = 0; i < translation.poll.options.size; i++) {
+                    poll.options.get (i).tuba_translated_title = translation.poll.options.get (i).title;
+                }
+            } else {
+                poll.options.@foreach (item => {
+                    item.tuba_translated_title = null;
+                    return true;
+                });
+            }
+        }
+    }
+
 	void update () {
+        update_translations ();
+
         var row_number = 0;
         int64 winner_p = 0;
         Widgets.VoteCheckButton group_radio_option = null;
@@ -62,7 +87,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
             var row = new Adw.ActionRow () {
                 css_classes = { "ttl-poll-row" },
                 use_markup = false,
-                title = p.title
+                title = p.tuba_translated_title == null ? p.title : p.tuba_translated_title
             };
 
             // If it is own poll

@@ -91,6 +91,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
 
 	public Tuba.Views.Thread.ThreadRole tuba_thread_role { get; set; default = Tuba.Views.Thread.ThreadRole.NONE; }
     public bool tuba_spoiler_revealed { get; set; default = settings.show_spoilers; }
+    public bool tuba_translatable { get; set; default = false; }
 
     //  public string clean_content {
     //      get {
@@ -108,6 +109,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
             return _language;
         }
         set {
+            if (value != null) tuba_translatable = true;
             _language = value ?? settings.default_language;
         }
     }

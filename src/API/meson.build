@@ -28,7 +28,7 @@ sources += files(
 )
 
 subdir('Account')
-# subdir('Akkoma')
+subdir('Akkoma')
 subdir('BookWyrm')
 subdir('Filters')
 subdir('Funkwhale')
