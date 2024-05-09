@@ -25,6 +25,7 @@
 	public API.Account? kind_instigator { get; set; default = null; }
 	private Gtk.Button? quoted_status_btn { get; set; default = null; }
 	public bool enable_thread_lines { get; set; default = false; }
+	public API.Translation? translation { get; private set; default = null; }
 
 	private bool _can_be_opened = true;
 	public bool can_be_opened {
@@ -137,6 +138,8 @@
 	private SimpleAction edit_history_simple_action;
 	private SimpleAction stats_simple_action;
 	private SimpleAction toggle_pinned_simple_action;
+	private SimpleAction translate_simple_action;
+	private SimpleAction show_original_simple_action;
 
 	protected Adw.Bin emoji_reactions;
 	public Gee.ArrayList<API.EmojiReaction>? reactions {
@@ -250,6 +253,17 @@
 			var delete_status_simple_action = new SimpleAction ("delete-status", null);
 			delete_status_simple_action.activate.connect (delete_status);
 			action_group.add_action (delete_status_simple_action);
+		} else if (accounts.active.instance_info.tuba_can_translate) {
+			translate_simple_action = new SimpleAction ("translate", null);
+			translate_simple_action.activate.connect (translate);
+			translate_simple_action.set_enabled (true);
+
+			show_original_simple_action = new SimpleAction ("show-original", null);
+			show_original_simple_action.activate.connect (translate);
+			show_original_simple_action.set_enabled (false);
+
+			action_group.add_action (translate_simple_action);
+			action_group.add_action (show_original_simple_action);
 		}
 	}
 
@@ -277,6 +291,32 @@
 			menu_model.append (_("Edit"), "status.edit-status");
 			menu_model.append (_("Delete"), "status.delete-status");
 		} else {
+			if (
+				accounts.active.instance_info.tuba_can_translate
+				&& status.formal.tuba_translatable
+				&& (
+					status.formal.visibility == "public"
+					|| status.formal.visibility == "unlisted"
+				)
+				&& Tuba.default_locale != status.formal.language
+				&& (
+					Tuba.default_locale != "en-US"
+					|| status.formal.language != "en"
+				)
+			) {
+				var translate_menu_item = new GLib.MenuItem (_("Translate"), "status.translate");
+				translate_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+
+				// translators: Post menu items to revert a translation
+				var show_original_menu_item = new GLib.MenuItem (_("Show Original"), "status.show-original");
+				show_original_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+
+				// We need 2 items because we apparently
+				// can't update labels
+				menu_model.append_item (translate_menu_item);
+				menu_model.append_item (show_original_menu_item);
+			}
+
 			menu_model.append (_("Report"), "status.report");
 		}
 
@@ -360,12 +400,70 @@
 		);
 	}
 
+	private void translate () {
+		if (translation != null) {
+			translation = null;
+			bind ();
+
+			translate_simple_action.set_enabled (true);
+			show_original_simple_action.set_enabled (false);
+			return;
+		}
+
+		if (accounts.active.instance_info.pleroma != null) {
+			new Request.GET (@"/api/v1/statuses/$(status.formal.id)/translations/$(Tuba.default_locale)")
+				.with_account (accounts.active)
+				.then ((in_stream) => {
+					var parser = Network.get_parser_from_inputstream (in_stream);
+					var node = network.parse_node (parser);
+					var akkotrans = API.AkkomaTranslation.from (node);
+					translation = new API.Translation () {
+						content = akkotrans.text,
+						detected_source_language = akkotrans.detected_language
+					};
+					bind ();
+
+					translate_simple_action.set_enabled (false);
+					show_original_simple_action.set_enabled (true);
+				})
+				.on_error ((code, message) => {
+					warning (@"Couldn't translate $(status.formal.id): $code $message");
+					app.toast (_("Couldn't translate: %s").printf (message));
+				})
+				.exec ();
+
+			return;
+		}
+
+		new Request.POST (@"/api/v1/statuses/$(status.formal.id)/translate")
+			.with_form_data ("lang", Tuba.default_locale)
+			.with_account (accounts.active)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				translation = API.Translation.from (node);
+				bind ();
+
+				translate_simple_action.set_enabled (false);
+				show_original_simple_action.set_enabled (true);
+			})
+			.on_error ((code, message) => {
+				warning (@"Couldn't translate $(status.formal.id): $code $message");
+				app.toast (_("Couldn't translate: %s").printf (message));
+			})
+			.exec ();
+	}
+
 	protected string spoiler_text {
 		owned get {
 			var text = status.formal.spoiler_text;
 			if (text == null || text == "") {
 				return _("Show More");
 			} else {
+				if (translation != null && translation.spoiler_text != null && translation.spoiler_text != "") {
+					text = translation.spoiler_text;
+				}
+
 				spoiler_text_revealed = text;
 				return text;
 			}
@@ -520,6 +618,7 @@
 
 	protected Gtk.Button prev_card;
 	private Widgets.Attachment.Box attachments;
+	private Gtk.Label translation_label;
 	private Widgets.VoteBox poll;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	ulong[] formal_handler_ids = {};
@@ -550,7 +649,12 @@
 		this.content.has_quote = status.formal.quote != null;
 		this.content.mentions = status.formal.mentions;
 		this.content.instance_emojis = status.formal.emojis_map;
-		this.content.content = status.formal.content;
+
+		if (translation != null && translation.content != null && translation.content != "") {
+			this.content.content = translation.content;
+		} else {
+			this.content.content = status.formal.content;
+		}
 
 		if (quoted_status_btn != null) content_box.remove (quoted_status_btn);
 		if (status.formal.quote != null && !is_quote) {
@@ -604,16 +708,59 @@
 		if (poll != null) content_box.remove (poll);
 		if (status.formal.poll != null) {
 			poll = new Widgets.VoteBox ();
+			poll.translation = translation;
 			bindings += status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 			content_box.append (poll);
 		}
 
 		if (attachments != null) content_box.remove (attachments);
 		if (status.formal.has_media) {
+			if (translation != null && translation.media_attachments != null && translation.media_attachments.size > 0) {
+				var translated_media = new Gee.HashMap<string, string> ();
+				translation.media_attachments.@foreach (e => {
+					translated_media.set (e.id, e.description);
+					return true;
+				});
+
+				status.formal.media_attachments.@foreach (item => {
+					if (translated_media.has_key (item.id)) {
+						item.tuba_translated_alt_text = translated_media.get (item.id);
+					}
+
+					return true;
+				});
+			} else {
+				status.formal.media_attachments.@foreach (item => {
+					item.tuba_translated_alt_text = null;
+					return true;
+				});
+			}
+
 			attachments = new Widgets.Attachment.Box ();
 			attachments.has_spoiler = status.formal.sensitive;
 			attachments.list = status.formal.media_attachments;
 			content_box.append (attachments);
+		}
+
+		if (translation_label != null) content_box.remove (translation_label);
+		if (translation != null && translation.provider != "") {
+			string translation_label_content;
+			if (translation.detected_source_language != "") {
+				// translatiors: the first variable is a language name,
+				// 				 the second variable is a service name e.g. DeepL
+				translation_label_content = _("Translated from %s using %s").printf (translation.detected_source_language.up (), translation.provider);
+			} else {
+				// translatiors: the variable is a service name e.g. DeepL
+				translation_label_content = _("Translated using %s").printf (translation.provider);
+			}
+
+			translation_label = new Gtk.Label (translation_label_content) {
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR,
+				xalign = 1.0f,
+				css_classes = {"subtitle"}
+			};
+			content_box.append (translation_label);
 		}
 
 		if (prev_card != null) content_box.remove (prev_card);

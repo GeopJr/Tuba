@@ -1,3 +1,3 @@
 sources += files(
-    'Source.vala',
+    'Translation.vala',
 )

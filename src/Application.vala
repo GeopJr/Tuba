@@ -27,6 +27,8 @@ namespace Tuba {
 	public static bool is_flatpak = false;
 	public static string cache_path;
 
+	public static string default_locale;
+
 	public class Application : Adw.Application {
 
 		public Dialogs.MainWindow? main_window { get; set; }
@@ -247,6 +249,17 @@ namespace Tuba {
 				}
 				Adw.init ();
 				GtkSource.init ();
+
+				var t_default_locale = Gtk.get_default_language ().to_string ();
+				if (t_default_locale == "c") {
+					default_locale = "en-US";
+				} else {
+					if (t_default_locale.index_of_char ('-') != -1) {
+						var tdl_parts = t_default_locale.split ("-", 2);
+						t_default_locale = @"$(tdl_parts[0].down ())-$(tdl_parts[1].up ())";
+					}
+					default_locale = t_default_locale;
+				}
 
 				settings = new Settings ();
 				streams = new Streams ();

@@ -11,6 +11,7 @@ sources += files(
     'Entity.vala',
     'Funkwhale.vala',
     'Instance.vala',
+    'InstanceV2.vala',
     'List.vala',
     'Mention.vala',
     'Notification.vala',
@@ -23,10 +24,11 @@ sources += files(
     'Suggestion.vala',
     'Tag.vala',
     'TagHistory.vala',
+    'Translation.vala',
 )
 
 subdir('Account')
-# subdir('Akkoma')
+subdir('Akkoma')
 subdir('BookWyrm')
 subdir('Filters')
 subdir('Funkwhale')
