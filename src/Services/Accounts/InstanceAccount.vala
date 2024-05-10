@@ -16,6 +16,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_EDITED = "update";
 	public const string KIND_REPLY = "tuba_reply";
 	public const string KIND_SEVERED_RELATIONSHIPS = "severed_relationships";
+	public const string KIND_ADMIN_REPORT = "admin.report";
+	public const string KIND_ADMIN_SIGNUP = "admin.sign_up";
 
 	public string uuid { get; set; }
 	public string? backend { set; get; }
@@ -209,6 +211,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_MENTION:
 				result = {
 					"tuba-chat-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
 					_("%s mentioned you").printf (actor_name),
 					callback_url
 				};
@@ -216,6 +220,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_REBLOG:
 				result = {
 					"tuba-media-playlist-repeat-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
 					_("%s boosted your post").printf (actor_name),
 					callback_url
 				};
@@ -223,6 +229,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_REMOTE_REBLOG:
 				result = {
 					"tuba-media-playlist-repeat-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
 					_("%s boosted").printf (actor_name),
 					callback_url
 				};
@@ -230,6 +238,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_FAVOURITE:
 				result = {
 					"starred-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
 					_("%s favorited your post").printf (actor_name),
 					callback_url
 				};
@@ -237,6 +247,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_FOLLOW:
 				result = {
 					"contact-new-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
 					_("%s now follows you").printf (actor_name),
 					callback_url
 				};
@@ -244,6 +256,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_FOLLOW_REQUEST:
 				result = {
 					"contact-new-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
 					_("%s wants to follow you").printf (actor_name),
 					callback_url
 				};
@@ -251,6 +265,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_POLL:
 				result = {
 					"tuba-check-round-outline-symbolic",
+					// translators: this is used for notifications
 					_("Poll results"),
 					null
 				};
@@ -258,6 +273,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_EDITED:
 				result = {
 					"document-edit-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
 					_("%s edited a post").printf (actor_name),
 					null
 				};
@@ -266,6 +283,34 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				result = {
 					"tuba-reply-sender-symbolic",
 					_("In Reply"),
+					null
+				};
+				break;
+			case KIND_ADMIN_SIGNUP:
+				result = {
+					"tuba-police-badge2-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for admin notifications
+					_("%s signed up").printf (actor_name),
+					null
+				};
+				break;
+			case KIND_SEVERED_RELATIONSHIPS:
+				result = {
+					"tuba-heart-broken-symbolic",
+					// translators: this is used for notifications,
+					//				when you lost followers or following
+					//				due to admin instance or user suspension
+					//				or personal domain blocking
+					_("Some of your relationships got severed"),
+					null
+				};
+				break;
+			case KIND_ADMIN_REPORT:
+				result = {
+					"tuba-police-badge2-symbolic",
+					// translators: this is used for admin notifications
+					_("Received a new report"),
 					null
 				};
 				break;
