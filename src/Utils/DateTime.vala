@@ -106,6 +106,14 @@ public class Tuba.DateTime {
 		}
 	}
 
+	public static string format_full (string iso8601) {
+		var date = new GLib.DateTime.from_iso8601 (iso8601, null);
+		//  translators: %b is Month name (short)
+		//				 %-e is the Day number
+		//				 %Y is the year (with century)
+		return date.to_timezone (new TimeZone.local ()).format (_("%b %-e, %Y"));
+	}
+
 	public static string humanize_old (string iso8601) {
 		var date = new GLib.DateTime.from_iso8601 (iso8601, null);
 		var now = new GLib.DateTime.now_local ();

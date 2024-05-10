@@ -11,14 +11,16 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				case "user_domain_block":
 					return GLib.ngettext (
 						// translators: the first variable is an instance (e.g. mastodon.social), the second one is a number,
-						//				this is the singular version, '1 account you follow'
+						//				this is the singular version, '1 account you follow',
+						//				leave <b> and </b> as is
 						_("You have blocked <b>%s</b>, removing <b>%lld</b> of your followers and <b>1</b> account you follow.").printf (
 							target_name,
 							followers_count
 						),
 
 						// translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
-						//				this is the plural version, '4 accounts you follow'
+						//				this is the plural version, '4 accounts you follow',
+						//				leave <b> and </b> as is
 						_("You have blocked <b>%s</b>, removing <b>%lld</b> of your followers and <b>%lld</b> accounts you follow.").printf (
 							target_name,
 							followers_count,
@@ -29,14 +31,16 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				case "domain_block":
 					return GLib.ngettext (
 						// translators: the first variable is an instance (e.g. mastodon.social), the second one is a number,
-						//				this is the singular version, '1 account you follow'
+						//				this is the singular version, '1 account you follow',
+						//				leave <b> and </b> as is
 						_("An admin has blocked <b>%s</b>, including <b>%lld</b> of your followers and <b>1</b> account you follow.").printf (
 							target_name,
 							followers_count
 						),
 
 						// translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
-						//				this is the plural version, '4 accounts you follow'
+						//				this is the plural version, '4 accounts you follow',
+						//				leave <b> and </b> as is
 						_("An admin has blocked <b>%s</b>, including <b>%lld</b> of your followers and <b>%lld</b> accounts you follow.").printf (
 							target_name,
 							followers_count,
@@ -45,7 +49,8 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 						(ulong) following_count
 					);
 				case "account_suspension":
-					// translators: the first variable is a user handle so 'them' refers to that user
+					// translators: the first variable is a user handle so 'them' refers to that user,
+					//				leave <b> and </b> as is
 					return _("An admin has suspended <b>%s</b>, which means you can no longer receive updates from them or interact with them.").printf (
 						target_name
 					);
@@ -55,10 +60,60 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		}
 	}
 
+	public class Report : Entity {
+		public string id { get; set; }
+		public string category { get; set; default="other"; }
+		public string comment { get; set; default=""; }
+
+		public string to_string (string? created_at) {
+			// translators: the variable is a string report comment,
+			//				leave <b> and </b> as is
+			string t_comment = comment == "" ? comment : _("With the comment: <b>%s</b>").printf (comment);
+			string t_reason_type = "";
+			switch (category) {
+				case "other":
+					// translators: report category
+					t_reason_type = _("Other");
+					break;
+				case "spam":
+					// translators: report category
+					t_reason_type = _("Spam");
+					break;
+				case "legal":
+					// translators: report category
+					t_reason_type = _("Legal");
+					break;
+				case "violation":
+					// translators: report category
+					t_reason_type = _("Rule Violation");
+					break;
+			}
+
+			string t_reason = t_reason_type == ""
+				? ""
+				// translators: report notification reason,
+				//				the variable is a string reason category (e.g. Spam),
+				//				leave <b> and </b> as is
+				: _("Reason: <b>%s</b>\n").printf (t_reason_type);
+
+			string msg = created_at == null
+				// translators: report notification
+				? _("You've received a report\n")
+
+				// translators: report notification with date,
+				//				leave <b> and </b> as is
+				: _("You've received a report on: <b>%s</b>\n").printf (DateTime.format_full (created_at));
+
+			return @"$msg$t_reason$t_comment";
+		}
+	}
+
 	public string id { get; set; }
 	public API.Account account { get; set; }
 	public string? kind { get; set; default = null; }
+	public string? created_at { get; set; default = null; }
 	public API.Status? status { get; set; default = null; }
+	public Report? report { get; set; default = null; }
 
 	// the docs claim that 'relationship_severance_event'
 	// is the one used but that is not true
@@ -69,6 +124,10 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		switch (kind) {
 			case InstanceAccount.KIND_SEVERED_RELATIONSHIPS:
 				Host.open_uri (@"$(accounts.active.instance)/severed_relationships");
+				break;
+			case InstanceAccount.KIND_ADMIN_REPORT:
+				if (report != null)
+					Host.open_uri (@"$(accounts.active.instance)/admin/reports/$(report.id)");
 				break;
 			default:
 				if (status != null) {
@@ -86,35 +145,49 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			case InstanceAccount.KIND_FOLLOW_REQUEST:
 				this.account.tuba_rs = new API.Relationship.for_account (this.account);
 				return new Widgets.Account (this.account);
+			case InstanceAccount.KIND_ADMIN_SIGNUP:
+				this.account.tuba_rs = new API.Relationship.for_account (this.account);
+				return new Widgets.Account (this.account) {
+					// translators: as in just registered in the instance,
+					//				this is a notification type only visible
+					//				to admins
+					cover_badge_label = _("Signed Up")
+				};
 			case InstanceAccount.KIND_SEVERED_RELATIONSHIPS:
 				RelationshipSeveranceEvent? t_event = event == null ? relationship_severance_event : event;
-				var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 16) {
-					margin_top = 8,
-					margin_bottom = 8,
-					margin_start = 16,
-					margin_end = 16
-				};
-				box.append (new Gtk.Image.from_icon_name ("tuba-heart-broken-symbolic") {
-					icon_size = Gtk.IconSize.LARGE
-				});
-				box.append (new Gtk.Label (t_event.to_string ()) {
-					vexpand = true,
-					xalign = 0.0f,
-					use_markup = true,
-					css_classes = {"title"},
-					wrap = true,
-					wrap_mode = Pango.WrapMode.WORD_CHAR,
-					hexpand = true
-				});
-
-				var row = new Widgets.ListBoxRowWrapper () {
-					child = box,
-				};
-				row.open.connect (open);
-				return row;
+				return create_basic_card ("tuba-heart-broken-symbolic", t_event.to_string ());
+			case InstanceAccount.KIND_ADMIN_REPORT:
+				return create_basic_card ("tuba-police-badge2-symbolic", report.to_string (this.created_at));
 			default:
 				return new Widgets.Notification (this);
 		}
+	}
+
+	private Gtk.Widget create_basic_card (string icon_name, string label) {
+		var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 16) {
+			margin_top = 8,
+			margin_bottom = 8,
+			margin_start = 16,
+			margin_end = 16
+		};
+		box.append (new Gtk.Image.from_icon_name ("tuba-heart-broken-symbolic") {
+			icon_size = Gtk.IconSize.LARGE
+		});
+		box.append (new Gtk.Label (label) {
+			vexpand = true,
+			xalign = 0.0f,
+			use_markup = true,
+			css_classes = {"title"},
+			wrap = true,
+			wrap_mode = Pango.WrapMode.WORD_CHAR,
+			hexpand = true
+		});
+
+		var row = new Widgets.ListBoxRowWrapper () {
+			child = box,
+		};
+		row.open.connect (open);
+		return row;
 	}
 
 	public virtual async GLib.Notification to_toast (InstanceAccount issuer, int others = 0) {
