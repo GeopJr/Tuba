@@ -9,6 +9,7 @@ sources += files(
     'Emoji.vala',
     'EmojiLabel.vala',
     'LabelWithWidgets.vala',
+    'ListBoxRowWrapper.vala',
     'MarkupView.vala',
     'Notification.vala',
     'PreviewCard.vala',

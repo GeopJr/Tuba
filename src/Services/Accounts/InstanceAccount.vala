@@ -15,6 +15,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_REMOTE_REBLOG = "__remote-reblog";
 	public const string KIND_EDITED = "update";
 	public const string KIND_REPLY = "tuba_reply";
+	public const string KIND_SEVERED_RELATIONSHIPS = "severed_relationships";
 
 	public string uuid { get; set; }
 	public string? backend { set; get; }
