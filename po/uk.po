@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: 2024-05-11 15:23+0000\n"
+"PO-Revision-Date: 2024-05-13 00:02+0000\n"
 "Last-Translator: EvilAngel <noptisun@mailfence.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tuba/tuba/uk/>"
 "\n"
@@ -361,7 +361,7 @@ msgid ""
 "stretching and cropping them"
 msgstr ""
 "Зменшити медіа та додати смужки з боків, щоб заповнити рамку, замість того, "
-"щоб розтягувати та обрізати її."
+"щоб розтягувати та обрізати її"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:72
@@ -1549,7 +1549,7 @@ msgstr "закінчився вчора"
 #: src/Utils/DateTime.vala:60
 #, c-format
 msgid "expired on %b %-e"
-msgstr "закінчився на %-e %B"
+msgstr "закінчилось %-e %b"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -1592,7 +1592,7 @@ msgstr "Вчора"
 #: src/Utils/DateTime.vala:99
 #, c-format
 msgid "%b %-e"
-msgstr "%-e %B"
+msgstr "%-e %b"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
