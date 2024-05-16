@@ -218,8 +218,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
     }
 
 	public override void open () {
-		var view = new Views.Thread (formal);
-		app.main_window.open_view (view);
+		app.main_window.open_view (new Views.Thread (formal));
 	}
 
     public bool is_mine {

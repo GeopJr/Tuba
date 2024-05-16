@@ -41,10 +41,18 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 		foreach (var tab in views) {
 			stack.remove (tab);
-			tab.dispose ();
 		}
 		views = {};
 	}
+
+	#if !USE_LISTVIEW
+		public override void unbind_listboxes () {
+			foreach (var tab in views) {
+				tab.unbind_listboxes ();
+			}
+			base.unbind_listboxes ();
+		}
+	#endif
 
 	protected virtual bool title_stack_page_visible {
 		get {
