@@ -120,9 +120,8 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		// Unfortunately, Vala seems to create ref cycles out of thin air,
 		// especially when closures are involved, see e.g.
 		// https://gitlab.gnome.org/GNOME/vala/-/issues/957
-		// To work around that, we forcefully run dispose () -- which breaks any
-		// ref cycles -- when we get removed from our parent widget, the
-		// navigation view.
+		// or model binding.
+		// To work around that, we clear the binding manually.
 		#if !USE_LISTVIEW
 			notify["parent"].connect (() => {
 				if (parent == null)
