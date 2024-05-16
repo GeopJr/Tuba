@@ -123,10 +123,12 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		// To work around that, we forcefully run dispose () -- which breaks any
 		// ref cycles -- when we get removed from our parent widget, the
 		// navigation view.
-		notify["parent"].connect (() => {
-			if (parent == null)
-				dispose ();
-		});
+		#if !USE_LISTVIEW
+			notify["parent"].connect (() => {
+				if (parent == null)
+					unbind_listboxes ();
+			});
+		#endif
 
 		scroll_to_top.clicked.connect (on_scroll_to_top);
 		app.notify["is-mobile"].connect (update_back_btn);
@@ -158,6 +160,10 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		actions.dispose ();
 		base.dispose ();
 	}
+
+	#if !USE_LISTVIEW
+    	public virtual void unbind_listboxes () {}
+	#endif
 
     protected virtual void build_actions () {}
 
