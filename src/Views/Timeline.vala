@@ -127,6 +127,14 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		#endif
 	}
 
+	#if !USE_LISTVIEW
+		public override void unbind_listboxes () {
+			destruct_account_holder ();
+			destruct_streamable ();
+			base.unbind_listboxes ();
+		}
+	#endif
+
 	public override void dispose () {
 		destruct_streamable ();
 		base.dispose ();
