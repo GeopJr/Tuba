@@ -101,14 +101,25 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 			if (found) return true;
 		}
 
-		if ("/tags/" in url) {
-			var from_url = Path.get_basename (url);
-			var decoded = Uri.unescape_string (from_url) ?? from_url;
-			var param_start = decoded.index_of_char ('?');
-			if (param_start != -1)
-				decoded = decoded.slice (0, param_start);
-			app.main_window.open_view (new Views.Hashtag (decoded, null));
+		GLib.Uri? uri = null;
+		try {
+			uri = Uri.parse (url, UriFlags.NONE);
+
+			// Hashtag urls are not resolvable.
+			// Handle them manually if they end in /tags/<tag>.
+			// Some backends might add query params, so using
+			// GLib.Uri is preferred.
+			if (Path.get_basename (Path.get_dirname (url)) == "tags") {
+				app.main_window.open_view (
+					new Views.Hashtag (
+						Path.get_basename (uri.get_path ()),
+						null
+					)
+				);
 			return true;
+			}
+		} catch (UriError e) {
+			warning (@"Failed to parse \"$url\": $(e.message)");
 		}
 
 		if (should_resolve_url (url)) {
