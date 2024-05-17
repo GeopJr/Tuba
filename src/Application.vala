@@ -136,7 +136,7 @@ namespace Tuba {
 			);
 		}
 
-		private void handle_web_ap (Uri uri) {
+		public void handle_web_ap (Uri uri) {
 			if (accounts.active == null) return;
 
 			accounts.active.resolve.begin (WebApHandler.from_uri (uri), (obj, res) => {
