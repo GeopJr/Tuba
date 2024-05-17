@@ -130,6 +130,8 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	}
 
 	public static bool should_resolve_url (string url) {
-		return settings.aggressive_resolving || "@" in url || "user" in url;
+		return settings.aggressive_resolving
+			|| url.index_of_char ('@') != -1
+			|| "/user" in url;
 	}
 }
