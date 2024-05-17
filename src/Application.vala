@@ -145,9 +145,7 @@ namespace Tuba {
 				} catch (Error e) {
 					string msg = @"Failed to resolve URL \"$uri\": $(e.message)";
 					warning (msg);
-
-					var dlg = inform (_("Error"), msg);
-					dlg.present (app.main_window);
+					this.toast (msg);
 				}
 			});
 		}
