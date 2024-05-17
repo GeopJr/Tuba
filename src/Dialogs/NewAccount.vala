@@ -157,7 +157,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		var esc_redirect = Uri.escape_string (redirect_uri);
 		var pars = @"scope=$esc_scopes&response_type=code&redirect_uri=$esc_redirect&client_id=$(Uri.escape_string (account.client_id))";
 		var url = @"$(account.instance)/oauth/authorize?$pars";
-		Host.open_uri (url);
+		Host.open_url (url);
 	}
 
 	async void request_token () throws Error {

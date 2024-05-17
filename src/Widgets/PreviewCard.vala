@@ -92,7 +92,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
         if (card_obj.kind == "link" && card_obj.history != null && card_obj.history.size > 0) {
 				this.add_css_class ("explore");
 
-				this.clicked.connect (() => Host.open_uri (card_obj.url));
+				this.clicked.connect (() => Host.open_url (card_obj.url));
 
                 if (description_label.visible) {
                     if (description_label.label.length > 109)

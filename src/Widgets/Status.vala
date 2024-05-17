@@ -329,7 +329,7 @@
 	}
 
 	private void open_in_browser () {
-		Host.open_uri (status.formal.url ?? status.formal.account.url);
+		Host.open_url (status.formal.url ?? status.formal.account.url);
 	}
 
 	private void report_status () {

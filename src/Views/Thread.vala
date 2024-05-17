@@ -195,7 +195,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 					app.main_window.open_view (new Views.Thread (status));
 				}
 				else
-					Host.open_uri (q);
+					Host.open_url (q);
 			})
 			.exec ();
 	}

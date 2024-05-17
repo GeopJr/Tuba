@@ -120,7 +120,7 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 			} else if (uri.get_scheme () == "web+ap") {
 				app.handle_web_ap (uri);
 
-			return true;
+				return true;
 			}
 		} catch (UriError e) {
 			warning (@"Failed to parse \"$url\": $(e.message)");
@@ -130,15 +130,22 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 			accounts.active.resolve.begin (url, (obj, res) => {
 				try {
 					accounts.active.resolve.end (res).open ();
-				}
-				catch (Error e) {
+				} catch (Error e) {
 					warning (@"Failed to resolve URL \"$url\":");
 					warning (e.message);
-					Host.open_uri (url);
+					if (uri == null) {
+						Host.open_url (url);
+					} else {
+						Host.open_uri (uri);
+					}
 				}
 			});
 		} else {
-			Host.open_uri (url);
+			if (uri == null) {
+				Host.open_url (url);
+			} else {
+				Host.open_uri (uri);
+			}
 		}
 
 		return true;

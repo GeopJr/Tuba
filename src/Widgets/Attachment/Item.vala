@@ -23,7 +23,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	private void open_in_browser () {
-		Host.open_uri (entity.url);
+		Host.open_url (entity.url);
 	}
 
 	private void save_as () {
@@ -234,6 +234,6 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	protected async void open () throws Error {
 		var path = yield Host.download (entity.url);
-		Host.open_uri (path);
+		Host.open_url (path);
 	}
 }
