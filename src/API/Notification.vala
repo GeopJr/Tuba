@@ -123,11 +123,11 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 	public override void open () {
 		switch (kind) {
 			case InstanceAccount.KIND_SEVERED_RELATIONSHIPS:
-				Host.open_uri (@"$(accounts.active.instance)/severed_relationships");
+				Host.open_url (@"$(accounts.active.instance)/severed_relationships");
 				break;
 			case InstanceAccount.KIND_ADMIN_REPORT:
 				if (report != null)
-					Host.open_uri (@"$(accounts.active.instance)/admin/reports/$(report.id)");
+					Host.open_url (@"$(accounts.active.instance)/admin/reports/$(report.id)");
 				break;
 			default:
 				if (status != null) {

@@ -136,7 +136,7 @@ namespace Tuba {
 			);
 		}
 
-		private void handle_web_ap (Uri uri) {
+		public void handle_web_ap (Uri uri) {
 			if (accounts.active == null) return;
 
 			accounts.active.resolve.begin (WebApHandler.from_uri (uri), (obj, res) => {
@@ -145,9 +145,7 @@ namespace Tuba {
 				} catch (Error e) {
 					string msg = @"Failed to resolve URL \"$uri\": $(e.message)";
 					warning (msg);
-
-					var dlg = inform (_("Error"), msg);
-					dlg.present (app.main_window);
+					this.toast (msg);
 				}
 			});
 		}

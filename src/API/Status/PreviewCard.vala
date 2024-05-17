@@ -56,7 +56,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 		public bool open_special_card (string t_url) {
 			switch (this) {
 				case BASIC:
-					Host.open_uri (t_url);
+					Host.open_url (t_url);
 					return true;
 				default:
 					return false;
@@ -171,7 +171,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 		try {
 			card_special_type.parse_url (card_url, out special_host, out special_api_url);
 		} catch {
-			Host.open_uri (card_url);
+			Host.open_url (card_url);
 			return;
 		}
 
@@ -205,7 +205,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 				}
 
 				if (failed || res_url == "") {
-					Host.open_uri (card_url);
+					Host.open_url (card_url);
 				} else {
 					if (bookwyrm_obj == null) {
 						app.main_window.show_media_viewer (res_url, Tuba.Attachment.MediaType.VIDEO, null, null, false, null, card_url, true);
@@ -215,7 +215,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 				}
 			})
 			.on_error (() => {
-				Host.open_uri (card_url);
+				Host.open_url (card_url);
 			})
 			.exec ();
 	}
