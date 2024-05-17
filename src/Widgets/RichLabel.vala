@@ -116,6 +116,10 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 						null
 					)
 				);
+				return true;
+			} else if (uri.get_scheme () == "web+ap") {
+				app.handle_web_ap (uri);
+
 			return true;
 			}
 		} catch (UriError e) {
