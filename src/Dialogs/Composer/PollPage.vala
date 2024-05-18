@@ -262,7 +262,7 @@ public class Tuba.PollPage : ComposerPage {
 			if (min <= expiration.value && max >= expiration.value) {
 				store.append (expiration);
 				exp_count = exp_count + 1;
-				if (expiration.value == 86400) one_day_index = exp_count;
+				if (expiration.value <= 86400) one_day_index = exp_count;
 			}
 		}
 
