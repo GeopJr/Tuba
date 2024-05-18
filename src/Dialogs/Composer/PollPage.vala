@@ -256,8 +256,14 @@ public class Tuba.PollPage : ComposerPage {
 		if (min > 604800) min = 0;
 		if (max < 300) max = 604800;
 
+		int one_day_index = -1;
+		int exp_count = -1;
 		foreach (var expiration in expirations) {
-			if (min <= expiration.value && max >= expiration.value) store.append (expiration);
+			if (min <= expiration.value && max >= expiration.value) {
+				store.append (expiration);
+				exp_count = exp_count + 1;
+				if (expiration.value <= 86400) one_day_index = exp_count;
+			}
 		}
 
 		expiration_button = new Gtk.DropDown (store, null) {
@@ -283,6 +289,8 @@ public class Tuba.PollPage : ComposerPage {
 			) {
 				expiration_button.selected = default_exp_index;
 			}
+		} else if (one_day_index > -1) {
+			expiration_button.selected = one_day_index;
 		}
 
 		add_button (expiration_button);
