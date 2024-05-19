@@ -16,7 +16,6 @@
           <object class="GtkListBoxRow">
             <property name="activatable">false</property>
             <child>
-
               <object class="GtkGrid">
                 <property name="row_homogeneous">0</property>
                 <child>
@@ -55,10 +54,17 @@
                     </child>
                     <property name="child">
                       <object class="TubaWidgetsBackground" id="background">
+                        <accessibility>
+                          <relation name="labelled-by">background</relation>
+                          <property name="described-by">cover_badge</property>
+                        </accessibility>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
                         <property name="height-request">224</property>
                         <property name="margin-bottom">50</property>
+                        <!-- translators: tooltip text on profile covers. -->
+                        <!--              You can replace 'Cover' with 'Background' if needed. -->
+                        <property name="tooltip-text" translatable="yes">View Cover</property>
                       </object>
                     </property>
                   </object>
@@ -70,6 +76,9 @@
                     <property name="margin-start">12</property>
                     <property name="margin-end">12</property>
                     <property name="size">100</property>
+                    <!-- translators: tooltip text on profile avatars. -->
+                    <!--              You can replace 'Avatar' with 'Profile Picture' if needed. -->
+                    <property name="tooltip-text" translatable="yes">View Avatar</property>
                     <layout>
                       <property name="column">0</property>
                       <property name="row">0</property>
