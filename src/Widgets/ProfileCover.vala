@@ -266,9 +266,24 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 		var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
 
-		// translators: the variable is the amount of posts a user has made
-		var btn = build_profile_stats_button (_("%s Posts").printf (Tuba.Units.shorten (account.statuses_count)));
-        btn.tooltip_text = _("%s Posts").printf (account.statuses_count.to_string ());
+        // translators: Used in profile stats.
+        //              The variable is a shortened number of the amount of posts a user has made.
+		string posts_str = GLib.ngettext (
+			"%s Post",
+			"%s Posts",
+			(ulong) account.statuses_count
+		);
+
+		// translators: Used in profile stats.
+        //              The variable is a shortened number of the amount of followers a user has.
+		string followers_str = GLib.ngettext (
+			"%s Follower",
+			"%s Followers",
+			(ulong) account.statuses_count
+		);
+
+		var btn = build_profile_stats_button (posts_str.printf (Tuba.Units.shorten (account.statuses_count)));
+        btn.tooltip_text = posts_str.printf (account.statuses_count.to_string ());
 		btn.clicked.connect (() => timeline_change ("statuses"));
 		sizegroup.add_widget (btn);
 		box.append (btn);
@@ -276,7 +291,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		var separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
 		box.append (separator);
 
-		// translators: the variable is the amount of people a user follows
+		// translators: Used in profile stats.
+        //              The variable is a shortened number of the amount of people a user follows.
 		btn = build_profile_stats_button (_("%s Following").printf (Tuba.Units.shorten (account.following_count)));
         btn.tooltip_text = _("%s Following").printf (account.following_count.to_string ());
 		btn.clicked.connect (() => timeline_change ("following"));
@@ -287,8 +303,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		box.append (separator);
 
 		// translators: the variable is the amount of followers a user has
-		btn = build_profile_stats_button (_("%s Followers").printf (Tuba.Units.shorten (account.followers_count)));
-        btn.tooltip_text = _("%s Followers").printf (account.followers_count.to_string ());
+		btn = build_profile_stats_button (followers_str.printf (Tuba.Units.shorten (account.followers_count)));
+        btn.tooltip_text = followers_str.printf (account.followers_count.to_string ());
 		btn.clicked.connect (() => timeline_change ("followers"));
 		sizegroup.add_widget (btn);
 		box.append (btn);
