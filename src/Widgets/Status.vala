@@ -485,14 +485,25 @@
 				var date_local = _("%B %e, %Y");
 
 				// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES
-				var date_parsed = new GLib.DateTime.from_iso8601 (status.formal.edited_at ?? status.formal.created_at, null);
+				var date_parsed = new GLib.DateTime.from_iso8601 (this.full_date, null);
 				date_parsed = date_parsed.to_timezone (new TimeZone.local ());
 
 				return date_parsed.format (@"$date_local $expanded_separator %H:%M").replace (" ", ""); // %e prefixes with whitespace on single digits
 			} else {
-				return DateTime.humanize (status.formal.edited_at ?? status.formal.created_at);
+				return DateTime.humanize (this.full_date);
 			}
 		}
+	}
+
+	protected string full_date {
+		get {
+			return status.formal.edited_at ?? status.formal.created_at;
+			}
+		}
+
+	private string formatted_full_date () {
+		return new GLib.DateTime.from_iso8601 (this.full_date, null)
+			.format ("%F %T");
 	}
 
 	public string title_text {
@@ -684,6 +695,11 @@
 		handle_label.label = this.subtitle_text;
 		date_label.label = this.date;
 
+		if (!expanded) {
+			date_label.tooltip_text = formatted_full_date ();
+			date_label.update_property (Gtk.AccessibleProperty.LABEL, date_label.tooltip_text, -1);
+		}
+
 		pin_indicator.visible = status.formal.pinned;
 		update_toggle_pinned_label ();
 		edited_indicator.visible = status.formal.is_edited;
@@ -851,6 +867,7 @@
 
 		date_label.label = this.date;
 		date_label.wrap = true;
+		date_label.tooltip_text = null;
 
 		// The bottom bar
 		var bottom_info = new Gtk.FlowBox () {

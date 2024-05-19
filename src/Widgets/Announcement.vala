@@ -146,7 +146,10 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 			announcement_date = t_announcement.published_at;
 			edited_indicator.visible = false;
 		}
+
 		date_label.label = DateTime.humanize (announcement_date);
+		date_label.tooltip_text = new GLib.DateTime.from_iso8601 (announcement_date, null).format ("%F %T");
+		date_label.update_property (Gtk.AccessibleProperty.LABEL, date_label.tooltip_text, -1);
 
 		handle_label.label = @"@$instance_uri";
 		avatar.text = name_label.label = instance_title;
