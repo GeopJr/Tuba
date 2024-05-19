@@ -113,6 +113,9 @@
                             <child>
                               <object class="GtkFlowBoxChild">
                                 <property name="focusable">0</property>
+                                <accessibility>
+                                  <relation name="labelled-by">name_label</relation>
+                                </accessibility>
                                 <child>
                                   <object class="GtkButton" id="name_button">
                                     <property name="halign">start</property>
@@ -138,6 +141,9 @@
                             <child>
                               <object class="GtkFlowBoxChild">
                                 <property name="can-target">0</property>
+                                <accessibility>
+                                  <relation name="labelled-by">handle_label</relation>
+                                </accessibility>
                                 <child>
                                   <object class="GtkLabel" id="handle_label">
                                     <property name="label" translatable="no">Handle</property>
