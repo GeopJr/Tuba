@@ -501,8 +501,8 @@
 	protected string full_date {
 		get {
 			return status.formal.edited_at ?? status.formal.created_at;
-			}
 		}
+	}
 
 	private string formatted_full_date () {
 		return new GLib.DateTime.from_iso8601 (this.full_date, null)
@@ -569,13 +569,20 @@
 				};
 				actor_avatar.add_css_class ("ttl-status-avatar-actor");
 
+				string actor_handle;
 				if (this.kind_instigator != null) {
 					actor_avatar_binding = this.bind_property ("kind_instigator", actor_avatar, "account", BindingFlags.SYNC_CREATE);
 					actor_avatar.clicked.connect (open_kind_instigator_account);
+					actor_handle = this.kind_instigator.handle;
 				} else {
 					actor_avatar_binding = status.bind_property ("account", actor_avatar, "account", BindingFlags.SYNC_CREATE);
 					actor_avatar.clicked.connect (open_status_account);
+					actor_handle = status.account.handle;
 				}
+
+				// translators: Tooltip text for avatars in posts.
+				//				The variable is a string user handle.
+				actor_avatar.tooltip_text = _("Open %s's Profile").printf (actor_handle);
 			}
 			avatar.add_css_class ("ttl-status-avatar-border");
 			avatar_overlay.child = actor_avatar;
@@ -720,6 +727,10 @@
 		}
 
 		avatar.account = status.formal.account;
+		// translators: Tooltip text for avatars in posts.
+		//				The variable is a string user handle.
+		avatar.tooltip_text = _("Open %s's Profile").printf (status.formal.account.handle);
+
 		reactions = status.formal.compat_status_reactions;
 
 		name_label.instance_emojis = status.formal.account.emojis_map;
