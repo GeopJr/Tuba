@@ -1,6 +1,8 @@
 public class Tuba.DateTime {
 
-	public static string humanize_left (string iso8601) {
+	public static string humanize_left (string? iso8601) {
+		if (iso8601 == null) return "🤷";
+
 		var date = new GLib.DateTime.from_iso8601 (iso8601, null);
 		var now = new GLib.DateTime.now_local ();
 		var delta = date.difference (now);
