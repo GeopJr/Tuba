@@ -43,10 +43,12 @@ public class Tuba.StatusActionButton : Gtk.Button {
 			remove_css_class ("flat");
 			add_css_class ("enabled");
 			content.icon_name = active_icon_name ?? default_icon_name;
+			this.update_state (Gtk.AccessibleState.PRESSED, Gtk.AccessibleTristate.TRUE, -1);
 		} else {
 			add_css_class ("flat");
 			remove_css_class ("enabled");
 			content.icon_name = default_icon_name;
+			this.update_state (Gtk.AccessibleState.PRESSED, Gtk.AccessibleTristate.FALSE, -1);
 		}
 	}
 
@@ -73,6 +75,7 @@ public class Tuba.StatusActionButton : Gtk.Button {
 	}
 
 	construct {
+        this.set_accessible_role (Gtk.AccessibleRole.TOGGLE_BUTTON);
 		content = new Adw.ButtonContent ();
 		this.child = content;
 	}
