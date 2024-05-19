@@ -310,6 +310,10 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         base.add_child (builder, child, type);
     }
 
+    public bool grab_focus () {
+        return this.label.grab_focus ();
+    }
+
     public signal bool activate_link (string uri);
 
     public bool single_line_mode {

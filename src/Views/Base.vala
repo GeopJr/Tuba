@@ -202,5 +202,12 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 
 	public void update_last_widget () {
 		this.last_widget = app.main_window.get_focus ();
+		// Alternative way to grab focus of label links
+		// Currently replaced by RichLabel's activate_link's
+		// grab_focus as it's more reliable for this use case
+		//
+		//  if ((this.last_widget as Gtk.Label) != null) {
+		//  	this.last_widget = this.last_widget.get_focus_child ();
+		//  }
 	}
 }
