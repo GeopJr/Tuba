@@ -160,6 +160,9 @@
 	}
 
 	construct {
+		pin_indicator.update_property (Gtk.AccessibleProperty.LABEL, pin_indicator.tooltip_text, -1);
+		edited_indicator.update_property (Gtk.AccessibleProperty.LABEL, edited_indicator.tooltip_text, -1);
+
 		name_label.use_markup = false;
 		avatar_overlay.set_size_request (avatar.size, avatar.size);
 		open.connect (on_open);
@@ -708,6 +711,7 @@
 		var t_visibility = accounts.active.visibility[status.formal.visibility];
 		visibility_indicator.icon_name = t_visibility.small_icon_name;
 		visibility_indicator.tooltip_text = t_visibility.name;
+		visibility_indicator.update_property (Gtk.AccessibleProperty.LABEL, t_visibility.name, -1);
 
 		if (change_background_on_direct && status.formal.visibility == "direct") {
 			this.add_css_class ("direct");

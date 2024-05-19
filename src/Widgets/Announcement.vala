@@ -113,6 +113,8 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 	}
 
 	construct {
+		edited_indicator.update_property (Gtk.AccessibleProperty.LABEL, edited_indicator.tooltip_text, -1);
+
 		if (settings.larger_font_size)
 			add_css_class ("ttl-status-font-large");
 
