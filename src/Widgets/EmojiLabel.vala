@@ -32,7 +32,9 @@ public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
         out string t_input_with_placeholder,
         out Gtk.Widget[] t_widgets
     ) {
-        t_input_with_placeholder = t_input;
+        t_input_with_placeholder = t_input
+            .replace (this.placeholder, " ")
+            .replace (OBJECT_REPLACEMENT_CHARACTER, " ");
         t_widgets = {};
 		if (!t_input.contains (":") || instance_emojis == null) return;
 
@@ -46,7 +48,7 @@ public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
                     pixel_size = smaller_emoji_pixel_size ? 14 : -1,
                     icon_size = large_emojis ? Gtk.IconSize.LARGE : Gtk.IconSize.INHERIT
                 };
-                t_input_with_placeholder = t_input_with_placeholder.replace (@":$shortcode:", "<widget>");
+                t_input_with_placeholder = t_input_with_placeholder.replace (@":$shortcode:", this.placeholder);
 			}
 		}
 
