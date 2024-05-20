@@ -3,6 +3,9 @@
   <requires lib="gtk" version="4.0" />
   <!-- <template class="TubaWidgetsStatus" parent="AdwBin"> -->
   <template class="TubaWidgetsStatus" parent="GtkListBoxRow">
+    <accessibility>
+      <relation name="described-by">content</relation>
+    </accessibility>
     <property name="child">
       <object class="GtkStack" id="filter_stack">
         <property name="vhomogeneous">0</property>

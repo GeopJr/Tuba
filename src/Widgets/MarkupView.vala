@@ -38,6 +38,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 	}
 
 	construct {
+		this.set_accessible_role (Gtk.AccessibleRole.LABEL);
 		orientation = Gtk.Orientation.VERTICAL;
 		spacing = 12;
 	}
