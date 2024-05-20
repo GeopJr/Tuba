@@ -335,6 +335,12 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 
     public signal bool activate_link (string uri);
 
+    public string label_text {
+		get {
+            return _label_text;
+        }
+	}
+
     public bool single_line_mode {
 		get { return label.single_line_mode; }
 		set { label.single_line_mode = value; }

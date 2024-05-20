@@ -71,6 +71,10 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		}
 	}
 
+	public string get_text () {
+		return widget.label_text;
+	}
+
 	public RichLabel (string? text = null) {
 		if (text != null)
 			label = text;

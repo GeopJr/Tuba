@@ -73,6 +73,8 @@
 			if (value != _kind) {
 				_kind = value;
 				change_kind ();
+				if (status != null)
+					aria_describe_status ();
 			}
 		}
 	}
@@ -637,6 +639,137 @@
 			);
 	}
 
+	private void aria_describe_status () {
+		// translators: This is an accessibility label.
+		//				Screen reader users are going to hear this a lot,
+		//				please be mindful.
+		//				The first variable is the post's visibility (e.g. public).
+		//				The second one is the author's name and the third
+		//				one is the author's handle.
+		string post = _("%s post by %s (%s).").printf (
+			visibility_indicator.tooltip_text,
+			this.title_text,
+			this.subtitle_text
+		);
+
+		string aria_date = DateTime.humanize_aria (this.full_date);
+		string aria_date_prefixed = status.formal.is_edited
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is a string date.
+			? _("Edited: %s.").printf (aria_date)
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is a string date.
+			: _("Published: %s.").printf (aria_date);
+
+		string aria_pinned = "";
+		if (status.formal.pinned) {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			aria_pinned = _("The post is pinned.");
+		}
+
+		string aria_quote = "";
+		if (status.formal.quote != null) {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			aria_quote = _("Contains a quoted post.");
+		}
+
+		string aria_attachments = "";
+		if (status.formal.has_media) {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is the number of attachments the post has.
+			aria_attachments = _("Contains %d attachments.").printf (status.formal.media_attachments.size);
+		}
+
+		string aria_poll = "";
+		if (status.formal.poll != null) {
+			aria_poll = status.formal.poll.expired
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				? _("Contains an expired poll.")
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				: _("Contains a poll.");
+		}
+
+		string aria_spoiler = "";
+		if (status.formal.has_spoiler) {
+			if (status.formal.spoiler_text == null || status.formal.spoiler_text == "") {
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				aria_spoiler = _("The post has a spoiler.");
+			} else {
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				//				The variable is the spoiler title.
+				aria_spoiler = _("The post has the following spoiler: %s.").printf (status.formal.spoiler_text);
+			}
+		}
+
+		string aria_app = "";
+		if (status.formal.application != null) {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is the name of the app the post was
+			//				made with (e.g. Tuba).
+			aria_app = _("Posted using %s.").printf (status.formal.application.name);
+		}
+
+		// translators: This is an accessibility label.
+		//				Screen reader users are going to hear this a lot,
+		//				please be mindful.
+		//				The variables are strings <amount> replies,
+		//				<amount> boosts, <amount> favorites.
+		string aria_stats = "Post stats: %s, %s, %s.".printf (
+			GLib.ngettext (
+				"%s reply",
+				"%s replies",
+				(ulong) status.formal.replies_count
+			).printf (status.formal.replies_count.to_string ()),
+			GLib.ngettext (
+				"%s boost",
+				"%s boosts",
+				(ulong) status.formal.reblogs_count
+			).printf (status.formal.reblogs_count.to_string ()),
+			GLib.ngettext (
+				"%s favorite",
+				"%s favorites",
+				(ulong) status.formal.favourites_count
+			).printf (status.formal.favourites_count.to_string ())
+		);
+
+		this.update_property (
+			Gtk.AccessibleProperty.LABEL,
+			"%s %s %s %s %s %s %s %s %s %s".printf (
+				header_label.get_text (),
+				post,
+				aria_date_prefixed,
+				aria_pinned,
+				aria_quote,
+				aria_attachments,
+				aria_poll,
+				aria_spoiler,
+				aria_stats,
+				aria_app
+			),
+			-1
+		);
+	}
+
 	protected Gtk.Button prev_card;
 	private Widgets.Attachment.Box attachments;
 	private Gtk.Label translation_label;
@@ -808,6 +941,8 @@
 		formal_handler_ids += status.formal.notify["favourites-count"].connect (show_view_stats_action);
 		formal_handler_ids += status.formal.notify["tuba-thread-role"].connect (install_thread_line);
 		formal_handler_ids += status.formal.notify["tuba-spoiler-revealed"].connect (update_spoiler_status);
+
+		aria_describe_status ();
 	}
 
 	public void soft_unbind () {
