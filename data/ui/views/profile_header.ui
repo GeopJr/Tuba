@@ -56,7 +56,7 @@
                       <object class="TubaWidgetsBackground" id="background">
                         <accessibility>
                           <relation name="labelled-by">background</relation>
-                          <property name="described-by">cover_badge</property>
+                          <relation name="described-by">cover_badge</relation>
                         </accessibility>
                         <property name="hexpand">1</property>
                         <property name="vexpand">1</property>
