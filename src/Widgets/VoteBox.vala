@@ -159,13 +159,17 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
             row_number++;
         }
 
-        info_label.label = "%s · %s".printf (
-            // translators: the variable is the amount of people that voted
-            _("%lld voted").printf (poll.votes_count),
-            poll.expired
-                ? DateTime.humanize_ago (poll.expires_at)
-                : DateTime.humanize_left (poll.expires_at)
-        );
+        if (poll.expires_at != null) {
+            info_label.label = "%s · %s".printf (
+                // translators: the variable is the amount of people that voted
+                _("%lld voted").printf (poll.votes_count),
+                poll.expired
+                    ? DateTime.humanize_ago (poll.expires_at)
+                    : DateTime.humanize_left (poll.expires_at)
+            );
+        } else {
+            info_label.label = _("%lld voted").printf (poll.votes_count);
+        }
 	}
 
     private void on_check_option_toggeled (Gtk.CheckButton radio) {
