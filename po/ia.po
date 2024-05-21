@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-05-22 20:02+0000\n"
+"Last-Translator: Software In Interlingua <softinterlingua@gmail.com>\n"
+"Language-Team: Interlingua <https://hosted.weblate.org/projects/tuba/tuba/ia/"
+">\n"
 "Language: ia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -52,11 +54,11 @@ msgstr ""
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:20
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "Monstrar le preferentias"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
@@ -81,15 +83,15 @@ msgstr ""
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
-msgstr ""
+msgstr "Clauder le fenestra"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Quit"
-msgstr ""
+msgstr "Sortir"
 
 #: data/gtk/help-overlay.ui:62
 msgid "About"
-msgstr ""
+msgstr "A proposito de"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Up"
@@ -109,11 +111,11 @@ msgstr ""
 
 #: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:42
 msgid "Media Viewer"
-msgstr ""
+msgstr "Visualisator de medios"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "Schermo plen"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:148
 msgid "Zoom In"
@@ -160,7 +162,7 @@ msgstr ""
 #: src/Views/Profile.vala:291 src/Views/Sidebar.vala:291
 #: src/Widgets/Status.vala:341 src/Widgets/Status/ActionsRow.vala:234
 msgid "Cancel"
-msgstr ""
+msgstr "Cancellar"
 
 #: data/ui/dialogs/compose.ui:42 src/Dialogs/Composer/Dialog.vala:272
 msgid "_Publish"
@@ -173,11 +175,11 @@ msgstr ""
 #: data/ui/dialogs/filter_edit.ui:25 data/ui/dialogs/profile_edit.ui:28
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:151
 msgid "Save"
-msgstr ""
+msgstr "Salveguardar"
 
 #: data/ui/dialogs/filter_edit.ui:59
 msgid "Title"
-msgstr ""
+msgstr "Titulo"
 
 #: data/ui/dialogs/filter_edit.ui:65
 msgid "Expires In"
@@ -246,12 +248,12 @@ msgstr ""
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:260
 #: src/Views/Sidebar.vala:264
 msgid "Add Account"
-msgstr ""
+msgstr "Adder un conto"
 
 #: data/ui/dialogs/new_account.ui:29 data/ui/dialogs/new_account.ui:107
 #: src/Dialogs/Report.vala:96 src/Dialogs/Report.vala:425
 msgid "Next"
-msgstr ""
+msgstr "Sequente"
 
 #: data/ui/dialogs/new_account.ui:43
 msgid "What is your Server?"
