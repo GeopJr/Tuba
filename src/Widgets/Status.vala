@@ -768,10 +768,13 @@
 			).printf (status.formal.favourites_count.to_string ())
 		);
 
+		string aria_translation = "";
+		if (translation_label != null) aria_translation = translation_label.get_text ();
+
 		this.update_property (
 			Gtk.AccessibleProperty.LABEL,
-			"%s %s %s %s %s %s %s %s %s %s".printf (
-				header_label.get_text (),
+			"%s %s %s %s %s %s %s %s %s %s %s %s.".printf (
+				header_label.accessible_text,
 				post,
 				aria_date_prefixed,
 				aria_pinned,
@@ -780,7 +783,9 @@
 				aria_poll,
 				aria_spoiler,
 				aria_stats,
-				aria_app
+				aria_reactions,
+				aria_app,
+				aria_translation
 			),
 			-1
 		);
