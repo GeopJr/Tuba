@@ -61,6 +61,10 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		set { widget.lines = value; }
 	}
 
+	public string accessible_text {
+		get { return widget.accessible_text; }
+	}
+
 	// #756
 	public bool fix_overflow_hack {
 		get {
