@@ -520,10 +520,12 @@ namespace Tuba {
 			};
 
 			// translators: Wiki pages / Guides
-			dialog.add_link (_("Wiki"), Build.WIKI_WEBSITE);
-
-			dialog.add_link (_("Translate"), Build.TRANSLATE_WEBSITE);
-			dialog.add_link (_("Donate"), Build.DONATE_WEBSITE);
+			if (Build.WIKI_WEBSITE != "")
+				dialog.add_link (_("Wiki"), Build.WIKI_WEBSITE);
+			if (Build.TRANSLATE_WEBSITE != "")
+				dialog.add_link (_("Translate"), Build.TRANSLATE_WEBSITE);
+			if (Build.DONATE_WEBSITE != "")
+				dialog.add_link (_("Donate"), Build.DONATE_WEBSITE);
 
 			// For some obscure reason, const arrays produce duplicates in the credits.
 			// Static functions seem to avoid this peculiar behavior.
