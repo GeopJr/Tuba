@@ -81,6 +81,8 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 			status_image.visible = false;
 			status_image.icon_name = "tuba-background-app-ghost-symbolic";
 			status_button.visible = false;
+			this.update_state (Gtk.AccessibleState.BUSY, false, -1);
+			this.update_property (Gtk.AccessibleProperty.LABEL, null, -1);
 
 			if (value == null) {
 				states.visible_child_name = "content";
@@ -90,6 +92,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 				if (value.loading) {
 					status_stack.visible_child_name = "spinner";
 					status_spinner.spinning = true;
+					this.update_state (Gtk.AccessibleState.BUSY, true, -1);
 				} else {
 					status_stack.visible_child_name = "message";
 					status_spinner.spinning = false;
@@ -103,6 +106,12 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 
 					if (value.message != null)
 						status_message_label.label = value.message;
+
+					this.update_property (
+						Gtk.AccessibleProperty.LABEL,
+						@"$(status_title_label.label) $(status_message_label.label)",
+						-1
+					);
 				}
 			}
 			_base_status = value;
