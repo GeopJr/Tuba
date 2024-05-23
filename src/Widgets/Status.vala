@@ -789,6 +789,9 @@
 			),
 			-1
 		);
+
+		spoiler_status_con.update_property (Gtk.AccessibleProperty.LABEL, aria_spoiler, -1);
+
 	}
 
 	protected Gtk.Button prev_card;
