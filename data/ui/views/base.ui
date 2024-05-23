@@ -33,6 +33,7 @@
                 <property name="child">
                   <object class="GtkButton" id="scroll_to_top">
                     <property name="icon-name">go-top-symbolic</property>
+                    <property name="tooltip-text">Scroll to Top</property>
                     <style>
                       <class name="circular" />
                       <class name="osd" />
