@@ -7,6 +7,7 @@ public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
     private string _content = "";
 	public string content { get {return _content;}
         set {
+            if (value == null) value = "";
             _content = value;
 
             string t_value;
