@@ -57,7 +57,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     private bool _fix_overflow_hack = false;
     public bool fix_overflow_hack {
         get {
-            return fix_overflow_hack;
+            return _fix_overflow_hack;
         }
         set {
             _fix_overflow_hack = value;
