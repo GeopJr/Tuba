@@ -683,11 +683,14 @@
 
 		string aria_attachments = "";
 		if (status.formal.has_media) {
+			aria_attachments = GLib.ngettext (
 			// translators: This is an accessibility label.
 			//				Screen reader users are going to hear this a lot,
 			//				please be mindful.
 			//				The variable is the number of attachments the post has.
-			aria_attachments = _("Contains %d attachments.").printf (status.formal.media_attachments.size);
+				"Contains %d attachment.", "Contains %d attachments.",
+				(ulong) status.formal.media_attachments.size
+			).printf (status.formal.media_attachments.size);
 		}
 
 		string aria_poll = "";
