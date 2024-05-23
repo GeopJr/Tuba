@@ -20,7 +20,8 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 		entry = new Gtk.SearchEntry () {
 			width_chars = 25,
-			text = query
+			text = query,
+			placeholder_text = _("Enter Query")
 		};
 
 		bar_clamp = new Adw.Clamp () {
