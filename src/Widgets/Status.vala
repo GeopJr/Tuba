@@ -684,10 +684,10 @@
 		string aria_attachments = "";
 		if (status.formal.has_media) {
 			aria_attachments = GLib.ngettext (
-			// translators: This is an accessibility label.
-			//				Screen reader users are going to hear this a lot,
-			//				please be mindful.
-			//				The variable is the number of attachments the post has.
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				//				The variable is the number of attachments the post has.
 				"Contains %d attachment.", "Contains %d attachments.",
 				(ulong) status.formal.media_attachments.size
 			).printf (status.formal.media_attachments.size);
@@ -792,6 +792,13 @@
 
 		spoiler_status_con.update_property (Gtk.AccessibleProperty.LABEL, aria_spoiler, -1);
 
+		if (quoted_status_btn != null) {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				This is used to announce the quoted post
+			quoted_status_btn.update_property (Gtk.AccessibleProperty.DESCRIPTION, _("Quoted Post"), -1);
+		}
 	}
 
 	protected Gtk.Button prev_card;
