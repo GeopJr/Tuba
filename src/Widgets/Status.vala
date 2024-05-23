@@ -718,7 +718,7 @@
 				//				Screen reader users are going to hear this a lot,
 				//				please be mindful.
 				//				The variable is the spoiler title.
-				aria_spoiler = _("The post has the following spoiler: %s.").printf (status.formal.spoiler_text);
+				aria_spoiler = _("The post has the following spoiler: %s.").printf (this.spoiler_text);
 			}
 		}
 
