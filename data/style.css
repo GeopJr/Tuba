@@ -24,13 +24,6 @@ headerbar.flat.no-title .title {
 	opacity: 0;
 }
 
-.attachment,
-.attachment button,
-flowboxchild {
-	padding: 0px;
-	margin: 0px;
-}
-
 .cover-badge {
 	padding: 6px 12px;
 	border-radius: 6px;
@@ -196,38 +189,19 @@ flowboxchild {
 }
 
 .ttl-status-badge {
-	color: white;
 	border-radius: 6px;
 	margin: 8px;
-}
-
-.ttl-status-badge:not(.attachmentpageattachment) {
-	background-color: rgba(0, 0, 0, .8);
-}
-
-.ttl-status-badge.attachmentpageattachment>*.error {
-	background-color: alpha(mix(@red_4, white, .8), .8);
-}
-
-.ttl-status-badge.attachmentpageattachment>*.success {
-	background-color: alpha(mix(@green_4, white, .8), .8);
-}
-
-.ttl-status-badge>* {
 	padding: 1px 6px;
+}
+
+.ttl-status-badge:not(.error):not(.success) {
+	color: white;
+	background-color: rgba(0, 0, 0, .8);
 }
 
 .ttl-status-badge.sensitive-label {
 	padding: 10px 32px;
 	border-radius: 9999px;
-}
-
-.ttl-status-badge>button>label {
-	padding: 1px 6px;
-}
-
-.ttl-status-badge>.image-button {
-	padding: 1px 6px;
 }
 
 .ttl-profile-fields-box > flowboxchild > .ttl-profile-field {
@@ -343,6 +317,11 @@ GtkSourceAssistant.completion list row{
 
 .locale-dropdown-upcase {
 	text-transform: uppercase;
+}
+
+flowboxchild,
+.no-padding {
+	padding: 0;
 }
 
 .preview_card {
