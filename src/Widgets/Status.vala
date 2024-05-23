@@ -732,6 +732,19 @@
 			aria_app = _("Posted using %s.").printf (status.formal.application.name);
 		}
 
+		string aria_reactions = "";
+		if (status.formal.compat_status_reactions != null && status.formal.compat_status_reactions.size > 0) {
+			aria_reactions = GLib.ngettext (
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				//				The variable is the amount of reactions the post
+				//				has.
+				"Contains %d reaction.", "Contains %d reactions.",
+				(ulong) status.formal.compat_status_reactions.size
+			).printf (status.formal.compat_status_reactions.size);
+		}
+
 		// translators: This is an accessibility label.
 		//				Screen reader users are going to hear this a lot,
 		//				please be mindful.
