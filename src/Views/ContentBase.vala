@@ -134,7 +134,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 
 				return new Gtk.ListBoxRow () {
 					css_classes = { "card", "card-spacing" },
-					focusable = true,
+					focusable = false,
 					overflow = Gtk.Overflow.HIDDEN,
 					child = widget
 				};
