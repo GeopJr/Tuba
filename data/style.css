@@ -267,6 +267,10 @@ headerbar.flat.no-title .title {
 	margin-bottom: 6px;
 }
 
+.card-spacing > *:focus-within {
+	border-radius: inherit;
+}
+
 .ttl-post.direct {
 	background-color: alpha(@warning_bg_color, .1);
 }
