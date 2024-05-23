@@ -12,6 +12,7 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
 	}
 
 	construct {
+        this.set_accessible_role (Gtk.AccessibleRole.IMG);
 		image = new Gtk.Image () {
 			css_classes = { "lww-emoji" }
 		};
