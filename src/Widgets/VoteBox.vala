@@ -159,14 +159,48 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
             row_number++;
         }
 
-        info_label.label = "%s · %s".printf (
-            // translators: the variable is the amount of people that voted
-            _("%lld voted").printf (poll.votes_count),
-            poll.expired
-                ? DateTime.humanize_ago (poll.expires_at)
-                : DateTime.humanize_left (poll.expires_at)
-        );
+        if (poll.expires_at != null) {
+            info_label.label = "%s · %s".printf (
+                // translators: the variable is the amount of people that voted
+                _("%lld voted").printf (poll.votes_count),
+                poll.expired
+                    ? DateTime.humanize_ago (poll.expires_at)
+                    : DateTime.humanize_left (poll.expires_at)
+            );
+        } else {
+            info_label.label = _("%lld voted").printf (poll.votes_count);
+        }
+
+        update_aria ();
 	}
+
+    private void update_aria () {
+		string aria_poll = GLib.ngettext (
+            // translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is the amount of poll options
+            "Poll with %d option.", "Poll with %d options.",
+            (ulong) poll.options.size
+        ).printf (poll.options.size);
+
+        string aria_voted = "";
+        // translators: This is an accessibility label.
+		//				Screen reader users are going to hear this a lot,
+		//				please be mindful.
+		//				Describes whether the user has voted on the poll.
+        if (poll.voted) aria_voted = _("You have voted.");
+
+        this.update_property (
+            Gtk.AccessibleProperty.LABEL,
+            "%s %s %s.".printf (
+                aria_poll,
+                aria_voted,
+                info_label.get_text ()
+            ),
+            -1
+        );
+    }
 
     private void on_check_option_toggeled (Gtk.CheckButton radio) {
         var radio_votebutton = radio as Widgets.VoteCheckButton;

@@ -1,6 +1,16 @@
 public class Tuba.StatusActionButton : Gtk.Button {
 	public Adw.ButtonContent content { get; set; }
 
+	//  [CCode (has_target = false)]
+	//  public delegate string GettextString (int64 amount);
+	//  private GettextString _aria_label_template;
+	//  public GettextString aria_label_template {
+	//  	set {
+	//  		_aria_label_template = value;
+	//  		update_aria_label ();
+	//  	}
+	//  }
+
 	private string _default_icon_name = "";
 	public string default_icon_name {
 		get {
@@ -23,6 +33,7 @@ public class Tuba.StatusActionButton : Gtk.Button {
 		set {
 			_amount = value;
 			update_button_content (value);
+			//  update_aria_label ();
 		}
 	}
 
@@ -38,15 +49,27 @@ public class Tuba.StatusActionButton : Gtk.Button {
 		}
 	}
 
+	//  private void update_aria_label () {
+	//  	if (_aria_label_template == null) return;
+
+	//  	this.update_property (
+	//  		Gtk.AccessibleProperty.LABEL,
+	//  		_aria_label_template (_amount),
+	//  		-1
+	//  	);
+	//  }
+
 	private void update_button_style (bool value = active) {
 		if (value) {
 			remove_css_class ("flat");
 			add_css_class ("enabled");
 			content.icon_name = active_icon_name ?? default_icon_name;
+			this.update_state (Gtk.AccessibleState.PRESSED, Gtk.AccessibleTristate.TRUE, -1);
 		} else {
 			add_css_class ("flat");
 			remove_css_class ("enabled");
 			content.icon_name = default_icon_name;
+			this.update_state (Gtk.AccessibleState.PRESSED, Gtk.AccessibleTristate.FALSE, -1);
 		}
 	}
 
@@ -73,6 +96,7 @@ public class Tuba.StatusActionButton : Gtk.Button {
 	}
 
 	construct {
+        this.set_accessible_role (Gtk.AccessibleRole.TOGGLE_BUTTON);
 		content = new Adw.ButtonContent ();
 		this.child = content;
 	}

@@ -80,7 +80,16 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			css_classes = { "ttl-status-action-reply", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = true,
-			tooltip_text = _("Reply")
+			tooltip_text = _("Reply"),
+			//  aria_label_template = (amount) => {
+			//  	// translators: Accessibility label on post buttons.
+			//  	//				The variable is a number.
+			//  	return GLib.ngettext (
+			//  		"%s Reply",
+			//  		"%s Replies",
+			//  		(ulong) amount
+			//  	).printf (amount.to_string ());
+			//  }
 		};
 		reply_button.clicked.connect (on_reply_button_clicked);
 		this.append (reply_button);
@@ -89,7 +98,16 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			css_classes = { "ttl-status-action-reblog", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = true,
-			tooltip_text = _("Boost")
+			tooltip_text = _("Boost"),
+			//  aria_label_template = (amount) => {
+			//  	// translators: Accessibility label on post buttons.
+			//  	//				The variable is a number.
+			//  	return GLib.ngettext (
+			//  		"%s Boost",
+			//  		"%s Boosts",
+			//  		(ulong) amount
+			//  	).printf (amount.to_string ());
+			//  }
 		};
 		reblog_button.clicked.connect (on_boost_button_clicked);
 		this.append (reblog_button);
@@ -99,7 +117,16 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			css_classes = { "ttl-status-action-star", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = true,
-			tooltip_text = _("Favorite")
+			tooltip_text = _("Favorite"),
+			//  aria_label_template = (amount) => {
+			//  	// translators: Accessibility label on post buttons.
+			//  	//				The variable is a number.
+			//  	return GLib.ngettext (
+			//  		"%s Favorite",
+			//  		"%s Favorites",
+			//  		(ulong) amount
+			//  	).printf (amount.to_string ());
+			//  }
 		};
 		favorite_button.clicked.connect (on_favorite_button_clicked);
 		this.append (favorite_button);

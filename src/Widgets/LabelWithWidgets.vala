@@ -57,7 +57,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     private bool _fix_overflow_hack = false;
     public bool fix_overflow_hack {
         get {
-            return fix_overflow_hack;
+            return _fix_overflow_hack;
         }
         set {
             _fix_overflow_hack = value;
@@ -65,7 +65,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         }
     }
 
-    const string OBJECT_REPLACEMENT_CHARACTER = "\xEF\xBF\xBC";
+    protected const string OBJECT_REPLACEMENT_CHARACTER = "\xEF\xBF\xBC";
 
     construct {
         label = new Gtk.Label ("") {
@@ -251,8 +251,31 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             _text = new_label;
             label.label = _text;
             _label_text = label.get_text ();
+            update_accessible_label ();
             invalidate_child_widgets ();
         }
+    }
+
+    public string accessible_text { get; private set; default=""; }
+    private void update_accessible_label () {
+        accessible_text = _label_text;
+
+        int index_of_obj = 0;
+        for (var i = 0; i < widgets.length; i++) {
+            index_of_obj = accessible_text.index_of (OBJECT_REPLACEMENT_CHARACTER, index_of_obj);
+            if (index_of_obj == -1) break;
+            // +1 so next loop index_of starts searching
+            // from the next char
+            int original_index_of_obj = index_of_obj;
+            index_of_obj += OBJECT_REPLACEMENT_CHARACTER.length;
+
+            var child_widget = widgets[i].widget;
+            if (child_widget.tooltip_text == null || child_widget.tooltip_text == "") continue;
+
+            accessible_text = accessible_text.splice (original_index_of_obj, index_of_obj, child_widget.tooltip_text);
+        }
+
+        this.update_property (Gtk.AccessibleProperty.LABEL, accessible_text, -1);
     }
 
     public void append_child (Gtk.Widget child) {
@@ -311,6 +334,12 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     }
 
     public signal bool activate_link (string uri);
+
+    public string label_text {
+		get {
+            return _label_text;
+        }
+	}
 
     public bool single_line_mode {
 		get { return label.single_line_mode; }

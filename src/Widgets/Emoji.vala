@@ -12,6 +12,7 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
 	}
 
 	construct {
+        this.set_accessible_role (Gtk.AccessibleRole.IMG);
 		image = new Gtk.Image () {
 			css_classes = { "lww-emoji" }
 		};
@@ -20,7 +21,7 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
 
     public Emoji (string emoji_url, string? t_shortcode = null) {
 		if (t_shortcode != null) {
-			image.tooltip_text = t_shortcode;
+			this.tooltip_text = t_shortcode;
 			shortcode = t_shortcode;
 		}
 

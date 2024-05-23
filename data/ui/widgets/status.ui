@@ -3,6 +3,9 @@
   <requires lib="gtk" version="4.0" />
   <!-- <template class="TubaWidgetsStatus" parent="AdwBin"> -->
   <template class="TubaWidgetsStatus" parent="GtkListBoxRow">
+    <accessibility>
+      <relation name="described-by">content</relation>
+    </accessibility>
     <property name="child">
       <object class="GtkStack" id="filter_stack">
         <property name="vhomogeneous">0</property>
@@ -117,6 +120,9 @@
                                   <object class="GtkButton" id="name_button">
                                     <property name="halign">start</property>
                                     <property name="valign">center</property>
+                                    <accessibility>
+                                      <relation name="described-by">avatar</relation>
+                                    </accessibility>
                                     <child>
                                       <object class="TubaWidgetsRichLabel" id="name_label">
                                         <property name="visible">True</property>
@@ -138,6 +144,9 @@
                             <child>
                               <object class="GtkFlowBoxChild">
                                 <property name="can-target">0</property>
+                                <accessibility>
+                                  <relation name="labelled-by">handle_label</relation>
+                                </accessibility>
                                 <child>
                                   <object class="GtkLabel" id="handle_label">
                                     <property name="label" translatable="no">Handle</property>

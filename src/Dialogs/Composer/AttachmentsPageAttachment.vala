@@ -47,17 +47,14 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 		var delete_button = new Gtk.Button () {
 			icon_name = "user-trash-symbolic",
-			valign = Gtk.Align.CENTER,
+			valign = Gtk.Align.END,
 			halign = Gtk.Align.END,
 			hexpand = true,
 			tooltip_text = _("Remove Attachment"),
-			css_classes = { "error" }
+			css_classes = { "error", "ttl-status-badge" }
 		};
-		badge_box.append (delete_button);
-		badge_box.halign = Gtk.Align.FILL;
-		badge_box.add_css_class ("attachmentpageattachment");
-		badge_box.remove_css_class ("linked");
 
+		overlay.add_overlay (delete_button);
 		delete_button.clicked.connect (on_delete_clicked);
 
 		alt_text = t_entity.description ?? "";
