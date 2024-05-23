@@ -73,6 +73,14 @@ public class Tuba.Views.Profile : Views.Accounts {
 		return GLib.Source.REMOVE;
 	}
 
+	private void on_cover_aria_update (Widgets.Cover p_cover, string new_aria) {
+		var lbr = p_cover.get_parent ();
+		if (lbr != null) {
+			lbr.update_property (Gtk.AccessibleProperty.LABEL, new_aria, -1);
+			lbr.update_relation (Gtk.AccessibleRelation.DESCRIBED_BY, p_cover.note, null, -1);
+		}
+	}
+
 	public override Gtk.Widget on_create_model_widget (Object obj) {
 		var widget = base.on_create_model_widget (obj);
 
@@ -80,16 +88,20 @@ public class Tuba.Views.Profile : Views.Accounts {
 		if (widget_cover != null) {
 			widget_cover.rs_invalidated.connect (on_rs_updated);
 			widget_cover.timeline_change.connect (change_timeline_source);
+			widget_cover.aria_updated.connect (on_cover_aria_update);
 			widget_cover.remove_css_class ("card");
 			widget_cover.remove_css_class ("card-spacing");
 
-			return new Gtk.ListBoxRow () {
+			var row = new Gtk.ListBoxRow () {
 				focusable = true,
 				activatable = false,
 				child = widget_cover,
 				css_classes = { "card-spacing", "card" },
 				overflow = Gtk.Overflow.HIDDEN
 			};
+			widget_cover.update_aria ();
+
+			return row;
 		}
 
 		var widget_status = widget as Widgets.Status;
