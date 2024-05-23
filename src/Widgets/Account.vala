@@ -38,6 +38,8 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 			} else {
 				invalidate_signal_id = rsbtn.rs.invalidated.connect (on_rs_invalidate);
 			}
+
+			update_aria ();
 		}
 	}
 
@@ -45,6 +47,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 	private void on_rs_invalidate () {
 		cover_badge_label = rsbtn.rs.to_string ();
 		rsbtn.rs.disconnect (invalidate_signal_id);
+		update_aria ();
 	}
 
 	public string cover_badge_label {
@@ -89,6 +92,40 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 
 	void on_cache_response (Gdk.Paintable? data) {
 		background.paintable = data;
+	}
+
+	private void update_aria () {
+		// translators: This is an accessibility label.
+		//				Screen reader users are going to hear this a lot,
+		//				please be mindful.
+		//				The first variable is the author's name and the
+		//				second one is the author's handle.
+		string aria_profile = _("%s (%s)'s profile.").printf (
+			display_name.content,
+			handle.label
+		);
+
+		string aria_relationship = "";
+		if (cover_badge.visible && cover_badge_label != "") {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is a string representation of the
+			//				relationship (e.g. Mutuals, Follows You...)
+			aria_relationship = _("Relationship: %s.").printf (cover_badge_label);
+		}
+
+		string final_aria = "%s %s %s.".printf (
+			aria_profile,
+			aria_relationship,
+			stats_label.get_text ()
+		);
+
+		this.update_property (
+			Gtk.AccessibleProperty.LABEL,
+			final_aria,
+			-1
+		);
 	}
 
 	private weak API.Account api_account { get; set; }
@@ -148,6 +185,8 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 			_("%s Following").printf (@"<b>$(Tuba.Units.shorten (account.following_count))</b>"),
 			followers_str
 		);
+
+		update_aria ();
 	}
 
 	private void on_tuba_rs () {
