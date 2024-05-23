@@ -170,10 +170,10 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	}
 
 	#if !USE_LISTVIEW
-    	public virtual void unbind_listboxes () {}
+		public virtual void unbind_listboxes () {}
 	#endif
 
-    protected virtual void build_actions () {}
+	protected virtual void build_actions () {}
 
 	protected virtual void build_header () {
 		var title = new Adw.WindowTitle (label, "");

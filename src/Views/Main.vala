@@ -1,11 +1,11 @@
 public class Tuba.Views.Main : Views.TabbedBase {
 	construct {
-        is_main = true;
+		is_main = true;
 
 		add_tab (new Views.Home ());
 		add_tab (new Views.Notifications ());
 		add_tab (new Views.Conversations ());
-    }
+	}
 
 	public string visible_child_name {
 		get {

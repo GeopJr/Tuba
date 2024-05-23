@@ -6,7 +6,7 @@ public class Tuba.Views.StatusStats : Views.TabbedBase {
 		label = _("Post Stats");
 	}
 
-    public StatusStats (string status_id) {
+	public StatusStats (string status_id) {
 		favorited = add_timeline_tab (
 			// translators: title for a list of people that favorited a post
 			_("Favorited By"),
@@ -24,5 +24,5 @@ public class Tuba.Views.StatusStats : Views.TabbedBase {
 			typeof (API.Account),
 			_("No Boosts")
 		);
-    }
+	}
 }

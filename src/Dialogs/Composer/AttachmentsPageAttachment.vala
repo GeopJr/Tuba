@@ -13,7 +13,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		debug ("Destroying AttachmentsPageAttachment");
 	}
 
-    public AttachmentsPageAttachment (
+	public AttachmentsPageAttachment (
 		string attachment_id,
 		File? file,
 		Dialogs.Compose dialog,

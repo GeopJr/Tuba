@@ -55,8 +55,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 			w = w.get_next_sibling ();
 		};
 
-        this.update_property (Gtk.AccessibleProperty.LABEL, total_aria, -1);
-        this.update_property (Gtk.AccessibleProperty.DESCRIPTION, null, -1);
+		this.update_property (Gtk.AccessibleProperty.LABEL, total_aria, -1);
+		this.update_property (Gtk.AccessibleProperty.DESCRIPTION, null, -1);
 	}
 
 	void update_content (string content) {

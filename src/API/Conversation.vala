@@ -14,7 +14,7 @@ public class Tuba.API.Conversation : Entity, Widgetizable {
 		return base.deserialize_array_type (prop);
 	}
 
-    public override Gtk.Widget to_widget () {
+	public override Gtk.Widget to_widget () {
 		if (last_status == null) {
 			var account_list = "";
 			if (accounts != null) {
@@ -35,8 +35,8 @@ public class Tuba.API.Conversation : Entity, Widgetizable {
 				margin_end = 16
 			};
 		}
-        return new Widgets.Conversation (this);
-    }
+		return new Widgets.Conversation (this);
+	}
 
 	public override void open () {
 		if (last_status == null) return;

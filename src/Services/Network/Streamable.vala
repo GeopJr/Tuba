@@ -24,10 +24,10 @@ public abstract interface Tuba.Streamable : Object {
 	public abstract string? t_connection_url { get; set; }
 	public abstract bool subscribed { get; set; default = false; }
 
-    public abstract string? get_stream_url ();
+	public abstract string? get_stream_url ();
 
-    [Signal (detailed = true)]
-    public signal void stream_event (Event ev);
+	[Signal (detailed = true)]
+	public signal void stream_event (Event ev);
 
 	void subscribe () {
 		streams.unsubscribe (t_connection_url, this);

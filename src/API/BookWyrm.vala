@@ -21,9 +21,9 @@ public class Tuba.API.BookWyrm : Entity, Widgetizable {
 		return Entity.from_json (typeof (API.BookWyrm), node) as API.BookWyrm;
 	}
 
-    public override Gtk.Widget to_widget () {
-        return new Widgets.BookWyrmPage (this);
-    }
+	public override Gtk.Widget to_widget () {
+		return new Widgets.BookWyrmPage (this);
+	}
 
-    public override void open () {}
+	public override void open () {}
 }
