@@ -129,8 +129,8 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 		return base.deserialize_array_type (prop);
 	}
 
-    public bool is_peertube {
-        get {
+	public bool is_peertube {
+		get {
 			// Disable PeerTube support for now
 			// see #253
 			#if false
@@ -141,22 +141,22 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 				return false;
 			#endif
 		}
-    }
+	}
 
 	public bool is_funkwhale {
-        get {
+		get {
 			bool provider_fw = provider_name.last_index_of ("- Funkwhale") > 0;
 			bool url_fw = url.last_index_of ("/library/tracks/") > -1;
 
 			return kind == "video" && provider_fw && url_fw;
 		}
-    }
+	}
 
 	public bool is_bookwyrm {
-        get {
+		get {
 			return kind == "link" && bookwyrm_regex.match (url);
 		}
-    }
+	}
 
 	public override Gtk.Widget to_widget () {
 		return new Widgets.PreviewCard (this);

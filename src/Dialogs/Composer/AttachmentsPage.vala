@@ -82,12 +82,12 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		context_menu.set_parent (this);
 
 		var dnd_controller = new Gtk.DropTarget (typeof (Gdk.FileList), Gdk.DragAction.COPY);
-        dnd_controller.drop.connect (on_drag_drop);
-        this.add_controller (dnd_controller);
+		dnd_controller.drop.connect (on_drag_drop);
+		this.add_controller (dnd_controller);
 
 		click_controller = new Gtk.GestureClick () {
-            button = Gdk.BUTTON_SECONDARY
-        };
+			button = Gdk.BUTTON_SECONDARY
+		};
 		click_controller.pressed.connect (on_click);
 		this.add_controller (click_controller);
 
@@ -192,8 +192,8 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			upload_files.end (res);
 		});
 
-        return true;
-    }
+		return true;
+	}
 
 	protected Adw.ViewStack stack;
 	protected Adw.StatusPage empty_state;

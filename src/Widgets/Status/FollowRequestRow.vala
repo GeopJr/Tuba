@@ -1,32 +1,32 @@
 public class Tuba.Widgets.FollowRequestRow : Gtk.Box {
-    public signal void declined (FollowRequestRow fr_row, Request req);
-    public signal void accepted (FollowRequestRow fr_row, Request req);
+	public signal void declined (FollowRequestRow fr_row, Request req);
+	public signal void accepted (FollowRequestRow fr_row, Request req);
 
 	public string id { get; set; }
 
-    Gtk.Button decline_fr_button = new Gtk.Button.from_icon_name ("tuba-cross-large-symbolic") {
-        tooltip_text = _("Decline"),
-        halign = Gtk.Align.CENTER,
-        css_classes = { "flat", "circular", "error" }
-    };
+	Gtk.Button decline_fr_button = new Gtk.Button.from_icon_name ("tuba-cross-large-symbolic") {
+		tooltip_text = _("Decline"),
+		halign = Gtk.Align.CENTER,
+		css_classes = { "flat", "circular", "error" }
+	};
 
-    Gtk.Button accept_fr_button = new Gtk.Button.from_icon_name ("tuba-check-round-outline-symbolic") {
-        tooltip_text = _("Accept"),
-        halign = Gtk.Align.CENTER,
-        css_classes = { "flat", "circular", "success" }
-    };
+	Gtk.Button accept_fr_button = new Gtk.Button.from_icon_name ("tuba-check-round-outline-symbolic") {
+		tooltip_text = _("Accept"),
+		halign = Gtk.Align.CENTER,
+		css_classes = { "flat", "circular", "success" }
+	};
 
-    construct {
-        this.add_css_class ("ttl-post-actions");
-        this.spacing = 0;
-        this.homogeneous = true;
+	construct {
+		this.add_css_class ("ttl-post-actions");
+		this.spacing = 0;
+		this.homogeneous = true;
 
-        this.append (decline_fr_button);
-        this.append (accept_fr_button);
+		this.append (decline_fr_button);
+		this.append (accept_fr_button);
 
-        decline_fr_button.clicked.connect (on_decline);
-        accept_fr_button.clicked.connect (on_accept);
-    }
+		decline_fr_button.clicked.connect (on_decline);
+		accept_fr_button.clicked.connect (on_accept);
+	}
 
 	void on_decline () {
 		declined (this, new Request.POST (@"/api/v1/follow_requests/$id/reject").with_account (accounts.active));

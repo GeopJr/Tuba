@@ -198,7 +198,7 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 
 	string announcement_date;
 	int reactions_count = 0;
-    public Announcement (API.Announcement t_announcement) {
+	public Announcement (API.Announcement t_announcement) {
 		announcement = t_announcement;
 
 		content.instance_emojis = t_announcement.emojis_map;

@@ -19,17 +19,17 @@ public class Tuba.Network : GLib.Object {
 
 	public void flush_cache () {
 		this.cache.flush ();
-        this.cache.dump ();
+		this.cache.dump ();
 		Tuba.Helper.Image.flush_cache ();
 	}
 
 	construct {
-        cache = new Soup.Cache (
+		cache = new Soup.Cache (
 			GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "soup", "misc"),
 			Soup.CacheType.SINGLE_USER
 		);
 		cache.load ();
-        cache.set_max_size (1024 * 1024 * 100);
+		cache.set_max_size (1024 * 1024 * 100);
 
 		session = new Soup.Session.with_options ("max-conns", 64, "max-conns-per-host", 64) {
 			user_agent = @"$(Build.NAME)/$(Build.VERSION) libsoup/$(Soup.get_major_version()).$(Soup.get_minor_version()).$(Soup.get_micro_version()) ($(Soup.MAJOR_VERSION).$(Soup.MINOR_VERSION).$(Soup.MICRO_VERSION))" // vala-lint=line-length

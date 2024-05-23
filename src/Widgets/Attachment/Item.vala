@@ -97,13 +97,13 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		create_context_menu ();
 		gesture_click_controller = new Gtk.GestureClick ();
 		gesture_lp_controller = new Gtk.GestureLongPress ();
-        add_controller (gesture_click_controller);
-        add_controller (gesture_lp_controller);
+		add_controller (gesture_click_controller);
+		add_controller (gesture_lp_controller);
 		gesture_click_controller.button = Gdk.BUTTON_SECONDARY;
 		gesture_lp_controller.button = Gdk.BUTTON_PRIMARY;
 		gesture_lp_controller.touch_only = true;
-        gesture_click_controller.pressed.connect (on_secondary_click);
-        gesture_lp_controller.pressed.connect (on_long_press);
+		gesture_click_controller.pressed.connect (on_secondary_click);
+		gesture_lp_controller.pressed.connect (on_long_press);
 
 		alt_btn = new Gtk.Button.with_label ("ALT") {
 			tooltip_text = _("View Alt Text"),

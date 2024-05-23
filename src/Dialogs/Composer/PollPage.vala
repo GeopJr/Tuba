@@ -170,7 +170,7 @@ public class Tuba.PollPage : ComposerPage {
 
 			foreach (var option in status.poll.options) {
 				if (option != null) add_poll_row (option);
-            }
+			}
 
 			install_expires_in (status.poll.expires_at);
 		} else {
