@@ -68,7 +68,6 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
     protected const string OBJECT_REPLACEMENT_CHARACTER = "\xEF\xBF\xBC";
 
     construct {
-        this.set_accessible_role (Gtk.AccessibleRole.LABEL);
         label = new Gtk.Label ("") {
             wrap = true,
             wrap_mode = Pango.WrapMode.WORD_CHAR,
@@ -257,8 +256,9 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
         }
     }
 
+    public string accessible_text { get; private set; default=""; }
     private void update_accessible_label () {
-        string accessible_text = _label_text;
+        accessible_text = _label_text;
 
         int index_of_obj = 0;
         for (var i = 0; i < widgets.length; i++) {
@@ -275,7 +275,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
             accessible_text = accessible_text.splice (original_index_of_obj, index_of_obj, child_widget.tooltip_text);
         }
 
-        this.label.update_property (Gtk.AccessibleProperty.LABEL, accessible_text, -1);
+        this.update_property (Gtk.AccessibleProperty.LABEL, accessible_text, -1);
     }
 
     public void append_child (Gtk.Widget child) {
