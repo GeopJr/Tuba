@@ -31,11 +31,11 @@ jobs:
           brew bundle exec -- gtk4-update-icon-cache -f -t tuba-macos/share/icons/hicolor
       - name: Create App Bundle
         run: |
-          mkdir -p Tuba.app/Contents/MacOS
-          mv tuba-macos/bin/dev.geopjr.Tuba Tuba.app/Contents/MacOS/
-          mkdir -p Tuba.app/Contents/Resources
-          mv tuba-macos/share/ Tuba.app/Contents/Resources/
-          cat <<EOF >Tuba.app/Contents/Info.plist
+          mkdir -p tuba-macos/Tuba.app/Contents/MacOS
+          mv tuba-macos/bin/dev.geopjr.Tuba tuba-macos/Tuba.app/Contents/MacOS/
+          mkdir -p tuba-macos/Tuba.app/Contents/Resources
+          mv tuba-macos/share/ tuba-macos/Tuba.app/Contents/Resources/
+          cat <<EOF >tuba-macos/Tuba.app/Contents/Info.plist
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
@@ -75,6 +75,6 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Tuba.app
-          path: Tuba.app
+          name: taba-macos
+          path: tuba-macos
           if-no-files-found: error
