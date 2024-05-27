@@ -11,9 +11,9 @@ jobs:
     name: macOS
     runs-on: macos-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Install dependencies
+      - name: Install Dependencies
         run: brew bundle
       - name: Setup
         run: brew bundle exec -- meson setup build -Ddistro=true --prefix=${{ github.workspace }}/tuba-macos
@@ -25,7 +25,7 @@ jobs:
         run: brew bundle exec -- ninja test -C build
       - name: Install
         run: brew bundle exec -- meson install -C build
-      - name: Upload artifact
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: tuba-macos
