@@ -25,9 +25,56 @@ jobs:
         run: brew bundle exec -- ninja test -C build
       - name: Install
         run: brew bundle exec -- meson install -C build
+      - name: Post Install
+        run: |
+          brew bundle exec -- glib-compile-schemas tuba-macos/share/glib-2.0/schemas
+          brew bundle exec -- gtk4-update-icon-cache -f -t tuba-macos/share/icons/hicolor
+      - name: Create App Bundle
+        run: |
+          mkdir -p Tuba.app/Contents/MacOS
+          mv tuba-macos/bin/dev.geopjr.Tuba Tuba.app/Contents/MacOS/
+          mkdir -p Tuba.app/Contents/Resources
+          mv tuba-macos/share/ Tuba.app/Contents/Resources/
+          cat <<EOF >Tuba.app/Contents/Info.plist
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+            <dict>
+              <key>CFBundleDisplayName</key>
+              <string>Tuba</string>
+              <key>CFBundleExecutable</key>
+              <string>dev.geopjr.Tuba</string>
+              <key>CFBundleIconFile</key>
+              <string>dev.geopjr.Tuba.svg</string>
+              <key>CFBundleIconName</key>
+              <string>dev.geopjr.Tuba.svg</string>
+              <key>CFBundleIdentifier</key>
+              <string>dev.geopjr.Tuba</string>
+              <key>CFBundleInfoDictionaryVersion</key>
+              <string>6.0</string>
+              <key>CFBundleName</key>
+              <string>Tuba</string>
+              <key>CFBundlePackageType</key>
+              <string>APPL</string>
+              <key>CFBundleShortVersionString</key>
+              <string>$(meson introspect --projectinfo build | jq -r '.version')</string>
+              <key>CFBundleSupportedPlatforms</key>
+              <array>
+                <string>MacOSX</string>
+              </array>
+              <key>CFBundleVersion</key>
+              <string>$(meson introspect --projectinfo build | jq -r '.version')</string>
+              <key>LSApplicationCategoryType</key>
+              <string>public.app-category.social-networking</string>
+              <key>MDItemKeywords</key>
+              <string>toot, mastodon, fediverse, gotosocial, pleroma, akkoma</string>
+            </dict>
+          </plist>
+          EOF
+        # Run with XDG_DATA_DIRS=Tuba.app/Contents/Resources/share for now
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: tuba-macos
-          path: tuba-macos
+          name: Tuba.app
+          path: Tuba.app
           if-no-files-found: error

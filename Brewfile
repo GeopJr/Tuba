@@ -1,5 +1,6 @@
 # Build dependencies
 brew "cmake"
+brew "jq"
 brew "meson"
 brew "ninja"
 brew "pkg-config"
