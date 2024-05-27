@@ -1,0 +1,31 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+name: macOS
+jobs:
+  macos:
+    name: macOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: brew bundle
+      - name: Setup
+        run: brew bundle exec -- meson setup build -Ddistro=true --prefix=${{ github.workspace }}/tuba-macos
+      - name: Configure
+        run: brew bundle exec -- meson configure build -Ddevel=true
+      - name: Compile
+        run: brew bundle exec -- meson compile -C build --verbose
+      - name: Install
+        run: brew bundle exec -- meson install -C build
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tuba-macos
+          path: tuba-macos
+          if-no-files-found: error
