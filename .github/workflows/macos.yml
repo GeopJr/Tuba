@@ -38,7 +38,6 @@ jobs:
           mkdir -p tuba-macos/Tuba.app/Contents/Frameworks
           otool -L tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba | grep '\/opt\/homebrew\/.*\.dylib' -o | xargs -I{} cp "{}" tuba-macos/Tuba.app/Contents/Frameworks
           otool -L tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba | grep '\/opt\/homebrew\/.*\.dylib' -o | xargs -I{} sh -c 'install_name_tool -change {} ../Frameworks/${1##*/} tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba' _ {}
-          otool -L tuba-macos/Tuba.app/Contents/Frameworks/* | grep '\/opt\/homebrew\/.*\.dylib' -o | xargs -I{} cp "{}" tuba-macos/Tuba.app/Contents/Frameworks
           cp -r $(brew --prefix adwaita-icon-theme)/share/icons/* tuba-macos/Tuba.app/Contents/Resources/share/icons/
           cat <<EOF >tuba-macos/Tuba.app/Contents/Info.plist
           <?xml version="1.0" encoding="UTF-8"?>
