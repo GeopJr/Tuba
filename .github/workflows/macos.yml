@@ -21,6 +21,8 @@ jobs:
         run: brew bundle exec -- meson configure build -Ddevel=true
       - name: Compile
         run: brew bundle exec -- meson compile -C build --verbose
+      - name: Test
+        run: brew bundle exec -- ninja test -C build
       - name: Install
         run: brew bundle exec -- meson install -C build
       - name: Upload artifact
