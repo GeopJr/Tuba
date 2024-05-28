@@ -36,7 +36,8 @@ jobs:
           mkdir -p tuba-macos/Tuba.app/Contents/Resources/lib
           mv tuba-macos/share/ tuba-macos/Tuba.app/Contents/Resources/
           otool -L tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba | grep '\/opt\/homebrew\/.*\.dylib' -o | xargs -I{} cp "{}" tuba-macos/Tuba.app/Contents/Resources/lib
-          otool -L tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba | grep '\/opt\/homebrew\/.*\.dylib' -o | xargs -I{} sh -c 'install_name_tool -change {} @loader_path/../Resources/lib/${1##*/} tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba' _ {}
+          install_name_tool -add_rpath @loader_path/../Resources/lib tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba
+          otool -L tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba | grep '\/opt\/homebrew\/.*\.dylib' -o | xargs -I{} sh -c 'install_name_tool -change {} @rpath/${1##*/} tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba' _ {}
           cp -r $(brew --prefix adwaita-icon-theme)/share/icons/* tuba-macos/Tuba.app/Contents/Resources/share/icons/
           cat <<EOF >tuba-macos/Tuba.app/Contents/Info.plist
           <?xml version="1.0" encoding="UTF-8"?>
