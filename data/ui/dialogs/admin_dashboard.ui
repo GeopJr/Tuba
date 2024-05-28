@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+	<requires lib="gtk" version="4.0" />
+	<template class="TubaDialogsAdminWindow" parent="AdwWindow">
+		<property name="width-request">280</property>
+		<property name="height-request">200</property>
+		<property name="default-width">800</property>
+		<property name="default-height">800</property>
+		<child>
+			<object class="AdwBreakpoint">
+				<condition>max-width: 400sp</condition>
+				<setter object="split_view" property="collapsed">True</setter>
+			</object>
+		</child>
+		<property name="content">
+			<object class="AdwNavigationSplitView" id="split_view">
+				<property name="sidebar">
+					<object class="AdwNavigationPage">
+						<property name="title" translatable="yes">Admin Dashboard</property>
+						<property name="child">
+							<object class="AdwToolbarView">
+								<child type="top">
+									<object class="AdwHeaderBar" />
+								</child>
+								<property name="content">
+									<object class="GtkScrolledWindow">
+										<property name="vexpand">1</property>
+										<property name="child">
+											<object class="GtkViewport">
+												<child>
+													<object class="GtkListBox" id="items">
+														<property name="selection_mode">single</property>
+														<signal name="row_activated" handler="on_item_activated" />
+														<style>
+															<class name="navigation-sidebar" />
+														</style>
+													</object>
+												</child>
+											</object>
+										</property>
+									</object>
+								</property>
+							</object>
+						</property>
+					</object>
+				</property>
+			</object>
+		</property>
+	</template>
+</interface>

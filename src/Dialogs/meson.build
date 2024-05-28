@@ -1,4 +1,5 @@
 sources += files(
+    'Admin.vala',
     'FilterEdit.vala',
     'ListEdit.vala',
     'MainWindow.vala',

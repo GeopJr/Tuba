@@ -60,6 +60,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		misc_submenu_model.append (_("Announcements"), "app.open-announcements");
 		misc_submenu_model.append (_("Follow Requests"), "app.open-follow-requests");
 		misc_submenu_model.append (_("Mutes & Blocks"), "app.open-mutes-blocks");
+		misc_submenu_model.append (_("Admin Dashboard"), "app.open-admin-dashboard");
 		menu_model.append_section (null, misc_submenu_model);
 
 		misc_submenu_model = new GLib.Menu ();
