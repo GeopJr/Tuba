@@ -5,7 +5,7 @@
         <key>CFBundleDisplayName</key>
         <string>Tuba</string>
         <key>CFBundleExecutable</key>
-        <string>dev.geopjr.Tuba</string>
+        <string>macos_wrapper.sh</string>
         <key>CFBundleIconFile</key>
         <string>dev.geopjr.Tuba.svg</string>
         <key>CFBundleIconName</key>
