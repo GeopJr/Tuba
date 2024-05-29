@@ -15,70 +15,24 @@ jobs:
         uses: actions/checkout@v4
       - name: Install Dependencies
         run: brew bundle
-      - name: Setup
-        run: brew bundle exec -- meson setup build -Ddistro=true --prefix=${{ github.workspace }}/tuba-macos
-      - name: Configure
-        run: brew bundle exec -- meson configure build -Ddevel=true
-      - name: Compile
-        run: brew bundle exec -- meson compile -C build --verbose
+      - name: Make
+        run: brew bundle exec -- make macos
       - name: Test
-        run: brew bundle exec -- ninja test -C build
-      - name: Install
-        run: brew bundle exec -- meson install -C build
-      - name: Post Install
-        run: |
-          brew bundle exec -- glib-compile-schemas tuba-macos/share/glib-2.0/schemas
-          brew bundle exec -- gtk4-update-icon-cache -f -t tuba-macos/share/icons/hicolor
-      - name: Create App Bundle
-        run: |
-          mkdir -p tuba-macos/Tuba.app/Contents/MacOS
-          mv tuba-macos/bin/dev.geopjr.Tuba tuba-macos/Tuba.app/Contents/MacOS/
-          mkdir -p tuba-macos/Tuba.app/Contents/Resources/lib
-          mv tuba-macos/share/ tuba-macos/Tuba.app/Contents/Resources/
-          otool -L tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba | grep '\/opt\/homebrew\/.*\.dylib' -o | xargs -I{} cp "{}" tuba-macos/Tuba.app/Contents/Resources/lib
-          install_name_tool -add_rpath @loader_path/../Resources/lib tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba
-          otool -L tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba | grep '\/opt\/homebrew\/.*\.dylib' -o | xargs -I{} sh -c 'install_name_tool -change {} @rpath/${1##*/} tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba' _ {}
-          cp -r $(brew --prefix adwaita-icon-theme)/share/icons/* tuba-macos/Tuba.app/Contents/Resources/share/icons/
-          cat <<EOF >tuba-macos/Tuba.app/Contents/Info.plist
-          <?xml version="1.0" encoding="UTF-8"?>
-          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-          <plist version="1.0">
-            <dict>
-              <key>CFBundleDisplayName</key>
-              <string>Tuba</string>
-              <key>CFBundleExecutable</key>
-              <string>dev.geopjr.Tuba</string>
-              <key>CFBundleIconFile</key>
-              <string>dev.geopjr.Tuba.svg</string>
-              <key>CFBundleIconName</key>
-              <string>dev.geopjr.Tuba.svg</string>
-              <key>CFBundleIdentifier</key>
-              <string>dev.geopjr.Tuba</string>
-              <key>CFBundleInfoDictionaryVersion</key>
-              <string>6.0</string>
-              <key>CFBundleName</key>
-              <string>Tuba</string>
-              <key>CFBundlePackageType</key>
-              <string>APPL</string>
-              <key>CFBundleShortVersionString</key>
-              <string>$(meson introspect --projectinfo build | jq -r '.version')</string>
-              <key>CFBundleSupportedPlatforms</key>
-              <array>
-                <string>MacOSX</string>
-              </array>
-              <key>CFBundleVersion</key>
-              <string>$(meson introspect --projectinfo build | jq -r '.version')</string>
-              <key>LSApplicationCategoryType</key>
-              <string>public.app-category.social-networking</string>
-              <key>MDItemKeywords</key>
-              <string>toot, mastodon, fediverse, gotosocial, pleroma, akkoma</string>
-            </dict>
-          </plist>
-          EOF
-        # Run with XDG_DATA_DIRS=Tuba.app/Contents/Resources/share for now
+        run: brew bundle exec -- make test
+      # - name: Create App Bundle
+      #   run: |
+      #     mkdir -p tuba-macos/Tuba.app/Contents/MacOS
+      #     mv tuba-macos/bin/dev.geopjr.Tuba tuba-macos/Tuba.app/Contents/MacOS/
+      #     mkdir -p tuba-macos/Tuba.app/Contents/Resources/lib
+      #     mv tuba-macos/share/ tuba-macos/Tuba.app/Contents/Resources/
+      #     otool -L tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba | grep '\/opt\/homebrew\/.*\.dylib' -o | xargs -I{} cp "{}" tuba-macos/Tuba.app/Contents/Resources/lib
+      #     install_name_tool -add_rpath @loader_path/../Resources/lib tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba
+      #     otool -L tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba | grep '\/opt\/homebrew\/.*\.dylib' -o | xargs -I{} sh -c 'install_name_tool -change {} @rpath/${1##*/} tuba-macos/Tuba.app/Contents/MacOS/dev.geopjr.Tuba' _ {}
+      #     cp -r $(brew --prefix adwaita-icon-theme)/share/icons/* tuba-macos/Tuba.app/Contents/Resources/share/icons/
+      # Run with XDG_DATA_DIRS=Tuba.app/Contents/Resources/share for now
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: tuba-macos
-          path: tuba-macos
+          name: tuba_macos
+          path: tuba_macos.dmg
           if-no-files-found: error

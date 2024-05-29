@@ -3,22 +3,23 @@ PREFIX ?= /usr
 
 # Remove the devel headerbar style:
 # make release=1
-release ?= 
+release ?=
+distro ?= false
 
 all: build
 
 build:
-	meson setup builddir --prefix=$(PREFIX)
+	meson setup builddir --prefix=$(PREFIX) -Ddistro=$(distro)
 	meson configure builddir -Ddevel=$(if $(release),false,true)
 	meson compile -C builddir
 
-install:
+install: build
 	meson install -C builddir
 
-uninstall:
+uninstall: build
 	sudo ninja uninstall -C builddir
 
-test:
+test: build
 	ninja test -C builddir
 
 potfiles:
@@ -76,3 +77,13 @@ __windows_cleanup:
 
 __windows_package:
 	zip -r9q tuba_windows_portable.zip tuba_windows_portable/
+
+macos: distribution = $(PWD)/tuba_macos
+macos: contents = $(distribution)/Tuba.app/Contents
+macos: PREFIX = $(contents)/Resources
+macos: distro = true
+macos: install
+	cp build-aux/Info.plist $(contents)
+	glib-compile-schemas $(PREFIX)/share/glib-2.0/schemas
+	gtk4-update-icon-cache -f -t $(PREFIX)/share/icons/hicolor
+	hdiutil create -srcfolder $(distribution) $(distribution).dmg

@@ -12,3 +12,5 @@ builddir
 tuba_windows_portable.zip
 Brewfile.lock.json
 .DS_Store
+tuba_macos/
+tuba_macos.dmg
