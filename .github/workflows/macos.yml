@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Install Dependencies
         run: brew bundle
+        continue-on-error: true
       - name: Make
         run: brew bundle exec -- make macos
       - name: Test
