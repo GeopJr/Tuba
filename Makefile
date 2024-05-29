@@ -87,6 +87,7 @@ macos: install
 	mkdir $(contents)/MacOS
 	cp build-aux/macos_wrapper.sh $(contents)/MacOS
 	mv $(PREFIX)/bin/dev.geopjr.Tuba $(contents)/MacOS
+	cp $(brew --prefix adwaita-icon-theme)/share/icons/Adwaita $(PREFIX)/share/icons
 	glib-compile-schemas $(PREFIX)/share/glib-2.0/schemas
 	gtk4-update-icon-cache -f -t $(PREFIX)/share/icons/hicolor
 	hdiutil create -srcfolder $(distribution) $(distribution).dmg
