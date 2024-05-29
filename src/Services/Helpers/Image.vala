@@ -39,6 +39,12 @@ public class Tuba.Helper.Image {
 			user_agent = @"$(Build.NAME)/$(Build.VERSION) libsoup/$(Soup.get_major_version()).$(Soup.get_minor_version()).$(Soup.get_micro_version()) ($(Soup.MAJOR_VERSION).$(Soup.MINOR_VERSION).$(Soup.MICRO_VERSION))" // vala-lint=line-length
 		};
 		session.add_feature (cache);
+
+		app.notify ["proxy"].connect (on_proxy_change);
+	}
+
+	private static void on_proxy_change () {
+		session.set_proxy_resolver (app.proxy);
 	}
 
 	public static async Bytes? request_bytes (string url) {
