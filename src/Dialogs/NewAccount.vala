@@ -16,10 +16,14 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	protected bool use_auto_auth { get; set; default = SHOULD_AUTO_AUTH; }
 	protected InstanceAccount account { get; set; default = new InstanceAccount.empty (""); }
 
+	[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 	[GtkChild] unowned Adw.NavigationView deck;
 	[GtkChild] unowned Adw.NavigationPage instance_step;
 	[GtkChild] unowned Adw.NavigationPage code_step;
 	[GtkChild] unowned Adw.NavigationPage done_step;
+
+	[GtkChild] unowned Gtk.ToggleButton proxy_toggle;
+	[GtkChild] unowned Adw.EntryRow proxy_entry;
 
 	[GtkChild] unowned Adw.EntryRow instance_entry;
 	[GtkChild] unowned Gtk.Label instance_entry_error;
@@ -32,7 +36,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 	[GtkChild] unowned Gtk.Label manual_auth_label;
 
-	public NewAccount () {
+	public NewAccount (bool can_access_settings = false) {
 		Object (transient_for: app.main_window);
 		app.add_account_window = this;
 		app.add_window (this);
@@ -42,11 +46,23 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			return true;
 		});
 
+		if (can_access_settings) {
+			proxy_toggle.visible = false;
+		} else {
+			app.toast.connect (add_toast);
+		}
+
 		manual_auth_label.activate_link.connect (on_manual_auth);
 
 		reset ();
 		present ();
 		instance_entry.grab_focus ();
+	}
+
+	private void add_toast (string content, uint timeout = 0) {
+		toast_overlay.add_toast (new Adw.Toast (content) {
+			timeout = timeout
+		});
 	}
 
 	public bool on_manual_auth (string url) {
@@ -220,6 +236,11 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		code_entry.add_css_class ("error");
 		code_entry_error.label = error_message;
+	}
+
+	[GtkCallback]
+	private void on_proxy_apply () {
+		settings.proxy = proxy_entry.text;
 	}
 
 	[GtkCallback]

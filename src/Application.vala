@@ -309,7 +309,7 @@ namespace Tuba {
 			settings.notify ["proxy"].connect (on_proxy_notify);
 		}
 
-		private void on_proxy_change (bool refresh = false) {
+		private void on_proxy_change (bool recover = false) {
 			if (settings.proxy != "") {
 				try {
 					if (Uri.is_valid (settings.proxy, UriFlags.NONE)) {
@@ -327,7 +327,7 @@ namespace Tuba {
 				proxy = GLib.ProxyResolver.get_default ();
 			}
 
-			if (refresh) {
+			if (recover && add_account_window == null) {
 				GLib.Timeout.add_once (5000, trigger_is_online_notify);
 			}
 		}
