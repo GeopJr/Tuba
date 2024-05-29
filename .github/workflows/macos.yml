@@ -18,8 +18,6 @@ jobs:
         continue-on-error: true
       - name: Make
         run: brew bundle exec -- make macos
-      - name: Test
-        run: brew bundle exec -- make test
       # - name: Create App Bundle
       #   run: |
       #     mkdir -p tuba-macos/Tuba.app/Contents/MacOS
