@@ -127,6 +127,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow group_push_notifications;
 	[GtkChild] unowned Adw.SwitchRow advanced_boost_dialog;
 	[GtkChild] unowned Adw.SwitchRow darken_images_on_dark_mode;
+	[GtkChild] unowned Adw.EntryRow proxy_entry;
 
 	[GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
@@ -165,6 +166,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	}
 
 	construct {
+		proxy_entry.text = settings.proxy;
 		post_visibility_combo_row.model = accounts.active.visibility_list;
 
 		// Setup scheme combo row
@@ -350,6 +352,21 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			settings.default_content_type = ((Tuba.InstanceAccount.StatusContentType) default_content_type_combo_row.selected_item).mime;
 
 		update_notification_mutes ();
+
+		if (proxy_entry.text != "") {
+			try {
+				if (Uri.is_valid (proxy_entry.text, UriFlags.NONE))
+					settings.proxy = proxy_entry.text;
+			} catch (Error e) {
+				// translators: Toast that pops up when
+				//				an invalid proxy url has
+				//				been provided in settings
+				app.toast (_("Invalid Proxy URL"));
+				warning (e.message);
+			}
+		} else if (settings.proxy != "") {
+			settings.proxy = "";
+		}
 	}
 }
 
