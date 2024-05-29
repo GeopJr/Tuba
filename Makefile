@@ -84,6 +84,8 @@ macos: PREFIX = $(contents)/Resources
 macos: distro = true
 macos: install
 	cp build-aux/Info.plist $(contents)
+	mkdir $(contents)/MacOS
+	mv $(PREFIX)/bin/dev.geopjr.Tuba $(contents)/MacOS
 	glib-compile-schemas $(PREFIX)/share/glib-2.0/schemas
 	gtk4-update-icon-cache -f -t $(PREFIX)/share/icons/hicolor
 	hdiutil create -srcfolder $(distribution) $(distribution).dmg
