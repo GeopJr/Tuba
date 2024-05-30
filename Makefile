@@ -87,11 +87,12 @@ macos: install
 	mkdir $(contents)/MacOS
 	cp build-aux/macos_wrapper.sh $(contents)/MacOS
 	mv $(PREFIX)/bin/dev.geopjr.Tuba $(contents)/MacOS
+	mkdir $(PREFIX)/lib
+	function copy_deps() { local file=$$1; local dir=$$2; local deps=$$(otool -L $$file | grep -o "$$($${HOMEBREW_BREW_FILE:-brew} --prefix).*\.dylib" | grep -v $$file); for dep in $$deps; do if [ ! -f "$$dir/$$(basename $$dep)" ]; then cp "$$dep" "$$dir"; copy_deps $$dep $$dir; fi; done }; copy_deps $(contents)/MacOS/dev.geopjr.Tuba $(PREFIX)/lib
+	cp -R $$($${HOMEBREW_BREW_FILE:-brew} --prefix gtk4)/share/glib-2.0/schemas/* $(PREFIX)/share/glib-2.0/schemas
 	cp -R $$($${HOMEBREW_BREW_FILE:-brew} --prefix adwaita-icon-theme)/share/icons/Adwaita $(PREFIX)/share/icons
 	glib-compile-schemas $(PREFIX)/share/glib-2.0/schemas
 	gtk4-update-icon-cache -f -t $(PREFIX)/share/icons/hicolor
-	mkdir $(PREFIX)/lib
-	function copy_deps() { local file=$$1; local dir=$$2; local deps=$$(otool -L $$file | grep -o "$$($${HOMEBREW_BREW_FILE:-brew} --prefix).*\.dylib" | grep -v $$file); for dep in $$deps; do if [ ! -f "$$dir/$$(basename $$dep)" ]; then cp "$$dep" "$$dir"; copy_deps $$dep $$dir; fi; done }; copy_deps $(contents)/MacOS/dev.geopjr.Tuba $(PREFIX)/lib
 	rsvg-convert data/icons/color-nightly.svg -o builddir/color-nightly.png -h 1024 -w 1024
 	magick builddir/color-nightly.png -resize 80% -gravity center -background none -extent 1024x1024 $(PREFIX)/Tuba.icns
 	hdiutil create -srcfolder $(distribution) $(distribution).dmg
