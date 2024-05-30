@@ -90,4 +90,6 @@ macos: install
 	cp -R $$($${HOMEBREW_BREW_FILE:-brew} --prefix adwaita-icon-theme)/share/icons/Adwaita $(PREFIX)/share/icons
 	glib-compile-schemas $(PREFIX)/share/glib-2.0/schemas
 	gtk4-update-icon-cache -f -t $(PREFIX)/share/icons/hicolor
+	mkdir $(PREFIX)/lib
+	function copy_deps() { local file=$$1; local dir=$$2; local deps=$$(otool -L $$file | grep -o "$$($${HOMEBREW_BREW_FILE:-brew} --prefix).*\.dylib" | grep -v $$file); for dep in $$deps; do if [ ! -f "$$dir/$$(basename $$dep)" ]; then cp "$$dep" "$$dir"; copy_deps $$dep $$dir; fi; done }; copy_deps $(contents)/MacOS/dev.geopjr.Tuba $(PREFIX)/lib
 	hdiutil create -srcfolder $(distribution) $(distribution).dmg
