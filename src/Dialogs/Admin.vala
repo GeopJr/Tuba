@@ -15,124 +15,53 @@ public class Tuba.Dialogs.Admin {
 			title = _("Dashboard"),
 			open_func_admin = (win) => {
 				win.split_view.content = new Dashboard ();
+				win.split_view.show_content = true;
 			}
-		};
-
-		public static Place place_server_settings = new Place () {
-			icon = "user-home-symbolic",
-			title = _("Server Settings"),
-		};
-
-		public static Place place_rules = new Place () {
-			icon = "user-home-symbolic",
-			title = _("Server Rules"),
-		};
-
-		public static Place place_roles = new Place () {
-			icon = "user-home-symbolic",
-			title = _("Roles"),
-		};
-
-		public static Place place_announcements = new Place () {
-			icon = "user-home-symbolic",
-			title = _("Announcements"),
-		};
-
-		public static Place place_custom_emojis = new Place () {
-			icon = "user-home-symbolic",
-			title = _("Custom Emojis"),
-
 		};
 
 		public static Place place_reports = new Place () {
 			icon = "user-home-symbolic",
-			title = _("Reports"),
-			separated = true
+			title = _("Reports")
 		};
-
 
 		public static Place place_accounts = new Place () {
 			icon = "user-home-symbolic",
 			title = _("Accounts"),
-
-		};
-
-		public static Place place_invites = new Place () {
-			icon = "user-home-symbolic",
-			title = _("Invites"),
-
-		};
-
-		public static Place place_follow_recomendations = new Place () {
-			icon = "user-home-symbolic",
-			title = _("Follow Recomendations"),
-
-		};
-
-		public static Place place_federation = new Place () {
-			icon = "user-home-symbolic",
-			title = _("Federation"),
-
 		};
 
 		public static Place place_blocked_email_domains = new Place () {
 			icon = "user-home-symbolic",
 			title = _("Blocked E-mail Domains"),
-
 		};
 
 		public static Place place_ip_rules = new Place () {
 			icon = "user-home-symbolic",
 			title = _("IP Rules"),
-
 		};
 
-		public static Place place_audit_log = new Place () {
+		public static Place place_federation = new Place () {
 			icon = "user-home-symbolic",
-			title = _("Audit Log"),
-
-		};
-
-		public static Place place_webhooks = new Place () {
-			icon = "user-home-symbolic",
-			title = _("Webhooks"),
-
-		};
-
-		public static Place place_relay = new Place () {
-			icon = "user-home-symbolic",
-			title = _("Relay"),
-
+			title = _("Federation"),
 		};
 
 		protected GLib.ListStore items_model;
 		construct {
-			app.add_window (this);
+			this.transient_for = app.main_window;
+			this.modal = true;
 
 			items_model = new GLib.ListStore (typeof (Place));
 			items_model.append (place_dash);
-			items_model.append (place_server_settings);
-			items_model.append (place_rules);
-			items_model.append (place_roles);
-			items_model.append (place_announcements);
-			items_model.append (place_custom_emojis);
-			items_model.append (place_webhooks);
-			items_model.append (place_relay);
-
 			items_model.append (place_reports);
-			items_model.append (place_accounts);
-			items_model.append (place_invites);
-			items_model.append (place_follow_recomendations);
 			items_model.append (place_federation);
+			items_model.append (place_accounts);
 			items_model.append (place_blocked_email_domains);
 			items_model.append (place_ip_rules);
-			items_model.append (place_audit_log);
 
 			// TODO: dispose on close
 			items.bind_model (items_model, on_item_create);
 			items.set_header_func (on_item_header_update);
 
-			present ();
+			split_view.content = new Dashboard ();
 		}
 
 		Gtk.Widget on_item_create (Object obj) {
@@ -162,10 +91,36 @@ public class Tuba.Dialogs.Admin {
 		}
 	}
 
-	private class Dashboard : Adw.NavigationPage {
+	private class BasePage : Adw.NavigationPage {
 		private Adw.PreferencesPage page;
+		private Gtk.ScrolledWindow scroller;
+		private Gtk.Spinner spinner;
+		private Adw.ToastOverlay toast_overlay;
+
+		private bool _spinning = true;
+		protected bool spinning {
+			get {
+				return _spinning;
+			}
+
+			set {
+				_spinning = value;
+				if (value) {
+					scroller.child = spinner;
+				} else {
+					scroller.child = page;
+				}
+			}
+		}
+
 		construct {
-			this.title = _("Dashboard");
+			spinner = new Gtk.Spinner () {
+				valign = Gtk.Align.CENTER,
+				hexpand = true,
+				vexpand = true,
+				spinning = true,
+				height_request = 32
+			};
 
 			page = new Adw.PreferencesPage () {
 				hexpand = true,
@@ -173,82 +128,173 @@ public class Tuba.Dialogs.Admin {
 				valign = Gtk.Align.CENTER
 			};
 
-			this.child = new Adw.ToolbarView () {
-				content = new Gtk.ScrolledWindow () {
-					vexpand = true,
-					hexpand = true,
-					child = page
-				}
+			scroller = new Gtk.ScrolledWindow () {
+				vexpand = true,
+				hexpand = true,
+				child = spinner
 			};
 
-			populate_software ();
-			populate_space ();
+			toast_overlay = new Adw.ToastOverlay () {
+				vexpand = true,
+				hexpand = true,
+				child = scroller
+			};
+
+			var toolbar_view = new Adw.ToolbarView () {
+				content = toast_overlay
+			};
+			toolbar_view.add_top_bar (new Adw.HeaderBar ());
+
+			this.child = toolbar_view;
 		}
 
-		private void populate_software () {
-			new Request.POST ("/api/v1/admin/dimensions")
+		protected virtual void add_to_page (Adw.PreferencesGroup group) {
+			page.add (group);
+		}
+
+		protected void add_toast (string content, uint timeout = 5) {
+			toast_overlay.add_toast (new Adw.Toast (content) {
+				timeout = timeout
+			});
+		}
+	}
+
+	private class Dashboard : BasePage {
+		private Adw.PreferencesGroup? stats_group = null;
+		const string[] KEYS = {"new_users", "active_users", "interactions", "opened_reports", "resolved_reports"};
+		private string[] titles;
+		private int requests = 0;
+
+		construct {
+			this.title = _("Dashboard");
+
+			// translators: title in admin dashboard stats
+			titles = {_("New Users"), _("Active Users"), _("Interactions"), _("Reports Opened"), _("Reports Resolved")};
+			populate_stats ();
+
+			// translators: group title in admin dashboard window
+			do_dimension_request ("sources", _("Sign-up Sources"), 8);
+			// translators: group title in admin dashboard window
+			do_dimension_request ("languages", _("Top Active Languages"), 8);
+			// translators: group title in admin dashboard window
+			do_dimension_request ("servers", _("Top Active Servers"), 8);
+			// translators: group title in admin dashboard window
+			do_dimension_request ("software_versions", _("Software "), 4);
+			// translators: group title in admin dashboard window
+			do_dimension_request ("space_usage", _("Space Usage"), 4);
+		}
+
+		private void add_stat (Adw.ActionRow row) {
+			if (stats_group == null) {
+				stats_group = new Adw.PreferencesGroup () {
+					title = _("Stats")
+				};
+				this.add_to_page (stats_group);
+			}
+
+			stats_group.add (row);
+		}
+
+		private void update_requests (int change) {
+			this.requests += change;
+			this.spinning = this.requests > 0;
+		}
+
+		private void populate_stats (int i = 0) {
+			if (i >= KEYS.length) return;
+
+			var next_i = i + 1;
+			populate_stat (KEYS[i], titles[i], next_i);
+		}
+
+		private void populate_stat (string key, string title, int next_i) {
+			update_requests (1);
+			new Request.POST ("/api/v1/admin/measures")
 				.with_account (accounts.active)
-				.body_json (Dialogs.Admin.get_dimensions_body ("software_versions", 4))
+				.body_json (Dialogs.Admin.get_dimensions_body (key))
 				.then ((in_stream) => {
 					var parser = Network.get_parser_from_inputstream (in_stream);
-					var node = network.parse_node (parser);
-					var dimension = API.Admin.Dimension.from (node);
+					Network.parse_array (parser, node => {
+						if (node != null) {
+							var dimension = API.Admin.Dimension.from (node);
+							if (dimension.key == key && dimension.total != null) {
+								add_stat (
+									new Adw.ActionRow () {
+										title = title,
+										subtitle = dimension.total,
+										use_markup = false,
+										subtitle_selectable = true
+									}
+								);
 
-					if (dimension.key == "software_versions" && dimension.data != null && dimension.data.size > 0) {
-						var softawre_group = new Adw.PreferencesGroup () {
-							title = _("Software")
-						};
-
-						foreach (var software_entry in dimension.data) {
-							softawre_group.add (
-								new Adw.ActionRow () {
-									title = software_entry.human_key,
-									subtitle = software_entry.human_value,
-									use_markup = false
+								if (next_i > -1) {
+									populate_stats (next_i);
 								}
-							);
+							}
 						}
+					});
 
-						page.add (softawre_group);
-					}
+					update_requests (-1);
+				})
+				.on_error ((code, message) => {
+					add_toast (message);
+					update_requests (-1);
 				})
 				.exec ();
 		}
 
-		private void populate_space () {
+		private void do_dimension_request (string key, string title, int limit) {
+			update_requests (1);
 			new Request.POST ("/api/v1/admin/dimensions")
 				.with_account (accounts.active)
-				.body_json (Dialogs.Admin.get_dimensions_body ("space_usage", 3))
+				.body_json (Dialogs.Admin.get_dimensions_body (key, limit))
 				.then ((in_stream) => {
 					var parser = Network.get_parser_from_inputstream (in_stream);
-					var node = network.parse_node (parser);
-					var dimension = API.Admin.Dimension.from (node);
+					Network.parse_array (parser, node => {
+						if (node != null) {
+							var dimension = API.Admin.Dimension.from (node);
+							if (dimension.key == key && dimension.data != null && dimension.data.size > 0) {
+								var group = new Adw.PreferencesGroup () {
+									title = title
+								};
 
-					if (dimension.key == "space_usage" && dimension.data != null && dimension.data.size > 0) {
-						var space_group = new Adw.PreferencesGroup () {
-							title = _("Space Usage")
-						};
-
-						foreach (var space_entry in dimension.data) {
-							space_group.add (
-								new Adw.ActionRow () {
-									title = space_entry.human_key,
-									subtitle = space_entry.human_value,
-									use_markup = false
+								foreach (var entry in dimension.data) {
+									group.add (
+										new Adw.ActionRow () {
+											title = entry.human_key,
+											subtitle = entry.human_value != null ? entry.human_value : entry.value,
+											use_markup = false,
+											subtitle_selectable = true
+										}
+									);
 								}
-							);
-						}
 
-						page.add (space_group);
-					}
+								this.add_to_page (group);
+							}
+						}
+					});
+					update_requests (-1);
+				})
+				.on_error ((code, message) => {
+					add_toast (message);
+					update_requests (-1);
 				})
 				.exec ();
 		}
 	}
 
-	private static Json.Builder get_dimensions_body (string key, int limit = 4) {
+	//  private class Reports : BasePage {
+	//  	construct {
+
+	//  	}
+	//  }
+
+	private static Json.Builder get_dimensions_body (string key, int limit = 0) {
 		var now = new GLib.DateTime.now_local ();
-		var end = now.add_months (1).add_days (-1);
+		var end = new GLib.DateTime.now_local ();
+
+		var now_day = now.get_day_of_month ();
+		now = now.add_days ((now_day - 1) * -1);
 
 		var builder = new Json.Builder ();
 		builder.begin_object ();
@@ -256,12 +302,15 @@ public class Tuba.Dialogs.Admin {
 		builder.set_member_name ("start_at");
 		builder.add_string_value (now.format ("%F"));
 
-		builder.set_member_name ("key");
+		builder.set_member_name ("keys");
+		builder.begin_array ();
 		builder.add_string_value (key);
+		builder.end_array ();
 
-		builder.set_member_name ("limit");
-		builder.add_int_value (limit);
-
+		if (limit > 0) {
+			builder.set_member_name ("limit");
+			builder.add_int_value (limit);
+		}
 
 		builder.set_member_name ("end_at");
 		builder.add_string_value (end.format ("%F"));

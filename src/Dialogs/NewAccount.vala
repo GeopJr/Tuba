@@ -3,7 +3,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	const string AUTO_AUTH_DESCRIPTION = _("Allow access to your account in the browser.");
 	const string CODE_AUTH_DESCRIPTION = _("Copy the authorization code from the browser and paste it below.");
 
-	const string SCOPES = "read write follow";
+	const string SCOPES = "read write follow admin:read admin:read:reports admin:write:reports admin:read:ip_blocks admin:write:ip_blocks admin:read:domain_blocks admin:write:domain_blocks admin:read:domain_allows admin:write:domain_allows admin:read:email_domain_blocks admin:write:email_domain_blocks admin:read:canonical_email_blocks admin:write:canonical_email_blocks";
 
 	#if WINDOWS || DARWIN
 		const bool SHOULD_AUTO_AUTH = false;

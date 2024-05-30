@@ -8,6 +8,9 @@ public class Tuba.API.Admin.Dimension : Entity {
 	}
 
 	public string key { get; set; default=""; }
+
+	// Used by measure objects
+	public string? total { get; set; default=null; }
 	public Gee.ArrayList<Data>? data { get; set; default=null; }
 
 	public static Dimension from (Json.Node node) throws Error {

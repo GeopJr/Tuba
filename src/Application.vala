@@ -460,7 +460,7 @@ namespace Tuba {
 		}
 
 		public void open_admin_dashboard () {
-			new Dialogs.Admin.Window ();
+			new Dialogs.Admin.Window ().present ();
 		}
 
 		private void close_sidebar () {
