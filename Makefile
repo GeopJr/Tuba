@@ -91,6 +91,7 @@ macos: install
 	function copy_deps() { local file=$$1; local dir=$$2; local deps=$$(otool -L $$file | grep -o "$$($${HOMEBREW_BREW_FILE:-brew} --prefix).*\.dylib" | grep -v $$file); for dep in $$deps; do if [ ! -f "$$dir/$$(basename $$dep)" ]; then cp "$$dep" "$$dir"; copy_deps $$dep $$dir; fi; done }; copy_deps $(contents)/MacOS/dev.geopjr.Tuba $(PREFIX)/lib
 	cp -R $$($${HOMEBREW_BREW_FILE:-brew} --prefix gtk4)/share/glib-2.0/schemas/* $(PREFIX)/share/glib-2.0/schemas
 	cp -R $$($${HOMEBREW_BREW_FILE:-brew} --prefix adwaita-icon-theme)/share/icons/Adwaita $(PREFIX)/share/icons
+	cp -R $$($${HOMEBREW_BREW_FILE:-brew} --prefix gtksourceview5)/share/gtksourceview-5 $(PREFIX)/share
 	glib-compile-schemas $(PREFIX)/share/glib-2.0/schemas
 	gtk4-update-icon-cache -f -t $(PREFIX)/share/icons/hicolor
 	rsvg-convert data/icons/color-nightly.svg -o builddir/color-nightly.png -h 1024 -w 1024
