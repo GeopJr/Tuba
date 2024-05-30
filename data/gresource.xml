@@ -88,6 +88,7 @@
         <file>ui/widgets/preview_card.ui</file>
         <file>ui/widgets/profile.ui</file>
         <file>ui/dialogs/list_edit.ui</file>
+        <file>ui/dialogs/advanced_search.ui</file>
         <file>ui/dialogs/new_account.ui</file>
         <file>ui/dialogs/compose.ui</file>
         <file>ui/dialogs/main.ui</file>
