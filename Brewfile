@@ -1,6 +1,8 @@
 # Build dependencies
 brew "cmake"
+brew "imagemagick"
 brew "jq"
+brew "librsvg"
 brew "meson"
 brew "ninja"
 brew "pkg-config"
