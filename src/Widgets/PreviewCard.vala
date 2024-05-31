@@ -13,16 +13,13 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 	public PreviewCard (API.PreviewCard card_obj) {
 		var is_video = card_obj.kind == "video";
 
-		if (is_video) {
-			box.orientation = Gtk.Orientation.VERTICAL;
-			box.homogeneous = false;
-		}
-
 		Gtk.Widget image_widget;
 		if (card_obj.image != null) {
 			var image = new Gtk.Picture () {
 				width_request = 25,
-				content_fit = Gtk.ContentFit.COVER
+				content_fit = Gtk.ContentFit.COVER,
+				height_request = 250,
+				css_classes = {"preview_card_v"}
 			};
 
 			Tuba.Helper.Image.request_paintable (card_obj.image, card_obj.blurhash, (paintable) => {
@@ -30,9 +27,6 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 			});
 
 			if (is_video) {
-				image.height_request = 250;
-				image.add_css_class ("preview_card_video");
-
 				var overlay = new Gtk.Overlay () {
 					vexpand = true,
 					hexpand = true,
@@ -49,23 +43,16 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 
 				image_widget = overlay;
 			} else {
-				image.height_request = 70;
-				image.add_css_class ("preview_card_image");
-
 				image_widget = image;
 			}
 		} else {
 			image_widget = new Gtk.Image.from_icon_name (
 				is_video ? "media-playback-start-symbolic" : "tuba-earth-symbolic"
 			) {
-				height_request = 70,
-				width_request = 70,
-				icon_size = Gtk.IconSize.LARGE
+				css_classes = {"preview_card_v"},
+				icon_size = Gtk.IconSize.LARGE,
+				height_request = 100,
 			};
-			image_widget.add_css_class ("preview_card_image");
-
-			box.orientation = Gtk.Orientation.HORIZONTAL;
-			box.homogeneous = false;
 		}
 		box.prepend (image_widget);
 
@@ -90,6 +77,12 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 		}
 
 		if (card_obj.kind == "link" && card_obj.history != null && card_obj.history.size > 0) {
+				box.orientation = Gtk.Orientation.HORIZONTAL;
+				box.homogeneous = true;
+				image_widget.height_request = 70;
+				image_widget.add_css_class ("preview_card_h");
+				image_widget.remove_css_class ("preview_card_v");
+
 				this.add_css_class ("explore");
 
 				this.clicked.connect (() => Host.open_url (card_obj.url));

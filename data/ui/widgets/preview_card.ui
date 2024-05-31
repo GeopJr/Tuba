@@ -8,8 +8,7 @@
     </style>
     <child>
       <object class="GtkBox" id="box">
-        <property name="orientation">horizontal</property>
-        <property name="homogeneous">1</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkBox">
             <property name="orientation">vertical</property>
