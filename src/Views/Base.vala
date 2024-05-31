@@ -14,6 +14,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	public int uid { get; set; default = -1; }
 	protected SimpleActionGroup actions { get; set; default = new SimpleActionGroup (); }
 	public weak Gtk.Widget? last_widget { get; private set; default=null; }
+	public string empty_timeline_icon { get; set; default="tuba-background-app-ghost-symbolic"; }
 
 	private bool _show_back_button = true;
 	public bool show_back_button {
@@ -79,7 +80,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		}
 		set {
 			status_image.visible = false;
-			status_image.icon_name = "tuba-background-app-ghost-symbolic";
+			status_image.icon_name = this.empty_timeline_icon;
 			status_button.visible = false;
 			this.update_state (Gtk.AccessibleState.BUSY, false, -1);
 			this.update_property (Gtk.AccessibleProperty.LABEL, null, -1);
