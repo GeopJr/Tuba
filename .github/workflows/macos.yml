@@ -46,7 +46,7 @@ jobs:
       - name: Duplicate x86-64 app
         run: |
           mkdir tuba_macos_universal
-          cp /Volumes/tuba_macos/* tuba_macos_universal
+          cp -R /Volumes/tuba_macos/* tuba_macos_universal
           rm tuba_macos_universal/Tuba.app/Contents/MacOS/dev.geopjr.Tuba
       - name: Create Universal Binary
         run: |
