@@ -49,9 +49,10 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 			image_widget = new Gtk.Image.from_icon_name (
 				is_video ? "media-playback-start-symbolic" : "tuba-earth-symbolic"
 			) {
-				css_classes = {"preview_card_v"},
+				css_classes = {"preview_card_h"},
 				icon_size = Gtk.IconSize.LARGE,
-				height_request = 100,
+				height_request = 70,
+				width_request = 70,
 			};
 		}
 		box.prepend (image_widget);
