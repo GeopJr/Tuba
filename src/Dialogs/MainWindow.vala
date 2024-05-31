@@ -136,9 +136,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			scroller.child = clamp;
 
 			var toolbar_view = new Adw.ToolbarView ();
-			var headerbar = new Adw.HeaderBar () {
-				centering_policy = Adw.CenteringPolicy.STRICT
-			};
+			var headerbar = new Adw.HeaderBar ();
 
 			toolbar_view.add_top_bar (headerbar);
 			toolbar_view.set_content (scroller);

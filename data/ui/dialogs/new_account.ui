@@ -19,7 +19,6 @@
                 <child type="top">
                   <object class="AdwHeaderBar">
                     <property name="show-title">0</property>
-                    <property name="centering-policy">strict</property>
 					<property name="show-end-title-buttons">0</property>
 					<property name="show-start-title-buttons">0</property>
                     <child>
@@ -126,7 +125,6 @@
               <object class="AdwToolbarView">
                 <child type="top">
                   <object class="AdwHeaderBar">
-                    <property name="centering-policy">strict</property>
                     <property name="show-title">0</property>
 					<property name="show-end-title-buttons">0</property>
 					<property name="show-start-title-buttons">0</property>
@@ -214,7 +212,6 @@
               <object class="AdwToolbarView">
                 <child type="top">
                   <object class="AdwHeaderBar">
-                    <property name="centering-policy">strict</property>
                     <property name="show-back-button">0</property>
                     <property name="show-title">0</property>
 					<property name="show-end-title-buttons">0</property>

@@ -133,9 +133,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		scroller.child = alt_editor;
 
 		var toolbar_view = new Adw.ToolbarView ();
-		var headerbar = new Adw.HeaderBar () {
-			centering_policy = Adw.CenteringPolicy.STRICT
-		};
+		var headerbar = new Adw.HeaderBar ();
 
 		var bottom_bar = new Gtk.ActionBar ();
 		dialog_char_counter = new Gtk.Label (remaining_alt_chars (alt_text != null ? alt_text.length : 0)) {
