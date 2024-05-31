@@ -15,7 +15,6 @@
         <property name="bottom-bar-style">flat</property>
         <child type="top">
           <object class="AdwHeaderBar" id="header">
-            <property name="centering-policy">strict</property>
           </object>
         </child>
 

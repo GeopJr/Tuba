@@ -14,7 +14,6 @@
       <object class="AdwToolbarView">
         <child type="top">
           <object class="AdwHeaderBar">
-            <property name="centering-policy">strict</property>
             <property name="show-end-title-buttons">0</property>
             <property name="show-start-title-buttons">0</property>
             <child type="start">
@@ -77,7 +76,7 @@
                           </object>
                         </child>
                         <property name="child">
-                          <object class="GtkOverlay"> 
+                          <object class="GtkOverlay">
                             <property name="vexpand">1</property>
                             <property name="hexpand">1</property>
                             <property name="child">
@@ -105,7 +104,7 @@
                                 </style>
                               </object>
                             </child>
-                          </object> 
+                          </object>
                         </property>
                       </object>
                     </child>

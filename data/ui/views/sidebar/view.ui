@@ -33,7 +33,6 @@
 			<object class="AdwToolbarView">
 				<child type="top">
 					<object class="AdwHeaderBar">
-						<property name="centering-policy">strict</property>
 						<child type="start">
 							<object class="GtkMenuButton" id="accounts_button">
 								<property name="tooltip_text" translatable="yes">Switch Account</property>
