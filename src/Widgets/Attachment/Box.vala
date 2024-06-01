@@ -160,7 +160,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 				false,
 				attachment_widgets[i].pic.alternative_text,
 				null,
-				false,
+				true,
 				is_main,
 				is_main == null
 			);
