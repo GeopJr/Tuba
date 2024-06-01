@@ -15,6 +15,7 @@ sources += files(
     'List.vala',
     'Mention.vala',
     'Notification.vala',
+    'NotificationFilter.vala',
     'PeerTube.vala',
     'Poll.vala',
     'PollOption.vala',

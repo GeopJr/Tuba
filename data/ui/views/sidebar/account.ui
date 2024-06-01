@@ -36,7 +36,7 @@
 						<property name="ellipsize">end</property>
 						<property name="visible">0</property>
 						<style>
-							<class name="badge" />
+							<class name="notification-badge" />
 						</style>
 					</object>
 				</child>

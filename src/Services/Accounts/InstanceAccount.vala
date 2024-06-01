@@ -29,6 +29,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public string? access_token { get; set; }
 	public bool needs_update { get; set; default=false; }
 	public Error? error { get; set; } //TODO: use this field when server invalidates the auth token
+	public bool probably_has_notification_filters { get; set; default=false; }
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
 
@@ -339,6 +340,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public int unreviewed_follow_requests { get; set; default = 0; }
 	public int unread_announcements { get; set; default = 0; }
+	public int filtered_notifications_count { get; set; default = 0; }
 	public int unread_count { get; set; default = 0; }
 	public int last_read_id { get; set; default = 0; }
 	public int last_received_id { get; set; default = 0; }
@@ -439,10 +441,11 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				var node = network.parse_node (parser);
 				if (node == null) return;
 
+				this.probably_has_notification_filters = true;
 				var instance_v2 = API.InstanceV2.from (node);
 
 				if (instance_v2 != null && instance_v2.configuration != null && instance_v2.configuration.translation != null) {
-					instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
+					this.instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
 				}
 			})
 			.exec ();
