@@ -91,8 +91,7 @@ macos: install
 	mkdir $(PREFIX)/lib
 	$(brew) bundle --file=runtime.Brewfile exec -- sh -c '\
 		IFS="," ; for dep in $$HOMEBREW_DEPENDENCIES; do \
-			find $$($(brew) --prefix $$dep)/lib -type f \( -name *.dylib -o -name *.so \) -exec cp {} $(PREFIX)/lib \; ; \
-			find $$($(brew) --prefix $$dep)/lib -type l \( -name *.dylib -o -name *.so \) -exec sh -c '"'"'ln -sf $$(basename $$(readlink -f {})) $(PREFIX)/lib/$$(basename {})'"'"' \; ; \
+			find -L $$($(brew) --prefix $$dep)/lib -type f \( -name *.dylib -o -name *.so \) -exec cp -a {} $(PREFIX)/lib \; ; \
 		done\
 	'
 	cp -R $$($(brew) --prefix gtk4)/share/glib-2.0/schemas/* $(PREFIX)/share/glib-2.0/schemas
