@@ -640,6 +640,20 @@
 	}
 
 	private void aria_describe_status () {
+		if (filter_stack.visible_child_name == "filter") {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			string aria_filter = _("Filtered post");
+			if (this.status.formal.tuba_filter_warn != null) {
+				aria_filter += @": $(this.status.formal.tuba_filter_warn)";
+			}
+
+			this.update_property (Gtk.AccessibleProperty.LABEL, aria_filter, -1);
+
+			return;
+		}
+
 		// translators: This is an accessibility label.
 		//				Screen reader users are going to hear this a lot,
 		//				please be mindful.
@@ -1015,6 +1029,7 @@
 	[GtkCallback] public void toggle_filter () {
 		if (this.status.formal.filtered != null && this.status.formal.filtered.size > 0) {
 			filter_stack.visible_child_name = filter_stack.visible_child_name == "filter" ? "status" : "filter";
+			aria_describe_status ();
 		}
 	}
 
