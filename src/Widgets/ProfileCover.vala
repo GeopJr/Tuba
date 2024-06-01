@@ -133,6 +133,10 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			aria_relationship
 		);
 
+		if (_mini) {
+			final_aria += @" $stats_string";
+		}
+
 		this.info.update_property (
 			Gtk.AccessibleProperty.LABEL,
 			final_aria,
@@ -158,6 +162,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	Gtk.FlowBox fields_box;
 	Gtk.ListBoxRow fields_box_row;
 	int total_fields = 0;
+	string stats_string = "";
 	public Cover (Views.Profile.ProfileAccount profile, bool mini = false) {
 		if (settings.scale_emoji_hover)
 			this.add_css_class ("lww-scale-emoji-hover");
@@ -307,6 +312,49 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			build_profile_stats (profile.account);
 		} else {
 			background.height_request = 64;
+
+			// translators: Used in profile stats.
+			//              The variable is a shortened number of the amount of posts a user has made.
+			string posts_str = GLib.ngettext (
+				"%s Post",
+				"%s Posts",
+				(ulong) profile.account.statuses_count
+			).printf (@"<b>$(Tuba.Units.shorten (profile.account.statuses_count))</b>");
+
+			// translators: Used in profile stats.
+			//              The variable is a shortened number of the amount of followers a user has.
+			string followers_str = GLib.ngettext (
+				"%s Follower",
+				"%s Followers",
+				(ulong) profile.account.statuses_count
+			).printf (@"<b>$(Tuba.Units.shorten (profile.account.followers_count))</b>");
+
+			stats_string = "<span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>".printf (
+				posts_str,
+				// translators: Used in profile stats.
+				//              The variable is a shortened number of the amount of people a user follows.
+				_("%s Following").printf (@"<b>$(Tuba.Units.shorten (profile.account.following_count))</b>"),
+				followers_str
+			);
+
+			info.append (
+				new Gtk.ListBoxRow () {
+					activatable = false,
+					child = new Gtk.Label (stats_string) {
+						wrap = true,
+						wrap_mode = Pango.WrapMode.WORD_CHAR,
+						hexpand = true,
+						xalign = 0.0f,
+						use_markup = true,
+						css_classes = {"account-stats"},
+						valign = Gtk.Align.CENTER,
+						margin_start = 12,
+						margin_end = 12,
+						margin_top = 6,
+						margin_bottom = 6,
+					}
+				}
+			);
 		}
 
 		update_aria ();

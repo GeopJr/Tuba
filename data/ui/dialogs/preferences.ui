@@ -152,6 +152,13 @@
 								<property name="subtitle" translatable="yes">Change boost visibility, quote and confirm boosting</property>
 							</object>
 						</child>
+						<child>
+							<object class="AdwEntryRow" id="proxy_entry">
+								<property name="show-apply-button">0</property>
+								<property name="title" translatable="yes">Proxy</property>
+								<property name="input-purpose">url</property>
+							</object>
+						</child>
 					</object>
 				</child>
 				<child>

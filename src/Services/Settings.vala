@@ -114,6 +114,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool darken_images_on_dark_mode { get; set; }
 	public double media_viewer_last_used_volume { get; set; }
 	public bool monitor_network { get; set; }
+	public string proxy { get; set; }
 
 	private static string[] keys_to_init = {
 		"active-account",
@@ -138,7 +139,8 @@ public class Tuba.Settings : GLib.Settings {
 		"spellchecker-enabled",
 		"darken-images-on-dark-mode",
 		"media-viewer-last-used-volume",
-		"monitor-network"
+		"monitor-network",
+		"proxy"
 	};
 
 	public Settings () {

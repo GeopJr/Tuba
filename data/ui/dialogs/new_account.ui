@@ -6,7 +6,9 @@
     <property name="default_width">600</property>
     <property name="default_height">500</property>
     <property name="title" translatable="yes">Add Account</property>
-    <child>
+	<child>
+		<object class="AdwToastOverlay" id="toast_overlay">
+			<property name="child">
       <object class="AdwNavigationView" id="deck">
         <signal name="popped" handler="on_back_clicked" swapped="no"/>
         <child>
@@ -17,7 +19,8 @@
                 <child type="top">
                   <object class="AdwHeaderBar">
                     <property name="show-title">0</property>
-                    <property name="centering-policy">strict</property>
+					<property name="show-end-title-buttons">0</property>
+					<property name="show-start-title-buttons">0</property>
                     <child>
                       <object class="GtkButton">
                         <property name="label" translatable="yes">Cancel</property>
@@ -68,8 +71,29 @@
                                         <property name="input_purpose">url</property>
                                         <signal name="entry_activated" handler="on_next_clicked" swapped="no"/>
                                         <signal name="changed" handler="clear_errors" swapped="no"/>
+										<child type="suffix">
+											<object class="GtkToggleButton" id="proxy_toggle">
+												<property name="icon-name">preferences-system-network-proxy-symbolic</property>
+												<property name="valign">center</property>
+												<!-- translators: this is a button in the 'new account' window -->
+												<property name="tooltip-text" translatable="yes">Proxy Settings</property>
+												<style>
+													<class name="circular" />
+													<class name="flat" />
+												</style>
+											</object>
+										</child>
                                       </object>
                                     </child>
+									<child>
+										<object class="AdwEntryRow" id="proxy_entry">
+											<property name="visible" bind-source="proxy_toggle" bind-property="active" bind-flags="sync-create"/>
+											<property name="title" translatable="yes">Proxy</property>
+											<property name="show-apply-button">1</property>
+											<property name="input_purpose">url</property>
+											<signal name="apply" handler="on_proxy_apply" swapped="no"/>
+										</object>
+									</child>
                                   </object>
 
                                 </child>
@@ -101,8 +125,9 @@
               <object class="AdwToolbarView">
                 <child type="top">
                   <object class="AdwHeaderBar">
-                    <property name="centering-policy">strict</property>
                     <property name="show-title">0</property>
+					<property name="show-end-title-buttons">0</property>
+					<property name="show-start-title-buttons">0</property>
                     <child type="end">
                       <object class="GtkButton">
                         <property name="receives_default">1</property>
@@ -187,9 +212,10 @@
               <object class="AdwToolbarView">
                 <child type="top">
                   <object class="AdwHeaderBar">
-                    <property name="centering-policy">strict</property>
                     <property name="show-back-button">0</property>
                     <property name="show-title">0</property>
+					<property name="show-end-title-buttons">0</property>
+					<property name="show-start-title-buttons">0</property>
                     <child type="end">
                       <object class="GtkButton">
                         <property name="receives_default">1</property>
@@ -219,6 +245,8 @@
           </object>
         </child>
       </object>
-    </child>
+			</property>
+		</object>
+	</child>
   </template>
 </interface>

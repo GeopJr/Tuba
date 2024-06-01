@@ -277,7 +277,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			if (account != null) {
 				account.resolve_open (accounts.active);
 			} else {
-				new Dialogs.NewAccount ().present ();
+				new Dialogs.NewAccount (true).present ();
 			}
 			popdown_signal ();
 		}
@@ -326,6 +326,6 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		if (row.account != null)
 			accounts.activate (row.account, true);
 		else
-			new Dialogs.NewAccount ().present ();
+			new Dialogs.NewAccount (true).present ();
 	}
 }
