@@ -12,6 +12,7 @@ sources += files(
     'ListBoxRowWrapper.vala',
     'MarkupView.vala',
     'Notification.vala',
+    'NotificationRequest.vala',
     'PreviewCard.vala',
     'ProfileCover.vala',
     'RelationshipButton.vala',

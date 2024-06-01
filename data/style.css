@@ -1,4 +1,4 @@
-.ttl-sidebar .badge {
+.notification-badge {
 	font-weight: bold;
 	font-size: 0.8em;
 	border-radius: 10px;
@@ -8,7 +8,7 @@
 	color: @text_view_bg;
 }
 
-.ttl-sidebar .badge.no-attention {
+.notification-badge.no-attention {
 	background: alpha(@sidebar_fg_color, .4);
 }
 
@@ -209,7 +209,7 @@ headerbar.flat.no-title .title {
 	border-right: solid 1px @sidebar_border_color;
 }
 
-.ttl-profile-fields-box-container.odd > .ttl-profile-fields-box > flowboxchild:last-child > .ttl-profile-field { 
+.ttl-profile-fields-box-container.odd > .ttl-profile-fields-box > flowboxchild:last-child > .ttl-profile-field {
 	border-bottom: none;
 }
 

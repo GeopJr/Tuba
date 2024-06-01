@@ -45,7 +45,6 @@
                         </child>
                         <style>
                           <class name="linked" />
-                          <class name="badge" />
                           <class name="heading" />
                           <class name="osd" />
                           <class name="cover-badge" />
