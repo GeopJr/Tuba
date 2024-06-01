@@ -53,7 +53,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			reblog_button.default_icon_name = "tuba-media-playlist-repeat-symbolic";
 		} else {
 			reblog_button.tooltip_text = _("This post can't be boosted");
-			reblog_button.default_icon_name = accounts.active.visibility[this.status.visibility].icon_name;
+			reblog_button.default_icon_name = "tuba-arrows-loop-tall-disabled-symbolic";
 		}
 	}
 
