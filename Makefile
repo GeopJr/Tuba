@@ -80,6 +80,7 @@ __windows_package:
 
 macos: distribution = $(PWD)/tuba_macos
 macos: contents = $(distribution)/Tuba.app/Contents
+macos: brew = $${HOMEBREW_BREW_FILE:-brew}
 macos: PREFIX = $(contents)/Resources
 macos: distro = true
 macos: install
@@ -89,12 +90,13 @@ macos: install
 	mv $(PREFIX)/bin/dev.geopjr.Tuba $(contents)/MacOS
 	mkdir $(PREFIX)/lib
 	IFS="," ; \
+	$(brew) bundle --file=runtime.Brewfile exec -- "\
 	for dep in $$HOMEBREW_DEPENDENCIES ; do \
-		rsync -av $$($${HOMEBREW_BREW_FILE:-brew} --prefix $$dep)/lib $(PREFIX) ; \
-	done
-	cp -R $$($${HOMEBREW_BREW_FILE:-brew} --prefix gtk4)/share/glib-2.0/schemas/* $(PREFIX)/share/glib-2.0/schemas
-	cp -R $$($${HOMEBREW_BREW_FILE:-brew} --prefix adwaita-icon-theme)/share/icons/Adwaita $(PREFIX)/share/icons
-	cp -R $$($${HOMEBREW_BREW_FILE:-brew} --prefix gtksourceview5)/share/gtksourceview-5 $(PREFIX)/share
+		cp -RpL $$($(brew) --prefix $$dep)/lib $(PREFIX) ; \
+	done"
+	cp -R $$($(brew) --prefix gtk4)/share/glib-2.0/schemas/* $(PREFIX)/share/glib-2.0/schemas
+	cp -R $$($(brew) --prefix adwaita-icon-theme)/share/icons/Adwaita $(PREFIX)/share/icons
+	cp -R $$($(brew) --prefix gtksourceview5)/share/gtksourceview-5 $(PREFIX)/share
 	glib-compile-schemas $(PREFIX)/share/glib-2.0/schemas
 	gtk4-update-icon-cache -f -t $(PREFIX)/share/icons/hicolor
 	rsvg-convert data/icons/color-nightly.svg -o builddir/color-nightly.png -h 1024 -w 1024
