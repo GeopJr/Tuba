@@ -89,11 +89,12 @@ macos: install
 	cp build-aux/macos_wrapper.sh $(contents)/MacOS
 	mv $(PREFIX)/bin/dev.geopjr.Tuba $(contents)/MacOS
 	mkdir $(PREFIX)/lib
-	IFS="," ; \
-	$(brew) bundle --file=runtime.Brewfile exec -- "\
-	for dep in $$HOMEBREW_DEPENDENCIES ; do \
-		cp -RpL $$($(brew) --prefix $$dep)/lib $(PREFIX) ; \
-	done"
+	$(brew) bundle --file=runtime.Brewfile exec -- sh -c '\
+		IFS="," ; for dep in $$HOMEBREW_DEPENDENCIES; do \
+			find $$($(brew) --prefix $$dep)/lib -type f \( -name *.dylib -o -name *.so \) -exec cp {} $(PREFIX)/lib \; ; \
+			find $$($(brew) --prefix $$dep)/lib -type l \( -name *.dylib -o -name *.so \) -exec sh -c '"'"'ln -sf $$(basename $$(readlink -f {})) $(PREFIX)/lib/$$(basename {})'"'"' \; ; \
+		done\
+	'
 	cp -R $$($(brew) --prefix gtk4)/share/glib-2.0/schemas/* $(PREFIX)/share/glib-2.0/schemas
 	cp -R $$($(brew) --prefix adwaita-icon-theme)/share/icons/Adwaita $(PREFIX)/share/icons
 	cp -R $$($(brew) --prefix gtksourceview5)/share/gtksourceview-5 $(PREFIX)/share
