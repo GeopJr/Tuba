@@ -80,7 +80,6 @@ __windows_package:
 
 macos: distribution = $(PWD)/tuba_macos
 macos: contents = $(distribution)/Tuba.app/Contents
-macos: brew = $${HOMEBREW_BREW_FILE:-brew}
 macos: PREFIX = $(contents)/Resources
 macos: distro = true
 macos: install
@@ -88,15 +87,6 @@ macos: install
 	mkdir $(contents)/MacOS
 	cp build-aux/macos_wrapper.sh $(contents)/MacOS
 	mv $(PREFIX)/bin/dev.geopjr.Tuba $(contents)/MacOS
-	mkdir $(PREFIX)/lib
-	$(brew) bundle --file=runtime.Brewfile exec -- sh -c '\
-		IFS="," ; for dep in $$HOMEBREW_DEPENDENCIES; do \
-			find -L $$($(brew) --prefix $$dep)/lib -type f \( -name *.dylib -o -name *.so \) -exec cp -a {} $(PREFIX)/lib \; ; \
-		done\
-	'
-	cp -R $$($(brew) --prefix gtk4)/share/glib-2.0/schemas/* $(PREFIX)/share/glib-2.0/schemas
-	cp -R $$($(brew) --prefix adwaita-icon-theme)/share/icons/Adwaita $(PREFIX)/share/icons
-	cp -R $$($(brew) --prefix gtksourceview5)/share/gtksourceview-5 $(PREFIX)/share
 	glib-compile-schemas $(PREFIX)/share/glib-2.0/schemas
 	gtk4-update-icon-cache -f -t $(PREFIX)/share/icons/hicolor
 	rsvg-convert data/icons/color-nightly.svg -o builddir/color-nightly.png -h 1024 -w 1024
