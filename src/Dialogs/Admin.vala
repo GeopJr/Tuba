@@ -10,6 +10,12 @@ public class Tuba.Dialogs.Admin {
 		[GtkChild] public unowned Adw.NavigationSplitView split_view;
 		[GtkChild] unowned Gtk.ListBox items;
 
+		public API.AccountRole.Permissions admin_permissions { get; private set; }
+
+		~Window () {
+			debug ("Destroying Admin Dialog");
+		}
+
 		public static Place place_dash = new Place () {
 			icon = "user-home-symbolic",
 			title = _("Dashboard"),
@@ -44,28 +50,30 @@ public class Tuba.Dialogs.Admin {
 			title = _("Federation"),
 		};
 
-		protected GLib.ListStore items_model;
 		construct {
 			this.transient_for = app.main_window;
 			this.modal = true;
 
-			items_model = new GLib.ListStore (typeof (Place));
-			items_model.append (place_dash);
-			items_model.append (place_reports);
-			items_model.append (place_federation);
-			items_model.append (place_accounts);
-			items_model.append (place_blocked_email_domains);
-			items_model.append (place_ip_rules);
+			items.append (new Views.Sidebar.ItemRow (place_dash));
+			if (accounts.active != null && accounts.active.admin_mode && accounts.active.role != null && accounts.active.role.permissions != null) {
+				admin_permissions = new API.AccountRole.Permissions.from_string (accounts.active.role.permissions);
 
-			// TODO: dispose on close
-			items.bind_model (items_model, on_item_create);
-			items.set_header_func (on_item_header_update);
+				if (admin_permissions.admin || admin_permissions.reports)
+					items.append (new Views.Sidebar.ItemRow (place_reports));
+
+				if (admin_permissions.admin || admin_permissions.federation)
+					items.append (new Views.Sidebar.ItemRow (place_federation));
+
+				if (admin_permissions.admin || admin_permissions.users)
+					items.append (new Views.Sidebar.ItemRow (place_accounts));
+
+				if (admin_permissions.admin || admin_permissions.blocks) {
+					items.append (new Views.Sidebar.ItemRow (place_blocked_email_domains));
+					items.append (new Views.Sidebar.ItemRow (place_ip_rules));
+				}
+			}
 
 			split_view.content = new Dashboard ();
-		}
-
-		Gtk.Widget on_item_create (Object obj) {
-			return new Views.Sidebar.ItemRow (obj as Place);
 		}
 
 		[GtkCallback] void on_item_activated (Gtk.ListBoxRow _row) {
@@ -76,19 +84,6 @@ public class Tuba.Dialogs.Admin {
 			if (place != null && place.open_func_admin != null)
 				place.open_func_admin (this);
 		}
-
-		void on_item_header_update (Gtk.ListBoxRow _row, Gtk.ListBoxRow? _before) {
-			var row = _row as Views.Sidebar.ItemRow;
-			var before = _before as Views.Sidebar.ItemRow;
-
-			row.set_header (null);
-
-			if (row.place.separated && before != null && !before.place.separated) {
-				row.set_header (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-					css_classes = { "ttl-separator" }
-				});
-			}
-		}
 	}
 
 	private class BasePage : Adw.NavigationPage {
@@ -96,6 +91,10 @@ public class Tuba.Dialogs.Admin {
 		private Gtk.ScrolledWindow scroller;
 		private Gtk.Spinner spinner;
 		private Adw.ToastOverlay toast_overlay;
+
+		~BasePage () {
+			debug (@"Destroying Admin Dialog page: $title");
+		}
 
 		private bool _spinning = true;
 		protected bool spinning {
@@ -185,13 +184,7 @@ public class Tuba.Dialogs.Admin {
 		}
 
 		private void add_stat (Adw.ActionRow row) {
-			if (stats_group == null) {
-				stats_group = new Adw.PreferencesGroup () {
-					title = _("Stats")
-				};
-				this.add_to_page (stats_group);
-			}
-
+			stats_group.visible = true;
 			stats_group.add (row);
 		}
 
@@ -200,8 +193,22 @@ public class Tuba.Dialogs.Admin {
 			this.spinning = this.requests > 0;
 		}
 
+		private Adw.PreferencesGroup create_group (string title) {
+			var group = new Adw.PreferencesGroup () {
+				title = title,
+				visible = false
+			};
+			this.add_to_page (group);
+
+			return group;
+		}
+
 		private void populate_stats (int i = 0) {
 			if (i >= KEYS.length) return;
+
+			if (stats_group == null) {
+				stats_group = create_group (_("Stats"));
+			}
 
 			var next_i = i + 1;
 			populate_stat (KEYS[i], titles[i], next_i);
@@ -245,6 +252,7 @@ public class Tuba.Dialogs.Admin {
 
 		private void do_dimension_request (string key, string title, int limit) {
 			update_requests (1);
+			var group = create_group (title);
 			new Request.POST ("/api/v1/admin/dimensions")
 				.with_account (accounts.active)
 				.body_json (Dialogs.Admin.get_dimensions_body (key, limit))
@@ -254,10 +262,6 @@ public class Tuba.Dialogs.Admin {
 						if (node != null) {
 							var dimension = API.Admin.Dimension.from (node);
 							if (dimension.key == key && dimension.data != null && dimension.data.size > 0) {
-								var group = new Adw.PreferencesGroup () {
-									title = title
-								};
-
 								foreach (var entry in dimension.data) {
 									group.add (
 										new Adw.ActionRow () {
@@ -267,9 +271,8 @@ public class Tuba.Dialogs.Admin {
 											subtitle_selectable = true
 										}
 									);
+									group.visible = true;
 								}
-
-								this.add_to_page (group);
 							}
 						}
 					});
@@ -292,9 +295,7 @@ public class Tuba.Dialogs.Admin {
 	private static Json.Builder get_dimensions_body (string key, int limit = 0) {
 		var now = new GLib.DateTime.now_local ();
 		var end = new GLib.DateTime.now_local ();
-
-		var now_day = now.get_day_of_month ();
-		now = now.add_days ((now_day - 1) * -1);
+		now = now.add_days (-29);
 
 		var builder = new Json.Builder ();
 		builder.begin_object ();
