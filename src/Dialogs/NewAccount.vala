@@ -3,7 +3,8 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	const string AUTO_AUTH_DESCRIPTION = _("Allow access to your account in the browser.");
 	const string CODE_AUTH_DESCRIPTION = _("Copy the authorization code from the browser and paste it below.");
 
-	const string SCOPES = "read write follow admin:read admin:read:reports admin:write:reports admin:read:ip_blocks admin:write:ip_blocks admin:read:domain_blocks admin:write:domain_blocks admin:read:domain_allows admin:write:domain_allows admin:read:email_domain_blocks admin:write:email_domain_blocks admin:read:canonical_email_blocks admin:write:canonical_email_blocks";
+	const string SCOPES = "read write follow";
+	const string ADMIN_SCOPES = "admin:read admin:write admin:read:reports admin:write:reports admin:read:ip_blocks admin:write:ip_blocks admin:read:domain_blocks admin:write:domain_blocks admin:read:domain_allows admin:write:domain_allows admin:read:email_domain_blocks admin:write:email_domain_blocks admin:read:canonical_email_blocks admin:write:canonical_email_blocks";
 
 	#if WINDOWS || DARWIN
 		const bool SHOULD_AUTO_AUTH = false;
@@ -36,6 +37,12 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	[GtkChild] unowned Adw.StatusPage done_page;
 
 	[GtkChild] unowned Gtk.Label manual_auth_label;
+
+	public string get_full_scopes () {
+		if (admin_switch.active) return @"$SCOPES $ADMIN_SCOPES";
+
+		return SCOPES;
+	}
 
 	public NewAccount (bool can_access_settings = false) {
 		Object (transient_for: app.main_window);
@@ -147,7 +154,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			.with_account (account)
 			.with_form_data ("client_name", Build.NAME)
 			.with_form_data ("redirect_uris", redirect_uri = setup_redirect_uri ())
-			.with_form_data ("scopes", SCOPES)
+			.with_form_data ("scopes", get_full_scopes ())
 			.with_form_data ("website", Build.WEBSITE);
 		yield msg.await ();
 
@@ -170,7 +177,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	void open_confirmation_page () {
 		debug ("Opening permission request page");
 
-		var esc_scopes = Uri.escape_string (SCOPES);
+		var esc_scopes = Uri.escape_string (get_full_scopes ());
 		var esc_redirect = Uri.escape_string (redirect_uri);
 		var pars = @"scope=$esc_scopes&response_type=code&redirect_uri=$esc_redirect&client_id=$(Uri.escape_string (account.client_id))";
 		var url = @"$(account.instance)/oauth/authorize?$pars";
