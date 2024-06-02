@@ -361,8 +361,8 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 	void on_close () {
 		this.force_close ();
 		foreach (var page in t_pages) {
+			page.unbind_listboxes ();
 			stack.remove (page);
-			page.dispose ();
 		}
 	}
 

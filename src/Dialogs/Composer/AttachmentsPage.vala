@@ -199,11 +199,18 @@ public class Tuba.AttachmentsPage : ComposerPage {
 	protected Adw.StatusPage empty_state;
 	protected Gtk.ListBox list;
 	protected Gtk.Button add_media_action_button;
+	protected Gtk.ToggleButton sensitive_media_button;
 
 	public override void dispose () {
 		if (list != null)
 			list.bind_model (null, null);
 		base.dispose ();
+	}
+
+	public override void unbind_listboxes () {
+		if (list != null)
+			list.bind_model (null, null);
+		base.unbind_listboxes ();
 	}
 
 	public override void on_build () {
@@ -240,7 +247,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		};
 		add_media_action_button.clicked.connect (show_file_selector);
 
-		var sensitive_media_button = new Gtk.ToggleButton () {
+		sensitive_media_button = new Gtk.ToggleButton () {
 			icon_name = "tuba-eye-open-negative-filled-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
@@ -249,24 +256,8 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			css_classes = {"flat"},
 			active = status.sensitive
 		};
-		sensitive_media_button.bind_property (
-			"active",
-			this,
-			"media_sensitive",
-			GLib.BindingFlags.SYNC_CREATE,
-			(b, src, ref target) => {
-				var sensitive_media_button_active = src.get_boolean ();
-				target.set_boolean (sensitive_media_button_active);
-				sensitive_media_button.icon_name = sensitive_media_button_active
-					? "tuba-eye-not-looking-symbolic"
-					: "tuba-eye-open-negative-filled-symbolic";
-				sensitive_media_button.tooltip_text = sensitive_media_button_active
-					// translators: sensitive as in not safe for work or similar
-					? _("Unmark media as sensitive")
-					: _("Mark media as sensitive");
-				return true;
-			}
-		);
+		sensitive_media_button.toggled.connect (on_sensitive_media_button_toggle);
+		on_sensitive_media_button_toggle ();
 
 		bottom_bar.pack_start (add_media_action_button);
 		bottom_bar.pack_start (sensitive_media_button);
@@ -299,6 +290,18 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		}
 
 		if (dialog != null) dialog.on_paste_activated.connect (on_paste_activated);
+	}
+
+	void on_sensitive_media_button_toggle () {
+		var sensitive_media_button_active = sensitive_media_button.active;
+		this.media_sensitive = sensitive_media_button_active;
+		sensitive_media_button.icon_name = sensitive_media_button_active
+			? "tuba-eye-not-looking-symbolic"
+			: "tuba-eye-open-negative-filled-symbolic";
+		sensitive_media_button.tooltip_text = sensitive_media_button_active
+			// translators: sensitive as in not safe for work or similar
+			? _("Unmark media as sensitive")
+			: _("Mark media as sensitive");
 	}
 
 	void on_paste_activated (string page_title) {
