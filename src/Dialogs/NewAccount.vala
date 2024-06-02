@@ -200,6 +200,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		yield account.verify_credentials ();
 
+		account.admin_mode = admin_switch.active;
 		account = accounts.create_account (account.to_json ());
 
 		debug ("Saving account");
