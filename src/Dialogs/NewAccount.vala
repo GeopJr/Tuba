@@ -22,8 +22,9 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	[GtkChild] unowned Adw.NavigationPage code_step;
 	[GtkChild] unowned Adw.NavigationPage done_step;
 
-	[GtkChild] unowned Gtk.ToggleButton proxy_toggle;
+	[GtkChild] unowned Gtk.ToggleButton settings_toggle;
 	[GtkChild] unowned Adw.EntryRow proxy_entry;
+	[GtkChild] unowned Adw.SwitchRow admin_switch;
 
 	[GtkChild] unowned Adw.EntryRow instance_entry;
 	[GtkChild] unowned Gtk.Label instance_entry_error;
@@ -46,11 +47,11 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			return true;
 		});
 
-		if (can_access_settings) {
-			proxy_toggle.visible = false;
-		} else {
+		if (!can_access_settings) {
+			settings_toggle.bind_property ("active", proxy_entry, "visible", BindingFlags.SYNC_CREATE);
 			app.toast.connect (add_toast);
 		}
+		settings_toggle.bind_property ("active", admin_switch, "visible", BindingFlags.SYNC_CREATE);
 
 		manual_auth_label.activate_link.connect (on_manual_auth);
 
