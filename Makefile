@@ -83,6 +83,7 @@ macos: contents = $(distribution)/Tuba.app/Contents
 macos: PREFIX = $(contents)/Resources
 macos: distro = true
 macos: install
+	cp Brewfile $(distribution)
 	cp build-aux/Info.plist $(contents)
 	mkdir $(contents)/MacOS
 	cp build-aux/macos_wrapper.sh $(contents)/MacOS
