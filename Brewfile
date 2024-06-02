@@ -1,0 +1,22 @@
+# Build dependencies
+brew "cmake"
+brew "imagemagick"
+brew "jq"
+brew "librsvg"
+brew "meson"
+brew "ninja"
+brew "pkg-config"
+brew "vala"
+
+# Runtime dependencies
+brew "adwaita-icon-theme"
+brew "glib"
+brew "gtksourceview5"
+brew "json-glib"
+brew "libadwaita"
+brew "libgee"
+brew "librsvg"
+brew "libsecret"
+brew "libsoup"
+brew "libspelling"
+brew "webp-pixbuf-loader"
