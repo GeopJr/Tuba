@@ -13,6 +13,8 @@ public class Tuba.ComposerPage : Gtk.Box {
 	protected Gtk.Box content;
 	protected Gtk.ActionBar bottom_bar;
 
+	public virtual void unbind_listboxes () {}
+
 	~ComposerPage () {
 		debug (@"Destroying $title Page");
 	}
