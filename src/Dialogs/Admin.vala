@@ -54,9 +54,19 @@ public class Tuba.Dialogs.Admin {
 			}
 		};
 
-		public static Place place_federation = new Place () {
+		public static Place place_federation_allow = new Place () {
 			icon = "user-home-symbolic",
-			title = _("Federation"),
+			title = _("Federation Allowlist"),
+			open_func_admin = (win) => {
+				win.split_view.content = new FederationAllowList () {
+					admin_window = win
+				};
+			}
+		};
+
+		public static Place place_federation_deny = new Place () {
+			icon = "user-home-symbolic",
+			title = _("Federation Denylist"),
 		};
 
 		construct {
@@ -70,8 +80,10 @@ public class Tuba.Dialogs.Admin {
 				if (admin_permissions.admin || admin_permissions.reports)
 					items.append (new Views.Sidebar.ItemRow (place_reports));
 
-				if (admin_permissions.admin || admin_permissions.federation)
-					items.append (new Views.Sidebar.ItemRow (place_federation));
+				if (admin_permissions.admin || admin_permissions.federation) {
+					items.append (new Views.Sidebar.ItemRow (place_federation_allow));
+					items.append (new Views.Sidebar.ItemRow (place_federation_deny));
+				}
 
 				if (admin_permissions.admin || admin_permissions.users)
 					items.append (new Views.Sidebar.ItemRow (place_accounts));
@@ -1077,6 +1089,164 @@ public class Tuba.Dialogs.Admin {
 
 		private void refresh () {
 			pagination_timeline.request_idle ();
+		}
+
+		private void on_error (int code, string message) {
+			this.add_toast (@"$message $code");
+		}
+	}
+
+	private class FederationAllowList : BasePage {
+		public class FederationAllowWidget : Adw.ActionRow {
+			public signal void removed (string domain_allow_id);
+
+			~FederationAllowWidget () {
+				debug ("Destroying FederationAllowWidget");
+			}
+
+			string domain_allow_id;
+			public FederationAllowWidget (DomainAllow domain_allow) {
+				domain_allow_id = domain_allow.id;
+				this.title = domain_allow.domain;
+
+				var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
+					css_classes = { "circular", "flat", "error" },
+					tooltip_text = _("Delete"),
+					valign = Gtk.Align.CENTER
+				};
+				delete_button.clicked.connect (on_remove);
+				this.add_suffix (delete_button);
+			}
+
+			public void on_remove () {
+				removed (domain_allow_id);
+			}
+		}
+
+		public class DomainAllow : Entity, PaginationTimeline.BasicWidgetizable {
+			public string id { get; set; }
+			public string domain { get; set; }
+
+			public override Gtk.Widget to_widget () {
+				return new FederationAllowWidget (this);
+			}
+		}
+
+		public class DomainAllowTimeline : PaginationTimeline {
+			~DomainAllowTimeline () {
+				debug ("Destroying DomainAllowTimeline");
+			}
+
+			public override Gtk.Widget on_create_model_widget (Object obj) {
+				Gtk.Widget widget = base.on_create_model_widget (obj);
+				var action_row = widget as FederationAllowWidget;
+				if (action_row != null) {
+					action_row.removed.connect (on_remove);
+				}
+
+				return widget;
+			}
+
+			private void on_remove (FederationAllowWidget widget, string domain_allow_id) {
+				widget.sensitive = false;
+				new Request.DELETE (@"/api/v1/admin/domain_allows/$domain_allow_id")
+					.with_account (accounts.active)
+					.then (() => {
+						widget.sensitive = true;
+						request_idle ();
+					})
+					.on_error ((code, message) => {
+						widget.sensitive = true;
+						on_error (code, message);
+					})
+					.exec ();
+			}
+		}
+
+		Gtk.Entry child_entry;
+		Gtk.Button add_button;
+		DomainAllowTimeline pagination_timeline;
+		construct {
+			// translators: Admin Dialog page title
+			this.title = _("Federation Allowlist");
+
+			var add_action_bar = new Gtk.ActionBar () {
+				css_classes = { "ttl-box-no-shadow" }
+			};
+
+			child_entry = new Gtk.Entry () {
+				input_purpose = Gtk.InputPurpose.URL,
+				// translators: Admin Dialog entry placeholder text,
+				//				this is about allowing federation
+				//				with other instances
+				placeholder_text = _("Allow federation with an instance")
+			};
+			var child_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+			add_button = new Gtk.Button.with_label (_("Allow")) {
+				sensitive = false
+			};
+			add_button.clicked.connect (new_item_cb);
+			child_entry.activate.connect (new_item_cb);
+			child_entry.notify["text"].connect (on_entry_changed);
+
+			child_box.append (child_entry);
+			child_box.append (add_button);
+
+			add_action_bar.set_center_widget (child_box);
+			toolbar_view.add_top_bar (add_action_bar);
+
+			pagination_timeline = new DomainAllowTimeline () {
+				url = "/api/v1/admin/domain_allows",
+				accepts = typeof (DomainAllow)
+			};
+			pagination_timeline.on_error.connect (on_error);
+			pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
+			this.page = pagination_timeline;
+
+			pagination_timeline.request_idle ();
+		}
+
+		void new_item_cb () {
+			on_action_bar_activate (child_entry.buffer);
+		}
+
+		void on_entry_changed () {
+			add_button.sensitive = child_entry.text.length > 0;
+		}
+
+		void on_action_bar_activate (Gtk.EntryBuffer buffer) {
+			if (buffer.length > 0) {
+				string domain = buffer.text;
+				var dlg = new Adw.AlertDialog (
+					// tranlsators: Question dialog when an admin is about to
+					//				allow federation with an instance. The variable is a
+					//				string.
+					_("Are you sure you want to allow federation with %s").printf (domain),
+					null
+				);
+
+				dlg.add_response ("no", _("Cancel"));
+				dlg.set_response_appearance ("no", Adw.ResponseAppearance.DEFAULT);
+
+				dlg.add_response ("yes", _("Allow"));
+				dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
+				dlg.choose.begin (this.admin_window, null, (obj, res) => {
+					if (dlg.choose.end (res) == "yes") {
+						new Request.POST ("/api/v1/admin/domain_allows")
+							.with_account (accounts.active)
+							.with_form_data ("domain", domain)
+							.then (() => {
+								pagination_timeline.request_idle ();
+							})
+							.on_error ((code, message) => {
+								warning (@"Error trying to allow federation with $domain: $message $code");
+								on_error (code, message);
+							})
+							.exec ();
+					}
+				});
+			}
+			buffer.set_text ("".data);
 		}
 
 		private void on_error (int code, string message) {
