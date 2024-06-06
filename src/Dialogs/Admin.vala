@@ -66,7 +66,12 @@ public class Tuba.Dialogs.Admin {
 
 		public static Place place_federation_deny = new Place () {
 			icon = "user-home-symbolic",
-			title = _("Federation Denylist"),
+			title = _("Federation Blocklist"),
+			open_func_admin = (win) => {
+				win.split_view.content = new FederationBlockList () {
+					admin_window = win
+				};
+			}
 		};
 
 		construct {
@@ -1247,6 +1252,423 @@ public class Tuba.Dialogs.Admin {
 				});
 			}
 			buffer.set_text ("".data);
+		}
+
+		private void on_error (int code, string message) {
+			this.add_toast (@"$message $code");
+		}
+	}
+
+	private class FederationBlockList : BasePage {
+		public class FederationBlockWidget : Adw.ExpanderRow {
+			public signal void removed (string federation_block_id);
+
+			~FederationBlockWidget () {
+				debug ("Destroying FederationBlockWidget");
+			}
+
+			string federation_block_id;
+			public FederationBlockWidget (FederationBlock federation_block) {
+				federation_block_id = federation_block.id;
+				this.overflow = Gtk.Overflow.HIDDEN;
+				this.title = federation_block.domain;
+				this.subtitle = FederationBlock.Severity.from_string (federation_block.severity).to_string ();
+				this.add_row (
+					new Gtk.Label (
+						"<b>%s</b>: %s".printf (
+							_("Private Comment"),
+							federation_block.private_comment == null || federation_block.private_comment == "" ? _("None") : federation_block.private_comment
+						)
+					) {
+						wrap = true,
+						xalign = 0.0f,
+						wrap_mode = Pango.WrapMode.WORD_CHAR,
+						use_markup = true,
+						margin_bottom = 12,
+						margin_top = 12,
+						margin_start = 12,
+						margin_end = 12
+					}
+				);
+				this.add_row (
+					new Gtk.Label (
+						"<b>%s</b>: %s".printf (
+							_("Public Comment"),
+							federation_block.public_comment == null || federation_block.public_comment == "" ? _("None") : federation_block.public_comment
+						)
+					) {
+						wrap = true,
+						xalign = 0.0f,
+						wrap_mode = Pango.WrapMode.WORD_CHAR,
+						use_markup = true,
+						margin_bottom = 12,
+						margin_top = 12,
+						margin_start = 12,
+						margin_end = 12
+					}
+				);
+
+				string[] rules = {};
+				if (federation_block.reject_media) rules += _("Reject Media Files");
+				if (federation_block.reject_reports) rules += _("Reject Reports");
+				if (federation_block.obfuscate) rules += _("Obfuscate Domain Name");
+
+				if (rules.length > 0) {
+					this.add_row (
+						new Gtk.Label (
+							"<b>%s</b>".printf (string.joinv ("·", rules))
+						) {
+							wrap = true,
+							xalign = 0.0f,
+							wrap_mode = Pango.WrapMode.WORD_CHAR,
+							use_markup = true,
+							margin_bottom = 12,
+							margin_top = 12,
+							margin_start = 12,
+							margin_end = 12
+						}
+					);
+				}
+
+
+				var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
+					css_classes = { "circular", "flat", "error" },
+					tooltip_text = _("Delete"),
+					valign = Gtk.Align.CENTER
+				};
+				delete_button.clicked.connect (on_remove);
+				this.add_suffix (delete_button);
+			}
+
+			public void on_remove () {
+				removed (federation_block_id);
+			}
+		}
+
+		public class FederationBlock : Entity, PaginationTimeline.BasicWidgetizable {
+			public enum Severity {
+				NOOP,
+				SILENCE,
+				SUSPEND;
+
+				public string to_string () {
+					switch (this) {
+						// translators: Admin Dashboard, Federation Block severity
+						case NOOP: return _("None");
+						// translators: Admin Dashboard, Federation Block severity
+						case SILENCE: return _("Limit");
+						// translators: Admin Dashboard, Federation Block severity
+						case SUSPEND: return _("Suspend");
+						default: assert_not_reached ();
+					}
+				}
+
+				public static Severity from_string (string severity) {
+					switch (severity.down ()) {
+						case "silence": return SILENCE;
+						case "suspend": return SUSPEND;
+						default: return NOOP;
+					}
+				}
+
+				public string to_api_string () {
+					switch (this) {
+						case NOOP: return "noop";
+						case SILENCE: return "silence";
+						case SUSPEND: return "suspend";
+						default: assert_not_reached ();
+					}
+				}
+			}
+
+			public string id { get; set; }
+			public string domain { get; set; }
+			public string severity { get; set; default = "noop"; }
+			public string private_comment { get; set; default = ""; }
+			public string public_comment { get; set; default = ""; }
+			public bool obfuscate { get; set; default = false; }
+			public bool reject_media { get; set; default = false; }
+			public bool reject_reports { get; set; default = false; }
+
+			public override Gtk.Widget to_widget () {
+				return new FederationBlockWidget (this);
+			}
+		}
+
+		public class FederationBlockTimeline : PaginationTimeline {
+			~FederationBlockTimeline () {
+				debug ("Destroying FederationBlockTimeline");
+			}
+
+			public override Gtk.Widget on_create_model_widget (Object obj) {
+				Gtk.Widget widget = base.on_create_model_widget (obj);
+				var action_row = widget as FederationBlockWidget;
+				if (action_row != null) {
+					action_row.removed.connect (on_remove);
+				}
+
+				return widget;
+			}
+
+			private void on_remove (FederationBlockWidget widget, string federation_block_id) {
+				widget.sensitive = false;
+				new Request.DELETE (@"/api/v1/admin/domain_blocks/$federation_block_id")
+					.with_account (accounts.active)
+					.then (() => {
+						widget.sensitive = true;
+						request_idle ();
+					})
+					.on_error ((code, message) => {
+						widget.sensitive = true;
+						on_error (code, message);
+					})
+					.exec ();
+			}
+		}
+
+		public class AddFederationBlockDialog : Adw.Dialog {
+			~AddFederationBlockDialog () {
+				debug ("Destroying AddFederationBlockDialog");
+			}
+
+			class SeverityObject : Object {
+				public FederationBlock.Severity severity { get; set; }
+
+				public SeverityObject (FederationBlock.Severity sev) {
+					this.severity = sev;
+				}
+			}
+
+			public signal void added ();
+
+			Gtk.Button save_button;
+			Adw.PreferencesPage page;
+			Adw.EntryRow domain_row;
+			Adw.ComboRow sev_row;
+			GLib.ListStore sev_model;
+			Gtk.CheckButton rule_obfuscate;
+			Gtk.CheckButton rule_reject_media;
+			Gtk.CheckButton rule_reject_reports;
+			Adw.ActionRow reject_media_row;
+			Adw.ActionRow reject_reports_row;
+			Adw.ActionRow obfuscate_row;
+			Adw.EntryRow private_comment_row;
+			Adw.EntryRow public_comment_row;
+			Adw.ToastOverlay toast_overlay;
+			construct {
+				this.title = _("Add Federation Block");
+				this.content_width = 460;
+				this.content_height = 510;
+				this.can_close = false;
+
+				page = new Adw.PreferencesPage ();
+				toast_overlay = new Adw.ToastOverlay () {
+					vexpand = true,
+					hexpand = true,
+					child = page
+				};
+
+				var toolbarview = new Adw.ToolbarView () {
+					content = toast_overlay,
+					valign = Gtk.Align.CENTER
+				};
+
+				var headerbar = new Adw.HeaderBar () {
+					show_end_title_buttons = false,
+					show_start_title_buttons = false
+				};
+				toolbarview.add_top_bar (headerbar);
+				var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+				cancel_button.clicked.connect (on_cancel);
+
+				save_button = new Gtk.Button.with_label (_("Add")) {
+					css_classes = { "suggested-action" },
+					sensitive = false
+				};
+				save_button.clicked.connect (on_save);
+
+				headerbar.pack_start (cancel_button);
+				headerbar.pack_end (save_button);
+
+				domain_row = new Adw.EntryRow () {
+					// translators: Admin dashboard, federation block dialog,
+					//				e.g. 'gnome.org'
+					title = _("Domain"),
+					input_hints = Gtk.InputHints.NO_EMOJI | Gtk.InputHints.NO_SPELLCHECK,
+					show_apply_button = false,
+					input_purpose = Gtk.InputPurpose.FREE_FORM,
+					css_classes = {"error"}
+				};
+				domain_row.changed.connect (on_domain_changed);
+
+				Gtk.SignalListItemFactory signallistitemfactory = new Gtk.SignalListItemFactory ();
+				signallistitemfactory.bind.connect (sev_signal);
+
+				sev_model = new GLib.ListStore (typeof (SeverityObject));
+				sev_model.splice (0, 0, {
+					new SeverityObject (FederationBlock.Severity.SILENCE),
+					new SeverityObject (FederationBlock.Severity.SUSPEND),
+					new SeverityObject (FederationBlock.Severity.NOOP),
+				});
+
+				sev_row = new Adw.ComboRow () {
+					// translators: Admin dashboard, federation block dialog severity row title
+					title = _("Severity"),
+					model = sev_model,
+					factory = signallistitemfactory
+				};
+				sev_row.notify["selected"].connect (on_sev_change);
+
+				rule_reject_media = new Gtk.CheckButton () {
+					active = true
+				};
+				rule_reject_reports = new Gtk.CheckButton ();
+				rule_obfuscate = new Gtk.CheckButton ();
+
+				reject_media_row = new Adw.ActionRow () {
+					// translators: Admin dashboard, federation blocklist, checkbox option title.
+					//				You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+					title = _("Reject Media Files"),
+					// translators: Admin dashboard, federation blocklist, checkbox option description.
+					//				You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+					subtitle = _("Removes locally stored media files and refuses to download any in the future"),
+					activatable_widget = rule_reject_media
+				};
+				reject_media_row.add_prefix (rule_reject_media);
+
+				reject_reports_row = new Adw.ActionRow () {
+					// translators: Admin dashboard, federation blocklist, checkbox option title.
+					//				You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+					title = _("Reject Reports"),
+					// translators: Admin dashboard, federation blocklist, checkbox option description.
+					//				You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+					subtitle = _("Ignore all reports coming from this domain"),
+					activatable_widget = rule_reject_reports
+				};
+				reject_reports_row.add_prefix (rule_reject_reports);
+
+				obfuscate_row = new Adw.ActionRow () {
+					// translators: Admin dashboard, federation blocklist, checkbox option title.
+					//				You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+					title = _("Obfuscate Domain Name"),
+					// translators: Admin dashboard, federation blocklist, checkbox option description.
+					//				You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+					subtitle = _("Partially obfuscate the domain name in the list if advertising the list of domain limitations is enabled"),
+					activatable_widget = rule_obfuscate
+				};
+				obfuscate_row.add_prefix (rule_obfuscate);
+
+				private_comment_row = new Adw.EntryRow () {
+					// translators: Admin dashboard, federation block dialog
+					title = _("Private Comment"),
+					input_purpose = Gtk.InputPurpose.FREE_FORM,
+					show_apply_button = false
+				};
+
+				public_comment_row = new Adw.EntryRow () {
+					// translators: Admin dashboard, federation block dialog
+					title = _("Public Comment"),
+					input_purpose = Gtk.InputPurpose.FREE_FORM,
+					show_apply_button = false
+				};
+
+				var main_group = new Adw.PreferencesGroup ();
+				main_group.add (domain_row);
+				main_group.add (sev_row);
+				main_group.add (reject_media_row);
+				main_group.add (reject_reports_row);
+				main_group.add (obfuscate_row);
+				main_group.add (private_comment_row);
+				main_group.add (public_comment_row);
+
+				page.add (main_group);
+				this.child = toolbarview;
+				on_sev_change ();
+			}
+
+			private void on_domain_changed () {
+				if (domain_row.text.length > 0) {
+					domain_row.remove_css_class ("error");
+					save_button.sensitive = true;
+				} else {
+					domain_row.add_css_class ("error");
+					save_button.sensitive = false;
+				}
+			}
+
+			private void on_sev_change () {
+				bool is_suspend = ((SeverityObject) sev_row.selected_item).severity == FederationBlock.Severity.SUSPEND;
+				reject_media_row.sensitive = reject_reports_row.sensitive = !is_suspend;
+			}
+
+			private void on_cancel () {
+				this.force_close ();
+			}
+
+			private void on_save () {
+				save_button.sensitive = false;
+
+				new Request.POST ("/api/v1/admin/domain_blocks")
+					.with_account (accounts.active)
+					.with_form_data ("domain", domain_row.text)
+					.with_form_data ("severity", ((SeverityObject) sev_row.selected_item).severity.to_api_string ())
+					.with_form_data ("public_comment", public_comment_row.text)
+					.with_form_data ("private_comment", private_comment_row.text)
+					.with_form_data ("obfuscate", rule_obfuscate.active.to_string ())
+					.with_form_data ("reject_media", (reject_media_row.sensitive && rule_reject_media.active).to_string ())
+					.with_form_data ("reject_reports", (reject_reports_row.sensitive && rule_reject_reports.active).to_string ())
+					.then (() => {
+						on_domain_changed ();
+						added ();
+						on_cancel ();
+					})
+					.on_error ((code, message) => {
+						warning (@"Couldn't create federation block $(domain_row.text): $code $message");
+						toast_overlay.add_toast (new Adw.Toast (message) {
+							timeout = 10
+						});
+					})
+					.exec ();
+			}
+
+			private void sev_signal (GLib.Object item) {
+				((Gtk.ListItem) item).child = new Gtk.Label (((SeverityObject)((Gtk.ListItem) item).item).severity.to_string ());
+			}
+		}
+
+		FederationBlockTimeline pagination_timeline;
+		construct {
+			// translators: Admin Dialog page title,
+			//				this is about federation blocking
+			this.title = _("Federation Blocklist");
+
+			var add_ip_block_button = new Gtk.Button.from_icon_name ("tuba-plus-large-symbolic") {
+				tooltip_text = _("Add Federation Block"),
+				css_classes = {"flat"}
+			};
+			add_ip_block_button.clicked.connect (open_add_federation_block_dialog);
+			headerbar.pack_end (add_ip_block_button);
+
+			pagination_timeline = new FederationBlockTimeline () {
+				url = "/api/v1/admin/domain_blocks",
+				accepts = typeof (FederationBlock)
+			};
+			pagination_timeline.on_error.connect (on_error);
+			pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
+			this.page = pagination_timeline;
+
+			refresh ();
+		}
+
+		private void open_add_federation_block_dialog () {
+			if (this.admin_window == null) return;
+			var add_federation_block_dialog = new AddFederationBlockDialog ();
+			add_federation_block_dialog.added.connect (refresh);
+			add_federation_block_dialog.present (this.admin_window);
+		}
+
+		private void refresh () {
+			pagination_timeline.request_idle ();
 		}
 
 		private void on_error (int code, string message) {
