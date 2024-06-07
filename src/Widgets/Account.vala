@@ -16,6 +16,18 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		}
 	}
 
+	public bool disable_profile_open {
+		set {
+			if (value == true) {
+				this.activatable = false;
+				grid.can_focus = false;
+				grid.focusable = false;
+				grid.can_target = false;
+				if (open_signal != -1) this.disconnect (open_signal);
+			}
+		}
+	}
+
 	[GtkChild] unowned Widgets.Background background;
 	[GtkChild] unowned Gtk.Label cover_badge;
 	[GtkChild] unowned Gtk.Image cover_bot_badge;
@@ -130,6 +142,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 
 	private weak API.Account api_account { get; set; }
 	private string account_id = "";
+	private ulong open_signal = -1;
 	public Account (API.Account account) {
 		account_id = account.id;
 		open.connect (account.open);

@@ -26,7 +26,12 @@ public class Tuba.Dialogs.Admin {
 
 		public static Place place_reports = new Place () {
 			icon = "user-home-symbolic",
-			title = _("Reports")
+			title = _("Reports"),
+			open_func_admin = (win) => {
+				win.split_view.content = new ReportList () {
+					admin_window = win
+				};
+			}
 		};
 
 		public static Place place_accounts = new Place () {
@@ -235,6 +240,12 @@ public class Tuba.Dialogs.Admin {
 
 		public void request_idle () {
 			GLib.Idle.add (request);
+		}
+
+		public void reset (string new_url) {
+			this.url = new_url;
+			first_page = true;
+			request_idle ();
 		}
 
 		public virtual bool request () {
@@ -1284,10 +1295,10 @@ public class Tuba.Dialogs.Admin {
 						xalign = 0.0f,
 						wrap_mode = Pango.WrapMode.WORD_CHAR,
 						use_markup = true,
-						margin_bottom = 12,
-						margin_top = 12,
-						margin_start = 12,
-						margin_end = 12
+						margin_bottom = 8,
+						margin_top = 8,
+						margin_start = 8,
+						margin_end = 8,
 					}
 				);
 				this.add_row (
@@ -1301,10 +1312,10 @@ public class Tuba.Dialogs.Admin {
 						xalign = 0.0f,
 						wrap_mode = Pango.WrapMode.WORD_CHAR,
 						use_markup = true,
-						margin_bottom = 12,
-						margin_top = 12,
-						margin_start = 12,
-						margin_end = 12
+						margin_bottom = 8,
+						margin_top = 8,
+						margin_start = 8,
+						margin_end = 8,
 					}
 				);
 
@@ -1325,7 +1336,7 @@ public class Tuba.Dialogs.Admin {
 							margin_bottom = 12,
 							margin_top = 12,
 							margin_start = 12,
-							margin_end = 12
+							margin_end = 12,
 						}
 					);
 				}
@@ -1673,6 +1684,401 @@ public class Tuba.Dialogs.Admin {
 
 		private void on_error (int code, string message) {
 			this.add_toast (@"$message $code");
+		}
+	}
+
+	private class ReportList : BasePage {
+		public class ReportDialog : Adw.Dialog {
+			~ReportDialog () {
+				debug ("Destroying ReportDialog");
+			}
+
+			public signal void refresh ();
+
+			Adw.PreferencesGroup profile_group;
+			Adw.PreferencesPage page;
+			Adw.ToastOverlay toast_overlay;
+			Gtk.Button take_action_button;
+			Gtk.Button resolve_button;
+			construct {
+				this.title = _("Report");
+				this.content_width = 460;
+				this.content_height = 560;
+				this.can_close = false;
+
+				page = new Adw.PreferencesPage ();
+				toast_overlay = new Adw.ToastOverlay () {
+					vexpand = true,
+					hexpand = true,
+					child = page
+				};
+
+				var toolbarview = new Adw.ToolbarView () {
+					content = toast_overlay
+				};
+
+				var headerbar = new Adw.HeaderBar ();
+
+				// translators: Admin dashboard, take action against user headerbar button
+				take_action_button = new Gtk.Button.with_label (_("Take Action")) {
+					css_classes = {"destructive-action"}
+				};
+
+				resolve_button = new Gtk.Button.with_label (_("Resolve")) {
+					css_classes = {"suggested-action"}
+				};
+
+				headerbar.pack_end (take_action_button);
+				headerbar.pack_start (resolve_button);
+
+				toolbarview.add_top_bar (headerbar);
+
+				profile_group = new Adw.PreferencesGroup ();
+				page.add (profile_group);
+				this.child = toolbarview;
+			}
+
+			public ReportDialog (Report report) {
+				try {
+					Widgets.Account profile = (Widgets.Account) report.target_account.account.to_widget ();
+					profile.overflow = Gtk.Overflow.HIDDEN;
+					profile.disable_profile_open = true;
+					profile.add_css_class ("card");
+					profile_group.add (profile);
+				} catch {}
+
+				var info_group = new Adw.PreferencesGroup ();
+				if (report.target_account.account.created_at != null) {
+					var join_date = new GLib.DateTime.from_iso8601 (report.target_account.account.created_at, null);
+					join_date = join_date.to_timezone (new TimeZone.local ());
+					info_group.add (new Adw.ActionRow () {
+						title = _("Joined"),
+						subtitle = join_date.format (_("%B %e, %Y")).replace (" ", ""),
+						subtitle_selectable = true
+					});
+				}
+
+				info_group.add (new Adw.ActionRow () {
+					title = _("Reported on"),
+					subtitle = new GLib.DateTime.from_iso8601 (report.created_at, null).format ("%F %T"),
+					subtitle_selectable = true
+				});
+
+				info_group.add (new Adw.ActionRow () {
+					title = _("Reported by"),
+					subtitle = report.account.account.full_handle,
+					subtitle_selectable = true
+				});
+
+				info_group.add (new Adw.ActionRow () {
+					title = _("Status"),
+					subtitle = report.action_taken ? _("Resolved") : _("Unresolved"),
+					subtitle_selectable = true
+				});
+
+				if (report.forwarded == true) {
+					info_group.add (new Adw.ActionRow () {
+						title = _("Forwarded")
+					});
+				}
+
+				if (report.action_taken_by_account != null) {
+					info_group.add (new Adw.ActionRow () {
+						title = _("Action Taken by"),
+						subtitle = report.action_taken_by_account.account.full_handle,
+						subtitle_selectable = true
+					});
+				} else {
+					info_group.add (new Adw.ActionRow () {
+						title = _("Assigned to"),
+						subtitle = report.assigned_account == null ? _("Nobody") : report.assigned_account.account.full_handle,
+						subtitle_selectable = true
+					});
+				}
+
+				var report_category = Report.Category.from_string (report.category);
+				info_group.add (new Adw.ActionRow () {
+					title = _("Category"),
+					subtitle = report_category.to_string (),
+					subtitle_selectable = true
+				});
+
+				if (report_category == Report.Category.VIOLATION && report.rules.size > 0) {
+					var rules_row = new Adw.ExpanderRow () {
+						title = _("Violated Rules")
+					};
+
+					report.rules.foreach (rule => {
+						rules_row.add_row (
+							new Gtk.Label (rule.text) {
+								wrap = true,
+								xalign = 0.0f,
+								wrap_mode = Pango.WrapMode.WORD_CHAR,
+								margin_bottom = 8,
+								margin_top = 8,
+								margin_start = 8,
+								margin_end = 8,
+							}
+						);
+
+						return true;
+					});
+
+					info_group.add (rules_row);
+				}
+
+				var status_group = new Adw.PreferencesGroup () {
+					title = _("Reported Posts")
+				};
+
+				report.statuses.foreach (status => {
+					try {
+						status.formal.filtered = null;
+						status.formal.spoiler_text = null;
+						Widgets.Status widget = (Widgets.Status) status.to_widget ();
+						widget.add_css_class ("card");
+						widget.add_css_class ("card-spacing");
+						widget.actions.visible = false;
+						widget.menu_button.visible = false;
+						widget.activatable = false;
+						widget.filter_stack.can_focus = false;
+						widget.filter_stack.can_target = false;
+						widget.filter_stack.focusable = false;
+
+						status_group.add (widget);
+					} catch {}
+
+					return true;
+				});
+
+				report.statuses.foreach (status => {
+					try {
+						status.formal.filtered = null;
+						status.formal.spoiler_text = null;
+						Widgets.Status widget = (Widgets.Status) status.to_widget ();
+						widget.add_css_class ("card");
+						widget.add_css_class ("card-spacing");
+						widget.actions.visible = false;
+						widget.menu_button.visible = false;
+						widget.activatable = false;
+						widget.filter_stack.can_focus = false;
+						widget.filter_stack.can_target = false;
+						widget.filter_stack.focusable = false;
+
+						status_group.add (widget);
+					} catch {}
+
+					return true;
+				});
+
+				page.add (info_group);
+				page.add (status_group);
+			}
+		}
+
+		public class ReportWidget : Adw.ActionRow {
+			~ReportWidget () {
+				debug ("Destroying ReportWidget");
+			}
+
+			public signal void report_activated (Report report);
+			Report report;
+			public ReportWidget (Report report) {
+				this.report = report;
+				this.activated.connect (on_activate);
+				this.activatable = true;
+				this.overflow = Gtk.Overflow.HIDDEN;
+				this.subtitle_lines = 0;
+				this.title = report.target_account.account.full_handle;
+				this.subtitle = "<b>%s:</b> %s\n<b>%s:</b> %d\n<b>%s:</b> %s".printf (
+					// translators: 'Reported by: <account>'
+					_("Reported by"),
+					report.account.account.full_handle,
+					// translators: 'Reported Posts: <amount>'
+					_("Reported Posts"),
+					report.statuses == null ? 0 : report.statuses.size,
+					// translators: 'Assigned to: <account>'
+					_("Assigned to"),
+
+					report.assigned_account == null ? _("Nobody") : report.assigned_account.account.full_handle
+				);
+
+				this.add_prefix (new Widgets.Avatar () {
+					account = report.target_account.account,
+					size = 48
+				});
+
+				// translators: Admin dashboard, report status
+				string status = _("No Limits");
+				if (report.action_taken) {
+					if (report.target_account.suspended) {
+						status = _("Suspended");
+					} else if (report.target_account.silenced) {
+						status = _("Silenced");
+					} else if (report.target_account.disabled) {
+						status = _("Disabled");
+					}
+				}
+
+				this.add_suffix (new Gtk.Label (status) {
+					xalign = 1.0f,
+					wrap = true,
+					wrap_mode = Pango.WrapMode.WORD_CHAR,
+					hexpand = true
+				});
+			}
+
+			private void on_activate () {
+				report_activated (report);
+			}
+		}
+
+		public class Report : Entity, PaginationTimeline.BasicWidgetizable {
+			public enum Category {
+				SPAM,
+				VIOLATION,
+				LEGAL,
+				OTHER;
+
+				public static Category from_string (string cat) {
+					switch (cat.down ()) {
+						case "spam": return SPAM;
+						case "violation": return VIOLATION;
+						case "legal": return LEGAL;
+						default: return OTHER;
+					}
+				}
+
+				public string to_string () {
+					switch (this) {
+						case SPAM: return _("Spam");
+						case VIOLATION: return _("Violation");
+						case LEGAL: return _("Legal");
+						default: return _("Other");
+					}
+				}
+
+				public string to_api_string () {
+					switch (this) {
+						case SPAM: return "spam";
+						case VIOLATION: return "violation";
+						case LEGAL: return "legal";
+						default: return "other";
+					}
+				}
+			}
+
+			public class AdminAccount : Entity {
+				public string id { get; set; }
+				public string username { get; set; }
+				public string? domain { get; set; default=null; }
+				public string email { get; set; }
+				public string? ip { get; set; default=null; }
+				public bool confirmed { get; set; }
+				public bool suspended { get; set; }
+				public bool disabled { get; set; }
+				public bool silenced { get; set; }
+				public bool approved { get; set; }
+				public API.Account account { get; set; }
+			}
+
+			public string id { get; set; }
+			public string category { get; set; default="other"; }
+			public bool action_taken { get; set; }
+			public string? action_taken_at { get; set; default=null; }
+			public string comment { get; set; }
+			public bool forwarded { get; set; }
+			public string created_at { get; set; }
+			public string? updated_at { get; set; default=null; }
+			public AdminAccount account { get; set; }
+			public AdminAccount target_account { get; set; }
+			public AdminAccount? assigned_account { get; set; default=null; }
+			public AdminAccount? action_taken_by_account { get; set; default=null; }
+			public Gee.ArrayList<API.Status>? statuses { get; set; default=null; }
+			public Gee.ArrayList<API.Instance.Rule>? rules { get; set; default=null; }
+
+			public override Type deserialize_array_type (string prop) {
+				switch (prop) {
+					case "statuses":
+						return typeof (API.Status);
+					case "rules":
+						return typeof (API.Instance.Rule);
+				}
+
+				return base.deserialize_array_type (prop);
+			}
+
+			public override Gtk.Widget to_widget () {
+				return new ReportWidget (this);
+			}
+		}
+
+		public class ReportTimeline : PaginationTimeline {
+			~ReportTimeline () {
+				debug ("Destroying ReportTimeline");
+			}
+
+			public signal void on_open_report_dialog (Report report);
+			public override Gtk.Widget on_create_model_widget (Object obj) {
+				Gtk.Widget widget = base.on_create_model_widget (obj);
+				var action_row = widget as ReportWidget;
+				if (action_row != null) {
+					action_row.report_activated.connect (on_report_activated);
+				}
+
+				return widget;
+			}
+
+			private void on_report_activated (Report report) {
+				on_open_report_dialog (report);
+			}
+		}
+
+		ReportTimeline pagination_timeline;
+		Gtk.ToggleButton resolved_button;
+		construct {
+			// translators: Admin Dialog page title
+			this.title = _("Reports");
+
+			resolved_button = new Gtk.ToggleButton () {
+				// translators: admin dashboard, reports timeline, headerbar button tooltip text
+				tooltip_text = _("Show Resolved Reports"),
+				css_classes = {"flat"},
+				icon_name = "tuba-check-round-outline-symbolic"
+			};
+			resolved_button.toggled.connect (on_resolved_toggled);
+			headerbar.pack_end (resolved_button);
+
+			pagination_timeline = new ReportTimeline () {
+				url = "/api/v1/admin/reports",
+				accepts = typeof (Report)
+			};
+			pagination_timeline.on_open_report_dialog.connect (open_report_dialog);
+			pagination_timeline.on_error.connect (on_error);
+			pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
+			pagination_timeline.bind_property ("working", resolved_button, "sensitive", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
+			this.page = pagination_timeline;
+
+			refresh ();
+		}
+
+		private void on_resolved_toggled () {
+			pagination_timeline.reset (resolved_button.active ? "/api/v1/admin/reports?resolved=true" : "/api/v1/admin/reports");
+		}
+
+		private void on_error (int code, string message) {
+			pagination_timeline.working = false;
+			this.add_toast (@"$message $code");
+		}
+
+		private void refresh () {
+			pagination_timeline.request_idle ();
+		}
+
+		private void open_report_dialog (Report report) {
+			var report_dialog = new ReportDialog (report);
+			report_dialog.refresh.connect (refresh);
+			report_dialog.present (this.admin_window);
 		}
 	}
 
