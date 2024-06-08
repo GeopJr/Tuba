@@ -166,7 +166,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			margin_start = 16,
 			margin_end = 16
 		};
-		box.append (new Gtk.Image.from_icon_name ("tuba-heart-broken-symbolic") {
+		box.append (new Gtk.Image.from_icon_name (icon_name) {
 			icon_size = Gtk.IconSize.LARGE
 		});
 		box.append (new Gtk.Label (label) {
