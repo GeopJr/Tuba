@@ -1956,6 +1956,7 @@ public class Tuba.Dialogs.Admin {
 			}
 
 			string report_id;
+			string account_id;
 			Gtk.CheckButton rule_other;
 			Gtk.CheckButton rule_legal;
 			Gtk.CheckButton rule_violation;
@@ -1968,6 +1969,7 @@ public class Tuba.Dialogs.Admin {
 			Gee.HashMap<string, Gtk.CheckButton> rules_buttons;
 			public ReportDialog (Report report) {
 				report_id = report.id;
+				account_id = report.target_account.account.id;
 				// translators: Admin dashboard, take action against user headerbar button
 				take_action_button = new Gtk.Button.with_label (_("Take Action")) {
 					css_classes = {"destructive-action"},
@@ -2253,8 +2255,14 @@ public class Tuba.Dialogs.Admin {
 			}
 
 			private void show_take_action_dialog () {
-				var dlg = new TakeActionDialog ();
+				var dlg = new TakeActionDialog (account_id, report_id);
+				dlg.took_action.connect (on_took_action);
 				dlg.present (this);
+			}
+
+			private void on_took_action () {
+				should_refresh = true;
+				on_close ();
 			}
 
 			bool should_refresh = false;
@@ -2268,6 +2276,8 @@ public class Tuba.Dialogs.Admin {
 			}
 
 			class TakeActionDialog : Adw.Dialog {
+				public signal void took_action ();
+
 				Adw.PreferencesPage page;
 				Adw.ToastOverlay toast_overlay;
 				Adw.HeaderBar headerbar;
@@ -2303,6 +2313,7 @@ public class Tuba.Dialogs.Admin {
 					take_action_button = new Gtk.Button.with_label (_("Submit")) {
 						css_classes = {"destructive-action"}
 					};
+					take_action_button.clicked.connect (on_take_action);
 
 					headerbar = new Adw.HeaderBar () {
 						show_end_title_buttons = false,
@@ -2396,6 +2407,13 @@ public class Tuba.Dialogs.Admin {
 					this.child = toolbarview;
 				}
 
+				string account_id;
+				string? report_id = null;
+				public TakeActionDialog (string account_id, string? report_id = null) {
+					this.account_id = account_id;
+					this.report_id = report_id;
+				}
+
 				protected void add_toast (string content, uint timeout = 5) {
 					toast_overlay.add_toast (new Adw.Toast (content) {
 						timeout = 5
@@ -2404,6 +2422,55 @@ public class Tuba.Dialogs.Admin {
 
 				private void on_cancel () {
 					this.force_close ();
+				}
+
+				private void on_take_action () {
+					var dlg = new Adw.AlertDialog (
+						// tranlsators: Question dialog when an admin is about to
+						//				take action against an account
+						_("Are you sure you want to proceed?"),
+						null
+					);
+
+					dlg.add_response ("no", _("Cancel"));
+					dlg.set_response_appearance ("no", Adw.ResponseAppearance.DEFAULT);
+
+					dlg.add_response ("yes", _("Take Action"));
+					dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
+					dlg.choose.begin (this, null, (obj, res) => {
+						if (dlg.choose.end (res) == "yes") {
+							this.sensitive = false;
+
+							string kind = "none";
+							if (action_freeze.active) {
+								kind = "disable";
+							} else if (action_sensitive.active) {
+								kind = "sensitive";
+							} else if (action_limit.active) {
+								kind = "silence";
+							} else if (action_suspend.active) {
+								kind = "suspend";
+							}
+
+							var req = new Request.POST (@"/api/v1/admin/accounts/$account_id/action")
+								.with_account (accounts.active)
+								.with_form_data ("type", kind)
+								.with_form_data ("text", comment_row.text)
+								.with_form_data ("send_email_notification", send_email.active.to_string ())
+								.then (() => {
+									on_cancel ();
+									took_action ();
+								})
+								.on_error ((code, message) => {
+									this.sensitive = true;
+									add_toast (@"$message $code");
+								});
+
+							if (report_id != null) req.with_form_data ("report_id", report_id);
+
+							req.exec ();
+						}
+					});
 				}
 			}
 		}
