@@ -584,18 +584,35 @@ public class Tuba.Dialogs.Admin {
 			}
 
 			private void on_remove (EmailDomainBlockWidget widget, string domain_block_id) {
-				widget.sensitive = false;
-				new Request.DELETE (@"/api/v1/admin/email_domain_blocks/$domain_block_id")
-					.with_account (accounts.active)
-					.then (() => {
-						widget.sensitive = true;
-						request_idle ();
-					})
-					.on_error ((code, message) => {
-						widget.sensitive = true;
-						on_error (code, message);
-					})
-					.exec ();
+				var dlg = new Adw.AlertDialog (
+					// tranlsators: Question dialog when an admin is about to
+					//				unblock an e-mail address block. The variable
+					//				is a string e-mail address
+					_("Are you sure you want to unblock %s?").printf (widget.title),
+					null
+				);
+
+				dlg.add_response ("no", _("Cancel"));
+				dlg.set_response_appearance ("no", Adw.ResponseAppearance.DEFAULT);
+
+				dlg.add_response ("yes", _("Unblock"));
+				dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
+				dlg.choose.begin (this, null, (obj, res) => {
+					if (dlg.choose.end (res) == "yes") {
+						widget.sensitive = false;
+						new Request.DELETE (@"/api/v1/admin/email_domain_blocks/$domain_block_id")
+							.with_account (accounts.active)
+							.then (() => {
+								widget.sensitive = true;
+								request_idle ();
+							})
+							.on_error ((code, message) => {
+								widget.sensitive = true;
+								on_error (code, message);
+							})
+							.exec ();
+					}
+				});
 			}
 		}
 
@@ -660,7 +677,7 @@ public class Tuba.Dialogs.Admin {
 					// tranlsators: Question dialog when an admin is about to
 					//				block an e-mail domain. The variable is a
 					//				string.
-					_("Are you sure you want to block %s").printf (domain),
+					_("Are you sure you want to block %s?").printf (domain),
 
 					// tranlsators: Question dialog description when an admin is about to
 					//				block an e-mail domain. The variable is a string.
@@ -814,18 +831,35 @@ public class Tuba.Dialogs.Admin {
 			}
 
 			private void on_remove (IPBlockWidget widget, string ip_block_id) {
-				widget.sensitive = false;
-				new Request.DELETE (@"/api/v1/admin/ip_blocks/$ip_block_id")
-					.with_account (accounts.active)
-					.then (() => {
-						widget.sensitive = true;
-						request_idle ();
-					})
-					.on_error ((code, message) => {
-						widget.sensitive = true;
-						on_error (code, message);
-					})
-					.exec ();
+				var dlg = new Adw.AlertDialog (
+					// tranlsators: Question dialog when an admin is about to
+					//				unblock an IP address. The variable
+					//				is a string IP address
+					_("Are you sure you want to unblock %s?").printf (widget.title),
+					null
+				);
+
+				dlg.add_response ("no", _("Cancel"));
+				dlg.set_response_appearance ("no", Adw.ResponseAppearance.DEFAULT);
+
+				dlg.add_response ("yes", _("Unblock"));
+				dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
+				dlg.choose.begin (this, null, (obj, res) => {
+					if (dlg.choose.end (res) == "yes") {
+						widget.sensitive = false;
+						new Request.DELETE (@"/api/v1/admin/ip_blocks/$ip_block_id")
+							.with_account (accounts.active)
+							.then (() => {
+								widget.sensitive = true;
+								request_idle ();
+							})
+							.on_error ((code, message) => {
+								widget.sensitive = true;
+								on_error (code, message);
+							})
+							.exec ();
+					}
+				});
 			}
 		}
 
@@ -1166,18 +1200,37 @@ public class Tuba.Dialogs.Admin {
 			}
 
 			private void on_remove (FederationAllowWidget widget, string domain_allow_id) {
-				widget.sensitive = false;
-				new Request.DELETE (@"/api/v1/admin/domain_allows/$domain_allow_id")
-					.with_account (accounts.active)
-					.then (() => {
-						widget.sensitive = true;
-						request_idle ();
-					})
-					.on_error ((code, message) => {
-						widget.sensitive = true;
-						on_error (code, message);
-					})
-					.exec ();
+				var dlg = new Adw.AlertDialog (
+					// tranlsators: Question dialog when an admin is about to
+					//				delete a domain from the federation allowlist.
+					//				You can replace 'federate' with 'communicate' if
+					//				it's hard to translate.
+					//				The variable is a string domain name
+					_("Are you sure you want to no longer federate with %s?").printf (widget.title),
+					null
+				);
+
+				dlg.add_response ("no", _("Cancel"));
+				dlg.set_response_appearance ("no", Adw.ResponseAppearance.DEFAULT);
+
+				dlg.add_response ("yes", _("Remove"));
+				dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
+				dlg.choose.begin (this, null, (obj, res) => {
+					if (dlg.choose.end (res) == "yes") {
+						widget.sensitive = false;
+						new Request.DELETE (@"/api/v1/admin/domain_allows/$domain_allow_id")
+							.with_account (accounts.active)
+							.then (() => {
+								widget.sensitive = true;
+								request_idle ();
+							})
+							.on_error ((code, message) => {
+								widget.sensitive = true;
+								on_error (code, message);
+							})
+							.exec ();
+					}
+				});
 			}
 		}
 
@@ -1239,7 +1292,7 @@ public class Tuba.Dialogs.Admin {
 					// tranlsators: Question dialog when an admin is about to
 					//				allow federation with an instance. The variable is a
 					//				string.
-					_("Are you sure you want to allow federation with %s").printf (domain),
+					_("Are you sure you want to allow federation with %s?").printf (domain),
 					null
 				);
 
@@ -1424,18 +1477,35 @@ public class Tuba.Dialogs.Admin {
 			}
 
 			private void on_remove (FederationBlockWidget widget, string federation_block_id) {
-				widget.sensitive = false;
-				new Request.DELETE (@"/api/v1/admin/domain_blocks/$federation_block_id")
-					.with_account (accounts.active)
-					.then (() => {
-						widget.sensitive = true;
-						request_idle ();
-					})
-					.on_error ((code, message) => {
-						widget.sensitive = true;
-						on_error (code, message);
-					})
-					.exec ();
+				var dlg = new Adw.AlertDialog (
+					// tranlsators: Question dialog when an admin is about to
+					//				delete a federation block. The variable is
+					//				a string domain name
+					_("Are you sure you want to unblock %s?").printf (widget.title),
+					null
+				);
+
+				dlg.add_response ("no", _("Cancel"));
+				dlg.set_response_appearance ("no", Adw.ResponseAppearance.DEFAULT);
+
+				dlg.add_response ("yes", _("Unblock"));
+				dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
+				dlg.choose.begin (this, null, (obj, res) => {
+					if (dlg.choose.end (res) == "yes") {
+						widget.sensitive = false;
+						new Request.DELETE (@"/api/v1/admin/domain_blocks/$federation_block_id")
+							.with_account (accounts.active)
+							.then (() => {
+								widget.sensitive = true;
+								request_idle ();
+							})
+							.on_error ((code, message) => {
+								widget.sensitive = true;
+								on_error (code, message);
+							})
+							.exec ();
+					}
+				});
 			}
 		}
 
