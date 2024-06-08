@@ -66,9 +66,8 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		public string comment { get; set; default=""; }
 
 		public string to_string (string? created_at) {
-			// translators: the variable is a string report comment,
-			//				leave <b> and </b> as is
-			string t_comment = comment == "" ? comment : _("With the comment: <b>%s</b>").printf (comment);
+			// translators: the variable is a string report comment
+			string t_comment = comment == "" ? comment : "\n%s: <b>%s</b>".printf (_("With the comment"), comment);
 			string t_reason_type = "";
 			switch (category) {
 				case "other":
@@ -91,18 +90,15 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 
 			string t_reason = t_reason_type == ""
 				? ""
-				// translators: report notification reason,
-				//				the variable is a string reason category (e.g. Spam),
-				//				leave <b> and </b> as is
-				: _("Reason: <b>%s</b>\n").printf (t_reason_type);
+				// translators: report notification reason
+				: "%s: <b>%s</b>".printf (_("Reason"), t_reason_type);
 
 			string msg = created_at == null
 				// translators: report notification
-				? _("You've received a report\n")
+				? "%s\n".printf (_("You've received a report"))
 
-				// translators: report notification with date,
-				//				leave <b> and </b> as is
-				: _("You've received a report on: <b>%s</b>\n").printf (DateTime.format_full (created_at));
+				// translators: report notification with date, "You've received a report on: <date>"
+				: "%s: <b>%s</b>\n".printf (_("You've received a report on"), DateTime.format_full (created_at));
 
 			return @"$msg$t_reason$t_comment";
 		}
