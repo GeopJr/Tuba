@@ -29,6 +29,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 	}
 
 	[GtkChild] unowned Widgets.Background background;
+	[GtkChild] unowned Gtk.Overlay cover_overlay;
 	[GtkChild] unowned Gtk.Label cover_badge;
 	[GtkChild] unowned Gtk.Image cover_bot_badge;
 	[GtkChild] unowned Gtk.Box cover_badge_box;
@@ -60,6 +61,17 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		cover_badge_label = rsbtn.rs.to_string ();
 		rsbtn.rs.disconnect (invalidate_signal_id);
 		update_aria ();
+	}
+
+	public string additional_label {
+		set {
+			cover_overlay.add_overlay (new Gtk.Label (value) {
+				xalign = 0.0f,
+				css_classes = {"cover-badge", "osd", "badge", "heading"},
+				halign = Gtk.Align.START,
+				valign = Gtk.Align.START,
+			});
+		}
 	}
 
 	public string cover_badge_label {

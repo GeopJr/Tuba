@@ -147,7 +147,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 					// translators: as in just registered in the instance,
 					//				this is a notification type only visible
 					//				to admins
-					cover_badge_label = _("Signed Up")
+					additional_label = _("Signed Up")
 				};
 			case InstanceAccount.KIND_SEVERED_RELATIONSHIPS:
 				RelationshipSeveranceEvent? t_event = event == null ? relationship_severance_event : event;
