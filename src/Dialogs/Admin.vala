@@ -259,7 +259,6 @@ public class Tuba.Dialogs.Admin {
 				.with_extra_data (Tuba.Network.ExtraData.RESPONSE_HEADERS)
 				.then ((in_stream, headers) => {
 					content.remove_all ();
-
 					var parser = Network.get_parser_from_inputstream (in_stream);
 
 					Network.parse_array (parser, node => {
@@ -983,13 +982,16 @@ public class Tuba.Dialogs.Admin {
 				};
 
 				rule_no_access = new Gtk.CheckButton () {
-					active = true
+					active = true,
+					css_classes = {"selection-mode"}
 				};
 				rule_signup_block = new Gtk.CheckButton () {
-					group = rule_no_access
+					group = rule_no_access,
+					css_classes = {"selection-mode"}
 				};
 				rule_signup_approve = new Gtk.CheckButton () {
-					group = rule_no_access
+					group = rule_no_access,
+					css_classes = {"selection-mode"}
 				};
 
 				var action_row = new Adw.ActionRow () {
@@ -1531,10 +1533,15 @@ public class Tuba.Dialogs.Admin {
 				sev_row.notify["selected"].connect (on_sev_change);
 
 				rule_reject_media = new Gtk.CheckButton () {
-					active = true
+					active = true,
+					css_classes = {"selection-mode"}
 				};
-				rule_reject_reports = new Gtk.CheckButton ();
-				rule_obfuscate = new Gtk.CheckButton ();
+				rule_reject_reports = new Gtk.CheckButton () {
+					css_classes = {"selection-mode"}
+				};
+				rule_obfuscate = new Gtk.CheckButton () {
+					css_classes = {"selection-mode"}
+				};
 
 				reject_media_row = new Adw.ActionRow () {
 					// translators: Admin dashboard, federation blocklist, checkbox option title.
@@ -1689,10 +1696,6 @@ public class Tuba.Dialogs.Admin {
 
 	private class ReportList : BasePage {
 		public class ReportDialog : Adw.Dialog {
-			~ReportDialog () {
-				debug ("Destroying ReportDialog");
-			}
-
 			public signal void refresh ();
 
 			Adw.PreferencesGroup profile_group;
@@ -1700,6 +1703,7 @@ public class Tuba.Dialogs.Admin {
 			Adw.ToastOverlay toast_overlay;
 			Gtk.Button take_action_button;
 			Gtk.Button resolve_button;
+			Adw.HeaderBar headerbar;
 			construct {
 				this.title = _("Report");
 				this.content_width = 460;
@@ -1717,28 +1721,203 @@ public class Tuba.Dialogs.Admin {
 					content = toast_overlay
 				};
 
-				var headerbar = new Adw.HeaderBar ();
-
-				// translators: Admin dashboard, take action against user headerbar button
-				take_action_button = new Gtk.Button.with_label (_("Take Action")) {
-					css_classes = {"destructive-action"}
-				};
-
-				resolve_button = new Gtk.Button.with_label (_("Resolve")) {
-					css_classes = {"suggested-action"}
-				};
-
-				headerbar.pack_end (take_action_button);
-				headerbar.pack_start (resolve_button);
-
+				headerbar = new Adw.HeaderBar ();
 				toolbarview.add_top_bar (headerbar);
 
 				profile_group = new Adw.PreferencesGroup ();
 				page.add (profile_group);
 				this.child = toolbarview;
+
+				this.closed.connect (on_close);
 			}
 
+			protected void add_toast (string content, uint timeout = 5) {
+				toast_overlay.add_toast (new Adw.Toast (content) {
+					timeout = 5
+				});
+			}
+
+			private void on_resolve () {
+				var dlg = new Adw.AlertDialog (
+					// tranlsators: Question dialog when an admin is about to
+					//				mark a report as resolved
+					_("Are you sure you want to mark this report as resolved?"),
+					null
+				);
+
+				dlg.add_response ("no", _("Cancel"));
+				dlg.set_response_appearance ("no", Adw.ResponseAppearance.DEFAULT);
+
+				dlg.add_response ("yes", _("Resolve"));
+				dlg.set_response_appearance ("yes", Adw.ResponseAppearance.SUGGESTED);
+				dlg.choose.begin (this, null, (obj, res) => {
+					if (dlg.choose.end (res) == "yes") {
+						resolve_button.sensitive = false;
+						new Request.POST (@"/api/v1/admin/reports/$report_id/resolve")
+							.with_account (accounts.active)
+							.then (() => {
+								should_refresh = true;
+								on_close ();
+							})
+							.on_error ((code, message) => {
+								warning (@"Error trying to resolve report $report_id: $message $code");
+								add_toast (@"$message $code");
+								resolve_button.sensitive = true;
+							})
+							.exec ();
+					}
+				});
+			}
+
+			private void on_reopen () {
+				var dlg = new Adw.AlertDialog (
+					// tranlsators: Question dialog when an admin is about to
+					//				reopen a report
+					_("Are you sure you want to reopen this report?"),
+					null
+				);
+
+				dlg.add_response ("no", _("Cancel"));
+				dlg.set_response_appearance ("no", Adw.ResponseAppearance.DEFAULT);
+
+				dlg.add_response ("yes", _("Reopen"));
+				dlg.set_response_appearance ("yes", Adw.ResponseAppearance.SUGGESTED);
+				dlg.choose.begin (this, null, (obj, res) => {
+					if (dlg.choose.end (res) == "yes") {
+						resolve_button.sensitive = false;
+						new Request.POST (@"/api/v1/admin/reports/$report_id/reopen")
+							.with_account (accounts.active)
+							.then (() => {
+								should_refresh = true;
+								on_close ();
+							})
+							.on_error ((code, message) => {
+								warning (@"Error trying to reopen report $report_id: $message $code");
+								add_toast (@"$message $code");
+								resolve_button.sensitive = true;
+							})
+							.exec ();
+					}
+				});
+			}
+
+			~ReportDialog () {
+				debug ("Destroying ReportDialog");
+				rules_buttons.clear ();
+			}
+
+			class AssignedToRow : Adw.ActionRow {
+				public signal void assignment_changed (string new_handle);
+				public signal void on_error (string error_message);
+				Gtk.Button assign_button;
+				construct {
+					this.title = _("Assigned to");
+					this.subtitle_selectable = true;
+
+					assign_button = new Gtk.Button () {
+						valign = Gtk.Align.CENTER
+					};
+					assign_button.clicked.connect (do_assign);
+					this.add_suffix (assign_button);
+				}
+
+				string report_id;
+				public AssignedToRow (string report_id, Report.AdminAccount? assigned_account) {
+					this.report_id = report_id;
+					update_account (assigned_account);
+				}
+
+				bool _is_assigned = false;
+				bool is_assigned {
+					get {
+						return _is_assigned;
+					}
+
+					set {
+						_is_assigned = value;
+						if (value) {
+							assign_button.add_css_class ("destructive-action");
+							assign_button.remove_css_class ("suggested-action");
+							assign_button.label = _("Unassign");
+						} else {
+							assign_button.add_css_class ("suggested-action");
+							assign_button.remove_css_class ("destructive-action");
+							assign_button.label = _("Assign");
+						}
+					}
+				}
+
+				private void update_account (Report.AdminAccount? assigned_account) {
+					if (assigned_account == null) {
+						this.subtitle = _("Nobody");
+						assign_button.visible = true;
+						is_assigned = false;
+					} else {
+						assign_button.visible = assigned_account.account.id == accounts.active.id;
+						this.subtitle = assigned_account.account.full_handle;
+						is_assigned = true;
+					}
+
+					assignment_changed (this.subtitle);
+				}
+
+				private void do_assign () {
+					string endpoint = is_assigned ? "unassign" : "assign_to_self";
+					assign_button.sensitive = false;
+					new Request.POST (@"/api/v1/admin/reports/$report_id/$endpoint")
+						.with_account (accounts.active)
+						.then ((in_stream) => {
+							var parser = Network.get_parser_from_inputstream (in_stream);
+							var node = network.parse_node (parser);
+							update_account (Report.from (node).assigned_account);
+							assign_button.sensitive = true;
+						})
+						.on_error ((code, message) => {
+							warning (@"Error trying to re-assign $report_id: $message $code");
+							on_error (@"$message $code");
+							assign_button.sensitive = true;
+						})
+						.exec ();
+				}
+			}
+
+			private void on_assign_row_error (string content) {
+				add_toast (content);
+			}
+
+			string report_id;
+			Gtk.CheckButton rule_other;
+			Gtk.CheckButton rule_legal;
+			Gtk.CheckButton rule_violation;
+			Gtk.CheckButton rule_spam;
+			Adw.PreferencesGroup rules_group;
+			Adw.ActionRow rule_other_row;
+			Adw.ActionRow rule_legal_row;
+			Adw.ActionRow rule_violation_row;
+			Adw.ActionRow rule_spam_row;
+			Gee.HashMap<string, Gtk.CheckButton> rules_buttons;
 			public ReportDialog (Report report) {
+				report_id = report.id;
+				// translators: Admin dashboard, take action against user headerbar button
+				take_action_button = new Gtk.Button.with_label (_("Take Action")) {
+					css_classes = {"destructive-action"},
+					sensitive = !report.action_taken
+				};
+				take_action_button.clicked.connect (show_take_action_dialog);
+
+				resolve_button = new Gtk.Button.with_label (report.action_taken ? _("Reopen") : _("Resolve")) {
+					css_classes = {"suggested-action"}
+				};
+
+				if (report.action_taken) {
+					resolve_button.clicked.connect (on_reopen);
+				} else {
+					resolve_button.clicked.connect (on_resolve);
+				}
+
+				headerbar.pack_end (take_action_button);
+				headerbar.pack_start (resolve_button);
+
 				try {
 					Widgets.Account profile = (Widgets.Account) report.target_account.account.to_widget ();
 					profile.overflow = Gtk.Overflow.HIDDEN;
@@ -1789,42 +1968,106 @@ public class Tuba.Dialogs.Admin {
 						subtitle_selectable = true
 					});
 				} else {
-					info_group.add (new Adw.ActionRow () {
-						title = _("Assigned to"),
-						subtitle = report.assigned_account == null ? _("Nobody") : report.assigned_account.account.full_handle,
-						subtitle_selectable = true
-					});
+					var row = new AssignedToRow (report.id, report.assigned_account);
+					row.on_error.connect (on_assign_row_error);
+					row.assignment_changed.connect (mark_for_refresh);
+					info_group.add (row);
 				}
 
-				var report_category = Report.Category.from_string (report.category);
-				info_group.add (new Adw.ActionRow () {
+				var rule_group = new Adw.PreferencesGroup () {
 					title = _("Category"),
-					subtitle = report_category.to_string (),
-					subtitle_selectable = true
-				});
+					// translators: Admin dashboard report category description.
+					//				You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+					description = _("The reason this account and/or content was reported will be cited in communication with the reported account")
+				};
 
-				if (report_category == Report.Category.VIOLATION && report.rules.size > 0) {
-					var rules_row = new Adw.ExpanderRow () {
-						title = _("Violated Rules")
-					};
+				var report_category = Report.Category.from_string (report.category);
+				rule_other = new Gtk.CheckButton () {
+					active = report_category == Report.Category.OTHER,
+					css_classes = {"selection-mode"}
+				};
+				rule_other.toggled.connect (update_report);
+				rule_legal = new Gtk.CheckButton () {
+					group = rule_other,
+					active = report_category == Report.Category.LEGAL,
+					css_classes = {"selection-mode"}
+				};
+				rule_legal.toggled.connect (update_report);
+				rule_spam = new Gtk.CheckButton () {
+					group = rule_other,
+					active = report_category == Report.Category.SPAM,
+					css_classes = {"selection-mode"}
+				};
+				rule_spam.toggled.connect (update_report);
+				rule_violation = new Gtk.CheckButton () {
+					group = rule_other,
+					active = report_category == Report.Category.VIOLATION,
+					css_classes = {"selection-mode"}
+				};
+				rule_violation.toggled.connect (update_report);
 
-					report.rules.foreach (rule => {
-						rules_row.add_row (
-							new Gtk.Label (rule.text) {
-								wrap = true,
-								xalign = 0.0f,
-								wrap_mode = Pango.WrapMode.WORD_CHAR,
-								margin_bottom = 8,
-								margin_top = 8,
-								margin_start = 8,
-								margin_end = 8,
-							}
-						);
+				rule_other_row = new Adw.ActionRow () {
+					title = Report.Category.OTHER.to_string (),
+					activatable_widget = rule_other,
+					sensitive = !report.action_taken
+				};
+				rule_other_row.add_prefix (rule_other);
 
-						return true;
-					});
+				rule_legal_row = new Adw.ActionRow () {
+					title = Report.Category.LEGAL.to_string (),
+					activatable_widget = rule_legal,
+					sensitive = !report.action_taken
+				};
+				rule_legal_row.add_prefix (rule_legal);
 
-					info_group.add (rules_row);
+				rule_spam_row = new Adw.ActionRow () {
+					title = Report.Category.SPAM.to_string (),
+					activatable_widget = rule_spam,
+					sensitive = !report.action_taken
+				};
+				rule_spam_row.add_prefix (rule_spam);
+
+				rule_violation_row = new Adw.ActionRow () {
+					title = Report.Category.VIOLATION.to_string (),
+					activatable_widget = rule_violation,
+					sensitive = !report.action_taken
+				};
+				rule_violation_row.add_prefix (rule_violation);
+
+				rule_group.add (rule_other_row);
+				rule_group.add (rule_legal_row);
+				rule_group.add (rule_spam_row);
+				rule_group.add (rule_violation_row);
+
+				rules_group = new Adw.PreferencesGroup () {
+					title = _("Violated Rules"),
+					visible = report_category == Report.Category.VIOLATION
+				};
+
+				if (accounts.active.instance_info.rules != null && accounts.active.instance_info.rules.size > 0) {
+					rules_buttons = new Gee.HashMap<string, Gtk.CheckButton> ();
+					string[] selected_rules_ids = {};
+					foreach (var rule in report.rules) {
+						selected_rules_ids += rule.id;
+					}
+
+					foreach (var rule in accounts.active.instance_info.rules) {
+						var checkbutton = new Gtk.CheckButton () {
+							css_classes = {"selection-mode"},
+							active = rule.id in selected_rules_ids
+						};
+						checkbutton.toggled.connect (update_report);
+						rules_buttons.set (rule.id, checkbutton);
+
+						var rule_row = new Adw.ActionRow () {
+							title = GLib.Markup.escape_text (rule.text).strip (),
+							activatable_widget = checkbutton,
+							use_markup = true,
+							sensitive = !report.action_taken
+						};
+						rule_row.add_prefix (checkbutton);
+						rules_group.add (rule_row);
+					}
 				}
 
 				var status_group = new Adw.PreferencesGroup () {
@@ -1872,7 +2115,226 @@ public class Tuba.Dialogs.Admin {
 				});
 
 				page.add (info_group);
+				page.add (rule_group);
+				page.add (rules_group);
 				page.add (status_group);
+			}
+
+			private void update_report () {
+				string[] rule_ids = {};
+				string? category = null;
+
+				// Mastodon is broken. If you change category while there have been rules
+				// applied, it won't allow you to. Let's clear them first.
+				if (!rule_violation.active && rules_group.visible) {
+					update_report_actual (Report.Category.VIOLATION.to_api_string (), rule_ids);
+				}
+
+				if (rule_violation.active) {
+					rules_buttons.foreach (e => {
+						if (((Gtk.CheckButton) e.value).active) {
+							rule_ids += (string) e.key;
+						}
+						return true;
+					});
+					category = Report.Category.VIOLATION.to_api_string ();
+					rules_group.visible = true;
+				} else if (rule_spam.active) {
+					category = Report.Category.SPAM.to_api_string ();
+					rules_group.visible = false;
+				} else if (rule_legal.active) {
+					category = Report.Category.LEGAL.to_api_string ();
+					rules_group.visible = false;
+				} else if (rule_other.active) {
+					category = Report.Category.OTHER.to_api_string ();
+					rules_group.visible = false;
+				}
+
+				if (category != null)
+					update_report_actual (category, rule_ids);
+			}
+
+			private void update_report_actual (string category, string[] rule_ids) {
+				var builder = new Json.Builder ();
+				builder.begin_object ();
+
+				builder.set_member_name ("category");
+				builder.add_string_value (category);
+
+				builder.set_member_name ("rule_ids");
+				builder.begin_array ();
+				foreach (string rule_id in rule_ids) {
+					builder.add_string_value (rule_id);
+				}
+				builder.end_array ();
+
+				builder.end_object ();
+
+				should_refresh = true;
+				new Request.PUT (@"/api/v1/admin/reports/$report_id")
+					.body_json (builder)
+					.with_account (accounts.active)
+					.on_error ((code, message) => {
+						warning (@"Error trying to update report $report_id: $message $code");
+						add_toast (@"$message $code");
+						resolve_button.sensitive = true;
+					})
+					.exec ();
+			}
+
+			private void show_take_action_dialog () {
+				var dlg = new TakeActionDialog ();
+				dlg.present (this);
+			}
+
+			bool should_refresh = false;
+			private void mark_for_refresh () {
+				should_refresh = true;
+			}
+
+			private void on_close () {
+				if (should_refresh) refresh ();
+				this.force_close ();
+			}
+
+			class TakeActionDialog : Adw.Dialog {
+				Adw.PreferencesPage page;
+				Adw.ToastOverlay toast_overlay;
+				Adw.HeaderBar headerbar;
+				Gtk.Button take_action_button;
+
+				Gtk.CheckButton action_warning;
+				Gtk.CheckButton action_freeze;
+				Gtk.CheckButton action_sensitive;
+				Gtk.CheckButton action_limit;
+				Gtk.CheckButton action_suspend;
+
+				Gtk.CheckButton send_email;
+				Adw.EntryRow comment_row;
+				construct {
+					this.title = _("Take Action");
+					this.content_width = 460;
+					this.content_height = 500;
+
+					page = new Adw.PreferencesPage ();
+					toast_overlay = new Adw.ToastOverlay () {
+						vexpand = true,
+						hexpand = true,
+						child = page
+					};
+
+					var toolbarview = new Adw.ToolbarView () {
+						content = toast_overlay
+					};
+
+					var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+					cancel_button.clicked.connect (on_cancel);
+
+					take_action_button = new Gtk.Button.with_label (_("Submit")) {
+						css_classes = {"destructive-action"}
+					};
+
+					headerbar = new Adw.HeaderBar () {
+						show_end_title_buttons = false,
+						show_start_title_buttons = false
+					};
+
+					headerbar.pack_start (cancel_button);
+					headerbar.pack_end (take_action_button);
+					toolbarview.add_top_bar (headerbar);
+
+					var action_group = new Adw.PreferencesGroup ();
+					action_warning = new Gtk.CheckButton () {
+						active = true,
+						css_classes = {"selection-mode"}
+					};
+					action_freeze = new Gtk.CheckButton () {
+						group = action_warning,
+						css_classes = {"selection-mode"}
+					};
+					action_sensitive = new Gtk.CheckButton () {
+						group = action_warning,
+						css_classes = {"selection-mode"}
+					};
+					action_limit = new Gtk.CheckButton () {
+						group = action_warning,
+						css_classes = {"selection-mode"}
+					};
+					action_suspend = new Gtk.CheckButton () {
+						group = action_warning,
+						css_classes = {"selection-mode"}
+					};
+
+					var action_row = new Adw.ActionRow () {
+						title = _("Warning"),
+						subtitle = _("Use this to send a warning to the user, without triggering any other action"),
+						activatable_widget = action_warning
+					};
+					action_row.add_prefix (action_warning);
+					action_group.add (action_row);
+
+					action_row = new Adw.ActionRow () {
+						title = _("Freeze"),
+						subtitle = _("Prevent the user from using their account, but do not delete or hide their contents"),
+						activatable_widget = action_freeze
+					};
+					action_row.add_prefix (action_freeze);
+					action_group.add (action_row);
+
+					action_row = new Adw.ActionRow () {
+						title = _("Sensitive"),
+						subtitle = _("Force all this user's media attachments to be flagged as sensitive"),
+						activatable_widget = action_sensitive
+					};
+					action_row.add_prefix (action_sensitive);
+					action_group.add (action_row);
+
+					action_row = new Adw.ActionRow () {
+						title = _("Limit"),
+						subtitle = _("Prevent the user from being able to post with public visibility, hide their posts and notifications from people not following them. Closes all reports against this account"),
+						activatable_widget = action_limit
+					};
+					action_row.add_prefix (action_limit);
+					action_group.add (action_row);
+
+					action_row = new Adw.ActionRow () {
+						title = _("Suspend"),
+						subtitle = _("Prevent any interaction from or to this account and delete its contents. Revertible within 30 days. Closes all reports against this account"),
+						activatable_widget = action_suspend
+					};
+					action_row.add_prefix (action_suspend);
+					action_group.add (action_row);
+
+					comment_row = new Adw.EntryRow () {
+						title = _("Comment")
+					};
+					action_group.add (comment_row);
+
+					send_email = new Gtk.CheckButton () {
+						active = true,
+						css_classes = {"selection-mode"}
+					};
+					action_row = new Adw.ActionRow () {
+						title = _("Notify the user per e-mail"),
+						subtitle = _("The user will receive an explanation of what happened with their account"),
+						activatable_widget = send_email
+					};
+					action_row.add_prefix (send_email);
+					action_group.add (action_row);
+
+					page.add (action_group);
+					this.child = toolbarview;
+				}
+
+				protected void add_toast (string content, uint timeout = 5) {
+					toast_overlay.add_toast (new Adw.Toast (content) {
+						timeout = 5
+					});
+				}
+
+				private void on_cancel () {
+					this.force_close ();
+				}
 			}
 		}
 
@@ -1890,6 +2352,19 @@ public class Tuba.Dialogs.Admin {
 				this.overflow = Gtk.Overflow.HIDDEN;
 				this.subtitle_lines = 0;
 				this.title = report.target_account.account.full_handle;
+
+				string last_line_title;
+				string last_line_subtitle;
+				if (report.action_taken) {
+					last_line_subtitle = report.action_taken_by_account == null ? _("Nobody") : report.action_taken_by_account.account.full_handle;
+					// translators: 'Action Taken by: <account>'
+					last_line_title = _("Action Taken by");
+				} else {
+					last_line_subtitle = report.assigned_account == null ? _("Nobody") : report.assigned_account.account.full_handle;
+					// translators: 'Assigned to: <account>'
+					last_line_title = _("Assigned to");
+				}
+
 				this.subtitle = "<b>%s:</b> %s\n<b>%s:</b> %d\n<b>%s:</b> %s".printf (
 					// translators: 'Reported by: <account>'
 					_("Reported by"),
@@ -1897,10 +2372,8 @@ public class Tuba.Dialogs.Admin {
 					// translators: 'Reported Posts: <amount>'
 					_("Reported Posts"),
 					report.statuses == null ? 0 : report.statuses.size,
-					// translators: 'Assigned to: <account>'
-					_("Assigned to"),
-
-					report.assigned_account == null ? _("Nobody") : report.assigned_account.account.full_handle
+					last_line_title,
+					last_line_subtitle
 				);
 
 				this.add_prefix (new Widgets.Avatar () {
@@ -2010,6 +2483,10 @@ public class Tuba.Dialogs.Admin {
 
 			public override Gtk.Widget to_widget () {
 				return new ReportWidget (this);
+			}
+
+			public static Report from (Json.Node node) throws Error {
+				return Entity.from_json (typeof (Report), node) as Report;
 			}
 		}
 
