@@ -177,6 +177,9 @@ public class Tuba.SecretAccountStore : AccountStore {
 		builder.set_member_name ("uuid");
 		builder.add_string_value (account.uuid);
 
+		builder.set_member_name ("admin-mode");
+		builder.add_boolean_value (account.admin_mode);
+
 		// If display name has emojis it's
 		// better to save and load them
 		// so users don't see their shortcode

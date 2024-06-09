@@ -85,7 +85,8 @@ namespace Tuba {
 			{ "open-current-account-profile", open_current_account_profile },
 			{ "open-announcements", open_announcements },
 			{ "open-follow-requests", open_follow_requests },
-			{ "open-mutes-blocks", open_mutes_blocks }
+			{ "open-mutes-blocks", open_mutes_blocks },
+			{ "open-admin-dashboard", open_admin_dashboard }
 		};
 
 		#if DEV_MODE
@@ -492,6 +493,10 @@ namespace Tuba {
 		public void open_mutes_blocks () {
 			main_window.open_view (new Views.MutesBlocks ());
 			close_sidebar ();
+		}
+
+		public void open_admin_dashboard () {
+			new Dialogs.Admin.Window ().present ();
 		}
 
 		private void close_sidebar () {

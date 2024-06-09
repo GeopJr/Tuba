@@ -60,60 +60,12 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		}
 	}
 
-	public class Report : Entity {
-		public string id { get; set; }
-		public string category { get; set; default="other"; }
-		public string comment { get; set; default=""; }
-
-		public string to_string (string? created_at) {
-			// translators: the variable is a string report comment,
-			//				leave <b> and </b> as is
-			string t_comment = comment == "" ? comment : _("With the comment: <b>%s</b>").printf (comment);
-			string t_reason_type = "";
-			switch (category) {
-				case "other":
-					// translators: report category
-					t_reason_type = _("Other");
-					break;
-				case "spam":
-					// translators: report category
-					t_reason_type = _("Spam");
-					break;
-				case "legal":
-					// translators: report category
-					t_reason_type = _("Legal");
-					break;
-				case "violation":
-					// translators: report category
-					t_reason_type = _("Rule Violation");
-					break;
-			}
-
-			string t_reason = t_reason_type == ""
-				? ""
-				// translators: report notification reason,
-				//				the variable is a string reason category (e.g. Spam),
-				//				leave <b> and </b> as is
-				: _("Reason: <b>%s</b>\n").printf (t_reason_type);
-
-			string msg = created_at == null
-				// translators: report notification
-				? _("You've received a report\n")
-
-				// translators: report notification with date,
-				//				leave <b> and </b> as is
-				: _("You've received a report on: <b>%s</b>\n").printf (DateTime.format_full (created_at));
-
-			return @"$msg$t_reason$t_comment";
-		}
-	}
-
 	public string id { get; set; }
 	public API.Account account { get; set; }
 	public string? kind { get; set; default = null; }
 	public string? created_at { get; set; default = null; }
 	public API.Status? status { get; set; default = null; }
-	public Report? report { get; set; default = null; }
+	public API.Admin.Report? report { get; set; default = null; }
 
 	// the docs claim that 'relationship_severance_event'
 	// is the one used but that is not true
@@ -126,8 +78,15 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				Host.open_url (@"$(accounts.active.instance)/severed_relationships");
 				break;
 			case InstanceAccount.KIND_ADMIN_REPORT:
-				if (report != null)
-					Host.open_url (@"$(accounts.active.instance)/admin/reports/$(report.id)");
+				if (report != null) {
+					if (accounts.active.admin_mode) {
+						var admin_window = new Dialogs.Admin.Window ();
+						admin_window.present ();
+						admin_window.open_reports ();
+					} else {
+						Host.open_url (@"$(accounts.active.instance)/admin/reports/$(report.id)");
+					}
+				}
 				break;
 			default:
 				if (status != null) {
@@ -151,7 +110,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 					// translators: as in just registered in the instance,
 					//				this is a notification type only visible
 					//				to admins
-					cover_badge_label = _("Signed Up")
+					additional_label = _("Signed Up")
 				};
 			case InstanceAccount.KIND_SEVERED_RELATIONSHIPS:
 				RelationshipSeveranceEvent? t_event = event == null ? relationship_severance_event : event;
@@ -170,7 +129,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			margin_start = 16,
 			margin_end = 16
 		};
-		box.append (new Gtk.Image.from_icon_name ("tuba-heart-broken-symbolic") {
+		box.append (new Gtk.Image.from_icon_name (icon_name) {
 			icon_size = Gtk.IconSize.LARGE
 		});
 		box.append (new Gtk.Label (label) {

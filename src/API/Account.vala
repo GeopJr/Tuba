@@ -32,6 +32,7 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	public Gee.ArrayList<API.AccountRole>? roles { get; set; default = null; }
 	public Gee.ArrayList<API.AccountField>? fields { get; set; default = null; }
 	public AccountSource? source { get; set; default = null; }
+	public API.AccountRole? role { get; set; default = null; }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {

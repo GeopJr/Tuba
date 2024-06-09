@@ -10,7 +10,7 @@
 				<property name="row_homogeneous">0</property>
 				<property name="margin-bottom">12</property>
 				<child>
-					<object class="GtkOverlay">
+					<object class="GtkOverlay" id="cover_overlay">
 						<child type="overlay">
 							<object class="GtkBox" id="cover_badge_box">
 								<property name="halign">end</property>

@@ -25,5 +25,6 @@ sources += files(
     'Widgetizable.vala',
 )
 
+subdir('Admin')
 subdir('Attachment')
 subdir('Status')

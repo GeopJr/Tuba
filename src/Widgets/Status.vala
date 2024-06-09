@@ -126,7 +126,7 @@
 	[GtkChild] protected unowned Gtk.Label spoiler_label_rev;
 	[GtkChild] protected unowned Gtk.Box spoiler_status_con;
 
-	[GtkChild] protected unowned Gtk.Stack filter_stack;
+	[GtkChild] public unowned Gtk.Stack filter_stack;
 	[GtkChild] protected unowned Gtk.Label filter_label;
 
 	public ActionsRow actions { get; private set; }

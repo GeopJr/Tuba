@@ -30,3 +30,5 @@ sources += files(
     'Thread.vala',
     'Timeline.vala',
 )
+
+subdir('Admin')

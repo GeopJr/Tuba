@@ -28,6 +28,7 @@ sources += files(
     'Translation.vala',
 )
 
+subdir('Admin')
 subdir('Account')
 subdir('Akkoma')
 subdir('BookWyrm')

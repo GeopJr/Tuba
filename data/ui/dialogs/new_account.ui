@@ -72,11 +72,12 @@
                                         <signal name="entry_activated" handler="on_next_clicked" swapped="no"/>
                                         <signal name="changed" handler="clear_errors" swapped="no"/>
 										<child type="suffix">
-											<object class="GtkToggleButton" id="proxy_toggle">
-												<property name="icon-name">preferences-system-network-proxy-symbolic</property>
+											<object class="GtkToggleButton" id="settings_toggle">
+												<property name="icon-name">tuba-settings-symbolic</property>
 												<property name="valign">center</property>
+												<property name="visible">active</property>
 												<!-- translators: this is a button in the 'new account' window -->
-												<property name="tooltip-text" translatable="yes">Proxy Settings</property>
+												<property name="tooltip-text" translatable="yes">Settings</property>
 												<style>
 													<class name="circular" />
 													<class name="flat" />
@@ -87,11 +88,20 @@
                                     </child>
 									<child>
 										<object class="AdwEntryRow" id="proxy_entry">
-											<property name="visible" bind-source="proxy_toggle" bind-property="active" bind-flags="sync-create"/>
 											<property name="title" translatable="yes">Proxy</property>
+											<property name="visible">0</property>
 											<property name="show-apply-button">1</property>
 											<property name="input_purpose">url</property>
 											<signal name="apply" handler="on_proxy_apply" swapped="no"/>
+										</object>
+									</child>
+									<child>
+										<object class="AdwSwitchRow" id="admin_switch">
+											<property name="visible">0</property>
+											<!-- translators: Switch title in the new account window -->
+											<property name="title" translatable="yes">Admin</property>
+											<!-- translators: Switch description in the new account window -->
+											<property name="subtitle" translatable="yes">Enables the Admin Dashboard and requests the needed permissions</property>
 										</object>
 									</child>
                                   </object>
