@@ -1,4 +1,4 @@
-public class Tuba.Dialogs.TmpAdmin.Base : Adw.Dialog {
+public class Tuba.Dialogs.Admin.Base : Adw.Dialog {
 	~Base () {
 		debug ("Destroying Dialog Admin Base");
 	}

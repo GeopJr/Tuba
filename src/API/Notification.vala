@@ -78,8 +78,15 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				Host.open_url (@"$(accounts.active.instance)/severed_relationships");
 				break;
 			case InstanceAccount.KIND_ADMIN_REPORT:
-				if (report != null)
-					Host.open_url (@"$(accounts.active.instance)/admin/reports/$(report.id)");
+				if (report != null) {
+					if (accounts.active.admin_mode) {
+						var admin_window = new Dialogs.Admin.Window ();
+						admin_window.present ();
+						admin_window.open_reports ();
+					} else {
+						Host.open_url (@"$(accounts.active.instance)/admin/reports/$(report.id)");
+					}
+				}
 				break;
 			default:
 				if (status != null) {

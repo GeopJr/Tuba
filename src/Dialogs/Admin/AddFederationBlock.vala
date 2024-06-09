@@ -1,4 +1,4 @@
-public class Tuba.Dialogs.TmpAdmin.AddFederationBlock : Dialogs.TmpAdmin.Base {
+public class Tuba.Dialogs.Admin.AddFederationBlock : Dialogs.Admin.Base {
 		~AddFederationBlock () {
 			debug ("Destroying AddFederationBlock");
 		}

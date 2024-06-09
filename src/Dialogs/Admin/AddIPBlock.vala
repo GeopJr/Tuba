@@ -1,4 +1,4 @@
-public class Tuba.Dialogs.TmpAdmin.AddIPBlock : Dialogs.TmpAdmin.Base {
+public class Tuba.Dialogs.Admin.AddIPBlock : Dialogs.Admin.Base {
 		~AddIPBlock () {
 			debug ("Destroying AddIPBlock");
 		}

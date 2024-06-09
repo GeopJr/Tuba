@@ -5,7 +5,7 @@ public class Tuba.Views.Admin.Timeline.PaginationTimeline : Gtk.Box {
 
 	protected Gtk.ListBox content;
 	public string url { get; set; default = ""; }
-	public Type? accepts { get; set; default = null; }
+	public Type accepts { get; set; default = Type.NONE; }
 	public bool working { get; set; default = false; }
 	public signal void on_error (int code, string message);
 
@@ -123,7 +123,7 @@ public class Tuba.Views.Admin.Timeline.PaginationTimeline : Gtk.Box {
 	}
 
 	public virtual bool request () {
-		if (accepts == null) return GLib.Source.REMOVE;
+		if (accepts == Type.NONE) return GLib.Source.REMOVE;
 		next_button.sensitive = prev_button.sensitive = false;
 
 		this.working = true;

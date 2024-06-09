@@ -1,4 +1,4 @@
-public class Tuba.Dialogs.TmpAdmin.TakeAction : Dialogs.TmpAdmin.Base {
+public class Tuba.Dialogs.Admin.TakeAction : Dialogs.Admin.Base {
 	public signal void took_action ();
 
 	~TakeAction () {

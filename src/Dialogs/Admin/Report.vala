@@ -1,4 +1,4 @@
-public class Tuba.Dialogs.TmpAdmin.Report : Dialogs.TmpAdmin.Base {
+public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 	public signal void refresh ();
 
 	Adw.PreferencesGroup profile_group;
@@ -354,7 +354,7 @@ public class Tuba.Dialogs.TmpAdmin.Report : Dialogs.TmpAdmin.Base {
 	}
 
 	private void show_take_action_dialog () {
-		var dlg = new Dialogs.TmpAdmin.TakeAction (account_id, report_id);
+		var dlg = new Dialogs.Admin.TakeAction (account_id, report_id);
 		dlg.took_action.connect (on_took_action);
 		dlg.present (this);
 	}
