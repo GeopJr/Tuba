@@ -60,56 +60,12 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		}
 	}
 
-	public class Report : Entity {
-		public string id { get; set; }
-		public string category { get; set; default="other"; }
-		public string comment { get; set; default=""; }
-
-		public string to_string (string? created_at) {
-			// translators: the variable is a string report comment
-			string t_comment = comment == "" ? comment : "\n%s: <b>%s</b>".printf (_("With the comment"), comment);
-			string t_reason_type = "";
-			switch (category) {
-				case "other":
-					// translators: report category
-					t_reason_type = _("Other");
-					break;
-				case "spam":
-					// translators: report category
-					t_reason_type = _("Spam");
-					break;
-				case "legal":
-					// translators: report category
-					t_reason_type = _("Legal");
-					break;
-				case "violation":
-					// translators: report category
-					t_reason_type = _("Rule Violation");
-					break;
-			}
-
-			string t_reason = t_reason_type == ""
-				? ""
-				// translators: report notification reason
-				: "%s: <b>%s</b>".printf (_("Reason"), t_reason_type);
-
-			string msg = created_at == null
-				// translators: report notification
-				? "%s\n".printf (_("You've received a report"))
-
-				// translators: report notification with date, "You've received a report on: <date>"
-				: "%s: <b>%s</b>\n".printf (_("You've received a report on"), DateTime.format_full (created_at));
-
-			return @"$msg$t_reason$t_comment";
-		}
-	}
-
 	public string id { get; set; }
 	public API.Account account { get; set; }
 	public string? kind { get; set; default = null; }
 	public string? created_at { get; set; default = null; }
 	public API.Status? status { get; set; default = null; }
-	public Report? report { get; set; default = null; }
+	public API.Admin.Report? report { get; set; default = null; }
 
 	// the docs claim that 'relationship_severance_event'
 	// is the one used but that is not true

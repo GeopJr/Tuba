@@ -124,12 +124,6 @@ public class Tuba.Dialogs.Admin {
 	}
 
 	private class PaginationTimeline : Gtk.Box {
-		public interface BasicWidgetizable : GLib.Object {
-			public virtual Gtk.Widget to_widget () throws Oopsie {
-				throw new Tuba.Oopsie.INTERNAL ("BasicWidgetizable didn't provide a Widget!");
-			}
-		}
-
 		~PaginationTimeline () {
 			debug ("Destroying PaginationTimeline");
 		}
@@ -293,7 +287,6 @@ public class Tuba.Dialogs.Admin {
 				widget.focusable = true;
 
 				return widget;
-
 			} catch (Oopsie e) {
 				warning (@"Error on_create_model_widget: $(e.message)");
 				Process.exit (0);
@@ -510,69 +503,6 @@ public class Tuba.Dialogs.Admin {
 	}
 
 	private class BlockedEmails : BasePage {
-		public class EmailDomainBlockWidget : Adw.ActionRow {
-			public signal void removed (string domain_block_id);
-
-			~EmailDomainBlockWidget () {
-				debug ("Destroying EmailDomainBlockWidget");
-			}
-
-			string domain_block_id;
-			public EmailDomainBlockWidget (EmailDomainBlock domain_block) {
-				domain_block_id = domain_block.id;
-				this.title = domain_block.domain;
-
-				int total_attempts = 0;
-				if (domain_block.history != null) {
-					domain_block.history.foreach ((entity) => {
-						total_attempts += int.parse (entity.accounts) + int.parse (entity.uses);
-						return true;
-					});
-				}
-
-				// translators: subtitle on email domain blocks.
-				//				The variable is the number of sing up
-				//				attempts using said email domain.
-				this.subtitle = _("%d Sign-up Attempts").printf (total_attempts);
-
-				var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
-					css_classes = { "circular", "flat", "error" },
-					tooltip_text = _("Delete"),
-					valign = Gtk.Align.CENTER
-				};
-				delete_button.clicked.connect (on_remove);
-				this.add_suffix (delete_button);
-			}
-
-			public void on_remove () {
-				removed (domain_block_id);
-			}
-		}
-
-		public class EmailDomainBlock : Entity, PaginationTimeline.BasicWidgetizable {
-			public class History : Entity {
-				public string accounts { get; set; }
-				public string uses { get; set; }
-			}
-
-			public string id { get; set; }
-			public string domain { get; set; }
-			public Gee.ArrayList<History>? history { get; set; default=null; }
-
-			public override Type deserialize_array_type (string prop) {
-				switch (prop) {
-					case "history":
-						return typeof (History);
-				}
-
-				return base.deserialize_array_type (prop);
-			}
-
-			public override Gtk.Widget to_widget () {
-				return new EmailDomainBlockWidget (this);
-			}
-		}
-
 		public class EmailDomainTimeline : PaginationTimeline {
 			~EmailDomainTimeline () {
 				debug ("Destroying EmailDomainTimeline");
@@ -580,7 +510,7 @@ public class Tuba.Dialogs.Admin {
 
 			public override Gtk.Widget on_create_model_widget (Object obj) {
 				Gtk.Widget widget = base.on_create_model_widget (obj);
-				var action_row = widget as EmailDomainBlockWidget;
+				var action_row = widget as Widgets.Admin.EmailDomainBlock;
 				if (action_row != null) {
 					action_row.removed.connect (on_remove);
 				}
@@ -588,7 +518,7 @@ public class Tuba.Dialogs.Admin {
 				return widget;
 			}
 
-			private void on_remove (EmailDomainBlockWidget widget, string domain_block_id) {
+			private void on_remove (Widgets.Admin.EmailDomainBlock widget, string domain_block_id) {
 				var dlg = new Adw.AlertDialog (
 					// tranlsators: Question dialog when an admin is about to
 					//				unblock an e-mail address block. The variable
@@ -658,7 +588,7 @@ public class Tuba.Dialogs.Admin {
 
 			pagination_timeline = new EmailDomainTimeline () {
 				url = "/api/v1/admin/email_domain_blocks",
-				accepts = typeof (EmailDomainBlock)
+				accepts = typeof (API.Admin.EmailDomainBlock)
 			};
 			pagination_timeline.on_error.connect (on_error);
 			pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
@@ -720,106 +650,6 @@ public class Tuba.Dialogs.Admin {
 	}
 
 	private class BlockedIPs : BasePage {
-		public class IPBlockWidget : Adw.ActionRow {
-			public signal void removed (string ip_block_id);
-
-			~IPBlockWidget () {
-				debug ("Destroying IPBlockWidget");
-			}
-
-			string ip_block_id;
-			public IPBlockWidget (IPBlock ip_block) {
-				ip_block_id = ip_block.id;
-				this.title = ip_block.ip;
-
-				string sub = IPBlock.Severity.from_string (ip_block.severity).to_string ();
-				if (ip_block.comment != "") sub += @" · $(ip_block.comment)";
-				this.subtitle = sub;
-
-				var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
-					css_classes = { "circular", "flat", "error" },
-					tooltip_text = _("Delete"),
-					valign = Gtk.Align.CENTER
-				};
-				delete_button.clicked.connect (on_remove);
-				this.add_suffix (delete_button);
-			}
-
-			public void on_remove () {
-				removed (ip_block_id);
-			}
-		}
-
-		public class IPBlock : Entity, PaginationTimeline.BasicWidgetizable {
-			public enum Severity {
-				NO_ACCESS,
-				SIGN_UP_BLOCK,
-				SIGN_UP_REQUIRES_APPROVAL;
-
-				public string to_string () {
-					switch (this) {
-						// translators: Admin Dashboard, IP Block severity
-						case NO_ACCESS: return _("Blocked");
-						// translators: Admin Dashboard, IP Block severity
-						case SIGN_UP_BLOCK: return _("Blocked Sign-ups");
-						// translators: Admin Dashboard, IP Block severity
-						case SIGN_UP_REQUIRES_APPROVAL: return _("Limited Sign-ups");
-						default: assert_not_reached ();
-					}
-				}
-
-				public string to_title () {
-					switch (this) {
-						// translators: Admin Dashboard, IP Block severity title
-						case NO_ACCESS: return _("Block Access");
-						// translators: Admin Dashboard, IP Block severity title
-						case SIGN_UP_BLOCK: return _("Block Sign-ups");
-						// translators: Admin Dashboard, IP Block severity title
-						case SIGN_UP_REQUIRES_APPROVAL: return _("Limit Sign-ups");
-						default: assert_not_reached ();
-					}
-				}
-
-				public string to_descritpion () {
-					switch (this) {
-						// translators: Admin Dashboard, IP Block severity description
-						case NO_ACCESS: return _("Block access to all resources");
-						// translators: Admin Dashboard, IP Block severity description
-						case SIGN_UP_BLOCK: return _("New sign-ups will not be possible");
-						// translators: Admin Dashboard, IP Block severity description
-						case SIGN_UP_REQUIRES_APPROVAL: return _("New sign-ups will require your approval");
-						default: assert_not_reached ();
-					}
-				}
-
-				public static Severity from_string (string severity) {
-					switch (severity.down ()) {
-						case "sign_up_block": return SIGN_UP_BLOCK;
-						case "sign_up_requires_approval": return SIGN_UP_REQUIRES_APPROVAL;
-						default: return NO_ACCESS;
-					}
-				}
-
-				public string to_api_string () {
-					switch (this) {
-						case NO_ACCESS: return "no_access";
-						case SIGN_UP_BLOCK: return "sign_up_block";
-						case SIGN_UP_REQUIRES_APPROVAL: return "sign_up_requires_approval";
-						default: assert_not_reached ();
-					}
-				}
-			}
-
-			public string id { get; set; }
-			public string ip { get; set; }
-			public string severity { get; set; default = "no_access"; }
-			public string comment { get; set; default = ""; }
-
-			public override Gtk.Widget to_widget () {
-				return new IPBlockWidget (this);
-			}
-		}
-
 		public class BlockedIPsTimeline : PaginationTimeline {
 			~BlockedIPsTimeline () {
 				debug ("Destroying BlockedIPsTimeline");
@@ -827,7 +657,7 @@ public class Tuba.Dialogs.Admin {
 
 			public override Gtk.Widget on_create_model_widget (Object obj) {
 				Gtk.Widget widget = base.on_create_model_widget (obj);
-				var action_row = widget as IPBlockWidget;
+				var action_row = widget as Widgets.Admin.IPBlock;
 				if (action_row != null) {
 					action_row.removed.connect (on_remove);
 				}
@@ -835,7 +665,7 @@ public class Tuba.Dialogs.Admin {
 				return widget;
 			}
 
-			private void on_remove (IPBlockWidget widget, string ip_block_id) {
+			private void on_remove (Widgets.Admin.IPBlock widget, string ip_block_id) {
 				var dlg = new Adw.AlertDialog (
 					// tranlsators: Question dialog when an admin is about to
 					//				unblock an IP address. The variable
@@ -1034,24 +864,24 @@ public class Tuba.Dialogs.Admin {
 				};
 
 				var action_row = new Adw.ActionRow () {
-					title = IPBlock.Severity.NO_ACCESS.to_title (),
-					subtitle = IPBlock.Severity.NO_ACCESS.to_descritpion (),
+					title = API.Admin.IPBlock.Severity.NO_ACCESS.to_title (),
+					subtitle = API.Admin.IPBlock.Severity.NO_ACCESS.to_descritpion (),
 					activatable_widget = rule_no_access
 				};
 				action_row.add_prefix (rule_no_access);
 				rule_group.add (action_row);
 
 				action_row = new Adw.ActionRow () {
-					title = IPBlock.Severity.SIGN_UP_BLOCK.to_title (),
-					subtitle = IPBlock.Severity.SIGN_UP_BLOCK.to_descritpion (),
+					title = API.Admin.IPBlock.Severity.SIGN_UP_BLOCK.to_title (),
+					subtitle = API.Admin.IPBlock.Severity.SIGN_UP_BLOCK.to_descritpion (),
 					activatable_widget = rule_signup_block
 				};
 				action_row.add_prefix (rule_signup_block);
 				rule_group.add (action_row);
 
 				action_row = new Adw.ActionRow () {
-					title = IPBlock.Severity.SIGN_UP_REQUIRES_APPROVAL.to_title (),
-					subtitle = IPBlock.Severity.SIGN_UP_REQUIRES_APPROVAL.to_descritpion (),
+					title = API.Admin.IPBlock.Severity.SIGN_UP_REQUIRES_APPROVAL.to_title (),
+					subtitle = API.Admin.IPBlock.Severity.SIGN_UP_REQUIRES_APPROVAL.to_descritpion (),
 					activatable_widget = rule_signup_approve
 				};
 				action_row.add_prefix (rule_signup_approve);
@@ -1080,11 +910,11 @@ public class Tuba.Dialogs.Admin {
 			private void on_save () {
 				save_button.sensitive = false;
 
-				IPBlock.Severity sev = IPBlock.Severity.NO_ACCESS;
+				API.Admin.IPBlock.Severity sev = API.Admin.IPBlock.Severity.NO_ACCESS;
 				if (rule_signup_approve.active) {
-					sev = IPBlock.Severity.SIGN_UP_REQUIRES_APPROVAL;
+					sev = API.Admin.IPBlock.Severity.SIGN_UP_REQUIRES_APPROVAL;
 				} else if (rule_signup_block.active) {
-					sev = IPBlock.Severity.SIGN_UP_BLOCK;
+					sev = API.Admin.IPBlock.Severity.SIGN_UP_BLOCK;
 				}
 
 				new Request.POST ("/api/v1/admin/ip_blocks")
@@ -1128,7 +958,7 @@ public class Tuba.Dialogs.Admin {
 
 			pagination_timeline = new BlockedIPsTimeline () {
 				url = "/api/v1/admin/ip_blocks",
-				accepts = typeof (IPBlock)
+				accepts = typeof (API.Admin.IPBlock)
 			};
 			pagination_timeline.on_error.connect (on_error);
 			pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
@@ -1154,41 +984,6 @@ public class Tuba.Dialogs.Admin {
 	}
 
 	private class FederationAllowList : BasePage {
-		public class FederationAllowWidget : Adw.ActionRow {
-			public signal void removed (string domain_allow_id);
-
-			~FederationAllowWidget () {
-				debug ("Destroying FederationAllowWidget");
-			}
-
-			string domain_allow_id;
-			public FederationAllowWidget (DomainAllow domain_allow) {
-				domain_allow_id = domain_allow.id;
-				this.title = domain_allow.domain;
-
-				var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
-					css_classes = { "circular", "flat", "error" },
-					tooltip_text = _("Delete"),
-					valign = Gtk.Align.CENTER
-				};
-				delete_button.clicked.connect (on_remove);
-				this.add_suffix (delete_button);
-			}
-
-			public void on_remove () {
-				removed (domain_allow_id);
-			}
-		}
-
-		public class DomainAllow : Entity, PaginationTimeline.BasicWidgetizable {
-			public string id { get; set; }
-			public string domain { get; set; }
-
-			public override Gtk.Widget to_widget () {
-				return new FederationAllowWidget (this);
-			}
-		}
-
 		public class DomainAllowTimeline : PaginationTimeline {
 			~DomainAllowTimeline () {
 				debug ("Destroying DomainAllowTimeline");
@@ -1196,7 +991,7 @@ public class Tuba.Dialogs.Admin {
 
 			public override Gtk.Widget on_create_model_widget (Object obj) {
 				Gtk.Widget widget = base.on_create_model_widget (obj);
-				var action_row = widget as FederationAllowWidget;
+				var action_row = widget as Widgets.Admin.DomainAllow;
 				if (action_row != null) {
 					action_row.removed.connect (on_remove);
 				}
@@ -1204,7 +999,7 @@ public class Tuba.Dialogs.Admin {
 				return widget;
 			}
 
-			private void on_remove (FederationAllowWidget widget, string domain_allow_id) {
+			private void on_remove (Widgets.Admin.DomainAllow widget, string domain_allow_id) {
 				var dlg = new Adw.AlertDialog (
 					// tranlsators: Question dialog when an admin is about to
 					//				delete a domain from the federation allowlist.
@@ -1273,7 +1068,7 @@ public class Tuba.Dialogs.Admin {
 
 			pagination_timeline = new DomainAllowTimeline () {
 				url = "/api/v1/admin/domain_allows",
-				accepts = typeof (DomainAllow)
+				accepts = typeof (API.Admin.DomainAllow)
 			};
 			pagination_timeline.on_error.connect (on_error);
 			pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
@@ -1331,141 +1126,6 @@ public class Tuba.Dialogs.Admin {
 	}
 
 	private class FederationBlockList : BasePage {
-		public class FederationBlockWidget : Adw.ExpanderRow {
-			public signal void removed (string federation_block_id);
-
-			~FederationBlockWidget () {
-				debug ("Destroying FederationBlockWidget");
-			}
-
-			string federation_block_id;
-			public FederationBlockWidget (FederationBlock federation_block) {
-				federation_block_id = federation_block.id;
-				this.overflow = Gtk.Overflow.HIDDEN;
-				this.title = federation_block.domain;
-				this.subtitle = FederationBlock.Severity.from_string (federation_block.severity).to_string ();
-				this.add_row (
-					new Gtk.Label (
-						"<b>%s</b>: %s".printf (
-							_("Private Comment"),
-							federation_block.private_comment == null || federation_block.private_comment == "" ? _("None") : federation_block.private_comment
-						)
-					) {
-						wrap = true,
-						xalign = 0.0f,
-						wrap_mode = Pango.WrapMode.WORD_CHAR,
-						use_markup = true,
-						margin_bottom = 8,
-						margin_top = 8,
-						margin_start = 8,
-						margin_end = 8,
-					}
-				);
-				this.add_row (
-					new Gtk.Label (
-						"<b>%s</b>: %s".printf (
-							_("Public Comment"),
-							federation_block.public_comment == null || federation_block.public_comment == "" ? _("None") : federation_block.public_comment
-						)
-					) {
-						wrap = true,
-						xalign = 0.0f,
-						wrap_mode = Pango.WrapMode.WORD_CHAR,
-						use_markup = true,
-						margin_bottom = 8,
-						margin_top = 8,
-						margin_start = 8,
-						margin_end = 8,
-					}
-				);
-
-				string[] rules = {};
-				if (federation_block.reject_media) rules += _("Reject Media Files");
-				if (federation_block.reject_reports) rules += _("Reject Reports");
-				if (federation_block.obfuscate) rules += _("Obfuscate Domain Name");
-
-				if (rules.length > 0) {
-					this.add_row (
-						new Gtk.Label (
-							"<b>%s</b>".printf (string.joinv ("·", rules))
-						) {
-							wrap = true,
-							xalign = 0.0f,
-							wrap_mode = Pango.WrapMode.WORD_CHAR,
-							use_markup = true,
-							margin_bottom = 12,
-							margin_top = 12,
-							margin_start = 12,
-							margin_end = 12,
-						}
-					);
-				}
-
-
-				var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
-					css_classes = { "circular", "flat", "error" },
-					tooltip_text = _("Delete"),
-					valign = Gtk.Align.CENTER
-				};
-				delete_button.clicked.connect (on_remove);
-				this.add_suffix (delete_button);
-			}
-
-			public void on_remove () {
-				removed (federation_block_id);
-			}
-		}
-
-		public class FederationBlock : Entity, PaginationTimeline.BasicWidgetizable {
-			public enum Severity {
-				NOOP,
-				SILENCE,
-				SUSPEND;
-
-				public string to_string () {
-					switch (this) {
-						// translators: Admin Dashboard, Federation Block severity
-						case NOOP: return _("None");
-						// translators: Admin Dashboard, Federation Block severity
-						case SILENCE: return _("Limit");
-						// translators: Admin Dashboard, Federation Block severity
-						case SUSPEND: return _("Suspend");
-						default: assert_not_reached ();
-					}
-				}
-
-				public static Severity from_string (string severity) {
-					switch (severity.down ()) {
-						case "silence": return SILENCE;
-						case "suspend": return SUSPEND;
-						default: return NOOP;
-					}
-				}
-
-				public string to_api_string () {
-					switch (this) {
-						case NOOP: return "noop";
-						case SILENCE: return "silence";
-						case SUSPEND: return "suspend";
-						default: assert_not_reached ();
-					}
-				}
-			}
-
-			public string id { get; set; }
-			public string domain { get; set; }
-			public string severity { get; set; default = "noop"; }
-			public string private_comment { get; set; default = ""; }
-			public string public_comment { get; set; default = ""; }
-			public bool obfuscate { get; set; default = false; }
-			public bool reject_media { get; set; default = false; }
-			public bool reject_reports { get; set; default = false; }
-
-			public override Gtk.Widget to_widget () {
-				return new FederationBlockWidget (this);
-			}
-		}
-
 		public class FederationBlockTimeline : PaginationTimeline {
 			~FederationBlockTimeline () {
 				debug ("Destroying FederationBlockTimeline");
@@ -1473,7 +1133,7 @@ public class Tuba.Dialogs.Admin {
 
 			public override Gtk.Widget on_create_model_widget (Object obj) {
 				Gtk.Widget widget = base.on_create_model_widget (obj);
-				var action_row = widget as FederationBlockWidget;
+				var action_row = widget as Widgets.Admin.DomainBlock;
 				if (action_row != null) {
 					action_row.removed.connect (on_remove);
 				}
@@ -1481,7 +1141,7 @@ public class Tuba.Dialogs.Admin {
 				return widget;
 			}
 
-			private void on_remove (FederationBlockWidget widget, string federation_block_id) {
+			private void on_remove (Widgets.Admin.DomainBlock widget, string federation_block_id) {
 				var dlg = new Adw.AlertDialog (
 					// tranlsators: Question dialog when an admin is about to
 					//				delete a federation block. The variable is
@@ -1520,9 +1180,9 @@ public class Tuba.Dialogs.Admin {
 			}
 
 			class SeverityObject : Object {
-				public FederationBlock.Severity severity { get; set; }
+				public API.Admin.DomainBlock.Severity severity { get; set; }
 
-				public SeverityObject (FederationBlock.Severity sev) {
+				public SeverityObject (API.Admin.DomainBlock.Severity sev) {
 					this.severity = sev;
 				}
 			}
@@ -1594,9 +1254,9 @@ public class Tuba.Dialogs.Admin {
 
 				sev_model = new GLib.ListStore (typeof (SeverityObject));
 				sev_model.splice (0, 0, {
-					new SeverityObject (FederationBlock.Severity.SILENCE),
-					new SeverityObject (FederationBlock.Severity.SUSPEND),
-					new SeverityObject (FederationBlock.Severity.NOOP),
+					new SeverityObject (API.Admin.DomainBlock.Severity.SILENCE),
+					new SeverityObject (API.Admin.DomainBlock.Severity.SUSPEND),
+					new SeverityObject (API.Admin.DomainBlock.Severity.NOOP),
 				});
 
 				sev_row = new Adw.ComboRow () {
@@ -1690,7 +1350,7 @@ public class Tuba.Dialogs.Admin {
 			}
 
 			private void on_sev_change () {
-				bool is_suspend = ((SeverityObject) sev_row.selected_item).severity == FederationBlock.Severity.SUSPEND;
+				bool is_suspend = ((SeverityObject) sev_row.selected_item).severity == API.Admin.DomainBlock.Severity.SUSPEND;
 				reject_media_row.sensitive = reject_reports_row.sensitive = !is_suspend;
 			}
 
@@ -1744,7 +1404,7 @@ public class Tuba.Dialogs.Admin {
 
 			pagination_timeline = new FederationBlockTimeline () {
 				url = "/api/v1/admin/domain_blocks",
-				accepts = typeof (FederationBlock)
+				accepts = typeof (API.Admin.DomainBlock)
 			};
 			pagination_timeline.on_error.connect (on_error);
 			pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
@@ -1897,7 +1557,7 @@ public class Tuba.Dialogs.Admin {
 				}
 
 				string report_id;
-				public AssignedToRow (string report_id, Report.AdminAccount? assigned_account) {
+				public AssignedToRow (string report_id, API.Admin.Account? assigned_account) {
 					this.report_id = report_id;
 					update_account (assigned_account);
 				}
@@ -1922,7 +1582,7 @@ public class Tuba.Dialogs.Admin {
 					}
 				}
 
-				private void update_account (Report.AdminAccount? assigned_account) {
+				private void update_account (API.Admin.Account? assigned_account) {
 					if (assigned_account == null) {
 						this.subtitle = _("Nobody");
 						assign_button.visible = true;
@@ -1944,7 +1604,7 @@ public class Tuba.Dialogs.Admin {
 						.then ((in_stream) => {
 							var parser = Network.get_parser_from_inputstream (in_stream);
 							var node = network.parse_node (parser);
-							update_account (Report.from (node).assigned_account);
+							update_account (API.Admin.Report.from (node).assigned_account);
 							assign_button.sensitive = true;
 						})
 						.on_error ((code, message) => {
@@ -1972,7 +1632,7 @@ public class Tuba.Dialogs.Admin {
 			Adw.ActionRow rule_violation_row;
 			Adw.ActionRow rule_spam_row;
 			Gee.HashMap<string, Gtk.CheckButton> rules_buttons;
-			public ReportDialog (Report report) {
+			public ReportDialog (API.Admin.Report report) {
 				report_id = report.id;
 				account_id = report.target_account.account.id;
 				// translators: Admin dashboard, take action against user headerbar button
@@ -2058,54 +1718,54 @@ public class Tuba.Dialogs.Admin {
 					description = _("The reason this account and/or content was reported will be cited in communication with the reported account")
 				};
 
-				var report_category = Report.Category.from_string (report.category);
+				var report_category = API.Admin.Report.Category.from_string (report.category);
 				rule_other = new Gtk.CheckButton () {
-					active = report_category == Report.Category.OTHER,
+					active = report_category == API.Admin.Report.Category.OTHER,
 					css_classes = {"selection-mode"}
 				};
 				rule_other.toggled.connect (update_report);
 				rule_legal = new Gtk.CheckButton () {
 					group = rule_other,
-					active = report_category == Report.Category.LEGAL,
+					active = report_category == API.Admin.Report.Category.LEGAL,
 					css_classes = {"selection-mode"}
 				};
 				rule_legal.toggled.connect (update_report);
 				rule_spam = new Gtk.CheckButton () {
 					group = rule_other,
-					active = report_category == Report.Category.SPAM,
+					active = report_category == API.Admin.Report.Category.SPAM,
 					css_classes = {"selection-mode"}
 				};
 				rule_spam.toggled.connect (update_report);
 				rule_violation = new Gtk.CheckButton () {
 					group = rule_other,
-					active = report_category == Report.Category.VIOLATION,
+					active = report_category == API.Admin.Report.Category.VIOLATION,
 					css_classes = {"selection-mode"}
 				};
 				rule_violation.toggled.connect (update_report);
 
 				rule_other_row = new Adw.ActionRow () {
-					title = Report.Category.OTHER.to_string (),
+					title = API.Admin.Report.Category.OTHER.to_string (),
 					activatable_widget = rule_other,
 					sensitive = !report.action_taken
 				};
 				rule_other_row.add_prefix (rule_other);
 
 				rule_legal_row = new Adw.ActionRow () {
-					title = Report.Category.LEGAL.to_string (),
+					title = API.Admin.Report.Category.LEGAL.to_string (),
 					activatable_widget = rule_legal,
 					sensitive = !report.action_taken
 				};
 				rule_legal_row.add_prefix (rule_legal);
 
 				rule_spam_row = new Adw.ActionRow () {
-					title = Report.Category.SPAM.to_string (),
+					title = API.Admin.Report.Category.SPAM.to_string (),
 					activatable_widget = rule_spam,
 					sensitive = !report.action_taken
 				};
 				rule_spam_row.add_prefix (rule_spam);
 
 				rule_violation_row = new Adw.ActionRow () {
-					title = Report.Category.VIOLATION.to_string (),
+					title = API.Admin.Report.Category.VIOLATION.to_string (),
 					activatable_widget = rule_violation,
 					sensitive = !report.action_taken
 				};
@@ -2118,7 +1778,7 @@ public class Tuba.Dialogs.Admin {
 
 				rules_group = new Adw.PreferencesGroup () {
 					title = _("Violated Rules"),
-					visible = report_category == Report.Category.VIOLATION
+					visible = report_category == API.Admin.Report.Category.VIOLATION
 				};
 
 				if (accounts.active.instance_info.rules != null && accounts.active.instance_info.rules.size > 0) {
@@ -2171,26 +1831,6 @@ public class Tuba.Dialogs.Admin {
 					return true;
 				});
 
-				report.statuses.foreach (status => {
-					try {
-						status.formal.filtered = null;
-						status.formal.spoiler_text = null;
-						Widgets.Status widget = (Widgets.Status) status.to_widget ();
-						widget.add_css_class ("card");
-						widget.add_css_class ("card-spacing");
-						widget.actions.visible = false;
-						widget.menu_button.visible = false;
-						widget.activatable = false;
-						widget.filter_stack.can_focus = false;
-						widget.filter_stack.can_target = false;
-						widget.filter_stack.focusable = false;
-
-						status_group.add (widget);
-					} catch {}
-
-					return true;
-				});
-
 				page.add (info_group);
 				page.add (rule_group);
 				page.add (rules_group);
@@ -2204,7 +1844,7 @@ public class Tuba.Dialogs.Admin {
 				// Mastodon is broken. If you change category while there have been rules
 				// applied, it won't allow you to. Let's clear them first.
 				if (!rule_violation.active && rules_group.visible) {
-					update_report_actual (Report.Category.VIOLATION.to_api_string (), rule_ids);
+					update_report_actual (API.Admin.Report.Category.VIOLATION.to_api_string (), rule_ids);
 				}
 
 				if (rule_violation.active) {
@@ -2214,16 +1854,16 @@ public class Tuba.Dialogs.Admin {
 						}
 						return true;
 					});
-					category = Report.Category.VIOLATION.to_api_string ();
+					category = API.Admin.Report.Category.VIOLATION.to_api_string ();
 					rules_group.visible = true;
 				} else if (rule_spam.active) {
-					category = Report.Category.SPAM.to_api_string ();
+					category = API.Admin.Report.Category.SPAM.to_api_string ();
 					rules_group.visible = false;
 				} else if (rule_legal.active) {
-					category = Report.Category.LEGAL.to_api_string ();
+					category = API.Admin.Report.Category.LEGAL.to_api_string ();
 					rules_group.visible = false;
 				} else if (rule_other.active) {
-					category = Report.Category.OTHER.to_api_string ();
+					category = API.Admin.Report.Category.OTHER.to_api_string ();
 					rules_group.visible = false;
 				}
 
@@ -2480,183 +2120,15 @@ public class Tuba.Dialogs.Admin {
 			}
 		}
 
-		public class ReportWidget : Adw.ActionRow {
-			~ReportWidget () {
-				debug ("Destroying ReportWidget");
-			}
-
-			public signal void report_activated (Report report);
-			Report report;
-			public ReportWidget (Report report) {
-				this.report = report;
-				this.activated.connect (on_activate);
-				this.activatable = true;
-				this.overflow = Gtk.Overflow.HIDDEN;
-				this.subtitle_lines = 0;
-				this.title = report.target_account.account.full_handle;
-
-				string last_line_title;
-				string last_line_subtitle;
-				if (report.action_taken) {
-					last_line_subtitle = report.action_taken_by_account == null ? _("Nobody") : report.action_taken_by_account.account.full_handle;
-					// translators: 'Action Taken by: <account>'
-					last_line_title = _("Action Taken by");
-				} else {
-					last_line_subtitle = report.assigned_account == null ? _("Nobody") : report.assigned_account.account.full_handle;
-					// translators: 'Assigned to: <account>'
-					last_line_title = _("Assigned to");
-				}
-
-				this.subtitle = "<b>%s:</b> %s\n<b>%s:</b> %d\n<b>%s:</b> %s".printf (
-					// translators: 'Reported by: <account>'
-					_("Reported by"),
-					report.account.account.full_handle,
-					// translators: 'Reported Posts: <amount>'
-					_("Reported Posts"),
-					report.statuses == null ? 0 : report.statuses.size,
-					last_line_title,
-					last_line_subtitle
-				);
-
-				this.add_prefix (new Widgets.Avatar () {
-					account = report.target_account.account,
-					size = 48
-				});
-
-				// translators: Admin dashboard, report status
-				string status = _("No Limits");
-				if (report.action_taken) {
-					if (report.target_account.suspended) {
-						status = _("Suspended");
-					} else if (report.target_account.silenced) {
-						status = _("Limited");
-					} else if (report.target_account.disabled) {
-						status = _("Disabled");
-					}
-				}
-
-				this.add_suffix (new Gtk.Label (status) {
-					xalign = 1.0f,
-					wrap = true,
-					wrap_mode = Pango.WrapMode.WORD_CHAR,
-					hexpand = true
-				});
-			}
-
-			private void on_activate () {
-				report_activated (report);
-			}
-		}
-
-		public class Report : Entity, PaginationTimeline.BasicWidgetizable {
-			public enum Category {
-				SPAM,
-				VIOLATION,
-				LEGAL,
-				OTHER;
-
-				public static Category from_string (string cat) {
-					switch (cat.down ()) {
-						case "spam": return SPAM;
-						case "violation": return VIOLATION;
-						case "legal": return LEGAL;
-						default: return OTHER;
-					}
-				}
-
-				public string to_string () {
-					switch (this) {
-						case SPAM: return _("Spam");
-						case VIOLATION: return _("Violation");
-						case LEGAL: return _("Legal");
-						default: return _("Other");
-					}
-				}
-
-				public string to_api_string () {
-					switch (this) {
-						case SPAM: return "spam";
-						case VIOLATION: return "violation";
-						case LEGAL: return "legal";
-						default: return "other";
-					}
-				}
-			}
-
-			public class AdminAccount : Entity {
-				public class IPAddress : Entity {
-					public string ip { get; set; }
-				}
-
-				public string id { get; set; }
-				public string username { get; set; }
-				public string? domain { get; set; default=null; }
-				public string email { get; set; }
-				public string? ip { get; set; default=null; }
-				public Gee.ArrayList<IPAddress>? ips { get; set; default=null; }
-				public bool confirmed { get; set; default = true; }
-				public bool suspended { get; set; default = false; }
-				public bool disabled { get; set; default = false; }
-				public bool silenced { get; set; default = false; }
-				public bool approved { get; set; default = true; }
-				public string? invite_request { get; set; default=null; }
-				public API.AccountRole? role { get; set; }
-				public API.Account account { get; set; }
-
-				public override Type deserialize_array_type (string prop) {
-					switch (prop) {
-						case "ips":
-							return typeof (IPAddress);
-					}
-
-					return base.deserialize_array_type (prop);
-				}
-			}
-
-			public string id { get; set; }
-			public string category { get; set; default="other"; }
-			public bool action_taken { get; set; }
-			public string? action_taken_at { get; set; default=null; }
-			public string comment { get; set; }
-			public bool forwarded { get; set; }
-			public string created_at { get; set; }
-			public string? updated_at { get; set; default=null; }
-			public AdminAccount account { get; set; }
-			public AdminAccount target_account { get; set; }
-			public AdminAccount? assigned_account { get; set; default=null; }
-			public AdminAccount? action_taken_by_account { get; set; default=null; }
-			public Gee.ArrayList<API.Status>? statuses { get; set; default=null; }
-			public Gee.ArrayList<API.Instance.Rule>? rules { get; set; default=null; }
-
-			public override Type deserialize_array_type (string prop) {
-				switch (prop) {
-					case "statuses":
-						return typeof (API.Status);
-					case "rules":
-						return typeof (API.Instance.Rule);
-				}
-
-				return base.deserialize_array_type (prop);
-			}
-
-			public override Gtk.Widget to_widget () {
-				return new ReportWidget (this);
-			}
-
-			public static Report from (Json.Node node) throws Error {
-				return Entity.from_json (typeof (Report), node) as Report;
-			}
-		}
-
 		public class ReportTimeline : PaginationTimeline {
 			~ReportTimeline () {
 				debug ("Destroying ReportTimeline");
 			}
 
-			public signal void on_open_report_dialog (Report report);
+			public signal void on_open_report_dialog (API.Admin.Report report);
 			public override Gtk.Widget on_create_model_widget (Object obj) {
 				Gtk.Widget widget = base.on_create_model_widget (obj);
-				var action_row = widget as ReportWidget;
+				var action_row = widget as Widgets.Admin.Report;
 				if (action_row != null) {
 					action_row.report_activated.connect (on_report_activated);
 				}
@@ -2664,7 +2136,7 @@ public class Tuba.Dialogs.Admin {
 				return widget;
 			}
 
-			private void on_report_activated (Report report) {
+			private void on_report_activated (API.Admin.Report report) {
 				on_open_report_dialog (report);
 			}
 		}
@@ -2686,7 +2158,7 @@ public class Tuba.Dialogs.Admin {
 
 			pagination_timeline = new ReportTimeline () {
 				url = "/api/v1/admin/reports",
-				accepts = typeof (Report)
+				accepts = typeof (API.Admin.Report)
 			};
 			pagination_timeline.on_open_report_dialog.connect (open_report_dialog);
 			pagination_timeline.on_error.connect (on_error);
@@ -2710,7 +2182,7 @@ public class Tuba.Dialogs.Admin {
 			pagination_timeline.request_idle ();
 		}
 
-		private void open_report_dialog (Report report) {
+		private void open_report_dialog (API.Admin.Report report) {
 			var report_dialog = new ReportDialog (report);
 			report_dialog.refresh.connect (refresh);
 			report_dialog.present (this.admin_window);
@@ -2718,7 +2190,7 @@ public class Tuba.Dialogs.Admin {
 	}
 
 	private class AccountList : BasePage {
-		public class AccountListAccount : ReportList.Report.AdminAccount, PaginationTimeline.BasicWidgetizable {
+		public class AccountListAccount : API.Admin.Account, BasicWidgetizable {
 			public override Gtk.Widget to_widget () {
 				return new AccountRow (this);
 			}
