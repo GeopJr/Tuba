@@ -32,7 +32,7 @@
 						</property>
 						<child type="start">
 							<object class="GtkButton" id="close_button">
-								<property name="label" translatable="yes">Cancel</property>>
+								<property name="label" translatable="yes">Cancel</property>
 								<signal name="clicked" handler="on_exit" swapped="no" />
 							</object>
 						</child>
