@@ -15,4 +15,5 @@ if devmode
   sources += files ('DevConsole.vala')
 endif
 
+subdir('Admin')
 subdir('Composer')
