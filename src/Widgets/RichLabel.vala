@@ -94,6 +94,8 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	}
 
 	public bool on_activate_link (string url) {
+		widget.grab_focus ();
+
 		if (mentions != null) {
 			bool found = false;
 			mentions.@foreach (mention => {
