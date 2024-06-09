@@ -39,7 +39,8 @@ public class Tuba.Widgets.Admin.Report : Adw.ActionRow {
 
 		this.add_prefix (new Widgets.Avatar () {
 			account = report.target_account.account,
-			size = 48
+			size = 48,
+			overflow = Gtk.Overflow.HIDDEN
 		});
 
 		// translators: Admin dashboard, report status

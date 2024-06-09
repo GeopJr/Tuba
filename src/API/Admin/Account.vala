@@ -1,4 +1,4 @@
-public class Tuba.API.Admin.Account : Entity {
+public class Tuba.API.Admin.Account : Entity, BasicWidgetizable {
 	public class IPAddress : Entity {
 		public string ip { get; set; }
 	}
@@ -25,5 +25,9 @@ public class Tuba.API.Admin.Account : Entity {
 		}
 
 		return base.deserialize_array_type (prop);
+	}
+
+	public override Gtk.Widget to_widget () {
+		return new Widgets.Admin.AccountRow (this);
 	}
 }

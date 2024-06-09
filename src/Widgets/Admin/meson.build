@@ -1,4 +1,5 @@
 sources += files(
+    'AccountRow.vala',
     'AssignedRow.vala',
     'DomainAllow.vala',
     'DomainBlock.vala',

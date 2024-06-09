@@ -123,179 +123,6 @@ public class Tuba.Dialogs.Admin {
 		}
 	}
 
-	private class PaginationTimeline : Gtk.Box {
-		~PaginationTimeline () {
-			debug ("Destroying PaginationTimeline");
-		}
-
-		protected Gtk.ListBox content;
-		public string url { get; set; default = ""; }
-		public Type? accepts { get; set; default = null; }
-		public bool working { get; set; default = false; }
-		public signal void on_error (int code, string message);
-
-		private string? _page_next = null;
-		public string? page_next {
-			get {
-				return _page_next;
-			}
-
-			set {
-				_page_next = value;
-				next_button.sensitive = value != null;
-			}
-		}
-
-		private string? _page_prev = null;
-		public string? page_prev {
-			get {
-				return _page_prev;
-			}
-
-			set {
-				_page_prev = value;
-				prev_button.sensitive = value != null;
-			}
-		}
-
-		private Gtk.Button prev_button;
-		private Gtk.Button next_button;
-		construct {
-			this.orientation = Gtk.Orientation.VERTICAL;
-			this.spacing = 12;
-
-			content = new Gtk.ListBox () {
-				selection_mode = Gtk.SelectionMode.NONE,
-				css_classes = { "fake-content", "background" }
-			};
-			content.row_activated.connect (on_content_item_activated);
-
-			var pagination_buttons = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
-				homogeneous = true,
-				hexpand = true,
-				margin_bottom = 12
-			};
-			prev_button = new Gtk.Button.from_icon_name ("tuba-left-large-symbolic") {
-				css_classes = {"circular", "flat"},
-				valign = Gtk.Align.CENTER,
-				halign = Gtk.Align.CENTER,
-				tooltip_text = ("Previous Page")
-			};
-			prev_button.clicked.connect (on_prev);
-			pagination_buttons.append (prev_button);
-
-			next_button = new Gtk.Button.from_icon_name ("tuba-right-large-symbolic") {
-				css_classes = {"circular", "flat"},
-				valign = Gtk.Align.CENTER,
-				halign = Gtk.Align.CENTER,
-				tooltip_text = ("Next Page")
-			};
-			next_button.clicked.connect (on_next);
-			pagination_buttons.append (next_button);
-
-			this.append (new Adw.Clamp () {
-				vexpand = true,
-				maximum_size = 670,
-				tightening_threshold = 670,
-				css_classes = {"ttl-view"},
-				child = content
-			});
-			this.append (pagination_buttons);
-		}
-
-		private void on_next () {
-			first_page = false;
-			url = page_next;
-			request_idle ();
-		}
-
-		private void on_prev () {
-			first_page = false;
-			url = page_prev;
-			request_idle ();
-		}
-
-		bool first_page = true;
-		public void get_pages (string? header) {
-			page_next = page_prev = null;
-			if (header == null) {
-				return;
-			};
-
-			var pages = header.split (",");
-			foreach (var page in pages) {
-				var sanitized = page
-					.replace ("<", "")
-					.replace (">", "")
-					.split (";")[0];
-
-				if ("rel=\"prev\"" in page) {
-					if (!first_page) page_prev = sanitized;
-				} else {
-					page_next = sanitized;
-				}
-			}
-		}
-
-		public void request_idle () {
-			GLib.Idle.add (request);
-		}
-
-		public void reset (string new_url) {
-			this.url = new_url;
-			first_page = true;
-			request_idle ();
-		}
-
-		public virtual bool request () {
-			if (accepts == null) return GLib.Source.REMOVE;
-			next_button.sensitive = prev_button.sensitive = false;
-
-			this.working = true;
-			new Request.GET (url)
-				.with_account (accounts.active)
-				.with_ctx (this)
-				.with_extra_data (Tuba.Network.ExtraData.RESPONSE_HEADERS)
-				.then ((in_stream, headers) => {
-					content.remove_all ();
-					var parser = Network.get_parser_from_inputstream (in_stream);
-
-					Network.parse_array (parser, node => {
-						content.append (on_create_model_widget (Tuba.Helper.Entity.from_json (node, accepts)));
-					});
-
-					this.working = false;
-					if (headers != null)
-						get_pages (headers.get_one ("Link"));
-				})
-				.on_error ((code, message) => {
-					on_error (code, message);
-				})
-				.exec ();
-
-			return GLib.Source.REMOVE;
-		}
-
-		public virtual Gtk.Widget on_create_model_widget (Object obj) {
-			var obj_widgetable = obj as BasicWidgetizable;
-			if (obj_widgetable == null)
-				Process.exit (0);
-			try {
-				Gtk.Widget widget = obj_widgetable.to_widget ();
-				widget.add_css_class ("card");
-				widget.add_css_class ("card-spacing");
-				widget.focusable = true;
-
-				return widget;
-			} catch (Oopsie e) {
-				warning (@"Error on_create_model_widget: $(e.message)");
-				Process.exit (0);
-			}
-		}
-
-		public virtual void on_content_item_activated (Gtk.ListBoxRow row) {}
-	}
-
 	private class BasePage : Adw.NavigationPage {
 		protected Gtk.Widget page { get; set; }
 		private Gtk.ScrolledWindow scroller;
@@ -503,57 +330,9 @@ public class Tuba.Dialogs.Admin {
 	}
 
 	private class BlockedEmails : BasePage {
-		public class EmailDomainTimeline : PaginationTimeline {
-			~EmailDomainTimeline () {
-				debug ("Destroying EmailDomainTimeline");
-			}
-
-			public override Gtk.Widget on_create_model_widget (Object obj) {
-				Gtk.Widget widget = base.on_create_model_widget (obj);
-				var action_row = widget as Widgets.Admin.EmailDomainBlock;
-				if (action_row != null) {
-					action_row.removed.connect (on_remove);
-				}
-
-				return widget;
-			}
-
-			private void on_remove (Widgets.Admin.EmailDomainBlock widget, string domain_block_id) {
-				var dlg = new Adw.AlertDialog (
-					// tranlsators: Question dialog when an admin is about to
-					//				unblock an e-mail address block. The variable
-					//				is a string e-mail address
-					_("Are you sure you want to unblock %s?").printf (widget.title),
-					null
-				);
-
-				dlg.add_response ("no", _("Cancel"));
-				dlg.set_response_appearance ("no", Adw.ResponseAppearance.DEFAULT);
-
-				dlg.add_response ("yes", _("Unblock"));
-				dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
-				dlg.choose.begin (this, null, (obj, res) => {
-					if (dlg.choose.end (res) == "yes") {
-						widget.sensitive = false;
-						new Request.DELETE (@"/api/v1/admin/email_domain_blocks/$domain_block_id")
-							.with_account (accounts.active)
-							.then (() => {
-								widget.sensitive = true;
-								request_idle ();
-							})
-							.on_error ((code, message) => {
-								widget.sensitive = true;
-								on_error (code, message);
-							})
-							.exec ();
-					}
-				});
-			}
-		}
-
 		Gtk.Entry child_entry;
 		Gtk.Button add_button;
-		EmailDomainTimeline pagination_timeline;
+		Views.Admin.Timeline.EmailDomain pagination_timeline;
 		construct {
 			// translators: Admin Dialog page title,
 			//				this is about blocking
@@ -586,10 +365,7 @@ public class Tuba.Dialogs.Admin {
 			add_action_bar.set_center_widget (child_box);
 			toolbar_view.add_top_bar (add_action_bar);
 
-			pagination_timeline = new EmailDomainTimeline () {
-				url = "/api/v1/admin/email_domain_blocks",
-				accepts = typeof (API.Admin.EmailDomainBlock)
-			};
+			pagination_timeline = new Views.Admin.Timeline.EmailDomain ();
 			pagination_timeline.on_error.connect (on_error);
 			pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
 			this.page = pagination_timeline;
@@ -650,55 +426,7 @@ public class Tuba.Dialogs.Admin {
 	}
 
 	private class BlockedIPs : BasePage {
-		public class BlockedIPsTimeline : PaginationTimeline {
-			~BlockedIPsTimeline () {
-				debug ("Destroying BlockedIPsTimeline");
-			}
-
-			public override Gtk.Widget on_create_model_widget (Object obj) {
-				Gtk.Widget widget = base.on_create_model_widget (obj);
-				var action_row = widget as Widgets.Admin.IPBlock;
-				if (action_row != null) {
-					action_row.removed.connect (on_remove);
-				}
-
-				return widget;
-			}
-
-			private void on_remove (Widgets.Admin.IPBlock widget, string ip_block_id) {
-				var dlg = new Adw.AlertDialog (
-					// tranlsators: Question dialog when an admin is about to
-					//				unblock an IP address. The variable
-					//				is a string IP address
-					_("Are you sure you want to unblock %s?").printf (widget.title),
-					null
-				);
-
-				dlg.add_response ("no", _("Cancel"));
-				dlg.set_response_appearance ("no", Adw.ResponseAppearance.DEFAULT);
-
-				dlg.add_response ("yes", _("Unblock"));
-				dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
-				dlg.choose.begin (this, null, (obj, res) => {
-					if (dlg.choose.end (res) == "yes") {
-						widget.sensitive = false;
-						new Request.DELETE (@"/api/v1/admin/ip_blocks/$ip_block_id")
-							.with_account (accounts.active)
-							.then (() => {
-								widget.sensitive = true;
-								request_idle ();
-							})
-							.on_error ((code, message) => {
-								widget.sensitive = true;
-								on_error (code, message);
-							})
-							.exec ();
-					}
-				});
-			}
-		}
-
-		BlockedIPsTimeline pagination_timeline;
+		Views.Admin.Timeline.BlockedIPs pagination_timeline;
 		construct {
 			// translators: Admin Dialog page title,
 			//				this is about blocking
@@ -712,10 +440,7 @@ public class Tuba.Dialogs.Admin {
 			add_ip_block_button.clicked.connect (open_add_ip_block_dialog);
 			headerbar.pack_end (add_ip_block_button);
 
-			pagination_timeline = new BlockedIPsTimeline () {
-				url = "/api/v1/admin/ip_blocks",
-				accepts = typeof (API.Admin.IPBlock)
-			};
+			pagination_timeline = new Views.Admin.Timeline.BlockedIPs ();
 			pagination_timeline.on_error.connect (on_error);
 			pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
 			this.page = pagination_timeline;
@@ -740,59 +465,9 @@ public class Tuba.Dialogs.Admin {
 	}
 
 	private class FederationAllowList : BasePage {
-		public class DomainAllowTimeline : PaginationTimeline {
-			~DomainAllowTimeline () {
-				debug ("Destroying DomainAllowTimeline");
-			}
-
-			public override Gtk.Widget on_create_model_widget (Object obj) {
-				Gtk.Widget widget = base.on_create_model_widget (obj);
-				var action_row = widget as Widgets.Admin.DomainAllow;
-				if (action_row != null) {
-					action_row.removed.connect (on_remove);
-				}
-
-				return widget;
-			}
-
-			private void on_remove (Widgets.Admin.DomainAllow widget, string domain_allow_id) {
-				var dlg = new Adw.AlertDialog (
-					// tranlsators: Question dialog when an admin is about to
-					//				delete a domain from the federation allowlist.
-					//				You can replace 'federate' with 'communicate' if
-					//				it's hard to translate.
-					//				The variable is a string domain name
-					_("Are you sure you want to no longer federate with %s?").printf (widget.title),
-					null
-				);
-
-				dlg.add_response ("no", _("Cancel"));
-				dlg.set_response_appearance ("no", Adw.ResponseAppearance.DEFAULT);
-
-				dlg.add_response ("yes", _("Remove"));
-				dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
-				dlg.choose.begin (this, null, (obj, res) => {
-					if (dlg.choose.end (res) == "yes") {
-						widget.sensitive = false;
-						new Request.DELETE (@"/api/v1/admin/domain_allows/$domain_allow_id")
-							.with_account (accounts.active)
-							.then (() => {
-								widget.sensitive = true;
-								request_idle ();
-							})
-							.on_error ((code, message) => {
-								widget.sensitive = true;
-								on_error (code, message);
-							})
-							.exec ();
-					}
-				});
-			}
-		}
-
 		Gtk.Entry child_entry;
 		Gtk.Button add_button;
-		DomainAllowTimeline pagination_timeline;
+		Views.Admin.Timeline.DomainAllow pagination_timeline;
 		construct {
 			// translators: Admin Dialog page title
 			this.title = _("Federation Allowlist");
@@ -822,10 +497,7 @@ public class Tuba.Dialogs.Admin {
 			add_action_bar.set_center_widget (child_box);
 			toolbar_view.add_top_bar (add_action_bar);
 
-			pagination_timeline = new DomainAllowTimeline () {
-				url = "/api/v1/admin/domain_allows",
-				accepts = typeof (API.Admin.DomainAllow)
-			};
+			pagination_timeline = new Views.Admin.Timeline.DomainAllow ();
 			pagination_timeline.on_error.connect (on_error);
 			pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
 			this.page = pagination_timeline;
@@ -882,55 +554,7 @@ public class Tuba.Dialogs.Admin {
 	}
 
 	private class FederationBlockList : BasePage {
-		public class FederationBlockTimeline : PaginationTimeline {
-			~FederationBlockTimeline () {
-				debug ("Destroying FederationBlockTimeline");
-			}
-
-			public override Gtk.Widget on_create_model_widget (Object obj) {
-				Gtk.Widget widget = base.on_create_model_widget (obj);
-				var action_row = widget as Widgets.Admin.DomainBlock;
-				if (action_row != null) {
-					action_row.removed.connect (on_remove);
-				}
-
-				return widget;
-			}
-
-			private void on_remove (Widgets.Admin.DomainBlock widget, string federation_block_id) {
-				var dlg = new Adw.AlertDialog (
-					// tranlsators: Question dialog when an admin is about to
-					//				delete a federation block. The variable is
-					//				a string domain name
-					_("Are you sure you want to unblock %s?").printf (widget.title),
-					null
-				);
-
-				dlg.add_response ("no", _("Cancel"));
-				dlg.set_response_appearance ("no", Adw.ResponseAppearance.DEFAULT);
-
-				dlg.add_response ("yes", _("Unblock"));
-				dlg.set_response_appearance ("yes", Adw.ResponseAppearance.DESTRUCTIVE);
-				dlg.choose.begin (this, null, (obj, res) => {
-					if (dlg.choose.end (res) == "yes") {
-						widget.sensitive = false;
-						new Request.DELETE (@"/api/v1/admin/domain_blocks/$federation_block_id")
-							.with_account (accounts.active)
-							.then (() => {
-								widget.sensitive = true;
-								request_idle ();
-							})
-							.on_error ((code, message) => {
-								widget.sensitive = true;
-								on_error (code, message);
-							})
-							.exec ();
-					}
-				});
-			}
-		}
-
-		FederationBlockTimeline pagination_timeline;
+		Views.Admin.Timeline.BlockedIPs pagination_timeline;
 		construct {
 			// translators: Admin Dialog page title,
 			//				this is about federation blocking
@@ -943,10 +567,7 @@ public class Tuba.Dialogs.Admin {
 			add_ip_block_button.clicked.connect (open_add_federation_block_dialog);
 			headerbar.pack_end (add_ip_block_button);
 
-			pagination_timeline = new FederationBlockTimeline () {
-				url = "/api/v1/admin/domain_blocks",
-				accepts = typeof (API.Admin.DomainBlock)
-			};
+			pagination_timeline = new Views.Admin.Timeline.BlockedIPs ();
 			pagination_timeline.on_error.connect (on_error);
 			pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
 			this.page = pagination_timeline;
@@ -971,28 +592,7 @@ public class Tuba.Dialogs.Admin {
 	}
 
 	private class ReportList : BasePage {
-		public class ReportTimeline : PaginationTimeline {
-			~ReportTimeline () {
-				debug ("Destroying ReportTimeline");
-			}
-
-			public signal void on_open_report_dialog (API.Admin.Report report);
-			public override Gtk.Widget on_create_model_widget (Object obj) {
-				Gtk.Widget widget = base.on_create_model_widget (obj);
-				var action_row = widget as Widgets.Admin.Report;
-				if (action_row != null) {
-					action_row.report_activated.connect (on_report_activated);
-				}
-
-				return widget;
-			}
-
-			private void on_report_activated (API.Admin.Report report) {
-				on_open_report_dialog (report);
-			}
-		}
-
-		ReportTimeline pagination_timeline;
+		Views.Admin.Timeline.Reports pagination_timeline;
 		Gtk.ToggleButton resolved_button;
 		construct {
 			// translators: Admin Dialog page title
@@ -1007,10 +607,7 @@ public class Tuba.Dialogs.Admin {
 			resolved_button.toggled.connect (on_resolved_toggled);
 			headerbar.pack_end (resolved_button);
 
-			pagination_timeline = new ReportTimeline () {
-				url = "/api/v1/admin/reports",
-				accepts = typeof (API.Admin.Report)
-			};
+			pagination_timeline = new Views.Admin.Timeline.Reports ();
 			pagination_timeline.on_open_report_dialog.connect (open_report_dialog);
 			pagination_timeline.on_error.connect (on_error);
 			pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
@@ -1041,83 +638,6 @@ public class Tuba.Dialogs.Admin {
 	}
 
 	private class AccountList : BasePage {
-		public class AccountListAccount : API.Admin.Account, BasicWidgetizable {
-			public override Gtk.Widget to_widget () {
-				return new AccountRow (this);
-			}
-		}
-
-		public class AccountRow : Adw.ActionRow {
-			public signal void account_opened (AccountListAccount account_obj);
-
-			~AccountRow () {
-				debug ("Destroying AccountRow");
-			}
-
-			AccountListAccount account_obj;
-			public AccountRow (AccountListAccount account) {
-				account_obj = account;
-				string ip = account.ip == null ? "" : @"$(account.ip)\n";
-				string email = account.email == null ? "" : account.email;
-
-				this.overflow = Gtk.Overflow.HIDDEN;
-				this.subtitle_lines = 0;
-				this.title = account.account.display_name;
-				this.subtitle = @"$(account.account.full_handle)\n$(ip)$(email)";
-				this.activated.connect (on_activate);
-				this.activatable = true;
-
-				this.add_prefix (new Widgets.Avatar () {
-					account = account.account,
-					size = 48
-				});
-
-				string status = _("No Limits");
-				if (account.suspended) {
-					status = _("Suspended");
-				} else if (account.silenced) {
-					status = _("Limited");
-				} else if (account.disabled) {
-					status = _("Disabled");
-				} else if (!account.approved) {
-					// translators: admin panel, account waiting to be approved
-					status = _("Waiting Approval");
-				}
-
-				this.add_suffix (new Gtk.Label (status) {
-					xalign = 1.0f,
-					wrap = true,
-					wrap_mode = Pango.WrapMode.WORD_CHAR,
-					hexpand = true
-				});
-			}
-
-			public void on_activate () {
-				account_opened (account_obj);
-			}
-		}
-
-		public class AccountTimeline : PaginationTimeline {
-			~AccountTimeline () {
-				debug ("Destroying AccountTimeline");
-			}
-
-			public signal void on_open_account (AccountListAccount account);
-			public override Gtk.Widget on_create_model_widget (Object obj) {
-				Gtk.Widget widget = base.on_create_model_widget (obj);
-				var action_row = widget as AccountRow;
-				if (action_row != null) {
-					action_row.account_opened.connect (on_account_opened);
-				}
-
-				return widget;
-			}
-
-			private void on_account_opened (AccountListAccount account) {
-				on_open_account (account);
-			}
-		}
-
 		class DropDownStringEntry : Object {
 			public string api { get; set; }
 			public string title { get; set; }
@@ -1132,7 +652,7 @@ public class Tuba.Dialogs.Admin {
 		Gtk.Entry display_name_entry;
 		Gtk.Entry ip_entry;
 		Gtk.Entry email_entry;
-		AccountTimeline pagination_timeline;
+		Views.Admin.Timeline.Accounts pagination_timeline;
 		Gtk.Revealer revealer;
 		Gtk.ToggleButton search_button;
 		Gtk.DropDown location_dropdown;
@@ -1274,10 +794,7 @@ public class Tuba.Dialogs.Admin {
 			};
 			toolbar_view.add_top_bar (revealer);
 
-			pagination_timeline = new AccountTimeline () {
-				url = "/api/v1/admin/accounts",
-				accepts = typeof (AccountListAccount)
-			};
+			pagination_timeline = new Views.Admin.Timeline.Accounts ();
 			pagination_timeline.on_open_account.connect (show_account_dialog);
 			pagination_timeline.on_error.connect (on_error);
 			pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
@@ -1335,7 +852,7 @@ public class Tuba.Dialogs.Admin {
 			};
 		}
 
-		private void show_account_dialog (AccountListAccount account) {
+		private void show_account_dialog (API.Admin.Account account) {
 			var dlg = new AccountDialog (account);
 			dlg.refresh.connect (refresh);
 			dlg.present (this);
@@ -1390,7 +907,7 @@ public class Tuba.Dialogs.Admin {
 			string account_id;
 			string account_handle;
 			Adw.ActionRow? approval_row = null;
-			public AccountDialog (AccountListAccount account) {
+			public AccountDialog (API.Admin.Account account) {
 				account_id = account.account.id;
 				account_handle = account.account.full_handle;
 				this.title = account.account.full_handle;
