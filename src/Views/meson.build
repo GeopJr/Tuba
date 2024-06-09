@@ -19,6 +19,8 @@ sources += files(
     'Main.vala',
     'MediaViewer.vala',
     'MutesBlocks.vala',
+    'NotificationRequests.vala',
+    'NotificationRequestsList.vala',
     'Notifications.vala',
     'Profile.vala',
     'Search.vala',
@@ -28,3 +30,5 @@ sources += files(
     'Thread.vala',
     'Timeline.vala',
 )
+
+subdir('Admin')

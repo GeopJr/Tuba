@@ -31,6 +31,7 @@ namespace Tuba {
 
 	public class Application : Adw.Application {
 
+		public GLib.ProxyResolver? proxy { get; set; default=null; }
 		public Dialogs.MainWindow? main_window { get; set; }
 		public Dialogs.NewAccount? add_account_window { get; set; }
 		public bool is_mobile { get; set; default=false; }
@@ -84,7 +85,8 @@ namespace Tuba {
 			{ "open-current-account-profile", open_current_account_profile },
 			{ "open-announcements", open_announcements },
 			{ "open-follow-requests", open_follow_requests },
-			{ "open-mutes-blocks", open_mutes_blocks }
+			{ "open-mutes-blocks", open_mutes_blocks },
+			{ "open-admin-dashboard", open_admin_dashboard }
 		};
 
 		#if DEV_MODE
@@ -302,6 +304,41 @@ namespace Tuba {
 
 			if (settings.monitor_network)
 				network_monitor.network_changed.connect (on_network_change);
+
+			if (settings.proxy != "")
+				on_proxy_change ();
+			settings.notify ["proxy"].connect (on_proxy_notify);
+		}
+
+		private void on_proxy_change (bool recover = false) {
+			if (settings.proxy != "") {
+				try {
+					if (Uri.is_valid (settings.proxy, UriFlags.NONE)) {
+						proxy = new GLib.SimpleProxyResolver (settings.proxy, null);
+					}
+				} catch (Error e) {
+					// translators: Toast that pops up when
+					//				an invalid proxy url has
+					//				been provided in settings
+					app.toast (_("Invalid Proxy URL"));
+					warning (e.message);
+					return;
+				}
+			} else {
+				proxy = GLib.ProxyResolver.get_default ();
+			}
+
+			if (recover && add_account_window == null) {
+				GLib.Timeout.add_once (5000, trigger_is_online_notify);
+			}
+		}
+
+		private void trigger_is_online_notify () {
+			this.notify_property ("is-online");
+		}
+
+		private void on_proxy_notify () {
+			on_proxy_change (true);
 		}
 
 		private bool activated = false;
@@ -456,6 +493,10 @@ namespace Tuba {
 		public void open_mutes_blocks () {
 			main_window.open_view (new Views.MutesBlocks ());
 			close_sidebar ();
+		}
+
+		public void open_admin_dashboard () {
+			new Dialogs.Admin.Window ().present ();
 		}
 
 		private void close_sidebar () {

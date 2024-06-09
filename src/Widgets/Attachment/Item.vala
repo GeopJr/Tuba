@@ -13,7 +13,6 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	protected Gtk.Overlay overlay;
 	protected Gtk.Button button;
 	protected Gtk.Button alt_btn;
-	protected Gtk.Box badge_box;
 	protected ulong alt_btn_clicked_id;
 	public Tuba.Attachment.MediaType media_kind { get; protected set; }
 
@@ -90,7 +89,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		add_css_class ("flat");
 
 		button = new Gtk.Button () {
-			css_classes = { "frame" },
+			css_classes = { "frame", "no-padding" },
 			overflow = Gtk.Overflow.HIDDEN
 		};
 		button.clicked.connect (on_click);
@@ -98,34 +97,28 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		create_context_menu ();
 		gesture_click_controller = new Gtk.GestureClick ();
 		gesture_lp_controller = new Gtk.GestureLongPress ();
-        add_controller (gesture_click_controller);
-        add_controller (gesture_lp_controller);
+		add_controller (gesture_click_controller);
+		add_controller (gesture_lp_controller);
 		gesture_click_controller.button = Gdk.BUTTON_SECONDARY;
 		gesture_lp_controller.button = Gdk.BUTTON_PRIMARY;
 		gesture_lp_controller.touch_only = true;
-        gesture_click_controller.pressed.connect (on_secondary_click);
-        gesture_lp_controller.pressed.connect (on_long_press);
-
-		badge_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 1) {
-			valign = Gtk.Align.END,
-			halign = Gtk.Align.START,
-			css_classes = { "linked", "ttl-status-badge" }
-		};
+		gesture_click_controller.pressed.connect (on_secondary_click);
+		gesture_lp_controller.pressed.connect (on_long_press);
 
 		alt_btn = new Gtk.Button.with_label ("ALT") {
 			tooltip_text = _("View Alt Text"),
-			css_classes = { "heading", "flat" }
+			css_classes = { "heading", "flat" },
+			valign = Gtk.Align.END,
+			halign = Gtk.Align.START,
+			css_classes = { "ttl-status-badge" }
 		};
-
 		alt_btn_clicked_id = alt_btn.clicked.connect (on_alt_text_btn_clicked);
-
-		badge_box.append (alt_btn);
 
 		overlay = new Gtk.Overlay () {
 			css_classes = { "attachment" }
 		};
 		overlay.child = button;
-		overlay.add_overlay (badge_box);
+		overlay.add_overlay (alt_btn);
 
 		child = overlay;
 	}
@@ -159,9 +152,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		};
 
 		var toolbar_view = new Adw.ToolbarView ();
-		var headerbar = new Adw.HeaderBar () {
-			centering_policy = Adw.CenteringPolicy.STRICT
-		};
+		var headerbar = new Adw.HeaderBar ();
 		var window = new Adw.Dialog () {
 			title = _("Alternative text for attachment"),
 			child = toolbar_view,

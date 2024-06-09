@@ -14,6 +14,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	public int uid { get; set; default = -1; }
 	protected SimpleActionGroup actions { get; set; default = new SimpleActionGroup (); }
 	public weak Gtk.Widget? last_widget { get; private set; default=null; }
+	public string empty_timeline_icon { get; set; default="tuba-background-app-ghost-symbolic"; }
 
 	private bool _show_back_button = true;
 	public bool show_back_button {
@@ -79,8 +80,10 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		}
 		set {
 			status_image.visible = false;
-			status_image.icon_name = "tuba-background-app-ghost-symbolic";
+			status_image.icon_name = this.empty_timeline_icon;
 			status_button.visible = false;
+			this.update_state (Gtk.AccessibleState.BUSY, false, -1);
+			this.update_property (Gtk.AccessibleProperty.LABEL, null, -1);
 
 			if (value == null) {
 				states.visible_child_name = "content";
@@ -90,6 +93,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 				if (value.loading) {
 					status_stack.visible_child_name = "spinner";
 					status_spinner.spinning = true;
+					this.update_state (Gtk.AccessibleState.BUSY, true, -1);
 				} else {
 					status_stack.visible_child_name = "message";
 					status_spinner.spinning = false;
@@ -103,6 +107,12 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 
 					if (value.message != null)
 						status_message_label.label = value.message;
+
+					this.update_property (
+						Gtk.AccessibleProperty.LABEL,
+						@"$(status_title_label.label) $(status_message_label.label)",
+						-1
+					);
 				}
 			}
 			_base_status = value;
@@ -161,10 +171,10 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	}
 
 	#if !USE_LISTVIEW
-    	public virtual void unbind_listboxes () {}
+		public virtual void unbind_listboxes () {}
 	#endif
 
-    protected virtual void build_actions () {}
+	protected virtual void build_actions () {}
 
 	protected virtual void build_header () {
 		var title = new Adw.WindowTitle (label, "");

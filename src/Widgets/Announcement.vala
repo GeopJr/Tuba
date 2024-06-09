@@ -28,6 +28,8 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		}
 
 		public ReactButton (API.EmojiReaction reaction) {
+			this.set_accessible_role (Gtk.AccessibleRole.TOGGLE_BUTTON);
+
 			// translators: the variable is the emoji or its name if it's custom
 			tooltip_text = _("React with %s").printf (reaction.name);
 			shortcode = reaction.name;
@@ -48,6 +50,7 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 			_has_reacted = reaction.me;
 			if (reaction.me == true) {
 				this.add_css_class ("accent");
+				this.update_state (Gtk.AccessibleState.PRESSED, Gtk.AccessibleTristate.TRUE, -1);
 			}
 
 			this.clicked.connect (on_clicked);
@@ -57,9 +60,11 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 			if (reacted) {
 				this.add_css_class ("accent");
 				reactions = reactions + 1;
+				this.update_state (Gtk.AccessibleState.PRESSED, Gtk.AccessibleTristate.TRUE, -1);
 			} else {
 				this.remove_css_class ("accent");
 				reactions = reactions - 1;
+				this.update_state (Gtk.AccessibleState.PRESSED, Gtk.AccessibleTristate.FALSE, -1);
 			}
 			_has_reacted = reacted;
 		}
@@ -81,6 +86,62 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 	[GtkChild] protected unowned Widgets.MarkupView content;
 	[GtkChild] protected unowned Gtk.FlowBox emoji_reactions;
 
+	private void aria_describe_status () {
+		// translators: This is an accessibility label.
+		//				Screen reader users are going to hear this a lot,
+		//				please be mindful.
+		//				The first variable is the instance's name and the
+		//				second one is the instance's domain.
+		string aria_post = _("Announcement by %s (%s).").printf (
+			this.name_label.get_text (),
+			this.handle_label.get_text ()
+		);
+
+		string aria_date = DateTime.humanize_aria (announcement_date);
+		string aria_date_prefixed = edited_indicator.visible
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is a string date.
+			? _("Edited: %s.").printf (aria_date)
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is a string date.
+			: _("Published: %s.").printf (aria_date);
+
+		string aria_reactions = "";
+		if (reactions_count > 0) {
+			aria_reactions = GLib.ngettext (
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				//				The variable is the amount of reactions the post
+				//				has.
+				"Contains %d reaction.", "Contains %d reactions.",
+				(ulong) reactions_count
+			).printf (reactions_count);
+		}
+
+		// translators: This is an accessibility label.
+		//				Screen reader users are going to hear this a lot,
+		//				please be mindful.
+		//				This is used to indicate that the announcement
+		//				hasn't been read yet.
+		string aria_read = attention_indicator.visible ? _("Unread.") : "";
+
+		this.update_property (
+			Gtk.AccessibleProperty.LABEL,
+			"%s %s %s %s".printf (
+				aria_post,
+				aria_date_prefixed,
+				aria_read,
+				aria_reactions
+			),
+			-1
+		);
+	}
+
 	private Gee.ArrayList<API.EmojiReaction>? reactions {
 		set {
 			if (value == null) return;
@@ -99,7 +160,13 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 				badge_button.reaction_toggled.connect (on_reaction_toggled);
 
 				//  emoji_reactions.append(badge_button); // GTK >= 4.5
-				emoji_reactions.insert (badge_button, -1);
+				emoji_reactions.insert (
+					new Gtk.FlowBoxChild () {
+						child = badge_button,
+						focusable = false
+					},
+					-1
+				);
 			}
 
 			emoji_reactions.visible = value.size > 0;
@@ -113,6 +180,8 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 	}
 
 	construct {
+		edited_indicator.update_property (Gtk.AccessibleProperty.LABEL, edited_indicator.tooltip_text, -1);
+
 		if (settings.larger_font_size)
 			add_css_class ("ttl-status-font-large");
 
@@ -127,7 +196,9 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		settings.notify["scale-emoji-hover"].connect (settings_updated);
 	}
 
-    public Announcement (API.Announcement t_announcement) {
+	string announcement_date;
+	int reactions_count = 0;
+	public Announcement (API.Announcement t_announcement) {
 		announcement = t_announcement;
 
 		content.instance_emojis = t_announcement.emojis_map;
@@ -137,7 +208,6 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		var instance_title = accounts.active.instance_info.title;
 		var instance_thumbnail = accounts.active.instance_info.thumbnail;
 		var instance_uri = accounts.active.instance_info.uri ?? accounts.active.domain;
-		string announcement_date;
 
 		if (t_announcement.updated_at != null && t_announcement.updated_at != t_announcement.published_at) {
 			announcement_date = t_announcement.updated_at;
@@ -146,7 +216,10 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 			announcement_date = t_announcement.published_at;
 			edited_indicator.visible = false;
 		}
+
 		date_label.label = DateTime.humanize (announcement_date);
+		date_label.tooltip_text = new GLib.DateTime.from_iso8601 (announcement_date, null).format ("%F %T");
+		date_label.update_property (Gtk.AccessibleProperty.LABEL, date_label.tooltip_text, -1);
 
 		handle_label.label = @"@$instance_uri";
 		avatar.text = name_label.label = instance_title;
@@ -154,8 +227,10 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		if (instance_thumbnail != "") Tuba.Helper.Image.request_paintable (instance_thumbnail, null, on_cache_response);
 
 		reactions = t_announcement.reactions;
+		reactions_count = t_announcement.reactions.size;
 
 		announcement.bind_property ("read", attention_indicator, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
+		aria_describe_status ();
 	}
 
 	void on_cache_response (Gdk.Paintable? data) {

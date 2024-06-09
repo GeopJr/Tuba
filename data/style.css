@@ -1,4 +1,4 @@
-.ttl-sidebar .badge {
+.notification-badge {
 	font-weight: bold;
 	font-size: 0.8em;
 	border-radius: 10px;
@@ -8,7 +8,7 @@
 	color: @text_view_bg;
 }
 
-.ttl-sidebar .badge.no-attention {
+.notification-badge.no-attention {
 	background: alpha(@sidebar_fg_color, .4);
 }
 
@@ -22,13 +22,6 @@
 
 headerbar.flat.no-title .title {
 	opacity: 0;
-}
-
-.attachment,
-.attachment button,
-flowboxchild {
-	padding: 0px;
-	margin: 0px;
 }
 
 .cover-badge {
@@ -196,25 +189,14 @@ flowboxchild {
 }
 
 .ttl-status-badge {
-	color: white;
 	border-radius: 6px;
 	margin: 8px;
-}
-
-.ttl-status-badge:not(.attachmentpageattachment) {
-	background-color: rgba(0, 0, 0, .8);
-}
-
-.ttl-status-badge.attachmentpageattachment>*.error {
-	background-color: alpha(mix(@red_4, white, .8), .8);
-}
-
-.ttl-status-badge.attachmentpageattachment>*.success {
-	background-color: alpha(mix(@green_4, white, .8), .8);
-}
-
-.ttl-status-badge>* {
 	padding: 1px 6px;
+}
+
+.ttl-status-badge:not(.error):not(.success) {
+	color: white;
+	background-color: rgba(0, 0, 0, .8);
 }
 
 .ttl-status-badge.sensitive-label {
@@ -222,20 +204,12 @@ flowboxchild {
 	border-radius: 9999px;
 }
 
-.ttl-status-badge>button>label {
-	padding: 1px 6px;
-}
-
-.ttl-status-badge>.image-button {
-	padding: 1px 6px;
-}
-
 .ttl-profile-fields-box > flowboxchild > .ttl-profile-field {
 	border-bottom: solid 1px @sidebar_border_color;
 	border-right: solid 1px @sidebar_border_color;
 }
 
-.ttl-profile-fields-box-container.odd > .ttl-profile-fields-box > flowboxchild:last-child > .ttl-profile-field { 
+.ttl-profile-fields-box-container.odd > .ttl-profile-fields-box > flowboxchild:last-child > .ttl-profile-field {
 	border-bottom: none;
 }
 
@@ -293,6 +267,10 @@ flowboxchild {
 	margin-bottom: 6px;
 }
 
+.card-spacing > *:focus-within {
+	border-radius: inherit;
+}
+
 .ttl-post.direct {
 	background-color: alpha(@warning_bg_color, .1);
 }
@@ -343,6 +321,11 @@ GtkSourceAssistant.completion list row{
 
 .locale-dropdown-upcase {
 	text-transform: uppercase;
+}
+
+flowboxchild,
+.no-padding {
+	padding: 0;
 }
 
 .preview_card {

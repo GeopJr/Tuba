@@ -15,6 +15,7 @@ sources += files(
     'List.vala',
     'Mention.vala',
     'Notification.vala',
+    'NotificationFilter.vala',
     'PeerTube.vala',
     'Poll.vala',
     'PollOption.vala',
@@ -27,6 +28,7 @@ sources += files(
     'Translation.vala',
 )
 
+subdir('Admin')
 subdir('Account')
 subdir('Akkoma')
 subdir('BookWyrm')

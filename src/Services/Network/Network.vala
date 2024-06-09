@@ -19,17 +19,17 @@ public class Tuba.Network : GLib.Object {
 
 	public void flush_cache () {
 		this.cache.flush ();
-        this.cache.dump ();
+		this.cache.dump ();
 		Tuba.Helper.Image.flush_cache ();
 	}
 
 	construct {
-        cache = new Soup.Cache (
+		cache = new Soup.Cache (
 			GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "soup", "misc"),
 			Soup.CacheType.SINGLE_USER
 		);
 		cache.load ();
-        cache.set_max_size (1024 * 1024 * 100);
+		cache.set_max_size (1024 * 1024 * 100);
 
 		session = new Soup.Session.with_options ("max-conns", 64, "max-conns-per-host", 64) {
 			user_agent = @"$(Build.NAME)/$(Build.VERSION) libsoup/$(Soup.get_major_version()).$(Soup.get_minor_version()).$(Soup.get_micro_version()) ($(Soup.MAJOR_VERSION).$(Soup.MINOR_VERSION).$(Soup.MICRO_VERSION))" // vala-lint=line-length
@@ -40,6 +40,12 @@ public class Tuba.Network : GLib.Object {
 			if (requests_processing <= 0)
 				finished ();
 		});
+
+		app.notify ["proxy"].connect (on_proxy_change);
+	}
+
+	private void on_proxy_change () {
+		session.set_proxy_resolver (app.proxy);
 	}
 
 	public enum ExtraData {
@@ -81,7 +87,8 @@ public class Tuba.Network : GLib.Object {
 						try {
 							var parser = Network.get_parser_from_inputstream (in_stream);
 							var root = network.parse (parser);
-							error_msg = root.get_string_member_with_default ("error", msg.reason_phrase);
+							if (root != null)
+								error_msg = root.get_string_member_with_default ("error", msg.reason_phrase);
 						} catch {}
 
 						ecb ((int32) status, error_msg);
@@ -101,12 +108,15 @@ public class Tuba.Network : GLib.Object {
 		app.toast (message, 0);
 	}
 
-	public Json.Node parse_node (Json.Parser parser) {
+	public Json.Node? parse_node (Json.Parser parser) {
 		return parser.get_root ();
 	}
 
-	public Json.Object parse (Json.Parser parser) {
-		return parse_node (parser).get_object ();
+	public Json.Object? parse (Json.Parser parser) {
+		var node = parse_node (parser);
+		if (node == null) return null;
+
+		return node.get_object ();
 	}
 
 	public static Json.Parser get_parser_from_inputstream (InputStream in_stream) throws Error {

@@ -73,6 +73,8 @@
 			if (value != _kind) {
 				_kind = value;
 				change_kind ();
+				if (status != null)
+					aria_describe_status ();
 			}
 		}
 	}
@@ -124,7 +126,7 @@
 	[GtkChild] protected unowned Gtk.Label spoiler_label_rev;
 	[GtkChild] protected unowned Gtk.Box spoiler_status_con;
 
-	[GtkChild] protected unowned Gtk.Stack filter_stack;
+	[GtkChild] public unowned Gtk.Stack filter_stack;
 	[GtkChild] protected unowned Gtk.Label filter_label;
 
 	public ActionsRow actions { get; private set; }
@@ -160,6 +162,9 @@
 	}
 
 	construct {
+		pin_indicator.update_property (Gtk.AccessibleProperty.LABEL, pin_indicator.tooltip_text, -1);
+		edited_indicator.update_property (Gtk.AccessibleProperty.LABEL, edited_indicator.tooltip_text, -1);
+
 		name_label.use_markup = false;
 		avatar_overlay.set_size_request (avatar.size, avatar.size);
 		open.connect (on_open);
@@ -485,14 +490,25 @@
 				var date_local = _("%B %e, %Y");
 
 				// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES
-				var date_parsed = new GLib.DateTime.from_iso8601 (status.formal.edited_at ?? status.formal.created_at, null);
+				var date_parsed = new GLib.DateTime.from_iso8601 (this.full_date, null);
 				date_parsed = date_parsed.to_timezone (new TimeZone.local ());
 
 				return date_parsed.format (@"$date_local $expanded_separator %H:%M").replace (" ", ""); // %e prefixes with whitespace on single digits
 			} else {
-				return DateTime.humanize (status.formal.edited_at ?? status.formal.created_at);
+				return DateTime.humanize (this.full_date);
 			}
 		}
+	}
+
+	protected string full_date {
+		get {
+			return status.formal.edited_at ?? status.formal.created_at;
+		}
+	}
+
+	private string formatted_full_date () {
+		return new GLib.DateTime.from_iso8601 (this.full_date, null)
+			.format ("%F %T");
 	}
 
 	public string title_text {
@@ -555,13 +571,20 @@
 				};
 				actor_avatar.add_css_class ("ttl-status-avatar-actor");
 
+				string actor_handle;
 				if (this.kind_instigator != null) {
 					actor_avatar_binding = this.bind_property ("kind_instigator", actor_avatar, "account", BindingFlags.SYNC_CREATE);
 					actor_avatar.clicked.connect (open_kind_instigator_account);
+					actor_handle = this.kind_instigator.handle;
 				} else {
 					actor_avatar_binding = status.bind_property ("account", actor_avatar, "account", BindingFlags.SYNC_CREATE);
 					actor_avatar.clicked.connect (open_status_account);
+					actor_handle = status.account.handle;
 				}
+
+				// translators: Tooltip text for avatars in posts.
+				//				The variable is a string user handle.
+				actor_avatar.tooltip_text = _("Open %s's Profile").printf (actor_handle);
 			}
 			avatar.add_css_class ("ttl-status-avatar-border");
 			avatar_overlay.child = actor_avatar;
@@ -614,6 +637,182 @@
 				// translators: Pin post on profile
 				: _("Pin")
 			);
+	}
+
+	private void aria_describe_status () {
+		if (filter_stack.visible_child_name == "filter") {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			string aria_filter = _("Filtered post");
+			if (this.status.formal.tuba_filter_warn != null) {
+				aria_filter += @": $(this.status.formal.tuba_filter_warn)";
+			}
+
+			this.update_property (Gtk.AccessibleProperty.LABEL, aria_filter, -1);
+
+			return;
+		}
+
+		// translators: This is an accessibility label.
+		//				Screen reader users are going to hear this a lot,
+		//				please be mindful.
+		//				The first variable is the post's visibility (e.g. public).
+		//				The second one is the author's name and the third
+		//				one is the author's handle.
+		string post = _("%s post by %s (%s).").printf (
+			visibility_indicator.tooltip_text,
+			this.title_text,
+			this.subtitle_text
+		);
+
+		string aria_date = DateTime.humanize_aria (this.full_date);
+		string aria_date_prefixed = status.formal.is_edited
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is a string date.
+			? _("Edited: %s.").printf (aria_date)
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is a string date.
+			: _("Published: %s.").printf (aria_date);
+
+		string aria_pinned = "";
+		if (status.formal.pinned) {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			aria_pinned = _("The post is pinned.");
+		}
+
+		string aria_quote = "";
+		if (status.formal.quote != null) {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			aria_quote = _("Contains a quoted post.");
+		}
+
+		string aria_attachments = "";
+		if (status.formal.has_media) {
+			aria_attachments = GLib.ngettext (
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				//				The variable is the number of attachments the post has.
+				"Contains %d attachment.", "Contains %d attachments.",
+				(ulong) status.formal.media_attachments.size
+			).printf (status.formal.media_attachments.size);
+		}
+
+		string aria_poll = "";
+		if (status.formal.poll != null) {
+			aria_poll = status.formal.poll.expired
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				? _("Contains an expired poll.")
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				: _("Contains a poll.");
+		}
+
+		string aria_spoiler = "";
+		if (status.formal.has_spoiler) {
+			if (status.formal.spoiler_text == null || status.formal.spoiler_text == "") {
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				aria_spoiler = _("The post has a spoiler.");
+			} else {
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				//				The variable is the spoiler title.
+				aria_spoiler = _("The post has the following spoiler: %s.").printf (this.spoiler_text);
+			}
+		}
+
+		string aria_app = "";
+		if (status.formal.application != null) {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is the name of the app the post was
+			//				made with (e.g. Tuba).
+			aria_app = _("Posted using %s.").printf (status.formal.application.name);
+		}
+
+		string aria_reactions = "";
+		if (status.formal.compat_status_reactions != null && status.formal.compat_status_reactions.size > 0) {
+			aria_reactions = GLib.ngettext (
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				//				The variable is the amount of reactions the post
+				//				has.
+				"Contains %d reaction.", "Contains %d reactions.",
+				(ulong) status.formal.compat_status_reactions.size
+			).printf (status.formal.compat_status_reactions.size);
+		}
+
+		// translators: This is an accessibility label.
+		//				Screen reader users are going to hear this a lot,
+		//				please be mindful.
+		//				The variables are strings <amount> replies,
+		//				<amount> boosts, <amount> favorites.
+		string aria_stats = "Post stats: %s, %s, %s.".printf (
+			GLib.ngettext (
+				"%s reply",
+				"%s replies",
+				(ulong) status.formal.replies_count
+			).printf (status.formal.replies_count.to_string ()),
+			GLib.ngettext (
+				"%s boost",
+				"%s boosts",
+				(ulong) status.formal.reblogs_count
+			).printf (status.formal.reblogs_count.to_string ()),
+			GLib.ngettext (
+				"%s favorite",
+				"%s favorites",
+				(ulong) status.formal.favourites_count
+			).printf (status.formal.favourites_count.to_string ())
+		);
+
+		string aria_translation = "";
+		if (translation_label != null) aria_translation = translation_label.get_text ();
+
+		this.update_property (
+			Gtk.AccessibleProperty.LABEL,
+			"%s %s %s %s %s %s %s %s %s %s %s %s.".printf (
+				header_label.accessible_text,
+				post,
+				aria_date_prefixed,
+				aria_pinned,
+				aria_quote,
+				aria_attachments,
+				aria_poll,
+				aria_spoiler,
+				aria_stats,
+				aria_reactions,
+				aria_app,
+				aria_translation
+			),
+			-1
+		);
+
+		spoiler_status_con.update_property (Gtk.AccessibleProperty.LABEL, aria_spoiler, -1);
+
+		if (quoted_status_btn != null) {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				This is used to announce the quoted post
+			quoted_status_btn.update_property (Gtk.AccessibleProperty.DESCRIPTION, _("Quoted Post"), -1);
+		}
 	}
 
 	protected Gtk.Button prev_card;
@@ -684,6 +883,11 @@
 		handle_label.label = this.subtitle_text;
 		date_label.label = this.date;
 
+		if (!expanded) {
+			date_label.tooltip_text = formatted_full_date ();
+			date_label.update_property (Gtk.AccessibleProperty.LABEL, date_label.tooltip_text, -1);
+		}
+
 		pin_indicator.visible = status.formal.pinned;
 		update_toggle_pinned_label ();
 		edited_indicator.visible = status.formal.is_edited;
@@ -692,6 +896,7 @@
 		var t_visibility = accounts.active.visibility[status.formal.visibility];
 		visibility_indicator.icon_name = t_visibility.small_icon_name;
 		visibility_indicator.tooltip_text = t_visibility.name;
+		visibility_indicator.update_property (Gtk.AccessibleProperty.LABEL, t_visibility.name, -1);
 
 		if (change_background_on_direct && status.formal.visibility == "direct") {
 			this.add_css_class ("direct");
@@ -700,6 +905,10 @@
 		}
 
 		avatar.account = status.formal.account;
+		// translators: Tooltip text for avatars in posts.
+		//				The variable is a string user handle.
+		avatar.tooltip_text = _("Open %s's Profile").printf (status.formal.account.handle);
+
 		reactions = status.formal.compat_status_reactions;
 
 		name_label.instance_emojis = status.formal.account.emojis_map;
@@ -777,6 +986,8 @@
 		formal_handler_ids += status.formal.notify["favourites-count"].connect (show_view_stats_action);
 		formal_handler_ids += status.formal.notify["tuba-thread-role"].connect (install_thread_line);
 		formal_handler_ids += status.formal.notify["tuba-spoiler-revealed"].connect (update_spoiler_status);
+
+		aria_describe_status ();
 	}
 
 	public void soft_unbind () {
@@ -818,6 +1029,7 @@
 	[GtkCallback] public void toggle_filter () {
 		if (this.status.formal.filtered != null && this.status.formal.filtered.size > 0) {
 			filter_stack.visible_child_name = filter_stack.visible_child_name == "filter" ? "status" : "filter";
+			aria_describe_status ();
 		}
 	}
 
@@ -851,6 +1063,7 @@
 
 		date_label.label = this.date;
 		date_label.wrap = true;
+		date_label.tooltip_text = null;
 
 		// The bottom bar
 		var bottom_info = new Gtk.FlowBox () {

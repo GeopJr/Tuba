@@ -241,14 +241,17 @@ public class Tuba.Widgets.CustomEmojiChooser : Gtk.Popover {
 		is_populated = true;
 	}
 
-	protected Gtk.Button create_emoji_button (API.Emoji emoji) {
+	protected Gtk.FlowBoxChild create_emoji_button (API.Emoji emoji) {
 		var emoji_btn = new Gtk.Button () {
 			css_classes = { "flat", "picker-emoji-button" },
 			child = new Widgets.Emoji (emoji.url, emoji.shortcode) { icon_size = Gtk.IconSize.LARGE }
 		};
 
 		emoji_btn.clicked.connect (on_custom_emoji_picked);
-		return emoji_btn;
+		return new Gtk.FlowBoxChild () {
+			child = emoji_btn,
+			focusable = false
+		};
 	}
 
 	protected void create_category (string key, Gee.ArrayList<API.Emoji> value) {

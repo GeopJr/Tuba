@@ -40,11 +40,11 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 	}
 
 	public static Entity from_json (Type type, Json.Node node) throws Error {
-        var obj = node.get_object ();
-        if (obj == null)
-            throw new Oopsie.PARSING (@"Received Json.Node for $(type.name ()) is not a Json.Object!");
+		var obj = node.get_object ();
+		if (obj == null)
+			throw new Oopsie.PARSING (@"Received Json.Node for $(type.name ()) is not a Json.Object!");
 
-        return Json.gobject_deserialize (type, node) as Entity;
+		return Json.gobject_deserialize (type, node) as Entity;
 	}
 
 	public Json.Node to_json () {

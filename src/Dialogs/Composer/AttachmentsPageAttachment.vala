@@ -13,7 +13,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		debug ("Destroying AttachmentsPageAttachment");
 	}
 
-    public AttachmentsPageAttachment (
+	public AttachmentsPageAttachment (
 		string attachment_id,
 		File? file,
 		Dialogs.Compose dialog,
@@ -47,17 +47,14 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 		var delete_button = new Gtk.Button () {
 			icon_name = "user-trash-symbolic",
-			valign = Gtk.Align.CENTER,
+			valign = Gtk.Align.END,
 			halign = Gtk.Align.END,
 			hexpand = true,
 			tooltip_text = _("Remove Attachment"),
-			css_classes = { "error" }
+			css_classes = { "error", "ttl-status-badge" }
 		};
-		badge_box.append (delete_button);
-		badge_box.halign = Gtk.Align.FILL;
-		badge_box.add_css_class ("attachmentpageattachment");
-		badge_box.remove_css_class ("linked");
 
+		overlay.add_overlay (delete_button);
 		delete_button.clicked.connect (on_delete_clicked);
 
 		alt_text = t_entity.description ?? "";
@@ -136,9 +133,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		scroller.child = alt_editor;
 
 		var toolbar_view = new Adw.ToolbarView ();
-		var headerbar = new Adw.HeaderBar () {
-			centering_policy = Adw.CenteringPolicy.STRICT
-		};
+		var headerbar = new Adw.HeaderBar ();
 
 		var bottom_bar = new Gtk.ActionBar ();
 		dialog_char_counter = new Gtk.Label (remaining_alt_chars (alt_text != null ? alt_text.length : 0)) {

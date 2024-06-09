@@ -4,6 +4,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	const string CODE_AUTH_DESCRIPTION = _("Copy the authorization code from the browser and paste it below.");
 
 	const string SCOPES = "read write follow";
+	const string ADMIN_SCOPES = "admin:read admin:write admin:read:reports admin:write:reports admin:read:ip_blocks admin:write:ip_blocks admin:read:domain_blocks admin:write:domain_blocks admin:read:domain_allows admin:write:domain_allows admin:read:email_domain_blocks admin:write:email_domain_blocks admin:read:canonical_email_blocks admin:write:canonical_email_blocks";
 
 	#if WINDOWS || DARWIN
 		const bool SHOULD_AUTO_AUTH = false;
@@ -16,10 +17,15 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	protected bool use_auto_auth { get; set; default = SHOULD_AUTO_AUTH; }
 	protected InstanceAccount account { get; set; default = new InstanceAccount.empty (""); }
 
+	[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 	[GtkChild] unowned Adw.NavigationView deck;
 	[GtkChild] unowned Adw.NavigationPage instance_step;
 	[GtkChild] unowned Adw.NavigationPage code_step;
 	[GtkChild] unowned Adw.NavigationPage done_step;
+
+	[GtkChild] unowned Gtk.ToggleButton settings_toggle;
+	[GtkChild] unowned Adw.EntryRow proxy_entry;
+	[GtkChild] unowned Adw.SwitchRow admin_switch;
 
 	[GtkChild] unowned Adw.EntryRow instance_entry;
 	[GtkChild] unowned Gtk.Label instance_entry_error;
@@ -32,7 +38,13 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 	[GtkChild] unowned Gtk.Label manual_auth_label;
 
-	public NewAccount () {
+	public string get_full_scopes () {
+		if (admin_switch.active) return @"$SCOPES $ADMIN_SCOPES";
+
+		return SCOPES;
+	}
+
+	public NewAccount (bool can_access_settings = false) {
 		Object (transient_for: app.main_window);
 		app.add_account_window = this;
 		app.add_window (this);
@@ -42,11 +54,23 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			return true;
 		});
 
+		if (!can_access_settings) {
+			settings_toggle.bind_property ("active", proxy_entry, "visible", BindingFlags.SYNC_CREATE);
+			app.toast.connect (add_toast);
+		}
+		settings_toggle.bind_property ("active", admin_switch, "visible", BindingFlags.SYNC_CREATE);
+
 		manual_auth_label.activate_link.connect (on_manual_auth);
 
 		reset ();
 		present ();
 		instance_entry.grab_focus ();
+	}
+
+	private void add_toast (string content, uint timeout = 0) {
+		toast_overlay.add_toast (new Adw.Toast (content) {
+			timeout = timeout
+		});
 	}
 
 	public bool on_manual_auth (string url) {
@@ -130,7 +154,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			.with_account (account)
 			.with_form_data ("client_name", Build.NAME)
 			.with_form_data ("redirect_uris", redirect_uri = setup_redirect_uri ())
-			.with_form_data ("scopes", SCOPES)
+			.with_form_data ("scopes", get_full_scopes ())
 			.with_form_data ("website", Build.WEBSITE);
 		yield msg.await ();
 
@@ -153,7 +177,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	void open_confirmation_page () {
 		debug ("Opening permission request page");
 
-		var esc_scopes = Uri.escape_string (SCOPES);
+		var esc_scopes = Uri.escape_string (get_full_scopes ());
 		var esc_redirect = Uri.escape_string (redirect_uri);
 		var pars = @"scope=$esc_scopes&response_type=code&redirect_uri=$esc_redirect&client_id=$(Uri.escape_string (account.client_id))";
 		var url = @"$(account.instance)/oauth/authorize?$pars";
@@ -183,6 +207,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		yield account.verify_credentials ();
 
+		account.admin_mode = admin_switch.active;
 		account = accounts.create_account (account.to_json ());
 
 		debug ("Saving account");
@@ -220,6 +245,11 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		code_entry.add_css_class ("error");
 		code_entry_error.label = error_message;
+	}
+
+	[GtkCallback]
+	private void on_proxy_apply () {
+		settings.proxy = proxy_entry.text;
 	}
 
 	[GtkCallback]

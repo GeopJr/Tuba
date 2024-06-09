@@ -20,6 +20,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_ADMIN_SIGNUP = "admin.sign_up";
 
 	public string uuid { get; set; }
+	public bool admin_mode { get; set; default=false; }
 	public string? backend { set; get; }
 	public API.Instance? instance_info { get; set; }
 	public Gee.ArrayList<API.Emoji>? instance_emojis { get; set; }
@@ -29,6 +30,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public string? access_token { get; set; }
 	public bool needs_update { get; set; default=false; }
 	public Error? error { get; set; } //TODO: use this field when server invalidates the auth token
+	public bool probably_has_notification_filters { get; set; default=false; }
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
 
@@ -98,13 +100,19 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	private void on_network_change () {
-		if (is_active && needs_update && app.is_online) {
+		if (is_active && app.is_online) {
+			if (needs_update) {
 			needs_update = false;
 			new Request.GET (@"/api/v1/accounts/$(this.id)")
 				.with_account (this)
 				.then ((in_stream) => {
 					var parser = Network.get_parser_from_inputstream (in_stream);
 					var node = network.parse_node (parser);
+					if (node == null) {
+						needs_update = true;
+						return;
+					}
+
 					var acc = API.Account.from (node);
 
 					if (this.display_name != acc.display_name || this.avatar != acc.avatar) {
@@ -113,6 +121,9 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					}
 				})
 			.exec ();
+			}
+
+			reconnect ();
 		}
 	}
 
@@ -330,6 +341,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public int unreviewed_follow_requests { get; set; default = 0; }
 	public int unread_announcements { get; set; default = 0; }
+	public int filtered_notifications_count { get; set; default = 0; }
 	public int unread_count { get; set; default = 0; }
 	public int last_read_id { get; set; default = 0; }
 	public int last_received_id { get; set; default = 0; }
@@ -401,6 +413,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
+				if (node == null) return;
+
 				instance_info = API.Instance.from (node);
 
 				var content_types = instance_info.compat_supported_mime_types;
@@ -426,10 +440,13 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
+				if (node == null) return;
+
+				this.probably_has_notification_filters = true;
 				var instance_v2 = API.InstanceV2.from (node);
 
 				if (instance_v2 != null && instance_v2.configuration != null && instance_v2.configuration.translation != null) {
-					instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
+					this.instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
 				}
 			})
 			.exec ();
@@ -443,6 +460,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
+				if (node == null) return;
+
 				Value res_emojis;
 				Entity.des_list (out res_emojis, node, typeof (API.Emoji));
 				instance_emojis = (Gee.ArrayList<Tuba.API.Emoji>) res_emojis;
