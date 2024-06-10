@@ -153,6 +153,11 @@
 							</object>
 						</child>
 						<child>
+							<object class="AdwSwitchRow" id="reply_to_old_post_reminder">
+								<property name="title" translatable="yes">Warn before replying to an old post</property>
+							</object>
+						</child>
+						<child>
 							<object class="AdwEntryRow" id="proxy_entry">
 								<property name="show-apply-button">0</property>
 								<property name="title" translatable="yes">Proxy</property>
