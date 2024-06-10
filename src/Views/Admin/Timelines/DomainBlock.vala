@@ -5,7 +5,7 @@ public class Tuba.Views.Admin.Timeline.DomainBlock : Views.Admin.Timeline.Pagina
 
 	construct {
 		this.url = "/api/v1/admin/domain_blocks";
-		this.accepts = typeof (API.Admin.IPBlock);
+		this.accepts = typeof (API.Admin.DomainBlock);
 	}
 
 	public override Gtk.Widget on_create_model_widget (Object obj) {
