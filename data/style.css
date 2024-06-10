@@ -1,3 +1,7 @@
+.notifications-all.dim-enabled .can-be-dimmed {
+	opacity: 0.70;
+}
+
 .notification-badge {
 	font-weight: bold;
 	font-size: 0.8em;

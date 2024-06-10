@@ -91,6 +91,9 @@
 		<key name="darken-images-on-dark-mode" type="b">
 			<default>false</default>
 		</key>
+		<key name="dim-trivial-notifications" type="b">
+			<default>false</default>
+		</key>
 		<key name="media-viewer-last-used-volume" type="d">
 			<default>1.0</default>
 		</key>

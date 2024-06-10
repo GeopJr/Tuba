@@ -127,6 +127,7 @@ public class Tuba.Settings : GLib.Settings {
 	public double media_viewer_last_used_volume { get; set; }
 	public bool monitor_network { get; set; }
 	public string proxy { get; set; }
+	public bool dim_trivial_notifications { get; set; }
 
 	private static string[] keys_to_init = {
 		"active-account",
@@ -152,7 +153,8 @@ public class Tuba.Settings : GLib.Settings {
 		"darken-images-on-dark-mode",
 		"media-viewer-last-used-volume",
 		"monitor-network",
-		"proxy"
+		"proxy",
+		"dim-trivial-notifications"
 	};
 
 	public Settings () {
