@@ -332,17 +332,18 @@ flowboxchild,
 	padding: 0;
 }
 
-.preview_card_image:dir(ltr) {
+.preview_card_v {
+	border-radius: 6px 6px 0px 0px;
+}
+
+.preview_card_h:dir(ltr) {
 	border-radius: 6px 0px 0px 6px;
 }
 
-.preview_card_image:dir(rtl) {
+.preview_card_h:dir(rtl) {
 	border-radius: 0px 6px 6px 0px;
 }
 
-.preview_card_video {
-	border-radius: 6px 6px 0px 0px;
-}
 
 .bkwm-desc {
 	padding: 12px;
@@ -522,7 +523,7 @@ video > overlay > revealer > controls {
 .ttl-view .small.fake-content .card {
 	box-shadow: none;
 }
-.ttl-view .small .preview_card.explore .preview_card_image {
+.ttl-view .small .preview_card.explore .preview_card_h {
 	border-radius: 0px;
 }
 
