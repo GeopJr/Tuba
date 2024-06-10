@@ -155,7 +155,7 @@ public class Tuba.Views.Main : Views.TabbedBase {
 
 	void on_notification_filter_change () {
 		NotificationKind kind = (NotificationKind) notifications_filter_button.selected_item;
-		notification_view.change_filter (kind.id);
 		settings.notifications_filter = kind.id == "" ? "all" : kind.id;
+		notification_view.change_filter (kind.id);
 	}
 }
