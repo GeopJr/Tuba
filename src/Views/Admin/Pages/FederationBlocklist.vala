@@ -1,5 +1,5 @@
 public class Tuba.Views.Admin.Page.FederationBlockList : Views.Admin.Page.Base {
-	Views.Admin.Timeline.BlockedIPs pagination_timeline;
+	Views.Admin.Timeline.DomainBlock pagination_timeline;
 	construct {
 		// translators: Admin Dialog page title,
 		//				this is about federation blocking
@@ -12,7 +12,7 @@ public class Tuba.Views.Admin.Page.FederationBlockList : Views.Admin.Page.Base {
 		add_ip_block_button.clicked.connect (open_add_federation_block_dialog);
 		headerbar.pack_end (add_ip_block_button);
 
-		pagination_timeline = new Views.Admin.Timeline.BlockedIPs ();
+		pagination_timeline = new Views.Admin.Timeline.DomainBlock ();
 		pagination_timeline.on_error.connect (on_error);
 		pagination_timeline.bind_property ("working", this, "spinning", GLib.BindingFlags.SYNC_CREATE);
 		this.page = pagination_timeline;
