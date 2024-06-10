@@ -75,7 +75,6 @@
 											<object class="GtkToggleButton" id="settings_toggle">
 												<property name="icon-name">tuba-settings-symbolic</property>
 												<property name="valign">center</property>
-												<property name="visible">active</property>
 												<!-- translators: this is a button in the 'new account' window -->
 												<property name="tooltip-text" translatable="yes">Settings</property>
 												<style>
