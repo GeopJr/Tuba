@@ -148,7 +148,7 @@ public class Tuba.Request : GLib.Object {
 
 	public Request body_json (Json.Builder t_builder) {
 		var generator = new Json.Generator ();
-        generator.set_root (t_builder.get_root ());
+		generator.set_root (t_builder.get_root ());
 		return body ("application/json", new Bytes.take (generator.to_data (null).data));
 	}
 

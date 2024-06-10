@@ -2,9 +2,9 @@
 
 public class Tuba.Attachment {
 	public enum MediaType {
-        IMAGE,
-        VIDEO,
-        GIFV,
+		IMAGE,
+		VIDEO,
+		GIFV,
 		AUDIO,
 		UNKNOWN;
 
@@ -28,7 +28,7 @@ public class Tuba.Attachment {
 			}
 		}
 
-        public string to_string () {
+		public string to_string () {
 			switch (this) {
 				case IMAGE:
 					return "IMAGE";
@@ -58,7 +58,7 @@ public class Tuba.Attachment {
 					return UNKNOWN;
 			}
 		}
-    }
+	}
 }
 
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/media_viewer.ui")]
@@ -234,8 +234,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				((Gtk.Video) child_widget).media_stream.volume = 1.0 - last_used_volume;
 				((Gtk.Video) child_widget).media_stream.volume = last_used_volume;
 				((Gtk.Video) child_widget).media_stream.playing = pre_playing;
+				((Gtk.Video) child_widget).media_stream.notify["volume"].connect (on_manual_volume_change);
 			};
 			is_done = true;
+		}
+
+		private void on_manual_volume_change () {
+			settings.media_viewer_last_used_volume = ((Gtk.Video) child_widget).media_stream.volume;
 		}
 
 		private bool on_scroll (Gtk.EventControllerScroll scroll, double dx, double dy) {
@@ -265,7 +270,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			scroller.vadjustment.changed.connect (emit_zoom_changed);
 			scroller.hadjustment.changed.connect (emit_zoom_changed);
 
-			var scroll = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.VERTICAL | Gtk.EventControllerScrollFlags.DISCRETE);
+			var scroll = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.BOTH_AXES | Gtk.EventControllerScrollFlags.DISCRETE);
 			scroll.scroll.connect (on_scroll);
 			scroller.add_controller (scroll);
 
@@ -336,6 +341,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	construct {
+		last_used_volume = settings.media_viewer_last_used_volume.clamp (0.0, 1.0);
 		if (is_rtl) back_btn.icon_name = "tuba-right-large-symbolic";
 
 		var shortcutscontroller = new Gtk.ShortcutController ();
@@ -673,7 +679,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		Item? page = safe_get ((int) carousel.position);
 		if (page == null) return;
 
-		Host.open_uri (page.url);
+		Host.open_url (page.url);
 	}
 
 	private void save_as () {
@@ -826,6 +832,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		if (media_type.is_video ()) {
 			var video = new Gtk.Video ();
+
+			video.graphics_offload = Gtk.GraphicsOffloadEnabled.ENABLED;
+
 			if (media_type == Tuba.Attachment.MediaType.GIFV) {
 				video.loop = true;
 				video.autoplay = true;
@@ -910,30 +919,30 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	[GtkCallback]
-    private void on_previous_clicked () {
-        scroll_to (((int) carousel.position) - 1);
-    }
+	private void on_previous_clicked () {
+		scroll_to (((int) carousel.position) - 1);
+	}
 
 	[GtkCallback]
-    private void on_next_clicked () {
-        scroll_to (((int) carousel.position) + 1);
-    }
+	private void on_next_clicked () {
+		scroll_to (((int) carousel.position) + 1);
+	}
 
 	[GtkCallback]
-    private void on_zoom_out_clicked () {
-        Item? page = safe_get ((int) carousel.position);
+	private void on_zoom_out_clicked () {
+		Item? page = safe_get ((int) carousel.position);
 			if (page == null) return;
 
 			page.zoom_out ();
-    }
+	}
 
 	[GtkCallback]
-    private void on_zoom_in_clicked () {
-        Item? page = safe_get ((int) carousel.position);
+	private void on_zoom_in_clicked () {
+		Item? page = safe_get ((int) carousel.position);
 			if (page == null) return;
 
 			page.zoom_in ();
-    }
+	}
 
 	private void on_carousel_page_changed (uint pos) {
 		update_revealer_widget ((int) pos);

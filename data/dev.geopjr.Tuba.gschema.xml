@@ -5,7 +5,7 @@
 		<value value="1" nick="light"/>
 		<value value="2" nick="dark"/>
 	</enum>
-	
+
 	<schema id="dev.geopjr.Tuba.Account">
 		<key name="default-post-visibility" type="s">
 			<default>'public'</default>
@@ -90,6 +90,15 @@
 		</key>
 		<key name="darken-images-on-dark-mode" type="b">
 			<default>false</default>
+		</key>
+		<key name="media-viewer-last-used-volume" type="d">
+			<default>1.0</default>
+		</key>
+		<key name="monitor-network" type="b">
+			<default>true</default>
+		</key>
+		<key name="proxy" type="s">
+			<default>''</default>
 		</key>
 
 		<key name="window-w" type="i">

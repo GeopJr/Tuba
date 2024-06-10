@@ -61,6 +61,9 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-error-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-sad-computer-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-background-app-ghost-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-heart-broken-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-police-badge2-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-arrows-loop-tall-disabled-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/help-overlay.ui</file>
@@ -87,7 +90,9 @@
         <file>ui/widgets/votebox.ui</file>
         <file>ui/widgets/preview_card.ui</file>
         <file>ui/widgets/profile.ui</file>
+        <file>ui/dialogs/admin_dashboard.ui</file>
         <file>ui/dialogs/list_edit.ui</file>
+        <file>ui/dialogs/advanced_search.ui</file>
         <file>ui/dialogs/new_account.ui</file>
         <file>ui/dialogs/compose.ui</file>
         <file>ui/dialogs/main.ui</file>

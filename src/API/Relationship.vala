@@ -11,8 +11,10 @@ public class Tuba.API.Relationship : Entity {
 	public bool muting_notifications { get; set; default = false; }
 	public bool requested { get; set; default = false; }
 	public bool blocking { get; set; default = false; }
+	public bool blocked_by { get; set; default = false; }
 	public bool domain_blocking { get; set; default = false; }
 	public bool notifying { get; set; default = false; }
+	public string? note { get; set; default = null; }
 
 	public string to_string () {
 		string label = "";
@@ -23,6 +25,9 @@ public class Tuba.API.Relationship : Entity {
 			label = _("Mutuals");
 		else if (followed_by)
 			label = _("Follows you");
+		else if (blocked_by)
+			// translators: as in, you've been blocked by them
+			label = _("Blocks you");
 
 		return label;
 	}
@@ -89,6 +94,27 @@ public class Tuba.API.Relationship : Entity {
 			req.with_param (param, val);
 
 		req.exec ();
+	}
+
+	public void modify_note (string comment) {
+		var builder = new Json.Builder ();
+		builder.begin_object ();
+
+		builder.set_member_name ("comment");
+		builder.add_string_value (comment);
+
+		builder.end_object ();
+
+		new Request.POST (@"/api/v1/accounts/$id/note")
+			.with_account (accounts.active)
+			.body_json (builder)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				invalidate (node);
+				debug (@"Performed \"note\" on Relationship $id");
+			})
+			.exec ();
 	}
 
 	public void question_modify_block (string handle, bool block = true) {

@@ -90,6 +90,8 @@ public class Tuba.PollPage : ComposerPage {
 		add_poll_row ();
 	}
 
+	Gtk.ToggleButton sensitive_media_button;
+	Gtk.ToggleButton multi_button;
 	public override void on_build () {
 		base.on_build ();
 
@@ -116,50 +118,25 @@ public class Tuba.PollPage : ComposerPage {
 		};
 		add_poll_action_button.clicked.connect (add_poll_row_without_title);
 
-		var multi_button = new Gtk.ToggleButton () {
+		multi_button = new Gtk.ToggleButton () {
 			icon_name = "radio-checked-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			tooltip_text = _("Enable Multiple Choice"),
 			css_classes = {"flat"}
 		};
-		multi_button.bind_property (
-			"active",
-			this,
-			"multiple-choice",
-			GLib.BindingFlags.SYNC_CREATE,
-			(b, src, ref target) => {
-				var multi_button_active = src.get_boolean ();
-				target.set_boolean (multi_button_active);
-				multi_button.icon_name = multi_button_active ? "checkbox-checked-symbolic" : "radio-checked-symbolic";
-				// translators: multiple choice as in allow the user to pick multiple poll options
-				multi_button.tooltip_text = multi_button_active ? _("Disable Multiple Choice") : _("Enable Multiple Choice");
-				return true;
-			}
-		);
+		multi_button.toggled.connect (on_multi_button_toggle);
+		on_multi_button_toggle ();
 
-		var sensitive_media_button = new Gtk.ToggleButton () {
+		sensitive_media_button = new Gtk.ToggleButton () {
 			icon_name = "tuba-eye-open-negative-filled-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			tooltip_text = _("Hide Total Votes"),
 			css_classes = {"flat"}
 		};
-		sensitive_media_button.bind_property (
-			"active",
-			this,
-			"hide-totals",
-			GLib.BindingFlags.SYNC_CREATE,
-			(b, src, ref target) => {
-				var sensitive_media_button_active = src.get_boolean ();
-				target.set_boolean (sensitive_media_button_active);
-				sensitive_media_button.icon_name = sensitive_media_button_active
-					? "tuba-eye-not-looking-symbolic"
-					: "tuba-eye-open-negative-filled-symbolic";
-				sensitive_media_button.tooltip_text = sensitive_media_button_active ? _("Show Total Votes") : _("Hide Total Votes");
-				return true;
-			}
-		);
+		sensitive_media_button.toggled.connect (on_sensitive_media_button_toggle);
+		on_sensitive_media_button_toggle ();
 
 		bottom_bar.pack_start (add_poll_action_button);
 		bottom_bar.pack_start (multi_button);
@@ -170,7 +147,7 @@ public class Tuba.PollPage : ComposerPage {
 
 			foreach (var option in status.poll.options) {
 				if (option != null) add_poll_row (option);
-            }
+			}
 
 			install_expires_in (status.poll.expires_at);
 		} else {
@@ -180,6 +157,23 @@ public class Tuba.PollPage : ComposerPage {
 		}
 
 		bottom_bar.show ();
+	}
+
+	void on_multi_button_toggle () {
+		var multi_button_active = multi_button.active;
+		this.multiple_choice = multi_button_active;
+		multi_button.icon_name = multi_button_active ? "checkbox-checked-symbolic" : "radio-checked-symbolic";
+		// translators: multiple choice as in allow the user to pick multiple poll options
+		multi_button.tooltip_text = multi_button_active ? _("Disable Multiple Choice") : _("Enable Multiple Choice");
+	}
+
+	void on_sensitive_media_button_toggle () {
+		var sensitive_media_button_active = sensitive_media_button.active;
+		this.hide_totals = sensitive_media_button_active;
+		sensitive_media_button.icon_name = sensitive_media_button_active
+					? "tuba-eye-not-looking-symbolic"
+					: "tuba-eye-open-negative-filled-symbolic";
+		sensitive_media_button.tooltip_text = sensitive_media_button_active ? _("Show Total Votes") : _("Hide Total Votes");
 	}
 
 	private void add_poll_row (string? content = null) {
@@ -195,13 +189,14 @@ public class Tuba.PollPage : ComposerPage {
 
 		bind_property ("can-delete", row.delete_button, "visible", GLib.BindingFlags.SYNC_CREATE);
 		row.deleted.connect (remove_poll_row);
-		row.bind_property ("is-valid", this, "is-valid", GLib.BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-			target.set_boolean (!check_invalid ());
-
-			return true;
-		});
+		row.notify["is-valid"].connect (on_row_invalid);
+		on_row_invalid ();
 
 		check_poll_items ();
+	}
+
+	private void on_row_invalid () {
+		this.is_valid = !check_invalid ();
 	}
 
 	public bool check_invalid () {
@@ -256,8 +251,14 @@ public class Tuba.PollPage : ComposerPage {
 		if (min > 604800) min = 0;
 		if (max < 300) max = 604800;
 
+		int one_day_index = -1;
+		int exp_count = -1;
 		foreach (var expiration in expirations) {
-			if (min <= expiration.value && max >= expiration.value) store.append (expiration);
+			if (min <= expiration.value && max >= expiration.value) {
+				store.append (expiration);
+				exp_count = exp_count + 1;
+				if (expiration.value <= 86400) one_day_index = exp_count;
+			}
 		}
 
 		expiration_button = new Gtk.DropDown (store, null) {
@@ -283,6 +284,8 @@ public class Tuba.PollPage : ComposerPage {
 			) {
 				expiration_button.selected = default_exp_index;
 			}
+		} else if (one_day_index > -1) {
+			expiration_button.selected = one_day_index;
 		}
 
 		add_button (expiration_button);

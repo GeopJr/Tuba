@@ -32,6 +32,7 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	public Gee.ArrayList<API.AccountRole>? roles { get; set; default = null; }
 	public Gee.ArrayList<API.AccountField>? fields { get; set; default = null; }
 	public AccountSource? source { get; set; default = null; }
+	public API.AccountRole? role { get; set; default = null; }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
@@ -53,13 +54,13 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	}
 	public string domain {
 		owned get {
-            Uri uri;
-            try {
-                uri = Uri.parse (url, UriFlags.NONE);
-            } catch (GLib.UriError e) {
-                warning (e.message);
-                return "";
-            }
+			Uri uri;
+			try {
+				uri = Uri.parse (url, UriFlags.NONE);
+			} catch (GLib.UriError e) {
+				warning (e.message);
+				return "";
+			}
 			return uri.get_host ();
 		}
 	}
@@ -121,9 +122,9 @@ public class Tuba.API.Account : Entity, Widgetizable {
 			open ();
 		else {
 			account.resolve.begin (url, (obj, res) => {
-                try {
-                    account.resolve.end (res).open ();
-                } catch (Error e) {
+				try {
+					account.resolve.end (res).open ();
+				} catch (Error e) {
 					warning (@"Error opening account: $(account.handle) - $(e.message)");
 				}
 			});
@@ -131,12 +132,12 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	}
 
 	public Request accept_follow_request () {
-        return new Request.POST (@"/api/v1/follow_requests/$id/authorize")
-            .with_account (accounts.active);
-    }
+		return new Request.POST (@"/api/v1/follow_requests/$id/authorize")
+			.with_account (accounts.active);
+	}
 
 	public Request decline_follow_request () {
-        return new Request.POST (@"/api/v1/follow_requests/$id/reject")
-            .with_account (accounts.active);
-    }
+		return new Request.POST (@"/api/v1/follow_requests/$id/reject")
+			.with_account (accounts.active);
+	}
 }

@@ -25,6 +25,7 @@
 	public API.Account? kind_instigator { get; set; default = null; }
 	private Gtk.Button? quoted_status_btn { get; set; default = null; }
 	public bool enable_thread_lines { get; set; default = false; }
+	public API.Translation? translation { get; private set; default = null; }
 
 	private bool _can_be_opened = true;
 	public bool can_be_opened {
@@ -72,6 +73,8 @@
 			if (value != _kind) {
 				_kind = value;
 				change_kind ();
+				if (status != null)
+					aria_describe_status ();
 			}
 		}
 	}
@@ -123,7 +126,7 @@
 	[GtkChild] protected unowned Gtk.Label spoiler_label_rev;
 	[GtkChild] protected unowned Gtk.Box spoiler_status_con;
 
-	[GtkChild] protected unowned Gtk.Stack filter_stack;
+	[GtkChild] public unowned Gtk.Stack filter_stack;
 	[GtkChild] protected unowned Gtk.Label filter_label;
 
 	public ActionsRow actions { get; private set; }
@@ -137,6 +140,8 @@
 	private SimpleAction edit_history_simple_action;
 	private SimpleAction stats_simple_action;
 	private SimpleAction toggle_pinned_simple_action;
+	private SimpleAction translate_simple_action;
+	private SimpleAction show_original_simple_action;
 
 	protected Adw.Bin emoji_reactions;
 	public Gee.ArrayList<API.EmojiReaction>? reactions {
@@ -157,6 +162,9 @@
 	}
 
 	construct {
+		pin_indicator.update_property (Gtk.AccessibleProperty.LABEL, pin_indicator.tooltip_text, -1);
+		edited_indicator.update_property (Gtk.AccessibleProperty.LABEL, edited_indicator.tooltip_text, -1);
+
 		name_label.use_markup = false;
 		avatar_overlay.set_size_request (avatar.size, avatar.size);
 		open.connect (on_open);
@@ -205,8 +213,12 @@
 			status: status
 		);
 
-		if (kind == null && status.reblog != null) {
-			kind = InstanceAccount.KIND_REMOTE_REBLOG;
+		if (kind == null) {
+			if (status.reblog != null) {
+				kind = InstanceAccount.KIND_REMOTE_REBLOG;
+			} else if (status.in_reply_to_id != null || status.in_reply_to_account_id != null) {
+				kind = InstanceAccount.KIND_REPLY;
+			}
 		}
 
 		init_menu_button ();
@@ -246,6 +258,17 @@
 			var delete_status_simple_action = new SimpleAction ("delete-status", null);
 			delete_status_simple_action.activate.connect (delete_status);
 			action_group.add_action (delete_status_simple_action);
+		} else if (accounts.active.instance_info.tuba_can_translate) {
+			translate_simple_action = new SimpleAction ("translate", null);
+			translate_simple_action.activate.connect (translate);
+			translate_simple_action.set_enabled (true);
+
+			show_original_simple_action = new SimpleAction ("show-original", null);
+			show_original_simple_action.activate.connect (translate);
+			show_original_simple_action.set_enabled (false);
+
+			action_group.add_action (translate_simple_action);
+			action_group.add_action (show_original_simple_action);
 		}
 	}
 
@@ -273,6 +296,32 @@
 			menu_model.append (_("Edit"), "status.edit-status");
 			menu_model.append (_("Delete"), "status.delete-status");
 		} else {
+			if (
+				accounts.active.instance_info.tuba_can_translate
+				&& status.formal.tuba_translatable
+				&& (
+					status.formal.visibility == "public"
+					|| status.formal.visibility == "unlisted"
+				)
+				&& Tuba.default_locale != status.formal.language
+				&& (
+					Tuba.default_locale != "en-US"
+					|| status.formal.language != "en"
+				)
+			) {
+				var translate_menu_item = new GLib.MenuItem (_("Translate"), "status.translate");
+				translate_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+
+				// translators: Post menu items to revert a translation
+				var show_original_menu_item = new GLib.MenuItem (_("Show Original"), "status.show-original");
+				show_original_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+
+				// We need 2 items because we apparently
+				// can't update labels
+				menu_model.append_item (translate_menu_item);
+				menu_model.append_item (show_original_menu_item);
+			}
+
 			menu_model.append (_("Report"), "status.report");
 		}
 
@@ -285,7 +334,7 @@
 	}
 
 	private void open_in_browser () {
-		Host.open_uri (status.formal.url ?? status.formal.account.url);
+		Host.open_url (status.formal.url ?? status.formal.account.url);
 	}
 
 	private void report_status () {
@@ -356,12 +405,70 @@
 		);
 	}
 
+	private void translate () {
+		if (translation != null) {
+			translation = null;
+			bind ();
+
+			translate_simple_action.set_enabled (true);
+			show_original_simple_action.set_enabled (false);
+			return;
+		}
+
+		if (accounts.active.instance_info.pleroma != null) {
+			new Request.GET (@"/api/v1/statuses/$(status.formal.id)/translations/$(Tuba.default_locale)")
+				.with_account (accounts.active)
+				.then ((in_stream) => {
+					var parser = Network.get_parser_from_inputstream (in_stream);
+					var node = network.parse_node (parser);
+					var akkotrans = API.AkkomaTranslation.from (node);
+					translation = new API.Translation () {
+						content = akkotrans.text,
+						detected_source_language = akkotrans.detected_language
+					};
+					bind ();
+
+					translate_simple_action.set_enabled (false);
+					show_original_simple_action.set_enabled (true);
+				})
+				.on_error ((code, message) => {
+					warning (@"Couldn't translate $(status.formal.id): $code $message");
+					app.toast (_("Couldn't translate: %s").printf (message));
+				})
+				.exec ();
+
+			return;
+		}
+
+		new Request.POST (@"/api/v1/statuses/$(status.formal.id)/translate")
+			.with_form_data ("lang", Tuba.default_locale)
+			.with_account (accounts.active)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				translation = API.Translation.from (node);
+				bind ();
+
+				translate_simple_action.set_enabled (false);
+				show_original_simple_action.set_enabled (true);
+			})
+			.on_error ((code, message) => {
+				warning (@"Couldn't translate $(status.formal.id): $code $message");
+				app.toast (_("Couldn't translate: %s").printf (message));
+			})
+			.exec ();
+	}
+
 	protected string spoiler_text {
 		owned get {
 			var text = status.formal.spoiler_text;
 			if (text == null || text == "") {
 				return _("Show More");
 			} else {
+				if (translation != null && translation.spoiler_text != null && translation.spoiler_text != "") {
+					text = translation.spoiler_text;
+				}
+
 				spoiler_text_revealed = text;
 				return text;
 			}
@@ -383,14 +490,25 @@
 				var date_local = _("%B %e, %Y");
 
 				// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES
-				var date_parsed = new GLib.DateTime.from_iso8601 (status.formal.edited_at ?? status.formal.created_at, null);
+				var date_parsed = new GLib.DateTime.from_iso8601 (this.full_date, null);
 				date_parsed = date_parsed.to_timezone (new TimeZone.local ());
 
 				return date_parsed.format (@"$date_local $expanded_separator %H:%M").replace (" ", ""); // %e prefixes with whitespace on single digits
 			} else {
-				return DateTime.humanize (status.formal.edited_at ?? status.formal.created_at);
+				return DateTime.humanize (this.full_date);
 			}
 		}
+	}
+
+	protected string full_date {
+		get {
+			return status.formal.edited_at ?? status.formal.created_at;
+		}
+	}
+
+	private string formatted_full_date () {
+		return new GLib.DateTime.from_iso8601 (this.full_date, null)
+			.format ("%F %T");
 	}
 
 	public string title_text {
@@ -432,8 +550,10 @@
 		Tuba.InstanceAccount.Kind res_kind;
 		accounts.active.describe_kind (this.kind, out res_kind, this.kind_instigator.display_name, this.kind_instigator.url);
 
+		if (header_button_activate > 0) header_button.disconnect (header_button_activate);
 		if (res_kind.icon == null) {
 			//  status_box.margin_top = 18;
+			header_icon.visible = header_button.visible = false;
 			return;
 		};
 
@@ -446,17 +566,25 @@
 					size = 34,
 					valign = Gtk.Align.START,
 					halign = Gtk.Align.START,
-					overflow = Gtk.Overflow.HIDDEN
+					overflow = Gtk.Overflow.HIDDEN,
+					allow_mini_profile = true
 				};
 				actor_avatar.add_css_class ("ttl-status-avatar-actor");
 
+				string actor_handle;
 				if (this.kind_instigator != null) {
 					actor_avatar_binding = this.bind_property ("kind_instigator", actor_avatar, "account", BindingFlags.SYNC_CREATE);
 					actor_avatar.clicked.connect (open_kind_instigator_account);
+					actor_handle = this.kind_instigator.handle;
 				} else {
 					actor_avatar_binding = status.bind_property ("account", actor_avatar, "account", BindingFlags.SYNC_CREATE);
 					actor_avatar.clicked.connect (open_status_account);
+					actor_handle = status.account.handle;
 				}
+
+				// translators: Tooltip text for avatars in posts.
+				//				The variable is a string user handle.
+				actor_avatar.tooltip_text = _("Open %s's Profile").printf (actor_handle);
 			}
 			avatar.add_css_class ("ttl-status-avatar-border");
 			avatar_overlay.child = actor_avatar;
@@ -471,9 +599,11 @@
 		header_label.label = res_kind.description;
 		header_kind_url = res_kind.url;
 
-		if (header_button_activate > 0) header_button.disconnect (header_button_activate);
-		if (header_kind_url != null)
+		if (header_kind_url != null) {
 			header_button_activate = header_button.clicked.connect (on_header_button_clicked);
+		} else {
+			header_button_activate = header_button.clicked.connect (on_open);
+		}
 	}
 
 	private void on_header_button_clicked () {
@@ -509,8 +639,185 @@
 			);
 	}
 
+	private void aria_describe_status () {
+		if (filter_stack.visible_child_name == "filter") {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			string aria_filter = _("Filtered post");
+			if (this.status.formal.tuba_filter_warn != null) {
+				aria_filter += @": $(this.status.formal.tuba_filter_warn)";
+			}
+
+			this.update_property (Gtk.AccessibleProperty.LABEL, aria_filter, -1);
+
+			return;
+		}
+
+		// translators: This is an accessibility label.
+		//				Screen reader users are going to hear this a lot,
+		//				please be mindful.
+		//				The first variable is the post's visibility (e.g. public).
+		//				The second one is the author's name and the third
+		//				one is the author's handle.
+		string post = _("%s post by %s (%s).").printf (
+			visibility_indicator.tooltip_text,
+			this.title_text,
+			this.subtitle_text
+		);
+
+		string aria_date = DateTime.humanize_aria (this.full_date);
+		string aria_date_prefixed = status.formal.is_edited
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is a string date.
+			? _("Edited: %s.").printf (aria_date)
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is a string date.
+			: _("Published: %s.").printf (aria_date);
+
+		string aria_pinned = "";
+		if (status.formal.pinned) {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			aria_pinned = _("The post is pinned.");
+		}
+
+		string aria_quote = "";
+		if (status.formal.quote != null) {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			aria_quote = _("Contains a quoted post.");
+		}
+
+		string aria_attachments = "";
+		if (status.formal.has_media) {
+			aria_attachments = GLib.ngettext (
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				//				The variable is the number of attachments the post has.
+				"Contains %d attachment.", "Contains %d attachments.",
+				(ulong) status.formal.media_attachments.size
+			).printf (status.formal.media_attachments.size);
+		}
+
+		string aria_poll = "";
+		if (status.formal.poll != null) {
+			aria_poll = status.formal.poll.expired
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				? _("Contains an expired poll.")
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				: _("Contains a poll.");
+		}
+
+		string aria_spoiler = "";
+		if (status.formal.has_spoiler) {
+			if (status.formal.spoiler_text == null || status.formal.spoiler_text == "") {
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				aria_spoiler = _("The post has a spoiler.");
+			} else {
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				//				The variable is the spoiler title.
+				aria_spoiler = _("The post has the following spoiler: %s.").printf (this.spoiler_text);
+			}
+		}
+
+		string aria_app = "";
+		if (status.formal.application != null) {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is the name of the app the post was
+			//				made with (e.g. Tuba).
+			aria_app = _("Posted using %s.").printf (status.formal.application.name);
+		}
+
+		string aria_reactions = "";
+		if (status.formal.compat_status_reactions != null && status.formal.compat_status_reactions.size > 0) {
+			aria_reactions = GLib.ngettext (
+				// translators: This is an accessibility label.
+				//				Screen reader users are going to hear this a lot,
+				//				please be mindful.
+				//				The variable is the amount of reactions the post
+				//				has.
+				"Contains %d reaction.", "Contains %d reactions.",
+				(ulong) status.formal.compat_status_reactions.size
+			).printf (status.formal.compat_status_reactions.size);
+		}
+
+		// translators: This is an accessibility label.
+		//				Screen reader users are going to hear this a lot,
+		//				please be mindful.
+		//				The variables are strings <amount> replies,
+		//				<amount> boosts, <amount> favorites.
+		string aria_stats = "Post stats: %s, %s, %s.".printf (
+			GLib.ngettext (
+				"%s reply",
+				"%s replies",
+				(ulong) status.formal.replies_count
+			).printf (status.formal.replies_count.to_string ()),
+			GLib.ngettext (
+				"%s boost",
+				"%s boosts",
+				(ulong) status.formal.reblogs_count
+			).printf (status.formal.reblogs_count.to_string ()),
+			GLib.ngettext (
+				"%s favorite",
+				"%s favorites",
+				(ulong) status.formal.favourites_count
+			).printf (status.formal.favourites_count.to_string ())
+		);
+
+		string aria_translation = "";
+		if (translation_label != null) aria_translation = translation_label.get_text ();
+
+		this.update_property (
+			Gtk.AccessibleProperty.LABEL,
+			"%s %s %s %s %s %s %s %s %s %s %s %s.".printf (
+				header_label.accessible_text,
+				post,
+				aria_date_prefixed,
+				aria_pinned,
+				aria_quote,
+				aria_attachments,
+				aria_poll,
+				aria_spoiler,
+				aria_stats,
+				aria_reactions,
+				aria_app,
+				aria_translation
+			),
+			-1
+		);
+
+		spoiler_status_con.update_property (Gtk.AccessibleProperty.LABEL, aria_spoiler, -1);
+
+		if (quoted_status_btn != null) {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				This is used to announce the quoted post
+			quoted_status_btn.update_property (Gtk.AccessibleProperty.DESCRIPTION, _("Quoted Post"), -1);
+		}
+	}
+
 	protected Gtk.Button prev_card;
 	private Widgets.Attachment.Box attachments;
+	private Gtk.Label translation_label;
 	private Widgets.VoteBox poll;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	ulong[] formal_handler_ids = {};
@@ -538,9 +845,15 @@
 		actions.reply.connect (on_reply_button_clicked);
 		content_column.append (actions);
 
+		this.content.has_quote = status.formal.quote != null;
 		this.content.mentions = status.formal.mentions;
 		this.content.instance_emojis = status.formal.emojis_map;
-		this.content.content = status.formal.content;
+
+		if (translation != null && translation.content != null && translation.content != "") {
+			this.content.content = translation.content;
+		} else {
+			this.content.content = status.formal.content;
+		}
 
 		if (quoted_status_btn != null) content_box.remove (quoted_status_btn);
 		if (status.formal.quote != null && !is_quote) {
@@ -570,6 +883,11 @@
 		handle_label.label = this.subtitle_text;
 		date_label.label = this.date;
 
+		if (!expanded) {
+			date_label.tooltip_text = formatted_full_date ();
+			date_label.update_property (Gtk.AccessibleProperty.LABEL, date_label.tooltip_text, -1);
+		}
+
 		pin_indicator.visible = status.formal.pinned;
 		update_toggle_pinned_label ();
 		edited_indicator.visible = status.formal.is_edited;
@@ -578,6 +896,7 @@
 		var t_visibility = accounts.active.visibility[status.formal.visibility];
 		visibility_indicator.icon_name = t_visibility.small_icon_name;
 		visibility_indicator.tooltip_text = t_visibility.name;
+		visibility_indicator.update_property (Gtk.AccessibleProperty.LABEL, t_visibility.name, -1);
 
 		if (change_background_on_direct && status.formal.visibility == "direct") {
 			this.add_css_class ("direct");
@@ -586,6 +905,10 @@
 		}
 
 		avatar.account = status.formal.account;
+		// translators: Tooltip text for avatars in posts.
+		//				The variable is a string user handle.
+		avatar.tooltip_text = _("Open %s's Profile").printf (status.formal.account.handle);
+
 		reactions = status.formal.compat_status_reactions;
 
 		name_label.instance_emojis = status.formal.account.emojis_map;
@@ -594,20 +917,63 @@
 		if (poll != null) content_box.remove (poll);
 		if (status.formal.poll != null) {
 			poll = new Widgets.VoteBox ();
+			poll.translation = translation;
 			bindings += status.formal.bind_property ("poll", poll, "poll", BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 			content_box.append (poll);
 		}
 
 		if (attachments != null) content_box.remove (attachments);
 		if (status.formal.has_media) {
+			if (translation != null && translation.media_attachments != null && translation.media_attachments.size > 0) {
+				var translated_media = new Gee.HashMap<string, string> ();
+				translation.media_attachments.@foreach (e => {
+					translated_media.set (e.id, e.description);
+					return true;
+				});
+
+				status.formal.media_attachments.@foreach (item => {
+					if (translated_media.has_key (item.id)) {
+						item.tuba_translated_alt_text = translated_media.get (item.id);
+					}
+
+					return true;
+				});
+			} else {
+				status.formal.media_attachments.@foreach (item => {
+					item.tuba_translated_alt_text = null;
+					return true;
+				});
+			}
+
 			attachments = new Widgets.Attachment.Box ();
 			attachments.has_spoiler = status.formal.sensitive;
 			attachments.list = status.formal.media_attachments;
 			content_box.append (attachments);
 		}
 
+		if (translation_label != null) content_box.remove (translation_label);
+		if (translation != null && translation.provider != "") {
+			string translation_label_content;
+			if (translation.detected_source_language != "") {
+				// translatiors: the first variable is a language name,
+				// 				 the second variable is a service name e.g. DeepL
+				translation_label_content = _("Translated from %s using %s").printf (translation.detected_source_language.up (), translation.provider);
+			} else {
+				// translatiors: the variable is a service name e.g. DeepL
+				translation_label_content = _("Translated using %s").printf (translation.provider);
+			}
+
+			translation_label = new Gtk.Label (translation_label_content) {
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR,
+				xalign = 1.0f,
+				css_classes = {"subtitle"}
+			};
+			content_box.append (translation_label);
+		}
+
 		if (prev_card != null) content_box.remove (prev_card);
-		if (settings.show_preview_cards && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
+		if (settings.show_preview_cards && !status.formal.has_media && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
 			try {
 				prev_card = (Gtk.Button) status.formal.card.to_widget ();
 				prev_card.clicked.connect (open_card_url);
@@ -620,6 +986,8 @@
 		formal_handler_ids += status.formal.notify["favourites-count"].connect (show_view_stats_action);
 		formal_handler_ids += status.formal.notify["tuba-thread-role"].connect (install_thread_line);
 		formal_handler_ids += status.formal.notify["tuba-spoiler-revealed"].connect (update_spoiler_status);
+
+		aria_describe_status ();
 	}
 
 	public void soft_unbind () {
@@ -661,6 +1029,7 @@
 	[GtkCallback] public void toggle_filter () {
 		if (this.status.formal.filtered != null && this.status.formal.filtered.size > 0) {
 			filter_stack.visible_child_name = filter_stack.visible_child_name == "filter" ? "status" : "filter";
+			aria_describe_status ();
 		}
 	}
 
@@ -694,6 +1063,7 @@
 
 		date_label.label = this.date;
 		date_label.wrap = true;
+		date_label.tooltip_text = null;
 
 		// The bottom bar
 		var bottom_info = new Gtk.FlowBox () {

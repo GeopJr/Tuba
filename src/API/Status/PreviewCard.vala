@@ -56,7 +56,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 		public bool open_special_card (string t_url) {
 			switch (this) {
 				case BASIC:
-					Host.open_uri (t_url);
+					Host.open_url (t_url);
 					return true;
 				default:
 					return false;
@@ -129,8 +129,8 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 		return base.deserialize_array_type (prop);
 	}
 
-    public bool is_peertube {
-        get {
+	public bool is_peertube {
+		get {
 			// Disable PeerTube support for now
 			// see #253
 			#if false
@@ -141,22 +141,22 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 				return false;
 			#endif
 		}
-    }
+	}
 
 	public bool is_funkwhale {
-        get {
+		get {
 			bool provider_fw = provider_name.last_index_of ("- Funkwhale") > 0;
 			bool url_fw = url.last_index_of ("/library/tracks/") > -1;
 
 			return kind == "video" && provider_fw && url_fw;
 		}
-    }
+	}
 
 	public bool is_bookwyrm {
-        get {
+		get {
 			return kind == "link" && bookwyrm_regex.match (url);
 		}
-    }
+	}
 
 	public override Gtk.Widget to_widget () {
 		return new Widgets.PreviewCard (this);
@@ -171,7 +171,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 		try {
 			card_special_type.parse_url (card_url, out special_host, out special_api_url);
 		} catch {
-			Host.open_uri (card_url);
+			Host.open_url (card_url);
 			return;
 		}
 
@@ -205,7 +205,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 				}
 
 				if (failed || res_url == "") {
-					Host.open_uri (card_url);
+					Host.open_url (card_url);
 				} else {
 					if (bookwyrm_obj == null) {
 						app.main_window.show_media_viewer (res_url, Tuba.Attachment.MediaType.VIDEO, null, null, false, null, card_url, true);
@@ -215,7 +215,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 				}
 			})
 			.on_error (() => {
-				Host.open_uri (card_url);
+				Host.open_url (card_url);
 			})
 			.exec ();
 	}

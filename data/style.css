@@ -1,4 +1,4 @@
-.ttl-sidebar .badge {
+.notification-badge {
 	font-weight: bold;
 	font-size: 0.8em;
 	border-radius: 10px;
@@ -8,7 +8,7 @@
 	color: @text_view_bg;
 }
 
-.ttl-sidebar .badge.no-attention {
+.notification-badge.no-attention {
 	background: alpha(@sidebar_fg_color, .4);
 }
 
@@ -22,13 +22,6 @@
 
 headerbar.flat.no-title .title {
 	opacity: 0;
-}
-
-.attachment,
-.attachment button,
-flowboxchild {
-	padding: 0px;
-	margin: 0px;
 }
 
 .cover-badge {
@@ -196,25 +189,14 @@ flowboxchild {
 }
 
 .ttl-status-badge {
-	color: white;
 	border-radius: 6px;
 	margin: 8px;
-}
-
-.ttl-status-badge:not(.attachmentpageattachment) {
-	background-color: rgba(0, 0, 0, .8);
-}
-
-.ttl-status-badge.attachmentpageattachment>*.error {
-	background-color: alpha(mix(@red_4, white, .8), .8);
-}
-
-.ttl-status-badge.attachmentpageattachment>*.success {
-	background-color: alpha(mix(@green_4, white, .8), .8);
-}
-
-.ttl-status-badge>* {
 	padding: 1px 6px;
+}
+
+.ttl-status-badge:not(.error):not(.success) {
+	color: white;
+	background-color: rgba(0, 0, 0, .8);
 }
 
 .ttl-status-badge.sensitive-label {
@@ -222,12 +204,25 @@ flowboxchild {
 	border-radius: 9999px;
 }
 
-.ttl-status-badge>button>label {
-	padding: 1px 6px;
+.ttl-profile-fields-box > flowboxchild > .ttl-profile-field {
+	border-bottom: solid 1px @sidebar_border_color;
+	border-right: solid 1px @sidebar_border_color;
 }
 
-.ttl-status-badge>.image-button {
-	padding: 1px 6px;
+.ttl-profile-fields-box-container.odd > .ttl-profile-fields-box > flowboxchild:last-child > .ttl-profile-field {
+	border-bottom: none;
+}
+
+.ttl-profile-fields-box-container:not(.odd) {
+	border: none;
+}
+
+.ttl-profile-fields-box-container {
+	margin-right: -1px; /* much simplier than complex nth-child selectors */
+}
+
+.ttl-profile-field {
+	padding: 6px 12px;
 }
 
 .ttl-verified-field {
@@ -270,6 +265,10 @@ flowboxchild {
 .card-spacing {
 	margin-top: 6px;
 	margin-bottom: 6px;
+}
+
+.card-spacing > *:focus-within {
+	border-radius: inherit;
 }
 
 .ttl-post.direct {
@@ -324,21 +323,27 @@ GtkSourceAssistant.completion list row{
 	text-transform: uppercase;
 }
 
+flowboxchild,
+.no-padding {
+	padding: 0;
+}
+
 .preview_card {
 	padding: 0;
 }
 
-.preview_card_image:dir(ltr) {
+.preview_card_v {
+	border-radius: 6px 6px 0px 0px;
+}
+
+.preview_card_h:dir(ltr) {
 	border-radius: 6px 0px 0px 6px;
 }
 
-.preview_card_image:dir(rtl) {
+.preview_card_h:dir(rtl) {
 	border-radius: 0px 6px 6px 0px;
 }
 
-.preview_card_video {
-	border-radius: 6px 6px 0px 0px;
-}
 
 .bkwm-desc {
 	padding: 12px;
@@ -476,6 +481,10 @@ video > overlay > revealer > controls {
 	background-color: @card_bg_color;
 }
 
+.ttl-profile-cover > .content {
+	background: none;
+}
+
 /* .ttl-view:not(.no-transition) .large.content,
 .ttl-view:not(.no-transition) .small.content { */
 .ttl-view:not(.no-transition) .large.fake-content,
@@ -514,7 +523,7 @@ video > overlay > revealer > controls {
 .ttl-view .small.fake-content .card {
 	box-shadow: none;
 }
-.ttl-view .small .preview_card.explore .preview_card_image {
+.ttl-view .small .preview_card.explore .preview_card_h {
 	border-radius: 0px;
 }
 

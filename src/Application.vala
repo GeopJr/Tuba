@@ -12,6 +12,7 @@ namespace Tuba {
 	public static AccountStore accounts;
 	public static Network network;
 	public static Streams streams;
+	public static NetworkMonitor network_monitor;
 
 	//  public static EntityCache entity_cache;
 	//  public static ImageCache image_cache;
@@ -26,11 +27,15 @@ namespace Tuba {
 	public static bool is_flatpak = false;
 	public static string cache_path;
 
+	public static string default_locale;
+
 	public class Application : Adw.Application {
 
+		public GLib.ProxyResolver? proxy { get; set; default=null; }
 		public Dialogs.MainWindow? main_window { get; set; }
 		public Dialogs.NewAccount? add_account_window { get; set; }
 		public bool is_mobile { get; set; default=false; }
+		public bool is_online { get; private set; default=true; }
 
 		public Locales app_locales { get; construct set; }
 
@@ -80,7 +85,8 @@ namespace Tuba {
 			{ "open-current-account-profile", open_current_account_profile },
 			{ "open-announcements", open_announcements },
 			{ "open-follow-requests", open_follow_requests },
-			{ "open-mutes-blocks", open_mutes_blocks }
+			{ "open-mutes-blocks", open_mutes_blocks },
+			{ "open-admin-dashboard", open_admin_dashboard }
 		};
 
 		#if DEV_MODE
@@ -132,7 +138,7 @@ namespace Tuba {
 			);
 		}
 
-		private void handle_web_ap (Uri uri) {
+		public void handle_web_ap (Uri uri) {
 			if (accounts.active == null) return;
 
 			accounts.active.resolve.begin (WebApHandler.from_uri (uri), (obj, res) => {
@@ -141,9 +147,7 @@ namespace Tuba {
 				} catch (Error e) {
 					string msg = @"Failed to resolve URL \"$uri\": $(e.message)";
 					warning (msg);
-
-					var dlg = inform (_("Error"), msg);
-					dlg.present (app.main_window);
+					this.toast (msg);
 				}
 			});
 		}
@@ -207,8 +211,33 @@ namespace Tuba {
 				GLib.Environment.set_variable ("GDK_DEBUG", "gl-no-fractional", false);
 			}
 
+			network_monitor = NetworkMonitor.get_default ();
+
 			app = new Application ();
 			return app.run (args);
+		}
+
+		private void on_network_change (bool online) {
+			// We really need to avoid triggering it unnecessarily
+			// wait 5 seconds before triggering it
+			// also don't trust the 'online' status
+			GLib.Timeout.add_once (5000, on_network_change_cb);
+		}
+
+		private void on_network_change_cb () {
+			bool online = network_monitor.network_available;
+
+			// Avoid triggering it as much as possible
+			// as it causes websocket reconnects and
+			// timeline refreshes
+			if (is_online == online) return;
+
+			is_online = online;
+			if (!is_online) {
+				foreach (var win in app.get_windows ()) {
+					new Dialogs.Offline (win);
+				}
+			}
 		}
 
 		protected override void startup () {
@@ -220,6 +249,17 @@ namespace Tuba {
 				}
 				Adw.init ();
 				GtkSource.init ();
+
+				var t_default_locale = Gtk.get_default_language ().to_string ();
+				if (t_default_locale == "c") {
+					default_locale = "en-US";
+				} else {
+					if (t_default_locale.index_of_char ('-') != -1) {
+						var tdl_parts = t_default_locale.split ("-", 2);
+						t_default_locale = @"$(tdl_parts[0].down ())-$(tdl_parts[1].up ())";
+					}
+					default_locale = t_default_locale;
+				}
 
 				settings = new Settings ();
 				streams = new Streams ();
@@ -237,11 +277,8 @@ namespace Tuba {
 				//  css_provider.load_from_resource (@"$(Build.RESOURCES)app.css");
 				//  StyleContext.add_provider_for_display (Gdk.Display.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 				//  StyleContext.add_provider_for_display (Gdk.Display.get_default (), zoom_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-			}
-			catch (Error e) {
+			} catch (Error e) {
 				var msg = "Could not start application: %s".printf (e.message);
-				var dlg = inform (_("Error"), msg);
-				dlg.present (app.main_window);
 				error (msg);
 			}
 
@@ -264,6 +301,44 @@ namespace Tuba {
 			set_accels_for_action ("app.scroll-page-down", {"Page_Down"});
 			set_accels_for_action ("app.scroll-page-up", {"Page_Up"});
 			add_action_entries (APP_ENTRIES, this);
+
+			if (settings.monitor_network)
+				network_monitor.network_changed.connect (on_network_change);
+
+			if (settings.proxy != "")
+				on_proxy_change ();
+			settings.notify ["proxy"].connect (on_proxy_notify);
+		}
+
+		private void on_proxy_change (bool recover = false) {
+			if (settings.proxy != "") {
+				try {
+					if (Uri.is_valid (settings.proxy, UriFlags.NONE)) {
+						proxy = new GLib.SimpleProxyResolver (settings.proxy, null);
+					}
+				} catch (Error e) {
+					// translators: Toast that pops up when
+					//				an invalid proxy url has
+					//				been provided in settings
+					app.toast (_("Invalid Proxy URL"));
+					warning (e.message);
+					return;
+				}
+			} else {
+				proxy = GLib.ProxyResolver.get_default ();
+			}
+
+			if (recover && add_account_window == null) {
+				GLib.Timeout.add_once (5000, trigger_is_online_notify);
+			}
+		}
+
+		private void trigger_is_online_notify () {
+			this.notify_property ("is-online");
+		}
+
+		private void on_proxy_notify () {
+			on_proxy_change (true);
 		}
 
 		private bool activated = false;
@@ -275,6 +350,7 @@ namespace Tuba {
 				start_hidden = false;
 				return;
 			}
+
 			settings.delay ();
 		}
 
@@ -417,6 +493,10 @@ namespace Tuba {
 		public void open_mutes_blocks () {
 			main_window.open_view (new Views.MutesBlocks ());
 			close_sidebar ();
+		}
+
+		public void open_admin_dashboard () {
+			new Dialogs.Admin.Window ().present ();
 		}
 
 		private void close_sidebar () {

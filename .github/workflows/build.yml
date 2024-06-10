@@ -46,8 +46,8 @@ jobs:
         manifest-path: "build-aux/dev.geopjr.Tuba.Devel.json"
         cache-key: flatpak-builder-${{ github.sha }}
         arch: ${{ matrix.arch }}
-        repository-name: flathub-beta
-        repository-url: https://flathub.org/beta-repo/flathub-beta.flatpakrepo # until GNOME 45
+        repository-name: flathub
+        repository-url: https://dl.flathub.org/repo/flathub.flatpakrepo
   snap-builder:
     name: "Snap Builder"
     runs-on: ubuntu-latest

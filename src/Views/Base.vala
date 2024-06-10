@@ -14,6 +14,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	public int uid { get; set; default = -1; }
 	protected SimpleActionGroup actions { get; set; default = new SimpleActionGroup (); }
 	public weak Gtk.Widget? last_widget { get; private set; default=null; }
+	public string empty_timeline_icon { get; set; default="tuba-background-app-ghost-symbolic"; }
 
 	private bool _show_back_button = true;
 	public bool show_back_button {
@@ -79,8 +80,10 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		}
 		set {
 			status_image.visible = false;
-			status_image.icon_name = "tuba-background-app-ghost-symbolic";
+			status_image.icon_name = this.empty_timeline_icon;
 			status_button.visible = false;
+			this.update_state (Gtk.AccessibleState.BUSY, false, -1);
+			this.update_property (Gtk.AccessibleProperty.LABEL, null, -1);
 
 			if (value == null) {
 				states.visible_child_name = "content";
@@ -90,6 +93,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 				if (value.loading) {
 					status_stack.visible_child_name = "spinner";
 					status_spinner.spinning = true;
+					this.update_state (Gtk.AccessibleState.BUSY, true, -1);
 				} else {
 					status_stack.visible_child_name = "message";
 					status_spinner.spinning = false;
@@ -103,6 +107,12 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 
 					if (value.message != null)
 						status_message_label.label = value.message;
+
+					this.update_property (
+						Gtk.AccessibleProperty.LABEL,
+						@"$(status_title_label.label) $(status_message_label.label)",
+						-1
+					);
 				}
 			}
 			_base_status = value;
@@ -120,13 +130,14 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		// Unfortunately, Vala seems to create ref cycles out of thin air,
 		// especially when closures are involved, see e.g.
 		// https://gitlab.gnome.org/GNOME/vala/-/issues/957
-		// To work around that, we forcefully run dispose () -- which breaks any
-		// ref cycles -- when we get removed from our parent widget, the
-		// navigation view.
-		notify["parent"].connect (() => {
-			if (parent == null)
-				dispose ();
-		});
+		// or model binding.
+		// To work around that, we clear the binding manually.
+		#if !USE_LISTVIEW
+			notify["parent"].connect (() => {
+				if (parent == null)
+					unbind_listboxes ();
+			});
+		#endif
 
 		scroll_to_top.clicked.connect (on_scroll_to_top);
 		app.notify["is-mobile"].connect (update_back_btn);
@@ -159,7 +170,11 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		base.dispose ();
 	}
 
-    protected virtual void build_actions () {}
+	#if !USE_LISTVIEW
+		public virtual void unbind_listboxes () {}
+	#endif
+
+	protected virtual void build_actions () {}
 
 	protected virtual void build_header () {
 		var title = new Adw.WindowTitle (label, "");
@@ -197,5 +212,12 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 
 	public void update_last_widget () {
 		this.last_widget = app.main_window.get_focus ();
+		// Alternative way to grab focus of label links
+		// Currently replaced by RichLabel's activate_link's
+		// grab_focus as it's more reliable for this use case
+		//
+		//  if ((this.last_widget as Gtk.Label) != null) {
+		//  	this.last_widget = this.last_widget.get_focus_child ();
+		//  }
 	}
 }

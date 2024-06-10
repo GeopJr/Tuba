@@ -95,7 +95,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 			adapter.enabled = true;
 		#endif
 
-		if (accounts.active.instance_emojis?.size > 0) {
+		if (accounts.active.instance_emojis != null && accounts.active.instance_emojis.size > 0) {
 			cepbtn.visible = true;
 		}
 	}

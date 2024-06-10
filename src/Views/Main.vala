@@ -15,7 +15,7 @@ public class Tuba.Views.Main : Views.TabbedBase {
 
 	Views.Notifications notification_view;
 	construct {
-        is_main = true;
+		is_main = true;
 
 		add_tab (new Views.Home ());
 		notification_view = new Views.Notifications ();
@@ -33,7 +33,7 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		});
 
 		setup_notifications_filter_button ();
-    }
+	}
 
 	public string visible_child_name {
 		get {

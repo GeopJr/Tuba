@@ -60,6 +60,11 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		misc_submenu_model.append (_("Announcements"), "app.open-announcements");
 		misc_submenu_model.append (_("Follow Requests"), "app.open-follow-requests");
 		misc_submenu_model.append (_("Mutes & Blocks"), "app.open-mutes-blocks");
+
+		var admin_dahsboard_menu_item = new MenuItem (_("Admin Dashboard"), "app.open-admin-dashboard");
+		admin_dahsboard_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+		misc_submenu_model.append_item (admin_dahsboard_menu_item);
+
 		menu_model.append_section (null, misc_submenu_model);
 
 		misc_submenu_model = new GLib.Menu ();
@@ -143,6 +148,11 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			sidebar_avatar_btn = this.account.bind_property ("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
 			account_items.model = account.known_places;
 			update_selected_account ();
+
+			var dashboard_action = app.lookup_action ("open-admin-dashboard") as SimpleAction;
+			if (dashboard_action != null) {
+				dashboard_action.set_enabled (this.account.admin_mode);
+			}
 		} else {
 			saved_accounts.unselect_all ();
 
@@ -276,7 +286,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			if (account != null) {
 				account.resolve_open (accounts.active);
 			} else {
-				new Dialogs.NewAccount ().present ();
+				new Dialogs.NewAccount (true).present ();
 			}
 			popdown_signal ();
 		}
@@ -325,6 +335,6 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		if (row.account != null)
 			accounts.activate (row.account, true);
 		else
-			new Dialogs.NewAccount ().present ();
+			new Dialogs.NewAccount (true).present ();
 	}
 }

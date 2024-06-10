@@ -37,8 +37,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 	public void safe_save () {
 		try {
 			save ();
-		}
-		catch (GLib.Error e) {
+		} catch (GLib.Error e) {
 			warning (e.message);
 			var dlg = app.inform (_("Error"), e.message);
 			dlg.present (app.main_window);
@@ -99,8 +98,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 						}
 						account.unreviewed_follow_requests = account.source.follow_requests_count;
 					}
-				}
-				catch (Error e) {
+				} catch (Error e) {
 					warning (@"Couldn't activate account $(account.handle):");
 					warning (e.message);
 					account.error = e;
