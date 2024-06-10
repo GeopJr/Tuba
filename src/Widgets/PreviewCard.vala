@@ -57,8 +57,6 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 
 			box.orientation = Gtk.Orientation.HORIZONTAL;
 			box.homogeneous = false;
-
-			description_label.wrap = false;
 		}
 		box.prepend (image_widget);
 
