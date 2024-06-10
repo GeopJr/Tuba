@@ -152,8 +152,13 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 					accounts.active.filtered_notifications_count = policies.summary.pending_notifications_count;
 				}
 			})
-			.on_error (() => {
+			.on_error ((code, message) => {
 				accounts.active.filtered_notifications_count = 0;
+				if (code == 404) {
+					accounts.active.probably_has_notification_filters = false;
+				} else {
+					warning (@"Error while trying to get notification policy: $code $message");
+				}
 			})
 			.exec ();
 	}

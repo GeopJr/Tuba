@@ -232,6 +232,13 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 					return true;
 				});
 			})
+			.on_error ((code, message) => {
+				if (code == 404) {
+					accounts.active.probably_has_notification_filters = false;
+				} else {
+					warning (@"Error while trying to get notification policy: $code $message");
+				}
+			})
 			.exec ();
 	}
 
