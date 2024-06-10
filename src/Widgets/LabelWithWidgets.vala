@@ -333,7 +333,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 		base.add_child (builder, child, type);
 	}
 
-	public bool grab_focus () {
+	public new bool grab_focus () {
 		return this.label.grab_focus ();
 	}
 

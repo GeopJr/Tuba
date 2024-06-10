@@ -65,6 +65,12 @@
 						<property name="orientation">vertical</property>
 						<property name="vexpand">1</property>
 						<child>
+							<object class="AdwBanner" id="network_banner">
+								<property name="revealed">0</property>
+								<property name="title" translatable="yes">Offline</property>
+							</object>
+						</child>
+						<child>
 							<object class="AdwBanner" id="announcements_banner">
 								<property name="revealed">0</property>
 								<!-- translators: Button on a banner -->

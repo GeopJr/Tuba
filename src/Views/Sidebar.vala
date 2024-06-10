@@ -7,6 +7,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	[GtkChild] unowned Gtk.Popover account_switcher_popover_menu;
 	[GtkChild] unowned Adw.Banner announcements_banner;
 	[GtkChild] unowned Adw.Banner fr_banner;
+	[GtkChild] unowned Adw.Banner network_banner;
 
 	protected InstanceAccount? account { get; set; default = null; }
 
@@ -90,6 +91,12 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		construct_account_holder ();
 		announcements_banner.button_clicked.connect (view_announcements_cb);
 		fr_banner.button_clicked.connect (view_fr_cb);
+
+		app.notify["is-online"].connect (on_network_change);
+	}
+
+	void on_network_change () {
+		network_banner.revealed = !app.is_online;
 	}
 
 	public virtual Gtk.Widget on_accounts_row_create (Object obj) {
