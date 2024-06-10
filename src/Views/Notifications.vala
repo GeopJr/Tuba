@@ -167,7 +167,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	const string[] KINDS = {InstanceAccount.KIND_EDITED, InstanceAccount.KIND_MENTION, InstanceAccount.KIND_FAVOURITE, InstanceAccount.KIND_REBLOG, InstanceAccount.KIND_POLL, InstanceAccount.KIND_FOLLOW};
 	public void change_filter (string filter_id, bool refresh = true) {
 		string new_url = "/api/v1/notifications";
-		if (filter_id != "") {
+		if (filter_id != "" && filter_id != "all") {
 			bool excluded_anything = false;
 
 			new_url = @"$new_url?exclude_types[]=admin.sign_up&exclude_types[]=admin.report";
