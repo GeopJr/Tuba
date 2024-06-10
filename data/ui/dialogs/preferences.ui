@@ -95,6 +95,12 @@
 								<property name="title" translatable="yes">Darken Images on Dark Mode</property>
 							</object>
 						</child>
+						<child>
+							<object class="AdwSwitchRow" id="dim_trivial_notifications">
+								<property name="title" translatable="yes">Dim Trivial Notifications</property>
+								<property name="subtitle" translatable="yes">Notifications like favorites and boosts will be less visible</property>
+							</object>
+						</child>
 					</object>
 				</child>
 				<child>

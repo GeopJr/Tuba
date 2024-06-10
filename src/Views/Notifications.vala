@@ -21,6 +21,16 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		}
 	}
 
+	private bool is_all {
+		set {
+			if (value) {
+				this.add_css_class ("notifications-all");
+			} else {
+				this.remove_css_class ("notifications-all");
+			}
+		}
+	}
+
 	construct {
 		url = "/api/v1/notifications";
 		label = _("Notifications");
@@ -56,6 +66,13 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		box.append (notifications_filter_banner);
 		scrolled.child = box;
 		box.append (content_box);
+
+		settings.notify["dim-trivial-notifications"].connect (settings_updated);
+		settings_updated ();
+	}
+
+	private void settings_updated () {
+		Tuba.toggle_css (this, settings.dim_trivial_notifications, "dim-enabled");
 	}
 
 	private void on_notifications_filter_banner_button_clicked () {
@@ -173,17 +190,16 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	public void change_filter (string filter_id, bool refresh = true) {
 		string new_url = "/api/v1/notifications";
 		if (filter_id != "" && filter_id != "all") {
-			bool excluded_anything = false;
+			this.is_all = false;
 
 			new_url = @"$new_url?exclude_types[]=admin.sign_up&exclude_types[]=admin.report";
 			foreach (string kind in KINDS) {
 				if (kind == filter_id) continue;
 
 				new_url = @"$new_url&exclude_types[]=$kind";
-				excluded_anything = true;
 			}
-
-			if (!excluded_anything) return;
+		} else {
+			this.is_all = true;
 		}
 
 		if (new_url == this.url) return;
