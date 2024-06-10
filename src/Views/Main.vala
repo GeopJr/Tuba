@@ -50,7 +50,6 @@ public class Tuba.Views.Main : Views.TabbedBase {
 
 		bool is_notifications = (stack.visible_child as Views.Notifications) != null;
 		notifications_filter_button.visible = is_notifications;
-		header.centering_policy = is_notifications ? Adw.CenteringPolicy.LOOSE : Adw.CenteringPolicy.STRICT;
 	}
 
 	// Unused
