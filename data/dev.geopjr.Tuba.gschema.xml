@@ -19,6 +19,9 @@
 		<key name="recently-used-custom-emojis" type="as">
 			<default>[]</default>
 		</key>
+		<key name="notifications-filter" type="s">
+			<default>'all'</default>
+		</key>
 	</schema>
 
 	<schema path="/dev/geopjr/Tuba/" id="dev.geopjr.Tuba" gettext-domain="dev.geopjr.Tuba">

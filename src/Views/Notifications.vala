@@ -30,6 +30,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		needs_attention = false;
 		empty_state_title = _("No Notifications");
 
+		change_filter (settings.notifications_filter, false);
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
 
 		#if DEV_MODE
@@ -161,5 +162,40 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		return account != null
 			? @"$(account.instance)/api/v1/streaming?stream=user:notification&access_token=$(account.access_token)"
 			: null;
+	}
+
+	const string[] KINDS = {InstanceAccount.KIND_EDITED, InstanceAccount.KIND_MENTION, InstanceAccount.KIND_FAVOURITE, InstanceAccount.KIND_REBLOG, InstanceAccount.KIND_POLL, InstanceAccount.KIND_FOLLOW};
+	public void change_filter (string filter_id, bool refresh = true) {
+		string new_url = "/api/v1/notifications";
+		if (filter_id != "" && filter_id != "all") {
+			bool excluded_anything = false;
+
+			new_url = @"$new_url?exclude_types[]=admin.sign_up&exclude_types[]=admin.report";
+			foreach (string kind in KINDS) {
+				if (kind == filter_id) continue;
+
+				new_url = @"$new_url&exclude_types[]=$kind";
+				excluded_anything = true;
+			}
+
+			if (!excluded_anything) return;
+		}
+
+		if (new_url == this.url) return;
+		this.url = new_url;
+
+		if (refresh) {
+			page_next = null;
+			on_refresh ();
+		}
+	}
+
+	public override void on_new_post (Streamable.Event ev) {
+		if (
+			settings.notifications_filter != "all"
+			&& ((API.Notification) Entity.from_json (accepts, ev.get_node ())).kind != settings.notifications_filter
+		) return;
+
+		base.on_new_post (ev);
 	}
 }

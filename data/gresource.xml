@@ -75,6 +75,8 @@
         <file>gtk/dropdown/language.ui</file>
         <file>gtk/dropdown/expiration_title.ui</file>
         <file>gtk/dropdown/expiration.ui</file>
+        <file>gtk/dropdown/notification_filter_title.ui</file>
+        <file>gtk/dropdown/notification_filter.ui</file>
 
         <file>ui/views/base.ui</file>
         <file>ui/views/media_viewer.ui</file>
