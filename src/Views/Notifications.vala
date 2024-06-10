@@ -189,4 +189,13 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			on_refresh ();
 		}
 	}
+
+	public override void on_new_post (Streamable.Event ev) {
+		if (
+			settings.notifications_filter != "all"
+			&& ((API.Notification) Entity.from_json (accepts, ev.get_node ())).kind != settings.notifications_filter
+		) return;
+
+		base.on_new_post (ev);
+	}
 }
