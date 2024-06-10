@@ -118,6 +118,7 @@ public class Tuba.API.Relationship : Entity {
 	}
 
 	public void question_modify_block (string handle, bool block = true) {
+		// translators: the variable is a user handle
 		var q = block ? _("Block \"%s\"?") : _("Unblock \"%s\"?");
 
 		app.question.begin (

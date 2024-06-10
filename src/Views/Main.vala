@@ -41,6 +41,7 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		}
 	}
 
+	private Gtk.Button notifications_clear_button;
 	private Gtk.DropDown notifications_filter_button;
 	private ListStore notification_kind_list = new ListStore (typeof (NotificationKind));
 
@@ -50,6 +51,7 @@ public class Tuba.Views.Main : Views.TabbedBase {
 
 		bool is_notifications = (stack.visible_child as Views.Notifications) != null;
 		notifications_filter_button.visible = is_notifications;
+		notifications_clear_button.visible = is_notifications;
 	}
 
 	// Unused
@@ -97,9 +99,18 @@ public class Tuba.Views.Main : Views.TabbedBase {
 			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/notification_filter_title.ui"),
 			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/notification_filter.ui"),
 			tooltip_text = _("Filter"),
-			show_arrow = false
+			show_arrow = false,
+			visible = false
 		};
 		header.pack_end (notifications_filter_button);
+
+		notifications_clear_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
+			css_classes = { "flat", "error" },
+			tooltip_text = _("Clear All Notifications"),
+			visible = false
+		};
+		notifications_clear_button.clicked.connect (clear_all_notifications);
+		header.pack_start (notifications_clear_button);
 
 		var sidebar_button = new Gtk.ToggleButton ();
 		header.pack_start (sidebar_button);
@@ -157,5 +168,29 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		NotificationKind kind = (NotificationKind) notifications_filter_button.selected_item;
 		settings.notifications_filter = kind.id == "" ? "all" : kind.id;
 		notification_view.change_filter (kind.id);
+	}
+
+	void clear_all_notifications () {
+		app.question.begin (
+			{"Are you sure you want to clear all notifications?", false},
+			null,
+			app.main_window,
+			{ { _("Clear"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+			false,
+			(obj, res) => {
+				if (app.question.end (res).truthy ()) {
+					new Request.POST ("/api/v1/notifications/clear")
+						.with_account (accounts.active)
+						.then (() => {
+							app.refresh ();
+						})
+						.on_error ((code, message) => {
+							warning (@"Error while trying to clear notifications: $code $message");
+							app.toast (message);
+						})
+						.exec ();
+				}
+			}
+		);
 	}
 }

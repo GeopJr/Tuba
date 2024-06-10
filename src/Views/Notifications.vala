@@ -191,11 +191,15 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	}
 
 	public override void on_new_post (Streamable.Event ev) {
-		if (
-			settings.notifications_filter != "all"
-			&& ((API.Notification) Entity.from_json (accepts, ev.get_node ())).kind != settings.notifications_filter
-		) return;
+		try {
+			if (
+				settings.notifications_filter != "all"
+				&& ((API.Notification) Entity.from_json (accepts, ev.get_node ())).kind != settings.notifications_filter
+			) return;
 
-		base.on_new_post (ev);
+			base.on_new_post (ev);
+		} catch (Error e) {
+			warning (@"Error getting Entity from json: $(e.message)");
+		}
 	}
 }
