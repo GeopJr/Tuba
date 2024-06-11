@@ -258,7 +258,7 @@
 			var delete_status_simple_action = new SimpleAction ("delete-status", null);
 			delete_status_simple_action.activate.connect (delete_status);
 			action_group.add_action (delete_status_simple_action);
-		} else if (accounts.active.instance_info.tuba_can_translate) {
+		} else if (accounts.active.instance_info != null && accounts.active.instance_info.tuba_can_translate) {
 			translate_simple_action = new SimpleAction ("translate", null);
 			translate_simple_action.activate.connect (translate);
 			translate_simple_action.set_enabled (true);
@@ -297,7 +297,8 @@
 			menu_model.append (_("Delete"), "status.delete-status");
 		} else {
 			if (
-				accounts.active.instance_info.tuba_can_translate
+				accounts.active.instance_info != null
+				&& accounts.active.instance_info.tuba_can_translate
 				&& status.formal.tuba_translatable
 				&& (
 					status.formal.visibility == "public"
