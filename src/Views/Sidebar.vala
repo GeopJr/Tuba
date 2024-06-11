@@ -93,6 +93,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		fr_banner.button_clicked.connect (view_fr_cb);
 
 		app.notify["is-online"].connect (on_network_change);
+		on_network_change ();
 	}
 
 	void on_network_change () {
