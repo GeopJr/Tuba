@@ -208,7 +208,7 @@ headerbar.flat.no-title .title {
 	border-radius: 9999px;
 }
 
-.ttl-profile-fields-box > flowboxchild > .ttl-profile-field {
+.ttl-profile-fields-box-container:not(.single) > .ttl-profile-fields-box > flowboxchild > .ttl-profile-field {
 	border-bottom: solid 1px @sidebar_border_color;
 	border-right: solid 1px @sidebar_border_color;
 }
@@ -221,8 +221,8 @@ headerbar.flat.no-title .title {
 	border: none;
 }
 
-.ttl-profile-fields-box-container {
-	margin-right: -1px; /* much simplier than complex nth-child selectors */
+.ttl-profile-fields-box-container:not(.single) {
+	margin-right: -1px; /* much simpler than complex nth-child selectors */
 }
 
 .ttl-profile-field {
