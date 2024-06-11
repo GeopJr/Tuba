@@ -231,13 +231,7 @@ namespace Tuba {
 			// as it causes websocket reconnects and
 			// timeline refreshes
 			if (is_online == online) return;
-
 			is_online = online;
-			if (!is_online) {
-				foreach (var win in app.get_windows ()) {
-					new Dialogs.Offline (win);
-				}
-			}
 		}
 
 		protected override void startup () {
