@@ -291,9 +291,19 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				};
 				break;
 			case KIND_REPLY:
+				string reply_text;
+				if (actor_name == null) {
+					// translators: post header, on posts that are replies
+					reply_text = _("In Reply");
+				} else {
+					// translators: the variable is a string user handle,
+					//				post header, on posts that are replies
+					reply_text = _("In Reply to %s").printf (actor_name);
+				}
+
 				result = {
 					"tuba-reply-sender-symbolic",
-					_("In Reply"),
+					reply_text,
 					null
 				};
 				break;
