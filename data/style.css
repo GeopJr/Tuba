@@ -1,3 +1,11 @@
+calendar, calendar>header {
+	border: none;
+}
+
+calendar>header>button, calendar>grid>label {
+	border-radius: 8px;
+}
+
 .notifications-all.dim-enabled .can-be-dimmed {
 	opacity: 0.70;
 }

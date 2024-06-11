@@ -190,8 +190,8 @@
 																				<property name="margin-bottom">6</property>
 																				<property name="margin-start">6</property>
 																				<property name="margin-end">6</property>
-																				<property name="valign">center</property>
-																				<property name="halign">center</property>
+																				<property name="vexpand">1</property>
+																				<property name="hexpand">1</property>
 																			</object>
 																		</child>
 																	</object>
@@ -213,8 +213,8 @@
 																				<property name="margin-bottom">6</property>
 																				<property name="margin-start">6</property>
 																				<property name="margin-end">6</property>
-																				<property name="valign">center</property>
-																				<property name="halign">center</property>
+																				<property name="vexpand">1</property>
+																				<property name="hexpand">1</property>
 																			</object>
 																		</child>
 																	</object>
@@ -236,8 +236,8 @@
 																				<property name="margin-bottom">6</property>
 																				<property name="margin-start">6</property>
 																				<property name="margin-end">6</property>
-																				<property name="valign">center</property>
-																				<property name="halign">center</property>
+																				<property name="vexpand">1</property>
+																				<property name="hexpand">1</property>
 																			</object>
 																		</child>
 																	</object>
