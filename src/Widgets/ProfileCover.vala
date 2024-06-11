@@ -304,6 +304,10 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 				fields_box_row.add_css_class ("odd");
 			}
 
+			if (total_fields == 1) {
+				fields_box_row.add_css_class ("single");
+			}
+
 			info.append (fields_box_row);
 			app.notify["is-mobile"].connect (update_fields_max_columns);
 		}
