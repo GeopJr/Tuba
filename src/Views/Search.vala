@@ -156,6 +156,10 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		private Gtk.DropDown lang_dropdown;
 		private Gtk.Switch lang_switch;
 		construct {
+			before_calendar.remove_css_class ("view");
+			during_calendar.remove_css_class ("view");
+			after_calendar.remove_css_class ("view");
+
 			var lang_row = new Adw.ActionRow () {
 				title = _("Language")
 			};
