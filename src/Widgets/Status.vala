@@ -217,6 +217,17 @@
 			if (status.reblog != null) {
 				kind = InstanceAccount.KIND_REMOTE_REBLOG;
 			} else if (status.in_reply_to_id != null || status.in_reply_to_account_id != null) {
+				if (status.formal.in_reply_to_account_id != null && status.formal.mentions != null && status.formal.mentions.size > 0) {
+					status.formal.mentions.@foreach (mention => {
+						if (mention.id == status.formal.in_reply_to_account_id) {
+							forced_kind_instigator_name = mention.acct;
+							return false;
+						}
+
+						return true;
+					});
+				}
+
 				kind = InstanceAccount.KIND_REPLY;
 			}
 		}
@@ -538,6 +549,7 @@
 			status.open ();
 	}
 
+	string? forced_kind_instigator_name;
 	Widgets.Avatar? actor_avatar = null;
 	ulong header_button_activate;
 	private Binding actor_avatar_binding;
@@ -549,7 +561,18 @@
 	};
 	protected virtual void change_kind () {
 		Tuba.InstanceAccount.Kind res_kind;
-		accounts.active.describe_kind (this.kind, out res_kind, this.kind_instigator.display_name, this.kind_instigator.url);
+
+		string actor_name = this.kind_instigator.display_name;
+		if (kind == InstanceAccount.KIND_REPLY) {
+			actor_name = forced_kind_instigator_name;
+		}
+
+		accounts.active.describe_kind (
+			this.kind,
+			out res_kind,
+			actor_name,
+			this.kind_instigator.url
+		);
 
 		if (header_button_activate > 0) header_button.disconnect (header_button_activate);
 		if (res_kind.icon == null) {
