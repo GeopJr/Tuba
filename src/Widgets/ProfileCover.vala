@@ -113,7 +113,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 				// translators: This is an accessibility label.
 				//				Screen reader users are going to hear this a lot,
 				//				please be mindful.
-				//				The variable is the amonunt of fileds the profile
+				//				The variable is the amount of fields the profile
 				//				has.
 				"Contains %d field.", "Contains %d fields.",
 				(ulong) total_fields

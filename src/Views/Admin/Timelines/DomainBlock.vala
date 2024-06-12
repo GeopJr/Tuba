@@ -20,7 +20,7 @@ public class Tuba.Views.Admin.Timeline.DomainBlock : Views.Admin.Timeline.Pagina
 
 	private void on_remove (Widgets.Admin.DomainBlock widget, string federation_block_id) {
 		var dlg = new Adw.AlertDialog (
-			// tranlsators: Question dialog when an admin is about to
+			// translators: Question dialog when an admin is about to
 			//				delete a federation block. The variable is
 			//				a string domain name
 			_("Are you sure you want to unblock %s?").printf (widget.title),

@@ -52,7 +52,7 @@
 										<property name="spacing">24</property>
 										<child>
 											<object class="GtkLabel">
-												<!-- translators: Label in the advanced search window -->
+												<!-- translators: Label in the advanced search window. Leave `-is:reply` as is. 'instances' as in fediverse servers -->
 												<property name="label" translatable="yes">Advanced Search might not work in all instances. You can invert an option by prefixing it with -. For example, -is:reply to filter out all replies.</property>
 												<property name="xalign">0</property>
 												<property name="hexpand">1</property>
@@ -102,13 +102,11 @@
 												<property name="title" translatable="yes">Containing</property>
 												<child>
 													<object class="AdwSwitchRow" id="media_switch_row">
-														<!-- translators: advanced search window switch title -->
 														<property name="title" translatable="yes">Media</property>
 													</object>
 												</child>
 												<child>
 													<object class="AdwSwitchRow" id="poll_switch_row">
-														<!-- translators: advanced search window switch title -->
 														<property name="title" translatable="yes">Poll</property>
 													</object>
 												</child>
@@ -138,6 +136,7 @@
 												</child>
 												<child>
 													<object class="AdwActionRow">
+														<!-- translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc' -->
 														<property name="title" translatable="yes">Library</property>
 														<!-- translators: Advanced search window, radio button subtitle for the 'library' option -->
 														<property name="subtitle" translatable="yes">Favorites, Bookmarks, Own Posts</property>
@@ -170,9 +169,7 @@
 										</child>
 										<child>
 											<object class="AdwPreferencesGroup">
-												<!-- translators: Advanced search window, option group
-													This is the title and the option are
-													'media', 'poll'... -->
+												<!-- translators: Advanced search window, option group -->
 												<property name="title" translatable="yes">Dates</property>
 												<child>
 													<object class="AdwExpanderRow" id="before_expander_row">

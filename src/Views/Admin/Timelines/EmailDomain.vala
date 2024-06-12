@@ -20,7 +20,7 @@ public class Tuba.Views.Admin.Timeline.EmailDomain : Views.Admin.Timeline.Pagina
 
 	private void on_remove (Widgets.Admin.EmailDomainBlock widget, string domain_block_id) {
 		var dlg = new Adw.AlertDialog (
-			// tranlsators: Question dialog when an admin is about to
+			// translators: Question dialog when an admin is about to
 			//				unblock an e-mail address block. The variable
 			//				is a string e-mail address
 			_("Are you sure you want to unblock %s?").printf (widget.title),

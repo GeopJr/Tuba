@@ -27,12 +27,12 @@ public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
 
 			switch (this) {
 				case NEVER: return _("Never");
-				case MINUTES_30: return _("%d Minutes").printf (30);
-				case HOUR_1: return _("%d Hour").printf (1);
-				case HOUR_6: return _("%d Hours").printf (6);
-				case HOUR_12: return _("%d Hours").printf (12);
-				case DAY_1: return _("%d Day").printf (1);
-				case WEEK_1: return _("1 Week");
+				case MINUTES_30: return GLib.ngettext ("%d Minute", "%d Minutes", (ulong) 30).printf (30);
+				case HOUR_1: return GLib.ngettext ("%d Hour", "%d Hours", (ulong) 1).printf (1);
+				case HOUR_6: return GLib.ngettext ("%d Hour", "%d Hours", (ulong) 6).printf (6);
+				case HOUR_12: return GLib.ngettext ("%d Hour", "%d Hours", (ulong) 12).printf (12);
+				case DAY_1: return GLib.ngettext ("%d Day", "%d Days", (ulong) 1).printf (1);
+				case WEEK_1: return GLib.ngettext ("%d Week", "%d Weeks", (ulong) 1).printf (1);
 				default: assert_not_reached ();
 			}
 		}

@@ -21,7 +21,7 @@ public class Tuba.Views.Admin.Page.Dashboard : Views.Admin.Page.Base {
 		// translators: group title in admin dashboard window
 		do_dimension_request ("servers", _("Top Active Servers"), 8);
 		// translators: group title in admin dashboard window
-		do_dimension_request ("software_versions", _("Software "), 4);
+		do_dimension_request ("software_versions", _("Software"), 4);
 		// translators: group title in admin dashboard window
 		do_dimension_request ("space_usage", _("Space Usage"), 4);
 	}

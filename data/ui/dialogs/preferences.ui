@@ -97,6 +97,7 @@
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="dim_trivial_notifications">
+								<!-- translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts -->
 								<property name="title" translatable="yes">Dim Trivial Notifications</property>
 								<property name="subtitle" translatable="yes">Notifications like favorites and boosts will be less visible</property>
 							</object>
@@ -166,6 +167,7 @@
 						<child>
 							<object class="AdwEntryRow" id="proxy_entry">
 								<property name="show-apply-button">0</property>
+								<!-- translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning -->
 								<property name="title" translatable="yes">Proxy</property>
 								<property name="input-purpose">url</property>
 							</object>
