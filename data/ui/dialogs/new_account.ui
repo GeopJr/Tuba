@@ -72,7 +72,7 @@
                                         <signal name="entry_activated" handler="on_next_clicked" swapped="no"/>
                                         <signal name="changed" handler="clear_errors" swapped="no"/>
 										<child type="suffix">
-											<object class="GtkButton" id="settings_toggle">
+											<object class="GtkButton">
 												<property name="icon-name">tuba-settings-symbolic</property>
 												<property name="valign">center</property>
 												<!-- translators: this is a button in the 'new account' window -->

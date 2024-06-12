@@ -40,7 +40,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		needs_attention = false;
 		empty_state_title = _("No Notifications");
 
-		change_filter (settings.notifications_filter, false);
+		filters_changed (false);
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
 
 		#if DEV_MODE
@@ -186,20 +186,14 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			: null;
 	}
 
-	const string[] KINDS = {InstanceAccount.KIND_EDITED, InstanceAccount.KIND_MENTION, InstanceAccount.KIND_FAVOURITE, InstanceAccount.KIND_REBLOG, InstanceAccount.KIND_POLL, InstanceAccount.KIND_FOLLOW};
-	public void change_filter (string filter_id, bool refresh = true) {
+	public void filters_changed (bool refresh = true) {
 		string new_url = "/api/v1/notifications";
-		if (filter_id != "" && filter_id != "all") {
-			this.is_all = false;
 
-			new_url = @"$new_url?exclude_types[]=admin.sign_up&exclude_types[]=admin.report";
-			foreach (string kind in KINDS) {
-				if (kind == filter_id) continue;
-
-				new_url = @"$new_url&exclude_types[]=$kind";
-			}
-		} else {
+		if (settings.notification_filters.length == 0) {
 			this.is_all = true;
+		} else {
+			this.is_all = false;
+			new_url += @"?exclude_types[]=$(string.joinv ("&exclude_types[]=", settings.notification_filters))";
 		}
 
 		if (new_url == this.url) return;
@@ -214,8 +208,8 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	public override void on_new_post (Streamable.Event ev) {
 		try {
 			if (
-				settings.notifications_filter != "all"
-				&& ((API.Notification) Entity.from_json (accepts, ev.get_node ())).kind != settings.notifications_filter
+				settings.notification_filters.length > 0
+				&& ((API.Notification) Entity.from_json (accepts, ev.get_node ())).kind in settings.notification_filters
 			) return;
 
 			base.on_new_post (ev);
