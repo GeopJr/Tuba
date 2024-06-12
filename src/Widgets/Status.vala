@@ -598,11 +598,11 @@
 				string actor_handle;
 				if (this.kind_instigator != null) {
 					actor_avatar_binding = this.bind_property ("kind_instigator", actor_avatar, "account", BindingFlags.SYNC_CREATE);
-					actor_avatar.clicked.connect (open_kind_instigator_account);
+					actor_avatar.mini_clicked.connect (open_kind_instigator_account);
 					actor_handle = this.kind_instigator.handle;
 				} else {
 					actor_avatar_binding = status.bind_property ("account", actor_avatar, "account", BindingFlags.SYNC_CREATE);
-					actor_avatar.clicked.connect (open_status_account);
+					actor_avatar.mini_clicked.connect (open_status_account);
 					actor_handle = status.account.handle;
 				}
 

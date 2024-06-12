@@ -1,4 +1,6 @@
 public class Tuba.Widgets.Avatar : Gtk.Button {
+	public signal void mini_clicked ();
+
 	weak API.Account? _account = null;
 	public API.Account? account {
 		set {
@@ -7,7 +9,6 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 		}
 	}
 
-	Gtk.EventController[] _controllers = {};
 	bool _allow_mini_profile = false;
 	public bool allow_mini_profile {
 		get { return _allow_mini_profile; }
@@ -16,28 +17,9 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 
 			_allow_mini_profile = value;
 			if (value) {
-				var gesture_click = new Gtk.GestureClick () {
-					button = Gdk.BUTTON_SECONDARY,
-					propagation_phase = Gtk.PropagationPhase.CAPTURE
-				};
-				gesture_click.pressed.connect (on_right_click);
-				add_controller (gesture_click);
-				_controllers += gesture_click;
-
-				var gesture_lp = new Gtk.GestureLongPress () {
-					touch_only = true,
-					button = Gdk.BUTTON_PRIMARY,
-					propagation_phase = Gtk.PropagationPhase.CAPTURE
-				};
-				gesture_lp.pressed.connect (on_long_press);
-				add_controller (gesture_lp);
-				_controllers += gesture_lp;
+				this.clicked.connect (show_mini_profile);
 			} else {
-				foreach (Gtk.EventController controller in _controllers) {
-					remove_controller (controller);
-				}
-
-				_controllers = {};
+				this.clicked.disconnect (show_mini_profile);
 			}
 		}
 	}
@@ -127,23 +109,16 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 	}
 
 	Gtk.Popover? mini_profile = null;
-	private void on_right_click (int n_press, double x, double y) {
-		if (n_press != 1) return;
-
-		show_mini_profile ();
-	}
-
-	private void on_long_press (double x, double y) {
-		show_mini_profile ();
-	}
-
 	private void show_mini_profile () {
 		if (_account == null) return;
 
 		if (mini_profile == null) {
+			var mini_cover = new Views.Profile.ProfileAccount (_account).to_mini_widget ();
+			((Widgets.Cover) mini_cover).avatar_clicked.connect (on_mini_avatar_clicked);
+
 			mini_profile = new Gtk.Popover () {
 				child = new Gtk.ScrolledWindow () {
-					child = new Views.Profile.ProfileAccount (_account).to_mini_widget (),
+					child = mini_cover,
 					hexpand = true,
 					vexpand = true,
 					hscrollbar_policy = Gtk.PolicyType.NEVER,
@@ -167,14 +142,13 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 		mini_profile = null;
 	}
 
+	private void on_mini_avatar_clicked () {
+		if (mini_profile != null) mini_profile.popdown ();
+		this.grab_focus ();
+		mini_clicked ();
+	}
+
 	~Avatar () {
 		clear_mini ();
-
-		if (_controllers.length > 0) {
-			foreach (Gtk.EventController controller in _controllers) {
-				remove_controller (controller);
-			}
-			_controllers = {};
-		}
 	}
 }

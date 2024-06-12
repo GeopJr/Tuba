@@ -158,6 +158,11 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		app.main_window.show_media_viewer (avi_url, Tuba.Attachment.MediaType.IMAGE, avatar.custom_image, avatar, true);
 	}
 
+	public signal void avatar_clicked ();
+	private void on_avatar_clicked () {
+		avatar_clicked ();
+	}
+
 	bool _mini = false;
 	Gtk.FlowBox fields_box;
 	Gtk.ListBoxRow fields_box_row;
@@ -213,8 +218,11 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		}
 
 		avi_url = profile.account.avatar ?? "";
-		if (!mini)
+		if (mini) {
+			avatar.clicked.connect (on_avatar_clicked);
+		} else {
 			avatar.clicked.connect (open_pfp_in_media_viewer);
+		}
 
 		if (profile.account.fields != null || profile.account.created_at != null) {
 			fields_box = new Gtk.FlowBox () {
