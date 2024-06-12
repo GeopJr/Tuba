@@ -1,9 +1,86 @@
 public class Tuba.Views.Search : Views.TabbedBase {
+	public class SearchEntry : Gtk.Box {
+		public signal void on_advanced_search_clicked ();
+		public signal void on_entry_activate ();
+
+		public string text {
+			get { return entry.text; }
+			set { entry.text = value; }
+		}
+		public Gtk.Text entry { get; private set; }
+
+		static construct {
+			set_css_name ("entry");
+		 }
+
+		Gtk.Image clear_search_button;
+		construct {
+			this.spacing = 9;
+			this.orientation = Gtk.Orientation.HORIZONTAL;
+			this.add_css_class ("search");
+
+			entry = new Gtk.Text () {
+				width_chars = 25,
+				placeholder_text = _("Enter Query"),
+				hexpand = true
+			};
+			entry.changed.connect (on_entry_change);
+			entry.activate.connect (on_entry_activated);
+
+			var advanced_search = new Gtk.Image.from_icon_name ("tuba-funnel-symbolic") {
+				tooltip_text = _("Advanced Search")
+			};
+
+			clear_search_button = new Gtk.Image.from_icon_name ("edit-clear-symbolic") {
+				tooltip_text = _("Clear Entry")
+			};
+			on_entry_change ();
+
+			var advanced_gesture = new Gtk.GestureClick () {
+				button = Gdk.BUTTON_PRIMARY
+			};
+			advanced_gesture.pressed.connect (open_advanced_search_dialog);
+			advanced_search.add_controller (advanced_gesture);
+
+			var clear_gesture = new Gtk.GestureClick () {
+				button = Gdk.BUTTON_PRIMARY
+			};
+			clear_gesture.pressed.connect (on_clear_entry);
+			clear_search_button.add_controller (clear_gesture);
+
+			this.append (new Gtk.Image.from_icon_name ("system-search-symbolic"));
+			this.append (entry);
+			this.append (clear_search_button);
+			this.append (advanced_search);
+		}
+
+		public void gather_focus () {
+			entry.grab_focus ();
+		}
+
+		private void on_entry_activated () {
+			on_entry_activate ();
+		}
+
+		private void open_advanced_search_dialog () {
+			on_advanced_search_clicked ();
+		}
+
+		private void on_clear_entry () {
+			entry.text = "";
+		}
+
+		private void on_entry_change () {
+			bool can_clear = entry.text != "";
+
+			clear_search_button.sensitive = can_clear;
+			clear_search_button.opacity = can_clear ? 1.0f : 0.0f;
+		}
+	}
 
 	public string query { get; set; default = ""; }
 	protected Gtk.SearchBar bar;
-	protected Adw.Clamp bar_clamp;
-	protected Gtk.SearchEntry entry;
+	protected SearchEntry entry;
 
 	Views.ContentBase all_tab;
 	Views.ContentBase accounts_tab;
@@ -18,30 +95,16 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		};
 		toolbar_view.add_top_bar (bar);
 
-		entry = new Gtk.SearchEntry () {
-			width_chars = 25,
-			text = query,
-			placeholder_text = _("Enter Query")
+		entry = new SearchEntry ();
+		entry.on_advanced_search_clicked.connect (open_advanced_search_dialog);
+
+		bar.child = new Adw.Clamp () {
+			child = entry,
+			maximum_size = 300
 		};
+		bar.connect_entry (entry.entry);
 
-		var advanced_search = new Gtk.Button.from_icon_name ("tuba-lightbulb-symbolic") {
-			css_classes = {"flat"},
-			tooltip_text = _("Advanced Search")
-		};
-		advanced_search.clicked.connect (open_advanced_search_dialog);
-
-		var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-		box.append (advanced_search);
-		box.append (entry);
-
-		bar_clamp = new Adw.Clamp () {
-			child = box
-		};
-
-		bar.child = bar_clamp;
-		bar.connect_entry (entry);
-
-		entry.activate.connect (request);
+		entry.on_entry_activate.connect (request);
 		status_button.clicked.connect (request);
 
 		// translators: as in All search results
@@ -52,7 +115,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 		uint timeout = 0;
 		timeout = Timeout.add (200, () => {
-			entry.grab_focus ();
+			entry.gather_focus ();
 			GLib.Source.remove (timeout);
 
 			return true;
