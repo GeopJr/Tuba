@@ -517,6 +517,24 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		this.swipe_children_opacity = 1.0;
 	}
 
+	public override void measure (
+		Gtk.Orientation orientation,
+		int for_size,
+		out int minimum,
+		out int natural,
+		out int minimum_baseline,
+		out int natural_baseline
+	) {
+		this.scale_revealer.measure (
+			orientation,
+			for_size,
+			out minimum,
+			out natural,
+			out minimum_baseline,
+			out natural_baseline
+		);
+	}
+
 	public override void size_allocate (int width, int height, int baseline) {
 		int swipe_y_offset = (int) (-height * swipe_progress);
 		Gtk.Allocation allocation = Gtk.Allocation () {
