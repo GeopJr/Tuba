@@ -49,7 +49,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				case "account_suspension":
 					// translators: the first variable is a user handle so 'them' refers to that user
 					return _("An admin has suspended %s, which means you can no longer receive updates from them or interact with them.").printf (
-						"<b>%s</b>".printf (target_name),
+						"<b>%s</b>".printf (target_name)
 					);
 				default:
 					assert_not_reached ();
