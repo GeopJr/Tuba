@@ -10,49 +10,46 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			switch (kind) {
 				case "user_domain_block":
 					return GLib.ngettext (
-						// translators: the first variable is an instance (e.g. mastodon.social), the second one is a number,
-						//				this is the singular version, '1 account you follow',
-						//				leave <b> and </b> as is
-						_("You have blocked <b>%s</b>, removing <b>%lld</b> of your followers and <b>1</b> account you follow.").printf (
-							target_name,
-							followers_count
+						// translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
+						//				this is the singular version, '1 account you follow'
+						_("You have blocked %s, removing %s of your followers and %s account you follow.").printf (
+							"<b>%s</b>".printf (target_name),
+							"<b>%lld</b>".printf (followers_count),
+							"<b>1</b>"
 						),
 
 						// translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
-						//				this is the plural version, '4 accounts you follow',
-						//				leave <b> and </b> as is
-						_("You have blocked <b>%s</b>, removing <b>%lld</b> of your followers and <b>%lld</b> accounts you follow.").printf (
-							target_name,
-							followers_count,
-							following_count
+						//				this is the plural version, '4 accounts you follow'
+						_("You have blocked %s, removing %s of your followers and %s accounts you follow.").printf (
+							"<b>%s</b>".printf (target_name),
+							"<b>%lld</b>".printf (followers_count),
+							"<b>%lld</b>".printf (following_count)
 						),
 						(ulong) following_count
 					);
 				case "domain_block":
 					return GLib.ngettext (
-						// translators: the first variable is an instance (e.g. mastodon.social), the second one is a number,
-						//				this is the singular version, '1 account you follow',
-						//				leave <b> and </b> as is
-						_("An admin has blocked <b>%s</b>, including <b>%lld</b> of your followers and <b>1</b> account you follow.").printf (
-							target_name,
-							followers_count
+						// translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
+						//				this is the singular version, '1 account you follow'
+						_("An admin has blocked %s, including %s of your followers and %s account you follow.").printf (
+							"<b>%s</b>".printf (target_name),
+							"<b>%lld</b>".printf (followers_count),
+							"<b>1</b>"
 						),
 
 						// translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
-						//				this is the plural version, '4 accounts you follow',
-						//				leave <b> and </b> as is
-						_("An admin has blocked <b>%s</b>, including <b>%lld</b> of your followers and <b>%lld</b> accounts you follow.").printf (
-							target_name,
-							followers_count,
-							following_count
+						//				this is the plural version, '4 accounts you follow'
+						_("An admin has blocked %s, including %s of your followers and %s accounts you follow.").printf (
+							"<b>%s</b>".printf (target_name),
+							"<b>%lld</b>".printf (followers_count),
+							"<b>%lld</b>".printf (following_count)
 						),
 						(ulong) following_count
 					);
 				case "account_suspension":
-					// translators: the first variable is a user handle so 'them' refers to that user,
-					//				leave <b> and </b> as is
-					return _("An admin has suspended <b>%s</b>, which means you can no longer receive updates from them or interact with them.").printf (
-						target_name
+					// translators: the first variable is a user handle so 'them' refers to that user
+					return _("An admin has suspended %s, which means you can no longer receive updates from them or interact with them.").printf (
+						"<b>%s</b>".printf (target_name)
 					);
 				default:
 					assert_not_reached ();

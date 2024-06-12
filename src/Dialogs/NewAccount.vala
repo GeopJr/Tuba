@@ -335,9 +335,9 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 			admin_row = new Adw.SwitchRow () {
 				// translators: Switch title in the new account window
-				title = _("Admin"),
+				title = _("Admin Mode"),
 				// translators: Switch description in the new account window
-				subtitle = _("Enables the Admin Dashboard and requests the needed permissions")
+				subtitle = _("Enables the Admin Dashboard and requests the needed permissions to use the Admin API")
 			};
 			group.add (admin_row);
 			page.add (group);

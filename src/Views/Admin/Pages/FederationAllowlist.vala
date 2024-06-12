@@ -51,7 +51,7 @@ public class Tuba.Views.Admin.Page.FederationAllowList : Views.Admin.Page.Base {
 		if (buffer.length > 0) {
 			string domain = buffer.text;
 			var dlg = new Adw.AlertDialog (
-				// tranlsators: Question dialog when an admin is about to
+				// translators: Question dialog when an admin is about to
 				//				allow federation with an instance. The variable is a
 				//				string.
 				_("Are you sure you want to allow federation with %s?").printf (domain),

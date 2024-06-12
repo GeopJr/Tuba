@@ -224,22 +224,22 @@ public class Tuba.PollPage : ComposerPage {
 
 	Expiration[] expirations = {
 		// translators: the variable is a number
-		new Expiration (_("%d Minutes").printf (5),
+		new Expiration (GLib.ngettext ("%d Minute", "%d Minutes", (ulong) 5).printf (5),
 		// translators: the variable is a number, m as in minutes
 		_("%dm").printf (5), 300),
-		new Expiration (_("%d Minutes").printf (30), _("%dm").printf (30), 1800),
+		new Expiration (GLib.ngettext ("%d Minute", "%d Minutes", (ulong) 30).printf (30), _("%dm").printf (30), 1800),
 		// translators: the variable is a number
-		new Expiration (_("%d Hour").printf (1),
+		new Expiration (GLib.ngettext ("%d Hour", "%d Hours", (ulong) 1).printf (1),
 		// translators: the variable is a number, h as in hours
 		_("%dh").printf (1), 3600),
-		new Expiration (_("%d Hours").printf (6), _("%dh").printf (6), 21600),
-		new Expiration (_("%d Hours").printf (12), _("%dh").printf (12), 43200),
+		new Expiration (GLib.ngettext ("%d Hour", "%d Hours", (ulong) 6).printf (6), _("%dh").printf (6), 21600),
+		new Expiration (GLib.ngettext ("%d Hour", "%d Hours", (ulong) 12).printf (12), _("%dh").printf (12), 43200),
 		// translators: the variable is a number
-		new Expiration (_("%d Day").printf (1),
+		new Expiration (GLib.ngettext ("%d Day", "%d Days", (ulong) 1).printf (1),
 		// translators: the variable is a number, d as in days
 		_("%dd").printf (1), 86400),
-		new Expiration (_("%d Days").printf (3), _("%dd").printf (3), 259200),
-		new Expiration (_("%d Days").printf (7), _("%dd").printf (7), 604800)
+		new Expiration (GLib.ngettext ("%d Day", "%d Days", (ulong) 3).printf (3), _("%dd").printf (3), 259200),
+		new Expiration (GLib.ngettext ("%d Day", "%d Days", (ulong) 7).printf (7), _("%dd").printf (7), 604800)
 	};
 	Gtk.DropDown expiration_button;
 	protected void install_expires_in (string? expires_at = null) {

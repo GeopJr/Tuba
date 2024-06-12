@@ -45,7 +45,7 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 
 	private void on_resolve () {
 		on_action (
-			// tranlsators: Question dialog when an admin is about to
+			// translators: Question dialog when an admin is about to
 			//				mark a report as resolved
 			_("Are you sure you want to mark this report as resolved?"),
 
@@ -56,7 +56,7 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 
 	private void on_reopen () {
 		on_action (
-			// tranlsators: Question dialog when an admin is about to
+			// translators: Question dialog when an admin is about to
 			//				reopen a report
 			_("Are you sure you want to reopen this report?"),
 
@@ -148,6 +148,7 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 
 		if (report.forwarded == true) {
 			info_group.add (new Adw.ActionRow () {
+				// translators: admin dashboard, whether a report was 'forwarded' from another server
 				title = _("Forwarded")
 			});
 		}

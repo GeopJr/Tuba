@@ -20,7 +20,7 @@ public class Tuba.Views.Admin.Timeline.BlockedIPs : Views.Admin.Timeline.Paginat
 
 	private void on_remove (Widgets.Admin.IPBlock widget, string ip_block_id) {
 		var dlg = new Adw.AlertDialog (
-			// tranlsators: Question dialog when an admin is about to
+			// translators: Question dialog when an admin is about to
 			//				unblock an IP address. The variable
 			//				is a string IP address
 			_("Are you sure you want to unblock %s?").printf (widget.title),

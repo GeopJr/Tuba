@@ -57,6 +57,7 @@ public class Tuba.Dialogs.Admin.TakeAction : Dialogs.Admin.Base {
 
 		var action_row = new Adw.ActionRow () {
 			title = _("Warning"),
+			// translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 			subtitle = _("Use this to send a warning to the user, without triggering any other action"),
 			activatable_widget = action_warning
 		};
@@ -65,6 +66,7 @@ public class Tuba.Dialogs.Admin.TakeAction : Dialogs.Admin.Base {
 
 		action_row = new Adw.ActionRow () {
 			title = _("Freeze"),
+			// translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 			subtitle = _("Prevent the user from using their account, but do not delete or hide their contents"),
 			activatable_widget = action_freeze
 		};
@@ -73,6 +75,7 @@ public class Tuba.Dialogs.Admin.TakeAction : Dialogs.Admin.Base {
 
 		action_row = new Adw.ActionRow () {
 			title = _("Sensitive"),
+			// translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 			subtitle = _("Force all this user's media attachments to be flagged as sensitive"),
 			activatable_widget = action_sensitive
 		};
@@ -81,6 +84,7 @@ public class Tuba.Dialogs.Admin.TakeAction : Dialogs.Admin.Base {
 
 		action_row = new Adw.ActionRow () {
 			title = _("Limit"),
+			// translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 			subtitle = _("Prevent the user from being able to post with public visibility, hide their posts and notifications from people not following them. Closes all reports against this account"),
 			activatable_widget = action_limit
 		};
@@ -89,6 +93,7 @@ public class Tuba.Dialogs.Admin.TakeAction : Dialogs.Admin.Base {
 
 		action_row = new Adw.ActionRow () {
 			title = _("Suspend"),
+			// translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 			subtitle = _("Prevent any interaction from or to this account and delete its contents. Revertible within 30 days. Closes all reports against this account"),
 			activatable_widget = action_suspend
 		};
@@ -105,7 +110,9 @@ public class Tuba.Dialogs.Admin.TakeAction : Dialogs.Admin.Base {
 			css_classes = {"selection-mode"}
 		};
 		action_row = new Adw.ActionRow () {
+			// translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 			title = _("Notify the user per e-mail"),
+			// translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 			subtitle = _("The user will receive an explanation of what happened with their account"),
 			activatable_widget = send_email
 		};
@@ -128,7 +135,7 @@ public class Tuba.Dialogs.Admin.TakeAction : Dialogs.Admin.Base {
 
 	private void on_take_action () {
 		var dlg = new Adw.AlertDialog (
-			// tranlsators: Question dialog when an admin is about to
+			// translators: Question dialog when an admin is about to
 			//				take action against an account
 			_("Are you sure you want to proceed?"),
 			null

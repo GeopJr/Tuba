@@ -94,6 +94,7 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 			//				close to the original word.
 			new DropDownStringEntry ("active", _("Active")),
 			//  new DropDownStringEntry ("sensitized", _("Sensitive")), // doesn't seem to work on Mastodon
+
 			// translators: Dropdown entry, account status.
 			//				It's for the admin dashboard, so it's better if it stays
 			//				close to the original word.
@@ -418,7 +419,7 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 
 			private void on_undo () {
 				var dlg = new Adw.AlertDialog (
-					// tranlsators: Question dialog when an admin is about to
+					// translators: Question dialog when an admin is about to
 					//				undo an action, like a suspension
 					_("Are you sure you want to undo this action?"),
 					null
@@ -478,7 +479,7 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 
 		private void on_approve () {
 			var dlg = new Adw.AlertDialog (
-				// tranlsators: Question dialog when an admin is about to
+				// translators: Question dialog when an admin is about to
 				//				approve an account. The variable is an
 				//				account handle
 				_("Are you sure you want to approve %s?").printf (account_handle),
@@ -511,7 +512,7 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 
 		private void on_reject () {
 			var dlg = new Adw.AlertDialog (
-				// tranlsators: Question dialog when an admin is about to
+				// translators: Question dialog when an admin is about to
 				//				reject an account. The variable is an
 				//				account handle
 				_("Are you sure you want to reject %s?").printf (account_handle),

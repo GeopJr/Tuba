@@ -20,7 +20,7 @@ public class Tuba.Views.Admin.Timeline.DomainAllow : Views.Admin.Timeline.Pagina
 
 	private void on_remove (Widgets.Admin.DomainAllow widget, string domain_allow_id) {
 		var dlg = new Adw.AlertDialog (
-			// tranlsators: Question dialog when an admin is about to
+			// translators: Question dialog when an admin is about to
 			//				delete a domain from the federation allowlist.
 			//				You can replace 'federate' with 'communicate' if
 			//				it's hard to translate.

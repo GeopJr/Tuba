@@ -67,6 +67,7 @@
 						<child>
 							<object class="AdwBanner" id="network_banner">
 								<property name="revealed">0</property>
+								<!-- translators: banner shown when the internet connection is lost -->
 								<property name="title" translatable="yes">Offline</property>
 							</object>
 						</child>

@@ -54,12 +54,12 @@ public class Tuba.Views.Admin.Page.BlockedEmails : Views.Admin.Page.Base {
 		if (buffer.length > 0) {
 			string domain = buffer.text;
 			var dlg = new Adw.AlertDialog (
-				// tranlsators: Question dialog when an admin is about to
+				// translators: Question dialog when an admin is about to
 				//				block an e-mail domain. The variable is a
 				//				string.
 				_("Are you sure you want to block %s?").printf (domain),
 
-				// tranlsators: Question dialog description when an admin is about to
+				// translators: Question dialog description when an admin is about to
 				//				block an e-mail domain. The variable is a string.
 				//				you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 				_("This can be the domain name that shows up in the e-mail address or the MX record it uses. They will be checked upon sign-up.")

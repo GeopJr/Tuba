@@ -75,7 +75,7 @@
 											<object class="GtkButton">
 												<property name="icon-name">tuba-settings-symbolic</property>
 												<property name="valign">center</property>
-												<!-- translators: this is a button in the 'new account' window -->
+												<!-- translators: tooltip text for a button in the 'new account' window -->
 												<property name="tooltip-text" translatable="yes">Settings</property>
 												<signal name="clicked" handler="on_settings_clicked" swapped="no"/>
 												<style>
