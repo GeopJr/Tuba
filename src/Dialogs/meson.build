@@ -4,6 +4,7 @@ sources += files(
     'ListEdit.vala',
     'MainWindow.vala',
     'NewAccount.vala',
+    'NotificationSettings.vala',
     'Preferences.vala',
     'ProfileEdit.vala',
     'Report.vala',
