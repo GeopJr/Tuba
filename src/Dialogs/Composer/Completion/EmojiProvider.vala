@@ -1,7 +1,7 @@
 public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 
 	public EmojiProvider () {
-		Object (trigger_char: ":");
+		Object (trigger_char: ':');
 	}
 
 	internal class Proposal: Object, GtkSource.CompletionProposal {
@@ -19,15 +19,17 @@ public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 	public override async ListModel suggest (string word, Cancellable? cancellable) throws Error {
 		var results = new GLib.ListStore (typeof (Object));
 		var emojis = accounts.active.instance_emojis;
-
 		if (emojis == null) return results;
+
+		string new_word = word.offset (1).down ();
 		emojis.@foreach (e => {
-			if (e.shortcode.index_of (word) != 0)
+			if (e.shortcode.down ().index_of (new_word) != 0)
 				return true;
 
 			var proposal = new Proposal (e);
 			results.append (proposal);
-			return true;
+
+			return results.n_items < 4;
 		});
 
 		return results;
@@ -61,5 +63,9 @@ public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 				cell.text = null;
 				break;
 		}
+	}
+
+	public override bool word_stop (unichar ch) {
+		return base.word_stop (ch) || (!ch.isalnum () && ch != this.trigger_char);
 	}
 }
