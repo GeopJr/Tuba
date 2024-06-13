@@ -1,7 +1,7 @@
 public class Tuba.HandleProvider: Tuba.CompletionProvider {
 
 	public HandleProvider () {
-		Object (trigger_char: "@");
+		Object (trigger_char: '@');
 	}
 
 	internal class Proposal: Object, GtkSource.CompletionProposal {
@@ -60,5 +60,9 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 				cell.text = null;
 				break;
 		}
+	}
+
+	public override bool word_stop (unichar ch) {
+		return base.word_stop (ch) || (!ch.isalnum () && ch != this.trigger_char && ch != '.');
 	}
 }

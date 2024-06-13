@@ -1,7 +1,7 @@
 public class Tuba.HashtagProvider: Tuba.CompletionProvider {
 
 	public HashtagProvider () {
-		Object (trigger_char: "#");
+		Object (trigger_char: '#');
 	}
 
 	internal class Proposal: Object, GtkSource.CompletionProposal {

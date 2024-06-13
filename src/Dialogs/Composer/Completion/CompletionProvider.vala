@@ -2,26 +2,17 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 
 	public static GLib.ListStore EMPTY = new GLib.ListStore (typeof (Object)); // vala-lint=naming-convention
 
-	public string? trigger_char { get; construct; }
+	public unichar trigger_char { get; set; }
 	protected bool is_capturing_input { get; set; default = false; }
-	protected int empty_triggers = 0;
 
 	public virtual bool is_trigger (Gtk.TextIter iter, unichar ch) {
-		if (this.trigger_char == null) {
-			return this.set_input_capture (true);
-		} else if (ch.to_string () == this.trigger_char) {
-			return this.set_input_capture (true);
-		}
-		return false;
+		return this.set_input_capture (ch == this.trigger_char);
 	}
 
 	protected bool set_input_capture (bool state) {
 		this.is_capturing_input = state;
 		if (state) {
 			debug ("Capturing input");
-		} else {
-			debug ("Stopped capturing input");
-			this.empty_triggers = 0;
 		}
 		return state;
 	}
@@ -33,25 +24,10 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 	public virtual void activate (GtkSource.CompletionContext context, GtkSource.CompletionProposal proposal) {
 		Gtk.TextIter start;
 		Gtk.TextIter end;
-		context.get_bounds (out start, out end);
-
-		// If it reports that we are not at the end
-		// of the word or line, move forward
-		if (!end.ends_word () && !end.ends_line ()) {
-			// If end is ' ', it's already the
-			// end of the word. Proceeding will
-			// capture more than needed
-			if (end.get_char () != ' ')
-				// Go forwards until we find a space
-				// aka get the full string - even if
-				// it's not considered a word by pango
-				end.forward_find_char ((e) => e.isspace (), null);
-			// plus a space since we are appending one below
-			end.forward_char ();
-		}
+		get_whole_word_iters (context, out start, out end);
 
 		var buffer = start.get_buffer ();
-		var new_content = proposal.get_typed_text () + " ";
+		var new_content = get_formatted_text (proposal) + " ";
 
 		buffer.begin_user_action ();
 		buffer.@delete (ref start, ref end);
@@ -65,34 +41,20 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 		GtkSource.CompletionContext context,
 		GLib.Cancellable? cancellable
 	) throws Error {
-		if (!this.is_capturing_input) {
-			// If it's not capturing,
-			// check if the character before the word
-			// is the trigger
-			Gtk.TextIter start;
-			context.get_bounds (out start, null);
-			if (start.backward_char () && is_trigger (start, start.get_char ()))
-				return yield populate_async (context, cancellable);
+		Gtk.TextIter start;
+		Gtk.TextIter end;
+		get_whole_word_iters (context, out start, out end);
+		is_trigger (start, start.get_char ());
+		if (!this.is_capturing_input) return EMPTY;
 
-			return EMPTY;
-		}
-
-		string word = get_whole_word (context);
+		string word = start.get_text (end);
 		if (word == "") {
 			debug ("Empty trigger");
-			this.empty_triggers++;
-
-			if (this.empty_triggers > 1) {
-				this.set_input_capture (false);
-			}
+			this.set_input_capture (false);
 			return EMPTY;
 		}
 
-		var suggestions = yield this.suggest (word, cancellable);
-
-		if (word != get_whole_word (context))
-			return EMPTY;
-		return suggestions;
+		return yield this.suggest (word, cancellable);
 	}
 
 	public abstract void display (
@@ -109,12 +71,27 @@ public abstract class Tuba.CompletionProvider: Object, GtkSource.CompletionProvi
 	public string get_whole_word (GtkSource.CompletionContext context) {
 		Gtk.TextIter start;
 		Gtk.TextIter end;
+		get_whole_word_iters (context, out start, out end);
+
+		return start.get_text (end);
+	}
+
+	public void get_whole_word_iters (GtkSource.CompletionContext context, out Gtk.TextIter start, out Gtk.TextIter end) {
 		context.get_bounds (out start, out end);
 
-		// If end is ':', everything until
-		// a newline will be treated as a word
-		if (end.get_char () != ':')
-			end.forward_word_end ();
-		return start.get_text (end);
+		if (start.backward_find_char (word_stop, null) && start.get_char ().isspace ()) {
+			start.forward_char ();
+		}
+
+		end.backward_char ();
+		end.forward_find_char (word_stop, null);
+	}
+
+	public virtual bool word_stop (unichar ch) {
+		return ch.isspace ();
+	}
+
+	public virtual string get_formatted_text (GtkSource.CompletionProposal proposal) {
+		return this.trigger_char.to_string () + proposal.get_typed_text ();
 	}
 }
