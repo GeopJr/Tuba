@@ -377,6 +377,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		note_row.visible = _mini ? rs.note != "" : rs.note != null;
 		if (note_row.visible) note_entry_row.text = rs.note;
 
+		if (!_mini) app.relationship_invalidated (rs);
+
 		rs_invalidated ();
 		update_aria ();
 	}
