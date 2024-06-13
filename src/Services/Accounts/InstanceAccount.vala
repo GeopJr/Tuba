@@ -545,7 +545,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					.exec ();
 
 				// Pleroma FE doesn't mark them as read by just updating the marker
-				if (instance_info != null && instance_info?.pleroma != null) {
+				if (instance_info != null && instance_info.pleroma != null) {
 					new Request.POST ("/api/v1/pleroma/notifications/read")
 						.with_account (this)
 						.with_form_data ("max_id", up_to_id.to_string ())

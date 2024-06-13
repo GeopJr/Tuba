@@ -43,9 +43,11 @@ public class Tuba.API.Instance : Entity {
 		get {
 			if (pleroma != null && pleroma.metadata != null) {
 				return pleroma.metadata.post_formats;
+			} else if (configuration == null || configuration.statuses == null) {
+				return null;
 			}
 
-			return configuration?.statuses?.supported_mime_types;
+			return configuration.statuses.supported_mime_types;
 		}
 	}
 

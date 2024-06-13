@@ -186,7 +186,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		// while verify_credentials is running
 		builder.set_member_name ("emojis");
 		builder.begin_array ();
-		if (account.emojis?.size > 0) {
+		if (account.emojis != null && account.emojis.size > 0) {
 			foreach (var emoji in account.emojis) {
 					builder.begin_object ();
 
