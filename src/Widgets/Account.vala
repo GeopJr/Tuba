@@ -4,7 +4,17 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		debug ("Destroying Widgets.Account");
 	}
 
-	public class RelationshipButton : Tuba.Widgets.RelationshipButton {
+	public class RelationshipButton : Widgets.RelationshipButton {
+		construct {
+			app.relationship_invalidated.connect (on_relationship_invalidated_global);
+		}
+
+		private void on_relationship_invalidated_global (API.Relationship new_relationship) {
+			if (rs == null || rs.id != new_relationship.id) return;
+
+			rs = new_relationship;
+		}
+
 		public override void invalidate () {
 			if (rs == null || rs.domain_blocking) {
 				visible = false;

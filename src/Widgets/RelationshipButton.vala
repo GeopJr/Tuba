@@ -12,6 +12,7 @@ public class Tuba.Widgets.RelationshipButton : Gtk.Button {
 
 	protected void on_bound () {
 		if (rs != null) {
+			rs.invalidated.disconnect (invalidate);
 			rs.invalidated.connect (invalidate);
 		}
 		invalidate ();
