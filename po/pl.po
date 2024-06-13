@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-06-13 14:45+0000\n"
+"PO-Revision-Date: 2024-06-13 16:44+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -1408,40 +1408,40 @@ msgstr "Czas trwania"
 #. translators: Admin dashboard ip block rule (e.g. no access)
 #: src/Dialogs/Admin/AddIPBlock.vala:131
 msgid "Rule"
-msgstr ""
+msgstr "Reguła"
 
 #. translators: Admin dashboard ip block rule descriptions.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddIPBlock.vala:134
 msgid "Choose what will happen with requests from this IP"
-msgstr ""
+msgstr "Wybierz, co się stanie z żądaniami z tego IP"
 
 #. translators: Question dialog when an admin is about to
 #. mark a report as resolved
 #: src/Dialogs/Admin/Report.vala:50
 msgid "Are you sure you want to mark this report as resolved?"
-msgstr ""
+msgstr "Czy na pewno oznaczyć to zgłoszenie jako zakończone?"
 
 #: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:99
 msgid "Resolve"
-msgstr ""
+msgstr "Zakończ"
 
 #. translators: Question dialog when an admin is about to
 #. reopen a report
 #: src/Dialogs/Admin/Report.vala:61
 msgid "Are you sure you want to reopen this report?"
-msgstr ""
+msgstr "Czy na pewno chcesz otworzyć ponownie to zgłoszenie?"
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:99
 msgid "Reopen"
-msgstr ""
+msgstr "Otwórz ponownie"
 
 #. translators: Admin dashboard, take action against user headerbar button
 #: src/Dialogs/Admin/Report.vala:93 src/Dialogs/Admin/TakeAction.vala:18
 #: src/Dialogs/Admin/TakeAction.vala:147
 #: src/Views/Admin/Pages/Accounts.vala:250
 msgid "Take Action"
-msgstr ""
+msgstr "Podejmij działania"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
@@ -1463,38 +1463,38 @@ msgstr "%e %B %Y"
 
 #: src/Dialogs/Admin/Report.vala:132
 msgid "Reported on"
-msgstr ""
+msgstr "Zgłoszono"
 
 #. translators: 'Reported by: <account>'
 #: src/Dialogs/Admin/Report.vala:138 src/Widgets/Admin/Report.vala:31
 msgid "Reported by"
-msgstr ""
+msgstr "Zgłoszone przez"
 
 #: src/Dialogs/Admin/Report.vala:144
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Resolved"
-msgstr ""
+msgstr "Rozwiązane"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Unresolved"
-msgstr ""
+msgstr "Nierozwiązane"
 
 #. translators: admin dashboard, whether a report was 'forwarded' from another server
 #: src/Dialogs/Admin/Report.vala:152
 msgid "Forwarded"
-msgstr ""
+msgstr "Przekazane"
 
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:158 src/Widgets/Admin/Report.vala:22
 msgid "Action Taken by"
-msgstr ""
+msgstr "Działanie podjęte przez"
 
 #: src/Dialogs/Admin/Report.vala:170
 msgid "Category"
-msgstr ""
+msgstr "Kategoria"
 
 #. translators: Admin dashboard report category description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1503,15 +1503,17 @@ msgid ""
 "The reason this account and/or content was reported will be cited in "
 "communication with the reported account"
 msgstr ""
+"Powód, dla którego to konto i/lub treść zostały zgłoszone, zostanie "
+"zacytowany w komunikacji ze zgłoszonym kontem"
 
 #: src/Dialogs/Admin/Report.vala:235
 msgid "Violated Rules"
-msgstr ""
+msgstr "Naruszone zasady"
 
 #. translators: 'Reported Posts: <amount>'
 #: src/Dialogs/Admin/Report.vala:266 src/Widgets/Admin/Report.vala:34
 msgid "Reported Posts"
-msgstr ""
+msgstr "Zgłoszone wpisy"
 
 #: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:333
 #: src/Dialogs/Report.vala:415
@@ -1520,24 +1522,26 @@ msgstr "Wyślij"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
-msgstr ""
+msgstr "Ostrzeżenie"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:61
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
 msgstr ""
+"Użyj, by wysłać użytkownikowi ostrzeżenie, bez podejmowania żadnego innego "
+"działania"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
-msgstr ""
+msgstr "Zamrożenie"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:70
 msgid ""
 "Prevent the user from using their account, but do not delete or hide their "
 "contents"
-msgstr ""
+msgstr "Zablokuj dostęp do konta, bez usuwania go i ukrywania jego treści"
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:489
 msgid "Sensitive"
@@ -1546,7 +1550,7 @@ msgstr "Drażliwe"
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:79
 msgid "Force all this user's media attachments to be flagged as sensitive"
-msgstr ""
+msgstr "Wymuś oznaczenie wszystkich załączonych multimediów jako drażliwe"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:88
@@ -1555,6 +1559,9 @@ msgid ""
 "posts and notifications from people not following them. Closes all reports "
 "against this account"
 msgstr ""
+"Odbierz temu kontu możliwość publikacji wpisów widocznych publicznie, ukryj "
+"wpisy i powiadomienia przed osobami nieobserwującymi go. Zamyka wszystkie "
+"zgłoszenia dotyczące tego konta"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:97
@@ -1562,32 +1569,35 @@ msgid ""
 "Prevent any interaction from or to this account and delete its contents. "
 "Revertible within 30 days. Closes all reports against this account"
 msgstr ""
+"Zablokuj możliwość interakcji z tego konta i z nim, oraz usuń jego "
+"zawartość. Odwracalne w ciągu 30 dni. Zamyka wszystkie zgłoszenia dotyczące "
+"tego konta"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:114
 msgid "Notify the user per e-mail"
-msgstr ""
+msgstr "Powiadom osobę przez e-mail"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:116
 msgid ""
 "The user will receive an explanation of what happened with their account"
-msgstr ""
+msgstr "Osoba otrzyma wyjaśnienie tego, co stało się z jej kontem"
 
 #. translators: Question dialog when an admin is about to
 #. take action against an account
 #: src/Dialogs/Admin/TakeAction.vala:140
 msgid "Are you sure you want to proceed?"
-msgstr ""
+msgstr "Czy na pewno chcesz kontynuować?"
 
 #: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
 msgid "Dashboard"
-msgstr ""
+msgstr "Panel"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:28 src/Views/Admin/Pages/Reports.vala:6
 msgid "Reports"
-msgstr ""
+msgstr "Zgłoszenia"
 
 #: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
 #: src/Views/Search.vala:112
@@ -1600,25 +1610,25 @@ msgstr "Konta"
 #. gmail.com
 #: src/Dialogs/Admin.vala:48 src/Views/Admin/Pages/BlockedEmails.vala:10
 msgid "Blocked E-mail Domains"
-msgstr ""
+msgstr "Zablokowane domeny e-mail"
 
 #. translators: Admin Dialog page title,
 #. this is about blocking
 #. IP Addresses
 #: src/Dialogs/Admin.vala:58 src/Views/Admin/Pages/BlockedIPs.vala:7
 msgid "IP Rules"
-msgstr ""
+msgstr "Reguły IP"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:68 src/Views/Admin/Pages/FederationAllowlist.vala:7
 msgid "Federation Allowlist"
-msgstr ""
+msgstr "Lista dozwolonych federacji"
 
 #. translators: Admin Dialog page title,
 #. this is about federation blocking
 #: src/Dialogs/Admin.vala:78 src/Views/Admin/Pages/FederationBlocklist.vala:6
 msgid "Federation Blocklist"
-msgstr ""
+msgstr "Lista zablokowanych federacji"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:42
 msgid "Edit Alt Text"
@@ -1781,9 +1791,9 @@ msgstr "Opcja %d"
 #, c-format
 msgid "%d Minute"
 msgid_plural "%d Minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d minuta"
+msgstr[1] "%d minuty"
+msgstr[2] "%d minut"
 
 #. translators: the variable is a number, m as in minutes
 #: src/Dialogs/Composer/PollPage.vala:229
@@ -1797,13 +1807,12 @@ msgstr "%dm"
 #: src/Dialogs/Composer/PollPage.vala:235
 #: src/Dialogs/Composer/PollPage.vala:236 src/Dialogs/FilterEdit.vala:31
 #: src/Dialogs/FilterEdit.vala:32 src/Dialogs/FilterEdit.vala:33
-#, fuzzy, c-format
-#| msgid "%d Hour"
+#, c-format
 msgid "%d Hour"
 msgid_plural "%d Hours"
 msgstr[0] "%d godzina"
-msgstr[1] "%d godzina"
-msgstr[2] "%d godzina"
+msgstr[1] "%d godziny"
+msgstr[2] "%d godzin"
 
 #. translators: the variable is a number, h as in hours
 #: src/Dialogs/Composer/PollPage.vala:234
@@ -1886,12 +1895,12 @@ msgstr "Serwer zwrócił błąd"
 
 #: src/Dialogs/NewAccount.vala:305
 msgid "Apply"
-msgstr ""
+msgstr "Zastosuj"
 
 #. translators: Switch title in the new account window
 #: src/Dialogs/NewAccount.vala:338
 msgid "Admin Mode"
-msgstr ""
+msgstr "Tryb administratorski"
 
 #. translators: Switch description in the new account window
 #: src/Dialogs/NewAccount.vala:340
@@ -1899,34 +1908,36 @@ msgid ""
 "Enables the Admin Dashboard and requests the needed permissions to use the "
 "Admin API"
 msgstr ""
+"Włącza panel administracyjny i żąda uprawnień koniecznych do używania API "
+"administracyjnego"
 
 #: src/Dialogs/NotificationSettings.vala:49
 msgid "Polls"
-msgstr ""
+msgstr "Ankiety"
 
 #: src/Dialogs/NotificationSettings.vala:50
 msgid "Post Edits"
-msgstr ""
+msgstr "Edycje wpisów"
 
 #: src/Dialogs/NotificationSettings.vala:51
 msgid "Follows"
-msgstr ""
+msgstr "Zaobserwowania"
 
 #: src/Dialogs/NotificationSettings.vala:68
 msgid "Clear All Notifications"
-msgstr ""
+msgstr "Wyczyść wszystkie powiadomienia"
 
 #: src/Dialogs/NotificationSettings.vala:75
 msgid "Included Notifications"
-msgstr ""
+msgstr "Pokazywane powiadomienia"
 
 #: src/Dialogs/NotificationSettings.vala:114
 msgid "Are you sure you want to clear all notifications?"
-msgstr ""
+msgstr "Czy na pewno chcesz wyczyścić wszystkie powiadomienia?"
 
 #: src/Dialogs/NotificationSettings.vala:121
 msgid "Clear"
-msgstr ""
+msgstr "Wyczyść"
 
 #: src/Dialogs/Preferences.vala:31 src/Widgets/Status.vala:307
 msgid "Edit"
@@ -2162,21 +2173,21 @@ msgstr "Edycja wpisu przez %s"
 #. translators: post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:297
 msgid "In Reply"
-msgstr ""
+msgstr "W odpowiedzi"
 
 #. translators: the variable is a string user handle,
 #. post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:301
 #, c-format
 msgid "In Reply to %s"
-msgstr ""
+msgstr "W odpowiedzi dla %s"
 
 #. translators: the variable is a string user name,
 #. this is used for admin notifications
 #: src/Services/Accounts/InstanceAccount.vala:315
 #, c-format
 msgid "%s signed up"
-msgstr ""
+msgstr "Nowe konto: %s"
 
 #. translators: this is used for notifications,
 #. when you lost followers or following
@@ -2184,12 +2195,12 @@ msgstr ""
 #. or personal domain blocking
 #: src/Services/Accounts/InstanceAccount.vala:326
 msgid "Some of your relationships got severed"
-msgstr ""
+msgstr "Niektóre z twoich relacji zostały przerwane"
 
 #. translators: this is used for admin notifications
 #: src/Services/Accounts/InstanceAccount.vala:334
 msgid "Received a new report"
-msgstr ""
+msgstr "Otrzymano nowe zgłoszenie"
 
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:373
@@ -2391,23 +2402,23 @@ msgstr "%-e %b %Y"
 
 #: src/Utils/DateTime.vala:123
 msgid "just now"
-msgstr ""
+msgstr "dopiero co"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:127
 #, c-format
 msgid "%s minutes ago"
-msgstr ""
+msgstr "%s minut temu"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:132
 #, c-format
 msgid "%s hours ago"
-msgstr ""
+msgstr "%s godzin temu"
 
 #: src/Utils/DateTime.vala:135
 msgid "yesterday"
-msgstr ""
+msgstr "wczoraj"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:169
@@ -2480,19 +2491,19 @@ msgstr "Wszystko"
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:73
 msgid "Remote"
-msgstr ""
+msgstr "Zdalne"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: src/Views/Admin/Pages/Accounts.vala:78
 msgid "Location"
-msgstr ""
+msgstr "Lokalizacja"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:95
 msgid "Active"
-msgstr ""
+msgstr "Czynne"
 
 #. new DropDownStringEntry ("sensitized", _("Sensitive")), // doesn't seem to work on Mastodon
 #. translators: Dropdown entry, account status.
@@ -2502,7 +2513,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:383 src/Widgets/Admin/AccountRow.vala:31
 #: src/Widgets/Admin/Report.vala:52
 msgid "Limited"
-msgstr ""
+msgstr "Ograniczone"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -2511,7 +2522,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:390 src/Widgets/Admin/AccountRow.vala:33
 #: src/Widgets/Admin/Report.vala:54
 msgid "Disabled"
-msgstr ""
+msgstr "Wyłączone"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -2520,59 +2531,59 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:376 src/Widgets/Admin/AccountRow.vala:29
 #: src/Widgets/Admin/Report.vala:50
 msgid "Suspended"
-msgstr ""
+msgstr "Zawieszone"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:113
 msgid "Pending"
-msgstr ""
+msgstr "Oczekujące"
 
 #: src/Views/Admin/Pages/Accounts.vala:128
 msgid "Username"
-msgstr ""
+msgstr "Nazwa użytkownika"
 
 #: src/Views/Admin/Pages/Accounts.vala:142
 #: src/Views/Admin/Pages/Accounts.vala:304
 msgid "E-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: src/Views/Admin/Pages/Accounts.vala:298
 msgid "Role"
-msgstr ""
+msgstr "Rola"
 
 #. translators: admin dashboard, account view
 #. e-mail has been confirmed
 #: src/Views/Admin/Pages/Accounts.vala:315
 msgid "Confirmed"
-msgstr ""
+msgstr "Potwierdzony"
 
 #. translators: admin dashboard, account view
 #. e-mail has NOT been confirmed
 #: src/Views/Admin/Pages/Accounts.vala:323
 msgid "Not Confirmed"
-msgstr ""
+msgstr "Niepotwierdzony"
 
 #. translators: admin panel, account waiting to be approved, placeholder when they didn't include a reason
 #: src/Views/Admin/Pages/Accounts.vala:347
 msgid "No Reason Given"
-msgstr ""
+msgstr "Nie podano powodu"
 
 #. translators: admin panel, account waiting to be approved
 #: src/Views/Admin/Pages/Accounts.vala:351
 msgid "Awaiting Approval"
-msgstr ""
+msgstr "Oczekuje zatwierdzenia"
 
 #: src/Views/Admin/Pages/Accounts.vala:358
 #: src/Views/Admin/Pages/Accounts.vala:492
 msgid "Approve"
-msgstr ""
+msgstr "Zatwierdź"
 
 #: src/Views/Admin/Pages/Accounts.vala:365
 #: src/Views/Admin/Pages/Accounts.vala:525
 msgid "Reject"
-msgstr ""
+msgstr "Odrzuć"
 
 #. translators: Question dialog when an admin is about to
 #. undo an action, like a suspension
