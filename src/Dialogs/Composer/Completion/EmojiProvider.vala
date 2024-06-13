@@ -38,7 +38,10 @@ public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 		GtkSource.CompletionProposal proposal,
 		GtkSource.CompletionCell cell
 	) {
-		var emoji = (proposal as Proposal)?.emoji;
+		var real_proposal = proposal as Proposal;
+		if (real_proposal == null) return;
+
+		var emoji = real_proposal.emoji;
 		return_if_fail (emoji != null);
 
 		switch (cell.get_column ()) {

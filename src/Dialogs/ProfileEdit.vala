@@ -170,21 +170,23 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 		Tuba.Helper.Image.request_paintable (acc.avatar, null, on_avi_cache_response);
 		avi.text = acc.display_name;
 		name_row.text = acc.display_name;
-		bio_text_view.buffer.text = acc.source?.note ?? "";
+		bio_text_view.buffer.text = acc.source == null || acc.source.note == null ? "" : acc.source.note;
 
 		max_fields = accounts.active.instance_info.compat_fields_limits_max_fields;
 		max_key_length = accounts.active.instance_info.compat_fields_limits_name_length;
 		max_value_length = accounts.active.instance_info.compat_fields_limits_value_length;
 
 		// Add known fields
-		if (acc?.source?.fields?.size > 0) {
-			for (var i = 0; i < acc.source.fields.size; i++) {
+		int total_fields = 0;
+		if (acc != null && acc.source != null && acc.source.fields != null && acc.source.fields.size > 0) {
+			total_fields = acc.source.fields.size;
+			for (var i = 0; i < total_fields; i++) {
 				var field = acc.source.fields.get (i);
 				add_field (field.name, field.val);
 			}
 		}
 
-		var fields_left = max_fields - (acc?.source?.fields?.size ?? 0);
+		var fields_left = max_fields - total_fields;
 		if (fields_left > 0) {
 			for (var i = 0; i < fields_left; i++) {
 				add_field (null, null);
@@ -252,7 +254,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 		if (!has_error (name_row) && profile.display_name != name_row.text)
 			req.with_form_data ("display_name", name_row.text);
 
-		if (!has_error (bio_row) && profile.source?.note != bio_text_view.buffer.text)
+		if (!has_error (bio_row) && profile.source != null && profile.source.note != bio_text_view.buffer.text)
 			req.with_form_data ("note", bio_text_view.buffer.text);
 
 

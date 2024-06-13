@@ -654,8 +654,8 @@
 	}
 
 	private void update_toggle_pinned_label () {
-		if (pin_menu_item != null)
-			pin_menu_item.set_label (status?.formal?.pinned
+		if (pin_menu_item != null && status != null && status.formal != null)
+			pin_menu_item.set_label (status.formal.pinned
 				// translators: Unpin post from profile
 				? _("Unpin")
 				// translators: Pin post on profile

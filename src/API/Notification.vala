@@ -166,11 +166,14 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		}
 
 		if (should_show_buttons) {
+			string var_string = account.url;
+			if (status != null && status.url != null) {
+				var_string = status.url;
+			}
+
 			toast.set_default_action_and_target_value (
 				"app.open-status-url",
-				new Variant.string (
-					status?.url ?? account.url
-				)
+				new Variant.string (var_string)
 			);
 
 			switch (kind) {

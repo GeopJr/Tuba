@@ -158,7 +158,11 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	public Views.Base open_view (Views.Base view) {
 		if (
-			navigation_view?.visible_page?.child == view
+			(
+				navigation_view != null
+				&& navigation_view.visible_page != null
+				&& navigation_view.visible_page.child == view
+			)
 			|| (
 				last_view != null
 				&& last_view.label == view.label

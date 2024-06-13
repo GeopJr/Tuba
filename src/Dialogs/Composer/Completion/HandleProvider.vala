@@ -38,7 +38,10 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 		GtkSource.CompletionProposal proposal,
 		GtkSource.CompletionCell cell
 	) {
-		var account = (proposal as Proposal)?.account;
+		var real_proposal = proposal as Proposal;
+		if (real_proposal == null) return;
+
+		var account = real_proposal.account;
 		return_if_fail (account != null);
 
 		switch (cell.get_column ()) {
