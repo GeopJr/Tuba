@@ -25,10 +25,11 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
 			shortcode = t_shortcode;
 		}
 
-		GLib.Idle.add (() => {
+		var cached_paintable = Tuba.Helper.Image.lookup_cache (emoji_url);
+		if (cached_paintable == null)
 			Tuba.Helper.Image.request_paintable (emoji_url, null, on_cache_response);
-			return GLib.Source.REMOVE;
-		});
+		else
+			on_cache_response (cached_paintable);
 	}
 
 	void on_cache_response (Gdk.Paintable? data) {

@@ -91,4 +91,12 @@ public class Tuba.Helper.Image {
 			cb (result);
 		});
 	}
+
+	public static Gdk.Paintable? lookup_cache (string uri) {
+		try {
+			return Gdk.Texture.from_filename (GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, cache.cache_dir, GLib.str_hash (uri).to_string ()));
+		} catch {
+			return null;
+		}
+	}
 }
