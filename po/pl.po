@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-06-13 16:44+0000\n"
+"PO-Revision-Date: 2024-06-14 08:05+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -2589,7 +2589,7 @@ msgstr "Odrzuć"
 #. undo an action, like a suspension
 #: src/Views/Admin/Pages/Accounts.vala:424
 msgid "Are you sure you want to undo this action?"
-msgstr ""
+msgstr "Czy na pewno chcesz cofnąć tę akcję?"
 
 #. translators: Question dialog when an admin is about to
 #. approve an account. The variable is an
@@ -2597,7 +2597,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:485
 #, c-format
 msgid "Are you sure you want to approve %s?"
-msgstr ""
+msgstr "Czy na pewno chcesz zatwierdzić %s?"
 
 #. translators: Question dialog when an admin is about to
 #. reject an account. The variable is an
@@ -2605,14 +2605,14 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:518
 #, c-format
 msgid "Are you sure you want to reject %s?"
-msgstr ""
+msgstr "Czy na pewno chcesz odrzucić %s?"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about blocking e-mail providers like
 #. gmail.com
 #: src/Views/Admin/Pages/BlockedEmails.vala:21
 msgid "Block a new e-mail domain"
-msgstr ""
+msgstr "Zablokuj nową domenę e-mail"
 
 #. translators: Question dialog when an admin is about to
 #. block an e-mail domain. The variable is a
@@ -2620,7 +2620,7 @@ msgstr ""
 #: src/Views/Admin/Pages/BlockedEmails.vala:60
 #, c-format
 msgid "Are you sure you want to block %s?"
-msgstr ""
+msgstr "Czy na pewno chcesz zablokować %s?"
 
 #. translators: Question dialog description when an admin is about to
 #. block an e-mail domain. The variable is a string.
@@ -2630,68 +2630,70 @@ msgid ""
 "This can be the domain name that shows up in the e-mail address or the MX "
 "record it uses. They will be checked upon sign-up."
 msgstr ""
+"To może być domena zawarta w adresie e-mail lub używana przez rekord MX. "
+"Będzie to sprawdzane przy rejestracji."
 
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "New Users"
-msgstr ""
+msgstr "Nowe rejestracje"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Active Users"
-msgstr ""
+msgstr "Aktywne konta"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Interactions"
-msgstr ""
+msgstr "Interakcje"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Reports Opened"
-msgstr ""
+msgstr "Otwarte zgłoszenia"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Reports Resolved"
-msgstr ""
+msgstr "Zamknięte zgłoszenia"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:18
 msgid "Sign-up Sources"
-msgstr ""
+msgstr "Źródła rejestracji"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:20
 msgid "Top Active Languages"
-msgstr ""
+msgstr "Najbardziej aktywne języki"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:22
 msgid "Top Active Servers"
-msgstr ""
+msgstr "Najbardziej aktywne serwery"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:24
 msgid "Software"
-msgstr ""
+msgstr "Oprogramowanie"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:26
 msgid "Space Usage"
-msgstr ""
+msgstr "Zajęta przestrzeń"
 
 #: src/Views/Admin/Pages/Dashboard.vala:53
 msgid "Stats"
-msgstr ""
+msgstr "Statystyki"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about allowing federation
 #. with other instances
 #: src/Views/Admin/Pages/FederationAllowlist.vala:18
 msgid "Allow federation with an instance"
-msgstr ""
+msgstr "Zezwól na federację z instancją"
 
 #: src/Views/Admin/Pages/FederationAllowlist.vala:21
 #: src/Views/Admin/Pages/FederationAllowlist.vala:64
 msgid "Allow"
-msgstr ""
+msgstr "Zezwól"
 
 #. translators: Question dialog when an admin is about to
 #. allow federation with an instance. The variable is a
@@ -2699,12 +2701,12 @@ msgstr ""
 #: src/Views/Admin/Pages/FederationAllowlist.vala:57
 #, c-format
 msgid "Are you sure you want to allow federation with %s?"
-msgstr ""
+msgstr "Czy na pewno chcesz zezwolić na federację z %s?"
 
 #. translators: admin dashboard, reports timeline, headerbar button tooltip text
 #: src/Views/Admin/Pages/Reports.vala:10
 msgid "Show Resolved Reports"
-msgstr ""
+msgstr "Pokaż zamknięte zgłoszenia"
 
 #. translators: Question dialog when an admin is about to
 #. unblock an IP address. The variable
@@ -2720,7 +2722,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/EmailDomain.vala:26
 #, c-format
 msgid "Are you sure you want to unblock %s?"
-msgstr ""
+msgstr "Czy na pewno chcesz odblokować %s?"
 
 #. translators: Question dialog when an admin is about to
 #. delete a domain from the federation allowlist.
@@ -2730,11 +2732,11 @@ msgstr ""
 #: src/Views/Admin/Timelines/DomainAllow.vala:28
 #, c-format
 msgid "Are you sure you want to no longer federate with %s?"
-msgstr ""
+msgstr "Czy na pewno nie chcesz już federacji z %s?"
 
 #: src/Views/Admin/Timelines/DomainAllow.vala:35
 msgid "Remove"
-msgstr ""
+msgstr "Usuń"
 
 #: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:61
 msgid "Announcements"
@@ -2877,34 +2879,34 @@ msgstr "Brak zablokowanych kont"
 #: src/Views/NotificationRequestsList.vala:8
 #, c-format
 msgid "Notifications by %s"
-msgstr ""
+msgstr "Powiadomienia od %s"
 
 #. translators: the variable is a user handle
 #: src/Views/NotificationRequestsList.vala:11
 #, c-format
 msgid "No Notifications by %s"
-msgstr ""
+msgstr "Brak powiadomień od %s"
 
 #: src/Views/NotificationRequestsList.vala:26
 #: src/Widgets/NotificationRequest.vala:56
 msgid "Dismiss"
-msgstr ""
+msgstr "Odrzuć"
 
 #: src/Views/NotificationRequests.vala:4
 msgid "Filtered Notifications"
-msgstr ""
+msgstr "Filtrowane powiadomienia"
 
 #: src/Views/NotificationRequests.vala:7
 msgid "No Filtered Notifications"
-msgstr ""
+msgstr "Brak filtrowanych powiadomień"
 
 #: src/Views/Notifications.vala:13
 #, c-format
 msgid "%d Filtered Notification"
 msgid_plural "%d Filtered Notifications"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d filtrowane powiadomienie"
+msgstr[1] "%d filtrowane powiadomienia"
+msgstr[2] "%d filtrowanych powiadomień"
 
 #: src/Views/Notifications.vala:41
 msgid "No Notifications"
@@ -3000,11 +3002,11 @@ msgstr "Wpisz zapytanie"
 
 #: src/Views/Search.vala:31
 msgid "Advanced Search"
-msgstr ""
+msgstr "Zaawansowane wyszukiwanie"
 
 #: src/Views/Search.vala:35
 msgid "Clear Entry"
-msgstr ""
+msgstr "Wyczyść"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Views/Search.vala:111 src/Views/Search.vala:112
@@ -3015,7 +3017,7 @@ msgstr "Brak wyników"
 
 #: src/Views/Search.vala:227
 msgid "Language"
-msgstr ""
+msgstr "Język"
 
 #. tanslators: used in a banner, the variable is the number of unread announcements
 #: src/Views/Sidebar.vala:24
@@ -3112,7 +3114,7 @@ msgstr "Błąd sieci"
 #: src/Widgets/Account.vala:127 src/Widgets/ProfileCover.vala:95
 #, c-format
 msgid "%s (%s)'s profile."
-msgstr ""
+msgstr "Profil %s (%s)."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3122,7 +3124,7 @@ msgstr ""
 #: src/Widgets/Account.vala:139 src/Widgets/ProfileCover.vala:107
 #, c-format
 msgid "Relationship: %s."
-msgstr ""
+msgstr "Relacja: %s."
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of posts a user has made.
@@ -3131,9 +3133,9 @@ msgstr ""
 #, c-format
 msgid "%s Post"
 msgid_plural "%s Posts"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s wpis"
+msgstr[1] "%s wpisy"
+msgstr[2] "%s wpisów"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of followers a user has.
@@ -3142,9 +3144,9 @@ msgstr[2] ""
 #, c-format
 msgid "%s Follower"
 msgid_plural "%s Followers"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s obserwujący"
+msgstr[1] "%s obserwujących"
+msgstr[2] "%s obserwujących"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of people a user follows.
@@ -3157,25 +3159,25 @@ msgstr "%s obserwowanych"
 #. translators: Admin dashboard, report status
 #: src/Widgets/Admin/AccountRow.vala:27 src/Widgets/Admin/Report.vala:47
 msgid "No Limits"
-msgstr ""
+msgstr "Brak ograniczeń"
 
 #. translators: admin panel, account waiting to be approved
 #: src/Widgets/Admin/AccountRow.vala:36
 msgid "Waiting Approval"
-msgstr ""
+msgstr "Oczekuje na zatwierdzenie"
 
 #. translators: Report 'Assigned to: <account>'
 #: src/Widgets/Admin/AssignedRow.vala:11 src/Widgets/Admin/Report.vala:26
 msgid "Assigned to"
-msgstr ""
+msgstr "Przypisane do"
 
 #: src/Widgets/Admin/AssignedRow.vala:38
 msgid "Unassign"
-msgstr ""
+msgstr "Usuń przypisanie"
 
 #: src/Widgets/Admin/AssignedRow.vala:42
 msgid "Assign"
-msgstr ""
+msgstr "Przypisz"
 
 #. translators: subtitle on email domain blocks.
 #. The variable is the number of sing up
@@ -3183,7 +3185,7 @@ msgstr ""
 #: src/Widgets/Admin/EmailDomainBlock.vala:24
 #, c-format
 msgid "%d Sign-up Attempts"
-msgstr ""
+msgstr "%d prób rejestracji"
 
 #. translators: the variable is the emoji or its name if it's custom
 #: src/Widgets/Announcement.vala:34 src/Widgets/Status/ReactionsRow.vala:21
@@ -3199,7 +3201,7 @@ msgstr "Zareaguj za pomocą %s"
 #: src/Widgets/Announcement.vala:95
 #, c-format
 msgid "Announcement by %s (%s)."
-msgstr ""
+msgstr "Ogłoszenie od %s (%s)."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3208,7 +3210,7 @@ msgstr ""
 #: src/Widgets/Announcement.vala:106 src/Widgets/Status.vala:699
 #, c-format
 msgid "Edited: %s."
-msgstr ""
+msgstr "Edytowano: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3217,7 +3219,7 @@ msgstr ""
 #: src/Widgets/Announcement.vala:111 src/Widgets/Status.vala:704
 #, c-format
 msgid "Published: %s."
-msgstr ""
+msgstr "Opublikowano: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3228,9 +3230,9 @@ msgstr ""
 #, c-format
 msgid "Contains %d reaction."
 msgid_plural "Contains %d reactions."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Zawiera %d reakcję."
+msgstr[1] "Zawiera %d reakcje."
+msgstr[2] "Zawiera %d reakcji."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3239,7 +3241,7 @@ msgstr[2] ""
 #. hasn't been read yet.
 #: src/Widgets/Announcement.vala:131
 msgid "Unread."
-msgstr ""
+msgstr "Nieprzeczytane."
 
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:63
@@ -3319,13 +3321,13 @@ msgstr "Omawiany %d razy przez %d osób w ciągu ostatnich dwóch dni"
 #, c-format
 msgid "Contains %d field."
 msgid_plural "Contains %d fields."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Zawiera %d pole."
+msgstr[1] "Zawiera %d pola."
+msgstr[2] "Zawiera %d pól."
 
 #: src/Widgets/ProfileCover.vala:468
 msgid "Error: Note is over 2000 characters long"
-msgstr ""
+msgstr "Błąd: Notatka ma ponad 2000 znaków"
 
 #: src/Widgets/RelationshipButton.vala:54
 msgid "Unmute"
@@ -3394,7 +3396,7 @@ msgstr "Przypnij"
 #. translators: Post menu items to revert a translation
 #: src/Widgets/Status.vala:328
 msgid "Show Original"
-msgstr ""
+msgstr "Pokaż oryginał"
 
 #: src/Widgets/Status.vala:345
 msgid "Copied post url to clipboard"
@@ -3407,14 +3409,14 @@ msgstr "Czy na pewno chcesz usunąć ten wpis?"
 #: src/Widgets/Status.vala:448 src/Widgets/Status.vala:469
 #, c-format
 msgid "Couldn't translate: %s"
-msgstr ""
+msgstr "Nie udało się przetłumaczyć: %s"
 
 #. translators: Tooltip text for avatars in posts.
 #. The variable is a string user handle.
 #: src/Widgets/Status.vala:611 src/Widgets/Status.vala:934
 #, c-format
 msgid "Open %s's Profile"
-msgstr ""
+msgstr "Otwórz profil %s"
 
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:660
@@ -3426,7 +3428,7 @@ msgstr "Odepnij"
 #. please be mindful.
 #: src/Widgets/Status.vala:671
 msgid "Filtered post"
-msgstr ""
+msgstr "Odfiltrowany wpis"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3437,21 +3439,21 @@ msgstr ""
 #: src/Widgets/Status.vala:687
 #, c-format
 msgid "%s post by %s (%s)."
-msgstr ""
+msgstr "%s wpis od %s (%s)."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:711
 msgid "The post is pinned."
-msgstr ""
+msgstr "Wpis jest przypięty."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:719
 msgid "Contains a quoted post."
-msgstr ""
+msgstr "Zawiera cytowany wpis."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3461,9 +3463,9 @@ msgstr ""
 #, c-format
 msgid "Contains %d attachment."
 msgid_plural "Contains %d attachments."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Zawiera %d załącznik."
+msgstr[1] "Zawiera %d załączniki."
+msgstr[2] "Zawiera %d załączników."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
