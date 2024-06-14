@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-06-14 16:57+0000\n"
+"PO-Revision-Date: 2024-06-14 17:07+0000\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tuba/tuba/es/>\n"
 "Language: es\n"
@@ -276,7 +276,7 @@ msgstr "Fechas"
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:179
 msgid "Before"
-msgstr "Antes de"
+msgstr "Antes"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
@@ -288,7 +288,7 @@ msgstr "Durante"
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:225
 msgid "After"
-msgstr "Después de"
+msgstr "Después"
 
 #: data/ui/dialogs/compose.ui:41 src/Dialogs/Composer/Dialog.vala:263
 msgid "_Publish"
@@ -3192,7 +3192,7 @@ msgstr "Reaccionar con %s"
 #: src/Widgets/Announcement.vala:95
 #, c-format
 msgid "Announcement by %s (%s)."
-msgstr ""
+msgstr "Anuncio de %s (%s)."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3201,7 +3201,7 @@ msgstr ""
 #: src/Widgets/Announcement.vala:106 src/Widgets/Status.vala:699
 #, c-format
 msgid "Edited: %s."
-msgstr ""
+msgstr "Editado: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3210,7 +3210,7 @@ msgstr ""
 #: src/Widgets/Announcement.vala:111 src/Widgets/Status.vala:704
 #, c-format
 msgid "Published: %s."
-msgstr ""
+msgstr "Publicado: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3221,8 +3221,8 @@ msgstr ""
 #, c-format
 msgid "Contains %d reaction."
 msgid_plural "Contains %d reactions."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Contiene %d reacción."
+msgstr[1] "Contiene %d reacciones."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3231,7 +3231,7 @@ msgstr[1] ""
 #. hasn't been read yet.
 #: src/Widgets/Announcement.vala:131
 msgid "Unread."
-msgstr ""
+msgstr "Sin leer."
 
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:63
@@ -3311,12 +3311,12 @@ msgstr "Comentado %d veces por %d personas en los últimos 2 días"
 #, c-format
 msgid "Contains %d field."
 msgid_plural "Contains %d fields."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Contiene %d campo."
+msgstr[1] "Contiene %d campos."
 
 #: src/Widgets/ProfileCover.vala:468
 msgid "Error: Note is over 2000 characters long"
-msgstr ""
+msgstr "Error: La nota tiene más de 2000 caracteres"
 
 #: src/Widgets/RelationshipButton.vala:54
 msgid "Unmute"
@@ -3385,7 +3385,7 @@ msgstr "Fijar"
 #. translators: Post menu items to revert a translation
 #: src/Widgets/Status.vala:328
 msgid "Show Original"
-msgstr ""
+msgstr "Mostrar original"
 
 #: src/Widgets/Status.vala:345
 msgid "Copied post url to clipboard"
@@ -3398,14 +3398,14 @@ msgstr "¿Seguro que quiere eliminar esta publicación?"
 #: src/Widgets/Status.vala:448 src/Widgets/Status.vala:469
 #, c-format
 msgid "Couldn't translate: %s"
-msgstr ""
+msgstr "No se ha podido traducir: %s"
 
 #. translators: Tooltip text for avatars in posts.
 #. The variable is a string user handle.
 #: src/Widgets/Status.vala:611 src/Widgets/Status.vala:934
 #, c-format
 msgid "Open %s's Profile"
-msgstr ""
+msgstr "Abrir el perfil de %s"
 
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:660
@@ -3417,7 +3417,7 @@ msgstr "Desfijar"
 #. please be mindful.
 #: src/Widgets/Status.vala:671
 msgid "Filtered post"
-msgstr ""
+msgstr "Publicación filtrada"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3428,21 +3428,21 @@ msgstr ""
 #: src/Widgets/Status.vala:687
 #, c-format
 msgid "%s post by %s (%s)."
-msgstr ""
+msgstr "publicación %s por %s (%s)."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:711
 msgid "The post is pinned."
-msgstr ""
+msgstr "La publicación está fijada."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:719
 msgid "Contains a quoted post."
-msgstr ""
+msgstr "Contiene un mensaje citado."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3452,29 +3452,29 @@ msgstr ""
 #, c-format
 msgid "Contains %d attachment."
 msgid_plural "Contains %d attachments."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Contiene %d adjunto."
+msgstr[1] "Contiene %d adjuntos."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:740
 msgid "Contains an expired poll."
-msgstr ""
+msgstr "Contiene una encuesta expirada."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:744
 msgid "Contains a poll."
-msgstr ""
+msgstr "Contiene una encuesta."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:753
 msgid "The post has a spoiler."
-msgstr ""
+msgstr "La publicación tiene un spoiler."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3483,7 +3483,7 @@ msgstr ""
 #: src/Widgets/Status.vala:759
 #, c-format
 msgid "The post has the following spoiler: %s."
-msgstr ""
+msgstr "La publicación tiene el siguiente spoiler: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3493,28 +3493,28 @@ msgstr ""
 #: src/Widgets/Status.vala:770
 #, c-format
 msgid "Posted using %s."
-msgstr ""
+msgstr "Publicado usando %s."
 
 #: src/Widgets/Status.vala:793
 #, c-format
 msgid "%s reply"
 msgid_plural "%s replies"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s respuesta"
+msgstr[1] "%s respuestas"
 
 #: src/Widgets/Status.vala:798
 #, c-format
 msgid "%s boost"
 msgid_plural "%s boosts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s impulso"
+msgstr[1] "%s impulsos"
 
 #: src/Widgets/Status.vala:803
 #, c-format
 msgid "%s favorite"
 msgid_plural "%s favorites"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s favorito"
+msgstr[1] "%s favoritos"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3522,7 +3522,7 @@ msgstr[1] ""
 #. This is used to announce the quoted post
 #: src/Widgets/Status.vala:838
 msgid "Quoted Post"
-msgstr ""
+msgstr "Publicación citada"
 
 #: src/Widgets/Status.vala:858
 #, c-format
@@ -3538,13 +3538,13 @@ msgstr "Filtrado"
 #: src/Widgets/Status.vala:984
 #, c-format
 msgid "Translated from %s using %s"
-msgstr ""
+msgstr "Traducido del %s con %s"
 
 #. translatiors: the variable is a service name e.g. DeepL
 #: src/Widgets/Status.vala:987
 #, c-format
 msgid "Translated using %s"
-msgstr ""
+msgstr "Traducido usando %s"
 
 #: src/Widgets/VoteBox.vala:13
 msgid "Vote"
@@ -3568,8 +3568,8 @@ msgstr "%lld votado"
 #, c-format
 msgid "Poll with %d option."
 msgid_plural "Poll with %d options."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Encuesta con %d opción."
+msgstr[1] "Encuesta con %d opciones."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3577,7 +3577,7 @@ msgstr[1] ""
 #. Describes whether the user has voted on the poll.
 #: src/Widgets/VoteBox.vala:192
 msgid "You have voted."
-msgstr ""
+msgstr "Ha votado."
 
 #, c-format
 #~ msgid "%d Minutes"
