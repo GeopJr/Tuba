@@ -27,8 +27,11 @@ namespace Tuba {
 	public static bool is_flatpak = false;
 	public static string cache_path;
 
+	public static string default_locale;
+
 	public class Application : Adw.Application {
 
+		public GLib.ProxyResolver? proxy { get; set; default=null; }
 		public Dialogs.MainWindow? main_window { get; set; }
 		public Dialogs.NewAccount? add_account_window { get; set; }
 		public bool is_mobile { get; set; default=false; }
@@ -43,6 +46,7 @@ namespace Tuba {
 		public Streams app_streams { get {return Tuba.streams; } }
 
 		public signal void refresh ();
+		public signal void relationship_invalidated (API.Relationship new_relationship);
 		public signal void toast (string title, uint timeout = 5);
 
 		#if DEV_MODE
@@ -82,7 +86,8 @@ namespace Tuba {
 			{ "open-current-account-profile", open_current_account_profile },
 			{ "open-announcements", open_announcements },
 			{ "open-follow-requests", open_follow_requests },
-			{ "open-mutes-blocks", open_mutes_blocks }
+			{ "open-mutes-blocks", open_mutes_blocks },
+			{ "open-admin-dashboard", open_admin_dashboard }
 		};
 
 		#if DEV_MODE
@@ -92,49 +97,49 @@ namespace Tuba {
 		#endif
 
 		private void remove_from_followers (GLib.SimpleAction action, GLib.Variant? value) {
-			if (value == null) return;
+			if (value == null || accounts.active == null) return;
 
-			accounts.active?.remove_from_followers (
+			accounts.active.remove_from_followers (
 				value.get_child_value (0).get_string (),
 				value.get_child_value (1).get_string ()
 			);
 		}
 
 		private void reply_to_status_uri (GLib.SimpleAction action, GLib.Variant? value) {
-			if (value == null) return;
+			if (value == null || accounts.active == null) return;
 
-			accounts.active?.reply_to_status_uri (
+			accounts.active.reply_to_status_uri (
 				value.get_child_value (0).get_string (),
 				value.get_child_value (1).get_string ()
 			);
 		}
 
 		private void follow_back (GLib.SimpleAction action, GLib.Variant? value) {
-			if (value == null) return;
+			if (value == null || accounts.active == null) return;
 
-			accounts.active?.follow_back (
+			accounts.active.follow_back (
 				value.get_child_value (0).get_string (),
 				value.get_child_value (1).get_string ()
 			);
 		}
 
 		private void open_status_url (GLib.SimpleAction action, GLib.Variant? value) {
-			if (value == null) return;
+			if (value == null || accounts.active == null) return;
 
-			accounts.active?.open_status_url (value.get_string ());
+			accounts.active.open_status_url (value.get_string ());
 		}
 
 		private void answer_follow_request (GLib.SimpleAction action, GLib.Variant? value) {
-			if (value == null) return;
+			if (value == null || accounts.active == null) return;
 
-			accounts.active?.answer_follow_request (
+			accounts.active.answer_follow_request (
 				value.get_child_value (0).get_string (),
 				value.get_child_value (1).get_string (),
 				value.get_child_value (2).get_boolean ()
 			);
 		}
 
-		private void handle_web_ap (Uri uri) {
+		public void handle_web_ap (Uri uri) {
 			if (accounts.active == null) return;
 
 			accounts.active.resolve.begin (WebApHandler.from_uri (uri), (obj, res) => {
@@ -143,9 +148,7 @@ namespace Tuba {
 				} catch (Error e) {
 					string msg = @"Failed to resolve URL \"$uri\": $(e.message)";
 					warning (msg);
-
-					var dlg = inform (_("Error"), msg);
-					dlg.present (app.main_window);
+					this.toast (msg);
 				}
 			});
 		}
@@ -229,13 +232,7 @@ namespace Tuba {
 			// as it causes websocket reconnects and
 			// timeline refreshes
 			if (is_online == online) return;
-
 			is_online = online;
-			if (!is_online) {
-				foreach (var win in app.get_windows ()) {
-					new Dialogs.Offline (win);
-				}
-			}
 		}
 
 		protected override void startup () {
@@ -247,6 +244,17 @@ namespace Tuba {
 				}
 				Adw.init ();
 				GtkSource.init ();
+
+				var t_default_locale = Gtk.get_default_language ().to_string ();
+				if (t_default_locale == "c") {
+					default_locale = "en-US";
+				} else {
+					if (t_default_locale.index_of_char ('-') != -1) {
+						var tdl_parts = t_default_locale.split ("-", 2);
+						t_default_locale = @"$(tdl_parts[0].down ())-$(tdl_parts[1].up ())";
+					}
+					default_locale = t_default_locale;
+				}
 
 				settings = new Settings ();
 				streams = new Streams ();
@@ -291,6 +299,41 @@ namespace Tuba {
 
 			if (settings.monitor_network)
 				network_monitor.network_changed.connect (on_network_change);
+
+			if (settings.proxy != "")
+				on_proxy_change ();
+			settings.notify ["proxy"].connect (on_proxy_notify);
+		}
+
+		private void on_proxy_change (bool recover = false) {
+			if (settings.proxy != "") {
+				try {
+					if (Uri.is_valid (settings.proxy, UriFlags.NONE)) {
+						proxy = new GLib.SimpleProxyResolver (settings.proxy, null);
+					}
+				} catch (Error e) {
+					// translators: Toast that pops up when
+					//				an invalid proxy url has
+					//				been provided in settings
+					app.toast (_("Invalid Proxy URL"));
+					warning (e.message);
+					return;
+				}
+			} else {
+				proxy = GLib.ProxyResolver.get_default ();
+			}
+
+			if (recover && add_account_window == null) {
+				GLib.Timeout.add_once (5000, trigger_is_online_notify);
+			}
+		}
+
+		private void trigger_is_online_notify () {
+			this.notify_property ("is-online");
+		}
+
+		private void on_proxy_notify () {
+			on_proxy_change (true);
 		}
 
 		private bool activated = false;
@@ -445,6 +488,10 @@ namespace Tuba {
 		public void open_mutes_blocks () {
 			main_window.open_view (new Views.MutesBlocks ());
 			close_sidebar ();
+		}
+
+		public void open_admin_dashboard () {
+			new Dialogs.Admin.Window ().present ();
 		}
 
 		private void close_sidebar () {

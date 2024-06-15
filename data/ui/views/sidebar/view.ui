@@ -33,7 +33,6 @@
 			<object class="AdwToolbarView">
 				<child type="top">
 					<object class="AdwHeaderBar">
-						<property name="centering-policy">strict</property>
 						<child type="start">
 							<object class="GtkMenuButton" id="accounts_button">
 								<property name="tooltip_text" translatable="yes">Switch Account</property>
@@ -65,6 +64,13 @@
 					<object class="GtkBox">
 						<property name="orientation">vertical</property>
 						<property name="vexpand">1</property>
+						<child>
+							<object class="AdwBanner" id="network_banner">
+								<property name="revealed">0</property>
+								<!-- translators: banner shown when the internet connection is lost -->
+								<property name="title" translatable="yes">Offline</property>
+							</object>
+						</child>
 						<child>
 							<object class="AdwBanner" id="announcements_banner">
 								<property name="revealed">0</property>

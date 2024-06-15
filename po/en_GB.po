@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Evangelos Paterakis <evan@geopjr.dev>, 2023.
 # Will Thompson <will@willthompson.co.uk>, 2023.
+# Asmodeus <colligare1Asmodeum@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: 2023-11-08 12:34+0000\n"
-"Last-Translator: Will Thompson <will@willthompson.co.uk>\n"
+"PO-Revision-Date: 2024-05-29 12:09+0000\n"
+"Last-Translator: Asmodeus <colligare1Asmodeum@gmail.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
 "tuba/tuba/en_GB/>\n"
 "Language: en_GB\n"
@@ -17,23 +18,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
-msgstr ""
+msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr ""
+msgstr "Browse the Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr ""
+msgstr "Fediverse Client"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr ""
+msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
 
 #. translators: Leave &amp; as is, it gets converted to &
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
@@ -63,52 +64,52 @@ msgstr ""
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:20
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "Show Preferences"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "Compose New Post"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:56
 msgid "Refresh"
-msgstr ""
+msgstr "Refresh"
 
 #: data/gtk/help-overlay.ui:32 src/Services/Accounts/Mastodon/Account.vala:99
 #: src/Views/Main.vala:56 src/Views/Search.vala:14
 msgid "Search"
-msgstr ""
+msgstr "Search"
 
 #: data/gtk/help-overlay.ui:38 data/ui/views/media_viewer.ui:51
 msgid "Go Back"
-msgstr ""
+msgstr "Go Back"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "Show Keyboard Shortcuts"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
-msgstr ""
+msgstr "Close Window"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Quit"
-msgstr ""
+msgstr "Quit"
 
 #: data/gtk/help-overlay.ui:62
 msgid "About"
-msgstr ""
+msgstr "About"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Up"
-msgstr ""
+msgstr "Scroll Up"
 
 #: data/gtk/help-overlay.ui:74
 msgid "Scroll Down"
-msgstr ""
+msgstr "Scroll Down"
 
 #: data/gtk/help-overlay.ui:82
 msgid "Composer"

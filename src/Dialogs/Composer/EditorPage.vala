@@ -15,8 +15,17 @@ public class Tuba.EditorPage : ComposerPage {
 
 	private void count_chars () {
 		int64 res = char_limit;
+		string locale_icu = "en";
+		if (
+			language_button != null
+			&& ((Tuba.Locales.Locale) language_button.selected_item) != null
+			&& ((Tuba.Locales.Locale) language_button.selected_item).locale != null
+		) {
+			locale_icu = ((Tuba.Locales.Locale) language_button.selected_item).locale;
+		}
+
 		if (cw_button != null && cw_button.active)
-				res -= Counting.chars (cw_entry.text, ((Tuba.Locales.Locale) language_button?.selected_item)?.locale ?? "en");
+				res -= Counting.chars (cw_entry.text, locale_icu);
 
 		string replaced_urls = Tracking.cleanup_content_with_uris (
 			editor.buffer.text,
@@ -26,7 +35,7 @@ public class Tuba.EditorPage : ComposerPage {
 		);
 		string replaced_mentions = Counting.replace_mentions (replaced_urls);
 
-		res -= Counting.chars (replaced_mentions, ((Tuba.Locales.Locale) language_button?.selected_item)?.locale ?? "en");
+		res -= Counting.chars (replaced_mentions, locale_icu);
 
 		remaining_chars = res;
 	}

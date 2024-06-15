@@ -136,9 +136,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			scroller.child = clamp;
 
 			var toolbar_view = new Adw.ToolbarView ();
-			var headerbar = new Adw.HeaderBar () {
-				centering_policy = Adw.CenteringPolicy.STRICT
-			};
+			var headerbar = new Adw.HeaderBar ();
 
 			toolbar_view.add_top_bar (headerbar);
 			toolbar_view.set_content (scroller);
@@ -154,13 +152,17 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 			((Widgets.BookWyrmPage) book_widget).selectable = true;
 		} catch {
-			if (fallback != null) Host.open_uri (fallback);
+			if (fallback != null) Host.open_url (fallback);
 		}
 	}
 
 	public Views.Base open_view (Views.Base view) {
 		if (
-			navigation_view?.visible_page?.child == view
+			(
+				navigation_view != null
+				&& navigation_view.visible_page != null
+				&& navigation_view.visible_page.child == view
+			)
 			|| (
 				last_view != null
 				&& last_view.label == view.label

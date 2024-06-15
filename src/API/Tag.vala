@@ -1,7 +1,7 @@
 public class Tuba.API.Tag : Entity, Widgetizable {
 
-    public string name { get; set; }
-    public string url { get; set; }
+	public string name { get; set; }
+	public string url { get; set; }
 	public Gee.ArrayList<API.TagHistory>? history { get; set; default = null; }
 	public bool following { get; set; default = false; }
 

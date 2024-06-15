@@ -1,18 +1,18 @@
 namespace Build {
-    public const string NAME = "@NAME@";
-    public const string VERSION = "@VERSION@";
-    public const string DOMAIN = "@DOMAIN@";
-    public const string RESOURCES = "@RESOURCES@";
-    public const string PROFILE = "@PROFILE@";
+	public const string NAME = "@NAME@";
+	public const string VERSION = "@VERSION@";
+	public const string DOMAIN = "@DOMAIN@";
+	public const string RESOURCES = "@RESOURCES@";
+	public const string PROFILE = "@PROFILE@";
 
-    public const string GETTEXT_PACKAGE = "@GETTEXT_PACKAGE@";
-    public const string LOCALEDIR = "@LOCALEDIR@";
+	public const string GETTEXT_PACKAGE = "@GETTEXT_PACKAGE@";
+	public const string LOCALEDIR = "@LOCALEDIR@";
 
-    public const string WEBSITE = "@WEBSITE@";
-    public const string ISSUES_WEBSITE = "@ISSUES_WEBSITE@";
-    public const string SUPPORT_WEBSITE = "@SUPPORT_WEBSITE@";
-    public const string DONATE_WEBSITE = "@DONATE_WEBSITE@";
-    public const string TRANSLATE_WEBSITE = "@TRANSLATE_WEBSITE@";
-    public const string WIKI_WEBSITE = "@WIKI_WEBSITE@";
-    public const string PREFIX = "@PREFIX@";
+	public const string WEBSITE = "@WEBSITE@";
+	public const string ISSUES_WEBSITE = "@ISSUES_WEBSITE@";
+	public const string SUPPORT_WEBSITE = "@SUPPORT_WEBSITE@";
+	public const string DONATE_WEBSITE = "@DONATE_WEBSITE@";
+	public const string TRANSLATE_WEBSITE = "@TRANSLATE_WEBSITE@";
+	public const string WIKI_WEBSITE = "@WIKI_WEBSITE@";
+	public const string PREFIX = "@PREFIX@";
 }

@@ -2,9 +2,9 @@
 
 public class Tuba.Attachment {
 	public enum MediaType {
-        IMAGE,
-        VIDEO,
-        GIFV,
+		IMAGE,
+		VIDEO,
+		GIFV,
 		AUDIO,
 		UNKNOWN;
 
@@ -28,7 +28,7 @@ public class Tuba.Attachment {
 			}
 		}
 
-        public string to_string () {
+		public string to_string () {
 			switch (this) {
 				case IMAGE:
 					return "IMAGE";
@@ -58,7 +58,7 @@ public class Tuba.Attachment {
 					return UNKNOWN;
 			}
 		}
-    }
+	}
 }
 
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/media_viewer.ui")]
@@ -521,6 +521,24 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		this.swipe_children_opacity = 1.0;
 	}
 
+	public override void measure (
+		Gtk.Orientation orientation,
+		int for_size,
+		out int minimum,
+		out int natural,
+		out int minimum_baseline,
+		out int natural_baseline
+	) {
+		this.scale_revealer.measure (
+			orientation,
+			for_size,
+			out minimum,
+			out natural,
+			out minimum_baseline,
+			out natural_baseline
+		);
+	}
+
 	public override void size_allocate (int width, int height, int baseline) {
 		int swipe_y_offset = (int) (-height * swipe_progress);
 		Gtk.Allocation allocation = Gtk.Allocation () {
@@ -685,7 +703,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		Item? page = safe_get ((int) carousel.position);
 		if (page == null) return;
 
-		Host.open_uri (page.url);
+		Host.open_url (page.url);
 	}
 
 	private void save_as () {
@@ -930,30 +948,30 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	[GtkCallback]
-    private void on_previous_clicked () {
-        scroll_to (((int) carousel.position) - 1);
-    }
+	private void on_previous_clicked () {
+		scroll_to (((int) carousel.position) - 1);
+	}
 
 	[GtkCallback]
-    private void on_next_clicked () {
-        scroll_to (((int) carousel.position) + 1);
-    }
+	private void on_next_clicked () {
+		scroll_to (((int) carousel.position) + 1);
+	}
 
 	[GtkCallback]
-    private void on_zoom_out_clicked () {
-        Item? page = safe_get ((int) carousel.position);
+	private void on_zoom_out_clicked () {
+		Item? page = safe_get ((int) carousel.position);
 			if (page == null) return;
 
 			page.zoom_out ();
-    }
+	}
 
 	[GtkCallback]
-    private void on_zoom_in_clicked () {
-        Item? page = safe_get ((int) carousel.position);
+	private void on_zoom_in_clicked () {
+		Item? page = safe_get ((int) carousel.position);
 			if (page == null) return;
 
 			page.zoom_in ();
-    }
+	}
 
 	private void on_carousel_page_changed (uint pos) {
 		update_revealer_widget ((int) pos);

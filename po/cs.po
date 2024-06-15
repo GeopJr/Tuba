@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Jakub Janeček <janecekjakub@tutanota.com>, 2023.
+# Jakub Janeček <janecekjakub@tutanota.com>, 2023, 2024.
 # foo expert <deferred_water346@simplelogin.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-09 23:56+0200\n"
-"PO-Revision-Date: 2023-09-24 07:18+0000\n"
-"Last-Translator: foo expert <deferred_water346@simplelogin.com>\n"
+"PO-Revision-Date: 2024-04-24 12:07+0000\n"
+"Last-Translator: Jakub Janeček <janecekjakub@tutanota.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/tuba/tuba/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -32,7 +32,7 @@ msgstr "Fediverse klient"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
+msgstr "toot;mastodon;fediverzum;gotosocial;pleroma;akkoma;"
 
 #. translators: Leave &amp; as is, it gets converted to &
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
@@ -65,11 +65,11 @@ msgstr "Obecné"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "Ukázat Předvolby"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "Napsat Nový Příspěvek"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:56
 msgid "Refresh"
@@ -122,7 +122,7 @@ msgstr "Prohlížeč médií"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "Na celou obrazovku"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:148
 msgid "Zoom In"
@@ -143,22 +143,22 @@ msgstr "Další příloha"
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "Přiblížit"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Oddálit"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Předchozí Příloha"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Next Attachment"
-msgstr ""
+msgstr "Další Příloha"
 
 #: data/ui/dialogs/compose.ui:35 data/ui/dialogs/filter_edit.ui:17
 #: data/ui/dialogs/new_account.ui:22 data/ui/dialogs/profile_edit.ui:21
@@ -177,7 +177,7 @@ msgstr "_Zveřejnit"
 
 #: data/ui/dialogs/filter_edit.ui:8
 msgid "Edit Filter"
-msgstr ""
+msgstr "Upravit Filtr"
 
 #: data/ui/dialogs/filter_edit.ui:25 data/ui/dialogs/profile_edit.ui:28
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:151
@@ -186,35 +186,35 @@ msgstr "Uložit"
 
 #: data/ui/dialogs/filter_edit.ui:59
 msgid "Title"
-msgstr ""
+msgstr "Nadpis"
 
 #: data/ui/dialogs/filter_edit.ui:65
 msgid "Expires In"
-msgstr ""
+msgstr "Vyprší V"
 
 #: data/ui/dialogs/filter_edit.ui:70
 msgid "Hide Completely"
-msgstr ""
+msgstr "Úplně Schovat"
 
 #: data/ui/dialogs/filter_edit.ui:71
 msgid "Otherwise a warning will be used"
-msgstr ""
+msgstr "Jinak bude použito varování"
 
 #: data/ui/dialogs/filter_edit.ui:78
 msgid "Contexts"
-msgstr ""
+msgstr "Souvislosti"
 
 #: data/ui/dialogs/filter_edit.ui:79
 msgid "One or multiple contexts where the filter should apply"
-msgstr ""
+msgstr "Jedna nebo více souvislostí, kde by se měl aplikovat filtr"
 
 #: data/ui/dialogs/filter_edit.ui:84
 msgid "Keywords or Phrases"
-msgstr ""
+msgstr "Klíčová Slova nebo Fáze"
 
 #: data/ui/dialogs/filter_edit.ui:92
 msgid "Add Keyword"
-msgstr ""
+msgstr "Přidat Klíčové Slovo"
 
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
@@ -230,7 +230,7 @@ msgstr "Název seznamu"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
-msgstr ""
+msgstr "Schovat Příspěvky Z Domova"
 
 #: data/ui/dialogs/list_edit.ui:39
 msgid "Replies Policy"
@@ -313,31 +313,31 @@ msgstr "Barevné schéma"
 
 #: data/ui/dialogs/preferences.ui:40
 msgid "Large Text"
-msgstr ""
+msgstr "Velké Písmo"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Increase the size of text in posts"
-msgstr ""
+msgstr "Zvětší velikost písma v příspěvcích"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Large Line Height"
-msgstr ""
+msgstr "Vysoké Řádky"
 
 #: data/ui/dialogs/preferences.ui:47
 msgid "Increase the line height in posts"
-msgstr ""
+msgstr "Zvětší výšku řádků v příspěvcích"
 
 #: data/ui/dialogs/preferences.ui:52
 msgid "Large Custom Emojis"
-msgstr ""
+msgstr "Velké Vlastní Smajlíky"
 
 #: data/ui/dialogs/preferences.ui:57
 msgid "Scale Custom Emojis on Hover"
-msgstr ""
+msgstr "Zvětšit Vlastní Smajlíky po Najetí"
 
 #: data/ui/dialogs/preferences.ui:58
 msgid "Slightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "Lehce zvětší velikost vlastních smajlíků, když na ně namíříte kurzorem"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:64
@@ -356,7 +356,7 @@ msgstr ""
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:72
 msgid "Expand Pictures in Media Viewer"
-msgstr ""
+msgstr "Roztáhnout Obrázky v Náhledu Médií"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:74
@@ -369,15 +369,15 @@ msgstr "Ukázat rozmazanou verzi médií, než se plně načtou"
 
 #: data/ui/dialogs/preferences.ui:85
 msgid "Reveal Spoilers by Default"
-msgstr ""
+msgstr "Automaticky Odhalit Spoilery"
 
 #: data/ui/dialogs/preferences.ui:90
 msgid "Show Link Preview Cards"
-msgstr ""
+msgstr "Ukázat Karty s Náhledem Odkazu"
 
 #: data/ui/dialogs/preferences.ui:95
 msgid "Darken Images on Dark Mode"
-msgstr ""
+msgstr "Ztmavit Obrázky v Tmavém Módu"
 
 #: data/ui/dialogs/preferences.ui:102
 msgid "Posting"
@@ -385,15 +385,15 @@ msgstr "Přispívání"
 
 #: data/ui/dialogs/preferences.ui:105
 msgid "Default Post Visibility"
-msgstr ""
+msgstr "Výchozí Viditelnost Příspěvků"
 
 #: data/ui/dialogs/preferences.ui:114
 msgid "Default Post Language"
-msgstr ""
+msgstr "Výchozí Jazyk Příspěvků"
 
 #: data/ui/dialogs/preferences.ui:124
 msgid "Default Post Content Type"
-msgstr ""
+msgstr "Výchozí Typ Příspěvků"
 
 #: data/ui/dialogs/preferences.ui:135
 msgid "Behavior"
@@ -401,28 +401,28 @@ msgstr "Chování"
 
 #: data/ui/dialogs/preferences.ui:138
 msgid "Run in Background"
-msgstr ""
+msgstr "Běh na Pozadí"
 
 #: data/ui/dialogs/preferences.ui:139
 msgid "Fetch notifications while the app is closed"
-msgstr ""
+msgstr "Načítat upozornění, když je aplikace zavřená"
 
 #: data/ui/dialogs/preferences.ui:144
 msgid "Strip Tracking Parameters From Links"
-msgstr ""
+msgstr "Odstranit Sledovací Parametry z Odkazů"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:146
 msgid "This option can lead to broken links when enabled"
-msgstr ""
+msgstr "Tato možnost může při zapnutí rozbít odkazy"
 
 #: data/ui/dialogs/preferences.ui:151
 msgid "Advanced Boost Dialog"
-msgstr ""
+msgstr "Pokročilá Nabídka Boostu"
 
 #: data/ui/dialogs/preferences.ui:152
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr ""
+msgstr "Změnit viditelnost boostu, citovat a potvrdit boost"
 
 #: data/ui/dialogs/preferences.ui:159
 msgid "Timelines"
@@ -430,11 +430,11 @@ msgstr "Časové osy"
 
 #: data/ui/dialogs/preferences.ui:162
 msgid "Posts per Load Batch"
-msgstr ""
+msgstr "Příspěvky na Jedno Načtení"
 
 #: data/ui/dialogs/preferences.ui:170
 msgid "Stream Timelines"
-msgstr ""
+msgstr "Streamovat Časové Osy"
 
 #: data/ui/dialogs/preferences.ui:171
 msgid "Receive new posts and notifications in real-time"
@@ -442,7 +442,7 @@ msgstr "Dostávejte nové příspěvky a upozornění v reálném čase"
 
 #: data/ui/dialogs/preferences.ui:177
 msgid "Stream Public Timelines"
-msgstr ""
+msgstr "Streamovat Veřejné Časové Osy"
 
 #: data/ui/dialogs/preferences.ui:178
 msgid "Warning: This will increase memory usage"
@@ -501,15 +501,15 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:250
 msgid "Filters"
-msgstr ""
+msgstr "Filtry"
 
 #: data/ui/dialogs/preferences.ui:254
 msgid "Keywords"
-msgstr ""
+msgstr "Klíčová Slova"
 
 #: data/ui/dialogs/preferences.ui:262
 msgid "Add Filter…"
-msgstr ""
+msgstr "Přidat Filtr…"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:151
 msgid "Edit Profile"
@@ -531,7 +531,7 @@ msgstr "Zobrazované jméno"
 #. translators: profile bio or description
 #: data/ui/dialogs/profile_edit.ui:128
 msgid "Bio"
-msgstr "Bio"
+msgstr "Životopis"
 
 #: data/ui/dialogs/profile_edit.ui:139 src/Dialogs/Composer/EditorPage.vala:299
 msgid "Custom Emoji Picker"
@@ -561,7 +561,7 @@ msgstr "Otevřít v prohlížeči"
 
 #: data/ui/menus.ui:33
 msgid "Receive Post Notifications"
-msgstr ""
+msgstr "Upozorňovat na Příspěvky"
 
 #: data/ui/menus.ui:39
 msgid "Moderation"
@@ -615,7 +615,7 @@ msgstr "Kopírovat URL"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:183
 msgid "Save Media…"
-msgstr ""
+msgstr "Uložit Média…"
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:185
 msgid "Copy Media"
@@ -646,7 +646,7 @@ msgstr "Změnit účet"
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:70 data/ui/views/sidebar/view.ui:75
 msgid "View"
-msgstr ""
+msgstr "Náhled"
 
 #: data/ui/widgets/announcement.ui:87
 msgid "Unread"
@@ -673,7 +673,7 @@ msgstr "Ukázat více"
 #. translators: Tooltip that opens filter
 #: data/ui/widgets/status.ui:336
 msgid "Show Anyway"
-msgstr ""
+msgstr "Přesto Ukázat"
 
 #: src/API/Announcement.vala:55 src/Application.vala:145
 #: src/Application.vala:239 src/Application.vala:319
@@ -706,11 +706,11 @@ msgstr "Ostatní"
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
 msgid "Home &amp; Lists"
-msgstr ""
+msgstr "Domů &amp; Seznamy"
 
 #: src/API/Filters/Filter.vala:46
 msgid "Public Timelines"
-msgstr ""
+msgstr "Veřejné Časové Osy"
 
 #: src/API/Filters/Filter.vala:47
 #: src/Services/Accounts/Mastodon/Account.vala:52
@@ -720,7 +720,7 @@ msgstr "Konverzace"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "Profily"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
@@ -844,20 +844,20 @@ msgstr "Použito %d krát %d lidmi v posledních 2 dnech"
 #: src/Application.vala:300
 #, c-format
 msgid "'%s://' may only be used when adding a new account"
-msgstr ""
+msgstr "'%s://' může být použito jen při přidání nového účtu"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:307
 #, c-format
 msgid "'%s://' may not be used when adding a new account"
-msgstr ""
+msgstr "'%s://' nemůže být při přidávání účtu použito"
 
 #. translators: the first variable is the app name ('Tuba'),
 #. the second one is a uri scheme like 'https'
 #: src/Application.vala:314
 #, c-format
 msgid "%s does not accept '%s://'"
-msgstr ""
+msgstr "%s neakceptuje '%s://'"
 
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:476
@@ -867,15 +867,15 @@ msgstr "j4n3z https://mastodon.social/@j4n3z"
 #. translators: Wiki pages / Guides
 #: src/Application.vala:480
 msgid "Wiki"
-msgstr ""
+msgstr "Wiki"
 
 #: src/Application.vala:482
 msgid "Translate"
-msgstr ""
+msgstr "Přeložit"
 
 #: src/Application.vala:483
 msgid "Donate"
-msgstr ""
+msgstr "Darovat"
 
 #: src/Application.vala:505
 msgid "OK"
@@ -977,11 +977,11 @@ msgstr "Text"
 
 #: src/Dialogs/Composer/EditorPage.vala:109
 msgid "Stripped tracking parameters"
-msgstr ""
+msgstr "Ořezané sledovací parametry"
 
 #: src/Dialogs/Composer/EditorPage.vala:112
 msgid "Undo"
-msgstr ""
+msgstr "Vzít Zpět"
 
 #: src/Dialogs/Composer/EditorPage.vala:260
 msgid "What's on your mind?"
@@ -1107,23 +1107,23 @@ msgstr "Expirace"
 
 #: src/Dialogs/FilterEdit.vala:29
 msgid "Never"
-msgstr ""
+msgstr "Nikdy"
 
 #: src/Dialogs/FilterEdit.vala:35
 msgid "1 Week"
-msgstr ""
+msgstr "1 Týden"
 
 #: src/Dialogs/FilterEdit.vala:125
 msgid "New Filter"
-msgstr ""
+msgstr "Nový Filtr"
 
 #: src/Dialogs/FilterEdit.vala:190
 msgid "Keyword"
-msgstr ""
+msgstr "Klíčové Slovo"
 
 #: src/Dialogs/FilterEdit.vala:193
 msgid "Match Whole Word"
-msgstr ""
+msgstr "Odpovídá Celému Slovu"
 
 #: src/Dialogs/FilterEdit.vala:200 src/Dialogs/Preferences.vala:23
 #: src/Dialogs/Preferences.vala:81 src/Views/Lists.vala:60
@@ -1134,7 +1134,7 @@ msgstr "Smazat"
 #: src/Dialogs/FilterEdit.vala:297
 #, c-format
 msgid "Couldn't edit filter: %s"
-msgstr ""
+msgstr "Nešlo upravit filtr: %s"
 
 #: src/Dialogs/MainWindow.vala:65
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
@@ -1178,21 +1178,21 @@ msgstr "Upravit"
 #, c-format
 msgid "%d keyword"
 msgid_plural "%d keywords"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d klíčové slovo"
+msgstr[1] "%d klíčová slova"
+msgstr[2] "%d klíčových slov"
 
 #. translators: the variable is a filter name
 #: src/Dialogs/Preferences.vala:78
 #, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr ""
+msgstr "Opravdu chcete smazat %s?"
 
 #. translators: the variable is an error message
 #: src/Dialogs/Preferences.vala:92
 #, c-format
 msgid "Couldn't delete filter: %s"
-msgstr ""
+msgstr "Nešlo odstranit filtr: %s"
 
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
@@ -1214,127 +1214,127 @@ msgstr "Pole %d"
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:24
 msgid "It's spam"
-msgstr ""
+msgstr "Je to spam"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:27
 msgid "It violates server rules"
-msgstr ""
+msgstr "Porušuje pravidla serveru"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:30
 msgid "It's something else"
-msgstr ""
+msgstr "Něco jiného"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:39
 msgid "Malicious links, fake engagement, or repetitive replies"
-msgstr ""
+msgstr "Závadné odkazy, falešný zájem nebo opakující se odpovědi"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:42
 msgid "You are aware that it breaks specific rules"
-msgstr ""
+msgstr "Jste si vědomi, že to porušuje specifická pravidla"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:45
 msgid "The issue does not fit into other categories"
-msgstr ""
+msgstr "Problém nespadá do dalších kategorií"
 
 #. translators: the variable is an account handle
 #: src/Dialogs/Report.vala:122
 #, c-format
 msgid "Reporting %s"
-msgstr ""
+msgstr "Nahlašuji %s"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting users
 #: src/Dialogs/Report.vala:148
 msgid "Tell us what's going on with this account"
-msgstr ""
+msgstr "Řekněte nám, co je špatně s tímto účtem"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting posts
 #: src/Dialogs/Report.vala:152
 msgid "Tell us what's going on with this post"
-msgstr ""
+msgstr "Řekněte nám, co je špatně s příspěvkem"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of radio-button options where the user can only choose one
 #: src/Dialogs/Report.vala:157
 msgid "Choose the best match"
-msgstr ""
+msgstr "Vyberte nejlepší shodu"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Report.vala:196
 msgid "Which rules are being violated?"
-msgstr ""
+msgstr "Která pravidla jsou porušována?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this shown above a list of checkbox options where the user can select multiple
 #: src/Dialogs/Report.vala:201 src/Dialogs/Report.vala:266
 msgid "Select all that apply"
-msgstr ""
+msgstr "Vyberte vše, čeho se to týká"
 
 #. translators: 'fetch' as in get
 #: src/Dialogs/Report.vala:233
 msgid "Couldn't fetch all user's posts"
-msgstr ""
+msgstr "Nepodařilo se získat všechny uživatelovy příspěvky"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of posts. The user is meant to choose any that should be included in the report
 #: src/Dialogs/Report.vala:257
 msgid "Are there any posts that back up this report?"
-msgstr ""
+msgstr "Jsou nějaké příspěvky, které podpoří toto nahlášení?"
 
 #. translators: this is the same as 'Are there any posts that back up this report?' but for when you are reporting a post
 #. that's why it asks about choosing 'other' posts
 #: src/Dialogs/Report.vala:261
 msgid "Are there any other posts that back up this report?"
-msgstr ""
+msgstr "Jsou nějaké další příspěvky, které podpoří toto nahlášení?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown at the top of the last page of the report dialog
 #: src/Dialogs/Report.vala:280
 msgid "Is there anything else you think we should know?"
-msgstr ""
+msgstr "Je tu ještě něco, co bychom měli vědět?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. additional comments to be included in the report
 #: src/Dialogs/Report.vala:286
 msgid "Additional Comments"
-msgstr ""
+msgstr "Další Komentář"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. the variable is an instance name e.g. 'Forward to mastodon.social'
 #: src/Dialogs/Report.vala:295
 #, c-format
 msgid "Forward to %s"
-msgstr ""
+msgstr "Předat %s"
 
 #. translators: submit the report
 #: src/Dialogs/Report.vala:338
 msgid "Are you sure you want to submit?"
-msgstr ""
+msgstr "Jste si jistí, že to chcete odeslat?"
 
 #: src/Dialogs/Report.vala:341 src/Dialogs/Report.vala:423
 msgid "Submit"
-msgstr ""
+msgstr "Odeslat"
 
 #: src/Dialogs/Report.vala:394
 msgid "Submitted Report Successfully"
-msgstr ""
+msgstr "Hlášení Úspěšně Odesláno"
 
 #. translators: the variable is an error
 #: src/Dialogs/Report.vala:400
 #, c-format
 msgid "Couldn't submit report: %s"
-msgstr ""
+msgstr "Nepodařilo se odeslat hlášení: %s"
 
 #: src/Dialogs/Report.vala:419
 msgid "Back"
@@ -1344,11 +1344,11 @@ msgstr "Zpět"
 #: src/Dialogs/Report.vala:496 src/Dialogs/Report.vala:507
 #, c-format
 msgid "%s. You can continue with the report however."
-msgstr ""
+msgstr "%s. Můžete ale pokračovat s nahlášením."
 
 #: src/Dialogs/Report.vala:496
 msgid "No posts found"
-msgstr ""
+msgstr "Nenalezeny žádné příspěvky"
 
 #: src/Services/Accounts/InstanceAccount.vala:180
 #, c-format
@@ -1453,7 +1453,7 @@ msgstr "Poslat jen zmíněným uživatelům"
 #. different account
 #: src/Services/Accounts/Mastodon/Account.vala:226
 msgid "Notification was pushed for a different account"
-msgstr ""
+msgstr "Upozornění bylo odesláno jinému účtu"
 
 #. translators: The variable is the backend like "Mastodon"
 #: src/Services/Accounts/SecretAccountStore.vala:205
@@ -1484,19 +1484,19 @@ msgstr "brzy vyprší"
 #: src/Utils/DateTime.vala:14
 #, c-format
 msgid "%sm left"
-msgstr ""
+msgstr "zbývá %sm"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:18
 #, c-format
 msgid "%sh left"
-msgstr ""
+msgstr "zbývá %sh"
 
 #. tranlators: the variable is a number, `d` as in days in short form
 #: src/Utils/DateTime.vala:22
 #, c-format
 msgid "%sd left"
-msgstr ""
+msgstr "zbývá %sd"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -1522,13 +1522,13 @@ msgstr "právě vypršelo"
 #: src/Utils/DateTime.vala:47
 #, c-format
 msgid "expired %sm ago"
-msgstr ""
+msgstr "vypršelo před %sm"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:52
 #, c-format
 msgid "expired %sh ago"
-msgstr ""
+msgstr "vypršelo před %sh"
 
 #: src/Utils/DateTime.vala:55
 msgid "expired yesterday"
@@ -1565,13 +1565,13 @@ msgstr "Právě teď"
 #: src/Utils/DateTime.vala:86
 #, c-format
 msgid "%sm"
-msgstr ""
+msgstr "%sm"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:91
 #, c-format
 msgid "%sh"
-msgstr ""
+msgstr "%sh"
 
 #: src/Utils/DateTime.vala:94
 msgid "Yesterday"
@@ -1596,42 +1596,42 @@ msgstr "%-e. %b, %Y"
 #, c-format
 msgid "less than a minute old"
 msgid_plural "%s minutes old"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "méně než minutu starý"
+msgstr[1] "%s minuty starý"
+msgstr[2] "%s minut starý"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:125
 #, c-format
 msgid "an hour old"
 msgid_plural "%s hours old"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "hodinu starý"
+msgstr[1] "%s hodiny starý"
+msgstr[2] "%s hodin starý"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:140 src/Utils/DateTime.vala:154
 #, c-format
 msgid "%d months old"
-msgstr ""
+msgstr "%d měsíců starý"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:146
 #, c-format
 msgid "a day old"
 msgid_plural "%d days old"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "den starý"
+msgstr[1] "%d dny starý"
+msgstr[2] "%d dní starý"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:151
 #, c-format
 msgid "a year old"
 msgid_plural "%d years old"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "rok starý"
+msgstr[1] "%d roky starý"
+msgstr[2] "%d roků starý"
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k
@@ -1657,7 +1657,7 @@ msgstr "Oznámení"
 
 #: src/Views/Announcements.vala:8
 msgid "No Announcements"
-msgstr ""
+msgstr "Žádná Oznámení"
 
 #. translators: Fallback shown when there are 0 results
 #: src/Views/Base.vala:4
@@ -1674,11 +1674,11 @@ msgstr "Objevila se chyba"
 
 #: src/Views/Bookmarks.vala:6
 msgid "No Bookmarks"
-msgstr ""
+msgstr "Žádné Záložky"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
-msgstr ""
+msgstr "Žádné Konverzace"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -1686,7 +1686,7 @@ msgstr "Historie úprav"
 
 #: src/Views/EditHistory.vala:7
 msgid "No Edit History"
-msgstr ""
+msgstr "Žádná Historie Úprav"
 
 #: src/Views/Explore.vala:6 src/Views/Search.vala:39
 msgid "Posts"
@@ -1694,7 +1694,7 @@ msgstr "Příspěvky"
 
 #: src/Views/Explore.vala:7 src/Views/Hashtags.vala:7
 msgid "No Hashtags"
-msgstr ""
+msgstr "Žádné Hashtagy"
 
 #: src/Views/Explore.vala:8
 msgid "News"
@@ -1702,7 +1702,7 @@ msgstr "Novinky"
 
 #: src/Views/Explore.vala:8
 msgid "No News"
-msgstr ""
+msgstr "Žádné Novinky"
 
 #: src/Views/Explore.vala:9
 msgid "For You"
@@ -1710,11 +1710,11 @@ msgstr "Pro vás"
 
 #: src/Views/Explore.vala:9
 msgid "No Suggestions"
-msgstr ""
+msgstr "Žádné Návrhy"
 
 #: src/Views/Favorites.vala:5 src/Views/StatusStats.vala:16
 msgid "No Favorites"
-msgstr ""
+msgstr "Žádné Oblíbené"
 
 #: src/Views/FollowRequests.vala:4 src/Views/Sidebar.vala:61
 msgid "Follow Requests"
@@ -1722,7 +1722,7 @@ msgstr "Žádosti o sledování"
 
 #: src/Views/FollowRequests.vala:7
 msgid "No Follow Requests"
-msgstr ""
+msgstr "Žádné Žádosti o Sledování"
 
 #: src/Views/Hashtag.vala:19 src/Views/Hashtag.vala:34
 #: src/Widgets/RelationshipButton.vala:32
@@ -1754,7 +1754,7 @@ msgstr "Nový název seznamu"
 
 #: src/Views/Lists.vala:143
 msgid "No Lists"
-msgstr ""
+msgstr "Žádné Seznamy"
 
 #: src/Views/Lists.vala:151
 msgid "Add list"
@@ -1762,35 +1762,35 @@ msgstr "Přidat seznam"
 
 #: src/Views/MediaViewer.vala:666
 msgid "Copied media url to clipboard"
-msgstr ""
+msgstr "Odkaz na médium zkopírován do schránky"
 
 #: src/Views/MediaViewer.vala:1009 src/Widgets/Attachment/Image.vala:85
 msgid "Copied image to clipboard"
-msgstr ""
+msgstr "Obrázek zkopírován do schránky"
 
 #: src/Views/MutesBlocks.vala:6 src/Views/Sidebar.vala:62
 msgid "Mutes & Blocks"
-msgstr ""
+msgstr "Ztišení & Blokování"
 
 #: src/Views/MutesBlocks.vala:11
 msgid "Mutes"
-msgstr ""
+msgstr "Ztišení"
 
 #: src/Views/MutesBlocks.vala:15
 msgid "No Muted Accounts"
-msgstr ""
+msgstr "Žádné Ztišené Účty"
 
 #: src/Views/MutesBlocks.vala:19
 msgid "Blocks"
-msgstr ""
+msgstr "Blokuje"
 
 #: src/Views/MutesBlocks.vala:23
 msgid "No Blocked Accounts"
-msgstr ""
+msgstr "Žádné Zablokované Účty"
 
 #: src/Views/Notifications.vala:12
 msgid "No Notifications"
-msgstr ""
+msgstr "Žádná Upozornění"
 
 #: src/Views/Profile.vala:34
 msgid "Profile"
@@ -1798,19 +1798,19 @@ msgstr "Profil"
 
 #: src/Views/Profile.vala:120 src/Views/Timeline.vala:75
 msgid "No Posts"
-msgstr ""
+msgstr "Žádné Příspěvky"
 
 #: src/Views/Profile.vala:124
 msgid "No Followers"
-msgstr ""
+msgstr "Žádní Sledující"
 
 #: src/Views/Profile.vala:128
 msgid "This user doesn't follow anyone yet"
-msgstr ""
+msgstr "Uživatel ještě nikoho nesleduje"
 
 #: src/Views/Profile.vala:240
 msgid "Copied handle to clipboard"
-msgstr ""
+msgstr "Přezdívka zkopírována do schránky"
 
 #: src/Views/Profile.vala:285
 #, c-format
@@ -1900,22 +1900,22 @@ msgstr "Zadat termín"
 #, c-format
 msgid "%d Announcement"
 msgid_plural "%d Announcements"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d Oznámení"
+msgstr[1] "%d Oznámení"
+msgstr[2] "%d Oznámení"
 
 #. tanslators: used in a banner, the variable is the number of unreviewed follow requests
 #: src/Views/Sidebar.vala:35
 #, c-format
 msgid "%d Follow Request"
 msgid_plural "%d Follow Requests"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d Žádost o Sledování"
+msgstr[1] "%d Žádosti o Sledování"
+msgstr[2] "%d Žádostí o Sledování"
 
 #: src/Views/Sidebar.vala:54
 msgid "New Post"
-msgstr ""
+msgstr "Nový Příspěvek"
 
 #: src/Views/Sidebar.vala:55
 msgid "Open Profile"
@@ -1932,7 +1932,7 @@ msgstr "Klávesové zkratky"
 #: src/Views/Sidebar.vala:68
 #, c-format
 msgid "About %s"
-msgstr ""
+msgstr "O %s"
 
 #. translators: the variable is an account handle
 #: src/Views/Sidebar.vala:288
@@ -1964,7 +1964,7 @@ msgstr "Boostnuto"
 
 #: src/Views/StatusStats.vala:25
 msgid "No Boosts"
-msgstr ""
+msgstr "Žádné Boosty"
 
 #: src/Views/Thread.vala:32
 msgid "Conversation"
@@ -1972,11 +1972,11 @@ msgstr "Konverzace"
 
 #: src/Views/Thread.vala:105 src/Views/Thread.vala:119
 msgid "Reveal Spoilers"
-msgstr ""
+msgstr "Odhalit Spoilery"
 
 #: src/Views/Thread.vala:119
 msgid "Hide Spoilers"
-msgstr ""
+msgstr "Schovat Spoilery"
 
 #: src/Views/Timeline.vala:225 src/Widgets/Status/ActionsRow.vala:340
 msgid "Network Error"
@@ -2021,7 +2021,7 @@ msgstr "Zobrazit citlivý obsah"
 
 #: src/Widgets/Attachment/Item.vala:22
 msgid "Copied attachment url to clipboard"
-msgstr ""
+msgstr "Příloha zkopírována do schránky"
 
 #: src/Widgets/Attachment/Item.vala:35
 msgid "Save Attachment"
@@ -2029,11 +2029,11 @@ msgstr "Uložit přílohu"
 
 #: src/Widgets/Attachment/Item.vala:45
 msgid "Saved Media"
-msgstr ""
+msgstr "Média Uložena"
 
 #: src/Widgets/Attachment/Item.vala:45
 msgid "Couldn't Save Media"
-msgstr ""
+msgstr "Nepodařilo Se Uložit Média"
 
 #: src/Widgets/Attachment/Item.vala:116
 msgid "View Alt Text"
@@ -2060,7 +2060,7 @@ msgstr "Výsledky"
 
 #: src/Widgets/CustomEmojiChooser.vala:74
 msgid "Recently Used"
-msgstr ""
+msgstr "Naposledy Použito"
 
 #: src/Widgets/CustomEmojiChooser.vala:226
 msgid "Custom Emojis"
@@ -2096,7 +2096,7 @@ msgstr "Připojen"
 
 #: src/Widgets/RelationshipButton.vala:54
 msgid "Unmute"
-msgstr ""
+msgstr "Zrušit Ztišení"
 
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:259
@@ -2114,7 +2114,7 @@ msgstr "Připnout"
 
 #: src/Widgets/Status.vala:284
 msgid "Copied post url to clipboard"
-msgstr ""
+msgstr "Odkaz na příspěvek zkopírován do schránky"
 
 #: src/Widgets/Status.vala:338
 msgid "Are you sure you want to delete this post?"
@@ -2132,11 +2132,11 @@ msgstr "Odepnout"
 #: src/Widgets/Status.vala:527
 #, c-format
 msgid "Filtered: %s"
-msgstr ""
+msgstr "Vyfiltrováno: %s"
 
 #: src/Widgets/Status.vala:529
 msgid "Filtered"
-msgstr ""
+msgstr "Vyfiltrováno"
 
 #: src/Widgets/Status/ActionsRow.vala:52 src/Widgets/Status/ActionsRow.vala:92
 #: src/Widgets/Status/ActionsRow.vala:236
@@ -2164,25 +2164,25 @@ msgstr "Přidat do záložek"
 #: src/Widgets/Status/ActionsRow.vala:123
 #, c-format
 msgid "This post is %s"
-msgstr ""
+msgstr "Tento příspěvek je %s"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon-android/tree/master/mastodon/src/main/res
 #. in the `strings.xml` file inside the `values-` folder that matches your locale under the `old_post_sheet_text` key
 #: src/Widgets/Status/ActionsRow.vala:126
 msgid "You can still reply, but it may no longer be relevant."
-msgstr ""
+msgstr "Stále můžete odpovědět, ale už to nemusí být relevantní."
 
 #: src/Widgets/Status/ActionsRow.vala:128
 msgid "Don't remind me again"
-msgstr ""
+msgstr "Příště nepřipomínat"
 
 #: src/Widgets/Status/ActionsRow.vala:228
 msgid "Boost with Visibility"
-msgstr ""
+msgstr "Boostnout s Viditelností"
 
 #: src/Widgets/Status/ActionsRow.vala:235
 msgid "Quote"
-msgstr ""
+msgstr "Citovat"
 
 #: src/Widgets/VoteBox.vala:11
 msgid "Vote"

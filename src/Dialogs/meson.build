@@ -1,9 +1,10 @@
 sources += files(
+    'Admin.vala',
     'FilterEdit.vala',
     'ListEdit.vala',
     'MainWindow.vala',
     'NewAccount.vala',
-    'Offline.vala',
+    'NotificationSettings.vala',
     'Preferences.vala',
     'ProfileEdit.vala',
     'Report.vala',
@@ -14,4 +15,5 @@ if devmode
   sources += files ('DevConsole.vala')
 endif
 
+subdir('Admin')
 subdir('Composer')

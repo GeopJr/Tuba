@@ -127,6 +127,9 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow group_push_notifications;
 	[GtkChild] unowned Adw.SwitchRow advanced_boost_dialog;
 	[GtkChild] unowned Adw.SwitchRow darken_images_on_dark_mode;
+	[GtkChild] unowned Adw.SwitchRow reply_to_old_post_reminder;
+	[GtkChild] unowned Adw.EntryRow proxy_entry;
+	[GtkChild] unowned Adw.SwitchRow dim_trivial_notifications;
 
 	[GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
@@ -135,6 +138,12 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow boosts_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow poll_results_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow edits_notifications_switch;
+
+	[GtkChild] unowned Adw.PreferencesGroup filtered_notifications_group;
+	[GtkChild] unowned Adw.SwitchRow filter_notifications_following_switch;
+	[GtkChild] unowned Adw.SwitchRow filter_notifications_follower_switch;
+	[GtkChild] unowned Adw.SwitchRow filter_notifications_new_account_switch;
+	[GtkChild] unowned Adw.SwitchRow filter_notifications_dm_switch;
 
 	//  [GtkChild] unowned Adw.PreferencesPage filters_page;
 	[GtkChild] unowned Adw.PreferencesGroup keywords_group;
@@ -165,6 +174,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	}
 
 	construct {
+		proxy_entry.text = settings.proxy;
 		post_visibility_combo_row.model = accounts.active.visibility_list;
 
 		// Setup scheme combo row
@@ -191,9 +201,46 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 		setup_languages_combo_row ();
 		setup_notification_mutes ();
+		setup_notification_filters ();
 		setup_filters ();
 		bind ();
 		closed.connect (on_window_closed);
+	}
+
+	private Gee.HashMap<Adw.SwitchRow, bool>? notification_filter_policy_status = null;
+	void setup_notification_filters () {
+		if (!accounts.active.probably_has_notification_filters) return;
+
+		new Request.GET ("/api/v1/notifications/policy")
+			.with_account (accounts.active)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				if (node == null) return;
+
+				filtered_notifications_group.visible = true;
+				var policies = API.NotificationFilter.Policy.from (node);
+
+				notification_filter_policy_status = new Gee.HashMap<Adw.SwitchRow, bool> ();
+				notification_filter_policy_status.set (filter_notifications_following_switch, policies.filter_not_following);
+				notification_filter_policy_status.set (filter_notifications_follower_switch, policies.filter_not_followers);
+				notification_filter_policy_status.set (filter_notifications_new_account_switch, policies.filter_new_accounts);
+				notification_filter_policy_status.set (filter_notifications_dm_switch, policies.filter_private_mentions);
+
+				notification_filter_policy_status.@foreach (entry => {
+					((Adw.SwitchRow) entry.key).active = (bool) entry.value;
+
+					return true;
+				});
+			})
+			.on_error ((code, message) => {
+				if (code == 404) {
+					accounts.active.probably_has_notification_filters = false;
+				} else {
+					warning (@"Error while trying to get notification policy: $code $message");
+				}
+			})
+			.exec ();
 	}
 
 	void setup_filters () {
@@ -249,6 +296,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		settings.bind ("group-push-notifications", group_push_notifications, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("advanced-boost-dialog", advanced_boost_dialog, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("darken-images-on-dark-mode", darken_images_on_dark_mode, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("reply-to-old-post-reminder", reply_to_old_post_reminder, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("dim-trivial-notifications", dim_trivial_notifications, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 		dlcr_id = default_language_combo_row.notify["selected-item"].connect (dlcr_cb);
@@ -321,6 +370,44 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	}
 
 	private void on_window_closed () {
+		if (notification_filter_policy_status != null) {
+			bool changed = false;
+			notification_filter_policy_status.@foreach (entry => {
+				if (((Adw.SwitchRow) entry.key).active != (bool) entry.value) {
+					changed = true;
+					return false;
+				}
+
+				return true;
+			});
+
+			if (changed) {
+				var builder = new Json.Builder ();
+				builder.begin_object ();
+
+				builder.set_member_name ("filter_not_following");
+				builder.add_boolean_value (filter_notifications_following_switch.active);
+
+				builder.set_member_name ("filter_not_followers");
+				builder.add_boolean_value (filter_notifications_follower_switch.active);
+
+				builder.set_member_name ("filter_new_accounts");
+				builder.add_boolean_value (filter_notifications_new_account_switch.active);
+
+				builder.set_member_name ("filter_private_mentions");
+				builder.add_boolean_value (filter_notifications_dm_switch.active);
+
+				builder.end_object ();
+
+				new Request.PUT ("/api/v1/notifications/policy")
+					.with_account (accounts.active)
+					.body_json (builder)
+					.exec ();
+			}
+
+			notification_filter_policy_status.clear ();
+		}
+
 		if (lang_changed) {
 			var new_lang = ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale;
 			if (settings.default_language != ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale) {
@@ -350,6 +437,21 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			settings.default_content_type = ((Tuba.InstanceAccount.StatusContentType) default_content_type_combo_row.selected_item).mime;
 
 		update_notification_mutes ();
+
+		if (proxy_entry.text != "") {
+			try {
+				if (Uri.is_valid (proxy_entry.text, UriFlags.NONE))
+					settings.proxy = proxy_entry.text;
+			} catch (Error e) {
+				// translators: Toast that pops up when
+				//				an invalid proxy url has
+				//				been provided in settings
+				app.toast (_("Invalid Proxy URL"));
+				warning (e.message);
+			}
+		} else if (settings.proxy != "") {
+			settings.proxy = "";
+		}
 	}
 }
 

@@ -15,8 +15,12 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_REMOTE_REBLOG = "__remote-reblog";
 	public const string KIND_EDITED = "update";
 	public const string KIND_REPLY = "tuba_reply";
+	public const string KIND_SEVERED_RELATIONSHIPS = "severed_relationships";
+	public const string KIND_ADMIN_REPORT = "admin.report";
+	public const string KIND_ADMIN_SIGNUP = "admin.sign_up";
 
 	public string uuid { get; set; }
+	public bool admin_mode { get; set; default=false; }
 	public string? backend { set; get; }
 	public API.Instance? instance_info { get; set; }
 	public Gee.ArrayList<API.Emoji>? instance_emojis { get; set; }
@@ -26,6 +30,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public string? access_token { get; set; }
 	public bool needs_update { get; set; default=false; }
 	public Error? error { get; set; } //TODO: use this field when server invalidates the auth token
+	public bool probably_has_notification_filters { get; set; default=false; }
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
 
@@ -95,13 +100,19 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	private void on_network_change () {
-		if (is_active && needs_update && app.is_online) {
+		if (is_active && app.is_online) {
+			if (needs_update) {
 			needs_update = false;
 			new Request.GET (@"/api/v1/accounts/$(this.id)")
 				.with_account (this)
 				.then ((in_stream) => {
 					var parser = Network.get_parser_from_inputstream (in_stream);
 					var node = network.parse_node (parser);
+					if (node == null) {
+						needs_update = true;
+						return;
+					}
+
 					var acc = API.Account.from (node);
 
 					if (this.display_name != acc.display_name || this.avatar != acc.avatar) {
@@ -110,6 +121,9 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					}
 				})
 			.exec ();
+			}
+
+			reconnect ();
 		}
 	}
 
@@ -208,6 +222,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_MENTION:
 				result = {
 					"tuba-chat-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
 					_("%s mentioned you").printf (actor_name),
 					callback_url
 				};
@@ -215,6 +231,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_REBLOG:
 				result = {
 					"tuba-media-playlist-repeat-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
 					_("%s boosted your post").printf (actor_name),
 					callback_url
 				};
@@ -222,6 +240,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_REMOTE_REBLOG:
 				result = {
 					"tuba-media-playlist-repeat-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
 					_("%s boosted").printf (actor_name),
 					callback_url
 				};
@@ -229,6 +249,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_FAVOURITE:
 				result = {
 					"starred-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
 					_("%s favorited your post").printf (actor_name),
 					callback_url
 				};
@@ -236,6 +258,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_FOLLOW:
 				result = {
 					"contact-new-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
 					_("%s now follows you").printf (actor_name),
 					callback_url
 				};
@@ -243,6 +267,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_FOLLOW_REQUEST:
 				result = {
 					"contact-new-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
 					_("%s wants to follow you").printf (actor_name),
 					callback_url
 				};
@@ -250,6 +276,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_POLL:
 				result = {
 					"tuba-check-round-outline-symbolic",
+					// translators: this is used for notifications
 					_("Poll results"),
 					null
 				};
@@ -257,14 +284,54 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			case KIND_EDITED:
 				result = {
 					"document-edit-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for notifications
 					_("%s edited a post").printf (actor_name),
 					null
 				};
 				break;
 			case KIND_REPLY:
+				string reply_text;
+				if (actor_name == null) {
+					// translators: post header, on posts that are replies
+					reply_text = _("In Reply");
+				} else {
+					// translators: the variable is a string user handle,
+					//				post header, on posts that are replies
+					reply_text = _("In Reply to %s").printf (actor_name);
+				}
+
 				result = {
 					"tuba-reply-sender-symbolic",
-					_("In Reply"),
+					reply_text,
+					null
+				};
+				break;
+			case KIND_ADMIN_SIGNUP:
+				result = {
+					"tuba-police-badge2-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for admin notifications
+					_("%s signed up").printf (actor_name),
+					null
+				};
+				break;
+			case KIND_SEVERED_RELATIONSHIPS:
+				result = {
+					"tuba-heart-broken-symbolic",
+					// translators: this is used for notifications,
+					//				when you lost followers or following
+					//				due to admin instance or user suspension
+					//				or personal domain blocking
+					_("Some of your relationships got severed"),
+					null
+				};
+				break;
+			case KIND_ADMIN_REPORT:
+				result = {
+					"tuba-police-badge2-symbolic",
+					// translators: this is used for admin notifications
+					_("Received a new report"),
 					null
 				};
 				break;
@@ -284,6 +351,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 	public int unreviewed_follow_requests { get; set; default = 0; }
 	public int unread_announcements { get; set; default = 0; }
+	public int filtered_notifications_count { get; set; default = 0; }
 	public int unread_count { get; set; default = 0; }
 	public int last_read_id { get; set; default = 0; }
 	public int last_received_id { get; set; default = 0; }
@@ -355,6 +423,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
+				if (node == null) return;
+
 				instance_info = API.Instance.from (node);
 
 				var content_types = instance_info.compat_supported_mime_types;
@@ -363,6 +433,30 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					foreach (string content_type in content_types) {
 						supported_mime_types.append (new StatusContentType (content_type));
 					}
+				}
+
+				if (instance_info.pleroma == null) {
+					gather_v2_instance_info ();
+				} else if (instance_info.pleroma.metadata != null && instance_info.pleroma.metadata.features != null) {
+					instance_info.tuba_can_translate = "akkoma:machine_translation" in instance_info.pleroma.metadata.features;
+				}
+			})
+			.exec ();
+	}
+
+	private void gather_v2_instance_info () {
+		new Request.GET ("/api/v2/instance")
+			.with_account (this)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				if (node == null) return;
+
+				this.probably_has_notification_filters = true;
+				var instance_v2 = API.InstanceV2.from (node);
+
+				if (instance_v2 != null && instance_v2.configuration != null && instance_v2.configuration.translation != null) {
+					this.instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
 				}
 			})
 			.exec ();
@@ -376,6 +470,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
+				if (node == null) return;
+
 				Value res_emojis;
 				Entity.des_list (out res_emojis, node, typeof (API.Emoji));
 				instance_emojis = (Gee.ArrayList<Tuba.API.Emoji>) res_emojis;
@@ -449,7 +545,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					.exec ();
 
 				// Pleroma FE doesn't mark them as read by just updating the marker
-				if (instance_info != null && instance_info?.pleroma != null) {
+				if (instance_info != null && instance_info.pleroma != null) {
 					new Request.POST ("/api/v1/pleroma/notifications/read")
 						.with_account (this)
 						.with_form_data ("max_id", up_to_id.to_string ())

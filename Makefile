@@ -3,7 +3,7 @@ PREFIX ?= /usr
 
 # Remove the devel headerbar style:
 # make release=1
-release ?= 
+release ?=
 
 all: build
 
@@ -26,7 +26,7 @@ potfiles:
 	echo "" >> po/POTFILES
 	find ./ -not -path '*/.*' -type f -name "*.ui" -exec grep -l "translatable=\"yes\"" {} \; | sort >> po/POTFILES
 	echo "" >> po/POTFILES
-	find ./ -not -path '*/.*' -type f -name "*.vala" -exec grep -l "_(\"" {} \; | sort >> po/POTFILES
+	find ./ -not -path '*/.*' -type f -name "*.vala" -exec grep -l "_(\"\|ngettext" {} \; | sort >> po/POTFILES
 
 windows: PREFIX = $(PWD)/tuba_windows_portable
 windows: __windows_pre build install __windows_set_icon __windows_copy_deps __windows_schemas __windows_copy_icons __windows_cleanup __windows_package

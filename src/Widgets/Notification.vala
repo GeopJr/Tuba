@@ -15,10 +15,17 @@ public class Tuba.Widgets.Notification : Widgets.Status {
 			status: status
 		);
 
-		if (obj.kind == InstanceAccount.KIND_FOLLOW || obj.kind == InstanceAccount.KIND_FOLLOW_REQUEST) {
-			actions.visible = false;
-			visibility_indicator.visible = false;
-			date_label.visible = false;
+		switch (obj.kind) {
+			case InstanceAccount.KIND_FOLLOW:
+			case InstanceAccount.KIND_FOLLOW_REQUEST:
+				actions.visible = false;
+				visibility_indicator.visible = false;
+				date_label.visible = false;
+				break;
+			case InstanceAccount.KIND_FAVOURITE:
+			case InstanceAccount.KIND_REBLOG:
+				this.add_css_class ("can-be-dimmed");
+				break;
 		}
 
 		if (status.formal.account.is_self ()) {

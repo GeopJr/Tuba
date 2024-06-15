@@ -1,6 +1,35 @@
 public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamable {
 	protected InstanceAccount? last_account = null;
 	private Binding badge_number_binding;
+	private Binding filtered_notifications_count_binding;
+	private Adw.Banner notifications_filter_banner;
+
+	public int32 filtered_notifications {
+		set {
+			if (notifications_filter_banner == null) return;
+
+			if (value > 0) {
+				notifications_filter_banner.title = GLib.ngettext (
+					"%d Filtered Notification",
+					"%d Filtered Notifications",
+					(ulong) value
+				).printf (value);
+				notifications_filter_banner.revealed = true;
+			} else {
+				notifications_filter_banner.revealed = false;
+			}
+		}
+	}
+
+	private bool is_all {
+		set {
+			if (value) {
+				this.add_css_class ("notifications-all");
+			} else {
+				this.remove_css_class ("notifications-all");
+			}
+		}
+	}
 
 	construct {
 		url = "/api/v1/notifications";
@@ -11,6 +40,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		needs_attention = false;
 		empty_state_title = _("No Notifications");
 
+		filters_changed (false);
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
 
 		#if DEV_MODE
@@ -22,6 +52,31 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 				}
 			});
 		#endif
+
+		notifications_filter_banner = new Adw.Banner ("") {
+			use_markup = true,
+			button_label = _("View"),
+			revealed = false
+		};
+		notifications_filter_banner.button_clicked.connect (on_notifications_filter_banner_button_clicked);
+
+		var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+			vexpand = true
+		};
+		box.append (notifications_filter_banner);
+		scrolled.child = box;
+		box.append (content_box);
+
+		settings.notify["dim-trivial-notifications"].connect (settings_updated);
+		settings_updated ();
+	}
+
+	private void settings_updated () {
+		Tuba.toggle_css (this, settings.dim_trivial_notifications, "dim-enabled");
+	}
+
+	private void on_notifications_filter_banner_button_clicked () {
+		app.main_window.open_view (new Views.NotificationRequests ());
 	}
 
 	public override bool should_hide (Entity entity) {
@@ -45,6 +100,9 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		if (badge_number_binding != null)
 			badge_number_binding.unbind ();
 
+		if (filtered_notifications_count_binding != null)
+			filtered_notifications_count_binding.unbind ();
+
 		badge_number_binding = accounts.active.bind_property (
 			"unread-count",
 			this,
@@ -59,6 +117,19 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 				return true;
 			}
 		);
+
+		filtered_notifications_count_binding = accounts.active.bind_property (
+			"filtered-notifications-count",
+			this,
+			"filtered-notifications",
+			BindingFlags.SYNC_CREATE,
+			on_filtered_notifications_count_change
+		);
+	}
+
+	private bool on_filtered_notifications_count_change (Binding binding, Value from_value, ref Value to_value) {
+		to_value.set_int (from_value.get_int ());
+		return true;
 	}
 
 	public override void on_shown () {
@@ -69,6 +140,9 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 					? account.last_received_id
 					: account.last_read_id
 			);
+
+			if (account.probably_has_notification_filters)
+				update_filtered_notifications ();
 		}
 	}
 
@@ -79,9 +153,68 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		}
 	}
 
+	public void update_filtered_notifications () {
+		new Request.GET ("/api/v1/notifications/policy")
+			.with_account (accounts.active)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				if (node == null) {
+					accounts.active.filtered_notifications_count = 0;
+					return;
+				};
+
+				var policies = API.NotificationFilter.Policy.from (node);
+				if (policies.summary != null) {
+					accounts.active.filtered_notifications_count = policies.summary.pending_notifications_count;
+				}
+			})
+			.on_error ((code, message) => {
+				accounts.active.filtered_notifications_count = 0;
+				if (code == 404) {
+					accounts.active.probably_has_notification_filters = false;
+				} else {
+					warning (@"Error while trying to get notification policy: $code $message");
+				}
+			})
+			.exec ();
+	}
+
 	public override string? get_stream_url () {
 		return account != null
 			? @"$(account.instance)/api/v1/streaming?stream=user:notification&access_token=$(account.access_token)"
 			: null;
+	}
+
+	public void filters_changed (bool refresh = true) {
+		string new_url = "/api/v1/notifications";
+
+		if (settings.notification_filters.length == 0) {
+			this.is_all = true;
+		} else {
+			this.is_all = false;
+			new_url += @"?exclude_types[]=$(string.joinv ("&exclude_types[]=", settings.notification_filters))";
+		}
+
+		if (new_url == this.url) return;
+		this.url = new_url;
+
+		if (refresh) {
+			page_next = null;
+			on_refresh ();
+		}
+	}
+
+	public override void on_new_post (Streamable.Event ev) {
+		try {
+			if (
+				settings.notification_filters.length > 0
+				&& ((API.Notification) Entity.from_json (accepts, ev.get_node ())).kind in settings.notification_filters
+			) return;
+
+			base.on_new_post (ev);
+		} catch (Error e) {
+			warning (@"Error getting Entity from json: $(e.message)");
+		}
 	}
 }

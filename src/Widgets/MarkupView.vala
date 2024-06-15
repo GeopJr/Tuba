@@ -38,8 +38,25 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 	}
 
 	construct {
+		this.set_accessible_role (Gtk.AccessibleRole.LABEL);
 		orientation = Gtk.Orientation.VERTICAL;
 		spacing = 12;
+	}
+
+	void update_aria () {
+		string total_aria = "";
+
+		var w = this.get_first_child ();
+		while (w != null) {
+			var label = w as RichLabel;
+			if (label != null) {
+				total_aria += @"\n$(label.accessible_text)";
+			}
+			w = w.get_next_sibling ();
+		};
+
+		this.update_property (Gtk.AccessibleProperty.LABEL, total_aria, -1);
+		this.update_property (Gtk.AccessibleProperty.DESCRIPTION, null, -1);
 	}
 
 	void update_content (string content) {
@@ -64,6 +81,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		delete doc;
 
 		visible = get_first_child () != null;
+		update_aria ();
 	}
 
 	static void traverse (Xml.Node* root, owned NodeFn cb) {
