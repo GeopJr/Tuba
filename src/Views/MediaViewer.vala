@@ -229,23 +229,21 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		public void done () {
 			if (is_done) return;
 
-			if (is_video) {
-				if (((Gtk.Video) child_widget).media_stream == null) {
-					if (media_stream_signal_id == -1) {
-						media_stream_signal_id = ((Gtk.Video) child_widget).notify["media-stream"].connect (on_received_media_stream);
-					}
-
-					return;
-				} else {
-					((Gtk.Video) child_widget).media_stream.playing = pre_playing;
+			if (is_video && ((Gtk.Video) child_widget).media_stream == null) {
+				if (media_stream_signal_id == -1) {
+					media_stream_signal_id = ((Gtk.Video) child_widget).notify["media-stream"].connect (on_received_media_stream);
 				}
+
+				return;
 			};
+
 			spinner.spinning = false;
 			stack.visible_child_name = "child";
 
 			if (is_video) {
 				((Gtk.Video) child_widget).media_stream.volume = 1.0 - last_used_volume;
 				((Gtk.Video) child_widget).media_stream.volume = last_used_volume;
+				((Gtk.Video) child_widget).media_stream.playing = pre_playing;
 				((Gtk.Video) child_widget).media_stream.notify["volume"].connect (on_manual_volume_change);
 			}
 
