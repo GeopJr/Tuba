@@ -69,7 +69,6 @@
 							</object>
 						</child>
 						<property name="content">
-
 									<object class="GtkOverlay">
 										<property name="hexpand">1</property>
 										<property name="vexpand">1</property>
@@ -111,6 +110,30 @@
 																</style>
 															</object>
 														</child>
+													</object>
+												</property>
+											</object>
+										</child>
+										<child type="overlay">
+											<object class="GtkRevealer" id="toggle_fs_revealer">
+												<property name="overflow">visible</property>
+												<property name="transition_type">crossfade</property>
+												<property name="reveal-child">0</property>
+												<property name="visible">0</property>
+												<property name="valign">start</property>
+												<property name="halign">end</property>
+												<property name="margin-end">18</property>
+												<property name="margin-top">18</property>
+												<property name="child">
+													<object class="GtkButton">
+														<property name="icon-name">view-restore-symbolic</property>
+														<property name="tooltip-text" translatable="yes">Toggle Fullscreen</property>
+														<signal name="clicked" handler="toggle_fullscreen" swapped="no" />
+														<style>
+															<class name="osd" />
+															<class name="media-viewer-fab" />
+															<class name="circular" />
+														</style>
 													</object>
 												</property>
 											</object>
@@ -164,7 +187,6 @@
 											</object>
 										</property>
 									</object>
-
 						</property>
 					</object>
 				</property>
