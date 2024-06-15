@@ -642,7 +642,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		old_width = null;
 	}
 
+	double on_motion_last_x = 0.0;
+	double on_motion_last_y = 0.0;
 	protected void on_motion (double x, double y) {
+		if (on_motion_last_x == x && on_motion_last_y == y) return;
+		on_motion_last_x = x;
+		on_motion_last_y = y;
+
 		on_reveal_media_buttons ();
 	}
 
