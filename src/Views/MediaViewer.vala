@@ -237,14 +237,18 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 					return;
 				} else {
-					((Gtk.Video) child_widget).media_stream.volume = 1.0 - last_used_volume;
-					((Gtk.Video) child_widget).media_stream.volume = last_used_volume;
 					((Gtk.Video) child_widget).media_stream.playing = pre_playing;
-					((Gtk.Video) child_widget).media_stream.notify["volume"].connect (on_manual_volume_change);
 				}
 			};
 			spinner.spinning = false;
 			stack.visible_child_name = "child";
+
+			if (is_video) {
+				((Gtk.Video) child_widget).media_stream.volume = 1.0 - last_used_volume;
+				((Gtk.Video) child_widget).media_stream.volume = last_used_volume;
+				((Gtk.Video) child_widget).media_stream.notify["volume"].connect (on_manual_volume_change);
+			}
+
 			is_done = true;
 		}
 
