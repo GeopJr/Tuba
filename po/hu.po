@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-06-15 12:32+0000\n"
+"PO-Revision-Date: 2024-06-15 21:46+0000\n"
 "Last-Translator: rdbende <rdbende@proton.me>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/tuba/tuba/hu/>"
 "\n"
@@ -1905,7 +1905,7 @@ msgstr "Szavazások"
 
 #: src/Dialogs/NotificationSettings.vala:50
 msgid "Post Edits"
-msgstr "Szerkesztett bejegyzések"
+msgstr "Szerkesztések"
 
 #: src/Dialogs/NotificationSettings.vala:51
 msgid "Follows"
