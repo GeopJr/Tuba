@@ -54,7 +54,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 				{ {"Read More", Adw.ResponseAppearance.SUGGESTED }, { "Close", Adw.ResponseAppearance.DEFAULT } },
 				false,
 				(obj, res) => {
-					if (app.question.end (res).truthy ()) Host.open_uri (wiki_page);
+					if (app.question.end (res).truthy ()) Host.open_url (wiki_page);
 					Process.exit (1);
 				}
 			);
@@ -80,11 +80,11 @@ public class Tuba.SecretAccountStore : AccountStore {
 						}
 					})
 					.exec ();
-					saved.add (account);
-					account.added ();
+				saved.add (account);
+				account.added ();
 
-					// TODO: remove uuid fallback
-					if (force_save) safe_save ();
+				// TODO: remove uuid fallback
+				if (force_save) safe_save ();
 			}
 		});
 		changed (saved);
@@ -177,13 +177,16 @@ public class Tuba.SecretAccountStore : AccountStore {
 		builder.set_member_name ("uuid");
 		builder.add_string_value (account.uuid);
 
+		builder.set_member_name ("admin-mode");
+		builder.add_boolean_value (account.admin_mode);
+
 		// If display name has emojis it's
 		// better to save and load them
 		// so users don't see their shortcode
 		// while verify_credentials is running
 		builder.set_member_name ("emojis");
 		builder.begin_array ();
-		if (account.emojis?.size > 0) {
+		if (account.emojis != null && account.emojis.size > 0) {
 			foreach (var emoji in account.emojis) {
 					builder.begin_object ();
 

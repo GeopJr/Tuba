@@ -95,6 +95,13 @@
 								<property name="title" translatable="yes">Darken Images on Dark Mode</property>
 							</object>
 						</child>
+						<child>
+							<object class="AdwSwitchRow" id="dim_trivial_notifications">
+								<!-- translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts -->
+								<property name="title" translatable="yes">Dim Trivial Notifications</property>
+								<property name="subtitle" translatable="yes">Notifications like favorites and boosts will be less visible</property>
+							</object>
+						</child>
 					</object>
 				</child>
 				<child>
@@ -150,6 +157,19 @@
 							<object class="AdwSwitchRow" id="advanced_boost_dialog">
 								<property name="title" translatable="yes">Advanced Boost Dialog</property>
 								<property name="subtitle" translatable="yes">Change boost visibility, quote and confirm boosting</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="reply_to_old_post_reminder">
+								<property name="title" translatable="yes">Warn before replying to an old post</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwEntryRow" id="proxy_entry">
+								<property name="show-apply-button">0</property>
+								<!-- translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning -->
+								<property name="title" translatable="yes">Proxy</property>
+								<property name="input-purpose">url</property>
 							</object>
 						</child>
 					</object>
@@ -238,6 +258,47 @@
 								<!-- translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones. -->
 								<property name="subtitle" translatable="yes">Combine recently pushed notifications of the same type and post into one</property>
 								<property name="active">1</property>
+							</object>
+						</child>
+					</object>
+				</child>
+				<child>
+					<object class="AdwPreferencesGroup" id="filtered_notifications_group">
+						<property name="visible">0</property>
+						<!-- translators: Preferences group title -->
+						<property name="title" translatable="yes">Filter Notifications Out</property>
+						<!-- translators: Preferences group description -->
+						<property name="description" translatable="yes">Filter out notifications from people you may not know</property>
+						<child>
+							<object class="AdwSwitchRow" id="filter_notifications_following_switch">
+								<!-- translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
+								<property name="title" translatable="yes">People you don't follow</property>
+								<!-- translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
+								<property name="subtitle" translatable="yes">Until you manually approve them</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="filter_notifications_follower_switch">
+								<!-- translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
+								<property name="title" translatable="yes">People not following you</property>
+								<!-- translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
+								<property name="subtitle" translatable="yes">Including people who have been following you fewer than 3 days</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="filter_notifications_new_account_switch">
+								<!-- translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
+								<property name="title" translatable="yes">New accounts</property>
+								<!-- translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
+								<property name="subtitle" translatable="yes">Created within the past 30 days</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="filter_notifications_dm_switch">
+								<!-- translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
+								<property name="title" translatable="yes">Unsolicited private mentions</property>
+								<!-- translators: Preferences switch subtitle about filtering out 'Unsolicited private mentions'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
+								<property name="subtitle" translatable="yes">Filtered unless it's in reply to your own mention or if you follow the sender</property>
 							</object>
 						</child>
 					</object>

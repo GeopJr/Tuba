@@ -2,9 +2,9 @@
 
 public class Tuba.Attachment {
 	public enum MediaType {
-        IMAGE,
-        VIDEO,
-        GIFV,
+		IMAGE,
+		VIDEO,
+		GIFV,
 		AUDIO,
 		UNKNOWN;
 
@@ -28,7 +28,7 @@ public class Tuba.Attachment {
 			}
 		}
 
-        public string to_string () {
+		public string to_string () {
 			switch (this) {
 				case IMAGE:
 					return "IMAGE";
@@ -58,7 +58,7 @@ public class Tuba.Attachment {
 					return UNKNOWN;
 			}
 		}
-    }
+	}
 }
 
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/media_viewer.ui")]
@@ -336,12 +336,14 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			if (value) {
 				app.main_window.fullscreen ();
 				fullscreen_btn.icon_name = "view-restore-symbolic";
-				_fullscreen = true;
 			} else {
 				app.main_window.unfullscreen ();
 				fullscreen_btn.icon_name = "view-fullscreen-symbolic";
-				_fullscreen = false;
 			}
+
+			_fullscreen =
+			toggle_fs_revealer.visible = value;
+			headerbar.visible = !value;
 		}
 		get { return app.main_window.fullscreened; }
 	}
@@ -364,6 +366,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	[GtkChild] unowned Gtk.Button fullscreen_btn;
 	[GtkChild] unowned Adw.HeaderBar headerbar;
 	[GtkChild] unowned Gtk.Button back_btn;
+	[GtkChild] unowned Gtk.Revealer toggle_fs_revealer;
 
 	[GtkChild] unowned Gtk.Revealer page_buttons_revealer;
 	[GtkChild] unowned Gtk.Button prev_btn;
@@ -380,6 +383,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		set {
 			headerbar.opacity =
 			page_buttons_revealer.opacity =
+			toggle_fs_revealer.opacity =
 			zoom_buttons_revealer.opacity = value;
 		}
 	}
@@ -505,7 +509,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		context_menu.set_parent (this);
 
 		setup_mouse_previous_click ();
-		setup_double_click ();
+		setup_mouse1_click ();
 		setup_mouse_secondary_click ();
 		setup_swipe_close ();
 	}
@@ -559,6 +563,24 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 	private void on_swipe_animation_end () {
 		this.swipe_children_opacity = 1.0;
+	}
+
+	public override void measure (
+		Gtk.Orientation orientation,
+		int for_size,
+		out int minimum,
+		out int natural,
+		out int minimum_baseline,
+		out int natural_baseline
+	) {
+		this.scale_revealer.measure (
+			orientation,
+			for_size,
+			out minimum,
+			out natural,
+			out minimum_baseline,
+			out natural_baseline
+		);
 	}
 
 	public override void size_allocate (int width, int height, int baseline) {
@@ -664,7 +686,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		old_width = null;
 	}
 
+	double on_motion_last_x = 0.0;
+	double on_motion_last_y = 0.0;
 	protected void on_motion (double x, double y) {
+		if (on_motion_last_x == x && on_motion_last_y == y) return;
+		on_motion_last_x = x;
+		on_motion_last_y = y;
+
 		on_reveal_media_buttons ();
 	}
 
@@ -672,6 +700,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	protected void on_reveal_media_buttons () {
 		page_buttons_revealer.set_reveal_child (true);
 		zoom_buttons_revealer.set_reveal_child (true);
+		toggle_fs_revealer.set_reveal_child (true);
 
 		if (revealer_timeout > 0) GLib.Source.remove (revealer_timeout);
 		revealer_timeout = Timeout.add (5 * 1000, on_hide_media_buttons, Priority.LOW);
@@ -680,6 +709,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	protected bool on_hide_media_buttons () {
 		page_buttons_revealer.set_reveal_child (false);
 		zoom_buttons_revealer.set_reveal_child (false);
+		toggle_fs_revealer.set_reveal_child (false);
 		revealer_timeout = 0;
 
 		return GLib.Source.REMOVE;
@@ -723,7 +753,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		Item? page = safe_get ((int) carousel.position);
 		if (page == null) return;
 
-		Host.open_uri (page.url);
+		Host.open_url (page.url);
 	}
 
 	private void save_as () {
@@ -786,11 +816,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		add_controller (gesture);
 	}
 
-	private void setup_double_click () {
+	private void setup_mouse1_click () {
 		var gesture = new Gtk.GestureClick () {
 			button = 1
 		};
-		gesture.pressed.connect (on_double_click);
+		gesture.pressed.connect (on_mouse1_click);
 		add_controller (gesture);
 	}
 
@@ -812,13 +842,18 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		clear ();
 	}
 
-	private void on_double_click (int n_press, double x, double y) {
-		if (n_press != 2) return;
+	private void on_mouse1_click (int n_press, double x, double y) {
+		switch (n_press) {
+			case 1:
+				on_reveal_media_buttons ();
+				break;
+			case 2:
+				Item? page = safe_get ((int) carousel.position);
+				if (page == null) break;
 
-		Item? page = safe_get ((int) carousel.position);
-		if (page == null) return;
-
-		page.on_double_click ();
+				page.on_double_click ();
+				break;
+		}
 	}
 
 	private void reset_media_viewer () {
@@ -992,30 +1027,30 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	[GtkCallback]
-    private void on_previous_clicked () {
-        scroll_to (((int) carousel.position) - 1);
-    }
+	private void on_previous_clicked () {
+		scroll_to (((int) carousel.position) - 1);
+	}
 
 	[GtkCallback]
-    private void on_next_clicked () {
-        scroll_to (((int) carousel.position) + 1);
-    }
+	private void on_next_clicked () {
+		scroll_to (((int) carousel.position) + 1);
+	}
 
 	[GtkCallback]
-    private void on_zoom_out_clicked () {
-        Item? page = safe_get ((int) carousel.position);
+	private void on_zoom_out_clicked () {
+		Item? page = safe_get ((int) carousel.position);
 			if (page == null) return;
 
 			page.zoom_out ();
-    }
+	}
 
 	[GtkCallback]
-    private void on_zoom_in_clicked () {
-        Item? page = safe_get ((int) carousel.position);
+	private void on_zoom_in_clicked () {
+		Item? page = safe_get ((int) carousel.position);
 			if (page == null) return;
 
 			page.zoom_in ();
-    }
+	}
 
 	private void on_carousel_page_changed (uint pos) {
 		update_revealer_widget ((int) pos);

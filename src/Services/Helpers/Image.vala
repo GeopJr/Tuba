@@ -39,6 +39,12 @@ public class Tuba.Helper.Image {
 			user_agent = @"$(Build.NAME)/$(Build.VERSION) libsoup/$(Soup.get_major_version()).$(Soup.get_minor_version()).$(Soup.get_micro_version()) ($(Soup.MAJOR_VERSION).$(Soup.MINOR_VERSION).$(Soup.MICRO_VERSION))" // vala-lint=line-length
 		};
 		session.add_feature (cache);
+
+		app.notify ["proxy"].connect (on_proxy_change);
+	}
+
+	private static void on_proxy_change () {
+		session.set_proxy_resolver (app.proxy);
 	}
 
 	public static async Bytes? request_bytes (string url) {
@@ -84,5 +90,13 @@ public class Tuba.Helper.Image {
 			has_loaded = true;
 			cb (result);
 		});
+	}
+
+	public static Gdk.Paintable? lookup_cache (string uri) {
+		try {
+			return Gdk.Texture.from_filename (GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, cache.cache_dir, GLib.str_hash (uri).to_string ()));
+		} catch {
+			return null;
+		}
 	}
 }

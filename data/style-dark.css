@@ -34,14 +34,6 @@
 	color: @red_2;
 }
 
-.ttl-status-badge.attachmentpageattachment>*.error {
-	background-color: alpha(mix(@red_4, black, .8), .8);
-}
-
-.ttl-status-badge.attachmentpageattachment>*.success {
-	background-color: alpha(mix(@green_4, black, .8), .8);
-}
-
 .ttl-post.direct:hover {
 	background-color: lighter(alpha(@warning_bg_color, .1));
 }

@@ -61,6 +61,10 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		set { widget.lines = value; }
 	}
 
+	public string accessible_text {
+		get { return widget.accessible_text; }
+	}
+
 	// #756
 	public bool fix_overflow_hack {
 		get {
@@ -69,6 +73,10 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		set {
 			widget.fix_overflow_hack = value;
 		}
+	}
+
+	public string get_text () {
+		return widget.label_text;
 	}
 
 	public RichLabel (string? text = null) {
@@ -86,6 +94,8 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	}
 
 	public bool on_activate_link (string url) {
+		widget.grab_focus ();
+
 		if (mentions != null) {
 			bool found = false;
 			mentions.@foreach (mention => {
@@ -101,35 +111,59 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 			if (found) return true;
 		}
 
-		if ("/tags/" in url) {
-			var from_url = Path.get_basename (url);
-			var decoded = Uri.unescape_string (from_url) ?? from_url;
-			var param_start = decoded.index_of_char ('?');
-			if (param_start != -1)
-				decoded = decoded.slice (0, param_start);
-			app.main_window.open_view (new Views.Hashtag (decoded, null));
-			return true;
+		GLib.Uri? uri = null;
+		try {
+			uri = Uri.parse (url, UriFlags.NONE);
+
+			// Hashtag urls are not resolvable.
+			// Handle them manually if they end in /tags/<tag>.
+			// Some backends might add query params, so using
+			// GLib.Uri is preferred.
+			if (Path.get_basename (Path.get_dirname (url)) == "tags") {
+				app.main_window.open_view (
+					new Views.Hashtag (
+						Path.get_basename (uri.get_path ()),
+						null
+					)
+				);
+				return true;
+			} else if (uri.get_scheme () == "web+ap") {
+				app.handle_web_ap (uri);
+
+				return true;
+			}
+		} catch (UriError e) {
+			warning (@"Failed to parse \"$url\": $(e.message)");
 		}
 
 		if (should_resolve_url (url)) {
 			accounts.active.resolve.begin (url, (obj, res) => {
 				try {
 					accounts.active.resolve.end (res).open ();
-				}
-				catch (Error e) {
+				} catch (Error e) {
 					warning (@"Failed to resolve URL \"$url\":");
 					warning (e.message);
-					Host.open_uri (url);
+					if (uri == null) {
+						Host.open_url (url);
+					} else {
+						Host.open_uri (uri);
+					}
 				}
 			});
 		} else {
-			Host.open_uri (url);
+			if (uri == null) {
+				Host.open_url (url);
+			} else {
+				Host.open_uri (uri);
+			}
 		}
 
 		return true;
 	}
 
 	public static bool should_resolve_url (string url) {
-		return settings.aggressive_resolving || "@" in url || "user" in url;
+		return settings.aggressive_resolving
+			|| url.index_of_char ('@') != -1
+			|| "/user" in url;
 	}
 }

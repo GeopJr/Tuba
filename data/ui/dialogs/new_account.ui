@@ -6,7 +6,9 @@
     <property name="default_width">600</property>
     <property name="default_height">500</property>
     <property name="title" translatable="yes">Add Account</property>
-    <child>
+	<child>
+		<object class="AdwToastOverlay" id="toast_overlay">
+			<property name="child">
       <object class="AdwNavigationView" id="deck">
         <signal name="popped" handler="on_back_clicked" swapped="no"/>
         <child>
@@ -17,7 +19,8 @@
                 <child type="top">
                   <object class="AdwHeaderBar">
                     <property name="show-title">0</property>
-                    <property name="centering-policy">strict</property>
+					<property name="show-end-title-buttons">0</property>
+					<property name="show-start-title-buttons">0</property>
                     <child>
                       <object class="GtkButton">
                         <property name="label" translatable="yes">Cancel</property>
@@ -68,6 +71,19 @@
                                         <property name="input_purpose">url</property>
                                         <signal name="entry_activated" handler="on_next_clicked" swapped="no"/>
                                         <signal name="changed" handler="clear_errors" swapped="no"/>
+										<child type="suffix">
+											<object class="GtkButton">
+												<property name="icon-name">tuba-settings-symbolic</property>
+												<property name="valign">center</property>
+												<!-- translators: tooltip text for a button in the 'new account' window -->
+												<property name="tooltip-text" translatable="yes">Settings</property>
+												<signal name="clicked" handler="on_settings_clicked" swapped="no"/>
+												<style>
+													<class name="circular" />
+													<class name="flat" />
+												</style>
+											</object>
+										</child>
                                       </object>
                                     </child>
                                   </object>
@@ -101,15 +117,16 @@
               <object class="AdwToolbarView">
                 <child type="top">
                   <object class="AdwHeaderBar">
-                    <property name="centering-policy">strict</property>
                     <property name="show-title">0</property>
+					<property name="show-end-title-buttons">0</property>
+					<property name="show-start-title-buttons">0</property>
                     <child type="end">
                       <object class="GtkButton">
                         <property name="receives_default">1</property>
                         <property name="label" translatable="yes">Next</property>
-                        <property name="visible" bind-source="TubaDialogsNewAccount" bind-property="use-auto-auth" bind-flags="sync-create|invert-boolean"/>"
+                        <property name="visible" bind-source="TubaDialogsNewAccount" bind-property="use-auto-auth" bind-flags="sync-create|invert-boolean"/>
                         <property name="sensitive" bind-source="TubaDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
-                        <signal name="clicked" handler="on_next_clicked" swapped="no"/>"
+                        <signal name="clicked" handler="on_next_clicked" swapped="no"/>
                         <style>
                           <class name="suggested-action"/>
                         </style>
@@ -187,9 +204,10 @@
               <object class="AdwToolbarView">
                 <child type="top">
                   <object class="AdwHeaderBar">
-                    <property name="centering-policy">strict</property>
                     <property name="show-back-button">0</property>
                     <property name="show-title">0</property>
+					<property name="show-end-title-buttons">0</property>
+					<property name="show-start-title-buttons">0</property>
                     <child type="end">
                       <object class="GtkButton">
                         <property name="receives_default">1</property>
@@ -219,6 +237,8 @@
           </object>
         </child>
       </object>
-    </child>
+			</property>
+		</object>
+	</child>
   </template>
 </interface>

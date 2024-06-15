@@ -81,8 +81,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 
 	public override void dispose () {
 		#if !USE_LISTVIEW
-			if (content != null)
-				content.bind_model (null, null);
+			unbind_listboxes ();
 		#endif
 		base.dispose ();
 	}
@@ -107,6 +106,13 @@ public class Tuba.Views.ContentBase : Views.Base {
 		}
 	}
 
+	#if !USE_LISTVIEW
+		public override void unbind_listboxes () {
+			if (content != null)
+				content.bind_model (null, null);
+			base.unbind_listboxes ();
+		}
+	#endif
 
 	public virtual Gtk.Widget on_create_model_widget (Object obj) {
 		var obj_widgetable = obj as Widgetizable;
@@ -128,7 +134,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 
 				return new Gtk.ListBoxRow () {
 					css_classes = { "card", "card-spacing" },
-					focusable = true,
+					focusable = false,
 					overflow = Gtk.Overflow.HIDDEN,
 					child = widget
 				};

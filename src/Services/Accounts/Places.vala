@@ -1,5 +1,4 @@
 public class Tuba.Place : Object {
-
 	public string title { get; set; }
 	public string icon { get; set; }
 	public int badge { get; set; default = 0; }
@@ -12,5 +11,4 @@ public class Tuba.Place : Object {
 	public delegate void OpenFunc (Dialogs.MainWindow window);
 
 	public OpenFunc open_func { get; set; }
-
 }

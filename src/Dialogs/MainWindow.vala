@@ -27,6 +27,14 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		settings.notify["darken-images-on-dark-mode"].connect (settings_updated);
 
 		app.toast.connect (add_toast);
+		app.notify["is-online"].connect (on_network_change);
+	}
+
+	private void on_network_change () {
+		if (app.is_online) {
+			go_back_to_start ();
+			app.refresh ();
+		}
 	}
 
 	private void settings_updated () {
@@ -128,9 +136,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			scroller.child = clamp;
 
 			var toolbar_view = new Adw.ToolbarView ();
-			var headerbar = new Adw.HeaderBar () {
-				centering_policy = Adw.CenteringPolicy.STRICT
-			};
+			var headerbar = new Adw.HeaderBar ();
 
 			toolbar_view.add_top_bar (headerbar);
 			toolbar_view.set_content (scroller);
@@ -146,13 +152,17 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 			((Widgets.BookWyrmPage) book_widget).selectable = true;
 		} catch {
-			if (fallback != null) Host.open_uri (fallback);
+			if (fallback != null) Host.open_url (fallback);
 		}
 	}
 
 	public Views.Base open_view (Views.Base view) {
 		if (
-			navigation_view?.visible_page?.child == view
+			(
+				navigation_view != null
+				&& navigation_view.visible_page != null
+				&& navigation_view.visible_page.child == view
+			)
 			|| (
 				last_view != null
 				&& last_view.label == view.label

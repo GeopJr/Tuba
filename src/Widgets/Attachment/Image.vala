@@ -46,7 +46,14 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	ulong pic_paintable_id = 0;
 	protected override void on_rebind () {
 		base.on_rebind ();
-		pic.alternative_text = entity == null ? null : entity.description;
+
+		if (entity == null) {
+			pic.alternative_text = null;
+		} else if (entity.tuba_translated_alt_text != null) {
+			pic.alternative_text = entity.tuba_translated_alt_text;
+		} else {
+			pic.alternative_text = entity.description;
+		}
 
 		if (pic_paintable_id != 0) {
 			pic.disconnect (pic_paintable_id);

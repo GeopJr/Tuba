@@ -130,11 +130,8 @@ public class Tuba.Views.Lists : Views.Timeline {
 		buffer.set_text ("".data);
 	}
 
-	Gtk.Entry child_entry = new Gtk.Entry () {
-		input_purpose = Gtk.InputPurpose.FREE_FORM,
-		placeholder_text = _("New list title")
-	};
-
+	Gtk.Entry child_entry;
+	Gtk.Button add_button;
 	construct {
 		url = "/api/v1/lists";
 		label = _("Lists");
@@ -142,39 +139,38 @@ public class Tuba.Views.Lists : Views.Timeline {
 		accepts = typeof (API.List);
 		empty_state_title = _("No Lists");
 
+		child_entry = new Gtk.Entry () {
+			input_purpose = Gtk.InputPurpose.FREE_FORM,
+			placeholder_text = _("New list title")
+		};
+
 		var add_action_bar = new Gtk.ActionBar () {
 			css_classes = { "ttl-box-no-shadow" }
 		};
 
 		var child_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 
-		var add_button = new Gtk.Button.with_label (_("Add list")) {
+		add_button = new Gtk.Button.with_label (_("Add list")) {
 			sensitive = false
 		};
 
-		add_button.clicked.connect (() => {
-			on_action_bar_activate (child_entry.buffer);
-		});
-		child_entry.activate.connect (() => {
-			on_action_bar_activate (child_entry.buffer);
-		});
-
-		child_entry.buffer.bind_property (
-			"length",
-			add_button,
-			"sensitive",
-			BindingFlags.SYNC_CREATE,
-			(b, src, ref target) => {
-				target.set_boolean ((uint) src > 0);
-				return true;
-			}
-		);
+		add_button.clicked.connect (new_item_cb);
+		child_entry.activate.connect (new_item_cb);
+		child_entry.notify["text"].connect (on_entry_changed);
 
 		child_box.append (child_entry);
 		child_box.append (add_button);
 
 		add_action_bar.set_center_widget (child_box);
 		toolbar_view.add_top_bar (add_action_bar);
+	}
+
+	void new_item_cb () {
+		on_action_bar_activate (child_entry.buffer);
+	}
+
+	void on_entry_changed () {
+		add_button.sensitive = child_entry.text.length > 0;
 	}
 
 	~Lists () {

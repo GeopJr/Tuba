@@ -18,6 +18,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 
 	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
 	public weak Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
+	public bool has_quote { get; set; default=false; }
 
 	private bool _selectable = false;
 	public bool selectable {
@@ -37,8 +38,25 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 	}
 
 	construct {
+		this.set_accessible_role (Gtk.AccessibleRole.LABEL);
 		orientation = Gtk.Orientation.VERTICAL;
 		spacing = 12;
+	}
+
+	void update_aria () {
+		string total_aria = "";
+
+		var w = this.get_first_child ();
+		while (w != null) {
+			var label = w as RichLabel;
+			if (label != null) {
+				total_aria += @"\n$(label.accessible_text)";
+			}
+			w = w.get_next_sibling ();
+		};
+
+		this.update_property (Gtk.AccessibleProperty.LABEL, total_aria, -1);
+		this.update_property (Gtk.AccessibleProperty.DESCRIPTION, null, -1);
 	}
 
 	void update_content (string content) {
@@ -63,6 +81,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		delete doc;
 
 		visible = get_first_child () != null;
+		update_aria ();
 	}
 
 	static void traverse (Xml.Node* root, owned NodeFn cb) {
@@ -202,7 +221,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		switch (root->name) {
 			case "span":
 				string? classes = root->get_prop ("class");
-				if (classes == null || !classes.contains ("quote-inline"))
+				if (!v.has_quote || classes == null || !classes.contains ("quote-inline"))
 					traverse_and_handle (v, root, default_handler);
 				break;
 			case "html":

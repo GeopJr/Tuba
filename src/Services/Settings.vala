@@ -5,12 +5,14 @@ public class Tuba.Settings : GLib.Settings {
 		public string default_content_type { get; set; default = "text/plain"; }
 		public string[] muted_notification_types { get; set; default = {}; }
 		public string[] recently_used_custom_emojis { get; set; default = {}; }
+		public string[] notification_filters { get; set; default = {}; }
 
 		private static string[] keys_to_init = {
 			"default-post-visibility",
 			"muted-notification-types",
 			"default-content-type",
-			"recently-used-custom-emojis"
+			"recently-used-custom-emojis",
+			"notification-filters"
 		};
 
 		public Account (string id) {
@@ -91,6 +93,16 @@ public class Tuba.Settings : GLib.Settings {
 		}
 	}
 
+	public string[] notification_filters {
+		get {
+			return active_account_settings.notification_filters;
+		}
+
+		set {
+			active_account_settings.notification_filters = value;
+		}
+	}
+
 	public ColorScheme color_scheme { get; set; }
 	public bool work_in_background { get; set; }
 	public int timeline_page_size { get; set; }
@@ -113,6 +125,9 @@ public class Tuba.Settings : GLib.Settings {
 	public bool spellchecker_enabled { get; set; }
 	public bool darken_images_on_dark_mode { get; set; }
 	public double media_viewer_last_used_volume { get; set; }
+	public bool monitor_network { get; set; }
+	public string proxy { get; set; }
+	public bool dim_trivial_notifications { get; set; }
 
 	private static string[] keys_to_init = {
 		"active-account",
@@ -136,7 +151,10 @@ public class Tuba.Settings : GLib.Settings {
 		"reply-to-old-post-reminder",
 		"spellchecker-enabled",
 		"darken-images-on-dark-mode",
-		"media-viewer-last-used-volume"
+		"media-viewer-last-used-volume",
+		"monitor-network",
+		"proxy",
+		"dim-trivial-notifications"
 	};
 
 	public Settings () {

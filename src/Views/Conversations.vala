@@ -39,7 +39,7 @@ public class Tuba.Views.Conversations : Views.Timeline {
 
 			for (uint i = 0; i < model.get_n_items (); i++) {
 				var convo_obj = (API.Conversation) model.get_item (i);
-				if (convo_obj.last_status?.id == convo_id) {
+				if (convo_obj.last_status != null && convo_obj.last_status.id == convo_id) {
 					model.remove (i);
 					break;
 				}

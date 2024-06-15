@@ -1,7 +1,26 @@
 public class Tuba.Widgets.Avatar : Gtk.Button {
+	public signal void mini_clicked ();
+
+	weak API.Account? _account = null;
 	public API.Account? account {
 		set {
 			on_invalidated (value);
+			_account = value;
+		}
+	}
+
+	bool _allow_mini_profile = false;
+	public bool allow_mini_profile {
+		get { return _allow_mini_profile; }
+		set {
+			if (_allow_mini_profile == value) return;
+
+			_allow_mini_profile = value;
+			if (value) {
+				this.clicked.connect (show_mini_profile);
+			} else {
+				this.clicked.disconnect (show_mini_profile);
+			}
 		}
 	}
 
@@ -27,8 +46,25 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 		set {
 			_avatar_url = value;
 
-			if (value != null) {
+			if (value != null && (!retry_on_network_changes || (retry_on_network_changes && app.is_online))) {
 				Tuba.Helper.Image.request_paintable (value, null, on_cache_response);
+			}
+		}
+	}
+
+	bool _retry_on_network_changes = false;
+	public bool retry_on_network_changes {
+		get {
+			return _retry_on_network_changes;
+		}
+
+		set {
+			if (_retry_on_network_changes == value) return;
+
+			if (value) {
+				app.notify["is-online"].connect (on_network_change);
+			} else {
+				app.notify["is-online"].disconnect (on_network_change);
 			}
 		}
 	}
@@ -48,11 +84,71 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 		} else {
 			avatar.text = account.display_name;
 			avatar.show_initials = true;
-			Tuba.Helper.Image.request_paintable (account.avatar, null, on_cache_response);
+			avatar_url = account.avatar;
 		}
 	}
 
 	void on_cache_response (Gdk.Paintable? data) {
 		avatar.custom_image = data;
+	}
+
+	private void on_network_change () {
+		if (app.is_online && _avatar_url != null && custom_image == null) {
+			// If the previous avi url failed or is pending,
+			// libsoup might crash if we queue it again
+			// so instead add a UUID as a fragment
+			string new_uuid = GLib.Uuid.string_random ();
+			string new_avi = _avatar_url;
+
+			if (_avatar_url.contains ("#")) {
+				new_avi = _avatar_url.slice (0, _avatar_url.index_of_char ('#'));
+			}
+
+			this.avatar_url = @"$new_avi#$new_uuid";
+		}
+	}
+
+	Gtk.Popover? mini_profile = null;
+	private void show_mini_profile () {
+		if (_account == null) return;
+
+		if (mini_profile == null) {
+			var mini_cover = new Views.Profile.ProfileAccount (_account).to_mini_widget ();
+			((Widgets.Cover) mini_cover).avatar_clicked.connect (on_mini_avatar_clicked);
+
+			mini_profile = new Gtk.Popover () {
+				child = new Gtk.ScrolledWindow () {
+					child = mini_cover,
+					hexpand = true,
+					vexpand = true,
+					hscrollbar_policy = Gtk.PolicyType.NEVER,
+					max_content_height = 500,
+					width_request = 360,
+					propagate_natural_height = true
+				}
+			};
+			mini_profile.set_parent (this);
+			mini_profile.closed.connect (clear_mini);
+		}
+
+		mini_profile.popup ();
+	}
+
+	private void clear_mini () {
+		if (mini_profile == null) return;
+
+		mini_profile.unparent ();
+		mini_profile.dispose ();
+		mini_profile = null;
+	}
+
+	private void on_mini_avatar_clicked () {
+		if (mini_profile != null) mini_profile.popdown ();
+		this.grab_focus ();
+		mini_clicked ();
+	}
+
+	~Avatar () {
+		clear_mini ();
 	}
 }

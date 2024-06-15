@@ -24,10 +24,10 @@ public abstract interface Tuba.Streamable : Object {
 	public abstract string? t_connection_url { get; set; }
 	public abstract bool subscribed { get; set; default = false; }
 
-    public abstract string? get_stream_url ();
+	public abstract string? get_stream_url ();
 
-    [Signal (detailed = true)]
-    public signal void stream_event (Event ev);
+	[Signal (detailed = true)]
+	public signal void stream_event (Event ev);
 
 	void subscribe () {
 		streams.unsubscribe (t_connection_url, this);
@@ -51,11 +51,20 @@ public abstract interface Tuba.Streamable : Object {
 
 		notify["subscribed"].connect (update_stream);
 		notify["stream_url"].connect (update_stream);
+		app.notify["is-online"].connect (on_network_change);
 		update_stream ();
 	}
 
 	protected void destruct_streamable () {
 		unsubscribe ();
+	}
+
+	protected void on_network_change () {
+		if (app.is_online) {
+			update_stream ();
+		} else {
+			unsubscribe ();
+		}
 	}
 
 	protected void update_stream () {

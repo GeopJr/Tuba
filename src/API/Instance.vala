@@ -16,6 +16,8 @@ public class Tuba.API.Instance : Entity {
 	public API.Pleroma.Instance? pleroma { get; set; default = null; }
 	public Gee.ArrayList<Rule>? rules { get; set; }
 
+	public bool tuba_can_translate { get; set; default=false; }
+
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
 			case "languages":
@@ -41,9 +43,11 @@ public class Tuba.API.Instance : Entity {
 		get {
 			if (pleroma != null && pleroma.metadata != null) {
 				return pleroma.metadata.post_formats;
+			} else if (configuration == null || configuration.statuses == null) {
+				return null;
 			}
 
-			return configuration?.statuses?.supported_mime_types;
+			return configuration.statuses.supported_mime_types;
 		}
 	}
 

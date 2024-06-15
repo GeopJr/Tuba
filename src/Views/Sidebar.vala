@@ -7,6 +7,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	[GtkChild] unowned Gtk.Popover account_switcher_popover_menu;
 	[GtkChild] unowned Adw.Banner announcements_banner;
 	[GtkChild] unowned Adw.Banner fr_banner;
+	[GtkChild] unowned Adw.Banner network_banner;
 
 	protected InstanceAccount? account { get; set; default = null; }
 
@@ -60,6 +61,11 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		misc_submenu_model.append (_("Announcements"), "app.open-announcements");
 		misc_submenu_model.append (_("Follow Requests"), "app.open-follow-requests");
 		misc_submenu_model.append (_("Mutes & Blocks"), "app.open-mutes-blocks");
+
+		var admin_dahsboard_menu_item = new MenuItem (_("Admin Dashboard"), "app.open-admin-dashboard");
+		admin_dahsboard_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+		misc_submenu_model.append_item (admin_dahsboard_menu_item);
+
 		menu_model.append_section (null, misc_submenu_model);
 
 		misc_submenu_model = new GLib.Menu ();
@@ -85,6 +91,13 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		construct_account_holder ();
 		announcements_banner.button_clicked.connect (view_announcements_cb);
 		fr_banner.button_clicked.connect (view_fr_cb);
+
+		app.notify["is-online"].connect (on_network_change);
+		on_network_change ();
+	}
+
+	void on_network_change () {
+		network_banner.revealed = !app.is_online;
 	}
 
 	public virtual Gtk.Widget on_accounts_row_create (Object obj) {
@@ -132,7 +145,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		}
 		unread_announcements = 0;
 
-		if (app?.main_window != null)
+		if (app != null && app.main_window != null)
 			app.main_window.go_back_to_start ();
 
 		this.account = account;
@@ -143,6 +156,11 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			sidebar_avatar_btn = this.account.bind_property ("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
 			account_items.model = account.known_places;
 			update_selected_account ();
+
+			var dashboard_action = app.lookup_action ("open-admin-dashboard") as SimpleAction;
+			if (dashboard_action != null) {
+				dashboard_action.set_enabled (this.account.admin_mode);
+			}
 		} else {
 			saved_accounts.unselect_all ();
 
@@ -276,7 +294,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			if (account != null) {
 				account.resolve_open (accounts.active);
 			} else {
-				new Dialogs.NewAccount ().present ();
+				new Dialogs.NewAccount (true).present ();
 			}
 			popdown_signal ();
 		}
@@ -325,6 +343,6 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		if (row.account != null)
 			accounts.activate (row.account, true);
 		else
-			new Dialogs.NewAccount ().present ();
+			new Dialogs.NewAccount (true).present ();
 	}
 }

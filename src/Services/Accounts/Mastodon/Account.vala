@@ -210,7 +210,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 			} catch (Error e) {
 				warning (@"Failed to resolve URL \"$url\":");
 				warning (e.message);
-				Host.open_uri (url);
+				Host.open_url (url);
 			}
 		});
 	}
@@ -234,7 +234,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		if (!check_issuer (issuer_id)) return;
 
 		new Request.POST (@"/api/v1/follow_requests/$fr_id/$(accept ? "authorize" : "reject")")
-            .with_account (this)
+			.with_account (this)
 			.exec ();
 	}
 
@@ -259,7 +259,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		if (!check_issuer (issuer_id)) return;
 
 		new Request.POST (@"/api/v1/accounts/$acc_id/remove_from_followers")
-            .with_account (this)
+			.with_account (this)
 			.exec ();
 	}
 
