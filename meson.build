@@ -18,6 +18,7 @@ endif
 
 devel = get_option('devel')
 distro = get_option('distro')
+clapper_support = get_option('clapper')
 
 # Setup configuration file
 config = configuration_data()
@@ -100,7 +101,7 @@ if gtksourceview_dep.version().version_compare('>=5.7.1')
   add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
 endif
 
-if clapper_dep.found () and clapper_dep.version().version_compare('>=0.6.0') and clapper_gtk_dep.found ()
+if clapper_support and clapper_dep.found () and clapper_dep.version().version_compare('>=0.6.0') and clapper_gtk_dep.found ()
   add_project_arguments(['--define=CLAPPER'], language: 'vala')
   if (clapper_dep.get_variable('features').split().contains('mpris'))
     add_project_arguments(['--define=CLAPPER_MPRIS'], language: 'vala')

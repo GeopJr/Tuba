@@ -258,22 +258,17 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			stack.visible_child_name = "child";
 			if (is_video) {
 				#if CLAPPER
-					var player = ((ClapperGtk.Video) child_widget).player;
-				#else
-					var player = ((Gtk.Video) child_widget).media_stream;
-					player.volume = 1.0 - last_used_volume;
-				#endif
-				player.volume = last_used_volume;
-				#if CLAPPER
 					if (pre_playing) {
-						player.play ();
+						((ClapperGtk.Video) child_widget).player.play ();
 					} else {
-						player.pause ();
+						((ClapperGtk.Video) child_widget).player.pause ();
 					}
 				#else
-					player.playing = pre_playing;
+					((Gtk.Video) child_widget).media_stream.volume = 1.0 - last_used_volume;
+					((Gtk.Video) child_widget).media_stream.volume = last_used_volume;
+					((Gtk.Video) child_widget).media_stream.playing = pre_playing;
+					((Gtk.Video) child_widget).media_stream.notify["volume"].connect (on_manual_volume_change);
 				#endif
-				player.notify["volume"].connect (on_manual_volume_change);
 			};
 			is_done = true;
 		}

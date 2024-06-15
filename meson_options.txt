@@ -1,2 +1,3 @@
 option('devel', type: 'boolean', value: false)
 option('distro', type: 'boolean', value: false)
+option('clapper', type: 'boolean', value: false)
