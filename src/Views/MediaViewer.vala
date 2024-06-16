@@ -251,11 +251,23 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			child_widget.destroy ();
 		}
 
+		ulong media_stream_signal_id = -1;
 		public void done () {
 			if (is_done) return;
 
+			#if !CLAPPER
+				if (is_video && ((Gtk.Video) child_widget).media_stream == null) {
+					if (media_stream_signal_id == -1) {
+						media_stream_signal_id = ((Gtk.Video) child_widget).notify["media-stream"].connect (on_received_media_stream);
+					}
+
+					return;
+				};
+			#endif
+
 			spinner.spinning = false;
 			stack.visible_child_name = "child";
+
 			if (is_video) {
 				#if CLAPPER
 					if (pre_playing) {
@@ -271,6 +283,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				#endif
 			};
 			is_done = true;
+		}
+
+		private void on_received_media_stream () {
+			if (((Gtk.Video) child_widget).media_stream != null) {
+				done ();
+				((Gtk.Video) child_widget).disconnect (media_stream_signal_id);
+			}
 		}
 
 		private void on_manual_volume_change () {
@@ -922,8 +941,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				#endif
 				video.player.audio_filter = Gst.ElementFactory.make ("scaletempo", null);
 			#else
-				var video = new Gtk.Video ();
-				video.graphics_offload = Gtk.GraphicsOffloadEnabled.ENABLED;
+				var video = new Gtk.Video () {
+					graphics_offload = Gtk.GraphicsOffloadEnabled.ENABLED
+				};
 			#endif
 
 			if (media_type == Tuba.Attachment.MediaType.GIFV) {
