@@ -1,0 +1,22 @@
+{
+    "name": "clapper",
+    "buildsystem": "meson",
+    "config-opts": [
+        "-Dclapper=enabled",
+        "-Dclapper-gtk=enabled",
+        "-Dclapper-app=disabled",
+        "-Dintrospection=enabled",
+        "-Dvapi=enabled"
+    ],
+    "cleanup": [
+        "/include",
+        "/lib/pkgconfig"
+    ],
+    "sources": [
+        {
+            "type": "git",
+            "url": "https://github.com/Rafostar/clapper.git",
+            "branch": "master"
+        }
+    ]
+}
