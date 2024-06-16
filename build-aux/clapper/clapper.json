@@ -16,7 +16,7 @@
         {
             "type": "git",
             "url": "https://github.com/Rafostar/clapper.git",
-            "branch": "df371c698add3598a4e2b94f6bf3a1f939706fd8"
+            "branch": "master"
         },
 		{
 			"type": "shell",
