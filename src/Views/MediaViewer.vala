@@ -207,6 +207,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			stack.add_named (setup_scrolledwindow (child), "child");
 			this.url = t_url;
 
+			#if GTK_4_14
+				if (this.is_video)
+					stack.visible_child_name = "child";
+			#endif
+
 			if (paintable != null) overlay.child = new Gtk.Picture.for_paintable (paintable);
 		}
 
@@ -238,7 +243,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			};
 
 			spinner.spinning = false;
-			stack.visible_child_name = "child";
+			#if !GTK_4_14
+				stack.visible_child_name = "child";
+			#endif
 
 			if (is_video) {
 				((Gtk.Video) child_widget).media_stream.volume = 1.0 - last_used_volume;
@@ -885,7 +892,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		if (media_type.is_video ()) {
 			var video = new Gtk.Video () {
-				graphics_offload = Gtk.GraphicsOffloadEnabled.ENABLED
+				#if GTK_4_14
+					graphics_offload = Gtk.GraphicsOffloadEnabled.ENABLED
+				#endif
 			};
 
 			if (media_type == Tuba.Attachment.MediaType.GIFV) {
