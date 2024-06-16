@@ -217,8 +217,8 @@ headerbar.flat.no-title .title {
 }
 
 .ttl-profile-fields-box-container:not(.single) > .ttl-profile-fields-box > flowboxchild > .ttl-profile-field {
-	border-bottom: solid 1px @sidebar_border_color;
-	border-right: solid 1px @sidebar_border_color;
+	border-bottom: solid 1px @borders;
+	border-right: solid 1px @borders;
 }
 
 .ttl-profile-fields-box-container.odd > .ttl-profile-fields-box > flowboxchild:last-child > .ttl-profile-field {
