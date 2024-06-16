@@ -77,6 +77,7 @@ asresources = gnome.compile_resources(
     c_name: 'as',
 )
 
+gtk_dep = dependency('gtk4', version: '>=4.13.4', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.5', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
 libwebp_dep = dependency('libwebp', required: false)
@@ -98,6 +99,10 @@ if gtksourceview_dep.version().version_compare('>=5.7.1')
   add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
 endif
 
+if gtk_dep.version().version_compare('>=4.14')
+  add_project_arguments(['--define=GTK_4_14'], language: 'vala')
+endif
+
 sources = files()
 subdir('src')
 
@@ -111,7 +116,7 @@ final_deps = [
   dependency('icu-uc'),
   libspelling,
   gtksourceview_dep,
-  dependency('gtk4', version: '>=4.13.4', required: true),
+  gtk_dep,
   libadwaita_dep,
   meson.get_compiler('c').find_library('m', required: false)
 ]
