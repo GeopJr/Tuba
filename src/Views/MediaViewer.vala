@@ -412,8 +412,14 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		}
 	}
 
+	#if CLAPPER
+		string clapper_cache_dir;
+		Gee.HashMap<string, Clapper.MediaItem> clapper_cached_items;
+	#endif
 	construct {
 		#if CLAPPER
+			clapper_cached_items = new Gee.HashMap<string, Clapper.MediaItem> ();
+			clapper_cache_dir = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "clapper");
 			// Clapper can have > 1.0 volumes
 			last_used_volume = settings.media_viewer_last_used_volume;
 		#else
@@ -546,6 +552,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	~MediaViewer () {
 		debug ("Destroying MediaViewer");
 		context_menu.unparent ();
+		#if CLAPPER_0_8
+			clapper_cached_items.clear ();
+		#endif
 	}
 
 	private void on_visible_toggle () {
@@ -948,6 +957,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 					valign = Gtk.Align.END,
 					fullscreenable = false
 				});
+
+				#if CLAPPER_0_8
+					video.player.download_dir = clapper_cache_dir;
+					video.player.download_enabled = true;
+					video.player.download_complete.connect (on_clapper_download_complete);
+				#endif
+
 				#if CLAPPER_MPRIS
 				    var mpris = new Clapper.Mpris (
 				      "org.mpris.MediaPlayer2.Tuba",
@@ -977,7 +993,17 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			item = new Item (video, final_friendly_url, final_preview, true);
 
 			#if CLAPPER
-				var clp_item = new Clapper.MediaItem (url);
+				Clapper.MediaItem clp_item;
+				#if CLAPPER_0_8
+					if (clapper_cached_items.has_key (url)) {
+						clp_item = clapper_cached_items.get (url);
+					} else {
+				#endif
+				clp_item = new Clapper.MediaItem (url);
+				#if CLAPPER_0_8
+					}
+				#endif
+
 				video.player.queue.add_item (clp_item);
 				video.player.queue.select_item (clp_item);
 				add_todo_item (item);
@@ -1029,6 +1055,12 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		if (as_is || stream) add_todo_item (item);
 	}
+
+	#if CLAPPER_0_8
+		private void on_clapper_download_complete (Clapper.MediaItem clp_media_item, string location) {
+			clapper_cached_items.set (clp_media_item.uri, clp_media_item);
+		}
+	#endif
 
 	private Gee.ArrayList<string> todo_items = new Gee.ArrayList<string> ();
 	private void add_todo_item (Item todo_item) {
