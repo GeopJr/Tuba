@@ -929,7 +929,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 					auto_inhibit = true
 				};
 				video.add_fading_overlay (new ClapperGtk.SimpleControls () {
-					valign = Gtk.Align.END
+					valign = Gtk.Align.END,
+					fullscreenable = false
 				});
 				#if CLAPPER_MPRIS
 				    var mpris = new Clapper.Mpris (
