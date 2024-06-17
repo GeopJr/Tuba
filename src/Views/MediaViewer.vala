@@ -412,19 +412,17 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		}
 	}
 
-	#if CLAPPER
+	#if CLAPPER_0_8
 		string clapper_cache_dir;
-		#if CLAPPER_0_8
-			Gee.HashMap<string, Clapper.MediaItem> clapper_cached_items;
-		#endif
+		Gee.HashMap<string, Clapper.MediaItem> clapper_cached_items;
 	#endif
 	construct {
 		#if CLAPPER
 			#if CLAPPER_0_8
 				clapper_cached_items = new Gee.HashMap<string, Clapper.MediaItem> ();
+				clapper_cache_dir = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "clapper");
 			#endif
 
-			clapper_cache_dir = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "clapper");
 			// Clapper can have > 1.0 volumes
 			last_used_volume = settings.media_viewer_last_used_volume;
 		#else
