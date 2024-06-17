@@ -144,25 +144,11 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		on_content_changed ();
 	}
 
-	// TODO: Why did I write this? What does it do??? Why does it crash????
 	public override void on_content_changed () {
-		// var empty = true;
 		foreach_tab (tab => {
-			// tab.visible = !tab.empty;
-			// if (tab.visible)
-			// 	empty = false;
-
 			tab.on_content_changed ();
 		});
 		base_status = null;
-
-		// if (empty) {
-		// 	state = "status";
-		// 	status_title = STATUS_EMPTY;
-		// }
-		// else {
-		// 	state = "content";
-		// }
 	}
 
 	public override void scroll_page (bool up = false) {
