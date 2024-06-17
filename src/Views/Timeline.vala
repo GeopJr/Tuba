@@ -217,7 +217,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 				if (headers != null)
 					get_pages (headers.get_one ("Link"));
-				on_content_changed ();
+
+				if (to_add.length == 0)
+					on_content_changed ();
 				on_request_finish ();
 			})
 			.on_error (on_error)
