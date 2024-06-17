@@ -308,6 +308,19 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 					return;
 				}
 
+				// This can occur on race conditions or multiple calls.
+				// The post might already be in the timeline due to a refresh etc.
+				// So just if the id exists already in the first page and remove it.
+				if (accepts == typeof (API.Status)) {
+					string e_id = ((API.Status) entity).id;
+					for (uint i = 0; i < uint.min (model.n_items, settings.timeline_page_size); i++) {
+						var status_obj = (API.Status)model.get_item (i);
+						if (status_obj.id == e_id) {
+							model.remove (i);
+						}
+					}
+				}
+
 				model.insert (0, entity);
 			#endif
 		} catch (Error e) {
