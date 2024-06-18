@@ -64,8 +64,6 @@ jobs:
     - uses: actions/checkout@v4
     - uses: docker/setup-qemu-action@v2
       if: matrix.arch == 'aarch64'
-    - uses: mikefarah/yq@v4.33.3
-      if: matrix.arch == 'aarch64'
     - run: |
         mv ./build-aux/snap/snapcraft.yaml .
         sed -i '/version: git/d' snapcraft.yaml
