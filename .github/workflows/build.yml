@@ -51,10 +51,13 @@ jobs:
   snap-builder:
     name: "Snap Builder"
     runs-on: ubuntu-latest
+    # if: ${{ false }} # disable until snap updates the sdk to GNOME 46
     needs: [ lint ]
     strategy:
       matrix:
-        arch: [x86_64, aarch64]
+        arch:
+          - x86_64
+          # - aarch64 # needs some changes in the action to incorporate core24
       # Don't fail the whole workflow if one architecture fails
       fail-fast: false
     steps:
@@ -66,11 +69,9 @@ jobs:
     - run: |
         mv ./build-aux/snap/snapcraft.yaml .
         sed -i '/version: git/d' snapcraft.yaml
-        sed -i '/- -Ddevel=true/d' snapcraft.yaml
       if: matrix.arch == 'aarch64'
     - uses: diddlesnaps/snapcraft-multiarch-action@v1
-      #if: matrix.arch == 'aarch64'
-      if: ${{ false }} # needs some changes in the action to incorporate core24
+      if: matrix.arch == 'aarch64'
       id: snapcraft_docker
       with:
         architecture: arm64
@@ -83,9 +84,3 @@ jobs:
       with:
         name: snap-${{ matrix.arch }}
         path: ${{ steps.snapcraft_docker.outputs.snap }}${{ steps.snapcraft.outputs.snap }}
-    - uses: snapcore/action-publish@v1 # temporarily publishing amd64 from here directly to store
-      env:
-        SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
-      with:
-        snap: ${{ steps.snapcraft.outputs.snap }}
-        release: edge
