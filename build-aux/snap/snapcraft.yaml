@@ -3,7 +3,7 @@ base: core24
 version: git
 adopt-info: tuba
 
-grade: stable
+grade: devel
 confinement: strict
 license: GPL-3.0-only
 compression: lzo
