@@ -919,7 +919,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		items.clear ();
 		revealed = false;
-		clapper_cache_cleanup ();
+
+		#if CLAPPER_0_8
+			clapper_cache_cleanup ();
+		#endif
 	}
 
 	private void update_revealer_widget (int pos = -1) {
