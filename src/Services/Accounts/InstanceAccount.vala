@@ -629,7 +629,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			if (id > last_received_id) {
 				last_received_id = id;
 
-				unread_count++;
+				if (!(entity.kind in settings.notification_filters))
+					unread_count++;
 				send_toast (entity);
 			}
 		} catch (Error e) {
