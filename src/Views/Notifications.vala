@@ -95,6 +95,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	}
 
 	public override void on_account_changed (InstanceAccount? acc) {
+		filters_changed (false);
 		base.on_account_changed (acc);
 
 		if (badge_number_binding != null)
