@@ -692,6 +692,10 @@ GtkSourceAssistant row:last-child {
 .entry-button {
 	margin: 0;
 	padding: 0;
-	min-width: 24px;
-	min-height: 24px;
+	min-width: 0; /* 24px; */
+	min-height: 0; /* 24px; */
+}
+
+.entry-button:not(:hover):not(:focus-within) > image {
+	opacity: 0.7;
 }
