@@ -56,6 +56,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		gather_instance_info ();
 		gather_instance_custom_emojis ();
 		check_announcements ();
+
+		if (_account_settings != null) _account_settings = null;
 	}
 	public virtual signal void deactivated () {}
 	public virtual signal void added () {
@@ -629,7 +631,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			if (id > last_received_id) {
 				last_received_id = id;
 
-				if (!(entity.kind in settings.notification_filters))
+				if (!(entity.kind in account_settings_notification_filters ()))
 					unread_count++;
 				send_toast (entity);
 			}
@@ -644,4 +646,19 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public virtual void follow_back (string issuer_id, string acc_id) {}
 	public virtual void reply_to_status_uri (string issuer_id, string uri) {}
 	public virtual void remove_from_followers (string issuer_id, string acc_id) {}
+
+	private GLib.Settings? _account_settings = null;
+	private GLib.Settings account_settings () {
+		if (accounts.active == this) return settings;
+		if (_account_settings == null) _account_settings = new Settings.Account (this.uuid);
+		return _account_settings;
+	}
+
+	private string[] account_settings_notification_filters () {
+		if (accounts.active == this) {
+			return ((Settings) account_settings ()).notification_filters;
+		} else {
+			return ((Settings.Account) account_settings ()).notification_filters;
+		}
+	}
 }

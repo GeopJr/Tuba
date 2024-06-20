@@ -1,5 +1,5 @@
 public class Tuba.Settings : GLib.Settings {
-	class Account : GLib.Settings {
+	public class Account : GLib.Settings {
 		public string default_language { get; set; default = "en"; }
 		public string default_post_visibility { get; set; default = "public"; }
 		public string default_content_type { get; set; default = "text/plain"; }
