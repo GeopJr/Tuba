@@ -13,7 +13,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 			set_css_name ("entry");
 		 }
 
-		Gtk.Image clear_search_button;
+		Gtk.Button clear_search_button;
 		construct {
 			this.spacing = 9;
 			this.orientation = Gtk.Orientation.HORIZONTAL;
@@ -27,26 +27,23 @@ public class Tuba.Views.Search : Views.TabbedBase {
 			entry.changed.connect (on_entry_change);
 			entry.activate.connect (on_entry_activated);
 
-			var advanced_search = new Gtk.Image.from_icon_name ("tuba-funnel-symbolic") {
-				tooltip_text = _("Advanced Search")
+			var advanced_search = new Gtk.Button.from_icon_name ("tuba-funnel-symbolic") {
+				tooltip_text = _("Advanced Search"),
+				css_classes = {"flat", "circular", "entry-button"},
+				valign = Gtk.Align.CENTER,
+				halign = Gtk.Align.CENTER
 			};
 
-			clear_search_button = new Gtk.Image.from_icon_name ("edit-clear-symbolic") {
-				tooltip_text = _("Clear Entry")
+			clear_search_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic") {
+				tooltip_text = _("Clear Entry"),
+				css_classes = {"flat", "circular", "entry-button"},
+				valign = Gtk.Align.CENTER,
+				halign = Gtk.Align.CENTER
 			};
 			on_entry_change ();
 
-			var advanced_gesture = new Gtk.GestureClick () {
-				button = Gdk.BUTTON_PRIMARY
-			};
-			advanced_gesture.pressed.connect (open_advanced_search_dialog);
-			advanced_search.add_controller (advanced_gesture);
-
-			var clear_gesture = new Gtk.GestureClick () {
-				button = Gdk.BUTTON_PRIMARY
-			};
-			clear_gesture.pressed.connect (on_clear_entry);
-			clear_search_button.add_controller (clear_gesture);
+			advanced_search.clicked.connect (open_advanced_search_dialog);
+			clear_search_button.clicked.connect (on_clear_entry);
 
 			this.append (new Gtk.Image.from_icon_name ("system-search-symbolic"));
 			this.append (entry);
