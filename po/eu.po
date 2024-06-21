@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-06-20 03:45+0000\n"
+"PO-Revision-Date: 2024-06-21 17:59+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -191,13 +191,13 @@ msgstr "Utzi"
 
 #. translators: Label in the advanced search window. Leave `-is:reply` as is. 'instances' as in fediverse servers
 #: data/ui/dialogs/advanced_search.ui:56
-#, fuzzy
 msgid ""
 "Advanced Search might not work in all instances. You can invert an option by "
 "prefixing it with -. For example, -is:reply to filter out all replies."
 msgstr ""
 "Litekeena da bilaketa aurreratua ezin erabili ahal izatea instantzia "
-"guztietan."
+"guztietan. Aukera bat alderantzikatu dezakezu aurrean \"-\" sartuz. "
+"Adibidez, -is:reply erantzun guztiak baztertzeko."
 
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:73
@@ -207,7 +207,7 @@ msgstr "Kontsulta"
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:80
 msgid "From User"
-msgstr ""
+msgstr "Erabiltzaile honek egindakoak:"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:86
@@ -217,7 +217,7 @@ msgstr "Soilik erantzunak"
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:92
 msgid "Only Posts with Content Warnings"
-msgstr "Soilik Edukiari Buruzko Oharra duten bidalketak"
+msgstr "Soilik Edukiari Buruzko Abisua duten bidalketak"
 
 #. translators: Advanced search window, option group
 #. This is the title and the option are
@@ -238,7 +238,7 @@ msgstr "Bozketa"
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:116
 msgid "Embed"
-msgstr "Kapsulatu"
+msgstr "Kapsulatutako edukia"
 
 #: data/ui/dialogs/advanced_search.ui:123 data/ui/dialogs/preferences.ui:179
 msgid "Timelines"
@@ -272,19 +272,19 @@ msgstr "Datak"
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:179
 msgid "Before"
-msgstr "Aurretik"
+msgstr "Baino lehen"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
 #: data/ui/dialogs/advanced_search.ui:202
 msgid "During"
-msgstr "Bitartean"
+msgstr "Artean"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:225
 msgid "After"
-msgstr "Ondoren"
+msgstr "Eta gero"
 
 #: data/ui/dialogs/compose.ui:41 src/Dialogs/Composer/Dialog.vala:263
 msgid "_Publish"
@@ -313,7 +313,7 @@ msgstr "Ezkutatu guztiz"
 
 #: data/ui/dialogs/filter_edit.ui:71
 msgid "Otherwise a warning will be used"
-msgstr "Bestela, ohar bat erakutsiko da"
+msgstr "Bestela, abisu bat erakutsiko da"
 
 #: data/ui/dialogs/filter_edit.ui:78
 msgid "Contexts"
@@ -649,7 +649,7 @@ msgstr "Iragazi ezagutzen ez duzun jendearen jakinarazpenak"
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:275
 msgid "People you don't follow"
-msgstr "Jarraitzen ez duzun jendea"
+msgstr "Jarraitzen ez diozun jendea"
 
 #. translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:277
@@ -683,10 +683,11 @@ msgstr "Eskatu ez dituzun aipamen pribatuak"
 
 #. translators: Preferences switch subtitle about filtering out 'Unsolicited private mentions'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:301
-#, fuzzy
 msgid ""
 "Filtered unless it's in reply to your own mention or if you follow the sender"
-msgstr "Iragazita, zure  edo bidaltzaileari jarraitzen badiozu"
+msgstr ""
+"Iragazita, zure aipamen bati erantzuna ez bada edo bidaltzaileari jarraitzen "
+"ez badiozu"
 
 #: data/ui/dialogs/preferences.ui:311
 msgid "Filters"
@@ -956,16 +957,15 @@ msgstr "Izen-emate berriek zure onarpena beharko dute"
 
 #: src/API/Admin/Report.vala:19
 msgid "Spam"
-msgstr "Mezu baztergarria"
+msgstr "Mezu baztergarriak"
 
 #: src/API/Admin/Report.vala:20
 msgid "Rule Violation"
-msgstr "Arau-haustea"
+msgstr "Arauen urraketa"
 
 #: src/API/Admin/Report.vala:21
-#, fuzzy
 msgid "Legal"
-msgstr "Lege-oharra"
+msgstr "Legea"
 
 #: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:222
@@ -977,14 +977,13 @@ msgstr "Besteren bat"
 
 #. translators: the variable is a string report comment
 #: src/API/Admin/Report.vala:72
-#, fuzzy
 msgid "With the comment"
-msgstr "Ondorengo edukiarekin"
+msgstr "Ondorengo iruzkinarekin"
 
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr "Zergatia"
+msgstr "Arrazoia"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
@@ -1114,7 +1113,7 @@ msgstr "Jarraitu berari ere"
 
 #: src/API/Notification.vala:200 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
-msgstr "Baztertu"
+msgstr "Eman ezetza"
 
 #: src/API/Notification.vala:205 src/Views/NotificationRequestsList.vala:33
 #: src/Widgets/NotificationRequest.vala:65
@@ -1299,7 +1298,7 @@ msgstr "Larritasuna"
 #: src/Dialogs/Admin/AddFederationBlock.vala:92
 #: src/Widgets/Admin/DomainBlock.vala:30
 msgid "Reject Media Files"
-msgstr "Baztertu multimedia fitxategiak"
+msgstr "Ukatu multimedia fitxategiak"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1307,19 +1306,21 @@ msgstr "Baztertu multimedia fitxategiak"
 msgid ""
 "Removes locally stored media files and refuses to download any in the future"
 msgstr ""
+"Lokalean gordetako multimedia fitxategiak kentzen ditu eta etorkizunean "
+"deskargatzeari uko egiten dio"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:103
 #: src/Widgets/Admin/DomainBlock.vala:31
 msgid "Reject Reports"
-msgstr "Baztertu salaketak"
+msgstr "Ukatu salaketak"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:106
 msgid "Ignore all reports coming from this domain"
-msgstr "Muzin egin domeinu honetatik datozen salaketa guztiei"
+msgstr "Ez hartu kontuan domeinu honetatik datozen salaketei"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1331,10 +1332,13 @@ msgstr "Ezkutatu domeinu-izena"
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:117
+#, fuzzy
 msgid ""
 "Partially obfuscate the domain name in the list if advertising the list of "
 "domain limitations is enabled"
 msgstr ""
+"Ezkutatu neurri batean domeinu-izena zerrendan, domeinu-mugen zerrendako "
+"iragarpena gaituta badago"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
@@ -1376,7 +1380,7 @@ msgstr[1] "%d aste"
 #, c-format
 msgid "%d Day"
 msgid_plural "%d Days"
-msgstr[0] "egun %d"
+msgstr[0] "Egun %d"
 msgstr[1] "%d egun"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:68
@@ -1430,7 +1434,7 @@ msgstr "Berriro ireki"
 #: src/Dialogs/Admin/TakeAction.vala:147
 #: src/Views/Admin/Pages/Accounts.vala:250
 msgid "Take Action"
-msgstr "Neurriak hartu"
+msgstr "Hartu neurriak"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
@@ -1452,12 +1456,12 @@ msgstr "%Y(e)ko %Bren %ea"
 
 #: src/Dialogs/Admin/Report.vala:132
 msgid "Reported on"
-msgstr "Data honetan salatuta:"
+msgstr "Salatze-data:"
 
 #. translators: 'Reported by: <account>'
 #: src/Dialogs/Admin/Report.vala:138 src/Widgets/Admin/Report.vala:31
 msgid "Reported by"
-msgstr "Kontu honek salatuta:"
+msgstr "Salatzailea:"
 
 #: src/Dialogs/Admin/Report.vala:144
 msgid "Status"
@@ -1479,7 +1483,7 @@ msgstr "Birbidalita"
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:158 src/Widgets/Admin/Report.vala:22
 msgid "Action Taken by"
-msgstr ""
+msgstr "Neurriak hartu dituena:"
 
 #: src/Dialogs/Admin/Report.vala:170
 msgid "Category"
@@ -1488,10 +1492,13 @@ msgstr "Kategoria"
 #. translators: Admin dashboard report category description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/Report.vala:173
+#, fuzzy
 msgid ""
 "The reason this account and/or content was reported will be cited in "
 "communication with the reported account"
 msgstr ""
+"Kontu edo eduki hau salatu izanaren arrazoia aipatuko da salatutako "
+"kontuarekin batera"
 
 #: src/Dialogs/Admin/Report.vala:235
 msgid "Violated Rules"
@@ -1509,14 +1516,13 @@ msgstr "Bidali"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
-msgstr "Abisua"
+msgstr "Ohartarazi"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:61
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
-msgstr ""
-"Erabili erabiltzaileari abisu bat bidaltzeko, bestelako ekintzarik hartu gabe"
+msgstr "Erabili erabiltzaileari abisu bat bidaltzeko, bestelako ekintzarik gabe"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
@@ -1549,6 +1555,9 @@ msgid ""
 "posts and notifications from people not following them. Closes all reports "
 "against this account"
 msgstr ""
+"Eragotzi erabiltzaileak bidalketa publikoak argitaratzea, ezkutatu bere "
+"bidalketak eta jarraitzen ez dioten jendearen jakinarazpenak. Kontu honen "
+"aurkako salaketa guztiak itxiko ditu"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:97
@@ -1556,6 +1565,9 @@ msgid ""
 "Prevent any interaction from or to this account and delete its contents. "
 "Revertible within 30 days. Closes all reports against this account"
 msgstr ""
+"Eragotzi kontu honen edo honekin elkarrekintza guztiak eta ezabatu bere "
+"edukiak. 30 egunen barruan lehengoratu daiteke. Kontu honen aurkako salaketa "
+"guztiak itxiko ditu"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:114
@@ -1566,7 +1578,7 @@ msgstr "Jakinarazi erabiltzaileari ePosta bidez"
 #: src/Dialogs/Admin/TakeAction.vala:116
 msgid ""
 "The user will receive an explanation of what happened with their account"
-msgstr ""
+msgstr "Erabiltzaileak bere kontuarekin gertatu denaren azalpena jasoko du"
 
 #. translators: Question dialog when an admin is about to
 #. take action against an account
@@ -1724,7 +1736,7 @@ msgstr "Idatzi abisua hemen"
 
 #: src/Dialogs/Composer/EditorPage.vala:329
 msgid "Content Warning"
-msgstr "Edukiari buruzko abisua"
+msgstr "Edukiari buruzko bisua"
 
 #: src/Dialogs/Composer/EditorPage.vala:363
 msgid "Post Privacy"
@@ -1895,16 +1907,15 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:49
 msgid "Polls"
-msgstr "Inkestak"
+msgstr "Bozketak"
 
 #: src/Dialogs/NotificationSettings.vala:50
 msgid "Post Edits"
 msgstr "Bidalketen edizioak"
 
 #: src/Dialogs/NotificationSettings.vala:51
-#, fuzzy
 msgid "Follows"
-msgstr "Jarraitzen du"
+msgstr "Jarraipenak"
 
 #: src/Dialogs/NotificationSettings.vala:68
 msgid "Clear All Notifications"
@@ -2154,14 +2165,14 @@ msgstr "%s(e)k bidalketa editatu du"
 #. translators: post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:297
 msgid "In Reply"
-msgstr "Erantzuten"
+msgstr "Erantzunez"
 
 #. translators: the variable is a string user handle,
 #. post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:301
 #, c-format
 msgid "In Reply to %s"
-msgstr "%s(r)i erantzuten"
+msgstr "%s(r)i erantzunez"
 
 #. translators: the variable is a string user name,
 #. this is used for admin notifications
@@ -2181,7 +2192,7 @@ msgstr "Harreman batzuk moztu ditu"
 #. translators: this is used for admin notifications
 #: src/Services/Accounts/InstanceAccount.vala:334
 msgid "Received a new report"
-msgstr "Salaketa berri bat jaso duzu"
+msgstr "Salaketa berri bat jaso da"
 
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:373
@@ -2546,7 +2557,7 @@ msgstr "Baieztatu gabe"
 #. translators: admin panel, account waiting to be approved, placeholder when they didn't include a reason
 #: src/Views/Admin/Pages/Accounts.vala:347
 msgid "No Reason Given"
-msgstr "Ez da zergatirik eman"
+msgstr "Ez da arrazoirik eman"
 
 #. translators: admin panel, account waiting to be approved
 #: src/Views/Admin/Pages/Accounts.vala:351
@@ -2561,7 +2572,7 @@ msgstr "Onartu"
 #: src/Views/Admin/Pages/Accounts.vala:365
 #: src/Views/Admin/Pages/Accounts.vala:525
 msgid "Reject"
-msgstr "Baztertu"
+msgstr "Ukatu"
 
 #. translators: Question dialog when an admin is about to
 #. undo an action, like a suspension
@@ -2583,7 +2594,7 @@ msgstr "Ziur %s onartu nahi duzula?"
 #: src/Views/Admin/Pages/Accounts.vala:518
 #, c-format
 msgid "Are you sure you want to reject %s?"
-msgstr "Ziur %s baztertu nahi duzula?"
+msgstr "Ziur %s(r)i ezetza eman nahi diozula?"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about blocking e-mail providers like
@@ -2608,6 +2619,8 @@ msgid ""
 "This can be the domain name that shows up in the e-mail address or the MX "
 "record it uses. They will be checked upon sign-up."
 msgstr ""
+"ePosta helbidean edo MX erregistroetan ageri den domeinu-izena izan daiteke. "
+"Izena ematerakoan egiaztatuko da."
 
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
@@ -3141,16 +3154,19 @@ msgstr "Onarpenaren zain"
 
 #. translators: Report 'Assigned to: <account>'
 #: src/Widgets/Admin/AssignedRow.vala:11 src/Widgets/Admin/Report.vala:26
+#, fuzzy
 msgid "Assigned to"
-msgstr ""
+msgstr "Honi egokituta:"
 
 #: src/Widgets/Admin/AssignedRow.vala:38
+#, fuzzy
 msgid "Unassign"
-msgstr ""
+msgstr "Kendu zeregina"
 
 #: src/Widgets/Admin/AssignedRow.vala:42
+#, fuzzy
 msgid "Assign"
-msgstr ""
+msgstr "Egokitu zeregina"
 
 #. translators: subtitle on email domain blocks.
 #. The variable is the number of sing up
@@ -3174,7 +3190,7 @@ msgstr "%s erabiliz erreakzionatu"
 #: src/Widgets/Announcement.vala:95
 #, c-format
 msgid "Announcement by %s (%s)."
-msgstr ""
+msgstr "%s (%s)(r)en iragarpena."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3183,7 +3199,7 @@ msgstr ""
 #: src/Widgets/Announcement.vala:106 src/Widgets/Status.vala:699
 #, c-format
 msgid "Edited: %s."
-msgstr "Editatua: %s."
+msgstr "Editatze-data: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3192,7 +3208,7 @@ msgstr "Editatua: %s."
 #: src/Widgets/Announcement.vala:111 src/Widgets/Status.vala:704
 #, c-format
 msgid "Published: %s."
-msgstr "Argitaratua: %s."
+msgstr "Argitaratze-data: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3408,9 +3424,9 @@ msgstr "Iragazitako bidalketa"
 #. The second one is the author's name and the third
 #. one is the author's handle.
 #: src/Widgets/Status.vala:687
-#, c-format
+#, c-format, fuzzy
 msgid "%s post by %s (%s)."
-msgstr ""
+msgstr "Bidalketa %s %s (%s)(e)k egindakoa."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3442,14 +3458,14 @@ msgstr[1] "%d eranskin ditu."
 #. please be mindful.
 #: src/Widgets/Status.vala:740
 msgid "Contains an expired poll."
-msgstr "Iraungitako inkesta bat dauka."
+msgstr "Iraungitako bozketa bat dauka."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:744
 msgid "Contains a poll."
-msgstr "Inkesta bat dauka."
+msgstr "Bozketa bat dauka."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3475,7 +3491,7 @@ msgstr "Bidalketak ondorengo izorrakia dauka: %s."
 #: src/Widgets/Status.vala:770
 #, c-format
 msgid "Posted using %s."
-msgstr "%s erabiliz argitaratu da."
+msgstr "%s erabiliz argitaratuta."
 
 #: src/Widgets/Status.vala:793
 #, c-format
@@ -3520,7 +3536,7 @@ msgstr "Iragazita"
 #: src/Widgets/Status.vala:984
 #, c-format
 msgid "Translated from %s using %s"
-msgstr ""
+msgstr "%s(e)tik itzulita %s erabiliz"
 
 #. translatiors: the variable is a service name e.g. DeepL
 #: src/Widgets/Status.vala:987
@@ -3550,8 +3566,8 @@ msgstr "%lld(e)k bozkatu dute"
 #, c-format
 msgid "Poll with %d option."
 msgid_plural "Poll with %d options."
-msgstr[0] "Aukera %d duen inkesta."
-msgstr[1] "%d aukera dituen inkesta."
+msgstr[0] "Aukera %d duen bozketa."
+msgstr[1] "%d aukera dituen bozketa."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3559,7 +3575,7 @@ msgstr[1] "%d aukera dituen inkesta."
 #. Describes whether the user has voted on the poll.
 #: src/Widgets/VoteBox.vala:192
 msgid "You have voted."
-msgstr "Bozka eman duzu."
+msgstr "Bozkatu duzu."
 
 #, c-format
 #~ msgid "%d Minutes"
