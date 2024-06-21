@@ -113,7 +113,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				RelationshipSeveranceEvent? t_event = event == null ? relationship_severance_event : event;
 				return create_basic_card ("tuba-heart-broken-symbolic", t_event.to_string ());
 			case InstanceAccount.KIND_ADMIN_REPORT:
-				return create_basic_card ("tuba-police-badge2-symbolic", report.to_string (this.created_at));
+				return create_basic_card ("tuba-build-alt-symbolic", report.to_string (this.created_at));
 			default:
 				return new Widgets.Notification (this);
 		}

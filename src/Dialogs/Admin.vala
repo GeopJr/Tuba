@@ -24,7 +24,7 @@ public class Tuba.Dialogs.Admin.Window : Adw.Window {
 	};
 
 	public static Place place_reports = new Place () {
-		icon = "tuba-police-badge2-symbolic",
+		icon = "tuba-build-alt-symbolic",
 		title = _("Reports"),
 		open_func_admin = (win) => {
 			win.split_view.content = new Views.Admin.Page.Reports () {
