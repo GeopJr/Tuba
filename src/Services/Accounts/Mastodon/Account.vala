@@ -48,7 +48,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 	public static Place PLACE_CONVERSATIONS = new Place () { // vala-lint=naming-convention
 
-		icon = "mail-unread-symbolic",
+		icon = "tuba-mail-unread-symbolic",
 		title = _("Conversations"),
 		open_func = win => {
 			win.go_back_to_start ();
@@ -187,7 +187,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		set_visibility (new Visibility () {
 			id = "direct",
 			name = _("Direct"),
-			icon_name = "mail-unread-symbolic",
+			icon_name = "tuba-mail-unread-symbolic",
 			small_icon_name = "tuba-mail-small-symbolic",
 			description = _("Post to mentioned users only")
 		});
