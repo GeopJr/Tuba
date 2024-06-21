@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-06-21 17:59+0000\n"
+"PO-Revision-Date: 2024-06-21 20:05+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -1327,17 +1327,16 @@ msgstr "Ez hartu kontuan domeinu honetatik datozen salaketei"
 #: src/Dialogs/Admin/AddFederationBlock.vala:114
 #: src/Widgets/Admin/DomainBlock.vala:32
 msgid "Obfuscate Domain Name"
-msgstr "Ezkutatu domeinu-izena"
+msgstr "Ofuskatu domeinu-izena"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:117
-#, fuzzy
 msgid ""
 "Partially obfuscate the domain name in the list if advertising the list of "
 "domain limitations is enabled"
 msgstr ""
-"Ezkutatu neurri batean domeinu-izena zerrendan, domeinu-mugen zerrendako "
+"Ofuskatu hein batean domeinu-izena zerrendan, domeinu-mugen zerrendako "
 "iragarpena gaituta badago"
 
 #. translators: Admin dashboard, federation block dialog
