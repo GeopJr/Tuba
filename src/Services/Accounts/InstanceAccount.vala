@@ -250,7 +250,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				break;
 			case KIND_FAVOURITE:
 				result = {
-					"starred-symbolic",
+					"tuba-starred-symbolic",
 					// translators: the variable is a string user name,
 					//				this is used for notifications
 					_("%s favorited your post").printf (actor_name),

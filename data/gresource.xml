@@ -64,6 +64,10 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-heart-broken-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-police-badge2-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-arrows-loop-tall-disabled-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-checkbox-checked-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-radio-checked-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-unread-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-starred-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/help-overlay.ui</file>

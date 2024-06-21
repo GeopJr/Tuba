@@ -44,7 +44,7 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 
 		notification_rows = {
 			new NotificationRow (InstanceAccount.KIND_MENTION, _("Mentions"), "tuba-chat-symbolic"),
-			new NotificationRow (InstanceAccount.KIND_FAVOURITE, _("Favorites"), "starred-symbolic"),
+			new NotificationRow (InstanceAccount.KIND_FAVOURITE, _("Favorites"), "tuba-starred-symbolic"),
 			new NotificationRow (InstanceAccount.KIND_REBLOG, _("Boosts"), "tuba-media-playlist-repeat-symbolic"),
 			new NotificationRow (InstanceAccount.KIND_POLL, _("Polls"), "tuba-check-round-outline-symbolic"),
 			new NotificationRow (InstanceAccount.KIND_EDITED, _("Post Edits"), "document-edit-symbolic"),
