@@ -311,7 +311,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				break;
 			case KIND_ADMIN_SIGNUP:
 				result = {
-					"tuba-police-badge2-symbolic",
+					"tuba-build-alt-symbolic",
 					// translators: the variable is a string user name,
 					//				this is used for admin notifications
 					_("%s signed up").printf (actor_name),
@@ -331,7 +331,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				break;
 			case KIND_ADMIN_REPORT:
 				result = {
-					"tuba-police-badge2-symbolic",
+					"tuba-build-alt-symbolic",
 					// translators: this is used for admin notifications
 					_("Received a new report"),
 					null
