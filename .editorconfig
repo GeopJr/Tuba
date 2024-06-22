@@ -8,6 +8,6 @@ trim_trailing_whitespace = true
 charset = utf-8
 indent_size = 4
 
-[*.{build,build.in,yml,yaml}]
+[*.{build,build.in,yml,yaml,xml,xml.in}]
 indent_style = space
 indent_size = 2
