@@ -64,8 +64,8 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			vexpand = true
 		};
 		box.append (notifications_filter_banner);
-		scrolled.child = box;
-		box.append (content_box);
+		scrolled_overlay.child = box;
+		box.append (states);
 
 		settings.notify["dim-trivial-notifications"].connect (settings_updated);
 		settings_updated ();
