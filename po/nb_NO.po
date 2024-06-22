@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-03-11 01:01+0000\n"
+"PO-Revision-Date: 2024-06-23 01:12+0000\n"
 "Last-Translator: Brage Fuglseth <brage.fuglseth@gmail.com>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/tuba/"
 "tuba/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -165,7 +165,7 @@ msgstr "Gå til neste vedlegg"
 
 #: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:65
 msgid "Admin Dashboard"
-msgstr ""
+msgstr "Kontrollpanel"
 
 #: data/ui/dialogs/advanced_search.ui:23 data/ui/dialogs/compose.ui:35
 #: data/ui/dialogs/filter_edit.ui:17 data/ui/dialogs/new_account.ui:26
@@ -197,33 +197,36 @@ msgid ""
 "Advanced Search might not work in all instances. You can invert an option by "
 "prefixing it with -. For example, -is:reply to filter out all replies."
 msgstr ""
+"Avansert søk er ikke tilgjengelig på alle tjenere. Minustegn kan brukes til "
+"å filtrere ut treff som samsvarer. For eksempel vil «-is:reply» filtrere ut "
+"alle svar."
 
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:73
 msgid "Query"
-msgstr ""
+msgstr "Søk"
 
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:80
 msgid "From User"
-msgstr ""
+msgstr "Fra konto"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:86
 msgid "Only Replies"
-msgstr ""
+msgstr "Kun svar"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:92
 msgid "Only Posts with Content Warnings"
-msgstr ""
+msgstr "Kun innlegg med advarsler"
 
 #. translators: Advanced search window, option group
 #. This is the title and the option are
 #. 'media', 'poll'...
 #: data/ui/dialogs/advanced_search.ui:102
 msgid "Containing"
-msgstr ""
+msgstr "Inneholder"
 
 #: data/ui/dialogs/advanced_search.ui:105
 #: src/Dialogs/Composer/AttachmentsPage.vala:62
@@ -232,12 +235,12 @@ msgstr "Medier"
 
 #: data/ui/dialogs/advanced_search.ui:110 src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr "Spør"
+msgstr "Valg"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:116
 msgid "Embed"
-msgstr ""
+msgstr "Innebygginger"
 
 #: data/ui/dialogs/advanced_search.ui:123 data/ui/dialogs/preferences.ui:179
 msgid "Timelines"
@@ -245,17 +248,17 @@ msgstr "Tidslinjer"
 
 #: data/ui/dialogs/advanced_search.ui:126
 msgid "Everywhere"
-msgstr ""
+msgstr "Overalt"
 
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:140
 msgid "Library"
-msgstr ""
+msgstr "Bibliotek"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
 #: data/ui/dialogs/advanced_search.ui:142
 msgid "Favorites, Bookmarks, Own Posts"
-msgstr ""
+msgstr "Likte, bokmerkede og egne innlegg"
 
 #: data/ui/dialogs/advanced_search.ui:156
 #: src/Services/Accounts/Mastodon/Account.vala:167
@@ -265,25 +268,25 @@ msgstr "Offentlig"
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:173
 msgid "Dates"
-msgstr ""
+msgstr "Datoer"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:179
 msgid "Before"
-msgstr ""
+msgstr "Før"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
 #: data/ui/dialogs/advanced_search.ui:202
 msgid "During"
-msgstr ""
+msgstr "I løpet av"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:225
 msgid "After"
-msgstr ""
+msgstr "Etter"
 
 #: data/ui/dialogs/compose.ui:41 src/Dialogs/Composer/Dialog.vala:263
 msgid "_Publish"
@@ -379,7 +382,7 @@ msgstr "Neste"
 
 #: data/ui/dialogs/new_account.ui:47
 msgid "What is your Server?"
-msgstr "Velkommen til Tuba"
+msgstr "Velg tjener"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:49
@@ -397,7 +400,7 @@ msgstr "Tjeneradresse"
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:297
 msgid "Settings"
-msgstr ""
+msgstr "Innstillinger"
 
 #: data/ui/dialogs/new_account.ui:141
 msgid "Confirm Authorization"
@@ -421,7 +424,7 @@ msgstr "Fullfør"
 
 #: data/ui/dialogs/new_account.ui:229
 msgid "Your account is connected and ready to use!"
-msgstr "Kontoen er koblet til og klar til bruk"
+msgstr "Konto tilkoblet og klar til bruk"
 
 #: data/ui/dialogs/preferences.ui:23
 msgid "Appearance"
@@ -502,11 +505,12 @@ msgstr "Formørk bilder i mørk modus"
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/ui/dialogs/preferences.ui:101
 msgid "Dim Trivial Notifications"
-msgstr ""
+msgstr "Demp alminnelige varslinger"
 
 #: data/ui/dialogs/preferences.ui:102
 msgid "Notifications like favorites and boosts will be less visible"
 msgstr ""
+"Gjør varslinger om likte innlegg, fremhevinger og lignende mindre synlige"
 
 #: data/ui/dialogs/preferences.ui:109
 msgid "Posting"
@@ -555,12 +559,12 @@ msgstr "Juster synlighet på fremhevinger eller fremhev som sitat"
 
 #: data/ui/dialogs/preferences.ui:164
 msgid "Warn before replying to an old post"
-msgstr ""
+msgstr "Vis advarsel mot å svare på gamle innlegg"
 
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:171 src/Dialogs/NewAccount.vala:329
 msgid "Proxy"
-msgstr ""
+msgstr "Mellomtjener"
 
 #: data/ui/dialogs/preferences.ui:182
 msgid "Posts per Load Batch"
@@ -635,53 +639,55 @@ msgstr "Kombiner nylig sendte varslinger av samme type for samme innlegg"
 #. translators: Preferences group title
 #: data/ui/dialogs/preferences.ui:269
 msgid "Filter Notifications Out"
-msgstr ""
+msgstr "Filtrering av varslinger"
 
 #. translators: Preferences group description
 #: data/ui/dialogs/preferences.ui:271
 msgid "Filter out notifications from people you may not know"
-msgstr ""
+msgstr "Filtrer ut varslinger fra kontoer du kanskje ikke kjenner"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:275
 msgid "People you don't follow"
-msgstr ""
+msgstr "Kontoer du ikke følger"
 
 #. translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:277
 msgid "Until you manually approve them"
-msgstr ""
+msgstr "Varer til du godkjenner dem manuelt"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:283
 msgid "People not following you"
-msgstr ""
+msgstr "Kontoer som ikke følger deg"
 
 #. translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:285
 msgid "Including people who have been following you fewer than 3 days"
-msgstr ""
+msgstr "Inkludert kontoer som har fulgt deg i færre enn 3 dager"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:291
 msgid "New accounts"
-msgstr ""
+msgstr "Nye kontoer"
 
 #. translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:293
 msgid "Created within the past 30 days"
-msgstr ""
+msgstr "Kontoer som har blitt opprettet i løpet av de siste 30 dagene"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:299
 msgid "Unsolicited private mentions"
-msgstr ""
+msgstr "Uoppfordrede direktemeldinger"
 
 #. translators: Preferences switch subtitle about filtering out 'Unsolicited private mentions'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:301
 msgid ""
 "Filtered unless it's in reply to your own mention or if you follow the sender"
 msgstr ""
+"Filtreres ut med mindre det er som svar på din egen nevning eller du følger "
+"avsender"
 
 #: data/ui/dialogs/preferences.ui:311
 msgid "Filters"
@@ -827,17 +833,17 @@ msgstr "Robot"
 #. You can replace 'Cover' with 'Background' if needed.
 #: data/ui/views/profile_header.ui:67
 msgid "View Cover"
-msgstr ""
+msgstr "Vis banner"
 
 #. translators: tooltip text on profile avatars.
 #. You can replace 'Avatar' with 'Profile Picture' if needed.
 #: data/ui/views/profile_header.ui:81
 msgid "View Avatar"
-msgstr ""
+msgstr "Vis profilbilde"
 
 #: data/ui/views/profile_header.ui:168
 msgid "Note"
-msgstr ""
+msgstr "Notat"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:52
@@ -851,7 +857,7 @@ msgstr "Bytt konto"
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
 msgid "Offline"
-msgstr ""
+msgstr "Frakoblet"
 
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
@@ -892,74 +898,74 @@ msgstr "Vis"
 #: src/Views/Admin/Pages/Accounts.vala:338
 #: src/Widgets/Admin/DomainBlock.vala:18 src/Widgets/Admin/DomainBlock.vala:25
 msgid "None"
-msgstr ""
+msgstr "Ingen"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
 msgid "Limit"
-msgstr ""
+msgstr "Begrens"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:14 src/Dialogs/Admin/TakeAction.vala:95
 msgid "Suspend"
-msgstr ""
+msgstr "Utvis"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:10
 msgid "Blocked"
-msgstr ""
+msgstr "Blokkert"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:12
 msgid "Blocked Sign-ups"
-msgstr ""
+msgstr "Ingen registrering"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:14
 msgid "Limited Sign-ups"
-msgstr ""
+msgstr "Begrenset registrering"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:22
 msgid "Block Access"
-msgstr ""
+msgstr "Blokker"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:24
 msgid "Block Sign-ups"
-msgstr ""
+msgstr "Blokker registreringer"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:26
 msgid "Limit Sign-ups"
-msgstr ""
+msgstr "Begrens registreringer"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:34
 msgid "Block access to all resources"
-msgstr ""
+msgstr "Blokker tilgang til alle ressurser"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:36
 msgid "New sign-ups will not be possible"
-msgstr ""
+msgstr "Nye kontoregistreringer vil ikke være mulig"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:38
 msgid "New sign-ups will require your approval"
-msgstr ""
+msgstr "Nye kontoregistreringer vil kreve godkjenning"
 
 #: src/API/Admin/Report.vala:19
 msgid "Spam"
-msgstr ""
+msgstr "Søppelpost"
 
 #: src/API/Admin/Report.vala:20
 msgid "Rule Violation"
-msgstr ""
+msgstr "Regelbrudd"
 
 #: src/API/Admin/Report.vala:21
 msgid "Legal"
-msgstr ""
+msgstr "Kriminalitet"
 
 #: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:222
@@ -967,27 +973,27 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:227
 #: src/Widgets/CustomEmojiChooser.vala:230
 msgid "Other"
-msgstr "Diverse"
+msgstr "Annet"
 
 #. translators: the variable is a string report comment
 #: src/API/Admin/Report.vala:72
 msgid "With the comment"
-msgstr ""
+msgstr "Med kommentaren"
 
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr ""
+msgstr "Grunn"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
 msgid "You've received a report"
-msgstr ""
+msgstr "Rapport mottatt"
 
 #. translators: report notification with date, "You've received a report on: <date>"
 #: src/API/Admin/Report.vala:81
 msgid "You've received a report on"
-msgstr ""
+msgstr "Rapport mottatt"
 
 #: src/API/Announcement.vala:55 src/Application.vala:393
 #: src/Dialogs/Composer/Dialog.vala:376 src/Dialogs/ProfileEdit.vala:134
@@ -1034,6 +1040,7 @@ msgstr "Profiler"
 msgid ""
 "You have blocked %s, removing %s of your followers and %s account you follow."
 msgstr ""
+"Du har blokkert %s, inkludert %s av følgerne dine og %s konto du følger."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
 #. this is the plural version, '4 accounts you follow'
@@ -1043,6 +1050,8 @@ msgid ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
 msgstr ""
+"Du har blokkert %s, inkludert %s av følgerne dine og %s av kontoene du "
+"følger."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
 #. this is the singular version, '1 account you follow'
@@ -1052,6 +1061,8 @@ msgid ""
 "An admin has blocked %s, including %s of your followers and %s account you "
 "follow."
 msgstr ""
+"En administrator har blokkert %s, inkludert %s av følgerne dine og %s konto "
+"du følger."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
 #. this is the plural version, '4 accounts you follow'
@@ -1061,6 +1072,8 @@ msgid ""
 "An admin has blocked %s, including %s of your followers and %s accounts you "
 "follow."
 msgstr ""
+"En administrator har blokkert %s, inkludert %s av følgerne dine og %s av "
+"kontoene du følger."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:51
@@ -1069,13 +1082,15 @@ msgid ""
 "An admin has suspended %s, which means you can no longer receive updates "
 "from them or interact with them."
 msgstr ""
+"En administrator har utvist %s, som betyr at du ikke lenger kan motta "
+"oppdateringer fra eller kommunisere med dem."
 
 #. translators: as in just registered in the instance,
 #. this is a notification type only visible
 #. to admins
 #: src/API/Notification.vala:110
 msgid "Signed Up"
-msgstr ""
+msgstr "Ny kontoregistrering"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
@@ -1121,7 +1136,7 @@ msgstr "Følger deg"
 #. translators: as in, you've been blocked by them
 #: src/API/Relationship.vala:30
 msgid "Blocks you"
-msgstr ""
+msgstr "Blokkerer deg"
 
 #. translators: the variable is a user handle
 #: src/API/Relationship.vala:122
@@ -1210,7 +1225,7 @@ msgstr "Brukt %d ganger av %d kontoer de siste 2 dagene"
 #. been provided in settings
 #: src/Application.vala:317 src/Dialogs/Preferences.vala:449
 msgid "Invalid Proxy URL"
-msgstr ""
+msgstr "Ugyldig mellomtjeneradresse"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:374
@@ -1260,57 +1275,57 @@ msgstr "Ja"
 #: src/Dialogs/Admin/AddFederationBlock.vala:29
 #: src/Views/Admin/Pages/FederationBlocklist.vala:9
 msgid "Add Federation Block"
-msgstr ""
+msgstr "Ny tilknytningsblokkering"
 
 #: src/Dialogs/Admin/AddFederationBlock.vala:40
 #: src/Dialogs/Admin/AddIPBlock.vala:79
 msgid "Add"
-msgstr ""
+msgstr "Legg til"
 
 #. translators: Admin dashboard, federation block dialog,
 #. e.g. 'gnome.org'
 #: src/Dialogs/Admin/AddFederationBlock.vala:52
 msgid "Domain"
-msgstr ""
+msgstr "Adresse"
 
 #. translators: Admin dashboard, federation block dialog severity row title
 #: src/Dialogs/Admin/AddFederationBlock.vala:72
 msgid "Severity"
-msgstr ""
+msgstr "Effekt"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:92
 #: src/Widgets/Admin/DomainBlock.vala:30
 msgid "Reject Media Files"
-msgstr ""
+msgstr "Blokker medier"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:95
 msgid ""
 "Removes locally stored media files and refuses to download any in the future"
-msgstr ""
+msgstr "Fjerner lagrede mediefiler og hindrer nedlasting av nye"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:103
 #: src/Widgets/Admin/DomainBlock.vala:31
 msgid "Reject Reports"
-msgstr ""
+msgstr "Blokker rapporter"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:106
 msgid "Ignore all reports coming from this domain"
-msgstr ""
+msgstr "Ignorer alle rapporter fra denne adressen"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:114
 #: src/Widgets/Admin/DomainBlock.vala:32
 msgid "Obfuscate Domain Name"
-msgstr ""
+msgstr "Tilslør adresse"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1319,60 +1334,61 @@ msgid ""
 "Partially obfuscate the domain name in the list if advertising the list of "
 "domain limitations is enabled"
 msgstr ""
+"Hvis adressespesifikke begrensninger er åpent tilgjengelige, skjul adressen "
+"delvis på listen"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
 #: src/Widgets/Admin/DomainBlock.vala:17
 msgid "Private Comment"
-msgstr ""
+msgstr "Privat kommentar"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:131
 #: src/Widgets/Admin/DomainBlock.vala:24
 msgid "Public Comment"
-msgstr ""
+msgstr "Offentlig kommentar"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:17 src/Dialogs/Admin/AddIPBlock.vala:19
 #, c-format
 msgid "%d Year"
 msgid_plural "%d Years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d år"
+msgstr[1] "%d år"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:21 src/Dialogs/Admin/AddIPBlock.vala:23
 #, c-format
 msgid "%d Month"
 msgid_plural "%d Months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d måned"
+msgstr[1] "%d måneder"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:25 src/Dialogs/FilterEdit.vala:35
 #, c-format
 msgid "%d Week"
 msgid_plural "%d Weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d uke"
+msgstr[1] "%d uker"
 
 #. translators: the variable is a number
 #: src/Dialogs/Admin/AddIPBlock.vala:27 src/Dialogs/Composer/PollPage.vala:238
 #: src/Dialogs/Composer/PollPage.vala:241
 #: src/Dialogs/Composer/PollPage.vala:242 src/Dialogs/FilterEdit.vala:34
-#, fuzzy, c-format
-#| msgid "%d Day"
+#, c-format
 msgid "%d Day"
 msgid_plural "%d Days"
 msgstr[0] "%d dag"
-msgstr[1] "%d dag"
+msgstr[1] "%d dager"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:68
 #: src/Views/Admin/Pages/BlockedIPs.vala:10
 msgid "Add IP Block"
-msgstr ""
+msgstr "Ny IP-blokkering"
 
 #. translators: Admin dashboard ip block comment entry title
 #: src/Dialogs/Admin/AddIPBlock.vala:99 src/Dialogs/Admin/TakeAction.vala:104
 msgid "Comment"
-msgstr ""
+msgstr "Kommentar"
 
 #. translators: Admin dashboard ip block expiration date row title.
 #: src/Dialogs/Admin/AddIPBlock.vala:123 src/Dialogs/Composer/PollPage.vala:268
@@ -1382,40 +1398,40 @@ msgstr "Varighet"
 #. translators: Admin dashboard ip block rule (e.g. no access)
 #: src/Dialogs/Admin/AddIPBlock.vala:131
 msgid "Rule"
-msgstr ""
+msgstr "Regel"
 
 #. translators: Admin dashboard ip block rule descriptions.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddIPBlock.vala:134
 msgid "Choose what will happen with requests from this IP"
-msgstr ""
+msgstr "Hvordan forespørsler fra denne IP-adressen skal behandles"
 
 #. translators: Question dialog when an admin is about to
 #. mark a report as resolved
 #: src/Dialogs/Admin/Report.vala:50
 msgid "Are you sure you want to mark this report as resolved?"
-msgstr ""
+msgstr "Merke rapport som ferdigbehandlet?"
 
 #: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:99
 msgid "Resolve"
-msgstr ""
+msgstr "Ferdig"
 
 #. translators: Question dialog when an admin is about to
 #. reopen a report
 #: src/Dialogs/Admin/Report.vala:61
 msgid "Are you sure you want to reopen this report?"
-msgstr ""
+msgstr "Åpne rapport på nytt?"
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:99
 msgid "Reopen"
-msgstr ""
+msgstr "Åpne"
 
 #. translators: Admin dashboard, take action against user headerbar button
 #: src/Dialogs/Admin/Report.vala:93 src/Dialogs/Admin/TakeAction.vala:18
 #: src/Dialogs/Admin/TakeAction.vala:147
 #: src/Views/Admin/Pages/Accounts.vala:250
 msgid "Take Action"
-msgstr ""
+msgstr "Behandle"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
@@ -1437,38 +1453,38 @@ msgstr "%e. %B %Y"
 
 #: src/Dialogs/Admin/Report.vala:132
 msgid "Reported on"
-msgstr ""
+msgstr "Rapportert"
 
 #. translators: 'Reported by: <account>'
 #: src/Dialogs/Admin/Report.vala:138 src/Widgets/Admin/Report.vala:31
 msgid "Reported by"
-msgstr ""
+msgstr "Rapportert av"
 
 #: src/Dialogs/Admin/Report.vala:144
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Resolved"
-msgstr ""
+msgstr "Ferdigbehandlet"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Unresolved"
-msgstr ""
+msgstr "Ubehandlet"
 
 #. translators: admin dashboard, whether a report was 'forwarded' from another server
 #: src/Dialogs/Admin/Report.vala:152
 msgid "Forwarded"
-msgstr ""
+msgstr "Videresendt"
 
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:158 src/Widgets/Admin/Report.vala:22
 msgid "Action Taken by"
-msgstr ""
+msgstr "Behandlet av"
 
 #: src/Dialogs/Admin/Report.vala:170
 msgid "Category"
-msgstr ""
+msgstr "Kategori"
 
 #. translators: Admin dashboard report category description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1477,15 +1493,17 @@ msgid ""
 "The reason this account and/or content was reported will be cited in "
 "communication with the reported account"
 msgstr ""
+"Bakgrunnen for rapporteringen vil henvises til i kommunikasjon med den "
+"rapporterte kontoen"
 
 #: src/Dialogs/Admin/Report.vala:235
 msgid "Violated Rules"
-msgstr ""
+msgstr "Brutte regler"
 
 #. translators: 'Reported Posts: <amount>'
 #: src/Dialogs/Admin/Report.vala:266 src/Widgets/Admin/Report.vala:34
 msgid "Reported Posts"
-msgstr ""
+msgstr "Rapporterte innlegg"
 
 #: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:333
 #: src/Dialogs/Report.vala:415
@@ -1494,33 +1512,33 @@ msgstr "Send inn"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
-msgstr ""
+msgstr "Advarsel"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:61
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
-msgstr ""
+msgstr "Send en advarsel til kontoen uten å utløse noen andre tiltak"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
-msgstr ""
+msgstr "Frys"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:70
 msgid ""
 "Prevent the user from using their account, but do not delete or hide their "
 "contents"
-msgstr ""
+msgstr "Hindre bruk av kontoen, men ikke slett eller skjul innhold fra den"
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:489
 msgid "Sensitive"
-msgstr "Sensitivt"
+msgstr "Sensitivitetsmerking"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:79
 msgid "Force all this user's media attachments to be flagged as sensitive"
-msgstr ""
+msgstr "Merk alle medievedlegg fra kontoen som sensitive"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:88
@@ -1529,6 +1547,9 @@ msgid ""
 "posts and notifications from people not following them. Closes all reports "
 "against this account"
 msgstr ""
+"Hindre kontoen i å legge ut offentlige innlegg, og skjul innlegg og "
+"varslinger fra den for kontoer som ikke følger den. Dette vil lukke alle "
+"rapporter mot kontoen"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:97
@@ -1536,32 +1557,34 @@ msgid ""
 "Prevent any interaction from or to this account and delete its contents. "
 "Revertible within 30 days. Closes all reports against this account"
 msgstr ""
+"Hindre bruk av kontoen og slett alt innhold fra den. Dette har en angrefrist "
+"på 30 dager, og vil lukke alle rapporter mot kontoen"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:114
 msgid "Notify the user per e-mail"
-msgstr ""
+msgstr "Varsle over e-post"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:116
 msgid ""
 "The user will receive an explanation of what happened with their account"
-msgstr ""
+msgstr "Send en forklaring av hva som har skjedd til kontoens e-postadresse"
 
 #. translators: Question dialog when an admin is about to
 #. take action against an account
 #: src/Dialogs/Admin/TakeAction.vala:140
 msgid "Are you sure you want to proceed?"
-msgstr ""
+msgstr "Behandle rapport?"
 
 #: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
 msgid "Dashboard"
-msgstr ""
+msgstr "Kontrollpanel"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:28 src/Views/Admin/Pages/Reports.vala:6
 msgid "Reports"
-msgstr ""
+msgstr "Rapporter"
 
 #: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
 #: src/Views/Search.vala:112
@@ -1574,25 +1597,25 @@ msgstr "Kontoer"
 #. gmail.com
 #: src/Dialogs/Admin.vala:48 src/Views/Admin/Pages/BlockedEmails.vala:10
 msgid "Blocked E-mail Domains"
-msgstr ""
+msgstr "Blokkerte e-postdomener"
 
 #. translators: Admin Dialog page title,
 #. this is about blocking
 #. IP Addresses
 #: src/Dialogs/Admin.vala:58 src/Views/Admin/Pages/BlockedIPs.vala:7
 msgid "IP Rules"
-msgstr ""
+msgstr "IP-regler"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:68 src/Views/Admin/Pages/FederationAllowlist.vala:7
 msgid "Federation Allowlist"
-msgstr ""
+msgstr "Tilgangsliste"
 
 #. translators: Admin Dialog page title,
 #. this is about federation blocking
 #: src/Dialogs/Admin.vala:78 src/Views/Admin/Pages/FederationBlocklist.vala:6
 msgid "Federation Blocklist"
-msgstr ""
+msgstr "Blokkeringsliste"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:42
 msgid "Edit Alt Text"
@@ -1755,8 +1778,8 @@ msgstr "Alternativ %d"
 #, c-format
 msgid "%d Minute"
 msgid_plural "%d Minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d minutt"
+msgstr[1] "%d minutter"
 
 #. translators: the variable is a number, m as in minutes
 #: src/Dialogs/Composer/PollPage.vala:229
@@ -1770,12 +1793,11 @@ msgstr "%d min"
 #: src/Dialogs/Composer/PollPage.vala:235
 #: src/Dialogs/Composer/PollPage.vala:236 src/Dialogs/FilterEdit.vala:31
 #: src/Dialogs/FilterEdit.vala:32 src/Dialogs/FilterEdit.vala:33
-#, fuzzy, c-format
-#| msgid "%d Hour"
+#, c-format
 msgid "%d Hour"
 msgid_plural "%d Hours"
 msgstr[0] "%d time"
-msgstr[1] "%d time"
+msgstr[1] "%d timer"
 
 #. translators: the variable is a number, h as in hours
 #: src/Dialogs/Composer/PollPage.vala:234
@@ -1858,47 +1880,47 @@ msgstr "Tjeneren har sendt en feilmelding"
 
 #: src/Dialogs/NewAccount.vala:305
 msgid "Apply"
-msgstr ""
+msgstr "Bruk"
 
 #. translators: Switch title in the new account window
 #: src/Dialogs/NewAccount.vala:338
 msgid "Admin Mode"
-msgstr ""
+msgstr "Administrator"
 
 #. translators: Switch description in the new account window
 #: src/Dialogs/NewAccount.vala:340
 msgid ""
 "Enables the Admin Dashboard and requests the needed permissions to use the "
 "Admin API"
-msgstr ""
+msgstr "Be om tilgang til tjenerens administratorgrensesnitt"
 
 #: src/Dialogs/NotificationSettings.vala:49
 msgid "Polls"
-msgstr ""
+msgstr "Spørreundersøkelser"
 
 #: src/Dialogs/NotificationSettings.vala:50
 msgid "Post Edits"
-msgstr ""
+msgstr "Redigeringer"
 
 #: src/Dialogs/NotificationSettings.vala:51
 msgid "Follows"
-msgstr ""
+msgstr "Følginger"
 
 #: src/Dialogs/NotificationSettings.vala:68
 msgid "Clear All Notifications"
-msgstr ""
+msgstr "Fjern alle varslinger"
 
 #: src/Dialogs/NotificationSettings.vala:75
 msgid "Included Notifications"
-msgstr ""
+msgstr "Inkluderte varslinger"
 
 #: src/Dialogs/NotificationSettings.vala:114
 msgid "Are you sure you want to clear all notifications?"
-msgstr ""
+msgstr "Er du sikker på at du ønsker å fjerne alle varslinger?"
 
 #: src/Dialogs/NotificationSettings.vala:121
 msgid "Clear"
-msgstr ""
+msgstr "Fjern"
 
 #: src/Dialogs/Preferences.vala:31 src/Widgets/Status.vala:307
 msgid "Edit"
@@ -1943,7 +1965,7 @@ msgstr "Felt %d"
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:24
 msgid "It's spam"
-msgstr "Spam"
+msgstr "Søppelpost"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
@@ -2132,21 +2154,21 @@ msgstr "%s redigerte et innlegg"
 #. translators: post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:297
 msgid "In Reply"
-msgstr ""
+msgstr "Som svar"
 
 #. translators: the variable is a string user handle,
 #. post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:301
 #, c-format
 msgid "In Reply to %s"
-msgstr ""
+msgstr "Som svar til %s"
 
 #. translators: the variable is a string user name,
 #. this is used for admin notifications
 #: src/Services/Accounts/InstanceAccount.vala:315
 #, c-format
 msgid "%s signed up"
-msgstr ""
+msgstr "%s ble registrert"
 
 #. translators: this is used for notifications,
 #. when you lost followers or following
@@ -2154,12 +2176,12 @@ msgstr ""
 #. or personal domain blocking
 #: src/Services/Accounts/InstanceAccount.vala:326
 msgid "Some of your relationships got severed"
-msgstr ""
+msgstr "Tilknytninger brutt"
 
 #. translators: this is used for admin notifications
 #: src/Services/Accounts/InstanceAccount.vala:334
 msgid "Received a new report"
-msgstr ""
+msgstr "Rapport mottatt"
 
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:373
@@ -2361,23 +2383,23 @@ msgstr "%-e. %b %Y"
 
 #: src/Utils/DateTime.vala:123
 msgid "just now"
-msgstr ""
+msgstr "nå"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:127
 #, c-format
 msgid "%s minutes ago"
-msgstr ""
+msgstr "%s minutter siden"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:132
 #, c-format
 msgid "%s hours ago"
-msgstr ""
+msgstr "%s timer siden"
 
 #: src/Utils/DateTime.vala:135
 msgid "yesterday"
-msgstr ""
+msgstr "i går"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:169
@@ -2446,19 +2468,19 @@ msgstr "Alt"
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:73
 msgid "Remote"
-msgstr ""
+msgstr "Ekstern"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: src/Views/Admin/Pages/Accounts.vala:78
 msgid "Location"
-msgstr ""
+msgstr "Plassering"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:95
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 #. new DropDownStringEntry ("sensitized", _("Sensitive")), // doesn't seem to work on Mastodon
 #. translators: Dropdown entry, account status.
@@ -2468,7 +2490,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:383 src/Widgets/Admin/AccountRow.vala:31
 #: src/Widgets/Admin/Report.vala:52
 msgid "Limited"
-msgstr ""
+msgstr "Begrenset"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -2477,7 +2499,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:390 src/Widgets/Admin/AccountRow.vala:33
 #: src/Widgets/Admin/Report.vala:54
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktivert"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -2486,65 +2508,65 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:376 src/Widgets/Admin/AccountRow.vala:29
 #: src/Widgets/Admin/Report.vala:50
 msgid "Suspended"
-msgstr ""
+msgstr "Utvist"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:113
 msgid "Pending"
-msgstr ""
+msgstr "Ventende"
 
 #: src/Views/Admin/Pages/Accounts.vala:128
 msgid "Username"
-msgstr ""
+msgstr "Brukernavn"
 
 #: src/Views/Admin/Pages/Accounts.vala:142
 #: src/Views/Admin/Pages/Accounts.vala:304
 msgid "E-mail"
-msgstr ""
+msgstr "E-post"
 
 #: src/Views/Admin/Pages/Accounts.vala:298
 msgid "Role"
-msgstr ""
+msgstr "Rolle"
 
 #. translators: admin dashboard, account view
 #. e-mail has been confirmed
 #: src/Views/Admin/Pages/Accounts.vala:315
 msgid "Confirmed"
-msgstr ""
+msgstr "Bekreftet"
 
 #. translators: admin dashboard, account view
 #. e-mail has NOT been confirmed
 #: src/Views/Admin/Pages/Accounts.vala:323
 msgid "Not Confirmed"
-msgstr ""
+msgstr "Ubekreftet"
 
 #. translators: admin panel, account waiting to be approved, placeholder when they didn't include a reason
 #: src/Views/Admin/Pages/Accounts.vala:347
 msgid "No Reason Given"
-msgstr ""
+msgstr "Ingen grunn oppgitt"
 
 #. translators: admin panel, account waiting to be approved
 #: src/Views/Admin/Pages/Accounts.vala:351
 msgid "Awaiting Approval"
-msgstr ""
+msgstr "Venter på godkjenning"
 
 #: src/Views/Admin/Pages/Accounts.vala:358
 #: src/Views/Admin/Pages/Accounts.vala:492
 msgid "Approve"
-msgstr ""
+msgstr "Godkjenn"
 
 #: src/Views/Admin/Pages/Accounts.vala:365
 #: src/Views/Admin/Pages/Accounts.vala:525
 msgid "Reject"
-msgstr ""
+msgstr "Avvis"
 
 #. translators: Question dialog when an admin is about to
 #. undo an action, like a suspension
 #: src/Views/Admin/Pages/Accounts.vala:424
 msgid "Are you sure you want to undo this action?"
-msgstr ""
+msgstr "Angre handling?"
 
 #. translators: Question dialog when an admin is about to
 #. approve an account. The variable is an
@@ -2552,7 +2574,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:485
 #, c-format
 msgid "Are you sure you want to approve %s?"
-msgstr ""
+msgstr "Godkjenne %s?"
 
 #. translators: Question dialog when an admin is about to
 #. reject an account. The variable is an
@@ -2560,14 +2582,14 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:518
 #, c-format
 msgid "Are you sure you want to reject %s?"
-msgstr ""
+msgstr "Avvise %s?"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about blocking e-mail providers like
 #. gmail.com
 #: src/Views/Admin/Pages/BlockedEmails.vala:21
 msgid "Block a new e-mail domain"
-msgstr ""
+msgstr "Blokker e-postdomene"
 
 #. translators: Question dialog when an admin is about to
 #. block an e-mail domain. The variable is a
@@ -2575,7 +2597,7 @@ msgstr ""
 #: src/Views/Admin/Pages/BlockedEmails.vala:60
 #, c-format
 msgid "Are you sure you want to block %s?"
-msgstr ""
+msgstr "Blokkere %s?"
 
 #. translators: Question dialog description when an admin is about to
 #. block an e-mail domain. The variable is a string.
@@ -2585,68 +2607,70 @@ msgid ""
 "This can be the domain name that shows up in the e-mail address or the MX "
 "record it uses. They will be checked upon sign-up."
 msgstr ""
+"Dette kan være domenenavnet som vises i e-postadressen eller MX-oppføringen "
+"den bruker. Det vil kontrolleres ved registrering."
 
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "New Users"
-msgstr ""
+msgstr "Nye kontoer"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Active Users"
-msgstr ""
+msgstr "Aktive kontoer"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Interactions"
-msgstr ""
+msgstr "Handlinger"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Reports Opened"
-msgstr ""
+msgstr "Åpne rapporter"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Reports Resolved"
-msgstr ""
+msgstr "Løste rapporter"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:18
 msgid "Sign-up Sources"
-msgstr ""
+msgstr "Registreringskilder"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:20
 msgid "Top Active Languages"
-msgstr ""
+msgstr "Mest brukte språk"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:22
 msgid "Top Active Servers"
-msgstr ""
+msgstr "Mest aktive tjenere"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:24
 msgid "Software"
-msgstr ""
+msgstr "Programvare"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:26
 msgid "Space Usage"
-msgstr ""
+msgstr "Lagringsplass"
 
 #: src/Views/Admin/Pages/Dashboard.vala:53
 msgid "Stats"
-msgstr ""
+msgstr "Statistikk"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about allowing federation
 #. with other instances
 #: src/Views/Admin/Pages/FederationAllowlist.vala:18
 msgid "Allow federation with an instance"
-msgstr ""
+msgstr "Tillat tilknytning med en tjener"
 
 #: src/Views/Admin/Pages/FederationAllowlist.vala:21
 #: src/Views/Admin/Pages/FederationAllowlist.vala:64
 msgid "Allow"
-msgstr ""
+msgstr "Tillat"
 
 #. translators: Question dialog when an admin is about to
 #. allow federation with an instance. The variable is a
@@ -2654,12 +2678,12 @@ msgstr ""
 #: src/Views/Admin/Pages/FederationAllowlist.vala:57
 #, c-format
 msgid "Are you sure you want to allow federation with %s?"
-msgstr ""
+msgstr "Tillate tilknytning med %s?"
 
 #. translators: admin dashboard, reports timeline, headerbar button tooltip text
 #: src/Views/Admin/Pages/Reports.vala:10
 msgid "Show Resolved Reports"
-msgstr ""
+msgstr "Vis løste rapporter"
 
 #. translators: Question dialog when an admin is about to
 #. unblock an IP address. The variable
@@ -2675,7 +2699,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/EmailDomain.vala:26
 #, c-format
 msgid "Are you sure you want to unblock %s?"
-msgstr ""
+msgstr "Oppheve blokkering av %s?"
 
 #. translators: Question dialog when an admin is about to
 #. delete a domain from the federation allowlist.
@@ -2685,11 +2709,11 @@ msgstr ""
 #: src/Views/Admin/Timelines/DomainAllow.vala:28
 #, c-format
 msgid "Are you sure you want to no longer federate with %s?"
-msgstr ""
+msgstr "Oppheve tilknytning med %s?"
 
 #: src/Views/Admin/Timelines/DomainAllow.vala:35
 msgid "Remove"
-msgstr ""
+msgstr "Fjern"
 
 #: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:61
 msgid "Announcements"
@@ -2832,33 +2856,33 @@ msgstr "Ingen blokkerte kontoer"
 #: src/Views/NotificationRequestsList.vala:8
 #, c-format
 msgid "Notifications by %s"
-msgstr ""
+msgstr "Varslinger fra %s"
 
 #. translators: the variable is a user handle
 #: src/Views/NotificationRequestsList.vala:11
 #, c-format
 msgid "No Notifications by %s"
-msgstr ""
+msgstr "Ingen varslinger fra %s"
 
 #: src/Views/NotificationRequestsList.vala:26
 #: src/Widgets/NotificationRequest.vala:56
 msgid "Dismiss"
-msgstr ""
+msgstr "Avvis"
 
 #: src/Views/NotificationRequests.vala:4
 msgid "Filtered Notifications"
-msgstr ""
+msgstr "Filtrerte varslinger"
 
 #: src/Views/NotificationRequests.vala:7
 msgid "No Filtered Notifications"
-msgstr ""
+msgstr "Ingen filtrerte varslinger"
 
 #: src/Views/Notifications.vala:13
 #, c-format
 msgid "%d Filtered Notification"
 msgid_plural "%d Filtered Notifications"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d filtrert varsling"
+msgstr[1] "%d filtrerte varslinger"
 
 #: src/Views/Notifications.vala:41
 msgid "No Notifications"
@@ -2954,11 +2978,11 @@ msgstr "Søk etter innhold"
 
 #: src/Views/Search.vala:31
 msgid "Advanced Search"
-msgstr ""
+msgstr "Avansert søk"
 
 #: src/Views/Search.vala:35
 msgid "Clear Entry"
-msgstr ""
+msgstr "Tøm felt"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Views/Search.vala:111 src/Views/Search.vala:112
@@ -2969,7 +2993,7 @@ msgstr "Ingen treff"
 
 #: src/Views/Search.vala:227
 msgid "Language"
-msgstr ""
+msgstr "Språk"
 
 #. tanslators: used in a banner, the variable is the number of unread announcements
 #: src/Views/Sidebar.vala:24
@@ -3066,7 +3090,7 @@ msgstr "Nettverksfeil"
 #: src/Widgets/Account.vala:127 src/Widgets/ProfileCover.vala:95
 #, c-format
 msgid "%s (%s)'s profile."
-msgstr ""
+msgstr "%s (%s) sin profil."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3076,7 +3100,7 @@ msgstr ""
 #: src/Widgets/Account.vala:139 src/Widgets/ProfileCover.vala:107
 #, c-format
 msgid "Relationship: %s."
-msgstr ""
+msgstr "Forhold: %s."
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of posts a user has made.
@@ -3085,8 +3109,8 @@ msgstr ""
 #, c-format
 msgid "%s Post"
 msgid_plural "%s Posts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s innleggg"
+msgstr[1] "%s innlegg"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of followers a user has.
@@ -3095,8 +3119,8 @@ msgstr[1] ""
 #, c-format
 msgid "%s Follower"
 msgid_plural "%s Followers"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s følger"
+msgstr[1] "%s følgere"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of people a user follows.
@@ -3109,25 +3133,25 @@ msgstr "%s følger"
 #. translators: Admin dashboard, report status
 #: src/Widgets/Admin/AccountRow.vala:27 src/Widgets/Admin/Report.vala:47
 msgid "No Limits"
-msgstr ""
+msgstr "Ingen begrensninger"
 
 #. translators: admin panel, account waiting to be approved
 #: src/Widgets/Admin/AccountRow.vala:36
 msgid "Waiting Approval"
-msgstr ""
+msgstr "Venter på godkjenning"
 
 #. translators: Report 'Assigned to: <account>'
 #: src/Widgets/Admin/AssignedRow.vala:11 src/Widgets/Admin/Report.vala:26
 msgid "Assigned to"
-msgstr ""
+msgstr "Behandlingsansvarlig"
 
 #: src/Widgets/Admin/AssignedRow.vala:38
 msgid "Unassign"
-msgstr ""
+msgstr "Fjern ansvar"
 
 #: src/Widgets/Admin/AssignedRow.vala:42
 msgid "Assign"
-msgstr ""
+msgstr "Gi ansvar"
 
 #. translators: subtitle on email domain blocks.
 #. The variable is the number of sing up
@@ -3135,7 +3159,7 @@ msgstr ""
 #: src/Widgets/Admin/EmailDomainBlock.vala:24
 #, c-format
 msgid "%d Sign-up Attempts"
-msgstr ""
+msgstr "%d registreringsforsøk"
 
 #. translators: the variable is the emoji or its name if it's custom
 #: src/Widgets/Announcement.vala:34 src/Widgets/Status/ReactionsRow.vala:21
@@ -3151,7 +3175,7 @@ msgstr "Reager med %s"
 #: src/Widgets/Announcement.vala:95
 #, c-format
 msgid "Announcement by %s (%s)."
-msgstr ""
+msgstr "Kunngjøring fra %s (%s)."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3160,7 +3184,7 @@ msgstr ""
 #: src/Widgets/Announcement.vala:106 src/Widgets/Status.vala:699
 #, c-format
 msgid "Edited: %s."
-msgstr ""
+msgstr "Redigert: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3169,7 +3193,7 @@ msgstr ""
 #: src/Widgets/Announcement.vala:111 src/Widgets/Status.vala:704
 #, c-format
 msgid "Published: %s."
-msgstr ""
+msgstr "Publisert: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3180,8 +3204,8 @@ msgstr ""
 #, c-format
 msgid "Contains %d reaction."
 msgid_plural "Contains %d reactions."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Har fått %d reaksjon."
+msgstr[1] "Har fått %d reaksjoner."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3190,7 +3214,7 @@ msgstr[1] ""
 #. hasn't been read yet.
 #: src/Widgets/Announcement.vala:131
 msgid "Unread."
-msgstr ""
+msgstr "Ulest."
 
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:63
@@ -3270,12 +3294,12 @@ msgstr "Omtalt %d ganger av %d kontoer de siste 2 dagene"
 #, c-format
 msgid "Contains %d field."
 msgid_plural "Contains %d fields."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Har %d felt."
+msgstr[1] "Har %d felt."
 
 #: src/Widgets/ProfileCover.vala:468
 msgid "Error: Note is over 2000 characters long"
-msgstr ""
+msgstr "Feil: Notat er på over 2000 tegn"
 
 #: src/Widgets/RelationshipButton.vala:54
 msgid "Unmute"
@@ -3344,7 +3368,7 @@ msgstr "Fest til profil"
 #. translators: Post menu items to revert a translation
 #: src/Widgets/Status.vala:328
 msgid "Show Original"
-msgstr ""
+msgstr "Vis opprinnelig"
 
 #: src/Widgets/Status.vala:345
 msgid "Copied post url to clipboard"
@@ -3357,14 +3381,14 @@ msgstr "Er du sikker på at du ønsker å slette dette innlegget?"
 #: src/Widgets/Status.vala:448 src/Widgets/Status.vala:469
 #, c-format
 msgid "Couldn't translate: %s"
-msgstr ""
+msgstr "Oversetting mislyktes: %s"
 
 #. translators: Tooltip text for avatars in posts.
 #. The variable is a string user handle.
 #: src/Widgets/Status.vala:611 src/Widgets/Status.vala:934
 #, c-format
 msgid "Open %s's Profile"
-msgstr ""
+msgstr "Åpne %s sin profil"
 
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:660
@@ -3376,7 +3400,7 @@ msgstr "Løsne fra profil"
 #. please be mindful.
 #: src/Widgets/Status.vala:671
 msgid "Filtered post"
-msgstr ""
+msgstr "Filtrert innlegg"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3387,21 +3411,21 @@ msgstr ""
 #: src/Widgets/Status.vala:687
 #, c-format
 msgid "%s post by %s (%s)."
-msgstr ""
+msgstr "%s innlegg fra %s (%s)."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:711
 msgid "The post is pinned."
-msgstr ""
+msgstr "Innlegget er festet."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:719
 msgid "Contains a quoted post."
-msgstr ""
+msgstr "Inneholder et sitert innlegg."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3411,29 +3435,29 @@ msgstr ""
 #, c-format
 msgid "Contains %d attachment."
 msgid_plural "Contains %d attachments."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Har %d vedlegg."
+msgstr[1] "Har %d vedlegg."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:740
 msgid "Contains an expired poll."
-msgstr ""
+msgstr "Har en utløpt spørreundersøkelse."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:744
 msgid "Contains a poll."
-msgstr ""
+msgstr "Har en spørreundersøkelse."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:753
 msgid "The post has a spoiler."
-msgstr ""
+msgstr "Innlegget har sensitivt innhold."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3442,7 +3466,7 @@ msgstr ""
 #: src/Widgets/Status.vala:759
 #, c-format
 msgid "The post has the following spoiler: %s."
-msgstr ""
+msgstr "Innlegget har dette sensitive innholdet: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3452,28 +3476,28 @@ msgstr ""
 #: src/Widgets/Status.vala:770
 #, c-format
 msgid "Posted using %s."
-msgstr ""
+msgstr "Lagt ut med %s."
 
 #: src/Widgets/Status.vala:793
 #, c-format
 msgid "%s reply"
 msgid_plural "%s replies"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s svar"
+msgstr[1] "%s svar"
 
 #: src/Widgets/Status.vala:798
 #, c-format
 msgid "%s boost"
 msgid_plural "%s boosts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s fremheving"
+msgstr[1] "%s fremhevinger"
 
 #: src/Widgets/Status.vala:803
 #, c-format
 msgid "%s favorite"
 msgid_plural "%s favorites"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s liker"
+msgstr[1] "%s liker"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3481,7 +3505,7 @@ msgstr[1] ""
 #. This is used to announce the quoted post
 #: src/Widgets/Status.vala:838
 msgid "Quoted Post"
-msgstr ""
+msgstr "Sitert innlegg"
 
 #: src/Widgets/Status.vala:858
 #, c-format
@@ -3497,13 +3521,13 @@ msgstr "Filtrert"
 #: src/Widgets/Status.vala:984
 #, c-format
 msgid "Translated from %s using %s"
-msgstr ""
+msgstr "Oversatt fra %s med %s"
 
 #. translatiors: the variable is a service name e.g. DeepL
 #: src/Widgets/Status.vala:987
 #, c-format
 msgid "Translated using %s"
-msgstr ""
+msgstr "Oversatt med %s"
 
 #: src/Widgets/VoteBox.vala:13
 msgid "Vote"
@@ -3527,8 +3551,8 @@ msgstr "%lld har svart"
 #, c-format
 msgid "Poll with %d option."
 msgid_plural "Poll with %d options."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Spørreundersøkelse med %d alternativ."
+msgstr[1] "Spørreundersøkelse med %d alternativer."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3536,7 +3560,7 @@ msgstr[1] ""
 #. Describes whether the user has voted on the poll.
 #: src/Widgets/VoteBox.vala:192
 msgid "You have voted."
-msgstr ""
+msgstr "Du har svart."
 
 #, c-format
 #~ msgid "%d Minutes"
