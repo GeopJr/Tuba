@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-06-23 07:25+0000\n"
+"PO-Revision-Date: 2024-06-23 07:29+0000\n"
 "Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/tuba/tuba/sv/>\n"
 "Language: sv\n"
@@ -2864,33 +2864,33 @@ msgstr "Inga blockerade konton"
 #: src/Views/NotificationRequestsList.vala:8
 #, c-format
 msgid "Notifications by %s"
-msgstr ""
+msgstr "Aviseringar från %s"
 
 #. translators: the variable is a user handle
 #: src/Views/NotificationRequestsList.vala:11
 #, c-format
 msgid "No Notifications by %s"
-msgstr ""
+msgstr "Inga aviseringar från %s"
 
 #: src/Views/NotificationRequestsList.vala:26
 #: src/Widgets/NotificationRequest.vala:56
 msgid "Dismiss"
-msgstr ""
+msgstr "Avfärda"
 
 #: src/Views/NotificationRequests.vala:4
 msgid "Filtered Notifications"
-msgstr ""
+msgstr "Filtrerade aviseringar"
 
 #: src/Views/NotificationRequests.vala:7
 msgid "No Filtered Notifications"
-msgstr ""
+msgstr "Inga filtrerade aviseringar"
 
 #: src/Views/Notifications.vala:13
 #, c-format
 msgid "%d Filtered Notification"
 msgid_plural "%d Filtered Notifications"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Filtrerad avisering"
+msgstr[1] "%d Filtrerade aviseringar"
 
 #: src/Views/Notifications.vala:41
 msgid "No Notifications"
@@ -2986,11 +2986,11 @@ msgstr "Ange sökfråga"
 
 #: src/Views/Search.vala:31
 msgid "Advanced Search"
-msgstr ""
+msgstr "Avancerad sök"
 
 #: src/Views/Search.vala:35
 msgid "Clear Entry"
-msgstr ""
+msgstr "Rensa inmatning"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Views/Search.vala:111 src/Views/Search.vala:112
@@ -3001,7 +3001,7 @@ msgstr "Inga resultat"
 
 #: src/Views/Search.vala:227
 msgid "Language"
-msgstr ""
+msgstr "Språk"
 
 #. tanslators: used in a banner, the variable is the number of unread announcements
 #: src/Views/Sidebar.vala:24
@@ -3096,7 +3096,7 @@ msgstr "Nätverksfel"
 #: src/Widgets/Account.vala:127 src/Widgets/ProfileCover.vala:95
 #, c-format
 msgid "%s (%s)'s profile."
-msgstr ""
+msgstr "%s (%s)'s profil."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3106,7 +3106,7 @@ msgstr ""
 #: src/Widgets/Account.vala:139 src/Widgets/ProfileCover.vala:107
 #, c-format
 msgid "Relationship: %s."
-msgstr ""
+msgstr "Relation: %s."
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of posts a user has made.
@@ -3115,8 +3115,8 @@ msgstr ""
 #, c-format
 msgid "%s Post"
 msgid_plural "%s Posts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s inlägg"
+msgstr[1] "%s flera inlägg"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of followers a user has.
@@ -3125,8 +3125,8 @@ msgstr[1] ""
 #, c-format
 msgid "%s Follower"
 msgid_plural "%s Followers"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s följare"
+msgstr[1] "%s flera följare"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of people a user follows.
@@ -3139,25 +3139,25 @@ msgstr "Följer %s"
 #. translators: Admin dashboard, report status
 #: src/Widgets/Admin/AccountRow.vala:27 src/Widgets/Admin/Report.vala:47
 msgid "No Limits"
-msgstr ""
+msgstr "Inga begränsningar"
 
 #. translators: admin panel, account waiting to be approved
 #: src/Widgets/Admin/AccountRow.vala:36
 msgid "Waiting Approval"
-msgstr ""
+msgstr "Väntar på godkännande"
 
 #. translators: Report 'Assigned to: <account>'
 #: src/Widgets/Admin/AssignedRow.vala:11 src/Widgets/Admin/Report.vala:26
 msgid "Assigned to"
-msgstr ""
+msgstr "Tilldelad till"
 
 #: src/Widgets/Admin/AssignedRow.vala:38
 msgid "Unassign"
-msgstr ""
+msgstr "Ta bort tilldelning"
 
 #: src/Widgets/Admin/AssignedRow.vala:42
 msgid "Assign"
-msgstr ""
+msgstr "Tilldela"
 
 #. translators: subtitle on email domain blocks.
 #. The variable is the number of sing up
@@ -3165,7 +3165,7 @@ msgstr ""
 #: src/Widgets/Admin/EmailDomainBlock.vala:24
 #, c-format
 msgid "%d Sign-up Attempts"
-msgstr ""
+msgstr "%d Registreringsförsök"
 
 #. translators: the variable is the emoji or its name if it's custom
 #: src/Widgets/Announcement.vala:34 src/Widgets/Status/ReactionsRow.vala:21
