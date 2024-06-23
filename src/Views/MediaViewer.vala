@@ -271,9 +271,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			#endif
 
 			spinner.spinning = false;
-			#if !GTK_4_14 || CLAPPER
-				stack.visible_child_name = "child";
-			#endif
+			stack.visible_child_name = "child";
 
 			if (is_video) {
 				#if CLAPPER
