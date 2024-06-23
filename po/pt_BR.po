@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-06-20 03:45+0000\n"
+"PO-Revision-Date: 2024-06-23 01:12+0000\n"
 "Last-Translator: Daltux <134404797+daltux@users.noreply.github.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
@@ -2839,7 +2839,7 @@ msgstr "Não há listas"
 
 #: src/Views/Lists.vala:144
 msgid "New list title"
-msgstr "Novo título da lista"
+msgstr "Título da nova lista"
 
 #: src/Views/Lists.vala:153
 msgid "Add list"
@@ -2855,7 +2855,7 @@ msgstr "Imagem copiada para a área de transferência"
 
 #: src/Views/MutesBlocks.vala:6 src/Views/Sidebar.vala:63
 msgid "Mutes & Blocks"
-msgstr "Silenciados e bloqueios"
+msgstr "Silenciados e bloqueados"
 
 #: src/Views/MutesBlocks.vala:11
 msgid "Mutes"
@@ -2867,7 +2867,7 @@ msgstr "Não há contas silenciadas"
 
 #: src/Views/MutesBlocks.vala:19
 msgid "Blocks"
-msgstr "Bloqueios"
+msgstr "Bloqueados"
 
 #: src/Views/MutesBlocks.vala:23
 msgid "No Blocked Accounts"

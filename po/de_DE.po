@@ -8,20 +8,21 @@
 # Markus Göllnitz <camelcasenick@bewares.it>, 2023.
 # Konstantin Tutsch <mail@konstantintutsch.com>, 2024.
 # Max Harmathy <max.harmathy@web.de>, 2024.
+# mondstern <mondstern@monocles.de>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-03-18 17:02+0000\n"
-"Last-Translator: Max Harmathy <max.harmathy@web.de>\n"
+"PO-Revision-Date: 2024-06-23 01:12+0000\n"
+"Last-Translator: mondstern <mondstern@monocles.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tuba/tuba/de/>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -520,7 +521,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:109
 msgid "Posting"
-msgstr "Verfassen"
+msgstr "Veröffentlichen"
 
 #: data/ui/dialogs/preferences.ui:112
 msgid "Default Post Visibility"
