@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-06-23 07:22+0000\n"
+"PO-Revision-Date: 2024-06-23 07:25+0000\n"
 "Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/tuba/tuba/sv/>\n"
 "Language: sv\n"
@@ -2605,7 +2605,7 @@ msgstr "Blockera en ny e-post domän"
 #: src/Views/Admin/Pages/BlockedEmails.vala:60
 #, c-format
 msgid "Are you sure you want to block %s?"
-msgstr ""
+msgstr "Är du säker på att du vill blockera %s?"
 
 #. translators: Question dialog description when an admin is about to
 #. block an e-mail domain. The variable is a string.
@@ -2615,68 +2615,70 @@ msgid ""
 "This can be the domain name that shows up in the e-mail address or the MX "
 "record it uses. They will be checked upon sign-up."
 msgstr ""
+"Detta kan vara domännamnet som visas i e-postadressen eller MX-posten den "
+"använder. De kommer att kontrolleras vid registrering."
 
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "New Users"
-msgstr ""
+msgstr "Nya användare"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Active Users"
-msgstr ""
+msgstr "Aktiva användare"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Interactions"
-msgstr ""
+msgstr "Interaktioner"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Reports Opened"
-msgstr ""
+msgstr "Rapporter öppnade"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Reports Resolved"
-msgstr ""
+msgstr "Rapporter lösta"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:18
 msgid "Sign-up Sources"
-msgstr ""
+msgstr "Registreringskällor"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:20
 msgid "Top Active Languages"
-msgstr ""
+msgstr "Topp aktiva språk"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:22
 msgid "Top Active Servers"
-msgstr ""
+msgstr "Topp aktiva servrar"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:24
 msgid "Software"
-msgstr ""
+msgstr "Programvara"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:26
 msgid "Space Usage"
-msgstr ""
+msgstr "Utrymmesanvändning"
 
 #: src/Views/Admin/Pages/Dashboard.vala:53
 msgid "Stats"
-msgstr ""
+msgstr "Statistik"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about allowing federation
 #. with other instances
 #: src/Views/Admin/Pages/FederationAllowlist.vala:18
 msgid "Allow federation with an instance"
-msgstr ""
+msgstr "Tillåt federation med en instans"
 
 #: src/Views/Admin/Pages/FederationAllowlist.vala:21
 #: src/Views/Admin/Pages/FederationAllowlist.vala:64
 msgid "Allow"
-msgstr ""
+msgstr "Tillåt"
 
 #. translators: Question dialog when an admin is about to
 #. allow federation with an instance. The variable is a
@@ -2684,12 +2686,12 @@ msgstr ""
 #: src/Views/Admin/Pages/FederationAllowlist.vala:57
 #, c-format
 msgid "Are you sure you want to allow federation with %s?"
-msgstr ""
+msgstr "Är du säker på att du vill tillåta federation med %s?"
 
 #. translators: admin dashboard, reports timeline, headerbar button tooltip text
 #: src/Views/Admin/Pages/Reports.vala:10
 msgid "Show Resolved Reports"
-msgstr ""
+msgstr "Visa lösta rapporter"
 
 #. translators: Question dialog when an admin is about to
 #. unblock an IP address. The variable
@@ -2705,7 +2707,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/EmailDomain.vala:26
 #, c-format
 msgid "Are you sure you want to unblock %s?"
-msgstr ""
+msgstr "Är du säker på att du vill avblockera %s?"
 
 #. translators: Question dialog when an admin is about to
 #. delete a domain from the federation allowlist.
@@ -2715,11 +2717,11 @@ msgstr ""
 #: src/Views/Admin/Timelines/DomainAllow.vala:28
 #, c-format
 msgid "Are you sure you want to no longer federate with %s?"
-msgstr ""
+msgstr "Är du säker på att du inte längre vill federera med %s?"
 
 #: src/Views/Admin/Timelines/DomainAllow.vala:35
 msgid "Remove"
-msgstr ""
+msgstr "Ta bort"
 
 #: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:61
 msgid "Announcements"
