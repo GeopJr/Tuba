@@ -45,7 +45,7 @@ public class Tuba.Blurhash {
 				}
 				if (index == -1) return 0;
 
-				res = res * 83 + index;
+				res = (int)((uint)res * 83 + index);
 			}
 
 			return res;
