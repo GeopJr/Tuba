@@ -515,7 +515,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		var gesture = new Gtk.GestureZoom ();
 		gesture.scale_changed.connect (on_scale_changed);
 		gesture.end.connect (on_scale_end);
-		add_controller (gesture);
+		carousel.add_controller (gesture);
 
 		var motion = new Gtk.EventControllerMotion ();
 		motion.motion.connect (on_motion);
