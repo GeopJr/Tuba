@@ -62,6 +62,16 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.8.1" date="2024-06-23">
+      <description translate="no">
+        <ul>
+            <li>Added a gsettings options to disable graphics offload</li>
+            <li>Fixed Media Viewer gestures requiring an extra click sometimes to work</li>
+            <li>Fixed Media Viewer images not being marked as loaded</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.8.0" date="2024-06-22">
       <description translate="no">
         <ul>
