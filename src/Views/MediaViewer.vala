@@ -960,7 +960,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			#else
 				var video = new Gtk.Video () {
 					#if GTK_4_14
-						graphics_offload = Gtk.GraphicsOffloadEnabled.ENABLED
+						graphics_offload = settings.use_graphics_offload ? Gtk.GraphicsOffloadEnabled.ENABLED : Gtk.GraphicsOffloadEnabled.DISABLED
 					#endif
 				};
 			#endif
