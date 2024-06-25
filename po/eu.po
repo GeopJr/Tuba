@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-06-21 20:05+0000\n"
+"PO-Revision-Date: 2024-06-26 17:09+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -1918,7 +1918,7 @@ msgstr "Jarraipenak"
 
 #: src/Dialogs/NotificationSettings.vala:68
 msgid "Clear All Notifications"
-msgstr "Garbitu jakinarazken guztiak"
+msgstr "Garbitu jakinarazpen guztiak"
 
 #: src/Dialogs/NotificationSettings.vala:75
 msgid "Included Notifications"
