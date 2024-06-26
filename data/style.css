@@ -98,10 +98,6 @@ headerbar.flat.no-title .title {
 	background: @dialog_bg_color;
 }
 
-.large .header-image {
-	border-radius: 12px 12px 0 0;
-}
-
 /* Status action icons */
 @keyframes rotate_star {
 	from { -gtk-icon-transform: rotate(-72deg); }
@@ -698,4 +694,8 @@ GtkSourceAssistant row:last-child {
 
 .entry-button:not(:hover):not(:focus-within) > image {
 	opacity: 0.7;
+}
+
+popover.mini-profile > contents {
+	padding: 0;
 }

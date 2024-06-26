@@ -127,6 +127,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 					propagate_natural_height = true
 				}
 			};
+			mini_profile.add_css_class ("mini-profile");
 			mini_profile.set_parent (this);
 			mini_profile.closed.connect (clear_mini);
 		}
