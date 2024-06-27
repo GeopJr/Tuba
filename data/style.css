@@ -699,3 +699,7 @@ GtkSourceAssistant row:last-child {
 .entry-button:not(:hover):not(:focus-within) > image {
 	opacity: 0.7;
 }
+
+popover.mini-profile > contents {
+	padding: 0;
+}

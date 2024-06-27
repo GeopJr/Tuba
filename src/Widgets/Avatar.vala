@@ -125,7 +125,8 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 					max_content_height = 500,
 					width_request = 360,
 					propagate_natural_height = true
-				}
+				},
+				css_classes = {"mini-profile"}
 			};
 			mini_profile.set_parent (this);
 			mini_profile.closed.connect (clear_mini);
