@@ -91,6 +91,7 @@ headerbar.flat.no-title .title {
 
 .ttl-profile-cover .header-image {
 	background: grey;
+	border-radius: 0;
 }
 
 .ttl-profile-cover avatar, .profile-editor avatar {
