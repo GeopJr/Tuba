@@ -413,18 +413,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	#if CLAPPER_0_8
-		struct ClapperCacheItem {
-			public Clapper.MediaItem media_item;
-			public string location;
-		}
-
 		string clapper_cache_dir;
-		Gee.HashMap<string, ClapperCacheItem?> clapper_cached_items;
+		Gee.HashMap<string, string> clapper_cached_urls;
 	#endif
 	construct {
 		#if CLAPPER
 			#if CLAPPER_0_8
-				clapper_cached_items = new Gee.HashMap<string, ClapperCacheItem?> ();
+				clapper_cached_urls = new Gee.HashMap<string, string> ();
 				clapper_cache_dir = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "clapper");
 				clapper_cache_cleanup (true);
 			#endif
@@ -563,7 +558,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		context_menu.unparent ();
 		#if CLAPPER_0_8
 			clapper_cache_cleanup (true);
-			clapper_cached_items.clear ();
+			clapper_cached_urls.clear ();
 			clapper_cached_locations.clear ();
 		#endif
 	}
@@ -1010,13 +1005,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			#if CLAPPER
 				Clapper.MediaItem clp_item;
 				#if CLAPPER_0_8
-					if (clapper_cached_items.has_key (url)) {
-						clp_item = clapper_cached_items.get (url).media_item;
-					} else {
-				#endif
-				clp_item = new Clapper.MediaItem (url);
-				#if CLAPPER_0_8
-					}
+					clp_item = new Clapper.MediaItem.cached (url, clapper_cached_urls.get (url));
+				#else
+					clp_item = new Clapper.MediaItem (url);
 				#endif
 
 				video.player.queue.add_item (clp_item);
@@ -1077,7 +1068,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		// (older items get cleaned up first).
 		Gee.ArrayList<string> clapper_cached_locations = new Gee.ArrayList<string> ();
 		private void on_clapper_download_complete (Clapper.MediaItem clp_media_item, string location) {
-			clapper_cached_items.set (clp_media_item.uri, {clp_media_item, location});
+			clapper_cached_urls.set (clp_media_item.uri, location);
 			clapper_cached_locations.add (location);
 		}
 
@@ -1088,9 +1079,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 					var sliced = clapper_cached_locations.slice (0, to_remove);
 					clapper_cached_locations.remove_all (sliced);
 
-					clapper_cached_items.foreach (e => {
-						if (!clapper_cached_locations.contains (e.value.location))
-							clapper_cached_items.unset (e.key);
+					clapper_cached_urls.foreach (e => {
+						if (!clapper_cached_locations.contains (e.value))
+							clapper_cached_urls.unset (e.key);
 
 						return true;
 					});
