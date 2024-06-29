@@ -48,7 +48,7 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 			case GtkSource.CompletionColumn.ICON:
 				var avatar = new Adw.Avatar (36, null, true);
 				avatar.name = account.display_name;
-				Tuba.Helper.Image.request_paintable (account.avatar, null, (paintable) => {
+				Tuba.Helper.Image.request_paintable (account.avatar, null, false, (paintable) => {
 					avatar.custom_image = paintable;
 				});
 				cell.set_widget (avatar);

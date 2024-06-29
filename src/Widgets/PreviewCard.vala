@@ -22,7 +22,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Button {
 				css_classes = {"preview_card_v"}
 			};
 
-			Tuba.Helper.Image.request_paintable (card_obj.image, card_obj.blurhash, (paintable) => {
+			Tuba.Helper.Image.request_paintable (card_obj.image, card_obj.blurhash, false, (paintable) => {
 				image.paintable = paintable;
 			});
 

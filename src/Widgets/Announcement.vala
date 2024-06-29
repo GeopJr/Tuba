@@ -224,7 +224,7 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		handle_label.label = @"@$instance_uri";
 		avatar.text = name_label.label = instance_title;
 		if (instance_title != "") avatar.show_initials = true;
-		if (instance_thumbnail != "") Tuba.Helper.Image.request_paintable (instance_thumbnail, null, on_cache_response);
+		if (instance_thumbnail != "") Tuba.Helper.Image.request_paintable (instance_thumbnail, null, false, on_cache_response);
 
 		reactions = t_announcement.reactions;
 		reactions_count = t_announcement.reactions.size;
