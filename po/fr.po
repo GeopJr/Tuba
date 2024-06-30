@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-04-13 08:01+0000\n"
+"PO-Revision-Date: 2024-06-24 09:09+0000\n"
 "Last-Translator: rene-coty <irenee.thirion@e.email>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/tuba/tuba/fr/>\n"
 "Language: fr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -168,7 +168,7 @@ msgstr "Pièce-jointe suivante"
 
 #: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:65
 msgid "Admin Dashboard"
-msgstr ""
+msgstr "Tableau de bord administrateur"
 
 #: data/ui/dialogs/advanced_search.ui:23 data/ui/dialogs/compose.ui:35
 #: data/ui/dialogs/filter_edit.ui:17 data/ui/dialogs/new_account.ui:26
@@ -200,33 +200,36 @@ msgid ""
 "Advanced Search might not work in all instances. You can invert an option by "
 "prefixing it with -. For example, -is:reply to filter out all replies."
 msgstr ""
+"La recherche avancée peut ne pas fonctionner pour toutes les instances. Vous "
+"pouvez inverser une option en utilisant le préfixe « - ». Par exemple, « -is:"
+"reply » pour filtrer toutes les réponses."
 
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:73
 msgid "Query"
-msgstr ""
+msgstr "Requête"
 
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:80
 msgid "From User"
-msgstr ""
+msgstr "De l’utilisateur"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:86
 msgid "Only Replies"
-msgstr ""
+msgstr "Réponses uniquement"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:92
 msgid "Only Posts with Content Warnings"
-msgstr ""
+msgstr "Publications avec avertissements de contenus uniquement"
 
 #. translators: Advanced search window, option group
 #. This is the title and the option are
 #. 'media', 'poll'...
 #: data/ui/dialogs/advanced_search.ui:102
 msgid "Containing"
-msgstr ""
+msgstr "Contenant"
 
 #: data/ui/dialogs/advanced_search.ui:105
 #: src/Dialogs/Composer/AttachmentsPage.vala:62
@@ -240,7 +243,7 @@ msgstr "Sondage"
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:116
 msgid "Embed"
-msgstr ""
+msgstr "Inclure"
 
 #: data/ui/dialogs/advanced_search.ui:123 data/ui/dialogs/preferences.ui:179
 msgid "Timelines"
@@ -248,17 +251,17 @@ msgstr "Fils d’actualité"
 
 #: data/ui/dialogs/advanced_search.ui:126
 msgid "Everywhere"
-msgstr ""
+msgstr "Partout"
 
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:140
 msgid "Library"
-msgstr ""
+msgstr "Bibliothèque"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
 #: data/ui/dialogs/advanced_search.ui:142
 msgid "Favorites, Bookmarks, Own Posts"
-msgstr ""
+msgstr "Favoris, signets, publications propres"
 
 #: data/ui/dialogs/advanced_search.ui:156
 #: src/Services/Accounts/Mastodon/Account.vala:167
@@ -268,25 +271,25 @@ msgstr "Public"
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:173
 msgid "Dates"
-msgstr ""
+msgstr "Dates"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:179
 msgid "Before"
-msgstr ""
+msgstr "Avant"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
 #: data/ui/dialogs/advanced_search.ui:202
 msgid "During"
-msgstr ""
+msgstr "Pendant"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:225
 msgid "After"
-msgstr ""
+msgstr "Après"
 
 #: data/ui/dialogs/compose.ui:41 src/Dialogs/Composer/Dialog.vala:263
 msgid "_Publish"
@@ -400,7 +403,7 @@ msgstr "URL du serveur"
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:297
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: data/ui/dialogs/new_account.ui:141
 msgid "Confirm Authorization"
@@ -495,7 +498,7 @@ msgstr "Afficher une image floue des médias jusqu’à leur chargement complet"
 
 #: data/ui/dialogs/preferences.ui:85
 msgid "Reveal Spoilers by Default"
-msgstr ""
+msgstr "Révéler les avertissements par défaut"
 
 #: data/ui/dialogs/preferences.ui:90
 msgid "Show Link Preview Cards"
@@ -508,11 +511,13 @@ msgstr "Assombrir les images dans le mode sombre"
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/ui/dialogs/preferences.ui:101
 msgid "Dim Trivial Notifications"
-msgstr ""
+msgstr "Voiler les notifications basiques"
 
 #: data/ui/dialogs/preferences.ui:102
 msgid "Notifications like favorites and boosts will be less visible"
 msgstr ""
+"Les notifications pour les favoris et les republications seront moins "
+"visibles"
 
 #: data/ui/dialogs/preferences.ui:109
 msgid "Posting"
@@ -563,12 +568,12 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:164
 msgid "Warn before replying to an old post"
-msgstr ""
+msgstr "Avertir avant de répondre à une publication ancienne"
 
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:171 src/Dialogs/NewAccount.vala:329
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: data/ui/dialogs/preferences.ui:182
 msgid "Posts per Load Batch"
@@ -576,7 +581,7 @@ msgstr "Publications par chargement"
 
 #: data/ui/dialogs/preferences.ui:190
 msgid "Stream Timelines"
-msgstr ""
+msgstr "Parcourir les fils d’actualités"
 
 #: data/ui/dialogs/preferences.ui:191
 msgid "Receive new posts and notifications in real-time"
@@ -584,7 +589,7 @@ msgstr "Recevoir les nouvelles publications et notifications en temps réel"
 
 #: data/ui/dialogs/preferences.ui:197
 msgid "Stream Public Timelines"
-msgstr ""
+msgstr "Parcourir les fils d’actualités publics"
 
 #: data/ui/dialogs/preferences.ui:198
 msgid "Warning: This will increase memory usage"
@@ -644,53 +649,56 @@ msgstr ""
 #. translators: Preferences group title
 #: data/ui/dialogs/preferences.ui:269
 msgid "Filter Notifications Out"
-msgstr ""
+msgstr "Filtrage des notifications"
 
 #. translators: Preferences group description
 #: data/ui/dialogs/preferences.ui:271
 msgid "Filter out notifications from people you may not know"
 msgstr ""
+"Filtrer les notifications des personnes que vous pourriez ne pas connaître"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:275
 msgid "People you don't follow"
-msgstr ""
+msgstr "Personnes que vous ne suivez pas"
 
 #. translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:277
 msgid "Until you manually approve them"
-msgstr ""
+msgstr "Jusqu’à approbation manuelle"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:283
 msgid "People not following you"
-msgstr ""
+msgstr "Personnes ne vous suivant pas"
 
 #. translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:285
 msgid "Including people who have been following you fewer than 3 days"
-msgstr ""
+msgstr "Incluant les personnes qui vous suivent depuis moins de 3 jours"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:291
 msgid "New accounts"
-msgstr ""
+msgstr "Nouveaux comptes"
 
 #. translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:293
 msgid "Created within the past 30 days"
-msgstr ""
+msgstr "Créés il y a 30 jours ou moins"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:299
 msgid "Unsolicited private mentions"
-msgstr ""
+msgstr "Mentions privées non sollicitées"
 
 #. translators: Preferences switch subtitle about filtering out 'Unsolicited private mentions'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:301
 msgid ""
 "Filtered unless it's in reply to your own mention or if you follow the sender"
 msgstr ""
+"Filtré sauf si c’est en réponse à une mention par vous ou si vous suivez "
+"l’expéditeur"
 
 #: data/ui/dialogs/preferences.ui:311
 msgid "Filters"
@@ -836,17 +844,17 @@ msgstr "Robot"
 #. You can replace 'Cover' with 'Background' if needed.
 #: data/ui/views/profile_header.ui:67
 msgid "View Cover"
-msgstr ""
+msgstr "Voir l’arrière-plan"
 
 #. translators: tooltip text on profile avatars.
 #. You can replace 'Avatar' with 'Profile Picture' if needed.
 #: data/ui/views/profile_header.ui:81
 msgid "View Avatar"
-msgstr ""
+msgstr "Voir l’image de profil"
 
 #: data/ui/views/profile_header.ui:168
 msgid "Note"
-msgstr ""
+msgstr "Note"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:52
@@ -860,7 +868,7 @@ msgstr "Changer de compte"
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
 msgid "Offline"
-msgstr ""
+msgstr "Hors-ligne"
 
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
@@ -901,74 +909,74 @@ msgstr "Afficher quand même"
 #: src/Views/Admin/Pages/Accounts.vala:338
 #: src/Widgets/Admin/DomainBlock.vala:18 src/Widgets/Admin/DomainBlock.vala:25
 msgid "None"
-msgstr ""
+msgstr "Aucun"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
 msgid "Limit"
-msgstr ""
+msgstr "Limiter"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:14 src/Dialogs/Admin/TakeAction.vala:95
 msgid "Suspend"
-msgstr ""
+msgstr "Suspendre"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:10
 msgid "Blocked"
-msgstr ""
+msgstr "Bloqué"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:12
 msgid "Blocked Sign-ups"
-msgstr ""
+msgstr "Inscriptions bloquées"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:14
 msgid "Limited Sign-ups"
-msgstr ""
+msgstr "Inscriptions limitées"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:22
 msgid "Block Access"
-msgstr ""
+msgstr "Bloquer l’accès"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:24
 msgid "Block Sign-ups"
-msgstr ""
+msgstr "Bloquer les inscriptions"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:26
 msgid "Limit Sign-ups"
-msgstr ""
+msgstr "Limiter les inscriptions"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:34
 msgid "Block access to all resources"
-msgstr ""
+msgstr "Bloquer l’accès à toutes les ressources"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:36
 msgid "New sign-ups will not be possible"
-msgstr ""
+msgstr "De nouvelles inscriptions ne seront pas possibles"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:38
 msgid "New sign-ups will require your approval"
-msgstr ""
+msgstr "Les nouvelles inscriptions requéreront votre approbation"
 
 #: src/API/Admin/Report.vala:19
 msgid "Spam"
-msgstr ""
+msgstr "Spam"
 
 #: src/API/Admin/Report.vala:20
 msgid "Rule Violation"
-msgstr ""
+msgstr "Violation des règles"
 
 #: src/API/Admin/Report.vala:21
 msgid "Legal"
-msgstr ""
+msgstr "Légalité"
 
 #: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:222
@@ -981,22 +989,22 @@ msgstr "Autre"
 #. translators: the variable is a string report comment
 #: src/API/Admin/Report.vala:72
 msgid "With the comment"
-msgstr ""
+msgstr "Avec le commentaire"
 
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr ""
+msgstr "Motif"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
 msgid "You've received a report"
-msgstr ""
+msgstr "Vous avez reçu un signalement"
 
 #. translators: report notification with date, "You've received a report on: <date>"
 #: src/API/Admin/Report.vala:81
 msgid "You've received a report on"
-msgstr ""
+msgstr "Vous avez reçu un signalement le"
 
 #: src/API/Announcement.vala:55 src/Application.vala:393
 #: src/Dialogs/Composer/Dialog.vala:376 src/Dialogs/ProfileEdit.vala:134
@@ -1024,7 +1032,7 @@ msgstr "Accueil &amp; Listes"
 
 #: src/API/Filters/Filter.vala:46
 msgid "Public Timelines"
-msgstr ""
+msgstr "Fils d’actualités publics"
 
 #: src/API/Filters/Filter.vala:47
 #: src/Services/Accounts/Mastodon/Account.vala:52
@@ -1043,6 +1051,8 @@ msgstr "Profils"
 msgid ""
 "You have blocked %s, removing %s of your followers and %s account you follow."
 msgstr ""
+"Vous avez bloqué %s, supprimant %s de vos abonnés et %s compte que vous "
+"suivez."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
 #. this is the plural version, '4 accounts you follow'
@@ -1052,6 +1062,8 @@ msgid ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
 msgstr ""
+"Vous avez bloqué %s, supprimant %s de vos abonnés et %s comptes que vous "
+"suivez."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
 #. this is the singular version, '1 account you follow'
@@ -1061,6 +1073,8 @@ msgid ""
 "An admin has blocked %s, including %s of your followers and %s account you "
 "follow."
 msgstr ""
+"Un administrateur a bloqué %s, incluant %s de vos abonnés et %s compte que "
+"vous suivez."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
 #. this is the plural version, '4 accounts you follow'
@@ -1070,6 +1084,8 @@ msgid ""
 "An admin has blocked %s, including %s of your followers and %s accounts you "
 "follow."
 msgstr ""
+"Un administrateur a bloqué %s, incluant %s de vos abonnés et %s comptes que "
+"vous suivez."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:51
@@ -1078,13 +1094,15 @@ msgid ""
 "An admin has suspended %s, which means you can no longer receive updates "
 "from them or interact with them."
 msgstr ""
+"Un administrateur a suspendu %s, ce qui signifie que vous ne recevrez plus "
+"de nouvelles ni ne pourrez avoir d’interactions avec eux."
 
 #. translators: as in just registered in the instance,
 #. this is a notification type only visible
 #. to admins
 #: src/API/Notification.vala:110
 msgid "Signed Up"
-msgstr ""
+msgstr "Inscrit"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
@@ -1130,7 +1148,7 @@ msgstr "Vous suit"
 #. translators: as in, you've been blocked by them
 #: src/API/Relationship.vala:30
 msgid "Blocks you"
-msgstr ""
+msgstr "Vous bloque"
 
 #. translators: the variable is a user handle
 #: src/API/Relationship.vala:122
@@ -1219,7 +1237,7 @@ msgstr "Utilisé %d fois par %d personnes au cours des 2 derniers jours"
 #. been provided in settings
 #: src/Application.vala:317 src/Dialogs/Preferences.vala:449
 msgid "Invalid Proxy URL"
-msgstr ""
+msgstr "URL de Proxy invalide"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:374
@@ -1269,30 +1287,30 @@ msgstr "Oui"
 #: src/Dialogs/Admin/AddFederationBlock.vala:29
 #: src/Views/Admin/Pages/FederationBlocklist.vala:9
 msgid "Add Federation Block"
-msgstr ""
+msgstr "Ajouter un blocage de fédération"
 
 #: src/Dialogs/Admin/AddFederationBlock.vala:40
 #: src/Dialogs/Admin/AddIPBlock.vala:79
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #. translators: Admin dashboard, federation block dialog,
 #. e.g. 'gnome.org'
 #: src/Dialogs/Admin/AddFederationBlock.vala:52
 msgid "Domain"
-msgstr ""
+msgstr "Domaine"
 
 #. translators: Admin dashboard, federation block dialog severity row title
 #: src/Dialogs/Admin/AddFederationBlock.vala:72
 msgid "Severity"
-msgstr ""
+msgstr "Sévérité"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:92
 #: src/Widgets/Admin/DomainBlock.vala:30
 msgid "Reject Media Files"
-msgstr ""
+msgstr "Rejeter les fichiers médias"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1300,26 +1318,28 @@ msgstr ""
 msgid ""
 "Removes locally stored media files and refuses to download any in the future"
 msgstr ""
+"Supprime les fichiers médias stockés localement et bloquera tout "
+"téléchargement à l’avenir"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:103
 #: src/Widgets/Admin/DomainBlock.vala:31
 msgid "Reject Reports"
-msgstr ""
+msgstr "Rejeter les signalements"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:106
 msgid "Ignore all reports coming from this domain"
-msgstr ""
+msgstr "Ignorer tous les signalements arrivant depuis ce domaine"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:114
 #: src/Widgets/Admin/DomainBlock.vala:32
 msgid "Obfuscate Domain Name"
-msgstr ""
+msgstr "Masquer le nom du domaine"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1333,55 +1353,54 @@ msgstr ""
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
 #: src/Widgets/Admin/DomainBlock.vala:17
 msgid "Private Comment"
-msgstr ""
+msgstr "Commentaire privé"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:131
 #: src/Widgets/Admin/DomainBlock.vala:24
 msgid "Public Comment"
-msgstr ""
+msgstr "Commentaire public"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:17 src/Dialogs/Admin/AddIPBlock.vala:19
 #, c-format
 msgid "%d Year"
 msgid_plural "%d Years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d an"
+msgstr[1] "%d ans"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:21 src/Dialogs/Admin/AddIPBlock.vala:23
 #, c-format
 msgid "%d Month"
 msgid_plural "%d Months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d mois"
+msgstr[1] "%d mois"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:25 src/Dialogs/FilterEdit.vala:35
 #, c-format
 msgid "%d Week"
 msgid_plural "%d Weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d semaine"
+msgstr[1] "%d semaines"
 
 #. translators: the variable is a number
 #: src/Dialogs/Admin/AddIPBlock.vala:27 src/Dialogs/Composer/PollPage.vala:238
 #: src/Dialogs/Composer/PollPage.vala:241
 #: src/Dialogs/Composer/PollPage.vala:242 src/Dialogs/FilterEdit.vala:34
-#, fuzzy, c-format
-#| msgid "%d Day"
+#, c-format
 msgid "%d Day"
 msgid_plural "%d Days"
 msgstr[0] "%d jour"
-msgstr[1] "%d jour"
+msgstr[1] "%d jours"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:68
 #: src/Views/Admin/Pages/BlockedIPs.vala:10
 msgid "Add IP Block"
-msgstr ""
+msgstr "Ajouter un blocage d’IP"
 
 #. translators: Admin dashboard ip block comment entry title
 #: src/Dialogs/Admin/AddIPBlock.vala:99 src/Dialogs/Admin/TakeAction.vala:104
 msgid "Comment"
-msgstr ""
+msgstr "Commentaire"
 
 #. translators: Admin dashboard ip block expiration date row title.
 #: src/Dialogs/Admin/AddIPBlock.vala:123 src/Dialogs/Composer/PollPage.vala:268
@@ -1391,13 +1410,13 @@ msgstr "Expiration"
 #. translators: Admin dashboard ip block rule (e.g. no access)
 #: src/Dialogs/Admin/AddIPBlock.vala:131
 msgid "Rule"
-msgstr ""
+msgstr "Règle"
 
 #. translators: Admin dashboard ip block rule descriptions.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddIPBlock.vala:134
 msgid "Choose what will happen with requests from this IP"
-msgstr ""
+msgstr "Choisissez ce qu’il adviendra des requêtes de cette adresse IP"
 
 #. translators: Question dialog when an admin is about to
 #. mark a report as resolved
