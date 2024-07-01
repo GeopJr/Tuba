@@ -194,7 +194,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		if (account.header.contains ("/headers/original/missing.png")) {
 			background.paintable = avatar.custom_image;
 		} else {
-			Tuba.Helper.Image.request_paintable (account.header, null, on_cache_response);
+			Tuba.Helper.Image.request_paintable (account.header, null, false, on_cache_response);
 		}
 
 		// translators: Used in profile stats.

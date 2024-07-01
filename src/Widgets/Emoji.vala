@@ -27,7 +27,7 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
 
 		var cached_paintable = Tuba.Helper.Image.lookup_cache (emoji_url);
 		if (cached_paintable == null)
-			Tuba.Helper.Image.request_paintable (emoji_url, null, on_cache_response);
+			Tuba.Helper.Image.request_paintable (emoji_url, null, false, on_cache_response);
 		else
 			on_cache_response (cached_paintable);
 	}

@@ -11,6 +11,7 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 		get { return (this.t_preview_url == null || this.t_preview_url == "") ? url : t_preview_url; }
 	}
 	public string? tuba_translated_alt_text { get; set; default = null; }
+	public bool tuba_is_report { get; set; default = false; }
 
 	public File? source_file { get; set; }
 

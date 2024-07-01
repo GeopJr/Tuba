@@ -51,7 +51,7 @@ public class Tuba.EmojiProvider: Tuba.CompletionProvider {
 				var image = new Gtk.Image () {
 					pixel_size = 36
 				};
-				Tuba.Helper.Image.request_paintable (emoji.url, null, (paintable) => {
+				Tuba.Helper.Image.request_paintable (emoji.url, null, false, (paintable) => {
 					image.paintable = paintable;
 				});
 				cell.set_widget (image);

@@ -211,7 +211,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			background.paintable = avatar.custom_image;
 		} else {
 			header_url = profile.account.header ?? "";
-			Tuba.Helper.Image.request_paintable (profile.account.header, null, on_cache_response);
+			Tuba.Helper.Image.request_paintable (profile.account.header, null, false, on_cache_response);
 
 			if (!mini)
 				background.clicked.connect (open_header_in_media_viewer);

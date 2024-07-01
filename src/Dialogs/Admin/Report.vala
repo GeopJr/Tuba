@@ -269,8 +269,16 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 		report.statuses.foreach (status => {
 			try {
 				status.formal.filtered = null;
-				status.formal.spoiler_text = null;
+				status.formal.tuba_spoiler_revealed = true;
+				if (status.formal.has_media) {
+					status.formal.media_attachments.foreach (e => {
+						e.tuba_is_report = true;
+
+						return true;
+					});
+				}
 				Widgets.Status widget = (Widgets.Status) status.to_widget ();
+				widget.add_css_class ("report-status");
 				widget.add_css_class ("card");
 				widget.add_css_class ("card-spacing");
 				widget.actions.visible = false;

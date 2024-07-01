@@ -59,8 +59,9 @@ public class Tuba.Helper.Image {
 		}
 	}
 
-	private static async Gdk.Paintable? fetch_paintable (string url) {
+	private static async Gdk.Paintable? fetch_paintable (string url, bool disable_cache = false) {
 		var download_msg = new Soup.Message ("GET", url);
+		if (disable_cache) download_msg.disable_feature (typeof (Soup.Cache));
 		try {
 			var in_stream = yield session.send_async (download_msg, 0, null);
 			return yield decode (download_msg, in_stream);
@@ -70,7 +71,7 @@ public class Tuba.Helper.Image {
 		}
 	}
 
-	public static void request_paintable (string? url, string? blurhash, owned OnItemChangedFn cb) {
+	public static void request_paintable (string? url, string? blurhash, bool disable_cache, owned OnItemChangedFn cb) {
 		if (url == null || url == "") return;
 		new Helper.Image ();
 		bool has_loaded = false;
@@ -85,7 +86,7 @@ public class Tuba.Helper.Image {
 			});
 		}
 
-		fetch_paintable.begin (url, (obj, res) => {
+		fetch_paintable.begin (url, disable_cache, (obj, res) => {
 			var result = fetch_paintable.end (res);
 			has_loaded = true;
 			cb (result);
