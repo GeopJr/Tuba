@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Jakub Janeček <janecekjakub@tutanota.com>, 2023, 2024.
 # foo expert <deferred_water346@simplelogin.com>, 2023.
+# anotheranonymoususer <walter.klosse@protonmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-04-24 12:07+0000\n"
-"Last-Translator: Jakub Janeček <janecekjakub@tutanota.com>\n"
+"PO-Revision-Date: 2024-07-05 00:09+0000\n"
+"Last-Translator: anotheranonymoususer <walter.klosse@protonmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/tuba/tuba/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.1-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -163,7 +164,7 @@ msgstr "Další Příloha"
 
 #: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:65
 msgid "Admin Dashboard"
-msgstr ""
+msgstr "Administrátorká deska"
 
 #: data/ui/dialogs/advanced_search.ui:23 data/ui/dialogs/compose.ui:35
 #: data/ui/dialogs/filter_edit.ui:17 data/ui/dialogs/new_account.ui:26
@@ -195,33 +196,36 @@ msgid ""
 "Advanced Search might not work in all instances. You can invert an option by "
 "prefixing it with -. For example, -is:reply to filter out all replies."
 msgstr ""
+"Rozšířené hledání nemusí fungovat ve všch instancích. Můžete invertovat "
+"možnost tím, že před ní přidáte -. Například -is:reply vyfiltruje všechny "
+"odpovědi."
 
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:73
 msgid "Query"
-msgstr ""
+msgstr "Dotaz"
 
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:80
 msgid "From User"
-msgstr ""
+msgstr "Od uživatele"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:86
 msgid "Only Replies"
-msgstr ""
+msgstr "Pouze odpovědi"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:92
 msgid "Only Posts with Content Warnings"
-msgstr ""
+msgstr "Pouze příspěvky s obsahem s varováním"
 
 #. translators: Advanced search window, option group
 #. This is the title and the option are
 #. 'media', 'poll'...
 #: data/ui/dialogs/advanced_search.ui:102
 msgid "Containing"
-msgstr ""
+msgstr "Obsahující"
 
 #: data/ui/dialogs/advanced_search.ui:105
 #: src/Dialogs/Composer/AttachmentsPage.vala:62
@@ -235,7 +239,7 @@ msgstr "Anketa"
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:116
 msgid "Embed"
-msgstr ""
+msgstr "Vlažené"
 
 #: data/ui/dialogs/advanced_search.ui:123 data/ui/dialogs/preferences.ui:179
 msgid "Timelines"
@@ -243,17 +247,17 @@ msgstr "Časové osy"
 
 #: data/ui/dialogs/advanced_search.ui:126
 msgid "Everywhere"
-msgstr ""
+msgstr "Všude"
 
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:140
 msgid "Library"
-msgstr ""
+msgstr "Knihovna"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
 #: data/ui/dialogs/advanced_search.ui:142
 msgid "Favorites, Bookmarks, Own Posts"
-msgstr ""
+msgstr "Oblíbené, záložky, vlastní příspěvky"
 
 #: data/ui/dialogs/advanced_search.ui:156
 #: src/Services/Accounts/Mastodon/Account.vala:167
@@ -263,25 +267,25 @@ msgstr "Veřejné"
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:173
 msgid "Dates"
-msgstr ""
+msgstr "Data"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:179
 msgid "Before"
-msgstr ""
+msgstr "Před"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
 #: data/ui/dialogs/advanced_search.ui:202
 msgid "During"
-msgstr ""
+msgstr "Během"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:225
 msgid "After"
-msgstr ""
+msgstr "Po"
 
 #: data/ui/dialogs/compose.ui:41 src/Dialogs/Composer/Dialog.vala:263
 msgid "_Publish"
@@ -395,7 +399,7 @@ msgstr "URL serveru"
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:297
 msgid "Settings"
-msgstr ""
+msgstr "Nastavení"
 
 #: data/ui/dialogs/new_account.ui:141
 msgid "Confirm Authorization"
@@ -500,11 +504,11 @@ msgstr "Ztmavit Obrázky v Tmavém Módu"
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/ui/dialogs/preferences.ui:101
 msgid "Dim Trivial Notifications"
-msgstr ""
+msgstr "Utišit triviální upozornění"
 
 #: data/ui/dialogs/preferences.ui:102
 msgid "Notifications like favorites and boosts will be less visible"
-msgstr ""
+msgstr "Opozornění, jako oblíbené a boosty budou méně viditelné"
 
 #: data/ui/dialogs/preferences.ui:109
 msgid "Posting"
@@ -553,12 +557,12 @@ msgstr "Změnit viditelnost boostu, citovat a potvrdit boost"
 
 #: data/ui/dialogs/preferences.ui:164
 msgid "Warn before replying to an old post"
-msgstr ""
+msgstr "Varovat před odpovídáním na starý příspěvek"
 
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:171 src/Dialogs/NewAccount.vala:329
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: data/ui/dialogs/preferences.ui:182
 msgid "Posts per Load Batch"
@@ -634,53 +638,55 @@ msgstr ""
 #. translators: Preferences group title
 #: data/ui/dialogs/preferences.ui:269
 msgid "Filter Notifications Out"
-msgstr ""
+msgstr "Vyfiltrovat upozornění"
 
 #. translators: Preferences group description
 #: data/ui/dialogs/preferences.ui:271
 msgid "Filter out notifications from people you may not know"
-msgstr ""
+msgstr "Vyfiltorvat upozornění od lidí, které nemusíte znát"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:275
 msgid "People you don't follow"
-msgstr ""
+msgstr "Lidé, které nesledujete"
 
 #. translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:277
 msgid "Until you manually approve them"
-msgstr ""
+msgstr "Dokud je ručně neschválíte"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:283
 msgid "People not following you"
-msgstr ""
+msgstr "Lidé, kteří vás nesledují"
 
 #. translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:285
 msgid "Including people who have been following you fewer than 3 days"
-msgstr ""
+msgstr "Včetně lidí, kteří vás sledují po méně než 3 dny"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:291
 msgid "New accounts"
-msgstr ""
+msgstr "Nové účty"
 
 #. translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:293
 msgid "Created within the past 30 days"
-msgstr ""
+msgstr "Vytvořené během posledních 30 dní"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:299
 msgid "Unsolicited private mentions"
-msgstr ""
+msgstr "Nevyžádáné osobní zmínky"
 
 #. translators: Preferences switch subtitle about filtering out 'Unsolicited private mentions'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:301
 msgid ""
 "Filtered unless it's in reply to your own mention or if you follow the sender"
 msgstr ""
+"Vyfiltrováno, s vyjímkou odpovědí k vaší vlastní zmínce nebo, pokus "
+"sledujete odesílatele"
 
 #: data/ui/dialogs/preferences.ui:311
 msgid "Filters"
@@ -826,17 +832,17 @@ msgstr "Robot"
 #. You can replace 'Cover' with 'Background' if needed.
 #: data/ui/views/profile_header.ui:67
 msgid "View Cover"
-msgstr ""
+msgstr "Zhlédnout pozadí"
 
 #. translators: tooltip text on profile avatars.
 #. You can replace 'Avatar' with 'Profile Picture' if needed.
 #: data/ui/views/profile_header.ui:81
 msgid "View Avatar"
-msgstr ""
+msgstr "Zhlédnout profilový obrázek"
 
 #: data/ui/views/profile_header.ui:168
 msgid "Note"
-msgstr ""
+msgstr "Poznámka"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:52
@@ -850,7 +856,7 @@ msgstr "Změnit účet"
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
 msgid "Offline"
-msgstr ""
+msgstr "Offline"
 
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
@@ -891,74 +897,74 @@ msgstr "Přesto Ukázat"
 #: src/Views/Admin/Pages/Accounts.vala:338
 #: src/Widgets/Admin/DomainBlock.vala:18 src/Widgets/Admin/DomainBlock.vala:25
 msgid "None"
-msgstr ""
+msgstr "Žádné"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
 msgid "Limit"
-msgstr ""
+msgstr "Omezit"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:14 src/Dialogs/Admin/TakeAction.vala:95
 msgid "Suspend"
-msgstr ""
+msgstr "Pozastavit"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:10
 msgid "Blocked"
-msgstr ""
+msgstr "Zablokován"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:12
 msgid "Blocked Sign-ups"
-msgstr ""
+msgstr "Zablokované registrace"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:14
 msgid "Limited Sign-ups"
-msgstr ""
+msgstr "Omezené registrace"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:22
 msgid "Block Access"
-msgstr ""
+msgstr "Zablokovat přístup"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:24
 msgid "Block Sign-ups"
-msgstr ""
+msgstr "Zablokovat registrace"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:26
 msgid "Limit Sign-ups"
-msgstr ""
+msgstr "Omezit registrace"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:34
 msgid "Block access to all resources"
-msgstr ""
+msgstr "Zablokovat přístup ke všem zdrojům"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:36
 msgid "New sign-ups will not be possible"
-msgstr ""
+msgstr "Nové registrace nebudou možné"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:38
 msgid "New sign-ups will require your approval"
-msgstr ""
+msgstr "Nové registrace budou vyžadovat vaše schválení"
 
 #: src/API/Admin/Report.vala:19
 msgid "Spam"
-msgstr ""
+msgstr "Spam"
 
 #: src/API/Admin/Report.vala:20
 msgid "Rule Violation"
-msgstr ""
+msgstr "Porušení zásad"
 
 #: src/API/Admin/Report.vala:21
 msgid "Legal"
-msgstr ""
+msgstr "Právní"
 
 #: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:222
@@ -971,22 +977,22 @@ msgstr "Ostatní"
 #. translators: the variable is a string report comment
 #: src/API/Admin/Report.vala:72
 msgid "With the comment"
-msgstr ""
+msgstr "S komentářem"
 
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr ""
+msgstr "Důvod"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
 msgid "You've received a report"
-msgstr ""
+msgstr "Obdrželi jste nahlášení"
 
 #. translators: report notification with date, "You've received a report on: <date>"
 #: src/API/Admin/Report.vala:81
 msgid "You've received a report on"
-msgstr ""
+msgstr "Obdrželi jste nahlášení"
 
 #: src/API/Announcement.vala:55 src/Application.vala:393
 #: src/Dialogs/Composer/Dialog.vala:376 src/Dialogs/ProfileEdit.vala:134
@@ -1033,6 +1039,8 @@ msgstr "Profily"
 msgid ""
 "You have blocked %s, removing %s of your followers and %s account you follow."
 msgstr ""
+"Zablokovali jste %s, odebrali jste tak %s vašeho sledujícího a %s sledovaný "
+"účet."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
 #. this is the plural version, '4 accounts you follow'
@@ -1042,6 +1050,7 @@ msgid ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
 msgstr ""
+"Zablokovali jste %s, odebrali jste tak %s vaše sledující a %s sledované účty."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
 #. this is the singular version, '1 account you follow'
@@ -1074,7 +1083,7 @@ msgstr ""
 #. to admins
 #: src/API/Notification.vala:110
 msgid "Signed Up"
-msgstr ""
+msgstr "Zaregistrováno"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
