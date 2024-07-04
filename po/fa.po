@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-04-05 17:01+0000\n"
-"Last-Translator: EndermanXD <82046100+EndermanCo@users.noreply.github.com>\n"
+"PO-Revision-Date: 2024-07-05 00:09+0000\n"
+"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -72,7 +72,7 @@ msgstr "نمایش ترجیحات"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "نوشتن فرستهٔ جدید"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:57
 msgid "Refresh"
@@ -167,7 +167,7 @@ msgstr "پیوست بعدی"
 
 #: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:65
 msgid "Admin Dashboard"
-msgstr ""
+msgstr "داشبورد مدیر"
 
 #: data/ui/dialogs/advanced_search.ui:23 data/ui/dialogs/compose.ui:35
 #: data/ui/dialogs/filter_edit.ui:17 data/ui/dialogs/new_account.ui:26
@@ -203,7 +203,7 @@ msgstr ""
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:73
 msgid "Query"
-msgstr ""
+msgstr "پرس‌وجو"
 
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:80
@@ -239,7 +239,7 @@ msgstr "نظرسنجی"
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:116
 msgid "Embed"
-msgstr ""
+msgstr "تعبیه"
 
 #: data/ui/dialogs/advanced_search.ui:123 data/ui/dialogs/preferences.ui:179
 msgid "Timelines"
@@ -247,12 +247,12 @@ msgstr "خط‌‌های زمانی"
 
 #: data/ui/dialogs/advanced_search.ui:126
 msgid "Everywhere"
-msgstr ""
+msgstr "همه‌جا"
 
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:140
 msgid "Library"
-msgstr ""
+msgstr "کتابخانه"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
 #: data/ui/dialogs/advanced_search.ui:142
@@ -267,25 +267,25 @@ msgstr "همگانی"
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:173
 msgid "Dates"
-msgstr ""
+msgstr "تاریخ‌ها"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:179
 msgid "Before"
-msgstr ""
+msgstr "پیش از"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
 #: data/ui/dialogs/advanced_search.ui:202
 msgid "During"
-msgstr ""
+msgstr "در طول"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:225
 msgid "After"
-msgstr ""
+msgstr "پس از"
 
 #: data/ui/dialogs/compose.ui:41 src/Dialogs/Composer/Dialog.vala:263
 msgid "_Publish"
@@ -399,7 +399,7 @@ msgstr "نشانی کارساز"
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:297
 msgid "Settings"
-msgstr ""
+msgstr "تنظیمات"
 
 #: data/ui/dialogs/new_account.ui:141
 msgid "Confirm Authorization"
@@ -562,7 +562,7 @@ msgstr ""
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:171 src/Dialogs/NewAccount.vala:329
 msgid "Proxy"
-msgstr ""
+msgstr "پیشکار"
 
 #: data/ui/dialogs/preferences.ui:182
 msgid "Posts per Load Batch"
@@ -687,11 +687,11 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:311
 msgid "Filters"
-msgstr ""
+msgstr "پالایه‌ها"
 
 #: data/ui/dialogs/preferences.ui:315
 msgid "Keywords"
-msgstr ""
+msgstr "کلیدواژه‌ها"
 
 #: data/ui/dialogs/preferences.ui:323
 msgid "Add Filter…"
@@ -839,7 +839,7 @@ msgstr ""
 
 #: data/ui/views/profile_header.ui:168
 msgid "Note"
-msgstr ""
+msgstr "یادداشت"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:52
@@ -853,13 +853,13 @@ msgstr "تعویض حساب"
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
 msgid "Offline"
-msgstr ""
+msgstr "برون‌خط"
 
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
 #: src/Views/Notifications.vala:58
 msgid "View"
-msgstr ""
+msgstr "نمایش"
 
 #: data/ui/widgets/announcement.ui:96
 msgid "Unread"
@@ -894,22 +894,22 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:338
 #: src/Widgets/Admin/DomainBlock.vala:18 src/Widgets/Admin/DomainBlock.vala:25
 msgid "None"
-msgstr ""
+msgstr "هیچ"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
 msgid "Limit"
-msgstr ""
+msgstr "کران"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:14 src/Dialogs/Admin/TakeAction.vala:95
 msgid "Suspend"
-msgstr ""
+msgstr "معلّق"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:10
 msgid "Blocked"
-msgstr ""
+msgstr "مسدود"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:12
@@ -953,7 +953,7 @@ msgstr ""
 
 #: src/API/Admin/Report.vala:19
 msgid "Spam"
-msgstr ""
+msgstr "هرزنامه"
 
 #: src/API/Admin/Report.vala:20
 msgid "Rule Violation"
@@ -961,7 +961,7 @@ msgstr ""
 
 #: src/API/Admin/Report.vala:21
 msgid "Legal"
-msgstr ""
+msgstr "حقوقی"
 
 #: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:222
@@ -979,7 +979,7 @@ msgstr ""
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr ""
+msgstr "دلیل"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
@@ -1027,7 +1027,7 @@ msgstr "گفت‌وگو‌ها"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "نمایه‌ها"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
 #. this is the singular version, '1 account you follow'
@@ -1243,15 +1243,15 @@ msgstr ""
 #. translators: Wiki pages / Guides
 #: src/Application.vala:558
 msgid "Wiki"
-msgstr ""
+msgstr "ویکی"
 
 #: src/Application.vala:560 src/Widgets/Status.vala:324
 msgid "Translate"
-msgstr ""
+msgstr "ترجمه"
 
 #: src/Application.vala:561
 msgid "Donate"
-msgstr ""
+msgstr "اعانه"
 
 #: src/Application.vala:583
 msgid "OK"
@@ -1269,13 +1269,13 @@ msgstr ""
 #: src/Dialogs/Admin/AddFederationBlock.vala:40
 #: src/Dialogs/Admin/AddIPBlock.vala:79
 msgid "Add"
-msgstr ""
+msgstr "افزودن"
 
 #. translators: Admin dashboard, federation block dialog,
 #. e.g. 'gnome.org'
 #: src/Dialogs/Admin/AddFederationBlock.vala:52
 msgid "Domain"
-msgstr ""
+msgstr "دامنه"
 
 #. translators: Admin dashboard, federation block dialog severity row title
 #: src/Dialogs/Admin/AddFederationBlock.vala:72
@@ -1402,7 +1402,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:99
 msgid "Resolve"
-msgstr ""
+msgstr "رفع"
 
 #. translators: Question dialog when an admin is about to
 #. reopen a report
@@ -1412,7 +1412,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:99
 msgid "Reopen"
-msgstr ""
+msgstr "بازگشایی"
 
 #. translators: Admin dashboard, take action against user headerbar button
 #: src/Dialogs/Admin/Report.vala:93 src/Dialogs/Admin/TakeAction.vala:18
@@ -1450,15 +1450,15 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:144
 msgid "Status"
-msgstr ""
+msgstr "وضعیت"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Resolved"
-msgstr ""
+msgstr "رفع شده"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Unresolved"
-msgstr ""
+msgstr "رفع نشده"
 
 #. translators: admin dashboard, whether a report was 'forwarded' from another server
 #: src/Dialogs/Admin/Report.vala:152
@@ -1494,7 +1494,7 @@ msgstr ""
 #: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:333
 #: src/Dialogs/Report.vala:415
 msgid "Submit"
-msgstr ""
+msgstr "ثبت"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
@@ -1692,7 +1692,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:411
 #: src/Views/Admin/Pages/Accounts.vala:431
 msgid "Undo"
-msgstr ""
+msgstr "برگردان"
 
 #: src/Dialogs/Composer/EditorPage.vala:259
 msgid "What's on your mind?"
@@ -1799,7 +1799,7 @@ msgstr "%Idر"
 
 #: src/Dialogs/FilterEdit.vala:29
 msgid "Never"
-msgstr ""
+msgstr "هرگز"
 
 #: src/Dialogs/FilterEdit.vala:125
 msgid "New Filter"
@@ -1807,7 +1807,7 @@ msgstr ""
 
 #: src/Dialogs/FilterEdit.vala:190
 msgid "Keyword"
-msgstr ""
+msgstr "کلیدواژه"
 
 #: src/Dialogs/FilterEdit.vala:193
 msgid "Match Whole Word"
@@ -2818,7 +2818,7 @@ msgstr ""
 
 #: src/Views/MutesBlocks.vala:11
 msgid "Mutes"
-msgstr ""
+msgstr "خموش‌ها"
 
 #: src/Views/MutesBlocks.vala:15
 msgid "No Muted Accounts"
@@ -2826,7 +2826,7 @@ msgstr ""
 
 #: src/Views/MutesBlocks.vala:19
 msgid "Blocks"
-msgstr ""
+msgstr "مسدودها"
 
 #: src/Views/MutesBlocks.vala:23
 msgid "No Blocked Accounts"
@@ -3281,7 +3281,7 @@ msgstr ""
 
 #: src/Widgets/RelationshipButton.vala:54
 msgid "Unmute"
-msgstr ""
+msgstr "ناخموشی"
 
 #: src/Widgets/Status/ActionsRow.vala:52 src/Widgets/Status/ActionsRow.vala:101
 #: src/Widgets/Status/ActionsRow.vala:263
@@ -3492,7 +3492,7 @@ msgstr ""
 
 #: src/Widgets/Status.vala:860
 msgid "Filtered"
-msgstr ""
+msgstr "پالوده"
 
 #. translatiors: the first variable is a language name,
 #. the second variable is a service name e.g. DeepL
