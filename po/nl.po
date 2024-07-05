@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-07-05 00:09+0000\n"
+"PO-Revision-Date: 2024-07-06 08:09+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
 "Language: nl\n"
@@ -1062,6 +1062,8 @@ msgid ""
 "An admin has blocked %s, including %s of your followers and %s account you "
 "follow."
 msgstr ""
+"Een beheerder heeft %s geblokkeerd, inclusief %s van uw volgers en %s "
+"account dat u volgt."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
 #. this is the plural version, '4 accounts you follow'
@@ -1071,6 +1073,8 @@ msgid ""
 "An admin has blocked %s, including %s of your followers and %s accounts you "
 "follow."
 msgstr ""
+"Een beheerder heeft %s geblokkeerd, inclusief %s van uw volgers en %s "
+"accounts die u volgt."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:51
@@ -1079,6 +1083,8 @@ msgid ""
 "An admin has suspended %s, which means you can no longer receive updates "
 "from them or interact with them."
 msgstr ""
+"Een beheerder heeft %s opgeschort, wat betekent dat u niet langer updates "
+"van hen kunt ontvangen of met hen kunt communiceren."
 
 #. translators: as in just registered in the instance,
 #. this is a notification type only visible
@@ -1304,6 +1310,8 @@ msgstr "Media­bestanden weigeren"
 msgid ""
 "Removes locally stored media files and refuses to download any in the future"
 msgstr ""
+"Verwĳdert lokaal opgeslagen media­bestanden en weigert deze in de toekomst "
+"te downloaden"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1332,6 +1340,8 @@ msgid ""
 "Partially obfuscate the domain name in the list if advertising the list of "
 "domain limitations is enabled"
 msgstr ""
+"Maak de domein­naam gedeeltelĳk onleesbaar in de lĳst als het adverteren van "
+"de lĳst met domein­beperkingen is ingeschakeld"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
@@ -1400,13 +1410,13 @@ msgstr "Regel"
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddIPBlock.vala:134
 msgid "Choose what will happen with requests from this IP"
-msgstr ""
+msgstr "Kies wat er gebeurt met verzoeken van dit IP-adres"
 
 #. translators: Question dialog when an admin is about to
 #. mark a report as resolved
 #: src/Dialogs/Admin/Report.vala:50
 msgid "Are you sure you want to mark this report as resolved?"
-msgstr ""
+msgstr "Weet u zeker dat u deze rapportage als opgelost wilt markeren?"
 
 #: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:99
 msgid "Resolve"
@@ -1416,7 +1426,7 @@ msgstr "Oplossen"
 #. reopen a report
 #: src/Dialogs/Admin/Report.vala:61
 msgid "Are you sure you want to reopen this report?"
-msgstr ""
+msgstr "Weet u zeker dat u deze rapportage opnieuw wilt openen?"
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:99
 msgid "Reopen"
