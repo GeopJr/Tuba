@@ -104,7 +104,7 @@
 			<default>''</default>
 		</key>
     <key name="use-graphics-offload" type="b">
-			<default>false</default>
+			<default>true</default>
 		</key>
 
 		<key name="window-w" type="i">
