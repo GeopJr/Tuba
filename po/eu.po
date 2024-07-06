@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-07-06 08:09+0000\n"
+"PO-Revision-Date: 2024-07-07 11:09+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -1212,7 +1212,7 @@ msgstr "%d asteko"
 #: src/API/Tag.vala:59
 #, c-format
 msgid "Used %d times by %d people yesterday"
-msgstr "%d aldiz erabili zuten %d pertsonek atzo"
+msgstr "%d aldiz erabili zuten %d pertsonak atzo"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:67
@@ -3417,9 +3417,9 @@ msgstr "Iragazitako bidalketa"
 #. The second one is the author's name and the third
 #. one is the author's handle.
 #: src/Widgets/Status.vala:687
-#, c-format, fuzzy
+#, c-format
 msgid "%s post by %s (%s)."
-msgstr "Bidalketa %s %s (%s)(e)k egindakoa."
+msgstr "%2$sk (%3$s) egindako bidalketa %1$s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
