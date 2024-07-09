@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-07-06 08:09+0000\n"
+"PO-Revision-Date: 2024-07-10 15:09+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
 "Language: nl\n"
@@ -1499,6 +1499,8 @@ msgid ""
 "The reason this account and/or content was reported will be cited in "
 "communication with the reported account"
 msgstr ""
+"De reden waarom dit account en/of de inhoud is gerapporteerd, wordt vermeld "
+"in de communicatie met het gerapporteerde account"
 
 #: src/Dialogs/Admin/Report.vala:235
 msgid "Violated Rules"
@@ -1523,6 +1525,8 @@ msgstr "Waarschuwing"
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
 msgstr ""
+"Gebruik dit om een waarschuwing naar de gebruiker te sturen, zonder enige "
+"andere actie te activeren"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
@@ -1534,6 +1538,8 @@ msgid ""
 "Prevent the user from using their account, but do not delete or hide their "
 "contents"
 msgstr ""
+"Voorkomt dat de gebruiker hun account gebruikt, maar verwĳdert of verbergt "
+"de inhoud ervan niet"
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:489
 msgid "Sensitive"
@@ -1543,6 +1549,8 @@ msgstr "Gevoelig"
 #: src/Dialogs/Admin/TakeAction.vala:79
 msgid "Force all this user's media attachments to be flagged as sensitive"
 msgstr ""
+"Forceert dat alle media­bĳlagen van deze gebruiker als gevoelig worden "
+"gemarkeerd"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:88
