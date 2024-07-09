@@ -186,6 +186,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		var content_base = navigation_view.visible_page.child as Views.Base;
 		if (content_base != null && content_base.last_widget != null && (content_base.last_widget as Gtk.Widget) != null)
 			content_base.last_widget.grab_focus ();
+		content_base.update_last_widget (true);
 	}
 
 	public bool back () {

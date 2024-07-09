@@ -13,7 +13,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	public int badge_number { get; set; default = 0; }
 	public int uid { get; set; default = -1; }
 	protected SimpleActionGroup actions { get; set; default = new SimpleActionGroup (); }
-	public weak Gtk.Widget? last_widget { get; private set; default=null; }
+	public Gtk.Widget? last_widget { get; private set; default=null; }
 	public string empty_timeline_icon { get; set; default="tuba-background-app-ghost-symbolic"; }
 
 	private bool _show_back_button = true;
@@ -210,8 +210,8 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		status_button.sensitive = true;
 	}
 
-	public void update_last_widget () {
-		this.last_widget = app.main_window.get_focus ();
+	public void update_last_widget (bool clear = false) {
+		this.last_widget = clear ? null : app.main_window.get_focus ();
 		// Alternative way to grab focus of label links
 		// Currently replaced by RichLabel's activate_link's
 		// grab_focus as it's more reliable for this use case
