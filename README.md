@@ -21,7 +21,7 @@
 
 ### Release
 
-<a href="https://flathub.org/apps/details/dev.geopjr.Tuba" rel="noreferrer noopener" target="_blank"><img loading="lazy" draggable="false" width='240' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png' /></a>
+<a href="https://flathub.org/apps/details/dev.geopjr.Tuba" rel="noreferrer noopener" target="_blank"><img loading="lazy" draggable="false" width='240' alt='Download on Flathub' src='https://flathub.org/api/badge?svg&locale=en' /></a>
 
 ### Nightly
 
