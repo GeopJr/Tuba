@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-07-10 15:09+0000\n"
+"PO-Revision-Date: 2024-07-12 06:09+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
 "Language: nl\n"
@@ -1559,6 +1559,9 @@ msgid ""
 "posts and notifications from people not following them. Closes all reports "
 "against this account"
 msgstr ""
+"Voorkom dat de gebruiker berichten kan plaatsen met publieke zichtbaarheid, "
+"verberg hun berichten en meldingen voor mensen die ze niet volgen. Sluit "
+"alle rapportages voor dit account"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:97
@@ -1566,6 +1569,8 @@ msgid ""
 "Prevent any interaction from or to this account and delete its contents. "
 "Revertible within 30 days. Closes all reports against this account"
 msgstr ""
+"Voorkom elke interactie van of naar dit account en verwĳder de inhoud ervan. "
+"Herstelbaar binnen 30 dagen. Sluit alle rapportages voor dit account"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:114
@@ -1576,7 +1581,7 @@ msgstr "De gebruiker per e-mail op de hoogte brengen"
 #: src/Dialogs/Admin/TakeAction.vala:116
 msgid ""
 "The user will receive an explanation of what happened with their account"
-msgstr ""
+msgstr "De gebruiker krĳgt uitleg over wat er met hun account is gebeurd"
 
 #. translators: Question dialog when an admin is about to
 #. take action against an account
@@ -1900,6 +1905,8 @@ msgid ""
 "Enables the Admin Dashboard and requests the needed permissions to use the "
 "Admin API"
 msgstr ""
+"Schakelt het beheerders­dashboard in en vraagt de benodigde machtigingen aan "
+"om de beheerders-API te gebruiken"
 
 #: src/Dialogs/NotificationSettings.vala:49
 msgid "Polls"
@@ -2573,7 +2580,7 @@ msgstr "Afkeuren"
 #. undo an action, like a suspension
 #: src/Views/Admin/Pages/Accounts.vala:424
 msgid "Are you sure you want to undo this action?"
-msgstr ""
+msgstr "Weet u zeker dat u deze actie ongedaan wilt maken?"
 
 #. translators: Question dialog when an admin is about to
 #. approve an account. The variable is an
@@ -2614,6 +2621,8 @@ msgid ""
 "This can be the domain name that shows up in the e-mail address or the MX "
 "record it uses. They will be checked upon sign-up."
 msgstr ""
+"Dit kan de domein­naam zĳn die voorkomt in het e-mailadres of het MX-record "
+"dat het gebruikt. Deze worden bĳ registratie gecontroleerd."
 
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
@@ -2644,12 +2653,12 @@ msgstr "Registratie­bronnen"
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:20
 msgid "Top Active Languages"
-msgstr ""
+msgstr "Top actieve talen"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:22
 msgid "Top Active Servers"
-msgstr ""
+msgstr "Top actieve servers"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:24
@@ -2683,7 +2692,7 @@ msgstr "Toestaan"
 #: src/Views/Admin/Pages/FederationAllowlist.vala:57
 #, c-format
 msgid "Are you sure you want to allow federation with %s?"
-msgstr ""
+msgstr "Weet u zeker dat u federatie met %s wilt toestaan?"
 
 #. translators: admin dashboard, reports timeline, headerbar button tooltip text
 #: src/Views/Admin/Pages/Reports.vala:10
@@ -2714,7 +2723,7 @@ msgstr "Weet u zeker dat u %s wilt deblokkeren?"
 #: src/Views/Admin/Timelines/DomainAllow.vala:28
 #, c-format
 msgid "Are you sure you want to no longer federate with %s?"
-msgstr ""
+msgstr "Weet u zeker dat u niet langer wilt federeren met %s?"
 
 #: src/Views/Admin/Timelines/DomainAllow.vala:35
 msgid "Remove"
@@ -2942,7 +2951,7 @@ msgstr ""
 #: src/Views/Profile.vala:386
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
-msgstr "‘%s’ toevoegen aan of verwĳderen uit een lijst"
+msgstr "‘%s’ toevoegen aan of verwĳderen uit een lĳst"
 
 #. translators: the variable is an account handle
 #: src/Views/Profile.vala:397
