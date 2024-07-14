@@ -942,17 +942,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				var video = new ClapperGtk.Video () {
 					auto_inhibit = true
 				};
-				video.add_fading_overlay (new ClapperGtk.SimpleControls () {
-					valign = Gtk.Align.END,
-					fullscreenable = false
-				});
 				#if CLAPPER_MPRIS
-				    var mpris = new Clapper.Mpris (
-				      "org.mpris.MediaPlayer2.Tuba",
-				      Build.NAME,
-					  null
+					var mpris = new Clapper.Mpris (
+						"org.mpris.MediaPlayer2.Tuba",
+						Build.NAME,
+						Build.DOMAIN
 					);
-				    video.player.add_feature (mpris);
+					video.player.add_feature (mpris);
 				#endif
 				video.player.audio_filter = Gst.ElementFactory.make ("scaletempo", null);
 			#else
@@ -965,10 +961,18 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 			if (media_type == Tuba.Attachment.MediaType.GIFV) {
 				#if CLAPPER
+					video.player.queue.progression_mode = Clapper.QueueProgressionMode.REPEAT_ITEM;
 					video.player.autoplay = true;
 				#else
 					video.loop = true;
 					video.autoplay = true;
+				#endif
+			} else {
+				#if CLAPPER
+					video.add_fading_overlay (new ClapperGtk.SimpleControls () {
+						valign = Gtk.Align.END,
+						fullscreenable = false
+					});
 				#endif
 			}
 
