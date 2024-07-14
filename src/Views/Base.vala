@@ -171,7 +171,9 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	}
 
 	#if !USE_LISTVIEW
-		public virtual void unbind_listboxes () {}
+		public virtual void unbind_listboxes () {
+			this.last_widget = null;
+		}
 	#endif
 
 	protected virtual void build_actions () {}
