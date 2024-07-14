@@ -704,3 +704,11 @@ GtkSourceAssistant row:last-child {
 popover.mini-profile > contents {
 	padding: 0;
 }
+
+.report-status .attachment-picture {
+	filter: blur(15px) grayscale(1);
+}
+
+.report-status:hover .attachment-picture {
+	filter: none;
+}

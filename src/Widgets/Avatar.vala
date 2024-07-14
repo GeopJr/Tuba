@@ -47,7 +47,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 			_avatar_url = value;
 
 			if (value != null && (!retry_on_network_changes || (retry_on_network_changes && app.is_online))) {
-				Tuba.Helper.Image.request_paintable (value, null, on_cache_response);
+				Tuba.Helper.Image.request_paintable (value, null, false, on_cache_response);
 			}
 		}
 	}
