@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-07-10 15:09+0000\n"
+"PO-Revision-Date: 2024-07-16 13:09+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
 "Language: fa\n"
@@ -1331,6 +1331,8 @@ msgid ""
 "Partially obfuscate the domain name in the list if advertising the list of "
 "domain limitations is enabled"
 msgstr ""
+"مبهم کردن جزیی نام دامنه در سیاهه در صورت به کار افتادن پخش سیاههٔ محدودیت‌های "
+"دامنه"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
@@ -1487,7 +1489,7 @@ msgstr "دسته"
 msgid ""
 "The reason this account and/or content was reported will be cited in "
 "communication with the reported account"
-msgstr ""
+msgstr "دلیل گزارش این حساب یا محتوا در ارتباط با حساب گزارش شده ذکر خواهد شد"
 
 #: src/Dialogs/Admin/Report.vala:235
 msgid "Violated Rules"
@@ -1511,7 +1513,7 @@ msgstr "هشدار"
 #: src/Dialogs/Admin/TakeAction.vala:61
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
-msgstr ""
+msgstr "استفاده برای فرستادن هشدار به کاربر بدون اجرای هیچ کنش دیگری"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
@@ -1522,7 +1524,7 @@ msgstr "انجماد"
 msgid ""
 "Prevent the user from using their account, but do not delete or hide their "
 "contents"
-msgstr ""
+msgstr "جلوگیری استفادهٔ کاربر از حسابش، بدون حذف یا نهفتن محتوایش"
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:489
 msgid "Sensitive"
@@ -1540,6 +1542,8 @@ msgid ""
 "posts and notifications from people not following them. Closes all reports "
 "against this account"
 msgstr ""
+"جلوگیری از فرسته‌های با نمایانی عمومی از کاربر. نهفتن فرسته‌ها و آگاهی‌هایش از "
+"افرادی که پی نمی‌گیرندش. بستن همهٔ گزارش‌ها برایش"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:97
@@ -1547,6 +1551,8 @@ msgid ""
 "Prevent any interaction from or to this account and delete its contents. "
 "Revertible within 30 days. Closes all reports against this account"
 msgstr ""
+"جلوگیری از هر تعاملی از یا به این حساب و حذف محتوایش. قابل بازگردانی در ۳۰ "
+"روز. بستن همهٔ گزارش‌ها برایش"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:114
@@ -2597,6 +2603,8 @@ msgid ""
 "This can be the domain name that shows up in the e-mail address or the MX "
 "record it uses. They will be checked upon sign-up."
 msgstr ""
+"می‌تواند نام دامنه‌ای که در نشانی رایانامه نشان داده شده یا رکورد MXای که "
+"استفاده می‌کند باشد. هنگام ثبت‌نام بررسی خواهند شد."
 
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
