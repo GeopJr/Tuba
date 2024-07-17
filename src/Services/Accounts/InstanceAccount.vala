@@ -63,7 +63,6 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public virtual signal void added () {
 		subscribed = true;
 		check_notifications ();
-		init_notifications ();
 	}
 	public virtual signal void removed () {
 		subscribed = false;
@@ -73,7 +72,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		gather_instance_info ();
 		gather_instance_custom_emojis ();
 		check_announcements ();
-		init_notifications ();
+		check_notifications ();
 	}
 
 	construct {
@@ -507,6 +506,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				if (!root.has_member ("notifications")) return;
 				var notifications = root.get_object_member ("notifications");
 				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1"));
+				init_notifications ();
 			})
 			.exec ();
 	}
