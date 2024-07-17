@@ -72,7 +72,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		gather_instance_info ();
 		gather_instance_custom_emojis ();
 		check_announcements ();
-		init_notifications ();
+		check_notifications ();
 	}
 
 	construct {
@@ -357,7 +357,6 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public int unread_count { get; set; default = 0; }
 	public int last_read_id { get; set; default = 0; }
 	public int last_received_id { get; set; default = 0; }
-	private bool passed_init_notifications = false;
 
 	public class StatusContentType : Object {
 		public string mime { get; construct set; }
@@ -482,9 +481,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	public void init_notifications () {
-		if (passed_init_notifications) return;
-
-		new Request.GET ("/api/v1/notifications")
+		new Request.GET (@"/api/v1/notifications$(Views.Notifications.get_notifications_excluded_types_query_param ())")
 			.with_account (this)
 			.with_param ("min_id", last_read_id.to_string ())
 			.then ((in_stream) => {
@@ -496,7 +493,6 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 						last_received_id = int.parse (array.get_object_element (0).get_string_member_with_default ("id", "-1"));
 					}
 				}
-				passed_init_notifications = true;
 			})
 			.exec ();
 	}
@@ -510,7 +506,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				if (!root.has_member ("notifications")) return;
 				var notifications = root.get_object_member ("notifications");
 				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1"));
-				if (!passed_init_notifications) init_notifications ();
+				init_notifications ();
 			})
 			.exec ();
 	}
