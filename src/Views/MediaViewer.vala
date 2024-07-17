@@ -227,7 +227,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			this.url = t_url;
 
 			#if GTK_4_14 && !CLAPPER
-				if (this.is_video)
+				if (this.is_video && settings.use_graphics_offload)
 					stack.visible_child_name = "child";
 			#endif
 
@@ -260,7 +260,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		public void done () {
 			if (is_done) return;
 
-			#if !CLAPPER
+			#if !CLAPPER && GTK_4_14 && !GTK_4_16
 				if (is_video && ((Gtk.Video) child_widget).media_stream == null) {
 					if (media_stream_signal_id == -1) {
 						media_stream_signal_id = ((Gtk.Video) child_widget).notify["media-stream"].connect (on_received_media_stream);
@@ -293,12 +293,14 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			is_done = true;
 		}
 
-		private void on_received_media_stream () {
-			if (((Gtk.Video) child_widget).media_stream != null) {
-				done ();
-				((Gtk.Video) child_widget).disconnect (media_stream_signal_id);
+		#if GTK_4_14 && !GTK_4_16
+			private void on_received_media_stream () {
+				if (((Gtk.Video) child_widget).media_stream != null) {
+					done ();
+					((Gtk.Video) child_widget).disconnect (media_stream_signal_id);
+				}
 			}
-		}
+		#endif
 
 		private void on_manual_volume_change () {
 			settings.media_viewer_last_used_volume =
@@ -953,7 +955,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				video.player.audio_filter = Gst.ElementFactory.make ("scaletempo", null);
 			#else
 				var video = new Gtk.Video () {
-					#if GTK_4_14
+					#if GTK_4_16
+						// TODO: when 4.16 releases, remove use-graphics-offload and set it to DISABLED on <4.16
+						graphics_offload = Gtk.GraphicsOffloadEnabled.ENABLED
+					#elif GTK_4_14
 						graphics_offload = settings.use_graphics_offload ? Gtk.GraphicsOffloadEnabled.ENABLED : Gtk.GraphicsOffloadEnabled.DISABLED
 					#endif
 				};
