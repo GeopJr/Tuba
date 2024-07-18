@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-06-23 01:12+0000\n"
+"PO-Revision-Date: 2024-06-24 09:09+0000\n"
 "Last-Translator: Brage Fuglseth <brage.fuglseth@gmail.com>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/tuba/"
 "tuba/nb_NO/>\n"
@@ -2406,38 +2406,38 @@ msgstr "i går"
 #, c-format
 msgid "less than a minute old"
 msgid_plural "%s minutes old"
-msgstr[0] "mindre enn et minutt gammel"
-msgstr[1] "%s minutter gammel"
+msgstr[0] "mindre enn et minutt gammelt"
+msgstr[1] "%s minutter gammelt"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:174
 #, c-format
 msgid "an hour old"
 msgid_plural "%s hours old"
-msgstr[0] "en time gammel"
-msgstr[1] "%s timer gammel"
+msgstr[0] "en time gammelt"
+msgstr[1] "%s timer gammelt"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:189 src/Utils/DateTime.vala:203
 #, c-format
 msgid "%d months old"
-msgstr "%d måneder gammel"
+msgstr "%d måneder gammelt"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:195
 #, c-format
 msgid "a day old"
 msgid_plural "%d days old"
-msgstr[0] "en dag gammel"
-msgstr[1] "%d dager gammel"
+msgstr[0] "en dag gammelt"
+msgstr[1] "%d dager gammelt"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:200
 #, c-format
 msgid "a year old"
 msgid_plural "%d years old"
-msgstr[0] "1 år gammel"
-msgstr[1] "%d år gammel"
+msgstr[0] "1 år gammelt"
+msgstr[1] "%d år gammelt"
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k

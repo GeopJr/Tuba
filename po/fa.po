@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-04-05 17:01+0000\n"
-"Last-Translator: EndermanXD <82046100+EndermanCo@users.noreply.github.com>\n"
+"PO-Revision-Date: 2024-07-16 13:09+0000\n"
+"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -72,7 +72,7 @@ msgstr "نمایش ترجیحات"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "نوشتن فرستهٔ جدید"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:57
 msgid "Refresh"
@@ -167,7 +167,7 @@ msgstr "پیوست بعدی"
 
 #: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:65
 msgid "Admin Dashboard"
-msgstr ""
+msgstr "داشبورد مدیر"
 
 #: data/ui/dialogs/advanced_search.ui:23 data/ui/dialogs/compose.ui:35
 #: data/ui/dialogs/filter_edit.ui:17 data/ui/dialogs/new_account.ui:26
@@ -199,33 +199,35 @@ msgid ""
 "Advanced Search might not work in all instances. You can invert an option by "
 "prefixing it with -. For example, -is:reply to filter out all replies."
 msgstr ""
+"ممکن است جست‌وجوی پیشرفته روی همهٔ نمونه‌ها کار نکند. می‌توانید گزینه‌ها را "
+"با پیشوند - معکوس کنید. برای نمونه ‪-is:reply‬ برای پالودن همهٔ پاسخ‌ها."
 
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:73
 msgid "Query"
-msgstr ""
+msgstr "پرس‌وجو"
 
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:80
 msgid "From User"
-msgstr ""
+msgstr "از کاربر"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:86
 msgid "Only Replies"
-msgstr ""
+msgstr "فقط پاسخ‌ها"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:92
 msgid "Only Posts with Content Warnings"
-msgstr ""
+msgstr "فقط فرسته‌هایی با هشدار محتوا"
 
 #. translators: Advanced search window, option group
 #. This is the title and the option are
 #. 'media', 'poll'...
 #: data/ui/dialogs/advanced_search.ui:102
 msgid "Containing"
-msgstr ""
+msgstr "شامل"
 
 #: data/ui/dialogs/advanced_search.ui:105
 #: src/Dialogs/Composer/AttachmentsPage.vala:62
@@ -239,7 +241,7 @@ msgstr "نظرسنجی"
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:116
 msgid "Embed"
-msgstr ""
+msgstr "تعبیه"
 
 #: data/ui/dialogs/advanced_search.ui:123 data/ui/dialogs/preferences.ui:179
 msgid "Timelines"
@@ -247,17 +249,17 @@ msgstr "خط‌‌های زمانی"
 
 #: data/ui/dialogs/advanced_search.ui:126
 msgid "Everywhere"
-msgstr ""
+msgstr "همه‌جا"
 
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:140
 msgid "Library"
-msgstr ""
+msgstr "کتابخانه"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
 #: data/ui/dialogs/advanced_search.ui:142
 msgid "Favorites, Bookmarks, Own Posts"
-msgstr ""
+msgstr "محبوب‌ها، نشانک‌ها، فرسته‌های خودی"
 
 #: data/ui/dialogs/advanced_search.ui:156
 #: src/Services/Accounts/Mastodon/Account.vala:167
@@ -267,25 +269,25 @@ msgstr "همگانی"
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:173
 msgid "Dates"
-msgstr ""
+msgstr "تاریخ‌ها"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:179
 msgid "Before"
-msgstr ""
+msgstr "پیش از"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
 #: data/ui/dialogs/advanced_search.ui:202
 msgid "During"
-msgstr ""
+msgstr "در طول"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:225
 msgid "After"
-msgstr ""
+msgstr "پس از"
 
 #: data/ui/dialogs/compose.ui:41 src/Dialogs/Composer/Dialog.vala:263
 msgid "_Publish"
@@ -330,7 +332,7 @@ msgstr "کلیدواژه‌ها یا عبارات"
 
 #: data/ui/dialogs/filter_edit.ui:92
 msgid "Add Keyword"
-msgstr ""
+msgstr "افزودن کلیدواژه"
 
 #: data/ui/dialogs/list_edit.ui:7
 msgid "Members"
@@ -346,7 +348,7 @@ msgstr "نام سیاهه"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
-msgstr ""
+msgstr "نهفتن فرسته‌ها از خانه"
 
 #: data/ui/dialogs/list_edit.ui:39
 msgid "Replies Policy"
@@ -399,7 +401,7 @@ msgstr "نشانی کارساز"
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:297
 msgid "Settings"
-msgstr ""
+msgstr "تنظیمات"
 
 #: data/ui/dialogs/new_account.ui:141
 msgid "Confirm Authorization"
@@ -435,31 +437,31 @@ msgstr "طرح رنگی"
 
 #: data/ui/dialogs/preferences.ui:40
 msgid "Large Text"
-msgstr ""
+msgstr "متن بزرگ"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Increase the size of text in posts"
-msgstr ""
+msgstr "افزایش اندازهٔ متن در فرسته‌ها"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Large Line Height"
-msgstr ""
+msgstr "بلندای خط بزرگ"
 
 #: data/ui/dialogs/preferences.ui:47
 msgid "Increase the line height in posts"
-msgstr ""
+msgstr "افزایش بلندای خط در فرسته‌ها"
 
 #: data/ui/dialogs/preferences.ui:52
 msgid "Large Custom Emojis"
-msgstr ""
+msgstr "شکلک‌های سفارشی بزرگ"
 
 #: data/ui/dialogs/preferences.ui:57
 msgid "Scale Custom Emojis on Hover"
-msgstr ""
+msgstr "مقیاس روی شکلک‌های سفارشی"
 
 #: data/ui/dialogs/preferences.ui:58
 msgid "Slightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "افزایش نسبی اندازهٔ شکلک‌های سفارشی هنگامی که رو رویشان می‌روید"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:64
@@ -478,7 +480,7 @@ msgstr ""
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:72
 msgid "Expand Pictures in Media Viewer"
-msgstr ""
+msgstr "گسترش نگاره‌ها در نمایشگر رسانه"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:74
@@ -491,24 +493,24 @@ msgstr "نمایش نگارشی مات شده از رسانه تا زمان با
 
 #: data/ui/dialogs/preferences.ui:85
 msgid "Reveal Spoilers by Default"
-msgstr ""
+msgstr "آشکار سازی لوث‌کن‌ها به طور پیش‌گزیده"
 
 #: data/ui/dialogs/preferences.ui:90
 msgid "Show Link Preview Cards"
-msgstr ""
+msgstr "نشان دادن کارت‌های پیش‌نمایش پیوند"
 
 #: data/ui/dialogs/preferences.ui:95
 msgid "Darken Images on Dark Mode"
-msgstr ""
+msgstr "تیره کردن تصویرها در حالت تیره"
 
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/ui/dialogs/preferences.ui:101
 msgid "Dim Trivial Notifications"
-msgstr ""
+msgstr "کم‌تر دیدن آگاهی‌های کم‌اهمّیت"
 
 #: data/ui/dialogs/preferences.ui:102
 msgid "Notifications like favorites and boosts will be less visible"
-msgstr ""
+msgstr "آگاهی‌هایی چون پسندها و تقویت‌ها کم‌تر دیده خواهند شد"
 
 #: data/ui/dialogs/preferences.ui:109
 msgid "Posting"
@@ -516,15 +518,15 @@ msgstr "فرستادن"
 
 #: data/ui/dialogs/preferences.ui:112
 msgid "Default Post Visibility"
-msgstr ""
+msgstr "نمایانی پیش‌گزیدهٔ فرستهٔ"
 
 #: data/ui/dialogs/preferences.ui:121
 msgid "Default Post Language"
-msgstr ""
+msgstr "زبانی پیش‌گزیدهٔ فرستهٔ"
 
 #: data/ui/dialogs/preferences.ui:131
 msgid "Default Post Content Type"
-msgstr ""
+msgstr "گونهٔ محتوای پیش‌گزیدهٔ فرستهٔ"
 
 #: data/ui/dialogs/preferences.ui:142
 msgid "Behavior"
@@ -532,24 +534,24 @@ msgstr "رفتار"
 
 #: data/ui/dialogs/preferences.ui:145
 msgid "Run in Background"
-msgstr ""
+msgstr "اجرا در پس‌زمینه"
 
 #: data/ui/dialogs/preferences.ui:146
 msgid "Fetch notifications while the app is closed"
-msgstr ""
+msgstr "واکشی آگاهی‌ها هنگام بستن کاره"
 
 #: data/ui/dialogs/preferences.ui:151
 msgid "Strip Tracking Parameters From Links"
-msgstr ""
+msgstr "برداشتن پارامترهای ردیابی از پیوندها"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:153
 msgid "This option can lead to broken links when enabled"
-msgstr ""
+msgstr "به کار انداختن این گزینه می‌تواند منجر به خرابی پیوندها شود"
 
 #: data/ui/dialogs/preferences.ui:158
 msgid "Advanced Boost Dialog"
-msgstr ""
+msgstr "گفت‌وگوی تقویت پیشرفته"
 
 #: data/ui/dialogs/preferences.ui:159
 msgid "Change boost visibility, quote and confirm boosting"
@@ -557,20 +559,20 @@ msgstr "تغییر نمایانی تفویت، نقل قول و تأیید تق�
 
 #: data/ui/dialogs/preferences.ui:164
 msgid "Warn before replying to an old post"
-msgstr ""
+msgstr "هشدار پیش از پاسخ به فرسته‌های قدیمی"
 
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:171 src/Dialogs/NewAccount.vala:329
 msgid "Proxy"
-msgstr ""
+msgstr "پیشکار"
 
 #: data/ui/dialogs/preferences.ui:182
 msgid "Posts per Load Batch"
-msgstr ""
+msgstr "تعداد فرسته‌ها در دستهٔ بار شده"
 
 #: data/ui/dialogs/preferences.ui:190
 msgid "Stream Timelines"
-msgstr ""
+msgstr "خط زمانی‌های جریانی"
 
 #: data/ui/dialogs/preferences.ui:191
 msgid "Receive new posts and notifications in real-time"
@@ -578,7 +580,7 @@ msgstr "گرفتن بلادرنگ آگاهی‌ها و فرسته‌های جد�
 
 #: data/ui/dialogs/preferences.ui:197
 msgid "Stream Public Timelines"
-msgstr ""
+msgstr "خط‌های زمانی عمومی جریانی"
 
 #: data/ui/dialogs/preferences.ui:198
 msgid "Warning: This will increase memory usage"
@@ -637,65 +639,65 @@ msgstr "ترکیب آگاهی‌های ارسال شدهٔ اخیر از یک گ
 #. translators: Preferences group title
 #: data/ui/dialogs/preferences.ui:269
 msgid "Filter Notifications Out"
-msgstr ""
+msgstr "پالودن آگاهی‌ها"
 
 #. translators: Preferences group description
 #: data/ui/dialogs/preferences.ui:271
 msgid "Filter out notifications from people you may not know"
-msgstr ""
+msgstr "پالودن آگاهی‌ها از افرادی که شاید نشناسید"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:275
 msgid "People you don't follow"
-msgstr ""
+msgstr "افرادی که پی نمی‌گیرید"
 
 #. translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:277
 msgid "Until you manually approve them"
-msgstr ""
+msgstr "تا به صورت دستی تأییدشان کنید"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:283
 msgid "People not following you"
-msgstr ""
+msgstr "افرادی که پی نمی‌گیرندتان"
 
 #. translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:285
 msgid "Including people who have been following you fewer than 3 days"
-msgstr ""
+msgstr "شامل افرادی که کم‌تر از ۳ روز است پی می‌گیرندتان"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:291
 msgid "New accounts"
-msgstr ""
+msgstr "حساب‌های جدید"
 
 #. translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:293
 msgid "Created within the past 30 days"
-msgstr ""
+msgstr "ساخته شده در ۳۰ روز گذشته"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:299
 msgid "Unsolicited private mentions"
-msgstr ""
+msgstr "اشاره‌های شخصی ناخواسته"
 
 #. translators: Preferences switch subtitle about filtering out 'Unsolicited private mentions'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/preferences.ui:301
 msgid ""
 "Filtered unless it's in reply to your own mention or if you follow the sender"
-msgstr ""
+msgstr "پالوده مگر این که در پاسخ به اشارهٔ خودتان بوده یا فرستنده را پی بگیرید"
 
 #: data/ui/dialogs/preferences.ui:311
 msgid "Filters"
-msgstr ""
+msgstr "پالایه‌ها"
 
 #: data/ui/dialogs/preferences.ui:315
 msgid "Keywords"
-msgstr ""
+msgstr "کلیدواژه‌ها"
 
 #: data/ui/dialogs/preferences.ui:323
 msgid "Add Filter…"
-msgstr ""
+msgstr "افزودن پالایه…"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:167
 msgid "Edit Profile"
@@ -747,7 +749,7 @@ msgstr "گشودن در مرورگر"
 
 #: data/ui/menus.ui:33
 msgid "Receive Post Notifications"
-msgstr ""
+msgstr "دریافت آگاهی‌های فرسته"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:39 src/Views/Admin/Pages/Accounts.vala:118
@@ -806,7 +808,7 @@ msgstr "رونوشت URL"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:176
 msgid "Save Media…"
-msgstr ""
+msgstr "ذخیرهٔ رسانه…"
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:178
 msgid "Copy Media"
@@ -829,17 +831,17 @@ msgstr "بات"
 #. You can replace 'Cover' with 'Background' if needed.
 #: data/ui/views/profile_header.ui:67
 msgid "View Cover"
-msgstr ""
+msgstr "دیدن پس‌زمینه"
 
 #. translators: tooltip text on profile avatars.
 #. You can replace 'Avatar' with 'Profile Picture' if needed.
 #: data/ui/views/profile_header.ui:81
 msgid "View Avatar"
-msgstr ""
+msgstr "دیدن چهرک"
 
 #: data/ui/views/profile_header.ui:168
 msgid "Note"
-msgstr ""
+msgstr "یادداشت"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:52
@@ -853,13 +855,13 @@ msgstr "تعویض حساب"
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
 msgid "Offline"
-msgstr ""
+msgstr "برون‌خط"
 
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
 #: src/Views/Notifications.vala:58
 msgid "View"
-msgstr ""
+msgstr "نمایش"
 
 #: data/ui/widgets/announcement.ui:96
 msgid "Unread"
@@ -886,7 +888,7 @@ msgstr "نمایش بیش‌تر"
 #. translators: Tooltip that opens filter
 #: data/ui/widgets/status.ui:346
 msgid "Show Anyway"
-msgstr ""
+msgstr "نمایش به هر روی"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:10 src/Views/Admin/Pages/Accounts.vala:299
@@ -894,74 +896,74 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:338
 #: src/Widgets/Admin/DomainBlock.vala:18 src/Widgets/Admin/DomainBlock.vala:25
 msgid "None"
-msgstr ""
+msgstr "هیچ"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
 msgid "Limit"
-msgstr ""
+msgstr "کران"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:14 src/Dialogs/Admin/TakeAction.vala:95
 msgid "Suspend"
-msgstr ""
+msgstr "تعلیق"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:10
 msgid "Blocked"
-msgstr ""
+msgstr "مسدود"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:12
 msgid "Blocked Sign-ups"
-msgstr ""
+msgstr "ثبت‌نام‌های مسدود"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:14
 msgid "Limited Sign-ups"
-msgstr ""
+msgstr "ثبت‌نام‌های محدود"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:22
 msgid "Block Access"
-msgstr ""
+msgstr "انسداد دسترسی"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:24
 msgid "Block Sign-ups"
-msgstr ""
+msgstr "انسداد ثبت‌نام"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:26
 msgid "Limit Sign-ups"
-msgstr ""
+msgstr "محدودیت ثبت‌نام"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:34
 msgid "Block access to all resources"
-msgstr ""
+msgstr "انسداد دسترسی به همهٔ منابع"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:36
 msgid "New sign-ups will not be possible"
-msgstr ""
+msgstr "امکان ثبت‌نام جدید وجود نخواهد داشت"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:38
 msgid "New sign-ups will require your approval"
-msgstr ""
+msgstr "ثبت‌نام‌های جدید نیازمند تأییدتان خواهند بود"
 
 #: src/API/Admin/Report.vala:19
 msgid "Spam"
-msgstr ""
+msgstr "هرزنامه"
 
 #: src/API/Admin/Report.vala:20
 msgid "Rule Violation"
-msgstr ""
+msgstr "نقش قاعده"
 
 #: src/API/Admin/Report.vala:21
 msgid "Legal"
-msgstr ""
+msgstr "حقوقی"
 
 #: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:222
@@ -974,22 +976,22 @@ msgstr "دیگر"
 #. translators: the variable is a string report comment
 #: src/API/Admin/Report.vala:72
 msgid "With the comment"
-msgstr ""
+msgstr "با نظر"
 
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr ""
+msgstr "دلیل"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
 msgid "You've received a report"
-msgstr ""
+msgstr "گزارشی گرفتید"
 
 #. translators: report notification with date, "You've received a report on: <date>"
 #: src/API/Admin/Report.vala:81
 msgid "You've received a report on"
-msgstr ""
+msgstr "گزاشی گرفتید روی"
 
 #: src/API/Announcement.vala:55 src/Application.vala:393
 #: src/Dialogs/Composer/Dialog.vala:376 src/Dialogs/ProfileEdit.vala:134
@@ -1013,11 +1015,11 @@ msgstr "گفت‌وگوی خالی با %s"
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
 msgid "Home &amp; Lists"
-msgstr ""
+msgstr "خانه و سیاهه‌ها"
 
 #: src/API/Filters/Filter.vala:46
 msgid "Public Timelines"
-msgstr ""
+msgstr "خط زمانی‌های عمومی"
 
 #: src/API/Filters/Filter.vala:47
 #: src/Services/Accounts/Mastodon/Account.vala:52
@@ -1027,7 +1029,7 @@ msgstr "گفت‌وگو‌ها"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "نمایه‌ها"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
 #. this is the singular version, '1 account you follow'
@@ -1035,7 +1037,7 @@ msgstr ""
 #, c-format
 msgid ""
 "You have blocked %s, removing %s of your followers and %s account you follow."
-msgstr ""
+msgstr "شما %s را مسدود کردید که %s پی‌گیر و %s حسابی که پی می‌گیرید را برداشت."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
 #. this is the plural version, '4 accounts you follow'
@@ -1044,7 +1046,7 @@ msgstr ""
 msgid ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
-msgstr ""
+msgstr "شما %s را مسدود کردید که %s پی‌گیر و %s حسابی که پی می‌گیرید را برداشت."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
 #. this is the singular version, '1 account you follow'
@@ -1054,6 +1056,7 @@ msgid ""
 "An admin has blocked %s, including %s of your followers and %s account you "
 "follow."
 msgstr ""
+"مدیری %s را مسدود کرد که شامل %s پی‌گیرتان و %s حسابی که پی می‌گیرید است."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
 #. this is the plural version, '4 accounts you follow'
@@ -1063,6 +1066,7 @@ msgid ""
 "An admin has blocked %s, including %s of your followers and %s accounts you "
 "follow."
 msgstr ""
+"مدیری %s را مسدود کرد که شامل %s پی‌گیرتان و %s حسابی که پی می‌گیرید است."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:51
@@ -1071,13 +1075,15 @@ msgid ""
 "An admin has suspended %s, which means you can no longer receive updates "
 "from them or interact with them."
 msgstr ""
+"مدیری %s را معلّق کرد. یعنی دیگر به‌روز رسانی‌هایشان را نگرفته و نمی‌توانید "
+"با آن‌ها در ارتباط باشید."
 
 #. translators: as in just registered in the instance,
 #. this is a notification type only visible
 #. to admins
 #: src/API/Notification.vala:110
 msgid "Signed Up"
-msgstr ""
+msgstr "ثبت‌نام کرده"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
@@ -1123,7 +1129,7 @@ msgstr "پی‌گیرتان است"
 #. translators: as in, you've been blocked by them
 #: src/API/Relationship.vala:30
 msgid "Blocks you"
-msgstr ""
+msgstr "مسدودتان کرده"
 
 #. translators: the variable is a user handle
 #: src/API/Relationship.vala:122
@@ -1212,7 +1218,7 @@ msgstr "در ۲ روز گذشته %Id بار به دست %Id نفر استفاد
 #. been provided in settings
 #: src/Application.vala:317 src/Dialogs/Preferences.vala:449
 msgid "Invalid Proxy URL"
-msgstr ""
+msgstr "نشانی پیشکار نامعتبر"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:374
@@ -1243,15 +1249,15 @@ msgstr ""
 #. translators: Wiki pages / Guides
 #: src/Application.vala:558
 msgid "Wiki"
-msgstr ""
+msgstr "ویکی"
 
 #: src/Application.vala:560 src/Widgets/Status.vala:324
 msgid "Translate"
-msgstr ""
+msgstr "ترجمه"
 
 #: src/Application.vala:561
 msgid "Donate"
-msgstr ""
+msgstr "اعانه"
 
 #: src/Application.vala:583
 msgid "OK"
@@ -1264,30 +1270,30 @@ msgstr "بله"
 #: src/Dialogs/Admin/AddFederationBlock.vala:29
 #: src/Views/Admin/Pages/FederationBlocklist.vala:9
 msgid "Add Federation Block"
-msgstr ""
+msgstr "افزودن انسداد خودگردانی"
 
 #: src/Dialogs/Admin/AddFederationBlock.vala:40
 #: src/Dialogs/Admin/AddIPBlock.vala:79
 msgid "Add"
-msgstr ""
+msgstr "افزودن"
 
 #. translators: Admin dashboard, federation block dialog,
 #. e.g. 'gnome.org'
 #: src/Dialogs/Admin/AddFederationBlock.vala:52
 msgid "Domain"
-msgstr ""
+msgstr "دامنه"
 
 #. translators: Admin dashboard, federation block dialog severity row title
 #: src/Dialogs/Admin/AddFederationBlock.vala:72
 msgid "Severity"
-msgstr ""
+msgstr "شدّت"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:92
 #: src/Widgets/Admin/DomainBlock.vala:30
 msgid "Reject Media Files"
-msgstr ""
+msgstr "رد کردن پرونده‌های رسانه"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1295,26 +1301,28 @@ msgstr ""
 msgid ""
 "Removes locally stored media files and refuses to download any in the future"
 msgstr ""
+"پرونده‌های رسانهٔ ذخیره شدهٔ محلی را برداشته و از بارگیریشان در آینده "
+"جلوگیری می‌کند"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:103
 #: src/Widgets/Admin/DomainBlock.vala:31
 msgid "Reject Reports"
-msgstr ""
+msgstr "رد کردن گزارش‌ها"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:106
 msgid "Ignore all reports coming from this domain"
-msgstr ""
+msgstr "چشم‌پوشی از همهٔ گزارش‌های وارده از این دامنه"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:114
 #: src/Widgets/Admin/DomainBlock.vala:32
 msgid "Obfuscate Domain Name"
-msgstr ""
+msgstr "نام دامنهٔ مبهم"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1323,46 +1331,47 @@ msgid ""
 "Partially obfuscate the domain name in the list if advertising the list of "
 "domain limitations is enabled"
 msgstr ""
+"مبهم کردن جزیی نام دامنه در سیاهه در صورت به کار افتادن پخش سیاههٔ محدودیت‌های "
+"دامنه"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
 #: src/Widgets/Admin/DomainBlock.vala:17
 msgid "Private Comment"
-msgstr ""
+msgstr "نظر شخصی"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:131
 #: src/Widgets/Admin/DomainBlock.vala:24
 msgid "Public Comment"
-msgstr ""
+msgstr "نظر عمومی"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:17 src/Dialogs/Admin/AddIPBlock.vala:19
 #, c-format
 msgid "%d Year"
 msgid_plural "%d Years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%Id سال"
+msgstr[1] "%Id سال"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:21 src/Dialogs/Admin/AddIPBlock.vala:23
 #, c-format
 msgid "%d Month"
 msgid_plural "%d Months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%Id ماه"
+msgstr[1] "%Id ماه"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:25 src/Dialogs/FilterEdit.vala:35
 #, c-format
 msgid "%d Week"
 msgid_plural "%d Weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%Id هفته"
+msgstr[1] "%Id هفته"
 
 #. translators: the variable is a number
 #: src/Dialogs/Admin/AddIPBlock.vala:27 src/Dialogs/Composer/PollPage.vala:238
 #: src/Dialogs/Composer/PollPage.vala:241
 #: src/Dialogs/Composer/PollPage.vala:242 src/Dialogs/FilterEdit.vala:34
-#, fuzzy, c-format
-#| msgid "%d Day"
+#, c-format
 msgid "%d Day"
 msgid_plural "%d Days"
 msgstr[0] "%Id روز"
@@ -1371,12 +1380,12 @@ msgstr[1] "%Id روز"
 #: src/Dialogs/Admin/AddIPBlock.vala:68
 #: src/Views/Admin/Pages/BlockedIPs.vala:10
 msgid "Add IP Block"
-msgstr ""
+msgstr "افزودن انسداد آی‌پی"
 
 #. translators: Admin dashboard ip block comment entry title
 #: src/Dialogs/Admin/AddIPBlock.vala:99 src/Dialogs/Admin/TakeAction.vala:104
 msgid "Comment"
-msgstr ""
+msgstr "نظر"
 
 #. translators: Admin dashboard ip block expiration date row title.
 #: src/Dialogs/Admin/AddIPBlock.vala:123 src/Dialogs/Composer/PollPage.vala:268
@@ -1386,40 +1395,40 @@ msgstr "انقضا"
 #. translators: Admin dashboard ip block rule (e.g. no access)
 #: src/Dialogs/Admin/AddIPBlock.vala:131
 msgid "Rule"
-msgstr ""
+msgstr "قاعده"
 
 #. translators: Admin dashboard ip block rule descriptions.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddIPBlock.vala:134
 msgid "Choose what will happen with requests from this IP"
-msgstr ""
+msgstr "گزینش فرجام گزارش‌ها از این آی‌پی"
 
 #. translators: Question dialog when an admin is about to
 #. mark a report as resolved
 #: src/Dialogs/Admin/Report.vala:50
 msgid "Are you sure you want to mark this report as resolved?"
-msgstr ""
+msgstr "از نشانه گذاری این گزارش به عنوان رفع شده مطمئنید؟"
 
 #: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:99
 msgid "Resolve"
-msgstr ""
+msgstr "رفع"
 
 #. translators: Question dialog when an admin is about to
 #. reopen a report
 #: src/Dialogs/Admin/Report.vala:61
 msgid "Are you sure you want to reopen this report?"
-msgstr ""
+msgstr "از بازگشایی این گزارش مطمئنید؟"
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:99
 msgid "Reopen"
-msgstr ""
+msgstr "بازگشایی"
 
 #. translators: Admin dashboard, take action against user headerbar button
 #: src/Dialogs/Admin/Report.vala:93 src/Dialogs/Admin/TakeAction.vala:18
 #: src/Dialogs/Admin/TakeAction.vala:147
 #: src/Views/Admin/Pages/Accounts.vala:250
 msgid "Take Action"
-msgstr ""
+msgstr "کنش‌گری"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
@@ -1441,38 +1450,38 @@ msgstr "%B %e, %Y"
 
 #: src/Dialogs/Admin/Report.vala:132
 msgid "Reported on"
-msgstr ""
+msgstr "گزارش شده در"
 
 #. translators: 'Reported by: <account>'
 #: src/Dialogs/Admin/Report.vala:138 src/Widgets/Admin/Report.vala:31
 msgid "Reported by"
-msgstr ""
+msgstr "گزارش شده به دست"
 
 #: src/Dialogs/Admin/Report.vala:144
 msgid "Status"
-msgstr ""
+msgstr "وضعیت"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Resolved"
-msgstr ""
+msgstr "رفع شده"
 
 #: src/Dialogs/Admin/Report.vala:145
 msgid "Unresolved"
-msgstr ""
+msgstr "رفع نشده"
 
 #. translators: admin dashboard, whether a report was 'forwarded' from another server
 #: src/Dialogs/Admin/Report.vala:152
 msgid "Forwarded"
-msgstr ""
+msgstr "هدایت شده"
 
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:158 src/Widgets/Admin/Report.vala:22
 msgid "Action Taken by"
-msgstr ""
+msgstr "کنش برداشته به دست"
 
 #: src/Dialogs/Admin/Report.vala:170
 msgid "Category"
-msgstr ""
+msgstr "دسته"
 
 #. translators: Admin dashboard report category description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1480,42 +1489,42 @@ msgstr ""
 msgid ""
 "The reason this account and/or content was reported will be cited in "
 "communication with the reported account"
-msgstr ""
+msgstr "دلیل گزارش این حساب یا محتوا در ارتباط با حساب گزارش شده ذکر خواهد شد"
 
 #: src/Dialogs/Admin/Report.vala:235
 msgid "Violated Rules"
-msgstr ""
+msgstr "سرپیچی از قواعد"
 
 #. translators: 'Reported Posts: <amount>'
 #: src/Dialogs/Admin/Report.vala:266 src/Widgets/Admin/Report.vala:34
 msgid "Reported Posts"
-msgstr ""
+msgstr "فرسته‌های گزارش شده"
 
 #: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:333
 #: src/Dialogs/Report.vala:415
 msgid "Submit"
-msgstr ""
+msgstr "ثبت"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
-msgstr ""
+msgstr "هشدار"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:61
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
-msgstr ""
+msgstr "استفاده برای فرستادن هشدار به کاربر بدون اجرای هیچ کنش دیگری"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
-msgstr ""
+msgstr "انجماد"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:70
 msgid ""
 "Prevent the user from using their account, but do not delete or hide their "
 "contents"
-msgstr ""
+msgstr "جلوگیری استفادهٔ کاربر از حسابش، بدون حذف یا نهفتن محتوایش"
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:489
 msgid "Sensitive"
@@ -1524,7 +1533,7 @@ msgstr "حسّاس"
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:79
 msgid "Force all this user's media attachments to be flagged as sensitive"
-msgstr ""
+msgstr "پرچم زدن اجباری همهٔ پیوست‌های رسانه‌ای این کاربر به عنوان حسّاس"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:88
@@ -1533,6 +1542,8 @@ msgid ""
 "posts and notifications from people not following them. Closes all reports "
 "against this account"
 msgstr ""
+"جلوگیری از فرسته‌های با نمایانی عمومی از کاربر. نهفتن فرسته‌ها و آگاهی‌هایش از "
+"افرادی که پی نمی‌گیرندش. بستن همهٔ گزارش‌ها برایش"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:97
@@ -1540,32 +1551,34 @@ msgid ""
 "Prevent any interaction from or to this account and delete its contents. "
 "Revertible within 30 days. Closes all reports against this account"
 msgstr ""
+"جلوگیری از هر تعاملی از یا به این حساب و حذف محتوایش. قابل بازگردانی در ۳۰ "
+"روز. بستن همهٔ گزارش‌ها برایش"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:114
 msgid "Notify the user per e-mail"
-msgstr ""
+msgstr "آگاه‌سازی کاربر با رایانامه"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:116
 msgid ""
 "The user will receive an explanation of what happened with their account"
-msgstr ""
+msgstr "کاربر توضیحی دربارهٔ این که چه بر سر حسابش آمده خواهد گرفت"
 
 #. translators: Question dialog when an admin is about to
 #. take action against an account
 #: src/Dialogs/Admin/TakeAction.vala:140
 msgid "Are you sure you want to proceed?"
-msgstr ""
+msgstr "از ادامه مطمئنید؟"
 
 #: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
 msgid "Dashboard"
-msgstr ""
+msgstr "داشبورد"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:28 src/Views/Admin/Pages/Reports.vala:6
 msgid "Reports"
-msgstr ""
+msgstr "گزارش‌ها"
 
 #: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
 #: src/Views/Search.vala:112
@@ -1578,25 +1591,25 @@ msgstr "حساب‌ها"
 #. gmail.com
 #: src/Dialogs/Admin.vala:48 src/Views/Admin/Pages/BlockedEmails.vala:10
 msgid "Blocked E-mail Domains"
-msgstr ""
+msgstr "دامنه‌های رایانامهٔ مسدود"
 
 #. translators: Admin Dialog page title,
 #. this is about blocking
 #. IP Addresses
 #: src/Dialogs/Admin.vala:58 src/Views/Admin/Pages/BlockedIPs.vala:7
 msgid "IP Rules"
-msgstr ""
+msgstr "قواعد آی‌پی"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:68 src/Views/Admin/Pages/FederationAllowlist.vala:7
 msgid "Federation Allowlist"
-msgstr ""
+msgstr "سیاههٔ محاز خودگردانی"
 
 #. translators: Admin Dialog page title,
 #. this is about federation blocking
 #: src/Dialogs/Admin.vala:78 src/Views/Admin/Pages/FederationBlocklist.vala:6
 msgid "Federation Blocklist"
-msgstr ""
+msgstr "سیاههٔ انسداد خودگردانی"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:42
 msgid "Edit Alt Text"
@@ -1686,13 +1699,13 @@ msgstr "متن"
 
 #: src/Dialogs/Composer/EditorPage.vala:112
 msgid "Stripped tracking parameters"
-msgstr ""
+msgstr "پارامترهای ردیابی برداشته شده"
 
 #: src/Dialogs/Composer/EditorPage.vala:115
 #: src/Views/Admin/Pages/Accounts.vala:411
 #: src/Views/Admin/Pages/Accounts.vala:431
 msgid "Undo"
-msgstr ""
+msgstr "برگردان"
 
 #: src/Dialogs/Composer/EditorPage.vala:259
 msgid "What's on your mind?"
@@ -1700,7 +1713,7 @@ msgstr "چه در سرتان است؟"
 
 #: src/Dialogs/Composer/EditorPage.vala:288
 msgid "Emoji Picker"
-msgstr "اموجی‌گزین"
+msgstr "شکلک‌گزین"
 
 #: src/Dialogs/Composer/EditorPage.vala:315
 msgid "Write your warning here"
@@ -1759,8 +1772,8 @@ msgstr "گزینهٔ %Id"
 #, c-format
 msgid "%d Minute"
 msgid_plural "%d Minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%Id دقیقه"
+msgstr[1] "%Id دقیقه"
 
 #. translators: the variable is a number, m as in minutes
 #: src/Dialogs/Composer/PollPage.vala:229
@@ -1774,8 +1787,7 @@ msgstr "%Idد"
 #: src/Dialogs/Composer/PollPage.vala:235
 #: src/Dialogs/Composer/PollPage.vala:236 src/Dialogs/FilterEdit.vala:31
 #: src/Dialogs/FilterEdit.vala:32 src/Dialogs/FilterEdit.vala:33
-#, fuzzy, c-format
-#| msgid "%d Hour"
+#, c-format
 msgid "%d Hour"
 msgid_plural "%d Hours"
 msgstr[0] "%Id ساعت"
@@ -1799,19 +1811,19 @@ msgstr "%Idر"
 
 #: src/Dialogs/FilterEdit.vala:29
 msgid "Never"
-msgstr ""
+msgstr "هرگز"
 
 #: src/Dialogs/FilterEdit.vala:125
 msgid "New Filter"
-msgstr ""
+msgstr "پالایهٔ جدید"
 
 #: src/Dialogs/FilterEdit.vala:190
 msgid "Keyword"
-msgstr ""
+msgstr "کلیدواژه"
 
 #: src/Dialogs/FilterEdit.vala:193
 msgid "Match Whole Word"
-msgstr ""
+msgstr "تطابق تمام واژه"
 
 #: src/Dialogs/FilterEdit.vala:200 src/Dialogs/Preferences.vala:23
 #: src/Dialogs/Preferences.vala:81 src/Views/Lists.vala:60
@@ -1824,7 +1836,7 @@ msgstr "حذف"
 #: src/Dialogs/FilterEdit.vala:297
 #, c-format
 msgid "Couldn't edit filter: %s"
-msgstr ""
+msgstr "نتوانست پالایه را ویرایش کند: %s"
 
 #: src/Dialogs/MainWindow.vala:75
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:5
@@ -1862,12 +1874,12 @@ msgstr "کارساز خطایی برگرداند"
 
 #: src/Dialogs/NewAccount.vala:305
 msgid "Apply"
-msgstr ""
+msgstr "اعمال"
 
 #. translators: Switch title in the new account window
 #: src/Dialogs/NewAccount.vala:338
 msgid "Admin Mode"
-msgstr ""
+msgstr "حالت مدیر"
 
 #. translators: Switch description in the new account window
 #: src/Dialogs/NewAccount.vala:340
@@ -1875,34 +1887,36 @@ msgid ""
 "Enables the Admin Dashboard and requests the needed permissions to use the "
 "Admin API"
 msgstr ""
+"به کار انداختن داشبورد مدیر و درخواست اجازه‌های لازم برای استفاده از میانای "
+"مدیر"
 
 #: src/Dialogs/NotificationSettings.vala:49
 msgid "Polls"
-msgstr ""
+msgstr "نظرسنجی‌ها"
 
 #: src/Dialogs/NotificationSettings.vala:50
 msgid "Post Edits"
-msgstr ""
+msgstr "ویرایش‌های فرسته"
 
 #: src/Dialogs/NotificationSettings.vala:51
 msgid "Follows"
-msgstr ""
+msgstr "پی‌گیری‌ها"
 
 #: src/Dialogs/NotificationSettings.vala:68
 msgid "Clear All Notifications"
-msgstr ""
+msgstr "پاک سازی همهٔ آگاهی‌ها"
 
 #: src/Dialogs/NotificationSettings.vala:75
 msgid "Included Notifications"
-msgstr ""
+msgstr "آگاهی‌های نمایشی"
 
 #: src/Dialogs/NotificationSettings.vala:114
 msgid "Are you sure you want to clear all notifications?"
-msgstr ""
+msgstr "از پاک سازی همهٔ آگاهی‌ها مطمئنید؟"
 
 #: src/Dialogs/NotificationSettings.vala:121
 msgid "Clear"
-msgstr ""
+msgstr "پاک سازی"
 
 #: src/Dialogs/Preferences.vala:31 src/Widgets/Status.vala:307
 msgid "Edit"
@@ -1912,20 +1926,20 @@ msgstr "ویرایش"
 #, c-format
 msgid "%d keyword"
 msgid_plural "%d keywords"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%Id کلیدواژه"
+msgstr[1] "%Id کلیدواژه"
 
 #. translators: the variable is a filter name
 #: src/Dialogs/Preferences.vala:78
 #, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr ""
+msgstr "از حذف %s مطمئنید؟"
 
 #. translators: the variable is an error message
 #: src/Dialogs/Preferences.vala:92
 #, c-format
 msgid "Couldn't delete filter: %s"
-msgstr ""
+msgstr "نتوانست پالایه را حذف کند: %s"
 
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
@@ -1947,123 +1961,123 @@ msgstr "زمینهٔ %Id"
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:24
 msgid "It's spam"
-msgstr ""
+msgstr "هرزنامه است"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:27
 msgid "It violates server rules"
-msgstr ""
+msgstr "قواعد کارساز را زیر پا می‌گذارد"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:30
 msgid "It's something else"
-msgstr ""
+msgstr "چیزی دیگر"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:39
 msgid "Malicious links, fake engagement, or repetitive replies"
-msgstr ""
+msgstr "پیوندهای مخرب، تعامل جعلی یا پاسخ‌های تکراری"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:42
 msgid "You are aware that it breaks specific rules"
-msgstr ""
+msgstr "آگاهید که قواعد خاصی را می‌شکند"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:45
 msgid "The issue does not fit into other categories"
-msgstr ""
+msgstr "مشکل در دسته‌های دیگر نمی‌گنجد"
 
 #. translators: the variable is an account handle
 #: src/Dialogs/Report.vala:114
 #, c-format
 msgid "Reporting %s"
-msgstr ""
+msgstr "گزارش کردن %s"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting users
 #: src/Dialogs/Report.vala:140
 msgid "Tell us what's going on with this account"
-msgstr ""
+msgstr "بگویید در این حساب چه می‌گذرد"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting posts
 #: src/Dialogs/Report.vala:144
 msgid "Tell us what's going on with this post"
-msgstr ""
+msgstr "بگویید در این فرسته چه می‌گذرد"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of radio-button options where the user can only choose one
 #: src/Dialogs/Report.vala:149
 msgid "Choose the best match"
-msgstr ""
+msgstr "گزینش بهترین تطبیق"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Report.vala:188
 msgid "Which rules are being violated?"
-msgstr ""
+msgstr "کدام قاعده زیر پا گذاشته شده؟"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this shown above a list of checkbox options where the user can select multiple
 #: src/Dialogs/Report.vala:193 src/Dialogs/Report.vala:258
 msgid "Select all that apply"
-msgstr ""
+msgstr "گزینش همهٔ موارد اعمالی"
 
 #. translators: 'fetch' as in get
 #: src/Dialogs/Report.vala:225
 msgid "Couldn't fetch all user's posts"
-msgstr ""
+msgstr "نتوانست فرسته‌های همهٔ‌کاربران را واکشد"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of posts. The user is meant to choose any that should be included in the report
 #: src/Dialogs/Report.vala:249
 msgid "Are there any posts that back up this report?"
-msgstr ""
+msgstr "فرسته‌هایی وجود دارند که این گزارش را پشتیبانی کنند؟"
 
 #. translators: this is the same as 'Are there any posts that back up this report?' but for when you are reporting a post
 #. that's why it asks about choosing 'other' posts
 #: src/Dialogs/Report.vala:253
 msgid "Are there any other posts that back up this report?"
-msgstr ""
+msgstr "فرسته‌های دیگری وجود دارند که این گزارش را پشتیبانی کنند؟"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown at the top of the last page of the report dialog
 #: src/Dialogs/Report.vala:272
 msgid "Is there anything else you think we should know?"
-msgstr ""
+msgstr "چیز دیگری هست که فکر کنید باید بدانیم؟"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. additional comments to be included in the report
 #: src/Dialogs/Report.vala:278
 msgid "Additional Comments"
-msgstr ""
+msgstr "نظرهای اضافی"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. the variable is an instance name e.g. 'Forward to mastodon.social'
 #: src/Dialogs/Report.vala:287
 #, c-format
 msgid "Forward to %s"
-msgstr ""
+msgstr "هدایت به %s"
 
 #. translators: submit the report
 #: src/Dialogs/Report.vala:330
 msgid "Are you sure you want to submit?"
-msgstr ""
+msgstr "از ثبت اطمینان دارید؟"
 
 #: src/Dialogs/Report.vala:386
 msgid "Submitted Report Successfully"
-msgstr ""
+msgstr "گزارش با موفّقیت ثبت شد"
 
 #. translators: the variable is an error
 #: src/Dialogs/Report.vala:392
 #, c-format
 msgid "Couldn't submit report: %s"
-msgstr ""
+msgstr "نتوانست گزارش را ثبت کند: %s"
 
 #: src/Dialogs/Report.vala:411
 msgid "Back"
@@ -2073,11 +2087,11 @@ msgstr "بازگشت"
 #: src/Dialogs/Report.vala:488 src/Dialogs/Report.vala:499
 #, c-format
 msgid "%s. You can continue with the report however."
-msgstr ""
+msgstr "%s. می‌توانید به گزارش ادامه دهید."
 
 #: src/Dialogs/Report.vala:488
 msgid "No posts found"
-msgstr ""
+msgstr "هیچ فرسته‌ای پیدا نشد"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
@@ -2136,21 +2150,21 @@ msgstr "%s فرسته‌ای را ویراست"
 #. translators: post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:297
 msgid "In Reply"
-msgstr ""
+msgstr "در پاسخ"
 
 #. translators: the variable is a string user handle,
 #. post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:301
 #, c-format
 msgid "In Reply to %s"
-msgstr ""
+msgstr "در پاسخ به %s"
 
 #. translators: the variable is a string user name,
 #. this is used for admin notifications
 #: src/Services/Accounts/InstanceAccount.vala:315
 #, c-format
 msgid "%s signed up"
-msgstr ""
+msgstr "%s ثبت‌نام کرد"
 
 #. translators: this is used for notifications,
 #. when you lost followers or following
@@ -2158,12 +2172,12 @@ msgstr ""
 #. or personal domain blocking
 #: src/Services/Accounts/InstanceAccount.vala:326
 msgid "Some of your relationships got severed"
-msgstr ""
+msgstr "برخی ارتباطاتتان جدا شدند"
 
 #. translators: this is used for admin notifications
 #: src/Services/Accounts/InstanceAccount.vala:334
 msgid "Received a new report"
-msgstr ""
+msgstr "گزارشی جدید دریافت شد"
 
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:373
@@ -2365,23 +2379,23 @@ msgstr "%b %-e, %Y"
 
 #: src/Utils/DateTime.vala:123
 msgid "just now"
-msgstr ""
+msgstr "هم‌اکنون"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:127
 #, c-format
 msgid "%s minutes ago"
-msgstr ""
+msgstr "%s دقیقه پیش"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:132
 #, c-format
 msgid "%s hours ago"
-msgstr ""
+msgstr "%s ساعت پیش"
 
 #: src/Utils/DateTime.vala:135
 msgid "yesterday"
-msgstr ""
+msgstr "دیروز"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:169
@@ -2450,19 +2464,19 @@ msgstr "همه"
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:73
 msgid "Remote"
-msgstr ""
+msgstr "دوردست"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: src/Views/Admin/Pages/Accounts.vala:78
 msgid "Location"
-msgstr ""
+msgstr "مکان"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:95
 msgid "Active"
-msgstr ""
+msgstr "فعّال"
 
 #. new DropDownStringEntry ("sensitized", _("Sensitive")), // doesn't seem to work on Mastodon
 #. translators: Dropdown entry, account status.
@@ -2472,7 +2486,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:383 src/Widgets/Admin/AccountRow.vala:31
 #: src/Widgets/Admin/Report.vala:52
 msgid "Limited"
-msgstr ""
+msgstr "محدود"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -2481,7 +2495,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:390 src/Widgets/Admin/AccountRow.vala:33
 #: src/Widgets/Admin/Report.vala:54
 msgid "Disabled"
-msgstr ""
+msgstr "از کار افتاده"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -2490,65 +2504,65 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:376 src/Widgets/Admin/AccountRow.vala:29
 #: src/Widgets/Admin/Report.vala:50
 msgid "Suspended"
-msgstr ""
+msgstr "معلّق"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:113
 msgid "Pending"
-msgstr ""
+msgstr "منتظر"
 
 #: src/Views/Admin/Pages/Accounts.vala:128
 msgid "Username"
-msgstr ""
+msgstr "نام کاربری"
 
 #: src/Views/Admin/Pages/Accounts.vala:142
 #: src/Views/Admin/Pages/Accounts.vala:304
 msgid "E-mail"
-msgstr ""
+msgstr "رایانامه"
 
 #: src/Views/Admin/Pages/Accounts.vala:298
 msgid "Role"
-msgstr ""
+msgstr "نقش"
 
 #. translators: admin dashboard, account view
 #. e-mail has been confirmed
 #: src/Views/Admin/Pages/Accounts.vala:315
 msgid "Confirmed"
-msgstr ""
+msgstr "تأیید شده"
 
 #. translators: admin dashboard, account view
 #. e-mail has NOT been confirmed
 #: src/Views/Admin/Pages/Accounts.vala:323
 msgid "Not Confirmed"
-msgstr ""
+msgstr "تأیید نشده"
 
 #. translators: admin panel, account waiting to be approved, placeholder when they didn't include a reason
 #: src/Views/Admin/Pages/Accounts.vala:347
 msgid "No Reason Given"
-msgstr ""
+msgstr "دلیلی آورده نشده"
 
 #. translators: admin panel, account waiting to be approved
 #: src/Views/Admin/Pages/Accounts.vala:351
 msgid "Awaiting Approval"
-msgstr ""
+msgstr "منتظر تأیید"
 
 #: src/Views/Admin/Pages/Accounts.vala:358
 #: src/Views/Admin/Pages/Accounts.vala:492
 msgid "Approve"
-msgstr ""
+msgstr "تأیید"
 
 #: src/Views/Admin/Pages/Accounts.vala:365
 #: src/Views/Admin/Pages/Accounts.vala:525
 msgid "Reject"
-msgstr ""
+msgstr "رد"
 
 #. translators: Question dialog when an admin is about to
 #. undo an action, like a suspension
 #: src/Views/Admin/Pages/Accounts.vala:424
 msgid "Are you sure you want to undo this action?"
-msgstr ""
+msgstr "از بازگردانی این کنش مطمئنید؟"
 
 #. translators: Question dialog when an admin is about to
 #. approve an account. The variable is an
@@ -2556,7 +2570,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:485
 #, c-format
 msgid "Are you sure you want to approve %s?"
-msgstr ""
+msgstr "از تأیید %s مطمئنید؟"
 
 #. translators: Question dialog when an admin is about to
 #. reject an account. The variable is an
@@ -2564,14 +2578,14 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:518
 #, c-format
 msgid "Are you sure you want to reject %s?"
-msgstr ""
+msgstr "از رد کردن %s مطمئنید؟"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about blocking e-mail providers like
 #. gmail.com
 #: src/Views/Admin/Pages/BlockedEmails.vala:21
 msgid "Block a new e-mail domain"
-msgstr ""
+msgstr "انسداد دامنه رایانامه‌ای جدید"
 
 #. translators: Question dialog when an admin is about to
 #. block an e-mail domain. The variable is a
@@ -2579,7 +2593,7 @@ msgstr ""
 #: src/Views/Admin/Pages/BlockedEmails.vala:60
 #, c-format
 msgid "Are you sure you want to block %s?"
-msgstr ""
+msgstr "از انسداد %s مطمئنید؟"
 
 #. translators: Question dialog description when an admin is about to
 #. block an e-mail domain. The variable is a string.
@@ -2589,68 +2603,70 @@ msgid ""
 "This can be the domain name that shows up in the e-mail address or the MX "
 "record it uses. They will be checked upon sign-up."
 msgstr ""
+"می‌تواند نام دامنه‌ای که در نشانی رایانامه نشان داده شده یا رکورد MXای که "
+"استفاده می‌کند باشد. هنگام ثبت‌نام بررسی خواهند شد."
 
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "New Users"
-msgstr ""
+msgstr "کاربران جدید"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Active Users"
-msgstr ""
+msgstr "کاربران فعّال"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Interactions"
-msgstr ""
+msgstr "برهم‌کنش‌ها"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Reports Opened"
-msgstr ""
+msgstr "گزارش‌ها باز شدند"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Reports Resolved"
-msgstr ""
+msgstr "گزارش‌ها رفع شدند"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:18
 msgid "Sign-up Sources"
-msgstr ""
+msgstr "مبادی ثبت‌نام"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:20
 msgid "Top Active Languages"
-msgstr ""
+msgstr "برترین زبان‌های فعّال"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:22
 msgid "Top Active Servers"
-msgstr ""
+msgstr "برترین کارسازهای فعّال"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:24
 msgid "Software"
-msgstr ""
+msgstr "نرم‌افزار"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:26
 msgid "Space Usage"
-msgstr ""
+msgstr "استفادهٔ فضا"
 
 #: src/Views/Admin/Pages/Dashboard.vala:53
 msgid "Stats"
-msgstr ""
+msgstr "آمارها"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about allowing federation
 #. with other instances
 #: src/Views/Admin/Pages/FederationAllowlist.vala:18
 msgid "Allow federation with an instance"
-msgstr ""
+msgstr "اجازهٔ خودگردانی با یک نمونه"
 
 #: src/Views/Admin/Pages/FederationAllowlist.vala:21
 #: src/Views/Admin/Pages/FederationAllowlist.vala:64
 msgid "Allow"
-msgstr ""
+msgstr "اجازه"
 
 #. translators: Question dialog when an admin is about to
 #. allow federation with an instance. The variable is a
@@ -2658,12 +2674,12 @@ msgstr ""
 #: src/Views/Admin/Pages/FederationAllowlist.vala:57
 #, c-format
 msgid "Are you sure you want to allow federation with %s?"
-msgstr ""
+msgstr "از اجازهٔ خودگردانی با %s مطمئنید؟"
 
 #. translators: admin dashboard, reports timeline, headerbar button tooltip text
 #: src/Views/Admin/Pages/Reports.vala:10
 msgid "Show Resolved Reports"
-msgstr ""
+msgstr "نمایش گزارش‌های رفع شده"
 
 #. translators: Question dialog when an admin is about to
 #. unblock an IP address. The variable
@@ -2679,7 +2695,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/EmailDomain.vala:26
 #, c-format
 msgid "Are you sure you want to unblock %s?"
-msgstr ""
+msgstr "از رفع انسداد %s مطمئنید؟"
 
 #. translators: Question dialog when an admin is about to
 #. delete a domain from the federation allowlist.
@@ -2689,11 +2705,11 @@ msgstr ""
 #: src/Views/Admin/Timelines/DomainAllow.vala:28
 #, c-format
 msgid "Are you sure you want to no longer federate with %s?"
-msgstr ""
+msgstr "از ادامه ندادن خودگرانی با %s مطمئنید؟"
 
 #: src/Views/Admin/Timelines/DomainAllow.vala:35
 msgid "Remove"
-msgstr ""
+msgstr "برداشتن"
 
 #: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:61
 msgid "Announcements"
@@ -2701,7 +2717,7 @@ msgstr "اعلامیه‌ها"
 
 #: src/Views/Announcements.vala:8
 msgid "No Announcements"
-msgstr ""
+msgstr "بدون اعلامیه"
 
 #. translators: Fallback shown when there are 0 results
 #: src/Views/Base.vala:4
@@ -2718,11 +2734,11 @@ msgstr "خطایی رخ داد"
 
 #: src/Views/Bookmarks.vala:6
 msgid "No Bookmarks"
-msgstr ""
+msgstr "بدون نشانک"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
-msgstr ""
+msgstr "بدون گفت‌وگو"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -2730,7 +2746,7 @@ msgstr "ویرایش تاریخچه"
 
 #: src/Views/EditHistory.vala:7
 msgid "No Edit History"
-msgstr ""
+msgstr "بدون تاریخچهٔ ویرایش"
 
 #: src/Views/Explore.vala:6 src/Views/Search.vala:113
 msgid "Posts"
@@ -2738,7 +2754,7 @@ msgstr "فرسته"
 
 #: src/Views/Explore.vala:7 src/Views/Hashtags.vala:7
 msgid "No Hashtags"
-msgstr ""
+msgstr "بدون برچسب"
 
 #: src/Views/Explore.vala:8
 msgid "News"
@@ -2746,7 +2762,7 @@ msgstr "اخبار"
 
 #: src/Views/Explore.vala:8
 msgid "No News"
-msgstr ""
+msgstr "بدون اخبار"
 
 #: src/Views/Explore.vala:9
 msgid "For You"
@@ -2754,11 +2770,11 @@ msgstr "برای شما"
 
 #: src/Views/Explore.vala:9
 msgid "No Suggestions"
-msgstr ""
+msgstr "بدون پیشنهاد"
 
 #: src/Views/Favorites.vala:5 src/Views/StatusStats.vala:16
 msgid "No Favorites"
-msgstr ""
+msgstr "بدون محبوب"
 
 #: src/Views/FollowRequests.vala:4 src/Views/Sidebar.vala:62
 msgid "Follow Requests"
@@ -2766,7 +2782,7 @@ msgstr "درخواست‌های پی‌گیری"
 
 #: src/Views/FollowRequests.vala:7
 msgid "No Follow Requests"
-msgstr ""
+msgstr "بدون درخواست پی‌گیری"
 
 #: src/Views/Hashtag.vala:19 src/Views/Hashtag.vala:34
 #: src/Widgets/RelationshipButton.vala:32
@@ -2794,7 +2810,7 @@ msgstr "این کنش بازگشت‌پذیر نیست."
 
 #: src/Views/Lists.vala:140
 msgid "No Lists"
-msgstr ""
+msgstr "بدون سیاهه"
 
 #: src/Views/Lists.vala:144
 msgid "New list title"
@@ -2814,59 +2830,59 @@ msgstr "تصویر در تخته‌گیره رونوشت شد"
 
 #: src/Views/MutesBlocks.vala:6 src/Views/Sidebar.vala:63
 msgid "Mutes & Blocks"
-msgstr ""
+msgstr "خموشی‌ها و انسدادها"
 
 #: src/Views/MutesBlocks.vala:11
 msgid "Mutes"
-msgstr ""
+msgstr "خموش‌ها"
 
 #: src/Views/MutesBlocks.vala:15
 msgid "No Muted Accounts"
-msgstr ""
+msgstr "بدون حساب خموش"
 
 #: src/Views/MutesBlocks.vala:19
 msgid "Blocks"
-msgstr ""
+msgstr "مسدودها"
 
 #: src/Views/MutesBlocks.vala:23
 msgid "No Blocked Accounts"
-msgstr ""
+msgstr "بدون حساب مسدود"
 
 #. translators: the variable is a user handle
 #: src/Views/NotificationRequestsList.vala:8
 #, c-format
 msgid "Notifications by %s"
-msgstr ""
+msgstr "آگاهی‌ها از %s"
 
 #. translators: the variable is a user handle
 #: src/Views/NotificationRequestsList.vala:11
 #, c-format
 msgid "No Notifications by %s"
-msgstr ""
+msgstr "بدون آگاهی از %s"
 
 #: src/Views/NotificationRequestsList.vala:26
 #: src/Widgets/NotificationRequest.vala:56
 msgid "Dismiss"
-msgstr ""
+msgstr "دور انداختن"
 
 #: src/Views/NotificationRequests.vala:4
 msgid "Filtered Notifications"
-msgstr ""
+msgstr "آگاهی‌های پالوده"
 
 #: src/Views/NotificationRequests.vala:7
 msgid "No Filtered Notifications"
-msgstr ""
+msgstr "بدون آگاهی پالوده"
 
 #: src/Views/Notifications.vala:13
 #, c-format
 msgid "%d Filtered Notification"
 msgid_plural "%d Filtered Notifications"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%Id آگاهی پالوده"
+msgstr[1] "%Id آگاهی پالوده"
 
 #: src/Views/Notifications.vala:41
 msgid "No Notifications"
-msgstr ""
+msgstr "بدون آگاهی"
 
 #: src/Views/Profile.vala:38
 msgid "Profile"
@@ -2874,15 +2890,15 @@ msgstr "نمایه"
 
 #: src/Views/Profile.vala:136 src/Views/Timeline.vala:75
 msgid "No Posts"
-msgstr ""
+msgstr "بدون فرسته"
 
 #: src/Views/Profile.vala:140
 msgid "No Followers"
-msgstr ""
+msgstr "بددون پی‌گیر"
 
 #: src/Views/Profile.vala:144
 msgid "This user doesn't follow anyone yet"
-msgstr ""
+msgstr "این کاربر هنوز کسی را پی نمی‌گیرد"
 
 #: src/Views/Profile.vala:256
 msgid "Copied handle to clipboard"
@@ -2958,11 +2974,11 @@ msgstr "ورود پرس‌وجو"
 
 #: src/Views/Search.vala:31
 msgid "Advanced Search"
-msgstr ""
+msgstr "جست‌وجوی پیشرفته"
 
 #: src/Views/Search.vala:35
 msgid "Clear Entry"
-msgstr ""
+msgstr "پاک سازی ورودی"
 
 #. translators: Used when there are 0 results in the custom emoji picker
 #: src/Views/Search.vala:111 src/Views/Search.vala:112
@@ -2973,27 +2989,27 @@ msgstr "بدون نتیجه"
 
 #: src/Views/Search.vala:227
 msgid "Language"
-msgstr ""
+msgstr "زبان"
 
 #. tanslators: used in a banner, the variable is the number of unread announcements
 #: src/Views/Sidebar.vala:24
 #, c-format
 msgid "%d Announcement"
 msgid_plural "%d Announcements"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%Id اعلامیه"
+msgstr[1] "%Id اعلامیه"
 
 #. tanslators: used in a banner, the variable is the number of unreviewed follow requests
 #: src/Views/Sidebar.vala:36
 #, c-format
 msgid "%d Follow Request"
 msgid_plural "%d Follow Requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%Id درخواست پی‌گیری"
+msgstr[1] "%Id درخواست پی‌گیری"
 
 #: src/Views/Sidebar.vala:55
 msgid "New Post"
-msgstr ""
+msgstr "فرستهٔ جدید"
 
 #: src/Views/Sidebar.vala:56
 msgid "Open Profile"
@@ -3042,7 +3058,7 @@ msgstr "تقویت شده به دست"
 
 #: src/Views/StatusStats.vala:26
 msgid "No Boosts"
-msgstr ""
+msgstr "بدون تقویت"
 
 #: src/Views/Thread.vala:32
 msgid "Conversation"
@@ -3068,7 +3084,7 @@ msgstr "خطای شبکه"
 #: src/Widgets/Account.vala:127 src/Widgets/ProfileCover.vala:95
 #, c-format
 msgid "%s (%s)'s profile."
-msgstr ""
+msgstr "نمایهٔ %s ‏(%s)."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3078,7 +3094,7 @@ msgstr ""
 #: src/Widgets/Account.vala:139 src/Widgets/ProfileCover.vala:107
 #, c-format
 msgid "Relationship: %s."
-msgstr ""
+msgstr "نسبت: %s."
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of posts a user has made.
@@ -3087,8 +3103,8 @@ msgstr ""
 #, c-format
 msgid "%s Post"
 msgid_plural "%s Posts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s فرسته"
+msgstr[1] "%s فرسته"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of followers a user has.
@@ -3097,8 +3113,8 @@ msgstr[1] ""
 #, c-format
 msgid "%s Follower"
 msgid_plural "%s Followers"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s پی‌گیر"
+msgstr[1] "%s پی‌گیر"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of people a user follows.
@@ -3111,25 +3127,25 @@ msgstr "%s پی‌گرفته"
 #. translators: Admin dashboard, report status
 #: src/Widgets/Admin/AccountRow.vala:27 src/Widgets/Admin/Report.vala:47
 msgid "No Limits"
-msgstr ""
+msgstr "بدون محدودیت"
 
 #. translators: admin panel, account waiting to be approved
 #: src/Widgets/Admin/AccountRow.vala:36
 msgid "Waiting Approval"
-msgstr ""
+msgstr "در انتظار تأیید"
 
 #. translators: Report 'Assigned to: <account>'
 #: src/Widgets/Admin/AssignedRow.vala:11 src/Widgets/Admin/Report.vala:26
 msgid "Assigned to"
-msgstr ""
+msgstr "تخصیص داده شده به"
 
 #: src/Widgets/Admin/AssignedRow.vala:38
 msgid "Unassign"
-msgstr ""
+msgstr "ناتخصیص"
 
 #: src/Widgets/Admin/AssignedRow.vala:42
 msgid "Assign"
-msgstr ""
+msgstr "تخصیص"
 
 #. translators: subtitle on email domain blocks.
 #. The variable is the number of sing up
@@ -3137,7 +3153,7 @@ msgstr ""
 #: src/Widgets/Admin/EmailDomainBlock.vala:24
 #, c-format
 msgid "%d Sign-up Attempts"
-msgstr ""
+msgstr "%Id تلاش ورود"
 
 #. translators: the variable is the emoji or its name if it's custom
 #: src/Widgets/Announcement.vala:34 src/Widgets/Status/ReactionsRow.vala:21
@@ -3153,7 +3169,7 @@ msgstr "واکنش با %s"
 #: src/Widgets/Announcement.vala:95
 #, c-format
 msgid "Announcement by %s (%s)."
-msgstr ""
+msgstr "اعلامیه از %s ‏(%s)."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3162,7 +3178,7 @@ msgstr ""
 #: src/Widgets/Announcement.vala:106 src/Widgets/Status.vala:699
 #, c-format
 msgid "Edited: %s."
-msgstr ""
+msgstr "ویراسته: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3171,7 +3187,7 @@ msgstr ""
 #: src/Widgets/Announcement.vala:111 src/Widgets/Status.vala:704
 #, c-format
 msgid "Published: %s."
-msgstr ""
+msgstr "منتشر شده: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3182,8 +3198,8 @@ msgstr ""
 #, c-format
 msgid "Contains %d reaction."
 msgid_plural "Contains %d reactions."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "دارای %Id واکنش."
+msgstr[1] "دارای %Id واکنش."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3192,7 +3208,7 @@ msgstr[1] ""
 #. hasn't been read yet.
 #: src/Widgets/Announcement.vala:131
 msgid "Unread."
-msgstr ""
+msgstr "ناخوانده."
 
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:63
@@ -3218,7 +3234,7 @@ msgstr "رسانه ذخیره شده"
 
 #: src/Widgets/Attachment/Item.vala:44
 msgid "Couldn't Save Media"
-msgstr ""
+msgstr "نتوانست رسانه را ذخیره کند"
 
 #: src/Widgets/Attachment/Item.vala:109
 msgid "View Alt Text"
@@ -3245,7 +3261,7 @@ msgstr "نتیجه‌ها"
 
 #: src/Widgets/CustomEmojiChooser.vala:74
 msgid "Recently Used"
-msgstr ""
+msgstr "به تازگی استفاده شده"
 
 #: src/Widgets/CustomEmojiChooser.vala:226
 msgid "Custom Emojis"
@@ -3272,16 +3288,16 @@ msgstr "در ۲ روز گذشته %Id بار بین %Id نفر بحث شده"
 #, c-format
 msgid "Contains %d field."
 msgid_plural "Contains %d fields."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "دارای %Id زمینه."
+msgstr[1] "دارای %Id زمینه."
 
 #: src/Widgets/ProfileCover.vala:468
 msgid "Error: Note is over 2000 characters long"
-msgstr ""
+msgstr "خطا: یادداشت بیش از ۲۰۰۰ نویسه طول دارد"
 
 #: src/Widgets/RelationshipButton.vala:54
 msgid "Unmute"
-msgstr ""
+msgstr "ناخموشی"
 
 #: src/Widgets/Status/ActionsRow.vala:52 src/Widgets/Status/ActionsRow.vala:101
 #: src/Widgets/Status/ActionsRow.vala:263
@@ -3346,7 +3362,7 @@ msgstr "سنجاق"
 #. translators: Post menu items to revert a translation
 #: src/Widgets/Status.vala:328
 msgid "Show Original"
-msgstr ""
+msgstr "نمایش اصلی"
 
 #: src/Widgets/Status.vala:345
 msgid "Copied post url to clipboard"
@@ -3359,14 +3375,14 @@ msgstr "از حذف این فرسته مطمئنید؟"
 #: src/Widgets/Status.vala:448 src/Widgets/Status.vala:469
 #, c-format
 msgid "Couldn't translate: %s"
-msgstr ""
+msgstr "نتوانست ترجمه کند: %s"
 
 #. translators: Tooltip text for avatars in posts.
 #. The variable is a string user handle.
 #: src/Widgets/Status.vala:611 src/Widgets/Status.vala:934
 #, c-format
 msgid "Open %s's Profile"
-msgstr ""
+msgstr "گشودن نمایهٔ %s"
 
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:660
@@ -3378,7 +3394,7 @@ msgstr "برداشتن سنجاق"
 #. please be mindful.
 #: src/Widgets/Status.vala:671
 msgid "Filtered post"
-msgstr ""
+msgstr "فرستهٔ پالوده"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3389,21 +3405,21 @@ msgstr ""
 #: src/Widgets/Status.vala:687
 #, c-format
 msgid "%s post by %s (%s)."
-msgstr ""
+msgstr "فرستهٔ %s از %s ‏(%s)."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:711
 msgid "The post is pinned."
-msgstr ""
+msgstr "این فرسته سنجاق شده."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:719
 msgid "Contains a quoted post."
-msgstr ""
+msgstr "دارای فرسته‌ای نقل شده."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3413,29 +3429,29 @@ msgstr ""
 #, c-format
 msgid "Contains %d attachment."
 msgid_plural "Contains %d attachments."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "دارای %Id پیوست."
+msgstr[1] "دارای %Id پیوست."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:740
 msgid "Contains an expired poll."
-msgstr ""
+msgstr "دارای نظرسنجی‌ای منقضی شده."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:744
 msgid "Contains a poll."
-msgstr ""
+msgstr "دارای نظرسنجی."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #: src/Widgets/Status.vala:753
 msgid "The post has a spoiler."
-msgstr ""
+msgstr "فرسته لوث‌کن دارد."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3444,7 +3460,7 @@ msgstr ""
 #: src/Widgets/Status.vala:759
 #, c-format
 msgid "The post has the following spoiler: %s."
-msgstr ""
+msgstr "فرسته چنین لوث‌کنی دارد: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3454,28 +3470,28 @@ msgstr ""
 #: src/Widgets/Status.vala:770
 #, c-format
 msgid "Posted using %s."
-msgstr ""
+msgstr "فرستاده شده با %s."
 
 #: src/Widgets/Status.vala:793
 #, c-format
 msgid "%s reply"
 msgid_plural "%s replies"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s پاسخ"
+msgstr[1] "%s پاسخ"
 
 #: src/Widgets/Status.vala:798
 #, c-format
 msgid "%s boost"
 msgid_plural "%s boosts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s تقویت"
+msgstr[1] "%s تقویت"
 
 #: src/Widgets/Status.vala:803
 #, c-format
 msgid "%s favorite"
 msgid_plural "%s favorites"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s محبوب"
+msgstr[1] "%s محبوب"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3483,29 +3499,29 @@ msgstr[1] ""
 #. This is used to announce the quoted post
 #: src/Widgets/Status.vala:838
 msgid "Quoted Post"
-msgstr ""
+msgstr "فرستهٔ نقل شده"
 
 #: src/Widgets/Status.vala:858
 #, c-format
 msgid "Filtered: %s"
-msgstr ""
+msgstr "پالوده: %s"
 
 #: src/Widgets/Status.vala:860
 msgid "Filtered"
-msgstr ""
+msgstr "پالوده"
 
 #. translatiors: the first variable is a language name,
 #. the second variable is a service name e.g. DeepL
 #: src/Widgets/Status.vala:984
 #, c-format
 msgid "Translated from %s using %s"
-msgstr ""
+msgstr "ترجمه شده از %s با %s"
 
 #. translatiors: the variable is a service name e.g. DeepL
 #: src/Widgets/Status.vala:987
 #, c-format
 msgid "Translated using %s"
-msgstr ""
+msgstr "ترجمه شده با %s"
 
 #: src/Widgets/VoteBox.vala:13
 msgid "Vote"
@@ -3529,8 +3545,8 @@ msgstr "%llId رأی"
 #, c-format
 msgid "Poll with %d option."
 msgid_plural "Poll with %d options."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "نظرسنجی با %Id گزینه."
+msgstr[1] "نظرسنجی با %Id گزینه."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3538,7 +3554,7 @@ msgstr[1] ""
 #. Describes whether the user has voted on the poll.
 #: src/Widgets/VoteBox.vala:192
 msgid "You have voted."
-msgstr ""
+msgstr "رأی دادید."
 
 #, c-format
 #~ msgid "%d Minutes"

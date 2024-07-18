@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-06-21 20:05+0000\n"
+"PO-Revision-Date: 2024-07-07 11:09+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-rc\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -1212,7 +1212,7 @@ msgstr "%d asteko"
 #: src/API/Tag.vala:59
 #, c-format
 msgid "Used %d times by %d people yesterday"
-msgstr "%d aldiz erabili zuten %d pertsonek atzo"
+msgstr "%d aldiz erabili zuten %d pertsonak atzo"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:67
@@ -1298,7 +1298,7 @@ msgstr "Larritasuna"
 #: src/Dialogs/Admin/AddFederationBlock.vala:92
 #: src/Widgets/Admin/DomainBlock.vala:30
 msgid "Reject Media Files"
-msgstr "Ukatu multimedia fitxategiak"
+msgstr "Errefusatu multimedia fitxategiak"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1306,28 +1306,28 @@ msgstr "Ukatu multimedia fitxategiak"
 msgid ""
 "Removes locally stored media files and refuses to download any in the future"
 msgstr ""
-"Lokalean gordetako multimedia fitxategiak kentzen ditu eta etorkizunean "
-"deskargatzeari uko egiten dio"
+"Lokalean gordetako multimedia fitxategiak kenduko ditu eta etorkizunean "
+"deskargatzeari uko egingo dio"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:103
 #: src/Widgets/Admin/DomainBlock.vala:31
 msgid "Reject Reports"
-msgstr "Ukatu salaketak"
+msgstr "Errefusatu salaketak"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:106
 msgid "Ignore all reports coming from this domain"
-msgstr "Ez hartu kontuan domeinu honetatik datozen salaketei"
+msgstr "Ez ditu domeinu honetatik datozen salaketak kontuan hartuko"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:114
 #: src/Widgets/Admin/DomainBlock.vala:32
 msgid "Obfuscate Domain Name"
-msgstr "Ofuskatu domeinu-izena"
+msgstr "Ezkutatu domeinu-izena"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1336,7 +1336,7 @@ msgid ""
 "Partially obfuscate the domain name in the list if advertising the list of "
 "domain limitations is enabled"
 msgstr ""
-"Ofuskatu hein batean domeinu-izena zerrendan, domeinu-mugen zerrendako "
+"Domeinu-izena partzialki ezkutatuko du mugatutako domeinuen zerrendaren "
 "iragarpena gaituta badago"
 
 #. translators: Admin dashboard, federation block dialog
@@ -1491,13 +1491,12 @@ msgstr "Kategoria"
 #. translators: Admin dashboard report category description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/Report.vala:173
-#, fuzzy
 msgid ""
 "The reason this account and/or content was reported will be cited in "
 "communication with the reported account"
 msgstr ""
-"Kontu edo eduki hau salatu izanaren arrazoia aipatuko da salatutako "
-"kontuarekin batera"
+"Kontu edo/eta eduki hau salatu izanaren arrazoia salatutako kontuari "
+"bidaliko zaion komunikazioan aipatuko da"
 
 #: src/Dialogs/Admin/Report.vala:235
 msgid "Violated Rules"
@@ -1918,7 +1917,7 @@ msgstr "Jarraipenak"
 
 #: src/Dialogs/NotificationSettings.vala:68
 msgid "Clear All Notifications"
-msgstr "Garbitu jakinarazken guztiak"
+msgstr "Garbitu jakinarazpen guztiak"
 
 #: src/Dialogs/NotificationSettings.vala:75
 msgid "Included Notifications"
@@ -2517,9 +2516,8 @@ msgstr "Ezgaituta"
 #: src/Views/Admin/Pages/Accounts.vala:109
 #: src/Views/Admin/Pages/Accounts.vala:376 src/Widgets/Admin/AccountRow.vala:29
 #: src/Widgets/Admin/Report.vala:50
-#, fuzzy
 msgid "Suspended"
-msgstr "Etenda"
+msgstr "Baliogabetuta"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -3142,7 +3140,6 @@ msgstr "%s jarraitzen"
 
 #. translators: Admin dashboard, report status
 #: src/Widgets/Admin/AccountRow.vala:27 src/Widgets/Admin/Report.vala:47
-#, fuzzy
 msgid "No Limits"
 msgstr "Mugatu gabe"
 
@@ -3153,17 +3150,14 @@ msgstr "Onarpenaren zain"
 
 #. translators: Report 'Assigned to: <account>'
 #: src/Widgets/Admin/AssignedRow.vala:11 src/Widgets/Admin/Report.vala:26
-#, fuzzy
 msgid "Assigned to"
-msgstr "Honi egokituta:"
+msgstr "Honi egokitua:"
 
 #: src/Widgets/Admin/AssignedRow.vala:38
-#, fuzzy
 msgid "Unassign"
 msgstr "Kendu zeregina"
 
 #: src/Widgets/Admin/AssignedRow.vala:42
-#, fuzzy
 msgid "Assign"
 msgstr "Egokitu zeregina"
 
@@ -3423,9 +3417,9 @@ msgstr "Iragazitako bidalketa"
 #. The second one is the author's name and the third
 #. one is the author's handle.
 #: src/Widgets/Status.vala:687
-#, c-format, fuzzy
+#, c-format
 msgid "%s post by %s (%s)."
-msgstr "Bidalketa %s %s (%s)(e)k egindakoa."
+msgstr "%2$sk (%3$s) egindako bidalketa %1$s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,

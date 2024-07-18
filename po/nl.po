@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-06-23 01:12+0000\n"
+"PO-Revision-Date: 2024-07-12 06:09+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-rc\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -1040,6 +1040,8 @@ msgstr "Profielen"
 msgid ""
 "You have blocked %s, removing %s of your followers and %s account you follow."
 msgstr ""
+"U heeft %s geblokkeerd, waardoor %s van uw volgers en %s account die u volgt "
+"zĳn verwĳderd."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
 #. this is the plural version, '4 accounts you follow'
@@ -1049,6 +1051,8 @@ msgid ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
 msgstr ""
+"U heeft %s geblokkeerd, waardoor %s van uw volgers en %s accounts die u "
+"volgt zĳn verwĳderd."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
 #. this is the singular version, '1 account you follow'
@@ -1058,6 +1062,8 @@ msgid ""
 "An admin has blocked %s, including %s of your followers and %s account you "
 "follow."
 msgstr ""
+"Een beheerder heeft %s geblokkeerd, inclusief %s van uw volgers en %s "
+"account dat u volgt."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
 #. this is the plural version, '4 accounts you follow'
@@ -1067,6 +1073,8 @@ msgid ""
 "An admin has blocked %s, including %s of your followers and %s accounts you "
 "follow."
 msgstr ""
+"Een beheerder heeft %s geblokkeerd, inclusief %s van uw volgers en %s "
+"accounts die u volgt."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:51
@@ -1075,6 +1083,8 @@ msgid ""
 "An admin has suspended %s, which means you can no longer receive updates "
 "from them or interact with them."
 msgstr ""
+"Een beheerder heeft %s opgeschort, wat betekent dat u niet langer updates "
+"van hen kunt ontvangen of met hen kunt communiceren."
 
 #. translators: as in just registered in the instance,
 #. this is a notification type only visible
@@ -1292,7 +1302,7 @@ msgstr "Strengheid"
 #: src/Dialogs/Admin/AddFederationBlock.vala:92
 #: src/Widgets/Admin/DomainBlock.vala:30
 msgid "Reject Media Files"
-msgstr ""
+msgstr "Media­bestanden weigeren"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1300,6 +1310,8 @@ msgstr ""
 msgid ""
 "Removes locally stored media files and refuses to download any in the future"
 msgstr ""
+"Verwĳdert lokaal opgeslagen media­bestanden en weigert deze in de toekomst "
+"te downloaden"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1312,14 +1324,14 @@ msgstr "Rapportages afkeuren"
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:106
 msgid "Ignore all reports coming from this domain"
-msgstr ""
+msgstr "Alle rapportages vanaf dit domein negeren"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:114
 #: src/Widgets/Admin/DomainBlock.vala:32
 msgid "Obfuscate Domain Name"
-msgstr ""
+msgstr "Domein­naam onduidelĳk maken"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1328,6 +1340,8 @@ msgid ""
 "Partially obfuscate the domain name in the list if advertising the list of "
 "domain limitations is enabled"
 msgstr ""
+"Maak de domein­naam gedeeltelĳk onleesbaar in de lĳst als het adverteren van "
+"de lĳst met domein­beperkingen is ingeschakeld"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
@@ -1375,7 +1389,7 @@ msgstr[1] "%d dagen"
 #: src/Dialogs/Admin/AddIPBlock.vala:68
 #: src/Views/Admin/Pages/BlockedIPs.vala:10
 msgid "Add IP Block"
-msgstr ""
+msgstr "IP-adres blokkeren"
 
 #. translators: Admin dashboard ip block comment entry title
 #: src/Dialogs/Admin/AddIPBlock.vala:99 src/Dialogs/Admin/TakeAction.vala:104
@@ -1396,13 +1410,13 @@ msgstr "Regel"
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddIPBlock.vala:134
 msgid "Choose what will happen with requests from this IP"
-msgstr ""
+msgstr "Kies wat er gebeurt met verzoeken van dit IP-adres"
 
 #. translators: Question dialog when an admin is about to
 #. mark a report as resolved
 #: src/Dialogs/Admin/Report.vala:50
 msgid "Are you sure you want to mark this report as resolved?"
-msgstr ""
+msgstr "Weet u zeker dat u deze rapportage als opgelost wilt markeren?"
 
 #: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:99
 msgid "Resolve"
@@ -1412,7 +1426,7 @@ msgstr "Oplossen"
 #. reopen a report
 #: src/Dialogs/Admin/Report.vala:61
 msgid "Are you sure you want to reopen this report?"
-msgstr ""
+msgstr "Weet u zeker dat u deze rapportage opnieuw wilt openen?"
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:99
 msgid "Reopen"
@@ -1472,7 +1486,7 @@ msgstr "Doorgestuurd"
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:158 src/Widgets/Admin/Report.vala:22
 msgid "Action Taken by"
-msgstr ""
+msgstr "Actie ondernomen door"
 
 #: src/Dialogs/Admin/Report.vala:170
 msgid "Category"
@@ -1485,6 +1499,8 @@ msgid ""
 "The reason this account and/or content was reported will be cited in "
 "communication with the reported account"
 msgstr ""
+"De reden waarom dit account en/of de inhoud is gerapporteerd, wordt vermeld "
+"in de communicatie met het gerapporteerde account"
 
 #: src/Dialogs/Admin/Report.vala:235
 msgid "Violated Rules"
@@ -1509,6 +1525,8 @@ msgstr "Waarschuwing"
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
 msgstr ""
+"Gebruik dit om een waarschuwing naar de gebruiker te sturen, zonder enige "
+"andere actie te activeren"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
@@ -1520,6 +1538,8 @@ msgid ""
 "Prevent the user from using their account, but do not delete or hide their "
 "contents"
 msgstr ""
+"Voorkomt dat de gebruiker hun account gebruikt, maar verwĳdert of verbergt "
+"de inhoud ervan niet"
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:489
 msgid "Sensitive"
@@ -1529,6 +1549,8 @@ msgstr "Gevoelig"
 #: src/Dialogs/Admin/TakeAction.vala:79
 msgid "Force all this user's media attachments to be flagged as sensitive"
 msgstr ""
+"Forceert dat alle media­bĳlagen van deze gebruiker als gevoelig worden "
+"gemarkeerd"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:88
@@ -1537,6 +1559,9 @@ msgid ""
 "posts and notifications from people not following them. Closes all reports "
 "against this account"
 msgstr ""
+"Voorkom dat de gebruiker berichten kan plaatsen met publieke zichtbaarheid, "
+"verberg hun berichten en meldingen voor mensen die ze niet volgen. Sluit "
+"alle rapportages voor dit account"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:97
@@ -1544,23 +1569,25 @@ msgid ""
 "Prevent any interaction from or to this account and delete its contents. "
 "Revertible within 30 days. Closes all reports against this account"
 msgstr ""
+"Voorkom elke interactie van of naar dit account en verwĳder de inhoud ervan. "
+"Herstelbaar binnen 30 dagen. Sluit alle rapportages voor dit account"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:114
 msgid "Notify the user per e-mail"
-msgstr ""
+msgstr "De gebruiker per e-mail op de hoogte brengen"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:116
 msgid ""
 "The user will receive an explanation of what happened with their account"
-msgstr ""
+msgstr "De gebruiker krĳgt uitleg over wat er met hun account is gebeurd"
 
 #. translators: Question dialog when an admin is about to
 #. take action against an account
 #: src/Dialogs/Admin/TakeAction.vala:140
 msgid "Are you sure you want to proceed?"
-msgstr ""
+msgstr "Weet u zeker dat u door wilt gaan?"
 
 #: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
 msgid "Dashboard"
@@ -1582,7 +1609,7 @@ msgstr "Accounts"
 #. gmail.com
 #: src/Dialogs/Admin.vala:48 src/Views/Admin/Pages/BlockedEmails.vala:10
 msgid "Blocked E-mail Domains"
-msgstr ""
+msgstr "Geblokkeerde e-mail­domeinen"
 
 #. translators: Admin Dialog page title,
 #. this is about blocking
@@ -1878,6 +1905,8 @@ msgid ""
 "Enables the Admin Dashboard and requests the needed permissions to use the "
 "Admin API"
 msgstr ""
+"Schakelt het beheerders­dashboard in en vraagt de benodigde machtigingen aan "
+"om de beheerders-API te gebruiken"
 
 #: src/Dialogs/NotificationSettings.vala:49
 msgid "Polls"
@@ -2153,7 +2182,7 @@ msgstr "Als antwoord op %s"
 #: src/Services/Accounts/InstanceAccount.vala:315
 #, c-format
 msgid "%s signed up"
-msgstr ""
+msgstr "%s heeft zich geregistreerd"
 
 #. translators: this is used for notifications,
 #. when you lost followers or following
@@ -2161,7 +2190,7 @@ msgstr ""
 #. or personal domain blocking
 #: src/Services/Accounts/InstanceAccount.vala:326
 msgid "Some of your relationships got severed"
-msgstr ""
+msgstr "Sommige van uw relaties zĳn verbroken"
 
 #. translators: this is used for admin notifications
 #: src/Services/Accounts/InstanceAccount.vala:334
@@ -2374,13 +2403,13 @@ msgstr "zojuist"
 #: src/Utils/DateTime.vala:127
 #, c-format
 msgid "%s minutes ago"
-msgstr ""
+msgstr "%s minuten geleden"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:132
 #, c-format
 msgid "%s hours ago"
-msgstr ""
+msgstr "%s uur geleden"
 
 #: src/Utils/DateTime.vala:135
 msgid "yesterday"
@@ -2530,7 +2559,7 @@ msgstr "Niet bevestigd"
 #. translators: admin panel, account waiting to be approved, placeholder when they didn't include a reason
 #: src/Views/Admin/Pages/Accounts.vala:347
 msgid "No Reason Given"
-msgstr ""
+msgstr "Geen reden opgegeven"
 
 #. translators: admin panel, account waiting to be approved
 #: src/Views/Admin/Pages/Accounts.vala:351
@@ -2551,7 +2580,7 @@ msgstr "Afkeuren"
 #. undo an action, like a suspension
 #: src/Views/Admin/Pages/Accounts.vala:424
 msgid "Are you sure you want to undo this action?"
-msgstr ""
+msgstr "Weet u zeker dat u deze actie ongedaan wilt maken?"
 
 #. translators: Question dialog when an admin is about to
 #. approve an account. The variable is an
@@ -2559,7 +2588,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:485
 #, c-format
 msgid "Are you sure you want to approve %s?"
-msgstr ""
+msgstr "Weet u zeker dat u %s wilt goedkeuren?"
 
 #. translators: Question dialog when an admin is about to
 #. reject an account. The variable is an
@@ -2567,14 +2596,14 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:518
 #, c-format
 msgid "Are you sure you want to reject %s?"
-msgstr ""
+msgstr "Weet u zeker dat u %s wilt afwĳzen?"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about blocking e-mail providers like
 #. gmail.com
 #: src/Views/Admin/Pages/BlockedEmails.vala:21
 msgid "Block a new e-mail domain"
-msgstr ""
+msgstr "Nieuw e-mail­domein blokkeren"
 
 #. translators: Question dialog when an admin is about to
 #. block an e-mail domain. The variable is a
@@ -2582,7 +2611,7 @@ msgstr ""
 #: src/Views/Admin/Pages/BlockedEmails.vala:60
 #, c-format
 msgid "Are you sure you want to block %s?"
-msgstr ""
+msgstr "Weet u zeker dat u %s wilt blokkeren?"
 
 #. translators: Question dialog description when an admin is about to
 #. block an e-mail domain. The variable is a string.
@@ -2592,6 +2621,8 @@ msgid ""
 "This can be the domain name that shows up in the e-mail address or the MX "
 "record it uses. They will be checked upon sign-up."
 msgstr ""
+"Dit kan de domein­naam zĳn die voorkomt in het e-mailadres of het MX-record "
+"dat het gebruikt. Deze worden bĳ registratie gecontroleerd."
 
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
@@ -2622,12 +2653,12 @@ msgstr "Registratie­bronnen"
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:20
 msgid "Top Active Languages"
-msgstr ""
+msgstr "Top actieve talen"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:22
 msgid "Top Active Servers"
-msgstr ""
+msgstr "Top actieve servers"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:24
@@ -2648,7 +2679,7 @@ msgstr "Statistieken"
 #. with other instances
 #: src/Views/Admin/Pages/FederationAllowlist.vala:18
 msgid "Allow federation with an instance"
-msgstr ""
+msgstr "Federatie met een instantie toestaan"
 
 #: src/Views/Admin/Pages/FederationAllowlist.vala:21
 #: src/Views/Admin/Pages/FederationAllowlist.vala:64
@@ -2661,12 +2692,12 @@ msgstr "Toestaan"
 #: src/Views/Admin/Pages/FederationAllowlist.vala:57
 #, c-format
 msgid "Are you sure you want to allow federation with %s?"
-msgstr ""
+msgstr "Weet u zeker dat u federatie met %s wilt toestaan?"
 
 #. translators: admin dashboard, reports timeline, headerbar button tooltip text
 #: src/Views/Admin/Pages/Reports.vala:10
 msgid "Show Resolved Reports"
-msgstr ""
+msgstr "Opgeloste rapportages tonen"
 
 #. translators: Question dialog when an admin is about to
 #. unblock an IP address. The variable
@@ -2682,7 +2713,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/EmailDomain.vala:26
 #, c-format
 msgid "Are you sure you want to unblock %s?"
-msgstr ""
+msgstr "Weet u zeker dat u %s wilt deblokkeren?"
 
 #. translators: Question dialog when an admin is about to
 #. delete a domain from the federation allowlist.
@@ -2692,7 +2723,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/DomainAllow.vala:28
 #, c-format
 msgid "Are you sure you want to no longer federate with %s?"
-msgstr ""
+msgstr "Weet u zeker dat u niet langer wilt federeren met %s?"
 
 #: src/Views/Admin/Timelines/DomainAllow.vala:35
 msgid "Remove"
@@ -2839,7 +2870,7 @@ msgstr "Geen geblokkeerde accounts"
 #: src/Views/NotificationRequestsList.vala:8
 #, c-format
 msgid "Notifications by %s"
-msgstr ""
+msgstr "Meldingen door %s"
 
 #. translators: the variable is a user handle
 #: src/Views/NotificationRequestsList.vala:11
@@ -2864,8 +2895,8 @@ msgstr "Geen gefilterde meldingen"
 #, c-format
 msgid "%d Filtered Notification"
 msgid_plural "%d Filtered Notifications"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d gefilterde melding"
+msgstr[1] "%d gefilterde meldingen"
 
 #: src/Views/Notifications.vala:41
 msgid "No Notifications"
@@ -2920,7 +2951,7 @@ msgstr ""
 #: src/Views/Profile.vala:386
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
-msgstr "‘%s’ toevoegen aan of verwĳderen uit een lijst"
+msgstr "‘%s’ toevoegen aan of verwĳderen uit een lĳst"
 
 #. translators: the variable is an account handle
 #: src/Views/Profile.vala:397
@@ -3186,8 +3217,8 @@ msgstr "Gepubliceerd op %s."
 #, c-format
 msgid "Contains %d reaction."
 msgid_plural "Contains %d reactions."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Bevat %d reactie."
+msgstr[1] "Bevat %d reacties."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3276,12 +3307,12 @@ msgstr "In de afgelopen 2 dagen %d keer besproken door %d personen"
 #, c-format
 msgid "Contains %d field."
 msgid_plural "Contains %d fields."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Bevat %d veld."
+msgstr[1] "Bevat %d velden."
 
 #: src/Widgets/ProfileCover.vala:468
 msgid "Error: Note is over 2000 characters long"
-msgstr ""
+msgstr "Fout: Notitie is meer dan 2000 tekens lang"
 
 #: src/Widgets/RelationshipButton.vala:54
 msgid "Unmute"
@@ -3393,7 +3424,7 @@ msgstr "Gefilterd bericht"
 #: src/Widgets/Status.vala:687
 #, c-format
 msgid "%s post by %s (%s)."
-msgstr ""
+msgstr "%s bericht van %s (%s)."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3417,8 +3448,8 @@ msgstr "Bevat een getiteerd bericht."
 #, c-format
 msgid "Contains %d attachment."
 msgid_plural "Contains %d attachments."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Bevat %d bĳlage."
+msgstr[1] "Bevat %d bĳlagen."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3439,7 +3470,7 @@ msgstr "Bevat een peiling."
 #. please be mindful.
 #: src/Widgets/Status.vala:753
 msgid "The post has a spoiler."
-msgstr ""
+msgstr "Het bericht bevat een spoiler."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3448,7 +3479,7 @@ msgstr ""
 #: src/Widgets/Status.vala:759
 #, c-format
 msgid "The post has the following spoiler: %s."
-msgstr ""
+msgstr "Het bericht bevat de volgende spoiler: %s."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3471,15 +3502,15 @@ msgstr[1] "%s reacties"
 #, c-format
 msgid "%s boost"
 msgid_plural "%s boosts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s boost"
+msgstr[1] "%s boosts"
 
 #: src/Widgets/Status.vala:803
 #, c-format
 msgid "%s favorite"
 msgid_plural "%s favorites"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s favoriet"
+msgstr[1] "%s favorieten"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,

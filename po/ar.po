@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Ali Galal <ali.sameh.galal@gmail.com>, 2023.
 # ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>, 2023.
+# aei <aei@aei.sh>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2023-12-28 19:08+0000\n"
-"Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2024-06-30 01:55+0000\n"
+"Last-Translator: aei <aei@aei.sh>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -69,7 +70,7 @@ msgstr "أظهر الخيارات"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "أُكتب منشور جديد"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:57
 msgid "Refresh"
