@@ -13,7 +13,7 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 		profile_group = new Adw.PreferencesGroup ();
 		page.add (profile_group);
 
-		this.closed.connect (on_close);
+		this.close_attempt.connect (on_close);
 	}
 
 	private void on_action (string title, string suggested_label, string endpoint) {
