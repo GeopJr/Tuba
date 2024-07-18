@@ -931,7 +931,7 @@
 		avatar.account = status.formal.account;
 		// translators: Tooltip text for avatars in posts.
 		//				The variable is a string user handle.
-		avatar.tooltip_text = _("Open %s's Profile").printf (status.formal.account.handle);
+		name_button.tooltip_text = avatar.tooltip_text = _("Open %s's Profile").printf (status.formal.account.handle);
 
 		reactions = status.formal.compat_status_reactions;
 
