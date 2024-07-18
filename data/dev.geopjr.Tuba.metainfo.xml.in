@@ -62,6 +62,22 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.8.2" date="2024-07-18">
+      <description translate="no">
+        <ul>
+            <li>Added moderator protection from illegal or disturbing attachments in the admin dashboard</li>
+            <li>Fixed random crash occurring when navigating back</li>
+            <li>Improved Clapper MPRIS support</li>
+            <li>Hid media controls for Clapper when viewing GIFs</li>
+            <li>Fixed notification count not updating after network re-connection</li>
+            <li>Fixed admin dashboard reports not being able to close using the window controls</li>
+            <li>Fixed websocket events being unnecessarily url decoded</li>
+            <li>Adjusted the mini profile styling</li>
+            <li>Fixed Media Viewer crashes by disabling Graphic Offload until GTK 4.16</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.8.1" date="2024-06-23">
       <description translate="no">
         <ul>
