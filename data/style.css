@@ -91,6 +91,7 @@ headerbar.flat.no-title .title {
 
 .ttl-profile-cover .header-image {
 	background: grey;
+	border-radius: 0;
 }
 
 .ttl-profile-cover avatar, .profile-editor avatar {
@@ -217,8 +218,8 @@ headerbar.flat.no-title .title {
 }
 
 .ttl-profile-fields-box-container:not(.single) > .ttl-profile-fields-box > flowboxchild > .ttl-profile-field {
-	border-bottom: solid 1px @sidebar_border_color;
-	border-right: solid 1px @sidebar_border_color;
+	border-bottom: solid 1px @borders;
+	border-right: solid 1px @borders;
 }
 
 .ttl-profile-fields-box-container.odd > .ttl-profile-fields-box > flowboxchild:last-child > .ttl-profile-field {
@@ -687,4 +688,27 @@ GtkSourceAssistant row:last-child {
 .sourceview.reset {
 	background: transparent;
 	color: currentColor;
+}
+
+.entry-button {
+	margin: 0;
+	padding: 0;
+	min-width: 0; /* 24px; */
+	min-height: 0; /* 24px; */
+}
+
+.entry-button:not(:hover):not(:focus-within) > image {
+	opacity: 0.7;
+}
+
+popover.mini-profile > contents {
+	padding: 0;
+}
+
+.report-status .attachment-picture {
+	filter: blur(15px) grayscale(1);
+}
+
+.report-status:hover .attachment-picture {
+	filter: none;
 }

@@ -47,7 +47,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 			_avatar_url = value;
 
 			if (value != null && (!retry_on_network_changes || (retry_on_network_changes && app.is_online))) {
-				Tuba.Helper.Image.request_paintable (value, null, on_cache_response);
+				Tuba.Helper.Image.request_paintable (value, null, false, on_cache_response);
 			}
 		}
 	}
@@ -127,6 +127,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 					propagate_natural_height = true
 				}
 			};
+			mini_profile.add_css_class ("mini-profile");
 			mini_profile.set_parent (this);
 			mini_profile.closed.connect (clear_mini);
 		}

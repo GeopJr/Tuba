@@ -21,7 +21,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	}
 
 	void update_pic_content_fit () {
-		pic.content_fit = settings.letterbox_media ? Gtk.ContentFit.CONTAIN : Gtk.ContentFit.COVER;
+		pic.content_fit = settings.letterbox_media || (entity != null && entity.tuba_is_report) ? Gtk.ContentFit.CONTAIN : Gtk.ContentFit.COVER;
 	}
 
 	construct {
@@ -46,6 +46,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	ulong pic_paintable_id = 0;
 	protected override void on_rebind () {
 		base.on_rebind ();
+		update_pic_content_fit ();
 
 		if (entity == null) {
 			pic.alternative_text = null;
@@ -80,7 +81,7 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			media_icon.icon_size = Gtk.IconSize.LARGE;
 		}
 
-		Tuba.Helper.Image.request_paintable (entity.preview_url, entity.blurhash, on_cache_response);
+		Tuba.Helper.Image.request_paintable (entity.preview_url, entity.blurhash, (entity != null && entity.tuba_is_report), on_cache_response);
 		copy_media_simple_action.set_enabled (media_kind.can_copy ());
 	}
 

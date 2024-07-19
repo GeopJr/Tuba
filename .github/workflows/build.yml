@@ -11,7 +11,7 @@ jobs:
     name: "Vala Lint"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: elementary/actions/vala-lint@master
       with:
         conf: vala-lint.conf
@@ -28,7 +28,7 @@ jobs:
       # Don't fail the whole workflow if one architecture fails
       fail-fast: false
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     # Docker is required by the docker/setup-qemu-action which enables emulation
     - name: Install deps
       if: matrix.arch == 'aarch64'
@@ -51,23 +51,22 @@ jobs:
   snap-builder:
     name: "Snap Builder"
     runs-on: ubuntu-latest
-    if: ${{ false }} # disable until snap updates the sdk to GNOME 46
+    # if: ${{ false }} # disable until snap updates the sdk to GNOME 46
     needs: [ lint ]
     strategy:
       matrix:
-        arch: [x86_64, aarch64]
+        arch:
+          - x86_64
+          # - aarch64 # needs some changes in the action to incorporate core24
       # Don't fail the whole workflow if one architecture fails
       fail-fast: false
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: docker/setup-qemu-action@v2
-      if: matrix.arch == 'aarch64'
-    - uses: mikefarah/yq@v4.33.3
       if: matrix.arch == 'aarch64'
     - run: |
         mv ./build-aux/snap/snapcraft.yaml .
         sed -i '/version: git/d' snapcraft.yaml
-        yq -i 'del(.parts.cleanup)' snapcraft.yaml
       if: matrix.arch == 'aarch64'
     - uses: diddlesnaps/snapcraft-multiarch-action@v1
       if: matrix.arch == 'aarch64'
@@ -77,7 +76,9 @@ jobs:
     - uses: snapcore/action-build@v1
       id: snapcraft
       if: matrix.arch == 'x86_64'
-    - uses: actions/upload-artifact@v3
+      env:
+        SNAPCRAFT_ENABLE_EXPERIMENTAL_EXTENSIONS: 1
+    - uses: actions/upload-artifact@v4
       with:
         name: snap-${{ matrix.arch }}
         path: ${{ steps.snapcraft_docker.outputs.snap }}${{ steps.snapcraft.outputs.snap }}

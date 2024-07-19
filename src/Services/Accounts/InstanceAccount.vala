@@ -56,6 +56,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		gather_instance_info ();
 		gather_instance_custom_emojis ();
 		check_announcements ();
+
+		if (_account_settings != null) _account_settings = null;
 	}
 	public virtual signal void deactivated () {}
 	public virtual signal void added () {
@@ -70,7 +72,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		gather_instance_info ();
 		gather_instance_custom_emojis ();
 		check_announcements ();
-		init_notifications ();
+		check_notifications ();
 	}
 
 	construct {
@@ -248,7 +250,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				break;
 			case KIND_FAVOURITE:
 				result = {
-					"starred-symbolic",
+					"tuba-starred-symbolic",
 					// translators: the variable is a string user name,
 					//				this is used for notifications
 					_("%s favorited your post").printf (actor_name),
@@ -309,7 +311,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				break;
 			case KIND_ADMIN_SIGNUP:
 				result = {
-					"tuba-police-badge2-symbolic",
+					"tuba-build-alt-symbolic",
 					// translators: the variable is a string user name,
 					//				this is used for admin notifications
 					_("%s signed up").printf (actor_name),
@@ -329,7 +331,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				break;
 			case KIND_ADMIN_REPORT:
 				result = {
-					"tuba-police-badge2-symbolic",
+					"tuba-build-alt-symbolic",
 					// translators: this is used for admin notifications
 					_("Received a new report"),
 					null
@@ -355,7 +357,6 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public int unread_count { get; set; default = 0; }
 	public int last_read_id { get; set; default = 0; }
 	public int last_received_id { get; set; default = 0; }
-	private bool passed_init_notifications = false;
 
 	public class StatusContentType : Object {
 		public string mime { get; construct set; }
@@ -480,9 +481,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	public void init_notifications () {
-		if (passed_init_notifications) return;
-
-		new Request.GET ("/api/v1/notifications")
+		new Request.GET (@"/api/v1/notifications$(Views.Notifications.get_notifications_excluded_types_query_param ())")
 			.with_account (this)
 			.with_param ("min_id", last_read_id.to_string ())
 			.then ((in_stream) => {
@@ -494,7 +493,6 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 						last_received_id = int.parse (array.get_object_element (0).get_string_member_with_default ("id", "-1"));
 					}
 				}
-				passed_init_notifications = true;
 			})
 			.exec ();
 	}
@@ -508,7 +506,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				if (!root.has_member ("notifications")) return;
 				var notifications = root.get_object_member ("notifications");
 				last_read_id = int.parse (notifications.get_string_member_with_default ("last_read_id", "-1"));
-				if (!passed_init_notifications) init_notifications ();
+				init_notifications ();
 			})
 			.exec ();
 	}
@@ -629,7 +627,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			if (id > last_received_id) {
 				last_received_id = id;
 
-				unread_count++;
+				if (!(entity.kind in account_settings_notification_filters ()))
+					unread_count++;
 				send_toast (entity);
 			}
 		} catch (Error e) {
@@ -643,4 +642,19 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public virtual void follow_back (string issuer_id, string acc_id) {}
 	public virtual void reply_to_status_uri (string issuer_id, string uri) {}
 	public virtual void remove_from_followers (string issuer_id, string acc_id) {}
+
+	private GLib.Settings? _account_settings = null;
+	private GLib.Settings account_settings () {
+		if (accounts.active == this) return settings;
+		if (_account_settings == null) _account_settings = new Settings.Account (this.uuid);
+		return _account_settings;
+	}
+
+	private string[] account_settings_notification_filters () {
+		if (accounts.active == this) {
+			return ((Settings) account_settings ()).notification_filters;
+		} else {
+			return ((Settings.Account) account_settings ()).notification_filters;
+		}
+	}
 }

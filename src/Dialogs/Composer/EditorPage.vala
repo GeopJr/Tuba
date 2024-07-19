@@ -118,6 +118,7 @@ public class Tuba.EditorPage : ComposerPage {
 		editor.buffer.end_user_action ();
 
 		var toast = new Adw.Toast (
+			// translators: "Stripped" is a past tense verb in this context, not an adjective.
 			_("Stripped tracking parameters")
 		) {
 			timeout = 3,

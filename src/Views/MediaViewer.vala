@@ -227,7 +227,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			this.url = t_url;
 
 			#if GTK_4_14 && !CLAPPER
-				if (this.is_video)
+				if (this.is_video && settings.use_graphics_offload)
 					stack.visible_child_name = "child";
 			#endif
 
@@ -260,7 +260,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		public void done () {
 			if (is_done) return;
 
-			#if !CLAPPER
+			#if !CLAPPER && GTK_4_14 && !GTK_4_16
 				if (is_video && ((Gtk.Video) child_widget).media_stream == null) {
 					if (media_stream_signal_id == -1) {
 						media_stream_signal_id = ((Gtk.Video) child_widget).notify["media-stream"].connect (on_received_media_stream);
@@ -271,9 +271,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			#endif
 
 			spinner.spinning = false;
-			#if !GTK_4_14 || CLAPPER
-				stack.visible_child_name = "child";
-			#endif
+			stack.visible_child_name = "child";
 
 			if (is_video) {
 				#if CLAPPER
@@ -295,12 +293,14 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			is_done = true;
 		}
 
-		private void on_received_media_stream () {
-			if (((Gtk.Video) child_widget).media_stream != null) {
-				done ();
-				((Gtk.Video) child_widget).disconnect (media_stream_signal_id);
+		#if GTK_4_14 && !GTK_4_16
+			private void on_received_media_stream () {
+				if (((Gtk.Video) child_widget).media_stream != null) {
+					done ();
+					((Gtk.Video) child_widget).disconnect (media_stream_signal_id);
+				}
 			}
-		}
+		#endif
 
 		private void on_manual_volume_change () {
 			settings.media_viewer_last_used_volume =
@@ -527,7 +527,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		var gesture = new Gtk.GestureZoom ();
 		gesture.scale_changed.connect (on_scale_changed);
 		gesture.end.connect (on_scale_end);
-		add_controller (gesture);
+		carousel.add_controller (gesture);
 
 		var motion = new Gtk.EventControllerMotion ();
 		motion.motion.connect (on_motion);
@@ -963,10 +963,6 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				var video = new ClapperGtk.Video () {
 					auto_inhibit = true
 				};
-				video.add_fading_overlay (new ClapperGtk.SimpleControls () {
-					valign = Gtk.Align.END,
-					fullscreenable = false
-				});
 
 				#if CLAPPER_0_8
 					video.player.download_dir = clapper_cache_dir;
@@ -975,28 +971,39 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				#endif
 
 				#if CLAPPER_MPRIS
-				    var mpris = new Clapper.Mpris (
-				      "org.mpris.MediaPlayer2.Tuba",
-				      Build.NAME,
-					  null
+					var mpris = new Clapper.Mpris (
+						"org.mpris.MediaPlayer2.Tuba",
+						Build.NAME,
+						Build.DOMAIN
 					);
-				    video.player.add_feature (mpris);
+					video.player.add_feature (mpris);
 				#endif
 				video.player.audio_filter = Gst.ElementFactory.make ("scaletempo", null);
 			#else
 				var video = new Gtk.Video () {
-					#if GTK_4_14
+					#if GTK_4_16
+						// TODO: when 4.16 releases, remove use-graphics-offload and set it to DISABLED on <4.16
 						graphics_offload = Gtk.GraphicsOffloadEnabled.ENABLED
+					#elif GTK_4_14
+						graphics_offload = settings.use_graphics_offload ? Gtk.GraphicsOffloadEnabled.ENABLED : Gtk.GraphicsOffloadEnabled.DISABLED
 					#endif
 				};
 			#endif
 
 			if (media_type == Tuba.Attachment.MediaType.GIFV) {
 				#if CLAPPER
+					video.player.queue.progression_mode = Clapper.QueueProgressionMode.REPEAT_ITEM;
 					video.player.autoplay = true;
 				#else
 					video.loop = true;
 					video.autoplay = true;
+				#endif
+			} else {
+				#if CLAPPER
+					video.add_fading_overlay (new ClapperGtk.SimpleControls () {
+						valign = Gtk.Align.END,
+						fullscreenable = false
+					});
 				#endif
 			}
 
@@ -1044,7 +1051,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			if (alt_text != null) picture.alternative_text = alt_text;
 
 			if (!as_is) {
-				Tuba.Helper.Image.request_paintable (url, null, (data) => {
+				Tuba.Helper.Image.request_paintable (url, null, false, (data) => {
 					picture.paintable = data;
 					if (data != null)
 						add_todo_item (item);

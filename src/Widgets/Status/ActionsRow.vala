@@ -113,7 +113,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		this.append (reblog_button);
 
 		favorite_button = new StatusActionButton.with_icon_name ("tuba-unstarred-symbolic") {
-			active_icon_name = "starred-symbolic",
+			active_icon_name = "tuba-starred-symbolic",
 			css_classes = { "ttl-status-action-star", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = true,

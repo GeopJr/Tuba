@@ -64,8 +64,8 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			vexpand = true
 		};
 		box.append (notifications_filter_banner);
-		scrolled.child = box;
-		box.append (content_box);
+		scrolled_overlay.child = box;
+		box.append (states);
 
 		settings.notify["dim-trivial-notifications"].connect (settings_updated);
 		settings_updated ();
@@ -95,6 +95,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	}
 
 	public override void on_account_changed (InstanceAccount? acc) {
+		filters_changed (false);
 		base.on_account_changed (acc);
 
 		if (badge_number_binding != null)
@@ -186,6 +187,12 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			: null;
 	}
 
+	public static string get_notifications_excluded_types_query_param () {
+		if (settings.notification_filters.length == 0) return "";
+
+		return @"?exclude_types[]=$(string.joinv ("&exclude_types[]=", settings.notification_filters))";
+	}
+
 	public void filters_changed (bool refresh = true) {
 		string new_url = "/api/v1/notifications";
 
@@ -193,7 +200,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			this.is_all = true;
 		} else {
 			this.is_all = false;
-			new_url += @"?exclude_types[]=$(string.joinv ("&exclude_types[]=", settings.notification_filters))";
+			new_url += get_notifications_excluded_types_query_param ();
 		}
 
 		if (new_url == this.url) return;

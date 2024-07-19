@@ -5,6 +5,7 @@
 		<property name="title_lines">1</property>
 		<property name="subtitle_lines">1</property>
 		<property name="activatable">1</property>
+		<property name="use-markup">0</property>
 
 		<child type="prefix">
 			<object class="GtkOverlay">

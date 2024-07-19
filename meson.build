@@ -1,7 +1,7 @@
 project(
     'dev.geopjr.Tuba',
     ['c', 'vala'],
-    version: '0.7.2',
+    version: '0.8.2',
     meson_version: '>= 0.56.0',
     default_options: [
         'warning_level=2',
@@ -115,6 +115,10 @@ endif
 
 if gtk_dep.version().version_compare('>=4.14')
   add_project_arguments(['--define=GTK_4_14'], language: 'vala')
+endif
+
+if gtk_dep.version().version_compare('>=4.16')
+  add_project_arguments(['--define=GTK_4_16'], language: 'vala')
 endif
 
 sources = files()

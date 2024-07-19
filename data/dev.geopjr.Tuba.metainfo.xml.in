@@ -62,6 +62,94 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.8.2" date="2024-07-18">
+      <description translate="no">
+        <ul>
+            <li>Added moderator protection from illegal or disturbing attachments in the admin dashboard</li>
+            <li>Fixed random crash occurring when navigating back</li>
+            <li>Improved Clapper MPRIS support</li>
+            <li>Hid media controls for Clapper when viewing GIFs</li>
+            <li>Fixed notification count not updating after network re-connection</li>
+            <li>Fixed admin dashboard reports not being able to close using the window controls</li>
+            <li>Fixed websocket events being unnecessarily url decoded</li>
+            <li>Adjusted the mini profile styling</li>
+            <li>Fixed Media Viewer crashes by disabling Graphic Offload until GTK 4.16</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.8.1" date="2024-06-23">
+      <description translate="no">
+        <ul>
+            <li>Added a gsettings options to disable graphics offload</li>
+            <li>Fixed Media Viewer gestures requiring an extra click sometimes to work</li>
+            <li>Fixed Media Viewer images not being marked as loaded</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.8.0" date="2024-06-22">
+      <description translate="no">
+        <ul>
+            <li>Added Admin Dashboard</li>
+            <li>Added Advance Search Dialog</li>
+            <li>Added in-app proxy settings</li>
+            <li>Added network monitoring and graceful recovery</li>
+            <li>Added profile notes</li>
+            <li>Added mini-profile when clicking avatars</li>
+            <li>Added custom aria labels on complex containers</li>
+            <li>Added post translations when possible</li>
+            <li>Added keeping track of last used video volume between restarts</li>
+            <li>Added in-reply post indicator</li>
+            <li>Replaced the media viewer headerbar with a floating button when fullscreened</li>
+            <li>Added reactive relationship updates</li>
+            <li>Added the ability to dim non-trivial notifications like favorites and boosts</li>
+            <li>Added clearing all notifications</li>
+            <li>Added 'replying to old post' reminder switch in settings</li>
+            <li>Redesigned the preview cards into a vertical layout</li>
+            <li>Added different empty-state icons to some views</li>
+            <li>Added a settings dialog in the 'new account' window for proxy and admin mode settings</li>
+            <li>Added a crossed out boosts icon, shown when it's disabled</li>
+            <li>Added support for notification requests</li>
+            <li>Changed the default poll expiration date to 1 day if available</li>
+            <li>Added in-app resolving of web+ap links in posts/profiles</li>
+            <li>Added support for admin notifications (reports, sign-ups)</li>
+            <li>Added support for severed relationships notifications</li>
+            <li>Added blocked-by relationship status</li>
+            <li>Redesigned profile fields</li>
+            <li>Added GraphicsOffload for better video performance</li>
+            <li>Added optional Clapper support</li>
+            <li>Fixed crash when opening the composer while the instance doesn't have or has loaded its custom emojis due to optional chaining</li>
+            <li>Fixed horizontal swiping on the media viewer</li>
+            <li>Fixed composer highlighting being too loose on whole word matching</li>
+            <li>Fixed composer highlighting accepting invalid characters on hashtags</li>
+            <li>Fixed hiding post elements due to quote-inline when no quote was provided</li>
+            <li>Fixed many random crashes when going back due to a disposing hack</li>
+            <li>Fixed hashtag url matching being too loose</li>
+            <li>Fixed resolvable link detection links being too loose</li>
+            <li>Fixed OSK not fitting due to high height request on mobile</li>
+            <li>Fixed minimum width not fitting on mobile due to strict centering policy on headerbars</li>
+            <li>Fixed accessibility issues with icons, custom widgets and containers</li>
+            <li>Fixed missing tooltips</li>
+            <li>Fixed aria-labels on dates not being descriptive enough</li>
+            <li>Fixed missing singular forms of some counters</li>
+            <li>Fixed crash when closing the composer too fast due to a disposing hack</li>
+            <li>Fixed focus changes when activating a label link</li>
+            <li>Fixed media viewer gesture issues</li>
+            <li>Fixed completion provider word capturing issues</li>
+            <li>Refactored the custom emoji picker</li>
+            <li>Fixed libsoup cache not being triggered on custom emojis and causing unnecessary re-downloading</li>
+            <li>Fixed high contrast theme borders on profile fields</li>
+            <li>Fixed duplicate posts in home due to a race condition</li>
+            <li>Fixed bulk requesting relationships multiple times</li>
+            <li>Fixed missing icons or icons with incorrect context on Breeze/Yaru by bundling them</li>
+            <li>Fixed account switcher rows accepting markup when they shouldn't</li>
+            <li>Other minor bug fixes, memory leak fixes and optimizations</li>
+            <li>Updated translations</li>
+            <li>🏳️‍🌈 Happy Pride Month! 🏳️‍⚧️</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.7.2" date="2024-04-07">
       <description translate="no">
         <ul>

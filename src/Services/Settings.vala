@@ -1,5 +1,5 @@
 public class Tuba.Settings : GLib.Settings {
-	class Account : GLib.Settings {
+	public class Account : GLib.Settings {
 		public string default_language { get; set; default = "en"; }
 		public string default_post_visibility { get; set; default = "public"; }
 		public string default_content_type { get; set; default = "text/plain"; }
@@ -128,6 +128,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool monitor_network { get; set; }
 	public string proxy { get; set; }
 	public bool dim_trivial_notifications { get; set; }
+	public bool use_graphics_offload { get; set; }
 
 	private static string[] keys_to_init = {
 		"active-account",
@@ -154,7 +155,8 @@ public class Tuba.Settings : GLib.Settings {
 		"media-viewer-last-used-volume",
 		"monitor-network",
 		"proxy",
-		"dim-trivial-notifications"
+		"dim-trivial-notifications",
+		"use-graphics-offload"
 	};
 
 	public Settings () {

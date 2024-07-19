@@ -166,8 +166,8 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 	int64 max_value_length;
 	public ProfileEdit (API.Account acc) {
 		profile = acc;
-		Tuba.Helper.Image.request_paintable (acc.header, null, on_background_cache_response);
-		Tuba.Helper.Image.request_paintable (acc.avatar, null, on_avi_cache_response);
+		Tuba.Helper.Image.request_paintable (acc.header, null, false, on_background_cache_response);
+		Tuba.Helper.Image.request_paintable (acc.avatar, null, false, on_avi_cache_response);
 		avi.text = acc.display_name;
 		name_row.text = acc.display_name;
 		bio_text_view.buffer.text = acc.source == null || acc.source.note == null ? "" : acc.source.note;

@@ -24,7 +24,7 @@ public class Tuba.Dialogs.Admin.Window : Adw.Window {
 	};
 
 	public static Place place_reports = new Place () {
-		icon = "tuba-police-badge2-symbolic",
+		icon = "tuba-build-alt-symbolic",
 		title = _("Reports"),
 		open_func_admin = (win) => {
 			win.split_view.content = new Views.Admin.Page.Reports () {
@@ -44,7 +44,7 @@ public class Tuba.Dialogs.Admin.Window : Adw.Window {
 	};
 
 	public static Place place_blocked_email_domains = new Place () {
-		icon = "mail-unread-symbolic",
+		icon = "tuba-mail-unread-symbolic",
 		title = _("Blocked E-mail Domains"),
 		open_func_admin = (win) => {
 			win.split_view.content = new Views.Admin.Page.BlockedEmails () {

@@ -103,6 +103,9 @@
 		<key name="proxy" type="s">
 			<default>''</default>
 		</key>
+    <key name="use-graphics-offload" type="b">
+			<default>false</default>
+		</key>
 
 		<key name="window-w" type="i">
 			<default>600</default>
