@@ -431,6 +431,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				}
 
 				clapper_cache_cleanup (true);
+				app.shutdown.connect (() => clapper_cache_cleanup (true));
 			#endif
 
 			// Clapper can have > 1.0 volumes
