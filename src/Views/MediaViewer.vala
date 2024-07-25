@@ -421,6 +421,15 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			#if CLAPPER_0_8
 				clapper_cached_urls = new Gee.HashMap<string, string> ();
 				clapper_cache_dir = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "clapper");
+				var dir = File.new_for_path (clapper_cache_dir);
+				if (!dir.query_exists ()) {
+					try {
+						dir.make_directory_with_parents ();
+					} catch (Error e) {
+						critical (@"Couldn't create Clapper cache dir: $(e.message)");
+					}
+				}
+
 				clapper_cache_cleanup (true);
 			#endif
 
