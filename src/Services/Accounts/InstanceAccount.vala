@@ -602,6 +602,10 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		obj.to_toast.begin (this, others, (_obj, res) => {
 			app.send_notification (id, obj.to_toast.end (res));
 		});
+
+		#if FEEDBACKD
+			Tuba.Feedback.trigger_event ("message-new-email");
+		#endif
 		//  sent_notification_ids.add(id);
 	}
 

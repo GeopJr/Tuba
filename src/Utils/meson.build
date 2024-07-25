@@ -10,3 +10,7 @@ sources += files(
     'Units.vala',
     'WebApHandler.vala',
 )
+
+if feedbackd_dep.found ()
+  sources += files ('Feedback.vala')
+endif
