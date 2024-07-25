@@ -1091,7 +1091,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		private void clapper_cache_cleanup (bool all = false) {
 			if (!all) {
-				int to_remove = clapper_cached_locations.size - 3; // TODO: make it 10 before merging
+				int to_remove = clapper_cached_locations.size - 10;
 				if (to_remove > 0) {
 					var sliced = clapper_cached_locations.slice (0, to_remove);
 					clapper_cached_locations.remove_all (sliced);
