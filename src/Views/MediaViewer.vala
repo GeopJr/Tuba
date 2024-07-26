@@ -103,10 +103,12 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				if (!is_video) return;
 				if (is_done) {
 					#if CLAPPER
+						Clapper.Player player = ((ClapperGtk.Video) child_widget).player;
+
 						if (value) {
-							((ClapperGtk.Video) child_widget).player.play ();
-						} else {
-							((ClapperGtk.Video) child_widget).player.pause ();
+							player.play ();
+						} else if (player.state > Clapper.PlayerState.STOPPED) {
+							player.pause ();
 						}
 					#else
 						((Gtk.Video) child_widget).media_stream.playing = value;
@@ -275,14 +277,16 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 			if (is_video) {
 				#if CLAPPER
+					Clapper.Player player = ((ClapperGtk.Video) child_widget).player;
+
 					if (pre_playing) {
-						((ClapperGtk.Video) child_widget).player.play ();
-					} else {
-						((ClapperGtk.Video) child_widget).player.pause ();
+						player.play ();
+					} else if (player.state > Clapper.PlayerState.STOPPED) {
+						player.pause ();
 					}
 
-					((ClapperGtk.Video) child_widget).player.volume = last_used_volume;
-					((ClapperGtk.Video) child_widget).player.notify["volume"].connect (on_manual_volume_change);
+					player.volume = last_used_volume;
+					player.notify["volume"].connect (on_manual_volume_change);
 				#else
 					((Gtk.Video) child_widget).media_stream.volume = 1.0 - last_used_volume;
 					((Gtk.Video) child_widget).media_stream.volume = last_used_volume;
