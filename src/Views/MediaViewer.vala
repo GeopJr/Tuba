@@ -944,14 +944,6 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				var video = new ClapperGtk.Video () {
 					auto_inhibit = true
 				};
-				#if CLAPPER_MPRIS
-					var mpris = new Clapper.Mpris (
-						"org.mpris.MediaPlayer2.Tuba",
-						Build.NAME,
-						Build.DOMAIN
-					);
-					video.player.add_feature (mpris);
-				#endif
 				video.player.audio_filter = Gst.ElementFactory.make ("scaletempo", null);
 			#else
 				var video = new Gtk.Video () {
@@ -974,6 +966,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				#endif
 			} else {
 				#if CLAPPER
+					#if CLAPPER_MPRIS
+						video.player.add_feature (new Clapper.Mpris (
+							"org.mpris.MediaPlayer2.Tuba",
+							Build.NAME,
+							Build.DOMAIN
+						));
+					#endif
 					video.add_fading_overlay (new ClapperGtk.SimpleControls () {
 						valign = Gtk.Align.END,
 						fullscreenable = false
