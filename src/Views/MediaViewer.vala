@@ -944,7 +944,6 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				var video = new ClapperGtk.Video () {
 					auto_inhibit = true
 				};
-				video.player.audio_filter = Gst.ElementFactory.make ("scaletempo", null);
 			#else
 				var video = new Gtk.Video () {
 					#if GTK_4_16
