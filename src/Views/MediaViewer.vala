@@ -958,10 +958,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			if (media_type == Tuba.Attachment.MediaType.GIFV) {
 				#if CLAPPER
 					video.player.queue.progression_mode = Clapper.QueueProgressionMode.REPEAT_ITEM;
-					video.player.autoplay = true;
 				#else
 					video.loop = true;
-					video.autoplay = true;
 				#endif
 			} else {
 				#if CLAPPER
