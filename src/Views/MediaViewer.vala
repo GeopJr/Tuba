@@ -1005,7 +1005,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				#if CLAPPER
 					#if CLAPPER_MPRIS
 						video.player.add_feature (new Clapper.Mpris (
-							"org.mpris.MediaPlayer2.Tuba",
+							@"org.mpris.MediaPlayer2.Tuba.instance$(items.size)",
 							Build.NAME,
 							Build.DOMAIN
 						));
