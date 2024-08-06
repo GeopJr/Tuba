@@ -17,6 +17,10 @@
             "type": "git",
             "url": "https://github.com/Rafostar/clapper.git",
             "branch": "master"
-        }
+        },
+		{
+			"type": "shell",
+			"commands": ["sed -i \"s/version: '0.7.0',/version: '0.8.0',/g\" meson.build"]
+		}
     ]
 }

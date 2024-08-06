@@ -416,8 +416,28 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		}
 	}
 
+	#if CLAPPER_0_8
+		string clapper_cache_dir;
+		Gee.HashMap<string, string> clapper_cached_urls;
+	#endif
 	construct {
 		#if CLAPPER
+			#if CLAPPER_0_8
+				clapper_cached_urls = new Gee.HashMap<string, string> ();
+				clapper_cache_dir = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "clapper");
+				var dir = File.new_for_path (clapper_cache_dir);
+				if (!dir.query_exists ()) {
+					try {
+						dir.make_directory_with_parents ();
+					} catch (Error e) {
+						critical (@"Couldn't create Clapper cache dir: $(e.message)");
+					}
+				}
+
+				clapper_cache_cleanup (true);
+				app.shutdown.connect (() => clapper_cache_cleanup (true));
+			#endif
+
 			// Clapper can have > 1.0 volumes
 			last_used_volume = settings.media_viewer_last_used_volume;
 		#else
@@ -550,6 +570,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	~MediaViewer () {
 		debug ("Destroying MediaViewer");
 		context_menu.unparent ();
+		#if CLAPPER_0_8
+			clapper_cache_cleanup (true);
+			clapper_cached_urls.clear ();
+			clapper_cached_locations.clear ();
+		#endif
 	}
 
 	private void on_visible_toggle () {
@@ -903,6 +928,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		items.clear ();
 		revealed = false;
+
+		#if CLAPPER_0_8
+			clapper_cache_cleanup ();
+		#endif
 	}
 
 	private void update_revealer_widget (int pos = -1) {
@@ -948,6 +977,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				var video = new ClapperGtk.Video () {
 					auto_inhibit = true
 				};
+
+				#if CLAPPER_0_8
+					video.player.download_dir = clapper_cache_dir;
+					video.player.download_enabled = true;
+					video.player.download_complete.connect (on_clapper_download_complete);
+				#endif
+
 			#else
 				var video = new Gtk.Video () {
 					#if GTK_4_16
@@ -969,7 +1005,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				#if CLAPPER
 					#if CLAPPER_MPRIS
 						video.player.add_feature (new Clapper.Mpris (
-							"org.mpris.MediaPlayer2.Tuba",
+							@"org.mpris.MediaPlayer2.Tuba.instance$(items.size)",
 							Build.NAME,
 							Build.DOMAIN
 						));
@@ -984,7 +1020,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			item = new Item (video, final_friendly_url, final_preview, true);
 
 			#if CLAPPER
-				var clp_item = new Clapper.MediaItem (url);
+				Clapper.MediaItem clp_item;
+				#if CLAPPER_0_8
+					clp_item = new Clapper.MediaItem.cached (url, clapper_cached_urls.get (url));
+				#else
+					clp_item = new Clapper.MediaItem (url);
+				#endif
+
 				video.player.queue.add_item (clp_item);
 				video.player.queue.select_item (clp_item);
 				add_todo_item (item);
@@ -1036,6 +1078,56 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		if (as_is || stream) add_todo_item (item);
 	}
+
+	#if CLAPPER_0_8
+		// libgee's hashmaps do not preserve insertion order.
+		// We need the order to know what we should cleanup
+		// (older items get cleaned up first).
+		Gee.ArrayList<string> clapper_cached_locations = new Gee.ArrayList<string> ();
+		private void on_clapper_download_complete (Clapper.MediaItem clp_media_item, string location) {
+			clapper_cached_urls.set (clp_media_item.uri, location);
+			clapper_cached_locations.add (location);
+		}
+
+		private void clapper_cache_cleanup (bool all = false) {
+			if (!all) {
+				int to_remove = clapper_cached_locations.size - 10;
+				if (to_remove > 0) {
+					var sliced = clapper_cached_locations.slice (0, to_remove);
+					clapper_cached_locations.remove_all (sliced);
+
+					clapper_cached_urls.foreach (e => {
+						if (!clapper_cached_locations.contains (e.value))
+							clapper_cached_urls.unset (e.key);
+
+						return true;
+					});
+				}
+			}
+
+			try {
+				Dir dir = Dir.open (clapper_cache_dir, 0);
+				string? name = null;
+
+				while ((name = dir.read_name ()) != null) {
+					string path = Path.build_filename (clapper_cache_dir, name);
+					if (!all && clapper_cached_locations.contains (path)) continue;
+
+					File file = File.new_for_path (path);
+					file.delete_async.begin (Priority.LOW, null, (obj, res) => {
+						try {
+							file.delete_async.end (res);
+						} catch (Error e) {
+							warning (@"Error while deleting Clapper's cache: $(e.message)");
+						}
+					});
+				}
+			} catch (FileError e) {
+				warning (@"Error while opening Clapper's cache: $(e.message)");
+			}
+			return;
+		}
+	#endif
 
 	private Gee.ArrayList<string> todo_items = new Gee.ArrayList<string> ();
 	private void add_todo_item (Item todo_item) {

@@ -107,6 +107,10 @@ if clapper_support and clapper_dep.found () and clapper_dep.version().version_co
   if (clapper_dep.get_variable('features').split().contains('mpris'))
     add_project_arguments(['--define=CLAPPER_MPRIS'], language: 'vala')
   endif
+
+  if clapper_dep.version().version_compare('>=0.8.0')
+    add_project_arguments(['--define=CLAPPER_0_8'], language: 'vala')
+  endif
 endif
 
 if gtk_dep.version().version_compare('>=4.14')
