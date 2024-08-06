@@ -169,6 +169,14 @@ namespace Tuba {
 				warning (e.message);
 			}
 
+			#if FEEDBACKD
+				try {
+					Lfb.init (Build.DOMAIN);
+				} catch (Error e) {
+					critical (@"Couldn't init libfeedback: $(e.message)");
+				}
+			#endif
+
 			#if CLAPPER
 				Clapper.init (ref args);
 				GLib.Environment.set_variable ("CLAPPER_USE_PLAYBIN3", "1", false);
@@ -219,7 +227,14 @@ namespace Tuba {
 			network_monitor = NetworkMonitor.get_default ();
 
 			app = new Application ();
-			return app.run (args);
+
+			#if FEEDBACKD
+				var ret = app.run (args);
+				Lfb.uninit ();
+				return ret;
+			#else
+				return app.run (args);
+			#endif
 		}
 
 		private void on_network_change (bool online) {
