@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-05-22 20:02+0000\n"
+"PO-Revision-Date: 2024-08-09 14:09+0000\n"
 "Last-Translator: Software In Interlingua <softinterlingua@gmail.com>\n"
 "Language-Team: Interlingua <https://hosted.weblate.org/projects/tuba/tuba/ia/"
 ">\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr ""
+msgstr "Naviga in le Fediverso"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
@@ -72,11 +72,11 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:25 src/Views/Main.vala:62
 #: src/Views/Search.vala:91
 msgid "Search"
-msgstr ""
+msgstr "Cercar"
 
 #: data/gtk/help-overlay.ui:38 data/ui/views/media_viewer.ui:50
 msgid "Go Back"
-msgstr ""
+msgstr "Retornar"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
@@ -120,11 +120,11 @@ msgstr "Schermo plen"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:147
 msgid "Zoom In"
-msgstr ""
+msgstr "Zoom avante"
 
 #: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:135
 msgid "Zoom Out"
-msgstr ""
+msgstr "Zoom retro"
 
 #: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:93
 msgid "Previous Attachment"
@@ -137,12 +137,12 @@ msgstr ""
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "Zoom avante"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Zoom retro"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
@@ -232,7 +232,7 @@ msgstr ""
 
 #: data/ui/dialogs/advanced_search.ui:123 data/ui/dialogs/preferences.ui:179
 msgid "Timelines"
-msgstr ""
+msgstr "Chronologias"
 
 #: data/ui/dialogs/advanced_search.ui:126
 msgid "Everywhere"
@@ -241,7 +241,7 @@ msgstr ""
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:140
 msgid "Library"
-msgstr ""
+msgstr "Bibliotheca"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
 #: data/ui/dialogs/advanced_search.ui:142
@@ -251,7 +251,7 @@ msgstr ""
 #: data/ui/dialogs/advanced_search.ui:156
 #: src/Services/Accounts/Mastodon/Account.vala:167
 msgid "Public"
-msgstr ""
+msgstr "Public"
 
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:173
@@ -331,7 +331,7 @@ msgstr ""
 
 #: data/ui/dialogs/list_edit.ui:27
 msgid "List Name"
-msgstr ""
+msgstr "Nomine del lista"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
@@ -348,7 +348,7 @@ msgstr ""
 #: data/ui/dialogs/list_edit.ui:43 src/Widgets/Admin/AssignedRow.vala:49
 #: src/Widgets/Admin/Report.vala:20 src/Widgets/Admin/Report.vala:24
 msgid "Nobody"
-msgstr ""
+msgstr "Nemo"
 
 #: data/ui/dialogs/list_edit.ui:54
 msgid "Other members of the list"
@@ -381,12 +381,12 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:70
 msgid "Server URL"
-msgstr ""
+msgstr "URL del servitor"
 
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:297
 msgid "Settings"
-msgstr ""
+msgstr "Parametros"
 
 #: data/ui/dialogs/new_account.ui:141
 msgid "Confirm Authorization"
@@ -405,7 +405,7 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:214
 msgid "Done"
-msgstr ""
+msgstr "Preste"
 
 #: data/ui/dialogs/new_account.ui:229
 msgid "Your account is connected and ready to use!"
@@ -504,7 +504,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:121
 msgid "Default Post Language"
-msgstr ""
+msgstr "Lingua predefinite del message"
 
 #: data/ui/dialogs/preferences.ui:131
 msgid "Default Post Content Type"
