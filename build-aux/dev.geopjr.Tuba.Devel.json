@@ -33,9 +33,9 @@
             ],
             "sources" : [
                 {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/libspelling.git",
-                    "branch" : "main"
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/libspelling.git",
+                    "tag": "0.2.1"
                 }
             ]
         },
