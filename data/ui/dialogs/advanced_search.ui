@@ -126,6 +126,7 @@
 														<property name="activatable-widget">all_radio</property>
 														<child type="prefix">
 															<object class="GtkCheckButton" id="all_radio">
+																<property name="valign">center</property>
 																<style>
 																	<class name="selection-mode" />
 																</style>
@@ -143,6 +144,7 @@
 														<child type="prefix">
 															<object class="GtkCheckButton" id="library_radio">
 																<property name="group">all_radio</property>
+																<property name="valign">center</property>
 																<style>
 																	<class name="selection-mode" />
 																</style>
@@ -157,6 +159,7 @@
 														<child type="prefix">
 															<object class="GtkCheckButton" id="public_radio">
 																<property name="group">all_radio</property>
+																<property name="valign">center</property>
 																<style>
 																	<class name="selection-mode" />
 																</style>
