@@ -168,12 +168,24 @@ headerbar.flat.no-title .title {
 	color: @red_4;
 }
 
-.ttl-profile-stat-button,
-.small .ttl-profile-stat-button:first-child,
-.small .ttl-profile-stat-button:last-child {
-	border-radius: 0px;
+.ttl-profile-stat-button {
 	padding: 8px 12px;
 	min-height: 32px;
+	border-radius: 0px;
+}
+
+.ttl-profile-stat-button:first-child {
+	border-bottom-left-radius: 12px;
+}
+
+.ttl-profile-stat-button:last-child {
+	border-bottom-right-radius: 12px;
+}
+
+.small .ttl-profile-stat-button:first-child,
+.small .ttl-profile-stat-button:last-child {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
 }
 
 .small .ttl-profile-cover>.content {
