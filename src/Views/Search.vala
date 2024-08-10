@@ -21,7 +21,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 			entry = new Gtk.Text () {
 				width_chars = 25,
-				placeholder_text = _("Enter Query"),
+				placeholder_text = _("Search Posts and Accounts"),
 				hexpand = true
 			};
 			entry.changed.connect (on_entry_change);
@@ -86,6 +86,8 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 	construct {
 		label = _("Search");
+		this.empty_timeline_icon = "system-search";
+		this.empty_state_title = _("Search");
 
 		bar = new Gtk.SearchBar () {
 			search_mode_enabled = true
@@ -145,7 +147,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		query = entry.text.chug ().chomp ();
 		if (query == "") {
 			clear ();
-			base_status = new StatusMessage () { title = _("Enter Query") };
+			base_status = new StatusMessage ();
 			return;
 		}
 
