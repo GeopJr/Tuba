@@ -124,6 +124,10 @@ public class Tuba.Views.Search : Views.TabbedBase {
 	}
 
 	bool append_entity (Views.ContentBase tab, owned Entity entity) {
+		API.SearchResult search_result_entity = entity as API.SearchResult;
+		if (search_result_entity != null) {
+			search_result_entity.tuba_search_query = this.query;
+		}
 		tab.model.append (entity);
 		return true;
 	}

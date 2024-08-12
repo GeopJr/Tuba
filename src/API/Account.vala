@@ -1,5 +1,6 @@
-public class Tuba.API.Account : Entity, Widgetizable {
+public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 	public API.Relationship? tuba_rs { get; set; default=null; }
+	public string? tuba_search_query { get; set; default = null; }
 
 	public string id { get; set; }
 	public string username { get; set; }

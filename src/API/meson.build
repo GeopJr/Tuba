@@ -20,6 +20,7 @@ sources += files(
     'Poll.vala',
     'PollOption.vala',
     'Relationship.vala',
+    'SearchResult.vala',
     'SearchResults.vala',
     'Status.vala',
     'Suggestion.vala',
