@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-08-16 16:09+0000\n"
+"PO-Revision-Date: 2024-08-17 17:09+0000\n"
 "Last-Translator: Ahmed Mohammed <iramosu@airmail.cc>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
@@ -871,7 +871,7 @@ msgstr "معدّل"
 
 #: data/ui/widgets/status.ui:179
 msgid "Pinned"
-msgstr "مثبت"
+msgstr "مُثَبَّت"
 
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:248
@@ -2368,7 +2368,7 @@ msgstr "%b %-e، %Y %H:%m"
 
 #: src/Utils/DateTime.vala:84
 msgid "Just now"
-msgstr "للتوّ"
+msgstr "الآن"
 
 #. tranlators: the variable is a number, `m` as in minutes in short form
 #: src/Utils/DateTime.vala:88
@@ -2402,7 +2402,7 @@ msgstr "%b %-e، %Y"
 
 #: src/Utils/DateTime.vala:123
 msgid "just now"
-msgstr "للتوّ"
+msgstr "الآن"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:127
@@ -3181,7 +3181,7 @@ msgstr[5] "%s مُتابِع"
 #: src/Widgets/ProfileCover.vala:420 src/Widgets/ProfileCover.vala:421
 #, c-format
 msgid "%s Following"
-msgstr "%s يُتابَع"
+msgstr "يُتابِع %s"
 
 #. translators: Admin dashboard, report status
 #: src/Widgets/Admin/AccountRow.vala:27 src/Widgets/Admin/Report.vala:47
@@ -3424,7 +3424,7 @@ msgstr "اعرض سِجِلّ التعديلات"
 #. translators: Pin post on profile
 #: src/Widgets/Status.vala:302 src/Widgets/Status.vala:662
 msgid "Pin"
-msgstr "اغرز"
+msgstr "ثَبِّت"
 
 #. translators: Post menu items to revert a translation
 #: src/Widgets/Status.vala:328
@@ -3454,7 +3454,7 @@ msgstr "افتح ملف %s الشخصي"
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:660
 msgid "Unpin"
-msgstr "ألغِ الغرز"
+msgstr "ألغِ التَثبيت"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3479,7 +3479,7 @@ msgstr "%s منشور بواسطة %s (%s)."
 #. please be mindful.
 #: src/Widgets/Status.vala:711
 msgid "The post is pinned."
-msgstr "هذا المنشور مُغرَز."
+msgstr "هذا المنشور مُثَبَّت."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
