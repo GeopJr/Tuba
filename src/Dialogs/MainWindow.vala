@@ -202,10 +202,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public void go_back_to_start () {
-		var navigated = true;
-		while (navigated) {
-			navigated = navigation_view.pop ();
-		}
+		navigation_view.replace ({ main_page });
 		((Views.TabbedBase) main_page.child).change_page_to_named ("1");
 	}
 
