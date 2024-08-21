@@ -134,7 +134,9 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	protected Adw.Dialog create_alt_text_dialog (string alt_text, bool show = false) {
 		var alt_label = new Gtk.Label (alt_text) {
-			wrap = true
+			wrap = true,
+			margin_bottom = 6,
+			margin_top = 6
 		};
 
 		var clamp = new Adw.Clamp () {
@@ -146,9 +148,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		var scrolledwindow = new Gtk.ScrolledWindow () {
 			child = clamp,
 			vexpand = true,
-			hexpand = true,
-			margin_bottom = 6,
-			margin_top = 6
+			hexpand = true
 		};
 
 		var toolbar_view = new Adw.ToolbarView ();
