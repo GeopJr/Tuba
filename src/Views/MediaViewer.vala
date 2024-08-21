@@ -211,9 +211,15 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				css_classes = { "osd", "circular-spinner" }
 			};
 
-			overlay.add_overlay (spinner);
+			GLib.Timeout.add_once (1000, add_spinner_to_overlay);
 			stack.add_named (overlay, "spinner");
 			this.child = stack;
+		}
+
+		private void add_spinner_to_overlay () {
+			if (is_done) return;
+
+			overlay.add_overlay (spinner);
 		}
 
 		public Item (
