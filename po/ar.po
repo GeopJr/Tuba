@@ -5,13 +5,14 @@
 # ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>, 2023.
 # aei <aei@aei.sh>, 2024.
 # Ahmed Mohammed <iramosu@airmail.cc>, 2024.
+# Ahmed Mohammed <iramosu@protonmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-08-17 17:09+0000\n"
-"Last-Translator: Ahmed Mohammed <iramosu@airmail.cc>\n"
+"PO-Revision-Date: 2024-08-23 11:09+0000\n"
+"Last-Translator: Ahmed Mohammed <iramosu@protonmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.7\n"
+"X-Generator: Weblate 5.7.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -1242,7 +1243,7 @@ msgstr "لا يقبل %s '%s://'"
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:554
 msgid "translator-credits"
-msgstr "أحمد محمد <iramosu@airmail.cc>"
+msgstr "أحمد محمد <iramosu@protonmail.com>"
 
 #. translators: Wiki pages / Guides
 #: src/Application.vala:558
