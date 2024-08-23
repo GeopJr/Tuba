@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-08-23 11:09+0000\n"
+"PO-Revision-Date: 2024-08-24 14:09+0000\n"
 "Last-Translator: Jago Nissi <jago.dev@pm.me>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/tuba/tuba/fi/>\n"
 "Language: fi\n"
@@ -1049,7 +1049,7 @@ msgstr "Olet estänyt %s poistaen %s seuraajaasi ja %s seuraamasi tilin."
 msgid ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
-msgstr ""
+msgstr "Olet estänyt %s poistaen %s seuraajaasi ja %s seuraamaasi tiliä."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
 #. this is the singular version, '1 account you follow'
@@ -1059,6 +1059,7 @@ msgid ""
 "An admin has blocked %s, including %s of your followers and %s account you "
 "follow."
 msgstr ""
+"Ylläpitäjä on estänyt %s mukaan lukien %s seuraajaasi ja %s seuraamasi tilin."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
 #. this is the plural version, '4 accounts you follow'
@@ -1068,6 +1069,8 @@ msgid ""
 "An admin has blocked %s, including %s of your followers and %s accounts you "
 "follow."
 msgstr ""
+"Ylläpitäjä on estänyt %s mukaan lukien %s seuraajaasi ja %s seuraamaasi "
+"tiliä."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:51
@@ -1076,13 +1079,15 @@ msgid ""
 "An admin has suspended %s, which means you can no longer receive updates "
 "from them or interact with them."
 msgstr ""
+"Ylläpitäjä on keskeyttänyt %s jonka vuoksi et voi saada heiltä päivityksiä, "
+"tai olla heidän kanssaan vuorovaikutuksessa."
 
 #. translators: as in just registered in the instance,
 #. this is a notification type only visible
 #. to admins
 #: src/API/Notification.vala:110
 msgid "Signed Up"
-msgstr ""
+msgstr "Rekisteröityi"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
@@ -1298,19 +1303,21 @@ msgstr "Hylkää mediatiedostot"
 msgid ""
 "Removes locally stored media files and refuses to download any in the future"
 msgstr ""
+"Poistaa paikallisesti tallennetut mediatiedostot ja kieltäytyy lataamasta "
+"uusia"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:103
 #: src/Widgets/Admin/DomainBlock.vala:31
 msgid "Reject Reports"
-msgstr ""
+msgstr "Hylkää raportit"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:106
 msgid "Ignore all reports coming from this domain"
-msgstr ""
+msgstr "Jätä huomiotta kaikki tästä verkkotunnuksesta lähetetyt raportit"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
