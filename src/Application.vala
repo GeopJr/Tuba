@@ -359,6 +359,27 @@ namespace Tuba {
 			#endif
 			network.flush_cache ();
 
+			// TODO: Remove me on the next minor
+			if (Build.DOMAIN == "dev.geopjr.Tuba") {
+				string old_cache_folder_path = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, GLib.Environment.get_user_cache_dir (), Build.DOMAIN);
+				File old_cache_folder = File.new_for_path (old_cache_folder_path);
+
+				if (old_cache_folder.query_exists ()) {
+					old_cache_folder.trash_async.begin (Priority.HIGH, null, (obj, res) => {
+						bool trashed = false;
+						try {
+							trashed = old_cache_folder.trash_async.end (res);
+						} catch (Error e) {
+							critical (@"Couldn't trash '$old_cache_folder_path': $(e.message)");
+						}
+
+						if (!trashed) {
+							critical (@"Please delete '$old_cache_folder_path' manually");
+						}
+					});
+				}
+			}
+
 			base.shutdown ();
 		}
 
