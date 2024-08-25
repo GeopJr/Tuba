@@ -57,7 +57,11 @@ public class Tuba.API.Status : Entity, Widgetizable {
 
 	public bool tuba_filter_hidden {
 		get {
-			if (filtered == null || filtered.size == 0) return false;
+			if (
+				filtered == null
+				|| filtered.size == 0
+				|| this.formal.account.is_self ()
+			) return false;
 
 			bool res = false;
 			filtered.@foreach (e => {
