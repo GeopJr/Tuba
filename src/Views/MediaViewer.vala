@@ -448,6 +448,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			last_used_volume = settings.media_viewer_last_used_volume;
 		#else
 			last_used_volume = settings.media_viewer_last_used_volume.clamp (0.0, 1.0);
+			app.shutdown.connect (cache_cleanup);
 		#endif
 
 		if (is_rtl) back_btn.icon_name = "tuba-right-large-symbolic";
@@ -1131,7 +1132,29 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			} catch (FileError e) {
 				warning (@"Error while opening Clapper's cache: $(e.message)");
 			}
-			return;
+		}
+	#else
+		private void cache_cleanup () {
+			string cache_dir = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "manual", "media");
+			try {
+				Dir dir = Dir.open (cache_dir, 0);
+				string? name = null;
+
+				while ((name = dir.read_name ()) != null) {
+					string path = Path.build_filename (cache_dir, name);
+
+					File file = File.new_for_path (path);
+					file.delete_async.begin (Priority.LOW, null, (obj, res) => {
+						try {
+							file.delete_async.end (res);
+						} catch (Error e) {
+							warning (@"Error while deleting Host's cache: $(e.message)");
+						}
+					});
+				}
+			} catch (FileError e) {
+				warning (@"Error while opening Host's cache: $(e.message)");
+			}
 		}
 	#endif
 
