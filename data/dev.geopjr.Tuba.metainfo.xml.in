@@ -62,6 +62,24 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.8.3" date="2024-08-26">
+      <description translate="no">
+        <ul>
+            <li>Added cache cleanup on manually downloaded videos in non-Clapper mode</li>
+            <li>Added temporary Tootle era cache cleanup mechanism</li>
+            <li>Fixed own posts being hidden if caught in a filter</li>
+            <li>Spinners will only show after 1 second in the media viewer to avoid unnecessary friction</li>
+            <li>Fixed alt text window headerbar being taller than expected</li>
+            <li>Fixed focus rings not matching their widget</li>
+            <li>Redesigned the empty Search state</li>
+            <li>Added missing tooltips</li>
+            <li>Implemented caching support for Clapper 0.8</li>
+            <li>Optimized Clapper for GIFV attachments</li>
+            <li>Removed back animation when going back home</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.8.2" date="2024-07-18">
       <description translate="no">
         <ul>
