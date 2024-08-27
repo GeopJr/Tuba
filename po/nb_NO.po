@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-06-24 09:09+0000\n"
+"PO-Revision-Date: 2024-08-28 09:43+0000\n"
 "Last-Translator: Brage Fuglseth <brage.fuglseth@gmail.com>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/tuba/"
 "tuba/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-rc\n"
+"X-Generator: Weblate 5.7.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -788,7 +788,7 @@ msgstr "Tidslinje"
 #: data/ui/menus.ui:69 src/Dialogs/NotificationSettings.vala:41
 #: src/Views/Main.vala:69
 msgid "Filter"
-msgstr "Filtrer"
+msgstr "Filtrering"
 
 #: data/ui/menus.ui:88
 msgid "Include Replies"
@@ -1705,7 +1705,7 @@ msgstr "Tekst"
 
 #: src/Dialogs/Composer/EditorPage.vala:112
 msgid "Stripped tracking parameters"
-msgstr "Fjernede sporingsledd"
+msgstr "Sporingsledd fjernet"
 
 #: src/Dialogs/Composer/EditorPage.vala:115
 #: src/Views/Admin/Pages/Accounts.vala:411
@@ -1912,7 +1912,7 @@ msgstr "Fjern alle varslinger"
 
 #: src/Dialogs/NotificationSettings.vala:75
 msgid "Included Notifications"
-msgstr "Inkluderte varslinger"
+msgstr "Synlige varslinger"
 
 #: src/Dialogs/NotificationSettings.vala:114
 msgid "Are you sure you want to clear all notifications?"
