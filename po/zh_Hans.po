@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
 "PO-Revision-Date: 2024-08-28 09:43+0000\n"
-"Last-Translator: Poesty Li <poesty7450@gmail.com>\n"
+"Last-Translator: imgradeone - 一年级么么哒 <imgradeone@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "tuba/tuba/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -849,7 +849,7 @@ msgstr "切换账户"
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
 msgid "Offline"
-msgstr "离线"
+msgstr "已离线"
 
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
