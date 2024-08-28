@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
 "PO-Revision-Date: 2024-08-28 12:05+0000\n"
-"Last-Translator: Poesty Li <poesty7450@gmail.com>\n"
+"Last-Translator: imgradeone - 一年级么么哒 <imgradeone@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "tuba/tuba/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -1031,7 +1031,7 @@ msgstr "个人资料"
 #, c-format
 msgid ""
 "You have blocked %s, removing %s of your followers and %s account you follow."
-msgstr ""
+msgstr "您已屏蔽 %s，同时移除了 %s 个关注者与 %s 个您关注的账号。"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
 #. this is the plural version, '4 accounts you follow'
