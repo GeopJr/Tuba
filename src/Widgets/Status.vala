@@ -869,7 +869,7 @@
 		actions.reply.connect (on_reply_button_clicked);
 		content_column.append (actions);
 
-		this.content.bold_text = status.tuba_search_query;
+		this.content.bold_text_regex = status.tuba_search_query_regex;
 		this.content.has_quote = status.formal.quote != null;
 		this.content.mentions = status.formal.mentions;
 		this.content.instance_emojis = status.formal.emojis_map;

@@ -16,7 +16,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		}
 	}
 
-	public string? bold_text { get; set; default = null; }
+	public GLib.Regex? bold_text_regex { get; set; default = null; }
 	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
 	public weak Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
 	public bool has_quote { get; set; default=false; }
@@ -137,15 +137,11 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 	}
 
 	static string blockquote_handler_text = "";
-	private static void blockquote_handler (Xml.Node* root, string? bold_text = null) {
+	private static void blockquote_handler (Xml.Node* root, GLib.Regex? bold_text_regex = null) {
 		traverse (root, (node) => {
 			switch (node->name) {
 				case "text":
-					string escaped_text = GLib.Markup.escape_text (node->content);
-					if (bold_text != null && bold_text != "") {
-						escaped_text = bold_needle (escaped_text, bold_text);
-					}
-					blockquote_handler_text += escaped_text;
+					blockquote_handler_text += bold_needle (GLib.Markup.escape_text (node->content), bold_text_regex);
 					break;
 				case "html":
 				case "span":
@@ -153,7 +149,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				case "pre":
 				case "body":
 				case "p":
-					blockquote_handler (node, bold_text);
+					blockquote_handler (node, bold_text_regex);
 					break;
 				case "b":
 				case "i":
@@ -162,19 +158,19 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				case "sup":
 				case "sub":
 					blockquote_handler_text += @"<$(node->name)>";
-					blockquote_handler (node, bold_text);
+					blockquote_handler (node, bold_text_regex);
 					blockquote_handler_text += @"</$(node->name)>";
 				break;
 				case "code":
 					blockquote_handler_text += "<span font_family=\"monospace\">";
-					blockquote_handler (node, bold_text);
+					blockquote_handler (node, bold_text_regex);
 					blockquote_handler_text += "</span>";
 					break;
 				case "a":
 					var href = node->get_prop ("href");
 					if (href != null) {
 						blockquote_handler_text += "<a href='" + GLib.Markup.escape_text (href) + "'>";
-						blockquote_handler (node, bold_text);
+						blockquote_handler (node, bold_text_regex);
 						blockquote_handler_text += "</a>";
 					}
 					break;
@@ -183,7 +179,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					for (var iter = node->children; iter != null; iter = iter->next) {
 						if (iter->name == "li") {
 							blockquote_handler_text += @"\n$li_count. ";
-							blockquote_handler (iter, bold_text);
+							blockquote_handler (iter, bold_text_regex);
 
 							li_count++;
 						} else break;
@@ -192,19 +188,19 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 
 					break;
 				case "ul":
-					blockquote_handler (node, bold_text);
+					blockquote_handler (node, bold_text_regex);
 					blockquote_handler_text += "\n";
 					break;
 				case "li":
 					blockquote_handler_text += "\n• ";
-					blockquote_handler (node, bold_text);
+					blockquote_handler (node, bold_text_regex);
 					break;
 				case "br":
 					blockquote_handler_text += "\n";
 					break;
 				default:
 					for (var iter = root->children; iter != null; iter = iter->next) {
-						blockquote_handler (iter, bold_text);
+						blockquote_handler (iter, bold_text_regex);
 					}
 					break;
 			}
@@ -253,7 +249,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					v.commit_chunk ();
 
 					blockquote_handler_text = "";
-					blockquote_handler (root->children, v.bold_text);
+					blockquote_handler (root->children, v.bold_text_regex);
 					var text = blockquote_handler_text.strip ();
 					var label = new RichLabel (text) {
 						visible = true,
@@ -280,7 +276,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				v.commit_chunk ();
 
 				blockquote_handler_text = "";
-				blockquote_handler (root, v.bold_text);
+				blockquote_handler (root, v.bold_text_regex);
 				var text = blockquote_handler_text.strip ();
 				var label = new RichLabel (text) {
 					visible = true,
@@ -380,12 +376,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				break;
 			case "text":
 				if (root->content != null) {
-					string escaped_text = GLib.Markup.escape_text (root->content);
-					if (v.bold_text != null && v.bold_text != "") {
-						escaped_text = bold_needle (escaped_text, v.bold_text);
-					}
-
-					v.write_chunk (escaped_text);
+					v.write_chunk (bold_needle (GLib.Markup.escape_text (root->content), v.bold_text_regex));
 				}
 				break;
 			default:
@@ -395,19 +386,13 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		}
 	}
 
-	private static string bold_needle (owned string source, string needles) {
-		string source_down = source.down ();
-		foreach (string needle in needles.split (" ")) {
-			int index_of_bold = source_down.index_of (needle);
-			while (index_of_bold > -1) {
-				int end = index_of_bold + needle.length;
-				// We need to preserve casing, so let's extract it first
-				string extracted_text = source.slice (index_of_bold, end);
-				source = source.splice (index_of_bold, end, @"<b>$extracted_text</b>");
+	private static string bold_needle (owned string source, GLib.Regex? bold_text_regex) {
+		if (bold_text_regex == null) return source;
 
-				index_of_bold += 1;
-				index_of_bold = source_down.index_of (needle, index_of_bold);
-			}
+		try {
+			source = bold_text_regex.replace (source, source.length, 0, "<b>\\0</b>");
+		} catch (RegexError e) {
+			warning (@"Couldn't set search bold text: $(e.message)");
 		}
 
 		return source;

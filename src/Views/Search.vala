@@ -126,7 +126,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 	bool append_entity (Views.ContentBase tab, owned Entity entity) {
 		API.SearchResult search_result_entity = entity as API.SearchResult;
 		if (search_result_entity != null) {
-			search_result_entity.tuba_search_query = this.query;
+			search_result_entity.tuba_search_query_regex = search_query_regex;
 		}
 		tab.model.append (entity);
 		return true;
@@ -148,8 +148,8 @@ public class Tuba.Views.Search : Views.TabbedBase {
 	}
 
 	void request () {
-		query = entry.text.chug ().chomp ();
-		if (query == "") {
+		this.query = entry.text.chug ().chomp ();
+		if (this.query == "") {
 			clear ();
 			base_status = new StatusMessage ();
 			return;
@@ -157,6 +157,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 		clear ();
 		base_status = new StatusMessage () { loading = true };
+		generate_regex ();
 		API.SearchResults.request.begin (query, accounts.active, (obj, res) => {
 			try {
 				var results = API.SearchResults.request.end (res);
@@ -175,6 +176,19 @@ public class Tuba.Views.Search : Views.TabbedBase {
 				on_error (-1, e.message);
 			}
 		});
+	}
+
+	GLib.Regex? search_query_regex = null;
+	private void generate_regex () {
+		try {
+			search_query_regex = new Regex (
+				// "this is a test." => /(\bthis\b|\bis\b|\ba\b|\btest\.\b)/
+				@"(\\b$(GLib.Regex.escape_string (this.query).replace (" ", "\\b|\\b"))\\b)",
+				GLib.RegexCompileFlags.CASELESS | GLib.RegexCompileFlags.OPTIMIZE
+			);
+		} catch (RegexError e) {
+			warning (@"Error generating search query regex from \"$(this.query)\": $(e.message)");
+		}
 	}
 
 	private void open_advanced_search_dialog () {
