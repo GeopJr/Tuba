@@ -179,6 +179,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		display_name.content = account.display_name;
 		handle.label = account.handle;
 		avatar.account = account;
+		note.bold_text_regex = account.tuba_search_query_regex;
 		note.instance_emojis = account.emojis_map;
 		note.content = account.note;
 		cover_bot_badge.visible = account.bot;

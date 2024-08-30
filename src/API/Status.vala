@@ -1,4 +1,4 @@
-public class Tuba.API.Status : Entity, Widgetizable {
+public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 
 	~Status () {
 		debug (@"[OBJ] Destroyed $(uri ?? "")");
@@ -93,6 +93,7 @@ public class Tuba.API.Status : Entity, Widgetizable {
 		}
 	}
 
+	public GLib.Regex? tuba_search_query_regex { get; set; default = null; }
 	public Tuba.Views.Thread.ThreadRole tuba_thread_role { get; set; default = Tuba.Views.Thread.ThreadRole.NONE; }
 	public bool tuba_spoiler_revealed { get; set; default = settings.show_spoilers; }
 	public bool tuba_translatable { get; set; default = false; }
