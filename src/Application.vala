@@ -246,6 +246,7 @@ namespace Tuba {
 				foreach (unowned string line in lines) {
 					debug (line);
 				}
+				Gtk.Window.set_default_icon_name (Build.DOMAIN);
 				Adw.init ();
 				GtkSource.init ();
 
