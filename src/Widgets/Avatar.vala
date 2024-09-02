@@ -90,6 +90,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 
 	void on_cache_response (Gdk.Paintable? data) {
 		avatar.custom_image = data;
+		this.notify_property ("custom-image");
 	}
 
 	private void on_network_change () {

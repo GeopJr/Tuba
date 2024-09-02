@@ -27,4 +27,5 @@ sources += files(
 
 subdir('Admin')
 subdir('Attachment')
+subdir('AudioPlayer')
 subdir('Status')

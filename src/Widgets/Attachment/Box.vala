@@ -11,6 +11,9 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		}
 	}
 
+	public bool has_thumbnailess_audio { get; private set; default=false; }
+	public Gdk.Paintable? audio_fallback_paintable { get; set; default=null; }
+
 	private bool _has_spoiler = false;
 	public bool has_spoiler {
 		get {
@@ -123,6 +126,10 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 				}
 
 				((Widgets.Attachment.Image) widget).on_any_attachment_click.connect (open_all_attachments);
+
+				if (!this.has_thumbnailess_audio && ((Widgets.Attachment.Image) widget).media_kind == Tuba.Attachment.MediaType.AUDIO) {
+					this.has_thumbnailess_audio = item.blurhash == null || item.blurhash == "" || ((Widgets.Attachment.Image) widget).pic.paintable == null;
+				}
 			} catch (Oopsie e) {
 				warning (@"Error updating attachments: $(e.message)");
 			}
@@ -152,15 +159,26 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 			if (attachment_length > 1)
 				is_main = attachment_widgets[i].entity.url == url;
 
+			var paintable = attachment_widgets[i].pic.paintable;
+			var stream = false;
+
+			if (attachment_widgets[i].media_kind == Tuba.Attachment.MediaType.AUDIO) {
+				if (paintable == null) {
+					paintable = this.audio_fallback_paintable;
+				}
+				stream = true;
+			}
+
 			app.main_window.show_media_viewer (
 				attachment_widgets[i].entity.url,
 				attachment_widgets[i].media_kind,
-				attachment_widgets[i].pic.paintable,
+				paintable,
 				attachment_widgets[i],
 				false,
 				attachment_widgets[i].pic.alternative_text,
 				null,
-				false,
+				attachment_widgets[i].entity.blurhash,
+				stream,
 				is_main,
 				is_main == null
 			);
