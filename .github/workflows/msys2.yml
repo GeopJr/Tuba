@@ -20,7 +20,7 @@ jobs:
         with:
           msystem: mingw64
           update: true
-          install: git make zip wget mingw-w64-x86_64-meson mingw-w64-x86_64-gcc mingw-w64-x86_64-vala mingw-w64-x86_64-libsoup3 mingw-w64-x86_64-libxml2 mingw-w64-x86_64-gtksourceview5 mingw-w64-x86_64-webp-pixbuf-loader mingw-w64-x86_64-libadwaita mingw-w64-x86_64-libgee mingw-w64-x86_64-json-glib mingw-w64-x86_64-libsecret mingw-w64-x86_64-desktop-file-utils mingw-w64-x86_64-imagemagick mingw-w64-x86_64-icu
+          install: git make zip wget mingw-w64-x86_64-meson mingw-w64-x86_64-gcc mingw-w64-x86_64-vala mingw-w64-x86_64-libsoup3 mingw-w64-x86_64-libxml2 mingw-w64-x86_64-gtksourceview5 mingw-w64-x86_64-webp-pixbuf-loader mingw-w64-x86_64-libadwaita mingw-w64-x86_64-libgee mingw-w64-x86_64-json-glib mingw-w64-x86_64-libsecret mingw-w64-x86_64-desktop-file-utils mingw-w64-x86_64-imagemagick mingw-w64-x86_64-icu mingw-w64-x86_64-libspelling mingw-w64-x86_64-gstreamer
       - run: make windows
       - uses: actions/upload-artifact@v4
         with:
