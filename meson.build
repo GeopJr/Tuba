@@ -85,6 +85,7 @@ libwebp_dep = dependency('libwebp', required: false)
 libspelling = dependency('libspelling-1', required: false)
 clapper_dep = dependency('clapper-0.0', required: false)
 clapper_gtk_dep = dependency('clapper-gtk-0.0', required: false)
+feedbackd_dep = dependency('libfeedback-0.0', version: '>=0', required: false)
 
 if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
@@ -92,6 +93,11 @@ endif
 
 if meson.get_compiler('vala').version().version_compare('>=0.56.11')
   add_project_arguments(['--define=VALAC_05611'], language: 'vala')
+endif
+
+if feedbackd_dep.found ()
+  add_project_arguments(['--define=FEEDBACKD'], language: 'vala')
+  add_project_arguments('-DLIBFEEDBACK_USE_UNSTABLE_API', language: 'c')
 endif
 
 if libspelling.found ()
@@ -138,7 +144,8 @@ final_deps = [
   libadwaita_dep,
   meson.get_compiler('c').find_library('m', required: false),
   clapper_dep,
-  clapper_gtk_dep
+  clapper_gtk_dep,
+  feedbackd_dep
 ]
 
 executable(
