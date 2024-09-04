@@ -1,6 +1,9 @@
 public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
-	Cairo.Context context;
 	const float SQR = 256;
+	const int MAX_CIRCLE_HEIGHT = 512;
+	const float ALPHA = 0.5f;
+
+	Cairo.Context context;
 	Gdk.RGBA color;
 	Gdk.Texture cover_texture;
 
@@ -28,7 +31,7 @@ public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 				avg.r / 255.0f,
 				avg.g / 255.0f,
 				avg.b / 255.0f,
-				0.8f
+				ALPHA
 			};
 
 			if (0.2126f * color.red + 0.7152f * color.green + 0.0722f * color.blue < 0.156862745f) {
@@ -38,12 +41,12 @@ public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 			}
 		} else {
 			// TODO: ADW 1.6 StyleManager accent-color
-			color = {
-				120 / 255.0f,
-				174 / 255.0f,
-				237 / 255.0f,
+				color = {
+					120 / 255.0f,
+					174 / 255.0f,
+					237 / 255.0f,
 				0.8f
-			};
+				};
 		}
 
 		cover_texture = texture;
@@ -59,7 +62,7 @@ public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 		var point = Graphene.Point ().init (new_center_w, new_center_h);
 		snapshot.translate (point);
 
-		float res = (float) level * (win_h - SQR) + SQR;
+		float res = (float) level * (int.min (MAX_CIRCLE_HEIGHT, win_h) - SQR) + SQR;
 
         var rect = Graphene.Rect ().init (- res / 2, - res / 2, res, res);
         var rounded_rect = Gsk.RoundedRect ().init_from_rect (rect, 9999);
@@ -70,7 +73,7 @@ public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 
 		if (cover_texture != null) {
 			var cover_rect = Graphene.Rect ().init (- SQR / 2, - SQR / 2, SQR, SQR);
-			var rounded_cover_rect = Gsk.RoundedRect ().init_from_rect (cover_rect, 9999);
+			var rounded_cover_rect = Gsk.RoundedRect ().init_from_rect (cover_rect, SQR);
 
         	snapshot.push_rounded_clip (rounded_cover_rect);
     		snapshot.append_texture (cover_texture, cover_rect);
