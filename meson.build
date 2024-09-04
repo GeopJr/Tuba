@@ -102,6 +102,11 @@ if gtksourceview_dep.version().version_compare('>=5.7.1')
   add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
 endif
 
+if libadwaita_dep.version().version_compare('>=1.6')
+  add_project_arguments(['--define=ADW_1_6'], language: 'vala')
+endif
+
+
 if clapper_support and clapper_dep.found () and clapper_dep.version().version_compare('>=0.6.0') and clapper_gtk_dep.found ()
   add_project_arguments(['--define=CLAPPER'], language: 'vala')
   if (clapper_dep.get_variable('features').split().contains('mpris'))
