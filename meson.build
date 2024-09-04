@@ -149,7 +149,8 @@ final_deps = [
   libadwaita_dep,
   meson.get_compiler('c').find_library('m', required: false),
   clapper_dep,
-  clapper_gtk_dep
+  clapper_gtk_dep,
+  gstreamer_dep
 ]
 
 executable(
