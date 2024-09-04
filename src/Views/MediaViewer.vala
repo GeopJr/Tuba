@@ -202,6 +202,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			zoom (0.5);
 		}
 
+		uint spinner_timeout = 0;
 		construct {
 			hexpand = true;
 			vexpand = true;
@@ -222,12 +223,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				css_classes = { "osd", "circular-spinner" }
 			};
 
-			GLib.Timeout.add_once (1000, add_spinner_to_overlay);
+			spinner_timeout = GLib.Timeout.add_once (1000, add_spinner_to_overlay);
 			stack.add_named (overlay, "spinner");
 			this.child = stack;
 		}
 
 		private void add_spinner_to_overlay () {
+			spinner_timeout = 0;
 			if (is_done) return;
 
 			overlay.add_overlay (spinner);
@@ -257,6 +259,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		~Item () {
 			debug ("Destroying MediaViewer.Item");
+
+			if (spinner_timeout > 0) GLib.Source.remove (spinner_timeout);
 
 			if (is_audio) {
 				#if GSTREAMER
