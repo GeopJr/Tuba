@@ -11,7 +11,6 @@
 		<property name="step-increment">0.1</property>
 		<property name="page-increment">0.1</property>
 		<property name="value">1</property>
-		<signal name="value-changed" handler="volume_adjustment_changed" object="TubaWidgetsAudioControls" swapped="no"/>
 	</object>
 	<template class="TubaWidgetsAudioControls" parent="GtkBox">
 		<style>

@@ -1,10 +1,8 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/audiocontrols.ui")]
 public class Tuba.Widgets.Audio.Controls : Gtk.Box {
 	[GtkChild] unowned Gtk.Adjustment time_adjustment;
-	[GtkChild] unowned Gtk.Adjustment volume_adjustment;
 	[GtkChild] unowned Gtk.Button play_button;
 	[GtkChild] unowned Gtk.Label time_label;
-	[GtkChild] unowned Gtk.Scale seek_scale;
 	[GtkChild] unowned Gtk.Label duration_label;
 	[GtkChild] unowned Gtk.VolumeButton volume_button;
 
@@ -94,12 +92,6 @@ public class Tuba.Widgets.Audio.Controls : Gtk.Box {
 		volume_button.bind_property ("value", this, "volume", BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 		time_adjustment_changed_id = time_adjustment.value_changed.connect (time_adjustment_changed);
 
-	}
-
-	[GtkCallback] private void volume_adjustment_changed () {
-		if (volume_adjustment.value == this.volume) return;
-
-		this.volume = volume_adjustment.value;
 	}
 
 	private void time_adjustment_changed () {
