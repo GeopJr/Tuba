@@ -58,6 +58,7 @@ __windows_copy_deps:
 
 	ldd $(PREFIX)/lib/gio/*/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	ldd $(PREFIX)/lib/gstreamer-1.0/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
+	ldd $(PREFIX)/bin/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 
 __windows_schemas:
 	cp -r /mingw64/share/glib-2.0/schemas/*.xml ${PREFIX}/share/glib-2.0/schemas/
