@@ -974,9 +974,11 @@
 			attachments.has_spoiler = status.formal.sensitive;
 			attachments.list = status.formal.media_attachments;
 
-			if (attachments != null && attachments.has_thumbnailess_audio) {
-				bindings += avatar.bind_property ("custom-image", attachments, "audio-fallback-paintable", BindingFlags.SYNC_CREATE);
-			}
+			#if GSTREAMER
+				if (attachments != null && attachments.has_thumbnailess_audio) {
+					bindings += avatar.bind_property ("custom-image", attachments, "audio-fallback-paintable", BindingFlags.SYNC_CREATE);
+				}
+			#endif
 
 			content_box.append (attachments);
 		}

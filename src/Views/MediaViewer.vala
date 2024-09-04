@@ -85,7 +85,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		private bool pre_playing = false;
 		public bool playing {
 			get {
-				if (is_audio) return ((Widgets.Audio.Player) child_widget).playing;
+				#if GSTREAMER
+					if (is_audio) return ((Widgets.Audio.Player) child_widget).playing;
+				#endif
 				if (!is_video) return false;
 				if (!is_done) return pre_playing;
 				#if CLAPPER
@@ -102,10 +104,12 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			}
 
 			set {
-				if (is_audio) {
-					((Widgets.Audio.Player) child_widget).playing = value;
-					return;
-				};
+				#if GSTREAMER
+					if (is_audio) {
+						((Widgets.Audio.Player) child_widget).playing = value;
+						return;
+					};
+				#endif
 
 				if (!is_video) return;
 				if (is_done) {
@@ -255,8 +259,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			debug ("Destroying MediaViewer.Item");
 
 			if (is_audio) {
-				Widgets.Audio.Player child_wdgt = (Widgets.Audio.Player) child_widget;
-				last_used_volume = child_wdgt.muted ? 0.0 : child_wdgt.volume;
+				#if GSTREAMER
+					Widgets.Audio.Player child_wdgt = (Widgets.Audio.Player) child_widget;
+					last_used_volume = child_wdgt.muted ? 0.0 : child_wdgt.volume;
+				#endif
 			} else if (is_video) {
 				#if CLAPPER
 					ClapperGtk.Video child_wdgt = (ClapperGtk.Video) child_widget;
@@ -312,7 +318,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 					((Gtk.Video) child_widget).media_stream.notify["volume"].connect (on_manual_volume_change_video);
 				#endif
 			} else if (is_audio) {
-				((Widgets.Audio.Player) child_widget).notify["volume"].connect (on_manual_volume_change_audio);
+				#if GSTREAMER
+					((Widgets.Audio.Player) child_widget).notify["volume"].connect (on_manual_volume_change_audio);
+				#endif
 			}
 			is_done = true;
 		}
@@ -335,9 +343,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			#endif
 		}
 
-		private void on_manual_volume_change_audio () {
-			settings.media_viewer_last_used_volume = ((Widgets.Audio.Player) child_widget).volume;
-		}
+		#if GSTREAMER
+			private void on_manual_volume_change_audio () {
+				settings.media_viewer_last_used_volume = ((Widgets.Audio.Player) child_widget).volume;
+			}
+		#endif
 
 		private bool on_scroll (Gtk.EventControllerScroll scroll, double dx, double dy) {
 			var state = scroll.get_current_event_state () & Gdk.MODIFIER_MASK;
@@ -999,13 +1009,16 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		if (revealer_widget != null)
 			revealer_widgets.set (items.size, revealer_widget);
 
-		if (media_type == Attachment.MediaType.AUDIO) {
-			var audio_player = new Widgets.Audio.Player (preview as Gdk.Texture, blurhash) {
-				url = url
-			};
+		#if GSTREAMER
+			if (media_type == Attachment.MediaType.AUDIO) {
+				var audio_player = new Widgets.Audio.Player (preview as Gdk.Texture, blurhash) {
+					url = url
+				};
 
-			item = new Item (audio_player, final_friendly_url, final_preview, false, true);
-		} else if (media_type.is_video ()) {
+				item = new Item (audio_player, final_friendly_url, final_preview, false, true);
+			} else
+		#endif
+		if (media_type.is_video ()) {
 			#if CLAPPER
 				var video = new ClapperGtk.Video () {
 					auto_inhibit = true
