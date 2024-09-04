@@ -1,6 +1,6 @@
 public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 	const float SQR = 256;
-	const int MAX_CIRCLE_HEIGHT = 512;
+	const int MAX_CIRCLE_HEIGHT = 800;
 	const float ALPHA = 0.5f;
 
 	Cairo.Context context;
