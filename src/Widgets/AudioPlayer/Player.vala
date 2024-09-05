@@ -123,6 +123,8 @@ public class Tuba.Widgets.Audio.Player : Adw.Bin {
 
 		player.bind_property ("level", visualizer, "level", BindingFlags.SYNC_CREATE);
 		overlay.child = visualizer;
+
+		on_reveal_media_buttons ();
 	}
 
 	public override void unmap () {
