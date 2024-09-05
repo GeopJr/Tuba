@@ -119,7 +119,7 @@ public class Tuba.Widgets.Audio.Player : Adw.Bin {
 			propagation_phase = Gtk.PropagationPhase.BUBBLE
 		};
 		click_gesture.released.connect (on_click_gesture);
-		this.add_controller (click_gesture);
+		visualizer.add_controller (click_gesture);
 
 		player.bind_property ("level", visualizer, "level", BindingFlags.SYNC_CREATE);
 		overlay.child = visualizer;
