@@ -5,10 +5,12 @@ public class Tuba.Widgets.Audio.Controls : Gtk.Box {
 	[GtkChild] unowned Gtk.Label time_label;
 	[GtkChild] unowned Gtk.Label duration_label;
 	[GtkChild] unowned Gtk.VolumeButton volume_button;
+	[GtkChild] unowned Gtk.Box time_box;
 
 	public signal void state_button_clicked ();
 	public double volume { get; set; default=1.0; }
 	public double progress { get; set; default=0.0; }
+	public bool ready { get; set; default=false; }
 
 	private bool _playing = false;
 	public bool playing {
@@ -92,6 +94,7 @@ public class Tuba.Widgets.Audio.Controls : Gtk.Box {
 		volume_button.bind_property ("value", this, "volume", BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 		time_adjustment_changed_id = time_adjustment.value_changed.connect (time_adjustment_changed);
 
+		this.bind_property ("ready", time_box, "sensitive", BindingFlags.SYNC_CREATE);
 	}
 
 	private void time_adjustment_changed () {

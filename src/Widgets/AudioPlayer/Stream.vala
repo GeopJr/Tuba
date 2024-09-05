@@ -10,6 +10,7 @@ public class Tuba.Widgets.Audio.Stream : GLib.Object {
 	public double level { get; private set; default=0.0; }
 	public double volume { get; set; default=1.0; }
 	public bool muted { get; set; default=false; }
+	public bool ready { get; private set; default=false; }
 
 	public double progress {
 		set {
@@ -63,6 +64,7 @@ public class Tuba.Widgets.Audio.Stream : GLib.Object {
 			break;
 		case Gst.MessageType.STATE_CHANGED:
 			message.parse_state_changed (null, out _state, null);
+			if (!ready && (_state == Gst.State.READY || _state == Gst.State.PLAYING)) this.ready = true;
 			break;
 		case Gst.MessageType.ELEMENT:
 			unowned Gst.Structure s = message.get_structure ();

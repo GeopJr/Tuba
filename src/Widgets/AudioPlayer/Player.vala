@@ -20,6 +20,7 @@ public class Tuba.Widgets.Audio.Player : Adw.Bin {
 
 	public double volume { get; set; default=1.0; }
 	public double progress { get; set; default=0.0; }
+	public bool ready { get; set; default=false; }
 
 	public bool muted {
 		get { return volume == 0.0; }
@@ -42,6 +43,7 @@ public class Tuba.Widgets.Audio.Player : Adw.Bin {
 		controls.bind_property ("volume", this, "volume", BindingFlags.SYNC_CREATE);
 		controls.bind_property ("progress", this, "progress", BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 		controls.bind_property ("playing", this, "playing", BindingFlags.BIDIRECTIONAL);
+		controls.bind_property ("ready", this, "ready", BindingFlags.SYNC_CREATE);
 
 		controls_revealer = new Gtk.Revealer () {
 			child = controls,
@@ -52,6 +54,7 @@ public class Tuba.Widgets.Audio.Player : Adw.Bin {
 
 		player.bind_property ("current", controls, "current", BindingFlags.SYNC_CREATE);
 		player.bind_property ("duration", controls, "duration", BindingFlags.SYNC_CREATE);
+		player.bind_property ("ready", this, "ready", BindingFlags.SYNC_CREATE);
 		player.ended.connect (on_ended);
 
 		this.child = overlay;
