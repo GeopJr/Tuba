@@ -100,13 +100,25 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		bool as_is = false,
 		string? alt_text = null,
 		string? user_friendly_url = null,
+		string? blurhash = null,
 		bool stream = false,
 		bool? load_and_scroll = null,
 		bool reveal_media_viewer = true
 	) {
 		if (as_is && preview == null) return;
 
-		media_viewer.add_media (url, media_type, preview, as_is, alt_text, user_friendly_url, stream, source_widget, load_and_scroll);
+		media_viewer.add_media (
+			url,
+			media_type,
+			preview,
+			as_is,
+			alt_text,
+			user_friendly_url,
+			blurhash,
+			stream,
+			source_widget,
+			load_and_scroll
+		);
 
 		if (reveal_media_viewer) {
 			media_viewer_source_widget = app.main_window.get_focus ();

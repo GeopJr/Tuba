@@ -78,6 +78,7 @@ asresources = gnome.compile_resources(
     c_name: 'as',
 )
 
+gstreamer = false
 gtk_dep = dependency('gtk4', version: '>=4.13.4', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.5', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
@@ -85,6 +86,7 @@ libwebp_dep = dependency('libwebp', required: false)
 libspelling = dependency('libspelling-1', required: false)
 clapper_dep = dependency('clapper-0.0', required: false)
 clapper_gtk_dep = dependency('clapper-gtk-0.0', required: false)
+gstreamer_dep = dependency('gstreamer-1.0', required: false)
 
 if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
@@ -100,6 +102,15 @@ endif
 
 if gtksourceview_dep.version().version_compare('>=5.7.1')
   add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
+endif
+
+if libadwaita_dep.version().version_compare('>=1.6')
+  add_project_arguments(['--define=ADW_1_6'], language: 'vala')
+endif
+
+if gstreamer_dep.found ()
+  add_project_arguments(['--define=GSTREAMER'], language: 'vala')
+  gstreamer = true
 endif
 
 if clapper_support and clapper_dep.found () and clapper_dep.version().version_compare('>=0.6.0') and clapper_gtk_dep.found ()
@@ -138,7 +149,8 @@ final_deps = [
   libadwaita_dep,
   meson.get_compiler('c').find_library('m', required: false),
   clapper_dep,
-  clapper_gtk_dep
+  clapper_gtk_dep,
+  gstreamer_dep
 ]
 
 executable(

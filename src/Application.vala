@@ -169,6 +169,9 @@ namespace Tuba {
 				warning (e.message);
 			}
 
+			#if GSTREAMER
+				Gst.init (ref args);
+			#endif
 			#if CLAPPER
 				Clapper.init (ref args);
 				GLib.Environment.set_variable ("CLAPPER_USE_PLAYBIN3", "1", false);

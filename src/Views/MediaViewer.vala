@@ -77,6 +77,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		private bool is_done = false;
 		public Gtk.Widget child_widget { get; private set; }
 		public bool is_video { get; private set; default=false; }
+		public bool is_audio { get; private set; default=false; }
 		public string url { get; private set; }
 		public double last_x { get; set; default=0.0; }
 		public double last_y { get; set; default=0.0; }
@@ -84,6 +85,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		private bool pre_playing = false;
 		public bool playing {
 			get {
+				#if GSTREAMER
+					if (is_audio) return ((Widgets.Audio.Player) child_widget).playing;
+				#endif
 				if (!is_video) return false;
 				if (!is_done) return pre_playing;
 				#if CLAPPER
@@ -100,6 +104,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			}
 
 			set {
+				#if GSTREAMER
+					if (is_audio) {
+						((Widgets.Audio.Player) child_widget).playing = value;
+						return;
+					};
+				#endif
+
 				if (!is_video) return;
 				if (is_done) {
 					#if CLAPPER
@@ -121,7 +132,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		public bool can_zoom_in {
 			get {
-				if (is_video) return false;
+				if (is_video || is_audio) return false;
 				return scroller.hadjustment.upper < scroller.hadjustment.page_size * MAX_ZOOM
 				&& scroller.vadjustment.upper < scroller.vadjustment.page_size * MAX_ZOOM;
 			}
@@ -129,7 +140,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		public bool can_zoom_out {
 			get {
-				if (is_video) return false;
+				if (is_video || is_audio) return false;
 
 				// If either horizontal or vertical scrollbar is visible,
 				// you should also be able to zoom out
@@ -157,7 +168,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		public void zoom (double zoom_level, int? old_width = null, int? old_height = null) {
 			// Don't zoom on video
-			if (is_video) return;
+			if (is_video || is_audio) return;
 			if ((zoom_level > 1.0 && !can_zoom_in) || (zoom_level < 1.0 && !can_zoom_out && settings.media_viewer_expand_pictures) || zoom_level == 1.0) return;
 
 			var new_width = (old_width ?? child_width) * zoom_level;
@@ -191,6 +202,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			zoom (0.5);
 		}
 
+		uint spinner_timeout = 0;
 		construct {
 			hexpand = true;
 			vexpand = true;
@@ -211,12 +223,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				css_classes = { "osd", "circular-spinner" }
 			};
 
-			GLib.Timeout.add_once (1000, add_spinner_to_overlay);
+			spinner_timeout = GLib.Timeout.add_once (1000, add_spinner_to_overlay);
 			stack.add_named (overlay, "spinner");
 			this.child = stack;
 		}
 
 		private void add_spinner_to_overlay () {
+			spinner_timeout = 0;
 			if (is_done) return;
 
 			overlay.add_overlay (spinner);
@@ -226,10 +239,12 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			Gtk.Widget child,
 			string t_url,
 			Gdk.Paintable? paintable,
-			bool t_is_video = false
+			bool t_is_video = false,
+			bool t_is_audio = false
 		) {
 			this.child_widget = child;
 			this.is_video = t_is_video;
+			this.is_audio = t_is_audio;
 
 			stack.add_named (setup_scrolledwindow (child), "child");
 			this.url = t_url;
@@ -245,7 +260,14 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		~Item () {
 			debug ("Destroying MediaViewer.Item");
 
-			if (is_video) {
+			if (spinner_timeout > 0) GLib.Source.remove (spinner_timeout);
+
+			if (is_audio) {
+				#if GSTREAMER
+					Widgets.Audio.Player child_wdgt = (Widgets.Audio.Player) child_widget;
+					last_used_volume = child_wdgt.muted ? 0.0 : child_wdgt.volume;
+				#endif
+			} else if (is_video) {
 				#if CLAPPER
 					ClapperGtk.Video child_wdgt = (ClapperGtk.Video) child_widget;
 					last_used_volume = child_wdgt.player.mute ? 0.0 : child_wdgt.player.volume;
@@ -292,14 +314,18 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 					}
 
 					player.volume = last_used_volume;
-					player.notify["volume"].connect (on_manual_volume_change);
+					player.notify["volume"].connect (on_manual_volume_change_video);
 				#else
 					((Gtk.Video) child_widget).media_stream.volume = 1.0 - last_used_volume;
 					((Gtk.Video) child_widget).media_stream.volume = last_used_volume;
 					((Gtk.Video) child_widget).media_stream.playing = pre_playing;
-					((Gtk.Video) child_widget).media_stream.notify["volume"].connect (on_manual_volume_change);
+					((Gtk.Video) child_widget).media_stream.notify["volume"].connect (on_manual_volume_change_video);
 				#endif
-			};
+			} else if (is_audio) {
+				#if GSTREAMER
+					((Widgets.Audio.Player) child_widget).notify["volume"].connect (on_manual_volume_change_audio);
+				#endif
+			}
 			is_done = true;
 		}
 
@@ -312,7 +338,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			}
 		#endif
 
-		private void on_manual_volume_change () {
+		private void on_manual_volume_change_video () {
 			settings.media_viewer_last_used_volume =
 			#if CLAPPER
 				((ClapperGtk.Video) child_widget).player.volume;
@@ -320,6 +346,12 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				((Gtk.Video) child_widget).media_stream.volume;
 			#endif
 		}
+
+		#if GSTREAMER
+			private void on_manual_volume_change_audio () {
+				settings.media_viewer_last_used_volume = ((Widgets.Audio.Player) child_widget).volume;
+			}
+		#endif
 
 		private bool on_scroll (Gtk.EventControllerScroll scroll, double dx, double dy) {
 			var state = scroll.get_current_event_state () & Gdk.MODIFIER_MASK;
@@ -336,7 +368,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		private Gtk.Widget setup_scrolledwindow (Gtk.Widget child) {
 			// Videos shouldn't have a scrolledwindow
-			if (is_video) return child;
+			if (is_video || is_audio) return child;
 
 			scroller = new Gtk.ScrolledWindow () {
 				hexpand = true,
@@ -800,6 +832,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		if (!revealed) reset_media_viewer ();
 		scale_revealer.reveal_child = false;
 		load_and_scroll_to = -1;
+		old_pos = -1;
 	}
 
 	[GtkCallback]
@@ -969,6 +1002,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		bool as_is = false,
 		string? alt_text = null,
 		string? user_friendly_url = null,
+		string? blurhash = null,
 		bool stream = false,
 		Gtk.Widget? revealer_widget = null,
 		bool? load_and_scroll = null
@@ -979,6 +1013,15 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		if (revealer_widget != null)
 			revealer_widgets.set (items.size, revealer_widget);
 
+		#if GSTREAMER
+			if (media_type == Attachment.MediaType.AUDIO) {
+				var audio_player = new Widgets.Audio.Player (preview as Gdk.Texture, blurhash) {
+					url = url
+				};
+
+				item = new Item (audio_player, final_friendly_url, final_preview, false, true);
+			} else
+		#endif
 		if (media_type.is_video ()) {
 			#if CLAPPER
 				var video = new ClapperGtk.Video () {
@@ -1214,7 +1257,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			page.zoom_in ();
 	}
 
+	private uint old_pos = -1;
 	private void on_carousel_page_changed (uint pos) {
+		if (old_pos == pos) return;
+		old_pos = pos;
+
 		update_revealer_widget ((int) pos);
 
 		prev_btn.sensitive = pos > 0;
@@ -1223,7 +1270,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		Item? page = safe_get ((int) pos);
 		// Media buttons overlap the video
 		// controller, so position them higher
-		if (page != null && page.is_video) {
+		if (page != null && (page.is_video || page.is_audio)) {
 			page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 68;
 			zoom_buttons_revealer.visible = false;
 			play_video ((int) pos);

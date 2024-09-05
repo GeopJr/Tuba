@@ -1,7 +1,7 @@
 // Blurhash decoding in pure Vala inspired by
 // https://github.com/woltapp/blurhash and https://github.com/mad-gooze/fast-blurhash/
 public class Tuba.Blurhash {
-	struct AverageColor {
+	public struct AverageColor {
 		int r;
 		int g;
 		int b;
@@ -100,7 +100,7 @@ public class Tuba.Blurhash {
 		return true;
 	}
 
-	private static AverageColor get_blurhash_average_color (string blurhash) {
+	public static AverageColor get_blurhash_average_color (string blurhash) {
 		int val = decode_partial (blurhash, 2, 6);
 		return { val >> 16, (val >> 8) & 255, val & 255 };
 	}

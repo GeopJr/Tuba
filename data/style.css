@@ -374,7 +374,7 @@ flowboxchild,
 	padding: 12px;
 }
 
-video > overlay > revealer > controls {
+video > overlay > revealer > controls, .audio-controls {
 	padding: 12px;
 }
 

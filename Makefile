@@ -51,11 +51,14 @@ __windows_copy_deps:
 	cp -f /mingw64/bin/libwebp-7.dll /mingw64/bin/librsvg-2-2.dll /mingw64/bin/libgnutls-30.dll /mingw64/bin/libgthread-2.0-0.dll /mingw64/bin/libgmp-10.dll /mingw64/bin/libproxy-1.dll ${PREFIX}/bin
 	cp -r /mingw64/lib/gio/ $(PREFIX)/lib
 	cp -r /mingw64/lib/gdk-pixbuf-2.0 $(PREFIX)/lib/gdk-pixbuf-2.0
+	cp -r /mingw64/lib/gstreamer-1.0 $(PREFIX)/lib/gstreamer-1.0
 
 	cp -f /mingw64/share/gtksourceview-5/styles/Adwaita.xml /mingw64/share/gtksourceview-5/styles/Adwaita-dark.xml ${PREFIX}/share/gtksourceview-5/styles/
 	cp -f /mingw64/share/gtksourceview-5/language-specs/xml.lang /mingw64/share/gtksourceview-5/language-specs/markdown.lang /mingw64/share/gtksourceview-5/language-specs/html.lang ${PREFIX}/share/gtksourceview-5/language-specs/
 
 	ldd $(PREFIX)/lib/gio/*/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
+	ldd $(PREFIX)/lib/gstreamer-1.0/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
+	ldd $(PREFIX)/bin/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 
 __windows_schemas:
 	cp -r /mingw64/share/glib-2.0/schemas/*.xml ${PREFIX}/share/glib-2.0/schemas/

@@ -27,4 +27,9 @@ sources += files(
 
 subdir('Admin')
 subdir('Attachment')
+
+if gstreamer
+  subdir('AudioPlayer')
+endif
+
 subdir('Status')
