@@ -57,8 +57,23 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		overlay.add_overlay (delete_button);
 		delete_button.clicked.connect (on_delete_clicked);
 
+		var focus_button = new Gtk.Button.with_label ("Focus Point TEST") {
+			valign = Gtk.Align.START,
+			halign = Gtk.Align.END,
+		};
+		overlay.add_overlay (focus_button);
+		focus_button.clicked.connect (on_focus_picker_clicked);
+
 		alt_text = t_entity.description ?? "";
 		update_alt_css (alt_text.length);
+	}
+
+	private void on_focus_picker_clicked () {
+		var dlg = new Adw.Dialog () {
+			child = new Widgets.FocusPicker (pic.paintable)
+		};
+
+		dlg.present (compose_dialog);
 	}
 
 	private void on_alt_btn_clicked () {
