@@ -11,8 +11,8 @@ public class Tuba.Widgets.FocusPicker : Gtk.Widget {
 	Gtk.AspectFrame frame;
 	Gtk.Overlay overlay;
 
-	public double pos_x { get; private set; default=-0.5; }
-	public double pos_y { get; private set; default=0.5; }
+	public double pos_x { get; set; default=-0.0; }
+	public double pos_y { get; set; default=0.0; }
 
 	double picker_width_half = 0;
 	double picker_height_half = 0;
