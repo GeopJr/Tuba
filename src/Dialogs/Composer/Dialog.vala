@@ -34,10 +34,15 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 			}
 		}
 
+		public class MediaEntry {
+			public string? description = null;
+			public string? focus = null;
+		}
+
 		public string id { get; set; }
 		public string status { get; set; }
 		public Gee.ArrayList<string> media_ids { get; private set; default=new Gee.ArrayList<string> (); }
-		public Gee.HashMap<string, string> media { get; private set; default=new Gee.HashMap<string, string> (); }
+		public Gee.HashMap<string, MediaEntry> media { get; private set; default=new Gee.HashMap<string, MediaEntry> (); }
 		public BasicPoll poll { get; set; }
 		public string in_reply_to_id { get; set; }
 		public bool sensitive { get; set; }
@@ -47,9 +52,12 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		public string content_type { get; set; }
 		public Gee.ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
 
-		public void add_media (string t_id, string? t_alt) {
+		public void add_media (string t_id, string? t_alt, string? t_focus) {
 			media_ids.add (t_id);
-			media.set (t_id, t_alt ?? "");
+			media.set (t_id, new MediaEntry () {
+				description = t_alt ?? "",
+				focus = t_focus ?? ""
+			});
 		}
 
 		public void clear_media () {
@@ -65,7 +73,13 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 				media_attachments = t_status.media_attachments;
 
 				foreach (var t_attachment in t_status.media_attachments) {
-					add_media (t_attachment.id, t_attachment.description);
+					string focus = "0.00,0.00";
+
+					if (t_attachment.meta != null && t_attachment.meta.focus != null) {
+						focus = "%.2f,%.2f".printf (t_attachment.meta.focus.x, t_attachment.meta.focus.y);
+					}
+
+					add_media (t_attachment.id, t_attachment.description, focus);
 				}
 			}
 
@@ -90,7 +104,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 				&& t_status.visibility == visibility
 				&& t_status.language == language
 				&& array_string_eq (media_ids, t_status.media_ids)
-				&& !alts_changed (t_status)
+				&& !media_meta_changed (t_status)
 				&& (poll != null && t_status != null ? poll.equal (t_status.poll) : poll == null && t_status == null);
 		}
 
@@ -107,12 +121,14 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 			return res;
 		}
 
-		public bool alts_changed (BasicStatus t_status) {
+		public bool media_meta_changed (BasicStatus t_status) {
 			var res = false;
 
 			foreach (var entry in this.media.entries) {
 				if (!t_status.media.has_key (entry.key)) continue;
-				res = t_status.media.get (entry.key) != entry.value;
+				res =
+					t_status.media.get (entry.key).description != entry.value.description
+					|| t_status.media.get (entry.key).focus != entry.value.focus;
 				if (res) break;
 			}
 
@@ -383,7 +399,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 
 	protected signal void modify_body (Json.Builder builder);
 
-	protected virtual void update_alt_texts (Json.Builder builder) {
+	protected virtual void update_metadata (Json.Builder builder) {
 		if (
 			status.media_ids.size == 0
 			|| original_status.media_ids.size == 0
@@ -395,14 +411,19 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		foreach (var entry in status.media.entries) {
 			if (
 				!original_status.media_ids.contains (entry.key)
-				|| original_status.media.get (entry.key) == entry.value
+				|| (
+					original_status.media.get (entry.key).description == entry.value.description
+					&& original_status.media.get (entry.key).focus == entry.value.focus
+				)
 			) continue;
 
 			builder.begin_object ();
 			builder.set_member_name ("id");
 			builder.add_string_value (entry.key);
 			builder.set_member_name ("description");
-			builder.add_string_value (entry.value);
+			builder.add_string_value (entry.value.description);
+			builder.set_member_name ("focus");
+			builder.add_string_value (entry.value.focus);
 			builder.end_object ();
 		}
 
@@ -414,7 +435,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		builder.begin_object ();
 
 		modify_body (builder);
-		if (editing) update_alt_texts (builder);
+		if (editing) update_metadata (builder);
 		if (quote_id != null) {
 			builder.set_member_name ("quote_id");
 			builder.add_string_value (quote_id);

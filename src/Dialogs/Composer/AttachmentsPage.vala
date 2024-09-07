@@ -479,10 +479,17 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 		for (var i = 0; i < attachments.get_n_items (); i++) {
 			var attachment = attachments.get_item (i) as API.Attachment;
-			var attachment_page_attachment_alt = ((AttachmentsPageAttachment) list.get_row_at_index (i).child).alt_text;
+			var page_attachment = ((AttachmentsPageAttachment) list.get_row_at_index (i).child);
+			var attachment_page_attachment_alt = page_attachment.alt_text;
 
 			attachment.description = attachment_page_attachment_alt;
-			status.add_media (attachment.id, attachment.description);
+
+			string? focus = null;
+			if (attachment.meta != null && attachment.meta.focus != null) {
+				focus = "%.2f,%.2f".printf (page_attachment.pos_x, page_attachment.pos_y);
+			}
+
+			status.add_media (attachment.id, attachment.description, focus);
 			status.media_attachments.add (attachment);
 		}
 		status.sensitive = media_sensitive;
