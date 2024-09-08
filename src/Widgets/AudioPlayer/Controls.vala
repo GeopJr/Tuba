@@ -77,18 +77,6 @@ public class Tuba.Widgets.Audio.Controls : Gtk.Box {
 		GLib.SignalHandler.unblock (time_adjustment, time_adjustment_changed_id);
 	}
 
-	public void update_playing_button (bool playing) {
-		if (playing) {
-			play_button.icon_name = "media-playback-pause-symbolic";
-			// translators: Media play bar play button tooltip
-			play_button.tooltip_text = _("Stop");
-		} else {
-			play_button.icon_name = "media-playback-start-symbolic";
-			// translators: Media play bar play button tooltip
-			play_button.tooltip_text = _("Play");
-		}
-	}
-
 	ulong time_adjustment_changed_id;
 	construct {
 		volume_button.bind_property ("value", this, "volume", BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
