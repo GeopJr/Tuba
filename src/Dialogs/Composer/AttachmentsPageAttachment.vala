@@ -185,6 +185,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		public float pos_y { get; set; default = 0.0f; }
 
 		construct {
+			this.follows_content_size = true;
 			this.title = _("Focal point for attachment thumbnail");
 			save_btn.clicked.connect (on_save);
 		}
