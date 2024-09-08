@@ -130,8 +130,7 @@ public class Tuba.Widgets.FocusPicker : Gtk.Widget {
 		frame.allocate (width, height, baseline, null);
 
 		// Calculate these here once as they're static
-		if (picker_width_half == 0) picker_width_half = picker.get_width () / 2;
-		if (picker_height_half == 0) picker_height_half = picker.get_height () / 2;
+		if (picker_width_half == 0 || picker_height_half == 0) compute_picker_half ();
 
 		update_dot_pos ();
 	}
@@ -171,6 +170,17 @@ public class Tuba.Widgets.FocusPicker : Gtk.Widget {
 			(new_x + new_x * pos_x) - picker_width_half,
 			(new_y + new_y * pos_y * -1) - picker_height_half
 		);
+	}
+
+	private void compute_picker_half () {
+		Graphene.Rect rect;
+		if (!picker.compute_bounds (fixed, out rect)) {
+			picker_width_half = picker.get_width () / 2;
+			picker_height_half = picker.get_height () / 2;
+		} else {
+			picker_width_half = rect.size.width / 2;
+			picker_height_half = rect.size.height / 2;
+		}
 	}
 
 	~FocusPicker () {
