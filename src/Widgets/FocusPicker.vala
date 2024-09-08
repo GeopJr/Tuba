@@ -49,6 +49,7 @@ public class Tuba.Widgets.FocusPicker : Gtk.Widget {
 
 		fixed = new Gtk.Fixed ();
 		overlay.add_overlay (fixed);
+		overlay.set_clip_overlay (fixed, true);
 
 		var picker_click_gesture = new Gtk.GestureClick () {
 			button = Gdk.BUTTON_PRIMARY,
