@@ -188,6 +188,45 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			this.follows_content_size = true;
 			this.title = _("Focal point for attachment thumbnail");
 			save_btn.clicked.connect (on_save);
+
+			var pos_x_scale = new Adw.SpinRow.with_range (-1.0, 1.0, 0.1) {
+				update_policy = Gtk.SpinButtonUpdatePolicy.IF_VALID,
+				snap_to_ticks = true,
+				numeric = true,
+				// translators: Title for focus picker scale
+				title = _("Horizontal Position"),
+				// translators: Subtitle for focus picker scale
+				//  subtitle = _("The value equals to the X axis point of the desired position")
+			};
+			pos_x_scale.bind_property (
+				"value",
+				this,
+				"pos-x",
+				GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL,
+				on_scale_value_changed,
+				on_pos_value_changed
+			);
+
+			var pos_y_scale = new Adw.SpinRow.with_range (-1.0, 1.0, 0.1) {
+				update_policy = Gtk.SpinButtonUpdatePolicy.IF_VALID,
+				snap_to_ticks = true,
+				numeric = true,
+				// translators: Title for focus picker scale
+				title = _("Vertical Position"),
+				// translators: Subtitle for focus picker scale
+				//  subtitle = _("The value equals to the Y axis point of the desired position")
+			};
+			pos_y_scale.bind_property (
+				"value",
+				this,
+				"pos-y",
+				GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL,
+				on_scale_value_changed,
+				on_pos_value_changed
+			);
+
+			toolbar_view.add_bottom_bar (pos_x_scale);
+			toolbar_view.add_bottom_bar (pos_y_scale);
 		}
 
 		private void on_save () {
@@ -199,14 +238,21 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			this.pos_x = pos_x;
 			this.pos_y = pos_y;
 
-			var focus_picker = new Widgets.FocusPicker (paintable) {
-				pos_x = pos_x,
-				pos_y = pos_y
-			};
-			focus_picker.bind_property ("pos-x", this, "pos-x", GLib.BindingFlags.SYNC_CREATE);
-			focus_picker.bind_property ("pos-y", this, "pos-y", GLib.BindingFlags.SYNC_CREATE);
+			var focus_picker = new Widgets.FocusPicker (paintable);
+			focus_picker.bind_property ("pos-x", this, "pos-x", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
+			focus_picker.bind_property ("pos-y", this, "pos-y", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
 
 			toolbar_view.content = focus_picker;
+		}
+
+		private bool on_scale_value_changed (Binding binding, Value from_value, ref Value to_value) {
+			to_value.set_float ((float) from_value.get_double ());
+			return true;
+		}
+
+		private bool on_pos_value_changed (Binding binding, Value from_value, ref Value to_value) {
+			to_value.set_double ((double) from_value.get_float ());
+			return true;
 		}
 	}
 
@@ -338,6 +384,8 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			this.pos_y = focus_picker_dialog.pos_y;
 		}
 
+		// When editing, we can only update attachment metadata
+		// with the whole post
 		if (!edit_mode) {
 			new Request.PUT (@"/api/v1/media/$(id)")
 				.with_account (accounts.active)
