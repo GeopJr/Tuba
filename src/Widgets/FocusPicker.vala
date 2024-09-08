@@ -40,7 +40,7 @@ public class Tuba.Widgets.FocusPicker : Gtk.Widget {
 			hexpand = true
 		};
 
-		picker = new Gtk.Image.from_icon_name ("radio-checked-symbolic") {
+		picker = new Gtk.Image.from_icon_name ("tuba-radio-checked-symbolic") {
 			css_classes = { "osd", "focus-picker" },
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,

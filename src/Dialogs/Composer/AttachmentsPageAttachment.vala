@@ -322,9 +322,12 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		overlay.add_overlay (delete_button);
 		delete_button.clicked.connect (on_delete_clicked);
 
-		var focus_button = new Gtk.Button.with_label ("Focus Point TEST") {
+		var focus_button = new Gtk.Button () {
+			icon_name = "tuba-camera-focus-symbolic",
 			valign = Gtk.Align.START,
 			halign = Gtk.Align.END,
+			tooltip_text = _("Edit Focal Point"),
+			css_classes = { "ttl-status-badge" }
 		};
 		overlay.add_overlay (focus_button);
 		focus_button.clicked.connect (on_focus_picker_clicked);
