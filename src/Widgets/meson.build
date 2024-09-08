@@ -8,6 +8,7 @@ sources += files(
     'CustomEmojiChooser.vala',
     'Emoji.vala',
     'EmojiLabel.vala',
+    'FocusPicker.vala',
     'LabelWithWidgets.vala',
     'ListBoxRowWrapper.vala',
     'MarkupView.vala',

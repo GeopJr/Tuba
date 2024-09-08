@@ -724,3 +724,13 @@ popover.mini-profile > contents {
 .report-status:hover .attachment-picture {
 	filter: none;
 }
+
+.focuspickerdialog .last-row {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.focuspickerdialog .focus-picker {
+	border-radius: 9999px;
+	padding: 4px;
+}

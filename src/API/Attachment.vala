@@ -1,9 +1,18 @@
 public class Tuba.API.Attachment : Entity, Widgetizable {
+	public class Meta : Entity {
+		public class Focus : Entity {
+			public float x { get; set; }
+			public float y { get; set; }
+		}
+
+		public Focus? focus { get; set; }
+	}
 
 	public string id { get; set; }
 	public string kind { get; set; default = "unknown"; }
 	public string url { get; set; }
 	public string? description { get; set; }
+	public Meta? meta { get; set; }
 	public string? blurhash { get; set; default=null; }
 	private string? t_preview_url { get; set; }
 	public string? preview_url {
