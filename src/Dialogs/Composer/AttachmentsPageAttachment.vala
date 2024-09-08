@@ -185,6 +185,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		public float pos_y { get; set; default = 0.0f; }
 
 		construct {
+			this.add_css_class ("focuspickerdialog");
 			this.follows_content_size = true;
 			this.title = _("Focal point for attachment thumbnail");
 			save_btn.clicked.connect (on_save);
@@ -216,6 +217,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 				// translators: Subtitle for focus picker scale
 				//  subtitle = _("The value equals to the Y axis point of the desired position")
 			};
+			pos_y_scale.add_css_class ("last-row");
 			pos_y_scale.bind_property (
 				"value",
 				this,

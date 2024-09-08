@@ -41,7 +41,7 @@ public class Tuba.Widgets.FocusPicker : Gtk.Widget {
 		};
 
 		picker = new Gtk.Image.from_icon_name ("radio-checked-symbolic") {
-			css_classes = { "osd", "circular" },
+			css_classes = { "osd", "focus-picker" },
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			icon_size = Gtk.IconSize.LARGE
