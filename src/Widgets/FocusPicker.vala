@@ -11,8 +11,25 @@ public class Tuba.Widgets.FocusPicker : Gtk.Widget {
 	Gtk.AspectFrame frame;
 	Gtk.Overlay overlay;
 
-	public double pos_x { get; set; default=-0.0; }
-	public double pos_y { get; set; default=0.0; }
+	private double _pos_x = 0.0;
+	public double pos_x {
+		get { return _pos_x; }
+		set {
+			_pos_x = value;
+
+			update_dot_pos ();
+		}
+	}
+
+	private double _pos_y = 0.0;
+	public double pos_y {
+		get { return _pos_y; }
+		set {
+			_pos_y = value;
+
+			update_dot_pos ();
+		}
+	}
 
 	double picker_width_half = 0;
 	double picker_height_half = 0;
@@ -89,8 +106,6 @@ public class Tuba.Widgets.FocusPicker : Gtk.Widget {
 
 		pos_x = (((2 * x) / pic.get_width ()) - 1);
 		pos_y = (((2 * y) / pic.get_height ()) - 1) * -1;
-
-		update_dot_pos ();
 	}
 
 	public FocusPicker (Gdk.Paintable paintable) {
