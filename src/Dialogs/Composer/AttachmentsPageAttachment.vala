@@ -184,6 +184,9 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		public float pos_x { get; set; default = 0.0f; }
 		public float pos_y { get; set; default = 0.0f; }
 
+		private Binding pos_x_binding;
+		private Binding pos_y_binding;
+
 		construct {
 			this.add_css_class ("focuspickerdialog");
 			this.follows_content_size = true;
@@ -199,7 +202,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 				// translators: Subtitle for focus picker scale
 				//  subtitle = _("The value equals to the X axis point of the desired position")
 			};
-			pos_x_scale.bind_property (
+			pos_x_binding = pos_x_scale.bind_property (
 				"value",
 				this,
 				"pos-x",
@@ -218,7 +221,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 				//  subtitle = _("The value equals to the Y axis point of the desired position")
 			};
 			pos_y_scale.add_css_class ("last-row");
-			pos_y_scale.bind_property (
+			pos_y_binding = pos_y_scale.bind_property (
 				"value",
 				this,
 				"pos-y",
@@ -231,18 +234,26 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			toolbar_view.add_bottom_bar (pos_y_scale);
 		}
 
+		public override void unmap () {
+			// Causes the dialog to not get destroyed
+			// so let's unbound manually
+			pos_x_binding.unbind ();
+			pos_y_binding.unbind ();
+			base.unmap ();
+		}
+
 		private void on_save () {
 			this.working = true;
 			saved ();
 		}
 
 		public FocusPickerDialog (Gdk.Paintable paintable, float pos_x, float pos_y) {
-			this.pos_x = pos_x;
-			this.pos_y = pos_y;
-
 			var focus_picker = new Widgets.FocusPicker (paintable);
 			focus_picker.bind_property ("pos-x", this, "pos-x", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
 			focus_picker.bind_property ("pos-y", this, "pos-y", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
+
+			this.pos_x = pos_x;
+			this.pos_y = pos_y;
 
 			toolbar_view.content = focus_picker;
 		}
@@ -262,6 +273,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 	public float pos_x { get; set; default = 0.0f; }
 	public float pos_y { get; set; default = 0.0f; }
 
+	private Gtk.Button focus_button;
 	protected Gtk.Picture pic;
 	protected File? attachment_file;
 	private unowned Dialogs.Compose compose_dialog;
@@ -322,7 +334,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		overlay.add_overlay (delete_button);
 		delete_button.clicked.connect (on_delete_clicked);
 
-		var focus_button = new Gtk.Button () {
+		focus_button = new Gtk.Button () {
 			icon_name = "tuba-camera-focus-symbolic",
 			valign = Gtk.Align.START,
 			halign = Gtk.Align.END,
@@ -332,26 +344,31 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		overlay.add_overlay (focus_button);
 		focus_button.clicked.connect (on_focus_picker_clicked);
 
+		focus_button.notify ["paintable"].connect (update_focus_btn_visibility);
+		update_focus_btn_visibility ();
+
 		alt_text = t_entity.description ?? "";
 		update_alt_css (alt_text.length);
 	}
 
+	private void update_focus_btn_visibility () {
+		focus_button.visible = pic.paintable != null;
+	}
+
 	FocusPickerDialog? focus_picker_dialog = null;
 	private void on_focus_picker_clicked () {
-		if (focus_picker_dialog == null) {
-			focus_picker_dialog = new FocusPickerDialog (pic.paintable, pos_x, pos_y);
-			focus_picker_dialog.saved.connect (on_save_clicked);
-		}
+		focus_picker_dialog = new FocusPickerDialog (pic.paintable, pos_x, pos_y);
+		focus_picker_dialog.saved.connect (on_save_clicked);
+		focus_picker_dialog.closed.connect (close_dialogs);
 
 		focus_picker_dialog.present (compose_dialog);
 	}
 
 	AltTextDialog? alt_text_dialog = null;
 	private void on_alt_btn_clicked () {
-		if (alt_text_dialog == null) {
-			alt_text_dialog = new AltTextDialog (alt_text);
-			alt_text_dialog.saved.connect (on_save_clicked);
-		}
+		alt_text_dialog = new AltTextDialog (alt_text);
+		alt_text_dialog.saved.connect (on_save_clicked);
+		alt_text_dialog.closed.connect (close_dialogs);
 
 		alt_text_dialog.present (compose_dialog);
 	}
