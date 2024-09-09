@@ -184,6 +184,9 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		public float pos_x { get; set; default = 0.0f; }
 		public float pos_y { get; set; default = 0.0f; }
 
+		private Binding pos_x_binding;
+		private Binding pos_y_binding;
+
 		construct {
 			this.add_css_class ("focuspickerdialog");
 			this.follows_content_size = true;
@@ -199,7 +202,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 				// translators: Subtitle for focus picker scale
 				//  subtitle = _("The value equals to the X axis point of the desired position")
 			};
-			pos_x_scale.bind_property (
+			pos_x_binding = pos_x_scale.bind_property (
 				"value",
 				this,
 				"pos-x",
@@ -218,7 +221,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 				//  subtitle = _("The value equals to the Y axis point of the desired position")
 			};
 			pos_y_scale.add_css_class ("last-row");
-			pos_y_scale.bind_property (
+			pos_y_binding = pos_y_scale.bind_property (
 				"value",
 				this,
 				"pos-y",
@@ -229,6 +232,14 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 			toolbar_view.add_bottom_bar (pos_x_scale);
 			toolbar_view.add_bottom_bar (pos_y_scale);
+		}
+
+		public override void unmap () {
+			// Causes the dialog to not get destroyed
+			// so let's unbound manually
+			pos_x_binding.unbind ();
+			pos_y_binding.unbind ();
+			base.unmap ();
 		}
 
 		private void on_save () {
