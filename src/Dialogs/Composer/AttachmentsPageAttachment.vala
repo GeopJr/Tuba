@@ -248,12 +248,12 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		}
 
 		public FocusPickerDialog (Gdk.Paintable paintable, float pos_x, float pos_y) {
-			this.pos_x = pos_x;
-			this.pos_y = pos_y;
-
 			var focus_picker = new Widgets.FocusPicker (paintable);
 			focus_picker.bind_property ("pos-x", this, "pos-x", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
 			focus_picker.bind_property ("pos-y", this, "pos-y", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
+
+			this.pos_x = pos_x;
+			this.pos_y = pos_y;
 
 			toolbar_view.content = focus_picker;
 		}
