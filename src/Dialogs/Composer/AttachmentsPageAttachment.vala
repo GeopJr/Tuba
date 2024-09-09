@@ -273,6 +273,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 	public float pos_x { get; set; default = 0.0f; }
 	public float pos_y { get; set; default = 0.0f; }
 
+	private Gtk.Button focus_button;
 	protected Gtk.Picture pic;
 	protected File? attachment_file;
 	private unowned Dialogs.Compose compose_dialog;
@@ -333,7 +334,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		overlay.add_overlay (delete_button);
 		delete_button.clicked.connect (on_delete_clicked);
 
-		var focus_button = new Gtk.Button () {
+		focus_button = new Gtk.Button () {
 			icon_name = "tuba-camera-focus-symbolic",
 			valign = Gtk.Align.START,
 			halign = Gtk.Align.END,
@@ -343,8 +344,15 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		overlay.add_overlay (focus_button);
 		focus_button.clicked.connect (on_focus_picker_clicked);
 
+		focus_button.notify ["paintable"].connect (update_focus_btn_visibility);
+		update_focus_btn_visibility ();
+
 		alt_text = t_entity.description ?? "";
 		update_alt_css (alt_text.length);
+	}
+
+	private void update_focus_btn_visibility () {
+		focus_button.visible = pic.paintable != null;
 	}
 
 	FocusPickerDialog? focus_picker_dialog = null;
