@@ -349,20 +349,18 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	FocusPickerDialog? focus_picker_dialog = null;
 	private void on_focus_picker_clicked () {
-		if (focus_picker_dialog == null) {
-			focus_picker_dialog = new FocusPickerDialog (pic.paintable, pos_x, pos_y);
-			focus_picker_dialog.saved.connect (on_save_clicked);
-		}
+		focus_picker_dialog = new FocusPickerDialog (pic.paintable, pos_x, pos_y);
+		focus_picker_dialog.saved.connect (on_save_clicked);
+		focus_picker_dialog.closed.connect (close_dialogs);
 
 		focus_picker_dialog.present (compose_dialog);
 	}
 
 	AltTextDialog? alt_text_dialog = null;
 	private void on_alt_btn_clicked () {
-		if (alt_text_dialog == null) {
-			alt_text_dialog = new AltTextDialog (alt_text);
-			alt_text_dialog.saved.connect (on_save_clicked);
-		}
+		alt_text_dialog = new AltTextDialog (alt_text);
+		alt_text_dialog.saved.connect (on_save_clicked);
+		alt_text_dialog.closed.connect (close_dialogs);
 
 		alt_text_dialog.present (compose_dialog);
 	}
