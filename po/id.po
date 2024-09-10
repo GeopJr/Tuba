@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-03-24 21:02+0000\n"
+"PO-Revision-Date: 2024-09-03 00:09+0000\n"
 "Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
-"Language-Team: Indonesian <https://hosted.weblate.org/projects/tuba/tuba/id/"
-">\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/tuba/tuba/id/>"
+"\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -165,7 +165,7 @@ msgstr "Lampiran selanjutnya"
 
 #: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:65
 msgid "Admin Dashboard"
-msgstr ""
+msgstr "Dasbor Admin"
 
 #: data/ui/dialogs/advanced_search.ui:23 data/ui/dialogs/compose.ui:35
 #: data/ui/dialogs/filter_edit.ui:17 data/ui/dialogs/new_account.ui:26
@@ -197,33 +197,36 @@ msgid ""
 "Advanced Search might not work in all instances. You can invert an option by "
 "prefixing it with -. For example, -is:reply to filter out all replies."
 msgstr ""
+"Pencarian Lanjutan mungkin tidak berfungsi di semua kasus. Anda dapat "
+"membalikkan opsi dengan mengawalinya dengan -. Misalnya, -is:reply untuk "
+"menyaring semua balasan."
 
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:73
 msgid "Query"
-msgstr ""
+msgstr "Kueri"
 
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:80
 msgid "From User"
-msgstr ""
+msgstr "Dari Pengguna"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:86
 msgid "Only Replies"
-msgstr ""
+msgstr "Hanya Balasan"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:92
 msgid "Only Posts with Content Warnings"
-msgstr ""
+msgstr "Hanya Postingan dengan Peringatan Konten"
 
 #. translators: Advanced search window, option group
 #. This is the title and the option are
 #. 'media', 'poll'...
 #: data/ui/dialogs/advanced_search.ui:102
 msgid "Containing"
-msgstr ""
+msgstr "Mengandung"
 
 #: data/ui/dialogs/advanced_search.ui:105
 #: src/Dialogs/Composer/AttachmentsPage.vala:62
@@ -237,7 +240,7 @@ msgstr "Pol"
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:116
 msgid "Embed"
-msgstr ""
+msgstr "Sematkan"
 
 #: data/ui/dialogs/advanced_search.ui:123 data/ui/dialogs/preferences.ui:179
 msgid "Timelines"
@@ -245,17 +248,17 @@ msgstr "Linimasa"
 
 #: data/ui/dialogs/advanced_search.ui:126
 msgid "Everywhere"
-msgstr ""
+msgstr "Di mana saja"
 
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:140
 msgid "Library"
-msgstr ""
+msgstr "Perpustakaan"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
 #: data/ui/dialogs/advanced_search.ui:142
 msgid "Favorites, Bookmarks, Own Posts"
-msgstr ""
+msgstr "Favorit, Markah, Postingan Sendiri"
 
 #: data/ui/dialogs/advanced_search.ui:156
 #: src/Services/Accounts/Mastodon/Account.vala:167
@@ -265,25 +268,25 @@ msgstr "Publik"
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:173
 msgid "Dates"
-msgstr ""
+msgstr "Tanggal"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:179
 msgid "Before"
-msgstr ""
+msgstr "Sebelumnya"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
 #: data/ui/dialogs/advanced_search.ui:202
 msgid "During"
-msgstr ""
+msgstr "Selama"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:225
 msgid "After"
-msgstr ""
+msgstr "Setelah"
 
 #: data/ui/dialogs/compose.ui:41 src/Dialogs/Composer/Dialog.vala:263
 msgid "_Publish"
@@ -397,7 +400,7 @@ msgstr "URL server"
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:297
 msgid "Settings"
-msgstr ""
+msgstr "Pengaturan"
 
 #: data/ui/dialogs/new_account.ui:141
 msgid "Confirm Authorization"
@@ -441,23 +444,25 @@ msgstr "Perbesar ukuran teks dalam postingan"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Large Line Height"
-msgstr ""
+msgstr "Tinggi Garis Besar"
 
 #: data/ui/dialogs/preferences.ui:47
 msgid "Increase the line height in posts"
-msgstr ""
+msgstr "Menambah tinggi garis pada tulisan"
 
 #: data/ui/dialogs/preferences.ui:52
 msgid "Large Custom Emojis"
-msgstr ""
+msgstr "Emoji Khusus Besar"
 
 #: data/ui/dialogs/preferences.ui:57
 msgid "Scale Custom Emojis on Hover"
-msgstr ""
+msgstr "Skala Emoji Kustom pada Hover"
 
 #: data/ui/dialogs/preferences.ui:58
 msgid "Slightly increases the size of custom emojis when you hover over them"
 msgstr ""
+"Sedikit memperbesar ukuran emoji khusus saat Anda mengarahkan kursor ke "
+"emoji tersebut"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:64
@@ -476,7 +481,7 @@ msgstr ""
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:72
 msgid "Expand Pictures in Media Viewer"
-msgstr ""
+msgstr "Perluas Gambar di Penampil Media"
 
 #. translators: expand as in enlarge
 #: data/ui/dialogs/preferences.ui:74
@@ -489,7 +494,7 @@ msgstr "Tampilkan versi media yang buram hingga dimuat sepenuhnya"
 
 #: data/ui/dialogs/preferences.ui:85
 msgid "Reveal Spoilers by Default"
-msgstr ""
+msgstr "Tampilkan Spoiler secara Default"
 
 #: data/ui/dialogs/preferences.ui:90
 msgid "Show Link Preview Cards"
