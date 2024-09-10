@@ -42,6 +42,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 
 		filters_changed (false);
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
+		stream_event[InstanceAccount.EVENT_NOTIFICATIONS_MERGED].connect (on_refresh);
 
 		#if DEV_MODE
 			app.dev_new_notification.connect (node => {
