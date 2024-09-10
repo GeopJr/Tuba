@@ -220,7 +220,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 		notify_on_new_post_action = new SimpleAction.stateful ("notify_on_post", null, false);
 		notify_on_new_post_action.change_state.connect (v => {
-			profile.rs.modify ("follow", "notify", v.get_boolean ().to_string ());
+			profile.rs.modify ("follow", {{"notify", v.get_boolean ().to_string ()}});
 			invalidate_actions (false);
 		});
 		actions.add_action (notify_on_new_post_action);
@@ -272,7 +272,11 @@ public class Tuba.Views.Profile : Views.Accounts {
 		muting_action = new SimpleAction.stateful ("muting", null, false);
 		muting_action.change_state.connect (v => {
 			var state = v.get_boolean ();
-			profile.rs.modify (state ? "mute" : "unmute");
+			if (state) {
+				profile.rs.question_modify_mute (profile.account.handle);
+			} else {
+				profile.rs.modify ("unmute");
+			}
 		});
 		actions.add_action (muting_action);
 
@@ -284,7 +288,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 			}
 
 			var state = !v.get_boolean ();
-			profile.rs.modify ("follow", "reblogs", state.to_string ());
+			profile.rs.modify ("follow", {{"reblogs", state.to_string ()}});
 		});
 		actions.add_action (hiding_reblogs_action);
 
@@ -305,6 +309,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 				app.main_window,
 				{ { block ? _("Block") : _("Unblock"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {

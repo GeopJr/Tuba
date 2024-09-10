@@ -58,6 +58,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 				{_("This action cannot be reverted."), false},
 				app.main_window,
 				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {

@@ -52,6 +52,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 				{@"$help_msg.", false},
 				app.add_account_window,
 				{ {"Read More", Adw.ResponseAppearance.SUGGESTED }, { "Close", Adw.ResponseAppearance.DEFAULT } },
+				null,
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) Host.open_url (wiki_page);

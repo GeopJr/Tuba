@@ -663,6 +663,7 @@ namespace Tuba {
 				{ _("Yes"), Adw.ResponseAppearance.DEFAULT },
 				{ _("Cancel"), Adw.ResponseAppearance.DEFAULT }
 			},
+			Gtk.Widget? child = null,
 			bool skip = false // skip the dialog, used for preferences to avoid duplicate code
 		) {
 			if (skip) return QuestionAnswer.YES;
@@ -674,6 +675,8 @@ namespace Tuba {
 
 			dlg.heading_use_markup = title.use_markup;
 			if (msg != null) dlg.body_use_markup = msg.use_markup;
+
+			if (child != null) dlg.extra_child = child;
 
 			dlg.add_response ("no", buttons.no.label);
 			dlg.set_response_appearance ("no", buttons.no.appearance);
