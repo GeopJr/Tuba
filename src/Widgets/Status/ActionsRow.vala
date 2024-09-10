@@ -153,6 +153,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 				{_("You can still reply, but it may no longer be relevant."), false},
 				app.main_window,
 				{ { _("Reply"), Adw.ResponseAppearance.SUGGESTED }, { _("Don't remind me again"), Adw.ResponseAppearance.DEFAULT } },
+				null,
 				false,
 				(obj, res) => {
 					if (app.question.end (res) == Tuba.Application.QuestionAnswer.NO) {

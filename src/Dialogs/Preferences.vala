@@ -79,6 +79,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 				null,
 				this.win,
 				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {

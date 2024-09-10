@@ -331,6 +331,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 				null,
 				this,
 				{ { _("Submit"), Adw.ResponseAppearance.SUGGESTED }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {

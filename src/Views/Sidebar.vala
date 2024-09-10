@@ -307,6 +307,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 				{_("This account will be removed from the application."), false},
 				app.main_window,
 				{ { _("Forget"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {

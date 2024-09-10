@@ -80,7 +80,12 @@ public class Tuba.API.Relationship : Entity {
 		invalidated ();
 	}
 
-	public void modify (string operation, string? param = null, string? val = null) {
+	public struct ModifyParam {
+		public string param;
+		public string val;
+	}
+
+	public void modify (string operation, ModifyParam[]? modify_params = null) {
 		var req = new Request.POST (@"/api/v1/accounts/$id/$operation")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
@@ -90,8 +95,12 @@ public class Tuba.API.Relationship : Entity {
 				debug (@"Performed \"$operation\" on Relationship $id");
 			});
 
-		if (param != null)
-			req.with_param (param, val);
+		if (modify_params != null) {
+			foreach (ModifyParam modify_param in modify_params) {
+				req.with_param (modify_param.param, modify_param.val);
+			}
+		}
+
 
 		req.exec ();
 	}
@@ -126,6 +135,7 @@ public class Tuba.API.Relationship : Entity {
 			null,
 			app.main_window,
 			{ { block ? _("Block") : _("Unblock"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+			null,
 			false,
 			(obj, res) => {
 				if (app.question.end (res).truthy ()) modify (block ? "block" : "unblock");
@@ -133,4 +143,90 @@ public class Tuba.API.Relationship : Entity {
 		);
 	}
 
+	public void question_modify_mute (string handle) {
+		var switch_row = new Adw.SwitchRow () {
+			title = _("Hide from Notifications"),
+			active = true
+		};
+
+		var model = new GLib.ListStore (typeof (MuteExpWrapper));
+		MuteExpWrapper[] to_add = {};
+		foreach (MuteExpiration exp in ALL_MUTE_EXPS) {
+			to_add += new MuteExpWrapper (exp, exp.to_string ());
+		}
+		model.splice (0, 0, to_add);
+
+		var exp_row = new Adw.ComboRow () {
+			expression = new Gtk.PropertyExpression (typeof (MuteExpWrapper), null, "title"),
+			model = model,
+			title = _("Expire In")
+		};
+
+		var list_box = new Gtk.ListBox () {
+			selection_mode = Gtk.SelectionMode.NONE,
+			css_classes = {"boxed-list"}
+		};
+
+		list_box.append (exp_row);
+		list_box.append (switch_row);
+
+		app.question.begin (
+			// translators: the variable is a user handle
+			{_("Mute \"%s\"?").printf (handle), false},
+			null,
+			app.main_window,
+			{ { _("Mute"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+			list_box,
+			false,
+			(obj, res) => {
+				if (app.question.end (res).truthy ()) {
+					modify ("mute", {
+						{ "notifications", switch_row.active.to_string () },
+						{ "duration", ((MuteExpWrapper) exp_row.selected_item).exp.to_seconds ().to_string () }
+					});
+				}
+			}
+		);
+	}
+
+	class MuteExpWrapper : Object {
+		public MuteExpiration exp { get; private set; }
+		public string title { get; private set; }
+
+		public MuteExpWrapper (MuteExpiration exp, string title) {
+			this.exp = exp;
+			this.title = title;
+		}
+	}
+
+	const MuteExpiration[] ALL_MUTE_EXPS = { NEVER, HOUR_24, DAY_7, DAY_30 };
+	enum MuteExpiration {
+		NEVER,
+		HOUR_24,
+		DAY_7,
+		DAY_30;
+
+		public string to_string () {
+			// Use variables to avoid increasing translator work
+			// unless they don't exist already
+
+			switch (this) {
+				case NEVER: return _("Never");
+				case HOUR_24: return GLib.ngettext ("%d Hour", "%d Hours", (ulong) 24).printf (24);
+				case DAY_7: return GLib.ngettext ("%d Day", "%d Days", (ulong) 7).printf (7);
+				case DAY_30: return GLib.ngettext ("%d Day", "%d Days", (ulong) 30).printf (30);
+				default: assert_not_reached ();
+			}
+		}
+
+		public int to_seconds () {
+			switch (this) {
+				case NEVER: return 0;
+				case HOUR_24: return 3600 * 24;
+				case DAY_7: return 3600 * 24 * 7;
+				case DAY_30: return 3600 * 24 * 30;
+				default: assert_not_reached ();
+			}
+		}
+	}
 }

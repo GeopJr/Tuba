@@ -206,6 +206,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 				{_("Your progress will be lost."), false},
 				this,
 				{ { _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) on_close ();
