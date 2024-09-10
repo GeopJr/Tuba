@@ -18,6 +18,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_SEVERED_RELATIONSHIPS = "severed_relationships";
 	public const string KIND_ADMIN_REPORT = "admin.report";
 	public const string KIND_ADMIN_SIGNUP = "admin.sign_up";
+	public const string KIND_STATUS = "status";
 
 	public string uuid { get; set; }
 	public bool admin_mode { get; set; default=false; }
@@ -335,6 +336,14 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					// translators: this is used for admin notifications
 					_("Received a new report"),
 					null
+				};
+				break;
+			case KIND_STATUS:
+				result = {
+					"tuba-bell-outline-symbolic",
+					// translators: the variable is a string user name,
+					//				this is used for per-account notifications
+					_("%s just posted").printf (actor_name),
 				};
 				break;
 			default:
