@@ -62,6 +62,14 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.8.4" date="2024-09-10">
+      <description translate="no">
+        <ul>
+            <li>Fixed segfault when closing the media viewer before the spinner timeout finished</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.8.3" date="2024-08-26">
       <description translate="no">
         <ul>
