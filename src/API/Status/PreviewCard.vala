@@ -95,12 +95,19 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 		}
 	}
 
+	public class AuthorEntity : Entity {
+		public string? name { get; set; }
+		public string? url { get; set; }
+		public API.Account? account { get; set; }
+	}
+
 	public string url { get; set; }
 	public string title { get; set; default=""; }
 	public string description { get; set; default=""; }
 	public string kind { get; set; default="link"; }
 	public string author_name { get; set; default=""; }
 	public string author_url { get; set; default=""; }
+	public Gee.ArrayList<AuthorEntity>? authors { get; set; default=null; }
 	public string provider_name { get; set; default=""; }
 	public string provider_url { get; set; default=""; }
 	public string? image { get; set; default=null; }
@@ -124,6 +131,8 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 		switch (prop) {
 			case "history":
 				return typeof (API.TagHistory);
+			case "authors":
+				return typeof (AuthorEntity);
 		}
 
 		return base.deserialize_array_type (prop);
