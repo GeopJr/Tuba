@@ -552,6 +552,14 @@ video > overlay > revealer > controls, .audio-controls {
 	border-radius: 0px;
 }
 
+.ttl-view .small .preview_card.explore {
+	border-radius: 0px;
+}
+
+.ttl-view .preview_card.explore {
+	border-radius: 12px;
+}
+
 /* .ttl-view .small.content .card.card-spacing { */
 .ttl-view .small.fake-content .card.card-spacing {
 	margin: 0px;
