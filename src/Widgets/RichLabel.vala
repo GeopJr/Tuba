@@ -81,7 +81,12 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 
 	public RichLabel (string? text = null) {
 		if (text != null)
-			label = text;
+			this.label = text;
+	}
+
+	public RichLabel.with_emojis (string? text = null, Gee.HashMap<string, string>? instance_emojis = null) {
+		if (instance_emojis != null) this.instance_emojis = instance_emojis;
+		if (text != null) this.label = text;
 	}
 
 	construct {
