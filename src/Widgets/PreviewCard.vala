@@ -93,6 +93,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 				image_widget.remove_css_class ("preview_card_v");
 
 				button.add_css_class ("explore");
+				button.remove_css_class ("frame");
 				button.clicked.connect (() => Host.open_url (card_obj.url));
 
 				if (description_label.visible) {
