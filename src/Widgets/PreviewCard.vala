@@ -127,7 +127,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 
 			Gtk.Widget more_from_button = new Gtk.Button () {
 				halign = Gtk.Align.START,
-				css_classes = { "flat" }
+				css_classes = { "flat", "verified-author" }
 			};
 
 			if (card_obj.authors.size == 1) {
@@ -154,6 +154,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 					if (verified_author.url == null || verified_author.url == "") {
 						more_from_button = verified_author_label;
 						more_from_button.add_css_class ("font-bold");
+						more_from_button.add_css_class ("verified-author");
 					} else {
 						author_url = verified_author.url;
 						((Gtk.Button) more_from_button).child = verified_author_label;

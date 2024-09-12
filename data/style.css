@@ -734,3 +734,8 @@ popover.mini-profile > contents {
 	border-radius: 9999px;
 	padding: 4px;
 }
+
+.verified-author {
+	padding: 0 5px;
+	font-size: small;
+}
