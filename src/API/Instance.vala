@@ -17,6 +17,7 @@ public class Tuba.API.Instance : Entity {
 	public Gee.ArrayList<Rule>? rules { get; set; }
 
 	public bool tuba_can_translate { get; set; default=false; }
+	public int8 tuba_mastodon_version { get; set; default=0; }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {

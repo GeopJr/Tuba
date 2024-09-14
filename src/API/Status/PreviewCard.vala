@@ -168,6 +168,8 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 	}
 
 	public override Gtk.Widget to_widget () {
+		if (this.kind == "link" && this.history != null) return new Widgets.PreviewCardExplore (this);
+
 		return new Widgets.PreviewCard (this);
 	}
 

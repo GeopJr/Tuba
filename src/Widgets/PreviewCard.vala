@@ -5,11 +5,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 	}
 
 	[GtkChild] public unowned Gtk.Button button;
-	[GtkChild] unowned Gtk.Box box;
-	[GtkChild] unowned Gtk.Label author_label;
-	[GtkChild] unowned Gtk.Label title_label;
-	[GtkChild] unowned Gtk.Label description_label;
-	[GtkChild] unowned Gtk.Label used_times_label;
+	[GtkChild] unowned Widgets.PreviewCardInternal box;
 
 	private Gee.ArrayList<API.PreviewCard.AuthorEntity>? verified_authors = null;
 	private string? author_url = null;
@@ -73,57 +69,19 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 				if (host != null) author = host;
 			} catch {}
 		}
-		author_label.label = author;
+		box.author_label.label = author;
 
 		if (card_obj.title != "") {
-			title_label.label = title_label.tooltip_text = card_obj.title.replace ("\n", " ").strip ();
-			title_label.visible = true;
+			box.title_label.label = box.title_label.tooltip_text = card_obj.title.replace ("\n", " ").strip ();
+			box.title_label.visible = true;
 		}
 
 		if (card_obj.description != "") {
-			description_label.label = description_label.tooltip_text = card_obj.description;
-			description_label.visible = true;
+			box.description_label.label = box.description_label.tooltip_text = card_obj.description;
+			box.description_label.visible = true;
 		}
 
-		if (card_obj.kind == "link" && card_obj.history != null && card_obj.history.size > 0) {
-				box.orientation = Gtk.Orientation.HORIZONTAL;
-				box.homogeneous = true;
-				image_widget.height_request = 70;
-				image_widget.add_css_class ("preview_card_h");
-				image_widget.remove_css_class ("preview_card_v");
-
-				button.add_css_class ("explore");
-				button.remove_css_class ("frame");
-				button.clicked.connect (() => Host.open_url (card_obj.url));
-
-				if (description_label.visible) {
-					if (description_label.label.length > 109)
-						description_label.label = description_label.label.replace ("\n", " ").substring (0, 109) + "…";
-					description_label.single_line_mode = false;
-					description_label.ellipsize = Pango.EllipsizeMode.NONE;
-					description_label.wrap = true;
-					description_label.wrap_mode = Pango.WrapMode.WORD_CHAR;
-				}
-
-				var last_history_entry = card_obj.history.get (0);
-				var total_uses = int.parse (last_history_entry.uses);
-				var total_accounts = int.parse (last_history_entry.accounts);
-				// translators: the variables are numbers
-				var subtitle = _("Discussed %d times by %d people yesterday").printf (total_uses, total_accounts);
-
-				if (card_obj.history.size > 1) {
-					last_history_entry = card_obj.history.get (1);
-					total_uses += int.parse (last_history_entry.uses);
-					total_accounts += int.parse (last_history_entry.accounts);
-
-					// translators: the variables are numbers
-					subtitle = _("Discussed %d times by %d people in the past 2 days")
-						.printf (total_uses, total_accounts);
-				}
-
-				used_times_label.label = subtitle;
-				used_times_label.visible = true;
-		} else if (card_obj.authors != null && card_obj.authors.size > 0) {
+		if (card_obj.authors != null && card_obj.authors.size > 0) {
 			bool should_add = true;
 
 			Gtk.Widget more_from_button = new Gtk.Button () {
