@@ -13,6 +13,7 @@ sources += files(
     'Hashtag.vala',
     'Hashtags.vala',
     'Home.vala',
+    'Link.vala',
     'List.vala',
     'Lists.vala',
     'Local.vala',

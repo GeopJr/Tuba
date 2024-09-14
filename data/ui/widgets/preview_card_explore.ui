@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+	<requires lib="gtk" version="4.0" />
+	<template class="TubaWidgetsPreviewCardExplore" parent="GtkListBoxRow">
+		<style>
+			<class name="preview_card" />
+			<class name="explore" />
+		</style>
+		<child>
+			<object class="TubaWidgetsPreviewCardInternal" id="box">
+				<property name="orientation">horizontal</property>
+				<property name="homogeneous">1</property>
+			</object>
+		</child>
+	</template>
+</interface>

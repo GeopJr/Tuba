@@ -122,22 +122,13 @@ public class Tuba.Views.ContentBase : Views.Base {
 
 			#if !USE_LISTVIEW
 				Gtk.Widget widget = obj_widgetable.to_widget ();
-				if (widget as Widgets.PreviewCard == null) {
-					widget.add_css_class ("card");
-					widget.add_css_class ("card-spacing");
-					widget.focusable = true;
+				widget.add_css_class ("card");
+				widget.add_css_class ("card-spacing");
+				widget.focusable = true;
 
-					// Thread lines overflow slightly
-					widget.overflow = Gtk.Overflow.HIDDEN;
-					return widget;
-				}
-
-				return new Gtk.ListBoxRow () {
-					css_classes = { "card", "card-spacing" },
-					focusable = false,
-					overflow = Gtk.Overflow.HIDDEN,
-					child = widget
-				};
+				// Thread lines overflow slightly
+				widget.overflow = Gtk.Overflow.HIDDEN;
+				return widget;
 			#else
 				return obj_widgetable.to_widget ();
 			#endif

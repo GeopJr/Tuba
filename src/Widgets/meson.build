@@ -15,6 +15,8 @@ sources += files(
     'Notification.vala',
     'NotificationRequest.vala',
     'PreviewCard.vala',
+    'PreviewCardInternal.vala',
+    'PreviewCardExplore.vala',
     'ProfileCover.vala',
     'RelationshipButton.vala',
     'RichLabel.vala',

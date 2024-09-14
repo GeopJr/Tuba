@@ -93,6 +93,8 @@
         <file>ui/widgets/status.ui</file>
         <file>ui/widgets/votebox.ui</file>
         <file>ui/widgets/preview_card.ui</file>
+        <file>ui/widgets/preview_card_internal.ui</file>
+        <file>ui/widgets/preview_card_explore.ui</file>
         <file>ui/widgets/profile.ui</file>
         <file>ui/dialogs/admin_dashboard.ui</file>
         <file>ui/dialogs/list_edit.ui</file>
