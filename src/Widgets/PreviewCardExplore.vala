@@ -91,11 +91,15 @@ public class Tuba.Widgets.PreviewCardExplore : Gtk.ListBoxRow {
 		if (true) {
 			Gtk.Button discussions_button = new Gtk.Button () {
 				child = used_times_label,
-				css_classes = { "flat" },
 				// translators: tooltip text on 'explore' tab button to
 				//				see posts where the selected article is
 				//				being discussed.
-				tooltip_text = _("See Discussions")
+				tooltip_text = _("See Discussions"),
+
+				// Looks weird flat, as it doesn't indicate
+				// that it's clickable, plus it's not dimmed and
+				// has padding. Looks out of place.
+				//  css_classes = { "flat" },
 			};
 			discussions_button.clicked.connect (on_link_timeline_open);
 			box.internal_box.append (discussions_button);
