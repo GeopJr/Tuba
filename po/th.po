@@ -2,30 +2,34 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Amy/Atius <www.dappertransformer@proton.me>, 2023.
+# Atirut Wattanamongkol <artjang301@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-09-15 15:09+0000\n"
+"Last-Translator: Atirut Wattanamongkol <artjang301@gmail.com>\n"
+"Language-Team: Thai <https://hosted.weblate.org/projects/tuba/tuba/th/>\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
 msgstr ""
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
+#, fuzzy
 msgid "Browse the Fediverse"
-msgstr ""
+msgstr "เรียกดู Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr ""
+msgstr "ไคลเอนต์ Fediverse"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
@@ -39,6 +43,7 @@ msgid ""
 msgstr ""
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:12
+#, fuzzy
 msgid ""
 "The Fediverse is a decentralized social network that consists of multiple "
 "interconnected platforms and communities, allowing users to communicate and "
@@ -46,42 +51,48 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
+"Fediverse "
+"คือเครือข่ายโซเชียลแบบกระจายอำนาจที่ประกอบด้วยแพลตฟอร์มและชุมชนที่เชื่อมต่อกันหลายแห่ง "
+"ช่วยให้ผู้ใช้สามารถสื่อสารและแบ่งปันเนื้อหาผ่านเครือข่ายและเซิร์ฟเวอร์ที่แตกต่างกันได้ "
+"นอกจากนี้ยังส่งเสริมความเป็นส่วนตัวของผู้ใช้และความเป็นเจ้าของข้อมูล "
+"และเป็นทางเลือกอื่นสำหรับแพลตฟอร์มโซเชียลมีเดียแบบรวมศูนย์"
 
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:20
 msgid "General"
-msgstr ""
+msgstr "ทั่วไป"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "แสดงการตั้งค่า"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "เขียนโพสต์ใหม่"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:57
 msgid "Refresh"
-msgstr ""
+msgstr "รีเฟรช"
 
 #: data/gtk/help-overlay.ui:32 data/ui/dialogs/advanced_search.ui:29
 #: src/Services/Accounts/Mastodon/Account.vala:99
 #: src/Views/Admin/Pages/Accounts.vala:25 src/Views/Main.vala:62
 #: src/Views/Search.vala:91
 msgid "Search"
-msgstr ""
+msgstr "ค้นหา"
 
 #: data/gtk/help-overlay.ui:38 data/ui/views/media_viewer.ui:50
+#, fuzzy
 msgid "Go Back"
-msgstr ""
+msgstr "กลับ"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "แสดงแป้นพิมพ์ลัด"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
-msgstr ""
+msgstr "ปิดหน้าต่าง"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Quit"
@@ -93,11 +104,11 @@ msgstr ""
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Up"
-msgstr ""
+msgstr "เลื่อนขึ้น"
 
 #: data/gtk/help-overlay.ui:74
 msgid "Scroll Down"
-msgstr ""
+msgstr "เลื่อนลง"
 
 #: data/gtk/help-overlay.ui:82
 msgid "Composer"
@@ -113,47 +124,51 @@ msgstr ""
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "เต็มจอ"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:147
 msgid "Zoom In"
-msgstr ""
+msgstr "ซูมเข้า"
 
 #: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:135
 msgid "Zoom Out"
-msgstr ""
+msgstr "ซูมออก"
 
 #: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:93
+#, fuzzy
 msgid "Previous Attachment"
-msgstr ""
+msgstr "เนื้อหาที่แนบก่อนหน้า"
 
 #: data/gtk/help-overlay.ui:120 data/ui/views/media_viewer.ui:105
+#, fuzzy
 msgid "Next Attachment"
-msgstr ""
+msgstr "เนื้อหาที่แนบต่อไป"
 
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "ซูมเข้า"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "ซูมออก"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
+#, fuzzy
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr ""
+msgstr "เนื้อหาที่แนบก่อนหน้า"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
+#, fuzzy
 msgctxt "shortcut window"
 msgid "Next Attachment"
-msgstr ""
+msgstr "เนื้อหาที่แนบต่อไป"
 
 #: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:65
 msgid "Admin Dashboard"
-msgstr ""
+msgstr "แผงควบคุมผู้ดูแลระบบ"
 
 #: data/ui/dialogs/advanced_search.ui:23 data/ui/dialogs/compose.ui:35
 #: data/ui/dialogs/filter_edit.ui:17 data/ui/dialogs/new_account.ui:26
@@ -177,7 +192,7 @@ msgstr ""
 #: src/Views/Profile.vala:307 src/Views/Sidebar.vala:309
 #: src/Widgets/Status/ActionsRow.vala:261 src/Widgets/Status.vala:402
 msgid "Cancel"
-msgstr ""
+msgstr "ยกเลิก"
 
 #. translators: Label in the advanced search window. Leave `-is:reply` as is. 'instances' as in fediverse servers
 #: data/ui/dialogs/advanced_search.ui:56
@@ -185,6 +200,8 @@ msgid ""
 "Advanced Search might not work in all instances. You can invert an option by "
 "prefixing it with -. For example, -is:reply to filter out all replies."
 msgstr ""
+"การค้นหาขั้นสูงอาจไม่ทำงานบนทุกเซิฟเวอร์ คุณสามารถย้อนกลับตัวเลือกได้โดยใส่เครื่องหมาย - "
+"ไว้ข้างหน้า ตัวอย่างเช่น ใช้ -is:reply เพื่อกรองคำตอบทั้งหมดออก"
 
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:73
@@ -363,11 +380,12 @@ msgstr ""
 #: data/ui/dialogs/new_account.ui:33 data/ui/dialogs/new_account.ui:126
 #: src/Dialogs/Report.vala:87 src/Dialogs/Report.vala:417
 msgid "Next"
-msgstr ""
+msgstr "ต่อไป"
 
 #: data/ui/dialogs/new_account.ui:47
+#, fuzzy
 msgid "What is your Server?"
-msgstr ""
+msgstr "คุณอยู่เซิร์ฟเวอร์ไหน?"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:49
@@ -375,19 +393,21 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
 msgstr ""
+"หากคุณยังไม่มีบัญชี โปรด<a href=\"https://joinmastodon.org/servers\""
+">เลือกเซิร์ฟเวอร์และสร้างบัญชี</a>"
 
 #: data/ui/dialogs/new_account.ui:70
 msgid "Server URL"
-msgstr ""
+msgstr "URL ของเซิร์ฟเวอร์"
 
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:297
 msgid "Settings"
-msgstr ""
+msgstr "ตั้งค่า"
 
 #: data/ui/dialogs/new_account.ui:141
 msgid "Confirm Authorization"
-msgstr ""
+msgstr "ยืนยันการให้สิทธิ์"
 
 #. translators: Do not translate "manual_auth"
 #: data/ui/dialogs/new_account.ui:161
