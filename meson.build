@@ -92,10 +92,6 @@ if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
 endif
 
-if meson.get_compiler('vala').version().version_compare('>=0.56.11')
-  add_project_arguments(['--define=VALAC_05611'], language: 'vala')
-endif
-
 if libspelling.found ()
   add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
 endif
@@ -118,14 +114,6 @@ if clapper_support and clapper_dep.found () and clapper_dep.version().version_co
   if clapper_dep.version().version_compare('>=0.8.0')
     add_project_arguments(['--define=CLAPPER_0_8'], language: 'vala')
   endif
-endif
-
-if gtk_dep.version().version_compare('>=4.14')
-  add_project_arguments(['--define=GTK_4_14'], language: 'vala')
-endif
-
-if gtk_dep.version().version_compare('>=4.16')
-  add_project_arguments(['--define=GTK_4_16'], language: 'vala')
 endif
 
 sources = files()

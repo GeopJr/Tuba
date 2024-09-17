@@ -128,7 +128,6 @@ public class Tuba.Settings : GLib.Settings {
 	public bool monitor_network { get; set; }
 	public string proxy { get; set; }
 	public bool dim_trivial_notifications { get; set; }
-	public bool use_graphics_offload { get; set; }
 
 	private static string[] keys_to_init = {
 		"active-account",
@@ -155,8 +154,7 @@ public class Tuba.Settings : GLib.Settings {
 		"media-viewer-last-used-volume",
 		"monitor-network",
 		"proxy",
-		"dim-trivial-notifications",
-		"use-graphics-offload"
+		"dim-trivial-notifications"
 	};
 
 	public Settings () {
