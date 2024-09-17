@@ -1,7 +1,7 @@
 {
     "app-id": "dev.geopjr.Tuba",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "46",
+    "runtime-version": "47",
     "sdk": "org.gnome.Sdk",
     "add-extensions": {
         "org.freedesktop.Platform.ffmpeg-full": {
@@ -48,7 +48,7 @@
                 {
                     "type": "git",
                     "url": "https://gitlab.gnome.org/GNOME/libspelling.git",
-                    "tag": "0.2.1"
+                    "tag": "0.4.0"
                 }
             ]
         },

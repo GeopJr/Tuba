@@ -10,7 +10,7 @@ jobs:
   msys2:
     name: "Windows Builder"
     runs-on: windows-latest
-    # if: ${{ false }}
+    if: ${{ false }}
     defaults:
       run:
         shell: msys2 {0}
