@@ -43,7 +43,7 @@ public class Tuba.Widgets.Audio.Player : Adw.Bin {
 		controls.bind_property ("volume", this, "volume", BindingFlags.SYNC_CREATE);
 		controls.bind_property ("progress", this, "progress", BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 		controls.bind_property ("playing", this, "playing", BindingFlags.BIDIRECTIONAL);
-		controls.bind_property ("ready", this, "ready", BindingFlags.SYNC_CREATE);
+		this.bind_property ("ready", controls, "ready", BindingFlags.SYNC_CREATE);
 
 		controls_revealer = new Gtk.Revealer () {
 			child = controls,
