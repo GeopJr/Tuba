@@ -40,28 +40,27 @@ public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 			    color.blue = float.min (1, color.blue + 0.3f);
 			}
 		} else {
-			#if ADW_1_6
-				Adw.StyleManager.get_default ().notify["accent-color-rgba"].connect (update_accent_color);
+			var default_sm = Adw.StyleManager.get_default ();
+			if (default_sm.system_supports_accent_colors) {
+				default_sm.notify["accent-color-rgba"].connect (update_accent_color);
 				update_accent_color ();
-			#else
+			} else {
 				color = {
 					120 / 255.0f,
 					174 / 255.0f,
 					237 / 255.0f,
 					ALPHA
 				};
-			#endif
+			}
 		}
 
 		cover_texture = texture;
 	}
 
-	#if ADW_1_6
-		private void update_accent_color () {
-			color = Adw.StyleManager.get_default ().accent_color_rgba;
-			color.alpha = ALPHA;
-		}
-	#endif
+	private void update_accent_color () {
+		color = Adw.StyleManager.get_default ().get_accent_color_rgba ();
+		color.alpha = ALPHA;
+	}
 
 	public override void snapshot (Gtk.Snapshot snapshot) {
 		int win_w = this.get_width ();
