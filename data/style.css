@@ -747,3 +747,7 @@ popover.mini-profile > contents {
 	padding: 0 5px;
 	font-size: small;
 }
+
+list.uniform-border-color row {
+	border-bottom-color: @borders;
+}
