@@ -249,11 +249,6 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			stack.add_named (setup_scrolledwindow (child), "child");
 			this.url = t_url;
 
-			#if GTK_4_14 && !CLAPPER
-				if (this.is_video && settings.use_graphics_offload)
-					stack.visible_child_name = "child";
-			#endif
-
 			if (paintable != null) overlay.child = new Gtk.Picture.for_paintable (paintable);
 		}
 
@@ -286,19 +281,8 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			child_widget.destroy ();
 		}
 
-		ulong media_stream_signal_id = -1;
 		public void done () {
 			if (is_done) return;
-
-			#if !CLAPPER && GTK_4_14 && !GTK_4_16
-				if (is_video && ((Gtk.Video) child_widget).media_stream == null) {
-					if (media_stream_signal_id == -1) {
-						media_stream_signal_id = ((Gtk.Video) child_widget).notify["media-stream"].connect (on_received_media_stream);
-					}
-
-					return;
-				};
-			#endif
 
 			spinner.spinning = false;
 			stack.visible_child_name = "child";
@@ -328,15 +312,6 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			}
 			is_done = true;
 		}
-
-		#if GTK_4_14 && !GTK_4_16
-			private void on_received_media_stream () {
-				if (((Gtk.Video) child_widget).media_stream != null) {
-					done ();
-					((Gtk.Video) child_widget).disconnect (media_stream_signal_id);
-				}
-			}
-		#endif
 
 		private void on_manual_volume_change_video () {
 			settings.media_viewer_last_used_volume =
@@ -1036,12 +1011,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 			#else
 				var video = new Gtk.Video () {
-					#if GTK_4_16
-						// TODO: when 4.16 releases, remove use-graphics-offload and set it to DISABLED on <4.16
-						graphics_offload = Gtk.GraphicsOffloadEnabled.ENABLED
-					#elif GTK_4_14
-						graphics_offload = settings.use_graphics_offload ? Gtk.GraphicsOffloadEnabled.ENABLED : Gtk.GraphicsOffloadEnabled.DISABLED
-					#endif
+					graphics_offload = Gtk.GraphicsOffloadEnabled.ENABLED
 				};
 			#endif
 

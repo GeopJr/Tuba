@@ -529,7 +529,7 @@ namespace Tuba {
 				split_view.show_sidebar = false;
 		}
 
-		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s".printf ( // vala-lint=line-length
+		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s\nlibspelling: %s\nClapper: %s\nGStreamer: %s".printf ( // vala-lint=line-length
 				GLib.Environment.get_os_info ("NAME"), GLib.Environment.get_os_info ("VERSION"),
 				Build.PREFIX,
 				Tuba.is_flatpak.to_string (),
@@ -547,6 +547,24 @@ namespace Tuba {
 					)
 				#else
 					""
+				#endif
+				,
+				#if LIBSPELLING
+					"true"
+				#else
+					"false"
+				#endif
+				,
+				#if CLAPPER
+					@"$(Clapper.VERSION_S) ($(ClapperGtk.VERSION_S))"
+				#else
+					"false"
+				#endif
+				,
+				#if GSTREAMER
+					@"$(Gst.version_string ()) ($(Gst.VERSION_MAJOR).$(Gst.VERSION_MICRO).$(Gst.VERSION_MINOR).$(Gst.VERSION_NANO))"
+				#else
+					"false"
 				#endif
 			);
 
