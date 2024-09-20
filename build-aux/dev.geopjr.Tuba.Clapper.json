@@ -20,7 +20,7 @@
         "--socket=fallback-x11",
         "--socket=wayland",
         "--socket=pulseaudio",
-        "--own-name=org.mpris.MediaPlayer2.Tuba"
+        "--own-name=org.mpris.MediaPlayer2.Tuba.*"
     ],
     "cleanup": [
         "/include",
