@@ -5,7 +5,7 @@
     "sdk": "org.gnome.Sdk",
     "add-extensions": {
         "org.freedesktop.Platform.ffmpeg-full": {
-            "version": "23.08",
+            "version": "24.08",
             "directory": "lib/ffmpeg",
             "add-ld-path": ".",
             "no-autodownload": false,
@@ -20,8 +20,7 @@
         "--socket=fallback-x11",
         "--socket=wayland",
         "--socket=pulseaudio",
-        "--own-name=org.mpris.MediaPlayer2.Tuba",
-        "--env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0"
+        "--own-name=org.mpris.MediaPlayer2.Tuba.*"
     ],
     "cleanup": [
         "/include",
@@ -35,9 +34,32 @@
         "*.la",
         "*.a"
     ],
+    "cleanup-commands": [
+        "mkdir -p /app/lib/ffmpeg"
+    ],
     "modules": [
-        "clapper/gstreamer.json",
-        "clapper/clapper.json",
+        {
+            "name": "clapper",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dclapper=enabled",
+                "-Dclapper-gtk=enabled",
+                "-Dclapper-app=disabled",
+                "-Dintrospection=enabled",
+                "-Dvapi=enabled"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/Rafostar/clapper.git",
+                    "branch": "master"
+                },
+                {
+                    "type": "shell",
+                    "commands": ["sed -i \"s/version: '0.7.0',/version: '0.8.0',/g\" meson.build"]
+                }
+            ]
+        },
         {
             "name" : "libspelling",
             "buildsystem" : "meson",
@@ -58,7 +80,7 @@
             "buildsystem": "meson",
             "config-opts" : [
                 "-Ddevel=true",
-				"-Dclapper=true"
+                "-Dclapper=true"
             ],
             "sources": [
                 {
@@ -67,8 +89,5 @@
                 }
             ]
         }
-    ],
-    "cleanup-commands": [
-        "mkdir -p /app/lib/ffmpeg"
     ]
 }
