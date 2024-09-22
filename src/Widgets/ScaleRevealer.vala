@@ -139,7 +139,7 @@ public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 			this.snapshot_child (this.child, snapshot);
 		} else {
 			if (progress > 0.0) {
-				snapshot.push_cross_fade (progress);
+				snapshot.push_cross_fade (progress > 0.2 ? 1.0 : progress);
 				source_widget_texture.snapshot (
 					snapshot,
 					this.get_width (),
