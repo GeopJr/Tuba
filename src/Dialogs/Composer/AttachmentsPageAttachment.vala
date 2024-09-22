@@ -409,10 +409,20 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		// When editing, we can only update attachment metadata
 		// with the whole post
 		if (!edit_mode) {
+			var builder = new Json.Builder ();
+			builder.begin_object ();
+
+			builder.set_member_name ("description");
+			builder.add_string_value (alt_text);
+
+			builder.set_member_name ("focus");
+			builder.add_string_value ("%.2f,%.2f".printf (pos_x, pos_y));
+
+			builder.end_object ();
+
 			new Request.PUT (@"/api/v1/media/$(id)")
 				.with_account (accounts.active)
-				.with_param ("description", alt_text)
-				.with_param ("focus", "%.2f,%.2f".printf (pos_x, pos_y))
+				.body_json (builder)
 				.then (() => {
 					close_dialogs ();
 				})
