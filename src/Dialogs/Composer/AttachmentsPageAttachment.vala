@@ -122,7 +122,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 				margin_top = 14,
 				margin_bottom = 14,
 				tooltip_text = _("Characters Left"),
-				css_classes = { "heading" }
+				css_classes = { "heading", "numeric" }
 			};
 			bottom_bar.pack_end (dialog_char_counter);
 
