@@ -241,7 +241,7 @@ public class Tuba.EditorPage : ComposerPage {
 		char_counter = new Gtk.Label (char_limit.to_string ()) {
 			margin_end = 6,
 			tooltip_text = _("Characters Left"),
-			css_classes = { "heading" }
+			css_classes = { "heading", "numeric" }
 		};
 		bottom_bar.pack_end (char_counter);
 		editor.buffer.paste_done.connect (on_paste);
