@@ -70,7 +70,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	public class Item : Adw.Bin {
 		private Gtk.Stack stack;
 		private Gtk.Overlay overlay;
-		private Gtk.Spinner spinner;
+		private Adw.Spinner spinner;
 		private Gtk.ScrolledWindow scroller;
 		public signal void zoom_changed ();
 
@@ -212,8 +212,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				vexpand = true,
 				hexpand = true
 			};
-			spinner = new Gtk.Spinner () {
-				spinning = true,
+			spinner = new Adw.Spinner () {
 				halign = Gtk.Align.CENTER,
 				valign = Gtk.Align.CENTER,
 				vexpand = true,
@@ -284,7 +283,6 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		public void done () {
 			if (is_done) return;
 
-			spinner.spinning = false;
 			stack.visible_child_name = "child";
 
 			if (is_video) {

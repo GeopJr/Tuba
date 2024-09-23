@@ -65,7 +65,6 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	[GtkChild] unowned Gtk.Stack status_stack;
 	[GtkChild] unowned Gtk.Label status_title_label;
 	[GtkChild] unowned Gtk.Label status_message_label;
-	[GtkChild] unowned Gtk.Spinner status_spinner;
 
 	public class StatusMessage : Object {
 		public string? title = null;
@@ -87,16 +86,13 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 
 			if (value == null) {
 				states.visible_child_name = "content";
-				status_spinner.spinning = false;
 			} else {
 				states.visible_child_name = "status";
 				if (value.loading) {
 					status_stack.visible_child_name = "spinner";
-					status_spinner.spinning = true;
 					this.update_state (Gtk.AccessibleState.BUSY, true, -1);
 				} else {
 					status_stack.visible_child_name = "message";
-					status_spinner.spinning = false;
 
 					if (value.title == null) {
 						status_title_label.label = empty_state_title;
