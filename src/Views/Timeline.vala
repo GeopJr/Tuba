@@ -17,7 +17,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		protected int entity_queue_size { get; set; default=0; }
 	#endif
 
-	private Gtk.Spinner pull_to_refresh_spinner;
+	private Adw.Spinner pull_to_refresh_spinner;
 	private bool _is_pulling = false;
 	private bool is_pulling {
 		get {
@@ -26,11 +26,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		set {
 			if (_is_pulling != value) {
 				if (value) {
-					pull_to_refresh_spinner.spinning = true;
 					scrolled_overlay.add_overlay (pull_to_refresh_spinner);
 					scrolled.sensitive = false;
 				} else {
-					pull_to_refresh_spinner.spinning = false;
 					scrolled_overlay.remove_overlay (pull_to_refresh_spinner);
 					scrolled.sensitive = true;
 					pull_to_refresh_spinner.margin_top = 32;
@@ -74,7 +72,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	construct {
 		empty_state_title = _("No Posts");
 
-		pull_to_refresh_spinner = new Gtk.Spinner () {
+		pull_to_refresh_spinner = new Adw.Spinner () {
 			height_request = 32,
 			width_request = 32,
 			margin_top = 32,

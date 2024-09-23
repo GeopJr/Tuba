@@ -30,7 +30,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		"video/x-ms-asf"
 	};
 
-	private Gtk.Spinner spinner;
+	private Adw.Spinner spinner;
 	public GLib.ListStore attachments;
 	public Adw.ToastOverlay toast_overlay;
 	public bool media_sensitive { get; set; default = false; }
@@ -267,8 +267,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		stack.add_named (list, "list");
 		stack.add_named (empty_state, "empty");
 
-		spinner = new Gtk.Spinner () {
-			spinning = false,
+		spinner = new Adw.Spinner () {
 			halign = Gtk.Align.CENTER,
 			valign = Gtk.Align.CENTER,
 			vexpand = true,
@@ -336,7 +335,6 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		var is_empty = attachments_size < 1;
 		if (is_empty || uploading) {
 			stack.visible_child_name = uploading ? "spinner" : "empty";
-			spinner.spinning = uploading;
 			bottom_bar.hide ();
 			can_publish = false;
 		} else {

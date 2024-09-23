@@ -229,8 +229,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 			hexpand = true,
 			valign = Gtk.Align.CENTER
 		};
-		page_3_stack.add_named (new Gtk.Spinner () {
-			spinning = true,
+		page_3_stack.add_named (new Adw.Spinner () {
 			halign = Gtk.Align.CENTER,
 			valign = Gtk.Align.CENTER,
 			vexpand = true,

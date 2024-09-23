@@ -367,8 +367,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	public Adw.Dialog create_ar_list_dialog () {
-		var spinner = new Gtk.Spinner () {
-			spinning = true,
+		var spinner = new Adw.Spinner () {
 			halign = Gtk.Align.CENTER,
 			valign = Gtk.Align.CENTER,
 			vexpand = true,
@@ -393,7 +392,6 @@ public class Tuba.Views.Profile : Views.Accounts {
 			content_width = 600,
 			content_height = 550
 		};
-		spinner.start ();
 
 		var preferences_page = new Adw.PreferencesPage ();
 		var preferences_group = new Adw.PreferencesGroup () {

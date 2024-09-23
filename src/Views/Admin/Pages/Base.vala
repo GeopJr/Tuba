@@ -1,7 +1,7 @@
 public class Tuba.Views.Admin.Page.Base : Adw.NavigationPage {
 	protected Gtk.Widget page { get; set; }
 	private Gtk.ScrolledWindow scroller;
-	private Gtk.Spinner spinner;
+	private Adw.Spinner spinner;
 	private Adw.ToastOverlay toast_overlay;
 	protected Adw.HeaderBar headerbar;
 	protected Adw.ToolbarView toolbar_view;
@@ -29,11 +29,10 @@ public class Tuba.Views.Admin.Page.Base : Adw.NavigationPage {
 
 	construct {
 		headerbar = new Adw.HeaderBar ();
-		spinner = new Gtk.Spinner () {
+		spinner = new Adw.Spinner () {
 			valign = Gtk.Align.CENTER,
 			hexpand = true,
 			vexpand = true,
-			spinning = true,
 			height_request = 32
 		};
 
