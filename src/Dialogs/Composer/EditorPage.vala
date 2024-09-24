@@ -98,6 +98,8 @@ public class Tuba.EditorPage : ComposerPage {
 
 		cw_button.toggled.connect (on_content_changed);
 		cw_entry.changed.connect (on_content_changed);
+
+		on_content_changed ();
 	}
 
 	protected void on_paste (Gdk.Clipboard clp) {
