@@ -1,3 +1,4 @@
+// Basically GtkPicture from https://gitlab.gnome.org/GNOME/gtk/-/blob/34bd3fc854a142d966cc8f2ddbfd1128fb09f446/gtk/gtkpicture.c
 public class Tuba.Widgets.FocusPicture : Gtk.Widget, Gtk.Buildable, Gtk.Accessible {
 	ulong paintable_invalidate_contents_signal = 0;
 	ulong paintable_invalidate_size_signal = 0;
