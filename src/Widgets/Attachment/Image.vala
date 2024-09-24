@@ -1,5 +1,5 @@
 public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
-	public Gtk.Picture pic { get; private set; }
+	public Widgets.FocusPicture pic { get; private set; }
 	protected Gtk.Overlay media_overlay;
 
 	private bool _spoiler = false;
@@ -25,11 +25,10 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	}
 
 	construct {
-		pic = new Gtk.Picture () {
+		pic = new Widgets.FocusPicture () {
 			hexpand = true,
 			vexpand = true,
 			can_shrink = true,
-			keep_aspect_ratio = true,
 			css_classes = {"attachment-picture"}
 		};
 
@@ -79,6 +78,11 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 
 			// Doesn't get applied sometimes when set above
 			media_icon.icon_size = Gtk.IconSize.LARGE;
+		}
+
+		if (entity.meta != null && entity.meta.focus != null) {
+			pic.focus_x = entity.meta.focus.x;
+			pic.focus_y = entity.meta.focus.y;
 		}
 
 		Tuba.Helper.Image.request_paintable (entity.preview_url, entity.blurhash, (entity != null && entity.tuba_is_report), on_cache_response);
