@@ -73,6 +73,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		const int ALT_MAX_CHARS = 1500;
 		GtkSource.View alt_editor;
 		Gtk.Label dialog_char_counter;
+		Gtk.Box content_box;
 
 		public string get_alt_text () {
 			return alt_editor.buffer.text;
@@ -84,6 +85,8 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 		construct {
 			this.title = _("Alternative text for attachment");
+			this.content_height = 400;
+			this.content_width = 500;
 
 			alt_editor = new GtkSource.View () {
 				vexpand = true,
@@ -96,8 +99,6 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 				accepts_tab = false,
 				wrap_mode = Gtk.WrapMode.WORD_CHAR
 			};
-			alt_editor.remove_css_class ("view");
-			alt_editor.add_css_class ("reset");
 
 			Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
 			update_style_scheme ();
@@ -116,18 +117,22 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 				child = alt_editor
 			};
 
-			var bottom_bar = new Gtk.ActionBar ();
 			dialog_char_counter = new Gtk.Label ("") {
-				margin_end = 6,
-				margin_top = 14,
-				margin_bottom = 14,
+				margin_end = 24,
+				margin_top = 12,
+				margin_bottom = 12,
 				tooltip_text = _("Characters Left"),
-				css_classes = { "heading", "numeric" }
+				css_classes = { "heading", "numeric" },
+				halign = Gtk.Align.END
 			};
-			bottom_bar.pack_end (dialog_char_counter);
 
-			toolbar_view.set_content (scroller);
-			toolbar_view.add_bottom_bar (bottom_bar);
+			content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+				homogeneous = true
+			};
+			content_box.append (scroller);
+
+			toolbar_view.set_content (content_box);
+			toolbar_view.add_bottom_bar (dialog_char_counter);
 
 			alt_editor.buffer.changed.connect (on_alt_editor_buffer_change);
 			save_btn.clicked.connect (on_save);
@@ -145,7 +150,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			saved ();
 		}
 
-		public AltTextDialog (string alt_text) {
+		public AltTextDialog (string alt_text, Gdk.Paintable? paintable) {
 			dialog_char_counter.label = remaining_alt_chars (alt_text != null ? alt_text.length : 0);
 
 			if (alt_text != null) {
@@ -154,6 +159,8 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			} else {
 				this.can_save = false;
 			}
+
+			if (paintable != null) content_box.prepend (new Gtk.Picture.for_paintable (paintable));
 		}
 
 		public static bool validate (int text_size) {
@@ -366,7 +373,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	AltTextDialog? alt_text_dialog = null;
 	private void on_alt_btn_clicked () {
-		alt_text_dialog = new AltTextDialog (alt_text);
+		alt_text_dialog = new AltTextDialog (alt_text, pic.paintable);
 		alt_text_dialog.saved.connect (on_save_clicked);
 		alt_text_dialog.closed.connect (close_dialogs);
 
