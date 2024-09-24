@@ -144,7 +144,7 @@ public class Tuba.Widgets.FocusPicture : Gtk.Widget, Gtk.Buildable, Gtk.Accessib
 
 			if (_content_fit == Gtk.ContentFit.COVER) {
 				x = x + x * focus_x;
-				y = y + y * focus_y;
+				y = y + y * focus_y * -1;
 			}
 
 			snapshot.save ();
