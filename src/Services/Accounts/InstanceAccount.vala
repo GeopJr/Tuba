@@ -451,6 +451,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				} else if (instance_info.pleroma.metadata != null && instance_info.pleroma.metadata.features != null) {
 					instance_info.tuba_can_translate = "akkoma:machine_translation" in instance_info.pleroma.metadata.features;
 				}
+
+				app.handle_share ();
 			})
 			.exec ();
 	}

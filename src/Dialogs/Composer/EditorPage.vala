@@ -331,7 +331,6 @@ public class Tuba.EditorPage : ComposerPage {
 		var revealer = new Gtk.Revealer () {
 			child = cw_entry
 		};
-		revealer.add_css_class ("view");
 		content.prepend (revealer);
 
 		cw_button = new Gtk.ToggleButton () {
