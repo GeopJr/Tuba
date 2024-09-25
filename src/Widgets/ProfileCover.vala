@@ -179,7 +179,11 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		display_name.instance_emojis = profile.account.emojis_map;
 		display_name.content = profile.account.display_name;
 		handle.label = profile.account.handle;
+
 		avatar.account = profile.account;
+		if (profile.account.avatar_description != null && profile.account.avatar_description != "")
+			avatar.alternative_text = profile.account.avatar_description;
+
 		note.instance_emojis = profile.account.emojis_map;
 		note.content = profile.account.note;
 		cover_bot_badge.visible = profile.account.bot;
@@ -212,6 +216,9 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		} else {
 			header_url = profile.account.header ?? "";
 			Tuba.Helper.Image.request_paintable (profile.account.header, null, false, on_cache_response);
+
+			if (profile.account.header_description != null && profile.account.header_description != "")
+				background.alternative_text = profile.account.header_description;
 
 			if (!mini)
 				background.clicked.connect (open_header_in_media_viewer);

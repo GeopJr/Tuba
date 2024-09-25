@@ -22,7 +22,9 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 	public string note { get; set; default=""; }
 	public bool locked { get; set; }
 	public string header { get; set; }
+	public string? header_description { get; set; default=null; }
 	public string avatar { get; set; }
+	public string? avatar_description { get; set; default=null; }
 	public string url { get; set; }
 	public bool bot { get; set; default=false; }
 	public string created_at { get; set; }
