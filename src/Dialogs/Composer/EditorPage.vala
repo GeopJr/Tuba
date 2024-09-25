@@ -98,6 +98,8 @@ public class Tuba.EditorPage : ComposerPage {
 
 		cw_button.toggled.connect (on_content_changed);
 		cw_entry.changed.connect (on_content_changed);
+
+		on_content_changed ();
 	}
 
 	protected void on_paste (Gdk.Clipboard clp) {
@@ -331,7 +333,6 @@ public class Tuba.EditorPage : ComposerPage {
 		var revealer = new Gtk.Revealer () {
 			child = cw_entry
 		};
-		revealer.add_css_class ("view");
 		content.prepend (revealer);
 
 		cw_button = new Gtk.ToggleButton () {

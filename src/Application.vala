@@ -153,6 +153,21 @@ namespace Tuba {
 			});
 		}
 
+		private ShareHandler.ShareResult? to_share = null;
+		public void handle_share () {
+			if (to_share == null || accounts.active == null || accounts.active.instance_info == null) return;
+
+			var status = new API.Status.empty ();
+			status.content = to_share.text;
+			if (to_share.cw != null) {
+				status.spoiler_text = to_share.cw;
+				status.sensitive = true;
+			}
+
+			new Dialogs.Compose (status);
+			to_share = null;
+		}
+
 		construct {
 			application_id = Build.DOMAIN;
 			flags = ApplicationFlags.HANDLES_OPEN;
@@ -394,14 +409,22 @@ namespace Tuba {
 				string unparsed_uri = file.get_uri ();
 
 				try {
-					Uri uri = Uri.parse (unparsed_uri, UriFlags.NONE);
+					Uri uri = Uri.parse (unparsed_uri, UriFlags.ENCODED);
 					string scheme = uri.get_scheme ();
 
 					switch (scheme) {
 						case "tuba":
-							// translators: the variable is a uri scheme like 'https'
-							if (add_account_window == null)
+							if (add_account_window == null) {
+								if (uri.get_host ().down () == "share") {
+									to_share = ShareHandler.from_uri (uri);
+									handle_share ();
+
+									break;
+								}
+
+								// translators: the variable is a uri scheme like 'https'
 								throw new Error.literal (-1, 1, _("'%s://' may only be used when adding a new account").printf (scheme));
+							}
 							add_account_window.redirect (uri);
 
 							break;

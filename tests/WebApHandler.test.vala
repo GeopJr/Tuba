@@ -9,13 +9,14 @@ const TestUrl[] URLS = {
 	{ "web+ap://www.gnome.org/test?foo=bar", "https://www.gnome.org/test?foo=bar" },
 	{ "web+ap://www.gnome.org/test?foo=bar&fizz=buzz", "https://www.gnome.org/test?foo=bar&fizz=buzz" },
 	{ "web+ap://www.gnome.org/test?foo=bar&fizz=buzz#main", "https://www.gnome.org/test?foo=bar&fizz=buzz#main" },
-	{ "web+ap://tuba@gnome.org/test", "https://gnome.org/test" }
+	{ "web+ap://tuba@gnome.org/test", "https://gnome.org/test" },
+	{ "web+ap://www.gnome.org/test?foo=%26foo%3Dbar", "https://www.gnome.org/test?foo=%26foo%3Dbar" },
 };
 
 public void test_web_ap_handler () {
 	foreach (var test_url in URLS) {
 		try {
-			var uri = Uri.parse (test_url.original, UriFlags.NONE);
+			var uri = Uri.parse (test_url.original, UriFlags.ENCODED);
 
 			assert_cmpstr (Tuba.WebApHandler.from_uri (uri), CompareOperator.EQ, test_url.result);
 		} catch (Error e) {

@@ -14,6 +14,9 @@ unit_tests = {
     'Html': files (
         meson.project_source_root() + '/src/Utils/Html.vala',
     ),
+    'ShareHandler': files (
+        meson.project_source_root() + '/src/Utils/ShareHandler.vala'
+    ),
     'Tracking': files (
         meson.project_source_root() + '/src/Utils/Tracking.vala'
     ),
