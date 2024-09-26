@@ -123,10 +123,12 @@ public class Tuba.Dialogs.Admin.TakeAction : Dialogs.Admin.Base {
 	}
 
 	string account_id;
+	string account_handle;
 	string? report_id = null;
-	public TakeAction (string account_id, string? report_id = null) {
+	public TakeAction (string account_id, string account_handle, string? report_id = null) {
 		this.account_id = account_id;
 		this.report_id = report_id;
+		this.account_handle = account_handle;
 	}
 
 	private void on_cancel () {
@@ -137,7 +139,8 @@ public class Tuba.Dialogs.Admin.TakeAction : Dialogs.Admin.Base {
 		var dlg = new Adw.AlertDialog (
 			// translators: Question dialog when an admin is about to
 			//				take action against an account
-			_("Are you sure you want to proceed?"),
+			//				The variable is a user handle
+			_("Take Action Against %s?").printf (account_handle),
 			null
 		);
 

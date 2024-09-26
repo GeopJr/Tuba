@@ -326,7 +326,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		} else {
 			app.question.begin (
 				// translators: submit the report
-				{_("Are you sure you want to submit?"), false},
+				{_("Submit Report?"), false},
 				null,
 				this,
 				{ { _("Submit"), Adw.ResponseAppearance.SUGGESTED }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },

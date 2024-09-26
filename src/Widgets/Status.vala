@@ -396,7 +396,7 @@
 
 	private void delete_status () {
 		app.question.begin (
-			{_("Are you sure you want to delete this post?"), false},
+			{_("Delete Post?"), false},
 			null,
 			app.main_window,
 			{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
