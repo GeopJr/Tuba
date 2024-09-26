@@ -202,8 +202,8 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 			on_close ();
 		} else {
 			app.question.begin (
-				// translators: Dialog title
-				{_("Discard?"), false},
+				// translators: Dialog title when closing the composer
+				{_("Discard Post?"), false},
 				{_("Your progress will be lost."), false},
 				this,
 				{ { _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },

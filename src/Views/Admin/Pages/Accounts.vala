@@ -421,7 +421,7 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 				var dlg = new Adw.AlertDialog (
 					// translators: Question dialog when an admin is about to
 					//				undo an action, like a suspension
-					_("Undo this action?"),
+					_("Undo this Action?"),
 					null
 				);
 

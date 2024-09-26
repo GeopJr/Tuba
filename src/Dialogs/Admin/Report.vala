@@ -47,7 +47,7 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 		on_action (
 			// translators: Question dialog when an admin is about to
 			//				mark a report as resolved
-			_("Mark this report as resolved?"),
+			_("Mark this Report as Resolved?"),
 
 			_("Resolve"),
 			"resolve"
@@ -58,7 +58,7 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 		on_action (
 			// translators: Question dialog when an admin is about to
 			//				reopen a report
-			_("Reopen this report?"),
+			_("Reopen this Report?"),
 
 			_("Reopen"),
 			"reopen"

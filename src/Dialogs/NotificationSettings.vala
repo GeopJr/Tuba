@@ -111,7 +111,7 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 
 	private void clear_all_notifications () {
 		var dlg = new Adw.AlertDialog (
-			_("Clear all notifications?"),
+			_("Clear All Notifications?"),
 			null
 		);
 
