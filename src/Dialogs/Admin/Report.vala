@@ -76,6 +76,7 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 
 	string report_id;
 	string account_id;
+	string account_handle;
 	Gtk.CheckButton rule_other;
 	Gtk.CheckButton rule_legal;
 	Gtk.CheckButton rule_violation;
@@ -89,6 +90,7 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 	public Report (API.Admin.Report report) {
 		report_id = report.id;
 		account_id = report.target_account.account.id;
+		account_handle = report.target_account.account.full_handle;
 		// translators: Admin dashboard, take action against user headerbar button
 		take_action_button = new Gtk.Button.with_label (_("Take Action")) {
 			css_classes = {"destructive-action"},
@@ -363,7 +365,7 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 	}
 
 	private void show_take_action_dialog () {
-		var dlg = new Dialogs.Admin.TakeAction (account_id, report_id);
+		var dlg = new Dialogs.Admin.TakeAction (account_id, account_handle, report_id);
 		dlg.took_action.connect (on_took_action);
 		dlg.present (this);
 	}

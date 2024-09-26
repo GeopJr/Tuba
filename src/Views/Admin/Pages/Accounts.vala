@@ -457,7 +457,7 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 		}
 
 		private void show_take_action_dialog () {
-			var dlg = new Dialogs.Admin.TakeAction (account_id, null);
+			var dlg = new Dialogs.Admin.TakeAction (account_id, account_handle, null);
 			dlg.took_action.connect (on_took_action);
 			dlg.present (this);
 		}
