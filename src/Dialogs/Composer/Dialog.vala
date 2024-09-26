@@ -202,7 +202,8 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 			on_close ();
 		} else {
 			app.question.begin (
-				{_("Are you sure you want to exit?"), false},
+				// translators: Dialog title
+				{_("Discard?"), false},
 				{_("Your progress will be lost."), false},
 				this,
 				{ { _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },

@@ -421,7 +421,7 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 				var dlg = new Adw.AlertDialog (
 					// translators: Question dialog when an admin is about to
 					//				undo an action, like a suspension
-					_("Are you sure you want to undo this action?"),
+					_("Undo this action?"),
 					null
 				);
 
@@ -482,7 +482,7 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 				// translators: Question dialog when an admin is about to
 				//				approve an account. The variable is an
 				//				account handle
-				_("Are you sure you want to approve %s?").printf (account_handle),
+				_("Approve %s?").printf (account_handle),
 				null
 			);
 
@@ -515,7 +515,7 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 				// translators: Question dialog when an admin is about to
 				//				reject an account. The variable is an
 				//				account handle
-				_("Are you sure you want to reject %s?").printf (account_handle),
+				_("Reject %s?").printf (account_handle),
 				null
 			);
 

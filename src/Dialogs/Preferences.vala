@@ -75,7 +75,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		private void on_delete () {
 			app.question.begin (
 				// translators: the variable is a filter name
-				{_("Are you sure you want to delete %s?").printf (filter.title), false},
+				{_("Delete %s?").printf (filter.title), false},
 				null,
 				this.win,
 				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },

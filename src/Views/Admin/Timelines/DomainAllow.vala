@@ -22,10 +22,10 @@ public class Tuba.Views.Admin.Timeline.DomainAllow : Views.Admin.Timeline.Pagina
 		var dlg = new Adw.AlertDialog (
 			// translators: Question dialog when an admin is about to
 			//				delete a domain from the federation allowlist.
-			//				You can replace 'federate' with 'communicate' if
+			//				You can replace 'federation' with 'communication' if
 			//				it's hard to translate.
 			//				The variable is a string domain name
-			_("Are you sure you want to no longer federate with %s?").printf (widget.title),
+			_("Remove Federation with %s?").printf (widget.title),
 			null
 		);
 
