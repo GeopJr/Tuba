@@ -142,6 +142,8 @@
 	private SimpleAction toggle_pinned_simple_action;
 	private SimpleAction translate_simple_action;
 	private SimpleAction show_original_simple_action;
+	private SimpleAction mute_conversation_action;
+	private SimpleAction unmute_conversation_action;
 
 	protected Adw.Bin emoji_reactions;
 	public Gee.ArrayList<API.EmojiReaction>? reactions {
@@ -262,6 +264,16 @@
 				action_group.add_action (toggle_pinned_simple_action);
 			}
 
+			mute_conversation_action = new SimpleAction ("mute-conversation", null);
+			mute_conversation_action.activate.connect (toggle_mute_conversation);
+			action_group.add_action (mute_conversation_action);
+
+			unmute_conversation_action = new SimpleAction ("unmute-conversation", null);
+			unmute_conversation_action.activate.connect (toggle_mute_conversation);
+			action_group.add_action (unmute_conversation_action);
+
+			update_mute_conversation_actions_enabled_status ();
+
 			var edit_status_simple_action = new SimpleAction ("edit-status", null);
 			edit_status_simple_action.activate.connect (edit_status);
 			action_group.add_action (edit_status_simple_action);
@@ -303,7 +315,16 @@
 			update_toggle_pinned_label ();
 			pin_menu_item.set_attribute_value ("hidden-when", "action-disabled");
 
+			var mute_menu_item = new GLib.MenuItem (_("Mute"), "status.mute-conversation");
+			mute_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+
+			var unmute_menu_item = new GLib.MenuItem (_("Unmute"), "status.unmute-conversation");
+			unmute_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+
 			menu_model.append_item (pin_menu_item);
+			menu_model.append_item (mute_menu_item);
+			menu_model.append_item (unmute_menu_item);
+
 			menu_model.append (_("Edit"), "status.edit-status");
 			menu_model.append (_("Delete"), "status.delete-status");
 		} else {
@@ -416,6 +437,32 @@
 				}
 			}
 		);
+	}
+
+	private void toggle_mute_conversation () {
+		string api_action = status.formal.muted ? "unmute" : "mute";
+		new Request.POST (@"/api/v1/statuses/$(status.formal.id)/$api_action")
+			.with_account (accounts.active)
+			.then ((in_stream) => {
+				status.formal.muted = !status.formal.muted;
+				update_mute_conversation_actions_enabled_status ();
+			})
+			.on_error ((code, message) => {
+				warning (@"Couldn't $api_action $(status.formal.id): $code $message");
+				app.toast (
+					api_action == "mute"
+					// translators: toast shown when muting a post
+					? _("Couldn't Mute Conversation: %s").printf (message)
+					// translators: toast shown when unmuting a post
+					: _("Couldn't Unmute Conversation: %s").printf (message)
+				);
+			})
+			.exec ();
+	}
+
+	private void update_mute_conversation_actions_enabled_status () {
+		mute_conversation_action.set_enabled (!status.formal.muted);
+		unmute_conversation_action.set_enabled (status.formal.muted);
 	}
 
 	private void translate () {
