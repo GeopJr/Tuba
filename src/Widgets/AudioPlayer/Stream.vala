@@ -43,7 +43,7 @@ public class Tuba.Widgets.Audio.Stream : GLib.Object {
 
 	private bool update_metadata () {
 		if (bus == null) return false;
-		if (this.state < Gst.State.PAUSED) return true;
+		if (this.state <= Gst.State.PAUSED) return true;
 		update_current ();
 
 		return true;
