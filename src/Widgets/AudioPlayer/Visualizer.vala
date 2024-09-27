@@ -77,14 +77,16 @@ public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 		var point = Graphene.Point ().init (new_center_w, new_center_h);
 		snapshot.translate (point);
 
-		float res = (float) level * (int.min (MAX_CIRCLE_HEIGHT, win_h) - SQR) + SQR;
+		if (animations_enabled) {
+			float res = (float) level * (int.min (MAX_CIRCLE_HEIGHT, win_h) - SQR) + SQR;
 
-        var rect = Graphene.Rect ().init (- res / 2, - res / 2, res, res);
-        var rounded_rect = Gsk.RoundedRect ().init_from_rect (rect, 9999);
+        	var rect = Graphene.Rect ().init (- res / 2, - res / 2, res, res);
+        	var rounded_rect = Gsk.RoundedRect ().init_from_rect (rect, 9999);
 
-        snapshot.push_rounded_clip (rounded_rect);
-        snapshot.append_color (color, rect);
-        snapshot.pop ();
+        	snapshot.push_rounded_clip (rounded_rect);
+        	snapshot.append_color (color, rect);
+        	snapshot.pop ();
+		}
 
 		if (cover_texture != null) {
 			var cover_rect = Graphene.Rect ().init (- SQR / 2, - SQR / 2, SQR, SQR);
