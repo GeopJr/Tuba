@@ -6,19 +6,24 @@ public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 	Cairo.Context context;
 	Gdk.RGBA color;
 	Gdk.Texture cover_texture;
+	bool animations_enabled = true;
 
 	double _level = 0.0;
 	public double level {
 		get { return _level; }
 		set {
 			_level = value;
-			this.queue_draw ();
+			if (animations_enabled)
+				this.queue_draw ();
 		}
 	}
 
 	construct {
 		vexpand = true;
 		hexpand = true;
+
+		var gtk_settings = Gtk.Settings.get_default ();
+		if (gtk_settings != null) animations_enabled = gtk_settings.gtk_enable_animations;
 	}
 
 	public Visualizer (Gdk.Texture? texture = null, string? blurhash = null) {
