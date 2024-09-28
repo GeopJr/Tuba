@@ -169,18 +169,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		public void zoom (double zoom_level, int? old_width = null, int? old_height = null) {
 			// Don't zoom on video
 			if (is_video || is_audio) return;
-			if ((zoom_level > 1.0 && !can_zoom_in) || (zoom_level < 1.0 && !can_zoom_out && settings.media_viewer_expand_pictures) || zoom_level == 1.0) return;
+			if ((zoom_level > 1.0 && !can_zoom_in) || (zoom_level < 1.0 && !can_zoom_out) || zoom_level == 1.0) return;
 
 			var new_width = (old_width ?? child_width) * zoom_level;
 			var new_height = (old_height ?? child_height) * zoom_level;
 
-			if (settings.media_viewer_expand_pictures) {
-				if (new_width < scroller.hadjustment.page_size) new_width = scroller.hadjustment.page_size;
-				if (new_height < scroller.vadjustment.page_size) new_height = scroller.vadjustment.page_size;
-			} else {
-				if (new_width < 0) new_width = -1;
-				if (new_height < 0) new_height = -1;
-			}
+			if (new_width < scroller.hadjustment.page_size) new_width = scroller.hadjustment.page_size;
+			if (new_height < scroller.vadjustment.page_size) new_height = scroller.vadjustment.page_size;
 
 			child_widget.set_size_request ((int) new_width, (int) new_height);
 
@@ -1068,10 +1063,6 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			#endif
 		} else {
 			var picture = new Gtk.Picture ();
-
-			if (!settings.media_viewer_expand_pictures) {
-				picture.valign = picture.halign = Gtk.Align.CENTER;
-			}
 
 			item = new Item (picture, final_friendly_url, final_preview);
 			item.zoom_changed.connect (on_zoom_change);

@@ -300,10 +300,6 @@ namespace Tuba {
 				error (msg);
 			}
 
-			var style_manager = Adw.StyleManager.get_default ();
-			ColorScheme color_scheme = (ColorScheme) settings.get_enum ("color-scheme");
-			style_manager.color_scheme = color_scheme.to_adwaita_scheme ();
-
 			#if DEV_MODE
 				set_accels_for_action ("app.dev-only-window", {"F2"});
 			#endif
