@@ -6,19 +6,24 @@ public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 	Cairo.Context context;
 	Gdk.RGBA color;
 	Gdk.Texture cover_texture;
+	bool animations_enabled = true;
 
 	double _level = 0.0;
 	public double level {
 		get { return _level; }
 		set {
 			_level = value;
-			this.queue_draw ();
+			if (animations_enabled)
+				this.queue_draw ();
 		}
 	}
 
 	construct {
 		vexpand = true;
 		hexpand = true;
+
+		var gtk_settings = Gtk.Settings.get_default ();
+		if (gtk_settings != null) animations_enabled = gtk_settings.gtk_enable_animations;
 	}
 
 	public Visualizer (Gdk.Texture? texture = null, string? blurhash = null) {
@@ -72,14 +77,16 @@ public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 		var point = Graphene.Point ().init (new_center_w, new_center_h);
 		snapshot.translate (point);
 
-		float res = (float) level * (int.min (MAX_CIRCLE_HEIGHT, win_h) - SQR) + SQR;
+		if (animations_enabled) {
+			float res = (float) level * (int.min (MAX_CIRCLE_HEIGHT, win_h) - SQR) + SQR;
 
-        var rect = Graphene.Rect ().init (- res / 2, - res / 2, res, res);
-        var rounded_rect = Gsk.RoundedRect ().init_from_rect (rect, 9999);
+        	var rect = Graphene.Rect ().init (- res / 2, - res / 2, res, res);
+        	var rounded_rect = Gsk.RoundedRect ().init_from_rect (rect, 9999);
 
-        snapshot.push_rounded_clip (rounded_rect);
-        snapshot.append_color (color, rect);
-        snapshot.pop ();
+        	snapshot.push_rounded_clip (rounded_rect);
+        	snapshot.append_color (color, rect);
+        	snapshot.pop ();
+		}
 
 		if (cover_texture != null) {
 			var cover_rect = Graphene.Rect ().init (- SQR / 2, - SQR / 2, SQR, SQR);
