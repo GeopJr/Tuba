@@ -1,7 +1,7 @@
 // Smoothing function adapted from https://gitlab.gnome.org/GNOME/gnome-control-center/-/blob/ea8bafc5d1ebb945a0806b03dea0c3abf29c58d9/panels/sound/cc-level-bar.c
 
 public class Tuba.Widgets.Audio.Stream : GLib.Object {
-	const double SMOOTHING = 0.3;
+	const double SMOOTHING = 0.2;
 	Gst.Bin pipeline;
 	Gst.Bus bus;
 	Gst.Element uridecodebin;
@@ -117,7 +117,7 @@ public class Tuba.Widgets.Audio.Stream : GLib.Object {
 
 	uint timeout_id = -1;
 	construct {
-		string pipestr = "uridecodebin name=uridecodebin ! audioconvert ! audio/x-raw,channels=2 ! volume name=volume ! level name=level interval=75000000 ! autoaudiosink name=sink";
+		string pipestr = "uridecodebin name=uridecodebin ! audioconvert ! audio/x-raw,channels=2 ! volume name=volume ! level name=level interval=50000000 ! autoaudiosink name=sink";
 		try {
 			pipeline = (Gst.Bin) Gst.parse_launch (pipestr);
 			uridecodebin = pipeline.get_by_name ("uridecodebin");
