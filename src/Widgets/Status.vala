@@ -26,6 +26,7 @@
 	private Gtk.Button? quoted_status_btn { get; set; default = null; }
 	public bool enable_thread_lines { get; set; default = false; }
 	public API.Translation? translation { get; private set; default = null; }
+	private Adw.Bin? emoji_reactions { get; set; default = null; }
 
 	private bool _can_be_opened = true;
 	public bool can_be_opened {
@@ -144,18 +145,6 @@
 	private SimpleAction show_original_simple_action;
 	private SimpleAction mute_conversation_action;
 	private SimpleAction unmute_conversation_action;
-
-	protected Adw.Bin emoji_reactions;
-	public Gee.ArrayList<API.EmojiReaction>? reactions {
-		get { return status.formal.compat_status_reactions; }
-		set {
-			if (emoji_reactions != null) content_column.remove (emoji_reactions);
-			if (value == null) return;
-
-			emoji_reactions = new ReactionsRow (value);
-			content_column.insert_child_after (emoji_reactions, spoiler_stack);
-		}
-	}
 
 	void settings_updated () {
 		Tuba.toggle_css (this, settings.larger_font_size, "ttl-status-font-large");
@@ -947,6 +936,12 @@
 			}
 		}
 
+		if (emoji_reactions != null) content_column.remove (emoji_reactions);
+		if (status.formal.compat_status_reactions != null) {
+			emoji_reactions = new ReactionsRow (status.formal.id, status.formal.compat_status_reactions);
+			content_column.insert_child_after (emoji_reactions, spoiler_stack);
+		}
+
 		spoiler_label.label = this.spoiler_text;
 		spoiler_label_rev.label = this.spoiler_text_revealed;
 
@@ -981,8 +976,6 @@
 		// translators: Tooltip text for avatars in posts.
 		//				The variable is a string user handle.
 		name_button.tooltip_text = avatar.tooltip_text = _("Open %s's Profile").printf (status.formal.account.handle);
-
-		reactions = status.formal.compat_status_reactions;
 
 		name_label.instance_emojis = status.formal.account.emojis_map;
 		name_label.label = title_text;
