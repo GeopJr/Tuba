@@ -700,6 +700,18 @@ GtkSourceAssistant row:last-child {
 	font-size: small;
 }
 
+.accented-color {
+	color: @accent_color;
+}
+
+.font-large {
+	font-size: large;
+}
+
+.dropdown-border-radius > button {
+	border-radius: 9999px;
+}
+
 .filter {
 	margin: -2px;
 	border-radius: 0;
