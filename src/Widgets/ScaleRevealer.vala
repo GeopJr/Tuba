@@ -138,12 +138,9 @@ public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 			warning ("The source widget texture is None, using child snapshot as fallback");
 			this.snapshot_child (this.child, snapshot);
 		} else {
-			if (progress > 0.0) {
-				if (progress > 0.3) {
-					this.snapshot_child (this.child, snapshot);
-					return;
-				}
-
+			if (progress > 0.3) {
+				this.snapshot_child (this.child, snapshot);
+			} else if (progress > 0.0) {
 				snapshot.push_cross_fade (progress);
 				source_widget_texture.snapshot (
 					snapshot,
@@ -154,7 +151,7 @@ public class Tuba.Widgets.ScaleRevealer : Adw.Bin {
 
 				this.snapshot_child (this.child, snapshot);
 				snapshot.pop ();
-			} else if (progress <= 0.0) {
+			} else {
 				source_widget_texture.snapshot (
 					snapshot,
 					this.get_width (),
