@@ -36,206 +36,225 @@
 				</child>
 
 				<property name="content">
-					<object class="GtkScrolledWindow">
-						<property name="hexpand">1</property>
-						<property name="vexpand">1</property>
-						<child>
-							<object class="AdwClamp">
-								<property name="valign">start</property>
-								<property name="tightening-threshold">100</property>
+					<object class="AdwToastOverlay" id="toast_overlay">
+						<property name="child">
+							<object class="GtkScrolledWindow">
+								<property name="hexpand">1</property>
+								<property name="vexpand">1</property>
 								<child>
-									<object class="GtkBox">
-										<property name="orientation">vertical</property>
-										<property name="margin-top">6</property>
-										<property name="margin-bottom">24</property>
-										<property name="spacing">24</property>
+									<object class="AdwClamp">
+										<property name="valign">start</property>
+										<property name="tightening-threshold">100</property>
 										<child>
-											<object class="GtkLabel">
-												<!-- translators: Label in the advanced search window. Leave `-is:reply` as is. 'instances' as in fediverse servers -->
-												<property name="label" translatable="yes">Advanced Search might not work in all instances. You can invert an option by prefixing it with -. For example, -is:reply to filter out all replies.</property>
-												<property name="xalign">0</property>
-												<property name="hexpand">1</property>
-												<property name="wrap">1</property>
-												<property name="wrap-mode">word-char</property>
-											</object>
-										</child>
-										<child>
-											<object class="GtkListBox" id="main_list">
-												<property name="selection-mode">none</property>
-												<style>
-													<class name="boxed-list" />
-												</style>
+											<object class="GtkBox">
+												<property name="orientation">vertical</property>
+												<property name="margin-top">6</property>
+												<property name="margin-bottom">24</property>
+												<property name="spacing">24</property>
 												<child>
-													<object class="AdwEntryRow" id="query_row">
-														<property name="input-purpose">free-form</property>
-														<!-- translators: Search query -->
-														<property name="title" translatable="yes">Query</property>
+													<object class="GtkLabel">
+														<!-- translators: Label in the advanced search window. Leave `-is:reply` as is. 'instances' as in fediverse servers -->
+														<property name="label" translatable="yes">Advanced Search might not work in all instances. You can invert an option by prefixing it with -. For example, -is:reply to filter out all replies.</property>
+														<property name="xalign">0</property>
+														<property name="hexpand">1</property>
+														<property name="wrap">1</property>
+														<property name="wrap-mode">word-char</property>
 													</object>
 												</child>
 												<child>
-													<object class="AdwEntryRow" id="user_row">
-														<property name="input-purpose">free-form</property>
-														<!-- translators: Entry title that accepts a user tag, searches for posts published by the user -->
-														<property name="title" translatable="yes">From User</property>
+													<object class="GtkListBox" id="main_list">
+														<property name="selection-mode">none</property>
+														<style>
+															<class name="boxed-list" />
+														</style>
+														<child>
+															<object class="AdwEntryRow" id="query_row">
+																<property name="input-purpose">free-form</property>
+																<!-- translators: Search query -->
+																<property name="title" translatable="yes">Query</property>
+															</object>
+														</child>
+														<child>
+															<object class="AdwEntryRow" id="user_row">
+																<property name="input-purpose">free-form</property>
+																<!-- translators: Entry title that accepts a user tag, searches for posts published by the user -->
+																<property name="title" translatable="yes">From User</property>
+																<signal name="changed" handler="on_user_row_changed" swapped="no" />
+																<child type="suffix">
+																	<object class="GtkButton" id="auto_fill_users_button">
+																		<property name="icon-name">tuba-people-symbolic</property>
+																		<property name="valign">center</property>
+																		<property name="visible">0</property>
+																		<!-- translators: tooltip text for a button in the 'advanced search' window -->
+																		<property name="tooltip-text" translatable="yes">Auto-Fill User</property>
+																		<signal name="clicked" handler="on_search_users_clicked" swapped="no" />
+																		<style>
+																			<class name="circular" />
+																			<class name="flat" />
+																		</style>
+																	</object>
+																</child>
+															</object>
+														</child>
+														<child>
+															<object class="AdwSwitchRow" id="reply_switch_row">
+																<!-- translators: advanced search window switch title -->
+																<property name="title" translatable="yes">Only Replies</property>
+															</object>
+														</child>
+														<child>
+															<object class="AdwSwitchRow" id="cw_switch_row">
+																<!-- translators: advanced search window switch title -->
+																<property name="title" translatable="yes">Only Posts with Content Warnings</property>
+															</object>
+														</child>
 													</object>
 												</child>
 												<child>
-													<object class="AdwSwitchRow" id="reply_switch_row">
-														<!-- translators: advanced search window switch title -->
-														<property name="title" translatable="yes">Only Replies</property>
-													</object>
-												</child>
-												<child>
-													<object class="AdwSwitchRow" id="cw_switch_row">
-														<!-- translators: advanced search window switch title -->
-														<property name="title" translatable="yes">Only Posts with Content Warnings</property>
-													</object>
-												</child>
-											</object>
-										</child>
-										<child>
-											<object class="AdwPreferencesGroup">
-												<!-- translators: Advanced search window, option group
+													<object class="AdwPreferencesGroup">
+														<!-- translators: Advanced search window, option group
 													This is the title and the option are
 													'media', 'poll'... -->
-												<property name="title" translatable="yes">Containing</property>
-												<child>
-													<object class="AdwSwitchRow" id="media_switch_row">
-														<property name="title" translatable="yes">Media</property>
-													</object>
-												</child>
-												<child>
-													<object class="AdwSwitchRow" id="poll_switch_row">
-														<property name="title" translatable="yes">Poll</property>
-													</object>
-												</child>
-												<child>
-													<object class="AdwSwitchRow" id="embed_switch_row">
-														<!-- translators: advanced search window switch title -->
-														<property name="title" translatable="yes">Embed</property>
-													</object>
-												</child>
-											</object>
-										</child>
-										<child>
-											<object class="AdwPreferencesGroup">
-												<property name="title" translatable="yes">Timelines</property>
-												<child>
-													<object class="AdwActionRow">
-														<property name="title" translatable="yes">Everywhere</property>
-														<property name="activatable-widget">all_radio</property>
-														<child type="prefix">
-															<object class="GtkCheckButton" id="all_radio">
-																<property name="valign">center</property>
-																<style>
-																	<class name="selection-mode" />
-																</style>
+														<property name="title" translatable="yes">Containing</property>
+														<child>
+															<object class="AdwSwitchRow" id="media_switch_row">
+																<property name="title" translatable="yes">Media</property>
+															</object>
+														</child>
+														<child>
+															<object class="AdwSwitchRow" id="poll_switch_row">
+																<property name="title" translatable="yes">Poll</property>
+															</object>
+														</child>
+														<child>
+															<object class="AdwSwitchRow" id="embed_switch_row">
+																<!-- translators: advanced search window switch title -->
+																<property name="title" translatable="yes">Embed</property>
 															</object>
 														</child>
 													</object>
 												</child>
 												<child>
-													<object class="AdwActionRow">
-														<!-- translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc' -->
-														<property name="title" translatable="yes">Library</property>
-														<!-- translators: Advanced search window, radio button subtitle for the 'library' option -->
-														<property name="subtitle" translatable="yes">Favorites, Bookmarks, Own Posts</property>
-														<property name="activatable-widget">library_radio</property>
-														<child type="prefix">
-															<object class="GtkCheckButton" id="library_radio">
-																<property name="group">all_radio</property>
-																<property name="valign">center</property>
-																<style>
-																	<class name="selection-mode" />
-																</style>
+													<object class="AdwPreferencesGroup">
+														<property name="title" translatable="yes">Timelines</property>
+														<child>
+															<object class="AdwActionRow">
+																<property name="title" translatable="yes">Everywhere</property>
+																<property name="activatable-widget">all_radio</property>
+																<child type="prefix">
+																	<object class="GtkCheckButton" id="all_radio">
+																		<property name="valign">center</property>
+																		<style>
+																			<class name="selection-mode" />
+																		</style>
+																	</object>
+																</child>
+															</object>
+														</child>
+														<child>
+															<object class="AdwActionRow">
+																<!-- translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc' -->
+																<property name="title" translatable="yes">Library</property>
+																<!-- translators: Advanced search window, radio button subtitle for the 'library' option -->
+																<property name="subtitle" translatable="yes">Favorites, Bookmarks, Own Posts</property>
+																<property name="activatable-widget">library_radio</property>
+																<child type="prefix">
+																	<object class="GtkCheckButton" id="library_radio">
+																		<property name="group">all_radio</property>
+																		<property name="valign">center</property>
+																		<style>
+																			<class name="selection-mode" />
+																		</style>
+																	</object>
+																</child>
+															</object>
+														</child>
+														<child>
+															<object class="AdwActionRow">
+																<property name="title" translatable="yes">Public</property>
+																<property name="activatable-widget">public_radio</property>
+																<child type="prefix">
+																	<object class="GtkCheckButton" id="public_radio">
+																		<property name="group">all_radio</property>
+																		<property name="valign">center</property>
+																		<style>
+																			<class name="selection-mode" />
+																		</style>
+																	</object>
+																</child>
 															</object>
 														</child>
 													</object>
 												</child>
 												<child>
-													<object class="AdwActionRow">
-														<property name="title" translatable="yes">Public</property>
-														<property name="activatable-widget">public_radio</property>
-														<child type="prefix">
-															<object class="GtkCheckButton" id="public_radio">
-																<property name="group">all_radio</property>
-																<property name="valign">center</property>
-																<style>
-																	<class name="selection-mode" />
-																</style>
-															</object>
-														</child>
-													</object>
-												</child>
-											</object>
-										</child>
-										<child>
-											<object class="AdwPreferencesGroup">
-												<!-- translators: Advanced search window, option group -->
-												<property name="title" translatable="yes">Dates</property>
-												<child>
-													<object class="AdwExpanderRow" id="before_expander_row">
-														<property name="expanded">0</property>
-														<!-- translators: Advanced Search window, option title, opens a calendar, so it's a date.
+													<object class="AdwPreferencesGroup">
+														<!-- translators: Advanced search window, option group -->
+														<property name="title" translatable="yes">Dates</property>
+														<child>
+															<object class="AdwExpanderRow" id="before_expander_row">
+																<property name="expanded">0</property>
+																<!-- translators: Advanced Search window, option title, opens a calendar, so it's a date.
 																  The user is searching for posts posted *before* this date -->
-														<property name="title" translatable="yes">Before</property>
-														<child>
-															<object class="GtkListBoxRow">
-																<property name="activatable">false</property>
+																<property name="title" translatable="yes">Before</property>
 																<child>
-																	<object class="GtkCalendar" id="before_calendar">
-																		<property name="margin-top">6</property>
-																		<property name="margin-bottom">6</property>
-																		<property name="margin-start">6</property>
-																		<property name="margin-end">6</property>
-																		<property name="vexpand">1</property>
-																		<property name="hexpand">1</property>
+																	<object class="GtkListBoxRow">
+																		<property name="activatable">false</property>
+																		<child>
+																			<object class="GtkCalendar" id="before_calendar">
+																				<property name="margin-top">6</property>
+																				<property name="margin-bottom">6</property>
+																				<property name="margin-start">6</property>
+																				<property name="margin-end">6</property>
+																				<property name="vexpand">1</property>
+																				<property name="hexpand">1</property>
+																			</object>
+																		</child>
 																	</object>
 																</child>
 															</object>
 														</child>
-													</object>
-												</child>
-												<child>
-													<object class="AdwExpanderRow" id="during_expander_row">
-														<property name="expanded">0</property>
-														<!-- translators: Advanced Search window, option title, opens a calendar, so it's a date.
+														<child>
+															<object class="AdwExpanderRow" id="during_expander_row">
+																<property name="expanded">0</property>
+																<!-- translators: Advanced Search window, option title, opens a calendar, so it's a date.
 																  The user is searching for posts posted *during* this date -->
-														<property name="title" translatable="yes">During</property>
-														<child>
-															<object class="GtkListBoxRow">
-																<property name="activatable">false</property>
+																<property name="title" translatable="yes">During</property>
 																<child>
-																	<object class="GtkCalendar" id="during_calendar">
-																		<property name="margin-top">6</property>
-																		<property name="margin-bottom">6</property>
-																		<property name="margin-start">6</property>
-																		<property name="margin-end">6</property>
-																		<property name="vexpand">1</property>
-																		<property name="hexpand">1</property>
+																	<object class="GtkListBoxRow">
+																		<property name="activatable">false</property>
+																		<child>
+																			<object class="GtkCalendar" id="during_calendar">
+																				<property name="margin-top">6</property>
+																				<property name="margin-bottom">6</property>
+																				<property name="margin-start">6</property>
+																				<property name="margin-end">6</property>
+																				<property name="vexpand">1</property>
+																				<property name="hexpand">1</property>
+																			</object>
+																		</child>
 																	</object>
 																</child>
 															</object>
 														</child>
-													</object>
-												</child>
-												<child>
-													<object class="AdwExpanderRow" id="after_expander_row">
-														<property name="expanded">0</property>
-														<!-- translators: Advanced Search window, option title, opens a calendar, so it's a date.
-																  The user is searching for posts posted *after* this date -->
-														<property name="title" translatable="yes">After</property>
 														<child>
-															<object class="GtkListBoxRow">
-																<property name="activatable">false</property>
+															<object class="AdwExpanderRow" id="after_expander_row">
+																<property name="expanded">0</property>
+																<!-- translators: Advanced Search window, option title, opens a calendar, so it's a date.
+																  The user is searching for posts posted *after* this date -->
+																<property name="title" translatable="yes">After</property>
 																<child>
-																	<object class="GtkCalendar" id="after_calendar">
-																		<property name="margin-top">6</property>
-																		<property name="margin-bottom">6</property>
-																		<property name="margin-start">6</property>
-																		<property name="margin-end">6</property>
-																		<property name="vexpand">1</property>
-																		<property name="hexpand">1</property>
+																	<object class="GtkListBoxRow">
+																		<property name="activatable">false</property>
+																		<child>
+																			<object class="GtkCalendar" id="after_calendar">
+																				<property name="margin-top">6</property>
+																				<property name="margin-bottom">6</property>
+																				<property name="margin-start">6</property>
+																				<property name="margin-end">6</property>
+																				<property name="vexpand">1</property>
+																				<property name="hexpand">1</property>
+																			</object>
+																		</child>
 																	</object>
 																</child>
 															</object>
@@ -247,7 +266,7 @@
 									</object>
 								</child>
 							</object>
-						</child>
+						</property>
 					</object>
 				</property>
 			</object>
