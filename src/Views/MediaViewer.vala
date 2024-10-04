@@ -524,6 +524,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>KP_Subtract"),
 			new Gtk.NamedAction ("mediaviewer.zoom-out")
 		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>C"),
+			new Gtk.NamedAction ("mediaviewer.copy-media")
+		));
 
 		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
 			Gtk.ShortcutTrigger.parse_string ("Left"),
