@@ -4,6 +4,17 @@ struct TestExtract {
 }
 
 TestExtract[] get_extractions () {
+	string max_limit_test_tag = "<a href='https://gnome.org/tags/test'>#test</a>";
+	Tuba.TagExtractor.Tag max_limit_test_tag_struct = {"test", "https://gnome.org/tags/test"};
+	string max_limit_test_source = "Testing the tag limit\n\n";
+	Tuba.TagExtractor.Tag[] max_limit_test_tags = {};
+
+	for (int i = 0; i < Tuba.TagExtractor.MAX_TAGS_ALLOWED; i++) {
+		max_limit_test_source += max_limit_test_tag;
+		max_limit_test_tags += max_limit_test_tag_struct;
+	}
+
+
 	return {
 		{
 			"I am a <a href='https://gnome.org/'>pango</a> markup label\n\n<a href='https://gnome.org/tags/opensource'>#opensource</a> <a href='https://gnome.org/tags/cookies'>#cookies</a> <a href='https://gnome.org/tags/frogs'>#frogs</a> <a href='https://gnome.org/tags/sunny'>#sunny</a>",
@@ -49,6 +60,17 @@ TestExtract[] get_extractions () {
 				"Same as before but no tags", null
 			}
 		},
+		{
+			max_limit_test_source,
+			{
+				"Testing the tag limit",
+				max_limit_test_tags
+			}
+		},
+		{
+			@"Same as before but plus 1. $max_limit_test_source$max_limit_test_tag",
+			null
+		}
 	};
 }
 

@@ -1,4 +1,6 @@
 public class Tuba.TagExtractor {
+	public const int MAX_TAGS_ALLOWED = 20;
+
 	public struct Tag {
 		public string tag;
 		public string link;
@@ -41,7 +43,7 @@ public class Tuba.TagExtractor {
 
 				return false;
 			}).strip ();
-			if (cleaned_up_paragraph != "") return res;
+			if (cleaned_up_paragraph != "" || extracted_tags.length > MAX_TAGS_ALLOWED) return res;
 
 			res.extracted_tags = extracted_tags;
 			res.input_without_tags = input.slice (0, last_paragraph_begin);
