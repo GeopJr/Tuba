@@ -645,6 +645,10 @@ video > overlay > revealer > controls, .audio-controls {
 	border-radius: 9999px;
 }
 
+.hashtag-bar-hashtag {
+	padding: 4px 11px;
+}
+
 .preview_card:not(.explore), .preview_card:not(.explore) image:not(.attachment-overlay-icon) {
 	background-color: alpha(currentColor, 0.0625);
 }

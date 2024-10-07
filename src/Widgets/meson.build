@@ -10,6 +10,7 @@ sources += files(
     'EmojiLabel.vala',
     'FocusPicker.vala',
     'FocusPicture.vala',
+    'HashtagBar.vala',
     'LabelWithWidgets.vala',
     'ListBoxRowWrapper.vala',
     'MarkupView.vala',
