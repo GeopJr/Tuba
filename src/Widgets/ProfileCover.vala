@@ -26,10 +26,6 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		debug ("Destroying Profile Cover");
 	}
 
-	void toggle_scale_emoji_hover () {
-		Tuba.toggle_css (this, settings.scale_emoji_hover, "lww-scale-emoji-hover");
-	}
-
 	public string cover_badge_label {
 		get {
 			return cover_badge.label;
@@ -169,10 +165,6 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	int total_fields = 0;
 	string stats_string = "";
 	public Cover (Views.Profile.ProfileAccount profile, bool mini = false) {
-		if (settings.scale_emoji_hover)
-			this.add_css_class ("lww-scale-emoji-hover");
-		settings.notify["scale-emoji-hover"].connect (toggle_scale_emoji_hover);
-
 		_mini = mini;
 		if (mini) note_row.sensitive = false;
 

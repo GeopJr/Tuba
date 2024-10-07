@@ -22,20 +22,6 @@
 					<object class="AdwPreferencesGroup">
 						<property name="title" translatable="yes">Appearance</property>
 						<child>
-							<object class="AdwComboRow" id="scheme_combo_row">
-								<property name="title" translatable="yes">Color Scheme</property>
-								<signal name="notify::selected-item" handler="on_scheme_changed" swapped="no" />
-
-								<property name="model">
-									<object class="TubaColorSchemeListModel" />
-								</property>
-
-								<property name="expression">
-									<lookup type="TubaColorSchemeListItem" name="name" />
-								</property>
-							</object>
-						</child>
-						<child>
 							<object class="AdwSwitchRow" id="larger_font_size">
 								<property name="title" translatable="yes">Large Text</property>
 								<property name="subtitle" translatable="yes">Increase the size of text in posts</property>
@@ -53,12 +39,6 @@
 							</object>
 						</child>
 						<child>
-							<object class="AdwSwitchRow" id="scale_emoji_hover">
-								<property name="title" translatable="yes">Scale Custom Emojis on Hover</property>
-								<property name="subtitle" translatable="yes">Slightly increases the size of custom emojis when you hover over them</property>
-							</object>
-						</child>
-						<child>
 							<object class="AdwSwitchRow" id="letterbox_media">
 								<!-- translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox" -->
 								<property name="title" translatable="yes">Letterbox Media</property>
@@ -67,27 +47,8 @@
 							</object>
 						</child>
 						<child>
-							<object class="AdwSwitchRow" id="media_viewer_expand_pictures">
-								<!-- translators: expand as in enlarge -->
-								<property name="title" translatable="yes">Expand Pictures in Media Viewer</property>
-								<!-- translators: expand as in enlarge -->
-								<property name="subtitle" translatable="yes">Expand pictures to fill the media viewer by default</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="use_blurhash">
-								<property name="title" translatable="no">BlurHash</property>
-								<property name="subtitle" translatable="yes">Show a blurred version of the media until they fully load</property>
-							</object>
-						</child>
-						<child>
 							<object class="AdwSwitchRow" id="show_spoilers">
 								<property name="title" translatable="yes">Reveal Spoilers by Default</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="show_preview_cards">
-								<property name="title" translatable="yes">Show Link Preview Cards</property>
 							</object>
 						</child>
 						<child>

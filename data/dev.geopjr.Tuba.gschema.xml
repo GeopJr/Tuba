@@ -28,9 +28,6 @@
 		<key name="active-account" type="s">
 			<default>''</default>
 		</key>
-		<key name="color-scheme" enum="dev.geopjr.Tuba.ColorScheme">
-			<default>'system'</default>
-		</key>
 		<key name="work-in-background" type="b">
 			<default>false</default>
 		</key>
@@ -46,16 +43,10 @@
 		<key name="show-spoilers" type="b">
 			<default>false</default>
 		</key>
-		<key name="show-preview-cards" type="b">
-			<default>true</default>
-		</key>
 		<key name="larger-font-size" type="b">
 			<default>false</default>
 		</key>
 		<key name="larger-line-height" type="b">
-			<default>false</default>
-		</key>
-		<key name="scale-emoji-hover" type="b">
 			<default>false</default>
 		</key>
 		<key name="aggressive-resolving" type="b">
@@ -67,14 +58,8 @@
 		<key name="letterbox-media" type="b">
 			<default>false</default>
 		</key>
-		<key name="media-viewer-expand-pictures" type="b">
-			<default>true</default>
-		</key>
 		<key name="enlarge-custom-emojis" type="b">
 			<default>false</default>
-		</key>
-		<key name="use-blurhash" type="b">
-			<default>true</default>
 		</key>
 		<key name="group-push-notifications" type="b">
 			<default>false</default>
