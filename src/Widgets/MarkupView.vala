@@ -20,6 +20,13 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
 	public weak Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
 	public bool has_quote { get; set; default=false; }
+	public bool extract_last_tags { get; set; default=false; }
+	public bool has_link { get; set; default=false; }
+
+	TagExtractor.Tag[]? extracted_tags = null;
+	public TagExtractor.Tag[]? get_extracted_tags () {
+		return extracted_tags;
+	}
 
 	private bool _selectable = false;
 	public bool selectable {
@@ -62,6 +69,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 
 	void update_content (string content) {
 		current_chunk = null;
+		extracted_tags = null;
+		has_link = false;
 
 		for (var w = get_first_child (); w != null; w = w.get_next_sibling ()) {
 			w.unparent ();
@@ -95,6 +104,15 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		traverse (root, node => {
 			handler (v, node);
 		});
+	}
+
+	void extract_tags () {
+		if (current_chunk == null || !this.has_link) return;
+		var extracted = TagExtractor.from_string (current_chunk);
+		if (extracted.input_without_tags == null || extracted.extracted_tags == null) return;
+
+		current_chunk = extracted.input_without_tags;
+		extracted_tags = extracted.extracted_tags;
 	}
 
 	void commit_chunk () {
@@ -231,6 +249,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				break;
 			case "body":
 				traverse_and_handle (v, root, default_handler);
+				if (v.extract_last_tags) v.extract_tags ();
 				v.commit_chunk ();
 				break;
 			case "p":
@@ -293,6 +312,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					v.write_chunk (@"<a href='$(GLib.Markup.escape_text (href))'>");
 					traverse_and_handle (v, root, default_handler);
 					v.write_chunk ("</a>");
+					v.has_link = true;
 				}
 				break;
 

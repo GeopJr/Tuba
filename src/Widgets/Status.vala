@@ -887,6 +887,7 @@
 		}
 	}
 
+	private Widgets.HashtagBar hashtag_bar;
 	protected Widgets.PreviewCard prev_card;
 	private Widgets.Attachment.Box attachments;
 	private Gtk.Label translation_label;
@@ -1059,6 +1060,12 @@
 				prev_card.button.clicked.connect (open_card_url);
 				content_box.append (prev_card);
 			} catch {}
+		}
+
+		if (hashtag_bar != null) content_box.remove (prev_card);
+		if (this.content.get_extracted_tags () != null && this.content.get_extracted_tags ().length > 0) {
+			hashtag_bar = new Widgets.HashtagBar (this.content.get_extracted_tags ());
+			content_box.append (hashtag_bar);
 		}
 
 		show_view_stats_action ();
