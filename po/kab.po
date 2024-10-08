@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-10-07 11:15+0000\n"
+"PO-Revision-Date: 2024-10-09 17:15+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/tuba/tuba/kab/>\n"
 "Language: kab\n"
@@ -192,7 +192,7 @@ msgstr ""
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:73
 msgid "Query"
-msgstr ""
+msgstr "Tuttra"
 
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:80
@@ -241,7 +241,7 @@ msgstr ""
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:140
 msgid "Library"
-msgstr ""
+msgstr "Tamkarḍit"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
 #: data/ui/dialogs/advanced_search.ui:142
@@ -256,13 +256,13 @@ msgstr "Azayez"
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:173
 msgid "Dates"
-msgstr ""
+msgstr "Izemzen"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:179
 msgid "Before"
-msgstr ""
+msgstr "Send"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
@@ -274,7 +274,7 @@ msgstr ""
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:225
 msgid "After"
-msgstr ""
+msgstr "Seld"
 
 #: data/ui/dialogs/compose.ui:41 src/Dialogs/Composer/Dialog.vala:263
 msgid "_Publish"
@@ -596,7 +596,7 @@ msgstr "Imenyafen"
 
 #: data/ui/dialogs/preferences.ui:233 src/Dialogs/NotificationSettings.vala:46
 msgid "Mentions"
-msgstr ""
+msgstr "Ibdaren"
 
 #: data/ui/dialogs/preferences.ui:239 src/Dialogs/NotificationSettings.vala:48
 msgid "Boosts"
@@ -612,7 +612,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:257
 msgid "Group"
-msgstr ""
+msgstr "Segrew"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/ui/dialogs/preferences.ui:259
@@ -712,7 +712,7 @@ msgstr ""
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:163
 msgid "Fields"
-msgstr ""
+msgstr "Urtiyen"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
@@ -839,13 +839,13 @@ msgstr "Beddel amiḍan"
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
 msgid "Offline"
-msgstr ""
+msgstr "Beṛṛa n tuqqna"
 
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
 #: src/Views/Notifications.vala:58
 msgid "View"
-msgstr ""
+msgstr "Wali"
 
 #: data/ui/widgets/announcement.ui:96
 msgid "Unread"
@@ -880,7 +880,7 @@ msgstr "Sken-d akken yebɣu yili"
 #: src/Views/Admin/Pages/Accounts.vala:338
 #: src/Widgets/Admin/DomainBlock.vala:18 src/Widgets/Admin/DomainBlock.vala:25
 msgid "None"
-msgstr ""
+msgstr "Ula yiwen"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
@@ -965,7 +965,7 @@ msgstr ""
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr ""
+msgstr "Taɣẓint"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
@@ -1013,7 +1013,7 @@ msgstr "Idiwenniyen"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "Imaɣnuyen"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
 #. this is the singular version, '1 account you follow'
@@ -1100,7 +1100,7 @@ msgstr ""
 
 #: src/API/Relationship.vala:25
 msgid "Mutuals"
-msgstr ""
+msgstr "Temṭafarem"
 
 #: src/API/Relationship.vala:27
 msgid "Follows you"
@@ -1478,7 +1478,7 @@ msgstr ""
 #: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:333
 #: src/Dialogs/Report.vala:415
 msgid "Submit"
-msgstr ""
+msgstr "Azen"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
@@ -1503,7 +1503,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:489
 msgid "Sensitive"
-msgstr ""
+msgstr "Amḥulfu"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:79
@@ -1549,7 +1549,7 @@ msgstr "Tafelwit n tedbelt"
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:28 src/Views/Admin/Pages/Reports.vala:6
 msgid "Reports"
-msgstr ""
+msgstr "Ineqqisen"
 
 #: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
 #: src/Views/Search.vala:112
@@ -1676,7 +1676,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:411
 #: src/Views/Admin/Pages/Accounts.vala:431
 msgid "Undo"
-msgstr ""
+msgstr "Err-d"
 
 #: src/Dialogs/Composer/EditorPage.vala:259
 msgid "What's on your mind?"
@@ -1886,7 +1886,7 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:121
 msgid "Clear"
-msgstr ""
+msgstr "Sfeḍ"
 
 #: src/Dialogs/Preferences.vala:31 src/Widgets/Status.vala:307
 msgid "Edit"
@@ -2365,7 +2365,7 @@ msgstr ""
 
 #: src/Utils/DateTime.vala:135
 msgid "yesterday"
-msgstr ""
+msgstr "iḍelli"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:169
@@ -2439,14 +2439,14 @@ msgstr ""
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: src/Views/Admin/Pages/Accounts.vala:78
 msgid "Location"
-msgstr ""
+msgstr "Adig"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:95
 msgid "Active"
-msgstr ""
+msgstr "Urmid"
 
 #. new DropDownStringEntry ("sensitized", _("Sensitive")), // doesn't seem to work on Mastodon
 #. translators: Dropdown entry, account status.
@@ -2481,7 +2481,7 @@ msgstr ""
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:113
 msgid "Pending"
-msgstr ""
+msgstr "Yettṛaǧu"
 
 #: src/Views/Admin/Pages/Accounts.vala:128
 msgid "Username"
@@ -2761,7 +2761,7 @@ msgstr "Ḍfeṛ"
 #: src/Views/Hashtag.vala:22 src/Views/Hashtag.vala:38
 #: src/Widgets/RelationshipButton.vala:61
 msgid "Unfollow"
-msgstr ""
+msgstr "Ur ṭṭafar ara"
 
 #: src/Views/Home.vala:22
 msgid "Compose"
@@ -2786,7 +2786,7 @@ msgstr "Azwel n wumuɣ amaynut"
 
 #: src/Views/Lists.vala:153
 msgid "Add list"
-msgstr ""
+msgstr "Rnu tabdart"
 
 #: src/Views/MediaViewer.vala:675
 msgid "Copied media url to clipboard"
@@ -2858,7 +2858,7 @@ msgstr "Amaɣnu"
 
 #: src/Views/Profile.vala:136 src/Views/Timeline.vala:75
 msgid "No Posts"
-msgstr ""
+msgstr "Ula d yiwet n tsuffeɣt ma tella"
 
 #: src/Views/Profile.vala:140
 msgid "No Followers"
@@ -2937,7 +2937,7 @@ msgstr ""
 
 #: src/Views/Search.vala:31
 msgid "Advanced Search"
-msgstr ""
+msgstr "Anadi leqqayen"
 
 #: src/Views/Search.vala:35
 msgid "Clear Entry"
@@ -3017,7 +3017,7 @@ msgstr ""
 #. translators: title for a list of people that boosted a post
 #: src/Views/StatusStats.vala:22
 msgid "Boosted By"
-msgstr ""
+msgstr "Izuzer-it"
 
 #: src/Views/StatusStats.vala:26
 msgid "No Boosts"
@@ -3066,8 +3066,8 @@ msgstr ""
 #, c-format
 msgid "%s Post"
 msgid_plural "%s Posts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s n tsuffeɣt"
+msgstr[1] "%s n tsuffaɣ"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of followers a user has.
@@ -3189,7 +3189,7 @@ msgstr ""
 
 #: src/Widgets/Attachment/Item.vala:34
 msgid "Save Attachment"
-msgstr ""
+msgstr "Sekles amedday"
 
 #: src/Widgets/Attachment/Item.vala:44
 msgid "Saved Media"
