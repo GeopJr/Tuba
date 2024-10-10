@@ -61,6 +61,7 @@ public class Tuba.Widgets.FocusPicture : Gtk.Widget, Gtk.Buildable, Gtk.Accessib
 		get { return _paintable; }
 		set {
 			if (_paintable == value) return;
+			bool size_changed = paintable_size_equal (value);
 			clear_paintable ();
 
 			_paintable = value;
@@ -73,7 +74,11 @@ public class Tuba.Widgets.FocusPicture : Gtk.Widget, Gtk.Buildable, Gtk.Accessib
 					paintable_invalidate_size_signal = _paintable.invalidate_size.connect (paintable_invalidate_size);
 			}
 
-			this.queue_resize ();
+			if (size_changed) {
+				this.queue_resize ();
+			} else {
+				this.queue_draw ();
+			}
 		}
 	}
 
@@ -233,6 +238,19 @@ public class Tuba.Widgets.FocusPicture : Gtk.Widget, Gtk.Buildable, Gtk.Accessib
 		paintable_invalidate_size_signal = 0;
 
 		_paintable = null;
+	}
+
+	private bool paintable_size_equal (Gdk.Paintable? new_paintable) {
+		if (_paintable == null) {
+			return new_paintable == null;
+		} else if (new_paintable == null) {
+			return false;
+		}
+
+		return
+			_paintable.get_intrinsic_width () == new_paintable.get_intrinsic_width ()
+			&& _paintable.get_intrinsic_height () == new_paintable.get_intrinsic_height ()
+			&& _paintable.get_intrinsic_aspect_ratio () == new_paintable.get_intrinsic_aspect_ratio ();
 	}
 
 	~FocusPicture () {
