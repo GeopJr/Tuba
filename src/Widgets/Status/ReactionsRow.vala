@@ -1,9 +1,18 @@
 public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 	Gtk.FlowBox reaction_box;
 	Gee.HashMap<string, Widgets.ReactButton> react_btn_list;
+	Gtk.MenuButton emoji_button;
+	Gtk.MenuButton? custom_emoji_button;
+
+	private bool can_add_reaction {
+		set {
+			emoji_button.sensitive = value;
+			if (custom_emoji_button != null) custom_emoji_button.sensitive = value;
+		}
+	}
 
 	construct {
-		react_btn_list = new Gee.HashMap<string, Widgets.ReactButton>();
+		react_btn_list = new Gee.HashMap<string, Widgets.ReactButton> ();
 		reaction_box = new Gtk.FlowBox () {
 			column_spacing = 6,
 			row_spacing = 6,
@@ -14,7 +23,7 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 		this.child = reaction_box;
 
 		var emoji_picker = new Gtk.EmojiChooser ();
-		var emoji_button = new Gtk.MenuButton () {
+		emoji_button = new Gtk.MenuButton () {
 			icon_name = "tuba-smile-symbolic",
 			popover = emoji_picker,
 			tooltip_text = _("Emoji Picker")
@@ -24,7 +33,7 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 
 		if (accounts.active.instance_emojis != null && accounts.active.instance_emojis.size > 0) {
 			var custom_emoji_picker = new Widgets.CustomEmojiChooser ();
-			var custom_emoji_button = new Gtk.MenuButton () {
+			custom_emoji_button = new Gtk.MenuButton () {
 				icon_name = "tuba-cat-symbolic",
 				popover = custom_emoji_picker,
 				tooltip_text = _("Custom Emoji Picker")
@@ -35,6 +44,24 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 		}
 	}
 
+	private void update_reaction_add_state () {
+		if (accounts.active.instance_info == null) return;
+
+		int64 max_reacts = accounts.active.instance_info.compat_status_reactions_max;
+		if (max_reacts == 0) return;
+
+		int self_reacts = 0;
+		react_btn_list.foreach (e => {
+			if (((Widgets.ReactButton) e.value).has_reacted) {
+				self_reacts += 1;
+				if (self_reacts >= max_reacts) return false;
+			}
+
+			return true;
+		});
+
+		this.can_add_reaction = self_reacts < max_reacts;
+	}
 
 	private Gee.ArrayList<API.EmojiReaction>? reactions {
 		set {
@@ -47,14 +74,13 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 			});
 			react_btn_list.clear ();
 
-
 			for (int j = 0; j < value.size; j++) {
 				API.EmojiReaction p = value.get (j);
 				if (p.count <= 0) return;
 
 				var badge_button = new Widgets.ReactButton (p);
 				badge_button.reaction_toggled.connect (on_reaction_toggled);
-				badge_button.removed.connect (on_remove);
+				badge_button.removed.connect (on_remove_and_update_state);
 
 				reaction_box.insert (
 					new Gtk.FlowBoxChild () {
@@ -66,7 +92,31 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 
 				react_btn_list.set (p.name, badge_button);
 			}
+
+			update_reaction_add_state ();
 		}
+	}
+
+	public void update_reactions_diff (Gee.ArrayList<API.EmojiReaction> new_reactions) {
+		string[] new_reactions_keys = {};
+		foreach (API.EmojiReaction p in new_reactions) {
+			new_reactions_keys += p.name;
+			if (react_btn_list.has_key (p.name)) {
+				react_btn_list.get (p.name).update_reaction (p);
+			} else {
+				add_emoji (p);
+			}
+		}
+
+		react_btn_list.foreach (e => {
+			if (!((string) e.key in new_reactions_keys)) {
+				on_remove ((Widgets.ReactButton) e.value);
+			}
+
+			return true;
+		});
+
+		update_reaction_add_state ();
 	}
 
 	string status_id;
@@ -88,6 +138,7 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 				btn.sensitive = true;
 
 				app.toast ("%s: %s".printf (_("Error"), message));
+				update_reaction_add_state ();
 			})
 			.exec ();
 	}
@@ -104,7 +155,7 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 						var node = network.parse_node (parser);
 						var status = API.Status.from (node);
 						if (status.formal.compat_status_reactions != null) {
-							this.reactions = status.formal.compat_status_reactions;
+							update_reactions_diff (status.formal.compat_status_reactions);
 						}
 					}
 				})
@@ -136,11 +187,34 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 		react_btn_list.unset (btn.shortcode);
 	}
 
+	private void on_remove_and_update_state (ReactButton btn) {
+		on_remove (btn);
+		update_reaction_add_state ();
+	}
+
 	private void on_emoji_picked (string emoji) {
 		react_with_shortcode (emoji);
 	}
 
 	private void on_custom_emoji_picked (string emoji_shortcode) {
 		react_with_shortcode (emoji_shortcode.slice (1, -2));
+	}
+
+	private void add_emoji (API.EmojiReaction reaction) {
+		if (reaction.count == 0) return;
+
+		var badge_button = new Widgets.ReactButton (reaction);
+		badge_button.reaction_toggled.connect (on_reaction_toggled);
+		badge_button.removed.connect (on_remove_and_update_state);
+
+		reaction_box.insert (
+			new Gtk.FlowBoxChild () {
+				child = badge_button,
+				focusable = false
+			},
+			react_btn_list.size
+		);
+
+		react_btn_list.set (reaction.name, badge_button);
 	}
 }

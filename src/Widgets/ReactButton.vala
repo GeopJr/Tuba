@@ -41,33 +41,40 @@ public class Tuba.Widgets.ReactButton : Gtk.Button {
 		}
 
 		reactions_label = new Gtk.Label (null);
-		reactions = reaction.count;
-
 		badge.append (reactions_label);
 		this.child = badge;
 
-		_has_reacted = reaction.me;
-		if (reaction.me == true) {
-			this.add_css_class ("accent");
-			this.update_state (Gtk.AccessibleState.PRESSED, Gtk.AccessibleTristate.TRUE, -1);
-		}
-
+		update_reaction (reaction);
 		this.clicked.connect (on_clicked);
+	}
+
+	public void update_reaction (API.EmojiReaction reaction) {
+		if (reaction.count == 0) removed ();
+
+		update_button_props (reaction.me);
+		this.reactions = reaction.count;
 	}
 
 	public void update_reacted (bool reacted = true) {
 		if (reacted) {
-			this.add_css_class ("accent");
 			reactions = reactions + 1;
+		} else {
+			reactions = reactions - 1;
+		}
+
+		if (reactions == 0) removed ();
+		update_button_props (reacted);
+	}
+
+	private void update_button_props (bool reacted) {
+		if (reacted) {
+			this.add_css_class ("accent");
 			this.update_state (Gtk.AccessibleState.PRESSED, Gtk.AccessibleTristate.TRUE, -1);
 		} else {
 			this.remove_css_class ("accent");
-			reactions = reactions - 1;
 			this.update_state (Gtk.AccessibleState.PRESSED, Gtk.AccessibleTristate.FALSE, -1);
 		}
 		_has_reacted = reacted;
-
-		if (reactions == 0) removed ();
 	}
 
 	private void on_clicked () {
