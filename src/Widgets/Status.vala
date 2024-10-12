@@ -27,6 +27,7 @@
 	public bool enable_thread_lines { get; set; default = false; }
 	public API.Translation? translation { get; private set; default = null; }
 	private Adw.Bin? emoji_reactions { get; set; default = null; }
+	protected string? other_data { get; set; default = null; }
 
 	private bool _can_be_opened = true;
 	public bool can_be_opened {
@@ -608,7 +609,8 @@
 			this.kind,
 			out res_kind,
 			actor_name,
-			this.kind_instigator.url
+			this.kind_instigator.url,
+			this.other_data
 		);
 
 		if (header_button_activate > 0) header_button.disconnect (header_button_activate);

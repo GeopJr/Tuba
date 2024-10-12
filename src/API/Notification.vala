@@ -62,6 +62,8 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 	public string? kind { get; set; default = null; }
 	public string? created_at { get; set; default = null; }
 	public API.Status? status { get; set; default = null; }
+	public string? emoji { get; set; default = null; }
+	public string? emoji_url { get; set; default = null; }
 	public API.Admin.Report? report { get; set; default = null; }
 
 	// the docs claim that 'relationship_severance_event'
@@ -157,7 +159,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			kind_actor_name = _("%s (& %d others)").printf (account.display_name, others);
 		}
 
-		issuer.describe_kind (kind, out res_kind, kind_actor_name);
+		issuer.describe_kind (kind, out res_kind, kind_actor_name, emoji);
 		var toast = new GLib.Notification (res_kind.description);
 		if (status != null) {
 			var body = "";

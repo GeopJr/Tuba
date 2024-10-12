@@ -8,6 +8,14 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 		set {
 			emoji_button.sensitive = value;
 			if (custom_emoji_button != null) custom_emoji_button.sensitive = value;
+
+			react_btn_list.foreach (e => {
+				if (!((Widgets.ReactButton) e.value).has_reacted) {
+					((Widgets.ReactButton) e.value).sensitive = value;
+				}
+
+				return true;
+			});
 		}
 	}
 
