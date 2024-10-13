@@ -646,7 +646,8 @@ video > overlay > revealer > controls, .audio-controls {
 }
 
 .hashtag-bar-hashtag {
-	padding: 4px 11px;
+	padding: 2px 7px;
+	font-size: small;
 }
 
 .preview_card:not(.explore), .preview_card:not(.explore) image:not(.attachment-overlay-icon) {
