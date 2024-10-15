@@ -159,16 +159,17 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 			row_number++;
 		}
 
+		string voted_string = Tuba.Units.shorten (poll.votes_count);
 		if (poll.expires_at != null) {
 			info_label.label = "%s · %s".printf (
 				// translators: the variable is the amount of people that voted
-				_("%lld voted").printf (poll.votes_count),
+				_("%s voted").printf (voted_string),
 				poll.expired
 					? DateTime.humanize_ago (poll.expires_at)
 					: DateTime.humanize_left (poll.expires_at)
 			);
 		} else {
-			info_label.label = _("%lld voted").printf (poll.votes_count);
+			info_label.label = _("%s voted").printf (voted_string);
 		}
 
 		update_aria ();
