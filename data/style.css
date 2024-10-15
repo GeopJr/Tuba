@@ -423,6 +423,16 @@ video > overlay > revealer > controls, .audio-controls {
 	transform: scale(2);
 }
 
+@keyframes loadbg {
+	0% { background-size: 0%; }
+	98% { background-size: 105%; }
+	100% { background-size: 100%; }
+}
+
+.ttl-poll-voted {
+	animation: loadbg 0.5s ease;
+}
+
 .ttl-poll-row:first-child{
 	border-top-left-radius: 12px;
 	border-top-right-radius: 12px;

@@ -33,7 +33,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 	}
 
 	public string generate_css_style (int percentage) {
-		return @".ttl-poll-$(percentage).ttl-poll-winner { background: linear-gradient(to right, alpha(@accent_bg_color, .5) $(percentage)%, transparent 0%); } .ttl-poll-$(percentage) { background: linear-gradient(to right, alpha(@view_fg_color, .1) $(percentage)%, transparent 0%); }"; // vala-lint=line-length
+		return @".ttl-poll-$(percentage).ttl-poll-winner { background: linear-gradient(to right, alpha(@accent_bg_color, .5) $(percentage)%, transparent 0%) no-repeat; } .ttl-poll-$(percentage) { background: linear-gradient(to right, alpha(@view_fg_color, .1) $(percentage)%, transparent 0%) no-repeat; }"; // vala-lint=line-length
 	}
 
 	void update_translations () {
@@ -100,6 +100,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 
 				row.get_style_context ().add_provider (provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 				row.add_css_class (@"ttl-poll-$((int) percentage)");
+				row.add_css_class ("ttl-poll-voted");
 
 				if (p.votes_count == winner_p) {
 					row.add_css_class ("ttl-poll-winner");
