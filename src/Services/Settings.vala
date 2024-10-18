@@ -128,6 +128,11 @@ public class Tuba.Settings : GLib.Settings {
 	public bool monitor_network { get; set; }
 	public string proxy { get; set; }
 	public bool dim_trivial_notifications { get; set; }
+	public bool analytics { get; set; }
+	public bool update_contributors { get; set; }
+	public string last_analytics_update { get; set; }
+	public string last_contributors_update { get; set; }
+	public string[] contributors { get; set; default = {}; }
 
 	private static string[] keys_to_init = {
 		"active-account",
@@ -154,7 +159,9 @@ public class Tuba.Settings : GLib.Settings {
 		"media-viewer-last-used-volume",
 		"monitor-network",
 		"proxy",
-		"dim-trivial-notifications"
+		"dim-trivial-notifications",
+		"analytics",
+		"update-contributors"
 	};
 
 	public Settings () {
@@ -165,6 +172,9 @@ public class Tuba.Settings : GLib.Settings {
 		}
 
 		init ("work-in-background", true);
+		init ("last-analytics-update", true);
+		init ("last-contributors-update", true);
+		init ("contributors", true);
 		changed.connect (on_changed);
 	}
 
@@ -185,6 +195,32 @@ public class Tuba.Settings : GLib.Settings {
 		if (active_account_settings != null) active_account_settings.apply ();
 
 		this.apply ();
+	}
+
+	private string[] sensitive_keys = {
+		"proxy",
+		"active-account",
+		"last-analytics-update",
+		"last-contributors-update",
+		"contributors"
+	};
+
+	public Json.Builder to_debug_json () {
+		var builder = new Json.Builder ();
+		builder.begin_object ();
+
+		foreach (string key in keys_to_init) {
+			if (key in sensitive_keys) continue;
+
+			var val = Value (Type.STRING);
+			this.get_property (key, ref val);
+
+			builder.set_member_name (key);
+			builder.add_string_value ((string) val);
+		}
+
+		builder.end_object ();
+		return builder;
 	}
 }
 

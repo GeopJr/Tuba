@@ -1,0 +1,6 @@
+build
+*~
+builddir
+.flatpak-builder
+/tuba_windows_portable/
+server/

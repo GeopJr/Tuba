@@ -1,0 +1,7 @@
+/docs/
+/lib/
+/bin/
+/.shards/
+*.dwarf
+.env.json
+*.db
