@@ -17,6 +17,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	[GtkChild] unowned Gtk.ListBoxRow note_row;
 	[GtkChild] unowned Gtk.Label note_error;
 
+	[GtkChild] unowned Gtk.Image supporter_icon;
+
 	public API.Relationship rs { get; construct set; }
 	public signal void rs_invalidated ();
 	public signal void timeline_change (string timeline);
@@ -176,8 +178,10 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		_mini = mini;
 		if (mini) note_row.sensitive = false;
 
-		if (GLib.str_hash (profile.account.full_handle.down ()).to_string () in settings.contributors)
+		if (GLib.str_hash (profile.account.full_handle.down ()).to_string () in settings.contributors) {
+			supporter_icon.visible = true;
 			this.add_css_class ("thanks");
+		}
 
 		display_name.instance_emojis = profile.account.emojis_map;
 		display_name.content = profile.account.display_name;

@@ -296,11 +296,11 @@ headerbar.flat.no-title .title {
 	border-radius: inherit;
 }
 
-.ttl-post.direct, .thanks {
+.ttl-post.direct {
 	background-color: alpha(@warning_bg_color, .1);
 }
 
-.ttl-post.direct:hover, .thanks:hover {
+.ttl-post.direct:hover{
 	background-color: darker(alpha(@warning_bg_color, .1));
 }
 
@@ -755,4 +755,12 @@ popover.mini-profile > contents {
 
 list.uniform-border-color row {
 	border-bottom-color: @borders;
+}
+
+.ttl-profile-cover.thanks {
+	background: alpha(@accent_bg_color, 0.3);
+}
+
+.ttl-profile-cover.thanks avatar {
+	border-color: alpha(@accent_bg_color, 0.3);
 }
