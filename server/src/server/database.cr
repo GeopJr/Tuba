@@ -12,13 +12,13 @@ class Tuba::Database
       db.exec "CREATE TABLE IF NOT EXISTS analytics_accounts (id TEXT, analytics_id TEXT, account TEXT, date DATETIME, PRIMARY KEY (id))"
       db.exec "CREATE TABLE IF NOT EXISTS analytics (id TEXT, analytics TEXT, date DATETIME, PRIMARY KEY (id))"
 
-      day_passed = true
+      weeks_passed = true
       accounts_vars = ("?, " * accounts.size)[0..-3]
       db.query("SELECT date, analytics_id FROM analytics_accounts WHERE account IN (#{accounts_vars})", args: accounts) do |rs|
         analytics_ids = [] of String
         rs.each do
-          day_passed = (Time.utc - Time.parse_utc(rs.read(String), "%F %T.%N")).days > 0
-          break unless day_passed # Only continue if a day has passed
+          weeks_passed = (Time.utc - Time.parse_utc(rs.read(String), "%F %T.%N")).days >= 14
+          break unless weeks_passed # Only continue if a day has passed
           analytics_ids << rs.read(String)
         end
 
@@ -27,7 +27,7 @@ class Tuba::Database
         # previously found analytics IDs.
         # Users can remove or add new accounts so we need to clear ALL that we find
         # from previous pushes.
-        if day_passed && analytics_ids.size > 0
+        if weeks_passed && analytics_ids.size > 0
           analytics_vars = ("?, " * analytics_ids.size)[0..-3]
 
           db.exec("DELETE FROM analytics_accounts WHERE account IN (#{accounts_vars}) OR analytics_id IN (#{analytics_vars})", args: accounts + analytics_ids)
@@ -36,7 +36,7 @@ class Tuba::Database
       end
 
       # If a day has passed (or it's a new account), insert many at once.
-      if day_passed
+      if weeks_passed
         analytics_id = UUID.random.to_s
         time_now = Time.utc
         analytics_accounts_vars = ("(?, ?, ?, ?), " * accounts.size)[0..-3]

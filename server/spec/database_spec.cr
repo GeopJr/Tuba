@@ -70,7 +70,7 @@ describe Tuba::Database do
     end
   end
 
-  it "doesn't insert new analytics if less than a day has passed" do
+  it "doesn't insert new analytics if less than 2 weeks have passed" do
     DATABASE.insert(["1", "2"], "3")
     DATABASE.insert(["1", "2"], "4")
 
@@ -98,9 +98,9 @@ describe Tuba::Database do
     end
   end
 
-  it "overwrites analytics if more than a day has passed" do
+  it "overwrites analytics if more than 2 weeks have passed" do
     DB.open("sqlite3://#{CONFIG.database}") do |db|
-      past_time = Time.utc - Time::Span.new(days: 1)
+      past_time = Time.utc - Time::Span.new(days: 14)
       db.exec "INSERT INTO analytics_accounts VALUES (?, ?, ?, ?)", "123", "1312", "1", past_time
       db.exec "INSERT INTO analytics VALUES (?, ?, ?)", "1312", "3", past_time
     end
