@@ -460,7 +460,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		}
 
 		if (settings.analytics) app.update_analytics ();
-		if (settings.update_contributors) app.update_contributors ();
+		app.update_contributors ();
 	}
 
 	protected class AnalyticsDialog : Adw.Dialog {
@@ -515,8 +515,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	[GtkCallback] protected void on_analytics_preview () {
 		(new AnalyticsDialog ()).present (this);
-
-		app.update_contributors ();
 	}
 }
 

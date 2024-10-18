@@ -373,7 +373,7 @@ namespace Tuba {
 
 		protected override void shutdown () {
 			if (settings.analytics) app.update_analytics ();
-			if (settings.update_contributors) app.update_contributors ();
+			app.update_contributors ();
 
 			#if !DEV_MODE
 				settings.apply_all ();
@@ -733,7 +733,20 @@ namespace Tuba {
 		}
 
 		public void update_contributors () {
-			if (!settings.update_contributors) return;
+			if (!settings.update_contributors) {
+				// if updating contributors from the API is not enabled
+				// but it has been enabled at some point in the past,
+				// revert the contributors array to the default.
+				// That will allow us to force clients that have
+				// updated them manually in the past to use the bundled
+				// array which might be more up-to-date.
+				if (settings.last_contributors_update != null && settings.last_contributors_update != "") {
+					settings.reset ("contributors");
+					settings.last_contributors_update = "";
+				}
+
+				return;
+			}
 
 			bool can_update = false;
 			GLib.DateTime now_utc = new GLib.DateTime.now_utc ();
