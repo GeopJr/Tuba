@@ -146,6 +146,9 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow filter_notifications_new_account_switch;
 	[GtkChild] unowned Adw.SwitchRow filter_notifications_dm_switch;
 
+	[GtkChild] unowned Gtk.Switch analytics_switch;
+	[GtkChild] unowned Adw.SwitchRow update_contributors;
+
 	//  [GtkChild] unowned Adw.PreferencesPage filters_page;
 	[GtkChild] unowned Adw.PreferencesGroup keywords_group;
 
@@ -299,6 +302,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		settings.bind ("darken-images-on-dark-mode", darken_images_on_dark_mode, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("reply-to-old-post-reminder", reply_to_old_post_reminder, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("dim-trivial-notifications", dim_trivial_notifications, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("analytics", analytics_switch, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("update-contributors", update_contributors, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 		dlcr_id = default_language_combo_row.notify["selected-item"].connect (dlcr_cb);
@@ -453,6 +458,65 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		} else if (settings.proxy != "") {
 			settings.proxy = "";
 		}
+
+		if (settings.analytics) app.update_analytics ();
+		if (settings.update_contributors) app.update_contributors ();
+	}
+
+	protected class AnalyticsDialog : Adw.Dialog {
+		GtkSource.View source_view;
+		construct {
+			this.title = _("Analytics Preview");
+			this.content_width = 460;
+			this.content_height = 640;
+
+			source_view = new GtkSource.View () {
+				vexpand = true,
+				hexpand = true,
+				top_margin = 6,
+				right_margin = 6,
+				bottom_margin = 6,
+				left_margin = 6,
+				pixels_below_lines = 6,
+				accepts_tab = false,
+				wrap_mode = Gtk.WrapMode.WORD_CHAR,
+				editable = false
+			};
+
+			((GtkSource.Buffer) source_view.buffer).highlight_matching_brackets = true;
+			((GtkSource.Buffer) source_view.buffer).highlight_syntax = true;
+			var lang_manager = new GtkSource.LanguageManager ();
+			((GtkSource.Buffer) source_view.buffer).set_language (lang_manager.get_language ("json"));
+			source_view.buffer.text = app.generate_analytics_object (true);
+
+			Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
+			update_style_scheme ();
+
+			var toolbar_view = new Adw.ToolbarView ();
+			var headerbar = new Adw.HeaderBar ();
+
+			toolbar_view.add_top_bar (headerbar);
+			toolbar_view.set_content (new Gtk.ScrolledWindow () {
+				hexpand = true,
+				vexpand = true,
+				child = source_view
+			});
+
+			this.child = toolbar_view;
+		}
+
+		protected void update_style_scheme () {
+			var manager = GtkSource.StyleSchemeManager.get_default ();
+			string scheme_name = "Adwaita";
+			if (Adw.StyleManager.get_default ().dark) scheme_name += "-dark";
+			((GtkSource.Buffer) source_view.buffer).style_scheme = manager.get_scheme (scheme_name);
+		}
+	}
+
+	[GtkCallback] protected void on_analytics_preview () {
+		(new AnalyticsDialog ()).present (this);
+
+		app.update_contributors ();
 	}
 }
 

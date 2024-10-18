@@ -103,6 +103,21 @@
 		<key name="proxy" type="s">
 			<default>''</default>
 		</key>
+    <key name="analytics" type="b">
+			<default>false</default>
+		</key>
+    <key name="update-contributors" type="b">
+			<default>false</default>
+		</key>
+    <key name="last-analytics-update" type="s">
+			<default>''</default>
+		</key>
+    <key name="last-contributors-update" type="s">
+			<default>''</default>
+		</key>
+    <key name="contributors" type="as">
+			<default>['1021928818','2964685538','2486375860','3456423266','1352322503','445941323','3177176442','2386917030','987913018','1837154139','4173902237','471383856','3163563143','3320460562','4233664772','136476033','4041964504','3998595277','580879396','4086778421','716517886','1880466758','2658624690','801774605','3654951468','3927330565','4047003872','3355903820','3554269589','3367844462','3198922493','326512723','91426889','1013758148','1069150412','2113809448','3986973218','847403534','3003048480','65675266','62155587']</default>
+		</key>
 
 		<key name="window-w" type="i">
 			<default>600</default>

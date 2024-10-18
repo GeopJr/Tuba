@@ -1,0 +1,19 @@
+name: server
+version: 0.1.0
+
+authors:
+  - Evan Paterakis <evan@geopjr.dev>
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+  sqlite3:
+    github: crystal-lang/crystal-sqlite3
+
+targets:
+  server:
+    main: src/server.cr
+
+crystal: '>= 1.12.1'
+
+license: GPL-3.0-only

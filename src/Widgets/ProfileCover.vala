@@ -176,6 +176,9 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		_mini = mini;
 		if (mini) note_row.sensitive = false;
 
+		if (GLib.str_hash (profile.account.full_handle.down ()).to_string () in settings.contributors)
+			this.add_css_class ("thanks");
+
 		display_name.instance_emojis = profile.account.emojis_map;
 		display_name.content = profile.account.display_name;
 		handle.label = profile.account.handle;

@@ -296,11 +296,11 @@ headerbar.flat.no-title .title {
 	border-radius: inherit;
 }
 
-.ttl-post.direct {
+.ttl-post.direct, .thanks {
 	background-color: alpha(@warning_bg_color, .1);
 }
 
-.ttl-post.direct:hover {
+.ttl-post.direct:hover, .thanks:hover {
 	background-color: darker(alpha(@warning_bg_color, .1));
 }
 
