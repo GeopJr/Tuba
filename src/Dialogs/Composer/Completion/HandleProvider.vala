@@ -17,7 +17,7 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 	}
 
 	public override async ListModel suggest (string word, Cancellable? cancellable) throws Error {
-		var req = API.Account.search (word);
+		var req = API.Account.search (word.substring (1));
 		yield req.await ();
 
 		var results = new GLib.ListStore (typeof (Object));
