@@ -77,6 +77,10 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 		name = _("All Supported Files")
 	};
 
+	static construct {
+		typeof (Widgets.CustomEmojiChooser).ensure ();
+	}
+
 	construct {
 		filter.add_mime_type ("image/jpeg");
 		filter.add_mime_type ("image/png");

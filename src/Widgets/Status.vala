@@ -163,6 +163,12 @@
 		Tuba.toggle_css (this, settings.scale_emoji_hover, "lww-scale-emoji-hover");
 	}
 
+	static construct {
+		typeof (Widgets.Avatar).ensure ();
+		typeof (Widgets.RichLabel).ensure ();
+		typeof (Widgets.MarkupView).ensure ();
+	}
+
 	construct {
 		pin_indicator.update_property (Gtk.AccessibleProperty.LABEL, pin_indicator.tooltip_text, -1);
 		edited_indicator.update_property (Gtk.AccessibleProperty.LABEL, edited_indicator.tooltip_text, -1);

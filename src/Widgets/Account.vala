@@ -38,6 +38,14 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		}
 	}
 
+	static construct {
+		typeof (Widgets.Background).ensure ();
+		typeof (Widgets.Avatar).ensure ();
+		typeof (RelationshipButton).ensure ();
+		typeof (Widgets.EmojiLabel).ensure ();
+		typeof (Widgets.MarkupView).ensure ();
+	}
+
 	[GtkChild] unowned Widgets.Background background;
 	[GtkChild] unowned Gtk.Overlay cover_overlay;
 	[GtkChild] unowned Gtk.Label cover_badge;

@@ -14,6 +14,11 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	Views.Base? last_view = null;
 
+	static construct {
+		typeof (Views.MediaViewer).ensure ();
+		typeof (Views.Sidebar).ensure ();
+	}
+
 	construct {
 		construct_saveable (settings);
 

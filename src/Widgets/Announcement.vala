@@ -74,6 +74,11 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		}
 	}
 
+	static construct {
+		typeof (Widgets.RichLabel).ensure ();
+		typeof (Widgets.MarkupView).ensure ();
+	}
+
 	private API.Announcement announcement { get; private set; }
 	public signal void open ();
 

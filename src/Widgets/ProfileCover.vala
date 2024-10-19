@@ -1,5 +1,12 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/profile_header.ui")]
 protected class Tuba.Widgets.Cover : Gtk.Box {
+	static construct {
+		typeof (Widgets.Background).ensure ();
+		typeof (Widgets.Avatar).ensure ();
+		typeof (Widgets.RelationshipButton).ensure ();
+		typeof (Widgets.EmojiLabel).ensure ();
+		typeof (Widgets.MarkupView).ensure ();
+	}
 
 	[GtkChild] unowned Gtk.FlowBox roles;
 	[GtkChild] unowned Widgets.Background background;
