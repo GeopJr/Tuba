@@ -425,7 +425,7 @@ video > overlay > revealer > controls, .audio-controls {
 
 @keyframes loadbg {
 	0% { background-size: 0%; }
-	98% { background-size: 105%; }
+	95% { background-size: 105%; }
 	100% { background-size: 100%; }
 }
 
