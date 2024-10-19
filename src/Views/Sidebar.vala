@@ -41,6 +41,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	}
 
 	static construct {
+		typeof (Widgets.Avatar).ensure ();
 		typeof (Widgets.EmojiLabel).ensure ();
 		set_layout_manager_type (typeof (Gtk.BinLayout));
 	}
@@ -242,6 +243,10 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	// Account
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/account.ui")]
 	protected class AccountRow : Adw.ActionRow {
+		static construct {
+			typeof (Widgets.Avatar).ensure ();
+		}
+
 		public InstanceAccount? account;
 
 		[GtkChild] unowned Widgets.Avatar avatar;
