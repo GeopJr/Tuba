@@ -751,3 +751,7 @@ popover.mini-profile > contents {
 list.uniform-border-color row {
 	border-bottom-color: @borders;
 }
+
+.emoji-reaction-expander > box > list, .emoji-reaction-expander > box > list > row  {
+	border-radius: inherit;
+}
