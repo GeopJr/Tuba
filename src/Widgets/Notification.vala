@@ -41,6 +41,7 @@ public class Tuba.Widgets.Notification : Widgets.Status {
 			case InstanceAccount.KIND_FAVOURITE:
 			case InstanceAccount.KIND_REBLOG:
 			case InstanceAccount.KIND_PLEROMA_REACTION:
+			case InstanceAccount.KIND_REACTION:
 				this.add_css_class ("can-be-dimmed");
 				break;
 		}

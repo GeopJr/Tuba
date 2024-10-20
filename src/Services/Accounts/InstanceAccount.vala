@@ -21,6 +21,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_ADMIN_SIGNUP = "admin.sign_up";
 	public const string KIND_STATUS = "status";
 	public const string KIND_PLEROMA_REACTION = "pleroma:emoji_reaction";
+	public const string KIND_REACTION = "reaction";
 
 	public string uuid { get; set; }
 	public bool admin_mode { get; set; default=false; }
@@ -350,6 +351,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				};
 				break;
 			case KIND_PLEROMA_REACTION:
+			case KIND_REACTION:
 				string body;
 				if (other_data == null) {
 					// translators: the variable is a string user name,
