@@ -1,6 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/announcement.ui")]
 public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
-	private API.Announcement announcement { get; private set; }
 	public signal void open ();
 
 	[GtkChild] protected unowned Adw.Avatar avatar;
@@ -10,7 +9,7 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 	[GtkChild] protected unowned Gtk.Image attention_indicator;
 	[GtkChild] protected unowned Gtk.Label date_label;
 	[GtkChild] protected unowned Widgets.MarkupView content;
-	[GtkChild] protected unowned Gtk.FlowBox emoji_reactions;
+	[GtkChild] protected unowned Gtk.Box mainbox;
 
 	private void aria_describe_status () {
 		// translators: This is an accessibility label.
@@ -68,36 +67,6 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		);
 	}
 
-	private Gee.ArrayList<API.EmojiReaction>? reactions {
-		set {
-			if (value == null) return;
-
-			var i = 0;
-			Gtk.FlowBoxChild? fb_child = null;
-			while ((fb_child = emoji_reactions.get_child_at_index (i)) != null) {
-				emoji_reactions.remove (fb_child);
-				i = i + 1;
-			}
-
-			foreach (API.EmojiReaction p in value) {
-				if (p.count <= 0) return;
-
-				var badge_button = new Widgets.ReactButton (p);
-				badge_button.reaction_toggled.connect (on_reaction_toggled);
-
-				emoji_reactions.insert (
-					new Gtk.FlowBoxChild () {
-						child = badge_button,
-						focusable = false
-					},
-					-1
-				);
-			}
-
-			emoji_reactions.visible = value.size > 0;
-		}
-	}
-
 	void settings_updated () {
 		Tuba.toggle_css (this, settings.larger_font_size, "ttl-status-font-large");
 		Tuba.toggle_css (this, settings.larger_line_height, "ttl-status-line-height-large");
@@ -124,8 +93,6 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 	string announcement_date;
 	int reactions_count = 0;
 	public Announcement (API.Announcement t_announcement) {
-		announcement = t_announcement;
-
 		content.instance_emojis = t_announcement.emojis_map;
 		content.content = t_announcement.content;
 		attention_indicator.visible = !t_announcement.read;
@@ -151,34 +118,17 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		if (instance_title != "") avatar.show_initials = true;
 		if (instance_thumbnail != "") Tuba.Helper.Image.request_paintable (instance_thumbnail, null, false, on_cache_response);
 
-		reactions = t_announcement.reactions;
 		reactions_count = t_announcement.reactions.size;
+		if (reactions_count > 0)
+			mainbox.append (new Widgets.ReactionsRow (t_announcement.id, t_announcement.reactions, true) {
+				margin_top = 16
+			});
 
-		announcement.bind_property ("read", attention_indicator, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
+		t_announcement.bind_property ("read", attention_indicator, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 		aria_describe_status ();
 	}
 
 	void on_cache_response (Gdk.Paintable? data) {
 		avatar.custom_image = data;
-	}
-
-	private void on_reaction_toggled (Widgets.ReactButton btn) {
-		var endpoint = @"/api/v1/announcements/$(announcement.id)/reactions/$(btn.shortcode)";
-		var req = btn.has_reacted ? new Request.DELETE (endpoint) : new Request.PUT (endpoint);
-
-		btn.sensitive = false;
-		req
-			.with_account (accounts.active)
-			.then (() => {
-				btn.update_reacted (!btn.has_reacted);
-				btn.sensitive = true;
-			})
-			.on_error ((code, message) => {
-				warning (@"Error while reacting to announcement: $code $message");
-				btn.sensitive = true;
-
-				app.toast ("%s: %s".printf (_("Error"), message));
-			})
-			.exec ();
 	}
 }

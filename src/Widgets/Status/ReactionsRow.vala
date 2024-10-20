@@ -4,6 +4,16 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 	Gtk.MenuButton emoji_button;
 	Gtk.MenuButton? custom_emoji_button;
 
+	private bool _is_announcement = false;
+	public bool is_announcement {
+		get { return _is_announcement; }
+		set {
+			emoji_button.visible = !value;
+			if (custom_emoji_button != null) custom_emoji_button.visible = !value;
+			_is_announcement = value;
+		}
+	}
+
 	private bool can_add_reaction {
 		set {
 			emoji_button.sensitive = value;
@@ -25,7 +35,8 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 			column_spacing = 6,
 			row_spacing = 6,
 			// Lower values leave space between items
-			max_children_per_line = 100
+			max_children_per_line = 100,
+			selection_mode = Gtk.SelectionMode.NONE
 		};
 
 		this.child = reaction_box;
@@ -53,7 +64,7 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 	}
 
 	private void update_reaction_add_state () {
-		if (accounts.active.instance_info == null) return;
+		if (this.is_announcement || accounts.active.instance_info == null) return;
 
 		int64 max_reacts = accounts.active.instance_info.compat_status_reactions_max;
 		if (max_reacts == 0) return;
@@ -128,7 +139,8 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 	}
 
 	string status_id;
-	public ReactionsRow (string status_id, Gee.ArrayList<API.EmojiReaction> reactions) {
+	public ReactionsRow (string status_id, Gee.ArrayList<API.EmojiReaction> reactions, bool is_announcement = false) {
+		this.is_announcement = is_announcement;
 		this.status_id = status_id;
 		this.reactions = reactions;
 	}
@@ -158,7 +170,7 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 			reaction_request (shortcode, false)
 				.with_account (accounts.active)
 				.then ((in_stream) => {
-					if (accounts.active.instance_info.pleroma != null) {
+					if (!this.is_announcement) {
 						var parser = Network.get_parser_from_inputstream (in_stream);
 						var node = network.parse_node (parser);
 						var status = API.Status.from (node);
@@ -176,7 +188,10 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 	}
 
 	private Request reaction_request (string shortcode, bool has_reacted) {
-		if (accounts.active.instance_info.pleroma != null) {
+		if (this.is_announcement) {
+			string endpoint = @"/api/v1/announcements/$status_id/reactions/$(Uri.escape_string(shortcode))";
+			return has_reacted ? new Request.DELETE (endpoint) : new Request.PUT (endpoint);
+		} else if (accounts.active.instance_info.pleroma != null) {
 			string endpoint = @"/api/v1/pleroma/statuses/$status_id/reactions/$(Uri.escape_string(shortcode))";
 			return has_reacted ? new Request.DELETE (endpoint) : new Request.PUT (endpoint);
 		} else {
