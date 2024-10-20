@@ -186,6 +186,16 @@ public class Tuba.API.Instance : Entity {
 		}
 	}
 
+	public int64 compat_status_reactions_max {
+		get {
+			if (configuration != null && configuration.reactions != null) {
+				return configuration.reactions.max_reactions;
+			}
+
+			return 0;
+		}
+	}
+
 	public static API.Instance from (Json.Node node) throws Error {
 		return Entity.from_json (typeof (API.Instance), node) as API.Instance;
 	}

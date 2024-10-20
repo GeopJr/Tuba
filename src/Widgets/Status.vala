@@ -26,6 +26,8 @@
 	private Gtk.Button? quoted_status_btn { get; set; default = null; }
 	public bool enable_thread_lines { get; set; default = false; }
 	public API.Translation? translation { get; private set; default = null; }
+	private Adw.Bin? emoji_reactions { get; set; default = null; }
+	protected string? other_data { get; set; default = null; }
 
 	private bool _can_be_opened = true;
 	public bool can_be_opened {
@@ -145,18 +147,6 @@
 	private SimpleAction mute_conversation_action;
 	private SimpleAction unmute_conversation_action;
 
-	protected Adw.Bin emoji_reactions;
-	public Gee.ArrayList<API.EmojiReaction>? reactions {
-		get { return status.formal.compat_status_reactions; }
-		set {
-			if (emoji_reactions != null) content_column.remove (emoji_reactions);
-			if (value == null) return;
-
-			emoji_reactions = new ReactionsRow (value);
-			content_column.insert_child_after (emoji_reactions, spoiler_stack);
-		}
-	}
-
 	void settings_updated () {
 		Tuba.toggle_css (this, settings.larger_font_size, "ttl-status-font-large");
 		Tuba.toggle_css (this, settings.larger_line_height, "ttl-status-line-height-large");
@@ -206,7 +196,18 @@
 
 	private bool has_stats { get { return status.formal.reblogs_count != 0 || status.formal.favourites_count != 0; } }
 	private void show_view_stats_action () {
-		stats_simple_action.set_enabled (has_stats);
+		stats_simple_action.set_enabled (has_stats || has_reactions ());
+	}
+
+	private bool has_reactions () {
+		bool res = false;
+
+		var reactions = status.formal.compat_status_reactions;
+		if (reactions != null && reactions.size > 0) {
+			res = reactions[0].account_ids != null && reactions[0].account_ids.size > 0;
+		}
+
+		return res;
 	}
 
 	public Status (API.Status status) {
@@ -379,7 +380,7 @@
 	}
 
 	private void view_stats () {
-		app.main_window.open_view (new Views.StatusStats (status.formal.id));
+		app.main_window.open_view (new Views.StatusStats (status.formal.id, has_reactions ()));
 	}
 
 	private void on_edit (API.Status x) {
@@ -619,7 +620,8 @@
 			this.kind,
 			out res_kind,
 			actor_name,
-			this.kind_instigator.url
+			this.kind_instigator.url,
+			this.other_data
 		);
 
 		if (header_button_activate > 0) header_button.disconnect (header_button_activate);
@@ -948,6 +950,12 @@
 			}
 		}
 
+		if (emoji_reactions != null) content_column.remove (emoji_reactions);
+		if (status.formal.compat_status_reactions != null) {
+			emoji_reactions = new ReactionsRow (status.formal.id, status.formal.compat_status_reactions);
+			content_column.insert_child_after (emoji_reactions, spoiler_stack);
+		}
+
 		spoiler_label.label = this.spoiler_text;
 		spoiler_label_rev.label = this.spoiler_text_revealed;
 
@@ -982,8 +990,6 @@
 		// translators: Tooltip text for avatars in posts.
 		//				The variable is a string user handle.
 		name_button.tooltip_text = avatar.tooltip_text = _("Open %s's Profile").printf (status.formal.account.handle);
-
-		reactions = status.formal.compat_status_reactions;
 
 		name_label.instance_emojis = status.formal.account.emojis_map;
 		name_label.label = title_text;
