@@ -196,7 +196,18 @@
 
 	private bool has_stats { get { return status.formal.reblogs_count != 0 || status.formal.favourites_count != 0; } }
 	private void show_view_stats_action () {
-		stats_simple_action.set_enabled (has_stats);
+		stats_simple_action.set_enabled (has_stats || has_reactions ());
+	}
+
+	private bool has_reactions () {
+		bool res = false;
+
+		var reactions = status.formal.compat_status_reactions;
+		if (reactions != null && reactions.size > 0) {
+			res = reactions[0].account_ids != null && reactions[0].account_ids.size > 0;
+		}
+
+		return res;
 	}
 
 	public Status (API.Status status) {
@@ -369,7 +380,7 @@
 	}
 
 	private void view_stats () {
-		app.main_window.open_view (new Views.StatusStats (status.formal.id));
+		app.main_window.open_view (new Views.StatusStats (status.formal.id, has_reactions ()));
 	}
 
 	private void on_edit (API.Status x) {

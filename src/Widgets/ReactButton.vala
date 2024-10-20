@@ -50,7 +50,6 @@ public class Tuba.Widgets.ReactButton : Gtk.Button {
 
 	public void update_reaction (API.EmojiReaction reaction) {
 		if (reaction.count == 0) removed ();
-
 		update_button_props (reaction.me);
 		this.reactions = reaction.count;
 	}
