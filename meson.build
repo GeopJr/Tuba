@@ -87,6 +87,7 @@ libspelling = dependency('libspelling-1', required: false)
 clapper_dep = dependency('clapper-0.0', required: false)
 clapper_gtk_dep = dependency('clapper-gtk-0.0', required: false)
 gstreamer_dep = dependency('gstreamer-1.0', required: false)
+gtuber = dependency('gtuber-0.0', required: false)
 
 if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
@@ -114,6 +115,10 @@ if clapper_support and clapper_dep.found () and clapper_dep.version().version_co
   if clapper_dep.version().version_compare('>=0.8.0')
     add_project_arguments(['--define=CLAPPER_0_8'], language: 'vala')
   endif
+
+  if gtuber.found ()
+    add_project_arguments(['--define=GTUBER'], language: 'vala')
+  endif
 endif
 
 sources = files()
@@ -134,7 +139,8 @@ final_deps = [
   meson.get_compiler('c').find_library('m', required: false),
   clapper_dep,
   clapper_gtk_dep,
-  gstreamer_dep
+  gstreamer_dep,
+  gtuber
 ]
 
 executable(

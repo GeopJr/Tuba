@@ -1,0 +1,29 @@
+{
+    "name": "gtuber",
+    "buildsystem": "meson",
+    "config-opts": [
+		"-Dgst-gtuber=enabled",
+        "-Dintrospection=enabled",
+        "-Dvapi=enabled",
+        "-Dgst-gtuber=enabled",
+        "-Dbilibili=enabled",
+        "-Dcrunchyroll=enabled",
+        "-Dinvidious=enabled",
+        "-Dniconico=enabled",
+        "-Dpeertube=enabled",
+        "-Dpiped=enabled",
+        "-Dtwitch=enabled",
+        "-Dyoutube=enabled"
+    ],
+    "cleanup": [
+        "/include",
+        "/lib/pkgconfig"
+    ],
+    "sources": [
+        {
+            "type": "git",
+            "url": "https://github.com/Rafostar/gtuber.git",
+            "branch": "main"
+        }
+    ]
+}

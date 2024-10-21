@@ -38,6 +38,7 @@
         "mkdir -p /app/lib/ffmpeg"
     ],
     "modules": [
+		"gtuber.json",
         {
             "name": "clapper",
             "buildsystem": "meson",

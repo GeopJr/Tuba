@@ -3,7 +3,8 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 		BASIC,
 		PEERTUBE,
 		FUNKWHALE,
-		BOOKWYRM;
+		BOOKWYRM,
+		GTUBER;
 
 		public string to_string () {
 			switch (this) {
@@ -13,6 +14,8 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 					return "Funkwhale";
 				case BOOKWYRM:
 					return "BookWyrm";
+				case GTUBER:
+					return "Gtuber";
 				default:
 					return "";
 			}
@@ -30,6 +33,8 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 				case BOOKWYRM:
 					// translators: the variable is an external service like "BookWyrm"
 					return _("You are about to open a %s book").printf (this.to_string ());
+				case GTUBER:
+					return _("You are about to open a video");
 				default:
 					// translators: the variable is the app name (Tuba)
 					return _("You are about to leave %s").printf (Build.NAME);
@@ -121,6 +126,10 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 				return CardSpecialType.FUNKWHALE;
 			} else if (is_bookwyrm) {
 				return CardSpecialType.BOOKWYRM;
+			#if CLAPPER && GTUBER
+				} else if (Gtuber.has_plugin_for_uri (this.url, null)) {
+					return CardSpecialType.GTUBER;
+			#endif
 			}
 
 			return CardSpecialType.BASIC;
@@ -140,12 +149,12 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 
 	public bool is_peertube {
 		get {
-			// Disable PeerTube support for now
-			// see #253
-			#if false
+			#if CLAPPER
 				bool url_pt = url.last_index_of ("/videos/watch/") > -1;
 
 				return kind == "video" && provider_name == "PeerTube" && url_pt;
+			// Disable PeerTube support for now
+			// see #253
 			#else
 				return false;
 			#endif
@@ -174,9 +183,20 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 	}
 
 	public static void open_special_card (CardSpecialType card_special_type, string card_url) {
-		if (card_special_type.open_special_card (card_url)) {
-			return;
-		};
+		if (card_special_type.open_special_card (card_url)) return;
+
+		#if CLAPPER && GTUBER
+			if (card_special_type == API.PreviewCard.CardSpecialType.GTUBER || card_special_type == API.PreviewCard.CardSpecialType.PEERTUBE) {
+				string fin_url = card_url;
+				if (card_special_type == API.PreviewCard.CardSpecialType.PEERTUBE) {
+					fin_url = fin_url.splice (0, fin_url.index_of_char ('/') + 2, "peertube://");
+				}
+
+				app.main_window.show_media_viewer (fin_url, Tuba.Attachment.MediaType.VIDEO, null, null, false, null, fin_url, null, true);
+				return;
+			}
+		#endif
+
 		string special_api_url = "";
 		string special_host = "";
 		try {
