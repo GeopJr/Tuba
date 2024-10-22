@@ -63,7 +63,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	private void on_drag_end (double x, double y) {
 		if (scrolled.vadjustment.value == 0.0 && pull_to_refresh_spinner.margin_top >= 125) {
-			on_refresh ();
+			on_manual_refresh ();
 		}
 
 		is_pulling = false;
@@ -86,8 +86,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			reached_close_to_top.connect (finish_queue);
 		#endif
 
-		app.refresh.connect (on_refresh);
-		status_button.clicked.connect (on_refresh);
+		app.refresh.connect (on_manual_refresh);
+		status_button.clicked.connect (on_manual_refresh);
 
 		construct_account_holder ();
 
@@ -249,6 +249,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		GLib.Idle.add (request);
 	}
 
+	public virtual void on_manual_refresh () {
+		on_refresh ();
+	}
 
 	protected virtual void on_account_changed (InstanceAccount? acc) {
 		account = acc;

@@ -226,7 +226,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 	}
 
 	private void on_tuba_rs () {
-		if (api_account != null)
+		if (api_account != null && api_account.tuba_rs != null)
 			rs = api_account.tuba_rs;
 	}
 
