@@ -97,6 +97,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 
 		if (accounts.active.instance_emojis != null && accounts.active.instance_emojis.size > 0) {
 			cepbtn.visible = true;
+			bio_row.bind_property ("expanded", cepbtn, "sensitive", GLib.BindingFlags.SYNC_CREATE);
 		}
 	}
 

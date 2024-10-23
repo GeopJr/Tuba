@@ -128,7 +128,6 @@
                             <property name="title" translatable="yes">Bio</property>
                             <child type="action">
                               <object class="GtkMenuButton" id="cepbtn">
-                                <property name="sensitive" bind-source="bio_row" bind-property="expanded" bind-flags="sync-create"/>
                                 <style>
                                   <class name="circular"/>
                                 </style>
