@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-10-17 01:15+0000\n"
+"PO-Revision-Date: 2024-10-24 05:15+0000\n"
 "Last-Translator: Ahmed Mohammed <ira.traq@outlook.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.8-rc\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -2182,7 +2182,7 @@ msgstr "ردًا"
 #: src/Services/Accounts/InstanceAccount.vala:301
 #, c-format
 msgid "In Reply to %s"
-msgstr "ردًا إلى %s"
+msgstr "ردًا على %s"
 
 #. translators: the variable is a string user name,
 #. this is used for admin notifications
