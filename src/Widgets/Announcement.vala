@@ -73,6 +73,11 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		Tuba.toggle_css (this, settings.scale_emoji_hover, "lww-scale-emoji-hover");
 	}
 
+	static construct {
+		typeof (Widgets.RichLabel).ensure ();
+		typeof (Widgets.MarkupView).ensure ();
+	}
+
 	construct {
 		edited_indicator.update_property (Gtk.AccessibleProperty.LABEL, edited_indicator.tooltip_text, -1);
 
