@@ -32,17 +32,21 @@ public class Tuba.Widgets.HashtagBar : Adw.Bin {
 	}
 
 	public HashtagBar (TagExtractor.Tag[] tags) {
+		bool should_show_all = tags.length <= MAX_VISIBLE_TAGS + 1;
+
 		for (int i = 0; i < tags.length; i++) {
 			flowbox.append (
 				new Gtk.FlowBoxChild () {
 					child = new HashtagButton (tags [i]),
-					visible = i < MAX_VISIBLE_TAGS,
+					visible = should_show_all || i < MAX_VISIBLE_TAGS,
 					focusable = false
 				}
 			);
 		}
 
-		if (tags.length > MAX_VISIBLE_TAGS) {
+		if (!should_show_all) {
+			// translators: the variable is a number. This is used in a button that shows
+			//				all post hashtags when clicked.
 			show_more = new Gtk.Button.with_label (_("Show %d More").printf (tags.length - MAX_VISIBLE_TAGS)) {
 				css_classes = { "flat", "profile-role-border-radius", "hashtag-bar-hashtag" }
 			};
