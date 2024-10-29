@@ -40,6 +40,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 		content_box.child = content;
 
 		scrolled.vadjustment.value_changed.connect (on_scrolled_vadjustment_value_change);
+		scroll_to_top_rev.bind_property ("child-revealed", scroll_to_top_rev, "visible", GLib.BindingFlags.SYNC_CREATE);
 	}
 	~ContentBase () {
 		debug ("Destroying ContentBase");
@@ -55,12 +56,21 @@ public class Tuba.Views.ContentBase : Views.Base {
 		}
 
 		var is_close_to_top = scrolled.vadjustment.value <= 1000;
-		scroll_to_top_rev.reveal_child = !is_close_to_top
-			&& scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper;
+		set_scroll_to_top_reveal_child (
+			!is_close_to_top
+			&& scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper
+		);
 
 		#if !USE_LISTVIEW
 			if (is_close_to_top) reached_close_to_top ();
 		#endif
+	}
+
+	protected void set_scroll_to_top_reveal_child (bool reveal) {
+		if (reveal == scroll_to_top_rev.reveal_child) return;
+		if (reveal) scroll_to_top_rev.visible = true;
+
+		scroll_to_top_rev.reveal_child = reveal;
 	}
 
 	#if USE_LISTVIEW
