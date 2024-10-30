@@ -70,7 +70,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 	construct {
 		label = new Gtk.Label ("") {
 			wrap = true,
-			wrap_mode = Pango.WrapMode.WORD,
+			wrap_mode = Pango.WrapMode.WORD_CHAR,
 			xalign = 0.0f,
 			valign = Gtk.Align.START,
 			use_markup = false,
@@ -246,7 +246,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 
 		if (old_label != new_label) {
 			label.wrap = true;
-			label.wrap_mode = Pango.WrapMode.WORD;
+			label.wrap_mode = Pango.WrapMode.WORD_CHAR;
 
 			_text = new_label;
 			label.label = _text;
