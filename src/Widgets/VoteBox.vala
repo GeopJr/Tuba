@@ -79,7 +79,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 		button_vote.sensitive = false;
 		button_vote.visible = !this.show_results && !poll.expired && !poll.voted;
 		button_results.visible = !poll.expired && !poll.voted;
-		button_refresh.visible = !poll.expired;
+		button_refresh.visible = !button_vote.visible && !poll.expired;
 
 		if (this.show_results) {
 			button_results.icon_name = "tuba-eye-not-looking-symbolic";
