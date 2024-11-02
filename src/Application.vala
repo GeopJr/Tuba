@@ -372,6 +372,9 @@ namespace Tuba {
 		}
 
 		protected override void shutdown () {
+			if (settings.analytics) app.update_analytics ();
+			app.update_contributors ();
+
 			#if !DEV_MODE
 				settings.apply_all ();
 			#endif
@@ -706,6 +709,102 @@ namespace Tuba {
 			return QuestionAnswer.from_string (yield dlg.choose (win, null));
 		}
 
+		public string generate_analytics_object (bool pretty = false) {
+			var generator = new Json.Generator () {
+				pretty = pretty
+			};
+			var builder = new Json.Builder ();
+			builder.begin_object ();
+
+			builder.set_member_name ("accounts");
+			builder.begin_array ();
+			accounts.saved.foreach (e => {
+				builder.add_string_value (e.uuid);
+				return true;
+			});
+			builder.end_array ();
+
+			builder.set_member_name ("analytics");
+			builder.add_value (settings.to_debug_json ().get_root ());
+
+			builder.end_object ();
+			generator.set_root (builder.get_root ());
+			return generator.to_data (null);
+		}
+
+		public void update_contributors () {
+			if (!settings.update_contributors) {
+				// if updating contributors from the API is not enabled
+				// but it has been enabled at some point in the past,
+				// revert the contributors array to the default.
+				// That will allow us to force clients that have
+				// updated them manually in the past to use the bundled
+				// array which might be more up-to-date.
+				if (settings.last_contributors_update != null && settings.last_contributors_update != "") {
+					settings.reset ("contributors");
+					settings.last_contributors_update = "";
+				}
+
+				return;
+			}
+
+			bool can_update = false;
+			GLib.DateTime now_utc = new GLib.DateTime.now_utc ();
+
+			if (settings.last_contributors_update == null || settings.last_contributors_update == "") {
+				can_update = true;
+			} else {
+				GLib.DateTime? then_utc = new GLib.DateTime.from_iso8601 (settings.last_contributors_update, null);
+				if (then_utc == null) {
+					can_update = true;
+				} else {
+					can_update = now_utc.difference (then_utc) > TimeSpan.DAY * 14;
+				}
+			}
+
+			if (!can_update) return;
+			new Request.GET ("https://api.tuba.geopjr.dev/v1/supporters")
+				.then ((in_stream) => {
+					var parser = Network.get_parser_from_inputstream (in_stream);
+
+					string[] new_contributors = {};
+					Network.parse_array (parser, node => {
+						if (node != null) {
+							new_contributors += node.get_string ();
+						}
+					});
+
+					settings.contributors = new_contributors;
+					settings.last_contributors_update = now_utc.format_iso8601 ();
+				})
+				.exec ();
+		}
+
+		public void update_analytics () {
+			if (!settings.analytics) return;
+
+			bool can_update = false;
+			GLib.DateTime now_utc = new GLib.DateTime.now_utc ();
+
+			if (settings.last_analytics_update == null || settings.last_analytics_update == "") {
+				can_update = true;
+			} else {
+				GLib.DateTime? then_utc = new GLib.DateTime.from_iso8601 (settings.last_analytics_update, null);
+				if (then_utc == null) {
+					can_update = true;
+				} else {
+					can_update = now_utc.difference (then_utc) > TimeSpan.DAY * 14;
+				}
+			}
+
+			if (!can_update) return;
+			new Request.POST ("https://api.tuba.geopjr.dev/v1/analytics")
+				.body ("application/json", new Bytes.take (generate_analytics_object ().data))
+				.then ((in_stream) => {
+					settings.last_analytics_update = now_utc.format_iso8601 ();
+				})
+				.exec ();
+		}
 	}
 
 	public static void toggle_css (Gtk.Widget wdg, bool state, string style) {
@@ -715,5 +814,4 @@ namespace Tuba {
 			wdg.remove_css_class (style);
 		}
 	}
-
 }

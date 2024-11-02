@@ -300,7 +300,7 @@ headerbar.flat.no-title .title {
 	background-color: alpha(@warning_bg_color, .1);
 }
 
-.ttl-post.direct:hover {
+.ttl-post.direct:hover{
 	background-color: darker(alpha(@warning_bg_color, .1));
 }
 
@@ -769,4 +769,12 @@ list.uniform-border-color row {
 
 .emoji-reaction-expander > box > list, .emoji-reaction-expander > box > list > row  {
 	border-radius: inherit;
+}
+
+.ttl-profile-cover.thanks {
+	background: alpha(@accent_bg_color, 0.1);
+}
+
+.ttl-profile-cover.thanks avatar {
+	border-color: alpha(@accent_bg_color, 0.1);
 }
