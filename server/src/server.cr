@@ -21,7 +21,8 @@ module Tuba::Server
 
   VERSION = {{read_file("#{__DIR__}/../shard.yml").split("version: ")[1].split("\n")[0]}}
 
-  get "/v1/version" do
+  get "/v1/version" do |env|
+    env.response.content_type = "text/plain"
     VERSION
   end
 
@@ -29,10 +30,11 @@ module Tuba::Server
     env.response.content_type = "text/plain"
     res = "pong"
     if env.params.query["token"]? == CONFIG.token
+      running_for_span = Time.utc - UPTIMER
       res = <<-TEXT
       #{res}
-      Running for: #{Time.utc - UPTIMER}
-      Database size: #{File.exists?(CONFIG.database) ? File.size(CONFIG.database) : "0"}
+      Running for: #{running_for_span.days} Days, #{running_for_span.hours} Hours, #{running_for_span.minutes} Minutes, #{running_for_span.seconds} Seconds
+      Database size: #{File.exists?(CONFIG.database) ? "#{File.size(CONFIG.database) / (1024 * 1024)}MB" : "0MB"}
       TEXT
     end
 
