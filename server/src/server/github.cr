@@ -185,7 +185,7 @@ class Tuba::GitHubSupporters
       end
     end
 
-    res
+    res[0..15]
   end
 
   def gather_sponsors : Array(String)
