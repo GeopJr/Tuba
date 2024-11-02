@@ -758,9 +758,9 @@ list.uniform-border-color row {
 }
 
 .ttl-profile-cover.thanks {
-	background: alpha(@accent_bg_color, 0.3);
+	background: alpha(@accent_bg_color, 0.1);
 }
 
 .ttl-profile-cover.thanks avatar {
-	border-color: alpha(@accent_bg_color, 0.3);
+	border-color: alpha(@accent_bg_color, 0.1);
 }
