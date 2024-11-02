@@ -4,6 +4,10 @@ public class Tuba.Widgets.PreviewCardExplore : Gtk.ListBoxRow {
 		debug ("Destroying PreviewCardExplore");
 	}
 
+	static construct {
+		typeof (Widgets.PreviewCardInternal).ensure ();
+	}
+
 	[GtkChild] unowned Widgets.PreviewCardInternal box;
 
 	private string url;

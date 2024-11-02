@@ -77,6 +77,10 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 		name = _("All Supported Files")
 	};
 
+	static construct {
+		typeof (Widgets.CustomEmojiChooser).ensure ();
+	}
+
 	construct {
 		filter.add_mime_type ("image/jpeg");
 		filter.add_mime_type ("image/png");
@@ -97,6 +101,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 
 		if (accounts.active.instance_emojis != null && accounts.active.instance_emojis.size > 0) {
 			cepbtn.visible = true;
+			bio_row.bind_property ("expanded", cepbtn, "sensitive", GLib.BindingFlags.SYNC_CREATE);
 		}
 	}
 
