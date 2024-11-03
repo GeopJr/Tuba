@@ -128,10 +128,6 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		}
 	}
 
-	void toggle_scale_emoji_hover () {
-		Tuba.toggle_css (note, settings.scale_emoji_hover, "lww-scale-emoji-hover");
-	}
-
 	void on_cache_response (Gdk.Paintable? data) {
 		background.paintable = data;
 	}
@@ -178,10 +174,6 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		open.connect (account.open);
 		background.clicked.connect (account.open);
 		avatar.clicked.connect (account.open);
-
-		if (settings.scale_emoji_hover)
-			note.add_css_class ("lww-scale-emoji-hover");
-		settings.notify["scale-emoji-hover"].connect (toggle_scale_emoji_hover);
 
 		display_name.instance_emojis = account.emojis_map;
 		display_name.content = account.display_name;

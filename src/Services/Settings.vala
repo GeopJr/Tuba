@@ -103,22 +103,17 @@ public class Tuba.Settings : GLib.Settings {
 		}
 	}
 
-	public ColorScheme color_scheme { get; set; }
 	public bool work_in_background { get; set; }
 	public int timeline_page_size { get; set; }
 	public bool live_updates { get; set; }
 	public bool public_live_updates { get; set; }
 	public bool show_spoilers { get; set; }
-	public bool show_preview_cards { get; set; }
 	public bool larger_font_size { get; set; }
 	public bool larger_line_height { get; set; }
-	public bool scale_emoji_hover { get; set; }
 	public bool aggressive_resolving { get; set; }
 	public bool strip_tracking { get; set; }
 	public bool letterbox_media { get; set; }
-	public bool media_viewer_expand_pictures { get; set; }
 	public bool enlarge_custom_emojis { get; set; }
-	public bool use_blurhash { get; set; }
 	public bool group_push_notifications { get; set; }
 	public bool advanced_boost_dialog { get; set; }
 	public bool reply_to_old_post_reminder { get; set; }
@@ -136,21 +131,16 @@ public class Tuba.Settings : GLib.Settings {
 
 	private static string[] keys_to_init = {
 		"active-account",
-		"color-scheme",
 		"timeline-page-size",
 		"live-updates",
 		"public-live-updates",
 		"show-spoilers",
-		"show-preview-cards",
 		"larger-font-size",
 		"larger-line-height",
 		"aggressive-resolving",
 		"strip-tracking",
-		"scale-emoji-hover",
 		"letterbox-media",
-		"media-viewer-expand-pictures",
 		"enlarge-custom-emojis",
-		"use-blurhash",
 		"group-push-notifications",
 		"advanced-boost-dialog",
 		"reply-to-old-post-reminder",
@@ -221,40 +211,5 @@ public class Tuba.Settings : GLib.Settings {
 
 		builder.end_object ();
 		return builder;
-	}
-}
-
-public enum Tuba.ColorScheme {
-	SYSTEM,
-	LIGHT,
-	DARK;
-
-	public string to_string () {
-		switch (this) {
-			case SYSTEM:
-				// translators: Follow System's dark mode preference
-				return _("Follow System");
-			case LIGHT:
-				// translators: Light mode theme
-				return _("Light");
-			case DARK:
-				// translators: Dark mode theme
-				return _("Dark");
-			default:
-				assert_not_reached ();
-		}
-	}
-
-	public Adw.ColorScheme to_adwaita_scheme () {
-		switch (this) {
-			case SYSTEM:
-				return DEFAULT;
-			case LIGHT:
-				return FORCE_LIGHT;
-			case DARK:
-				return FORCE_DARK;
-			default:
-				assert_not_reached ();
-		}
 	}
 }

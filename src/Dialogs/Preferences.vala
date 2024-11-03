@@ -107,7 +107,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		public string event;
 	}
 
-	[GtkChild] unowned Adw.ComboRow scheme_combo_row;
 	[GtkChild] unowned Adw.ComboRow post_visibility_combo_row;
 	[GtkChild] unowned Adw.ComboRow default_language_combo_row;
 	[GtkChild] unowned Adw.ComboRow default_content_type_combo_row;
@@ -116,15 +115,11 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow live_updates;
 	[GtkChild] unowned Adw.SwitchRow public_live_updates;
 	[GtkChild] unowned Adw.SwitchRow show_spoilers;
-	[GtkChild] unowned Adw.SwitchRow show_preview_cards;
 	[GtkChild] unowned Adw.SwitchRow larger_font_size;
 	[GtkChild] unowned Adw.SwitchRow larger_line_height;
-	[GtkChild] unowned Adw.SwitchRow scale_emoji_hover;
 	[GtkChild] unowned Adw.SwitchRow strip_tracking;
 	[GtkChild] unowned Adw.SwitchRow letterbox_media;
-	[GtkChild] unowned Adw.SwitchRow media_viewer_expand_pictures;
 	[GtkChild] unowned Adw.SwitchRow enlarge_custom_emojis;
-	[GtkChild] unowned Adw.SwitchRow use_blurhash;
 	[GtkChild] unowned Adw.SwitchRow group_push_notifications;
 	[GtkChild] unowned Adw.SwitchRow advanced_boost_dialog;
 	[GtkChild] unowned Adw.SwitchRow darken_images_on_dark_mode;
@@ -173,16 +168,9 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	private bool lang_changed { get; set; default=false; }
 	private bool privacy_changed { get; set; default=false; }
 
-	static construct {
-		typeof (ColorSchemeListModel).ensure ();
-	}
-
 	construct {
 		proxy_entry.text = settings.proxy;
 		post_visibility_combo_row.model = accounts.active.visibility_list;
-
-		// Setup scheme combo row
-		scheme_combo_row.selected = settings.get_enum ("color-scheme");
 
 		uint default_visibility_index;
 		if (
@@ -288,15 +276,11 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		settings.bind ("live-updates", live_updates, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("public-live-updates", public_live_updates, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("show-spoilers", show_spoilers, "active", SettingsBindFlags.DEFAULT);
-		settings.bind ("show-preview-cards", show_preview_cards, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("larger-font-size", larger_font_size, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("larger-line-height", larger_line_height, "active", SettingsBindFlags.DEFAULT);
-		settings.bind ("scale-emoji-hover", scale_emoji_hover, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("strip-tracking", strip_tracking, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("letterbox-media", letterbox_media, "active", SettingsBindFlags.DEFAULT);
-		settings.bind ("media-viewer-expand-pictures", media_viewer_expand_pictures, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("enlarge-custom-emojis", enlarge_custom_emojis, "active", SettingsBindFlags.DEFAULT);
-		settings.bind ("use-blurhash", use_blurhash, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("group-push-notifications", group_push_notifications, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("advanced-boost-dialog", advanced_boost_dialog, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("darken-images-on-dark-mode", darken_images_on_dark_mode, "active", SettingsBindFlags.DEFAULT);
@@ -312,15 +296,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	private void dlcr_cb () {
 		lang_changed = true;
 		default_language_combo_row.disconnect (dlcr_id);
-	}
-
-	[GtkCallback]
-	private void on_scheme_changed () {
-		var selected_item = (ColorSchemeListItem) scheme_combo_row.selected_item;
-		var style_manager = Adw.StyleManager.get_default ();
-
-		style_manager.color_scheme = selected_item.adwaita_scheme;
-		settings.color_scheme = selected_item.color_scheme;
 	}
 
 	[GtkCallback]
@@ -515,49 +490,5 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	[GtkCallback] protected void on_analytics_preview () {
 		(new AnalyticsDialog ()).present (this);
-	}
-}
-
-public class Tuba.ColorSchemeListModel : Object, ListModel {
-	private Gee.ArrayList<ColorSchemeListItem> array = new Gee.ArrayList<ColorSchemeListItem> ();
-
-	construct {
-		array.add (new ColorSchemeListItem (SYSTEM));
-		array.add (new ColorSchemeListItem (LIGHT));
-		array.add (new ColorSchemeListItem (DARK));
-	}
-
-	public Object? get_item (uint position) requires (position < array.size) {
-		return array.get ((int) position);
-	}
-
-	public Type get_item_type () {
-		return typeof (ColorSchemeListItem);
-	}
-
-	public uint get_n_items () {
-		return array.size;
-	}
-
-	public Object? get_object (uint position) {
-		return get_item (position);
-	}
-}
-
-public class Tuba.ColorSchemeListItem : Object {
-	public ColorScheme color_scheme { get; construct; }
-	public string name {
-		owned get {
-			return color_scheme.to_string ();
-		}
-	}
-	public Adw.ColorScheme adwaita_scheme {
-		get {
-			return color_scheme.to_adwaita_scheme ();
-		}
-	}
-
-	public ColorSchemeListItem (ColorScheme color_scheme) {
-		Object (color_scheme: color_scheme);
 	}
 }

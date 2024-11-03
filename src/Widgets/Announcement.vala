@@ -70,7 +70,6 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 	void settings_updated () {
 		Tuba.toggle_css (this, settings.larger_font_size, "ttl-status-font-large");
 		Tuba.toggle_css (this, settings.larger_line_height, "ttl-status-line-height-large");
-		Tuba.toggle_css (this, settings.scale_emoji_hover, "lww-scale-emoji-hover");
 	}
 
 	static construct {
@@ -87,12 +86,8 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 		if (settings.larger_line_height)
 			add_css_class ("ttl-status-line-height-large");
 
-		if (settings.scale_emoji_hover)
-			add_css_class ("lww-scale-emoji-hover");
-
 		settings.notify["larger-font-size"].connect (settings_updated);
 		settings.notify["larger-line-height"].connect (settings_updated);
-		settings.notify["scale-emoji-hover"].connect (settings_updated);
 	}
 
 	string announcement_date;
