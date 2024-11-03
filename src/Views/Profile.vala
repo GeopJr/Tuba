@@ -16,14 +16,17 @@ public class Tuba.Views.Profile : Views.Accounts {
 		}
 	}
 
+	public enum Filter {
+		POSTS,
+		REPLIES,
+		MEDIA
+	}
+
 	public ProfileAccount profile { get; construct set; }
-	public bool include_replies { get; set; default = false; }
-	public bool only_media { get; set; default = false; }
+	public Filter filter { get; set; default = Filter.POSTS; }
 	public string source { get; set; default = "statuses"; }
 
 	protected Gtk.MenuButton menu_button;
-	protected SimpleAction media_action;
-	protected SimpleAction replies_action;
 	protected SimpleAction muting_action;
 	protected SimpleAction hiding_reblogs_action;
 	protected SimpleAction blocking_action;
@@ -48,7 +51,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	public bool append_pinned () {
-		if (source == "statuses") {
+		if (source == "statuses" && filter == Filter.POSTS) {
 			new Request.GET (@"/api/v1/accounts/$(profile.account.id)/statuses")
 				.with_account (account)
 				.with_param ("pinned", "true")
@@ -88,6 +91,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 		if (widget_cover != null) {
 			widget_cover.rs_invalidated.connect (on_rs_updated);
 			widget_cover.timeline_change.connect (change_timeline_source);
+			widget_cover.filter_change.connect (change_filter);
 			widget_cover.aria_updated.connect (on_cover_aria_update);
 			widget_cover.remove_css_class ("card");
 			widget_cover.remove_css_class ("card-spacing");
@@ -151,6 +155,11 @@ public class Tuba.Views.Profile : Views.Accounts {
 		invalidate_actions (true);
 	}
 
+	protected void change_filter (Filter filter) {
+		this.filter = filter;
+		invalidate_actions (true);
+	}
+
 	protected override void build_header () {
 		base.build_header ();
 
@@ -203,20 +212,6 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 	protected override void build_actions () {
 		base.build_actions ();
-
-		media_action = new SimpleAction.stateful ("only-media", null, false);
-		media_action.change_state.connect (v => {
-			media_action.set_state (only_media = v.get_boolean ());
-			invalidate_actions (true);
-		});
-		actions.add_action (media_action);
-
-		replies_action = new SimpleAction.stateful ("include-replies", null, false);
-		replies_action.change_state.connect (v => {
-			replies_action.set_state (include_replies = v.get_boolean ());
-			invalidate_actions (true);
-		});
-		actions.add_action (replies_action);
 
 		notify_on_new_post_action = new SimpleAction.stateful ("notify_on_post", null, false);
 		notify_on_new_post_action.change_state.connect (v => {
@@ -332,8 +327,6 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	void invalidate_actions (bool refresh) {
-		replies_action.set_enabled (accepts == typeof (API.Status));
-		media_action.set_enabled (accepts == typeof (API.Status));
 		muting_action.set_state (profile.rs.muting);
 		hiding_reblogs_action.set_state (!profile.rs.showing_reblogs);
 		hiding_reblogs_action.set_enabled (profile.rs.following);
@@ -356,8 +349,20 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 	public override Request append_params (Request req) {
 		if (page_next == null && source == "statuses") {
-			req.with_param ("exclude_replies", (!include_replies).to_string ());
-			req.with_param ("only_media", only_media.to_string ());
+			switch (this.filter) {
+				case Filter.POSTS:
+					req.with_param ("exclude_replies", "true");
+					break;
+				case Filter.REPLIES:
+					req.with_param ("exclude_replies", "false");
+					req.with_param ("exclude_reblogs", "true");
+					break;
+				case Filter.MEDIA:
+					req.with_param ("only_media", "true");
+					break;
+				default:
+					assert_not_reached ();
+			}
 		}
 		return base.append_params (req);
 	}

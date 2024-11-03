@@ -29,6 +29,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	public API.Relationship rs { get; construct set; }
 	public signal void rs_invalidated ();
 	public signal void timeline_change (string timeline);
+	public signal void filter_change (Views.Profile.Filter filter);
 	public signal void aria_updated (string new_aria);
 
 	~Cover () {
@@ -336,6 +337,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 		if (!mini) {
 			build_profile_stats (profile.account);
+			build_profile_filters ();
 		} else {
 			background.height_request = 64;
 
@@ -448,6 +450,38 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		btn.clicked.connect (() => timeline_change ("followers"));
 		sizegroup.add_widget (btn);
 		box.append (btn);
+
+		row.activatable = false;
+		row.focusable = false;
+		row.child = box;
+		info.append (row);
+	}
+
+	protected void build_profile_filters () {
+		var row = new Gtk.ListBoxRow ();
+		var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+		var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
+
+		var btn = build_profile_stats_button (_("Posts"));
+		box.append (btn);
+		btn.clicked.connect (() => filter_change (Views.Profile.Filter.POSTS));
+		sizegroup.add_widget (btn);
+
+		var separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+		box.append (separator);
+
+		btn = build_profile_stats_button (_("Replies"));
+		btn.clicked.connect (() => filter_change (Views.Profile.Filter.REPLIES));
+		box.append (btn);
+		sizegroup.add_widget (btn);
+
+		separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+		box.append (separator);
+
+		btn = build_profile_stats_button (_("Media"));
+		btn.clicked.connect (() => filter_change (Views.Profile.Filter.MEDIA));
+		box.append (btn);
+		sizegroup.add_widget (btn);
 
 		row.activatable = false;
 		row.focusable = false;
