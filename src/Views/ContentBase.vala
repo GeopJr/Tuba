@@ -101,11 +101,11 @@ public class Tuba.Views.ContentBase : Views.Base {
 		this.model.remove_all ();
 	}
 
-	protected virtual void clear_all_but_first () {
+	protected virtual void clear_all_but_first (int i = 1) {
 		base.clear ();
 
-		if (model.n_items > 1)
-			model.splice (1, model.n_items - 1, {});
+		if (model.n_items > i)
+			model.splice (i, model.n_items - i, {});
 	}
 
 	public override void on_content_changed () {

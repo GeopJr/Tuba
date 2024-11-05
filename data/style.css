@@ -300,7 +300,7 @@ headerbar.flat.no-title .title {
 	background-color: alpha(@warning_bg_color, .1);
 }
 
-.ttl-post.direct:hover{
+.ttl-post.direct:hover {
 	background-color: darker(alpha(@warning_bg_color, .1));
 }
 
@@ -336,7 +336,7 @@ headerbar.flat.no-title .title {
 .about .app-version:hover{background:radial-gradient(circle at 9.75% 50%,#0000 6.66%,#7902aa 6.7%,#0000 8.4%),conic-gradient(at 26.66% 50%,#0000 222.75deg,#ffd800 0 317.25deg,#0000 0),conic-gradient(at 33% 50%,#0000 222.75deg,white 0 317.25deg,#0000 0),conic-gradient(at 39% 50%,#0000 222.75deg,#ffa6b9 0 317.25deg,#0000 0),conic-gradient(at 45.66% 50%,#0000 222.75deg,#00d2ff 0 317.25deg,#0000 0),conic-gradient(at 52% 50%,#0000 222.75deg,#753000 0 317.25deg,#0000 0),conic-gradient(at 58.33% 50%,#0000 222.75deg,#000 0 317.25deg,#0000 0),linear-gradient(to bottom,#e40303,#e40303 16.67%,#ff8c00 16.67%,#ff8c00 33.33%,#ffed00 33.33%,#ffed00 50%,#008026 50%,#008026 66.67%,#004dff 66.67%,#004dff 83.33%,#750787 83.33%,#750787);}
 
 /* Composer auto completion */
-GtkSourceAssistant.completion list row{
+GtkSourceAssistant.completion list row {
 	padding: 6px 12px 6px 12px;
 }
 
@@ -433,12 +433,12 @@ video > overlay > revealer > controls, .audio-controls {
 	animation: loadbg 0.5s ease;
 }
 
-.ttl-poll-row:first-child{
+.ttl-poll-row:first-child {
 	border-top-left-radius: 12px;
 	border-top-right-radius: 12px;
 }
 
-.ttl-poll-row:last-child{
+.ttl-poll-row:last-child {
 	border-bottom-left-radius: 12px;
 	border-bottom-right-radius: 12px;
 }
@@ -477,7 +477,7 @@ video > overlay > revealer > controls, .audio-controls {
 
 .ttl-view listview>row.activatable:selected:hover,
 .ttl-view listview>row.activatable:hover {
-	background-color:transparent;
+	background-color: transparent;
 }
 
 .ttl-view listview>row.activatable:selected:active,
@@ -496,7 +496,8 @@ video > overlay > revealer > controls, .audio-controls {
 }
 
 /* .ttl-view .small.content .card { */
-.ttl-view .small.fake-content .card {
+.ttl-view .small.fake-content .card,
+.ttl-view .small.fake-content .toggle-group-17 {
 	border-left: none;
 	border-right: none;
 	border-radius: 0px;
@@ -508,7 +509,7 @@ video > overlay > revealer > controls, .audio-controls {
 }
 
 /* .ttl-view .content row:not(.ttl-post) { */
-.ttl-view .fake-content row:not(.ttl-post) {
+.ttl-view .fake-content row:not(.ttl-post):not(.toggle-group-17) {
 	padding: 0px;
 }
 
@@ -558,6 +559,7 @@ video > overlay > revealer > controls, .audio-controls {
 .ttl-view .small.fake-content .card {
 	box-shadow: none;
 }
+
 .ttl-view .small .preview_card.explore .preview_card_h {
 	border-radius: 0px;
 }
@@ -660,7 +662,8 @@ video > overlay > revealer > controls, .audio-controls {
 	font-size: small;
 }
 
-.preview_card:not(.explore), .preview_card:not(.explore) image:not(.attachment-overlay-icon) {
+.preview_card:not(.explore),
+.preview_card:not(.explore) image:not(.attachment-overlay-icon) {
 	background-color: alpha(currentColor, 0.0625);
 }
 
@@ -767,7 +770,8 @@ list.uniform-border-color row {
 	border-bottom-color: @borders;
 }
 
-.emoji-reaction-expander > box > list, .emoji-reaction-expander > box > list > row  {
+.emoji-reaction-expander>box>list,
+.emoji-reaction-expander>box>list>row {
 	border-radius: inherit;
 }
 
@@ -777,4 +781,32 @@ list.uniform-border-color row {
 
 .ttl-profile-cover.thanks avatar {
 	border-color: alpha(@accent_bg_color, 0.1);
+}
+
+.toggle-group-17 {
+	background: color-mix(in srgb, currentColor 10%, transparent);
+	border-radius: 9px;
+	padding: 3px;
+}
+
+.toggle-group-17 button {
+	padding: 2px 15px;
+	transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transition-property: outline-color, outline-width, outline-offset, background, box-shadow;
+}
+
+.toggle-group-17 button:checked {
+	background: rgb(from var(--card-bg-color) r g b / calc(alpha * 2));
+	color: var(--card-fg-color);
+	box-shadow: 0 1px 3px 1px rgb(0 0 0 / 7%),
+		0 2px 6px 2px rgb(0 0 0 / 3%);
+}
+
+.toggle-group-17 separator {
+	margin: 3px 1px;
+	transition: opacity 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.toggle-group-17 separator.hidden {
+	opacity: 0;
 }

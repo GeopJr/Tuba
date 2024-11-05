@@ -151,9 +151,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		base.clear ();
 	}
 
-	protected override void clear_all_but_first () {
+	protected override void clear_all_but_first (int i = 1) {
 		cleanup_timeline_api ();
-		base.clear_all_but_first ();
+		base.clear_all_but_first (i);
 	}
 
 	public void get_pages (string? header) {

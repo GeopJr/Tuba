@@ -3,6 +3,7 @@
     <gresource prefix="/dev/geopjr/Tuba/">
         <file>style.css</file>
         <file>style-dark.css</file>
+        <file>style-hc.css</file>
 
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-hashtag-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-bookmarks-symbolic.svg</file>
