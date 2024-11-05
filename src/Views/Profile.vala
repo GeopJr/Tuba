@@ -16,14 +16,14 @@ public class Tuba.Views.Profile : Views.Accounts {
 		}
 	}
 
-	public enum Filter {
-		POSTS,
-		REPLIES,
-		MEDIA
+	public class FilterGroup : Widgetizable, GLib.Object {
+		public override Gtk.Widget to_widget () {
+			return new Widgets.ProfileFilterGroup ();
+		}
 	}
 
 	public ProfileAccount profile { get; construct set; }
-	public Filter filter { get; set; default = Filter.POSTS; }
+	public Widgets.ProfileFilterGroup.Filter filter { get; set; default = Widgets.ProfileFilterGroup.Filter.POSTS; }
 	public string source { get; set; default = "statuses"; }
 
 	protected Gtk.MenuButton menu_button;
@@ -44,6 +44,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 		);
 
 		model.insert (0, profile);
+		model.insert (1, new FilterGroup ());
 		profile.rs.invalidated.connect (on_rs_updated);
 	}
 	~Profile () {
@@ -51,7 +52,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	public bool append_pinned () {
-		if (source == "statuses" && filter == Filter.POSTS) {
+		if (source == "statuses" && filter == Widgets.ProfileFilterGroup.Filter.POSTS) {
 			new Request.GET (@"/api/v1/accounts/$(profile.account.id)/statuses")
 				.with_account (account)
 				.with_param ("pinned", "true")
@@ -67,8 +68,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 						to_add += e_status;
 					});
-					model.splice (1, 0, to_add);
-
+					model.splice (2, 0, to_add);
 				})
 				.exec ();
 		}
@@ -91,7 +91,6 @@ public class Tuba.Views.Profile : Views.Accounts {
 		if (widget_cover != null) {
 			widget_cover.rs_invalidated.connect (on_rs_updated);
 			widget_cover.timeline_change.connect (change_timeline_source);
-			widget_cover.filter_change.connect (change_filter);
 			widget_cover.aria_updated.connect (on_cover_aria_update);
 			widget_cover.remove_css_class ("card");
 			widget_cover.remove_css_class ("card-spacing");
@@ -112,6 +111,12 @@ public class Tuba.Views.Profile : Views.Accounts {
 		if (widget_status != null && profile.account.id == accounts.active.id) {
 			widget_status.show_toggle_pinned_action ();
 			widget_status.pin_changed.connect (on_refresh);
+		}
+
+		var widget_filter_group = widget as Widgets.ProfileFilterGroup;
+		if (widget_filter_group != null) {
+			widget_filter_group.remove_css_class ("card");
+			widget_filter_group.filter_change.connect (change_filter);
 		}
 
 		return widget;
@@ -155,7 +160,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 		invalidate_actions (true);
 	}
 
-	protected void change_filter (Filter filter) {
+	protected void change_filter (Widgets.ProfileFilterGroup.Filter filter) {
 		this.filter = filter;
 		invalidate_actions (true);
 	}
@@ -207,7 +212,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	protected override void clear () {
-		base.clear_all_but_first ();
+		base.clear_all_but_first (2);
 	}
 
 	protected override void build_actions () {
@@ -350,14 +355,14 @@ public class Tuba.Views.Profile : Views.Accounts {
 	public override Request append_params (Request req) {
 		if (page_next == null && source == "statuses") {
 			switch (this.filter) {
-				case Filter.POSTS:
+				case Widgets.ProfileFilterGroup.Filter.POSTS:
 					req.with_param ("exclude_replies", "true");
 					break;
-				case Filter.REPLIES:
+				case Widgets.ProfileFilterGroup.Filter.REPLIES:
 					req.with_param ("exclude_replies", "false");
 					req.with_param ("exclude_reblogs", "true");
 					break;
-				case Filter.MEDIA:
+				case Widgets.ProfileFilterGroup.Filter.MEDIA:
 					req.with_param ("only_media", "true");
 					break;
 				default:

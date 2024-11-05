@@ -21,6 +21,7 @@ sources += files(
     'PreviewCardInternal.vala',
     'PreviewCardExplore.vala',
     'ProfileCover.vala',
+    'ProfileFilterGroup.vala',
     'ReactButton.vala',
     'RelationshipButton.vala',
     'RichLabel.vala',
