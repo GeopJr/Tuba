@@ -69,23 +69,23 @@ public class Tuba.Widgets.ProfileFilterGroup : Gtk.ListBoxRow {
 		toggle_button.toggled.connect (on_toggled);
 	}
 
-	private void update_separator (Gtk.Widget separator, Gtk.StateFlags? state_flags = null) {
+	private void update_separator (Gtk.Widget separator) {
         var prev_button = separator.get_prev_sibling ();
         var next_button = separator.get_next_sibling ();
 
         separator.visible = prev_button != null && next_button != null;
 
-        if (should_hide_separators (prev_button, state_flags) ||
-            should_hide_separators (next_button, state_flags))
+        if (should_hide_separators (prev_button) ||
+            should_hide_separators (next_button))
             separator.add_css_class ("hidden");
         else
             separator.remove_css_class ("hidden");
     }
 
-	private bool should_hide_separators (Gtk.Widget? widget, Gtk.StateFlags? state_flags = null) {
+	private bool should_hide_separators (Gtk.Widget? widget) {
         if (widget == null) return true;
 
-        var flags = state_flags == null ? widget.get_state_flags () : state_flags;
+        var flags = widget.get_state_flags ();
         if ((flags & (Gtk.StateFlags.PRELIGHT |
                       Gtk.StateFlags.ACTIVE |
                       Gtk.StateFlags.CHECKED)) != 0)
@@ -103,10 +103,10 @@ public class Tuba.Widgets.ProfileFilterGroup : Gtk.ListBoxRow {
 		var next_separator = button.get_next_sibling ();
 
 		if (prev_separator != null)
-			update_separator (prev_separator, flags);
+			update_separator (prev_separator);
 
 		if (next_separator != null)
-			update_separator (next_separator, flags);
+			update_separator (next_separator);
 	}
 
 	private void on_toggled (Gtk.ToggleButton toggle_button) {
