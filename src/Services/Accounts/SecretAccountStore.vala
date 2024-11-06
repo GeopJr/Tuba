@@ -101,6 +101,11 @@ public class Tuba.SecretAccountStore : AccountStore {
 		debug (@"Saved $(saved.size) accounts");
 	}
 
+	public override void update_account (InstanceAccount account) throws GLib.Error {
+		account_to_secret (account);
+		debug (@"Updated $(account.full_handle)");
+	}
+
 	public override void remove (InstanceAccount account) throws GLib.Error {
 		base.remove (account);
 
@@ -180,6 +185,14 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 		builder.set_member_name ("admin-mode");
 		builder.add_boolean_value (account.admin_mode);
+
+		builder.set_member_name ("api-versions");
+		builder.begin_object ();
+
+		builder.set_member_name ("mastodon");
+		builder.add_int_value (account.tuba_mastodon_version);
+
+		builder.end_object ();
 
 		// If display name has emojis it's
 		// better to save and load them
