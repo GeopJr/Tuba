@@ -8,7 +8,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		typeof (Widgets.MarkupView).ensure ();
 	}
 
-	[GtkChild] unowned Gtk.FlowBox roles;
+	[GtkChild] unowned Adw.WrapBox roles;
 	[GtkChild] unowned Widgets.Background background;
 	[GtkChild] unowned Gtk.Label cover_badge;
 	[GtkChild] unowned Gtk.Image cover_bot_badge;
@@ -173,7 +173,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	}
 
 	bool _mini = false;
-	Gtk.FlowBox fields_box;
+	Adw.WrapBox fields_box;
 	Gtk.ListBoxRow fields_box_row;
 	int total_fields = 0;
 	string stats_string = "";
@@ -203,12 +203,9 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			roles.visible = true;
 
 			foreach (API.AccountRole role in profile.account.roles) {
-				roles.append (
-					new Gtk.FlowBoxChild () {
-						child = role.to_widget (),
-						css_classes = { "profile-role-border-radius" }
-					}
-				);
+				var role_widget = role.to_widget ();
+				role_widget.add_css_class ("profile-role-border-radius");
+				roles.append (role_widget);
 			}
 		}
 
@@ -239,10 +236,11 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		}
 
 		if (profile.account.fields != null || profile.account.created_at != null) {
-			fields_box = new Gtk.FlowBox () {
-				max_children_per_line = app.is_mobile ? 1 : 2,
-				min_children_per_line = 1,
-				selection_mode = Gtk.SelectionMode.NONE,
+			fields_box = new Adw.WrapBox () {
+				// FIXME i guess
+				//  max_children_per_line = app.is_mobile ? 1 : 2,
+				//  min_children_per_line = 1,
+				//  selection_mode = Gtk.SelectionMode.NONE,
 				css_classes = {"ttl-profile-fields-box"}
 			};
 			var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
@@ -398,7 +396,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	}
 
 	private void update_fields_max_columns () {
-		fields_box.max_children_per_line = app.is_mobile ? 1 : 2;
+		// FIXME
+		//  fields_box.max_children_per_line = app.is_mobile ? 1 : 2;
 	}
 
 	protected void build_profile_stats (API.Account account) {

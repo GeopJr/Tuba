@@ -18,14 +18,14 @@ public class Tuba.Widgets.HashtagBar : Adw.Bin {
 		}
 	}
 
-	Gtk.FlowBox flowbox;
+	Adw.WrapBox flowbox;
 	Gtk.Button show_more;
 	construct {
-		flowbox = new Gtk.FlowBox () {
-			selection_mode = Gtk.SelectionMode.NONE,
-			column_spacing = 6,
-			row_spacing = 6,
-			max_children_per_line = 100
+		flowbox = new Adw.WrapBox () {
+			//  selection_mode = Gtk.SelectionMode.NONE,
+			child_spacing = 6,
+			line_spacing = 6,
+			//  max_children_per_line = 100
 		};
 
 		this.child = flowbox;
@@ -36,10 +36,8 @@ public class Tuba.Widgets.HashtagBar : Adw.Bin {
 
 		for (int i = 0; i < tags.length; i++) {
 			flowbox.append (
-				new Gtk.FlowBoxChild () {
-					child = new HashtagButton (tags [i]),
-					visible = should_show_all || i < MAX_VISIBLE_TAGS,
-					focusable = false
+				new HashtagButton (tags [i]) {
+					visible = should_show_all || i < MAX_VISIBLE_TAGS
 				}
 			);
 		}
@@ -52,23 +50,20 @@ public class Tuba.Widgets.HashtagBar : Adw.Bin {
 			};
 			show_more.clicked.connect (on_clicked);
 
-			flowbox.append (new Gtk.FlowBoxChild () {
-				child = show_more,
-				focusable = false
-			});
+			flowbox.append (show_more);
 		}
 	}
 
 	private void on_clicked () {
 		flowbox.remove (show_more);
 
-		int i = MAX_VISIBLE_TAGS;
-		var child = flowbox.get_child_at_index (i);
-		while (child != null) {
-			child.visible = true;
+		int i = 0;
+		var w = this.get_first_child ();
+		while (w != null) {
+			if (i >= MAX_VISIBLE_TAGS) w.visible = true;
 
 			i = i + 1;
-			child = flowbox.get_child_at_index (i);
-		}
+			w = w.get_next_sibling ();
+		};
 	}
 }

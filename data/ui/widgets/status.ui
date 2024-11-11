@@ -107,62 +107,45 @@
                         <property name="spacing">6</property>
                         <property name="valign">start</property>
                         <child>
-                          <object class="GtkFlowBox" id="name_flowbox">
-                            <property name="selection-mode">none</property>
-                            <property name="column_spacing">6</property>
-                            <!-- <property name="margin-bottom">6</property> -->
-                            <!-- Lower values leave space between items -->
-                            <property name="max_children_per_line">100</property>
+                          <object class="AdwWrapBox" id="name_flowbox">
+                            <property name="child-spacing">6</property>
                             <child>
-                              <object class="GtkFlowBoxChild">
-                                <property name="focusable">0</property>
-                                <child>
-                                  <object class="GtkButton" id="name_button">
-                                    <property name="halign">start</property>
-                                    <property name="valign">center</property>
-                                    <accessibility>
-                                      <relation name="described-by">avatar</relation>
-                                    </accessibility>
-                                    <child>
-                                      <object class="TubaWidgetsRichLabel" id="name_label">
-                                        <property name="visible">True</property>
-                                        <property name="smaller-emoji-pixel-size">True</property>
-                                        <property name="use-markup">1</property>
-                                        <style>
-                                          <class name="font-bold" />
-                                        </style>
-                                      </object>
-                                    </child>
-                                    <style>
-                                      <class name="flat" />
-                                      <class name="ttl-name-button" />
-                                    </style>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkFlowBoxChild">
-                                <property name="can-target">0</property>
-                                <accessibility>
-                                  <relation name="labelled-by">handle_label</relation>
-                                </accessibility>
-                                <child>
-                                  <object class="GtkLabel" id="handle_label">
-                                    <property name="label" translatable="no">Handle</property>
-                                    <property name="single_line_mode">1</property>
-                                    <property name="xalign">0</property>
-                                    <property name="hexpand">1</property>
-                                    <property name="wrap">1</property>
-                                    <property name="wrap-mode">word-char</property>
-                                    <style>
-                                      <class name="body" />
-                                      <class name="dim-label" />
-                                    </style>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
+								<object class="GtkButton" id="name_button">
+								  <property name="halign">start</property>
+								  <property name="valign">center</property>
+								  <accessibility>
+									<relation name="described-by">avatar</relation>
+								  </accessibility>
+								  <child>
+									<object class="TubaWidgetsRichLabel" id="name_label">
+									  <property name="visible">True</property>
+									  <property name="smaller-emoji-pixel-size">True</property>
+									  <property name="use-markup">1</property>
+									  <style>
+										<class name="font-bold" />
+									  </style>
+									</object>
+								  </child>
+								  <style>
+									<class name="flat" />
+									<class name="ttl-name-button" />
+								  </style>
+								</object>
+							  </child>
+							  <child>
+								<object class="GtkLabel" id="handle_label">
+								  <property name="label" translatable="no">Handle</property>
+								  <property name="single_line_mode">1</property>
+								  <property name="xalign">0</property>
+								  <property name="hexpand">1</property>
+								  <property name="wrap">1</property>
+								  <property name="wrap-mode">word-char</property>
+								  <style>
+									<class name="body" />
+									<class name="dim-label" />
+								  </style>
+								</object>
+							  </child>
                           </object>
                         </child>
                         <child>
