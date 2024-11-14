@@ -36,23 +36,30 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 	//  	};
 	//  }
 
-	public static async Attachment upload (string uri) throws Error {
-		debug (@"Uploading new media: $(uri)…");
+	public static async Attachment upload (string? uri, Bytes? bytes, string? mime_type) throws Error {
+		assert_true (uri != null || (bytes != null && mime_type != null));
 
-		uint8[] contents;
+		Bytes buffer;
 		string mime;
-		GLib.FileInfo type;
-		try {
-			GLib.File file = File.new_for_uri (uri);
-			file.load_contents (null, out contents, null);
-			type = file.query_info (GLib.FileAttribute.STANDARD_CONTENT_TYPE, 0);
-			mime = type.get_content_type ();
-		}
-		catch (Error e) {
-			throw new Oopsie.USER ("Can't open file %s:\n%s".printf (uri, e.message));
+
+		if (uri != null) {
+			debug (@"Uploading new media: $(uri)…");
+			uint8[] contents;
+			try {
+				GLib.File file = File.new_for_uri (uri);
+				file.load_contents (null, out contents, null);
+				GLib.FileInfo type = file.query_info (GLib.FileAttribute.STANDARD_CONTENT_TYPE, 0);
+				mime = type.get_content_type ();
+			} catch (Error e) {
+				throw new Oopsie.USER ("Can't open file %s:\n%s".printf (uri, e.message));
+			}
+
+			buffer = new Bytes.take (contents);
+		} else {
+			buffer = bytes;
+			mime = mime_type;
 		}
 
-		var buffer = new Bytes.take (contents);
 		var multipart = new Soup.Multipart (Soup.FORM_MIME_TYPE_MULTIPART);
 		multipart.append_form_file ("file", mime.replace ("/", "."), mime, buffer);
 		var url = @"$(accounts.active.instance)/api/v1/media";

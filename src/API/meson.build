@@ -2,6 +2,7 @@ sources += files(
     'Account.vala',
     'AccountField.vala',
     'Announcement.vala',
+    'AnnualReports.vala',
     # 'Akkoma.vala', # uneeded for now
     'Attachment.vala',
     'BookWyrm.vala',

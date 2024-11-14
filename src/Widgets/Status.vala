@@ -965,7 +965,7 @@
 		spoiler_label.label = this.spoiler_text;
 		spoiler_label_rev.label = this.spoiler_text_revealed;
 
-		status.formal.tuba_spoiler_revealed = !status.formal.has_spoiler || settings.show_spoilers;
+		status.formal.tuba_spoiler_revealed = !status.formal.has_spoiler || status.formal.tuba_spoiler_revealed;
 		update_spoiler_status ();
 
 		handle_label.label = this.subtitle_text;

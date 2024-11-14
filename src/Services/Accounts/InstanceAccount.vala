@@ -22,6 +22,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_STATUS = "status";
 	public const string KIND_PLEROMA_REACTION = "pleroma:emoji_reaction";
 	public const string KIND_REACTION = "reaction";
+	public const string KIND_ANNUAL_REPORT = "annual_report";
 
 	public string uuid { get; set; }
 	public bool admin_mode { get; set; default=false; }
@@ -331,6 +332,20 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					//				due to admin instance or user suspension
 					//				or personal domain blocking
 					_("Some of your relationships got severed"),
+					null
+				};
+				break;
+			case KIND_ANNUAL_REPORT:
+				result = {
+					"tuba-heart-broken-symbolic",
+					// translators: this is used for notifications,
+					//				when an annual report is available.
+					//				it's similar to spotify wrapped, it
+					//				shows profile stats / it's a recap
+					//				of the year. The variable is the
+					//				current year e.g. 2024. Please don't
+					//				translate the hashtag.
+					_("Your %s #FediWrapped is ready!").printf (other_data),
 					null
 				};
 				break;

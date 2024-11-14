@@ -71,6 +71,8 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-starred-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-camera-focus-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-heart-filled-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-birthday-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-transparent-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/help-overlay.ui</file>
