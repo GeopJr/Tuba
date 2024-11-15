@@ -188,6 +188,9 @@ public class Tuba.EditorPage : ComposerPage {
 		private void update_spelling_settings () {
 			settings.spellchecker_enabled = adapter.enabled;
 		}
+
+		string? original_libspelling_lang = null;
+		string? original_libspelling_lang_iso639 = null;
 	#endif
 
 	GtkSource.LanguageManager lang_manager;
@@ -209,6 +212,8 @@ public class Tuba.EditorPage : ComposerPage {
 
 		#if LIBSPELLING
 			adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
+			original_libspelling_lang = Spelling.Checker.get_default ().language;
+			if (original_libspelling_lang != null) original_libspelling_lang_iso639 = original_libspelling_lang.split_set ("-_", 2)[0];
 
 			editor.extra_menu = adapter.get_menu_model ();
 			editor.insert_action_group ("spelling", adapter);
@@ -398,6 +403,10 @@ public class Tuba.EditorPage : ComposerPage {
 			enable_search = true
 		};
 
+		#if LIBSPELLING
+			language_button.notify["selected"].connect (on_langauge_changed);
+		#endif
+
 		if (locale_iso != null) {
 			uint default_lang_index;
 			if (
@@ -413,6 +422,28 @@ public class Tuba.EditorPage : ComposerPage {
 
 		add_button (language_button);
 	}
+
+	#if LIBSPELLING
+		private void on_langauge_changed () {
+			var locale_obj = language_button.selected_item as Tuba.Locales.Locale;
+			if (locale_obj == null || locale_obj.locale == null) return;
+
+			var new_locale = original_libspelling_lang_iso639 == locale_obj.locale
+				? original_libspelling_lang
+				: locale_obj.locale;
+			update_spelling_lang (new_locale);
+		}
+
+		private void update_spelling_lang (string locale_iso) {
+			var checker = Spelling.Checker.get_default ();
+			checker.language = locale_iso;
+
+			string? new_lang = checker.language;
+			if (new_lang == null && original_libspelling_lang != null) {
+				checker.language = original_libspelling_lang;
+			}
+		}
+	#endif
 
 	protected void install_content_type_button (string? content_type) {
 		content_type_button = new Gtk.DropDown (accounts.active.supported_mime_types, null) {
