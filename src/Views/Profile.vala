@@ -17,8 +17,12 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	public class FilterGroup : Widgetizable, GLib.Object {
+		public bool visible { get; set; default=true; }
+
 		public override Gtk.Widget to_widget () {
-			return new Widgets.ProfileFilterGroup ();
+			var widget = new Widgets.ProfileFilterGroup ();
+			this.bind_property ("visible", widget, "visible", GLib.BindingFlags.SYNC_CREATE);
+			return widget;
 		}
 	}
 
@@ -35,6 +39,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	protected SimpleAction notify_on_new_post_action;
 	//  protected SimpleAction source_action;
 
+	private FilterGroup filter_group;
 	public Profile (API.Account acc) {
 		Object (
 			profile: new ProfileAccount (acc),
@@ -43,8 +48,9 @@ public class Tuba.Views.Profile : Views.Accounts {
 			url: @"/api/v1/accounts/$(acc.id)/statuses"
 		);
 
+		filter_group = new FilterGroup ();
 		model.insert (0, profile);
-		model.insert (1, new FilterGroup ());
+		model.insert (1, filter_group);
 		profile.rs.invalidated.connect (on_rs_updated);
 	}
 	~Profile () {
@@ -139,6 +145,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	protected void change_timeline_source (string t_source) {
 		source = t_source;
 
+		filter_group.visible = t_source == "statuses";
 		switch (t_source) {
 			case "statuses":
 				accepts = typeof (API.Status);
