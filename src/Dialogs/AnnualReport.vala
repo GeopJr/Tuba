@@ -1,4 +1,44 @@
 public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
+	class PostButton : Gtk.Button {
+		~PostButton () {
+			debug (@"Destroying PostButton $(formal.id)");
+		}
+
+		construct {
+			this.css_classes = {"card"};
+		}
+
+		API.Status formal;
+		public PostButton (API.Status status) {
+			formal = status.formal;
+
+			status.formal.filtered = null;
+			status.formal.tuba_spoiler_revealed = true;
+			try {
+				var widg = status.to_widget () as Widgets.Status;
+				widg.actions.visible = false;
+				widg.menu_button.visible = false;
+				widg.activatable = false;
+				widg.filter_stack.can_focus = false;
+				widg.filter_stack.can_target = false;
+				widg.filter_stack.focusable = false;
+
+				this.child = widg;
+			} catch {}
+
+			this.clicked.connect (on_clicked);
+		}
+
+		private void on_clicked () {
+			var view = new Views.Thread (formal);
+			app.main_window.open_view (view);
+		}
+	}
+
+	~AnnualReport () {
+		debug ("Destroying AnnualReport");
+	}
+
 	string report_year;
 	Gtk.Box content_box;
 	Adw.ToastOverlay toast_overlay;
@@ -370,20 +410,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 			foreach (var status in report.statuses) {
 				if (status.id == current_report.data.top_statuses.by_favourites) {
-					try {
-						status.formal.filtered = null;
-						status.formal.tuba_spoiler_revealed = true;
-						var widg = status.to_widget () as Widgets.Status;
-						widg.add_css_class ("card");
-						widg.actions.visible = false;
-						widg.menu_button.visible = false;
-						widg.activatable = false;
-						widg.filter_stack.can_focus = false;
-						widg.filter_stack.can_target = false;
-						widg.filter_stack.focusable = false;
-
-						status_box.append (widg);
-					} catch {}
+					var post_btn = new PostButton (status);
+					post_btn.clicked.connect (on_post_button_clicked);
+					status_box.append (post_btn);
 					break;
 				}
 			}
@@ -399,20 +428,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 			foreach (var status in report.statuses) {
 				if (status.id == current_report.data.top_statuses.by_reblogs) {
-					try {
-						status.formal.filtered = null;
-						status.formal.tuba_spoiler_revealed = true;
-						var widg = status.to_widget () as Widgets.Status;
-						widg.add_css_class ("card");
-						widg.actions.visible = false;
-						widg.menu_button.visible = false;
-						widg.activatable = false;
-						widg.filter_stack.can_focus = false;
-						widg.filter_stack.can_target = false;
-						widg.filter_stack.focusable = false;
-
-						status_box.append (widg);
-					} catch {}
+					var post_btn = new PostButton (status);
+					post_btn.clicked.connect (on_post_button_clicked);
+					status_box.append (post_btn);
 					break;
 				}
 			}
@@ -428,26 +446,19 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 			foreach (var status in report.statuses) {
 				if (status.id == current_report.data.top_statuses.by_replies) {
-					try {
-						status.formal.filtered = null;
-						status.formal.tuba_spoiler_revealed = true;
-						var widg = status.to_widget () as Widgets.Status;
-						widg.add_css_class ("card");
-						widg.actions.visible = false;
-						widg.menu_button.visible = false;
-						widg.activatable = false;
-						widg.filter_stack.can_focus = false;
-						widg.filter_stack.can_target = false;
-						widg.filter_stack.focusable = false;
-
-						status_box.append (widg);
-					} catch {}
+					var post_btn = new PostButton (status);
+					post_btn.clicked.connect (on_post_button_clicked);
+					status_box.append (post_btn);
 					break;
 				}
 			}
 
 			advanced_box.append (status_box);
 		}
+	}
+
+	private void on_post_button_clicked () {
+		this.force_close ();
 	}
 
 	private void on_share () {
