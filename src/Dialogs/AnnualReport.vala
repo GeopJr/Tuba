@@ -7,6 +7,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 	GLib.Menu theme_menu_save;
 	GLib.Menu theme_menu_share;
 	Gtk.WidgetPaintable screenshot_paintable;
+	Adw.HeaderBar headerbar;
 	construct {
 		var actions = new SimpleActionGroup ();
 		actions.add_action_entries (
@@ -38,25 +39,30 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 			margin_start = 6,
 			margin_end = 6
 		};
+
+		var scrolled_window = new Gtk.ScrolledWindow () {
+			hexpand = true,
+			vexpand = true,
+			child = new Adw.Clamp () {
+				child = content_box,
+				tightening_threshold = 100,
+				valign = Gtk.Align.START
+			}
+		};
+
 		toast_overlay = new Adw.ToastOverlay () {
 			vexpand = true,
 			hexpand = true,
-			child = new Gtk.ScrolledWindow () {
-				hexpand = true,
-				vexpand = true,
-				child = new Adw.Clamp () {
-					child = content_box,
-					tightening_threshold = 100,
-					valign = Gtk.Align.START
-				}
-			}
+			child = scrolled_window
 		};
 
 		var toolbarview = new Adw.ToolbarView () {
 			content = toast_overlay
 		};
 
-		var headerbar = new Adw.HeaderBar ();
+		headerbar = new Adw.HeaderBar () {
+			show_title = false
+		};
 		toolbarview.add_top_bar (headerbar);
 
 		share_button = new Adw.SplitButton () {
@@ -75,6 +81,11 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		headerbar.pack_start (download_button);
 
 		this.child = toolbarview;
+		scrolled_window.vadjustment.value_changed.connect (on_vadjustment_changed);
+	}
+
+	private void on_vadjustment_changed (Gtk.Adjustment vadjustment) {
+		headerbar.show_title = vadjustment.value > 0;
 	}
 
 	string report_alt_text = "";
@@ -117,7 +128,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		//				Spotify wrapped / recap of the year. You can leave it
 		//				as is as it's more of an annual event that it's known
 		//				as 'wrapped'
-		screenshot_box.append (new Gtk.Label (_("%s Wrapped").printf (report_year)) {
+		var title = _("%s Wrapped").printf (report_year);
+		this.title = title;
+		screenshot_box.append (new Gtk.Label (title) {
 			css_classes = {"title-1"}
 		});
 
