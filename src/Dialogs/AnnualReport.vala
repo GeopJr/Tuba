@@ -6,6 +6,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 	Adw.SplitButton share_button;
 	GLib.Menu theme_menu_save;
 	GLib.Menu theme_menu_share;
+	Gtk.WidgetPaintable screenshot_paintable;
 	construct {
 		var actions = new SimpleActionGroup ();
 		actions.add_action_entries (
@@ -79,6 +80,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 	string report_alt_text = "";
 	public AnnualReport (API.AnnualReports report, int year = 0) {
 		screenshot_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+		screenshot_paintable = new Gtk.WidgetPaintable (screenshot_box);
 		content_box.append (screenshot_box);
 
 		var avi = new Widgets.Avatar () {
@@ -557,9 +559,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		Graphene.Rect rect = Graphene.Rect.zero ();
 		rect.init (0, 0, (float) width, (float) height);
 
-		Gtk.WidgetPaintable paintable = new Gtk.WidgetPaintable (screenshot_box);
 		Gtk.Snapshot snapshot = new Gtk.Snapshot ();
-
 		switch (background) {
 			case WINDOW:
 				Gdk.RGBA color = Gdk.RGBA ();
@@ -616,7 +616,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 			default:
 				break;
 		}
-		paintable.snapshot (snapshot, width, height);
+		screenshot_paintable.snapshot (snapshot, width, height);
 
 		Gsk.RenderNode? node = snapshot.to_node ();
 		if (node == null) {
