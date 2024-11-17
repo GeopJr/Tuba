@@ -57,6 +57,10 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		}
 	}
 
+	public class ModerationWarning : Entity {
+		public string id { get; set; }
+	}
+
 	public string id { get; set; }
 	public API.Account account { get; set; }
 	public string? kind { get; set; default = null; }
@@ -65,6 +69,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 	public string? emoji { get; set; default = null; }
 	public string? emoji_url { get; set; default = null; }
 	public API.Admin.Report? report { get; set; default = null; }
+	public ModerationWarning? moderation_warning { get; set; default = null; }
 
 	// the docs claim that 'relationship_severance_event'
 	// is the one used but that is not true
@@ -75,6 +80,10 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		switch (kind) {
 			case InstanceAccount.KIND_SEVERED_RELATIONSHIPS:
 				Host.open_url (@"$(accounts.active.instance)/severed_relationships");
+				break;
+			case InstanceAccount.KIND_MODERATION_WARNING:
+				string dispute_id = this.moderation_warning == null ? "" : this.moderation_warning.id;
+				Host.open_url (@"$(accounts.active.instance)/disputes/strikes/$dispute_id");
 				break;
 			case InstanceAccount.KIND_ADMIN_REPORT:
 				if (report != null) {
@@ -133,6 +142,8 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			case InstanceAccount.KIND_SEVERED_RELATIONSHIPS:
 				RelationshipSeveranceEvent? t_event = event == null ? relationship_severance_event : event;
 				return create_basic_card ("tuba-heart-broken-symbolic", t_event.to_string ());
+			case InstanceAccount.KIND_MODERATION_WARNING:
+				return create_basic_card ("tuba-police-badge2-symbolic", _("Your account has received a moderation warning"));
 			case InstanceAccount.KIND_ADMIN_REPORT:
 				return create_basic_card ("tuba-build-alt-symbolic", report.to_string (this.created_at));
 			case InstanceAccount.KIND_ANNUAL_REPORT:
@@ -194,7 +205,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			kind_actor_name = _("%s (& %d others)").printf (account.display_name, others);
 		}
 
-		issuer.describe_kind (kind, out res_kind, kind_actor_name, emoji);
+		issuer.describe_kind (kind, out res_kind, kind_actor_name, null, emoji);
 		var toast = new GLib.Notification (res_kind.description);
 		if (status != null) {
 			var body = "";
@@ -203,15 +214,28 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 		}
 
 		if (should_show_buttons) {
-			string var_string = account.url;
-			if (status != null && status.url != null) {
-				var_string = status.url;
-			}
+			switch (kind) {
+				case InstanceAccount.KIND_SEVERED_RELATIONSHIPS:
+				case InstanceAccount.KIND_ADMIN_REPORT:
+				case InstanceAccount.KIND_ADMIN_SIGNUP:
+				case InstanceAccount.KIND_ANNUAL_REPORT:
+					toast.set_default_action ("app.goto-notifications");
+					break;
+				case InstanceAccount.KIND_FOLLOW_REQUEST:
+					toast.set_default_action ("app.open-follow-requests");
+					break;
+				default:
+					string var_string = account.url;
+					if (status != null && status.url != null) {
+						var_string = status.url;
+					}
 
-			toast.set_default_action_and_target_value (
-				"app.open-status-url",
-				new Variant.string (var_string)
-			);
+					toast.set_default_action_and_target_value (
+						"app.open-status-url",
+						new Variant.string (var_string)
+					);
+					break;
+			}
 
 			switch (kind) {
 				case InstanceAccount.KIND_MENTION:

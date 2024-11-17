@@ -77,6 +77,7 @@ namespace Tuba {
 			{ "back-home", back_home_activated },
 			{ "scroll-page-down", scroll_view_page_down },
 			{ "scroll-page-up", scroll_view_page_up },
+			{ "goto-notifications", goto_notifications },
 			{ "open-status-url", open_status_url, "s" },
 			{ "answer-follow-request", answer_follow_request, "(ssb)" },
 			{ "follow-back", follow_back, "(ss)" },
@@ -121,6 +122,10 @@ namespace Tuba {
 				value.get_child_value (0).get_string (),
 				value.get_child_value (1).get_string ()
 			);
+		}
+
+		private void goto_notifications () {
+			Mastodon.Account.PLACE_NOTIFICATIONS.open_func (app.main_window);
 		}
 
 		private void open_status_url (GLib.SimpleAction action, GLib.Variant? value) {
