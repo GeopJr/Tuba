@@ -63,13 +63,13 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		theme_menu_share.append (_("Default"), "annual.share-background('window')");
 		// translators: Accent color
 		theme_menu_share.append (_("Accent"), "annual.share-background('accent')");
-		theme_menu_share.append (_("Rainbow"), "annual.share-background('rainbow')");
+		theme_menu_share.append ("Pride", "annual.share-background('pride')");
 		theme_menu_share.append ("Trans", "annual.share-background('trans')");
 
 		theme_menu_save = new GLib.Menu ();
 		theme_menu_save.append (_("Default"), "annual.save-as-background('window')");
 		theme_menu_save.append (_("Accent"), "annual.save-as-background('accent')");
-		theme_menu_save.append (_("Rainbow"), "annual.save-as-background('rainbow')");
+		theme_menu_save.append ("Pride", "annual.save-as-background('pride')");
 		theme_menu_save.append ("Trans", "annual.save-as-background('trans')");
 
 		this.add_css_class ("annual");
@@ -553,14 +553,14 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		TRANSPARENT,
 		WINDOW,
 		ACCENT,
-		RAINBOW,
+		PRIDE,
 		TRANS;
 
 		public static Background from_string (string name) {
 			switch (name.down ()) {
 				case "window": return WINDOW;
 				case "accent": return ACCENT;
-				case "rainbow": return RAINBOW;
+				case "pride": return PRIDE;
 				case "trans": return TRANS;
 				default: return TRANSPARENT;
 			}
@@ -598,7 +598,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 			case ACCENT:
 				snapshot.append_color (Adw.StyleManager.get_default ().get_accent_color_rgba (), rect);
 				break;
-			case RAINBOW:
+			case PRIDE:
 				Gdk.RGBA color = Gdk.RGBA ();
 				if (Adw.StyleManager.get_default ().dark) {
 					color.parse ("#222226");
