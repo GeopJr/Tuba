@@ -219,6 +219,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				case InstanceAccount.KIND_ADMIN_REPORT:
 				case InstanceAccount.KIND_ADMIN_SIGNUP:
 				case InstanceAccount.KIND_ANNUAL_REPORT:
+				case InstanceAccount.KIND_MODERATION_WARNING:
 					toast.set_default_action ("app.goto-notifications");
 					break;
 				case InstanceAccount.KIND_FOLLOW_REQUEST:
