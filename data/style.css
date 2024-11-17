@@ -810,3 +810,31 @@ list.uniform-border-color row {
 .toggle-group-17 separator.hidden {
 	opacity: 0;
 }
+
+@keyframes annual-avi-bg {
+	0% { background-position: center 100%; }
+	100% { background-position: center 0%; }
+}
+
+@keyframes annual-tuba-bg {
+	0% { background-position: 0%; }
+	100% { background-position: 100%; }
+}
+
+.annual .main-avi {
+	background: -gtk-icontheme("tuba-explore2-large-symbolic");
+	background-repeat: repeat;
+	background-size: 16px;
+	padding: 16px;
+	animation: annual-avi-bg 5s linear infinite;
+}
+
+.annual .tuba {
+	background-image: -gtk-icontheme("tuba-transparent-symbolic");
+	background-repeat: repeat;
+	background-size: 24px;
+	background-position: center center;
+	color: var(--accent-yellow);
+	background-color: color-mix(in srgb, currentColor 15%, var(--window-bg-color));
+	animation: annual-tuba-bg 5s linear infinite;
+}

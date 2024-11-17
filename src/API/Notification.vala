@@ -87,6 +87,25 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 					}
 				}
 				break;
+			case InstanceAccount.KIND_ANNUAL_REPORT:
+				int year;
+				if (this.created_at == null) {
+					GLib.DateTime now = new GLib.DateTime.now_local ();
+					year = now.get_month () >= 11 ? now.get_year () : now.get_year () - 1;
+				} else {
+					year = new GLib.DateTime.from_iso8601 (this.created_at, null).get_year ();
+				}
+
+				new Request.GET (@"/api/v1/annual_reports/$year")
+					.with_account (accounts.active)
+					.with_param ("id", id)
+					.then ((in_stream) => {
+						var parser = Network.get_parser_from_inputstream (in_stream);
+						var node = network.parse_node (parser);
+						API.AnnualReports.from (node).open (year);
+					})
+					.exec ();
+				break;
 			default:
 				if (status != null) {
 					status.open ();
@@ -116,6 +135,22 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				return create_basic_card ("tuba-heart-broken-symbolic", t_event.to_string ());
 			case InstanceAccount.KIND_ADMIN_REPORT:
 				return create_basic_card ("tuba-build-alt-symbolic", report.to_string (this.created_at));
+			case InstanceAccount.KIND_ANNUAL_REPORT:
+				int year = this.created_at == null ? new GLib.DateTime.now_local ().get_year () : new GLib.DateTime.from_iso8601 (this.created_at, null).get_year ();
+				return create_basic_card (
+					"tuba-birthday-symbolic",
+					"<b>%s</b> %s".printf (
+						// translators: this is used for notifications,
+						//				when an annual report is available.
+						//				it's similar to spotify wrapped, it
+						//				shows profile stats / it's a recap
+						//				of the year. The variable is the
+						//				current year e.g. 2024. Please don't
+						//				translate the hashtag.
+						_("Your %d #FediWrapped is ready!").printf (year),
+						_("Review your year's highlights and memorable moments on the Fediverse!")
+					)
+				);
 			default:
 				return new Widgets.Notification (this);
 		}
