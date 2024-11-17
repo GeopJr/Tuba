@@ -23,6 +23,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_PLEROMA_REACTION = "pleroma:emoji_reaction";
 	public const string KIND_REACTION = "reaction";
 	public const string KIND_ANNUAL_REPORT = "annual_report";
+	public const string KIND_MODERATION_WARNING = "moderation_warning";
 
 	public string uuid { get; set; }
 	public bool admin_mode { get; set; default=false; }
@@ -349,6 +350,16 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					null
 				};
 				break;
+			case KIND_MODERATION_WARNING:
+				result = {
+					"tuba-police-badge2-symbolic",
+					// translators: this is used for notifications,
+					//				when you receive a warning from
+					//				your server's admins
+					_("Your account has received a moderation warning"),
+					null
+				};
+				break;
 			case KIND_ADMIN_REPORT:
 				result = {
 					"tuba-build-alt-symbolic",
@@ -363,6 +374,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					// translators: the variable is a string user name,
 					//				this is used for per-account notifications
 					_("%s just posted").printf (actor_name),
+					null
 				};
 				break;
 			case KIND_PLEROMA_REACTION:
