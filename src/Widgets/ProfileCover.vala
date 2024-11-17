@@ -302,13 +302,25 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 					tooltip_text = parsed_date.format ("%F")
 				};
 
+				var creation_date_time = new GLib.DateTime.from_iso8601 (profile.account.created_at, null);
+				var today_date_time = new GLib.DateTime.now_local ();
+				bool is_birthday =
+					creation_date_time.get_month () == today_date_time.get_month () && creation_date_time.get_day_of_month () == today_date_time.get_day_of_month ();
+
 				var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 				// translators: as in created an account; this is used in Profiles in a row
 				//				which has as value the date the profile was created on
 				title_box.append (new Gtk.Label (_("Joined")) {
 					css_classes = {"dim-label"}
 				});
-				title_box.prepend (new Gtk.Image.from_icon_name ("contact-new-symbolic"));
+
+				if (is_birthday) {
+					row.add_css_class ("ttl-birthday-field");
+					title_box.prepend (new Gtk.Image.from_icon_name ("tuba-birthday-symbolic"));
+				} else {
+					title_box.prepend (new Gtk.Image.from_icon_name ("contact-new-symbolic"));
+				}
+
 				row.append (title_box);
 				row.append (val);
 
