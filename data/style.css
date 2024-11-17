@@ -16,12 +16,12 @@ calendar>header>button, calendar>grid>label {
 	border-radius: 10px;
 	min-width: 0.7em;
 	padding: 2px 5px;
-	background: @accent_bg_color;
+	background: var(--accent-bg-color);
 	color: @text_view_bg;
 }
 
 .notification-badge.no-attention {
-	background: alpha(@sidebar_fg_color, .4);
+	background: alpha(var(--sidebar-fg-color), .4);
 }
 
 .font-bold {
@@ -52,7 +52,7 @@ headerbar.flat.no-title .title {
 }
 
 .ttl-thread-line {
-	background: @theme_fg_color;
+	background: var(--window-fg-color);
 	opacity: .1;
 }
 
@@ -95,8 +95,8 @@ headerbar.flat.no-title .title {
 }
 
 .ttl-profile-cover avatar, .profile-editor avatar {
-	border: 6px solid @dialog_bg_color;
-	background: @dialog_bg_color;
+	border: 6px solid var(--dialog-bg-color);
+	background: var(--dialog-bg-color);
 }
 
 .large .header-image {
@@ -134,38 +134,38 @@ headerbar.flat.no-title .title {
 
 .ttl-status-action-star:hover,
 .ttl-status-action-star.enabled {
-	color: @yellow_5;
+	color: var(--yellow-5);
 }
 
 .ttl-status-action-star:active {
-	color: @yellow_4;
+	color: var(--yellow-4);
 }
 
 .ttl-status-action-reblog:hover,
 .ttl-status-action-reblog.enabled {
-	color: @purple_3;
+	color: var(--purple-3);
 }
 
 .ttl-status-action-reblog:active {
-	color: @purple_4;
+	color: var(--purple-4);
 }
 
 .ttl-status-action-reply:hover,
 .ttl-status-action-reply.enabled {
-	color: @green_3;
+	color: var(--green-3);
 }
 
 .ttl-status-action-reply:active {
-	color: @green_4;
+	color: var(--green-4);
 }
 
 .ttl-status-action-bookmark:hover,
 .ttl-status-action-bookmark.enabled {
-	color: @red_3;
+	color: var(--red-3);
 }
 
 .ttl-status-action-bookmark:active {
-	color: @red_4;
+	color: var(--red-4);
 }
 
 .ttl-profile-stat-button {
@@ -230,8 +230,8 @@ headerbar.flat.no-title .title {
 }
 
 .ttl-profile-fields-box-container:not(.single) > .ttl-profile-fields-box > flowboxchild > .ttl-profile-field {
-	border-bottom: solid 1px @borders;
-	border-right: solid 1px @borders;
+	border-bottom: solid 1px var(--border-color);
+	border-right: solid 1px var(--border-color);
 }
 
 .ttl-profile-fields-box-container.odd > .ttl-profile-fields-box > flowboxchild:last-child > .ttl-profile-field {
@@ -251,8 +251,13 @@ headerbar.flat.no-title .title {
 }
 
 .ttl-verified-field {
-	color: @success_color;
-	background: alpha(@success_bg_color, 0.1);
+	color: var(--success-color);
+	background: alpha(var(--success-bg-color), 0.1);
+}
+
+.ttl-birthday-field {
+	color: var(--accent-pink);
+	background: alpha(var(--accent-pink), 0.1);
 }
 
 .media-viewer {
@@ -282,9 +287,9 @@ headerbar.flat.no-title .title {
 }
 
 .ttl-status-avatar-border {
-	border: 3px solid @popover_bg_color;
+	border: 3px solid var(--popover-bg-color);
 	border-radius: 100%;
-	background-color: @popover_bg_color;
+	background-color: var(--popover-bg-color);
 }
 
 .card-spacing {
@@ -297,11 +302,11 @@ headerbar.flat.no-title .title {
 }
 
 .ttl-post.direct {
-	background-color: alpha(@warning_bg_color, .1);
+	background-color: alpha(var(--warning-bg-color), .1);
 }
 
 .ttl-post.direct:hover {
-	background-color: darker(alpha(@warning_bg_color, .1));
+	background-color: darker(alpha(var(--warning-bg-color), .1));
 }
 
 .ttl-post-actions {
@@ -457,7 +462,7 @@ video > overlay > revealer > controls, .audio-controls {
 
 .profile-editor .background-cover {
 	border-radius: 12px;
-	background-color: @shade_color;
+	background-color: var(--shade-color);
 }
 
 .media-viewer-fab {
@@ -471,9 +476,8 @@ video > overlay > revealer > controls, .audio-controls {
 }
 
 .attention {
-	color: @yellow_4;
+	color: var(--yellow-4);
 }
-
 
 .ttl-view listview>row.activatable:selected:hover,
 .ttl-view listview>row.activatable:hover {
@@ -514,7 +518,7 @@ video > overlay > revealer > controls, .audio-controls {
 }
 
 .card-spacing {
-	background-color: @card_bg_color;
+	background-color: var(--card-bg-color);
 }
 
 .ttl-profile-cover > .content {
@@ -547,12 +551,12 @@ video > overlay > revealer > controls, .audio-controls {
 
 /* .ttl-view .small.content .card { */
 .ttl-view .small.fake-content .card {
-	border-bottom: 1px @borders solid;
+	border-bottom: 1px var(--border-color) solid;
 }
 
 /* .ttl-view .small.content .card:first-child { */
 .ttl-view .small.fake-content .card:first-child {
-	border-top: 1px @borders solid;
+	border-top: 1px var(--border-color) solid;
 }
 
 /* .ttl-view .small.content .card { */
@@ -621,14 +625,14 @@ video > overlay > revealer > controls, .audio-controls {
 }
 
 .ttl-account-switcher row:selected avatar {
-	border: 2px solid @accent_bg_color;
+	border: 2px solid var(--accent-bg-color);
 }
 
 .ttl-account-switcher .blue-checkmark {
-	color: @light_1;
+	color: var(--light-1);
 	border-radius: 9999px;
-	border: solid @accent_bg_color 2px;
-	background-color: @accent_bg_color;
+	border: solid var(--accent-bg-color) 2px;
+	background-color: var(--accent-bg-color);
 	margin-bottom: 6px;
 	opacity: 0;
 }
@@ -676,7 +680,7 @@ video > overlay > revealer > controls, .audio-controls {
 }
 
 GtkSourceAssistant {
-	background: @popover_bg_color;
+	background: var(--popover-bg-color);
 	padding: 8px;
 	/* border-radius of child + padding */
 	border-radius: 14px;
@@ -701,7 +705,7 @@ GtkSourceAssistant row {
 }
 
 GtkSourceAssistant row:selected {
-	background: alpha(@accent_bg_color, .33);
+	background: alpha(var(--accent-bg-color), .33);
 	color: currentColor;
 }
 
@@ -767,7 +771,7 @@ popover.mini-profile > contents {
 }
 
 list.uniform-border-color row {
-	border-bottom-color: @borders;
+	border-bottom-color: var(--border-color);
 }
 
 .emoji-reaction-expander>box>list,
@@ -776,11 +780,11 @@ list.uniform-border-color row {
 }
 
 .ttl-profile-cover.thanks {
-	background: alpha(@accent_bg_color, 0.1);
+	background: alpha(var(--accent-bg-color), 0.1);
 }
 
 .ttl-profile-cover.thanks avatar {
-	border-color: alpha(@accent_bg_color, 0.1);
+	border-color: alpha(var(--accent-bg-color), 0.1);
 }
 
 .toggle-group-17 {
