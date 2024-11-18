@@ -93,6 +93,8 @@ public class Tuba.API.Relationship : Entity {
 				var node = network.parse_node (parser);
 				invalidate (node);
 				debug (@"Performed \"$operation\" on Relationship $id");
+
+				if (operation == "mute" || operation == "block") app.remove_user_id (id);
 			});
 
 		if (modify_params != null) {

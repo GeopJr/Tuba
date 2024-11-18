@@ -376,4 +376,15 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			warning (@"Error getting String from json: $(e.message)");
 		}
 	}
+
+	public virtual void on_remove_user (string user_id) {
+		if (accepts != typeof (API.Status)) return;
+
+		for (uint i = 0; i < model.get_n_items (); i++) {
+			var status_obj = (API.Status) model.get_item (i);
+			if (status_obj.formal.account.id == user_id) {
+				model.remove (i);
+			}
+		}
+	}
 }
