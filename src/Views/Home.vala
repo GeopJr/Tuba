@@ -54,6 +54,8 @@ public class Tuba.Views.Home : Views.Timeline {
 				| BindingFlags.BIDIRECTIONAL
 			#endif
 		);
+
+		app.remove_user_id.connect (on_remove_user);
 	}
 
 	void toggle_scroll_to_top_margin () {
