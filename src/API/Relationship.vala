@@ -94,7 +94,7 @@ public class Tuba.API.Relationship : Entity {
 				invalidate (node);
 				debug (@"Performed \"$operation\" on Relationship $id");
 
-				if (operation == "mute" || operation == "block") app.remove_user_id (id);
+				if (operation == "mute" || operation == "block" || operation == "unfollow") app.remove_user_id (id);
 			});
 
 		if (modify_params != null) {
