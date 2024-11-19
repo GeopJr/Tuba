@@ -315,7 +315,12 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 				});
 
 				if (is_birthday) {
-					row.add_css_class ("ttl-birthday-field");
+					if (total_fields == 1) {
+						fields_box.add_css_class ("ttl-birthday-field");
+					} else {
+						row.add_css_class ("ttl-birthday-field");
+					}
+
 					title_box.prepend (new Gtk.Image.from_icon_name ("tuba-birthday-symbolic"));
 				} else {
 					title_box.prepend (new Gtk.Image.from_icon_name ("contact-new-symbolic"));
