@@ -24,6 +24,7 @@ sources += files(
     'NotificationRequestsList.vala',
     'Notifications.vala',
     'Profile.vala',
+    'ScheduledStatuses.vala',
     'Search.vala',
     'Sidebar.vala',
     'StatusStats.vala',

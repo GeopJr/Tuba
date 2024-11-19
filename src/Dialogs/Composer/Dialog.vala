@@ -143,8 +143,43 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 	public delegate void SuccessCallback (API.Status cb_status);
 	protected SuccessCallback? cb;
 
+	Gtk.Widget commit_button;
+	private bool _commit_button_has_menu = false;
+	public bool commit_button_has_menu {
+		get { return _commit_button_has_menu; }
+		construct {
+			_commit_button_has_menu = value;
+
+			if (value) {
+				var menu_model = new GLib.Menu ();
+				menu_model.append (_("Schedule Post"), "composer.schedule");
+
+				commit_button = new Adw.SplitButton () {
+					label = _("_Publish"),
+					use_underline = true,
+					menu_model = menu_model
+				};
+				((Adw.SplitButton) commit_button).clicked.connect (on_commit);
+			} else {
+				commit_button = new Gtk.Button () {
+					label = _("_Publish"),
+					use_underline = true
+				};
+				((Gtk.Button) commit_button).clicked.connect (on_commit);
+			}
+
+			header.pack_end (commit_button);
+		}
+	}
+
 	public string button_label {
-		set { commit_button.label = value; }
+		set {
+			if (_commit_button_has_menu) {
+				((Adw.SplitButton) commit_button).label = value;
+			} else {
+				((Gtk.Button) commit_button).label = value;
+			}
+		}
 	}
 
 	public string button_class {
@@ -159,8 +194,12 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		var paste_action = new SimpleAction ("paste", null);
 		paste_action.activate.connect (emit_paste_signal);
 
+		var schedule_action = new SimpleAction ("schedule", null);
+		schedule_action.activate.connect (on_schedule_action_activated);
+
 		var action_group = new GLib.SimpleActionGroup ();
 		action_group.add_action (paste_action);
+		action_group.add_action (schedule_action);
 
 		this.insert_action_group ("composer", action_group);
 		add_binding_action (Gdk.Key.V, Gdk.ModifierType.CONTROL_MASK, "composer.paste", null);
@@ -269,16 +308,15 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 	}
 
 	[GtkChild] unowned Adw.ViewSwitcher title_switcher;
-	[GtkChild] unowned Gtk.Button commit_button;
-
 	[GtkChild] unowned Adw.ViewStack stack;
+	[GtkChild] unowned Adw.HeaderBar header;
 
 	public string? quote_id { get; set; }
 	public Compose (API.Status template = new API.Status.empty (), bool t_force_cursor_at_start = false, string? quote_id = null) {
 		Object (
+			commit_button_has_menu: true,
 			status: new BasicStatus.from_status (template),
 			original_status: new BasicStatus.from_status (template),
-			button_label: _("_Publish"),
 			button_class: "suggested-action",
 			force_cursor_at_start: t_force_cursor_at_start,
 			quote_id: quote_id
@@ -384,7 +422,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		}
 	}
 
-	[GtkCallback] void on_commit () {
+	void on_commit () {
 		this.sensitive = false;
 		transaction.begin ((obj, res) => {
 			try {
@@ -432,6 +470,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		builder.end_array ();
 	}
 
+	private string? schedule_iso8601 = null;
 	private Json.Builder populate_json_body () {
 		var builder = new Json.Builder ();
 		builder.begin_object ();
@@ -441,6 +480,10 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		if (quote_id != null) {
 			builder.set_member_name ("quote_id");
 			builder.add_string_value (quote_id);
+		}
+		if (schedule_iso8601 != null) {
+			builder.set_member_name ("scheduled_at");
+			builder.add_string_value (schedule_iso8601);
 		}
 
 		builder.end_object ();
@@ -472,4 +515,16 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		on_close ();
 	}
 
+	private void on_schedule_action_activated () {
+		if (!commit_button.sensitive) return;
+
+		var schedule_dlg = new Dialogs.Schedule ();
+		schedule_dlg.schedule_picked.connect (on_schedule_picked);
+		schedule_dlg.present (this);
+	}
+
+	private void on_schedule_picked (string iso8601) {
+		schedule_iso8601 = iso8601;
+		on_commit ();
+	}
 }

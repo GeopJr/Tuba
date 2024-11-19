@@ -36,13 +36,6 @@
 								<signal name="clicked" handler="on_exit" swapped="no" />
 							</object>
 						</child>
-						<child type="end">
-							<object class="GtkButton" id="commit_button">
-								<property name="label" translatable="yes">_Publish</property>
-								<property name="use-underline">1</property>
-								<signal name="clicked" handler="on_commit" swapped="no" />
-							</object>
-						</child>
 					</object>
 				</child>
 

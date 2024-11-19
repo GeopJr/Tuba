@@ -110,6 +110,7 @@
         <file>ui/dialogs/preferences.ui</file>
         <file>ui/dialogs/profile_edit.ui</file>
         <file>ui/dialogs/filter_edit.ui</file>
+        <file>ui/dialogs/schedule.ui</file>
         <file>ui/menus.ui</file>
     </gresource>
 </gresources>
