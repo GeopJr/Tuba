@@ -116,7 +116,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	}
 
 	private void on_reschedule () {
-		var schedule_dlg = new Dialogs.Schedule (scheduled_at);
+		var schedule_dlg = new Dialogs.Schedule (scheduled_at, _("Reschedule"));
 		schedule_dlg.schedule_picked.connect (on_schedule_picked);
 		schedule_dlg.present (this);
 	}

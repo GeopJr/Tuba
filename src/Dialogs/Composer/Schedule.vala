@@ -19,7 +19,7 @@ public class Tuba.Dialogs.Schedule : Adw.Dialog {
 		timezone_combo_row.model = new Gtk.StringList (timezones);
 	}
 
-	public Schedule (string? iso8601 = null) {
+	public Schedule (string? iso8601 = null, string? button_label = null) {
 		if (iso8601 == null) {
 			GLib.DateTime now = new GLib.DateTime.now_local ();
 			hours_spin_row.value = (double) now.get_hour ();
@@ -35,6 +35,8 @@ public class Tuba.Dialogs.Schedule : Adw.Dialog {
 			calendar.day = iso8601_datetime.get_month ();
 			calendar.day = iso8601_datetime.get_day_of_month ();
 		}
+
+		if (button_label != null) schedule_button.label = button_label;
 
 		validate ();
 	}
