@@ -141,15 +141,27 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	}
 
 	private void on_delete () {
-		new Request.DELETE (@"/api/v1/scheduled_statuses/$scheduled_id")
-			.with_account (accounts.active)
-			.then (() => {
-				deleted (scheduled_id);
-			})
-			.on_error ((code, message) => {
-				warning (@"Error while deleting scheduled status: $code $message");
-				app.toast (message, 0);
-			})
-			.exec ();
+		app.question.begin (
+			{_("Delete Scheduled Post?"), false},
+			null,
+			app.main_window,
+			{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+			null,
+			false,
+			(obj, res) => {
+				if (app.question.end (res).truthy ()) {
+					new Request.DELETE (@"/api/v1/scheduled_statuses/$scheduled_id")
+						.with_account (accounts.active)
+						.then (() => {
+							deleted (scheduled_id);
+						})
+						.on_error ((code, message) => {
+							warning (@"Error while deleting scheduled status: $code $message");
+							app.toast (message, 0);
+						})
+						.exec ();
+				}
+			}
+		);
 	}
 }
