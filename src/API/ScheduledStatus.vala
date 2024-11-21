@@ -22,7 +22,7 @@ public class Tuba.API.ScheduledStatus : Entity, Widgetizable {
 		public string text { get; set; }
 		public Poll? poll { get; set; }
 		public Gee.ArrayList<string>? media_ids { get; set; }
-		public bool? sensitive { get; set; default=false; }
+		public bool sensitive { get; set; default=false; }
 		public string? spoiler_text { get; set; }
 		public string visibility { get; set; }
 		public string? language { get; set; }
