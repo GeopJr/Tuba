@@ -4,7 +4,15 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 	[GtkChild] protected unowned Gtk.Button button_vote;
 	[GtkChild] protected unowned Gtk.Button button_refresh;
 	[GtkChild] protected unowned Gtk.Button button_results;
-	[GtkChild] protected unowned Gtk.Label info_label;
+	[GtkChild] public unowned Gtk.Label info_label;
+
+	public bool usable {
+		set {
+			button_vote.visible =
+			button_refresh.visible =
+			button_results.visible = value;
+		}
+	}
 
 	public API.Poll? poll { get; set;}
 	protected Gee.ArrayList<string> selected_index = new Gee.ArrayList<string> ();

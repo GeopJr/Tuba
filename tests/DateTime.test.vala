@@ -28,8 +28,8 @@ TestDate[] get_dates () {
 	res += TestDate () {
 		iso8601 = one_day.to_string (),
 		left = "23h left",
-		ago = one_day.format ("expires on %b %-e, %Y %H:%m"),
-		human = one_day.format ("%b %-e, %Y %H:%m")
+		ago = one_day.format ("expires on %b %-e, %Y %H:%M"),
+		human = one_day.format ("%b %-e, %Y %H:%M")
 	};
 
 	var m_one_day = time_now.add_days (-1);
@@ -44,8 +44,8 @@ TestDate[] get_dates () {
 	res += TestDate () {
 		iso8601 = one_hour.to_string (),
 		left = "59m left",
-		ago = one_hour.format ("expires on %b %-e, %Y %H:%m"),
-		human = one_hour.format ("%b %-e, %Y %H:%m")
+		ago = one_hour.format ("expires on %b %-e, %Y %H:%M"),
+		human = one_hour.format ("%b %-e, %Y %H:%M")
 	};
 
 	var m_one_hour = time_now.add_hours (-1);
@@ -60,8 +60,8 @@ TestDate[] get_dates () {
 	res += TestDate () {
 		iso8601 = two_minutes.to_string (),
 		left = "1m left",
-		ago = two_minutes.format ("expires on %b %-e, %Y %H:%m"),
-		human = two_minutes.format ("%b %-e, %Y %H:%m")
+		ago = two_minutes.format ("expires on %b %-e, %Y %H:%M"),
+		human = two_minutes.format ("%b %-e, %Y %H:%M")
 	};
 
 	var m_two_minutes = time_now.add_minutes (-2);
@@ -76,8 +76,8 @@ TestDate[] get_dates () {
 	res += TestDate () {
 		iso8601 = twenty_seconds.to_string (),
 		left = "expires soon",
-		ago = twenty_seconds.format ("expires on %b %-e, %Y %H:%m"),
-		human = twenty_seconds.format ("%b %-e, %Y %H:%m")
+		ago = twenty_seconds.format ("expires on %b %-e, %Y %H:%M"),
+		human = twenty_seconds.format ("%b %-e, %Y %H:%M")
 	};
 
 	var m_twenty_seconds = time_now.add_seconds (-20);

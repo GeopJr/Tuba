@@ -113,7 +113,7 @@
 	[GtkChild] protected unowned Widgets.RichLabel name_label;
 	[GtkChild] protected unowned Gtk.Label handle_label;
 	[GtkChild] public unowned Gtk.Box indicators;
-	[GtkChild] protected unowned Gtk.Label date_label;
+	[GtkChild] public unowned Gtk.Label date_label;
 	[GtkChild] protected unowned Gtk.Image pin_indicator;
 	[GtkChild] protected unowned Gtk.Image edited_indicator;
 	[GtkChild] protected unowned Gtk.Image visibility_indicator;
@@ -544,7 +544,7 @@
 	public string spoiler_text_revealed { get; set; default = _("Sensitive"); }
 
 	// separator between the bottom bar items
-	string expanded_separator = "·";
+	const string EXPANDED_SEPARATOR = "·";
 	protected string date {
 		owned get {
 			if (expanded) {
@@ -560,7 +560,7 @@
 				var date_parsed = new GLib.DateTime.from_iso8601 (this.full_date, null);
 				date_parsed = date_parsed.to_timezone (new TimeZone.local ());
 
-				return date_parsed.format (@"$date_local $expanded_separator %H:%M").replace (" ", ""); // %e prefixes with whitespace on single digits
+				return date_parsed.format (@"$date_local $EXPANDED_SEPARATOR %H:%M").replace (" ", ""); // %e prefixes with whitespace on single digits
 			} else {
 				return DateTime.humanize (this.full_date);
 			}
@@ -899,7 +899,7 @@
 	protected Widgets.PreviewCard prev_card;
 	private Widgets.Attachment.Box attachments;
 	private Gtk.Label translation_label;
-	private Widgets.VoteBox poll;
+	public Widgets.VoteBox poll;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	ulong[] formal_handler_ids = {};
 	ulong[] this_handler_ids = {};
@@ -1205,7 +1205,7 @@
 	}
 
 	// Adds *separator* between all *flowbox* children
-	private void add_separators_to_expanded_bottom (Gtk.FlowBox flowbox, string separator = expanded_separator) {
+	private void add_separators_to_expanded_bottom (Gtk.FlowBox flowbox, string separator = EXPANDED_SEPARATOR) {
 		var i = 0;
 		var child = flowbox.get_child_at_index (i);
 		while (child != null) {
