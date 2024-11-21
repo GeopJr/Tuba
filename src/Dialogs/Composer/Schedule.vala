@@ -17,11 +17,24 @@ public class Tuba.Dialogs.Schedule : Adw.Dialog {
 		string[] timezones = { local };
 		if (local != "UTC") timezones += "UTC";
 		timezone_combo_row.model = new Gtk.StringList (timezones);
+	}
 
-		GLib.DateTime now = new GLib.DateTime.now_local ();
-		hours_spin_row.value = (double) now.get_hour ();
-		minutes_spin_row.value = (double) now.get_minute ();
-		seconds_spin_row.value = (double) now.get_second ();
+	public Schedule (string? iso8601 = null) {
+		if (iso8601 == null) {
+			GLib.DateTime now = new GLib.DateTime.now_local ();
+			hours_spin_row.value = (double) now.get_hour ();
+			minutes_spin_row.value = (double) now.get_minute ();
+			seconds_spin_row.value = (double) now.get_second ();
+		} else {
+			GLib.DateTime iso8601_datetime = new GLib.DateTime.from_iso8601 (iso8601, null).to_timezone (new TimeZone.local ());
+			hours_spin_row.value = (double) iso8601_datetime.get_hour ();
+			minutes_spin_row.value = (double) iso8601_datetime.get_minute ();
+			seconds_spin_row.value = (double) iso8601_datetime.get_second ();
+
+			calendar.year = iso8601_datetime.get_year ();
+			calendar.day = iso8601_datetime.get_month ();
+			calendar.day = iso8601_datetime.get_day_of_month ();
+		}
 
 		validate ();
 	}

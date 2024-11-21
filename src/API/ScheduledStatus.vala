@@ -53,41 +53,6 @@ public class Tuba.API.ScheduledStatus : Entity, Widgetizable {
 	}
 
 	public override Gtk.Widget to_widget () {
-		API.Poll? poll = null;
-		if (this.props.poll != null) {
-			poll = new API.Poll ("0") {
-				multiple = this.props.poll.multiple,
-				options = new Gee.ArrayList<API.PollOption> ()
-			};
-
-			foreach (string poll_option in this.props.poll.options) {
-				poll.options.add (new API.PollOption () {
-					title = poll_option,
-					votes_count = 0
-				});
-			}
-		}
-
-		var status = new API.Status.empty () {
-			id = this.id,
-			account = accounts.active,
-			spoiler_text = this.props.spoiler_text,
-			content = this.props.text,
-			sensitive = this.props.sensitive,
-			visibility = this.props.visibility,
-			media_attachments = this.media_attachments,
-			tuba_spoiler_revealed = true,
-			tuba_scheduled = true,
-			poll = poll,
-			created_at = this.scheduled_at
-		};
-
-		if (this.props.language != null) status.language = this.props.language;
-
-		var widg = new Widgets.Status (status);
-		widg.actions.visible = false;
-		widg.activatable = false;
-
-		return widg;
+		return new Widgets.ScheduledStatus (this);
 	}
 }

@@ -97,7 +97,6 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	public Tuba.Views.Thread.ThreadRole tuba_thread_role { get; set; default = Tuba.Views.Thread.ThreadRole.NONE; }
 	public bool tuba_spoiler_revealed { get; set; default = settings.show_spoilers; }
 	public bool tuba_translatable { get; set; default = false; }
-	public bool tuba_scheduled { get; set; default = false; }
 
 	//  public string clean_content {
 	//      get {
@@ -324,10 +323,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	}
 
 	public Request annihilate () {
-		string endpoint = "statuses";
-		if (this.tuba_scheduled) endpoint = "scheduled_statuses";
-
-		return new Request.DELETE (@"/api/v1/$endpoint/$id")
+		return new Request.DELETE (@"/api/v1/statuses/$id")
 			.with_account (accounts.active);
 	}
 }
