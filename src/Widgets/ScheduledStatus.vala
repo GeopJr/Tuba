@@ -85,6 +85,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 			media_attachments = scheduled_status.media_attachments,
 			tuba_spoiler_revealed = true,
 			poll = poll,
+			sensitive = scheduled_status.sensitive,
 			created_at = scheduled_status.scheduled_at
 		};
 
