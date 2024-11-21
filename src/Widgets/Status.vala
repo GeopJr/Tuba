@@ -1205,7 +1205,7 @@
 	}
 
 	// Adds *separator* between all *flowbox* children
-	private void add_separators_to_expanded_bottom (Gtk.FlowBox flowbox, string separator = expanded_separator) {
+	private void add_separators_to_expanded_bottom (Gtk.FlowBox flowbox, string separator = EXPANDED_SEPARATOR) {
 		var i = 0;
 		var child = flowbox.get_child_at_index (i);
 		while (child != null) {
