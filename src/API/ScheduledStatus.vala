@@ -1,4 +1,7 @@
 public class Tuba.API.ScheduledStatus : Entity, Widgetizable {
+	// NOTE: Don't forget to update in the year 3000
+	public const int DRAFT_YEAR = 2000 + 3000;
+
 	public class Params : Entity {
 		public class Poll : Entity {
 			public Gee.ArrayList<string> options { get; set; default=new Gee.ArrayList <string> (); }
