@@ -90,6 +90,7 @@ namespace Tuba {
 			{ "open-follow-requests", open_follow_requests },
 			{ "open-mutes-blocks", open_mutes_blocks },
 			{ "open-scheduled-posts", open_scheduled_posts },
+			{ "open-draft-posts", open_draft_posts },
 			{ "open-admin-dashboard", open_admin_dashboard }
 		};
 
@@ -533,6 +534,11 @@ namespace Tuba {
 
 		public void open_scheduled_posts () {
 			main_window.open_view (new Views.ScheduledStatuses ());
+			close_sidebar ();
+		}
+
+		public void open_draft_posts () {
+			main_window.open_view (new Views.DraftStatuses ());
 			close_sidebar ();
 		}
 

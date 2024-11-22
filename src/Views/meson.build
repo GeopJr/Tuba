@@ -5,6 +5,7 @@ sources += files(
     'Bookmarks.vala',
     'ContentBase.vala',
     'Conversations.vala',
+    'DraftStatuses.vala',
     'Explore.vala',
     'EditHistory.vala',
     'Favorites.vala',

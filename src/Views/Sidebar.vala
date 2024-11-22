@@ -62,6 +62,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		misc_submenu_model.append (_("Announcements"), "app.open-announcements");
 		misc_submenu_model.append (_("Follow Requests"), "app.open-follow-requests");
 		misc_submenu_model.append (_("Mutes & Blocks"), "app.open-mutes-blocks");
+		misc_submenu_model.append (_("Draft Posts"), "app.open-draft-posts");
 		misc_submenu_model.append (_("Scheduled Posts"), "app.open-scheduled-posts");
 
 		var admin_dahsboard_menu_item = new MenuItem (_("Admin Dashboard"), "app.open-admin-dashboard");
