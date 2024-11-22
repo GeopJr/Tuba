@@ -168,6 +168,15 @@ headerbar.flat.no-title .title {
 	color: var(--red-4);
 }
 
+.ttl-status-action-quote:hover,
+.ttl-status-action-quote.enabled {
+	color: var(--blue-3);
+}
+
+.ttl-status-action-quote:active {
+	color: var(--blue-4);
+}
+
 .ttl-profile-stat-button {
 	padding: 8px 12px;
 	min-height: 32px;

@@ -34,6 +34,15 @@
 	color: var(--red-2);
 }
 
+.ttl-status-action-quote:hover,
+.ttl-status-action-quote.enabled {
+	color: var(--blue-1);
+}
+
+.ttl-status-action-quote:active {
+	color: var(--blue-2);
+}
+
 .ttl-post.direct:hover {
 	background-color: lighter(alpha(var(--warning-bg-color), .1));
 }
