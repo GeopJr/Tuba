@@ -157,6 +157,16 @@
 										</child>
 
 										<child>
+											<object class="GtkButton" id="moved_btn">
+												<property name="visible">0</property>
+												<property name="tooltip-text">Open Profile</property>
+												<style>
+													<class name="warning" />
+												</style>
+											</object>
+										</child>
+
+										<child>
 											<object class="TubaWidgetsMarkupView" id="note">
 												<property name="margin_top">6</property>
 											</object>
