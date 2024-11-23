@@ -152,6 +152,10 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 
 			if (value) {
 				var menu_model = new GLib.Menu ();
+				// translators: 'Draft' is a verb
+				menu_model.append (_("Draft Post"), "composer.draft");
+
+				// translators: 'Schedule' is a verb
 				menu_model.append (_("Schedule Post"), "composer.schedule");
 
 				commit_button = new Adw.SplitButton () {
@@ -197,9 +201,13 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		var schedule_action = new SimpleAction ("schedule", null);
 		schedule_action.activate.connect (on_schedule_action_activated);
 
+		var draft_action = new SimpleAction ("draft", null);
+		draft_action.activate.connect (on_draft_action_activated);
+
 		var action_group = new GLib.SimpleActionGroup ();
 		action_group.add_action (paste_action);
 		action_group.add_action (schedule_action);
+		action_group.add_action (draft_action);
 
 		this.insert_action_group ("composer", action_group);
 		add_binding_action (Gdk.Key.V, Gdk.ModifierType.CONTROL_MASK, "composer.paste", null);
@@ -322,6 +330,18 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 			quote_id: quote_id
 		);
 	}
+
+	public Compose.from_draft (API.Status status, owned SuccessCallback? t_cb = null) {
+		Object (
+			commit_button_has_menu: true,
+			status: new BasicStatus.from_status (status),
+			original_status: new BasicStatus.from_status (status),
+			button_class: "suggested-action"
+		);
+
+		this.cb = (owned) t_cb;
+	}
+
 
 	public Compose.redraft (API.Status status) {
 		Object (
@@ -521,6 +541,13 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		var schedule_dlg = new Dialogs.Schedule ();
 		schedule_dlg.schedule_picked.connect (on_schedule_picked);
 		schedule_dlg.present (this);
+	}
+
+	private void on_draft_action_activated () {
+		if (!commit_button.sensitive) return;
+
+		schedule_iso8601 = (new GLib.DateTime.now ()).add_years (3000).format_iso8601 ();
+		on_commit ();
 	}
 
 	private void on_schedule_picked (string iso8601) {

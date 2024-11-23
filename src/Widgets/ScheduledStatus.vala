@@ -1,6 +1,19 @@
 public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	public signal void deleted (string scheduled_status_id);
+	public signal void open ();
 
+	private bool _draft = false;
+	public bool draft {
+		get { return _draft; }
+		set {
+			_draft = value;
+			reschedule_button.visible = !value;
+			schedule_label.label = "<b>%s</b>".printf (_("Draft"));
+			this.activatable = value;
+		}
+	}
+
+	Gtk.Button reschedule_button;
 	Gtk.Box content_box;
 	Gtk.Label schedule_label;
 	construct {
@@ -24,7 +37,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		action_box.append (schedule_label);
 
 		var actions_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-		Gtk.Button reschedule_button = new Gtk.Button.from_icon_name ("tuba-clock-alt-symbolic") {
+		reschedule_button = new Gtk.Button.from_icon_name ("tuba-clock-alt-symbolic") {
 			tooltip_text = _("Reschedule"),
 			css_classes = { "flat" }
 		};
@@ -42,6 +55,8 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 
 		content_box.append (action_box);
 		this.child = content_box;
+
+		open.connect (on_activated);
 	}
 
 	public ScheduledStatus (API.ScheduledStatus scheduled_status) {
@@ -51,7 +66,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 
 	string scheduled_at;
 	string scheduled_id;
-	Gtk.Widget? status_widget = null;
+	Widgets.Status? status_widget = null;
 	public void bind (API.ScheduledStatus scheduled_status) {
 		if (status_widget != null) content_box.remove (status_widget);
 
@@ -76,7 +91,6 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		}
 
 		var status = new API.Status.empty () {
-			id = scheduled_status.id,
 			account = accounts.active,
 			spoiler_text = scheduled_status.props.spoiler_text,
 			content = scheduled_status.props.text,
@@ -141,8 +155,14 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	}
 
 	private void on_delete () {
+		string title = !_draft
+			? _("Delete Scheduled Post?")
+			// translators: 'Draft' is not a verb here.
+			//				It's equal to 'Unsaved'
+			: _("Delete Draft Post?");
+
 		app.question.begin (
-			{_("Delete Scheduled Post?"), false},
+			{title, false},
 			null,
 			app.main_window,
 			{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
@@ -150,18 +170,32 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 			false,
 			(obj, res) => {
 				if (app.question.end (res).truthy ()) {
-					new Request.DELETE (@"/api/v1/scheduled_statuses/$scheduled_id")
-						.with_account (accounts.active)
-						.then (() => {
-							deleted (scheduled_id);
-						})
-						.on_error ((code, message) => {
-							warning (@"Error while deleting scheduled status: $code $message");
-							app.toast (message, 0);
-						})
-						.exec ();
+					delete_status ();
 				}
 			}
 		);
+	}
+
+	private void delete_status () {
+		new Request.DELETE (@"/api/v1/scheduled_statuses/$scheduled_id")
+			.with_account (accounts.active)
+			.then (() => {
+				deleted (scheduled_id);
+			})
+			.on_error ((code, message) => {
+				warning (@"Error while deleting scheduled status: $code $message");
+				app.toast (message, 0);
+			})
+			.exec ();
+	}
+
+	private void on_activated () {
+		if (!_draft || status_widget == null) return;
+
+		new Dialogs.Compose.from_draft (status_widget.status, on_draft_posted);
+	}
+
+	private void on_draft_posted (API.Status x) {
+		if (_draft) delete_status ();
 	}
 }
