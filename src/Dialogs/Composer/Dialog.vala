@@ -320,6 +320,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 	[GtkChild] unowned Adw.HeaderBar header;
 
 	public string? quote_id { get; set; }
+	public string? scheduled_id { get; set; }
 	public Compose (API.Status template = new API.Status.empty (), bool t_force_cursor_at_start = false, string? quote_id = null) {
 		Object (
 			commit_button_has_menu: true,
@@ -333,7 +334,6 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 
 	public Compose.from_draft (API.Status status, owned SuccessCallback? t_cb = null) {
 		Object (
-			commit_button_has_menu: true,
 			status: new BasicStatus.from_status (status),
 			original_status: new BasicStatus.from_status (status),
 			button_class: "suggested-action"
@@ -342,6 +342,18 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		this.cb = (owned) t_cb;
 	}
 
+	public Compose.from_scheduled (API.Status status, string? scheduled_id = null, string? scheduled_iso8601 = null, owned SuccessCallback? t_cb = null) {
+		Object (
+			status: new BasicStatus.from_status (status),
+			original_status: new BasicStatus.from_status (status),
+			button_label: _("_Edit"),
+			button_class: "suggested-action",
+			scheduled_id: scheduled_id,
+			schedule_iso8601: scheduled_iso8601
+		);
+
+		this.cb = (owned) t_cb;
+	}
 
 	public Compose.redraft (API.Status status) {
 		Object (
@@ -490,7 +502,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		builder.end_array ();
 	}
 
-	private string? schedule_iso8601 = null;
+	protected string? schedule_iso8601 { get; set; default=null; }
 	private Json.Builder populate_json_body () {
 		var builder = new Json.Builder ();
 		builder.begin_object ();
@@ -530,7 +542,17 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		var node = network.parse_node (parser);
 		var status = API.Status.from (node);
 		debug (@"Published post with id $(status.id)");
-		if (cb != null) cb (status);
+
+		if (this.scheduled_id != null) {
+			new Request.DELETE (@"/api/v1/scheduled_statuses/$scheduled_id")
+				.with_account (accounts.active)
+				.then (() => {
+					cb (status);
+				})
+				.exec ();
+		} else if (cb != null) {
+			cb (status);
+		}
 
 		on_close ();
 	}
