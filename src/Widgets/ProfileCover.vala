@@ -17,6 +17,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	[GtkChild] unowned Widgets.EmojiLabel display_name;
 	[GtkChild] unowned Gtk.Label handle;
 	[GtkChild] unowned Widgets.Avatar avatar;
+	[GtkChild] unowned Gtk.Button moved_btn;
 	[GtkChild] public unowned Widgets.MarkupView note;
 	[GtkChild] public unowned Widgets.RelationshipButton rsbtn;
 
@@ -172,6 +173,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		avatar_clicked ();
 	}
 
+	API.Account? moved_to_account = null;
 	bool _mini = false;
 	Gtk.FlowBox fields_box;
 	Gtk.ListBoxRow fields_box_row;
@@ -183,7 +185,23 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		settings.notify["scale-emoji-hover"].connect (toggle_scale_emoji_hover);
 
 		_mini = mini;
-		if (mini) note_row.sensitive = false;
+		if (mini) {
+			note_row.sensitive = false;
+		} else if (profile.account.moved != null) {
+			moved_btn.visible = true;
+			moved_btn.child = new Gtk.Label (
+				// translators: Button label shown when a user has moved to another instance.
+				//				The first variable is this account's handle while the second
+				//				is the moved-to account's handle
+				_("%s has moved to %s").printf (@"<b>$(profile.account.full_handle)</b>", @"<b>$(profile.account.moved.full_handle)</b>")
+			) {
+				use_markup = true,
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR
+			};
+			moved_to_account = profile.account.moved;
+			moved_btn.clicked.connect (on_moved_btn_clicked);
+		}
 
 		if (GLib.str_hash (profile.account.full_handle.down ()).to_string () in settings.contributors) {
 			supporter_icon.visible = true;
@@ -416,6 +434,10 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 	private void update_fields_max_columns () {
 		fields_box.max_children_per_line = app.is_mobile ? 1 : 2;
+	}
+
+	private void on_moved_btn_clicked () {
+		if (moved_to_account != null) moved_to_account.open ();
 	}
 
 	protected void build_profile_stats (API.Account account) {
