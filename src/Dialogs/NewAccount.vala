@@ -55,6 +55,8 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		if (!can_access_settings) {
 			app.toast.connect (add_toast);
+		} else {
+			add_binding_action (Gdk.Key.Escape, 0, "window.close", null);
 		}
 
 		manual_auth_label.activate_link.connect (on_manual_auth);
@@ -297,7 +299,6 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			this.title = _("Settings");
 			this.content_width = 460;
 			this.content_height = 220;
-			this.can_close = false;
 
 			var cancel_button = new Gtk.Button.with_label (_("Cancel"));
 			cancel_button.clicked.connect (on_cancel);
