@@ -47,6 +47,7 @@ namespace Tuba {
 
 		public signal void refresh ();
 		public signal void relationship_invalidated (API.Relationship new_relationship);
+		public signal void remove_user_id (string user_id);
 		public signal void toast (string title, uint timeout = 5);
 
 		#if DEV_MODE
@@ -77,6 +78,7 @@ namespace Tuba {
 			{ "back-home", back_home_activated },
 			{ "scroll-page-down", scroll_view_page_down },
 			{ "scroll-page-up", scroll_view_page_up },
+			{ "goto-notifications", goto_notifications },
 			{ "open-status-url", open_status_url, "s" },
 			{ "answer-follow-request", answer_follow_request, "(ssb)" },
 			{ "follow-back", follow_back, "(ss)" },
@@ -87,6 +89,8 @@ namespace Tuba {
 			{ "open-announcements", open_announcements },
 			{ "open-follow-requests", open_follow_requests },
 			{ "open-mutes-blocks", open_mutes_blocks },
+			{ "open-scheduled-posts", open_scheduled_posts },
+			{ "open-draft-posts", open_draft_posts },
 			{ "open-admin-dashboard", open_admin_dashboard }
 		};
 
@@ -121,6 +125,10 @@ namespace Tuba {
 				value.get_child_value (0).get_string (),
 				value.get_child_value (1).get_string ()
 			);
+		}
+
+		private void goto_notifications () {
+			Mastodon.Account.PLACE_NOTIFICATIONS.open_func (app.main_window);
 		}
 
 		private void open_status_url (GLib.SimpleAction action, GLib.Variant? value) {
@@ -220,6 +228,7 @@ namespace Tuba {
 
 			Intl.setlocale (LocaleCategory.ALL, "");
 			Intl.bindtextdomain (Build.GETTEXT_PACKAGE, Build.LOCALEDIR);
+			Intl.bind_textdomain_codeset (Build.GETTEXT_PACKAGE, "UTF-8");
 			Intl.textdomain (Build.GETTEXT_PACKAGE);
 
 			GLib.Environment.unset_variable ("GTK_THEME");
@@ -372,6 +381,9 @@ namespace Tuba {
 		}
 
 		protected override void shutdown () {
+			if (settings.analytics) app.update_analytics ();
+			app.update_contributors ();
+
 			#if !DEV_MODE
 				settings.apply_all ();
 			#endif
@@ -517,6 +529,16 @@ namespace Tuba {
 
 		public void open_mutes_blocks () {
 			main_window.open_view (new Views.MutesBlocks ());
+			close_sidebar ();
+		}
+
+		public void open_scheduled_posts () {
+			main_window.open_view (new Views.ScheduledStatuses ());
+			close_sidebar ();
+		}
+
+		public void open_draft_posts () {
+			main_window.open_view (new Views.DraftStatuses ());
 			close_sidebar ();
 		}
 
@@ -706,6 +728,102 @@ namespace Tuba {
 			return QuestionAnswer.from_string (yield dlg.choose (win, null));
 		}
 
+		public string generate_analytics_object (bool pretty = false) {
+			var generator = new Json.Generator () {
+				pretty = pretty
+			};
+			var builder = new Json.Builder ();
+			builder.begin_object ();
+
+			builder.set_member_name ("accounts");
+			builder.begin_array ();
+			accounts.saved.foreach (e => {
+				builder.add_string_value (e.uuid);
+				return true;
+			});
+			builder.end_array ();
+
+			builder.set_member_name ("analytics");
+			builder.add_value (settings.to_debug_json ().get_root ());
+
+			builder.end_object ();
+			generator.set_root (builder.get_root ());
+			return generator.to_data (null);
+		}
+
+		public void update_contributors () {
+			if (!settings.update_contributors) {
+				// if updating contributors from the API is not enabled
+				// but it has been enabled at some point in the past,
+				// revert the contributors array to the default.
+				// That will allow us to force clients that have
+				// updated them manually in the past to use the bundled
+				// array which might be more up-to-date.
+				if (settings.last_contributors_update != null && settings.last_contributors_update != "") {
+					settings.reset ("contributors");
+					settings.last_contributors_update = "";
+				}
+
+				return;
+			}
+
+			bool can_update = false;
+			GLib.DateTime now_utc = new GLib.DateTime.now_utc ();
+
+			if (settings.last_contributors_update == null || settings.last_contributors_update == "") {
+				can_update = true;
+			} else {
+				GLib.DateTime? then_utc = new GLib.DateTime.from_iso8601 (settings.last_contributors_update, null);
+				if (then_utc == null) {
+					can_update = true;
+				} else {
+					can_update = now_utc.difference (then_utc) > TimeSpan.DAY * 14;
+				}
+			}
+
+			if (!can_update) return;
+			new Request.GET ("https://api.tuba.geopjr.dev/v1/supporters")
+				.then ((in_stream) => {
+					var parser = Network.get_parser_from_inputstream (in_stream);
+
+					string[] new_contributors = {};
+					Network.parse_array (parser, node => {
+						if (node != null) {
+							new_contributors += node.get_string ();
+						}
+					});
+
+					settings.contributors = new_contributors;
+					settings.last_contributors_update = now_utc.format_iso8601 ();
+				})
+				.exec ();
+		}
+
+		public void update_analytics () {
+			if (!settings.analytics) return;
+
+			bool can_update = false;
+			GLib.DateTime now_utc = new GLib.DateTime.now_utc ();
+
+			if (settings.last_analytics_update == null || settings.last_analytics_update == "") {
+				can_update = true;
+			} else {
+				GLib.DateTime? then_utc = new GLib.DateTime.from_iso8601 (settings.last_analytics_update, null);
+				if (then_utc == null) {
+					can_update = true;
+				} else {
+					can_update = now_utc.difference (then_utc) > TimeSpan.DAY * 14;
+				}
+			}
+
+			if (!can_update) return;
+			new Request.POST ("https://api.tuba.geopjr.dev/v1/analytics")
+				.body ("application/json", new Bytes.take (generate_analytics_object ().data))
+				.then ((in_stream) => {
+					settings.last_analytics_update = now_utc.format_iso8601 ();
+				})
+				.exec ();
+		}
 	}
 
 	public static void toggle_css (Gtk.Widget wdg, bool state, string style) {
@@ -715,5 +833,4 @@ namespace Tuba {
 			wdg.remove_css_class (style);
 		}
 	}
-
 }

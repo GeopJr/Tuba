@@ -452,7 +452,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		var i = 0;
 		foreach (var file13 in files_for_upload) {
 			uploading = true;
-			API.Attachment.upload.begin (file13.get_uri (), (obj, res) => {
+			API.Attachment.upload.begin (file13.get_uri (), null, null, (obj, res) => {
 				try {
 					var attachment = API.Attachment.upload.end (res);
 					attachment.source_file = file13;

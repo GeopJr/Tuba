@@ -31,7 +31,9 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 		stack = new Adw.ViewStack () { vexpand = true };
 		stack.notify["visible-child"].connect (on_view_switched);
-		scrolled.child = stack;
+
+		states.remove (scrolled);
+		states.add_named (stack, "content");
 
 		switcher_bar.stack = switcher.stack = stack;
 	}
@@ -65,7 +67,9 @@ public class Tuba.Views.TabbedBase : Views.Base {
 	}
 
 	public override void build_header () {
-		title_stack = new Gtk.Stack ();
+		title_stack = new Gtk.Stack () {
+			hhomogeneous = false
+		};
 		header.title_widget = title_stack;
 
 		switcher = new Adw.ViewSwitcher () { policy = Adw.ViewSwitcherPolicy.WIDE };

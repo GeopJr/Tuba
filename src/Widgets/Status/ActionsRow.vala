@@ -6,6 +6,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	StatusActionButton reblog_button;
 	StatusActionButton favorite_button;
 	StatusActionButton bookmark_button;
+	StatusActionButton? quote_button = null;
 
 	public ActionsRow (API.Status t_status) {
 		Object (status: t_status);
@@ -38,6 +39,10 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		bindings += this.status.bind_property ("favourites-count", favorite_button, "amount", GLib.BindingFlags.SYNC_CREATE);
 
 		bindings += this.status.bind_property ("bookmarked", bookmark_button, "active", GLib.BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
+
+		if (quote_button != null) {
+			quote_button.visible = status.formal.can_be_quoted;
+		}
 	}
 
 	private void in_reply_to_id_notify_func () {
@@ -111,6 +116,18 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		};
 		reblog_button.clicked.connect (on_boost_button_clicked);
 		this.append (reblog_button);
+
+		if (accounts.active.instance_info.supports_quote_posting) {
+			quote_button = new StatusActionButton.with_icon_name ("tuba-quotation-symbolic") {
+				css_classes = { "ttl-status-action-quote", "flat", "circular" },
+				halign = Gtk.Align.START,
+				hexpand = true,
+				tooltip_text = _("Quote"),
+				visible = false
+			};
+			quote_button.clicked.connect (on_quote_button_clicked);
+			this.append (quote_button);
+		}
 
 		favorite_button = new StatusActionButton.with_icon_name ("tuba-unstarred-symbolic") {
 			active_icon_name = "tuba-starred-symbolic",
@@ -310,6 +327,12 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		} else {
 			commit_boost (status_btn);
 		}
+	}
+
+	private void on_quote_button_clicked () {
+		new Dialogs.Compose (new API.Status.empty () {
+			visibility = settings.default_post_visibility
+		}, false, status.formal.id);
 	}
 
 	private void commit_boost (StatusActionButton status_btn, API.Status.ReblogVisibility? visibility = null) {

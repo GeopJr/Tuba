@@ -113,7 +113,7 @@
 	[GtkChild] protected unowned Widgets.RichLabel name_label;
 	[GtkChild] protected unowned Gtk.Label handle_label;
 	[GtkChild] public unowned Gtk.Box indicators;
-	[GtkChild] protected unowned Gtk.Label date_label;
+	[GtkChild] public unowned Gtk.Label date_label;
 	[GtkChild] protected unowned Gtk.Image pin_indicator;
 	[GtkChild] protected unowned Gtk.Image edited_indicator;
 	[GtkChild] protected unowned Gtk.Image visibility_indicator;
@@ -151,6 +151,12 @@
 		Tuba.toggle_css (this, settings.larger_font_size, "ttl-status-font-large");
 		Tuba.toggle_css (this, settings.larger_line_height, "ttl-status-line-height-large");
 		Tuba.toggle_css (this, settings.scale_emoji_hover, "lww-scale-emoji-hover");
+	}
+
+	static construct {
+		typeof (Widgets.Avatar).ensure ();
+		typeof (Widgets.RichLabel).ensure ();
+		typeof (Widgets.MarkupView).ensure ();
 	}
 
 	construct {
@@ -538,7 +544,7 @@
 	public string spoiler_text_revealed { get; set; default = _("Sensitive"); }
 
 	// separator between the bottom bar items
-	string expanded_separator = "·";
+	const string EXPANDED_SEPARATOR = "·";
 	protected string date {
 		owned get {
 			if (expanded) {
@@ -554,7 +560,7 @@
 				var date_parsed = new GLib.DateTime.from_iso8601 (this.full_date, null);
 				date_parsed = date_parsed.to_timezone (new TimeZone.local ());
 
-				return date_parsed.format (@"$date_local $expanded_separator %H:%M").replace (" ", ""); // %e prefixes with whitespace on single digits
+				return date_parsed.format (@"$date_local $EXPANDED_SEPARATOR %H:%M").replace (" ", ""); // %e prefixes with whitespace on single digits
 			} else {
 				return DateTime.humanize (this.full_date);
 			}
@@ -893,7 +899,7 @@
 	protected Widgets.PreviewCard prev_card;
 	private Widgets.Attachment.Box attachments;
 	private Gtk.Label translation_label;
-	private Widgets.VoteBox poll;
+	public Widgets.VoteBox poll;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	ulong[] formal_handler_ids = {};
 	ulong[] this_handler_ids = {};
@@ -959,7 +965,7 @@
 		spoiler_label.label = this.spoiler_text;
 		spoiler_label_rev.label = this.spoiler_text_revealed;
 
-		status.formal.tuba_spoiler_revealed = !status.formal.has_spoiler || settings.show_spoilers;
+		status.formal.tuba_spoiler_revealed = !status.formal.has_spoiler || status.formal.tuba_spoiler_revealed;
 		update_spoiler_status ();
 
 		handle_label.label = this.subtitle_text;
@@ -1060,7 +1066,7 @@
 		}
 
 		if (prev_card != null) content_box.remove (prev_card);
-		if (settings.show_preview_cards && !status.formal.has_media && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
+		if (settings.show_preview_cards && !status.formal.has_media && quoted_status_btn == null && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
 			try {
 				prev_card = (Widgets.PreviewCard) status.formal.card.to_widget ();
 				prev_card.button.clicked.connect (open_card_url);
@@ -1199,7 +1205,7 @@
 	}
 
 	// Adds *separator* between all *flowbox* children
-	private void add_separators_to_expanded_bottom (Gtk.FlowBox flowbox, string separator = expanded_separator) {
+	private void add_separators_to_expanded_bottom (Gtk.FlowBox flowbox, string separator = EXPANDED_SEPARATOR) {
 		var i = 0;
 		var child = flowbox.get_child_at_index (i);
 		while (child != null) {

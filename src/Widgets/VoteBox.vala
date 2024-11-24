@@ -4,7 +4,15 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 	[GtkChild] protected unowned Gtk.Button button_vote;
 	[GtkChild] protected unowned Gtk.Button button_refresh;
 	[GtkChild] protected unowned Gtk.Button button_results;
-	[GtkChild] protected unowned Gtk.Label info_label;
+	[GtkChild] public unowned Gtk.Label info_label;
+
+	public bool usable {
+		set {
+			button_vote.visible =
+			button_refresh.visible =
+			button_results.visible = value;
+		}
+	}
 
 	public API.Poll? poll { get; set;}
 	protected Gee.ArrayList<string> selected_index = new Gee.ArrayList<string> ();
@@ -79,6 +87,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 		button_vote.sensitive = false;
 		button_vote.visible = !this.show_results && !poll.expired && !poll.voted;
 		button_results.visible = !poll.expired && !poll.voted;
+		button_refresh.visible = !button_vote.visible && !poll.expired;
 
 		if (this.show_results) {
 			button_results.icon_name = "tuba-eye-not-looking-symbolic";

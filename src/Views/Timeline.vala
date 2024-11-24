@@ -151,9 +151,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		base.clear ();
 	}
 
-	protected override void clear_all_but_first () {
+	protected override void clear_all_but_first (int i = 1) {
 		cleanup_timeline_api ();
-		base.clear_all_but_first ();
+		base.clear_all_but_first (i);
 	}
 
 	public void get_pages (string? header) {
@@ -377,6 +377,17 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			}
 		} catch (Error e) {
 			warning (@"Error getting String from json: $(e.message)");
+		}
+	}
+
+	public virtual void on_remove_user (string user_id) {
+		if (accepts != typeof (API.Status)) return;
+
+		for (uint i = 0; i < model.get_n_items (); i++) {
+			var status_obj = (API.Status) model.get_item (i);
+			if (status_obj.formal.account.id == user_id || status_obj.account.id == user_id) {
+				model.remove (i);
+			}
 		}
 	}
 }

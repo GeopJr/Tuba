@@ -1,5 +1,12 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/profile_header.ui")]
 protected class Tuba.Widgets.Cover : Gtk.Box {
+	static construct {
+		typeof (Widgets.Background).ensure ();
+		typeof (Widgets.Avatar).ensure ();
+		typeof (Widgets.RelationshipButton).ensure ();
+		typeof (Widgets.EmojiLabel).ensure ();
+		typeof (Widgets.MarkupView).ensure ();
+	}
 
 	[GtkChild] unowned Gtk.FlowBox roles;
 	[GtkChild] unowned Widgets.Background background;
@@ -10,12 +17,15 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	[GtkChild] unowned Widgets.EmojiLabel display_name;
 	[GtkChild] unowned Gtk.Label handle;
 	[GtkChild] unowned Widgets.Avatar avatar;
+	[GtkChild] unowned Gtk.Button moved_btn;
 	[GtkChild] public unowned Widgets.MarkupView note;
 	[GtkChild] public unowned Widgets.RelationshipButton rsbtn;
 
 	[GtkChild] unowned Adw.EntryRow note_entry_row;
 	[GtkChild] unowned Gtk.ListBoxRow note_row;
 	[GtkChild] unowned Gtk.Label note_error;
+
+	[GtkChild] unowned Gtk.Image supporter_icon;
 
 	public API.Relationship rs { get; construct set; }
 	public signal void rs_invalidated ();
@@ -161,6 +171,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		avatar_clicked ();
 	}
 
+	API.Account? moved_to_account = null;
 	bool _mini = false;
 	Gtk.FlowBox fields_box;
 	Gtk.ListBoxRow fields_box_row;
@@ -172,7 +183,16 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		settings.notify["scale-emoji-hover"].connect (toggle_scale_emoji_hover);
 
 		_mini = mini;
-		if (mini) note_row.sensitive = false;
+		if (mini) {
+			note_row.sensitive = false;
+		} else {
+			moved_btn.clicked.connect (on_moved_btn_clicked);
+		}
+
+		if (GLib.str_hash (profile.account.full_handle.down ()).to_string () in settings.contributors) {
+			supporter_icon.visible = true;
+			this.add_css_class ("thanks");
+		}
 
 		if (profile.account.id != accounts.active.id) {
 			note_entry_row.notify["text"].connect (on_note_changed);
@@ -298,6 +318,23 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			Tuba.Helper.Image.request_paintable (profile.header, null, false, on_cache_response);
 		}
 
+		if (!_mini && profile.moved != null) {
+			moved_btn.visible = true;
+			moved_btn.child = new Gtk.Label (
+				// translators: Button label shown when a user has moved to another instance.
+				//				The first variable is this account's handle while the second
+				//				is the moved-to account's handle
+				_("%s has moved to %s").printf (@"<b>$(profile.full_handle)</b>", @"<b>$(profile.moved.full_handle)</b>")
+			) {
+				use_markup = true,
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR
+			};
+			moved_to_account = profile.moved;
+		} else {
+			moved_btn.visible = false;
+		}
+
 		fields_box.remove_all ();
 		total_fields = 0;
 		if (profile.fields != null || profile.created_at != null) {
@@ -358,20 +395,36 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 					tooltip_text = parsed_date.format ("%F")
 				};
 
+				var creation_date_time = new GLib.DateTime.from_iso8601 (profile.created_at, null);
+				var today_date_time = new GLib.DateTime.now_local ();
+				bool is_birthday =
+					creation_date_time.get_month () == today_date_time.get_month () && creation_date_time.get_day_of_month () == today_date_time.get_day_of_month ();
+
 				var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 				// translators: as in created an account; this is used in Profiles in a row
 				//				which has as value the date the profile was created on
 				title_box.append (new Gtk.Label (_("Joined")) {
 					css_classes = {"dim-label"}
 				});
-				title_box.prepend (new Gtk.Image.from_icon_name ("contact-new-symbolic"));
+
+				if (is_birthday) {
+					if (total_fields == 1) {
+						fields_box.add_css_class ("ttl-birthday-field");
+					} else {
+						row.add_css_class ("ttl-birthday-field");
+					}
+
+					title_box.prepend (new Gtk.Image.from_icon_name ("tuba-birthday-symbolic"));
+				} else {
+					title_box.prepend (new Gtk.Image.from_icon_name ("contact-new-symbolic"));
+				}
+
 				row.append (title_box);
 				row.append (val);
 
 				fields_box.append (row);
 				sizegroup.add_widget (row);
 			}
-
 
 			fields_box_row.remove_css_class ("odd");
 			fields_box_row.remove_css_class ("signle");
@@ -426,6 +479,10 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 	private void update_fields_max_columns () {
 		fields_box.max_children_per_line = app.is_mobile ? 1 : 2;
+	}
+
+	private void on_moved_btn_clicked () {
+		if (moved_to_account != null) moved_to_account.open ();
 	}
 
 	protected class ProfileStatsButton : Gtk.Button {

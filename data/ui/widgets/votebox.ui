@@ -37,7 +37,6 @@
 				</child>
 				<child>
 					<object class="GtkButton" id="button_refresh">
-						<property name="visible" bind-source="button_vote" bind-property="visible" bind-flags="sync-create|invert-boolean" />
 						<property name="label" translatable="yes">Refresh</property>
 						<property name="valign">center</property>
 						<signal name="clicked" handler="on_refresh_poll" swapped="no" />
