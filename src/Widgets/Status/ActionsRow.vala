@@ -117,7 +117,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		reblog_button.clicked.connect (on_boost_button_clicked);
 		this.append (reblog_button);
 
-		if (accounts.active.instance_info.supports_quote_posting) {
+		if (accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting) {
 			quote_button = new StatusActionButton.with_icon_name ("tuba-quotation-symbolic") {
 				css_classes = { "ttl-status-action-quote", "flat", "circular" },
 				halign = Gtk.Align.START,

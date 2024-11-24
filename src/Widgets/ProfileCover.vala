@@ -13,7 +13,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	[GtkChild] unowned Gtk.Label cover_badge;
 	[GtkChild] unowned Gtk.Image cover_bot_badge;
 	[GtkChild] unowned Gtk.Box cover_badge_box;
-	[GtkChild] public unowned Gtk.ListBox info;
+	[GtkChild] unowned Gtk.ListBox info;
 	[GtkChild] unowned Widgets.EmojiLabel display_name;
 	[GtkChild] unowned Gtk.Label handle;
 	[GtkChild] unowned Widgets.Avatar avatar;
@@ -129,13 +129,11 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 				(ulong) total_fields
 			).printf (total_fields);
 
-			if (fields_box_row != null) {
-				this.fields_box_row.update_property (
-					Gtk.AccessibleProperty.LABEL,
-					aria_fileds,
-					-1
-				);
-			}
+			this.fields_box_row.update_property (
+				Gtk.AccessibleProperty.LABEL,
+				aria_fileds,
+				-1
+			);
 		}
 
 		string final_aria = "%s %s".printf (
@@ -187,47 +185,13 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		_mini = mini;
 		if (mini) {
 			note_row.sensitive = false;
-		} else if (profile.account.moved != null) {
-			moved_btn.visible = true;
-			moved_btn.child = new Gtk.Label (
-				// translators: Button label shown when a user has moved to another instance.
-				//				The first variable is this account's handle while the second
-				//				is the moved-to account's handle
-				_("%s has moved to %s").printf (@"<b>$(profile.account.full_handle)</b>", @"<b>$(profile.account.moved.full_handle)</b>")
-			) {
-				use_markup = true,
-				wrap = true,
-				wrap_mode = Pango.WrapMode.WORD_CHAR
-			};
-			moved_to_account = profile.account.moved;
+		} else {
 			moved_btn.clicked.connect (on_moved_btn_clicked);
 		}
 
 		if (GLib.str_hash (profile.account.full_handle.down ()).to_string () in settings.contributors) {
 			supporter_icon.visible = true;
 			this.add_css_class ("thanks");
-		}
-
-		display_name.instance_emojis = profile.account.emojis_map;
-		display_name.content = profile.account.display_name;
-		handle.label = profile.account.handle;
-		avatar.account = profile.account;
-		note.instance_emojis = profile.account.emojis_map;
-		note.content = profile.account.note;
-		cover_bot_badge.visible = profile.account.bot;
-		update_cover_badge ();
-
-		if (profile.account.roles != null && profile.account.roles.size > 0) {
-			roles.visible = true;
-
-			foreach (API.AccountRole role in profile.account.roles) {
-				roles.append (
-					new Gtk.FlowBoxChild () {
-						child = role.to_widget (),
-						css_classes = { "profile-role-border-radius" }
-					}
-				);
-			}
 		}
 
 		if (profile.account.id != accounts.active.id) {
@@ -238,136 +202,24 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			rsbtn.visible = true;
 		}
 
-		if (profile.account.header.contains ("/headers/original/missing.png")) {
-			header_url = "";
-			background.paintable = avatar.custom_image;
-		} else {
-			header_url = profile.account.header ?? "";
-			Tuba.Helper.Image.request_paintable (profile.account.header, null, false, on_cache_response);
-
-			if (!mini)
-				background.clicked.connect (open_header_in_media_viewer);
-		}
-
-		avi_url = profile.account.avatar ?? "";
 		if (mini) {
 			avatar.clicked.connect (on_avatar_clicked);
 		} else {
 			avatar.clicked.connect (open_pfp_in_media_viewer);
 		}
 
-		if (profile.account.fields != null || profile.account.created_at != null) {
-			fields_box = new Gtk.FlowBox () {
-				max_children_per_line = app.is_mobile ? 1 : 2,
-				min_children_per_line = 1,
-				selection_mode = Gtk.SelectionMode.NONE,
-				css_classes = {"ttl-profile-fields-box"}
-			};
-			var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
-			total_fields = profile.account.fields.size;
-
-			foreach (API.AccountField f in profile.account.fields) {
-				var row = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-					css_classes = {"ttl-profile-field"}
-				};
-				var val = new Widgets.RichLabel (HtmlUtils.simplify (f.val)) {
-					use_markup = true,
-					xalign = 0,
-					selectable = true
-				};
-
-				var title_label = new Widgets.EmojiLabel () {
-					use_markup = false,
-					css_classes = {"dim-label"}
-				};
-				title_label.instance_emojis = profile.account.emojis_map;
-				title_label.content = f.name;
-
-				fields_box.append (row);
-				sizegroup.add_widget (row);
-				if (f.verified_at != null) {
-					var verified_date = f.verified_at.slice (0, f.verified_at.last_index_of ("T"));
-					var verified_label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-					var verified_checkmark = new Gtk.Image.from_icon_name ("tuba-verified-checkmark-symbolic") {
-						tooltip_text = _(@"Ownership of this link was checked on $verified_date")
-					};
-
-					verified_label_box.append (title_label);
-					verified_label_box.append (verified_checkmark);
-
-					row.append (verified_label_box);
-					row.add_css_class ("ttl-verified-field");
-				} else {
-					row.append (title_label);
-				};
-
-				row.append (val);
-			}
-
-			if (profile.account.created_at != null) {
-				total_fields += 1;
-				var row = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-					css_classes = {"ttl-profile-field"}
-				};
-				var parsed_date = new GLib.DateTime.from_iso8601 (profile.account.created_at, null);
-				parsed_date = parsed_date.to_timezone (new TimeZone.local ());
-
-				var date_local = _("%B %e, %Y");
-				var val = new Gtk.Label (parsed_date.format (date_local).replace (" ", "")) { // %e prefixes with whitespace on single digits
-					wrap = true,
-					xalign = 0,
-					hexpand = true,
-					tooltip_text = parsed_date.format ("%F")
-				};
-
-				var creation_date_time = new GLib.DateTime.from_iso8601 (profile.account.created_at, null);
-				var today_date_time = new GLib.DateTime.now_local ();
-				bool is_birthday =
-					creation_date_time.get_month () == today_date_time.get_month () && creation_date_time.get_day_of_month () == today_date_time.get_day_of_month ();
-
-				var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-				// translators: as in created an account; this is used in Profiles in a row
-				//				which has as value the date the profile was created on
-				title_box.append (new Gtk.Label (_("Joined")) {
-					css_classes = {"dim-label"}
-				});
-
-				if (is_birthday) {
-					if (total_fields == 1) {
-						fields_box.add_css_class ("ttl-birthday-field");
-					} else {
-						row.add_css_class ("ttl-birthday-field");
-					}
-
-					title_box.prepend (new Gtk.Image.from_icon_name ("tuba-birthday-symbolic"));
-				} else {
-					title_box.prepend (new Gtk.Image.from_icon_name ("contact-new-symbolic"));
-				}
-
-				row.append (title_box);
-				row.append (val);
-
-				fields_box.append (row);
-				sizegroup.add_widget (row);
-			}
-
-			fields_box_row = new Gtk.ListBoxRow () {
-				child = fields_box,
-				activatable = false,
-				css_classes = {"ttl-profile-fields-box-container"}
-			};
-
-			if (total_fields % 2 != 0) {
-				fields_box_row.add_css_class ("odd");
-			}
-
-			if (total_fields == 1) {
-				fields_box_row.add_css_class ("single");
-			}
-
-			info.append (fields_box_row);
-			app.notify["is-mobile"].connect (update_fields_max_columns);
-		}
+		fields_box = new Gtk.FlowBox () {
+			max_children_per_line = app.is_mobile ? 1 : 2,
+			min_children_per_line = 1,
+			selection_mode = Gtk.SelectionMode.NONE,
+			css_classes = {"ttl-profile-fields-box"}
+		};
+		fields_box_row = new Gtk.ListBoxRow () {
+			child = fields_box,
+			activatable = false,
+			css_classes = {"ttl-profile-fields-box-container"}
+		};
+		info.append (fields_box_row);
 
 		if (!mini) {
 			build_profile_stats (profile.account);
@@ -417,6 +269,199 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 				}
 			);
 		}
+		update_cover_from_profile (profile.account);
+
+		if (header_url != "" && !mini)
+			background.clicked.connect (open_header_in_media_viewer);
+
+		app.notify["is-mobile"].connect (update_fields_max_columns);
+	}
+
+	public void update_cover_from_profile (API.Account profile) {
+		handle.label = profile.handle;
+
+		if (display_name.content != profile.display_name) {
+			display_name.instance_emojis = profile.emojis_map;
+			display_name.content = profile.display_name;
+		}
+
+		avi_url = profile.avatar ?? "";
+		avatar.account = profile;
+
+		if (note.content != profile.note) {
+			note.instance_emojis = profile.emojis_map;
+			note.content = profile.note;
+		}
+
+		cover_bot_badge.visible = profile.bot;
+		update_cover_badge ();
+
+		roles.remove_all ();
+		if (profile.roles != null && profile.roles.size > 0) {
+			roles.visible = true;
+
+			foreach (API.AccountRole role in profile.roles) {
+				roles.append (
+					new Gtk.FlowBoxChild () {
+						child = role.to_widget (),
+						css_classes = { "profile-role-border-radius" }
+					}
+				);
+			}
+		}
+
+		if (profile.header.contains ("/headers/original/missing.png")) {
+			header_url = "";
+			background.paintable = avatar.custom_image;
+		} else {
+			header_url = profile.header ?? "";
+			Tuba.Helper.Image.request_paintable (profile.header, null, false, on_cache_response);
+		}
+
+		if (!_mini && profile.moved != null) {
+			moved_btn.visible = true;
+			moved_btn.child = new Gtk.Label (
+				// translators: Button label shown when a user has moved to another instance.
+				//				The first variable is this account's handle while the second
+				//				is the moved-to account's handle
+				_("%s has moved to %s").printf (@"<b>$(profile.full_handle)</b>", @"<b>$(profile.moved.full_handle)</b>")
+			) {
+				use_markup = true,
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR
+			};
+			moved_to_account = profile.moved;
+		} else {
+			moved_btn.visible = false;
+		}
+
+		fields_box.remove_all ();
+		total_fields = 0;
+		if (profile.fields != null || profile.created_at != null) {
+			var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
+			total_fields = profile.fields.size;
+
+			foreach (API.AccountField f in profile.fields) {
+				var row = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+					css_classes = {"ttl-profile-field"}
+				};
+				var val = new Widgets.RichLabel (HtmlUtils.simplify (f.val)) {
+					use_markup = true,
+					xalign = 0,
+					selectable = true
+				};
+
+				var title_label = new Widgets.EmojiLabel () {
+					use_markup = false,
+					css_classes = {"dim-label"}
+				};
+				title_label.instance_emojis = profile.emojis_map;
+				title_label.content = f.name;
+
+				fields_box.append (row);
+				sizegroup.add_widget (row);
+				if (f.verified_at != null) {
+					var verified_date = f.verified_at.slice (0, f.verified_at.last_index_of ("T"));
+					var verified_label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+					var verified_checkmark = new Gtk.Image.from_icon_name ("tuba-verified-checkmark-symbolic") {
+						tooltip_text = _(@"Ownership of this link was checked on $verified_date")
+					};
+
+					verified_label_box.append (title_label);
+					verified_label_box.append (verified_checkmark);
+
+					row.append (verified_label_box);
+					row.add_css_class ("ttl-verified-field");
+				} else {
+					row.append (title_label);
+				};
+
+				row.append (val);
+			}
+
+			if (profile.created_at != null) {
+				total_fields += 1;
+				var row = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+					css_classes = {"ttl-profile-field"}
+				};
+				var parsed_date = new GLib.DateTime.from_iso8601 (profile.created_at, null);
+				parsed_date = parsed_date.to_timezone (new TimeZone.local ());
+
+				var date_local = _("%B %e, %Y");
+				var val = new Gtk.Label (parsed_date.format (date_local).replace (" ", "")) { // %e prefixes with whitespace on single digits
+					wrap = true,
+					xalign = 0,
+					hexpand = true,
+					tooltip_text = parsed_date.format ("%F")
+				};
+
+				var creation_date_time = new GLib.DateTime.from_iso8601 (profile.created_at, null);
+				var today_date_time = new GLib.DateTime.now_local ();
+				bool is_birthday =
+					creation_date_time.get_month () == today_date_time.get_month () && creation_date_time.get_day_of_month () == today_date_time.get_day_of_month ();
+
+				var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+				// translators: as in created an account; this is used in Profiles in a row
+				//				which has as value the date the profile was created on
+				title_box.append (new Gtk.Label (_("Joined")) {
+					css_classes = {"dim-label"}
+				});
+
+				if (is_birthday) {
+					if (total_fields == 1) {
+						fields_box.add_css_class ("ttl-birthday-field");
+					} else {
+						row.add_css_class ("ttl-birthday-field");
+					}
+
+					title_box.prepend (new Gtk.Image.from_icon_name ("tuba-birthday-symbolic"));
+				} else {
+					title_box.prepend (new Gtk.Image.from_icon_name ("contact-new-symbolic"));
+				}
+
+				row.append (title_box);
+				row.append (val);
+
+				fields_box.append (row);
+				sizegroup.add_widget (row);
+			}
+
+			fields_box_row.remove_css_class ("odd");
+			fields_box_row.remove_css_class ("signle");
+
+			if (total_fields % 2 != 0) {
+				fields_box_row.add_css_class ("odd");
+			}
+
+			if (total_fields == 1) {
+				fields_box_row.add_css_class ("single");
+			}
+		}
+
+		if (posts_btn != null && following_btn != null && followers_btn != null) {
+			// translators: Used in profile stats.
+			//              The variable is a shortened number of the amount of posts a user has made.
+			posts_btn.label_template = GLib.ngettext (
+				"%s Post",
+				"%s Posts",
+				(ulong) profile.statuses_count
+			);
+			posts_btn.amount = profile.statuses_count;
+
+			// translators: Used in profile stats.
+			//              The variable is a shortened number of the amount of people a user follows.
+			following_btn.label_template = _("%s Following");
+			following_btn.amount = profile.following_count;
+
+			// translators: Used in profile stats.
+			//              The variable is a shortened number of the amount of followers a user has.
+			followers_btn.label_template = GLib.ngettext (
+				"%s Follower",
+				"%s Followers",
+				(ulong) profile.followers_count
+			);
+			followers_btn.amount = profile.followers_count;
+		}
 
 		update_aria ();
 	}
@@ -440,71 +485,59 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		if (moved_to_account != null) moved_to_account.open ();
 	}
 
+	protected class ProfileStatsButton : Gtk.Button {
+		public string label_template { get; set; default = "%s"; }
+		public int64 amount {
+			set {
+				this.label = label_template.printf (Tuba.Units.shorten (value));
+				this.tooltip_text = label_template.printf (value.to_string ());
+			}
+		}
+
+		construct {
+			this.css_classes = { "flat", "ttl-profile-stat-button" };
+			this.hexpand = true;
+			this.label = "";
+
+			var child_label = this.child as Gtk.Label;
+			child_label.wrap = true;
+			child_label.justify = Gtk.Justification.CENTER;
+		}
+	}
+
+	ProfileStatsButton? posts_btn;
+	ProfileStatsButton? followers_btn;
+	ProfileStatsButton? following_btn;
 	protected void build_profile_stats (API.Account account) {
 		var row = new Gtk.ListBoxRow ();
 		var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 		var sizegroup = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
 
-		// translators: Used in profile stats.
-		//              The variable is a shortened number of the amount of posts a user has made.
-		string posts_str = GLib.ngettext (
-			"%s Post",
-			"%s Posts",
-			(ulong) account.statuses_count
-		);
-
-		// translators: Used in profile stats.
-		//              The variable is a shortened number of the amount of followers a user has.
-		string followers_str = GLib.ngettext (
-			"%s Follower",
-			"%s Followers",
-			(ulong) account.statuses_count
-		);
-
-		var btn = build_profile_stats_button (posts_str.printf (Tuba.Units.shorten (account.statuses_count)));
-		btn.tooltip_text = posts_str.printf (account.statuses_count.to_string ());
-		btn.clicked.connect (() => timeline_change ("statuses"));
-		sizegroup.add_widget (btn);
-		box.append (btn);
+		posts_btn = new ProfileStatsButton ();
+		posts_btn.clicked.connect (() => timeline_change ("statuses"));
+		sizegroup.add_widget (posts_btn);
+		box.append (posts_btn);
 
 		var separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
 		box.append (separator);
 
-		// translators: Used in profile stats.
-		//              The variable is a shortened number of the amount of people a user follows.
-		btn = build_profile_stats_button (_("%s Following").printf (Tuba.Units.shorten (account.following_count)));
-		btn.tooltip_text = _("%s Following").printf (account.following_count.to_string ());
-		btn.clicked.connect (() => timeline_change ("following"));
-		sizegroup.add_widget (btn);
-		box.append (btn);
+		following_btn = new ProfileStatsButton ();
+		following_btn.clicked.connect (() => timeline_change ("following"));
+		sizegroup.add_widget (following_btn);
+		box.append (following_btn);
 
 		separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
 		box.append (separator);
 
-		// translators: the variable is the amount of followers a user has
-		btn = build_profile_stats_button (followers_str.printf (Tuba.Units.shorten (account.followers_count)));
-		btn.tooltip_text = followers_str.printf (account.followers_count.to_string ());
-		btn.clicked.connect (() => timeline_change ("followers"));
-		sizegroup.add_widget (btn);
-		box.append (btn);
+		followers_btn = new ProfileStatsButton ();
+		followers_btn.clicked.connect (() => timeline_change ("followers"));
+		sizegroup.add_widget (followers_btn);
+		box.append (followers_btn);
 
 		row.activatable = false;
 		row.focusable = false;
 		row.child = box;
 		info.append (row);
-	}
-
-	protected Gtk.Button build_profile_stats_button (string btn_label) {
-		var btn = new Gtk.Button.with_label (btn_label) {
-			css_classes = { "flat", "ttl-profile-stat-button" },
-			hexpand = true
-		};
-
-		var child_label = btn.child as Gtk.Label;
-		child_label.wrap = true;
-		child_label.justify = Gtk.Justification.CENTER;
-
-		return btn;
 	}
 
 	void on_cache_response (Gdk.Paintable? data) {
