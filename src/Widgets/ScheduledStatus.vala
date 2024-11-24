@@ -130,7 +130,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		var date_parsed = new GLib.DateTime.from_iso8601 (scheduled_status.scheduled_at, null);
 
 		var delta = date_parsed.to_local ().difference (now_load);
-		edit_button.visible = delta >= TimeSpan.HOUR || delta / TimeSpan.MINUTE > 5;
+		edit_button.visible = delta >= TimeSpan.HOUR;
 
 		date_parsed = date_parsed.to_timezone (new TimeZone.local ());
 		var date_local = _("%B %e, %Y");
