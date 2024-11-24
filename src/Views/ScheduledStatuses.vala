@@ -11,7 +11,10 @@ public class Tuba.Views.ScheduledStatuses : Views.Timeline {
 		var widget = base.on_create_model_widget (obj);
 		var widget_scheduled = widget as Widgets.ScheduledStatus;
 
-		if (widget_scheduled != null) widget_scheduled.deleted.connect (on_deleted_scheduled);
+		if (widget_scheduled != null) {
+			widget_scheduled.deleted.connect (on_deleted_scheduled);
+			widget_scheduled.refresh.connect (on_refresh);
+		}
 
 		return widget;
 	}

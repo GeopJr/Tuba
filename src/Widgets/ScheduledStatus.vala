@@ -1,5 +1,6 @@
 public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	public signal void deleted (string scheduled_status_id);
+	public signal void refresh ();
 	public signal void open ();
 
 	private bool _draft = false;
@@ -14,6 +15,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	}
 
 	Gtk.Button reschedule_button;
+	Gtk.Button edit_button;
 	Gtk.Box content_box;
 	Gtk.Label schedule_label;
 	construct {
@@ -37,6 +39,14 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		action_box.append (schedule_label);
 
 		var actions_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+		edit_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+			css_classes = { "flat" },
+			tooltip_text = _("Edit"),
+			valign = Gtk.Align.CENTER
+		};
+		edit_button.clicked.connect (on_edit);
+		actions_box.append (edit_button);
+
 		reschedule_button = new Gtk.Button.from_icon_name ("tuba-clock-alt-symbolic") {
 			tooltip_text = _("Reschedule"),
 			css_classes = { "flat" }
@@ -73,6 +83,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		scheduled_at = scheduled_status.scheduled_at;
 		scheduled_id = scheduled_status.id;
 
+		GLib.DateTime now_load = new GLib.DateTime.now_local ();
 		API.Poll? poll = null;
 		if (scheduled_status.props.poll != null) {
 			poll = new API.Poll ("0") {
@@ -87,7 +98,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 				});
 			}
 
-			poll.expires_at = new GLib.DateTime.now_local ().add_seconds (scheduled_status.props.poll.expires_in).format_iso8601 ();
+			poll.expires_at = now_load.add_seconds (scheduled_status.props.poll.expires_in).format_iso8601 ();
 		}
 
 		var status = new API.Status.empty () {
@@ -117,6 +128,10 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 
 		// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES
 		var date_parsed = new GLib.DateTime.from_iso8601 (scheduled_status.scheduled_at, null);
+
+		var delta = date_parsed.to_local ().difference (now_load);
+		edit_button.visible = delta >= TimeSpan.HOUR;
+
 		date_parsed = date_parsed.to_timezone (new TimeZone.local ());
 		var date_local = _("%B %e, %Y");
 		// translators: Scheduled Post title, 'scheduled for: <date>'
@@ -197,5 +212,13 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 
 	private void on_draft_posted (API.Status x) {
 		if (_draft) delete_status ();
+	}
+
+	private void on_edit () {
+		new Dialogs.Compose.from_scheduled (status_widget.status, scheduled_id, scheduled_at, on_edited);
+	}
+
+	private void on_edited (API.Status x) {
+		refresh ();
 	}
 }
