@@ -1,14 +1,14 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/filter_edit.ui")]
-public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
+public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 	[GtkChild] unowned Adw.EntryRow title_row;
 	[GtkChild] unowned Adw.ComboRow expire_in_row;
 	[GtkChild] unowned Adw.PreferencesGroup context_group;
 	[GtkChild] unowned Adw.PreferencesGroup keywords_group;
 	[GtkChild] unowned Gtk.Button save_btn;
 	[GtkChild] unowned Adw.SwitchRow hide_row;
-	[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 
 	public signal void saved (API.Filters.Filter filter);
+	public signal void toast (string toast_content, int dismiss_time);
 
 	const API.Filters.Filter.ContextType[] ALL_CONTEXT = {HOME, NOTIFICATIONS, PUBLIC, THREAD, ACCOUNT};
 	const FilterExpiration[] ALL_EXP = {NEVER, MINUTES_30, HOUR_1, HOUR_6, HOUR_12, DAY_1, WEEK_1};
@@ -99,7 +99,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
 	}
 
 	string? filter_id = null;
-	public FilterEdit (Gtk.Widget win, API.Filters.Filter? filter = null) {
+	public FilterEdit (API.Filters.Filter? filter = null) {
 		populate_exp_row ();
 
 		if (filter != null) {
@@ -126,7 +126,6 @@ public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
 		}
 
 		validate ();
-		this.present (win);
 	}
 
 	class ExpWrapper : Object {
@@ -246,7 +245,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
 
 	[GtkCallback]
 	void on_close () {
-		force_close ();
+		this.activate_action ("navigation.pop", null);
 	}
 
 	[GtkCallback]
@@ -294,9 +293,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
 			})
 			.on_error ((code, message) => {
 				this.sensitive = true;
-				toast_overlay.add_toast (new Adw.Toast (_("Couldn't edit filter: %s").printf (message)) {
-					timeout = 0
-				});
+				this.toast (_("Couldn't edit filter: %s").printf (message), 0);
 				warning (@"Couldn't edit filter: $code $message");
 			})
 			.exec ();

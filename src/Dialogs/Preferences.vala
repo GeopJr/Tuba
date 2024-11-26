@@ -63,8 +63,10 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		}
 
 		private void on_edit () {
-			var dlg = new Dialogs.FilterEdit (win, filter);
+			var dlg = new Dialogs.FilterEdit (filter);
 			dlg.saved.connect (on_save);
+			dlg.toast.connect (this.win.on_toast);
+			this.win.push_subpage (dlg);
 		}
 
 		private void on_save (API.Filters.Filter filter) {
@@ -325,8 +327,16 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	[GtkCallback]
 	private void add_keyword_row () {
-		var dlg = new Dialogs.FilterEdit (this);
+		var dlg = new Dialogs.FilterEdit ();
 		dlg.saved.connect (on_filter_save);
+		dlg.toast.connect (on_toast);
+		this.push_subpage (dlg);
+	}
+
+	public void on_toast (string toast_content, int dismiss_time) {
+		this.add_toast (new Adw.Toast (toast_content) {
+			timeout = dismiss_time
+		});
 	}
 
 	private void on_filter_save (API.Filters.Filter filter) {
