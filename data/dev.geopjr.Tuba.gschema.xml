@@ -85,6 +85,9 @@
 		<key name="reply-to-old-post-reminder" type="b">
 			<default>true</default>
 		</key>
+    <key name="copy-private-link-reminder" type="b">
+			<default>true</default>
+		</key>
 		<key name="spellchecker-enabled" type="b">
 			<default>true</default>
 		</key>
