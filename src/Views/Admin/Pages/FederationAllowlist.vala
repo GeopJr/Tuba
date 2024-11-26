@@ -54,7 +54,7 @@ public class Tuba.Views.Admin.Page.FederationAllowList : Views.Admin.Page.Base {
 				// translators: Question dialog when an admin is about to
 				//				allow federation with an instance. The variable is a
 				//				string.
-				_("Are you sure you want to allow federation with %s?").printf (domain),
+				_("Allow Federation with %s?").printf (domain),
 				null
 			);
 

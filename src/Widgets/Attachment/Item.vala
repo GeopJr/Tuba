@@ -133,20 +133,19 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	protected Adw.Dialog create_alt_text_dialog (string alt_text, bool show = false) {
-		var alt_label = new Gtk.Label (alt_text) {
-			wrap = true,
-			margin_bottom = 6,
-			margin_top = 6
+		var alt_label = new Gtk.TextView () {
+			bottom_margin = 6,
+			top_margin = 6,
+			left_margin = 12,
+			right_margin = 12,
+			wrap_mode = Gtk.WrapMode.WORD_CHAR,
+			editable = false
 		};
-
-		var clamp = new Adw.Clamp () {
-			child = alt_label,
-			tightening_threshold = 100,
-			valign = Gtk.Align.START
-		};
+		alt_label.remove_css_class ("view");
+		alt_label.buffer.text = alt_text.strip ();
 
 		var scrolledwindow = new Gtk.ScrolledWindow () {
-			child = clamp,
+			child = alt_label,
 			vexpand = true,
 			hexpand = true
 		};
@@ -164,7 +163,6 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		toolbar_view.set_content (scrolledwindow);
 
 		if (show) window.present (app.main_window);
-		alt_label.selectable = true;
 
 		return window;
 	}

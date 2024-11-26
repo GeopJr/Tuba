@@ -20,6 +20,10 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_ADMIN_REPORT = "admin.report";
 	public const string KIND_ADMIN_SIGNUP = "admin.sign_up";
 	public const string KIND_STATUS = "status";
+	public const string KIND_PLEROMA_REACTION = "pleroma:emoji_reaction";
+	public const string KIND_REACTION = "reaction";
+	public const string KIND_ANNUAL_REPORT = "annual_report";
+	public const string KIND_MODERATION_WARNING = "moderation_warning";
 
 	public string uuid { get; set; }
 	public bool admin_mode { get; set; default=false; }
@@ -220,7 +224,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		string? kind,
 		out Kind result,
 		string? actor_name = null,
-		string? callback_url = null
+		string? callback_url = null,
+		string? other_data = null
 	) {
 		switch (kind) {
 			case KIND_MENTION:
@@ -331,6 +336,30 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					null
 				};
 				break;
+			case KIND_ANNUAL_REPORT:
+				result = {
+					"tuba-heart-broken-symbolic",
+					// translators: this is used for notifications,
+					//				when an annual report is available.
+					//				it's similar to spotify wrapped, it
+					//				shows profile stats / it's a recap
+					//				of the year. The variable is the
+					//				current year e.g. 2024. Please don't
+					//				translate the hashtag.
+					_("Your %s #FediWrapped is ready!").printf (other_data),
+					null
+				};
+				break;
+			case KIND_MODERATION_WARNING:
+				result = {
+					"tuba-police-badge2-symbolic",
+					// translators: this is used for notifications,
+					//				when you receive a warning from
+					//				your server's admins
+					_("Your account has received a moderation warning"),
+					null
+				};
+				break;
 			case KIND_ADMIN_REPORT:
 				result = {
 					"tuba-build-alt-symbolic",
@@ -345,6 +374,27 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					// translators: the variable is a string user name,
 					//				this is used for per-account notifications
 					_("%s just posted").printf (actor_name),
+					null
+				};
+				break;
+			case KIND_PLEROMA_REACTION:
+			case KIND_REACTION:
+				string body;
+				if (other_data == null) {
+					// translators: the variable is a string user name,
+					//				this is used for notifications
+					body = _("%s reacted to your post").printf (actor_name);
+				} else {
+					// translators: the first variable is a string user name,
+					//				the second variable is an emoji,
+					//				this is used for notifications
+					body = _("%s reacted to your post with %s").printf (actor_name, other_data);
+				}
+
+				result = {
+					"tuba-smile-symbolic",
+					body,
+					callback_url
 				};
 				break;
 			default:

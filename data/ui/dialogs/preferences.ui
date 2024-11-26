@@ -13,7 +13,7 @@
 		<property name="page_increment">1</property>
 	</object>
 	<template class="TubaDialogsPreferences" parent="AdwPreferencesDialog">
-	  <property name="search-enabled">True</property>
+		<property name="search-enabled">True</property>
 		<child>
 			<object class="AdwPreferencesPage">
 				<property name="icon_name">tuba-settings-symbolic</property>
@@ -76,7 +76,7 @@
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="use_blurhash">
-								<property name="title" translatable="no">BlurHash</property>
+								<property name="title" translatable="yes">BlurHash</property>
 								<property name="subtitle" translatable="yes">Show a blurred version of the media until they fully load</property>
 							</object>
 						</child>
@@ -196,6 +196,41 @@
 								<property name="sensitive" bind-source="live_updates" bind-property="active" bind-flags="sync-create" />
 								<property name="title" translatable="yes">Stream Public Timelines</property>
 								<property name="subtitle" translatable="yes">Warning: This will increase memory usage</property>
+							</object>
+						</child>
+					</object>
+				</child>
+				<child>
+					<object class="AdwPreferencesGroup">
+						<property name="title" translatable="yes">Online Services</property>
+						<property name="description" translatable="yes">Configure features that connect to api.tuba.geopjr.dev</property>
+						<child>
+							<object class="AdwActionRow">
+								<property name="title" translatable="yes">Send Preference Analytics</property>
+								<property name="subtitle" translatable="yes">Send your preferences to Tuba's developers for popularity research biweekly</property>
+								<property name="activatable-widget">analytics_switch</property>
+								<child type="suffix">
+									<object class="GtkButton">
+										<property name="icon-name">tuba-eye-open-negative-filled-symbolic</property>
+										<property name="valign">center</property>
+										<property name="tooltip-text" translatable="yes">Preview Analytics</property>
+										<signal name="clicked" handler="on_analytics_preview" swapped="no" />
+										<style>
+											<class name="flat" />
+										</style>
+									</object>
+								</child>
+								<child type="suffix">
+									<object class="GtkSwitch" id="analytics_switch">
+										<property name="valign">center</property>
+									</object>
+								</child>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="update_contributors">
+								<property name="title" translatable="yes">Update Supporters Periodically</property>
+								<property name="subtitle" translatable="yes">Fetch the list of Tuba's supporters biweekly</property>
 							</object>
 						</child>
 					</object>

@@ -17,7 +17,7 @@ public class Tuba.HashtagProvider: Tuba.CompletionProvider {
 	}
 
 	public override async ListModel suggest (string word, Cancellable? cancellable) throws Error {
-		var req = API.Tag.search (word);
+		var req = API.Tag.search (word.substring (1));
 		yield req.await ();
 
 		var suggestions = new GLib.ListStore (typeof (Object));

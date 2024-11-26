@@ -7,6 +7,7 @@ sources += files(
     'Html.vala',
     'Locale.vala',
     'ShareHandler.vala',
+    'TagExtractor.vala',
     'Tracking.vala',
     'Units.vala',
     'WebApHandler.vala',

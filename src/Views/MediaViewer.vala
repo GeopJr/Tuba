@@ -427,6 +427,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		}
 	}
 
+	static construct {
+		typeof (Widgets.ScaleRevealer).ensure ();
+	}
+
 	#if CLAPPER_0_8
 		string clapper_cache_dir;
 		Gee.HashMap<string, string> clapper_cached_urls;
@@ -523,6 +527,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
 			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>KP_Subtract"),
 			new Gtk.NamedAction ("mediaviewer.zoom-out")
+		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>C"),
+			new Gtk.NamedAction ("mediaviewer.copy-media")
 		));
 
 		shortcutscontroller.add_shortcut (new Gtk.Shortcut (

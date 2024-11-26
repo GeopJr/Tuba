@@ -3,6 +3,7 @@
     <gresource prefix="/dev/geopjr/Tuba/">
         <file>style.css</file>
         <file>style-dark.css</file>
+        <file>style-hc.css</file>
 
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-hashtag-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-bookmarks-symbolic.svg</file>
@@ -69,6 +70,12 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-unread-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-starred-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-camera-focus-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-heart-filled-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-birthday-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-transparent-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-police-badge2-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-clock-alt-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-quotation-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/help-overlay.ui</file>
@@ -105,6 +112,7 @@
         <file>ui/dialogs/preferences.ui</file>
         <file>ui/dialogs/profile_edit.ui</file>
         <file>ui/dialogs/filter_edit.ui</file>
+        <file>ui/dialogs/schedule.ui</file>
         <file>ui/menus.ui</file>
     </gresource>
 </gresources>

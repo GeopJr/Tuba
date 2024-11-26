@@ -63,7 +63,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	private void on_drag_end (double x, double y) {
 		if (scrolled.vadjustment.value == 0.0 && pull_to_refresh_spinner.margin_top >= 125) {
-			on_refresh ();
+			on_manual_refresh ();
 		}
 
 		is_pulling = false;
@@ -86,8 +86,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			reached_close_to_top.connect (finish_queue);
 		#endif
 
-		app.refresh.connect (on_refresh);
-		status_button.clicked.connect (on_refresh);
+		app.refresh.connect (on_manual_refresh);
+		status_button.clicked.connect (on_manual_refresh);
 
 		construct_account_holder ();
 
@@ -151,9 +151,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		base.clear ();
 	}
 
-	protected override void clear_all_but_first () {
+	protected override void clear_all_but_first (int i = 1) {
 		cleanup_timeline_api ();
-		base.clear_all_but_first ();
+		base.clear_all_but_first (i);
 	}
 
 	public void get_pages (string? header) {
@@ -249,6 +249,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		GLib.Idle.add (request);
 	}
 
+	public virtual void on_manual_refresh () {
+		on_refresh ();
+	}
 
 	protected virtual void on_account_changed (InstanceAccount? acc) {
 		account = acc;
@@ -374,6 +377,17 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			}
 		} catch (Error e) {
 			warning (@"Error getting String from json: $(e.message)");
+		}
+	}
+
+	public virtual void on_remove_user (string user_id) {
+		if (accepts != typeof (API.Status)) return;
+
+		for (uint i = 0; i < model.get_n_items (); i++) {
+			var status_obj = (API.Status) model.get_item (i);
+			if (status_obj.formal.account.id == user_id || status_obj.account.id == user_id) {
+				model.remove (i);
+			}
 		}
 	}
 }

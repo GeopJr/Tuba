@@ -8,7 +8,23 @@ public class Tuba.Widgets.Notification : Widgets.Status {
 		else
 			status = new API.Status.from_account (obj.account);
 
+		if (obj.emoji_url != null) {
+			API.Emoji custom_reaction = new API.Emoji () {
+				shortcode = obj.emoji.slice (1, -1),
+				url = obj.emoji_url
+			};
+
+			if (obj.account.emojis != null) {
+				obj.account.emojis.add (custom_reaction);
+			} else {
+				var arr = new Gee.ArrayList<API.Emoji> ();
+				arr.add (custom_reaction);
+				obj.account.emojis = arr;
+			}
+		}
+
 		Object (
+			other_data: obj.emoji,
 			notification: obj,
 			kind_instigator: obj.account,
 			kind: obj.kind,
@@ -24,6 +40,8 @@ public class Tuba.Widgets.Notification : Widgets.Status {
 				break;
 			case InstanceAccount.KIND_FAVOURITE:
 			case InstanceAccount.KIND_REBLOG:
+			case InstanceAccount.KIND_PLEROMA_REACTION:
+			case InstanceAccount.KIND_REACTION:
 				this.add_css_class ("can-be-dimmed");
 				break;
 		}

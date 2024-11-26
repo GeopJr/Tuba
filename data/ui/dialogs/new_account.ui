@@ -208,17 +208,6 @@
                     <property name="show-title">0</property>
 					<property name="show-end-title-buttons">0</property>
 					<property name="show-start-title-buttons">0</property>
-                    <child type="end">
-                      <object class="GtkButton">
-                        <property name="receives_default">1</property>
-                        <property name="label" translatable="yes">Done</property>
-                        <property name="sensitive" bind-source="TubaDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
-                        <signal name="clicked" handler="on_done_clicked" swapped="no"/>
-                        <style>
-                          <class name="suggested-action"/>
-                        </style>
-                      </object>
-                    </child>
                   </object>
                 </child>
                 <property name="content">
@@ -227,9 +216,19 @@
                     <property name="icon_name">tuba-check-round-outline-symbolic</property>
                     <property name="title">Hello!</property>
                     <property name="description" translatable="yes">Your account is connected and ready to use!</property>
-                    <style>
-                        <class name="compact"/>
-                    </style>
+					<child>
+						<object class="GtkButton">
+						  <property name="halign">center</property>
+						  <property name="receives_default">1</property>
+						  <property name="label" translatable="yes">Done</property>
+						  <property name="sensitive" bind-source="TubaDialogsNewAccount" bind-property="is_working" bind-flags="sync-create|invert-boolean"/>
+						  <signal name="clicked" handler="on_done_clicked" swapped="no"/>
+						  <style>
+							<class name="suggested-action"/>
+							<class name="pill"/>
+						  </style>
+						</object>
+					</child>
                   </object>
                 </property>
               </object>

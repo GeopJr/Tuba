@@ -57,7 +57,7 @@ public class Tuba.Views.Admin.Page.BlockedEmails : Views.Admin.Page.Base {
 				// translators: Question dialog when an admin is about to
 				//				block an e-mail domain. The variable is a
 				//				string.
-				_("Are you sure you want to block %s?").printf (domain),
+				_("Block %s?").printf (domain),
 
 				// translators: Question dialog description when an admin is about to
 				//				block an e-mail domain. The variable is a string.

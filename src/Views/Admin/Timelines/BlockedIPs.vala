@@ -23,7 +23,7 @@ public class Tuba.Views.Admin.Timeline.BlockedIPs : Views.Admin.Timeline.Paginat
 			// translators: Question dialog when an admin is about to
 			//				unblock an IP address. The variable
 			//				is a string IP address
-			_("Are you sure you want to unblock %s?").printf (widget.title),
+			_("Unblock %s?").printf (widget.title),
 			null
 		);
 

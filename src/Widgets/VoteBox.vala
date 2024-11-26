@@ -2,15 +2,25 @@
 public class Tuba.Widgets.VoteBox : Gtk.Box {
 	[GtkChild] protected unowned Gtk.ListBox poll_box;
 	[GtkChild] protected unowned Gtk.Button button_vote;
-	[GtkChild] protected unowned Gtk.Label info_label;
+	[GtkChild] protected unowned Gtk.Button button_refresh;
+	[GtkChild] protected unowned Gtk.Button button_results;
+	[GtkChild] public unowned Gtk.Label info_label;
+
+	public bool usable {
+		set {
+			button_vote.visible =
+			button_refresh.visible =
+			button_results.visible = value;
+		}
+	}
 
 	public API.Poll? poll { get; set;}
 	protected Gee.ArrayList<string> selected_index = new Gee.ArrayList<string> ();
+	private bool show_results { get; set; default=false; }
 
 	public API.Translation? translation { get; set; default=null; }
 
 	construct {
-		button_vote.set_label (_("Vote"));
 		button_vote.clicked.connect (on_vote_button_clicked);
 		notify["poll"].connect (update);
 		button_vote.sensitive = false;
@@ -33,7 +43,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 	}
 
 	public string generate_css_style (int percentage) {
-		return @".ttl-poll-$(percentage).ttl-poll-winner { background: linear-gradient(to right, alpha(@accent_bg_color, .5) $(percentage)%, transparent 0%); } .ttl-poll-$(percentage) { background: linear-gradient(to right, alpha(@view_fg_color, .1) $(percentage)%, transparent 0%); }"; // vala-lint=line-length
+		return @".ttl-poll-$(percentage).ttl-poll-winner { background: linear-gradient(to right, alpha(@accent_bg_color, .5) $(percentage)%, transparent 0%) no-repeat; } .ttl-poll-$(percentage) { background: linear-gradient(to right, alpha(@view_fg_color, .1) $(percentage)%, transparent 0%) no-repeat; }"; // vala-lint=line-length
 	}
 
 	void update_translations () {
@@ -71,10 +81,23 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 			entry = poll_box.get_first_child ();
 		}
 
-		// Reset button visibility
-		button_vote.visible = !poll.expired && !poll.voted;
+		selected_index.clear ();
 
-		if (poll.expired || poll.voted) {
+		// Reset button visibility
+		button_vote.sensitive = false;
+		button_vote.visible = !this.show_results && !poll.expired && !poll.voted;
+		button_results.visible = !poll.expired && !poll.voted;
+		button_refresh.visible = !button_vote.visible && !poll.expired;
+
+		if (this.show_results) {
+			button_results.icon_name = "tuba-eye-not-looking-symbolic";
+			button_results.tooltip_text = _("Hide Results");
+		} else {
+			button_results.icon_name = "tuba-eye-open-negative-filled-symbolic";
+			button_results.tooltip_text = _("Show Results");
+		}
+
+		if (poll.expired || poll.voted || this.show_results) {
 			foreach (API.PollOption p in poll.options) {
 				if (p.votes_count > winner_p) {
 					winner_p = p.votes_count;
@@ -91,7 +114,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 			};
 
 			// If it is own poll
-			if (poll.expired || poll.voted) {
+			if (poll.expired || poll.voted || this.show_results) {
 				// If multiple, Checkbox else radioButton
 				var percentage = poll.votes_count > 0 ? ((double)p.votes_count / poll.votes_count) * 100 : 0.0;
 
@@ -100,6 +123,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 
 				row.get_style_context ().add_provider (provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 				row.add_css_class (@"ttl-poll-$((int) percentage)");
+				row.add_css_class ("ttl-poll-voted");
 
 				if (p.votes_count == winner_p) {
 					row.add_css_class ("ttl-poll-winner");
@@ -146,7 +170,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 					}
 				}
 
-				if (poll.expired || poll.voted) {
+				if (poll.expired || poll.voted || this.show_results) {
 					check_option.sensitive = false;
 				}
 
@@ -159,16 +183,17 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 			row_number++;
 		}
 
+		string voted_string = Tuba.Units.shorten (poll.votes_count);
 		if (poll.expires_at != null) {
 			info_label.label = "%s · %s".printf (
 				// translators: the variable is the amount of people that voted
-				_("%lld voted").printf (poll.votes_count),
+				_("%s voted").printf (voted_string),
 				poll.expired
 					? DateTime.humanize_ago (poll.expires_at)
 					: DateTime.humanize_left (poll.expires_at)
 			);
 		} else {
-			info_label.label = _("%lld voted").printf (poll.votes_count);
+			info_label.label = _("%s voted").printf (voted_string);
 		}
 
 		update_aria ();
@@ -211,5 +236,39 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 		}
 
 		button_vote.sensitive = selected_index.size > 0;
+	}
+
+	[GtkCallback] private void on_refresh_poll () {
+		if (poll == null) return;
+
+		button_refresh.sensitive = false;
+		new Request.GET (@"/api/v1/polls/$(poll.id)")
+			.with_account (accounts.active)
+			.then ((in_stream) => {
+				button_refresh.sensitive = true;
+
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				var parsed_poll = API.Poll.from (node);
+
+				if (parsed_poll != null) {
+					poll = parsed_poll;
+					update ();
+				}
+			})
+			.on_error ((code, message) => {
+				warning (@"Couldn't refresh poll $(poll.id): $code $message");
+				button_refresh.sensitive = true;
+
+				app.toast (@"Couldn't refresh poll: $message");
+			})
+			.exec ();
+	}
+
+	[GtkCallback] private void on_toggle_results () {
+		if (poll == null) return;
+
+		this.show_results = !this.show_results;
+		update ();
 	}
 }

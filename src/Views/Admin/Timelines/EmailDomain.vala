@@ -23,7 +23,7 @@ public class Tuba.Views.Admin.Timeline.EmailDomain : Views.Admin.Timeline.Pagina
 			// translators: Question dialog when an admin is about to
 			//				unblock an e-mail address block. The variable
 			//				is a string e-mail address
-			_("Are you sure you want to unblock %s?").printf (widget.title),
+			_("Unblock %s?").printf (widget.title),
 			null
 		);
 

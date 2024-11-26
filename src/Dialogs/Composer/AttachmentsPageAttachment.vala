@@ -150,7 +150,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			saved ();
 		}
 
-		public AltTextDialog (string alt_text, Gdk.Paintable? paintable) {
+		public AltTextDialog (string alt_text, Gdk.Paintable? paintable, File? video = null) {
 			dialog_char_counter.label = remaining_alt_chars (alt_text != null ? alt_text.length : 0);
 
 			if (alt_text != null) {
@@ -160,7 +160,11 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 				this.can_save = false;
 			}
 
-			if (paintable != null) content_box.prepend (new Gtk.Picture.for_paintable (paintable));
+			if (paintable != null) {
+				content_box.prepend (new Gtk.Picture.for_paintable (paintable));
+			} else if (video != null) {
+				content_box.prepend (new Gtk.Video.for_file (video));
+			}
 		}
 
 		public static bool validate (int text_size) {
@@ -292,6 +296,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		debug ("Destroying AttachmentsPageAttachment");
 	}
 
+	bool is_video = false;
 	public AttachmentsPageAttachment (
 		string attachment_id,
 		File? file,
@@ -317,6 +322,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		};
 		if (file != null) {
 			pic.file = file;
+			if (t_entity != null) is_video = Attachment.MediaType.from_string (t_entity.kind).is_video ();
 		} else {
 			entity = t_entity;
 			Tuba.Helper.Image.request_paintable (t_entity.preview_url, null, false, on_cache_response);
@@ -373,7 +379,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	AltTextDialog? alt_text_dialog = null;
 	private void on_alt_btn_clicked () {
-		alt_text_dialog = new AltTextDialog (alt_text, pic.paintable);
+		alt_text_dialog = new AltTextDialog (alt_text, pic.paintable, is_video ? pic.file : null);
 		alt_text_dialog.saved.connect (on_save_clicked);
 		alt_text_dialog.closed.connect (close_dialogs);
 

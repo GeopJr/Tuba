@@ -134,10 +134,10 @@ public class Tuba.Widgets.Audio.Player : Adw.Bin {
 		if (revealer_timeout > 0) GLib.Source.remove (revealer_timeout);
 
 		base.unmap ();
+		player.destroy ();
 	}
 
 	~Player () {
 		debug ("Destroying AudioPlayer");
-		player.destroy ();
 	}
 }

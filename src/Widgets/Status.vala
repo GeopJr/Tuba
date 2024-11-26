@@ -26,6 +26,8 @@
 	private Gtk.Button? quoted_status_btn { get; set; default = null; }
 	public bool enable_thread_lines { get; set; default = false; }
 	public API.Translation? translation { get; private set; default = null; }
+	private Adw.Bin? emoji_reactions { get; set; default = null; }
+	protected string? other_data { get; set; default = null; }
 
 	private bool _can_be_opened = true;
 	public bool can_be_opened {
@@ -111,7 +113,7 @@
 	[GtkChild] protected unowned Widgets.RichLabel name_label;
 	[GtkChild] protected unowned Gtk.Label handle_label;
 	[GtkChild] public unowned Gtk.Box indicators;
-	[GtkChild] protected unowned Gtk.Label date_label;
+	[GtkChild] public unowned Gtk.Label date_label;
 	[GtkChild] protected unowned Gtk.Image pin_indicator;
 	[GtkChild] protected unowned Gtk.Image edited_indicator;
 	[GtkChild] protected unowned Gtk.Image visibility_indicator;
@@ -142,23 +144,19 @@
 	private SimpleAction toggle_pinned_simple_action;
 	private SimpleAction translate_simple_action;
 	private SimpleAction show_original_simple_action;
-
-	protected Adw.Bin emoji_reactions;
-	public Gee.ArrayList<API.EmojiReaction>? reactions {
-		get { return status.formal.compat_status_reactions; }
-		set {
-			if (emoji_reactions != null) content_column.remove (emoji_reactions);
-			if (value == null) return;
-
-			emoji_reactions = new ReactionsRow (value);
-			content_column.insert_child_after (emoji_reactions, spoiler_stack);
-		}
-	}
+	private SimpleAction mute_conversation_action;
+	private SimpleAction unmute_conversation_action;
 
 	void settings_updated () {
 		Tuba.toggle_css (this, settings.larger_font_size, "ttl-status-font-large");
 		Tuba.toggle_css (this, settings.larger_line_height, "ttl-status-line-height-large");
 		Tuba.toggle_css (this, settings.scale_emoji_hover, "lww-scale-emoji-hover");
+	}
+
+	static construct {
+		typeof (Widgets.Avatar).ensure ();
+		typeof (Widgets.RichLabel).ensure ();
+		typeof (Widgets.MarkupView).ensure ();
 	}
 
 	construct {
@@ -204,7 +202,18 @@
 
 	private bool has_stats { get { return status.formal.reblogs_count != 0 || status.formal.favourites_count != 0; } }
 	private void show_view_stats_action () {
-		stats_simple_action.set_enabled (has_stats);
+		stats_simple_action.set_enabled (has_stats || has_reactions ());
+	}
+
+	private bool has_reactions () {
+		bool res = false;
+
+		var reactions = status.formal.compat_status_reactions;
+		if (reactions != null && reactions.size > 0) {
+			res = reactions[0].account_ids != null && reactions[0].account_ids.size > 0;
+		}
+
+		return res;
 	}
 
 	public Status (API.Status status) {
@@ -262,6 +271,16 @@
 				action_group.add_action (toggle_pinned_simple_action);
 			}
 
+			mute_conversation_action = new SimpleAction ("mute-conversation", null);
+			mute_conversation_action.activate.connect (toggle_mute_conversation);
+			action_group.add_action (mute_conversation_action);
+
+			unmute_conversation_action = new SimpleAction ("unmute-conversation", null);
+			unmute_conversation_action.activate.connect (toggle_mute_conversation);
+			action_group.add_action (unmute_conversation_action);
+
+			update_mute_conversation_actions_enabled_status ();
+
 			var edit_status_simple_action = new SimpleAction ("edit-status", null);
 			edit_status_simple_action.activate.connect (edit_status);
 			action_group.add_action (edit_status_simple_action);
@@ -303,7 +322,16 @@
 			update_toggle_pinned_label ();
 			pin_menu_item.set_attribute_value ("hidden-when", "action-disabled");
 
+			var mute_menu_item = new GLib.MenuItem (_("Mute"), "status.mute-conversation");
+			mute_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+
+			var unmute_menu_item = new GLib.MenuItem (_("Unmute"), "status.unmute-conversation");
+			unmute_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+
 			menu_model.append_item (pin_menu_item);
+			menu_model.append_item (mute_menu_item);
+			menu_model.append_item (unmute_menu_item);
+
 			menu_model.append (_("Edit"), "status.edit-status");
 			menu_model.append (_("Delete"), "status.delete-status");
 		} else {
@@ -358,7 +386,7 @@
 	}
 
 	private void view_stats () {
-		app.main_window.open_view (new Views.StatusStats (status.formal.id));
+		app.main_window.open_view (new Views.StatusStats (status.formal.id, has_reactions ()));
 	}
 
 	private void on_edit (API.Status x) {
@@ -396,7 +424,7 @@
 
 	private void delete_status () {
 		app.question.begin (
-			{_("Are you sure you want to delete this post?"), false},
+			{_("Delete Post?"), false},
 			null,
 			app.main_window,
 			{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
@@ -416,6 +444,32 @@
 				}
 			}
 		);
+	}
+
+	private void toggle_mute_conversation () {
+		string api_action = status.formal.muted ? "unmute" : "mute";
+		new Request.POST (@"/api/v1/statuses/$(status.formal.id)/$api_action")
+			.with_account (accounts.active)
+			.then ((in_stream) => {
+				status.formal.muted = !status.formal.muted;
+				update_mute_conversation_actions_enabled_status ();
+			})
+			.on_error ((code, message) => {
+				warning (@"Couldn't $api_action $(status.formal.id): $code $message");
+				app.toast (
+					api_action == "mute"
+					// translators: toast shown when muting a post
+					? _("Couldn't Mute Conversation: %s").printf (message)
+					// translators: toast shown when unmuting a post
+					: _("Couldn't Unmute Conversation: %s").printf (message)
+				);
+			})
+			.exec ();
+	}
+
+	private void update_mute_conversation_actions_enabled_status () {
+		mute_conversation_action.set_enabled (!status.formal.muted);
+		unmute_conversation_action.set_enabled (status.formal.muted);
 	}
 
 	private void translate () {
@@ -490,7 +544,7 @@
 	public string spoiler_text_revealed { get; set; default = _("Sensitive"); }
 
 	// separator between the bottom bar items
-	string expanded_separator = "·";
+	const string EXPANDED_SEPARATOR = "·";
 	protected string date {
 		owned get {
 			if (expanded) {
@@ -506,7 +560,7 @@
 				var date_parsed = new GLib.DateTime.from_iso8601 (this.full_date, null);
 				date_parsed = date_parsed.to_timezone (new TimeZone.local ());
 
-				return date_parsed.format (@"$date_local $expanded_separator %H:%M").replace (" ", ""); // %e prefixes with whitespace on single digits
+				return date_parsed.format (@"$date_local $EXPANDED_SEPARATOR %H:%M").replace (" ", ""); // %e prefixes with whitespace on single digits
 			} else {
 				return DateTime.humanize (this.full_date);
 			}
@@ -572,7 +626,8 @@
 			this.kind,
 			out res_kind,
 			actor_name,
-			this.kind_instigator.url
+			this.kind_instigator.url,
+			this.other_data
 		);
 
 		if (header_button_activate > 0) header_button.disconnect (header_button_activate);
@@ -840,10 +895,11 @@
 		}
 	}
 
+	private Widgets.HashtagBar hashtag_bar;
 	protected Widgets.PreviewCard prev_card;
 	private Widgets.Attachment.Box attachments;
 	private Gtk.Label translation_label;
-	private Widgets.VoteBox poll;
+	public Widgets.VoteBox poll;
 	const string[] ALLOWED_CARD_TYPES = { "link", "video" };
 	ulong[] formal_handler_ids = {};
 	ulong[] this_handler_ids = {};
@@ -900,10 +956,16 @@
 			}
 		}
 
+		if (emoji_reactions != null) content_column.remove (emoji_reactions);
+		if (status.formal.compat_status_reactions != null) {
+			emoji_reactions = new ReactionsRow (status.formal.id, status.formal.compat_status_reactions);
+			content_column.insert_child_after (emoji_reactions, spoiler_stack);
+		}
+
 		spoiler_label.label = this.spoiler_text;
 		spoiler_label_rev.label = this.spoiler_text_revealed;
 
-		status.formal.tuba_spoiler_revealed = !status.formal.has_spoiler || settings.show_spoilers;
+		status.formal.tuba_spoiler_revealed = !status.formal.has_spoiler || status.formal.tuba_spoiler_revealed;
 		update_spoiler_status ();
 
 		handle_label.label = this.subtitle_text;
@@ -934,8 +996,6 @@
 		// translators: Tooltip text for avatars in posts.
 		//				The variable is a string user handle.
 		name_button.tooltip_text = avatar.tooltip_text = _("Open %s's Profile").printf (status.formal.account.handle);
-
-		reactions = status.formal.compat_status_reactions;
 
 		name_label.instance_emojis = status.formal.account.emojis_map;
 		name_label.label = title_text;
@@ -1006,12 +1066,18 @@
 		}
 
 		if (prev_card != null) content_box.remove (prev_card);
-		if (settings.show_preview_cards && !status.formal.has_media && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
+		if (settings.show_preview_cards && !status.formal.has_media && quoted_status_btn == null && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
 			try {
 				prev_card = (Widgets.PreviewCard) status.formal.card.to_widget ();
 				prev_card.button.clicked.connect (open_card_url);
 				content_box.append (prev_card);
 			} catch {}
+		}
+
+		if (hashtag_bar != null) content_box.remove (prev_card);
+		if (this.content.get_extracted_tags () != null && this.content.get_extracted_tags ().length > 0) {
+			hashtag_bar = new Widgets.HashtagBar (this.content.get_extracted_tags ());
+			content_box.append (hashtag_bar);
 		}
 
 		show_view_stats_action ();
@@ -1139,7 +1205,7 @@
 	}
 
 	// Adds *separator* between all *flowbox* children
-	private void add_separators_to_expanded_bottom (Gtk.FlowBox flowbox, string separator = expanded_separator) {
+	private void add_separators_to_expanded_bottom (Gtk.FlowBox flowbox, string separator = EXPANDED_SEPARATOR) {
 		var i = 0;
 		var child = flowbox.get_child_at_index (i);
 		while (child != null) {

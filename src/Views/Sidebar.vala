@@ -41,6 +41,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	}
 
 	static construct {
+		typeof (Widgets.Avatar).ensure ();
 		typeof (Widgets.EmojiLabel).ensure ();
 		set_layout_manager_type (typeof (Gtk.BinLayout));
 	}
@@ -61,6 +62,8 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		misc_submenu_model.append (_("Announcements"), "app.open-announcements");
 		misc_submenu_model.append (_("Follow Requests"), "app.open-follow-requests");
 		misc_submenu_model.append (_("Mutes & Blocks"), "app.open-mutes-blocks");
+		misc_submenu_model.append (_("Draft Posts"), "app.open-draft-posts");
+		misc_submenu_model.append (_("Scheduled Posts"), "app.open-scheduled-posts");
 
 		var admin_dahsboard_menu_item = new MenuItem (_("Admin Dashboard"), "app.open-admin-dashboard");
 		admin_dahsboard_menu_item.set_attribute_value ("hidden-when", "action-disabled");
@@ -242,6 +245,10 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	// Account
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/account.ui")]
 	protected class AccountRow : Adw.ActionRow {
+		static construct {
+			typeof (Widgets.Avatar).ensure ();
+		}
+
 		public InstanceAccount? account;
 
 		[GtkChild] unowned Widgets.Avatar avatar;
