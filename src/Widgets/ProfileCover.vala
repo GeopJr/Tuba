@@ -287,8 +287,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 		avi_url = profile.avatar ?? "";
 		avatar.account = profile;
-		if (profile.avatar_description != null && profile.avatar_description != "")
-			avatar.alternative_text = profile.avatar_description;
+		avatar.alternative_text = profile.avatar_description;
 
 		if (note.content != profile.note) {
 			note.instance_emojis = profile.emojis_map;
@@ -319,9 +318,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			header_url = profile.header ?? "";
 			Tuba.Helper.Image.request_paintable (profile.header, null, false, on_cache_response);
 		}
-
-		if (profile.header_description != null && profile.header_description != "")
-				background.alternative_text = profile.header_description;
+		background.alternative_text = profile.header_description;
 
 		if (!_mini && profile.moved != null) {
 			moved_btn.visible = true;
