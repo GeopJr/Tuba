@@ -39,17 +39,22 @@ Flatpak | Snap
 <details>
 <summary>Dependencies</summary>
 
-Package Name | Required Version
-:--- |---:|
-meson | 0.56
-valac | 0.48
-libjson-glib-dev | 1.4.4
-libxml2-dev | 2.9.10
-libgee-0.8-dev | 0.8.5
-libsoup3.0-dev | 3.0.0
-libadwaita-1.0-dev | 1.5
-libsecret-1-dev | 0.20
-libgtksourceview-5-dev | 5.6.0
+Package Name | Required
+:--- | ---:
+meson | ✅
+valac | ✅
+libjson-glib-dev | ✅
+libxml2-dev | ✅
+libgee-0.8-dev | ✅
+libsoup3.0-dev | ✅
+libadwaita-1.0-dev | ✅
+libsecret-1-dev | ✅
+libgtksourceview-5-dev | ✅
+icu | ✅
+libspelling | ❌
+gstreamer + gst-plugins-good | ❌
+clapper | ❌
+
 </details>
 
 ### Makefile
