@@ -49,7 +49,7 @@ libgee-0.8-dev | 0.8.5
 libsoup3.0-dev | 3.0.0
 libadwaita-1.0-dev | 1.5
 libsecret-1-dev | 0.20
-
+libgtksourceview-5-dev | 5.6.0
 </details>
 
 ### Makefile
