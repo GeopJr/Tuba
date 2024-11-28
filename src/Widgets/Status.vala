@@ -664,7 +664,7 @@
 
 				// translators: Tooltip text for avatars in posts.
 				//				The variable is a string user handle.
-				actor_avatar.tooltip_text = _("Open %s's Profile").printf (actor_handle);
+				actor_avatar.tooltip_text = _("Open %s's Mini Profile").printf (actor_handle);
 			}
 			avatar.add_css_class ("ttl-status-avatar-border");
 			avatar_overlay.child = actor_avatar;
