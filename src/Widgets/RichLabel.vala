@@ -21,6 +21,14 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	//  	set { widget.wrap = value; }
 	//  }
 
+	public bool focusable_label {
+		get { return widget.focusable; }
+		set {
+			this.focusable = value;
+			widget.focusable = value;
+		}
+	}
+
 	public bool use_markup {
 		get { return widget.use_markup; }
 		set { widget.use_markup = value; }
