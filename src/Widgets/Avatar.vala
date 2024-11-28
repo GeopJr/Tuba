@@ -1,6 +1,13 @@
 public class Tuba.Widgets.Avatar : Gtk.Button {
 	public signal void mini_clicked ();
 
+	public string? alternative_text {
+		set {
+			string alt_text = value == null ? "" : value;
+			this.update_property (Gtk.AccessibleProperty.DESCRIPTION, alt_text, -1);
+		}
+	}
+
 	weak API.Account? _account = null;
 	public API.Account? account {
 		set {
