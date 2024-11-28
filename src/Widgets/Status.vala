@@ -1123,6 +1123,11 @@
 
 	[GtkCallback] public void toggle_spoiler () {
 		status.formal.tuba_spoiler_revealed = !status.formal.tuba_spoiler_revealed;
+		if (status.formal.tuba_spoiler_revealed) {
+			content.grab_focus ();
+		} else {
+			spoiler_button.grab_focus ();
+		}
 	}
 
 	[GtkCallback] public void toggle_filter () {
