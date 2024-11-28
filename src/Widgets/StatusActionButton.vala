@@ -95,8 +95,11 @@ public class Tuba.StatusActionButton : Gtk.Button {
 		working = false;
 	}
 
+	static construct {
+		set_accessible_role (Gtk.AccessibleRole.TOGGLE_BUTTON);
+	}
+
 	construct {
-		this.set_accessible_role (Gtk.AccessibleRole.TOGGLE_BUTTON);
 		content = new Adw.ButtonContent ();
 		this.child = content;
 	}

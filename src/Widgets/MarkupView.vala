@@ -45,6 +45,10 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		}
 	}
 
+	static construct {
+		set_accessible_role (Gtk.AccessibleRole.LABEL);
+	}
+
 	construct {
 		this.set_accessible_role (Gtk.AccessibleRole.LABEL);
 		orientation = Gtk.Orientation.VERTICAL;
