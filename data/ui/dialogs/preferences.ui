@@ -165,6 +165,11 @@
 							</object>
 						</child>
 						<child>
+							<object class="AdwSwitchRow" id="copy_private_link_reminder">
+								<property name="title" translatable="yes">Warn before copying a link to a private post</property>
+							</object>
+						</child>
+						<child>
 							<object class="AdwEntryRow" id="proxy_entry">
 								<property name="show-apply-button">0</property>
 								<!-- translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning -->

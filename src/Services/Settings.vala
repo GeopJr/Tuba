@@ -122,6 +122,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool group_push_notifications { get; set; }
 	public bool advanced_boost_dialog { get; set; }
 	public bool reply_to_old_post_reminder { get; set; }
+	public bool copy_private_link_reminder { get; set; }
 	public bool spellchecker_enabled { get; set; }
 	public bool darken_images_on_dark_mode { get; set; }
 	public double media_viewer_last_used_volume { get; set; }
@@ -154,6 +155,7 @@ public class Tuba.Settings : GLib.Settings {
 		"group-push-notifications",
 		"advanced-boost-dialog",
 		"reply-to-old-post-reminder",
+		"copy-private-link-reminder",
 		"spellchecker-enabled",
 		"darken-images-on-dark-mode",
 		"media-viewer-last-used-volume",
