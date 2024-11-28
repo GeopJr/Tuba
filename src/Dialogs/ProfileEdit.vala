@@ -273,10 +273,10 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 
 		if (alt_text_group.visible) {
 			if (profile.avatar_description != avi_alt_text_row.text)
-				req.with_form_data ("avatar_description", name_row.text);
+				req.with_form_data ("avatar_description", avi_alt_text_row.text);
 
 			if (profile.header_description != header_alt_text_row.text)
-				req.with_form_data ("header_description", name_row.text);
+				req.with_form_data ("header_description", header_alt_text_row.text);
 		}
 
 
