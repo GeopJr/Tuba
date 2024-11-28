@@ -372,12 +372,12 @@
 		if (status.formal.url != null && settings.copy_private_link_reminder && (status.formal.visibility == "direct" || status.formal.visibility == "private")) {
 			string body;
 			if (status.formal.visibility == "direct") {
-				body = _("Only mentioned users will be able to view it.");
+				body = _("Only mentioned people will be able to view it.");
 			} else if (status.formal.account.is_self ()) {
-				body = _("Only people that follow you will be able to view it.");
+				body = _("Only mentioned people and your followers will be able to view it.");
 			} else {
 				// translators: dialog subtitle shown when copying a link to a private post, the variable is a handle
-				body = _("Only people that follow %s will be able to view it.").printf (status.formal.account.full_handle);
+				body = _("Only mentioned people and people that follow %s will be able to view it.").printf (status.formal.account.full_handle);
 			}
 
 			app.question.begin (
