@@ -46,7 +46,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 	}
 
 	static construct {
-		set_accessible_role (Gtk.AccessibleRole.LABEL);
+		set_accessible_role (Gtk.AccessibleRole.GENERIC);
 	}
 
 	construct {
