@@ -15,7 +15,21 @@ public class Tuba.Views.Profile : Views.Accounts {
 				var parser = Network.get_parser_from_inputstream (req.response_body);
 				var node = network.parse_node (parser);
 				var updated = API.Account.from (node);
-				account.patch (updated);
+
+				account.display_name = updated.display_name;
+				account.note = updated.note;
+				account.locked = updated.locked;
+				account.header = updated.header;
+				account.header_description = updated.header_description;
+				account.avatar = updated.avatar;
+				account.avatar_description = updated.avatar_description;
+				account.bot = updated.bot;
+				account.emojis = updated.emojis;
+				account.followers_count = updated.followers_count;
+				account.following_count = updated.following_count;
+				account.statuses_count = updated.statuses_count;
+				account.fields = updated.fields;
+				account.moved = updated.moved;
 
 				return true;
 			} catch (Error e) {

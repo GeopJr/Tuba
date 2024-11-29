@@ -12,10 +12,10 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 	   nickname */
 	public string display_name {
 		set {
-		_display_name = value;
+			_display_name = value;
 		}
 		get {
-			return ( ( _display_name != null && _display_name.length > 0 ) ? _display_name : username );
+			return (( _display_name != null && _display_name.length > 0 ) ? _display_name : username );
 		}
 	}
 
