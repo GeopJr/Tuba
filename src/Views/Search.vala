@@ -85,6 +85,8 @@ public class Tuba.Views.Search : Views.TabbedBase {
 	Views.ContentBase hashtags_tab;
 
 	construct {
+		this.uid = 1;
+
 		label = _("Search");
 		this.empty_timeline_icon = "system-search";
 		this.empty_state_title = _("Search");
