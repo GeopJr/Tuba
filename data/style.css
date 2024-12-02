@@ -46,6 +46,11 @@ headerbar.flat.no-title .title {
 	padding: 6px;
 }
 
+.cover-badge.button > button {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
 .ttl-flat-button {
 	padding: 0px;
 	margin: 0px;
@@ -94,7 +99,7 @@ headerbar.flat.no-title .title {
 	border-radius: 0;
 }
 
-.ttl-profile-cover avatar, .profile-editor avatar {
+.ttl-profile-cover .main-avi avatar, .profile-editor avatar {
 	border: 6px solid var(--dialog-bg-color);
 	background: var(--dialog-bg-color);
 }
