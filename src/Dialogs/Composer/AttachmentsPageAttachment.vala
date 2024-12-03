@@ -42,11 +42,18 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			this.content_height = 300;
 
 			toolbar_view = new Adw.ToolbarView ();
-			headerbar = new Adw.HeaderBar ();
+			headerbar = new Adw.HeaderBar () {
+				show_end_title_buttons = false,
+				show_start_title_buttons = false
+			};
 
 			save_btn = new Gtk.Button.with_label (_("Save"));
 			save_btn.add_css_class ("suggested-action");
 			headerbar.pack_end (save_btn);
+
+			var cancel_btn = new Gtk.Button.with_label (_("Cancel"));
+			cancel_btn.clicked.connect (force_close);
+			headerbar.pack_start (cancel_btn);
 
 			toolbar_view.add_top_bar (headerbar);
 
@@ -84,7 +91,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		}
 
 		construct {
-			this.title = _("Alternative text for attachment");
+			this.title = _("Alternative Text");
 			this.content_height = 400;
 			this.content_width = 500;
 
@@ -161,9 +168,13 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			}
 
 			if (paintable != null) {
-				content_box.prepend (new Gtk.Picture.for_paintable (paintable));
+				content_box.prepend (new Gtk.Picture.for_paintable (paintable) {
+					margin_bottom = margin_end = margin_start = margin_top = 6
+				});
 			} else if (video != null) {
-				content_box.prepend (new Gtk.Video.for_file (video));
+				content_box.prepend (new Gtk.Video.for_file (video) {
+					margin_bottom = margin_end = margin_start = margin_top = 6
+				});
 			}
 		}
 
@@ -201,7 +212,8 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		construct {
 			this.add_css_class ("focuspickerdialog");
 			this.follows_content_size = true;
-			this.title = _("Focal point for attachment thumbnail");
+			// translators: focus picker dialog title
+			this.title = _("Set Focal Point");
 			save_btn.clicked.connect (on_save);
 
 			var pos_x_scale = new Adw.SpinRow.with_range (-1.0, 1.0, 0.1) {
