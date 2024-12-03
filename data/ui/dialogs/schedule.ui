@@ -99,6 +99,7 @@
 												<property name="title" translatable="yes">Time</property>
 												<child>
 													<object class="AdwPreferencesRow">
+														<property name="activatable">0</property>
 														<child>
 															<object class="GtkBox">
 																<property name="halign">3</property>
