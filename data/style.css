@@ -840,3 +840,25 @@ list.uniform-border-color row {
 	background-color: color-mix(in srgb, currentColor 15%, var(--window-bg-color));
 	animation: annual-tuba-bg 5s linear infinite;
 }
+
+.annual-screenshot-box {
+	padding: 12px;
+}
+
+.annual-screenshot-box.style-window {
+	background-color: var(--window-bg-color);
+}
+
+.annual-screenshot-box.style-accent {
+	background-color: var(--accent-bg-color);
+}
+
+.annual-screenshot-box.style-pride {
+	background-image: linear-gradient(135deg, rgba(228,3,3,0.3) 0%, rgba(255,140,0,0.3) 20%, rgba(255,237,0,0.3) 40%, rgba(0,128,38,0.3) 60%, rgba(0,77,255,0.3) 80%, rgba(117,7,135,0.3) 100%);
+	background-color: var(--window-bg-color);
+}
+
+.annual-screenshot-box.style-trans {
+	background-image: linear-gradient(135deg, rgba(92,206,250,0.5) 0%, rgba(246,168,183,0.5) 25%, rgba(255,255,255,0.5) 50%, rgba(246,168,183,0.5) 75%, rgba(92,206,250,0.5) 100%);;
+	background-color: var(--window-bg-color);
+}
