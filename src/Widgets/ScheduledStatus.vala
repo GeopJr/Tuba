@@ -31,7 +31,6 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		schedule_label = new Gtk.Label ("") {
 			wrap = true,
 			wrap_mode = Pango.WrapMode.WORD_CHAR,
-			use_markup = true,
 			xalign = 0.0f,
 			hexpand = true,
 			margin_start = 6
@@ -64,6 +63,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		action_box.append (actions_box);
 
 		content_box.append (action_box);
+		content_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 		this.child = content_box;
 
 		open.connect (on_activated);
@@ -134,9 +134,8 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 
 		date_parsed = date_parsed.to_timezone (new TimeZone.local ());
 		var date_local = _("%B %e, %Y");
-		// translators: Scheduled Post title, 'scheduled for: <date>'
-		schedule_label.label = "<b>%s</b> %s".printf (
-			_("Scheduled For:"),
+		// translators: Scheduled Post title, 'scheduled for <date>'
+		schedule_label.label = "Scheduled for %s".printf (
 			date_parsed.format (@"$date_local · %H:%M").replace (" ", "") // %e prefixes with whitespace on single digits
 		);
 

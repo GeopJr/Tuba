@@ -26,7 +26,7 @@
 		<property name="width_request">360</property>
 		<property name="height_request">200</property>
 		<!-- translators: window title -->
-		<property name="title" translatable="yes">Schedule Date and Time Picker</property>
+		<property name="title" translatable="yes">Schedule Post</property>
 
 		<child>
 			<object class="AdwToolbarView">
@@ -43,8 +43,8 @@
 						</child>
 						<child type="end">
 							<object class="GtkButton" id="schedule_button">
-								<!-- translators: Leave &amp; as is, it gets converted to & -->
-								<property name="label" translatable="yes">Schedule &amp; Publish</property>
+								<!-- translators: verb -->
+								<property name="label" translatable="yes">Schedule</property>
 								<signal name="clicked" handler="on_schedule" swapped="no" />
 								<style>
 									<class name="suggested-action" />
@@ -98,33 +98,68 @@
 												<!-- translators: Title used for time picking -->
 												<property name="title" translatable="yes">Time</property>
 												<child>
-													<object class="AdwSpinRow" id="hours_spin_row">
-														<!-- translators: Label on an hour picker -->
-														<property name="title" translatable="yes">Hour</property>
-														<property name="text">0</property>
-														<property name="adjustment">hour_adjustment</property>
-														<property name="value">0</property>
-														<signal name="notify::value" handler="validate" />
-													</object>
-												</child>
-												<child>
-													<object class="AdwSpinRow" id="minutes_spin_row">
-														<!-- translators: Label on an minute picker -->
-														<property name="title" translatable="yes">Minute</property>
-														<property name="text">0</property>
-														<property name="adjustment">minutes_adjustment</property>
-														<property name="value">0</property>
-														<signal name="notify::value" handler="validate" />
-													</object>
-												</child>
-												<child>
-													<object class="AdwSpinRow" id="seconds_spin_row">
-														<!-- translators: Label on an second picker -->
-														<property name="title" translatable="yes">Second</property>
-														<property name="text">0</property>
-														<property name="adjustment">seconds_adjustment</property>
-														<property name="value">0</property>
-														<signal name="notify::value" handler="validate" />
+													<object class="AdwPreferencesRow">
+														<child>
+															<object class="GtkBox">
+																<property name="halign">3</property>
+																<property name="margin-top">12</property>
+																<property name="margin-bottom">12</property>
+																<child>
+																	<object class="GtkSpinButton" id="hours_spin_button">
+																		<style>
+																			<class name="vertical" />
+																		</style>
+																		<!-- translators: Label on an hour picker -->
+																		<property name="tooltip-text" translatable="yes">Hour</property>
+																		<property name="orientation">1</property>
+																		<property name="valign">3</property>
+																		<property name="numeric">true</property>
+																		<property name="wrap">true</property>
+																		<property name="adjustment">hour_adjustment</property>
+																	</object>
+																</child>
+																<child>
+																	<object class="GtkLabel">
+																		<property name="label"> ∶ </property>
+																		<property name="accessible-role">presentation</property>
+																	</object>
+																</child>
+																<child>
+																	<object class="GtkSpinButton" id="minutes_spin_button">
+																		<style>
+																			<class name="vertical" />
+																		</style>
+																		<!-- translators: Label on an minute picker -->
+																		<property name="tooltip-text" translatable="yes">Minute</property>
+																		<property name="orientation">1</property>
+																		<property name="valign">3</property>
+																		<property name="numeric">true</property>
+																		<property name="wrap">true</property>
+																		<property name="adjustment">minutes_adjustment</property>
+																	</object>
+																</child>
+																<child>
+																	<object class="GtkLabel">
+																		<property name="label"> ∶ </property>
+																		<property name="accessible-role">presentation</property>
+																	</object>
+																</child>
+																<child>
+																	<object class="GtkSpinButton" id="seconds_spin_button">
+																		<style>
+																			<class name="vertical" />
+																		</style>
+																		<!-- translators: Label on an minute picker -->
+																		<property name="tooltip-text" translatable="yes">Second</property>
+																		<property name="orientation">1</property>
+																		<property name="valign">3</property>
+																		<property name="numeric">true</property>
+																		<property name="wrap">true</property>
+																		<property name="adjustment">seconds_adjustment</property>
+																	</object>
+																</child>
+															</object>
+														</child>
 													</object>
 												</child>
 												<child>
