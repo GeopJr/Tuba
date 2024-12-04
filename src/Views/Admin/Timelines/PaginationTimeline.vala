@@ -54,7 +54,7 @@ public class Tuba.Views.Admin.Timeline.PaginationTimeline : Gtk.Box {
 			css_classes = {"circular", "flat"},
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			tooltip_text = ("Previous Page")
+			tooltip_text = _("Previous Page")
 		};
 		prev_button.clicked.connect (on_prev);
 		pagination_buttons.append (prev_button);
@@ -63,7 +63,7 @@ public class Tuba.Views.Admin.Timeline.PaginationTimeline : Gtk.Box {
 			css_classes = {"circular", "flat"},
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			tooltip_text = ("Next Page")
+			tooltip_text = _("Next Page")
 		};
 		next_button.clicked.connect (on_next);
 		pagination_buttons.append (next_button);
