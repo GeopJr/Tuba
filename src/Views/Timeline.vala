@@ -385,7 +385,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 		for (uint i = 0; i < model.get_n_items (); i++) {
 			var status_obj = model.get_item (i) as API.Status;
-			if (status_obj != null && status_obj.formal.account.id == user_id || status_obj.account.id == user_id) {
+			if (status_obj != null && ((status_obj.formal.account != null && status_obj.formal.account.id == user_id) || (status_obj.account != null && status_obj.account.id == user_id))) {
 				model.remove (i);
 			}
 		}
