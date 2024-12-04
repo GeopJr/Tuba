@@ -205,6 +205,12 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			kind_actor_name = _("%s (& %d others)").printf (account.display_name, others);
 		}
 
+		string? other_data = emoji;
+		if (kind == InstanceAccount.KIND_ANNUAL_REPORT) {
+			int year = this.created_at == null ? new GLib.DateTime.now_local ().get_year () : new GLib.DateTime.from_iso8601 (this.created_at, null).get_year ();
+			other_data = year.to_string ();
+		}
+
 		issuer.describe_kind (kind, out res_kind, kind_actor_name, null, emoji);
 		var toast = new GLib.Notification (res_kind.description);
 		if (status != null) {
