@@ -158,6 +158,12 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 		var run_iter = label.get_layout ().get_iter ();
 		int i = 0;
 
+		if (this.ellipsize) {
+			foreach (var child in widgets) {
+				child.widget.visible = false;
+			}
+		}
+
 		while (true) {
 			var run = run_iter.get_run_readonly ();
 			if (run != null) {
@@ -192,6 +198,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 							height = widgets[i].height,
 							width = widgets[i].width
 						};
+						if (this.ellipsize) widgets[i].widget.visible = true;
 						widgets[i].widget.allocate_size (allocation, -1);
 						i++;
 					} else {
@@ -363,6 +370,17 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 	public int lines {
 		get { return label.lines; }
 		set { label.lines = value; }
+	}
+
+	private bool _ellipsize = false;
+	public bool ellipsize {
+		get { return _ellipsize; }
+		set {
+			if (value != this.ellipsize) {
+				label.ellipsize = value ? Pango.EllipsizeMode.END : Pango.EllipsizeMode.NONE;
+				_ellipsize = true;
+			}
+		}
 	}
 
 	public Gtk.Justification justify {

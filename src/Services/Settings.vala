@@ -3,6 +3,7 @@ public class Tuba.Settings : GLib.Settings {
 		public string default_language { get; set; default = "en"; }
 		public string default_post_visibility { get; set; default = "public"; }
 		public string default_content_type { get; set; default = "text/plain"; }
+		public bool account_suggestions { get; set; default = true; }
 		public string[] muted_notification_types { get; set; default = {}; }
 		public string[] recently_used_custom_emojis { get; set; default = {}; }
 		public string[] notification_filters { get; set; default = {}; }
@@ -12,7 +13,8 @@ public class Tuba.Settings : GLib.Settings {
 			"muted-notification-types",
 			"default-content-type",
 			"recently-used-custom-emojis",
-			"notification-filters"
+			"notification-filters",
+			"account-suggestions"
 		};
 
 		public Account (string id) {
@@ -70,6 +72,16 @@ public class Tuba.Settings : GLib.Settings {
 
 		set {
 			active_account_settings.default_content_type = value;
+		}
+	}
+
+	public bool account_suggestions {
+		get {
+			return active_account_settings.account_suggestions;
+		}
+
+		set {
+			active_account_settings.account_suggestions = value;
 		}
 	}
 

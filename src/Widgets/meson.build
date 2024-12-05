@@ -1,5 +1,6 @@
 sources += files(
     'Account.vala',
+    'AccountSuggestions.vala',
     'Announcement.vala',
     'Avatar.vala',
     'Background.vala',
