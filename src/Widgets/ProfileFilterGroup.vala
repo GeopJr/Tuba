@@ -11,8 +11,11 @@ public class Tuba.Widgets.ProfileFilterGroup : Gtk.ListBoxRow {
 	class FilterToggleButton : Gtk.ToggleButton {
 		public Filter filter { get; set; }
 
+		static construct {
+			set_accessible_role (Gtk.AccessibleRole.RADIO);
+		}
+
 		construct {
-			this.set_accessible_role (Gtk.AccessibleRole.RADIO);
 			this.add_css_class ("flat");
 		}
 
@@ -22,9 +25,11 @@ public class Tuba.Widgets.ProfileFilterGroup : Gtk.ListBoxRow {
 		}
 	}
 
-	construct {
-		this.set_accessible_role (Gtk.AccessibleRole.RADIO_GROUP);
+	static construct {
+		set_accessible_role (Gtk.AccessibleRole.RADIO_GROUP);
+	}
 
+	construct {
 		Gtk.Box box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 		this.focusable = true;
 		this.activatable = false;

@@ -45,11 +45,53 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		}
 	}
 
+	static construct {
+		set_accessible_role (Gtk.AccessibleRole.GENERIC);
+	}
+
 	construct {
-		this.set_accessible_role (Gtk.AccessibleRole.LABEL);
+		this.focusable = true;
 		orientation = Gtk.Orientation.VERTICAL;
 		spacing = 12;
 	}
+
+	//  private bool direction_is_forward (Gtk.DirectionType direction) {
+	//  	switch (direction) {
+	//  		case Gtk.DirectionType.TAB_FORWARD:
+	//  		case Gtk.DirectionType.RIGHT:
+	//  		case Gtk.DirectionType.DOWN:
+	//  			return true;
+	//  		case Gtk.DirectionType.TAB_BACKWARD:
+	//  		case Gtk.DirectionType.LEFT:
+	//  		case Gtk.DirectionType.UP:
+	//  		  return false;
+	//  		default:
+	//  		  assert_not_reached ();
+	//  	}
+	//  }
+
+	// tried copying over gtk_widget_real_focus
+	// segfaults + cant access gtk_widget_focus_move
+	//  public override bool focus (Gtk.DirectionType direction) {
+	//  	if (this.is_focus ()) {
+	//  		return direction_is_forward (direction) && this.child_focus (direction);
+	//  	}
+
+	//  	Gtk.Widget? focus = ((Gtk.Window) this.root).get_focus ();
+	//  	if (focus != null && focus.is_ancestor (this)) {
+	//  		if (this.child_focus (direction)) return true;
+	//  		if (direction_is_forward (direction)) return false;
+	//  		return this.grab_focus ();
+	//  	}
+
+	//  	if (!direction_is_forward (direction)) {
+	//  		if (this.child_focus (direction)) return true;
+	//  		return this.grab_focus ();
+	//  	} else {
+	//  		if (this.grab_focus ()) return true;
+	//  		return this.child_focus (direction);
+	//  	}
+	//  }
 
 	void update_aria () {
 		string total_aria = "";
@@ -124,7 +166,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				vexpand = true,
 				large_emojis = settings.enlarge_custom_emojis,
 				use_markup = true,
-				fix_overflow_hack = true
+				fix_overflow_hack = true,
+				//  focusable_label = true
 			};
 			if (instance_emojis != null) label.instance_emojis = instance_emojis;
 			if (mentions != null) label.mentions = mentions;
@@ -274,7 +317,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 						visible = true,
 						css_classes = { "ttl-code", "monospace" },
 						use_markup = true,
-						fix_overflow_hack = true
+						fix_overflow_hack = true,
+						//  focusable_label = true
 						// markup = MarkupPolicy.DISALLOW
 					};
 
@@ -301,7 +345,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					visible = true,
 					css_classes = { "ttl-code", "italic" },
 					use_markup = true,
-					fix_overflow_hack = true
+					fix_overflow_hack = true,
+					//  focusable_label = true
 					// markup = MarkupPolicy.DISALLOW
 				};
 				v.append (label);

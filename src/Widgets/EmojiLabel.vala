@@ -4,6 +4,10 @@ public class Tuba.Widgets.EmojiLabel : Tuba.Widgets.LabelWithWidgets {
 	public bool smaller_emoji_pixel_size { get; set; default=false; }
 	public bool large_emojis { get; set; default=false; }
 
+	static construct {
+		set_accessible_role (Gtk.AccessibleRole.LABEL);
+	}
+
 	private string _content = "";
 	public string content { get {return _content;}
 		set {

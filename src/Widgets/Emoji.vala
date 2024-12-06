@@ -1,5 +1,4 @@
 public class Tuba.Widgets.Emoji : Adw.Bin {
-
 	protected Gtk.Image image;
 	public string? shortcode { get; set; }
 	public int pixel_size {
@@ -11,8 +10,11 @@ public class Tuba.Widgets.Emoji : Adw.Bin {
 		set { image.icon_size = value; }
 	}
 
+	static construct {
+		set_accessible_role (Gtk.AccessibleRole.IMG);
+	}
+
 	construct {
-		this.set_accessible_role (Gtk.AccessibleRole.IMG);
 		image = new Gtk.Image () {
 			css_classes = { "lww-emoji" }
 		};

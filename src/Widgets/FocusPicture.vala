@@ -84,10 +84,10 @@ public class Tuba.Widgets.FocusPicture : Gtk.Widget, Gtk.Buildable, Gtk.Accessib
 
 	static construct {
 		set_css_name ("picture");
+		set_accessible_role (Gtk.AccessibleRole.IMG);
 	 }
 
 	construct {
-		this.set_accessible_role (Gtk.AccessibleRole.IMG);
 		this.overflow = Gtk.Overflow.HIDDEN;
 	}
 

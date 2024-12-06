@@ -26,9 +26,11 @@ public class Tuba.Widgets.ReactButton : Gtk.Button {
 		}
 	}
 
-	public ReactButton (API.EmojiReaction reaction) {
-		this.set_accessible_role (Gtk.AccessibleRole.TOGGLE_BUTTON);
+	static construct {
+		set_accessible_role (Gtk.AccessibleRole.TOGGLE_BUTTON);
+	}
 
+	public ReactButton (API.EmojiReaction reaction) {
 		// translators: the variable is the emoji or its name if it's custom
 		tooltip_text = _("React with %s").printf (reaction.name);
 		shortcode = reaction.name;
