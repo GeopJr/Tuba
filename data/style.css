@@ -843,6 +843,7 @@ list.uniform-border-color row {
 
 .annual-screenshot-box {
 	padding: 12px;
+	border-radius: 16px;
 }
 
 .annual-screenshot-box.style-window {
