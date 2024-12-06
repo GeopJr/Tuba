@@ -6,7 +6,7 @@ public class Tuba.API.AnnualReports : Entity {
 			}
 
 			public class RebloggedAccount : Countable {
-				public string id { get; set; }
+				public string account_id { get; set; }
 			}
 
 			public class NamedCountable : Countable {

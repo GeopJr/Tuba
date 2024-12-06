@@ -311,7 +311,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 			string[] interaction_names = {};
 			current_report.data.commonly_interacted_with_accounts.sort (sort_countable);
 			for (int i = 0; i < int.min (current_report.data.commonly_interacted_with_accounts.size, 3); i++) {
-				var acc_id = current_report.data.commonly_interacted_with_accounts.get (i).id;
+				var acc_id = current_report.data.commonly_interacted_with_accounts.get (i).account_id;
 				if (report_accounts.has_key (acc_id)) {
 					var acc = report_accounts.get (acc_id);
 					besties_box.append (new Widgets.Avatar () {
