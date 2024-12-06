@@ -1,5 +1,7 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/view.ui")]
 public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
+	public const int MAX_SIDEBAR_LISTS = 25;
+
 	[GtkChild] unowned Gtk.ListBox items;
 	[GtkChild] unowned Gtk.ListBox saved_accounts;
 	[GtkChild] unowned Widgets.Avatar accounts_button_avi;
@@ -11,7 +13,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	protected InstanceAccount? account { get; set; default = null; }
 
-	protected GLib.ListStore app_items;
+	protected Gtk.SliceListModel app_items;
 	protected Gtk.SliceListModel account_items;
 	protected Gtk.FlattenListModel item_model;
 	protected GLib.ListStore accounts_model;
@@ -92,7 +94,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 		menu_btn.menu_model = menu_model;
 
-		app_items = new GLib.ListStore (typeof (Place));
+		app_items = new Gtk.SliceListModel (null, 0, MAX_SIDEBAR_LISTS);
 		account_items = new Gtk.SliceListModel (null, 0, 15);
 
 		var models = new GLib.ListStore (typeof (Object));
@@ -175,6 +177,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			sidebar_avatar_btn = this.account.bind_property ("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
 			wrapped_binding = this.account.bind_property ("tuba-last-fediwrapped-year", this, "tuba-wrapped", BindingFlags.SYNC_CREATE);
 			account_items.model = account.known_places;
+			app_items.model = account.list_places;
 			update_selected_account ();
 
 			var dashboard_action = app.lookup_action ("open-admin-dashboard") as SimpleAction;
@@ -185,6 +188,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			saved_accounts.unselect_all ();
 
 			account_items.model = null;
+			app_items.model = null;
 			accounts_button_avi.account = null;
 		}
 	}
@@ -230,7 +234,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	[GtkCallback] void on_item_activated (Gtk.ListBoxRow _row) {
 		var row = _row as ItemRow;
 		if (row.place.open_func != null)
-			row.place.open_func (app.main_window);
+			row.place.open_func (app.main_window, row.place.extra_data);
 
 		var split_view = app.main_window.split_view;
 		if (split_view.collapsed)

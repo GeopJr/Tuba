@@ -2,11 +2,11 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	public signal void reply (Gtk.Button btn);
 	public API.Status status { get; set; }
 
-	StatusActionButton reply_button;
-	StatusActionButton reblog_button;
-	StatusActionButton favorite_button;
-	StatusActionButton bookmark_button;
-	StatusActionButton? quote_button = null;
+	Widgets.StatusActionButton reply_button;
+	Widgets.StatusActionButton reblog_button;
+	Widgets.StatusActionButton favorite_button;
+	Widgets.StatusActionButton bookmark_button;
+	Widgets.StatusActionButton? quote_button = null;
 
 	public ActionsRow (API.Status t_status) {
 		Object (status: t_status);
@@ -80,7 +80,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		this.add_css_class ("ttl-post-actions");
 		this.spacing = 6;
 
-		reply_button = new StatusActionButton.with_icon_name ("tuba-reply-sender-symbolic") {
+		reply_button = new Widgets.StatusActionButton.with_icon_name ("tuba-reply-sender-symbolic") {
 			active = false,
 			css_classes = { "ttl-status-action-reply", "flat", "circular" },
 			halign = Gtk.Align.START,
@@ -99,7 +99,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		reply_button.clicked.connect (on_reply_button_clicked);
 		this.append (reply_button);
 
-		reblog_button = new StatusActionButton.with_icon_name ("tuba-media-playlist-repeat-symbolic") {
+		reblog_button = new Widgets.StatusActionButton.with_icon_name ("tuba-media-playlist-repeat-symbolic") {
 			css_classes = { "ttl-status-action-reblog", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = true,
@@ -118,7 +118,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		this.append (reblog_button);
 
 		if (accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting) {
-			quote_button = new StatusActionButton.with_icon_name ("tuba-quotation-symbolic") {
+			quote_button = new Widgets.StatusActionButton.with_icon_name ("tuba-quotation-symbolic") {
 				css_classes = { "ttl-status-action-quote", "flat", "circular" },
 				halign = Gtk.Align.START,
 				hexpand = true,
@@ -129,7 +129,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			this.append (quote_button);
 		}
 
-		favorite_button = new StatusActionButton.with_icon_name ("tuba-unstarred-symbolic") {
+		favorite_button = new Widgets.StatusActionButton.with_icon_name ("tuba-unstarred-symbolic") {
 			active_icon_name = "tuba-starred-symbolic",
 			css_classes = { "ttl-status-action-star", "flat", "circular" },
 			halign = Gtk.Align.START,
@@ -148,7 +148,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		favorite_button.clicked.connect (on_favorite_button_clicked);
 		this.append (favorite_button);
 
-		bookmark_button = new StatusActionButton.with_icon_name ("tuba-bookmarks-symbolic") {
+		bookmark_button = new Widgets.StatusActionButton.with_icon_name ("tuba-bookmarks-symbolic") {
 			active_icon_name = "tuba-bookmarks-filled-symbolic",
 			css_classes = { "ttl-status-action-bookmark", "flat", "circular" },
 			halign = Gtk.Align.START,
@@ -185,7 +185,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	}
 
 	private void on_bookmark_button_clicked (Gtk.Button btn) {
-		var status_btn = btn as StatusActionButton;
+		var status_btn = btn as Widgets.StatusActionButton;
 		if (status_btn.working) return;
 
 		status_btn.block_clicked ();
@@ -206,7 +206,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	}
 
 	private void on_favorite_button_clicked (Gtk.Button btn) {
-		var status_btn = btn as StatusActionButton;
+		var status_btn = btn as Widgets.StatusActionButton;
 		if (status_btn.working) return;
 
 		status_btn.block_clicked ();
@@ -228,7 +228,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	}
 
 	private void on_boost_button_clicked (Gtk.Button btn) {
-		var status_btn = btn as StatusActionButton;
+		var status_btn = btn as Widgets.StatusActionButton;
 		if (status_btn.working) return;
 
 		status_btn.block_clicked ();
@@ -335,7 +335,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		}, false, status.formal.id);
 	}
 
-	private void commit_boost (StatusActionButton status_btn, API.Status.ReblogVisibility? visibility = null) {
+	private void commit_boost (Widgets.StatusActionButton status_btn, API.Status.ReblogVisibility? visibility = null) {
 			status_btn.active = !status_btn.active;
 
 			string action;
@@ -353,7 +353,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			mastodon_action (status_btn, req, action, "reblogs-count");
 	}
 
-	private void mastodon_action (StatusActionButton status_btn, Request req, string action, string? count_property = null) {
+	private void mastodon_action (Widgets.StatusActionButton status_btn, Request req, string action, string? count_property = null) {
 		req.await.begin ((o, res) => {
 			try {
 				req.await.end (res);
