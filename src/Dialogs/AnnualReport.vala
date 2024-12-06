@@ -102,20 +102,20 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 			css_classes = {"suggested-action"}
 		};
 		share_button.clicked.connect (on_share);
-		headerbar.pack_start (share_button);
+		headerbar.pack_end (share_button);
 
 		var download_button = new Gtk.Button () {
 			icon_name = "document-save-symbolic",
 			tooltip_text = _("Save As…")
 		};
 		download_button.clicked.connect (save_with_background);
-		headerbar.pack_start (download_button);
+		headerbar.pack_end (download_button);
 
 		var style_button = new Gtk.MenuButton () {
 			label = _("Style"),
 			menu_model = style_menu
 		};
-		headerbar.pack_end (style_button);
+		headerbar.pack_start (style_button);
 
 		this.child = toolbarview;
 		scrolled_window.vadjustment.value_changed.connect (on_vadjustment_changed);
