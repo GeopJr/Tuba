@@ -22,6 +22,9 @@
 		<key name="notification-filters" type="as">
 			<default>[]</default>
 		</key>
+    <key name="favorite-lists-ids" type="as">
+			<default>[]</default>
+		</key>
     <key name="account-suggestions" type="b">
 			<default>true</default>
 		</key>

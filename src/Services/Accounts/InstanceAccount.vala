@@ -39,6 +39,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public bool probably_has_notification_filters { get; set; default=false; }
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
+	public GLib.ListStore list_places = new GLib.ListStore (typeof (Place));
 
 	public Gee.HashMap<Type,Type> type_overrides = new Gee.HashMap<Type,Type> ();
 
@@ -61,6 +62,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public virtual signal void activated () {
 		gather_instance_info ();
 		gather_instance_custom_emojis ();
+		GLib.Idle.add (gather_fav_lists);
 		check_announcements ();
 
 		if (_account_settings != null) _account_settings = null;
@@ -77,6 +79,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public void reconnect () {
 		gather_instance_info ();
 		gather_instance_custom_emojis ();
+		GLib.Idle.add (gather_fav_lists);
 		check_announcements ();
 		check_notifications ();
 	}
@@ -85,6 +88,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		this.construct_streamable ();
 		this.stream_event[EVENT_NOTIFICATION].connect (on_notification_event);
 		this.register_known_places (this.known_places);
+		this.register_lists (this.list_places);
 
 		#if DEV_MODE
 			app.dev_new_notification.connect (node => {
@@ -408,6 +412,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	public virtual void register_known_places (GLib.ListStore places) {}
+	public virtual void register_lists (GLib.ListStore places, Place[]? lists = null) {}
 
 	// Notifications
 
@@ -544,6 +549,44 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				instance_emojis = (Gee.ArrayList<Tuba.API.Emoji>) res_emojis;
 			})
 			.exec ();
+	}
+
+	public bool gather_fav_lists () {
+		if (settings.favorite_lists_ids.length == 0) {
+			this.register_lists (this.list_places);
+			return GLib.Source.REMOVE;
+		}
+
+		new Request.GET ("/api/v1/lists")
+			.with_account (accounts.active)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				Place[] fav_lists = {};
+				Network.parse_array (parser, node => {
+					var list = API.List.from (node);
+					if (list.id in settings.favorite_lists_ids) {
+						fav_lists += new Place () {
+							icon = "tuba-list-compact-symbolic",
+							title = GLib.Markup.escape_text (list.title),
+							extra_data = list,
+							open_func = (win, list) => {
+								win.open_view (set_as_sidebar_item (new Views.List ((API.List) list)));
+
+							}
+						};
+					}
+				});
+				this.register_lists (this.list_places, fav_lists);
+			})
+			.exec ();
+
+		return GLib.Source.REMOVE;
+	}
+
+	protected static Views.Base set_as_sidebar_item (Views.Base view) {
+		view.is_sidebar_item = true;
+		view.show_back_button = false;
+		return view;
 	}
 
 	public void init_notifications () {

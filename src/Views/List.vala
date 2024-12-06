@@ -3,6 +3,7 @@ public class Tuba.Views.List : Views.Timeline {
 
 	public List (API.List l) {
 		Object (
+			uid: 1,
 			url: @"/api/v1/timelines/list/$(l.id)",
 			label: l.title,
 			icon: "tuba-list-compact-symbolic",

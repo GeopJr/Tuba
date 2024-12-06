@@ -7,6 +7,7 @@ public class Tuba.Settings : GLib.Settings {
 		public string[] muted_notification_types { get; set; default = {}; }
 		public string[] recently_used_custom_emojis { get; set; default = {}; }
 		public string[] notification_filters { get; set; default = {}; }
+		public string[] favorite_lists_ids { get; set; default = {}; }
 
 		private static string[] keys_to_init = {
 			"default-post-visibility",
@@ -14,7 +15,8 @@ public class Tuba.Settings : GLib.Settings {
 			"default-content-type",
 			"recently-used-custom-emojis",
 			"notification-filters",
-			"account-suggestions"
+			"account-suggestions",
+			"favorite-lists-ids"
 		};
 
 		public Account (string id) {
@@ -112,6 +114,16 @@ public class Tuba.Settings : GLib.Settings {
 
 		set {
 			active_account_settings.notification_filters = value;
+		}
+	}
+
+	public string[] favorite_lists_ids {
+		get {
+			return active_account_settings.favorite_lists_ids;
+		}
+
+		set {
+			active_account_settings.favorite_lists_ids = value;
 		}
 	}
 
