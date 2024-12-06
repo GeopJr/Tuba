@@ -46,27 +46,35 @@ public class Tuba.Views.Lists : Views.Timeline {
 			};
 			fav_button.clicked.connect (on_favorite_button_clicked);
 			this.add_prefix (fav_button);
+
+			settings.notify["favorite-lists-ids"].connect (on_fav_list_updated);
+		}
+
+		private void on_fav_list_updated () {
+			fav_button.sensitive = fav_button.active || settings.favorite_lists_ids.length < Views.Sidebar.MAX_SIDEBAR_LISTS;
 		}
 
 		public Row (API.List? list) {
 			this.list = list;
 
 			if (list != null) {
-				this.list.bind_property ("title", this, "title", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-					GLib.Idle.add (accounts.active.gather_fav_lists);
-					target.set_string (GLib.Markup.escape_text (src.get_string ()));
-					return true;
-				});
+				this.title = GLib.Markup.escape_text (this.list.title);
 				this.list.notify["id"].connect (update_fav_status);
+				this.list.notify["title"].connect (title_changed);
 
 				edit_button.clicked.connect (on_edit);
-
 				update_fav_status ();
 			}
 		}
 
+		private void title_changed () {
+			this.title = GLib.Markup.escape_text (this.list.title);
+			GLib.Idle.add (accounts.active.gather_fav_lists);
+		}
+
 		private void update_fav_status () {
 			fav_button.active = this.list.id in settings.favorite_lists_ids;
+			on_fav_list_updated ();
 		}
 
 		private void on_favorite_button_clicked () {

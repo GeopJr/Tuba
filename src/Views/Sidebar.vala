@@ -1,5 +1,7 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/view.ui")]
 public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
+	public const int MAX_SIDEBAR_LISTS = 25;
+
 	[GtkChild] unowned Gtk.ListBox items;
 	[GtkChild] unowned Gtk.ListBox saved_accounts;
 	[GtkChild] unowned Widgets.Avatar accounts_button_avi;
@@ -92,7 +94,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 		menu_btn.menu_model = menu_model;
 
-		app_items = new Gtk.SliceListModel (null, 0, 15);
+		app_items = new Gtk.SliceListModel (null, 0, MAX_SIDEBAR_LISTS);
 		account_items = new Gtk.SliceListModel (null, 0, 15);
 
 		var models = new GLib.ListStore (typeof (Object));
