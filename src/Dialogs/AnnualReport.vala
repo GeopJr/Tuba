@@ -43,34 +43,26 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 	Gtk.Box content_box;
 	Adw.ToastOverlay toast_overlay;
 	Gtk.Box screenshot_box;
-	Adw.SplitButton share_button;
-	GLib.Menu theme_menu_save;
-	GLib.Menu theme_menu_share;
+	Gtk.Button share_button;
+	GLib.Menu style_menu;
 	Gtk.WidgetPaintable screenshot_paintable;
 	Adw.HeaderBar headerbar;
 	construct {
 		var actions = new SimpleActionGroup ();
 		actions.add_action_entries (
 			{
-				{"share-background", on_share_background, "s"},
-				{"save-as-background", on_save_as_background, "s"}
+				{"change-style", on_change_style, "s"},
 			},
 			this
 		);
 		this.insert_action_group ("annual", actions);
 
-		theme_menu_share = new GLib.Menu ();
-		theme_menu_share.append (_("Default"), "annual.share-background('window')");
+		style_menu = new GLib.Menu ();
+		style_menu.append (_("Default"), "annual.change-style('window')");
 		// translators: Accent color
-		theme_menu_share.append (_("Accent"), "annual.share-background('accent')");
-		theme_menu_share.append ("Pride", "annual.share-background('pride')");
-		theme_menu_share.append ("Trans", "annual.share-background('trans')");
-
-		theme_menu_save = new GLib.Menu ();
-		theme_menu_save.append (_("Default"), "annual.save-as-background('window')");
-		theme_menu_save.append (_("Accent"), "annual.save-as-background('accent')");
-		theme_menu_save.append ("Pride", "annual.save-as-background('pride')");
-		theme_menu_save.append ("Trans", "annual.save-as-background('trans')");
+		style_menu.append (_("Accent"), "annual.change-style('accent')");
+		style_menu.append ("Pride", "annual.change-style('pride')");
+		style_menu.append ("Trans", "annual.change-style('trans')");
 
 		this.add_css_class ("annual");
 		this.content_height = this.content_width = 600;
@@ -105,20 +97,25 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		};
 		toolbarview.add_top_bar (headerbar);
 
-		share_button = new Adw.SplitButton () {
+		share_button = new Gtk.Button () {
 			label = _("Share"),
-			menu_model = theme_menu_share
+			css_classes = {"suggested-action"}
 		};
-		share_button.add_css_class ("suggested-action");
 		share_button.clicked.connect (on_share);
-		headerbar.pack_start (share_button);
+		headerbar.pack_end (share_button);
 
-		var download_button = new Gtk.MenuButton () {
+		var download_button = new Gtk.Button () {
 			icon_name = "document-save-symbolic",
-			tooltip_text = _("Save As…"),
-			menu_model = theme_menu_save
+			tooltip_text = _("Save As…")
 		};
-		headerbar.pack_start (download_button);
+		download_button.clicked.connect (save_with_background);
+		headerbar.pack_end (download_button);
+
+		var style_button = new Gtk.MenuButton () {
+			label = _("Style"),
+			menu_model = style_menu
+		};
+		headerbar.pack_start (style_button);
 
 		this.child = toolbarview;
 		scrolled_window.vadjustment.value_changed.connect (on_vadjustment_changed);
@@ -130,7 +127,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 	string report_alt_text = "";
 	public AnnualReport (API.AnnualReports report, int year = 0) {
-		screenshot_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+		screenshot_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
+			css_classes = {"annual-screenshot-box"}
+		};
 		screenshot_paintable = new Gtk.WidgetPaintable (screenshot_box);
 		content_box.append (screenshot_box);
 
@@ -312,7 +311,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 			string[] interaction_names = {};
 			current_report.data.commonly_interacted_with_accounts.sort (sort_countable);
 			for (int i = 0; i < int.min (current_report.data.commonly_interacted_with_accounts.size, 3); i++) {
-				var acc_id = current_report.data.commonly_interacted_with_accounts.get (i).id;
+				var acc_id = current_report.data.commonly_interacted_with_accounts.get (i).account_id;
 				if (report_accounts.has_key (acc_id)) {
 					var acc = report_accounts.get (acc_id);
 					besties_box.append (new Widgets.Avatar () {
@@ -462,13 +461,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 	}
 
 	private void on_share () {
-		share_with_background ();
-	}
-
-	private void share_with_background (Background background = Background.WINDOW) {
 		share_button.sensitive = false;
 
-		var texture = do_screenshot (background);
+		var texture = do_screenshot ();
 		if (texture == null) {
 			share_button.sensitive = true;
 			return;
@@ -510,11 +505,11 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		return status;
 	}
 
-	private void save_with_background (Background background = Background.WINDOW) {
-		save_as_async.begin (background);
+	private void save_with_background () {
+		save_as_async.begin ();
 	}
 
-	private async void save_as_async (Background background = Background.WINDOW) {
+	private async void save_as_async () {
 		var chooser = new Gtk.FileDialog () {
 			title = _("Save "),
 			modal = true,
@@ -524,7 +519,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		try {
 			var file = yield chooser.save (app.main_window, null);
 			if (file != null) {
-				var texture = do_screenshot (background);
+				var texture = do_screenshot ();
 				if (texture != null) {
 					FileOutputStream stream = file.replace (null, false, FileCreateFlags.PRIVATE);
 					try {
@@ -565,9 +560,19 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 				default: return TRANSPARENT;
 			}
 		}
+
+		public string to_string () {
+			switch (this) {
+				case WINDOW: return "style-window";
+				case ACCENT: return "style-accent";
+				case PRIDE: return "style-pride";
+				case TRANS: return "style-trans";
+				default: return "";
+			}
+		}
 	}
 
-	private Gdk.Texture? do_screenshot (Background background = Background.WINDOW) {
+	private Gdk.Texture? do_screenshot () {
 		int width = screenshot_box.get_width ();
 		int height = screenshot_box.get_height ();
 		if (int.min (width, height) < 512) {
@@ -584,62 +589,6 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		rect.init (0, 0, (float) width, (float) height);
 
 		Gtk.Snapshot snapshot = new Gtk.Snapshot ();
-		switch (background) {
-			case WINDOW:
-				Gdk.RGBA color = Gdk.RGBA ();
-				if (Adw.StyleManager.get_default ().dark) {
-					color.parse ("#222226");
-				} else {
-					color.parse ("#fafafb");
-				}
-
-				snapshot.append_color (color, rect);
-				break;
-			case ACCENT:
-				snapshot.append_color (Adw.StyleManager.get_default ().get_accent_color_rgba (), rect);
-				break;
-			case PRIDE:
-				Gdk.RGBA color = Gdk.RGBA ();
-				if (Adw.StyleManager.get_default ().dark) {
-					color.parse ("#222226");
-				} else {
-					color.parse ("#fafafb");
-				}
-				snapshot.append_color (color, rect);
-
-				snapshot.push_opacity (0.3);
-				snapshot.append_linear_gradient (rect, rect.get_top_left (), rect.get_bottom_right (), {
-					{ 0f, {0.894118f, 0.0117647f, 0.0117647f, 1f} },
-					{ 0.2f, {1f, 0.54902f, 0f, 1f} },
-					{ 0.4f, {1f, 0.929412f, 0f, 1f} },
-					{ 0.6f, {0f, 0.501961f, 0.14902f, 1f} },
-					{ 0.8f, {0f, 0.301961f, 1f, 1f} },
-					{ 1f, {0.458824f, 0.027451f, 0.529412f, 1f} },
-				});
-				snapshot.pop ();
-				break;
-			case TRANS:
-				Gdk.RGBA color = Gdk.RGBA ();
-				if (Adw.StyleManager.get_default ().dark) {
-					color.parse ("#222226");
-				} else {
-					color.parse ("#fafafb");
-				}
-				snapshot.append_color (color, rect);
-
-				snapshot.push_opacity (0.5);
-				snapshot.append_linear_gradient (rect, rect.get_top_left (), rect.get_bottom_right (), {
-					{ 0f, {0.360784f, 0.807843f, 0.980392f, 1f} },
-					{ 0.25f, {0.964706f, 0.658824f, 0.717647f, 1f} },
-					{ 0.5f, {1f, 1f, 1f, 1f} },
-					{ 0.75f, {0.964706f, 0.658824f, 0.717647f, 1f} },
-					{ 1f, {0.360784f, 0.807843f, 0.980392f, 1f} },
-				});
-				snapshot.pop ();
-				break;
-			default:
-				break;
-		}
 		screenshot_paintable.snapshot (snapshot, width, height);
 
 		Gsk.RenderNode? node = snapshot.to_node ();
@@ -655,16 +604,15 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		return renderer.render_texture (node, rect);
 	}
 
-	private void on_share_background (GLib.SimpleAction action, GLib.Variant? value) {
+	Background current_style = Background.TRANSPARENT;
+	private void on_change_style (GLib.SimpleAction action, GLib.Variant? value) {
 		if (value == null) return;
 
-		share_with_background (Background.from_string (value.get_string ()));
-	}
-
-	private void on_save_as_background (GLib.SimpleAction action, GLib.Variant? value) {
-		if (value == null) return;
-
-		save_with_background (Background.from_string (value.get_string ()));
+		string current_style_class = current_style.to_string ();
+		if (current_style_class != "" && screenshot_box.has_css_class (current_style_class))
+			screenshot_box.remove_css_class (current_style_class);
+		current_style = Background.from_string (value.get_string ());
+		screenshot_box.add_css_class (current_style.to_string ());
 	}
 
 	private int sort_countable (API.AnnualReports.Report.Data.Countable a, API.AnnualReports.Report.Data.Countable b) {

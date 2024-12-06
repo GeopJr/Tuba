@@ -528,10 +528,37 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					if (instance_v2.api_versions != null && instance_v2.api_versions.mastodon > 0) {
 						this.instance_info.tuba_mastodon_version = instance_v2.api_versions.mastodon;
 						this.probably_has_notification_filters = true;
+
+						if (this.instance_info.tuba_mastodon_version > 1) gather_annual_report ();
 					}
 				}
 			})
 			.exec ();
+	}
+
+	public int tuba_last_fediwrapped_year { get; set; default=0; }
+	API.AnnualReports? annual_report;
+	private void gather_annual_report () {
+		var now = new GLib.DateTime.now ();
+		if (now.get_month () != 12) return;
+
+		var year = now.get_year ();
+		new Request.GET (@"/api/v1/annual_reports/$(now.get_year ())")
+			.with_account (accounts.active)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				annual_report = API.AnnualReports.from (node);
+				if (annual_report.annual_reports.size > 0) tuba_last_fediwrapped_year = year;
+			})
+			.exec ();
+	}
+
+	public void open_latest_wrapped () {
+		if (tuba_last_fediwrapped_year == 0 || annual_report == null) return;
+		annual_report.open (tuba_last_fediwrapped_year);
+		tuba_last_fediwrapped_year = 0;
+		annual_report = null;
 	}
 
 	public void gather_instance_custom_emojis () {

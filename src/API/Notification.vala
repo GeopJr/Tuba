@@ -107,7 +107,6 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 
 				new Request.GET (@"/api/v1/annual_reports/$year")
 					.with_account (accounts.active)
-					.with_param ("id", id)
 					.then ((in_stream) => {
 						var parser = Network.get_parser_from_inputstream (in_stream);
 						var node = network.parse_node (parser);
@@ -151,14 +150,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				return create_basic_card (
 					"tuba-birthday-symbolic",
 					"<b>%s</b> %s".printf (
-						// translators: this is used for notifications,
-						//				when an annual report is available.
-						//				it's similar to spotify wrapped, it
-						//				shows profile stats / it's a recap
-						//				of the year. The variable is the
-						//				current year e.g. 2024. Please don't
-						//				translate the hashtag.
-						_("Your %d #FediWrapped is ready!").printf (year),
+						_("Your %s #FediWrapped is ready!").printf (year.to_string ()),
 						_("Review your year's highlights and memorable moments on the Fediverse!")
 					)
 				);
@@ -211,7 +203,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			other_data = year.to_string ();
 		}
 
-		issuer.describe_kind (kind, out res_kind, kind_actor_name, null, emoji);
+		issuer.describe_kind (kind, out res_kind, kind_actor_name, null, other_data);
 		var toast = new GLib.Notification (res_kind.description);
 		if (status != null) {
 			var body = "";
