@@ -589,6 +589,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				Place[] fav_lists = {};
+				string[] all_ids = {};
 				Network.parse_array (parser, node => {
 					var list = API.List.from (node);
 					if (list.id in settings.favorite_lists_ids) {
@@ -602,8 +603,16 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 							}
 						};
 					}
+
+					all_ids += list.id;
 				});
 				this.register_lists (this.list_places, fav_lists);
+
+				string[] new_favs = {};
+				foreach (string fav_id in settings.favorite_lists_ids) {
+					if (fav_id in all_ids) new_favs += fav_id;
+				}
+				settings.favorite_lists_ids = new_favs;
 			})
 			.exec ();
 
