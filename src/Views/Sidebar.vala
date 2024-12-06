@@ -40,6 +40,15 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		}
 	}
 
+	public int tuba_wrapped {
+		set {
+			var wrapped_action = app.lookup_action ("open-last-fediwrapped") as SimpleAction;
+			if (wrapped_action != null) {
+				wrapped_action.set_enabled (value > 2000);
+			}
+		}
+	}
+
 	static construct {
 		typeof (Widgets.Avatar).ensure ();
 		typeof (Widgets.EmojiLabel).ensure ();
@@ -64,6 +73,10 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		misc_submenu_model.append (_("Mutes & Blocks"), "app.open-mutes-blocks");
 		misc_submenu_model.append (_("Draft Posts"), "app.open-draft-posts");
 		misc_submenu_model.append (_("Scheduled Posts"), "app.open-scheduled-posts");
+
+		var wrapped_menu_item = new MenuItem (_("#FediWrapped"), "app.open-last-fediwrapped");
+		wrapped_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+		misc_submenu_model.append_item (wrapped_menu_item);
 
 		var admin_dahsboard_menu_item = new MenuItem (_("Admin Dashboard"), "app.open-admin-dashboard");
 		admin_dahsboard_menu_item.set_attribute_value ("hidden-when", "action-disabled");
@@ -140,12 +153,15 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	private Binding sidebar_avatar_btn;
 	private Binding announcements_banner_binding;
 	private Binding fr_banner_binding;
+	private Binding wrapped_binding;
 	protected virtual void on_account_changed (InstanceAccount? account) {
 		if (this.account != null) {
 			sidebar_avatar_btn.unbind ();
 			announcements_banner_binding.unbind ();
 			fr_banner_binding.unbind ();
+			wrapped_binding.unbind ();
 		}
+		this.tuba_wrapped = 0;
 		unread_announcements = 0;
 
 		if (app != null && app.main_window != null)
@@ -157,6 +173,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			announcements_banner_binding = this.account.bind_property ("unread-announcements", this, "unread-announcements", BindingFlags.SYNC_CREATE);
 			fr_banner_binding = this.account.bind_property ("unreviewed-follow-requests", this, "unreviewed-follow-requests", BindingFlags.SYNC_CREATE);
 			sidebar_avatar_btn = this.account.bind_property ("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
+			wrapped_binding = this.account.bind_property ("tuba-last-fediwrapped-year", this, "tuba-wrapped", BindingFlags.SYNC_CREATE);
 			account_items.model = account.known_places;
 			update_selected_account ();
 
