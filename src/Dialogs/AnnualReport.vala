@@ -461,10 +461,6 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 	}
 
 	private void on_share () {
-		share_with_background ();
-	}
-
-	private void share_with_background () {
 		share_button.sensitive = false;
 
 		var texture = do_screenshot ();
