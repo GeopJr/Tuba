@@ -3,9 +3,9 @@ public class Tuba.Dialogs.Schedule : Adw.Dialog {
 	public signal void schedule_picked (string iso8601);
 
 	[GtkChild] unowned Gtk.Calendar calendar;
-	[GtkChild] unowned Adw.SpinRow hours_spin_row;
-	[GtkChild] unowned Adw.SpinRow minutes_spin_row;
-	[GtkChild] unowned Adw.SpinRow seconds_spin_row;
+	[GtkChild] unowned Gtk.SpinButton hours_spin_button;
+	[GtkChild] unowned Gtk.SpinButton minutes_spin_button;
+	[GtkChild] unowned Gtk.SpinButton seconds_spin_button;
 	[GtkChild] unowned Adw.ComboRow timezone_combo_row;
 	[GtkChild] unowned Gtk.Button schedule_button;
 
@@ -22,14 +22,14 @@ public class Tuba.Dialogs.Schedule : Adw.Dialog {
 	public Schedule (string? iso8601 = null, string? button_label = null) {
 		if (iso8601 == null) {
 			GLib.DateTime now = new GLib.DateTime.now_local ();
-			hours_spin_row.value = (double) now.get_hour ();
-			minutes_spin_row.value = (double) now.get_minute ();
-			seconds_spin_row.value = (double) now.get_second ();
+			hours_spin_button.value = (double) now.get_hour ();
+			minutes_spin_button.value = (double) now.get_minute ();
+			seconds_spin_button.value = (double) now.get_second ();
 		} else {
 			GLib.DateTime iso8601_datetime = new GLib.DateTime.from_iso8601 (iso8601, null).to_timezone (new TimeZone.local ());
-			hours_spin_row.value = (double) iso8601_datetime.get_hour ();
-			minutes_spin_row.value = (double) iso8601_datetime.get_minute ();
-			seconds_spin_row.value = (double) iso8601_datetime.get_second ();
+			hours_spin_button.value = (double) iso8601_datetime.get_hour ();
+			minutes_spin_button.value = (double) iso8601_datetime.get_minute ();
+			seconds_spin_button.value = (double) iso8601_datetime.get_second ();
 
 			calendar.year = iso8601_datetime.get_year ();
 			calendar.day = iso8601_datetime.get_month ();
@@ -59,18 +59,18 @@ public class Tuba.Dialogs.Schedule : Adw.Dialog {
 				calendar.year,
 				calendar.month + 1,
 				calendar.day,
-				(int) hours_spin_row.value,
-				(int) minutes_spin_row.value,
-				seconds_spin_row.value
+				(int) hours_spin_button.value,
+				(int) minutes_spin_button.value,
+				seconds_spin_button.value
 			);
 		} else {
 			result_dt = new GLib.DateTime.local (
 				calendar.year,
 				calendar.month + 1,
 				calendar.day,
-				(int) hours_spin_row.value,
-				(int) minutes_spin_row.value,
-				seconds_spin_row.value
+				(int) hours_spin_button.value,
+				(int) minutes_spin_button.value,
+				seconds_spin_button.value
 			).to_utc ();
 		}
 
