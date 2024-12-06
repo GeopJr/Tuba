@@ -211,7 +211,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			other_data = year.to_string ();
 		}
 
-		issuer.describe_kind (kind, out res_kind, kind_actor_name, null, emoji);
+		issuer.describe_kind (kind, out res_kind, kind_actor_name, null, other_data);
 		var toast = new GLib.Notification (res_kind.description);
 		if (status != null) {
 			var body = "";
