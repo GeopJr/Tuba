@@ -341,7 +341,10 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		}
 		button.child = pic;
 
-		alt_btn.tooltip_text = _("Edit Alt Text");
+		//  translators: Alternative Text refers to text that describes
+		//				 an attachment when using screen readers or the
+		//				 image hasn't loaded. Also known as 'alt text'
+		alt_btn.tooltip_text = _("Edit Alternative Text");
 		alt_btn.disconnect (alt_btn_clicked_id);
 		alt_btn.clicked.connect (on_alt_btn_clicked);
 		alt_btn.add_css_class ("error");
@@ -363,6 +366,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			icon_name = "tuba-camera-focus-symbolic",
 			valign = Gtk.Align.START,
 			halign = Gtk.Align.END,
+			// translators: focus picker
 			tooltip_text = _("Edit Focal Point"),
 			css_classes = { "ttl-status-badge" }
 		};

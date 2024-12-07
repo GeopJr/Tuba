@@ -9,7 +9,8 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		set {
 			_draft = value;
 			reschedule_button.visible = !value;
-			schedule_label.label = "<b>%s</b>".printf (_("Draft"));
+			// translators: not a verb, as in a post that is saved but not posted yet
+			schedule_label.label = _("Draft");
 			this.activatable = value;
 		}
 	}
@@ -170,9 +171,10 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 
 	private void on_delete () {
 		string title = !_draft
+			// translators: as in a post set to be posted sometime in the future
 			? _("Delete Scheduled Post?")
 			// translators: 'Draft' is not a verb here.
-			//				It's equal to 'Unsaved'
+			//				It's equal to 'saved but not posted'
 			: _("Delete Draft Post?");
 
 		app.question.begin (

@@ -112,6 +112,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		headerbar.pack_end (download_button);
 
 		var style_button = new Gtk.MenuButton () {
+			// translators: dropdown label for picking a window style
 			label = _("Style"),
 			menu_model = style_menu
 		};
@@ -194,6 +195,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 				margin_top = margin_bottom = margin_start = margin_end = 6,
 				valign = Gtk.Align.CENTER
 			};
+			// translators: #FediWrapped, title of the 'amount of new posts' card
 			posts_box.append (new Gtk.Label (_("New Posts")) {
 				css_classes = {"caption-heading"}
 			});
@@ -228,6 +230,8 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 				margin_top = margin_bottom = margin_start = margin_end = 6,
 				valign = Gtk.Align.CENTER
 			};
+
+			// translators: #FediWrapped, title of a card
 			hashtags_box.append (new Gtk.Label (_("Most Used Hashtag")) {
 				css_classes = {"caption-heading"}
 			});
@@ -263,6 +267,8 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 				margin_top = margin_bottom = margin_start = margin_end = 6,
 				valign = Gtk.Align.CENTER
 			};
+
+			// translators: #FediWrapped, title of the 'which app was used to make most posts' card
 			apps_box.append (new Gtk.Label (_("Most Used App")) {
 				css_classes = {"caption-heading"}
 			});
@@ -300,6 +306,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 				margin_top = margin_bottom = margin_start = margin_end = 6,
 				valign = Gtk.Align.CENTER
 			};
+
+			// translators: #FediWrapped, title of the card that shows you
+			//				the users you interacted with the most
 			circle_box.append (new Gtk.Label (_("Most Interactions")) {
 				css_classes = {"caption-heading"}
 			});
@@ -343,6 +352,8 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 		if (total_new_followers > 0 || total_new_followings > 0) {
 			var follow_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+			// translators: #FediWrapped, title of the section about how many
+			//				new followers you got and new people you followed
 			follow_box.append (new Gtk.Label (_("Follow Stats")) {
 				css_classes = { "title-1" }
 			});
@@ -361,6 +372,8 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 					margin_top = margin_bottom = margin_start = margin_end = 6,
 					valign = Gtk.Align.CENTER
 				};
+
+				// translators: #FediWrapped, title of the 'amount of new followers' card
 				followers_box.append (new Gtk.Label (_("New Followers")) {
 					css_classes = {"caption-heading"}
 				});
@@ -382,6 +395,8 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 					margin_top = margin_bottom = margin_start = margin_end = 6,
 					valign = Gtk.Align.CENTER
 				};
+
+				// translators: #FediWrapped, title of the 'amount of new people you followed' card
 				follows_box.append (new Gtk.Label (_("New Follows")) {
 					css_classes = {"caption-heading"}
 				});
@@ -403,6 +418,8 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 		if (current_report.data.top_statuses.by_favourites != null) {
 			var status_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+			// translators: #FediWrapped, title of the section that shows you
+			//				which one of your posts had the most favorites
 			status_box.append (new Gtk.Label (_("Most Favorited Post")) {
 				css_classes = { "title-1" }
 			});
@@ -421,6 +438,8 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 		if (current_report.data.top_statuses.by_reblogs != null) {
 			var status_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+			// translators: #FediWrapped, title of the section that shows you
+			//				which one of your posts had the most boosts
 			status_box.append (new Gtk.Label (_("Most Boosted Post")) {
 				css_classes = { "title-1" }
 			});
@@ -439,6 +458,8 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 		if (current_report.data.top_statuses.by_replies != null) {
 			var status_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+			// translators: #FediWrapped, title of the section that shows you
+			//				which one of your posts had the most replies
 			status_box.append (new Gtk.Label (_("Most Replied Post")) {
 				css_classes = { "title-1" }
 			});
@@ -511,7 +532,8 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 	private async void save_as_async () {
 		var chooser = new Gtk.FileDialog () {
-			title = _("Save "),
+			// translators: save dialog title, refer to the other #FediWrapped strings for more info
+			title = _("Save #FediWrapped"),
 			modal = true,
 			initial_name = @"$report_year-wrapped.png"
 		};

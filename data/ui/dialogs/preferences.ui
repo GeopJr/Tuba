@@ -76,6 +76,7 @@
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="use_blurhash">
+								<!-- translators: leave this as is unless you want to transliterate. BlurHash is a recognizable product name. -->
 								<property name="title" translatable="yes">BlurHash</property>
 								<property name="subtitle" translatable="yes">Show a blurred version of the media until they fully load</property>
 							</object>
@@ -208,6 +209,7 @@
 				<child>
 					<object class="AdwPreferencesGroup">
 						<property name="title" translatable="yes">Online Services</property>
+						<!-- translators: leave api.tuba.geopjr.dev as is -->
 						<property name="description" translatable="yes">Configure features that connect to api.tuba.geopjr.dev</property>
 						<child>
 							<object class="AdwActionRow">
@@ -234,7 +236,9 @@
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="update_contributors">
+								<!-- translators: supporters = tuba contributors and sponsors -->
 								<property name="title" translatable="yes">Update Supporters Periodically</property>
+								<!-- translators: supporters = tuba contributors and sponsors -->
 								<property name="subtitle" translatable="yes">Fetch the list of Tuba's supporters biweekly</property>
 							</object>
 						</child>
