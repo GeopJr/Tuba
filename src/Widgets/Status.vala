@@ -717,8 +717,11 @@
 	}
 
 	private void on_header_button_clicked () {
-		if (header_kind_url != null)
+		if (header_kind_url == this.kind_instigator.url) {
+			open_kind_instigator_account ();
+		} else if (header_kind_url != null) {
 			header_label.on_activate_link (header_kind_url);
+		}
 	}
 
 	private void open_kind_instigator_account () {
