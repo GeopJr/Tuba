@@ -60,15 +60,12 @@ public abstract interface Tuba.Streamable : Object {
 	protected void on_network_change () {
 		if (app.is_online) {
 			update_stream ();
-		} else {
-			unsubscribe ();
 		}
 	}
 
 	protected void update_stream () {
 		// debug (get_subscriber_name ()+": UPDATED to "+subscribed.to_string ());
 
-		unsubscribe ();
 		if (subscribed)
 			subscribe ();
 	}
