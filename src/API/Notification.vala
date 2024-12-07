@@ -151,6 +151,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 					"tuba-birthday-symbolic",
 					"<b>%s</b> %s".printf (
 						_("Your %s #FediWrapped is ready!").printf (year.to_string ()),
+						// translators: used in the #FediWrapped notifications, refer to the other #FediWrapped strings for more info
 						_("Review your year's highlights and memorable moments on the Fediverse!")
 					)
 				);

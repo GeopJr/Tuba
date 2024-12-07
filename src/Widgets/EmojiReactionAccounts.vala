@@ -59,11 +59,15 @@ public class Tuba.Widgets.EmojiReactionAccounts : Adw.ExpanderRow {
 		this.add_css_class ("emoji-reaction-expander");
 		this.title = GLib.ngettext (
 			// translators: the variable is the amount of emoji reactions,
-			//				this is the singular version, '1 Reaction'
+			//				this is the singular version, '1 Reaction'.
+			//				A reaction is not the same as a favorite or a boost,
+			//				see https://github.com/glitch-soc/mastodon/pull/2462
 			_("%d Reaction").printf (reaction.accounts.size),
 
 			// translators: the variable is the amount of emoji reactions,
-			//				this is the plural version, '4 Reactions'
+			//				this is the plural version, '4 Reactions'.
+			//				A reaction is not the same as a favorite or a boost,
+			//				see https://github.com/glitch-soc/mastodon/pull/2462
 			_("%d Reactions").printf (reaction.accounts.size),
 			(ulong) reaction.accounts.size
 		);

@@ -91,9 +91,11 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 
 		if (this.show_results) {
 			button_results.icon_name = "tuba-eye-not-looking-symbolic";
+			// translators: tooltip of poll button that hides the current vote results
 			button_results.tooltip_text = _("Hide Results");
 		} else {
 			button_results.icon_name = "tuba-eye-open-negative-filled-symbolic";
+			// translators: tooltip of poll button that shows the current vote results
 			button_results.tooltip_text = _("Show Results");
 		}
 

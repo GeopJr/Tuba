@@ -372,17 +372,22 @@
 		if (status.formal.url != null && settings.copy_private_link_reminder && (status.formal.visibility == "direct" || status.formal.visibility == "private")) {
 			string body;
 			if (status.formal.visibility == "direct") {
+				// translators: dialog subtitle visibility warning when copying a link to a
+				//				post that is private or mentioned-only
 				body = _("Only mentioned people will be able to view it.");
 			} else if (status.formal.account.is_self ()) {
+				// translators: dialog subtitle visibility warning when copying a link to a
+				//				post that is private or mentioned-only
 				body = _("Only mentioned people and your followers will be able to view it.");
 			} else {
-				// translators: dialog subtitle shown when copying a link to a private post, the variable is a handle
+				// translators: dialog subtitle visibility warning when copying a link to a post
+				//				that is private or mentioned-only, the variable is a handle
 				body = _("Only mentioned people and people that follow %s will be able to view it.").printf (status.formal.account.full_handle);
 			}
 
 			app.question.begin (
 				// translators: the variable is the post visibility e.g. Public, Unlisted...
-				{_("This post's visibility is %s").printf (accounts.active.visibility[status.formal.visibility].name), false},
+				{_("Copy %s Post Link?").printf (accounts.active.visibility[status.formal.visibility].name), false},
 				{ body, false },
 				app.main_window,
 				{ { _("Copy"), Adw.ResponseAppearance.SUGGESTED }, { _("Don't remind me again"), Adw.ResponseAppearance.DEFAULT } },

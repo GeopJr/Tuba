@@ -29,7 +29,9 @@ public class Tuba.Widgets.ReactButton : Gtk.Button {
 	public ReactButton (API.EmojiReaction reaction) {
 		this.set_accessible_role (Gtk.AccessibleRole.TOGGLE_BUTTON);
 
-		// translators: the variable is the emoji or its name if it's custom
+		// translators: the variable is the emoji or its name if it's custom.
+		//				A reaction is not the same as a favorite or a boost,
+		//				see https://github.com/glitch-soc/mastodon/pull/2462
 		tooltip_text = _("React with %s").printf (reaction.name);
 		shortcode = reaction.name;
 

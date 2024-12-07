@@ -131,7 +131,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 					// translators: the variable is a number. This is shown on
 					//				preview cards of articles from 'verified' fedi authors,
 					//				when there's more than 1.
-					//				Sell all <amount> authors
+					//				See all <amount> authors
 					GLib.ngettext ("See %d author", "See all %d authors", (ulong) card_obj.authors.size).printf (card_obj.authors.size)
 				) {
 					xalign = 0.0f,

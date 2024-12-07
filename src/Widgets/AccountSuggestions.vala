@@ -76,7 +76,7 @@ public class Tuba.Widgets.AccountSuggestions : Gtk.ListBoxRow {
 
 		back_button = new Gtk.Button.from_icon_name ("tuba-left-large-symbolic") {
 			css_classes = { "circular", "osd" },
-			tooltip_text = _("Previous"),
+			tooltip_text = _("Back"),
 			halign = Gtk.Align.START,
 			valign = Gtk.Align.CENTER,
 			margin_start = margin_end = 3
@@ -95,6 +95,8 @@ public class Tuba.Widgets.AccountSuggestions : Gtk.ListBoxRow {
 		overlay.add_overlay (next_button);
 
 		var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+		//  translators: title of a list of suggested people to follow.
+		//				 Basically 'Who to follow'
 		header_box.append (new Gtk.Label (_("Follow Suggestions")) {
 			wrap = true,
 			hexpand = true,
