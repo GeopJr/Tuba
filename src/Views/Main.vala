@@ -72,7 +72,9 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		notification_settings_button.clicked.connect (show_notification_settings);
 		header.pack_end (notification_settings_button);
 
-		var sidebar_button = new Gtk.ToggleButton ();
+		var sidebar_button = new Gtk.ToggleButton () {
+			tooltip_text = _("Open Sidebar")
+		};
 		header.pack_start (sidebar_button);
 		sidebar_button.icon_name = "tuba-dock-left-symbolic";
 

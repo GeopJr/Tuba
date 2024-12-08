@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-07 03:58+0200\n"
+"POT-Creation-Date: 2024-12-08 20:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -155,7 +155,7 @@ msgctxt "shortcut window"
 msgid "Next Attachment"
 msgstr ""
 
-#: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:83
+#: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:85
 msgid "Admin Dashboard"
 msgstr ""
 
@@ -185,7 +185,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/DomainAllow.vala:32
 #: src/Views/Admin/Timelines/DomainBlock.vala:30
 #: src/Views/Admin/Timelines/EmailDomain.vala:30 src/Views/Lists.vala:124
-#: src/Views/Profile.vala:365 src/Views/Sidebar.vala:337
+#: src/Views/Profile.vala:365 src/Views/Sidebar.vala:339
 #: src/Widgets/ScheduledStatus.vala:184 src/Widgets/Status/ActionsRow.vala:279
 #: src/Widgets/Status.vala:465
 msgid "Cancel"
@@ -369,8 +369,8 @@ msgstr ""
 msgid "Any followed user"
 msgstr ""
 
-#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:306
-#: src/Views/Sidebar.vala:310
+#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:308
+#: src/Views/Sidebar.vala:312
 msgid "Add Account"
 msgstr ""
 
@@ -633,7 +633,7 @@ msgid "Push Notifications"
 msgstr ""
 
 #. translators: #FediWrapped, title of the 'amount of new followers' card
-#: data/ui/dialogs/preferences.ui:259 src/Dialogs/AnnualReport.vala:377
+#: data/ui/dialogs/preferences.ui:259 src/Dialogs/AnnualReport.vala:389
 msgid "New Followers"
 msgstr ""
 
@@ -1115,7 +1115,7 @@ msgstr ""
 #: src/Services/Accounts/Mastodon/Account.vala:242
 #: src/Services/Accounts/SecretAccountStore.vala:121
 #: src/Services/Accounts/SecretAccountStore.vala:225
-#: src/Views/MediaViewer.vala:1071 src/Views/Sidebar.vala:346
+#: src/Views/MediaViewer.vala:1071 src/Views/Sidebar.vala:348
 #: src/Widgets/Attachment/Image.vala:118 src/Widgets/Attachment/Item.vala:203
 #: src/Widgets/Status/ReactionsRow.vala:160
 #: src/Widgets/Status/ReactionsRow.vala:184 src/Widgets/VoteBox.vala:39
@@ -1148,43 +1148,31 @@ msgstr ""
 msgid "Profiles"
 msgstr ""
 
-#. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
-#. this is the singular version, '1 account you follow'
-#: src/API/Notification.vala:15
+#. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
+#: src/API/Notification.vala:14
 #, c-format
 msgid ""
 "You have blocked %s, removing %s of your followers and %s account you follow."
-msgstr ""
-
-#. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
-#. this is the plural version, '4 accounts you follow'
-#: src/API/Notification.vala:23
-#, c-format
-msgid ""
+msgid_plural ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
-msgstr ""
+msgstr[0] ""
+msgstr[1] ""
 
-#. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
-#. this is the singular version, '1 account you follow'
-#: src/API/Notification.vala:34
+#. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
+#: src/API/Notification.vala:24
 #, c-format
 msgid ""
 "An admin has blocked %s, including %s of your followers and %s account you "
 "follow."
-msgstr ""
-
-#. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
-#. this is the plural version, '4 accounts you follow'
-#: src/API/Notification.vala:42
-#, c-format
-msgid ""
+msgid_plural ""
 "An admin has blocked %s, including %s of your followers and %s accounts you "
 "follow."
-msgstr ""
+msgstr[0] ""
+msgstr[1] ""
 
 #. translators: the first variable is a user handle so 'them' refers to that user
-#: src/API/Notification.vala:51
+#: src/API/Notification.vala:33
 #, c-format
 msgid ""
 "An admin has suspended %s, which means you can no longer receive updates "
@@ -1194,14 +1182,14 @@ msgstr ""
 #. translators: as in just registered in the instance,
 #. this is a notification type only visible
 #. to admins
-#: src/API/Notification.vala:139
+#: src/API/Notification.vala:121
 msgid "Signed Up"
 msgstr ""
 
 #. translators: this is used for notifications,
 #. when you receive a warning from
 #. your server's admins
-#: src/API/Notification.vala:145 src/Services/Accounts/InstanceAccount.vala:363
+#: src/API/Notification.vala:127 src/Services/Accounts/InstanceAccount.vala:363
 msgid "Your account has received a moderation warning"
 msgstr ""
 
@@ -1212,40 +1200,40 @@ msgstr ""
 #. of the year. The variable is the
 #. current year e.g. 2024. Please don't
 #. translate the hashtag.
-#: src/API/Notification.vala:153 src/Services/Accounts/InstanceAccount.vala:353
+#: src/API/Notification.vala:135 src/Services/Accounts/InstanceAccount.vala:353
 #, c-format
 msgid "Your %s #FediWrapped is ready!"
 msgstr ""
 
 #. translators: used in the #FediWrapped notifications, refer to the other #FediWrapped strings for more info
-#: src/API/Notification.vala:155
+#: src/API/Notification.vala:137
 msgid "Review your year's highlights and memorable moments on the Fediverse!"
 msgstr ""
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
-#: src/API/Notification.vala:198
+#: src/API/Notification.vala:180
 #, c-format
 msgid "%s (& %d others)"
 msgstr ""
 
-#: src/API/Notification.vala:244
+#: src/API/Notification.vala:226
 msgid "Reply…"
 msgstr ""
 
-#: src/API/Notification.vala:252
+#: src/API/Notification.vala:234
 msgid "Remove from Followers"
 msgstr ""
 
-#: src/API/Notification.vala:257
+#: src/API/Notification.vala:239
 msgid "Follow Back"
 msgstr ""
 
-#: src/API/Notification.vala:264 src/Widgets/Status/FollowRequestRow.vala:8
+#: src/API/Notification.vala:246 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
 msgstr ""
 
-#: src/API/Notification.vala:269 src/Views/NotificationRequestsList.vala:33
+#: src/API/Notification.vala:251 src/Views/NotificationRequestsList.vala:33
 #: src/Widgets/NotificationRequest.vala:65
 #: src/Widgets/Status/FollowRequestRow.vala:14
 msgid "Accept"
@@ -1599,7 +1587,7 @@ msgstr ""
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
 #: src/Dialogs/Admin/Report.vala:127 src/Views/Admin/Pages/Accounts.vala:291
-#: src/Widgets/ProfileCover.vala:476
+#: src/Widgets/ProfileCover.vala:480
 msgid "Joined"
 msgstr ""
 
@@ -1610,7 +1598,7 @@ msgstr ""
 #. and year.
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Dialogs/Admin/Report.vala:128 src/Views/Admin/Pages/Accounts.vala:292
-#: src/Widgets/ProfileCover.vala:460 src/Widgets/ScheduledStatus.vala:137
+#: src/Widgets/ProfileCover.vala:464 src/Widgets/ScheduledStatus.vala:137
 #: src/Widgets/Status.vala:592
 msgid "%B %e, %Y"
 msgstr ""
@@ -1817,47 +1805,47 @@ msgid "%s Wrapped"
 msgstr ""
 
 #. translators: #FediWrapped, title of the 'amount of new posts' card
-#: src/Dialogs/AnnualReport.vala:199
+#: src/Dialogs/AnnualReport.vala:201
 msgid "New Posts"
 msgstr ""
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
 #. The variable is the amount of posts made (e.g. 1k)
-#: src/Dialogs/AnnualReport.vala:225
+#: src/Dialogs/AnnualReport.vala:229
 #, c-format
 msgid "I made %s posts."
 msgstr ""
 
 #. translators: #FediWrapped, title of a card
-#: src/Dialogs/AnnualReport.vala:235
+#: src/Dialogs/AnnualReport.vala:239
 msgid "Most Used Hashtag"
 msgstr ""
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
 #. The variable is the most used hashtag
-#: src/Dialogs/AnnualReport.vala:262
+#: src/Dialogs/AnnualReport.vala:268
 #, c-format
 msgid "My most used hashtag was #%s."
 msgstr ""
 
 #. translators: #FediWrapped, title of the 'which app was used to make most posts' card
-#: src/Dialogs/AnnualReport.vala:272
+#: src/Dialogs/AnnualReport.vala:278
 msgid "Most Used App"
 msgstr ""
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
 #. The variable is the name of the most used client (e.g. Tuba)
-#: src/Dialogs/AnnualReport.vala:301
+#: src/Dialogs/AnnualReport.vala:309
 #, c-format
 msgid "My most used app was %s."
 msgstr ""
 
 #. translators: #FediWrapped, title of the card that shows you
 #. the users you interacted with the most
-#: src/Dialogs/AnnualReport.vala:312
+#: src/Dialogs/AnnualReport.vala:320
 msgid "Most Interactions"
 msgstr ""
 
@@ -1867,47 +1855,47 @@ msgstr ""
 #. The amount of users could be just one and some languages might
 #. require pronouns or prefixes, if so, feel free to translate it as
 #. 'I had the most interactions with the following people: %s.'
-#: src/Dialogs/AnnualReport.vala:347
+#: src/Dialogs/AnnualReport.vala:357
 #, c-format
 msgid "I had the most interactions with %s."
 msgstr ""
 
 #. translators: #FediWrapped, title of the section about how many
 #. new followers you got and new people you followed
-#: src/Dialogs/AnnualReport.vala:357
+#: src/Dialogs/AnnualReport.vala:367
 msgid "Follow Stats"
 msgstr ""
 
 #. translators: #FediWrapped, title of the 'amount of new people you followed' card
-#: src/Dialogs/AnnualReport.vala:400
+#: src/Dialogs/AnnualReport.vala:414
 msgid "New Follows"
 msgstr ""
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most favorites
-#: src/Dialogs/AnnualReport.vala:423
+#: src/Dialogs/AnnualReport.vala:439
 msgid "Most Favorited Post"
 msgstr ""
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most boosts
-#: src/Dialogs/AnnualReport.vala:443
+#: src/Dialogs/AnnualReport.vala:461
 msgid "Most Boosted Post"
 msgstr ""
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most replies
-#: src/Dialogs/AnnualReport.vala:463
+#: src/Dialogs/AnnualReport.vala:483
 msgid "Most Replied Post"
 msgstr ""
 
 #. translators: save dialog title, refer to the other #FediWrapped strings for more info
-#: src/Dialogs/AnnualReport.vala:536
+#: src/Dialogs/AnnualReport.vala:558
 msgid "Save #FediWrapped"
 msgstr ""
 
 #. translators: the variable is a year, e.g. 2024
-#: src/Dialogs/AnnualReport.vala:551
+#: src/Dialogs/AnnualReport.vala:573
 #, c-format
 msgid "Saved %s Wrapped"
 msgstr ""
@@ -3191,6 +3179,10 @@ msgstr ""
 msgid "Add list"
 msgstr ""
 
+#: src/Views/Main.vala:76
+msgid "Open Sidebar"
+msgstr ""
+
 #: src/Views/MediaViewer.vala:829
 msgid "Copied media url to clipboard"
 msgstr ""
@@ -3391,34 +3383,36 @@ msgstr[1] ""
 msgid "New Post"
 msgstr ""
 
-#: src/Views/Sidebar.vala:79
+#. translators: main menu entry, please don't translate it unless you have to.
+#. Refer to other #FediWrapped strings for more info
+#: src/Views/Sidebar.vala:81
 msgid "#FediWrapped"
 msgstr ""
 
-#: src/Views/Sidebar.vala:90
+#: src/Views/Sidebar.vala:92
 msgid "Preferences"
 msgstr ""
 
-#: src/Views/Sidebar.vala:91
+#: src/Views/Sidebar.vala:93
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: src/Views/Sidebar.vala:92
+#: src/Views/Sidebar.vala:94
 #, c-format
 msgid "About %s"
 msgstr ""
 
 #. translators: the variable is an account handle
-#: src/Views/Sidebar.vala:334
+#: src/Views/Sidebar.vala:336
 #, c-format
 msgid "Forget %s?"
 msgstr ""
 
-#: src/Views/Sidebar.vala:335
+#: src/Views/Sidebar.vala:337
 msgid "This account will be removed from the application."
 msgstr ""
 
-#: src/Views/Sidebar.vala:337
+#: src/Views/Sidebar.vala:339
 msgid "Forget"
 msgstr ""
 
@@ -3512,7 +3506,7 @@ msgstr ""
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of posts a user has made.
 #: src/Widgets/Account.vala:219 src/Widgets/ProfileCover.vala:239
-#: src/Widgets/ProfileCover.vala:515
+#: src/Widgets/ProfileCover.vala:519
 #, c-format
 msgid "%s Post"
 msgid_plural "%s Posts"
@@ -3522,7 +3516,7 @@ msgstr[1] ""
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of followers a user has.
 #: src/Widgets/Account.vala:227 src/Widgets/ProfileCover.vala:247
-#: src/Widgets/ProfileCover.vala:529
+#: src/Widgets/ProfileCover.vala:533
 #, c-format
 msgid "%s Follower"
 msgid_plural "%s Followers"
@@ -3532,7 +3526,7 @@ msgstr[1] ""
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of people a user follows.
 #: src/Widgets/Account.vala:236 src/Widgets/ProfileCover.vala:256
-#: src/Widgets/ProfileCover.vala:523
+#: src/Widgets/ProfileCover.vala:527
 #, c-format
 msgid "%s Following"
 msgstr ""
@@ -3680,23 +3674,15 @@ msgstr ""
 msgid "Custom Emojis"
 msgstr ""
 
-#. translators: the variable is the amount of emoji reactions,
-#. this is the singular version, '1 Reaction'.
+#. translators: the variable is the amount of emoji reactions, e.g. '4 Reactions'.
 #. A reaction is not the same as a favorite or a boost,
 #. see https://github.com/glitch-soc/mastodon/pull/2462
 #: src/Widgets/EmojiReactionAccounts.vala:65
 #, c-format
 msgid "%d Reaction"
-msgstr ""
-
-#. translators: the variable is the amount of emoji reactions,
-#. this is the plural version, '4 Reactions'.
-#. A reaction is not the same as a favorite or a boost,
-#. see https://github.com/glitch-soc/mastodon/pull/2462
-#: src/Widgets/EmojiReactionAccounts.vala:71
-#, c-format
-msgid "%d Reactions"
-msgstr ""
+msgid_plural "%d Reactions"
+msgstr[0] ""
+msgstr[1] ""
 
 #. translators: the variable is a number. This is used in a button that shows
 #. all post hashtags when clicked.
@@ -3756,15 +3742,24 @@ msgid_plural "Contains %d fields."
 msgstr[0] ""
 msgstr[1] ""
 
+#. translators: profile badge shown when a user is being followed by people you also follow.
+#. The variable is a shortened number
+#: src/Widgets/ProfileCover.vala:311
+#, c-format
+msgid "%s Mutual"
+msgid_plural "%s Mutuals"
+msgstr[0] ""
+msgstr[1] ""
+
 #. translators: Button label shown when a user has moved to another instance.
 #. The first variable is this account's handle while the second
 #. is the moved-to account's handle
-#: src/Widgets/ProfileCover.vala:397
+#: src/Widgets/ProfileCover.vala:401
 #, c-format
 msgid "%s has moved to %s"
 msgstr ""
 
-#: src/Widgets/ProfileCover.vala:626
+#: src/Widgets/ProfileCover.vala:630
 msgid "Error: Note is over 2000 characters long"
 msgstr ""
 
@@ -4077,16 +4072,18 @@ msgid "Voted"
 msgstr ""
 
 #. translators: the variable is the amount of people that voted
-#: src/Widgets/VoteBox.vala:192 src/Widgets/VoteBox.vala:198
+#: src/Widgets/VoteBox.vala:191
 #, c-format
 msgid "%s voted"
-msgstr ""
+msgid_plural "%s voted"
+msgstr[0] ""
+msgstr[1] ""
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #. The variable is the amount of poll options
-#: src/Widgets/VoteBox.vala:210
+#: src/Widgets/VoteBox.vala:214
 #, c-format
 msgid "Poll with %d option."
 msgid_plural "Poll with %d options."
@@ -4097,6 +4094,6 @@ msgstr[1] ""
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #. Describes whether the user has voted on the poll.
-#: src/Widgets/VoteBox.vala:219
+#: src/Widgets/VoteBox.vala:223
 msgid "You have voted."
 msgstr ""

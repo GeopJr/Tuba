@@ -171,7 +171,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		var title = _("%s Wrapped").printf (report_year);
 		this.title = title;
 		screenshot_box.append (new Gtk.Label (title) {
-			css_classes = {"title-1"}
+			css_classes = {"title-1"},
+			wrap = true,
+			wrap_mode = Pango.WrapMode.WORD_CHAR
 		});
 
 		var stats_flowbox = new Gtk.FlowBox () {
@@ -197,7 +199,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 			};
 			// translators: #FediWrapped, title of the 'amount of new posts' card
 			posts_box.append (new Gtk.Label (_("New Posts")) {
-				css_classes = {"caption-heading"}
+				css_classes = {"caption-heading"},
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR
 			});
 
 			int64 total_new_posts = 0;
@@ -233,7 +237,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 			// translators: #FediWrapped, title of a card
 			hashtags_box.append (new Gtk.Label (_("Most Used Hashtag")) {
-				css_classes = {"caption-heading"}
+				css_classes = {"caption-heading"},
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR
 			});
 
 			string most_used_hashtag = "";
@@ -270,7 +276,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 			// translators: #FediWrapped, title of the 'which app was used to make most posts' card
 			apps_box.append (new Gtk.Label (_("Most Used App")) {
-				css_classes = {"caption-heading"}
+				css_classes = {"caption-heading"},
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR
 			});
 
 			string most_used_app = "";
@@ -310,7 +318,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 			// translators: #FediWrapped, title of the card that shows you
 			//				the users you interacted with the most
 			circle_box.append (new Gtk.Label (_("Most Interactions")) {
-				css_classes = {"caption-heading"}
+				css_classes = {"caption-heading"},
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR
 			});
 
 			var besties_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
@@ -355,7 +365,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 			// translators: #FediWrapped, title of the section about how many
 			//				new followers you got and new people you followed
 			follow_box.append (new Gtk.Label (_("Follow Stats")) {
-				css_classes = { "title-1" }
+				css_classes = { "title-1" },
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR
 			});
 
 			var follow_stats_flowbox = new Gtk.FlowBox () {
@@ -375,7 +387,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 				// translators: #FediWrapped, title of the 'amount of new followers' card
 				followers_box.append (new Gtk.Label (_("New Followers")) {
-					css_classes = {"caption-heading"}
+					css_classes = {"caption-heading"},
+					wrap = true,
+					wrap_mode = Pango.WrapMode.WORD_CHAR
 				});
 
 				followers_box.append (new Gtk.Label (Units.shorten (total_new_followers)) {
@@ -398,7 +412,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 				// translators: #FediWrapped, title of the 'amount of new people you followed' card
 				follows_box.append (new Gtk.Label (_("New Follows")) {
-					css_classes = {"caption-heading"}
+					css_classes = {"caption-heading"},
+					wrap = true,
+					wrap_mode = Pango.WrapMode.WORD_CHAR
 				});
 
 				follows_box.append (new Gtk.Label (Units.shorten (total_new_followings)) {
@@ -421,7 +437,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 			// translators: #FediWrapped, title of the section that shows you
 			//				which one of your posts had the most favorites
 			status_box.append (new Gtk.Label (_("Most Favorited Post")) {
-				css_classes = { "title-1" }
+				css_classes = { "title-1" },
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR
 			});
 
 			foreach (var status in report.statuses) {
@@ -441,7 +459,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 			// translators: #FediWrapped, title of the section that shows you
 			//				which one of your posts had the most boosts
 			status_box.append (new Gtk.Label (_("Most Boosted Post")) {
-				css_classes = { "title-1" }
+				css_classes = { "title-1" },
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR
 			});
 
 			foreach (var status in report.statuses) {
@@ -461,7 +481,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 			// translators: #FediWrapped, title of the section that shows you
 			//				which one of your posts had the most replies
 			status_box.append (new Gtk.Label (_("Most Replied Post")) {
-				css_classes = { "title-1" }
+				css_classes = { "title-1" },
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR
 			});
 
 			foreach (var status in report.statuses) {
