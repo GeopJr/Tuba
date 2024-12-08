@@ -239,7 +239,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	private void open_edit_page () {
-		var dialog = new Dialogs.ProfileEdit (profile.account);
+		var dialog = new Dialogs.ProfileEdit (profile.account.is_self () ? accounts.active : profile.account);
 		dialog.saved.connect (on_edit_save);
 		dialog.present (app.main_window);
 	}
