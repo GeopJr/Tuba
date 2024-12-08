@@ -304,9 +304,13 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 				if (mutual_accounts.size > 0) {
 					mutuals_button.get_first_child ().add_css_class ("osd");
 					mutuals_button.visible = true;
-					// translators: profile badge shown when a user is being followed by people you also follow.
-					//				The variable is a shortened number
-					mutuals_button.label = "%s Mutuals".printf (Tuba.Units.shorten (mutual_accounts.size));
+
+					mutuals_button.label = GLib.ngettext (
+						// translators: profile badge shown when a user is being followed by people you also follow.
+						//				The variable is a shortened number
+						"%s Mutual", "%s Mutuals",
+						(ulong) mutual_accounts.size
+					).printf (Tuba.Units.shorten (mutual_accounts.size));
 
 					mutuals_listbox = new Gtk.ListBox () {
 						selection_mode = Gtk.SelectionMode.NONE,
