@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-09 04:14+0200\n"
-"PO-Revision-Date: 2024-12-08 18:58+0000\n"
+"PO-Revision-Date: 2024-12-09 09:14+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -963,7 +963,7 @@ msgstr "Otwórz profil"
 #. translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person
 #: data/ui/views/profile_header.ui:184
 msgid "View All Followers You Know"
-msgstr ""
+msgstr "Zobacz wszystkich obserwujących, których znasz"
 
 #: data/ui/views/profile_header.ui:214
 msgid "Note"
@@ -3830,9 +3830,9 @@ msgstr[2] "Zobacz wszystkich %d autorów"
 #, c-format
 msgid "Followed by %s & %s Other"
 msgid_plural "Followed by %s & %s Others"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Obserwujący: %s i %s inna osoba"
+msgstr[1] "Obserwujący: %s i %s inne osoby"
+msgstr[2] "Obserwujący: %s i %s innych osób"
 
 #. translators: button on profiles that when clicked shows a list of familiar followers.
 #. The variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
@@ -3841,7 +3841,7 @@ msgstr[2] ""
 #: src/Widgets/ProfileCover.vala:92
 #, c-format
 msgid "Followed by %s"
-msgstr ""
+msgstr "Obserwowane przez %s"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
