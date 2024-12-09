@@ -8,6 +8,92 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		typeof (Widgets.MarkupView).ensure ();
 	}
 
+	public class MutualsButtonContent : Gtk.Box {
+		Gtk.Box avi_box;
+		Widgets.EmojiLabel emoji_label;
+		construct {
+			this.orientation = Gtk.Orientation.HORIZONTAL;
+			this.spacing = 6;
+
+			avi_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+			emoji_label = new Widgets.EmojiLabel () {
+				use_markup = false,
+				ellipsize = true,
+				valign = Gtk.Align.CENTER
+			};
+			emoji_label.add_css_class ("dim-label");
+
+			this.append (avi_box);
+			this.append (emoji_label);
+		}
+
+		public MutualsButtonContent (Gee.ArrayList<API.Account> mutual_accounts) {
+			Gee.HashMap<string, string> total_custom_emojis = new Gee.HashMap<string, string> ();
+			string[] display_named = {};
+
+			int max_accs = 3;
+			if (mutual_accounts.size == max_accs + 1) max_accs = max_accs + 1;
+
+			for (int i = 0; i < int.min (max_accs, mutual_accounts.size); i++) {
+				var acc = mutual_accounts.get (i);
+				string display_name = acc.display_name;
+
+				if (display_name.index_of_char (':') >= 0) {
+					acc.emojis_map.foreach (e => {
+						string new_moji_name = @"$(e.key)_$i";
+						display_name = display_name.replace (@":$(e.key):", @":$new_moji_name:");
+						total_custom_emojis.set (new_moji_name, e.value);
+
+						return true;
+					});
+				}
+
+				var avi = new Widgets.Avatar () {
+					account = acc,
+					size = 6
+				};
+				if (i == 0) avi.add_css_class ("first-avi");
+				avi.add_css_class ("no-min-size");
+				avi.add_css_class ("mutual-avi");
+				avi_box.append (avi);
+
+				display_named += display_name;
+			}
+
+			emoji_label.instance_emojis = total_custom_emojis;
+
+			int others_count = mutual_accounts.size - max_accs;
+			if (others_count > 0) {
+				this.tooltip_text = emoji_label.content = GLib.ngettext (
+					// translators: button on profiles that when clicked shows a list of familiar followers.
+					//				The first variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
+					//				If your language requires pronouns you may add a : after 'by' so it's clear it's a
+					//				list of names. The second variable is the amount of other familiar followers, not
+					//				displayed in the list. The singular version will not be used.
+					"Followed by %s & %s Other", "Followed by %s & %s Others",
+					(ulong) others_count
+				).printf (string.joinv (", ", display_named), Units.shorten (others_count));
+			} else {
+				string display_name_list;
+				switch (display_named.length) {
+					case 1:
+						display_name_list = display_named[0];
+						break;
+					default:
+						int last_index = display_named.length - 1;
+						display_name_list = @"$(string.joinv(", ", display_named[0:last_index])) & $(display_named[last_index])";
+						break;
+				}
+
+				// translators: button on profiles that when clicked shows a list of familiar followers.
+				//				The variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
+				//				If your language requires pronouns you may add a : after 'by' so it's clear it's a
+				//				list of names. This is the version of the string that has 0 'others'.
+				this.tooltip_text = emoji_label.content = _("Followed by %s").printf (display_name_list);
+			}
+		}
+	}
+
 	[GtkChild] unowned Gtk.FlowBox roles;
 	[GtkChild] unowned Widgets.Background background;
 	[GtkChild] unowned Gtk.Label cover_badge;
@@ -287,6 +373,8 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	Gee.ArrayList<API.Account>? mutual_accounts = null;
 	Gtk.ListBox? mutuals_listbox = null;
 	private bool populate_mutuals () {
+		mutuals_button.visible = false;
+
 		new Request.GET ("/api/v1/accounts/familiar_followers")
 			.with_account (accounts.active)
 			.with_param ("id", profile_id)
@@ -302,16 +390,9 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 
 				mutual_accounts = res_mutual_accounts.get (0).accounts;
 				if (mutual_accounts.size > 0) {
-					mutuals_button.get_first_child ().add_css_class ("osd");
 					mutuals_button.visible = true;
 
-					mutuals_button.label = GLib.ngettext (
-						// translators: profile badge shown when a user is being followed by people you also follow.
-						//				The variable is a shortened number
-						"%s Mutual", "%s Mutuals",
-						(ulong) mutual_accounts.size
-					).printf (Tuba.Units.shorten (mutual_accounts.size));
-
+					mutuals_button.child = new MutualsButtonContent (mutual_accounts);
 					mutuals_listbox = new Gtk.ListBox () {
 						selection_mode = Gtk.SelectionMode.NONE,
 						css_classes = {"boxed-list"}

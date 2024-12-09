@@ -70,19 +70,6 @@
 												</style>
 											</object>
 										</child>
-										<child type="overlay">
-											<object class="GtkMenuButton" id="mutuals_button">
-												<property name="valign">end</property>
-												<property name="halign">end</property>
-												<property name="direction">none</property>
-												<property name="visible">0</property>
-												<property name="margin-bottom">48</property>
-												<style>
-													<class name="button" />
-													<class name="cover-badge" />
-												</style>
-											</object>
-										</child>
 										<property name="child">
 											<object class="TubaWidgetsBackground" id="background">
 												<accessibility>
@@ -184,6 +171,21 @@
 										<child>
 											<object class="TubaWidgetsMarkupView" id="note">
 												<property name="margin_top">6</property>
+											</object>
+										</child>
+
+										<child>
+											<object class="GtkMenuButton" id="mutuals_button">
+												<property name="margin_top">6</property>
+												<property name="visible">0</property>
+												<property name="halign">start</property>
+												<property name="direction">none</property>
+												<!-- translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person -->
+												<property name="tooltip-text" translatable="yes">View All Followers You Know</property>
+												<style>
+													<class name="flat" />
+													<class name="ttl-mutuals" />
+												</style>
 											</object>
 										</child>
 										<layout>
