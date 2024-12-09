@@ -78,6 +78,7 @@ namespace Tuba {
 			{ "back-home", back_home_activated },
 			{ "scroll-page-down", scroll_view_page_down },
 			{ "scroll-page-up", scroll_view_page_up },
+			{ "scroll-page-to-top", scroll_view_page_to_top },
 			{ "goto-notifications", goto_notifications },
 			{ "open-status-url", open_status_url, "s" },
 			{ "answer-follow-request", answer_follow_request, "(ssb)" },
@@ -326,6 +327,7 @@ namespace Tuba {
 			set_accels_for_action ("app.back-home", {"<Alt>Home"});
 			set_accels_for_action ("app.scroll-page-down", {"Page_Down"});
 			set_accels_for_action ("app.scroll-page-up", {"Page_Up"});
+			set_accels_for_action ("app.scroll-page-to-top", {"Home"});
 			add_action_entries (APP_ENTRIES, this);
 
 			if (settings.monitor_network)
@@ -494,6 +496,10 @@ namespace Tuba {
 
 		void back_home_activated () {
 			main_window.go_back_to_start ();
+		}
+
+		void scroll_view_page_to_top () {
+			main_window.scroll_view_to_top ();
 		}
 
 		void scroll_view_page_down () {
