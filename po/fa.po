@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-09 04:14+0200\n"
-"PO-Revision-Date: 2024-12-09 02:16+0000\n"
+"PO-Revision-Date: 2024-12-10 05:21+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tuba/tuba/fa/>\n"
 "Language: fa\n"
@@ -957,7 +957,7 @@ msgstr "گشودن نمایه"
 #. translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person
 #: data/ui/views/profile_header.ui:184
 msgid "View All Followers You Know"
-msgstr ""
+msgstr "دیدن همهٔ پی‌گیرانی که می‌شناسید"
 
 #: data/ui/views/profile_header.ui:214
 msgid "Note"
@@ -3788,8 +3788,8 @@ msgstr[1] "دیدن هر %Id نگارنده"
 #, c-format
 msgid "Followed by %s & %s Other"
 msgid_plural "Followed by %s & %s Others"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "پی گرفته از سوی %s و %s نفر دیگر"
+msgstr[1] "پی گرفته از سوی %s و %s نفر دیگر"
 
 #. translators: button on profiles that when clicked shows a list of familiar followers.
 #. The variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
@@ -3798,7 +3798,7 @@ msgstr[1] ""
 #: src/Widgets/ProfileCover.vala:92
 #, c-format
 msgid "Followed by %s"
-msgstr ""
+msgstr "پی گرفته از سوی %s"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
