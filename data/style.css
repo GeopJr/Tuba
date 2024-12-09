@@ -20,6 +20,11 @@ calendar>header>button, calendar>grid>label {
 	color: @text_view_bg;
 }
 
+.no-min-size {
+	min-width: 0;
+	min-height: 0;
+}
+
 .notification-badge.no-attention {
 	background: alpha(var(--sidebar-fg-color), .4);
 }
@@ -46,10 +51,10 @@ headerbar.flat.no-title .title {
 	padding: 6px;
 }
 
-.cover-badge.button > button {
+/* .cover-badge.button > button {
 	padding-top: 0px;
 	padding-bottom: 0px;
-}
+} */
 
 .ttl-flat-button {
 	padding: 0px;
@@ -291,6 +296,21 @@ headerbar.flat.no-title .title {
 	padding: 0 5px;
 	margin-left: -5px;
 	margin-right: -5px;
+}
+
+.ttl-mutuals {
+	font-size: small;
+	padding: 0 5px;
+	margin-left: -5px;
+	margin-right: -5px;
+}
+
+.ttl-mutuals label {
+	font-weight: normal;
+}
+
+.ttl-mutuals .mutual-avi:not(.first-avi) {
+	margin-left: -6px;
 }
 
 .ttl-status-avatar-actor {
