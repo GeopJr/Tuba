@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-08 20:18+0200\n"
+"POT-Creation-Date: 2024-12-09 04:14+0200\n"
 "PO-Revision-Date: 2024-09-09 13:09+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tuba/tuba/nl/>\n"
@@ -941,21 +941,26 @@ msgstr ""
 
 #. translators: tooltip text on profile covers.
 #. You can replace 'Cover' with 'Background' if needed.
-#: data/ui/views/profile_header.ui:98
+#: data/ui/views/profile_header.ui:85
 msgid "View Cover"
 msgstr "Achtergrond bekĳken"
 
 #. translators: tooltip text on profile avatars.
 #. You can replace 'Avatar' with 'Profile Picture' if needed.
-#: data/ui/views/profile_header.ui:112
+#: data/ui/views/profile_header.ui:99
 msgid "View Avatar"
 msgstr "Profielfoto bekĳken"
 
-#: data/ui/views/profile_header.ui:177 src/Views/Sidebar.vala:68
+#: data/ui/views/profile_header.ui:164 src/Views/Sidebar.vala:68
 msgid "Open Profile"
 msgstr "Profiel openen"
 
-#: data/ui/views/profile_header.ui:212
+#. translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person
+#: data/ui/views/profile_header.ui:184
+msgid "View All Followers You Know"
+msgstr ""
+
+#: data/ui/views/profile_header.ui:214
 msgid "Note"
 msgstr "Aantekening"
 
@@ -1631,7 +1636,7 @@ msgstr "Actie ondernemen"
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
 #: src/Dialogs/Admin/Report.vala:127 src/Views/Admin/Pages/Accounts.vala:291
-#: src/Widgets/ProfileCover.vala:480
+#: src/Widgets/ProfileCover.vala:561
 msgid "Joined"
 msgstr "Lid sinds"
 
@@ -1642,7 +1647,7 @@ msgstr "Lid sinds"
 #. and year.
 #. If unsure, either leave it as-is or set it to %x.
 #: src/Dialogs/Admin/Report.vala:128 src/Views/Admin/Pages/Accounts.vala:292
-#: src/Widgets/ProfileCover.vala:464 src/Widgets/ScheduledStatus.vala:137
+#: src/Widgets/ProfileCover.vala:545 src/Widgets/ScheduledStatus.vala:137
 #: src/Widgets/Status.vala:592
 msgid "%B %e, %Y"
 msgstr "%x"
@@ -3555,7 +3560,7 @@ msgstr "Herinner mĳ niet opnieuw"
 #. please be mindful.
 #. The first variable is the author's name and the
 #. second one is the author's handle.
-#: src/Widgets/Account.vala:145 src/Widgets/ProfileCover.vala:106
+#: src/Widgets/Account.vala:145 src/Widgets/ProfileCover.vala:192
 #, c-format
 msgid "%s (%s)'s profile."
 msgstr "Profiel van %s (%s)."
@@ -3565,15 +3570,15 @@ msgstr "Profiel van %s (%s)."
 #. please be mindful.
 #. The variable is a string representation of the
 #. relationship (e.g. Mutuals, Follows You...)
-#: src/Widgets/Account.vala:157 src/Widgets/ProfileCover.vala:118
+#: src/Widgets/Account.vala:157 src/Widgets/ProfileCover.vala:204
 #, c-format
 msgid "Relationship: %s."
 msgstr "Relatie: %s."
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of posts a user has made.
-#: src/Widgets/Account.vala:219 src/Widgets/ProfileCover.vala:239
-#: src/Widgets/ProfileCover.vala:519
+#: src/Widgets/Account.vala:219 src/Widgets/ProfileCover.vala:325
+#: src/Widgets/ProfileCover.vala:600
 #, c-format
 msgid "%s Post"
 msgid_plural "%s Posts"
@@ -3582,8 +3587,8 @@ msgstr[1] "%s berichten"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of followers a user has.
-#: src/Widgets/Account.vala:227 src/Widgets/ProfileCover.vala:247
-#: src/Widgets/ProfileCover.vala:533
+#: src/Widgets/Account.vala:227 src/Widgets/ProfileCover.vala:333
+#: src/Widgets/ProfileCover.vala:614
 #, c-format
 msgid "%s Follower"
 msgid_plural "%s Followers"
@@ -3592,8 +3597,8 @@ msgstr[1] "%s volgers"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of people a user follows.
-#: src/Widgets/Account.vala:236 src/Widgets/ProfileCover.vala:256
-#: src/Widgets/ProfileCover.vala:527
+#: src/Widgets/Account.vala:236 src/Widgets/ProfileCover.vala:342
+#: src/Widgets/ProfileCover.vala:608
 #, c-format
 msgid "%s Following"
 msgstr "Volgt %s"
@@ -3797,36 +3802,48 @@ msgid_plural "See all %d authors"
 msgstr[0] ""
 msgstr[1] ""
 
+#. translators: button on profiles that when clicked shows a list of familiar followers.
+#. The first variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
+#. If your language requires pronouns you may add a : after 'by' so it's clear it's a
+#. list of names. The second variable is the amount of other familiar followers, not
+#. displayed in the list. The singular version will not be used.
+#: src/Widgets/ProfileCover.vala:73
+#, c-format
+msgid "Followed by %s & %s Other"
+msgid_plural "Followed by %s & %s Others"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: button on profiles that when clicked shows a list of familiar followers.
+#. The variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
+#. If your language requires pronouns you may add a : after 'by' so it's clear it's a
+#. list of names. This is the version of the string that has 0 'others'.
+#: src/Widgets/ProfileCover.vala:92
+#, c-format
+msgid "Followed by %s"
+msgstr ""
+
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #. The variable is the amount of fields the profile
 #. has.
-#: src/Widgets/ProfileCover.vala:129
+#: src/Widgets/ProfileCover.vala:215
 #, c-format
 msgid "Contains %d field."
 msgid_plural "Contains %d fields."
 msgstr[0] "Bevat %d veld."
 msgstr[1] "Bevat %d velden."
 
-#. translators: profile badge shown when a user is being followed by people you also follow.
-#. The variable is a shortened number
-#: src/Widgets/ProfileCover.vala:311
-#, c-format
-msgid "%s Mutual"
-msgid_plural "%s Mutuals"
-msgstr[0] ""
-msgstr[1] ""
-
 #. translators: Button label shown when a user has moved to another instance.
 #. The first variable is this account's handle while the second
 #. is the moved-to account's handle
-#: src/Widgets/ProfileCover.vala:401
+#: src/Widgets/ProfileCover.vala:482
 #, c-format
 msgid "%s has moved to %s"
 msgstr ""
 
-#: src/Widgets/ProfileCover.vala:630
+#: src/Widgets/ProfileCover.vala:711
 msgid "Error: Note is over 2000 characters long"
 msgstr "Fout: Notitie is meer dan 2000 tekens lang"
 
