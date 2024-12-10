@@ -36,4 +36,7 @@ parts:
     build-packages:
       - libjson-glib-dev
       - libsecret-1-dev
+      - libgstreamer1.0-dev
+      - libgstreamer-plugins-base1.0-dev
+      - libgstreamer-plugins-good1.0-dev
 
