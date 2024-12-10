@@ -75,6 +75,12 @@
 								<property name="action-name">app.scroll-page-down</property>
 							</object>
 						</child>
+						<child>
+							<object class="GtkShortcutsShortcut">
+								<property name="title" translatable="yes">Scroll to Top</property>
+								<property name="action-name">app.scroll-page-to-top</property>
+							</object>
+						</child>
 					</object>
 				</child>
 				<child>
