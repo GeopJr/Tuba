@@ -20,7 +20,7 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 			}
 		}
 
-		public static RepliesPolicy from_string (string policy) {
+		public static RepliesPolicy from_string (string? policy) {
 			switch (policy) {
 				case "list":
 					return LIST;
@@ -155,11 +155,19 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 		if (list.title != list_title || RepliesPolicy.from_string (list.replies_policy) != replies_policy_active || list.exclusive != is_exclusive) {
 			var replies_policy_string = replies_policy_active.to_string ();
 
+			var builder = new Json.Builder ();
+			builder.begin_object ();
+			builder.set_member_name ("title");
+			builder.add_string_value (list_title);
+			builder.set_member_name ("replies_policy");
+			builder.add_string_value (replies_policy_string);
+			builder.set_member_name ("exclusive");
+			builder.add_boolean_value (is_exclusive);
+			builder.end_object ();
+
 			new Request.PUT (@"/api/v1/lists/$(list.id)")
 				.with_account (accounts.active)
-				.with_param ("title", list_title)
-				.with_param ("replies_policy", replies_policy_string)
-				.with_param ("exclusive", is_exclusive.to_string ())
+				.body_json (builder)
 				.then (() => {
 					list.title = list_title;
 					list.replies_policy = replies_policy_string;
@@ -169,9 +177,20 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 		}
 
 		if (memebers_to_be_removed.size > 0) {
-			var id_array = Request.array2string (memebers_to_be_removed, "account_ids");
-			new Request.DELETE (@"/api/v1/lists/$(list.id)/accounts?$id_array")
+			var ids_builder = new Json.Builder ();
+			ids_builder.begin_object ();
+			ids_builder.set_member_name ("account_ids");
+			ids_builder.begin_array ();
+			memebers_to_be_removed.foreach (e => {
+				ids_builder.add_string_value (e);
+				return true;
+			});
+			ids_builder.end_array ();
+			ids_builder.end_object ();
+
+			new Request.DELETE (@"/api/v1/lists/$(list.id)/accounts")
 				.with_account (accounts.active)
+				.body_json (ids_builder)
 				.exec ();
 		}
 	}

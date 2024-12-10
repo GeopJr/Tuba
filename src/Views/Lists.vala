@@ -178,9 +178,15 @@ public class Tuba.Views.Lists : Views.Timeline {
 	}
 
 	public void create_list (string list_name) {
+		var builder = new Json.Builder ();
+		builder.begin_object ();
+		builder.set_member_name ("title");
+		builder.add_string_value (list_name);
+		builder.end_object ();
+
 		new Request.POST ("/api/v1/lists")
 			.with_account (accounts.active)
-			.with_param ("title", list_name)
+			.body_json (builder)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
