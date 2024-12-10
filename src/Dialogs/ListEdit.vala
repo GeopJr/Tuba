@@ -99,6 +99,23 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 		on_radio_toggled ();
 	}
 
+	private class MemberCheckButton : Gtk.CheckButton {
+		public signal void changed (string member_id, bool active);
+
+		string member_id { get; set; }
+		public MemberCheckButton (string member_id) {
+			this.member_id = member_id;
+			this.css_classes = { "selection-mode", "error" };
+			this.tooltip_text = _("Remove");
+
+			this.toggled.connect (on_toggled);
+		}
+
+		private void on_toggled () {
+			changed (member_id, this.active);
+		}
+	}
+
 	private void update_members () {
 		new Request.GET (@"/api/v1/lists/$(list.id)/accounts")
 			.with_account (accounts.active)
@@ -114,35 +131,33 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 							size = 32
 						};
 
-						var m_switch = new Gtk.Switch () {
-							active = true,
-							state = true,
+						var remove_button = new MemberCheckButton (member.id) {
+							active = false,
 							valign = Gtk.Align.CENTER,
-							halign = Gtk.Align.CENTER
+							halign = Gtk.Align.CENTER,
 						};
-
-						m_switch.state_set.connect ((state) => {
-							if (!state) {
-								memebers_to_be_removed.add (member.id);
-							} else if (memebers_to_be_removed.contains (member.id)) {
-								memebers_to_be_removed.remove (member.id);
-							}
-
-							return state;
-						});
+						remove_button.changed.connect (on_member_remove_changed);
 
 						var member_row = new Adw.ActionRow () {
 							title = member.full_handle
 						};
 
 						member_row.add_prefix (avi);
-						member_row.add_suffix (m_switch);
+						member_row.add_suffix (remove_button);
 
 						members_group.add (member_row);
 					});
 				}
 			})
 			.exec ();
+	}
+
+	private void on_member_remove_changed (string member_id, bool active) {
+		if (active) {
+			memebers_to_be_removed.add (member_id);
+		} else if (memebers_to_be_removed.contains (member_id)) {
+			memebers_to_be_removed.remove (member_id);
+		}
 	}
 
 	[GtkCallback]
