@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-09 04:14+0200\n"
-"PO-Revision-Date: 2024-12-09 09:14+0000\n"
+"PO-Revision-Date: 2024-12-10 08:07+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -3841,7 +3841,7 @@ msgstr[2] "Obserwujący: %s i %s innych osób"
 #: src/Widgets/ProfileCover.vala:92
 #, c-format
 msgid "Followed by %s"
-msgstr "Obserwowane przez %s"
+msgstr "Obserwujący: %s"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
