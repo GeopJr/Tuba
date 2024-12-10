@@ -540,11 +540,20 @@ public class Tuba.Views.Profile : Views.Accounts {
 	public void handle_list_edit (API.List list, Adw.ActionRow row, Adw.ToastOverlay toast_overlay, RowButton button) {
 			row.sensitive = false;
 
-			var endpoint = @"/api/v1/lists/$(list.id)/accounts?account_ids[]=$(profile.account.id)";
+			var builder = new Json.Builder ();
+			builder.begin_object ();
+			builder.set_member_name ("account_ids");
+			builder.begin_array ();
+			builder.add_string_value (profile.account.id);
+			builder.end_array ();
+			builder.end_object ();
+
+			var endpoint = @"/api/v1/lists/$(list.id)/accounts";
 			var req = button.remove ? new Request.DELETE (endpoint) : new Request.POST (endpoint);
 			req
 				.with_account (accounts.active)
 				.with_ctx (this)
+				.body_json (builder)
 				.on_error (on_error)
 				.then (() => {
 					var toast_msg = "";
