@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-09 04:14+0200\n"
-"PO-Revision-Date: 2024-12-10 05:21+0000\n"
+"PO-Revision-Date: 2024-12-11 03:40+0000\n"
 "Last-Translator: Daltux <134404797+daltux@users.noreply.github.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
@@ -33,11 +33,11 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Navegue pelo Fediverso"
+msgstr "Navegue pela Federação"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr "Cliente para o Fediverso"
+msgstr "Cliente para a Federação"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
@@ -51,7 +51,7 @@ msgid ""
 msgstr ""
 "Explore a rede social federada com Tuba para GNOME. Mantenha a conexão a "
 "suas comunidades favoritas, familiares e amigos, com suporte a plataformas "
-"populares do Fediverso como Mastodon, GoToSocial, Akkoma &amp; mais!"
+"populares da Federação como Mastodon, GoToSocial, Akkoma &amp; mais!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:12
 msgid ""
@@ -61,11 +61,12 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
-"O Fediverso é uma rede social descentralizada que consiste em múltiplas "
-"plataformas e comunidades interligadas, permitindo que os usuários se "
+"A Federação é uma rede social descentralizada que consiste em múltiplas "
+"plataformas e comunidades interligadas, permitindo que as pessoas se "
 "comuniquem e compartilhem conteúdos através de diferentes redes e "
-"servidores. Ele promove a privacidade do usuário e a propriedade dos dados, "
-"e oferece uma alternativa às plataformas centralizadas de mídia social."
+"servidores. Ela promove a privacidade da pessoa usuária e sua propriedade "
+"dos dados, além de oferecer uma alternativa às plataformas centralizadas de "
+"mídia social."
 
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:20
@@ -226,12 +227,12 @@ msgstr "Consulta"
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:81
 msgid "From User"
-msgstr "Do usuário"
+msgstr "Do perfil"
 
 #. translators: tooltip text for a button in the 'advanced search' window. When clicked it automatically fills the entry with the first found user based on the query.
 #: data/ui/dialogs/advanced_search.ui:89
 msgid "Auto-Fill User"
-msgstr "Preencher usuário automaticamente"
+msgstr "Autopreencher nome de perfil"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:102
@@ -387,7 +388,7 @@ msgstr "Outros membros da lista"
 
 #: data/ui/dialogs/list_edit.ui:66
 msgid "Any followed user"
-msgstr "Qualquer usuário seguido"
+msgstr "Qualquer perfil seguido"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:308
 #: src/Views/Sidebar.vala:312
@@ -965,7 +966,7 @@ msgstr "Ver imagem de cabeçalho"
 #. You can replace 'Avatar' with 'Profile Picture' if needed.
 #: data/ui/views/profile_header.ui:99
 msgid "View Avatar"
-msgstr "Ver imagem de perfil"
+msgstr "Ver avatar"
 
 #: data/ui/views/profile_header.ui:164 src/Views/Sidebar.vala:68
 msgid "Open Profile"
@@ -987,7 +988,7 @@ msgstr "Esquecer conta"
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
-msgstr "Trocar conta"
+msgstr "Trocar de conta"
 
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
@@ -1191,24 +1192,18 @@ msgstr "Perfis"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
-#, fuzzy, c-format
-#| msgid ""
-#| "You have blocked %s, removing %s of your followers and %s account you "
-#| "follow."
+#, c-format
 msgid ""
 "You have blocked %s, removing %s of your followers and %s account you follow."
 msgid_plural ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
-msgstr[0] "Bloqueou %s, eliminando %s de seus seguidores e %s conta que segue."
-msgstr[1] "Bloqueou %s, eliminando %s de seus seguidores e %s conta que segue."
+msgstr[0] "Bloqueou %s, eliminando %s seguidor e %s conta que segue."
+msgstr[1] "Bloqueou %s, removendo %s contas que seguem você e %s que você segue."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:24
-#, fuzzy, c-format
-#| msgid ""
-#| "An admin has blocked %s, including %s of your followers and %s account "
-#| "you follow."
+#, c-format
 msgid ""
 "An admin has blocked %s, including %s of your followers and %s account you "
 "follow."
@@ -1219,8 +1214,8 @@ msgstr[0] ""
 "A administração bloqueou %s, o que inclui %s de seus seguidores e %s conta "
 "que segue."
 msgstr[1] ""
-"A administração bloqueou %s, o que inclui %s de seus seguidores e %s conta "
-"que segue."
+"A administração bloqueou %s, o que inclui %s contas que seguem você e %s que "
+"você segue."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:33
@@ -1229,8 +1224,8 @@ msgid ""
 "An admin has suspended %s, which means you can no longer receive updates "
 "from them or interact with them."
 msgstr ""
-"A administração suspendeu %s, o que significa que não é mais possível "
-"receber atualizações dessa conta ou interagir com ela."
+"A administração suspendeu %s, o que significa que não receberá atualizações "
+"dessa conta nem pode interagir com ela."
 
 #. translators: as in just registered in the instance,
 #. this is a notification type only visible
@@ -1702,8 +1697,8 @@ msgid ""
 "The reason this account and/or content was reported will be cited in "
 "communication with the reported account"
 msgstr ""
-"O motivo da denúncia dessa conta e/ou desse conteúdo será citado em "
-"comunicação com a conta delatada"
+"O motivo da denúncia da conta e/ou do conteúdo será citado em comunicação "
+"com a conta denunciada"
 
 #: src/Dialogs/Admin/Report.vala:237
 msgid "Violated Rules"
@@ -1728,8 +1723,8 @@ msgstr "Advertência"
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
 msgstr ""
-"Use isso para enviar uma advertência ao usuário, sem desencadear qualquer "
-"outra ação"
+"Use isso para enviar uma advertência à conta, sem desencadear qualquer outra "
+"ação"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
@@ -1741,8 +1736,7 @@ msgid ""
 "Prevent the user from using their account, but do not delete or hide their "
 "contents"
 msgstr ""
-"Impede que o usuário utilize sua conta, mas não exclui ou esconde seu "
-"conteúdo"
+"Impede que a conta seja utilizada, mas não exclui ou esconde seu conteúdo"
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:579
 msgid "Sensitive"
@@ -1752,8 +1746,7 @@ msgstr "Sensível"
 #: src/Dialogs/Admin/TakeAction.vala:79
 msgid "Force all this user's media attachments to be flagged as sensitive"
 msgstr ""
-"Força com que toda a mídia anexada por esse usuário seja marcada como "
-"sensível"
+"Forçar que todos os anexos de mídia dessa conta sejam marcados como sensíveis"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:88
@@ -1762,9 +1755,9 @@ msgid ""
 "posts and notifications from people not following them. Closes all reports "
 "against this account"
 msgstr ""
-"Impede a conta de postar com visibilidade pública, oculta suas publicações e "
-"notificações às pessoas que não a sigam. Encerra todas as denúncias contra "
-"essa conta"
+"Impede o perfil de postar com visibilidade pública e oculta suas publicações "
+"e notificações de quem não o segue. Encerra todas as denúncias contra essa "
+"conta"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:97
@@ -1773,18 +1766,18 @@ msgid ""
 "Revertible within 30 days. Closes all reports against this account"
 msgstr ""
 "Impede qualquer interação de ou para essa conta e exclui seu conteúdo. "
-"Reversível em até 30 dias. Encerra todas as denúncias contra essa conta"
+"Reversível por 30 dias. Encerra todas as denúncias contra essa conta"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:114
 msgid "Notify the user per e-mail"
-msgstr "Notificar o(a) usuário(a) por correio eletrônico"
+msgstr "Notificar a conta por correio eletrônico"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:116
 msgid ""
 "The user will receive an explanation of what happened with their account"
-msgstr "O(a) usuário(a) receberá uma explicação do que ocorreu com sua conta"
+msgstr "A pessoa receberá uma explicação do que ocorreu com sua conta"
 
 #. translators: Question dialog when an admin is about to
 #. take action against an account
@@ -2417,7 +2410,7 @@ msgstr "Selecione todas que se aplicam"
 #. translators: 'fetch' as in get
 #: src/Dialogs/Report.vala:225
 msgid "Couldn't fetch all user's posts"
-msgstr "Não foi possível trazer todas as publicações do usuário"
+msgstr "Não foi possível trazer todas as publicações do perfil"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of posts. The user is meant to choose any that should be included in the report
@@ -2925,7 +2918,7 @@ msgstr "Pendente"
 
 #: src/Views/Admin/Pages/Accounts.vala:128
 msgid "Username"
-msgstr "Nome de usuário"
+msgstr "Nome da conta"
 
 #: src/Views/Admin/Pages/Accounts.vala:142
 #: src/Views/Admin/Pages/Accounts.vala:304
@@ -3335,7 +3328,7 @@ msgstr "Não há seguidores"
 
 #: src/Views/Profile.vala:202
 msgid "This user doesn't follow anyone yet"
-msgstr "Usuário ainda não segue ninguém"
+msgstr "Este perfil ainda não segue nenhum outro"
 
 #: src/Views/Profile.vala:310
 msgid "Copied handle to clipboard"
@@ -3364,7 +3357,7 @@ msgstr ""
 "• Remover das suas cronologias as publicações públicas e as notificações "
 "vindas dele\n"
 "• Remover seguidores da sua conta que pertençam a ele\n"
-"• Impedir que você siga usuários dele"
+"• Impedir que você siga perfis contidos nele"
 
 #. translators: the variable is an account handle
 #: src/Views/Profile.vala:454
@@ -3398,13 +3391,13 @@ msgstr "Adicionar \"%s\" a \"%s\""
 #: src/Views/Profile.vala:553
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
-msgstr "Usuário \"%s\" foi removido de \"%s\""
+msgstr "Perfil \"%s\" removido de \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:559
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
-msgstr "Usuário \"%s\" adicionado a \"%s\""
+msgstr "Perfil \"%s\" adicionado a \"%s\""
 
 #. translators: as in posts set to be posted sometime in the future
 #: src/Views/ScheduledStatuses.vala:5 src/Views/Sidebar.vala:77
@@ -3441,7 +3434,7 @@ msgstr "Idioma"
 #: src/Views/Search.vala:409
 #, c-format
 msgid "Couldn't auto-fill user: %s"
-msgstr "Não foi possível autocompletar usuário: %s"
+msgstr "Não foi possível autocompletar perfil: %s"
 
 #. tanslators: used in a banner, the variable is the number of unread announcements
 #: src/Views/Sidebar.vala:26
@@ -4003,7 +3996,7 @@ msgstr "Não foi possível silenciar a conversa: %s"
 #: src/Widgets/Status.vala:499
 #, c-format
 msgid "Couldn't Unmute Conversation: %s"
-msgstr ""
+msgstr "Não foi possível desfazer o silenciamento da conversa: %s"
 
 #: src/Widgets/Status.vala:538 src/Widgets/Status.vala:559
 #, c-format
@@ -4152,12 +4145,12 @@ msgstr "Traduzido utilizando %s"
 #. translators: tooltip of poll button that hides the current vote results
 #: src/Widgets/VoteBox.vala:95
 msgid "Hide Results"
-msgstr ""
+msgstr "Ocultar resultados"
 
 #. translators: tooltip of poll button that shows the current vote results
 #: src/Widgets/VoteBox.vala:99
 msgid "Show Results"
-msgstr ""
+msgstr "Exibir resultados"
 
 #: src/Widgets/VoteBox.vala:138 src/Widgets/VoteBox.vala:165
 msgid "Voted"
@@ -4168,8 +4161,8 @@ msgstr "Votado"
 #, c-format
 msgid "%s voted"
 msgid_plural "%s voted"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s voto"
+msgstr[1] "%s votaram"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
