@@ -60,6 +60,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	public virtual signal void activated () {
+		bump_sidebar_items ();
 		gather_instance_info ();
 		gather_instance_custom_emojis ();
 		GLib.Idle.add (gather_fav_lists);
@@ -508,9 +509,12 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				}
 
 				app.handle_share ();
+				bump_sidebar_items ();
 			})
 			.exec ();
 	}
+
+	protected virtual void bump_sidebar_items () {}
 
 	private void gather_v2_instance_info () {
 		new Request.GET ("/api/v2/instance")

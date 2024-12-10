@@ -121,6 +121,16 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		}
 	};
 
+	public static Place PLACE_BUBBLE = new Place () { // vala-lint=naming-convention
+
+		icon = "tuba-fish-symbolic",
+		title = "Bubble", // NOTE: Leave untranslated for now
+		open_func = (win) => {
+			win.open_view (set_as_sidebar_item (new Views.Bubble ()));
+		},
+		visible = false
+	};
+
 	public static Place PLACE_FEDERATED = new Place () { // vala-lint=naming-convention
 
 		icon = "tuba-globe-symbolic",
@@ -150,9 +160,14 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 		PLACE_EXPLORE,
 		PLACE_LOCAL,
+		PLACE_BUBBLE,
 		PLACE_FEDERATED,
 		PLACE_LISTS
 	};
+
+	protected override void bump_sidebar_items () {
+		PLACE_BUBBLE.visible = this.instance_info != null && this.instance_info.supports_bubble;
+	}
 
 	public override void register_known_places (GLib.ListStore places) {
 		app.bind_property ("is-mobile", PLACE_NOTIFICATIONS, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);

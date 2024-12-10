@@ -3,6 +3,7 @@ sources += files(
     'Announcements.vala',
     'Base.vala',
     'Bookmarks.vala',
+    'Bubble.vala',
     'ContentBase.vala',
     'Conversations.vala',
     'DraftStatuses.vala',

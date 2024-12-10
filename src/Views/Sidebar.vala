@@ -198,13 +198,14 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	// Item
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/item.ui")]
 	protected class ItemRow : Gtk.ListBoxRow {
-		public Place place;
+		public Place place {get; set;}
 
 		[GtkChild] unowned Gtk.Image icon;
 		[GtkChild] unowned Gtk.Label label;
 		[GtkChild] unowned Gtk.Label badge;
 
 		public ItemRow (Place place) {
+			this.notify["visible"].connect (on_visibility_changed);
 			this.place = place;
 			place.bind_property ("title", label, "label", BindingFlags.SYNC_CREATE);
 			place.bind_property ("icon", icon, "icon-name", BindingFlags.SYNC_CREATE);
@@ -218,6 +219,12 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 			place.notify["needs-attention"].connect (on_attention_change);
 			on_attention_change ();
+		}
+
+		// ListBox's bind_model sets visibility of every row to true
+		// when the model changes. Let's do some hacking around it.
+		void on_visibility_changed () {
+			if (this.visible != this.place.visible) this.visible = this.place.visible;
 		}
 
 		void on_attention_change () {
@@ -255,7 +262,6 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			});
 		}
 	}
-
 
 	void view_announcements_cb () {
 		app.open_announcements ();
