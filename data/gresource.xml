@@ -76,6 +76,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-police-badge2-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-clock-alt-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-quotation-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-fish-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/help-overlay.ui</file>
