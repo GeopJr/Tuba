@@ -45,10 +45,6 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 
 	NotificationRow[] notification_rows;
 	construct {
-		this.title = _("Filter");
-		this.content_width = 460;
-		this.content_height = 464;
-
 		notification_rows = {
 			new NotificationRow (InstanceAccount.KIND_MENTION, _("Mentions"), "tuba-chat-symbolic"),
 			new NotificationRow (InstanceAccount.KIND_FAVOURITE, _("Favorites"), "tuba-starred-symbolic"),
