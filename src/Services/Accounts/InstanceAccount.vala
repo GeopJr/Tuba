@@ -540,10 +540,21 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	API.AnnualReports? annual_report;
 	private void gather_annual_report () {
 		var now = new GLib.DateTime.now ();
-		if (now.get_month () != 12) return;
 
-		var year = now.get_year ();
-		new Request.GET (@"/api/v1/annual_reports/$(now.get_year ())")
+		int year = 0;
+		switch (now.get_month ()) {
+			case 12:
+				year = now.get_year ();
+				break;
+			case 1:
+				year = now.get_year () - 1;
+				break;
+			default:
+				return;
+		}
+
+
+		new Request.GET (@"/api/v1/annual_reports/$(year)")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
