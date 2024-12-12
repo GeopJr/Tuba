@@ -603,7 +603,8 @@ namespace Tuba {
 			};
 
 			const string[] DESIGNERS = {
-				"Tobias Bernard"
+				"Tobias Bernard",
+				"Brage Fuglseth"
 			};
 
 			const string[] DEVELOPERS = {
