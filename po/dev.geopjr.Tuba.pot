@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-09 04:14+0200\n"
+"POT-Creation-Date: 2024-12-12 15:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,7 +173,7 @@ msgstr ""
 #: src/Dialogs/Admin/TakeAction.vala:22 src/Dialogs/Admin/TakeAction.vala:147
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:54
 #: src/Dialogs/Composer/Dialog.vala:256 src/Dialogs/NewAccount.vala:303
-#: src/Dialogs/NotificationSettings.vala:118 src/Dialogs/Preferences.vala:83
+#: src/Dialogs/NotificationSettings.vala:135 src/Dialogs/Preferences.vala:83
 #: src/Dialogs/Report.vala:85 src/Dialogs/Report.vala:332
 #: src/Dialogs/Report.vala:409 src/Views/Admin/Pages/Accounts.vala:256
 #: src/Views/Admin/Pages/Accounts.vala:428
@@ -185,7 +185,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/DomainAllow.vala:32
 #: src/Views/Admin/Timelines/DomainBlock.vala:30
 #: src/Views/Admin/Timelines/EmailDomain.vala:30 src/Views/Lists.vala:124
-#: src/Views/Profile.vala:365 src/Views/Sidebar.vala:339
+#: src/Views/Profile.vala:365 src/Views/Sidebar.vala:345
 #: src/Widgets/ScheduledStatus.vala:184 src/Widgets/Status/ActionsRow.vala:279
 #: src/Widgets/Status.vala:465
 msgid "Cancel"
@@ -264,7 +264,7 @@ msgid "Favorites, Bookmarks, Own Posts"
 msgstr ""
 
 #: data/ui/dialogs/advanced_search.ui:174
-#: src/Services/Accounts/Mastodon/Account.vala:193
+#: src/Services/Accounts/Mastodon/Account.vala:208
 msgid "Public"
 msgstr ""
 
@@ -332,12 +332,8 @@ msgstr ""
 msgid "Add Keyword"
 msgstr ""
 
-#: data/ui/dialogs/list_edit.ui:7
+#: data/ui/dialogs/list_edit.ui:7 data/ui/dialogs/list_edit.ui:10
 msgid "Members"
-msgstr ""
-
-#: data/ui/dialogs/list_edit.ui:10
-msgid "Remove Members"
 msgstr ""
 
 #: data/ui/dialogs/list_edit.ui:27
@@ -369,8 +365,8 @@ msgstr ""
 msgid "Any followed user"
 msgstr ""
 
-#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:308
-#: src/Views/Sidebar.vala:312
+#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:314
+#: src/Views/Sidebar.vala:318
 msgid "Add Account"
 msgstr ""
 
@@ -421,6 +417,76 @@ msgstr ""
 
 #: data/ui/dialogs/new_account.ui:223
 msgid "Done"
+msgstr ""
+
+#: data/ui/dialogs/notification_settings.ui:6 src/Views/Main.vala:69
+msgid "Filter"
+msgstr ""
+
+#: data/ui/dialogs/notification_settings.ui:16
+msgid "Clear All Notifications"
+msgstr ""
+
+#: data/ui/dialogs/notification_settings.ui:34
+#: data/ui/dialogs/preferences.ui:252 src/API/Filters/Filter.vala:45
+#: src/Services/Accounts/Mastodon/Account.vala:41
+#: src/Views/Notifications.vala:36
+msgid "Notifications"
+msgstr ""
+
+#: data/ui/dialogs/notification_settings.ui:37
+msgid "Included Notifications"
+msgstr ""
+
+#. translators: Preferences group title
+#: data/ui/dialogs/notification_settings.ui:44
+msgid "Filter Notifications Out"
+msgstr ""
+
+#. translators: Preferences group description
+#: data/ui/dialogs/notification_settings.ui:46
+msgid "Filter out notifications from people you may not know"
+msgstr ""
+
+#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:50
+msgid "People you don't follow"
+msgstr ""
+
+#. translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:52
+msgid "Until you manually approve them"
+msgstr ""
+
+#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:58
+msgid "People not following you"
+msgstr ""
+
+#. translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:60
+msgid "Including people who have been following you fewer than 3 days"
+msgstr ""
+
+#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:66
+msgid "New accounts"
+msgstr ""
+
+#. translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:68
+msgid "Created within the past 30 days"
+msgstr ""
+
+#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:74
+msgid "Unsolicited private mentions"
+msgstr ""
+
+#. translators: Preferences switch subtitle about filtering out 'Unsolicited private mentions'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:76
+msgid ""
+"Filtered unless it's in reply to your own mention or if you follow the sender"
 msgstr ""
 
 #: data/ui/dialogs/preferences.ui:23
@@ -621,12 +687,6 @@ msgstr ""
 msgid "Fetch the list of Tuba's supporters biweekly"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:252 src/API/Filters/Filter.vala:45
-#: src/Services/Accounts/Mastodon/Account.vala:41
-#: src/Views/Notifications.vala:36
-msgid "Notifications"
-msgstr ""
-
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:256
 msgid "Push Notifications"
@@ -641,16 +701,16 @@ msgstr ""
 msgid "New Follower Requests"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:271 src/Dialogs/NotificationSettings.vala:47
+#: data/ui/dialogs/preferences.ui:271 src/Dialogs/NotificationSettings.vala:50
 #: src/Services/Accounts/Mastodon/Account.vala:81 src/Views/Favorites.vala:4
 msgid "Favorites"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:277 src/Dialogs/NotificationSettings.vala:46
+#: data/ui/dialogs/preferences.ui:277 src/Dialogs/NotificationSettings.vala:49
 msgid "Mentions"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:283 src/Dialogs/NotificationSettings.vala:48
+#: data/ui/dialogs/preferences.ui:283 src/Dialogs/NotificationSettings.vala:51
 msgid "Boosts"
 msgstr ""
 
@@ -672,66 +732,15 @@ msgid ""
 "Combine recently pushed notifications of the same type and post into one"
 msgstr ""
 
-#. translators: Preferences group title
-#: data/ui/dialogs/preferences.ui:313
-msgid "Filter Notifications Out"
-msgstr ""
-
-#. translators: Preferences group description
-#: data/ui/dialogs/preferences.ui:315
-msgid "Filter out notifications from people you may not know"
-msgstr ""
-
-#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-#: data/ui/dialogs/preferences.ui:319
-msgid "People you don't follow"
-msgstr ""
-
-#. translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-#: data/ui/dialogs/preferences.ui:321
-msgid "Until you manually approve them"
-msgstr ""
-
-#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-#: data/ui/dialogs/preferences.ui:327
-msgid "People not following you"
-msgstr ""
-
-#. translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-#: data/ui/dialogs/preferences.ui:329
-msgid "Including people who have been following you fewer than 3 days"
-msgstr ""
-
-#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-#: data/ui/dialogs/preferences.ui:335
-msgid "New accounts"
-msgstr ""
-
-#. translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-#: data/ui/dialogs/preferences.ui:337
-msgid "Created within the past 30 days"
-msgstr ""
-
-#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-#: data/ui/dialogs/preferences.ui:343
-msgid "Unsolicited private mentions"
-msgstr ""
-
-#. translators: Preferences switch subtitle about filtering out 'Unsolicited private mentions'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-#: data/ui/dialogs/preferences.ui:345
-msgid ""
-"Filtered unless it's in reply to your own mention or if you follow the sender"
-msgstr ""
-
-#: data/ui/dialogs/preferences.ui:355
+#: data/ui/dialogs/preferences.ui:314
 msgid "Filters"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:359
+#: data/ui/dialogs/preferences.ui:318
 msgid "Keywords"
 msgstr ""
 
-#: data/ui/dialogs/preferences.ui:367
+#: data/ui/dialogs/preferences.ui:326
 msgid "Add Filter…"
 msgstr ""
 
@@ -881,7 +890,7 @@ msgid "Timeline"
 msgstr ""
 
 #: data/ui/menus.ui:83 src/Services/Accounts/Mastodon/Account.vala:90
-#: src/Views/Lists.vala:203 src/Views/Profile.vala:462
+#: src/Views/Lists.vala:209 src/Views/Profile.vala:462
 msgid "Lists"
 msgstr ""
 
@@ -1117,10 +1126,10 @@ msgstr ""
 #: src/API/Announcement.vala:55 src/Application.vala:437
 #: src/Dialogs/Composer/Dialog.vala:464 src/Dialogs/ProfileEdit.vala:142
 #: src/Services/Accounts/AccountStore.vala:42
-#: src/Services/Accounts/Mastodon/Account.vala:242
+#: src/Services/Accounts/Mastodon/Account.vala:257
 #: src/Services/Accounts/SecretAccountStore.vala:121
 #: src/Services/Accounts/SecretAccountStore.vala:225
-#: src/Views/MediaViewer.vala:1071 src/Views/Sidebar.vala:348
+#: src/Views/MediaViewer.vala:1071 src/Views/Sidebar.vala:354
 #: src/Widgets/Attachment/Image.vala:118 src/Widgets/Attachment/Item.vala:203
 #: src/Widgets/Status/ReactionsRow.vala:160
 #: src/Widgets/Status/ReactionsRow.vala:184 src/Widgets/VoteBox.vala:39
@@ -1194,7 +1203,7 @@ msgstr ""
 #. translators: this is used for notifications,
 #. when you receive a warning from
 #. your server's admins
-#: src/API/Notification.vala:127 src/Services/Accounts/InstanceAccount.vala:363
+#: src/API/Notification.vala:127 src/Services/Accounts/InstanceAccount.vala:364
 msgid "Your account has received a moderation warning"
 msgstr ""
 
@@ -1205,7 +1214,7 @@ msgstr ""
 #. of the year. The variable is the
 #. current year e.g. 2024. Please don't
 #. translate the hashtag.
-#: src/API/Notification.vala:135 src/Services/Accounts/InstanceAccount.vala:353
+#: src/API/Notification.vala:135 src/Services/Accounts/InstanceAccount.vala:354
 #, c-format
 msgid "Your %s #FediWrapped is ready!"
 msgstr ""
@@ -1391,7 +1400,7 @@ msgstr ""
 #. translators: Toast that pops up when
 #. an invalid proxy url has
 #. been provided in settings
-#: src/Application.vala:350 src/Dialogs/Preferences.vala:467
+#: src/Application.vala:350 src/Dialogs/Preferences.vala:386
 msgid "Invalid Proxy URL"
 msgstr ""
 
@@ -2149,6 +2158,10 @@ msgstr ""
 msgid "Couldn't edit filter: %s"
 msgstr ""
 
+#: src/Dialogs/ListEdit.vala:109 src/Views/Admin/Timelines/DomainAllow.vala:35
+msgid "Remove"
+msgstr ""
+
 #: src/Dialogs/MainWindow.vala:80
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:12
 msgid "Home"
@@ -2199,35 +2212,23 @@ msgid ""
 "Admin API"
 msgstr ""
 
-#: src/Dialogs/NotificationSettings.vala:41 src/Views/Main.vala:69
-msgid "Filter"
-msgstr ""
-
-#: src/Dialogs/NotificationSettings.vala:49
+#: src/Dialogs/NotificationSettings.vala:52
 msgid "Polls"
 msgstr ""
 
-#: src/Dialogs/NotificationSettings.vala:50
+#: src/Dialogs/NotificationSettings.vala:53
 msgid "Post Edits"
 msgstr ""
 
-#: src/Dialogs/NotificationSettings.vala:51
+#: src/Dialogs/NotificationSettings.vala:54
 msgid "Follows"
 msgstr ""
 
-#: src/Dialogs/NotificationSettings.vala:68
-msgid "Clear All Notifications"
-msgstr ""
-
-#: src/Dialogs/NotificationSettings.vala:75
-msgid "Included Notifications"
-msgstr ""
-
-#: src/Dialogs/NotificationSettings.vala:114
+#: src/Dialogs/NotificationSettings.vala:131
 msgid "Clear All Notifications?"
 msgstr ""
 
-#: src/Dialogs/NotificationSettings.vala:121
+#: src/Dialogs/NotificationSettings.vala:138
 msgid "Clear"
 msgstr ""
 
@@ -2256,7 +2257,7 @@ msgstr ""
 msgid "Couldn't delete filter: %s"
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:481
+#: src/Dialogs/Preferences.vala:400
 msgid "Analytics Preview"
 msgstr ""
 
@@ -2414,73 +2415,73 @@ msgstr ""
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:240
+#: src/Services/Accounts/InstanceAccount.vala:241
 #, c-format
 msgid "%s mentioned you"
 msgstr ""
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:249
+#: src/Services/Accounts/InstanceAccount.vala:250
 #, c-format
 msgid "%s boosted your post"
 msgstr ""
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:258
+#: src/Services/Accounts/InstanceAccount.vala:259
 #, c-format
 msgid "%s boosted"
 msgstr ""
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:267
+#: src/Services/Accounts/InstanceAccount.vala:268
 #, c-format
 msgid "%s favorited your post"
 msgstr ""
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:276
+#: src/Services/Accounts/InstanceAccount.vala:277
 #, c-format
 msgid "%s now follows you"
 msgstr ""
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:285
+#: src/Services/Accounts/InstanceAccount.vala:286
 #, c-format
 msgid "%s wants to follow you"
 msgstr ""
 
 #. translators: this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:293
+#: src/Services/Accounts/InstanceAccount.vala:294
 msgid "Poll results"
 msgstr ""
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:302
+#: src/Services/Accounts/InstanceAccount.vala:303
 #, c-format
 msgid "%s edited a post"
 msgstr ""
 
 #. translators: post header, on posts that are replies
-#: src/Services/Accounts/InstanceAccount.vala:310
+#: src/Services/Accounts/InstanceAccount.vala:311
 msgid "In Reply"
 msgstr ""
 
 #. translators: the variable is a string user handle,
 #. post header, on posts that are replies
-#: src/Services/Accounts/InstanceAccount.vala:314
+#: src/Services/Accounts/InstanceAccount.vala:315
 #, c-format
 msgid "In Reply to %s"
 msgstr ""
 
 #. translators: the variable is a string user name,
 #. this is used for admin notifications
-#: src/Services/Accounts/InstanceAccount.vala:328
+#: src/Services/Accounts/InstanceAccount.vala:329
 #, c-format
 msgid "%s signed up"
 msgstr ""
@@ -2489,25 +2490,25 @@ msgstr ""
 #. when you lost followers or following
 #. due to admin instance or user suspension
 #. or personal domain blocking
-#: src/Services/Accounts/InstanceAccount.vala:339
+#: src/Services/Accounts/InstanceAccount.vala:340
 msgid "Some of your relationships got severed"
 msgstr ""
 
 #. translators: this is used for admin notifications
-#: src/Services/Accounts/InstanceAccount.vala:371
+#: src/Services/Accounts/InstanceAccount.vala:372
 msgid "Received a new report"
 msgstr ""
 
 #. translators: the variable is a string user name,
 #. this is used for per-account notifications
-#: src/Services/Accounts/InstanceAccount.vala:380
+#: src/Services/Accounts/InstanceAccount.vala:381
 #, c-format
 msgid "%s just posted"
 msgstr ""
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:390
+#: src/Services/Accounts/InstanceAccount.vala:391
 #, c-format
 msgid "%s reacted to your post"
 msgstr ""
@@ -2515,13 +2516,13 @@ msgstr ""
 #. translators: the first variable is a string user name,
 #. the second variable is an emoji,
 #. this is used for notifications
-#: src/Services/Accounts/InstanceAccount.vala:395
+#: src/Services/Accounts/InstanceAccount.vala:396
 #, c-format
 msgid "%s reacted to your post with %s"
 msgstr ""
 
 #. translators: this is a content type
-#: src/Services/Accounts/InstanceAccount.vala:439
+#: src/Services/Accounts/InstanceAccount.vala:440
 msgid "Plain Text"
 msgstr ""
 
@@ -2538,48 +2539,48 @@ msgstr ""
 msgid "Local"
 msgstr ""
 
-#: src/Services/Accounts/Mastodon/Account.vala:127 src/Views/Federated.vala:4
+#: src/Services/Accounts/Mastodon/Account.vala:137 src/Views/Federated.vala:4
 msgid "Federated"
 msgstr ""
 
-#: src/Services/Accounts/Mastodon/Account.vala:136 src/Views/Explore.vala:7
+#: src/Services/Accounts/Mastodon/Account.vala:146 src/Views/Explore.vala:7
 #: src/Views/Hashtags.vala:4 src/Views/Search.vala:115
 msgid "Hashtags"
 msgstr ""
 
-#: src/Services/Accounts/Mastodon/Account.vala:196
+#: src/Services/Accounts/Mastodon/Account.vala:211
 msgid "Post to public timelines"
 msgstr ""
 
 #. translators: Probably follow Mastodon's translation
-#: src/Services/Accounts/Mastodon/Account.vala:201
+#: src/Services/Accounts/Mastodon/Account.vala:216
 msgid "Unlisted"
 msgstr ""
 
-#: src/Services/Accounts/Mastodon/Account.vala:204
+#: src/Services/Accounts/Mastodon/Account.vala:219
 msgid "Don't post to public timelines"
 msgstr ""
 
-#: src/Services/Accounts/Mastodon/Account.vala:208
+#: src/Services/Accounts/Mastodon/Account.vala:223
 msgid "Followers Only"
 msgstr ""
 
-#: src/Services/Accounts/Mastodon/Account.vala:211
+#: src/Services/Accounts/Mastodon/Account.vala:226
 msgid "Post to followers only"
 msgstr ""
 
-#: src/Services/Accounts/Mastodon/Account.vala:215
+#: src/Services/Accounts/Mastodon/Account.vala:230
 msgid "Direct"
 msgstr ""
 
-#: src/Services/Accounts/Mastodon/Account.vala:218
+#: src/Services/Accounts/Mastodon/Account.vala:233
 msgid "Post to mentioned users only"
 msgstr ""
 
 #. translators: this error shows up when the user clicks a button
 #. in a desktop notification that was pushed for a
 #. different account
-#: src/Services/Accounts/Mastodon/Account.vala:246
+#: src/Services/Accounts/Mastodon/Account.vala:261
 msgid "Notification was pushed for a different account"
 msgstr ""
 
@@ -3048,10 +3049,6 @@ msgstr ""
 msgid "Remove Federation with %s?"
 msgstr ""
 
-#: src/Views/Admin/Timelines/DomainAllow.vala:35
-msgid "Remove"
-msgstr ""
-
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:57
 msgid "Previous Page"
 msgstr ""
@@ -3172,15 +3169,15 @@ msgstr ""
 msgid "This action cannot be reverted."
 msgstr ""
 
-#: src/Views/Lists.vala:206
+#: src/Views/Lists.vala:212
 msgid "No Lists"
 msgstr ""
 
-#: src/Views/Lists.vala:210
+#: src/Views/Lists.vala:216
 msgid "New list title"
 msgstr ""
 
-#: src/Views/Lists.vala:219
+#: src/Views/Lists.vala:225
 msgid "Add list"
 msgstr ""
 
@@ -3308,25 +3305,25 @@ msgid "You don't have any lists"
 msgstr ""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:500 src/Views/Profile.vala:562
+#: src/Views/Profile.vala:500 src/Views/Profile.vala:571
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
 msgstr ""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:501 src/Views/Profile.vala:556
+#: src/Views/Profile.vala:501 src/Views/Profile.vala:565
 #, c-format
 msgid "Add \"%s\" to \"%s\""
 msgstr ""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:553
+#: src/Views/Profile.vala:562
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
 msgstr ""
 
 #. translators: First variable is a handle, second variable is a list name
-#: src/Views/Profile.vala:559
+#: src/Views/Profile.vala:568
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
 msgstr ""
@@ -3408,16 +3405,16 @@ msgid "About %s"
 msgstr ""
 
 #. translators: the variable is an account handle
-#: src/Views/Sidebar.vala:336
+#: src/Views/Sidebar.vala:342
 #, c-format
 msgid "Forget %s?"
 msgstr ""
 
-#: src/Views/Sidebar.vala:337
+#: src/Views/Sidebar.vala:343
 msgid "This account will be removed from the application."
 msgstr ""
 
-#: src/Views/Sidebar.vala:339
+#: src/Views/Sidebar.vala:345
 msgid "Forget"
 msgstr ""
 
@@ -3803,6 +3800,12 @@ msgstr ""
 
 #: src/Widgets/ScheduledStatus.vala:51 src/Widgets/ScheduledStatus.vala:148
 msgid "Reschedule"
+msgstr ""
+
+#. translators: Scheduled Post title, 'scheduled for <date>'
+#: src/Widgets/ScheduledStatus.vala:139
+#, c-format
+msgid "Scheduled for %s"
 msgstr ""
 
 #. translators: the variable is an error
