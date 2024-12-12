@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-12 15:05+0200\n"
-"PO-Revision-Date: 2024-12-12 06:34+0000\n"
+"PO-Revision-Date: 2024-12-13 16:14+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.9-rc\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -687,12 +687,11 @@ msgid "Send Preference Analytics"
 msgstr "Bidali analitiken hobespenak"
 
 #: data/ui/dialogs/preferences.ui:217
-#, fuzzy
 msgid ""
 "Send your preferences to Tuba's developers for popularity research biweekly"
 msgstr ""
-"Bidali zure hobespenak Tubaren garatzaileei populartasuna aztertzeko, bi "
-"astero."
+"Bidali zure hobespenak Tubaren garatzaileei populartasuna aztertzeko, "
+"hamabostean behin"
 
 #: data/ui/dialogs/preferences.ui:223
 msgid "Preview Analytics"
@@ -701,12 +700,12 @@ msgstr "Aurreikusi analitikak"
 #. translators: supporters = tuba contributors and sponsors
 #: data/ui/dialogs/preferences.ui:240
 msgid "Update Supporters Periodically"
-msgstr ""
+msgstr "Eguneratu babesleak aldizka"
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/ui/dialogs/preferences.ui:242
 msgid "Fetch the list of Tuba's supporters biweekly"
-msgstr ""
+msgstr "Eskuratu Tubaren babesleen zerrenda hamabostean behin"
 
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:256
@@ -715,8 +714,9 @@ msgstr "Push jakinarazpenak"
 
 #. translators: #FediWrapped, title of the 'amount of new followers' card
 #: data/ui/dialogs/preferences.ui:259 src/Dialogs/AnnualReport.vala:389
+#, fuzzy
 msgid "New Followers"
-msgstr "Jarraitzaile berriak"
+msgstr "Jarraitzen hasi didate"
 
 #: data/ui/dialogs/preferences.ui:265
 msgid "New Follower Requests"
@@ -949,7 +949,7 @@ msgstr "BOTa"
 #. or contributor to Tuba
 #: data/ui/views/profile_header.ui:64
 msgid "Tuba Supporter"
-msgstr ""
+msgstr "Tubaren babeslea"
 
 #. translators: tooltip text on profile covers.
 #. You can replace 'Cover' with 'Background' if needed.
@@ -1187,28 +1187,22 @@ msgstr "Profilak"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
-#, fuzzy, c-format
-#| msgid ""
-#| "You have blocked %s, removing %s of your followers and %s account you "
-#| "follow."
+#, c-format
 msgid ""
 "You have blocked %s, removing %s of your followers and %s account you follow."
 msgid_plural ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
 msgstr[0] ""
-"%s blokeatu duzu, jarraitzen zizun kontu %s eta jarratzen zenion kontu %s "
+"%s blokeatu duzu, jarraitzen zizun kontu %s eta jarraitzen zenion kontu %s "
 "kenduz."
 msgstr[1] ""
-"%s blokeatu duzu, jarraitzen zizun kontu %s eta jarratzen zenion kontu %s "
-"kenduz."
+"%s blokeatu duzu, jarraitzen zizuten %s kontu eta jarraitzen zenituen %s "
+"kontu kenduz."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:24
-#, fuzzy, c-format
-#| msgid ""
-#| "An admin has blocked %s, including %s of your followers and %s account "
-#| "you follow."
+#, c-format
 msgid ""
 "An admin has blocked %s, including %s of your followers and %s account you "
 "follow."
@@ -1217,10 +1211,10 @@ msgid_plural ""
 "follow."
 msgstr[0] ""
 "Administratzaile batek %s blokeatu du, jarraitzen zizun kontu %s eta "
-"jarratzen zenuen kontu %s kenduz."
+"jarraitzen zenion kontu %s kenduz."
 msgstr[1] ""
-"Administratzaile batek %s blokeatu du, jarraitzen zizun kontu %s eta "
-"jarratzen zenuen kontu %s kenduz."
+"Administratzaile batek %s blokeatu du, jarraitzen zizuten %s kontu eta "
+"jarraitzen zenituen %s kontu kenduz."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:33
@@ -1244,7 +1238,7 @@ msgstr "Izena eman du"
 #. your server's admins
 #: src/API/Notification.vala:127 src/Services/Accounts/InstanceAccount.vala:364
 msgid "Your account has received a moderation warning"
-msgstr ""
+msgstr "Zure kontuak moderazio-ohartarazpen bat jaso du"
 
 #. translators: this is used for notifications,
 #. when an annual report is available.
@@ -1254,7 +1248,7 @@ msgstr ""
 #. current year e.g. 2024. Please don't
 #. translate the hashtag.
 #: src/API/Notification.vala:135 src/Services/Accounts/InstanceAccount.vala:354
-#, fuzzy, c-format
+#, c-format
 msgid "Your %s #FediWrapped is ready!"
 msgstr "Zure %s(e)ko #FediWrapped prest dago!"
 
@@ -1262,6 +1256,7 @@ msgstr "Zure %s(e)ko #FediWrapped prest dago!"
 #: src/API/Notification.vala:137
 msgid "Review your year's highlights and memorable moments on the Fediverse!"
 msgstr ""
+"Berrikusi Fedibertsoko zure urteko unerik aipagarrienak eta gogoangarrienak!"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
@@ -1618,7 +1613,7 @@ msgstr "Aukeratu zer gertatuko den IP honen eskaerekin"
 #. mark a report as resolved
 #: src/Dialogs/Admin/Report.vala:50
 msgid "Mark this Report as Resolved?"
-msgstr ""
+msgstr "Salaketa ebatzitzat markatu?"
 
 #: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:101
 msgid "Resolve"
@@ -1628,7 +1623,7 @@ msgstr "Ebatzi"
 #. reopen a report
 #: src/Dialogs/Admin/Report.vala:61
 msgid "Reopen this Report?"
-msgstr ""
+msgstr "Salaketa berriro ireki?"
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:101
 msgid "Reopen"
@@ -1728,7 +1723,8 @@ msgstr "Ohartarazi"
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
 msgstr ""
-"Erabili erabiltzaileari abisu bat bidaltzeko, bestelako ekintzarik gabe"
+"Erabili erabiltzaileari ohartarazpen bat bidaltzeko, bestelako ekintzarik "
+"gabe"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
@@ -1841,7 +1837,7 @@ msgstr "Defektuzkoa"
 #. translators: Accent color
 #: src/Dialogs/AnnualReport.vala:63
 msgid "Accent"
-msgstr ""
+msgstr "Tonua"
 
 #: src/Dialogs/AnnualReport.vala:101
 msgid "Share"
@@ -1854,7 +1850,7 @@ msgstr "Gorde honela…"
 #. translators: dropdown label for picking a window style
 #: src/Dialogs/AnnualReport.vala:116
 msgid "Style"
-msgstr ""
+msgstr "Estiloa"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1864,6 +1860,7 @@ msgstr ""
 #, c-format
 msgid "Screenshot of my %s Wrapped annual report using %s."
 msgstr ""
+"%s(e)ko Wrapped urteko txostenaren pantaila-argazkia, %s erabiliz egina."
 
 #. translators: The variable is the year (e.g. 2024). Wrapped as in
 #. Spotify wrapped / recap of the year. You can leave it
@@ -1877,7 +1874,7 @@ msgstr "%s(e)ko Wrapped"
 #. translators: #FediWrapped, title of the 'amount of new posts' card
 #: src/Dialogs/AnnualReport.vala:201
 msgid "New Posts"
-msgstr ""
+msgstr "Bidalketa berriak"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1885,12 +1882,12 @@ msgstr ""
 #: src/Dialogs/AnnualReport.vala:229
 #, c-format
 msgid "I made %s posts."
-msgstr ""
+msgstr "%s bidalketa argitaratu ditut."
 
 #. translators: #FediWrapped, title of a card
 #: src/Dialogs/AnnualReport.vala:239
 msgid "Most Used Hashtag"
-msgstr "Gehien erabilitako traola"
+msgstr "Gehien erabili dudan traola"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1903,7 +1900,7 @@ msgstr "Gehien erabili izan dudan traola #%s da."
 #. translators: #FediWrapped, title of the 'which app was used to make most posts' card
 #: src/Dialogs/AnnualReport.vala:278
 msgid "Most Used App"
-msgstr "Gehien erabilitako aplikazioa"
+msgstr "Gehien erabili dudan aplikazioa"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1917,7 +1914,7 @@ msgstr "Gehien erabili izan dudan aplikazioa %s da."
 #. the users you interacted with the most
 #: src/Dialogs/AnnualReport.vala:320
 msgid "Most Interactions"
-msgstr "Interakzio gehien"
+msgstr "Interakzio gehienak"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1934,41 +1931,42 @@ msgstr "%s(e)kin izan ditut interakzio gehien."
 #. new followers you got and new people you followed
 #: src/Dialogs/AnnualReport.vala:367
 msgid "Follow Stats"
-msgstr ""
+msgstr "Jarraipen-datuak"
 
 #. translators: #FediWrapped, title of the 'amount of new people you followed' card
 #: src/Dialogs/AnnualReport.vala:414
+#, fuzzy
 msgid "New Follows"
-msgstr ""
+msgstr "Jarraitzen hasi ditut"
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most favorites
 #: src/Dialogs/AnnualReport.vala:439
 msgid "Most Favorited Post"
-msgstr ""
+msgstr "Gogokoen izan duten bidalketa"
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most boosts
 #: src/Dialogs/AnnualReport.vala:461
 msgid "Most Boosted Post"
-msgstr ""
+msgstr "Gehien bultzatu didaten bidalketa"
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most replies
 #: src/Dialogs/AnnualReport.vala:483
 msgid "Most Replied Post"
-msgstr ""
+msgstr "Erantzun gehien jaso dituen bidalketa"
 
 #. translators: save dialog title, refer to the other #FediWrapped strings for more info
 #: src/Dialogs/AnnualReport.vala:558
 msgid "Save #FediWrapped"
-msgstr ""
+msgstr "Gorde #FediWrapped"
 
 #. translators: the variable is a year, e.g. 2024
 #: src/Dialogs/AnnualReport.vala:573
 #, c-format
 msgid "Saved %s Wrapped"
-msgstr ""
+msgstr "%s(e)ko Wrapped gorde da"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:131
 #: src/Dialogs/Composer/EditorPage.vala:252
@@ -1978,7 +1976,7 @@ msgstr "Karaktere gehienez"
 #. translators: focus picker dialog title
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:216
 msgid "Set Focal Point"
-msgstr ""
+msgstr "Ezarri foku-puntua"
 
 #. translators: Title for focus picker scale
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:224
@@ -2004,7 +2002,7 @@ msgstr "Kendu eranskina(k)"
 #. translators: focus picker
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:370
 msgid "Edit Focal Point"
-msgstr ""
+msgstr "Editatu foku-puntua"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:38 src/Dialogs/ProfileEdit.vala:80
 msgid "All Supported Files"
@@ -2445,7 +2443,7 @@ msgstr "Birbidali %s(e)ra"
 #. translators: submit the report
 #: src/Dialogs/Report.vala:329
 msgid "Submit Report?"
-msgstr ""
+msgstr "Salaketa bidali?"
 
 #: src/Dialogs/Report.vala:386
 msgid "Submitted Report Successfully"
@@ -2569,7 +2567,7 @@ msgstr "%s(e)k argitaratu berri du"
 #: src/Services/Accounts/InstanceAccount.vala:391
 #, c-format
 msgid "%s reacted to your post"
-msgstr ""
+msgstr "%s(e)k zure bidalketari erreakzionatu dio"
 
 #. translators: the first variable is a string user name,
 #. the second variable is an emoji,
@@ -2577,7 +2575,7 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:396
 #, c-format
 msgid "%s reacted to your post with %s"
-msgstr ""
+msgstr "%s(e)k zure bidalketari %s(r)ekin erreakzionatu dio"
 
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:440
@@ -2699,7 +2697,7 @@ msgstr "%Y(e)ko %bren %-e(e)an iraungiko da"
 #. %M is the minutes
 #: src/Utils/DateTime.vala:43
 msgid "expires on %b %-e, %Y %H:%M"
-msgstr ""
+msgstr "%Y %b %-e, %H:%M iraungiko da"
 
 #: src/Utils/DateTime.vala:45
 msgid "expired on just now"
@@ -2742,7 +2740,7 @@ msgstr "%Y/%b/%-e(e)an iraungi zen"
 #. %M is the minutes
 #: src/Utils/DateTime.vala:82 src/Utils/DateTime.vala:121
 msgid "%b %-e, %Y %H:%M"
-msgstr ""
+msgstr "%Y %b %-e, %H:%M"
 
 #: src/Utils/DateTime.vala:84
 msgid "Just now"
@@ -3429,7 +3427,7 @@ msgstr "Hizkuntza"
 #: src/Views/Search.vala:409
 #, c-format
 msgid "Couldn't auto-fill user: %s"
-msgstr ""
+msgstr "Ezin izan da erabiltzailea automatikoki osatu: %s"
 
 #. tanslators: used in a banner, the variable is the number of unread announcements
 #: src/Views/Sidebar.vala:26
@@ -3872,7 +3870,7 @@ msgstr "Birprogramatu"
 #: src/Widgets/ScheduledStatus.vala:139
 #, c-format
 msgid "Scheduled for %s"
-msgstr ""
+msgstr "%s(e)rako programatuta"
 
 #. translators: the variable is an error
 #: src/Widgets/ScheduledStatus.vala:167
