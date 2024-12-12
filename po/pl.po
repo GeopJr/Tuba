@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-12 15:05+0200\n"
-"PO-Revision-Date: 2024-12-12 06:34+0000\n"
+"PO-Revision-Date: 2024-12-12 15:18+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -3894,7 +3894,7 @@ msgstr "Zmień czas publikacji"
 #: src/Widgets/ScheduledStatus.vala:139
 #, c-format
 msgid "Scheduled for %s"
-msgstr ""
+msgstr "Zaplanowany na %s"
 
 #. translators: the variable is an error
 #: src/Widgets/ScheduledStatus.vala:167
