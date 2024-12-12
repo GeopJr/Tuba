@@ -136,7 +136,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		date_parsed = date_parsed.to_timezone (new TimeZone.local ());
 		var date_local = _("%B %e, %Y");
 		// translators: Scheduled Post title, 'scheduled for <date>'
-		schedule_label.label = "Scheduled for %s".printf (
+		schedule_label.label = _("Scheduled for %s").printf (
 			date_parsed.format (@"$date_local · %H:%M").replace (" ", "") // %e prefixes with whitespace on single digits
 		);
 
