@@ -230,13 +230,6 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		}
 	}
 
-	public void scroll_view_to_top () {
-		var c_view = navigation_view.visible_page.child as Views.Base;
-		if (c_view != null) {
-			c_view.on_scroll_to_top ();
-		}
-	}
-
 	// public override bool delete_event (Gdk.EventAny event) {
 	// 	window = null;
 	// 	return app.on_window_closed ();
