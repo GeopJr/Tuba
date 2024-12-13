@@ -424,7 +424,7 @@
 		app.main_window.open_view (new Views.StatusStats (status.formal.id, has_reactions ()));
 	}
 
-	private void on_edit (API.Status x) {
+	public void on_edit (API.Status x) {
 		this.status.patch (x);
 		bind ();
 	}
