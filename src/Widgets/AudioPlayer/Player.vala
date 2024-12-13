@@ -58,6 +58,7 @@ public class Tuba.Widgets.Audio.Player : Adw.Bin {
 		player.ended.connect (on_ended);
 
 		this.child = overlay;
+		this.destroy.connect (on_destroy);
 	}
 
 	private void on_ended () {
@@ -130,10 +131,11 @@ public class Tuba.Widgets.Audio.Player : Adw.Bin {
 		on_reveal_media_buttons ();
 	}
 
-	public override void unmap () {
-		if (revealer_timeout > 0) GLib.Source.remove (revealer_timeout);
-
-		base.unmap ();
+	private void on_destroy () {
+		if (revealer_timeout > 0) {
+			GLib.Source.remove (revealer_timeout);
+			revealer_timeout = 0;
+		}
 		player.destroy ();
 	}
 
