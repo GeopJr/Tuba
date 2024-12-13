@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-12 15:05+0200\n"
-"PO-Revision-Date: 2024-12-13 16:14+0000\n"
+"PO-Revision-Date: 2024-12-13 20:29+0000\n"
 "Last-Translator: xabirequejo <xabi.rn@gmail.com>\n"
 "Language-Team: Basque <https://hosted.weblate.org/projects/tuba/tuba/eu/>\n"
 "Language: eu\n"
@@ -714,9 +714,8 @@ msgstr "Push jakinarazpenak"
 
 #. translators: #FediWrapped, title of the 'amount of new followers' card
 #: data/ui/dialogs/preferences.ui:259 src/Dialogs/AnnualReport.vala:389
-#, fuzzy
 msgid "New Followers"
-msgstr "Jarraitzen hasi didate"
+msgstr "Jarraitzen hasi zaizkit"
 
 #: data/ui/dialogs/preferences.ui:265
 msgid "New Follower Requests"
@@ -1935,9 +1934,8 @@ msgstr "Jarraipen-datuak"
 
 #. translators: #FediWrapped, title of the 'amount of new people you followed' card
 #: src/Dialogs/AnnualReport.vala:414
-#, fuzzy
 msgid "New Follows"
-msgstr "Jarraitzen hasi ditut"
+msgstr "Jarraitzen hasi natzaie"
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most favorites
