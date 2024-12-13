@@ -55,44 +55,6 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		spacing = 12;
 	}
 
-	//  private bool direction_is_forward (Gtk.DirectionType direction) {
-	//  	switch (direction) {
-	//  		case Gtk.DirectionType.TAB_FORWARD:
-	//  		case Gtk.DirectionType.RIGHT:
-	//  		case Gtk.DirectionType.DOWN:
-	//  			return true;
-	//  		case Gtk.DirectionType.TAB_BACKWARD:
-	//  		case Gtk.DirectionType.LEFT:
-	//  		case Gtk.DirectionType.UP:
-	//  		  return false;
-	//  		default:
-	//  		  assert_not_reached ();
-	//  	}
-	//  }
-
-	// tried copying over gtk_widget_real_focus
-	// segfaults + cant access gtk_widget_focus_move
-	//  public override bool focus (Gtk.DirectionType direction) {
-	//  	if (this.is_focus ()) {
-	//  		return direction_is_forward (direction) && this.child_focus (direction);
-	//  	}
-
-	//  	Gtk.Widget? focus = ((Gtk.Window) this.root).get_focus ();
-	//  	if (focus != null && focus.is_ancestor (this)) {
-	//  		if (this.child_focus (direction)) return true;
-	//  		if (direction_is_forward (direction)) return false;
-	//  		return this.grab_focus ();
-	//  	}
-
-	//  	if (!direction_is_forward (direction)) {
-	//  		if (this.child_focus (direction)) return true;
-	//  		return this.grab_focus ();
-	//  	} else {
-	//  		if (this.grab_focus ()) return true;
-	//  		return this.child_focus (direction);
-	//  	}
-	//  }
-
 	void update_aria () {
 		string total_aria = "";
 
