@@ -247,6 +247,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 	[GtkCallback] private void on_refresh_poll () {
 		if (poll == null) return;
 
+		poll_box.grab_focus ();
 		button_refresh.sensitive = false;
 		new Request.GET (@"/api/v1/polls/$(poll.id)")
 			.with_account (accounts.active)
