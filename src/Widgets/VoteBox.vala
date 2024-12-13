@@ -222,8 +222,8 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 		//				Describes whether the user has voted on the poll.
 		if (poll.voted) aria_voted = _("You have voted.");
 
-		this.update_property (
-			Gtk.AccessibleProperty.LABEL,
+		poll_box.update_property (
+			Gtk.AccessibleProperty.DESCRIPTION,
 			"%s %s %s.".printf (
 				aria_poll,
 				aria_voted,
