@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-12 15:05+0200\n"
-"PO-Revision-Date: 2024-12-07 22:15+0000\n"
+"PO-Revision-Date: 2024-12-14 12:18+0000\n"
 "Last-Translator: rdbende <rdbende@proton.me>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/tuba/tuba/hu/"
-">\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/tuba/tuba/hu/>"
+"\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.9-rc\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -972,7 +972,7 @@ msgstr "Saját profil"
 #. translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person
 #: data/ui/views/profile_header.ui:184
 msgid "View All Followers You Know"
-msgstr ""
+msgstr "Összes ismerős követő megtekintése"
 
 #: data/ui/views/profile_header.ui:214
 msgid "Note"
@@ -1189,10 +1189,7 @@ msgstr "Profilok"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
-#, fuzzy, c-format
-#| msgid ""
-#| "You have blocked %s, removing %s of your followers and %s account you "
-#| "follow."
+#, c-format
 msgid ""
 "You have blocked %s, removing %s of your followers and %s account you follow."
 msgid_plural ""
@@ -1205,10 +1202,7 @@ msgstr[1] ""
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:24
-#, fuzzy, c-format
-#| msgid ""
-#| "An admin has blocked %s, including %s of your followers and %s account "
-#| "you follow."
+#, c-format
 msgid ""
 "An admin has blocked %s, including %s of your followers and %s account you "
 "follow."
@@ -1218,7 +1212,8 @@ msgid_plural ""
 msgstr[0] ""
 "%s le lett tiltva, ezzel eltávolítva %s követődet, és %s követett fiókodat."
 msgstr[1] ""
-"%s le lett tiltva, ezzel eltávolítva %s követődet, és %s követett fiókodat."
+"%s le lett tiltva az adminisztrátorod által, ezzel eltávolítva %s követődet, "
+"és %s követett fiókodat."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:33
@@ -3238,7 +3233,7 @@ msgstr "Lista hozzáadása"
 
 #: src/Views/Main.vala:76
 msgid "Open Sidebar"
-msgstr ""
+msgstr "Oldalsáv megnyitása"
 
 #: src/Views/MediaViewer.vala:829
 msgid "Copied media url to clipboard"
@@ -3742,8 +3737,7 @@ msgstr "Egyedi emojik"
 #. A reaction is not the same as a favorite or a boost,
 #. see https://github.com/glitch-soc/mastodon/pull/2462
 #: src/Widgets/EmojiReactionAccounts.vala:65
-#, fuzzy, c-format
-#| msgid "%d Reaction"
+#, c-format
 msgid "%d Reaction"
 msgid_plural "%d Reactions"
 msgstr[0] "%d reakció"
@@ -3804,8 +3798,8 @@ msgstr[1] "%d szerző megtekintése"
 #, c-format
 msgid "Followed by %s & %s Other"
 msgid_plural "Followed by %s & %s Others"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s és további %s követi"
+msgstr[1] "%s és további %s ember követi"
 
 #. translators: button on profiles that when clicked shows a list of familiar followers.
 #. The variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
@@ -3814,7 +3808,7 @@ msgstr[1] ""
 #: src/Widgets/ProfileCover.vala:92
 #, c-format
 msgid "Followed by %s"
-msgstr ""
+msgstr "%s követi"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3869,7 +3863,7 @@ msgstr "Újraidőzítés"
 #: src/Widgets/ScheduledStatus.vala:139
 #, c-format
 msgid "Scheduled for %s"
-msgstr ""
+msgstr "Időzítve ekkorra: %s"
 
 #. translators: the variable is an error
 #: src/Widgets/ScheduledStatus.vala:167
@@ -4158,8 +4152,7 @@ msgstr "Szavaztál"
 
 #. translators: the variable is the amount of people that voted
 #: src/Widgets/VoteBox.vala:191
-#, fuzzy, c-format
-#| msgid "%s voted"
+#, c-format
 msgid "%s voted"
 msgid_plural "%s voted"
 msgstr[0] "%s ember szavazott"
