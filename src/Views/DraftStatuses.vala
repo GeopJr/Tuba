@@ -1,7 +1,9 @@
 public class Tuba.Views.DraftStatuses : Views.ScheduledStatuses {
 	construct {
+		// translators: as in posts that are saved but not posted yet
 		label = _("Draft Posts");
-		icon = "tuba-bookmarks-symbolic"; // TODO?
+		icon = "tuba-chat-symbolic";
+		// translators: as in posts that are saved but not posted yet
 		empty_state_title = _("No Draft Posts");
 	}
 

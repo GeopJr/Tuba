@@ -7,7 +7,7 @@
     <property name="title" translatable="yes">Members</property>
     <child>
       <object class="AdwPreferencesGroup" id="members_group">
-        <property name="title" translatable="yes">Remove Members</property>
+        <property name="title" translatable="yes">Members</property>
       </object>
     </child>
   </object>

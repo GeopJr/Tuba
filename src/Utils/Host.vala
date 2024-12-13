@@ -38,6 +38,17 @@ public class Tuba.Host {
 				launcher.launch.end (res);
 			} catch (Error e) {
 				warning (@"Error opening uri \"$uri\": $(e.message)");
+				open_in_default_app_using_dbus (uri);
+			}
+		});
+	}
+
+	private static void open_in_default_app_using_dbus (string uri) {
+		AppInfo.launch_default_for_uri_async.begin (uri, null, null, (obj, res) => {
+			try {
+				AppInfo.launch_default_for_uri_async.end (res);
+			} catch (Error e) {
+				warning (@"Error opening using launch_default_for_uri \"$uri\": $(e.message)");
 			}
 		});
 	}

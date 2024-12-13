@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-03-08 16:01+0000\n"
+"PO-Revision-Date: 2024-10-20 18:19+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/tuba/tuba/kab/>\n"
 "Language: kab\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.8-rc\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -61,7 +61,7 @@ msgstr "Sken-d ismenyifen"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "Aru tasuffeɣt tamaynut"
 
 #: data/gtk/help-overlay.ui:26 src/Views/Sidebar.vala:57
 msgid "Refresh"
@@ -192,7 +192,7 @@ msgstr ""
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:73
 msgid "Query"
-msgstr ""
+msgstr "Tuttra"
 
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:80
@@ -219,7 +219,7 @@ msgstr ""
 #: data/ui/dialogs/advanced_search.ui:105
 #: src/Dialogs/Composer/AttachmentsPage.vala:62
 msgid "Media"
-msgstr ""
+msgstr "Amidya"
 
 #: data/ui/dialogs/advanced_search.ui:110 src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
@@ -241,7 +241,7 @@ msgstr ""
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:140
 msgid "Library"
-msgstr ""
+msgstr "Tamkarḍit"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
 #: data/ui/dialogs/advanced_search.ui:142
@@ -251,18 +251,18 @@ msgstr ""
 #: data/ui/dialogs/advanced_search.ui:156
 #: src/Services/Accounts/Mastodon/Account.vala:167
 msgid "Public"
-msgstr ""
+msgstr "Azayez"
 
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:173
 msgid "Dates"
-msgstr ""
+msgstr "Izemzen"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:179
 msgid "Before"
-msgstr ""
+msgstr "Send"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
@@ -274,7 +274,7 @@ msgstr ""
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:225
 msgid "After"
-msgstr ""
+msgstr "Seld"
 
 #: data/ui/dialogs/compose.ui:41 src/Dialogs/Composer/Dialog.vala:263
 msgid "_Publish"
@@ -291,7 +291,7 @@ msgstr "Sekles"
 
 #: data/ui/dialogs/filter_edit.ui:59
 msgid "Title"
-msgstr ""
+msgstr "Azwel"
 
 #: data/ui/dialogs/filter_edit.ui:65
 msgid "Expires In"
@@ -361,7 +361,7 @@ msgstr ""
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:278
 #: src/Views/Sidebar.vala:282
 msgid "Add Account"
-msgstr ""
+msgstr "Rnu amiḍan"
 
 #: data/ui/dialogs/new_account.ui:33 data/ui/dialogs/new_account.ui:126
 #: src/Dialogs/Report.vala:87 src/Dialogs/Report.vala:417
@@ -378,15 +378,17 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
 msgstr ""
+"Ma yella werɛad ur tesɛiḍ amiḍan, <a href=\"https ://joinmastodon.org/"
+"servers\">fren aqeddac, tjerdeḍ yiwen</a>."
 
 #: data/ui/dialogs/new_account.ui:70
 msgid "Server URL"
-msgstr ""
+msgstr "URL n uqeddac"
 
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:297
 msgid "Settings"
-msgstr ""
+msgstr "Iɣewwaṛen"
 
 #: data/ui/dialogs/new_account.ui:141
 msgid "Confirm Authorization"
@@ -417,11 +419,11 @@ msgstr "Udem"
 
 #: data/ui/dialogs/preferences.ui:26
 msgid "Color Scheme"
-msgstr ""
+msgstr "Tagrumma n yiniten"
 
 #: data/ui/dialogs/preferences.ui:40
 msgid "Large Text"
-msgstr ""
+msgstr "Aḍris ahrawan"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Increase the size of text in posts"
@@ -546,7 +548,7 @@ msgstr ""
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:171 src/Dialogs/NewAccount.vala:329
 msgid "Proxy"
-msgstr ""
+msgstr "Apṛuksi"
 
 #: data/ui/dialogs/preferences.ui:182
 msgid "Posts per Load Batch"
@@ -594,11 +596,11 @@ msgstr "Imenyafen"
 
 #: data/ui/dialogs/preferences.ui:233 src/Dialogs/NotificationSettings.vala:46
 msgid "Mentions"
-msgstr ""
+msgstr "Ibdaren"
 
 #: data/ui/dialogs/preferences.ui:239 src/Dialogs/NotificationSettings.vala:48
 msgid "Boosts"
-msgstr ""
+msgstr "Izuzar"
 
 #: data/ui/dialogs/preferences.ui:245
 msgid "Poll Results"
@@ -610,7 +612,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:257
 msgid "Group"
-msgstr ""
+msgstr "Segrew"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/ui/dialogs/preferences.ui:259
@@ -671,7 +673,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:311
 msgid "Filters"
-msgstr ""
+msgstr "Imsizdigen"
 
 #: data/ui/dialogs/preferences.ui:315
 msgid "Keywords"
@@ -683,7 +685,7 @@ msgstr ""
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:167
 msgid "Edit Profile"
-msgstr ""
+msgstr "Ẓreg amaɣnu"
 
 #: data/ui/dialogs/profile_edit.ui:66
 msgid "Edit Profile Picture"
@@ -710,7 +712,7 @@ msgstr ""
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:163
 msgid "Fields"
-msgstr ""
+msgstr "Urtiyen"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
@@ -722,7 +724,7 @@ msgstr "Izen usrid"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
-msgstr ""
+msgstr "Nɣel isem n umseqdac"
 
 #: data/ui/menus.ui:29 data/ui/views/media_viewer.ui:6
 #: src/Widgets/Attachment/Item.vala:174 src/Widgets/Status.vala:289
@@ -740,7 +742,7 @@ msgstr ""
 
 #: data/ui/menus.ui:41
 msgid "Hide Boosts"
-msgstr ""
+msgstr "Ffer izuzar"
 
 #: data/ui/menus.ui:46
 msgid "Mute"
@@ -759,7 +761,7 @@ msgstr ""
 #: data/ui/menus.ui:60 src/Dialogs/Admin/Report.vala:8
 #: src/Widgets/Status.vala:337
 msgid "Report"
-msgstr ""
+msgstr "Cetki fell-as"
 
 #: data/ui/menus.ui:67
 msgid "Timeline"
@@ -786,7 +788,7 @@ msgstr "Tibdar"
 #: data/ui/views/media_viewer.ui:10 src/Widgets/Attachment/Item.vala:175
 #: src/Widgets/Status.vala:290
 msgid "Copy URL"
-msgstr ""
+msgstr "Nɣel URL"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:176
 msgid "Save Media…"
@@ -823,7 +825,7 @@ msgstr ""
 
 #: data/ui/views/profile_header.ui:168
 msgid "Note"
-msgstr ""
+msgstr "Tazmilt"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:52
@@ -837,13 +839,13 @@ msgstr "Beddel amiḍan"
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
 msgid "Offline"
-msgstr ""
+msgstr "Beṛṛa n tuqqna"
 
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
 #: src/Views/Notifications.vala:58
 msgid "View"
-msgstr ""
+msgstr "Wali"
 
 #: data/ui/widgets/announcement.ui:96
 msgid "Unread"
@@ -870,7 +872,7 @@ msgstr "Sken ugar"
 #. translators: Tooltip that opens filter
 #: data/ui/widgets/status.ui:346
 msgid "Show Anyway"
-msgstr ""
+msgstr "Sken-d akken yebɣu yili"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:10 src/Views/Admin/Pages/Accounts.vala:299
@@ -878,7 +880,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:338
 #: src/Widgets/Admin/DomainBlock.vala:18 src/Widgets/Admin/DomainBlock.vala:25
 msgid "None"
-msgstr ""
+msgstr "Ula yiwen"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
@@ -937,7 +939,7 @@ msgstr ""
 
 #: src/API/Admin/Report.vala:19
 msgid "Spam"
-msgstr ""
+msgstr "Aspam"
 
 #: src/API/Admin/Report.vala:20
 msgid "Rule Violation"
@@ -963,7 +965,7 @@ msgstr ""
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr ""
+msgstr "Taɣẓint"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
@@ -1011,7 +1013,7 @@ msgstr "Idiwenniyen"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "Imaɣnuyen"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
 #. this is the singular version, '1 account you follow'
@@ -1098,7 +1100,7 @@ msgstr ""
 
 #: src/API/Relationship.vala:25
 msgid "Mutuals"
-msgstr ""
+msgstr "Temṭafarem"
 
 #: src/API/Relationship.vala:27
 msgid "Follows you"
@@ -1160,7 +1162,7 @@ msgstr "Aql-ik·m tettedduḍ ad teǧǧeḍ %s"
 #: src/API/Status/PreviewCard.vala:48
 #, c-format
 msgid "If you proceed, \"%s\" will open in your browser."
-msgstr ""
+msgstr "Ma tkemmleḍ, \"%s\" ad yeldi deg yiminig-ik·im."
 
 #. translators: the first variable is the app name (Tuba),
 #. the second one is a url
@@ -1225,15 +1227,15 @@ msgstr "Irénée Thirion"
 #. translators: Wiki pages / Guides
 #: src/Application.vala:558
 msgid "Wiki"
-msgstr ""
+msgstr "Wiki"
 
 #: src/Application.vala:560 src/Widgets/Status.vala:324
 msgid "Translate"
-msgstr ""
+msgstr "Suqel"
 
 #: src/Application.vala:561
 msgid "Donate"
-msgstr ""
+msgstr "Mudd tawsa"
 
 #: src/Application.vala:583
 msgid "OK"
@@ -1251,13 +1253,13 @@ msgstr ""
 #: src/Dialogs/Admin/AddFederationBlock.vala:40
 #: src/Dialogs/Admin/AddIPBlock.vala:79
 msgid "Add"
-msgstr ""
+msgstr "Rnu"
 
 #. translators: Admin dashboard, federation block dialog,
 #. e.g. 'gnome.org'
 #: src/Dialogs/Admin/AddFederationBlock.vala:52
 msgid "Domain"
-msgstr ""
+msgstr "Taɣult"
 
 #. translators: Admin dashboard, federation block dialog severity row title
 #: src/Dialogs/Admin/AddFederationBlock.vala:72
@@ -1343,12 +1345,11 @@ msgstr[1] ""
 #: src/Dialogs/Admin/AddIPBlock.vala:27 src/Dialogs/Composer/PollPage.vala:238
 #: src/Dialogs/Composer/PollPage.vala:241
 #: src/Dialogs/Composer/PollPage.vala:242 src/Dialogs/FilterEdit.vala:34
-#, fuzzy, c-format
-#| msgid "%d Day"
+#, c-format
 msgid "%d Day"
 msgid_plural "%d Days"
-msgstr[0] "%d n wass"
-msgstr[1] "%d n wass"
+msgstr[0] "%d wass"
+msgstr[1] "%d n wussan"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:68
 #: src/Views/Admin/Pages/BlockedIPs.vala:10
@@ -1358,7 +1359,7 @@ msgstr ""
 #. translators: Admin dashboard ip block comment entry title
 #: src/Dialogs/Admin/AddIPBlock.vala:99 src/Dialogs/Admin/TakeAction.vala:104
 msgid "Comment"
-msgstr ""
+msgstr "Awennit"
 
 #. translators: Admin dashboard ip block expiration date row title.
 #: src/Dialogs/Admin/AddIPBlock.vala:123 src/Dialogs/Composer/PollPage.vala:268
@@ -1454,7 +1455,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:170
 msgid "Category"
-msgstr ""
+msgstr "Taggayt"
 
 #. translators: Admin dashboard report category description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1476,7 +1477,7 @@ msgstr ""
 #: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:333
 #: src/Dialogs/Report.vala:415
 msgid "Submit"
-msgstr ""
+msgstr "Azen"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
@@ -1501,7 +1502,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:489
 msgid "Sensitive"
-msgstr ""
+msgstr "Amḥulfu"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:79
@@ -1542,12 +1543,12 @@ msgstr ""
 
 #: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
 msgid "Dashboard"
-msgstr ""
+msgstr "Tafelwit n tedbelt"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:28 src/Views/Admin/Pages/Reports.vala:6
 msgid "Reports"
-msgstr ""
+msgstr "Ineqqisen"
 
 #: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
 #: src/Views/Search.vala:112
@@ -1655,7 +1656,7 @@ msgstr ""
 
 #: src/Dialogs/Composer/Dialog.vala:299
 msgid "_Edit"
-msgstr ""
+msgstr "Ẓr_eg"
 
 #: src/Dialogs/Composer/Dialog.vala:320
 msgid "_Reply"
@@ -1674,7 +1675,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:411
 #: src/Views/Admin/Pages/Accounts.vala:431
 msgid "Undo"
-msgstr ""
+msgstr "Err-d"
 
 #: src/Dialogs/Composer/EditorPage.vala:259
 msgid "What's on your mind?"
@@ -1733,7 +1734,7 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:218
 #, c-format
 msgid "Choice %d"
-msgstr ""
+msgstr "Afran wis %d"
 
 #. translators: the variable is a number
 #: src/Dialogs/Composer/PollPage.vala:227
@@ -1756,12 +1757,11 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:235
 #: src/Dialogs/Composer/PollPage.vala:236 src/Dialogs/FilterEdit.vala:31
 #: src/Dialogs/FilterEdit.vala:32 src/Dialogs/FilterEdit.vala:33
-#, fuzzy, c-format
-#| msgid "%d Hour"
+#, c-format
 msgid "%d Hour"
 msgid_plural "%d Hours"
-msgstr[0] "%d n wesrag"
-msgstr[1] "%d n wesrag"
+msgstr[0] "%d usrag"
+msgstr[1] "%d n yisragen"
 
 #. translators: the variable is a number, h as in hours
 #: src/Dialogs/Composer/PollPage.vala:234
@@ -1769,7 +1769,7 @@ msgstr[1] "%d n wesrag"
 #: src/Dialogs/Composer/PollPage.vala:236
 #, c-format
 msgid "%dh"
-msgstr ""
+msgstr "%d sr"
 
 #. translators: the variable is a number, d as in days
 #: src/Dialogs/Composer/PollPage.vala:240
@@ -1777,15 +1777,15 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:242
 #, c-format
 msgid "%dd"
-msgstr ""
+msgstr "%d ass"
 
 #: src/Dialogs/FilterEdit.vala:29
 msgid "Never"
-msgstr ""
+msgstr "Werǧin"
 
 #: src/Dialogs/FilterEdit.vala:125
 msgid "New Filter"
-msgstr ""
+msgstr "Amsizdeg amaynut"
 
 #: src/Dialogs/FilterEdit.vala:190
 msgid "Keyword"
@@ -1884,7 +1884,7 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:121
 msgid "Clear"
-msgstr ""
+msgstr "Sfeḍ"
 
 #: src/Dialogs/Preferences.vala:31 src/Widgets/Status.vala:307
 msgid "Edit"
@@ -1917,7 +1917,7 @@ msgstr "Tabzimt"
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:53
 msgid "Content"
-msgstr ""
+msgstr "Agbur"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:198
@@ -2049,7 +2049,7 @@ msgstr ""
 
 #: src/Dialogs/Report.vala:411
 msgid "Back"
-msgstr ""
+msgstr "Uɣal"
 
 #. translators: the variable is an error
 #: src/Dialogs/Report.vala:488 src/Dialogs/Report.vala:499
@@ -2158,7 +2158,7 @@ msgstr "Ticraḍ"
 
 #: src/Services/Accounts/Mastodon/Account.vala:108 src/Views/Explore.vala:3
 msgid "Explore"
-msgstr ""
+msgstr "Snirem"
 
 #: src/Services/Accounts/Mastodon/Account.vala:118
 #: src/Views/Admin/Pages/Accounts.vala:69 src/Views/Local.vala:3
@@ -2167,7 +2167,7 @@ msgstr "Adigan"
 
 #: src/Services/Accounts/Mastodon/Account.vala:127 src/Views/Federated.vala:4
 msgid "Federated"
-msgstr ""
+msgstr "Asdukklan"
 
 #: src/Services/Accounts/Mastodon/Account.vala:136 src/Views/Explore.vala:7
 #: src/Views/Hashtags.vala:4 src/Views/Search.vala:114
@@ -2313,7 +2313,7 @@ msgstr "%-e %b, %Y %H : %m"
 
 #: src/Utils/DateTime.vala:84
 msgid "Just now"
-msgstr ""
+msgstr "Tura kan"
 
 #. tranlators: the variable is a number, `m` as in minutes in short form
 #: src/Utils/DateTime.vala:88
@@ -2325,7 +2325,7 @@ msgstr ""
 #: src/Utils/DateTime.vala:93
 #, c-format
 msgid "%sh"
-msgstr ""
+msgstr "%s sr"
 
 #: src/Utils/DateTime.vala:96
 msgid "Yesterday"
@@ -2347,7 +2347,7 @@ msgstr "%-e %b, %Y"
 
 #: src/Utils/DateTime.vala:123
 msgid "just now"
-msgstr ""
+msgstr "tura kan"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:127
@@ -2363,7 +2363,7 @@ msgstr ""
 
 #: src/Utils/DateTime.vala:135
 msgid "yesterday"
-msgstr ""
+msgstr "iḍelli"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:169
@@ -2437,14 +2437,14 @@ msgstr ""
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: src/Views/Admin/Pages/Accounts.vala:78
 msgid "Location"
-msgstr ""
+msgstr "Adig"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:95
 msgid "Active"
-msgstr ""
+msgstr "Urmid"
 
 #. new DropDownStringEntry ("sensitized", _("Sensitive")), // doesn't seem to work on Mastodon
 #. translators: Dropdown entry, account status.
@@ -2479,16 +2479,16 @@ msgstr ""
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:113
 msgid "Pending"
-msgstr ""
+msgstr "Yettṛaǧu"
 
 #: src/Views/Admin/Pages/Accounts.vala:128
 msgid "Username"
-msgstr ""
+msgstr "Isem n useqdac"
 
 #: src/Views/Admin/Pages/Accounts.vala:142
 #: src/Views/Admin/Pages/Accounts.vala:304
 msgid "E-mail"
-msgstr ""
+msgstr "Imayl"
 
 #: src/Views/Admin/Pages/Accounts.vala:298
 msgid "Role"
@@ -2611,7 +2611,7 @@ msgstr ""
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:24
 msgid "Software"
-msgstr ""
+msgstr "Aseɣẓan"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:26
@@ -2620,7 +2620,7 @@ msgstr ""
 
 #: src/Views/Admin/Pages/Dashboard.vala:53
 msgid "Stats"
-msgstr ""
+msgstr "Tidaddanin"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about allowing federation
@@ -2632,7 +2632,7 @@ msgstr ""
 #: src/Views/Admin/Pages/FederationAllowlist.vala:21
 #: src/Views/Admin/Pages/FederationAllowlist.vala:64
 msgid "Allow"
-msgstr ""
+msgstr "Sireg"
 
 #. translators: Question dialog when an admin is about to
 #. allow federation with an instance. The variable is a
@@ -2675,7 +2675,7 @@ msgstr ""
 
 #: src/Views/Admin/Timelines/DomainAllow.vala:35
 msgid "Remove"
-msgstr ""
+msgstr "Kkes"
 
 #: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:61
 msgid "Announcements"
@@ -2759,7 +2759,7 @@ msgstr "Ḍfeṛ"
 #: src/Views/Hashtag.vala:22 src/Views/Hashtag.vala:38
 #: src/Widgets/RelationshipButton.vala:61
 msgid "Unfollow"
-msgstr ""
+msgstr "Ur ṭṭafar ara"
 
 #: src/Views/Home.vala:22
 msgid "Compose"
@@ -2784,7 +2784,7 @@ msgstr "Azwel n wumuɣ amaynut"
 
 #: src/Views/Lists.vala:153
 msgid "Add list"
-msgstr ""
+msgstr "Rnu tabdart"
 
 #: src/Views/MediaViewer.vala:675
 msgid "Copied media url to clipboard"
@@ -2856,7 +2856,7 @@ msgstr "Amaɣnu"
 
 #: src/Views/Profile.vala:136 src/Views/Timeline.vala:75
 msgid "No Posts"
-msgstr ""
+msgstr "Ula d yiwet n tsuffeɣt ma tella"
 
 #: src/Views/Profile.vala:140
 msgid "No Followers"
@@ -2935,7 +2935,7 @@ msgstr ""
 
 #: src/Views/Search.vala:31
 msgid "Advanced Search"
-msgstr ""
+msgstr "Anadi leqqayen"
 
 #: src/Views/Search.vala:35
 msgid "Clear Entry"
@@ -2946,11 +2946,11 @@ msgstr ""
 #: src/Views/Search.vala:113 src/Views/Search.vala:114
 #: src/Widgets/CustomEmojiChooser.vala:186
 msgid "No Results"
-msgstr ""
+msgstr "Ulac igmaḍ"
 
 #: src/Views/Search.vala:227
 msgid "Language"
-msgstr ""
+msgstr "Tutlayt"
 
 #. tanslators: used in a banner, the variable is the number of unread announcements
 #: src/Views/Sidebar.vala:24
@@ -2970,7 +2970,7 @@ msgstr[1] ""
 
 #: src/Views/Sidebar.vala:55
 msgid "New Post"
-msgstr ""
+msgstr "Tasuffeɣt tamaynut"
 
 #: src/Views/Sidebar.vala:56
 msgid "Open Profile"
@@ -2982,7 +2982,7 @@ msgstr "Imenyafen"
 
 #: src/Views/Sidebar.vala:73
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Inegzumen n unasiw"
 
 #: src/Views/Sidebar.vala:74
 #, c-format
@@ -3015,7 +3015,7 @@ msgstr ""
 #. translators: title for a list of people that boosted a post
 #: src/Views/StatusStats.vala:22
 msgid "Boosted By"
-msgstr ""
+msgstr "Izuzer-it"
 
 #: src/Views/StatusStats.vala:26
 msgid "No Boosts"
@@ -3035,7 +3035,7 @@ msgstr ""
 
 #: src/Views/Timeline.vala:233 src/Widgets/Status/ActionsRow.vala:367
 msgid "Network Error"
-msgstr ""
+msgstr "Tuccḍa deg uẓeṭṭa"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3064,8 +3064,8 @@ msgstr ""
 #, c-format
 msgid "%s Post"
 msgid_plural "%s Posts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s n tsuffeɣt"
+msgstr[1] "%s n tsuffaɣ"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of followers a user has.
@@ -3174,7 +3174,7 @@ msgstr ""
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:63
 msgid "Hide Media"
-msgstr ""
+msgstr "Seggelmes amidya"
 
 #. translators: Label shown in front of blurred / sensitive media
 #: src/Widgets/Attachment/Box.vala:74
@@ -3187,7 +3187,7 @@ msgstr ""
 
 #: src/Widgets/Attachment/Item.vala:34
 msgid "Save Attachment"
-msgstr ""
+msgstr "Sekles amedday"
 
 #: src/Widgets/Attachment/Item.vala:44
 msgid "Saved Media"
@@ -3212,7 +3212,7 @@ msgstr "Yettwasuffɣed ass n: %s"
 #: src/Widgets/BookWyrmPage.vala:98
 #, c-format
 msgid "by %s"
-msgstr ""
+msgstr "s ɣur %s"
 
 #. translators: Used when there are results in the custom emoji picker
 #: src/Widgets/CustomEmojiChooser.vala:67

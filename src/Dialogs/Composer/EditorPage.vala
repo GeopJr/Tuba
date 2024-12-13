@@ -242,7 +242,9 @@ public class Tuba.EditorPage : ComposerPage {
 		((GtkSource.Buffer) editor.buffer).highlight_matching_brackets = true;
 		((GtkSource.Buffer) editor.buffer).highlight_syntax = true;
 
-		Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
+		var adw_manager = Adw.StyleManager.get_default ();
+		adw_manager.notify["dark"].connect (update_style_scheme);
+		adw_manager.notify["accent-color-rgba"].connect (update_style_scheme);
 		update_style_scheme ();
 
 		char_counter = new Gtk.Label (char_limit.to_string ()) {
@@ -257,8 +259,44 @@ public class Tuba.EditorPage : ComposerPage {
 
 	protected void update_style_scheme () {
 		var manager = GtkSource.StyleSchemeManager.get_default ();
+		var adw_manager = Adw.StyleManager.get_default ();
+
 		string scheme_name = "Fedi";
-		if (Adw.StyleManager.get_default ().dark) scheme_name += "-dark";
+		if (adw_manager.get_system_supports_accent_colors ()) {
+			switch (adw_manager.get_accent_color ()) {
+				case Adw.AccentColor.YELLOW:
+					scheme_name += "-yellow";
+					break;
+				case Adw.AccentColor.TEAL:
+					scheme_name += "-teal";
+					break;
+				case Adw.AccentColor.PURPLE:
+					scheme_name += "-purple";
+					break;
+				case Adw.AccentColor.RED:
+					scheme_name += "-red";
+					break;
+				case Adw.AccentColor.GREEN:
+					scheme_name += "-green";
+					break;
+				case Adw.AccentColor.ORANGE:
+					scheme_name += "-orange";
+					break;
+				case Adw.AccentColor.SLATE:
+					scheme_name += "-slate";
+					break;
+				case Adw.AccentColor.PINK:
+					scheme_name += "-pink";
+					break;
+				default:
+					scheme_name += "-blue";
+					break;
+			}
+		} else {
+			scheme_name += "-blue";
+		}
+
+		if (adw_manager.dark) scheme_name += "-dark";
 		((GtkSource.Buffer) editor.buffer).style_scheme = manager.get_scheme (scheme_name);
 	}
 

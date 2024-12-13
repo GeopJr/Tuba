@@ -15,7 +15,21 @@ public class Tuba.Views.Profile : Views.Accounts {
 				var parser = Network.get_parser_from_inputstream (req.response_body);
 				var node = network.parse_node (parser);
 				var updated = API.Account.from (node);
-				account.patch (updated);
+
+				account.display_name = updated.display_name;
+				account.note = updated.note;
+				account.locked = updated.locked;
+				account.header = updated.header;
+				account.header_description = updated.header_description;
+				account.avatar = updated.avatar;
+				account.avatar_description = updated.avatar_description;
+				account.bot = updated.bot;
+				account.emojis = updated.emojis;
+				account.followers_count = updated.followers_count;
+				account.following_count = updated.following_count;
+				account.statuses_count = updated.statuses_count;
+				account.fields = updated.fields;
+				account.moved = updated.moved;
 
 				return true;
 			} catch (Error e) {
@@ -225,7 +239,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	private void open_edit_page () {
-		var dialog = new Dialogs.ProfileEdit (profile.account);
+		var dialog = new Dialogs.ProfileEdit (profile.account.is_self () ? accounts.active : profile.account);
 		dialog.saved.connect (on_edit_save);
 		dialog.present (app.main_window);
 	}
@@ -526,11 +540,20 @@ public class Tuba.Views.Profile : Views.Accounts {
 	public void handle_list_edit (API.List list, Adw.ActionRow row, Adw.ToastOverlay toast_overlay, RowButton button) {
 			row.sensitive = false;
 
-			var endpoint = @"/api/v1/lists/$(list.id)/accounts?account_ids[]=$(profile.account.id)";
+			var builder = new Json.Builder ();
+			builder.begin_object ();
+			builder.set_member_name ("account_ids");
+			builder.begin_array ();
+			builder.add_string_value (profile.account.id);
+			builder.end_array ();
+			builder.end_object ();
+
+			var endpoint = @"/api/v1/lists/$(list.id)/accounts";
 			var req = button.remove ? new Request.DELETE (endpoint) : new Request.POST (endpoint);
 			req
 				.with_account (accounts.active)
 				.with_ctx (this)
+				.body_json (builder)
 				.on_error (on_error)
 				.then (() => {
 					var toast_msg = "";

@@ -40,6 +40,16 @@ public class Tuba.API.Instance : Entity {
 		}
 	}
 
+	public bool supports_bubble {
+		get {
+			if (pleroma != null && pleroma.metadata != null && pleroma.metadata.features != null) {
+				return "bubble_timeline" in pleroma.metadata.features;
+			}
+
+			return false;
+		}
+	}
+
 	public string[]? compat_supported_mime_types {
 		get {
 			if (pleroma != null && pleroma.metadata != null) {

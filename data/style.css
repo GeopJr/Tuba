@@ -20,6 +20,11 @@ calendar>header>button, calendar>grid>label {
 	color: @text_view_bg;
 }
 
+.no-min-size {
+	min-width: 0;
+	min-height: 0;
+}
+
 .notification-badge.no-attention {
 	background: alpha(var(--sidebar-fg-color), .4);
 }
@@ -45,6 +50,11 @@ headerbar.flat.no-title .title {
 .cover-badge.only-icon {
 	padding: 6px;
 }
+
+/* .cover-badge.button > button {
+	padding-top: 0px;
+	padding-bottom: 0px;
+} */
 
 .ttl-flat-button {
 	padding: 0px;
@@ -94,7 +104,7 @@ headerbar.flat.no-title .title {
 	border-radius: 0;
 }
 
-.ttl-profile-cover avatar, .profile-editor avatar {
+.ttl-profile-cover .main-avi avatar, .profile-editor avatar {
 	border: 6px solid var(--dialog-bg-color);
 	background: var(--dialog-bg-color);
 }
@@ -286,6 +296,21 @@ headerbar.flat.no-title .title {
 	padding: 0 5px;
 	margin-left: -5px;
 	margin-right: -5px;
+}
+
+.ttl-mutuals {
+	font-size: small;
+	padding: 0 5px;
+	margin-left: -5px;
+	margin-right: -5px;
+}
+
+.ttl-mutuals label {
+	font-weight: normal;
+}
+
+.ttl-mutuals .mutual-avi:not(.first-avi) {
+	margin-left: -6px;
 }
 
 .ttl-status-avatar-actor {
@@ -534,15 +559,11 @@ video > overlay > revealer > controls, .audio-controls {
 	background: none;
 }
 
-/* .ttl-view:not(.no-transition) .large.content,
-.ttl-view:not(.no-transition) .small.content { */
-.ttl-view:not(.no-transition) .large.fake-content,
-.ttl-view:not(.no-transition) .small.fake-content {
+/* .ttl-view .large.content,
+.ttl-view .small.content { */
+.ttl-view .large.fake-content,
+.ttl-view .small.fake-content {
 	transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.no-transition {
-	transition: none;
 }
 
 .ttl-view .large {
@@ -850,4 +871,27 @@ list.uniform-border-color row {
 	color: var(--accent-yellow);
 	background-color: color-mix(in srgb, currentColor 15%, var(--window-bg-color));
 	animation: annual-tuba-bg 5s linear infinite;
+}
+
+.annual-screenshot-box {
+	padding: 12px;
+	border-radius: 16px;
+}
+
+.annual-screenshot-box.style-window {
+	background-color: var(--window-bg-color);
+}
+
+.annual-screenshot-box.style-accent {
+	background-color: var(--accent-bg-color);
+}
+
+.annual-screenshot-box.style-pride {
+	background-image: linear-gradient(135deg, rgba(228,3,3,0.3) 0%, rgba(255,140,0,0.3) 20%, rgba(255,237,0,0.3) 40%, rgba(0,128,38,0.3) 60%, rgba(0,77,255,0.3) 80%, rgba(117,7,135,0.3) 100%);
+	background-color: var(--window-bg-color);
+}
+
+.annual-screenshot-box.style-trans {
+	background-image: linear-gradient(135deg, rgba(92,206,250,0.5) 0%, rgba(246,168,183,0.5) 25%, rgba(255,255,255,0.5) 50%, rgba(246,168,183,0.5) 75%, rgba(92,206,250,0.5) 100%);
+	background-color: var(--window-bg-color);
 }

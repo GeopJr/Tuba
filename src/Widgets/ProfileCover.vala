@@ -8,6 +8,92 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		typeof (Widgets.MarkupView).ensure ();
 	}
 
+	public class MutualsButtonContent : Gtk.Box {
+		Gtk.Box avi_box;
+		Widgets.EmojiLabel emoji_label;
+		construct {
+			this.orientation = Gtk.Orientation.HORIZONTAL;
+			this.spacing = 6;
+
+			avi_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+			emoji_label = new Widgets.EmojiLabel () {
+				use_markup = false,
+				ellipsize = true,
+				valign = Gtk.Align.CENTER
+			};
+			emoji_label.add_css_class ("dim-label");
+
+			this.append (avi_box);
+			this.append (emoji_label);
+		}
+
+		public MutualsButtonContent (Gee.ArrayList<API.Account> mutual_accounts) {
+			Gee.HashMap<string, string> total_custom_emojis = new Gee.HashMap<string, string> ();
+			string[] display_named = {};
+
+			int max_accs = 3;
+			if (mutual_accounts.size == max_accs + 1) max_accs = max_accs + 1;
+
+			for (int i = 0; i < int.min (max_accs, mutual_accounts.size); i++) {
+				var acc = mutual_accounts.get (i);
+				string display_name = acc.display_name;
+
+				if (display_name.index_of_char (':') >= 0) {
+					acc.emojis_map.foreach (e => {
+						string new_moji_name = @"$(e.key)_$i";
+						display_name = display_name.replace (@":$(e.key):", @":$new_moji_name:");
+						total_custom_emojis.set (new_moji_name, e.value);
+
+						return true;
+					});
+				}
+
+				var avi = new Widgets.Avatar () {
+					account = acc,
+					size = 6
+				};
+				if (i == 0) avi.add_css_class ("first-avi");
+				avi.add_css_class ("no-min-size");
+				avi.add_css_class ("mutual-avi");
+				avi_box.append (avi);
+
+				display_named += display_name;
+			}
+
+			emoji_label.instance_emojis = total_custom_emojis;
+
+			int others_count = mutual_accounts.size - max_accs;
+			if (others_count > 0) {
+				this.tooltip_text = emoji_label.content = GLib.ngettext (
+					// translators: button on profiles that when clicked shows a list of familiar followers.
+					//				The first variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
+					//				If your language requires pronouns you may add a : after 'by' so it's clear it's a
+					//				list of names. The second variable is the amount of other familiar followers, not
+					//				displayed in the list. The singular version will not be used.
+					"Followed by %s & %s Other", "Followed by %s & %s Others",
+					(ulong) others_count
+				).printf (string.joinv (", ", display_named), Units.shorten (others_count));
+			} else {
+				string display_name_list;
+				switch (display_named.length) {
+					case 1:
+						display_name_list = display_named[0];
+						break;
+					default:
+						int last_index = display_named.length - 1;
+						display_name_list = @"$(string.joinv(", ", display_named[0:last_index])) & $(display_named[last_index])";
+						break;
+				}
+
+				// translators: button on profiles that when clicked shows a list of familiar followers.
+				//				The variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
+				//				If your language requires pronouns you may add a : after 'by' so it's clear it's a
+				//				list of names. This is the version of the string that has 0 'others'.
+				this.tooltip_text = emoji_label.content = _("Followed by %s").printf (display_name_list);
+			}
+		}
+	}
+
 	[GtkChild] unowned Gtk.FlowBox roles;
 	[GtkChild] unowned Widgets.Background background;
 	[GtkChild] unowned Gtk.Label cover_badge;
@@ -20,6 +106,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	[GtkChild] unowned Gtk.Button moved_btn;
 	[GtkChild] public unowned Widgets.MarkupView note;
 	[GtkChild] public unowned Widgets.RelationshipButton rsbtn;
+	[GtkChild] unowned Gtk.MenuButton mutuals_button;
 
 	[GtkChild] unowned Adw.EntryRow note_entry_row;
 	[GtkChild] unowned Gtk.ListBoxRow note_row;
@@ -177,16 +264,22 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	Gtk.ListBoxRow fields_box_row;
 	int total_fields = 0;
 	string stats_string = "";
+	string profile_id;
 	public Cover (Views.Profile.ProfileAccount profile, bool mini = false) {
+		profile_id = profile.account.id;
 		if (settings.scale_emoji_hover)
 			this.add_css_class ("lww-scale-emoji-hover");
 		settings.notify["scale-emoji-hover"].connect (toggle_scale_emoji_hover);
+		bool is_self = profile.account.id == accounts.active.id;
 
 		_mini = mini;
 		if (mini) {
 			note_row.sensitive = false;
-		} else {
+		} else if (!is_self) {
 			moved_btn.clicked.connect (on_moved_btn_clicked);
+			if (accounts.active.instance_info != null && accounts.active.instance_info.tuba_mastodon_version > 0) {
+				GLib.Idle.add (populate_mutuals);
+			}
 		}
 
 		if (GLib.str_hash (profile.account.full_handle.down ()).to_string () in settings.contributors) {
@@ -194,7 +287,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			this.add_css_class ("thanks");
 		}
 
-		if (profile.account.id != accounts.active.id) {
+		if (!is_self) {
 			note_entry_row.notify["text"].connect (on_note_changed);
 			profile.rs.invalidated.connect (on_rs_invalidation);
 			rsbtn.handle = profile.account.handle;
@@ -275,6 +368,66 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			background.clicked.connect (open_header_in_media_viewer);
 
 		app.notify["is-mobile"].connect (update_fields_max_columns);
+	}
+
+	Gee.ArrayList<API.Account>? mutual_accounts = null;
+	Gtk.ListBox? mutuals_listbox = null;
+	private bool populate_mutuals () {
+		mutuals_button.visible = false;
+
+		new Request.GET ("/api/v1/accounts/familiar_followers")
+			.with_account (accounts.active)
+			.with_param ("id", profile_id)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				if (node == null) return;
+
+				Value res_accounts;
+				Entity.des_list (out res_accounts, node, typeof (API.FamiliarFollowers));
+				var res_mutual_accounts = (Gee.ArrayList<API.FamiliarFollowers>) res_accounts;
+				if (res_mutual_accounts.size == 0) return;
+
+				mutual_accounts = res_mutual_accounts.get (0).accounts;
+				if (mutual_accounts.size > 0) {
+					mutuals_button.visible = true;
+
+					mutuals_button.child = new MutualsButtonContent (mutual_accounts);
+					mutuals_listbox = new Gtk.ListBox () {
+						selection_mode = Gtk.SelectionMode.NONE,
+						css_classes = {"boxed-list"}
+					};
+
+					mutuals_button.popover = new Gtk.Popover () {
+						child = new Gtk.ScrolledWindow () {
+							child = mutuals_listbox,
+							hexpand = true,
+							vexpand = true,
+							hscrollbar_policy = Gtk.PolicyType.NEVER,
+							max_content_height = 500,
+							width_request = 360,
+							propagate_natural_height = true
+						}
+					};
+
+					mutuals_button.notify["active"].connect (on_mutuals_popover);
+				}
+			})
+			.exec ();
+
+		return GLib.Source.REMOVE;
+	}
+
+	private void on_mutuals_popover () {
+		if (mutual_accounts == null || mutuals_listbox == null) return;
+
+		foreach (var acc in mutual_accounts) {
+			mutuals_listbox.append (new Widgets.EmojiReactionAccounts.AccountRow (acc));
+		}
+
+		mutual_accounts = null;
+		mutuals_listbox = null;
+		mutuals_button.notify["active"].disconnect (on_mutuals_popover);
 	}
 
 	public void update_cover_from_profile (API.Account profile) {

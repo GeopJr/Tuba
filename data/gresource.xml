@@ -76,6 +76,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-police-badge2-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-clock-alt-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-quotation-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-fish-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/help-overlay.ui</file>
@@ -108,6 +109,7 @@
         <file>ui/dialogs/advanced_search.ui</file>
         <file>ui/dialogs/new_account.ui</file>
         <file>ui/dialogs/compose.ui</file>
+        <file>ui/dialogs/notification_settings.ui</file>
         <file>ui/dialogs/main.ui</file>
         <file>ui/dialogs/preferences.ui</file>
         <file>ui/dialogs/profile_edit.ui</file>

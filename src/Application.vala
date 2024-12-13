@@ -91,7 +91,8 @@ namespace Tuba {
 			{ "open-mutes-blocks", open_mutes_blocks },
 			{ "open-scheduled-posts", open_scheduled_posts },
 			{ "open-draft-posts", open_draft_posts },
-			{ "open-admin-dashboard", open_admin_dashboard }
+			{ "open-admin-dashboard", open_admin_dashboard },
+			{ "open-last-fediwrapped", open_last_fediwrapped }
 		};
 
 		#if DEV_MODE
@@ -546,6 +547,10 @@ namespace Tuba {
 			new Dialogs.Admin.Window ().present ();
 		}
 
+		public void open_last_fediwrapped () {
+			accounts.active.open_latest_wrapped ();
+		}
+
 		private void close_sidebar () {
 			var split_view = app.main_window.split_view;
 			if (split_view.collapsed)
@@ -598,7 +603,8 @@ namespace Tuba {
 			};
 
 			const string[] DESIGNERS = {
-				"Tobias Bernard"
+				"Tobias Bernard",
+				"Brage Fuglseth"
 			};
 
 			const string[] DEVELOPERS = {

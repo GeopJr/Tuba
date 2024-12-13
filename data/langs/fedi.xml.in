@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme id="Fedi-@COLOR@@DARK_SUFFIX@" _name="Fedi-@COLOR@@DARK_SUFFIX@" version="1.0" parent-scheme="Adwaita@DARK_SUFFIX@">
+  <author>GeopJr</author>
+  <_description>Syntax highlighting for Tuba</_description>
+
+  <metadata>
+    <property name="variant">@SYNTAX_VARIANT@</property>
+    <property name="@OP_SYNTAX_VARIANT@-variant">Fedi-@COLOR@@OP_DARK_SUFFIX@</property>
+  </metadata>
+
+  <color name="slate_2" value="#bbd1e5"/>
+  <color name="slate_3" value="#6f8396"/>
+
+  <color name="pink_2" value="#ffa0d8"/>
+  <color name="pink_3" value="#d56199"/>
+
+  <color name="yellow_2" value="#ffc057"/>
+  <color name="yellow_3" value="#c88800"/>
+
+  <color name="teal_2" value="#7bdff4"/>
+  <color name="teal_3" value="#2190a4"/>
+
+  <color name="green_3" value="#3a944a"/>
+  <color name="red_2" value="#ff888c"/>
+
+  <!-- "style '<name>' not defined" so just override unused ones -->
+  <style name="rust:attribute"         foreground="@COLOR@_@VARIANT@" bold="true"/>
+  <style name="rust:lifetime"          foreground="@COLOR@_@VARIANT@" bold="true"/>
+  <style name="rust:macro"             foreground="@COLOR@_@VARIANT@" bold="true"/>
+</style-scheme>

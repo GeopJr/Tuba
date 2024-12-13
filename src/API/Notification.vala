@@ -10,41 +10,23 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			switch (kind) {
 				case "user_domain_block":
 					return GLib.ngettext (
-						// translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
-						//				this is the singular version, '1 account you follow'
-						_("You have blocked %s, removing %s of your followers and %s account you follow.").printf (
-							"<b>%s</b>".printf (target_name),
-							"<b>%lld</b>".printf (followers_count),
-							"<b>1</b>"
-						),
-
-						// translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
-						//				this is the plural version, '4 accounts you follow'
-						_("You have blocked %s, removing %s of your followers and %s accounts you follow.").printf (
-							"<b>%s</b>".printf (target_name),
-							"<b>%lld</b>".printf (followers_count),
-							"<b>%lld</b>".printf (following_count)
-						),
+						// translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
+						"You have blocked %s, removing %s of your followers and %s account you follow.", "You have blocked %s, removing %s of your followers and %s accounts you follow.",
 						(ulong) following_count
+					).printf (
+						"<b>%s</b>".printf (target_name),
+						"<b>%lld</b>".printf (followers_count),
+						"<b>%lld</b>".printf (following_count)
 					);
 				case "domain_block":
 					return GLib.ngettext (
-						// translators: the first variable is an instance (e.g. mastodon.social), the others are numbers,
-						//				this is the singular version, '1 account you follow'
-						_("An admin has blocked %s, including %s of your followers and %s account you follow.").printf (
-							"<b>%s</b>".printf (target_name),
-							"<b>%lld</b>".printf (followers_count),
-							"<b>1</b>"
-						),
-
-						// translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers,
-						//				this is the plural version, '4 accounts you follow'
-						_("An admin has blocked %s, including %s of your followers and %s accounts you follow.").printf (
-							"<b>%s</b>".printf (target_name),
-							"<b>%lld</b>".printf (followers_count),
-							"<b>%lld</b>".printf (following_count)
-						),
+						// translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
+						"An admin has blocked %s, including %s of your followers and %s account you follow.", "An admin has blocked %s, including %s of your followers and %s accounts you follow.",
 						(ulong) following_count
+					).printf (
+						"<b>%s</b>".printf (target_name),
+						"<b>%lld</b>".printf (followers_count),
+						"<b>%lld</b>".printf (following_count)
 					);
 				case "account_suspension":
 					// translators: the first variable is a user handle so 'them' refers to that user
@@ -107,7 +89,6 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 
 				new Request.GET (@"/api/v1/annual_reports/$year")
 					.with_account (accounts.active)
-					.with_param ("id", id)
 					.then ((in_stream) => {
 						var parser = Network.get_parser_from_inputstream (in_stream);
 						var node = network.parse_node (parser);
@@ -151,14 +132,8 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				return create_basic_card (
 					"tuba-birthday-symbolic",
 					"<b>%s</b> %s".printf (
-						// translators: this is used for notifications,
-						//				when an annual report is available.
-						//				it's similar to spotify wrapped, it
-						//				shows profile stats / it's a recap
-						//				of the year. The variable is the
-						//				current year e.g. 2024. Please don't
-						//				translate the hashtag.
-						_("Your %d #FediWrapped is ready!").printf (year),
+						_("Your %s #FediWrapped is ready!").printf (year.to_string ()),
+						// translators: used in the #FediWrapped notifications, refer to the other #FediWrapped strings for more info
 						_("Review your year's highlights and memorable moments on the Fediverse!")
 					)
 				);
@@ -205,7 +180,13 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 			kind_actor_name = _("%s (& %d others)").printf (account.display_name, others);
 		}
 
-		issuer.describe_kind (kind, out res_kind, kind_actor_name, null, emoji);
+		string? other_data = emoji;
+		if (kind == InstanceAccount.KIND_ANNUAL_REPORT) {
+			int year = this.created_at == null ? new GLib.DateTime.now_local ().get_year () : new GLib.DateTime.from_iso8601 (this.created_at, null).get_year ();
+			other_data = year.to_string ();
+		}
+
+		issuer.describe_kind (kind, out res_kind, kind_actor_name, null, other_data);
 		var toast = new GLib.Notification (res_kind.description);
 		if (status != null) {
 			var body = "";

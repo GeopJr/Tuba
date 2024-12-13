@@ -317,8 +317,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				if (accepts == typeof (API.Status)) {
 					string e_id = ((API.Status) entity).id;
 					for (uint i = 0; i < uint.min (model.n_items, settings.timeline_page_size); i++) {
-						var status_obj = (API.Status)model.get_item (i);
-						if (status_obj.id == e_id) {
+						var status_obj = model.get_item (i) as API.Status;
+						if (status_obj != null && status_obj.id == e_id) {
 							model.remove (i);
 						}
 					}
@@ -347,8 +347,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			var entity = Entity.from_json (accepts, ev.get_node ());
 			var entity_id = ((API.Status)entity).id;
 			for (uint i = 0; i < model.get_n_items (); i++) {
-				var status_obj = (API.Status)model.get_item (i);
-				if (status_obj.id == entity_id) {
+				var status_obj = model.get_item (i) as API.Status;
+				if (status_obj != null && status_obj.id == entity_id) {
 					model.remove (i);
 					model.insert (i, entity);
 					break;
@@ -364,10 +364,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			var status_id = ev.get_string ();
 
 			for (uint i = 0; i < model.get_n_items (); i++) {
-				var status_obj = (API.Status)model.get_item (i);
+				var status_obj = model.get_item (i) as API.Status;
 				// Not sure if there can be both the original
 				// and a boost of it at the same time.
-				if (status_obj.id == status_id || status_obj.formal.id == status_id) {
+				if (status_obj != null && status_obj.id == status_id || status_obj.formal.id == status_id) {
 					model.remove (i);
 					// If there can be both the original
 					// and boosts at the same time, then
@@ -384,8 +384,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		if (accepts != typeof (API.Status)) return;
 
 		for (uint i = 0; i < model.get_n_items (); i++) {
-			var status_obj = (API.Status) model.get_item (i);
-			if (status_obj.formal.account.id == user_id || status_obj.account.id == user_id) {
+			var status_obj = model.get_item (i) as API.Status;
+			if (status_obj != null && ((status_obj.formal.account != null && status_obj.formal.account.id == user_id) || (status_obj.account != null && status_obj.account.id == user_id))) {
 				model.remove (i);
 			}
 		}

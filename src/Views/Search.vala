@@ -85,6 +85,8 @@ public class Tuba.Views.Search : Views.TabbedBase {
 	Views.ContentBase hashtags_tab;
 
 	construct {
+		this.uid = 1;
+
 		label = _("Search");
 		this.empty_timeline_icon = "system-search";
 		this.empty_state_title = _("Search");
@@ -401,7 +403,9 @@ public class Tuba.Views.Search : Views.TabbedBase {
 				})
 				.on_error ((code, message) => {
 					auto_fill_users_button.sensitive = true;
-					// translators: warning toast in advanced search dialog when auto-filling a user fails
+					// translators: warning toast in advanced search dialog when auto-filling a user fails.
+					// 				Auto-fill refers to automatically filling the entry with the first
+					//				found user based on the query.
 					toast_overlay.add_toast (new Adw.Toast (_("Couldn't auto-fill user: %s").printf (message)) {
 						timeout = 5
 					});

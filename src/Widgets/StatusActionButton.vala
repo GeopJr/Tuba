@@ -1,4 +1,4 @@
-public class Tuba.StatusActionButton : Gtk.Button {
+public class Tuba.Widgets.StatusActionButton : Gtk.Button {
 	public Adw.ButtonContent content { get; set; }
 
 	private string _default_icon_name = "";

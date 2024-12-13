@@ -9,7 +9,8 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		set {
 			_draft = value;
 			reschedule_button.visible = !value;
-			schedule_label.label = "<b>%s</b>".printf (_("Draft"));
+			// translators: not a verb, as in a post that is saved but not posted yet
+			schedule_label.label = _("Draft");
 			this.activatable = value;
 		}
 	}
@@ -31,7 +32,6 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		schedule_label = new Gtk.Label ("") {
 			wrap = true,
 			wrap_mode = Pango.WrapMode.WORD_CHAR,
-			use_markup = true,
 			xalign = 0.0f,
 			hexpand = true,
 			margin_start = 6
@@ -64,6 +64,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		action_box.append (actions_box);
 
 		content_box.append (action_box);
+		content_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 		this.child = content_box;
 
 		open.connect (on_activated);
@@ -134,9 +135,8 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 
 		date_parsed = date_parsed.to_timezone (new TimeZone.local ());
 		var date_local = _("%B %e, %Y");
-		// translators: Scheduled Post title, 'scheduled for: <date>'
-		schedule_label.label = "<b>%s</b> %s".printf (
-			_("Scheduled For:"),
+		// translators: Scheduled Post title, 'scheduled for <date>'
+		schedule_label.label = _("Scheduled for %s").printf (
 			date_parsed.format (@"$date_local · %H:%M").replace (" ", "") // %e prefixes with whitespace on single digits
 		);
 
@@ -171,9 +171,10 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 
 	private void on_delete () {
 		string title = !_draft
+			// translators: as in a post set to be posted sometime in the future
 			? _("Delete Scheduled Post?")
 			// translators: 'Draft' is not a verb here.
-			//				It's equal to 'Unsaved'
+			//				It's equal to 'saved but not posted'
 			: _("Delete Draft Post?");
 
 		app.question.begin (

@@ -28,25 +28,30 @@ install_data(
     ),
 )
 
-install_data(
-    join_paths('langs', 'fedi.xml'),
-    install_dir: join_paths(
-        get_option('prefix'),
-        get_option('datadir'),
-        'gtksourceview-5',
-        'styles',
-    ),
-)
+syntax_colors = ['blue', 'teal', 'green', 'yellow', 'orange', 'red', 'pink', 'purple', 'slate']
+foreach color : syntax_colors
+  light = configure_file(
+      input : join_paths('langs', 'fedi.xml.in'),
+      output : 'fedi-' + color + '.xml',
+      configuration : {'COLOR': color, 'VARIANT': '3', 'SYNTAX_VARIANT': 'light', 'OP_SYNTAX_VARIANT': 'dark', 'DARK_SUFFIX': '', 'OP_DARK_SUFFIX': '-dark'}
+  )
 
-install_data(
-    join_paths('langs', 'fedi-dark.xml'),
+  dark = configure_file(
+      input : join_paths('langs', 'fedi.xml.in'),
+      output : 'fedi-' + color + '-dark.xml',
+      configuration : {'COLOR': color, 'VARIANT': '2', 'SYNTAX_VARIANT': 'dark', 'OP_SYNTAX_VARIANT': 'light', 'DARK_SUFFIX': '-dark', 'OP_DARK_SUFFIX': ''}
+  )
+
+  install_data(
+    light, dark,
     install_dir: join_paths(
         get_option('prefix'),
         get_option('datadir'),
         'gtksourceview-5',
         'styles',
     ),
-)
+  )
+endforeach
 
 install_data(
     join_paths('langs', 'fedi-basic.lang'),
@@ -100,7 +105,7 @@ if host_machine.system() != 'windows' and host_machine.system() != 'darwin'
         install: true,
         install_dir: join_paths(get_option('datadir'), 'metainfo'),
     )
-    
+
     appstream_util = find_program('appstream-util', required: false)
     if appstream_util.found()
         test(

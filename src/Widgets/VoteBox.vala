@@ -91,9 +91,11 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 
 		if (this.show_results) {
 			button_results.icon_name = "tuba-eye-not-looking-symbolic";
+			// translators: tooltip of poll button that hides the current vote results
 			button_results.tooltip_text = _("Hide Results");
 		} else {
 			button_results.icon_name = "tuba-eye-open-negative-filled-symbolic";
+			// translators: tooltip of poll button that shows the current vote results
 			button_results.tooltip_text = _("Show Results");
 		}
 
@@ -184,16 +186,20 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 		}
 
 		string voted_string = Tuba.Units.shorten (poll.votes_count);
+		string voted_numerical_string = GLib.ngettext (
+			// translators: the variable is the amount of people that voted
+			"%s voted", "%s voted",
+			(ulong) poll.votes_count
+		).printf (voted_string);
 		if (poll.expires_at != null) {
 			info_label.label = "%s · %s".printf (
-				// translators: the variable is the amount of people that voted
-				_("%s voted").printf (voted_string),
+				voted_numerical_string,
 				poll.expired
 					? DateTime.humanize_ago (poll.expires_at)
 					: DateTime.humanize_left (poll.expires_at)
 			);
 		} else {
-			info_label.label = _("%s voted").printf (voted_string);
+			info_label.label = voted_numerical_string;
 		}
 
 		update_aria ();

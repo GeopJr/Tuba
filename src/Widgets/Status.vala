@@ -369,8 +369,43 @@
 	}
 
 	private void copy_url () {
-		Host.copy (status.formal.url ?? status.formal.account.url);
-		app.toast (_("Copied post url to clipboard"));
+		if (status.formal.url != null && settings.copy_private_link_reminder && (status.formal.visibility == "direct" || status.formal.visibility == "private")) {
+			string body;
+			if (status.formal.visibility == "direct") {
+				// translators: dialog subtitle visibility warning when copying a link to a
+				//				post that is private or mentioned-only
+				body = _("Only mentioned people will be able to view it.");
+			} else if (status.formal.account.is_self ()) {
+				// translators: dialog subtitle visibility warning when copying a link to a
+				//				post that is private or mentioned-only
+				body = _("Only mentioned people and your followers will be able to view it.");
+			} else {
+				// translators: dialog subtitle visibility warning when copying a link to a post
+				//				that is private or mentioned-only, the variable is a handle
+				body = _("Only mentioned people and people that follow %s will be able to view it.").printf (status.formal.account.full_handle);
+			}
+
+			app.question.begin (
+				// translators: the variable is the post visibility e.g. Public, Unlisted...
+				{_("Copy %s Post Link?").printf (accounts.active.visibility[status.formal.visibility].name), false},
+				{ body, false },
+				app.main_window,
+				{ { _("Copy"), Adw.ResponseAppearance.SUGGESTED }, { _("Don't remind me again"), Adw.ResponseAppearance.DEFAULT } },
+				null,
+				false,
+				(obj, res) => {
+					if (app.question.end (res) == Tuba.Application.QuestionAnswer.NO) {
+						settings.copy_private_link_reminder = false;
+					}
+
+					Host.copy (status.formal.url);
+					app.toast (_("Copied post url to clipboard"));
+				}
+			);
+		} else {
+			Host.copy (status.formal.url ?? status.formal.account.url);
+			app.toast (_("Copied post url to clipboard"));
+		}
 	}
 
 	private void open_in_browser () {
@@ -687,8 +722,11 @@
 	}
 
 	private void on_header_button_clicked () {
-		if (header_kind_url != null)
+		if (header_kind_url == this.kind_instigator.url) {
+			open_kind_instigator_account ();
+		} else if (header_kind_url != null) {
 			header_label.on_activate_link (header_kind_url);
+		}
 	}
 
 	private void open_kind_instigator_account () {
