@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-12 15:05+0200\n"
+"POT-Creation-Date: 2024-12-14 19:52+0200\n"
 "PO-Revision-Date: 2024-11-02 10:00+0000\n"
 "Last-Translator: Ahmed Mohammed <ira.traq@outlook.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
@@ -180,7 +180,7 @@ msgstr "البحث المتقدم"
 #: data/ui/dialogs/filter_edit.ui:16 data/ui/dialogs/new_account.ui:26
 #: data/ui/dialogs/profile_edit.ui:21 data/ui/dialogs/schedule.ui:40
 #: src/API/Relationship.vala:139 src/API/Relationship.vala:184
-#: src/Application.vala:710 src/Dialogs/Admin/AddFederationBlock.vala:37
+#: src/Application.vala:711 src/Dialogs/Admin/AddFederationBlock.vala:37
 #: src/Dialogs/Admin/AddIPBlock.vala:76 src/Dialogs/Admin/Report.vala:22
 #: src/Dialogs/Admin/TakeAction.vala:22 src/Dialogs/Admin/TakeAction.vala:147
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:54
@@ -246,7 +246,7 @@ msgstr "يتضمن"
 
 #: data/ui/dialogs/advanced_search.ui:121
 #: src/Dialogs/Composer/AttachmentsPage.vala:62
-#: src/Widgets/ProfileFilterGroup.vala:61
+#: src/Widgets/ProfileFilterGroup.vala:66
 msgid "Media"
 msgstr "وسائط"
 
@@ -1482,28 +1482,28 @@ msgid "%s does not accept '%s://'"
 msgstr "لا يقبل %s '%s://'"
 
 #. translators: Name <email@domain.com> or Name https://website.example
-#: src/Application.vala:630
+#: src/Application.vala:631
 msgid "translator-credits"
 msgstr "أحمد محمد <iramosu@protonmail.com>"
 
 #. translators: Wiki pages / Guides
-#: src/Application.vala:634
+#: src/Application.vala:635
 msgid "Wiki"
 msgstr "الويكي"
 
-#: src/Application.vala:636 src/Widgets/Status.vala:352
+#: src/Application.vala:637 src/Widgets/Status.vala:352
 msgid "Translate"
 msgstr "ترجم"
 
-#: src/Application.vala:637
+#: src/Application.vala:638
 msgid "Donate"
 msgstr "تبرع"
 
-#: src/Application.vala:659
+#: src/Application.vala:660
 msgid "OK"
 msgstr "حسنًا"
 
-#: src/Application.vala:709
+#: src/Application.vala:710
 msgid "Yes"
 msgstr "نعم"
 
@@ -2676,17 +2676,17 @@ msgid "%s Account"
 msgstr "حساب %s"
 
 #. translators: Follow System's dark mode preference
-#: src/Services/Settings.vala:262
+#: src/Services/Settings.vala:264
 msgid "Follow System"
 msgstr "اتبع النظام"
 
 #. translators: Light mode theme
-#: src/Services/Settings.vala:265
+#: src/Services/Settings.vala:267
 msgid "Light"
 msgstr "فاتح"
 
 #. translators: Dark mode theme
-#: src/Services/Settings.vala:268
+#: src/Services/Settings.vala:270
 msgid "Dark"
 msgstr "داكن"
 
@@ -3208,7 +3208,7 @@ msgid "No Edit History"
 msgstr "لا سِجِلّ تعديلات"
 
 #: src/Views/Explore.vala:6 src/Views/Search.vala:114
-#: src/Widgets/ProfileFilterGroup.vala:35
+#: src/Widgets/ProfileFilterGroup.vala:40
 msgid "Posts"
 msgstr "المنشورات"
 
@@ -3588,8 +3588,7 @@ msgstr "خطأ في الشبكة"
 
 #. translators: Tooltip text for avatars in posts.
 #. The variable is a string user handle.
-#: src/Widgets/AccountSuggestions.vala:15 src/Widgets/Status.vala:702
-#: src/Widgets/Status.vala:1036
+#: src/Widgets/AccountSuggestions.vala:15 src/Widgets/Status.vala:1041
 #, c-format
 msgid "Open %s's Profile"
 msgstr "افتح ملف %s الشخصي"
@@ -3706,7 +3705,7 @@ msgstr "إعلان بواسطة %s (%s)."
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #. The variable is a string date.
-#: src/Widgets/Announcement.vala:31 src/Widgets/Status.vala:793
+#: src/Widgets/Announcement.vala:31 src/Widgets/Status.vala:795
 #, c-format
 msgid "Edited: %s."
 msgstr "عٌدّل في: %s."
@@ -3715,7 +3714,7 @@ msgstr "عٌدّل في: %s."
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #. The variable is a string date.
-#: src/Widgets/Announcement.vala:36 src/Widgets/Status.vala:798
+#: src/Widgets/Announcement.vala:36 src/Widgets/Status.vala:800
 #, c-format
 msgid "Published: %s."
 msgstr "نٌشِر في: %s."
@@ -3725,7 +3724,7 @@ msgstr "نٌشِر في: %s."
 #. please be mindful.
 #. The variable is the amount of reactions the post
 #. has.
-#: src/Widgets/Announcement.vala:46 src/Widgets/Status.vala:875
+#: src/Widgets/Announcement.vala:46 src/Widgets/Status.vala:877
 #, c-format
 msgid "Contains %d reaction."
 msgid_plural "Contains %d reactions."
@@ -3925,14 +3924,14 @@ msgstr ""
 msgid "Error: Note is over 2000 characters long"
 msgstr "خطأ: طول الملاحظة يفوق 2000 حرف"
 
-#: src/Widgets/ProfileFilterGroup.vala:49
+#: src/Widgets/ProfileFilterGroup.vala:54
 msgid "Replies"
 msgstr ""
 
 #. translators: the variable is the emoji or its name if it's custom.
 #. A reaction is not the same as a favorite or a boost,
 #. see https://github.com/glitch-soc/mastodon/pull/2462
-#: src/Widgets/ReactButton.vala:35
+#: src/Widgets/ReactButton.vala:37
 #, c-format
 msgid "React with %s"
 msgstr "تفاعَل بـ %s"
@@ -4086,6 +4085,13 @@ msgstr ""
 msgid "Couldn't translate: %s"
 msgstr "تعذّر ترجمة: %s"
 
+#. translators: Tooltip text for avatars in posts.
+#. The variable is a string user handle.
+#: src/Widgets/Status.vala:702
+#, c-format
+msgid "Open %s's Mini Profile"
+msgstr ""
+
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:754
 msgid "Unpin"
@@ -4094,7 +4100,7 @@ msgstr "ألغِ التَثبيت"
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
-#: src/Widgets/Status.vala:765
+#: src/Widgets/Status.vala:767
 msgid "Filtered post"
 msgstr "منشور مرشخ"
 
@@ -4104,7 +4110,7 @@ msgstr "منشور مرشخ"
 #. The first variable is the post's visibility (e.g. public).
 #. The second one is the author's name and the third
 #. one is the author's handle.
-#: src/Widgets/Status.vala:781
+#: src/Widgets/Status.vala:783
 #, c-format
 msgid "%s post by %s (%s)."
 msgstr "%s منشور بواسطة %s (%s)."
@@ -4112,14 +4118,14 @@ msgstr "%s منشور بواسطة %s (%s)."
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
-#: src/Widgets/Status.vala:805
+#: src/Widgets/Status.vala:807
 msgid "The post is pinned."
 msgstr "هذا المنشور مُثَبَّت."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
-#: src/Widgets/Status.vala:813
+#: src/Widgets/Status.vala:815
 msgid "Contains a quoted post."
 msgstr "يتضمن منشورًا مقتبسًا."
 
@@ -4127,7 +4133,7 @@ msgstr "يتضمن منشورًا مقتبسًا."
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #. The variable is the number of attachments the post has.
-#: src/Widgets/Status.vala:823
+#: src/Widgets/Status.vala:825
 #, c-format
 msgid "Contains %d attachment."
 msgid_plural "Contains %d attachments."
@@ -4141,21 +4147,21 @@ msgstr[5] "يتضمن %d مُرفَق."
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
-#: src/Widgets/Status.vala:834
+#: src/Widgets/Status.vala:836
 msgid "Contains an expired poll."
 msgstr "يتضمن استطلاعًا منتهي الصلاحية."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
-#: src/Widgets/Status.vala:838
+#: src/Widgets/Status.vala:840
 msgid "Contains a poll."
 msgstr "يتضمن استطلاعًا."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
-#: src/Widgets/Status.vala:847
+#: src/Widgets/Status.vala:849
 msgid "The post has a spoiler."
 msgstr "يتضمن هذا المنشور نصًا خفيًا."
 
@@ -4163,7 +4169,7 @@ msgstr "يتضمن هذا المنشور نصًا خفيًا."
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #. The variable is the spoiler title.
-#: src/Widgets/Status.vala:853
+#: src/Widgets/Status.vala:855
 #, c-format
 msgid "The post has the following spoiler: %s."
 msgstr "يتضمن هذا المنشور النصوص الخفية التالية: %s."
@@ -4173,12 +4179,12 @@ msgstr "يتضمن هذا المنشور النصوص الخفية التالي�
 #. please be mindful.
 #. The variable is the name of the app the post was
 #. made with (e.g. Tuba).
-#: src/Widgets/Status.vala:864
+#: src/Widgets/Status.vala:866
 #, c-format
 msgid "Posted using %s."
 msgstr "نُشّر باستعمال %s."
 
-#: src/Widgets/Status.vala:887
+#: src/Widgets/Status.vala:891
 #, c-format
 msgid "%s reply"
 msgid_plural "%s replies"
@@ -4189,7 +4195,7 @@ msgstr[3] "%s رُدود"
 msgstr[4] "%s ردًا"
 msgstr[5] "%s رَد"
 
-#: src/Widgets/Status.vala:892
+#: src/Widgets/Status.vala:896
 #, c-format
 msgid "%s boost"
 msgid_plural "%s boosts"
@@ -4200,7 +4206,7 @@ msgstr[3] "%s تعزيزات"
 msgstr[4] "%s تعزيزًا"
 msgstr[5] "%s تعزيز"
 
-#: src/Widgets/Status.vala:897
+#: src/Widgets/Status.vala:901
 #, c-format
 msgid "%s favorite"
 msgid_plural "%s favorites"
@@ -4215,28 +4221,28 @@ msgstr[5] "%s مفضَّلة"
 #. Screen reader users are going to hear this a lot,
 #. please be mindful.
 #. This is used to announce the quoted post
-#: src/Widgets/Status.vala:932
+#: src/Widgets/Status.vala:937
 msgid "Quoted Post"
 msgstr "منشور مُقتبس"
 
-#: src/Widgets/Status.vala:953
+#: src/Widgets/Status.vala:958
 #, c-format
 msgid "Filtered: %s"
 msgstr "مرشح: %s"
 
-#: src/Widgets/Status.vala:955
+#: src/Widgets/Status.vala:960
 msgid "Filtered"
 msgstr "مرشح"
 
 #. translatiors: the first variable is a language name,
 #. the second variable is a service name e.g. DeepL
-#: src/Widgets/Status.vala:1091
+#: src/Widgets/Status.vala:1096
 #, c-format
 msgid "Translated from %s using %s"
 msgstr "ترجم من %s باستعمال %s"
 
 #. translatiors: the variable is a service name e.g. DeepL
-#: src/Widgets/Status.vala:1094
+#: src/Widgets/Status.vala:1099
 #, c-format
 msgid "Translated using %s"
 msgstr "ترجم باستعمال %s"
