@@ -72,6 +72,9 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 	[GtkChild] unowned Gtk.Picture background;
 	[GtkChild] unowned Adw.PreferencesGroup fields_box;
 	[GtkChild] unowned Gtk.MenuButton cepbtn;
+	[GtkChild] unowned Adw.PreferencesGroup alt_text_group;
+	[GtkChild] unowned Adw.EntryRow avi_alt_text_row;
+	[GtkChild] unowned Adw.EntryRow header_alt_text_row;
 
 	Gtk.FileFilter filter = new Gtk.FileFilter () {
 		name = _("All Supported Files")
@@ -170,6 +173,12 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 	int64 max_key_length;
 	int64 max_value_length;
 	public ProfileEdit (API.Account acc) {
+		if (acc.avatar_description != null && acc.header_description != null) {
+			alt_text_group.visible = true;
+			avi_alt_text_row.text = acc.avatar_description;
+			header_alt_text_row.text = acc.header_description;
+		}
+
 		profile = acc;
 		Tuba.Helper.Image.request_paintable (acc.header, null, false, on_background_cache_response);
 		Tuba.Helper.Image.request_paintable (acc.avatar, null, false, on_avi_cache_response);
@@ -261,6 +270,14 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 
 		if (!has_error (bio_row) && profile.source != null && profile.source.note != bio_text_view.buffer.text)
 			req.with_form_data ("note", bio_text_view.buffer.text);
+
+		if (alt_text_group.visible) {
+			if (profile.avatar_description != avi_alt_text_row.text)
+				req.with_form_data ("avatar_description", avi_alt_text_row.text);
+
+			if (profile.header_description != header_alt_text_row.text)
+				req.with_form_data ("header_description", header_alt_text_row.text);
+		}
 
 
 		var i = 0;

@@ -16,6 +16,8 @@ public class Tuba.Entity : GLib.Object, Widgetizable, Json.Serializable {
 				return get_class ().find_property ("kind");
 			case "value":
 				return get_class ().find_property ("val");
+			case "params":
+				return get_class ().find_property ("props");
 			default:
 				return get_class ().find_property (name);
 		}

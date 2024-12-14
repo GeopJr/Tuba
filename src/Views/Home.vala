@@ -1,4 +1,10 @@
 public class Tuba.Views.Home : Views.Timeline {
+	public class SuggestionObject : Object, Widgetizable {
+		public override Gtk.Widget to_widget () {
+			return new Widgets.AccountSuggestions ();
+		}
+	}
+
 	Gtk.Revealer compose_button_rev;
 	Gtk.Button compose_button;
 	construct {
@@ -54,6 +60,8 @@ public class Tuba.Views.Home : Views.Timeline {
 				| BindingFlags.BIDIRECTIONAL
 			#endif
 		);
+
+		app.remove_user_id.connect (on_remove_user);
 	}
 
 	void toggle_scroll_to_top_margin () {
@@ -72,6 +80,25 @@ public class Tuba.Views.Home : Views.Timeline {
 	void on_child_revealed () {
 		compose_button.margin_bottom = 0;
 		compose_button_rev.margin_bottom = 24;
+	}
+
+	bool has_account_suggestions = false;
+	public override void on_content_changed () {
+		base.on_content_changed ();
+		if (
+			settings.account_suggestions
+			&& !has_account_suggestions
+			&& !this.empty
+			&& accounts.active.following_count <= 10
+		) {
+			has_account_suggestions = true;
+			model.append (new SuggestionObject ());
+		}
+	}
+
+	public override void on_refresh () {
+		has_account_suggestions = false;
+		base.on_refresh ();
 	}
 
 	double last_adjustment = 0;

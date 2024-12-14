@@ -1,5 +1,7 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/view.ui")]
 public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
+	public const int MAX_SIDEBAR_LISTS = 25;
+
 	[GtkChild] unowned Gtk.ListBox items;
 	[GtkChild] unowned Gtk.ListBox saved_accounts;
 	[GtkChild] unowned Widgets.Avatar accounts_button_avi;
@@ -11,7 +13,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 	protected InstanceAccount? account { get; set; default = null; }
 
-	protected GLib.ListStore app_items;
+	protected Gtk.SliceListModel app_items;
 	protected Gtk.SliceListModel account_items;
 	protected Gtk.FlattenListModel item_model;
 	protected GLib.ListStore accounts_model;
@@ -40,6 +42,15 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		}
 	}
 
+	public int tuba_wrapped {
+		set {
+			var wrapped_action = app.lookup_action ("open-last-fediwrapped") as SimpleAction;
+			if (wrapped_action != null) {
+				wrapped_action.set_enabled (value > 2000);
+			}
+		}
+	}
+
 	static construct {
 		typeof (Widgets.Avatar).ensure ();
 		typeof (Widgets.EmojiLabel).ensure ();
@@ -62,6 +73,14 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		misc_submenu_model.append (_("Announcements"), "app.open-announcements");
 		misc_submenu_model.append (_("Follow Requests"), "app.open-follow-requests");
 		misc_submenu_model.append (_("Mutes & Blocks"), "app.open-mutes-blocks");
+		misc_submenu_model.append (_("Draft Posts"), "app.open-draft-posts");
+		misc_submenu_model.append (_("Scheduled Posts"), "app.open-scheduled-posts");
+
+		// translators: main menu entry, please don't translate it unless you have to.
+		//				Refer to other #FediWrapped strings for more info
+		var wrapped_menu_item = new MenuItem (_("#FediWrapped"), "app.open-last-fediwrapped");
+		wrapped_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+		misc_submenu_model.append_item (wrapped_menu_item);
 
 		var admin_dahsboard_menu_item = new MenuItem (_("Admin Dashboard"), "app.open-admin-dashboard");
 		admin_dahsboard_menu_item.set_attribute_value ("hidden-when", "action-disabled");
@@ -77,7 +96,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 		menu_btn.menu_model = menu_model;
 
-		app_items = new GLib.ListStore (typeof (Place));
+		app_items = new Gtk.SliceListModel (null, 0, MAX_SIDEBAR_LISTS);
 		account_items = new Gtk.SliceListModel (null, 0, 15);
 
 		var models = new GLib.ListStore (typeof (Object));
@@ -138,12 +157,15 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	private Binding sidebar_avatar_btn;
 	private Binding announcements_banner_binding;
 	private Binding fr_banner_binding;
+	private Binding wrapped_binding;
 	protected virtual void on_account_changed (InstanceAccount? account) {
 		if (this.account != null) {
 			sidebar_avatar_btn.unbind ();
 			announcements_banner_binding.unbind ();
 			fr_banner_binding.unbind ();
+			wrapped_binding.unbind ();
 		}
+		this.tuba_wrapped = 0;
 		unread_announcements = 0;
 
 		if (app != null && app.main_window != null)
@@ -155,7 +177,9 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			announcements_banner_binding = this.account.bind_property ("unread-announcements", this, "unread-announcements", BindingFlags.SYNC_CREATE);
 			fr_banner_binding = this.account.bind_property ("unreviewed-follow-requests", this, "unreviewed-follow-requests", BindingFlags.SYNC_CREATE);
 			sidebar_avatar_btn = this.account.bind_property ("avatar", accounts_button_avi, "avatar-url", BindingFlags.SYNC_CREATE);
+			wrapped_binding = this.account.bind_property ("tuba-last-fediwrapped-year", this, "tuba-wrapped", BindingFlags.SYNC_CREATE);
 			account_items.model = account.known_places;
+			app_items.model = account.list_places;
 			update_selected_account ();
 
 			var dashboard_action = app.lookup_action ("open-admin-dashboard") as SimpleAction;
@@ -166,6 +190,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			saved_accounts.unselect_all ();
 
 			account_items.model = null;
+			app_items.model = null;
 			accounts_button_avi.account = null;
 		}
 	}
@@ -173,13 +198,14 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	// Item
 	[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/sidebar/item.ui")]
 	protected class ItemRow : Gtk.ListBoxRow {
-		public Place place;
+		public Place place {get; set;}
 
 		[GtkChild] unowned Gtk.Image icon;
 		[GtkChild] unowned Gtk.Label label;
 		[GtkChild] unowned Gtk.Label badge;
 
 		public ItemRow (Place place) {
+			this.notify["visible"].connect (on_visibility_changed);
 			this.place = place;
 			place.bind_property ("title", label, "label", BindingFlags.SYNC_CREATE);
 			place.bind_property ("icon", icon, "icon-name", BindingFlags.SYNC_CREATE);
@@ -193,6 +219,12 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 
 			place.notify["needs-attention"].connect (on_attention_change);
 			on_attention_change ();
+		}
+
+		// ListBox's bind_model sets visibility of every row to true
+		// when the model changes. Let's do some hacking around it.
+		void on_visibility_changed () {
+			if (this.visible != this.place.visible) this.visible = this.place.visible;
 		}
 
 		void on_attention_change () {
@@ -211,7 +243,7 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	[GtkCallback] void on_item_activated (Gtk.ListBoxRow _row) {
 		var row = _row as ItemRow;
 		if (row.place.open_func != null)
-			row.place.open_func (app.main_window);
+			row.place.open_func (app.main_window, row.place.extra_data);
 
 		var split_view = app.main_window.split_view;
 		if (split_view.collapsed)
@@ -230,7 +262,6 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 			});
 		}
 	}
-
 
 	void view_announcements_cb () {
 		app.open_announcements ();

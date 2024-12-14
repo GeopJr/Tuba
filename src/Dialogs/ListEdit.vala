@@ -20,7 +20,7 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 			}
 		}
 
-		public static RepliesPolicy from_string (string policy) {
+		public static RepliesPolicy from_string (string? policy) {
 			switch (policy) {
 				case "list":
 					return LIST;
@@ -99,6 +99,23 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 		on_radio_toggled ();
 	}
 
+	private class MemberCheckButton : Gtk.CheckButton {
+		public signal void changed (string member_id, bool active);
+
+		string member_id { get; set; }
+		public MemberCheckButton (string member_id) {
+			this.member_id = member_id;
+			this.css_classes = { "selection-mode", "error" };
+			this.tooltip_text = _("Remove");
+
+			this.toggled.connect (on_toggled);
+		}
+
+		private void on_toggled () {
+			changed (member_id, this.active);
+		}
+	}
+
 	private void update_members () {
 		new Request.GET (@"/api/v1/lists/$(list.id)/accounts")
 			.with_account (accounts.active)
@@ -114,35 +131,33 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 							size = 32
 						};
 
-						var m_switch = new Gtk.Switch () {
-							active = true,
-							state = true,
+						var remove_button = new MemberCheckButton (member.id) {
+							active = false,
 							valign = Gtk.Align.CENTER,
-							halign = Gtk.Align.CENTER
+							halign = Gtk.Align.CENTER,
 						};
-
-						m_switch.state_set.connect ((state) => {
-							if (!state) {
-								memebers_to_be_removed.add (member.id);
-							} else if (memebers_to_be_removed.contains (member.id)) {
-								memebers_to_be_removed.remove (member.id);
-							}
-
-							return state;
-						});
+						remove_button.changed.connect (on_member_remove_changed);
 
 						var member_row = new Adw.ActionRow () {
 							title = member.full_handle
 						};
 
 						member_row.add_prefix (avi);
-						member_row.add_suffix (m_switch);
+						member_row.add_suffix (remove_button);
 
 						members_group.add (member_row);
 					});
 				}
 			})
 			.exec ();
+	}
+
+	private void on_member_remove_changed (string member_id, bool active) {
+		if (active) {
+			memebers_to_be_removed.add (member_id);
+		} else if (memebers_to_be_removed.contains (member_id)) {
+			memebers_to_be_removed.remove (member_id);
+		}
 	}
 
 	[GtkCallback]
@@ -155,11 +170,19 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 		if (list.title != list_title || RepliesPolicy.from_string (list.replies_policy) != replies_policy_active || list.exclusive != is_exclusive) {
 			var replies_policy_string = replies_policy_active.to_string ();
 
+			var builder = new Json.Builder ();
+			builder.begin_object ();
+			builder.set_member_name ("title");
+			builder.add_string_value (list_title);
+			builder.set_member_name ("replies_policy");
+			builder.add_string_value (replies_policy_string);
+			builder.set_member_name ("exclusive");
+			builder.add_boolean_value (is_exclusive);
+			builder.end_object ();
+
 			new Request.PUT (@"/api/v1/lists/$(list.id)")
 				.with_account (accounts.active)
-				.with_param ("title", list_title)
-				.with_param ("replies_policy", replies_policy_string)
-				.with_param ("exclusive", is_exclusive.to_string ())
+				.body_json (builder)
 				.then (() => {
 					list.title = list_title;
 					list.replies_policy = replies_policy_string;
@@ -169,9 +192,20 @@ public class Tuba.Dialogs.ListEdit : Adw.PreferencesDialog {
 		}
 
 		if (memebers_to_be_removed.size > 0) {
-			var id_array = Request.array2string (memebers_to_be_removed, "account_ids");
-			new Request.DELETE (@"/api/v1/lists/$(list.id)/accounts?$id_array")
+			var ids_builder = new Json.Builder ();
+			ids_builder.begin_object ();
+			ids_builder.set_member_name ("account_ids");
+			ids_builder.begin_array ();
+			memebers_to_be_removed.foreach (e => {
+				ids_builder.add_string_value (e);
+				return true;
+			});
+			ids_builder.end_array ();
+			ids_builder.end_object ();
+
+			new Request.DELETE (@"/api/v1/lists/$(list.id)/accounts")
 				.with_account (accounts.active)
+				.body_json (ids_builder)
 				.exec ();
 		}
 	}

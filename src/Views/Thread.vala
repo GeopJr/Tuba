@@ -33,10 +33,31 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			allow_nesting: true
 		);
 		construct_account_holder ();
+		update_root_status (status.id);
 	}
 	~Thread () {
 		debug ("Destroying Thread");
 		destruct_account_holder ();
+	}
+
+	private void update_root_status (string status_id = root_status.id) {
+		if (root_status == null) return;
+
+		new Request.GET (@"/api/v1/statuses/$status_id")
+			.with_account (account)
+			.with_ctx (this)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				var api_status = API.Status.from (node);
+				if (api_status != null) {
+					if (root_status != null) root_status.patch (api_status);
+					if (root_status_widget != null) {
+						root_status_widget.on_edit (api_status);
+					}
+				}
+			})
+			.exec ();
 	}
 
 	public override void on_account_changed (InstanceAccount? acc) {

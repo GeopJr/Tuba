@@ -47,6 +47,7 @@ namespace Tuba {
 
 		public signal void refresh ();
 		public signal void relationship_invalidated (API.Relationship new_relationship);
+		public signal void remove_user_id (string user_id);
 		public signal void toast (string title, uint timeout = 5);
 
 		#if DEV_MODE
@@ -77,6 +78,7 @@ namespace Tuba {
 			{ "back-home", back_home_activated },
 			{ "scroll-page-down", scroll_view_page_down },
 			{ "scroll-page-up", scroll_view_page_up },
+			{ "goto-notifications", goto_notifications },
 			{ "open-status-url", open_status_url, "s" },
 			{ "answer-follow-request", answer_follow_request, "(ssb)" },
 			{ "follow-back", follow_back, "(ss)" },
@@ -87,7 +89,10 @@ namespace Tuba {
 			{ "open-announcements", open_announcements },
 			{ "open-follow-requests", open_follow_requests },
 			{ "open-mutes-blocks", open_mutes_blocks },
-			{ "open-admin-dashboard", open_admin_dashboard }
+			{ "open-scheduled-posts", open_scheduled_posts },
+			{ "open-draft-posts", open_draft_posts },
+			{ "open-admin-dashboard", open_admin_dashboard },
+			{ "open-last-fediwrapped", open_last_fediwrapped }
 		};
 
 		#if DEV_MODE
@@ -121,6 +126,10 @@ namespace Tuba {
 				value.get_child_value (0).get_string (),
 				value.get_child_value (1).get_string ()
 			);
+		}
+
+		private void goto_notifications () {
+			Mastodon.Account.PLACE_NOTIFICATIONS.open_func (app.main_window);
 		}
 
 		private void open_status_url (GLib.SimpleAction action, GLib.Variant? value) {
@@ -220,6 +229,7 @@ namespace Tuba {
 
 			Intl.setlocale (LocaleCategory.ALL, "");
 			Intl.bindtextdomain (Build.GETTEXT_PACKAGE, Build.LOCALEDIR);
+			Intl.bind_textdomain_codeset (Build.GETTEXT_PACKAGE, "UTF-8");
 			Intl.textdomain (Build.GETTEXT_PACKAGE);
 
 			GLib.Environment.unset_variable ("GTK_THEME");
@@ -523,8 +533,22 @@ namespace Tuba {
 			close_sidebar ();
 		}
 
+		public void open_scheduled_posts () {
+			main_window.open_view (new Views.ScheduledStatuses ());
+			close_sidebar ();
+		}
+
+		public void open_draft_posts () {
+			main_window.open_view (new Views.DraftStatuses ());
+			close_sidebar ();
+		}
+
 		public void open_admin_dashboard () {
 			new Dialogs.Admin.Window ().present ();
+		}
+
+		public void open_last_fediwrapped () {
+			accounts.active.open_latest_wrapped ();
 		}
 
 		private void close_sidebar () {
@@ -579,7 +603,8 @@ namespace Tuba {
 			};
 
 			const string[] DESIGNERS = {
-				"Tobias Bernard"
+				"Tobias Bernard",
+				"Brage Fuglseth"
 			};
 
 			const string[] DEVELOPERS = {

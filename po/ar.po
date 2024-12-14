@@ -6,13 +6,14 @@
 # aei <aei@aei.sh>, 2024.
 # Ahmed Mohammed <iramosu@airmail.cc>, 2024.
 # Ahmed Mohammed <iramosu@protonmail.com>, 2024.
+# Ahmed Mohammed <ira.traq@outlook.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-12 18:31+0300\n"
-"PO-Revision-Date: 2024-08-23 11:09+0000\n"
-"Last-Translator: Ahmed Mohammed <iramosu@protonmail.com>\n"
+"PO-Revision-Date: 2024-11-02 10:00+0000\n"
+"Last-Translator: Ahmed Mohammed <ira.traq@outlook.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.7.1-dev\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -2129,21 +2130,21 @@ msgstr "أشار إليك %s"
 #: src/Services/Accounts/InstanceAccount.vala:236
 #, c-format
 msgid "%s boosted your post"
-msgstr "قام %s بتعزيز منشورك"
+msgstr "عَزَّزَ %s منشورك"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:245
 #, c-format
 msgid "%s boosted"
-msgstr "عزز %s منشورك"
+msgstr "عزز %s منشورًا"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:254
 #, c-format
 msgid "%s favorited your post"
-msgstr "قام %s بتفضيل منشورك"
+msgstr "فَضَّلَ %s منشورك"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
@@ -2181,7 +2182,7 @@ msgstr "ردًا"
 #: src/Services/Accounts/InstanceAccount.vala:301
 #, c-format
 msgid "In Reply to %s"
-msgstr "ردًا إلى %s"
+msgstr "ردًا على %s"
 
 #. translators: the variable is a string user name,
 #. this is used for admin notifications
@@ -2295,19 +2296,19 @@ msgstr "ينتهي قريبا"
 #: src/Utils/DateTime.vala:16
 #, c-format
 msgid "%sm left"
-msgstr "غادر منذ %sد"
+msgstr "تبقى %sد"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:20
 #, c-format
 msgid "%sh left"
-msgstr "غادر منذ %sسا"
+msgstr "تبقى %sسا"
 
 #. tranlators: the variable is a number, `d` as in days in short form
 #: src/Utils/DateTime.vala:24
 #, c-format
 msgid "%sd left"
-msgstr "غادر منذ %sي"
+msgstr "تبقى %sي"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number

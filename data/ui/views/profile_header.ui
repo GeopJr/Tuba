@@ -58,7 +58,6 @@
 												<property name="valign">start</property>
 												<property name="halign">start</property>
 												<property name="visible">0</property>
-												<property name="margin-bottom">48</property>
 												<!-- translators: Tooltip text shown on an icon that indicates -->
 												<!-- 			  that the user is either a financial supporter -->
 												<!-- 			  or contributor to Tuba -->
@@ -98,6 +97,9 @@
 										<!-- translators: tooltip text on profile avatars. -->
 										<!--              You can replace 'Avatar' with 'Profile Picture' if needed. -->
 										<property name="tooltip-text" translatable="yes">View Avatar</property>
+										<style>
+											<class name="main-avi" />
+										</style>
 										<layout>
 											<property name="column">0</property>
 											<property name="row">0</property>
@@ -157,8 +159,33 @@
 										</child>
 
 										<child>
+											<object class="GtkButton" id="moved_btn">
+												<property name="visible">0</property>
+												<property name="tooltip-text" translatable="yes">Open Profile</property>
+												<style>
+													<class name="warning" />
+												</style>
+											</object>
+										</child>
+
+										<child>
 											<object class="TubaWidgetsMarkupView" id="note">
 												<property name="margin_top">6</property>
+											</object>
+										</child>
+
+										<child>
+											<object class="GtkMenuButton" id="mutuals_button">
+												<property name="margin_top">6</property>
+												<property name="visible">0</property>
+												<property name="halign">start</property>
+												<property name="direction">none</property>
+												<!-- translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person -->
+												<property name="tooltip-text" translatable="yes">View All Followers You Know</property>
+												<style>
+													<class name="flat" />
+													<class name="ttl-mutuals" />
+												</style>
 											</object>
 										</child>
 										<layout>

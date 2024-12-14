@@ -782,7 +782,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		toggle_fs_revealer.set_reveal_child (true);
 
 		if (revealer_timeout > 0) GLib.Source.remove (revealer_timeout);
-		revealer_timeout = Timeout.add (5 * 1000, on_hide_media_buttons, Priority.LOW);
+		revealer_timeout = Timeout.add (3 * 1000, on_hide_media_buttons, Priority.LOW);
 	}
 
 	protected bool on_hide_media_buttons () {

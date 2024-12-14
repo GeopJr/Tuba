@@ -12,17 +12,19 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 	   nickname */
 	public string display_name {
 		set {
-		_display_name = value;
+			_display_name = value;
 		}
 		get {
-			return ( ( _display_name != null && _display_name.length > 0 ) ? _display_name : username );
+			return (( _display_name != null && _display_name.length > 0 ) ? _display_name : username );
 		}
 	}
 
 	public string note { get; set; default=""; }
 	public bool locked { get; set; }
 	public string header { get; set; }
+	public string? header_description { get; set; default=null; }
 	public string avatar { get; set; }
+	public string? avatar_description { get; set; default=null; }
 	public string url { get; set; }
 	public bool bot { get; set; default=false; }
 	public string created_at { get; set; }
@@ -34,6 +36,7 @@ public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 	public Gee.ArrayList<API.AccountField>? fields { get; set; default = null; }
 	public AccountSource? source { get; set; default = null; }
 	public API.AccountRole? role { get; set; default = null; }
+	public API.Account? moved { get; set; default = null; }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {

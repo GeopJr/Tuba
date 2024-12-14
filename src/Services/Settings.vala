@@ -3,16 +3,20 @@ public class Tuba.Settings : GLib.Settings {
 		public string default_language { get; set; default = "en"; }
 		public string default_post_visibility { get; set; default = "public"; }
 		public string default_content_type { get; set; default = "text/plain"; }
+		public bool account_suggestions { get; set; default = true; }
 		public string[] muted_notification_types { get; set; default = {}; }
 		public string[] recently_used_custom_emojis { get; set; default = {}; }
 		public string[] notification_filters { get; set; default = {}; }
+		public string[] favorite_lists_ids { get; set; default = {}; }
 
 		private static string[] keys_to_init = {
 			"default-post-visibility",
 			"muted-notification-types",
 			"default-content-type",
 			"recently-used-custom-emojis",
-			"notification-filters"
+			"notification-filters",
+			"account-suggestions",
+			"favorite-lists-ids"
 		};
 
 		public Account (string id) {
@@ -73,6 +77,16 @@ public class Tuba.Settings : GLib.Settings {
 		}
 	}
 
+	public bool account_suggestions {
+		get {
+			return active_account_settings.account_suggestions;
+		}
+
+		set {
+			active_account_settings.account_suggestions = value;
+		}
+	}
+
 	public string[] muted_notification_types {
 		get {
 			return active_account_settings.muted_notification_types;
@@ -103,6 +117,16 @@ public class Tuba.Settings : GLib.Settings {
 		}
 	}
 
+	public string[] favorite_lists_ids {
+		get {
+			return active_account_settings.favorite_lists_ids;
+		}
+
+		set {
+			active_account_settings.favorite_lists_ids = value;
+		}
+	}
+
 	public ColorScheme color_scheme { get; set; }
 	public bool work_in_background { get; set; }
 	public int timeline_page_size { get; set; }
@@ -122,6 +146,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool group_push_notifications { get; set; }
 	public bool advanced_boost_dialog { get; set; }
 	public bool reply_to_old_post_reminder { get; set; }
+	public bool copy_private_link_reminder { get; set; }
 	public bool spellchecker_enabled { get; set; }
 	public bool darken_images_on_dark_mode { get; set; }
 	public double media_viewer_last_used_volume { get; set; }
@@ -133,6 +158,7 @@ public class Tuba.Settings : GLib.Settings {
 	public string last_analytics_update { get; set; }
 	public string last_contributors_update { get; set; }
 	public string[] contributors { get; set; default = {}; }
+	public int status_aria_verbosity { get; set; default = 3; }
 
 	private static string[] keys_to_init = {
 		"active-account",
@@ -154,6 +180,7 @@ public class Tuba.Settings : GLib.Settings {
 		"group-push-notifications",
 		"advanced-boost-dialog",
 		"reply-to-old-post-reminder",
+		"copy-private-link-reminder",
 		"spellchecker-enabled",
 		"darken-images-on-dark-mode",
 		"media-viewer-last-used-volume",
@@ -161,7 +188,8 @@ public class Tuba.Settings : GLib.Settings {
 		"proxy",
 		"dim-trivial-notifications",
 		"analytics",
-		"update-contributors"
+		"update-contributors",
+		"status-aria-verbosity"
 	};
 
 	public Settings () {
@@ -197,7 +225,7 @@ public class Tuba.Settings : GLib.Settings {
 		this.apply ();
 	}
 
-	private string[] sensitive_keys = {
+	private const string[] SENSITIVE_KEYS = {
 		"proxy",
 		"active-account",
 		"last-analytics-update",
@@ -210,7 +238,7 @@ public class Tuba.Settings : GLib.Settings {
 		builder.begin_object ();
 
 		foreach (string key in keys_to_init) {
-			if (key in sensitive_keys) continue;
+			if (key in SENSITIVE_KEYS) continue;
 
 			var val = Value (Type.STRING);
 			this.get_property (key, ref val);

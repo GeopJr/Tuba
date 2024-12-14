@@ -144,11 +144,20 @@ public class Tuba.Widgets.Audio.Stream : GLib.Object {
 	// Without disconnecting everything
 	// it leaks.
 	public void destroy () {
-		if (timeout_id > 0) GLib.Source.remove (timeout_id);
-		bus.remove_watch ();
-		bus = null;
-		this.state = Gst.State.NULL;
-		pipeline = null;
+		if (timeout_id > 0) {
+			GLib.Source.remove (timeout_id);
+			timeout_id = 0;
+		}
+
+		if (bus != null) {
+			bus.remove_watch ();
+			bus = null;
+		}
+
+		if (pipeline != null) {
+			this.state = Gst.State.NULL;
+			pipeline = null;
+		}
 	}
 
 	~Stream () {
