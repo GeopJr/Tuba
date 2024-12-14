@@ -40,8 +40,14 @@ public class Tuba.Widgets.FocusPicture : Gtk.Widget, Gtk.Buildable, Gtk.Accessib
 		set {
 			if (_content_fit == value) return;
 
+			bool queue_resize = value == Gtk.ContentFit.SCALE_DOWN || _content_fit == Gtk.ContentFit.SCALE_DOWN;
 			_content_fit = value;
-			this.queue_draw ();
+
+			if (queue_resize) {
+				this.queue_resize ();
+			} else {
+				this.queue_draw ();
+			}
 		}
 	}
 
@@ -191,6 +197,19 @@ public class Tuba.Widgets.FocusPicture : Gtk.Widget, Gtk.Buildable, Gtk.Accessib
 				out min_width,
 				out min_height
 			);
+		}
+
+		if (for_size > 0 && _content_fit == Gtk.ContentFit.SCALE_DOWN) {
+			int opposite_intrinsic_size = 0;
+			if (orientation == Gtk.Orientation.HORIZONTAL) {
+				opposite_intrinsic_size = _paintable.get_intrinsic_height ();
+			} else {
+				opposite_intrinsic_size = _paintable.get_intrinsic_width ();
+			}
+
+			if (opposite_intrinsic_size != 0 && opposite_intrinsic_size < for_size) {
+				for_size = opposite_intrinsic_size;
+			}
 		}
 
 		if (orientation == Gtk.Orientation.HORIZONTAL) {
