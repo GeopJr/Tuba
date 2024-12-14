@@ -158,6 +158,7 @@ public class Tuba.Settings : GLib.Settings {
 	public string last_analytics_update { get; set; }
 	public string last_contributors_update { get; set; }
 	public string[] contributors { get; set; default = {}; }
+	public int status_aria_verbosity { get; set; default = 3; }
 
 	private static string[] keys_to_init = {
 		"active-account",
@@ -187,7 +188,8 @@ public class Tuba.Settings : GLib.Settings {
 		"proxy",
 		"dim-trivial-notifications",
 		"analytics",
-		"update-contributors"
+		"update-contributors",
+		"status-aria-verbosity"
 	};
 
 	public Settings () {
@@ -223,7 +225,7 @@ public class Tuba.Settings : GLib.Settings {
 		this.apply ();
 	}
 
-	private string[] sensitive_keys = {
+	private const string[] sensitive_keys = {
 		"proxy",
 		"active-account",
 		"last-analytics-update",

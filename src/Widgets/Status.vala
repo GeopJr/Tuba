@@ -758,6 +758,8 @@
 	}
 
 	private void aria_describe_status () {
+		if (settings.status_aria_verbosity < 1) return;
+
 		if (filter_stack.visible_child_name == "filter") {
 			// translators: This is an accessibility label.
 			//				Screen reader users are going to hear this a lot,
@@ -798,7 +800,7 @@
 			: _("Published: %s.").printf (aria_date);
 
 		string aria_pinned = "";
-		if (status.formal.pinned) {
+		if (settings.status_aria_verbosity >= 2 && status.formal.pinned) {
 			// translators: This is an accessibility label.
 			//				Screen reader users are going to hear this a lot,
 			//				please be mindful.
@@ -806,7 +808,7 @@
 		}
 
 		string aria_quote = "";
-		if (status.formal.quote != null) {
+		if (settings.status_aria_verbosity >= 2 && status.formal.quote != null) {
 			// translators: This is an accessibility label.
 			//				Screen reader users are going to hear this a lot,
 			//				please be mindful.
@@ -814,7 +816,7 @@
 		}
 
 		string aria_attachments = "";
-		if (status.formal.has_media) {
+		if (settings.status_aria_verbosity >= 3 && status.formal.has_media) {
 			aria_attachments = GLib.ngettext (
 				// translators: This is an accessibility label.
 				//				Screen reader users are going to hear this a lot,
@@ -826,7 +828,7 @@
 		}
 
 		string aria_poll = "";
-		if (status.formal.poll != null) {
+		if (settings.status_aria_verbosity >= 3 && status.formal.poll != null) {
 			aria_poll = status.formal.poll.expired
 				// translators: This is an accessibility label.
 				//				Screen reader users are going to hear this a lot,
@@ -839,7 +841,7 @@
 		}
 
 		string aria_spoiler = "";
-		if (status.formal.has_spoiler) {
+		if (settings.status_aria_verbosity >= 2 && status.formal.has_spoiler) {
 			if (status.formal.spoiler_text == null || status.formal.spoiler_text == "") {
 				// translators: This is an accessibility label.
 				//				Screen reader users are going to hear this a lot,
@@ -855,7 +857,7 @@
 		}
 
 		string aria_app = "";
-		if (status.formal.application != null) {
+		if (settings.status_aria_verbosity >= 3 && status.formal.application != null) {
 			// translators: This is an accessibility label.
 			//				Screen reader users are going to hear this a lot,
 			//				please be mindful.
@@ -865,7 +867,7 @@
 		}
 
 		string aria_reactions = "";
-		if (status.formal.compat_status_reactions != null && status.formal.compat_status_reactions.size > 0) {
+		if (settings.status_aria_verbosity >= 2 && status.formal.compat_status_reactions != null && status.formal.compat_status_reactions.size > 0) {
 			aria_reactions = GLib.ngettext (
 				// translators: This is an accessibility label.
 				//				Screen reader users are going to hear this a lot,
@@ -877,31 +879,34 @@
 			).printf (status.formal.compat_status_reactions.size);
 		}
 
-		// translators: This is an accessibility label.
-		//				Screen reader users are going to hear this a lot,
-		//				please be mindful.
-		//				The variables are strings <amount> replies,
-		//				<amount> boosts, <amount> favorites.
-		string aria_stats = "Post stats: %s, %s, %s.".printf (
-			GLib.ngettext (
-				"%s reply",
-				"%s replies",
-				(ulong) status.formal.replies_count
-			).printf (status.formal.replies_count.to_string ()),
-			GLib.ngettext (
-				"%s boost",
-				"%s boosts",
-				(ulong) status.formal.reblogs_count
-			).printf (status.formal.reblogs_count.to_string ()),
-			GLib.ngettext (
-				"%s favorite",
-				"%s favorites",
-				(ulong) status.formal.favourites_count
-			).printf (status.formal.favourites_count.to_string ())
-		);
+		string aria_stats = "";
+		if (settings.status_aria_verbosity >= 3) {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variables are strings <amount> replies,
+			//				<amount> boosts, <amount> favorites.
+			aria_stats = "Post stats: %s, %s, %s.".printf (
+				GLib.ngettext (
+					"%s reply",
+					"%s replies",
+					(ulong) status.formal.replies_count
+				).printf (status.formal.replies_count.to_string ()),
+				GLib.ngettext (
+					"%s boost",
+					"%s boosts",
+					(ulong) status.formal.reblogs_count
+				).printf (status.formal.reblogs_count.to_string ()),
+				GLib.ngettext (
+					"%s favorite",
+					"%s favorites",
+					(ulong) status.formal.favourites_count
+				).printf (status.formal.favourites_count.to_string ())
+			);
+		}
 
 		string aria_translation = "";
-		if (translation_label != null) aria_translation = translation_label.get_text ();
+		if (settings.status_aria_verbosity >= 3 && translation_label != null) aria_translation = translation_label.get_text ();
 
 		this.update_property (
 			Gtk.AccessibleProperty.LABEL,
