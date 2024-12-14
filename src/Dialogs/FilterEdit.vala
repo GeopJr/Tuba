@@ -281,6 +281,8 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 		builder.set_member_name ("keywords_attributes");
 		builder.begin_array ();
 		foreach (var keyword_row in keyword_rows) {
+			if (keyword_row.id == null && keyword_row.should_destroy) continue; // If id is missing but destroy is set to true, just ignore
+
 			builder.begin_object ();
 			if (keyword_row.id != null) {
 				builder.set_member_name ("id");
@@ -288,9 +290,6 @@ public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 
 				builder.set_member_name ("_destroy");
 				builder.add_boolean_value (keyword_row.should_destroy);
-			} else if (keyword_row.should_destroy) {
-				// If id is missing but destroy is set to true, just ignore
-				continue;
 			}
 
 			builder.set_member_name ("whole_word");
