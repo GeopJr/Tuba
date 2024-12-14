@@ -223,7 +223,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 		if (poll.voted) aria_voted = _("You have voted.");
 
 		poll_box.update_property (
-			Gtk.AccessibleProperty.DESCRIPTION,
+			Gtk.AccessibleProperty.LABEL,
 			"%s %s %s.".printf (
 				aria_poll,
 				aria_voted,

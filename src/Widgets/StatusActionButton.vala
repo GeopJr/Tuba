@@ -23,7 +23,7 @@ public class Tuba.Widgets.StatusActionButton : Gtk.Button {
 		set {
 			_amount = value;
 			update_button_content (value);
-			update_aria_label ();
+			//  update_aria_label ();
 		}
 	}
 
@@ -39,21 +39,21 @@ public class Tuba.Widgets.StatusActionButton : Gtk.Button {
 		}
 	}
 
-	private void update_aria_label () {
-		if (this.tooltip_text == null) return;
+	//  private void update_aria_label () {
+	//  	if (this.tooltip_text == null) return;
 
-		this.update_property (
-			Gtk.AccessibleProperty.DESCRIPTION,
-			" ",
-			-1
-		);
+	//  	this.update_property (
+	//  		Gtk.AccessibleProperty.DESCRIPTION,
+	//  		" ",
+	//  		-1
+	//  	);
 
-		this.update_property (
-			Gtk.AccessibleProperty.LABEL,
-			@"$(this.tooltip_text) ($_amount)",
-			-1
-		);
-	}
+	//  	this.update_property (
+	//  		Gtk.AccessibleProperty.LABEL,
+	//  		@"$(this.tooltip_text) ($_amount)",
+	//  		-1
+	//  	);
+	//  }
 
 	private void update_button_style (bool value = active) {
 		if (value) {
@@ -98,9 +98,9 @@ public class Tuba.Widgets.StatusActionButton : Gtk.Button {
 	construct {
 		content = new Adw.ButtonContent ();
 		this.child = content;
-		update_aria_label ();
+		//  update_aria_label ();
 
-		this.notify["tooltip-text"].connect (update_aria_label);
+		//  this.notify["tooltip-text"].connect (update_aria_label);
 	}
 
 	public StatusActionButton.with_icon_name (string icon_name) {

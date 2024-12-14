@@ -225,7 +225,7 @@ public class Tuba.Settings : GLib.Settings {
 		this.apply ();
 	}
 
-	private const string[] sensitive_keys = {
+	private const string[] SENSITIVE_KEYS = {
 		"proxy",
 		"active-account",
 		"last-analytics-update",
@@ -238,7 +238,7 @@ public class Tuba.Settings : GLib.Settings {
 		builder.begin_object ();
 
 		foreach (string key in keys_to_init) {
-			if (key in sensitive_keys) continue;
+			if (key in SENSITIVE_KEYS) continue;
 
 			var val = Value (Type.STRING);
 			this.get_property (key, ref val);
