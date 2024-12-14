@@ -259,7 +259,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 		public override void unmap () {
 			// Causes the dialog to not get destroyed
-			// so let's unbound manually
+			// so let's unbind manually
 			pos_x_binding.unbind ();
 			pos_y_binding.unbind ();
 			base.unmap ();

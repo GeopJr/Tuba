@@ -45,8 +45,12 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		}
 	}
 
+	static construct {
+		set_accessible_role (Gtk.AccessibleRole.GENERIC);
+	}
+
 	construct {
-		this.set_accessible_role (Gtk.AccessibleRole.LABEL);
+		this.focusable = true;
 		orientation = Gtk.Orientation.VERTICAL;
 		spacing = 12;
 	}
@@ -124,7 +128,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				vexpand = true,
 				large_emojis = settings.enlarge_custom_emojis,
 				use_markup = true,
-				fix_overflow_hack = true
+				fix_overflow_hack = true,
+				//  focusable_label = true
 			};
 			if (instance_emojis != null) label.instance_emojis = instance_emojis;
 			if (mentions != null) label.mentions = mentions;
@@ -274,7 +279,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 						visible = true,
 						css_classes = { "ttl-code", "monospace" },
 						use_markup = true,
-						fix_overflow_hack = true
+						fix_overflow_hack = true,
+						//  focusable_label = true
 						// markup = MarkupPolicy.DISALLOW
 					};
 
@@ -301,7 +307,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					visible = true,
 					css_classes = { "ttl-code", "italic" },
 					use_markup = true,
-					fix_overflow_hack = true
+					fix_overflow_hack = true,
+					//  focusable_label = true
 					// markup = MarkupPolicy.DISALLOW
 				};
 				v.append (label);

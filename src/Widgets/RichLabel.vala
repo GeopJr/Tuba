@@ -21,6 +21,14 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	//  	set { widget.wrap = value; }
 	//  }
 
+	//  public bool focusable_label {
+	//  	get { return widget.focusable; }
+	//  	set {
+	//  		this.focusable = value;
+	//  		widget.focusable = value;
+	//  	}
+	//  }
+
 	public bool use_markup {
 		get { return widget.use_markup; }
 		set { widget.use_markup = value; }
@@ -89,6 +97,10 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		if (text != null) this.label = text;
 	}
 
+	static construct {
+		set_accessible_role (Gtk.AccessibleRole.LABEL);
+	}
+
 	construct {
 		widget = new Widgets.EmojiLabel () {
 			use_markup = false,
@@ -96,6 +108,9 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		};
 		widget.activate_link.connect (on_activate_link);
 		child = widget;
+
+		this.update_relation (Gtk.AccessibleRelation.LABELLED_BY, widget, null, -1);
+		this.update_relation (Gtk.AccessibleRelation.DESCRIBED_BY, widget, null, -1);
 	}
 
 	public bool on_activate_link (string url) {
