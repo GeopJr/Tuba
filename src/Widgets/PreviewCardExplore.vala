@@ -93,6 +93,7 @@ public class Tuba.Widgets.PreviewCardExplore : Gtk.ListBoxRow {
 
 		if (accounts.active.instance_info.tuba_mastodon_version >= 1) {
 			Gtk.Button discussions_button = new Gtk.Button () {
+				margin_top = 6,
 				child = used_times_label,
 				// translators: tooltip text on 'explore' tab button to
 				//				see posts where the selected article is

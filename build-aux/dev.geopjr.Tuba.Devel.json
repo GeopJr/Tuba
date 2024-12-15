@@ -35,7 +35,7 @@
                 {
                     "type": "git",
                     "url": "https://gitlab.gnome.org/GNOME/libspelling.git",
-                    "tag": "0.4.0"
+                    "tag": "0.4.5"
                 }
             ]
         },

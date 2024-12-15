@@ -335,6 +335,9 @@ namespace Tuba {
 			if (settings.proxy != "")
 				on_proxy_change ();
 			settings.notify ["proxy"].connect (on_proxy_notify);
+
+			if (settings.analytics) app.update_analytics.begin ();
+			app.update_contributors.begin ();
 		}
 
 		private void on_proxy_change (bool recover = false) {
@@ -382,9 +385,6 @@ namespace Tuba {
 		}
 
 		protected override void shutdown () {
-			if (settings.analytics) app.update_analytics ();
-			app.update_contributors ();
-
 			#if !DEV_MODE
 				settings.apply_all ();
 			#endif
@@ -757,7 +757,7 @@ namespace Tuba {
 			return generator.to_data (null);
 		}
 
-		public void update_contributors () {
+		public async void update_contributors () {
 			if (!settings.update_contributors) {
 				// if updating contributors from the API is not enabled
 				// but it has been enabled at some point in the past,
@@ -788,24 +788,27 @@ namespace Tuba {
 			}
 
 			if (!can_update) return;
-			new Request.GET ("https://api.tuba.geopjr.dev/v1/supporters")
-				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
+			var msg = new Request.GET ("https://api.tuba.geopjr.dev/v1/supporters");
 
-					string[] new_contributors = {};
-					Network.parse_array (parser, node => {
-						if (node != null) {
-							new_contributors += node.get_string ();
-						}
-					});
+			try {
+				yield msg.await ();
+				var parser = Network.get_parser_from_inputstream (msg.response_body);
 
-					settings.contributors = new_contributors;
-					settings.last_contributors_update = now_utc.format_iso8601 ();
-				})
-				.exec ();
+				string[] new_contributors = {};
+				Network.parse_array (parser, node => {
+					if (node != null) {
+						new_contributors += node.get_string ();
+					}
+				});
+
+				settings.contributors = new_contributors;
+				settings.last_contributors_update = now_utc.format_iso8601 ();
+			} catch (Error e) {
+				warning (@"Couldn't update contributors: $(e.code) $(e.message)");
+			}
 		}
 
-		public void update_analytics () {
+		public async void update_analytics () {
 			if (!settings.analytics) return;
 
 			bool can_update = false;
@@ -823,12 +826,16 @@ namespace Tuba {
 			}
 
 			if (!can_update) return;
-			new Request.POST ("https://api.tuba.geopjr.dev/v1/analytics")
-				.body ("application/json", new Bytes.take (generate_analytics_object ().data))
-				.then ((in_stream) => {
-					settings.last_analytics_update = now_utc.format_iso8601 ();
-				})
-				.exec ();
+			var msg = new Request.POST ("https://api.tuba.geopjr.dev/v1/analytics")
+				.body ("application/json", new Bytes.take (generate_analytics_object ().data));
+
+			try {
+				yield msg.await ();
+				settings.last_analytics_update = now_utc.format_iso8601 ();
+			} catch (Error e) {
+				warning (@"Couldn't update analytics: $(e.code) $(e.message)");
+			}
+
 		}
 	}
 
