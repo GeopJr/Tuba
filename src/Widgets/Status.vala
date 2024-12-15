@@ -1117,7 +1117,7 @@
 			} catch {}
 		}
 
-		if (hashtag_bar != null) content_box.remove (prev_card);
+		if (hashtag_bar != null) content_box.remove (hashtag_bar);
 		if (this.content.get_extracted_tags () != null && this.content.get_extracted_tags ().length > 0) {
 			hashtag_bar = new Widgets.HashtagBar (this.content.get_extracted_tags ());
 			content_box.append (hashtag_bar);
