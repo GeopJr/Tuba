@@ -117,6 +117,7 @@
 																		<property name="numeric">true</property>
 																		<property name="wrap">true</property>
 																		<property name="adjustment">hour_adjustment</property>
+																		<signal name="value-changed" handler="validate" swapped="no" />
 																	</object>
 																</child>
 																<child>
@@ -137,6 +138,7 @@
 																		<property name="numeric">true</property>
 																		<property name="wrap">true</property>
 																		<property name="adjustment">minutes_adjustment</property>
+																		<signal name="value-changed" handler="validate" swapped="no" />
 																	</object>
 																</child>
 																<child>
@@ -157,6 +159,7 @@
 																		<property name="numeric">true</property>
 																		<property name="wrap">true</property>
 																		<property name="adjustment">seconds_adjustment</property>
+																		<signal name="value-changed" handler="validate" swapped="no" />
 																	</object>
 																</child>
 															</object>
