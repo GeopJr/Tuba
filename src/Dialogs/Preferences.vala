@@ -390,8 +390,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			settings.proxy = "";
 		}
 
-		if (settings.analytics) app.update_analytics ();
-		app.update_contributors ();
+		if (settings.analytics) app.update_analytics.begin ();
+		app.update_contributors.begin ();
 	}
 
 	protected class AnalyticsDialog : Adw.Dialog {
