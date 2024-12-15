@@ -414,7 +414,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 	}
 
 	private static string bold_needle (owned string source, GLib.Regex? bold_text_regex) {
-		if (bold_text_regex == null) return source;
+		if (bold_text_regex == null || source.length >= 2000) return source;
 
 		try {
 			source = bold_text_regex.replace (source, source.length, 0, "<b>\\0</b>");
