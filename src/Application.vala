@@ -451,8 +451,8 @@ namespace Tuba {
 			} else {
 				debug ("Presenting MainWindow");
 				if (main_window == null) {
-					main_window = new Dialogs.MainWindow (this);
 					is_rtl = Gtk.Widget.get_default_direction () == Gtk.TextDirection.RTL;
+					main_window = new Dialogs.MainWindow (this);
 				}
 				if (!start_hidden) main_window.present ();
 			}
