@@ -184,8 +184,8 @@ public class Tuba.Views.Search : Views.TabbedBase {
 	private void generate_regex () {
 		try {
 			search_query_regex = new Regex (
-				// "this is a test." => /(\bthis\b|\bis\b|\ba\b|\btest\.\b)/
-				@"(\\b$(GLib.Regex.escape_string (this.query).replace (" ", "\\b|\\b"))\\b)",
+				// "this is a test." => /(:?\bthis\b:?|:?\bis\b:?|:?\ba\b:?|:?\btest\.\b:?)/
+				@"(:?\\b$(GLib.Regex.escape_string (this.query).replace (" ", "\\b:?|:?\\b"))\\b:?)",
 				GLib.RegexCompileFlags.CASELESS | GLib.RegexCompileFlags.OPTIMIZE
 			);
 		} catch (RegexError e) {
