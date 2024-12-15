@@ -76,7 +76,7 @@ public class Tuba.Views.Main : Views.TabbedBase {
 			tooltip_text = _("Open Sidebar")
 		};
 		header.pack_start (sidebar_button);
-		sidebar_button.icon_name = "tuba-dock-left-symbolic";
+		sidebar_button.icon_name = is_rtl ? "tuba-dock-right-symbolic" : "tuba-dock-left-symbolic";
 
 		bind ();
 		ulong main_window_notify = 0;
