@@ -182,6 +182,8 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 	GLib.Regex? search_query_regex = null;
 	private void generate_regex () {
+		if (this.query.length >= 45) return;
+
 		try {
 			search_query_regex = new Regex (
 				// "this is a test." => /(\bthis\b|\bis\b|\ba\b|\btest\.\b)/
