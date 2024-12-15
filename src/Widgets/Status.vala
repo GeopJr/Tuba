@@ -609,7 +609,8 @@
 	}
 
 	private string formatted_full_date () {
-		return new GLib.DateTime.from_iso8601 (this.full_date, null)
+		return (new GLib.DateTime.from_iso8601 (this.full_date, null))
+			.to_timezone (new TimeZone.local ())
 			.format ("%F %T");
 	}
 
