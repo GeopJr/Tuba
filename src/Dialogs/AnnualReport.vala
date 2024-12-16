@@ -129,7 +129,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 	string report_alt_text = "";
 	public AnnualReport (API.AnnualReports report, int year = 0) {
 		screenshot_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
-			css_classes = {"annual-screenshot-box"}
+			css_classes = {"annual-screenshot-box", "style-window"}
 		};
 		screenshot_paintable = new Gtk.WidgetPaintable (screenshot_box);
 		content_box.append (screenshot_box);
@@ -648,7 +648,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		return renderer.render_texture (node, rect);
 	}
 
-	Background current_style = Background.TRANSPARENT;
+	Background current_style = Background.WINDOW;
 	private void on_change_style (GLib.SimpleAction action, GLib.Variant? value) {
 		if (value == null) return;
 
