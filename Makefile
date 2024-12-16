@@ -80,3 +80,11 @@ __windows_cleanup:
 
 __windows_package:
 	zip -r9q tuba_windows_portable.zip tuba_windows_portable/
+
+windows_nsis: windows
+	rm -rf nsis
+	mkdir nsis
+	cp ./builddir/dev.geopjr.Tuba.ico nsis/
+	cp ./builddir/dev.geopjr.Tuba.nsi nsis/
+	mv tuba_windows_portable/ nsis/
+	cd nsis && makensis dev.geopjr.Tuba.nsi

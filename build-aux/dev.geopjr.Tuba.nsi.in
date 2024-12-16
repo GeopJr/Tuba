@@ -1,0 +1,114 @@
+;----------
+; Includes
+
+    !include "MUI2.nsh"
+    !include "logiclib.nsh"
+
+;----------
+; Custom defines
+
+    !define NAME "@NAME@"
+    !define EXEC_NAME "@EXEC_NAME@"
+    !define APPFILE "${EXEC_NAME}.exe"
+    !define VERSION "@VERSION@"
+    !define SLUG "${NAME} v${VERSION}"
+
+;----------
+; General
+
+    Name "${Name}"
+    BrandingText "${SLUG}"
+    OutFile "${Name} Setup.exe"
+    InstallDir "$PROGRAMFILES\${NAME}"
+    InstallDirRegKey HKCU "Software\${NAME}" ""
+    RequestExecutionLevel admin
+
+;----------
+; UI
+
+    !define MUI_ICON "$INSTDIR\share\${EXEC_NAME}.ico"
+    !define MUI_HEADERIMAGE
+    !define MUI_ABORTWARNING
+    !define MUI_WELCOMEPAGE_TITLE "${SLUG} Setup"
+
+;----------
+; Pages
+
+    ; Installer pages
+    !insertmacro MUI_PAGE_WELCOME
+    !insertmacro MUI_PAGE_COMPONENTS
+    !insertmacro MUI_PAGE_DIRECTORY
+    !insertmacro MUI_PAGE_INSTFILES
+    !insertmacro MUI_PAGE_FINISH
+
+    ; Uninstaller pages
+    !insertmacro MUI_UNPAGE_CONFIRM
+    !insertmacro MUI_UNPAGE_INSTFILES
+
+;----------
+; Language
+
+    !insertmacro MUI_LANGUAGE "English"
+
+;----------
+; Section - Install App
+
+    Section "-hidden app"
+        SectionIn RO
+        SetOutPath "$INSTDIR\bin"
+        File /a /r "tuba_windows_portable\bin\"
+        SetOutPath "$INSTDIR\lib"
+        File /a /r "tuba_windows_portable\lib\"
+        SetOutPath "$INSTDIR\share"
+        File /a /r "tuba_windows_portable\share\"
+        WriteRegStr HKCU "Software\${NAME}" "" $INSTDIR
+        WriteUninstaller "$INSTDIR\uninstall.exe"
+    SectionEnd
+
+;----------
+; Section - Shortcut
+
+    Section "Desktop Shortcut" DeskShort
+        CreateShortCut "$DESKTOP\${NAME}.lnk" "$INSTDIR\bin\${APPFILE}"
+    SectionEnd
+
+;----------
+; Remove empty parent directories
+
+    Function un.RMDirUP
+        !define RMDirUP '!insertmacro RMDirUPCall'
+
+        !macro RMDirUPCall _PATH
+            push '${_PATH}'
+            Call un.RMDirUP
+        !macroend
+
+        ; $0 - current folder
+        ClearErrors
+
+        Exch $0
+        ; DetailPrint "ASDF - $0\.."
+        RMDir "$0\.."
+
+        IfErrors Skip
+        ${RMDirUP} "$0\.."
+        Skip:
+            Pop $0
+    FunctionEnd
+
+;----------
+; Section - Uninstaller
+
+Section "Uninstall"
+    ; Delete Shortcut
+    Delete "$DESKTOP\${NAME}.lnk"
+
+    ; Delete Uninstall
+    Delete "$INSTDIR\uninstall.exe"
+
+    ; Delete Folder
+    RMDir /r "$INSTDIR"
+    ${RMDirUP} "$INSTDIR"
+
+    DeleteRegKey /ifempty HKCU "Software\${NAME}"
+SectionEnd

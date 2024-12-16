@@ -163,3 +163,11 @@ if not distro
     meson.add_install_script('build-aux/meson_post_install.py')
   endif
 endif
+
+if host_machine.system() == 'windows'
+  configure_file(
+      input : 'build-aux/dev.geopjr.Tuba.nsi.in',
+      output : 'dev.geopjr.Tuba.nsi',
+      configuration : config
+  )
+endif
