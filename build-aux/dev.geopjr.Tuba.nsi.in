@@ -26,7 +26,7 @@
 ;----------
 ; UI
 
-    !define MUI_ICON "$INSTDIR\share\${EXEC_NAME}.ico"
+    !define MUI_ICON "${EXEC_NAME}.ico"
     !define MUI_HEADERIMAGE
     !define MUI_ABORTWARNING
     !define MUI_WELCOMEPAGE_TITLE "${SLUG} Setup"

@@ -81,7 +81,10 @@ __windows_cleanup:
 __windows_package:
 	zip -r9q tuba_windows_portable.zip tuba_windows_portable/
 
-windows_nsis: windows
+windows_nsis:
+ifeq ($(wildcard ./nsis/tuba_windows_portable/),)
+	mv nsis/tuba_windows_portable/ .
+endif
 	rm -rf nsis
 	mkdir nsis
 	cp ./builddir/dev.geopjr.Tuba.ico nsis/
