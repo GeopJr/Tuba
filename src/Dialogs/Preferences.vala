@@ -17,6 +17,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			this.filter = filter;
 			this.win = win;
 			this.activatable = false;
+			this.use_markup = false;
 
 			var delete_btn = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
 				css_classes = { "circular", "flat", "error" },
