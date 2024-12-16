@@ -313,22 +313,8 @@ namespace Tuba {
 			var style_manager = Adw.StyleManager.get_default ();
 			ColorScheme color_scheme = (ColorScheme) settings.get_enum ("color-scheme");
 			style_manager.color_scheme = color_scheme.to_adwaita_scheme ();
-
-			#if DEV_MODE
-				set_accels_for_action ("app.dev-only-window", {"F2"});
-			#endif
-			set_accels_for_action ("app.about", {"F1"});
-			set_accels_for_action ("app.open-preferences", {"<Ctrl>comma"});
-			set_accels_for_action ("app.compose", {"<Ctrl>T", "<Ctrl>N"});
-			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>KP_Left"});
-			set_accels_for_action ("app.refresh", {"<Ctrl>R", "F5"});
-			set_accels_for_action ("app.search", {"<Ctrl>F"});
-			set_accels_for_action ("app.quit", {"<Ctrl>Q"});
-			set_accels_for_action ("window.close", {"<Ctrl>W"});
-			set_accels_for_action ("app.back-home", {"<Alt>Home"});
-			set_accels_for_action ("app.scroll-page-down", {"Page_Down"});
-			set_accels_for_action ("app.scroll-page-up", {"Page_Up"});
-			set_accels_for_action ("app.scroll-page-to-top", {"Home"});
+			enable_window_accels ();
+			enable_nav_accels ();
 			add_action_entries (APP_ENTRIES, this);
 
 			if (settings.monitor_network)
@@ -340,6 +326,48 @@ namespace Tuba {
 
 			if (settings.analytics) app.update_analytics.begin ();
 			app.update_contributors.begin ();
+		}
+
+		public void enable_window_accels () {
+			#if DEV_MODE
+				set_accels_for_action ("app.dev-only-window", {"F2"});
+			#endif
+			set_accels_for_action ("app.about", {"F1"});
+			set_accels_for_action ("app.open-preferences", {"<Ctrl>comma"});
+			set_accels_for_action ("app.compose", {"<Ctrl>T", "<Ctrl>N"});
+			set_accels_for_action ("app.search", {"<Ctrl>F"});
+			set_accels_for_action ("app.quit", {"<Ctrl>Q"});
+			set_accels_for_action ("window.close", {"<Ctrl>W"});
+		}
+
+		public void disable_window_accels () {
+			#if DEV_MODE
+				set_accels_for_action ("app.dev-only-window", {});
+			#endif
+			set_accels_for_action ("app.about", {});
+			set_accels_for_action ("app.open-preferences", {});
+			set_accels_for_action ("app.compose", {});
+			set_accels_for_action ("app.search", {});
+			set_accels_for_action ("app.quit", {});
+			set_accels_for_action ("window.close", {});
+		}
+
+		public void enable_nav_accels () {
+			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>KP_Left"});
+			set_accels_for_action ("app.refresh", {"<Ctrl>R", "F5"});
+			set_accels_for_action ("app.back-home", {"<Alt>Home"});
+			set_accels_for_action ("app.scroll-page-down", {"Page_Down"});
+			set_accels_for_action ("app.scroll-page-up", {"Page_Up"});
+			set_accels_for_action ("app.scroll-page-to-top", {"Home"});
+		}
+
+		public void disable_nav_accels () {
+			set_accels_for_action ("app.back", {});
+			set_accels_for_action ("app.refresh", {});
+			set_accels_for_action ("app.back-home", {});
+			set_accels_for_action ("app.scroll-page-down", {});
+			set_accels_for_action ("app.scroll-page-up", {});
+			set_accels_for_action ("app.scroll-page-to-top", {});
 		}
 
 		private void on_proxy_change (bool recover = false) {

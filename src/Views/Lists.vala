@@ -216,6 +216,11 @@ public class Tuba.Views.Lists : Views.Timeline {
 			placeholder_text = _("New list title")
 		};
 
+		var focus_controller = new Gtk.EventControllerFocus ();
+		focus_controller.enter.connect (on_entry_focus_enter);
+		focus_controller.leave.connect (on_entry_focus_leave);
+		add_controller (focus_controller);
+
 		var add_action_bar = new Gtk.ActionBar () {
 			css_classes = { "ttl-box-no-shadow" }
 		};
@@ -243,6 +248,14 @@ public class Tuba.Views.Lists : Views.Timeline {
 
 	void on_entry_changed () {
 		add_button.sensitive = child_entry.text.length > 0;
+	}
+
+	private void on_entry_focus_enter () {
+		app.disable_nav_accels ();
+	}
+
+	private void on_entry_focus_leave () {
+		app.enable_nav_accels ();
 	}
 
 	~Lists () {
