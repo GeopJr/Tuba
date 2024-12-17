@@ -1,114 +1,133 @@
 ;----------
 ; Includes
 
-    !include "MUI2.nsh"
-    !include "logiclib.nsh"
+	!include "MUI2.nsh"
+	!include "logiclib.nsh"
+	!include "FileFunc.nsh"
 
 ;----------
 ; Custom defines
 
-    !define NAME "@NAME@"
-    !define EXEC_NAME "@EXEC_NAME@"
-    !define APPFILE "${EXEC_NAME}.exe"
-    !define VERSION "@VERSION@"
-    !define SLUG "${NAME} v${VERSION}"
+	!define NAME "@NAME@"
+	!define EXEC_NAME "@EXEC_NAME@"
+	!define APPFILE "${EXEC_NAME}.exe"
+	!define VERSION "@VERSION@"
+	!define SLUG "${NAME} v${VERSION}"
+	!define UNINSTALL_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}"
 
 ;----------
 ; General
 
-    Name "${Name}"
-    BrandingText "${SLUG}"
-    OutFile "${SLUG} Setup.exe"
-    InstallDir "$PROGRAMFILES\${NAME}"
-    InstallDirRegKey HKCU "Software\${NAME}" ""
-    RequestExecutionLevel admin
+	Name "${Name}"
+	BrandingText "${SLUG}"
+	OutFile "${SLUG} Setup.exe"
+	InstallDir "$PROGRAMFILES\${NAME}"
+	InstallDirRegKey HKCU "Software\${NAME}" ""
+	RequestExecutionLevel admin
 
 ;----------
 ; UI
 
-    !define MUI_ICON "${EXEC_NAME}.ico"
-    !define MUI_HEADERIMAGE
-    !define MUI_ABORTWARNING
-    !define MUI_WELCOMEPAGE_TITLE "${SLUG} Setup"
+	!define MUI_ICON "${EXEC_NAME}.ico"
+	!define MUI_HEADERIMAGE
+	!define MUI_ABORTWARNING
+	!define MUI_WELCOMEPAGE_TITLE "${SLUG} Setup"
 
 ;----------
 ; Pages
 
-    ; Installer pages
-    !insertmacro MUI_PAGE_WELCOME
-    !insertmacro MUI_PAGE_COMPONENTS
-    !insertmacro MUI_PAGE_DIRECTORY
-    !insertmacro MUI_PAGE_INSTFILES
-    !insertmacro MUI_PAGE_FINISH
+	; Installer pages
+	!insertmacro MUI_PAGE_WELCOME
+	!insertmacro MUI_PAGE_COMPONENTS
+	!insertmacro MUI_PAGE_DIRECTORY
+	!insertmacro MUI_PAGE_INSTFILES
+	!insertmacro MUI_PAGE_FINISH
 
-    ; Uninstaller pages
-    !insertmacro MUI_UNPAGE_CONFIRM
-    !insertmacro MUI_UNPAGE_INSTFILES
+	; Uninstaller pages
+	!insertmacro MUI_UNPAGE_CONFIRM
+	!insertmacro MUI_UNPAGE_INSTFILES
 
 ;----------
 ; Language
 
-    !insertmacro MUI_LANGUAGE "English"
+	!insertmacro MUI_LANGUAGE "English"
 
 ;----------
 ; Section - Install App
 
-    Section "-hidden app"
-        SectionIn RO
-        SetOutPath "$INSTDIR\bin"
-        File /a /r "tuba_windows_portable\bin\"
-        SetOutPath "$INSTDIR\lib"
-        File /a /r "tuba_windows_portable\lib\"
-        SetOutPath "$INSTDIR\share"
-        File /a /r "tuba_windows_portable\share\"
-        WriteRegStr HKCU "Software\${NAME}" "" $INSTDIR
-        WriteUninstaller "$INSTDIR\uninstall.exe"
-    SectionEnd
+	Section "-hidden app"
+		SectionIn RO
+		SetOutPath "$INSTDIR\bin"
+		File /a /r "tuba_windows_portable\bin\"
+		SetOutPath "$INSTDIR\lib"
+		File /a /r "tuba_windows_portable\lib\"
+		SetOutPath "$INSTDIR\share"
+		File /a /r "tuba_windows_portable\share\"
+		WriteRegStr HKCU "Software\${NAME}" "" $INSTDIR
+
+		WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayName" "${NAME}"
+		WriteRegStr HKLM "${UNINSTALL_KEY}" "UninstallString" "$INSTDIR\uninstall.exe"
+		WriteRegStr HKLM "${UNINSTALL_KEY}" "InstallLocation" "$INSTDIR"
+		WriteRegStr HKLM "${UNINSTALL_KEY}" "Publisher" "GeopJr"
+		WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayIcon" "${EXEC_NAME}.ico"
+		WriteRegStr HKLM "${UNINSTALL_KEY}" "URLInfoAbout" "@WEBSITE@"
+		WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
+		WriteRegDWORD HKLM "${UNINSTALL_KEY}" "NoModify" 1
+		WriteRegDWORD HKLM "${UNINSTALL_KEY}" "NoRepair" 1
+
+		${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
+		IntFmt $0 "0x%08X" $0
+		WriteRegDWORD HKLM "${UNINSTALL_KEY}" "EstimatedSize" "$0"
+
+		WriteUninstaller "$INSTDIR\uninstall.exe"
+	SectionEnd
 
 ;----------
 ; Section - Shortcut
 
-    Section "Desktop Shortcut" DeskShort
-        CreateShortCut "$DESKTOP\${NAME}.lnk" "$INSTDIR\bin\${APPFILE}"
-    SectionEnd
+	Section "Desktop Shortcut" DeskShort
+		CreateShortCut "$DESKTOP\${NAME}.lnk" "$INSTDIR\bin\${APPFILE}"
+		CreateShortCut "$SMPrograms\${NAME}.lnk" "$INSTDIR\bin\${APPFILE}"
+	SectionEnd
 
 ;----------
 ; Remove empty parent directories
 
-    Function un.RMDirUP
-        !define RMDirUP '!insertmacro RMDirUPCall'
+	Function un.RMDirUP
+		!define RMDirUP '!insertmacro RMDirUPCall'
 
-        !macro RMDirUPCall _PATH
-            push '${_PATH}'
-            Call un.RMDirUP
-        !macroend
+		!macro RMDirUPCall _PATH
+			push '${_PATH}'
+			Call un.RMDirUP
+		!macroend
 
-        ; $0 - current folder
-        ClearErrors
+		; $0 - current folder
+		ClearErrors
 
-        Exch $0
-        ; DetailPrint "ASDF - $0\.."
-        RMDir "$0\.."
+		Exch $0
+		; DetailPrint "ASDF - $0\.."
+		RMDir "$0\.."
 
-        IfErrors Skip
-        ${RMDirUP} "$0\.."
-        Skip:
-            Pop $0
-    FunctionEnd
+		IfErrors Skip
+		${RMDirUP} "$0\.."
+		Skip:
+			Pop $0
+	FunctionEnd
 
 ;----------
 ; Section - Uninstaller
 
 Section "Uninstall"
-    ; Delete Shortcut
-    Delete "$DESKTOP\${NAME}.lnk"
+	; Delete Shortcut
+	Delete "$DESKTOP\${NAME}.lnk"
+	Delete "$SMPrograms\${NAME}.lnk"
 
-    ; Delete Uninstall
-    Delete "$INSTDIR\uninstall.exe"
+	; Delete Uninstall
+	Delete "$INSTDIR\uninstall.exe"
 
-    ; Delete Folder
-    RMDir /r "$INSTDIR"
-    ${RMDirUP} "$INSTDIR"
+	; Delete Folder
+	RMDir /r "$INSTDIR"
+	${RMDirUP} "$INSTDIR"
 
-    DeleteRegKey /ifempty HKCU "Software\${NAME}"
+	DeleteRegKey /ifempty HKCU "Software\${NAME}"
 SectionEnd
