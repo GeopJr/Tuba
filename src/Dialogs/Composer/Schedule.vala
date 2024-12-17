@@ -32,7 +32,7 @@ public class Tuba.Dialogs.Schedule : Adw.Dialog {
 			seconds_spin_button.value = (double) iso8601_datetime.get_second ();
 
 			calendar.year = iso8601_datetime.get_year ();
-			calendar.day = iso8601_datetime.get_month ();
+			calendar.month = iso8601_datetime.get_month () - 1;
 			calendar.day = iso8601_datetime.get_day_of_month ();
 		}
 
