@@ -130,4 +130,5 @@ Section "Uninstall"
 	${RMDirUP} "$INSTDIR"
 
 	DeleteRegKey /ifempty HKCU "Software\${NAME}"
+	DeleteRegKey HKLM "${UNINSTALL_KEY}"
 SectionEnd
