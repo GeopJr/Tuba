@@ -20,7 +20,7 @@
 
 	Name "${Name}"
 	BrandingText "${SLUG}"
-	OutFile "${SLUG} Setup.exe"
+	OutFile "${NAME} Setup.exe"
 	InstallDir "$PROGRAMFILES\${NAME}"
 	InstallDirRegKey HKCU "Software\${NAME}" ""
 	RequestExecutionLevel admin
