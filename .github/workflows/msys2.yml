@@ -2,6 +2,10 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      release:
+        type: boolean
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -16,12 +20,17 @@ jobs:
         shell: msys2 {0}
     steps:
       - uses: actions/checkout@v3
+        with:
+          lfs: 'true'
       - uses: msys2/setup-msys2@v2
         with:
           msystem: mingw64
           update: true
           install: git make zip wget unzip mingw-w64-x86_64-meson mingw-w64-x86_64-gcc mingw-w64-x86_64-vala mingw-w64-x86_64-libsoup3 mingw-w64-x86_64-libxml2 mingw-w64-x86_64-gtksourceview5 mingw-w64-x86_64-webp-pixbuf-loader mingw-w64-x86_64-libadwaita mingw-w64-x86_64-libgee mingw-w64-x86_64-json-glib mingw-w64-x86_64-libsecret mingw-w64-x86_64-desktop-file-utils mingw-w64-x86_64-imagemagick mingw-w64-x86_64-icu mingw-w64-x86_64-libspelling mingw-w64-x86_64-gstreamer mingw-w64-x86_64-gst-plugins-base mingw-w64-x86_64-gst-plugins-good mingw-w64-x86_64-nsis
+      - run: make windows release=1
+        if: ${{ inputs.release }}
       - run: make windows
+        if: ${{ !inputs.release }}
       - uses: actions/upload-artifact@v4
         with:
           name: tuba_windows_portable
@@ -31,3 +40,5 @@ jobs:
         with:
           name: Tuba Setup.exe
           path: nsis/Tuba Setup.exe
+      - run: |
+          certutil -hashfile "nsis/Tuba Setup.exe" SHA256
