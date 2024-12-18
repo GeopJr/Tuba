@@ -54,10 +54,8 @@ if devmode
   add_project_arguments(['--define=DEV_MODE'], language: 'vala')
 endif
 
-executable_link_args = []
 if host_machine.system() == 'windows'
   add_project_arguments(['--define=WINDOWS'], language: 'vala')
-  executable_link_args += ['-mwindows', '/SUBSYSTEM:WINDOWS']
 elif host_machine.system() == 'darwin'
   add_project_arguments(['--define=DARWIN'], language: 'vala')
 endif
@@ -144,7 +142,7 @@ executable(
     sources,
     dependencies: final_deps,
     install: true,
-    link_args: executable_link_args
+    win_subsystem: 'windows'
 )
 
 subdir('tests')
