@@ -29,9 +29,13 @@
 ; UI
 
 	!define MUI_ICON "${EXEC_NAME}.ico"
-	!define MUI_HEADERIMAGE
+	!define MUI_UNICON "${EXEC_NAME}-uninstall.ico"
 	!define MUI_ABORTWARNING
 	!define MUI_WELCOMEPAGE_TITLE "${SLUG} Setup"
+	;!define MUI_WELCOMEFINISHPAGE_BITMAP "${EXEC_NAME}-side.bmp"
+	!define MUI_HEADERIMAGE_BITMAP "${EXEC_NAME}-header.bmp"
+	!define MUI_HEADERIMAGE "${EXEC_NAME}.bmp"
+	!define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 
 ;----------
 ; Pages
@@ -41,6 +45,10 @@
 	!insertmacro MUI_PAGE_COMPONENTS
 	!insertmacro MUI_PAGE_DIRECTORY
 	!insertmacro MUI_PAGE_INSTFILES
+	!define MUI_FINISHPAGE_RUN "$INSTDIR\bin\${APPFILE}"
+	!define MUI_FINISHPAGE_RUN_NOTCHECKED
+	!define MUI_FINISHPAGE_LINK "Visit ${NAME}'s Website"
+	!define MUI_FINISHPAGE_LINK_LOCATION "https://tuba.geopjr.dev/"
 	!insertmacro MUI_PAGE_FINISH
 
 	; Uninstaller pages
@@ -63,15 +71,17 @@
 		File /a /r "tuba_windows_portable\lib\"
 		SetOutPath "$INSTDIR\share"
 		File /a /r "tuba_windows_portable\share\"
+		SetOutPath "$INSTDIR\"
+		File "${EXEC_NAME}.ico"
 		WriteRegStr HKCU "Software\${NAME}" "" $INSTDIR
 
 		WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayName" "${NAME}"
 		WriteRegStr HKLM "${UNINSTALL_KEY}" "UninstallString" "$INSTDIR\uninstall.exe"
 		WriteRegStr HKLM "${UNINSTALL_KEY}" "InstallLocation" "$INSTDIR"
 		WriteRegStr HKLM "${UNINSTALL_KEY}" "Publisher" "GeopJr"
-		WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayIcon" "${EXEC_NAME}.ico"
-		WriteRegStr HKLM "${UNINSTALL_KEY}" "URLInfoAbout" "@WEBSITE@"
-		WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
+		WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayIcon" "$INSTDIR\${EXEC_NAME}.ico"
+		WriteRegStr HKLM "${UNINSTALL_KEY}" "URLInfoAbout" "https://tuba.geopjr.dev/"
+		WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayVersion" "${VERSION}"
 		WriteRegDWORD HKLM "${UNINSTALL_KEY}" "NoModify" 1
 		WriteRegDWORD HKLM "${UNINSTALL_KEY}" "NoRepair" 1
 
