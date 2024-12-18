@@ -40,5 +40,4 @@ jobs:
         with:
           name: Tuba Setup.exe
           path: nsis/Tuba Setup.exe
-      - run: |
-          certutil -hashfile "nsis/Tuba Setup.exe" SHA256
+      - run: sha256sum nsis/Tuba\ Setup.exe
