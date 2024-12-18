@@ -35,7 +35,6 @@ jobs:
         with:
           name: tuba_windows_portable
           path: tuba_windows_portable/
-      - run: make windows_nsis
       - uses: actions/upload-artifact@v4
         with:
           name: Tuba Setup.exe
