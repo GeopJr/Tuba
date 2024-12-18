@@ -75,6 +75,7 @@
 		File "${EXEC_NAME}.ico"
 		WriteRegStr HKCU "Software\${NAME}" "" $INSTDIR
 
+		DeleteRegKey HKLM "${UNINSTALL_KEY}"
 		WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayName" "${NAME}"
 		WriteRegStr HKLM "${UNINSTALL_KEY}" "UninstallString" "$INSTDIR\uninstall.exe"
 		WriteRegStr HKLM "${UNINSTALL_KEY}" "InstallLocation" "$INSTDIR"
