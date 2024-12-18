@@ -81,6 +81,8 @@ __windows_cleanup:
 __windows_package:
 	zip -r9q tuba_windows_portable.zip tuba_windows_portable/
 
+leftparen:=(
+rightparen:=)
 windows_nsis:
 	rm -rf nsis
 	mkdir nsis
@@ -88,7 +90,7 @@ windows_nsis:
 	cp ./builddir/dev.geopjr.Tuba.ico nsis/
 	cp ./builddir/dev.geopjr.Tuba.nsi nsis/
 	mv tuba_windows_portable/ nsis/
-	magick ./builddir/color$(if $(release),,-nightly).png ( -clone 0 -fill #ff0000 -colorize 75 ) -compose multiply -composite nsis/dev.geopjr.Tuba-uninstall.png
+	magick ./builddir/color$(if $(release),,-nightly).png $(leftparen) -clone 0 -fill #ff0000 -colorize 75 $(rightparen) -compose multiply -composite nsis/dev.geopjr.Tuba-uninstall.png
 	magick -density "256x256" -background transparent nsis/dev.geopjr.Tuba-uninstall.png -define icon:auto-resize -colors 256 nsis/dev.geopjr.Tuba-uninstall.ico
 	rsvg-convert ./data/icons/color$(if $(release),,-nightly).svg -o nsis/dev.geopjr.Tuba-header.png -h 57 -w 57
 	magick nsis/dev.geopjr.Tuba-header.png -background white -alpha remove -alpha off -type truecolor -define bmp:format=bmp3 nsis/dev.geopjr.Tuba-header.bmp
