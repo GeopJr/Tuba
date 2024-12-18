@@ -7,7 +7,7 @@ on:
       release:
         type: boolean
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.release }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.inputs.release }}
   cancel-in-progress: true
 name: Windows
 jobs:
