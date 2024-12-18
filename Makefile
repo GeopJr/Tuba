@@ -40,8 +40,8 @@ __windows_set_icon:
 ifeq (,$(wildcard ./rcedit-x64.exe))
 	wget https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
 endif
-	rsvg-convert ./data/icons/color-nightly.svg -o ./builddir/color-nightly.png -h 256 -w 256
-	magick -density "256x256" -background transparent ./builddir/color-nightly.png -define icon:auto-resize -colors 256 ./builddir/dev.geopjr.Tuba.ico
+	rsvg-convert ./data/icons/color$(if $(release),,-nightly).svg -o ./builddir/color$(if $(release),,-nightly).png -h 256 -w 256
+	magick -density "256x256" -background transparent ./builddir/color$(if $(release),,-nightly).png -define icon:auto-resize -colors 256 ./builddir/dev.geopjr.Tuba.ico
 	./rcedit-x64.exe $(PREFIX)/bin/dev.geopjr.Tuba.exe --set-icon ./builddir/dev.geopjr.Tuba.ico
 
 __windows_copy_deps:
@@ -54,7 +54,7 @@ __windows_copy_deps:
 	cp -r /mingw64/lib/gstreamer-1.0 $(PREFIX)/lib/gstreamer-1.0
 
 	cp -f /mingw64/share/gtksourceview-5/styles/Adwaita.xml /mingw64/share/gtksourceview-5/styles/Adwaita-dark.xml ${PREFIX}/share/gtksourceview-5/styles/
-	cp -f /mingw64/share/gtksourceview-5/language-specs/xml.lang /mingw64/share/gtksourceview-5/language-specs/markdown.lang /mingw64/share/gtksourceview-5/language-specs/html.lang ${PREFIX}/share/gtksourceview-5/language-specs/
+	cp -f /mingw64/share/gtksourceview-5/language-specs/dtd.lang /mingw64/share/gtksourceview-5/language-specs/def.lang /mingw64/share/gtksourceview-5/language-specs/rust.lang /mingw64/share/gtksourceview-5/language-specs/language2.rng /mingw64/share/gtksourceview-5/language-specs/json.lang /mingw64/share/gtksourceview-5/language-specs/xml.lang /mingw64/share/gtksourceview-5/language-specs/markdown.lang /mingw64/share/gtksourceview-5/language-specs/html.lang ${PREFIX}/share/gtksourceview-5/language-specs/
 
 	ldd $(PREFIX)/lib/gio/*/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	ldd $(PREFIX)/lib/gstreamer-1.0/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
@@ -80,3 +80,16 @@ __windows_cleanup:
 
 __windows_package:
 	zip -r9q tuba_windows_portable.zip tuba_windows_portable/
+
+windows_nsis:
+	rm -rf nsis
+	mkdir nsis
+	cp ./build-aux/dev.geopjr.Tuba-side.bmp nsis/
+	cp ./builddir/dev.geopjr.Tuba.ico nsis/
+	cp ./builddir/dev.geopjr.Tuba.nsi nsis/
+	mv tuba_windows_portable/ nsis/
+	magick ./builddir/color$(if $(release),,-nightly).png -modulate 100,100,70 nsis/dev.geopjr.Tuba-uninstall.png
+	magick -density "256x256" -background transparent nsis/dev.geopjr.Tuba-uninstall.png -define icon:auto-resize -colors 256 nsis/dev.geopjr.Tuba-uninstall.ico
+	rsvg-convert ./data/icons/color$(if $(release),,-nightly).svg -o nsis/dev.geopjr.Tuba-header.png -h 57 -w 57
+	magick nsis/dev.geopjr.Tuba-header.png -background white -alpha remove -alpha off -type truecolor -define bmp:format=bmp3 nsis/dev.geopjr.Tuba-header.bmp
+	cd nsis && makensis dev.geopjr.Tuba.nsi

@@ -10,3 +10,4 @@ builddir
 *.exe
 /tuba_windows_portable/
 tuba_windows_portable.zip
+/nsis/

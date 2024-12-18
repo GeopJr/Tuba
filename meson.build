@@ -56,7 +56,6 @@ endif
 
 if host_machine.system() == 'windows'
   add_project_arguments(['--define=WINDOWS'], language: 'vala')
-  add_project_arguments('-mwindows', language: 'c')
 elif host_machine.system() == 'darwin'
   add_project_arguments(['--define=DARWIN'], language: 'vala')
 endif
@@ -143,6 +142,7 @@ executable(
     sources,
     dependencies: final_deps,
     install: true,
+    win_subsystem: 'windows'
 )
 
 subdir('tests')
@@ -162,4 +162,12 @@ if not distro
   else
     meson.add_install_script('build-aux/meson_post_install.py')
   endif
+endif
+
+if host_machine.system() == 'windows'
+  configure_file(
+      input : 'build-aux/dev.geopjr.Tuba.nsi.in',
+      output : 'dev.geopjr.Tuba.nsi',
+      configuration : config
+  )
 endif
