@@ -175,7 +175,9 @@ public class Tuba.Widgets.AccountSuggestions : Gtk.ListBoxRow {
 				if (widgets.size > 0) {
 					this.visible = true;
 					populate_account_suggestions_relationships (widgets);
-				};
+				} else {
+					this.visible = false;
+				}
 				on_page_changed ();
 			})
 			.on_error (() => {

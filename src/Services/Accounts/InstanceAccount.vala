@@ -530,12 +530,14 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 						this.instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
 
 					if (instance_v2.api_versions != null && instance_v2.api_versions.mastodon > 0) {
-						this.instance_info.tuba_mastodon_version = instance_v2.api_versions.mastodon;
+						this.instance_info.tuba_api_versions = instance_v2.api_versions;
 						this.probably_has_notification_filters = true;
 
-						if (this.instance_info.tuba_mastodon_version > 1) gather_annual_report ();
+						if (this.instance_info.tuba_api_versions.mastodon > 1) gather_annual_report ();
 					}
 				}
+
+				bump_sidebar_items ();
 			})
 			.exec ();
 	}
@@ -556,7 +558,6 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 			default:
 				return;
 		}
-
 
 		new Request.GET (@"/api/v1/annual_reports/$(year)")
 			.with_account (accounts.active)

@@ -17,7 +17,7 @@ public class Tuba.API.Instance : Entity {
 	public Gee.ArrayList<Rule>? rules { get; set; }
 
 	public bool tuba_can_translate { get; set; default=false; }
-	public int8 tuba_mastodon_version { get; set; default=0; }
+	public API.InstanceV2.APIVersions tuba_api_versions { get; set; default= new API.InstanceV2.APIVersions (); }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
@@ -44,6 +44,8 @@ public class Tuba.API.Instance : Entity {
 		get {
 			if (pleroma != null && pleroma.metadata != null && pleroma.metadata.features != null) {
 				return "bubble_timeline" in pleroma.metadata.features;
+			} else if (tuba_api_versions.chuckya > 0) {
+				return true;
 			}
 
 			return false;

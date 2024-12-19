@@ -91,7 +91,7 @@ public class Tuba.Widgets.PreviewCardExplore : Gtk.ListBoxRow {
 			css_classes = { "caption" }
 		};
 
-		if (accounts.active.instance_info.tuba_mastodon_version >= 1) {
+		if (accounts.active.instance_info.tuba_api_versions.mastodon >= 1) {
 			Gtk.Button discussions_button = new Gtk.Button () {
 				margin_top = 6,
 				child = used_times_label,

@@ -8,6 +8,7 @@ public class Tuba.API.InstanceV2 : Entity {
 
 	public class APIVersions : Entity {
 		public int8 mastodon { get; set; default = 0; }
+		public int8 chuckya { get; set; default = 0; }
 	}
 
 	public Configuration configuration { get; set; default = null; }
