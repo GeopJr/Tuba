@@ -29,6 +29,24 @@ public class Tuba.Host {
 		return true;
 	}
 
+	public static async bool open_url_async (string url) {
+		debug (@"Opening URL async: $url");
+
+		try {
+			yield (new Gtk.UriLauncher (url)).launch (app.active_window, null);
+		} catch (Error e) {
+			warning (@"Error opening uri \"$url\": $(e.message)");
+			try {
+				yield AppInfo.launch_default_for_uri_async (url, null, null);
+			} catch (Error e) {
+				warning (@"Error opening uri \"$url\": $(e.message)");
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	private static void open_in_default_app (string uri) {
 		debug (@"Opening URI: $uri");
 

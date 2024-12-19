@@ -55,8 +55,14 @@ public class Tuba.SecretAccountStore : AccountStore {
 				null,
 				false,
 				(obj, res) => {
-					if (app.question.end (res).truthy ()) Host.open_url (wiki_page);
-					Process.exit (1);
+					if (app.question.end (res).truthy ()) {
+						Host.open_url_async.begin (wiki_page, (obj, res) => {
+							Host.open_url_async.end (res);
+							Process.exit (1);
+						});
+					} else {
+						Process.exit (1);
+					}
 				}
 			);
 		}
