@@ -54,7 +54,7 @@ __windows_copy_deps:
 	cp -r /mingw64/lib/gstreamer-1.0 $(PREFIX)/lib/gstreamer-1.0
 
 	cp -f /mingw64/share/gtksourceview-5/styles/Adwaita.xml /mingw64/share/gtksourceview-5/styles/Adwaita-dark.xml ${PREFIX}/share/gtksourceview-5/styles/
-	cp -r /mingw64/share/gtksourceview-5/language-specs/ ${PREFIX}/share/gtksourceview-5/language-specs/
+	cp -r /mingw64/share/gtksourceview-5/language-specs/ ${PREFIX}/share/gtksourceview-5/
 
 	ldd $(PREFIX)/lib/gio/*/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	ldd $(PREFIX)/lib/gstreamer-1.0/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
