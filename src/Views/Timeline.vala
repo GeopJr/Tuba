@@ -305,7 +305,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				var entity = Entity.from_json (accepts, ev.get_node ());
 				if (should_hide (entity)) return;
 
-				if (use_queue && scrolled.vadjustment.value > 1000) {
+				if (use_queue && scrolled.vadjustment.value > 100) {
 					entity_queue += entity;
 					entity_queue_size += 1;
 					return;
