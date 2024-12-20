@@ -144,8 +144,8 @@
 	private SimpleAction toggle_pinned_simple_action;
 	private SimpleAction translate_simple_action;
 	private SimpleAction show_original_simple_action;
-	private SimpleAction mute_conversation_action;
-	private SimpleAction unmute_conversation_action;
+	private SimpleAction? mute_conversation_action = null;
+	private SimpleAction? unmute_conversation_action = null;
 
 	void settings_updated () {
 		Tuba.toggle_css (this, settings.larger_font_size, "ttl-status-font-large");
@@ -263,6 +263,14 @@
 	protected void create_actions () {
 		create_context_menu ();
 
+		mute_conversation_action = new SimpleAction ("mute-conversation", null);
+		mute_conversation_action.activate.connect (toggle_mute_conversation);
+		action_group.add_action (mute_conversation_action);
+
+		unmute_conversation_action = new SimpleAction ("unmute-conversation", null);
+		unmute_conversation_action.activate.connect (toggle_mute_conversation);
+		action_group.add_action (unmute_conversation_action);
+
 		if (status.formal.account.is_self ()) {
 			if (status.formal.visibility != "direct") {
 				toggle_pinned_simple_action = new SimpleAction ("toggle-pinned", null);
@@ -270,16 +278,6 @@
 				toggle_pinned_simple_action.set_enabled (false);
 				action_group.add_action (toggle_pinned_simple_action);
 			}
-
-			mute_conversation_action = new SimpleAction ("mute-conversation", null);
-			mute_conversation_action.activate.connect (toggle_mute_conversation);
-			action_group.add_action (mute_conversation_action);
-
-			unmute_conversation_action = new SimpleAction ("unmute-conversation", null);
-			unmute_conversation_action.activate.connect (toggle_mute_conversation);
-			action_group.add_action (unmute_conversation_action);
-
-			update_mute_conversation_actions_enabled_status ();
 
 			var edit_status_simple_action = new SimpleAction ("edit-status", null);
 			edit_status_simple_action.activate.connect (edit_status);
@@ -300,6 +298,8 @@
 			action_group.add_action (translate_simple_action);
 			action_group.add_action (show_original_simple_action);
 		}
+
+		update_mute_conversation_actions_enabled_status ();
 	}
 
 	private GLib.MenuItem pin_menu_item;
@@ -317,16 +317,16 @@
 		edit_history_menu_item.set_attribute_value ("hidden-when", "action-disabled");
 		menu_model.append_item (edit_history_menu_item);
 
+		var mute_menu_item = new GLib.MenuItem (_("Mute"), "status.mute-conversation");
+		mute_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+
+		var unmute_menu_item = new GLib.MenuItem (_("Unmute"), "status.unmute-conversation");
+		unmute_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+
 		if (status.formal.account.is_self ()) {
 			pin_menu_item = new GLib.MenuItem (_("Pin"), "status.toggle-pinned");
 			update_toggle_pinned_label ();
 			pin_menu_item.set_attribute_value ("hidden-when", "action-disabled");
-
-			var mute_menu_item = new GLib.MenuItem (_("Mute"), "status.mute-conversation");
-			mute_menu_item.set_attribute_value ("hidden-when", "action-disabled");
-
-			var unmute_menu_item = new GLib.MenuItem (_("Unmute"), "status.unmute-conversation");
-			unmute_menu_item.set_attribute_value ("hidden-when", "action-disabled");
 
 			menu_model.append_item (pin_menu_item);
 			menu_model.append_item (mute_menu_item);
@@ -335,6 +335,9 @@
 			menu_model.append (_("Edit"), "status.edit-status");
 			menu_model.append (_("Delete"), "status.delete-status");
 		} else {
+			menu_model.append_item (mute_menu_item);
+			menu_model.append_item (unmute_menu_item);
+
 			if (
 				accounts.active.instance_info != null
 				&& accounts.active.instance_info.tuba_can_translate
@@ -485,7 +488,7 @@
 		string api_action = status.formal.muted ? "unmute" : "mute";
 		new Request.POST (@"/api/v1/statuses/$(status.formal.id)/$api_action")
 			.with_account (accounts.active)
-			.then ((in_stream) => {
+			.then (() => {
 				status.formal.muted = !status.formal.muted;
 				update_mute_conversation_actions_enabled_status ();
 			})
@@ -503,8 +506,25 @@
 	}
 
 	private void update_mute_conversation_actions_enabled_status () {
-		mute_conversation_action.set_enabled (!status.formal.muted);
-		unmute_conversation_action.set_enabled (status.formal.muted);
+		if (mute_conversation_action == null || unmute_conversation_action == null) return;
+
+		bool can_mute_convo = status.formal.account.is_self ();
+		if (!can_mute_convo && status.formal.mentions != null && status.formal.mentions.size > 0) {
+			foreach (var mention in status.formal.mentions) {
+				if (mention.id == accounts.active.id) {
+					can_mute_convo = true;
+					break;
+				}
+			}
+		}
+
+		if (can_mute_convo) {
+			mute_conversation_action.set_enabled (!status.formal.muted);
+			unmute_conversation_action.set_enabled (status.formal.muted);
+		} else {
+			mute_conversation_action.set_enabled (false);
+			unmute_conversation_action.set_enabled (false);
+		}
 	}
 
 	private void translate () {
@@ -1131,6 +1151,7 @@
 		formal_handler_ids += status.formal.notify["tuba-spoiler-revealed"].connect (update_spoiler_status);
 
 		aria_describe_status ();
+		update_mute_conversation_actions_enabled_status ();
 	}
 
 	public void soft_unbind () {
