@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: dev.geopjr.Tuba\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2024-12-14 17:51+0000\n"
+"PO-Revision-Date: 2024-12-21 03:00+0000\n"
 "Last-Translator: Daltux <134404797+daltux@users.noreply.github.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tuba/"
 "tuba/pt_BR/>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.9-rc\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -4011,7 +4011,7 @@ msgstr "Não foi possível traduzir: %s"
 #: src/Widgets/Status.vala:702
 #, c-format
 msgid "Open %s's Mini Profile"
-msgstr ""
+msgstr "Abrir o mini perfil de %s"
 
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:754
