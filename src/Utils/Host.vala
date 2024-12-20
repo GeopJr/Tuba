@@ -1,7 +1,7 @@
 public class Tuba.Host {
 
 	// Open a URI in the user's default application
-	public static bool open_url (string _uri) {
+	public async static bool open_url (string _uri) {
 		var uri = _uri;
 		if (!("://" in uri))
 			uri = "file://" + _uri;
@@ -9,14 +9,13 @@ public class Tuba.Host {
 		if (settings.strip_tracking)
 			uri = Tracking.strip_utm (uri);
 
-		open_in_default_app (uri);
-		return true;
+		return yield open_in_default_app (uri);
 	}
 
 	// To avoid creating multiple Uri instances,
 	// split opening into two wrappers, one for
 	// strings and one for GLib.Uri
-	public static bool open_uri (Uri uri) {
+	public async static bool open_uri (Uri uri) {
 		string url;
 		try {
 			url = Tracking.strip_utm_from_uri (uri).to_string ();
@@ -24,51 +23,31 @@ public class Tuba.Host {
 			warning (@"Error while stripping tracking params: $(e.message)");
 			url = uri.to_string ();
 		}
-		open_in_default_app (url);
-
-		return true;
+		return yield open_in_default_app (url);
 	}
 
-	public static async bool open_url_async (string url) {
-		debug (@"Opening URL async: $url");
+	private async static bool open_in_default_app (string uri) {
+		debug (@"Opening URI: $uri");
 
 		try {
-			yield (new Gtk.UriLauncher (url)).launch (app.active_window, null);
+			yield (new Gtk.UriLauncher (uri)).launch (app.active_window, null);
 		} catch (Error e) {
-			warning (@"Error opening uri \"$url\": $(e.message)");
-			try {
-				yield AppInfo.launch_default_for_uri_async (url, null, null);
-			} catch (Error e) {
-				warning (@"Error opening uri \"$url\": $(e.message)");
-				return false;
-			}
+			warning (@"Error opening uri \"$uri\": $(e.message)");
+			return yield open_in_default_app_using_dbus (uri);
 		}
 
 		return true;
 	}
 
-	private static void open_in_default_app (string uri) {
-		debug (@"Opening URI: $uri");
+	private async static bool open_in_default_app_using_dbus (string uri) {
+		try {
+			yield AppInfo.launch_default_for_uri_async (uri, null, null);
+		} catch (Error e) {
+			warning (@"Error opening using launch_default_for_uri \"$uri\": $(e.message)");
+			return false;
+		}
 
-		var launcher = new Gtk.UriLauncher (uri);
-		launcher.launch.begin (app.active_window, null, (obj, res) => {
-			try {
-				launcher.launch.end (res);
-			} catch (Error e) {
-				warning (@"Error opening uri \"$uri\": $(e.message)");
-				open_in_default_app_using_dbus (uri);
-			}
-		});
-	}
-
-	private static void open_in_default_app_using_dbus (string uri) {
-		AppInfo.launch_default_for_uri_async.begin (uri, null, null, (obj, res) => {
-			try {
-				AppInfo.launch_default_for_uri_async.end (res);
-			} catch (Error e) {
-				warning (@"Error opening using launch_default_for_uri \"$uri\": $(e.message)");
-			}
-		});
+		return true;
 	}
 
 	public static void copy (string str) {

@@ -833,7 +833,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		Item? page = safe_get ((int) carousel.position);
 		if (page == null) return;
 
-		Host.open_url (page.url);
+		Host.open_url.begin (page.url);
 	}
 
 	private void save_as () {

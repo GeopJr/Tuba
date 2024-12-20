@@ -104,11 +104,11 @@ public class Tuba.Widgets.BookWyrmPage : Gtk.Box {
 
 	[GtkCallback]
 	void open_on_openlibrary () {
-		Host.open_url (@"https://openlibrary.org/books/$(book.openlibraryKey)");
+		Host.open_url.begin (@"https://openlibrary.org/books/$(book.openlibraryKey)");
 	}
 
 	[GtkCallback]
 	void open_on_bw () {
-		Host.open_url (book.id);
+		Host.open_url.begin (book.id);
 	}
 }

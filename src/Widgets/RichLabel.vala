@@ -164,17 +164,17 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 					warning (@"Failed to resolve URL \"$url\":");
 					warning (e.message);
 					if (uri == null) {
-						Host.open_url (url);
+						Host.open_url.begin (url);
 					} else {
-						Host.open_uri (uri);
+						Host.open_uri.begin (uri);
 					}
 				}
 			});
 		} else {
 			if (uri == null) {
-				Host.open_url (url);
+				Host.open_url.begin (url);
 			} else {
-				Host.open_uri (uri);
+				Host.open_uri.begin (uri);
 			}
 		}
 

@@ -161,7 +161,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 			((Widgets.BookWyrmPage) book_widget).selectable = true;
 		} catch {
-			if (fallback != null) Host.open_url (fallback);
+			if (fallback != null) Host.open_url.begin (fallback);
 		}
 	}
 

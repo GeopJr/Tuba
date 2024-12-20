@@ -418,7 +418,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	protected override void on_click () {
 		if (attachment_file != null) {
-			Host.open_url (attachment_file.get_path ());
+			Host.open_url.begin (attachment_file.get_path ());
 		} else if (entity != null) {
 			base.on_click ();
 		}

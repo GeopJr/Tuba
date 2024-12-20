@@ -313,7 +313,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 		var open_in_browser_action = new SimpleAction ("open_in_browser", null);
 		open_in_browser_action.activate.connect (v => {
-			Host.open_url (profile.account.url);
+			Host.open_url.begin (profile.account.url);
 		});
 		actions.add_action (open_in_browser_action);
 
