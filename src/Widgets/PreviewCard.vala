@@ -152,7 +152,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 		if (author_account != null) {
 			author_account.open ();
 		} else if (author_url != null && author_url != "") {
-			Host.open_url (author_url);
+			Host.open_url.begin (author_url);
 		}
 	}
 
@@ -196,7 +196,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 			if (callback_account != null) {
 				callback_account.open ();
 			} else if (callback_url != null && callback_url != "") {
-				Host.open_url (callback_url);
+				Host.open_url.begin (callback_url);
 			}
 		}
 	}

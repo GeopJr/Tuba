@@ -118,6 +118,6 @@ public class Tuba.Widgets.PreviewCardExplore : Gtk.ListBoxRow {
 	}
 
 	private void on_card_click () {
-		Host.open_url (this.url);
+		Host.open_url.begin (this.url);
 	}
 }

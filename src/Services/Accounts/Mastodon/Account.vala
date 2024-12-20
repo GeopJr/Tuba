@@ -245,7 +245,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 			} catch (Error e) {
 				warning (@"Failed to resolve URL \"$url\":");
 				warning (e.message);
-				Host.open_url (url);
+				Host.open_url.begin (url);
 			}
 		});
 	}

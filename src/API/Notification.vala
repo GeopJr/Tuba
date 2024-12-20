@@ -61,11 +61,11 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 	public override void open () {
 		switch (kind) {
 			case InstanceAccount.KIND_SEVERED_RELATIONSHIPS:
-				Host.open_url (@"$(accounts.active.instance)/severed_relationships");
+				Host.open_url.begin (@"$(accounts.active.instance)/severed_relationships");
 				break;
 			case InstanceAccount.KIND_MODERATION_WARNING:
 				string dispute_id = this.moderation_warning == null ? "" : this.moderation_warning.id;
-				Host.open_url (@"$(accounts.active.instance)/disputes/strikes/$dispute_id");
+				Host.open_url.begin (@"$(accounts.active.instance)/disputes/strikes/$dispute_id");
 				break;
 			case InstanceAccount.KIND_ADMIN_REPORT:
 				if (report != null) {
@@ -74,7 +74,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 						admin_window.present ();
 						admin_window.open_reports ();
 					} else {
-						Host.open_url (@"$(accounts.active.instance)/admin/reports/$(report.id)");
+						Host.open_url.begin (@"$(accounts.active.instance)/admin/reports/$(report.id)");
 					}
 				}
 				break;
