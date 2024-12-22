@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Sabri Ünal <libreajans@gmail.com>, 2023.
 # Sabri Ünal <yakushabb@gmail.com>, 2024.
+# Ümit Solmz <usnetv@users.noreply.hosted.weblate.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2024-06-27 21:09+0000\n"
-"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
+"PO-Revision-Date: 2024-12-23 17:00+0000\n"
+"Last-Translator: Ümit Solmz <usnetv@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/tuba/tuba/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -165,12 +166,12 @@ msgstr "Sonraki ek"
 
 #: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:85
 msgid "Admin Dashboard"
-msgstr ""
+msgstr "Yönetici Gösterge Tablosu"
 
 #. translators: window title
 #: data/ui/dialogs/advanced_search.ui:11 src/Views/Search.vala:31
 msgid "Advanced Search"
-msgstr ""
+msgstr "Gelişmiş Arama"
 
 #: data/ui/dialogs/advanced_search.ui:22 data/ui/dialogs/compose.ui:35
 #: data/ui/dialogs/filter_edit.ui:16 data/ui/dialogs/new_account.ui:26
@@ -205,38 +206,40 @@ msgid ""
 "Advanced Search might not work in all instances. You can invert an option by "
 "prefixing it with -. For example, -is:reply to filter out all replies."
 msgstr ""
+"Gelişmiş Arama her durumda çalışmayabilir. Bir seçeneğin önüne - ekleyerek "
+"tersine çevirebilirsiniz. Örneğin, -ör:yanı tüm yanıtları süzgeçlemek için."
 
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:74
 msgid "Query"
-msgstr ""
+msgstr "Sorgu"
 
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:81
 msgid "From User"
-msgstr ""
+msgstr "Kullanıcıdan"
 
 #. translators: tooltip text for a button in the 'advanced search' window. When clicked it automatically fills the entry with the first found user based on the query.
 #: data/ui/dialogs/advanced_search.ui:89
 msgid "Auto-Fill User"
-msgstr ""
+msgstr "Kullanıcı-Otomatik Doldurma"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:102
 msgid "Only Replies"
-msgstr ""
+msgstr "Sadece Yanıtlar"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:108
 msgid "Only Posts with Content Warnings"
-msgstr ""
+msgstr "Sadece İçerik Uyarıları ile Gönderiler"
 
 #. translators: Advanced search window, option group
 #. This is the title and the option are
 #. 'media', 'poll'...
 #: data/ui/dialogs/advanced_search.ui:118
 msgid "Containing"
-msgstr ""
+msgstr "İçeren"
 
 #: data/ui/dialogs/advanced_search.ui:121
 #: src/Dialogs/Composer/AttachmentsPage.vala:62
