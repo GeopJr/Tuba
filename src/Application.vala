@@ -370,6 +370,14 @@ namespace Tuba {
 			set_accels_for_action ("app.scroll-page-to-top", {});
 		}
 
+		public void enable_home_accel () {
+			set_accels_for_action ("app.scroll-page-to-top", {"Home"});
+		}
+
+		public void disable_home_accel () {
+			set_accels_for_action ("app.scroll-page-to-top", {});
+		}
+
 		private void on_proxy_change (bool recover = false) {
 			if (settings.proxy != "") {
 				try {
@@ -675,6 +683,11 @@ namespace Tuba {
 			// Static functions seem to avoid this peculiar behavior.
 			//  dialog.translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : null;
 
+			app.disable_window_accels ();
+			app.disable_nav_accels ();
+
+			dialog.closed.connect (on_about_closed);
+
 			dialog.present (main_window);
 
 			GLib.Idle.add (() => {
@@ -683,6 +696,11 @@ namespace Tuba {
 					dialog.add_css_class (style);
 				return GLib.Source.REMOVE;
 			});
+		}
+
+		public void on_about_closed () {
+			app.enable_window_accels ();
+			app.enable_nav_accels ();
 		}
 
 		public Adw.AlertDialog inform (string text, string? msg = null) {

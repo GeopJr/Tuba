@@ -61,11 +61,11 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		}
 
 		private void on_entry_focus_enter () {
-			app.disable_nav_accels ();
+			app.disable_home_accel ();
 		}
 
 		private void on_entry_focus_leave () {
-			app.enable_nav_accels ();
+			app.enable_home_accel ();
 		}
 
 		private void on_entry_activated () {
