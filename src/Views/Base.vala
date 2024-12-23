@@ -16,6 +16,19 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	public Gtk.Widget? last_widget { get; private set; default=null; }
 	public string empty_timeline_icon { get; set; default="tuba-background-app-ghost-symbolic"; }
 
+	bool _small = false;
+	public bool small {
+		get { return _small; }
+		set {
+			_small = value;
+			if (!value && !content_box.has_css_class ("large-view")) {
+				content_box.add_css_class ("large-view");
+			} else if (value && content_box.has_css_class ("large-view")) {
+				content_box.remove_css_class ("large-view");
+			}
+		}
+	}
+
 	private bool _show_back_button = true;
 	public bool show_back_button {
 		get {
@@ -116,6 +129,13 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	}
 
 	construct {
+		var breakpoint = new Adw.Breakpoint (new Adw.BreakpointCondition.length (
+			Adw.BreakpointConditionLengthType.MAX_WIDTH,
+			670, Adw.LengthUnit.PX
+		));
+		breakpoint.add_setter (this, "small", true);
+		add_breakpoint (breakpoint);
+
 		build_actions ();
 		build_header ();
 
