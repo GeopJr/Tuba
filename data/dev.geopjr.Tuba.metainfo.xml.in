@@ -62,6 +62,21 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.9.1" date="2024-12-24">
+      <description translate="no">
+        <ul>
+            <li>Fixed schedule month being wrong when re-scheduling</li>
+            <li>Fixed FediWrapped default style being set to transparent</li>
+            <li>Fixed some filter rows being invisible due to markup</li>
+            <li>Enabled thread muting when the active account is mentioned</li>
+            <li>Decreased the new post queue prepending scroll threshold</li>
+            <li>Added Chuckya bubble timeline support</li>
+            <li>Fixed URI opening during scripted exits caused by the switch to the async APIs</li>
+            <li>Fixed visual glitches and performance issues caused by the clamp and styling in timelines</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.9.0" date="2024-12-15">
       <description translate="no">
         <ul>
