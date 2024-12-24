@@ -67,7 +67,7 @@
         <ul>
             <li>Fixed schedule month being wrong when re-scheduling</li>
             <li>Fixed FediWrapped default style being set to transparent</li>
-            <li>Fixed list rows being invisible due to markup</li>
+            <li>Fixed some filter rows being invisible due to markup</li>
             <li>Enabled thread muting when the active account is mentioned</li>
             <li>Decreased the new post queue prepending scroll threshold</li>
             <li>Added Chuckya bubble timeline support</li>
