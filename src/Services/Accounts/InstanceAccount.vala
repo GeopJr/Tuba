@@ -611,7 +611,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					if (list.id in settings.favorite_lists_ids) {
 						fav_lists += new Place () {
 							icon = "tuba-list-compact-symbolic",
-							title = GLib.Markup.escape_text (list.title),
+							title = list.title,
 							extra_data = list,
 							open_func = (win, list) => {
 								win.open_view (set_as_sidebar_item (new Views.List ((API.List) list)));
