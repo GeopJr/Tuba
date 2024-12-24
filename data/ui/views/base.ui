@@ -167,6 +167,7 @@
                             <property name="tightening_threshold">670</property>
                             <style>
                               <class name="ttl-view" />
+                              <class name="large-view" />
                             </style>
                           </object>
                         </property>

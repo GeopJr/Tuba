@@ -87,6 +87,9 @@ public class Tuba.Views.TabbedBase : Views.Base {
 			Adw.BreakpointConditionLengthType.MAX_WIDTH,
 			550, Adw.LengthUnit.SP
 		);
+
+		if (this.current_breakpoint != null) remove_breakpoint (this.current_breakpoint);
+		this.small = true;
 		var breakpoint = new Adw.Breakpoint (condition);
 		breakpoint.add_setter (this, "title-stack-page-visible", true);
 		breakpoint.add_setter (switcher_bar, "reveal", true);
