@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2024-10-20 18:19+0000\n"
+"PO-Revision-Date: 2024-12-25 04:02+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/tuba/tuba/kab/>\n"
 "Language: kab\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.8-rc\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -1428,7 +1428,7 @@ msgstr ""
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:631
 msgid "translator-credits"
-msgstr "Irénée Thirion"
+msgstr "ButterflyOfFire <butterflyoffire@protonmail.com>"
 
 #. translators: Wiki pages / Guides
 #: src/Application.vala:635
@@ -2167,7 +2167,7 @@ msgstr "Kkes"
 #: src/Dialogs/MainWindow.vala:80
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:12
 msgid "Home"
-msgstr "Udmawan"
+msgstr "Agejdan"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
