@@ -85,6 +85,7 @@
                       <object class="GtkButton" id="header_button">
                         <property name="visible">0</property>
                         <property name="halign">start</property>
+                        <property name="valign">center</property>
                         <child>
                           <object class="TubaWidgetsRichLabel" id="header_label">
                             <property name="use_markup">0</property>
@@ -299,6 +300,8 @@
                                             <property name="label">Spoiler Text Here</property>
                                             <property name="wrap">1</property>
                                             <property name="wrap-mode">word-char</property>
+                                            <property name="hexpand">1</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                         </child>
                                       </object>
