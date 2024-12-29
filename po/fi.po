@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2024-12-16 08:00+0000\n"
+"PO-Revision-Date: 2024-12-29 22:00+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/tuba/tuba/fi/>\n"
 "Language: fi\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-rc\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -738,7 +738,7 @@ msgstr "Tehostukset"
 
 #: data/ui/dialogs/preferences.ui:289
 msgid "Poll Results"
-msgstr "Kyselytulokset"
+msgstr "Äänestyksen tulokset"
 
 #: data/ui/dialogs/preferences.ui:295
 msgid "Edits"
@@ -1237,7 +1237,7 @@ msgstr "Rekisteröityi"
 #. your server's admins
 #: src/API/Notification.vala:127 src/Services/Accounts/InstanceAccount.vala:364
 msgid "Your account has received a moderation warning"
-msgstr ""
+msgstr "Tilisi on saanut moderointivaroituksen"
 
 #. translators: this is used for notifications,
 #. when an annual report is available.
@@ -3820,7 +3820,7 @@ msgstr ""
 
 #: src/Widgets/ProfileFilterGroup.vala:54
 msgid "Replies"
-msgstr ""
+msgstr "Vastaukset"
 
 #. translators: the variable is the emoji or its name if it's custom.
 #. A reaction is not the same as a favorite or a boost,
@@ -4039,7 +4039,7 @@ msgstr[1] "Sisältää %d liitettä."
 #. please be mindful.
 #: src/Widgets/Status.vala:836
 msgid "Contains an expired poll."
-msgstr ""
+msgstr "Sisältää päättyneen äänestyksen."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4144,8 +4144,8 @@ msgstr "Äänestetty"
 #, c-format
 msgid "%s voted"
 msgid_plural "%s voted"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s äänestänyt"
+msgstr[1] "%s äänestänyt"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4155,8 +4155,8 @@ msgstr[1] ""
 #, c-format
 msgid "Poll with %d option."
 msgid_plural "Poll with %d options."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Äänestys, jossa on %d vaihtoehto."
+msgstr[1] "Äänestys, jossa on %d vaihtoehtoa."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
