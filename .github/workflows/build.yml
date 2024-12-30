@@ -51,7 +51,7 @@ jobs:
   snap-builder:
     name: "Snap Builder"
     runs-on: ubuntu-latest
-    if: ${{ false }} # disable until snap updates the sdk to GNOME 47
+    # if: ${{ false }} # disable until snap updates the sdk to GNOME 47
     needs: [ lint ]
     strategy:
       matrix:
