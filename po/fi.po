@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2024-12-29 22:00+0000\n"
+"PO-Revision-Date: 2024-12-31 12:00+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/tuba/tuba/fi/>\n"
 "Language: fi\n"
@@ -688,16 +688,18 @@ msgstr "Määritä ominaisuudet, jotka yhdistävät osoitteeseen api.tuba.geopjr
 
 #: data/ui/dialogs/preferences.ui:216
 msgid "Send Preference Analytics"
-msgstr ""
+msgstr "Lähetä asetusanalytiikkaa"
 
 #: data/ui/dialogs/preferences.ui:217
 msgid ""
 "Send your preferences to Tuba's developers for popularity research biweekly"
 msgstr ""
+"Lähetä tietoa käyttämistäsi asetuksista Tuban kehittäjille suosiotutkimuksia "
+"varten kahden viikon välein"
 
 #: data/ui/dialogs/preferences.ui:223
 msgid "Preview Analytics"
-msgstr ""
+msgstr "Esikatsele analytiikkatiedot"
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/ui/dialogs/preferences.ui:240
@@ -1717,6 +1719,8 @@ msgstr "Varoitus"
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
 msgstr ""
+"Käytä tätä käyttäjän varoittamiseksi ilman, että muita toimenpiteitä "
+"suoritetaan"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
@@ -1728,6 +1732,8 @@ msgid ""
 "Prevent the user from using their account, but do not delete or hide their "
 "contents"
 msgstr ""
+"Estä käyttäjää käyttämästä tiliään, mutta älä poista tai piilota käyttäjän "
+"luomaa sisältöä"
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:579
 msgid "Sensitive"
@@ -2027,7 +2033,7 @@ msgstr "Tiedosto \"%s\" on kooltaan suurempi mitä instanssi sallii"
 #. translators: 'Draft' is a verb
 #: src/Dialogs/Composer/Dialog.vala:156
 msgid "Draft Post"
-msgstr ""
+msgstr "Tee viestiluonnos"
 
 #: src/Dialogs/Composer/Dialog.vala:162 src/Dialogs/Composer/Dialog.vala:169
 msgid "_Publish"
@@ -2036,7 +2042,7 @@ msgstr "_Lähetä"
 #. translators: Dialog title when closing the composer
 #: src/Dialogs/Composer/Dialog.vala:253
 msgid "Discard Post?"
-msgstr ""
+msgstr "Hylätäänkö viesti?"
 
 #: src/Dialogs/Composer/Dialog.vala:254
 msgid "Your progress will be lost."
@@ -2540,14 +2546,14 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:381
 #, c-format
 msgid "%s just posted"
-msgstr ""
+msgstr "%s lähetti juuri viestin"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:391
 #, c-format
 msgid "%s reacted to your post"
-msgstr ""
+msgstr "%s reagoi viestiisi"
 
 #. translators: the first variable is a string user name,
 #. the second variable is an emoji,
@@ -2555,7 +2561,7 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:396
 #, c-format
 msgid "%s reacted to your post with %s"
-msgstr ""
+msgstr "%s reagoi viestiisi emojilla %s"
 
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:440
@@ -2856,7 +2862,7 @@ msgstr "Sijainti"
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:95
 msgid "Active"
-msgstr ""
+msgstr "Aktiivinen"
 
 #. new DropDownStringEntry ("sensitized", _("Sensitive")), // doesn't seem to work on Mastodon
 #. translators: Dropdown entry, account status.
@@ -3303,7 +3309,7 @@ msgstr "Tämä käyttäjä ei seuraa muita"
 
 #: src/Views/Profile.vala:310
 msgid "Copied handle to clipboard"
-msgstr ""
+msgstr "Käyttäjätunnus kopioitu leikepöydälle"
 
 #: src/Views/Profile.vala:359
 #, c-format
@@ -3952,7 +3958,7 @@ msgstr ""
 
 #: src/Widgets/Status.vala:393
 msgid "Copy"
-msgstr ""
+msgstr "Kopioi"
 
 #: src/Widgets/Status.vala:402 src/Widgets/Status.vala:407
 msgid "Copied post url to clipboard"
@@ -3960,7 +3966,7 @@ msgstr "Viestin osoite kopioitu leikepöydälle"
 
 #: src/Widgets/Status.vala:462
 msgid "Delete Post?"
-msgstr ""
+msgstr "Poistetaanko viesti?"
 
 #. translators: toast shown when muting a post
 #: src/Widgets/Status.vala:497
