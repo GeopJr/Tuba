@@ -41,7 +41,7 @@ public class Tuba.Views.Admin.Timeline.PaginationTimeline : Gtk.Box {
 
 		content = new Gtk.ListBox () {
 			selection_mode = Gtk.SelectionMode.NONE,
-			css_classes = { "fake-content", "background" }
+			css_classes = { "content", "background" }
 		};
 		content.row_activated.connect (on_content_item_activated);
 

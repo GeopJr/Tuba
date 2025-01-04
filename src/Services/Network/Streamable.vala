@@ -1,4 +1,4 @@
-public abstract interface Tuba.Streamable : Object {
+public interface Tuba.Streamable : Object {
 
 	public struct Event {
 		public string type;
