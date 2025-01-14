@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2023, 2024, 2025.
 # Jago Nissi <jago.dev@pm.me>, 2024.
+# Ricky Tigg <ricky.tigg@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-01-01 17:00+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"PO-Revision-Date: 2025-01-15 12:00+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/tuba/tuba/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -2710,7 +2711,7 @@ msgstr "vanheni eilen"
 #: src/Utils/DateTime.vala:62
 #, c-format
 msgid "expired on %b %-e"
-msgstr "vanheni %-e. %b"
+msgstr "vanheni %b %-e"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -2753,7 +2754,7 @@ msgstr "Eilen"
 #: src/Utils/DateTime.vala:101 src/Utils/DateTime.vala:140
 #, c-format
 msgid "%b %-e"
-msgstr "%-e. %b"
+msgstr "%b %-e"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
