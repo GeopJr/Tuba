@@ -5,13 +5,14 @@
 # valigarmanda <valigarmanda55@gmail.com>, 2023.
 # Poesty Li <poesty7450@gmail.com>, 2024, 2025.
 # imgradeone - 一年级么么哒 <imgradeone@outlook.com>, 2024.
+# LS-Shandong <ls-shandong@outlook.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-01-16 11:55+0000\n"
-"Last-Translator: Poesty Li <poesty7450@gmail.com>\n"
+"PO-Revision-Date: 2025-01-20 17:00+0000\n"
+"Last-Translator: LS-Shandong <ls-shandong@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/tuba/tuba/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -627,9 +628,8 @@ msgid "This option can lead to broken links when enabled"
 msgstr "启用此选项后，可能会导致链接错误"
 
 #: data/ui/dialogs/preferences.ui:159
-#, fuzzy
 msgid "Advanced Boost Dialog"
-msgstr "高级转发对话框"
+msgstr "高级强化对话框"
 
 #: data/ui/dialogs/preferences.ui:160
 msgid "Change boost visibility, quote and confirm boosting"
@@ -1620,9 +1620,8 @@ msgstr "加入于"
 #: src/Dialogs/Admin/Report.vala:128 src/Views/Admin/Pages/Accounts.vala:292
 #: src/Widgets/ProfileCover.vala:545 src/Widgets/ScheduledStatus.vala:137
 #: src/Widgets/Status.vala:592
-#, fuzzy
 msgid "%B %e, %Y"
-msgstr "%B %e, %Y"
+msgstr "%Y-%B-%e"
 
 #: src/Dialogs/Admin/Report.vala:134
 msgid "Reported on"
