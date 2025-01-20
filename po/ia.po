@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Software In Interlingua <softinterlingua@gmail.com>, 2024.
+# "Emilio S." <emism.translations@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2024-08-09 14:09+0000\n"
-"Last-Translator: Software In Interlingua <softinterlingua@gmail.com>\n"
+"PO-Revision-Date: 2025-01-20 17:00+0000\n"
+"Last-Translator: \"Emilio S.\" <emism.translations@gmail.com>\n"
 "Language-Team: Interlingua <https://hosted.weblate.org/projects/tuba/tuba/ia/"
 ">\n"
 "Language: ia\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -89,7 +90,7 @@ msgstr "Clauder le fenestra"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Quit"
-msgstr "Sortir"
+msgstr "Quitar"
 
 #: data/gtk/help-overlay.ui:62
 msgid "About"
