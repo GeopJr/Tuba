@@ -3,7 +3,8 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 		BASIC,
 		PEERTUBE,
 		FUNKWHALE,
-		BOOKWYRM;
+		BOOKWYRM,
+		CLAPPER;
 
 		public string to_string () {
 			switch (this) {
@@ -30,6 +31,8 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 				case BOOKWYRM:
 					// translators: the variable is an external service like "BookWyrm"
 					return _("You are about to open a %s book").printf (this.to_string ());
+				case CLAPPER:
+					return _("You are about to open a video");
 				default:
 					// translators: the variable is the app name (Tuba)
 					return _("You are about to leave %s").printf (Build.NAME);
@@ -65,11 +68,13 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 
 		public void parse_url (string t_url, out string special_host, out string special_api_url) throws Error {
 			switch (this) {
-				case PEERTUBE:
-					var peertube_instance = GLib.Uri.parse (t_url, GLib.UriFlags.NONE);
-					special_host = peertube_instance.get_host ();
-					special_api_url = @"https://$(special_host)/api/v1/videos/$(Path.get_basename (peertube_instance.get_path ()))";
-					break;
+				#if !CLAPPER
+					case PEERTUBE:
+						var peertube_instance = GLib.Uri.parse (t_url, GLib.UriFlags.NONE);
+						special_host = peertube_instance.get_host ();
+						special_api_url = @"https://$(special_host)/api/v1/videos/$(Path.get_basename (peertube_instance.get_path ()))";
+						break;
+				#endif
 				case FUNKWHALE:
 					var funkwhale_instance = GLib.Uri.parse (t_url, GLib.UriFlags.NONE);
 					special_host = funkwhale_instance.get_host ();
@@ -116,11 +121,30 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 	public CardSpecialType card_special_type {
 		get {
 			if (is_peertube) {
-				return CardSpecialType.PEERTUBE;
+				#if CLAPPER
+					try {
+						var uri = GLib.Uri.parse (this.url, GLib.UriFlags.NONE);
+						if (Clapper.enhancer_check (typeof (Clapper.Extractable), "peertube", uri.get_host (), null)) {
+							return CardSpecialType.PEERTUBE;
+						}
+					} catch {}
+					return CardSpecialType.BASIC;
+				#else
+					return CardSpecialType.PEERTUBE;
+				#endif
 			} else if (is_funkwhale) {
 				return CardSpecialType.FUNKWHALE;
 			} else if (is_bookwyrm) {
 				return CardSpecialType.BOOKWYRM;
+			#if CLAPPER
+				} else {
+					try {
+						var uri = GLib.Uri.parse (this.url, GLib.UriFlags.NONE);
+						// TODO: maybe limit to https only
+						if (Clapper.enhancer_check (typeof (Clapper.Extractable), uri.get_scheme (), uri.get_host (), null))
+							return CardSpecialType.CLAPPER;
+					} catch {}
+			#endif
 			}
 
 			return CardSpecialType.BASIC;
@@ -140,12 +164,10 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 
 	public bool is_peertube {
 		get {
-			// Disable PeerTube support for now
-			// see #253
-			#if false
-				bool url_pt = url.last_index_of ("/videos/watch/") > -1;
-
-				return kind == "video" && provider_name == "PeerTube" && url_pt;
+			#if CLAPPER
+				return kind == "video" && provider_name == "PeerTube";
+				// Disable PeerTube support for now
+				// see #253
 			#else
 				return false;
 			#endif
@@ -174,9 +196,20 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 	}
 
 	public static void open_special_card (CardSpecialType card_special_type, string card_url) {
-		if (card_special_type.open_special_card (card_url)) {
-			return;
-		};
+		if (card_special_type.open_special_card (card_url)) return;
+
+		#if CLAPPER
+			if (card_special_type == API.PreviewCard.CardSpecialType.CLAPPER || card_special_type == API.PreviewCard.CardSpecialType.PEERTUBE) {
+				string fin_url = card_url;
+				if (card_special_type == API.PreviewCard.CardSpecialType.PEERTUBE) {
+					fin_url = fin_url.splice (0, fin_url.index_of_char ('/') + 2, "peertube://");
+				}
+
+				app.main_window.show_media_viewer (fin_url, Tuba.Attachment.MediaType.VIDEO, null, null, false, null, fin_url, null, true);
+				return;
+			}
+		#endif
+
 		string special_api_url = "";
 		string special_host = "";
 		try {

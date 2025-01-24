@@ -38,6 +38,27 @@
         "mkdir -p /app/lib/ffmpeg"
     ],
     "modules": [
+		{
+			"name": "libpeas",
+			"buildsystem": "meson",
+			"config-opts": [
+				"--wrap-mode=nodownload",
+				"-Dgjs=false",
+				"-Dlua51=false",
+				"-Dintrospection=false"
+			],
+			"sources": [
+				{
+					"type": "archive",
+					"url": "https://download.gnome.org/sources/libpeas/2.0/libpeas-2.0.5.tar.xz",
+					"sha256": "376f2f73d731b54e13ddbab1d91b6382cf6a980524def44df62add15489de6dd",
+					"x-checker-data": {
+						"type": "gnome",
+						"name": "libpeas"
+					}
+				}
+			]
+		},
         {
             "name": "clapper",
             "buildsystem": "meson",
@@ -52,11 +73,36 @@
                 {
                     "type": "git",
                     "url": "https://github.com/Rafostar/clapper.git",
-                    "branch": "master"
-                },
+                    "tag": "0.8.0"
+                }
+            ]
+        },
+		{
+			"name": "python-modules",
+			"buildsystem": "simple",
+			"build-commands": [
+				"pip3 install -v --root-user-action=ignore --no-deps --prefix=/app *.whl"
+			],
+			"sources": [
+				{
+					"type": "file",
+					"url": "https://files.pythonhosted.org/packages/a4/97/73eadf12412173dc518897a2715693e6caa73d6550ddf0b7c47c6f1e7703/yt_dlp-2025.1.15-py3-none-any.whl",
+					"sha256": "b8666b88e23c3fa5ee1e80920f4a9dfac7c405504a447214c0cf3d0c386edcfc"
+				}
+			]
+		},
+		{
+            "name": "clapper-enhancers",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dpeertube=enabled",
+                "-Dyt-dlp=enabled"
+            ],
+            "sources": [
                 {
-                    "type": "shell",
-                    "commands": ["sed -i \"s/version: '0.7.0',/version: '0.8.0',/g\" meson.build"]
+                    "type": "git",
+                    "url": "https://github.com/Rafostar/clapper-enhancers.git",
+                    "tag": "0.8.1"
                 }
             ]
         },
