@@ -1174,7 +1174,7 @@
 	}
 
 	void open_card_url () {
-		API.PreviewCard.open_special_card (status.formal.card.card_special_type, status.formal.card.url);
+		status.formal.card.open_special_card ();
 	}
 
 	private void on_reply (API.Status x) {
