@@ -1,9 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/status.ui")]
-#if USE_LISTVIEW
-	public class Tuba.Widgets.Status : Adw.Bin {
-#else
-	public class Tuba.Widgets.Status : Gtk.ListBoxRow {
-#endif
+public class Tuba.Widgets.Status : Adw.Bin {
 
 	API.Status? _bound_status = null;
 	public API.Status? status {
@@ -218,12 +214,20 @@
 		return res;
 	}
 
-	public Status (API.Status status) {
+	public Status () {
+		Object ();
+	}
+
+	public Status.from_status (API.Status status) {
 		Object (
 			kind_instigator: status.account,
 			status: status
 		);
 
+		init (status);
+	}
+
+	public void init (API.Status status) {
 		if (kind == null) {
 			if (status.reblog != null) {
 				kind = InstanceAccount.KIND_REMOTE_REBLOG;
@@ -243,6 +247,7 @@
 			}
 		}
 	}
+
 	~Status () {
 		debug ("Destroying Status widget");
 		if (context_menu != null) {

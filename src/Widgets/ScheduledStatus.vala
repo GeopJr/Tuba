@@ -116,11 +116,8 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 
 		if (scheduled_status.props.language != null) status.language = scheduled_status.props.language;
 
-		var widg = new Widgets.Status (status);
+		var widg = new Widgets.Status.from_status (status);
 		widg.can_be_opened = false;
-		#if !USE_LISTVIEW
-			widg.activatable = false;
-		#endif
 		widg.actions.visible = false;
 		widg.menu_button.visible = false;
 		widg.date_label.visible = false;

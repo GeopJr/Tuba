@@ -68,11 +68,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 	//  [GtkChild] protected unowned Adw.Clamp clamp;
 	//  [GtkChild] protected unowned Gtk.Box column_view;
 	[GtkChild] protected unowned Gtk.Stack states;
-	#if USE_LISTVIEW
-		[GtkChild] protected unowned Adw.ClampScrollable content_box;
-	#else
-		[GtkChild] protected unowned Adw.Clamp content_box;
-	#endif
+	[GtkChild] protected unowned Adw.ClampScrollable content_box;
 	[GtkChild] protected unowned Gtk.Button status_button;
 	[GtkChild] unowned Gtk.Image status_image;
 	[GtkChild] unowned Gtk.Stack status_stack;
@@ -186,11 +182,9 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		base.dispose ();
 	}
 
-	#if !USE_LISTVIEW
-		public virtual void unbind_listboxes () {
-			this.last_widget = null;
-		}
-	#endif
+	public virtual void unbind_listboxes () {
+		this.last_widget = null;
+	}
 
 	protected virtual void build_actions () {}
 

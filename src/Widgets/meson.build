@@ -33,6 +33,7 @@ sources += files(
     'VoteBox.vala',
     'VoteCheckButton.vala',
     'Widgetizable.vala',
+    'WidgetizableForListView.vala',
 )
 
 subdir('Admin')

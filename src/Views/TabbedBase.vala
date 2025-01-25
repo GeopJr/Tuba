@@ -47,14 +47,12 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		views = {};
 	}
 
-	#if !USE_LISTVIEW
-		public override void unbind_listboxes () {
-			foreach (var tab in views) {
-				tab.unbind_listboxes ();
-			}
-			base.unbind_listboxes ();
+	public override void unbind_listboxes () {
+		foreach (var tab in views) {
+			tab.unbind_listboxes ();
 		}
-	#endif
+		base.unbind_listboxes ();
+	}
 
 	protected virtual bool title_stack_page_visible {
 		get {
@@ -118,7 +116,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		return tab;
 	}
 
-	public Views.ContentBase add_timeline_tab (string label, string icon, string url, Type accepts, string? empty_state_title = null, string? empty_state_icon = null) {
+	public Views.ContentBaseListView add_timeline_tab (string label, string icon, string url, Type accepts, string? empty_state_title = null, string? empty_state_icon = null) {
 		var tab = new Views.Accounts () {
 			url = url,
 			label = label,

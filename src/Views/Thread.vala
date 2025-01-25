@@ -1,4 +1,4 @@
-public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
+public class Tuba.Views.Thread : Views.ContentBaseListView, AccountHolder {
 	public enum ThreadRole {
 		NONE,
 		START,
@@ -184,17 +184,15 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 				connect_threads ();
 				on_content_changed ();
 
-				#if USE_LISTVIEW
-					if (to_add_ancestors.length > 0) {
-						uint timeout = 0;
-						timeout = Timeout.add (1000, () => {
-							content.scroll_to (to_add_ancestors.length, Gtk.ListScrollFlags.FOCUS, null);
+				if (to_add_ancestors.length > 0) {
+					uint timeout = 0;
+					timeout = Timeout.add (1000, () => {
+						content.scroll_to (to_add_ancestors.length, Gtk.ListScrollFlags.FOCUS, null);
 
-							GLib.Source.remove (timeout);
-							return true;
-						}, Priority.LOW);
-					}
-				#endif
+						GLib.Source.remove (timeout);
+						return true;
+					}, Priority.LOW);
+				}
 			})
 			.exec ();
 
@@ -231,9 +229,6 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		widget_status.kind = null;
 
 		if (((API.Status) obj).id == root_status.id) {
-			#if !USE_LISTVIEW
-				widget_status.activatable = false;
-			#endif
 			widget_status.expand_root ();
 			root_status_widget = widget_status;
 		}
@@ -241,12 +236,10 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		return widget_status;
 	}
 
-	#if USE_LISTVIEW
 	protected override void bind_listitem_cb (GLib.Object item) {
-			base.bind_listitem_cb (item);
+		base.bind_listitem_cb (item);
 
-			if (((API.Status) ((Gtk.ListItem) item).item).id == root_status.id)
-				((Gtk.ListItem) item).activatable = false;
-		}
-	#endif
+		if (((API.Status) ((Gtk.ListItem) item).item).id == root_status.id)
+			((Gtk.ListItem) item).activatable = false;
+	}
 }

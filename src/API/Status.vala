@@ -1,4 +1,4 @@
-public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
+public class Tuba.API.Status : Entity, WidgetizableForListView, SearchResult {
 
 	~Status () {
 		debug (@"[OBJ] Destroyed $(uri ?? "")");
@@ -219,7 +219,13 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	}
 
 	public override Gtk.Widget to_widget () {
-		return new Widgets.Status (this);
+		return new Widgets.Status ();
+	}
+
+	public override void fill_widget_with_content (Gtk.Widget widget) throws Oopsie {
+		((Widgets.Status) widget).kind_instigator = this.account;
+		((Widgets.Status) widget).status = this;
+		((Widgets.Status) widget).init (this);
 	}
 
 	public override void open () {

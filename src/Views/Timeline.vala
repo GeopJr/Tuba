@@ -1,11 +1,8 @@
-public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase {
+public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBaseListView {
 
 	public string url { get; construct set; }
 	public bool is_public { get; construct set; default = false; }
 	public Type accepts { get; set; default = typeof (API.Status); }
-	#if !USE_LISTVIEW
-		public bool use_queue { get; set; default = true; }
-	#endif
 
 	protected InstanceAccount? account { get; set; default = null; }
 
@@ -14,9 +11,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public string? page_prev { get; set; }
 	protected int entity_queue_size { get; set; default=0; }
 
-	#if !USE_LISTVIEW
-		Entity[] entity_queue = {};
-	#endif
 
 	private Adw.Spinner pull_to_refresh_spinner;
 	private bool _is_pulling = false;
@@ -102,10 +96,6 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		settings.notify["show-preview-cards"].connect (on_refresh);
 		settings.notify["enlarge-custom-emojis"].connect (on_refresh);
 
-		#if !USE_LISTVIEW
-			content.bind_model (model, on_create_model_widget);
-		#endif
-
 		var drag = new Gtk.GestureDrag ();
 		drag.drag_update.connect (on_drag_update);
 		drag.drag_end.connect (on_drag_end);
@@ -117,20 +107,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		destruct_account_holder ();
 		destruct_streamable ();
 
-		#if !USE_LISTVIEW
-			content.bind_model (null, null);
-			entity_queue = {};
-		#endif
 		entity_queue_size = 0;
 	}
-
-	#if !USE_LISTVIEW
-		public override void unbind_listboxes () {
-			destruct_account_holder ();
-			destruct_streamable ();
-			base.unbind_listboxes ();
-		}
-	#endif
 
 	public override void dispose () {
 		destruct_streamable ();
@@ -236,11 +214,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	}
 
 	public virtual void on_refresh () {
-		#if !USE_LISTVIEW
-			entity_queue = {};
-		#endif
 		entity_queue_size = 0;
-
 		scrolled.vadjustment.value = 0;
 		status_button.sensitive = false;
 		clear ();
@@ -299,49 +273,17 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		if (!has_finished_request) return;
 
 		try {
-			#if USE_LISTVIEW
-				model.insert (0, Entity.from_json (accepts, ev.get_node ()));
-				if (scrolled.vadjustment.value > 100) {
-					entity_queue_size += 1;
-					return;
-				}
-			#else
-				var entity = Entity.from_json (accepts, ev.get_node ());
-				if (should_hide (entity)) return;
-
-				if (use_queue && scrolled.vadjustment.value > 100) {
-					entity_queue += entity;
-					entity_queue_size += 1;
-					return;
-				}
-
-				// This can occur on race conditions or multiple calls.
-				// The post might already be in the timeline due to a refresh etc.
-				// So just if the id exists already in the first page and remove it.
-				if (accepts == typeof (API.Status)) {
-					string e_id = ((API.Status) entity).id;
-					for (uint i = 0; i < uint.min (model.n_items, settings.timeline_page_size); i++) {
-						var status_obj = model.get_item (i) as API.Status;
-						if (status_obj != null && status_obj.id == e_id) {
-							model.remove (i);
-						}
-					}
-				}
-
-				model.insert (0, entity);
-			#endif
+			model.insert (0, Entity.from_json (accepts, ev.get_node ()));
+			if (scrolled.vadjustment.value > 100) {
+				entity_queue_size += 1;
+				return;
+			}
 		} catch (Error e) {
 			warning (@"Error getting Entity from json: $(e.message)");
 		}
 	}
 
 	private void finish_queue () {
-		#if !USE_LISTVIEW
-			if (entity_queue.length == 0) return;
-			model.splice (0, 0, (Object[])entity_queue);
-
-			entity_queue = {};
-		#endif
 		entity_queue_size = 0;
 	}
 

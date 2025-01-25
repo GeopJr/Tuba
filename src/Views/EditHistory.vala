@@ -14,17 +14,11 @@ public class Tuba.Views.EditHistory : Views.Timeline {
 
 		widget_status.actions.visible = false;
 		widget_status.menu_button.visible = false;
-		#if USE_LISTVIEW
-			widget_status.can_be_opened = false;
-			widget_status.content.selectable = true;
-		#else
-			widget_status.activatable = false;
-		#endif
+		widget_status.can_be_opened = false;
+		widget_status.content.selectable = true;
 
 		return widget_status;
 	}
 
-	#if USE_LISTVIEW
-		public override void on_content_item_activated (uint pos) {}
-	#endif
+	public override void on_content_item_activated (uint pos) {}
 }
