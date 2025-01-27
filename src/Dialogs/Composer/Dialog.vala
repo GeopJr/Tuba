@@ -355,18 +355,9 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		this.cb = (owned) t_cb;
 	}
 
-	public Compose.redraft (API.Status status) {
-		Object (
-			status: new BasicStatus.from_status (status),
-			original_status: new BasicStatus.from_status (status),
-			button_label: _("_Redraft"),
-			button_class: "destructive-action"
-		);
-	}
-
-	public Compose.edit (API.Status t_status, API.StatusSource? source = null, owned SuccessCallback? t_cb = null) {
+	public Compose.edit (API.Status t_status, API.StatusSource? source = null, owned SuccessCallback? t_cb = null, bool redraft = false) {
 		var template = new API.Status.empty () {
-			id = t_status.id,
+			id = redraft ? "" : t_status.id,
 			poll = t_status.poll,
 			sensitive = t_status.sensitive,
 			media_attachments = t_status.media_attachments,
@@ -384,9 +375,9 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		Object (
 			status: new BasicStatus.from_status (template),
 			original_status: new BasicStatus.from_status (template),
-			button_label: _("_Edit"),
-			button_class: "suggested-action",
-			editing: true
+			button_label: redraft ? _("_Redraft") : _("_Edit"),
+			button_class: redraft ? "destructive-action" : "suggested-action",
+			editing: !redraft
 		);
 
 		this.cb = (owned) t_cb;
