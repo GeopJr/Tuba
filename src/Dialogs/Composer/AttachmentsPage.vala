@@ -188,9 +188,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			files_to_upload += file;
 		}
 
-		upload_files.begin (files_to_upload, (obj, res) => {
-			upload_files.end (res);
-		});
+		upload_files.begin (files_to_upload);
 
 		return true;
 	}
@@ -385,9 +383,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 						files_to_upload += file;
 				}
 
-				upload_files.begin (files_to_upload, (obj, res) => {
-					upload_files.end (res);
-				});
+				upload_files.begin (files_to_upload);
 
 			} catch (Error e) {
 				// User dismissing the dialog also ends here so don't make it sound like
