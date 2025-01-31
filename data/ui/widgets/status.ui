@@ -37,18 +37,6 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="thread_line_top">
-                        <property name="visible">0</property>
-                        <property name="width_request">4</property>
-                        <property name="halign">center</property>
-                        <property name="pixel-size">4</property>
-                        <style>
-                          <class name="ttl-thread-line" />
-                          <class name="top" />
-                        </style>
-                      </object>
-                    </child>
-                    <child>
                       <object class="GtkOverlay" id="avatar_overlay">
                         <property name="margin_top">3</property>
                         <child type="overlay">
@@ -61,19 +49,6 @@
                             <signal name="mini-clicked" handler="on_avatar_clicked" swapped="no" />
                           </object>
                         </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImage" id="thread_line_bottom">
-                        <property name="visible">0</property>
-                        <property name="width_request">4</property>
-                        <property name="vexpand">1</property>
-                        <property name="halign">center</property>
-                        <property name="pixel-size">4</property>
-                        <style>
-                          <class name="ttl-thread-line" />
-                          <class name="bottom" />
-                        </style>
                       </object>
                     </child>
                   </object>
