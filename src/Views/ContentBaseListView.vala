@@ -1,5 +1,6 @@
-public class Tuba.Views.ContentBase : Views.Base {
-	protected Gtk.ListBox content;
+public class Tuba.Views.ContentBaseListView : Views.Base {
+
+	protected Gtk.ListView content;
 	protected signal void reached_close_to_top ();
 	public GLib.ListStore model;
 	private bool bottom_reached_locked = false;
@@ -9,25 +10,25 @@ public class Tuba.Views.ContentBase : Views.Base {
 	}
 
 	construct {
-		model = new GLib.ListStore (typeof (Widgetizable));
+		model = new GLib.ListStore (typeof (WidgetizableForListView));
 
-		model.items_changed.connect (on_content_changed);
+		Gtk.SignalListItemFactory signallistitemfactory = new Gtk.SignalListItemFactory ();
+		signallistitemfactory.setup.connect (setup_listitem_cb);
+		signallistitemfactory.bind.connect (bind_listitem_cb);
 
-		content = new Gtk.ListBox () {
-			selection_mode = Gtk.SelectionMode.NONE,
-			css_classes = { "fake-content", "background" }
+		content = new Gtk.ListView (new Gtk.NoSelection (model), signallistitemfactory) {
+			css_classes = { "content", "background" },
+			single_click_activate = true
 		};
 
-		content.row_activated.connect (on_content_item_activated);
-		content.bind_model (model, on_create_model_widget);
+		content.activate.connect (on_content_item_activated);
 		content_box.child = content;
 
 		scrolled.vadjustment.value_changed.connect (on_scrolled_vadjustment_value_change);
 		scroll_to_top_rev.bind_property ("child-revealed", scroll_to_top_rev, "visible", GLib.BindingFlags.SYNC_CREATE);
 	}
-
-	~ContentBase () {
-		debug ("Destroying ContentBase");
+	~ContentBaseListView () {
+		debug ("Destroying ContentBaseListView");
 	}
 
 	protected virtual void on_scrolled_vadjustment_value_change () {
@@ -44,8 +45,6 @@ public class Tuba.Views.ContentBase : Views.Base {
 			!is_close_to_top
 			&& scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper
 		);
-
-		if (is_close_to_top) reached_close_to_top ();
 	}
 
 	protected void set_scroll_to_top_reveal_child (bool reveal) {
@@ -55,9 +54,35 @@ public class Tuba.Views.ContentBase : Views.Base {
 		scroll_to_top_rev.reveal_child = reveal;
 	}
 
+	protected void setup_listitem_cb (GLib.Object item) {
+		Gtk.ListItem i = (Gtk.ListItem) item;
+		i.child = on_create_model_widget (i.item);
+
+		var gtklistitemwidget = i.child.get_parent ();
+		if (gtklistitemwidget != null) {
+			gtklistitemwidget.add_css_class ("card");
+			gtklistitemwidget.add_css_class ("card-spacing");
+			gtklistitemwidget.focusable = true;
+
+			// Thread lines overflow slightly
+			gtklistitemwidget.overflow = Gtk.Overflow.HIDDEN;
+		}
+	}
+
+	protected virtual void bind_listitem_cb (GLib.Object item) {
+		var obj_widgetable = ((Gtk.ListItem) item).item as WidgetizableForListView;
+		if (obj_widgetable == null)
+			Process.exit (0);
+
+		try {
+			obj_widgetable.fill_widget_with_content (((Gtk.ListItem) item).child);
+		} catch (Oopsie e) {
+			warning (@"Error bind_listitem_cb: $(e.message)");
+			Process.exit (0);
+		}
+	}
 
 	public override void dispose () {
-		unbind_listboxes ();
 		base.dispose ();
 	}
 
@@ -69,6 +94,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 	protected virtual void clear_all_but_first (int i = 1) {
 		base.clear ();
 
+		print ("before splice!\n");
 		if (model.n_items > i)
 			model.splice (i, model.n_items - i, {});
 	}
@@ -81,25 +107,13 @@ public class Tuba.Views.ContentBase : Views.Base {
 		}
 	}
 
-	public override void unbind_listboxes () {
-		if (content != null)
-			content.bind_model (null, null);
-		base.unbind_listboxes ();
-	}
-
+	public override void unbind_listboxes () {}
 	public virtual Gtk.Widget on_create_model_widget (Object obj) {
 		var obj_widgetable = obj as Widgetizable;
 		if (obj_widgetable == null)
 			Process.exit (0);
 		try {
-			Gtk.Widget widget = obj_widgetable.to_widget ();
-			widget.add_css_class ("card");
-			widget.add_css_class ("card-spacing");
-			widget.focusable = true;
-
-			// Thread lines overflow slightly
-			widget.overflow = Gtk.Overflow.HIDDEN;
-			return widget;
+			return obj_widgetable.to_widget ();
 		} catch (Oopsie e) {
 			warning (@"Error on_create_model_widget: $(e.message)");
 			Process.exit (0);
@@ -116,7 +130,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 		}, Priority.LOW);
 	}
 
-	public virtual void on_content_item_activated (Gtk.ListBoxRow row) {
-		Signal.emit_by_name (row, "open");
+	public virtual void on_content_item_activated (uint pos) {
+		((WidgetizableForListView) ((ListModel) content.model).get_item (pos)).open ();
 	}
 }

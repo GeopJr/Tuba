@@ -1,9 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/widgets/status.ui")]
-#if USE_LISTVIEW
-	public class Tuba.Widgets.Status : Adw.Bin {
-#else
-	public class Tuba.Widgets.Status : Gtk.ListBoxRow {
-#endif
+public class Tuba.Widgets.Status : Adw.Bin {
 
 	API.Status? _bound_status = null;
 	public API.Status? status {
@@ -106,8 +102,6 @@
 	[GtkChild] protected unowned Gtk.Image header_icon;
 	[GtkChild] protected unowned Widgets.RichLabel header_label;
 	[GtkChild] protected unowned Gtk.Button header_button;
-	[GtkChild] public unowned Gtk.Image thread_line_top;
-	[GtkChild] public unowned Gtk.Image thread_line_bottom;
 
 	[GtkChild] public unowned Widgets.Avatar avatar;
 	[GtkChild] public unowned Gtk.Overlay avatar_overlay;
@@ -218,12 +212,20 @@
 		return res;
 	}
 
-	public Status (API.Status status) {
+	public Status () {
+		Object ();
+	}
+
+	public Status.from_status (API.Status status) {
 		Object (
 			kind_instigator: status.account,
 			status: status
 		);
 
+		init (status);
+	}
+
+	public void init (API.Status status) {
 		if (kind == null) {
 			if (status.reblog != null) {
 				kind = InstanceAccount.KIND_REMOTE_REBLOG;
@@ -243,6 +245,7 @@
 			}
 		}
 	}
+
 	~Status () {
 		debug ("Destroying Status widget");
 		if (context_menu != null) {
@@ -1286,27 +1289,66 @@
 		}
 	}
 
+	const float THREAD_WIDTH = 4f;
+
+	public override void snapshot (Gtk.Snapshot snapshot) {
+		if (!expanded && enable_thread_lines && status.formal.tuba_thread_role != NONE && filter_stack.visible_child_name == "status") {
+			float y;
+			float height;
+
+			// Get the avatar's position
+			Graphene.Point avatar_point;
+			avatar.compute_point (
+				this,
+				Graphene.Point () { x = 0.0f, y=0.0f },
+				out avatar_point
+			);
+
+			// NOTE: we need the thread line to be > status height as
+			//		 it looks better if it reaches the status' bounds
+			//       so the sizes below are either always bigger or
+			//		 start at a negative point
+			switch (status.formal.tuba_thread_role) {
+				// Thread starter line needs to start from the
+				// center of the avatar and end at the end of
+				// the status
+				case START:
+					y = avatar_point.y + avatar.get_height () / 2f;
+					height = (float) this.get_height ();
+					break;
+				// Thread in-between line needs to start from the
+				// top and end at the end of the status
+				case MIDDLE:
+					y = -4f;
+					height = this.get_height () * 1.2f;
+					break;
+				// Thread end line needs to start from the
+				// status top and end at the center of the
+				// avatar
+				case END:
+					y = -4f;
+					height = (avatar_point.y + avatar.get_height () / 2f) + 4f;
+					break;
+				default:
+					assert_not_reached ();
+			}
+
+			var line_rect = Graphene.Rect () {
+				// we need the center of the avatar for the x point minus half the thread line width
+				origin = Graphene.Point () { x = avatar_point.x + avatar.get_width () / 2f - THREAD_WIDTH / 2f, y = y },
+				size = Graphene.Size () { width = THREAD_WIDTH, height = height }
+			};
+
+			snapshot.push_opacity (0.1);
+			snapshot.append_color (this.get_color (), line_rect);
+			snapshot.pop ();
+		}
+
+		base.snapshot (snapshot);
+	}
+
 	// Threads
 	public void install_thread_line () {
-		if (expanded || !enable_thread_lines) return;
-
-		switch (status.formal.tuba_thread_role) {
-			case NONE:
-				thread_line_top.visible = false;
-				thread_line_bottom.visible = false;
-				break;
-			case START:
-				thread_line_top.visible = false;
-				thread_line_bottom.visible = true;
-				break;
-			case MIDDLE:
-				thread_line_top.visible = true;
-				thread_line_bottom.visible = true;
-				break;
-			case END:
-				thread_line_top.visible = true;
-				thread_line_bottom.visible = false;
-				break;
-		}
+		this.queue_draw ();
 	}
 }

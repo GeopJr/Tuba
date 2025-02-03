@@ -1,7 +1,7 @@
 public class Tuba.Views.StatusStats : Views.TabbedBase {
-	Views.ContentBase favorited;
-	Views.ContentBase boosted;
-	Views.ContentBase reacted;
+	Views.ContentBaseListView favorited;
+	Views.ContentBaseListView boosted;
+	Views.ContentBaseListView reacted;
 
 	construct {
 		label = _("Post Stats");

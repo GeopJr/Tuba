@@ -1,6 +1,6 @@
 public class Tuba.Views.MutesBlocks : Views.TabbedBase {
-	Views.ContentBase mutes;
-	Views.ContentBase blocks;
+	Views.ContentBaseListView mutes;
+	Views.ContentBaseListView blocks;
 
 	construct {
 		label = _("Mutes & Blocks");

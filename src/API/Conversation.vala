@@ -1,4 +1,4 @@
-public class Tuba.API.Conversation : Entity, Widgetizable {
+public class Tuba.API.Conversation : Entity, WidgetizableForListView {
 
 	public string id { get; set; }
 	public Gee.ArrayList<API.Account>? accounts { get; set; }

@@ -61,11 +61,6 @@ headerbar.flat.no-title .title {
 	margin: 0px;
 }
 
-.ttl-thread-line {
-	background: var(--window-fg-color);
-	opacity: .1;
-}
-
 .ttl-code {
 	padding: 12px;
 	background: rgba(150, 150, 150, .1);
@@ -349,15 +344,6 @@ headerbar.flat.no-title .title {
 .ttl-quote {
 	border-radius: 6px;
 	font-weight: initial;
-}
-
-.ttl-thread-line.top {
-	margin-top: -18px;
-	margin-bottom: -3px;
-}
-
-.ttl-thread-line.bottom {
-	margin-bottom: -20px;
 }
 
 .attachment-overlay-icon {
