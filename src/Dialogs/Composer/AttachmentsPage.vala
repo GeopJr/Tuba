@@ -356,6 +356,10 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			&& accounts.active.instance_info.configuration.media_attachments != null
 			&& accounts.active.instance_info.configuration.media_attachments.supported_mime_types != null
 			&& accounts.active.instance_info.configuration.media_attachments.supported_mime_types.size > 0
+			&& !(
+				accounts.active.instance_info.configuration.media_attachments.supported_mime_types.size == 1
+				&& accounts.active.instance_info.configuration.media_attachments.supported_mime_types[0] == "application/octet-stream"
+			)
 		) {
 			supported_mimes = accounts.active.instance_info.configuration.media_attachments.supported_mime_types;
 		}
