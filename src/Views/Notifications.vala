@@ -70,6 +70,14 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 
 		settings.notify["dim-trivial-notifications"].connect (settings_updated);
 		settings_updated ();
+
+		app.notify["is-online"].connect (on_network_change);
+	}
+
+	private void on_network_change () {
+		if (app.is_online && account != null && account.unread_count > 0 && app.main_window.is_home) {
+			on_refresh ();
+		}
 	}
 
 	private void settings_updated () {
