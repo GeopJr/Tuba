@@ -12,6 +12,7 @@
             "autodelete": false
         }
     },
+    "sdk-extensions": [ "org.freedesktop.Sdk.Extension.llvm19" ],
     "command": "dev.geopjr.Tuba",
     "finish-args": [
         "--device=dri",
@@ -78,12 +79,23 @@
             ]
         },
         {
-            "name" : "libspelling",
-            "buildsystem" : "meson",
-            "config-opts" : [
+            "name": "libspelling",
+            "buildsystem": "meson",
+            "config-opts": [
                 "-Ddocs=false"
             ],
-            "sources" : [
+			"build-options": {
+                "arch": {
+                    "aarch64": {
+                        "append-path": "/usr/lib/sdk/llvm19/bin",
+                        "prepend-ld-library-path": "/usr/lib/sdk/llvm19/lib",
+                        "env": {
+                          "CC": "clang"
+                        }
+                    }
+                }
+            },
+            "sources": [
                 {
                     "type": "git",
                     "url": "https://gitlab.gnome.org/GNOME/libspelling.git",
@@ -95,10 +107,21 @@
             "name": "tuba",
             "builddir": true,
             "buildsystem": "meson",
-            "config-opts" : [
+            "config-opts": [
                 "-Ddevel=true",
                 "-Dclapper=true"
             ],
+            "build-options": {
+                "arch": {
+                    "aarch64": {
+                        "append-path": "/usr/lib/sdk/llvm19/bin",
+                        "prepend-ld-library-path": "/usr/lib/sdk/llvm19/lib",
+                        "env": {
+                          "CC": "clang"
+                        }
+                    }
+                }
+            },
             "sources": [
                 {
                     "type": "dir",
