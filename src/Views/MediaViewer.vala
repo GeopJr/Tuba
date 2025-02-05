@@ -431,27 +431,25 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		typeof (Widgets.ScaleRevealer).ensure ();
 	}
 
-	#if CLAPPER_0_8
+	#if CLAPPER
 		string clapper_cache_dir;
 		Gee.HashMap<string, string> clapper_cached_urls;
 	#endif
 	construct {
 		#if CLAPPER
-			#if CLAPPER_0_8
-				clapper_cached_urls = new Gee.HashMap<string, string> ();
-				clapper_cache_dir = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "clapper");
-				var dir = File.new_for_path (clapper_cache_dir);
-				if (!dir.query_exists ()) {
-					try {
-						dir.make_directory_with_parents ();
-					} catch (Error e) {
-						critical (@"Couldn't create Clapper cache dir: $(e.message)");
-					}
+			clapper_cached_urls = new Gee.HashMap<string, string> ();
+			clapper_cache_dir = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "clapper");
+			var dir = File.new_for_path (clapper_cache_dir);
+			if (!dir.query_exists ()) {
+				try {
+					dir.make_directory_with_parents ();
+				} catch (Error e) {
+					critical (@"Couldn't create Clapper cache dir: $(e.message)");
 				}
+			}
 
-				clapper_cache_cleanup (true);
-				app.shutdown.connect (() => clapper_cache_cleanup (true));
-			#endif
+			clapper_cache_cleanup (true);
+			app.shutdown.connect (() => clapper_cache_cleanup (true));
 
 			// Clapper can have > 1.0 volumes
 			last_used_volume = settings.media_viewer_last_used_volume;
@@ -590,7 +588,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	~MediaViewer () {
 		debug ("Destroying MediaViewer");
 		context_menu.unparent ();
-		#if CLAPPER_0_8
+		#if CLAPPER
 			clapper_cache_cleanup (true);
 			clapper_cached_urls.clear ();
 			clapper_cached_locations.clear ();
@@ -950,7 +948,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		items.clear ();
 		revealed = false;
 
-		#if CLAPPER_0_8
+		#if CLAPPER
 			clapper_cache_cleanup ();
 		#endif
 	}
@@ -1009,12 +1007,9 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 					auto_inhibit = true
 				};
 
-				#if CLAPPER_0_8
-					video.player.download_dir = clapper_cache_dir;
-					video.player.download_enabled = true;
-					video.player.download_complete.connect (on_clapper_download_complete);
-				#endif
-
+				video.player.download_dir = clapper_cache_dir;
+				video.player.download_enabled = true;
+				video.player.download_complete.connect (on_clapper_download_complete);
 			#else
 				var video = new Gtk.Video () {
 					graphics_offload = Gtk.GraphicsOffloadEnabled.ENABLED
@@ -1047,11 +1042,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 			#if CLAPPER
 				Clapper.MediaItem clp_item;
-				#if CLAPPER_0_8
-					clp_item = new Clapper.MediaItem.cached (url, clapper_cached_urls.get (url));
-				#else
-					clp_item = new Clapper.MediaItem (url);
-				#endif
+				clp_item = new Clapper.MediaItem.cached (url, clapper_cached_urls.get (url));
 
 				video.player.queue.add_item (clp_item);
 				video.player.queue.select_item (clp_item);
@@ -1105,7 +1096,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		if (as_is || stream) add_todo_item (item);
 	}
 
-	#if CLAPPER_0_8
+	#if CLAPPER
 		// libgee's hashmaps do not preserve insertion order.
 		// We need the order to know what we should cleanup
 		// (older items get cleaned up first).
