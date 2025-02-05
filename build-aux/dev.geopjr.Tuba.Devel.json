@@ -10,6 +10,13 @@
             "add-ld-path": ".",
             "no-autodownload": false,
             "autodelete": false
+        },
+		"com.github.rafostar.Clapper.Enhancers": {
+            "version": "stable",
+            "directory": "extensions/clapper/enhancers",
+            "add-ld-path": "lib",
+            "no-autodownload": false,
+            "autodelete": false
         }
     },
     "sdk-extensions": [ "org.freedesktop.Sdk.Extension.llvm19" ],
@@ -21,7 +28,9 @@
         "--socket=fallback-x11",
         "--socket=wayland",
         "--socket=pulseaudio",
-        "--own-name=org.mpris.MediaPlayer2.Tuba.*"
+        "--own-name=org.mpris.MediaPlayer2.Tuba.*",
+		"--env=CLAPPER_ENHANCERS_PATH=/app/extensions/clapper/enhancers/plugins",
+        "--env=PYTHONPATH=/app/extensions/clapper/enhancers/python/site-packages"
     ],
     "cleanup": [
         "/include",
@@ -36,7 +45,8 @@
         "*.a"
     ],
     "cleanup-commands": [
-        "mkdir -p /app/lib/ffmpeg"
+        "mkdir -p /app/lib/ffmpeg",
+		"mkdir -p /app/extensions/clapper/enhancers"
     ],
     "modules": [
 		{
