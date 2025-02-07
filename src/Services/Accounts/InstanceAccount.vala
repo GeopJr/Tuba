@@ -93,6 +93,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 		#if DEV_MODE
 			app.dev_new_notification.connect (node => {
+				if (accounts.active.id != this.id) return;
+
 				try {
 					var entity = create_entity<API.Notification> (node);
 
@@ -700,7 +702,6 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				new Request.POST ("/api/v1/markers")
 					.with_account (this)
 					.with_form_data ("notifications[last_read_id]", up_to_id.to_string ())
-					.then (() => {})
 					.exec ();
 
 				// Pleroma FE doesn't mark them as read by just updating the marker
@@ -708,8 +709,11 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					new Request.POST ("/api/v1/pleroma/notifications/read")
 						.with_account (this)
 						.with_form_data ("max_id", up_to_id.to_string ())
-						.then (() => {})
 						.exec ();
+				}
+
+				foreach (string notification_id in sent_notifications.keys) {
+					app.withdraw_notification (notification_id);
 				}
 
 				sent_notifications.clear ();
@@ -749,21 +753,22 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public void send_toast (API.Notification obj) {
 		if (obj.kind != null && (obj.kind in settings.muted_notification_types)) return;
 
-		var id = obj.id;
+		var id = accounts.active.id;
 		var others = 0;
 
 		if (settings.group_push_notifications && obj.status != null && obj.kind in GROUPED_KINDS) {
-			id = @"$(obj.status.id)-$(obj.kind)";
+			id = @"$id-$(obj.status.id)-$(obj.kind)";
 			if (sent_notifications.has_key (id)) {
 				others = sent_notifications.get (id) + 1;
 			}
-			sent_notifications.set (id, others);
+		} else {
+			id = @"$id-$(obj.id)";
 		}
+		sent_notifications.set (id, others);
 
 		obj.to_toast.begin (this, others, (_obj, res) => {
 			app.send_notification (id, obj.to_toast.end (res));
 		});
-		//  sent_notification_ids.add(id);
 	}
 
 

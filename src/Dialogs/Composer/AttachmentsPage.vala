@@ -188,9 +188,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			files_to_upload += file;
 		}
 
-		upload_files.begin (files_to_upload, (obj, res) => {
-			upload_files.end (res);
-		});
+		upload_files.begin (files_to_upload);
 
 		return true;
 	}
@@ -356,6 +354,10 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			&& accounts.active.instance_info.configuration.media_attachments != null
 			&& accounts.active.instance_info.configuration.media_attachments.supported_mime_types != null
 			&& accounts.active.instance_info.configuration.media_attachments.supported_mime_types.size > 0
+			&& !(
+				accounts.active.instance_info.configuration.media_attachments.supported_mime_types.size == 1
+				&& accounts.active.instance_info.configuration.media_attachments.supported_mime_types[0] == "application/octet-stream"
+			)
 		) {
 			supported_mimes = accounts.active.instance_info.configuration.media_attachments.supported_mime_types;
 		}
@@ -385,9 +387,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 						files_to_upload += file;
 				}
 
-				upload_files.begin (files_to_upload, (obj, res) => {
-					upload_files.end (res);
-				});
+				upload_files.begin (files_to_upload);
 
 			} catch (Error e) {
 				// User dismissing the dialog also ends here so don't make it sound like

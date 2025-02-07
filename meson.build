@@ -83,7 +83,7 @@ libadwaita_dep = dependency('libadwaita-1', version: '>=1.5', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
 libwebp_dep = dependency('libwebp', required: false)
 libspelling = dependency('libspelling-1', required: false)
-clapper_dep = dependency('clapper-0.0', required: false)
+clapper_dep = dependency('clapper-0.0', required: false, version: '>=0.8.0')
 clapper_gtk_dep = dependency('clapper-gtk-0.0', required: false)
 gstreamer_dep = dependency('gstreamer-1.0', required: false)
 
@@ -108,10 +108,6 @@ if clapper_support and clapper_dep.found () and clapper_dep.version().version_co
   add_project_arguments(['--define=CLAPPER'], language: 'vala')
   if (clapper_dep.get_variable('features').split().contains('mpris'))
     add_project_arguments(['--define=CLAPPER_MPRIS'], language: 'vala')
-  endif
-
-  if clapper_dep.version().version_compare('>=0.8.0')
-    add_project_arguments(['--define=CLAPPER_0_8'], language: 'vala')
   endif
 endif
 
