@@ -112,6 +112,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 	public override void remove (InstanceAccount account) throws GLib.Error {
 		base.remove (account);
 
+		warning (@"Removing $(account.full_handle)");
 		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
 		attrs["version"] = VERSION;
 		attrs["login"] = account.handle;
@@ -123,8 +124,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 			(obj, async_res) => {
 				try {
 					Secret.password_clearv.end (async_res);
-				}
-				catch (GLib.Error e) {
+				} catch (GLib.Error e) {
 					warning (e.message);
 					var dlg = app.inform (_("Error"), e.message);
 					dlg.present (app.main_window);
@@ -254,9 +254,12 @@ public class Tuba.SecretAccountStore : AccountStore {
 			var parser = new Json.Parser ();
 			parser.load_from_data (contents, -1);
 
+			warning (@"About to S2A $(item.attributes.get ("login"))");
+
 			var root = parser.get_root ();
 			var root_obj = root.get_object ();
 
+			warning (@"$(root_obj.has_member ("backend")) $(root_obj.has_member ("acct")) $(root_obj.has_member ("id")) $(root_obj.has_member ("client-secret")) $(root_obj.has_member ("client-id")) $(root_obj.has_member ("access-token")) $(root_obj.has_member ("uuid"))");
 			// HACK: Partial makeshift secret validation
 			// see #742 #701 #114
 			if (
@@ -270,7 +273,12 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 			// TODO: remove uuid fallback
 			bool had_uuid = root_obj.has_member ("uuid");
+
+			warning ("About to create account");
 			account = accounts.create_account (root);
+			warning ("Finished creating account");
+
+			warning (@"uuid: $(account.uuid != null)");
 
 			// TODO: remove uuid fallback
 			force_save = !had_uuid && account.uuid != null;
