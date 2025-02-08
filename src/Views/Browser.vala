@@ -219,12 +219,59 @@ public class Tuba.Views.Browser : Adw.Bin {
 		}
 	}
 
+	const uint ANIMATION_DURATION = 250;
+	public override void snapshot (Gtk.Snapshot snapshot) {
+		var progress = this.animation.value;
+		if (progress == 1.0) {
+			base.snapshot (snapshot);
+			return;
+		}
+
+		float width = (float) this.get_width ();
+		snapshot.translate (Graphene.Point () {
+			x = width - width * (float) progress,
+			y = 0
+		});
+		base.snapshot (snapshot);
+	}
+
+	private void animation_target_cb (double value) {
+		this.queue_draw ();
+	}
+
+	private void on_animation_end () {
+		if (reveal_child) {
+			this.grab_focus ();
+		} else {
+			exit ();
+			animation = null; // leaks without
+		}
+	}
+
+	private bool _reveal_child = false;
+	public bool reveal_child {
+		get {
+			return _reveal_child;
+		}
+
+		set {
+			if (_reveal_child == value) return;
+			animation.value_from = animation.value;
+			animation.value_to = value ? 1.0 : 0.0;
+
+			_reveal_child = value;
+			animation.play ();
+			this.notify_property ("reveal-child");
+		}
+	}
+
 	~Browser () {
 		debug ("Destroying Browser");
 	}
 
 	WebKit.WebView webview;
 	HeaderBar headerbar;
+	Adw.TimedAnimation animation;
 
 	public new bool grab_focus () {
 		return this.webview.grab_focus ();
@@ -232,7 +279,11 @@ public class Tuba.Views.Browser : Adw.Bin {
 
 	public signal void exit ();
 	construct {
-		this.css_classes = { "background" };
+		var target = new Adw.CallbackAnimationTarget (animation_target_cb);
+		animation = new Adw.TimedAnimation (this, 0.0, 1.0, ANIMATION_DURATION, target) {
+			easing = Adw.Easing.EASE_IN_OUT_QUART
+		};
+		animation.done.connect (on_animation_end);
 
 		this.webview = new WebKit.WebView () {
 			vexpand = true,
@@ -288,7 +339,9 @@ public class Tuba.Views.Browser : Adw.Bin {
 		headerbar.go_forward.connect (on_go_forward);
 		headerbar.exit.connect (on_exit);
 
-		var toolbar_view = new Adw.ToolbarView ();
+		var toolbar_view = new Adw.ToolbarView () {
+			css_classes = { "background" }
+		};
 		toolbar_view.add_top_bar (headerbar);
 
 		this.webview.bind_property ("title", headerbar, "title", BindingFlags.SYNC_CREATE);
@@ -376,6 +429,6 @@ public class Tuba.Views.Browser : Adw.Bin {
 	}
 
 	private void on_exit () {
-		exit ();
+		this.reveal_child = false;
 	}
 }

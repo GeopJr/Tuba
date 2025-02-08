@@ -172,13 +172,12 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	#if WEBKIT
 		Gtk.Widget? browser_last_focused_widget = null;
 		public void open_in_app_browser_for_url (string url) {
+			browser_last_focused_widget = app.main_window.get_focus ();
 			var browser = new Views.Browser ();
 			browser.exit.connect (on_browser_exit);
 			browser.load_url (url);
 			main_overlay.add_overlay (browser);
-
-			browser_last_focused_widget = app.main_window.get_focus ();
-			browser.grab_focus ();
+			browser.reveal_child = true;
 		}
 
 		private void on_browser_exit (Views.Browser browser) {
