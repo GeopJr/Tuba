@@ -130,6 +130,9 @@
     <key name="status-aria-verbosity" type="i">
 			<default>3</default>
 		</key>
+    <key name="use-in-app-browser-if-available" type="b">
+			<default>true</default>
+		</key>
 
 		<key name="window-w" type="i">
 			<default>600</default>

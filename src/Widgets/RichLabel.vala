@@ -163,22 +163,33 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 				} catch (Error e) {
 					warning (@"Failed to resolve URL \"$url\":");
 					warning (e.message);
-					if (uri == null) {
-						Host.open_url.begin (url);
-					} else {
-						Host.open_uri.begin (uri);
-					}
+					open_in_browser (url, uri);
 				}
 			});
 		} else {
-			if (uri == null) {
-				Host.open_url.begin (url);
-			} else {
-				Host.open_uri.begin (uri);
-			}
+			open_in_browser (url, uri);
 		}
 
 		return true;
+	}
+
+	private void open_in_browser (string url, GLib.Uri? uri = null) {
+		#if WEBKIT
+			if (settings.use_in_app_browser_if_available) {
+				if (
+					(uri != null && Views.Browser.can_handle_uri (uri))
+					|| Views.Browser.can_handle_url (url)
+				) {
+					app.main_window.open_in_app_browser_for_url (url);
+					return;
+				}
+			}
+		#endif
+		if (uri == null) {
+			Host.open_url.begin (url);
+		} else {
+			Host.open_uri.begin (uri);
+		}
 	}
 
 	public static bool should_resolve_url (string url) {

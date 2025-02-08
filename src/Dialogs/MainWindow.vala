@@ -8,6 +8,10 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	[GtkChild] unowned Adw.Breakpoint breakpoint;
 	[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 
+	#if WEBKIT
+		[GtkChild] unowned Gtk.Overlay main_overlay;
+	#endif
+
 	public void set_sidebar_selected_item (int pos) {
 		sidebar.set_sidebar_selected_item (pos);
 	}
@@ -164,6 +168,26 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			if (fallback != null) Host.open_url.begin (fallback);
 		}
 	}
+
+	#if WEBKIT
+		Gtk.Widget? browser_last_focused_widget = null;
+		public void open_in_app_browser_for_url (string url) {
+			var browser = new Views.Browser ();
+			browser.exit.connect (on_browser_exit);
+			browser.load_url (url);
+			main_overlay.add_overlay (browser);
+
+			browser_last_focused_widget = app.main_window.get_focus ();
+			browser.grab_focus ();
+		}
+
+		private void on_browser_exit (Views.Browser browser) {
+			main_overlay.remove_overlay (browser);
+
+			browser_last_focused_widget.grab_focus ();
+			browser_last_focused_widget = null;
+		}
+	#endif
 
 	public Views.Base open_view (Views.Base view) {
 		if (

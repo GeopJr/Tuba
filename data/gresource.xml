@@ -78,6 +78,8 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-quotation-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-fish-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-dock-right-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-channel-insecure-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-refresh-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
         <file>gtk/help-overlay.ui</file>

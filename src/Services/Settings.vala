@@ -159,6 +159,7 @@ public class Tuba.Settings : GLib.Settings {
 	public string last_contributors_update { get; set; }
 	public string[] contributors { get; set; default = {}; }
 	public int status_aria_verbosity { get; set; default = 3; }
+	public bool use_in_app_browser_if_available { get; set; }
 
 	private static string[] keys_to_init = {
 		"active-account",
@@ -189,7 +190,8 @@ public class Tuba.Settings : GLib.Settings {
 		"dim-trivial-notifications",
 		"analytics",
 		"update-contributors",
-		"status-aria-verbosity"
+		"status-aria-verbosity",
+		"use-in-app-browser-if-available"
 	};
 
 	public Settings () {

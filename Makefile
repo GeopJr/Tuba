@@ -1,7 +1,7 @@
 .PHONY: all install uninstall build test potfiles
 PREFIX ?= /usr
 
-clapper ?=
+clapper ?= 1
 # Remove the devel headerbar style:
 # make release=1
 release ?=
