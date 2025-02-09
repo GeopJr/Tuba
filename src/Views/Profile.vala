@@ -217,12 +217,13 @@ public class Tuba.Views.Profile : Views.Accounts {
 	protected override void build_header () {
 		base.build_header ();
 
-		menu_button = new Gtk.MenuButton ();
+		menu_button = new Gtk.MenuButton () {
+			icon_name = "view-more-symbolic"
+		};
 		var menu_builder = new Gtk.Builder.from_resource (@"$(Build.RESOURCES)ui/menus.ui");
 		var menu = "profile-menu";
 		menu_button.menu_model = menu_builder.get_object (menu) as MenuModel;
 		menu_button.popover.width_request = 250;
-		menu_button.icon_name = "view-more-symbolic";
 		header.pack_end (menu_button);
 
 		if (profile.account.is_self ()) {

@@ -54,6 +54,7 @@ icu | ✅
 libspelling | ❌
 gstreamer + gst-plugins-good | ❌
 clapper | ❌
+webkitgtk | ❌
 
 </details>
 

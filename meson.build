@@ -18,7 +18,6 @@ endif
 
 devel = get_option('devel')
 distro = get_option('distro')
-clapper_support = get_option('clapper')
 
 # Setup configuration file
 config = configuration_data()
@@ -78,6 +77,7 @@ asresources = gnome.compile_resources(
 )
 
 gstreamer = false
+webkit = false
 gtk_dep = dependency('gtk4', version: '>=4.13.4', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.5', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
@@ -86,6 +86,7 @@ libspelling = dependency('libspelling-1', required: false)
 clapper_dep = dependency('clapper-0.0', required: false, version: '>=0.8.0')
 clapper_gtk_dep = dependency('clapper-gtk-0.0', required: false)
 gstreamer_dep = dependency('gstreamer-1.0', required: false)
+webkit_dep = dependency('webkitgtk-6.0', required: false)
 
 if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
@@ -104,11 +105,16 @@ if gstreamer_dep.found ()
   gstreamer = true
 endif
 
-if clapper_support and clapper_dep.found () and clapper_dep.version().version_compare('>=0.6.0') and clapper_gtk_dep.found ()
+if get_option('clapper') and clapper_dep.found () and clapper_dep.version().version_compare('>=0.6.0') and clapper_gtk_dep.found ()
   add_project_arguments(['--define=CLAPPER'], language: 'vala')
   if (clapper_dep.get_variable('features').split().contains('mpris'))
     add_project_arguments(['--define=CLAPPER_MPRIS'], language: 'vala')
   endif
+endif
+
+if get_option('in-app-browser') and webkit_dep.found ()
+  add_project_arguments(['--define=WEBKIT'], language: 'vala')
+  webkit = true
 endif
 
 sources = files()
@@ -129,7 +135,8 @@ final_deps = [
   meson.get_compiler('c').find_library('m', required: false),
   clapper_dep,
   clapper_gtk_dep,
-  gstreamer_dep
+  gstreamer_dep,
+  webkit_dep
 ]
 
 executable(

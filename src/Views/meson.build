@@ -35,4 +35,8 @@ sources += files(
     'Timeline.vala',
 )
 
+if webkit
+  sources += files ('Browser.vala')
+endif
+
 subdir('Admin')

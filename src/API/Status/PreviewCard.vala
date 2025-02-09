@@ -166,7 +166,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 
 	public void open_special_card () {
 		if (this.tuba_uri == null) {
-			Host.open_url.begin (this.url);
+			open_url (this.url);
 			return;
 		}
 
@@ -206,7 +206,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 					return;
 			#endif
 			default:
-				Host.open_url.begin (this.url);
+				open_url (this.url);
 				return;
 		}
 
@@ -232,13 +232,24 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 						}
 						break;
 					default:
-						Host.open_url.begin (this.url);
+						open_url (this.url);
 						break;
 				}
 			})
 			.on_error (() => {
-				Host.open_url.begin (this.url);
+				open_url (this.url);
 			})
 			.exec ();
+	}
+
+	private void open_url (string url) {
+		#if WEBKIT
+			if (settings.use_in_app_browser_if_available && Views.Browser.can_handle_url (url)) {
+				app.main_window.open_in_app_browser_for_url (url);
+				return;
+			}
+		#endif
+
+		Host.open_url.begin (url);
 	}
 }
