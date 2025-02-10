@@ -1,54 +1,54 @@
 {
-    "app-id": "dev.geopjr.Tuba",
-    "runtime": "org.gnome.Platform",
-    "runtime-version": "47",
-    "sdk": "org.gnome.Sdk",
-    "add-extensions": {
-        "org.freedesktop.Platform.ffmpeg-full": {
-            "version": "24.08",
-            "directory": "lib/ffmpeg",
-            "add-ld-path": ".",
-            "no-autodownload": false,
-            "autodelete": false
-        },
+	"app-id": "dev.geopjr.Tuba",
+	"runtime": "org.gnome.Platform",
+	"runtime-version": "47",
+	"sdk": "org.gnome.Sdk",
+	"add-extensions": {
+		"org.freedesktop.Platform.ffmpeg-full": {
+			"version": "24.08",
+			"directory": "lib/ffmpeg",
+			"add-ld-path": ".",
+			"no-autodownload": false,
+			"autodelete": false
+		},
 		"com.github.rafostar.Clapper.Enhancers": {
-            "version": "stable",
-            "directory": "extensions/clapper/enhancers",
-            "add-ld-path": "lib",
-            "no-autodownload": false,
-            "autodelete": false
-        }
-    },
-    "sdk-extensions": [ "org.freedesktop.Sdk.Extension.llvm19" ],
-    "command": "dev.geopjr.Tuba",
-    "finish-args": [
-        "--device=dri",
-        "--share=ipc",
-        "--share=network",
-        "--socket=fallback-x11",
-        "--socket=wayland",
-        "--socket=pulseaudio",
-        "--own-name=org.mpris.MediaPlayer2.Tuba.*",
+			"version": "stable",
+			"directory": "extensions/clapper/enhancers",
+			"add-ld-path": "lib",
+			"no-autodownload": false,
+			"autodelete": false
+		}
+	},
+	"sdk-extensions": [ "org.freedesktop.Sdk.Extension.llvm19" ],
+	"command": "dev.geopjr.Tuba",
+	"finish-args": [
+		"--device=dri",
+		"--share=ipc",
+		"--share=network",
+		"--socket=fallback-x11",
+		"--socket=wayland",
+		"--socket=pulseaudio",
+		"--own-name=org.mpris.MediaPlayer2.Tuba.*",
 		"--env=CLAPPER_ENHANCERS_PATH=/app/extensions/clapper/enhancers/plugins",
-        "--env=PYTHONPATH=/app/extensions/clapper/enhancers/python/site-packages"
-    ],
-    "cleanup": [
-        "/include",
-        "/lib/pkgconfig",
-        "/man",
-        "/share/doc",
-        "/share/gtk-doc",
-        "/share/man",
-        "/share/pkgconfig",
-        "/share/vala",
-        "*.la",
-        "*.a"
-    ],
-    "cleanup-commands": [
-        "mkdir -p /app/lib/ffmpeg",
+		"--env=PYTHONPATH=/app/extensions/clapper/enhancers/python/site-packages"
+	],
+	"cleanup": [
+		"/include",
+		"/lib/pkgconfig",
+		"/man",
+		"/share/doc",
+		"/share/gtk-doc",
+		"/share/man",
+		"/share/pkgconfig",
+		"/share/vala",
+		"*.la",
+		"*.a"
+	],
+	"cleanup-commands": [
+		"mkdir -p /app/lib/ffmpeg",
 		"mkdir -p /app/extensions/clapper/enhancers"
-    ],
-    "modules": [
+	],
+	"modules": [
 		{
 			"name": "libpeas",
 			"buildsystem": "meson",
@@ -70,85 +70,85 @@
 				}
 			]
 		},
-        {
-            "name": "clapper",
-            "buildsystem": "meson",
-            "config-opts": [
-                "-Dclapper=enabled",
-                "-Dclapper-gtk=enabled",
-                "-Dclapper-app=disabled",
-                "-Dintrospection=enabled",
-                "-Dvapi=enabled"
-            ],
+		{
+			"name": "clapper",
+			"buildsystem": "meson",
+			"config-opts": [
+				"-Dclapper=enabled",
+				"-Dclapper-gtk=enabled",
+				"-Dclapper-app=disabled",
+				"-Dintrospection=enabled",
+				"-Dvapi=enabled"
+			],
 			"build-options": {
-                "arch": {
-                    "aarch64": {
-                        "append-path": "/usr/lib/sdk/llvm19/bin",
-                        "prepend-ld-library-path": "/usr/lib/sdk/llvm19/lib",
-                        "env": {
-                          "CC": "clang"
-                        }
-                    }
-                }
-            },
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://github.com/Rafostar/clapper.git",
-                    "tag": "0.8.0"
-                }
-            ]
-        },
-        {
-            "name": "libspelling",
-            "buildsystem": "meson",
-            "config-opts": [
-                "-Ddocs=false"
-            ],
+				"arch": {
+					"aarch64": {
+						"append-path": "/usr/lib/sdk/llvm19/bin",
+						"prepend-ld-library-path": "/usr/lib/sdk/llvm19/lib",
+						"env": {
+						  "CC": "clang"
+						}
+					}
+				}
+			},
+			"sources": [
+				{
+					"type": "git",
+					"url": "https://github.com/Rafostar/clapper.git",
+					"tag": "0.8.0"
+				}
+			]
+		},
+		{
+			"name": "libspelling",
+			"buildsystem": "meson",
+			"config-opts": [
+				"-Ddocs=false"
+			],
 			"build-options": {
-                "arch": {
-                    "aarch64": {
-                        "append-path": "/usr/lib/sdk/llvm19/bin",
-                        "prepend-ld-library-path": "/usr/lib/sdk/llvm19/lib",
-                        "env": {
-                          "CC": "clang"
-                        }
-                    }
-                }
-            },
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/libspelling.git",
-                    "tag": "0.4.5"
-                }
-            ]
-        },
-        {
-            "name": "tuba",
-            "builddir": true,
-            "buildsystem": "meson",
-            "config-opts": [
-                "-Ddevel=true",
-                "-Dclapper=true"
-            ],
-            "build-options": {
-                "arch": {
-                    "aarch64": {
-                        "append-path": "/usr/lib/sdk/llvm19/bin",
-                        "prepend-ld-library-path": "/usr/lib/sdk/llvm19/lib",
-                        "env": {
-                          "CC": "clang"
-                        }
-                    }
-                }
-            },
-            "sources": [
-                {
-                    "type": "dir",
-                    "path": "../"
-                }
-            ]
-        }
-    ]
+				"arch": {
+					"aarch64": {
+						"append-path": "/usr/lib/sdk/llvm19/bin",
+						"prepend-ld-library-path": "/usr/lib/sdk/llvm19/lib",
+						"env": {
+						  "CC": "clang"
+						}
+					}
+				}
+			},
+			"sources": [
+				{
+					"type": "git",
+					"url": "https://gitlab.gnome.org/GNOME/libspelling.git",
+					"tag": "0.4.5"
+				}
+			]
+		},
+		{
+			"name": "tuba",
+			"builddir": true,
+			"buildsystem": "meson",
+			"config-opts": [
+				"-Ddevel=true",
+				"-Dclapper=true"
+			],
+			"build-options": {
+				"arch": {
+					"aarch64": {
+						"append-path": "/usr/lib/sdk/llvm19/bin",
+						"prepend-ld-library-path": "/usr/lib/sdk/llvm19/lib",
+						"env": {
+						  "CC": "clang"
+						}
+					}
+				}
+			},
+			"sources": [
+				{
+					"type": "dir",
+					"path": "../"
+				}
+			]
+		}
+	]
 }

@@ -82,9 +82,11 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 		wrapped_menu_item.set_attribute_value ("hidden-when", "action-disabled");
 		misc_submenu_model.append_item (wrapped_menu_item);
 
-		var admin_dahsboard_menu_item = new MenuItem (_("Admin Dashboard"), "app.open-admin-dashboard");
-		admin_dahsboard_menu_item.set_attribute_value ("hidden-when", "action-disabled");
-		misc_submenu_model.append_item (admin_dahsboard_menu_item);
+		#if ADMIN_DASHBOARD
+			var admin_dahsboard_menu_item = new MenuItem (_("Admin Dashboard"), "app.open-admin-dashboard");
+			admin_dahsboard_menu_item.set_attribute_value ("hidden-when", "action-disabled");
+			misc_submenu_model.append_item (admin_dahsboard_menu_item);
+		#endif
 
 		menu_model.append_section (null, misc_submenu_model);
 
