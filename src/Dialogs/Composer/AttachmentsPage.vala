@@ -488,7 +488,10 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 			string? focus = null;
 			if (attachment.meta != null && attachment.meta.focus != null) {
-				focus = "%.2f,%.2f".printf (page_attachment.pos_x, page_attachment.pos_y);
+				focus = "%s,%s".printf (
+					Units.float_to_2_point_string (page_attachment.pos_x),
+					Units.float_to_2_point_string (page_attachment.pos_y)
+				);
 			}
 
 			status.add_media (attachment.id, attachment.description, focus);

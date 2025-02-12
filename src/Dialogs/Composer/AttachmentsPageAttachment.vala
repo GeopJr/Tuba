@@ -445,7 +445,10 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			builder.add_string_value (alt_text);
 
 			builder.set_member_name ("focus");
-			builder.add_string_value ("%.2f,%.2f".printf (pos_x, pos_y));
+			builder.add_string_value ("%s,%s".printf (
+				Units.float_to_2_point_string (pos_x),
+				Units.float_to_2_point_string (pos_y)
+			));
 
 			builder.end_object ();
 
