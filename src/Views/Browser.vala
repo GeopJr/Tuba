@@ -195,6 +195,7 @@ public class Tuba.Views.Browser : Adw.Bin {
 
 		private void on_open_in_browser () {
 			Host.open_url.begin (this.subtitle);
+			exit ();
 		}
 
 		private void on_copy_url () {
