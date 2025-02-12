@@ -76,7 +76,10 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 					string focus = "0.00,0.00";
 
 					if (t_attachment.meta != null && t_attachment.meta.focus != null) {
-						focus = "%.2f,%.2f".printf (t_attachment.meta.focus.x, t_attachment.meta.focus.y);
+						focus = "%s,%s".printf (
+							Units.float_to_2_point_string (t_attachment.meta.focus.x),
+							Units.float_to_2_point_string (t_attachment.meta.focus.y)
+						);
 					}
 
 					add_media (t_attachment.id, t_attachment.description, focus);
