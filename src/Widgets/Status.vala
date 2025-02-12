@@ -410,7 +410,15 @@
 	}
 
 	private void open_in_browser () {
-		Host.open_url.begin (status.formal.url ?? status.formal.account.url);
+		string final_url = status.formal.url ?? status.formal.account.url;
+		#if WEBKIT
+			if (settings.use_in_app_browser_if_available && Views.Browser.can_handle_url (final_url)) {
+				app.main_window.open_in_app_browser_for_url (final_url);
+				return;
+			}
+		#endif
+
+		Host.open_url.begin (final_url);
 	}
 
 	private void report_status () {

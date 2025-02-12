@@ -314,6 +314,13 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 		var open_in_browser_action = new SimpleAction ("open_in_browser", null);
 		open_in_browser_action.activate.connect (v => {
+			#if WEBKIT
+				if (settings.use_in_app_browser_if_available && Views.Browser.can_handle_url (profile.account.url)) {
+					app.main_window.open_in_app_browser_for_url (profile.account.url);
+					return;
+				}
+			#endif
+
 			Host.open_url.begin (profile.account.url);
 		});
 		actions.add_action (open_in_browser_action);
