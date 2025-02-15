@@ -18,7 +18,9 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 				var widg = status.to_widget () as Widgets.Status;
 				widg.actions.visible = false;
 				widg.menu_button.visible = false;
-				widg.activatable = false;
+				#if !USE_LISTVIEW
+					widg.activatable = false;
+				#endif
 				widg.filter_stack.can_focus = false;
 				widg.filter_stack.can_target = false;
 				widg.filter_stack.focusable = false;

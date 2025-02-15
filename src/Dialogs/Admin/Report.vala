@@ -285,7 +285,9 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 				widget.add_css_class ("card-spacing");
 				widget.actions.visible = false;
 				widget.menu_button.visible = false;
-				widget.activatable = false;
+				#if !USE_LISTVIEW
+					widget.activatable = false;
+				#endif
 				widget.filter_stack.can_focus = false;
 				widget.filter_stack.can_target = false;
 				widget.filter_stack.focusable = false;

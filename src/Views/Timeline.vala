@@ -12,9 +12,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public bool is_last_page { get; set; default = false; }
 	public string? page_next { get; set; }
 	public string? page_prev { get; set; }
+	protected int entity_queue_size { get; set; default=0; }
+
 	#if !USE_LISTVIEW
 		Entity[] entity_queue = {};
-		protected int entity_queue_size { get; set; default=0; }
 	#endif
 
 	private Adw.Spinner pull_to_refresh_spinner;
@@ -82,9 +83,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			css_classes = { "osd", "circular-spinner" }
 		};
 
-		#if !USE_LISTVIEW
-			reached_close_to_top.connect (finish_queue);
-		#endif
+		reached_close_to_top.connect (finish_queue);
 
 		app.refresh.connect (on_manual_refresh);
 		status_button.clicked.connect (on_manual_refresh);
@@ -121,8 +120,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		#if !USE_LISTVIEW
 			content.bind_model (null, null);
 			entity_queue = {};
-			entity_queue_size = 0;
 		#endif
+		entity_queue_size = 0;
 	}
 
 	#if !USE_LISTVIEW
@@ -239,8 +238,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	public virtual void on_refresh () {
 		#if !USE_LISTVIEW
 			entity_queue = {};
-			entity_queue_size = 0;
 		#endif
+		entity_queue_size = 0;
+
 		scrolled.vadjustment.value = 0;
 		status_button.sensitive = false;
 		clear ();
@@ -301,6 +301,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		try {
 			#if USE_LISTVIEW
 				model.insert (0, Entity.from_json (accepts, ev.get_node ()));
+				if (scrolled.vadjustment.value > 100) {
+					entity_queue_size += 1;
+					return;
+				}
 			#else
 				var entity = Entity.from_json (accepts, ev.get_node ());
 				if (should_hide (entity)) return;
@@ -331,16 +335,15 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		}
 	}
 
-	#if !USE_LISTVIEW
-		private void finish_queue () {
+	private void finish_queue () {
+		#if !USE_LISTVIEW
 			if (entity_queue.length == 0) return;
 			model.splice (0, 0, (Object[])entity_queue);
 
 			entity_queue = {};
-			entity_queue_size = 0;
-		}
-	#endif
-
+		#endif
+		entity_queue_size = 0;
+	}
 
 	public virtual void on_edit_post (Streamable.Event ev) {
 		try {
