@@ -351,6 +351,7 @@ public class Tuba.Views.Browser : Adw.Bin {
 		this.webview.load_changed.connect (on_load_changed);
 		this.webview.network_session.download_started.connect (download_in_browser);
 		this.webview.decide_policy.connect (open_new_tab_in_browser);
+		this.webview.create.connect (on_create);
 
 		toolbar_view.content = this.webview;
 		this.child = toolbar_view;
@@ -414,6 +415,17 @@ public class Tuba.Views.Browser : Adw.Bin {
 			default:
 				return false;
 		}
+	}
+
+	protected Gtk.Widget on_create (WebKit.NavigationAction navigation_action) {
+		Host.open_url.begin (navigation_action.get_request ().get_uri ());
+
+		// According to the docs, we should return null if
+		// we are not creating a new WebView, but the vapi
+		// requires a Gtk.Widget. So this is purposely
+		// returning null even though it claims to return
+		// a Gtk.Widget.
+		return (Gtk.Widget) null;
 	}
 
 	private void on_go_back () {
