@@ -387,4 +387,8 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 		get { return label.justify; }
 		set { label.justify = value; }
 	}
+
+	public string? get_current_uri () {
+		return this.label.get_current_uri ();
+	}
 }
