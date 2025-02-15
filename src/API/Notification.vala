@@ -69,13 +69,17 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 				break;
 			case InstanceAccount.KIND_ADMIN_REPORT:
 				if (report != null) {
-					if (accounts.active.admin_mode) {
-						var admin_window = new Dialogs.Admin.Window ();
-						admin_window.present ();
-						admin_window.open_reports ();
-					} else {
+					#if ADMIN_DASHBOARD
+						if (accounts.active.admin_mode) {
+							var admin_window = new Dialogs.Admin.Window ();
+							admin_window.present ();
+							admin_window.open_reports ();
+						} else {
+					#endif
 						Host.open_url.begin (@"$(accounts.active.instance)/admin/reports/$(report.id)");
-					}
+					#if ADMIN_DASHBOARD
+						}
+					#endif
 				}
 				break;
 			case InstanceAccount.KIND_ANNUAL_REPORT:

@@ -91,7 +91,10 @@ namespace Tuba {
 			{ "open-mutes-blocks", open_mutes_blocks },
 			{ "open-scheduled-posts", open_scheduled_posts },
 			{ "open-draft-posts", open_draft_posts },
-			{ "open-admin-dashboard", open_admin_dashboard },
+			#if ADMIN_DASHBOARD
+				// vala-lint=block-opening-brace-space-before
+				{ "open-admin-dashboard", open_admin_dashboard },
+			#endif // vala-lint=block-opening-brace-space-before
 			{ "open-last-fediwrapped", open_last_fediwrapped }
 		};
 
@@ -543,9 +546,11 @@ namespace Tuba {
 			close_sidebar ();
 		}
 
-		public void open_admin_dashboard () {
-			new Dialogs.Admin.Window ().present ();
-		}
+		#if ADMIN_DASHBOARD
+			public void open_admin_dashboard () {
+				new Dialogs.Admin.Window ().present ();
+			}
+		#endif
 
 		public void open_last_fediwrapped () {
 			accounts.active.open_latest_wrapped ();

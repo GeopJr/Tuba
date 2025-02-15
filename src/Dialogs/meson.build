@@ -1,5 +1,4 @@
 sources += files(
-    'Admin.vala',
     'AnnualReport.vala',
     'FilterEdit.vala',
     'ListEdit.vala',
@@ -16,5 +15,9 @@ if devmode
   sources += files ('DevConsole.vala')
 endif
 
-subdir('Admin')
+if not without_admin_dashboard
+  sources += files ('Admin.vala')
+  subdir('Admin')
+endif
+
 subdir('Composer')

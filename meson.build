@@ -18,6 +18,7 @@ endif
 
 devel = get_option('devel')
 distro = get_option('distro')
+without_admin_dashboard = get_option('without-admin-dashboard')
 
 # Setup configuration file
 config = configuration_data()
@@ -51,6 +52,10 @@ endif
 devmode = false
 if devmode
   add_project_arguments(['--define=DEV_MODE'], language: 'vala')
+endif
+
+if not without_admin_dashboard
+  add_project_arguments(['--define=ADMIN_DASHBOARD'], language: 'vala')
 endif
 
 if host_machine.system() == 'windows'
