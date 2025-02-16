@@ -111,6 +111,14 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 
 		this.update_relation (Gtk.AccessibleRelation.LABELLED_BY, widget, null, -1);
 		this.update_relation (Gtk.AccessibleRelation.DESCRIBED_BY, widget, null, -1);
+
+		#if WEBKIT
+			Gtk.GestureClick middle_click_gesture = new Gtk.GestureClick () {
+				button = Gdk.BUTTON_MIDDLE
+			};
+			middle_click_gesture.pressed.connect (on_middle_clicked);
+			this.add_controller (middle_click_gesture);
+		#endif
 	}
 
 	public bool on_activate_link (string url) {
@@ -197,4 +205,15 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 			|| url.index_of_char ('@') != -1
 			|| "/user" in url;
 	}
+
+	#if WEBKIT
+		private void on_middle_clicked (int n_press, double x, double y) {
+			if (n_press > 1 || !settings.use_in_app_browser_if_available) return;
+
+			string? current_uri = widget.get_current_uri ();
+			if (current_uri == null) return;
+
+			Host.open_url.begin (current_uri);
+		}
+	#endif
 }
