@@ -157,6 +157,12 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		base_status = null;
 	}
 
+	public override void on_scroll_to_top () {
+		var c_scrolled = stack.visible_child as Views.Base;
+		if (c_scrolled != null)
+			c_scrolled.on_scroll_to_top ();
+	}
+
 	public override void scroll_page (bool up = false) {
 		var c_scrolled = stack.visible_child as Views.Base;
 		if (c_scrolled != null)
