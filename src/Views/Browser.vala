@@ -299,8 +299,7 @@ public class Tuba.Views.Browser : Adw.Dialog {
 
 		toolbar_view.content = this.webview;
 		this.child = toolbar_view;
-
-		this.grab_focus ();
+		this.focus_widget = this.webview;
 	}
 
 	protected virtual void on_load_changed (WebKit.LoadEvent load_event) {
