@@ -1,22 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2023, 2024.
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2023, 2024, 2025.
 # Jago Nissi <jago.dev@pm.me>, 2024.
+# Ricky Tigg <ricky.tigg@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2024-12-16 08:00+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"PO-Revision-Date: 2025-02-18 16:52+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/tuba/tuba/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-rc\n"
+"X-Generator: Weblate 5.10.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -75,7 +76,7 @@ msgstr "Luo uusi viesti"
 #: data/gtk/help-overlay.ui:26 data/ui/widgets/votebox.ui:40
 #: src/Views/Sidebar.vala:69
 msgid "Refresh"
-msgstr "Päivitä"
+msgstr "Virkistä"
 
 #: data/gtk/help-overlay.ui:32 data/ui/dialogs/advanced_search.ui:28
 #: src/Services/Accounts/Mastodon/Account.vala:99
@@ -688,16 +689,18 @@ msgstr "Määritä ominaisuudet, jotka yhdistävät osoitteeseen api.tuba.geopjr
 
 #: data/ui/dialogs/preferences.ui:216
 msgid "Send Preference Analytics"
-msgstr ""
+msgstr "Lähetä asetusanalytiikkaa"
 
 #: data/ui/dialogs/preferences.ui:217
 msgid ""
 "Send your preferences to Tuba's developers for popularity research biweekly"
 msgstr ""
+"Lähetä tietoa käyttämistäsi asetuksista Tuban kehittäjille suosiotutkimuksia "
+"varten kahden viikon välein"
 
 #: data/ui/dialogs/preferences.ui:223
 msgid "Preview Analytics"
-msgstr ""
+msgstr "Esikatsele analytiikkatiedot"
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/ui/dialogs/preferences.ui:240
@@ -738,7 +741,7 @@ msgstr "Tehostukset"
 
 #: data/ui/dialogs/preferences.ui:289
 msgid "Poll Results"
-msgstr "Kyselytulokset"
+msgstr "Äänestyksen tulokset"
 
 #: data/ui/dialogs/preferences.ui:295
 msgid "Edits"
@@ -1237,7 +1240,7 @@ msgstr "Rekisteröityi"
 #. your server's admins
 #: src/API/Notification.vala:127 src/Services/Accounts/InstanceAccount.vala:364
 msgid "Your account has received a moderation warning"
-msgstr ""
+msgstr "Tilisi on saanut moderointivaroituksen"
 
 #. translators: this is used for notifications,
 #. when an annual report is available.
@@ -1717,6 +1720,8 @@ msgstr "Varoitus"
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
 msgstr ""
+"Käytä tätä käyttäjän varoittamiseksi ilman, että muita toimenpiteitä "
+"suoritetaan"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
@@ -1728,6 +1733,8 @@ msgid ""
 "Prevent the user from using their account, but do not delete or hide their "
 "contents"
 msgstr ""
+"Estä käyttäjää käyttämästä tiliään, mutta älä poista tai piilota käyttäjän "
+"luomaa sisältöä"
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:579
 msgid "Sensitive"
@@ -2027,7 +2034,7 @@ msgstr "Tiedosto \"%s\" on kooltaan suurempi mitä instanssi sallii"
 #. translators: 'Draft' is a verb
 #: src/Dialogs/Composer/Dialog.vala:156
 msgid "Draft Post"
-msgstr ""
+msgstr "Tee viestiluonnos"
 
 #: src/Dialogs/Composer/Dialog.vala:162 src/Dialogs/Composer/Dialog.vala:169
 msgid "_Publish"
@@ -2036,7 +2043,7 @@ msgstr "_Lähetä"
 #. translators: Dialog title when closing the composer
 #: src/Dialogs/Composer/Dialog.vala:253
 msgid "Discard Post?"
-msgstr ""
+msgstr "Hylätäänkö viesti?"
 
 #: src/Dialogs/Composer/Dialog.vala:254
 msgid "Your progress will be lost."
@@ -2540,14 +2547,14 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:381
 #, c-format
 msgid "%s just posted"
-msgstr ""
+msgstr "%s lähetti juuri viestin"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:391
 #, c-format
 msgid "%s reacted to your post"
-msgstr ""
+msgstr "%s reagoi viestiisi"
 
 #. translators: the first variable is a string user name,
 #. the second variable is an emoji,
@@ -2555,7 +2562,7 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:396
 #, c-format
 msgid "%s reacted to your post with %s"
-msgstr ""
+msgstr "%s reagoi viestiisi emojilla %s"
 
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:440
@@ -2704,7 +2711,7 @@ msgstr "vanheni eilen"
 #: src/Utils/DateTime.vala:62
 #, c-format
 msgid "expired on %b %-e"
-msgstr "vanheni %-e. %b"
+msgstr "vanheni %b %-e"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -2747,7 +2754,7 @@ msgstr "Eilen"
 #: src/Utils/DateTime.vala:101 src/Utils/DateTime.vala:140
 #, c-format
 msgid "%b %-e"
-msgstr "%-e. %b"
+msgstr "%b %-e"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -2856,7 +2863,7 @@ msgstr "Sijainti"
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:95
 msgid "Active"
-msgstr ""
+msgstr "Aktiivinen"
 
 #. new DropDownStringEntry ("sensitized", _("Sensitive")), // doesn't seem to work on Mastodon
 #. translators: Dropdown entry, account status.
@@ -3303,7 +3310,7 @@ msgstr "Tämä käyttäjä ei seuraa muita"
 
 #: src/Views/Profile.vala:310
 msgid "Copied handle to clipboard"
-msgstr ""
+msgstr "Käyttäjätunnus kopioitu leikepöydälle"
 
 #: src/Views/Profile.vala:359
 #, c-format
@@ -3792,7 +3799,7 @@ msgstr[1] ""
 #: src/Widgets/ProfileCover.vala:92
 #, c-format
 msgid "Followed by %s"
-msgstr ""
+msgstr "Seuraajan roolissa %s"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3820,7 +3827,7 @@ msgstr ""
 
 #: src/Widgets/ProfileFilterGroup.vala:54
 msgid "Replies"
-msgstr ""
+msgstr "Vastaukset"
 
 #. translators: the variable is the emoji or its name if it's custom.
 #. A reaction is not the same as a favorite or a boost,
@@ -3952,7 +3959,7 @@ msgstr ""
 
 #: src/Widgets/Status.vala:393
 msgid "Copy"
-msgstr ""
+msgstr "Kopioi"
 
 #: src/Widgets/Status.vala:402 src/Widgets/Status.vala:407
 msgid "Copied post url to clipboard"
@@ -3960,7 +3967,7 @@ msgstr "Viestin osoite kopioitu leikepöydälle"
 
 #: src/Widgets/Status.vala:462
 msgid "Delete Post?"
-msgstr ""
+msgstr "Poistetaanko viesti?"
 
 #. translators: toast shown when muting a post
 #: src/Widgets/Status.vala:497
@@ -4039,7 +4046,7 @@ msgstr[1] "Sisältää %d liitettä."
 #. please be mindful.
 #: src/Widgets/Status.vala:836
 msgid "Contains an expired poll."
-msgstr ""
+msgstr "Sisältää päättyneen äänestyksen."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4144,8 +4151,8 @@ msgstr "Äänestetty"
 #, c-format
 msgid "%s voted"
 msgid_plural "%s voted"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s äänestänyt"
+msgstr[1] "%s äänestänyt"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4155,8 +4162,8 @@ msgstr[1] ""
 #, c-format
 msgid "Poll with %d option."
 msgid_plural "Poll with %d options."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Äänestys, jossa on %d vaihtoehto."
+msgstr[1] "Äänestys, jossa on %d vaihtoehtoa."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,

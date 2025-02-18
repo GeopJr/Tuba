@@ -2,14 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # gnu-ewm <gnu.ewm@protonmail.com>, 2023.
-# Łukasz Horodecki <dakilla@gmail.com>, 2023, 2024.
+# Łukasz Horodecki <dakilla@gmail.com>, 2023, 2024, 2025.
 # Karol Lademan <karol@lademan.dev>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2024-12-14 18:41+0000\n"
+"PO-Revision-Date: 2025-02-16 01:53+0000\n"
 "Last-Translator: Łukasz Horodecki <dakilla@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tuba/tuba/pl/>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.9-rc\n"
+"X-Generator: Weblate 5.10\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -1963,7 +1963,7 @@ msgstr "Najczęściej podbijany wpis"
 #. which one of your posts had the most replies
 #: src/Dialogs/AnnualReport.vala:483
 msgid "Most Replied Post"
-msgstr "Post z największą liczbą odpowiedzi"
+msgstr "Wpis z największą liczbą odpowiedzi"
 
 #. translators: save dialog title, refer to the other #FediWrapped strings for more info
 #: src/Dialogs/AnnualReport.vala:558
@@ -2506,7 +2506,7 @@ msgstr "Podbicie od %s"
 #: src/Services/Accounts/InstanceAccount.vala:268
 #, c-format
 msgid "%s favorited your post"
-msgstr "Polubienie twojego posta przez %s"
+msgstr "Polubienie twojego wpisu przez %s"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
@@ -3363,7 +3363,7 @@ msgid ""
 msgstr ""
 "Zablokowanie domeny:\n"
 "\n"
-"• Usunie publiczne posty i powiadomienia z niej z twoich osi czasu\n"
+"• Usunie publiczne wpisy i powiadomienia z niej z twoich osi czasu\n"
 "• Usunie osoby z niej z twoich obserwujących\n"
 "• Uniemożliwi ci obserwowanie osób z niej"
 
