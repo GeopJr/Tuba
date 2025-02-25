@@ -8,7 +8,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 		}
 	}
 
-	weak API.Account? _account = null;
+	API.Account? _account = null;
 	public API.Account? account {
 		set {
 			on_invalidated (value);
