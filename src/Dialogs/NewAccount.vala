@@ -62,8 +62,21 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		manual_auth_label.activate_link.connect (on_manual_auth);
 
 		reset ();
+
+		app.disable_window_accels ();
+		app.disable_nav_accels ();
+
+		this.close_request.connect (on_new_account_closed);
+
 		present ();
 		instance_entry.grab_focus ();
+	}
+
+	public bool on_new_account_closed () {
+		app.enable_window_accels ();
+		app.enable_nav_accels ();
+
+		return false;
 	}
 
 	private void add_toast (string content, uint timeout = 0) {
