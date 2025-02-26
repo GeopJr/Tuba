@@ -7,6 +7,21 @@ public class Tuba.API.Poll : Entity, Widgetizable {
 	public bool voted { get; set; default = true;}
 	public Gee.ArrayList<int> own_votes { get; set; default = null; }
 	public Gee.ArrayList<PollOption>? options { get; set; default = null; }
+	public Gee.ArrayList<API.Emoji>? emojis { get; set; default = null; }
+
+	public Gee.HashMap<string, string>? gen_emojis_map () {
+		Gee.HashMap<string, string>? res = null;
+		if (emojis != null && emojis.size > 0) {
+			res = new Gee.HashMap<string, string> ();
+
+			emojis.@foreach (e => {
+				res.set (e.shortcode, e.url);
+				return true;
+			});
+		}
+
+		return res;
+	}
 
 	public Poll (string _id) {
 		id = _id;
@@ -16,6 +31,8 @@ public class Tuba.API.Poll : Entity, Widgetizable {
 		switch (prop) {
 			case "options":
 				return typeof (API.PollOption);
+			case "emojis":
+				return typeof (API.Emoji);
 			case "own-votes":
 				return Type.INT;
 		}
