@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # R_SACI <rgebbid@gmail.com>, 2023.
-# ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>, 2024.
+# ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2024-12-25 04:02+0000\n"
+"PO-Revision-Date: 2025-02-28 16:02+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/tuba/tuba/kab/>\n"
 "Language: kab\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.10.3-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -243,7 +243,7 @@ msgstr ""
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:132
 msgid "Embed"
-msgstr ""
+msgstr "Seddu"
 
 #: data/ui/dialogs/advanced_search.ui:139 data/ui/dialogs/preferences.ui:185
 msgid "Timelines"
@@ -697,7 +697,7 @@ msgstr ""
 #. translators: #FediWrapped, title of the 'amount of new followers' card
 #: data/ui/dialogs/preferences.ui:259 src/Dialogs/AnnualReport.vala:389
 msgid "New Followers"
-msgstr ""
+msgstr "Imeḍfaṛen imaynuten"
 
 #: data/ui/dialogs/preferences.ui:265
 msgid "New Follower Requests"
@@ -722,7 +722,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:295
 msgid "Edits"
-msgstr ""
+msgstr "Tiẓrigin"
 
 #: data/ui/dialogs/preferences.ui:301
 msgid "Group"
@@ -740,11 +740,11 @@ msgstr "Imsizdigen"
 
 #: data/ui/dialogs/preferences.ui:318
 msgid "Keywords"
-msgstr ""
+msgstr "Awalen yufraren"
 
 #: data/ui/dialogs/preferences.ui:326
 msgid "Add Filter…"
-msgstr ""
+msgstr "Rnu imsizdeg…"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:230
 msgid "Edit Profile"
@@ -811,17 +811,17 @@ msgstr ""
 #. translators: Title used for calendar date picking
 #: data/ui/dialogs/schedule.ui:74
 msgid "Date"
-msgstr ""
+msgstr "Azemz"
 
 #. translators: Title used for time picking
 #: data/ui/dialogs/schedule.ui:99
 msgid "Time"
-msgstr ""
+msgstr "Akud"
 
 #. translators: Label on an hour picker
 #: data/ui/dialogs/schedule.ui:114
 msgid "Hour"
-msgstr ""
+msgstr "Asrag"
 
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:134
@@ -835,7 +835,7 @@ msgstr ""
 
 #: data/ui/dialogs/schedule.ui:168
 msgid "Timezone"
-msgstr ""
+msgstr "Tamnaḍt tasragant"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
@@ -880,7 +880,7 @@ msgstr "Sewḥel"
 
 #: data/ui/menus.ui:55
 msgid "Block Domain"
-msgstr ""
+msgstr "Sewḥel taɣult"
 
 #: data/ui/menus.ui:60 src/Dialogs/Admin/Report.vala:8
 #: src/Widgets/Status.vala:365
@@ -916,7 +916,7 @@ msgstr "Umuɣ"
 
 #: data/ui/views/media_viewer.ui:67 data/ui/views/media_viewer.ui:132
 msgid "Toggle Fullscreen"
-msgstr ""
+msgstr "Qluqel ɣer ugdil aččuran"
 
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:37 data/ui/widgets/profile.ui:25
@@ -987,7 +987,7 @@ msgstr "Yettwaẓreg"
 #: data/ui/widgets/audiocontrols.ui:30 src/Widgets/AudioPlayer/Controls.vala:26
 msgctxt "media controls tooltip"
 msgid "Play"
-msgstr ""
+msgstr "Ɣeṛ"
 
 #: data/ui/widgets/audiocontrols.ui:49
 msgctxt "media controls"
@@ -1020,7 +1020,7 @@ msgstr "Sken-d akken yebɣu yili"
 
 #: data/ui/widgets/votebox.ui:33
 msgid "Vote"
-msgstr ""
+msgstr "Dɣeṛ"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:10 src/Views/Admin/Pages/Accounts.vala:299
@@ -1043,7 +1043,7 @@ msgstr ""
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:10
 msgid "Blocked"
-msgstr ""
+msgstr "Yettusewḥel"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:12
@@ -1095,7 +1095,7 @@ msgstr ""
 
 #: src/API/Admin/Report.vala:21
 msgid "Legal"
-msgstr ""
+msgstr "Usḍif"
 
 #: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:209
@@ -1265,7 +1265,7 @@ msgstr "Temṭafarem"
 
 #: src/API/Relationship.vala:27
 msgid "Follows you"
-msgstr ""
+msgstr "Yeṭṭafaṛ-ik·em-id"
 
 #. translators: as in, you've been blocked by them
 #: src/API/Relationship.vala:30
@@ -1581,7 +1581,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:101
 msgid "Resolve"
-msgstr ""
+msgstr "Fru"
 
 #. translators: Question dialog when an admin is about to
 #. reopen a report
@@ -1630,7 +1630,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:146
 msgid "Status"
-msgstr ""
+msgstr "Addad"
 
 #: src/Dialogs/Admin/Report.vala:147
 msgid "Resolved"
@@ -1782,7 +1782,7 @@ msgstr ""
 
 #: src/Dialogs/AnnualReport.vala:61
 msgid "Default"
-msgstr ""
+msgstr "Amezwer"
 
 #. translators: Accent color
 #: src/Dialogs/AnnualReport.vala:63
@@ -1791,7 +1791,7 @@ msgstr ""
 
 #: src/Dialogs/AnnualReport.vala:101
 msgid "Share"
-msgstr ""
+msgstr "Bḍu"
 
 #: src/Dialogs/AnnualReport.vala:109
 msgid "Save As…"
@@ -1800,7 +1800,7 @@ msgstr ""
 #. translators: dropdown label for picking a window style
 #: src/Dialogs/AnnualReport.vala:116
 msgid "Style"
-msgstr ""
+msgstr "Aɣanib"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -2056,7 +2056,7 @@ msgstr ""
 
 #: src/Dialogs/Composer/EditorPage.vala:383
 msgid "Content Warning"
-msgstr ""
+msgstr "Alɣu ɣef ugbur"
 
 #: src/Dialogs/Composer/EditorPage.vala:417
 msgid "Post Privacy"
@@ -2073,7 +2073,7 @@ msgstr ""
 #. translators: tooltip on a button that appends another poll entry / option
 #: src/Dialogs/Composer/PollPage.vala:116
 msgid "Add Poll"
-msgstr ""
+msgstr "Rnu asisten"
 
 #: src/Dialogs/Composer/PollPage.vala:125
 #: src/Dialogs/Composer/PollPage.vala:167
@@ -2139,7 +2139,7 @@ msgstr "Amsizdeg amaynut"
 
 #: src/Dialogs/FilterEdit.vala:189
 msgid "Keyword"
-msgstr ""
+msgstr "Awal yufraren"
 
 #: src/Dialogs/FilterEdit.vala:192
 msgid "Match Whole Word"
@@ -2216,7 +2216,7 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:52
 msgid "Polls"
-msgstr ""
+msgstr "Isestanen"
 
 #: src/Dialogs/NotificationSettings.vala:53
 msgid "Post Edits"
@@ -2224,7 +2224,7 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:54
 msgid "Follows"
-msgstr ""
+msgstr "Yeṭṭafaṛ"
 
 #: src/Dialogs/NotificationSettings.vala:131
 msgid "Clear All Notifications?"
@@ -2283,7 +2283,7 @@ msgstr ""
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:24
 msgid "It's spam"
-msgstr ""
+msgstr "D aspam"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
@@ -2377,7 +2377,7 @@ msgstr ""
 #. additional comments to be included in the report
 #: src/Dialogs/Report.vala:277
 msgid "Additional Comments"
-msgstr ""
+msgstr "Iwenniten-nniḍen"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. the variable is an instance name e.g. 'Forward to mastodon.social'
@@ -2557,7 +2557,7 @@ msgstr ""
 #. translators: Probably follow Mastodon's translation
 #: src/Services/Accounts/Mastodon/Account.vala:216
 msgid "Unlisted"
-msgstr ""
+msgstr "War tabdert"
 
 #: src/Services/Accounts/Mastodon/Account.vala:219
 msgid "Don't post to public timelines"
@@ -2565,7 +2565,7 @@ msgstr ""
 
 #: src/Services/Accounts/Mastodon/Account.vala:223
 msgid "Followers Only"
-msgstr ""
+msgstr "Imeḍfaṛen kan"
 
 #: src/Services/Accounts/Mastodon/Account.vala:226
 msgid "Post to followers only"
@@ -2595,7 +2595,7 @@ msgstr "Amiḍan n %s"
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:264
 msgid "Follow System"
-msgstr ""
+msgstr "Akken yella unagraw"
 
 #. translators: Light mode theme
 #: src/Services/Settings.vala:267
@@ -2785,19 +2785,19 @@ msgstr[1] "%d n iseggasen aya"
 #. 3000 => 3k
 #: src/Utils/Units.vala:13
 msgid "k"
-msgstr ""
+msgstr "k"
 
 #. translators: short unit suffix for millions
 #. 3000000 => 3M
 #: src/Utils/Units.vala:17
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #. translators: short unit suffix for billions
 #. 3000000000 => 3G
 #: src/Utils/Units.vala:21
 msgid "G"
-msgstr ""
+msgstr "G"
 
 #. translators: as in All search results
 #: src/Views/Admin/Pages/Accounts.vala:68
@@ -2810,7 +2810,7 @@ msgstr "Akk"
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:73
 msgid "Remote"
-msgstr ""
+msgstr "Anmeggag"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: src/Views/Admin/Pages/Accounts.vala:78
@@ -2832,7 +2832,7 @@ msgstr "Urmid"
 #: src/Views/Admin/Pages/Accounts.vala:383 src/Widgets/Admin/AccountRow.vala:31
 #: src/Widgets/Admin/Report.vala:52
 msgid "Limited"
-msgstr ""
+msgstr "Ɣur-s talast"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -2870,13 +2870,13 @@ msgstr "Imayl"
 
 #: src/Views/Admin/Pages/Accounts.vala:298
 msgid "Role"
-msgstr ""
+msgstr "Tamlilt"
 
 #. translators: admin dashboard, account view
 #. e-mail has been confirmed
 #: src/Views/Admin/Pages/Accounts.vala:315
 msgid "Confirmed"
-msgstr ""
+msgstr "Yettwasentem"
 
 #. translators: admin dashboard, account view
 #. e-mail has NOT been confirmed
@@ -2902,7 +2902,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:365
 #: src/Views/Admin/Pages/Accounts.vala:525
 msgid "Reject"
-msgstr ""
+msgstr "Agi"
 
 #. translators: Question dialog when an admin is about to
 #. undo an action, like a suspension
@@ -3082,7 +3082,7 @@ msgstr ""
 
 #: src/Views/Bookmarks.vala:6
 msgid "No Bookmarks"
-msgstr ""
+msgstr "Ulac ticraḍ"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
@@ -3125,7 +3125,7 @@ msgstr ""
 
 #: src/Views/Explore.vala:9
 msgid "For You"
-msgstr ""
+msgstr "I kečč·kem"
 
 #: src/Views/Explore.vala:9
 msgid "No Suggestions"
@@ -3133,11 +3133,11 @@ msgstr ""
 
 #: src/Views/Favorites.vala:5 src/Views/StatusStats.vala:17
 msgid "No Favorites"
-msgstr ""
+msgstr "Ulac imenyafen"
 
 #: src/Views/FollowRequests.vala:4 src/Views/Sidebar.vala:74
 msgid "Follow Requests"
-msgstr ""
+msgstr "Isuturen n teḍfeṛt"
 
 #: src/Views/FollowRequests.vala:7
 msgid "No Follow Requests"
@@ -3173,7 +3173,7 @@ msgstr ""
 
 #: src/Views/Lists.vala:212
 msgid "No Lists"
-msgstr ""
+msgstr "Ulac tibdarin"
 
 #: src/Views/Lists.vala:216
 msgid "New list title"
@@ -3391,7 +3391,7 @@ msgstr "Tasuffeɣt tamaynut"
 #. Refer to other #FediWrapped strings for more info
 #: src/Views/Sidebar.vala:81
 msgid "#FediWrapped"
-msgstr ""
+msgstr "#FediWrapped"
 
 #: src/Views/Sidebar.vala:92
 msgid "Preferences"
@@ -3648,7 +3648,7 @@ msgstr ""
 #: src/Widgets/AudioPlayer/Controls.vala:22
 msgctxt "media controls tooltip"
 msgid "Stop"
-msgstr ""
+msgstr "Seḥbes"
 
 #. translators: the variable is the date the book was published
 #: src/Widgets/BookWyrmPage.vala:79
@@ -3671,11 +3671,11 @@ msgstr "Igmaḍ"
 
 #: src/Widgets/CustomEmojiChooser.vala:73
 msgid "Recently Used"
-msgstr ""
+msgstr "Yettwaseqdcen melmi kan"
 
 #: src/Widgets/CustomEmojiChooser.vala:212
 msgid "Custom Emojis"
-msgstr ""
+msgstr "Imujiten udmawanen"
 
 #. translators: the variable is the amount of emoji reactions, e.g. '4 Reactions'.
 #. A reaction is not the same as a favorite or a boost,
@@ -3780,7 +3780,7 @@ msgstr ""
 
 #: src/Widgets/ProfileFilterGroup.vala:54
 msgid "Replies"
-msgstr ""
+msgstr "Tiririyin"
 
 #. translators: the variable is the emoji or its name if it's custom.
 #. A reaction is not the same as a favorite or a boost,
@@ -3792,12 +3792,12 @@ msgstr ""
 
 #: src/Widgets/RelationshipButton.vala:55 src/Widgets/Status.vala:328
 msgid "Unmute"
-msgstr ""
+msgstr "Kkes asgugem"
 
 #. translators: not a verb, as in a post that is saved but not posted yet
 #: src/Widgets/ScheduledStatus.vala:13
 msgid "Draft"
-msgstr ""
+msgstr "Arewway"
 
 #: src/Widgets/ScheduledStatus.vala:51 src/Widgets/ScheduledStatus.vala:148
 msgid "Reschedule"
@@ -3868,7 +3868,7 @@ msgstr ""
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:312
 msgid "View Stats"
-msgstr ""
+msgstr "Wali tidaddanin"
 
 #: src/Widgets/Status.vala:316
 msgid "View Edit History"
@@ -3912,7 +3912,7 @@ msgstr ""
 
 #: src/Widgets/Status.vala:393
 msgid "Copy"
-msgstr ""
+msgstr "Nɣel"
 
 #: src/Widgets/Status.vala:402 src/Widgets/Status.vala:407
 msgid "Copied post url to clipboard"
@@ -4070,7 +4070,7 @@ msgstr ""
 
 #: src/Widgets/Status.vala:960
 msgid "Filtered"
-msgstr ""
+msgstr "Yettwasizdeg"
 
 #. translatiors: the first variable is a language name,
 #. the second variable is a service name e.g. DeepL
