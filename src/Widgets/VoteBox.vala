@@ -24,14 +24,39 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 		button_vote.clicked.connect (on_vote_button_clicked);
 		notify["poll"].connect (update);
 		button_vote.sensitive = false;
+
+		poll_box.row_activated.connect (on_listboxrow_activated);
+
+		Gtk.GestureClick click_gesture = new Gtk.GestureClick () {
+			button = Gdk.BUTTON_PRIMARY
+		};
+		click_gesture.pressed.connect (on_clicked);
+		poll_box.add_controller (click_gesture);
+	}
+
+	private void on_clicked (Gtk.GestureClick gesture, int n_press, double x, double y) {
+		gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+	}
+
+	private void on_listboxrow_activated (Gtk.ListBoxRow row) {
+		var vote_row = row as Widgets.VoteRow;
+		if (vote_row == null || !vote_row.check_button.visible) return;
+
+		vote_row.check_button.active = !vote_row.check_button.active;
 	}
 
 	private void on_vote_button_clicked (Gtk.Button button) {
 		button.sensitive = false;
+		update_selected_index ();
+
 		API.Poll.vote (accounts.active, poll.options, selected_index, poll.id)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
+
+				freeze_notify ();
 				poll = API.Poll.from (network.parse_node (parser));
+				thaw_notify ();
+				update_rows ();
 
 				button.sensitive = true;
 			})
@@ -40,10 +65,6 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 				button.sensitive = true;
 			})
 			.exec ();
-	}
-
-	public string generate_css_style (int percentage) {
-		return @".ttl-poll-$(percentage).ttl-poll-winner { background: linear-gradient(to right, alpha(@accent_bg_color, .5) $(percentage)%, transparent 0%) no-repeat; } .ttl-poll-$(percentage) { background: linear-gradient(to right, alpha(@view_fg_color, .1) $(percentage)%, transparent 0%) no-repeat; }"; // vala-lint=line-length
 	}
 
 	void update_translations () {
@@ -67,11 +88,10 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 		}
 	}
 
+	Widgets.VoteRow[] vote_rows = {};
 	void update () {
-		update_translations ();
-
+		vote_rows = {};
 		var row_number = 0;
-		int64 winner_p = 0;
 		Widgets.VoteCheckButton group_radio_option = null;
 
 		// Clear all existing entries
@@ -80,129 +100,31 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 			poll_box.remove (entry);
 			entry = poll_box.get_first_child ();
 		}
-
 		selected_index.clear ();
 
-		// Reset button visibility
-		button_vote.sensitive = false;
-		button_vote.visible = !this.show_results && !poll.expired && !poll.voted;
-		button_results.visible = !poll.expired && !poll.voted;
-		button_refresh.visible = !button_vote.visible && !poll.expired;
-
-		if (this.show_results) {
-			button_results.icon_name = "tuba-eye-not-looking-symbolic";
-			// translators: tooltip of poll button that hides the current vote results
-			button_results.tooltip_text = _("Hide Results");
-		} else {
-			button_results.icon_name = "tuba-eye-open-negative-filled-symbolic";
-			// translators: tooltip of poll button that shows the current vote results
-			button_results.tooltip_text = _("Show Results");
-		}
-
-		if (poll.expired || poll.voted || this.show_results) {
-			foreach (API.PollOption p in poll.options) {
-				if (p.votes_count > winner_p) {
-					winner_p = p.votes_count;
-				}
-			}
-		}
-
+		var emojis_map = poll.gen_emojis_map ();
 		// Create the entries of poll
 		foreach (API.PollOption p in poll.options) {
-			var row = new Adw.ActionRow () {
-				css_classes = { "ttl-poll-row" },
-				use_markup = false,
-				title = p.tuba_translated_title == null ? p.title : p.tuba_translated_title
+			var row = new Widgets.VoteRow (p.title) {
+				delayed_animation = true,
+				instance_emojis = emojis_map
 			};
 
-			// If it is own poll
-			if (poll.expired || poll.voted || this.show_results) {
-				// If multiple, Checkbox else radioButton
-				var percentage = poll.votes_count > 0 ? ((double)p.votes_count / poll.votes_count) * 100 : 0.0;
-
-				var provider = new Gtk.CssProvider ();
-				provider.load_from_string (generate_css_style ((int) percentage));
-
-				row.get_style_context ().add_provider (provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-				row.add_css_class (@"ttl-poll-$((int) percentage)");
-				row.add_css_class ("ttl-poll-voted");
-
-				if (p.votes_count == winner_p) {
-					row.add_css_class ("ttl-poll-winner");
+			if (!poll.multiple) {
+				if (row_number == 0) {
+					group_radio_option = row.check_button;
+				} else {
+					row.check_button.set_group (group_radio_option);
 				}
-
-				if (poll.own_votes != null) {
-					foreach (int own_vote in poll.own_votes) {
-						if (own_vote == row_number) {
-							row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic") {
-								tooltip_text = _("Voted")
-							});
-						}
-					}
-				}
-
-				row.subtitle = "%.1f%%".printf (percentage);
-				poll_box.append (row);
-			} else {
-				var check_option = new Widgets.VoteCheckButton ();
-
-				if (!poll.multiple) {
-					if (row_number == 0) {
-						group_radio_option=check_option;
-					} else {
-						check_option.set_group (group_radio_option);
-					}
-				}
-
-				check_option.poll_title = p.title;
-				check_option.toggled.connect (on_check_option_toggeled);
-
-				if (poll.own_votes != null) {
-					foreach (int own_vote in poll.own_votes) {
-						if (own_vote == row_number) {
-							check_option.active = true;
-							row.add_suffix (new Gtk.Image.from_icon_name ("tuba-check-round-outline-symbolic") {
-								tooltip_text = _("Voted")
-							});
-
-							if (!selected_index.contains (p.title)) {
-								selected_index.add (p.title);
-							}
-						}
-					}
-				}
-
-				if (poll.expired || poll.voted || this.show_results) {
-					check_option.sensitive = false;
-				}
-
-				row.add_prefix (check_option);
-				row.activatable_widget = check_option;
-
-				poll_box.append (row);
 			}
+			row.check_button.toggled.connect (on_check_option_toggled);
 
+			vote_rows += row;
+			poll_box.append (row);
 			row_number++;
 		}
 
-		string voted_string = Tuba.Units.shorten (poll.votes_count);
-		string voted_numerical_string = GLib.ngettext (
-			// translators: the variable is the amount of people that voted
-			"%s voted", "%s voted",
-			(ulong) poll.votes_count
-		).printf (voted_string);
-		if (poll.expires_at != null) {
-			info_label.label = "%s · %s".printf (
-				voted_numerical_string,
-				poll.expired
-					? DateTime.humanize_ago (poll.expires_at)
-					: DateTime.humanize_left (poll.expires_at)
-			);
-		} else {
-			info_label.label = voted_numerical_string;
-		}
-
-		update_aria ();
+		update_rows ();
 	}
 
 	private void update_aria () {
@@ -233,12 +155,27 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 		);
 	}
 
-	private void on_check_option_toggeled (Gtk.CheckButton radio) {
-		var radio_votebutton = radio as Widgets.VoteCheckButton;
-		if (selected_index.contains (radio_votebutton.poll_title)) {
-			selected_index.remove (radio_votebutton.poll_title);
-		} else {
-			selected_index.add (radio_votebutton.poll_title);
+	private void on_check_option_toggled (Gtk.CheckButton radio) {
+		bool can_vote = false;
+		foreach (var row in vote_rows) {
+			if (row.check_button.active) {
+				can_vote = true;
+				break;
+			}
+		}
+
+		button_vote.sensitive = can_vote;
+	}
+
+	private void update_selected_index () {
+		foreach (var row in vote_rows) {
+			bool contained = selected_index.contains (row.check_button.poll_title);
+			bool active = row.check_button.active;
+			if (contained && !active) {
+				selected_index.remove (row.check_button.poll_title);
+			} else if (!contained && active) {
+				selected_index.add (row.check_button.poll_title);
+			}
 		}
 
 		button_vote.sensitive = selected_index.size > 0;
@@ -260,7 +197,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 
 				if (parsed_poll != null) {
 					poll = parsed_poll;
-					update ();
+					update_rows ();
 				}
 			})
 			.on_error ((code, message) => {
@@ -276,6 +213,98 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 		if (poll == null) return;
 
 		this.show_results = !this.show_results;
-		update ();
+		update_rows ();
+	}
+
+	private void update_rows () {
+		update_translations ();
+
+		// Reset button visibility
+		button_vote.sensitive = selected_index.size > 0;
+		button_vote.visible = !this.show_results && !poll.expired && !poll.voted;
+		button_results.visible = !poll.expired && !poll.voted;
+		button_refresh.visible = !button_vote.visible && !poll.expired;
+
+		if (this.show_results) {
+			button_results.icon_name = "tuba-eye-not-looking-symbolic";
+			// translators: tooltip of poll button that hides the current vote results
+			button_results.tooltip_text = _("Hide Results");
+		} else {
+			button_results.icon_name = "tuba-eye-open-negative-filled-symbolic";
+			// translators: tooltip of poll button that shows the current vote results
+			button_results.tooltip_text = _("Show Results");
+		}
+
+		int64 winner_p = 0;
+		if (poll.expired || poll.voted || this.show_results) {
+			foreach (API.PollOption p in poll.options) {
+				if (p.votes_count > winner_p) {
+					winner_p = p.votes_count;
+				}
+			}
+		}
+
+		if (vote_rows.length <= poll.options.size) {
+			for (int i = 0; i < vote_rows.length; i++) {
+				var row = vote_rows[i];
+				var p = poll.options.get (i);
+
+				row.title = p.tuba_translated_title == null ? p.title : p.tuba_translated_title;
+				row.voted = false;
+				row.winner = false;
+				row.show_results = false;
+				row.check_button.active = selected_index.contains (row.check_button.poll_title);
+
+				// If it is own poll
+				if (poll.expired || poll.voted || this.show_results) {
+					var percentage = poll.votes_count > 0 ? ((double)p.votes_count / poll.votes_count) * 100 : 0.0;
+
+					row.percentage = percentage;
+					row.winner = p.votes_count == winner_p;
+
+					if (poll.own_votes != null) {
+						foreach (int own_vote in poll.own_votes) {
+							if (own_vote == i) {
+								row.voted = true;
+								break;
+							}
+						}
+					}
+
+					row.show_results = true;
+				} else {
+					if (poll.own_votes != null) {
+						foreach (int own_vote in poll.own_votes) {
+							if (own_vote == i) {
+								row.check_button.active = true;
+								row.voted = true;
+							}
+						}
+					}
+				}
+
+				row.play_animation ();
+			}
+		}
+
+		string voted_string = Tuba.Units.shorten (poll.votes_count);
+		string voted_numerical_string = GLib.ngettext (
+			// translators: the variable is the amount of people that voted
+			"%s voted", "%s voted",
+			(ulong) poll.votes_count
+		).printf (voted_string);
+		if (poll.expires_at != null) {
+			info_label.label = "%s · %s".printf (
+				voted_numerical_string,
+				poll.expired
+					? DateTime.humanize_ago (poll.expires_at)
+					: DateTime.humanize_left (poll.expires_at)
+			);
+		} else {
+			info_label.label = voted_numerical_string;
+		}
+
+		update_aria ();
+		update_selected_index ();
 	}
 }

@@ -32,6 +32,7 @@ sources += files(
     'StatusActionButton.vala',
     'VoteBox.vala',
     'VoteCheckButton.vala',
+    'VoteRow.vala',
     'Widgetizable.vala',
 )
 
