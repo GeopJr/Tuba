@@ -47,6 +47,8 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 
 	private void on_vote_button_clicked (Gtk.Button button) {
 		button.sensitive = false;
+		update_selected_index ();
+
 		API.Poll.vote (accounts.active, poll.options, selected_index, poll.id)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
@@ -150,14 +152,26 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 	}
 
 	private void on_check_option_toggled (Gtk.CheckButton radio) {
-		var radio_votebutton = radio as Widgets.VoteCheckButton;
+		bool can_vote = false;
+		foreach (var row in vote_rows) {
+			if (row.check_button.active) {
+				can_vote = true;
+				break;
+			}
+		}
 
-		bool contained = selected_index.contains (radio_votebutton.poll_title);
-		bool active = radio_votebutton.active;
-		if (contained && !active) {
-			selected_index.remove (radio_votebutton.poll_title);
-		} else if (!contained && active) {
-			selected_index.add (radio_votebutton.poll_title);
+		button_vote.sensitive = can_vote;
+	}
+
+	private void update_selected_index () {
+		foreach (var row in vote_rows) {
+			bool contained = selected_index.contains (row.check_button.poll_title);
+			bool active = row.check_button.active;
+			if (contained && !active) {
+				selected_index.remove (row.check_button.poll_title);
+			} else if (!contained && active) {
+				selected_index.add (row.check_button.poll_title);
+			}
 		}
 
 		button_vote.sensitive = selected_index.size > 0;
@@ -287,5 +301,6 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 		}
 
 		update_aria ();
+		update_selected_index ();
 	}
 }
