@@ -46,8 +46,11 @@ public abstract class Tuba.AccountStore : GLib.Object {
 
 	public virtual void add (InstanceAccount account) throws GLib.Error {
 		debug (@"Adding new account: $(account.handle)");
+		warning (@"While adding, there are $(saved.size) accounts");
 		saved.add (account);
+		warning (@"Now, there are $(saved.size) accounts");
 		changed (saved);
+		warning (@"About to save $(account.handle)");
 		save ();
 		ensure_active_account ();
 	}
