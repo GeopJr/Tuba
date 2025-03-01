@@ -10,7 +10,9 @@ public class Tuba.Widgets.HashtagBar : Adw.Bin {
 		string tag;
 		public HashtagButton (TagExtractor.Tag hashtag) {
 			tag = hashtag.tag;
-			this.label = @"#$tag";
+			this.child = new Gtk.Label (@"#$tag") {
+				ellipsize = Pango.EllipsizeMode.END
+			};
 		}
 
 		private void on_clicked () {
