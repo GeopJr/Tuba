@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Santiago Rom i Bel <santiagoviola@gmail.com>, 2024.
-# fadelkon <fadelkon@posteo.net>, 2025.
+# Priit Jõerüüt <hwlate@joeruut.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-02-02 13:01+0000\n"
-"Last-Translator: fadelkon <fadelkon@posteo.net>\n"
-"Language-Team: Catalan <https://hosted.weblate.org/projects/tuba/tuba/ca/>\n"
-"Language: ca\n"
+"PO-Revision-Date: 2025-02-28 16:02+0000\n"
+"Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
+"Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.10.3-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -24,15 +23,15 @@ msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr "Explora el Fedivers"
+msgstr "Sirvi Födiversumit"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr "Client per al Fedivers"
+msgstr "Födiversumi klient"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
-msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
+msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;födiversum;"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:9
 msgid ""
@@ -40,10 +39,10 @@ msgid ""
 "favorite communities, family and friends with support for popular Fediverse "
 "platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
 msgstr ""
-"Exploreu la web social federada amb tuba per a Gnome. Mantingueu -vos "
-"connectats a les vostres comunitats preferides, familiars i amics amb suport "
-"a plataformes populars de Fediverse com Mastodon, GoToSocial, Akkoma & amp; "
-"Més!"
+"GNOME'i jaoks mõeldud Tuba abil saad osaleda födereeritud "
+"sotsiaalvõrgustikes. Suhtle pere ja sõpradega ning jälgi lemmikkogukondade "
+"tegemisi paljudel Födiversumi platvormidel nagu Mastodon, GoToSocial, Akkoma "
+"ning muud!"
 
 #: data/dev.geopjr.Tuba.metainfo.xml.in:12
 msgid ""
@@ -53,125 +52,126 @@ msgid ""
 "privacy and data ownership, and offers an alternative to centralized social "
 "media platforms."
 msgstr ""
-"El Fediverse és una xarxa social descentralitzada que consisteix en diverses "
-"plataformes i comunitats interconnectades, permetent als usuaris comunicar i "
-"compartir contingut a diferents xarxes i servidors. Promou la privadesa dels "
-"usuaris i la propietat de dades i ofereix una alternativa a les plataformes "
-"de xarxes socials centralitzades."
+"Födiversum (sõnadest föderatsioon ja universum) on detsentraliseeritud "
+"sotsiaalvõrgustik, mis koosneb paljudest erinevatest omavahel seotud "
+"platvormidest ja kogukondadest, mis võimaldavad osalejatel suhelda ja jagada "
+"sisu erinevates võrkudes ning serverites. Üheks aluspõhimõtteks on kasutaja "
+"privaatsus ja kontroll oma andmete üle ning tervikuna pakub Födiversum "
+"toimivat alternatiivi tsentraliseeritud sotsiaalmeediaplatvormidele."
 
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:20
 msgid "General"
-msgstr "General"
+msgstr ""
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr "Visualitza Preferències"
+msgstr "Näita eelistusi"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr "Crea Nova Publicació"
+msgstr "Koosta uus postitus"
 
 #: data/gtk/help-overlay.ui:26 data/ui/widgets/votebox.ui:40
 #: src/Views/Sidebar.vala:69
 msgid "Refresh"
-msgstr "Refresca"
+msgstr "Värskenda"
 
 #: data/gtk/help-overlay.ui:32 data/ui/dialogs/advanced_search.ui:28
 #: src/Services/Accounts/Mastodon/Account.vala:99
 #: src/Views/Admin/Pages/Accounts.vala:25 src/Views/Main.vala:62
 #: src/Views/Search.vala:90 src/Views/Search.vala:92
 msgid "Search"
-msgstr "Cerca"
+msgstr "Otsi"
 
 #: data/gtk/help-overlay.ui:38 data/ui/views/media_viewer.ui:52
 msgid "Go Back"
-msgstr "Torna enrere"
+msgstr "Mine tagasi"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr "Mostra les dreceres del teclat"
+msgstr "Näita kiirklahve"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
-msgstr "Tanca la finestra"
+msgstr "Sulge aken"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Quit"
-msgstr "Surt"
+msgstr "Välju"
 
 #: data/gtk/help-overlay.ui:62
 msgid "About"
-msgstr "Sobre"
+msgstr "Rakenduse teave"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Up"
-msgstr "Desplaça't cap amunt"
+msgstr "Keri üles"
 
 #: data/gtk/help-overlay.ui:74
 msgid "Scroll Down"
-msgstr "Desplaça't cap avall"
+msgstr "Keri alla"
 
 #: data/gtk/help-overlay.ui:82
 msgid "Composer"
-msgstr "Compositor"
+msgstr "Sõnumikoostaja"
 
 #: data/gtk/help-overlay.ui:85
 msgid "Commit"
-msgstr "Compromís"
+msgstr "Saada"
 
 #: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:43
 msgid "Media Viewer"
-msgstr "Visualitzador multimèdia"
+msgstr "Meediakuvaja"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr "Pantalla completa"
+msgstr "Täisekraanivaade"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:172
 msgid "Zoom In"
-msgstr "Apropa"
+msgstr "Suumi sisse"
 
 #: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:160
 msgid "Zoom Out"
-msgstr "Allunya"
+msgstr "Suumi välja"
 
 #: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:94
 msgid "Previous Attachment"
-msgstr "Adjunt anterior"
+msgstr "Eelmine manus"
 
 #: data/gtk/help-overlay.ui:120 data/ui/views/media_viewer.ui:106
 msgid "Next Attachment"
-msgstr "Adjunt següent"
+msgstr "Järgmine manus"
 
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr "Fes més gran"
+msgstr "Suumi sisse"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr "Fes més petit"
+msgstr "Suumi välja"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr "Adjunt anterior"
+msgstr "Eelmine manus"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Next Attachment"
-msgstr "Adjunt següent"
+msgstr "Järgmine manus"
 
 #: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:85
 msgid "Admin Dashboard"
-msgstr "Panell d'administració"
+msgstr "Peakasutaja töölaud"
 
 #. translators: window title
 #: data/ui/dialogs/advanced_search.ui:11 src/Views/Search.vala:31
 msgid "Advanced Search"
-msgstr "Cerca avançada"
+msgstr "Detailne otsing"
 
 #: data/ui/dialogs/advanced_search.ui:22 data/ui/dialogs/compose.ui:35
 #: data/ui/dialogs/filter_edit.ui:16 data/ui/dialogs/new_account.ui:26
@@ -198,7 +198,7 @@ msgstr "Cerca avançada"
 #: src/Widgets/ScheduledStatus.vala:184 src/Widgets/Status/ActionsRow.vala:279
 #: src/Widgets/Status.vala:465
 msgid "Cancel"
-msgstr "Canceŀla"
+msgstr "Katkesta"
 
 #. translators: Label in the advanced search window. Leave `-is:reply` as is. 'instances' as in fediverse servers
 #: data/ui/dialogs/advanced_search.ui:57
@@ -206,131 +206,131 @@ msgid ""
 "Advanced Search might not work in all instances. You can invert an option by "
 "prefixing it with -. For example, -is:reply to filter out all replies."
 msgstr ""
-"La cerca avançada no funciona a totes les instàncies. Pots invertir una "
-"opció prefixant-la amb -. Per exemple, -is:reply per amagar totes les "
-"respostes."
+"Detailne otsing ei pruugi toimida kõikide serverite puhul. Otsingutingimuse "
+"saad teistpidi pöörata kriipsu (-) lisamisega. Näiteks „-is:reply“ jätab "
+"välja kõik vastused."
 
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:74
 msgid "Query"
-msgstr "Consulta"
+msgstr "Päring"
 
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:81
 msgid "From User"
-msgstr "De l'usuàriï"
+msgstr "Kasutajalt"
 
 #. translators: tooltip text for a button in the 'advanced search' window. When clicked it automatically fills the entry with the first found user based on the query.
 #: data/ui/dialogs/advanced_search.ui:89
 msgid "Auto-Fill User"
-msgstr "Autocompleta noms d'usuàriï"
+msgstr "Kasutaja automaattäide"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:102
 msgid "Only Replies"
-msgstr "Només respostes"
+msgstr "Vaid vastused"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:108
 msgid "Only Posts with Content Warnings"
-msgstr "Només apunts amb avís de contingut"
+msgstr "Ainult postitused koos sisuhoiatusega"
 
 #. translators: Advanced search window, option group
 #. This is the title and the option are
 #. 'media', 'poll'...
 #: data/ui/dialogs/advanced_search.ui:118
 msgid "Containing"
-msgstr "Que contingui"
+msgstr "Sisaldades"
 
 #: data/ui/dialogs/advanced_search.ui:121
 #: src/Dialogs/Composer/AttachmentsPage.vala:62
 #: src/Widgets/ProfileFilterGroup.vala:66
 msgid "Media"
-msgstr "Mèdia"
+msgstr "Meedia"
 
 #: data/ui/dialogs/advanced_search.ui:126 src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr "Enquesta"
+msgstr "Küsitlus"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:132
 msgid "Embed"
-msgstr "Encasta"
+msgstr "Lõimitud sisu"
 
 #: data/ui/dialogs/advanced_search.ui:139 data/ui/dialogs/preferences.ui:185
 msgid "Timelines"
-msgstr "Línies de temps"
+msgstr "Ajajooned"
 
 #: data/ui/dialogs/advanced_search.ui:142
 msgid "Everywhere"
-msgstr "Tot arreu"
+msgstr "Kõikjal"
 
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:157
 msgid "Library"
-msgstr "Biblioteca"
+msgstr "Meediakogu"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
 #: data/ui/dialogs/advanced_search.ui:159
 msgid "Favorites, Bookmarks, Own Posts"
-msgstr "Preferits, Desats, Notes pròpies"
+msgstr "Lemmikud, järjehoidjad, omad postitused"
 
 #: data/ui/dialogs/advanced_search.ui:174
 #: src/Services/Accounts/Mastodon/Account.vala:208
 msgid "Public"
-msgstr "Públic"
+msgstr "Avalik"
 
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:192
 msgid "Dates"
-msgstr "Dates"
+msgstr "Kuupäevad"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:198
 msgid "Before"
-msgstr "Abans"
+msgstr "Enne"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
 #: data/ui/dialogs/advanced_search.ui:221
 msgid "During"
-msgstr "Durant"
+msgstr "Ajavahemikus"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:244
 msgid "After"
-msgstr "Després"
+msgstr "Pärast"
 
 #: data/ui/dialogs/filter_edit.ui:6
 msgid "Edit Filter"
-msgstr "Edita el filtre"
+msgstr "Muuda filtrit"
 
 #: data/ui/dialogs/filter_edit.ui:24 data/ui/dialogs/profile_edit.ui:28
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:50
 msgid "Save"
-msgstr "Desa"
+msgstr "Salvesta"
 
 #: data/ui/dialogs/filter_edit.ui:56
 msgid "Title"
-msgstr "Títol"
+msgstr "Pealkiri"
 
 #: data/ui/dialogs/filter_edit.ui:62
 msgid "Expires In"
-msgstr "Caduca en"
+msgstr "Aegub"
 
 #: data/ui/dialogs/filter_edit.ui:67
 msgid "Hide Completely"
-msgstr "Amaga del tot"
+msgstr "Peida täielikult"
 
 #: data/ui/dialogs/filter_edit.ui:68
 msgid "Otherwise a warning will be used"
-msgstr "Sinó, es mostrarà un avís"
+msgstr "Vastasel juhul kuvatakse hoiatus"
 
 #: data/ui/dialogs/filter_edit.ui:75
 msgid "Contexts"
-msgstr "Contextos"
+msgstr ""
 
 #: data/ui/dialogs/filter_edit.ui:76
 msgid "One or multiple contexts where the filter should apply"
@@ -338,19 +338,19 @@ msgstr ""
 
 #: data/ui/dialogs/filter_edit.ui:81
 msgid "Keywords or Phrases"
-msgstr ""
+msgstr "Võtmesõnad või -fraasid"
 
 #: data/ui/dialogs/filter_edit.ui:89
 msgid "Add Keyword"
-msgstr ""
+msgstr "Lisa võtmesõna"
 
 #: data/ui/dialogs/list_edit.ui:7 data/ui/dialogs/list_edit.ui:10
 msgid "Members"
-msgstr ""
+msgstr "Liikmed"
 
 #: data/ui/dialogs/list_edit.ui:27
 msgid "List Name"
-msgstr ""
+msgstr "Loendi nimi"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
@@ -358,39 +358,39 @@ msgstr ""
 
 #: data/ui/dialogs/list_edit.ui:39
 msgid "Replies Policy"
-msgstr ""
+msgstr "Vastuste reeglid"
 
 #: data/ui/dialogs/list_edit.ui:40
 msgid "Show member replies to"
-msgstr ""
+msgstr "Näita liikmete vastused teistele"
 
 #: data/ui/dialogs/list_edit.ui:43 src/Widgets/Admin/AssignedRow.vala:49
 #: src/Widgets/Admin/Report.vala:20 src/Widgets/Admin/Report.vala:24
 msgid "Nobody"
-msgstr ""
+msgstr "Mitte kellelegi"
 
 #: data/ui/dialogs/list_edit.ui:54
 msgid "Other members of the list"
-msgstr ""
+msgstr "Muudele loendi liikmetele"
 
 #: data/ui/dialogs/list_edit.ui:66
 msgid "Any followed user"
-msgstr ""
+msgstr "Kõikidele järgitud kasutajatele"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:314
 #: src/Views/Sidebar.vala:318
 msgid "Add Account"
-msgstr ""
+msgstr "Lisa kasutajakonto"
 
 #: data/ui/dialogs/new_account.ui:33 data/ui/dialogs/new_account.ui:126
 #: src/Dialogs/Report.vala:87 src/Dialogs/Report.vala:417
 #: src/Widgets/AccountSuggestions.vala:89
 msgid "Next"
-msgstr ""
+msgstr "Edasi"
 
 #: data/ui/dialogs/new_account.ui:47
 msgid "What is your Server?"
-msgstr ""
+msgstr "Mis serverit sa kasutad?"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:49
@@ -398,19 +398,21 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
 msgstr ""
+"Kui sul veel pole kasutajakontot, siis <a href="
+"\"https://joinmastodon.org/servers\"> vali server ja loo endale konto</a>."
 
 #: data/ui/dialogs/new_account.ui:70
 msgid "Server URL"
-msgstr ""
+msgstr "Serveri võrguaadress"
 
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:299
 msgid "Settings"
-msgstr "Configuració"
+msgstr "Seadistused"
 
 #: data/ui/dialogs/new_account.ui:141
 msgid "Confirm Authorization"
-msgstr "Confirma l'autorització"
+msgstr "Kinnita autentimine"
 
 #. translators: Do not translate "manual_auth"
 #: data/ui/dialogs/new_account.ui:161
@@ -418,38 +420,39 @@ msgid ""
 "If something went wrong, <a href=\"manual_auth\">try manual authorization</"
 "a>."
 msgstr ""
-"Si res va malament, <a href=\"manual_auth\">prova l'autorització manual</a>."
+"Kui midagi läks valesti, siis <a href=\"manual_auth\">proovi käsitsi "
+"autentimist</a>."
 
 #: data/ui/dialogs/new_account.ui:171
 msgid "Authorization Code"
-msgstr "Codi d'autorització"
+msgstr "Autentimiskood"
 
 #: data/ui/dialogs/new_account.ui:218
 msgid "Your account is connected and ready to use!"
-msgstr ""
+msgstr "Sinu kasutajakonto on seotud ja valmis kasutamiseks!"
 
 #: data/ui/dialogs/new_account.ui:223
 msgid "Done"
-msgstr "Fet"
+msgstr "Valmis"
 
 #: data/ui/dialogs/notification_settings.ui:6 src/Views/Main.vala:69
 msgid "Filter"
-msgstr "Filtre"
+msgstr "Filtreeri"
 
 #: data/ui/dialogs/notification_settings.ui:16
 msgid "Clear All Notifications"
-msgstr "Neteja les notificacions"
+msgstr "Eemalda kõik teavitused"
 
 #: data/ui/dialogs/notification_settings.ui:34
 #: data/ui/dialogs/preferences.ui:252 src/API/Filters/Filter.vala:45
 #: src/Services/Accounts/Mastodon/Account.vala:41
 #: src/Views/Notifications.vala:36
 msgid "Notifications"
-msgstr "Notificacions"
+msgstr "Teavitused"
 
 #: data/ui/dialogs/notification_settings.ui:37
 msgid "Included Notifications"
-msgstr ""
+msgstr "Kaasatud teavitused"
 
 #. translators: Preferences group title
 #: data/ui/dialogs/notification_settings.ui:44
@@ -717,11 +720,11 @@ msgstr ""
 #: data/ui/dialogs/preferences.ui:271 src/Dialogs/NotificationSettings.vala:50
 #: src/Services/Accounts/Mastodon/Account.vala:81 src/Views/Favorites.vala:4
 msgid "Favorites"
-msgstr ""
+msgstr "Lemmikud"
 
 #: data/ui/dialogs/preferences.ui:277 src/Dialogs/NotificationSettings.vala:49
 msgid "Mentions"
-msgstr ""
+msgstr "Äramärkimised"
 
 #: data/ui/dialogs/preferences.ui:283 src/Dialogs/NotificationSettings.vala:51
 msgid "Boosts"
@@ -759,7 +762,7 @@ msgstr ""
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:230
 msgid "Edit Profile"
-msgstr "Edita el perfil"
+msgstr ""
 
 #: data/ui/dialogs/profile_edit.ui:66
 msgid "Edit Profile Picture"
@@ -812,151 +815,150 @@ msgstr ""
 #. translators: 'Schedule' is a verb
 #: data/ui/dialogs/schedule.ui:29 src/Dialogs/Composer/Dialog.vala:159
 msgid "Schedule Post"
-msgstr "Programa una nota"
+msgstr ""
 
 #. translators: verb
 #: data/ui/dialogs/schedule.ui:47
 msgid "Schedule"
-msgstr "Programa"
+msgstr ""
 
 #. translators: Title used for calendar date picking
 #: data/ui/dialogs/schedule.ui:74
 msgid "Date"
-msgstr "Data"
+msgstr ""
 
 #. translators: Title used for time picking
 #: data/ui/dialogs/schedule.ui:99
 msgid "Time"
-msgstr "Hora"
+msgstr ""
 
 #. translators: Label on an hour picker
 #: data/ui/dialogs/schedule.ui:114
 msgid "Hour"
-msgstr "Hora"
+msgstr ""
 
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:134
 msgid "Minute"
-msgstr "Minut"
+msgstr ""
 
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:154
 msgid "Second"
-msgstr "Segon"
+msgstr ""
 
 #: data/ui/dialogs/schedule.ui:168
 msgid "Timezone"
-msgstr "Zona horària"
+msgstr ""
 
 #: data/ui/menus.ui:10
 msgid "Mention"
-msgstr "Menció"
+msgstr ""
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr "Missatge directe"
+msgstr ""
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
-msgstr "Copia'n l'identificador"
+msgstr ""
 
 #: data/ui/menus.ui:29 data/ui/views/media_viewer.ui:6
 #: src/Widgets/Attachment/Item.vala:175 src/Widgets/Status.vala:308
 msgid "Open in Browser"
-msgstr "Obre al navegador"
+msgstr ""
 
 #: data/ui/menus.ui:33
-#, fuzzy
 msgid "Receive Post Notifications"
-msgstr "Carrega notificaicons"
+msgstr ""
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:39 src/Views/Admin/Pages/Accounts.vala:118
 msgid "Moderation"
-msgstr "Moderació"
+msgstr ""
 
 #: data/ui/menus.ui:41
 msgid "Hide Boosts"
-msgstr "Amaga els impulsos"
+msgstr ""
 
 #: data/ui/menus.ui:46 src/API/Relationship.vala:184
 #: src/Widgets/Status.vala:325
 msgid "Mute"
-msgstr "Silencia"
+msgstr ""
 
 #: data/ui/menus.ui:51 src/API/Relationship.vala:139
 #: src/Views/Admin/Pages/BlockedEmails.vala:24
 #: src/Views/Admin/Pages/BlockedEmails.vala:71 src/Views/Profile.vala:365
 msgid "Block"
-msgstr "Bloqueja"
+msgstr ""
 
 #: data/ui/menus.ui:55
 msgid "Block Domain"
-msgstr "Bloqueja el domini"
+msgstr ""
 
 #: data/ui/menus.ui:60 src/Dialogs/Admin/Report.vala:8
 #: src/Widgets/Status.vala:365
 msgid "Report"
-msgstr "Denuncia"
+msgstr ""
 
 #: data/ui/menus.ui:67
 msgid "Timeline"
-msgstr "Línia de temps"
+msgstr ""
 
 #: data/ui/menus.ui:83 src/Services/Accounts/Mastodon/Account.vala:90
 #: src/Views/Lists.vala:209 src/Views/Profile.vala:462
 msgid "Lists"
-msgstr "Llistes"
+msgstr ""
 
 #: data/ui/views/media_viewer.ui:10 src/Widgets/Attachment/Item.vala:176
 #: src/Widgets/Status.vala:309
 msgid "Copy URL"
-msgstr "Copia la URL"
+msgstr ""
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:177
 msgid "Save Media…"
-msgstr "Desa la mèdia…"
+msgstr ""
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:179
 msgid "Copy Media"
-msgstr "Copia la mèdia"
+msgstr ""
 
 #: data/ui/views/media_viewer.ui:60 data/ui/views/sidebar/view.ui:56
 #: data/ui/widgets/status.ui:220
 msgid "Menu"
-msgstr "Menú"
+msgstr ""
 
 #: data/ui/views/media_viewer.ui:67 data/ui/views/media_viewer.ui:132
 msgid "Toggle Fullscreen"
-msgstr "Commuta la pantalla completa"
+msgstr ""
 
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:37 data/ui/widgets/profile.ui:25
 msgid "Bot"
-msgstr "Bot"
+msgstr ""
 
 #. translators: Tooltip text shown on an icon that indicates
 #. that the user is either a financial supporter
 #. or contributor to Tuba
 #: data/ui/views/profile_header.ui:64
 msgid "Tuba Supporter"
-msgstr "Contribuïdori de Tuba"
+msgstr ""
 
 #. translators: tooltip text on profile covers.
 #. You can replace 'Cover' with 'Background' if needed.
 #: data/ui/views/profile_header.ui:85
 msgid "View Cover"
-msgstr "Mostra la imatge de portada"
+msgstr ""
 
 #. translators: tooltip text on profile avatars.
 #. You can replace 'Avatar' with 'Profile Picture' if needed.
 #: data/ui/views/profile_header.ui:99
 msgid "View Avatar"
-msgstr "Mostra la imatge de perfil"
+msgstr ""
 
 #: data/ui/views/profile_header.ui:164 src/Views/Sidebar.vala:68
 msgid "Open Profile"
-msgstr "Obre el perfil"
+msgstr ""
 
 #. translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person
 #: data/ui/views/profile_header.ui:184
@@ -965,74 +967,74 @@ msgstr ""
 
 #: data/ui/views/profile_header.ui:214
 msgid "Note"
-msgstr "Nota"
+msgstr ""
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:53
 msgid "Forget Account"
-msgstr "Oblida el compte"
+msgstr ""
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
-msgstr "Canvia el compte"
+msgstr ""
 
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
 msgid "Offline"
-msgstr "Sense connexió"
+msgstr ""
 
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
 #: src/Views/Notifications.vala:59
 msgid "View"
-msgstr "Mostra"
+msgstr ""
 
 #: data/ui/widgets/announcement.ui:96
 msgid "Unread"
-msgstr "Sense llegir"
+msgstr ""
 
 #: data/ui/widgets/announcement.ui:107 data/ui/widgets/status.ui:190
 msgid "Edited"
-msgstr "Editada"
+msgstr ""
 
 #. translators: Media play bar play button tooltip
 #: data/ui/widgets/audiocontrols.ui:30 src/Widgets/AudioPlayer/Controls.vala:26
 msgctxt "media controls tooltip"
 msgid "Play"
-msgstr "Reprodueix"
+msgstr ""
 
 #: data/ui/widgets/audiocontrols.ui:49
 msgctxt "media controls"
 msgid "Position"
-msgstr "Posició"
+msgstr ""
 
 #: data/ui/widgets/audiocontrols.ui:67
 msgctxt "media controls"
 msgid "Volume"
-msgstr "Volum"
+msgstr ""
 
 #: data/ui/widgets/status.ui:179
 msgid "Pinned"
-msgstr "Fixada"
+msgstr ""
 
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:249
 msgid "Show Less"
-msgstr "Mostra'n menys"
+msgstr ""
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:282 src/Widgets/Status.vala:568
 msgid "Show More"
-msgstr "Mostra'n més"
+msgstr ""
 
 #. translators: Tooltip that opens filter
 #: data/ui/widgets/status.ui:348
 msgid "Show Anyway"
-msgstr "Mostra-ho igualment"
+msgstr ""
 
 #: data/ui/widgets/votebox.ui:33
 msgid "Vote"
-msgstr "Vota"
+msgstr ""
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:10 src/Views/Admin/Pages/Accounts.vala:299
@@ -1040,22 +1042,22 @@ msgstr "Vota"
 #: src/Views/Admin/Pages/Accounts.vala:338
 #: src/Widgets/Admin/DomainBlock.vala:18 src/Widgets/Admin/DomainBlock.vala:25
 msgid "None"
-msgstr "Cap"
+msgstr ""
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
 msgid "Limit"
-msgstr "Límit"
+msgstr ""
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:14 src/Dialogs/Admin/TakeAction.vala:95
 msgid "Suspend"
-msgstr "Suspèn"
+msgstr ""
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:10
 msgid "Blocked"
-msgstr "Bloquejada"
+msgstr ""
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:12
@@ -4100,24 +4102,24 @@ msgstr ""
 #. translators: tooltip of poll button that hides the current vote results
 #: src/Widgets/VoteBox.vala:95
 msgid "Hide Results"
-msgstr ""
+msgstr "Peida tulemused"
 
 #. translators: tooltip of poll button that shows the current vote results
 #: src/Widgets/VoteBox.vala:99
 msgid "Show Results"
-msgstr ""
+msgstr "Näita tulemusi"
 
 #: src/Widgets/VoteBox.vala:138 src/Widgets/VoteBox.vala:165
 msgid "Voted"
-msgstr ""
+msgstr "Hääletatud"
 
 #. translators: the variable is the amount of people that voted
 #: src/Widgets/VoteBox.vala:191
 #, c-format
 msgid "%s voted"
 msgid_plural "%s voted"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s hääletaja"
+msgstr[1] "%s hääletajat"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4127,8 +4129,8 @@ msgstr[1] ""
 #, c-format
 msgid "Poll with %d option."
 msgid_plural "Poll with %d options."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Küsitlus %d valikuga."
+msgstr[1] "Küsitlus %d valikuga."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4136,4 +4138,4 @@ msgstr[1] ""
 #. Describes whether the user has voted on the poll.
 #: src/Widgets/VoteBox.vala:223
 msgid "You have voted."
-msgstr ""
+msgstr "Sa oled hääletanud."
