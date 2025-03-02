@@ -4,13 +4,14 @@
 # Sabri Ünal <libreajans@gmail.com>, 2023.
 # Sabri Ünal <yakushabb@gmail.com>, 2024.
 # Ümit Solmz <usnetv@users.noreply.hosted.weblate.org>, 2024, 2025.
+# Ümit Solmz <solmazumit1@yandex.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-03-02 14:28+0000\n"
-"Last-Translator: Ümit Solmz <usnetv@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2025-03-03 22:03+0000\n"
+"Last-Translator: Ümit Solmz <solmazumit1@yandex.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/tuba/tuba/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -166,7 +167,7 @@ msgstr "Sonraki ek"
 
 #: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:85
 msgid "Admin Dashboard"
-msgstr "Yönetici Gösterge Tablosu"
+msgstr "Yönetici Panosu"
 
 #. translators: window title
 #: data/ui/dialogs/advanced_search.ui:11 src/Views/Search.vala:31
