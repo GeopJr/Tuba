@@ -6,7 +6,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	class FilterRow : Adw.ExpanderRow {
 		private API.Filters.Filter filter;
-		private weak Dialogs.Preferences win;
+		private Dialogs.Preferences win;
 		public signal void filter_deleted (FilterRow self);
 
 		~FilterRow () {

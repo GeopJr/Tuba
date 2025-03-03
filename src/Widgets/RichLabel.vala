@@ -1,7 +1,7 @@
 public class Tuba.Widgets.RichLabel : Adw.Bin {
 	Widgets.EmojiLabel widget;
 
-	public weak Gee.ArrayList<API.Mention>? mentions;
+	public Gee.ArrayList<API.Mention>? mentions;
 
 	public string label {
 		get { return widget.content; }

@@ -6,7 +6,7 @@ public class Tuba.ComposerPage : Gtk.Box {
 	public virtual bool can_publish { get; set; default = false; }
 	public virtual bool edit_mode { get; set; default = false; }
 
-	public weak Dialogs.Compose dialog;
+	public Dialogs.Compose dialog;
 	public Tuba.Dialogs.Compose.BasicStatus status;
 
 	Gtk.ScrolledWindow scroller;

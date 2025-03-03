@@ -48,7 +48,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		});
 	}
 
-	private weak Gtk.Widget? media_viewer_source_widget;
+	private Gtk.Widget? media_viewer_source_widget;
 	private void on_media_viewer_toggle () {
 		if (is_media_viewer_visible || media_viewer_source_widget == null) return;
 
