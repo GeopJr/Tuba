@@ -4,7 +4,7 @@ public class Tuba.Widgets.Conversation : Widgets.Status {
 
 	public Conversation (API.Conversation entity) {
 		Object (conversation: entity, status: entity.last_status, change_background_on_direct: false);
-		init_menu_button ();
+
 		conversation.bind_property (
 			"unread",
 			this.visibility_indicator,

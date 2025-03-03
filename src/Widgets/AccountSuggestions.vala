@@ -1,4 +1,4 @@
-public class Tuba.Widgets.AccountSuggestions : Gtk.ListBoxRow {
+public class Tuba.Widgets.AccountSuggestions : Adw.Bin {
 	public class AccountSuggestion : Gtk.Box {
 		Widgets.RelationshipButton rsbtn;
 		API.Account acc;
@@ -62,7 +62,9 @@ public class Tuba.Widgets.AccountSuggestions : Gtk.ListBoxRow {
 	Gtk.Button next_button;
 	construct {
 		this.visible = false;
-		this.activatable = false;
+		#if !USE_LISTVIEW
+			this.activatable = false;
+		#endif
 
 		account_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 		scrolled_window = new Gtk.ScrolledWindow () {

@@ -4,8 +4,8 @@ public class Tuba.Views.ContentBase : Views.Base {
 		protected Gtk.ListView content;
 	#else
 		protected Gtk.ListBox content;
-		protected signal void reached_close_to_top ();
 	#endif
+	protected signal void reached_close_to_top ();
 	public GLib.ListStore model;
 	private bool bottom_reached_locked = false;
 
@@ -21,17 +21,17 @@ public class Tuba.Views.ContentBase : Views.Base {
 			signallistitemfactory.bind.connect (bind_listitem_cb);
 
 			content = new Gtk.ListView (new Gtk.NoSelection (model), signallistitemfactory) {
-				css_classes = { "content", "background" },
+				css_classes = { "contentbase", "content", "background" },
 				single_click_activate = true
 			};
 
 			content.activate.connect (on_content_item_activated);
+			model.items_changed.connect (on_content_changed);
 		#else
 			model.items_changed.connect (on_content_changed);
-
 			content = new Gtk.ListBox () {
 				selection_mode = Gtk.SelectionMode.NONE,
-				css_classes = { "fake-content", "background" }
+				css_classes = { "content", "background" }
 			};
 
 			content.row_activated.connect (on_content_item_activated);
@@ -61,9 +61,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 			&& scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper
 		);
 
-		#if !USE_LISTVIEW
-			if (is_close_to_top) reached_close_to_top ();
-		#endif
+		if (is_close_to_top) reached_close_to_top ();
 	}
 
 	protected void set_scroll_to_top_reveal_child (bool reveal) {
@@ -129,7 +127,6 @@ public class Tuba.Views.ContentBase : Views.Base {
 		if (obj_widgetable == null)
 			Process.exit (0);
 		try {
-
 			#if !USE_LISTVIEW
 				Gtk.Widget widget = obj_widgetable.to_widget ();
 				widget.add_css_class ("card");
