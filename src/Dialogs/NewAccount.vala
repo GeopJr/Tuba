@@ -36,6 +36,10 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 	[GtkChild] unowned Gtk.Label manual_auth_label;
 
+	#if !ADMIN_DASHBOARD
+		[GtkChild] unowned Gtk.Button settings_button;
+	#endif
+
 	public string get_full_scopes () {
 		if (this.admin_mode) return @"$SCOPES $ADMIN_SCOPES";
 
@@ -57,6 +61,9 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			app.toast.connect (add_toast);
 		} else {
 			add_binding_action (Gdk.Key.Escape, 0, "window.close", null);
+			#if !ADMIN_DASHBOARD
+				settings_button.visible = false;
+			#endif
 		}
 
 		manual_auth_label.activate_link.connect (on_manual_auth);
@@ -340,7 +347,9 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 				// translators: Switch description in the new account window
 				subtitle = _("Enables the Admin Dashboard and requests the needed permissions to use the Admin API")
 			};
-			group.add (admin_row);
+			#if ADMIN_DASHBOARD
+				group.add (admin_row);
+			#endif
 			page.add (group);
 
 			this.child = toolbar_view;
