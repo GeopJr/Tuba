@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Jakub Janeček <janecekjakub@tutanota.com>, 2023, 2024.
 # foo expert <deferred_water346@simplelogin.com>, 2023.
-# anotheranonymoususer <walter.klosse@protonmail.com>, 2024.
+# anotheranonymoususer <walter.klosse@protonmail.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2024-07-05 00:09+0000\n"
+"PO-Revision-Date: 2025-03-03 22:03+0000\n"
 "Last-Translator: anotheranonymoususer <walter.klosse@protonmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/tuba/tuba/cs/>\n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10.3-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -170,7 +170,7 @@ msgstr "Administrátorká deska"
 #. translators: window title
 #: data/ui/dialogs/advanced_search.ui:11 src/Views/Search.vala:31
 msgid "Advanced Search"
-msgstr ""
+msgstr "Rozšířené vyhledávání"
 
 #: data/ui/dialogs/advanced_search.ui:22 data/ui/dialogs/compose.ui:35
 #: data/ui/dialogs/filter_edit.ui:16 data/ui/dialogs/new_account.ui:26
@@ -222,7 +222,7 @@ msgstr "Od uživatele"
 #. translators: tooltip text for a button in the 'advanced search' window. When clicked it automatically fills the entry with the first found user based on the query.
 #: data/ui/dialogs/advanced_search.ui:89
 msgid "Auto-Fill User"
-msgstr ""
+msgstr "Automaticky doplnit uživatele"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:102
@@ -439,7 +439,7 @@ msgstr "Filtrovat"
 
 #: data/ui/dialogs/notification_settings.ui:16
 msgid "Clear All Notifications"
-msgstr ""
+msgstr "Vyčistit všechna upozornění"
 
 #: data/ui/dialogs/notification_settings.ui:34
 #: data/ui/dialogs/preferences.ui:252 src/API/Filters/Filter.vala:45
@@ -450,7 +450,7 @@ msgstr "Upozornění"
 
 #: data/ui/dialogs/notification_settings.ui:37
 msgid "Included Notifications"
-msgstr ""
+msgstr "Zahrnutá oznámení"
 
 #. translators: Preferences group title
 #: data/ui/dialogs/notification_settings.ui:44
@@ -568,7 +568,7 @@ msgstr "Roztáhnout obrázky, aby primárně vyplnily náhled médií"
 #. translators: leave this as is unless you want to transliterate. BlurHash is a recognizable product name.
 #: data/ui/dialogs/preferences.ui:80
 msgid "BlurHash"
-msgstr ""
+msgstr "BlurHash"
 
 #: data/ui/dialogs/preferences.ui:81
 msgid "Show a blurred version of the media until they fully load"
@@ -646,7 +646,7 @@ msgstr "Varovat před odpovídáním na starý příspěvek"
 
 #: data/ui/dialogs/preferences.ui:170
 msgid "Warn before copying a link to a private post"
-msgstr ""
+msgstr "Varovat před kopírováním odkazu na soukromý příspěvek"
 
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:177 src/Dialogs/NewAccount.vala:330
@@ -675,35 +675,37 @@ msgstr "Varování: Toto zvýší využití paměti"
 
 #: data/ui/dialogs/preferences.ui:211
 msgid "Online Services"
-msgstr ""
+msgstr "Online služby"
 
 #. translators: leave api.tuba.geopjr.dev as is
 #: data/ui/dialogs/preferences.ui:213
 msgid "Configure features that connect to api.tuba.geopjr.dev"
-msgstr ""
+msgstr "Konfigurovat služby, které se připojí k api.tuba.geopjr.dev"
 
 #: data/ui/dialogs/preferences.ui:216
 msgid "Send Preference Analytics"
-msgstr ""
+msgstr "Odeslat informace o preferencích"
 
 #: data/ui/dialogs/preferences.ui:217
 msgid ""
 "Send your preferences to Tuba's developers for popularity research biweekly"
 msgstr ""
+"Poslat vaše preference jednou za dva týdny vývojářům Tuba pro průzkum "
+"popularity"
 
 #: data/ui/dialogs/preferences.ui:223
 msgid "Preview Analytics"
-msgstr ""
+msgstr "Náhled analytik"
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/ui/dialogs/preferences.ui:240
 msgid "Update Supporters Periodically"
-msgstr ""
+msgstr "Aktualizovat podporovatele pravidelně"
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/ui/dialogs/preferences.ui:242
 msgid "Fetch the list of Tuba's supporters biweekly"
-msgstr ""
+msgstr "Načíst seznam podporovatelů Tuba jednou za dva týdny"
 
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:256
@@ -797,17 +799,17 @@ msgstr "Výběr vlastních emotikonů"
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:94
 #: src/Widgets/Attachment/Item.vala:159
 msgid "Alternative Text"
-msgstr ""
+msgstr "Popisný text"
 
 #. translators: row in the profile editor dialog for setting alt text for the user profile picture
 #: data/ui/dialogs/profile_edit.ui:167
 msgid "Profile Picture Description"
-msgstr ""
+msgstr "Popis profilového obrázku"
 
 #. translators: row in the profile editor dialog for setting alt text for the user profile header/cover
 #: data/ui/dialogs/profile_edit.ui:174
 msgid "Header Picture Description"
-msgstr ""
+msgstr "Popis obrázku v záhlaví"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:182
@@ -818,41 +820,41 @@ msgstr "Pole"
 #. translators: 'Schedule' is a verb
 #: data/ui/dialogs/schedule.ui:29 src/Dialogs/Composer/Dialog.vala:159
 msgid "Schedule Post"
-msgstr ""
+msgstr "Naplánovat příspěvek"
 
 #. translators: verb
 #: data/ui/dialogs/schedule.ui:47
 msgid "Schedule"
-msgstr ""
+msgstr "Naplánovat"
 
 #. translators: Title used for calendar date picking
 #: data/ui/dialogs/schedule.ui:74
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #. translators: Title used for time picking
 #: data/ui/dialogs/schedule.ui:99
 msgid "Time"
-msgstr ""
+msgstr "Čas"
 
 #. translators: Label on an hour picker
 #: data/ui/dialogs/schedule.ui:114
 msgid "Hour"
-msgstr ""
+msgstr "Hodina"
 
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:134
 msgid "Minute"
-msgstr ""
+msgstr "Minuta"
 
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:154
 msgid "Second"
-msgstr ""
+msgstr "Sekunda"
 
 #: data/ui/dialogs/schedule.ui:168
 msgid "Timezone"
-msgstr ""
+msgstr "Časová pásmo"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
@@ -945,7 +947,7 @@ msgstr "Robot"
 #. or contributor to Tuba
 #: data/ui/views/profile_header.ui:64
 msgid "Tuba Supporter"
-msgstr ""
+msgstr "Tuba podporovatel"
 
 #. translators: tooltip text on profile covers.
 #. You can replace 'Cover' with 'Background' if needed.
@@ -966,7 +968,7 @@ msgstr "Otevřít profil"
 #. translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person
 #: data/ui/views/profile_header.ui:184
 msgid "View All Followers You Know"
-msgstr ""
+msgstr "Zobrazit všechny sledující, které znáš"
 
 #: data/ui/views/profile_header.ui:214
 msgid "Note"
@@ -1004,17 +1006,17 @@ msgstr "Upraveno"
 #: data/ui/widgets/audiocontrols.ui:30 src/Widgets/AudioPlayer/Controls.vala:26
 msgctxt "media controls tooltip"
 msgid "Play"
-msgstr ""
+msgstr "Přehrát"
 
 #: data/ui/widgets/audiocontrols.ui:49
 msgctxt "media controls"
 msgid "Position"
-msgstr ""
+msgstr "Pozice"
 
 #: data/ui/widgets/audiocontrols.ui:67
 msgctxt "media controls"
 msgid "Volume"
-msgstr ""
+msgstr "Hlasitost"
 
 #: data/ui/widgets/status.ui:179
 msgid "Pinned"
