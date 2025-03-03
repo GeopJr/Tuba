@@ -23,7 +23,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 
 	protected InstanceAccount? account { get; set; }
 	public API.Status root_status { get; set; }
-	public weak Widgets.Status? root_status_widget { get; set; default=null; }
+	public Widgets.Status? root_status_widget { get; set; default=null; }
 
 	public Thread (API.Status status) {
 		Object (

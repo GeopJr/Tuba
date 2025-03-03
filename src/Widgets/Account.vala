@@ -170,7 +170,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		);
 	}
 
-	private weak API.Account api_account { get; set; }
+	private API.Account api_account { get; set; }
 	private string account_id = "";
 	private ulong open_signal = -1;
 	public Account (API.Account account) {

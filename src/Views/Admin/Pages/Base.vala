@@ -5,7 +5,7 @@ public class Tuba.Views.Admin.Page.Base : Adw.NavigationPage {
 	private Adw.ToastOverlay toast_overlay;
 	protected Adw.HeaderBar headerbar;
 	protected Adw.ToolbarView toolbar_view;
-	public weak Dialogs.Admin.Window? admin_window { get; set; }
+	public Dialogs.Admin.Window? admin_window { get; set; }
 
 	~Base () {
 		debug (@"Destroying Admin Dialog page: $title");
