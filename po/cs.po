@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-03-03 22:03+0000\n"
+"PO-Revision-Date: 2025-03-04 17:09+0000\n"
 "Last-Translator: anotheranonymoususer <walter.klosse@protonmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/tuba/tuba/cs/>\n"
 "Language: cs\n"
@@ -1237,7 +1237,7 @@ msgstr "Zaregistrováno"
 #. your server's admins
 #: src/API/Notification.vala:127 src/Services/Accounts/InstanceAccount.vala:364
 msgid "Your account has received a moderation warning"
-msgstr ""
+msgstr "Váš účet obdržel varování od moderátora"
 
 #. translators: this is used for notifications,
 #. when an annual report is available.
@@ -1249,7 +1249,7 @@ msgstr ""
 #: src/API/Notification.vala:135 src/Services/Accounts/InstanceAccount.vala:354
 #, c-format
 msgid "Your %s #FediWrapped is ready!"
-msgstr ""
+msgstr "Vaše #FediWrapped %s je připravené!"
 
 #. translators: used in the #FediWrapped notifications, refer to the other #FediWrapped strings for more info
 #: src/API/Notification.vala:137
