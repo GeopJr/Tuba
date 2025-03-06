@@ -62,6 +62,20 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.9.2" date="2025-03-01">
+      <description translate="no">
+        <ul>
+            <li>Fixed posts overflowing when really long hashtags are used in the hashtag bar</li>
+            <li>Fixed all files being filtered when attempting to upload using Pleroma as a backend</li>
+            <li>Fixed crash when opening mini-profiles after opening a thread</li>
+            <li>Fixed float to string being localized and preventing alt text from being submitted in some locales</li>
+            <li>Fixed notifications page not being reloaded after network connection changes when there are unread ones</li>
+            <li>Thread lines are now using the snapshot API</li>
+            <li>Simplified post widget layout</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.9.1" date="2024-12-24">
       <description translate="no">
         <ul>
