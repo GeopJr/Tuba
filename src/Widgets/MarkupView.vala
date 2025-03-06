@@ -18,7 +18,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 
 	public GLib.Regex? bold_text_regex { get; set; default = null; }
 	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
-	public weak Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
+	public Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
 	public bool has_quote { get; set; default=false; }
 	public bool extract_last_tags { get; set; default=false; }
 	public bool has_link { get; set; default=false; }
