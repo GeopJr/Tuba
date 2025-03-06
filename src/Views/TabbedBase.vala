@@ -1,6 +1,5 @@
 public class Tuba.Views.TabbedBase : Views.Base {
-
-	static int id_counter = 0;
+	int id_counter = 0;
 
 	protected Adw.ViewSwitcher switcher;
 	protected Adw.ViewSwitcherBar switcher_bar;
@@ -36,6 +35,18 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		states.add_named (stack, "content");
 
 		switcher_bar.stack = switcher.stack = stack;
+
+		var shortcutscontroller = new Gtk.ShortcutController ();
+		this.add_controller (shortcutscontroller);
+
+		install_action ("tabbedview.change-tab", "i", (Gtk.WidgetActionActivateFunc) change_tab_cb);
+		for (int i = 1; i < 10; i++) {
+			shortcutscontroller.add_shortcut (new Gtk.Shortcut.with_arguments (
+				Gtk.ShortcutTrigger.parse_string (@"<Alt>$i"),
+				new Gtk.NamedAction ("tabbedview.change-tab"),
+				"i", i
+			));
+		}
 	}
 
 	~TabbedBase () {
@@ -104,6 +115,19 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		view.bind_property ("needs-attention", page, "needs-attention", BindingFlags.SYNC_CREATE);
 		view.bind_property ("badge-number", page, "badge-number", BindingFlags.SYNC_CREATE);
 		view.header.hide ();
+	}
+
+	private void change_tab_cb (string name, GLib.Variant? parameter) {
+		if (parameter == null) return;
+
+		int page_id = parameter.get_int32 ();
+		if (page_id > id_counter) return;
+
+		change_tab_alt (page_id);
+	}
+
+	protected virtual void change_tab_alt (int id) {
+		stack.visible_child_name = id.to_string ();
 	}
 
 	public Views.ContentBase add_list_tab (string label, string icon, string? empty_state_title = null) {

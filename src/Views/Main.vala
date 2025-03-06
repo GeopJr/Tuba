@@ -15,6 +15,11 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		}
 	}
 
+	protected override void change_tab_alt (int id) {
+		base.change_tab_alt (id);
+		app.main_window.set_sidebar_selected_item (id - 1);
+	}
+
 	private Gtk.Button notification_settings_button;
 	private Gtk.Button search_button;
 	protected override void on_view_switched () {
