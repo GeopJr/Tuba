@@ -141,6 +141,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		reveal_spoilers = spoiler_toggle_button_active;
 	}
 
+	private bool grabbed_focus = false;
 	public override void on_content_changed () {
 		for (uint i = 0; i < model.n_items; i++) {
 			var status = (API.Status) model.get_item (i);
@@ -150,8 +151,13 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			}
 		}
 		base.on_content_changed ();
-		if (root_status_widget != null)
-			root_status_widget.grab_focus ();
+		if (root_status_widget != null && !grabbed_focus)
+			GLib.Timeout.add (100, grab_focus_of_root);
+	}
+
+	private bool grab_focus_of_root () {
+		grabbed_focus = root_status_widget.grab_focus ();
+		return GLib.Source.REMOVE;
 	}
 
 	public bool request () {
