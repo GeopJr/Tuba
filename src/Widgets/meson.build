@@ -10,6 +10,7 @@ sources += files(
     'Emoji.vala',
     'EmojiLabel.vala',
     'EmojiReactionAccounts.vala',
+    'FadeBin.vala',
     'FocusPicker.vala',
     'FocusPicture.vala',
     'HashtagBar.vala',

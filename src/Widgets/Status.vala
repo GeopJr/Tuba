@@ -126,6 +126,8 @@
 	[GtkChild] protected unowned Gtk.Label spoiler_label_rev;
 	[GtkChild] protected unowned Gtk.Box spoiler_status_con;
 
+	[GtkChild] protected unowned Widgets.FadeBin fade_bin;
+
 	[GtkChild] public unowned Gtk.Stack filter_stack;
 	[GtkChild] protected unowned Gtk.Label filter_label;
 
@@ -155,6 +157,7 @@
 		typeof (Widgets.Avatar).ensure ();
 		typeof (Widgets.RichLabel).ensure ();
 		typeof (Widgets.MarkupView).ensure ();
+		typeof (Widgets.FadeBin).ensure ();
 	}
 
 	construct {
@@ -1190,6 +1193,10 @@
 
 	private void on_reply_button_clicked () {
 		new Dialogs.Compose.reply (status.formal, on_reply);
+	}
+
+	[GtkCallback] public void on_fade_reveal () {
+		fade_bin.reveal = true;
 	}
 
 	[GtkCallback] public void toggle_spoiler () {
