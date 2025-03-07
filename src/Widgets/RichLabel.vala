@@ -49,6 +49,11 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		set { widget.xalign = value; }
 	}
 
+	public float yalign {
+		get { return widget.yalign; }
+		set { widget.yalign = value; }
+	}
+
 	public bool smaller_emoji_pixel_size {
 		get { return widget.smaller_emoji_pixel_size; }
 		set { widget.smaller_emoji_pixel_size = value; }

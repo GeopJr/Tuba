@@ -129,6 +129,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				large_emojis = settings.enlarge_custom_emojis,
 				use_markup = true,
 				fix_overflow_hack = true,
+				yalign = 0f,
 				//  focusable_label = true
 			};
 			if (instance_emojis != null) label.instance_emojis = instance_emojis;
