@@ -91,7 +91,7 @@
 		<key name="reply-to-old-post-reminder" type="b">
 			<default>true</default>
 		</key>
-    <key name="copy-private-link-reminder" type="b">
+		<key name="copy-private-link-reminder" type="b">
 			<default>true</default>
 		</key>
 		<key name="spellchecker-enabled" type="b">
@@ -112,25 +112,25 @@
 		<key name="proxy" type="s">
 			<default>''</default>
 		</key>
-    <key name="analytics" type="b">
+		<key name="analytics" type="b">
 			<default>false</default>
 		</key>
-    <key name="update-contributors" type="b">
+		<key name="update-contributors" type="b">
 			<default>false</default>
 		</key>
-    <key name="last-analytics-update" type="s">
+		<key name="last-analytics-update" type="s">
 			<default>''</default>
 		</key>
-    <key name="last-contributors-update" type="s">
+		<key name="last-contributors-update" type="s">
 			<default>''</default>
 		</key>
-    <key name="contributors" type="as">
+		<key name="contributors" type="as">
 			<default>['1021928818','2964685538','2486375860','3456423266','1352322503','445941323','3177176442','2813905310','2386917030','987913018','1837154139','4173902237','4223975552','3163563143','3320460562','4233664772','136476033','4041964504','3998595277','580879396']</default>
 		</key>
-    <key name="status-aria-verbosity" type="i">
+		<key name="status-aria-verbosity" type="i">
 			<default>3</default>
 		</key>
-    <key name="use-in-app-browser-if-available" type="b">
+		<key name="use-in-app-browser-if-available" type="b">
 			<default>true</default>
 		</key>
 

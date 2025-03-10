@@ -39,4 +39,6 @@ if webkit
   sources += files ('Browser.vala')
 endif
 
-subdir('Admin')
+if not without_admin_dashboard
+  subdir('Admin')
+endif
