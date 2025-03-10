@@ -1,0 +1,14 @@
+diff --git a/gtk/gtklistview.c b/gtk/gtklistview.c
+--- gtk/gtklistview.c
++++ gtk/gtklistview.c
+@@ -33,9 +33,9 @@
+ /* Maximum number of list items created by the listview.
+  * For debugging, you can set this to G_MAXUINT to ensure
+  * there's always a list item for every row.
+  */
+-#define GTK_LIST_VIEW_MAX_LIST_ITEMS 200
++#define GTK_LIST_VIEW_MAX_LIST_ITEMS 20
+
+ /* Extra items to keep above + below every tracker */
+ #define GTK_LIST_VIEW_EXTRA_ITEMS 2
+

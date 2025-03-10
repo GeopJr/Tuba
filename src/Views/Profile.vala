@@ -134,20 +134,27 @@ public class Tuba.Views.Profile : Views.Accounts {
 			widget_cover.rs_invalidated.connect (on_rs_updated);
 			widget_cover.timeline_change.connect (change_timeline_source);
 			widget_cover.aria_updated.connect (on_cover_aria_update);
-			widget_cover.remove_css_class ("card");
-			widget_cover.remove_css_class ("card-spacing");
+			#if !USE_LISTVIEW
+				widget_cover.remove_css_class ("card");
+				widget_cover.remove_css_class ("card-spacing");
+			#endif
 			this.cover_profile_update.connect (widget_cover.update_cover_from_profile);
 
-			var row = new Gtk.ListBoxRow () {
-				focusable = true,
-				activatable = false,
-				child = widget_cover,
-				css_classes = { "card-spacing", "card" },
-				overflow = Gtk.Overflow.HIDDEN
-			};
-			widget_cover.update_aria ();
+			#if USE_LISTVIEW
+				widget_cover.update_aria ();
+				return widget_cover;
+			#else
+				var row = new Gtk.ListBoxRow () {
+					focusable = true,
+					activatable = false,
+					child = widget_cover,
+					css_classes = { "card-spacing", "card" },
+					overflow = Gtk.Overflow.HIDDEN
+				};
+				widget_cover.update_aria ();
 
-			return row;
+				return row;
+			#endif
 		}
 
 		var widget_status = widget as Widgets.Status;
@@ -158,7 +165,9 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 		var widget_filter_group = widget as Widgets.ProfileFilterGroup;
 		if (widget_filter_group != null) {
-			widget_filter_group.remove_css_class ("card");
+			#if !USE_LISTVIEW
+				widget_filter_group.remove_css_class ("card");
+			#endif
 			widget_filter_group.filter_change.connect (change_filter);
 		}
 
@@ -167,7 +176,24 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 	#if USE_LISTVIEW
 		protected override void bind_listitem_cb (GLib.Object item) {
-			base.bind_listitem_cb (item);
+			((Gtk.ListItem) item).child = on_create_model_widget (((Gtk.ListItem) item).item);
+
+			var gtklistitemwidget = ((Gtk.ListItem) item).child.get_parent ();
+			if (gtklistitemwidget != null) {
+				gtklistitemwidget.add_css_class ("card-spacing");
+
+				if ((((Gtk.ListItem) item).child as Widgets.ProfileFilterGroup) == null) gtklistitemwidget.add_css_class ("keep-margin");
+				if ((((Gtk.ListItem) item).child as Widgets.ProfileFilterGroup) == null && (((Gtk.ListItem) item).child as Widgets.Cover) == null) {
+					gtklistitemwidget.add_css_class ("card");
+				} else {
+					((Gtk.ListItem) item).activatable = false;
+				}
+
+				gtklistitemwidget.focusable = true;
+
+				// Thread lines overflow slightly
+				gtklistitemwidget.overflow = Gtk.Overflow.HIDDEN;
+			}
 
 			if (((((Gtk.ListItem) item).item) as ProfileAccount) != null)
 				((Gtk.ListItem) item).activatable = false;

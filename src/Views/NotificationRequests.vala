@@ -44,7 +44,13 @@ public class Tuba.Views.NotificationRequests : Views.Timeline {
 			.exec ();
 	}
 
-	public override void on_content_item_activated (Gtk.ListBoxRow row) {
-		((Widgets.NotificationRequest) row).open ();
-	}
+	#if USE_LISTVIEW
+		public override void on_content_item_activated (uint pos) {
+			((Widgetizable) ((ListModel) content.model).get_item (pos)).open ();
+		}
+	#else
+		public override void on_content_item_activated (Gtk.ListBoxRow row) {
+			((Widgets.NotificationRequest) row).open ();
+		}
+	#endif
 }

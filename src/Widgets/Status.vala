@@ -14,10 +14,10 @@
 
 			_bound_status = value;
 			if (_bound_status != null) {
-				bind ();
+				bind.begin ();
 			}
 			if (context_menu == null) {
-				create_actions ();
+				create_actions.begin ();
 			}
 		}
 	}
@@ -74,9 +74,11 @@
 		set {
 			if (value != _kind) {
 				_kind = value;
-				change_kind ();
-				if (status != null)
-					aria_describe_status ();
+				change_kind.begin ((obj, res) => {
+					change_kind.end (res);
+					if (status != null)
+						aria_describe_status ();
+				});
 			}
 		}
 	}
@@ -238,8 +240,6 @@
 				kind = InstanceAccount.KIND_REPLY;
 			}
 		}
-
-		init_menu_button ();
 	}
 	~Status () {
 		debug ("Destroying Status widget");
@@ -249,17 +249,8 @@
 		}
 	}
 
-	protected void init_menu_button () {
-		if (context_menu == null) {
-			create_actions ();
-		}
-
-		menu_button.popover = context_menu;
-		menu_button.visible = true;
-	}
-
-	protected void create_actions () {
-		create_context_menu ();
+	protected async void create_actions () {
+		yield create_context_menu ();
 
 		mute_conversation_action = new SimpleAction ("mute-conversation", null);
 		mute_conversation_action.activate.connect (toggle_mute_conversation);
@@ -301,7 +292,7 @@
 	}
 
 	private GLib.MenuItem pin_menu_item;
-	protected void create_context_menu () {
+	protected async void create_context_menu () {
 		var menu_model = new GLib.Menu ();
 		menu_model.append (_("Open in Browser"), "status.open-in-browser");
 		menu_model.append (_("Copy URL"), "status.copy-url");
@@ -366,7 +357,14 @@
 			menu_model.append (_("Report"), "status.report");
 		}
 
-		context_menu = new Gtk.PopoverMenu.from_model (menu_model);
+		GLib.Idle.add (() => {
+			context_menu = new Gtk.PopoverMenu.from_model (menu_model);
+			menu_button.popover = context_menu;
+			menu_button.visible = true;
+			create_context_menu.callback ();
+			return GLib.Source.REMOVE;
+		});
+		yield;
 	}
 
 	private void copy_url () {
@@ -435,7 +433,7 @@
 
 	public void on_edit (API.Status x) {
 		this.status.patch (x);
-		bind ();
+		bind.begin ();
 	}
 
 	public signal void pin_changed ();
@@ -536,7 +534,7 @@
 	private void translate () {
 		if (translation != null) {
 			translation = null;
-			bind ();
+			bind.begin ();
 
 			translate_simple_action.set_enabled (true);
 			show_original_simple_action.set_enabled (false);
@@ -554,7 +552,7 @@
 						content = akkotrans.text,
 						detected_source_language = akkotrans.detected_language
 					};
-					bind ();
+					bind.begin ();
 
 					translate_simple_action.set_enabled (false);
 					show_original_simple_action.set_enabled (true);
@@ -575,7 +573,7 @@
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
 				translation = API.Translation.from (node);
-				bind ();
+				bind.begin ();
 
 				translate_simple_action.set_enabled (false);
 				show_original_simple_action.set_enabled (true);
@@ -676,7 +674,7 @@
 		InstanceAccount.KIND_REMOTE_REBLOG,
 		InstanceAccount.KIND_FAVOURITE
 	};
-	protected virtual void change_kind () {
+	protected async virtual void change_kind () {
 		Tuba.InstanceAccount.Kind res_kind;
 
 		string actor_name = this.kind_instigator.display_name;
@@ -974,7 +972,7 @@
 	ulong[] formal_handler_ids = {};
 	ulong[] this_handler_ids = {};
 	Binding[] bindings = {};
-	protected virtual void bind () {
+	protected async virtual void bind () {
 		soft_unbind ();
 
 		if (this.status.formal.filtered != null && this.status.formal.filtered.size > 0) {
