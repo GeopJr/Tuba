@@ -100,16 +100,19 @@ public class Tuba.SecretAccountStore : AccountStore {
 	}
 
 	public override void save () throws GLib.Error {
+		warning (@"There are $(saved.size) accounts");
 		saved.foreach (account => {
+			warning (@"About to A2S $(account.full_handle)");
 			account_to_secret (account);
 			return true;
 		});
-		debug (@"Saved $(saved.size) accounts");
+		warning (@"Saved $(saved.size) accounts");
 	}
 
 	public override void remove (InstanceAccount account) throws GLib.Error {
 		base.remove (account);
 
+		warning (@"Removing $(account.full_handle)");
 		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
 		attrs["version"] = VERSION;
 		attrs["login"] = account.handle;
@@ -121,8 +124,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 			(obj, async_res) => {
 				try {
 					Secret.password_clearv.end (async_res);
-				}
-				catch (GLib.Error e) {
+				} catch (GLib.Error e) {
 					warning (e.message);
 					var dlg = app.inform (_("Error"), e.message);
 					dlg.present (app.main_window);
@@ -132,6 +134,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 	}
 
 	void account_to_secret (InstanceAccount account) {
+		warning (@"Begin A2S for $(account.full_handle)");
 		var attrs = new GLib.HashTable<string,string> (str_hash, str_equal);
 		attrs["login"] = account.handle;
 		attrs["version"] = VERSION;
@@ -210,10 +213,13 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 		builder.end_object ();
 		generator.set_root (builder.get_root ());
+		warning (@"Finished building json for $(account.full_handle)");
+
 		var secret = generator.to_data (null);
 		// translators: The variable is the backend like "Mastodon"
 		var label = _("%s Account").printf (account.backend);
 
+		warning (@"About to Save keyring for $(account.full_handle)");
 		Secret.password_storev.begin (
 			schema,
 			attrs,
@@ -225,14 +231,16 @@ public class Tuba.SecretAccountStore : AccountStore {
 				try {
 					Secret.password_store.end (async_res);
 					debug (@"Saved secret for $(account.handle)");
-				}
-				catch (GLib.Error e) {
+				} catch (GLib.Error e) {
 					warning (e.message);
 					var dlg = app.inform (_("Error"), e.message);
 					dlg.present (app.main_window);
 				}
+				warning (@"Saved keyring for $(account.full_handle)");
 			}
 		);
+
+		warning (@"Finished A2S for $(account.full_handle)");
 	}
 
 	InstanceAccount? secret_to_account (Secret.Retrievable item, out bool force_save) {
@@ -246,9 +254,12 @@ public class Tuba.SecretAccountStore : AccountStore {
 			var parser = new Json.Parser ();
 			parser.load_from_data (contents, -1);
 
+			warning (@"About to S2A $(item.attributes.get ("login"))");
+
 			var root = parser.get_root ();
 			var root_obj = root.get_object ();
 
+			warning (@"$(root_obj.has_member ("backend")) $(root_obj.has_member ("acct")) $(root_obj.has_member ("id")) $(root_obj.has_member ("client-secret")) $(root_obj.has_member ("client-id")) $(root_obj.has_member ("access-token")) $(root_obj.has_member ("uuid"))");
 			// HACK: Partial makeshift secret validation
 			// see #742 #701 #114
 			if (
@@ -262,7 +273,12 @@ public class Tuba.SecretAccountStore : AccountStore {
 
 			// TODO: remove uuid fallback
 			bool had_uuid = root_obj.has_member ("uuid");
+
+			warning ("About to create account");
 			account = accounts.create_account (root);
+			warning ("Finished creating account");
+
+			warning (@"uuid: $(account.uuid != null)");
 
 			// TODO: remove uuid fallback
 			force_save = !had_uuid && account.uuid != null;
