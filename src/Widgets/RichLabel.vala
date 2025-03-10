@@ -188,7 +188,7 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 					(uri != null && Views.Browser.can_handle_uri (uri))
 					|| Views.Browser.can_handle_url (url)
 				) {
-					app.main_window.open_in_app_browser_for_url (url);
+					(new Views.Browser.with_url (url)).present (app.main_window);
 					return;
 				}
 			}
