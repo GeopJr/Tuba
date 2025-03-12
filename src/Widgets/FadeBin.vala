@@ -2,23 +2,25 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 	const int MAX_HEIGHT = 300;
 	const float FADE_HEIGHT = 125f;
 
-	private Gtk.Widget? _child = null;
+	private unowned Gtk.Widget? _child = null;
 	public Gtk.Widget? child {
 		get { return _child; }
 		set {
 			if (_child != null) _child.unparent ();
 			_child = value;
-			_child.set_parent (this);
+			if (_child != null) _child.set_parent (this);
 		}
 	}
 
-	~FadeBin () {
-		if (this.child != null) this.child.unparent ();
+	public override void dispose () {
+		this.child.unparent ();
+		this.child = null;
+		base.dispose ();
 	}
 
 	public override Gtk.SizeRequestMode get_request_mode () {
 		if (this.child != null) return this.child.get_request_mode ();
-		return Gtk.SizeRequestMode.HEIGHT_FOR_WIDTH;
+		return Gtk.SizeRequestMode.CONSTANT_SIZE;
 	}
 
 	private bool _reveal = false;
@@ -27,7 +29,6 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 		set {
 			if (_reveal != value) {
 				_reveal = value;
-				this.queue_draw ();
 				this.queue_resize ();
 			}
 		}
@@ -57,21 +58,28 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 
 	public override void size_allocate (int width, int height, int baseline) {
 		if (this.child == null) {
-			base.size_allocate (width, height, baseline);
 			this.should_fade = false;
 			return;
 		}
 
-		this.child.allocate (width, height, baseline, null);
+		int child_min_height;
+		this.child.measure (Gtk.Orientation.VERTICAL, width, out child_min_height, null, null, null);
+		var child_height = int.max (height, child_min_height);
+		this.child.allocate (width, child_height, baseline, null);
 		if (this.reveal) {
 			this.should_fade = false;
 			return;
 		}
 
-		this.should_fade = this.child.get_height () >= MAX_HEIGHT;
+		this.should_fade = child_height >= MAX_HEIGHT;
 	}
 
 	public override void measure (Gtk.Orientation orientation, int for_size, out int minimum, out int natural, out int minimum_baseline, out int natural_baseline) {
+		if (this.child == null) {
+			base.measure (orientation, for_size, out minimum, out natural, out minimum_baseline, out natural_baseline);
+			return;
+		}
+
 		this.child.measure (
 			orientation,
 			for_size,
@@ -82,31 +90,36 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 		);
 		if (this.reveal) return;
 
-		minimum = int.min (minimum, MAX_HEIGHT);
 		minimum_baseline = -1;
 		natural_baseline = -1;
 		if (orientation == Gtk.Orientation.VERTICAL) {
-			natural = MAX_HEIGHT;
+			minimum = int.min (minimum, MAX_HEIGHT);
+			natural = int.min (natural, MAX_HEIGHT);
 		}
 	}
 
 	public override void snapshot (Gtk.Snapshot snapshot) {
-		if (this.child == null || !this.faded) {
-			this.child.snapshot (snapshot);
+		if (this.child == null) {
+			base.snapshot (snapshot);
+			return;
+		}
+
+		if (!this.faded) {
+			this.snapshot_child (this.child, snapshot);
 			return;
 		}
 
 		var height = this.get_height ();
 		if (height <= 0) {
-			this.child.snapshot (snapshot);
+			this.snapshot_child (this.child, snapshot);
 			return;
 		}
 
 		Gtk.Snapshot child_snapshot = new Gtk.Snapshot ();
 		this.snapshot_child (this.child, child_snapshot);
-		var node = child_snapshot.to_node ();
+		var node = child_snapshot.free_to_node ();
 		if (node == null) {
-			this.child.snapshot (snapshot);
+			this.snapshot_child (this.child, snapshot);
 			return;
 		}
 
