@@ -173,7 +173,7 @@ public class Tuba.Views.Base : Adw.BreakpointBin {
 		header.show_start_title_buttons = !header.show_start_title_buttons;
 	}
 
-	private void on_scroll_to_top () {
+	public virtual void on_scroll_to_top () {
 		scrolled.scroll_child (Gtk.ScrollType.START, false);
 	}
 
