@@ -80,21 +80,25 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 			return;
 		}
 
+		int child_for_size;
+		if (this.reveal || orientation == Gtk.Orientation.VERTICAL || for_size < MAX_HEIGHT) {
+		    child_for_size = for_size;
+		} else {
+		    child_for_size = -1;
+		}
+
 		this.child.measure (
 			orientation,
-			for_size,
+			child_for_size,
 			out minimum,
 			out natural,
 			out minimum_baseline,
 			out natural_baseline
 		);
-		if (this.reveal) return;
 
-		minimum_baseline = -1;
-		natural_baseline = -1;
-		if (orientation == Gtk.Orientation.VERTICAL) {
-			minimum = int.min (minimum, MAX_HEIGHT);
-			natural = int.min (natural, MAX_HEIGHT);
+		if (orientation == Gtk.Orientation.VERTICAL && !this.reveal) {
+		    minimum = int.min (minimum, MAX_HEIGHT);
+		    natural = int.min (natural, MAX_HEIGHT);
 		}
 	}
 

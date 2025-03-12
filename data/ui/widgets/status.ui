@@ -313,8 +313,6 @@
 									  		<object class="TubaWidgetsFadeBin" id="fade_bin">
 									    <property name="child">
                                           <object class="TubaWidgetsMarkupView" id="content">
-									  		<property name="halign">center</property>
-									  		<property name="valign">center</property>
                                             <property name="visible">True</property>
                                             <property name="hexpand">False</property>
                                             <property name="extract-last-tags">True</property>
