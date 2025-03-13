@@ -87,6 +87,11 @@
 							</object>
 						</child>
 						<child>
+							<object class="AdwSwitchRow" id="collapse_long_posts">
+								<property name="title" translatable="yes">Collapse Long Posts</property>
+							</object>
+						</child>
+						<child>
 							<object class="AdwSwitchRow" id="show_preview_cards">
 								<property name="title" translatable="yes">Show Link Preview Cards</property>
 							</object>

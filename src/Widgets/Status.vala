@@ -160,6 +160,10 @@
 		typeof (Widgets.FadeBin).ensure ();
 	}
 
+	private void update_collapse () {
+		fade_bin.reveal = !settings.collapse_long_posts || expanded || enable_thread_lines;
+	}
+
 	construct {
 		pin_indicator.update_property (Gtk.AccessibleProperty.LABEL, pin_indicator.tooltip_text, -1);
 		edited_indicator.update_property (Gtk.AccessibleProperty.LABEL, edited_indicator.tooltip_text, -1);
@@ -179,6 +183,7 @@
 		settings.notify["larger-font-size"].connect (settings_updated);
 		settings.notify["larger-line-height"].connect (settings_updated);
 		settings.notify["scale-emoji-hover"].connect (settings_updated);
+		settings.notify["collapse-long-posts"].connect (update_collapse);
 
 		edit_history_simple_action = new SimpleAction ("edit-history", null);
 		edit_history_simple_action.activate.connect (view_edit_history);
@@ -195,6 +200,8 @@
 		stats_simple_action.set_enabled (false);
 
 		name_button.clicked.connect (on_name_button_clicked);
+
+		update_collapse ();
 	}
 
 	private void on_name_button_clicked () {
