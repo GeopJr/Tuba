@@ -118,32 +118,18 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 			this.snapshot_child (this.child, snapshot);
 			return;
 		}
-
-		Gtk.Snapshot child_snapshot = new Gtk.Snapshot ();
-		this.snapshot_child (this.child, child_snapshot);
-		var node = child_snapshot.free_to_node ();
-		if (node == null) {
-			this.snapshot_child (this.child, snapshot);
-			return;
-		}
-
-		var bounds = node.get_bounds ();
-		bounds.origin.y = 0;
-		bounds.origin.x = Math.floorf (bounds.origin.x);
-		bounds.size.width = Math.ceilf (bounds.size.width) + 1;
-		bounds.size.height = height;
+		var width = this.get_width ();
+		var new_fade = height - FADE_HEIGHT;
 
 		snapshot.push_mask (Gsk.MaskMode.INVERTED_ALPHA);
-
-		var new_fade = height - FADE_HEIGHT;
 		snapshot.append_linear_gradient (
 			Graphene.Rect () {
 				origin = Graphene.Point () {
-					x = bounds.origin.x,
+					x = 0,
 					y = new_fade
 				},
 				size = Graphene.Size () {
-					width = bounds.size.width,
+					width = width,
 					height = FADE_HEIGHT
 				}
 			},
@@ -159,8 +145,17 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 		);
 
 		snapshot.pop ();
-		snapshot.push_clip (bounds);
-		snapshot.append_node (node);
+		snapshot.push_clip (Graphene.Rect () {
+			origin = Graphene.Point () {
+				x = 0,
+				y = 0
+			},
+			size = Graphene.Size () {
+				width = width,
+				height = height
+			}
+		});
+		this.snapshot_child (this.child, snapshot);
 		snapshot.pop ();
 		snapshot.pop ();
 	}
