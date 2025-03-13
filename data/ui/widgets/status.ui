@@ -299,13 +299,15 @@
 									  <object class="GtkOverlay">
 									  	<child type="overlay">
 											<object class="GtkButton">
-                                        		<property name="label">Show All</property>
+												<!-- translators: as in 'Expand collapsed post'. It's a button label. -->
+                                        		<property name="label" translatable="yes">Expand</property>
                                         		<property name="halign">center</property>
                                         		<property name="valign">end</property>
 												<property name="visible" bind-source="fade_bin" bind-property="faded" bind-flags="sync-create" />
 												<signal name="clicked" handler="on_fade_reveal" swapped="no" />
                                         		<style>
                                         		  <class name="pill" />
+                                        		  <class name="osd" />
                                         		</style>
                                      		</object>
 									  	</child>
