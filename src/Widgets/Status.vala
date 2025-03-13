@@ -24,10 +24,20 @@
 
 	public API.Account? kind_instigator { get; set; default = null; }
 	private Gtk.Button? quoted_status_btn { get; set; default = null; }
-	public bool enable_thread_lines { get; set; default = false; }
 	public API.Translation? translation { get; private set; default = null; }
 	private Adw.Bin? emoji_reactions { get; set; default = null; }
 	protected string? other_data { get; set; default = null; }
+
+	private bool _enable_thread_lines = false;
+	public bool enable_thread_lines {
+		get { return _enable_thread_lines; }
+		set {
+			if (_enable_thread_lines != value) {
+				_enable_thread_lines = value;
+				update_collapse ();
+			}
+		}
+	}
 
 	private bool _can_be_opened = true;
 	public bool can_be_opened {
