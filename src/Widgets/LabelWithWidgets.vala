@@ -362,6 +362,11 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 		set { label.xalign = value; }
 	}
 
+	public float yalign {
+		get { return label.yalign; }
+		set { label.yalign = value; }
+	}
+
 	public bool selectable {
 		get { return label.selectable; }
 		set { label.selectable = value; }

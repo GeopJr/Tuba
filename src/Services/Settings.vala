@@ -160,6 +160,7 @@ public class Tuba.Settings : GLib.Settings {
 	public string[] contributors { get; set; default = {}; }
 	public int status_aria_verbosity { get; set; default = 3; }
 	public bool use_in_app_browser_if_available { get; set; }
+	public bool collapse_long_posts { get; set; }
 
 	private static string[] keys_to_init = {
 		"active-account",
@@ -191,7 +192,8 @@ public class Tuba.Settings : GLib.Settings {
 		"analytics",
 		"update-contributors",
 		"status-aria-verbosity",
-		"use-in-app-browser-if-available"
+		"use-in-app-browser-if-available",
+		"collapse-long-posts"
 	};
 
 	public Settings () {

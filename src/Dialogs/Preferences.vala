@@ -135,6 +135,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow copy_private_link_reminder;
 	[GtkChild] unowned Adw.EntryRow proxy_entry;
 	[GtkChild] unowned Adw.SwitchRow dim_trivial_notifications;
+	[GtkChild] unowned Adw.SwitchRow collapse_long_posts;
 
 	[GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
@@ -266,6 +267,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		settings.bind ("dim-trivial-notifications", dim_trivial_notifications, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("analytics", analytics_switch, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("update-contributors", update_contributors, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("collapse-long-posts", collapse_long_posts, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 		dlcr_id = default_language_combo_row.notify["selected-item"].connect (dlcr_cb);
