@@ -13,8 +13,11 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 	}
 
 	public override void dispose () {
-		this.child.unparent ();
-		this.child = null;
+		if (this.child != null) {
+			this.child.unparent ();
+			this.child = null;
+		}
+
 		base.dispose ();
 	}
 
@@ -82,9 +85,9 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 
 		int child_for_size;
 		if (this.reveal || orientation == Gtk.Orientation.VERTICAL || for_size < MAX_HEIGHT) {
-		    child_for_size = for_size;
+			child_for_size = for_size;
 		} else {
-		    child_for_size = -1;
+			child_for_size = -1;
 		}
 
 		this.child.measure (
@@ -97,8 +100,8 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 		);
 
 		if (orientation == Gtk.Orientation.VERTICAL && !this.reveal) {
-		    minimum = int.min (minimum, MAX_HEIGHT);
-		    natural = int.min (natural, MAX_HEIGHT);
+			minimum = int.min (minimum, MAX_HEIGHT);
+			natural = int.min (natural, MAX_HEIGHT);
 		}
 	}
 
