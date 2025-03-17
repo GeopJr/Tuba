@@ -1213,7 +1213,7 @@
 	}
 
 	[GtkCallback] public void on_fade_reveal () {
-		fade_bin.reveal = true;
+		fade_bin.reveal_animated ();
 	}
 
 	[GtkCallback] public void toggle_spoiler () {
