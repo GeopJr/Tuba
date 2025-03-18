@@ -24,10 +24,20 @@
 
 	public API.Account? kind_instigator { get; set; default = null; }
 	private Gtk.Button? quoted_status_btn { get; set; default = null; }
-	public bool enable_thread_lines { get; set; default = false; }
 	public API.Translation? translation { get; private set; default = null; }
 	private Adw.Bin? emoji_reactions { get; set; default = null; }
 	protected string? other_data { get; set; default = null; }
+
+	private bool _enable_thread_lines = false;
+	public bool enable_thread_lines {
+		get { return _enable_thread_lines; }
+		set {
+			if (_enable_thread_lines != value) {
+				_enable_thread_lines = value;
+				update_collapse ();
+			}
+		}
+	}
 
 	private bool _can_be_opened = true;
 	public bool can_be_opened {
@@ -126,6 +136,8 @@
 	[GtkChild] protected unowned Gtk.Label spoiler_label_rev;
 	[GtkChild] protected unowned Gtk.Box spoiler_status_con;
 
+	[GtkChild] protected unowned Widgets.FadeBin fade_bin;
+
 	[GtkChild] public unowned Gtk.Stack filter_stack;
 	[GtkChild] protected unowned Gtk.Label filter_label;
 
@@ -155,6 +167,11 @@
 		typeof (Widgets.Avatar).ensure ();
 		typeof (Widgets.RichLabel).ensure ();
 		typeof (Widgets.MarkupView).ensure ();
+		typeof (Widgets.FadeBin).ensure ();
+	}
+
+	private void update_collapse () {
+		fade_bin.reveal = !settings.collapse_long_posts || expanded || enable_thread_lines;
 	}
 
 	construct {
@@ -176,6 +193,7 @@
 		settings.notify["larger-font-size"].connect (settings_updated);
 		settings.notify["larger-line-height"].connect (settings_updated);
 		settings.notify["scale-emoji-hover"].connect (settings_updated);
+		settings.notify["collapse-long-posts"].connect (update_collapse);
 
 		edit_history_simple_action = new SimpleAction ("edit-history", null);
 		edit_history_simple_action.activate.connect (view_edit_history);
@@ -192,6 +210,8 @@
 		stats_simple_action.set_enabled (false);
 
 		name_button.clicked.connect (on_name_button_clicked);
+
+		update_collapse ();
 	}
 
 	private void on_name_button_clicked () {
@@ -1190,6 +1210,10 @@
 
 	private void on_reply_button_clicked () {
 		new Dialogs.Compose.reply (status.formal, on_reply);
+	}
+
+	[GtkCallback] public void on_fade_reveal () {
+		fade_bin.reveal_animated ();
 	}
 
 	[GtkCallback] public void toggle_spoiler () {
