@@ -54,17 +54,6 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 		}
 	}
 
-	private bool _fix_overflow_hack = false;
-	public bool fix_overflow_hack {
-		get {
-			return _fix_overflow_hack;
-		}
-		set {
-			_fix_overflow_hack = value;
-			update_label ();
-		}
-	}
-
 	protected const string OBJECT_REPLACEMENT_CHARACTER = "\xEF\xBF\xBC";
 
 	construct {
@@ -79,9 +68,13 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 		};
 
 		label.set_parent (this);
-
-		label.activate_link.connect ((url) => activate_link (url));
+		label.activate_link.connect (on_activate_link);
 	}
+
+	private bool on_activate_link (string url) {
+		return activate_link (url);
+	}
+
 	~LabelWithWidgets () {
 		label.unparent ();
 		foreach (var child in widgets) {
@@ -245,16 +238,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 		var old_label = label.label;
 		var new_label = _text.replace (placeholder, OBJECT_REPLACEMENT_CHARACTER);
 
-		if (_fix_overflow_hack) {
-			label.lines = int.max (100, widgets.length);
-			label.ellipsize = Pango.EllipsizeMode.END;
-			label.width_chars = 1;
-		}
-
 		if (old_label != new_label) {
-			label.wrap = true;
-			label.wrap_mode = Pango.WrapMode.WORD_CHAR;
-
 			_text = new_label;
 			label.label = _text;
 			_label_text = label.get_text ();

@@ -128,7 +128,6 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				vexpand = true,
 				large_emojis = settings.enlarge_custom_emojis,
 				use_markup = true,
-				fix_overflow_hack = true,
 				yalign = 0f,
 				//  focusable_label = true
 			};
@@ -280,7 +279,6 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 						visible = true,
 						css_classes = { "ttl-code", "monospace" },
 						use_markup = true,
-						fix_overflow_hack = true,
 						//  focusable_label = true
 						// markup = MarkupPolicy.DISALLOW
 					};
@@ -308,7 +306,6 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					visible = true,
 					css_classes = { "ttl-code", "italic" },
 					use_markup = true,
-					fix_overflow_hack = true,
 					//  focusable_label = true
 					// markup = MarkupPolicy.DISALLOW
 				};

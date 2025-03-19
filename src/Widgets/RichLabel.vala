@@ -78,16 +78,6 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		get { return widget.accessible_text; }
 	}
 
-	// #756
-	public bool fix_overflow_hack {
-		get {
-			return widget.fix_overflow_hack;
-		}
-		set {
-			widget.fix_overflow_hack = value;
-		}
-	}
-
 	public string get_text () {
 		return widget.label_text;
 	}
