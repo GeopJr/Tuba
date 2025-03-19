@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-03-18 18:32+0000\n"
+"PO-Revision-Date: 2025-03-19 18:03+0000\n"
 "Last-Translator: anotheranonymoususer <walter.klosse@protonmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/tuba/tuba/cs/>\n"
 "Language: cs\n"
@@ -1670,12 +1670,12 @@ msgstr "%e. %B. %Y"
 
 #: src/Dialogs/Admin/Report.vala:134
 msgid "Reported on"
-msgstr ""
+msgstr "Nahlášeno"
 
 #. translators: 'Reported by: <account>'
 #: src/Dialogs/Admin/Report.vala:140 src/Widgets/Admin/Report.vala:31
 msgid "Reported by"
-msgstr ""
+msgstr "Nahlásil*a"
 
 #: src/Dialogs/Admin/Report.vala:146
 msgid "Status"
@@ -1697,7 +1697,7 @@ msgstr "Přeposláno"
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:160 src/Widgets/Admin/Report.vala:22
 msgid "Action Taken by"
-msgstr ""
+msgstr "Opatření podnikl*a"
 
 #: src/Dialogs/Admin/Report.vala:172
 msgid "Category"
@@ -1710,6 +1710,8 @@ msgid ""
 "The reason this account and/or content was reported will be cited in "
 "communication with the reported account"
 msgstr ""
+"Důvod proč byl tento účet a/nebo obsah nahlášen bude citován v komunikaci s "
+"jeho vlastníkem"
 
 #: src/Dialogs/Admin/Report.vala:237
 msgid "Violated Rules"
@@ -1757,7 +1759,7 @@ msgstr "Citlivé"
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:79
 msgid "Force all this user's media attachments to be flagged as sensitive"
-msgstr ""
+msgstr "Vynutit aby veškerá média tohoto uživatele byla označena za citlivá"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:88
