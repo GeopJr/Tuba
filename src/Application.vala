@@ -638,11 +638,11 @@ namespace Tuba {
 			dialog.add_link (_("Translate"), Build.TRANSLATE_WEBSITE);
 			dialog.add_link (_("Donate"), Build.DONATE_WEBSITE);
 
-			// Translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
+			// translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
 			dialog.add_other_app ("dev.geopjr.Archives", _("Archives"), _("Create and view web archives"));
-			// Translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
+			// translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
 			dialog.add_other_app ("dev.geopjr.Calligraphy", _("Calligraphy"), _("Turn text into ASCII banners"));
-			// Translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
+			// translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
 			dialog.add_other_app ("dev.geopjr.Collision", _("Collision"), _("Check hashes for your files"));
 
 			// For some obscure reason, const arrays produce duplicates in the credits.
