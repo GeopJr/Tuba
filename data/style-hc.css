@@ -5,13 +5,3 @@
 .ttl-profile-cover.thanks avatar {
 	border-color: alpha(@accent_bg_color, 0.08);
 }
-
-.toggle-group-17 {
-	box-shadow: inset 0 0 0 1px var(--border-color);
-}
-
-.toggle-group-17 button:checked {
-	box-shadow: inset 0 0 0 1px var(--border-color),
-		0 1px 3px 1px rgb(0 0 0 / 7%),
-		0 2px 6px 2px rgb(0 0 0 / 3%);
-}

@@ -511,7 +511,7 @@ video > overlay > revealer > controls, .audio-controls {
 
 /* .ttl-view:not(.large-view) .content .card { */
 .ttl-view:not(.large-view) .fake-content .card,
-.ttl-view:not(.large-view) .fake-content .toggle-group-17 {
+.ttl-view:not(.large-view) .fake-content .toggle-group-17 > toggle-group {
 	border-left: none;
 	border-right: none;
 	border-radius: 0px;
@@ -787,31 +787,8 @@ list.uniform-border-color row {
 }
 
 .toggle-group-17 {
-	background: color-mix(in srgb, currentColor 10%, transparent);
-	border-radius: 9px;
-	padding: 3px;
-}
-
-.toggle-group-17 button {
-	padding: 2px 15px;
-	transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-	transition-property: outline-color, outline-width, outline-offset, background, box-shadow;
-}
-
-.toggle-group-17 button:checked {
-	background: rgb(from var(--card-bg-color) r g b / calc(alpha * 2));
-	color: var(--card-fg-color);
-	box-shadow: 0 1px 3px 1px rgb(0 0 0 / 7%),
-		0 2px 6px 2px rgb(0 0 0 / 3%);
-}
-
-.toggle-group-17 separator {
-	margin: 3px 1px;
-	transition: opacity 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.toggle-group-17 separator.hidden {
-	opacity: 0;
+	background: none;
+	padding: 0;
 }
 
 @keyframes annual-avi-bg {
