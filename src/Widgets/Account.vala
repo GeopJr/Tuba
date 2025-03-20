@@ -38,6 +38,14 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		}
 	}
 
+	static construct {
+		typeof (Widgets.Background).ensure ();
+		typeof (Widgets.Avatar).ensure ();
+		typeof (RelationshipButton).ensure ();
+		typeof (Widgets.EmojiLabel).ensure ();
+		typeof (Widgets.MarkupView).ensure ();
+	}
+
 	[GtkChild] unowned Widgets.Background background;
 	[GtkChild] unowned Gtk.Overlay cover_overlay;
 	[GtkChild] unowned Gtk.Label cover_badge;
@@ -162,7 +170,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		);
 	}
 
-	private weak API.Account api_account { get; set; }
+	private API.Account api_account { get; set; }
 	private string account_id = "";
 	private ulong open_signal = -1;
 	public Account (API.Account account) {
@@ -178,7 +186,11 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		display_name.instance_emojis = account.emojis_map;
 		display_name.content = account.display_name;
 		handle.label = account.handle;
+
 		avatar.account = account;
+		if (account.avatar_description != null && account.avatar_description != "")
+			avatar.alternative_text = account.avatar_description;
+
 		note.bold_text_regex = account.tuba_search_query_regex;
 		note.instance_emojis = account.emojis_map;
 		note.content = account.note;
@@ -196,6 +208,9 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 			background.paintable = avatar.custom_image;
 		} else {
 			Tuba.Helper.Image.request_paintable (account.header, null, false, on_cache_response);
+
+			if (account.header_description != null && account.header_description != "")
+				background.alternative_text = account.header_description;
 		}
 
 		// translators: Used in profile stats.
@@ -226,7 +241,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 	}
 
 	private void on_tuba_rs () {
-		if (api_account != null)
+		if (api_account != null && api_account.tuba_rs != null)
 			rs = api_account.tuba_rs;
 	}
 

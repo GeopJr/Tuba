@@ -8,11 +8,20 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	[GtkChild] unowned Adw.Breakpoint breakpoint;
 	[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 
+	#if WEBKIT
+		[GtkChild] unowned Gtk.Overlay main_overlay;
+	#endif
+
 	public void set_sidebar_selected_item (int pos) {
 		sidebar.set_sidebar_selected_item (pos);
 	}
 
 	Views.Base? last_view = null;
+
+	static construct {
+		typeof (Views.MediaViewer).ensure ();
+		typeof (Views.Sidebar).ensure ();
+	}
 
 	construct {
 		construct_saveable (settings);
@@ -27,14 +36,6 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		settings.notify["darken-images-on-dark-mode"].connect (settings_updated);
 
 		app.toast.connect (add_toast);
-		app.notify["is-online"].connect (on_network_change);
-	}
-
-	private void on_network_change () {
-		if (app.is_online) {
-			go_back_to_start ();
-			app.refresh ();
-		}
 	}
 
 	private void settings_updated () {
@@ -47,7 +48,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		});
 	}
 
-	private weak Gtk.Widget? media_viewer_source_widget;
+	private Gtk.Widget? media_viewer_source_widget;
 	private void on_media_viewer_toggle () {
 		if (is_media_viewer_visible || media_viewer_source_widget == null) return;
 
@@ -164,9 +165,28 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 			((Widgets.BookWyrmPage) book_widget).selectable = true;
 		} catch {
-			if (fallback != null) Host.open_url (fallback);
+			if (fallback != null) Host.open_url.begin (fallback);
 		}
 	}
+
+	#if WEBKIT
+		Gtk.Widget? browser_last_focused_widget = null;
+		public void open_in_app_browser_for_url (string url) {
+			browser_last_focused_widget = app.main_window.get_focus ();
+			var browser = new Views.Browser ();
+			browser.exit.connect (on_browser_exit);
+			browser.load_url (url);
+			main_overlay.add_overlay (browser);
+			browser.reveal_child = true;
+		}
+
+		private void on_browser_exit (Views.Browser browser) {
+			main_overlay.remove_overlay (browser);
+
+			browser_last_focused_widget.grab_focus ();
+			browser_last_focused_widget = null;
+		}
+	#endif
 
 	public Views.Base open_view (Views.Base view) {
 		if (

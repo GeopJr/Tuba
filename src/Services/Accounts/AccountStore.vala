@@ -85,11 +85,11 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			debug (@"Activating $(account.handle)…");
 			if (clear_cache)
 				network.clear_cache ();
+			settings.active_account = account.uuid;
 			account.verify_credentials.begin ((obj, res) => {
 				try {
 					account.verify_credentials.end (res);
 					account.error = null;
-					settings.active_account = account.uuid;
 					if (account.source != null) {
 						if (account.source.language != null && account.source.language != "") settings.default_language = account.source.language;
 						if (account.source.privacy != null && account.source.privacy != "") {

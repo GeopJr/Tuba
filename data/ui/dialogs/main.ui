@@ -12,7 +12,7 @@
 		<child>
 			<object class="AdwToastOverlay" id="toast_overlay">
 				<property name="child">
-					<object class="GtkOverlay">
+					<object class="GtkOverlay" id="main_overlay">
 						<child type="overlay">
 							<object class="TubaViewsMediaViewer" id="media_viewer">
 								<property name="visible">0</property>
@@ -20,6 +20,8 @@
 						</child>
 						<property name="child">
 							<object class="AdwOverlaySplitView" id="split_view">
+								<property name="enable-show-gesture" bind-source="split_view" bind-property="collapsed" bind-flags="sync-create" />
+								<property name="enable-hide-gesture" bind-source="split_view" bind-property="collapsed" bind-flags="sync-create" />
 								<property name="sidebar">
 									<object class="TubaViewsSidebar" id="sidebar" />
 								</property>

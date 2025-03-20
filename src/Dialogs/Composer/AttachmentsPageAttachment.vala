@@ -42,11 +42,18 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			this.content_height = 300;
 
 			toolbar_view = new Adw.ToolbarView ();
-			headerbar = new Adw.HeaderBar ();
+			headerbar = new Adw.HeaderBar () {
+				show_end_title_buttons = false,
+				show_start_title_buttons = false
+			};
 
 			save_btn = new Gtk.Button.with_label (_("Save"));
 			save_btn.add_css_class ("suggested-action");
 			headerbar.pack_end (save_btn);
+
+			var cancel_btn = new Gtk.Button.with_label (_("Cancel"));
+			cancel_btn.clicked.connect (force_close);
+			headerbar.pack_start (cancel_btn);
 
 			toolbar_view.add_top_bar (headerbar);
 
@@ -84,7 +91,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		}
 
 		construct {
-			this.title = _("Alternative text for attachment");
+			this.title = _("Alternative Text");
 			this.content_height = 400;
 			this.content_width = 500;
 
@@ -150,7 +157,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			saved ();
 		}
 
-		public AltTextDialog (string alt_text, Gdk.Paintable? paintable) {
+		public AltTextDialog (string alt_text, Gdk.Paintable? paintable, File? video = null) {
 			dialog_char_counter.label = remaining_alt_chars (alt_text != null ? alt_text.length : 0);
 
 			if (alt_text != null) {
@@ -160,7 +167,15 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 				this.can_save = false;
 			}
 
-			if (paintable != null) content_box.prepend (new Gtk.Picture.for_paintable (paintable));
+			if (paintable != null) {
+				content_box.prepend (new Gtk.Picture.for_paintable (paintable) {
+					margin_bottom = margin_end = margin_start = margin_top = 6
+				});
+			} else if (video != null) {
+				content_box.prepend (new Gtk.Video.for_file (video) {
+					margin_bottom = margin_end = margin_start = margin_top = 6
+				});
+			}
 		}
 
 		public static bool validate (int text_size) {
@@ -197,7 +212,8 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		construct {
 			this.add_css_class ("focuspickerdialog");
 			this.follows_content_size = true;
-			this.title = _("Focal point for attachment thumbnail");
+			// translators: focus picker dialog title
+			this.title = _("Set Focal Point");
 			save_btn.clicked.connect (on_save);
 
 			var pos_x_scale = new Adw.SpinRow.with_range (-1.0, 1.0, 0.1) {
@@ -243,7 +259,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 		public override void unmap () {
 			// Causes the dialog to not get destroyed
-			// so let's unbound manually
+			// so let's unbind manually
 			pos_x_binding.unbind ();
 			pos_y_binding.unbind ();
 			base.unmap ();
@@ -292,6 +308,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		debug ("Destroying AttachmentsPageAttachment");
 	}
 
+	bool is_video = false;
 	public AttachmentsPageAttachment (
 		string attachment_id,
 		File? file,
@@ -317,13 +334,17 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		};
 		if (file != null) {
 			pic.file = file;
+			if (t_entity != null) is_video = Attachment.MediaType.from_string (t_entity.kind).is_video ();
 		} else {
 			entity = t_entity;
 			Tuba.Helper.Image.request_paintable (t_entity.preview_url, null, false, on_cache_response);
 		}
 		button.child = pic;
 
-		alt_btn.tooltip_text = _("Edit Alt Text");
+		//  translators: Alternative Text refers to text that describes
+		//				 an attachment when using screen readers or the
+		//				 image hasn't loaded. Also known as 'alt text'
+		alt_btn.tooltip_text = _("Edit Alternative Text");
 		alt_btn.disconnect (alt_btn_clicked_id);
 		alt_btn.clicked.connect (on_alt_btn_clicked);
 		alt_btn.add_css_class ("error");
@@ -345,6 +366,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			icon_name = "tuba-camera-focus-symbolic",
 			valign = Gtk.Align.START,
 			halign = Gtk.Align.END,
+			// translators: focus picker
 			tooltip_text = _("Edit Focal Point"),
 			css_classes = { "ttl-status-badge" }
 		};
@@ -373,7 +395,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	AltTextDialog? alt_text_dialog = null;
 	private void on_alt_btn_clicked () {
-		alt_text_dialog = new AltTextDialog (alt_text, pic.paintable);
+		alt_text_dialog = new AltTextDialog (alt_text, pic.paintable, is_video ? pic.file : null);
 		alt_text_dialog.saved.connect (on_save_clicked);
 		alt_text_dialog.closed.connect (close_dialogs);
 
@@ -396,7 +418,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	protected override void on_click () {
 		if (attachment_file != null) {
-			Host.open_url (attachment_file.get_path ());
+			Host.open_url.begin (attachment_file.get_path ());
 		} else if (entity != null) {
 			base.on_click ();
 		}
@@ -423,7 +445,10 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			builder.add_string_value (alt_text);
 
 			builder.set_member_name ("focus");
-			builder.add_string_value ("%.2f,%.2f".printf (pos_x, pos_y));
+			builder.add_string_value ("%s,%s".printf (
+				Units.float_to_2_point_string (pos_x),
+				Units.float_to_2_point_string (pos_y)
+			));
 
 			builder.end_object ();
 

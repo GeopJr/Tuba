@@ -37,18 +37,6 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="thread_line_top">
-                        <property name="visible">0</property>
-                        <property name="width_request">4</property>
-                        <property name="halign">center</property>
-                        <property name="pixel-size">4</property>
-                        <style>
-                          <class name="ttl-thread-line" />
-                          <class name="top" />
-                        </style>
-                      </object>
-                    </child>
-                    <child>
                       <object class="GtkOverlay" id="avatar_overlay">
                         <property name="margin_top">3</property>
                         <child type="overlay">
@@ -63,19 +51,6 @@
                         </child>
                       </object>
                     </child>
-                    <child>
-                      <object class="GtkImage" id="thread_line_bottom">
-                        <property name="visible">0</property>
-                        <property name="width_request">4</property>
-                        <property name="vexpand">1</property>
-                        <property name="halign">center</property>
-                        <property name="pixel-size">4</property>
-                        <style>
-                          <class name="ttl-thread-line" />
-                          <class name="bottom" />
-                        </style>
-                      </object>
-                    </child>
                   </object>
                 </child>
                 <child>
@@ -85,6 +60,7 @@
                       <object class="GtkButton" id="header_button">
                         <property name="visible">0</property>
                         <property name="halign">start</property>
+                        <property name="valign">center</property>
                         <child>
                           <object class="TubaWidgetsRichLabel" id="header_label">
                             <property name="use_markup">0</property>
@@ -299,6 +275,8 @@
                                             <property name="label">Spoiler Text Here</property>
                                             <property name="wrap">1</property>
                                             <property name="wrap-mode">word-char</property>
+                                            <property name="hexpand">1</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                         </child>
                                       </object>
@@ -318,10 +296,33 @@
                                     <property name="orientation">vertical</property>
                                     <property name="spacing">6</property>
                                     <child>
-                                      <object class="TubaWidgetsMarkupView" id="content">
-                                        <property name="visible">True</property>
-                                        <property name="hexpand">False</property>
-                                      </object>
+									  <object class="GtkOverlay">
+									  	<child type="overlay">
+											<object class="GtkButton">
+												<!-- translators: as in 'Expand collapsed post'. It's a button label. -->
+                                        		<property name="label" translatable="yes">Expand</property>
+                                        		<property name="halign">center</property>
+                                        		<property name="valign">end</property>
+												<property name="visible" bind-source="fade_bin" bind-property="faded" bind-flags="sync-create" />
+												<signal name="clicked" handler="on_fade_reveal" swapped="no" />
+                                        		<style>
+                                        		  <class name="pill" />
+                                        		  <class name="osd" />
+                                        		</style>
+                                     		</object>
+									  	</child>
+									  	<property name="child">
+									  		<object class="TubaWidgetsFadeBin" id="fade_bin">
+									    <property name="child">
+                                          <object class="TubaWidgetsMarkupView" id="content">
+                                            <property name="visible">True</property>
+                                            <property name="hexpand">False</property>
+                                            <property name="extract-last-tags">True</property>
+                                          </object>
+									    </property>
+									  		</object>
+										</property>
+									  </object>
                                     </child>
                                   </object>
                                 </property>

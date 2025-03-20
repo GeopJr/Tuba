@@ -1,15 +1,5 @@
-public class Tuba.StatusActionButton : Gtk.Button {
+public class Tuba.Widgets.StatusActionButton : Gtk.Button {
 	public Adw.ButtonContent content { get; set; }
-
-	//  [CCode (has_target = false)]
-	//  public delegate string GettextString (int64 amount);
-	//  private GettextString _aria_label_template;
-	//  public GettextString aria_label_template {
-	//  	set {
-	//  		_aria_label_template = value;
-	//  		update_aria_label ();
-	//  	}
-	//  }
 
 	private string _default_icon_name = "";
 	public string default_icon_name {
@@ -50,11 +40,17 @@ public class Tuba.StatusActionButton : Gtk.Button {
 	}
 
 	//  private void update_aria_label () {
-	//  	if (_aria_label_template == null) return;
+	//  	if (this.tooltip_text == null) return;
+
+	//  	this.update_property (
+	//  		Gtk.AccessibleProperty.DESCRIPTION,
+	//  		" ",
+	//  		-1
+	//  	);
 
 	//  	this.update_property (
 	//  		Gtk.AccessibleProperty.LABEL,
-	//  		_aria_label_template (_amount),
+	//  		@"$(this.tooltip_text) ($_amount)",
 	//  		-1
 	//  	);
 	//  }
@@ -95,10 +91,16 @@ public class Tuba.StatusActionButton : Gtk.Button {
 		working = false;
 	}
 
+	static construct {
+		set_accessible_role (Gtk.AccessibleRole.TOGGLE_BUTTON);
+	}
+
 	construct {
-		this.set_accessible_role (Gtk.AccessibleRole.TOGGLE_BUTTON);
 		content = new Adw.ButtonContent ();
 		this.child = content;
+		//  update_aria_label ();
+
+		//  this.notify["tooltip-text"].connect (update_aria_label);
 	}
 
 	public StatusActionButton.with_icon_name (string icon_name) {

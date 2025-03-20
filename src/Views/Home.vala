@@ -1,5 +1,12 @@
 public class Tuba.Views.Home : Views.Timeline {
+	public class SuggestionObject : Object, Widgetizable {
+		public override Gtk.Widget to_widget () {
+			return new Widgets.AccountSuggestions ();
+		}
+	}
+
 	Gtk.Revealer compose_button_rev;
+	Gtk.Button compose_button;
 	construct {
 		url = "/api/v1/timelines/home";
 		label = _("Home");
@@ -11,21 +18,23 @@ public class Tuba.Views.Home : Views.Timeline {
 		scroll_to_top_rev.margin_bottom = 24;
 		scroll_to_top_rev.add_css_class ("scroll-to-top-btn");
 
+		compose_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
+			action_name = "app.compose",
+			tooltip_text = _("Compose"),
+			css_classes = { "circular", "compose-button", "suggested-action" }
+		};
 		compose_button_rev = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
 			valign = halign = Gtk.Align.END,
 			margin_end = 24,
+			margin_bottom = 24,
 			reveal_child = true,
 			overflow = Gtk.Overflow.VISIBLE,
-			child = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
-				action_name = "app.compose",
-				tooltip_text = _("Compose"),
-				css_classes = { "circular", "compose-button", "suggested-action" },
-				margin_bottom = 24
-			}
+			child = compose_button
 		};
 
 		compose_button_rev.notify["reveal-child"].connect (toggle_scroll_to_top_margin);
+		compose_button_rev.notify["child-revealed"].connect (on_child_revealed);
 		toggle_scroll_to_top_margin ();
 
 		scrolled_overlay.add_overlay (compose_button_rev);
@@ -42,7 +51,7 @@ public class Tuba.Views.Home : Views.Timeline {
 
 		app.notify["is-mobile"].connect (() => {
 			if (!app.is_mobile)
-					compose_button_rev.reveal_child = true;
+				set_compose_button_reveal_child (true);
 		});
 
 		this.bind_property ("entity-queue-size", this, "badge-number", BindingFlags.SYNC_CREATE);
@@ -51,10 +60,45 @@ public class Tuba.Views.Home : Views.Timeline {
 				| BindingFlags.BIDIRECTIONAL
 			#endif
 		);
+
+		app.remove_user_id.connect (on_remove_user);
 	}
 
 	void toggle_scroll_to_top_margin () {
 		Tuba.toggle_css (scroll_to_top_rev, compose_button_rev.reveal_child, "composer-btn-revealed");
+	}
+
+	void set_compose_button_reveal_child (bool reveal) {
+		if (compose_button_rev.reveal_child == reveal) return;
+
+		compose_button.margin_bottom = 24;
+		compose_button_rev.margin_bottom = 0;
+
+		compose_button_rev.reveal_child = reveal;
+	}
+
+	void on_child_revealed () {
+		compose_button.margin_bottom = 0;
+		compose_button_rev.margin_bottom = 24;
+	}
+
+	bool has_account_suggestions = false;
+	public override void on_content_changed () {
+		base.on_content_changed ();
+		if (
+			settings.account_suggestions
+			&& !has_account_suggestions
+			&& !this.empty
+			&& accounts.active.following_count <= 10
+		) {
+			has_account_suggestions = true;
+			model.append (new SuggestionObject ());
+		}
+	}
+
+	public override void on_refresh () {
+		has_account_suggestions = false;
+		base.on_refresh ();
 	}
 
 	double last_adjustment = 0;
@@ -76,9 +120,9 @@ public class Tuba.Views.Home : Views.Timeline {
 		}
 
 		if (compose_button_rev.reveal_child && direction_down)
-			compose_button_rev.reveal_child = false;
+			set_compose_button_reveal_child (false);
 		else if (!compose_button_rev.reveal_child && !direction_down && trunced <= show_on_adjustment)
-			compose_button_rev.reveal_child = true;
+			set_compose_button_reveal_child (true);
 
 		last_adjustment = trunced;
 	}

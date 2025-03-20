@@ -18,8 +18,15 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 
 	public GLib.Regex? bold_text_regex { get; set; default = null; }
 	public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
-	public weak Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
+	public Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
 	public bool has_quote { get; set; default=false; }
+	public bool extract_last_tags { get; set; default=false; }
+	public bool has_link { get; set; default=false; }
+
+	TagExtractor.Tag[]? extracted_tags = null;
+	public TagExtractor.Tag[]? get_extracted_tags () {
+		return extracted_tags;
+	}
 
 	private bool _selectable = false;
 	public bool selectable {
@@ -38,8 +45,12 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		}
 	}
 
+	static construct {
+		set_accessible_role (Gtk.AccessibleRole.GENERIC);
+	}
+
 	construct {
-		this.set_accessible_role (Gtk.AccessibleRole.LABEL);
+		this.focusable = true;
 		orientation = Gtk.Orientation.VERTICAL;
 		spacing = 12;
 	}
@@ -62,6 +73,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 
 	void update_content (string content) {
 		current_chunk = null;
+		extracted_tags = null;
+		has_link = false;
 
 		for (var w = get_first_child (); w != null; w = w.get_next_sibling ()) {
 			w.unparent ();
@@ -97,6 +110,15 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		});
 	}
 
+	void extract_tags () {
+		if (current_chunk == null || !this.has_link) return;
+		var extracted = TagExtractor.from_string (current_chunk);
+		if (extracted.input_without_tags == null || extracted.extracted_tags == null) return;
+
+		current_chunk = extracted.input_without_tags;
+		extracted_tags = extracted.extracted_tags;
+	}
+
 	void commit_chunk () {
 		if (current_chunk != null && current_chunk != "") {
 			var label = new RichLabel () {
@@ -106,7 +128,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				vexpand = true,
 				large_emojis = settings.enlarge_custom_emojis,
 				use_markup = true,
-				fix_overflow_hack = true
+				yalign = 0f,
+				//  focusable_label = true
 			};
 			if (instance_emojis != null) label.instance_emojis = instance_emojis;
 			if (mentions != null) label.mentions = mentions;
@@ -231,6 +254,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 				break;
 			case "body":
 				traverse_and_handle (v, root, default_handler);
+				if (v.extract_last_tags) v.extract_tags ();
 				v.commit_chunk ();
 				break;
 			case "p":
@@ -255,7 +279,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 						visible = true,
 						css_classes = { "ttl-code", "monospace" },
 						use_markup = true,
-						fix_overflow_hack = true
+						//  focusable_label = true
 						// markup = MarkupPolicy.DISALLOW
 					};
 
@@ -282,7 +306,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					visible = true,
 					css_classes = { "ttl-code", "italic" },
 					use_markup = true,
-					fix_overflow_hack = true
+					//  focusable_label = true
 					// markup = MarkupPolicy.DISALLOW
 				};
 				v.append (label);
@@ -293,6 +317,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 					v.write_chunk (@"<a href='$(GLib.Markup.escape_text (href))'>");
 					traverse_and_handle (v, root, default_handler);
 					v.write_chunk ("</a>");
+					v.has_link = true;
 				}
 				break;
 
@@ -387,7 +412,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 	}
 
 	private static string bold_needle (owned string source, GLib.Regex? bold_text_regex) {
-		if (bold_text_regex == null) return source;
+		if (bold_text_regex == null || source.length >= 2000) return source;
 
 		try {
 			source = bold_text_regex.replace (source, source.length, 0, "<b>\\0</b>");

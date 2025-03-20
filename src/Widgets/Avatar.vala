@@ -1,7 +1,14 @@
 public class Tuba.Widgets.Avatar : Gtk.Button {
 	public signal void mini_clicked ();
 
-	weak API.Account? _account = null;
+	public string? alternative_text {
+		set {
+			string alt_text = value == null ? "" : value;
+			this.update_property (Gtk.AccessibleProperty.DESCRIPTION, alt_text, -1);
+		}
+	}
+
+	API.Account? _account = null;
 	public API.Account? account {
 		set {
 			on_invalidated (value);

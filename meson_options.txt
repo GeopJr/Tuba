@@ -1,3 +1,4 @@
 option('devel', type: 'boolean', value: false)
 option('distro', type: 'boolean', value: false)
-option('clapper', type: 'boolean', value: false)
+option('clapper', type: 'boolean', value: true)
+option('in-app-browser', type: 'boolean', value: true)

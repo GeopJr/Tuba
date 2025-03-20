@@ -22,7 +22,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	private void open_in_browser () {
-		Host.open_url (entity.url);
+		Host.open_url.begin (entity.url);
 	}
 
 	private void save_as () {
@@ -133,20 +133,19 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	protected Adw.Dialog create_alt_text_dialog (string alt_text, bool show = false) {
-		var alt_label = new Gtk.Label (alt_text) {
-			wrap = true,
-			margin_bottom = 6,
-			margin_top = 6
+		var alt_label = new Gtk.TextView () {
+			bottom_margin = 6,
+			top_margin = 6,
+			left_margin = 12,
+			right_margin = 12,
+			wrap_mode = Gtk.WrapMode.WORD_CHAR,
+			editable = false
 		};
-
-		var clamp = new Adw.Clamp () {
-			child = alt_label,
-			tightening_threshold = 100,
-			valign = Gtk.Align.START
-		};
+		alt_label.remove_css_class ("view");
+		alt_label.buffer.text = alt_text.strip ();
 
 		var scrolledwindow = new Gtk.ScrolledWindow () {
-			child = clamp,
+			child = alt_label,
 			vexpand = true,
 			hexpand = true
 		};
@@ -154,7 +153,10 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		var toolbar_view = new Adw.ToolbarView ();
 		var headerbar = new Adw.HeaderBar ();
 		var window = new Adw.Dialog () {
-			title = _("Alternative text for attachment"),
+			//  translators: Alternative Text refers to text that describes
+			//				 an attachment when using screen readers or the
+			//				 image hasn't loaded. Also known as 'alt text'
+			title = _("Alternative Text"),
 			child = toolbar_view,
 			content_width = 400,
 			content_height = 300
@@ -164,7 +166,6 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		toolbar_view.set_content (scrolledwindow);
 
 		if (show) window.present (app.main_window);
-		alt_label.selectable = true;
 
 		return window;
 	}
@@ -225,6 +226,6 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	protected async void open () throws Error {
 		var path = yield Host.download (entity.url);
-		Host.open_url (path);
+		Host.open_url.begin (path);
 	}
 }

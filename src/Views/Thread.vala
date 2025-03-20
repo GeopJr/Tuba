@@ -23,7 +23,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 
 	protected InstanceAccount? account { get; set; }
 	public API.Status root_status { get; set; }
-	public weak Widgets.Status? root_status_widget { get; set; default=null; }
+	public Widgets.Status? root_status_widget { get; set; default=null; }
 
 	public Thread (API.Status status) {
 		Object (
@@ -33,10 +33,31 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			allow_nesting: true
 		);
 		construct_account_holder ();
+		update_root_status (status.id);
 	}
 	~Thread () {
 		debug ("Destroying Thread");
 		destruct_account_holder ();
+	}
+
+	private void update_root_status (string status_id = root_status.id) {
+		if (root_status == null) return;
+
+		new Request.GET (@"/api/v1/statuses/$status_id")
+			.with_account (account)
+			.with_ctx (this)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				var api_status = API.Status.from (node);
+				if (api_status != null) {
+					if (root_status != null) root_status.patch (api_status);
+					if (root_status_widget != null) {
+						root_status_widget.on_edit (api_status);
+					}
+				}
+			})
+			.exec ();
 	}
 
 	public override void on_account_changed (InstanceAccount? acc) {
@@ -120,6 +141,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 		reveal_spoilers = spoiler_toggle_button_active;
 	}
 
+	private bool grabbed_focus = false;
 	public override void on_content_changed () {
 		for (uint i = 0; i < model.n_items; i++) {
 			var status = (API.Status) model.get_item (i);
@@ -129,8 +151,13 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 			}
 		}
 		base.on_content_changed ();
-		if (root_status_widget != null)
-			root_status_widget.grab_focus ();
+		if (root_status_widget != null && !grabbed_focus)
+			GLib.Timeout.add (100, grab_focus_of_root);
+	}
+
+	private bool grab_focus_of_root () {
+		grabbed_focus = root_status_widget.grab_focus ();
+		return GLib.Source.REMOVE;
 	}
 
 	public bool request () {
@@ -195,7 +222,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 					app.main_window.open_view (new Views.Thread (status));
 				}
 				else
-					Host.open_url (q);
+					Host.open_url.begin (q);
 			})
 			.exec ();
 	}

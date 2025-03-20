@@ -54,17 +54,6 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 		}
 	}
 
-	private bool _fix_overflow_hack = false;
-	public bool fix_overflow_hack {
-		get {
-			return _fix_overflow_hack;
-		}
-		set {
-			_fix_overflow_hack = value;
-			update_label ();
-		}
-	}
-
 	protected const string OBJECT_REPLACEMENT_CHARACTER = "\xEF\xBF\xBC";
 
 	construct {
@@ -79,9 +68,13 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 		};
 
 		label.set_parent (this);
-
-		label.activate_link.connect ((url) => activate_link (url));
+		label.activate_link.connect (on_activate_link);
 	}
+
+	private bool on_activate_link (string url) {
+		return activate_link (url);
+	}
+
 	~LabelWithWidgets () {
 		label.unparent ();
 		foreach (var child in widgets) {
@@ -158,6 +151,12 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 		var run_iter = label.get_layout ().get_iter ();
 		int i = 0;
 
+		if (this.ellipsize) {
+			foreach (var child in widgets) {
+				child.widget.visible = false;
+			}
+		}
+
 		while (true) {
 			var run = run_iter.get_run_readonly ();
 			if (run != null) {
@@ -192,6 +191,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 							height = widgets[i].height,
 							width = widgets[i].width
 						};
+						if (this.ellipsize) widgets[i].widget.visible = true;
 						widgets[i].widget.allocate_size (allocation, -1);
 						i++;
 					} else {
@@ -238,16 +238,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 		var old_label = label.label;
 		var new_label = _text.replace (placeholder, OBJECT_REPLACEMENT_CHARACTER);
 
-		if (_fix_overflow_hack) {
-			label.lines = int.max (100, widgets.length);
-			label.ellipsize = Pango.EllipsizeMode.END;
-			label.width_chars = 1;
-		}
-
 		if (old_label != new_label) {
-			label.wrap = true;
-			label.wrap_mode = Pango.WrapMode.WORD_CHAR;
-
 			_text = new_label;
 			label.label = _text;
 			_label_text = label.get_text ();
@@ -355,6 +346,11 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 		set { label.xalign = value; }
 	}
 
+	public float yalign {
+		get { return label.yalign; }
+		set { label.yalign = value; }
+	}
+
 	public bool selectable {
 		get { return label.selectable; }
 		set { label.selectable = value; }
@@ -365,8 +361,23 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 		set { label.lines = value; }
 	}
 
+	private bool _ellipsize = false;
+	public bool ellipsize {
+		get { return _ellipsize; }
+		set {
+			if (value != this.ellipsize) {
+				label.ellipsize = value ? Pango.EllipsizeMode.END : Pango.EllipsizeMode.NONE;
+				_ellipsize = true;
+			}
+		}
+	}
+
 	public Gtk.Justification justify {
 		get { return label.justify; }
 		set { label.justify = value; }
+	}
+
+	public string? get_current_uri () {
+		return this.label.get_current_uri ();
 	}
 }

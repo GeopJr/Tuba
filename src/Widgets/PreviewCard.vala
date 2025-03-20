@@ -4,6 +4,10 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 		debug ("Destroying PreviewCard");
 	}
 
+	static construct {
+		typeof (Widgets.PreviewCardInternal).ensure ();
+	}
+
 	[GtkChild] public unowned Gtk.Button button;
 	[GtkChild] unowned Widgets.PreviewCardInternal box;
 
@@ -127,7 +131,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 					// translators: the variable is a number. This is shown on
 					//				preview cards of articles from 'verified' fedi authors,
 					//				when there's more than 1.
-					//				Sell all <amount> authors
+					//				See all <amount> authors
 					GLib.ngettext ("See %d author", "See all %d authors", (ulong) card_obj.authors.size).printf (card_obj.authors.size)
 				) {
 					xalign = 0.0f,
@@ -148,7 +152,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 		if (author_account != null) {
 			author_account.open ();
 		} else if (author_url != null && author_url != "") {
-			Host.open_url (author_url);
+			Host.open_url.begin (author_url);
 		}
 	}
 
@@ -192,7 +196,7 @@ public class Tuba.Widgets.PreviewCard : Gtk.Box {
 			if (callback_account != null) {
 				callback_account.open ();
 			} else if (callback_url != null && callback_url != "") {
-				Host.open_url (callback_url);
+				Host.open_url.begin (callback_url);
 			}
 		}
 	}

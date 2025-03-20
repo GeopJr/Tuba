@@ -1,7 +1,7 @@
 public class Tuba.Host {
 
 	// Open a URI in the user's default application
-	public static bool open_url (string _uri) {
+	public async static bool open_url (string _uri) {
 		var uri = _uri;
 		if (!("://" in uri))
 			uri = "file://" + _uri;
@@ -9,14 +9,13 @@ public class Tuba.Host {
 		if (settings.strip_tracking)
 			uri = Tracking.strip_utm (uri);
 
-		open_in_default_app (uri);
-		return true;
+		return yield open_in_default_app (uri);
 	}
 
 	// To avoid creating multiple Uri instances,
 	// split opening into two wrappers, one for
 	// strings and one for GLib.Uri
-	public static bool open_uri (Uri uri) {
+	public async static bool open_uri (Uri uri) {
 		string url;
 		try {
 			url = Tracking.strip_utm_from_uri (uri).to_string ();
@@ -24,27 +23,31 @@ public class Tuba.Host {
 			warning (@"Error while stripping tracking params: $(e.message)");
 			url = uri.to_string ();
 		}
-		open_in_default_app (url);
+		return yield open_in_default_app (url);
+	}
+
+	private async static bool open_in_default_app (string uri) {
+		debug (@"Opening URI: $uri");
+
+		try {
+			yield (new Gtk.UriLauncher (uri)).launch (app.active_window, null);
+		} catch (Error e) {
+			warning (@"Error opening uri \"$uri\": $(e.message)");
+			return yield open_in_default_app_using_dbus (uri);
+		}
 
 		return true;
 	}
 
-	private static void open_in_default_app (string uri) {
-		debug (@"Opening URI: $uri");
+	private async static bool open_in_default_app_using_dbus (string uri) {
 		try {
-			var success = AppInfo.launch_default_for_uri (uri, null);
-			if (!success)
-				throw new Oopsie.USER ("launch_default_for_uri() failed");
+			yield AppInfo.launch_default_for_uri_async (uri, null, null);
 		} catch (Error e) {
-			var launcher = new Gtk.UriLauncher (uri);
-			launcher.launch.begin (app.active_window, null, (obj, res) => {
-				try {
-					launcher.launch.end (res);
-				} catch (Error e) {
-					warning (@"Error opening uri \"$uri\": $(e.message)");
-				}
-			});
+			warning (@"Error opening using launch_default_for_uri \"$uri\": $(e.message)");
+			return false;
 		}
+
+		return true;
 	}
 
 	public static void copy (string str) {

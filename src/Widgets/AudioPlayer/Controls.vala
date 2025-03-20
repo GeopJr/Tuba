@@ -19,11 +19,11 @@ public class Tuba.Widgets.Audio.Controls : Gtk.Box {
 			if (value) {
 				play_button.icon_name = "media-playback-pause-symbolic";
 				// translators: Media play bar play button tooltip
-				play_button.tooltip_text = _("Stop");
+				play_button.tooltip_text = C_("media controls tooltip", "Stop");
 			} else {
 				play_button.icon_name = "media-playback-start-symbolic";
 				// translators: Media play bar play button tooltip
-				play_button.tooltip_text = _("Play");
+				play_button.tooltip_text = C_("media controls tooltip", "Play");
 			}
 
 			_playing = value;

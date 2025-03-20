@@ -1,7 +1,7 @@
 public class Tuba.Widgets.RichLabel : Adw.Bin {
 	Widgets.EmojiLabel widget;
 
-	public weak Gee.ArrayList<API.Mention>? mentions;
+	public Gee.ArrayList<API.Mention>? mentions;
 
 	public string label {
 		get { return widget.content; }
@@ -19,6 +19,14 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	//  public bool wrap {
 	//  	get { return widget.wrap; }
 	//  	set { widget.wrap = value; }
+	//  }
+
+	//  public bool focusable_label {
+	//  	get { return widget.focusable; }
+	//  	set {
+	//  		this.focusable = value;
+	//  		widget.focusable = value;
+	//  	}
 	//  }
 
 	public bool use_markup {
@@ -39,6 +47,11 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	public float xalign {
 		get { return widget.xalign; }
 		set { widget.xalign = value; }
+	}
+
+	public float yalign {
+		get { return widget.yalign; }
+		set { widget.yalign = value; }
 	}
 
 	public bool smaller_emoji_pixel_size {
@@ -65,16 +78,6 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		get { return widget.accessible_text; }
 	}
 
-	// #756
-	public bool fix_overflow_hack {
-		get {
-			return widget.fix_overflow_hack;
-		}
-		set {
-			widget.fix_overflow_hack = value;
-		}
-	}
-
 	public string get_text () {
 		return widget.label_text;
 	}
@@ -89,6 +92,10 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		if (text != null) this.label = text;
 	}
 
+	static construct {
+		set_accessible_role (Gtk.AccessibleRole.LABEL);
+	}
+
 	construct {
 		widget = new Widgets.EmojiLabel () {
 			use_markup = false,
@@ -96,6 +103,17 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		};
 		widget.activate_link.connect (on_activate_link);
 		child = widget;
+
+		this.update_relation (Gtk.AccessibleRelation.LABELLED_BY, widget, null, -1);
+		this.update_relation (Gtk.AccessibleRelation.DESCRIBED_BY, widget, null, -1);
+
+		#if WEBKIT
+			Gtk.GestureClick middle_click_gesture = new Gtk.GestureClick () {
+				button = Gdk.BUTTON_MIDDLE
+			};
+			middle_click_gesture.pressed.connect (on_middle_clicked);
+			this.add_controller (middle_click_gesture);
+		#endif
 	}
 
 	public bool on_activate_link (string url) {
@@ -148,22 +166,33 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 				} catch (Error e) {
 					warning (@"Failed to resolve URL \"$url\":");
 					warning (e.message);
-					if (uri == null) {
-						Host.open_url (url);
-					} else {
-						Host.open_uri (uri);
-					}
+					open_in_browser (url, uri);
 				}
 			});
 		} else {
-			if (uri == null) {
-				Host.open_url (url);
-			} else {
-				Host.open_uri (uri);
-			}
+			open_in_browser (url, uri);
 		}
 
 		return true;
+	}
+
+	private void open_in_browser (string url, GLib.Uri? uri = null) {
+		#if WEBKIT
+			if (settings.use_in_app_browser_if_available) {
+				if (
+					(uri != null && Views.Browser.can_handle_uri (uri))
+					|| Views.Browser.can_handle_url (url)
+				) {
+					app.main_window.open_in_app_browser_for_url (url);
+					return;
+				}
+			}
+		#endif
+		if (uri == null) {
+			Host.open_url.begin (url);
+		} else {
+			Host.open_uri.begin (uri);
+		}
 	}
 
 	public static bool should_resolve_url (string url) {
@@ -171,4 +200,15 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 			|| url.index_of_char ('@') != -1
 			|| "/user" in url;
 	}
+
+	#if WEBKIT
+		private void on_middle_clicked (int n_press, double x, double y) {
+			if (n_press > 1 || !settings.use_in_app_browser_if_available) return;
+
+			string? current_uri = widget.get_current_uri ();
+			if (current_uri == null) return;
+
+			Host.open_url.begin (current_uri);
+		}
+	#endif
 }

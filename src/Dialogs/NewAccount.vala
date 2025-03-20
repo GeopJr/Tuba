@@ -55,6 +55,8 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		if (!can_access_settings) {
 			app.toast.connect (add_toast);
+		} else {
+			add_binding_action (Gdk.Key.Escape, 0, "window.close", null);
 		}
 
 		manual_auth_label.activate_link.connect (on_manual_auth);
@@ -177,7 +179,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		var esc_redirect = Uri.escape_string (redirect_uri);
 		var pars = @"scope=$esc_scopes&response_type=code&redirect_uri=$esc_redirect&client_id=$(Uri.escape_string (account.client_id))";
 		var url = @"$(account.instance)/oauth/authorize?$pars";
-		Host.open_url (url);
+		Host.open_url.begin (url);
 	}
 
 	async void request_token () throws Error {
@@ -297,7 +299,6 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			this.title = _("Settings");
 			this.content_width = 460;
 			this.content_height = 220;
-			this.can_close = false;
 
 			var cancel_button = new Gtk.Button.with_label (_("Cancel"));
 			cancel_button.clicked.connect (on_cancel);

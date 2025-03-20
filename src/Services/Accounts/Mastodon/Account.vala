@@ -121,6 +121,16 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		}
 	};
 
+	public static Place PLACE_BUBBLE = new Place () { // vala-lint=naming-convention
+
+		icon = "tuba-fish-symbolic",
+		title = "Bubble", // NOTE: Leave untranslated for now
+		open_func = (win) => {
+			win.open_view (set_as_sidebar_item (new Views.Bubble ()));
+		},
+		visible = false
+	};
+
 	public static Place PLACE_FEDERATED = new Place () { // vala-lint=naming-convention
 
 		icon = "tuba-globe-symbolic",
@@ -139,23 +149,54 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		}
 	};
 
+	private static Place[] SIDEBAR_PLACES = { // vala-lint=naming-convention
+		PLACE_HOME,
+		PLACE_NOTIFICATIONS,
+		PLACE_CONVERSATIONS,
+		PLACE_SEARCH,
+		PLACE_FAVORITES,
+		PLACE_BOOKMARKS,
+		PLACE_HASHTAGS,
+
+		PLACE_EXPLORE,
+		PLACE_LOCAL,
+		PLACE_BUBBLE,
+		PLACE_FEDERATED,
+		PLACE_LISTS
+	};
+
+	protected override void bump_sidebar_items () {
+		PLACE_BUBBLE.visible = this.instance_info != null && this.instance_info.supports_bubble;
+	}
+
 	public override void register_known_places (GLib.ListStore places) {
 		app.bind_property ("is-mobile", PLACE_NOTIFICATIONS, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 		app.bind_property ("is-mobile", PLACE_CONVERSATIONS, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 		app.bind_property ("is-mobile", PLACE_SEARCH, "visible", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 
-		places.append (PLACE_HOME);
-		places.append (PLACE_NOTIFICATIONS);
-		places.append (PLACE_CONVERSATIONS);
-		places.append (PLACE_SEARCH);
-		places.append (PLACE_FAVORITES);
-		places.append (PLACE_BOOKMARKS);
-		places.append (PLACE_HASHTAGS);
+		places.splice (
+			0,
+			0,
+			SIDEBAR_PLACES
+		);
+	}
 
-		places.append (PLACE_EXPLORE);
-		places.append (PLACE_LOCAL);
-		places.append (PLACE_FEDERATED);
-		places.append (PLACE_LISTS);
+	public override void register_lists (GLib.ListStore places, Place[]? lists = null) {
+		places.splice (
+			0,
+			places.n_items,
+			{}
+		);
+
+		if (lists != null && lists.length > 0 && settings.favorite_lists_ids.length > 0) {
+			lists[0].separated = true;
+
+			places.splice (
+				places.n_items,
+				0,
+				lists
+			);
+		}
 	}
 
 	construct {
@@ -193,12 +234,6 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		});
 	}
 
-	private static Views.Base set_as_sidebar_item (Views.Base view) {
-		view.is_sidebar_item = true;
-		view.show_back_button = false;
-		return view;
-	}
-
 	// Notification actions
 	public override void open_status_url (string url) {
 		if (!Widgets.RichLabel.should_resolve_url (url)) return;
@@ -210,7 +245,7 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 			} catch (Error e) {
 				warning (@"Failed to resolve URL \"$url\":");
 				warning (e.message);
-				Host.open_url (url);
+				Host.open_url.begin (url);
 			}
 		});
 	}

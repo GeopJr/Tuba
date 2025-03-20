@@ -1,14 +1,14 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/filter_edit.ui")]
-public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
+public class Tuba.Dialogs.FilterEdit : Adw.NavigationPage {
 	[GtkChild] unowned Adw.EntryRow title_row;
 	[GtkChild] unowned Adw.ComboRow expire_in_row;
 	[GtkChild] unowned Adw.PreferencesGroup context_group;
 	[GtkChild] unowned Adw.PreferencesGroup keywords_group;
 	[GtkChild] unowned Gtk.Button save_btn;
 	[GtkChild] unowned Adw.SwitchRow hide_row;
-	[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 
 	public signal void saved (API.Filters.Filter filter);
+	public signal void toast (string toast_content, int dismiss_time);
 
 	const API.Filters.Filter.ContextType[] ALL_CONTEXT = {HOME, NOTIFICATIONS, PUBLIC, THREAD, ACCOUNT};
 	const FilterExpiration[] ALL_EXP = {NEVER, MINUTES_30, HOUR_1, HOUR_6, HOUR_12, DAY_1, WEEK_1};
@@ -99,7 +99,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
 	}
 
 	string? filter_id = null;
-	public FilterEdit (Gtk.Widget win, API.Filters.Filter? filter = null) {
+	public FilterEdit (API.Filters.Filter? filter = null) {
 		populate_exp_row ();
 
 		if (filter != null) {
@@ -126,7 +126,6 @@ public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
 		}
 
 		validate ();
-		this.present (win);
 	}
 
 	class ExpWrapper : Object {
@@ -246,12 +245,64 @@ public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
 
 	[GtkCallback]
 	void on_close () {
-		force_close ();
+		this.activate_action ("navigation.pop", null);
 	}
 
 	[GtkCallback]
 	void on_save_clicked () {
 		this.sensitive = false;
+
+		var exp = ALL_EXP[expire_in_row.selected];
+		var builder = new Json.Builder ();
+		builder.begin_object ();
+
+		builder.set_member_name ("title");
+		builder.add_string_value (title_row.text);
+
+		builder.set_member_name ("filter_action");
+		builder.add_string_value (hide_row.active ? "hide" : "warn");
+
+		builder.set_member_name ("context");
+		builder.begin_array ();
+		foreach (var ctx_row in context_rows) {
+			if (ctx_row.row.active) {
+				builder.add_string_value (ctx_row.ctx.to_api ());
+			}
+		}
+		builder.end_array ();
+
+		builder.set_member_name ("expires_in");
+		if (exp == NEVER) {
+			builder.add_null_value ();
+		} else {
+			builder.add_int_value (exp.to_seconds ());
+		}
+
+		builder.set_member_name ("keywords_attributes");
+		builder.begin_array ();
+		foreach (var keyword_row in keyword_rows) {
+			if (keyword_row.id == null && keyword_row.should_destroy) continue; // If id is missing but destroy is set to true, just ignore
+
+			builder.begin_object ();
+			if (keyword_row.id != null) {
+				builder.set_member_name ("id");
+				builder.add_string_value (keyword_row.id);
+
+				builder.set_member_name ("_destroy");
+				builder.add_boolean_value (keyword_row.should_destroy);
+			}
+
+			builder.set_member_name ("whole_word");
+			builder.add_boolean_value (keyword_row.whole_word);
+
+			builder.set_member_name ("keyword");
+			builder.add_string_value (keyword_row.keyword);
+
+			builder.end_object ();
+		}
+		builder.end_array ();
+
+		builder.end_object ();
 
 		Request req;
 		if (filter_id != null) {
@@ -261,31 +312,8 @@ public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
 		}
 
 		req
+			.body_json (builder)
 			.with_account (accounts.active)
-			.with_form_data ("title", title_row.text)
-			.with_form_data ("filter_action", hide_row.active ? "hide" : "warn");
-
-		foreach (var ctx_row in context_rows) {
-			if (ctx_row.row.active) {
-				req.with_form_data ("context[]", ctx_row.ctx.to_api ());
-			}
-		}
-
-		var exp = ALL_EXP[expire_in_row.selected];
-		req.with_form_data ("expires_in", exp == NEVER ? "" : exp.to_seconds ().to_string ());
-
-		for (int i = 0; i < keyword_rows.length; i++) {
-			var row = keyword_rows[i];
-			if (row.id != null) {
-				req.with_form_data (@"keywords_attributes[$i][id]", row.id);
-				req.with_form_data (@"keywords_attributes[$i][_destroy]", row.should_destroy.to_string ());
-			} else if (row.should_destroy) continue; // If id is missing but destroy is set to true, just ignore
-
-			req.with_form_data (@"keywords_attributes[$i][whole_word]", row.whole_word.to_string ());
-			req.with_form_data (@"keywords_attributes[$i][keyword]", row.keyword);
-		}
-
-		req
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
@@ -294,9 +322,7 @@ public class Tuba.Dialogs.FilterEdit : Adw.Dialog {
 			})
 			.on_error ((code, message) => {
 				this.sensitive = true;
-				toast_overlay.add_toast (new Adw.Toast (_("Couldn't edit filter: %s").printf (message)) {
-					timeout = 0
-				});
+				this.toast (_("Couldn't edit filter: %s").printf (message), 0);
 				warning (@"Couldn't edit filter: $code $message");
 			})
 			.exec ();

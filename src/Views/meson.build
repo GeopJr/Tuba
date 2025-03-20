@@ -3,8 +3,10 @@ sources += files(
     'Announcements.vala',
     'Base.vala',
     'Bookmarks.vala',
+    'Bubble.vala',
     'ContentBase.vala',
     'Conversations.vala',
+    'DraftStatuses.vala',
     'Explore.vala',
     'EditHistory.vala',
     'Favorites.vala',
@@ -24,6 +26,7 @@ sources += files(
     'NotificationRequestsList.vala',
     'Notifications.vala',
     'Profile.vala',
+    'ScheduledStatuses.vala',
     'Search.vala',
     'Sidebar.vala',
     'StatusStats.vala',
@@ -31,5 +34,9 @@ sources += files(
     'Thread.vala',
     'Timeline.vala',
 )
+
+if webkit
+  sources += files ('Browser.vala')
+endif
 
 subdir('Admin')

@@ -85,6 +85,8 @@ public class Tuba.Views.Search : Views.TabbedBase {
 	Views.ContentBase hashtags_tab;
 
 	construct {
+		this.uid = 1;
+
 		label = _("Search");
 		this.empty_timeline_icon = "system-search";
 		this.empty_state_title = _("Search");
@@ -180,10 +182,12 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 	GLib.Regex? search_query_regex = null;
 	private void generate_regex () {
+		if (this.query.length >= 45) return;
+
 		try {
 			search_query_regex = new Regex (
-				// "this is a test." => /(\bthis\b|\bis\b|\ba\b|\btest\.\b)/
-				@"(\\b$(GLib.Regex.escape_string (this.query).replace (" ", "\\b|\\b"))\\b)",
+				// "this is a test." => /(:?\bthis\b:?|:?\bis\b:?|:?\ba\b:?|:?\btest\.\b:?)/
+				@"(:?\\b$(GLib.Regex.escape_string (this.query).replace (" ", "\\b:?|:?\\b"))\\b:?)",
 				GLib.RegexCompileFlags.CASELESS | GLib.RegexCompileFlags.OPTIMIZE
 			);
 		} catch (RegexError e) {
@@ -207,8 +211,10 @@ public class Tuba.Views.Search : Views.TabbedBase {
 	private class AdvancedSearchDialog : Adw.Dialog {
 		[GtkChild] unowned Gtk.ListBox main_list;
 
+		[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 		[GtkChild] unowned Adw.EntryRow query_row;
 		[GtkChild] unowned Adw.EntryRow user_row;
+		[GtkChild] unowned Gtk.Button auto_fill_users_button;
 		[GtkChild] unowned Adw.SwitchRow reply_switch_row;
 		[GtkChild] unowned Adw.SwitchRow cw_switch_row;
 
@@ -370,6 +376,45 @@ public class Tuba.Views.Search : Views.TabbedBase {
 					query_row.text = string.joinv (" ", clean_query);
 				}
 			}
+		}
+
+		[GtkCallback] void on_user_row_changed () {
+			auto_fill_users_button.visible = user_row.text.length > 0;
+		}
+
+		[GtkCallback] void on_search_users_clicked () {
+			string user_query = user_row.text.chug ().chomp ();
+			if (user_query == "") return;
+
+			auto_fill_users_button.sensitive = false;
+			new Request.GET ("/api/v2/search")
+				.with_account (accounts.active)
+				.with_param ("q", user_query)
+				.with_param ("type", "accounts")
+				.with_param ("exclude_unreviewed", "true")
+				.with_param ("limit", "1")
+				.then ((in_stream) => {
+					var parser = Network.get_parser_from_inputstream (in_stream);
+					var search_results = API.SearchResults.from (network.parse_node (parser));
+
+					if (search_results.accounts.size > 0) {
+						user_row.text = search_results.accounts.get (0).full_handle;
+					}
+
+					auto_fill_users_button.sensitive = true;
+				})
+				.on_error ((code, message) => {
+					auto_fill_users_button.sensitive = true;
+					// translators: warning toast in advanced search dialog when auto-filling a user fails.
+					// 				Auto-fill refers to automatically filling the entry with the first
+					//				found user based on the query.
+					toast_overlay.add_toast (new Adw.Toast (_("Couldn't auto-fill user: %s").printf (message)) {
+						timeout = 5
+					});
+
+					warning (@"Couldn't auto-fill user with $user_query: $code $message");
+				})
+				.exec ();
 		}
 
 		[GtkCallback] void on_search () {

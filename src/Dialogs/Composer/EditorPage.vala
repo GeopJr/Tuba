@@ -188,6 +188,9 @@ public class Tuba.EditorPage : ComposerPage {
 		private void update_spelling_settings () {
 			settings.spellchecker_enabled = adapter.enabled;
 		}
+
+		string? original_libspelling_lang = null;
+		string? original_libspelling_lang_iso639 = null;
 	#endif
 
 	GtkSource.LanguageManager lang_manager;
@@ -209,6 +212,8 @@ public class Tuba.EditorPage : ComposerPage {
 
 		#if LIBSPELLING
 			adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
+			original_libspelling_lang = Spelling.Checker.get_default ().language;
+			if (original_libspelling_lang != null) original_libspelling_lang_iso639 = original_libspelling_lang.split_set ("-_", 2)[0];
 
 			editor.extra_menu = adapter.get_menu_model ();
 			editor.insert_action_group ("spelling", adapter);
@@ -237,7 +242,9 @@ public class Tuba.EditorPage : ComposerPage {
 		((GtkSource.Buffer) editor.buffer).highlight_matching_brackets = true;
 		((GtkSource.Buffer) editor.buffer).highlight_syntax = true;
 
-		Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
+		var adw_manager = Adw.StyleManager.get_default ();
+		adw_manager.notify["dark"].connect (update_style_scheme);
+		adw_manager.notify["accent-color-rgba"].connect (update_style_scheme);
 		update_style_scheme ();
 
 		char_counter = new Gtk.Label (char_limit.to_string ()) {
@@ -252,8 +259,44 @@ public class Tuba.EditorPage : ComposerPage {
 
 	protected void update_style_scheme () {
 		var manager = GtkSource.StyleSchemeManager.get_default ();
+		var adw_manager = Adw.StyleManager.get_default ();
+
 		string scheme_name = "Fedi";
-		if (Adw.StyleManager.get_default ().dark) scheme_name += "-dark";
+		if (adw_manager.get_system_supports_accent_colors ()) {
+			switch (adw_manager.get_accent_color ()) {
+				case Adw.AccentColor.YELLOW:
+					scheme_name += "-yellow";
+					break;
+				case Adw.AccentColor.TEAL:
+					scheme_name += "-teal";
+					break;
+				case Adw.AccentColor.PURPLE:
+					scheme_name += "-purple";
+					break;
+				case Adw.AccentColor.RED:
+					scheme_name += "-red";
+					break;
+				case Adw.AccentColor.GREEN:
+					scheme_name += "-green";
+					break;
+				case Adw.AccentColor.ORANGE:
+					scheme_name += "-orange";
+					break;
+				case Adw.AccentColor.SLATE:
+					scheme_name += "-slate";
+					break;
+				case Adw.AccentColor.PINK:
+					scheme_name += "-pink";
+					break;
+				default:
+					scheme_name += "-blue";
+					break;
+			}
+		} else {
+			scheme_name += "-blue";
+		}
+
+		if (adw_manager.dark) scheme_name += "-dark";
 		((GtkSource.Buffer) editor.buffer).style_scheme = manager.get_scheme (scheme_name);
 	}
 
@@ -398,6 +441,10 @@ public class Tuba.EditorPage : ComposerPage {
 			enable_search = true
 		};
 
+		#if LIBSPELLING
+			language_button.notify["selected"].connect (on_langauge_changed);
+		#endif
+
 		if (locale_iso != null) {
 			uint default_lang_index;
 			if (
@@ -413,6 +460,28 @@ public class Tuba.EditorPage : ComposerPage {
 
 		add_button (language_button);
 	}
+
+	#if LIBSPELLING
+		private void on_langauge_changed () {
+			var locale_obj = language_button.selected_item as Tuba.Locales.Locale;
+			if (locale_obj == null || locale_obj.locale == null) return;
+
+			var new_locale = original_libspelling_lang_iso639 == locale_obj.locale
+				? original_libspelling_lang
+				: locale_obj.locale;
+			update_spelling_lang (new_locale);
+		}
+
+		private void update_spelling_lang (string locale_iso) {
+			var checker = Spelling.Checker.get_default ();
+			checker.language = locale_iso;
+
+			string? new_lang = checker.language;
+			if (new_lang == null && original_libspelling_lang != null) {
+				checker.language = original_libspelling_lang;
+			}
+		}
+	#endif
 
 	protected void install_content_type_button (string? content_type) {
 		content_type_button = new Gtk.DropDown (accounts.active.supported_mime_types, null) {

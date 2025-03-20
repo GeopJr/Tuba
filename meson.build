@@ -1,7 +1,7 @@
 project(
     'dev.geopjr.Tuba',
     ['c', 'vala'],
-    version: '0.8.4',
+    version: '0.9.2',
     meson_version: '>= 0.56.0',
     default_options: [
         'warning_level=2',
@@ -18,7 +18,6 @@ endif
 
 devel = get_option('devel')
 distro = get_option('distro')
-clapper_support = get_option('clapper')
 
 # Setup configuration file
 config = configuration_data()
@@ -56,7 +55,6 @@ endif
 
 if host_machine.system() == 'windows'
   add_project_arguments(['--define=WINDOWS'], language: 'vala')
-  add_project_arguments('-mwindows', language: 'c')
 elif host_machine.system() == 'darwin'
   add_project_arguments(['--define=DARWIN'], language: 'vala')
 endif
@@ -79,14 +77,16 @@ asresources = gnome.compile_resources(
 )
 
 gstreamer = false
-gtk_dep = dependency('gtk4', version: '>=4.13.4', required: true)
-libadwaita_dep = dependency('libadwaita-1', version: '>=1.5', required: true)
+webkit = false
+gtk_dep = dependency('gtk4', version: '>=4.17.5', required: true)
+libadwaita_dep = dependency('libadwaita-1', version: '>=1.7', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
 libwebp_dep = dependency('libwebp', required: false)
 libspelling = dependency('libspelling-1', required: false)
-clapper_dep = dependency('clapper-0.0', required: false)
+clapper_dep = dependency('clapper-0.0', required: false, version: '>=0.8.0')
 clapper_gtk_dep = dependency('clapper-gtk-0.0', required: false)
 gstreamer_dep = dependency('gstreamer-1.0', required: false)
+webkit_dep = dependency('webkitgtk-6.0', required: false)
 
 if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
@@ -105,22 +105,23 @@ if gstreamer_dep.found ()
   gstreamer = true
 endif
 
-if clapper_support and clapper_dep.found () and clapper_dep.version().version_compare('>=0.6.0') and clapper_gtk_dep.found ()
+if get_option('clapper') and clapper_dep.found () and clapper_dep.version().version_compare('>=0.6.0') and clapper_gtk_dep.found ()
   add_project_arguments(['--define=CLAPPER'], language: 'vala')
   if (clapper_dep.get_variable('features').split().contains('mpris'))
     add_project_arguments(['--define=CLAPPER_MPRIS'], language: 'vala')
   endif
+endif
 
-  if clapper_dep.version().version_compare('>=0.8.0')
-    add_project_arguments(['--define=CLAPPER_0_8'], language: 'vala')
-  endif
+if get_option('in-app-browser') and webkit_dep.found ()
+  add_project_arguments(['--define=WEBKIT'], language: 'vala')
+  webkit = true
 endif
 
 sources = files()
 subdir('src')
 
 final_deps = [
-  dependency('glib-2.0', version: '>=2.76.0'),
+  dependency('glib-2.0', version: '>=2.80.0'),
   dependency('gee-0.8', version: '>=0.8.5'),
   dependency('libsoup-3.0'),
   dependency('json-glib-1.0', version: '>=1.4.4'),
@@ -134,7 +135,8 @@ final_deps = [
   meson.get_compiler('c').find_library('m', required: false),
   clapper_dep,
   clapper_gtk_dep,
-  gstreamer_dep
+  gstreamer_dep,
+  webkit_dep
 ]
 
 executable(
@@ -143,6 +145,7 @@ executable(
     sources,
     dependencies: final_deps,
     install: true,
+    win_subsystem: 'windows'
 )
 
 subdir('tests')
@@ -162,4 +165,12 @@ if not distro
   else
     meson.add_install_script('build-aux/meson_post_install.py')
   endif
+endif
+
+if host_machine.system() == 'windows'
+  configure_file(
+      input : 'build-aux/dev.geopjr.Tuba.nsi.in',
+      output : 'dev.geopjr.Tuba.nsi',
+      configuration : config
+  )
 endif

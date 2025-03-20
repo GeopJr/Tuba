@@ -1,0 +1,7 @@
+.ttl-profile-cover.thanks {
+	background: alpha(@accent_bg_color, 0.08);
+}
+
+.ttl-profile-cover.thanks avatar {
+	border-color: alpha(@accent_bg_color, 0.08);
+}

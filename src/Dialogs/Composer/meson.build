@@ -5,6 +5,7 @@ sources += files(
     'EditorPage.vala',
     'Page.vala',
     'PollPage.vala',
+    'Schedule.vala',
 )
 
 subdir('Completion')

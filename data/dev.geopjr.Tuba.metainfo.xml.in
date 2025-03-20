@@ -62,6 +62,87 @@
     <control>touch</control>
   </recommends>
   <releases>
+    <release version="0.9.2" date="2025-03-01">
+      <description translate="no">
+        <ul>
+            <li>Fixed posts overflowing when really long hashtags are used in the hashtag bar</li>
+            <li>Fixed all files being filtered when attempting to upload using Pleroma as a backend</li>
+            <li>Fixed crash when opening mini-profiles after opening a thread</li>
+            <li>Fixed float to string being localized and preventing alt text from being submitted in some locales</li>
+            <li>Fixed notifications page not being reloaded after network connection changes when there are unread ones</li>
+            <li>Thread lines are now using the snapshot API</li>
+            <li>Simplified post widget layout</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.9.1" date="2024-12-24">
+      <description translate="no">
+        <ul>
+            <li>Fixed schedule month being wrong when re-scheduling</li>
+            <li>Fixed FediWrapped default style being set to transparent</li>
+            <li>Fixed some filter rows being invisible due to markup</li>
+            <li>Enabled thread muting when the active account is mentioned</li>
+            <li>Decreased the new post queue prepending scroll threshold</li>
+            <li>Added Chuckya bubble timeline support</li>
+            <li>Fixed URI opening during scripted exits caused by the switch to the async APIs</li>
+            <li>Fixed visual glitches and performance issues caused by the clamp and styling in timelines</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.9.0" date="2024-12-15">
+      <description translate="no">
+        <ul>
+            <li>Visual refinements to match the state of the art of GNOME apps</li>
+            <li>Added accent color support</li>
+            <li>Added bold search query matches</li>
+            <li>Added Audio Visualizer</li>
+            <li>Added Focus Picker</li>
+            <li>Added Verified Authors</li>
+            <li>Added FediWrapped</li>
+            <li>Added Scheduled Posts</li>
+            <li>Added Draft Posts</li>
+            <li>Added poll animations</li>
+            <li>Added poll show results and refresh buttons</li>
+            <li>Added full emoji reaction support when possible</li>
+            <li>Added emoji reaction stats</li>
+            <li>Added viewing attachment at focus position</li>
+            <li>Added mute expiration and notification hiding</li>
+            <li>Added link discussion timelines</li>
+            <li>Added attachment preview on the alt text dialogs</li>
+            <li>Added Mastodon-like compose urls</li>
+            <li>Added the ability to mute your own posts</li>
+            <li>Added author auto-fill in the Advanced Search dialog</li>
+            <li>Added a separate bar for hashtags placed at the end of a post</li>
+            <li>Added opt-in anonymous preference popularity analytics</li>
+            <li>Added tuba supporter badge and decorations</li>
+            <li>Improved the profile posts, replies, media filter UX</li>
+            <li>Added moved accounts notice</li>
+            <li>Added syncing spellchecking and post language</li>
+            <li>Added avatar and header alt text viewing and editing on supported backends</li>
+            <li>Added account suggestions for new fediverse accounts</li>
+            <li>Added the ability to place lists on the sidebar</li>
+            <li>Added viewing which ones of the people you follow also follow an account</li>
+            <li>Added Bubble timeline on supported backends</li>
+            <li>Added dedicated quote button on supported backends</li>
+            <li>Added warning when copying a link to a non-publicly available post</li>
+            <li>Added moderator warning notifications</li>
+            <li>Removed window controls from the Media Viewer to avoid accidentally closing the whole app</li>
+            <li>GL is no longer the preferred renderer</li>
+            <li>Fixed alt text publishing on Akkoma</li>
+            <li>Fixed crashes related to the profile editor</li>
+            <li>Fixed the floating button area being unclickable and unscrollable</li>
+            <li>Fixed headerbar having a large minimum width</li>
+            <li>Fixed outdated profile info on cached users</li>
+            <li>Fixed list creation and editing on Akkoma</li>
+            <li>Fixed filter creation and editing on GoToSocial</li>
+            <li>Fixed jarring Media Viewer scale animation states</li>
+            <li>Other minor features, style changes, bug fixes, memory leak fixes and optimizations</li>
+            <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.8.4" date="2024-09-10">
       <description translate="no">
         <ul>
