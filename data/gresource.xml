@@ -82,6 +82,10 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-refresh-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
 
+        <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Archives.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Calligraphy.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Collision.svg</file>
+
         <file>gtk/help-overlay.ui</file>
         <file>gtk/dropdown/content_type_title.ui</file>
         <file>gtk/dropdown/content_type.ui</file>
