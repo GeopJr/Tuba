@@ -94,7 +94,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		}
 	}
 
-	[GtkChild] unowned Gtk.FlowBox roles;
+	[GtkChild] unowned Adw.WrapBox roles;
 	[GtkChild] unowned Widgets.Background background;
 	[GtkChild] unowned Gtk.Label cover_badge;
 	[GtkChild] unowned Gtk.Image cover_bot_badge;
@@ -450,18 +450,23 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		cover_bot_badge.visible = profile.bot;
 		update_cover_badge ();
 
-		roles.remove_all ();
+		var w = roles.get_first_child ();
+		while (w != null) {
+			roles.remove (w);
+			w = w.get_next_sibling ();
+		};
+
 		if (profile.roles != null && profile.roles.size > 0) {
 			roles.visible = true;
 
 			foreach (API.AccountRole role in profile.roles) {
-				roles.append (
-					new Gtk.FlowBoxChild () {
-						child = role.to_widget (),
-						css_classes = { "profile-role-border-radius" }
-					}
-				);
+				var role_widget = role.to_widget ();
+				role_widget.add_css_class ("profile-role-border-radius");
+
+				roles.append (role_widget);
 			}
+		} else {
+			roles.visible = false;
 		}
 
 		if (profile.header.contains ("/headers/original/missing.png")) {

@@ -46,7 +46,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		}
 	}
 
-	protected Gtk.FlowBox box;
+	protected Adw.WrapBox box;
 	protected Gtk.Button reveal_btn;
 	protected Gtk.Label reveal_text;
 
@@ -54,12 +54,11 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		visible = false;
 		hexpand = true;
 
-		box = new Gtk.FlowBox () {
-			homogeneous = true,
-			activate_on_single_click = true,
-			column_spacing = 6,
-			row_spacing = 6,
-			selection_mode = Gtk.SelectionMode.NONE
+		box = new Adw.WrapBox () {
+			line_homogeneous = true,
+			child_spacing = 6,
+			line_spacing = 6,
+			justify = Adw.JustifyMode.FILL
 		};
 
 		reveal_btn = new Gtk.Button () {
@@ -115,11 +114,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		list.@foreach (item => {
 			try {
 				var widget = item.to_widget ();
-				var flowboxchild = new Gtk.FlowBoxChild () {
-					child = widget,
-					focusable = false
-				};
-				box.insert (flowboxchild, -1);
+				box.append (widget);
 				attachment_widgets += ((Widgets.Attachment.Image) widget);
 				((Widgets.Attachment.Image) widget).spoiler_revealed.connect (on_spoiler_reveal);
 
@@ -139,14 +134,6 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 			}
 			return true;
 		});
-
-		if (single_attachment) {
-			box.max_children_per_line = 1;
-			box.min_children_per_line = 1;
-		} else {
-			box.max_children_per_line = 2;
-			box.min_children_per_line = 2;
-		}
 
 		visible = true;
 		spoiler_revealed = false;
