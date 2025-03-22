@@ -25,14 +25,14 @@
 
 ### Nightly
 
-Flatpak | Snap
-:---: | :---:
-[x86_64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-x86_64.zip) | [x86_64](https://nightly.link/GeopJr/Tuba/workflows/build/main/snap-x86_64.zip)
-[aarch64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-aarch64.zip) | [aarch64](https://nightly.link/GeopJr/Tuba/workflows/build/main/snap-aarch64.zip)
+Flatpak
+:---:
+[x86_64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-x86_64.zip)
+[aarch64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-aarch64.zip)
 
 ## Third Party
 
-[![A vertical list with the title 'Packaging status'. On the left side there's repos and on the right side there's the packaged version of Tuba.](https://repology.org/badge/vertical-allrepos/tuba.svg)](https://repology.org/project/tuba/versions)
+[![A vertical list with the title 'Packaging status'. On the left side there's repos and on the right side there's the packaged version of Tuba.](https://repology.org/badge/vertical-allrepos/tuba.svg?exclude_unsupported=1&columns=3)](https://repology.org/project/tuba/versions)
 
 ## From Source
 
