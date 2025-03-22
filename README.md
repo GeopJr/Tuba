@@ -25,10 +25,10 @@
 
 ### Nightly
 
-Flatpak
+Flatpak | Windows
 :---:
-[x86_64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-x86_64.zip)
-[aarch64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-aarch64.zip)
+[x86_64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-x86_64.zip) | [x86_64 Installer](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/Tuba%20Setup.exe.zip)
+[aarch64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-aarch64.zip) | [x86_64 Portable](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/tuba_windows_portable.zip)
 
 ## Third Party
 
