@@ -205,7 +205,8 @@ public class Tuba.EditorPage : ComposerPage {
 			left_margin = 6,
 			pixels_below_lines = 6,
 			accepts_tab = false,
-			wrap_mode = Gtk.WrapMode.WORD_CHAR
+			wrap_mode = Gtk.WrapMode.WORD_CHAR,
+			input_hints = Gtk.InputHints.WORD_COMPLETION,
 		};
 		editor.remove_css_class ("view");
 		editor.add_css_class ("reset");
