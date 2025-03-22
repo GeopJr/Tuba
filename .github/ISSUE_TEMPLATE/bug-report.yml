@@ -1,6 +1,5 @@
 name: Bug Report
 description: Report a problem you encountered while using the app
-title: ""
 labels: bug
 body:
 - type: textarea
