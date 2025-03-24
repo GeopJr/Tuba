@@ -200,7 +200,7 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 			}
 		}
 
-		var fields_left = int.max (int.min (max_fields - total_fields, 50), total_fields);
+		var fields_left = int64.max (int64.min (max_fields - total_fields, 50), total_fields);
 		if (fields_left > 0) {
 			for (var i = 0; i < fields_left; i++) {
 				add_field (null, null);
