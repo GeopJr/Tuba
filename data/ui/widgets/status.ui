@@ -83,7 +83,7 @@
                         <property name="spacing">6</property>
                         <property name="valign">start</property>
                         <child>
-                          <object class="AdwWrapBox" id="name_flowbox">
+                          <object class="AdwWrapBox" id="name_wrapbox">
                             <property name="child-spacing">6</property>
                             <property name="align">0</property>
                             <property name="halign">start</property>

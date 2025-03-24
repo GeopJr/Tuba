@@ -108,7 +108,7 @@
 	[GtkChild] protected unowned Gtk.Box avatar_side;
 	[GtkChild] protected unowned Gtk.Box title_box;
 	[GtkChild] protected unowned Gtk.Box content_side;
-	[GtkChild] protected unowned Adw.WrapBox name_flowbox;
+	[GtkChild] protected unowned Adw.WrapBox name_wrapbox;
 	[GtkChild] public unowned Gtk.MenuButton menu_button;
 
 	[GtkChild] protected unowned Gtk.Image header_icon;
@@ -625,7 +625,7 @@
 	public string spoiler_text_revealed { get; set; default = _("Sensitive"); }
 
 	// separator between the bottom bar items
-	const string EXPANDED_SEPARATOR = "·";
+	const string EXPANDED_SEPARATOR = " · ";
 	protected string date {
 		owned get {
 			if (expanded) {
@@ -1249,10 +1249,8 @@
 		title_box.prepend (avatar_side);
 		title_box.spacing = 14;
 
-		// FIXME
 		// Make the name box take 2 rows
-		//  name_flowbox.max_children_per_line = 1;
-		//  name_flowbox.valign = Gtk.Align.CENTER;
+		name_wrapbox.child_spacing = 600;
 		content_side.spacing = 10;
 
 		// Remove the date & indicators
