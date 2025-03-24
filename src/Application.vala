@@ -46,6 +46,7 @@ namespace Tuba {
 		public Streams app_streams { get {return Tuba.streams; } }
 
 		public signal void refresh ();
+		public signal void refresh_scheduled_statuses ();
 		public signal void relationship_invalidated (API.Relationship new_relationship);
 		public signal void remove_user_id (string user_id);
 		public signal void toast (string title, uint timeout = 5);

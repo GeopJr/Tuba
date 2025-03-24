@@ -7,6 +7,8 @@ public class Tuba.Views.ScheduledStatuses : Views.Timeline {
 		// translators: as in posts set to be posted sometime in the future
 		empty_state_title = _("No Scheduled Posts");
 		accepts = typeof (API.ScheduledStatus);
+
+		app.refresh_scheduled_statuses.connect (on_refresh);
 	}
 
 	public override Gtk.Widget on_create_model_widget (Object obj) {
