@@ -555,6 +555,8 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 				.exec ();
 		} else if (cb != null) {
 			cb (status);
+		} else if (schedule_iso8601 != null) {
+			app.refresh_scheduled_statuses ();
 		}
 
 		on_close ();
