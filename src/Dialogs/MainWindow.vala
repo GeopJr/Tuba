@@ -250,7 +250,6 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	// 	return app.on_window_closed ();
 	// }
 
-	//FIXME: switch timelines with 1-4. Should be moved to Views.TabbedBase
 	public void switch_timeline (int32 num) {}
 
 	public void update_selected_home_item () {

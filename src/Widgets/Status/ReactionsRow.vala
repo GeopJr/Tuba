@@ -222,9 +222,19 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 		badge_button.reaction_toggled.connect (on_reaction_toggled);
 		badge_button.removed.connect (on_remove_and_update_state);
 
-		reaction_box.append (badge_button);
-		reaction_box.reorder_child_after (emoji_button, badge_button);
-		if (custom_emoji_button != null) reaction_box.reorder_child_after (custom_emoji_button, emoji_button);
+		var last_reaction = reaction_box.get_last_child ();
+		if (last_reaction != null) {
+			last_reaction = last_reaction.get_prev_sibling ();
+
+			if (last_reaction != null && custom_emoji_button != null)
+				last_reaction = last_reaction.get_prev_sibling ();
+		}
+
+		if (last_reaction == null) {
+			reaction_box.append (badge_button);
+		} else {
+			reaction_box.insert_child_after (badge_button, last_reaction);
+		}
 
 		react_btn_list.set (reaction.name, badge_button);
 	}
