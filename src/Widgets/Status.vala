@@ -108,7 +108,7 @@
 	[GtkChild] protected unowned Gtk.Box avatar_side;
 	[GtkChild] protected unowned Gtk.Box title_box;
 	[GtkChild] protected unowned Gtk.Box content_side;
-	[GtkChild] protected unowned Gtk.FlowBox name_flowbox;
+	[GtkChild] protected unowned Adw.WrapBox name_wrapbox;
 	[GtkChild] public unowned Gtk.MenuButton menu_button;
 
 	[GtkChild] protected unowned Gtk.Image header_icon;
@@ -625,7 +625,7 @@
 	public string spoiler_text_revealed { get; set; default = _("Sensitive"); }
 
 	// separator between the bottom bar items
-	const string EXPANDED_SEPARATOR = "·";
+	const string EXPANDED_SEPARATOR = " · ";
 	protected string date {
 		owned get {
 			if (expanded) {
@@ -1250,8 +1250,7 @@
 		title_box.spacing = 14;
 
 		// Make the name box take 2 rows
-		name_flowbox.max_children_per_line = 1;
-		name_flowbox.valign = Gtk.Align.CENTER;
+		name_wrapbox.child_spacing = 600;
 		content_side.spacing = 10;
 
 		// Remove the date & indicators
@@ -1265,18 +1264,16 @@
 		date_label.tooltip_text = null;
 
 		// The bottom bar
-		var bottom_info = new Gtk.FlowBox () {
-			max_children_per_line = 150,
-			margin_top = 6,
-			selection_mode = Gtk.SelectionMode.NONE
+		var bottom_info = new Adw.WrapBox () {
+			margin_top = 6
 		};
 
 		// Insert it after the post content
 		content_column.insert_child_after (bottom_info, spoiler_stack);
 		bottom_info.append (date_label);
 		if (status.formal.is_edited)
-			bottom_info.append (edited_indicator);
-		bottom_info.append (visibility_indicator);
+			append_to_bottom_bar (bottom_info, edited_indicator);
+		append_to_bottom_bar (bottom_info, visibility_indicator);
 
 		edited_indicator.valign = Gtk.Align.CENTER;
 		visibility_indicator.valign = Gtk.Align.CENTER;
@@ -1298,24 +1295,13 @@
 			// If it's not an anchor, it should follow the styling of the other items
 			if (!has_link) application_label.add_css_class ("dim-label");
 
-			bottom_info.append (application_label);
+			append_to_bottom_bar (bottom_info, application_label);
 		}
-
-		add_separators_to_expanded_bottom (bottom_info);
 	}
 
-	// Adds *separator* between all *flowbox* children
-	private void add_separators_to_expanded_bottom (Gtk.FlowBox flowbox, string separator = EXPANDED_SEPARATOR) {
-		var i = 0;
-		var child = flowbox.get_child_at_index (i);
-		while (child != null) {
-			if (i % 2 != 0) {
-				flowbox.insert (new Gtk.Label (separator) { css_classes = {"dim-label"}, halign = Gtk.Align.START }, i);
-			}
-
-			i = i + 1;
-			child = flowbox.get_child_at_index (i);
-		}
+	private void append_to_bottom_bar (Adw.WrapBox wrap_box, Gtk.Widget child, string separator = EXPANDED_SEPARATOR) {
+		wrap_box.append (new Gtk.Label (separator) { css_classes = {"dim-label"}, halign = Gtk.Align.START });
+		wrap_box.append (child);
 	}
 
 	const float THREAD_WIDTH = 4f;

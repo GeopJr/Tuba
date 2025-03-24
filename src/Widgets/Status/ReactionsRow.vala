@@ -1,5 +1,5 @@
 public class Tuba.Widgets.ReactionsRow : Adw.Bin {
-	Gtk.FlowBox reaction_box;
+	Adw.WrapBox reaction_box;
 	Gee.HashMap<string, Widgets.ReactButton> react_btn_list;
 	Gtk.MenuButton emoji_button;
 	Gtk.MenuButton? custom_emoji_button;
@@ -31,12 +31,11 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 
 	construct {
 		react_btn_list = new Gee.HashMap<string, Widgets.ReactButton> ();
-		reaction_box = new Gtk.FlowBox () {
-			column_spacing = 6,
-			row_spacing = 6,
-			// Lower values leave space between items
-			max_children_per_line = 100,
-			selection_mode = Gtk.SelectionMode.NONE
+		reaction_box = new Adw.WrapBox () {
+			child_spacing = 6,
+			line_spacing = 6,
+			justify = Adw.JustifyMode.NONE,
+			align = 0.0f
 		};
 
 		this.child = reaction_box;
@@ -93,7 +92,7 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 			});
 			react_btn_list.clear ();
 
-			for (int j = 0; j < value.size; j++) {
+			for (int j = value.size - 1; j >= 0; j--) {
 				API.EmojiReaction p = value.get (j);
 				if (p.count <= 0) return;
 
@@ -101,14 +100,7 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 				badge_button.reaction_toggled.connect (on_reaction_toggled);
 				badge_button.removed.connect (on_remove_and_update_state);
 
-				reaction_box.insert (
-					new Gtk.FlowBoxChild () {
-						child = badge_button,
-						focusable = false
-					},
-					j
-				);
-
+				reaction_box.prepend (badge_button);
 				react_btn_list.set (p.name, badge_button);
 			}
 
@@ -230,13 +222,19 @@ public class Tuba.Widgets.ReactionsRow : Adw.Bin {
 		badge_button.reaction_toggled.connect (on_reaction_toggled);
 		badge_button.removed.connect (on_remove_and_update_state);
 
-		reaction_box.insert (
-			new Gtk.FlowBoxChild () {
-				child = badge_button,
-				focusable = false
-			},
-			react_btn_list.size
-		);
+		var last_reaction = reaction_box.get_last_child ();
+		if (last_reaction != null) {
+			last_reaction = last_reaction.get_prev_sibling ();
+
+			if (last_reaction != null && custom_emoji_button != null)
+				last_reaction = last_reaction.get_prev_sibling ();
+		}
+
+		if (last_reaction == null) {
+			reaction_box.append (badge_button);
+		} else {
+			reaction_box.insert_child_after (badge_button, last_reaction);
+		}
 
 		react_btn_list.set (reaction.name, badge_button);
 	}

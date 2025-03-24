@@ -20,28 +20,26 @@ public class Tuba.Widgets.HashtagBar : Adw.Bin {
 		}
 	}
 
-	Gtk.FlowBox flowbox;
+	Adw.WrapBox wrapbox;
 	Gtk.Button show_more;
 	construct {
-		flowbox = new Gtk.FlowBox () {
-			selection_mode = Gtk.SelectionMode.NONE,
-			column_spacing = 6,
-			row_spacing = 6,
-			max_children_per_line = 100
+		wrapbox = new Adw.WrapBox () {
+			child_spacing = 6,
+			line_spacing = 6,
+			justify = Adw.JustifyMode.NONE,
+			align = 0.0f
 		};
 
-		this.child = flowbox;
+		this.child = wrapbox;
 	}
 
 	public HashtagBar (TagExtractor.Tag[] tags) {
 		bool should_show_all = tags.length <= MAX_VISIBLE_TAGS + 1;
 
 		for (int i = 0; i < tags.length; i++) {
-			flowbox.append (
-				new Gtk.FlowBoxChild () {
-					child = new HashtagButton (tags [i]),
-					visible = should_show_all || i < MAX_VISIBLE_TAGS,
-					focusable = false
+			wrapbox.append (
+				new HashtagButton (tags [i]) {
+					visible = should_show_all || i < MAX_VISIBLE_TAGS
 				}
 			);
 		}
@@ -54,23 +52,17 @@ public class Tuba.Widgets.HashtagBar : Adw.Bin {
 			};
 			show_more.clicked.connect (on_clicked);
 
-			flowbox.append (new Gtk.FlowBoxChild () {
-				child = show_more,
-				focusable = false
-			});
+			wrapbox.append (show_more);
 		}
 	}
 
 	private void on_clicked () {
-		flowbox.remove (show_more);
+		wrapbox.remove (show_more);
 
-		int i = MAX_VISIBLE_TAGS;
-		var child = flowbox.get_child_at_index (i);
-		while (child != null) {
-			child.visible = true;
-
-			i = i + 1;
-			child = flowbox.get_child_at_index (i);
-		}
+		var w = wrapbox.get_first_child ();
+		while (w != null) {
+			if (!w.visible) w.visible = true;
+			w = w.get_next_sibling ();
+		};
 	}
 }
