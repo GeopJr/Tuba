@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-03-19 18:03+0000\n"
+"PO-Revision-Date: 2025-03-31 04:45+0000\n"
 "Last-Translator: anotheranonymoususer <walter.klosse@protonmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/tuba/tuba/cs/>\n"
 "Language: cs\n"
@@ -1797,12 +1797,12 @@ msgstr ""
 
 #: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
 msgid "Dashboard"
-msgstr ""
+msgstr "Ovládací panel"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:28 src/Views/Admin/Pages/Reports.vala:6
 msgid "Reports"
-msgstr ""
+msgstr "Nahlášení"
 
 #: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
 #: src/Views/Search.vala:113
@@ -1850,12 +1850,12 @@ msgstr ""
 
 #: src/Dialogs/AnnualReport.vala:109
 msgid "Save As…"
-msgstr ""
+msgstr "Uložit jako…"
 
 #. translators: dropdown label for picking a window style
 #: src/Dialogs/AnnualReport.vala:116
 msgid "Style"
-msgstr ""
+msgstr "Styl"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1891,7 +1891,7 @@ msgstr ""
 #. translators: #FediWrapped, title of a card
 #: src/Dialogs/AnnualReport.vala:239
 msgid "Most Used Hashtag"
-msgstr ""
+msgstr "Nejvíce užívané hashtagy"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1918,7 +1918,7 @@ msgstr ""
 #. the users you interacted with the most
 #: src/Dialogs/AnnualReport.vala:320
 msgid "Most Interactions"
-msgstr ""
+msgstr "Nejvíce interakcí"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1929,7 +1929,7 @@ msgstr ""
 #: src/Dialogs/AnnualReport.vala:357
 #, c-format
 msgid "I had the most interactions with %s."
-msgstr ""
+msgstr "Nejvíce interakcí jsem měl*a s %s."
 
 #. translators: #FediWrapped, title of the section about how many
 #. new followers you got and new people you followed
@@ -1969,7 +1969,7 @@ msgstr ""
 #: src/Dialogs/AnnualReport.vala:573
 #, c-format
 msgid "Saved %s Wrapped"
-msgstr ""
+msgstr "Wrapped %s uložen"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:131
 #: src/Dialogs/Composer/EditorPage.vala:252
@@ -1996,7 +1996,7 @@ msgstr ""
 #. image hasn't loaded. Also known as 'alt text'
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:347
 msgid "Edit Alternative Text"
-msgstr ""
+msgstr "Editovat alternativní text"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:358
 msgid "Remove Attachment"
