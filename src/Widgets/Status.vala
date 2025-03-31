@@ -471,6 +471,10 @@
 	}
 
 	private void edit_status () {
+		edit_status_real ();
+	}
+
+	private void edit_status_real (bool redraft = false) {
 		new Request.GET (@"/api/v1/statuses/$(status.formal.id)/source")
 			.with_account (accounts.active)
 			.then ((in_stream) => {
@@ -478,36 +482,61 @@
 				var node = network.parse_node (parser);
 				var source = API.StatusSource.from (node);
 
-				new Dialogs.Compose.edit (status.formal, source, on_edit);
+				// can't inline it for whatever reason
+				if (redraft) {
+					new Dialogs.Compose.edit (status.formal, source, delete_status_real, true);
+				} else {
+					new Dialogs.Compose.edit (status.formal, source, on_edit);
+				}
 			})
 			.on_error (() => {
-				new Dialogs.Compose.edit (status.formal, null, on_edit);
+				if (redraft) {
+					new Dialogs.Compose.edit (status.formal, null, delete_status_real, true);
+				} else {
+					new Dialogs.Compose.edit (status.formal, null, on_edit);
+				}
 			})
 			.exec ();
 	}
 
 	private void delete_status () {
-		app.question.begin (
-			{_("Delete Post?"), false},
-			null,
-			app.main_window,
-			{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
-			null,
-			false,
-			(obj, res) => {
-				if (app.question.end (res).truthy ()) {
-					this.status.formal.annihilate ()
-						//  .then ((in_stream) => {
-						//  	var parser = Network.get_parser_from_inputstream (in_stream);
-						//  	var root = network.parse (parser);
-						//  	if (root.has_member ("error")) {
-						//  		// TODO: Handle error (probably a toast?)
-						//  	};
-						//  })
-						.exec ();
-				}
-			}
+		var dlg = new Adw.AlertDialog (_("Delete Post?"), null) {
+			heading_use_markup = false,
+			body_use_markup = false,
+			default_response = "delete",
+			close_response = "cancel"
+		};
+
+		dlg.add_responses (
+			"cancel", _("Cancel"),
+			"redraft", _("Redraft"),
+			"delete", _("Delete")
 		);
+		dlg.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+		dlg.choose.begin (app.main_window, null, (obj, res) => {
+			switch (dlg.choose.end (res)) {
+				case "delete":
+					delete_status_real ();
+					break;
+				case "redraft":
+					edit_status_real (true);
+					break;
+				default:
+					break;
+			}
+		});
+	}
+
+	private void delete_status_real () {
+		this.status.formal.annihilate ()
+			//  .then ((in_stream) => {
+			//  	var parser = Network.get_parser_from_inputstream (in_stream);
+			//  	var root = network.parse (parser);
+			//  	if (root.has_member ("error")) {
+			//  		// TODO: Handle error (probably a toast?)
+			//  	};
+			//  })
+			.exec ();
 	}
 
 	private void toggle_mute_conversation () {
