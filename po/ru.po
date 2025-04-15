@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-04-15 02:01+0000\n"
+"PO-Revision-Date: 2025-04-16 15:17+0000\n"
 "Last-Translator: mittwerk <mittwerk@disroot.org>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tuba/tuba/ru/>\n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -376,7 +376,7 @@ msgstr "Другие участники списка"
 
 #: data/ui/dialogs/list_edit.ui:66
 msgid "Any followed user"
-msgstr "Любой подписанный пользователь"
+msgstr "Любой пользователь на которого вы подписаны"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:314
 #: src/Views/Sidebar.vala:318
@@ -792,7 +792,7 @@ msgstr "Отображаемое имя"
 #. translators: profile bio or description
 #: data/ui/dialogs/profile_edit.ui:128
 msgid "Bio"
-msgstr "Био"
+msgstr "О себе"
 
 #: data/ui/dialogs/profile_edit.ui:138 src/Dialogs/Composer/EditorPage.vala:353
 #: src/Widgets/Status/ReactionsRow.vala:58
@@ -1023,7 +1023,7 @@ msgstr "Позиция"
 #: data/ui/widgets/audiocontrols.ui:67
 msgctxt "media controls"
 msgid "Volume"
-msgstr "Том"
+msgstr "Громкость"
 
 #: data/ui/widgets/status.ui:179
 msgid "Pinned"
@@ -2125,7 +2125,7 @@ msgstr "Предупреждение о содержимом"
 
 #: src/Dialogs/Composer/EditorPage.vala:417
 msgid "Post Privacy"
-msgstr "Приватный пост"
+msgstr "Видимость Поста"
 
 #: src/Dialogs/Composer/EditorPage.vala:440
 msgid "Post Language"
@@ -2148,7 +2148,7 @@ msgstr "Включить множественный выбор"
 #: src/Dialogs/Composer/PollPage.vala:135
 #: src/Dialogs/Composer/PollPage.vala:176
 msgid "Hide Total Votes"
-msgstr "Скрыть Всего голосов"
+msgstr "Скрыть общее количество голосов"
 
 #. translators: multiple choice as in allow the user to pick multiple poll options
 #: src/Dialogs/Composer/PollPage.vala:167
@@ -3632,7 +3632,7 @@ msgstr "Ожидает одобрения"
 #. translators: Report 'Assigned to: <account>'
 #: src/Widgets/Admin/AssignedRow.vala:11 src/Widgets/Admin/Report.vala:26
 msgid "Assigned to"
-msgstr "Назначено на"
+msgstr "Назначено"
 
 #: src/Widgets/Admin/AssignedRow.vala:38
 msgid "Unassign"
