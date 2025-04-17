@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-04-16 15:17+0000\n"
+"PO-Revision-Date: 2025-04-18 06:36+0000\n"
 "Last-Translator: mittwerk <mittwerk@disroot.org>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tuba/tuba/ru/>\n"
 "Language: ru\n"
@@ -1121,7 +1121,7 @@ msgstr "Нарушение правил"
 
 #: src/API/Admin/Report.vala:21
 msgid "Legal"
-msgstr "Правовая информация"
+msgstr "Нарушение закона"
 
 #: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:209
@@ -1299,7 +1299,7 @@ msgstr "Принять"
 
 #: src/API/Relationship.vala:23
 msgid "Sent follow request"
-msgstr "Отправить запрос на подписку"
+msgstr "Отправлено запрос на подписку"
 
 #: src/API/Relationship.vala:25
 msgid "Mutuals"
@@ -1728,7 +1728,7 @@ msgstr "Жалобы на посты"
 #: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:332
 #: src/Dialogs/Report.vala:415
 msgid "Submit"
-msgstr "Отправить"
+msgstr "Представить на рассмотрение"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
