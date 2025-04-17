@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=dev.geopjr.Tuba
+Exec=@BINDIR@/dev.geopjr.Tuba --gapplication-service
