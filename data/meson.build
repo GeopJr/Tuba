@@ -106,12 +106,12 @@ if host_machine.system() != 'windows' and host_machine.system() != 'darwin'
         install_dir: join_paths(get_option('datadir'), 'metainfo'),
     )
 
-    appstream_util = find_program('appstream-util', required: false)
-    if appstream_util.found()
+    appstreamcli = find_program('appstreamcli', required: false)
+    if appstreamcli.found()
         test(
             'Validate appstream file',
-            appstream_util,
-            args: ['validate-relax', '--nonet', appstream_file],
+            appstreamcli,
+            args: ['validate', '--no-net', '--explain', appstream_file],
         )
     endif
 endif
