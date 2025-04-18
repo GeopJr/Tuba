@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-04-18 06:36+0000\n"
+"PO-Revision-Date: 2025-04-19 00:58+0000\n"
 "Last-Translator: mittwerk <mittwerk@disroot.org>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tuba/tuba/ru/>\n"
 "Language: ru\n"
@@ -119,7 +119,7 @@ msgstr "Композер"
 
 #: data/gtk/help-overlay.ui:85
 msgid "Commit"
-msgstr "Коммит"
+msgstr "Отправить"
 
 #: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:43
 msgid "Media Viewer"
@@ -4017,13 +4017,13 @@ msgstr "Удалить пост?"
 #: src/Widgets/Status.vala:497
 #, c-format
 msgid "Couldn't Mute Conversation: %s"
-msgstr "Не удалось заглушить разговор: %s"
+msgstr "Не удалось игнорировать разговор: %s"
 
 #. translators: toast shown when unmuting a post
 #: src/Widgets/Status.vala:499
 #, c-format
 msgid "Couldn't Unmute Conversation: %s"
-msgstr "Не удалось включить разговор: %s"
+msgstr "Не удалось перестать игнорировать разговор: %s"
 
 #: src/Widgets/Status.vala:538 src/Widgets/Status.vala:559
 #, c-format
@@ -4146,9 +4146,9 @@ msgstr[2] "%s продвижений"
 #, c-format
 msgid "%s favorite"
 msgid_plural "%s favorites"
-msgstr[0] "%s избранное"
-msgstr[1] "%s избранных"
-msgstr[2] "%s избранных"
+msgstr[0] "%s добавил в избранное"
+msgstr[1] "%s добавили в избранное"
+msgstr[2] "%s добавили в избранное"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
