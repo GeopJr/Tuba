@@ -6,13 +6,14 @@
 # Poesty Li <poesty7450@gmail.com>, 2024, 2025.
 # imgradeone - 一年级么么哒 <imgradeone@outlook.com>, 2024.
 # LS-Shandong <ls-shandong@outlook.com>, 2025.
+# x <fixallbugs@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-02-16 12:30+0000\n"
-"Last-Translator: Poesty Li <poesty7450@gmail.com>\n"
+"PO-Revision-Date: 2025-03-12 11:43+0000\n"
+"Last-Translator: x <fixallbugs@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/tuba/tuba/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10\n"
+"X-Generator: Weblate 5.10.3-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -584,7 +585,7 @@ msgstr "在深色模式下使图像变暗"
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/ui/dialogs/preferences.ui:102
 msgid "Dim Trivial Notifications"
-msgstr "暗淡琐碎通知"
+msgstr "减弱琐碎通知"
 
 #: data/ui/dialogs/preferences.ui:103
 msgid "Notifications like favorites and boosts will be less visible"
