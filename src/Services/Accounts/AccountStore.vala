@@ -34,15 +34,15 @@ public abstract class Tuba.AccountStore : GLib.Object {
 
 	public abstract void load () throws GLib.Error;
 	public abstract void save () throws GLib.Error;
-	public void safe_save () {
-		try {
-			save ();
-		} catch (GLib.Error e) {
-			warning (e.message);
-			var dlg = app.inform (_("Error"), e.message);
-			dlg.present (app.main_window);
-		}
-	}
+	//  public void safe_save () {
+	//  	try {
+	//  		save ();
+	//  	} catch (GLib.Error e) {
+	//  		warning (e.message);
+	//  		var dlg = app.inform (_("Error"), e.message);
+	//  		dlg.present (app.main_window);
+	//  	}
+	//  }
 
 	public virtual void add (InstanceAccount account) throws GLib.Error {
 		debug (@"Adding new account: $(account.handle)");
