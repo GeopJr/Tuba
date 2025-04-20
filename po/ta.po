@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-03-11 16:01+0000\n"
+"PO-Revision-Date: 2025-04-20 20:09+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/tuba/tuba/ta/>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.3-dev\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -1190,11 +1190,11 @@ msgid_plural ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
 msgstr[0] ""
-"நீங்கள் %s ஐத் தடுத்துள்ளீர்கள், உங்களைப் பின்தொடர்பவர்களின் %s மற்றும் நீங்கள் பின்பற்றும் %கணக்கின் "
-"கணக்கை நீக்கிவிட்டீர்கள்."
+"நீங்கள் %s ஐத் தடுத்துள்ளீர்கள், உங்களைப் பின்தொடர்பவர்களின் %s மற்றும் நீங்கள் பின்பற்றும் %s "
+"கணக்கின் கணக்கை நீக்கிவிட்டீர்கள்."
 msgstr[1] ""
-"நீங்கள் %s ஐத் தடுத்துள்ளீர்கள், உங்களைப் பின்தொடர்பவர்களில் %s மற்றும் நீங்கள் பின்பற்றும் "
-"%கணக்குகள்."
+"நீங்கள் %s ஐத் தடுத்துள்ளீர்கள், உங்களைப் பின்தொடர்பவர்களில் %s மற்றும் நீங்கள் பின்பற்றும் %s "
+"கணக்குகள்."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:24
@@ -1206,11 +1206,11 @@ msgid_plural ""
 "An admin has blocked %s, including %s of your followers and %s accounts you "
 "follow."
 msgstr[0] ""
-"உங்களைப் பின்தொடர்பவர்களில் %s மற்றும் நீங்கள் பின்பற்றும் %கணக்கு உட்பட ஒரு நிர்வாகி %s ஐத் "
+"உங்களைப் பின்தொடர்பவர்களில் %s மற்றும் நீங்கள் பின்பற்றும் %s கணக்கு உட்பட ஒரு நிர்வாகி %s ஐத் "
 "தடுத்துள்ளார்."
 msgstr[1] ""
-"உங்களைப் பின்தொடர்பவர்களில் %s மற்றும் நீங்கள் பின்பற்றும் %கணக்குகள் உட்பட ஒரு நிர்வாகி %s ஐத் "
-"தடுத்துள்ளார்."
+"உங்களைப் பின்தொடர்பவர்களில் %s மற்றும் நீங்கள் பின்பற்றும் %s கணக்குகள் உட்பட ஒரு நிர்வாகி %s "
+"ஐத் தடுத்துள்ளார்."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:33
@@ -2064,7 +2064,7 @@ msgstr "தொகு (_E)"
 
 #: src/Dialogs/Composer/Dialog.vala:362
 msgid "_Redraft"
-msgstr "_Redraft"
+msgstr "மறுவரைவு"
 
 #: src/Dialogs/Composer/Dialog.vala:408
 msgid "_Reply"
@@ -2349,7 +2349,7 @@ msgstr "இது வேறு சேதி"
 #: src/Dialogs/Report.vala:39
 msgid "Malicious links, fake engagement, or repetitive replies"
 msgstr ""
-"தீங்கிழைக்கும் இணைப்புகள், போலி ஈடுபாடு அல்லது மீண்டும் மீண்டும் பதில்கள்"
+"தீங்கிழைக்கும் இணைப்புகள், போலி ஈடுபாடு அல்லது மீண்டும் நிகழும் பதில்கள்"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
@@ -2490,7 +2490,7 @@ msgstr "%s உயர்த்தப்பட்டன"
 #: src/Services/Accounts/InstanceAccount.vala:268
 #, c-format
 msgid "%s favorited your post"
-msgstr "உங்கள் இடுகைக்கு பிடித்தது"
+msgstr "உங்கள் இடுகை %s பிடித்தது"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
@@ -2786,7 +2786,7 @@ msgstr "%s நிமிடங்களுக்கு முன்பு"
 #: src/Utils/DateTime.vala:132
 #, c-format
 msgid "%s hours ago"
-msgstr "%மணி நேரத்திற்கு முன்பு"
+msgstr "%s மணி நேரத்திற்கு முன்பு"
 
 #: src/Utils/DateTime.vala:135
 msgid "yesterday"
@@ -3378,13 +3378,13 @@ msgstr "\"%s\" ஐ \"%s\" இல் சேர்க்கவும்"
 #: src/Views/Profile.vala:562
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
-msgstr "பயனர்கள் \"\"%s \"இலிருந்து அகற்றப்படுவார்கள்"
+msgstr "\"%s\" பயனர் \"%s \"இலிருந்து அகற்றப்படுவார்"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:568
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
-msgstr "பயனர்கள் \"%s\" இல் சேர்க்கப்படுவார்கள்"
+msgstr "\"%s\" பயனர் \"%s\" இல் சேர்க்கப்படுவார்"
 
 #. translators: as in posts set to be posted sometime in the future
 #: src/Views/ScheduledStatuses.vala:5 src/Views/Sidebar.vala:77
@@ -3579,8 +3579,8 @@ msgstr[1] "%s இடுகைகள்"
 #, c-format
 msgid "%s Follower"
 msgid_plural "%s Followers"
-msgstr[0] "%பின்தொடர்பவர்"
-msgstr[1] "எச் பின்தொடர்பவர்கள்"
+msgstr[0] "%s பின்தொடர்பவர்"
+msgstr[1] "%s பின்தொடர்பவர்கள்"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of people a user follows.
@@ -3588,7 +3588,7 @@ msgstr[1] "எச் பின்தொடர்பவர்கள்"
 #: src/Widgets/ProfileCover.vala:608
 #, c-format
 msgid "%s Following"
-msgstr "%பின்வருமாறு"
+msgstr "%s பின்தொடர்"
 
 #. translators: Admin dashboard, report status
 #: src/Widgets/Admin/AccountRow.vala:27 src/Widgets/Admin/Report.vala:47
@@ -4007,7 +4007,7 @@ msgstr "%s இன் மினி சுயவிவரத்தைத் தி
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:754
 msgid "Unpin"
-msgstr "Unpin"
+msgstr "முள்நீக்கு"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4110,7 +4110,7 @@ msgstr[1] "%s ஊக்கங்கள்"
 #, c-format
 msgid "%s favorite"
 msgid_plural "%s favorites"
-msgstr[0] "%பிடித்தது"
+msgstr[0] "%s பிடித்தது"
 msgstr[1] "%s பிடித்தவைகள்"
 
 #. translators: This is an accessibility label.
@@ -4162,7 +4162,7 @@ msgstr "வாக்களித்தார்"
 #, c-format
 msgid "%s voted"
 msgid_plural "%s voted"
-msgstr[0] "%s வாக்களித்தன"
+msgstr[0] "%s வாக்களித்தது"
 msgstr[1] "%s வாக்களித்தன"
 
 #. translators: This is an accessibility label.
