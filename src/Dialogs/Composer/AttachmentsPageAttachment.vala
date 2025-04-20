@@ -321,7 +321,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		attachment_file = file;
 		compose_dialog = dialog;
 
-		if (t_entity.meta != null && t_entity.meta.focus != null) {
+		if (t_entity != null && t_entity.meta != null && t_entity.meta.focus != null) {
 			this.pos_x = t_entity.meta.focus.x;
 			this.pos_y = t_entity.meta.focus.y;
 		}
@@ -332,13 +332,18 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 			can_shrink = true,
 			keep_aspect_ratio = true
 		};
+
 		if (file != null) {
 			pic.file = file;
 			if (t_entity != null) is_video = Attachment.MediaType.from_string (t_entity.kind).is_video ();
 		} else {
 			entity = t_entity;
+		}
+
+		if (t_entity != null && t_entity.preview_url != null && (is_video || file == null)) {
 			Tuba.Helper.Image.request_paintable (t_entity.preview_url, null, false, on_cache_response);
 		}
+
 		button.child = pic;
 
 		//  translators: Alternative Text refers to text that describes
@@ -376,7 +381,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 		focus_button.notify ["paintable"].connect (update_focus_btn_visibility);
 		update_focus_btn_visibility ();
 
-		alt_text = t_entity.description ?? "";
+		alt_text = t_entity != null && t_entity.description != null ? t_entity.description : "";
 		update_alt_css (alt_text.length);
 	}
 
