@@ -204,30 +204,29 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 
 		// Populate possible visibility variants
 		set_visibility (new Visibility () {
-			id = "public",
-			name = _("Public"),
+			id = API.Status.Visibility.PUBLIC.to_string (),
+			name = API.Status.Visibility.PUBLIC.to_title (),
 			icon_name = "tuba-globe-symbolic",
 			small_icon_name = "tuba-globe-small-symbolic",
 			description = _("Post to public timelines")
 		});
 		set_visibility (new Visibility () {
-			id = "unlisted",
-			// translators: Probably follow Mastodon's translation
-			name = _("Unlisted"),
+			id = API.Status.Visibility.UNLISTED.to_string (),
+			name = API.Status.Visibility.UNLISTED.to_title (),
 			icon_name = "tuba-padlock2-open-symbolic",
 			small_icon_name = "tuba-padlock2-open-small-symbolic",
 			description = _("Don\'t post to public timelines")
 		});
 		set_visibility (new Visibility () {
-			id = "private",
-			name = _("Followers Only"),
+			id = API.Status.Visibility.PRIVATE.to_string (),
+			name = API.Status.Visibility.PRIVATE.to_title (),
 			icon_name = "tuba-padlock2-symbolic",
 			small_icon_name = "tuba-padlock2-small-symbolic",
 			description = _("Post to followers only")
 		});
 		set_visibility (new Visibility () {
-			id = "direct",
-			name = _("Direct"),
+			id = API.Status.Visibility.DIRECT.to_string (),
+			name = API.Status.Visibility.DIRECT.to_title (),
 			icon_name = "tuba-mail-unread-symbolic",
 			small_icon_name = "tuba-mail-small-symbolic",
 			description = _("Post to mentioned users only")

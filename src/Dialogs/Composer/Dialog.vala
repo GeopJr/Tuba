@@ -405,6 +405,12 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 			language = to.language
 		};
 
+		var default_visibility = API.Status.Visibility.from_string (settings.default_post_visibility);
+		var to_visibility = API.Status.Visibility.from_string (to.visibility);
+		if (default_visibility != null && to_visibility != null && default_visibility.privacy_rate () > to_visibility.privacy_rate ()) {
+			template.visibility = settings.default_post_visibility;
+		}
+
 		Object (
 			status: new BasicStatus.from_status (template),
 			original_status: new BasicStatus.from_status (template),
