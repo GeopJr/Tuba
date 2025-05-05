@@ -6,15 +6,15 @@
 # aei <aei@aei.sh>, 2024.
 # Ahmed Mohammed <iramosu@airmail.cc>, 2024.
 # Ahmed Mohammed <iramosu@protonmail.com>, 2024.
-# Ahmed Mohammed <ira.traq@outlook.com>, 2024.
+# Ahmed Mohammed <ira.traq@outlook.com>, 2024, 2025.
 # Ahmed Najmawi <iramosu@protonmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-05-02 20:04+0000\n"
-"Last-Translator: Ahmed Najmawi <iramosu@protonmail.com>\n"
+"PO-Revision-Date: 2025-05-05 01:02+0000\n"
+"Last-Translator: Ahmed Mohammed <ira.traq@outlook.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -231,7 +231,7 @@ msgstr "املأ المستخدم آليًا"
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:102
 msgid "Only Replies"
-msgstr "فقط الردود"
+msgstr "الردود فقط"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:108
@@ -365,7 +365,7 @@ msgstr "سياسة الردود"
 
 #: data/ui/dialogs/list_edit.ui:40
 msgid "Show member replies to"
-msgstr "أظهر ردود الأعضاء إلى"
+msgstr "أظهِر ردود الأعضاء إلى"
 
 #: data/ui/dialogs/list_edit.ui:43 src/Widgets/Admin/AssignedRow.vala:49
 #: src/Widgets/Admin/Report.vala:20 src/Widgets/Admin/Report.vala:24
@@ -2380,7 +2380,7 @@ msgstr "إنه أمر آخر"
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:39
 msgid "Malicious links, fake engagement, or repetitive replies"
-msgstr "روابط خبيئة، أو تفاعل مزيف، أو ردود مكررة"
+msgstr "روابط خبيثة، أو تفاعل مزيف، أو ردود مكررة"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
