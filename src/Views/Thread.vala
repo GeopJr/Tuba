@@ -222,7 +222,7 @@ public class Tuba.Views.Thread : Views.ContentBase, AccountHolder {
 					app.main_window.open_view (new Views.Thread (status));
 				}
 				else
-					Host.open_url.begin (q);
+					Utils.Host.open_url.begin (q);
 			})
 			.exec ();
 	}

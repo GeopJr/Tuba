@@ -18,24 +18,24 @@ public class Tuba.EditorPage : ComposerPage {
 		string locale_icu = "en";
 		if (
 			language_button != null
-			&& ((Tuba.Locales.Locale) language_button.selected_item) != null
-			&& ((Tuba.Locales.Locale) language_button.selected_item).locale != null
+			&& ((Utils.Locales.Locale) language_button.selected_item) != null
+			&& ((Utils.Locales.Locale) language_button.selected_item).locale != null
 		) {
-			locale_icu = ((Tuba.Locales.Locale) language_button.selected_item).locale;
+			locale_icu = ((Utils.Locales.Locale) language_button.selected_item).locale;
 		}
 
 		if (cw_button != null && cw_button.active)
-				res -= Counting.chars (cw_entry.text, locale_icu);
+				res -= Utils.Counting.chars (cw_entry.text, locale_icu);
 
-		string replaced_urls = Tracking.cleanup_content_with_uris (
+		string replaced_urls = Utils.Tracking.cleanup_content_with_uris (
 			editor.buffer.text,
-			Tracking.extract_uris (editor.buffer.text),
-			Tracking.CleanupType.SPECIFIC_LENGTH,
+			Utils.Tracking.extract_uris (editor.buffer.text),
+			Utils.Tracking.CleanupType.SPECIFIC_LENGTH,
 			accounts.active.instance_info.compat_status_characters_reserved_per_url
 		);
-		string replaced_mentions = Counting.replace_mentions (replaced_urls);
+		string replaced_mentions = Utils.Counting.replace_mentions (replaced_urls);
 
-		res -= Counting.chars (replaced_mentions, locale_icu);
+		res -= Utils.Counting.chars (replaced_mentions, locale_icu);
 
 		remaining_chars = res;
 	}
@@ -104,10 +104,10 @@ public class Tuba.EditorPage : ComposerPage {
 
 	protected void on_paste (Gdk.Clipboard clp) {
 		if (!settings.strip_tracking) return;
-		var clean_buffer = Tracking.cleanup_content_with_uris (
+		var clean_buffer = Utils.Tracking.cleanup_content_with_uris (
 			editor.buffer.text,
-			Tracking.extract_uris (editor.buffer.text),
-			Tracking.CleanupType.STRIP_TRACKING
+			Utils.Tracking.extract_uris (editor.buffer.text),
+			Utils.Tracking.CleanupType.STRIP_TRACKING
 		);
 		if (clean_buffer == editor.buffer.text) return;
 
@@ -146,7 +146,7 @@ public class Tuba.EditorPage : ComposerPage {
 			status.visibility = instance_visibility.id;
 
 		if (language_button != null && language_button.selected_item != null) {
-			status.language = ((Tuba.Locales.Locale) language_button.selected_item).locale;
+			status.language = ((Utils.Locales.Locale) language_button.selected_item).locale;
 		}
 
 		if (content_type_button != null && content_type_button.selected_item != null) {
@@ -435,7 +435,7 @@ public class Tuba.EditorPage : ComposerPage {
 
 	protected void install_languages (string? locale_iso) {
 		language_button = new Gtk.DropDown (app.app_locales.list_store, null) {
-			expression = new Gtk.PropertyExpression (typeof (Tuba.Locales.Locale), null, "name"),
+			expression = new Gtk.PropertyExpression (typeof (Utils.Locales.Locale), null, "name"),
 			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language_title.ui"),
 			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language.ui"),
 			tooltip_text = _("Post Language"),
@@ -450,8 +450,8 @@ public class Tuba.EditorPage : ComposerPage {
 			uint default_lang_index;
 			if (
 				app.app_locales.list_store.find_with_equal_func (
-					new Tuba.Locales.Locale (locale_iso, null, null),
-					Tuba.Locales.Locale.compare,
+					new Utils.Locales.Locale (locale_iso, null, null),
+					Utils.Locales.Locale.compare,
 					out default_lang_index
 				)
 			) {
@@ -464,7 +464,7 @@ public class Tuba.EditorPage : ComposerPage {
 
 	#if LIBSPELLING
 		private void on_langauge_changed () {
-			var locale_obj = language_button.selected_item as Tuba.Locales.Locale;
+			var locale_obj = language_button.selected_item as Utils.Locales.Locale;
 			if (locale_obj == null || locale_obj.locale == null) return;
 
 			var new_locale = original_libspelling_lang_iso639 == locale_obj.locale

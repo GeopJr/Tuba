@@ -1,4 +1,4 @@
-public class Tuba.Units {
+public class Tuba.Utils.Units {
 	public enum ShortUnitType {
 		NONE,
 		THOUSAND,

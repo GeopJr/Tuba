@@ -1,4 +1,4 @@
-public class Tuba.Counting {
+public class Tuba.Utils.Counting {
 	static GLib.Regex mention_regex;
 	static construct {
 		try {

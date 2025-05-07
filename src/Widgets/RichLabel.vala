@@ -189,9 +189,9 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 			}
 		#endif
 		if (uri == null) {
-			Host.open_url.begin (url);
+			Utils.Host.open_url.begin (url);
 		} else {
-			Host.open_uri.begin (uri);
+			Utils.Host.open_uri.begin (uri);
 		}
 	}
 
@@ -208,7 +208,7 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 			string? current_uri = widget.get_current_uri ();
 			if (current_uri == null) return;
 
-			Host.open_url.begin (current_uri);
+			Utils.Host.open_url.begin (current_uri);
 		}
 	#endif
 }

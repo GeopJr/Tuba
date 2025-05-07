@@ -1,4 +1,4 @@
-public class Tuba.DateTime {
+public class Tuba.Utils.DateTime {
 
 	public static string humanize_left (string? iso8601) {
 		if (iso8601 == null) return "";

@@ -323,8 +323,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		uint default_lang_index;
 		if (
 			app.app_locales.list_store.find_with_equal_func (
-				new Tuba.Locales.Locale (default_language, null, null),
-				Tuba.Locales.Locale.compare,
+				new Utils.Locales.Locale (default_language, null, null),
+				Utils.Locales.Locale.compare,
 				out default_lang_index
 			)
 		) {
@@ -349,8 +349,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	private void on_window_closed () {
 		if (lang_changed) {
-			var new_lang = ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale;
-			if (settings.default_language != ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale) {
+			var new_lang = ((Utils.Locales.Locale) default_language_combo_row.selected_item).locale;
+			if (settings.default_language != ((Utils.Locales.Locale) default_language_combo_row.selected_item).locale) {
 
 				new Request.PATCH ("/api/v1/accounts/update_credentials")
 					.with_account (accounts.active)

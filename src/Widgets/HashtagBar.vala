@@ -8,7 +8,7 @@ public class Tuba.Widgets.HashtagBar : Adw.Bin {
 		}
 
 		string tag;
-		public HashtagButton (TagExtractor.Tag hashtag) {
+		public HashtagButton (Utils.TagExtractor.Tag hashtag) {
 			tag = hashtag.tag;
 			this.child = new Gtk.Label (@"#$tag") {
 				ellipsize = Pango.EllipsizeMode.END
@@ -33,7 +33,7 @@ public class Tuba.Widgets.HashtagBar : Adw.Bin {
 		this.child = wrapbox;
 	}
 
-	public HashtagBar (TagExtractor.Tag[] tags) {
+	public HashtagBar (Utils.TagExtractor.Tag[] tags) {
 		bool should_show_all = tags.length <= MAX_VISIBLE_TAGS + 1;
 
 		for (int i = 0; i < tags.length; i++) {

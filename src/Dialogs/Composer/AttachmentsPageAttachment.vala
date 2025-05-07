@@ -423,7 +423,7 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 	protected override void on_click () {
 		if (attachment_file != null) {
-			Host.open_url.begin (attachment_file.get_path ());
+			Utils.Host.open_url.begin (attachment_file.get_path ());
 		} else if (entity != null) {
 			base.on_click ();
 		}
@@ -451,8 +451,8 @@ public class Tuba.AttachmentsPageAttachment : Widgets.Attachment.Item {
 
 			builder.set_member_name ("focus");
 			builder.add_string_value ("%s,%s".printf (
-				Units.float_to_2_point_string (pos_x),
-				Units.float_to_2_point_string (pos_y)
+				Utils.Units.float_to_2_point_string (pos_x),
+				Utils.Units.float_to_2_point_string (pos_y)
 			));
 
 			builder.end_object ();

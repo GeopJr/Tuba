@@ -72,7 +72,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 					//				displayed in the list. The singular version will not be used.
 					"Followed by %s & %s Other", "Followed by %s & %s Others",
 					(ulong) others_count
-				).printf (string.joinv (", ", display_named), Units.shorten (others_count));
+				).printf (string.joinv (", ", display_named), Utils.Units.shorten (others_count));
 			} else {
 				string display_name_list;
 				switch (display_named.length) {
@@ -325,7 +325,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 				"%s Post",
 				"%s Posts",
 				(ulong) profile.account.statuses_count
-			).printf (@"<b>$(Tuba.Units.shorten (profile.account.statuses_count))</b>");
+			).printf (@"<b>$(Utils.Units.shorten (profile.account.statuses_count))</b>");
 
 			// translators: Used in profile stats.
 			//              The variable is a shortened number of the amount of followers a user has.
@@ -333,13 +333,13 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 				"%s Follower",
 				"%s Followers",
 				(ulong) profile.account.statuses_count
-			).printf (@"<b>$(Tuba.Units.shorten (profile.account.followers_count))</b>");
+			).printf (@"<b>$(Utils.Units.shorten (profile.account.followers_count))</b>");
 
 			stats_string = "<span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>".printf (
 				posts_str,
 				// translators: Used in profile stats.
 				//              The variable is a shortened number of the amount of people a user follows.
-				_("%s Following").printf (@"<b>$(Tuba.Units.shorten (profile.account.following_count))</b>"),
+				_("%s Following").printf (@"<b>$(Utils.Units.shorten (profile.account.following_count))</b>"),
 				followers_str
 			);
 
@@ -505,7 +505,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 				var row = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
 					css_classes = {"ttl-profile-field"}
 				};
-				var val = new Widgets.RichLabel (HtmlUtils.simplify (f.val)) {
+				var val = new Widgets.RichLabel (Utils.Htmlx.simplify (f.val)) {
 					use_markup = true,
 					xalign = 0,
 					selectable = true
@@ -649,7 +649,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 		public string label_template { get; set; default = "%s"; }
 		public int64 amount {
 			set {
-				this.label = label_template.printf (Tuba.Units.shorten (value));
+				this.label = label_template.printf (Utils.Units.shorten (value));
 				this.tooltip_text = label_template.printf (value.to_string ());
 			}
 		}

@@ -1,5 +1,4 @@
-public class Tuba.Host {
-
+public class Tuba.Utils.Host {
 	// Open a URI in the user's default application
 	public async static bool open_url (string _uri) {
 		var uri = _uri;
@@ -7,7 +6,7 @@ public class Tuba.Host {
 			uri = "file://" + _uri;
 
 		if (settings.strip_tracking)
-			uri = Tracking.strip_utm (uri);
+			uri = Utils.Tracking.strip_utm (uri);
 
 		return yield open_in_default_app (uri);
 	}
@@ -18,7 +17,7 @@ public class Tuba.Host {
 	public async static bool open_uri (Uri uri) {
 		string url;
 		try {
-			url = Tracking.strip_utm_from_uri (uri).to_string ();
+			url = Utils.Tracking.strip_utm_from_uri (uri).to_string ();
 		} catch (Error e) {
 			warning (@"Error while stripping tracking params: $(e.message)");
 			url = uri.to_string ();

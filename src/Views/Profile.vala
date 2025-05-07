@@ -307,7 +307,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 		var copy_handle_action = new SimpleAction ("copy_handle", null);
 		copy_handle_action.activate.connect (v => {
-			Host.copy (profile.account.full_handle);
+			Utils.Host.copy (profile.account.full_handle);
 			app.toast (_("Copied handle to clipboard"));
 		});
 		actions.add_action (copy_handle_action);
@@ -321,7 +321,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 				}
 			#endif
 
-			Host.open_url.begin (profile.account.url);
+			Utils.Host.open_url.begin (profile.account.url);
 		});
 		actions.add_action (open_in_browser_action);
 

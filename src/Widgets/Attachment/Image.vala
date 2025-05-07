@@ -104,9 +104,9 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 
 	protected override void copy_media () {
 		debug ("Begin copy-media action");
-		Host.download.begin (entity.url, (obj, res) => {
+		Utils.Host.download.begin (entity.url, (obj, res) => {
 			try {
-				string path = Host.download.end (res);
+				string path = Utils.Host.download.end (res);
 
 				Gdk.Texture texture = Gdk.Texture.from_filename (path);
 				if (texture == null) return;

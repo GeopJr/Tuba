@@ -1,5 +1,5 @@
 // https://fedilinks.org/spec/en/6-The-web-ap-URI
-public class Tuba.WebApHandler {
+public class Tuba.Utils.WebApHandler {
 	public static string from_uri (Uri uri) {
 		return Uri.join (
 			uri.get_flags (),

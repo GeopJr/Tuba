@@ -1,4 +1,4 @@
-public class Tuba.Locales : GLib.Object {
+public class Tuba.Utils.Locales : GLib.Object {
 	public class Locale : GLib.Object {
 		public string locale { get; set; }
 		public string en_name { get; set; }

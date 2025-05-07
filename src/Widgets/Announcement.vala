@@ -22,7 +22,7 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 			this.handle_label.get_text ()
 		);
 
-		string aria_date = DateTime.humanize_aria (announcement_date);
+		string aria_date = Utils.DateTime.humanize_aria (announcement_date);
 		string aria_date_prefixed = edited_indicator.visible
 			// translators: This is an accessibility label.
 			//				Screen reader users are going to hear this a lot,
@@ -114,7 +114,7 @@ public class Tuba.Widgets.Announcement : Gtk.ListBoxRow {
 			edited_indicator.visible = false;
 		}
 
-		date_label.label = DateTime.humanize (announcement_date);
+		date_label.label = Utils.DateTime.humanize (announcement_date);
 		date_label.tooltip_text = new GLib.DateTime.from_iso8601 (announcement_date, null).format ("%F %T");
 		date_label.update_property (Gtk.AccessibleProperty.LABEL, date_label.tooltip_text, -1);
 

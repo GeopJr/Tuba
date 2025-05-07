@@ -78,7 +78,7 @@ public class Tuba.Widgets.StatusActionButton : Gtk.Button {
 			return;
 		}
 
-		content.label = Tuba.Units.shorten (new_value);
+		content.label = Utils.Units.shorten (new_value);
 		content.margin_start = 12;
 		content.margin_end = 9;
 	}

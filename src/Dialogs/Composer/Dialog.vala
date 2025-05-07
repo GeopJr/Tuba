@@ -77,8 +77,8 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 
 					if (t_attachment.meta != null && t_attachment.meta.focus != null) {
 						focus = "%s,%s".printf (
-							Units.float_to_2_point_string (t_attachment.meta.focus.x),
-							Units.float_to_2_point_string (t_attachment.meta.focus.y)
+							Utils.Units.float_to_2_point_string (t_attachment.meta.focus.x),
+							Utils.Units.float_to_2_point_string (t_attachment.meta.focus.y)
 						);
 					}
 
@@ -378,7 +378,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		};
 
 		if (source == null) {
-			template.content = HtmlUtils.remove_tags (t_status.content);
+			template.content = Utils.Htmlx.remove_tags (t_status.content);
 		} else {
 			template.content = source.text;
 			template.spoiler_text = source.spoiler_text;

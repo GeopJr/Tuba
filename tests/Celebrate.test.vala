@@ -133,7 +133,7 @@ private TestCelebrate[] get_celebrate_tests () {
 public void test_celebrate () {
 	var tests = get_celebrate_tests ();
 	foreach (var test_celebrate in tests) {
-		var res = Tuba.Celebrate.get_celebration_css_class (test_celebrate.date);
+		var res = Tuba.Utils.Celebrate.get_celebration_css_class (test_celebrate.date);
 
 
 		if (res == "") {

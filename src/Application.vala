@@ -37,7 +37,7 @@ namespace Tuba {
 		public bool is_mobile { get; set; default=false; }
 		public bool is_online { get; private set; default=true; }
 
-		public Locales app_locales { get; construct set; }
+		public Utils.Locales app_locales { get; construct set; }
 
 		// These are used for the GTK Inspector
 		public Settings app_settings { get {return Tuba.settings; } }
@@ -152,7 +152,7 @@ namespace Tuba {
 		public void handle_web_ap (Uri uri) {
 			if (accounts.active == null) return;
 
-			accounts.active.resolve.begin (WebApHandler.from_uri (uri), (obj, res) => {
+			accounts.active.resolve.begin (Utils.WebApHandler.from_uri (uri), (obj, res) => {
 				try {
 					accounts.active.resolve.end (res).open ();
 				} catch (Error e) {
@@ -163,7 +163,7 @@ namespace Tuba {
 			});
 		}
 
-		private ShareHandler.ShareResult? to_share = null;
+		private Utils.ShareHandler.ShareResult? to_share = null;
 		public void handle_share () {
 			if (to_share == null || accounts.active == null || accounts.active.instance_info == null) return;
 
@@ -182,7 +182,7 @@ namespace Tuba {
 			application_id = Build.DOMAIN;
 			flags = ApplicationFlags.HANDLES_OPEN;
 
-			app_locales = new Tuba.Locales ();
+			app_locales = new Utils.Locales ();
 		}
 
 		public static int main (string[] args) {
@@ -408,7 +408,7 @@ namespace Tuba {
 						case "tuba":
 							if (add_account_window == null) {
 								if (uri.get_host ().down () == "share") {
-									to_share = ShareHandler.from_uri (uri);
+									to_share = Utils.ShareHandler.from_uri (uri);
 									handle_share ();
 
 									break;
@@ -653,7 +653,7 @@ namespace Tuba {
 			dialog.present (main_window);
 
 			GLib.Idle.add (() => {
-				var style = Tuba.Celebrate.get_celebration_css_class (new GLib.DateTime.now ());
+				var style = Utils.Celebrate.get_celebration_css_class (new GLib.DateTime.now ());
 				if (style != "")
 					dialog.add_css_class (style);
 				return GLib.Source.REMOVE;
