@@ -19,7 +19,7 @@ jobs:
     name: "Flatpak Builder"
     needs: [ lint ]
     container:
-      image: bilelmoussaoui/flatpak-github-actions:gnome-47
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
       options: --privileged
     strategy:
       matrix:
