@@ -1,4 +1,4 @@
-public class Tuba.Views.Browser : Adw.Bin {
+public class Tuba.Views.Browser : Adw.Dialog {
 	private class HeaderBar : Adw.Bin {
 		~HeaderBar () {
 			debug ("Destroying Browser HeaderBar");
@@ -127,19 +127,12 @@ public class Tuba.Views.Browser : Adw.Bin {
 
 			window_title = new Adw.WindowTitle ("", "");
 			var headerbar = new Adw.HeaderBar () {
-				show_start_title_buttons = false,
-				show_end_title_buttons = false,
 				title_widget = window_title
 			};
 
-			var back_btn = new Gtk.Button.from_icon_name (is_rtl ? "tuba-right-large-symbolic" : "tuba-left-large-symbolic") {
-				tooltip_text = _("Back")
-			};
-			back_btn.clicked.connect (on_exit);
-			headerbar.pack_start (back_btn);
-
 			ssl_icon = new Gtk.Image () {
-				visible = false
+				visible = false,
+				margin_start = 8
 			};
 			headerbar.pack_start (ssl_icon);
 
@@ -214,56 +207,6 @@ public class Tuba.Views.Browser : Adw.Bin {
 		private void on_go_forward () {
 			go_forward ();
 		}
-
-		private void on_exit () {
-			exit ();
-		}
-	}
-
-	const uint ANIMATION_DURATION = 250;
-	public override void snapshot (Gtk.Snapshot snapshot) {
-		var progress = this.animation.value;
-		if (progress == 1.0) {
-			base.snapshot (snapshot);
-			return;
-		}
-
-		float width = (float) this.get_width ();
-		snapshot.translate (Graphene.Point () {
-			x = width - width * (float) progress,
-			y = 0
-		});
-		base.snapshot (snapshot);
-	}
-
-	private void animation_target_cb (double value) {
-		this.queue_draw ();
-	}
-
-	private void on_animation_end () {
-		if (reveal_child) {
-			this.grab_focus ();
-		} else {
-			exit ();
-			animation = null; // leaks without
-		}
-	}
-
-	private bool _reveal_child = false;
-	public bool reveal_child {
-		get {
-			return _reveal_child;
-		}
-
-		set {
-			if (_reveal_child == value) return;
-			animation.value_from = animation.value;
-			animation.value_to = value ? 1.0 : 0.0;
-
-			_reveal_child = value;
-			animation.play ();
-			this.notify_property ("reveal-child");
-		}
 	}
 
 	~Browser () {
@@ -272,19 +215,18 @@ public class Tuba.Views.Browser : Adw.Bin {
 
 	WebKit.WebView webview;
 	HeaderBar headerbar;
-	Adw.TimedAnimation animation;
 
 	public new bool grab_focus () {
 		return this.webview.grab_focus ();
 	}
 
-	public signal void exit ();
+	public Browser.with_url (string url) {
+		load_url (url);
+	}
+
 	construct {
-		var target = new Adw.CallbackAnimationTarget (animation_target_cb);
-		animation = new Adw.TimedAnimation (this, 0.0, 1.0, ANIMATION_DURATION, target) {
-			easing = Adw.Easing.EASE_IN_OUT_QUART
-		};
-		animation.done.connect (on_animation_end);
+		this.content_width = 1200;
+		this.content_height = 1200;
 
 		this.webview = new WebKit.WebView () {
 			vexpand = true,
@@ -319,7 +261,8 @@ public class Tuba.Views.Browser : Adw.Bin {
 			hardware_acceleration_policy = WebKit.HardwareAccelerationPolicy.NEVER
 		};
 
-		webkit_settings.set_user_agent_with_application_details (Build.NAME, Build.VERSION);
+		if (Build.PROFILE != "development")
+			webkit_settings.set_user_agent_with_application_details (Build.NAME, Build.VERSION);
 		webview.settings = webkit_settings;
 
 		Gtk.GestureClick back_click_gesture = new Gtk.GestureClick () {
@@ -356,6 +299,7 @@ public class Tuba.Views.Browser : Adw.Bin {
 
 		toolbar_view.content = this.webview;
 		this.child = toolbar_view;
+		this.focus_widget = this.webview;
 	}
 
 	protected virtual void on_load_changed (WebKit.LoadEvent load_event) {
@@ -442,6 +386,6 @@ public class Tuba.Views.Browser : Adw.Bin {
 	}
 
 	private void on_exit () {
-		this.reveal_child = false;
+		this.force_close ();
 	}
 }

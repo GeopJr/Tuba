@@ -316,7 +316,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 		open_in_browser_action.activate.connect (v => {
 			#if WEBKIT
 				if (settings.use_in_app_browser_if_available && Views.Browser.can_handle_url (profile.account.url)) {
-					app.main_window.open_in_app_browser_for_url (profile.account.url);
+					(new Views.Browser.with_url (profile.account.url)).present (app.main_window);
 					return;
 				}
 			#endif

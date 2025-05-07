@@ -245,7 +245,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 	private void open_url (string url) {
 		#if WEBKIT
 			if (settings.use_in_app_browser_if_available && Views.Browser.can_handle_url (url)) {
-				app.main_window.open_in_app_browser_for_url (url);
+				(new Views.Browser.with_url (url)).present (app.main_window);
 				return;
 			}
 		#endif
