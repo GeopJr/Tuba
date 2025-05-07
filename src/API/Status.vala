@@ -278,10 +278,11 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 		return action ("unbookmark");
 	}
 
-	public enum ReblogVisibility {
+	public enum Visibility {
 		PUBLIC,
 		UNLISTED,
-		PRIVATE;
+		PRIVATE,
+		DIRECT;
 
 		public string to_string () {
 			switch (this) {
@@ -291,26 +292,61 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 					return "unlisted";
 				case PRIVATE:
 					return "private";
+				case DIRECT:
+					return "direct";
 				default:
-					return "";
+					assert_not_reached ();
 			}
 		}
 
-		public static ReblogVisibility? from_string (string id) {
-			switch (id) {
+		public string to_title () {
+			switch (this) {
+				case PUBLIC:
+					return _("Public");
+				case UNLISTED:
+					// translators: Probably follow Mastodon's translation
+					return _("Unlisted");
+				case PRIVATE:
+					return _("Followers Only");
+				case DIRECT:
+					return _("Direct");
+				default:
+					assert_not_reached ();
+			}
+		}
+
+		public static Visibility? from_string (string id) {
+			switch (id.down ()) {
 				case "public":
 					return PUBLIC;
 				case "unlisted":
 					return UNLISTED;
 				case "private":
 					return PRIVATE;
+				case "direct":
+					return DIRECT;
 				default:
 					return null;
 			}
 		}
+
+		public int privacy_rate () {
+			switch (this) {
+				case PUBLIC:
+					return 0;
+				case UNLISTED:
+					return 1;
+				case PRIVATE:
+					return 2;
+				case DIRECT:
+					return 3;
+				default:
+					assert_not_reached ();
+			}
+		}
 	}
 
-	public Request reblog_req (ReblogVisibility? visibility = null) {
+	public Request reblog_req (Visibility? visibility = null) {
 		var req = action ("reblog");
 		if (visibility != null)
 			req.with_form_data ("visibility", visibility.to_string ());

@@ -240,11 +240,11 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			};
 
 			Gtk.CheckButton? group = null; // hashmap is not ordered
-			Gee.HashMap<API.Status.ReblogVisibility, Gtk.CheckButton> check_buttons = new Gee.HashMap<API.Status.ReblogVisibility, Gtk.CheckButton> ();
+			Gee.HashMap<API.Status.Visibility, Gtk.CheckButton> check_buttons = new Gee.HashMap<API.Status.Visibility, Gtk.CheckButton> ();
 			for (int i = 0; i < accounts.active.visibility_list.n_items; i++) {
 				var visibility = (InstanceAccount.Visibility) accounts.active.visibility_list.get_item (i);
-				var reblog_visibility = API.Status.ReblogVisibility.from_string (visibility.id);
-				if (reblog_visibility == null) continue;
+				var reblog_visibility = API.Status.Visibility.from_string (visibility.id);
+				if (reblog_visibility == null || reblog_visibility == API.Status.Visibility.DIRECT) continue;
 
 				var checkbutton = new Gtk.CheckButton () {
 					css_classes = {"selection-mode"},
@@ -288,10 +288,10 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 				switch (res) {
 					case "yes":
 					case "quote":
-						API.Status.ReblogVisibility? reblog_visibility = null;
+						API.Status.Visibility? reblog_visibility = null;
 						check_buttons.foreach (e => {
 							if (((Gtk.CheckButton) e.value).active) {
-								reblog_visibility = (API.Status.ReblogVisibility) e.key;
+								reblog_visibility = (API.Status.Visibility) e.key;
 								return false;
 							}
 
@@ -335,7 +335,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		}, false, status.formal.id);
 	}
 
-	private void commit_boost (Widgets.StatusActionButton status_btn, API.Status.ReblogVisibility? visibility = null) {
+	private void commit_boost (Widgets.StatusActionButton status_btn, API.Status.Visibility? visibility = null) {
 			status_btn.active = !status_btn.active;
 
 			string action;
