@@ -9,7 +9,7 @@ public class Tuba.Settings : GLib.Settings {
 		public string[] notification_filters { get; set; default = {}; }
 		public string[] favorite_lists_ids { get; set; default = {}; }
 
-		private static string[] keys_to_init = {
+		private const string[] KEYS_TO_INIT = {
 			"default-post-visibility",
 			"muted-notification-types",
 			"default-content-type",
@@ -23,7 +23,7 @@ public class Tuba.Settings : GLib.Settings {
 			Object (schema_id: @"$(Build.DOMAIN).Account", path: @"/$(Build.DOMAIN.replace (".", "/"))/accounts/$id/");
 			this.delay ();
 
-			foreach (var key in keys_to_init) {
+			foreach (var key in KEYS_TO_INIT) {
 				init (key);
 			}
 		}
@@ -162,7 +162,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool use_in_app_browser_if_available { get; set; }
 	public bool collapse_long_posts { get; set; }
 
-	private static string[] keys_to_init = {
+	private const string[] KEYS_TO_INIT = {
 		"active-account",
 		"color-scheme",
 		"timeline-page-size",
@@ -187,7 +187,6 @@ public class Tuba.Settings : GLib.Settings {
 		"darken-images-on-dark-mode",
 		"media-viewer-last-used-volume",
 		"monitor-network",
-		"proxy",
 		"dim-trivial-notifications",
 		"analytics",
 		"update-contributors",
@@ -199,13 +198,14 @@ public class Tuba.Settings : GLib.Settings {
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
 
-		foreach (var key in keys_to_init) {
+		foreach (var key in KEYS_TO_INIT) {
 			init (key);
 		}
 
 		init ("work-in-background", true);
 		init ("last-analytics-update", true);
 		init ("last-contributors-update", true);
+		init ("proxy", true);
 		init ("contributors", true);
 		changed.connect (on_changed);
 	}
@@ -241,7 +241,7 @@ public class Tuba.Settings : GLib.Settings {
 		var builder = new Json.Builder ();
 		builder.begin_object ();
 
-		foreach (string key in keys_to_init) {
+		foreach (string key in KEYS_TO_INIT) {
 			if (key in SENSITIVE_KEYS) continue;
 
 			var val = Value (Type.STRING);
