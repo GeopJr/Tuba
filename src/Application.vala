@@ -467,6 +467,9 @@ namespace Tuba {
 				main_window.hide_on_close = false;
 			} else {
 				main_window.hide_on_close = true;
+				#if !DEV_MODE
+					settings.apply_all ();
+				#endif
 			}
 
 			return false;
