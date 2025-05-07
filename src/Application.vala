@@ -60,7 +60,7 @@ namespace Tuba {
 		//  public CssProvider zoom_css_provider = new CssProvider (); //FIXME: Zoom not working
 
 		public const GLib.OptionEntry[] APP_OPTIONS = {
-			{ "hidden", 0, 0, OptionArg.NONE, ref start_hidden, "Do not show main window on start", null },
+			{ "hidden", 0, 0, OptionArg.NONE, ref start_hidden, N_("Do not show main window on start"), null },
 			{ null }
 		};
 
@@ -182,18 +182,11 @@ namespace Tuba {
 			application_id = Build.DOMAIN;
 			flags = ApplicationFlags.HANDLES_OPEN;
 
+			add_main_option_entries (APP_OPTIONS);
 			app_locales = new Tuba.Locales ();
 		}
 
 		public static int main (string[] args) {
-			try {
-				var opt_context = new OptionContext ("- Options");
-				opt_context.add_main_entries (APP_OPTIONS, null);
-				opt_context.parse (ref args);
-			} catch (GLib.OptionError e) {
-				warning (e.message);
-			}
-
 			#if GSTREAMER
 				Gst.init (ref args);
 			#endif
