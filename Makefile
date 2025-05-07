@@ -2,6 +2,7 @@
 PREFIX ?= /usr
 
 clapper ?= 1
+msys_sys ?= mingw64
 # Remove the devel headerbar style:
 # make release=1
 release ?=
@@ -46,23 +47,23 @@ endif
 
 __windows_copy_deps:
 	ldd $(PREFIX)/bin/dev.geopjr.Tuba.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
-	cp -f /mingw64/bin/gdbus.exe $(PREFIX)/bin && ldd $(PREFIX)/bin/gdbus.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
-	cp -f /mingw64/bin/gspawn-win64-helper.exe $(PREFIX)/bin && ldd $(PREFIX)/bin/gspawn-win64-helper.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
-	cp -f /mingw64/bin/libwebp-7.dll /mingw64/bin/librsvg-2-2.dll /mingw64/bin/libgnutls-30.dll /mingw64/bin/libgthread-2.0-0.dll /mingw64/bin/libgmp-10.dll /mingw64/bin/libproxy-1.dll ${PREFIX}/bin
-	cp -r /mingw64/lib/gio/ $(PREFIX)/lib
-	cp -r /mingw64/lib/gdk-pixbuf-2.0 $(PREFIX)/lib/gdk-pixbuf-2.0
-	cp -r /mingw64/lib/gstreamer-1.0 $(PREFIX)/lib/gstreamer-1.0
+	cp -f /$(msys_sys)/bin/gdbus.exe $(PREFIX)/bin && ldd $(PREFIX)/bin/gdbus.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
+	cp -f /$(msys_sys)/bin/gspawn-win64-helper.exe $(PREFIX)/bin && ldd $(PREFIX)/bin/gspawn-win64-helper.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
+	cp -f /$(msys_sys)/bin/libwebp-7.dll /$(msys_sys)/bin/librsvg-2-2.dll /$(msys_sys)/bin/libgnutls-30.dll /$(msys_sys)/bin/libgthread-2.0-0.dll /$(msys_sys)/bin/libgmp-10.dll /$(msys_sys)/bin/libproxy-1.dll ${PREFIX}/bin
+	cp -r /$(msys_sys)/lib/gio/ $(PREFIX)/lib
+	cp -r /$(msys_sys)/lib/gdk-pixbuf-2.0 $(PREFIX)/lib/gdk-pixbuf-2.0
+	cp -r /$(msys_sys)/lib/gstreamer-1.0 $(PREFIX)/lib/gstreamer-1.0
 
 	ldd $(PREFIX)/lib/gio/*/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	ldd $(PREFIX)/lib/gstreamer-1.0/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	ldd $(PREFIX)/bin/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 
 __windows_schemas:
-	cp -r /mingw64/share/glib-2.0/schemas/*.xml ${PREFIX}/share/glib-2.0/schemas/
+	cp -r /$(msys_sys)/share/glib-2.0/schemas/*.xml ${PREFIX}/share/glib-2.0/schemas/
 	glib-compile-schemas.exe ${PREFIX}/share/glib-2.0/schemas/
 
 __windows_copy_icons:
-	cp -r /mingw64/share/icons/ $(PREFIX)/share/
+	cp -r /$(msys_sys)/share/icons/ $(PREFIX)/share/
 
 __windows_cleanup:
 	rm -f ${PREFIX}/share/glib-2.0/schemas/*.xml
