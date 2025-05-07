@@ -18,7 +18,7 @@ public void test_web_ap_handler () {
 		try {
 			var uri = Uri.parse (test_url.original, UriFlags.ENCODED);
 
-			assert_cmpstr (Tuba.WebApHandler.from_uri (uri), CompareOperator.EQ, test_url.result);
+			assert_cmpstr (Tuba.Utils.WebApHandler.from_uri (uri), CompareOperator.EQ, test_url.result);
 		} catch (Error e) {
 			critical (e.message);
 		}

@@ -17,12 +17,12 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	public Tuba.Attachment.MediaType media_kind { get; protected set; }
 
 	private void copy_url () {
-		Host.copy (entity.url);
+		Utils.Host.copy (entity.url);
 		app.toast (_("Copied attachment url to clipboard"));
 	}
 
 	private void open_in_browser () {
-		Host.open_url.begin (entity.url);
+		Utils.Host.open_url.begin (entity.url);
 	}
 
 	private void save_as () {
@@ -225,7 +225,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	protected async void open () throws Error {
-		var path = yield Host.download (entity.url);
-		Host.open_url.begin (path);
+		var path = yield Utils.Host.download (entity.url);
+		Utils.Host.open_url.begin (path);
 	}
 }

@@ -23,8 +23,8 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 	public bool extract_last_tags { get; set; default=false; }
 	public bool has_link { get; set; default=false; }
 
-	TagExtractor.Tag[]? extracted_tags = null;
-	public TagExtractor.Tag[]? get_extracted_tags () {
+	Utils.TagExtractor.Tag[]? extracted_tags = null;
+	public Utils.TagExtractor.Tag[]? get_extracted_tags () {
 		return extracted_tags;
 	}
 
@@ -81,7 +81,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 			w.destroy ();
 		}
 
-		string to_parse = HtmlUtils.replace_with_pango_markup (content);
+		string to_parse = Utils.Htmlx.replace_with_pango_markup (content);
 		if (to_parse == "") return;
 
 		var doc = Html.Doc.read_doc (to_parse, "", "utf8");
@@ -112,7 +112,7 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 
 	void extract_tags () {
 		if (current_chunk == null || !this.has_link) return;
-		var extracted = TagExtractor.from_string (current_chunk);
+		var extracted = Utils.TagExtractor.from_string (current_chunk);
 		if (extracted.input_without_tags == null || extracted.extracted_tags == null) return;
 
 		current_chunk = extracted.input_without_tags;

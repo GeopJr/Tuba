@@ -211,7 +211,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 				total_new_followings += stats.following;
 			}
 
-			string shortened_value = Units.shorten (total_new_posts);
+			string shortened_value = Utils.Units.shorten (total_new_posts);
 			posts_box.append (new Gtk.Label (shortened_value) {
 				css_classes = {"title-1"},
 				wrap = true,
@@ -392,7 +392,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 					wrap_mode = Pango.WrapMode.WORD_CHAR
 				});
 
-				followers_box.append (new Gtk.Label (Units.shorten (total_new_followers)) {
+				followers_box.append (new Gtk.Label (Utils.Units.shorten (total_new_followers)) {
 					css_classes = {"title-1"},
 					wrap = true,
 					wrap_mode = Pango.WrapMode.WORD_CHAR
@@ -417,7 +417,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 					wrap_mode = Pango.WrapMode.WORD_CHAR
 				});
 
-				follows_box.append (new Gtk.Label (Units.shorten (total_new_followings)) {
+				follows_box.append (new Gtk.Label (Utils.Units.shorten (total_new_followings)) {
 					css_classes = {"title-1"},
 					wrap = true,
 					wrap_mode = Pango.WrapMode.WORD_CHAR

@@ -187,12 +187,12 @@ public class Tuba.Views.Browser : Adw.Dialog {
 		}
 
 		private void on_open_in_browser () {
-			Host.open_url.begin (this.subtitle);
+			Utils.Host.open_url.begin (this.subtitle);
 			exit ();
 		}
 
 		private void on_copy_url () {
-			Host.copy (this.subtitle);
+			Utils.Host.copy (this.subtitle);
 			app.toast (_("Copied url to clipboard"));
 		}
 
@@ -334,7 +334,7 @@ public class Tuba.Views.Browser : Adw.Dialog {
 
 	protected void download_in_browser (WebKit.Download download) {
 		download.cancel ();
-		Host.open_url.begin (download.get_request ().uri);
+		Utils.Host.open_url.begin (download.get_request ().uri);
 	}
 
 	protected bool open_new_tab_in_browser (WebKit.PolicyDecision decision, WebKit.PolicyDecisionType type) {
@@ -354,7 +354,7 @@ public class Tuba.Views.Browser : Adw.Dialog {
 					|| response_decision.response.mime_type.has_prefix ("text/")
 				) return false;
 
-				Host.open_url.begin (response_decision.request.uri);
+				Utils.Host.open_url.begin (response_decision.request.uri);
 				response_decision.ignore ();
 				return true;
 			default:
@@ -363,7 +363,7 @@ public class Tuba.Views.Browser : Adw.Dialog {
 	}
 
 	protected Gtk.Widget on_create (WebKit.NavigationAction navigation_action) {
-		Host.open_url.begin (navigation_action.get_request ().get_uri ());
+		Utils.Host.open_url.begin (navigation_action.get_request ().get_uri ());
 
 		// According to the docs, we should return null if
 		// we are not creating a new WebView, but the vapi

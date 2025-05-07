@@ -117,7 +117,7 @@ TestDate[] get_dates () {
 
 public void test_left () {
 	foreach (var test_date in get_dates ()) {
-		var left_date = Tuba.DateTime.humanize_left (test_date.iso8601);
+		var left_date = Tuba.Utils.DateTime.humanize_left (test_date.iso8601);
 
 		assert_cmpstr (left_date, CompareOperator.EQ, test_date.left);
 	}
@@ -125,7 +125,7 @@ public void test_left () {
 
 public void test_ago () {
 	foreach (var test_date in get_dates ()) {
-		var ago_date = Tuba.DateTime.humanize_ago (test_date.iso8601);
+		var ago_date = Tuba.Utils.DateTime.humanize_ago (test_date.iso8601);
 
 		assert_cmpstr (ago_date, CompareOperator.EQ, test_date.ago);
 	}
@@ -133,7 +133,7 @@ public void test_ago () {
 
 public void test_humanize () {
 	foreach (var test_date in get_dates ()) {
-		var human_date = Tuba.DateTime.humanize (test_date.iso8601);
+		var human_date = Tuba.Utils.DateTime.humanize (test_date.iso8601);
 
 		assert_cmpstr (human_date, CompareOperator.EQ, test_date.human);
 	}
@@ -184,7 +184,7 @@ Test3Months[] get_3_months_dates () {
 
 public void test_3_months () {
 	foreach (var test_date in get_3_months_dates ()) {
-		var is_3_months_old = Tuba.DateTime.is_3_months_old (test_date.iso8601);
+		var is_3_months_old = Tuba.Utils.DateTime.is_3_months_old (test_date.iso8601);
 
 		assert_true (is_3_months_old == test_date.res);
 	}

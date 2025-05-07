@@ -1,7 +1,7 @@
 // Ported from Chatty
 // https://source.puri.sm/Librem5/chatty/-/merge_requests/1229
 
-public class Tuba.Tracking {
+public class Tuba.Utils.Tracking {
 	/* https://github.com/brave/brave-core/blob/5fcad3e35bac6fea795941fd8189a59d79d488bc/browser/net/brave_site_hacks_network_delegate_helper.cc#L29-L67 */
 	public const string[] TRACKING_IDS = {
 		// Strip any utm_ based ones

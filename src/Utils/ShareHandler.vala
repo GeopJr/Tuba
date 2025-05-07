@@ -1,4 +1,4 @@
-public class Tuba.ShareHandler {
+public class Tuba.Utils.ShareHandler {
 	public struct ShareResult {
 		public string text;
 		public string? cw;

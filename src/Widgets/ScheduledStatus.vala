@@ -124,7 +124,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 		widg.date_label.visible = false;
 		if (widg.poll != null) {
 			widg.poll.usable = false;
-			widg.poll.info_label.label = DateTime.humanize_ago (poll.expires_at);
+			widg.poll.info_label.label = Utils.DateTime.humanize_ago (poll.expires_at);
 		}
 
 		// Re-parse the date into a MONTH DAY, YEAR (separator) HOUR:MINUTES

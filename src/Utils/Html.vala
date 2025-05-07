@@ -1,8 +1,8 @@
-public class Tuba.HtmlUtils {
+public class Tuba.Utils.Htmlx {
 	public static string remove_tags (string content) {
 		var fixed_paragraphs = content;
 
-		string to_parse = HtmlUtils.replace_with_pango_markup (content);
+		string to_parse = Htmlx.replace_with_pango_markup (content);
 		if (to_parse != "") {
 			var doc = Html.Doc.read_doc (to_parse, "", "utf8");
 			if (doc != null) {

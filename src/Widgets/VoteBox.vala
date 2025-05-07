@@ -287,7 +287,7 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 			}
 		}
 
-		string voted_string = Tuba.Units.shorten (poll.votes_count);
+		string voted_string = Utils.Units.shorten (poll.votes_count);
 		string voted_numerical_string = GLib.ngettext (
 			// translators: the variable is the amount of people that voted
 			"%s voted", "%s voted",
@@ -297,8 +297,8 @@ public class Tuba.Widgets.VoteBox : Gtk.Box {
 			info_label.label = "%s · %s".printf (
 				voted_numerical_string,
 				poll.expired
-					? DateTime.humanize_ago (poll.expires_at)
-					: DateTime.humanize_left (poll.expires_at)
+					? Utils.DateTime.humanize_ago (poll.expires_at)
+					: Utils.DateTime.humanize_left (poll.expires_at)
 			);
 		} else {
 			info_label.label = voted_numerical_string;

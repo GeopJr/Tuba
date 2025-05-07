@@ -419,12 +419,12 @@
 						settings.copy_private_link_reminder = false;
 					}
 
-					Host.copy (status.formal.url);
+					Utils.Host.copy (status.formal.url);
 					app.toast (_("Copied post url to clipboard"));
 				}
 			);
 		} else {
-			Host.copy (status.formal.url ?? status.formal.account.url);
+			Utils.Host.copy (status.formal.url ?? status.formal.account.url);
 			app.toast (_("Copied post url to clipboard"));
 		}
 	}
@@ -438,7 +438,7 @@
 			}
 		#endif
 
-		Host.open_url.begin (final_url);
+		Utils.Host.open_url.begin (final_url);
 	}
 
 	private void report_status () {
@@ -643,7 +643,7 @@
 
 				return date_parsed.format (@"$date_local $EXPANDED_SEPARATOR %H:%M").replace (" ", ""); // %e prefixes with whitespace on single digits
 			} else {
-				return DateTime.humanize (this.full_date);
+				return Utils.DateTime.humanize (this.full_date);
 			}
 		}
 	}
@@ -833,7 +833,7 @@
 			this.subtitle_text
 		);
 
-		string aria_date = DateTime.humanize_aria (this.full_date);
+		string aria_date = Utils.DateTime.humanize_aria (this.full_date);
 		string aria_date_prefixed = status.formal.is_edited
 			// translators: This is an accessibility label.
 			//				Screen reader users are going to hear this a lot,

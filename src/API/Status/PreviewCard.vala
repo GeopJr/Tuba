@@ -250,6 +250,6 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 			}
 		#endif
 
-		Host.open_url.begin (url);
+		Utils.Host.open_url.begin (url);
 	}
 }

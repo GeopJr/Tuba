@@ -7,7 +7,7 @@
           <object class="GtkLabel">
             <property name="xalign">0</property>
             <binding name="label">
-              <lookup name="name" type="TubaLocalesLocale">
+              <lookup name="name" type="TubaUtilsLocalesLocale">
                 <lookup name="item">GtkListItem</lookup>
               </lookup>
             </binding>
@@ -17,7 +17,7 @@
           <object class="GtkLabel">
             <property name="xalign">0</property>
             <binding name="label">
-              <lookup name="en_name" type="TubaLocalesLocale">
+              <lookup name="en_name" type="TubaUtilsLocalesLocale">
                 <lookup name="item">GtkListItem</lookup>
               </lookup>
             </binding>

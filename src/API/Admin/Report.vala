@@ -78,7 +78,7 @@ public class Tuba.API.Admin.Report : Entity, BasicWidgetizable {
 			? "%s\n".printf (_("You've received a report"))
 
 			// translators: report notification with date, "You've received a report on: <date>"
-			: "%s: <b>%s</b>\n".printf (_("You've received a report on"), DateTime.format_full (created_at));
+			: "%s: <b>%s</b>\n".printf (_("You've received a report on"), Utils.DateTime.format_full (created_at));
 
 		return @"$msg$t_reason$t_comment";
 	}
