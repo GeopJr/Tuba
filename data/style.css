@@ -3,7 +3,7 @@ calendar, calendar>header {
 }
 
 calendar>header>button, calendar>grid>label {
-	border-radius: 8px;
+	border-radius: 9px;
 }
 
 .notifications-all.dim-enabled .can-be-dimmed {
@@ -43,7 +43,7 @@ headerbar.flat.no-title .title {
 
 .cover-badge {
 	padding: 6px 12px;
-	border-radius: 6px;
+	border-radius: 9px;
 	margin: 8px;
 }
 
@@ -228,7 +228,7 @@ headerbar.flat.no-title .title {
 }
 
 .ttl-status-badge {
-	border-radius: 6px;
+	border-radius: 9px;
 	margin: 8px;
 	padding: 1px 6px;
 }
@@ -683,7 +683,6 @@ GtkSourceAssistant {
 	padding: 8px;
 	/* border-radius of child + padding */
 	border-radius: 14px;
-
 }
 
 GtkSourceAssistant scrolledwindow undershoot {
