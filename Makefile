@@ -1,5 +1,6 @@
 .PHONY: all install uninstall build test potfiles
 PREFIX ?= /usr
+MSYS_SYS ?= mingw64
 
 clapper ?= 1
 # Remove the devel headerbar style:
@@ -30,6 +31,7 @@ potfiles:
 	find ./ -not -path '*/.*' -type f -name "*.vala" -exec grep -l "_(\"\|ngettext" {} \; | sort >> po/POTFILES
 
 windows: PREFIX = $(PWD)/tuba_windows_portable
+windows: MSYS_SYS = $(if $(msys_arm),clangarm64,mingw64)
 windows: __windows_pre build install __windows_set_icon __windows_copy_deps __windows_schemas __windows_copy_icons __windows_cleanup __windows_package
 
 __windows_pre:
@@ -46,23 +48,23 @@ endif
 
 __windows_copy_deps:
 	ldd $(PREFIX)/bin/dev.geopjr.Tuba.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
-	cp -f /mingw64/bin/gdbus.exe $(PREFIX)/bin && ldd $(PREFIX)/bin/gdbus.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
-	cp -f /mingw64/bin/gspawn-win64-helper.exe $(PREFIX)/bin && ldd $(PREFIX)/bin/gspawn-win64-helper.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
-	cp -f /mingw64/bin/libwebp-7.dll /mingw64/bin/librsvg-2-2.dll /mingw64/bin/libgnutls-30.dll /mingw64/bin/libgthread-2.0-0.dll /mingw64/bin/libgmp-10.dll /mingw64/bin/libproxy-1.dll ${PREFIX}/bin
-	cp -r /mingw64/lib/gio/ $(PREFIX)/lib
-	cp -r /mingw64/lib/gdk-pixbuf-2.0 $(PREFIX)/lib/gdk-pixbuf-2.0
-	cp -r /mingw64/lib/gstreamer-1.0 $(PREFIX)/lib/gstreamer-1.0
+	cp -f /$(MSYS_SYS)/bin/gdbus.exe $(PREFIX)/bin && ldd $(PREFIX)/bin/gdbus.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
+	cp -f /$(MSYS_SYS)/bin/gspawn-win64-helper.exe $(PREFIX)/bin && ldd $(PREFIX)/bin/gspawn-win64-helper.exe | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
+	cp -f /$(MSYS_SYS)/bin/libwebp-7.dll /$(MSYS_SYS)/bin/librsvg-2-2.dll /$(MSYS_SYS)/bin/libgnutls-30.dll /$(MSYS_SYS)/bin/libgthread-2.0-0.dll /$(MSYS_SYS)/bin/libgmp-10.dll /$(MSYS_SYS)/bin/libproxy-1.dll ${PREFIX}/bin
+	cp -r /$(MSYS_SYS)/lib/gio/ $(PREFIX)/lib
+	cp -r /$(MSYS_SYS)/lib/gdk-pixbuf-2.0 $(PREFIX)/lib/gdk-pixbuf-2.0
+	cp -r /$(MSYS_SYS)/lib/gstreamer-1.0 $(PREFIX)/lib/gstreamer-1.0
 
 	ldd $(PREFIX)/lib/gio/*/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	ldd $(PREFIX)/lib/gstreamer-1.0/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 	ldd $(PREFIX)/bin/*.dll | grep '\/mingw.*\.dll' -o | xargs -I{} cp "{}" $(PREFIX)/bin
 
 __windows_schemas:
-	cp -r /mingw64/share/glib-2.0/schemas/*.xml ${PREFIX}/share/glib-2.0/schemas/
+	cp -r /$(MSYS_SYS)/share/glib-2.0/schemas/*.xml ${PREFIX}/share/glib-2.0/schemas/
 	glib-compile-schemas.exe ${PREFIX}/share/glib-2.0/schemas/
 
 __windows_copy_icons:
-	cp -r /mingw64/share/icons/ $(PREFIX)/share/
+	cp -r /$(MSYS_SYS)/share/icons/ $(PREFIX)/share/
 
 __windows_cleanup:
 	rm -f ${PREFIX}/share/glib-2.0/schemas/*.xml

@@ -45,14 +45,20 @@ jobs:
       - run: make windows
         if: ${{ !inputs.release }}
       - uses: actions/upload-artifact@v4
+        if: matrix.variant.arch == 'x86_64' # let's not break nightly links
+        with:
+          name: tuba_windows_portable
+          path: tuba_windows_portable/
+      - uses: actions/upload-artifact@v4
+        if: matrix.variant.arch != 'x86_64'
         with:
           name: tuba_windows_portable_${{ matrix.variant.arch }}
           path: tuba_windows_portable/
       # NSIS is not available on arm
       - run: make windows_nsis release=1
-        if: ${{ inputs.release }} && matrix.variant.arch == 'x86_64'
+        if: ${{ inputs.release && matrix.variant.arch == 'x86_64' }}
       - run: make windows_nsis
-        if: ${{ !inputs.release }} && matrix.variant.arch == 'x86_64'
+        if: ${{ !inputs.release && matrix.variant.arch == 'x86_64' }}
       - uses: actions/upload-artifact@v4
         if: matrix.variant.arch == 'x86_64'
         with:
