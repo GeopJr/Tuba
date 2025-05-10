@@ -1,5 +1,5 @@
 public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
-	public Gtk.Picture pic { get; private set; }
+	public Widgets.FocusPicture pic { get; private set; }
 	protected Gtk.Overlay media_overlay;
 
 	private bool _spoiler = false;
@@ -21,15 +21,14 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	}
 
 	void update_pic_content_fit () {
-		pic.content_fit = settings.letterbox_media ? Gtk.ContentFit.CONTAIN : Gtk.ContentFit.COVER;
+		pic.content_fit = settings.letterbox_media || (entity != null && entity.tuba_is_report) ? Gtk.ContentFit.CONTAIN : Gtk.ContentFit.COVER;
 	}
 
 	construct {
-		pic = new Gtk.Picture () {
+		pic = new Widgets.FocusPicture () {
 			hexpand = true,
 			vexpand = true,
 			can_shrink = true,
-			keep_aspect_ratio = true,
 			css_classes = {"attachment-picture"}
 		};
 
@@ -46,7 +45,15 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 	ulong pic_paintable_id = 0;
 	protected override void on_rebind () {
 		base.on_rebind ();
-		pic.alternative_text = entity == null ? null : entity.description;
+		update_pic_content_fit ();
+
+		if (entity == null) {
+			pic.alternative_text = null;
+		} else if (entity.tuba_translated_alt_text != null) {
+			pic.alternative_text = entity.tuba_translated_alt_text;
+		} else {
+			pic.alternative_text = entity.description;
+		}
 
 		if (pic_paintable_id != 0) {
 			pic.disconnect (pic_paintable_id);
@@ -73,7 +80,12 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 			media_icon.icon_size = Gtk.IconSize.LARGE;
 		}
 
-		Tuba.Helper.Image.request_paintable (entity.preview_url, entity.blurhash, on_cache_response);
+		if (entity.meta != null && entity.meta.focus != null) {
+			pic.focus_x = entity.meta.focus.x;
+			pic.focus_y = entity.meta.focus.y;
+		}
+
+		Tuba.Helper.Image.request_paintable (entity.preview_url, entity.blurhash, (entity != null && entity.tuba_is_report), on_cache_response);
 		copy_media_simple_action.set_enabled (media_kind.can_copy ());
 	}
 
@@ -92,9 +104,9 @@ public class Tuba.Widgets.Attachment.Image : Widgets.Attachment.Item {
 
 	protected override void copy_media () {
 		debug ("Begin copy-media action");
-		Host.download.begin (entity.url, (obj, res) => {
+		Utils.Host.download.begin (entity.url, (obj, res) => {
 			try {
-				string path = Host.download.end (res);
+				string path = Utils.Host.download.end (res);
 
 				Gdk.Texture texture = Gdk.Texture.from_filename (path);
 				if (texture == null) return;

@@ -1,6 +1,5 @@
 name: Bug Report
 description: Report a problem you encountered while using the app
-title: "[Bug]: "
 labels: bug
 body:
 - type: textarea
@@ -68,7 +67,7 @@ body:
 - type: textarea
   attributes:
     label: Troubleshooting information
-    description: You can find this info under About > Troubleshooting > Debugging Information.
+    description: You can find this info under About > Troubleshooting > Debugging Information. If you can't access them, skip this field or grab them from the head of `G_MESSAGES_DEBUG=Tuba flatpak run dev.geopjr.Tuba`.
   validations:
     required: false
 - type: textarea

@@ -7,6 +7,7 @@ sources += files(
     'NewDialogEditor.vala',
     'Page.vala',
     'PollPage.vala',
+    'Schedule.vala',
 )
 
 subdir('Completion')

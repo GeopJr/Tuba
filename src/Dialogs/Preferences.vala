@@ -6,7 +6,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	class FilterRow : Adw.ExpanderRow {
 		private API.Filters.Filter filter;
-		private weak Dialogs.Preferences win;
+		private Dialogs.Preferences win;
 		public signal void filter_deleted (FilterRow self);
 
 		~FilterRow () {
@@ -17,6 +17,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			this.filter = filter;
 			this.win = win;
 			this.activatable = false;
+			this.use_markup = false;
 
 			var delete_btn = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
 				css_classes = { "circular", "flat", "error" },
@@ -63,8 +64,10 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		}
 
 		private void on_edit () {
-			var dlg = new Dialogs.FilterEdit (win, filter);
+			var dlg = new Dialogs.FilterEdit (filter);
 			dlg.saved.connect (on_save);
+			dlg.toast.connect (this.win.on_toast);
+			this.win.push_subpage (dlg);
 		}
 
 		private void on_save (API.Filters.Filter filter) {
@@ -75,10 +78,11 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		private void on_delete () {
 			app.question.begin (
 				// translators: the variable is a filter name
-				{_("Are you sure you want to delete %s?").printf (filter.title), false},
+				{_("Delete %s?").printf (filter.title), false},
 				null,
 				this.win,
 				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {
@@ -127,6 +131,11 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow group_push_notifications;
 	[GtkChild] unowned Adw.SwitchRow advanced_boost_dialog;
 	[GtkChild] unowned Adw.SwitchRow darken_images_on_dark_mode;
+	[GtkChild] unowned Adw.SwitchRow reply_to_old_post_reminder;
+	[GtkChild] unowned Adw.SwitchRow copy_private_link_reminder;
+	[GtkChild] unowned Adw.EntryRow proxy_entry;
+	[GtkChild] unowned Adw.SwitchRow dim_trivial_notifications;
+	[GtkChild] unowned Adw.SwitchRow collapse_long_posts;
 
 	[GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
@@ -135,6 +144,9 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow boosts_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow poll_results_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow edits_notifications_switch;
+
+	[GtkChild] unowned Gtk.Switch analytics_switch;
+	[GtkChild] unowned Adw.SwitchRow update_contributors;
 
 	//  [GtkChild] unowned Adw.PreferencesPage filters_page;
 	[GtkChild] unowned Adw.PreferencesGroup keywords_group;
@@ -165,6 +177,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	}
 
 	construct {
+		proxy_entry.text = settings.proxy;
 		post_visibility_combo_row.model = accounts.active.visibility_list;
 
 		// Setup scheme combo row
@@ -249,6 +262,12 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		settings.bind ("group-push-notifications", group_push_notifications, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("advanced-boost-dialog", advanced_boost_dialog, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("darken-images-on-dark-mode", darken_images_on_dark_mode, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("reply-to-old-post-reminder", reply_to_old_post_reminder, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("copy-private-link-reminder", copy_private_link_reminder, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("dim-trivial-notifications", dim_trivial_notifications, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("analytics", analytics_switch, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("update-contributors", update_contributors, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("collapse-long-posts", collapse_long_posts, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 		dlcr_id = default_language_combo_row.notify["selected-item"].connect (dlcr_cb);
@@ -270,8 +289,16 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	[GtkCallback]
 	private void add_keyword_row () {
-		var dlg = new Dialogs.FilterEdit (this);
+		var dlg = new Dialogs.FilterEdit ();
 		dlg.saved.connect (on_filter_save);
+		dlg.toast.connect (on_toast);
+		this.push_subpage (dlg);
+	}
+
+	public void on_toast (string toast_content, int dismiss_time) {
+		this.add_toast (new Adw.Toast (toast_content) {
+			timeout = dismiss_time
+		});
 	}
 
 	private void on_filter_save (API.Filters.Filter filter) {
@@ -296,8 +323,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		uint default_lang_index;
 		if (
 			app.app_locales.list_store.find_with_equal_func (
-				new Tuba.Locales.Locale (default_language, null, null),
-				Tuba.Locales.Locale.compare,
+				new Utils.Locales.Locale (default_language, null, null),
+				Utils.Locales.Locale.compare,
 				out default_lang_index
 			)
 		) {
@@ -322,8 +349,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	private void on_window_closed () {
 		if (lang_changed) {
-			var new_lang = ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale;
-			if (settings.default_language != ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale) {
+			var new_lang = ((Utils.Locales.Locale) default_language_combo_row.selected_item).locale;
+			if (settings.default_language != ((Utils.Locales.Locale) default_language_combo_row.selected_item).locale) {
 
 				new Request.PATCH ("/api/v1/accounts/update_credentials")
 					.with_account (accounts.active)
@@ -350,6 +377,78 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			settings.default_content_type = ((Tuba.InstanceAccount.StatusContentType) default_content_type_combo_row.selected_item).mime;
 
 		update_notification_mutes ();
+
+		if (proxy_entry.text != "") {
+			try {
+				if (Uri.is_valid (proxy_entry.text, UriFlags.NONE))
+					settings.proxy = proxy_entry.text;
+			} catch (Error e) {
+				// translators: Toast that pops up when
+				//				an invalid proxy url has
+				//				been provided in settings
+				app.toast (_("Invalid Proxy URL"));
+				warning (e.message);
+			}
+		} else if (settings.proxy != "") {
+			settings.proxy = "";
+		}
+
+		if (settings.analytics) app.update_analytics.begin ();
+		app.update_contributors.begin ();
+	}
+
+	protected class AnalyticsDialog : Adw.Dialog {
+		GtkSource.View source_view;
+		construct {
+			this.title = _("Analytics Preview");
+			this.content_width = 460;
+			this.content_height = 640;
+
+			source_view = new GtkSource.View () {
+				vexpand = true,
+				hexpand = true,
+				top_margin = 6,
+				right_margin = 6,
+				bottom_margin = 6,
+				left_margin = 6,
+				pixels_below_lines = 6,
+				accepts_tab = false,
+				wrap_mode = Gtk.WrapMode.WORD_CHAR,
+				editable = false
+			};
+
+			((GtkSource.Buffer) source_view.buffer).highlight_matching_brackets = true;
+			((GtkSource.Buffer) source_view.buffer).highlight_syntax = true;
+			var lang_manager = new GtkSource.LanguageManager ();
+			((GtkSource.Buffer) source_view.buffer).set_language (lang_manager.get_language ("json"));
+			source_view.buffer.text = app.generate_analytics_object (true);
+
+			Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
+			update_style_scheme ();
+
+			var toolbar_view = new Adw.ToolbarView ();
+			var headerbar = new Adw.HeaderBar ();
+
+			toolbar_view.add_top_bar (headerbar);
+			toolbar_view.set_content (new Gtk.ScrolledWindow () {
+				hexpand = true,
+				vexpand = true,
+				child = source_view
+			});
+
+			this.child = toolbar_view;
+		}
+
+		protected void update_style_scheme () {
+			var manager = GtkSource.StyleSchemeManager.get_default ();
+			string scheme_name = "Adwaita";
+			if (Adw.StyleManager.get_default ().dark) scheme_name += "-dark";
+			((GtkSource.Buffer) source_view.buffer).style_scheme = manager.get_scheme (scheme_name);
+		}
+	}
+
+	[GtkCallback] protected void on_analytics_preview () {
+		(new AnalyticsDialog ()).present (this);
 	}
 }
 

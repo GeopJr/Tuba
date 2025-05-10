@@ -2,12 +2,15 @@
 <interface>
 	<requires lib="gtk" version="4.0" />
 	<template class="TubaWidgetsAccount" parent="GtkListBoxRow">
+		<accessibility>
+    	  <relation name="described-by">note</relation>
+    	</accessibility>
 		<property name="child">
 			<object class="GtkGrid" id="grid">
 				<property name="row_homogeneous">0</property>
 				<property name="margin-bottom">12</property>
 				<child>
-					<object class="GtkOverlay">
+					<object class="GtkOverlay" id="cover_overlay">
 						<child type="overlay">
 							<object class="GtkBox" id="cover_badge_box">
 								<property name="halign">end</property>
@@ -25,14 +28,12 @@
 								</child>
 								<child>
 									<object class="GtkLabel" id="cover_badge">
-										<property name="label">Follows you</property>
 										<property name="xalign">0</property>
 										<property name="visible">0</property>
 									</object>
 								</child>
 								<style>
 									<class name="linked" />
-									<class name="badge" />
 									<class name="heading" />
 									<class name="osd" />
 									<class name="cover-badge" />
@@ -62,6 +63,7 @@
 						<property name="size">100</property>
 						<style>
 							<class name="account-avatar" />
+							<class name="main-avi" />
 						</style>
 						<layout>
 							<property name="column">0</property>

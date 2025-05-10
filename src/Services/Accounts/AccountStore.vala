@@ -34,16 +34,15 @@ public abstract class Tuba.AccountStore : GLib.Object {
 
 	public abstract void load () throws GLib.Error;
 	public abstract void save () throws GLib.Error;
-	public void safe_save () {
-		try {
-			save ();
-		}
-		catch (GLib.Error e) {
-			warning (e.message);
-			var dlg = app.inform (_("Error"), e.message);
-			dlg.present (app.main_window);
-		}
-	}
+	//  public void safe_save () {
+	//  	try {
+	//  		save ();
+	//  	} catch (GLib.Error e) {
+	//  		warning (e.message);
+	//  		var dlg = app.inform (_("Error"), e.message);
+	//  		dlg.present (app.main_window);
+	//  	}
+	//  }
 
 	public virtual void add (InstanceAccount account) throws GLib.Error {
 		debug (@"Adding new account: $(account.handle)");
@@ -86,11 +85,11 @@ public abstract class Tuba.AccountStore : GLib.Object {
 			debug (@"Activating $(account.handle)…");
 			if (clear_cache)
 				network.clear_cache ();
+			settings.active_account = account.uuid;
 			account.verify_credentials.begin ((obj, res) => {
 				try {
 					account.verify_credentials.end (res);
 					account.error = null;
-					settings.active_account = account.uuid;
 					if (account.source != null) {
 						if (account.source.language != null && account.source.language != "") settings.default_language = account.source.language;
 						if (account.source.privacy != null && account.source.privacy != "") {
@@ -99,8 +98,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 						}
 						account.unreviewed_follow_requests = account.source.follow_requests_count;
 					}
-				}
-				catch (Error e) {
+				} catch (Error e) {
 					warning (@"Couldn't activate account $(account.handle):");
 					warning (e.message);
 					account.error = e;

@@ -3,7 +3,7 @@ public class Tuba.API.BookWyrmAuthor : Entity {
 	public string openlibraryKey { get; set; default=""; } // vala-lint=naming-convention
 	public string name { get; set; default=""; }
 
-    public static BookWyrmAuthor from (Json.Node node) throws Error {
+	public static BookWyrmAuthor from (Json.Node node) throws Error {
 		return Entity.from_json (typeof (API.BookWyrmAuthor), node) as API.BookWyrmAuthor;
 	}
 }

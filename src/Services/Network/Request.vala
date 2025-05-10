@@ -25,7 +25,7 @@ public class Tuba.Request : GLib.Object {
 		}
 	}
 	public InputStream response_body { get; set; }
-	public weak InstanceAccount? account { get; set; default = null; }
+	public InstanceAccount? account { get; set; default = null; }
 	Network.SuccessCallback? cb;
 	Network.ErrorCallback? error_cb;
 	Gee.HashMap<string, string>? pars;
@@ -148,7 +148,7 @@ public class Tuba.Request : GLib.Object {
 
 	public Request body_json (Json.Builder t_builder) {
 		var generator = new Json.Generator ();
-        generator.set_root (t_builder.get_root ());
+		generator.set_root (t_builder.get_root ());
 		return body ("application/json", new Bytes.take (generator.to_data (null).data));
 	}
 

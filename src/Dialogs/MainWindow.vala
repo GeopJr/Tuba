@@ -14,6 +14,11 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	Views.Base? last_view = null;
 
+	static construct {
+		typeof (Views.MediaViewer).ensure ();
+		typeof (Views.Sidebar).ensure ();
+	}
+
 	construct {
 		construct_saveable (settings);
 
@@ -39,7 +44,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		});
 	}
 
-	private weak Gtk.Widget? media_viewer_source_widget;
+	private Gtk.Widget? media_viewer_source_widget;
 	private void on_media_viewer_toggle () {
 		if (is_media_viewer_visible || media_viewer_source_widget == null) return;
 
@@ -92,13 +97,25 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		bool as_is = false,
 		string? alt_text = null,
 		string? user_friendly_url = null,
+		string? blurhash = null,
 		bool stream = false,
 		bool? load_and_scroll = null,
 		bool reveal_media_viewer = true
 	) {
 		if (as_is && preview == null) return;
 
-		media_viewer.add_media (url, media_type, preview, as_is, alt_text, user_friendly_url, stream, source_widget, load_and_scroll);
+		media_viewer.add_media (
+			url,
+			media_type,
+			preview,
+			as_is,
+			alt_text,
+			user_friendly_url,
+			blurhash,
+			stream,
+			source_widget,
+			load_and_scroll
+		);
 
 		if (reveal_media_viewer) {
 			media_viewer_source_widget = app.main_window.get_focus ();
@@ -128,9 +145,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 			scroller.child = clamp;
 
 			var toolbar_view = new Adw.ToolbarView ();
-			var headerbar = new Adw.HeaderBar () {
-				centering_policy = Adw.CenteringPolicy.STRICT
-			};
+			var headerbar = new Adw.HeaderBar ();
 
 			toolbar_view.add_top_bar (headerbar);
 			toolbar_view.set_content (scroller);
@@ -146,13 +161,17 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 			((Widgets.BookWyrmPage) book_widget).selectable = true;
 		} catch {
-			if (fallback != null) Host.open_uri (fallback);
+			if (fallback != null) Utils.Host.open_url.begin (fallback);
 		}
 	}
 
 	public Views.Base open_view (Views.Base view) {
 		if (
-			navigation_view?.visible_page?.child == view
+			(
+				navigation_view != null
+				&& navigation_view.visible_page != null
+				&& navigation_view.visible_page.child == view
+			)
 			|| (
 				last_view != null
 				&& last_view.label == view.label
@@ -174,7 +193,9 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 	public void on_popped () {
 		var content_base = navigation_view.visible_page.child as Views.Base;
-		if (content_base != null && content_base.last_widget != null) content_base.last_widget.grab_focus ();
+		if (content_base != null && content_base.last_widget != null)
+			content_base.last_widget.grab_focus ();
+		content_base.update_last_widget (true);
 	}
 
 	public bool back () {
@@ -190,10 +211,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	}
 
 	public void go_back_to_start () {
-		var navigated = true;
-		while (navigated) {
-			navigated = navigation_view.pop ();
-		}
+		navigation_view.replace ({ main_page });
 		((Views.TabbedBase) main_page.child).change_page_to_named ("1");
 	}
 
@@ -209,7 +227,6 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	// 	return app.on_window_closed ();
 	// }
 
-	//FIXME: switch timelines with 1-4. Should be moved to Views.TabbedBase
 	public void switch_timeline (int32 num) {}
 
 	public void update_selected_home_item () {

@@ -1,5 +1,6 @@
-public class Tuba.API.Account : Entity, Widgetizable {
+public class Tuba.API.Account : Entity, Widgetizable, SearchResult {
 	public API.Relationship? tuba_rs { get; set; default=null; }
+	public GLib.Regex? tuba_search_query_regex { get; set; default = null; }
 
 	public string id { get; set; }
 	public string username { get; set; }
@@ -11,17 +12,19 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	   nickname */
 	public string display_name {
 		set {
-		_display_name = value;
+			_display_name = value;
 		}
 		get {
-			return ( ( _display_name != null && _display_name.length > 0 ) ? _display_name : username );
+			return (( _display_name != null && _display_name.length > 0 ) ? _display_name : username );
 		}
 	}
 
 	public string note { get; set; default=""; }
 	public bool locked { get; set; }
 	public string header { get; set; }
+	public string? header_description { get; set; default=null; }
 	public string avatar { get; set; }
+	public string? avatar_description { get; set; default=null; }
 	public string url { get; set; }
 	public bool bot { get; set; default=false; }
 	public string created_at { get; set; }
@@ -32,6 +35,8 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	public Gee.ArrayList<API.AccountRole>? roles { get; set; default = null; }
 	public Gee.ArrayList<API.AccountField>? fields { get; set; default = null; }
 	public AccountSource? source { get; set; default = null; }
+	public API.AccountRole? role { get; set; default = null; }
+	public API.Account? moved { get; set; default = null; }
 
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
@@ -53,13 +58,13 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	}
 	public string domain {
 		owned get {
-            Uri uri;
-            try {
-                uri = Uri.parse (url, UriFlags.NONE);
-            } catch (GLib.UriError e) {
-                warning (e.message);
-                return "";
-            }
+			Uri uri;
+			try {
+				uri = Uri.parse (url, UriFlags.NONE);
+			} catch (GLib.UriError e) {
+				warning (e.message);
+				return "";
+			}
 			return uri.get_host ();
 		}
 	}
@@ -121,9 +126,9 @@ public class Tuba.API.Account : Entity, Widgetizable {
 			open ();
 		else {
 			account.resolve.begin (url, (obj, res) => {
-                try {
-                    account.resolve.end (res).open ();
-                } catch (Error e) {
+				try {
+					account.resolve.end (res).open ();
+				} catch (Error e) {
 					warning (@"Error opening account: $(account.handle) - $(e.message)");
 				}
 			});
@@ -131,12 +136,12 @@ public class Tuba.API.Account : Entity, Widgetizable {
 	}
 
 	public Request accept_follow_request () {
-        return new Request.POST (@"/api/v1/follow_requests/$id/authorize")
-            .with_account (accounts.active);
-    }
+		return new Request.POST (@"/api/v1/follow_requests/$id/authorize")
+			.with_account (accounts.active);
+	}
 
 	public Request decline_follow_request () {
-        return new Request.POST (@"/api/v1/follow_requests/$id/reject")
-            .with_account (accounts.active);
-    }
+		return new Request.POST (@"/api/v1/follow_requests/$id/reject")
+			.with_account (accounts.active);
+	}
 }

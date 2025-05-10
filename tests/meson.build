@@ -14,6 +14,12 @@ unit_tests = {
     'Html': files (
         meson.project_source_root() + '/src/Utils/Html.vala',
     ),
+    'ShareHandler': files (
+        meson.project_source_root() + '/src/Utils/ShareHandler.vala'
+    ),
+    'TagExtractor': files (
+        meson.project_source_root() + '/src/Utils/TagExtractor.vala'
+    ),
     'Tracking': files (
         meson.project_source_root() + '/src/Utils/Tracking.vala'
     ),

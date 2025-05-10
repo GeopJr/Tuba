@@ -80,8 +80,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		var toolbarview = new Adw.ToolbarView ();
 		var headerbar = new Adw.HeaderBar () {
 			show_end_title_buttons = false,
-			show_start_title_buttons = false,
-			centering_policy = Adw.CenteringPolicy.STRICT
+			show_start_title_buttons = false
 		};
 		back_button = new Gtk.Button.with_label (_("Cancel"));
 		back_button.clicked.connect (on_back);
@@ -230,8 +229,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 			hexpand = true,
 			valign = Gtk.Align.CENTER
 		};
-		page_3_stack.add_named (new Gtk.Spinner () {
-			spinning = true,
+		page_3_stack.add_named (new Adw.Spinner () {
 			halign = Gtk.Align.CENTER,
 			valign = Gtk.Align.CENTER,
 			vexpand = true,
@@ -328,10 +326,11 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		} else {
 			app.question.begin (
 				// translators: submit the report
-				{_("Are you sure you want to submit?"), false},
+				{_("Submit Report?"), false},
 				null,
 				this,
 				{ { _("Submit"), Adw.ResponseAppearance.SUGGESTED }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {

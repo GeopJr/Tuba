@@ -13,7 +13,7 @@ public class Tuba.SecretAccountStore : AccountStore {
 		schema_attributes["version"] = Secret.SchemaAttributeType.STRING;
 		schema = new Secret.Schema.newv (
 			Build.DOMAIN,
-			Secret.SchemaFlags.DONT_MATCH_NAME,
+			Secret.SchemaFlags.NONE,
 			schema_attributes
 		);
 
@@ -52,18 +52,23 @@ public class Tuba.SecretAccountStore : AccountStore {
 				{@"$help_msg.", false},
 				app.add_account_window,
 				{ {"Read More", Adw.ResponseAppearance.SUGGESTED }, { "Close", Adw.ResponseAppearance.DEFAULT } },
+				null,
 				false,
 				(obj, res) => {
-					if (app.question.end (res).truthy ()) Host.open_uri (wiki_page);
-					Process.exit (1);
+					if (app.question.end (res).truthy ()) {
+						Utils.Host.open_url.begin (wiki_page, (obj, res) => {
+							Utils.Host.open_url.end (res);
+							Process.exit (1);
+						});
+					} else {
+						Process.exit (1);
+					}
 				}
 			);
 		}
 
 		secrets.foreach (item => {
-			// TODO: remove uuid fallback
-			bool force_save = false;
-			var account = secret_to_account (item, out force_save);
+			var account = secret_to_account (item);
 			if (account != null && account.id != "") {
 				new Request.GET (@"/api/v1/accounts/$(account.id)")
 					.with_account (account)
@@ -80,11 +85,8 @@ public class Tuba.SecretAccountStore : AccountStore {
 						}
 					})
 					.exec ();
-					saved.add (account);
-					account.added ();
-
-					// TODO: remove uuid fallback
-					if (force_save) safe_save ();
+				saved.add (account);
+				account.added ();
 			}
 		});
 		changed (saved);
@@ -177,13 +179,16 @@ public class Tuba.SecretAccountStore : AccountStore {
 		builder.set_member_name ("uuid");
 		builder.add_string_value (account.uuid);
 
+		builder.set_member_name ("admin-mode");
+		builder.add_boolean_value (account.admin_mode);
+
 		// If display name has emojis it's
 		// better to save and load them
 		// so users don't see their shortcode
 		// while verify_credentials is running
 		builder.set_member_name ("emojis");
 		builder.begin_array ();
-		if (account.emojis?.size > 0) {
+		if (account.emojis != null && account.emojis.size > 0) {
 			foreach (var emoji in account.emojis) {
 					builder.begin_object ();
 
@@ -225,11 +230,9 @@ public class Tuba.SecretAccountStore : AccountStore {
 		);
 	}
 
-	InstanceAccount? secret_to_account (Secret.Retrievable item, out bool force_save) {
+	InstanceAccount? secret_to_account (Secret.Retrievable item) {
 		InstanceAccount? account = null;
 
-		// TODO: remove uuid fallback
-		force_save = false;
 		try {
 			var secret = item.retrieve_secret_sync ();
 			var contents = secret.get_text ();
@@ -248,14 +251,10 @@ public class Tuba.SecretAccountStore : AccountStore {
 				|| !root_obj.has_member ("client-secret")
 				|| !root_obj.has_member ("client-id")
 				|| !root_obj.has_member ("access-token")
+				|| !root_obj.has_member ("uuid")
 			) return null;
 
-			// TODO: remove uuid fallback
-			bool had_uuid = root_obj.has_member ("uuid");
 			account = accounts.create_account (root);
-
-			// TODO: remove uuid fallback
-			force_save = !had_uuid && account.uuid != null;
 		} catch (GLib.Error e) {
 			warning (e.message);
 		}

@@ -3,6 +3,7 @@
     <gresource prefix="/dev/geopjr/Tuba/">
         <file>style.css</file>
         <file>style-dark.css</file>
+        <file>style-hc.css</file>
 
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-hashtag-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-bookmarks-symbolic.svg</file>
@@ -64,7 +65,30 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-error-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-sad-computer-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-background-app-ghost-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-heart-broken-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-build-alt-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-arrows-loop-tall-disabled-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-checkbox-checked-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-radio-checked-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-mail-unread-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-starred-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-camera-focus-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-heart-filled-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-birthday-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-transparent-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-police-badge2-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-clock-alt-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-quotation-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-fish-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-dock-right-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-channel-insecure-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-view-refresh-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-check-plain-symbolic.svg</file>
         <!-- <file preprocess="xml-stripblanks">icons/scalable/actions/tuba-language-symbolic.svg</file> -->
+
+        <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Archives.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Calligraphy.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/apps/dev.geopjr.Collision.svg</file>
 
         <file>gtk/help-overlay.ui</file>
         <file>gtk/dropdown/content_type_title.ui</file>
@@ -82,20 +106,27 @@
         <file>ui/views/sidebar/view.ui</file>
         <file>ui/views/sidebar/account.ui</file>
         <file>ui/views/sidebar/item.ui</file>
+        <file>ui/widgets/audiocontrols.ui</file>
         <file>ui/widgets/bookwyrmpage.ui</file>
         <file>ui/widgets/announcement.ui</file>
         <file>ui/widgets/status.ui</file>
         <file>ui/widgets/votebox.ui</file>
         <file>ui/widgets/preview_card.ui</file>
+        <file>ui/widgets/preview_card_internal.ui</file>
+        <file>ui/widgets/preview_card_explore.ui</file>
         <file>ui/widgets/profile.ui</file>
+        <file>ui/dialogs/admin_dashboard.ui</file>
         <file>ui/dialogs/list_edit.ui</file>
+        <file>ui/dialogs/advanced_search.ui</file>
         <file>ui/dialogs/new_account.ui</file>
         <file>ui/dialogs/compose.ui</file>
         <file>ui/dialogs/new_composer.ui</file>
+        <file>ui/dialogs/notification_settings.ui</file>
         <file>ui/dialogs/main.ui</file>
         <file>ui/dialogs/preferences.ui</file>
         <file>ui/dialogs/profile_edit.ui</file>
         <file>ui/dialogs/filter_edit.ui</file>
+        <file>ui/dialogs/schedule.ui</file>
         <file>ui/menus.ui</file>
     </gresource>
 </gresources>

@@ -1,1 +1,2 @@
 data/screenshots/*.png filter=lfs diff=lfs merge=lfs -text
+build-aux/*.bmp filter=lfs diff=lfs merge=lfs -text

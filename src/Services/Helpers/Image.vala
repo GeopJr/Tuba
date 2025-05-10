@@ -39,6 +39,12 @@ public class Tuba.Helper.Image {
 			user_agent = @"$(Build.NAME)/$(Build.VERSION) libsoup/$(Soup.get_major_version()).$(Soup.get_minor_version()).$(Soup.get_micro_version()) ($(Soup.MAJOR_VERSION).$(Soup.MINOR_VERSION).$(Soup.MICRO_VERSION))" // vala-lint=line-length
 		};
 		session.add_feature (cache);
+
+		app.notify ["proxy"].connect (on_proxy_change);
+	}
+
+	private static void on_proxy_change () {
+		session.set_proxy_resolver (app.proxy);
 	}
 
 	public static async Bytes? request_bytes (string url) {
@@ -53,8 +59,9 @@ public class Tuba.Helper.Image {
 		}
 	}
 
-	private static async Gdk.Paintable? fetch_paintable (string url) {
+	private static async Gdk.Paintable? fetch_paintable (string url, bool disable_cache = false) {
 		var download_msg = new Soup.Message ("GET", url);
+		if (disable_cache) download_msg.disable_feature (typeof (Soup.Cache));
 		try {
 			var in_stream = yield session.send_async (download_msg, 0, null);
 			return yield decode (download_msg, in_stream);
@@ -64,7 +71,7 @@ public class Tuba.Helper.Image {
 		}
 	}
 
-	public static void request_paintable (string? url, string? blurhash, owned OnItemChangedFn cb) {
+	public static void request_paintable (string? url, string? blurhash, bool disable_cache, owned OnItemChangedFn cb) {
 		if (url == null || url == "") return;
 		new Helper.Image ();
 		bool has_loaded = false;
@@ -79,10 +86,18 @@ public class Tuba.Helper.Image {
 			});
 		}
 
-		fetch_paintable.begin (url, (obj, res) => {
+		fetch_paintable.begin (url, disable_cache, (obj, res) => {
 			var result = fetch_paintable.end (res);
 			has_loaded = true;
 			cb (result);
 		});
+	}
+
+	public static Gdk.Paintable? lookup_cache (string uri) {
+		try {
+			return Gdk.Texture.from_filename (GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, cache.cache_dir, GLib.str_hash (uri).to_string ()));
+		} catch {
+			return null;
+		}
 	}
 }

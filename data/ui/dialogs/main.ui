@@ -2,7 +2,7 @@
 <interface>
 	<template class="TubaDialogsMainWindow" parent="AdwApplicationWindow">
 		<property name="width_request">360</property>
-		<property name="height_request">600</property>
+		<property name="height_request">294</property>
 		<child>
 			<object class="AdwBreakpoint" id="breakpoint">
 				<condition>max-width: 700sp</condition>
@@ -20,6 +20,8 @@
 						</child>
 						<property name="child">
 							<object class="AdwOverlaySplitView" id="split_view">
+								<property name="enable-show-gesture" bind-source="split_view" bind-property="collapsed" bind-flags="sync-create" />
+								<property name="enable-hide-gesture" bind-source="split_view" bind-property="collapsed" bind-flags="sync-create" />
 								<property name="sidebar">
 									<object class="TubaViewsSidebar" id="sidebar" />
 								</property>

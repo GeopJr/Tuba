@@ -1,7 +1,7 @@
 public class Tuba.HandleProvider: Tuba.CompletionProvider {
 
 	public HandleProvider () {
-		Object (trigger_char: "@");
+		Object (trigger_char: '@');
 	}
 
 	internal class Proposal: Object, GtkSource.CompletionProposal {
@@ -17,7 +17,7 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 	}
 
 	public override async ListModel suggest (string word, Cancellable? cancellable) throws Error {
-		var req = API.Account.search (word);
+		var req = API.Account.search (word.substring (1));
 		yield req.await ();
 
 		var results = new GLib.ListStore (typeof (Object));
@@ -38,14 +38,17 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 		GtkSource.CompletionProposal proposal,
 		GtkSource.CompletionCell cell
 	) {
-		var account = (proposal as Proposal)?.account;
+		var real_proposal = proposal as Proposal;
+		if (real_proposal == null) return;
+
+		var account = real_proposal.account;
 		return_if_fail (account != null);
 
 		switch (cell.get_column ()) {
 			case GtkSource.CompletionColumn.ICON:
 				var avatar = new Adw.Avatar (36, null, true);
 				avatar.name = account.display_name;
-				Tuba.Helper.Image.request_paintable (account.avatar, null, (paintable) => {
+				Tuba.Helper.Image.request_paintable (account.avatar, null, false, (paintable) => {
 					avatar.custom_image = paintable;
 				});
 				cell.set_widget (avatar);
@@ -57,5 +60,9 @@ public class Tuba.HandleProvider: Tuba.CompletionProvider {
 				cell.text = null;
 				break;
 		}
+	}
+
+	public override bool word_stop (unichar ch) {
+		return base.word_stop (ch) || (!ch.isalnum () && ch != this.trigger_char && ch != '.');
 	}
 }

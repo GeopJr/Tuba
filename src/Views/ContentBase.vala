@@ -40,6 +40,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 		content_box.child = content;
 
 		scrolled.vadjustment.value_changed.connect (on_scrolled_vadjustment_value_change);
+		scroll_to_top_rev.bind_property ("child-revealed", scroll_to_top_rev, "visible", GLib.BindingFlags.SYNC_CREATE);
 	}
 	~ContentBase () {
 		debug ("Destroying ContentBase");
@@ -54,13 +55,22 @@ public class Tuba.Views.ContentBase : Views.Base {
 			on_bottom_reached ();
 		}
 
-		var is_close_to_top = scrolled.vadjustment.value <= 1000;
-		scroll_to_top_rev.reveal_child = !is_close_to_top
-			&& scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper;
+		var is_close_to_top = scrolled.vadjustment.value <= 100;
+		set_scroll_to_top_reveal_child (
+			!is_close_to_top
+			&& scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper
+		);
 
 		#if !USE_LISTVIEW
 			if (is_close_to_top) reached_close_to_top ();
 		#endif
+	}
+
+	protected void set_scroll_to_top_reveal_child (bool reveal) {
+		if (reveal == scroll_to_top_rev.reveal_child) return;
+		if (reveal) scroll_to_top_rev.visible = true;
+
+		scroll_to_top_rev.reveal_child = reveal;
 	}
 
 	#if USE_LISTVIEW
@@ -81,8 +91,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 
 	public override void dispose () {
 		#if !USE_LISTVIEW
-			if (content != null)
-				content.bind_model (null, null);
+			unbind_listboxes ();
 		#endif
 		base.dispose ();
 	}
@@ -92,11 +101,11 @@ public class Tuba.Views.ContentBase : Views.Base {
 		this.model.remove_all ();
 	}
 
-	protected virtual void clear_all_but_first () {
+	protected virtual void clear_all_but_first (int i = 1) {
 		base.clear ();
 
-		if (model.n_items > 1)
-			model.splice (1, model.n_items - 1, {});
+		if (model.n_items > i)
+			model.splice (i, model.n_items - i, {});
 	}
 
 	public override void on_content_changed () {
@@ -107,6 +116,13 @@ public class Tuba.Views.ContentBase : Views.Base {
 		}
 	}
 
+	#if !USE_LISTVIEW
+		public override void unbind_listboxes () {
+			if (content != null)
+				content.bind_model (null, null);
+			base.unbind_listboxes ();
+		}
+	#endif
 
 	public virtual Gtk.Widget on_create_model_widget (Object obj) {
 		var obj_widgetable = obj as Widgetizable;
@@ -116,22 +132,13 @@ public class Tuba.Views.ContentBase : Views.Base {
 
 			#if !USE_LISTVIEW
 				Gtk.Widget widget = obj_widgetable.to_widget ();
-				if (widget as Widgets.PreviewCard == null) {
-					widget.add_css_class ("card");
-					widget.add_css_class ("card-spacing");
-					widget.focusable = true;
+				widget.add_css_class ("card");
+				widget.add_css_class ("card-spacing");
+				widget.focusable = true;
 
-					// Thread lines overflow slightly
-					widget.overflow = Gtk.Overflow.HIDDEN;
-					return widget;
-				}
-
-				return new Gtk.ListBoxRow () {
-					css_classes = { "card", "card-spacing" },
-					focusable = true,
-					overflow = Gtk.Overflow.HIDDEN,
-					child = widget
-				};
+				// Thread lines overflow slightly
+				widget.overflow = Gtk.Overflow.HIDDEN;
+				return widget;
 			#else
 				return obj_widgetable.to_widget ();
 			#endif

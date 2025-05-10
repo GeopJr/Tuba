@@ -1,40 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <template class="TubaWidgetsVoteBox" parent="GtkBox">
-    <property name="margin_top">12</property>
-    <property name="orientation">vertical</property>
-    <child>
-      <object class="GtkListBox" id="poll_box">
-        <child>
-          <placeholder/>
-        </child>
-        <style>
-          <class name="boxed-list"/>
-          <class name="frame"/>
-          <class name="no-shadow"/>
-        </style>
-      </object>
-    </child>
-    <child>
-      <object class="GtkBox">
-        <property name="margin_top">10</property>
-        <property name="spacing">12</property>
-        <child>
-          <object class="GtkButton" id="button_vote">
-            <property name="visible">0</property>
-            <property name="valign">center</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="info_label">
-            <property name="wrap">1</property>
-            <property name="wrap-mode">word-char</property>
-            <property name="xalign">1</property>
-            <property name="hexpand">1</property>
-          </object>
-        </child>
-      </object>
-    </child>
-  </template>
+	<requires lib="gtk" version="4.0" />
+	<template class="TubaWidgetsVoteBox" parent="GtkBox">
+		<property name="margin_top">12</property>
+		<property name="orientation">vertical</property>
+		<child>
+			<object class="GtkListBox" id="poll_box">
+				<property name="overflow">hidden</property>
+				<property name="selection-mode">none</property>
+				<child>
+					<placeholder />
+				</child>
+				<style>
+					<class name="boxed-list" />
+					<class name="frame" />
+					<class name="no-shadow" />
+					<class name="uniform-border-color" />
+				</style>
+			</object>
+		</child>
+		<child>
+			<object class="GtkBox">
+				<property name="margin_top">10</property>
+				<property name="spacing">6</property>
+				<child>
+					<object class="GtkButton" id="button_results">
+						<property name="visible">0</property>
+						<property name="valign">center</property>
+						<signal name="clicked" handler="on_toggle_results" swapped="no" />
+					</object>
+				</child>
+				<child>
+					<object class="GtkButton" id="button_vote">
+						<property name="label" translatable="yes">Vote</property>
+						<property name="visible">0</property>
+						<property name="valign">center</property>
+					</object>
+				</child>
+				<child>
+					<object class="GtkButton" id="button_refresh">
+						<property name="label" translatable="yes">Refresh</property>
+						<property name="valign">center</property>
+						<signal name="clicked" handler="on_refresh_poll" swapped="no" />
+					</object>
+				</child>
+				<child>
+					<object class="GtkLabel" id="info_label">
+						<property name="wrap">1</property>
+						<property name="wrap-mode">word-char</property>
+						<property name="xalign">1</property>
+						<property name="hexpand">1</property>
+					</object>
+				</child>
+			</object>
+		</child>
+	</template>
 </interface>

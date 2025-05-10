@@ -2,6 +2,7 @@ sources += files(
     'Account.vala',
     'AccountField.vala',
     'Announcement.vala',
+    'AnnualReports.vala',
     # 'Akkoma.vala', # uneeded for now
     'Attachment.vala',
     'BookWyrm.vala',
@@ -9,24 +10,30 @@ sources += files(
     'Emoji.vala',
     'EmojiReaction.vala',
     'Entity.vala',
+    'FamiliarFollowers.vala',
     'Funkwhale.vala',
     'Instance.vala',
+    'InstanceV2.vala',
     'List.vala',
     'Mention.vala',
     'Notification.vala',
-    'PeerTube.vala',
+    'NotificationFilter.vala',
     'Poll.vala',
     'PollOption.vala',
     'Relationship.vala',
+    'ScheduledStatus.vala',
+    'SearchResult.vala',
     'SearchResults.vala',
     'Status.vala',
     'Suggestion.vala',
     'Tag.vala',
     'TagHistory.vala',
+    'Translation.vala',
 )
 
+subdir('Admin')
 subdir('Account')
-# subdir('Akkoma')
+subdir('Akkoma')
 subdir('BookWyrm')
 subdir('Filters')
 subdir('Funkwhale')

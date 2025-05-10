@@ -7,19 +7,64 @@ public class Tuba.Views.Profile : Views.Accounts {
 			Object (account: t_acc, rs: new API.Relationship.for_account (t_acc));
 		}
 
+		public async bool update_profile () {
+			Request req = new Request.GET (@"/api/v1/accounts/$(account.id)").with_account (accounts.active);
+
+			try {
+				yield req.await ();
+				var parser = Network.get_parser_from_inputstream (req.response_body);
+				var node = network.parse_node (parser);
+				var updated = API.Account.from (node);
+
+				account.display_name = updated.display_name;
+				account.note = updated.note;
+				account.locked = updated.locked;
+				account.header = updated.header;
+				account.header_description = updated.header_description;
+				account.avatar = updated.avatar;
+				account.avatar_description = updated.avatar_description;
+				account.bot = updated.bot;
+				account.emojis = updated.emojis;
+				account.followers_count = updated.followers_count;
+				account.following_count = updated.following_count;
+				account.statuses_count = updated.statuses_count;
+				account.fields = updated.fields;
+				account.moved = updated.moved;
+
+				return true;
+			} catch (Error e) {
+				warning (@"Couldn't update account $(account.id): $(e.message)");
+				app.toast (e.message);
+			}
+
+			return false;
+		}
+
 		public override Gtk.Widget to_widget () {
 			return new Widgets.Cover (this);
+		}
+
+		public Gtk.Widget to_mini_widget () {
+			return new Widgets.Cover (this, true);
+		}
+	}
+
+	public class FilterGroup : Widgetizable, GLib.Object {
+		public bool visible { get; set; default=true; }
+
+		public override Gtk.Widget to_widget () {
+			var widget = new Widgets.ProfileFilterGroup ();
+			this.bind_property ("visible", widget, "visible", GLib.BindingFlags.SYNC_CREATE);
+			return widget;
 		}
 	}
 
 	public ProfileAccount profile { get; construct set; }
-	public bool include_replies { get; set; default = false; }
-	public bool only_media { get; set; default = false; }
+	public Widgets.ProfileFilterGroup.Filter filter { get; set; default = Widgets.ProfileFilterGroup.Filter.POSTS; }
 	public string source { get; set; default = "statuses"; }
+	private signal void cover_profile_update (API.Account acc);
 
 	protected Gtk.MenuButton menu_button;
-	protected SimpleAction media_action;
-	protected SimpleAction replies_action;
 	protected SimpleAction muting_action;
 	protected SimpleAction hiding_reblogs_action;
 	protected SimpleAction blocking_action;
@@ -28,6 +73,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	protected SimpleAction notify_on_new_post_action;
 	//  protected SimpleAction source_action;
 
+	private FilterGroup filter_group;
 	public Profile (API.Account acc) {
 		Object (
 			profile: new ProfileAccount (acc),
@@ -36,15 +82,19 @@ public class Tuba.Views.Profile : Views.Accounts {
 			url: @"/api/v1/accounts/$(acc.id)/statuses"
 		);
 
+		filter_group = new FilterGroup ();
 		model.insert (0, profile);
+		model.insert (1, filter_group);
 		profile.rs.invalidated.connect (on_rs_updated);
+
+		if (acc.is_self ()) update_profile_cover ();
 	}
 	~Profile () {
 		debug ("Destroying Profile view");
 	}
 
 	public bool append_pinned () {
-		if (source == "statuses") {
+		if (source == "statuses" && filter == Widgets.ProfileFilterGroup.Filter.POSTS) {
 			new Request.GET (@"/api/v1/accounts/$(profile.account.id)/statuses")
 				.with_account (account)
 				.with_param ("pinned", "true")
@@ -60,13 +110,20 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 						to_add += e_status;
 					});
-					model.splice (1, 0, to_add);
-
+					model.splice (2, 0, to_add);
 				})
 				.exec ();
 		}
 
 		return GLib.Source.REMOVE;
+	}
+
+	private void on_cover_aria_update (Widgets.Cover p_cover, string new_aria) {
+		var lbr = p_cover.get_parent ();
+		if (lbr != null) {
+			lbr.update_property (Gtk.AccessibleProperty.LABEL, new_aria, -1);
+			lbr.update_relation (Gtk.AccessibleRelation.DESCRIBED_BY, p_cover.note, null, -1);
+		}
 	}
 
 	public override Gtk.Widget on_create_model_widget (Object obj) {
@@ -76,22 +133,33 @@ public class Tuba.Views.Profile : Views.Accounts {
 		if (widget_cover != null) {
 			widget_cover.rs_invalidated.connect (on_rs_updated);
 			widget_cover.timeline_change.connect (change_timeline_source);
+			widget_cover.aria_updated.connect (on_cover_aria_update);
 			widget_cover.remove_css_class ("card");
 			widget_cover.remove_css_class ("card-spacing");
+			this.cover_profile_update.connect (widget_cover.update_cover_from_profile);
 
-			return new Gtk.ListBoxRow () {
+			var row = new Gtk.ListBoxRow () {
 				focusable = true,
 				activatable = false,
 				child = widget_cover,
 				css_classes = { "card-spacing", "card" },
 				overflow = Gtk.Overflow.HIDDEN
 			};
+			widget_cover.update_aria ();
+
+			return row;
 		}
 
 		var widget_status = widget as Widgets.Status;
 		if (widget_status != null && profile.account.id == accounts.active.id) {
 			widget_status.show_toggle_pinned_action ();
 			widget_status.pin_changed.connect (on_refresh);
+		}
+
+		var widget_filter_group = widget as Widgets.ProfileFilterGroup;
+		if (widget_filter_group != null) {
+			widget_filter_group.remove_css_class ("card");
+			widget_filter_group.filter_change.connect (change_filter);
 		}
 
 		return widget;
@@ -111,9 +179,15 @@ public class Tuba.Views.Profile : Views.Accounts {
 		GLib.Idle.add (append_pinned);
 	}
 
+	public override void on_manual_refresh () {
+		update_profile_cover ();
+		base.on_manual_refresh ();
+	}
+
 	protected void change_timeline_source (string t_source) {
 		source = t_source;
 
+		filter_group.visible = t_source == "statuses";
 		switch (t_source) {
 			case "statuses":
 				accepts = typeof (API.Status);
@@ -135,15 +209,21 @@ public class Tuba.Views.Profile : Views.Accounts {
 		invalidate_actions (true);
 	}
 
+	protected void change_filter (Widgets.ProfileFilterGroup.Filter filter) {
+		this.filter = filter;
+		invalidate_actions (true);
+	}
+
 	protected override void build_header () {
 		base.build_header ();
 
-		menu_button = new Gtk.MenuButton ();
+		menu_button = new Gtk.MenuButton () {
+			icon_name = "view-more-symbolic"
+		};
 		var menu_builder = new Gtk.Builder.from_resource (@"$(Build.RESOURCES)ui/menus.ui");
 		var menu = "profile-menu";
 		menu_button.menu_model = menu_builder.get_object (menu) as MenuModel;
 		menu_button.popover.width_request = 250;
-		menu_button.icon_name = "view-more-symbolic";
 		header.pack_end (menu_button);
 
 		if (profile.account.is_self ()) {
@@ -160,15 +240,13 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	private void open_edit_page () {
-		var dialog = new Dialogs.ProfileEdit (profile.account);
+		var dialog = new Dialogs.ProfileEdit (profile.account.is_self () ? accounts.active : profile.account);
 		dialog.saved.connect (on_edit_save);
 		dialog.present (app.main_window);
 	}
 
 	private void on_edit_save () {
 		if (profile.account.is_self ()) {
-			model.remove (0);
-
 			//  for (uint i = 0; i < model.get_n_items (); i++) {
 			//  	var status_obj = (API.Status)model.get_item (i);
 			//  	if (status_obj.formal.account.id == profile.account.id) {
@@ -176,35 +254,28 @@ public class Tuba.Views.Profile : Views.Accounts {
 			//  	}
 			//  }
 
-			model.insert (0, new ProfileAccount (accounts.active));
-			on_refresh ();
+			this.cover_profile_update (accounts.active);
 		}
 	}
 
+	private void update_profile_cover () {
+		profile.update_profile.begin ((obj, res) => {
+			if (profile.update_profile.end (res)) {
+				this.cover_profile_update (profile.account);
+			}
+		});
+	}
+
 	protected override void clear () {
-		base.clear_all_but_first ();
+		base.clear_all_but_first (2);
 	}
 
 	protected override void build_actions () {
 		base.build_actions ();
 
-		media_action = new SimpleAction.stateful ("only-media", null, false);
-		media_action.change_state.connect (v => {
-			media_action.set_state (only_media = v.get_boolean ());
-			invalidate_actions (true);
-		});
-		actions.add_action (media_action);
-
-		replies_action = new SimpleAction.stateful ("include-replies", null, false);
-		replies_action.change_state.connect (v => {
-			replies_action.set_state (include_replies = v.get_boolean ());
-			invalidate_actions (true);
-		});
-		actions.add_action (replies_action);
-
 		notify_on_new_post_action = new SimpleAction.stateful ("notify_on_post", null, false);
 		notify_on_new_post_action.change_state.connect (v => {
-			profile.rs.modify ("follow", "notify", v.get_boolean ().to_string ());
+			profile.rs.modify ("follow", {{"notify", v.get_boolean ().to_string ()}});
 			invalidate_actions (false);
 		});
 		actions.add_action (notify_on_new_post_action);
@@ -236,14 +307,21 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 		var copy_handle_action = new SimpleAction ("copy_handle", null);
 		copy_handle_action.activate.connect (v => {
-			Host.copy (profile.account.full_handle);
+			Utils.Host.copy (profile.account.full_handle);
 			app.toast (_("Copied handle to clipboard"));
 		});
 		actions.add_action (copy_handle_action);
 
 		var open_in_browser_action = new SimpleAction ("open_in_browser", null);
 		open_in_browser_action.activate.connect (v => {
-			Host.open_uri (profile.account.url);
+			#if WEBKIT
+				if (settings.use_in_app_browser_if_available && Views.Browser.can_handle_url (profile.account.url)) {
+					(new Views.Browser.with_url (profile.account.url)).present (app.main_window);
+					return;
+				}
+			#endif
+
+			Utils.Host.open_url.begin (profile.account.url);
 		});
 		actions.add_action (open_in_browser_action);
 
@@ -256,7 +334,11 @@ public class Tuba.Views.Profile : Views.Accounts {
 		muting_action = new SimpleAction.stateful ("muting", null, false);
 		muting_action.change_state.connect (v => {
 			var state = v.get_boolean ();
-			profile.rs.modify (state ? "mute" : "unmute");
+			if (state) {
+				profile.rs.question_modify_mute (profile.account.handle);
+			} else {
+				profile.rs.modify ("unmute");
+			}
 		});
 		actions.add_action (muting_action);
 
@@ -268,7 +350,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 			}
 
 			var state = !v.get_boolean ();
-			profile.rs.modify ("follow", "reblogs", state.to_string ());
+			profile.rs.modify ("follow", {{"reblogs", state.to_string ()}});
 		});
 		actions.add_action (hiding_reblogs_action);
 
@@ -289,6 +371,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 				app.main_window,
 				{ { block ? _("Block") : _("Unblock"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {
@@ -311,8 +394,6 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	void invalidate_actions (bool refresh) {
-		replies_action.set_enabled (accepts == typeof (API.Status));
-		media_action.set_enabled (accepts == typeof (API.Status));
 		muting_action.set_state (profile.rs.muting);
 		hiding_reblogs_action.set_state (!profile.rs.showing_reblogs);
 		hiding_reblogs_action.set_enabled (profile.rs.following);
@@ -335,8 +416,20 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 	public override Request append_params (Request req) {
 		if (page_next == null && source == "statuses") {
-			req.with_param ("exclude_replies", (!include_replies).to_string ());
-			req.with_param ("only_media", only_media.to_string ());
+			switch (this.filter) {
+				case Widgets.ProfileFilterGroup.Filter.POSTS:
+					req.with_param ("exclude_replies", "true");
+					break;
+				case Widgets.ProfileFilterGroup.Filter.REPLIES:
+					req.with_param ("exclude_replies", "false");
+					req.with_param ("exclude_reblogs", "true");
+					break;
+				case Widgets.ProfileFilterGroup.Filter.MEDIA:
+					req.with_param ("only_media", "true");
+					break;
+				default:
+					assert_not_reached ();
+			}
 		}
 		return base.append_params (req);
 	}
@@ -346,8 +439,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	public Adw.Dialog create_ar_list_dialog () {
-		var spinner = new Gtk.Spinner () {
-			spinning = true,
+		var spinner = new Adw.Spinner () {
 			halign = Gtk.Align.CENTER,
 			valign = Gtk.Align.CENTER,
 			vexpand = true,
@@ -356,9 +448,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 			height_request = 32
 		};
 		var toolbar_view = new Adw.ToolbarView ();
-		var headerbar = new Adw.HeaderBar () {
-			centering_policy = Adw.CenteringPolicy.STRICT
-		};
+		var headerbar = new Adw.HeaderBar ();
 		var toast_overlay = new Adw.ToastOverlay () {
 			vexpand = true,
 			valign = Gtk.Align.CENTER
@@ -374,7 +464,6 @@ public class Tuba.Views.Profile : Views.Accounts {
 			content_width = 600,
 			content_height = 550
 		};
-		spinner.start ();
 
 		var preferences_page = new Adw.PreferencesPage ();
 		var preferences_group = new Adw.PreferencesGroup () {
@@ -459,11 +548,20 @@ public class Tuba.Views.Profile : Views.Accounts {
 	public void handle_list_edit (API.List list, Adw.ActionRow row, Adw.ToastOverlay toast_overlay, RowButton button) {
 			row.sensitive = false;
 
-			var endpoint = @"/api/v1/lists/$(list.id)/accounts?account_ids[]=$(profile.account.id)";
+			var builder = new Json.Builder ();
+			builder.begin_object ();
+			builder.set_member_name ("account_ids");
+			builder.begin_array ();
+			builder.add_string_value (profile.account.id);
+			builder.end_array ();
+			builder.end_object ();
+
+			var endpoint = @"/api/v1/lists/$(list.id)/accounts";
 			var req = button.remove ? new Request.DELETE (endpoint) : new Request.POST (endpoint);
 			req
 				.with_account (accounts.active)
 				.with_ctx (this)
+				.body_json (builder)
 				.on_error (on_error)
 				.then (() => {
 					var toast_msg = "";

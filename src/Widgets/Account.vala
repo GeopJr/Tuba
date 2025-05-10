@@ -4,7 +4,17 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		debug ("Destroying Widgets.Account");
 	}
 
-	public class RelationshipButton : Tuba.Widgets.RelationshipButton {
+	public class RelationshipButton : Widgets.RelationshipButton {
+		construct {
+			app.relationship_invalidated.connect (on_relationship_invalidated_global);
+		}
+
+		private void on_relationship_invalidated_global (API.Relationship new_relationship) {
+			if (rs == null || rs.id != new_relationship.id) return;
+
+			rs = new_relationship;
+		}
+
 		public override void invalidate () {
 			if (rs == null || rs.domain_blocking) {
 				visible = false;
@@ -16,7 +26,28 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		}
 	}
 
+	public bool disable_profile_open {
+		set {
+			if (value == true) {
+				this.activatable = false;
+				grid.can_focus = false;
+				grid.focusable = false;
+				grid.can_target = false;
+				if (open_signal != -1) this.disconnect (open_signal);
+			}
+		}
+	}
+
+	static construct {
+		typeof (Widgets.Background).ensure ();
+		typeof (Widgets.Avatar).ensure ();
+		typeof (RelationshipButton).ensure ();
+		typeof (Widgets.EmojiLabel).ensure ();
+		typeof (Widgets.MarkupView).ensure ();
+	}
+
 	[GtkChild] unowned Widgets.Background background;
+	[GtkChild] unowned Gtk.Overlay cover_overlay;
 	[GtkChild] unowned Gtk.Label cover_badge;
 	[GtkChild] unowned Gtk.Image cover_bot_badge;
 	[GtkChild] unowned Gtk.Box cover_badge_box;
@@ -38,6 +69,8 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 			} else {
 				invalidate_signal_id = rsbtn.rs.invalidated.connect (on_rs_invalidate);
 			}
+
+			update_aria ();
 		}
 	}
 
@@ -45,6 +78,18 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 	private void on_rs_invalidate () {
 		cover_badge_label = rsbtn.rs.to_string ();
 		rsbtn.rs.disconnect (invalidate_signal_id);
+		update_aria ();
+	}
+
+	public string additional_label {
+		set {
+			cover_overlay.add_overlay (new Gtk.Label (value) {
+				xalign = 0.0f,
+				css_classes = {"cover-badge", "osd", "badge", "heading"},
+				halign = Gtk.Align.START,
+				valign = Gtk.Align.START,
+			});
+		}
 	}
 
 	public string cover_badge_label {
@@ -91,8 +136,43 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		background.paintable = data;
 	}
 
-	private weak API.Account api_account { get; set; }
+	private void update_aria () {
+		// translators: This is an accessibility label.
+		//				Screen reader users are going to hear this a lot,
+		//				please be mindful.
+		//				The first variable is the author's name and the
+		//				second one is the author's handle.
+		string aria_profile = _("%s (%s)'s profile.").printf (
+			display_name.content,
+			handle.label
+		);
+
+		string aria_relationship = "";
+		if (cover_badge.visible && cover_badge_label != "") {
+			// translators: This is an accessibility label.
+			//				Screen reader users are going to hear this a lot,
+			//				please be mindful.
+			//				The variable is a string representation of the
+			//				relationship (e.g. Mutuals, Follows You...)
+			aria_relationship = _("Relationship: %s.").printf (cover_badge_label);
+		}
+
+		string final_aria = "%s %s %s.".printf (
+			aria_profile,
+			aria_relationship,
+			stats_label.get_text ()
+		);
+
+		this.update_property (
+			Gtk.AccessibleProperty.LABEL,
+			final_aria,
+			-1
+		);
+	}
+
+	private API.Account api_account { get; set; }
 	private string account_id = "";
+	private ulong open_signal = -1;
 	public Account (API.Account account) {
 		account_id = account.id;
 		open.connect (account.open);
@@ -106,7 +186,12 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		display_name.instance_emojis = account.emojis_map;
 		display_name.content = account.display_name;
 		handle.label = account.handle;
+
 		avatar.account = account;
+		if (account.avatar_description != null && account.avatar_description != "")
+			avatar.alternative_text = account.avatar_description;
+
+		note.bold_text_regex = account.tuba_search_query_regex;
 		note.instance_emojis = account.emojis_map;
 		note.content = account.note;
 		cover_bot_badge.visible = account.bot;
@@ -122,18 +207,41 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		if (account.header.contains ("/headers/original/missing.png")) {
 			background.paintable = avatar.custom_image;
 		} else {
-			Tuba.Helper.Image.request_paintable (account.header, null, on_cache_response);
+			Tuba.Helper.Image.request_paintable (account.header, null, false, on_cache_response);
+
+			if (account.header_description != null && account.header_description != "")
+				background.alternative_text = account.header_description;
 		}
 
+		// translators: Used in profile stats.
+		//              The variable is a shortened number of the amount of posts a user has made.
+		string posts_str = GLib.ngettext (
+			"%s Post",
+			"%s Posts",
+			(ulong) account.statuses_count
+		).printf (@"<b>$(Utils.Units.shorten (account.statuses_count))</b>");
+
+		// translators: Used in profile stats.
+		//              The variable is a shortened number of the amount of followers a user has.
+		string followers_str = GLib.ngettext (
+			"%s Follower",
+			"%s Followers",
+			(ulong) account.statuses_count
+		).printf (@"<b>$(Utils.Units.shorten (account.followers_count))</b>");
+
 		stats_label.label = "<span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>".printf (
-			_("%s Posts").printf (@"<b>$(Tuba.Units.shorten (account.statuses_count))</b>"),
-			_("%s Following").printf (@"<b>$(Tuba.Units.shorten (account.following_count))</b>"),
-			_("%s Followers").printf (@"<b>$(Tuba.Units.shorten (account.followers_count))</b>")
+			posts_str,
+			// translators: Used in profile stats.
+			//              The variable is a shortened number of the amount of people a user follows.
+			_("%s Following").printf (@"<b>$(Utils.Units.shorten (account.following_count))</b>"),
+			followers_str
 		);
+
+		update_aria ();
 	}
 
 	private void on_tuba_rs () {
-		if (api_account != null)
+		if (api_account != null && api_account.tuba_rs != null)
 			rs = api_account.tuba_rs;
 	}
 

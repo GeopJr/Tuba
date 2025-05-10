@@ -1,6 +1,5 @@
 public class Tuba.Views.TabbedBase : Views.Base {
-
-	static int id_counter = 0;
+	int id_counter = 0;
 
 	protected Adw.ViewSwitcher switcher;
 	protected Adw.ViewSwitcherBar switcher_bar;
@@ -31,9 +30,23 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 		stack = new Adw.ViewStack () { vexpand = true };
 		stack.notify["visible-child"].connect (on_view_switched);
-		scrolled.child = stack;
+
+		states.remove (scrolled);
+		states.add_named (stack, "content");
 
 		switcher_bar.stack = switcher.stack = stack;
+
+		var shortcutscontroller = new Gtk.ShortcutController ();
+		this.add_controller (shortcutscontroller);
+
+		install_action ("tabbedview.change-tab", "i", (Gtk.WidgetActionActivateFunc) change_tab_cb);
+		for (int i = 1; i < 10; i++) {
+			shortcutscontroller.add_shortcut (new Gtk.Shortcut.with_arguments (
+				Gtk.ShortcutTrigger.parse_string (@"<Alt>$i"),
+				new Gtk.NamedAction ("tabbedview.change-tab"),
+				"i", i
+			));
+		}
 	}
 
 	~TabbedBase () {
@@ -41,10 +54,18 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 		foreach (var tab in views) {
 			stack.remove (tab);
-			tab.dispose ();
 		}
 		views = {};
 	}
+
+	#if !USE_LISTVIEW
+		public override void unbind_listboxes () {
+			foreach (var tab in views) {
+				tab.unbind_listboxes ();
+			}
+			base.unbind_listboxes ();
+		}
+	#endif
 
 	protected virtual bool title_stack_page_visible {
 		get {
@@ -57,7 +78,9 @@ public class Tuba.Views.TabbedBase : Views.Base {
 	}
 
 	public override void build_header () {
-		title_stack = new Gtk.Stack ();
+		title_stack = new Gtk.Stack () {
+			hhomogeneous = false
+		};
 		header.title_widget = title_stack;
 
 		switcher = new Adw.ViewSwitcher () { policy = Adw.ViewSwitcherPolicy.WIDE };
@@ -75,6 +98,9 @@ public class Tuba.Views.TabbedBase : Views.Base {
 			Adw.BreakpointConditionLengthType.MAX_WIDTH,
 			550, Adw.LengthUnit.SP
 		);
+
+		if (this.current_breakpoint != null) remove_breakpoint (this.current_breakpoint);
+		this.small = true;
 		var breakpoint = new Adw.Breakpoint (condition);
 		breakpoint.add_setter (this, "title-stack-page-visible", true);
 		breakpoint.add_setter (switcher_bar, "reveal", true);
@@ -83,13 +109,25 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 	public void add_tab (Views.Base view) {
 		id_counter++;
-		view.content_box.add_css_class ("no-transition");
 		views += view;
 		var page = stack.add_titled (view, id_counter.to_string (), view.label);
 		view.bind_property ("icon", page, "icon-name", BindingFlags.SYNC_CREATE);
 		view.bind_property ("needs-attention", page, "needs-attention", BindingFlags.SYNC_CREATE);
 		view.bind_property ("badge-number", page, "badge-number", BindingFlags.SYNC_CREATE);
 		view.header.hide ();
+	}
+
+	private void change_tab_cb (string name, GLib.Variant? parameter) {
+		if (parameter == null) return;
+
+		int page_id = parameter.get_int32 ();
+		if (page_id > id_counter) return;
+
+		change_tab_alt (page_id);
+	}
+
+	protected virtual void change_tab_alt (int id) {
+		stack.visible_child_name = id.to_string ();
 	}
 
 	public Views.ContentBase add_list_tab (string label, string icon, string? empty_state_title = null) {
@@ -104,7 +142,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		return tab;
 	}
 
-	public Views.ContentBase add_timeline_tab (string label, string icon, string url, Type accepts, string? empty_state_title = null) {
+	public Views.ContentBase add_timeline_tab (string label, string icon, string url, Type accepts, string? empty_state_title = null, string? empty_state_icon = null) {
 		var tab = new Views.Accounts () {
 			url = url,
 			label = label,
@@ -114,6 +152,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		tab.label = label;
 		tab.icon = icon;
 
+		if (empty_state_icon != null) tab.empty_timeline_icon = empty_state_icon;
 		if (empty_state_title != null) tab.empty_state_title = empty_state_title;
 
 		add_tab (tab);
@@ -135,25 +174,11 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		on_content_changed ();
 	}
 
-	// TODO: Why did I write this? What does it do??? Why does it crash????
 	public override void on_content_changed () {
-		// var empty = true;
 		foreach_tab (tab => {
-			// tab.visible = !tab.empty;
-			// if (tab.visible)
-			// 	empty = false;
-
 			tab.on_content_changed ();
 		});
 		base_status = null;
-
-		// if (empty) {
-		// 	state = "status";
-		// 	status_title = STATUS_EMPTY;
-		// }
-		// else {
-		// 	state = "content";
-		// }
 	}
 
 	public override void scroll_page (bool up = false) {
@@ -164,11 +189,6 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 	protected virtual void on_view_switched () {
 		var view = stack.visible_child as Views.Base;
-		if (view.content_box.has_css_class ("no-transition")) {
-			Timeout.add_once (200, () => {
-				last_view.content_box.remove_css_class ("no-transition");
-			});
-		}
 
 		if (last_view != null) {
 			last_view.current = false;

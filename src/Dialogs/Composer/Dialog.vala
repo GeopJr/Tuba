@@ -34,10 +34,15 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 			}
 		}
 
+		public class MediaEntry {
+			public string? description = null;
+			public string? focus = null;
+		}
+
 		public string id { get; set; }
 		public string status { get; set; }
 		public Gee.ArrayList<string> media_ids { get; private set; default=new Gee.ArrayList<string> (); }
-		public Gee.HashMap<string, string> media { get; private set; default=new Gee.HashMap<string, string> (); }
+		public Gee.HashMap<string, MediaEntry> media { get; private set; default=new Gee.HashMap<string, MediaEntry> (); }
 		public BasicPoll poll { get; set; }
 		public string in_reply_to_id { get; set; }
 		public bool sensitive { get; set; }
@@ -47,9 +52,12 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		public string content_type { get; set; }
 		public Gee.ArrayList<API.Attachment>? media_attachments { get; set; default = null; }
 
-		public void add_media (string t_id, string? t_alt) {
+		public void add_media (string t_id, string? t_alt, string? t_focus) {
 			media_ids.add (t_id);
-			media.set (t_id, t_alt ?? "");
+			media.set (t_id, new MediaEntry () {
+				description = t_alt ?? "",
+				focus = t_focus ?? ""
+			});
 		}
 
 		public void clear_media () {
@@ -65,7 +73,16 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 				media_attachments = t_status.media_attachments;
 
 				foreach (var t_attachment in t_status.media_attachments) {
-					add_media (t_attachment.id, t_attachment.description);
+					string focus = "0.00,0.00";
+
+					if (t_attachment.meta != null && t_attachment.meta.focus != null) {
+						focus = "%s,%s".printf (
+							Utils.Units.float_to_2_point_string (t_attachment.meta.focus.x),
+							Utils.Units.float_to_2_point_string (t_attachment.meta.focus.y)
+						);
+					}
+
+					add_media (t_attachment.id, t_attachment.description, focus);
 				}
 			}
 
@@ -90,7 +107,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 				&& t_status.visibility == visibility
 				&& t_status.language == language
 				&& array_string_eq (media_ids, t_status.media_ids)
-				&& !alts_changed (t_status)
+				&& !media_meta_changed (t_status)
 				&& (poll != null && t_status != null ? poll.equal (t_status.poll) : poll == null && t_status == null);
 		}
 
@@ -107,12 +124,14 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 			return res;
 		}
 
-		public bool alts_changed (BasicStatus t_status) {
+		public bool media_meta_changed (BasicStatus t_status) {
 			var res = false;
 
 			foreach (var entry in this.media.entries) {
 				if (!t_status.media.has_key (entry.key)) continue;
-				res = t_status.media.get (entry.key) != entry.value;
+				res =
+					t_status.media.get (entry.key).description != entry.value.description
+					|| t_status.media.get (entry.key).focus != entry.value.focus;
 				if (res) break;
 			}
 
@@ -127,8 +146,47 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 	public delegate void SuccessCallback (API.Status cb_status);
 	protected SuccessCallback? cb;
 
+	Gtk.Widget commit_button;
+	private bool _commit_button_has_menu = false;
+	public bool commit_button_has_menu {
+		get { return _commit_button_has_menu; }
+		construct {
+			_commit_button_has_menu = value;
+
+			if (value) {
+				var menu_model = new GLib.Menu ();
+				// translators: 'Draft' is a verb
+				menu_model.append (_("Draft Post"), "composer.draft");
+
+				// translators: 'Schedule' is a verb
+				menu_model.append (_("Schedule Post"), "composer.schedule");
+
+				commit_button = new Adw.SplitButton () {
+					label = _("_Publish"),
+					use_underline = true,
+					menu_model = menu_model
+				};
+				((Adw.SplitButton) commit_button).clicked.connect (on_commit);
+			} else {
+				commit_button = new Gtk.Button () {
+					label = _("_Publish"),
+					use_underline = true
+				};
+				((Gtk.Button) commit_button).clicked.connect (on_commit);
+			}
+
+			header.pack_end (commit_button);
+		}
+	}
+
 	public string button_label {
-		set { commit_button.label = value; }
+		set {
+			if (_commit_button_has_menu) {
+				((Adw.SplitButton) commit_button).label = value;
+			} else {
+				((Gtk.Button) commit_button).label = value;
+			}
+		}
 	}
 
 	public string button_class {
@@ -143,8 +201,16 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		var paste_action = new SimpleAction ("paste", null);
 		paste_action.activate.connect (emit_paste_signal);
 
+		var schedule_action = new SimpleAction ("schedule", null);
+		schedule_action.activate.connect (on_schedule_action_activated);
+
+		var draft_action = new SimpleAction ("draft", null);
+		draft_action.activate.connect (on_draft_action_activated);
+
 		var action_group = new GLib.SimpleActionGroup ();
 		action_group.add_action (paste_action);
+		action_group.add_action (schedule_action);
+		action_group.add_action (draft_action);
 
 		this.insert_action_group ("composer", action_group);
 		add_binding_action (Gdk.Key.V, Gdk.ModifierType.CONTROL_MASK, "composer.paste", null);
@@ -186,10 +252,12 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 			on_close ();
 		} else {
 			app.question.begin (
-				{_("Are you sure you want to exit?"), false},
+				// translators: Dialog title when closing the composer
+				{_("Discard Post?"), false},
 				{_("Your progress will be lost."), false},
 				this,
 				{ { _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) on_close ();
@@ -251,20 +319,43 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 	}
 
 	[GtkChild] unowned Adw.ViewSwitcher title_switcher;
-	[GtkChild] unowned Gtk.Button commit_button;
-
 	[GtkChild] unowned Adw.ViewStack stack;
+	[GtkChild] unowned Adw.HeaderBar header;
 
 	public string? quote_id { get; set; }
+	public string? scheduled_id { get; set; }
 	public Compose (API.Status template = new API.Status.empty (), bool t_force_cursor_at_start = false, string? quote_id = null) {
 		Object (
+			commit_button_has_menu: true,
 			status: new BasicStatus.from_status (template),
 			original_status: new BasicStatus.from_status (template),
-			button_label: _("_Publish"),
 			button_class: "suggested-action",
 			force_cursor_at_start: t_force_cursor_at_start,
 			quote_id: quote_id
 		);
+	}
+
+	public Compose.from_draft (API.Status status, owned SuccessCallback? t_cb = null) {
+		Object (
+			status: new BasicStatus.from_status (status),
+			original_status: new BasicStatus.from_status (status),
+			button_class: "suggested-action"
+		);
+
+		this.cb = (owned) t_cb;
+	}
+
+	public Compose.from_scheduled (API.Status status, string? scheduled_id = null, string? scheduled_iso8601 = null, owned SuccessCallback? t_cb = null) {
+		Object (
+			status: new BasicStatus.from_status (status),
+			original_status: new BasicStatus.from_status (status),
+			button_label: _("_Edit"),
+			button_class: "suggested-action",
+			scheduled_id: scheduled_id,
+			schedule_iso8601: scheduled_iso8601
+		);
+
+		this.cb = (owned) t_cb;
 	}
 
 	public Compose.redraft (API.Status status) {
@@ -287,7 +378,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		};
 
 		if (source == null) {
-			template.content = HtmlUtils.remove_tags (t_status.content);
+			template.content = Utils.Htmlx.remove_tags (t_status.content);
 		} else {
 			template.content = source.text;
 			template.spoiler_text = source.spoiler_text;
@@ -313,6 +404,12 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 			visibility = to.visibility,
 			language = to.language
 		};
+
+		var default_visibility = API.Status.Visibility.from_string (settings.default_post_visibility);
+		var to_visibility = API.Status.Visibility.from_string (to.visibility);
+		if (default_visibility != null && to_visibility != null && default_visibility.privacy_rate () > to_visibility.privacy_rate ()) {
+			template.visibility = settings.default_post_visibility;
+		}
 
 		Object (
 			status: new BasicStatus.from_status (template),
@@ -361,12 +458,12 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 	void on_close () {
 		this.force_close ();
 		foreach (var page in t_pages) {
+			page.unbind_listboxes ();
 			stack.remove (page);
-			page.dispose ();
 		}
 	}
 
-	[GtkCallback] void on_commit () {
+	void on_commit () {
 		this.sensitive = false;
 		transaction.begin ((obj, res) => {
 			try {
@@ -383,7 +480,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 
 	protected signal void modify_body (Json.Builder builder);
 
-	protected virtual void update_alt_texts (Json.Builder builder) {
+	protected virtual void update_metadata (Json.Builder builder) {
 		if (
 			status.media_ids.size == 0
 			|| original_status.media_ids.size == 0
@@ -395,29 +492,39 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		foreach (var entry in status.media.entries) {
 			if (
 				!original_status.media_ids.contains (entry.key)
-				|| original_status.media.get (entry.key) == entry.value
+				|| (
+					original_status.media.get (entry.key).description == entry.value.description
+					&& original_status.media.get (entry.key).focus == entry.value.focus
+				)
 			) continue;
 
 			builder.begin_object ();
 			builder.set_member_name ("id");
 			builder.add_string_value (entry.key);
 			builder.set_member_name ("description");
-			builder.add_string_value (entry.value);
+			builder.add_string_value (entry.value.description);
+			builder.set_member_name ("focus");
+			builder.add_string_value (entry.value.focus);
 			builder.end_object ();
 		}
 
 		builder.end_array ();
 	}
 
+	protected string? schedule_iso8601 { get; set; default=null; }
 	private Json.Builder populate_json_body () {
 		var builder = new Json.Builder ();
 		builder.begin_object ();
 
 		modify_body (builder);
-		if (editing) update_alt_texts (builder);
+		if (editing) update_metadata (builder);
 		if (quote_id != null) {
 			builder.set_member_name ("quote_id");
 			builder.add_string_value (quote_id);
+		}
+		if (schedule_iso8601 != null) {
+			builder.set_member_name ("scheduled_at");
+			builder.add_string_value (schedule_iso8601);
 		}
 
 		builder.end_object ();
@@ -444,9 +551,40 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 		var node = network.parse_node (parser);
 		var status = API.Status.from (node);
 		debug (@"Published post with id $(status.id)");
-		if (cb != null) cb (status);
+
+		if (this.scheduled_id != null) {
+			new Request.DELETE (@"/api/v1/scheduled_statuses/$scheduled_id")
+				.with_account (accounts.active)
+				.then (() => {
+					cb (status);
+				})
+				.exec ();
+		} else if (cb != null) {
+			cb (status);
+		} else if (schedule_iso8601 != null) {
+			app.refresh_scheduled_statuses ();
+		}
 
 		on_close ();
 	}
 
+	private void on_schedule_action_activated () {
+		if (!commit_button.sensitive) return;
+
+		var schedule_dlg = new Dialogs.Schedule ();
+		schedule_dlg.schedule_picked.connect (on_schedule_picked);
+		schedule_dlg.present (this);
+	}
+
+	private void on_draft_action_activated () {
+		if (!commit_button.sensitive) return;
+
+		schedule_iso8601 = (new GLib.DateTime.now ()).add_years (3000).format_iso8601 ();
+		on_commit ();
+	}
+
+	private void on_schedule_picked (string iso8601) {
+		schedule_iso8601 = iso8601;
+		on_commit ();
+	}
 }

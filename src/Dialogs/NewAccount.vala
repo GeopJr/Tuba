@@ -4,6 +4,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	const string CODE_AUTH_DESCRIPTION = _("Copy the authorization code from the browser and paste it below.");
 
 	const string SCOPES = "read write follow";
+	const string ADMIN_SCOPES = "admin:read admin:write admin:read:reports admin:write:reports admin:read:ip_blocks admin:write:ip_blocks admin:read:domain_blocks admin:write:domain_blocks admin:read:domain_allows admin:write:domain_allows admin:read:email_domain_blocks admin:write:email_domain_blocks admin:read:canonical_email_blocks admin:write:canonical_email_blocks";
 
 	#if WINDOWS || DARWIN
 		const bool SHOULD_AUTO_AUTH = false;
@@ -15,7 +16,10 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	protected string? redirect_uri { get; set; }
 	protected bool use_auto_auth { get; set; default = SHOULD_AUTO_AUTH; }
 	protected InstanceAccount account { get; set; default = new InstanceAccount.empty (""); }
+	protected bool can_access_settings { get; set; default=false; }
+	protected bool admin_mode { get; set; default=false; }
 
+	[GtkChild] unowned Adw.ToastOverlay toast_overlay;
 	[GtkChild] unowned Adw.NavigationView deck;
 	[GtkChild] unowned Adw.NavigationPage instance_step;
 	[GtkChild] unowned Adw.NavigationPage code_step;
@@ -32,8 +36,15 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 	[GtkChild] unowned Gtk.Label manual_auth_label;
 
-	public NewAccount () {
+	public string get_full_scopes () {
+		if (this.admin_mode) return @"$SCOPES $ADMIN_SCOPES";
+
+		return SCOPES;
+	}
+
+	public NewAccount (bool can_access_settings = false) {
 		Object (transient_for: app.main_window);
+		this.can_access_settings = can_access_settings;
 		app.add_account_window = this;
 		app.add_window (this);
 
@@ -42,11 +53,23 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			return true;
 		});
 
+		if (!can_access_settings) {
+			app.toast.connect (add_toast);
+		} else {
+			add_binding_action (Gdk.Key.Escape, 0, "window.close", null);
+		}
+
 		manual_auth_label.activate_link.connect (on_manual_auth);
 
 		reset ();
 		present ();
 		instance_entry.grab_focus ();
+	}
+
+	private void add_toast (string content, uint timeout = 0) {
+		toast_overlay.add_toast (new Adw.Toast (content) {
+			timeout = timeout
+		});
 	}
 
 	public bool on_manual_auth (string url) {
@@ -72,8 +95,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 				throw new Oopsie.INTERNAL ("Using manual auth method");
 
 			return "tuba://auth_code";
-		}
-		catch (Error e) {
+		} catch (Error e) {
 			warning (e.message);
 			use_auto_auth = false;
 			return "urn:ietf:wg:oauth:2.0:oob";
@@ -130,7 +152,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 			.with_account (account)
 			.with_form_data ("client_name", Build.NAME)
 			.with_form_data ("redirect_uris", redirect_uri = setup_redirect_uri ())
-			.with_form_data ("scopes", SCOPES)
+			.with_form_data ("scopes", get_full_scopes ())
 			.with_form_data ("website", Build.WEBSITE);
 		yield msg.await ();
 
@@ -153,11 +175,11 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	void open_confirmation_page () {
 		debug ("Opening permission request page");
 
-		var esc_scopes = Uri.escape_string (SCOPES);
+		var esc_scopes = Uri.escape_string (get_full_scopes ());
 		var esc_redirect = Uri.escape_string (redirect_uri);
 		var pars = @"scope=$esc_scopes&response_type=code&redirect_uri=$esc_redirect&client_id=$(Uri.escape_string (account.client_id))";
 		var url = @"$(account.instance)/oauth/authorize?$pars";
-		Host.open_uri (url);
+		Utils.Host.open_url.begin (url);
 	}
 
 	async void request_token () throws Error {
@@ -183,6 +205,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 
 		yield account.verify_credentials ();
 
+		account.admin_mode = this.admin_mode;
 		account = accounts.create_account (account.to_json ());
 
 		debug ("Saving account");
@@ -264,5 +287,104 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	[GtkCallback]
 	void on_back_clicked () {
 		reset ();
+	}
+
+	class SettingsDialog : Adw.Dialog {
+		public signal void admin_changed (bool new_admin_val);
+
+		Adw.EntryRow proxy_entry;
+		Adw.SwitchRow admin_row;
+		Gtk.Button apply_button;
+		construct {
+			this.title = _("Settings");
+			this.content_width = 460;
+			this.content_height = 220;
+
+			var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+			cancel_button.clicked.connect (on_cancel);
+
+			apply_button = new Gtk.Button.with_label (_("Apply")) {
+				css_classes = {"suggested-action"},
+				sensitive =	false
+			};
+			apply_button.clicked.connect (on_apply);
+
+			var page = new Adw.PreferencesPage () {
+				valign = Gtk.Align.CENTER
+			};
+			var headerbar = new Adw.HeaderBar () {
+				show_end_title_buttons = false,
+				show_start_title_buttons = false
+			};
+
+			headerbar.pack_start (cancel_button);
+			headerbar.pack_end (apply_button);
+
+			var toolbar_view = new Adw.ToolbarView () {
+				content = page
+			};
+			toolbar_view.add_top_bar (headerbar);
+
+			var group = new Adw.PreferencesGroup ();
+			proxy_entry = new Adw.EntryRow () {
+				title = _("Proxy"),
+				visible = false,
+				input_purpose = Gtk.InputPurpose.URL,
+				show_apply_button = false
+			};
+			group.add (proxy_entry);
+
+			admin_row = new Adw.SwitchRow () {
+				// translators: Switch title in the new account window
+				title = _("Admin Mode"),
+				// translators: Switch description in the new account window
+				subtitle = _("Enables the Admin Dashboard and requests the needed permissions to use the Admin API")
+			};
+			group.add (admin_row);
+			page.add (group);
+
+			this.child = toolbar_view;
+		}
+
+		bool original_admin_val = false;
+		public SettingsDialog (bool can_access_settings = true, string proxy_val = "", bool admin_val = false) {
+			if (!can_access_settings) {
+				proxy_entry.visible = true;
+				proxy_entry.text = proxy_val;
+			}
+			original_admin_val = admin_val;
+			admin_row.active = admin_val;
+
+			admin_row.notify["active"].connect (modified);
+			proxy_entry.changed.connect (modified);
+		}
+
+		void modified () {
+			apply_button.sensitive = admin_row.active != original_admin_val || settings.proxy != proxy_entry.text;
+		}
+
+		void on_cancel () {
+			this.force_close ();
+		}
+
+		void on_apply () {
+			if (proxy_entry.visible && settings.proxy != proxy_entry.text)
+				settings.proxy = proxy_entry.text;
+
+			if (admin_row.active != original_admin_val)
+				admin_changed (admin_row.active);
+
+			on_cancel ();
+		}
+	}
+
+	[GtkCallback] void on_settings_clicked () {
+		var settings_dialog = new SettingsDialog (this.can_access_settings, settings.proxy, this.admin_mode);
+		settings_dialog.admin_changed.connect (on_admin_change);
+		settings_dialog.present (this);
+	}
+
+	void on_admin_change (bool new_val) {
+		this.admin_mode = new_val;
 	}
 }

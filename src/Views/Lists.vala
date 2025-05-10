@@ -2,8 +2,8 @@ public class Tuba.Views.Lists : Views.Timeline {
 
 	public class Row : Adw.ActionRow {
 		public API.List? list;
-		Gtk.Button delete_button;
 		Gtk.Button edit_button;
+		Widgets.StatusActionButton fav_button;
 
 		construct {
 			var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -12,14 +12,16 @@ public class Tuba.Views.Lists : Views.Timeline {
 				icon_name = "document-edit-symbolic",
 				valign = Gtk.Align.CENTER,
 				halign = Gtk.Align.CENTER,
-				css_classes = { "flat", "circular" }
+				css_classes = { "flat", "circular" },
+				tooltip_text = _("Edit")
 			};
 
-			delete_button = new Gtk.Button () {
+			var delete_button = new Gtk.Button () {
 				icon_name = "user-trash-symbolic",
 				valign = Gtk.Align.CENTER,
 				halign = Gtk.Align.CENTER,
-				css_classes = { "flat", "circular", "error" }
+				css_classes = { "flat", "circular", "error" },
+				tooltip_text = _("Delete")
 			};
 
 			delete_button.clicked.connect (on_remove_clicked);
@@ -34,20 +36,82 @@ public class Tuba.Views.Lists : Views.Timeline {
 
 			this.activatable = true;
 			this.add_suffix (action_box);
+
+			fav_button = new Widgets.StatusActionButton.with_icon_name ("tuba-unstarred-symbolic") {
+				active_icon_name = "tuba-starred-symbolic",
+				css_classes = { "ttl-status-action-star", "flat", "circular" },
+				valign = Gtk.Align.CENTER,
+				halign = Gtk.Align.CENTER,
+				tooltip_text = _("Favorite"),
+			};
+			fav_button.clicked.connect (on_favorite_button_clicked);
+			this.add_prefix (fav_button);
+
+			settings.notify["favorite-lists-ids"].connect (on_fav_list_updated);
+		}
+
+		private void on_fav_list_updated () {
+			fav_button.sensitive = fav_button.active || settings.favorite_lists_ids.length < Views.Sidebar.MAX_SIDEBAR_LISTS;
 		}
 
 		public Row (API.List? list) {
 			this.list = list;
 
 			if (list != null) {
-				this.list.bind_property ("title", this, "title", BindingFlags.SYNC_CREATE, (b, src, ref target) => {
-					target.set_string (GLib.Markup.escape_text (src.get_string ()));
-					return true;
-				});
-				edit_button.clicked.connect (() => {
-					create_edit_preferences_dialog (this.list).present (app.main_window);
-				});
+				this.title = GLib.Markup.escape_text (this.list.title);
+				this.list.notify["id"].connect (update_fav_status);
+				this.list.notify["title"].connect (title_changed);
+
+				edit_button.clicked.connect (on_edit);
+				update_fav_status ();
 			}
+		}
+
+		private void title_changed () {
+			this.title = GLib.Markup.escape_text (this.list.title);
+			GLib.Idle.add (accounts.active.gather_fav_lists);
+		}
+
+		private void update_fav_status () {
+			fav_button.active = this.list.id in settings.favorite_lists_ids;
+			on_fav_list_updated ();
+		}
+
+		private void on_favorite_button_clicked () {
+			fav_button.active = !fav_button.active;
+
+			if (fav_button.active) {
+				add_to_favs ();
+			} else {
+				remove_from_favs ();
+			}
+		}
+
+		private void add_to_favs () {
+			string[] new_ids = {};
+
+			new_ids = settings.favorite_lists_ids;
+			new_ids += this.list.id;
+
+			settings.favorite_lists_ids = new_ids;
+
+			GLib.Idle.add (accounts.active.gather_fav_lists);
+		}
+
+		private void remove_from_favs () {
+			string[] new_ids = {};
+
+			foreach (string list_id in settings.favorite_lists_ids) {
+				if (this.list.id != list_id) new_ids += list_id;
+			}
+
+			settings.favorite_lists_ids = new_ids;
+
+			GLib.Idle.add (accounts.active.gather_fav_lists);
+		}
+
+		private void on_edit () {
+			create_edit_preferences_dialog (this.list).present (app.main_window);
 		}
 
 		public virtual signal void remove_from_model (API.List? t_list);
@@ -58,6 +122,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 				{_("This action cannot be reverted."), false},
 				app.main_window,
 				{ { _("Delete"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
 				false,
 				(obj, res) => {
 					if (app.question.end (res).truthy ()) {
@@ -65,6 +130,7 @@ public class Tuba.Views.Lists : Views.Timeline {
 							.with_account (accounts.active)
 							.then (() => {
 								remove_from_model (this.list);
+								if (fav_button.active) remove_from_favs ();
 								this.destroy ();
 							})
 							.exec ();
@@ -112,9 +178,15 @@ public class Tuba.Views.Lists : Views.Timeline {
 	}
 
 	public void create_list (string list_name) {
+		var builder = new Json.Builder ();
+		builder.begin_object ();
+		builder.set_member_name ("title");
+		builder.add_string_value (list_name);
+		builder.end_object ();
+
 		new Request.POST ("/api/v1/lists")
 			.with_account (accounts.active)
-			.with_param ("title", list_name)
+			.body_json (builder)
 			.then ((in_stream) => {
 				var parser = Network.get_parser_from_inputstream (in_stream);
 				var node = network.parse_node (parser);
@@ -130,11 +202,8 @@ public class Tuba.Views.Lists : Views.Timeline {
 		buffer.set_text ("".data);
 	}
 
-	Gtk.Entry child_entry = new Gtk.Entry () {
-		input_purpose = Gtk.InputPurpose.FREE_FORM,
-		placeholder_text = _("New list title")
-	};
-
+	Gtk.Entry child_entry;
+	Gtk.Button add_button;
 	construct {
 		url = "/api/v1/lists";
 		label = _("Lists");
@@ -142,39 +211,38 @@ public class Tuba.Views.Lists : Views.Timeline {
 		accepts = typeof (API.List);
 		empty_state_title = _("No Lists");
 
+		child_entry = new Gtk.Entry () {
+			input_purpose = Gtk.InputPurpose.FREE_FORM,
+			placeholder_text = _("New list title")
+		};
+
 		var add_action_bar = new Gtk.ActionBar () {
 			css_classes = { "ttl-box-no-shadow" }
 		};
 
 		var child_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 
-		var add_button = new Gtk.Button.with_label (_("Add list")) {
+		add_button = new Gtk.Button.with_label (_("Add list")) {
 			sensitive = false
 		};
 
-		add_button.clicked.connect (() => {
-			on_action_bar_activate (child_entry.buffer);
-		});
-		child_entry.activate.connect (() => {
-			on_action_bar_activate (child_entry.buffer);
-		});
-
-		child_entry.buffer.bind_property (
-			"length",
-			add_button,
-			"sensitive",
-			BindingFlags.SYNC_CREATE,
-			(b, src, ref target) => {
-				target.set_boolean ((uint) src > 0);
-				return true;
-			}
-		);
+		add_button.clicked.connect (new_item_cb);
+		child_entry.activate.connect (new_item_cb);
+		child_entry.notify["text"].connect (on_entry_changed);
 
 		child_box.append (child_entry);
 		child_box.append (add_button);
 
 		add_action_bar.set_center_widget (child_box);
 		toolbar_view.add_top_bar (add_action_bar);
+	}
+
+	void new_item_cb () {
+		on_action_bar_activate (child_entry.buffer);
+	}
+
+	void on_entry_changed () {
+		add_button.sensitive = child_entry.text.length > 0;
 	}
 
 	~Lists () {

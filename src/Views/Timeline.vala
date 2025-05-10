@@ -17,7 +17,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		protected int entity_queue_size { get; set; default=0; }
 	#endif
 
-	private Gtk.Spinner pull_to_refresh_spinner;
+	private Adw.Spinner pull_to_refresh_spinner;
 	private bool _is_pulling = false;
 	private bool is_pulling {
 		get {
@@ -26,11 +26,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		set {
 			if (_is_pulling != value) {
 				if (value) {
-					pull_to_refresh_spinner.spinning = true;
 					scrolled_overlay.add_overlay (pull_to_refresh_spinner);
 					scrolled.sensitive = false;
 				} else {
-					pull_to_refresh_spinner.spinning = false;
 					scrolled_overlay.remove_overlay (pull_to_refresh_spinner);
 					scrolled.sensitive = true;
 					pull_to_refresh_spinner.margin_top = 32;
@@ -65,7 +63,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 	private void on_drag_end (double x, double y) {
 		if (scrolled.vadjustment.value == 0.0 && pull_to_refresh_spinner.margin_top >= 125) {
-			on_refresh ();
+			on_manual_refresh ();
 		}
 
 		is_pulling = false;
@@ -74,7 +72,7 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 	construct {
 		empty_state_title = _("No Posts");
 
-		pull_to_refresh_spinner = new Gtk.Spinner () {
+		pull_to_refresh_spinner = new Adw.Spinner () {
 			height_request = 32,
 			width_request = 32,
 			margin_top = 32,
@@ -88,8 +86,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			reached_close_to_top.connect (finish_queue);
 		#endif
 
-		app.refresh.connect (on_refresh);
-		status_button.clicked.connect (on_refresh);
+		app.refresh.connect (on_manual_refresh);
+		status_button.clicked.connect (on_manual_refresh);
 
 		construct_account_holder ();
 
@@ -127,6 +125,14 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		#endif
 	}
 
+	#if !USE_LISTVIEW
+		public override void unbind_listboxes () {
+			destruct_account_holder ();
+			destruct_streamable ();
+			base.unbind_listboxes ();
+		}
+	#endif
+
 	public override void dispose () {
 		destruct_streamable ();
 		base.dispose ();
@@ -145,9 +151,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		base.clear ();
 	}
 
-	protected override void clear_all_but_first () {
+	protected override void clear_all_but_first (int i = 1) {
 		cleanup_timeline_api ();
-		base.clear_all_but_first ();
+		base.clear_all_but_first (i);
 	}
 
 	public void get_pages (string? header) {
@@ -209,7 +215,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 
 				if (headers != null)
 					get_pages (headers.get_one ("Link"));
-				on_content_changed ();
+
+				if (to_add.length == 0)
+					on_content_changed ();
 				on_request_finish ();
 			})
 			.on_error (on_error)
@@ -241,6 +249,9 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 		GLib.Idle.add (request);
 	}
 
+	public virtual void on_manual_refresh () {
+		on_refresh ();
+	}
 
 	protected virtual void on_account_changed (InstanceAccount? acc) {
 		account = acc;
@@ -294,10 +305,23 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 				var entity = Entity.from_json (accepts, ev.get_node ());
 				if (should_hide (entity)) return;
 
-				if (use_queue && scrolled.vadjustment.value > 1000) {
+				if (use_queue && scrolled.vadjustment.value > 100) {
 					entity_queue += entity;
 					entity_queue_size += 1;
 					return;
+				}
+
+				// This can occur on race conditions or multiple calls.
+				// The post might already be in the timeline due to a refresh etc.
+				// So just if the id exists already in the first page and remove it.
+				if (accepts == typeof (API.Status)) {
+					string e_id = ((API.Status) entity).id;
+					for (uint i = 0; i < uint.min (model.n_items, settings.timeline_page_size); i++) {
+						var status_obj = model.get_item (i) as API.Status;
+						if (status_obj != null && status_obj.id == e_id) {
+							model.remove (i);
+						}
+					}
 				}
 
 				model.insert (0, entity);
@@ -323,8 +347,8 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			var entity = Entity.from_json (accepts, ev.get_node ());
 			var entity_id = ((API.Status)entity).id;
 			for (uint i = 0; i < model.get_n_items (); i++) {
-				var status_obj = (API.Status)model.get_item (i);
-				if (status_obj.id == entity_id) {
+				var status_obj = model.get_item (i) as API.Status;
+				if (status_obj != null && status_obj.id == entity_id) {
 					model.remove (i);
 					model.insert (i, entity);
 					break;
@@ -340,10 +364,10 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			var status_id = ev.get_string ();
 
 			for (uint i = 0; i < model.get_n_items (); i++) {
-				var status_obj = (API.Status)model.get_item (i);
+				var status_obj = model.get_item (i) as API.Status;
 				// Not sure if there can be both the original
 				// and a boost of it at the same time.
-				if (status_obj.id == status_id || status_obj.formal.id == status_id) {
+				if (status_obj != null && status_obj.id == status_id || status_obj.formal.id == status_id) {
 					model.remove (i);
 					// If there can be both the original
 					// and boosts at the same time, then
@@ -353,6 +377,17 @@ public class Tuba.Views.Timeline : AccountHolder, Streamable, Views.ContentBase 
 			}
 		} catch (Error e) {
 			warning (@"Error getting String from json: $(e.message)");
+		}
+	}
+
+	public virtual void on_remove_user (string user_id) {
+		if (accepts != typeof (API.Status)) return;
+
+		for (uint i = 0; i < model.get_n_items (); i++) {
+			var status_obj = model.get_item (i) as API.Status;
+			if (status_obj != null && ((status_obj.formal.account != null && status_obj.formal.account.id == user_id) || (status_obj.account != null && status_obj.account.id == user_id))) {
+				model.remove (i);
+			}
 		}
 	}
 }

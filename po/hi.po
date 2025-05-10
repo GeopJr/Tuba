@@ -1,0 +1,4297 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Scrambled777 <weblate.scrambled777@simplelogin.com>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-14 19:52+0200\n"
+"PO-Revision-Date: 2024-06-24 09:09+0000\n"
+"Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
+"Language-Team: Hindi <https://hosted.weblate.org/projects/tuba/tuba/hi/>\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.6-rc\n"
+
+#: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
+msgid "Tuba"
+msgstr "Tuba"
+
+#: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
+msgid "Browse the Fediverse"
+msgstr "Fediverse देखें"
+
+#: data/dev.geopjr.Tuba.desktop.in:6
+msgid "Fediverse Client"
+msgstr "Fediverse क्लाइंट"
+
+#: data/dev.geopjr.Tuba.desktop.in:11
+msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
+msgstr "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
+
+#: data/dev.geopjr.Tuba.metainfo.xml.in:9
+msgid ""
+"Explore the federated social web with Tuba for GNOME. Stay connected to your "
+"favorite communities, family and friends with support for popular Fediverse "
+"platforms like Mastodon, GoToSocial, Akkoma &amp; more!"
+msgstr ""
+"GNOME के लिए Tuba के साथ संघबद्ध सोशल वेब का अन्वेषण करें। Mastodon, GoToSocial, "
+"Akkoma &amp; अन्य जैसे लोकप्रिय Fediverse प्लेटफार्मों के समर्थन के साथ अपने पसंदीदा "
+"समुदायों, परिवार और दोस्तों से जुड़े रहें!"
+
+#: data/dev.geopjr.Tuba.metainfo.xml.in:12
+msgid ""
+"The Fediverse is a decentralized social network that consists of multiple "
+"interconnected platforms and communities, allowing users to communicate and "
+"share content across different networks and servers. It promotes user "
+"privacy and data ownership, and offers an alternative to centralized social "
+"media platforms."
+msgstr ""
+"Fediverse एक विकेन्द्रीकृत सोशल नेटवर्क है जिसमें कई परस्पर जुड़े प्लेटफ़ॉर्म और समुदाय शामिल "
+"हैं, जो उपयोक्ताओं को विभिन्न नेटवर्क और सर्वर पर सामग्री को संचार और साझा करने की "
+"अनुमति देता है। यह उपयोक्ता की गोपनीयता और डेटा स्वामित्व को बढ़ावा देता है, और केंद्रीकृत "
+"सोशल मीडिया प्लेटफार्मों का विकल्प प्रदान करता है।"
+
+#: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
+#: data/ui/dialogs/preferences.ui:20
+msgid "General"
+msgstr "सामान्य"
+
+#: data/gtk/help-overlay.ui:14
+msgid "Show Preferences"
+msgstr "प्राथमिकताएं दिखाएं"
+
+#: data/gtk/help-overlay.ui:20
+msgid "Compose New Post"
+msgstr "नई पोस्ट लिखें"
+
+#: data/gtk/help-overlay.ui:26 data/ui/widgets/votebox.ui:40
+#: src/Views/Sidebar.vala:69
+msgid "Refresh"
+msgstr "ताजा करें"
+
+#: data/gtk/help-overlay.ui:32 data/ui/dialogs/advanced_search.ui:28
+#: src/Services/Accounts/Mastodon/Account.vala:99
+#: src/Views/Admin/Pages/Accounts.vala:25 src/Views/Main.vala:62
+#: src/Views/Search.vala:90 src/Views/Search.vala:92
+msgid "Search"
+msgstr "खोजें"
+
+#: data/gtk/help-overlay.ui:38 data/ui/views/media_viewer.ui:52
+msgid "Go Back"
+msgstr "पीछे जाएं"
+
+#: data/gtk/help-overlay.ui:44
+msgid "Show Keyboard Shortcuts"
+msgstr "कीबोर्ड शॉर्टकट दिखाएं"
+
+#: data/gtk/help-overlay.ui:50
+msgid "Close Window"
+msgstr "विंडो बंद करें"
+
+#: data/gtk/help-overlay.ui:56
+msgid "Quit"
+msgstr "छोड़ें"
+
+#: data/gtk/help-overlay.ui:62
+msgid "About"
+msgstr "Tuba के बारे में"
+
+#: data/gtk/help-overlay.ui:68
+msgid "Scroll Up"
+msgstr "ऊपर स्क्रॉल करें"
+
+#: data/gtk/help-overlay.ui:74
+msgid "Scroll Down"
+msgstr "नीचे स्क्रॉल करें"
+
+#: data/gtk/help-overlay.ui:82
+msgid "Composer"
+msgstr "रचयिता"
+
+#: data/gtk/help-overlay.ui:85
+msgid "Commit"
+msgstr "कमिट"
+
+#: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:43
+msgid "Media Viewer"
+msgstr "मीडिया दर्शक"
+
+#: data/gtk/help-overlay.ui:96
+msgid "Fullscreen"
+msgstr "पूर्णस्क्रीन"
+
+#: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:172
+msgid "Zoom In"
+msgstr "बड़ा करें"
+
+#: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:160
+msgid "Zoom Out"
+msgstr "छोटा करें"
+
+#: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:94
+msgid "Previous Attachment"
+msgstr "पिछला अनुलग्नक"
+
+#: data/gtk/help-overlay.ui:120 data/ui/views/media_viewer.ui:106
+msgid "Next Attachment"
+msgstr "अगला अनुलग्नक"
+
+#: data/gtk/help-overlay.ui:126
+msgctxt "shortcut window"
+msgid "Zoom In"
+msgstr "बड़ा करें"
+
+#: data/gtk/help-overlay.ui:132
+msgctxt "shortcut window"
+msgid "Zoom Out"
+msgstr "छोटा करें"
+
+#: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
+msgctxt "shortcut window"
+msgid "Previous Attachment"
+msgstr "पिछला अनुलग्नक"
+
+#: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
+msgctxt "shortcut window"
+msgid "Next Attachment"
+msgstr "अगला अनुलग्नक"
+
+#: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:85
+msgid "Admin Dashboard"
+msgstr "व्यवस्थापक डैशबोर्ड"
+
+#. translators: window title
+#: data/ui/dialogs/advanced_search.ui:11 src/Views/Search.vala:31
+msgid "Advanced Search"
+msgstr "उन्नत खोज"
+
+#: data/ui/dialogs/advanced_search.ui:22 data/ui/dialogs/compose.ui:35
+#: data/ui/dialogs/filter_edit.ui:16 data/ui/dialogs/new_account.ui:26
+#: data/ui/dialogs/profile_edit.ui:21 data/ui/dialogs/schedule.ui:40
+#: src/API/Relationship.vala:139 src/API/Relationship.vala:184
+#: src/Application.vala:711 src/Dialogs/Admin/AddFederationBlock.vala:37
+#: src/Dialogs/Admin/AddIPBlock.vala:76 src/Dialogs/Admin/Report.vala:22
+#: src/Dialogs/Admin/TakeAction.vala:22 src/Dialogs/Admin/TakeAction.vala:147
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:54
+#: src/Dialogs/Composer/Dialog.vala:256 src/Dialogs/NewAccount.vala:303
+#: src/Dialogs/NotificationSettings.vala:135 src/Dialogs/Preferences.vala:83
+#: src/Dialogs/Report.vala:85 src/Dialogs/Report.vala:332
+#: src/Dialogs/Report.vala:409 src/Views/Admin/Pages/Accounts.vala:256
+#: src/Views/Admin/Pages/Accounts.vala:428
+#: src/Views/Admin/Pages/Accounts.vala:489
+#: src/Views/Admin/Pages/Accounts.vala:522
+#: src/Views/Admin/Pages/BlockedEmails.vala:68
+#: src/Views/Admin/Pages/FederationAllowlist.vala:61
+#: src/Views/Admin/Timelines/BlockedIPs.vala:30
+#: src/Views/Admin/Timelines/DomainAllow.vala:32
+#: src/Views/Admin/Timelines/DomainBlock.vala:30
+#: src/Views/Admin/Timelines/EmailDomain.vala:30 src/Views/Lists.vala:124
+#: src/Views/Profile.vala:365 src/Views/Sidebar.vala:345
+#: src/Widgets/ScheduledStatus.vala:184 src/Widgets/Status/ActionsRow.vala:279
+#: src/Widgets/Status.vala:465
+msgid "Cancel"
+msgstr "रद्द करें"
+
+#. translators: Label in the advanced search window. Leave `-is:reply` as is. 'instances' as in fediverse servers
+#: data/ui/dialogs/advanced_search.ui:57
+msgid ""
+"Advanced Search might not work in all instances. You can invert an option by "
+"prefixing it with -. For example, -is:reply to filter out all replies."
+msgstr ""
+"उन्नत खोज सभी मामलों में काम नहीं कर सकती है। आप किसी विकल्प को - उपसर्ग करके उलट सकते "
+"हैं। उदाहरण के लिए, सभी उत्तरों को फिल्टर करने के लिए -is:reply का उपयोग करें।"
+
+#. translators: Search query
+#: data/ui/dialogs/advanced_search.ui:74
+msgid "Query"
+msgstr "सवाल"
+
+#. translators: Entry title that accepts a user tag, searches for posts published by the user
+#: data/ui/dialogs/advanced_search.ui:81
+msgid "From User"
+msgstr "उपयोक्ता से"
+
+#. translators: tooltip text for a button in the 'advanced search' window. When clicked it automatically fills the entry with the first found user based on the query.
+#: data/ui/dialogs/advanced_search.ui:89
+msgid "Auto-Fill User"
+msgstr ""
+
+#. translators: advanced search window switch title
+#: data/ui/dialogs/advanced_search.ui:102
+msgid "Only Replies"
+msgstr "केवल उत्तर"
+
+#. translators: advanced search window switch title
+#: data/ui/dialogs/advanced_search.ui:108
+msgid "Only Posts with Content Warnings"
+msgstr "केवल सामग्री चेतावनी वाले पोस्ट"
+
+#. translators: Advanced search window, option group
+#. This is the title and the option are
+#. 'media', 'poll'...
+#: data/ui/dialogs/advanced_search.ui:118
+msgid "Containing"
+msgstr "युक्त"
+
+#: data/ui/dialogs/advanced_search.ui:121
+#: src/Dialogs/Composer/AttachmentsPage.vala:62
+#: src/Widgets/ProfileFilterGroup.vala:66
+msgid "Media"
+msgstr "मीडिया"
+
+#: data/ui/dialogs/advanced_search.ui:126 src/Dialogs/Composer/PollPage.vala:77
+msgid "Poll"
+msgstr "मतदान"
+
+#. translators: advanced search window switch title
+#: data/ui/dialogs/advanced_search.ui:132
+msgid "Embed"
+msgstr "सन्निहित"
+
+#: data/ui/dialogs/advanced_search.ui:139 data/ui/dialogs/preferences.ui:185
+msgid "Timelines"
+msgstr "समयरेखाएं"
+
+#: data/ui/dialogs/advanced_search.ui:142
+msgid "Everywhere"
+msgstr "हर जगह"
+
+#. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
+#: data/ui/dialogs/advanced_search.ui:157
+msgid "Library"
+msgstr "लाईब्रेरी"
+
+#. translators: Advanced search window, radio button subtitle for the 'library' option
+#: data/ui/dialogs/advanced_search.ui:159
+msgid "Favorites, Bookmarks, Own Posts"
+msgstr "पसंदीदा, बुकमार्क, स्वयं की पोस्ट"
+
+#: data/ui/dialogs/advanced_search.ui:174
+#: src/Services/Accounts/Mastodon/Account.vala:208
+msgid "Public"
+msgstr "सार्वजनिक"
+
+#. translators: Advanced search window, option group
+#: data/ui/dialogs/advanced_search.ui:192
+msgid "Dates"
+msgstr "तिथियां"
+
+#. translators: Advanced Search window, option title, opens a calendar, so it's a date.
+#. The user is searching for posts posted *before* this date
+#: data/ui/dialogs/advanced_search.ui:198
+msgid "Before"
+msgstr "पहले"
+
+#. translators: Advanced Search window, option title, opens a calendar, so it's a date.
+#. The user is searching for posts posted *during* this date
+#: data/ui/dialogs/advanced_search.ui:221
+msgid "During"
+msgstr "दौरान"
+
+#. translators: Advanced Search window, option title, opens a calendar, so it's a date.
+#. The user is searching for posts posted *after* this date
+#: data/ui/dialogs/advanced_search.ui:244
+msgid "After"
+msgstr "उपरांत"
+
+#: data/ui/dialogs/filter_edit.ui:6
+msgid "Edit Filter"
+msgstr "फिल्टर संपादित करें"
+
+#: data/ui/dialogs/filter_edit.ui:24 data/ui/dialogs/profile_edit.ui:28
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:50
+msgid "Save"
+msgstr "सहेजें"
+
+#: data/ui/dialogs/filter_edit.ui:56
+msgid "Title"
+msgstr "शीर्षक"
+
+#: data/ui/dialogs/filter_edit.ui:62
+msgid "Expires In"
+msgstr "इतने में समाप्त होगा"
+
+#: data/ui/dialogs/filter_edit.ui:67
+msgid "Hide Completely"
+msgstr "पूरी तरह से छुपाएं"
+
+#: data/ui/dialogs/filter_edit.ui:68
+msgid "Otherwise a warning will be used"
+msgstr "अन्यथा चेतावनी का प्रयोग किया जाएगा"
+
+#: data/ui/dialogs/filter_edit.ui:75
+msgid "Contexts"
+msgstr "संदर्भ"
+
+#: data/ui/dialogs/filter_edit.ui:76
+msgid "One or multiple contexts where the filter should apply"
+msgstr "एक या एकाधिक संदर्भ जहां फिल्टर लागू होना चाहिए"
+
+#: data/ui/dialogs/filter_edit.ui:81
+msgid "Keywords or Phrases"
+msgstr "खोजशब्द या वाक्यांश"
+
+#: data/ui/dialogs/filter_edit.ui:89
+msgid "Add Keyword"
+msgstr "खोजशब्द जोड़ें"
+
+#: data/ui/dialogs/list_edit.ui:7 data/ui/dialogs/list_edit.ui:10
+msgid "Members"
+msgstr "सदस्य"
+
+#: data/ui/dialogs/list_edit.ui:27
+msgid "List Name"
+msgstr "सूची नाम"
+
+#: data/ui/dialogs/list_edit.ui:32
+msgid "Hide Posts From Home"
+msgstr "मुखपृष्ठ से पोस्ट छुपाएं"
+
+#: data/ui/dialogs/list_edit.ui:39
+msgid "Replies Policy"
+msgstr "जवाब नीति"
+
+#: data/ui/dialogs/list_edit.ui:40
+msgid "Show member replies to"
+msgstr "सदस्य के उत्तर दिखाएं"
+
+#: data/ui/dialogs/list_edit.ui:43 src/Widgets/Admin/AssignedRow.vala:49
+#: src/Widgets/Admin/Report.vala:20 src/Widgets/Admin/Report.vala:24
+msgid "Nobody"
+msgstr "कोई नहीं"
+
+#: data/ui/dialogs/list_edit.ui:54
+msgid "Other members of the list"
+msgstr "सूची के अन्य सदस्य"
+
+#: data/ui/dialogs/list_edit.ui:66
+msgid "Any followed user"
+msgstr "कोई अनुसरणित उपयोक्ता"
+
+#: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:314
+#: src/Views/Sidebar.vala:318
+msgid "Add Account"
+msgstr "खाता जोड़ें"
+
+#: data/ui/dialogs/new_account.ui:33 data/ui/dialogs/new_account.ui:126
+#: src/Dialogs/Report.vala:87 src/Dialogs/Report.vala:417
+#: src/Widgets/AccountSuggestions.vala:89
+msgid "Next"
+msgstr "अगला"
+
+#: data/ui/dialogs/new_account.ui:47
+msgid "What is your Server?"
+msgstr "आपका सर्वर क्या है?"
+
+#. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
+#: data/ui/dialogs/new_account.ui:49
+msgid ""
+"If you don't have an account yet, <a href=\"https://joinmastodon.org/"
+"servers\">choose a server and register one</a>."
+msgstr ""
+"यदि आपके पास अभी तक कोई खाता नहीं है, तो <a href=\"https://joinmastodon.org/"
+"servers\">एक सर्वर चुनें और एक पंजीकृत करें</a>।"
+
+#: data/ui/dialogs/new_account.ui:70
+msgid "Server URL"
+msgstr "सर्वर URL"
+
+#. translators: tooltip text for a button in the 'new account' window
+#: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:299
+msgid "Settings"
+msgstr "सेटिंग"
+
+#: data/ui/dialogs/new_account.ui:141
+msgid "Confirm Authorization"
+msgstr "प्राधिकरण की पुष्टि करें"
+
+#. translators: Do not translate "manual_auth"
+#: data/ui/dialogs/new_account.ui:161
+msgid ""
+"If something went wrong, <a href=\"manual_auth\">try manual authorization</"
+"a>."
+msgstr ""
+"यदि कुछ गलत हुआ, तो <a href=\"manual_auth\"> हस्तचालित प्राधिकरण का प्रयास करें</a>।"
+
+#: data/ui/dialogs/new_account.ui:171
+msgid "Authorization Code"
+msgstr "प्राधिकरण कोड"
+
+#: data/ui/dialogs/new_account.ui:218
+msgid "Your account is connected and ready to use!"
+msgstr "आपका खाता जुड़ा हुआ है और उपयोग के लिए तैयार है!"
+
+#: data/ui/dialogs/new_account.ui:223
+msgid "Done"
+msgstr "संपन्न"
+
+#: data/ui/dialogs/notification_settings.ui:6 src/Views/Main.vala:69
+msgid "Filter"
+msgstr "फिल्टर"
+
+#: data/ui/dialogs/notification_settings.ui:16
+msgid "Clear All Notifications"
+msgstr "सभी अधिसूचनाएं साफ़ करें"
+
+#: data/ui/dialogs/notification_settings.ui:34
+#: data/ui/dialogs/preferences.ui:252 src/API/Filters/Filter.vala:45
+#: src/Services/Accounts/Mastodon/Account.vala:41
+#: src/Views/Notifications.vala:36
+msgid "Notifications"
+msgstr "सूचनाएं"
+
+#: data/ui/dialogs/notification_settings.ui:37
+msgid "Included Notifications"
+msgstr "शामिल अधिसूचनाएं"
+
+#. translators: Preferences group title
+#: data/ui/dialogs/notification_settings.ui:44
+msgid "Filter Notifications Out"
+msgstr "अधिसूचनाएं फिल्टर करें"
+
+#. translators: Preferences group description
+#: data/ui/dialogs/notification_settings.ui:46
+msgid "Filter out notifications from people you may not know"
+msgstr "उन लोगों से आने वाली अधिसूचनाओं को फिल्टर करें जिन्हें आप नहीं जानते"
+
+#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:50
+msgid "People you don't follow"
+msgstr "वे लोग जिनका आप अनुसरण नहीं करते हैं"
+
+#. translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:52
+msgid "Until you manually approve them"
+msgstr "जब तक आप उन्हें हस्तचालित रूप से स्वीकृत नहीं करते"
+
+#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:58
+msgid "People not following you"
+msgstr "लोग जो आपका अनुसरण नहीं कर रहे हैं"
+
+#. translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:60
+msgid "Including people who have been following you fewer than 3 days"
+msgstr "इसमें वे लोग भी शामिल हैं जो 3 दिनों से कम समय से आपका अनुसरण कर रहे हैं"
+
+#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:66
+msgid "New accounts"
+msgstr "नये खाते"
+
+#. translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:68
+msgid "Created within the past 30 days"
+msgstr "पिछले 30 दिनों के भीतर बनाया गया"
+
+#. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:74
+msgid "Unsolicited private mentions"
+msgstr "अनचाहे निजी उल्लेख"
+
+#. translators: Preferences switch subtitle about filtering out 'Unsolicited private mentions'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: data/ui/dialogs/notification_settings.ui:76
+msgid ""
+"Filtered unless it's in reply to your own mention or if you follow the sender"
+msgstr ""
+"फिल्टर किया गया जब तक कि यह आपके स्वयं के उल्लेख के जवाब में न हो या यदि आप प्रेषक का "
+"अनुसरण करते हैं"
+
+#: data/ui/dialogs/preferences.ui:23
+msgid "Appearance"
+msgstr "दिखावट"
+
+#: data/ui/dialogs/preferences.ui:26
+msgid "Color Scheme"
+msgstr "रंग योजना"
+
+#: data/ui/dialogs/preferences.ui:40
+msgid "Large Text"
+msgstr "बड़े पाठ"
+
+#: data/ui/dialogs/preferences.ui:41
+msgid "Increase the size of text in posts"
+msgstr "पोस्ट में पाठ का आकार बढ़ाएं"
+
+#: data/ui/dialogs/preferences.ui:46
+msgid "Large Line Height"
+msgstr "बड़ी पंक्ति ऊंचाई"
+
+#: data/ui/dialogs/preferences.ui:47
+msgid "Increase the line height in posts"
+msgstr "पोस्ट में पंक्ति की ऊंचाई बढ़ाएं"
+
+#: data/ui/dialogs/preferences.ui:52
+msgid "Large Custom Emojis"
+msgstr "बड़े तदनुकूल इमोजी"
+
+#: data/ui/dialogs/preferences.ui:57
+msgid "Scale Custom Emojis on Hover"
+msgstr "मंडराने पर तदनुकूल इमोजी को बड़ा करें"
+
+#: data/ui/dialogs/preferences.ui:58
+msgid "Slightly increases the size of custom emojis when you hover over them"
+msgstr "जब आप तदनुकूल इमोजी पर मंडराते हैं तो उनका आकार थोड़ा बढ़ जाता है"
+
+#. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
+#: data/ui/dialogs/preferences.ui:64
+msgid "Letterbox Media"
+msgstr "लेटरबॉक्स मीडिया"
+
+#. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
+#: data/ui/dialogs/preferences.ui:66
+msgid ""
+"Scale down and letterbox media to fill the image containers instead of "
+"stretching and cropping them"
+msgstr ""
+"छवि कंटेनरों को खींचने और काटने के बजाय उन्हें भरने के लिए स्केल डाउन और लेटरबॉक्स मीडिया करें"
+
+#. translators: expand as in enlarge
+#: data/ui/dialogs/preferences.ui:72
+msgid "Expand Pictures in Media Viewer"
+msgstr "मीडिया दर्शक में चित्र विस्तृत करें"
+
+#. translators: expand as in enlarge
+#: data/ui/dialogs/preferences.ui:74
+msgid "Expand pictures to fill the media viewer by default"
+msgstr "मीडिया दर्शक को तयशुदा रूप से भरने के लिए चित्रों का विस्तार करें"
+
+#. translators: leave this as is unless you want to transliterate. BlurHash is a recognizable product name.
+#: data/ui/dialogs/preferences.ui:80
+msgid "BlurHash"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:81
+msgid "Show a blurred version of the media until they fully load"
+msgstr "मीडिया का धुंधला संस्करण तब तक दिखाएं जब तक वे पूरी तरह से लोड न हो जाएं"
+
+#: data/ui/dialogs/preferences.ui:86
+msgid "Reveal Spoilers by Default"
+msgstr "स्पॉइलर को तयशुदा रूप से विस्तृत करें"
+
+#: data/ui/dialogs/preferences.ui:91
+msgid "Show Link Preview Cards"
+msgstr "लिंक पूर्वावलोकन कार्ड दिखाएं"
+
+#: data/ui/dialogs/preferences.ui:96
+msgid "Darken Images on Dark Mode"
+msgstr "गहरे मोड पर छवियों को गहरा करें"
+
+#. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
+#: data/ui/dialogs/preferences.ui:102
+msgid "Dim Trivial Notifications"
+msgstr "तुच्छ अधिसूचनाएं मंद करें"
+
+#: data/ui/dialogs/preferences.ui:103
+msgid "Notifications like favorites and boosts will be less visible"
+msgstr "पसंदीदा और बूस्ट जैसी सूचनाएं कम दिखाई देंगी"
+
+#: data/ui/dialogs/preferences.ui:110
+msgid "Posting"
+msgstr "पोस्ट कर रहें हैं"
+
+#: data/ui/dialogs/preferences.ui:113
+msgid "Default Post Visibility"
+msgstr "तयशुदा पोस्ट दृश्यता"
+
+#: data/ui/dialogs/preferences.ui:122
+msgid "Default Post Language"
+msgstr "तयशुदा पोस्ट भाषा"
+
+#: data/ui/dialogs/preferences.ui:132
+msgid "Default Post Content Type"
+msgstr "तयशुदा पोस्ट सामग्री प्रकार"
+
+#: data/ui/dialogs/preferences.ui:143
+msgid "Behavior"
+msgstr "व्यवहार"
+
+#: data/ui/dialogs/preferences.ui:146
+msgid "Run in Background"
+msgstr "पृष्ठभूमि में चलाएं"
+
+#: data/ui/dialogs/preferences.ui:147
+msgid "Fetch notifications while the app is closed"
+msgstr "ऐप बंद होने पर सूचनाएं प्राप्त करें"
+
+#: data/ui/dialogs/preferences.ui:152
+msgid "Strip Tracking Parameters From Links"
+msgstr "लिंक से ट्रैकिंग पैरामीटर निकालें"
+
+#. translators: Broken as in incorrect
+#: data/ui/dialogs/preferences.ui:154
+msgid "This option can lead to broken links when enabled"
+msgstr "सक्षम होने पर लिंक टूट सकते हैं"
+
+#: data/ui/dialogs/preferences.ui:159
+msgid "Advanced Boost Dialog"
+msgstr "उन्नत बूस्ट संवाद"
+
+#: data/ui/dialogs/preferences.ui:160
+msgid "Change boost visibility, quote and confirm boosting"
+msgstr "बूस्ट दृश्यता बदलें, उद्धरण दें और बूस्ट करने की पुष्टि करें"
+
+#: data/ui/dialogs/preferences.ui:165
+msgid "Warn before replying to an old post"
+msgstr "किसी पुरानी पोस्ट पर जवाब देने से पहले चेतावनी दें"
+
+#: data/ui/dialogs/preferences.ui:170
+msgid "Warn before copying a link to a private post"
+msgstr ""
+
+#. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
+#: data/ui/dialogs/preferences.ui:177 src/Dialogs/NewAccount.vala:330
+msgid "Proxy"
+msgstr "प्रॉक्सी"
+
+#: data/ui/dialogs/preferences.ui:188
+msgid "Posts per Load Batch"
+msgstr "पोस्ट प्रति लोड समूह"
+
+#: data/ui/dialogs/preferences.ui:196
+msgid "Stream Timelines"
+msgstr "समयरेखाएं स्ट्रीम करें"
+
+#: data/ui/dialogs/preferences.ui:197
+msgid "Receive new posts and notifications in real-time"
+msgstr "वास्तविक समय में नई पोस्ट और सूचनाएं प्राप्त करें"
+
+#: data/ui/dialogs/preferences.ui:203
+msgid "Stream Public Timelines"
+msgstr "सार्वजनिक समयरेखाएं स्ट्रीम करें"
+
+#: data/ui/dialogs/preferences.ui:204
+msgid "Warning: This will increase memory usage"
+msgstr "चेतावनी: इससे मेमोरी का उपयोग बढ़ जाएगा"
+
+#: data/ui/dialogs/preferences.ui:211
+msgid "Online Services"
+msgstr ""
+
+#. translators: leave api.tuba.geopjr.dev as is
+#: data/ui/dialogs/preferences.ui:213
+msgid "Configure features that connect to api.tuba.geopjr.dev"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:216
+msgid "Send Preference Analytics"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:217
+msgid ""
+"Send your preferences to Tuba's developers for popularity research biweekly"
+msgstr ""
+
+#: data/ui/dialogs/preferences.ui:223
+msgid "Preview Analytics"
+msgstr ""
+
+#. translators: supporters = tuba contributors and sponsors
+#: data/ui/dialogs/preferences.ui:240
+msgid "Update Supporters Periodically"
+msgstr ""
+
+#. translators: supporters = tuba contributors and sponsors
+#: data/ui/dialogs/preferences.ui:242
+msgid "Fetch the list of Tuba's supporters biweekly"
+msgstr ""
+
+#. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
+#: data/ui/dialogs/preferences.ui:256
+msgid "Push Notifications"
+msgstr "पुश सूचनाएं"
+
+#. translators: #FediWrapped, title of the 'amount of new followers' card
+#: data/ui/dialogs/preferences.ui:259 src/Dialogs/AnnualReport.vala:389
+msgid "New Followers"
+msgstr "नये अनुयायी"
+
+#: data/ui/dialogs/preferences.ui:265
+msgid "New Follower Requests"
+msgstr "नये अनुयायी अनुरोध"
+
+#: data/ui/dialogs/preferences.ui:271 src/Dialogs/NotificationSettings.vala:50
+#: src/Services/Accounts/Mastodon/Account.vala:81 src/Views/Favorites.vala:4
+msgid "Favorites"
+msgstr "पसंदीदा"
+
+#: data/ui/dialogs/preferences.ui:277 src/Dialogs/NotificationSettings.vala:49
+msgid "Mentions"
+msgstr "उल्लेख"
+
+#: data/ui/dialogs/preferences.ui:283 src/Dialogs/NotificationSettings.vala:51
+msgid "Boosts"
+msgstr "बूस्ट"
+
+#: data/ui/dialogs/preferences.ui:289
+msgid "Poll Results"
+msgstr "मतदान परिणाम"
+
+#: data/ui/dialogs/preferences.ui:295
+msgid "Edits"
+msgstr "संपादन"
+
+#: data/ui/dialogs/preferences.ui:301
+msgid "Group"
+msgstr "समूह"
+
+#. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
+#: data/ui/dialogs/preferences.ui:303
+msgid ""
+"Combine recently pushed notifications of the same type and post into one"
+msgstr "एक ही प्रकार की हालिया पुश सूचनाओं को संयोजित करें और एक साथ दिखाएं"
+
+#: data/ui/dialogs/preferences.ui:314
+msgid "Filters"
+msgstr "फिल्टर"
+
+#: data/ui/dialogs/preferences.ui:318
+msgid "Keywords"
+msgstr "खोजशब्द"
+
+#: data/ui/dialogs/preferences.ui:326
+msgid "Add Filter…"
+msgstr "फिल्टर जोड़ें…"
+
+#: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:230
+msgid "Edit Profile"
+msgstr "प्रोफाइल संपादित करें"
+
+#: data/ui/dialogs/profile_edit.ui:66
+msgid "Edit Profile Picture"
+msgstr "प्रोफाइल तस्वीर संपादित करें"
+
+#. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
+#: data/ui/dialogs/profile_edit.ui:95
+msgid "Edit Header Picture"
+msgstr "शीर्षलेख तस्वीर संपादित करें"
+
+#: data/ui/dialogs/profile_edit.ui:120 src/Views/Admin/Pages/Accounts.vala:135
+msgid "Display Name"
+msgstr "प्रदर्शन नाम"
+
+#. translators: profile bio or description
+#: data/ui/dialogs/profile_edit.ui:128
+msgid "Bio"
+msgstr "जीवनी"
+
+#: data/ui/dialogs/profile_edit.ui:138 src/Dialogs/Composer/EditorPage.vala:353
+#: src/Widgets/Status/ReactionsRow.vala:58
+msgid "Custom Emoji Picker"
+msgstr "तदनुकूल इमोजी चयनकर्ता"
+
+#. translators: Alternative Text refers to text that describes
+#. an attachment when using screen readers or the
+#. image hasn't loaded. Also known as 'alt text'
+#: data/ui/dialogs/profile_edit.ui:162
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:94
+#: src/Widgets/Attachment/Item.vala:159
+msgid "Alternative Text"
+msgstr ""
+
+#. translators: row in the profile editor dialog for setting alt text for the user profile picture
+#: data/ui/dialogs/profile_edit.ui:167
+msgid "Profile Picture Description"
+msgstr ""
+
+#. translators: row in the profile editor dialog for setting alt text for the user profile header/cover
+#: data/ui/dialogs/profile_edit.ui:174
+msgid "Header Picture Description"
+msgstr ""
+
+#. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
+#: data/ui/dialogs/profile_edit.ui:182
+msgid "Fields"
+msgstr "क्षेत्र"
+
+#. translators: window title
+#. translators: 'Schedule' is a verb
+#: data/ui/dialogs/schedule.ui:29 src/Dialogs/Composer/Dialog.vala:159
+msgid "Schedule Post"
+msgstr ""
+
+#. translators: verb
+#: data/ui/dialogs/schedule.ui:47
+msgid "Schedule"
+msgstr ""
+
+#. translators: Title used for calendar date picking
+#: data/ui/dialogs/schedule.ui:74
+msgid "Date"
+msgstr ""
+
+#. translators: Title used for time picking
+#: data/ui/dialogs/schedule.ui:99
+msgid "Time"
+msgstr ""
+
+#. translators: Label on an hour picker
+#: data/ui/dialogs/schedule.ui:114
+msgid "Hour"
+msgstr ""
+
+#. translators: Label on an minute picker
+#: data/ui/dialogs/schedule.ui:134
+msgid "Minute"
+msgstr ""
+
+#. translators: Label on an minute picker
+#: data/ui/dialogs/schedule.ui:154
+msgid "Second"
+msgstr ""
+
+#: data/ui/dialogs/schedule.ui:168
+msgid "Timezone"
+msgstr ""
+
+#: data/ui/menus.ui:10
+msgid "Mention"
+msgstr "उल्लेख"
+
+#: data/ui/menus.ui:16
+msgid "Direct Message"
+msgstr "सीधा संदेश"
+
+#: data/ui/menus.ui:22
+msgid "Copy Handle"
+msgstr "हैंडल कॉपी करें"
+
+#: data/ui/menus.ui:29 data/ui/views/media_viewer.ui:6
+#: src/Widgets/Attachment/Item.vala:175 src/Widgets/Status.vala:308
+msgid "Open in Browser"
+msgstr "ब्राउज़र में खोलें"
+
+#: data/ui/menus.ui:33
+msgid "Receive Post Notifications"
+msgstr "पोस्ट सूचनाएं प्राप्त करें"
+
+#. translators: admin panel, accounts tab, filter dropdown tooltip text
+#: data/ui/menus.ui:39 src/Views/Admin/Pages/Accounts.vala:118
+msgid "Moderation"
+msgstr "मॉडरेशन"
+
+#: data/ui/menus.ui:41
+msgid "Hide Boosts"
+msgstr "बूस्ट छुपाएं"
+
+#: data/ui/menus.ui:46 src/API/Relationship.vala:184
+#: src/Widgets/Status.vala:325
+msgid "Mute"
+msgstr "मूक करें"
+
+#: data/ui/menus.ui:51 src/API/Relationship.vala:139
+#: src/Views/Admin/Pages/BlockedEmails.vala:24
+#: src/Views/Admin/Pages/BlockedEmails.vala:71 src/Views/Profile.vala:365
+msgid "Block"
+msgstr "अवरोधित करें"
+
+#: data/ui/menus.ui:55
+msgid "Block Domain"
+msgstr "डोमेन अवरोधित करें"
+
+#: data/ui/menus.ui:60 src/Dialogs/Admin/Report.vala:8
+#: src/Widgets/Status.vala:365
+msgid "Report"
+msgstr "रिपोर्ट"
+
+#: data/ui/menus.ui:67
+msgid "Timeline"
+msgstr "समयरेखा"
+
+#: data/ui/menus.ui:83 src/Services/Accounts/Mastodon/Account.vala:90
+#: src/Views/Lists.vala:209 src/Views/Profile.vala:462
+msgid "Lists"
+msgstr "सूचियां"
+
+#: data/ui/views/media_viewer.ui:10 src/Widgets/Attachment/Item.vala:176
+#: src/Widgets/Status.vala:309
+msgid "Copy URL"
+msgstr "URL कॉपी करें"
+
+#: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:177
+msgid "Save Media…"
+msgstr "मीडिया सहेजें…"
+
+#: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:179
+msgid "Copy Media"
+msgstr "मीडिया कॉपी करें"
+
+#: data/ui/views/media_viewer.ui:60 data/ui/views/sidebar/view.ui:56
+#: data/ui/widgets/status.ui:220
+msgid "Menu"
+msgstr "मेनू"
+
+#: data/ui/views/media_viewer.ui:67 data/ui/views/media_viewer.ui:132
+msgid "Toggle Fullscreen"
+msgstr "पूर्णस्क्रीन चालू/बंद करें"
+
+#. translators: Tooltip on icon indicating that the user is a bot/automated account
+#: data/ui/views/profile_header.ui:37 data/ui/widgets/profile.ui:25
+msgid "Bot"
+msgstr "बॉट"
+
+#. translators: Tooltip text shown on an icon that indicates
+#. that the user is either a financial supporter
+#. or contributor to Tuba
+#: data/ui/views/profile_header.ui:64
+msgid "Tuba Supporter"
+msgstr ""
+
+#. translators: tooltip text on profile covers.
+#. You can replace 'Cover' with 'Background' if needed.
+#: data/ui/views/profile_header.ui:85
+msgid "View Cover"
+msgstr "आवरण देखें"
+
+#. translators: tooltip text on profile avatars.
+#. You can replace 'Avatar' with 'Profile Picture' if needed.
+#: data/ui/views/profile_header.ui:99
+msgid "View Avatar"
+msgstr "अवतार देखें"
+
+#: data/ui/views/profile_header.ui:164 src/Views/Sidebar.vala:68
+msgid "Open Profile"
+msgstr "प्रोफाइल खोलें"
+
+#. translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person
+#: data/ui/views/profile_header.ui:184
+msgid "View All Followers You Know"
+msgstr ""
+
+#: data/ui/views/profile_header.ui:214
+msgid "Note"
+msgstr "नोट"
+
+#. translators: Forget as in 'Remove Account'
+#: data/ui/views/sidebar/account.ui:53
+msgid "Forget Account"
+msgstr "खाता भूलें"
+
+#: data/ui/views/sidebar/view.ui:38
+msgid "Switch Account"
+msgstr "खाता बदलें"
+
+#. translators: banner shown when the internet connection is lost
+#: data/ui/views/sidebar/view.ui:71
+msgid "Offline"
+msgstr "ऑफ़लाइन"
+
+#. translators: Button on a banner
+#: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
+#: src/Views/Notifications.vala:59
+msgid "View"
+msgstr "देखें"
+
+#: data/ui/widgets/announcement.ui:96
+msgid "Unread"
+msgstr "अपठित"
+
+#: data/ui/widgets/announcement.ui:107 data/ui/widgets/status.ui:190
+msgid "Edited"
+msgstr "संपादित"
+
+#. translators: Media play bar play button tooltip
+#: data/ui/widgets/audiocontrols.ui:30 src/Widgets/AudioPlayer/Controls.vala:26
+msgctxt "media controls tooltip"
+msgid "Play"
+msgstr ""
+
+#: data/ui/widgets/audiocontrols.ui:49
+msgctxt "media controls"
+msgid "Position"
+msgstr ""
+
+#: data/ui/widgets/audiocontrols.ui:67
+msgctxt "media controls"
+msgid "Volume"
+msgstr ""
+
+#: data/ui/widgets/status.ui:179
+msgid "Pinned"
+msgstr "पिन किए गए"
+
+#. translators: Tooltip that closes content warning
+#: data/ui/widgets/status.ui:249
+msgid "Show Less"
+msgstr "कम दिखाएं"
+
+#. translators: Tooltip that opens content warning
+#: data/ui/widgets/status.ui:282 src/Widgets/Status.vala:568
+msgid "Show More"
+msgstr "अधिक दिखाएं"
+
+#. translators: Tooltip that opens filter
+#: data/ui/widgets/status.ui:348
+msgid "Show Anyway"
+msgstr "फिर भी दिखाएं"
+
+#: data/ui/widgets/votebox.ui:33
+msgid "Vote"
+msgstr "मतदान करें"
+
+#. translators: Admin Dashboard, Federation Block severity
+#: src/API/Admin/DomainBlock.vala:10 src/Views/Admin/Pages/Accounts.vala:299
+#: src/Views/Admin/Pages/Accounts.vala:305
+#: src/Views/Admin/Pages/Accounts.vala:338
+#: src/Widgets/Admin/DomainBlock.vala:18 src/Widgets/Admin/DomainBlock.vala:25
+msgid "None"
+msgstr "कुछ नहीं"
+
+#. translators: Admin Dashboard, Federation Block severity
+#: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
+msgid "Limit"
+msgstr "सीमा"
+
+#. translators: Admin Dashboard, Federation Block severity
+#: src/API/Admin/DomainBlock.vala:14 src/Dialogs/Admin/TakeAction.vala:95
+msgid "Suspend"
+msgstr "निलंबित"
+
+#. translators: Admin Dashboard, IP Block severity
+#: src/API/Admin/IPBlock.vala:10
+msgid "Blocked"
+msgstr "अवरुद्ध"
+
+#. translators: Admin Dashboard, IP Block severity
+#: src/API/Admin/IPBlock.vala:12
+msgid "Blocked Sign-ups"
+msgstr "अवरुद्ध साइन-अप"
+
+#. translators: Admin Dashboard, IP Block severity
+#: src/API/Admin/IPBlock.vala:14
+msgid "Limited Sign-ups"
+msgstr "सीमित साइन-अप"
+
+#. translators: Admin Dashboard, IP Block severity title
+#: src/API/Admin/IPBlock.vala:22
+msgid "Block Access"
+msgstr "पहुंच अवरुद्ध करें"
+
+#. translators: Admin Dashboard, IP Block severity title
+#: src/API/Admin/IPBlock.vala:24
+msgid "Block Sign-ups"
+msgstr "साइन-अप ब्लॉक करें"
+
+#. translators: Admin Dashboard, IP Block severity title
+#: src/API/Admin/IPBlock.vala:26
+msgid "Limit Sign-ups"
+msgstr "साइन-अप सीमित करें"
+
+#. translators: Admin Dashboard, IP Block severity description
+#: src/API/Admin/IPBlock.vala:34
+msgid "Block access to all resources"
+msgstr "सभी संसाधनों तक पहुंच अवरुद्ध करें"
+
+#. translators: Admin Dashboard, IP Block severity description
+#: src/API/Admin/IPBlock.vala:36
+msgid "New sign-ups will not be possible"
+msgstr "नये पंजीकरण संभव नहीं होंगे"
+
+#. translators: Admin Dashboard, IP Block severity description
+#: src/API/Admin/IPBlock.vala:38
+msgid "New sign-ups will require your approval"
+msgstr "नए साइन-अप के लिए आपकी स्वीकृति की आवश्यकता होगी"
+
+#: src/API/Admin/Report.vala:19
+msgid "Spam"
+msgstr "स्पैम"
+
+#: src/API/Admin/Report.vala:20
+msgid "Rule Violation"
+msgstr "नियम उल्लंघन"
+
+#: src/API/Admin/Report.vala:21
+msgid "Legal"
+msgstr "कानूनी"
+
+#: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
+#: src/Widgets/CustomEmojiChooser.vala:209
+#: src/Widgets/CustomEmojiChooser.vala:211
+#: src/Widgets/CustomEmojiChooser.vala:214
+#: src/Widgets/CustomEmojiChooser.vala:218
+msgid "Other"
+msgstr "अन्य"
+
+#. translators: the variable is a string report comment
+#: src/API/Admin/Report.vala:72
+msgid "With the comment"
+msgstr "टिप्पणी के साथ"
+
+#. translators: report notification, "Reason: <reason>"
+#: src/API/Admin/Report.vala:74
+msgid "Reason"
+msgstr "कारण"
+
+#. translators: report notification
+#: src/API/Admin/Report.vala:78
+msgid "You've received a report"
+msgstr "आपको एक रिपोर्ट प्राप्त हुई है"
+
+#. translators: report notification with date, "You've received a report on: <date>"
+#: src/API/Admin/Report.vala:81
+msgid "You've received a report on"
+msgstr "आपको इस तिथि पर रिपोर्ट प्राप्त हुई है"
+
+#: src/API/Announcement.vala:55 src/Application.vala:437
+#: src/Dialogs/Composer/Dialog.vala:464 src/Dialogs/ProfileEdit.vala:142
+#: src/Services/Accounts/AccountStore.vala:42
+#: src/Services/Accounts/Mastodon/Account.vala:257
+#: src/Services/Accounts/SecretAccountStore.vala:121
+#: src/Services/Accounts/SecretAccountStore.vala:225
+#: src/Views/MediaViewer.vala:1071 src/Views/Sidebar.vala:354
+#: src/Widgets/Attachment/Image.vala:118 src/Widgets/Attachment/Item.vala:203
+#: src/Widgets/Status/ReactionsRow.vala:160
+#: src/Widgets/Status/ReactionsRow.vala:184 src/Widgets/VoteBox.vala:39
+msgid "Error"
+msgstr "त्रुटि"
+
+#. translators: the variable is a comma separated list of account handles,
+#. this is a state - not an action
+#: src/API/Conversation.vala:31
+#, c-format
+msgid "Empty Conversation with %s"
+msgstr "%s के साथ खाली वार्तालाप"
+
+#. translators: Leave &amp; as is, it gets converted to &
+#: src/API/Filters/Filter.vala:43
+msgid "Home &amp; Lists"
+msgstr "होम &amp; सूचियां"
+
+#: src/API/Filters/Filter.vala:46
+msgid "Public Timelines"
+msgstr "सार्वजनिक समयरेखाएं"
+
+#: src/API/Filters/Filter.vala:47
+#: src/Services/Accounts/Mastodon/Account.vala:52
+#: src/Views/Conversations.vala:4
+msgid "Conversations"
+msgstr "वार्तालाप"
+
+#: src/API/Filters/Filter.vala:48
+msgid "Profiles"
+msgstr "प्रोफाइल"
+
+#. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
+#: src/API/Notification.vala:14
+#, fuzzy, c-format
+#| msgid ""
+#| "You have blocked %s, removing %s of your followers and %s account you "
+#| "follow."
+msgid ""
+"You have blocked %s, removing %s of your followers and %s account you follow."
+msgid_plural ""
+"You have blocked %s, removing %s of your followers and %s accounts you "
+"follow."
+msgstr[0] ""
+"आपने %s को अवरुद्ध कर दिया है, अपने %s अनुयायियों को तथा आपके द्वारा अनुसरण किए जाने "
+"वाले %s खाते को हटा दिया है।"
+msgstr[1] ""
+"आपने %s को अवरुद्ध कर दिया है, अपने %s अनुयायियों को तथा आपके द्वारा अनुसरण किए जाने "
+"वाले %s खाते को हटा दिया है।"
+
+#. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
+#: src/API/Notification.vala:24
+#, fuzzy, c-format
+#| msgid ""
+#| "An admin has blocked %s, including %s of your followers and %s account "
+#| "you follow."
+msgid ""
+"An admin has blocked %s, including %s of your followers and %s account you "
+"follow."
+msgid_plural ""
+"An admin has blocked %s, including %s of your followers and %s accounts you "
+"follow."
+msgstr[0] ""
+"किसी व्यवस्थापक ने %s को अवरुद्ध कर दिया है, जिसमें आपके %s अनुयायियों और आपके द्वारा "
+"अनुसरण किए जाने वाले %s खाते भी शामिल हैं।"
+msgstr[1] ""
+"किसी व्यवस्थापक ने %s को अवरुद्ध कर दिया है, जिसमें आपके %s अनुयायियों और आपके द्वारा "
+"अनुसरण किए जाने वाले %s खाते भी शामिल हैं।"
+
+#. translators: the first variable is a user handle so 'them' refers to that user
+#: src/API/Notification.vala:33
+#, c-format
+msgid ""
+"An admin has suspended %s, which means you can no longer receive updates "
+"from them or interact with them."
+msgstr ""
+"किसी व्यवस्थापक ने %s को निलंबित कर दिया है, जिसका अर्थ है कि अब आप उनसे अपडेट प्राप्त "
+"नहीं कर सकते या उनसे बातचीत नहीं कर सकते।"
+
+#. translators: as in just registered in the instance,
+#. this is a notification type only visible
+#. to admins
+#: src/API/Notification.vala:121
+msgid "Signed Up"
+msgstr "साइनअप किया गया"
+
+#. translators: this is used for notifications,
+#. when you receive a warning from
+#. your server's admins
+#: src/API/Notification.vala:127 src/Services/Accounts/InstanceAccount.vala:364
+msgid "Your account has received a moderation warning"
+msgstr ""
+
+#. translators: this is used for notifications,
+#. when an annual report is available.
+#. it's similar to spotify wrapped, it
+#. shows profile stats / it's a recap
+#. of the year. The variable is the
+#. current year e.g. 2024. Please don't
+#. translate the hashtag.
+#: src/API/Notification.vala:135 src/Services/Accounts/InstanceAccount.vala:354
+#, c-format
+msgid "Your %s #FediWrapped is ready!"
+msgstr ""
+
+#. translators: used in the #FediWrapped notifications, refer to the other #FediWrapped strings for more info
+#: src/API/Notification.vala:137
+msgid "Review your year's highlights and memorable moments on the Fediverse!"
+msgstr ""
+
+#. translators: <user> (& <amount> others) <actions>
+#. for example: GeopJr (& 10 others) mentioned you
+#: src/API/Notification.vala:180
+#, c-format
+msgid "%s (& %d others)"
+msgstr "%s (& %d अन्य)"
+
+#: src/API/Notification.vala:226
+msgid "Reply…"
+msgstr "उत्तर दें…"
+
+#: src/API/Notification.vala:234
+msgid "Remove from Followers"
+msgstr "अनुयायियों से हटाएं"
+
+#: src/API/Notification.vala:239
+msgid "Follow Back"
+msgstr "वापस अनुसरण करें"
+
+#: src/API/Notification.vala:246 src/Widgets/Status/FollowRequestRow.vala:8
+msgid "Decline"
+msgstr "अस्वीकारें"
+
+#: src/API/Notification.vala:251 src/Views/NotificationRequestsList.vala:33
+#: src/Widgets/NotificationRequest.vala:65
+#: src/Widgets/Status/FollowRequestRow.vala:14
+msgid "Accept"
+msgstr "स्वीकारें"
+
+#: src/API/Relationship.vala:23
+msgid "Sent follow request"
+msgstr "अनुसरण अनुरोध भेजा गया"
+
+#: src/API/Relationship.vala:25
+msgid "Mutuals"
+msgstr "पारस्परिक"
+
+#: src/API/Relationship.vala:27
+msgid "Follows you"
+msgstr "आपका अनुसरण करता है"
+
+#. translators: as in, you've been blocked by them
+#: src/API/Relationship.vala:30
+msgid "Blocks you"
+msgstr "आपको अवरुद्ध करता है"
+
+#. translators: the variable is a user handle
+#: src/API/Relationship.vala:133
+#, c-format
+msgid "Block \"%s\"?"
+msgstr "\"%s\" को अवरोधित करें?"
+
+#: src/API/Relationship.vala:133
+#, c-format
+msgid "Unblock \"%s\"?"
+msgstr "\"%s\" को अनवरोधित करें?"
+
+#: src/API/Relationship.vala:139 src/Views/Admin/Timelines/BlockedIPs.vala:33
+#: src/Views/Admin/Timelines/DomainBlock.vala:33
+#: src/Views/Admin/Timelines/EmailDomain.vala:33 src/Views/Profile.vala:365
+#: src/Widgets/RelationshipButton.vala:43
+msgid "Unblock"
+msgstr "अनवरोधित करें"
+
+#. translators: switch label when muting someone,
+#. turning it on will also hide notifications
+#. from this user, e.g. when they reply to you
+#: src/API/Relationship.vala:153
+msgid "Hide from Notifications"
+msgstr ""
+
+#. translators: Dropdown title for picking when a mute should expire
+#: src/API/Relationship.vala:168
+msgid "Expire In"
+msgstr ""
+
+#. translators: the variable is a user handle
+#: src/API/Relationship.vala:181
+#, c-format
+msgid "Mute \"%s\"?"
+msgstr ""
+
+#: src/API/Relationship.vala:221 src/Dialogs/FilterEdit.vala:29
+msgid "Never"
+msgstr "कभी नहीं"
+
+#. translators: the variable is a number
+#: src/API/Relationship.vala:222 src/API/Relationship.vala:223
+#: src/Dialogs/Composer/PollPage.vala:232
+#: src/Dialogs/Composer/PollPage.vala:235
+#: src/Dialogs/Composer/PollPage.vala:236 src/Dialogs/FilterEdit.vala:31
+#: src/Dialogs/FilterEdit.vala:32 src/Dialogs/FilterEdit.vala:33
+#, c-format
+msgid "%d Hour"
+msgid_plural "%d Hours"
+msgstr[0] "%d घंटा"
+msgstr[1] "%d घंटे"
+
+#. translators: the variable is a number
+#: src/API/Relationship.vala:224 src/API/Relationship.vala:225
+#: src/Dialogs/Admin/AddIPBlock.vala:27 src/Dialogs/Composer/PollPage.vala:238
+#: src/Dialogs/Composer/PollPage.vala:241
+#: src/Dialogs/Composer/PollPage.vala:242 src/Dialogs/FilterEdit.vala:34
+#, c-format
+msgid "%d Day"
+msgid_plural "%d Days"
+msgstr[0] "%d दिन"
+msgstr[1] "%d दिन"
+
+#: src/API/SearchResults.vala:32
+msgid "Search returned no results"
+msgstr "खोज से कोई परिणाम नहीं मिला"
+
+#. translators: the variable is an external service like "PeerTube"
+#: src/API/Status/PreviewCard.vala:25
+#, c-format
+msgid "You are about to open a %s video"
+msgstr "आप %s वीडियो खोलने वाले हैं"
+
+#. translators: the variable is an external service like "Funkwhale",
+#. track as in song
+#: src/API/Status/PreviewCard.vala:29
+#, c-format
+msgid "You are about to open a %s track"
+msgstr "आप %s ट्रैक खोलने वाले हैं"
+
+#. translators: the variable is an external service like "BookWyrm"
+#: src/API/Status/PreviewCard.vala:32
+#, c-format
+msgid "You are about to open a %s book"
+msgstr "आप %s पुस्तक खोलने वाले हैं"
+
+#. translators: the variable is the app name (Tuba)
+#: src/API/Status/PreviewCard.vala:35
+#, c-format
+msgid "You are about to leave %s"
+msgstr "आप %s छोड़ने वाले हैं"
+
+#. translators: the variable is a url
+#: src/API/Status/PreviewCard.vala:48
+#, c-format
+msgid "If you proceed, \"%s\" will open in your browser."
+msgstr "यदि आप आगे बढ़ते हैं, तो आपके ब्राउज़र में \"%s\" खुल जाएगा।"
+
+#. translators: the first variable is the app name (Tuba),
+#. the second one is a url
+#: src/API/Status/PreviewCard.vala:52
+#, c-format
+msgid "If you proceed, %s will connect to \"%s\"."
+msgstr "यदि आप आगे बढ़ते हैं, तो %s \"%s\" से जुड़ जाएगा।"
+
+#: src/API/Suggestion.vala:12
+msgid "Account not found"
+msgstr "खाता नहीं मिला"
+
+#. translators: the variable is the amount of times a hashtag was used in a week
+#: src/API/Tag.vala:45
+#, c-format
+msgid "%d per week"
+msgstr "%d प्रति सप्ताह"
+
+#. translators: the variables are numbers
+#: src/API/Tag.vala:59
+#, c-format
+msgid "Used %d times by %d people yesterday"
+msgstr "कल %2$d लोगों द्वारा %1$d बार उपयोग किया गया"
+
+#. translators: the variables are numbers
+#: src/API/Tag.vala:67
+#, c-format
+msgid "Used %d times by %d people in the past 2 days"
+msgstr "पिछले 2 दिनों में %2$d लोगों द्वारा %1$d बार उपयोग किया गया"
+
+#. translators: Toast that pops up when
+#. an invalid proxy url has
+#. been provided in settings
+#: src/Application.vala:350 src/Dialogs/Preferences.vala:386
+msgid "Invalid Proxy URL"
+msgstr "अमान्य प्रॉक्सी URL"
+
+#. translators: the variable is a uri scheme like 'https'
+#: src/Application.vala:417
+#, c-format
+msgid "'%s://' may only be used when adding a new account"
+msgstr "'%s://' का उपयोग केवल नया खाता जोड़ते समय ही किया जा सकता है"
+
+#. translators: the variable is a uri scheme like 'https'
+#: src/Application.vala:425
+#, c-format
+msgid "'%s://' may not be used when adding a new account"
+msgstr "नया खाता जोड़ते समय '%s://' का उपयोग नहीं किया जा सकता है"
+
+#. translators: the first variable is the app name ('Tuba'),
+#. the second one is a uri scheme like 'https'
+#: src/Application.vala:432
+#, c-format
+msgid "%s does not accept '%s://'"
+msgstr "%s '%s://' को स्वीकार नहीं करता"
+
+#. translators: Name <email@domain.com> or Name https://website.example
+#: src/Application.vala:631
+msgid "translator-credits"
+msgstr "Scrambled777 <weblate.scrambled777@simplelogin.com>"
+
+#. translators: Wiki pages / Guides
+#: src/Application.vala:635
+msgid "Wiki"
+msgstr "विकि"
+
+#: src/Application.vala:637 src/Widgets/Status.vala:352
+msgid "Translate"
+msgstr "अनुवाद करें"
+
+#: src/Application.vala:638
+msgid "Donate"
+msgstr "दान करें"
+
+#: src/Application.vala:660
+msgid "OK"
+msgstr "ठीक है"
+
+#: src/Application.vala:710
+msgid "Yes"
+msgstr "हाँ"
+
+#: src/Dialogs/Admin/AddFederationBlock.vala:29
+#: src/Views/Admin/Pages/FederationBlocklist.vala:9
+msgid "Add Federation Block"
+msgstr "फ़ेडरेशन अवरोध जोड़ें"
+
+#: src/Dialogs/Admin/AddFederationBlock.vala:40
+#: src/Dialogs/Admin/AddIPBlock.vala:79
+msgid "Add"
+msgstr "जोड़ें"
+
+#. translators: Admin dashboard, federation block dialog,
+#. e.g. 'gnome.org'
+#: src/Dialogs/Admin/AddFederationBlock.vala:52
+msgid "Domain"
+msgstr "डोमेन"
+
+#. translators: Admin dashboard, federation block dialog severity row title
+#: src/Dialogs/Admin/AddFederationBlock.vala:72
+msgid "Severity"
+msgstr "गंभीरता"
+
+#. translators: Admin dashboard, federation blocklist, checkbox option title.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/AddFederationBlock.vala:92
+#: src/Widgets/Admin/DomainBlock.vala:30
+msgid "Reject Media Files"
+msgstr "मीडिया फाइलें अस्वीकारें"
+
+#. translators: Admin dashboard, federation blocklist, checkbox option description.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/AddFederationBlock.vala:95
+msgid ""
+"Removes locally stored media files and refuses to download any in the future"
+msgstr ""
+"स्थानीय रूप से संग्रहीत मीडिया फाइलों को हटाता है और भविष्य में किसी भी डाउनलोड करने से "
+"मना करता है"
+
+#. translators: Admin dashboard, federation blocklist, checkbox option title.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/AddFederationBlock.vala:103
+#: src/Widgets/Admin/DomainBlock.vala:31
+msgid "Reject Reports"
+msgstr "रिपोर्ट अस्वीकारें"
+
+#. translators: Admin dashboard, federation blocklist, checkbox option description.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/AddFederationBlock.vala:106
+msgid "Ignore all reports coming from this domain"
+msgstr "इस डोमेन से आने वाली सभी रिपोर्ट को अनदेखा करें"
+
+#. translators: Admin dashboard, federation blocklist, checkbox option title.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/AddFederationBlock.vala:114
+#: src/Widgets/Admin/DomainBlock.vala:32
+msgid "Obfuscate Domain Name"
+msgstr "डोमेन नाम को अस्पष्ट करें"
+
+#. translators: Admin dashboard, federation blocklist, checkbox option description.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/AddFederationBlock.vala:117
+msgid ""
+"Partially obfuscate the domain name in the list if advertising the list of "
+"domain limitations is enabled"
+msgstr ""
+"यदि डोमेन सीमाओं की सूची का विज्ञापन सक्षम है, तो सूची में डोमेन नाम को आंशिक रूप से "
+"अस्पष्ट करें"
+
+#. translators: Admin dashboard, federation block dialog
+#: src/Dialogs/Admin/AddFederationBlock.vala:124
+#: src/Widgets/Admin/DomainBlock.vala:17
+msgid "Private Comment"
+msgstr "निजी टिप्पणी"
+
+#. translators: Admin dashboard, federation block dialog
+#: src/Dialogs/Admin/AddFederationBlock.vala:131
+#: src/Widgets/Admin/DomainBlock.vala:24
+msgid "Public Comment"
+msgstr "सार्वजनिक टिप्पणी"
+
+#: src/Dialogs/Admin/AddIPBlock.vala:17 src/Dialogs/Admin/AddIPBlock.vala:19
+#, c-format
+msgid "%d Year"
+msgid_plural "%d Years"
+msgstr[0] "%d वर्ष"
+msgstr[1] "%d वर्ष"
+
+#: src/Dialogs/Admin/AddIPBlock.vala:21 src/Dialogs/Admin/AddIPBlock.vala:23
+#, c-format
+msgid "%d Month"
+msgid_plural "%d Months"
+msgstr[0] "%d महीना"
+msgstr[1] "%d महीने"
+
+#: src/Dialogs/Admin/AddIPBlock.vala:25 src/Dialogs/FilterEdit.vala:35
+#, c-format
+msgid "%d Week"
+msgid_plural "%d Weeks"
+msgstr[0] "%d हफ्ता"
+msgstr[1] "%d हफ्ते"
+
+#: src/Dialogs/Admin/AddIPBlock.vala:68
+#: src/Views/Admin/Pages/BlockedIPs.vala:10
+msgid "Add IP Block"
+msgstr "आईपी ब्लॉक जोड़ें"
+
+#. translators: Admin dashboard ip block comment entry title
+#: src/Dialogs/Admin/AddIPBlock.vala:99 src/Dialogs/Admin/TakeAction.vala:104
+msgid "Comment"
+msgstr "टिप्पणी"
+
+#. translators: Admin dashboard ip block expiration date row title.
+#: src/Dialogs/Admin/AddIPBlock.vala:123 src/Dialogs/Composer/PollPage.vala:268
+msgid "Expiration"
+msgstr "समाप्ति"
+
+#. translators: Admin dashboard ip block rule (e.g. no access)
+#: src/Dialogs/Admin/AddIPBlock.vala:131
+msgid "Rule"
+msgstr "नियम"
+
+#. translators: Admin dashboard ip block rule descriptions.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/AddIPBlock.vala:134
+msgid "Choose what will happen with requests from this IP"
+msgstr "चुनें कि इस IP से प्राप्त अनुरोधों के साथ क्या होगा"
+
+#. translators: Question dialog when an admin is about to
+#. mark a report as resolved
+#: src/Dialogs/Admin/Report.vala:50
+msgid "Mark this Report as Resolved?"
+msgstr ""
+
+#: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:101
+msgid "Resolve"
+msgstr "हल करें"
+
+#. translators: Question dialog when an admin is about to
+#. reopen a report
+#: src/Dialogs/Admin/Report.vala:61
+msgid "Reopen this Report?"
+msgstr ""
+
+#: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:101
+msgid "Reopen"
+msgstr "पुनः खोलें"
+
+#. translators: Admin dashboard, take action against user headerbar button
+#: src/Dialogs/Admin/Report.vala:95 src/Dialogs/Admin/TakeAction.vala:18
+#: src/Dialogs/Admin/TakeAction.vala:150
+#: src/Views/Admin/Pages/Accounts.vala:250
+msgid "Take Action"
+msgstr "कार्रवाई करें"
+
+#. translators: as in created an account; this is used in Profiles in a row
+#. which has as value the date the profile was created on
+#: src/Dialogs/Admin/Report.vala:127 src/Views/Admin/Pages/Accounts.vala:291
+#: src/Widgets/ProfileCover.vala:561
+msgid "Joined"
+msgstr "जुड़े"
+
+#. translators: this is a "long" date format shown in places like expanded posts or
+#. the profile "Joined" field. You can find all the available specifiers
+#. on https://valadoc.org/glib-2.0/GLib.DateTime.format.html
+#. Please do not stray far from the original and only include day, month
+#. and year.
+#. If unsure, either leave it as-is or set it to %x.
+#: src/Dialogs/Admin/Report.vala:128 src/Views/Admin/Pages/Accounts.vala:292
+#: src/Widgets/ProfileCover.vala:545 src/Widgets/ScheduledStatus.vala:137
+#: src/Widgets/Status.vala:592
+msgid "%B %e, %Y"
+msgstr "%e %B, %Y"
+
+#: src/Dialogs/Admin/Report.vala:134
+msgid "Reported on"
+msgstr "रिपोर्ट तिथि"
+
+#. translators: 'Reported by: <account>'
+#: src/Dialogs/Admin/Report.vala:140 src/Widgets/Admin/Report.vala:31
+msgid "Reported by"
+msgstr "रिपोर्ट द्वारा"
+
+#: src/Dialogs/Admin/Report.vala:146
+msgid "Status"
+msgstr "स्थिति"
+
+#: src/Dialogs/Admin/Report.vala:147
+msgid "Resolved"
+msgstr "समाधानित"
+
+#: src/Dialogs/Admin/Report.vala:147
+msgid "Unresolved"
+msgstr "असमाधानित"
+
+#. translators: admin dashboard, whether a report was 'forwarded' from another server
+#: src/Dialogs/Admin/Report.vala:154
+msgid "Forwarded"
+msgstr "अग्रेषित"
+
+#. translators: Report 'Action Taken by: <account>'
+#: src/Dialogs/Admin/Report.vala:160 src/Widgets/Admin/Report.vala:22
+msgid "Action Taken by"
+msgstr "इनके द्वारा कार्रवाई"
+
+#: src/Dialogs/Admin/Report.vala:172
+msgid "Category"
+msgstr "श्रेणी"
+
+#. translators: Admin dashboard report category description.
+#. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/Report.vala:175
+msgid ""
+"The reason this account and/or content was reported will be cited in "
+"communication with the reported account"
+msgstr ""
+"इस खाते और/या सामग्री की रिपोर्ट किए जाने का कारण रिपोर्ट किए गए खाते के साथ संचार में "
+"बताया जाएगा"
+
+#: src/Dialogs/Admin/Report.vala:237
+msgid "Violated Rules"
+msgstr "उल्लंघित नियम"
+
+#. translators: 'Reported Posts: <amount>'
+#: src/Dialogs/Admin/Report.vala:268 src/Widgets/Admin/Report.vala:34
+msgid "Reported Posts"
+msgstr "रिपोर्ट की गई पोस्ट"
+
+#: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:332
+#: src/Dialogs/Report.vala:415
+msgid "Submit"
+msgstr "जमा करें"
+
+#: src/Dialogs/Admin/TakeAction.vala:59
+msgid "Warning"
+msgstr "चेतावनी"
+
+#. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/TakeAction.vala:61
+msgid ""
+"Use this to send a warning to the user, without triggering any other action"
+msgstr ""
+"किसी अन्य कार्रवाई को ट्रिगर किए बिना, उपयोक्ता को चेतावनी भेजने के लिए इसका उपयोग करें"
+
+#: src/Dialogs/Admin/TakeAction.vala:68
+msgid "Freeze"
+msgstr "फ्रीज"
+
+#. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/TakeAction.vala:70
+msgid ""
+"Prevent the user from using their account, but do not delete or hide their "
+"contents"
+msgstr ""
+"उपयोक्ता को अपने खाते का उपयोग करने से रोकें, लेकिन उनकी सामग्री को न मिटाएं या छिपाएं "
+"नहीं"
+
+#: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:579
+msgid "Sensitive"
+msgstr "संवेदनशील"
+
+#. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/TakeAction.vala:79
+msgid "Force all this user's media attachments to be flagged as sensitive"
+msgstr ""
+"इस उपयोक्ता के सभी मीडिया अनुलग्नकों को संवेदनशील के रूप में चिह्नित करने के लिए बाध्य करें"
+
+#. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/TakeAction.vala:88
+msgid ""
+"Prevent the user from being able to post with public visibility, hide their "
+"posts and notifications from people not following them. Closes all reports "
+"against this account"
+msgstr ""
+"उपयोक्ता को सार्वजनिक दृश्यता के साथ पोस्ट करने से रोकें, उनके पोस्ट और नोटिफिकेशन को उन "
+"लोगों से छिपाएं जो उन्हें फ़ॉलो नहीं करते हैं। इस खाते के विरुद्ध सभी रिपोर्ट बंद कर देता है"
+
+#. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/TakeAction.vala:97
+msgid ""
+"Prevent any interaction from or to this account and delete its contents. "
+"Revertible within 30 days. Closes all reports against this account"
+msgstr ""
+"इस खाते से या इस खाते के लिए किसी भी तरह की बातचीत को रोकें और इसकी सामग्री को मिटा "
+"दें। 30 दिनों के भीतर वापस किया जा सकता है। इस खाते के खिलाफ़ सभी रिपोर्ट बंद कर देता है"
+
+#. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/TakeAction.vala:114
+msgid "Notify the user per e-mail"
+msgstr "उपयोक्ता को ई-मेल द्वारा सूचित करें"
+
+#. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Admin/TakeAction.vala:116
+msgid ""
+"The user will receive an explanation of what happened with their account"
+msgstr "उपयोक्ता को उनके खाते के साथ क्या हुआ, इसका स्पष्टीकरण प्राप्त होगा"
+
+#. translators: Question dialog when an admin is about to
+#. take action against an account
+#. The variable is a user handle
+#: src/Dialogs/Admin/TakeAction.vala:143
+#, c-format
+msgid "Take Action Against %s?"
+msgstr ""
+
+#: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
+msgid "Dashboard"
+msgstr "डैशबोर्ड"
+
+#. translators: Admin Dialog page title
+#: src/Dialogs/Admin.vala:28 src/Views/Admin/Pages/Reports.vala:6
+msgid "Reports"
+msgstr "रिपोर्टें"
+
+#: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
+#: src/Views/Search.vala:113
+msgid "Accounts"
+msgstr "खाते"
+
+#. translators: Admin Dialog page title,
+#. this is about blocking
+#. e-mail providers like
+#. gmail.com
+#: src/Dialogs/Admin.vala:48 src/Views/Admin/Pages/BlockedEmails.vala:10
+msgid "Blocked E-mail Domains"
+msgstr "अवरुद्ध ईमेल डोमेन"
+
+#. translators: Admin Dialog page title,
+#. this is about blocking
+#. IP Addresses
+#: src/Dialogs/Admin.vala:58 src/Views/Admin/Pages/BlockedIPs.vala:7
+msgid "IP Rules"
+msgstr "आईपी नियम"
+
+#. translators: Admin Dialog page title
+#: src/Dialogs/Admin.vala:68 src/Views/Admin/Pages/FederationAllowlist.vala:7
+msgid "Federation Allowlist"
+msgstr "फेडरेशन अनुमति-सूची"
+
+#. translators: Admin Dialog page title,
+#. this is about federation blocking
+#: src/Dialogs/Admin.vala:78 src/Views/Admin/Pages/FederationBlocklist.vala:6
+msgid "Federation Blocklist"
+msgstr "फेडरेशन अवरुद्ध-लिस्ट"
+
+#: src/Dialogs/AnnualReport.vala:61
+msgid "Default"
+msgstr ""
+
+#. translators: Accent color
+#: src/Dialogs/AnnualReport.vala:63
+msgid "Accent"
+msgstr ""
+
+#: src/Dialogs/AnnualReport.vala:101
+msgid "Share"
+msgstr ""
+
+#: src/Dialogs/AnnualReport.vala:109
+msgid "Save As…"
+msgstr ""
+
+#. translators: dropdown label for picking a window style
+#: src/Dialogs/AnnualReport.vala:116
+msgid "Style"
+msgstr ""
+
+#. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
+#. which will be used as the attachment alt text when posted on fedi.
+#. The first variable is the annual report year (e.g. 2024), the second
+#. variable is the app name (Tuba)
+#: src/Dialogs/AnnualReport.vala:165
+#, c-format
+msgid "Screenshot of my %s Wrapped annual report using %s."
+msgstr ""
+
+#. translators: The variable is the year (e.g. 2024). Wrapped as in
+#. Spotify wrapped / recap of the year. You can leave it
+#. as is as it's more of an annual event that it's known
+#. as 'wrapped'
+#: src/Dialogs/AnnualReport.vala:171
+#, c-format
+msgid "%s Wrapped"
+msgstr ""
+
+#. translators: #FediWrapped, title of the 'amount of new posts' card
+#: src/Dialogs/AnnualReport.vala:201
+msgid "New Posts"
+msgstr ""
+
+#. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
+#. which will be used as the attachment alt text when posted on fedi.
+#. The variable is the amount of posts made (e.g. 1k)
+#: src/Dialogs/AnnualReport.vala:229
+#, c-format
+msgid "I made %s posts."
+msgstr ""
+
+#. translators: #FediWrapped, title of a card
+#: src/Dialogs/AnnualReport.vala:239
+msgid "Most Used Hashtag"
+msgstr ""
+
+#. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
+#. which will be used as the attachment alt text when posted on fedi.
+#. The variable is the most used hashtag
+#: src/Dialogs/AnnualReport.vala:268
+#, c-format
+msgid "My most used hashtag was #%s."
+msgstr ""
+
+#. translators: #FediWrapped, title of the 'which app was used to make most posts' card
+#: src/Dialogs/AnnualReport.vala:278
+msgid "Most Used App"
+msgstr ""
+
+#. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
+#. which will be used as the attachment alt text when posted on fedi.
+#. The variable is the name of the most used client (e.g. Tuba)
+#: src/Dialogs/AnnualReport.vala:309
+#, c-format
+msgid "My most used app was %s."
+msgstr ""
+
+#. translators: #FediWrapped, title of the card that shows you
+#. the users you interacted with the most
+#: src/Dialogs/AnnualReport.vala:320
+msgid "Most Interactions"
+msgstr ""
+
+#. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
+#. which will be used as the attachment alt text when posted on fedi.
+#. The variable is a list of user names (e.g. GeopJr, Tuba, Vala).
+#. The amount of users could be just one and some languages might
+#. require pronouns or prefixes, if so, feel free to translate it as
+#. 'I had the most interactions with the following people: %s.'
+#: src/Dialogs/AnnualReport.vala:357
+#, c-format
+msgid "I had the most interactions with %s."
+msgstr ""
+
+#. translators: #FediWrapped, title of the section about how many
+#. new followers you got and new people you followed
+#: src/Dialogs/AnnualReport.vala:367
+msgid "Follow Stats"
+msgstr ""
+
+#. translators: #FediWrapped, title of the 'amount of new people you followed' card
+#: src/Dialogs/AnnualReport.vala:414
+msgid "New Follows"
+msgstr ""
+
+#. translators: #FediWrapped, title of the section that shows you
+#. which one of your posts had the most favorites
+#: src/Dialogs/AnnualReport.vala:439
+msgid "Most Favorited Post"
+msgstr ""
+
+#. translators: #FediWrapped, title of the section that shows you
+#. which one of your posts had the most boosts
+#: src/Dialogs/AnnualReport.vala:461
+msgid "Most Boosted Post"
+msgstr ""
+
+#. translators: #FediWrapped, title of the section that shows you
+#. which one of your posts had the most replies
+#: src/Dialogs/AnnualReport.vala:483
+msgid "Most Replied Post"
+msgstr ""
+
+#. translators: save dialog title, refer to the other #FediWrapped strings for more info
+#: src/Dialogs/AnnualReport.vala:558
+msgid "Save #FediWrapped"
+msgstr ""
+
+#. translators: the variable is a year, e.g. 2024
+#: src/Dialogs/AnnualReport.vala:573
+#, c-format
+msgid "Saved %s Wrapped"
+msgstr ""
+
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:131
+#: src/Dialogs/Composer/EditorPage.vala:252
+msgid "Characters Left"
+msgstr "शेष वर्ण"
+
+#. translators: focus picker dialog title
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:216
+msgid "Set Focal Point"
+msgstr ""
+
+#. translators: Title for focus picker scale
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:224
+msgid "Horizontal Position"
+msgstr ""
+
+#. translators: Title for focus picker scale
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:242
+msgid "Vertical Position"
+msgstr ""
+
+#. translators: Alternative Text refers to text that describes
+#. an attachment when using screen readers or the
+#. image hasn't loaded. Also known as 'alt text'
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:347
+msgid "Edit Alternative Text"
+msgstr ""
+
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:358
+msgid "Remove Attachment"
+msgstr "अनुलग्नक हटाएं"
+
+#. translators: focus picker
+#: src/Dialogs/Composer/AttachmentsPageAttachment.vala:370
+msgid "Edit Focal Point"
+msgstr ""
+
+#: src/Dialogs/Composer/AttachmentsPage.vala:38 src/Dialogs/ProfileEdit.vala:80
+msgid "All Supported Files"
+msgstr "सभी समर्थित फाइलें"
+
+#: src/Dialogs/Composer/AttachmentsPage.vala:76
+msgid "Paste"
+msgstr "चिपकाएं"
+
+#: src/Dialogs/Composer/AttachmentsPage.vala:219
+#: src/Dialogs/Composer/AttachmentsPage.vala:245
+msgid "Add Media"
+msgstr "मीडिया जोड़ें"
+
+#: src/Dialogs/Composer/AttachmentsPage.vala:228
+msgid "No Media"
+msgstr "कोई मीडिया नहीं"
+
+#. translators: sensitive as in not safe for work or similar
+#: src/Dialogs/Composer/AttachmentsPage.vala:255
+#: src/Dialogs/Composer/AttachmentsPage.vala:303
+msgid "Mark media as sensitive"
+msgstr "मीडिया को संवेदनशील चिह्नित करें"
+
+#. translators: sensitive as in not safe for work or similar
+#: src/Dialogs/Composer/AttachmentsPage.vala:302
+msgid "Unmark media as sensitive"
+msgstr "मीडिया को संवेदनशील अचिह्नित करें"
+
+#. translators: Open file
+#: src/Dialogs/Composer/AttachmentsPage.vala:371
+#: src/Dialogs/ProfileEdit.vala:232 src/Widgets/EmojiReactionAccounts.vala:39
+msgid "Open"
+msgstr "खोलें"
+
+#: src/Dialogs/Composer/AttachmentsPage.vala:435
+#, c-format
+msgid "File \"%s\" is bigger than the instance limit"
+msgstr "फाइल \"%s\" इंस्टैंस सीमा से बड़ी है"
+
+#. translators: 'Draft' is a verb
+#: src/Dialogs/Composer/Dialog.vala:156
+msgid "Draft Post"
+msgstr ""
+
+#: src/Dialogs/Composer/Dialog.vala:162 src/Dialogs/Composer/Dialog.vala:169
+msgid "_Publish"
+msgstr "प्रकाशित करें (_P)"
+
+#. translators: Dialog title when closing the composer
+#: src/Dialogs/Composer/Dialog.vala:253
+msgid "Discard Post?"
+msgstr ""
+
+#: src/Dialogs/Composer/Dialog.vala:254
+msgid "Your progress will be lost."
+msgstr "आपकी प्रगति नष्ट हो जायेगी।"
+
+#: src/Dialogs/Composer/Dialog.vala:256
+msgid "Discard"
+msgstr "त्यागें"
+
+#: src/Dialogs/Composer/Dialog.vala:349 src/Dialogs/Composer/Dialog.vala:387
+msgid "_Edit"
+msgstr "संपादित करें (_E)"
+
+#: src/Dialogs/Composer/Dialog.vala:362
+msgid "_Redraft"
+msgstr "पुनः प्रारूपित करें (_R)"
+
+#: src/Dialogs/Composer/Dialog.vala:408
+msgid "_Reply"
+msgstr "उत्तर दें (_R)"
+
+#. translators: "Text" as in text-based input
+#: src/Dialogs/Composer/EditorPage.vala:61
+msgid "Text"
+msgstr "पाठ"
+
+#. translators: "Stripped" is a past tense verb in this context, not an adjective.
+#: src/Dialogs/Composer/EditorPage.vala:124
+msgid "Stripped tracking parameters"
+msgstr "ट्रैकिंग पैरामीटर निकाले गए"
+
+#: src/Dialogs/Composer/EditorPage.vala:127
+#: src/Views/Admin/Pages/Accounts.vala:411
+#: src/Views/Admin/Pages/Accounts.vala:431
+msgid "Undo"
+msgstr "पूर्ववत करें"
+
+#: src/Dialogs/Composer/EditorPage.vala:314
+msgid "What's on your mind?"
+msgstr "आपके मन में क्या है?"
+
+#: src/Dialogs/Composer/EditorPage.vala:343
+#: src/Widgets/Status/ReactionsRow.vala:48
+msgid "Emoji Picker"
+msgstr "इमोजी चयनकर्ता"
+
+#: src/Dialogs/Composer/EditorPage.vala:370
+msgid "Write your warning here"
+msgstr "अपनी चेतावनी यहां लिखें"
+
+#: src/Dialogs/Composer/EditorPage.vala:383
+msgid "Content Warning"
+msgstr "सामग्री संबंधी चेतावनी"
+
+#: src/Dialogs/Composer/EditorPage.vala:417
+msgid "Post Privacy"
+msgstr "पोस्ट गोपनीयता"
+
+#: src/Dialogs/Composer/EditorPage.vala:440
+msgid "Post Language"
+msgstr "पोस्ट भाषा"
+
+#: src/Dialogs/Composer/EditorPage.vala:491
+msgid "Post Content Type"
+msgstr "पोस्ट सामग्री प्रकार"
+
+#. translators: tooltip on a button that appends another poll entry / option
+#: src/Dialogs/Composer/PollPage.vala:116
+msgid "Add Poll"
+msgstr "मतदान जोड़ें"
+
+#: src/Dialogs/Composer/PollPage.vala:125
+#: src/Dialogs/Composer/PollPage.vala:167
+msgid "Enable Multiple Choice"
+msgstr "बहुविकल्पीय सक्षम करें"
+
+#: src/Dialogs/Composer/PollPage.vala:135
+#: src/Dialogs/Composer/PollPage.vala:176
+msgid "Hide Total Votes"
+msgstr "कुल मत छुपाएं"
+
+#. translators: multiple choice as in allow the user to pick multiple poll options
+#: src/Dialogs/Composer/PollPage.vala:167
+msgid "Disable Multiple Choice"
+msgstr "बहुविकल्पीय अक्षम करें"
+
+#: src/Dialogs/Composer/PollPage.vala:176
+msgid "Show Total Votes"
+msgstr "कुल मत दिखाएं"
+
+#. translators: the variable is a number
+#: src/Dialogs/Composer/PollPage.vala:182
+#: src/Dialogs/Composer/PollPage.vala:218
+#, c-format
+msgid "Choice %d"
+msgstr "विकल्प %d"
+
+#. translators: the variable is a number
+#: src/Dialogs/Composer/PollPage.vala:227
+#: src/Dialogs/Composer/PollPage.vala:230 src/Dialogs/FilterEdit.vala:30
+#, c-format
+msgid "%d Minute"
+msgid_plural "%d Minutes"
+msgstr[0] "%d मिनट"
+msgstr[1] "%d मिनट"
+
+#. translators: the variable is a number, m as in minutes
+#: src/Dialogs/Composer/PollPage.vala:229
+#: src/Dialogs/Composer/PollPage.vala:230
+#, c-format
+msgid "%dm"
+msgstr "%dm"
+
+#. translators: the variable is a number, h as in hours
+#: src/Dialogs/Composer/PollPage.vala:234
+#: src/Dialogs/Composer/PollPage.vala:235
+#: src/Dialogs/Composer/PollPage.vala:236
+#, c-format
+msgid "%dh"
+msgstr "%dh"
+
+#. translators: the variable is a number, d as in days
+#: src/Dialogs/Composer/PollPage.vala:240
+#: src/Dialogs/Composer/PollPage.vala:241
+#: src/Dialogs/Composer/PollPage.vala:242
+#, c-format
+msgid "%dd"
+msgstr "%dd"
+
+#: src/Dialogs/FilterEdit.vala:125
+msgid "New Filter"
+msgstr "नया फिल्टर"
+
+#: src/Dialogs/FilterEdit.vala:189
+msgid "Keyword"
+msgstr "खोजशब्द"
+
+#: src/Dialogs/FilterEdit.vala:192
+msgid "Match Whole Word"
+msgstr "पूरे शब्द का मिलान करें"
+
+#: src/Dialogs/FilterEdit.vala:199 src/Dialogs/Preferences.vala:23
+#: src/Dialogs/Preferences.vala:83 src/Views/Lists.vala:24
+#: src/Views/Lists.vala:124 src/Widgets/Admin/DomainAllow.vala:15
+#: src/Widgets/Admin/DomainBlock.vala:40
+#: src/Widgets/Admin/EmailDomainBlock.vala:28 src/Widgets/Admin/IPBlock.vala:19
+#: src/Widgets/ScheduledStatus.vala:59 src/Widgets/ScheduledStatus.vala:184
+#: src/Widgets/Status.vala:336 src/Widgets/Status.vala:465
+msgid "Delete"
+msgstr "मिटाएं"
+
+#: src/Dialogs/FilterEdit.vala:296
+#, c-format
+msgid "Couldn't edit filter: %s"
+msgstr "फिल्टर संपादित नहीं किया जा सका: %s"
+
+#: src/Dialogs/ListEdit.vala:109 src/Views/Admin/Timelines/DomainAllow.vala:35
+msgid "Remove"
+msgstr "हटाएं"
+
+#: src/Dialogs/MainWindow.vala:80
+#: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:12
+msgid "Home"
+msgstr "होम"
+
+#: src/Dialogs/NewAccount.vala:3
+msgid "Allow access to your account in the browser."
+msgstr "ब्राउज़र में अपने खाते तक पहुंच की अनुमति दें।"
+
+#: src/Dialogs/NewAccount.vala:4
+msgid "Copy the authorization code from the browser and paste it below."
+msgstr "ब्राउज़र से प्राधिकरण कोड कॉपी करें और नीचे चिपकाएं।"
+
+#: src/Dialogs/NewAccount.vala:145
+msgid "Please enter a valid instance URL"
+msgstr "कृपया मान्य इंस्टैंस URL दर्ज करें"
+
+#: src/Dialogs/NewAccount.vala:187
+msgid "Please enter a valid authorization code"
+msgstr "कृपया मान्य प्राधिकरण कोड दर्ज करें"
+
+#: src/Dialogs/NewAccount.vala:204
+msgid "Instance failed to authorize the access token"
+msgstr "इंस्टैंस एक्सेस टोकन को अधिकृत करने में विफल रहा"
+
+#: src/Dialogs/NewAccount.vala:214
+#, c-format
+msgid "Hello, %s!"
+msgstr "नमस्ते %s!"
+
+#: src/Dialogs/NewAccount.vala:269
+msgid "Server returned an error"
+msgstr "सर्वर ने एक त्रुटि दी"
+
+#: src/Dialogs/NewAccount.vala:306
+msgid "Apply"
+msgstr "लागू करें"
+
+#. translators: Switch title in the new account window
+#: src/Dialogs/NewAccount.vala:339
+msgid "Admin Mode"
+msgstr "व्यवस्थापक मोड"
+
+#. translators: Switch description in the new account window
+#: src/Dialogs/NewAccount.vala:341
+msgid ""
+"Enables the Admin Dashboard and requests the needed permissions to use the "
+"Admin API"
+msgstr ""
+"व्यवस्थापक डैशबोर्ड को सक्षम करता है और व्यवस्थापक एपीआई का उपयोग करने के लिए आवश्यक "
+"अनुमतियों का अनुरोध करता है"
+
+#: src/Dialogs/NotificationSettings.vala:52
+msgid "Polls"
+msgstr "सर्वेक्षण"
+
+#: src/Dialogs/NotificationSettings.vala:53
+msgid "Post Edits"
+msgstr "पोस्ट संपादन"
+
+#: src/Dialogs/NotificationSettings.vala:54
+msgid "Follows"
+msgstr "अनुसरण"
+
+#: src/Dialogs/NotificationSettings.vala:131
+msgid "Clear All Notifications?"
+msgstr ""
+
+#: src/Dialogs/NotificationSettings.vala:138
+msgid "Clear"
+msgstr "साफ करें"
+
+#: src/Dialogs/Preferences.vala:31 src/Views/Lists.vala:16
+#: src/Views/List.vala:25 src/Widgets/ScheduledStatus.vala:44
+#: src/Widgets/Status.vala:335
+msgid "Edit"
+msgstr "संपादित करें"
+
+#: src/Dialogs/Preferences.vala:43
+#, c-format
+msgid "%d keyword"
+msgid_plural "%d keywords"
+msgstr[0] "%d खोजशब्द"
+msgstr[1] "%d खोजशब्द"
+
+#. translators: the variable is a filter name
+#: src/Dialogs/Preferences.vala:80
+#, c-format
+msgid "Delete %s?"
+msgstr ""
+
+#. translators: the variable is an error message
+#: src/Dialogs/Preferences.vala:95
+#, c-format
+msgid "Couldn't delete filter: %s"
+msgstr "फिल्टर मिटाया नहीं जा सका: %s"
+
+#: src/Dialogs/Preferences.vala:400
+msgid "Analytics Preview"
+msgstr ""
+
+#. tanslators: profile field label or title
+#: src/Dialogs/ProfileEdit.vala:45
+msgid "Label"
+msgstr "लेबल"
+
+#. translators: profile field content
+#: src/Dialogs/ProfileEdit.vala:53
+msgid "Content"
+msgstr "सामग्री"
+
+#. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
+#: src/Dialogs/ProfileEdit.vala:214
+#, c-format
+msgid "Field %d"
+msgstr "क्षेत्र %d"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:24
+msgid "It's spam"
+msgstr "यह स्पैम है"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:27
+msgid "It violates server rules"
+msgstr "यह सर्वर नियमों का उल्लंघन करता है"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option title when reporting a post or account
+#: src/Dialogs/Report.vala:30
+msgid "It's something else"
+msgstr "यह कुछ और है"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:39
+msgid "Malicious links, fake engagement, or repetitive replies"
+msgstr "दुर्भावनापूर्ण लिंक, नकली सहभागिता, या दोहराए जाने वाले उत्तर"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:42
+msgid "You are aware that it breaks specific rules"
+msgstr "आप जानते हैं कि यह विशिष्ट नियमों को तोड़ता है"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is a radio option subtitle when reporting a post or account
+#: src/Dialogs/Report.vala:45
+msgid "The issue does not fit into other categories"
+msgstr "यह मुद्दा अन्य श्रेणियों के अनुरूप नहीं है"
+
+#. translators: the variable is an account handle
+#: src/Dialogs/Report.vala:114
+#, c-format
+msgid "Reporting %s"
+msgstr "%s की रिपोर्ट कर रहें हैं"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is meant for reporting users
+#: src/Dialogs/Report.vala:140
+msgid "Tell us what's going on with this account"
+msgstr "हमें बताएं कि इस खाते के साथ क्या हो रहा है"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is meant for reporting posts
+#: src/Dialogs/Report.vala:144
+msgid "Tell us what's going on with this post"
+msgstr "हमें बताएं कि इस पोस्ट में क्या हो रहा है"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is shown above a list of radio-button options where the user can only choose one
+#: src/Dialogs/Report.vala:149
+msgid "Choose the best match"
+msgstr "सर्वोत्तम मिलान चुनें"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Dialogs/Report.vala:188
+msgid "Which rules are being violated?"
+msgstr "किन नियमों का उल्लंघन हो रहा है?"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this shown above a list of checkbox options where the user can select multiple
+#: src/Dialogs/Report.vala:193 src/Dialogs/Report.vala:257
+msgid "Select all that apply"
+msgstr "सभी चुने जो लागू हों"
+
+#. translators: 'fetch' as in get
+#: src/Dialogs/Report.vala:225
+msgid "Couldn't fetch all user's posts"
+msgstr "सभी उपयोक्ताओं की पोस्ट नहीं लाई जा सकी"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is shown above a list of posts. The user is meant to choose any that should be included in the report
+#: src/Dialogs/Report.vala:248
+msgid "Are there any posts that back up this report?"
+msgstr "क्या ऐसी कोई पोस्ट है जो इस रिपोर्ट का समर्थन करती हो?"
+
+#. translators: this is the same as 'Are there any posts that back up this report?' but for when you are reporting a post
+#. that's why it asks about choosing 'other' posts
+#: src/Dialogs/Report.vala:252
+msgid "Are there any other posts that back up this report?"
+msgstr "क्या कोई अन्य पोस्ट है जो इस रिपोर्ट का समर्थन करती हो?"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. this is shown at the top of the last page of the report dialog
+#: src/Dialogs/Report.vala:271
+msgid "Is there anything else you think we should know?"
+msgstr "क्या आपके विचार में कुछ और भी है जो हमें जानना चाहिए?"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. additional comments to be included in the report
+#: src/Dialogs/Report.vala:277
+msgid "Additional Comments"
+msgstr "अतिरिक्त टिप्पणियां"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#. the variable is an instance name e.g. 'Forward to mastodon.social'
+#: src/Dialogs/Report.vala:286
+#, c-format
+msgid "Forward to %s"
+msgstr "%s को अग्रेषित करें"
+
+#. translators: submit the report
+#: src/Dialogs/Report.vala:329
+msgid "Submit Report?"
+msgstr ""
+
+#: src/Dialogs/Report.vala:386
+msgid "Submitted Report Successfully"
+msgstr "रिपोर्ट सफलतापूर्वक जमा की गई"
+
+#. translators: the variable is an error
+#: src/Dialogs/Report.vala:392
+#, c-format
+msgid "Couldn't submit report: %s"
+msgstr "रिपोर्ट जमा नहीं की जा सकी: %s"
+
+#: src/Dialogs/Report.vala:411 src/Widgets/AccountSuggestions.vala:79
+msgid "Back"
+msgstr "पीछे"
+
+#. translators: the variable is an error
+#: src/Dialogs/Report.vala:488 src/Dialogs/Report.vala:499
+#, c-format
+msgid "%s. You can continue with the report however."
+msgstr "%s। हालांकि आप रिपोर्ट जारी रख सकते हैं।"
+
+#: src/Dialogs/Report.vala:488
+msgid "No posts found"
+msgstr "कोई पोस्ट नहीं मिली"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:241
+#, c-format
+msgid "%s mentioned you"
+msgstr "%s ने आपका उल्लेख किया"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:250
+#, c-format
+msgid "%s boosted your post"
+msgstr "%s ने आपकी पोस्ट को बूस्ट किया"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:259
+#, c-format
+msgid "%s boosted"
+msgstr "%s बूस्ट किया गया"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:268
+#, c-format
+msgid "%s favorited your post"
+msgstr "%s ने आपकी पोस्ट को पसंदीदा बनाया"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:277
+#, c-format
+msgid "%s now follows you"
+msgstr "%s अब आपका अनुसरण करता है"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:286
+#, c-format
+msgid "%s wants to follow you"
+msgstr "%s आपका अनुसरण करना चाहता है"
+
+#. translators: this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:294
+msgid "Poll results"
+msgstr "मतदान परिणाम"
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:303
+#, c-format
+msgid "%s edited a post"
+msgstr "%s ने एक पोस्ट संपादित की"
+
+#. translators: post header, on posts that are replies
+#: src/Services/Accounts/InstanceAccount.vala:311
+msgid "In Reply"
+msgstr "जवाब में"
+
+#. translators: the variable is a string user handle,
+#. post header, on posts that are replies
+#: src/Services/Accounts/InstanceAccount.vala:315
+#, c-format
+msgid "In Reply to %s"
+msgstr "%s के जवाब में"
+
+#. translators: the variable is a string user name,
+#. this is used for admin notifications
+#: src/Services/Accounts/InstanceAccount.vala:329
+#, c-format
+msgid "%s signed up"
+msgstr "%s साइन अप"
+
+#. translators: this is used for notifications,
+#. when you lost followers or following
+#. due to admin instance or user suspension
+#. or personal domain blocking
+#: src/Services/Accounts/InstanceAccount.vala:340
+msgid "Some of your relationships got severed"
+msgstr "आपके कुछ संबंध टूट गए"
+
+#. translators: this is used for admin notifications
+#: src/Services/Accounts/InstanceAccount.vala:372
+msgid "Received a new report"
+msgstr "नई रिपोर्ट प्राप्त हुई"
+
+#. translators: the variable is a string user name,
+#. this is used for per-account notifications
+#: src/Services/Accounts/InstanceAccount.vala:381
+#, c-format
+msgid "%s just posted"
+msgstr ""
+
+#. translators: the variable is a string user name,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:391
+#, c-format
+msgid "%s reacted to your post"
+msgstr ""
+
+#. translators: the first variable is a string user name,
+#. the second variable is an emoji,
+#. this is used for notifications
+#: src/Services/Accounts/InstanceAccount.vala:396
+#, c-format
+msgid "%s reacted to your post with %s"
+msgstr ""
+
+#. translators: this is a content type
+#: src/Services/Accounts/InstanceAccount.vala:440
+msgid "Plain Text"
+msgstr "सादा पाठ"
+
+#: src/Services/Accounts/Mastodon/Account.vala:72 src/Views/Bookmarks.vala:4
+msgid "Bookmarks"
+msgstr "बुकमार्क"
+
+#: src/Services/Accounts/Mastodon/Account.vala:108 src/Views/Explore.vala:3
+msgid "Explore"
+msgstr "अन्वेषण करें"
+
+#: src/Services/Accounts/Mastodon/Account.vala:118
+#: src/Views/Admin/Pages/Accounts.vala:69 src/Views/Local.vala:3
+msgid "Local"
+msgstr "स्थानीय"
+
+#: src/Services/Accounts/Mastodon/Account.vala:137 src/Views/Federated.vala:4
+msgid "Federated"
+msgstr "संघबद्ध"
+
+#: src/Services/Accounts/Mastodon/Account.vala:146 src/Views/Explore.vala:7
+#: src/Views/Hashtags.vala:4 src/Views/Search.vala:115
+msgid "Hashtags"
+msgstr "हैशटैग"
+
+#: src/Services/Accounts/Mastodon/Account.vala:211
+msgid "Post to public timelines"
+msgstr "सार्वजनिक समयरेखा पर पोस्ट करें"
+
+#. translators: Probably follow Mastodon's translation
+#: src/Services/Accounts/Mastodon/Account.vala:216
+msgid "Unlisted"
+msgstr "गैर-सूचीबद्ध"
+
+#: src/Services/Accounts/Mastodon/Account.vala:219
+msgid "Don't post to public timelines"
+msgstr "सार्वजनिक समयरेखा पर पोस्ट न करें"
+
+#: src/Services/Accounts/Mastodon/Account.vala:223
+msgid "Followers Only"
+msgstr "केवल अनुयायी"
+
+#: src/Services/Accounts/Mastodon/Account.vala:226
+msgid "Post to followers only"
+msgstr "केवल अनुयायियों के लिए पोस्ट करें"
+
+#: src/Services/Accounts/Mastodon/Account.vala:230
+msgid "Direct"
+msgstr "सीधे"
+
+#: src/Services/Accounts/Mastodon/Account.vala:233
+msgid "Post to mentioned users only"
+msgstr "केवल उल्लिखित उपयोक्ताओं के लिए पोस्ट करें"
+
+#. translators: this error shows up when the user clicks a button
+#. in a desktop notification that was pushed for a
+#. different account
+#: src/Services/Accounts/Mastodon/Account.vala:261
+msgid "Notification was pushed for a different account"
+msgstr "अधिसूचना किसी भिन्न खाते के लिए भेजी गई थी"
+
+#. translators: The variable is the backend like "Mastodon"
+#: src/Services/Accounts/SecretAccountStore.vala:209
+#, c-format
+msgid "%s Account"
+msgstr "%s खाता"
+
+#. translators: Follow System's dark mode preference
+#: src/Services/Settings.vala:264
+msgid "Follow System"
+msgstr "सिस्टम की पालना"
+
+#. translators: Light mode theme
+#: src/Services/Settings.vala:267
+msgid "Light"
+msgstr "हल्की"
+
+#. translators: Dark mode theme
+#: src/Services/Settings.vala:270
+msgid "Dark"
+msgstr "गहरी"
+
+#: src/Utils/DateTime.vala:12
+msgid "expires soon"
+msgstr "जल्द ही समाप्त हो जाएगा"
+
+#. tranlators: the variable is a number, `m` as in minutes in short form
+#: src/Utils/DateTime.vala:16
+#, c-format
+msgid "%sm left"
+msgstr "%sm शेष"
+
+#. tranlators: the variable is a number, `h` as in hours in short form
+#: src/Utils/DateTime.vala:20
+#, c-format
+msgid "%sh left"
+msgstr "%sh शेष"
+
+#. tranlators: the variable is a number, `d` as in days in short form
+#: src/Utils/DateTime.vala:24
+#, c-format
+msgid "%sd left"
+msgstr "%sd शेष"
+
+#. translators: %b is Month name (short)
+#. %-e is the Day number
+#. %Y is the year (with century)
+#: src/Utils/DateTime.vala:29
+msgid "expires on %b %-e, %Y"
+msgstr "%b %-e, %Y पर समाप्त होगा"
+
+#. translators: %b is Month name (short)
+#. %-e is the Day number
+#. %Y is the year (with century)
+#. %H is the hours (24h format)
+#. %M is the minutes
+#: src/Utils/DateTime.vala:43
+msgid "expires on %b %-e, %Y %H:%M"
+msgstr ""
+
+#: src/Utils/DateTime.vala:45
+msgid "expired on just now"
+msgstr "अभी समाप्त हुआ"
+
+#. tranlators: the variable is a number, `m` as in minutes in short form
+#: src/Utils/DateTime.vala:49
+#, c-format
+msgid "expired %sm ago"
+msgstr "%sm पहले समाप्त हुआ"
+
+#. tranlators: the variable is a number, `h` as in hours in short form
+#: src/Utils/DateTime.vala:54
+#, c-format
+msgid "expired %sh ago"
+msgstr "%sh पहले समाप्त हुआ"
+
+#: src/Utils/DateTime.vala:57
+msgid "expired yesterday"
+msgstr "कल समाप्त हो गया"
+
+#. translators: %b is Month name (short)
+#. %-e is the Day number
+#: src/Utils/DateTime.vala:62
+#, c-format
+msgid "expired on %b %-e"
+msgstr "%-e %b पर समाप्त हुआ"
+
+#. translators: %b is Month name (short)
+#. %-e is the Day number
+#. %Y is the year (with century)
+#: src/Utils/DateTime.vala:68
+msgid "expired on %b %-e, %Y"
+msgstr "%-e %b, %Y पर समाप्त हुआ"
+
+#. translators: %b is Month name (short)
+#. %-e is the Day number
+#. %Y is the year (with century)
+#. %H is the hours (24h format)
+#. %M is the minutes
+#: src/Utils/DateTime.vala:82 src/Utils/DateTime.vala:121
+msgid "%b %-e, %Y %H:%M"
+msgstr ""
+
+#: src/Utils/DateTime.vala:84
+msgid "Just now"
+msgstr "बस अभी"
+
+#. tranlators: the variable is a number, `m` as in minutes in short form
+#: src/Utils/DateTime.vala:88
+#, c-format
+msgid "%sm"
+msgstr "%sm"
+
+#. tranlators: the variable is a number, `h` as in hours in short form
+#: src/Utils/DateTime.vala:93
+#, c-format
+msgid "%sh"
+msgstr "%sh"
+
+#: src/Utils/DateTime.vala:96
+msgid "Yesterday"
+msgstr "बिता कल"
+
+#. translators: %b is Month name (short)
+#. %-e is the Day number
+#: src/Utils/DateTime.vala:101 src/Utils/DateTime.vala:140
+#, c-format
+msgid "%b %-e"
+msgstr "%-e %b"
+
+#. translators: %b is Month name (short)
+#. %-e is the Day number
+#. %Y is the year (with century)
+#: src/Utils/DateTime.vala:107 src/Utils/DateTime.vala:146
+#: src/Utils/DateTime.vala:155
+msgid "%b %-e, %Y"
+msgstr "%-e %b, %Y"
+
+#: src/Utils/DateTime.vala:123
+msgid "just now"
+msgstr "बस अभी"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:127
+#, c-format
+msgid "%s minutes ago"
+msgstr "%s मिनट पहले"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:132
+#, c-format
+msgid "%s hours ago"
+msgstr "%s घंटे पहले"
+
+#: src/Utils/DateTime.vala:135
+msgid "yesterday"
+msgstr "बिता कल"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:169
+#, c-format
+msgid "less than a minute old"
+msgid_plural "%s minutes old"
+msgstr[0] "एक मिनट से कम पुराना"
+msgstr[1] "%s मिनट पुराना"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:174
+#, c-format
+msgid "an hour old"
+msgid_plural "%s hours old"
+msgstr[0] "एक घंटा पुराना"
+msgstr[1] "%s घंटे पुराना"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:189 src/Utils/DateTime.vala:203
+#, c-format
+msgid "%d months old"
+msgstr "%d महीने पुराना"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:195
+#, c-format
+msgid "a day old"
+msgid_plural "%d days old"
+msgstr[0] "एक दिन पुराना"
+msgstr[1] "%d दिन पुराना"
+
+#. tranlators: the variable is a number
+#: src/Utils/DateTime.vala:200
+#, c-format
+msgid "a year old"
+msgid_plural "%d years old"
+msgstr[0] "एक वर्ष पुराना"
+msgstr[1] "%d वर्ष पुराना"
+
+#. translators: short unit suffix for thousands
+#. 3000 => 3k
+#: src/Utils/Units.vala:13
+msgid "k"
+msgstr "k"
+
+#. translators: short unit suffix for millions
+#. 3000000 => 3M
+#: src/Utils/Units.vala:17
+msgid "M"
+msgstr "M"
+
+#. translators: short unit suffix for billions
+#. 3000000000 => 3G
+#: src/Utils/Units.vala:21
+msgid "G"
+msgstr "G"
+
+#. translators: as in All search results
+#: src/Views/Admin/Pages/Accounts.vala:68
+#: src/Views/Admin/Pages/Accounts.vala:91 src/Views/Search.vala:112
+msgid "All"
+msgstr "सभी"
+
+#. translators: Dropdown entry, remote as in from a different instance.
+#. It's for the admin dashboard, so it's better if it stays
+#. close to the original word.
+#: src/Views/Admin/Pages/Accounts.vala:73
+msgid "Remote"
+msgstr "रिमोट"
+
+#. translators: admin panel, accounts tab, filter dropdown tooltip text
+#: src/Views/Admin/Pages/Accounts.vala:78
+msgid "Location"
+msgstr "स्थान"
+
+#. translators: Dropdown entry, account status.
+#. It's for the admin dashboard, so it's better if it stays
+#. close to the original word.
+#: src/Views/Admin/Pages/Accounts.vala:95
+msgid "Active"
+msgstr "सक्रिय"
+
+#. new DropDownStringEntry ("sensitized", _("Sensitive")), // doesn't seem to work on Mastodon
+#. translators: Dropdown entry, account status.
+#. It's for the admin dashboard, so it's better if it stays
+#. close to the original word.
+#: src/Views/Admin/Pages/Accounts.vala:101
+#: src/Views/Admin/Pages/Accounts.vala:383 src/Widgets/Admin/AccountRow.vala:31
+#: src/Widgets/Admin/Report.vala:52
+msgid "Limited"
+msgstr "सीमित"
+
+#. translators: Dropdown entry, account status.
+#. It's for the admin dashboard, so it's better if it stays
+#. close to the original word.
+#: src/Views/Admin/Pages/Accounts.vala:105
+#: src/Views/Admin/Pages/Accounts.vala:390 src/Widgets/Admin/AccountRow.vala:33
+#: src/Widgets/Admin/Report.vala:54
+msgid "Disabled"
+msgstr "अक्षम"
+
+#. translators: Dropdown entry, account status.
+#. It's for the admin dashboard, so it's better if it stays
+#. close to the original word.
+#: src/Views/Admin/Pages/Accounts.vala:109
+#: src/Views/Admin/Pages/Accounts.vala:376 src/Widgets/Admin/AccountRow.vala:29
+#: src/Widgets/Admin/Report.vala:50
+msgid "Suspended"
+msgstr "निलंबित"
+
+#. translators: Dropdown entry, account status.
+#. It's for the admin dashboard, so it's better if it stays
+#. close to the original word.
+#: src/Views/Admin/Pages/Accounts.vala:113
+msgid "Pending"
+msgstr "लंबित"
+
+#: src/Views/Admin/Pages/Accounts.vala:128
+msgid "Username"
+msgstr "उपयोक्तानाम"
+
+#: src/Views/Admin/Pages/Accounts.vala:142
+#: src/Views/Admin/Pages/Accounts.vala:304
+msgid "E-mail"
+msgstr "ई-मेल"
+
+#: src/Views/Admin/Pages/Accounts.vala:298
+msgid "Role"
+msgstr "भूमिका"
+
+#. translators: admin dashboard, account view
+#. e-mail has been confirmed
+#: src/Views/Admin/Pages/Accounts.vala:315
+msgid "Confirmed"
+msgstr "पुष्टि हुई"
+
+#. translators: admin dashboard, account view
+#. e-mail has NOT been confirmed
+#: src/Views/Admin/Pages/Accounts.vala:323
+msgid "Not Confirmed"
+msgstr "पुष्टि नहीं"
+
+#. translators: admin panel, account waiting to be approved, placeholder when they didn't include a reason
+#: src/Views/Admin/Pages/Accounts.vala:347
+msgid "No Reason Given"
+msgstr "कोई कारण नहीं दिया"
+
+#. translators: admin panel, account waiting to be approved
+#: src/Views/Admin/Pages/Accounts.vala:351
+msgid "Awaiting Approval"
+msgstr "स्वीकृति की प्रतीक्षा में"
+
+#: src/Views/Admin/Pages/Accounts.vala:358
+#: src/Views/Admin/Pages/Accounts.vala:492
+msgid "Approve"
+msgstr "स्वीकारें"
+
+#: src/Views/Admin/Pages/Accounts.vala:365
+#: src/Views/Admin/Pages/Accounts.vala:525
+msgid "Reject"
+msgstr "अस्वीकारें"
+
+#. translators: Question dialog when an admin is about to
+#. undo an action, like a suspension
+#: src/Views/Admin/Pages/Accounts.vala:424
+msgid "Undo this Action?"
+msgstr ""
+
+#. translators: Question dialog when an admin is about to
+#. approve an account. The variable is an
+#. account handle
+#: src/Views/Admin/Pages/Accounts.vala:485
+#, c-format
+msgid "Approve %s?"
+msgstr ""
+
+#. translators: Question dialog when an admin is about to
+#. reject an account. The variable is an
+#. account handle
+#: src/Views/Admin/Pages/Accounts.vala:518
+#, c-format
+msgid "Reject %s?"
+msgstr ""
+
+#. translators: Admin Dialog entry placeholder text,
+#. this is about blocking e-mail providers like
+#. gmail.com
+#: src/Views/Admin/Pages/BlockedEmails.vala:21
+msgid "Block a new e-mail domain"
+msgstr "नया ई-मेल डोमेन ब्लॉक करें"
+
+#. translators: Question dialog when an admin is about to
+#. block an e-mail domain. The variable is a
+#. string.
+#: src/Views/Admin/Pages/BlockedEmails.vala:60
+#, c-format
+msgid "Block %s?"
+msgstr ""
+
+#. translators: Question dialog description when an admin is about to
+#. block an e-mail domain. The variable is a string.
+#. you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+#: src/Views/Admin/Pages/BlockedEmails.vala:65
+msgid ""
+"This can be the domain name that shows up in the e-mail address or the MX "
+"record it uses. They will be checked upon sign-up."
+msgstr ""
+"यह वह डोमेन नाम हो सकता है जो ईमेल पते में दिखाई देता है या वह MX रिकॉर्ड जिसका वह "
+"उपयोग करता है। साइन-अप करते समय उनकी जाँच की जाएगी।"
+
+#. translators: title in admin dashboard stats
+#: src/Views/Admin/Pages/Dashboard.vala:14
+msgid "New Users"
+msgstr "नए उपयोक्ता"
+
+#: src/Views/Admin/Pages/Dashboard.vala:14
+msgid "Active Users"
+msgstr "सक्रिय उपयोक्ता"
+
+#: src/Views/Admin/Pages/Dashboard.vala:14
+msgid "Interactions"
+msgstr "अंतर्क्रिया"
+
+#: src/Views/Admin/Pages/Dashboard.vala:14
+msgid "Reports Opened"
+msgstr "रिपोर्ट खोली गई"
+
+#: src/Views/Admin/Pages/Dashboard.vala:14
+msgid "Reports Resolved"
+msgstr "रिपोर्ट समाधानित"
+
+#. translators: group title in admin dashboard window
+#: src/Views/Admin/Pages/Dashboard.vala:18
+msgid "Sign-up Sources"
+msgstr "साइन-अप स्रोत"
+
+#. translators: group title in admin dashboard window
+#: src/Views/Admin/Pages/Dashboard.vala:20
+msgid "Top Active Languages"
+msgstr "शीर्ष सक्रिय भाषाएं"
+
+#. translators: group title in admin dashboard window
+#: src/Views/Admin/Pages/Dashboard.vala:22
+msgid "Top Active Servers"
+msgstr "शीर्ष सक्रिय सर्वर"
+
+#. translators: group title in admin dashboard window
+#: src/Views/Admin/Pages/Dashboard.vala:24
+msgid "Software"
+msgstr "सॉफ्टवेयर"
+
+#. translators: group title in admin dashboard window
+#: src/Views/Admin/Pages/Dashboard.vala:26
+msgid "Space Usage"
+msgstr "स्थान उपयोग"
+
+#: src/Views/Admin/Pages/Dashboard.vala:53
+msgid "Stats"
+msgstr "आंकड़े"
+
+#. translators: Admin Dialog entry placeholder text,
+#. this is about allowing federation
+#. with other instances
+#: src/Views/Admin/Pages/FederationAllowlist.vala:18
+msgid "Allow federation with an instance"
+msgstr "किसी इंस्टैंस के साथ फ़ेडरेशन की अनुमति दें"
+
+#: src/Views/Admin/Pages/FederationAllowlist.vala:21
+#: src/Views/Admin/Pages/FederationAllowlist.vala:64
+msgid "Allow"
+msgstr "स्वीकारें"
+
+#. translators: Question dialog when an admin is about to
+#. allow federation with an instance. The variable is a
+#. string.
+#: src/Views/Admin/Pages/FederationAllowlist.vala:57
+#, c-format
+msgid "Allow Federation with %s?"
+msgstr ""
+
+#. translators: admin dashboard, reports timeline, headerbar button tooltip text
+#: src/Views/Admin/Pages/Reports.vala:10
+msgid "Show Resolved Reports"
+msgstr "समाधानित रिपोर्ट दिखाएं"
+
+#. translators: Question dialog when an admin is about to
+#. unblock an IP address. The variable
+#. is a string IP address
+#. translators: Question dialog when an admin is about to
+#. delete a federation block. The variable is
+#. a string domain name
+#. translators: Question dialog when an admin is about to
+#. unblock an e-mail address block. The variable
+#. is a string e-mail address
+#: src/Views/Admin/Timelines/BlockedIPs.vala:26
+#: src/Views/Admin/Timelines/DomainBlock.vala:26
+#: src/Views/Admin/Timelines/EmailDomain.vala:26
+#, c-format
+msgid "Unblock %s?"
+msgstr ""
+
+#. translators: Question dialog when an admin is about to
+#. delete a domain from the federation allowlist.
+#. You can replace 'federation' with 'communication' if
+#. it's hard to translate.
+#. The variable is a string domain name
+#: src/Views/Admin/Timelines/DomainAllow.vala:28
+#, c-format
+msgid "Remove Federation with %s?"
+msgstr ""
+
+#: src/Views/Admin/Timelines/PaginationTimeline.vala:57
+msgid "Previous Page"
+msgstr ""
+
+#: src/Views/Admin/Timelines/PaginationTimeline.vala:66
+msgid "Next Page"
+msgstr ""
+
+#: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:73
+msgid "Announcements"
+msgstr "घोषणाएं"
+
+#: src/Views/Announcements.vala:8
+msgid "No Announcements"
+msgstr "कोई घोषणाएं नहीं"
+
+#. translators: Fallback shown when there are 0 results
+#: src/Views/Base.vala:4
+msgid "Nothing to see here"
+msgstr "यहां देखने के लिए कुछ भी नहीं है"
+
+#: src/Views/Base.vala:122
+msgid "Reload"
+msgstr "पुनः लोड करें"
+
+#: src/Views/Base.vala:201
+msgid "An Error Occurred"
+msgstr "एक त्रुटि हुई"
+
+#: src/Views/Bookmarks.vala:6
+msgid "No Bookmarks"
+msgstr "कोई बुकमार्क नहीं"
+
+#: src/Views/Conversations.vala:8
+msgid "No Conversations"
+msgstr "कोई वार्तालाप नहीं"
+
+#. translators: as in posts that are saved but not posted yet
+#: src/Views/DraftStatuses.vala:4 src/Views/Sidebar.vala:76
+msgid "Draft Posts"
+msgstr ""
+
+#. translators: as in posts that are saved but not posted yet
+#: src/Views/DraftStatuses.vala:7
+msgid "No Draft Posts"
+msgstr ""
+
+#: src/Views/EditHistory.vala:5
+msgid "Edit History"
+msgstr "इतिहास संपादित करें"
+
+#: src/Views/EditHistory.vala:7
+msgid "No Edit History"
+msgstr "कोई संपादन इतिहास नहीं"
+
+#: src/Views/Explore.vala:6 src/Views/Search.vala:114
+#: src/Widgets/ProfileFilterGroup.vala:40
+msgid "Posts"
+msgstr "पोस्ट"
+
+#: src/Views/Explore.vala:7 src/Views/Hashtags.vala:7
+msgid "No Hashtags"
+msgstr "कोई हैशटैग नहीं"
+
+#: src/Views/Explore.vala:8
+msgid "News"
+msgstr "समाचार"
+
+#: src/Views/Explore.vala:8
+msgid "No News"
+msgstr "कोई समाचार नहीं"
+
+#: src/Views/Explore.vala:9
+msgid "For You"
+msgstr "आपके लिए"
+
+#: src/Views/Explore.vala:9
+msgid "No Suggestions"
+msgstr "कोई सुझाव नहीं"
+
+#: src/Views/Favorites.vala:5 src/Views/StatusStats.vala:17
+msgid "No Favorites"
+msgstr "कोई पसंदीदा नहीं"
+
+#: src/Views/FollowRequests.vala:4 src/Views/Sidebar.vala:74
+msgid "Follow Requests"
+msgstr "अनुसरण अनुरोध"
+
+#: src/Views/FollowRequests.vala:7
+msgid "No Follow Requests"
+msgstr "कोई अनुसरण अनुरोध नहीं"
+
+#: src/Views/Hashtag.vala:19 src/Views/Hashtag.vala:34
+#: src/Widgets/RelationshipButton.vala:33
+#: src/Widgets/RelationshipButton.vala:70
+msgid "Follow"
+msgstr "अनुसरण करें"
+
+#: src/Views/Hashtag.vala:22 src/Views/Hashtag.vala:38
+#: src/Widgets/RelationshipButton.vala:62
+msgid "Unfollow"
+msgstr "अनुसरण न करें"
+
+#: src/Views/Home.vala:23
+msgid "Compose"
+msgstr "लिखें"
+
+#: src/Views/Lists.vala:45 src/Widgets/Status/ActionsRow.vala:137
+msgid "Favorite"
+msgstr "पसंदीदा"
+
+#: src/Views/Lists.vala:121
+#, c-format
+msgid "Delete \"%s\"?"
+msgstr "\"%s\" मिटाएं?"
+
+#: src/Views/Lists.vala:122
+msgid "This action cannot be reverted."
+msgstr "इस कार्रवाई को पूर्ववत नहीं किया जा सकता।"
+
+#: src/Views/Lists.vala:212
+msgid "No Lists"
+msgstr "कोई सूचियां नहीं"
+
+#: src/Views/Lists.vala:216
+msgid "New list title"
+msgstr "नई सूची का शीर्षक"
+
+#: src/Views/Lists.vala:225
+msgid "Add list"
+msgstr "सूची जोड़ें"
+
+#: src/Views/Main.vala:76
+msgid "Open Sidebar"
+msgstr ""
+
+#: src/Views/MediaViewer.vala:829
+msgid "Copied media url to clipboard"
+msgstr "मीडिया URL को क्लिपबोर्ड पर कॉपी किया गया"
+
+#: src/Views/MediaViewer.vala:1315 src/Widgets/Attachment/Image.vala:116
+msgid "Copied image to clipboard"
+msgstr "छवि को क्लिपबोर्ड पर कॉपी किया गया"
+
+#: src/Views/MutesBlocks.vala:6 src/Views/Sidebar.vala:75
+msgid "Mutes & Blocks"
+msgstr "मूक एवं अवरोध"
+
+#: src/Views/MutesBlocks.vala:11
+msgid "Mutes"
+msgstr "मूक"
+
+#: src/Views/MutesBlocks.vala:15
+msgid "No Muted Accounts"
+msgstr "कोई मूक खाते नहीं"
+
+#: src/Views/MutesBlocks.vala:19
+msgid "Blocks"
+msgstr "अवरोध"
+
+#: src/Views/MutesBlocks.vala:23
+msgid "No Blocked Accounts"
+msgstr "कोई अवरोधित खाते नहीं"
+
+#. translators: the variable is a user handle
+#: src/Views/NotificationRequestsList.vala:8
+#, c-format
+msgid "Notifications by %s"
+msgstr "%s द्वारा अधिसूचनाएं"
+
+#. translators: the variable is a user handle
+#: src/Views/NotificationRequestsList.vala:11
+#, c-format
+msgid "No Notifications by %s"
+msgstr "%s द्वारा कोई अधिसूचना नहीं"
+
+#: src/Views/NotificationRequestsList.vala:26
+#: src/Widgets/NotificationRequest.vala:56
+msgid "Dismiss"
+msgstr "खारिज करें"
+
+#: src/Views/NotificationRequests.vala:4
+msgid "Filtered Notifications"
+msgstr "फिल्टर की गई अधिसूचनाएं"
+
+#: src/Views/NotificationRequests.vala:7
+msgid "No Filtered Notifications"
+msgstr "कोई फिल्टर की गई अधिसूचनाएं नहीं"
+
+#: src/Views/Notifications.vala:13
+#, c-format
+msgid "%d Filtered Notification"
+msgid_plural "%d Filtered Notifications"
+msgstr[0] "%d फिल्टर की गई अधिसूचना"
+msgstr[1] "%d फ़िल्टर की गई अधिसूचनाएँ"
+
+#: src/Views/Notifications.vala:41
+msgid "No Notifications"
+msgstr "कोई सूचनाएं नहीं"
+
+#: src/Views/Profile.vala:80
+msgid "Profile"
+msgstr "प्रोफाइल"
+
+#: src/Views/Profile.vala:194 src/Views/Timeline.vala:73
+msgid "No Posts"
+msgstr "कोई पोस्ट नहीं"
+
+#: src/Views/Profile.vala:198
+msgid "No Followers"
+msgstr "कोई अनुयायी नहीं"
+
+#: src/Views/Profile.vala:202
+msgid "This user doesn't follow anyone yet"
+msgstr "यह उपयोक्ता अभी तक किसी का अनुसरण नहीं करता है"
+
+#: src/Views/Profile.vala:310
+msgid "Copied handle to clipboard"
+msgstr "हैंडल को क्लिपबोर्ड पर कॉपी किया गया"
+
+#: src/Views/Profile.vala:359
+#, c-format
+msgid "Block Entire \"%s\"?"
+msgstr "संपूर्ण \"%s\" को अवरोधित करें?"
+
+#: src/Views/Profile.vala:359
+#, c-format
+msgid "Unblock Entire \"%s\"?"
+msgstr "सम्पूर्ण \"%s\" को अनवरोधित करें?"
+
+#: src/Views/Profile.vala:362
+msgid ""
+"Blocking a domain will:\n"
+"\n"
+"• Remove its public posts and notifications from your timelines\n"
+"• Remove its followers from your account\n"
+"• Prevent you from following its users"
+msgstr ""
+"किसी डोमेन को अवरोधित करने से:\n"
+"\n"
+"• अपनी समयरेखा से इसकी सार्वजनिक पोस्ट और सूचनाएं हटा देगा\n"
+"• इसके अनुयायियों को अपने खाते से हटा देगा\n"
+"• आपको इसके उपयोक्ताओं का अनुसरण करने से रोकेगा"
+
+#. translators: the variable is an account handle
+#: src/Views/Profile.vala:454
+#, c-format
+msgid "Add or remove \"%s\" to or from a list"
+msgstr "किसी सूची में या उससे \"%s\" जोड़ें या हटाएं"
+
+#. translators: the variable is an account handle
+#: src/Views/Profile.vala:464
+#, c-format
+msgid "Select the list to add or remove \"%s\" to or from:"
+msgstr "\"%s\" को इसमें या उससे जोड़ने या हटाने के लिए सूची का चयन करें:"
+
+#: src/Views/Profile.vala:470
+msgid "You don't have any lists"
+msgstr "आपके पास कोई सूची नहीं है"
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:500 src/Views/Profile.vala:571
+#, c-format
+msgid "Remove \"%s\" from \"%s\""
+msgstr "\"%2$s\" से \"%1$s\" हटाएं"
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:501 src/Views/Profile.vala:565
+#, c-format
+msgid "Add \"%s\" to \"%s\""
+msgstr "\"%1$s\" को \"%2$s\" में जोड़ें"
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:562
+#, c-format
+msgid "User \"%s\" got removed from \"%s\""
+msgstr "उपयोक्ता \"%1$s\" को \"%2$s\" से हटा दिया गया"
+
+#. translators: First variable is a handle, second variable is a list name
+#: src/Views/Profile.vala:568
+#, c-format
+msgid "User \"%s\" got added to \"%s\""
+msgstr "उपयोक्ता \"%1$s\" को \"%2$s\" में जोड़ा गया"
+
+#. translators: as in posts set to be posted sometime in the future
+#: src/Views/ScheduledStatuses.vala:5 src/Views/Sidebar.vala:77
+msgid "Scheduled Posts"
+msgstr ""
+
+#. translators: as in posts set to be posted sometime in the future
+#: src/Views/ScheduledStatuses.vala:8
+msgid "No Scheduled Posts"
+msgstr ""
+
+#: src/Views/Search.vala:24
+msgid "Search Posts and Accounts"
+msgstr ""
+
+#: src/Views/Search.vala:38
+msgid "Clear Entry"
+msgstr "प्रविष्टि साफ़ करें"
+
+#. translators: Used when there are 0 results in the custom emoji picker
+#: src/Views/Search.vala:112 src/Views/Search.vala:113
+#: src/Views/Search.vala:114 src/Views/Search.vala:115
+#: src/Widgets/CustomEmojiChooser.vala:173
+msgid "No Results"
+msgstr "कोई परिणाम नहीं"
+
+#: src/Views/Search.vala:248
+msgid "Language"
+msgstr "भाषा"
+
+#. translators: warning toast in advanced search dialog when auto-filling a user fails.
+#. Auto-fill refers to automatically filling the entry with the first
+#. found user based on the query.
+#: src/Views/Search.vala:409
+#, c-format
+msgid "Couldn't auto-fill user: %s"
+msgstr ""
+
+#. tanslators: used in a banner, the variable is the number of unread announcements
+#: src/Views/Sidebar.vala:26
+#, c-format
+msgid "%d Announcement"
+msgid_plural "%d Announcements"
+msgstr[0] "%d घोषणा"
+msgstr[1] "%d घोषणाएं"
+
+#. tanslators: used in a banner, the variable is the number of unreviewed follow requests
+#: src/Views/Sidebar.vala:38
+#, c-format
+msgid "%d Follow Request"
+msgid_plural "%d Follow Requests"
+msgstr[0] "%d अनुसरण अनुरोध"
+msgstr[1] "%d अनुसरण अनुरोध"
+
+#: src/Views/Sidebar.vala:67
+msgid "New Post"
+msgstr "नई पोस्ट"
+
+#. translators: main menu entry, please don't translate it unless you have to.
+#. Refer to other #FediWrapped strings for more info
+#: src/Views/Sidebar.vala:81
+msgid "#FediWrapped"
+msgstr ""
+
+#: src/Views/Sidebar.vala:92
+msgid "Preferences"
+msgstr "प्राथमिकताएं"
+
+#: src/Views/Sidebar.vala:93
+msgid "Keyboard Shortcuts"
+msgstr "कीबोर्ड शॉर्टकट"
+
+#: src/Views/Sidebar.vala:94
+#, c-format
+msgid "About %s"
+msgstr "%s के बारे में"
+
+#. translators: the variable is an account handle
+#: src/Views/Sidebar.vala:342
+#, c-format
+msgid "Forget %s?"
+msgstr "%s को भूलें?"
+
+#: src/Views/Sidebar.vala:343
+msgid "This account will be removed from the application."
+msgstr "इस खाते को अनुप्रयोग से हटा दिया जाएगा।"
+
+#: src/Views/Sidebar.vala:345
+msgid "Forget"
+msgstr "भूलें"
+
+#: src/Views/StatusStats.vala:7
+msgid "Post Stats"
+msgstr "पोस्ट आंकड़े"
+
+#. translators: title for a list of people that favorited a post
+#: src/Views/StatusStats.vala:13
+msgid "Favorited By"
+msgstr "इनका पसंदीदा"
+
+#. translators: title for a list of people that boosted a post
+#: src/Views/StatusStats.vala:23
+msgid "Boosted By"
+msgstr "इनके द्वारा बूस्ट किया गया"
+
+#: src/Views/StatusStats.vala:27
+msgid "No Boosts"
+msgstr "कोई बूस्ट नहीं"
+
+#. translators: title for a list of people that have reacted to a post.
+#. A reaction is not the same as a favorite or a boost,
+#. see https://github.com/glitch-soc/mastodon/pull/2462
+#: src/Views/StatusStats.vala:36
+msgid "Reactions"
+msgstr ""
+
+#. translators: Reactions page empty state.
+#. A reaction is not the same as a favorite or a boost,
+#. see https://github.com/glitch-soc/mastodon/pull/2462
+#: src/Views/StatusStats.vala:43
+msgid "No Reactions"
+msgstr ""
+
+#: src/Views/Thread.vala:32
+msgid "Conversation"
+msgstr "वार्तालाप"
+
+#: src/Views/Thread.vala:105 src/Views/Thread.vala:119
+msgid "Reveal Spoilers"
+msgstr "स्पॉइलर दिखाएं"
+
+#: src/Views/Thread.vala:119
+msgid "Hide Spoilers"
+msgstr "स्पॉइलर छुपाएं"
+
+#: src/Views/Timeline.vala:233 src/Widgets/Status/ActionsRow.vala:391
+msgid "Network Error"
+msgstr "नेटवर्क त्रुटि"
+
+#. translators: Tooltip text for avatars in posts.
+#. The variable is a string user handle.
+#: src/Widgets/AccountSuggestions.vala:15 src/Widgets/Status.vala:1041
+#, c-format
+msgid "Open %s's Profile"
+msgstr "%s's की प्रोफाइल खोलें"
+
+#. translators: title of a list of suggested people to follow.
+#. Basically 'Who to follow'
+#: src/Widgets/AccountSuggestions.vala:100
+msgid "Follow Suggestions"
+msgstr ""
+
+#: src/Widgets/AccountSuggestions.vala:113
+#: src/Widgets/Status/ActionsRow.vala:172 src/Widgets/Status.vala:393
+msgid "Don't remind me again"
+msgstr "मुझे दोबारा याद मत दिलायें"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The first variable is the author's name and the
+#. second one is the author's handle.
+#: src/Widgets/Account.vala:145 src/Widgets/ProfileCover.vala:192
+#, c-format
+msgid "%s (%s)'s profile."
+msgstr "%s (%s) की प्रोफाइल।"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is a string representation of the
+#. relationship (e.g. Mutuals, Follows You...)
+#: src/Widgets/Account.vala:157 src/Widgets/ProfileCover.vala:204
+#, c-format
+msgid "Relationship: %s."
+msgstr "संबंध: %s।"
+
+#. translators: Used in profile stats.
+#. The variable is a shortened number of the amount of posts a user has made.
+#: src/Widgets/Account.vala:219 src/Widgets/ProfileCover.vala:325
+#: src/Widgets/ProfileCover.vala:600
+#, c-format
+msgid "%s Post"
+msgid_plural "%s Posts"
+msgstr[0] "%s पोस्ट"
+msgstr[1] "%s पोस्ट"
+
+#. translators: Used in profile stats.
+#. The variable is a shortened number of the amount of followers a user has.
+#: src/Widgets/Account.vala:227 src/Widgets/ProfileCover.vala:333
+#: src/Widgets/ProfileCover.vala:614
+#, c-format
+msgid "%s Follower"
+msgid_plural "%s Followers"
+msgstr[0] "%s अनुसरणकर्ता"
+msgstr[1] "%s अनुसरणकर्ता"
+
+#. translators: Used in profile stats.
+#. The variable is a shortened number of the amount of people a user follows.
+#: src/Widgets/Account.vala:236 src/Widgets/ProfileCover.vala:342
+#: src/Widgets/ProfileCover.vala:608
+#, c-format
+msgid "%s Following"
+msgstr "%s का अनुसरण"
+
+#. translators: Admin dashboard, report status
+#: src/Widgets/Admin/AccountRow.vala:27 src/Widgets/Admin/Report.vala:47
+msgid "No Limits"
+msgstr "कोई सीमा नही"
+
+#. translators: admin panel, account waiting to be approved
+#: src/Widgets/Admin/AccountRow.vala:36
+msgid "Waiting Approval"
+msgstr "अनुमोदन की प्रतीक्षा"
+
+#. translators: Report 'Assigned to: <account>'
+#: src/Widgets/Admin/AssignedRow.vala:11 src/Widgets/Admin/Report.vala:26
+msgid "Assigned to"
+msgstr "इनको नियुक्‍त"
+
+#: src/Widgets/Admin/AssignedRow.vala:38
+msgid "Unassign"
+msgstr "अनियुक्‍त"
+
+#: src/Widgets/Admin/AssignedRow.vala:42
+msgid "Assign"
+msgstr "नियुक्‍त करें"
+
+#. translators: subtitle on email domain blocks.
+#. The variable is the number of sing up
+#. attempts using said email domain.
+#: src/Widgets/Admin/EmailDomainBlock.vala:24
+#, c-format
+msgid "%d Sign-up Attempts"
+msgstr "%d साइन-अप प्रयास"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The first variable is the instance's name and the
+#. second one is the instance's domain.
+#: src/Widgets/Announcement.vala:20
+#, c-format
+msgid "Announcement by %s (%s)."
+msgstr "%s (%s) द्वारा घोषणा।"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is a string date.
+#: src/Widgets/Announcement.vala:31 src/Widgets/Status.vala:795
+#, c-format
+msgid "Edited: %s."
+msgstr "संपादित: %s।"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is a string date.
+#: src/Widgets/Announcement.vala:36 src/Widgets/Status.vala:800
+#, c-format
+msgid "Published: %s."
+msgstr "प्रकाशित: %s।"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is the amount of reactions the post
+#. has.
+#: src/Widgets/Announcement.vala:46 src/Widgets/Status.vala:877
+#, c-format
+msgid "Contains %d reaction."
+msgid_plural "Contains %d reactions."
+msgstr[0] "%d प्रतिक्रिया शामिल है।"
+msgstr[1] "इसमें %d प्रतिक्रियाएं शामिल हैं।"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. This is used to indicate that the announcement
+#. hasn't been read yet.
+#: src/Widgets/Announcement.vala:56
+msgid "Unread."
+msgstr "अपठित।"
+
+#. translators: Tooltip on a button that hides / blurs media marked as sensitive
+#: src/Widgets/Attachment/Box.vala:68
+msgid "Hide Media"
+msgstr "मीडिया छुपाएं"
+
+#. translators: Label shown in front of blurred / sensitive media
+#: src/Widgets/Attachment/Box.vala:79
+msgid "Show Sensitive Content"
+msgstr "संवेदनशील सामग्री दिखाएं"
+
+#: src/Widgets/Attachment/Item.vala:21
+msgid "Copied attachment url to clipboard"
+msgstr "क्लिपबोर्ड पर अनुलग्नक URL कॉपी किया गया"
+
+#: src/Widgets/Attachment/Item.vala:34
+msgid "Save Attachment"
+msgstr "अनुलग्नक सहेजें"
+
+#: src/Widgets/Attachment/Item.vala:44
+msgid "Saved Media"
+msgstr "सहेजा गया मीडिया"
+
+#: src/Widgets/Attachment/Item.vala:44
+msgid "Couldn't Save Media"
+msgstr "मीडिया को सहेजा नहीं जा सका"
+
+#: src/Widgets/Attachment/Item.vala:109
+msgid "View Alt Text"
+msgstr "वैकल्पिक पाठ देखें"
+
+#. translators: Media play bar play button tooltip
+#: src/Widgets/AudioPlayer/Controls.vala:22
+msgctxt "media controls tooltip"
+msgid "Stop"
+msgstr ""
+
+#. translators: the variable is the date the book was published
+#: src/Widgets/BookWyrmPage.vala:79
+#, c-format
+msgid "Published: %s"
+msgstr "प्रकाशित: %s"
+
+#. translators: the variable is a comma separated
+#. list of the book authors
+#: src/Widgets/BookWyrmPage.vala:98
+#, c-format
+msgid "by %s"
+msgstr "%s द्वारा"
+
+#. translators: Used when there are results in the custom emoji picker
+#: src/Widgets/CustomEmojiChooser.vala:67
+#: src/Widgets/CustomEmojiChooser.vala:169
+msgid "Results"
+msgstr "परिणाम"
+
+#: src/Widgets/CustomEmojiChooser.vala:73
+msgid "Recently Used"
+msgstr "हालिया प्रयुक्त"
+
+#: src/Widgets/CustomEmojiChooser.vala:212
+msgid "Custom Emojis"
+msgstr "तदनुकूल इमोजी"
+
+#. translators: the variable is the amount of emoji reactions, e.g. '4 Reactions'.
+#. A reaction is not the same as a favorite or a boost,
+#. see https://github.com/glitch-soc/mastodon/pull/2462
+#: src/Widgets/EmojiReactionAccounts.vala:65
+#, c-format
+msgid "%d Reaction"
+msgid_plural "%d Reactions"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: the variable is a number. This is used in a button that shows
+#. all post hashtags when clicked.
+#: src/Widgets/HashtagBar.vala:50
+#, c-format
+msgid "Show %d More"
+msgstr ""
+
+#. translators: the variables are numbers
+#: src/Widgets/PreviewCardExplore.vala:75
+#, c-format
+msgid "Discussed %d times by %d people yesterday"
+msgstr "कल %2$d लोगों द्वारा %1$d बार चर्चा की गई"
+
+#. translators: the variables are numbers
+#: src/Widgets/PreviewCardExplore.vala:83
+#, c-format
+msgid "Discussed %d times by %d people in the past 2 days"
+msgstr "पिछले 2 दिनों में %2$d लोगों द्वारा %1$d बार चर्चा की गई"
+
+#. translators: tooltip text on 'explore' tab button to
+#. see posts where the selected article is
+#. being discussed.
+#: src/Widgets/PreviewCardExplore.vala:100
+msgid "See Discussions"
+msgstr ""
+
+#. translators: the variable is a user name. This is shown on
+#. preview cards of articles from 'verified' fedi authors.
+#. By <user>
+#. (As in, 'written by <user>')
+#: src/Widgets/PreviewCard.vala:103 src/Widgets/PreviewCard.vala:111
+#, c-format
+msgid "By %s"
+msgstr ""
+
+#. translators: the variable is a number. This is shown on
+#. preview cards of articles from 'verified' fedi authors,
+#. when there's more than 1.
+#. See all <amount> authors
+#: src/Widgets/PreviewCard.vala:135
+#, c-format
+msgid "See %d author"
+msgid_plural "See all %d authors"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: button on profiles that when clicked shows a list of familiar followers.
+#. The first variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
+#. If your language requires pronouns you may add a : after 'by' so it's clear it's a
+#. list of names. The second variable is the amount of other familiar followers, not
+#. displayed in the list. The singular version will not be used.
+#: src/Widgets/ProfileCover.vala:73
+#, c-format
+msgid "Followed by %s & %s Other"
+msgid_plural "Followed by %s & %s Others"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: button on profiles that when clicked shows a list of familiar followers.
+#. The variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
+#. If your language requires pronouns you may add a : after 'by' so it's clear it's a
+#. list of names. This is the version of the string that has 0 'others'.
+#: src/Widgets/ProfileCover.vala:92
+#, c-format
+msgid "Followed by %s"
+msgstr ""
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is the amount of fields the profile
+#. has.
+#: src/Widgets/ProfileCover.vala:215
+#, c-format
+msgid "Contains %d field."
+msgid_plural "Contains %d fields."
+msgstr[0] "%d क्षेत्र शामिल है।"
+msgstr[1] "%d क्षेत्र शामिल हैं।"
+
+#. translators: Button label shown when a user has moved to another instance.
+#. The first variable is this account's handle while the second
+#. is the moved-to account's handle
+#: src/Widgets/ProfileCover.vala:482
+#, c-format
+msgid "%s has moved to %s"
+msgstr ""
+
+#: src/Widgets/ProfileCover.vala:711
+msgid "Error: Note is over 2000 characters long"
+msgstr "त्रुटि: नोट 2000 अक्षरों से अधिक लंबा है"
+
+#: src/Widgets/ProfileFilterGroup.vala:54
+msgid "Replies"
+msgstr ""
+
+#. translators: the variable is the emoji or its name if it's custom.
+#. A reaction is not the same as a favorite or a boost,
+#. see https://github.com/glitch-soc/mastodon/pull/2462
+#: src/Widgets/ReactButton.vala:37
+#, c-format
+msgid "React with %s"
+msgstr "%s के साथ प्रतिक्रिया दें"
+
+#: src/Widgets/RelationshipButton.vala:55 src/Widgets/Status.vala:328
+msgid "Unmute"
+msgstr "अमूक"
+
+#. translators: not a verb, as in a post that is saved but not posted yet
+#: src/Widgets/ScheduledStatus.vala:13
+msgid "Draft"
+msgstr ""
+
+#: src/Widgets/ScheduledStatus.vala:51 src/Widgets/ScheduledStatus.vala:148
+msgid "Reschedule"
+msgstr ""
+
+#. translators: Scheduled Post title, 'scheduled for <date>'
+#: src/Widgets/ScheduledStatus.vala:139
+#, c-format
+msgid "Scheduled for %s"
+msgstr ""
+
+#. translators: the variable is an error
+#: src/Widgets/ScheduledStatus.vala:167
+#, c-format
+msgid "Couldn't reschedule: %s"
+msgstr ""
+
+#. translators: as in a post set to be posted sometime in the future
+#: src/Widgets/ScheduledStatus.vala:175
+msgid "Delete Scheduled Post?"
+msgstr ""
+
+#. translators: 'Draft' is not a verb here.
+#. It's equal to 'saved but not posted'
+#: src/Widgets/ScheduledStatus.vala:178
+msgid "Delete Draft Post?"
+msgstr ""
+
+#: src/Widgets/Status/ActionsRow.vala:57 src/Widgets/Status/ActionsRow.vala:106
+#: src/Widgets/Status/ActionsRow.vala:281
+msgid "Boost"
+msgstr "बूस्ट"
+
+#: src/Widgets/Status/ActionsRow.vala:60
+msgid "This post can't be boosted"
+msgstr "इस पोस्ट को बूस्ट नहीं किया जा सकता"
+
+#: src/Widgets/Status/ActionsRow.vala:88 src/Widgets/Status/ActionsRow.vala:172
+msgid "Reply"
+msgstr "उत्तर दें"
+
+#: src/Widgets/Status/ActionsRow.vala:125
+#: src/Widgets/Status/ActionsRow.vala:280
+msgid "Quote"
+msgstr "उद्धरण"
+
+#: src/Widgets/Status/ActionsRow.vala:156
+msgid "Bookmark"
+msgstr "बुकमार्क"
+
+#. translators: the variable is a datetime with the "old" suffix, e.g. "5 months old", "a day old", "2 years old".
+#. The "old" suffix is translated on the datetime strings, not here
+#: src/Widgets/Status/ActionsRow.vala:167
+#, c-format
+msgid "This post is %s"
+msgstr "यह पोस्ट %s है"
+
+#. translators: you can find this string translated on https://github.com/mastodon/mastodon-android/tree/master/mastodon/src/main/res
+#. in the `strings.xml` file inside the `values-` folder that matches your locale under the `old_post_sheet_text` key
+#: src/Widgets/Status/ActionsRow.vala:170
+msgid "You can still reply, but it may no longer be relevant."
+msgstr "आप अभी भी उत्तर दे सकते हैं, लेकिन यह अब प्रासंगिक नहीं रह जाएगा।"
+
+#: src/Widgets/Status/ActionsRow.vala:273
+msgid "Boost with Visibility"
+msgstr "दृश्यता के साथ बूस्ट"
+
+#. translators: as in post stats (who liked and boosted)
+#: src/Widgets/Status.vala:312
+msgid "View Stats"
+msgstr "आंकड़े देखें"
+
+#: src/Widgets/Status.vala:316
+msgid "View Edit History"
+msgstr "संपादन इतिहास देखें"
+
+#. translators: Pin post on profile
+#: src/Widgets/Status.vala:321 src/Widgets/Status.vala:756
+msgid "Pin"
+msgstr "पिन"
+
+#. translators: Post menu items to revert a translation
+#: src/Widgets/Status.vala:356
+msgid "Show Original"
+msgstr "मूल दिखाएं"
+
+#. translators: dialog subtitle visibility warning when copying a link to a
+#. post that is private or mentioned-only
+#: src/Widgets/Status.vala:377
+msgid "Only mentioned people will be able to view it."
+msgstr ""
+
+#. translators: dialog subtitle visibility warning when copying a link to a
+#. post that is private or mentioned-only
+#: src/Widgets/Status.vala:381
+msgid "Only mentioned people and your followers will be able to view it."
+msgstr ""
+
+#. translators: dialog subtitle visibility warning when copying a link to a post
+#. that is private or mentioned-only, the variable is a handle
+#: src/Widgets/Status.vala:385
+#, c-format
+msgid ""
+"Only mentioned people and people that follow %s will be able to view it."
+msgstr ""
+
+#. translators: the variable is the post visibility e.g. Public, Unlisted...
+#: src/Widgets/Status.vala:390
+#, c-format
+msgid "Copy %s Post Link?"
+msgstr ""
+
+#: src/Widgets/Status.vala:393
+msgid "Copy"
+msgstr ""
+
+#: src/Widgets/Status.vala:402 src/Widgets/Status.vala:407
+msgid "Copied post url to clipboard"
+msgstr "पोस्ट URL को क्लिपबोर्ड पर कॉपी किया गया"
+
+#: src/Widgets/Status.vala:462
+msgid "Delete Post?"
+msgstr ""
+
+#. translators: toast shown when muting a post
+#: src/Widgets/Status.vala:497
+#, c-format
+msgid "Couldn't Mute Conversation: %s"
+msgstr ""
+
+#. translators: toast shown when unmuting a post
+#: src/Widgets/Status.vala:499
+#, c-format
+msgid "Couldn't Unmute Conversation: %s"
+msgstr ""
+
+#: src/Widgets/Status.vala:538 src/Widgets/Status.vala:559
+#, c-format
+msgid "Couldn't translate: %s"
+msgstr "अनुवाद नहीं हो सका: %s"
+
+#. translators: Tooltip text for avatars in posts.
+#. The variable is a string user handle.
+#: src/Widgets/Status.vala:702
+#, c-format
+msgid "Open %s's Mini Profile"
+msgstr ""
+
+#. translators: Unpin post from profile
+#: src/Widgets/Status.vala:754
+msgid "Unpin"
+msgstr "पिन ना करें"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#: src/Widgets/Status.vala:767
+msgid "Filtered post"
+msgstr "फिल्टर की गई पोस्ट"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The first variable is the post's visibility (e.g. public).
+#. The second one is the author's name and the third
+#. one is the author's handle.
+#: src/Widgets/Status.vala:783
+#, c-format
+msgid "%s post by %s (%s)."
+msgstr "%s पोस्ट %s (%s) द्वारा।"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#: src/Widgets/Status.vala:807
+msgid "The post is pinned."
+msgstr "पोस्ट पिन कर दी गई है।"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#: src/Widgets/Status.vala:815
+msgid "Contains a quoted post."
+msgstr "इसमें एक उद्धृत पोस्ट शामिल है।"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is the number of attachments the post has.
+#: src/Widgets/Status.vala:825
+#, c-format
+msgid "Contains %d attachment."
+msgid_plural "Contains %d attachments."
+msgstr[0] "%d अनुलग्नक शामिल है।"
+msgstr[1] "इसमें %d अनुलग्नक हैं।"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#: src/Widgets/Status.vala:836
+msgid "Contains an expired poll."
+msgstr "इसमें एक समाप्त सर्वेक्षण शामिल है।"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#: src/Widgets/Status.vala:840
+msgid "Contains a poll."
+msgstr "इसमें एक सर्वेक्षण शामिल है।"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#: src/Widgets/Status.vala:849
+msgid "The post has a spoiler."
+msgstr "इस पोस्ट में एक स्पॉइलर है।"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is the spoiler title.
+#: src/Widgets/Status.vala:855
+#, c-format
+msgid "The post has the following spoiler: %s."
+msgstr "पोस्ट में निम्नलिखित स्पॉइलर है: %s।"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is the name of the app the post was
+#. made with (e.g. Tuba).
+#: src/Widgets/Status.vala:866
+#, c-format
+msgid "Posted using %s."
+msgstr "%s का उपयोग करके पोस्ट किया गया।"
+
+#: src/Widgets/Status.vala:891
+#, c-format
+msgid "%s reply"
+msgid_plural "%s replies"
+msgstr[0] "%s जवाब"
+msgstr[1] "%s जवाब"
+
+#: src/Widgets/Status.vala:896
+#, c-format
+msgid "%s boost"
+msgid_plural "%s boosts"
+msgstr[0] "%s बूस्ट"
+msgstr[1] "%s बूस्ट"
+
+#: src/Widgets/Status.vala:901
+#, c-format
+msgid "%s favorite"
+msgid_plural "%s favorites"
+msgstr[0] "%s पसंदीदा"
+msgstr[1] "%s पसंदीदा"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. This is used to announce the quoted post
+#: src/Widgets/Status.vala:937
+msgid "Quoted Post"
+msgstr "उद्धृत पोस्ट"
+
+#: src/Widgets/Status.vala:958
+#, c-format
+msgid "Filtered: %s"
+msgstr "फिल्टर किया गया: %s"
+
+#: src/Widgets/Status.vala:960
+msgid "Filtered"
+msgstr "फिल्टर किया गया"
+
+#. translatiors: the first variable is a language name,
+#. the second variable is a service name e.g. DeepL
+#: src/Widgets/Status.vala:1096
+#, c-format
+msgid "Translated from %s using %s"
+msgstr "%2$s का उपयोग करके %1$s से अनुवादित"
+
+#. translatiors: the variable is a service name e.g. DeepL
+#: src/Widgets/Status.vala:1099
+#, c-format
+msgid "Translated using %s"
+msgstr "%s का उपयोग करके अनुवादित"
+
+#. translators: tooltip of poll button that hides the current vote results
+#: src/Widgets/VoteBox.vala:95
+msgid "Hide Results"
+msgstr ""
+
+#. translators: tooltip of poll button that shows the current vote results
+#: src/Widgets/VoteBox.vala:99
+msgid "Show Results"
+msgstr ""
+
+#: src/Widgets/VoteBox.vala:138 src/Widgets/VoteBox.vala:165
+msgid "Voted"
+msgstr "मतदान किया"
+
+#. translators: the variable is the amount of people that voted
+#: src/Widgets/VoteBox.vala:191
+#, c-format
+msgid "%s voted"
+msgid_plural "%s voted"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. The variable is the amount of poll options
+#: src/Widgets/VoteBox.vala:214
+#, c-format
+msgid "Poll with %d option."
+msgid_plural "Poll with %d options."
+msgstr[0] "%d विकल्प के साथ सर्वेक्षण।"
+msgstr[1] "%d विकल्पों के साथ सर्वेक्षण।"
+
+#. translators: This is an accessibility label.
+#. Screen reader users are going to hear this a lot,
+#. please be mindful.
+#. Describes whether the user has voted on the poll.
+#: src/Widgets/VoteBox.vala:223
+msgid "You have voted."
+msgstr "आपने मतदान कर दिया है।"
+
+#~ msgid "Remove Members"
+#~ msgstr "सदस्यों को हटाएं"
+
+#, c-format
+#~ msgid ""
+#~ "You have blocked %s, removing %s of your followers and %s accounts you "
+#~ "follow."
+#~ msgstr ""
+#~ "आपने %s को अवरुद्ध कर दिया है, अपने %s अनुयायियों को तथा आपके द्वारा अनुसरण किए जाने "
+#~ "वाले %s खातों को हटा दिया है।"
+
+#, c-format
+#~ msgid ""
+#~ "An admin has blocked %s, including %s of your followers and %s accounts "
+#~ "you follow."
+#~ msgstr ""
+#~ "किसी व्यवस्थापक ने %s को अवरुद्ध कर दिया है, जिसमें आपके %s अनुयायियों और आपके द्वारा "
+#~ "अनुसरण किए जाने वाले %s खाते भी शामिल हैं।"
+
+#~ msgid "Include Replies"
+#~ msgstr "उत्तर शामिल करें"
+
+#~ msgid "Include Media"
+#~ msgstr "मीडिया शामिल करें"
+
+#~ msgid "Are you sure you want to mark this report as resolved?"
+#~ msgstr "क्या आप वाकई इस रिपोर्ट को समाधानित के रूप में चिह्नित करना चाहते हैं?"
+
+#~ msgid "Are you sure you want to reopen this report?"
+#~ msgstr "क्या आप वाकई इस रिपोर्ट को पुनः खोलना चाहते हैं?"
+
+#~ msgid "Are you sure you want to proceed?"
+#~ msgstr "क्या आप सुनिश्चित रूप से आगे बढ़ना चाहते हैं?"
+
+#~ msgid "Edit Alt Text"
+#~ msgstr "वैकल्पिक पाठ संपादित करें"
+
+#~ msgid "Alternative text for attachment"
+#~ msgstr "अनुलग्नक के लिए वैकल्पिक पाठ"
+
+#~ msgid "Are you sure you want to exit?"
+#~ msgstr "क्या आप वाकई बाहर निकलना चाहते हैं?"
+
+#~ msgid "Are you sure you want to clear all notifications?"
+#~ msgstr "क्या आप वाकई सभी अधिसूचनाएं साफ़ करना चाहते हैं?"
+
+#, c-format
+#~ msgid "Are you sure you want to delete %s?"
+#~ msgstr "क्या आप वाकई %s को मिटाना चाहते हैं?"
+
+#~ msgid "Are you sure you want to submit?"
+#~ msgstr "क्या आप वाकई जमा करना चाहते हैं?"
+
+#~ msgid "expires on %b %-e, %Y %H:%m"
+#~ msgstr "%b %-e, %Y %H:%m पर समाप्त होगा"
+
+#~ msgid "%b %-e, %Y %H:%m"
+#~ msgstr "%-e %b, %Y %H:%m"
+
+#~ msgid "Are you sure you want to undo this action?"
+#~ msgstr "क्या आप वाकई इस कार्रवाई को पूर्ववत करना चाहते हैं?"
+
+#, c-format
+#~ msgid "Are you sure you want to approve %s?"
+#~ msgstr "क्या आप वाकई %s को स्वीकारना चाहते हैं?"
+
+#, c-format
+#~ msgid "Are you sure you want to reject %s?"
+#~ msgstr "क्या आप वाकई %s को अस्वीकारना चाहते हैं?"
+
+#, c-format
+#~ msgid "Are you sure you want to block %s?"
+#~ msgstr "क्या आप वाकई %s को अवरुद्ध करना चाहते हैं?"
+
+#, c-format
+#~ msgid "Are you sure you want to allow federation with %s?"
+#~ msgstr "क्या आप वाकई %s के साथ फेडरेशन की अनुमति देना चाहते हैं?"
+
+#, c-format
+#~ msgid "Are you sure you want to unblock %s?"
+#~ msgstr "क्या आप वाकई %s को अनअवरुद्ध करना चाहते हैं?"
+
+#, c-format
+#~ msgid "Are you sure you want to no longer federate with %s?"
+#~ msgstr "क्या आप वाकई %s के साथ फ़ेडरेट नहीं होना चाहते?"
+
+#~ msgid "Enter Query"
+#~ msgstr "क्वेरी दर्ज करें"
+
+#~ msgid "Are you sure you want to delete this post?"
+#~ msgstr "क्या आप वाकई यह पोस्ट मिटाना चाहते हैं?"
+
+#, c-format
+#~ msgid "%lld voted"
+#~ msgstr "%lld ने मतदान किया"
+
+#, c-format
+#~ msgid "%d Minutes"
+#~ msgstr "%d मिनट"
+
+#, c-format
+#~ msgid "%d Hours"
+#~ msgstr "%d घंटे"
+
+#, c-format
+#~ msgid "%d Days"
+#~ msgstr "%d दिन"
+
+#~ msgid "1 Week"
+#~ msgstr "1 सप्ताह"
+
+#, c-format
+#~ msgid "%s Posts"
+#~ msgstr "%s पोस्ट"
+
+#, c-format
+#~ msgid "%s Followers"
+#~ msgstr "%s अनुयायी"

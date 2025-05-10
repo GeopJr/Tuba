@@ -3,6 +3,9 @@
   <requires lib="gtk" version="4.0" />
   <!-- <template class="TubaWidgetsStatus" parent="AdwBin"> -->
   <template class="TubaWidgetsStatus" parent="GtkListBoxRow">
+    <accessibility>
+      <relation name="described-by">content</relation>
+    </accessibility>
     <property name="child">
       <object class="GtkStack" id="filter_stack">
         <property name="vhomogeneous">0</property>
@@ -34,18 +37,6 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImage" id="thread_line_top">
-                        <property name="visible">0</property>
-                        <property name="width_request">4</property>
-                        <property name="halign">center</property>
-                        <property name="pixel-size">4</property>
-                        <style>
-                          <class name="ttl-thread-line" />
-                          <class name="top" />
-                        </style>
-                      </object>
-                    </child>
-                    <child>
                       <object class="GtkOverlay" id="avatar_overlay">
                         <property name="margin_top">3</property>
                         <child type="overlay">
@@ -54,22 +45,10 @@
                             <property name="size">48</property>
                             <property name="valign">start</property>
                             <property name="visible">true</property>
-                            <signal name="clicked" handler="on_avatar_clicked" swapped="no" />
+                            <property name="allow-mini-profile">1</property>
+                            <signal name="mini-clicked" handler="on_avatar_clicked" swapped="no" />
                           </object>
                         </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImage" id="thread_line_bottom">
-                        <property name="visible">0</property>
-                        <property name="width_request">4</property>
-                        <property name="vexpand">1</property>
-                        <property name="halign">center</property>
-                        <property name="pixel-size">4</property>
-                        <style>
-                          <class name="ttl-thread-line" />
-                          <class name="bottom" />
-                        </style>
                       </object>
                     </child>
                   </object>
@@ -81,6 +60,7 @@
                       <object class="GtkButton" id="header_button">
                         <property name="visible">0</property>
                         <property name="halign">start</property>
+                        <property name="valign">center</property>
                         <child>
                           <object class="TubaWidgetsRichLabel" id="header_label">
                             <property name="use_markup">0</property>
@@ -103,54 +83,45 @@
                         <property name="spacing">6</property>
                         <property name="valign">start</property>
                         <child>
-                          <object class="GtkFlowBox" id="name_flowbox">
-                            <property name="selection-mode">none</property>
-                            <property name="column_spacing">6</property>
-                            <!-- <property name="margin-bottom">6</property> -->
-                            <!-- Lower values leave space between items -->
-                            <property name="max_children_per_line">100</property>
+                          <object class="AdwWrapBox" id="name_wrapbox">
+                            <property name="child-spacing">6</property>
+                            <property name="align">0</property>
+                            <property name="halign">start</property>
+                            <property name="valign">center</property>
                             <child>
-                              <object class="GtkFlowBoxChild">
-                                <property name="focusable">0</property>
+                              <object class="GtkButton" id="name_button">
+                                <accessibility>
+                                  <relation name="described-by">avatar</relation>
+                                </accessibility>
                                 <child>
-                                  <object class="GtkButton" id="name_button">
-                                    <property name="halign">start</property>
-                                    <property name="valign">center</property>
-                                    <child>
-                                      <object class="TubaWidgetsRichLabel" id="name_label">
-                                        <property name="visible">True</property>
-                                        <property name="smaller-emoji-pixel-size">True</property>
-                                        <property name="use-markup">1</property>
-                                        <style>
-                                          <class name="font-bold" />
-                                        </style>
-                                      </object>
-                                    </child>
+                                  <object class="TubaWidgetsRichLabel" id="name_label">
+                                    <property name="visible">True</property>
+                                    <property name="smaller-emoji-pixel-size">True</property>
+                                    <property name="use-markup">1</property>
                                     <style>
-                                      <class name="flat" />
-                                      <class name="ttl-name-button" />
+                                      <class name="font-bold" />
                                     </style>
                                   </object>
                                 </child>
+                                <style>
+                                  <class name="flat" />
+                                  <class name="ttl-name-button" />
+                                </style>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkFlowBoxChild">
+                              <object class="GtkLabel" id="handle_label">
                                 <property name="can-target">0</property>
-                                <child>
-                                  <object class="GtkLabel" id="handle_label">
-                                    <property name="label" translatable="no">Handle</property>
-                                    <property name="single_line_mode">1</property>
-                                    <property name="xalign">0</property>
-                                    <property name="hexpand">1</property>
-                                    <property name="wrap">1</property>
-                                    <property name="wrap-mode">word-char</property>
-                                    <style>
-                                      <class name="body" />
-                                      <class name="dim-label" />
-                                    </style>
-                                  </object>
-                                </child>
+                                <property name="label" translatable="no">Handle</property>
+                                <property name="single_line_mode">1</property>
+                                <property name="xalign">0</property>
+                                <property name="hexpand">1</property>
+                                <property name="wrap">1</property>
+                                <property name="wrap-mode">word-char</property>
+                                <style>
+                                  <class name="body" />
+                                  <class name="dim-label" />
+                                </style>
                               </object>
                             </child>
                           </object>
@@ -207,6 +178,7 @@
                               <object class="GtkMenuButton" id="menu_button">
                                 <property name="icon-name">view-more-horizontal-symbolic</property>
                                 <property name="visible">0</property>
+                                <property name="tooltip-text" translatable="yes">Menu</property>
                                 <style>
                                   <class name="flat" />
                                   <class name="circular" />
@@ -288,6 +260,8 @@
                                             <property name="label">Spoiler Text Here</property>
                                             <property name="wrap">1</property>
                                             <property name="wrap-mode">word-char</property>
+                                            <property name="hexpand">1</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                         </child>
                                       </object>
@@ -307,10 +281,33 @@
                                     <property name="orientation">vertical</property>
                                     <property name="spacing">6</property>
                                     <child>
-                                      <object class="TubaWidgetsMarkupView" id="content">
-                                        <property name="visible">True</property>
-                                        <property name="hexpand">False</property>
-                                      </object>
+									  <object class="GtkOverlay">
+									  	<child type="overlay">
+											<object class="GtkButton">
+												<!-- translators: as in 'Expand collapsed post'. It's a button label. -->
+                                        		<property name="label" translatable="yes">Expand</property>
+                                        		<property name="halign">center</property>
+                                        		<property name="valign">end</property>
+												<property name="visible" bind-source="fade_bin" bind-property="faded" bind-flags="sync-create" />
+												<signal name="clicked" handler="on_fade_reveal" swapped="no" />
+                                        		<style>
+                                        		  <class name="pill" />
+                                        		  <class name="osd" />
+                                        		</style>
+                                     		</object>
+									  	</child>
+									  	<property name="child">
+									  		<object class="TubaWidgetsFadeBin" id="fade_bin">
+									    <property name="child">
+                                          <object class="TubaWidgetsMarkupView" id="content">
+                                            <property name="visible">True</property>
+                                            <property name="hexpand">False</property>
+                                            <property name="extract-last-tags">True</property>
+                                          </object>
+									    </property>
+									  		</object>
+										</property>
+									  </object>
                                     </child>
                                   </object>
                                 </property>

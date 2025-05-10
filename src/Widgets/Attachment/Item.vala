@@ -13,17 +13,16 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	protected Gtk.Overlay overlay;
 	protected Gtk.Button button;
 	protected Gtk.Button alt_btn;
-	protected Gtk.Box badge_box;
 	protected ulong alt_btn_clicked_id;
 	public Tuba.Attachment.MediaType media_kind { get; protected set; }
 
 	private void copy_url () {
-		Host.copy (entity.url);
+		Utils.Host.copy (entity.url);
 		app.toast (_("Copied attachment url to clipboard"));
 	}
 
 	private void open_in_browser () {
-		Host.open_uri (entity.url);
+		Utils.Host.open_url.begin (entity.url);
 	}
 
 	private void save_as () {
@@ -90,7 +89,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		add_css_class ("flat");
 
 		button = new Gtk.Button () {
-			css_classes = { "frame" },
+			css_classes = { "frame", "no-padding" },
 			overflow = Gtk.Overflow.HIDDEN
 		};
 		button.clicked.connect (on_click);
@@ -98,34 +97,28 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		create_context_menu ();
 		gesture_click_controller = new Gtk.GestureClick ();
 		gesture_lp_controller = new Gtk.GestureLongPress ();
-        add_controller (gesture_click_controller);
-        add_controller (gesture_lp_controller);
+		add_controller (gesture_click_controller);
+		add_controller (gesture_lp_controller);
 		gesture_click_controller.button = Gdk.BUTTON_SECONDARY;
 		gesture_lp_controller.button = Gdk.BUTTON_PRIMARY;
 		gesture_lp_controller.touch_only = true;
-        gesture_click_controller.pressed.connect (on_secondary_click);
-        gesture_lp_controller.pressed.connect (on_long_press);
-
-		badge_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 1) {
-			valign = Gtk.Align.END,
-			halign = Gtk.Align.START,
-			css_classes = { "linked", "ttl-status-badge" }
-		};
+		gesture_click_controller.pressed.connect (on_secondary_click);
+		gesture_lp_controller.pressed.connect (on_long_press);
 
 		alt_btn = new Gtk.Button.with_label ("ALT") {
 			tooltip_text = _("View Alt Text"),
-			css_classes = { "heading", "flat" }
+			css_classes = { "heading", "flat" },
+			valign = Gtk.Align.END,
+			halign = Gtk.Align.START,
+			css_classes = { "ttl-status-badge" }
 		};
-
 		alt_btn_clicked_id = alt_btn.clicked.connect (on_alt_text_btn_clicked);
-
-		badge_box.append (alt_btn);
 
 		overlay = new Gtk.Overlay () {
 			css_classes = { "attachment" }
 		};
 		overlay.child = button;
-		overlay.add_overlay (badge_box);
+		overlay.add_overlay (alt_btn);
 
 		child = overlay;
 	}
@@ -136,34 +129,34 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 
 	private void on_alt_text_btn_clicked () {
 		if (entity != null && entity.description != null)
-			create_alt_text_dialog (entity.description, true);
+			create_alt_text_dialog (entity.tuba_translated_alt_text == null ? entity.description : entity.tuba_translated_alt_text, true);
 	}
 
 	protected Adw.Dialog create_alt_text_dialog (string alt_text, bool show = false) {
-		var alt_label = new Gtk.Label (alt_text) {
-			wrap = true
+		var alt_label = new Gtk.TextView () {
+			bottom_margin = 6,
+			top_margin = 6,
+			left_margin = 12,
+			right_margin = 12,
+			wrap_mode = Gtk.WrapMode.WORD_CHAR,
+			editable = false
 		};
-
-		var clamp = new Adw.Clamp () {
-			child = alt_label,
-			tightening_threshold = 100,
-			valign = Gtk.Align.START
-		};
+		alt_label.remove_css_class ("view");
+		alt_label.buffer.text = alt_text.strip ();
 
 		var scrolledwindow = new Gtk.ScrolledWindow () {
-			child = clamp,
+			child = alt_label,
 			vexpand = true,
-			hexpand = true,
-			margin_bottom = 6,
-			margin_top = 6
+			hexpand = true
 		};
 
 		var toolbar_view = new Adw.ToolbarView ();
-		var headerbar = new Adw.HeaderBar () {
-			centering_policy = Adw.CenteringPolicy.STRICT
-		};
+		var headerbar = new Adw.HeaderBar ();
 		var window = new Adw.Dialog () {
-			title = _("Alternative text for attachment"),
+			//  translators: Alternative Text refers to text that describes
+			//				 an attachment when using screen readers or the
+			//				 image hasn't loaded. Also known as 'alt text'
+			title = _("Alternative Text"),
 			child = toolbar_view,
 			content_width = 400,
 			content_height = 300
@@ -173,7 +166,6 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 		toolbar_view.set_content (scrolledwindow);
 
 		if (show) window.present (app.main_window);
-		alt_label.selectable = true;
 
 		return window;
 	}
@@ -233,7 +225,7 @@ public class Tuba.Widgets.Attachment.Item : Adw.Bin {
 	}
 
 	protected async void open () throws Error {
-		var path = yield Host.download (entity.url);
-		Host.open_uri (path);
+		var path = yield Utils.Host.download (entity.url);
+		Utils.Host.open_url.begin (path);
 	}
 }

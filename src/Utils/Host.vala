@@ -1,29 +1,51 @@
-public class Tuba.Host {
-
+public class Tuba.Utils.Host {
 	// Open a URI in the user's default application
-	public static bool open_uri (string _uri) {
+	public async static bool open_url (string _uri) {
 		var uri = _uri;
-		if (!(":" in uri))
+		if (!("://" in uri))
 			uri = "file://" + _uri;
 
 		if (settings.strip_tracking)
-			uri = Tracking.strip_utm (uri);
-		debug (@"Opening URI: $uri");
+			uri = Utils.Tracking.strip_utm (uri);
+
+		return yield open_in_default_app (uri);
+	}
+
+	// To avoid creating multiple Uri instances,
+	// split opening into two wrappers, one for
+	// strings and one for GLib.Uri
+	public async static bool open_uri (Uri uri) {
+		string url;
 		try {
-			var success = AppInfo.launch_default_for_uri (uri, null);
-			if (!success)
-				throw new Oopsie.USER ("launch_default_for_uri() failed");
+			url = Utils.Tracking.strip_utm_from_uri (uri).to_string ();
+		} catch (Error e) {
+			warning (@"Error while stripping tracking params: $(e.message)");
+			url = uri.to_string ();
 		}
-		catch (Error e) {
-			var launcher = new Gtk.UriLauncher (uri);
-			launcher.launch.begin (app.active_window, null, (obj, res) => {
-				try {
-					launcher.launch.end (res);
-				} catch (Error e) {
-					warning (@"Error opening uri \"$uri\": $(e.message)");
-				}
-			});
+		return yield open_in_default_app (url);
+	}
+
+	private async static bool open_in_default_app (string uri) {
+		debug (@"Opening URI: $uri");
+
+		try {
+			yield (new Gtk.UriLauncher (uri)).launch (app.active_window, null);
+		} catch (Error e) {
+			warning (@"Error opening uri \"$uri\": $(e.message)");
+			return yield open_in_default_app_using_dbus (uri);
 		}
+
+		return true;
+	}
+
+	private async static bool open_in_default_app_using_dbus (string uri) {
+		try {
+			yield AppInfo.launch_default_for_uri_async (uri, null, null);
+		} catch (Error e) {
+			warning (@"Error opening using launch_default_for_uri \"$uri\": $(e.message)");
+			return false;
+		}
+
 		return true;
 	}
 

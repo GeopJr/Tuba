@@ -1,6 +1,5 @@
 name: Feature Request
 description: Suggest an idea for this app
-title: "[Request]: "
 labels: enhancement
 body:
 - type: textarea
@@ -11,8 +10,7 @@ body:
     required: true
 - type: checkboxes
   attributes:
-    label: Implementation Details
-    description: How should this feature be implemented?
+    label: Checks
     options:
       - label: This follows the [GNOME HIG](https://developer.gnome.org/hig/).
         required: true

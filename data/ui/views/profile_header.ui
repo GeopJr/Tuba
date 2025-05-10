@@ -1,171 +1,251 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk" version="4.0" />
-  <template class="TubaWidgetsCover" parent="GtkBox">
-    <property name="orientation">vertical</property>
+	<requires lib="gtk" version="4.0" />
+	<template class="TubaWidgetsCover" parent="GtkBox">
+		<property name="orientation">vertical</property>
+		<child>
+			<object class="GtkListBox" id="info">
+				<property name="selection_mode">none</property>
+				<property name="activate_on_single_click">0</property>
+				<style>
+					<class name="content" />
+					<class name="uniform-border-color" />
+				</style>
+				<child>
 
-    <child>
-      <object class="GtkListBox" id="info">
-        <property name="selection_mode">none</property>
-        <property name="activate_on_single_click">0</property>
-        <style>
-          <class name="content" />
-        </style>
-        <child>
+					<object class="GtkListBoxRow" id="info_row">
+						<property name="activatable">false</property>
+						<child>
+							<object class="GtkGrid">
+								<property name="row_homogeneous">0</property>
+								<accessibility>
+									<relation name="described-by">note</relation>
+								</accessibility>
+								<child>
+									<object class="GtkOverlay">
+										<child type="overlay">
+											<object class="GtkBox" id="cover_badge_box">
+												<property name="halign">end</property>
+												<property name="valign">start</property>
+												<property name="margin-bottom">48</property>
+												<property name="spacing">6</property>
+												<property name="visible">0</property>
+												<child>
+													<object class="GtkImage" id="cover_bot_badge">
+														<property name="icon-name">tuba-brain-augemnted-symbolic</property>
+														<!-- translators: Tooltip on icon indicating that the user is a bot/automated account -->
+														<property name="tooltip-text" translatable="yes">Bot</property>
+														<property name="visible">0</property>
+													</object>
+												</child>
+												<child>
+													<object class="GtkLabel" id="cover_badge">
+														<property name="xalign">0</property>
+														<property name="visible">0</property>
+													</object>
+												</child>
+												<style>
+													<class name="linked" />
+													<class name="heading" />
+													<class name="osd" />
+													<class name="cover-badge" />
+													<class name="only-icon" />
+												</style>
+											</object>
+										</child>
+										<child type="overlay">
+											<object class="GtkImage" id="supporter_icon">
+												<property name="valign">start</property>
+												<property name="halign">start</property>
+												<property name="visible">0</property>
+												<!-- translators: Tooltip text shown on an icon that indicates -->
+												<!-- 			  that the user is either a financial supporter -->
+												<!-- 			  or contributor to Tuba -->
+												<property name="tooltip-text" translatable="yes">Tuba Supporter</property>
+												<property name="icon-name">tuba-heart-filled-symbolic</property>
+												<style>
+													<class name="osd" />
+													<class name="cover-badge" />
+													<class name="only-icon" />
+												</style>
+											</object>
+										</child>
+										<property name="child">
+											<object class="TubaWidgetsBackground" id="background">
+												<accessibility>
+													<relation name="labelled-by">background</relation>
+													<relation name="described-by">cover_badge</relation>
+												</accessibility>
+												<property name="hexpand">1</property>
+												<property name="vexpand">1</property>
+												<property name="height-request">224</property>
+												<property name="margin-bottom">50</property>
+												<!-- translators: tooltip text on profile covers. -->
+												<!--              You can replace 'Cover' with 'Background' if needed. -->
+												<property name="tooltip-text" translatable="yes">View Cover</property>
+											</object>
+										</property>
+									</object>
+								</child>
+								<child>
+									<object class="TubaWidgetsAvatar" id="avatar">
+										<property name="halign">start</property>
+										<property name="valign">end</property>
+										<property name="margin-start">12</property>
+										<property name="margin-end">12</property>
+										<property name="size">100</property>
+										<!-- translators: tooltip text on profile avatars. -->
+										<!--              You can replace 'Avatar' with 'Profile Picture' if needed. -->
+										<property name="tooltip-text" translatable="yes">View Avatar</property>
+										<style>
+											<class name="main-avi" />
+										</style>
+										<layout>
+											<property name="column">0</property>
+											<property name="row">0</property>
+											<property name="row-span">1</property>
+										</layout>
+									</object>
+								</child>
+								<child>
+									<object class="TubaWidgetsRelationshipButton" id="rsbtn">
+										<property name="halign">end</property>
+										<property name="valign">end</property>
+										<property name="margin-start">12</property>
+										<property name="margin-end">12</property>
+										<property name="visible">0</property>
+										<layout>
+											<property name="column">0</property>
+											<property name="row">0</property>
+											<property name="row-span">1</property>
+										</layout>
+									</object>
+								</child>
+								<child>
+									<object class="GtkBox">
+										<property name="margin_top">6</property>
+										<property name="margin_bottom">12</property>
+										<property name="margin_start">12</property>
+										<property name="margin_end">12</property>
+										<property name="orientation">vertical</property>
+										<property name="spacing">6</property>
+										<child>
+											<object class="TubaWidgetsEmojiLabel" id="display_name">
+												<!-- <property name="label">Unknown</property> -->
+												<style>
+													<class name="title-3" />
+												</style>
+											</object>
+										</child>
+										<child>
+											<object class="GtkLabel" id="handle">
+												<property name="label">@unknown@no.where</property>
+												<property name="xalign">0</property>
+												<style>
+													<class name="dim-label" />
+												</style>
+											</object>
+										</child>
 
-          <object class="GtkListBoxRow">
-            <property name="activatable">false</property>
-            <child>
+										<child>
+											<object class="AdwWrapBox" id="roles">
+												<property name="visible">0</property>
+												<property name="child-spacing">6</property>
+												<property name="line-spacing">6</property>
+											</object>
+										</child>
 
-              <object class="GtkGrid">
-                <property name="row_homogeneous">0</property>
-                <child>
-                  <object class="GtkOverlay">
-                    <child type="overlay">
-                      <object class="GtkBox" id="cover_badge_box">
-                        <property name="halign">end</property>
-                        <property name="valign">start</property>
-                        <property name="margin-bottom">48</property>
-                        <property name="spacing">6</property>
-                        <property name="visible">0</property>
-                        <child>
-                          <object class="GtkImage" id="cover_bot_badge">
-                            <property name="icon-name">tuba-brain-augemnted-symbolic</property>
-                            <!-- translators: Tooltip on icon indicating that the user is a bot/automated account -->
-                            <property name="tooltip-text" translatable="yes">Bot</property>
-                            <property name="visible">0</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="cover_badge">
-                            <property name="label">Follows you</property>
-                            <property name="xalign">0</property>
-                            <property name="visible">0</property>
-                          </object>
-                        </child>
-                        <style>
-                          <class name="linked" />
-                          <class name="badge" />
-                          <class name="heading" />
-                          <class name="osd" />
-                          <class name="cover-badge" />
-                          <class name="only-icon" />
-                        </style>
-                      </object>
-                    </child>
-                    <property name="child">
-                      <object class="TubaWidgetsBackground" id="background">
-                        <property name="hexpand">1</property>
-                        <property name="vexpand">1</property>
-                        <property name="height-request">224</property>
-                        <property name="margin-bottom">50</property>
-                      </object>
-                    </property>
-                  </object>
-                </child>
-                <child>
-                  <object class="TubaWidgetsAvatar" id="avatar">
-                    <property name="halign">start</property>
-                    <property name="valign">end</property>
-                    <property name="margin-start">12</property>
-                    <property name="margin-end">12</property>
-                    <property name="size">100</property>
-                    <layout>
-                      <property name="column">0</property>
-                      <property name="row">0</property>
-                      <property name="row-span">1</property>
-                    </layout>
-                  </object>
-                </child>
-                <child>
-                  <object class="TubaWidgetsRelationshipButton" id="rsbtn">
-                    <property name="halign">end</property>
-                    <property name="valign">end</property>
-                    <property name="margin-start">12</property>
-                    <property name="margin-end">12</property>
-                    <property name="visible">0</property>
-                    <layout>
-                      <property name="column">0</property>
-                      <property name="row">0</property>
-                      <property name="row-span">1</property>
-                    </layout>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkBox">
-                    <property name="margin_top">6</property>
-                    <property name="margin_bottom">12</property>
-                    <property name="margin_start">12</property>
-                    <property name="margin_end">12</property>
-                    <property name="orientation">vertical</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="TubaWidgetsEmojiLabel" id="display_name">
-                        <!-- <property name="label">Unknown</property> -->
-                        <style>
-                          <class name="title-3" />
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="handle">
-                        <property name="label">@unknown@no.where</property>
-                        <property name="xalign">0</property>
-                        <style>
-                          <class name="dim-label" />
-                        </style>
-                      </object>
-                    </child>
+										<child>
+											<object class="GtkButton" id="moved_btn">
+												<property name="visible">0</property>
+												<property name="tooltip-text" translatable="yes">Open Profile</property>
+												<style>
+													<class name="warning" />
+												</style>
+											</object>
+										</child>
 
-                    <child>
-                      <object class="GtkFlowBox" id="roles">
-                        <property name="visible">0</property>
-                        <property name="selection-mode">none</property>
-                        <property name="column_spacing">6</property>
-                        <property name="row_spacing">6</property>
-                        <!-- Lower values leave space between items -->
-                        <property name="max_children_per_line">100</property>
-                      </object>
-                    </child>
+										<child>
+											<object class="TubaWidgetsMarkupView" id="note">
+												<property name="margin_top">6</property>
+											</object>
+										</child>
 
-                    <child>
-                      <object class="TubaWidgetsMarkupView" id="note">
-                        <property name="margin_top">6</property>
-                      </object>
-                    </child>
-                    <layout>
-                      <property name="column">0</property>
-                      <property name="row">4</property>
-                      <property name="row-span">1</property>
-                      <property name="column-span">2</property>
-                    </layout>
-                  </object>
-                </child>
-              </object>
+										<child>
+											<object class="GtkMenuButton" id="mutuals_button">
+												<property name="margin_top">6</property>
+												<property name="visible">0</property>
+												<property name="halign">start</property>
+												<property name="direction">none</property>
+												<!-- translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person -->
+												<property name="tooltip-text" translatable="yes">View All Followers You Know</property>
+												<style>
+													<class name="flat" />
+													<class name="ttl-mutuals" />
+												</style>
+											</object>
+										</child>
+										<layout>
+											<property name="column">0</property>
+											<property name="row">4</property>
+											<property name="row-span">1</property>
+											<property name="column-span">2</property>
+										</layout>
+									</object>
+								</child>
+							</object>
 
-            </child>
-          </object>
-        </child>
+						</child>
+					</object>
+				</child>
+				<child>
+					<object class="GtkListBoxRow" id="note_row">
+						<property name="activatable">false</property>
+						<property name="visible">0</property>
+						<child>
+							<object class="GtkBox">
+								<property name="orientation">vertical</property>
+								<child>
+									<object class="AdwEntryRow" id="note_entry_row">
+										<property name="input-purpose">free-form</property>
+										<property name="title" translatable="yes">Note</property>
+										<signal name="apply" handler="on_note_apply" swapped="no" />
+									</object>
+								</child>
+								<child>
+									<object class="GtkLabel" id="note_error">
+										<property name="visible">0</property>
+										<property name="wrap">1</property>
+										<property name="wrap-mode">word-char</property>
+										<style>
+											<class name="error" />
+										</style>
+									</object>
+								</child>
+							</object>
+						</child>
+					</object>
+				</child>
 
-        <!-- <child> -->
-        <!--   <object class="GtkListBoxRow"> -->
-        <!--     <child> -->
-        <!--       <object class="GtkListBox" id="field_list"> -->
-        <!--         <style> -->
-        <!--           <class name="content"/> -->
-        <!--         </style> -->
-        <!--       </object> -->
-        <!--     </child> -->
-        <!--   </object> -->
-        <!-- </child> -->
+				<!-- <child> -->
+				<!--   <object class="GtkListBoxRow"> -->
+				<!--     <child> -->
+				<!--       <object class="GtkListBox" id="field_list"> -->
+				<!--         <style> -->
+				<!--           <class name="content"/> -->
+				<!--         </style> -->
+				<!--       </object> -->
+				<!--     </child> -->
+				<!--   </object> -->
+				<!-- </child> -->
 
 
-      </object>
-    </child>
+			</object>
+		</child>
 
-    <style>
-      <class name="ttl-profile-cover" />
-    </style>
+		<style>
+			<class name="ttl-profile-cover" />
+		</style>
 
-  </template>
+	</template>
 </interface>

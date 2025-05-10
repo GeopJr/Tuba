@@ -15,7 +15,6 @@
         <property name="bottom-bar-style">flat</property>
         <child type="top">
           <object class="AdwHeaderBar" id="header">
-            <property name="centering-policy">strict</property>
           </object>
         </child>
 
@@ -33,6 +32,7 @@
                 <property name="child">
                   <object class="GtkButton" id="scroll_to_top">
                     <property name="icon-name">go-top-symbolic</property>
+                    <property name="tooltip-text">Scroll to Top</property>
                     <style>
                       <class name="circular" />
                       <class name="osd" />
@@ -123,7 +123,7 @@
                                           <object class="GtkStackPage">
                                             <property name="name">spinner</property>
                                             <property name="child">
-                                              <object class="GtkSpinner" id="status_spinner">
+                                              <object class="AdwSpinner" id="status_spinner">
                                                 <property name="height_request">32</property>
                                                 <property name="valign">center</property>
                                               </object>
@@ -167,6 +167,7 @@
                             <property name="tightening_threshold">670</property>
                             <style>
                               <class name="ttl-view" />
+                              <class name="large-view" />
                             </style>
                           </object>
                         </property>

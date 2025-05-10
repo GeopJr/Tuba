@@ -5,12 +5,16 @@ public class Tuba.Widgets.Background : Gtk.Button {
 		set { background.paintable = value; }
 	}
 
+	public string? alternative_text {
+		get { return background.alternative_text; }
+		set { background.alternative_text = value; }
+	}
+
 	construct {
 		background = new Gtk.Picture () {
 			content_fit = Gtk.ContentFit.COVER,
-			css_classes = { "header-image" }
 		};
 		child = background;
-		css_classes = { "flat", "image-button", "ttl-flat-button" };
+		css_classes = { "flat", "image-button", "ttl-flat-button", "header-image" };
 	}
 }

@@ -1,7 +1,7 @@
 // Ported from Chatty
 // https://source.puri.sm/Librem5/chatty/-/merge_requests/1229
 
-public class Tuba.Tracking {
+public class Tuba.Utils.Tracking {
 	/* https://github.com/brave/brave-core/blob/5fcad3e35bac6fea795941fd8189a59d79d488bc/browser/net/brave_site_hacks_network_delegate_helper.cc#L29-L67 */
 	public const string[] TRACKING_IDS = {
 		// Strip any utm_ based ones
@@ -60,19 +60,22 @@ public class Tuba.Tracking {
 	public static Uri strip_utm_from_uri (Uri uri) throws Error {
 		string[] res_params = {};
 
-		var iter = UriParamsIter (uri.get_query ());
-		string key;
-		string val;
-		while (iter.next (out key, out val)) {
-			var not_tracking_id = true;
-			foreach (var id in TRACKING_IDS) {
-				if (id in key.down ()) {
-					not_tracking_id = false;
-					break;
+		string? query = uri.get_query ();
+		if (query != null) {
+			var iter = UriParamsIter (query);
+			string key;
+			string val;
+			while (iter.next (out key, out val)) {
+				var not_tracking_id = true;
+				foreach (var id in TRACKING_IDS) {
+					if (id in key.down ()) {
+						not_tracking_id = false;
+						break;
+					}
 				}
-			}
 
-			if (not_tracking_id) res_params += @"$key=$val";
+				if (not_tracking_id) res_params += @"$key=$val";
+			}
 		}
 
 		string? res_query = res_params.length > 0 ? string.joinv ("&", res_params) : null;

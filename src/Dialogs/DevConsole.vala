@@ -24,7 +24,8 @@ public class Tuba.Dialogs.Dev : Adw.PreferencesDialog {
 		new WindowSize (1200, 675),
 		new WindowSize (1600, 900),
 		new WindowSize (360, 654),
-		new WindowSize (720, 360)
+		new WindowSize (720, 360),
+		new WindowSize (1000, 700)
 	};
 
 	construct {
@@ -116,9 +117,16 @@ public class Tuba.Dialogs.Dev : Adw.PreferencesDialog {
 		};
 		profile_entry_row.apply.connect (() => open_account (profile_entry_row.text));
 
+		var annual_report_entry_row = new Adw.EntryRow () {
+			title = "View an Annual Report from JSON",
+			show_apply_button = true
+		};
+		annual_report_entry_row.apply.connect (() => view_annual_report (annual_report_entry_row.text));
+
 		json_group.add (status_entry_row);
 		json_group.add (notification_entry_row);
 		json_group.add (profile_entry_row);
+		json_group.add (annual_report_entry_row);
 		general_settings.add (json_group);
 
 		this.add (general_settings);
@@ -132,6 +140,14 @@ public class Tuba.Dialogs.Dev : Adw.PreferencesDialog {
 		API.Account acc = (API.Account) Entity.from_json (typeof (API.Account), parser.steal_root ());
 
 		app.main_window.open_view (new Views.Profile (acc));
+	}
+
+	private void view_annual_report (string? json) {
+		if (json == null || json.length == 0) return;
+
+		var parser = new Json.Parser ();
+		parser.load_from_data (json, -1);
+		API.AnnualReports.from (parser.steal_root ()).open ();
 	}
 
 	private void new_notification (string? json) {

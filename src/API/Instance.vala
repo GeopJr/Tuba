@@ -16,6 +16,9 @@ public class Tuba.API.Instance : Entity {
 	public API.Pleroma.Instance? pleroma { get; set; default = null; }
 	public Gee.ArrayList<Rule>? rules { get; set; }
 
+	public bool tuba_can_translate { get; set; default=false; }
+	public API.InstanceV2.APIVersions tuba_api_versions { get; set; default= new API.InstanceV2.APIVersions (); }
+
 	public override Type deserialize_array_type (string prop) {
 		switch (prop) {
 			case "languages":
@@ -37,13 +40,27 @@ public class Tuba.API.Instance : Entity {
 		}
 	}
 
+	public bool supports_bubble {
+		get {
+			if (pleroma != null && pleroma.metadata != null && pleroma.metadata.features != null) {
+				return "bubble_timeline" in pleroma.metadata.features;
+			} else if (tuba_api_versions.chuckya > 0) {
+				return true;
+			}
+
+			return false;
+		}
+	}
+
 	public string[]? compat_supported_mime_types {
 		get {
 			if (pleroma != null && pleroma.metadata != null) {
 				return pleroma.metadata.post_formats;
+			} else if (configuration == null || configuration.statuses == null) {
+				return null;
 			}
 
-			return configuration?.statuses?.supported_mime_types;
+			return configuration.statuses.supported_mime_types;
 		}
 	}
 
@@ -178,6 +195,16 @@ public class Tuba.API.Instance : Entity {
 			}
 
 			return 2629746;
+		}
+	}
+
+	public int64 compat_status_reactions_max {
+		get {
+			if (configuration != null && configuration.reactions != null) {
+				return configuration.reactions.max_reactions;
+			}
+
+			return 0;
 		}
 	}
 

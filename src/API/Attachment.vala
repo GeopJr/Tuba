@@ -1,15 +1,26 @@
 public class Tuba.API.Attachment : Entity, Widgetizable {
+	public class Meta : Entity {
+		public class Focus : Entity {
+			public float x { get; set; }
+			public float y { get; set; }
+		}
+
+		public Focus? focus { get; set; }
+	}
 
 	public string id { get; set; }
 	public string kind { get; set; default = "unknown"; }
 	public string url { get; set; }
 	public string? description { get; set; }
+	public Meta? meta { get; set; }
 	public string? blurhash { get; set; default=null; }
 	private string? t_preview_url { get; set; }
 	public string? preview_url {
 		set { this.t_preview_url = value; }
 		get { return (this.t_preview_url == null || this.t_preview_url == "") ? url : t_preview_url; }
 	}
+	public string? tuba_translated_alt_text { get; set; default = null; }
+	public bool tuba_is_report { get; set; default = false; }
 
 	public File? source_file { get; set; }
 
@@ -25,23 +36,30 @@ public class Tuba.API.Attachment : Entity, Widgetizable {
 	//  	};
 	//  }
 
-	public static async Attachment upload (string uri) throws Error {
-		debug (@"Uploading new media: $(uri)…");
+	public static async Attachment upload (string? uri, Bytes? bytes, string? mime_type) throws Error {
+		assert_true (uri != null || (bytes != null && mime_type != null));
 
-		uint8[] contents;
+		Bytes buffer;
 		string mime;
-		GLib.FileInfo type;
-		try {
-			GLib.File file = File.new_for_uri (uri);
-			file.load_contents (null, out contents, null);
-			type = file.query_info (GLib.FileAttribute.STANDARD_CONTENT_TYPE, 0);
-			mime = type.get_content_type ();
-		}
-		catch (Error e) {
-			throw new Oopsie.USER ("Can't open file %s:\n%s".printf (uri, e.message));
+
+		if (uri != null) {
+			debug (@"Uploading new media: $(uri)…");
+			uint8[] contents;
+			try {
+				GLib.File file = File.new_for_uri (uri);
+				file.load_contents (null, out contents, null);
+				GLib.FileInfo type = file.query_info (GLib.FileAttribute.STANDARD_CONTENT_TYPE, 0);
+				mime = type.get_content_type ();
+			} catch (Error e) {
+				throw new Oopsie.USER ("Can't open file %s:\n%s".printf (uri, e.message));
+			}
+
+			buffer = new Bytes.take (contents);
+		} else {
+			buffer = bytes;
+			mime = mime_type;
 		}
 
-		var buffer = new Bytes.take (contents);
 		var multipart = new Soup.Multipart (Soup.FORM_MIME_TYPE_MULTIPART);
 		multipart.append_form_file ("file", mime.replace ("/", "."), mime, buffer);
 		var url = @"$(accounts.active.instance)/api/v1/media";

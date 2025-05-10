@@ -2,9 +2,9 @@
 
 public class Tuba.Attachment {
 	public enum MediaType {
-        IMAGE,
-        VIDEO,
-        GIFV,
+		IMAGE,
+		VIDEO,
+		GIFV,
 		AUDIO,
 		UNKNOWN;
 
@@ -28,7 +28,7 @@ public class Tuba.Attachment {
 			}
 		}
 
-        public string to_string () {
+		public string to_string () {
 			switch (this) {
 				case IMAGE:
 					return "IMAGE";
@@ -58,7 +58,7 @@ public class Tuba.Attachment {
 					return UNKNOWN;
 			}
 		}
-    }
+	}
 }
 
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/views/media_viewer.ui")]
@@ -70,13 +70,14 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	public class Item : Adw.Bin {
 		private Gtk.Stack stack;
 		private Gtk.Overlay overlay;
-		private Gtk.Spinner spinner;
+		private Adw.Spinner spinner;
 		private Gtk.ScrolledWindow scroller;
 		public signal void zoom_changed ();
 
 		private bool is_done = false;
 		public Gtk.Widget child_widget { get; private set; }
 		public bool is_video { get; private set; default=false; }
+		public bool is_audio { get; private set; default=false; }
 		public string url { get; private set; }
 		public double last_x { get; set; default=0.0; }
 		public double last_y { get; set; default=0.0; }
@@ -84,14 +85,45 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		private bool pre_playing = false;
 		public bool playing {
 			get {
+				#if GSTREAMER
+					if (is_audio) return ((Widgets.Audio.Player) child_widget).playing;
+				#endif
 				if (!is_video) return false;
-				return is_done ? ((Gtk.Video) child_widget).media_stream.playing : pre_playing;
+				if (!is_done) return pre_playing;
+				#if CLAPPER
+					switch (((ClapperGtk.Video) child_widget).player.state) {
+						case Clapper.PlayerState.PAUSED:
+						case Clapper.PlayerState.STOPPED:
+							return false;
+						default:
+							return true;
+					}
+				#else
+					return ((Gtk.Video) child_widget).media_stream.playing;
+				#endif
 			}
 
 			set {
+				#if GSTREAMER
+					if (is_audio) {
+						((Widgets.Audio.Player) child_widget).playing = value;
+						return;
+					};
+				#endif
+
 				if (!is_video) return;
 				if (is_done) {
-					((Gtk.Video) child_widget).media_stream.playing = value;
+					#if CLAPPER
+						Clapper.Player player = ((ClapperGtk.Video) child_widget).player;
+
+						if (value) {
+							player.play ();
+						} else if (player.state > Clapper.PlayerState.STOPPED) {
+							player.pause ();
+						}
+					#else
+						((Gtk.Video) child_widget).media_stream.playing = value;
+					#endif
 				} else {
 					pre_playing = value;
 				}
@@ -100,7 +132,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		public bool can_zoom_in {
 			get {
-				if (is_video) return false;
+				if (is_video || is_audio) return false;
 				return scroller.hadjustment.upper < scroller.hadjustment.page_size * MAX_ZOOM
 				&& scroller.vadjustment.upper < scroller.vadjustment.page_size * MAX_ZOOM;
 			}
@@ -108,7 +140,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		public bool can_zoom_out {
 			get {
-				if (is_video) return false;
+				if (is_video || is_audio) return false;
 
 				// If either horizontal or vertical scrollbar is visible,
 				// you should also be able to zoom out
@@ -136,7 +168,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		public void zoom (double zoom_level, int? old_width = null, int? old_height = null) {
 			// Don't zoom on video
-			if (is_video) return;
+			if (is_video || is_audio) return;
 			if ((zoom_level > 1.0 && !can_zoom_in) || (zoom_level < 1.0 && !can_zoom_out && settings.media_viewer_expand_pictures) || zoom_level == 1.0) return;
 
 			var new_width = (old_width ?? child_width) * zoom_level;
@@ -170,6 +202,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			zoom (0.5);
 		}
 
+		uint spinner_timeout = 0;
 		construct {
 			hexpand = true;
 			vexpand = true;
@@ -179,8 +212,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				vexpand = true,
 				hexpand = true
 			};
-			spinner = new Gtk.Spinner () {
-				spinning = true,
+			spinner = new Adw.Spinner () {
 				halign = Gtk.Align.CENTER,
 				valign = Gtk.Align.CENTER,
 				vexpand = true,
@@ -190,19 +222,28 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 				css_classes = { "osd", "circular-spinner" }
 			};
 
-			overlay.add_overlay (spinner);
+			spinner_timeout = GLib.Timeout.add_once (1000, add_spinner_to_overlay);
 			stack.add_named (overlay, "spinner");
 			this.child = stack;
+		}
+
+		private void add_spinner_to_overlay () {
+			spinner_timeout = 0;
+			if (is_done) return;
+
+			overlay.add_overlay (spinner);
 		}
 
 		public Item (
 			Gtk.Widget child,
 			string t_url,
 			Gdk.Paintable? paintable,
-			bool t_is_video = false
+			bool t_is_video = false,
+			bool t_is_audio = false
 		) {
 			this.child_widget = child;
 			this.is_video = t_is_video;
+			this.is_audio = t_is_audio;
 
 			stack.add_named (setup_scrolledwindow (child), "child");
 			this.url = t_url;
@@ -213,11 +254,25 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		~Item () {
 			debug ("Destroying MediaViewer.Item");
 
-			if (is_video) {
-				last_used_volume = ((Gtk.Video) child_widget).media_stream.muted ? 0.0 : ((Gtk.Video) child_widget).media_stream.volume;
-				((Gtk.Video) child_widget).media_stream.stream_unprepared ();
-				((Gtk.Video) child_widget).set_file (null);
-				((Gtk.Video) child_widget).set_media_stream (null);
+			if (spinner_timeout > 0) GLib.Source.remove (spinner_timeout);
+
+			if (is_audio) {
+				#if GSTREAMER
+					Widgets.Audio.Player child_wdgt = (Widgets.Audio.Player) child_widget;
+					last_used_volume = child_wdgt.muted ? 0.0 : child_wdgt.volume;
+				#endif
+			} else if (is_video) {
+				#if CLAPPER
+					ClapperGtk.Video child_wdgt = (ClapperGtk.Video) child_widget;
+					last_used_volume = child_wdgt.player.mute ? 0.0 : child_wdgt.player.volume;
+					child_wdgt.player.queue.clear ();
+				#else
+					Gtk.Video child_wdgt = (Gtk.Video) child_widget;
+					last_used_volume = child_wdgt.media_stream.muted ? 0.0 : child_wdgt.media_stream.volume;
+					child_wdgt.media_stream.stream_unprepared ();
+					child_wdgt.set_file (null);
+					child_wdgt.set_media_stream (null);
+				#endif
 			} else {
 				((Gtk.Picture) child_widget).paintable = null;
 			}
@@ -228,15 +283,48 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		public void done () {
 			if (is_done) return;
 
-			spinner.spinning = false;
 			stack.visible_child_name = "child";
+
 			if (is_video) {
-				((Gtk.Video) child_widget).media_stream.volume = 1.0 - last_used_volume;
-				((Gtk.Video) child_widget).media_stream.volume = last_used_volume;
-				((Gtk.Video) child_widget).media_stream.playing = pre_playing;
-			};
+				#if CLAPPER
+					Clapper.Player player = ((ClapperGtk.Video) child_widget).player;
+
+					if (pre_playing) {
+						player.play ();
+					} else if (player.state > Clapper.PlayerState.STOPPED) {
+						player.pause ();
+					}
+
+					player.volume = last_used_volume;
+					player.notify["volume"].connect (on_manual_volume_change_video);
+				#else
+					((Gtk.Video) child_widget).media_stream.volume = 1.0 - last_used_volume;
+					((Gtk.Video) child_widget).media_stream.volume = last_used_volume;
+					((Gtk.Video) child_widget).media_stream.playing = pre_playing;
+					((Gtk.Video) child_widget).media_stream.notify["volume"].connect (on_manual_volume_change_video);
+				#endif
+			} else if (is_audio) {
+				#if GSTREAMER
+					((Widgets.Audio.Player) child_widget).notify["volume"].connect (on_manual_volume_change_audio);
+				#endif
+			}
 			is_done = true;
 		}
+
+		private void on_manual_volume_change_video () {
+			settings.media_viewer_last_used_volume =
+			#if CLAPPER
+				((ClapperGtk.Video) child_widget).player.volume;
+			#else
+				((Gtk.Video) child_widget).media_stream.volume;
+			#endif
+		}
+
+		#if GSTREAMER
+			private void on_manual_volume_change_audio () {
+				settings.media_viewer_last_used_volume = ((Widgets.Audio.Player) child_widget).volume;
+			}
+		#endif
 
 		private bool on_scroll (Gtk.EventControllerScroll scroll, double dx, double dy) {
 			var state = scroll.get_current_event_state () & Gdk.MODIFIER_MASK;
@@ -253,7 +341,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		private Gtk.Widget setup_scrolledwindow (Gtk.Widget child) {
 			// Videos shouldn't have a scrolledwindow
-			if (is_video) return child;
+			if (is_video || is_audio) return child;
 
 			scroller = new Gtk.ScrolledWindow () {
 				hexpand = true,
@@ -265,7 +353,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			scroller.vadjustment.changed.connect (emit_zoom_changed);
 			scroller.hadjustment.changed.connect (emit_zoom_changed);
 
-			var scroll = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.VERTICAL | Gtk.EventControllerScrollFlags.DISCRETE);
+			var scroll = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.BOTH_AXES | Gtk.EventControllerScrollFlags.DISCRETE);
 			scroll.scroll.connect (on_scroll);
 			scroller.add_controller (scroll);
 
@@ -287,12 +375,14 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			if (value) {
 				app.main_window.fullscreen ();
 				fullscreen_btn.icon_name = "view-restore-symbolic";
-				_fullscreen = true;
 			} else {
 				app.main_window.unfullscreen ();
 				fullscreen_btn.icon_name = "view-fullscreen-symbolic";
-				_fullscreen = false;
 			}
+
+			_fullscreen =
+			toggle_fs_revealer.visible = value;
+			headerbar.visible = !value;
 		}
 		get { return app.main_window.fullscreened; }
 	}
@@ -315,6 +405,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	[GtkChild] unowned Gtk.Button fullscreen_btn;
 	[GtkChild] unowned Adw.HeaderBar headerbar;
 	[GtkChild] unowned Gtk.Button back_btn;
+	[GtkChild] unowned Gtk.Revealer toggle_fs_revealer;
 
 	[GtkChild] unowned Gtk.Revealer page_buttons_revealer;
 	[GtkChild] unowned Gtk.Button prev_btn;
@@ -331,11 +422,42 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		set {
 			headerbar.opacity =
 			page_buttons_revealer.opacity =
+			toggle_fs_revealer.opacity =
 			zoom_buttons_revealer.opacity = value;
 		}
 	}
 
+	static construct {
+		typeof (Widgets.ScaleRevealer).ensure ();
+	}
+
+	#if CLAPPER
+		string clapper_cache_dir;
+		Gee.HashMap<string, string> clapper_cached_urls;
+	#endif
 	construct {
+		#if CLAPPER
+			clapper_cached_urls = new Gee.HashMap<string, string> ();
+			clapper_cache_dir = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "clapper");
+			var dir = File.new_for_path (clapper_cache_dir);
+			if (!dir.query_exists ()) {
+				try {
+					dir.make_directory_with_parents ();
+				} catch (Error e) {
+					critical (@"Couldn't create Clapper cache dir: $(e.message)");
+				}
+			}
+
+			clapper_cache_cleanup (true);
+			app.shutdown.connect (() => clapper_cache_cleanup (true));
+
+			// Clapper can have > 1.0 volumes
+			last_used_volume = settings.media_viewer_last_used_volume;
+		#else
+			last_used_volume = settings.media_viewer_last_used_volume.clamp (0.0, 1.0);
+			app.shutdown.connect (cache_cleanup);
+		#endif
+
 		if (is_rtl) back_btn.icon_name = "tuba-right-large-symbolic";
 
 		var shortcutscontroller = new Gtk.ShortcutController ();
@@ -404,6 +526,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			Gtk.ShortcutTrigger.parse_string ("<Ctrl><Shift>KP_Subtract"),
 			new Gtk.NamedAction ("mediaviewer.zoom-out")
 		));
+		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
+			Gtk.ShortcutTrigger.parse_string ("<Ctrl>C"),
+			new Gtk.NamedAction ("mediaviewer.copy-media")
+		));
 
 		shortcutscontroller.add_shortcut (new Gtk.Shortcut (
 			Gtk.ShortcutTrigger.parse_string ("Left"),
@@ -433,7 +559,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		var gesture = new Gtk.GestureZoom ();
 		gesture.scale_changed.connect (on_scale_changed);
 		gesture.end.connect (on_scale_end);
-		add_controller (gesture);
+		carousel.add_controller (gesture);
 
 		var motion = new Gtk.EventControllerMotion ();
 		motion.motion.connect (on_motion);
@@ -455,13 +581,18 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		context_menu.set_parent (this);
 
 		setup_mouse_previous_click ();
-		setup_double_click ();
+		setup_mouse1_click ();
 		setup_mouse_secondary_click ();
 		setup_swipe_close ();
 	}
 	~MediaViewer () {
 		debug ("Destroying MediaViewer");
 		context_menu.unparent ();
+		#if CLAPPER
+			clapper_cache_cleanup (true);
+			clapper_cached_urls.clear ();
+			clapper_cached_locations.clear ();
+		#endif
 	}
 
 	private void on_visible_toggle () {
@@ -509,6 +640,24 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 	private void on_swipe_animation_end () {
 		this.swipe_children_opacity = 1.0;
+	}
+
+	public override void measure (
+		Gtk.Orientation orientation,
+		int for_size,
+		out int minimum,
+		out int natural,
+		out int minimum_baseline,
+		out int natural_baseline
+	) {
+		this.scale_revealer.measure (
+			orientation,
+			for_size,
+			out minimum,
+			out natural,
+			out minimum_baseline,
+			out natural_baseline
+		);
 	}
 
 	public override void size_allocate (int width, int height, int baseline) {
@@ -614,7 +763,13 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		old_width = null;
 	}
 
+	double on_motion_last_x = 0.0;
+	double on_motion_last_y = 0.0;
 	protected void on_motion (double x, double y) {
+		if (on_motion_last_x == x && on_motion_last_y == y) return;
+		on_motion_last_x = x;
+		on_motion_last_y = y;
+
 		on_reveal_media_buttons ();
 	}
 
@@ -622,14 +777,16 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	protected void on_reveal_media_buttons () {
 		page_buttons_revealer.set_reveal_child (true);
 		zoom_buttons_revealer.set_reveal_child (true);
+		toggle_fs_revealer.set_reveal_child (true);
 
 		if (revealer_timeout > 0) GLib.Source.remove (revealer_timeout);
-		revealer_timeout = Timeout.add (5 * 1000, on_hide_media_buttons, Priority.LOW);
+		revealer_timeout = Timeout.add (3 * 1000, on_hide_media_buttons, Priority.LOW);
 	}
 
 	protected bool on_hide_media_buttons () {
 		page_buttons_revealer.set_reveal_child (false);
 		zoom_buttons_revealer.set_reveal_child (false);
+		toggle_fs_revealer.set_reveal_child (false);
 		revealer_timeout = 0;
 
 		return GLib.Source.REMOVE;
@@ -654,6 +811,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		if (!revealed) reset_media_viewer ();
 		scale_revealer.reveal_child = false;
 		load_and_scroll_to = -1;
+		old_pos = -1;
 	}
 
 	[GtkCallback]
@@ -665,7 +823,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		Item? page = safe_get ((int) carousel.position);
 		if (page == null) return;
 
-		Host.copy (page.url);
+		Utils.Host.copy (page.url);
 		app.toast (_("Copied media url to clipboard"));
 	}
 
@@ -673,7 +831,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		Item? page = safe_get ((int) carousel.position);
 		if (page == null) return;
 
-		Host.open_uri (page.url);
+		Utils.Host.open_url.begin (page.url);
 	}
 
 	private void save_as () {
@@ -736,11 +894,11 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		add_controller (gesture);
 	}
 
-	private void setup_double_click () {
+	private void setup_mouse1_click () {
 		var gesture = new Gtk.GestureClick () {
 			button = 1
 		};
-		gesture.pressed.connect (on_double_click);
+		gesture.pressed.connect (on_mouse1_click);
 		add_controller (gesture);
 	}
 
@@ -762,13 +920,18 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		clear ();
 	}
 
-	private void on_double_click (int n_press, double x, double y) {
-		if (n_press != 2) return;
+	private void on_mouse1_click (int n_press, double x, double y) {
+		switch (n_press) {
+			case 1:
+				on_reveal_media_buttons ();
+				break;
+			case 2:
+				Item? page = safe_get ((int) carousel.position);
+				if (page == null) break;
 
-		Item? page = safe_get ((int) carousel.position);
-		if (page == null) return;
-
-		page.on_double_click ();
+				page.on_double_click ();
+				break;
+		}
 	}
 
 	private void reset_media_viewer () {
@@ -784,6 +947,10 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		items.clear ();
 		revealed = false;
+
+		#if CLAPPER
+			clapper_cache_cleanup ();
+		#endif
 	}
 
 	private void update_revealer_widget (int pos = -1) {
@@ -793,7 +960,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	private async string download_video (string url) throws Error {
-		return yield Host.download (url);
+		return yield Utils.Host.download (url);
 	}
 
 	private bool revealed = false;
@@ -814,6 +981,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		bool as_is = false,
 		string? alt_text = null,
 		string? user_friendly_url = null,
+		string? blurhash = null,
 		bool stream = false,
 		Gtk.Widget? revealer_widget = null,
 		bool? load_and_scroll = null
@@ -824,30 +992,79 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		if (revealer_widget != null)
 			revealer_widgets.set (items.size, revealer_widget);
 
+		#if GSTREAMER
+			if (media_type == Attachment.MediaType.AUDIO) {
+				var audio_player = new Widgets.Audio.Player (preview as Gdk.Texture, blurhash) {
+					url = url
+				};
+
+				item = new Item (audio_player, final_friendly_url, final_preview, false, true);
+			} else
+		#endif
 		if (media_type.is_video ()) {
-			var video = new Gtk.Video ();
+			#if CLAPPER
+				var video = new ClapperGtk.Video () {
+					auto_inhibit = true
+				};
+
+				video.player.download_dir = clapper_cache_dir;
+				video.player.download_enabled = true;
+				video.player.download_complete.connect (on_clapper_download_complete);
+			#else
+				var video = new Gtk.Video () {
+					graphics_offload = Gtk.GraphicsOffloadEnabled.ENABLED
+				};
+			#endif
+
 			if (media_type == Tuba.Attachment.MediaType.GIFV) {
-				video.loop = true;
-				video.autoplay = true;
+				#if CLAPPER
+					video.player.queue.progression_mode = Clapper.QueueProgressionMode.REPEAT_ITEM;
+				#else
+					video.loop = true;
+				#endif
+			} else {
+				#if CLAPPER
+					#if CLAPPER_MPRIS
+						video.player.add_feature (new Clapper.Mpris (
+							@"org.mpris.MediaPlayer2.Tuba.instance$(items.size)",
+							Build.NAME,
+							Build.DOMAIN
+						));
+					#endif
+					video.add_fading_overlay (new ClapperGtk.SimpleControls () {
+						valign = Gtk.Align.END,
+						fullscreenable = false
+					});
+				#endif
 			}
 
 			item = new Item (video, final_friendly_url, final_preview, true);
 
-			if (stream) {
-				File file = File.new_for_uri (url);
-				video.set_file (file);
-			} else if (!as_is) {
-				download_video.begin (url, (obj, res) => {
-					try {
-						var path = download_video.end (res);
-						video.set_filename (path);
-						add_todo_item (item);
-					} catch (Error e) {
-						var dlg = app.inform (_("Error"), e.message);
-						dlg.present (app.main_window);
-					}
-				});
-			}
+			#if CLAPPER
+				Clapper.MediaItem clp_item;
+				clp_item = new Clapper.MediaItem.cached (url, clapper_cached_urls.get (url));
+
+				video.player.queue.add_item (clp_item);
+				video.player.queue.select_item (clp_item);
+				add_todo_item (item);
+			#else
+				if (stream) {
+					File file = File.new_for_uri (url);
+					video.set_file (file);
+					add_todo_item (item);
+				} else if (!as_is) {
+					download_video.begin (url, (obj, res) => {
+						try {
+							var path = download_video.end (res);
+							video.set_filename (path);
+							add_todo_item (item);
+						} catch (Error e) {
+							var dlg = app.inform (_("Error"), e.message);
+							dlg.present (app.main_window);
+						}
+					});
+				}
+			#endif
 		} else {
 			var picture = new Gtk.Picture ();
 
@@ -861,7 +1078,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 			if (alt_text != null) picture.alternative_text = alt_text;
 
 			if (!as_is) {
-				Tuba.Helper.Image.request_paintable (url, null, (data) => {
+				Tuba.Helper.Image.request_paintable (url, null, false, (data) => {
 					picture.paintable = data;
 					if (data != null)
 						add_todo_item (item);
@@ -878,6 +1095,78 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 
 		if (as_is || stream) add_todo_item (item);
 	}
+
+	#if CLAPPER
+		// libgee's hashmaps do not preserve insertion order.
+		// We need the order to know what we should cleanup
+		// (older items get cleaned up first).
+		Gee.ArrayList<string> clapper_cached_locations = new Gee.ArrayList<string> ();
+		private void on_clapper_download_complete (Clapper.MediaItem clp_media_item, string location) {
+			clapper_cached_urls.set (clp_media_item.uri, location);
+			clapper_cached_locations.add (location);
+		}
+
+		private void clapper_cache_cleanup (bool all = false) {
+			if (!all) {
+				int to_remove = clapper_cached_locations.size - 10;
+				if (to_remove > 0) {
+					var sliced = clapper_cached_locations.slice (0, to_remove);
+					clapper_cached_locations.remove_all (sliced);
+
+					clapper_cached_urls.foreach (e => {
+						if (!clapper_cached_locations.contains (e.value))
+							clapper_cached_urls.unset (e.key);
+
+						return true;
+					});
+				}
+			}
+
+			try {
+				Dir dir = Dir.open (clapper_cache_dir, 0);
+				string? name = null;
+
+				while ((name = dir.read_name ()) != null) {
+					string path = Path.build_filename (clapper_cache_dir, name);
+					if (!all && clapper_cached_locations.contains (path)) continue;
+
+					File file = File.new_for_path (path);
+					file.delete_async.begin (Priority.LOW, null, (obj, res) => {
+						try {
+							file.delete_async.end (res);
+						} catch (Error e) {
+							warning (@"Error while deleting Clapper's cache: $(e.message)");
+						}
+					});
+				}
+			} catch (FileError e) {
+				warning (@"Error while opening Clapper's cache: $(e.message)");
+			}
+		}
+	#else
+		private void cache_cleanup () {
+			string cache_dir = GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Tuba.cache_path, "manual", "media");
+			try {
+				Dir dir = Dir.open (cache_dir, 0);
+				string? name = null;
+
+				while ((name = dir.read_name ()) != null) {
+					string path = Path.build_filename (cache_dir, name);
+
+					File file = File.new_for_path (path);
+					file.delete_async.begin (Priority.LOW, null, (obj, res) => {
+						try {
+							file.delete_async.end (res);
+						} catch (Error e) {
+							warning (@"Error while deleting Host's cache: $(e.message)");
+						}
+					});
+				}
+			} catch (FileError e) {
+				warning (@"Error while opening Host's cache: $(e.message)");
+			}
+		}
+	#endif
 
 	private Gee.ArrayList<string> todo_items = new Gee.ArrayList<string> ();
 	private void add_todo_item (Item todo_item) {
@@ -910,32 +1199,36 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 	}
 
 	[GtkCallback]
-    private void on_previous_clicked () {
-        scroll_to (((int) carousel.position) - 1);
-    }
+	private void on_previous_clicked () {
+		scroll_to (((int) carousel.position) - 1);
+	}
 
 	[GtkCallback]
-    private void on_next_clicked () {
-        scroll_to (((int) carousel.position) + 1);
-    }
+	private void on_next_clicked () {
+		scroll_to (((int) carousel.position) + 1);
+	}
 
 	[GtkCallback]
-    private void on_zoom_out_clicked () {
-        Item? page = safe_get ((int) carousel.position);
+	private void on_zoom_out_clicked () {
+		Item? page = safe_get ((int) carousel.position);
 			if (page == null) return;
 
 			page.zoom_out ();
-    }
+	}
 
 	[GtkCallback]
-    private void on_zoom_in_clicked () {
-        Item? page = safe_get ((int) carousel.position);
+	private void on_zoom_in_clicked () {
+		Item? page = safe_get ((int) carousel.position);
 			if (page == null) return;
 
 			page.zoom_in ();
-    }
+	}
 
+	private uint old_pos = -1;
 	private void on_carousel_page_changed (uint pos) {
+		if (old_pos == pos) return;
+		old_pos = pos;
+
 		update_revealer_widget ((int) pos);
 
 		prev_btn.sensitive = pos > 0;
@@ -944,7 +1237,7 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		Item? page = safe_get ((int) pos);
 		// Media buttons overlap the video
 		// controller, so position them higher
-		if (page != null && page.is_video) {
+		if (page != null && (page.is_video || page.is_audio)) {
 			page_buttons_revealer.margin_bottom = zoom_buttons_revealer.margin_bottom = 68;
 			zoom_buttons_revealer.visible = false;
 			play_video ((int) pos);

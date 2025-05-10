@@ -1,49 +1,50 @@
 .ttl-status-action-star:hover,
 .ttl-status-action-star.enabled {
-	color: @yellow_1;
+	color: var(--yellow-1);
 }
 
 .ttl-status-action-star:active {
-	color: @yellow_2;
+	color: var(--yellow-2);
 }
 
 .ttl-status-action-reblog:hover,
 .ttl-status-action-reblog.enabled {
-	color: @purple_1;
+	color: var(--purple-1);
 }
 
 .ttl-status-action-reblog:active {
-	color: @purple_2;
+	color: var(--purple-2);
 }
 
 .ttl-status-action-reply:hover,
 .ttl-status-action-reply.enabled {
-	color: @green_1;
+	color: var(--green-1);
 }
 
 .ttl-status-action-reply:active {
-	color: @green_2;
+	color: var(--green-2);
 }
 
 .ttl-status-action-bookmark:hover,
 .ttl-status-action-bookmark.enabled {
-	color: @red_1;
+	color: var(--red-1);
 }
 
 .ttl-status-action-bookmark:active {
-	color: @red_2;
+	color: var(--red-2);
 }
 
-.ttl-status-badge.attachmentpageattachment>*.error {
-	background-color: alpha(mix(@red_4, black, .8), .8);
+.ttl-status-action-quote:hover,
+.ttl-status-action-quote.enabled {
+	color: var(--blue-1);
 }
 
-.ttl-status-badge.attachmentpageattachment>*.success {
-	background-color: alpha(mix(@green_4, black, .8), .8);
+.ttl-status-action-quote:active {
+	color: var(--blue-2);
 }
 
 .ttl-post.direct:hover {
-	background-color: lighter(alpha(@warning_bg_color, .1));
+	background-color: lighter(alpha(var(--warning-bg-color), .1));
 }
 
 .ttl-darken-images avatar:not(:hover), .ttl-darken-images picture:not(:hover) {

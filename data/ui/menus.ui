@@ -16,7 +16,7 @@
         <attribute name="label" translatable="yes">Direct Message</attribute>
         <attribute name="action">view.mention</attribute>
         <attribute name="target">direct</attribute>
-        <attribute name="verb-icon">mail-unread-symbolic</attribute>
+        <attribute name="verb-icon">tuba-mail-unread-symbolic</attribute>
       </item>
       <item>
         <attribute name="label" translatable="yes">Copy Handle</attribute>
@@ -65,39 +65,6 @@
 
     <section>
       <attribute name="label" translatable="yes">Timeline</attribute>
-      <submenu id="profile-filter-menu">
-        <attribute name="label" translatable="yes">Filter</attribute>
-        <!-- <item>
-          <attribute name="label" translatable="yes">Posts</attribute>
-          <attribute name="action">view.source</attribute>
-          <attribute name="target">statuses</attribute>
-        </item>
-        <item>
-          <attribute name="label" translatable="yes">Following</attribute>
-          <attribute name="action">view.source</attribute>
-          <attribute name="target">following</attribute>
-        </item>
-        <item>
-          <attribute name="label" translatable="yes">Followers</attribute>
-          <attribute name="action">view.source</attribute>
-          <attribute name="target">followers</attribute>
-        </item> -->
-
-        <!-- <section> -->
-          <item>
-            <attribute name="label" translatable="yes">Include Replies</attribute>
-            <attribute name="action">view.include-replies</attribute>
-            <attribute name="hidden-when">action-disabled</attribute>
-          </item>
-          <item>
-            <attribute name="label" translatable="yes">Include Media</attribute>
-            <attribute name="action">view.only-media</attribute>
-            <attribute name="hidden-when">action-disabled</attribute>
-          </item>
-        <!-- </section> -->
-
-      </submenu>
-
     <!-- <section> -->
       <!-- <submenu id="copy-menu">
         <attribute name="label" translatable="yes">Share</attribute>

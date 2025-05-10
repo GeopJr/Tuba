@@ -30,7 +30,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		"video/x-ms-asf"
 	};
 
-	private Gtk.Spinner spinner;
+	private Adw.Spinner spinner;
 	public GLib.ListStore attachments;
 	public Adw.ToastOverlay toast_overlay;
 	public bool media_sensitive { get; set; default = false; }
@@ -82,12 +82,12 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		context_menu.set_parent (this);
 
 		var dnd_controller = new Gtk.DropTarget (typeof (Gdk.FileList), Gdk.DragAction.COPY);
-        dnd_controller.drop.connect (on_drag_drop);
-        this.add_controller (dnd_controller);
+		dnd_controller.drop.connect (on_drag_drop);
+		this.add_controller (dnd_controller);
 
 		click_controller = new Gtk.GestureClick () {
-            button = Gdk.BUTTON_SECONDARY
-        };
+			button = Gdk.BUTTON_SECONDARY
+		};
 		click_controller.pressed.connect (on_click);
 		this.add_controller (click_controller);
 
@@ -188,22 +188,27 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			files_to_upload += file;
 		}
 
-		upload_files.begin (files_to_upload, (obj, res) => {
-			upload_files.end (res);
-		});
+		upload_files.begin (files_to_upload);
 
-        return true;
-    }
+		return true;
+	}
 
 	protected Adw.ViewStack stack;
 	protected Adw.StatusPage empty_state;
 	protected Gtk.ListBox list;
 	protected Gtk.Button add_media_action_button;
+	protected Gtk.ToggleButton sensitive_media_button;
 
 	public override void dispose () {
 		if (list != null)
 			list.bind_model (null, null);
 		base.dispose ();
+	}
+
+	public override void unbind_listboxes () {
+		if (list != null)
+			list.bind_model (null, null);
+		base.unbind_listboxes ();
 	}
 
 	public override void on_build () {
@@ -240,7 +245,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		};
 		add_media_action_button.clicked.connect (show_file_selector);
 
-		var sensitive_media_button = new Gtk.ToggleButton () {
+		sensitive_media_button = new Gtk.ToggleButton () {
 			icon_name = "tuba-eye-open-negative-filled-symbolic",
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
@@ -249,24 +254,8 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			css_classes = {"flat"},
 			active = status.sensitive
 		};
-		sensitive_media_button.bind_property (
-			"active",
-			this,
-			"media_sensitive",
-			GLib.BindingFlags.SYNC_CREATE,
-			(b, src, ref target) => {
-				var sensitive_media_button_active = src.get_boolean ();
-				target.set_boolean (sensitive_media_button_active);
-				sensitive_media_button.icon_name = sensitive_media_button_active
-					? "tuba-eye-not-looking-symbolic"
-					: "tuba-eye-open-negative-filled-symbolic";
-				sensitive_media_button.tooltip_text = sensitive_media_button_active
-					// translators: sensitive as in not safe for work or similar
-					? _("Unmark media as sensitive")
-					: _("Mark media as sensitive");
-				return true;
-			}
-		);
+		sensitive_media_button.toggled.connect (on_sensitive_media_button_toggle);
+		on_sensitive_media_button_toggle ();
 
 		bottom_bar.pack_start (add_media_action_button);
 		bottom_bar.pack_start (sensitive_media_button);
@@ -276,8 +265,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		stack.add_named (list, "list");
 		stack.add_named (empty_state, "empty");
 
-		spinner = new Gtk.Spinner () {
-			spinning = false,
+		spinner = new Adw.Spinner () {
 			halign = Gtk.Align.CENTER,
 			valign = Gtk.Align.CENTER,
 			vexpand = true,
@@ -299,6 +287,18 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		}
 
 		if (dialog != null) dialog.on_paste_activated.connect (on_paste_activated);
+	}
+
+	void on_sensitive_media_button_toggle () {
+		var sensitive_media_button_active = sensitive_media_button.active;
+		this.media_sensitive = sensitive_media_button_active;
+		sensitive_media_button.icon_name = sensitive_media_button_active
+			? "tuba-eye-not-looking-symbolic"
+			: "tuba-eye-open-negative-filled-symbolic";
+		sensitive_media_button.tooltip_text = sensitive_media_button_active
+			// translators: sensitive as in not safe for work or similar
+			? _("Unmark media as sensitive")
+			: _("Mark media as sensitive");
 	}
 
 	void on_paste_activated (string page_title) {
@@ -333,7 +333,6 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		var is_empty = attachments_size < 1;
 		if (is_empty || uploading) {
 			stack.visible_child_name = uploading ? "spinner" : "empty";
-			spinner.spinning = uploading;
 			bottom_bar.hide ();
 			can_publish = false;
 		} else {
@@ -355,6 +354,10 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			&& accounts.active.instance_info.configuration.media_attachments != null
 			&& accounts.active.instance_info.configuration.media_attachments.supported_mime_types != null
 			&& accounts.active.instance_info.configuration.media_attachments.supported_mime_types.size > 0
+			&& !(
+				accounts.active.instance_info.configuration.media_attachments.supported_mime_types.size == 1
+				&& accounts.active.instance_info.configuration.media_attachments.supported_mime_types[0] == "application/octet-stream"
+			)
 		) {
 			supported_mimes = accounts.active.instance_info.configuration.media_attachments.supported_mime_types;
 		}
@@ -384,9 +387,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 						files_to_upload += file;
 				}
 
-				upload_files.begin (files_to_upload, (obj, res) => {
-					upload_files.end (res);
-				});
+				upload_files.begin (files_to_upload);
 
 			} catch (Error e) {
 				// User dismissing the dialog also ends here so don't make it sound like
@@ -451,7 +452,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		var i = 0;
 		foreach (var file13 in files_for_upload) {
 			uploading = true;
-			API.Attachment.upload.begin (file13.get_uri (), (obj, res) => {
+			API.Attachment.upload.begin (file13.get_uri (), null, null, (obj, res) => {
 				try {
 					var attachment = API.Attachment.upload.end (res);
 					attachment.source_file = file13;
@@ -476,10 +477,20 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 		for (var i = 0; i < attachments.get_n_items (); i++) {
 			var attachment = attachments.get_item (i) as API.Attachment;
-			var attachment_page_attachment_alt = ((AttachmentsPageAttachment) list.get_row_at_index (i).child).alt_text;
+			var page_attachment = ((AttachmentsPageAttachment) list.get_row_at_index (i).child);
+			var attachment_page_attachment_alt = page_attachment.alt_text;
 
 			attachment.description = attachment_page_attachment_alt;
-			status.add_media (attachment.id, attachment.description);
+
+			string? focus = null;
+			if (attachment.meta != null && attachment.meta.focus != null) {
+				focus = "%s,%s".printf (
+					Utils.Units.float_to_2_point_string (page_attachment.pos_x),
+					Utils.Units.float_to_2_point_string (page_attachment.pos_y)
+				);
+			}
+
+			status.add_media (attachment.id, attachment.description, focus);
 			status.media_attachments.add (attachment);
 		}
 		status.sensitive = media_sensitive;

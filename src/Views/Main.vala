@@ -1,11 +1,13 @@
 public class Tuba.Views.Main : Views.TabbedBase {
+	Views.Notifications notification_view;
 	construct {
-        is_main = true;
+		is_main = true;
 
 		add_tab (new Views.Home ());
-		add_tab (new Views.Notifications ());
+		notification_view = new Views.Notifications ();
+		add_tab (notification_view);
 		add_tab (new Views.Conversations ());
-    }
+	}
 
 	public string visible_child_name {
 		get {
@@ -13,9 +15,18 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		}
 	}
 
+	protected override void change_tab_alt (int id) {
+		base.change_tab_alt (id);
+		app.main_window.set_sidebar_selected_item (id - 1);
+	}
+
+	private Gtk.Button notification_settings_button;
 	private Gtk.Button search_button;
 	protected override void on_view_switched () {
 		base.on_view_switched ();
+
+		bool is_notifications = (stack.visible_child as Views.Notifications) != null;
+		notification_settings_button.visible = is_notifications;
 	}
 
 	// Unused
@@ -58,9 +69,19 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		search_button.clicked.connect (open_search);
 		header.pack_end (search_button);
 
-		var sidebar_button = new Gtk.ToggleButton ();
+		notification_settings_button = new Gtk.Button.from_icon_name ("tuba-funnel-symbolic") {
+			css_classes = { "flat" },
+			tooltip_text = _("Filter"),
+			visible = false
+		};
+		notification_settings_button.clicked.connect (show_notification_settings);
+		header.pack_end (notification_settings_button);
+
+		var sidebar_button = new Gtk.ToggleButton () {
+			tooltip_text = _("Open Sidebar")
+		};
 		header.pack_start (sidebar_button);
-		sidebar_button.icon_name = "tuba-dock-left-symbolic";
+		sidebar_button.icon_name = is_rtl ? "tuba-dock-right-symbolic" : "tuba-dock-left-symbolic";
 
 		bind ();
 		ulong main_window_notify = 0;
@@ -91,5 +112,15 @@ public class Tuba.Views.Main : Views.TabbedBase {
 
 	void open_search () {
 		app.main_window.open_view (new Views.Search ());
+	}
+
+	void show_notification_settings () {
+		var notification_settings = new Dialogs.NotificationSettings ();
+		notification_settings.filters_changed.connect (on_filters_changed);
+		notification_settings.present (this);
+	}
+
+	void on_filters_changed () {
+		notification_view.filters_changed ();
 	}
 }
