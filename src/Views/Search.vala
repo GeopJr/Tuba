@@ -27,6 +27,11 @@ public class Tuba.Views.Search : Views.TabbedBase {
 			entry.changed.connect (on_entry_change);
 			entry.activate.connect (on_entry_activated);
 
+			var focus_controller = new Gtk.EventControllerFocus ();
+        	focus_controller.enter.connect (on_entry_focus_enter);
+        	focus_controller.leave.connect (on_entry_focus_leave);
+        	add_controller (focus_controller);
+
 			var advanced_search = new Gtk.Button.from_icon_name ("tuba-funnel-symbolic") {
 				tooltip_text = _("Advanced Search"),
 				css_classes = {"flat", "circular", "entry-button"},
@@ -53,6 +58,14 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 		public void gather_focus () {
 			entry.grab_focus ();
+		}
+
+		private void on_entry_focus_enter () {
+			app.disable_home_accel ();
+		}
+
+		private void on_entry_focus_leave () {
+			app.enable_home_accel ();
 		}
 
 		private void on_entry_activated () {

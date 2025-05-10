@@ -79,6 +79,7 @@ namespace Tuba {
 			{ "back-home", back_home_activated },
 			{ "scroll-page-down", scroll_view_page_down },
 			{ "scroll-page-up", scroll_view_page_up },
+			{ "scroll-page-to-top", scroll_view_page_to_top },
 			{ "goto-notifications", goto_notifications },
 			{ "open-status-url", open_status_url, "s" },
 			{ "answer-follow-request", answer_follow_request, "(ssb)" },
@@ -313,21 +314,8 @@ namespace Tuba {
 			var style_manager = Adw.StyleManager.get_default ();
 			ColorScheme color_scheme = (ColorScheme) settings.get_enum ("color-scheme");
 			style_manager.color_scheme = color_scheme.to_adwaita_scheme ();
-
-			#if DEV_MODE
-				set_accels_for_action ("app.dev-only-window", {"F2"});
-			#endif
-			set_accels_for_action ("app.about", {"F1"});
-			set_accels_for_action ("app.open-preferences", {"<Ctrl>comma"});
-			set_accels_for_action ("app.compose", {"<Ctrl>T", "<Ctrl>N"});
-			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>KP_Left"});
-			set_accels_for_action ("app.refresh", {"<Ctrl>R", "F5"});
-			set_accels_for_action ("app.search", {"<Ctrl>F"});
-			set_accels_for_action ("app.quit", {"<Ctrl>Q"});
-			set_accels_for_action ("window.close", {"<Ctrl>W"});
-			set_accels_for_action ("app.back-home", {"<Alt>Home"});
-			set_accels_for_action ("app.scroll-page-down", {"Page_Down"});
-			set_accels_for_action ("app.scroll-page-up", {"Page_Up"});
+			enable_window_accels ();
+			enable_nav_accels ();
 			add_action_entries (APP_ENTRIES, this);
 
 			if (settings.monitor_network)
@@ -339,6 +327,56 @@ namespace Tuba {
 
 			if (settings.analytics) app.update_analytics.begin ();
 			app.update_contributors.begin ();
+		}
+
+		public void enable_window_accels () {
+			#if DEV_MODE
+				set_accels_for_action ("app.dev-only-window", {"F2"});
+			#endif
+			set_accels_for_action ("app.about", {"F1"});
+			set_accels_for_action ("app.open-preferences", {"<Ctrl>comma"});
+			set_accels_for_action ("app.compose", {"<Ctrl>T", "<Ctrl>N"});
+			set_accels_for_action ("app.search", {"<Ctrl>F"});
+			set_accels_for_action ("app.quit", {"<Ctrl>Q"});
+			set_accels_for_action ("window.close", {"<Ctrl>W"});
+		}
+
+		public void disable_window_accels () {
+			#if DEV_MODE
+				set_accels_for_action ("app.dev-only-window", {});
+			#endif
+			set_accels_for_action ("app.about", {});
+			set_accels_for_action ("app.open-preferences", {});
+			set_accels_for_action ("app.compose", {});
+			set_accels_for_action ("app.search", {});
+			set_accels_for_action ("app.quit", {});
+			set_accels_for_action ("window.close", {});
+		}
+
+		public void enable_nav_accels () {
+			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>KP_Left"});
+			set_accels_for_action ("app.refresh", {"<Ctrl>R", "F5"});
+			set_accels_for_action ("app.back-home", {"<Alt>Home"});
+			set_accels_for_action ("app.scroll-page-down", {"Page_Down"});
+			set_accels_for_action ("app.scroll-page-up", {"Page_Up"});
+			set_accels_for_action ("app.scroll-page-to-top", {"Home"});
+		}
+
+		public void disable_nav_accels () {
+			set_accels_for_action ("app.back", {});
+			set_accels_for_action ("app.refresh", {});
+			set_accels_for_action ("app.back-home", {});
+			set_accels_for_action ("app.scroll-page-down", {});
+			set_accels_for_action ("app.scroll-page-up", {});
+			set_accels_for_action ("app.scroll-page-to-top", {});
+		}
+
+		public void enable_home_accel () {
+			set_accels_for_action ("app.scroll-page-to-top", {"Home"});
+		}
+
+		public void disable_home_accel () {
+			set_accels_for_action ("app.scroll-page-to-top", {});
 		}
 
 		private void on_proxy_change (bool recover = false) {
@@ -501,6 +539,10 @@ namespace Tuba {
 			main_window.go_back_to_start ();
 		}
 
+		void scroll_view_page_to_top () {
+			main_window.scroll_view_to_top ();
+		}
+
 		void scroll_view_page_down () {
 			main_window.scroll_view_page ();
 		}
@@ -653,6 +695,11 @@ namespace Tuba {
 			// Static functions seem to avoid this peculiar behavior.
 			//  dialog.translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : null;
 
+			app.disable_window_accels ();
+			app.disable_nav_accels ();
+
+			dialog.closed.connect (on_about_closed);
+
 			dialog.present (main_window);
 
 			GLib.Idle.add (() => {
@@ -661,6 +708,11 @@ namespace Tuba {
 					dialog.add_css_class (style);
 				return GLib.Source.REMOVE;
 			});
+		}
+
+		public void on_about_closed () {
+			app.enable_window_accels ();
+			app.enable_nav_accels ();
 		}
 
 		public Adw.AlertDialog inform (string text, string? msg = null) {

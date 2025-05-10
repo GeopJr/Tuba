@@ -206,6 +206,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		setup_notification_mutes ();
 		setup_filters ();
 		bind ();
+		app.disable_window_accels ();
+		app.disable_nav_accels ();
 		closed.connect (on_window_closed);
 	}
 
@@ -395,6 +397,9 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 		if (settings.analytics) app.update_analytics.begin ();
 		app.update_contributors.begin ();
+
+		app.enable_window_accels ();
+		app.enable_nav_accels ();
 	}
 
 	protected class AnalyticsDialog : Adw.Dialog {

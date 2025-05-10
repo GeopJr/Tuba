@@ -1,6 +1,9 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/profile_edit.ui")]
 public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 	~ProfileEdit () {
+		app.enable_window_accels ();
+		app.enable_nav_accels ();
+
 		debug (@"Destroying ProfileEdit for $(profile.handle)");
 	}
 
@@ -106,6 +109,10 @@ public class Tuba.Dialogs.ProfileEdit : Adw.Dialog {
 			cepbtn.visible = true;
 			bio_row.bind_property ("expanded", cepbtn, "sensitive", GLib.BindingFlags.SYNC_CREATE);
 		}
+
+		app.disable_window_accels ();
+		app.disable_nav_accels ();
+
 	}
 
 	protected void update_style_scheme () {

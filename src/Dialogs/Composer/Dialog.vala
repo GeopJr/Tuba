@@ -227,9 +227,15 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 
 		stack.notify["visible-child"].connect (on_view_switched);
 		this.close_attempt.connect (on_exit);
+
+		app.disable_window_accels ();
+		app.disable_nav_accels ();
 	}
 
 	~Compose () {
+		app.enable_window_accels ();
+		app.enable_nav_accels ();
+
 		debug ("Destroying composer");
 		t_pages = {};
 	}
