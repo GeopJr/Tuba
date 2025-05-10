@@ -300,7 +300,6 @@ namespace Tuba {
 				//  	maintenance_secs = 30
 				//  };
 				accounts = new SecretAccountStore ();
-				accounts.init ();
 
 				//  css_provider.load_from_resource (@"$(Build.RESOURCES)app.css");
 				//  StyleContext.add_provider_for_display (Gdk.Display.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -374,6 +373,8 @@ namespace Tuba {
 
 		private bool activated = false;
 		protected override void activate () {
+			if (!activated) accounts.init ();
+
 			activated = true;
 			present_window ();
 
