@@ -134,11 +134,8 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		debug ("Checking instance URL");
 
 		var str = instance_entry.text
-			.replace ("/", "")
-			.replace (":", "")
-			.replace ("https", "")
-			.replace ("http", "");
-		account.instance = @"https://$str";
+			.replace ("/", "");
+		account.instance = str;
 		instance_entry.text = str;
 
 		if (str.char_count () <= 0 || !("." in account.instance))
