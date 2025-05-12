@@ -149,6 +149,15 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		}
 	};
 
+	public static Place PLACE_DRIVE = new Place () { // vala-lint=naming-convention
+
+		icon = "tuba-folder-visiting-symbolic",
+		title = _("Drive"),
+		open_func = (win) => {
+			win.open_view (set_as_sidebar_item (new Views.Drive ()));
+		}
+	};
+
 	private static Place[] SIDEBAR_PLACES = { // vala-lint=naming-convention
 		PLACE_HOME,
 		PLACE_NOTIFICATIONS,
@@ -162,7 +171,8 @@ public class Tuba.Mastodon.Account : InstanceAccount {
 		PLACE_LOCAL,
 		PLACE_BUBBLE,
 		PLACE_FEDERATED,
-		PLACE_LISTS
+		PLACE_LISTS,
+		PLACE_DRIVE
 	};
 
 	protected override void bump_sidebar_items () {
