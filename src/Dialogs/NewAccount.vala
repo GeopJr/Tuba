@@ -133,8 +133,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 	void setup_instance () throws Error {
 		debug ("Checking instance URL");
 
-		var str = instance_entry.text
-			.replace ("/", "");
+		var str = instance_entry.text;
 		account.instance = str;
 		instance_entry.text = str;
 
