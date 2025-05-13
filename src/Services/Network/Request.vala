@@ -158,6 +158,9 @@ public class Tuba.Request : GLib.Object {
 		return this;
 	}
 
+
+	public string? temp_testing_token { get; set; default=null; }
+
 	public Request exec () {
 		var parameters = "";
 		if (pars != null) {
@@ -203,7 +206,7 @@ public class Tuba.Request : GLib.Object {
 
 		if (account != null && account.access_token != null) {
 			msg.request_headers.remove ("Authorization");
-			msg.request_headers.append ("Authorization", @"Bearer $(account.access_token)");
+			msg.request_headers.append ("Authorization", @"Bearer $(temp_testing_token ?? account.access_token)");
 		}
 
 		if (!cache) msg.disable_feature (typeof (Soup.Cache));
