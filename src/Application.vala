@@ -322,7 +322,7 @@ namespace Tuba {
 			set_accels_for_action ("app.compose", {"<Ctrl>T", "<Ctrl>N"});
 			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>KP_Left"});
 			set_accels_for_action ("app.refresh", {"<Ctrl>R", "F5"});
-			set_accels_for_action ("app.search", {"<Ctrl>F"});
+			set_accels_for_action ("app.search", {"<Ctrl>F", "<Ctrl>L"});
 			set_accels_for_action ("app.quit", {"<Ctrl>Q"});
 			set_accels_for_action ("window.close", {"<Ctrl>W"});
 			set_accels_for_action ("app.back-home", {"<Alt>Home"});
