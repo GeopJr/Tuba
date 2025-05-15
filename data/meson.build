@@ -28,6 +28,7 @@ install_data(
     ),
 )
 
+gresource_files = ''
 syntax_colors = ['blue', 'teal', 'green', 'yellow', 'orange', 'red', 'pink', 'purple', 'slate']
 foreach color : syntax_colors
   light = configure_file(
@@ -42,45 +43,13 @@ foreach color : syntax_colors
       configuration : {'COLOR': color, 'VARIANT': '2', 'SYNTAX_VARIANT': 'dark', 'OP_SYNTAX_VARIANT': 'light', 'DARK_SUFFIX': '-dark', 'OP_DARK_SUFFIX': ''}
   )
 
-  install_data(
-    light, dark,
-    install_dir: join_paths(
-        get_option('prefix'),
-        get_option('datadir'),
-        'gtksourceview-5',
-        'styles',
-    ),
-  )
+  gresource_files += '<file preprocess="xml-stripblanks" alias="fedi-@0@.xml">@1@/fedi-@0@.xml</file>\n<file preprocess="xml-stripblanks" alias="fedi-@0@-dark.xml">@1@/fedi-@0@-dark.xml</file>\n'.format(color, meson.current_build_dir())
 endforeach
 
-install_data(
-    join_paths('langs', 'fedi-basic.lang'),
-    install_dir: join_paths(
-        get_option('prefix'),
-        get_option('datadir'),
-        'gtksourceview-5',
-        'language-specs',
-    ),
-)
-
-install_data(
-    join_paths('langs', 'fedi-html.lang'),
-    install_dir: join_paths(
-        get_option('prefix'),
-        get_option('datadir'),
-        'gtksourceview-5',
-        'language-specs',
-    ),
-)
-
-install_data(
-    join_paths('langs', 'fedi-markdown.lang'),
-    install_dir: join_paths(
-        get_option('prefix'),
-        get_option('datadir'),
-        'gtksourceview-5',
-        'language-specs',
-    ),
+gresource_file = configure_file(
+    input : 'gresource.xml.in',
+    output : 'gresource.xml',
+    configuration : {'GRESOURCE_SOURCEVIEW_STYLES_FILES': gresource_files}
 )
 
 desktop_file = i18n.merge_file(

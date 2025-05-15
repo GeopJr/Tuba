@@ -125,4 +125,12 @@
         <file>ui/dialogs/schedule.ui</file>
         <file>ui/menus.ui</file>
     </gresource>
+    <gresource prefix="/org/gnome/gtksourceview/language-specs">
+      <file preprocess="xml-stripblanks" alias="fedi-basic.lang">langs/fedi-basic.lang</file>
+      <file preprocess="xml-stripblanks" alias="fedi-html.lang">langs/fedi-html.lang</file>
+      <file preprocess="xml-stripblanks" alias="fedi-markdown.lang">langs/fedi-markdown.lang</file>
+    </gresource>
+    <gresource prefix="/org/gnome/gtksourceview/styles">
+      @GRESOURCE_SOURCEVIEW_STYLES_FILES@
+    </gresource>
 </gresources>
