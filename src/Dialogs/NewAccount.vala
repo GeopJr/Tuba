@@ -137,7 +137,7 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		account.instance = str;
 		instance_entry.text = str;
 
-		if (str.char_count () <= 0 || !("." in account.instance))
+		if (str.char_count () <= 0)
 			throw new Oopsie.USER (_("Please enter a valid instance URL"));
 	}
 
