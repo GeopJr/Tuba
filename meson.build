@@ -70,13 +70,6 @@ add_project_arguments (
 gnome = import('gnome')
 i18n = import('i18n')
 
-asresources = gnome.compile_resources(
-    'as-resources',
-    'data/gresource.xml',
-    source_dir: 'data',
-    c_name: 'as',
-)
-
 gstreamer = false
 webkit = false
 gtk_dep = dependency('gtk4', version: '>=4.17.5', required: true)
@@ -140,6 +133,14 @@ final_deps = [
   webkit_dep
 ]
 
+subdir('data')
+asresources = gnome.compile_resources(
+    'as-resources',
+    gresource_file,
+    source_dir: 'data',
+    c_name: 'as',
+)
+
 executable(
     meson.project_name(),
     asresources,
@@ -150,7 +151,6 @@ executable(
 )
 
 subdir('tests')
-subdir('data')
 subdir('po')
 
 # Distributions use their own tooling (e.g. postinst, triggers, etc)
