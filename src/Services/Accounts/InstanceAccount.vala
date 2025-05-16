@@ -37,6 +37,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public bool needs_update { get; set; default=false; }
 	public Error? error { get; set; } //TODO: use this field when server invalidates the auth token
 	public bool tuba_probably_has_notification_filters { get; set; default=false; }
+	public API.InstanceV2.APIVersions tuba_api_versions { get; set; default= new API.InstanceV2.APIVersions (); }
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
 	public GLib.ListStore list_places = new GLib.ListStore (typeof (Place));
@@ -532,10 +533,13 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 						this.instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
 
 					if (instance_v2.api_versions != null && instance_v2.api_versions.mastodon > 0) {
-						this.instance_info.tuba_api_versions = instance_v2.api_versions;
+						if (!this.tuba_api_versions.tuba_same (instance_v2.api_versions)) {
+							this.tuba_api_versions = instance_v2.api_versions;
+							accounts.update_account (this);
+						}
 						this.tuba_probably_has_notification_filters = true;
 
-						if (this.instance_info.tuba_api_versions.mastodon > 1) gather_annual_report ();
+						if (this.tuba_api_versions.mastodon > 1) gather_annual_report ();
 					}
 				}
 

@@ -190,8 +190,15 @@ public class Tuba.SecretAccountStore : AccountStore {
 		builder.set_member_name ("api-versions");
 		builder.begin_object ();
 
-		builder.set_member_name ("mastodon");
-		builder.add_int_value (account.tuba_mastodon_version);
+		if (account.tuba_api_versions.mastodon > 0) {
+			builder.set_member_name ("mastodon");
+			builder.add_int_value (account.tuba_api_versions.mastodon);
+		}
+
+		if (account.tuba_api_versions.chuckya > 0) {
+			builder.set_member_name ("chuckya");
+			builder.add_int_value (account.tuba_api_versions.chuckya);
+		}
 
 		builder.end_object ();
 

@@ -33,7 +33,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	}
 
 	construct {
-		enabled_group_notifications = accounts.active.tuba_mastodon_version >= 2;
+		enabled_group_notifications = accounts.active.tuba_api_versions.mastodon >= 2;
 		url = @"/api/v$(enabled_group_notifications ? 2 : 1)/notifications";
 		label = _("Notifications");
 		icon = "tuba-bell-outline-symbolic";
@@ -118,7 +118,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	}
 
 	public override void on_account_changed (InstanceAccount? acc) {
-		enabled_group_notifications = acc.tuba_mastodon_version >= 2;
+		enabled_group_notifications = acc.tuba_api_versions.mastodon >= 2;
 		filters_changed (false);
 		base.on_account_changed (acc);
 
@@ -193,14 +193,16 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 				Object[] to_add = {};
 				var group_notifications = API.GroupedNotificationsResults.from (node);
 				foreach (var group in group_notifications.notification_groups) {
-					group.kind = null;
-
 					Gee.ArrayList<API.Account> group_accounts = new Gee.ArrayList<API.Account> ();
 					foreach (var account in group_notifications.accounts) {
 						if (account.id in group.sample_account_ids)
 							group_accounts.add (account);
 					}
-					group.accounts = group_accounts;
+					group.tuba_accounts = group_accounts;
+
+					if (group.tuba_accounts.size == 1) {
+						group.account = group.tuba_accounts.get (0);
+					}
 
 					if (group.status_id != null) {
 						foreach (var status in group_notifications.statuses) {

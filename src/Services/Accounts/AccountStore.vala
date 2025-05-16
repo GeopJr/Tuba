@@ -32,6 +32,7 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		ensure_active_account ();
 	}
 
+	public abstract void update_account (InstanceAccount account) throws GLib.Error;
 	public abstract void load () throws GLib.Error;
 	public abstract void save () throws GLib.Error;
 	//  public void safe_save () {
@@ -125,7 +126,8 @@ public abstract class Tuba.AccountStore : GLib.Object {
 		if (obj.has_member ("api-versions")) {
 			var api_versions = obj.get_object_member ("api-versions");
 			if (api_versions != null) {
-				account.tuba_mastodon_version = (int8) api_versions.get_int_member ("mastodon");
+				if (api_versions.has_member ("mastodon")) account.tuba_api_versions.mastodon = (int8) api_versions.get_int_member ("mastodon");
+				if (api_versions.has_member ("chuckya")) account.tuba_api_versions.chuckya = (int8) api_versions.get_int_member ("chuckya");
 			}
 		}
 
