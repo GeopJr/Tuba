@@ -37,7 +37,7 @@ namespace Tuba {
 		public bool is_mobile { get; set; default=false; }
 		public bool is_online { get; private set; default=true; }
 
-		public Locales app_locales { get; construct set; }
+		public Utils.Locales app_locales { get; construct set; }
 
 		// These are used for the GTK Inspector
 		public Settings app_settings { get {return Tuba.settings; } }
@@ -46,7 +46,9 @@ namespace Tuba {
 		public Streams app_streams { get {return Tuba.streams; } }
 
 		public signal void refresh ();
+		public signal void refresh_scheduled_statuses ();
 		public signal void relationship_invalidated (API.Relationship new_relationship);
+		public signal void remove_user_id (string user_id);
 		public signal void toast (string title, uint timeout = 5);
 
 		#if DEV_MODE
@@ -77,6 +79,7 @@ namespace Tuba {
 			{ "back-home", back_home_activated },
 			{ "scroll-page-down", scroll_view_page_down },
 			{ "scroll-page-up", scroll_view_page_up },
+			{ "goto-notifications", goto_notifications },
 			{ "open-status-url", open_status_url, "s" },
 			{ "answer-follow-request", answer_follow_request, "(ssb)" },
 			{ "follow-back", follow_back, "(ss)" },
@@ -87,7 +90,10 @@ namespace Tuba {
 			{ "open-announcements", open_announcements },
 			{ "open-follow-requests", open_follow_requests },
 			{ "open-mutes-blocks", open_mutes_blocks },
-			{ "open-admin-dashboard", open_admin_dashboard }
+			{ "open-scheduled-posts", open_scheduled_posts },
+			{ "open-draft-posts", open_draft_posts },
+			{ "open-admin-dashboard", open_admin_dashboard },
+			{ "open-last-fediwrapped", open_last_fediwrapped }
 		};
 
 		#if DEV_MODE
@@ -123,6 +129,10 @@ namespace Tuba {
 			);
 		}
 
+		private void goto_notifications () {
+			Mastodon.Account.PLACE_NOTIFICATIONS.open_func (app.main_window);
+		}
+
 		private void open_status_url (GLib.SimpleAction action, GLib.Variant? value) {
 			if (value == null || accounts.active == null) return;
 
@@ -142,7 +152,7 @@ namespace Tuba {
 		public void handle_web_ap (Uri uri) {
 			if (accounts.active == null) return;
 
-			accounts.active.resolve.begin (WebApHandler.from_uri (uri), (obj, res) => {
+			accounts.active.resolve.begin (Utils.WebApHandler.from_uri (uri), (obj, res) => {
 				try {
 					accounts.active.resolve.end (res).open ();
 				} catch (Error e) {
@@ -153,7 +163,7 @@ namespace Tuba {
 			});
 		}
 
-		private ShareHandler.ShareResult? to_share = null;
+		private Utils.ShareHandler.ShareResult? to_share = null;
 		public void handle_share () {
 			if (to_share == null || accounts.active == null || accounts.active.instance_info == null) return;
 
@@ -172,7 +182,7 @@ namespace Tuba {
 			application_id = Build.DOMAIN;
 			flags = ApplicationFlags.HANDLES_OPEN;
 
-			app_locales = new Tuba.Locales ();
+			app_locales = new Utils.Locales ();
 		}
 
 		public static int main (string[] args) {
@@ -220,6 +230,7 @@ namespace Tuba {
 
 			Intl.setlocale (LocaleCategory.ALL, "");
 			Intl.bindtextdomain (Build.GETTEXT_PACKAGE, Build.LOCALEDIR);
+			Intl.bind_textdomain_codeset (Build.GETTEXT_PACKAGE, "UTF-8");
 			Intl.textdomain (Build.GETTEXT_PACKAGE);
 
 			GLib.Environment.unset_variable ("GTK_THEME");
@@ -311,7 +322,7 @@ namespace Tuba {
 			set_accels_for_action ("app.compose", {"<Ctrl>T", "<Ctrl>N"});
 			set_accels_for_action ("app.back", {"<Alt>BackSpace", "<Alt>KP_Left"});
 			set_accels_for_action ("app.refresh", {"<Ctrl>R", "F5"});
-			set_accels_for_action ("app.search", {"<Ctrl>F"});
+			set_accels_for_action ("app.search", {"<Ctrl>F", "<Ctrl>L"});
 			set_accels_for_action ("app.quit", {"<Ctrl>Q"});
 			set_accels_for_action ("window.close", {"<Ctrl>W"});
 			set_accels_for_action ("app.back-home", {"<Alt>Home"});
@@ -325,6 +336,9 @@ namespace Tuba {
 			if (settings.proxy != "")
 				on_proxy_change ();
 			settings.notify ["proxy"].connect (on_proxy_notify);
+
+			if (settings.analytics) app.update_analytics.begin ();
+			app.update_contributors.begin ();
 		}
 
 		private void on_proxy_change (bool recover = false) {
@@ -372,9 +386,6 @@ namespace Tuba {
 		}
 
 		protected override void shutdown () {
-			if (settings.analytics) app.update_analytics ();
-			app.update_contributors ();
-
 			#if !DEV_MODE
 				settings.apply_all ();
 			#endif
@@ -397,7 +408,7 @@ namespace Tuba {
 						case "tuba":
 							if (add_account_window == null) {
 								if (uri.get_host ().down () == "share") {
-									to_share = ShareHandler.from_uri (uri);
+									to_share = Utils.ShareHandler.from_uri (uri);
 									handle_share ();
 
 									break;
@@ -441,8 +452,8 @@ namespace Tuba {
 			} else {
 				debug ("Presenting MainWindow");
 				if (main_window == null) {
-					main_window = new Dialogs.MainWindow (this);
 					is_rtl = Gtk.Widget.get_default_direction () == Gtk.TextDirection.RTL;
+					main_window = new Dialogs.MainWindow (this);
 				}
 				if (!start_hidden) main_window.present ();
 			}
@@ -456,6 +467,9 @@ namespace Tuba {
 				main_window.hide_on_close = false;
 			} else {
 				main_window.hide_on_close = true;
+				#if !DEV_MODE
+					settings.apply_all ();
+				#endif
 			}
 
 			return false;
@@ -523,8 +537,22 @@ namespace Tuba {
 			close_sidebar ();
 		}
 
+		public void open_scheduled_posts () {
+			main_window.open_view (new Views.ScheduledStatuses ());
+			close_sidebar ();
+		}
+
+		public void open_draft_posts () {
+			main_window.open_view (new Views.DraftStatuses ());
+			close_sidebar ();
+		}
+
 		public void open_admin_dashboard () {
 			new Dialogs.Admin.Window ().present ();
+		}
+
+		public void open_last_fediwrapped () {
+			accounts.active.open_latest_wrapped ();
 		}
 
 		private void close_sidebar () {
@@ -579,7 +607,8 @@ namespace Tuba {
 			};
 
 			const string[] DESIGNERS = {
-				"Tobias Bernard"
+				"Tobias Bernard",
+				"Brage Fuglseth"
 			};
 
 			const string[] DEVELOPERS = {
@@ -592,6 +621,7 @@ namespace Tuba {
 			var dialog = new Adw.AboutDialog () {
 				application_icon = Build.DOMAIN,
 				application_name = Build.NAME,
+				developer_name = "Evangelos “GeopJr” Paterakis",
 				version = Build.VERSION,
 				issue_url = Build.ISSUES_WEBSITE,
 				support_url = Build.SUPPORT_WEBSITE,
@@ -612,6 +642,13 @@ namespace Tuba {
 			dialog.add_link (_("Translate"), Build.TRANSLATE_WEBSITE);
 			dialog.add_link (_("Donate"), Build.DONATE_WEBSITE);
 
+			// translators: Application metainfo for the app "Archives". <https://gitlab.gnome.org/GeopJr/Archives/>
+			dialog.add_other_app ("dev.geopjr.Archives", _("Archives"), _("Create and view web archives"));
+			// translators: Application metainfo for the app "Calligraphy". <https://gitlab.gnome.org/GeopJr/Calligraphy>
+			dialog.add_other_app ("dev.geopjr.Calligraphy", _("Calligraphy"), _("Turn text into ASCII banners"));
+			// translators: Application metainfo for the app "Collision". <https://github.com/GeopJr/Collision>
+			dialog.add_other_app ("dev.geopjr.Collision", _("Collision"), _("Check hashes for your files"));
+
 			// For some obscure reason, const arrays produce duplicates in the credits.
 			// Static functions seem to avoid this peculiar behavior.
 			//  dialog.translator_credits = Build.TRANSLATOR != " " ? Build.TRANSLATOR : null;
@@ -619,7 +656,7 @@ namespace Tuba {
 			dialog.present (main_window);
 
 			GLib.Idle.add (() => {
-				var style = Tuba.Celebrate.get_celebration_css_class (new GLib.DateTime.now ());
+				var style = Utils.Celebrate.get_celebration_css_class (new GLib.DateTime.now ());
 				if (style != "")
 					dialog.add_css_class (style);
 				return GLib.Source.REMOVE;
@@ -732,7 +769,7 @@ namespace Tuba {
 			return generator.to_data (null);
 		}
 
-		public void update_contributors () {
+		public async void update_contributors () {
 			if (!settings.update_contributors) {
 				// if updating contributors from the API is not enabled
 				// but it has been enabled at some point in the past,
@@ -763,24 +800,27 @@ namespace Tuba {
 			}
 
 			if (!can_update) return;
-			new Request.GET ("https://api.tuba.geopjr.dev/v1/supporters")
-				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
+			var msg = new Request.GET ("https://api.tuba.geopjr.dev/v1/supporters");
 
-					string[] new_contributors = {};
-					Network.parse_array (parser, node => {
-						if (node != null) {
-							new_contributors += node.get_string ();
-						}
-					});
+			try {
+				yield msg.await ();
+				var parser = Network.get_parser_from_inputstream (msg.response_body);
 
-					settings.contributors = new_contributors;
-					settings.last_contributors_update = now_utc.format_iso8601 ();
-				})
-				.exec ();
+				string[] new_contributors = {};
+				Network.parse_array (parser, node => {
+					if (node != null) {
+						new_contributors += node.get_string ();
+					}
+				});
+
+				settings.contributors = new_contributors;
+				settings.last_contributors_update = now_utc.format_iso8601 ();
+			} catch (Error e) {
+				warning (@"Couldn't update contributors: $(e.code) $(e.message)");
+			}
 		}
 
-		public void update_analytics () {
+		public async void update_analytics () {
 			if (!settings.analytics) return;
 
 			bool can_update = false;
@@ -798,12 +838,16 @@ namespace Tuba {
 			}
 
 			if (!can_update) return;
-			new Request.POST ("https://api.tuba.geopjr.dev/v1/analytics")
-				.body ("application/json", new Bytes.take (generate_analytics_object ().data))
-				.then ((in_stream) => {
-					settings.last_analytics_update = now_utc.format_iso8601 ();
-				})
-				.exec ();
+			var msg = new Request.POST ("https://api.tuba.geopjr.dev/v1/analytics")
+				.body ("application/json", new Bytes.take (generate_analytics_object ().data));
+
+			try {
+				yield msg.await ();
+				settings.last_analytics_update = now_utc.format_iso8601 ();
+			} catch (Error e) {
+				warning (@"Couldn't update analytics: $(e.code) $(e.message)");
+			}
+
 		}
 	}
 

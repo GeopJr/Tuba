@@ -6,7 +6,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	class FilterRow : Adw.ExpanderRow {
 		private API.Filters.Filter filter;
-		private weak Dialogs.Preferences win;
+		private Dialogs.Preferences win;
 		public signal void filter_deleted (FilterRow self);
 
 		~FilterRow () {
@@ -17,6 +17,7 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			this.filter = filter;
 			this.win = win;
 			this.activatable = false;
+			this.use_markup = false;
 
 			var delete_btn = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
 				css_classes = { "circular", "flat", "error" },
@@ -63,8 +64,10 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		}
 
 		private void on_edit () {
-			var dlg = new Dialogs.FilterEdit (win, filter);
+			var dlg = new Dialogs.FilterEdit (filter);
 			dlg.saved.connect (on_save);
+			dlg.toast.connect (this.win.on_toast);
+			this.win.push_subpage (dlg);
 		}
 
 		private void on_save (API.Filters.Filter filter) {
@@ -129,8 +132,10 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow advanced_boost_dialog;
 	[GtkChild] unowned Adw.SwitchRow darken_images_on_dark_mode;
 	[GtkChild] unowned Adw.SwitchRow reply_to_old_post_reminder;
+	[GtkChild] unowned Adw.SwitchRow copy_private_link_reminder;
 	[GtkChild] unowned Adw.EntryRow proxy_entry;
 	[GtkChild] unowned Adw.SwitchRow dim_trivial_notifications;
+	[GtkChild] unowned Adw.SwitchRow collapse_long_posts;
 
 	[GtkChild] unowned Adw.SwitchRow new_followers_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow new_follower_requests_notifications_switch;
@@ -139,12 +144,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	[GtkChild] unowned Adw.SwitchRow boosts_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow poll_results_notifications_switch;
 	[GtkChild] unowned Adw.SwitchRow edits_notifications_switch;
-
-	[GtkChild] unowned Adw.PreferencesGroup filtered_notifications_group;
-	[GtkChild] unowned Adw.SwitchRow filter_notifications_following_switch;
-	[GtkChild] unowned Adw.SwitchRow filter_notifications_follower_switch;
-	[GtkChild] unowned Adw.SwitchRow filter_notifications_new_account_switch;
-	[GtkChild] unowned Adw.SwitchRow filter_notifications_dm_switch;
 
 	[GtkChild] unowned Gtk.Switch analytics_switch;
 	[GtkChild] unowned Adw.SwitchRow update_contributors;
@@ -205,46 +204,9 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 		setup_languages_combo_row ();
 		setup_notification_mutes ();
-		setup_notification_filters ();
 		setup_filters ();
 		bind ();
 		closed.connect (on_window_closed);
-	}
-
-	private Gee.HashMap<Adw.SwitchRow, bool>? notification_filter_policy_status = null;
-	void setup_notification_filters () {
-		if (!accounts.active.tuba_probably_has_notification_filters) return;
-
-		new Request.GET ("/api/v1/notifications/policy")
-			.with_account (accounts.active)
-			.then ((in_stream) => {
-				var parser = Network.get_parser_from_inputstream (in_stream);
-				var node = network.parse_node (parser);
-				if (node == null) return;
-
-				filtered_notifications_group.visible = true;
-				var policies = API.NotificationFilter.Policy.from (node);
-
-				notification_filter_policy_status = new Gee.HashMap<Adw.SwitchRow, bool> ();
-				notification_filter_policy_status.set (filter_notifications_following_switch, policies.filter_not_following);
-				notification_filter_policy_status.set (filter_notifications_follower_switch, policies.filter_not_followers);
-				notification_filter_policy_status.set (filter_notifications_new_account_switch, policies.filter_new_accounts);
-				notification_filter_policy_status.set (filter_notifications_dm_switch, policies.filter_private_mentions);
-
-				notification_filter_policy_status.@foreach (entry => {
-					((Adw.SwitchRow) entry.key).active = (bool) entry.value;
-
-					return true;
-				});
-			})
-			.on_error ((code, message) => {
-				if (code == 404) {
-					accounts.active.tuba_probably_has_notification_filters = false;
-				} else {
-					warning (@"Error while trying to get notification policy: $code $message");
-				}
-			})
-			.exec ();
 	}
 
 	void setup_filters () {
@@ -301,9 +263,11 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		settings.bind ("advanced-boost-dialog", advanced_boost_dialog, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("darken-images-on-dark-mode", darken_images_on_dark_mode, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("reply-to-old-post-reminder", reply_to_old_post_reminder, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("copy-private-link-reminder", copy_private_link_reminder, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("dim-trivial-notifications", dim_trivial_notifications, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("analytics", analytics_switch, "active", SettingsBindFlags.DEFAULT);
 		settings.bind ("update-contributors", update_contributors, "active", SettingsBindFlags.DEFAULT);
+		settings.bind ("collapse-long-posts", collapse_long_posts, "active", SettingsBindFlags.DEFAULT);
 
 		post_visibility_combo_row.notify["selected-item"].connect (on_post_visibility_changed);
 		dlcr_id = default_language_combo_row.notify["selected-item"].connect (dlcr_cb);
@@ -325,8 +289,16 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 
 	[GtkCallback]
 	private void add_keyword_row () {
-		var dlg = new Dialogs.FilterEdit (this);
+		var dlg = new Dialogs.FilterEdit ();
 		dlg.saved.connect (on_filter_save);
+		dlg.toast.connect (on_toast);
+		this.push_subpage (dlg);
+	}
+
+	public void on_toast (string toast_content, int dismiss_time) {
+		this.add_toast (new Adw.Toast (toast_content) {
+			timeout = dismiss_time
+		});
 	}
 
 	private void on_filter_save (API.Filters.Filter filter) {
@@ -351,8 +323,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 		uint default_lang_index;
 		if (
 			app.app_locales.list_store.find_with_equal_func (
-				new Tuba.Locales.Locale (default_language, null, null),
-				Tuba.Locales.Locale.compare,
+				new Utils.Locales.Locale (default_language, null, null),
+				Utils.Locales.Locale.compare,
 				out default_lang_index
 			)
 		) {
@@ -376,47 +348,9 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	}
 
 	private void on_window_closed () {
-		if (notification_filter_policy_status != null) {
-			bool changed = false;
-			notification_filter_policy_status.@foreach (entry => {
-				if (((Adw.SwitchRow) entry.key).active != (bool) entry.value) {
-					changed = true;
-					return false;
-				}
-
-				return true;
-			});
-
-			if (changed) {
-				var builder = new Json.Builder ();
-				builder.begin_object ();
-
-				builder.set_member_name ("filter_not_following");
-				builder.add_boolean_value (filter_notifications_following_switch.active);
-
-				builder.set_member_name ("filter_not_followers");
-				builder.add_boolean_value (filter_notifications_follower_switch.active);
-
-				builder.set_member_name ("filter_new_accounts");
-				builder.add_boolean_value (filter_notifications_new_account_switch.active);
-
-				builder.set_member_name ("filter_private_mentions");
-				builder.add_boolean_value (filter_notifications_dm_switch.active);
-
-				builder.end_object ();
-
-				new Request.PUT ("/api/v1/notifications/policy")
-					.with_account (accounts.active)
-					.body_json (builder)
-					.exec ();
-			}
-
-			notification_filter_policy_status.clear ();
-		}
-
 		if (lang_changed) {
-			var new_lang = ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale;
-			if (settings.default_language != ((Tuba.Locales.Locale) default_language_combo_row.selected_item).locale) {
+			var new_lang = ((Utils.Locales.Locale) default_language_combo_row.selected_item).locale;
+			if (settings.default_language != ((Utils.Locales.Locale) default_language_combo_row.selected_item).locale) {
 
 				new Request.PATCH ("/api/v1/accounts/update_credentials")
 					.with_account (accounts.active)
@@ -459,8 +393,8 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 			settings.proxy = "";
 		}
 
-		if (settings.analytics) app.update_analytics ();
-		app.update_contributors ();
+		if (settings.analytics) app.update_analytics.begin ();
+		app.update_contributors.begin ();
 	}
 
 	protected class AnalyticsDialog : Adw.Dialog {

@@ -1,4 +1,4 @@
-public class Tuba.Units {
+public class Tuba.Utils.Units {
 	public enum ShortUnitType {
 		NONE,
 		THOUSAND,
@@ -72,5 +72,9 @@ public class Tuba.Units {
 		}
 
 		return "♾️";
+	}
+
+	public static string float_to_2_point_string (float unit) {
+		return ((double) unit).format (new char[double.DTOSTR_BUF_SIZE], "%.2f");
 	}
 }

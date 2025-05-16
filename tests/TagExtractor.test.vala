@@ -1,15 +1,15 @@
 struct TestExtract {
 	public string source;
-	public Tuba.TagExtractor.Result? extracted;
+	public Tuba.Utils.TagExtractor.Result? extracted;
 }
 
 TestExtract[] get_extractions () {
 	string max_limit_test_tag = "<a href='https://gnome.org/tags/test'>#test</a>";
-	Tuba.TagExtractor.Tag max_limit_test_tag_struct = {"test", "https://gnome.org/tags/test"};
+	Tuba.Utils.TagExtractor.Tag max_limit_test_tag_struct = {"test", "https://gnome.org/tags/test"};
 	string max_limit_test_source = "Testing the tag limit\n\n";
-	Tuba.TagExtractor.Tag[] max_limit_test_tags = {};
+	Tuba.Utils.TagExtractor.Tag[] max_limit_test_tags = {};
 
-	for (int i = 0; i < Tuba.TagExtractor.MAX_TAGS_ALLOWED; i++) {
+	for (int i = 0; i < Tuba.Utils.TagExtractor.MAX_TAGS_ALLOWED; i++) {
 		max_limit_test_source += max_limit_test_tag;
 		max_limit_test_tags += max_limit_test_tag_struct;
 	}
@@ -76,7 +76,7 @@ TestExtract[] get_extractions () {
 
 public void test_extractor () {
 	foreach (var test_extract in get_extractions ()) {
-		var extraction = Tuba.TagExtractor.from_string (test_extract.source);
+		var extraction = Tuba.Utils.TagExtractor.from_string (test_extract.source);
 		if (test_extract.extracted == null) {
 			assert_true (extraction.input_without_tags == null);
 			assert_true (extraction.extracted_tags == null);

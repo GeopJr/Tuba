@@ -1,177 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <requires lib="libadwaita" version="1.0"/>
-  <requires lib="gtksourceview" version="5.6"/>
-  <object class="TubaWidgetsCustomEmojiChooser" id="custom_emoji_picker">
-    <signal name="emoji-picked" handler="on_bio_emoji_picked" swapped="no"/>
-  </object>
-  <template class="TubaDialogsProfileEdit" parent="AdwDialog">
-    <property name="content_width">460</property>
-    <property name="content_height">520</property>
-    <property name="title" translatable="yes">Edit Profile</property>
-    <child>
-      <object class="AdwToolbarView">
-        <child type="top">
-          <object class="AdwHeaderBar">
-            <property name="show-end-title-buttons">0</property>
-            <property name="show-start-title-buttons">0</property>
-            <child type="start">
-              <object class="GtkButton">
-                <property name="label" translatable="yes">Cancel</property>
-                <signal name="clicked" handler="on_close" swapped="no"/>
-              </object>
-            </child>
-            <child type="end">
-              <object class="GtkButton">
-                <property name="receives_default">1</property>
-                <property name="label" translatable="yes">Save</property>
-                <signal name="clicked" handler="on_save_clicked" swapped="no"/>
-                <style>
-                  <class name="suggested-action"/>
-                </style>
-              </object>
-            </child>
-          </object>
-        </child>
-        <property name="content">
-          <object class="GtkScrolledWindow">
-            <property name="hexpand">1</property>
-            <property name="vexpand">1</property>
-            <child>
-              <object class="AdwClamp">
-                <property name="valign">start</property>
-                <property name="tightening-threshold">100</property>
-                <child>
-                  <object class="GtkBox">
-                    <property name="orientation">vertical</property>
-                    <property name="margin-top">24</property>
-                    <property name="margin-bottom">24</property>
-                    <property name="spacing">24</property>
-                    <child>
-                      <object class="GtkOverlay">
-                        <child type="overlay">
-                          <object class="GtkOverlay">
-                            <property name="valign">center</property>
-                            <property name="halign">center</property>
-                            <property name="child">
-                              <object class="AdwAvatar" id="avi">
-                                <property name="size">120</property>
-                                <property name="show-initials">0</property>
-                              </object>
-                            </property>
-                            <child type="overlay">
-                              <object class="GtkButton">
-                                <property name="icon-name">document-edit-symbolic</property>
-                                <property name="tooltip-text" translatable="yes">Edit Profile Picture</property>
-                                <property name="valign">center</property>
-                                <property name="halign">center</property>
-                                <signal name="clicked" handler="on_avi_button_clicked" swapped="no"/>
-                                <style>
-                                  <class name="osd" />
-                                  <class name="circular" />
-                                </style>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <property name="child">
-                          <object class="GtkOverlay">
-                            <property name="vexpand">1</property>
-                            <property name="hexpand">1</property>
-                            <property name="child">
-                              <object class="GtkPicture" id="background">
-                                <property name="height-request">128</property>
-                                <property name="content-fit">cover</property>
-                                <style>
-                                  <class name="background-cover" />
-                                </style>
-                              </object>
-                            </property>
-                            <child type="overlay">
-                              <object class="GtkButton">
-                                <property name="icon-name">document-edit-symbolic</property>
-                                <!-- translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form) -->
-                                <property name="tooltip-text" translatable="yes">Edit Header Picture</property>
-                                <property name="valign">start</property>
-                                <property name="halign">start</property>
-                                <property name="margin-top">6</property>
-                                <property name="margin-start">6</property>
-                                <signal name="clicked" handler="on_header_button_clicked" swapped="no"/>
-                                <style>
-                                  <class name="osd" />
-                                  <class name="circular" />
-                                </style>
-                              </object>
-                            </child>
-                          </object>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkListBox">
-                        <property name="selection-mode">none</property>
-                        <style>
-                          <class name="boxed-list"/>
-                        </style>
-                        <child>
-                          <object class="AdwEntryRow" id="name_row">
-                            <property name="input-purpose">free-form</property>
-                            <property name="title" translatable="yes">Display Name</property>
-                            <signal name="changed" handler="on_name_row_changed" swapped="no"/>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="AdwExpanderRow" id="bio_row">
-                            <property name="expanded">0</property>
-                            <!-- translators: profile bio or description -->
-                            <property name="title" translatable="yes">Bio</property>
-                            <child type="action">
-                              <object class="GtkMenuButton" id="cepbtn">
-                                <style>
-                                  <class name="circular"/>
-                                </style>
-                                <property name="visible">0</property>
-                                <property name="popover">custom_emoji_picker</property>
-                                <property name="valign">center</property>
-                                <property name="halign">center</property>
-                                <property name="tooltip-text" translatable="yes">Custom Emoji Picker</property>
-                                <property name="icon-name">tuba-cat-symbolic</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkSourceView" id="bio_text_view">
-                                <property name="margin-top">6</property>
-                                <property name="margin-bottom">6</property>
-                                <property name="margin-start">6</property>
-                                <property name="margin-end">6</property>
-                                <property name="wrap-mode">word-char</property>
-                                <property name="accepts-tab">0</property>
-                                <style>
-                                  <class name="reset"/>
-                                </style>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwPreferencesGroup" id="fields_box">
-                        <!-- translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form) -->
-                        <property name="title" translatable="yes">Fields</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </property>
-      </object>
-    </child>
-    <style>
-      <class name="profile-editor"/>
-    </style>
-  </template>
+	<requires lib="gtk" version="4.0" />
+	<requires lib="libadwaita" version="1.0" />
+	<requires lib="gtksourceview" version="5.6" />
+	<object class="TubaWidgetsCustomEmojiChooser" id="custom_emoji_picker">
+		<signal name="emoji-picked" handler="on_bio_emoji_picked" swapped="no" />
+	</object>
+	<template class="TubaDialogsProfileEdit" parent="AdwDialog">
+		<property name="content_width">460</property>
+		<property name="content_height">520</property>
+		<property name="title" translatable="yes">Edit Profile</property>
+		<child>
+			<object class="AdwToolbarView">
+				<child type="top">
+					<object class="AdwHeaderBar">
+						<property name="show-end-title-buttons">0</property>
+						<property name="show-start-title-buttons">0</property>
+						<child type="start">
+							<object class="GtkButton">
+								<property name="label" translatable="yes">Cancel</property>
+								<signal name="clicked" handler="on_close" swapped="no" />
+							</object>
+						</child>
+						<child type="end">
+							<object class="GtkButton">
+								<property name="receives_default">1</property>
+								<property name="label" translatable="yes">Save</property>
+								<signal name="clicked" handler="on_save_clicked" swapped="no" />
+								<style>
+									<class name="suggested-action" />
+								</style>
+							</object>
+						</child>
+					</object>
+				</child>
+				<property name="content">
+					<object class="GtkScrolledWindow">
+						<property name="hexpand">1</property>
+						<property name="vexpand">1</property>
+						<child>
+							<object class="AdwClamp">
+								<property name="valign">start</property>
+								<property name="tightening-threshold">100</property>
+								<child>
+									<object class="GtkBox">
+										<property name="orientation">vertical</property>
+										<property name="margin-top">24</property>
+										<property name="margin-bottom">24</property>
+										<property name="spacing">24</property>
+										<child>
+											<object class="GtkOverlay">
+												<child type="overlay">
+													<object class="GtkOverlay">
+														<property name="valign">center</property>
+														<property name="halign">center</property>
+														<property name="child">
+															<object class="AdwAvatar" id="avi">
+																<property name="size">120</property>
+																<property name="show-initials">0</property>
+															</object>
+														</property>
+														<child type="overlay">
+															<object class="GtkButton">
+																<property name="icon-name">document-edit-symbolic</property>
+																<property name="tooltip-text" translatable="yes">Edit Profile Picture</property>
+																<property name="valign">center</property>
+																<property name="halign">center</property>
+																<signal name="clicked" handler="on_avi_button_clicked" swapped="no" />
+																<style>
+																	<class name="osd" />
+																	<class name="circular" />
+																</style>
+															</object>
+														</child>
+													</object>
+												</child>
+												<property name="child">
+													<object class="GtkOverlay">
+														<property name="vexpand">1</property>
+														<property name="hexpand">1</property>
+														<property name="child">
+															<object class="GtkPicture" id="background">
+																<property name="height-request">128</property>
+																<property name="content-fit">cover</property>
+																<style>
+																	<class name="background-cover" />
+																</style>
+															</object>
+														</property>
+														<child type="overlay">
+															<object class="GtkButton">
+																<property name="icon-name">document-edit-symbolic</property>
+																<!-- translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form) -->
+																<property name="tooltip-text" translatable="yes">Edit Header Picture</property>
+																<property name="valign">start</property>
+																<property name="halign">start</property>
+																<property name="margin-top">6</property>
+																<property name="margin-start">6</property>
+																<signal name="clicked" handler="on_header_button_clicked" swapped="no" />
+																<style>
+																	<class name="osd" />
+																	<class name="circular" />
+																</style>
+															</object>
+														</child>
+													</object>
+												</property>
+											</object>
+										</child>
+										<child>
+											<object class="GtkListBox">
+												<property name="selection-mode">none</property>
+												<style>
+													<class name="boxed-list" />
+												</style>
+												<child>
+													<object class="AdwEntryRow" id="name_row">
+														<property name="input-purpose">free-form</property>
+														<property name="title" translatable="yes">Display Name</property>
+														<signal name="changed" handler="on_name_row_changed" swapped="no" />
+													</object>
+												</child>
+												<child>
+													<object class="AdwExpanderRow" id="bio_row">
+														<property name="expanded">0</property>
+														<!-- translators: profile bio or description -->
+														<property name="title" translatable="yes">Bio</property>
+														<child type="action">
+															<object class="GtkMenuButton" id="cepbtn">
+																<style>
+																	<class name="circular" />
+																</style>
+																<property name="visible">0</property>
+																<property name="popover">custom_emoji_picker</property>
+																<property name="valign">center</property>
+																<property name="halign">center</property>
+																<property name="tooltip-text" translatable="yes">Custom Emoji Picker</property>
+																<property name="icon-name">tuba-cat-symbolic</property>
+															</object>
+														</child>
+														<child>
+															<object class="GtkSourceView" id="bio_text_view">
+																<property name="margin-top">6</property>
+																<property name="margin-bottom">6</property>
+																<property name="margin-start">6</property>
+																<property name="margin-end">6</property>
+																<property name="wrap-mode">word-char</property>
+																<property name="accepts-tab">0</property>
+																<style>
+																	<class name="reset" />
+																</style>
+															</object>
+														</child>
+													</object>
+												</child>
+											</object>
+										</child>
+										<child>
+											<object class="AdwPreferencesGroup" id="alt_text_group">
+												<property name="visible">0</property>
+												<property name="title" translatable="yes">Alternative Text</property>
+												<child>
+													<object class="AdwEntryRow" id="avi_alt_text_row">
+														<property name="input-purpose">free-form</property>
+														<!-- translators: row in the profile editor dialog for setting alt text for the user profile picture -->
+														<property name="title" translatable="yes">Profile Picture Description</property>
+													</object>
+												</child>
+												<child>
+													<object class="AdwEntryRow" id="header_alt_text_row">
+														<property name="input-purpose">free-form</property>
+														<!-- translators: row in the profile editor dialog for setting alt text for the user profile header/cover -->
+														<property name="title" translatable="yes">Header Picture Description</property>
+													</object>
+												</child>
+											</object>
+										</child>
+										<child>
+											<object class="AdwPreferencesGroup" id="fields_box">
+												<!-- translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form) -->
+												<property name="title" translatable="yes">Fields</property>
+											</object>
+										</child>
+									</object>
+								</child>
+							</object>
+						</child>
+					</object>
+				</property>
+			</object>
+		</child>
+		<style>
+			<class name="profile-editor" />
+		</style>
+	</template>
 </interface>

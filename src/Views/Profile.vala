@@ -7,6 +7,39 @@ public class Tuba.Views.Profile : Views.Accounts {
 			Object (account: t_acc, rs: new API.Relationship.for_account (t_acc));
 		}
 
+		public async bool update_profile () {
+			Request req = new Request.GET (@"/api/v1/accounts/$(account.id)").with_account (accounts.active);
+
+			try {
+				yield req.await ();
+				var parser = Network.get_parser_from_inputstream (req.response_body);
+				var node = network.parse_node (parser);
+				var updated = API.Account.from (node);
+
+				account.display_name = updated.display_name;
+				account.note = updated.note;
+				account.locked = updated.locked;
+				account.header = updated.header;
+				account.header_description = updated.header_description;
+				account.avatar = updated.avatar;
+				account.avatar_description = updated.avatar_description;
+				account.bot = updated.bot;
+				account.emojis = updated.emojis;
+				account.followers_count = updated.followers_count;
+				account.following_count = updated.following_count;
+				account.statuses_count = updated.statuses_count;
+				account.fields = updated.fields;
+				account.moved = updated.moved;
+
+				return true;
+			} catch (Error e) {
+				warning (@"Couldn't update account $(account.id): $(e.message)");
+				app.toast (e.message);
+			}
+
+			return false;
+		}
+
 		public override Gtk.Widget to_widget () {
 			return new Widgets.Cover (this);
 		}
@@ -17,14 +50,19 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	public class FilterGroup : Widgetizable, GLib.Object {
+		public bool visible { get; set; default=true; }
+
 		public override Gtk.Widget to_widget () {
-			return new Widgets.ProfileFilterGroup ();
+			var widget = new Widgets.ProfileFilterGroup ();
+			this.bind_property ("visible", widget, "visible", GLib.BindingFlags.SYNC_CREATE);
+			return widget;
 		}
 	}
 
 	public ProfileAccount profile { get; construct set; }
 	public Widgets.ProfileFilterGroup.Filter filter { get; set; default = Widgets.ProfileFilterGroup.Filter.POSTS; }
 	public string source { get; set; default = "statuses"; }
+	private signal void cover_profile_update (API.Account acc);
 
 	protected Gtk.MenuButton menu_button;
 	protected SimpleAction muting_action;
@@ -35,6 +73,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 	protected SimpleAction notify_on_new_post_action;
 	//  protected SimpleAction source_action;
 
+	private FilterGroup filter_group;
 	public Profile (API.Account acc) {
 		Object (
 			profile: new ProfileAccount (acc),
@@ -43,9 +82,12 @@ public class Tuba.Views.Profile : Views.Accounts {
 			url: @"/api/v1/accounts/$(acc.id)/statuses"
 		);
 
+		filter_group = new FilterGroup ();
 		model.insert (0, profile);
-		model.insert (1, new FilterGroup ());
+		model.insert (1, filter_group);
 		profile.rs.invalidated.connect (on_rs_updated);
+
+		if (acc.is_self ()) update_profile_cover ();
 	}
 	~Profile () {
 		debug ("Destroying Profile view");
@@ -94,6 +136,7 @@ public class Tuba.Views.Profile : Views.Accounts {
 			widget_cover.aria_updated.connect (on_cover_aria_update);
 			widget_cover.remove_css_class ("card");
 			widget_cover.remove_css_class ("card-spacing");
+			this.cover_profile_update.connect (widget_cover.update_cover_from_profile);
 
 			var row = new Gtk.ListBoxRow () {
 				focusable = true,
@@ -136,9 +179,15 @@ public class Tuba.Views.Profile : Views.Accounts {
 		GLib.Idle.add (append_pinned);
 	}
 
+	public override void on_manual_refresh () {
+		update_profile_cover ();
+		base.on_manual_refresh ();
+	}
+
 	protected void change_timeline_source (string t_source) {
 		source = t_source;
 
+		filter_group.visible = t_source == "statuses";
 		switch (t_source) {
 			case "statuses":
 				accepts = typeof (API.Status);
@@ -168,12 +217,13 @@ public class Tuba.Views.Profile : Views.Accounts {
 	protected override void build_header () {
 		base.build_header ();
 
-		menu_button = new Gtk.MenuButton ();
+		menu_button = new Gtk.MenuButton () {
+			icon_name = "view-more-symbolic"
+		};
 		var menu_builder = new Gtk.Builder.from_resource (@"$(Build.RESOURCES)ui/menus.ui");
 		var menu = "profile-menu";
 		menu_button.menu_model = menu_builder.get_object (menu) as MenuModel;
 		menu_button.popover.width_request = 250;
-		menu_button.icon_name = "view-more-symbolic";
 		header.pack_end (menu_button);
 
 		if (profile.account.is_self ()) {
@@ -190,15 +240,13 @@ public class Tuba.Views.Profile : Views.Accounts {
 	}
 
 	private void open_edit_page () {
-		var dialog = new Dialogs.ProfileEdit (profile.account);
+		var dialog = new Dialogs.ProfileEdit (profile.account.is_self () ? accounts.active : profile.account);
 		dialog.saved.connect (on_edit_save);
 		dialog.present (app.main_window);
 	}
 
 	private void on_edit_save () {
 		if (profile.account.is_self ()) {
-			model.remove (0);
-
 			//  for (uint i = 0; i < model.get_n_items (); i++) {
 			//  	var status_obj = (API.Status)model.get_item (i);
 			//  	if (status_obj.formal.account.id == profile.account.id) {
@@ -206,9 +254,16 @@ public class Tuba.Views.Profile : Views.Accounts {
 			//  	}
 			//  }
 
-			model.insert (0, new ProfileAccount (accounts.active));
-			on_refresh ();
+			this.cover_profile_update (accounts.active);
 		}
+	}
+
+	private void update_profile_cover () {
+		profile.update_profile.begin ((obj, res) => {
+			if (profile.update_profile.end (res)) {
+				this.cover_profile_update (profile.account);
+			}
+		});
 	}
 
 	protected override void clear () {
@@ -252,14 +307,21 @@ public class Tuba.Views.Profile : Views.Accounts {
 
 		var copy_handle_action = new SimpleAction ("copy_handle", null);
 		copy_handle_action.activate.connect (v => {
-			Host.copy (profile.account.full_handle);
+			Utils.Host.copy (profile.account.full_handle);
 			app.toast (_("Copied handle to clipboard"));
 		});
 		actions.add_action (copy_handle_action);
 
 		var open_in_browser_action = new SimpleAction ("open_in_browser", null);
 		open_in_browser_action.activate.connect (v => {
-			Host.open_url (profile.account.url);
+			#if WEBKIT
+				if (settings.use_in_app_browser_if_available && Views.Browser.can_handle_url (profile.account.url)) {
+					(new Views.Browser.with_url (profile.account.url)).present (app.main_window);
+					return;
+				}
+			#endif
+
+			Utils.Host.open_url.begin (profile.account.url);
 		});
 		actions.add_action (open_in_browser_action);
 
@@ -486,11 +548,20 @@ public class Tuba.Views.Profile : Views.Accounts {
 	public void handle_list_edit (API.List list, Adw.ActionRow row, Adw.ToastOverlay toast_overlay, RowButton button) {
 			row.sensitive = false;
 
-			var endpoint = @"/api/v1/lists/$(list.id)/accounts?account_ids[]=$(profile.account.id)";
+			var builder = new Json.Builder ();
+			builder.begin_object ();
+			builder.set_member_name ("account_ids");
+			builder.begin_array ();
+			builder.add_string_value (profile.account.id);
+			builder.end_array ();
+			builder.end_object ();
+
+			var endpoint = @"/api/v1/lists/$(list.id)/accounts";
 			var req = button.remove ? new Request.DELETE (endpoint) : new Request.POST (endpoint);
 			req
 				.with_account (accounts.active)
 				.with_ctx (this)
+				.body_json (builder)
 				.on_error (on_error)
 				.then (() => {
 					var toast_msg = "";

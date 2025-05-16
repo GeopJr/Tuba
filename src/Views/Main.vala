@@ -15,6 +15,11 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		}
 	}
 
+	protected override void change_tab_alt (int id) {
+		base.change_tab_alt (id);
+		app.main_window.set_sidebar_selected_item (id - 1);
+	}
+
 	private Gtk.Button notification_settings_button;
 	private Gtk.Button search_button;
 	protected override void on_view_switched () {
@@ -72,9 +77,11 @@ public class Tuba.Views.Main : Views.TabbedBase {
 		notification_settings_button.clicked.connect (show_notification_settings);
 		header.pack_end (notification_settings_button);
 
-		var sidebar_button = new Gtk.ToggleButton ();
+		var sidebar_button = new Gtk.ToggleButton () {
+			tooltip_text = _("Open Sidebar")
+		};
 		header.pack_start (sidebar_button);
-		sidebar_button.icon_name = "tuba-dock-left-symbolic";
+		sidebar_button.icon_name = is_rtl ? "tuba-dock-right-symbolic" : "tuba-dock-left-symbolic";
 
 		bind ();
 		ulong main_window_notify = 0;

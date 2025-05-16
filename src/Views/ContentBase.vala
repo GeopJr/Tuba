@@ -55,7 +55,7 @@ public class Tuba.Views.ContentBase : Views.Base {
 			on_bottom_reached ();
 		}
 
-		var is_close_to_top = scrolled.vadjustment.value <= 1000;
+		var is_close_to_top = scrolled.vadjustment.value <= 100;
 		set_scroll_to_top_reveal_child (
 			!is_close_to_top
 			&& scrolled.vadjustment.value + scrolled.vadjustment.page_size + 100 < scrolled.vadjustment.upper

@@ -1,5 +1,6 @@
 sources += files(
     'Account.vala',
+    'AccountSuggestions.vala',
     'Announcement.vala',
     'Avatar.vala',
     'Background.vala',
@@ -9,6 +10,7 @@ sources += files(
     'Emoji.vala',
     'EmojiLabel.vala',
     'EmojiReactionAccounts.vala',
+    'FadeBin.vala',
     'FocusPicker.vala',
     'FocusPicture.vala',
     'HashtagBar.vala',
@@ -26,10 +28,12 @@ sources += files(
     'RelationshipButton.vala',
     'RichLabel.vala',
     'ScaleRevealer.vala',
+    'ScheduledStatus.vala',
     'Status.vala',
     'StatusActionButton.vala',
     'VoteBox.vala',
     'VoteCheckButton.vala',
+    'VoteRow.vala',
     'Widgetizable.vala',
 )
 

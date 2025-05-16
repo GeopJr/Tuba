@@ -25,30 +25,36 @@
 
 ### Nightly
 
-Flatpak | Snap
+Flatpak | Windows
 :---: | :---:
-[x86_64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-x86_64.zip) | [x86_64](https://nightly.link/GeopJr/Tuba/workflows/build/main/snap-x86_64.zip)
-[aarch64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-aarch64.zip) | [aarch64](https://nightly.link/GeopJr/Tuba/workflows/build/main/snap-aarch64.zip)
+[x86_64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-x86_64.zip) | [x86_64 Installer](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/Tuba%20Setup.exe.zip)<br/>[x86_64 Portable](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/tuba_windows_portable.zip)
+[aarch64](https://nightly.link/GeopJr/Tuba/workflows/build/main/dev.geopjr.Tuba.Devel-aarch64.zip) | [aarch64 Portable](https://nightly.link/GeopJr/Tuba/workflows/msys2/main/tuba_windows_portable_aarch64.zip)
 
 ## Third Party
 
-[![A vertical list with the title 'Packaging status'. On the left side there's repos and on the right side there's the packaged version of Tuba.](https://repology.org/badge/vertical-allrepos/tuba.svg)](https://repology.org/project/tuba/versions)
+[![A vertical list with the title 'Packaging status'. On the left side there's repos and on the right side there's the packaged version of Tuba.](https://repology.org/badge/vertical-allrepos/tuba.svg?exclude_unsupported=1&columns=3)](https://repology.org/project/tuba/versions)
 
 ## From Source
 
 <details>
 <summary>Dependencies</summary>
 
-Package Name | Required Version
-:--- |---:|
-meson | 0.56
-valac | 0.48
-libjson-glib-dev | 1.4.4
-libxml2-dev | 2.9.10
-libgee-0.8-dev | 0.8.5
-libsoup3.0-dev | 3.0.0
-libadwaita-1.0-dev | 1.5
-libsecret-1-dev | 0.20
+Package Name | Required
+:--- | ---:
+meson | ✅
+valac | ✅
+libjson-glib-dev | ✅
+libxml2-dev | ✅
+libgee-0.8-dev | ✅
+libsoup3.0-dev | ✅
+libadwaita-1.0-dev | ✅
+libsecret-1-dev | ✅
+libgtksourceview-5-dev | ✅
+icu | ✅
+libspelling | ❌
+gstreamer + gst-plugins-good | ❌
+clapper | ❌
+webkitgtk | ❌
 
 </details>
 

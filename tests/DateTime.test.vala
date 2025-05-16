@@ -28,8 +28,8 @@ TestDate[] get_dates () {
 	res += TestDate () {
 		iso8601 = one_day.to_string (),
 		left = "23h left",
-		ago = one_day.format ("expires on %b %-e, %Y %H:%m"),
-		human = one_day.format ("%b %-e, %Y %H:%m")
+		ago = one_day.format ("expires on %b %-e, %Y %H:%M"),
+		human = one_day.format ("%b %-e, %Y %H:%M")
 	};
 
 	var m_one_day = time_now.add_days (-1);
@@ -44,8 +44,8 @@ TestDate[] get_dates () {
 	res += TestDate () {
 		iso8601 = one_hour.to_string (),
 		left = "59m left",
-		ago = one_hour.format ("expires on %b %-e, %Y %H:%m"),
-		human = one_hour.format ("%b %-e, %Y %H:%m")
+		ago = one_hour.format ("expires on %b %-e, %Y %H:%M"),
+		human = one_hour.format ("%b %-e, %Y %H:%M")
 	};
 
 	var m_one_hour = time_now.add_hours (-1);
@@ -60,8 +60,8 @@ TestDate[] get_dates () {
 	res += TestDate () {
 		iso8601 = two_minutes.to_string (),
 		left = "1m left",
-		ago = two_minutes.format ("expires on %b %-e, %Y %H:%m"),
-		human = two_minutes.format ("%b %-e, %Y %H:%m")
+		ago = two_minutes.format ("expires on %b %-e, %Y %H:%M"),
+		human = two_minutes.format ("%b %-e, %Y %H:%M")
 	};
 
 	var m_two_minutes = time_now.add_minutes (-2);
@@ -76,8 +76,8 @@ TestDate[] get_dates () {
 	res += TestDate () {
 		iso8601 = twenty_seconds.to_string (),
 		left = "expires soon",
-		ago = twenty_seconds.format ("expires on %b %-e, %Y %H:%m"),
-		human = twenty_seconds.format ("%b %-e, %Y %H:%m")
+		ago = twenty_seconds.format ("expires on %b %-e, %Y %H:%M"),
+		human = twenty_seconds.format ("%b %-e, %Y %H:%M")
 	};
 
 	var m_twenty_seconds = time_now.add_seconds (-20);
@@ -117,7 +117,7 @@ TestDate[] get_dates () {
 
 public void test_left () {
 	foreach (var test_date in get_dates ()) {
-		var left_date = Tuba.DateTime.humanize_left (test_date.iso8601);
+		var left_date = Tuba.Utils.DateTime.humanize_left (test_date.iso8601);
 
 		assert_cmpstr (left_date, CompareOperator.EQ, test_date.left);
 	}
@@ -125,7 +125,7 @@ public void test_left () {
 
 public void test_ago () {
 	foreach (var test_date in get_dates ()) {
-		var ago_date = Tuba.DateTime.humanize_ago (test_date.iso8601);
+		var ago_date = Tuba.Utils.DateTime.humanize_ago (test_date.iso8601);
 
 		assert_cmpstr (ago_date, CompareOperator.EQ, test_date.ago);
 	}
@@ -133,7 +133,7 @@ public void test_ago () {
 
 public void test_humanize () {
 	foreach (var test_date in get_dates ()) {
-		var human_date = Tuba.DateTime.humanize (test_date.iso8601);
+		var human_date = Tuba.Utils.DateTime.humanize (test_date.iso8601);
 
 		assert_cmpstr (human_date, CompareOperator.EQ, test_date.human);
 	}
@@ -184,7 +184,7 @@ Test3Months[] get_3_months_dates () {
 
 public void test_3_months () {
 	foreach (var test_date in get_3_months_dates ()) {
-		var is_3_months_old = Tuba.DateTime.is_3_months_old (test_date.iso8601);
+		var is_3_months_old = Tuba.Utils.DateTime.is_3_months_old (test_date.iso8601);
 
 		assert_true (is_3_months_old == test_date.res);
 	}

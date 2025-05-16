@@ -22,6 +22,8 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public const string KIND_STATUS = "status";
 	public const string KIND_PLEROMA_REACTION = "pleroma:emoji_reaction";
 	public const string KIND_REACTION = "reaction";
+	public const string KIND_ANNUAL_REPORT = "annual_report";
+	public const string KIND_MODERATION_WARNING = "moderation_warning";
 
 	public string uuid { get; set; }
 	public bool admin_mode { get; set; default=false; }
@@ -35,9 +37,9 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public bool needs_update { get; set; default=false; }
 	public Error? error { get; set; } //TODO: use this field when server invalidates the auth token
 	public bool tuba_probably_has_notification_filters { get; set; default=false; }
-	public int8 tuba_mastodon_version { get; set; default=0; }
 
 	public GLib.ListStore known_places = new GLib.ListStore (typeof (Place));
+	public GLib.ListStore list_places = new GLib.ListStore (typeof (Place));
 
 	public Gee.HashMap<Type,Type> type_overrides = new Gee.HashMap<Type,Type> ();
 
@@ -58,8 +60,10 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	public virtual signal void activated () {
+		bump_sidebar_items ();
 		gather_instance_info ();
 		gather_instance_custom_emojis ();
+		GLib.Idle.add (gather_fav_lists);
 		check_announcements ();
 
 		if (_account_settings != null) _account_settings = null;
@@ -76,6 +80,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public void reconnect () {
 		gather_instance_info ();
 		gather_instance_custom_emojis ();
+		GLib.Idle.add (gather_fav_lists);
 		check_announcements ();
 		check_notifications ();
 	}
@@ -84,9 +89,12 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 		this.construct_streamable ();
 		this.stream_event[EVENT_NOTIFICATION].connect (on_notification_event);
 		this.register_known_places (this.known_places);
+		this.register_lists (this.list_places);
 
 		#if DEV_MODE
 			app.dev_new_notification.connect (node => {
+				if (accounts.active.id != this.id) return;
+
 				try {
 					var entity = create_entity<API.Notification> (node);
 
@@ -335,6 +343,30 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					null
 				};
 				break;
+			case KIND_ANNUAL_REPORT:
+				result = {
+					"tuba-heart-broken-symbolic",
+					// translators: this is used for notifications,
+					//				when an annual report is available.
+					//				it's similar to spotify wrapped, it
+					//				shows profile stats / it's a recap
+					//				of the year. The variable is the
+					//				current year e.g. 2024. Please don't
+					//				translate the hashtag.
+					_("Your %s #FediWrapped is ready!").printf (other_data),
+					null
+				};
+				break;
+			case KIND_MODERATION_WARNING:
+				result = {
+					"tuba-police-badge2-symbolic",
+					// translators: this is used for notifications,
+					//				when you receive a warning from
+					//				your server's admins
+					_("Your account has received a moderation warning"),
+					null
+				};
+				break;
 			case KIND_ADMIN_REPORT:
 				result = {
 					"tuba-build-alt-symbolic",
@@ -349,6 +381,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					// translators: the variable is a string user name,
 					//				this is used for per-account notifications
 					_("%s just posted").printf (actor_name),
+					null
 				};
 				break;
 			case KIND_PLEROMA_REACTION:
@@ -382,6 +415,7 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	}
 
 	public virtual void register_known_places (GLib.ListStore places) {}
+	public virtual void register_lists (GLib.ListStore places, Place[]? lists = null) {}
 
 	// Notifications
 
@@ -477,9 +511,12 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				}
 
 				app.handle_share ();
+				bump_sidebar_items ();
 			})
 			.exec ();
 	}
+
+	protected virtual void bump_sidebar_items () {}
 
 	private void gather_v2_instance_info () {
 		new Request.GET ("/api/v2/instance")
@@ -489,20 +526,57 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				var node = network.parse_node (parser);
 				if (node == null) return;
 
-				this.tuba_probably_has_notification_filters = true;
 				var instance_v2 = API.InstanceV2.from (node);
-
 				if (instance_v2 != null) {
 					if (instance_v2.configuration != null && instance_v2.configuration.translation != null)
 						this.instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
 
-					if (instance_v2.api_versions != null && instance_v2.api_versions.mastodon > 0 && this.tuba_mastodon_version != instance_v2.api_versions.mastodon) {
-						this.tuba_mastodon_version = instance_v2.api_versions.mastodon;
-						accounts.update_account (this);
+					if (instance_v2.api_versions != null && instance_v2.api_versions.mastodon > 0) {
+						this.instance_info.tuba_api_versions = instance_v2.api_versions;
+						this.tuba_probably_has_notification_filters = true;
+
+						if (this.instance_info.tuba_api_versions.mastodon > 1) gather_annual_report ();
 					}
 				}
+
+				bump_sidebar_items ();
 			})
 			.exec ();
+	}
+
+	public int tuba_last_fediwrapped_year { get; set; default=0; }
+	API.AnnualReports? annual_report;
+	private void gather_annual_report () {
+		var now = new GLib.DateTime.now ();
+
+		int year = 0;
+		switch (now.get_month ()) {
+			case 12:
+				year = now.get_year ();
+				break;
+			case 1:
+				year = now.get_year () - 1;
+				break;
+			default:
+				return;
+		}
+
+		new Request.GET (@"/api/v1/annual_reports/$(year)")
+			.with_account (accounts.active)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				annual_report = API.AnnualReports.from (node);
+				if (annual_report.annual_reports.size > 0) tuba_last_fediwrapped_year = year;
+			})
+			.exec ();
+	}
+
+	public void open_latest_wrapped () {
+		if (tuba_last_fediwrapped_year == 0 || annual_report == null) return;
+		annual_report.open (tuba_last_fediwrapped_year);
+		tuba_last_fediwrapped_year = 0;
+		annual_report = null;
 	}
 
 	public void gather_instance_custom_emojis () {
@@ -520,6 +594,53 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				instance_emojis = (Gee.ArrayList<Tuba.API.Emoji>) res_emojis;
 			})
 			.exec ();
+	}
+
+	public bool gather_fav_lists () {
+		if (settings.favorite_lists_ids.length == 0) {
+			this.register_lists (this.list_places);
+			return GLib.Source.REMOVE;
+		}
+
+		new Request.GET ("/api/v1/lists")
+			.with_account (accounts.active)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				Place[] fav_lists = {};
+				string[] all_ids = {};
+				Network.parse_array (parser, node => {
+					var list = API.List.from (node);
+					if (list.id in settings.favorite_lists_ids) {
+						fav_lists += new Place () {
+							icon = "tuba-list-compact-symbolic",
+							title = list.title,
+							extra_data = list,
+							open_func = (win, list) => {
+								win.open_view (set_as_sidebar_item (new Views.List ((API.List) list)));
+
+							}
+						};
+					}
+
+					all_ids += list.id;
+				});
+				this.register_lists (this.list_places, fav_lists);
+
+				string[] new_favs = {};
+				foreach (string fav_id in settings.favorite_lists_ids) {
+					if (fav_id in all_ids) new_favs += fav_id;
+				}
+				settings.favorite_lists_ids = new_favs;
+			})
+			.exec ();
+
+		return GLib.Source.REMOVE;
+	}
+
+	protected static Views.Base set_as_sidebar_item (Views.Base view) {
+		view.is_sidebar_item = true;
+		view.show_back_button = false;
+		return view;
 	}
 
 	public void init_notifications () {
@@ -581,7 +702,6 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 				new Request.POST ("/api/v1/markers")
 					.with_account (this)
 					.with_form_data ("notifications[last_read_id]", up_to_id.to_string ())
-					.then (() => {})
 					.exec ();
 
 				// Pleroma FE doesn't mark them as read by just updating the marker
@@ -589,8 +709,11 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 					new Request.POST ("/api/v1/pleroma/notifications/read")
 						.with_account (this)
 						.with_form_data ("max_id", up_to_id.to_string ())
-						.then (() => {})
 						.exec ();
+				}
+
+				foreach (string notification_id in sent_notifications.keys) {
+					app.withdraw_notification (notification_id);
 				}
 
 				sent_notifications.clear ();
@@ -630,21 +753,22 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 	public void send_toast (API.Notification obj) {
 		if (obj.kind != null && (obj.kind in settings.muted_notification_types)) return;
 
-		var id = obj.id;
+		var id = accounts.active.id;
 		var others = 0;
 
 		if (settings.group_push_notifications && obj.status != null && obj.kind in GROUPED_KINDS) {
-			id = @"$(obj.status.id)-$(obj.kind)";
+			id = @"$id-$(obj.status.id)-$(obj.kind)";
 			if (sent_notifications.has_key (id)) {
 				others = sent_notifications.get (id) + 1;
 			}
-			sent_notifications.set (id, others);
+		} else {
+			id = @"$id-$(obj.id)";
 		}
+		sent_notifications.set (id, others);
 
 		obj.to_toast.begin (this, others, (_obj, res) => {
 			app.send_notification (id, obj.to_toast.end (res));
 		});
-		//  sent_notification_ids.add(id);
 	}
 
 

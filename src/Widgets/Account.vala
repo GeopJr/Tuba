@@ -170,7 +170,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		);
 	}
 
-	private weak API.Account api_account { get; set; }
+	private API.Account api_account { get; set; }
 	private string account_id = "";
 	private ulong open_signal = -1;
 	public Account (API.Account account) {
@@ -186,7 +186,11 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 		display_name.instance_emojis = account.emojis_map;
 		display_name.content = account.display_name;
 		handle.label = account.handle;
+
 		avatar.account = account;
+		if (account.avatar_description != null && account.avatar_description != "")
+			avatar.alternative_text = account.avatar_description;
+
 		note.bold_text_regex = account.tuba_search_query_regex;
 		note.instance_emojis = account.emojis_map;
 		note.content = account.note;
@@ -204,6 +208,9 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 			background.paintable = avatar.custom_image;
 		} else {
 			Tuba.Helper.Image.request_paintable (account.header, null, false, on_cache_response);
+
+			if (account.header_description != null && account.header_description != "")
+				background.alternative_text = account.header_description;
 		}
 
 		// translators: Used in profile stats.
@@ -212,7 +219,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 			"%s Post",
 			"%s Posts",
 			(ulong) account.statuses_count
-		).printf (@"<b>$(Tuba.Units.shorten (account.statuses_count))</b>");
+		).printf (@"<b>$(Utils.Units.shorten (account.statuses_count))</b>");
 
 		// translators: Used in profile stats.
 		//              The variable is a shortened number of the amount of followers a user has.
@@ -220,13 +227,13 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 			"%s Follower",
 			"%s Followers",
 			(ulong) account.statuses_count
-		).printf (@"<b>$(Tuba.Units.shorten (account.followers_count))</b>");
+		).printf (@"<b>$(Utils.Units.shorten (account.followers_count))</b>");
 
 		stats_label.label = "<span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>   <span allow_breaks=\"false\">%s</span>".printf (
 			posts_str,
 			// translators: Used in profile stats.
 			//              The variable is a shortened number of the amount of people a user follows.
-			_("%s Following").printf (@"<b>$(Tuba.Units.shorten (account.following_count))</b>"),
+			_("%s Following").printf (@"<b>$(Utils.Units.shorten (account.following_count))</b>"),
 			followers_str
 		);
 
@@ -234,7 +241,7 @@ public class Tuba.Widgets.Account : Gtk.ListBoxRow {
 	}
 
 	private void on_tuba_rs () {
-		if (api_account != null)
+		if (api_account != null && api_account.tuba_rs != null)
 			rs = api_account.tuba_rs;
 	}
 

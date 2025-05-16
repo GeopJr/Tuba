@@ -93,6 +93,8 @@ public class Tuba.API.Relationship : Entity {
 				var node = network.parse_node (parser);
 				invalidate (node);
 				debug (@"Performed \"$operation\" on Relationship $id");
+
+				if (operation == "mute" || operation == "block" || operation == "unfollow") app.remove_user_id (id);
 			});
 
 		if (modify_params != null) {
@@ -145,6 +147,9 @@ public class Tuba.API.Relationship : Entity {
 
 	public void question_modify_mute (string handle) {
 		var switch_row = new Adw.SwitchRow () {
+			// translators: switch label when muting someone,
+			//				turning it on will also hide notifications
+			//				from this user, e.g. when they reply to you
 			title = _("Hide from Notifications"),
 			active = true
 		};
@@ -159,6 +164,7 @@ public class Tuba.API.Relationship : Entity {
 		var exp_row = new Adw.ComboRow () {
 			expression = new Gtk.PropertyExpression (typeof (MuteExpWrapper), null, "title"),
 			model = model,
+			// translators: Dropdown title for picking when a mute should expire
 			title = _("Expire In")
 		};
 
@@ -202,6 +208,7 @@ public class Tuba.API.Relationship : Entity {
 	const MuteExpiration[] ALL_MUTE_EXPS = { NEVER, HOUR_24, DAY_7, DAY_30 };
 	enum MuteExpiration {
 		NEVER,
+		HOUR_6,
 		HOUR_24,
 		DAY_7,
 		DAY_30;
@@ -212,6 +219,7 @@ public class Tuba.API.Relationship : Entity {
 
 			switch (this) {
 				case NEVER: return _("Never");
+				case HOUR_6: return GLib.ngettext ("%d Hour", "%d Hours", (ulong) 6).printf (6);
 				case HOUR_24: return GLib.ngettext ("%d Hour", "%d Hours", (ulong) 24).printf (24);
 				case DAY_7: return GLib.ngettext ("%d Day", "%d Days", (ulong) 7).printf (7);
 				case DAY_30: return GLib.ngettext ("%d Day", "%d Days", (ulong) 30).printf (30);
@@ -222,6 +230,7 @@ public class Tuba.API.Relationship : Entity {
 		public int to_seconds () {
 			switch (this) {
 				case NEVER: return 0;
+				case HOUR_6: return 3600 * 6;
 				case HOUR_24: return 3600 * 24;
 				case DAY_7: return 3600 * 24 * 7;
 				case DAY_30: return 3600 * 24 * 30;

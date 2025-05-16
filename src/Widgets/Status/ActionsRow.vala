@@ -2,10 +2,11 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	public signal void reply (Gtk.Button btn);
 	public API.Status status { get; set; }
 
-	StatusActionButton reply_button;
-	StatusActionButton reblog_button;
-	StatusActionButton favorite_button;
-	StatusActionButton bookmark_button;
+	Widgets.StatusActionButton reply_button;
+	Widgets.StatusActionButton reblog_button;
+	Widgets.StatusActionButton favorite_button;
+	Widgets.StatusActionButton bookmark_button;
+	Widgets.StatusActionButton? quote_button = null;
 
 	public ActionsRow (API.Status t_status) {
 		Object (status: t_status);
@@ -38,6 +39,10 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		bindings += this.status.bind_property ("favourites-count", favorite_button, "amount", GLib.BindingFlags.SYNC_CREATE);
 
 		bindings += this.status.bind_property ("bookmarked", bookmark_button, "active", GLib.BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
+
+		if (quote_button != null) {
+			quote_button.visible = status.formal.can_be_quoted;
+		}
 	}
 
 	private void in_reply_to_id_notify_func () {
@@ -75,7 +80,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		this.add_css_class ("ttl-post-actions");
 		this.spacing = 6;
 
-		reply_button = new StatusActionButton.with_icon_name ("tuba-reply-sender-symbolic") {
+		reply_button = new Widgets.StatusActionButton.with_icon_name ("tuba-reply-sender-symbolic") {
 			active = false,
 			css_classes = { "ttl-status-action-reply", "flat", "circular" },
 			halign = Gtk.Align.START,
@@ -94,7 +99,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		reply_button.clicked.connect (on_reply_button_clicked);
 		this.append (reply_button);
 
-		reblog_button = new StatusActionButton.with_icon_name ("tuba-media-playlist-repeat-symbolic") {
+		reblog_button = new Widgets.StatusActionButton.with_icon_name ("tuba-media-playlist-repeat-symbolic") {
 			css_classes = { "ttl-status-action-reblog", "flat", "circular" },
 			halign = Gtk.Align.START,
 			hexpand = true,
@@ -112,7 +117,19 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		reblog_button.clicked.connect (on_boost_button_clicked);
 		this.append (reblog_button);
 
-		favorite_button = new StatusActionButton.with_icon_name ("tuba-unstarred-symbolic") {
+		if (accounts.active.instance_info != null && accounts.active.instance_info.supports_quote_posting) {
+			quote_button = new Widgets.StatusActionButton.with_icon_name ("tuba-quotation-symbolic") {
+				css_classes = { "ttl-status-action-quote", "flat", "circular" },
+				halign = Gtk.Align.START,
+				hexpand = true,
+				tooltip_text = _("Quote"),
+				visible = false
+			};
+			quote_button.clicked.connect (on_quote_button_clicked);
+			this.append (quote_button);
+		}
+
+		favorite_button = new Widgets.StatusActionButton.with_icon_name ("tuba-unstarred-symbolic") {
 			active_icon_name = "tuba-starred-symbolic",
 			css_classes = { "ttl-status-action-star", "flat", "circular" },
 			halign = Gtk.Align.START,
@@ -131,7 +148,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		favorite_button.clicked.connect (on_favorite_button_clicked);
 		this.append (favorite_button);
 
-		bookmark_button = new StatusActionButton.with_icon_name ("tuba-bookmarks-symbolic") {
+		bookmark_button = new Widgets.StatusActionButton.with_icon_name ("tuba-bookmarks-symbolic") {
 			active_icon_name = "tuba-bookmarks-filled-symbolic",
 			css_classes = { "ttl-status-action-bookmark", "flat", "circular" },
 			halign = Gtk.Align.START,
@@ -143,11 +160,11 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	}
 
 	private void on_reply_button_clicked (Gtk.Button btn) {
-		if (settings.reply_to_old_post_reminder && Tuba.DateTime.is_3_months_old (status.formal.created_at)) {
+		if (settings.reply_to_old_post_reminder && Utils.DateTime.is_3_months_old (status.formal.created_at)) {
 			app.question.begin (
 				// translators: the variable is a datetime with the "old" suffix, e.g. "5 months old", "a day old", "2 years old".
 				//				The "old" suffix is translated on the datetime strings, not here
-				{_("This post is %s").printf (Tuba.DateTime.humanize_old (status.formal.created_at)), false},
+				{_("This post is %s").printf (Utils.DateTime.humanize_old (status.formal.created_at)), false},
 				// translators: you can find this string translated on https://github.com/mastodon/mastodon-android/tree/master/mastodon/src/main/res
 				//				in the `strings.xml` file inside the `values-` folder that matches your locale under the `old_post_sheet_text` key
 				{_("You can still reply, but it may no longer be relevant."), false},
@@ -168,7 +185,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	}
 
 	private void on_bookmark_button_clicked (Gtk.Button btn) {
-		var status_btn = btn as StatusActionButton;
+		var status_btn = btn as Widgets.StatusActionButton;
 		if (status_btn.working) return;
 
 		status_btn.block_clicked ();
@@ -189,7 +206,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	}
 
 	private void on_favorite_button_clicked (Gtk.Button btn) {
-		var status_btn = btn as StatusActionButton;
+		var status_btn = btn as Widgets.StatusActionButton;
 		if (status_btn.working) return;
 
 		status_btn.block_clicked ();
@@ -211,7 +228,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 	}
 
 	private void on_boost_button_clicked (Gtk.Button btn) {
-		var status_btn = btn as StatusActionButton;
+		var status_btn = btn as Widgets.StatusActionButton;
 		if (status_btn.working) return;
 
 		status_btn.block_clicked ();
@@ -223,11 +240,11 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			};
 
 			Gtk.CheckButton? group = null; // hashmap is not ordered
-			Gee.HashMap<API.Status.ReblogVisibility, Gtk.CheckButton> check_buttons = new Gee.HashMap<API.Status.ReblogVisibility, Gtk.CheckButton> ();
+			Gee.HashMap<API.Status.Visibility, Gtk.CheckButton> check_buttons = new Gee.HashMap<API.Status.Visibility, Gtk.CheckButton> ();
 			for (int i = 0; i < accounts.active.visibility_list.n_items; i++) {
 				var visibility = (InstanceAccount.Visibility) accounts.active.visibility_list.get_item (i);
-				var reblog_visibility = API.Status.ReblogVisibility.from_string (visibility.id);
-				if (reblog_visibility == null) continue;
+				var reblog_visibility = API.Status.Visibility.from_string (visibility.id);
+				if (reblog_visibility == null || reblog_visibility == API.Status.Visibility.DIRECT) continue;
 
 				var checkbutton = new Gtk.CheckButton () {
 					css_classes = {"selection-mode"},
@@ -271,10 +288,10 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 				switch (res) {
 					case "yes":
 					case "quote":
-						API.Status.ReblogVisibility? reblog_visibility = null;
+						API.Status.Visibility? reblog_visibility = null;
 						check_buttons.foreach (e => {
 							if (((Gtk.CheckButton) e.value).active) {
-								reblog_visibility = (API.Status.ReblogVisibility) e.key;
+								reblog_visibility = (API.Status.Visibility) e.key;
 								return false;
 							}
 
@@ -312,7 +329,13 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 		}
 	}
 
-	private void commit_boost (StatusActionButton status_btn, API.Status.ReblogVisibility? visibility = null) {
+	private void on_quote_button_clicked () {
+		new Dialogs.Compose (new API.Status.empty () {
+			visibility = settings.default_post_visibility
+		}, false, status.formal.id);
+	}
+
+	private void commit_boost (Widgets.StatusActionButton status_btn, API.Status.Visibility? visibility = null) {
 			status_btn.active = !status_btn.active;
 
 			string action;
@@ -330,7 +353,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 			mastodon_action (status_btn, req, action, "reblogs-count");
 	}
 
-	private void mastodon_action (StatusActionButton status_btn, Request req, string action, string? count_property = null) {
+	private void mastodon_action (Widgets.StatusActionButton status_btn, Request req, string action, string? count_property = null) {
 		req.await.begin ((o, res) => {
 			try {
 				req.await.end (res);

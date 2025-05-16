@@ -188,9 +188,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			files_to_upload += file;
 		}
 
-		upload_files.begin (files_to_upload, (obj, res) => {
-			upload_files.end (res);
-		});
+		upload_files.begin (files_to_upload);
 
 		return true;
 	}
@@ -356,6 +354,10 @@ public class Tuba.AttachmentsPage : ComposerPage {
 			&& accounts.active.instance_info.configuration.media_attachments != null
 			&& accounts.active.instance_info.configuration.media_attachments.supported_mime_types != null
 			&& accounts.active.instance_info.configuration.media_attachments.supported_mime_types.size > 0
+			&& !(
+				accounts.active.instance_info.configuration.media_attachments.supported_mime_types.size == 1
+				&& accounts.active.instance_info.configuration.media_attachments.supported_mime_types[0] == "application/octet-stream"
+			)
 		) {
 			supported_mimes = accounts.active.instance_info.configuration.media_attachments.supported_mime_types;
 		}
@@ -385,9 +387,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 						files_to_upload += file;
 				}
 
-				upload_files.begin (files_to_upload, (obj, res) => {
-					upload_files.end (res);
-				});
+				upload_files.begin (files_to_upload);
 
 			} catch (Error e) {
 				// User dismissing the dialog also ends here so don't make it sound like
@@ -452,7 +452,7 @@ public class Tuba.AttachmentsPage : ComposerPage {
 		var i = 0;
 		foreach (var file13 in files_for_upload) {
 			uploading = true;
-			API.Attachment.upload.begin (file13.get_uri (), (obj, res) => {
+			API.Attachment.upload.begin (file13.get_uri (), null, null, (obj, res) => {
 				try {
 					var attachment = API.Attachment.upload.end (res);
 					attachment.source_file = file13;
@@ -484,7 +484,10 @@ public class Tuba.AttachmentsPage : ComposerPage {
 
 			string? focus = null;
 			if (attachment.meta != null && attachment.meta.focus != null) {
-				focus = "%.2f,%.2f".printf (page_attachment.pos_x, page_attachment.pos_y);
+				focus = "%s,%s".printf (
+					Utils.Units.float_to_2_point_string (page_attachment.pos_x),
+					Utils.Units.float_to_2_point_string (page_attachment.pos_y)
+				);
 			}
 
 			status.add_media (attachment.id, attachment.description, focus);

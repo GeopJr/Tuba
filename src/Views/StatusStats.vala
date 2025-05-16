@@ -30,11 +30,16 @@ public class Tuba.Views.StatusStats : Views.TabbedBase {
 
 		if (has_reactors && accounts.active.instance_info != null && accounts.active.instance_info.pleroma != null) {
 			reacted = add_timeline_tab (
-				// translators: title for a list of people that have reacted to a post
+				// translators: title for a list of people that have reacted to a post.
+				//				A reaction is not the same as a favorite or a boost,
+				//				see https://github.com/glitch-soc/mastodon/pull/2462
 				_("Reactions"),
 				"tuba-smile-symbolic",
 				@"/api/v1/pleroma/statuses/$(status_id)/reactions",
 				typeof (API.EmojiReaction),
+				// translators: Reactions page empty state.
+				//				A reaction is not the same as a favorite or a boost,
+				//				see https://github.com/glitch-soc/mastodon/pull/2462
 				_("No Reactions"),
 				"tuba-heart-broken-symbolic"
 			);

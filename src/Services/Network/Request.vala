@@ -25,7 +25,7 @@ public class Tuba.Request : GLib.Object {
 		}
 	}
 	public InputStream response_body { get; set; }
-	public weak InstanceAccount? account { get; set; default = null; }
+	public InstanceAccount? account { get; set; default = null; }
 	Network.SuccessCallback? cb;
 	Network.ErrorCallback? error_cb;
 	Gee.HashMap<string, string>? pars;

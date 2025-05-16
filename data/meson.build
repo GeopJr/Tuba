@@ -28,54 +28,28 @@ install_data(
     ),
 )
 
-install_data(
-    join_paths('langs', 'fedi.xml'),
-    install_dir: join_paths(
-        get_option('prefix'),
-        get_option('datadir'),
-        'gtksourceview-5',
-        'styles',
-    ),
-)
+gresource_files = ''
+syntax_colors = ['blue', 'teal', 'green', 'yellow', 'orange', 'red', 'pink', 'purple', 'slate']
+foreach color : syntax_colors
+  light = configure_file(
+      input : join_paths('langs', 'fedi.xml.in'),
+      output : 'fedi-' + color + '.xml',
+      configuration : {'COLOR': color, 'VARIANT': '3', 'SYNTAX_VARIANT': 'light', 'OP_SYNTAX_VARIANT': 'dark', 'DARK_SUFFIX': '', 'OP_DARK_SUFFIX': '-dark'}
+  )
 
-install_data(
-    join_paths('langs', 'fedi-dark.xml'),
-    install_dir: join_paths(
-        get_option('prefix'),
-        get_option('datadir'),
-        'gtksourceview-5',
-        'styles',
-    ),
-)
+  dark = configure_file(
+      input : join_paths('langs', 'fedi.xml.in'),
+      output : 'fedi-' + color + '-dark.xml',
+      configuration : {'COLOR': color, 'VARIANT': '2', 'SYNTAX_VARIANT': 'dark', 'OP_SYNTAX_VARIANT': 'light', 'DARK_SUFFIX': '-dark', 'OP_DARK_SUFFIX': ''}
+  )
 
-install_data(
-    join_paths('langs', 'fedi-basic.lang'),
-    install_dir: join_paths(
-        get_option('prefix'),
-        get_option('datadir'),
-        'gtksourceview-5',
-        'language-specs',
-    ),
-)
+  gresource_files += '<file preprocess="xml-stripblanks" alias="fedi-@0@.xml">@1@/fedi-@0@.xml</file>\n<file preprocess="xml-stripblanks" alias="fedi-@0@-dark.xml">@1@/fedi-@0@-dark.xml</file>\n'.format(color, meson.current_build_dir())
+endforeach
 
-install_data(
-    join_paths('langs', 'fedi-html.lang'),
-    install_dir: join_paths(
-        get_option('prefix'),
-        get_option('datadir'),
-        'gtksourceview-5',
-        'language-specs',
-    ),
-)
-
-install_data(
-    join_paths('langs', 'fedi-markdown.lang'),
-    install_dir: join_paths(
-        get_option('prefix'),
-        get_option('datadir'),
-        'gtksourceview-5',
-        'language-specs',
-    ),
+gresource_file = configure_file(
+    input : 'gresource.xml.in',
+    output : 'gresource.xml',
+    configuration : {'GRESOURCE_SOURCEVIEW_STYLES_FILES': gresource_files}
 )
 
 desktop_file = i18n.merge_file(
@@ -100,13 +74,13 @@ if host_machine.system() != 'windows' and host_machine.system() != 'darwin'
         install: true,
         install_dir: join_paths(get_option('datadir'), 'metainfo'),
     )
-    
-    appstream_util = find_program('appstream-util', required: false)
-    if appstream_util.found()
+
+    appstreamcli = find_program('appstreamcli', required: false)
+    if appstreamcli.found()
         test(
             'Validate appstream file',
-            appstream_util,
-            args: ['validate-relax', '--nonet', appstream_file],
+            appstreamcli,
+            args: ['validate', '--no-net', '--explain', appstream_file],
         )
     endif
 endif

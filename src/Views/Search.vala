@@ -85,6 +85,8 @@ public class Tuba.Views.Search : Views.TabbedBase {
 	Views.ContentBase hashtags_tab;
 
 	construct {
+		this.uid = 1;
+
 		label = _("Search");
 		this.empty_timeline_icon = "system-search";
 		this.empty_state_title = _("Search");
@@ -180,10 +182,12 @@ public class Tuba.Views.Search : Views.TabbedBase {
 
 	GLib.Regex? search_query_regex = null;
 	private void generate_regex () {
+		if (this.query.length >= 45) return;
+
 		try {
 			search_query_regex = new Regex (
-				// "this is a test." => /(\bthis\b|\bis\b|\ba\b|\btest\.\b)/
-				@"(\\b$(GLib.Regex.escape_string (this.query).replace (" ", "\\b|\\b"))\\b)",
+				// "this is a test." => /(:?\bthis\b:?|:?\bis\b:?|:?\ba\b:?|:?\btest\.\b:?)/
+				@"(:?\\b$(GLib.Regex.escape_string (this.query).replace (" ", "\\b:?|:?\\b"))\\b:?)",
 				GLib.RegexCompileFlags.CASELESS | GLib.RegexCompileFlags.OPTIMIZE
 			);
 		} catch (RegexError e) {
@@ -252,7 +256,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 			};
 
 			lang_dropdown = new Gtk.DropDown (app.app_locales.list_store, null) {
-				expression = new Gtk.PropertyExpression (typeof (Tuba.Locales.Locale), null, "name"),
+				expression = new Gtk.PropertyExpression (typeof (Utils.Locales.Locale), null, "name"),
 				factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language_title.ui"),
 				list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language.ui"),
 				enable_search = true,
@@ -309,8 +313,8 @@ public class Tuba.Views.Search : Views.TabbedBase {
 								uint default_lang_index;
 								if (
 									app.app_locales.list_store.find_with_equal_func (
-										new Tuba.Locales.Locale (locale_str, null, null),
-										Tuba.Locales.Locale.compare,
+										new Utils.Locales.Locale (locale_str, null, null),
+										Utils.Locales.Locale.compare,
 										out default_lang_index
 									)
 								) {
@@ -401,7 +405,9 @@ public class Tuba.Views.Search : Views.TabbedBase {
 				})
 				.on_error ((code, message) => {
 					auto_fill_users_button.sensitive = true;
-					// translators: warning toast in advanced search dialog when auto-filling a user fails
+					// translators: warning toast in advanced search dialog when auto-filling a user fails.
+					// 				Auto-fill refers to automatically filling the entry with the first
+					//				found user based on the query.
 					toast_overlay.add_toast (new Adw.Toast (_("Couldn't auto-fill user: %s").printf (message)) {
 						timeout = 5
 					});
@@ -450,7 +456,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 			}
 
 			if (lang_dropdown.sensitive) {
-				props += @"language:$(((Tuba.Locales.Locale) lang_dropdown.selected_item).locale)";
+				props += @"language:$(((Utils.Locales.Locale) lang_dropdown.selected_item).locale)";
 			}
 
 			result (@"$final_query $(string.joinv (" ", props))");

@@ -18,24 +18,24 @@ public class Tuba.EditorPage : ComposerPage {
 		string locale_icu = "en";
 		if (
 			language_button != null
-			&& ((Tuba.Locales.Locale) language_button.selected_item) != null
-			&& ((Tuba.Locales.Locale) language_button.selected_item).locale != null
+			&& ((Utils.Locales.Locale) language_button.selected_item) != null
+			&& ((Utils.Locales.Locale) language_button.selected_item).locale != null
 		) {
-			locale_icu = ((Tuba.Locales.Locale) language_button.selected_item).locale;
+			locale_icu = ((Utils.Locales.Locale) language_button.selected_item).locale;
 		}
 
 		if (cw_button != null && cw_button.active)
-				res -= Counting.chars (cw_entry.text, locale_icu);
+				res -= Utils.Counting.chars (cw_entry.text, locale_icu);
 
-		string replaced_urls = Tracking.cleanup_content_with_uris (
+		string replaced_urls = Utils.Tracking.cleanup_content_with_uris (
 			editor.buffer.text,
-			Tracking.extract_uris (editor.buffer.text),
-			Tracking.CleanupType.SPECIFIC_LENGTH,
+			Utils.Tracking.extract_uris (editor.buffer.text),
+			Utils.Tracking.CleanupType.SPECIFIC_LENGTH,
 			accounts.active.instance_info.compat_status_characters_reserved_per_url
 		);
-		string replaced_mentions = Counting.replace_mentions (replaced_urls);
+		string replaced_mentions = Utils.Counting.replace_mentions (replaced_urls);
 
-		res -= Counting.chars (replaced_mentions, locale_icu);
+		res -= Utils.Counting.chars (replaced_mentions, locale_icu);
 
 		remaining_chars = res;
 	}
@@ -104,10 +104,10 @@ public class Tuba.EditorPage : ComposerPage {
 
 	protected void on_paste (Gdk.Clipboard clp) {
 		if (!settings.strip_tracking) return;
-		var clean_buffer = Tracking.cleanup_content_with_uris (
+		var clean_buffer = Utils.Tracking.cleanup_content_with_uris (
 			editor.buffer.text,
-			Tracking.extract_uris (editor.buffer.text),
-			Tracking.CleanupType.STRIP_TRACKING
+			Utils.Tracking.extract_uris (editor.buffer.text),
+			Utils.Tracking.CleanupType.STRIP_TRACKING
 		);
 		if (clean_buffer == editor.buffer.text) return;
 
@@ -146,7 +146,7 @@ public class Tuba.EditorPage : ComposerPage {
 			status.visibility = instance_visibility.id;
 
 		if (language_button != null && language_button.selected_item != null) {
-			status.language = ((Tuba.Locales.Locale) language_button.selected_item).locale;
+			status.language = ((Utils.Locales.Locale) language_button.selected_item).locale;
 		}
 
 		if (content_type_button != null && content_type_button.selected_item != null) {
@@ -188,6 +188,9 @@ public class Tuba.EditorPage : ComposerPage {
 		private void update_spelling_settings () {
 			settings.spellchecker_enabled = adapter.enabled;
 		}
+
+		string? original_libspelling_lang = null;
+		string? original_libspelling_lang_iso639 = null;
 	#endif
 
 	GtkSource.LanguageManager lang_manager;
@@ -202,13 +205,16 @@ public class Tuba.EditorPage : ComposerPage {
 			left_margin = 6,
 			pixels_below_lines = 6,
 			accepts_tab = false,
-			wrap_mode = Gtk.WrapMode.WORD_CHAR
+			wrap_mode = Gtk.WrapMode.WORD_CHAR,
+			input_hints = Gtk.InputHints.WORD_COMPLETION,
 		};
 		editor.remove_css_class ("view");
 		editor.add_css_class ("reset");
 
 		#if LIBSPELLING
 			adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) editor.buffer, Spelling.Checker.get_default ());
+			original_libspelling_lang = Spelling.Checker.get_default ().language;
+			if (original_libspelling_lang != null) original_libspelling_lang_iso639 = original_libspelling_lang.split_set ("-_", 2)[0];
 
 			editor.extra_menu = adapter.get_menu_model ();
 			editor.insert_action_group ("spelling", adapter);
@@ -237,7 +243,9 @@ public class Tuba.EditorPage : ComposerPage {
 		((GtkSource.Buffer) editor.buffer).highlight_matching_brackets = true;
 		((GtkSource.Buffer) editor.buffer).highlight_syntax = true;
 
-		Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
+		var adw_manager = Adw.StyleManager.get_default ();
+		adw_manager.notify["dark"].connect (update_style_scheme);
+		adw_manager.notify["accent-color-rgba"].connect (update_style_scheme);
 		update_style_scheme ();
 
 		char_counter = new Gtk.Label (char_limit.to_string ()) {
@@ -252,8 +260,44 @@ public class Tuba.EditorPage : ComposerPage {
 
 	protected void update_style_scheme () {
 		var manager = GtkSource.StyleSchemeManager.get_default ();
+		var adw_manager = Adw.StyleManager.get_default ();
+
 		string scheme_name = "Fedi";
-		if (Adw.StyleManager.get_default ().dark) scheme_name += "-dark";
+		if (adw_manager.get_system_supports_accent_colors ()) {
+			switch (adw_manager.get_accent_color ()) {
+				case Adw.AccentColor.YELLOW:
+					scheme_name += "-yellow";
+					break;
+				case Adw.AccentColor.TEAL:
+					scheme_name += "-teal";
+					break;
+				case Adw.AccentColor.PURPLE:
+					scheme_name += "-purple";
+					break;
+				case Adw.AccentColor.RED:
+					scheme_name += "-red";
+					break;
+				case Adw.AccentColor.GREEN:
+					scheme_name += "-green";
+					break;
+				case Adw.AccentColor.ORANGE:
+					scheme_name += "-orange";
+					break;
+				case Adw.AccentColor.SLATE:
+					scheme_name += "-slate";
+					break;
+				case Adw.AccentColor.PINK:
+					scheme_name += "-pink";
+					break;
+				default:
+					scheme_name += "-blue";
+					break;
+			}
+		} else {
+			scheme_name += "-blue";
+		}
+
+		if (adw_manager.dark) scheme_name += "-dark";
 		((GtkSource.Buffer) editor.buffer).style_scheme = manager.get_scheme (scheme_name);
 	}
 
@@ -391,19 +435,23 @@ public class Tuba.EditorPage : ComposerPage {
 
 	protected void install_languages (string? locale_iso) {
 		language_button = new Gtk.DropDown (app.app_locales.list_store, null) {
-			expression = new Gtk.PropertyExpression (typeof (Tuba.Locales.Locale), null, "name"),
+			expression = new Gtk.PropertyExpression (typeof (Utils.Locales.Locale), null, "name"),
 			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language_title.ui"),
 			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language.ui"),
 			tooltip_text = _("Post Language"),
 			enable_search = true
 		};
 
+		#if LIBSPELLING
+			language_button.notify["selected"].connect (on_langauge_changed);
+		#endif
+
 		if (locale_iso != null) {
 			uint default_lang_index;
 			if (
 				app.app_locales.list_store.find_with_equal_func (
-					new Tuba.Locales.Locale (locale_iso, null, null),
-					Tuba.Locales.Locale.compare,
+					new Utils.Locales.Locale (locale_iso, null, null),
+					Utils.Locales.Locale.compare,
 					out default_lang_index
 				)
 			) {
@@ -413,6 +461,28 @@ public class Tuba.EditorPage : ComposerPage {
 
 		add_button (language_button);
 	}
+
+	#if LIBSPELLING
+		private void on_langauge_changed () {
+			var locale_obj = language_button.selected_item as Utils.Locales.Locale;
+			if (locale_obj == null || locale_obj.locale == null) return;
+
+			var new_locale = original_libspelling_lang_iso639 == locale_obj.locale
+				? original_libspelling_lang
+				: locale_obj.locale;
+			update_spelling_lang (new_locale);
+		}
+
+		private void update_spelling_lang (string locale_iso) {
+			var checker = Spelling.Checker.get_default ();
+			checker.language = locale_iso;
+
+			string? new_lang = checker.language;
+			if (new_lang == null && original_libspelling_lang != null) {
+				checker.language = original_libspelling_lang;
+			}
+		}
+	#endif
 
 	protected void install_content_type_button (string? content_type) {
 		content_type_button = new Gtk.DropDown (accounts.active.supported_mime_types, null) {

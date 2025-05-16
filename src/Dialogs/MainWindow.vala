@@ -32,14 +32,6 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		settings.notify["darken-images-on-dark-mode"].connect (settings_updated);
 
 		app.toast.connect (add_toast);
-		app.notify["is-online"].connect (on_network_change);
-	}
-
-	private void on_network_change () {
-		if (app.is_online) {
-			go_back_to_start ();
-			app.refresh ();
-		}
 	}
 
 	private void settings_updated () {
@@ -52,7 +44,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 		});
 	}
 
-	private weak Gtk.Widget? media_viewer_source_widget;
+	private Gtk.Widget? media_viewer_source_widget;
 	private void on_media_viewer_toggle () {
 		if (is_media_viewer_visible || media_viewer_source_widget == null) return;
 
@@ -169,7 +161,7 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 
 			((Widgets.BookWyrmPage) book_widget).selectable = true;
 		} catch {
-			if (fallback != null) Host.open_url (fallback);
+			if (fallback != null) Utils.Host.open_url.begin (fallback);
 		}
 	}
 
@@ -235,7 +227,6 @@ public class Tuba.Dialogs.MainWindow: Adw.ApplicationWindow, Saveable {
 	// 	return app.on_window_closed ();
 	// }
 
-	//FIXME: switch timelines with 1-4. Should be moved to Views.TabbedBase
 	public void switch_timeline (int32 num) {}
 
 	public void update_selected_home_item () {

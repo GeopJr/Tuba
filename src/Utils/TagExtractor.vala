@@ -1,4 +1,4 @@
-public class Tuba.TagExtractor {
+public class Tuba.Utils.TagExtractor {
 	public const int MAX_TAGS_ALLOWED = 20;
 
 	public struct Tag {

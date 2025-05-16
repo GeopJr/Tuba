@@ -31,7 +31,7 @@ public class Tuba.Widgets.Audio.Visualizer : Gtk.Widget {
 		context = new Cairo.Context (surface);
 
 		if (blurhash != null && blurhash != "") {
-			var avg = Tuba.Blurhash.get_blurhash_average_color (blurhash);
+			var avg = Utils.Blurhash.get_blurhash_average_color (blurhash);
 			color = {
 				avg.r / 255.0f,
 				avg.g / 255.0f,

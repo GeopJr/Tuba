@@ -22,6 +22,12 @@
 		<key name="notification-filters" type="as">
 			<default>[]</default>
 		</key>
+		<key name="favorite-lists-ids" type="as">
+			<default>[]</default>
+		</key>
+		<key name="account-suggestions" type="b">
+			<default>true</default>
+		</key>
 	</schema>
 
 	<schema path="/dev/geopjr/Tuba/" id="dev.geopjr.Tuba" gettext-domain="dev.geopjr.Tuba">
@@ -85,6 +91,9 @@
 		<key name="reply-to-old-post-reminder" type="b">
 			<default>true</default>
 		</key>
+    <key name="copy-private-link-reminder" type="b">
+			<default>true</default>
+		</key>
 		<key name="spellchecker-enabled" type="b">
 			<default>true</default>
 		</key>
@@ -116,7 +125,16 @@
 			<default>''</default>
 		</key>
     <key name="contributors" type="as">
-			<default>['1021928818','2964685538','2486375860','3456423266','1352322503','445941323','3177176442','2386917030','987913018','1837154139','4173902237','4223975552','3163563143','3320460562','4233664772','136476033','4041964504','3998595277','580879396','4086778421']</default>
+			<default>['1021928818','2964685538','2486375860','3456423266','1352322503','445941323','3177176442','2813905310','2386917030','987913018','1837154139','4173902237','4223975552','3163563143','3320460562','4233664772','136476033','4041964504','3998595277','580879396']</default>
+		</key>
+    <key name="status-aria-verbosity" type="i">
+			<default>3</default>
+		</key>
+    <key name="use-in-app-browser-if-available" type="b">
+			<default>true</default>
+		</key>
+    <key name="collapse-long-posts" type="b">
+			<default>true</default>
 		</key>
 
 		<key name="window-w" type="i">

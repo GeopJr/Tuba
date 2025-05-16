@@ -3,7 +3,7 @@
 	<template class="TubaViewsSidebarAccountRow" parent="AdwActionRow">
 		<property name="height_request">64</property>
 		<property name="title_lines">1</property>
-		<property name="subtitle_lines">1</property>
+		<property name="subtitle_lines">2</property>
 		<property name="activatable">1</property>
 		<property name="use-markup">0</property>
 
@@ -22,7 +22,7 @@
 						<property name="focusable">0</property>
 						<property name="halign">end</property>
 						<property name="valign">end</property>
-						<property name="icon-name">emblem-ok-symbolic</property>
+						<property name="icon-name">tuba-check-plain-symbolic</property>
 						<property name="pixel-size">11</property>
 						<style>
 							<class name="blue-checkmark" />

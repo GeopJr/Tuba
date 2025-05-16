@@ -1,4 +1,4 @@
-public class Tuba.DateTime {
+public class Tuba.Utils.DateTime {
 
 	public static string humanize_left (string? iso8601) {
 		if (iso8601 == null) return "";
@@ -39,8 +39,8 @@ public class Tuba.DateTime {
 			//				 %-e is the Day number
 			//				 %Y is the year (with century)
 			//				 %H is the hours (24h format)
-			//				 %m is the minutes
-			return date.to_timezone (new TimeZone.local ()).format (_("expires on %b %-e, %Y %H:%m"));
+			//				 %M is the minutes
+			return date.to_timezone (new TimeZone.local ()).format (_("expires on %b %-e, %Y %H:%M"));
 		else if (delta <= TimeSpan.MINUTE)
 			return _("expired on just now");
 		else if (delta < TimeSpan.HOUR) {
@@ -78,8 +78,8 @@ public class Tuba.DateTime {
 			//				 %-e is the Day number
 			//				 %Y is the year (with century)
 			//				 %H is the hours (24h format)
-			//				 %m is the minutes
-			return date.to_timezone (new TimeZone.local ()).format (_("%b %-e, %Y %H:%m"));
+			//				 %M is the minutes
+			return date.to_timezone (new TimeZone.local ()).format (_("%b %-e, %Y %H:%M"));
 		else if (delta <= TimeSpan.MINUTE)
 			return _("Just now");
 		else if (delta < TimeSpan.HOUR) {
@@ -117,8 +117,8 @@ public class Tuba.DateTime {
 			//				 %-e is the Day number
 			//				 %Y is the year (with century)
 			//				 %H is the hours (24h format)
-			//				 %m is the minutes
-			return date.to_timezone (new TimeZone.local ()).format (_("%b %-e, %Y %H:%m"));
+			//				 %M is the minutes
+			return date.to_timezone (new TimeZone.local ()).format (_("%b %-e, %Y %H:%M"));
 		else if (delta <= TimeSpan.MINUTE)
 			return _("just now");
 		else if (delta < TimeSpan.HOUR) {

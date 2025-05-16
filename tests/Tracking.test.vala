@@ -80,7 +80,7 @@ TestUrlCleanup[] get_cleanup_urls () {
 
 public void test_strip_utm () {
 	foreach (var test_url in URLS) {
-		var stripped_url = Tuba.Tracking.strip_utm (test_url.original);
+		var stripped_url = Tuba.Utils.Tracking.strip_utm (test_url.original);
 
 		assert_cmpstr (stripped_url, CompareOperator.EQ, test_url.result);
 	}
@@ -89,14 +89,14 @@ public void test_strip_utm () {
 public void test_strip_utm_fallback () {
 	foreach (var test_url in URLS) {
 		if (!("?" in test_url.original)) continue;
-		var stripped_url = Tuba.Tracking.strip_utm_fallback (test_url.original);
+		var stripped_url = Tuba.Utils.Tracking.strip_utm_fallback (test_url.original);
 		assert_cmpstr (stripped_url, CompareOperator.EQ, test_url.result);
 	}
 }
 
 public void test_cleanup () {
 	foreach (var test_url in get_cleanup_urls ()) {
-		GLib.Uri[] extracted_uris = Tuba.Tracking.extract_uris (test_url.content);
+		GLib.Uri[] extracted_uris = Tuba.Utils.Tracking.extract_uris (test_url.content);
 		assert_cmpint (extracted_uris.length, CompareOperator.EQ, test_url.uris.length);
 
 		for (var i=0; i < test_url.uris.length; i++) {
@@ -104,20 +104,20 @@ public void test_cleanup () {
 		}
 
 		assert_cmpstr (
-			Tuba.Tracking.cleanup_content_with_uris (
+			Tuba.Utils.Tracking.cleanup_content_with_uris (
 				test_url.content,
 				test_url.uris,
-				Tuba.Tracking.CleanupType.STRIP_TRACKING
+				Tuba.Utils.Tracking.CleanupType.STRIP_TRACKING
 			),
 			CompareOperator.EQ,
 			test_url.stripped_content
 		);
 
 		assert_cmpstr (
-			Tuba.Tracking.cleanup_content_with_uris (
+			Tuba.Utils.Tracking.cleanup_content_with_uris (
 				test_url.content,
 				test_url.uris,
-				Tuba.Tracking.CleanupType.SPECIFIC_LENGTH,
+				Tuba.Utils.Tracking.CleanupType.SPECIFIC_LENGTH,
 				test_url.characters_reserved_per_url
 			),
 			CompareOperator.EQ,

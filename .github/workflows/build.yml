@@ -17,68 +17,28 @@ jobs:
         conf: vala-lint.conf
   flatpak-builder:
     name: "Flatpak Builder"
-    runs-on: ubuntu-latest
     needs: [ lint ]
     container:
-      image: bilelmoussaoui/flatpak-github-actions:gnome-43
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
       options: --privileged
     strategy:
       matrix:
-        arch: [x86_64, aarch64]
+        variant:
+          - arch: x86_64
+            runner: ubuntu-latest
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
       # Don't fail the whole workflow if one architecture fails
       fail-fast: false
+    runs-on: ${{ matrix.variant.runner }}
     steps:
     - uses: actions/checkout@v4
-    # Docker is required by the docker/setup-qemu-action which enables emulation
-    - name: Install deps
-      if: matrix.arch == 'aarch64'
-      run: dnf -y install docker
-    - name: Set up QEMU
-      if: matrix.arch == 'aarch64'
-      id: qemu
-      uses: docker/setup-qemu-action@v2
-      with:
-        platforms: arm64
     - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
       with:
         bundle: "dev.geopjr.Tuba.Devel.flatpak"
         run-tests: true
         manifest-path: "build-aux/dev.geopjr.Tuba.Devel.json"
         cache-key: flatpak-builder-${{ github.sha }}
-        arch: ${{ matrix.arch }}
+        arch: ${{ matrix.variant.arch }}
         repository-name: flathub
         repository-url: https://dl.flathub.org/repo/flathub.flatpakrepo
-  snap-builder:
-    name: "Snap Builder"
-    runs-on: ubuntu-latest
-    if: ${{ false }} # disable until snap updates the sdk to GNOME 47
-    needs: [ lint ]
-    strategy:
-      matrix:
-        arch:
-          - x86_64
-          # - aarch64 # needs some changes in the action to incorporate core24
-      # Don't fail the whole workflow if one architecture fails
-      fail-fast: false
-    steps:
-    - uses: actions/checkout@v4
-    - uses: docker/setup-qemu-action@v2
-      if: matrix.arch == 'aarch64'
-    - run: |
-        mv ./build-aux/snap/snapcraft.yaml .
-        sed -i '/version: git/d' snapcraft.yaml
-      if: matrix.arch == 'aarch64'
-    - uses: diddlesnaps/snapcraft-multiarch-action@v1
-      if: matrix.arch == 'aarch64'
-      id: snapcraft_docker
-      with:
-        architecture: arm64
-    - uses: snapcore/action-build@v1
-      id: snapcraft
-      if: matrix.arch == 'x86_64'
-      env:
-        SNAPCRAFT_ENABLE_EXPERIMENTAL_EXTENSIONS: 1
-    - uses: actions/upload-artifact@v4
-      with:
-        name: snap-${{ matrix.arch }}
-        path: ${{ steps.snapcraft_docker.outputs.snap }}${{ steps.snapcraft.outputs.snap }}

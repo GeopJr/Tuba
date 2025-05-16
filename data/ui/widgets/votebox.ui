@@ -6,6 +6,8 @@
 		<property name="orientation">vertical</property>
 		<child>
 			<object class="GtkListBox" id="poll_box">
+				<property name="overflow">hidden</property>
+				<property name="selection-mode">none</property>
 				<child>
 					<placeholder />
 				</child>

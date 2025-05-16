@@ -85,7 +85,7 @@
 																		<property name="icon-name">tuba-people-symbolic</property>
 																		<property name="valign">center</property>
 																		<property name="visible">0</property>
-																		<!-- translators: tooltip text for a button in the 'advanced search' window -->
+																		<!-- translators: tooltip text for a button in the 'advanced search' window. When clicked it automatically fills the entry with the first found user based on the query. -->
 																		<property name="tooltip-text" translatable="yes">Auto-Fill User</property>
 																		<signal name="clicked" handler="on_search_users_clicked" swapped="no" />
 																		<style>

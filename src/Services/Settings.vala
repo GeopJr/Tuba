@@ -3,23 +3,27 @@ public class Tuba.Settings : GLib.Settings {
 		public string default_language { get; set; default = "en"; }
 		public string default_post_visibility { get; set; default = "public"; }
 		public string default_content_type { get; set; default = "text/plain"; }
+		public bool account_suggestions { get; set; default = true; }
 		public string[] muted_notification_types { get; set; default = {}; }
 		public string[] recently_used_custom_emojis { get; set; default = {}; }
 		public string[] notification_filters { get; set; default = {}; }
+		public string[] favorite_lists_ids { get; set; default = {}; }
 
-		private static string[] keys_to_init = {
+		private const string[] KEYS_TO_INIT = {
 			"default-post-visibility",
 			"muted-notification-types",
 			"default-content-type",
 			"recently-used-custom-emojis",
-			"notification-filters"
+			"notification-filters",
+			"account-suggestions",
+			"favorite-lists-ids"
 		};
 
 		public Account (string id) {
 			Object (schema_id: @"$(Build.DOMAIN).Account", path: @"/$(Build.DOMAIN.replace (".", "/"))/accounts/$id/");
 			this.delay ();
 
-			foreach (var key in keys_to_init) {
+			foreach (var key in KEYS_TO_INIT) {
 				init (key);
 			}
 		}
@@ -73,6 +77,16 @@ public class Tuba.Settings : GLib.Settings {
 		}
 	}
 
+	public bool account_suggestions {
+		get {
+			return active_account_settings.account_suggestions;
+		}
+
+		set {
+			active_account_settings.account_suggestions = value;
+		}
+	}
+
 	public string[] muted_notification_types {
 		get {
 			return active_account_settings.muted_notification_types;
@@ -103,6 +117,16 @@ public class Tuba.Settings : GLib.Settings {
 		}
 	}
 
+	public string[] favorite_lists_ids {
+		get {
+			return active_account_settings.favorite_lists_ids;
+		}
+
+		set {
+			active_account_settings.favorite_lists_ids = value;
+		}
+	}
+
 	public ColorScheme color_scheme { get; set; }
 	public bool work_in_background { get; set; }
 	public int timeline_page_size { get; set; }
@@ -122,6 +146,7 @@ public class Tuba.Settings : GLib.Settings {
 	public bool group_push_notifications { get; set; }
 	public bool advanced_boost_dialog { get; set; }
 	public bool reply_to_old_post_reminder { get; set; }
+	public bool copy_private_link_reminder { get; set; }
 	public bool spellchecker_enabled { get; set; }
 	public bool darken_images_on_dark_mode { get; set; }
 	public double media_viewer_last_used_volume { get; set; }
@@ -133,8 +158,11 @@ public class Tuba.Settings : GLib.Settings {
 	public string last_analytics_update { get; set; }
 	public string last_contributors_update { get; set; }
 	public string[] contributors { get; set; default = {}; }
+	public int status_aria_verbosity { get; set; default = 3; }
+	public bool use_in_app_browser_if_available { get; set; }
+	public bool collapse_long_posts { get; set; }
 
-	private static string[] keys_to_init = {
+	private const string[] KEYS_TO_INIT = {
 		"active-account",
 		"color-scheme",
 		"timeline-page-size",
@@ -154,26 +182,30 @@ public class Tuba.Settings : GLib.Settings {
 		"group-push-notifications",
 		"advanced-boost-dialog",
 		"reply-to-old-post-reminder",
+		"copy-private-link-reminder",
 		"spellchecker-enabled",
 		"darken-images-on-dark-mode",
 		"media-viewer-last-used-volume",
 		"monitor-network",
-		"proxy",
 		"dim-trivial-notifications",
 		"analytics",
-		"update-contributors"
+		"update-contributors",
+		"status-aria-verbosity",
+		"use-in-app-browser-if-available",
+		"collapse-long-posts"
 	};
 
 	public Settings () {
 		Object (schema_id: Build.DOMAIN);
 
-		foreach (var key in keys_to_init) {
+		foreach (var key in KEYS_TO_INIT) {
 			init (key);
 		}
 
 		init ("work-in-background", true);
 		init ("last-analytics-update", true);
 		init ("last-contributors-update", true);
+		init ("proxy", true);
 		init ("contributors", true);
 		changed.connect (on_changed);
 	}
@@ -197,7 +229,7 @@ public class Tuba.Settings : GLib.Settings {
 		this.apply ();
 	}
 
-	private string[] sensitive_keys = {
+	private const string[] SENSITIVE_KEYS = {
 		"proxy",
 		"active-account",
 		"last-analytics-update",
@@ -209,8 +241,8 @@ public class Tuba.Settings : GLib.Settings {
 		var builder = new Json.Builder ();
 		builder.begin_object ();
 
-		foreach (string key in keys_to_init) {
-			if (key in sensitive_keys) continue;
+		foreach (string key in KEYS_TO_INIT) {
+			if (key in SENSITIVE_KEYS) continue;
 
 			var val = Value (Type.STRING);
 			this.get_property (key, ref val);

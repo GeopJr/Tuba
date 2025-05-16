@@ -1,16 +1,16 @@
 struct TestShare {
 	public string original;
-	public Tuba.ShareHandler.ShareResult? result;
+	public Tuba.Utils.ShareHandler.ShareResult? result;
 }
 
 TestShare[] get_shares () {
 	return {
 		{ "tuba://share", null },
-		{ "tuba://share?text=foo%20bar", Tuba.ShareHandler.ShareResult () { text = "foo bar", cw = null } },
-		{ "tuba://share?text=foo%20BAR&cw=bar%20foo", Tuba.ShareHandler.ShareResult () { text = "foo BAR", cw = "bar foo" } },
-		{ "tuba://share?text=foo%20bar&cw=%26foo%3Dbar", Tuba.ShareHandler.ShareResult () { text = "foo bar", cw = "&foo=bar" } },
+		{ "tuba://share?text=foo%20bar", Tuba.Utils.ShareHandler.ShareResult () { text = "foo bar", cw = null } },
+		{ "tuba://share?text=foo%20BAR&cw=bar%20foo", Tuba.Utils.ShareHandler.ShareResult () { text = "foo BAR", cw = "bar foo" } },
+		{ "tuba://share?text=foo%20bar&cw=%26foo%3Dbar", Tuba.Utils.ShareHandler.ShareResult () { text = "foo bar", cw = "&foo=bar" } },
 		{ "tuba://share?cw=%26foo%3Dbar", null },
-		{ "tuba://share?text=&cw=", Tuba.ShareHandler.ShareResult () { text = "", cw = "" } }
+		{ "tuba://share?text=&cw=", Tuba.Utils.ShareHandler.ShareResult () { text = "", cw = "" } }
 	};
 }
 
@@ -18,7 +18,7 @@ public void test_share_handler () {
 	foreach (var test_share in get_shares ()) {
 		try {
 			var uri = Uri.parse (test_share.original, UriFlags.ENCODED);
-			var result = Tuba.ShareHandler.from_uri (uri);
+			var result = Tuba.Utils.ShareHandler.from_uri (uri);
 
 			if (result == null) {
 				assert_true (test_share.result == null);

@@ -76,13 +76,19 @@
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="use_blurhash">
-								<property name="title" translatable="no">BlurHash</property>
+								<!-- translators: leave this as is unless you want to transliterate. BlurHash is a recognizable product name. -->
+								<property name="title" translatable="yes">BlurHash</property>
 								<property name="subtitle" translatable="yes">Show a blurred version of the media until they fully load</property>
 							</object>
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="show_spoilers">
 								<property name="title" translatable="yes">Reveal Spoilers by Default</property>
+							</object>
+						</child>
+						<child>
+							<object class="AdwSwitchRow" id="collapse_long_posts">
+								<property name="title" translatable="yes">Collapse Long Posts</property>
 							</object>
 						</child>
 						<child>
@@ -121,7 +127,7 @@
 								<property name="title" translatable="yes">Default Post Language</property>
 
 								<property name="expression">
-									<lookup type="TubaLocalesLocale" name="name" />
+									<lookup type="TubaUtilsLocalesLocale" name="name" />
 								</property>
 							</object>
 						</child>
@@ -165,6 +171,11 @@
 							</object>
 						</child>
 						<child>
+							<object class="AdwSwitchRow" id="copy_private_link_reminder">
+								<property name="title" translatable="yes">Warn before copying a link to a private post</property>
+							</object>
+						</child>
+						<child>
 							<object class="AdwEntryRow" id="proxy_entry">
 								<property name="show-apply-button">0</property>
 								<!-- translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning -->
@@ -203,6 +214,7 @@
 				<child>
 					<object class="AdwPreferencesGroup">
 						<property name="title" translatable="yes">Online Services</property>
+						<!-- translators: leave api.tuba.geopjr.dev as is -->
 						<property name="description" translatable="yes">Configure features that connect to api.tuba.geopjr.dev</property>
 						<child>
 							<object class="AdwActionRow">
@@ -229,7 +241,9 @@
 						</child>
 						<child>
 							<object class="AdwSwitchRow" id="update_contributors">
+								<!-- translators: supporters = tuba contributors and sponsors -->
 								<property name="title" translatable="yes">Update Supporters Periodically</property>
+								<!-- translators: supporters = tuba contributors and sponsors -->
 								<property name="subtitle" translatable="yes">Fetch the list of Tuba's supporters biweekly</property>
 							</object>
 						</child>
@@ -293,47 +307,6 @@
 								<!-- translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones. -->
 								<property name="subtitle" translatable="yes">Combine recently pushed notifications of the same type and post into one</property>
 								<property name="active">1</property>
-							</object>
-						</child>
-					</object>
-				</child>
-				<child>
-					<object class="AdwPreferencesGroup" id="filtered_notifications_group">
-						<property name="visible">0</property>
-						<!-- translators: Preferences group title -->
-						<property name="title" translatable="yes">Filter Notifications Out</property>
-						<!-- translators: Preferences group description -->
-						<property name="description" translatable="yes">Filter out notifications from people you may not know</property>
-						<child>
-							<object class="AdwSwitchRow" id="filter_notifications_following_switch">
-								<!-- translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
-								<property name="title" translatable="yes">People you don't follow</property>
-								<!-- translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
-								<property name="subtitle" translatable="yes">Until you manually approve them</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="filter_notifications_follower_switch">
-								<!-- translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
-								<property name="title" translatable="yes">People not following you</property>
-								<!-- translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
-								<property name="subtitle" translatable="yes">Including people who have been following you fewer than 3 days</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="filter_notifications_new_account_switch">
-								<!-- translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
-								<property name="title" translatable="yes">New accounts</property>
-								<!-- translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
-								<property name="subtitle" translatable="yes">Created within the past 30 days</property>
-							</object>
-						</child>
-						<child>
-							<object class="AdwSwitchRow" id="filter_notifications_dm_switch">
-								<!-- translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
-								<property name="title" translatable="yes">Unsolicited private mentions</property>
-								<!-- translators: Preferences switch subtitle about filtering out 'Unsolicited private mentions'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales -->
-								<property name="subtitle" translatable="yes">Filtered unless it's in reply to your own mention or if you follow the sender</property>
 							</object>
 						</child>
 					</object>

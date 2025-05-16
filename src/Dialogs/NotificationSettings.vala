@@ -1,7 +1,7 @@
+[GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/notification_settings.ui")]
 public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 	public signal void filters_changed ();
 
-	// Why is AdwSwitchRow sealed???
 	class NotificationRow : Adw.ActionRow {
 		public bool active {
 			get { return row_switch.active; }
@@ -34,14 +34,17 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 		debug ("Destroying Dialog NotificationSettings");
 	}
 
-	Adw.ToastOverlay toast_overlay;
-	Gtk.Button clear_button;
+	[GtkChild] protected unowned Adw.ToastOverlay toast_overlay;
+	[GtkChild] protected unowned Gtk.Button clear_button;
+	[GtkChild] protected unowned Adw.PreferencesGroup filters_group;
+	[GtkChild] protected unowned Adw.PreferencesGroup filtered_notifications_group;
+	[GtkChild] protected unowned Adw.SwitchRow filter_notifications_following_switch;
+	[GtkChild] protected unowned Adw.SwitchRow filter_notifications_follower_switch;
+	[GtkChild] protected unowned Adw.SwitchRow filter_notifications_new_account_switch;
+	[GtkChild] protected unowned Adw.SwitchRow filter_notifications_dm_switch;
+
 	NotificationRow[] notification_rows;
 	construct {
-		this.title = _("Filter");
-		this.content_width = 460;
-		this.content_height = 464;
-
 		notification_rows = {
 			new NotificationRow (InstanceAccount.KIND_MENTION, _("Mentions"), "tuba-chat-symbolic"),
 			new NotificationRow (InstanceAccount.KIND_FAVOURITE, _("Favorites"), "tuba-starred-symbolic"),
@@ -51,36 +54,12 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 			new NotificationRow (InstanceAccount.KIND_FOLLOW, _("Follows"), "contact-new-symbolic")
 		};
 
-		var page = new Adw.PreferencesPage ();
-		toast_overlay = new Adw.ToastOverlay () {
-			vexpand = true,
-			hexpand = true,
-			child = page,
-			valign = Gtk.Align.CENTER
-		};
-		var toolbarview = new Adw.ToolbarView () {
-			content = toast_overlay
-		};
-
-		var headerbar = new Adw.HeaderBar ();
-		clear_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
-			css_classes = { "flat", "error" },
-			tooltip_text = _("Clear All Notifications")
-		};
-		clear_button.clicked.connect (clear_all_notifications);
-		headerbar.pack_start (clear_button);
-		toolbarview.add_top_bar (headerbar);
-
-		var filters_group = new Adw.PreferencesGroup () {
-			title = _("Included Notifications")
-		};
 		foreach (var row in notification_rows) {
 			filters_group.add (row);
 		};
 
-		page.add (filters_group);
-		this.child = toolbarview;
 		this.closed.connect (save);
+		setup_notification_filters ();
 	}
 
 	private void save () {
@@ -107,9 +86,47 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 			settings.notification_filters = new_filters;
 			filters_changed ();
 		}
+
+		if (notification_filter_policy_status != null) {
+			bool nfp_changed = false;
+			notification_filter_policy_status.@foreach (entry => {
+				if (((Adw.SwitchRow) entry.key).active != (bool) entry.value) {
+					nfp_changed = true;
+					return false;
+				}
+
+				return true;
+			});
+
+			if (nfp_changed) {
+				var builder = new Json.Builder ();
+				builder.begin_object ();
+
+				builder.set_member_name ("filter_not_following");
+				builder.add_boolean_value (filter_notifications_following_switch.active);
+
+				builder.set_member_name ("filter_not_followers");
+				builder.add_boolean_value (filter_notifications_follower_switch.active);
+
+				builder.set_member_name ("filter_new_accounts");
+				builder.add_boolean_value (filter_notifications_new_account_switch.active);
+
+				builder.set_member_name ("filter_private_mentions");
+				builder.add_boolean_value (filter_notifications_dm_switch.active);
+
+				builder.end_object ();
+
+				new Request.PUT ("/api/v1/notifications/policy")
+					.with_account (accounts.active)
+					.body_json (builder)
+					.exec ();
+			}
+
+			notification_filter_policy_status.clear ();
+		}
 	}
 
-	private void clear_all_notifications () {
+	[GtkCallback] private void clear_all_notifications () {
 		var dlg = new Adw.AlertDialog (
 			_("Clear All Notifications?"),
 			null
@@ -139,5 +156,41 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 					.exec ();
 			}
 		});
+	}
+
+	private Gee.HashMap<Adw.SwitchRow, bool>? notification_filter_policy_status = null;
+	void setup_notification_filters () {
+		if (!accounts.active.tuba_probably_has_notification_filters) return;
+
+		new Request.GET ("/api/v1/notifications/policy")
+			.with_account (accounts.active)
+			.then ((in_stream) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				if (node == null) return;
+
+				filtered_notifications_group.visible = true;
+				var policies = API.NotificationFilter.Policy.from (node);
+
+				notification_filter_policy_status = new Gee.HashMap<Adw.SwitchRow, bool> ();
+				notification_filter_policy_status.set (filter_notifications_following_switch, policies.filter_not_following);
+				notification_filter_policy_status.set (filter_notifications_follower_switch, policies.filter_not_followers);
+				notification_filter_policy_status.set (filter_notifications_new_account_switch, policies.filter_new_accounts);
+				notification_filter_policy_status.set (filter_notifications_dm_switch, policies.filter_private_mentions);
+
+				notification_filter_policy_status.@foreach (entry => {
+					((Adw.SwitchRow) entry.key).active = (bool) entry.value;
+
+					return true;
+				});
+			})
+			.on_error ((code, message) => {
+				if (code == 404) {
+					accounts.active.tuba_probably_has_notification_filters = false;
+				} else {
+					warning (@"Error while trying to get notification policy: $code $message");
+				}
+			})
+			.exec ();
 	}
 }

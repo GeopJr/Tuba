@@ -1,6 +1,5 @@
 public class Tuba.Views.TabbedBase : Views.Base {
-
-	static int id_counter = 0;
+	int id_counter = 0;
 
 	protected Adw.ViewSwitcher switcher;
 	protected Adw.ViewSwitcherBar switcher_bar;
@@ -36,6 +35,18 @@ public class Tuba.Views.TabbedBase : Views.Base {
 		states.add_named (stack, "content");
 
 		switcher_bar.stack = switcher.stack = stack;
+
+		var shortcutscontroller = new Gtk.ShortcutController ();
+		this.add_controller (shortcutscontroller);
+
+		install_action ("tabbedview.change-tab", "i", (Gtk.WidgetActionActivateFunc) change_tab_cb);
+		for (int i = 1; i < 10; i++) {
+			shortcutscontroller.add_shortcut (new Gtk.Shortcut.with_arguments (
+				Gtk.ShortcutTrigger.parse_string (@"<Alt>$i"),
+				new Gtk.NamedAction ("tabbedview.change-tab"),
+				"i", i
+			));
+		}
 	}
 
 	~TabbedBase () {
@@ -87,6 +98,9 @@ public class Tuba.Views.TabbedBase : Views.Base {
 			Adw.BreakpointConditionLengthType.MAX_WIDTH,
 			550, Adw.LengthUnit.SP
 		);
+
+		if (this.current_breakpoint != null) remove_breakpoint (this.current_breakpoint);
+		this.small = true;
 		var breakpoint = new Adw.Breakpoint (condition);
 		breakpoint.add_setter (this, "title-stack-page-visible", true);
 		breakpoint.add_setter (switcher_bar, "reveal", true);
@@ -95,13 +109,25 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 	public void add_tab (Views.Base view) {
 		id_counter++;
-		view.content_box.add_css_class ("no-transition");
 		views += view;
 		var page = stack.add_titled (view, id_counter.to_string (), view.label);
 		view.bind_property ("icon", page, "icon-name", BindingFlags.SYNC_CREATE);
 		view.bind_property ("needs-attention", page, "needs-attention", BindingFlags.SYNC_CREATE);
 		view.bind_property ("badge-number", page, "badge-number", BindingFlags.SYNC_CREATE);
 		view.header.hide ();
+	}
+
+	private void change_tab_cb (string name, GLib.Variant? parameter) {
+		if (parameter == null) return;
+
+		int page_id = parameter.get_int32 ();
+		if (page_id > id_counter) return;
+
+		change_tab_alt (page_id);
+	}
+
+	protected virtual void change_tab_alt (int id) {
+		stack.visible_child_name = id.to_string ();
 	}
 
 	public Views.ContentBase add_list_tab (string label, string icon, string? empty_state_title = null) {
@@ -163,11 +189,6 @@ public class Tuba.Views.TabbedBase : Views.Base {
 
 	protected virtual void on_view_switched () {
 		var view = stack.visible_child as Views.Base;
-		if (view.content_box.has_css_class ("no-transition")) {
-			Timeout.add_once (200, () => {
-				last_view.content_box.remove_css_class ("no-transition");
-			});
-		}
 
 		if (last_view != null) {
 			last_view.current = false;
