@@ -134,7 +134,6 @@ public class Tuba.Dialogs.NewAccount: Adw.Window {
 		string final_string = instance_entry.text;
 		if (!final_string.contains ("://")) final_string = @"https://$final_string";
 
-		string final_string_no_scheme = final_string;
 		try {
 			GLib.Uri instance_uri = GLib.Uri.parse (final_string, GLib.UriFlags.NONE);
 			final_string = GLib.Uri.build (
