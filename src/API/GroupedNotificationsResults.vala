@@ -15,23 +15,36 @@ public class Tuba.API.GroupedNotificationsResults : Entity {
 		}
 
 		public override Gtk.Widget to_widget () {
-			if (tuba_accounts.size == 1) return base.to_widget ();
-
-			var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
-			var avi_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-			box.append (avi_box);
-			box.append (base.to_widget ());
-
-			foreach (var account in tuba_accounts) {
-				avi_box.append (new Widgets.Avatar () {
-					account = account,
-					size = 30,
-					overflow = Gtk.Overflow.HIDDEN,
-					allow_mini_profile = true
-				});
+			if (tuba_accounts.size == 1 || group_key.has_prefix ("ungrouped-")) return base.to_widget ();
+			switch (this.kind) {
+				case InstanceAccount.KIND_FOLLOW:
+				case InstanceAccount.KIND_ADMIN_SIGNUP:
+					return create_basic_card ();
+				default:
+					return new Widgets.GroupedNotification (this);
 			}
+		}
 
-			return box;
+		private Gtk.Widget create_basic_card () {
+			var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 16) {
+				margin_top = 8,
+				margin_bottom = 8,
+				margin_start = 16,
+				margin_end = 16
+			};
+			Tuba.InstanceAccount.Kind res_kind;
+			var sub_box = Widgets.GroupedNotification.group_box (this, this.kind, out res_kind);
+
+			box.append (new Gtk.Image.from_icon_name (res_kind.icon) {
+				icon_size = Gtk.IconSize.LARGE
+			});
+			box.append (sub_box);
+
+			var row = new Widgets.ListBoxRowWrapper () {
+				child = box,
+				activatable = false
+			};
+			return row;
 		}
 	}
 

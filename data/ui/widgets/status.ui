@@ -32,7 +32,6 @@
                         <property name="visible">0</property>
                         <property name="halign">end</property>
                         <!-- <property name="margin_bottom">8</property> -->
-                        <property name="icon_name">oops</property>
                         <property name="icon_size">1</property>
                       </object>
                     </child>
