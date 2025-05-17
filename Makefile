@@ -1,7 +1,6 @@
 .PHONY: all install uninstall build test potfiles
 PREFIX ?= /usr
 
-clapper ?= 1
 msys_sys ?= mingw64
 # Remove the devel headerbar style:
 # make release=1
@@ -11,7 +10,7 @@ all: build
 
 build:
 	meson setup builddir --prefix=$(PREFIX)
-	meson configure builddir -Ddevel=$(if $(release),false,true) -Dclapper=$(if $(clapper),enabled,disabled)
+	meson configure builddir -Ddevel=$(if $(release),false,true)
 	meson compile -C builddir
 
 install:
