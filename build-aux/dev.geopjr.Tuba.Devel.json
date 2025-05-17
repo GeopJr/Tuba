@@ -130,7 +130,10 @@
             "buildsystem": "meson",
             "config-opts": [
                 "-Ddevel=true",
-                "-Dclapper=enabled"
+                "-Dclapper=enabled",
+                "-Dspelling=enabled",
+                "-Dgstreamer=enabled",
+                "-Din-app-browser=enabled"
             ],
             "build-options": {
                 "arch": {
