@@ -160,7 +160,7 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 
 	private Gee.HashMap<Adw.SwitchRow, bool>? notification_filter_policy_status = null;
 	void setup_notification_filters () {
-		if (!accounts.active.probably_has_notification_filters) return;
+		if (!accounts.active.tuba_probably_has_notification_filters) return;
 
 		new Request.GET ("/api/v1/notifications/policy")
 			.with_account (accounts.active)
@@ -186,7 +186,7 @@ public class Tuba.Dialogs.NotificationSettings : Adw.Dialog {
 			})
 			.on_error ((code, message) => {
 				if (code == 404) {
-					accounts.active.probably_has_notification_filters = false;
+					accounts.active.tuba_probably_has_notification_filters = false;
 				} else {
 					warning (@"Error while trying to get notification policy: $code $message");
 				}

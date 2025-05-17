@@ -13,6 +13,7 @@ sources += files(
     'FadeBin.vala',
     'FocusPicker.vala',
     'FocusPicture.vala',
+    'GroupedNotification.vala',
     'HashtagBar.vala',
     'LabelWithWidgets.vala',
     'ListBoxRowWrapper.vala',

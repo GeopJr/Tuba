@@ -52,6 +52,7 @@ public class Tuba.API.Notification : Entity, Widgetizable {
 	public string? emoji_url { get; set; default = null; }
 	public API.Admin.Report? report { get; set; default = null; }
 	public ModerationWarning? moderation_warning { get; set; default = null; }
+	public string? group_key { get; set; default = null; }
 
 	// the docs claim that 'relationship_severance_event'
 	// is the one used but that is not true
