@@ -11,7 +11,7 @@ all: build
 
 build:
 	meson setup builddir --prefix=$(PREFIX)
-	meson configure builddir -Ddevel=$(if $(release),false,true) -Dclapper=$(if $(clapper),true,false)
+	meson configure builddir -Ddevel=$(if $(release),false,true) -Dclapper=$(if $(clapper),enabled,disabled)
 	meson compile -C builddir
 
 install:
