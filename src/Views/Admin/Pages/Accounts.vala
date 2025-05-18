@@ -273,13 +273,11 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
 			var profile_group = new Adw.PreferencesGroup ();
 			page.add (profile_group);
 
-			try {
-				Widgets.Account profile = (Widgets.Account) account.account.to_widget ();
-				profile.overflow = Gtk.Overflow.HIDDEN;
-				profile.disable_profile_open = true;
-				profile.add_css_class ("card");
-				profile_group.add (profile);
-			} catch {}
+			Widgets.Account profile = (Widgets.Account) account.account.to_widget ();
+			profile.overflow = Gtk.Overflow.HIDDEN;
+			profile.disable_profile_open = true;
+			profile.add_css_class ("card");
+			profile_group.add (profile);
 
 			var info_group = new Adw.PreferencesGroup ();
 			page.add (info_group);

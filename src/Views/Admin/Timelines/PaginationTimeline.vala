@@ -155,17 +155,13 @@ public class Tuba.Views.Admin.Timeline.PaginationTimeline : Gtk.Box {
 		var obj_widgetable = obj as BasicWidgetizable;
 		if (obj_widgetable == null)
 			Process.exit (0);
-		try {
-			Gtk.Widget widget = obj_widgetable.to_widget ();
-			widget.add_css_class ("card");
-			widget.add_css_class ("card-spacing");
-			widget.focusable = true;
 
-			return widget;
-		} catch (Oopsie e) {
-			warning (@"Error on_create_model_widget: $(e.message)");
-			Process.exit (0);
-		}
+		Gtk.Widget widget = obj_widgetable.to_widget ();
+		widget.add_css_class ("card");
+		widget.add_css_class ("card-spacing");
+		widget.focusable = true;
+
+		return widget;
 	}
 
 	public virtual void on_content_item_activated (Gtk.ListBoxRow row) {}
