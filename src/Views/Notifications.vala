@@ -45,6 +45,8 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		filters_changed (false);
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
 		stream_event[InstanceAccount.EVENT_NOTIFICATIONS_MERGED].connect (on_refresh);
+		stream_event[InstanceAccount.EVENT_EDIT_POST].connect (on_edit_post);
+		stream_event[InstanceAccount.EVENT_DELETE_POST].connect (on_delete_post);
 
 		#if DEV_MODE
 			app.dev_new_notification.connect (node => {
@@ -296,10 +298,10 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			var entity = (API.Notification) Entity.from_json (typeof (API.Notification), ev.get_node ());
 			if (
 				settings.notification_filters.length > 0
-				&& (entity).kind in settings.notification_filters
+				&& entity.kind in settings.notification_filters
 			) return;
 
-			if (enabled_group_notifications && entity.group_key != null) {
+			if (enabled_group_notifications && entity.group_key != null && !entity.group_key.has_prefix ("ungrouped-")) {
 				API.GroupedNotificationsResults.NotificationGroup? group = null;
 				for (uint i = 0; i < model.get_n_items (); i++) {
 					var notification_obj = model.get_item (i) as API.GroupedNotificationsResults.NotificationGroup;
@@ -312,7 +314,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 
 				if (group != null) {
 					group.patch (entity);
-					group.most_recent_notification_id = entity.id;
+					//  group.most_recent_notification_id = entity.id;
 
 					if (group.tuba_accounts == null) group.tuba_accounts = new Gee.ArrayList<API.Account> ();
 					group.tuba_accounts.insert (0, entity.account);
@@ -321,7 +323,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 					group.sample_account_ids.insert (0, entity.account.id);
 					on_new_post_entity (group);
 				} else {
-					on_new_post_entity (entity);
+					on_new_post_entity (new API.GroupedNotificationsResults.NotificationGroup.from_notification (entity));
 				}
 			} else {
 				on_new_post_entity (entity);
@@ -329,6 +331,40 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 
 		} catch (Error e) {
 			warning (@"Error getting Entity from json: $(e.message)");
+		}
+	}
+
+	public override void on_edit_post (Streamable.Event ev) {
+		try {
+			var entity = Entity.from_json (typeof (API.Status), ev.get_node ()) as API.Status;
+			if (entity == null) return;
+
+			var entity_id = entity.id;
+			for (uint i = 0; i < model.get_n_items (); i++) {
+				var notification_obj = model.get_item (i) as API.Notification;
+				if (notification_obj != null && notification_obj.status != null && notification_obj.status.id == entity_id) {
+					model.remove (i);
+					notification_obj.status = entity;
+					model.insert (i, notification_obj);
+				}
+			}
+		} catch (Error e) {
+			warning (@"Error getting Entity from json: $(e.message)");
+		}
+	}
+
+	public override void on_delete_post (Streamable.Event ev) {
+		try {
+			var status_id = ev.get_string ();
+
+			for (uint i = 0; i < model.get_n_items (); i++) {
+				var notification_obj = model.get_item (i) as API.Notification;
+				if (notification_obj != null && notification_obj.status != null && notification_obj.status.formal.id == status_id) {
+					model.remove (i);
+				}
+			}
+		} catch (Error e) {
+			warning (@"Error getting String from json: $(e.message)");
 		}
 	}
 }

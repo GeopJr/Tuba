@@ -1,6 +1,6 @@
 public class Tuba.API.GroupedNotificationsResults : Entity {
 	public class NotificationGroup : API.Notification, Widgetizable {
-		public string most_recent_notification_id { get; set; }
+		//  public int64 most_recent_notification_id { get; set; }
 		public Gee.ArrayList<string> sample_account_ids { get; set; }
 		public string? status_id { get; set; default = null; }
 		public Gee.ArrayList<API.Account> tuba_accounts { get; set; }
@@ -12,6 +12,14 @@ public class Tuba.API.GroupedNotificationsResults : Entity {
 			}
 
 			return base.deserialize_array_type (prop);
+		}
+
+		public NotificationGroup.from_notification (API.Notification notification) {
+			this.patch (notification);
+			//  this.most_recent_notification_id = notification.id;
+			this.sample_account_ids = new Gee.ArrayList<string>.wrap ({notification.account.id});
+			if (notification.status != null) this.status_id = notification.status.id;
+			this.tuba_accounts = new Gee.ArrayList<API.Account>.wrap ({notification.account});
 		}
 
 		public override Gtk.Widget to_widget () {
