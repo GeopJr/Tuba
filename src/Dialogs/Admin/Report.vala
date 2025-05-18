@@ -111,13 +111,11 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 		headerbar.pack_end (take_action_button);
 		headerbar.pack_start (resolve_button);
 
-		try {
-			Widgets.Account profile = (Widgets.Account) report.target_account.account.to_widget ();
-			profile.overflow = Gtk.Overflow.HIDDEN;
-			profile.disable_profile_open = true;
-			profile.add_css_class ("card");
-			profile_group.add (profile);
-		} catch {}
+		Widgets.Account profile = (Widgets.Account) report.target_account.account.to_widget ();
+		profile.overflow = Gtk.Overflow.HIDDEN;
+		profile.disable_profile_open = true;
+		profile.add_css_class ("card");
+		profile_group.add (profile);
 
 		var info_group = new Adw.PreferencesGroup ();
 		if (report.target_account.account.created_at != null) {
@@ -269,29 +267,27 @@ public class Tuba.Dialogs.Admin.Report : Dialogs.Admin.Base {
 		};
 
 		report.statuses.foreach (status => {
-			try {
-				status.formal.filtered = null;
-				status.formal.tuba_spoiler_revealed = true;
-				if (status.formal.has_media) {
-					status.formal.media_attachments.foreach (e => {
-						e.tuba_is_report = true;
+			status.formal.filtered = null;
+			status.formal.tuba_spoiler_revealed = true;
+			if (status.formal.has_media) {
+				status.formal.media_attachments.foreach (e => {
+					e.tuba_is_report = true;
 
-						return true;
-					});
-				}
-				Widgets.Status widget = (Widgets.Status) status.to_widget ();
-				widget.add_css_class ("report-status");
-				widget.add_css_class ("card");
-				widget.add_css_class ("card-spacing");
-				widget.actions.visible = false;
-				widget.menu_button.visible = false;
-				widget.activatable = false;
-				widget.filter_stack.can_focus = false;
-				widget.filter_stack.can_target = false;
-				widget.filter_stack.focusable = false;
+					return true;
+				});
+			}
+			Widgets.Status widget = (Widgets.Status) status.to_widget ();
+			widget.add_css_class ("report-status");
+			widget.add_css_class ("card");
+			widget.add_css_class ("card-spacing");
+			widget.actions.visible = false;
+			widget.menu_button.visible = false;
+			widget.activatable = false;
+			widget.filter_stack.can_focus = false;
+			widget.filter_stack.can_target = false;
+			widget.filter_stack.focusable = false;
 
-				status_group.add (widget);
-			} catch {}
+			status_group.add (widget);
 
 			return true;
 		});

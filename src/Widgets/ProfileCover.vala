@@ -277,7 +277,7 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 			note_row.sensitive = false;
 		} else if (!is_self) {
 			moved_btn.clicked.connect (on_moved_btn_clicked);
-			if (accounts.active.instance_info != null && accounts.active.instance_info.tuba_api_versions.mastodon > 0) {
+			if (accounts.active.tuba_api_versions.mastodon > 0) {
 				GLib.Idle.add (populate_mutuals);
 			}
 		}

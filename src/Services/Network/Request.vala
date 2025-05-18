@@ -102,11 +102,13 @@ public class Tuba.Request : GLib.Object {
 	public Request with_ctx (Gtk.Widget ctx) {
 		this.has_ctx = true;
 		this.ctx = ctx;
-		this.ctx.destroy.connect (() => {
-			this.cancellable.cancel ();
-			this.ctx = null;
-		});
+		this.ctx.destroy.connect (on_ctx_destroy);
 		return this;
+	}
+
+	private void on_ctx_destroy () {
+		this.cancellable.cancel ();
+		this.ctx = null;
 	}
 
 	public Request on_error (owned Network.ErrorCallback cb) {
