@@ -172,10 +172,6 @@ public class Tuba.Dialogs.Preferences : Adw.PreferencesDialog {
 	private bool lang_changed { get; set; default=false; }
 	private bool privacy_changed { get; set; default=false; }
 
-	static construct {
-		typeof (ColorSchemeListModel).ensure ();
-	}
-
 	construct {
 		proxy_entry.text = settings.proxy;
 		post_visibility_combo_row.model = accounts.active.visibility_list;

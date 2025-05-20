@@ -427,10 +427,6 @@ public class Tuba.Views.MediaViewer : Gtk.Widget, Gtk.Buildable, Adw.Swipeable {
 		}
 	}
 
-	static construct {
-		typeof (Widgets.ScaleRevealer).ensure ();
-	}
-
 	#if CLAPPER
 		string clapper_cache_dir;
 		Gee.HashMap<string, string> clapper_cached_urls;

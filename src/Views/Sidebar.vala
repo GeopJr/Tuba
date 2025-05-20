@@ -52,8 +52,6 @@ public class Tuba.Views.Sidebar : Gtk.Widget, AccountHolder {
 	}
 
 	static construct {
-		typeof (Widgets.Avatar).ensure ();
-		typeof (Widgets.EmojiLabel).ensure ();
 		set_layout_manager_type (typeof (Gtk.BinLayout));
 	}
 
