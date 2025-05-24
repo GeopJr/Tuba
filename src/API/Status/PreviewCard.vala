@@ -140,6 +140,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 			var proxies = Clapper.get_global_enhancer_proxies ();
 			for (var i = 0; i < proxies.get_n_proxies (); i++) {
 				var proxy = proxies.peek_proxy (i);
+				if (!proxy.target_has_interface (typeof (Clapper.Extractable))) continue;
 
 				if (!proxy.extra_data_lists_value ("X-Schemes", scheme)) continue;
 				// We were only looking for scheme matching
