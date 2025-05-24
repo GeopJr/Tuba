@@ -139,14 +139,9 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 
 			var proxies = Clapper.get_global_enhancer_proxies ();
 			for (var i = 0; i < proxies.get_n_proxies (); i++) {
-				var proxy = proxies.get_proxy (i);
+				var proxy = proxies.peek_proxy (i);
 
-				string? proxy_schemes = proxy.get_extra_data ("X-Schemes");
-				if (proxy_schemes == null || proxy_schemes == "") continue;
-
-				string[] schemes = proxy_schemes.split (";");
-				if (!(scheme in schemes)) continue;
-
+				if (!proxy.extra_data_lists_value ("X-Schemes", scheme)) continue;
 				// We were only looking for scheme matching
 				// e.g. peertube://
 				if (host == null) {
@@ -154,16 +149,11 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 					break;
 				}
 
-				string? proxy_hosts = proxy.get_extra_data ("X-Hosts");
-				if (proxy_hosts == null || proxy_hosts == "") continue;
-
-				string[] hosts = proxy_hosts.split (";");
+				if (!proxy.extra_data_lists_value ("X-Hosts", host)) continue;
 				// both the host and the scheme
 				// match at this point
-				if (host in hosts) {
-					supported = true;
-					break;
-				}
+				supported = true;
+				break;
 			}
 
 			return supported;
