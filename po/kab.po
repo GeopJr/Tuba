@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-05-26 12:06+0000\n"
-"Last-Translator: Moonshadow <moonshadow@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2025-05-28 11:01+0000\n"
+"Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/tuba/tuba/kab/>\n"
 "Language: kab\n"
 "MIME-Version: 1.0\n"
@@ -3485,7 +3485,7 @@ msgstr ""
 #: src/Widgets/AccountSuggestions.vala:113
 #: src/Widgets/Status/ActionsRow.vala:172 src/Widgets/Status.vala:393
 msgid "Don't remind me again"
-msgstr "Ur ttεawad ara ad yi-d-tesmektiḍ"
+msgstr "Ur ttɛawad ara ad yi-d-tesmektiḍ"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
