@@ -228,7 +228,7 @@ public class Tuba.API.PreviewCard : Entity, Widgetizable {
 						API.BookWyrm bookwyrm_obj = API.BookWyrm.from (node);
 
 						if (bookwyrm_obj.title != null && bookwyrm_obj.title != "") {
-							app.main_window.show_book (bookwyrm_obj, this.url);
+							app.main_window.show_book (bookwyrm_obj);
 						}
 						break;
 					default:

@@ -1,5 +1,6 @@
 public class Tuba.Widgets.FadeBin : Gtk.Widget {
 	const int MAX_HEIGHT = 300;
+	const int MAX_HEIGHT_OVER = MAX_HEIGHT + 100;
 	const float FADE_HEIGHT = 125f;
 	const uint ANIMATION_DURATION = 300;
 
@@ -108,7 +109,7 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 		var child_height = int.max (height, child_min_height);
 		this.child.allocate (width, child_height, baseline, null);
 
-		this.should_fade = !this.reveal && child_height >= MAX_HEIGHT;
+		this.should_fade = !this.reveal && child_height > MAX_HEIGHT_OVER;
 	}
 
 	public override void measure (Gtk.Orientation orientation, int for_size, out int minimum, out int natural, out int minimum_baseline, out int natural_baseline) {
@@ -119,7 +120,7 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 		}
 
 		int child_for_size;
-		if (this.reveal || orientation == Gtk.Orientation.VERTICAL || for_size < MAX_HEIGHT || for_size == -1) {
+		if (this.reveal || orientation == Gtk.Orientation.VERTICAL || for_size < MAX_HEIGHT_OVER || for_size == -1) {
 			child_for_size = for_size;
 		} else if (this.animation.value == 0.0) {
 			child_for_size = -1;
@@ -143,7 +144,7 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 		if (orientation == Gtk.Orientation.VERTICAL && !this.reveal) {
 			minimum_baseline = natural_baseline = -1;
 
-			if (minimum > MAX_HEIGHT) {
+			if (minimum > MAX_HEIGHT_OVER) {
 				minimum = (int) Math.ceil (lerp (
 					MAX_HEIGHT,
 					minimum,
@@ -151,7 +152,7 @@ public class Tuba.Widgets.FadeBin : Gtk.Widget {
 				));
 			}
 
-			if (natural > MAX_HEIGHT) {
+			if (natural > MAX_HEIGHT_OVER) {
 				natural = (int) Math.ceil (lerp (
 					MAX_HEIGHT,
 					natural,

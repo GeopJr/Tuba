@@ -5,3 +5,16 @@
 .ttl-profile-cover.thanks avatar {
 	border-color: alpha(@accent_bg_color, 0.08);
 }
+
+.audio-controls,
+clapper-gtk-lead-container>box {
+	background-color: rgba(38,38,38,1);
+	box-shadow: inset 0 0 0 1px var(--border-color);
+}
+.audio-controls>button:hover,
+.audio-controls>button:checked {
+  background-color: rgba(63,63,63,1);
+}
+.audio-controls>button:active {
+  background-color: rgba(82,82,82,1);
+}

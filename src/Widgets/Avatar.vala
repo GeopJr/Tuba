@@ -1,5 +1,5 @@
 public class Tuba.Widgets.Avatar : Gtk.Button {
-	public signal void mini_clicked ();
+	public signal void mini_clicked (API.Account? acc = null);
 
 	public string? alternative_text {
 		set {
@@ -154,7 +154,7 @@ public class Tuba.Widgets.Avatar : Gtk.Button {
 	private void on_mini_avatar_clicked () {
 		if (mini_profile != null) mini_profile.popdown ();
 		this.grab_focus ();
-		mini_clicked ();
+		mini_clicked (_account);
 	}
 
 	~Avatar () {

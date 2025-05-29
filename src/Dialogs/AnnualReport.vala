@@ -14,17 +14,16 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 
 			status.formal.filtered = null;
 			status.formal.tuba_spoiler_revealed = true;
-			try {
-				var widg = status.to_widget () as Widgets.Status;
-				widg.actions.visible = false;
-				widg.menu_button.visible = false;
-				widg.activatable = false;
-				widg.filter_stack.can_focus = false;
-				widg.filter_stack.can_target = false;
-				widg.filter_stack.focusable = false;
+
+			var widg = status.to_widget () as Widgets.Status;
+			widg.actions.visible = false;
+			widg.menu_button.visible = false;
+			widg.activatable = false;
+			widg.filter_stack.can_focus = false;
+			widg.filter_stack.can_target = false;
+			widg.filter_stack.focusable = false;
 
 				this.child = widg;
-			} catch {}
 
 			this.clicked.connect (on_clicked);
 		}

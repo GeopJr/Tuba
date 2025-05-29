@@ -1029,21 +1029,17 @@
 
 		if (quoted_status_btn != null) content_box.remove (quoted_status_btn);
 		if (status.formal.quote != null && !is_quote) {
-			try {
-				var quoted_status = (Widgets.Status) status.formal.quote.to_widget ();
-				quoted_status.is_quote = true;
-				quoted_status.add_css_class ("frame");
-				quoted_status.add_css_class ("ttl-quote");
+			var quoted_status = (Widgets.Status) status.formal.quote.to_widget ();
+			quoted_status.is_quote = true;
+			quoted_status.add_css_class ("frame");
+			quoted_status.add_css_class ("ttl-quote");
 
-				quoted_status_btn = new Gtk.Button () {
-					child = quoted_status,
-					css_classes = { "ttl-flat-button", "flat" }
-				};
-				quoted_status_btn.clicked.connect (quoted_status.on_open);
-				content_box.append (quoted_status_btn);
-			} catch {
-				critical (@"Widgets.Status ($(status.formal.id)): Couldn't build quote");
-			}
+			quoted_status_btn = new Gtk.Button () {
+				child = quoted_status,
+				css_classes = { "ttl-flat-button", "flat" }
+			};
+			quoted_status_btn.clicked.connect (quoted_status.on_open);
+			content_box.append (quoted_status_btn);
 		}
 
 		if (emoji_reactions != null) content_column.remove (emoji_reactions);
@@ -1157,11 +1153,9 @@
 
 		if (prev_card != null) content_box.remove (prev_card);
 		if (settings.show_preview_cards && !status.formal.has_media && quoted_status_btn == null && status.formal.card != null && status.formal.card.kind in ALLOWED_CARD_TYPES) {
-			try {
-				prev_card = (Widgets.PreviewCard) status.formal.card.to_widget ();
-				prev_card.button.clicked.connect (open_card_url);
-				content_box.append (prev_card);
-			} catch {}
+			prev_card = (Widgets.PreviewCard) status.formal.card.to_widget ();
+			prev_card.button.clicked.connect (open_card_url);
+			content_box.append (prev_card);
 		}
 
 		if (hashtag_bar != null) content_box.remove (hashtag_bar);

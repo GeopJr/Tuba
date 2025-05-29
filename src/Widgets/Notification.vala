@@ -1,7 +1,7 @@
 public class Tuba.Widgets.Notification : Widgets.Status {
 	public API.Notification notification { get; construct set; }
 
-	public Notification (API.Notification obj) {
+	public Notification (API.Notification obj, bool with_kind = true) {
 		API.Status status;
 		if (obj.status != null)
 			status = obj.status;
@@ -26,8 +26,8 @@ public class Tuba.Widgets.Notification : Widgets.Status {
 		Object (
 			other_data: obj.emoji,
 			notification: obj,
-			kind_instigator: obj.account,
-			kind: obj.kind,
+			kind_instigator: with_kind ? obj.account : null,
+			kind: with_kind ? obj.kind : null,
 			status: status
 		);
 

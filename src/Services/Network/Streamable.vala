@@ -38,6 +38,11 @@ public abstract interface Tuba.Streamable : Object {
 		t_connection_url = null;
 	}
 
+	protected void forward (string url, Streamable.Event ev) {
+		if (!subscribed) return;
+		streams.forward (url, ev);
+	}
+
 	public string get_subscriber_name () {
 		return this.get_type ().name ();
 	}

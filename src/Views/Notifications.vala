@@ -3,6 +3,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	private Binding badge_number_binding;
 	private Binding filtered_notifications_count_binding;
 	private Adw.Banner notifications_filter_banner;
+	private bool enabled_group_notifications = false;
 
 	public int32 filtered_notifications {
 		set {
@@ -32,10 +33,11 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	}
 
 	construct {
-		url = "/api/v1/notifications";
+		enabled_group_notifications = accounts.active.tuba_api_versions.mastodon >= 2;
+		url = @"/api/v$(enabled_group_notifications ? 2 : 1)/notifications";
 		label = _("Notifications");
 		icon = "tuba-bell-outline-symbolic";
-		accepts = typeof (API.Notification);
+		accepts = enabled_group_notifications ? typeof (API.GroupedNotificationsResults.NotificationGroup) : typeof (API.Notification);
 		badge_number = 0;
 		needs_attention = false;
 		empty_state_title = _("No Notifications");
@@ -43,6 +45,8 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		filters_changed (false);
 		stream_event[InstanceAccount.EVENT_NOTIFICATION].connect (on_new_post);
 		stream_event[InstanceAccount.EVENT_NOTIFICATIONS_MERGED].connect (on_refresh);
+		stream_event[InstanceAccount.EVENT_EDIT_POST].connect (on_edit_post);
+		stream_event[InstanceAccount.EVENT_DELETE_POST].connect (on_delete_post);
 
 		#if DEV_MODE
 			app.dev_new_notification.connect (node => {
@@ -116,6 +120,8 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	}
 
 	public override void on_account_changed (InstanceAccount? acc) {
+		enabled_group_notifications = acc.tuba_api_versions.mastodon >= 2;
+		accepts = enabled_group_notifications ? typeof (API.GroupedNotificationsResults.NotificationGroup) : typeof (API.Notification);
 		filters_changed (false);
 		base.on_account_changed (acc);
 
@@ -163,7 +169,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 					: account.last_read_id
 			);
 
-			if (account.probably_has_notification_filters)
+			if (account.tuba_probably_has_notification_filters)
 				update_filtered_notifications ();
 		}
 	}
@@ -173,6 +179,60 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 		if (account != null) {
 			account.unread_count = 0;
 		}
+	}
+
+	public override bool request () {
+		if (!enabled_group_notifications) return base.request ();
+
+		append_params (new Request.GET (get_req_url ()))
+			.with_account (account)
+			.with_ctx (this)
+			.with_extra_data (Tuba.Network.ExtraData.RESPONSE_HEADERS)
+			.then ((in_stream, headers) => {
+				var parser = Network.get_parser_from_inputstream (in_stream);
+				var node = network.parse_node (parser);
+				if (node == null) return;
+
+				Object[] to_add = {};
+				var group_notifications = API.GroupedNotificationsResults.from (node);
+				foreach (var group in group_notifications.notification_groups) {
+					Gee.ArrayList<API.Account> group_accounts = new Gee.ArrayList<API.Account> ();
+					foreach (var account in group_notifications.accounts) {
+						if (account.id in group.sample_account_ids)
+							group_accounts.add (account);
+					}
+					group.tuba_accounts = group_accounts;
+
+					if (group.tuba_accounts.size == 1) {
+						group.account = group.tuba_accounts.get (0);
+					}
+
+					if (group.status_id != null) {
+						foreach (var status in group_notifications.statuses) {
+							if (status.id == group.status_id) {
+								group.status = status;
+								break;
+							}
+						}
+					}
+
+					// filtering is based on the status
+					// so it can only happen after the above
+					if (!(should_hide (group))) to_add += group;
+				}
+				model.splice (model.get_n_items (), 0, to_add);
+
+				if (headers != null)
+					get_pages (headers.get_one ("Link"));
+
+				if (to_add.length == 0)
+					on_content_changed ();
+				on_request_finish ();
+			})
+			.on_error (on_error)
+			.exec ();
+
+		return GLib.Source.REMOVE;
 	}
 
 	public void update_filtered_notifications () {
@@ -194,7 +254,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 			.on_error ((code, message) => {
 				accounts.active.filtered_notifications_count = 0;
 				if (code == 404) {
-					accounts.active.probably_has_notification_filters = false;
+					accounts.active.tuba_probably_has_notification_filters = false;
 				} else {
 					warning (@"Error while trying to get notification policy: $code $message");
 				}
@@ -215,7 +275,7 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 	}
 
 	public void filters_changed (bool refresh = true) {
-		string new_url = "/api/v1/notifications";
+		string new_url = @"/api/v$(enabled_group_notifications ? 2 : 1)/notifications";
 
 		if (settings.notification_filters.length == 0) {
 			this.is_all = true;
@@ -235,14 +295,76 @@ public class Tuba.Views.Notifications : Views.Timeline, AccountHolder, Streamabl
 
 	public override void on_new_post (Streamable.Event ev) {
 		try {
+			var entity = (API.Notification) Entity.from_json (typeof (API.Notification), ev.get_node ());
 			if (
 				settings.notification_filters.length > 0
-				&& ((API.Notification) Entity.from_json (accepts, ev.get_node ())).kind in settings.notification_filters
+				&& entity.kind in settings.notification_filters
 			) return;
 
-			base.on_new_post (ev);
+			if (enabled_group_notifications && entity.group_key != null && !entity.group_key.has_prefix ("ungrouped-")) {
+				API.GroupedNotificationsResults.NotificationGroup? group = null;
+				for (uint i = 0; i < model.get_n_items (); i++) {
+					var notification_obj = model.get_item (i) as API.GroupedNotificationsResults.NotificationGroup;
+					if (notification_obj != null && notification_obj.group_key == entity.group_key) {
+						group = notification_obj;
+						model.remove (i);
+						break;
+					}
+				}
+
+				if (group != null) {
+					group.patch (entity);
+					//  group.most_recent_notification_id = entity.id;
+
+					if (group.tuba_accounts == null) group.tuba_accounts = new Gee.ArrayList<API.Account> ();
+					group.tuba_accounts.insert (0, entity.account);
+
+					if (group.sample_account_ids == null) group.sample_account_ids = new Gee.ArrayList<string> ();
+					group.sample_account_ids.insert (0, entity.account.id);
+					on_new_post_entity (group);
+				} else {
+					on_new_post_entity (new API.GroupedNotificationsResults.NotificationGroup.from_notification (entity));
+				}
+			} else {
+				on_new_post_entity (entity);
+			}
+
 		} catch (Error e) {
 			warning (@"Error getting Entity from json: $(e.message)");
+		}
+	}
+
+	public override void on_edit_post (Streamable.Event ev) {
+		try {
+			var entity = Entity.from_json (typeof (API.Status), ev.get_node ()) as API.Status;
+			if (entity == null) return;
+
+			var entity_id = entity.id;
+			for (uint i = 0; i < model.get_n_items (); i++) {
+				var notification_obj = model.get_item (i) as API.Notification;
+				if (notification_obj != null && notification_obj.status != null && notification_obj.status.id == entity_id) {
+					model.remove (i);
+					notification_obj.status = entity;
+					model.insert (i, notification_obj);
+				}
+			}
+		} catch (Error e) {
+			warning (@"Error getting Entity from json: $(e.message)");
+		}
+	}
+
+	public override void on_delete_post (Streamable.Event ev) {
+		try {
+			var status_id = ev.get_string ();
+
+			for (uint i = 0; i < model.get_n_items (); i++) {
+				var notification_obj = model.get_item (i) as API.Notification;
+				if (notification_obj != null && notification_obj.status != null && notification_obj.status.formal.id == status_id) {
+					model.remove (i);
+				}
+			}
+		} catch (Error e) {
+			warning (@"Error getting String from json: $(e.message)");
 		}
 	}
 }

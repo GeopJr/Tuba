@@ -1,4 +1,6 @@
 option('devel', type: 'boolean', value: false)
 option('distro', type: 'boolean', value: false)
-option('clapper', type: 'boolean', value: true)
-option('in-app-browser', type: 'boolean', value: true)
+option('spelling', type: 'feature')
+option('clapper', type: 'feature', deprecated: {'true': 'enabled', 'false': 'disabled'})
+option('gstreamer', type: 'feature')
+option('in-app-browser', type: 'feature')

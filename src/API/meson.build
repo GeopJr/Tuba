@@ -12,6 +12,7 @@ sources += files(
     'Entity.vala',
     'FamiliarFollowers.vala',
     'Funkwhale.vala',
+    'GroupedNotificationsResults.vala',
     'Instance.vala',
     'InstanceV2.vala',
     'List.vala',
