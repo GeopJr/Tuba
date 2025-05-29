@@ -16,11 +16,11 @@
 					</object>
 				</child>
 				<property name="content">
-					<object class="GtkScrolledWindow">
+					<object class="GtkScrolledWindow" id="scroller">
 						<property name="hexpand">1</property>
 						<property name="vexpand">1</property>
 						<property name="max-content-height">400</property>
-						<child>
+						<!-- <child>
 							<object class="AdwClamp">
 								<property name="valign">start</property>
 								<property name="tightening-threshold">100</property>
@@ -51,7 +51,7 @@
 									</object>
 								</child>
 							</object>
-						</child>
+						</child> -->
 					</object>
 				</property>
 				<child type="bottom">

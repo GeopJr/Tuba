@@ -6,9 +6,10 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Gtk.Box dropdowns_box;
 	[GtkChild] private unowned Gtk.Grid grid;
 
-	[GtkChild] private unowned Gtk.Box status_box;
-	[GtkChild] private unowned Gtk.Box main_box;
-	[GtkChild] private unowned Gtk.Label status_title;
+	[GtkChild] private unowned Gtk.ScrolledWindow scroller;
+	//  [GtkChild] private unowned Gtk.Box status_box;
+	//  [GtkChild] private unowned Gtk.Box main_box;
+	//  [GtkChild] private unowned Gtk.Label status_title;
 
 	[GtkChild] private unowned Gtk.MenuButton native_emojis_button;
 	[GtkChild] private unowned Gtk.MenuButton custom_emojis_button;
@@ -95,7 +96,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	private Componenets.Editor editor;
 	private void install_editor () {
 		editor = new Dialogs.Componenets.Editor ();
-		main_box.append (editor);
+		scroller.child = editor;
 
 		editor.notify["char-count"].connect (update_remaining_chars);
 		this.focus_widget = editor;
@@ -208,11 +209,11 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 			widget_status.can_target = false;
 			widget_status.can_focus = false;
 
-			status_box.insert_child_after (widget_status, status_title);
+			//  status_box.insert_child_after (widget_status, status_title);
 		} catch (Error e) {
 			warning (@"Couldn't create status widget: $(e.message)");
 		}
 
-		status_title.label = _("Reply to %s").printf (to.account.handle);
+		//  status_title.label = _("Reply to %s").printf (to.account.handle);
 	}
 }
