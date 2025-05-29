@@ -68,7 +68,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		}
 		set {
 			_remaining_chars = value;
-			counter_label.label = counter_label.tooltip_text = @"$value / $char_limit";
+			counter_label.label = counter_label.tooltip_text = char_limit >= 1000 ? value.to_string () : @"$value / $char_limit";
 
 			if (value < 0) {
 				counter_label.add_css_class ("error");
@@ -145,7 +145,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 	private void install_languages (string? locale_iso = null) {
 		language_button = new Gtk.DropDown (app.app_locales.list_store, null) {
-			expression = new Gtk.PropertyExpression (typeof (Tuba.Locales.Locale), null, "name"),
+			expression = new Gtk.PropertyExpression (typeof (Utils.Locales.Locale), null, "name"),
 			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language_title.ui"),
 			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language.ui"),
 			tooltip_text = _("Post Language"),
@@ -158,8 +158,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 			uint default_lang_index;
 			if (
 				app.app_locales.list_store.find_with_equal_func (
-					new Tuba.Locales.Locale (locale_iso, null, null),
-					Tuba.Locales.Locale.compare,
+					new Utils.Locales.Locale (locale_iso, null, null),
+					Utils.Locales.Locale.compare,
 					out default_lang_index
 				)
 			) {
