@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-03-16 18:03+0000\n"
-"Last-Translator: Henri Aunin <contact@hen.ee>\n"
+"PO-Revision-Date: 2025-06-04 17:12+0000\n"
+"Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -63,7 +63,7 @@ msgstr ""
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:20
 msgid "General"
-msgstr ""
+msgstr "Üldised"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
@@ -508,7 +508,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:23
 msgid "Appearance"
-msgstr ""
+msgstr "Välimus"
 
 #: data/ui/dialogs/preferences.ui:26
 msgid "Color Scheme"
@@ -567,7 +567,7 @@ msgstr ""
 #. translators: leave this as is unless you want to transliterate. BlurHash is a recognizable product name.
 #: data/ui/dialogs/preferences.ui:80
 msgid "BlurHash"
-msgstr ""
+msgstr "BlurHash"
 
 #: data/ui/dialogs/preferences.ui:81
 msgid "Show a blurred version of the media until they fully load"
@@ -596,7 +596,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:110
 msgid "Posting"
-msgstr ""
+msgstr "Postitan"
 
 #: data/ui/dialogs/preferences.ui:113
 msgid "Default Post Visibility"
@@ -612,7 +612,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:143
 msgid "Behavior"
-msgstr ""
+msgstr "Käitumine"
 
 #: data/ui/dialogs/preferences.ui:146
 msgid "Run in Background"
@@ -650,7 +650,7 @@ msgstr ""
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:177 src/Dialogs/NewAccount.vala:330
 msgid "Proxy"
-msgstr ""
+msgstr "Puhverserver"
 
 #: data/ui/dialogs/preferences.ui:188
 msgid "Posts per Load Batch"
@@ -707,7 +707,7 @@ msgstr ""
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:256
 msgid "Push Notifications"
-msgstr ""
+msgstr "Tõuketeavitused töölaual"
 
 #. translators: #FediWrapped, title of the 'amount of new followers' card
 #: data/ui/dialogs/preferences.ui:259 src/Dialogs/AnnualReport.vala:389
@@ -729,7 +729,7 @@ msgstr "Äramärkimised"
 
 #: data/ui/dialogs/preferences.ui:283 src/Dialogs/NotificationSettings.vala:51
 msgid "Boosts"
-msgstr ""
+msgstr "Võimendus"
 
 #: data/ui/dialogs/preferences.ui:289
 msgid "Poll Results"
@@ -737,7 +737,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:295
 msgid "Edits"
-msgstr ""
+msgstr "Muudatused"
 
 #: data/ui/dialogs/preferences.ui:301
 msgid "Group"
@@ -759,29 +759,29 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:326
 msgid "Add Filter…"
-msgstr ""
+msgstr "Lisa filter…"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:230
 msgid "Edit Profile"
-msgstr ""
+msgstr "Muuda profiili"
 
 #: data/ui/dialogs/profile_edit.ui:66
 msgid "Edit Profile Picture"
-msgstr ""
+msgstr "Muuda profiili tunnuspilti"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:95
 msgid "Edit Header Picture"
-msgstr ""
+msgstr "Muuda päisepilti"
 
 #: data/ui/dialogs/profile_edit.ui:120 src/Views/Admin/Pages/Accounts.vala:135
 msgid "Display Name"
-msgstr ""
+msgstr "Kuvatav nimi"
 
 #. translators: profile bio or description
 #: data/ui/dialogs/profile_edit.ui:128
 msgid "Bio"
-msgstr ""
+msgstr "Elulugu"
 
 #: data/ui/dialogs/profile_edit.ui:138 src/Dialogs/Composer/EditorPage.vala:353
 #: src/Widgets/Status/ReactionsRow.vala:58
@@ -795,17 +795,17 @@ msgstr ""
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:94
 #: src/Widgets/Attachment/Item.vala:159
 msgid "Alternative Text"
-msgstr ""
+msgstr "Pildi selgitus (alt text)"
 
 #. translators: row in the profile editor dialog for setting alt text for the user profile picture
 #: data/ui/dialogs/profile_edit.ui:167
 msgid "Profile Picture Description"
-msgstr ""
+msgstr "Profiilipildi kirjeldus"
 
 #. translators: row in the profile editor dialog for setting alt text for the user profile header/cover
 #: data/ui/dialogs/profile_edit.ui:174
 msgid "Header Picture Description"
-msgstr ""
+msgstr "Päisepildi kirjeldus"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:182
@@ -816,7 +816,7 @@ msgstr ""
 #. translators: 'Schedule' is a verb
 #: data/ui/dialogs/schedule.ui:29 src/Dialogs/Composer/Dialog.vala:159
 msgid "Schedule Post"
-msgstr ""
+msgstr "Ajasta postitus"
 
 #. translators: verb
 #: data/ui/dialogs/schedule.ui:47
@@ -826,12 +826,12 @@ msgstr ""
 #. translators: Title used for calendar date picking
 #: data/ui/dialogs/schedule.ui:74
 msgid "Date"
-msgstr ""
+msgstr "Päev"
 
 #. translators: Title used for time picking
 #: data/ui/dialogs/schedule.ui:99
 msgid "Time"
-msgstr ""
+msgstr "Kellaaeg"
 
 #. translators: Label on an hour picker
 #: data/ui/dialogs/schedule.ui:114
@@ -854,11 +854,11 @@ msgstr ""
 
 #: data/ui/menus.ui:10
 msgid "Mention"
-msgstr ""
+msgstr "Maini"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr ""
+msgstr "Otsesõnum"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
@@ -867,7 +867,7 @@ msgstr ""
 #: data/ui/menus.ui:29 data/ui/views/media_viewer.ui:6
 #: src/Widgets/Attachment/Item.vala:175 src/Widgets/Status.vala:308
 msgid "Open in Browser"
-msgstr ""
+msgstr "Ava veebibrauseris"
 
 #: data/ui/menus.ui:33
 msgid "Receive Post Notifications"
@@ -885,36 +885,36 @@ msgstr ""
 #: data/ui/menus.ui:46 src/API/Relationship.vala:184
 #: src/Widgets/Status.vala:325
 msgid "Mute"
-msgstr ""
+msgstr "Summuta"
 
 #: data/ui/menus.ui:51 src/API/Relationship.vala:139
 #: src/Views/Admin/Pages/BlockedEmails.vala:24
 #: src/Views/Admin/Pages/BlockedEmails.vala:71 src/Views/Profile.vala:365
 msgid "Block"
-msgstr ""
+msgstr "Blokeeri"
 
 #: data/ui/menus.ui:55
 msgid "Block Domain"
-msgstr ""
+msgstr "Blokeeri domeen"
 
 #: data/ui/menus.ui:60 src/Dialogs/Admin/Report.vala:8
 #: src/Widgets/Status.vala:365
 msgid "Report"
-msgstr ""
+msgstr "Teata"
 
 #: data/ui/menus.ui:67
 msgid "Timeline"
-msgstr ""
+msgstr "Ajajoon"
 
 #: data/ui/menus.ui:83 src/Services/Accounts/Mastodon/Account.vala:90
 #: src/Views/Lists.vala:209 src/Views/Profile.vala:462
 msgid "Lists"
-msgstr ""
+msgstr "Loendid"
 
 #: data/ui/views/media_viewer.ui:10 src/Widgets/Attachment/Item.vala:176
 #: src/Widgets/Status.vala:309
 msgid "Copy URL"
-msgstr ""
+msgstr "Kopeeri võrguaadress"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:177
 msgid "Save Media…"
@@ -927,7 +927,7 @@ msgstr ""
 #: data/ui/views/media_viewer.ui:60 data/ui/views/sidebar/view.ui:56
 #: data/ui/widgets/status.ui:220
 msgid "Menu"
-msgstr ""
+msgstr "Menüü"
 
 #: data/ui/views/media_viewer.ui:67 data/ui/views/media_viewer.ui:132
 msgid "Toggle Fullscreen"
@@ -936,7 +936,7 @@ msgstr ""
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:37 data/ui/widgets/profile.ui:25
 msgid "Bot"
-msgstr ""
+msgstr "Robot"
 
 #. translators: Tooltip text shown on an icon that indicates
 #. that the user is either a financial supporter
@@ -949,17 +949,17 @@ msgstr ""
 #. You can replace 'Cover' with 'Background' if needed.
 #: data/ui/views/profile_header.ui:85
 msgid "View Cover"
-msgstr ""
+msgstr "Vaata kaanepilti"
 
 #. translators: tooltip text on profile avatars.
 #. You can replace 'Avatar' with 'Profile Picture' if needed.
 #: data/ui/views/profile_header.ui:99
 msgid "View Avatar"
-msgstr ""
+msgstr "Vaata tunnuspilti"
 
 #: data/ui/views/profile_header.ui:164 src/Views/Sidebar.vala:68
 msgid "Open Profile"
-msgstr ""
+msgstr "Ava profiil"
 
 #. translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person
 #: data/ui/views/profile_header.ui:184
@@ -968,74 +968,74 @@ msgstr ""
 
 #: data/ui/views/profile_header.ui:214
 msgid "Note"
-msgstr ""
+msgstr "Märge"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:53
 msgid "Forget Account"
-msgstr ""
+msgstr "Unusta kasutajakonto"
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
-msgstr ""
+msgstr "Vaheta kasutajakontot"
 
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
 msgid "Offline"
-msgstr ""
+msgstr "Võrguühendus puudub"
 
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
 #: src/Views/Notifications.vala:59
 msgid "View"
-msgstr ""
+msgstr "Vaata"
 
 #: data/ui/widgets/announcement.ui:96
 msgid "Unread"
-msgstr ""
+msgstr "Lugemata"
 
 #: data/ui/widgets/announcement.ui:107 data/ui/widgets/status.ui:190
 msgid "Edited"
-msgstr ""
+msgstr "Muudetud"
 
 #. translators: Media play bar play button tooltip
 #: data/ui/widgets/audiocontrols.ui:30 src/Widgets/AudioPlayer/Controls.vala:26
 msgctxt "media controls tooltip"
 msgid "Play"
-msgstr ""
+msgstr "Esita"
 
 #: data/ui/widgets/audiocontrols.ui:49
 msgctxt "media controls"
 msgid "Position"
-msgstr ""
+msgstr "Asukoht"
 
 #: data/ui/widgets/audiocontrols.ui:67
 msgctxt "media controls"
 msgid "Volume"
-msgstr ""
+msgstr "Helivaljus"
 
 #: data/ui/widgets/status.ui:179
 msgid "Pinned"
-msgstr ""
+msgstr "Esiletõstetud"
 
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:249
 msgid "Show Less"
-msgstr ""
+msgstr "Näita vähem"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:282 src/Widgets/Status.vala:568
 msgid "Show More"
-msgstr ""
+msgstr "Näita rohkem"
 
 #. translators: Tooltip that opens filter
 #: data/ui/widgets/status.ui:348
 msgid "Show Anyway"
-msgstr ""
+msgstr "Näita ikkagi"
 
 #: data/ui/widgets/votebox.ui:33
 msgid "Vote"
-msgstr ""
+msgstr "Hääleta"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:10 src/Views/Admin/Pages/Accounts.vala:299
@@ -1043,7 +1043,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:338
 #: src/Widgets/Admin/DomainBlock.vala:18 src/Widgets/Admin/DomainBlock.vala:25
 msgid "None"
-msgstr ""
+msgstr "Mite midagi"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
@@ -1128,7 +1128,7 @@ msgstr ""
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr ""
+msgstr "Põhjus"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
@@ -1151,7 +1151,7 @@ msgstr ""
 #: src/Widgets/Status/ReactionsRow.vala:160
 #: src/Widgets/Status/ReactionsRow.vala:184 src/Widgets/VoteBox.vala:39
 msgid "Error"
-msgstr ""
+msgstr "Viga"
 
 #. translators: the variable is a comma separated list of account handles,
 #. this is a state - not an action
@@ -1173,11 +1173,11 @@ msgstr ""
 #: src/Services/Accounts/Mastodon/Account.vala:52
 #: src/Views/Conversations.vala:4
 msgid "Conversations"
-msgstr ""
+msgstr "Vestlused"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "Profiilid"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -1250,7 +1250,7 @@ msgstr ""
 
 #: src/API/Notification.vala:226
 msgid "Reply…"
-msgstr ""
+msgstr "Vasta…"
 
 #: src/API/Notification.vala:234
 msgid "Remove from Followers"
@@ -1262,13 +1262,13 @@ msgstr ""
 
 #: src/API/Notification.vala:246 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
-msgstr ""
+msgstr "Keeldu"
 
 #: src/API/Notification.vala:251 src/Views/NotificationRequestsList.vala:33
 #: src/Widgets/NotificationRequest.vala:65
 #: src/Widgets/Status/FollowRequestRow.vala:14
 msgid "Accept"
-msgstr ""
+msgstr "Nõustu"
 
 #: src/API/Relationship.vala:23
 msgid "Sent follow request"
@@ -1303,7 +1303,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/EmailDomain.vala:33 src/Views/Profile.vala:365
 #: src/Widgets/RelationshipButton.vala:43
 msgid "Unblock"
-msgstr ""
+msgstr "Lõpeta blokeerimine"
 
 #. translators: switch label when muting someone,
 #. turning it on will also hide notifications
@@ -1325,7 +1325,7 @@ msgstr ""
 
 #: src/API/Relationship.vala:221 src/Dialogs/FilterEdit.vala:29
 msgid "Never"
-msgstr ""
+msgstr "Mitte kunagi"
 
 #. translators: the variable is a number
 #: src/API/Relationship.vala:222 src/API/Relationship.vala:223
@@ -1448,11 +1448,11 @@ msgstr ""
 #. translators: Wiki pages / Guides
 #: src/Application.vala:635
 msgid "Wiki"
-msgstr ""
+msgstr "Viki"
 
 #: src/Application.vala:637 src/Widgets/Status.vala:352
 msgid "Translate"
-msgstr ""
+msgstr "Tõlgi"
 
 #: src/Application.vala:638
 msgid "Donate"
@@ -1480,7 +1480,7 @@ msgstr ""
 #. e.g. 'gnome.org'
 #: src/Dialogs/Admin/AddFederationBlock.vala:52
 msgid "Domain"
-msgstr ""
+msgstr "Domeen"
 
 #. translators: Admin dashboard, federation block dialog severity row title
 #: src/Dialogs/Admin/AddFederationBlock.vala:72
@@ -1667,7 +1667,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:172
 msgid "Category"
-msgstr ""
+msgstr "Kategooria"
 
 #. translators: Admin dashboard report category description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1689,11 +1689,11 @@ msgstr ""
 #: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:332
 #: src/Dialogs/Report.vala:415
 msgid "Submit"
-msgstr ""
+msgstr "Saada"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
-msgstr ""
+msgstr "Hoiatus"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:61
@@ -1767,7 +1767,7 @@ msgstr ""
 #: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
 #: src/Views/Search.vala:113
 msgid "Accounts"
-msgstr ""
+msgstr "Kasutajakontod"
 
 #. translators: Admin Dialog page title,
 #. this is about blocking
@@ -1806,7 +1806,7 @@ msgstr ""
 
 #: src/Dialogs/AnnualReport.vala:101
 msgid "Share"
-msgstr ""
+msgstr "Jaga"
 
 #: src/Dialogs/AnnualReport.vala:109
 msgid "Save As…"
@@ -1973,7 +1973,7 @@ msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:76
 msgid "Paste"
-msgstr ""
+msgstr "Aseta"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:219
 #: src/Dialogs/Composer/AttachmentsPage.vala:245
@@ -1999,7 +1999,7 @@ msgstr ""
 #: src/Dialogs/Composer/AttachmentsPage.vala:371
 #: src/Dialogs/ProfileEdit.vala:232 src/Widgets/EmojiReactionAccounts.vala:39
 msgid "Open"
-msgstr ""
+msgstr "Ava"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:435
 #, c-format
@@ -2013,7 +2013,7 @@ msgstr ""
 
 #: src/Dialogs/Composer/Dialog.vala:162 src/Dialogs/Composer/Dialog.vala:169
 msgid "_Publish"
-msgstr ""
+msgstr "_Avalda"
 
 #. translators: Dialog title when closing the composer
 #: src/Dialogs/Composer/Dialog.vala:253
@@ -2026,24 +2026,24 @@ msgstr ""
 
 #: src/Dialogs/Composer/Dialog.vala:256
 msgid "Discard"
-msgstr ""
+msgstr "Loobu"
 
 #: src/Dialogs/Composer/Dialog.vala:349 src/Dialogs/Composer/Dialog.vala:387
 msgid "_Edit"
-msgstr ""
+msgstr "_Muuda"
 
 #: src/Dialogs/Composer/Dialog.vala:362
 msgid "_Redraft"
-msgstr ""
+msgstr "_Koosta uuesti"
 
 #: src/Dialogs/Composer/Dialog.vala:408
 msgid "_Reply"
-msgstr ""
+msgstr "_Vasta"
 
 #. translators: "Text" as in text-based input
 #: src/Dialogs/Composer/EditorPage.vala:61
 msgid "Text"
-msgstr ""
+msgstr "Tekst"
 
 #. translators: "Stripped" is a past tense verb in this context, not an adjective.
 #: src/Dialogs/Composer/EditorPage.vala:124
@@ -2168,7 +2168,7 @@ msgstr ""
 #: src/Widgets/ScheduledStatus.vala:59 src/Widgets/ScheduledStatus.vala:184
 #: src/Widgets/Status.vala:336 src/Widgets/Status.vala:465
 msgid "Delete"
-msgstr ""
+msgstr "Kustuta"
 
 #: src/Dialogs/FilterEdit.vala:296
 #, c-format
@@ -2177,12 +2177,12 @@ msgstr ""
 
 #: src/Dialogs/ListEdit.vala:109 src/Views/Admin/Timelines/DomainAllow.vala:35
 msgid "Remove"
-msgstr ""
+msgstr "Eemalda"
 
 #: src/Dialogs/MainWindow.vala:80
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:12
 msgid "Home"
-msgstr ""
+msgstr "Avaleht"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
@@ -2215,7 +2215,7 @@ msgstr ""
 
 #: src/Dialogs/NewAccount.vala:306
 msgid "Apply"
-msgstr ""
+msgstr "Rakenda"
 
 #. translators: Switch title in the new account window
 #: src/Dialogs/NewAccount.vala:339
@@ -2231,7 +2231,7 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:52
 msgid "Polls"
-msgstr ""
+msgstr "Küsitlused"
 
 #: src/Dialogs/NotificationSettings.vala:53
 msgid "Post Edits"
@@ -2286,7 +2286,7 @@ msgstr ""
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:53
 msgid "Content"
-msgstr ""
+msgstr "Sisu"
 
 #. translators: profile field, the variable is a number, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: src/Dialogs/ProfileEdit.vala:214
@@ -2418,7 +2418,7 @@ msgstr ""
 
 #: src/Dialogs/Report.vala:411 src/Widgets/AccountSuggestions.vala:79
 msgid "Back"
-msgstr ""
+msgstr "Tagasi"
 
 #. translators: the variable is an error
 #: src/Dialogs/Report.vala:488 src/Dialogs/Report.vala:499
@@ -2428,7 +2428,7 @@ msgstr ""
 
 #: src/Dialogs/Report.vala:488
 msgid "No posts found"
-msgstr ""
+msgstr "Postitusi ei leidu"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
@@ -2545,25 +2545,25 @@ msgstr ""
 
 #: src/Services/Accounts/Mastodon/Account.vala:72 src/Views/Bookmarks.vala:4
 msgid "Bookmarks"
-msgstr ""
+msgstr "Järjehoidjad"
 
 #: src/Services/Accounts/Mastodon/Account.vala:108 src/Views/Explore.vala:3
 msgid "Explore"
-msgstr ""
+msgstr "Uuri"
 
 #: src/Services/Accounts/Mastodon/Account.vala:118
 #: src/Views/Admin/Pages/Accounts.vala:69 src/Views/Local.vala:3
 msgid "Local"
-msgstr ""
+msgstr "Kohalik"
 
 #: src/Services/Accounts/Mastodon/Account.vala:137 src/Views/Federated.vala:4
 msgid "Federated"
-msgstr ""
+msgstr "Födiversumis"
 
 #: src/Services/Accounts/Mastodon/Account.vala:146 src/Views/Explore.vala:7
 #: src/Views/Hashtags.vala:4 src/Views/Search.vala:115
 msgid "Hashtags"
-msgstr ""
+msgstr "Teemaviited"
 
 #: src/Services/Accounts/Mastodon/Account.vala:211
 msgid "Post to public timelines"
@@ -2615,12 +2615,12 @@ msgstr ""
 #. translators: Light mode theme
 #: src/Services/Settings.vala:267
 msgid "Light"
-msgstr ""
+msgstr "Hele kujundus"
 
 #. translators: Dark mode theme
 #: src/Services/Settings.vala:270
 msgid "Dark"
-msgstr ""
+msgstr "Tume kujundus"
 
 #: src/Utils/DateTime.vala:12
 msgid "expires soon"
@@ -2711,17 +2711,17 @@ msgstr ""
 #: src/Utils/DateTime.vala:88
 #, c-format
 msgid "%sm"
-msgstr ""
+msgstr "%s min"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:93
 #, c-format
 msgid "%sh"
-msgstr ""
+msgstr "%s t"
 
 #: src/Utils/DateTime.vala:96
 msgid "Yesterday"
-msgstr ""
+msgstr "Eile"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -2756,7 +2756,7 @@ msgstr ""
 
 #: src/Utils/DateTime.vala:135
 msgid "yesterday"
-msgstr ""
+msgstr "eile"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:169
@@ -2800,7 +2800,7 @@ msgstr[1] ""
 #. 3000 => 3k
 #: src/Utils/Units.vala:13
 msgid "k"
-msgstr ""
+msgstr "k"
 
 #. translators: short unit suffix for millions
 #. 3000000 => 3M
@@ -3111,7 +3111,7 @@ msgstr ""
 #. translators: as in posts that are saved but not posted yet
 #: src/Views/DraftStatuses.vala:7
 msgid "No Draft Posts"
-msgstr ""
+msgstr "Postituste kavandeid pole"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -3124,7 +3124,7 @@ msgstr ""
 #: src/Views/Explore.vala:6 src/Views/Search.vala:114
 #: src/Widgets/ProfileFilterGroup.vala:40
 msgid "Posts"
-msgstr ""
+msgstr "Postitused"
 
 #: src/Views/Explore.vala:7 src/Views/Hashtags.vala:7
 msgid "No Hashtags"
@@ -3272,7 +3272,7 @@ msgstr ""
 
 #: src/Views/Profile.vala:194 src/Views/Timeline.vala:73
 msgid "No Posts"
-msgstr ""
+msgstr "Postitusi pole"
 
 #: src/Views/Profile.vala:198
 msgid "No Followers"
@@ -3348,12 +3348,12 @@ msgstr ""
 #. translators: as in posts set to be posted sometime in the future
 #: src/Views/ScheduledStatuses.vala:5 src/Views/Sidebar.vala:77
 msgid "Scheduled Posts"
-msgstr ""
+msgstr "Ajastatud postitused"
 
 #. translators: as in posts set to be posted sometime in the future
 #: src/Views/ScheduledStatuses.vala:8
 msgid "No Scheduled Posts"
-msgstr ""
+msgstr "Ajastatud postitusi ei leidu"
 
 #: src/Views/Search.vala:24
 msgid "Search Posts and Accounts"
