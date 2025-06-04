@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-06-04 19:05+0000\n"
+"PO-Revision-Date: 2025-06-04 19:36+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
@@ -376,7 +376,7 @@ msgstr "Muudele loendi liikmetele"
 
 #: data/ui/dialogs/list_edit.ui:66
 msgid "Any followed user"
-msgstr "Kõikidele järgitud kasutajatele"
+msgstr "Kõikidele jälgitud kasutajatele"
 
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:314
 #: src/Views/Sidebar.vala:318
@@ -604,7 +604,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:122
 msgid "Default Post Language"
-msgstr ""
+msgstr "Postituse vaikimisi keel"
 
 #: data/ui/dialogs/preferences.ui:132
 msgid "Default Post Content Type"
@@ -634,7 +634,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:159
 msgid "Advanced Boost Dialog"
-msgstr ""
+msgstr "Hoo lisamise detailne vaade"
 
 #: data/ui/dialogs/preferences.ui:160
 msgid "Change boost visibility, quote and confirm boosting"
@@ -731,7 +731,7 @@ msgstr "Äramärkimised"
 
 #: data/ui/dialogs/preferences.ui:283 src/Dialogs/NotificationSettings.vala:51
 msgid "Boosts"
-msgstr "Võimendus"
+msgstr "Hoo lisamised"
 
 #: data/ui/dialogs/preferences.ui:289
 msgid "Poll Results"
@@ -882,7 +882,7 @@ msgstr ""
 
 #: data/ui/menus.ui:41
 msgid "Hide Boosts"
-msgstr ""
+msgstr "Peida hoo lisamised"
 
 #: data/ui/menus.ui:46 src/API/Relationship.vala:184
 #: src/Widgets/Status.vala:325
@@ -1256,11 +1256,11 @@ msgstr "Vasta…"
 
 #: src/API/Notification.vala:234
 msgid "Remove from Followers"
-msgstr ""
+msgstr "Eemalda jälgijate seast"
 
 #: src/API/Notification.vala:239
 msgid "Follow Back"
-msgstr ""
+msgstr "Jälgi teda ka"
 
 #: src/API/Notification.vala:246 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
@@ -1282,7 +1282,7 @@ msgstr ""
 
 #: src/API/Relationship.vala:27
 msgid "Follows you"
-msgstr ""
+msgstr "Jälgib sind"
 
 #. translators: as in, you've been blocked by them
 #: src/API/Relationship.vala:30
@@ -1897,12 +1897,12 @@ msgstr ""
 #. new followers you got and new people you followed
 #: src/Dialogs/AnnualReport.vala:367
 msgid "Follow Stats"
-msgstr ""
+msgstr "Jälgimiste statistika"
 
 #. translators: #FediWrapped, title of the 'amount of new people you followed' card
 #: src/Dialogs/AnnualReport.vala:414
 msgid "New Follows"
-msgstr ""
+msgstr "Uued jälgimised"
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most favorites
@@ -1914,7 +1914,7 @@ msgstr ""
 #. which one of your posts had the most boosts
 #: src/Dialogs/AnnualReport.vala:461
 msgid "Most Boosted Post"
-msgstr ""
+msgstr "Postitus, millele on kõige rohkem hoogu lisatud"
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most replies
@@ -2081,7 +2081,7 @@ msgstr ""
 
 #: src/Dialogs/Composer/EditorPage.vala:440
 msgid "Post Language"
-msgstr ""
+msgstr "Postituse keel"
 
 #: src/Dialogs/Composer/EditorPage.vala:491
 msgid "Post Content Type"
@@ -2444,35 +2444,35 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:250
 #, c-format
 msgid "%s boosted your post"
-msgstr ""
+msgstr "%s lisas sinu postitusele hoogu"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:259
 #, c-format
 msgid "%s boosted"
-msgstr ""
+msgstr "%s lisas hoogu"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:268
 #, c-format
 msgid "%s favorited your post"
-msgstr ""
+msgstr "%s lisas sinu postituse lemmikuks"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:277
 #, c-format
 msgid "%s now follows you"
-msgstr ""
+msgstr "%s jälgib nüüd sind"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:286
 #, c-format
 msgid "%s wants to follow you"
-msgstr ""
+msgstr "%s soovib sind jälgida"
 
 #. translators: this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:294
@@ -2582,11 +2582,11 @@ msgstr ""
 
 #: src/Services/Accounts/Mastodon/Account.vala:223
 msgid "Followers Only"
-msgstr ""
+msgstr "Vaid jälgijad"
 
 #: src/Services/Accounts/Mastodon/Account.vala:226
 msgid "Post to followers only"
-msgstr ""
+msgstr "Postita vaid jälgijatele"
 
 #: src/Services/Accounts/Mastodon/Account.vala:230
 msgid "Direct"
@@ -2748,13 +2748,13 @@ msgstr "hetk tagasi"
 #: src/Utils/DateTime.vala:127
 #, c-format
 msgid "%s minutes ago"
-msgstr ""
+msgstr "%s minutit tagasi"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:132
 #, c-format
 msgid "%s hours ago"
-msgstr ""
+msgstr "%s tundi tagsi"
 
 #: src/Utils/DateTime.vala:135
 msgid "yesterday"
@@ -2787,16 +2787,16 @@ msgstr ""
 #, c-format
 msgid "a day old"
 msgid_plural "%d days old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "päev vana"
+msgstr[1] "%d päeva vana"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:200
 #, c-format
 msgid "a year old"
 msgid_plural "%d years old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "aasta vana"
+msgstr[1] "%d aastat vana"
 
 #. translators: short unit suffix for thousands
 #. 3000 => 3k
@@ -2970,11 +2970,11 @@ msgstr ""
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "New Users"
-msgstr ""
+msgstr "Uued kasutajad"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Active Users"
-msgstr ""
+msgstr "Aktiivsed kasutajad"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Interactions"
@@ -2996,7 +2996,7 @@ msgstr ""
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:20
 msgid "Top Active Languages"
-msgstr ""
+msgstr "Populaarsed aktiivsed keeled"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:22
@@ -3015,7 +3015,7 @@ msgstr ""
 
 #: src/Views/Admin/Pages/Dashboard.vala:53
 msgid "Stats"
-msgstr ""
+msgstr "Statistika"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about allowing federation
@@ -3078,11 +3078,11 @@ msgstr ""
 
 #: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:73
 msgid "Announcements"
-msgstr ""
+msgstr "Teadaanded"
 
 #: src/Views/Announcements.vala:8
 msgid "No Announcements"
-msgstr ""
+msgstr "Teadaandeid pole"
 
 #. translators: Fallback shown when there are 0 results
 #: src/Views/Base.vala:4
@@ -3091,24 +3091,24 @@ msgstr ""
 
 #: src/Views/Base.vala:122
 msgid "Reload"
-msgstr ""
+msgstr "Laadi uuesti"
 
 #: src/Views/Base.vala:201
 msgid "An Error Occurred"
-msgstr ""
+msgstr "Tekkis viga"
 
 #: src/Views/Bookmarks.vala:6
 msgid "No Bookmarks"
-msgstr "Järjehoidjaid pole"
+msgstr "Sa pole veel järjehoidjaid lisanud"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
-msgstr ""
+msgstr "Sa pole veel ühtegi vestlust lisanud"
 
 #. translators: as in posts that are saved but not posted yet
 #: src/Views/DraftStatuses.vala:4 src/Views/Sidebar.vala:76
 msgid "Draft Posts"
-msgstr ""
+msgstr "Postituste kavandid"
 
 #. translators: as in posts that are saved but not posted yet
 #: src/Views/DraftStatuses.vala:7
@@ -3117,11 +3117,11 @@ msgstr "Postituste kavandeid pole"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
-msgstr ""
+msgstr "Muuda ajalugu"
 
 #: src/Views/EditHistory.vala:7
 msgid "No Edit History"
-msgstr ""
+msgstr "Muudetavat ajalugu pole"
 
 #: src/Views/Explore.vala:6 src/Views/Search.vala:114
 #: src/Widgets/ProfileFilterGroup.vala:40
@@ -3158,18 +3158,18 @@ msgstr ""
 
 #: src/Views/FollowRequests.vala:7
 msgid "No Follow Requests"
-msgstr ""
+msgstr "Jälgimispäringuid pole"
 
 #: src/Views/Hashtag.vala:19 src/Views/Hashtag.vala:34
 #: src/Widgets/RelationshipButton.vala:33
 #: src/Widgets/RelationshipButton.vala:70
 msgid "Follow"
-msgstr ""
+msgstr "Jälgi"
 
 #: src/Views/Hashtag.vala:22 src/Views/Hashtag.vala:38
 #: src/Widgets/RelationshipButton.vala:62
 msgid "Unfollow"
-msgstr ""
+msgstr "Lõpeta jälgimine"
 
 #: src/Views/Home.vala:23
 msgid "Compose"
@@ -3278,11 +3278,11 @@ msgstr "Postitusi pole"
 
 #: src/Views/Profile.vala:198
 msgid "No Followers"
-msgstr ""
+msgstr "Jälgijaid pole"
 
 #: src/Views/Profile.vala:202
 msgid "This user doesn't follow anyone yet"
-msgstr ""
+msgstr "See kasutaja ei jälgi veel kedagi"
 
 #: src/Views/Profile.vala:310
 msgid "Copied handle to clipboard"
@@ -3359,7 +3359,7 @@ msgstr "Ajastatud postitusi ei leidu"
 
 #: src/Views/Search.vala:24
 msgid "Search Posts and Accounts"
-msgstr ""
+msgstr "Otsi postitusi ja kasutajakontosid"
 
 #: src/Views/Search.vala:38
 msgid "Clear Entry"
@@ -3374,7 +3374,7 @@ msgstr ""
 
 #: src/Views/Search.vala:248
 msgid "Language"
-msgstr ""
+msgstr "Keel"
 
 #. translators: warning toast in advanced search dialog when auto-filling a user fails.
 #. Auto-fill refers to automatically filling the entry with the first
@@ -3389,8 +3389,8 @@ msgstr ""
 #, c-format
 msgid "%d Announcement"
 msgid_plural "%d Announcements"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d teadaanne"
+msgstr[1] "%d teadaannet"
 
 #. tanslators: used in a banner, the variable is the number of unreviewed follow requests
 #: src/Views/Sidebar.vala:38
@@ -3416,12 +3416,12 @@ msgstr ""
 
 #: src/Views/Sidebar.vala:93
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Klaviatuuri kiirklahvid"
 
 #: src/Views/Sidebar.vala:94
 #, c-format
 msgid "About %s"
-msgstr ""
+msgstr "Rakenduse teave: %s"
 
 #. translators: the variable is an account handle
 #: src/Views/Sidebar.vala:342
@@ -3439,17 +3439,17 @@ msgstr ""
 
 #: src/Views/StatusStats.vala:7
 msgid "Post Stats"
-msgstr ""
+msgstr "Postituste statistika"
 
 #. translators: title for a list of people that favorited a post
 #: src/Views/StatusStats.vala:13
 msgid "Favorited By"
-msgstr ""
+msgstr "Lisanud lemmikuks"
 
 #. translators: title for a list of people that boosted a post
 #: src/Views/StatusStats.vala:23
 msgid "Boosted By"
-msgstr ""
+msgstr "Hoogu on lisanud"
 
 #: src/Views/StatusStats.vala:27
 msgid "No Boosts"
@@ -3540,8 +3540,8 @@ msgstr[1] ""
 #, c-format
 msgid "%s Follower"
 msgid_plural "%s Followers"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s jälgija"
+msgstr[1] "%s jälgijat"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of people a user follows.
@@ -3549,7 +3549,7 @@ msgstr[1] ""
 #: src/Widgets/ProfileCover.vala:608
 #, c-format
 msgid "%s Following"
-msgstr ""
+msgstr "%s jälgitavat"
 
 #. translators: Admin dashboard, report status
 #: src/Widgets/Admin/AccountRow.vala:27 src/Widgets/Admin/Report.vala:47
@@ -3590,7 +3590,7 @@ msgstr ""
 #: src/Widgets/Announcement.vala:20
 #, c-format
 msgid "Announcement by %s (%s)."
-msgstr ""
+msgstr "Teadaanne serverist %s (%s)."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3797,7 +3797,7 @@ msgstr ""
 
 #: src/Widgets/ProfileFilterGroup.vala:54
 msgid "Replies"
-msgstr ""
+msgstr "Vastused"
 
 #. translators: the variable is the emoji or its name if it's custom.
 #. A reaction is not the same as a favorite or a boost,
@@ -3846,11 +3846,11 @@ msgstr ""
 #: src/Widgets/Status/ActionsRow.vala:57 src/Widgets/Status/ActionsRow.vala:106
 #: src/Widgets/Status/ActionsRow.vala:281
 msgid "Boost"
-msgstr ""
+msgstr "Lisa hoogu"
 
 #: src/Widgets/Status/ActionsRow.vala:60
 msgid "This post can't be boosted"
-msgstr ""
+msgstr "Sellele postitusele ei saa hoogu lisada"
 
 #: src/Widgets/Status/ActionsRow.vala:88 src/Widgets/Status/ActionsRow.vala:172
 msgid "Reply"
@@ -3863,7 +3863,7 @@ msgstr ""
 
 #: src/Widgets/Status/ActionsRow.vala:156
 msgid "Bookmark"
-msgstr ""
+msgstr "Lisa järjehoidjaks"
 
 #. translators: the variable is a datetime with the "old" suffix, e.g. "5 months old", "a day old", "2 years old".
 #. The "old" suffix is translated on the datetime strings, not here
@@ -3880,12 +3880,12 @@ msgstr ""
 
 #: src/Widgets/Status/ActionsRow.vala:273
 msgid "Boost with Visibility"
-msgstr ""
+msgstr "Lisa hoogu ja paranda nähtavust"
 
 #. translators: as in post stats (who liked and boosted)
 #: src/Widgets/Status.vala:312
 msgid "View Stats"
-msgstr ""
+msgstr "Vaata statistikat"
 
 #: src/Widgets/Status.vala:316
 msgid "View Edit History"
@@ -4055,15 +4055,15 @@ msgstr ""
 #, c-format
 msgid "%s reply"
 msgid_plural "%s replies"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s vastus"
+msgstr[1] "%s vastust"
 
 #: src/Widgets/Status.vala:896
 #, c-format
 msgid "%s boost"
 msgid_plural "%s boosts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s hoo lisamine"
+msgstr[1] "%s hoo lisamist"
 
 #: src/Widgets/Status.vala:901
 #, c-format
