@@ -57,9 +57,9 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 	Adw.PreferencesPage page_2;
 	Adw.PreferencesPage page_3;
 	Adw.PreferencesPage page_4;
-	Adw.SwitchRow forward_switch;
 	Adw.EntryRow additional_info;
 
+	Gee.HashMap<string, Adw.SwitchRow> forward_switches = new Gee.HashMap<string, Adw.SwitchRow> ();
 	Gee.HashMap<Category, Gtk.CheckButton> check_buttons = new Gee.HashMap<Category, Gtk.CheckButton> ();
 	Gee.HashMap<string, Gtk.CheckButton> rules_buttons = new Gee.HashMap<string, Gtk.CheckButton> ();
 	Gee.HashMap<string, Gtk.CheckButton> status_buttons = new Gee.HashMap<string, Gtk.CheckButton> ();
@@ -279,18 +279,52 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		additional_info.changed.connect (on_additional_info_changed);
 		group_4.add (additional_info);
 
-		if (accounts.active.domain != domain) {
-			forward_switch = new Adw.SwitchRow () {
-				// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-				//				the variable is an instance name e.g. 'Forward to mastodon.social'
-				title = _("Forward to %s").printf (domain),
-				active = true
-			};
-			group_4.add (forward_switch);
+		if (accounts.active.domain != domain) add_forward_row (domain, group_4, true);
+		if (accounts.active.tuba_api_versions.mastodon >= 2 && status_id != null && status_id != "") {
+			new Request.GET (@"/api/v1/statuses/$(status_id)/context")
+				.with_account (accounts.active)
+				.with_ctx (this)
+				.then ((in_stream) => {
+					var parser = Network.get_parser_from_inputstream (in_stream);
+					var root = network.parse (parser);
+
+					var ancestors = root.get_array_member ("ancestors");
+					ancestors.foreach_element ((array, i, node) => {
+						var status_obj = node.get_object ();
+						if (status_obj != null && status_obj.has_member ("account")) {
+							var acc_obj = status_obj.get_object_member ("account");
+							if (acc_obj != null && acc_obj.has_member ("acct")) {
+								string? acct = acc_obj.get_string_member ("acct");
+								if (acct != null && acct != "" && acct.contains ("@")) {
+									string[] acct_parts = acct.split ("@", 2);
+									if (
+										acct_parts.length >= 2
+										&& acct_parts[1] != ""
+										&& acct_parts[1] != domain
+										&& !forward_switches.has_key (acct_parts[1])
+									)
+										add_forward_row (acct_parts[1], group_4, false);
+								}
+							}
+						}
+					});
+				})
+				.exec ();
 		}
 
 		page_4.add (group_4);
 		carousel.append (page_4);
+	}
+
+	private inline void add_forward_row (string temp_domain, Adw.PreferencesGroup group, bool active) {
+		var forward_switch = new Adw.SwitchRow () {
+			// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+			//				the variable is an instance name e.g. 'Forward to mastodon.social'
+			title = _("Forward to %s").printf (temp_domain),
+			active = active
+		};
+		group.add (forward_switch);
+		forward_switches.set (temp_domain, forward_switch);
 	}
 
 	private void on_back () {
@@ -343,13 +377,23 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 	}
 
 	private void submit () {
-		bool forward = false;
-		if (forward_switch != null) forward = forward_switch.active;
-
 		var msg = new Request.POST ("/api/v1/reports")
 			.with_account (accounts.active)
-			.with_form_data ("account_id", account_id)
-			.with_form_data ("forward", forward.to_string ());
+			.with_form_data ("account_id", account_id);
+
+
+		bool has_forward = false;
+		forward_switches.foreach (e => {
+			if (((Adw.SwitchRow) e.value).active) {
+				if (!has_forward) {
+					has_forward = true;
+					msg.with_form_data ("forward", "true");
+				}
+				msg.with_form_data ("forward_to_domains[]", ((string) e.key));
+			}
+
+			return true;
+		});
 
 		if (additional_info.text != "") msg.with_form_data ("comment", additional_info.text);
 
