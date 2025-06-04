@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-06-04 19:36+0000\n"
+"PO-Revision-Date: 2025-06-04 19:44+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
@@ -1354,7 +1354,7 @@ msgstr[1] ""
 
 #: src/API/SearchResults.vala:32
 msgid "Search returned no results"
-msgstr ""
+msgstr "Otsingul pole tulemusi"
 
 #. translators: the variable is an external service like "PeerTube"
 #: src/API/Status/PreviewCard.vala:25
@@ -3177,7 +3177,7 @@ msgstr ""
 
 #: src/Views/Lists.vala:45 src/Widgets/Status/ActionsRow.vala:137
 msgid "Favorite"
-msgstr ""
+msgstr "Lisa lemmikuks"
 
 #: src/Views/Lists.vala:121
 #, c-format
@@ -3449,7 +3449,7 @@ msgstr "Lisanud lemmikuks"
 #. translators: title for a list of people that boosted a post
 #: src/Views/StatusStats.vala:23
 msgid "Boosted By"
-msgstr "Hoogu on lisanud"
+msgstr "Lisanud hoogu"
 
 #: src/Views/StatusStats.vala:27
 msgid "No Boosts"
@@ -4069,8 +4069,8 @@ msgstr[1] "%s hoo lisamist"
 #, c-format
 msgid "%s favorite"
 msgid_plural "%s favorites"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s lemmik"
+msgstr[1] "%s lemmikut"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
