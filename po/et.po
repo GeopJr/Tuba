@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-06-04 19:44+0000\n"
+"PO-Revision-Date: 2025-06-04 20:14+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
@@ -115,7 +115,7 @@ msgstr "Keri alla"
 
 #: data/gtk/help-overlay.ui:82
 msgid "Composer"
-msgstr "Sõnumikoostaja"
+msgstr "Postituse koostaja"
 
 #: data/gtk/help-overlay.ui:85
 msgid "Commit"
@@ -335,7 +335,7 @@ msgstr "Kontekstid"
 
 #: data/ui/dialogs/filter_edit.ui:76
 msgid "One or multiple contexts where the filter should apply"
-msgstr ""
+msgstr "Üks või enam konteksti, kus see filter peaks kehtima"
 
 #: data/ui/dialogs/filter_edit.ui:81
 msgid "Keywords or Phrases"
@@ -355,7 +355,7 @@ msgstr "Loendi nimi"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
-msgstr ""
+msgstr "Peida postitused avalehelt"
 
 #: data/ui/dialogs/list_edit.ui:39
 msgid "Replies Policy"
@@ -458,12 +458,12 @@ msgstr "Kaasatud teavitused"
 #. translators: Preferences group title
 #: data/ui/dialogs/notification_settings.ui:44
 msgid "Filter Notifications Out"
-msgstr ""
+msgstr "Filtreeri teavitused välja"
 
 #. translators: Preferences group description
 #: data/ui/dialogs/notification_settings.ui:46
 msgid "Filter out notifications from people you may not know"
-msgstr ""
+msgstr "Filtreeri nende inimeste teavitusi, keda sa ei tunne"
 
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:50
@@ -3173,7 +3173,7 @@ msgstr "Lõpeta jälgimine"
 
 #: src/Views/Home.vala:23
 msgid "Compose"
-msgstr ""
+msgstr "Postita"
 
 #: src/Views/Lists.vala:45 src/Widgets/Status/ActionsRow.vala:137
 msgid "Favorite"
@@ -3427,15 +3427,15 @@ msgstr "Rakenduse teave: %s"
 #: src/Views/Sidebar.vala:342
 #, c-format
 msgid "Forget %s?"
-msgstr ""
+msgstr "Kas unustame %s?"
 
 #: src/Views/Sidebar.vala:343
 msgid "This account will be removed from the application."
-msgstr ""
+msgstr "Järgnevaga see kasutajakonto eemaldatakse siit rakendusest."
 
 #: src/Views/Sidebar.vala:345
 msgid "Forget"
-msgstr ""
+msgstr "Unusta"
 
 #: src/Views/StatusStats.vala:7
 msgid "Post Stats"
@@ -3530,8 +3530,8 @@ msgstr ""
 #, c-format
 msgid "%s Post"
 msgid_plural "%s Posts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s postitus"
+msgstr[1] "%s postitust"
 
 #. translators: Used in profile stats.
 #. The variable is a shortened number of the amount of followers a user has.
