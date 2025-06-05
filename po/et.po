@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-06-05 08:04+0000\n"
+"PO-Revision-Date: 2025-06-05 08:17+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
@@ -1110,7 +1110,7 @@ msgstr "Spämm"
 
 #: src/API/Admin/Report.vala:20
 msgid "Rule Violation"
-msgstr ""
+msgstr "Reeglite rikkumine"
 
 #: src/API/Admin/Report.vala:21
 msgid "Legal"
@@ -1167,7 +1167,7 @@ msgstr ""
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
 msgid "Home &amp; Lists"
-msgstr ""
+msgstr "Avaleht ja loendid"
 
 #: src/API/Filters/Filter.vala:46
 msgid "Public Timelines"
@@ -1238,19 +1238,19 @@ msgstr "Serveri moderaatorid on sinu kontole lisanud hoiatuse"
 #: src/API/Notification.vala:135 src/Services/Accounts/InstanceAccount.vala:354
 #, c-format
 msgid "Your %s #FediWrapped is ready!"
-msgstr ""
+msgstr "Sinu %s. aasta #FediWrapped on valmis!"
 
 #. translators: used in the #FediWrapped notifications, refer to the other #FediWrapped strings for more info
 #: src/API/Notification.vala:137
 msgid "Review your year's highlights and memorable moments on the Fediverse!"
-msgstr ""
+msgstr "Saad ülevaate sinu põnevatest juhtumistest Födiversumis!"
 
 #. translators: <user> (& <amount> others) <actions>
 #. for example: GeopJr (& 10 others) mentioned you
 #: src/API/Notification.vala:180
 #, c-format
 msgid "%s (& %d others)"
-msgstr ""
+msgstr "%s (ja %d muud kasutajat)"
 
 #: src/API/Notification.vala:226
 msgid "Reply…"
@@ -1276,7 +1276,7 @@ msgstr "Nõustu"
 
 #: src/API/Relationship.vala:23
 msgid "Sent follow request"
-msgstr ""
+msgstr "Jälgimispalve on saadetud"
 
 #: src/API/Relationship.vala:25
 msgid "Mutuals"
@@ -1319,7 +1319,7 @@ msgstr "Peida teavituste seast"
 #. translators: Dropdown title for picking when a mute should expire
 #: src/API/Relationship.vala:168
 msgid "Expire In"
-msgstr ""
+msgstr "Aegub"
 
 #. translators: the variable is a user handle
 #: src/API/Relationship.vala:181
@@ -1340,8 +1340,8 @@ msgstr "Mitte kunagi"
 #, c-format
 msgid "%d Hour"
 msgid_plural "%d Hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d tunni pärast"
+msgstr[1] "%d tunni pärast"
 
 #. translators: the variable is a number
 #: src/API/Relationship.vala:224 src/API/Relationship.vala:225
@@ -1351,8 +1351,8 @@ msgstr[1] ""
 #, c-format
 msgid "%d Day"
 msgid_plural "%d Days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d päeva pärast"
+msgstr[1] "%d päeva pärast"
 
 #: src/API/SearchResults.vala:32
 msgid "Search returned no results"
@@ -1404,7 +1404,7 @@ msgstr ""
 #: src/API/Tag.vala:45
 #, c-format
 msgid "%d per week"
-msgstr ""
+msgstr "%d korda nädalas"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:59
@@ -1416,14 +1416,14 @@ msgstr ""
 #: src/API/Tag.vala:67
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
-msgstr ""
+msgstr "Viimase kahe päeva jooksul on seda kasutanud %d inimest %d korda"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
 #. been provided in settings
 #: src/Application.vala:350 src/Dialogs/Preferences.vala:386
 msgid "Invalid Proxy URL"
-msgstr ""
+msgstr "Puhverserveri vigane aadress"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:417
@@ -2756,7 +2756,7 @@ msgstr "%s minutit tagasi"
 #: src/Utils/DateTime.vala:132
 #, c-format
 msgid "%s hours ago"
-msgstr "%s tundi tagsi"
+msgstr "%s tundi tagasi"
 
 #: src/Utils/DateTime.vala:135
 msgid "yesterday"
@@ -2775,8 +2775,8 @@ msgstr[1] ""
 #, c-format
 msgid "an hour old"
 msgid_plural "%s hours old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "üks tund vana"
+msgstr[1] "%s tundi vana"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:189 src/Utils/DateTime.vala:203
