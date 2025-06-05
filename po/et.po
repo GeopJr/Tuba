@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-06-04 20:14+0000\n"
+"PO-Revision-Date: 2025-06-05 07:21+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
@@ -588,11 +588,11 @@ msgstr ""
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/ui/dialogs/preferences.ui:102
 msgid "Dim Trivial Notifications"
-msgstr ""
+msgstr "Varjuta tehnilised teavitused"
 
 #: data/ui/dialogs/preferences.ui:103
 msgid "Notifications like favorites and boosts will be less visible"
-msgstr ""
+msgstr "Teavitused lemmikute lisamise ja hooandmise kohta on vähemnähtavad"
 
 #: data/ui/dialogs/preferences.ui:110
 msgid "Posting"
@@ -749,7 +749,7 @@ msgstr ""
 #: data/ui/dialogs/preferences.ui:303
 msgid ""
 "Combine recently pushed notifications of the same type and post into one"
-msgstr ""
+msgstr "Liida sama tüüpi ja sama postituse töölauateavitused üheks"
 
 #: data/ui/dialogs/preferences.ui:314
 msgid "Filters"
@@ -873,7 +873,7 @@ msgstr "Ava veebibrauseris"
 
 #: data/ui/menus.ui:33
 msgid "Receive Post Notifications"
-msgstr ""
+msgstr "Võta vastu tõuketeavitusi"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:39 src/Views/Admin/Pages/Accounts.vala:118
@@ -1312,7 +1312,7 @@ msgstr "Lõpeta blokeerimine"
 #. from this user, e.g. when they reply to you
 #: src/API/Relationship.vala:153
 msgid "Hide from Notifications"
-msgstr ""
+msgstr "Peida teavituste seast"
 
 #. translators: Dropdown title for picking when a mute should expire
 #: src/API/Relationship.vala:168
@@ -2209,7 +2209,7 @@ msgstr ""
 #: src/Dialogs/NewAccount.vala:214
 #, c-format
 msgid "Hello, %s!"
-msgstr ""
+msgstr "Tere tulemast, %s!"
 
 #: src/Dialogs/NewAccount.vala:269
 msgid "Server returned an error"
@@ -2245,7 +2245,7 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:131
 msgid "Clear All Notifications?"
-msgstr ""
+msgstr "Kas kustutame kõik teavitused?"
 
 #: src/Dialogs/NotificationSettings.vala:138
 msgid "Clear"
@@ -3236,13 +3236,13 @@ msgstr ""
 #: src/Views/NotificationRequestsList.vala:8
 #, c-format
 msgid "Notifications by %s"
-msgstr ""
+msgstr "Teavitused kasutajalt %s"
 
 #. translators: the variable is a user handle
 #: src/Views/NotificationRequestsList.vala:11
 #, c-format
 msgid "No Notifications by %s"
-msgstr ""
+msgstr "Kasutajalt %s pole teavitusi"
 
 #: src/Views/NotificationRequestsList.vala:26
 #: src/Widgets/NotificationRequest.vala:56
@@ -3251,22 +3251,22 @@ msgstr ""
 
 #: src/Views/NotificationRequests.vala:4
 msgid "Filtered Notifications"
-msgstr ""
+msgstr "Filtreeritud teavitused"
 
 #: src/Views/NotificationRequests.vala:7
 msgid "No Filtered Notifications"
-msgstr ""
+msgstr "Filtreeritud teavitusi pole"
 
 #: src/Views/Notifications.vala:13
 #, c-format
 msgid "%d Filtered Notification"
 msgid_plural "%d Filtered Notifications"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d filtreeritud teavitus"
+msgstr[1] "%d filtreeritud teavitust"
 
 #: src/Views/Notifications.vala:41
 msgid "No Notifications"
-msgstr ""
+msgstr "Teavitusi pole"
 
 #: src/Views/Profile.vala:80
 msgid "Profile"
@@ -3306,6 +3306,11 @@ msgid ""
 "• Remove its followers from your account\n"
 "• Prevent you from following its users"
 msgstr ""
+"Domeeni blokeerimisel:\n"
+"\n"
+"• Sinu ajajoonelt kaovad tema postitusd ja teavitused\n"
+"• Tema jälgijad kaovad ka sinu jälgijate seast\n"
+"• Sa ei saa enam sealseid kasutajaid jälgida"
 
 #. translators: the variable is an account handle
 #: src/Views/Profile.vala:454
@@ -3359,7 +3364,7 @@ msgstr "Ajastatud postitusi ei leidu"
 
 #: src/Views/Search.vala:24
 msgid "Search Posts and Accounts"
-msgstr "Otsi postitusi ja kasutajakontosid"
+msgstr "Otsi postitusi ja kontosid"
 
 #: src/Views/Search.vala:38
 msgid "Clear Entry"
@@ -3793,7 +3798,7 @@ msgstr ""
 
 #: src/Widgets/ProfileCover.vala:711
 msgid "Error: Note is over 2000 characters long"
-msgstr ""
+msgstr "Viga: märge pikem, kui 200 tähemärki"
 
 #: src/Widgets/ProfileFilterGroup.vala:54
 msgid "Replies"
