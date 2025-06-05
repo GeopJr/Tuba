@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-06-05 07:54+0000\n"
+"PO-Revision-Date: 2025-06-05 07:56+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
@@ -1095,12 +1095,12 @@ msgstr ""
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:36
 msgid "New sign-ups will not be possible"
-msgstr ""
+msgstr "Uued liitumised pole lubatud"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:38
 msgid "New sign-ups will require your approval"
-msgstr ""
+msgstr "Uued liitumised eeldavad sinu kinnitamist"
 
 #: src/API/Admin/Report.vala:19
 msgid "Spam"
@@ -2152,7 +2152,7 @@ msgstr "%d pv"
 
 #: src/Dialogs/FilterEdit.vala:125
 msgid "New Filter"
-msgstr ""
+msgstr "Uus filter"
 
 #: src/Dialogs/FilterEdit.vala:189
 msgid "Keyword"
@@ -3194,7 +3194,7 @@ msgstr ""
 
 #: src/Views/Lists.vala:216
 msgid "New list title"
-msgstr ""
+msgstr "Uue loendi nimi"
 
 #: src/Views/Lists.vala:225
 msgid "Add list"
@@ -3407,7 +3407,7 @@ msgstr[1] "%d jälgimispäringut"
 
 #: src/Views/Sidebar.vala:67
 msgid "New Post"
-msgstr ""
+msgstr "Uus postitus"
 
 #. translators: main menu entry, please don't translate it unless you have to.
 #. Refer to other #FediWrapped strings for more info
