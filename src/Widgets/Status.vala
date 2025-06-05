@@ -442,7 +442,7 @@
 	}
 
 	private void report_status () {
-		new Dialogs.Report (status.formal.account, status.formal.id);
+		new Dialogs.Report (status.formal.account, status.formal.id, status.formal.mentions);
 	}
 
 	private void view_edit_history () {

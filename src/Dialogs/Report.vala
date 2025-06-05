@@ -110,7 +110,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		this.close_attempt.connect (on_back);
 	}
 
-	public Report (API.Account account, string? status_id = null) {
+	public Report (API.Account account, string? status_id = null, Gee.ArrayList<API.Mention>? mentions = null) {
 		account_domain = account.domain;
 		// translators: the variable is an account handle
 		this.title = _("Reporting %s").printf (@"$(account.username)@$(account_domain)");
@@ -123,7 +123,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 			install_page_2 ();
 		}
 		install_page_3 ();
-		install_page_4 ();
+		install_page_4 (mentions);
 
 		this.present (app.main_window);
 	}
@@ -261,7 +261,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		carousel.append (page_3_stack);
 	}
 
-	private void install_page_4 () {
+	private void install_page_4 (Gee.ArrayList<API.Mention>? mentions = null) {
 		page_4 = new Adw.PreferencesPage () {
 			hexpand = true,
 			vexpand = true,
@@ -282,36 +282,21 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		group_4.add (additional_info);
 
 		if (accounts.active.domain != account_domain) add_forward_row (account_domain, group_4, true);
-		if (accounts.active.tuba_api_versions.mastodon >= 2 && status_id != null && status_id != "") {
-			new Request.GET (@"/api/v1/statuses/$(status_id)/context")
-				.with_account (accounts.active)
-				.with_ctx (this)
-				.then ((in_stream) => {
-					var parser = Network.get_parser_from_inputstream (in_stream);
-					var root = network.parse (parser);
+		if (accounts.active.tuba_api_versions.mastodon >= 2 && status_id != null && status_id != "" && mentions != null && mentions.size > 0) {
+			mentions.@foreach (mention => {
+				if (mention.acct != null && mention.acct != "" && mention.acct.contains ("@")) {
+					string[] acct_parts = mention.acct.split ("@", 2);
+					if (
+						acct_parts.length >= 2
+						&& acct_parts[1] != ""
+						&& acct_parts[1] != account_domain
+						&& !forward_switches.has_key (acct_parts[1])
+					)
+						add_forward_row (acct_parts[1], group_4, false);
+				}
 
-					var ancestors = root.get_array_member ("ancestors");
-					ancestors.foreach_element ((array, i, node) => {
-						var status_obj = node.get_object ();
-						if (status_obj != null && status_obj.has_member ("account")) {
-							var acc_obj = status_obj.get_object_member ("account");
-							if (acc_obj != null && acc_obj.has_member ("acct")) {
-								string? acct = acc_obj.get_string_member ("acct");
-								if (acct != null && acct != "" && acct.contains ("@")) {
-									string[] acct_parts = acct.split ("@", 2);
-									if (
-										acct_parts.length >= 2
-										&& acct_parts[1] != ""
-										&& acct_parts[1] != account_domain
-										&& !forward_switches.has_key (acct_parts[1])
-									)
-										add_forward_row (acct_parts[1], group_4, false);
-								}
-							}
-						}
-					});
-				})
-				.exec ();
+				return true;
+			});
 		}
 
 		page_4.add (group_4);
