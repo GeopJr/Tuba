@@ -21,6 +21,7 @@ sources += files(
     'NotificationFilter.vala',
     'Poll.vala',
     'PollOption.vala',
+    'Quote.vala',
     'Relationship.vala',
     'ScheduledStatus.vala',
     'SearchResult.vala',
