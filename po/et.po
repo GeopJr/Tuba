@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-06-05 07:34+0000\n"
+"PO-Revision-Date: 2025-06-05 07:54+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
@@ -339,11 +339,11 @@ msgstr "Üks või enam konteksti, kus see filter peaks kehtima"
 
 #: data/ui/dialogs/filter_edit.ui:81
 msgid "Keywords or Phrases"
-msgstr "Võtmesõnad või -fraasid"
+msgstr "Märksõnad või -fraasid"
 
 #: data/ui/dialogs/filter_edit.ui:89
 msgid "Add Keyword"
-msgstr "Lisa võtmesõna"
+msgstr "Lisa märksõna"
 
 #: data/ui/dialogs/list_edit.ui:7 data/ui/dialogs/list_edit.ui:10
 msgid "Members"
@@ -468,7 +468,7 @@ msgstr "Filtreeri nende inimeste teavitusi, keda sa ei tunne"
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:50
 msgid "People you don't follow"
-msgstr ""
+msgstr "Need, kes sind ei jälgi"
 
 #. translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:52
@@ -545,7 +545,7 @@ msgstr ""
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:64
 msgid "Letterbox Media"
-msgstr ""
+msgstr "Raamista meediat"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox_hint"
 #: data/ui/dialogs/preferences.ui:66
@@ -571,7 +571,7 @@ msgstr "BlurHash"
 
 #: data/ui/dialogs/preferences.ui:81
 msgid "Show a blurred version of the media until they fully load"
-msgstr ""
+msgstr "Näita meediat hägusena seni, kuni ta on laadimisel"
 
 #: data/ui/dialogs/preferences.ui:86
 msgid "Reveal Spoilers by Default"
@@ -583,7 +583,7 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:96
 msgid "Darken Images on Dark Mode"
-msgstr ""
+msgstr "Tumenda pilte tumedas kujunduses"
 
 #. translators: dim as make them less visible / darker. 'Trivial' describes favorites and boosts
 #: data/ui/dialogs/preferences.ui:102
@@ -878,7 +878,7 @@ msgstr "Võta vastu tõuketeavitusi"
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: data/ui/menus.ui:39 src/Views/Admin/Pages/Accounts.vala:118
 msgid "Moderation"
-msgstr ""
+msgstr "Modereerimine"
 
 #: data/ui/menus.ui:41
 msgid "Hide Boosts"
@@ -1055,7 +1055,7 @@ msgstr "Piira"
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:14 src/Dialogs/Admin/TakeAction.vala:95
 msgid "Suspend"
-msgstr ""
+msgstr "Peata"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:10
@@ -1112,7 +1112,7 @@ msgstr ""
 
 #: src/API/Admin/Report.vala:21
 msgid "Legal"
-msgstr ""
+msgstr "Juriidiline teave"
 
 #: src/API/Admin/Report.vala:22 src/API/Emoji.vala:4 src/API/Emoji.vala:8
 #: src/Widgets/CustomEmojiChooser.vala:209
@@ -1120,7 +1120,7 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:214
 #: src/Widgets/CustomEmojiChooser.vala:218
 msgid "Other"
-msgstr ""
+msgstr "Muu"
 
 #. translators: the variable is a string report comment
 #: src/API/Admin/Report.vala:72
@@ -1278,7 +1278,7 @@ msgstr ""
 
 #: src/API/Relationship.vala:25
 msgid "Mutuals"
-msgstr ""
+msgstr "Vastastikuselt"
 
 #: src/API/Relationship.vala:27
 msgid "Follows you"
@@ -1716,7 +1716,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:579
 msgid "Sensitive"
-msgstr ""
+msgstr "Sensitiivne"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:79
@@ -1759,12 +1759,12 @@ msgstr ""
 
 #: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
 msgid "Dashboard"
-msgstr ""
+msgstr "Juhtpaneel"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:28 src/Views/Admin/Pages/Reports.vala:6
 msgid "Reports"
-msgstr ""
+msgstr "Teatamised"
 
 #: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
 #: src/Views/Search.vala:113
@@ -1799,12 +1799,12 @@ msgstr ""
 
 #: src/Dialogs/AnnualReport.vala:61
 msgid "Default"
-msgstr ""
+msgstr "Vaikimisi"
 
 #. translators: Accent color
 #: src/Dialogs/AnnualReport.vala:63
 msgid "Accent"
-msgstr ""
+msgstr "Aktsentvärv"
 
 #: src/Dialogs/AnnualReport.vala:101
 msgid "Share"
@@ -1817,7 +1817,7 @@ msgstr "Salvesta kui…"
 #. translators: dropdown label for picking a window style
 #: src/Dialogs/AnnualReport.vala:116
 msgid "Style"
-msgstr ""
+msgstr "Stiil"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -2056,7 +2056,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:411
 #: src/Views/Admin/Pages/Accounts.vala:431
 msgid "Undo"
-msgstr ""
+msgstr "Võta tegevus tagasi"
 
 #: src/Dialogs/Composer/EditorPage.vala:314
 msgid "What's on your mind?"
@@ -2132,7 +2132,7 @@ msgstr[1] ""
 #: src/Dialogs/Composer/PollPage.vala:230
 #, c-format
 msgid "%dm"
-msgstr ""
+msgstr "%d min"
 
 #. translators: the variable is a number, h as in hours
 #: src/Dialogs/Composer/PollPage.vala:234
@@ -2140,7 +2140,7 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:236
 #, c-format
 msgid "%dh"
-msgstr ""
+msgstr "%d t"
 
 #. translators: the variable is a number, d as in days
 #: src/Dialogs/Composer/PollPage.vala:240
@@ -2148,7 +2148,7 @@ msgstr ""
 #: src/Dialogs/Composer/PollPage.vala:242
 #, c-format
 msgid "%dd"
-msgstr ""
+msgstr "%d pv"
 
 #: src/Dialogs/FilterEdit.vala:125
 msgid "New Filter"
@@ -2156,7 +2156,7 @@ msgstr ""
 
 #: src/Dialogs/FilterEdit.vala:189
 msgid "Keyword"
-msgstr ""
+msgstr "Märksõna"
 
 #: src/Dialogs/FilterEdit.vala:192
 msgid "Match Whole Word"
@@ -2241,7 +2241,7 @@ msgstr ""
 
 #: src/Dialogs/NotificationSettings.vala:54
 msgid "Follows"
-msgstr ""
+msgstr "Jälgimisi"
 
 #: src/Dialogs/NotificationSettings.vala:131
 msgid "Clear All Notifications?"
@@ -2249,13 +2249,13 @@ msgstr "Kas kustutame kõik teavitused?"
 
 #: src/Dialogs/NotificationSettings.vala:138
 msgid "Clear"
-msgstr ""
+msgstr "Tühjenda"
 
 #: src/Dialogs/Preferences.vala:31 src/Views/Lists.vala:16
 #: src/Views/List.vala:25 src/Widgets/ScheduledStatus.vala:44
 #: src/Widgets/Status.vala:335
 msgid "Edit"
-msgstr ""
+msgstr "Muuda"
 
 #: src/Dialogs/Preferences.vala:43
 #, c-format
@@ -2283,7 +2283,7 @@ msgstr ""
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
 msgid "Label"
-msgstr ""
+msgstr "Silt"
 
 #. translators: profile field content
 #: src/Dialogs/ProfileEdit.vala:53
@@ -2574,7 +2574,7 @@ msgstr ""
 #. translators: Probably follow Mastodon's translation
 #: src/Services/Accounts/Mastodon/Account.vala:216
 msgid "Unlisted"
-msgstr ""
+msgstr "Loetlemata"
 
 #: src/Services/Accounts/Mastodon/Account.vala:219
 msgid "Don't post to public timelines"
@@ -2590,7 +2590,7 @@ msgstr "Postita vaid jälgijatele"
 
 #: src/Services/Accounts/Mastodon/Account.vala:230
 msgid "Direct"
-msgstr ""
+msgstr "Otsene"
 
 #: src/Services/Accounts/Mastodon/Account.vala:233
 msgid "Post to mentioned users only"
@@ -2808,38 +2808,38 @@ msgstr "k"
 #. 3000000 => 3M
 #: src/Utils/Units.vala:17
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #. translators: short unit suffix for billions
 #. 3000000000 => 3G
 #: src/Utils/Units.vala:21
 msgid "G"
-msgstr ""
+msgstr "G"
 
 #. translators: as in All search results
 #: src/Views/Admin/Pages/Accounts.vala:68
 #: src/Views/Admin/Pages/Accounts.vala:91 src/Views/Search.vala:112
 msgid "All"
-msgstr ""
+msgstr "Kõik"
 
 #. translators: Dropdown entry, remote as in from a different instance.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:73
 msgid "Remote"
-msgstr ""
+msgstr "Server"
 
 #. translators: admin panel, accounts tab, filter dropdown tooltip text
 #: src/Views/Admin/Pages/Accounts.vala:78
 msgid "Location"
-msgstr ""
+msgstr "Asukoht"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:95
 msgid "Active"
-msgstr ""
+msgstr "Aktiivne"
 
 #. new DropDownStringEntry ("sensitized", _("Sensitive")), // doesn't seem to work on Mastodon
 #. translators: Dropdown entry, account status.
@@ -2849,7 +2849,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:383 src/Widgets/Admin/AccountRow.vala:31
 #: src/Widgets/Admin/Report.vala:52
 msgid "Limited"
-msgstr ""
+msgstr "Piiratud"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -2858,7 +2858,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:390 src/Widgets/Admin/AccountRow.vala:33
 #: src/Widgets/Admin/Report.vala:54
 msgid "Disabled"
-msgstr ""
+msgstr "Pole kasutusel"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
@@ -2867,33 +2867,33 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:376 src/Widgets/Admin/AccountRow.vala:29
 #: src/Widgets/Admin/Report.vala:50
 msgid "Suspended"
-msgstr ""
+msgstr "Peatatud"
 
 #. translators: Dropdown entry, account status.
 #. It's for the admin dashboard, so it's better if it stays
 #. close to the original word.
 #: src/Views/Admin/Pages/Accounts.vala:113
 msgid "Pending"
-msgstr ""
+msgstr "Ootel"
 
 #: src/Views/Admin/Pages/Accounts.vala:128
 msgid "Username"
-msgstr ""
+msgstr "Kasutajanimi"
 
 #: src/Views/Admin/Pages/Accounts.vala:142
 #: src/Views/Admin/Pages/Accounts.vala:304
 msgid "E-mail"
-msgstr ""
+msgstr "E-posti aadress"
 
 #: src/Views/Admin/Pages/Accounts.vala:298
 msgid "Role"
-msgstr ""
+msgstr "Roll"
 
 #. translators: admin dashboard, account view
 #. e-mail has been confirmed
 #: src/Views/Admin/Pages/Accounts.vala:315
 msgid "Confirmed"
-msgstr ""
+msgstr "Kinnitatud"
 
 #. translators: admin dashboard, account view
 #. e-mail has NOT been confirmed
@@ -2914,12 +2914,12 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:358
 #: src/Views/Admin/Pages/Accounts.vala:492
 msgid "Approve"
-msgstr ""
+msgstr "Nõustu"
 
 #: src/Views/Admin/Pages/Accounts.vala:365
 #: src/Views/Admin/Pages/Accounts.vala:525
 msgid "Reject"
-msgstr ""
+msgstr "Keeldu"
 
 #. translators: Question dialog when an admin is about to
 #. undo an action, like a suspension
@@ -3006,7 +3006,7 @@ msgstr ""
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:24
 msgid "Software"
-msgstr ""
+msgstr "Tarkvara"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:26
@@ -3027,7 +3027,7 @@ msgstr ""
 #: src/Views/Admin/Pages/FederationAllowlist.vala:21
 #: src/Views/Admin/Pages/FederationAllowlist.vala:64
 msgid "Allow"
-msgstr ""
+msgstr "Luba"
 
 #. translators: Question dialog when an admin is about to
 #. allow federation with an instance. The variable is a
@@ -3247,7 +3247,7 @@ msgstr "Kasutajalt %s pole teavitusi"
 #: src/Views/NotificationRequestsList.vala:26
 #: src/Widgets/NotificationRequest.vala:56
 msgid "Dismiss"
-msgstr ""
+msgstr "Loobu"
 
 #: src/Views/NotificationRequests.vala:4
 msgid "Filtered Notifications"
@@ -3270,7 +3270,7 @@ msgstr "Teavitusi pole"
 
 #: src/Views/Profile.vala:80
 msgid "Profile"
-msgstr ""
+msgstr "Profiil"
 
 #: src/Views/Profile.vala:194 src/Views/Timeline.vala:73
 msgid "No Posts"
@@ -3413,7 +3413,7 @@ msgstr ""
 #. Refer to other #FediWrapped strings for more info
 #: src/Views/Sidebar.vala:81
 msgid "#FediWrapped"
-msgstr ""
+msgstr "#FediWrapped"
 
 #: src/Views/Sidebar.vala:92
 msgid "Preferences"
@@ -3465,7 +3465,7 @@ msgstr ""
 #. see https://github.com/glitch-soc/mastodon/pull/2462
 #: src/Views/StatusStats.vala:36
 msgid "Reactions"
-msgstr ""
+msgstr "Reageerimised"
 
 #. translators: Reactions page empty state.
 #. A reaction is not the same as a favorite or a boost,
@@ -3476,7 +3476,7 @@ msgstr ""
 
 #: src/Views/Thread.vala:32
 msgid "Conversation"
-msgstr ""
+msgstr "Vestlus"
 
 #: src/Views/Thread.vala:105 src/Views/Thread.vala:119
 msgid "Reveal Spoilers"
@@ -3573,11 +3573,11 @@ msgstr ""
 
 #: src/Widgets/Admin/AssignedRow.vala:38
 msgid "Unassign"
-msgstr ""
+msgstr "Eemalda määramine"
 
 #: src/Widgets/Admin/AssignedRow.vala:42
 msgid "Assign"
-msgstr ""
+msgstr "Määra"
 
 #. translators: subtitle on email domain blocks.
 #. The variable is the number of sing up
@@ -3634,7 +3634,7 @@ msgstr[1] ""
 #. hasn't been read yet.
 #: src/Widgets/Announcement.vala:56
 msgid "Unread."
-msgstr ""
+msgstr "Lugemata."
 
 #. translators: Tooltip on a button that hides / blurs media marked as sensitive
 #: src/Widgets/Attachment/Box.vala:68
@@ -3670,7 +3670,7 @@ msgstr ""
 #: src/Widgets/AudioPlayer/Controls.vala:22
 msgctxt "media controls tooltip"
 msgid "Stop"
-msgstr ""
+msgstr "Lõpeta"
 
 #. translators: the variable is the date the book was published
 #: src/Widgets/BookWyrmPage.vala:79
@@ -3689,7 +3689,7 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:67
 #: src/Widgets/CustomEmojiChooser.vala:169
 msgid "Results"
-msgstr ""
+msgstr "Tulemused"
 
 #: src/Widgets/CustomEmojiChooser.vala:73
 msgid "Recently Used"
@@ -3814,16 +3814,16 @@ msgstr ""
 
 #: src/Widgets/RelationshipButton.vala:55 src/Widgets/Status.vala:328
 msgid "Unmute"
-msgstr ""
+msgstr "Lõpeta summutamine"
 
 #. translators: not a verb, as in a post that is saved but not posted yet
 #: src/Widgets/ScheduledStatus.vala:13
 msgid "Draft"
-msgstr ""
+msgstr "Kavand"
 
 #: src/Widgets/ScheduledStatus.vala:51 src/Widgets/ScheduledStatus.vala:148
 msgid "Reschedule"
-msgstr ""
+msgstr "Muuda ajastust"
 
 #. translators: Scheduled Post title, 'scheduled for <date>'
 #: src/Widgets/ScheduledStatus.vala:139
@@ -3859,12 +3859,12 @@ msgstr "Sellele postitusele ei saa hoogu lisada"
 
 #: src/Widgets/Status/ActionsRow.vala:88 src/Widgets/Status/ActionsRow.vala:172
 msgid "Reply"
-msgstr ""
+msgstr "Vasta"
 
 #: src/Widgets/Status/ActionsRow.vala:125
 #: src/Widgets/Status/ActionsRow.vala:280
 msgid "Quote"
-msgstr ""
+msgstr "Tsiteeri"
 
 #: src/Widgets/Status/ActionsRow.vala:156
 msgid "Bookmark"
@@ -3894,12 +3894,12 @@ msgstr "Vaata statistikat"
 
 #: src/Widgets/Status.vala:316
 msgid "View Edit History"
-msgstr ""
+msgstr "Vaata muutmiste ajalugu"
 
 #. translators: Pin post on profile
 #: src/Widgets/Status.vala:321 src/Widgets/Status.vala:756
 msgid "Pin"
-msgstr ""
+msgstr "Tõsta esile"
 
 #. translators: Post menu items to revert a translation
 #: src/Widgets/Status.vala:356
@@ -3934,7 +3934,7 @@ msgstr ""
 
 #: src/Widgets/Status.vala:393
 msgid "Copy"
-msgstr ""
+msgstr "Kopeeri"
 
 #: src/Widgets/Status.vala:402 src/Widgets/Status.vala:407
 msgid "Copied post url to clipboard"
@@ -3971,7 +3971,7 @@ msgstr ""
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:754
 msgid "Unpin"
-msgstr ""
+msgstr "Eemalda esiletõstmine"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -4092,7 +4092,7 @@ msgstr ""
 
 #: src/Widgets/Status.vala:960
 msgid "Filtered"
-msgstr ""
+msgstr "Filtreeritud"
 
 #. translatiors: the first variable is a language name,
 #. the second variable is a service name e.g. DeepL
