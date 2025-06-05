@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-06-05 07:21+0000\n"
+"PO-Revision-Date: 2025-06-05 07:34+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
@@ -512,27 +512,27 @@ msgstr "Välimus"
 
 #: data/ui/dialogs/preferences.ui:26
 msgid "Color Scheme"
-msgstr ""
+msgstr "Rakenduse kujundus"
 
 #: data/ui/dialogs/preferences.ui:40
 msgid "Large Text"
-msgstr ""
+msgstr "Suur tekst"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Increase the size of text in posts"
-msgstr ""
+msgstr "Suurenda postituste teksti"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Large Line Height"
-msgstr ""
+msgstr "Suur reavahe"
 
 #: data/ui/dialogs/preferences.ui:47
 msgid "Increase the line height in posts"
-msgstr ""
+msgstr "Suurenda postitustes reavahesid"
 
 #: data/ui/dialogs/preferences.ui:52
 msgid "Large Custom Emojis"
-msgstr ""
+msgstr "Suured sinu valitud emojid"
 
 #: data/ui/dialogs/preferences.ui:57
 msgid "Scale Custom Emojis on Hover"
@@ -596,11 +596,11 @@ msgstr "Teavitused lemmikute lisamise ja hooandmise kohta on vähemnähtavad"
 
 #: data/ui/dialogs/preferences.ui:110
 msgid "Posting"
-msgstr "Postitan"
+msgstr "Postitamine"
 
 #: data/ui/dialogs/preferences.ui:113
 msgid "Default Post Visibility"
-msgstr ""
+msgstr "Postituse vaikimisi nähtavus"
 
 #: data/ui/dialogs/preferences.ui:122
 msgid "Default Post Language"
@@ -608,7 +608,7 @@ msgstr "Postituse vaikimisi keel"
 
 #: data/ui/dialogs/preferences.ui:132
 msgid "Default Post Content Type"
-msgstr ""
+msgstr "Postituse vaikimisi sisutüüp"
 
 #: data/ui/dialogs/preferences.ui:143
 msgid "Behavior"
@@ -638,15 +638,15 @@ msgstr "Hoo lisamise detailne vaade"
 
 #: data/ui/dialogs/preferences.ui:160
 msgid "Change boost visibility, quote and confirm boosting"
-msgstr ""
+msgstr "Saad muuta hooandmise nähtavust, tsiteerida ja seda kinnitada"
 
 #: data/ui/dialogs/preferences.ui:165
 msgid "Warn before replying to an old post"
-msgstr ""
+msgstr "Hoiata enne vanale postitusele vastamist"
 
 #: data/ui/dialogs/preferences.ui:170
 msgid "Warn before copying a link to a private post"
-msgstr ""
+msgstr "Hoiata enne privaatse postituse lingi kopeerimist"
 
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:177 src/Dialogs/NewAccount.vala:330
@@ -718,7 +718,7 @@ msgstr "Uued jälgijad"
 
 #: data/ui/dialogs/preferences.ui:265
 msgid "New Follower Requests"
-msgstr ""
+msgstr "Uued jälgimispäringud"
 
 #: data/ui/dialogs/preferences.ui:271 src/Dialogs/NotificationSettings.vala:50
 #: src/Services/Accounts/Mastodon/Account.vala:81 src/Views/Favorites.vala:4
@@ -743,7 +743,7 @@ msgstr "Muudatused"
 
 #: data/ui/dialogs/preferences.ui:301
 msgid "Group"
-msgstr ""
+msgstr "Grupeerimine"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/ui/dialogs/preferences.ui:303
@@ -1065,7 +1065,7 @@ msgstr "Blokeeritud"
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:12
 msgid "Blocked Sign-ups"
-msgstr ""
+msgstr "Blokeeritud registreerimised"
 
 #. translators: Admin Dashboard, IP Block severity
 #: src/API/Admin/IPBlock.vala:14
@@ -1224,7 +1224,7 @@ msgstr ""
 #. your server's admins
 #: src/API/Notification.vala:127 src/Services/Accounts/InstanceAccount.vala:364
 msgid "Your account has received a moderation warning"
-msgstr ""
+msgstr "Serveri moderaatorid on sinu kontole lisanud hoiatuse"
 
 #. translators: this is used for notifications,
 #. when an annual report is available.
@@ -1287,7 +1287,7 @@ msgstr "Jälgib sind"
 #. translators: as in, you've been blocked by them
 #: src/API/Relationship.vala:30
 msgid "Blocks you"
-msgstr ""
+msgstr "Blokeerib sind"
 
 #. translators: the variable is a user handle
 #: src/API/Relationship.vala:133
@@ -1701,7 +1701,7 @@ msgstr "Hoiatus"
 #: src/Dialogs/Admin/TakeAction.vala:61
 msgid ""
 "Use this to send a warning to the user, without triggering any other action"
-msgstr ""
+msgstr "Kasuta seda hoiatuse saatmiseks nii, et muid toiminguid ei käivitu"
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
@@ -1777,7 +1777,7 @@ msgstr "Kasutajakontod"
 #. gmail.com
 #: src/Dialogs/Admin.vala:48 src/Views/Admin/Pages/BlockedEmails.vala:10
 msgid "Blocked E-mail Domains"
-msgstr ""
+msgstr "Blokeeritud e-posti domeenid"
 
 #. translators: Admin Dialog page title,
 #. this is about blocking
@@ -2069,11 +2069,11 @@ msgstr ""
 
 #: src/Dialogs/Composer/EditorPage.vala:370
 msgid "Write your warning here"
-msgstr ""
+msgstr "Sisesta oma hoiatus siia"
 
 #: src/Dialogs/Composer/EditorPage.vala:383
 msgid "Content Warning"
-msgstr ""
+msgstr "Sisuhoiatus"
 
 #: src/Dialogs/Composer/EditorPage.vala:417
 msgid "Post Privacy"
@@ -3154,7 +3154,7 @@ msgstr "Sa pole veel lemmikuid lisanud"
 
 #: src/Views/FollowRequests.vala:4 src/Views/Sidebar.vala:74
 msgid "Follow Requests"
-msgstr ""
+msgstr "Jälgimispäringud"
 
 #: src/Views/FollowRequests.vala:7
 msgid "No Follow Requests"
@@ -3214,23 +3214,23 @@ msgstr ""
 
 #: src/Views/MutesBlocks.vala:6 src/Views/Sidebar.vala:75
 msgid "Mutes & Blocks"
-msgstr ""
+msgstr "Summutamised ja blokeerimised"
 
 #: src/Views/MutesBlocks.vala:11
 msgid "Mutes"
-msgstr ""
+msgstr "Summutamised"
 
 #: src/Views/MutesBlocks.vala:15
 msgid "No Muted Accounts"
-msgstr ""
+msgstr "Summutatud kasutajakontosid pole"
 
 #: src/Views/MutesBlocks.vala:19
 msgid "Blocks"
-msgstr ""
+msgstr "Blokeerimised"
 
 #: src/Views/MutesBlocks.vala:23
 msgid "No Blocked Accounts"
-msgstr ""
+msgstr "Blokeeritud kasutajakontosid pole"
 
 #. translators: the variable is a user handle
 #: src/Views/NotificationRequestsList.vala:8
@@ -3402,8 +3402,8 @@ msgstr[1] "%d teadaannet"
 #, c-format
 msgid "%d Follow Request"
 msgid_plural "%d Follow Requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d jälgimispäring"
+msgstr[1] "%d jälgimispäringut"
 
 #: src/Views/Sidebar.vala:67
 msgid "New Post"
@@ -3417,7 +3417,7 @@ msgstr ""
 
 #: src/Views/Sidebar.vala:92
 msgid "Preferences"
-msgstr ""
+msgstr "Eelistused"
 
 #: src/Views/Sidebar.vala:93
 msgid "Keyboard Shortcuts"
