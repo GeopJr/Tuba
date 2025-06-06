@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-06-06 07:09+0000\n"
+"PO-Revision-Date: 2025-06-06 16:46+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
@@ -536,11 +536,11 @@ msgstr "Suured sinu valitud emojid"
 
 #: data/ui/dialogs/preferences.ui:57
 msgid "Scale Custom Emojis on Hover"
-msgstr ""
+msgstr "Muuda üleliuglemisel emojide suurust"
 
 #: data/ui/dialogs/preferences.ui:58
 msgid "Slightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "Natuke suurendab sinu lisatud emojisid, kui kursoriga üle nende libised"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:64
@@ -1162,7 +1162,7 @@ msgstr "Viga"
 #: src/API/Conversation.vala:31
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "Tühi vestlus kasutaja(te)ga: %s"
 
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
@@ -1219,7 +1219,7 @@ msgstr ""
 #. to admins
 #: src/API/Notification.vala:121
 msgid "Signed Up"
-msgstr ""
+msgstr "Registreerus"
 
 #. translators: this is used for notifications,
 #. when you receive a warning from
@@ -1295,12 +1295,12 @@ msgstr "Blokeerib sind"
 #: src/API/Relationship.vala:133
 #, c-format
 msgid "Block \"%s\"?"
-msgstr ""
+msgstr "Kas blokeerime %s?"
 
 #: src/API/Relationship.vala:133
 #, c-format
 msgid "Unblock \"%s\"?"
-msgstr ""
+msgstr "Ka lõpetame blokeerimise: %s?"
 
 #: src/API/Relationship.vala:139 src/Views/Admin/Timelines/BlockedIPs.vala:33
 #: src/Views/Admin/Timelines/DomainBlock.vala:33
@@ -1325,7 +1325,7 @@ msgstr "Aegub"
 #: src/API/Relationship.vala:181
 #, c-format
 msgid "Mute \"%s\"?"
-msgstr ""
+msgstr "Kas summutame %s?"
 
 #: src/API/Relationship.vala:221 src/Dialogs/FilterEdit.vala:29
 msgid "Never"
@@ -1362,39 +1362,39 @@ msgstr "Otsingul pole tulemusi"
 #: src/API/Status/PreviewCard.vala:25
 #, c-format
 msgid "You are about to open a %s video"
-msgstr ""
+msgstr "Sa oled avamas videot teenusest %s"
 
 #. translators: the variable is an external service like "Funkwhale",
 #. track as in song
 #: src/API/Status/PreviewCard.vala:29
 #, c-format
 msgid "You are about to open a %s track"
-msgstr ""
+msgstr "Sa oled avamas lugu teenusest %s"
 
 #. translators: the variable is an external service like "BookWyrm"
 #: src/API/Status/PreviewCard.vala:32
 #, c-format
 msgid "You are about to open a %s book"
-msgstr ""
+msgstr "Sa oled avamas raaamtut teenusest %s"
 
 #. translators: the variable is the app name (Tuba)
 #: src/API/Status/PreviewCard.vala:35
 #, c-format
 msgid "You are about to leave %s"
-msgstr ""
+msgstr "Sa oled lahkumas rakendusest %s"
 
 #. translators: the variable is a url
 #: src/API/Status/PreviewCard.vala:48
 #, c-format
 msgid "If you proceed, \"%s\" will open in your browser."
-msgstr ""
+msgstr "Kui jätkad, siis %s avaneb sinu veebibrauseris."
 
 #. translators: the first variable is the app name (Tuba),
 #. the second one is a url
 #: src/API/Status/PreviewCard.vala:52
 #, c-format
 msgid "If you proceed, %s will connect to \"%s\"."
-msgstr ""
+msgstr "Kui jätkad, siis %s loob ühenduse teenusega %s."
 
 #: src/API/Suggestion.vala:12
 msgid "Account not found"
@@ -1416,7 +1416,7 @@ msgstr ""
 #: src/API/Tag.vala:67
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
-msgstr "Viimase kahe päeva jooksul on seda kasutanud %d inimest %d korda"
+msgstr "Viimase kahe päeva jooksul on seda kasutanud %2$d inimest %1$d korda"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
@@ -1429,20 +1429,20 @@ msgstr "Puhverserveri vigane aadress"
 #: src/Application.vala:417
 #, c-format
 msgid "'%s://' may only be used when adding a new account"
-msgstr ""
+msgstr "Uue konto loomisel võid kasutada vaid %s:// protokolli"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:425
 #, c-format
 msgid "'%s://' may not be used when adding a new account"
-msgstr ""
+msgstr "Uue konto loomisel ei või kasutada %s:// protokolli"
 
 #. translators: the first variable is the app name ('Tuba'),
 #. the second one is a uri scheme like 'https'
 #: src/Application.vala:432
 #, c-format
 msgid "%s does not accept '%s://'"
-msgstr ""
+msgstr "%s ei võimalda kasutada %s:// protokolli"
 
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:631
@@ -3729,6 +3729,7 @@ msgstr ""
 #, c-format
 msgid "Discussed %d times by %d people in the past 2 days"
 msgstr ""
+"Viimase kahe päeva jooksul on sel teemal arutanud %2$d inimest %1$d korda"
 
 #. translators: tooltip text on 'explore' tab button to
 #. see posts where the selected article is
