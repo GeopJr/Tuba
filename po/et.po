@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-06-06 16:46+0000\n"
+"PO-Revision-Date: 2025-06-10 12:41+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
@@ -505,6 +505,8 @@ msgstr "Loata tehtud privaatsed mainimised"
 msgid ""
 "Filtered unless it's in reply to your own mention or if you follow the sender"
 msgstr ""
+"Filtreeritud, kui see pole vastus sinu poolt mainimisele või kui jälgid "
+"saatjat"
 
 #: data/ui/dialogs/preferences.ui:23
 msgid "Appearance"
@@ -2067,7 +2069,7 @@ msgstr "Mis sul meeles mõlgub?"
 #: src/Dialogs/Composer/EditorPage.vala:343
 #: src/Widgets/Status/ReactionsRow.vala:48
 msgid "Emoji Picker"
-msgstr "Emojidee valija"
+msgstr "Emojide valija"
 
 #: src/Dialogs/Composer/EditorPage.vala:370
 msgid "Write your warning here"
@@ -2276,11 +2278,11 @@ msgstr "Kas kustutame: %s?"
 #: src/Dialogs/Preferences.vala:95
 #, c-format
 msgid "Couldn't delete filter: %s"
-msgstr ""
+msgstr "Filtri kustutamine ei õnnestunud: %s"
 
 #: src/Dialogs/Preferences.vala:400
 msgid "Analytics Preview"
-msgstr ""
+msgstr "Analüütika eelvaade"
 
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
@@ -2296,43 +2298,43 @@ msgstr "Sisu"
 #: src/Dialogs/ProfileEdit.vala:214
 #, c-format
 msgid "Field %d"
-msgstr ""
+msgstr "%d. väli"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:24
 msgid "It's spam"
-msgstr ""
+msgstr "See on spämm"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:27
 msgid "It violates server rules"
-msgstr ""
+msgstr "See ei vasta serveri reeglitele"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option title when reporting a post or account
 #: src/Dialogs/Report.vala:30
 msgid "It's something else"
-msgstr ""
+msgstr "See on midagi muud"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:39
 msgid "Malicious links, fake engagement, or repetitive replies"
-msgstr ""
+msgstr "Pahatahtlik link, võlts suhtlus või korduv vastus"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:42
 msgid "You are aware that it breaks specific rules"
-msgstr ""
+msgstr "Sa tead, et ta rikub kindlaid reegleid"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is a radio option subtitle when reporting a post or account
 #: src/Dialogs/Report.vala:45
 msgid "The issue does not fit into other categories"
-msgstr ""
+msgstr "Ta ei sobi ühegi muu kategooriaga"
 
 #. translators: the variable is an account handle
 #: src/Dialogs/Report.vala:114
@@ -2361,42 +2363,42 @@ msgstr ""
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Report.vala:188
 msgid "Which rules are being violated?"
-msgstr ""
+msgstr "Milliseid reegleid rikutakse?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this shown above a list of checkbox options where the user can select multiple
 #: src/Dialogs/Report.vala:193 src/Dialogs/Report.vala:257
 msgid "Select all that apply"
-msgstr ""
+msgstr "Vali kõik, mis sobivad"
 
 #. translators: 'fetch' as in get
 #: src/Dialogs/Report.vala:225
 msgid "Couldn't fetch all user's posts"
-msgstr ""
+msgstr "Kõiki kasutaja postitusi polnud võimalik laadida"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of posts. The user is meant to choose any that should be included in the report
 #: src/Dialogs/Report.vala:248
 msgid "Are there any posts that back up this report?"
-msgstr ""
+msgstr "Kas on olemas postitusi, mis on sellele teavitusele tõenduseks?"
 
 #. translators: this is the same as 'Are there any posts that back up this report?' but for when you are reporting a post
 #. that's why it asks about choosing 'other' posts
 #: src/Dialogs/Report.vala:252
 msgid "Are there any other posts that back up this report?"
-msgstr ""
+msgstr "Kas on olemas muid postitusi, mis on sellele teavitusele tõenduseks?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown at the top of the last page of the report dialog
 #: src/Dialogs/Report.vala:271
 msgid "Is there anything else you think we should know?"
-msgstr ""
+msgstr "Kas arvad, et on veel midagi, mida me peaks teadma?"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. additional comments to be included in the report
 #: src/Dialogs/Report.vala:277
 msgid "Additional Comments"
-msgstr ""
+msgstr "Täiendavad kommentaarid"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. the variable is an instance name e.g. 'Forward to mastodon.social'
@@ -2782,7 +2784,7 @@ msgstr[1] "%s tundi vana"
 #: src/Utils/DateTime.vala:189 src/Utils/DateTime.vala:203
 #, c-format
 msgid "%d months old"
-msgstr ""
+msgstr "%d kuud vana"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:195
@@ -2906,7 +2908,7 @@ msgstr "Pole kinnitatud"
 #. translators: admin panel, account waiting to be approved, placeholder when they didn't include a reason
 #: src/Views/Admin/Pages/Accounts.vala:347
 msgid "No Reason Given"
-msgstr ""
+msgstr "Põhjendus on puudu"
 
 #. translators: admin panel, account waiting to be approved
 #: src/Views/Admin/Pages/Accounts.vala:351
