@@ -7,27 +7,28 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-06-11 13:01+0000\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: Hebrew <https://hosted.weblate.org/projects/tuba/tuba/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
-msgstr ""
+msgstr "טוּבַּה"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
-msgstr ""
+msgstr "עיון בפדיברס"
 
 #: data/dev.geopjr.Tuba.desktop.in:6
 msgid "Fediverse Client"
-msgstr ""
+msgstr "לקוח פדיברס"
 
 #: data/dev.geopjr.Tuba.desktop.in:11
 msgid "toot;mastodon;fediverse;gotosocial;pleroma;akkoma;"
@@ -52,59 +53,59 @@ msgstr ""
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:20
 msgid "General"
-msgstr ""
+msgstr "כללי"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "הצגת העדפות"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "כתיבת רשומה חדשה"
 
 #: data/gtk/help-overlay.ui:26 data/ui/widgets/votebox.ui:40
 #: src/Views/Sidebar.vala:69
 msgid "Refresh"
-msgstr ""
+msgstr "ריענון"
 
 #: data/gtk/help-overlay.ui:32 data/ui/dialogs/advanced_search.ui:28
 #: src/Services/Accounts/Mastodon/Account.vala:99
 #: src/Views/Admin/Pages/Accounts.vala:25 src/Views/Main.vala:62
 #: src/Views/Search.vala:90 src/Views/Search.vala:92
 msgid "Search"
-msgstr ""
+msgstr "חיפוש"
 
 #: data/gtk/help-overlay.ui:38 data/ui/views/media_viewer.ui:52
 msgid "Go Back"
-msgstr ""
+msgstr "חזרה"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "הצגת קיצורי מקשים"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
-msgstr ""
+msgstr "סגירת החלון"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Quit"
-msgstr ""
+msgstr "יציאה"
 
 #: data/gtk/help-overlay.ui:62
 msgid "About"
-msgstr ""
+msgstr "על אודות"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Up"
-msgstr ""
+msgstr "גלילה למעלה"
 
 #: data/gtk/help-overlay.ui:74
 msgid "Scroll Down"
-msgstr ""
+msgstr "גלילה למטה"
 
 #: data/gtk/help-overlay.ui:82
 msgid "Composer"
-msgstr ""
+msgstr "חלונית כתיבה"
 
 #: data/gtk/help-overlay.ui:85
 msgid "Commit"
@@ -112,56 +113,56 @@ msgstr ""
 
 #: data/gtk/help-overlay.ui:93 data/ui/views/media_viewer.ui:43
 msgid "Media Viewer"
-msgstr ""
+msgstr "מציג מדיה"
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "מסך מלא"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:172
 msgid "Zoom In"
-msgstr ""
+msgstr "התקרבות"
 
 #: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:160
 msgid "Zoom Out"
-msgstr ""
+msgstr "התרחקות"
 
 #: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:94
 msgid "Previous Attachment"
-msgstr ""
+msgstr "הקובץ המצורף הקודם"
 
 #: data/gtk/help-overlay.ui:120 data/ui/views/media_viewer.ui:106
 msgid "Next Attachment"
-msgstr ""
+msgstr "הקובץ המצורף הבא"
 
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "התקרבות"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "התרחקות"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr ""
+msgstr "הקובץ המצורף הקודם"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Next Attachment"
-msgstr ""
+msgstr "הקובץ המצורף הבא"
 
 #: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:85
 msgid "Admin Dashboard"
-msgstr ""
+msgstr "לוח ניהול"
 
 #. translators: window title
 #: data/ui/dialogs/advanced_search.ui:11 src/Views/Search.vala:31
 msgid "Advanced Search"
-msgstr ""
+msgstr "חיפוש מתקדם"
 
 #: data/ui/dialogs/advanced_search.ui:22 data/ui/dialogs/compose.ui:35
 #: data/ui/dialogs/filter_edit.ui:16 data/ui/dialogs/new_account.ui:26
@@ -188,7 +189,7 @@ msgstr ""
 #: src/Widgets/ScheduledStatus.vala:184 src/Widgets/Status/ActionsRow.vala:279
 #: src/Widgets/Status.vala:465
 msgid "Cancel"
-msgstr ""
+msgstr "ביטול"
 
 #. translators: Label in the advanced search window. Leave `-is:reply` as is. 'instances' as in fediverse servers
 #: data/ui/dialogs/advanced_search.ui:57
@@ -200,165 +201,165 @@ msgstr ""
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:74
 msgid "Query"
-msgstr ""
+msgstr "שאילתה"
 
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:81
 msgid "From User"
-msgstr ""
+msgstr "ממשתמש"
 
 #. translators: tooltip text for a button in the 'advanced search' window. When clicked it automatically fills the entry with the first found user based on the query.
 #: data/ui/dialogs/advanced_search.ui:89
 msgid "Auto-Fill User"
-msgstr ""
+msgstr "מילוי משתמש אוטומטי"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:102
 msgid "Only Replies"
-msgstr ""
+msgstr "תגובות בלבד"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:108
 msgid "Only Posts with Content Warnings"
-msgstr ""
+msgstr "רשומות עם אזהרות תוכן בלבד"
 
 #. translators: Advanced search window, option group
 #. This is the title and the option are
 #. 'media', 'poll'...
 #: data/ui/dialogs/advanced_search.ui:118
 msgid "Containing"
-msgstr ""
+msgstr "מכילים"
 
 #: data/ui/dialogs/advanced_search.ui:121
 #: src/Dialogs/Composer/AttachmentsPage.vala:62
 #: src/Widgets/ProfileFilterGroup.vala:66
 msgid "Media"
-msgstr ""
+msgstr "מדיה"
 
 #: data/ui/dialogs/advanced_search.ui:126 src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr ""
+msgstr "סקר"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:132
 msgid "Embed"
-msgstr ""
+msgstr "הטמעה"
 
 #: data/ui/dialogs/advanced_search.ui:139 data/ui/dialogs/preferences.ui:185
 msgid "Timelines"
-msgstr ""
+msgstr "צירי זמן"
 
 #: data/ui/dialogs/advanced_search.ui:142
 msgid "Everywhere"
-msgstr ""
+msgstr "כל מקום"
 
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:157
 msgid "Library"
-msgstr ""
+msgstr "ספרייה"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
 #: data/ui/dialogs/advanced_search.ui:159
 msgid "Favorites, Bookmarks, Own Posts"
-msgstr ""
+msgstr "מועדפים, סימניות, רשומות שלך"
 
 #: data/ui/dialogs/advanced_search.ui:174
 #: src/Services/Accounts/Mastodon/Account.vala:208
 msgid "Public"
-msgstr ""
+msgstr "ציבורי"
 
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:192
 msgid "Dates"
-msgstr ""
+msgstr "תאריכים"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:198
 msgid "Before"
-msgstr ""
+msgstr "לפני"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
 #: data/ui/dialogs/advanced_search.ui:221
 msgid "During"
-msgstr ""
+msgstr "במהלך"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:244
 msgid "After"
-msgstr ""
+msgstr "אחרי"
 
 #: data/ui/dialogs/filter_edit.ui:6
 msgid "Edit Filter"
-msgstr ""
+msgstr "עריכת מסנן"
 
 #: data/ui/dialogs/filter_edit.ui:24 data/ui/dialogs/profile_edit.ui:28
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:50
 msgid "Save"
-msgstr ""
+msgstr "שמירה"
 
 #: data/ui/dialogs/filter_edit.ui:56
 msgid "Title"
-msgstr ""
+msgstr "כותרת"
 
 #: data/ui/dialogs/filter_edit.ui:62
 msgid "Expires In"
-msgstr ""
+msgstr "התוקף יפוג עוד"
 
 #: data/ui/dialogs/filter_edit.ui:67
 msgid "Hide Completely"
-msgstr ""
+msgstr "הסתרה לחלוטין"
 
 #: data/ui/dialogs/filter_edit.ui:68
 msgid "Otherwise a warning will be used"
-msgstr ""
+msgstr "אחרת יעשה שימוש באזהרה"
 
 #: data/ui/dialogs/filter_edit.ui:75
 msgid "Contexts"
-msgstr ""
+msgstr "הקשרים"
 
 #: data/ui/dialogs/filter_edit.ui:76
 msgid "One or multiple contexts where the filter should apply"
-msgstr ""
+msgstr "הקשר אחד או יותר איפה שהמסננים אמורים לחול"
 
 #: data/ui/dialogs/filter_edit.ui:81
 msgid "Keywords or Phrases"
-msgstr ""
+msgstr "מילות מפתח או משפטים"
 
 #: data/ui/dialogs/filter_edit.ui:89
 msgid "Add Keyword"
-msgstr ""
+msgstr "הוספת מילת מפתח"
 
 #: data/ui/dialogs/list_edit.ui:7 data/ui/dialogs/list_edit.ui:10
 msgid "Members"
-msgstr ""
+msgstr "חברים"
 
 #: data/ui/dialogs/list_edit.ui:27
 msgid "List Name"
-msgstr ""
+msgstr "שם הרשימה"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
-msgstr ""
+msgstr "הסתרת רשומות מהבית"
 
 #: data/ui/dialogs/list_edit.ui:39
 msgid "Replies Policy"
-msgstr ""
+msgstr "מדיניות תגובות"
 
 #: data/ui/dialogs/list_edit.ui:40
 msgid "Show member replies to"
-msgstr ""
+msgstr "הצגת תגובות חברים אל"
 
 #: data/ui/dialogs/list_edit.ui:43 src/Widgets/Admin/AssignedRow.vala:49
 #: src/Widgets/Admin/Report.vala:20 src/Widgets/Admin/Report.vala:24
 msgid "Nobody"
-msgstr ""
+msgstr "אף אחד"
 
 #: data/ui/dialogs/list_edit.ui:54
 msgid "Other members of the list"
-msgstr ""
+msgstr "חברים אחרים ברשימה"
 
 #: data/ui/dialogs/list_edit.ui:66
 msgid "Any followed user"
