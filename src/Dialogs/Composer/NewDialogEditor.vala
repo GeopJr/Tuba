@@ -1,4 +1,4 @@
-public class Tuba.Dialogs.Components.Editor : GtkSource.View {
+public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 	public int64 char_count { get; private set; default = 0; }
 	public string content {
 		owned get {
@@ -34,16 +34,11 @@ public class Tuba.Dialogs.Components.Editor : GtkSource.View {
 	construct {
 		this.vexpand = true;
 		this.hexpand = true;
-		this.top_margin = 6;
 		this.right_margin = 6;
-		this.bottom_margin = 6;
 		this.left_margin = 6;
-		this.pixels_below_lines = 6;
 		this.accepts_tab = false;
 		this.wrap_mode = Gtk.WrapMode.WORD_CHAR;
 		this.tab_width = 1;
-		// TODO: remove when other componenets are enabled
-		this.height_request = 100;
 
 		this.remove_css_class ("view");
 		this.add_css_class ("font-large");
@@ -65,30 +60,29 @@ public class Tuba.Dialogs.Components.Editor : GtkSource.View {
 		update_editor_style_scheme ();
 		this.buffer.changed.connect (on_content_changed);
 
-		//  status_title = new Gtk.Label (_("New Post")) {
-		//  	valign = Gtk.Align.START,
-		//  	halign = Gtk.Align.START,
-		//  	justify = Gtk.Justification.FILL,
-		//  	//  margin_top = 6,
-		//  	margin_start = 6,
-		//  	wrap = true,
-		//  	wrap_mode = Pango.WrapMode.WORD_CHAR,
-		//  	justify = Gtk.Justification.CENTER,
-		//  	css_classes = {"title-1"}
-		//  };
-		//  this.add_overlay (status_title, 0, 0);
+		status_title = new Gtk.Label (_("New Post")) {
+			wrap = true,
+			wrap_mode = Pango.WrapMode.WORD_CHAR,
+			css_classes = {"title-2"},
+			margin_bottom = 28
+		};
+		this.add_top_child (status_title);
 
+		// translators: composer placeholder
 		placeholder = new Gtk.Label (_("What's on your mind?")) {
 			valign = Gtk.Align.START,
 			halign = Gtk.Align.START,
 			justify = Gtk.Justification.FILL,
 			//  margin_top = 6,
-			margin_start = 6,
+			margin_start = 8,
 			//  wrap = true,
 			sensitive = false,
 			css_classes = {"font-large"}
 		};
 		this.add_overlay (placeholder, 0, 0);
+
+		unowned Gtk.Widget? view_child = placeholder.get_parent ();
+		if (view_child != null) view_child.can_target = view_child.can_focus = false;
 	}
 
 	protected void update_editor_style_scheme () {
@@ -97,21 +91,4 @@ public class Tuba.Dialogs.Components.Editor : GtkSource.View {
 		var buffer = this.buffer as GtkSource.Buffer;
 		buffer.style_scheme = scheme;
 	}
-
-	//  private void install_overlay () {
-	//  	overlay = new Gtk.Overlay ();
-	//  	placeholder = new Gtk.Label (_("What's on your mind?")) {
-	//  		valign = Gtk.Align.START,
-	//  		halign = Gtk.Align.START,
-	//  		justify = Gtk.Justification.FILL,
-	//  		margin_top = 6,
-	//  		margin_start = 6,
-	//  		wrap = true,
-	//  		sensitive = false,
-	//  		css_classes = {"font-large"}
-	//  	};
-
-	//  	overlay.add_overlay (placeholder);
-	//  	overlay.child = editor;
-	//  }
 }

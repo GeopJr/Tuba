@@ -4,14 +4,15 @@
 	<requires lib="Adw" version="1.0" />
 	<template class="TubaDialogsNewCompose" parent="AdwDialog">
 		<property name="content_width">500</property>
-		<property name="content_height">400</property>
-		<property name="width_request">360</property>
-		<property name="height_request">200</property>
+		<property name="content-height">400</property>
+		<property name="follows-content-size">1</property>
+		<property name="width-request">360</property>
+		<property name="height-request">200</property>
 		<child>
 			<object class="AdwToolbarView">
-				<property name="extend-content-to-top-edge">1</property>
+				<!-- <property name="extend-content-to-top-edge">1</property> -->
 				<child type="top">
-					<object class="AdwHeaderBar">
+					<object class="AdwHeaderBar" id="headerbar">
 						<property name="show-title">0</property>
 					</object>
 				</child>
@@ -19,7 +20,8 @@
 					<object class="GtkScrolledWindow" id="scroller">
 						<property name="hexpand">1</property>
 						<property name="vexpand">1</property>
-						<property name="max-content-height">400</property>
+						<property name="min-content-height">250</property>
+						<property name="propagate-natural-height">1</property>
 						<!-- <child>
 							<object class="AdwClamp">
 								<property name="valign">start</property>
@@ -133,6 +135,7 @@
 								<property name="margin-start">12</property>
 								<style>
 									<class name="font-bold" />
+									<class name="numeric" />
 									<class name="accented-color" />
 								</style>
 								<layout>

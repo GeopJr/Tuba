@@ -7,6 +7,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Gtk.Grid grid;
 
 	[GtkChild] private unowned Gtk.ScrolledWindow scroller;
+	[GtkChild] private unowned Adw.HeaderBar headerbar;
 	//  [GtkChild] private unowned Gtk.Box status_box;
 	//  [GtkChild] private unowned Gtk.Box main_box;
 	//  [GtkChild] private unowned Gtk.Label status_title;
@@ -191,10 +192,18 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 		update_remaining_chars ();
 		present (app.main_window);
+
+		scroller.vadjustment.value_changed.connect (on_vadjustment_value_changed);
+	}
+
+	private void on_vadjustment_value_changed () {
+		headerbar.show_title = scroller.vadjustment.value > 0;
 	}
 
 	public NewCompose (API.Status template = new API.Status.empty ()) {
 		Object ();
+
+		this.title = _("New Post");
 	}
 
 	public NewCompose.reply (API.Status to) {
