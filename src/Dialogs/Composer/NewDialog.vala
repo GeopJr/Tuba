@@ -93,9 +93,9 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		}
 	}
 
-	private Componenets.Editor editor;
+	private Components.Editor editor;
 	private void install_editor () {
-		editor = new Dialogs.Componenets.Editor ();
+		editor = new Dialogs.Components.Editor ();
 		scroller.child = editor;
 
 		editor.notify["char-count"].connect (update_remaining_chars);

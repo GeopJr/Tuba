@@ -1,4 +1,4 @@
-public class Tuba.Dialogs.Componenets.Editor : GtkSource.View {
+public class Tuba.Dialogs.Components.Editor : GtkSource.View {
 	public int64 char_count { get; private set; default = 0; }
 	public string content {
 		owned get {
