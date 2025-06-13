@@ -42,6 +42,7 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 
 		var focus_controller = new Gtk.EventControllerFocus ();
 		focus_controller.enter.connect (scroll_to_top_widget);
+		focus_controller.leave.connect (on_focus_leave);
 		this.top_child.add_controller (focus_controller);
 
 		setup_child_widget (this.top_child);
@@ -61,6 +62,7 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 
 		var focus_controller = new Gtk.EventControllerFocus ();
 		focus_controller.enter.connect (scroll_to_bottom_widget);
+		focus_controller.leave.connect (on_focus_leave);
 		this.bottom_child.add_controller (focus_controller);
 
 		setup_child_widget (this.bottom_child);
@@ -68,17 +70,35 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 
 	private void scroll_to_top_widget () {
 		scroll_to_widget (false);
+		this.editable = false;
 	}
 
 	private void scroll_to_bottom_widget () {
 		scroll_to_widget (true);
+		this.editable = false;
+	}
+
+	private void on_focus_leave () {
+		this.editable = true;
 	}
 
 	private inline void setup_child_widget (Gtk.Widget wdgt) {
 		wdgt.set_parent (this);
 		wdgt.set_cursor (new Gdk.Cursor.from_name ("default", null));
 
+		Gtk.GestureClick click_gesture = new Gtk.GestureClick () {
+			button = 3,
+			propagation_phase = BUBBLE
+		};
+		click_gesture.pressed.connect (on_click_gesture_pressed);
+		click_gesture.released.connect (on_click_gesture_pressed);
+		wdgt.add_controller (click_gesture);
+
 		this.queue_resize ();
+	}
+
+	private void on_click_gesture_pressed (Gtk.GestureClick gesture, int n_press, double x, double y) {
+		gesture.set_state (CLAIMED);
 	}
 
 	// we need to bind these on map because

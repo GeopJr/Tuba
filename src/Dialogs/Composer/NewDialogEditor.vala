@@ -32,6 +32,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 	}
 
 	construct {
+		this.overflow = VISIBLE;
 		this.vexpand = true;
 		this.hexpand = true;
 		this.right_margin = 6;

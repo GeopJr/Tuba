@@ -97,10 +97,18 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	private Components.Editor editor;
 	private void install_editor () {
 		editor = new Dialogs.Components.Editor ();
-		scroller.child = editor;
+		scroller.child = new Adw.ClampScrollable () {
+			tightening_threshold = 100,
+			overflow = HIDDEN,
+			child = editor
+		};
 
 		editor.notify["char-count"].connect (update_remaining_chars);
 		this.focus_widget = editor;
+
+		editor.add_bottom_child (new Components.Polls () {
+			margin_top = 28
+		});
 	}
 
 	private void update_remaining_chars () {

@@ -1,3 +1,4 @@
+<!-- TODO REMOVE -->
 <interface>
   <template class="GtkListItem">
     <property name="child">
