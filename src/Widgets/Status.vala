@@ -1203,7 +1203,8 @@
 	}
 
 	private void on_reply_button_clicked () {
-		new Dialogs.Compose.reply (status.formal, on_reply);
+		//  new Dialogs.Compose.reply (status.formal, on_reply);
+		new Dialogs.NewCompose.reply (status.formal);
 	}
 
 	[GtkCallback] public void on_fade_reveal () {

@@ -25,6 +25,10 @@ calendar>header>button, calendar>grid>label {
 	min-height: 0;
 }
 
+.initial-font-size {
+	font-size: initial;
+}
+
 .notification-badge.no-attention {
 	background: alpha(var(--sidebar-fg-color), .4);
 }
@@ -718,6 +722,19 @@ GtkSourceAssistant row:last-child {
 
 .account-stats {
 	font-size: small;
+}
+
+.accented-color {
+	color: @accent_color;
+}
+
+.font-large {
+	font-size: large;
+}
+
+.composer-toggle-button,
+.dropdown-border-radius > button {
+	border-radius: 9999px;
 }
 
 .filter {
