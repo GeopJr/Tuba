@@ -1,9 +1,39 @@
 public class Tuba.Dialogs.Components.Polls : Gtk.Box {
 	public class PollRow : Adw.EntryRow {
-		public bool is_empty { get; private set; default=true; }
+		Gtk.Button delete_button;
 		public bool is_valid { get; private set; default=false; }
-		public Gtk.Button delete_button { get; private set; }
 		public signal void deleted (PollRow row);
+
+		private bool _can_delete = true;
+		public bool can_delete {
+			get { return _can_delete; }
+			set {
+				_can_delete = value;
+				update_delete_button ();
+			}
+		}
+
+		private bool _is_last = false;
+		public bool is_last {
+			get { return _is_last; }
+			set {
+				_is_last = value;
+				update_delete_button ();
+			}
+		}
+
+		private bool _is_empty = true;
+		public bool is_empty {
+			get { return _is_empty; }
+			private set {
+				_is_empty = value;
+				update_delete_button ();
+			}
+		}
+
+		private void update_delete_button () {
+			delete_button.visible = can_delete && (!is_empty || !is_last);
+		}
 
 		construct {
 			delete_button = new Gtk.Button () {
@@ -160,18 +190,19 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box {
 		//  }
 	}
 
-	private PollRow add_poll_row (string? content = null) {
+	private PollRow add_poll_row (string? content = null, bool is_last = false) {
 		var row = new PollRow () {
 			// translators: poll entry title; the variable is a number
 			title = _("Choice %d").printf (poll_options.size + 1)
 		};
 
+		if (is_last) row.is_last = true;
 		if (content != null) row.text = content;
 
 		poll_options.add (row);
 		poll_list.append (row);
 
-		bind_property ("can-delete", row.delete_button, "visible", GLib.BindingFlags.SYNC_CREATE);
+		bind_property ("can-delete", row, "can-delete", GLib.BindingFlags.SYNC_CREATE);
 		row.deleted.connect (remove_poll_row);
 		row.notify["is-valid"].connect (on_row_invalid);
 		row.changed.connect_after (row_cleanup);
@@ -188,12 +219,15 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box {
 		var last_poll_row = poll_options.last ();
 		bool is_empty = last_poll_row.is_empty;
 		if (!is_empty && poll_options.size < accounts.active.instance_info.compat_status_poll_max_options) {
-			add_poll_row ();
+			last_poll_row.is_last = false;
+			add_poll_row (null, true);
 		} else if (is_empty && this.can_delete) {
 			var second_last_poll_row = poll_options.get (poll_options.size - 2);
 			if (second_last_poll_row.is_empty) {
 				poll_options.remove (last_poll_row);
 				poll_list.remove (last_poll_row);
+				second_last_poll_row.is_last = true;
+				check_poll_items ();
 			}
 		}
 	}
