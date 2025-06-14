@@ -342,6 +342,11 @@ headerbar.flat.no-title .title {
 	margin-bottom: -12px;
 }
 
+.ttl-post-actions button image,
+.ttl-post-actions button label {
+	transition-duration: 200ms;
+}
+
 .ttl-quote {
 	border-radius: 6px;
 	font-weight: initial;
