@@ -152,6 +152,8 @@ public abstract class Tuba.AccountStore : GLib.Object {
 	public Gee.ArrayList<BackendTest> backend_tests = new Gee.ArrayList<BackendTest> ();
 
 	public async void guess_backend (InstanceAccount account) throws GLib.Error {
+		account.backend = Mastodon.Account.BACKEND;
+		return;
 		var req = new Request.GET ("/api/v1/instance")
 			.with_account (account);
 		yield req.await ();
