@@ -120,81 +120,55 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 		this.queue_allocate ();
 	}
 
-	int last_height = 0;
-	int last_width = 0;
-	double last_upper = 0;
-	double last_value = 0;
-
 	// This is where the widgets look like they stay in place.
 	// This is loosely based on how TextView handles overlays.
+	//
+	// To properly do yoffsets and sizing, we first need to
+	// set the top and bottom mergins, then size allocate the
+	// textview and then get the yoffset.
 	public override void size_allocate (int width, int height, int baseline) {
 		// y offset is how far the viewpoint is from the top of the
 		// text area. It can be negative when there's a top_margin.
 		double yoff = 0;
-		bool got_yoff = false;
+		int top_child_height = 0;
+		int bottom_child_height = 0;
 
-		// OPTIMIZATION: we really don't have to realloc
-		//				 if none of these changed
-		bool should_realloc = true;
-			//  last_height != height
-			//  || last_width != width
-			//  || this.vadjustment.upper != last_upper
-			//  || this.vadjustment.value != last_value;
+		if (this.top_child != null) {
+			this.top_child.measure (VERTICAL, width, out top_child_height, null, null, null);
+			this.top_margin = top_child_height;
+		}
 
-		if (this.top_child != null && (should_realloc || this.top_margin == 0)) {
-			// INACCURATE
-			//  Gtk.Requisition min;
-			//  this.top_child.measure (out min, null);
-			//  var child_height = min.height;
-			int child_height;
-			this.top_child.measure (VERTICAL, width, out child_height, null, null, null);
-			this.top_margin = child_height;
-
-			// The y offset has to be fetched here because
-			// we just changed it by setting the top_margin
-			this.get_visible_offset (null, out yoff);
-			got_yoff = true;
-
-			this.top_child.allocate_size (
-				Gtk.Allocation () {
-					height = child_height,
-					width = width,
-					x = 0,
-					y = (int) (-yoff - child_height)
-				},
-				baseline
-			);
+		if (this.bottom_child != null) {
+			this.bottom_child.measure (VERTICAL, width, out bottom_child_height, null, null, null);
+			this.bottom_margin = bottom_child_height;
 		}
 
 		base.size_allocate (width, height, baseline);
+		this.get_visible_offset (null, out yoff); // NOTE: this only returns a priv variable
 
-		if (this.bottom_child != null && (should_realloc || this.bottom_margin == 0)) {
-			// INACCURATE
-			//  Gtk.Requisition min;
-			//  this.bottom_child.get_preferred_size (out min, null);
-			//  var child_height = min.height;
-			int child_height;
-			this.bottom_child.measure (VERTICAL, width, out child_height, null, null, null);
-			this.bottom_margin = child_height;
-
-			// We can skip fetching the y offset here if fetched above
-			if (!got_yoff) this.get_visible_offset (null, out yoff);
-
-			this.bottom_child.allocate_size (
+		if (this.top_child != null) {
+			this.top_child.allocate_size (
 				Gtk.Allocation () {
-					height = child_height,
+					height = top_child_height,
 					width = width,
 					x = 0,
-					y = (int) (this.vadjustment.upper - yoff - child_height - this.top_margin)
+					y = (int) (-yoff - top_child_height)
 				},
 				baseline
 			);
 		}
 
-		last_height = height;
-		last_width = width;
-		last_upper = this.vadjustment.upper;
-		last_value = this.vadjustment.value;
+		if (this.bottom_child != null) {
+			this.bottom_child.allocate_size (
+				Gtk.Allocation () {
+					height = bottom_child_height,
+					width = width,
+					x = 0,
+					y = (int) (this.vadjustment.upper - yoff - bottom_child_height - this.top_margin)
+				},
+				baseline
+			);
+		}
 	}
 
 	// The commented out code would set the min/nat values to the biggest ones, but
