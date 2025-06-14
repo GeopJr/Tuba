@@ -219,7 +219,7 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 		//  	);
 
 		//  	minimum = int.max (minimum, top_min);
-		//  	natural = int.max (minimum, top_nat);
+		//  	natural = int.max (natural, top_nat);
 		//  }
 
 		//  if (this.bottom_child != null) {
@@ -236,7 +236,7 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 		//  	);
 
 		//  	minimum = int.max (minimum, bottom_min);
-		//  	natural = int.max (minimum, bottom_nat);
+		//  	natural = int.max (natural, bottom_nat);
 		//  }
 
 		//  int base_min = -1;
@@ -244,9 +244,10 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 		//  base.measure (orientation, for_size, out base_min, out base_nat, null, null);
 
 		//  minimum = int.max (minimum, base_min);
-		//  natural = int.max (minimum, base_nat);
+		//  natural = int.max (natural, base_nat);
 
 		base.measure (orientation, for_size, out minimum, out natural, null, null);
+		//  minimum = natural;
 		minimum_baseline = natural_baseline = -1;
 	}
 
@@ -287,6 +288,13 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 		double scroll_to_value = bottom ? this.vadjustment.upper - this.bottom_margin : 0;
 		scroll_animation.value_from = y_val;
 		scroll_animation.value_to = scroll_to_value;
+		scroll_animation.play ();
+	}
+
+	protected void scroll_animated (bool end = false) {
+		if (scroll_animation.state == PLAYING) scroll_animation.pause ();
+		scroll_animation.value_from = this.vadjustment.value;
+		scroll_animation.value_to = end ? this.vadjustment.upper : 0;
 		scroll_animation.play ();
 	}
 }

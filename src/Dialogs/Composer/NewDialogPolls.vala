@@ -1,4 +1,4 @@
-public class Tuba.Dialogs.Components.Polls : Gtk.Box {
+public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 	public class PollRow : Adw.EntryRow {
 		Gtk.Button delete_button;
 		public bool is_valid { get; private set; default=false; }
@@ -221,6 +221,7 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box {
 		if (!is_empty && poll_options.size < accounts.active.instance_info.compat_status_poll_max_options) {
 			last_poll_row.is_last = false;
 			add_poll_row (null, true);
+			scroll (true);
 		} else if (is_empty && this.can_delete) {
 			var second_last_poll_row = poll_options.get (poll_options.size - 2);
 			if (second_last_poll_row.is_empty) {

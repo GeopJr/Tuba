@@ -106,9 +106,12 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		editor.notify["char-count"].connect (update_remaining_chars);
 		this.focus_widget = editor;
 
-		editor.add_bottom_child (new Components.Polls () {
+		var polls = new Components.Polls () {
 			margin_top = 28
-		});
+		};
+		editor.add_bottom_child (polls);
+
+		polls.scroll.connect (editor.scroll_request);
 	}
 
 	private void update_remaining_chars () {

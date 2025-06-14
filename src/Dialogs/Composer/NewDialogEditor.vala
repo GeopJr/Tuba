@@ -92,4 +92,8 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		var buffer = this.buffer as GtkSource.Buffer;
 		buffer.style_scheme = scheme;
 	}
+
+	public void scroll_request (bool bottom = false) {
+		this.scroll_animated (bottom);
+	}
 }
