@@ -109,7 +109,8 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box {
 		this.spacing = 12;
 
 		poll_list = new Gtk.ListBox () {
-			css_classes = { "boxed-list" }
+			css_classes = { "boxed-list" },
+			selection_mode = Gtk.SelectionMode.NONE
 		};
 		this.append (poll_list);
 
