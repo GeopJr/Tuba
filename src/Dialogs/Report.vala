@@ -57,9 +57,9 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 	Adw.PreferencesPage page_2;
 	Adw.PreferencesPage page_3;
 	Adw.PreferencesPage page_4;
-	Adw.SwitchRow forward_switch;
 	Adw.EntryRow additional_info;
 
+	Gee.HashMap<string, Adw.SwitchRow> forward_switches = new Gee.HashMap<string, Adw.SwitchRow> ();
 	Gee.HashMap<Category, Gtk.CheckButton> check_buttons = new Gee.HashMap<Category, Gtk.CheckButton> ();
 	Gee.HashMap<string, Gtk.CheckButton> rules_buttons = new Gee.HashMap<string, Gtk.CheckButton> ();
 	Gee.HashMap<string, Gtk.CheckButton> status_buttons = new Gee.HashMap<string, Gtk.CheckButton> ();
@@ -67,6 +67,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 	string account_id = "";
 	string? status_id = null;
 	bool has_rules = false;
+	string account_domain = "";
 	construct {
 		has_rules = accounts.active.instance_info.rules != null && accounts.active.instance_info.rules.size > 0;
 
@@ -109,9 +110,10 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		this.close_attempt.connect (on_back);
 	}
 
-	public Report (API.Account account, string? status_id = null) {
+	public Report (API.Account account, string? status_id = null, Gee.ArrayList<API.Mention>? mentions = null) {
+		account_domain = account.domain;
 		// translators: the variable is an account handle
-		this.title = _("Reporting %s").printf (@"$(account.username)@$(account.domain)");
+		this.title = _("Reporting %s").printf (@"$(account.username)@$(account_domain)");
 		this.status_id = status_id;
 		populate_posts (account.id, status_id);
 		account_id = account.id;
@@ -121,7 +123,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 			install_page_2 ();
 		}
 		install_page_3 ();
-		install_page_4 (account.domain);
+		install_page_4 (mentions);
 
 		this.present (app.main_window);
 	}
@@ -259,7 +261,7 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		carousel.append (page_3_stack);
 	}
 
-	private void install_page_4 (string domain) {
+	private void install_page_4 (Gee.ArrayList<API.Mention>? mentions = null) {
 		page_4 = new Adw.PreferencesPage () {
 			hexpand = true,
 			vexpand = true,
@@ -279,18 +281,37 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 		additional_info.changed.connect (on_additional_info_changed);
 		group_4.add (additional_info);
 
-		if (accounts.active.domain != domain) {
-			forward_switch = new Adw.SwitchRow () {
-				// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
-				//				the variable is an instance name e.g. 'Forward to mastodon.social'
-				title = _("Forward to %s").printf (domain),
-				active = true
-			};
-			group_4.add (forward_switch);
+		if (accounts.active.domain != account_domain) add_forward_row (account_domain, group_4, true);
+		if (accounts.active.tuba_api_versions.mastodon >= 2 && status_id != null && status_id != "" && mentions != null && mentions.size > 0) {
+			mentions.@foreach (mention => {
+				if (mention.acct != null && mention.acct != "" && mention.acct.contains ("@")) {
+					string[] acct_parts = mention.acct.split ("@", 2);
+					if (
+						acct_parts.length >= 2
+						&& acct_parts[1] != ""
+						&& acct_parts[1] != account_domain
+						&& !forward_switches.has_key (acct_parts[1])
+					)
+						add_forward_row (acct_parts[1], group_4, false);
+				}
+
+				return true;
+			});
 		}
 
 		page_4.add (group_4);
 		carousel.append (page_4);
+	}
+
+	private inline void add_forward_row (string temp_domain, Adw.PreferencesGroup group, bool active) {
+		var forward_switch = new Adw.SwitchRow () {
+			// translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
+			//				the variable is an instance name e.g. 'Forward to mastodon.social'
+			title = _("Forward to %s").printf (temp_domain),
+			active = active
+		};
+		group.add (forward_switch);
+		forward_switches.set (temp_domain, forward_switch);
 	}
 
 	private void on_back () {
@@ -343,13 +364,27 @@ public class Tuba.Dialogs.Report : Adw.Dialog {
 	}
 
 	private void submit () {
-		bool forward = false;
-		if (forward_switch != null) forward = forward_switch.active;
-
 		var msg = new Request.POST ("/api/v1/reports")
 			.with_account (accounts.active)
-			.with_form_data ("account_id", account_id)
-			.with_form_data ("forward", forward.to_string ());
+			.with_form_data ("account_id", account_id);
+
+		if (forward_switches.size == 1 && forward_switches.has_key (account_domain)) {
+			msg.with_form_data ("forward", forward_switches.get (account_domain).active.to_string ());
+		} else {
+			bool has_forward = false;
+			forward_switches.foreach (e => {
+				if (((Adw.SwitchRow) e.value).active) {
+					if (!has_forward) {
+						has_forward = true;
+						msg.with_form_data ("forward", "true");
+					}
+					msg.with_form_data ("forward_to_domains[]", ((string) e.key));
+				}
+
+				return true;
+			});
+			if (!has_forward) msg.with_form_data ("forward", "false");
+		}
 
 		if (additional_info.text != "") msg.with_form_data ("comment", additional_info.text);
 

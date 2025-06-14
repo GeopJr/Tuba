@@ -442,7 +442,7 @@
 	}
 
 	private void report_status () {
-		new Dialogs.Report (status.formal.account, status.formal.id);
+		new Dialogs.Report (status.formal.account, status.formal.id, status.formal.mentions);
 	}
 
 	private void view_edit_history () {
@@ -1017,7 +1017,7 @@
 		content_column.append (actions);
 
 		this.content.bold_text_regex = status.tuba_search_query_regex;
-		this.content.has_quote = status.formal.quote != null;
+		this.content.has_quote = status.formal.quote != null && status.formal.quote.tuba_has_quote;
 		this.content.mentions = status.formal.mentions;
 		this.content.instance_emojis = status.formal.emojis_map;
 
@@ -1028,7 +1028,7 @@
 		}
 
 		if (quoted_status_btn != null) content_box.remove (quoted_status_btn);
-		if (status.formal.quote != null && !is_quote) {
+		if (this.content.has_quote && !is_quote) {
 			var quoted_status = (Widgets.Status) status.formal.quote.to_widget ();
 			quoted_status.is_quote = true;
 			quoted_status.add_css_class ("frame");

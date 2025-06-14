@@ -25,7 +25,7 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	public string? edited_at { get; set; default = null; }
 	public string visibility { get; set; default = settings.default_post_visibility; }
 	public API.Status? reblog { get; set; default = null; }
-	public API.Status? quote { get; set; default = null; }
+	public API.Quote? quote { get; set; default = null; }
 	//  public API.Akkoma? akkoma { get; set; default = null; }
 	public Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
 	public Gee.ArrayList<API.EmojiReaction>? reactions { get; set; default = null; }
