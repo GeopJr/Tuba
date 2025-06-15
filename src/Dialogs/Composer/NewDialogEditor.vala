@@ -145,4 +145,15 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 	public void scroll_request (bool bottom = false) {
 		this.scroll_animated (bottom);
 	}
+
+	// https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/8477
+	// I don't think it will be backported to 4.18, so this is a
+	// HACK: queue allocate the placeholder's parent
+	// 		 (textviewchild) so it stays in place while scrolling.
+	#if !GTK_4_19_1
+		public override void size_allocate (int width, int height, int baseline) {
+			base.size_allocate (width, height, baseline);
+			if (placeholder.visible) placeholder.get_parent ().queue_allocate ();
+		}
+	#endif
 }
