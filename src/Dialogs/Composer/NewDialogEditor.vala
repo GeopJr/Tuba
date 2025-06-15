@@ -44,6 +44,12 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		public override void size_allocate (int width, int height, int baseline) {
 			label.allocate (500, height, baseline, null);
 		}
+
+		public override void dispose () {
+			label.unparent ();
+			label = null;
+			base.dispose ();
+		}
 	}
 
 
