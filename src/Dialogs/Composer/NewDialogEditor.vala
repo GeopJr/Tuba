@@ -1,4 +1,52 @@
 public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
+	// TextView's overlay children have weird
+	// measuring that messes with our clamp.
+	// Since we only need it for the placeholder
+	// which is a label that should be liberal
+	// since other languages can have longer
+	// text and since it cannot wrap, it should
+	// have a big enough h nat while h min is 0
+	protected class PlaceholderHack : Gtk.Widget {
+		static construct {
+			set_accessible_role (Gtk.AccessibleRole.PRESENTATION);
+		}
+
+		Gtk.Label label;
+		public PlaceholderHack (Gtk.Label label) {
+			this.label = label;
+			label.set_parent (this);
+		}
+
+		public override Gtk.SizeRequestMode get_request_mode () {
+			return label.get_request_mode ();
+		}
+
+		public override void measure (
+			Gtk.Orientation orientation,
+			int for_size,
+			out int minimum,
+			out int natural,
+			out int minimum_baseline,
+			out int natural_baseline
+		) {
+			this.label.measure (
+				orientation,
+				for_size,
+				out minimum,
+				out natural,
+				out minimum_baseline,
+				out natural_baseline
+			);
+
+			if (orientation == HORIZONTAL) natural = int.max (500, minimum);
+		}
+
+		public override void size_allocate (int width, int height, int baseline) {
+			label.allocate (500, height, baseline, null);
+		}
+	}
+
+
 	public int64 char_count { get; private set; default = 0; }
 	public string content {
 		owned get {
@@ -14,7 +62,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 	}
 
 	protected Gtk.Label status_title;
-	protected Gtk.Label placeholder;
+	protected PlaceholderHack placeholder;
 	private void count_chars () {
 		int64 res = 0;
 
@@ -70,16 +118,17 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		this.add_top_child (status_title);
 
 		// translators: composer placeholder
-		placeholder = new Gtk.Label (_("What's on your mind?")) {
+		placeholder = new PlaceholderHack (new Gtk.Label (_("What's on your mind?")) {
 			valign = Gtk.Align.START,
 			halign = Gtk.Align.START,
 			justify = Gtk.Justification.FILL,
 			//  margin_top = 6,
 			margin_start = 8,
-			//  wrap = true,
+			wrap = true,
+			wrap_mode = Pango.WrapMode.WORD_CHAR,
 			sensitive = false,
 			css_classes = {"font-large"}
-		};
+		});
 		this.add_overlay (placeholder, 0, 0);
 
 		unowned Gtk.Widget? view_child = placeholder.get_parent ();
