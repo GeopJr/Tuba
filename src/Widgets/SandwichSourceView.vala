@@ -6,6 +6,12 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 		debug ("Destroying SandwichSourceView");
 	}
 
+	// Vala hasn't had a release with the 4.18 VAPI yet.
+	#if !VALAC_05619
+		[CCode (cheader_filename = "gtk/gtk.h", cname = "gtk_text_view_get_visible_offset")]
+		extern void get_visible_offset (out double x_offset, out double y_offset);
+	#endif
+
 	public override void dispose () {
 		add_top_child (null);
 		add_bottom_child (null);
