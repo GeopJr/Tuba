@@ -111,6 +111,14 @@ if webkit_dep.found ()
   webkit = true
 endif
 
+if gtk_dep.version().version_compare('>=4.19.1')
+  add_project_arguments(['--define=GTK_4_19_1'], language: 'vala')
+endif
+
+if meson.get_compiler('vala').version().version_compare('>=0.56.19')
+  add_project_arguments(['--define=VALAC_05619'], language: 'vala')
+endif
+
 sources = files()
 subdir('src')
 
