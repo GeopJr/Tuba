@@ -18,3 +18,13 @@ clapper-gtk-lead-container>box {
 .audio-controls>button:active {
   background-color: rgba(82,82,82,1);
 }
+
+.composer-attachment {
+	box-shadow: inset 0 0 0 1px var(--border-color);
+}
+
+.composer-attachment .alt-indicator {
+	box-shadow: inset 0 0 0 1px var(--border-color);
+	background-color: var(--window-bg-color);
+	color: var(--window-fg-color);
+}

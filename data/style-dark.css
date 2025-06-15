@@ -50,3 +50,7 @@
 .ttl-darken-images avatar:not(:hover), .ttl-darken-images picture:not(:hover) {
 	filter: brightness(.8) contrast(1.2);
 }
+
+.composer-attachment .alt-indicator {
+	background-color: color-mix(in srgb, var(--error-bg-color) 40%, transparent);
+}

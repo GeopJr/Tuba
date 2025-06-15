@@ -5,6 +5,8 @@ sources += files(
     'EditorPage.vala',
     'NewDialog.vala',
     'NewDialogAttachable.vala',
+    'NewDialogAttachment.vala',
+    'NewDialogAttachmentsBin.vala',
     'NewDialogEditor.vala',
     'NewDialogPolls.vala',
     'Page.vala',
