@@ -65,6 +65,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		}
 	}
 	protected int64 char_limit { get; set; default = 500; }
+	protected int64 cw_count { get; set; default = 0; }
 
 	private int64 _remaining_chars = 500;
 	protected int64 remaining_chars {
@@ -122,9 +123,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	}
 
 	private void update_remaining_chars () {
-		int64 res = char_limit;
-		res -= editor.char_count;
-		remaining_chars = res;
+		remaining_chars = this.char_limit - editor.char_count - this.cw_count;
 	}
 
 	protected Gtk.DropDown visibility_button;
@@ -187,7 +186,40 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 			}
 		}
 
+		language_button.notify["selected"].connect (on_language_changed);
 		append_dropdown (language_button);
+	}
+
+	private void on_language_changed () {
+		if (language_button.selected == Gtk.INVALID_LIST_POSITION) return;
+
+		var locale_obj = language_button.selected_item as Utils.Locales.Locale;
+		if (locale_obj == null || locale_obj.locale == null) return;
+
+		editor.locale = locale_obj.locale;
+		cw_changed_with_locale (locale_obj.locale);
+	}
+
+	private void cw_changed () {
+		string locale_icu = "en";
+		if (
+			language_button != null
+			&& ((Utils.Locales.Locale) language_button.selected_item) != null
+			&& ((Utils.Locales.Locale) language_button.selected_item).locale != null
+		) {
+			locale_icu = ((Utils.Locales.Locale) language_button.selected_item).locale;
+		}
+
+		cw_changed_with_locale (locale_icu);
+	}
+
+	private void cw_changed_with_locale (string locale) {
+		int cw_count = 0;
+		if (cw_button.active) cw_count = Utils.Counting.chars (cw_entry.text, locale);
+		if (cw_count != this.cw_count) {
+			this.cw_count = cw_count;
+			update_remaining_chars ();
+		}
 	}
 
 	construct {
@@ -207,6 +239,10 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		install_emoji_pickers ();
 		install_visibility ();
 		install_languages ();
+
+		cw_entry.changed.connect (cw_changed);
+		cw_button.toggled.connect (cw_changed);
+		on_language_changed ();
 
 		update_remaining_chars ();
 		present (app.main_window);

@@ -1,4 +1,18 @@
 public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
+	public signal void ctrl_return_pressed ();
+
+	private string _locale = "en";
+	public string locale {
+		get { return _locale; }
+		set {
+			if (_locale != value) {
+				_locale = value;
+				count_chars ();
+				update_spelling_lang ();
+			}
+		}
+	}
+
 	// TextView's overlay children have weird
 	// measuring that messes with our clamp.
 	// Since we only need it for the placeholder
@@ -52,7 +66,6 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		}
 	}
 
-
 	public int64 char_count { get; private set; default = 0; }
 	public string content {
 		owned get {
@@ -67,16 +80,36 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		this.buffer.insert_at_cursor (text, text.data.length);
 	}
 
+	#if LIBSPELLING
+		private void update_spelling_lang () {
+			var new_locale = original_libspelling_lang_iso639 == this.locale
+				? original_libspelling_lang
+				: this.locale;
+
+			var checker = Spelling.Checker.get_default ();
+			checker.language = new_locale;
+
+			string? new_lang = checker.language;
+			if (new_lang == null && original_libspelling_lang != null) {
+				checker.language = original_libspelling_lang;
+			}
+		}
+	#endif
+
 	protected Gtk.Label status_title;
 	protected PlaceholderHack placeholder;
 	private void count_chars () {
 		int64 res = 0;
 
-		//  if (cw_button.active)
-		//  	res += (int64) cw_entry.buffer.length;
-		res += this.buffer.get_char_count ();
+		string replaced_urls = Utils.Tracking.cleanup_content_with_uris (
+			this.buffer.text,
+			Utils.Tracking.extract_uris (this.buffer.text),
+			Utils.Tracking.CleanupType.SPECIFIC_LENGTH,
+			accounts.active.instance_info.compat_status_characters_reserved_per_url
+		);
+		string replaced_mentions = Utils.Counting.replace_mentions (replaced_urls);
 
-		char_count = res;
+		this.char_count = Utils.Counting.chars (replaced_mentions, this.locale);
 	}
 
 	private void on_content_changed () {
@@ -99,7 +132,20 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		attachable.scroll.connect (scroll_request);
 	}
 
+	#if LIBSPELLING
+		protected Spelling.TextBufferAdapter adapter;
+		private void update_spelling_settings () {
+			settings.spellchecker_enabled = adapter.enabled;
+		}
+
+		string? original_libspelling_lang = null;
+		string? original_libspelling_lang_iso639 = null;
+	#endif
+
+	GtkSource.LanguageManager lang_manager;
 	construct {
+		lang_manager = new GtkSource.LanguageManager ();
+
 		this.overflow = VISIBLE;
 		this.vexpand = true;
 		this.hexpand = true;
@@ -111,14 +157,31 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 
 		this.remove_css_class ("view");
 		this.add_css_class ("font-large");
+		this.add_css_class ("reset");
 
 		#if LIBSPELLING
-			var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) this.buffer, Spelling.Checker.get_default ());
+			adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) this.buffer, Spelling.Checker.get_default ());
+			original_libspelling_lang = Spelling.Checker.get_default ().language;
+			if (original_libspelling_lang != null) original_libspelling_lang_iso639 = original_libspelling_lang.split_set ("-_", 2)[0];
 
 			this.extra_menu = adapter.get_menu_model ();
 			this.insert_action_group ("spelling", adapter);
-			adapter.enabled = true;
+
+			adapter.enabled = settings.spellchecker_enabled;
+			adapter.notify["enabled"].connect (update_spelling_settings);
 		#endif
+
+		var keypress_controller = new Gtk.EventControllerKey ();
+		// TODO: get rid of lambda
+		keypress_controller.key_pressed.connect ((keyval, _, modifier) => {
+			modifier &= Gdk.MODIFIER_MASK;
+			if ((keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter) && (modifier == Gdk.ModifierType.CONTROL_MASK || modifier == (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.LOCK_MASK))) {
+				ctrl_return_pressed ();
+				return true;
+			}
+			return false;
+		});
+		this.add_controller (keypress_controller);
 
 		this.completion.add_provider (new Tuba.HandleProvider ());
 		this.completion.add_provider (new Tuba.HashtagProvider ());
@@ -126,7 +189,16 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		this.completion.select_on_show = true;
 		this.completion.show_icons = true;
 		this.completion.page_size = 3;
-		update_editor_style_scheme ();
+		((GtkSource.Buffer) this.buffer).highlight_matching_brackets = true;
+		((GtkSource.Buffer) this.buffer).highlight_syntax = true;
+
+		var adw_manager = Adw.StyleManager.get_default ();
+		adw_manager.notify["dark"].connect (update_style_scheme);
+		adw_manager.notify["accent-color-rgba"].connect (update_style_scheme);
+		update_style_scheme ();
+		update_language_highlight (); // TODO
+
+		this.buffer.paste_done.connect (on_paste);
 		this.buffer.changed.connect (on_content_changed);
 
 		status_title = new Gtk.Label (_("New Post")) {
@@ -155,11 +227,55 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		if (view_child != null) view_child.can_target = view_child.can_focus = false;
 	}
 
-	protected void update_editor_style_scheme () {
+	protected void update_style_scheme () {
 		var manager = GtkSource.StyleSchemeManager.get_default ();
-		var scheme = manager.get_scheme ("adwaita");
-		var buffer = this.buffer as GtkSource.Buffer;
-		buffer.style_scheme = scheme;
+		var adw_manager = Adw.StyleManager.get_default ();
+
+		string scheme_name = "Fedi";
+		if (adw_manager.get_system_supports_accent_colors ()) {
+			switch (adw_manager.get_accent_color ()) {
+				case Adw.AccentColor.YELLOW:
+					scheme_name += "-yellow";
+					break;
+				case Adw.AccentColor.TEAL:
+					scheme_name += "-teal";
+					break;
+				case Adw.AccentColor.PURPLE:
+					scheme_name += "-purple";
+					break;
+				case Adw.AccentColor.RED:
+					scheme_name += "-red";
+					break;
+				case Adw.AccentColor.GREEN:
+					scheme_name += "-green";
+					break;
+				case Adw.AccentColor.ORANGE:
+					scheme_name += "-orange";
+					break;
+				case Adw.AccentColor.SLATE:
+					scheme_name += "-slate";
+					break;
+				case Adw.AccentColor.PINK:
+					scheme_name += "-pink";
+					break;
+				default:
+					scheme_name += "-blue";
+					break;
+			}
+		} else {
+			scheme_name += "-blue";
+		}
+
+		if (adw_manager.dark) scheme_name += "-dark";
+		((GtkSource.Buffer) this.buffer).style_scheme = manager.get_scheme (scheme_name);
+	}
+
+	protected void update_language_highlight () {
+		// TODO
+		//  var syntax = ((Tuba.InstanceAccount.StatusContentType) content_type_button.selected_item).syntax;
+		var syntax = "fedi-markdown";
+		((GtkSource.Buffer) this.buffer).set_language (null); // setter is not nullable? // I don't think this is needed anymore
+		((GtkSource.Buffer) this.buffer).set_language (lang_manager.get_language (syntax));
 	}
 
 	public void scroll_request (bool bottom = false) {
@@ -170,6 +286,8 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 	// I don't think it will be backported to 4.18, so this is a
 	// HACK: queue allocate the placeholder's parent
 	// 		 (textviewchild) so it stays in place while scrolling.
+	// NOTE: doesn't seem to work all the time, a full resize is
+	//		 needed
 	#if !GTK_4_19_1
 		public override void size_allocate (int width, int height, int baseline) {
 			base.size_allocate (width, height, baseline);
@@ -198,5 +316,44 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		);
 
 		if (orientation == HORIZONTAL) natural = 423;
+	}
+
+	public void set_cursor_at_start () {
+		Gtk.TextIter star_iter;
+		this.buffer.get_start_iter (out star_iter);
+		this.buffer.place_cursor (star_iter);
+	}
+
+	protected void on_paste (Gdk.Clipboard clp) {
+		if (!settings.strip_tracking) return;
+		var clean_buffer = Utils.Tracking.cleanup_content_with_uris (
+			this.buffer.text,
+			Utils.Tracking.extract_uris (this.buffer.text),
+			Utils.Tracking.CleanupType.STRIP_TRACKING
+		);
+		if (clean_buffer == this.buffer.text) return;
+
+		Gtk.TextIter start_iter;
+		Gtk.TextIter end_iter;
+		this.buffer.get_bounds (out start_iter, out end_iter);
+		this.buffer.begin_user_action ();
+		this.buffer.delete (ref start_iter, ref end_iter);
+		this.buffer.insert (ref start_iter, clean_buffer, -1);
+		this.buffer.end_user_action ();
+
+		// TODO
+		//  var toast = new Adw.Toast (
+		//  	// translators: "Stripped" is a past tense verb in this context, not an adjective.
+		//  	_("Stripped tracking parameters")
+		//  ) {
+		//  	timeout = 3,
+		//  	button_label = _("Undo")
+		//  };
+		//  toast.button_clicked.connect (undo);
+		//  toast_overlay.add_toast (toast);
+	}
+
+	private void undo () {
+		this.buffer.undo ();
 	}
 }
