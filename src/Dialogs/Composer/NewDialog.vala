@@ -114,7 +114,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		//  polls.scroll.connect (editor.scroll_request);
 
 		editor.add_bottom_child (new Components.AttachmentsBin () {
-			margin_top = 28
+			//  margin_top = 28
 		});
 	}
 

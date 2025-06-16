@@ -904,3 +904,7 @@ clapper-gtk-lead-container>box {
 .audio-controls>scalebutton>button {
 	border-radius: 9999px;
 }
+
+.editor-component {
+	padding-bottom: 28px;
+}

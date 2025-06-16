@@ -85,6 +85,20 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		placeholder.visible = char_count == 0;
 	}
 
+	public override void add_bottom_child (Gtk.Widget? new_bottom_child) {
+		if (new_bottom_child != null && new_bottom_child is Components.Attachable) {
+			connect_child_attachable (new_bottom_child as Components.Attachable);
+			new_bottom_child.margin_top = 28;
+			new_bottom_child.add_css_class ("editor-component");
+		}
+
+		base.add_bottom_child (new_bottom_child);
+	}
+
+	private void connect_child_attachable (Components.Attachable attachable) {
+		attachable.scroll.connect (scroll_request);
+	}
+
 	construct {
 		this.overflow = VISIBLE;
 		this.vexpand = true;

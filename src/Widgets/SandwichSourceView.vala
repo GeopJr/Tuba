@@ -34,7 +34,7 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 		if (!this.has_focus) this.grab_focus ();
 	}
 
-	public void add_top_child (Gtk.Widget? new_top_child) {
+	public virtual void add_top_child (Gtk.Widget? new_top_child) {
 		if (new_top_child == null) {
 			if (this.top_child != null) {
 				this.top_child.unparent ();
@@ -54,7 +54,7 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 		setup_child_widget (this.top_child);
 	}
 
-	public void add_bottom_child (Gtk.Widget? new_bottom_child) {
+	public virtual void add_bottom_child (Gtk.Widget? new_bottom_child) {
 		if (new_bottom_child == null) {
 			if (this.bottom_child != null) {
 				this.bottom_child.unparent ();
