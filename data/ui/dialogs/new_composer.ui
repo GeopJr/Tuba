@@ -20,8 +20,9 @@
 					<object class="GtkScrolledWindow" id="scroller">
 						<property name="hexpand">1</property>
 						<property name="vexpand">1</property>
-						<property name="min-content-height">250</property>
+						<property name="min-content-height">200</property>
 						<property name="propagate-natural-height">1</property>
+						<property name="propagate-natural-width">1</property>
 						<!-- <child>
 							<object class="AdwClamp">
 								<property name="valign">start</property>

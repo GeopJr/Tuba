@@ -176,4 +176,27 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 			if (placeholder.visible) placeholder.get_parent ().queue_allocate ();
 		}
 	#endif
+
+	// HACK: we need the default dialog size to be wider
+	//		 but still follow the content, so let's set
+	//		 the nat width to this
+	public override void measure (
+		Gtk.Orientation orientation,
+		int for_size,
+		out int minimum,
+		out int natural,
+		out int minimum_baseline,
+		out int natural_baseline
+	) {
+		base.measure (
+			orientation,
+			for_size,
+			out minimum,
+			out natural,
+			out minimum_baseline,
+			out natural_baseline
+		);
+
+		if (orientation == HORIZONTAL) natural = 423;
+	}
 }
