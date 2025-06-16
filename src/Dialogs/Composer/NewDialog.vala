@@ -14,6 +14,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 	[GtkChild] private unowned Gtk.MenuButton native_emojis_button;
 	[GtkChild] private unowned Gtk.MenuButton custom_emojis_button;
+	[GtkChild] private unowned Gtk.ToggleButton cw_button;
+	[GtkChild] private unowned Gtk.Entry cw_entry;
 
 	private bool _is_narrow = false;
 	public bool is_narrow {
@@ -39,8 +41,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 				counter_label.margin_end = 10;
 				counter_label.margin_start = 0;
 				grid.row_spacing = 12;
-				grid.margin_start = 16;
-				grid.margin_end = 16;
+				cw_entry.margin_start = grid.margin_start = 16;
+				cw_entry.margin_end = grid.margin_end = 16;
 			} else {
 				post_layout_child.column = 2;
 				post_layout_child.row = 0;
@@ -54,8 +56,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 				counter_label.margin_end = 0;
 				counter_label.margin_start = 12;
 				grid.row_spacing = 16;
-				grid.margin_start = 32;
-				grid.margin_end = 32;
+				cw_entry.margin_start = grid.margin_start = 32;
+				cw_entry.margin_end = grid.margin_end = 32;
 			}
 
 			_is_narrow = value;

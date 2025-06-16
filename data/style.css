@@ -908,3 +908,7 @@ clapper-gtk-lead-container>box {
 .editor-component {
 	padding-bottom: 28px;
 }
+
+.devel-bg {
+	background-image: cross-fade(5% -gtk-recolor(url(resource:///org/gnome/Adwaita/styles/assets/devel-symbolic.svg)), image(rgba(0,0,0,0)));
+}

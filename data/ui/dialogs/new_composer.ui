@@ -57,6 +57,23 @@
 					</object>
 				</property>
 				<child type="bottom">
+					<object class="GtkRevealer" id="toggle_fs_revealer">
+						<property name="transition_type">slide-up</property>
+						<property name="reveal-child" bind-source="cw_button" bind-property="active" bind-flags="sync-create" />
+						<property name="child">
+							<object class="GtkEntry" id="cw_entry">
+								<property name="placeholder-text" translatable="yes">Write your content warning here</property>
+								<property name="margin-start">32</property>
+								<property name="margin-end">32</property>
+								<property name="margin-top">6</property>
+								<style>
+									<class name="devel-bg" />
+								</style>
+							</object>
+						</property>
+					</object>
+				</child>
+				<child type="bottom">
 					<object class="GtkGrid" id="grid">
 						<property name="margin-top">20</property>
 						<property name="margin-start">32</property>
@@ -102,7 +119,7 @@
 									</object>
 								</child>
 								<child>
-									<object class="GtkToggleButton">
+									<object class="GtkToggleButton" id="cw_button">
 										<property name="icon-name">tuba-warning-symbolic</property>
 										<style>
 											<class name="flat" />
