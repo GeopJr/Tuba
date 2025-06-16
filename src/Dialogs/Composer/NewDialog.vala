@@ -42,8 +42,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 				counter_label.margin_end = 10;
 				counter_label.margin_start = 0;
 				grid.row_spacing = 12;
-				cw_entry.margin_start = grid.margin_start = 16;
-				cw_entry.margin_end = grid.margin_end = 16;
+				editor.margin_start = cw_entry.margin_start = grid.margin_start = 16;
+				editor.margin_end = cw_entry.margin_end = grid.margin_end = 16;
 			} else {
 				post_layout_child.column = 2;
 				post_layout_child.row = 0;
@@ -57,8 +57,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 				counter_label.margin_end = 0;
 				counter_label.margin_start = 12;
 				grid.row_spacing = 16;
-				cw_entry.margin_start = grid.margin_start = 32;
-				cw_entry.margin_end = grid.margin_end = 32;
+				editor.margin_start = cw_entry.margin_start = grid.margin_start = 32;
+				editor.margin_end = cw_entry.margin_end = grid.margin_end = 32;
 			}
 
 			_is_narrow = value;
@@ -100,12 +100,17 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 	private Components.Editor editor;
 	private void install_editor () {
-		editor = new Dialogs.Components.Editor ();
-		scroller.child = new Adw.ClampScrollable () {
-			tightening_threshold = 100,
-			overflow = HIDDEN,
-			child = editor
+		editor = new Dialogs.Components.Editor () {
+			margin_end = 32,
+			margin_start = 32
 		};
+		//  scroller.child = new Adw.ClampScrollable () {
+		//  	tightening_threshold = 100,
+		//  	overflow = HIDDEN,
+		//  	child = editor
+		//  };
+		scroller.overflow = HIDDEN;
+		scroller.child = editor;
 
 		editor.notify["char-count"].connect (update_remaining_chars);
 		this.focus_widget = editor;
