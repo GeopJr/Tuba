@@ -106,13 +106,14 @@
 								<child>
 									<object class="GtkButton" id="add_media_button">
 										<property name="icon-name">tuba-image-round-symbolic</property>
+										<property name="sensitive" bind-source="poll_button" bind-property="active" bind-flags="sync-create|invert-boolean" />
 										<style>
 											<class name="flat" />
 										</style>
 									</object>
 								</child>
 								<child>
-									<object class="GtkToggleButton">
+									<object class="GtkToggleButton" id="poll_button">
 										<property name="icon-name">format-justify-left-symbolic</property>
 										<style>
 											<class name="flat" />

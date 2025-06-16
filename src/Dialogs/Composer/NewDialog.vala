@@ -16,6 +16,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Gtk.MenuButton custom_emojis_button;
 	[GtkChild] private unowned Gtk.ToggleButton cw_button;
 	[GtkChild] private unowned Gtk.Entry cw_entry;
+	[GtkChild] private unowned Gtk.ToggleButton poll_button;
 
 	private bool _is_narrow = false;
 	public bool is_narrow {
@@ -108,16 +109,16 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		editor.notify["char-count"].connect (update_remaining_chars);
 		this.focus_widget = editor;
 
-		//  var polls = new Components.Polls () {
-		//  	margin_top = 28
-		//  };
-		//  editor.add_bottom_child (polls);
+		//  //  var polls = new Components.Polls () {
+		//  //  	margin_top = 28
+		//  //  };
+		//  //  editor.add_bottom_child (polls);
 
-		//  polls.scroll.connect (editor.scroll_request);
+		//  //  polls.scroll.connect (editor.scroll_request);
 
-		editor.add_bottom_child (new Components.AttachmentsBin () {
-			//  margin_top = 28
-		});
+		//  editor.add_bottom_child (new Components.AttachmentsBin () {
+		//  	//  margin_top = 28
+		//  });
 	}
 
 	private void update_remaining_chars () {
@@ -211,6 +212,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		present (app.main_window);
 
 		scroller.vadjustment.value_changed.connect (on_vadjustment_value_changed);
+		poll_button.toggled.connect (toggle_poll_component);
+		toggle_poll_component ();
 	}
 
 	private void on_vadjustment_value_changed () {
@@ -241,5 +244,17 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		}
 
 		//  status_title.label = _("Reply to %s").printf (to.account.handle);
+	}
+
+
+	Components.Polls? polls_component = null;
+	private void toggle_poll_component () {
+		if (!poll_button.active) {
+			editor.add_bottom_child (null);
+			return;
+		}
+
+		if (polls_component == null) polls_component = new Components.Polls ();
+		editor.add_bottom_child (polls_component);
 	}
 }
