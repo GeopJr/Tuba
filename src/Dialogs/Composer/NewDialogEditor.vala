@@ -167,6 +167,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		this.accepts_tab = false;
 		this.wrap_mode = Gtk.WrapMode.WORD_CHAR;
 		this.tab_width = 1;
+		this.input_hints = WORD_COMPLETION | SPELLCHECK | EMOJI;
 
 		this.remove_css_class ("view");
 		this.add_css_class ("font-large");
