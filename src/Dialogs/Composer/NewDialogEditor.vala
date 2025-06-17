@@ -1,5 +1,6 @@
 public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
-	public signal void ctrl_return_pressed ();
+	public signal void ctrl_return_pressed (); // TODO
+	public signal void toast (Adw.Toast toast);
 
 	private string _locale = "en";
 	public string locale {
@@ -341,16 +342,15 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		this.buffer.insert (ref start_iter, clean_buffer, -1);
 		this.buffer.end_user_action ();
 
-		// TODO
-		//  var toast = new Adw.Toast (
-		//  	// translators: "Stripped" is a past tense verb in this context, not an adjective.
-		//  	_("Stripped tracking parameters")
-		//  ) {
-		//  	timeout = 3,
-		//  	button_label = _("Undo")
-		//  };
-		//  toast.button_clicked.connect (undo);
-		//  toast_overlay.add_toast (toast);
+		var toast_obj = new Adw.Toast (
+			// translators: "Stripped" is a past tense verb in this context, not an adjective.
+			_("Stripped tracking parameters")
+		) {
+			timeout = 3,
+			button_label = _("Undo")
+		};
+		toast_obj.button_clicked.connect (undo);
+		toast (toast_obj);
 	}
 
 	private void undo () {

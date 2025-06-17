@@ -5,6 +5,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Gtk.Box btns_box;
 	[GtkChild] private unowned Gtk.Box dropdowns_box;
 	[GtkChild] private unowned Gtk.Grid grid;
+	[GtkChild] private unowned Adw.ToastOverlay toast_overlay;
 
 	[GtkChild] private unowned Gtk.ScrolledWindow scroller;
 	[GtkChild] private unowned Adw.HeaderBar headerbar;
@@ -112,6 +113,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		scroller.overflow = HIDDEN;
 		scroller.child = editor;
 
+		editor.toast.connect (on_toast);
 		editor.notify["char-count"].connect (update_remaining_chars);
 		this.focus_widget = editor;
 
@@ -297,5 +299,9 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 		if (polls_component == null) polls_component = new Components.Polls ();
 		editor.add_bottom_child (polls_component);
+	}
+
+	private void on_toast (Adw.Toast toast) {
+		toast_overlay.add_toast (toast);
 	}
 }
