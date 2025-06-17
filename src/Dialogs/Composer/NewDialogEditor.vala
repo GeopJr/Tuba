@@ -14,6 +14,18 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		}
 	}
 
+	private string _content_type = "fedi-basic";
+	public string content_type {
+		get { return _content_type; }
+		set {
+			if (_content_type != value) {
+				_content_type = value;
+				update_language_highlight ();
+			}
+		}
+	}
+
+
 	// TextView's overlay children have weird
 	// measuring that messes with our clamp.
 	// Since we only need it for the placeholder
@@ -197,7 +209,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		adw_manager.notify["dark"].connect (update_style_scheme);
 		adw_manager.notify["accent-color-rgba"].connect (update_style_scheme);
 		update_style_scheme ();
-		update_language_highlight (); // TODO
+		update_language_highlight ();
 
 		this.buffer.paste_done.connect (on_paste);
 		this.buffer.changed.connect (on_content_changed);
@@ -272,11 +284,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 	}
 
 	protected void update_language_highlight () {
-		// TODO
-		//  var syntax = ((Tuba.InstanceAccount.StatusContentType) content_type_button.selected_item).syntax;
-		var syntax = "fedi-markdown";
-		((GtkSource.Buffer) this.buffer).set_language (null); // setter is not nullable? // I don't think this is needed anymore
-		((GtkSource.Buffer) this.buffer).set_language (lang_manager.get_language (syntax));
+		((GtkSource.Buffer) this.buffer).set_language (lang_manager.get_language (this.content_type));
 	}
 
 	public void scroll_request (bool bottom = false) {

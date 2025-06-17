@@ -135,6 +135,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 	protected Gtk.DropDown visibility_button;
 	protected Gtk.DropDown language_button;
+	protected Gtk.DropDown content_type_button;
 
 	private void append_dropdown (Gtk.DropDown dropdown) {
 		var togglebtn = dropdown.get_first_child ();
@@ -246,6 +247,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		install_emoji_pickers ();
 		install_visibility ();
 		install_languages ();
+		if (accounts.active.supported_mime_types.n_items > 1)
+			install_content_types (settings.default_content_type);
 
 		cw_entry.changed.connect (cw_changed);
 		cw_button.toggled.connect (cw_changed);
@@ -257,6 +260,45 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		scroller.vadjustment.value_changed.connect (on_vadjustment_value_changed);
 		poll_button.toggled.connect (toggle_poll_component);
 		toggle_poll_component ();
+	}
+
+	private void install_content_types (string? content_type) {
+		content_type_button = new Gtk.DropDown (accounts.active.supported_mime_types, null) {
+			expression = new Gtk.PropertyExpression (typeof (Tuba.InstanceAccount.StatusContentType), null, "title"),
+			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/content_type_title.ui"),
+			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/content_type.ui"),
+			tooltip_text = _("Post Content Type"),
+			enable_search = false
+		};
+
+		if (content_type != null) {
+			uint default_content_type_index;
+			if (
+				accounts.active.supported_mime_types.find_with_equal_func (
+					new Tuba.InstanceAccount.StatusContentType (content_type),
+					Tuba.InstanceAccount.StatusContentType.compare,
+					out default_content_type_index
+				)
+			) {
+				content_type_button.selected = default_content_type_index;
+			}
+		}
+
+		unowned Gtk.Widget? actual_button = content_type_button.get_first_child () as Gtk.ToggleButton;
+		if (actual_button != null) actual_button.add_css_class ("flat");
+
+		headerbar.pack_start (content_type_button);
+		content_type_button.notify["selected-item"].connect (on_content_type_changed);
+		on_content_type_changed ();
+	}
+
+	private void on_content_type_changed () {
+		if (content_type_button.selected == Gtk.INVALID_LIST_POSITION) return;
+
+		var ct_obj = content_type_button.selected_item as InstanceAccount.StatusContentType;
+		if (ct_obj == null || ct_obj.syntax == null) return;
+
+		editor.content_type = ct_obj.syntax;
 	}
 
 	private void on_vadjustment_value_changed () {
