@@ -141,12 +141,16 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 
 		if (this.top_child != null) {
 			this.top_child.measure (VERTICAL, width, out top_child_height, null, null, null);
-			this.top_margin = top_child_height;
+			if (top_child_height != this.top_margin) this.top_margin = top_child_height;
+		} else {
+			this.top_margin = 0;
 		}
 
 		if (this.bottom_child != null) {
 			this.bottom_child.measure (VERTICAL, width, out bottom_child_height, null, null, null);
-			this.bottom_margin = bottom_child_height;
+			if (bottom_child_height != this.bottom_margin) this.bottom_margin = bottom_child_height;
+		} else {
+			this.bottom_margin = 0;
 		}
 
 		base.size_allocate (width, height, baseline);
