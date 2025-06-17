@@ -186,15 +186,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		#endif
 
 		var keypress_controller = new Gtk.EventControllerKey ();
-		// TODO: get rid of lambda
-		keypress_controller.key_pressed.connect ((keyval, _, modifier) => {
-			modifier &= Gdk.MODIFIER_MASK;
-			if ((keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter) && (modifier == Gdk.ModifierType.CONTROL_MASK || modifier == (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.LOCK_MASK))) {
-				ctrl_return_pressed ();
-				return true;
-			}
-			return false;
-		});
+		keypress_controller.key_pressed.connect (on_keypress);
 		this.add_controller (keypress_controller);
 
 		this.completion.add_provider (new Tuba.HandleProvider ());
@@ -239,6 +231,15 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 
 		unowned Gtk.Widget? view_child = placeholder.get_parent ();
 		if (view_child != null) view_child.can_target = view_child.can_focus = false;
+	}
+
+	private bool on_keypress (uint keyval, uint keycode, Gdk.ModifierType modifier) {
+		modifier &= Gdk.MODIFIER_MASK;
+		if ((keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter) && (modifier == Gdk.ModifierType.CONTROL_MASK || modifier == (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.LOCK_MASK))) {
+			ctrl_return_pressed ();
+			return true;
+		}
+		return false;
 	}
 
 	protected void update_style_scheme () {
