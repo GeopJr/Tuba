@@ -325,8 +325,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 			out minimum_baseline,
 			out natural_baseline
 		);
-
-		if (orientation == HORIZONTAL) natural = 423;
+		natural = int.max (minimum, orientation == HORIZONTAL ? 423 : int.max (natural, 300));
 	}
 
 	public void set_cursor_at_start () {
