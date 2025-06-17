@@ -139,6 +139,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 		}
 
 		base.add_bottom_child (new_bottom_child);
+		if (new_bottom_child != null) scroll_to_widget (true);
 	}
 
 	private void connect_child_attachable (Components.Attachable attachable) {

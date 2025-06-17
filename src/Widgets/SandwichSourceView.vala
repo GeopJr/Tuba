@@ -245,7 +245,8 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 	// We don't have access to the functions Gtk.Viewport
 	// uses to calculate and animate the vadjustment changes
 	// so this is an in-house implementation.
-	private void scroll_to_widget (bool bottom = false) {
+	protected void scroll_to_widget (bool bottom = false) {
+		if (scroll_animation == null) return;
 		// We only want to scroll if the widget is not visible
 		// which means, for the top one, the value must be bigger
 		// than the top_margin,
@@ -276,6 +277,7 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 	}
 
 	protected void scroll_animated (bool end = false) {
+		if (scroll_animation == null) return;
 		if (scroll_animation.state == PLAYING) scroll_animation.pause ();
 		scroll_animation.value_from = this.vadjustment.value;
 		scroll_animation.value_to = end ? this.vadjustment.upper : 0;
