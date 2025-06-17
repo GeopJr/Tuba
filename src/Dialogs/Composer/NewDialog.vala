@@ -333,14 +333,33 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 
 	Components.Polls? polls_component = null;
+	Adw.TimedAnimation? polls_animation = null;
 	private void toggle_poll_component () {
 		if (!poll_button.active) {
-			editor.add_bottom_child (null);
+			if (polls_animation != null) {
+				polls_animation.reverse = true;
+				polls_animation.play ();
+			} else {
+				editor.add_bottom_child (null);
+			}
 			return;
 		}
 
-		if (polls_component == null) polls_component = new Components.Polls ();
+		if (polls_component == null) {
+			polls_component = new Components.Polls () {
+				opacity = 0
+			};
+			polls_animation = new Adw.TimedAnimation (polls_component, 0, 1, 250, new Adw.PropertyAnimationTarget (polls_component, "opacity"));
+			polls_animation.done.connect (on_poll_animation_end);
+		} else if (polls_animation.state == PLAYING) polls_animation.skip ();
+
 		editor.add_bottom_child (polls_component);
+		polls_animation.reverse = false;
+		polls_animation.play ();
+	}
+
+	private void on_poll_animation_end () {
+		if (polls_animation.value == 0) editor.add_bottom_child (null);
 	}
 
 	private void on_toast (Adw.Toast toast) {
