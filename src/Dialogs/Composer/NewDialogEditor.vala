@@ -144,6 +144,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 
 	private void connect_child_attachable (Components.Attachable attachable) {
 		attachable.scroll.connect (scroll_request);
+		attachable.toast.connect (toast_request);
 	}
 
 	#if LIBSPELLING
@@ -292,6 +293,10 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 
 	public void scroll_request (bool bottom = false) {
 		this.scroll_animated (bottom);
+	}
+
+	public void toast_request (Adw.Toast toast_obj) {
+		toast (toast_obj);
 	}
 
 	// https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/8477

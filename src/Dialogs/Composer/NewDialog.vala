@@ -18,6 +18,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Gtk.ToggleButton cw_button;
 	[GtkChild] private unowned Gtk.Entry cw_entry;
 	[GtkChild] private unowned Gtk.ToggleButton poll_button;
+	[GtkChild] private unowned Gtk.Button add_media_button;
 
 	private bool _is_narrow = false;
 	public bool is_narrow {
@@ -92,7 +93,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		native_emojis_button.popover = emoji_picker;
 		emoji_picker.emoji_picked.connect (editor.insert_string_at_cursor);
 
-		if (accounts.active.instance_emojis?.size > 0) {
+		if (accounts.active.instance_emojis != null && accounts.active.instance_emojis.size > 0) {
 			var custom_emoji_picker = new Widgets.CustomEmojiChooser ();
 			custom_emojis_button.popover = custom_emoji_picker;
 			custom_emoji_picker.emoji_picked.connect (editor.insert_string_at_cursor);
@@ -260,6 +261,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		scroller.vadjustment.value_changed.connect (on_vadjustment_value_changed);
 		poll_button.toggled.connect (toggle_poll_component);
 		toggle_poll_component ();
+
+		add_media_button.clicked.connect (on_add_media_clicked);
 	}
 
 	private void install_content_types (string? content_type) {
@@ -350,7 +353,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 				opacity = 0
 			};
 			polls_animation = new Adw.TimedAnimation (polls_component, 0, 1, 250, new Adw.PropertyAnimationTarget (polls_component, "opacity"));
-			polls_animation.done.connect (on_poll_animation_end);
+			polls_animation.done.connect (on_component_animation_end);
 		} else if (polls_animation.state == PLAYING) polls_animation.skip ();
 
 		editor.add_bottom_child (polls_component);
@@ -358,8 +361,28 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		polls_animation.play ();
 	}
 
-	private void on_poll_animation_end () {
-		if (polls_animation.value == 0) editor.add_bottom_child (null);
+	Components.AttachmentsBin? attachmentsbin_component = null;
+	private void on_add_media_clicked () {
+		if (attachmentsbin_component == null) {
+			attachmentsbin_component = new Components.AttachmentsBin ();
+			attachmentsbin_component.notify["uploading"].connect (update_attachmentsbin_meta);
+			attachmentsbin_component.notify["is-empty"].connect (update_attachmentsbin_meta);
+		}
+
+		attachmentsbin_component.show_file_selector ();
+		editor.add_bottom_child (attachmentsbin_component);
+	}
+
+	private void update_attachmentsbin_meta () {
+		if (attachmentsbin_component == null) return;
+
+		bool is_used = attachmentsbin_component.uploading || !attachmentsbin_component.is_empty;
+		poll_button.sensitive = !is_used;
+		if (!is_used) editor.add_bottom_child (null);
+	}
+
+	private void on_component_animation_end (Adw.Animation animation) {
+		if (animation.value == 0) editor.add_bottom_child (null);
 	}
 
 	private void on_toast (Adw.Toast toast) {
