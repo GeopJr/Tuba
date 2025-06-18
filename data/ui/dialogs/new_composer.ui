@@ -16,7 +16,7 @@
 							<object class="AdwNavigationPage">
 								<property name="title">main</property>
 								<property name="child">
-									<object class="AdwToolbarView">
+									<object class="AdwToolbarView" id="toolbar_view">
 										<!-- <property name="extend-content-to-top-edge">1</property> -->
 										<child type="top">
 											<object class="AdwHeaderBar" id="headerbar">

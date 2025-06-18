@@ -129,6 +129,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Compon
 	}
 
 	public override void add_bottom_child (Gtk.Widget? new_bottom_child) {
+		if (is_bottom_child (new_bottom_child)) return;
 		if (new_bottom_child != null && new_bottom_child is Components.Attachable) {
 			connect_child_attachable (new_bottom_child as Components.Attachable);
 			new_bottom_child.margin_top = 28;

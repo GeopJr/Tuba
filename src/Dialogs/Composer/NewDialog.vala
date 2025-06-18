@@ -7,6 +7,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Gtk.Grid grid;
 	[GtkChild] private unowned Adw.ToastOverlay toast_overlay;
 	[GtkChild] private unowned Adw.NavigationView nav_view;
+	[GtkChild] private unowned Adw.ToolbarView toolbar_view;
 
 	[GtkChild] private unowned Gtk.ScrolledWindow scroller;
 	[GtkChild] private unowned Adw.HeaderBar headerbar;
@@ -20,6 +21,12 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Gtk.Entry cw_entry;
 	[GtkChild] private unowned Gtk.ToggleButton poll_button;
 	[GtkChild] private unowned Gtk.Button add_media_button;
+
+	// TODO: DND style
+	// TODO: long press paste
+	//  private const GLib.ActionEntry[] ACTION_ENTRIES = {
+	//  	{"paste-from-clipboard", on_clipboard_paste}
+	//  };
 
 	private bool _is_narrow = false;
 	public bool is_narrow {
@@ -247,6 +254,12 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		if (char_limit_api > 0)
 			char_limit = char_limit_api;
 
+		var dnd_controller = new Gtk.DropTarget (typeof (Gdk.FileList), Gdk.DragAction.COPY) {
+			propagation_phase = CAPTURE
+		};
+		dnd_controller.drop.connect (on_drag_drop);
+		toolbar_view.add_controller (dnd_controller);
+
 		install_editor ();
 		install_emoji_pickers ();
 		install_visibility ();
@@ -366,12 +379,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 	Components.AttachmentsBin? attachmentsbin_component = null;
 	private void on_add_media_clicked () {
-		if (attachmentsbin_component == null) {
-			attachmentsbin_component = new Components.AttachmentsBin ();
-			attachmentsbin_component.notify["uploading"].connect (update_attachmentsbin_meta);
-			attachmentsbin_component.notify["is-empty"].connect (update_attachmentsbin_meta);
-		}
-
+		create_attachmentsbin ();
 		attachmentsbin_component.show_file_selector ();
 		editor.add_bottom_child (attachmentsbin_component);
 	}
@@ -382,6 +390,81 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		bool is_used = attachmentsbin_component.uploading || !attachmentsbin_component.is_empty;
 		poll_button.sensitive = !is_used;
 		if (!is_used) editor.add_bottom_child (null);
+	}
+
+	private bool on_drag_drop (Value val, double x, double y) {
+		if (!add_media_button.sensitive) return false;
+
+		var file_list = val as Gdk.FileList;
+		if (file_list == null) return false;
+
+		var files = file_list.get_files ();
+		if (files.length () == 0) return false;
+
+		File[] files_to_upload = {};
+		foreach (var file in files) {
+			files_to_upload += file;
+		}
+		if (files_to_upload.length == 0) return false;
+
+		create_attachmentsbin ();
+		attachmentsbin_component.upload_files.begin (files_to_upload);
+		editor.add_bottom_child (attachmentsbin_component);
+
+		return true;
+	}
+
+	//  private void on_clipboard_paste () {
+	//  	create_attachmentsbin ();
+	//  	on_clipboard_paste_async.begin ();
+	//  	editor.add_bottom_child (attachmentsbin_component);
+	//  }
+
+	//  private async void on_clipboard_paste_async () {
+	//  	File[] files = {};
+	//  	bool from_value_failed = false;
+	//  	Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+
+	//  	try {
+	//  		var copied_value = yield clipboard.read_value_async (typeof (File), 0, null);
+
+	//  		if (copied_value == null) {
+	//  			from_value_failed = true;
+	//  		} else {
+	//  			var copied_file = copied_value as File;
+	//  			if (copied_file == null) {
+	//  				from_value_failed = true;
+	//  			} else {
+	//  				files += copied_file;
+	//  			}
+	//  		}
+	//  	} catch (Error e) {
+	//  		from_value_failed = true;
+	//  	}
+
+	//  	if (from_value_failed) {
+	//  		try {
+	//  			var copied_texture = yield clipboard.read_texture_async (null);
+	//  			if (copied_texture == null) return;
+
+	//  			FileIOStream stream;
+	//  			files += yield File.new_tmp_async ("tuba-XXXXXX.png", GLib.Priority.DEFAULT, null, out stream);
+
+	//  			OutputStream ostream = stream.output_stream;
+	//  			yield ostream.write_bytes_async (copied_texture.save_to_png_bytes ());
+	//  		} catch (Error e) {
+	//  			warning (@"Couldn't get texture from clipboard: $(e.message)");
+	//  		}
+	//  	}
+
+	//  	yield upload_files (files);
+	//  }
+
+	private void create_attachmentsbin () {
+		if (attachmentsbin_component != null) return;
+		attachmentsbin_component = new Components.AttachmentsBin ();
+		attachmentsbin_component.notify["uploading"].connect (update_attachmentsbin_meta);
+		attachmentsbin_component.notify["is-empty"].connect (update_attachmentsbin_meta);
 	}
 
 	private void on_component_animation_end (Adw.Animation animation) {

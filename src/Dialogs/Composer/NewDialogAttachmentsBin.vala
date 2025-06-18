@@ -295,7 +295,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		}
 	}
 
-	private async void upload_files (File[] files) {
+	public async void upload_files (File[] files) {
 		var selected_files_amount = files.length;
 		if (selected_files_amount == 0) return;
 
