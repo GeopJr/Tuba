@@ -101,7 +101,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 				child = alt_editor
 			});
 
-			dialog_char_counter = new Gtk.Label (@"$ALT_MAX_CHARS") {
+			dialog_char_counter = new Gtk.Label (ALT_MAX_CHARS.to_string ()) {
 				margin_end = 24,
 				margin_top = 12,
 				margin_bottom = 12,
@@ -122,7 +122,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			var t_val = total_count < ALT_MAX_CHARS;
 			this.can_save = t_val;
 
-			dialog_char_counter.label = @"$(ALT_MAX_CHARS - total_count)";
+			dialog_char_counter.label = (ALT_MAX_CHARS - total_count).to_string ();
 			if (t_val) {
 				dialog_char_counter.remove_css_class ("error");
 			} else {

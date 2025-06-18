@@ -185,7 +185,6 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		};
 		delete_button.clicked.connect (on_delete);
 
-		// TODO: combine alt editor and focus picker
 		alt_button = new Gtk.Button.from_icon_name ("document-edit-symbolic") {
 			halign = END,
 			valign = END,
@@ -402,8 +401,8 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 					case VIDEO:
 						#if GSTREAMER
 							var playbin = Gst.ElementFactory.make ("playbin");
-							playbin.set("video-sink", Gst.ElementFactory.make ("fakesink"));
-							playbin.set("audio-sink", Gst.ElementFactory.make ("fakesink"));
+							playbin.set ("video-sink", Gst.ElementFactory.make ("fakesink"));
+							playbin.set ("audio-sink", Gst.ElementFactory.make ("fakesink"));
 							playbin.set_property ("uri", file_uri);
 
 							playbin.set_state (PAUSED);
