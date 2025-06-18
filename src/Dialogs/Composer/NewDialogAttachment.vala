@@ -44,6 +44,24 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		}
 	}
 
+	public enum MediaType {
+		IMAGE,
+		VIDEO,
+		AUDIO;
+
+		public static MediaType from_string (string kind) {
+			switch (kind.down ()) {
+				case "audio":
+					return AUDIO;
+				case "video":
+				case "gifv":
+					return VIDEO;
+				default:
+					return IMAGE;
+			}
+		}
+	}
+
 	public string? media_id { get; set; default = null; }
 	public Gdk.Paintable? paintable {
 		get { return picture.paintable; }
@@ -74,6 +92,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 			this.queue_draw ();
 		}
 	}
+	public GLib.File? file { get; set; default = null; }
 
 	Adw.TimedAnimation opacity_animation;
 	Widgets.FocusPicture picture;
@@ -172,6 +191,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		drop_target_controller.drop.connect (on_drop);
 		this.add_controller (drop_target_controller);
 
+		// DnD
 		opacity_animation = new Adw.TimedAnimation (this, 0, 1, 200, new Adw.PropertyAnimationTarget (this, "opacity")) {
 			easing = Adw.Easing.LINEAR
 		};
@@ -291,14 +311,17 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 			throw new Oopsie.INSTANCE (error);
 		}
 
-		var working_loader = new AttachmentThumbnailer (uri);
-		working_loader.done.connect (on_done);
-		new GLib.Thread<void>.try (@"Attachment Thumbnail $uri", working_loader.fetch);
-
+		this.file = file;
 		var parser = Network.get_parser_from_inputstream (in_stream);
 		var node = network.parse_node (parser);
 		var entity = accounts.active.create_entity<API.Attachment> (node);
 		this.media_id = entity.id;
+
+		this.kind = MediaType.from_string (entity.kind);
+		var working_loader = new AttachmentThumbnailer (uri, this.kind);
+		working_loader.done.connect (on_done);
+		new GLib.Thread<void>.try (@"Attachment Thumbnail $uri", working_loader.fetch);
+
 		debug (@"OK! ID $(entity.id)");
 		this.done = true;
 
@@ -308,15 +331,58 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 	private class AttachmentThumbnailer : GLib.Object {
 		public signal void done (Gdk.Paintable? paintable);
 		File file;
-
-		public AttachmentThumbnailer (string file_uri) {
+		Attachment.MediaType kind;
+		public AttachmentThumbnailer (string file_uri, Attachment.MediaType kind) {
 			this.file = File.new_for_uri (file_uri);
+			this.kind = kind;
 		}
 
-		// TODO video and audio thumbnailers
 		public void fetch () {
-			debug (@"Generating thumbnail for $(this.file.get_uri ())");
-			done (Gdk.Texture.from_file (this.file));
+			string file_uri = this.file.get_uri ();
+			debug (@"Generating thumbnail for $file_uri");
+
+			try {
+				switch (kind) {
+					case IMAGE:
+						done (Gdk.Texture.from_file (this.file));
+						break;
+					case VIDEO:
+						#if GSTREAMER
+							var playbin = Gst.ElementFactory.make ("playbin");
+							playbin.set("video-sink", Gst.ElementFactory.make ("fakesink"));
+							playbin.set("audio-sink", Gst.ElementFactory.make ("fakesink"));
+							playbin.set_property ("uri", file_uri);
+
+							playbin.set_state (PAUSED);
+							playbin.get_state (null, null, Gst.CLOCK_TIME_NONE);
+
+							if (!playbin.seek_simple (TIME, FLUSH, 1 * Gst.SECOND)) return;
+							playbin.get_state (null, null, Gst.CLOCK_TIME_NONE);
+
+							Gst.Sample? sample = null;
+							var cups = Gst.Caps.from_string ("image/png");
+							Signal.emit_by_name (playbin, "convert-sample", cups, out sample);
+							if (sample == null) return;
+
+							Gst.Buffer? buffer = sample.get_buffer ();
+							if (buffer == null) return;
+
+							Gst.MapInfo map_info;
+							if (!buffer.map (out map_info, READ)) return;
+
+							done (Gdk.Texture.from_bytes (new Bytes.take (map_info.data)));
+						#else
+							done (null);
+						#endif
+						break;
+					default:
+						done (null);
+						break;
+				}
+			} catch (Error e) {
+				critical (@"Error while generating thumbnail: $(e.message)");
+				done (null);
+			}
 		}
 	}
 
