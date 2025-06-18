@@ -11,21 +11,26 @@
 		<child>
 			<object class="AdwToastOverlay" id="toast_overlay">
 				<property name="child">
-					<object class="AdwToolbarView">
-						<!-- <property name="extend-content-to-top-edge">1</property> -->
-						<child type="top">
-							<object class="AdwHeaderBar" id="headerbar">
-								<property name="show-title">0</property>
-							</object>
-						</child>
-						<property name="content">
-							<object class="GtkScrolledWindow" id="scroller">
-								<property name="hexpand">1</property>
-								<property name="vexpand">1</property>
-								<!-- <property name="min-content-height">200</property> -->
-								<property name="propagate-natural-height">1</property>
-								<property name="propagate-natural-width">1</property>
-								<!-- <child>
+					<object class="AdwNavigationView" id="nav_view">
+						<child>
+							<object class="AdwNavigationPage">
+								<property name="title">main</property>
+								<property name="child">
+									<object class="AdwToolbarView">
+										<!-- <property name="extend-content-to-top-edge">1</property> -->
+										<child type="top">
+											<object class="AdwHeaderBar" id="headerbar">
+												<property name="show-title">0</property>
+											</object>
+										</child>
+										<property name="content">
+											<object class="GtkScrolledWindow" id="scroller">
+												<property name="hexpand">1</property>
+												<property name="vexpand">1</property>
+												<!-- <property name="min-content-height">200</property> -->
+												<property name="propagate-natural-height">1</property>
+												<property name="propagate-natural-width">1</property>
+												<!-- <child>
 							<object class="AdwClamp">
 								<property name="valign">start</property>
 								<property name="tightening-threshold">100</property>
@@ -57,131 +62,135 @@
 								</child>
 							</object>
 						</child> -->
-							</object>
-						</property>
-						<child type="bottom">
-							<object class="GtkRevealer" id="toggle_fs_revealer">
-								<property name="transition_type">slide-up</property>
-								<property name="reveal-child" bind-source="cw_button" bind-property="active" bind-flags="sync-create" />
-								<property name="child">
-									<object class="GtkEntry" id="cw_entry">
-										<property name="placeholder-text" translatable="yes">Write your content warning here</property>
-										<property name="margin-start">32</property>
-										<property name="margin-end">32</property>
-										<property name="margin-top">6</property>
-										<style>
-											<class name="devel-bg" />
-										</style>
+											</object>
+										</property>
+										<child type="bottom">
+											<object class="GtkRevealer" id="toggle_fs_revealer">
+												<property name="transition_type">slide-up</property>
+												<property name="reveal-child" bind-source="cw_button" bind-property="active" bind-flags="sync-create" />
+												<property name="child">
+													<object class="GtkEntry" id="cw_entry">
+														<property name="placeholder-text" translatable="yes">Write your content warning here</property>
+														<property name="margin-start">32</property>
+														<property name="margin-end">32</property>
+														<property name="margin-top">6</property>
+														<style>
+															<class name="devel-bg" />
+														</style>
+													</object>
+												</property>
+											</object>
+										</child>
+										<child type="bottom">
+											<object class="GtkGrid" id="grid">
+												<property name="margin-top">20</property>
+												<property name="margin-start">32</property>
+												<property name="margin-end">32</property>
+												<property name="margin-bottom">20</property>
+												<property name="row-spacing">16</property>
+												<child>
+													<object class="GtkBox" id="btns_box">
+														<property name="orientation">horizontal</property>
+														<property name="spacing">6</property>
+														<child>
+															<object class="GtkMenuButton" id="native_emojis_button">
+																<property name="icon-name">tuba-sentiment-satisfied-symbolic</property>
+																<property name="tooltip-text" translatable="yes">Emoji Picker</property>
+																<style>
+																	<class name="flat" />
+																</style>
+															</object>
+														</child>
+														<child>
+															<object class="GtkMenuButton" id="custom_emojis_button">
+																<property name="icon-name">tuba-bear-symbolic</property>
+																<property name="tooltip-text" translatable="yes">Custom Emoji Picker</property>
+																<style>
+																	<class name="flat" />
+																</style>
+															</object>
+														</child>
+														<child>
+															<object class="GtkButton" id="add_media_button">
+																<property name="icon-name">tuba-image-round-symbolic</property>
+																<property name="sensitive" bind-source="poll_button" bind-property="active" bind-flags="sync-create|invert-boolean" />
+																<style>
+																	<class name="flat" />
+																</style>
+															</object>
+														</child>
+														<child>
+															<object class="GtkToggleButton" id="poll_button">
+																<property name="icon-name">format-justify-left-symbolic</property>
+																<style>
+																	<class name="flat" />
+																</style>
+															</object>
+														</child>
+														<child>
+															<object class="GtkToggleButton" id="cw_button">
+																<property name="icon-name">tuba-warning-symbolic</property>
+																<style>
+																	<class name="flat" />
+																</style>
+															</object>
+														</child>
+														<layout>
+															<property name="column">0</property>
+															<property name="row">0</property>
+															<property name="column-span">2</property>
+														</layout>
+													</object>
+												</child>
+												<child>
+													<object class="GtkBox" id="dropdowns_box">
+														<property name="orientation">horizontal</property>
+														<property name="spacing">12</property>
+														<property name="margin-end">6</property>
+														<layout>
+															<property name="column">0</property>
+															<property name="row">1</property>
+														</layout>
+													</object>
+												</child>
+												<child>
+													<object class="GtkLabel" id="counter_label">
+														<property name="halign">end</property>
+														<property name="valign">center</property>
+														<property name="ellipsize">end</property>
+														<property name="margin-start">12</property>
+														<style>
+															<class name="font-bold" />
+															<class name="numeric" />
+															<class name="accented-color" />
+														</style>
+														<layout>
+															<property name="column">1</property>
+															<property name="row">1</property>
+														</layout>
+													</object>
+												</child>
+												<child>
+													<object class="GtkButton" id="post_btn">
+														<property name="label" translatable="yes">Post</property>
+														<property name="hexpand">1</property>
+														<property name="halign">end</property>
+														<property name="valign">center</property>
+														<style>
+															<class name="pill" />
+															<class name="suggested-action" />
+														</style>
+														<layout>
+															<property name="column">2</property>
+															<property name="row">0</property>
+															<property name="row-span">2</property>
+														</layout>
+													</object>
+												</child>
+											</object>
+										</child>
 									</object>
 								</property>
-							</object>
-						</child>
-						<child type="bottom">
-							<object class="GtkGrid" id="grid">
-								<property name="margin-top">20</property>
-								<property name="margin-start">32</property>
-								<property name="margin-end">32</property>
-								<property name="margin-bottom">20</property>
-								<property name="row-spacing">16</property>
-								<child>
-									<object class="GtkBox" id="btns_box">
-										<property name="orientation">horizontal</property>
-										<property name="spacing">6</property>
-										<child>
-											<object class="GtkMenuButton" id="native_emojis_button">
-												<property name="icon-name">tuba-sentiment-satisfied-symbolic</property>
-												<property name="tooltip-text" translatable="yes">Emoji Picker</property>
-												<style>
-													<class name="flat" />
-												</style>
-											</object>
-										</child>
-										<child>
-											<object class="GtkMenuButton" id="custom_emojis_button">
-												<property name="icon-name">tuba-bear-symbolic</property>
-												<property name="tooltip-text" translatable="yes">Custom Emoji Picker</property>
-												<style>
-													<class name="flat" />
-												</style>
-											</object>
-										</child>
-										<child>
-											<object class="GtkButton" id="add_media_button">
-												<property name="icon-name">tuba-image-round-symbolic</property>
-												<property name="sensitive" bind-source="poll_button" bind-property="active" bind-flags="sync-create|invert-boolean" />
-												<style>
-													<class name="flat" />
-												</style>
-											</object>
-										</child>
-										<child>
-											<object class="GtkToggleButton" id="poll_button">
-												<property name="icon-name">format-justify-left-symbolic</property>
-												<style>
-													<class name="flat" />
-												</style>
-											</object>
-										</child>
-										<child>
-											<object class="GtkToggleButton" id="cw_button">
-												<property name="icon-name">tuba-warning-symbolic</property>
-												<style>
-													<class name="flat" />
-												</style>
-											</object>
-										</child>
-										<layout>
-											<property name="column">0</property>
-											<property name="row">0</property>
-											<property name="column-span">2</property>
-										</layout>
-									</object>
-								</child>
-								<child>
-									<object class="GtkBox" id="dropdowns_box">
-										<property name="orientation">horizontal</property>
-										<property name="spacing">12</property>
-										<property name="margin-end">6</property>
-										<layout>
-											<property name="column">0</property>
-											<property name="row">1</property>
-										</layout>
-									</object>
-								</child>
-								<child>
-									<object class="GtkLabel" id="counter_label">
-										<property name="halign">end</property>
-										<property name="valign">center</property>
-										<property name="ellipsize">end</property>
-										<property name="margin-start">12</property>
-										<style>
-											<class name="font-bold" />
-											<class name="numeric" />
-											<class name="accented-color" />
-										</style>
-										<layout>
-											<property name="column">1</property>
-											<property name="row">1</property>
-										</layout>
-									</object>
-								</child>
-								<child>
-									<object class="GtkButton" id="post_btn">
-										<property name="label" translatable="yes">Post</property>
-										<property name="hexpand">1</property>
-										<property name="halign">end</property>
-										<property name="valign">center</property>
-										<style>
-											<class name="pill" />
-											<class name="suggested-action" />
-										</style>
-										<layout>
-											<property name="column">2</property>
-											<property name="row">0</property>
-											<property name="row-span">2</property>
-										</layout>
-									</object>
-								</child>
 							</object>
 						</child>
 					</object>

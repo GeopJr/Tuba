@@ -1,6 +1,7 @@
 public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 	public signal void switch_place (Attachment with);
 	public signal void delete_me ();
+	public signal void edit ();
 
 	public class AltIndicator : Gtk.Box {
 		private bool _valid = false;
@@ -92,6 +93,22 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 			this.queue_draw ();
 		}
 	}
+
+	public double pos_x {
+		get { return picture.focus_x; }
+		set {
+			picture.focus_x = value;
+		}
+	}
+
+	public double pos_y {
+		get { return picture.focus_y; }
+		set {
+			picture.focus_y = value;
+		}
+	}
+
+	public string alt_text { get; set; default = ""; }
 	public GLib.File? file { get; set; default = null; }
 
 	Adw.TimedAnimation opacity_animation;
@@ -154,6 +171,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 			css_classes = { "osd", "circular" },
 			visible = false
 		};
+		alt_button.clicked.connect (on_edit_clicked);
 
 		alt_indicator = new AltIndicator () {
 			halign = START,
@@ -204,6 +222,10 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 
 	private void on_animation_end () {
 		if (animation.value == 0) delete_me ();
+	}
+
+	private void on_edit_clicked () {
+		edit ();
 	}
 
 	public Attachment.from_paintable (Gdk.Paintable? paintable) {
@@ -419,5 +441,11 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 
 	private void on_delete () {
 		play_animation (true);
+	}
+
+	public void saved (float pos_x, float pos_y, string alt_text) {
+		this.pos_x = (double) pos_x;
+		this.pos_y = (double) pos_y;
+		this.alt_text = alt_text;
 	}
 }

@@ -6,6 +6,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Gtk.Box dropdowns_box;
 	[GtkChild] private unowned Gtk.Grid grid;
 	[GtkChild] private unowned Adw.ToastOverlay toast_overlay;
+	[GtkChild] private unowned Adw.NavigationView nav_view;
 
 	[GtkChild] private unowned Gtk.ScrolledWindow scroller;
 	[GtkChild] private unowned Adw.HeaderBar headerbar;
@@ -115,6 +116,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		scroller.child = editor;
 
 		editor.toast.connect (on_toast);
+		editor.push_subpage.connect (on_push_subpage);
+		editor.pop_subpage.connect (on_pop_subpage);
 		editor.notify["char-count"].connect (update_remaining_chars);
 		this.focus_widget = editor;
 
@@ -387,5 +390,13 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 	private void on_toast (Adw.Toast toast) {
 		toast_overlay.add_toast (toast);
+	}
+
+	private void on_push_subpage (Adw.NavigationPage page) {
+		nav_view.push (page);
+	}
+
+	private void on_pop_subpage () {
+		nav_view.pop ();
 	}
 }

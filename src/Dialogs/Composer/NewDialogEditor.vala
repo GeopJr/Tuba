@@ -1,6 +1,5 @@
-public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
+public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Components.Attachable {
 	public signal void ctrl_return_pressed (); // TODO
-	public signal void toast (Adw.Toast toast);
 
 	private string _locale = "en";
 	public string locale {
@@ -33,7 +32,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 	// since other languages can have longer
 	// text and since it cannot wrap, it should
 	// have a big enough h nat while h min is 0
-	protected class PlaceholderHack : Gtk.Widget {
+	public class PlaceholderHack : Gtk.Widget {
 		static construct {
 			set_accessible_role (Gtk.AccessibleRole.PRESENTATION);
 		}
@@ -112,8 +111,6 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 	protected Gtk.Label status_title;
 	protected PlaceholderHack placeholder;
 	private void count_chars () {
-		int64 res = 0;
-
 		string replaced_urls = Utils.Tracking.cleanup_content_with_uris (
 			this.buffer.text,
 			Utils.Tracking.extract_uris (this.buffer.text),
@@ -145,6 +142,8 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 	private void connect_child_attachable (Components.Attachable attachable) {
 		attachable.scroll.connect (scroll_request);
 		attachable.toast.connect (toast_request);
+		attachable.push_subpage.connect (push_subpage_request);
+		attachable.pop_subpage.connect (pop_request);
 	}
 
 	#if LIBSPELLING
@@ -297,6 +296,14 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView {
 
 	public void toast_request (Adw.Toast toast_obj) {
 		toast (toast_obj);
+	}
+
+	public void push_subpage_request (Adw.NavigationPage page) {
+		push_subpage (page);
+	}
+
+	public void pop_request () {
+		pop_subpage ();
 	}
 
 	// https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/8477

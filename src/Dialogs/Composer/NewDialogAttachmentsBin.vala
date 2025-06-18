@@ -1,4 +1,189 @@
 public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
+	private class Editor : Adw.NavigationPage {
+		const int ALT_MAX_CHARS = 1500;
+
+		public signal void saved (float pos_x, float pos_y, string alt_text);
+		public signal void toast (Adw.Toast toast);
+
+		~Editor () {
+			debug ("Destroying Attachment Editor");
+		}
+
+		private bool _can_save = false;
+		public bool can_save {
+			get { return _can_save; }
+			set {
+				_can_save = value;
+
+				save_btn.sensitive = !_working && _can_save;
+			}
+		}
+
+		private bool _working = false;
+		public bool working {
+			get { return _working; }
+			set {
+				_working = value;
+				this.can_pop = !value;
+
+				save_btn.sensitive = !_working && _can_save;
+			}
+		}
+
+		public float pos_x { get; set; default = 0.0f; }
+		public float pos_y { get; set; default = 0.0f; }
+		public string media_id { get; set; }
+
+		Gtk.Button save_btn;
+		GtkSource.View alt_editor;
+		Components.Editor.PlaceholderHack placeholder;
+		Gtk.Box content_box;
+		Gtk.Label dialog_char_counter;
+		construct {
+			this.title = _("Attachment Editor");
+			this.add_css_class ("focuspickerdialog");
+
+			var toolbar_view = new Adw.ToolbarView ();
+			var headerbar = new Adw.HeaderBar () {
+				show_end_title_buttons = false,
+				show_start_title_buttons = false
+			};
+
+			content_box = new Gtk.Box (VERTICAL, 12);
+			toolbar_view.content = content_box;
+
+			save_btn = new Gtk.Button.with_label (_("Save"));
+			save_btn.add_css_class ("suggested-action");
+			save_btn.clicked.connect (on_save);
+			headerbar.pack_end (save_btn);
+			toolbar_view.add_top_bar (headerbar);
+
+			alt_editor = new GtkSource.View () {
+				vexpand = true,
+				hexpand = true,
+				top_margin = 6,
+				right_margin = 6,
+				bottom_margin = 6,
+				left_margin = 6,
+				pixels_below_lines = 6,
+				accepts_tab = false,
+				wrap_mode = Gtk.WrapMode.WORD_CHAR
+			};
+			alt_editor.remove_css_class ("view");
+			alt_editor.add_css_class ("reset");
+
+			placeholder = new Components.Editor.PlaceholderHack (new Gtk.Label (_("Describe the media…")) {
+				valign = Gtk.Align.START,
+				halign = Gtk.Align.START,
+				justify = Gtk.Justification.FILL,
+				//  margin_top = 6,
+				margin_start = 6,
+				wrap = true,
+				wrap_mode = Pango.WrapMode.WORD_CHAR,
+				sensitive = false
+			});
+			alt_editor.add_overlay (placeholder, 0, 0);
+
+			Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
+			update_style_scheme ();
+
+			#if LIBSPELLING
+				var adapter = new Spelling.TextBufferAdapter ((GtkSource.Buffer) alt_editor.buffer, Spelling.Checker.get_default ());
+
+				alt_editor.extra_menu = adapter.get_menu_model ();
+				alt_editor.insert_action_group ("spelling", adapter);
+				adapter.enabled = true;
+			#endif
+
+			content_box.append (new Gtk.ScrolledWindow () {
+				hexpand = true,
+				vexpand = true,
+				child = alt_editor
+			});
+
+			dialog_char_counter = new Gtk.Label (@"$ALT_MAX_CHARS") {
+				margin_end = 24,
+				margin_top = 12,
+				margin_bottom = 12,
+				tooltip_text = _("Characters Left"),
+				css_classes = { "heading", "numeric" },
+				halign = Gtk.Align.END
+			};
+			toolbar_view.add_bottom_bar (dialog_char_counter);
+			alt_editor.buffer.changed.connect (on_alt_editor_buffer_change);
+
+			this.child = toolbar_view;
+		}
+
+		private void on_alt_editor_buffer_change () {
+			int total_count = Utils.Counting.chars (alt_editor.buffer.text, "en");
+			placeholder.visible = total_count == 0;
+
+			var t_val = total_count < ALT_MAX_CHARS;
+			this.can_save = t_val;
+
+			dialog_char_counter.label = @"$(ALT_MAX_CHARS - total_count)";
+			if (t_val) {
+				dialog_char_counter.remove_css_class ("error");
+			} else {
+				dialog_char_counter.add_css_class ("error");
+			}
+		}
+
+		protected void update_style_scheme () {
+			var manager = GtkSource.StyleSchemeManager.get_default ();
+			string scheme_name = "Adwaita";
+			if (Adw.StyleManager.get_default ().dark) scheme_name += "-dark";
+			((GtkSource.Buffer) alt_editor.buffer).style_scheme = manager.get_scheme (scheme_name);
+		}
+
+		private void on_save () {
+			this.working = true;
+
+			var builder = new Json.Builder ();
+			builder.begin_object ();
+
+			builder.set_member_name ("description");
+			builder.add_string_value (alt_editor.buffer.text);
+
+			builder.set_member_name ("focus");
+			builder.add_string_value ("%s,%s".printf (
+				Utils.Units.float_to_2_point_string (this.pos_x),
+				Utils.Units.float_to_2_point_string (this.pos_y)
+			));
+
+			builder.end_object ();
+
+			new Request.PUT (@"/api/v1/media/$media_id")
+				.with_account (accounts.active)
+				.body_json (builder)
+				.then (() => {
+					saved (this.pos_x, this.pos_y, alt_editor.buffer.text);
+				})
+				.on_error ((code, message) => {
+					toast (new Adw.Toast (@"$code $message"));
+				})
+				.exec ();
+		}
+
+		public Editor (string media_id, Gdk.Paintable? paintable = null, GLib.File? video = null, float pos_x = 0, float pos_y = 0, string alt_text = "") {
+			this.media_id = media_id;
+			if (paintable != null) {
+				var focus_picker = new Widgets.FocusPicker (paintable);
+				focus_picker.bind_property ("pos-x", this, "pos-x", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
+				focus_picker.bind_property ("pos-y", this, "pos-y", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
+
+				content_box.prepend (focus_picker);
+			} else if (video != null) {
+				content_box.prepend (new Gtk.Video.for_file (video));
+			}
+
+			this.pos_x = pos_x;
+			this.pos_y = pos_y;
+			alt_editor.buffer.text = alt_text;
+		}
+	}
+
 	public bool uploading { get; set; default = false; }
 	public bool is_empty { get { return attachment_widgets.size == 0; } }
 
@@ -53,6 +238,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 	private void add_attachment (Components.Attachment attachment) {
 		attachment.switch_place.connect (on_switch_place);
 		attachment.delete_me.connect (on_delete);
+		attachment.edit.connect (show_editor);
 		this.attach (attachment, attachment_widgets.size % 2, (int) Math.floor (attachment_widgets.size / 2));
 		attachment_widgets.add (attachment);
 		this.notify_property ("is-empty");
@@ -214,5 +400,29 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 				warning (@"Couldn't get the result of FileDialog for AttachmentsPage: $(e.message)");
 			}
 		});
+	}
+
+	public void show_editor (Attachment attachment) {
+		bool is_image = attachment.kind == IMAGE;
+		var editor = new Editor (
+			attachment.media_id,
+			is_image ? attachment.paintable : null,
+			is_image ? null : attachment.file,
+			(float) attachment.pos_x,
+			(float) attachment.pos_y,
+			attachment.alt_text
+		);
+		editor.saved.connect (attachment.saved);
+		editor.saved.connect_after (pop_req);
+		editor.toast.connect (toast_req);
+		push_subpage (editor);
+	}
+
+	private void pop_req () {
+		this.pop_subpage ();
+	}
+
+	private void toast_req (Adw.Toast toast_obj) {
+		toast (toast_obj);
 	}
 }
