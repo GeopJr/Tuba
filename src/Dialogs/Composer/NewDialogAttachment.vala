@@ -63,6 +63,28 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		}
 	}
 
+	private MediaType _kind = MediaType.IMAGE;
+	public MediaType kind {
+		get { return _kind; }
+		private set {
+			_kind = value;
+			switch (value) {
+				case AUDIO:
+					media_icon.icon_name = "tuba-music-note-symbolic";
+					media_icon.visible = true;
+					break;
+				case VIDEO:
+					media_icon.icon_name = "media-playback-start-symbolic";
+					media_icon.visible = true;
+					break;
+				default:
+					media_icon.visible = false;
+					break;
+			}
+			media_icon.icon_size = Gtk.IconSize.LARGE;
+		}
+	}
+
 	public string? media_id { get; set; default = null; }
 	public Gdk.Paintable? paintable {
 		get { return picture.paintable; }
@@ -117,6 +139,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 	Gtk.Button alt_button;
 	Gtk.Box alt_indicator;
 	Gtk.Label progress_label;
+	Gtk.Image media_icon;
 	Adw.TimedAnimation animation;
 	Gdk.RGBA color = { 120 / 255.0f, 174 / 255.0f, 237 / 255.0f, 0.5f };
 	construct {
@@ -188,10 +211,18 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 			css_classes = { "font-bold", "numeric" }
 		};
 
+		media_icon = new Gtk.Image.from_icon_name ("media-playback-start-symbolic") {
+			valign = Gtk.Align.CENTER,
+			halign = Gtk.Align.CENTER,
+			visible = false,
+			css_classes = { "osd", "circular", "attachment-overlay-icon" }
+		};
+
 		overlay.add_overlay (delete_button);
 		overlay.add_overlay (alt_button);
 		overlay.add_overlay (alt_indicator);
 		overlay.add_overlay (progress_label);
+		overlay.add_overlay (media_icon);
 
 		this.child = overlay;
 		this.height_request = 120;
