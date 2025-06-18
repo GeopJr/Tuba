@@ -264,13 +264,41 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		int to_index = attachment_widgets.index_of (to);
 
 		var temp = attachment_widgets[from_index];
-    	attachment_widgets[from_index] = attachment_widgets[to_index];
-    	attachment_widgets[to_index] = temp;
+		attachment_widgets[from_index] = attachment_widgets[to_index];
+		attachment_widgets[to_index] = temp;
 	}
 
 	private void on_delete (Components.Attachment attachment) {
+		int removed_column;
+		int removed_row;
+		this.query_child (attachment, out removed_column, out removed_row, null, null);
 		this.remove (attachment);
+
+		int removed_index = attachment_widgets.index_of (attachment);
+		this.attach (attachment, attachment_widgets.size % 2, (int) Math.floor (attachment_widgets.size / 2));
 		attachment_widgets.remove (attachment);
+
+		for (int i = removed_index; i < attachment_widgets.size; i++) {
+			var child = attachment_widgets.get (i);
+			int current_col, current_row;
+			this.query_child (child, out current_col, out current_row, null, null);
+
+			if (current_row > removed_row || (current_row == removed_row && current_col > removed_column)) {
+				int new_row = current_row;
+				int new_col = current_col;
+
+				if (current_col == 0) {
+					new_row = current_row - 1;
+					new_col = 1;
+				} else {
+					new_col = current_col - 1;
+				}
+
+				this.remove (child);
+				this.attach (child, new_col, new_row);
+			}
+		}
+
 		this.notify_property ("is-empty");
 	}
 
