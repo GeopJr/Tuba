@@ -106,12 +106,12 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		}
 	}
 
-	private int _progress = 0;
-	private int progress {
+	private double _progress = 0;
+	private double progress {
 		get { return _progress; }
 		set {
 			_progress = value;
-			progress_label.label = @"$value%";
+			progress_label.label = @"$((int) (value * 100))%";
 			this.queue_draw ();
 		}
 	}
@@ -447,7 +447,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 	size_t total_bytes = 0;
 	private void on_upload_bytes_written (Soup.Message msg, uint chunk) {
 		bytes_written += chunk;
-		this.progress = (int) Math.round (((double) bytes_written / (double) total_bytes) * 100.0).clamp (0, 100);
+		this.progress = ((double) bytes_written / (double) total_bytes).clamp (0, 1);
 	}
 
 	public override void snapshot (Gtk.Snapshot snapshot) {
