@@ -7,19 +7,20 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-06-20 13:01+0000\n"
+"Last-Translator: newidyn <grugallt@protonmail.ch>\n"
+"Language-Team: Welsh <https://hosted.weblate.org/projects/tuba/tuba/cy/>\n"
 "Language: cy\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=(n==0) ? 0 : (n==1) ? 1 : (n==2) ? 2 : "
 "(n==3) ? 3 :(n==6) ? 4 : 5;\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
-msgstr ""
+msgstr "Tuba"
 
 #: data/dev.geopjr.Tuba.desktop.in:5 data/dev.geopjr.Tuba.metainfo.xml.in:7
 msgid "Browse the Fediverse"
@@ -52,15 +53,15 @@ msgstr ""
 #: data/gtk/help-overlay.ui:11 data/ui/dialogs/list_edit.ui:21
 #: data/ui/dialogs/preferences.ui:20
 msgid "General"
-msgstr ""
+msgstr "Cyffredinol"
 
 #: data/gtk/help-overlay.ui:14
 msgid "Show Preferences"
-msgstr ""
+msgstr "Dangos dewisiadau"
 
 #: data/gtk/help-overlay.ui:20
 msgid "Compose New Post"
-msgstr ""
+msgstr "Ysgrifennu neges newydd"
 
 #: data/gtk/help-overlay.ui:26 data/ui/widgets/votebox.ui:40
 #: src/Views/Sidebar.vala:69
@@ -72,27 +73,27 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:25 src/Views/Main.vala:62
 #: src/Views/Search.vala:90 src/Views/Search.vala:92
 msgid "Search"
-msgstr ""
+msgstr "Chwilio"
 
 #: data/gtk/help-overlay.ui:38 data/ui/views/media_viewer.ui:52
 msgid "Go Back"
-msgstr ""
+msgstr "Yn ôl"
 
 #: data/gtk/help-overlay.ui:44
 msgid "Show Keyboard Shortcuts"
-msgstr ""
+msgstr "Dangos llwybrau byr"
 
 #: data/gtk/help-overlay.ui:50
 msgid "Close Window"
-msgstr ""
+msgstr "Cau'r ffenestr"
 
 #: data/gtk/help-overlay.ui:56
 msgid "Quit"
-msgstr ""
+msgstr "Ymadael"
 
 #: data/gtk/help-overlay.ui:62
 msgid "About"
-msgstr ""
+msgstr "Ynghylch"
 
 #: data/gtk/help-overlay.ui:68
 msgid "Scroll Up"
@@ -116,43 +117,43 @@ msgstr ""
 
 #: data/gtk/help-overlay.ui:96
 msgid "Fullscreen"
-msgstr ""
+msgstr "Sgrin lawn"
 
 #: data/gtk/help-overlay.ui:102 data/ui/views/media_viewer.ui:172
 msgid "Zoom In"
-msgstr ""
+msgstr "Chwyddo i mewn"
 
 #: data/gtk/help-overlay.ui:108 data/ui/views/media_viewer.ui:160
 msgid "Zoom Out"
-msgstr ""
+msgstr "Chwyddo allan"
 
 #: data/gtk/help-overlay.ui:114 data/ui/views/media_viewer.ui:94
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Atodiad blaenorol"
 
 #: data/gtk/help-overlay.ui:120 data/ui/views/media_viewer.ui:106
 msgid "Next Attachment"
-msgstr ""
+msgstr "Atodiad nesaf"
 
 #: data/gtk/help-overlay.ui:126
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "Chwyddo i mewn"
 
 #: data/gtk/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Chwyddo allan"
 
 #: data/gtk/help-overlay.ui:139 data/gtk/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Previous Attachment"
-msgstr ""
+msgstr "Atodiad blaenorol"
 
 #: data/gtk/help-overlay.ui:146 data/gtk/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Next Attachment"
-msgstr ""
+msgstr "Atodiad nesaf"
 
 #: data/ui/dialogs/admin_dashboard.ui:19 src/Views/Sidebar.vala:85
 msgid "Admin Dashboard"
@@ -161,7 +162,7 @@ msgstr ""
 #. translators: window title
 #: data/ui/dialogs/advanced_search.ui:11 src/Views/Search.vala:31
 msgid "Advanced Search"
-msgstr ""
+msgstr "Chwiliad uwch"
 
 #: data/ui/dialogs/advanced_search.ui:22 data/ui/dialogs/compose.ui:35
 #: data/ui/dialogs/filter_edit.ui:16 data/ui/dialogs/new_account.ui:26
@@ -188,7 +189,7 @@ msgstr ""
 #: src/Widgets/ScheduledStatus.vala:184 src/Widgets/Status/ActionsRow.vala:279
 #: src/Widgets/Status.vala:465
 msgid "Cancel"
-msgstr ""
+msgstr "Canslo"
 
 #. translators: Label in the advanced search window. Leave `-is:reply` as is. 'instances' as in fediverse servers
 #: data/ui/dialogs/advanced_search.ui:57
@@ -196,16 +197,19 @@ msgid ""
 "Advanced Search might not work in all instances. You can invert an option by "
 "prefixing it with -. For example, -is:reply to filter out all replies."
 msgstr ""
+"Efallai na fydd chwiliad uwch yn gweithio ar bob gweinydd. Gallwch wrthdroi "
+"dewis drwy ei ragflaenu â -. Er enghraifft, byddai -is:reply yn eithrio "
+"ymatebion."
 
 #. translators: Search query
 #: data/ui/dialogs/advanced_search.ui:74
 msgid "Query"
-msgstr ""
+msgstr "Chwiliad"
 
 #. translators: Entry title that accepts a user tag, searches for posts published by the user
 #: data/ui/dialogs/advanced_search.ui:81
 msgid "From User"
-msgstr ""
+msgstr "Gan ddefnyddiwr"
 
 #. translators: tooltip text for a button in the 'advanced search' window. When clicked it automatically fills the entry with the first found user based on the query.
 #: data/ui/dialogs/advanced_search.ui:89
@@ -215,34 +219,34 @@ msgstr ""
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:102
 msgid "Only Replies"
-msgstr ""
+msgstr "Ymatebion yn unig"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:108
 msgid "Only Posts with Content Warnings"
-msgstr ""
+msgstr "Negeseuon â rhybudd cynnwys yn unig"
 
 #. translators: Advanced search window, option group
 #. This is the title and the option are
 #. 'media', 'poll'...
 #: data/ui/dialogs/advanced_search.ui:118
 msgid "Containing"
-msgstr ""
+msgstr "Yn cynnwys"
 
 #: data/ui/dialogs/advanced_search.ui:121
 #: src/Dialogs/Composer/AttachmentsPage.vala:62
 #: src/Widgets/ProfileFilterGroup.vala:66
 msgid "Media"
-msgstr ""
+msgstr "Cyfryngau"
 
 #: data/ui/dialogs/advanced_search.ui:126 src/Dialogs/Composer/PollPage.vala:77
 msgid "Poll"
-msgstr ""
+msgstr "Arolwg"
 
 #. translators: advanced search window switch title
 #: data/ui/dialogs/advanced_search.ui:132
 msgid "Embed"
-msgstr ""
+msgstr "Mewnosodiad"
 
 #: data/ui/dialogs/advanced_search.ui:139 data/ui/dialogs/preferences.ui:185
 msgid "Timelines"
@@ -255,7 +259,7 @@ msgstr ""
 #. translators: Advanced search window, row title, 'library' is used by Mastodon to describe 'bookmarks, favorited posts etc'
 #: data/ui/dialogs/advanced_search.ui:157
 msgid "Library"
-msgstr ""
+msgstr "Llyfrgell"
 
 #. translators: Advanced search window, radio button subtitle for the 'library' option
 #: data/ui/dialogs/advanced_search.ui:159
@@ -265,43 +269,43 @@ msgstr ""
 #: data/ui/dialogs/advanced_search.ui:174
 #: src/Services/Accounts/Mastodon/Account.vala:208
 msgid "Public"
-msgstr ""
+msgstr "Cyhoeddus"
 
 #. translators: Advanced search window, option group
 #: data/ui/dialogs/advanced_search.ui:192
 msgid "Dates"
-msgstr ""
+msgstr "Dyddiadau"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *before* this date
 #: data/ui/dialogs/advanced_search.ui:198
 msgid "Before"
-msgstr ""
+msgstr "Cyn"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *during* this date
 #: data/ui/dialogs/advanced_search.ui:221
 msgid "During"
-msgstr ""
+msgstr "Yn ystod"
 
 #. translators: Advanced Search window, option title, opens a calendar, so it's a date.
 #. The user is searching for posts posted *after* this date
 #: data/ui/dialogs/advanced_search.ui:244
 msgid "After"
-msgstr ""
+msgstr "Ar ôl"
 
 #: data/ui/dialogs/filter_edit.ui:6
 msgid "Edit Filter"
-msgstr ""
+msgstr "Golygu'r hidlydd"
 
 #: data/ui/dialogs/filter_edit.ui:24 data/ui/dialogs/profile_edit.ui:28
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:50
 msgid "Save"
-msgstr ""
+msgstr "Cadw"
 
 #: data/ui/dialogs/filter_edit.ui:56
 msgid "Title"
-msgstr ""
+msgstr "Teitl"
 
 #: data/ui/dialogs/filter_edit.ui:62
 msgid "Expires In"
@@ -309,7 +313,7 @@ msgstr ""
 
 #: data/ui/dialogs/filter_edit.ui:67
 msgid "Hide Completely"
-msgstr ""
+msgstr "Cuddio'n gyfan gwbl"
 
 #: data/ui/dialogs/filter_edit.ui:68
 msgid "Otherwise a warning will be used"
@@ -317,7 +321,7 @@ msgstr ""
 
 #: data/ui/dialogs/filter_edit.ui:75
 msgid "Contexts"
-msgstr ""
+msgstr "Cyd-destunau"
 
 #: data/ui/dialogs/filter_edit.ui:76
 msgid "One or multiple contexts where the filter should apply"
@@ -325,27 +329,27 @@ msgstr ""
 
 #: data/ui/dialogs/filter_edit.ui:81
 msgid "Keywords or Phrases"
-msgstr ""
+msgstr "Allweddeiriau neu ymadroddion"
 
 #: data/ui/dialogs/filter_edit.ui:89
 msgid "Add Keyword"
-msgstr ""
+msgstr "Ychwanegu allweddair"
 
 #: data/ui/dialogs/list_edit.ui:7 data/ui/dialogs/list_edit.ui:10
 msgid "Members"
-msgstr ""
+msgstr "Aelodau"
 
 #: data/ui/dialogs/list_edit.ui:27
 msgid "List Name"
-msgstr ""
+msgstr "Enw'r rhestr"
 
 #: data/ui/dialogs/list_edit.ui:32
 msgid "Hide Posts From Home"
-msgstr ""
+msgstr "Cuddio'r negeseuon o'r hafan"
 
 #: data/ui/dialogs/list_edit.ui:39
 msgid "Replies Policy"
-msgstr ""
+msgstr "Polisi ymateb"
 
 #: data/ui/dialogs/list_edit.ui:40
 msgid "Show member replies to"
@@ -354,11 +358,11 @@ msgstr ""
 #: data/ui/dialogs/list_edit.ui:43 src/Widgets/Admin/AssignedRow.vala:49
 #: src/Widgets/Admin/Report.vala:20 src/Widgets/Admin/Report.vala:24
 msgid "Nobody"
-msgstr ""
+msgstr "Neb"
 
 #: data/ui/dialogs/list_edit.ui:54
 msgid "Other members of the list"
-msgstr ""
+msgstr "Aelodau eraill y rhestr"
 
 #: data/ui/dialogs/list_edit.ui:66
 msgid "Any followed user"
@@ -367,17 +371,17 @@ msgstr ""
 #: data/ui/dialogs/new_account.ui:8 src/Views/Sidebar.vala:314
 #: src/Views/Sidebar.vala:318
 msgid "Add Account"
-msgstr ""
+msgstr "Ychwanegu cyfrif"
 
 #: data/ui/dialogs/new_account.ui:33 data/ui/dialogs/new_account.ui:126
 #: src/Dialogs/Report.vala:87 src/Dialogs/Report.vala:417
 #: src/Widgets/AccountSuggestions.vala:89
 msgid "Next"
-msgstr ""
+msgstr "Nesaf"
 
 #: data/ui/dialogs/new_account.ui:47
 msgid "What is your Server?"
-msgstr ""
+msgstr "Beth yw eich gweinydd?"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:49
@@ -385,19 +389,21 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
 msgstr ""
+"Os nad oes gennych gyfrif eto, <a href=\"https://joinmastodon.org/servers\""
+">dewiswch weinydd a chofrestru</a>."
 
 #: data/ui/dialogs/new_account.ui:70
 msgid "Server URL"
-msgstr ""
+msgstr "URL y gweinydd"
 
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:299
 msgid "Settings"
-msgstr ""
+msgstr "Gosodiadau"
 
 #: data/ui/dialogs/new_account.ui:141
 msgid "Confirm Authorization"
-msgstr ""
+msgstr "Cadarnhau'r awdurdodi"
 
 #. translators: Do not translate "manual_auth"
 #: data/ui/dialogs/new_account.ui:161
@@ -405,33 +411,35 @@ msgid ""
 "If something went wrong, <a href=\"manual_auth\">try manual authorization</"
 "a>."
 msgstr ""
+"Os aeth rhywbeth o'i le, <a href=\"manual_auth\">ceisiwch awdurdodi â "
+"llaw</a>."
 
 #: data/ui/dialogs/new_account.ui:171
 msgid "Authorization Code"
-msgstr ""
+msgstr "Cod awdurdodi"
 
 #: data/ui/dialogs/new_account.ui:218
 msgid "Your account is connected and ready to use!"
-msgstr ""
+msgstr "Mae eich cyfrif wedi ei gysylltu ac yn barod i'w ddefnyddio!"
 
 #: data/ui/dialogs/new_account.ui:223
 msgid "Done"
-msgstr ""
+msgstr "Cwblhau"
 
 #: data/ui/dialogs/notification_settings.ui:6 src/Views/Main.vala:69
 msgid "Filter"
-msgstr ""
+msgstr "Hidlo"
 
 #: data/ui/dialogs/notification_settings.ui:16
 msgid "Clear All Notifications"
-msgstr ""
+msgstr "Clirio pob hysbysiad"
 
 #: data/ui/dialogs/notification_settings.ui:34
 #: data/ui/dialogs/preferences.ui:252 src/API/Filters/Filter.vala:45
 #: src/Services/Accounts/Mastodon/Account.vala:41
 #: src/Views/Notifications.vala:36
 msgid "Notifications"
-msgstr ""
+msgstr "Hysbysiadau"
 
 #: data/ui/dialogs/notification_settings.ui:37
 msgid "Included Notifications"
@@ -450,7 +458,7 @@ msgstr ""
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:50
 msgid "People you don't follow"
-msgstr ""
+msgstr "Pobl nad ydych yn eu dilyn"
 
 #. translators: Preferences switch subtitle about filtering out 'People you don't follow'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:52
@@ -460,7 +468,7 @@ msgstr ""
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:58
 msgid "People not following you"
-msgstr ""
+msgstr "Pobl nad ydynt yn eich dilyn"
 
 #. translators: Preferences switch subtitle about filtering out 'People not following you'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:60
@@ -470,7 +478,7 @@ msgstr ""
 #. translators: Preferences switch title about filtering out notifications; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:66
 msgid "New accounts"
-msgstr ""
+msgstr "Cyfrifon newydd"
 
 #. translators: Preferences switch subtitle about filtering out 'New accounts'; you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: data/ui/dialogs/notification_settings.ui:68
@@ -490,39 +498,39 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:23
 msgid "Appearance"
-msgstr ""
+msgstr "Golwg"
 
 #: data/ui/dialogs/preferences.ui:26
 msgid "Color Scheme"
-msgstr ""
+msgstr "Cynllun lliwiau"
 
 #: data/ui/dialogs/preferences.ui:40
 msgid "Large Text"
-msgstr ""
+msgstr "Testun mawr"
 
 #: data/ui/dialogs/preferences.ui:41
 msgid "Increase the size of text in posts"
-msgstr ""
+msgstr "Cynyddu maint testun negeseuon"
 
 #: data/ui/dialogs/preferences.ui:46
 msgid "Large Line Height"
-msgstr ""
+msgstr "Uchder mawr rhwng llinellau"
 
 #: data/ui/dialogs/preferences.ui:47
 msgid "Increase the line height in posts"
-msgstr ""
+msgstr "Cynyddu'r uchder rhwng llinellau mewn negeseuon"
 
 #: data/ui/dialogs/preferences.ui:52
 msgid "Large Custom Emojis"
-msgstr ""
+msgstr "Emojis addasedig mawr"
 
 #: data/ui/dialogs/preferences.ui:57
 msgid "Scale Custom Emojis on Hover"
-msgstr ""
+msgstr "Chwyddo emojis addasedig wrth hofran"
 
 #: data/ui/dialogs/preferences.ui:58
 msgid "Slightly increases the size of custom emojis when you hover over them"
-msgstr ""
+msgstr "Cynyddu maint emojis addasedig ychydig wrth hofran drostynt"
 
 #. translators: if unsure, you can find the translation on glitch-soc https://github.com/glitch-soc/mastodon/tree/main/app/javascript/flavours/glitch/locales under the key "settings.media_letterbox"
 #: data/ui/dialogs/preferences.ui:64
@@ -549,7 +557,7 @@ msgstr ""
 #. translators: leave this as is unless you want to transliterate. BlurHash is a recognizable product name.
 #: data/ui/dialogs/preferences.ui:80
 msgid "BlurHash"
-msgstr ""
+msgstr "BlurHash"
 
 #: data/ui/dialogs/preferences.ui:81
 msgid "Show a blurred version of the media until they fully load"
@@ -578,35 +586,35 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:110
 msgid "Posting"
-msgstr ""
+msgstr "Postio"
 
 #: data/ui/dialogs/preferences.ui:113
 msgid "Default Post Visibility"
-msgstr ""
+msgstr "Gwelededd diofyn negeseuon"
 
 #: data/ui/dialogs/preferences.ui:122
 msgid "Default Post Language"
-msgstr ""
+msgstr "Iaith ddiofyn negeseuon"
 
 #: data/ui/dialogs/preferences.ui:132
 msgid "Default Post Content Type"
-msgstr ""
+msgstr "Math o gynnwys diofyn negeseuon"
 
 #: data/ui/dialogs/preferences.ui:143
 msgid "Behavior"
-msgstr ""
+msgstr "Ymddygiad"
 
 #: data/ui/dialogs/preferences.ui:146
 msgid "Run in Background"
-msgstr ""
+msgstr "Rhedeg yn y cefndir"
 
 #: data/ui/dialogs/preferences.ui:147
 msgid "Fetch notifications while the app is closed"
-msgstr ""
+msgstr "Nôl hysbysiadau tra bod yr ap wedi'i gau"
 
 #: data/ui/dialogs/preferences.ui:152
 msgid "Strip Tracking Parameters From Links"
-msgstr ""
+msgstr "Tynnu paramedrau tracio oddi ar ddolenni"
 
 #. translators: Broken as in incorrect
 #: data/ui/dialogs/preferences.ui:154
@@ -623,16 +631,16 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:165
 msgid "Warn before replying to an old post"
-msgstr ""
+msgstr "Rhybuddio cyn ymateb i hen neges"
 
 #: data/ui/dialogs/preferences.ui:170
 msgid "Warn before copying a link to a private post"
-msgstr ""
+msgstr "Rhybuddio cyn copïo dolen i neges breifat"
 
 #. translators: probably leave it as is. It's a networking term that might not translate nicely without losing its meaning
 #: data/ui/dialogs/preferences.ui:177 src/Dialogs/NewAccount.vala:330
 msgid "Proxy"
-msgstr ""
+msgstr "Dirprwy"
 
 #: data/ui/dialogs/preferences.ui:188
 msgid "Posts per Load Batch"
@@ -656,35 +664,37 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:211
 msgid "Online Services"
-msgstr ""
+msgstr "Gwasanaethau ar-lein"
 
 #. translators: leave api.tuba.geopjr.dev as is
 #: data/ui/dialogs/preferences.ui:213
 msgid "Configure features that connect to api.tuba.geopjr.dev"
-msgstr ""
+msgstr "Ffurfweddu nodweddion sy'n cysylltu ag api.tuba.geopjr.dev"
 
 #: data/ui/dialogs/preferences.ui:216
 msgid "Send Preference Analytics"
-msgstr ""
+msgstr "Anfon manylion eich dewisiadau"
 
 #: data/ui/dialogs/preferences.ui:217
 msgid ""
 "Send your preferences to Tuba's developers for popularity research biweekly"
 msgstr ""
+"Anfon eich dewisiadau i ddatblygwyr Tuba bob pythefnos ar gyfer ymchwil "
+"poblogrwydd"
 
 #: data/ui/dialogs/preferences.ui:223
 msgid "Preview Analytics"
-msgstr ""
+msgstr "Rhagolwg o'r manylion a anfonir"
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/ui/dialogs/preferences.ui:240
 msgid "Update Supporters Periodically"
-msgstr ""
+msgstr "Diweddaru'r rhestr o gefnogwyr o bryd i'w gilydd"
 
 #. translators: supporters = tuba contributors and sponsors
 #: data/ui/dialogs/preferences.ui:242
 msgid "Fetch the list of Tuba's supporters biweekly"
-msgstr ""
+msgstr "Nôl y rhestr o gefnogwyr Tuba bob pythefnos"
 
 #. translators: Push Notifications are the desktop ones / not the in-app ones. It's not a verb.
 #: data/ui/dialogs/preferences.ui:256
@@ -694,20 +704,20 @@ msgstr ""
 #. translators: #FediWrapped, title of the 'amount of new followers' card
 #: data/ui/dialogs/preferences.ui:259 src/Dialogs/AnnualReport.vala:389
 msgid "New Followers"
-msgstr ""
+msgstr "Dilynwyr newydd"
 
 #: data/ui/dialogs/preferences.ui:265
 msgid "New Follower Requests"
-msgstr ""
+msgstr "Ceisiadau newydd i'ch dilyn"
 
 #: data/ui/dialogs/preferences.ui:271 src/Dialogs/NotificationSettings.vala:50
 #: src/Services/Accounts/Mastodon/Account.vala:81 src/Views/Favorites.vala:4
 msgid "Favorites"
-msgstr ""
+msgstr "Ffefrynnau"
 
 #: data/ui/dialogs/preferences.ui:277 src/Dialogs/NotificationSettings.vala:49
 msgid "Mentions"
-msgstr ""
+msgstr "Crybwylliadau"
 
 #: data/ui/dialogs/preferences.ui:283 src/Dialogs/NotificationSettings.vala:51
 msgid "Boosts"
@@ -715,15 +725,15 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:289
 msgid "Poll Results"
-msgstr ""
+msgstr "Canlyniadau arolwg"
 
 #: data/ui/dialogs/preferences.ui:295
 msgid "Edits"
-msgstr ""
+msgstr "Golygiadau"
 
 #: data/ui/dialogs/preferences.ui:301
 msgid "Group"
-msgstr ""
+msgstr "Grwpio"
 
 #. translators: this is meant for "Push Notifications" / the desktop ones, not the in-app ones.
 #: data/ui/dialogs/preferences.ui:303
@@ -733,28 +743,28 @@ msgstr ""
 
 #: data/ui/dialogs/preferences.ui:314
 msgid "Filters"
-msgstr ""
+msgstr "Hidlyddion"
 
 #: data/ui/dialogs/preferences.ui:318
 msgid "Keywords"
-msgstr ""
+msgstr "Allweddeiriau"
 
 #: data/ui/dialogs/preferences.ui:326
 msgid "Add Filter…"
-msgstr ""
+msgstr "Ychwanegu hidlydd…"
 
 #: data/ui/dialogs/profile_edit.ui:12 src/Views/Profile.vala:230
 msgid "Edit Profile"
-msgstr ""
+msgstr "Golygu'r proffil"
 
 #: data/ui/dialogs/profile_edit.ui:66
 msgid "Edit Profile Picture"
-msgstr ""
+msgstr "Golygu llun y proffil"
 
 #. translators: if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:95
 msgid "Edit Header Picture"
-msgstr ""
+msgstr "Golygu llun y pennyn"
 
 #: data/ui/dialogs/profile_edit.ui:120 src/Views/Admin/Pages/Accounts.vala:135
 msgid "Display Name"
@@ -763,12 +773,12 @@ msgstr ""
 #. translators: profile bio or description
 #: data/ui/dialogs/profile_edit.ui:128
 msgid "Bio"
-msgstr ""
+msgstr "Bywgraffiad"
 
 #: data/ui/dialogs/profile_edit.ui:138 src/Dialogs/Composer/EditorPage.vala:353
 #: src/Widgets/Status/ReactionsRow.vala:58
 msgid "Custom Emoji Picker"
-msgstr ""
+msgstr "Dewisydd emojis addasedig"
 
 #. translators: Alternative Text refers to text that describes
 #. an attachment when using screen readers or the
@@ -777,79 +787,79 @@ msgstr ""
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:94
 #: src/Widgets/Attachment/Item.vala:159
 msgid "Alternative Text"
-msgstr ""
+msgstr "Testun amgen"
 
 #. translators: row in the profile editor dialog for setting alt text for the user profile picture
 #: data/ui/dialogs/profile_edit.ui:167
 msgid "Profile Picture Description"
-msgstr ""
+msgstr "Disgrifiad o lun y proffil"
 
 #. translators: row in the profile editor dialog for setting alt text for the user profile header/cover
 #: data/ui/dialogs/profile_edit.ui:174
 msgid "Header Picture Description"
-msgstr ""
+msgstr "Disgrifiad o lun y pennyn"
 
 #. translators: profile fields, if unsure take a look at Mastodon https://github.com/mastodon/mastodon/blob/main/config/locales/ (under simple_form)
 #: data/ui/dialogs/profile_edit.ui:182
 msgid "Fields"
-msgstr ""
+msgstr "Meysydd"
 
 #. translators: window title
 #. translators: 'Schedule' is a verb
 #: data/ui/dialogs/schedule.ui:29 src/Dialogs/Composer/Dialog.vala:159
 msgid "Schedule Post"
-msgstr ""
+msgstr "Amserlennu'r neges"
 
 #. translators: verb
 #: data/ui/dialogs/schedule.ui:47
 msgid "Schedule"
-msgstr ""
+msgstr "Amserlennu"
 
 #. translators: Title used for calendar date picking
 #: data/ui/dialogs/schedule.ui:74
 msgid "Date"
-msgstr ""
+msgstr "Dyddiad"
 
 #. translators: Title used for time picking
 #: data/ui/dialogs/schedule.ui:99
 msgid "Time"
-msgstr ""
+msgstr "Amser"
 
 #. translators: Label on an hour picker
 #: data/ui/dialogs/schedule.ui:114
 msgid "Hour"
-msgstr ""
+msgstr "Awr"
 
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:134
 msgid "Minute"
-msgstr ""
+msgstr "Munud"
 
 #. translators: Label on an minute picker
 #: data/ui/dialogs/schedule.ui:154
 msgid "Second"
-msgstr ""
+msgstr "Eiliad"
 
 #: data/ui/dialogs/schedule.ui:168
 msgid "Timezone"
-msgstr ""
+msgstr "Parth amser"
 
 #: data/ui/menus.ui:10
 msgid "Mention"
-msgstr ""
+msgstr "Crybwyll"
 
 #: data/ui/menus.ui:16
 msgid "Direct Message"
-msgstr ""
+msgstr "Anfon neges uniongyrchol"
 
 #: data/ui/menus.ui:22
 msgid "Copy Handle"
-msgstr ""
+msgstr "Copïo dolen y defnyddiwr"
 
 #: data/ui/menus.ui:29 data/ui/views/media_viewer.ui:6
 #: src/Widgets/Attachment/Item.vala:175 src/Widgets/Status.vala:308
 msgid "Open in Browser"
-msgstr ""
+msgstr "Agor mewn porwr"
 
 #: data/ui/menus.ui:33
 msgid "Receive Post Notifications"
@@ -867,81 +877,81 @@ msgstr ""
 #: data/ui/menus.ui:46 src/API/Relationship.vala:184
 #: src/Widgets/Status.vala:325
 msgid "Mute"
-msgstr ""
+msgstr "Tewi"
 
 #: data/ui/menus.ui:51 src/API/Relationship.vala:139
 #: src/Views/Admin/Pages/BlockedEmails.vala:24
 #: src/Views/Admin/Pages/BlockedEmails.vala:71 src/Views/Profile.vala:365
 msgid "Block"
-msgstr ""
+msgstr "Rhwystro"
 
 #: data/ui/menus.ui:55
 msgid "Block Domain"
-msgstr ""
+msgstr "Rhwystro'r parth"
 
 #: data/ui/menus.ui:60 src/Dialogs/Admin/Report.vala:8
 #: src/Widgets/Status.vala:365
 msgid "Report"
-msgstr ""
+msgstr "Adrodd"
 
 #: data/ui/menus.ui:67
 msgid "Timeline"
-msgstr ""
+msgstr "Llinell amser"
 
 #: data/ui/menus.ui:83 src/Services/Accounts/Mastodon/Account.vala:90
 #: src/Views/Lists.vala:209 src/Views/Profile.vala:462
 msgid "Lists"
-msgstr ""
+msgstr "Rhestri"
 
 #: data/ui/views/media_viewer.ui:10 src/Widgets/Attachment/Item.vala:176
 #: src/Widgets/Status.vala:309
 msgid "Copy URL"
-msgstr ""
+msgstr "Copïo'r URL"
 
 #: data/ui/views/media_viewer.ui:14 src/Widgets/Attachment/Item.vala:177
 msgid "Save Media…"
-msgstr ""
+msgstr "Cadw'r cyfrwng…"
 
 #: data/ui/views/media_viewer.ui:18 src/Widgets/Attachment/Item.vala:179
 msgid "Copy Media"
-msgstr ""
+msgstr "Copïo'r cyfrwng"
 
 #: data/ui/views/media_viewer.ui:60 data/ui/views/sidebar/view.ui:56
 #: data/ui/widgets/status.ui:220
 msgid "Menu"
-msgstr ""
+msgstr "Dewislen"
 
 #: data/ui/views/media_viewer.ui:67 data/ui/views/media_viewer.ui:132
 msgid "Toggle Fullscreen"
-msgstr ""
+msgstr "Toglo'r sgrin lawn"
 
 #. translators: Tooltip on icon indicating that the user is a bot/automated account
 #: data/ui/views/profile_header.ui:37 data/ui/widgets/profile.ui:25
 msgid "Bot"
-msgstr ""
+msgstr "Bot"
 
 #. translators: Tooltip text shown on an icon that indicates
 #. that the user is either a financial supporter
 #. or contributor to Tuba
 #: data/ui/views/profile_header.ui:64
 msgid "Tuba Supporter"
-msgstr ""
+msgstr "Cefnogwr Tuba"
 
 #. translators: tooltip text on profile covers.
 #. You can replace 'Cover' with 'Background' if needed.
 #: data/ui/views/profile_header.ui:85
 msgid "View Cover"
-msgstr ""
+msgstr "Dangos y clawr"
 
 #. translators: tooltip text on profile avatars.
 #. You can replace 'Avatar' with 'Profile Picture' if needed.
 #: data/ui/views/profile_header.ui:99
 msgid "View Avatar"
-msgstr ""
+msgstr "Dangos llun y proffil"
 
 #: data/ui/views/profile_header.ui:164 src/Views/Sidebar.vala:68
 msgid "Open Profile"
-msgstr ""
+msgstr "Agor y proffil"
 
 #. translators: tooltip text that opens a popup that lists everyone that you follow that also follow this person
 #: data/ui/views/profile_header.ui:184
@@ -950,51 +960,51 @@ msgstr ""
 
 #: data/ui/views/profile_header.ui:214
 msgid "Note"
-msgstr ""
+msgstr "Nodyn"
 
 #. translators: Forget as in 'Remove Account'
 #: data/ui/views/sidebar/account.ui:53
 msgid "Forget Account"
-msgstr ""
+msgstr "Anghofio'r cyfrif"
 
 #: data/ui/views/sidebar/view.ui:38
 msgid "Switch Account"
-msgstr ""
+msgstr "Newid cyfrif"
 
 #. translators: banner shown when the internet connection is lost
 #: data/ui/views/sidebar/view.ui:71
 msgid "Offline"
-msgstr ""
+msgstr "All-lein"
 
 #. translators: Button on a banner
 #: data/ui/views/sidebar/view.ui:78 data/ui/views/sidebar/view.ui:85
 #: src/Views/Notifications.vala:59
 msgid "View"
-msgstr ""
+msgstr "Gweld"
 
 #: data/ui/widgets/announcement.ui:96
 msgid "Unread"
-msgstr ""
+msgstr "Heb ei ddarllen"
 
 #: data/ui/widgets/announcement.ui:107 data/ui/widgets/status.ui:190
 msgid "Edited"
-msgstr ""
+msgstr "Wedi ei olygu"
 
 #. translators: Media play bar play button tooltip
 #: data/ui/widgets/audiocontrols.ui:30 src/Widgets/AudioPlayer/Controls.vala:26
 msgctxt "media controls tooltip"
 msgid "Play"
-msgstr ""
+msgstr "Chwarae"
 
 #: data/ui/widgets/audiocontrols.ui:49
 msgctxt "media controls"
 msgid "Position"
-msgstr ""
+msgstr "Lleoliad"
 
 #: data/ui/widgets/audiocontrols.ui:67
 msgctxt "media controls"
 msgid "Volume"
-msgstr ""
+msgstr "Uchder y sain"
 
 #: data/ui/widgets/status.ui:179
 msgid "Pinned"
@@ -1003,21 +1013,21 @@ msgstr ""
 #. translators: Tooltip that closes content warning
 #: data/ui/widgets/status.ui:249
 msgid "Show Less"
-msgstr ""
+msgstr "Dangos llai"
 
 #. translators: Tooltip that opens content warning
 #: data/ui/widgets/status.ui:282 src/Widgets/Status.vala:568
 msgid "Show More"
-msgstr ""
+msgstr "Dangos mwy"
 
 #. translators: Tooltip that opens filter
 #: data/ui/widgets/status.ui:348
 msgid "Show Anyway"
-msgstr ""
+msgstr "Dangos beth bynnag"
 
 #: data/ui/widgets/votebox.ui:33
 msgid "Vote"
-msgstr ""
+msgstr "Pleidleisio"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:10 src/Views/Admin/Pages/Accounts.vala:299
@@ -1030,7 +1040,7 @@ msgstr ""
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:12 src/Dialogs/Admin/TakeAction.vala:86
 msgid "Limit"
-msgstr ""
+msgstr "Cyfyngu"
 
 #. translators: Admin Dashboard, Federation Block severity
 #: src/API/Admin/DomainBlock.vala:14 src/Dialogs/Admin/TakeAction.vala:95
@@ -1055,22 +1065,22 @@ msgstr ""
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:22
 msgid "Block Access"
-msgstr ""
+msgstr "Rhwystro mynediad"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:24
 msgid "Block Sign-ups"
-msgstr ""
+msgstr "Rhwystro cofrestru"
 
 #. translators: Admin Dashboard, IP Block severity title
 #: src/API/Admin/IPBlock.vala:26
 msgid "Limit Sign-ups"
-msgstr ""
+msgstr "Cyfyngu cofrestru"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:34
 msgid "Block access to all resources"
-msgstr ""
+msgstr "Rhwystro mynediad i bob adnodd"
 
 #. translators: Admin Dashboard, IP Block severity description
 #: src/API/Admin/IPBlock.vala:36
@@ -1084,7 +1094,7 @@ msgstr ""
 
 #: src/API/Admin/Report.vala:19
 msgid "Spam"
-msgstr ""
+msgstr "Sothach"
 
 #: src/API/Admin/Report.vala:20
 msgid "Rule Violation"
@@ -1100,7 +1110,7 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:214
 #: src/Widgets/CustomEmojiChooser.vala:218
 msgid "Other"
-msgstr ""
+msgstr "Arall"
 
 #. translators: the variable is a string report comment
 #: src/API/Admin/Report.vala:72
@@ -1110,17 +1120,17 @@ msgstr ""
 #. translators: report notification, "Reason: <reason>"
 #: src/API/Admin/Report.vala:74
 msgid "Reason"
-msgstr ""
+msgstr "Rheswm"
 
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
 msgid "You've received a report"
-msgstr ""
+msgstr "Rydych wedi derbyn adroddiad"
 
 #. translators: report notification with date, "You've received a report on: <date>"
 #: src/API/Admin/Report.vala:81
 msgid "You've received a report on"
-msgstr ""
+msgstr "Rydych wedi derbyn adroddiad ar"
 
 #: src/API/Announcement.vala:55 src/Application.vala:437
 #: src/Dialogs/Composer/Dialog.vala:464 src/Dialogs/ProfileEdit.vala:142
@@ -1133,33 +1143,33 @@ msgstr ""
 #: src/Widgets/Status/ReactionsRow.vala:160
 #: src/Widgets/Status/ReactionsRow.vala:184 src/Widgets/VoteBox.vala:39
 msgid "Error"
-msgstr ""
+msgstr "Gwall"
 
 #. translators: the variable is a comma separated list of account handles,
 #. this is a state - not an action
 #: src/API/Conversation.vala:31
 #, c-format
 msgid "Empty Conversation with %s"
-msgstr ""
+msgstr "Sgwrs wag â %s"
 
 #. translators: Leave &amp; as is, it gets converted to &
 #: src/API/Filters/Filter.vala:43
 msgid "Home &amp; Lists"
-msgstr ""
+msgstr "Hafan &amp; rhestri"
 
 #: src/API/Filters/Filter.vala:46
 msgid "Public Timelines"
-msgstr ""
+msgstr "Llinellau amser cyhoeddus"
 
 #: src/API/Filters/Filter.vala:47
 #: src/Services/Accounts/Mastodon/Account.vala:52
 #: src/Views/Conversations.vala:4
 msgid "Conversations"
-msgstr ""
+msgstr "Sgyrsiau"
 
 #: src/API/Filters/Filter.vala:48
 msgid "Profiles"
-msgstr ""
+msgstr "Proffiliau"
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the others are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:14
@@ -1228,71 +1238,71 @@ msgstr ""
 #: src/API/Notification.vala:180
 #, c-format
 msgid "%s (& %d others)"
-msgstr ""
+msgstr "%s (a %d arall)"
 
 #: src/API/Notification.vala:226
 msgid "Reply…"
-msgstr ""
+msgstr "Ymateb…"
 
 #: src/API/Notification.vala:234
 msgid "Remove from Followers"
-msgstr ""
+msgstr "Tynnu o'r dilynwyr"
 
 #: src/API/Notification.vala:239
 msgid "Follow Back"
-msgstr ""
+msgstr "Dilyn yn ôl"
 
 #: src/API/Notification.vala:246 src/Widgets/Status/FollowRequestRow.vala:8
 msgid "Decline"
-msgstr ""
+msgstr "Gwrthod"
 
 #: src/API/Notification.vala:251 src/Views/NotificationRequestsList.vala:33
 #: src/Widgets/NotificationRequest.vala:65
 #: src/Widgets/Status/FollowRequestRow.vala:14
 msgid "Accept"
-msgstr ""
+msgstr "Derbyn"
 
 #: src/API/Relationship.vala:23
 msgid "Sent follow request"
-msgstr ""
+msgstr "Cais dilyn wedi'i anfon"
 
 #: src/API/Relationship.vala:25
 msgid "Mutuals"
-msgstr ""
+msgstr "Yn dilyn eich gilydd"
 
 #: src/API/Relationship.vala:27
 msgid "Follows you"
-msgstr ""
+msgstr "Yn eich dilyn"
 
 #. translators: as in, you've been blocked by them
 #: src/API/Relationship.vala:30
 msgid "Blocks you"
-msgstr ""
+msgstr "Yn eich rhwystro"
 
 #. translators: the variable is a user handle
 #: src/API/Relationship.vala:133
 #, c-format
 msgid "Block \"%s\"?"
-msgstr ""
+msgstr "RHwystro \"%s\"?"
 
 #: src/API/Relationship.vala:133
 #, c-format
 msgid "Unblock \"%s\"?"
-msgstr ""
+msgstr "Dadrwystro \"%s\"?"
 
 #: src/API/Relationship.vala:139 src/Views/Admin/Timelines/BlockedIPs.vala:33
 #: src/Views/Admin/Timelines/DomainBlock.vala:33
 #: src/Views/Admin/Timelines/EmailDomain.vala:33 src/Views/Profile.vala:365
 #: src/Widgets/RelationshipButton.vala:43
 msgid "Unblock"
-msgstr ""
+msgstr "Dadrwystro"
 
 #. translators: switch label when muting someone,
 #. turning it on will also hide notifications
 #. from this user, e.g. when they reply to you
 #: src/API/Relationship.vala:153
 msgid "Hide from Notifications"
-msgstr ""
+msgstr "Cuddio o'r hysbysiadau"
 
 #. translators: Dropdown title for picking when a mute should expire
 #: src/API/Relationship.vala:168
@@ -1303,11 +1313,11 @@ msgstr ""
 #: src/API/Relationship.vala:181
 #, c-format
 msgid "Mute \"%s\"?"
-msgstr ""
+msgstr "Tewi \"%s\"?"
 
 #: src/API/Relationship.vala:221 src/Dialogs/FilterEdit.vala:29
 msgid "Never"
-msgstr ""
+msgstr "Byth"
 
 #. translators: the variable is a number
 #: src/API/Relationship.vala:222 src/API/Relationship.vala:223
@@ -1334,74 +1344,74 @@ msgstr[1] ""
 
 #: src/API/SearchResults.vala:32
 msgid "Search returned no results"
-msgstr ""
+msgstr "Dim canlyniadau i'r chwiliad"
 
 #. translators: the variable is an external service like "PeerTube"
 #: src/API/Status/PreviewCard.vala:25
 #, c-format
 msgid "You are about to open a %s video"
-msgstr ""
+msgstr "Rydych ar fin agor fideo %s"
 
 #. translators: the variable is an external service like "Funkwhale",
 #. track as in song
 #: src/API/Status/PreviewCard.vala:29
 #, c-format
 msgid "You are about to open a %s track"
-msgstr ""
+msgstr "Rydych ar fin agor trac %s"
 
 #. translators: the variable is an external service like "BookWyrm"
 #: src/API/Status/PreviewCard.vala:32
 #, c-format
 msgid "You are about to open a %s book"
-msgstr ""
+msgstr "Rydych ar fin agor llyfr %s"
 
 #. translators: the variable is the app name (Tuba)
 #: src/API/Status/PreviewCard.vala:35
 #, c-format
 msgid "You are about to leave %s"
-msgstr ""
+msgstr "Rydych ar fin gadael %s"
 
 #. translators: the variable is a url
 #: src/API/Status/PreviewCard.vala:48
 #, c-format
 msgid "If you proceed, \"%s\" will open in your browser."
-msgstr ""
+msgstr "Os ydych yn parhau, caiff \"%s\" ei agor yn eich porwr."
 
 #. translators: the first variable is the app name (Tuba),
 #. the second one is a url
 #: src/API/Status/PreviewCard.vala:52
 #, c-format
 msgid "If you proceed, %s will connect to \"%s\"."
-msgstr ""
+msgstr "Os ydych yn parhau, bydd %s yn cysylltu â \"%s\"."
 
 #: src/API/Suggestion.vala:12
 msgid "Account not found"
-msgstr ""
+msgstr "Heb ganfod y cyfrif"
 
 #. translators: the variable is the amount of times a hashtag was used in a week
 #: src/API/Tag.vala:45
 #, c-format
 msgid "%d per week"
-msgstr ""
+msgstr "%d yr wythnos"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:59
 #, c-format
 msgid "Used %d times by %d people yesterday"
-msgstr ""
+msgstr "Defnyddiwyd %d o droeon gan %d o bobl ddoe"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:67
 #, c-format
 msgid "Used %d times by %d people in the past 2 days"
-msgstr ""
+msgstr "Defnyddiwyd %d o droeon gan %d o bobl yn y deuddydd diwethaf"
 
 #. translators: Toast that pops up when
 #. an invalid proxy url has
 #. been provided in settings
 #: src/Application.vala:350 src/Dialogs/Preferences.vala:386
 msgid "Invalid Proxy URL"
-msgstr ""
+msgstr "URL dirprwy annilys"
 
 #. translators: the variable is a uri scheme like 'https'
 #: src/Application.vala:417
@@ -1425,24 +1435,24 @@ msgstr ""
 #. translators: Name <email@domain.com> or Name https://website.example
 #: src/Application.vala:631
 msgid "translator-credits"
-msgstr ""
+msgstr "Newidyn"
 
 #. translators: Wiki pages / Guides
 #: src/Application.vala:635
 msgid "Wiki"
-msgstr ""
+msgstr "Wici"
 
 #: src/Application.vala:637 src/Widgets/Status.vala:352
 msgid "Translate"
-msgstr ""
+msgstr "Cyfieithu"
 
 #: src/Application.vala:638
 msgid "Donate"
-msgstr ""
+msgstr "Rhoi"
 
 #: src/Application.vala:660
 msgid "OK"
-msgstr ""
+msgstr "Iawn"
 
 #: src/Application.vala:710
 msgid "Yes"
@@ -1456,13 +1466,13 @@ msgstr ""
 #: src/Dialogs/Admin/AddFederationBlock.vala:40
 #: src/Dialogs/Admin/AddIPBlock.vala:79
 msgid "Add"
-msgstr ""
+msgstr "Ychwanegu"
 
 #. translators: Admin dashboard, federation block dialog,
 #. e.g. 'gnome.org'
 #: src/Dialogs/Admin/AddFederationBlock.vala:52
 msgid "Domain"
-msgstr ""
+msgstr "Parth"
 
 #. translators: Admin dashboard, federation block dialog severity row title
 #: src/Dialogs/Admin/AddFederationBlock.vala:72
@@ -1515,13 +1525,13 @@ msgstr ""
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
 #: src/Widgets/Admin/DomainBlock.vala:17
 msgid "Private Comment"
-msgstr ""
+msgstr "Sylw preifat"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:131
 #: src/Widgets/Admin/DomainBlock.vala:24
 msgid "Public Comment"
-msgstr ""
+msgstr "Sylw cyhoeddus"
 
 #: src/Dialogs/Admin/AddIPBlock.vala:17 src/Dialogs/Admin/AddIPBlock.vala:19
 #, c-format
@@ -1547,12 +1557,12 @@ msgstr[1] ""
 #: src/Dialogs/Admin/AddIPBlock.vala:68
 #: src/Views/Admin/Pages/BlockedIPs.vala:10
 msgid "Add IP Block"
-msgstr ""
+msgstr "Ychwanegu rhwystr IP"
 
 #. translators: Admin dashboard ip block comment entry title
 #: src/Dialogs/Admin/AddIPBlock.vala:99 src/Dialogs/Admin/TakeAction.vala:104
 msgid "Comment"
-msgstr ""
+msgstr "Sylw"
 
 #. translators: Admin dashboard ip block expiration date row title.
 #: src/Dialogs/Admin/AddIPBlock.vala:123 src/Dialogs/Composer/PollPage.vala:268
@@ -1562,13 +1572,13 @@ msgstr ""
 #. translators: Admin dashboard ip block rule (e.g. no access)
 #: src/Dialogs/Admin/AddIPBlock.vala:131
 msgid "Rule"
-msgstr ""
+msgstr "Rheol"
 
 #. translators: Admin dashboard ip block rule descriptions.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddIPBlock.vala:134
 msgid "Choose what will happen with requests from this IP"
-msgstr ""
+msgstr "Dewis beth i'w wneud â cheisiadau o'r IP hwn"
 
 #. translators: Question dialog when an admin is about to
 #. mark a report as resolved
@@ -1588,21 +1598,21 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:101
 msgid "Reopen"
-msgstr ""
+msgstr "Ailagor"
 
 #. translators: Admin dashboard, take action against user headerbar button
 #: src/Dialogs/Admin/Report.vala:95 src/Dialogs/Admin/TakeAction.vala:18
 #: src/Dialogs/Admin/TakeAction.vala:150
 #: src/Views/Admin/Pages/Accounts.vala:250
 msgid "Take Action"
-msgstr ""
+msgstr "Gweithredu"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
 #: src/Dialogs/Admin/Report.vala:127 src/Views/Admin/Pages/Accounts.vala:291
 #: src/Widgets/ProfileCover.vala:561
 msgid "Joined"
-msgstr ""
+msgstr "Yma ers"
 
 #. translators: this is a "long" date format shown in places like expanded posts or
 #. the profile "Joined" field. You can find all the available specifiers
@@ -1614,20 +1624,20 @@ msgstr ""
 #: src/Widgets/ProfileCover.vala:545 src/Widgets/ScheduledStatus.vala:137
 #: src/Widgets/Status.vala:592
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%e %B %Y"
 
 #: src/Dialogs/Admin/Report.vala:134
 msgid "Reported on"
-msgstr ""
+msgstr "Adroddwyd ar"
 
 #. translators: 'Reported by: <account>'
 #: src/Dialogs/Admin/Report.vala:140 src/Widgets/Admin/Report.vala:31
 msgid "Reported by"
-msgstr ""
+msgstr "Adroddwyd gan"
 
 #: src/Dialogs/Admin/Report.vala:146
 msgid "Status"
-msgstr ""
+msgstr "Statws"
 
 #: src/Dialogs/Admin/Report.vala:147
 msgid "Resolved"
@@ -1640,7 +1650,7 @@ msgstr ""
 #. translators: admin dashboard, whether a report was 'forwarded' from another server
 #: src/Dialogs/Admin/Report.vala:154
 msgid "Forwarded"
-msgstr ""
+msgstr "Anfonwyd ymlaen"
 
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:160 src/Widgets/Admin/Report.vala:22
@@ -1649,7 +1659,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:172
 msgid "Category"
-msgstr ""
+msgstr "Categori"
 
 #. translators: Admin dashboard report category description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1671,11 +1681,11 @@ msgstr ""
 #: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:332
 #: src/Dialogs/Report.vala:415
 msgid "Submit"
-msgstr ""
+msgstr "Cyflwyno"
 
 #: src/Dialogs/Admin/TakeAction.vala:59
 msgid "Warning"
-msgstr ""
+msgstr "Rhybudd"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:61
@@ -1685,7 +1695,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/TakeAction.vala:68
 msgid "Freeze"
-msgstr ""
+msgstr "Rhewi"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:70
@@ -1696,7 +1706,7 @@ msgstr ""
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:579
 msgid "Sensitive"
-msgstr ""
+msgstr "Sensitif"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:79
@@ -1735,21 +1745,21 @@ msgstr ""
 #: src/Dialogs/Admin/TakeAction.vala:143
 #, c-format
 msgid "Take Action Against %s?"
-msgstr ""
+msgstr "Gweithredu yn erbyn %s?"
 
 #: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
 msgid "Dashboard"
-msgstr ""
+msgstr "Dangosfwrdd"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:28 src/Views/Admin/Pages/Reports.vala:6
 msgid "Reports"
-msgstr ""
+msgstr "Adroddiadau"
 
 #: src/Dialogs/Admin.vala:38 src/Views/Admin/Pages/Accounts.vala:22
 #: src/Views/Search.vala:113
 msgid "Accounts"
-msgstr ""
+msgstr "Cyfrifon"
 
 #. translators: Admin Dialog page title,
 #. this is about blocking
@@ -1764,7 +1774,7 @@ msgstr ""
 #. IP Addresses
 #: src/Dialogs/Admin.vala:58 src/Views/Admin/Pages/BlockedIPs.vala:7
 msgid "IP Rules"
-msgstr ""
+msgstr "Rheolau IP"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:68 src/Views/Admin/Pages/FederationAllowlist.vala:7
@@ -1784,20 +1794,20 @@ msgstr ""
 #. translators: Accent color
 #: src/Dialogs/AnnualReport.vala:63
 msgid "Accent"
-msgstr ""
+msgstr "Acen"
 
 #: src/Dialogs/AnnualReport.vala:101
 msgid "Share"
-msgstr ""
+msgstr "Rhannu"
 
 #: src/Dialogs/AnnualReport.vala:109
 msgid "Save As…"
-msgstr ""
+msgstr "Cadw fel…"
 
 #. translators: dropdown label for picking a window style
 #: src/Dialogs/AnnualReport.vala:116
 msgid "Style"
-msgstr ""
+msgstr "Arddull"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1820,7 +1830,7 @@ msgstr ""
 #. translators: #FediWrapped, title of the 'amount of new posts' card
 #: src/Dialogs/AnnualReport.vala:201
 msgid "New Posts"
-msgstr ""
+msgstr "Negeseuon newydd"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1828,7 +1838,7 @@ msgstr ""
 #: src/Dialogs/AnnualReport.vala:229
 #, c-format
 msgid "I made %s posts."
-msgstr ""
+msgstr "Ysgrifennais i %s o negeseuon."
 
 #. translators: #FediWrapped, title of a card
 #: src/Dialogs/AnnualReport.vala:239
@@ -1888,19 +1898,19 @@ msgstr ""
 #. which one of your posts had the most favorites
 #: src/Dialogs/AnnualReport.vala:439
 msgid "Most Favorited Post"
-msgstr ""
+msgstr "Neges fwyaf poblogaidd"
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most boosts
 #: src/Dialogs/AnnualReport.vala:461
 msgid "Most Boosted Post"
-msgstr ""
+msgstr "Neges a hybwyd fwyaf"
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most replies
 #: src/Dialogs/AnnualReport.vala:483
 msgid "Most Replied Post"
-msgstr ""
+msgstr "Neges yr ymatebwyd iddi fwyaf"
 
 #. translators: save dialog title, refer to the other #FediWrapped strings for more info
 #: src/Dialogs/AnnualReport.vala:558
@@ -1916,7 +1926,7 @@ msgstr ""
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:131
 #: src/Dialogs/Composer/EditorPage.vala:252
 msgid "Characters Left"
-msgstr ""
+msgstr "Nodau yn weddill"
 
 #. translators: focus picker dialog title
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:216
@@ -1938,11 +1948,11 @@ msgstr ""
 #. image hasn't loaded. Also known as 'alt text'
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:347
 msgid "Edit Alternative Text"
-msgstr ""
+msgstr "Golygu'r testun amgen"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:358
 msgid "Remove Attachment"
-msgstr ""
+msgstr "Tynnu'r atodiad"
 
 #. translators: focus picker
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:370
@@ -1955,16 +1965,16 @@ msgstr ""
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:76
 msgid "Paste"
-msgstr ""
+msgstr "Gludo"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:219
 #: src/Dialogs/Composer/AttachmentsPage.vala:245
 msgid "Add Media"
-msgstr ""
+msgstr "Ychwanegu cyfrwng"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:228
 msgid "No Media"
-msgstr ""
+msgstr "Dim cyfryngau"
 
 #. translators: sensitive as in not safe for work or similar
 #: src/Dialogs/Composer/AttachmentsPage.vala:255
@@ -1981,7 +1991,7 @@ msgstr ""
 #: src/Dialogs/Composer/AttachmentsPage.vala:371
 #: src/Dialogs/ProfileEdit.vala:232 src/Widgets/EmojiReactionAccounts.vala:39
 msgid "Open"
-msgstr ""
+msgstr "Agor"
 
 #: src/Dialogs/Composer/AttachmentsPage.vala:435
 #, c-format
@@ -1991,24 +2001,24 @@ msgstr ""
 #. translators: 'Draft' is a verb
 #: src/Dialogs/Composer/Dialog.vala:156
 msgid "Draft Post"
-msgstr ""
+msgstr "Drafftio neges"
 
 #: src/Dialogs/Composer/Dialog.vala:162 src/Dialogs/Composer/Dialog.vala:169
 msgid "_Publish"
-msgstr ""
+msgstr "_Cyhoeddi"
 
 #. translators: Dialog title when closing the composer
 #: src/Dialogs/Composer/Dialog.vala:253
 msgid "Discard Post?"
-msgstr ""
+msgstr "Diystyru'r neges?"
 
 #: src/Dialogs/Composer/Dialog.vala:254
 msgid "Your progress will be lost."
-msgstr ""
+msgstr "Caiff y neges ei dileu."
 
 #: src/Dialogs/Composer/Dialog.vala:256
 msgid "Discard"
-msgstr ""
+msgstr "Diystyru"
 
 #: src/Dialogs/Composer/Dialog.vala:349 src/Dialogs/Composer/Dialog.vala:387
 msgid "_Edit"
@@ -2040,7 +2050,7 @@ msgstr ""
 
 #: src/Dialogs/Composer/EditorPage.vala:314
 msgid "What's on your mind?"
-msgstr ""
+msgstr "Beth sydd ar eich meddwl?"
 
 #: src/Dialogs/Composer/EditorPage.vala:343
 #: src/Widgets/Status/ReactionsRow.vala:48
@@ -2057,15 +2067,15 @@ msgstr ""
 
 #: src/Dialogs/Composer/EditorPage.vala:417
 msgid "Post Privacy"
-msgstr ""
+msgstr "Preifatrwydd y neges"
 
 #: src/Dialogs/Composer/EditorPage.vala:440
 msgid "Post Language"
-msgstr ""
+msgstr "Iaith y neges"
 
 #: src/Dialogs/Composer/EditorPage.vala:491
 msgid "Post Content Type"
-msgstr ""
+msgstr "Math o cynnwys yn y neges"
 
 #. translators: tooltip on a button that appends another poll entry / option
 #: src/Dialogs/Composer/PollPage.vala:116
@@ -2164,7 +2174,7 @@ msgstr ""
 #: src/Dialogs/MainWindow.vala:80
 #: src/Services/Accounts/Mastodon/Account.vala:27 src/Views/Home.vala:12
 msgid "Home"
-msgstr ""
+msgstr "Hafan"
 
 #: src/Dialogs/NewAccount.vala:3
 msgid "Allow access to your account in the browser."
@@ -2258,7 +2268,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences.vala:400
 msgid "Analytics Preview"
-msgstr ""
+msgstr "Rhagolwg o'r manylion a anfonir"
 
 #. tanslators: profile field label or title
 #: src/Dialogs/ProfileEdit.vala:45
@@ -2410,7 +2420,7 @@ msgstr ""
 
 #: src/Dialogs/Report.vala:488
 msgid "No posts found"
-msgstr ""
+msgstr "Heb ddod o hyd i negeseuon"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
@@ -2424,7 +2434,7 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:250
 #, c-format
 msgid "%s boosted your post"
-msgstr ""
+msgstr "Rhannodd %s eich neges"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
@@ -2438,7 +2448,7 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:268
 #, c-format
 msgid "%s favorited your post"
-msgstr ""
+msgstr "Hoffodd %s eich neges"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
@@ -2464,26 +2474,26 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:303
 #, c-format
 msgid "%s edited a post"
-msgstr ""
+msgstr "Golygodd %s neges"
 
 #. translators: post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:311
 msgid "In Reply"
-msgstr ""
+msgstr "Mewn ymateb"
 
 #. translators: the variable is a string user handle,
 #. post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:315
 #, c-format
 msgid "In Reply to %s"
-msgstr ""
+msgstr "Mewn ymateb i %s"
 
 #. translators: the variable is a string user name,
 #. this is used for admin notifications
 #: src/Services/Accounts/InstanceAccount.vala:329
 #, c-format
 msgid "%s signed up"
-msgstr ""
+msgstr "Cofrestrodd %s"
 
 #. translators: this is used for notifications,
 #. when you lost followers or following
@@ -2503,14 +2513,14 @@ msgstr ""
 #: src/Services/Accounts/InstanceAccount.vala:381
 #, c-format
 msgid "%s just posted"
-msgstr ""
+msgstr "Mae %s newydd anfon neges"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:391
 #, c-format
 msgid "%s reacted to your post"
-msgstr ""
+msgstr "Ymatebodd %s i'ch neges"
 
 #. translators: the first variable is a string user name,
 #. the second variable is an emoji,
@@ -2523,29 +2533,29 @@ msgstr ""
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:440
 msgid "Plain Text"
-msgstr ""
+msgstr "Testun plaen"
 
 #: src/Services/Accounts/Mastodon/Account.vala:72 src/Views/Bookmarks.vala:4
 msgid "Bookmarks"
-msgstr ""
+msgstr "Llyfrnodau"
 
 #: src/Services/Accounts/Mastodon/Account.vala:108 src/Views/Explore.vala:3
 msgid "Explore"
-msgstr ""
+msgstr "Archwilio"
 
 #: src/Services/Accounts/Mastodon/Account.vala:118
 #: src/Views/Admin/Pages/Accounts.vala:69 src/Views/Local.vala:3
 msgid "Local"
-msgstr ""
+msgstr "Lleol"
 
 #: src/Services/Accounts/Mastodon/Account.vala:137 src/Views/Federated.vala:4
 msgid "Federated"
-msgstr ""
+msgstr "Ffederal"
 
 #: src/Services/Accounts/Mastodon/Account.vala:146 src/Views/Explore.vala:7
 #: src/Views/Hashtags.vala:4 src/Views/Search.vala:115
 msgid "Hashtags"
-msgstr ""
+msgstr "Hashnodau"
 
 #: src/Services/Accounts/Mastodon/Account.vala:211
 msgid "Post to public timelines"
@@ -2566,7 +2576,7 @@ msgstr ""
 
 #: src/Services/Accounts/Mastodon/Account.vala:226
 msgid "Post to followers only"
-msgstr ""
+msgstr "Anfon i ddilynwyr yn unig"
 
 #: src/Services/Accounts/Mastodon/Account.vala:230
 msgid "Direct"
@@ -2592,17 +2602,17 @@ msgstr ""
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:264
 msgid "Follow System"
-msgstr ""
+msgstr "Dilyn y system"
 
 #. translators: Light mode theme
 #: src/Services/Settings.vala:267
 msgid "Light"
-msgstr ""
+msgstr "Golau"
 
 #. translators: Dark mode theme
 #: src/Services/Settings.vala:270
 msgid "Dark"
-msgstr ""
+msgstr "Tywyll"
 
 #: src/Utils/DateTime.vala:12
 msgid "expires soon"
@@ -2894,12 +2904,12 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:358
 #: src/Views/Admin/Pages/Accounts.vala:492
 msgid "Approve"
-msgstr ""
+msgstr "Derbyn"
 
 #: src/Views/Admin/Pages/Accounts.vala:365
 #: src/Views/Admin/Pages/Accounts.vala:525
 msgid "Reject"
-msgstr ""
+msgstr "Gwrthod"
 
 #. translators: Question dialog when an admin is about to
 #. undo an action, like a suspension
@@ -3007,7 +3017,7 @@ msgstr ""
 #: src/Views/Admin/Pages/FederationAllowlist.vala:21
 #: src/Views/Admin/Pages/FederationAllowlist.vala:64
 msgid "Allow"
-msgstr ""
+msgstr "Caniatáu"
 
 #. translators: Question dialog when an admin is about to
 #. allow federation with an instance. The variable is a
@@ -3015,7 +3025,7 @@ msgstr ""
 #: src/Views/Admin/Pages/FederationAllowlist.vala:57
 #, c-format
 msgid "Allow Federation with %s?"
-msgstr ""
+msgstr "Caniatáu ffedereiddio â %s?"
 
 #. translators: admin dashboard, reports timeline, headerbar button tooltip text
 #: src/Views/Admin/Pages/Reports.vala:10
@@ -3036,7 +3046,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/EmailDomain.vala:26
 #, c-format
 msgid "Unblock %s?"
-msgstr ""
+msgstr "Dadrwystro %s?"
 
 #. translators: Question dialog when an admin is about to
 #. delete a domain from the federation allowlist.
@@ -3046,54 +3056,54 @@ msgstr ""
 #: src/Views/Admin/Timelines/DomainAllow.vala:28
 #, c-format
 msgid "Remove Federation with %s?"
-msgstr ""
+msgstr "Dadffedereiddio o %s?"
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:57
 msgid "Previous Page"
-msgstr ""
+msgstr "Tudalen flaenorol"
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:66
 msgid "Next Page"
-msgstr ""
+msgstr "Tudalen nesaf"
 
 #: src/Views/Announcements.vala:5 src/Views/Sidebar.vala:73
 msgid "Announcements"
-msgstr ""
+msgstr "Cyhoeddiadau"
 
 #: src/Views/Announcements.vala:8
 msgid "No Announcements"
-msgstr ""
+msgstr "Dim cyhoeddiadau"
 
 #. translators: Fallback shown when there are 0 results
 #: src/Views/Base.vala:4
 msgid "Nothing to see here"
-msgstr ""
+msgstr "Dim byd i'w weld yma"
 
 #: src/Views/Base.vala:122
 msgid "Reload"
-msgstr ""
+msgstr "Ail-lwytho"
 
 #: src/Views/Base.vala:201
 msgid "An Error Occurred"
-msgstr ""
+msgstr "Bu gwall"
 
 #: src/Views/Bookmarks.vala:6
 msgid "No Bookmarks"
-msgstr ""
+msgstr "Dim llyfrnodau"
 
 #: src/Views/Conversations.vala:8
 msgid "No Conversations"
-msgstr ""
+msgstr "Dim sgyrsiau"
 
 #. translators: as in posts that are saved but not posted yet
 #: src/Views/DraftStatuses.vala:4 src/Views/Sidebar.vala:76
 msgid "Draft Posts"
-msgstr ""
+msgstr "Negeseuon drafft"
 
 #. translators: as in posts that are saved but not posted yet
 #: src/Views/DraftStatuses.vala:7
 msgid "No Draft Posts"
-msgstr ""
+msgstr "Dim negeseuon drafft"
 
 #: src/Views/EditHistory.vala:5
 msgid "Edit History"
@@ -3106,50 +3116,50 @@ msgstr ""
 #: src/Views/Explore.vala:6 src/Views/Search.vala:114
 #: src/Widgets/ProfileFilterGroup.vala:40
 msgid "Posts"
-msgstr ""
+msgstr "Negeseuon"
 
 #: src/Views/Explore.vala:7 src/Views/Hashtags.vala:7
 msgid "No Hashtags"
-msgstr ""
+msgstr "Dim hashnodau"
 
 #: src/Views/Explore.vala:8
 msgid "News"
-msgstr ""
+msgstr "Newyddion"
 
 #: src/Views/Explore.vala:8
 msgid "No News"
-msgstr ""
+msgstr "Dim newyddion"
 
 #: src/Views/Explore.vala:9
 msgid "For You"
-msgstr ""
+msgstr "I chi"
 
 #: src/Views/Explore.vala:9
 msgid "No Suggestions"
-msgstr ""
+msgstr "Dim awgrymiadau"
 
 #: src/Views/Favorites.vala:5 src/Views/StatusStats.vala:17
 msgid "No Favorites"
-msgstr ""
+msgstr "Dim ffefrynnau"
 
 #: src/Views/FollowRequests.vala:4 src/Views/Sidebar.vala:74
 msgid "Follow Requests"
-msgstr ""
+msgstr "Ceisiadau i'ch dilyn"
 
 #: src/Views/FollowRequests.vala:7
 msgid "No Follow Requests"
-msgstr ""
+msgstr "Dim ceisiadau i'ch dilyn"
 
 #: src/Views/Hashtag.vala:19 src/Views/Hashtag.vala:34
 #: src/Widgets/RelationshipButton.vala:33
 #: src/Widgets/RelationshipButton.vala:70
 msgid "Follow"
-msgstr ""
+msgstr "Dilyn"
 
 #: src/Views/Hashtag.vala:22 src/Views/Hashtag.vala:38
 #: src/Widgets/RelationshipButton.vala:62
 msgid "Unfollow"
-msgstr ""
+msgstr "Dad-ddilyn"
 
 #: src/Views/Home.vala:23
 msgid "Compose"
@@ -3162,7 +3172,7 @@ msgstr ""
 #: src/Views/Lists.vala:121
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr ""
+msgstr "Dileu \"%s\"?"
 
 #: src/Views/Lists.vala:122
 msgid "This action cannot be reverted."
@@ -3170,7 +3180,7 @@ msgstr ""
 
 #: src/Views/Lists.vala:212
 msgid "No Lists"
-msgstr ""
+msgstr "Dim rhestri"
 
 #: src/Views/Lists.vala:216
 msgid "New list title"
@@ -3250,15 +3260,15 @@ msgstr ""
 
 #: src/Views/Profile.vala:80
 msgid "Profile"
-msgstr ""
+msgstr "Proffil"
 
 #: src/Views/Profile.vala:194 src/Views/Timeline.vala:73
 msgid "No Posts"
-msgstr ""
+msgstr "Dim negeseuon"
 
 #: src/Views/Profile.vala:198
 msgid "No Followers"
-msgstr ""
+msgstr "Dim dilynwyr"
 
 #: src/Views/Profile.vala:202
 msgid "This user doesn't follow anyone yet"
@@ -3301,19 +3311,19 @@ msgstr ""
 
 #: src/Views/Profile.vala:470
 msgid "You don't have any lists"
-msgstr ""
+msgstr "Does gennych chi ddim rhestri"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:500 src/Views/Profile.vala:571
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
-msgstr ""
+msgstr "Tynnu \"%s\" o \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:501 src/Views/Profile.vala:565
 #, c-format
 msgid "Add \"%s\" to \"%s\""
-msgstr ""
+msgstr "Ychwanegu \"%s\" i \"%s\""
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:562
@@ -3330,16 +3340,16 @@ msgstr ""
 #. translators: as in posts set to be posted sometime in the future
 #: src/Views/ScheduledStatuses.vala:5 src/Views/Sidebar.vala:77
 msgid "Scheduled Posts"
-msgstr ""
+msgstr "Negeseuon a amserlennwyd"
 
 #. translators: as in posts set to be posted sometime in the future
 #: src/Views/ScheduledStatuses.vala:8
 msgid "No Scheduled Posts"
-msgstr ""
+msgstr "Dim negeseuon wedi'u hamserlennu"
 
 #: src/Views/Search.vala:24
 msgid "Search Posts and Accounts"
-msgstr ""
+msgstr "Chwilio negeseuon a chyfrifon"
 
 #: src/Views/Search.vala:38
 msgid "Clear Entry"
@@ -3382,7 +3392,7 @@ msgstr[1] ""
 
 #: src/Views/Sidebar.vala:67
 msgid "New Post"
-msgstr ""
+msgstr "Neges newydd"
 
 #. translators: main menu entry, please don't translate it unless you have to.
 #. Refer to other #FediWrapped strings for more info
@@ -3392,7 +3402,7 @@ msgstr ""
 
 #: src/Views/Sidebar.vala:92
 msgid "Preferences"
-msgstr ""
+msgstr "Dewisiadau"
 
 #: src/Views/Sidebar.vala:93
 msgid "Keyboard Shortcuts"
@@ -3664,7 +3674,7 @@ msgstr ""
 #: src/Widgets/CustomEmojiChooser.vala:67
 #: src/Widgets/CustomEmojiChooser.vala:169
 msgid "Results"
-msgstr ""
+msgstr "Canlyniadau"
 
 #: src/Widgets/CustomEmojiChooser.vala:73
 msgid "Recently Used"
@@ -3749,7 +3759,7 @@ msgstr[1] ""
 #: src/Widgets/ProfileCover.vala:92
 #, c-format
 msgid "Followed by %s"
-msgstr ""
+msgstr "Dilynir gan %s"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3777,7 +3787,7 @@ msgstr ""
 
 #: src/Widgets/ProfileFilterGroup.vala:54
 msgid "Replies"
-msgstr ""
+msgstr "Ymatebion"
 
 #. translators: the variable is the emoji or its name if it's custom.
 #. A reaction is not the same as a favorite or a boost,
@@ -3789,7 +3799,7 @@ msgstr ""
 
 #: src/Widgets/RelationshipButton.vala:55 src/Widgets/Status.vala:328
 msgid "Unmute"
-msgstr ""
+msgstr "Dad-dewi"
 
 #. translators: not a verb, as in a post that is saved but not posted yet
 #: src/Widgets/ScheduledStatus.vala:13
@@ -3834,16 +3844,16 @@ msgstr ""
 
 #: src/Widgets/Status/ActionsRow.vala:88 src/Widgets/Status/ActionsRow.vala:172
 msgid "Reply"
-msgstr ""
+msgstr "Ymateb"
 
 #: src/Widgets/Status/ActionsRow.vala:125
 #: src/Widgets/Status/ActionsRow.vala:280
 msgid "Quote"
-msgstr ""
+msgstr "Dyfynnu"
 
 #: src/Widgets/Status/ActionsRow.vala:156
 msgid "Bookmark"
-msgstr ""
+msgstr "Llyfrnodi"
 
 #. translators: the variable is a datetime with the "old" suffix, e.g. "5 months old", "a day old", "2 years old".
 #. The "old" suffix is translated on the datetime strings, not here
@@ -4121,4 +4131,4 @@ msgstr[1] ""
 #. Describes whether the user has voted on the poll.
 #: src/Widgets/VoteBox.vala:223
 msgid "You have voted."
-msgstr ""
+msgstr "Rydych wedi pleidleisio."
