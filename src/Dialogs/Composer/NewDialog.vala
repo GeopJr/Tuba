@@ -8,6 +8,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Adw.ToastOverlay toast_overlay;
 	[GtkChild] private unowned Adw.NavigationView nav_view;
 	[GtkChild] private unowned Adw.ToolbarView toolbar_view;
+	[GtkChild] private unowned Components.DropOverlay drop_overlay;
 
 	[GtkChild] private unowned Gtk.ScrolledWindow scroller;
 	[GtkChild] private unowned Adw.HeaderBar headerbar;
@@ -242,6 +243,10 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		}
 	}
 
+	static construct {
+		typeof (Components.DropOverlay).ensure ();
+	}
+
 	construct {
 		var condition = new Adw.BreakpointCondition.length (
 			Adw.BreakpointConditionLengthType.MAX_WIDTH,
@@ -258,6 +263,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		var dnd_controller = new Gtk.DropTarget (typeof (Gdk.FileList), Gdk.DragAction.COPY) {
 			propagation_phase = CAPTURE
 		};
+		dnd_controller.enter.connect (on_drag_enter);
+		dnd_controller.leave.connect (on_drag_leave);
 		dnd_controller.drop.connect (on_drag_drop);
 		toolbar_view.add_controller (dnd_controller);
 
@@ -394,6 +401,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	}
 
 	private bool on_drag_drop (Value val, double x, double y) {
+		drop_overlay.dropping = false;
 		if (!add_media_button.sensitive) return false;
 
 		var file_list = val as Gdk.FileList;
@@ -413,6 +421,15 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		editor.add_bottom_child (attachmentsbin_component);
 
 		return true;
+	}
+
+	private Gdk.DragAction on_drag_enter (double x, double y) {
+		drop_overlay.dropping = true;
+		return Gdk.DragAction.COPY;
+	}
+
+	private void on_drag_leave () {
+		drop_overlay.dropping = false;
 	}
 
 	private async void on_clipboard_paste_async (Gdk.Clipboard clipboard) {

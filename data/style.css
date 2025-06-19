@@ -907,3 +907,14 @@ clapper-gtk-lead-container>box {
 .devel-bg {
 	background-image: cross-fade(5% -gtk-recolor(url(resource:///org/gnome/Adwaita/styles/assets/devel-symbolic.svg)), image(rgba(0,0,0,0)));
 }
+
+dropoverlay,
+dropoverlay > overlay > :not(revealer) {
+	box-shadow: none;
+}
+
+dropoverlay .status {
+	background-color: color-mix(in srgb, var(--accent-bg-color) 60%, transparent);
+	color: var(--accent-fg-color);
+}
+
