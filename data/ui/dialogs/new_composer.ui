@@ -13,8 +13,8 @@
 				<property name="child">
 					<object class="AdwNavigationView" id="nav_view">
 						<child>
-							<object class="AdwNavigationPage">
-								<property name="title">main</property>
+							<object class="AdwNavigationPage" id="nav_page">
+								<property name="title" translatable="yes">New Post</property>
 								<property name="child">
 									<object class="TubaDialogsComponentsDropOverlay" id="drop_overlay">
 										<!-- translators: composer overlay shown when dragging files above it -->

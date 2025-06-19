@@ -9,12 +9,10 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Adw.NavigationView nav_view;
 	[GtkChild] private unowned Adw.ToolbarView toolbar_view;
 	[GtkChild] private unowned Components.DropOverlay drop_overlay;
+	[GtkChild] private unowned Adw.NavigationPage nav_page;
 
 	[GtkChild] private unowned Gtk.ScrolledWindow scroller;
 	[GtkChild] private unowned Adw.HeaderBar headerbar;
-	//  [GtkChild] private unowned Gtk.Box status_box;
-	//  [GtkChild] private unowned Gtk.Box main_box;
-	//  [GtkChild] private unowned Gtk.Label status_title;
 
 	[GtkChild] private unowned Gtk.MenuButton native_emojis_button;
 	[GtkChild] private unowned Gtk.MenuButton custom_emojis_button;
@@ -385,10 +383,15 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 			warning (@"Couldn't create status widget: $(e.message)");
 		}
 
-		editor.set_title (_("Reply to @%s").printf (to.account.username), widget_status);
+		this.set_title (_("Reply to @%s").printf (to.account.username), widget_status);
 		this.scroller.vadjustment.value = editor.top_margin;
 
 		install_post_button (_("Reply"), true); // TODO: ellipsize long button labels
+	}
+
+	private inline void set_title (string new_title, Gtk.Widget? widget_status) {
+		nav_page.title = new_title;
+		editor.set_title (new_title, widget_status);
 	}
 
 	Components.Polls? polls_component = null;
