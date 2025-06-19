@@ -1,7 +1,7 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/new_composer.ui")]
 public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Gtk.Label counter_label;
-	[GtkChild] private unowned Gtk.Button post_btn;
+	[GtkChild] private unowned Adw.Bin post_btn;
 	[GtkChild] private unowned Gtk.Box btns_box;
 	[GtkChild] private unowned Gtk.Box dropdowns_box;
 	[GtkChild] private unowned Gtk.Grid grid;
@@ -22,12 +22,6 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Gtk.Entry cw_entry;
 	[GtkChild] private unowned Gtk.ToggleButton poll_button;
 	[GtkChild] private unowned Gtk.Button add_media_button;
-
-	// TODO: DND style
-	// TODO: long press paste
-	//  private const GLib.ActionEntry[] ACTION_ENTRIES = {
-	//  	{"paste-from-clipboard", on_clipboard_paste}
-	//  };
 
 	private bool _is_narrow = false;
 	public bool is_narrow {
@@ -115,11 +109,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 			margin_end = 32,
 			margin_start = 32
 		};
-		//  scroller.child = new Adw.ClampScrollable () {
-		//  	tightening_threshold = 100,
-		//  	overflow = HIDDEN,
-		//  	child = editor
-		//  };
+
 		scroller.overflow = HIDDEN;
 		scroller.child = editor;
 
@@ -129,17 +119,6 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		editor.paste_clipboard.connect (on_paste);
 		editor.notify["char-count"].connect (update_remaining_chars);
 		this.focus_widget = editor;
-
-		//  //  var polls = new Components.Polls () {
-		//  //  	margin_top = 28
-		//  //  };
-		//  //  editor.add_bottom_child (polls);
-
-		//  //  polls.scroll.connect (editor.scroll_request);
-
-		//  editor.add_bottom_child (new Components.AttachmentsBin () {
-		//  	//  margin_top = 28
-		//  });
 	}
 
 	private void update_remaining_chars () {
@@ -272,6 +251,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		install_emoji_pickers ();
 		install_visibility ();
 		install_languages ();
+		install_post_button (_("Post"), true);
 		if (accounts.active.supported_mime_types.n_items > 1)
 			install_content_types (settings.default_content_type);
 
@@ -287,6 +267,29 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		toggle_poll_component ();
 
 		add_media_button.clicked.connect (on_add_media_clicked);
+	}
+
+	private void install_post_button (string label, bool with_menu) {
+		if (with_menu) {
+			var menu_model = new GLib.Menu ();
+			// translators: 'Draft' is a verb
+			menu_model.append (_("Draft Post"), "composer.draft");
+
+			// translators: 'Schedule' is a verb
+			menu_model.append (_("Schedule Post…"), "composer.schedule");
+
+			var btn = new Adw.SplitButton () {
+				label = label,
+				menu_model = menu_model,
+				css_classes = { "pill", "suggested-action" }
+			};
+			post_btn.child = btn;
+		} else {
+			var btn = new Gtk.Button.with_label (label) {
+				css_classes = { "pill", "suggested-action" }
+			};
+			post_btn.child = btn;
+		}
 	}
 
 	private void install_content_types (string? content_type) {
@@ -326,6 +329,15 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		if (ct_obj == null || ct_obj.syntax == null) return;
 
 		editor.content_type = ct_obj.syntax;
+	}
+
+	bool _a = false;
+	public bool a {
+		get { return _a; }
+		set {
+			_a = value;
+			editor.queue_resize ();
+		}
 	}
 
 	private void on_vadjustment_value_changed () {

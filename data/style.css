@@ -918,3 +918,24 @@ dropoverlay .status {
 	color: var(--accent-fg-color);
 }
 
+splitbutton.pill {
+	border-radius: 9999px;
+}
+
+splitbutton.pill > button {
+	padding: 10px 16px;
+	border-top-left-radius: inherit;
+	border-bottom-left-radius: inherit;
+}
+
+splitbutton.pill > menubutton {
+	border-top-right-radius: inherit;
+	border-bottom-right-radius: inherit;
+}
+
+splitbutton.pill > menubutton > button {
+	padding: 10px 8px;
+	border-top-right-radius: inherit;
+	border-bottom-right-radius: inherit;
+}
+

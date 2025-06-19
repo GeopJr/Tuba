@@ -175,15 +175,10 @@
 															</object>
 														</child>
 														<child>
-															<object class="GtkButton" id="post_btn">
-																<property name="label" translatable="yes">Post</property>
+															<object class="AdwBin" id="post_btn">
 																<property name="hexpand">1</property>
 																<property name="halign">end</property>
 																<property name="valign">center</property>
-																<style>
-																	<class name="pill" />
-																	<class name="suggested-action" />
-																</style>
 																<layout>
 																	<property name="column">2</property>
 																	<property name="row">0</property>
