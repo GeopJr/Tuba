@@ -110,9 +110,11 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 	private double progress {
 		get { return _progress; }
 		set {
+			progress_animation.value_from = progress_animation.state == PLAYING ? progress_animation.value : _progress;
 			_progress = value;
 			progress_label.label = @"$((int) (value * 100))%";
-			this.queue_draw ();
+			progress_animation.value_to = value;
+			progress_animation.play ();
 		}
 	}
 
@@ -141,11 +143,13 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 	Gtk.Label progress_label;
 	Gtk.Image media_icon;
 	Adw.TimedAnimation animation;
+	Adw.TimedAnimation progress_animation;
 	Gdk.RGBA color = { 120 / 255.0f, 174 / 255.0f, 237 / 255.0f, 0.5f };
 	construct {
 		this.css_classes = { "composer-attachment" };
 		this.overflow = HIDDEN;
 		this.opacity = 0;
+		progress_animation = new Adw.TimedAnimation (this, 0, 1, 200, new Adw.CallbackAnimationTarget (progress_animation_cb));
 		animation = new Adw.TimedAnimation (this, 0, 1, 250, new Adw.PropertyAnimationTarget (this, "opacity"));
 		animation.done.connect (on_animation_end);
 
@@ -243,6 +247,10 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		opacity_animation = new Adw.TimedAnimation (this, 0, 1, 200, new Adw.PropertyAnimationTarget (this, "opacity")) {
 			easing = Adw.Easing.LINEAR
 		};
+	}
+
+	private void progress_animation_cb () {
+		this.queue_draw ();
 	}
 
 	public void play_animation (bool reverse = false) {
@@ -362,6 +370,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 			upload_lock = false;
 			throw new Oopsie.INSTANCE (error);
 		}
+		this.progress = 1;
 
 		this.file = file;
 		var parser = Network.get_parser_from_inputstream (in_stream);
@@ -446,7 +455,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 	size_t total_bytes = 0;
 	private void on_upload_bytes_written (Soup.Message msg, uint chunk) {
 		bytes_written += chunk;
-		this.progress = ((double) bytes_written / (double) total_bytes).clamp (0, 1);
+		this.progress = ((double) bytes_written / (double) total_bytes).clamp (0, 0.999999999);
 	}
 
 	public override void snapshot (Gtk.Snapshot snapshot) {
@@ -460,7 +469,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 					},
 					size = Graphene.Size () {
 						height = this.get_height (),
-						width = (float) (this.get_width () * this.progress)
+						width = (float) (this.get_width () * this.progress_animation.value)
 					}
 				}
 			);
