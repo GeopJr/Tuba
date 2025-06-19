@@ -1,5 +1,5 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/schedule.ui")]
-public class Tuba.Dialogs.Schedule : Adw.Dialog {
+public class Tuba.Dialogs.Schedule : Adw.NavigationPage {
 	public signal void schedule_picked (string iso8601);
 
 	[GtkChild] unowned Gtk.Calendar calendar;
@@ -41,13 +41,9 @@ public class Tuba.Dialogs.Schedule : Adw.Dialog {
 		validate ();
 	}
 
-	[GtkCallback] void on_exit () {
-		this.force_close ();
-	}
-
 	[GtkCallback] void on_schedule () {
 		schedule_picked (result_dt.format_iso8601 ());
-		on_exit ();
+		//  on_exit ();
 	}
 
 	[GtkCallback] void validate () {

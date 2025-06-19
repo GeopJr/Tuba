@@ -235,6 +235,18 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		breakpoint.add_setter (this, "is-narrow", true);
 		add_breakpoint (breakpoint);
 
+		var schedule_action = new SimpleAction ("schedule", null);
+		schedule_action.activate.connect (on_schedule_action_activated);
+
+		var draft_action = new SimpleAction ("draft", null);
+		draft_action.activate.connect (on_draft_action_activated);
+
+		var action_group = new GLib.SimpleActionGroup ();
+		action_group.add_action (schedule_action);
+		action_group.add_action (draft_action);
+
+		this.insert_action_group ("composer", action_group);
+
 		var char_limit_api = accounts.active.instance_info.compat_status_max_characters;
 		if (char_limit_api > 0)
 			char_limit = char_limit_api;
@@ -518,6 +530,20 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 			}
 		);
     }
+
+	private void on_schedule_action_activated () {
+		if (!post_btn.sensitive) return;
+
+		on_push_subpage (new Dialogs.Schedule ());
+		//  schedule_dlg.schedule_picked.connect (on_schedule_picked);
+	}
+
+	private void on_draft_action_activated () {
+		if (!post_btn.sensitive) return;
+
+		//  schedule_iso8601 = (new GLib.DateTime.now ()).add_years (3000).format_iso8601 ();
+		//  on_commit ();
+	}
 
 	private void on_component_animation_end (Adw.Animation animation) {
 		if (animation.value == 0) editor.add_bottom_child (null);
