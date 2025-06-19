@@ -125,6 +125,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		editor.toast.connect (on_toast);
 		editor.push_subpage.connect (on_push_subpage);
 		editor.pop_subpage.connect (on_pop_subpage);
+		editor.paste_clipboard.connect (on_paste);
 		editor.notify["char-count"].connect (update_remaining_chars);
 		this.focus_widget = editor;
 
@@ -414,51 +415,37 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		return true;
 	}
 
-	//  private void on_clipboard_paste () {
-	//  	create_attachmentsbin ();
-	//  	on_clipboard_paste_async.begin ();
-	//  	editor.add_bottom_child (attachmentsbin_component);
-	//  }
+	private async void on_clipboard_paste_async (Gdk.Clipboard clipboard) {
+		File[] files = {};
 
-	//  private async void on_clipboard_paste_async () {
-	//  	File[] files = {};
-	//  	bool from_value_failed = false;
-	//  	Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+		try {
+			var copied_value = yield clipboard.read_value_async (typeof (File), 0, null);
 
-	//  	try {
-	//  		var copied_value = yield clipboard.read_value_async (typeof (File), 0, null);
+			if (copied_value != null) {
+				var copied_file = copied_value as File;
+				if (copied_file != null) {
+					files += copied_file;
+				}
+			}
+		} catch (Error e) {}
 
-	//  		if (copied_value == null) {
-	//  			from_value_failed = true;
-	//  		} else {
-	//  			var copied_file = copied_value as File;
-	//  			if (copied_file == null) {
-	//  				from_value_failed = true;
-	//  			} else {
-	//  				files += copied_file;
-	//  			}
-	//  		}
-	//  	} catch (Error e) {
-	//  		from_value_failed = true;
-	//  	}
+		if (files.length == 0) {
+			try {
+				var copied_texture = yield clipboard.read_texture_async (null);
+				if (copied_texture == null) return;
 
-	//  	if (from_value_failed) {
-	//  		try {
-	//  			var copied_texture = yield clipboard.read_texture_async (null);
-	//  			if (copied_texture == null) return;
+				FileIOStream stream;
+				files += yield File.new_tmp_async ("tuba-XXXXXX.png", GLib.Priority.DEFAULT, null, out stream);
 
-	//  			FileIOStream stream;
-	//  			files += yield File.new_tmp_async ("tuba-XXXXXX.png", GLib.Priority.DEFAULT, null, out stream);
+				OutputStream ostream = stream.output_stream;
+				yield ostream.write_bytes_async (copied_texture.save_to_png_bytes ());
+			} catch (Error e) {
+				warning (@"Couldn't get texture from clipboard: $(e.message)");
+			}
+		}
 
-	//  			OutputStream ostream = stream.output_stream;
-	//  			yield ostream.write_bytes_async (copied_texture.save_to_png_bytes ());
-	//  		} catch (Error e) {
-	//  			warning (@"Couldn't get texture from clipboard: $(e.message)");
-	//  		}
-	//  	}
-
-	//  	yield upload_files (files);
-	//  }
+		yield attachmentsbin_component.upload_files (files);
+	}
 
 	private void create_attachmentsbin () {
 		if (attachmentsbin_component != null) return;
@@ -466,6 +453,29 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		attachmentsbin_component.notify["uploading"].connect (update_attachmentsbin_meta);
 		attachmentsbin_component.notify["is-empty"].connect (update_attachmentsbin_meta);
 	}
+
+	private void on_paste () {
+		Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+		var formats = clipboard.get_formats ();
+		bool has_files = formats.contain_mime_type ("text/uri-list");
+		if (!has_files) {
+			var mime_types = formats.get_mime_types ();
+			if (mime_types == null) return;
+
+			foreach (string mime_type in mime_types) {
+				if (mime_type.has_prefix ("image/")) {
+					has_files = true;
+					break;
+				}
+			}
+		}
+		if (!has_files) return;
+
+		Signal.stop_emission_by_name (editor, "paste-clipboard");
+		create_attachmentsbin ();
+		on_clipboard_paste_async.begin (clipboard);
+		editor.add_bottom_child (attachmentsbin_component);
+    }
 
 	private void on_component_animation_end (Adw.Animation animation) {
 		if (animation.value == 0) editor.add_bottom_child (null);
