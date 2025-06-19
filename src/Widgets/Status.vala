@@ -1231,6 +1231,27 @@
 		status.formal.account.open ();
 	}
 
+	public void to_display_only () {
+		content.selectable = true;
+		if (poll != null) {
+			poll.usable = false;
+			poll.can_target = false;
+		}
+		if (hashtag_bar != null) hashtag_bar.can_target = false;
+		if (attachments != null) attachments.usable = false;
+		if (emoji_reactions != null) emoji_reactions.visible = false;
+		this.can_be_opened = false;
+		this.actions.visible = false;
+		this.menu_button.visible = false;
+		this.activatable = false;
+		this.avatar.allow_mini_profile = false;
+		this.avatar.can_target = false;
+		name_button.can_target = false;
+		this.content.selectable = true;
+		this.content.can_open = false;
+		this.fade_bin.reveal = true;
+	}
+
 	bool expanded = false;
 	public void expand_root () {
 		if (expanded) return;

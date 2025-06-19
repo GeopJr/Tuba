@@ -158,6 +158,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Compon
 	#endif
 
 	GtkSource.LanguageManager lang_manager;
+	Gtk.Box status_box;
 	construct {
 		lang_manager = new GtkSource.LanguageManager ();
 
@@ -209,13 +210,21 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Compon
 		this.buffer.paste_done.connect (on_paste);
 		this.buffer.changed.connect (on_content_changed);
 
+		status_box = new Gtk.Box (VERTICAL, 30) {
+			valign = START,
+			vexpand = true,
+			margin_bottom = 28
+		};
+
 		status_title = new Gtk.Label (_("New Post")) {
 			wrap = true,
 			wrap_mode = Pango.WrapMode.WORD_CHAR,
 			css_classes = {"title-2"},
-			margin_bottom = 28
+			justify = CENTER
 		};
-		this.add_top_child (status_title);
+
+		status_box.append (status_title);
+		this.add_top_child (status_box);
 
 		// translators: composer placeholder
 		placeholder = new PlaceholderHack (new Gtk.Label (_("What's on your mind?")) {
@@ -233,6 +242,11 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Compon
 
 		unowned Gtk.Widget? view_child = placeholder.get_parent ();
 		if (view_child != null) view_child.can_target = view_child.can_focus = false;
+	}
+
+	public void set_title (string label, Gtk.Widget? sub_widget = null) {
+		if (status_title.label != label) status_title.label = label;
+		if (sub_widget != null) status_box.append (sub_widget);
 	}
 
 	private bool on_keypress (uint keyval, uint keycode, Gdk.ModifierType modifier) {

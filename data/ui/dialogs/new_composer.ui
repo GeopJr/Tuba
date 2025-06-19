@@ -21,7 +21,6 @@
 										<property name="title" translatable="yes">Drop media to attach them</property>
 										<property name="overlay-child">
 											<object class="AdwToolbarView" id="toolbar_view">
-												<!-- <property name="extend-content-to-top-edge">1</property> -->
 												<child type="top">
 													<object class="AdwHeaderBar" id="headerbar">
 														<property name="show-title">0</property>
@@ -31,41 +30,8 @@
 													<object class="GtkScrolledWindow" id="scroller">
 														<property name="hexpand">1</property>
 														<property name="vexpand">1</property>
-														<!-- <property name="min-content-height">200</property> -->
 														<property name="propagate-natural-height">1</property>
 														<property name="propagate-natural-width">1</property>
-														<!-- <child>
-							<object class="AdwClamp">
-								<property name="valign">start</property>
-								<property name="tightening-threshold">100</property>
-								<child>
-									<object class="GtkBox" id="status_box">
-										<property name="orientation">vertical</property>
-										<property name="vexpand">1</property>
-										<property name="valign">start</property>
-										<property name="spacing">30</property>
-										<property name="margin-top">40</property>
-										<child>
-											<object class="GtkLabel" id="status_title">
-												<property name="label" translatable="yes">New Post</property>
-												<property name="wrap">1</property>
-												<property name="wrap-mode">word-char</property>
-												<property name="justify">center</property>
-												<style>
-													<class name="title-1" />
-												</style>
-											</object>
-										</child>
-										<child>
-											<object class="GtkBox" id="main_box">
-												<property name="vexpand">1</property>
-												<property name="orientation">vertical</property>
-											</object>
-										</child>
-									</object>
-								</child>
-							</object>
-						</child> -->
 													</object>
 												</property>
 												<child type="bottom">

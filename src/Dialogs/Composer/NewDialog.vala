@@ -343,15 +343,6 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		editor.content_type = ct_obj.syntax;
 	}
 
-	bool _a = false;
-	public bool a {
-		get { return _a; }
-		set {
-			_a = value;
-			editor.queue_resize ();
-		}
-	}
-
 	private void on_vadjustment_value_changed () {
 		headerbar.show_title = scroller.vadjustment.value > 0;
 	}
@@ -365,23 +356,40 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	public NewCompose.reply (API.Status to) {
 		Object ();
 
+		Widgets.Status? widget_status = null;
 		try {
-			Widgets.Status widget_status = (Widgets.Status?) to.to_widget ();
-			widget_status.add_css_class ("card");
-			widget_status.actions.visible = false;
-			widget_status.menu_button.visible = false;
-			widget_status.activatable = false;
-			widget_status.can_target = false;
-			widget_status.can_focus = false;
+			var sample = new API.Status.empty () {
+				poll = to.poll,
+				sensitive = to.sensitive,
+				media_attachments = to.media_attachments,
+				visibility = to.visibility,
+				tuba_spoiler_revealed = true,
+				content = to.content,
+				spoiler_text = to.spoiler_text,
+				account = to.account,
+				created_at = to.created_at
+			};
+			if (sample.formal.has_media) {
+				sample.formal.media_attachments.foreach (e => {
+					e.tuba_is_report = true;
 
-			//  status_box.insert_child_after (widget_status, status_title);
+					return true;
+				});
+			}
+
+			widget_status = (Widgets.Status?) sample.to_widget ();
+			widget_status.add_css_class ("card");
+			widget_status.add_css_class ("initial-font-size");
+			widget_status.to_display_only ();
 		} catch (Error e) {
 			warning (@"Couldn't create status widget: $(e.message)");
 		}
 
-		//  status_title.label = _("Reply to %s").printf (to.account.handle);
-	}
+		editor.set_title (_("Reply to @%s").printf (to.account.username), widget_status);
+		this.scroller.vadjustment.value = editor.top_margin;
 
+		install_post_button (_("Reply"), true); // TODO: ellipsize long button labels
+	}
 
 	Components.Polls? polls_component = null;
 	Adw.TimedAnimation? polls_animation = null;
