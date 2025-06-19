@@ -472,9 +472,22 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		if (!has_files) return;
 
 		Signal.stop_emission_by_name (editor, "paste-clipboard");
-		create_attachmentsbin ();
-		on_clipboard_paste_async.begin (clipboard);
-		editor.add_bottom_child (attachmentsbin_component);
+		app.question.begin (
+			{_("Paste Media from Clipboard?"), false},
+			// translators: they = media / files from clipboard, instance = server
+			{_("They will be uploaded to your instance"), false},
+			this,
+			{ { _("Paste"), Adw.ResponseAppearance.SUGGESTED }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+			null,
+			false,
+			(obj, res) => {
+				if (app.question.end (res).truthy ()) {
+					create_attachmentsbin ();
+					on_clipboard_paste_async.begin (clipboard);
+					editor.add_bottom_child (attachmentsbin_component);
+				}
+			}
+		);
     }
 
 	private void on_component_animation_end (Adw.Animation animation) {
