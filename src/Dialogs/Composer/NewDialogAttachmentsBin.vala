@@ -275,7 +275,6 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		this.remove (attachment);
 
 		int removed_index = attachment_widgets.index_of (attachment);
-		this.attach (attachment, attachment_widgets.size % 2, (int) Math.floor (attachment_widgets.size / 2));
 		attachment_widgets.remove (attachment);
 
 		for (int i = removed_index; i < attachment_widgets.size; i++) {
