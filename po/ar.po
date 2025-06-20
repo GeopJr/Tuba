@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-05-05 01:02+0000\n"
-"Last-Translator: Ahmed Mohammed <ira.traq@outlook.com>\n"
+"PO-Revision-Date: 2025-06-21 16:01+0000\n"
+"Last-Translator: Ahmed Najmawi <iramosu@protonmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tuba/tuba/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -393,7 +393,7 @@ msgstr "التالي"
 
 #: data/ui/dialogs/new_account.ui:47
 msgid "What is your Server?"
-msgstr "ما هو خادومك؟"
+msgstr "ما خادومك؟"
 
 #. translators: Please replace the joinmastodon.org/servers link with the one for your language if available
 #: data/ui/dialogs/new_account.ui:49
@@ -401,12 +401,12 @@ msgid ""
 "If you don't have an account yet, <a href=\"https://joinmastodon.org/"
 "servers\">choose a server and register one</a>."
 msgstr ""
-"إن كنت لا تمتلك حسابًا بعد، <a href=\"https://joinmastodon.org/servers\">اختر "
-"خادومًا وأنشئ حسابك</a>."
+"إن كنت لا تمتلك حسابًا بعد، <a href=\"https://joinmastodon.org/servers\""
+">فاختر خادومًا وأنشئ حسابك</a>."
 
 #: data/ui/dialogs/new_account.ui:70
 msgid "Server URL"
-msgstr "الرابط التشعبي للخادم"
+msgstr "مسار للخادوم"
 
 #. translators: tooltip text for a button in the 'new account' window
 #: data/ui/dialogs/new_account.ui:79 src/Dialogs/NewAccount.vala:299
@@ -1614,7 +1614,7 @@ msgstr[5] "%d أسبوع"
 #: src/Dialogs/Admin/AddIPBlock.vala:68
 #: src/Views/Admin/Pages/BlockedIPs.vala:10
 msgid "Add IP Block"
-msgstr "احظر ميفاق الإنترنت"
+msgstr "احظر بروتوكول الإنترنت"
 
 #. translators: Admin dashboard ip block comment entry title
 #: src/Dialogs/Admin/AddIPBlock.vala:99 src/Dialogs/Admin/TakeAction.vala:104
@@ -1635,7 +1635,7 @@ msgstr "القاعدة"
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddIPBlock.vala:134
 msgid "Choose what will happen with requests from this IP"
-msgstr "اختر ما سيحصل للطلبات من ميفاق الإنترنت هذا"
+msgstr "اختر ما سيحصل للطلبات من بروتوكول الإنترنت هذا"
 
 #. translators: Question dialog when an admin is about to
 #. mark a report as resolved
@@ -1836,7 +1836,7 @@ msgstr "نطاقات البريد الإلكتروني المحظورة"
 #. IP Addresses
 #: src/Dialogs/Admin.vala:58 src/Views/Admin/Pages/BlockedIPs.vala:7
 msgid "IP Rules"
-msgstr "قواعد ميفاق الإنترنت"
+msgstr "قواعد بروتوكول الإنترنت"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:68 src/Views/Admin/Pages/FederationAllowlist.vala:7
