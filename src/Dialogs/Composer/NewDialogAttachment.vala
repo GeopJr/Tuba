@@ -85,6 +85,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		}
 	}
 
+	public bool edit_mode { get; set; default = false; }
 	public string? media_id { get; set; default = null; }
 	public Gdk.Paintable? paintable {
 		get { return picture.paintable; }
@@ -502,6 +503,30 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 
 	private void on_delete () {
 		play_animation (true);
+	}
+
+	public void preload (string media_id, string url, string? preview, MediaType kind) {
+		this.kind = kind;
+		this.media_id = media_id;
+		switch (this.kind) {
+			case AUDIO:
+			case VIDEO:
+				if (preview == null) {
+					var working_loader = new AttachmentThumbnailer (url, this.kind);
+					working_loader.done.connect (on_done);
+					new GLib.Thread<void>.try (@"Attachment Thumbnail $url", working_loader.fetch);
+				} else {
+					Tuba.Helper.Image.request_paintable (preview, null, false, on_done);
+				}
+
+				this.file = GLib.File.new_for_uri (url);
+				break;
+			default:
+				Tuba.Helper.Image.request_paintable (url, null, false, on_done);
+				break;
+		}
+
+		this.done = true;
 	}
 
 	public void saved (float pos_x, float pos_y, string alt_text) {

@@ -1,4 +1,5 @@
 public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Components.Attachable {
+	public bool edit_mode { get; set; default = false; }
 	public signal void ctrl_return_pressed (); // TODO
 
 	private string _locale = "en";
@@ -145,6 +146,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Compon
 		attachable.toast.connect (toast_request);
 		attachable.push_subpage.connect (push_subpage_request);
 		attachable.pop_subpage.connect (pop_request);
+		attachable.edit_mode = this.edit_mode;
 	}
 
 	#if LIBSPELLING

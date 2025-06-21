@@ -1,4 +1,6 @@
 public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
+	public bool edit_mode { get; set; default = false; }
+
 	public class PollRow : Adw.EntryRow {
 		Gtk.Button delete_button;
 		public bool is_valid { get; private set; default=false; }
@@ -128,11 +130,13 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 	Gtk.DropDown expiration_button;
 	StatefulButton multi_button;
 	StatefulButton show_results_button;
+	Gtk.Box actions_box;
 
 	public bool hide_totals { get { return !show_results_button.active; } }
 	public bool multiple_choice { get { return multi_button.active; } }
 	public bool can_delete { get; private set; default=false; }
 	public bool is_valid { get; set; default=false; }
+	public bool initing { get; set; default = false; }
 
 	construct {
 		this.orientation = VERTICAL;
@@ -144,7 +148,6 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 		};
 		this.append (poll_list);
 
-		install_expires_in ();
 		multi_button = new StatefulButton (
 			{ "tuba-checkbox-checked-symbolic", "tuba-radio-checked-symbolic" },
 			{ _("Multiple Choice"), _("Single Choice") }
@@ -164,20 +167,41 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 			halign = Gtk.Align.CENTER,
 			css_classes = {"composer-toggle-button"}
 		};
+		this.bind_property ("edit-mode", show_results_button, "sensitive", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 
-		var actions_box = new Gtk.Box (HORIZONTAL, 6) {
+		actions_box = new Gtk.Box (HORIZONTAL, 6) {
 			homogeneous = true,
 			halign = CENTER
 		};
 		actions_box.append (multi_button);
 		actions_box.append (show_results_button);
-		actions_box.append (expiration_button);
 		this.append (actions_box);
 
-		add_poll_row ();
-		add_poll_row ();
-
 		this.add_css_class ("initial-font-size");
+	}
+
+	public Polls (API.Poll? poll_obj = null) {
+		Object ();
+
+		this.initing = true;
+		string? expires_at = null;
+		if (poll_obj == null) {
+			add_poll_row ();
+			add_poll_row ();
+		} else {
+			multi_button.active = poll_obj.multiple;
+
+			foreach (var option in poll_obj.options) {
+				if (option != null) add_poll_row (option.title);
+			}
+
+			expires_at = poll_obj.expires_at;
+		}
+		this.initing = false;
+		row_cleanup ();
+
+		install_expires_in (expires_at);
+		actions_box.append (expiration_button);
 	}
 
 	private void check_poll_items () {
@@ -214,7 +238,7 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 	}
 
 	private void row_cleanup () {
-		if (poll_options.size < 2) return;
+		if (initing || poll_options.size < 2) return;
 
 		var last_poll_row = poll_options.last ();
 		bool is_empty = last_poll_row.is_empty;

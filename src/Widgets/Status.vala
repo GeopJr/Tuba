@@ -478,10 +478,10 @@
 				var node = network.parse_node (parser);
 				var source = API.StatusSource.from (node);
 
-				new Dialogs.Compose.edit (status.formal, source, on_edit);
+				new Dialogs.NewCompose.edit (status.formal, source, on_edit);
 			})
 			.on_error (() => {
-				new Dialogs.Compose.edit (status.formal, null, on_edit);
+				new Dialogs.NewCompose.edit (status.formal, null, on_edit);
 			})
 			.exec ();
 	}

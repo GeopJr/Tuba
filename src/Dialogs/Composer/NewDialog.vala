@@ -89,6 +89,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		}
 	}
 
+	private bool edit_mode { get; set; default = false; }
+
 	private void install_emoji_pickers () {
 		var emoji_picker = new Gtk.EmojiChooser ();
 		native_emojis_button.popover = emoji_picker;
@@ -111,6 +113,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		scroller.overflow = HIDDEN;
 		scroller.child = editor;
 
+		editor.edit_mode = this.edit_mode;
 		editor.toast.connect (on_toast);
 		editor.push_subpage.connect (on_push_subpage);
 		editor.pop_subpage.connect (on_pop_subpage);
@@ -136,7 +139,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		dropdowns_box.append (dropdown);
 	}
 
-	protected void install_visibility (string default_visibility = settings.default_post_visibility) {
+	protected void install_visibility (string default_visibility) {
 		visibility_button = new Gtk.DropDown (accounts.active.visibility_list, null) {
 			expression = new Gtk.PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
 			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/icon.ui"),
@@ -160,7 +163,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		append_dropdown (visibility_button);
 	}
 
-	private void install_languages (string? locale_iso = null) {
+	private void install_languages (string? locale_iso) {
 		language_button = new Gtk.DropDown (app.app_locales.list_store, null) {
 			expression = new Gtk.PropertyExpression (typeof (Utils.Locales.Locale), null, "name"),
 			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language_title.ui"),
@@ -220,6 +223,9 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		}
 	}
 
+	public delegate void SuccessCallback (API.Status cb_status);
+	protected SuccessCallback? cb;
+
 	static construct {
 		typeof (Components.DropOverlay).ensure ();
 	}
@@ -256,27 +262,6 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		dnd_controller.leave.connect (on_drag_leave);
 		dnd_controller.drop.connect (on_drag_drop);
 		toolbar_view.add_controller (dnd_controller);
-
-		install_editor ();
-		install_emoji_pickers ();
-		install_visibility ();
-		install_languages ();
-		install_post_button (_("Post"), true);
-		if (accounts.active.supported_mime_types.n_items > 1)
-			install_content_types (settings.default_content_type);
-
-		cw_entry.changed.connect (cw_changed);
-		cw_button.toggled.connect (cw_changed);
-		on_language_changed ();
-
-		update_remaining_chars ();
-		present (app.main_window);
-
-		scroller.vadjustment.value_changed.connect (on_vadjustment_value_changed);
-		poll_button.toggled.connect (toggle_poll_component);
-		toggle_poll_component ();
-
-		add_media_button.clicked.connect (on_add_media_clicked);
 	}
 
 	private void install_post_button (string label, bool with_menu) {
@@ -345,15 +330,47 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		headerbar.show_title = scroller.vadjustment.value > 0;
 	}
 
-	public NewCompose (API.Status template = new API.Status.empty ()) {
+	public NewCompose (
+		string post_button_label = _("Post"),
+		string default_visibility = settings.default_post_visibility,
+		string default_language = settings.default_language,
+		bool edit_mode = false
+	) {
 		Object ();
 
-		this.title = _("New Post");
+		this.edit_mode = edit_mode;
+		install_editor ();
+		install_emoji_pickers ();
+		install_visibility (default_visibility);
+		install_languages (default_language);
+		install_post_button (post_button_label, !this.edit_mode);
+		if (accounts.active.supported_mime_types.n_items > 1)
+			install_content_types (settings.default_content_type);
+
+		cw_entry.changed.connect (cw_changed);
+		cw_button.toggled.connect (cw_changed);
+		on_language_changed ();
+
+		update_remaining_chars ();
+		present (app.main_window);
+
+		scroller.vadjustment.value_changed.connect (on_vadjustment_value_changed);
+		poll_button.toggled.connect (toggle_poll_component);
+		toggle_poll_component ();
+
+		add_media_button.clicked.connect (on_add_media_clicked);
+		this.set_title (_("New Post"), null);
 	}
 
-	public NewCompose.reply (API.Status to) {
-		Object ();
+	public NewCompose.reply (API.Status to, owned SuccessCallback? t_cb = null) {
+		string final_visibility = to.visibility;
+		var default_visibility = API.Status.Visibility.from_string (settings.default_post_visibility);
+		var to_visibility = API.Status.Visibility.from_string (to.visibility);
+		if (default_visibility != null && to_visibility != null && default_visibility.privacy_rate () > to_visibility.privacy_rate ()) {
+			final_visibility = settings.default_post_visibility;
+		}
 
+		this (_("Reply"), final_visibility, to.language);
 		Widgets.Status? widget_status = null;
 		try {
 			var sample = new API.Status.empty () {
@@ -367,6 +384,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 				account = to.account,
 				created_at = to.created_at
 			};
+
 			if (sample.formal.has_media) {
 				sample.formal.media_attachments.foreach (e => {
 					e.tuba_is_report = true;
@@ -385,11 +403,55 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 		this.set_title (_("Reply to @%s").printf (to.account.username), widget_status);
 		this.scroller.vadjustment.value = editor.top_margin;
+		this.cb = (owned) t_cb;
 
-		install_post_button (_("Reply"), true); // TODO: ellipsize long button labels
+		// TODO: ellipsize long button labels
+	}
+
+	public NewCompose.edit (API.Status t_status, API.StatusSource? source = null, owned SuccessCallback? t_cb = null) {
+		this (_("Edit"), t_status.visibility, t_status.language, true);
+
+		//  var template = new API.Status.empty () {
+		//  	id = t_status.id,
+		//  	poll = t_status.poll,
+		//  	sensitive = t_status.sensitive,
+		//  	media_attachments = t_status.media_attachments,
+		//  	visibility = t_status.visibility,
+		//  	language = t_status.language
+		//  };
+
+		//  if (source == null) {
+		//  	template.content = Utils.Htmlx.remove_tags (t_status.content);
+		//  } else {
+		//  	template.content = source.text;
+		//  	template.spoiler_text = source.spoiler_text;
+		//  }
+
+		cw_button.active = t_status.sensitive;
+		if (source == null) {
+			editor.buffer.text = Utils.Htmlx.remove_tags (t_status.content);
+			cw_entry.text = t_status.spoiler_text;
+		} else {
+			editor.buffer.text = source.text;
+			cw_entry.text = source.spoiler_text;
+		}
+
+		if (t_status.poll != null) {
+			init_polls_component (t_status.poll);
+			poll_button.active = true;
+		} else if (t_status.media_attachments != null && t_status.media_attachments.size > 0) {
+			create_attachmentsbin (t_status.media_attachments);
+			editor.add_bottom_child (attachmentsbin_component);
+			//  poll_button.sensitive = false; // TODO?
+		}
+
+		this.set_title (_("Edit Post"), null);
+
+		this.cb = (owned) t_cb;
 	}
 
 	private inline void set_title (string new_title, Gtk.Widget? widget_status) {
+		this.title = new_title;
 		nav_page.title = new_title;
 		editor.set_title (new_title, widget_status);
 	}
@@ -408,16 +470,22 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		}
 
 		if (polls_component == null) {
-			polls_component = new Components.Polls () {
-				opacity = 0
-			};
-			polls_animation = new Adw.TimedAnimation (polls_component, 0, 1, 250, new Adw.PropertyAnimationTarget (polls_component, "opacity"));
-			polls_animation.done.connect (on_component_animation_end);
+			init_polls_component ();
 		} else if (polls_animation.state == PLAYING) polls_animation.skip ();
 
 		editor.add_bottom_child (polls_component);
 		polls_animation.reverse = false;
 		polls_animation.play ();
+	}
+
+	private void init_polls_component (API.Poll? poll_obj = null) {
+		if (polls_component != null) return;
+
+		polls_component = new Components.Polls (poll_obj) {
+			opacity = 0
+		};
+		polls_animation = new Adw.TimedAnimation (polls_component, 0, 1, 250, new Adw.PropertyAnimationTarget (polls_component, "opacity"));
+		polls_animation.done.connect (on_component_animation_end);
 	}
 
 	Components.AttachmentsBin? attachmentsbin_component = null;
@@ -499,11 +567,17 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		yield attachmentsbin_component.upload_files (files);
 	}
 
-	private void create_attachmentsbin () {
+	private void create_attachmentsbin (Gee.ArrayList<API.Attachment>? attachments_obj = null) {
 		if (attachmentsbin_component != null) return;
 		attachmentsbin_component = new Components.AttachmentsBin ();
 		attachmentsbin_component.notify["uploading"].connect (update_attachmentsbin_meta);
 		attachmentsbin_component.notify["is-empty"].connect (update_attachmentsbin_meta);
+
+		if (attachments_obj != null && attachments_obj.size > 0) {
+			foreach (var attachment_obj in attachments_obj) {
+				attachmentsbin_component.preload_attachment (attachment_obj);
+			}
+		}
 	}
 
 	private void on_paste () {

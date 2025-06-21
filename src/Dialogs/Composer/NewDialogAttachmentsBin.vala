@@ -1,4 +1,6 @@
 public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
+	public bool edit_mode { get; set; default = false; }
+
 	private class Editor : Adw.NavigationPage {
 		const int ALT_MAX_CHARS = 1500;
 
@@ -30,6 +32,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			}
 		}
 
+		public bool edit_mode { get; set; default = false; }
 		public float pos_x { get; set; default = 0.0f; }
 		public float pos_y { get; set; default = 0.0f; }
 		public string media_id { get; set; }
@@ -138,7 +141,11 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		}
 
 		private void on_save () {
-			this.working = true;
+			this.working = true; // TODO
+			if (this.edit_mode) {
+				saved (this.pos_x, this.pos_y, alt_editor.buffer.text);
+				return;
+			}
 
 			var builder = new Json.Builder ();
 			builder.begin_object ();
@@ -166,8 +173,9 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 				.exec ();
 		}
 
-		public Editor (string media_id, Gdk.Paintable? paintable = null, GLib.File? video = null, float pos_x = 0, float pos_y = 0, string alt_text = "") {
+		public Editor (string media_id, Gdk.Paintable? paintable = null, GLib.File? video = null, float pos_x = 0, float pos_y = 0, string alt_text = "", bool edit_mode) {
 			this.media_id = media_id;
+			this.edit_mode = edit_mode;
 			if (paintable != null) {
 				var focus_picker = new Widgets.FocusPicker (paintable);
 				focus_picker.bind_property ("pos-x", this, "pos-x", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
@@ -429,6 +437,24 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		});
 	}
 
+	public void preload_attachment (API.Attachment api_attachment) {
+		if (accounts.active.instance_info.compat_status_max_media_attachments - attachment_widgets.size <= 0) return;
+
+		var attachment = new Components.Attachment ();
+		attachment.preload (api_attachment.id, api_attachment.url, api_attachment.preview_url, Components.Attachment.MediaType.from_string (api_attachment.kind));
+		attachment.edit_mode = true;
+
+		float x = 0;
+		float y = 0;
+		if (api_attachment.meta != null && api_attachment.meta.focus != null) {
+			x = api_attachment.meta.focus.x;
+			y = api_attachment.meta.focus.y;
+		}
+		attachment.saved (x, y, api_attachment.description == null ? "" : api_attachment.description);
+
+		add_attachment (attachment);
+	}
+
 	public void show_editor (Attachment attachment) {
 		bool is_image = attachment.kind == IMAGE;
 		var editor = new Editor (
@@ -437,8 +463,10 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			is_image ? null : attachment.file,
 			(float) attachment.pos_x,
 			(float) attachment.pos_y,
-			attachment.alt_text
+			attachment.alt_text,
+			attachment.edit_mode
 		);
+
 		editor.saved.connect (attachment.saved);
 		editor.saved.connect_after (pop_req);
 		editor.toast.connect (toast_req);
