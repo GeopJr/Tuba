@@ -145,7 +145,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		}
 
 		visible = true;
-		spoiler_revealed = false;
+		spoiler_revealed = settings.show_sensitive_media;
 	}
 
 	private void on_spoiler_reveal () {
