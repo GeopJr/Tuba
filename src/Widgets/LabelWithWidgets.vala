@@ -85,8 +85,7 @@ public class Tuba.Widgets.LabelWithWidgets : Gtk.Widget, Gtk.Buildable, Gtk.Acce
 	private void allocate_shapes () {
 		var child_size_changed = false;
 
-		if (text == "") return;
-		if (widgets.length == 0) {
+		if (widgets.length == 0 || text == "") {
 			label.attributes = null;
 			return;
 		}

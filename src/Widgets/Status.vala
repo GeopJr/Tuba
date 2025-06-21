@@ -478,10 +478,10 @@
 				var node = network.parse_node (parser);
 				var source = API.StatusSource.from (node);
 
-				new Dialogs.Compose.edit (status.formal, source, on_edit);
+				new Dialogs.NewCompose.edit (status.formal, source, on_edit);
 			})
 			.on_error (() => {
-				new Dialogs.Compose.edit (status.formal, null, on_edit);
+				new Dialogs.NewCompose.edit (status.formal, null, on_edit);
 			})
 			.exec ();
 	}
@@ -1203,7 +1203,8 @@
 	}
 
 	private void on_reply_button_clicked () {
-		new Dialogs.Compose.reply (status.formal, on_reply);
+		//  new Dialogs.Compose.reply (status.formal, on_reply);
+		new Dialogs.NewCompose.reply (status.formal);
 	}
 
 	[GtkCallback] public void on_fade_reveal () {
@@ -1228,6 +1229,27 @@
 
 	[GtkCallback] public void on_avatar_clicked () {
 		status.formal.account.open ();
+	}
+
+	public void to_display_only () {
+		content.selectable = true;
+		if (poll != null) {
+			poll.usable = false;
+			poll.can_target = false;
+		}
+		if (hashtag_bar != null) hashtag_bar.can_target = false;
+		if (attachments != null) attachments.usable = false;
+		if (emoji_reactions != null) emoji_reactions.visible = false;
+		this.can_be_opened = false;
+		this.actions.visible = false;
+		this.menu_button.visible = false;
+		this.activatable = false;
+		this.avatar.allow_mini_profile = false;
+		this.avatar.can_target = false;
+		name_button.can_target = false;
+		this.content.selectable = true;
+		this.content.can_open = false;
+		this.fade_bin.reveal = true;
 	}
 
 	bool expanded = false;
