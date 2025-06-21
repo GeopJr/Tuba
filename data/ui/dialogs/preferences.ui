@@ -82,6 +82,11 @@
 							</object>
 						</child>
 						<child>
+							<object class="AdwSwitchRow" id="show_sensitive_media">
+								<property name="title" translatable="yes">Show Sensitive Media by Default</property>
+							</object>
+						</child>
+						<child>
 							<object class="AdwSwitchRow" id="show_spoilers">
 								<property name="title" translatable="yes">Reveal Spoilers by Default</property>
 							</object>
