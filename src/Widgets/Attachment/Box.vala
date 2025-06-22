@@ -24,11 +24,11 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 
 		set {
 			_has_spoiler = value;
-			if (value) spoiler_revealed = false;
+			spoiler_revealed = spoiler_revealed;
 		}
 	}
 
-	private bool _spoiler_revealed = false;
+	private bool _spoiler_revealed = settings.show_sensitive_media;
 	public bool spoiler_revealed {
 		get {
 			return _spoiler_revealed;
@@ -145,7 +145,7 @@ public class Tuba.Widgets.Attachment.Box : Adw.Bin {
 		}
 
 		visible = true;
-		spoiler_revealed = settings.show_sensitive_media;
+		spoiler_revealed = spoiler_revealed;
 	}
 
 	private void on_spoiler_reveal () {
