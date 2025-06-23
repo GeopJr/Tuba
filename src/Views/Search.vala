@@ -17,7 +17,7 @@ public class Tuba.Views.Search : Views.TabbedBase {
 		construct {
 			this.spacing = 9;
 			this.orientation = Gtk.Orientation.HORIZONTAL;
-			this.add_css_class ("search");
+			this.css_classes = {"search", "rounded"};
 
 			entry = new Gtk.Text () {
 				width_chars = 25,
