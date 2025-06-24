@@ -133,14 +133,25 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		}
 	}
 
-	public string alt_text { get; set; default = ""; }
+	private string _alt_text = "";
+	public string alt_text {
+		get {
+			return _alt_text;
+		}
+
+		set {
+			_alt_text = value;
+			alt_indicator.valid = value != "";
+		}
+	}
+
 	public GLib.File? file { get; set; default = null; }
 
 	Adw.TimedAnimation opacity_animation;
 	Widgets.FocusPicture picture;
 	Gtk.Button delete_button;
 	Gtk.Button alt_button;
-	Gtk.Box alt_indicator;
+	AltIndicator alt_indicator;
 	Gtk.Label progress_label;
 	Gtk.Image media_icon;
 	Adw.TimedAnimation animation;

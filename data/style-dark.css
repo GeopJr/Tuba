@@ -52,5 +52,9 @@
 }
 
 .composer-attachment .alt-indicator {
-	background-color: color-mix(in srgb, var(--error-bg-color) 40%, transparent);
+	background-color: color-mix(in srgb, color-mix(in srgb, var(--error-bg-color) 50%, black) 80%, transparent);
+}
+
+.composer-attachment .alt-indicator.success {
+	background-color: color-mix(in srgb, color-mix(in srgb, var(--success-bg-color) 40%, black) 80%, transparent);
 }
