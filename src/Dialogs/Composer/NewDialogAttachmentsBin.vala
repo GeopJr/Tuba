@@ -44,7 +44,6 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		Gtk.Label dialog_char_counter;
 		construct {
 			this.title = _("Attachment Editor");
-			this.add_css_class ("focuspickerdialog");
 
 			var toolbar_view = new Adw.ToolbarView ();
 			var headerbar = new Adw.HeaderBar () {
@@ -52,7 +51,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 				show_start_title_buttons = false
 			};
 
-			content_box = new Gtk.Box (VERTICAL, 12);
+			content_box = new Gtk.Box (VERTICAL, 0);
 			toolbar_view.content = content_box;
 
 			save_btn = new Gtk.Button.with_label (_("Save"));
@@ -64,11 +63,6 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			alt_editor = new GtkSource.View () {
 				vexpand = true,
 				hexpand = true,
-				top_margin = 6,
-				right_margin = 6,
-				bottom_margin = 6,
-				left_margin = 6,
-				pixels_below_lines = 6,
 				accepts_tab = false,
 				wrap_mode = Gtk.WrapMode.WORD_CHAR
 			};
@@ -80,7 +74,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 				halign = Gtk.Align.START,
 				justify = Gtk.Justification.FILL,
 				//  margin_top = 6,
-				margin_start = 6,
+				margin_start = 3,
 				wrap = true,
 				wrap_mode = Pango.WrapMode.WORD_CHAR,
 				sensitive = false
@@ -101,18 +95,19 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			content_box.append (new Gtk.ScrolledWindow () {
 				hexpand = true,
 				vexpand = true,
-				child = alt_editor
+				child = new Adw.ClampScrollable () {
+					margin_bottom = 6,
+					margin_top = 6,
+					child = alt_editor,
+					tightening_threshold = 100
+				}
 			});
 
 			dialog_char_counter = new Gtk.Label (ALT_MAX_CHARS.to_string ()) {
-				margin_end = 24,
-				margin_top = 12,
-				margin_bottom = 12,
 				tooltip_text = _("Characters Left"),
-				css_classes = { "heading", "numeric" },
-				halign = Gtk.Align.END
+				css_classes = { "heading", "numeric" }
 			};
-			toolbar_view.add_bottom_bar (dialog_char_counter);
+			headerbar.pack_start (dialog_char_counter);
 			alt_editor.buffer.changed.connect (on_alt_editor_buffer_change);
 
 			this.child = toolbar_view;
@@ -180,6 +175,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 				var focus_picker = new Widgets.FocusPicker (paintable);
 				focus_picker.bind_property ("pos-x", this, "pos-x", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
 				focus_picker.bind_property ("pos-y", this, "pos-y", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
+				focus_picker.add_css_class ("attachment-editor-picker");
 
 				content_box.prepend (focus_picker);
 			} else if (video != null) {
