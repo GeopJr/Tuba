@@ -91,6 +91,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	}
 
 	private bool edit_mode { get; set; default = false; }
+	private string? schedule_iso8601 { get; set; default=null; }
 
 	private void install_emoji_pickers () {
 		var emoji_picker = new Gtk.EmojiChooser ();
@@ -129,7 +130,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 	protected Gtk.DropDown visibility_button;
 	protected Gtk.DropDown language_button;
-	protected Gtk.DropDown content_type_button;
+	protected Gtk.DropDown? content_type_button = null;
 
 	private void append_dropdown (Gtk.DropDown dropdown) {
 		var togglebtn = dropdown.get_first_child ();
@@ -621,14 +622,20 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	private void on_schedule_action_activated () {
 		if (!post_btn.sensitive) return;
 
-		on_push_subpage (new Dialogs.Schedule ());
-		//  schedule_dlg.schedule_picked.connect (on_schedule_picked);
+		var schedule_dlg = new Dialogs.Schedule ();
+		schedule_dlg.schedule_picked.connect (on_schedule_picked);
+		on_push_subpage (schedule_dlg);
 	}
 
 	private void on_draft_action_activated () {
 		if (!post_btn.sensitive) return;
 
-		//  schedule_iso8601 = (new GLib.DateTime.now ()).add_years (3000).format_iso8601 ();
+		this.schedule_iso8601 = (new GLib.DateTime.now ()).add_years (3000).format_iso8601 ();
+		//  on_commit ();
+	}
+
+	private void on_schedule_picked (string iso8601) {
+		this.schedule_iso8601 = iso8601;
 		//  on_commit ();
 	}
 
@@ -662,5 +669,51 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		}
 
 		post_btn.sensitive = sensitive;
+	}
+
+	private Json.Builder populate_json_body () {
+		var builder = new Json.Builder ();
+		builder.begin_object ();
+
+		//  builder.set_member_name ("status");
+		//  builder.add_string_value (status.status);
+
+		if (visibility_button.selected != Gtk.INVALID_LIST_POSITION) {
+			builder.set_member_name ("visibility");
+			builder.add_string_value (((InstanceAccount.Visibility) visibility_button.selected_item).id);
+		}
+
+		// Move to editor?
+		builder.set_member_name ("language");
+		builder.add_string_value (editor.locale);
+
+		if (content_type_button != null && content_type_button.selected != Gtk.INVALID_LIST_POSITION) {
+			builder.set_member_name ("content_type");
+			builder.add_string_value (((InstanceAccount.StatusContentType) content_type_button.selected_item).mime);
+		}
+
+		//  if (status.in_reply_to_id != null && !edit_mode) {
+		//  	builder.set_member_name ("in_reply_to_id");
+		//  	builder.add_string_value (status.in_reply_to_id);
+		//  }
+
+		builder.set_member_name ("sensitive");
+		builder.add_boolean_value (cw_button.active);
+		builder.set_member_name ("spoiler_text");
+		builder.add_string_value (cw_button.active ? cw_entry.text : "");
+
+		//  if (this.edit_mode) update_metadata (builder);
+		//  if (quote_id != null) {
+		//  	builder.set_member_name ("quote_id");
+		//  	builder.add_string_value (quote_id);
+		//  }
+
+		if (this.schedule_iso8601 != null) {
+			builder.set_member_name ("scheduled_at");
+			builder.add_string_value (schedule_iso8601);
+		}
+
+		builder.end_object ();
+		return builder;
 	}
 }
