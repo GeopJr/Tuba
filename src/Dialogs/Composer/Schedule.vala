@@ -75,4 +75,24 @@ public class Tuba.Dialogs.Schedule : Adw.NavigationPage {
 
 		schedule_button.sensitive = valid;
 	}
+
+	public override void measure (
+		Gtk.Orientation orientation,
+		int for_size,
+		out int minimum,
+		out int natural,
+		out int minimum_baseline,
+		out int natural_baseline
+	) {
+		base.measure (
+			orientation,
+			for_size,
+			out minimum,
+			out natural,
+			out minimum_baseline,
+			out natural_baseline
+		);
+
+		if (orientation == HORIZONTAL) natural = int.max (minimum, int.max (natural, 423));
+	}
 }
