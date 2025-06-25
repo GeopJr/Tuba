@@ -188,6 +188,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		}
 	}
 
+	// TODO maybe an attachable.working prop?
 	public bool uploading { get; set; default = false; }
 	public bool is_empty { get { return attachment_widgets.size == 0; } }
 

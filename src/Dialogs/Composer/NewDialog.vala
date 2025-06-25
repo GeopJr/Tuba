@@ -78,6 +78,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		set {
 			_remaining_chars = value;
 			counter_label.label = counter_label.tooltip_text = char_limit >= 1000 ? value.to_string () : @"$value / $char_limit";
+			validate_post_button ();
 
 			if (value < 0) {
 				counter_label.add_css_class ("error");
@@ -501,6 +502,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		bool is_used = attachmentsbin_component.uploading || !attachmentsbin_component.is_empty;
 		poll_button.sensitive = !is_used;
 		if (!is_used) editor.add_bottom_child (null);
+		validate_post_button ();
 	}
 
 	private bool on_drag_drop (Value val, double x, double y) {
@@ -632,6 +634,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 	private void on_component_animation_end (Adw.Animation animation) {
 		if (animation.value == 0) editor.add_bottom_child (null);
+		validate_post_button (); // ?
 	}
 
 	private void on_toast (Adw.Toast toast) {
@@ -644,5 +647,20 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 	private void on_pop_subpage () {
 		nav_view.pop ();
+	}
+
+	private void validate_post_button () {
+		bool sensitive = remaining_chars >= 0;
+		if (sensitive) {
+			if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component)) {
+				sensitive = !attachmentsbin_component.is_empty && !attachmentsbin_component.uploading; // TODO attachable.working
+			} else if (polls_component != null && editor.is_bottom_child (polls_component)) {
+				sensitive = polls_component.is_valid && remaining_chars < char_limit; // TODO: check if is_valid ignores empties
+			} else {
+				sensitive = remaining_chars < char_limit;
+			}
+		}
+
+		post_btn.sensitive = sensitive;
 	}
 }

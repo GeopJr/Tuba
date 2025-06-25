@@ -355,6 +355,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 
 	// TODO
 	private bool upload_lock = false;
+	// TODO handle error? delete itself?
 	public async void upload (GLib.File file) throws Error {
 		bytes_written = 0;
 		total_bytes = 0;
