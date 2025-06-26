@@ -380,7 +380,7 @@ headerbar.flat.no-title .title {
 
 .attachment-editor-picker {
 	background-color: var(--shade-color);
-	padding: 6px 0;
+	padding: 12px 0;
 }
 
 .about .app-version{color:#fff;text-shadow:-1px -1px 0#000,1px -1px 0#000,-1px 1px 0#000,1px 1px 0#000;background:linear-gradient(150deg,#fdd81755 0,#66338b55 8.3%,#fff5 16.6%,#f4aec855 24.9%,#7bcce555 33.2%,#94551655 41.5%,#0005 49.8%,#e2201655 58.1%,#f2891755 66.4%,#efe52455 74.7%,#78b82a55 83%,#2c58a4 91.3%,#6d238055 100%);}

@@ -49,7 +49,11 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 				vexpand = true,
 				hexpand = true,
 				accepts_tab = false,
-				wrap_mode = Gtk.WrapMode.WORD_CHAR
+				wrap_mode = Gtk.WrapMode.WORD_CHAR,
+				margin_bottom = 6,
+				margin_top = 6,
+				margin_start = 6,
+				margin_end = 6
 			};
 			alt_editor.remove_css_class ("view");
 			alt_editor.add_css_class ("reset");
@@ -80,12 +84,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			content_box.append (new Gtk.ScrolledWindow () {
 				hexpand = true,
 				vexpand = true,
-				child = new Adw.ClampScrollable () {
-					margin_bottom = 6,
-					margin_top = 6,
-					child = alt_editor,
-					tightening_threshold = 100
-				}
+				child = alt_editor
 			});
 
 			dialog_char_counter = new Gtk.Label (ALT_MAX_CHARS.to_string ()) {
