@@ -37,7 +37,8 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			var toolbar_view = new Adw.ToolbarView ();
 			var headerbar = new Adw.HeaderBar () {
 				show_end_title_buttons = false,
-				show_start_title_buttons = false
+				show_start_title_buttons = false,
+				show_title = false
 			};
 
 			content_box = new Gtk.Box (VERTICAL, 0);
@@ -88,10 +89,11 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			});
 
 			dialog_char_counter = new Gtk.Label (ALT_MAX_CHARS.to_string ()) {
-				tooltip_text = _("Characters Left"),
-				css_classes = { "heading", "numeric" }
+				tooltip_text = _("Remaining Characters"),
+				css_classes = { "numeric", "dimmed" },
+				margin_end = 6
 			};
-			headerbar.pack_start (dialog_char_counter);
+			headerbar.pack_end (dialog_char_counter);
 			alt_editor.buffer.changed.connect (on_alt_editor_buffer_change);
 
 			this.child = toolbar_view;
