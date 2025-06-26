@@ -15,23 +15,12 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		public bool can_save {
 			get { return _can_save; }
 			set {
+				this.can_pop =
 				_can_save = value;
-
-				save_btn.sensitive = !_working && _can_save;
 			}
 		}
 
-		private bool _working = false;
-		public bool working {
-			get { return _working; }
-			set {
-				_working = value;
-				this.can_pop = !value;
-
-				save_btn.sensitive = !_working && _can_save;
-			}
-		}
-
+		public bool working { get; set; default = false; }
 		public bool edit_mode { get; set; default = false; }
 		public float pos_x { get; set; default = 0.0f; }
 		public float pos_y { get; set; default = 0.0f; }
@@ -53,11 +42,6 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 
 			content_box = new Gtk.Box (VERTICAL, 0);
 			toolbar_view.content = content_box;
-
-			save_btn = new Gtk.Button.with_label (_("Save"));
-			save_btn.add_css_class ("suggested-action");
-			save_btn.clicked.connect (on_save);
-			headerbar.pack_end (save_btn);
 			toolbar_view.add_top_bar (headerbar);
 
 			alt_editor = new GtkSource.View () {
@@ -111,6 +95,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			alt_editor.buffer.changed.connect (on_alt_editor_buffer_change);
 
 			this.child = toolbar_view;
+			this.hidden.connect (on_save);
 		}
 
 		private void on_alt_editor_buffer_change () {
