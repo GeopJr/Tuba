@@ -91,7 +91,7 @@
 																</child>
 																<child>
 																	<object class="GtkToggleButton" id="poll_button">
-																		<property name="icon-name">format-justify-left-symbolic</property>
+																		<property name="icon-name">tuba-polls-symbolic</property>
 																		<style>
 																			<class name="flat" />
 																		</style>
