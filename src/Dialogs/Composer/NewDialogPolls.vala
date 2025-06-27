@@ -130,7 +130,7 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 	Gtk.DropDown expiration_button;
 	StatefulButton multi_button;
 	StatefulButton show_results_button;
-	Gtk.Box actions_box;
+	Gtk.Grid actions_box;
 
 	public bool hide_totals { get { return !show_results_button.active; } }
 	public bool multiple_choice { get { return multi_button.active; } }
@@ -153,7 +153,8 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 			{ _("Multiple Choice"), _("Single Choice") }
 		) {
 			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER,
+			halign = Gtk.Align.FILL,
+			hexpand = true,
 			css_classes = {"composer-toggle-button"}
 		};
 
@@ -164,17 +165,21 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 			true
 		) {
 			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER,
+			halign = Gtk.Align.FILL,
+			hexpand = true,
 			css_classes = {"composer-toggle-button"}
 		};
 		this.bind_property ("edit-mode", show_results_button, "sensitive", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 
-		actions_box = new Gtk.Box (HORIZONTAL, 6) {
-			homogeneous = true,
-			halign = CENTER
+		actions_box = new Gtk.Grid () {
+			column_homogeneous = true,
+			row_homogeneous = true,
+			column_spacing = 6,
+			row_spacing = 6,
+			halign = FILL
 		};
-		actions_box.append (multi_button);
-		actions_box.append (show_results_button);
+		actions_box.attach (multi_button, 0, 0, 1, 1);
+		actions_box.attach (show_results_button, 1, 0, 1, 1);
 		this.append (actions_box);
 
 		this.add_css_class ("initial-font-size");
@@ -201,7 +206,7 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 		row_cleanup ();
 
 		install_expires_in (expires_at);
-		actions_box.append (expiration_button);
+		actions_box.attach (expiration_button, 0, 1, 1, 1);
 	}
 
 	private void check_poll_items () {
