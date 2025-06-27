@@ -101,6 +101,9 @@ endif
 
 if clapper_dep.found () and clapper_gtk_dep.found ()
   add_project_arguments(['--define=CLAPPER'], language: 'vala')
+  if clapper_dep.version().version_compare('>=0.10')
+    add_project_arguments(['--define=CLAPPER_0_10'], language: 'vala')
+  endif
   if (clapper_dep.get_variable('features').split().contains('mpris'))
     add_project_arguments(['--define=CLAPPER_MPRIS'], language: 'vala')
   endif
