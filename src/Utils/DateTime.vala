@@ -185,8 +185,9 @@ public class Tuba.Utils.DateTime {
 
 		if (date_year == now_year) {
 			if (now_month > date_month) {
+				var diff = now_month - date_month;
 				// tranlators: the variable is a number
-				return _("%d months old").printf (now_month - date_month);
+				return GLib.ngettext ("a month old", "%d months old", diff).printf (diff);
 			}
 
 			var day_diff = now_day_oty - date_day_oty;
@@ -195,12 +196,13 @@ public class Tuba.Utils.DateTime {
 			return GLib.ngettext ("a day old", "%d days old", (ulong) day_diff).printf (day_diff);
 		} else {
 			var year_diff = now_year - date_year;
-			if (year_diff > 0) {
+			if (year_diff > 1) {
 				// tranlators: the variable is a number
 				return GLib.ngettext ("a year old", "%d years old", (ulong) year_diff).printf (year_diff);
 			} else {
+				var diff = now_month + 12 - date_month;
 				// tranlators: the variable is a number
-				return _("%d months old").printf (now_month + 12 - date_month);
+				return GLib.ngettext ("a month old", "%d months old", (ulong) diff).printf (diff);
 			}
 		}
 	}

@@ -92,6 +92,8 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 		if (text != null) this.label = text;
 	}
 
+	public bool can_open { get; set; default = true; }
+
 	static construct {
 		set_accessible_role (Gtk.AccessibleRole.LABEL);
 	}
@@ -117,8 +119,9 @@ public class Tuba.Widgets.RichLabel : Adw.Bin {
 	}
 
 	public bool on_activate_link (string url) {
-		widget.grab_focus ();
+		if (!can_open) return true;
 
+		widget.grab_focus ();
 		if (mentions != null) {
 			bool found = false;
 			mentions.@foreach (mention => {
