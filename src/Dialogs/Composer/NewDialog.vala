@@ -489,6 +489,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		};
 		polls_animation = new Adw.TimedAnimation (polls_component, 0, 1, 250, new Adw.PropertyAnimationTarget (polls_component, "opacity"));
 		polls_animation.done.connect (on_component_animation_end);
+		this.bind_property ("is-narrow", polls_component, "is-narrow", SYNC_CREATE);
 	}
 
 	Components.AttachmentsBin? attachmentsbin_component = null;

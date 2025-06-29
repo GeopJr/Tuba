@@ -75,10 +75,11 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 
 	public class Expiration : GLib.Object {
 		public string text { get; set; }
+		public string text_short { get; set; }
 		public int64 value { get; set; }
 
-		public Expiration (string? text, int64 value) {
-			Object (text: text, value: value);
+		public Expiration (string? text, string? text_short, int64 value) {
+			Object (text: text, text_short: text_short, value: value);
 		}
 
 		public static EqualFunc<string> compare = (a, b) => {
@@ -125,12 +126,39 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 		}
 	}
 
+	private bool _is_narrow = false;
+	public bool is_narrow {
+		get {
+			return _is_narrow;
+		}
+		set {
+			Gtk.GridLayout layout_manager = (Gtk.GridLayout) actions_grid.get_layout_manager ();
+			Gtk.GridLayoutChild expiration_button_layout_child = (Gtk.GridLayoutChild) layout_manager.get_layout_child (expiration_button);
+
+			if (value) {
+				actions_grid.column_homogeneous = true;
+
+				expiration_button_layout_child.column = 0;
+				expiration_button_layout_child.row = 1;
+				expiration_button.factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/expiration.ui");
+			} else {
+				actions_grid.column_homogeneous = false;
+
+				expiration_button_layout_child.column = 2;
+				expiration_button_layout_child.row = 0;
+				expiration_button.factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/expiration_title.ui");
+			}
+
+			_is_narrow = value;
+		}
+	}
+
 	Gee.ArrayList<PollRow> poll_options = new Gee.ArrayList<PollRow> ();
 	Gtk.ListBox poll_list;
 	Gtk.DropDown expiration_button;
 	StatefulButton multi_button;
 	StatefulButton show_results_button;
-	Gtk.Grid actions_box;
+	Gtk.Grid actions_grid;
 
 	public bool hide_totals { get { return !show_results_button.active; } }
 	public bool multiple_choice { get { return multi_button.active; } }
@@ -171,16 +199,15 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 		};
 		this.bind_property ("edit-mode", show_results_button, "sensitive", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 
-		actions_box = new Gtk.Grid () {
+		actions_grid = new Gtk.Grid () {
 			column_homogeneous = true,
 			row_homogeneous = true,
 			column_spacing = 6,
-			row_spacing = 6,
-			halign = FILL
+			row_spacing = 6
 		};
-		actions_box.attach (multi_button, 0, 0, 1, 1);
-		actions_box.attach (show_results_button, 1, 0, 1, 1);
-		this.append (actions_box);
+		actions_grid.attach (multi_button, 0, 0, 1, 1);
+		actions_grid.attach (show_results_button, 1, 0, 1, 1);
+		this.append (actions_grid);
 
 		this.add_css_class ("initial-font-size");
 	}
@@ -206,7 +233,7 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 		row_cleanup ();
 
 		install_expires_in (expires_at);
-		actions_box.attach (expiration_button, 0, 1, 1, 1);
+		actions_grid.attach (expiration_button, 0, 1, 1, 1);
 	}
 
 	private void check_poll_items () {
@@ -293,16 +320,24 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 
 	Expiration[] expirations = {
 		// translators: the variable is a number
-		new Expiration (GLib.ngettext ("%d Minute", "%d Minutes", (ulong) 5).printf (5), 300),
-		new Expiration (GLib.ngettext ("%d Minute", "%d Minutes", (ulong) 30).printf (30), 1800),
+		new Expiration (GLib.ngettext ("%d Minute", "%d Minutes", (ulong) 5).printf (5),
+		"%dm".printf (5), 300),
+		new Expiration (GLib.ngettext ("%d Minute", "%d Minutes", (ulong) 30).printf (30),
+		"%dm".printf (30), 1800),
 		// translators: the variable is a number
-		new Expiration (GLib.ngettext ("%d Hour", "%d Hours", (ulong) 1).printf (1), 3600),
-		new Expiration (GLib.ngettext ("%d Hour", "%d Hours", (ulong) 6).printf (6), 21600),
-		new Expiration (GLib.ngettext ("%d Hour", "%d Hours", (ulong) 12).printf (12), 43200),
+		new Expiration (GLib.ngettext ("%d Hour", "%d Hours", (ulong) 1).printf (1),
+		"%dh".printf (1), 3600),
+		new Expiration (GLib.ngettext ("%d Hour", "%d Hours", (ulong) 6).printf (6),
+		"%dh".printf (6), 21600),
+		new Expiration (GLib.ngettext ("%d Hour", "%d Hours", (ulong) 12).printf (12),
+		"%dh".printf (12), 43200),
 		// translators: the variable is a number
-		new Expiration (GLib.ngettext ("%d Day", "%d Days", (ulong) 1).printf (1), 86400),
-		new Expiration (GLib.ngettext ("%d Day", "%d Days", (ulong) 3).printf (3), 259200),
-		new Expiration (GLib.ngettext ("%d Day", "%d Days", (ulong) 7).printf (7), 604800)
+		new Expiration (GLib.ngettext ("%d Day", "%d Days", (ulong) 1).printf (1),
+		"%dd".printf (1), 86400),
+		new Expiration (GLib.ngettext ("%d Day", "%d Days", (ulong) 3).printf (3),
+		"%dd".printf (3), 259200),
+		new Expiration (GLib.ngettext ("%d Day", "%d Days", (ulong) 7).printf (7),
+		"%dd".printf (7), 604800)
 	};
 
 	protected void install_expires_in (string? expires_at = null) {
@@ -341,7 +376,7 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 			uint default_exp_index;
 			if (
 				store.find_with_equal_func (
-					new Expiration (null, delta / TimeSpan.SECOND),
+					new Expiration (null, null, delta / TimeSpan.SECOND),
 					Expiration.compare,
 					out default_exp_index
 				)
