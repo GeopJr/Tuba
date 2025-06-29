@@ -19,6 +19,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Gtk.ToggleButton cw_button;
 	[GtkChild] private unowned Gtk.Entry cw_entry;
 	[GtkChild] private unowned Gtk.ToggleButton poll_button;
+	[GtkChild] private unowned Gtk.ToggleButton sensitive_media_button;
 	[GtkChild] private unowned Gtk.Button add_media_button;
 
 	private bool _is_narrow = false;
@@ -501,6 +502,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		if (attachmentsbin_component == null) return;
 
 		bool is_used = attachmentsbin_component.uploading || !attachmentsbin_component.is_empty;
+		sensitive_media_button.visible = !attachmentsbin_component.is_empty;
 		poll_button.sensitive = !is_used;
 		if (!is_used) editor.add_bottom_child (null);
 		validate_post_button ();

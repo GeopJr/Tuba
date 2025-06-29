@@ -105,6 +105,16 @@
 																		</style>
 																	</object>
 																</child>
+																<child>
+																	<object class="GtkToggleButton" id="sensitive_media_button">
+																		<property name="icon-name">tuba-eye-not-looking-symbolic</property>
+																		<property name="visible">0</property>
+																		<property name="tooltip-text" translatable="yes">Mark media as sensitive</property>
+																		<style>
+																			<class name="flat" />
+																		</style>
+																	</object>
+																</child>
 																<layout>
 																	<property name="column">0</property>
 																	<property name="row">0</property>
