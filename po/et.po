@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-14 19:52+0200\n"
-"PO-Revision-Date: 2025-06-18 21:01+0000\n"
+"PO-Revision-Date: 2025-07-01 09:02+0000\n"
 "Last-Translator: Priit Jõerüüt <hwlate@joeruut.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/tuba/tuba/et/>\n"
 "Language: et\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.1\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/dev.geopjr.Tuba.desktop.in:4 data/dev.geopjr.Tuba.metainfo.xml.in:6
 msgid "Tuba"
@@ -1139,12 +1139,12 @@ msgstr "Põhjus"
 #. translators: report notification
 #: src/API/Admin/Report.vala:78
 msgid "You've received a report"
-msgstr ""
+msgstr "Sa oled saanud teatise"
 
 #. translators: report notification with date, "You've received a report on: <date>"
 #: src/API/Admin/Report.vala:81
 msgid "You've received a report on"
-msgstr ""
+msgstr "Sa oled saanud teatise"
 
 #: src/API/Announcement.vala:55 src/Application.vala:437
 #: src/Dialogs/Composer/Dialog.vala:464 src/Dialogs/ProfileEdit.vala:142
@@ -1194,7 +1194,11 @@ msgid_plural ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
 msgstr[0] ""
+"Sa oled blokeerinud %s server, seega eemaldan %s sinu jälgija ning %s konto, "
+"mida sa jälgid."
 msgstr[1] ""
+"Sa oled blokeerinud %s server, seega eemaldan %s sinu jälgijat ning %s "
+"kontot, mida sa jälgid."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
 #: src/API/Notification.vala:24
@@ -2441,7 +2445,7 @@ msgstr "Postitusi ei leidu"
 #: src/Services/Accounts/InstanceAccount.vala:241
 #, c-format
 msgid "%s mentioned you"
-msgstr ""
+msgstr "%s mainis sind"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
@@ -2481,14 +2485,14 @@ msgstr "%s soovib sind jälgida"
 #. translators: this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:294
 msgid "Poll results"
-msgstr ""
+msgstr "Küsitluse tulemused"
 
 #. translators: the variable is a string user name,
 #. this is used for notifications
 #: src/Services/Accounts/InstanceAccount.vala:303
 #, c-format
 msgid "%s edited a post"
-msgstr ""
+msgstr "%s muutis postitust"
 
 #. translators: post header, on posts that are replies
 #: src/Services/Accounts/InstanceAccount.vala:311
@@ -2542,7 +2546,7 @@ msgstr "%s reageeris sinu postitusele"
 #: src/Services/Accounts/InstanceAccount.vala:396
 #, c-format
 msgid "%s reacted to your post with %s"
-msgstr ""
+msgstr "%s reageeris sinu postitusele: %s"
 
 #. translators: this is a content type
 #: src/Services/Accounts/InstanceAccount.vala:440
@@ -2594,7 +2598,7 @@ msgstr "Postita vaid jälgijatele"
 
 #: src/Services/Accounts/Mastodon/Account.vala:230
 msgid "Direct"
-msgstr "Otsene"
+msgstr "Otsesõnum"
 
 #: src/Services/Accounts/Mastodon/Account.vala:233
 msgid "Post to mentioned users only"
@@ -2769,8 +2773,8 @@ msgstr "eile"
 #, c-format
 msgid "less than a minute old"
 msgid_plural "%s minutes old"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "vähem kui minut vana"
+msgstr[1] "%s minutit vana"
 
 #. tranlators: the variable is a number
 #: src/Utils/DateTime.vala:174
@@ -3724,7 +3728,7 @@ msgstr "Näita veel %d teemaviidet"
 #: src/Widgets/PreviewCardExplore.vala:75
 #, c-format
 msgid "Discussed %d times by %d people yesterday"
-msgstr ""
+msgstr "Eile on sel teemal arutanud %2$d inimest %1$d korda"
 
 #. translators: the variables are numbers
 #: src/Widgets/PreviewCardExplore.vala:83
@@ -3799,11 +3803,11 @@ msgstr[1] ""
 #: src/Widgets/ProfileCover.vala:482
 #, c-format
 msgid "%s has moved to %s"
-msgstr ""
+msgstr "%s on kolinud uude serverisse: %s"
 
 #: src/Widgets/ProfileCover.vala:711
 msgid "Error: Note is over 2000 characters long"
-msgstr "Viga: märge pikem, kui 200 tähemärki"
+msgstr "Viga: märge on pikem, kui 200 tähemärki"
 
 #: src/Widgets/ProfileFilterGroup.vala:54
 msgid "Replies"
@@ -3815,7 +3819,7 @@ msgstr "Vastused"
 #: src/Widgets/ReactButton.vala:37
 #, c-format
 msgid "React with %s"
-msgstr ""
+msgstr "Reageeri kasutades %s"
 
 #: src/Widgets/RelationshipButton.vala:55 src/Widgets/Status.vala:328
 msgid "Unmute"
@@ -3971,7 +3975,7 @@ msgstr "Tõlkimine ei õnnestunud: %s"
 #: src/Widgets/Status.vala:702
 #, c-format
 msgid "Open %s's Mini Profile"
-msgstr ""
+msgstr "Ava %s kasutaja miniprofiil"
 
 #. translators: Unpin post from profile
 #: src/Widgets/Status.vala:754
@@ -3994,7 +3998,7 @@ msgstr "See on filtreeritud postitus"
 #: src/Widgets/Status.vala:783
 #, c-format
 msgid "%s post by %s (%s)."
-msgstr ""
+msgstr "%s postitus kasutajalt %s (%s)."
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
