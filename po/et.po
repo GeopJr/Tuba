@@ -1694,6 +1694,8 @@ msgid ""
 "The reason this account and/or content was reported will be cited in "
 "communication with the reported account"
 msgstr ""
+"Selle kasutaja ja/või sisu kohta teatise koostamise põhjus saab olema näha "
+"ka peakasutaja suhtluses antud kasutajaga"
 
 #: src/Dialogs/Admin/Report.vala:237
 msgid "Violated Rules"
@@ -1739,7 +1741,7 @@ msgstr "Sensitiivne"
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:79
 msgid "Force all this user's media attachments to be flagged as sensitive"
-msgstr ""
+msgstr "Märgi sundkorras kõik selle kasutaja manused delikaatseteks"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:88
@@ -1802,18 +1804,18 @@ msgstr "Blokeeritud e-posti domeenid"
 #. IP Addresses
 #: src/Dialogs/Admin.vala:58 src/Views/Admin/Pages/BlockedIPs.vala:7
 msgid "IP Rules"
-msgstr ""
+msgstr "IP-aadresside regelid"
 
 #. translators: Admin Dialog page title
 #: src/Dialogs/Admin.vala:68 src/Views/Admin/Pages/FederationAllowlist.vala:7
 msgid "Federation Allowlist"
-msgstr ""
+msgstr "Lubatud serverid Födiversumis"
 
 #. translators: Admin Dialog page title,
 #. this is about federation blocking
 #: src/Dialogs/Admin.vala:78 src/Views/Admin/Pages/FederationBlocklist.vala:6
 msgid "Federation Blocklist"
-msgstr ""
+msgstr "Blokeeritud serverid Födiversumis"
 
 #: src/Dialogs/AnnualReport.vala:61
 msgid "Default"
@@ -1949,7 +1951,7 @@ msgstr "Salvesta #FediWrapped"
 #: src/Dialogs/AnnualReport.vala:573
 #, c-format
 msgid "Saved %s Wrapped"
-msgstr "%s. aasta kokkuvõte"
+msgstr "%s. aasta kokkuvõte on salvestatud"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:131
 #: src/Dialogs/Composer/EditorPage.vala:252
@@ -3752,7 +3754,7 @@ msgstr ""
 #. being discussed.
 #: src/Widgets/PreviewCardExplore.vala:100
 msgid "See Discussions"
-msgstr ""
+msgstr "Näita arutelusid"
 
 #. translators: the variable is a user name. This is shown on
 #. preview cards of articles from 'verified' fedi authors.
@@ -3761,7 +3763,7 @@ msgstr ""
 #: src/Widgets/PreviewCard.vala:103 src/Widgets/PreviewCard.vala:111
 #, c-format
 msgid "By %s"
-msgstr ""
+msgstr "Autorilt %s"
 
 #. translators: the variable is a number. This is shown on
 #. preview cards of articles from 'verified' fedi authors,
@@ -3771,8 +3773,8 @@ msgstr ""
 #, c-format
 msgid "See %d author"
 msgid_plural "See all %d authors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Vaata %d autorit"
+msgstr[1] "Vaata kõiki %d autorit"
 
 #. translators: button on profiles that when clicked shows a list of familiar followers.
 #. The first variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
@@ -3783,8 +3785,8 @@ msgstr[1] ""
 #, c-format
 msgid "Followed by %s & %s Other"
 msgid_plural "Followed by %s & %s Others"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Jälgijaks %s ja veel %s huviline"
+msgstr[1] "Jälgijaks %s ja veel %s huvilist"
 
 #. translators: button on profiles that when clicked shows a list of familiar followers.
 #. The variable is a comma-separated list of people (e.g. GeopJr, Tuba, GNOME).
@@ -3793,7 +3795,7 @@ msgstr[1] ""
 #: src/Widgets/ProfileCover.vala:92
 #, c-format
 msgid "Followed by %s"
-msgstr ""
+msgstr "Jälgija(te)ks %s"
 
 #. translators: This is an accessibility label.
 #. Screen reader users are going to hear this a lot,
@@ -3804,8 +3806,8 @@ msgstr ""
 #, c-format
 msgid "Contains %d field."
 msgid_plural "Contains %d fields."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sisaldab %d välja."
+msgstr[1] "Sisaldab %d välja."
 
 #. translators: Button label shown when a user has moved to another instance.
 #. The first variable is this account's handle while the second
@@ -3929,13 +3931,13 @@ msgstr "Näita algteksti"
 #. post that is private or mentioned-only
 #: src/Widgets/Status.vala:377
 msgid "Only mentioned people will be able to view it."
-msgstr ""
+msgstr "Ainult mainitud kasutajad saavad seda näha."
 
 #. translators: dialog subtitle visibility warning when copying a link to a
 #. post that is private or mentioned-only
 #: src/Widgets/Status.vala:381
 msgid "Only mentioned people and your followers will be able to view it."
-msgstr ""
+msgstr "Ainult mainitud kasutajad ja sinu jälgijad saavad seda näha."
 
 #. translators: dialog subtitle visibility warning when copying a link to a post
 #. that is private or mentioned-only, the variable is a handle
@@ -3943,13 +3945,13 @@ msgstr ""
 #, c-format
 msgid ""
 "Only mentioned people and people that follow %s will be able to view it."
-msgstr ""
+msgstr "Ainult mainitud kasutajad ja „%s“ kasutaja jälgijad saavad seda näha."
 
 #. translators: the variable is the post visibility e.g. Public, Unlisted...
 #: src/Widgets/Status.vala:390
 #, c-format
 msgid "Copy %s Post Link?"
-msgstr ""
+msgstr "Kas kopeerime %s postituse lingi?"
 
 #: src/Widgets/Status.vala:393
 msgid "Copy"
