@@ -1194,10 +1194,10 @@ msgid_plural ""
 "You have blocked %s, removing %s of your followers and %s accounts you "
 "follow."
 msgstr[0] ""
-"Sa oled blokeerinud %s server, seega eemaldan %s sinu jälgija ning %s konto, "
-"mida sa jälgid."
+"Sa oled blokeerinud %s serveri, seega eemaldan %s sinu jälgija ning %s "
+"konto, mida sa jälgid."
 msgstr[1] ""
-"Sa oled blokeerinud %s server, seega eemaldan %s sinu jälgijat ning %s "
+"Sa oled blokeerinud %s serveri, seega eemaldan %s sinu jälgijat ning %s "
 "kontot, mida sa jälgid."
 
 #. translators: the first variable is an instance (e.g. mastodon.social), the other two are numbers, e.g. '4 accounts you follow'
@@ -1210,7 +1210,11 @@ msgid_plural ""
 "An admin has blocked %s, including %s of your followers and %s accounts you "
 "follow."
 msgstr[0] ""
+"Peakasutaja on blokeerinud %s serveri, sealhulgas %s sinu jälgija ning %s "
+"konto, mida sa jälgid."
 msgstr[1] ""
+"Peakasutaja on blokeerinud %s serveri, sealhulgas %s sinu jälgijat ning %s "
+"kontot, mida sa jälgid."
 
 #. translators: the first variable is a user handle so 'them' refers to that user
 #: src/API/Notification.vala:33
@@ -1219,6 +1223,8 @@ msgid ""
 "An admin has suspended %s, which means you can no longer receive updates "
 "from them or interact with them."
 msgstr ""
+"Peakasutaja on peatanud %s kasutaja tegevuse, seega ka sina enam ei saa tema "
+"tegevuse kohta teateid ega saa temaga suhelda."
 
 #. translators: as in just registered in the instance,
 #. this is a notification type only visible
@@ -1416,7 +1422,7 @@ msgstr "%d korda nädalas"
 #: src/API/Tag.vala:59
 #, c-format
 msgid "Used %d times by %d people yesterday"
-msgstr ""
+msgstr "Eile on seda kasutanud %2$d inimest %1$d korda"
 
 #. translators: the variables are numbers
 #: src/API/Tag.vala:67
@@ -1479,7 +1485,7 @@ msgstr "Jah"
 #: src/Dialogs/Admin/AddFederationBlock.vala:29
 #: src/Views/Admin/Pages/FederationBlocklist.vala:9
 msgid "Add Federation Block"
-msgstr ""
+msgstr "Lisa Födiversumi blokeering"
 
 #: src/Dialogs/Admin/AddFederationBlock.vala:40
 #: src/Dialogs/Admin/AddIPBlock.vala:79
@@ -1502,34 +1508,34 @@ msgstr "Tõsidus"
 #: src/Dialogs/Admin/AddFederationBlock.vala:92
 #: src/Widgets/Admin/DomainBlock.vala:30
 msgid "Reject Media Files"
-msgstr ""
+msgstr "Keela meediafailid"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:95
 msgid ""
 "Removes locally stored media files and refuses to download any in the future"
-msgstr ""
+msgstr "Eemaldab kohalikud meediafailid ja ei luba uusi alla laadida"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:103
 #: src/Widgets/Admin/DomainBlock.vala:31
 msgid "Reject Reports"
-msgstr ""
+msgstr "Teatiste blokeerimine"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:106
 msgid "Ignore all reports coming from this domain"
-msgstr ""
+msgstr "Eira kõiki sellest domeenist saadetavaid teatisi"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option title.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/AddFederationBlock.vala:114
 #: src/Widgets/Admin/DomainBlock.vala:32
 msgid "Obfuscate Domain Name"
-msgstr ""
+msgstr "Hägusta domeenide nimed"
 
 #. translators: Admin dashboard, federation blocklist, checkbox option description.
 #. You can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
@@ -1538,6 +1544,8 @@ msgid ""
 "Partially obfuscate the domain name in the list if advertising the list of "
 "domain limitations is enabled"
 msgstr ""
+"Kui domeenide piirangud on kasutusel, siis osaliselt hägusta domeenide nimed "
+"serveri leviedastuses"
 
 #. translators: Admin dashboard, federation block dialog
 #: src/Dialogs/Admin/AddFederationBlock.vala:124
@@ -1602,7 +1610,7 @@ msgstr "Mis juhtub siit IP-aadressilt tehtud päringutega"
 #. mark a report as resolved
 #: src/Dialogs/Admin/Report.vala:50
 msgid "Mark this Report as Resolved?"
-msgstr ""
+msgstr "Kas märgid selle teatise lahendatuks?"
 
 #: src/Dialogs/Admin/Report.vala:52 src/Dialogs/Admin/Report.vala:101
 msgid "Resolve"
@@ -1612,7 +1620,7 @@ msgstr "Lahenda"
 #. reopen a report
 #: src/Dialogs/Admin/Report.vala:61
 msgid "Reopen this Report?"
-msgstr ""
+msgstr "Kas võtad selle teatise uuesti töösse?"
 
 #: src/Dialogs/Admin/Report.vala:63 src/Dialogs/Admin/Report.vala:101
 msgid "Reopen"
@@ -1623,7 +1631,7 @@ msgstr "Ava uuesti"
 #: src/Dialogs/Admin/TakeAction.vala:150
 #: src/Views/Admin/Pages/Accounts.vala:250
 msgid "Take Action"
-msgstr ""
+msgstr "Asu tegutsema"
 
 #. translators: as in created an account; this is used in Profiles in a row
 #. which has as value the date the profile was created on
@@ -1642,16 +1650,16 @@ msgstr "Liitunud"
 #: src/Widgets/ProfileCover.vala:545 src/Widgets/ScheduledStatus.vala:137
 #: src/Widgets/Status.vala:592
 msgid "%B %e, %Y"
-msgstr ""
+msgstr "%d.%M.%Y"
 
 #: src/Dialogs/Admin/Report.vala:134
 msgid "Reported on"
-msgstr ""
+msgstr "Teatis saadetud"
 
 #. translators: 'Reported by: <account>'
 #: src/Dialogs/Admin/Report.vala:140 src/Widgets/Admin/Report.vala:31
 msgid "Reported by"
-msgstr ""
+msgstr "Teatise saatja"
 
 #: src/Dialogs/Admin/Report.vala:146
 msgid "Status"
@@ -1673,7 +1681,7 @@ msgstr "Edastatud"
 #. translators: Report 'Action Taken by: <account>'
 #: src/Dialogs/Admin/Report.vala:160 src/Widgets/Admin/Report.vala:22
 msgid "Action Taken by"
-msgstr ""
+msgstr "Reageeris"
 
 #: src/Dialogs/Admin/Report.vala:172
 msgid "Category"
@@ -1689,12 +1697,12 @@ msgstr ""
 
 #: src/Dialogs/Admin/Report.vala:237
 msgid "Violated Rules"
-msgstr ""
+msgstr "Rikutud reeglid"
 
 #. translators: 'Reported Posts: <amount>'
 #: src/Dialogs/Admin/Report.vala:268 src/Widgets/Admin/Report.vala:34
 msgid "Reported Posts"
-msgstr ""
+msgstr "Postituste teatisi"
 
 #: src/Dialogs/Admin/TakeAction.vala:25 src/Dialogs/Report.vala:332
 #: src/Dialogs/Report.vala:415
@@ -1721,6 +1729,8 @@ msgid ""
 "Prevent the user from using their account, but do not delete or hide their "
 "contents"
 msgstr ""
+"Ära luba kasutajal oma kontot pruukida, aga ära kustuta ega peida tema "
+"varasemat sisu"
 
 #: src/Dialogs/Admin/TakeAction.vala:77 src/Widgets/Status.vala:579
 msgid "Sensitive"
@@ -1834,7 +1844,7 @@ msgstr "Stiil"
 #: src/Dialogs/AnnualReport.vala:165
 #, c-format
 msgid "Screenshot of my %s Wrapped annual report using %s."
-msgstr ""
+msgstr "Minu %s. aasta kokkuvõte, mille on koostanud %s."
 
 #. translators: The variable is the year (e.g. 2024). Wrapped as in
 #. Spotify wrapped / recap of the year. You can leave it
@@ -1843,7 +1853,7 @@ msgstr ""
 #: src/Dialogs/AnnualReport.vala:171
 #, c-format
 msgid "%s Wrapped"
-msgstr ""
+msgstr "%s. aasta kokkuvõte"
 
 #. translators: #FediWrapped, title of the 'amount of new posts' card
 #: src/Dialogs/AnnualReport.vala:201
@@ -1856,12 +1866,12 @@ msgstr "Uued postitused"
 #: src/Dialogs/AnnualReport.vala:229
 #, c-format
 msgid "I made %s posts."
-msgstr ""
+msgstr "Koostasin %s postitust."
 
 #. translators: #FediWrapped, title of a card
 #: src/Dialogs/AnnualReport.vala:239
 msgid "Most Used Hashtag"
-msgstr ""
+msgstr "Enimkasutatud teemaviide"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1869,12 +1879,12 @@ msgstr ""
 #: src/Dialogs/AnnualReport.vala:268
 #, c-format
 msgid "My most used hashtag was #%s."
-msgstr ""
+msgstr "Kõige rohkem kasutatud teemaviide oli #%s."
 
 #. translators: #FediWrapped, title of the 'which app was used to make most posts' card
 #: src/Dialogs/AnnualReport.vala:278
 msgid "Most Used App"
-msgstr ""
+msgstr "Enimkasutatud rakendus"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1882,13 +1892,13 @@ msgstr ""
 #: src/Dialogs/AnnualReport.vala:309
 #, c-format
 msgid "My most used app was %s."
-msgstr ""
+msgstr "Kõige rohkem kasutasin %s rakendust."
 
 #. translators: #FediWrapped, title of the card that shows you
 #. the users you interacted with the most
 #: src/Dialogs/AnnualReport.vala:320
 msgid "Most Interactions"
-msgstr ""
+msgstr "Enim suhtlemist"
 
 #. translators: This is part of the alt text of the Fedi Wrapped 'Share' attachment,
 #. which will be used as the attachment alt text when posted on fedi.
@@ -1899,7 +1909,7 @@ msgstr ""
 #: src/Dialogs/AnnualReport.vala:357
 #, c-format
 msgid "I had the most interactions with %s."
-msgstr ""
+msgstr "Kõige rohkem suhtlesin kasutajaga %s."
 
 #. translators: #FediWrapped, title of the section about how many
 #. new followers you got and new people you followed
@@ -1916,7 +1926,7 @@ msgstr "Uued jälgimised"
 #. which one of your posts had the most favorites
 #: src/Dialogs/AnnualReport.vala:439
 msgid "Most Favorited Post"
-msgstr ""
+msgstr "Postitus, mida on kõige rohkem lemmikuks märgitud"
 
 #. translators: #FediWrapped, title of the section that shows you
 #. which one of your posts had the most boosts
@@ -1928,18 +1938,18 @@ msgstr "Postitus, millele on kõige rohkem hoogu lisatud"
 #. which one of your posts had the most replies
 #: src/Dialogs/AnnualReport.vala:483
 msgid "Most Replied Post"
-msgstr ""
+msgstr "Postitus, millele on kõige rohkem vastatud"
 
 #. translators: save dialog title, refer to the other #FediWrapped strings for more info
 #: src/Dialogs/AnnualReport.vala:558
 msgid "Save #FediWrapped"
-msgstr ""
+msgstr "Salvesta #FediWrapped"
 
 #. translators: the variable is a year, e.g. 2024
 #: src/Dialogs/AnnualReport.vala:573
 #, c-format
 msgid "Saved %s Wrapped"
-msgstr ""
+msgstr "%s. aasta kokkuvõte"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:131
 #: src/Dialogs/Composer/EditorPage.vala:252
@@ -1966,7 +1976,7 @@ msgstr "Püstine asukoht"
 #. image hasn't loaded. Also known as 'alt text'
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:347
 msgid "Edit Alternative Text"
-msgstr ""
+msgstr "Muuda meedia selgitusteksti"
 
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:358
 msgid "Remove Attachment"
@@ -2014,7 +2024,7 @@ msgstr "Ava"
 #: src/Dialogs/Composer/AttachmentsPage.vala:435
 #, c-format
 msgid "File \"%s\" is bigger than the instance limit"
-msgstr ""
+msgstr "„%s“ fail on suurem serverist lubatud ülempiirist"
 
 #. translators: 'Draft' is a verb
 #: src/Dialogs/Composer/Dialog.vala:156
@@ -2058,7 +2068,7 @@ msgstr "Tekst"
 #. translators: "Stripped" is a past tense verb in this context, not an adjective.
 #: src/Dialogs/Composer/EditorPage.vala:124
 msgid "Stripped tracking parameters"
-msgstr ""
+msgstr "Jälitajate andmed on eemaldatud"
 
 #: src/Dialogs/Composer/EditorPage.vala:127
 #: src/Views/Admin/Pages/Accounts.vala:411
@@ -2245,7 +2255,7 @@ msgstr "Küsitlused"
 
 #: src/Dialogs/NotificationSettings.vala:53
 msgid "Post Edits"
-msgstr ""
+msgstr "Postituste muudatused"
 
 #: src/Dialogs/NotificationSettings.vala:54
 msgid "Follows"
@@ -2344,25 +2354,25 @@ msgstr "Ta ei sobi ühegi muu kategooriaga"
 #: src/Dialogs/Report.vala:114
 #, c-format
 msgid "Reporting %s"
-msgstr ""
+msgstr "Teatis: %s"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting users
 #: src/Dialogs/Report.vala:140
 msgid "Tell us what's going on with this account"
-msgstr ""
+msgstr "Kirjelda, mis on selle kasutajakontoga valesti"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is meant for reporting posts
 #: src/Dialogs/Report.vala:144
 msgid "Tell us what's going on with this post"
-msgstr ""
+msgstr "Kirjelda, mis on selle postitusega valesti"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #. this is shown above a list of radio-button options where the user can only choose one
 #: src/Dialogs/Report.vala:149
 msgid "Choose the best match"
-msgstr ""
+msgstr "Vali parim vaste"
 
 #. translators: you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Report.vala:188
@@ -2409,22 +2419,22 @@ msgstr "Täiendavad kommentaarid"
 #: src/Dialogs/Report.vala:286
 #, c-format
 msgid "Forward to %s"
-msgstr ""
+msgstr "Edasta serverisse %s"
 
 #. translators: submit the report
 #: src/Dialogs/Report.vala:329
 msgid "Submit Report?"
-msgstr ""
+msgstr "Kas edastame teatise?"
 
 #: src/Dialogs/Report.vala:386
 msgid "Submitted Report Successfully"
-msgstr ""
+msgstr "Teatise saatmine õnnestus"
 
 #. translators: the variable is an error
 #: src/Dialogs/Report.vala:392
 #, c-format
 msgid "Couldn't submit report: %s"
-msgstr ""
+msgstr "Teatise saatmine ei õnnestunud: %s"
 
 #: src/Dialogs/Report.vala:411 src/Widgets/AccountSuggestions.vala:79
 msgid "Back"
@@ -2434,7 +2444,7 @@ msgstr "Tagasi"
 #: src/Dialogs/Report.vala:488 src/Dialogs/Report.vala:499
 #, c-format
 msgid "%s. You can continue with the report however."
-msgstr ""
+msgstr "%s. Aga sa ikkagi võid teatise saatmisega jätkata."
 
 #: src/Dialogs/Report.vala:488
 msgid "No posts found"
@@ -2519,12 +2529,12 @@ msgstr "%s registreerus"
 #. or personal domain blocking
 #: src/Services/Accounts/InstanceAccount.vala:340
 msgid "Some of your relationships got severed"
-msgstr ""
+msgstr "Osa sinu suhtlusvõrgustikust on katkenud"
 
 #. translators: this is used for admin notifications
 #: src/Services/Accounts/InstanceAccount.vala:372
 msgid "Received a new report"
-msgstr ""
+msgstr "Saabus uus teatis"
 
 #. translators: the variable is a string user name,
 #. this is used for per-account notifications
@@ -2615,12 +2625,12 @@ msgstr "Töölauateavitus oli teisele kasutajakontole"
 #: src/Services/Accounts/SecretAccountStore.vala:209
 #, c-format
 msgid "%s Account"
-msgstr ""
+msgstr "%si konto"
 
 #. translators: Follow System's dark mode preference
 #: src/Services/Settings.vala:264
 msgid "Follow System"
-msgstr ""
+msgstr "Järgi süsteemi kujundust"
 
 #. translators: Light mode theme
 #: src/Services/Settings.vala:267
@@ -2634,7 +2644,7 @@ msgstr "Tume kujundus"
 
 #: src/Utils/DateTime.vala:12
 msgid "expires soon"
-msgstr ""
+msgstr "aegub varsti"
 
 #. tranlators: the variable is a number, `m` as in minutes in short form
 #: src/Utils/DateTime.vala:16
@@ -2990,16 +3000,16 @@ msgstr ""
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Reports Opened"
-msgstr ""
+msgstr "Teatisi, mille lahendamist on alustatud"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Reports Resolved"
-msgstr ""
+msgstr "Teatisi, mille lahendamine on lõppenud"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:18
 msgid "Sign-up Sources"
-msgstr ""
+msgstr "Liitumiste allikad"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:20
@@ -3009,7 +3019,7 @@ msgstr "Populaarsed aktiivsed keeled"
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:22
 msgid "Top Active Servers"
-msgstr ""
+msgstr "Populaarsed aktiivsed serverid"
 
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:24
@@ -3019,7 +3029,7 @@ msgstr "Tarkvara"
 #. translators: group title in admin dashboard window
 #: src/Views/Admin/Pages/Dashboard.vala:26
 msgid "Space Usage"
-msgstr ""
+msgstr "Andmeruumi kasutus"
 
 #: src/Views/Admin/Pages/Dashboard.vala:53
 msgid "Stats"
@@ -3181,7 +3191,7 @@ msgstr "Lõpeta jälgimine"
 
 #: src/Views/Home.vala:23
 msgid "Compose"
-msgstr "Postita"
+msgstr "Koosta postitus"
 
 #: src/Views/Lists.vala:45 src/Widgets/Status/ActionsRow.vala:137
 msgid "Favorite"
@@ -3190,7 +3200,7 @@ msgstr "Lisa lemmikuks"
 #: src/Views/Lists.vala:121
 #, c-format
 msgid "Delete \"%s\"?"
-msgstr ""
+msgstr "Kas kustutame „%s“?"
 
 #: src/Views/Lists.vala:122
 msgid "This action cannot be reverted."
@@ -3299,12 +3309,12 @@ msgstr "Kasutajanimi on kopeeritud lõikelauale"
 #: src/Views/Profile.vala:359
 #, c-format
 msgid "Block Entire \"%s\"?"
-msgstr ""
+msgstr "Kas blokeerime kogu „%s“?"
 
 #: src/Views/Profile.vala:359
 #, c-format
 msgid "Unblock Entire \"%s\"?"
-msgstr ""
+msgstr "Kas lõpetame kogu „%s“ blokeerimise?"
 
 #: src/Views/Profile.vala:362
 msgid ""
@@ -3324,13 +3334,13 @@ msgstr ""
 #: src/Views/Profile.vala:454
 #, c-format
 msgid "Add or remove \"%s\" to or from a list"
-msgstr ""
+msgstr "Lisa „%s“ kasutaja loendisse või eemalda sealt"
 
 #. translators: the variable is an account handle
 #: src/Views/Profile.vala:464
 #, c-format
 msgid "Select the list to add or remove \"%s\" to or from:"
-msgstr ""
+msgstr "Vali loend, kuhu soovid „%s“ kasutaja lisada või sealt eemaldada:"
 
 #: src/Views/Profile.vala:470
 msgid "You don't have any lists"
@@ -3340,25 +3350,25 @@ msgstr "Sul pole ühtegi loendit"
 #: src/Views/Profile.vala:500 src/Views/Profile.vala:571
 #, c-format
 msgid "Remove \"%s\" from \"%s\""
-msgstr ""
+msgstr "Eemalda „%s“ kasutaja „%s“ loendist"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:501 src/Views/Profile.vala:565
 #, c-format
 msgid "Add \"%s\" to \"%s\""
-msgstr ""
+msgstr "Lisa „%s“ kasutaja „%s“ loendisse"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:562
 #, c-format
 msgid "User \"%s\" got removed from \"%s\""
-msgstr ""
+msgstr "„%s“ kasutaja on eemaldatud „%s“ loendist"
 
 #. translators: First variable is a handle, second variable is a list name
 #: src/Views/Profile.vala:568
 #, c-format
 msgid "User \"%s\" got added to \"%s\""
-msgstr ""
+msgstr "„%s“ kasutaja on lisatud „%s“ loendisse"
 
 #. translators: as in posts set to be posted sometime in the future
 #: src/Views/ScheduledStatuses.vala:5 src/Views/Sidebar.vala:77
@@ -3395,7 +3405,7 @@ msgstr "Keel"
 #: src/Views/Search.vala:409
 #, c-format
 msgid "Couldn't auto-fill user: %s"
-msgstr ""
+msgstr "Kasutaja automaatne lisamine ei õnnestunud: %s"
 
 #. tanslators: used in a banner, the variable is the number of unread announcements
 #: src/Views/Sidebar.vala:26
