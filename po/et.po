@@ -1752,7 +1752,7 @@ msgid ""
 msgstr ""
 "Välista kasutaja võimalus postitada avalikult, peita postitusi ning "
 "teavitusi mitte-jälgijate eest. Lõpetab kõik selle konto kohta esitatud "
-"kaebused."
+"kaebused"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:97
@@ -1760,6 +1760,9 @@ msgid ""
 "Prevent any interaction from or to this account and delete its contents. "
 "Revertible within 30 days. Closes all reports against this account"
 msgstr ""
+"Välista igasugune suhtlus selle kasutajakontoga või sellelt kontolt ning "
+"kustuta kogu konto sisu. Tagasipööratav 30 päeva jooksul. Lõpetab kõik selle "
+"konto vastu esitatud kaebused."
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:114
