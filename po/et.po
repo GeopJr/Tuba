@@ -1762,18 +1762,19 @@ msgid ""
 msgstr ""
 "Välista igasugune suhtlus selle kasutajakontoga või sellelt kontolt ning "
 "kustuta kogu konto sisu. Tagasipööratav 30 päeva jooksul. Lõpetab kõik selle "
-"konto vastu esitatud kaebused."
+"konto vastu esitatud kaebused"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:114
 msgid "Notify the user per e-mail"
-msgstr ""
+msgstr "Teavita kasutajat e-posti teel"
 
 #. translators: admin dashboard, you can find this string translated on https://github.com/mastodon/mastodon/tree/main/app/javascript/mastodon/locales
 #: src/Dialogs/Admin/TakeAction.vala:116
 msgid ""
 "The user will receive an explanation of what happened with their account"
 msgstr ""
+"Kasutajakonto omanik saab selgituse selle kohta, mis juhtus tema kontoga"
 
 #. translators: Question dialog when an admin is about to
 #. take action against an account
@@ -1781,7 +1782,7 @@ msgstr ""
 #: src/Dialogs/Admin/TakeAction.vala:143
 #, c-format
 msgid "Take Action Against %s?"
-msgstr ""
+msgstr "Kas käivitame toimingu kasutaja %s suhtes?"
 
 #: src/Dialogs/Admin.vala:20 src/Views/Admin/Pages/Dashboard.vala:11
 msgid "Dashboard"
@@ -1967,7 +1968,7 @@ msgstr "Nii palju saad veel kirjutada"
 #. translators: focus picker dialog title
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:216
 msgid "Set Focal Point"
-msgstr ""
+msgstr "Säti fookus"
 
 #. translators: Title for focus picker scale
 #: src/Dialogs/Composer/AttachmentsPageAttachment.vala:224
@@ -2256,6 +2257,8 @@ msgid ""
 "Enables the Admin Dashboard and requests the needed permissions to use the "
 "Admin API"
 msgstr ""
+"Lülitab sisse peakasutaja töölaua ja taotleb haldusliidestuse (Admin API) "
+"jaoks vajalikke õigusi"
 
 #: src/Dialogs/NotificationSettings.vala:52
 msgid "Polls"
@@ -2677,7 +2680,7 @@ msgstr "Jäänud %s pv"
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:29
 msgid "expires on %b %-e, %Y"
-msgstr ""
+msgstr "aegub %b %-e, %Y"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -2686,7 +2689,7 @@ msgstr ""
 #. %M is the minutes
 #: src/Utils/DateTime.vala:43
 msgid "expires on %b %-e, %Y %H:%M"
-msgstr ""
+msgstr "aegub %b %-e, %Y %H:%M"
 
 #: src/Utils/DateTime.vala:45
 msgid "expired on just now"
@@ -2696,13 +2699,13 @@ msgstr "aegus hetk tagasi"
 #: src/Utils/DateTime.vala:49
 #, c-format
 msgid "expired %sm ago"
-msgstr ""
+msgstr "aegus %s min tagasi"
 
 #. tranlators: the variable is a number, `h` as in hours in short form
 #: src/Utils/DateTime.vala:54
 #, c-format
 msgid "expired %sh ago"
-msgstr ""
+msgstr "aegus %s t tagasi"
 
 #: src/Utils/DateTime.vala:57
 msgid "expired yesterday"
@@ -2713,14 +2716,14 @@ msgstr "aegus eile"
 #: src/Utils/DateTime.vala:62
 #, c-format
 msgid "expired on %b %-e"
-msgstr ""
+msgstr "aegub %b %-e"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
 #. %Y is the year (with century)
 #: src/Utils/DateTime.vala:68
 msgid "expired on %b %-e, %Y"
-msgstr ""
+msgstr "aegub %b %-e, %Y"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -2729,7 +2732,7 @@ msgstr ""
 #. %M is the minutes
 #: src/Utils/DateTime.vala:82 src/Utils/DateTime.vala:121
 msgid "%b %-e, %Y %H:%M"
-msgstr ""
+msgstr "%b %-e, %Y %H:%M"
 
 #: src/Utils/DateTime.vala:84
 msgid "Just now"
@@ -2756,7 +2759,7 @@ msgstr "Eile"
 #: src/Utils/DateTime.vala:101 src/Utils/DateTime.vala:140
 #, c-format
 msgid "%b %-e"
-msgstr ""
+msgstr "%b %-e"
 
 #. translators: %b is Month name (short)
 #. %-e is the Day number
@@ -2764,7 +2767,7 @@ msgstr ""
 #: src/Utils/DateTime.vala:107 src/Utils/DateTime.vala:146
 #: src/Utils/DateTime.vala:155
 msgid "%b %-e, %Y"
-msgstr ""
+msgstr "%b %-e, %Y"
 
 #: src/Utils/DateTime.vala:123
 msgid "just now"
@@ -2951,7 +2954,7 @@ msgstr "Keeldu"
 #. undo an action, like a suspension
 #: src/Views/Admin/Pages/Accounts.vala:424
 msgid "Undo this Action?"
-msgstr ""
+msgstr "Kas pöörame toimingu tagasi?"
 
 #. translators: Question dialog when an admin is about to
 #. approve an account. The variable is an
@@ -2959,7 +2962,7 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:485
 #, c-format
 msgid "Approve %s?"
-msgstr ""
+msgstr "Kas lubad kasutajakonto: %s?"
 
 #. translators: Question dialog when an admin is about to
 #. reject an account. The variable is an
@@ -2967,14 +2970,14 @@ msgstr ""
 #: src/Views/Admin/Pages/Accounts.vala:518
 #, c-format
 msgid "Reject %s?"
-msgstr ""
+msgstr "Kas keeldud kasutajakontost: %s?"
 
 #. translators: Admin Dialog entry placeholder text,
 #. this is about blocking e-mail providers like
 #. gmail.com
 #: src/Views/Admin/Pages/BlockedEmails.vala:21
 msgid "Block a new e-mail domain"
-msgstr ""
+msgstr "Blokeeri uus e-posti domeen"
 
 #. translators: Question dialog when an admin is about to
 #. block an e-mail domain. The variable is a
@@ -2982,7 +2985,7 @@ msgstr ""
 #: src/Views/Admin/Pages/BlockedEmails.vala:60
 #, c-format
 msgid "Block %s?"
-msgstr ""
+msgstr "Kas blokeerime %s domeeni?"
 
 #. translators: Question dialog description when an admin is about to
 #. block an e-mail domain. The variable is a string.
@@ -2992,6 +2995,8 @@ msgid ""
 "This can be the domain name that shows up in the e-mail address or the MX "
 "record it uses. They will be checked upon sign-up."
 msgstr ""
+"See võib olla e-postiaadressis näha olev domeen või MX-kirje, mida aadress "
+"kasutab. Kontroll toimub liitumise käigus."
 
 #. translators: title in admin dashboard stats
 #: src/Views/Admin/Pages/Dashboard.vala:14
@@ -3004,7 +3009,7 @@ msgstr "Aktiivsed kasutajad"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Interactions"
-msgstr ""
+msgstr "Suhtlus"
 
 #: src/Views/Admin/Pages/Dashboard.vala:14
 msgid "Reports Opened"
@@ -3048,7 +3053,7 @@ msgstr "Statistika"
 #. with other instances
 #: src/Views/Admin/Pages/FederationAllowlist.vala:18
 msgid "Allow federation with an instance"
-msgstr ""
+msgstr "Luba suhtlus Födiversumis asuva serveriga"
 
 #: src/Views/Admin/Pages/FederationAllowlist.vala:21
 #: src/Views/Admin/Pages/FederationAllowlist.vala:64
@@ -3061,12 +3066,12 @@ msgstr "Luba"
 #: src/Views/Admin/Pages/FederationAllowlist.vala:57
 #, c-format
 msgid "Allow Federation with %s?"
-msgstr ""
+msgstr "Kas lubad suhtluse Födiversumis asuva serveriga %s?"
 
 #. translators: admin dashboard, reports timeline, headerbar button tooltip text
 #: src/Views/Admin/Pages/Reports.vala:10
 msgid "Show Resolved Reports"
-msgstr ""
+msgstr "Näita lahendatud teatisi"
 
 #. translators: Question dialog when an admin is about to
 #. unblock an IP address. The variable
@@ -3082,7 +3087,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/EmailDomain.vala:26
 #, c-format
 msgid "Unblock %s?"
-msgstr ""
+msgstr "Kas lõpetame blokeerimise: %s?"
 
 #. translators: Question dialog when an admin is about to
 #. delete a domain from the federation allowlist.
@@ -3092,7 +3097,7 @@ msgstr ""
 #: src/Views/Admin/Timelines/DomainAllow.vala:28
 #, c-format
 msgid "Remove Federation with %s?"
-msgstr ""
+msgstr "Kas keelad suhtluse Födiversumis asuva serveriga %s?"
 
 #: src/Views/Admin/Timelines/PaginationTimeline.vala:57
 msgid "Previous Page"
