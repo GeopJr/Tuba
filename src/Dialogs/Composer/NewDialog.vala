@@ -265,6 +265,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		dnd_controller.leave.connect (on_drag_leave);
 		dnd_controller.drop.connect (on_drag_drop);
 		toolbar_view.add_controller (dnd_controller);
+		sensitive_media_button.toggled.connect (update_attachmentsbin_sensitivity);
 	}
 
 	private void install_post_button (string label, bool with_menu) {
@@ -430,7 +431,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		//  	template.spoiler_text = source.spoiler_text;
 		//  }
 
-		cw_button.active = t_status.sensitive;
+		sensitive_media_button.active = t_status.sensitive;
+		cw_button.active = t_status.spoiler_text != null && t_status.spoiler_text != "";
 		if (source == null) {
 			editor.buffer.text = Utils.Htmlx.remove_tags (t_status.content);
 			cw_entry.text = t_status.spoiler_text;
@@ -445,7 +447,6 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		} else if (t_status.media_attachments != null && t_status.media_attachments.size > 0) {
 			create_attachmentsbin (t_status.media_attachments);
 			editor.add_bottom_child (attachmentsbin_component);
-			//  poll_button.sensitive = false; // TODO?
 		}
 
 		this.set_title (_("Edit Post"), null);
@@ -507,6 +508,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		poll_button.sensitive = !is_used;
 		if (!is_used) editor.add_bottom_child (null);
 		validate_post_button ();
+		update_attachmentsbin_sensitivity ();
 	}
 
 	private bool on_drag_drop (Value val, double x, double y) {
@@ -672,6 +674,17 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		}
 
 		post_btn.sensitive = sensitive;
+	}
+
+	private void update_attachmentsbin_sensitivity () {
+		if (attachmentsbin_component == null) return;
+
+		bool has_class = attachmentsbin_component.has_css_class ("spoilered-attachmentsbin");
+		if (sensitive_media_button.active && !has_class) {
+			attachmentsbin_component.add_css_class ("spoilered-attachmentsbin");
+		} else if (!sensitive_media_button.active && has_class) {
+			attachmentsbin_component.remove_css_class ("spoilered-attachmentsbin");
+		}
 	}
 
 	private Json.Builder populate_json_body () {
