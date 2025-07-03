@@ -321,9 +321,9 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 	Expiration[] expirations = {
 		// translators: the variable is a number
 		new Expiration (GLib.ngettext ("%d Minute", "%d Minutes", (ulong) 5).printf (5),
-		"%dm".printf (5), 300),
+		"%dmin".printf (5), 300),
 		new Expiration (GLib.ngettext ("%d Minute", "%d Minutes", (ulong) 30).printf (30),
-		"%dm".printf (30), 1800),
+		"%dmin".printf (30), 1800),
 		// translators: the variable is a number
 		new Expiration (GLib.ngettext ("%d Hour", "%d Hours", (ulong) 1).printf (1),
 		"%dh".printf (1), 3600),
