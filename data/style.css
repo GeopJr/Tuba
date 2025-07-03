@@ -133,6 +133,12 @@ headerbar.flat.no-title .title {
 	to {}
 }
 
+.grouped-icon {
+	padding: 6px;
+	background-color: color-mix(in srgb, currentColor 15%, transparent);
+	border-radius: 9999px;
+}
+
 .ttl-status-action-reblog.enabled image {
 	animation: rotate_half 0.4s ease;
 }
@@ -145,6 +151,7 @@ headerbar.flat.no-title .title {
 	animation: rotate_star 0.4s ease;
 }
 
+.grouped-icon.star,
 .ttl-status-action-star:hover,
 .ttl-status-action-star.enabled {
 	color: var(--yellow-5);
@@ -154,6 +161,7 @@ headerbar.flat.no-title .title {
 	color: var(--yellow-4);
 }
 
+.grouped-icon.reblog,
 .ttl-status-action-reblog:hover,
 .ttl-status-action-reblog.enabled {
 	color: var(--purple-3);
@@ -163,6 +171,7 @@ headerbar.flat.no-title .title {
 	color: var(--purple-4);
 }
 
+.grouped-icon.follow,
 .ttl-status-action-reply:hover,
 .ttl-status-action-reply.enabled {
 	color: var(--green-3);
@@ -172,6 +181,7 @@ headerbar.flat.no-title .title {
 	color: var(--green-4);
 }
 
+.grouped-icon.sign-up,
 .ttl-status-action-bookmark:hover,
 .ttl-status-action-bookmark.enabled {
 	color: var(--red-3);

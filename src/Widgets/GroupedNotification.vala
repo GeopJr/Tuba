@@ -6,10 +6,30 @@ public class Tuba.Widgets.GroupedNotification : Widgets.Notification {
 
 		Tuba.InstanceAccount.Kind res_kind;
 		var box = group_box (obj, old_kind, out res_kind);
-		avatar_side.prepend (new Gtk.Image.from_icon_name (res_kind.icon) {
-			icon_size = Gtk.IconSize.LARGE,
-			margin_bottom = 26
-		});
+		var group_icon = new Gtk.Image.from_icon_name (res_kind.icon) {
+			margin_bottom = 22,
+			margin_top = 3,
+			css_classes = {"grouped-icon"},
+			halign = CENTER
+		};
+
+		switch (old_kind) {
+			case InstanceAccount.KIND_FAVOURITE:
+				group_icon.add_css_class ("star");
+				break;
+			case InstanceAccount.KIND_REBLOG:
+				group_icon.add_css_class ("reblog");
+				break;
+			case InstanceAccount.KIND_ADMIN_SIGNUP:
+				group_icon.add_css_class ("sign-up");
+				break;
+			case InstanceAccount.KIND_FOLLOW:
+			case InstanceAccount.KIND_FOLLOW_REQUEST:
+				group_icon.add_css_class ("follow");
+				break;
+		}
+
+		avatar_side.prepend (group_icon);
 		content_side.prepend (box);
 	}
 
