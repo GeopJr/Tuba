@@ -1,3 +1,4 @@
+.grouped-icon.star,
 .ttl-status-action-star:hover,
 .ttl-status-action-star.enabled {
 	color: var(--yellow-1);
@@ -7,6 +8,7 @@
 	color: var(--yellow-2);
 }
 
+.grouped-icon.reblog,
 .ttl-status-action-reblog:hover,
 .ttl-status-action-reblog.enabled {
 	color: var(--purple-1);
@@ -16,6 +18,7 @@
 	color: var(--purple-2);
 }
 
+.grouped-icon.follow,
 .ttl-status-action-reply:hover,
 .ttl-status-action-reply.enabled {
 	color: var(--green-1);
@@ -25,6 +28,7 @@
 	color: var(--green-2);
 }
 
+.grouped-icon.sign-up,
 .ttl-status-action-bookmark:hover,
 .ttl-status-action-bookmark.enabled {
 	color: var(--red-1);

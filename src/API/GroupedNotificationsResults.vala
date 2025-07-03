@@ -43,9 +43,30 @@ public class Tuba.API.GroupedNotificationsResults : Entity {
 			Tuba.InstanceAccount.Kind res_kind;
 			var sub_box = Widgets.GroupedNotification.group_box (this, this.kind, out res_kind);
 
-			box.append (new Gtk.Image.from_icon_name (res_kind.icon) {
-				icon_size = Gtk.IconSize.LARGE
-			});
+			var group_icon = new Gtk.Image.from_icon_name (res_kind.icon) {
+				margin_bottom = 22,
+				margin_top = 3,
+				css_classes = {"grouped-icon"},
+				halign = CENTER
+			};
+
+			switch (this.kind) {
+				case InstanceAccount.KIND_FAVOURITE:
+					group_icon.add_css_class ("star");
+					break;
+				case InstanceAccount.KIND_REBLOG:
+					group_icon.add_css_class ("reblog");
+					break;
+				case InstanceAccount.KIND_ADMIN_SIGNUP:
+					group_icon.add_css_class ("sign-up");
+					break;
+				case InstanceAccount.KIND_FOLLOW:
+				case InstanceAccount.KIND_FOLLOW_REQUEST:
+					group_icon.add_css_class ("follow");
+					break;
+			}
+
+			box.append (group_icon);
 			box.append (sub_box);
 
 			var row = new Widgets.ListBoxRowWrapper () {
