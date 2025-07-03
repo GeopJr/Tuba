@@ -284,8 +284,11 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 			};
 			post_btn.child = btn;
 		} else {
-			var btn = new Gtk.Button.with_label (label) {
-				css_classes = { "pill", "suggested-action" }
+			var btn = new Gtk.Button () {
+				css_classes = { "pill", "suggested-action" },
+				child = new Gtk.Label (label) {
+					ellipsize = END
+				}
 			};
 			post_btn.child = btn;
 		}
@@ -408,8 +411,6 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		this.set_title (_("Reply to @%s").printf (to.account.username), widget_status);
 		this.scroller.vadjustment.value = editor.top_margin;
 		this.cb = (owned) t_cb;
-
-		// TODO: ellipsize long button labels
 	}
 
 	public NewCompose.edit (API.Status t_status, API.StatusSource? source = null, owned SuccessCallback? t_cb = null) {
