@@ -489,6 +489,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		polls_component = new Components.Polls (poll_obj) {
 			opacity = 0
 		};
+		polls_component.notify["is-valid"].connect (validate_post_button);
 		polls_animation = new Adw.TimedAnimation (polls_component, 0, 1, 250, new Adw.PropertyAnimationTarget (polls_component, "opacity"));
 		polls_animation.done.connect (on_component_animation_end);
 		this.bind_property ("is-narrow", polls_component, "is-narrow", SYNC_CREATE);
@@ -647,7 +648,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 	private void on_component_animation_end (Adw.Animation animation) {
 		if (animation.value == 0) editor.add_bottom_child (null);
-		validate_post_button (); // ?
+		validate_post_button ();
 	}
 
 	private void on_toast (Adw.Toast toast) {
@@ -668,7 +669,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 			if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component)) {
 				sensitive = !attachmentsbin_component.is_empty && !attachmentsbin_component.uploading; // TODO attachable.working
 			} else if (polls_component != null && editor.is_bottom_child (polls_component)) {
-				sensitive = polls_component.is_valid && remaining_chars < char_limit; // TODO: check if is_valid ignores empties
+				sensitive = polls_component.is_valid && remaining_chars < char_limit;
 			} else {
 				sensitive = remaining_chars < char_limit;
 			}
