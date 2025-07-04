@@ -429,7 +429,10 @@ video > overlay > revealer > controls {
 	padding: 12px;
 }
 
-.spoilered-attachmentsbin picture,
+.spoilered-attachmentsbin picture {
+	filter: blur(15px);
+}
+
 .spoilered-attachment {
 	filter: blur(30px);
 }
