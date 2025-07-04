@@ -505,7 +505,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	private void update_attachmentsbin_meta () {
 		if (attachmentsbin_component == null) return;
 
-		bool is_used = attachmentsbin_component.uploading || !attachmentsbin_component.is_empty;
+		bool is_used = attachmentsbin_component.working || !attachmentsbin_component.is_empty;
 		sensitive_media_button.visible = !attachmentsbin_component.is_empty;
 		poll_button.sensitive = !is_used;
 		if (!is_used) editor.add_bottom_child (null);
@@ -580,7 +580,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	private void create_attachmentsbin (Gee.ArrayList<API.Attachment>? attachments_obj = null) {
 		if (attachmentsbin_component != null) return;
 		attachmentsbin_component = new Components.AttachmentsBin ();
-		attachmentsbin_component.notify["uploading"].connect (update_attachmentsbin_meta);
+		attachmentsbin_component.notify["working"].connect (update_attachmentsbin_meta);
 		attachmentsbin_component.notify["is-empty"].connect (update_attachmentsbin_meta);
 
 		if (attachments_obj != null && attachments_obj.size > 0) {
@@ -667,7 +667,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		bool sensitive = remaining_chars >= 0;
 		if (sensitive) {
 			if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component)) {
-				sensitive = !attachmentsbin_component.is_empty && !attachmentsbin_component.uploading; // TODO attachable.working
+				sensitive = !attachmentsbin_component.is_empty && !attachmentsbin_component.working;
 			} else if (polls_component != null && editor.is_bottom_child (polls_component)) {
 				sensitive = polls_component.is_valid && remaining_chars < char_limit;
 			} else {
@@ -693,8 +693,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		var builder = new Json.Builder ();
 		builder.begin_object ();
 
-		//  builder.set_member_name ("status");
-		//  builder.add_string_value (status.status);
+		builder.set_member_name ("status");
+		builder.add_string_value (editor.buffer.text);
 
 		if (visibility_button.selected != Gtk.INVALID_LIST_POSITION) {
 			builder.set_member_name ("visibility");

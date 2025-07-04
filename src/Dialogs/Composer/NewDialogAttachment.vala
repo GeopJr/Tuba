@@ -2,6 +2,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 	public signal void switch_place (Attachment with);
 	public signal void delete_me ();
 	public signal void edit ();
+	public signal void upload_error (string message);
 
 	public class AltIndicator : Gtk.Box {
 		private bool _valid = false;
@@ -85,6 +86,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		}
 	}
 
+	public bool uploading { get; private set; default = false; }
 	public bool edit_mode { get; set; default = false; }
 	public string? media_id { get; set; default = null; }
 	public Gdk.Paintable? paintable {
@@ -353,13 +355,12 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		opacity_animation.play ();
 	}
 
-	// TODO
-	private bool upload_lock = false;
-	// TODO handle error? delete itself?
-	public async void upload (GLib.File file) throws Error {
+	public async void upload (GLib.File file) {
+		if (this.uploading) return;
+
 		bytes_written = 0;
 		total_bytes = 0;
-		upload_lock = true;
+		this.uploading = true;
 
 		Bytes buffer;
 		string mime;
@@ -373,8 +374,9 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 				GLib.FileInfo type = file.query_info (GLib.FileAttribute.STANDARD_CONTENT_TYPE, 0);
 				mime = type.get_content_type ();
 			} catch (Error e) {
-				upload_lock = false;
-				throw new Oopsie.USER ("Can't open file %s:\n%s".printf (uri, e.message));
+				this.uploading = false;
+				upload_error ("Can't open file %s:\n%s".printf (uri, e.message));
+				return;
 			}
 			buffer = new Bytes.take (contents);
 			total_bytes = buffer.get_size ();
@@ -402,11 +404,12 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		yield;
 
 		if (error != null || in_stream == null) {
-			upload_lock = false;
-			throw new Oopsie.INSTANCE (error);
+			this.uploading = false;
+			upload_error (error);
+			return;
 		}
-		this.progress = 1;
 
+		this.progress = 1;
 		this.file = file;
 		var parser = Network.get_parser_from_inputstream (in_stream);
 		var node = network.parse_node (parser);
@@ -421,7 +424,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		debug (@"OK! ID $(entity.id)");
 		this.done = true;
 
-		upload_lock = false;
+		this.uploading = false;
 	}
 
 	private class AttachmentThumbnailer : GLib.Object {

@@ -1,5 +1,7 @@
 public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 	public bool edit_mode { get; set; default = false; }
+	public bool working { get; set; default = false; }
+	public bool is_empty { get { return attachment_widgets.size == 0; } }
 
 	private class Editor : Adw.NavigationPage {
 		const int ALT_MAX_CHARS = 1500;
@@ -174,10 +176,6 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		}
 	}
 
-	// TODO maybe an attachable.working prop?
-	public bool uploading { get; set; default = false; }
-	public bool is_empty { get { return attachment_widgets.size == 0; } }
-
 	// https://github.com/tootsuite/mastodon/blob/master/app/models/media_attachment.rb
 	public const string[] SUPPORTED_MIMES = {
 		"image/jpeg",
@@ -290,6 +288,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		}
 
 		this.notify_property ("is-empty");
+		on_attachment_done ();
 	}
 
 	private void populate_filter () {
@@ -315,7 +314,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 
 	public async void upload_files (File[] files) {
 		var selected_files_amount = files.length;
-		if (selected_files_amount == 0) return;
+		if (this.working || selected_files_amount == 0) return;
 
 		// We want to only upload as many attachments as the server
 		// accepts based on the amount we have already uploaded.
@@ -376,19 +375,30 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			});
 		}
 
-		this.uploading = true;
+		this.working = files_for_upload.length > 0;
 		for (int i = 0; i < files_for_upload.length; i++) {
 			var file13 = files_for_upload[i];
 
-			try {
-				var attachment = new Components.Attachment ();
-				attachment.upload.begin (file13);
-				add_attachment (attachment);
-			} catch (Error e) {
-				toast (new Adw.Toast (e.message));
-			}
+			var attachment = new Components.Attachment ();
+			attachment.upload_error.connect (on_upload_error);
+			attachment.notify["done"].connect (on_attachment_done);
+			attachment.upload.begin (file13);
+			add_attachment (attachment);
 		}
-		this.uploading = false;
+	}
+
+	private void on_upload_error (Components.Attachment attachment, string message) {
+		toast (new Adw.Toast (message));
+		on_delete (attachment);
+	}
+
+	private void on_attachment_done () {
+		bool is_working = false;
+		foreach (var attachment in attachment_widgets) {
+			is_working = !attachment.done;
+			if (is_working) break;
+		}
+		this.working = is_working;
 	}
 
 	public void show_file_selector () {
@@ -424,6 +434,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		if (accounts.active.instance_info.compat_status_max_media_attachments - attachment_widgets.size <= 0) return;
 
 		var attachment = new Components.Attachment ();
+		attachment.notify["done"].connect (on_attachment_done);
 		attachment.preload (api_attachment.id, api_attachment.url, api_attachment.preview_url, Components.Attachment.MediaType.from_string (api_attachment.kind));
 		attachment.edit_mode = true;
 
