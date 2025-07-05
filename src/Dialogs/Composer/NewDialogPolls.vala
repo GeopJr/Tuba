@@ -165,6 +165,25 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 	public bool can_delete { get; private set; default=false; }
 	public bool is_valid { get; set; default=false; }
 	public bool initing { get; set; default = false; }
+	public int64 expires_in {
+		get {
+			if (expiration_button.selected != Gtk.INVALID_LIST_POSITION) {
+				return ((Expiration) expiration_button.selected_item).value;
+			} else {
+				return 86400;
+			}
+		}
+	}
+
+	public string[] get_all_options () {
+		string[] result = {};
+
+		foreach (var poll_option in poll_options) {
+			if (poll_option.text != "") result += poll_option.text;
+		}
+
+		return result;
+	}
 
 	construct {
 		this.orientation = VERTICAL;

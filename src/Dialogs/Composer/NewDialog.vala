@@ -93,6 +93,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 	private bool edit_mode { get; set; default = false; }
 	private string? schedule_iso8601 { get; set; default=null; }
+	private string? in_reply_to_id { get; set; default = null; }
 
 	private void install_emoji_pickers () {
 		var emoji_picker = new Gtk.EmojiChooser ();
@@ -378,6 +379,9 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		}
 
 		this (_("Reply"), final_visibility, to.language);
+		this.in_reply_to_id = to.id;
+		editor.buffer.text = to.formal.get_reply_mentions ();
+
 		Widgets.Status? widget_status = null;
 		try {
 			var sample = new API.Status.empty () {
@@ -710,15 +714,38 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 			builder.add_string_value (((InstanceAccount.StatusContentType) content_type_button.selected_item).mime);
 		}
 
-		//  if (status.in_reply_to_id != null && !edit_mode) {
-		//  	builder.set_member_name ("in_reply_to_id");
-		//  	builder.add_string_value (status.in_reply_to_id);
-		//  }
+		if (in_reply_to_id != null && !edit_mode) {
+			builder.set_member_name ("in_reply_to_id");
+			builder.add_string_value (this.in_reply_to_id);
+		}
 
 		builder.set_member_name ("sensitive");
-		builder.add_boolean_value (cw_button.active);
+		builder.add_boolean_value (cw_button.active || (sensitive_media_button.visible && sensitive_media_button.active));
 		builder.set_member_name ("spoiler_text");
 		builder.add_string_value (cw_button.active ? cw_entry.text : "");
+
+		if (polls_component != null && editor.is_bottom_child (polls_component) && polls_component.is_valid) {
+			builder.set_member_name ("poll");
+			builder.begin_object ();
+				builder.set_member_name ("multiple");
+				builder.add_boolean_value (polls_component.multiple_choice);
+
+				builder.set_member_name ("hide_totals");
+				builder.add_boolean_value (polls_component.hide_totals);
+
+				builder.set_member_name ("expires_in");
+				builder.add_int_value (polls_component.expires_in);
+
+				builder.set_member_name ("options");
+				builder.begin_array ();
+					foreach (var option in polls_component.get_all_options ()) {
+						builder.add_string_value (option);
+					}
+				builder.end_array ();
+			builder.end_object ();
+		} else if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty) {
+			// TODO
+		}
 
 		//  if (this.edit_mode) update_metadata (builder);
 		//  if (quote_id != null) {

@@ -1249,7 +1249,7 @@
 		name_button.can_target = false;
 		this.content.selectable = true;
 		this.content.can_open = false;
-		this.fade_bin.reveal = true;
+		//  this.fade_bin.reveal = true;
 	}
 
 	bool expanded = false;
