@@ -239,9 +239,9 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	}
 
 	public virtual string get_reply_mentions () {
-		var result = "";
+		string[] result = {};
 		if (account.acct != accounts.active.acct)
-			result = @"$(account.handle) ";
+			result += account.acct;
 
 		if (mentions != null) {
 			foreach (var mention in mentions) {
@@ -249,11 +249,11 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 				var already_mentioned = mention.acct in result;
 
 				if (!equals_current && !already_mentioned)
-					result += @"$(mention.handle) ";
+					result += mention.acct;
 			}
 		}
 
-		return result;
+		return string.joinv (", ", result);
 	}
 
 	private Request action (string action) {
