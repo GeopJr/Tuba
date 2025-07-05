@@ -3,6 +3,39 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 	public bool working { get; set; default = false; }
 	public bool is_empty { get { return attachment_widgets.size == 0; } }
 
+	public struct Metadata {
+		string id;
+		string description;
+		string focus;
+	}
+
+	public string[] get_all_media_ids () {
+		string[] result = {};
+
+		foreach (var attachment in attachment_widgets) {
+			if (attachment.media_id != null) result += attachment.media_id;
+		}
+
+		return result;
+	}
+
+	public Metadata[] get_all_metadata () {
+		Metadata[] result = {};
+
+		foreach (var attachment in attachment_widgets) {
+			if (attachment.media_id != null) result += Metadata () {
+				id = attachment.media_id,
+				description = attachment.alt_text,
+				focus = "%s,%s".printf (
+					Utils.Units.float_to_2_point_string ((float) attachment.pos_x),
+					Utils.Units.float_to_2_point_string ((float) attachment.pos_y)
+				)
+			};
+		}
+
+		return result;
+	}
+
 	private class Editor : Adw.NavigationPage {
 		const int ALT_MAX_CHARS = 1500;
 

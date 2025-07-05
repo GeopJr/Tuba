@@ -22,6 +22,18 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	[GtkChild] private unowned Gtk.ToggleButton sensitive_media_button;
 	[GtkChild] private unowned Gtk.Button add_media_button;
 
+	public struct Precompose {
+		string? content;
+		string? spoiler;
+		string? quote_id;
+		string? scheduled_id;
+		string? in_reply_to_id;
+		API.Poll? poll;
+		Gee.ArrayList<API.Attachment>? media_attachments;
+		bool sensitive_media;
+		bool force_cursor_at_start;
+	}
+
 	private bool _is_narrow = false;
 	public bool is_narrow {
 		get {
@@ -94,6 +106,9 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	private bool edit_mode { get; set; default = false; }
 	private string? schedule_iso8601 { get; set; default=null; }
 	private string? in_reply_to_id { get; set; default = null; }
+	public string? quote_id { get; set; default = null; }
+	public string? scheduled_id { get; set; default = null; }
+	public string? edit_status_id { get; set; default = null; }
 
 	private void install_emoji_pickers () {
 		var emoji_picker = new Gtk.EmojiChooser ();
@@ -283,6 +298,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 				menu_model = menu_model,
 				css_classes = { "pill", "suggested-action" }
 			};
+			btn.clicked.connect (on_commit);
 			post_btn.child = btn;
 		} else {
 			var btn = new Gtk.Button () {
@@ -291,6 +307,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 					ellipsize = END
 				}
 			};
+			btn.clicked.connect (on_commit);
 			post_btn.child = btn;
 		}
 	}
@@ -339,9 +356,10 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	}
 
 	public NewCompose (
-		string post_button_label = _("Post"),
+		Precompose? precompose = null,
 		string default_visibility = settings.default_post_visibility,
 		string default_language = settings.default_language,
+		string post_button_label = _("Post"),
 		bool edit_mode = false
 	) {
 		Object ();
@@ -368,6 +386,32 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 		add_media_button.clicked.connect (on_add_media_clicked);
 		this.set_title (_("New Post"), null);
+
+		if (precompose != null) {
+			if (precompose.content != null) editor.buffer.text = precompose.content;
+			if (precompose.spoiler != null) {
+				cw_button.active = precompose.spoiler != "";
+				cw_entry.text = precompose.spoiler;
+			}
+			if (precompose.quote_id != null) this.quote_id = precompose.quote_id;
+			if (precompose.scheduled_id != null) this.scheduled_id = precompose.scheduled_id;
+			if (precompose.in_reply_to_id != null) this.in_reply_to_id = precompose.in_reply_to_id;
+
+			if (precompose.force_cursor_at_start) {
+				Gtk.TextIter star_iter;
+				editor.buffer.get_start_iter (out star_iter);
+				editor.buffer.place_cursor (star_iter);
+			}
+
+			if (precompose.poll != null) {
+				init_polls_component (precompose.poll);
+				poll_button.active = true;
+			} else if (precompose.media_attachments != null && precompose.media_attachments.size > 0) {
+				create_attachmentsbin (precompose.media_attachments);
+				editor.add_bottom_child (attachmentsbin_component);
+				sensitive_media_button.active = precompose.sensitive_media;
+			}
+		}
 	}
 
 	public NewCompose.reply (API.Status to, owned SuccessCallback? t_cb = null) {
@@ -378,10 +422,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 			final_visibility = settings.default_post_visibility;
 		}
 
-		this (_("Reply"), final_visibility, to.language);
-		this.in_reply_to_id = to.id;
-		editor.buffer.text = to.formal.get_reply_mentions ();
-
+		this ({to.formal.get_reply_mentions (), to.spoiler_text, null, null, to.id, null, null, false, false}, final_visibility, to.language, _("Reply"));
 		Widgets.Status? widget_status = null;
 		try {
 			var sample = new API.Status.empty () {
@@ -417,45 +458,87 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		this.cb = (owned) t_cb;
 	}
 
+	public NewCompose.quote (API.Status to, API.Status.Visibility? reblog_visibility = null, bool supports_quotes = false) {
+		string final_visibility = to.visibility;
+		if (reblog_visibility == null) {
+			final_visibility = to.visibility;
+			var default_visibility = API.Status.Visibility.from_string (settings.default_post_visibility);
+			var to_visibility = API.Status.Visibility.from_string (to.visibility);
+			if (default_visibility != null && to_visibility != null && default_visibility.privacy_rate () > to_visibility.privacy_rate ()) {
+				final_visibility = settings.default_post_visibility;
+			}
+		}
+
+		this (
+			{
+				supports_quotes ? null : @"\n\nRE: $(to.formal.url ?? to.formal.account.url)",
+				to.spoiler_text,
+				supports_quotes ? to.id : null,
+				null,
+				null,
+				null,
+				null,
+				false,
+				!supports_quotes
+			},
+			final_visibility,
+			to.language,
+			_("Quote")
+		);
+
+		Widgets.Status? widget_status = null;
+		try {
+			var sample = new API.Status.empty () {
+				poll = to.poll,
+				sensitive = to.sensitive,
+				media_attachments = to.media_attachments,
+				visibility = to.visibility,
+				tuba_spoiler_revealed = true,
+				content = to.content,
+				spoiler_text = to.spoiler_text,
+				account = to.account,
+				created_at = to.created_at
+			};
+
+			if (sample.formal.has_media) {
+				sample.formal.media_attachments.foreach (e => {
+					e.tuba_is_report = true;
+
+					return true;
+				});
+			}
+
+			widget_status = (Widgets.Status?) sample.to_widget ();
+			widget_status.add_css_class ("card");
+			widget_status.add_css_class ("initial-font-size");
+			widget_status.to_display_only ();
+		} catch (Error e) {
+			warning (@"Couldn't create status widget: $(e.message)");
+		}
+
+		this.set_title (_("Quoting @%s").printf (to.account.username), widget_status);
+		this.scroller.vadjustment.value = editor.top_margin;
+	}
+
 	public NewCompose.edit (API.Status t_status, API.StatusSource? source = null, owned SuccessCallback? t_cb = null) {
-		this (_("Edit"), t_status.visibility, t_status.language, true);
-
-		//  var template = new API.Status.empty () {
-		//  	id = t_status.id,
-		//  	poll = t_status.poll,
-		//  	sensitive = t_status.sensitive,
-		//  	media_attachments = t_status.media_attachments,
-		//  	visibility = t_status.visibility,
-		//  	language = t_status.language
-		//  };
-
-		//  if (source == null) {
-		//  	template.content = Utils.Htmlx.remove_tags (t_status.content);
-		//  } else {
-		//  	template.content = source.text;
-		//  	template.spoiler_text = source.spoiler_text;
-		//  }
-
-		sensitive_media_button.active = t_status.sensitive;
-		cw_button.active = t_status.spoiler_text != null && t_status.spoiler_text != "";
-		if (source == null) {
-			editor.buffer.text = Utils.Htmlx.remove_tags (t_status.content);
-			cw_entry.text = t_status.spoiler_text;
-		} else {
-			editor.buffer.text = source.text;
-			cw_entry.text = source.spoiler_text;
-		}
-
-		if (t_status.poll != null) {
-			init_polls_component (t_status.poll);
-			poll_button.active = true;
-		} else if (t_status.media_attachments != null && t_status.media_attachments.size > 0) {
-			create_attachmentsbin (t_status.media_attachments);
-			editor.add_bottom_child (attachmentsbin_component);
-		}
+		this (
+			{
+				source == null ? Utils.Htmlx.remove_tags (t_status.content) : source.text,
+				source == null ? t_status.spoiler_text : source.spoiler_text,
+				null, null, null,
+				t_status.poll,
+				t_status.media_attachments,
+				t_status.sensitive,
+				false
+			},
+			t_status.visibility,
+			t_status.language,
+			_("Edit"),
+			true
+		);
+		this.edit_status_id = t_status.id;
 
 		this.set_title (_("Edit Post"), null);
-
 		this.cb = (owned) t_cb;
 	}
 
@@ -744,14 +827,34 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 				builder.end_array ();
 			builder.end_object ();
 		} else if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty) {
-			// TODO
+			builder.set_member_name ("media_ids");
+			builder.begin_array ();
+				foreach (var m_id in attachmentsbin_component.get_all_media_ids ()) {
+					builder.add_string_value (m_id);
+				}
+			builder.end_array ();
+
+			if (edit_mode) {
+				builder.set_member_name ("media_attributes");
+				builder.begin_array ();
+					foreach (var meta in attachmentsbin_component.get_all_metadata ()) {
+						builder.begin_object ();
+							builder.set_member_name ("id");
+							builder.add_string_value (meta.id);
+							builder.set_member_name ("description");
+							builder.add_string_value (meta.description);
+							builder.set_member_name ("focus");
+							builder.add_string_value (meta.focus);
+						builder.end_object ();
+					}
+				builder.end_array ();
+			}
 		}
 
-		//  if (this.edit_mode) update_metadata (builder);
-		//  if (quote_id != null) {
-		//  	builder.set_member_name ("quote_id");
-		//  	builder.add_string_value (quote_id);
-		//  }
+		if (this.quote_id != null) {
+			builder.set_member_name ("quote_id");
+			builder.add_string_value (quote_id);
+		}
 
 		if (this.schedule_iso8601 != null) {
 			builder.set_member_name ("scheduled_at");
@@ -760,5 +863,60 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 		builder.end_object ();
 		return builder;
+	}
+
+	private void on_commit () {
+		if (!this.sensitive) return;
+		this.sensitive = false;
+
+		transaction.begin ((obj, res) => {
+			try {
+				transaction.end (res);
+			} catch (Error e) {
+				warning (e.message);
+				on_toast (new Adw.Toast (e.message) { timeout = 0 });
+			} finally {
+				this.sensitive = true;
+			}
+		});
+	}
+
+	private async void transaction () throws Error {
+		var publish_req = new Request () {
+			method = "POST",
+			url = "/api/v1/statuses",
+			account = accounts.active
+		};
+
+		if (this.edit_status_id != null && this.edit_status_id != "") {
+			publish_req = new Request () {
+				method = "PUT",
+				url = @"/api/v1/statuses/$(this.edit_status_id)",
+				account = accounts.active
+			};
+		}
+
+		publish_req.body_json (populate_json_body ());
+		yield publish_req.await ();
+
+		var parser = Network.get_parser_from_inputstream (publish_req.response_body);
+		var node = network.parse_node (parser);
+		var status = API.Status.from (node);
+		debug (@"Published post with id $(status.id)");
+
+		if (this.scheduled_id != null) {
+			new Request.DELETE (@"/api/v1/scheduled_statuses/$scheduled_id")
+				.with_account (accounts.active)
+				.then (() => {
+					if (cb != null) cb (status);
+				})
+				.exec ();
+		} else if (cb != null) {
+			cb (status);
+		} else if (schedule_iso8601 != null) {
+			app.refresh_scheduled_statuses ();
+		}
+
+		this.force_close ();
 	}
 }

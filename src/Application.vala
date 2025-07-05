@@ -167,14 +167,7 @@ namespace Tuba {
 		public void handle_share () {
 			if (to_share == null || accounts.active == null || accounts.active.instance_info == null) return;
 
-			var status = new API.Status.empty ();
-			status.content = to_share.text;
-			if (to_share.cw != null) {
-				status.spoiler_text = to_share.cw;
-				status.sensitive = true;
-			}
-
-			new Dialogs.Compose (status);
+			new Dialogs.NewCompose ({to_share.text, to_share.cw, null, null, null, null, null, true, false}); // TODO: test
 			to_share = null;
 		}
 
