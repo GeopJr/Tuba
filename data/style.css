@@ -33,6 +33,10 @@ calendar>header>button, calendar>grid>label {
 	min-height: 0;
 }
 
+.initial-font-size {
+	font-size: initial;
+}
+
 .notification-badge.no-attention {
 	background: alpha(var(--sidebar-fg-color), .4);
 }
@@ -376,8 +380,30 @@ headerbar.flat.no-title .title {
 	min-width: 64px;
 }
 
+.composer-attachment,
 .attachment-picture {
-	border-radius: 6px;
+	border-radius: 12px;
+}
+
+.composer-attachment {
+	background-color: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.composer-attachment .alt-indicator {
+	background-color: color-mix(in srgb, color-mix(in srgb, var(--error-bg-color) 35%, white) 80%, transparent);
+	font-size: smaller;
+	border-radius: 6px; /* 12px (parent radius) - 6px (margin) */
+	font-weight: bold;
+	padding: 3px 8px;
+}
+
+.composer-attachment .alt-indicator.success {
+	background-color: color-mix(in srgb, color-mix(in srgb, var(--success-bg-color) 35%, white) 80%, transparent);
+}
+
+.attachment-editor-picker {
+	background-color: var(--shade-color);
+	padding: 12px 0;
 }
 
 .about .app-version{color:#fff;text-shadow:-1px -1px 0#000,1px -1px 0#000,-1px 1px 0#000,1px 1px 0#000;background:linear-gradient(150deg,#fdd81755 0,#66338b55 8.3%,#fff5 16.6%,#f4aec855 24.9%,#7bcce555 33.2%,#94551655 41.5%,#0005 49.8%,#e2201655 58.1%,#f2891755 66.4%,#efe52455 74.7%,#78b82a55 83%,#2c58a4 91.3%,#6d238055 100%);}
@@ -424,6 +450,10 @@ flowboxchild,
 
 video > overlay > revealer > controls {
 	padding: 12px;
+}
+
+.spoilered-attachmentsbin picture {
+	filter: blur(15px);
 }
 
 .spoilered-attachment {
@@ -743,6 +773,19 @@ GtkSourceAssistant row:last-child {
 	font-size: small;
 }
 
+.accented-color {
+	color: @accent_color;
+}
+
+.font-large {
+	font-size: large;
+}
+
+.composer-toggle-button,
+.dropdown-border-radius > button {
+	border-radius: 9999px;
+}
+
 .filter {
 	margin: -2px;
 	border-radius: 0;
@@ -776,12 +819,7 @@ popover.mini-profile > contents {
 	filter: none;
 }
 
-.focuspickerdialog .last-row {
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-}
-
-.focuspickerdialog .focus-picker {
+.focus-picker {
 	border-radius: 9999px;
 	padding: 4px;
 }
@@ -887,3 +925,43 @@ clapper-gtk-lead-container>box {
 .audio-controls>scalebutton>button {
 	border-radius: 9999px;
 }
+
+.editor-component {
+	padding-bottom: 28px;
+}
+
+.devel-bg {
+	background-image: cross-fade(5% -gtk-recolor(url(resource:///org/gnome/Adwaita/styles/assets/devel-symbolic.svg)), image(rgba(0,0,0,0)));
+}
+
+dropoverlay,
+dropoverlay > overlay > :not(revealer) {
+	box-shadow: none;
+}
+
+dropoverlay .status {
+	background-color: color-mix(in srgb, var(--accent-bg-color) 60%, transparent);
+	color: var(--accent-fg-color);
+}
+
+splitbutton.pill {
+	border-radius: 9999px;
+}
+
+splitbutton.pill > button {
+	padding: 10px 16px;
+	border-top-left-radius: inherit;
+	border-bottom-left-radius: inherit;
+}
+
+splitbutton.pill > menubutton {
+	border-top-right-radius: inherit;
+	border-bottom-right-radius: inherit;
+}
+
+splitbutton.pill > menubutton > button {
+	padding: 10px 8px;
+	border-top-right-radius: inherit;
+	border-bottom-right-radius: inherit;
+}
+

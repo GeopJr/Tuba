@@ -20,14 +20,9 @@
 		<property name="step_increment">1</property>
 		<property name="page_increment">1</property>
 	</object>
-	<template class="TubaDialogsSchedule" parent="AdwDialog">
-		<property name="content_width">500</property>
-		<property name="content_height">600</property>
-		<property name="width_request">360</property>
-		<property name="height_request">200</property>
+	<template class="TubaDialogsSchedule" parent="AdwNavigationPage">
 		<!-- translators: window title -->
 		<property name="title" translatable="yes">Schedule Post</property>
-
 		<child>
 			<object class="AdwToolbarView">
 				<child type="top">
@@ -35,12 +30,6 @@
 						<property name="show_end_title_buttons">0</property>
 						<property name="show_start_title_buttons">0</property>
 
-						<child type="start">
-							<object class="GtkButton">
-								<property name="label" translatable="yes">Cancel</property>
-								<signal name="clicked" handler="on_exit" swapped="no" />
-							</object>
-						</child>
 						<child type="end">
 							<object class="GtkButton" id="schedule_button">
 								<!-- translators: verb -->
@@ -58,6 +47,8 @@
 					<object class="GtkScrolledWindow">
 						<property name="hexpand">1</property>
 						<property name="vexpand">1</property>
+						<property name="propagate-natural-height">1</property>
+						<property name="propagate-natural-width">1</property>
 						<child>
 							<object class="AdwClamp">
 								<property name="valign">start</property>

@@ -573,7 +573,7 @@ public class Tuba.Dialogs.Compose : Adw.Dialog {
 
 		var schedule_dlg = new Dialogs.Schedule ();
 		schedule_dlg.schedule_picked.connect (on_schedule_picked);
-		schedule_dlg.present (this);
+		//  schedule_dlg.present (this);
 	}
 
 	private void on_draft_action_activated () {
