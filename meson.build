@@ -81,6 +81,7 @@ clapper_dep = dependency('clapper-0.0', required: get_option('clapper'), version
 clapper_gtk_dep = dependency('clapper-gtk-0.0', required: get_option('clapper'))
 gstreamer_dep = dependency('gstreamer-1.0', required: get_option('gstreamer'))
 webkit_dep = dependency('webkitgtk-6.0', required: get_option('in-app-browser'))
+gexiv2_dep = dependency('gexiv2', version: '>=0.14', required: get_option('gexiv2'))
 
 if not libwebp_dep.found ()
   warning('WebP support might be missing, please install webp-pixbuf-loader.')
@@ -97,6 +98,10 @@ endif
 if gstreamer_dep.found ()
   add_project_arguments(['--define=GSTREAMER'], language: 'vala')
   gstreamer = true
+endif
+
+if gexiv2_dep.found ()
+  add_project_arguments(['--define=GEXIV2'], language: 'vala')
 endif
 
 if clapper_dep.found () and clapper_gtk_dep.found ()
@@ -138,7 +143,8 @@ final_deps = [
   clapper_dep,
   clapper_gtk_dep,
   gstreamer_dep,
-  webkit_dep
+  webkit_dep,
+  gexiv2_dep
 ]
 
 subdir('data')

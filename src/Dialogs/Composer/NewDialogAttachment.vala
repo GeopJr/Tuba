@@ -436,6 +436,9 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 			this.kind = MediaType.from_string (entity.kind);
 			var working_loader = new AttachmentThumbnailer (uri, this.kind);
 			working_loader.done.connect (on_done);
+			#if GEXIV2
+				working_loader.extracted_alt.connect (on_extracted_alt_text);
+			#endif
 
 			try {
 				new GLib.Thread<void>.try (@"Attachment Thumbnail $uri", working_loader.fetch);
@@ -457,10 +460,22 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 
 	private class AttachmentThumbnailer : GLib.Object {
 		public signal void done (Gdk.Paintable? paintable);
+		#if GEXIV2
+			public signal void extracted_alt (string extracted_alt_text);
+		#endif
 
 		~AttachmentThumbnailer () {
 			debug ("Destroying AttachmentThumbnailer");
 		}
+
+		#if GEXIV2
+			const string[] ALT_KEYS = {
+				"Xmp.iptc.AltTextAccessibility",
+				"Xmp.dc.description",
+				"Iptc.Application2.Caption",
+				"Exif.Image.ImageDescription"
+			};
+		#endif
 
 		File file;
 		Attachment.MediaType kind;
@@ -515,12 +530,65 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 				critical (@"Error while generating thumbnail: $(e.message)");
 				done (null);
 			}
+
+			#if GEXIV2
+				if (kind == IMAGE) {
+					debug (@"Extracting alt text for $file_uri");
+					try {
+						GExiv2.Metadata metadata = new GExiv2.Metadata ();
+
+						string meta_path = file_uri;
+						if (meta_path.has_prefix ("file://")) {
+							meta_path = meta_path.substring (7);
+						}
+						metadata.open_path (meta_path);
+
+						foreach (string tag in ALT_KEYS) {
+							if (metadata.try_has_tag (tag)) {
+								string? alt = metadata.try_get_tag_interpreted_string (tag);
+								if (alt != null && alt.length > 0) {
+									extracted_alt (alt);
+									break;
+								}
+							}
+						}
+					} catch (Error e) {
+						critical (@"Error while extracting alt text: $(e.message)");
+					}
+				}
+			#endif
 		}
 	}
 
 	private void on_done (Gdk.Paintable? paintable) {
 		this.paintable = paintable;
 	}
+
+	#if GEXIV2
+		private void on_extracted_alt_text (string new_alt_text) {
+			if (this.alt_text != "" || new_alt_text == "") return;
+			string limited_alt_text = new_alt_text.length > accounts.active.instance_info.tuba_max_alt_chars
+				? new_alt_text.slice (0, (long) (accounts.active.instance_info.tuba_max_alt_chars + 1))
+				: new_alt_text;
+
+			var builder = new Json.Builder ();
+			builder.begin_object ();
+				builder.set_member_name ("description");
+				builder.add_string_value (limited_alt_text);
+			builder.end_object ();
+
+			new Request.PUT (@"/api/v1/media/$media_id")
+				.with_account (accounts.active)
+				.body_json (builder)
+				.then (() => {
+					this.alt_text = limited_alt_text;
+				})
+				.on_error ((code, message) => {
+					warning (message);
+				})
+				.exec ();
+		}
+	#endif
 
 	uint bytes_written = 0;
 	size_t total_bytes = 0;

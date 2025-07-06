@@ -124,6 +124,25 @@
                 }
             ]
         },
+		{
+			"name": "gexiv2",
+			"buildsystem": "meson",
+			"config-opts": [
+				"-Dpython3=false",
+				"-Dtools=false"
+			],
+			"sources": [
+				{
+					"type": "archive",
+					"url": "https://download.gnome.org/sources/gexiv2/0.15/gexiv2-0.15.0.tar.xz",
+					"sha256": "045ec4584d32963719e0722929f40f1d19566d4582e1eee4604be97e8c3eb740",
+					"x-checker-data": {
+						"type": "gnome",
+						"name": "gexiv2"
+					}
+				}
+			]
+		},
         {
             "name": "tuba",
             "builddir": true,
@@ -133,7 +152,8 @@
                 "-Dclapper=enabled",
                 "-Dspelling=enabled",
                 "-Dgstreamer=enabled",
-                "-Din-app-browser=enabled"
+                "-Din-app-browser=enabled",
+                "-Dgexiv2=enabled"
             ],
             "build-options": {
                 "arch": {
