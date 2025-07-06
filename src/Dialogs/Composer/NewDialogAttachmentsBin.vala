@@ -167,6 +167,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			if (working) return;
 			if (this.edit_mode) {
 				saved (this.pos_x, this.pos_y, alt_editor.buffer.text);
+				toast (new Adw.Toast (_("Saved Media Metadata")));
 				return;
 			}
 			working = true;
@@ -188,6 +189,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 				.body_json (builder)
 				.then (() => {
 					saved (this.pos_x, this.pos_y, alt_editor.buffer.text);
+					toast (new Adw.Toast (_("Saved Media Metadata")));
 					working = false;
 				})
 				.on_error ((code, message) => {
