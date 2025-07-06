@@ -207,6 +207,10 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 		return result;
 	}
 
+	public void grab_first_row_focus () {
+		poll_options.size > 0 ? poll_options.get (0).grab_focus () : this.grab_focus ();
+	}
+
 	construct {
 		this.orientation = VERTICAL;
 		this.spacing = 12;
@@ -224,7 +228,8 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.FILL,
 			hexpand = true,
-			css_classes = {"composer-toggle-button"}
+			css_classes = {"composer-toggle-button"},
+			tooltip_text = _("Toggle Choice Type")
 		};
 
 		show_results_button = new StatefulButton (
@@ -236,7 +241,8 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.FILL,
 			hexpand = true,
-			css_classes = {"composer-toggle-button"}
+			css_classes = {"composer-toggle-button"},
+			tooltip_text = _("Toggle Results Visibility")
 		};
 		this.bind_property ("edit-mode", show_results_button, "sensitive", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.INVERT_BOOLEAN);
 

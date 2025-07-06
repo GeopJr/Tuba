@@ -767,6 +767,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 
 	private void on_component_animation_end (Adw.Animation animation) {
 		if (animation.value == 0) editor.add_bottom_child (null);
+		else if (polls_component != null && editor.is_bottom_child (polls_component)) polls_component.grab_first_row_focus ();
 		validate_post_button ();
 	}
 

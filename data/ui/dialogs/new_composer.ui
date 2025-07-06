@@ -36,7 +36,7 @@
 													</object>
 												</property>
 												<child type="bottom">
-													<object class="GtkRevealer" id="toggle_fs_revealer">
+													<object class="GtkRevealer" id="cw_revealer">
 														<property name="transition_type">slide-up</property>
 														<property name="reveal-child" bind-source="cw_button" bind-property="active" bind-flags="sync-create" />
 														<property name="child">
@@ -85,6 +85,7 @@
 																	<object class="GtkButton" id="add_media_button">
 																		<property name="icon-name">tuba-image-round-symbolic</property>
 																		<property name="sensitive" bind-source="poll_button" bind-property="active" bind-flags="sync-create|invert-boolean" />
+																		<property name="tooltip-text" translatable="yes">Add Media</property>
 																		<style>
 																			<class name="flat" />
 																		</style>
@@ -93,6 +94,7 @@
 																<child>
 																	<object class="GtkToggleButton" id="poll_button">
 																		<property name="icon-name">tuba-polls-symbolic</property>
+																		<property name="tooltip-text" translatable="yes">Create Poll</property>
 																		<style>
 																			<class name="flat" />
 																		</style>
@@ -101,6 +103,7 @@
 																<child>
 																	<object class="GtkToggleButton" id="cw_button">
 																		<property name="icon-name">tuba-warning-symbolic</property>
+																		<property name="tooltip-text" translatable="yes">Content Warning</property>
 																		<style>
 																			<class name="flat" />
 																		</style>

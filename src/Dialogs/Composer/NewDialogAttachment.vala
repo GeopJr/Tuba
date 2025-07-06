@@ -214,7 +214,8 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 			margin_top = 6,
 			margin_end = 6,
 			css_classes = { "osd", "circular" },
-			visible = false
+			visible = false,
+			tooltip_text = _("Remove Attachment")
 		};
 		delete_button.clicked.connect (on_delete);
 
@@ -224,7 +225,8 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 			margin_bottom = 6,
 			margin_end = 6,
 			css_classes = { "osd", "circular" },
-			visible = false
+			visible = false,
+			tooltip_text = _("Edit Metadata")
 		};
 		alt_button.clicked.connect (on_edit_clicked);
 
