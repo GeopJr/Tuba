@@ -485,7 +485,9 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 			},
 			final_visibility,
 			to.language,
-			_("Quote")
+			_("Quote"),
+			false,
+			!supports_quotes
 		);
 
 		Widgets.Status? widget_status = null;
