@@ -1,5 +1,9 @@
 [GtkTemplate (ui = "/dev/geopjr/Tuba/ui/dialogs/new_composer.ui")]
 public class Tuba.Dialogs.NewCompose : Adw.Dialog {
+	~NewCompose () {
+		debug ("Destroying Composer");
+	}
+
 	[GtkChild] private unowned Gtk.Label counter_label;
 	[GtkChild] private unowned Adw.Bin post_btn;
 	[GtkChild] private unowned Gtk.Box btns_box;

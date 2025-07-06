@@ -1,6 +1,10 @@
 public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 	public bool edit_mode { get; set; default = false; }
 
+	~Polls () {
+		debug ("Destroying Composer Component Polls");
+	}
+
 	public class PollRow : Adw.EntryRow {
 		Gtk.Button delete_button;
 		public bool is_valid { get; private set; default=false; }
@@ -53,6 +57,7 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 
 		~PollRow () {
 			is_valid = false;
+			debug ("Destroying PollRow");
 		}
 
 		private void on_delete_button_clicked () {
@@ -88,6 +93,10 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 	}
 
 	protected class StatefulButton : Gtk.Button {
+		~StatefulButton () {
+			debug ("Destroying Composer StatefulButton");
+		}
+
 		public struct State {
 			public string active;
 			public string inactive;

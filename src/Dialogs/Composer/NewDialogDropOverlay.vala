@@ -1,5 +1,9 @@
 // Inspired by https://gitlab.gnome.org/World/amberol/-/blob/638eef0ba2b8ac6fac32a51241161fa25317fa18/src/drag_overlay.rs
 public class Tuba.Dialogs.Components.DropOverlay : Adw.Bin {
+	~DropOverlay () {
+		debug ("Destroying Composer DropOverlay");
+	}
+
 	static construct {
 		set_css_name ("dropoverlay");
 	}

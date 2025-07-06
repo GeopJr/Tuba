@@ -3,6 +3,10 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 	public bool working { get; set; default = false; }
 	public bool is_empty { get { return attachment_widgets.size == 0; } }
 
+	~AttachmentsBin () {
+		debug ("Destroying Composer Component AttachmentsBin");
+	}
+
 	public struct Metadata {
 		string id;
 		string description;
@@ -43,7 +47,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		public signal void toast (Adw.Toast toast);
 
 		~Editor () {
-			debug ("Destroying Attachment Editor");
+			debug ("Destroying Composer Attachment Editor");
 		}
 
 		private bool _can_save = false;

@@ -2,6 +2,10 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Compon
 	public bool edit_mode { get; set; default = false; }
 	public signal void ctrl_return_pressed ();
 
+	~Editor () {
+		debug ("Destroying Composer Editor");
+	}
+
 	private string _locale = "en";
 	public string locale {
 		get { return _locale; }
@@ -34,6 +38,10 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Compon
 	// text and since it cannot wrap, it should
 	// have a big enough h nat while h min is 0
 	public class PlaceholderHack : Gtk.Widget {
+		~PlaceholderHack () {
+			debug ("Destroying Composer PlaceholderHack");
+		}
+
 		static construct {
 			set_accessible_role (Gtk.AccessibleRole.PRESENTATION);
 		}

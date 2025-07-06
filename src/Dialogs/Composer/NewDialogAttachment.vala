@@ -4,6 +4,10 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 	public signal void edit ();
 	public signal void upload_error (string message);
 
+	~Attachment () {
+		debug ("Destroying Composer Component Attachment");
+	}
+
 	public class AltIndicator : Gtk.Box {
 		private bool _valid = false;
 		public bool valid {
@@ -12,6 +16,10 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 				_valid = value;
 				update_valid ();
 			}
+		}
+
+		~AltIndicator () {
+			debug ("Destroying AltIndicator");
 		}
 
 		static construct {
@@ -429,6 +437,11 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 
 	private class AttachmentThumbnailer : GLib.Object {
 		public signal void done (Gdk.Paintable? paintable);
+
+		~AttachmentThumbnailer () {
+			debug ("Destroying AttachmentThumbnailer");
+		}
+
 		File file;
 		Attachment.MediaType kind;
 		public AttachmentThumbnailer (string file_uri, Attachment.MediaType kind) {
