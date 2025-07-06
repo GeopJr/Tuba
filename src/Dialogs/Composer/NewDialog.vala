@@ -287,6 +287,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		dnd_controller.drop.connect (on_drag_drop);
 		toolbar_view.add_controller (dnd_controller);
 		sensitive_media_button.toggled.connect (update_attachmentsbin_sensitivity);
+		this.close_attempt.connect (on_exit);
 	}
 
 	private void install_post_button (string label, bool with_menu) {
@@ -360,6 +361,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		headerbar.show_title = scroller.vadjustment.value > 0;
 	}
 
+	uint unique_state = 0;
 	public NewCompose (
 		Precompose? precompose = null,
 		string default_visibility = settings.default_post_visibility,
@@ -418,6 +420,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 				sensitive_media_button.active = precompose.sensitive_media;
 			}
 		}
+
+		unique_state = generate_unique_state ();
 	}
 
 	public NewCompose.reply (API.Status to, owned SuccessCallback? t_cb = null) {
@@ -955,5 +959,64 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		}
 
 		this.force_close ();
+	}
+
+	// This is used to check if something changed so we
+	// can ask the user if they want to quit. In the old
+	// composer, it used to check everything. This time,
+	// let's just check the important ones only, since
+	// asking when just changing trivial properties seems
+	// annoying.
+	private uint generate_unique_state () {
+		GLib.StringBuilder builder = new GLib.StringBuilder (editor.buffer.text);
+		builder.append (cw_button.active.to_string ());
+		builder.append (cw_entry.text);
+
+		if (attachmentsbin_component != null && editor.is_bottom_child (attachmentsbin_component) && !attachmentsbin_component.is_empty) {
+			builder.append (string.joinv ("", attachmentsbin_component.get_all_media_ids ()));
+
+			foreach (var meta in attachmentsbin_component.get_all_metadata ()) {
+				builder.append (meta.id);
+				builder.append (meta.description);
+				builder.append (meta.focus);
+			}
+		} else {
+			builder.append ("none");
+		}
+
+		if (polls_component != null && editor.is_bottom_child (polls_component) && polls_component.is_valid && polls_component.has_rows) {
+			builder.append (string.joinv ("", polls_component.get_all_options ()));
+			builder.append (polls_component.multiple_choice.to_string ());
+			builder.append (polls_component.hide_totals.to_string ());
+			builder.append (polls_component.expires_in.to_string ());
+		} else {
+			builder.append ("none");
+		}
+
+		return GLib.str_hash (builder.str);
+	}
+
+	private bool state_changed () {
+		if (unique_state == 0) return false;
+		return unique_state != generate_unique_state ();
+	}
+
+	private void on_exit () {
+		if (state_changed ()) {
+			app.question.begin (
+				// translators: Dialog title when closing the composer
+				{_("Discard Post?"), false},
+				{_("Your progress will be lost."), false},
+				this,
+				{ { _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
+				null,
+				false,
+				(obj, res) => {
+					if (app.question.end (res).truthy ()) this.force_close ();
+				}
+			);
+		} else {
+			this.force_close ();
+		}
 	}
 }

@@ -8,6 +8,7 @@
 		<property name="follows-content-size">1</property>
 		<property name="width-request">200</property>
 		<property name="height-request">360</property>
+		<property name="can-close">0</property>
 		<child>
 			<object class="AdwToastOverlay" id="toast_overlay">
 				<property name="child">
