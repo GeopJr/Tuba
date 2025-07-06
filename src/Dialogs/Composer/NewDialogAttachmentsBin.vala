@@ -44,8 +44,6 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 	}
 
 	private class Editor : Adw.NavigationPage {
-		const int ALT_MAX_CHARS = 1500;
-
 		public signal void saved (float pos_x, float pos_y, string alt_text);
 		public signal void toast (Adw.Toast toast);
 
@@ -62,6 +60,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			}
 		}
 
+		public int64 alt_max_chars = accounts.active.instance_info.tuba_max_alt_chars;
 		public bool edit_mode { get; set; default = false; }
 		public float pos_x { get; set; default = 0.0f; }
 		public float pos_y { get; set; default = 0.0f; }
@@ -128,7 +127,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 				child = alt_editor
 			});
 
-			dialog_char_counter = new Gtk.Label (ALT_MAX_CHARS.to_string ()) {
+			dialog_char_counter = new Gtk.Label (alt_max_chars.to_string ()) {
 				tooltip_text = _("Remaining Characters"),
 				css_classes = { "numeric", "dimmed" },
 				margin_end = 6
@@ -144,10 +143,10 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			int total_count = Utils.Counting.chars (alt_editor.buffer.text, "en");
 			placeholder.visible = total_count == 0;
 
-			var t_val = total_count < ALT_MAX_CHARS;
+			var t_val = total_count < alt_max_chars;
 			this.can_save = t_val;
 
-			dialog_char_counter.label = (ALT_MAX_CHARS - total_count).to_string ();
+			dialog_char_counter.label = (alt_max_chars - total_count).to_string ();
 			if (t_val) {
 				dialog_char_counter.remove_css_class ("error");
 			} else {

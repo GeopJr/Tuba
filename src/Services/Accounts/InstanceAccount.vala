@@ -529,8 +529,10 @@ public class Tuba.InstanceAccount : API.Account, Streamable {
 
 				var instance_v2 = API.InstanceV2.from (node);
 				if (instance_v2 != null) {
-					if (instance_v2.configuration != null && instance_v2.configuration.translation != null)
-						this.instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
+					if (instance_v2.configuration != null) {
+						if (instance_v2.configuration.translation != null) this.instance_info.tuba_can_translate = instance_v2.configuration.translation.enabled;
+						if (instance_v2.configuration.media_attachments != null) this.instance_info.tuba_max_alt_chars = instance_v2.configuration.media_attachments.description_limit;
+					}
 
 					if (instance_v2.api_versions != null && instance_v2.api_versions.mastodon > 0) {
 						if (!this.tuba_api_versions.tuba_same (instance_v2.api_versions)) {

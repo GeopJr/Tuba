@@ -3,7 +3,13 @@ public class Tuba.API.InstanceV2 : Entity {
 		public class Translation : Entity {
 			public bool enabled { get; set; default = false; }
 		}
+
+		public class MediaAttachments : Entity {
+			public int64 description_limit { get; set; default = 1500; }
+		}
+
 		public Translation translation { get; set; default = null; }
+		public MediaAttachments media_attachments { get; set; default = null; }
 	}
 
 	public class APIVersions : Entity {
