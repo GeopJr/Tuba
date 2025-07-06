@@ -157,6 +157,10 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 
 	public GLib.File? file { get; set; default = null; }
 
+	public void cleanup () {
+		if (drop_target_controller.get_value () != null) drop_target_controller.get_value ().set_object (null);
+	}
+
 	Adw.TimedAnimation opacity_animation;
 	Widgets.FocusPicture picture;
 	Gtk.Button delete_button;
@@ -167,6 +171,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 	Adw.TimedAnimation animation;
 	Adw.TimedAnimation progress_animation;
 	Components.DropOverlay drop_overlay;
+	Gtk.DropTarget drop_target_controller;
 	Gdk.RGBA color = { 120 / 255.0f, 174 / 255.0f, 237 / 255.0f, 0.5f };
 	construct {
 		this.css_classes = { "composer-attachment" };
@@ -268,7 +273,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		drag_source_controller.drag_cancel.connect (on_drag_cancel);
 		this.add_controller (drag_source_controller);
 
-		var drop_target_controller = new Gtk.DropTarget (typeof (Attachment), MOVE);
+		drop_target_controller = new Gtk.DropTarget (typeof (Attachment), MOVE);
 		drop_target_controller.enter.connect (on_drop_enter);
 		drop_target_controller.leave.connect (on_drop_leave);
 		drop_target_controller.drop.connect (on_drop);

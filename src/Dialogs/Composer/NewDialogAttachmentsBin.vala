@@ -5,6 +5,9 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 
 	~AttachmentsBin () {
 		debug ("Destroying Composer Component AttachmentsBin");
+		foreach (var attachment in attachment_widgets) {
+			attachment.cleanup ();
+		}
 	}
 
 	public struct Metadata {
@@ -303,6 +306,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 
 		int removed_index = attachment_widgets.index_of (attachment);
 		attachment_widgets.remove (attachment);
+		attachment.cleanup ();
 
 		for (int i = removed_index; i < attachment_widgets.size; i++) {
 			var child = attachment_widgets.get (i);
