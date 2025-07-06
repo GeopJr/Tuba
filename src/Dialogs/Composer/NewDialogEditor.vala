@@ -150,11 +150,19 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Compon
 	}
 
 	private void connect_child_attachable (Components.Attachable attachable) {
+		disconnect_child_attachable (attachable);
 		attachable.scroll.connect (scroll_request);
 		attachable.toast.connect (toast_request);
 		attachable.push_subpage.connect (push_subpage_request);
 		attachable.pop_subpage.connect (pop_request);
 		attachable.edit_mode = this.edit_mode;
+	}
+
+	private void disconnect_child_attachable (Components.Attachable attachable) {
+		attachable.scroll.disconnect (scroll_request);
+		attachable.toast.disconnect (toast_request);
+		attachable.push_subpage.disconnect (push_subpage_request);
+		attachable.pop_subpage.disconnect (pop_request);
 	}
 
 	#if LIBSPELLING
