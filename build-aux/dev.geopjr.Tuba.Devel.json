@@ -141,6 +141,33 @@
 						"name": "gexiv2"
 					}
 				}
+			],
+			"modules": [
+				{
+            	    "name": "exiv2",
+            	    "sources": [
+            	        {
+            	            "type": "archive",
+            	            "url": "https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.5.tar.gz",
+            	            "sha256": "e1671f744e379a87ba0c984617406fdf8c0ad0c594e5122f525b2fb7c28d394d",
+            	            "x-checker-data": {
+            	                "type": "anitya",
+            	                "project-id": 769,
+            	                "stable-only": true,
+            	                "url-template": "https://github.com/Exiv2/exiv2/archive/refs/tags/v$version.tar.gz"
+            	            }
+            	        }
+            	    ],
+            	    "buildsystem": "cmake-ninja",
+            	    "builddir": true,
+            	    "config-opts": [
+            	        "-DEXIV2_BUILD_EXIV2_COMMAND=OFF",
+            	        "-DEXIV2_ENABLE_INIH=OFF",
+            	        "-DEXIV2_ENABLE_VIDEO=OFF",
+						"-DEXIV2_BUILD_DOC=OFF",
+						"-DEXIV2_ENABLE_LENSDATA=OFF"
+            	    ]
+            	}
 			]
 		},
         {
