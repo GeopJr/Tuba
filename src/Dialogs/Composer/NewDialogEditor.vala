@@ -139,18 +139,12 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Compon
 
 	public override void add_bottom_child (Gtk.Widget? new_bottom_child) {
 		if (is_bottom_child (new_bottom_child)) return;
-		if (new_bottom_child != null && new_bottom_child is Components.Attachable) {
-			connect_child_attachable (new_bottom_child as Components.Attachable);
-			new_bottom_child.margin_top = 28;
-			new_bottom_child.add_css_class ("editor-component");
-		}
 
 		base.add_bottom_child (new_bottom_child);
 		if (new_bottom_child != null) scroll_to_widget (true);
 	}
 
 	private void connect_child_attachable (Components.Attachable attachable) {
-		disconnect_child_attachable (attachable);
 		attachable.scroll.connect (scroll_request);
 		attachable.toast.connect (toast_request);
 		attachable.push_subpage.connect (push_subpage_request);
@@ -163,6 +157,20 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Compon
 		attachable.toast.disconnect (toast_request);
 		attachable.push_subpage.disconnect (push_subpage_request);
 		attachable.pop_subpage.disconnect (pop_request);
+	}
+
+	protected override void clear_child_widget (Gtk.Widget widget) {
+		if (widget is Components.Attachable) disconnect_child_attachable (widget as Components.Attachable);
+		base.clear_child_widget (widget);
+	}
+
+	protected override void setup_child_widget (Gtk.Widget widget) {
+		if (widget is Components.Attachable) {
+			connect_child_attachable (widget as Components.Attachable);
+			widget.add_css_class ("editor-component");
+			widget.margin_top = 28;
+		}
+		base.setup_child_widget (widget);
 	}
 
 	#if LIBSPELLING

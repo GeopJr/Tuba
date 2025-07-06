@@ -2,6 +2,9 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 	Gtk.Widget? top_child = null;
 	Gtk.Widget? bottom_child = null;
 	Adw.TimedAnimation scroll_animation;
+	Gtk.EventController[] top_controllers = {};
+	Gtk.EventController[] bottom_controllers = {};
+
 	~SandwichSourceView () {
 		debug ("Destroying SandwichSourceView");
 	}
@@ -41,19 +44,20 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 	public virtual void add_top_child (Gtk.Widget? new_top_child) {
 		if (new_top_child == null) {
 			if (this.top_child != null) {
-				this.top_child.unparent ();
+				clear_child_widget (this.top_child);
 				this.top_child = null;
 			}
 			return;
 		}
 
-		if (this.top_child != null) this.top_child.unparent ();
+		if (this.top_child != null) clear_child_widget (this.top_child);
 		this.top_child = new_top_child;
 
 		var focus_controller = new Gtk.EventControllerFocus ();
 		focus_controller.enter.connect (scroll_to_top_widget);
 		focus_controller.leave.connect (on_focus_leave);
 		this.top_child.add_controller (focus_controller);
+		top_controllers += focus_controller;
 
 		setup_child_widget (this.top_child);
 	}
@@ -61,21 +65,38 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 	public virtual void add_bottom_child (Gtk.Widget? new_bottom_child) {
 		if (new_bottom_child == null) {
 			if (this.bottom_child != null) {
-				this.bottom_child.unparent ();
+				clear_child_widget (this.bottom_child);
 				this.bottom_child = null;
 			}
 			return;
 		}
 
-		if (this.bottom_child != null) this.bottom_child.unparent ();
+		if (this.bottom_child != null) clear_child_widget (this.bottom_child);
 		this.bottom_child = new_bottom_child;
 
 		var focus_controller = new Gtk.EventControllerFocus ();
 		focus_controller.enter.connect (scroll_to_bottom_widget);
 		focus_controller.leave.connect (on_focus_leave);
 		this.bottom_child.add_controller (focus_controller);
+		bottom_controllers += focus_controller;
 
 		setup_child_widget (this.bottom_child);
+	}
+
+	protected virtual void clear_child_widget (Gtk.Widget widget) {
+		if (is_bottom_child (widget)) {
+			foreach (var controller in bottom_controllers) {
+				widget.remove_controller (controller);
+			}
+			bottom_controllers = {};
+		} else {
+			foreach (var controller in top_controllers) {
+				widget.remove_controller (controller);
+			}
+			top_controllers = {};
+		}
+
+		widget.unparent ();
 	}
 
 	private void scroll_to_top_widget () {
@@ -92,7 +113,7 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 		this.editable = true;
 	}
 
-	private inline void setup_child_widget (Gtk.Widget wdgt) {
+	protected virtual void setup_child_widget (Gtk.Widget wdgt) {
 		wdgt.set_parent (this);
 		wdgt.set_cursor (new Gdk.Cursor.from_name ("default", null));
 
@@ -103,6 +124,12 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 		click_gesture.pressed.connect (on_click_gesture_pressed);
 		click_gesture.released.connect (on_click_gesture_pressed);
 		wdgt.add_controller (click_gesture);
+
+		if (is_bottom_child (wdgt)) {
+			bottom_controllers += click_gesture;
+		} else {
+			top_controllers += click_gesture;
+		}
 
 		this.queue_resize ();
 	}
