@@ -66,7 +66,6 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		public float pos_y { get; set; default = 0.0f; }
 		public string media_id { get; set; }
 
-		Gtk.Button save_btn;
 		GtkSource.View alt_editor;
 		Components.Editor.PlaceholderHack placeholder;
 		Gtk.Box content_box;
@@ -297,6 +296,9 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		var temp = attachment_widgets[from_index];
 		attachment_widgets[from_index] = attachment_widgets[to_index];
 		attachment_widgets[to_index] = temp;
+
+		from.cleanup ();
+		to.cleanup ();
 	}
 
 	private void on_delete (Components.Attachment attachment) {

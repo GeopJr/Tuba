@@ -393,7 +393,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		toggle_poll_component ();
 
 		add_media_button.clicked.connect (on_add_media_clicked);
-		this.set_title (_("New Post"), null);
+		this.set_editor_title (_("New Post"), null);
 
 		if (precompose != null) {
 			if (precompose.content != null) editor.buffer.text = precompose.content;
@@ -433,37 +433,33 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		}
 
 		this ({to.formal.get_reply_mentions (), to.spoiler_text, null, null, to.id, null, null, false, false}, final_visibility, to.language, _("Reply"));
-		Widgets.Status? widget_status = null;
-		try {
-			var sample = new API.Status.empty () {
-				poll = to.poll,
-				sensitive = to.sensitive,
-				media_attachments = to.media_attachments,
-				visibility = to.visibility,
-				tuba_spoiler_revealed = true,
-				content = to.content,
-				spoiler_text = to.spoiler_text,
-				account = to.account,
-				created_at = to.created_at
-			};
 
-			if (sample.formal.has_media) {
-				sample.formal.media_attachments.foreach (e => {
-					e.tuba_is_report = true;
+		var sample = new API.Status.empty () {
+			poll = to.poll,
+			sensitive = to.sensitive,
+			media_attachments = to.media_attachments,
+			visibility = to.visibility,
+			tuba_spoiler_revealed = true,
+			content = to.content,
+			spoiler_text = to.spoiler_text,
+			account = to.account,
+			created_at = to.created_at
+		};
 
-					return true;
-				});
-			}
+		if (sample.formal.has_media) {
+			sample.formal.media_attachments.foreach (e => {
+				e.tuba_is_report = true;
 
-			widget_status = (Widgets.Status?) sample.to_widget ();
-			widget_status.add_css_class ("card");
-			widget_status.add_css_class ("initial-font-size");
-			widget_status.to_display_only ();
-		} catch (Error e) {
-			warning (@"Couldn't create status widget: $(e.message)");
+				return true;
+			});
 		}
 
-		this.set_title (_("Reply to @%s").printf (to.account.username), widget_status);
+		Widgets.Status widget_status = (Widgets.Status?) sample.to_widget ();
+		widget_status.add_css_class ("card");
+		widget_status.add_css_class ("initial-font-size");
+		widget_status.to_display_only ();
+
+		this.set_editor_title (_("Reply to @%s").printf (to.account.username), widget_status);
 		this.scroller.vadjustment.value = editor.top_margin;
 		this.cb = (owned) t_cb;
 	}
@@ -499,37 +495,32 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 			!supports_quotes
 		);
 
-		Widgets.Status? widget_status = null;
-		try {
-			var sample = new API.Status.empty () {
-				poll = to.poll,
-				sensitive = to.sensitive,
-				media_attachments = to.media_attachments,
-				visibility = to.visibility,
-				tuba_spoiler_revealed = true,
-				content = to.content,
-				spoiler_text = to.spoiler_text,
-				account = to.account,
-				created_at = to.created_at
-			};
+		var sample = new API.Status.empty () {
+			poll = to.poll,
+			sensitive = to.sensitive,
+			media_attachments = to.media_attachments,
+			visibility = to.visibility,
+			tuba_spoiler_revealed = true,
+			content = to.content,
+			spoiler_text = to.spoiler_text,
+			account = to.account,
+			created_at = to.created_at
+		};
 
-			if (sample.formal.has_media) {
-				sample.formal.media_attachments.foreach (e => {
-					e.tuba_is_report = true;
+		if (sample.formal.has_media) {
+			sample.formal.media_attachments.foreach (e => {
+				e.tuba_is_report = true;
 
-					return true;
-				});
-			}
-
-			widget_status = (Widgets.Status?) sample.to_widget ();
-			widget_status.add_css_class ("card");
-			widget_status.add_css_class ("initial-font-size");
-			widget_status.to_display_only ();
-		} catch (Error e) {
-			warning (@"Couldn't create status widget: $(e.message)");
+				return true;
+			});
 		}
 
-		this.set_title (_("Quoting @%s").printf (to.account.username), widget_status);
+		Widgets.Status widget_status = (Widgets.Status?) sample.to_widget ();
+		widget_status.add_css_class ("card");
+		widget_status.add_css_class ("initial-font-size");
+		widget_status.to_display_only ();
+
+		this.set_editor_title (_("Quoting @%s").printf (to.account.username), widget_status);
 		this.scroller.vadjustment.value = editor.top_margin;
 	}
 
@@ -551,7 +542,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		);
 		this.edit_status_id = t_status.id;
 
-		this.set_title (_("Edit Post"), null);
+		this.set_editor_title (_("Edit Post"), null);
 		this.cb = (owned) t_cb;
 	}
 
@@ -576,14 +567,14 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		);
 
 		if (!posting_draft) {
-			this.set_title (_("Edit Post"), null);
+			this.set_editor_title (_("Edit Post"), null);
 			this.schedule_iso8601 = scheduled_status.scheduled_at;
 		}
 
 		this.cb = (owned) t_cb;
 	}
 
-	private inline void set_title (string new_title, Gtk.Widget? widget_status) {
+	private inline void set_editor_title (string new_title, Gtk.Widget? widget_status) {
 		this.title = new_title;
 		nav_page.title = new_title;
 		editor.set_title (new_title, widget_status);

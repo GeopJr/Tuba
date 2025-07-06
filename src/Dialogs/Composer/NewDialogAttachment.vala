@@ -355,7 +355,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 	}
 
 	private Gdk.DragAction on_drop_enter (double x, double y) {
-		drop_overlay.dropping = true && !being_dragged;
+		drop_overlay.dropping = !being_dragged;
 		return Gdk.DragAction.MOVE;
 	}
 
@@ -427,19 +427,31 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 
 		this.progress = 1;
 		this.file = file;
-		var parser = Network.get_parser_from_inputstream (in_stream);
-		var node = network.parse_node (parser);
-		var entity = accounts.active.create_entity<API.Attachment> (node);
-		this.media_id = entity.id;
+		try {
+			var parser = Network.get_parser_from_inputstream (in_stream);
+			var node = network.parse_node (parser);
+			var entity = accounts.active.create_entity<API.Attachment> (node);
 
-		this.kind = MediaType.from_string (entity.kind);
-		var working_loader = new AttachmentThumbnailer (uri, this.kind);
-		working_loader.done.connect (on_done);
-		new GLib.Thread<void>.try (@"Attachment Thumbnail $uri", working_loader.fetch);
+			this.media_id = entity.id;
+			this.kind = MediaType.from_string (entity.kind);
+			var working_loader = new AttachmentThumbnailer (uri, this.kind);
+			working_loader.done.connect (on_done);
 
-		debug (@"OK! ID $(entity.id)");
+			try {
+				new GLib.Thread<void>.try (@"Attachment Thumbnail $uri", working_loader.fetch);
+			} catch (Error e) {
+				critical ("Couldn't spawn thumbnailer for %s: %s", uri, e.message);
+			}
+
+			debug (@"OK! ID $(entity.id)");
+		} catch (Error e) {
+			critical (e.message);
+			this.uploading = false;
+			upload_error (e.message);
+			return;
+		}
+
 		this.done = true;
-
 		this.uploading = false;
 	}
 
@@ -550,7 +562,11 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 				if (preview == null) {
 					var working_loader = new AttachmentThumbnailer (url, this.kind);
 					working_loader.done.connect (on_done);
-					new GLib.Thread<void>.try (@"Attachment Thumbnail $url", working_loader.fetch);
+					try {
+						new GLib.Thread<void>.try (@"Attachment Thumbnail $url", working_loader.fetch);
+					} catch (Error e) {
+						critical ("Couldn't spawn thumbnailer for %s: %s", url, e.message);
+					}
 				} else {
 					Tuba.Helper.Image.request_paintable (preview, null, false, on_done);
 				}
