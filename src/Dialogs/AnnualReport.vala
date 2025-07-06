@@ -539,7 +539,7 @@ public class Tuba.Dialogs.AnnualReport : Adw.Dialog {
 		yield req.await ();
 
 		attachment.description = report_alt_text;
-		new Dialogs.NewCompose ({"#Wrapstodon #FediWrapped", null, null, null, null, null, new Gee.ArrayList<API.Attachment>.wrap ({attachment}), false, false}); // TODO: test
+		new Dialogs.NewCompose ({"#Wrapstodon #FediWrapped", null, null, null, null, null, new Gee.ArrayList<API.Attachment>.wrap ({attachment}), false, false});
 	}
 
 	private void save_with_background () {

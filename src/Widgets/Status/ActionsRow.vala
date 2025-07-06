@@ -304,7 +304,7 @@ public class Tuba.Widgets.ActionsRow : Gtk.Box {
 								break;
 							case "quote":
 								bool supports_quotes = status.formal.can_be_quoted && accounts.active.instance_info.supports_quote_posting;
-								new Dialogs.NewCompose.quote (status.formal, reblog_visibility, supports_quotes); // TODO: test
+								new Dialogs.NewCompose.quote (status.formal, reblog_visibility, supports_quotes);
 								status_btn.unblock_clicked ();
 								break;
 							default:

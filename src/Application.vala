@@ -167,7 +167,7 @@ namespace Tuba {
 		public void handle_share () {
 			if (to_share == null || accounts.active == null || accounts.active.instance_info == null) return;
 
-			new Dialogs.NewCompose ({to_share.text, to_share.cw, null, null, null, null, null, true, false}); // TODO: test
+			new Dialogs.NewCompose ({to_share.text, to_share.cw, null, null, null, null, null, true, false});
 			to_share = null;
 		}
 

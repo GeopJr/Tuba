@@ -461,12 +461,13 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	public NewCompose.quote (API.Status to, API.Status.Visibility? reblog_visibility = null, bool supports_quotes = false) {
 		string final_visibility = to.visibility;
 		if (reblog_visibility == null) {
-			final_visibility = to.visibility;
 			var default_visibility = API.Status.Visibility.from_string (settings.default_post_visibility);
 			var to_visibility = API.Status.Visibility.from_string (to.visibility);
 			if (default_visibility != null && to_visibility != null && default_visibility.privacy_rate () > to_visibility.privacy_rate ()) {
 				final_visibility = settings.default_post_visibility;
 			}
+		} else {
+			final_visibility = reblog_visibility.to_string ();
 		}
 
 		this (
