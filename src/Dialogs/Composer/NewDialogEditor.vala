@@ -222,7 +222,9 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Compon
 			wrap = true,
 			wrap_mode = Pango.WrapMode.WORD_CHAR,
 			css_classes = {"title-2"},
-			justify = CENTER
+			justify = CENTER,
+			ellipsize = END,
+			lines = 3
 		};
 
 		status_box.append (status_title);
