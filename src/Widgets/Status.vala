@@ -102,7 +102,7 @@
 		}
 	}
 
-	public Dialogs.Compose.SuccessCallback? reply_cb;
+	public Dialogs.NewCompose.SuccessCallback? reply_cb;
 
 	[GtkChild] protected unowned Gtk.Box status_box;
 	[GtkChild] protected unowned Gtk.Box avatar_side;
@@ -1203,8 +1203,7 @@
 	}
 
 	private void on_reply_button_clicked () {
-		//  new Dialogs.Compose.reply (status.formal, on_reply);
-		new Dialogs.NewCompose.reply (status.formal);
+		new Dialogs.NewCompose.reply (status.formal, on_reply);
 	}
 
 	[GtkCallback] public void on_fade_reveal () {
