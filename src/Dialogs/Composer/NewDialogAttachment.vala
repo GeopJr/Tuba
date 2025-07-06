@@ -172,7 +172,8 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		this.css_classes = { "composer-attachment" };
 		this.overflow = HIDDEN;
 		this.opacity = 0;
-		progress_animation = new Adw.TimedAnimation (this, 0, 1, 200, new Adw.CallbackAnimationTarget (progress_animation_cb));
+
+		progress_animation = new Adw.TimedAnimation (this, 0, 1, 200, new Adw.PropertyAnimationTarget (this, "progress-animation-hack"));
 		animation = new Adw.TimedAnimation (this, 0, 1, 250, new Adw.PropertyAnimationTarget (this, "opacity"));
 		animation.done.connect (on_animation_end);
 
@@ -279,8 +280,10 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		};
 	}
 
-	private void progress_animation_cb () {
-		this.queue_draw ();
+	// leaks as animation target
+	public double progress_animation_hack {
+		get { return progress_animation.value; }
+		set { this.queue_draw (); }
 	}
 
 	public void play_animation (bool reverse = false) {
