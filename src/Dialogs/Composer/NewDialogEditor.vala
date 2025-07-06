@@ -1,6 +1,6 @@
 public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Components.Attachable {
 	public bool edit_mode { get; set; default = false; }
-	public signal void ctrl_return_pressed (); // TODO
+	public signal void ctrl_return_pressed ();
 
 	private string _locale = "en";
 	public string locale {

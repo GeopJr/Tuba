@@ -137,6 +137,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		editor.push_subpage.connect (on_push_subpage);
 		editor.pop_subpage.connect (on_pop_subpage);
 		editor.paste_clipboard.connect (on_paste);
+		editor.ctrl_return_pressed.connect (on_commit);
 		editor.notify["char-count"].connect (update_remaining_chars);
 		this.focus_widget = editor;
 	}
