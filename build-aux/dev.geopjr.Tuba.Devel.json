@@ -179,7 +179,7 @@
 				"-Dspelling=enabled",
 				"-Dgstreamer=enabled",
 				"-Din-app-browser=enabled",
-				"-Dgexiv2=enabled"
+				"-Dgexiv2=disabled"
 			],
 			"build-options": {
 				"arch": {
