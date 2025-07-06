@@ -361,7 +361,8 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		string default_visibility = settings.default_post_visibility,
 		string default_language = settings.default_language,
 		string post_button_label = _("Post"),
-		bool edit_mode = false
+		bool edit_mode = false,
+		bool can_schedule = true
 	) {
 		Object ();
 
@@ -370,7 +371,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		install_emoji_pickers ();
 		install_visibility (default_visibility);
 		install_languages (default_language);
-		install_post_button (post_button_label, !this.edit_mode);
+		install_post_button (post_button_label, !this.edit_mode && can_schedule);
 		if (accounts.active.supported_mime_types.n_items > 1)
 			install_content_types (settings.default_content_type);
 
@@ -543,6 +544,34 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		this.edit_status_id = t_status.id;
 
 		this.set_title (_("Edit Post"), null);
+		this.cb = (owned) t_cb;
+	}
+
+	public NewCompose.from_scheduled (API.ScheduledStatus scheduled_status, bool posting_draft, API.Poll? poll = null, owned SuccessCallback? t_cb = null) {
+		this (
+			{
+				scheduled_status.props.text,
+				scheduled_status.props.spoiler_text,
+				null,
+				posting_draft ? null : scheduled_status.id,
+				scheduled_status.props.in_reply_to_id,
+				poll,
+				scheduled_status.media_attachments,
+				scheduled_status.props.sensitive,
+				false
+			},
+			scheduled_status.props.visibility,
+			scheduled_status.props.language,
+			posting_draft ? _("Post") : _("Edit"),
+			false,
+			false
+		);
+
+		if (!posting_draft) {
+			this.set_title (_("Edit Post"), null);
+			this.schedule_iso8601 = scheduled_status.scheduled_at;
+		}
+
 		this.cb = (owned) t_cb;
 	}
 
@@ -720,7 +749,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 	private void on_schedule_action_activated () {
 		if (!post_btn.sensitive) return;
 
-		var schedule_dlg = new Dialogs.Schedule ();
+		var schedule_dlg = new Dialogs.Schedule (this.schedule_iso8601);
 		schedule_dlg.schedule_picked.connect (on_schedule_picked);
 		on_push_subpage (schedule_dlg);
 	}
@@ -729,12 +758,12 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		if (!post_btn.sensitive) return;
 
 		this.schedule_iso8601 = (new GLib.DateTime.now ()).add_years (3000).format_iso8601 ();
-		//  on_commit ();
+		on_commit ();
 	}
 
 	private void on_schedule_picked (string iso8601) {
 		this.schedule_iso8601 = iso8601;
-		//  on_commit ();
+		on_commit ();
 	}
 
 	private void on_component_animation_end (Adw.Animation animation) {

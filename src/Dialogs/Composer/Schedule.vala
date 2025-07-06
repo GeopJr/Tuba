@@ -43,7 +43,6 @@ public class Tuba.Dialogs.Schedule : Adw.NavigationPage {
 
 	[GtkCallback] void on_schedule () {
 		schedule_picked (result_dt.format_iso8601 ());
-		//  on_exit ();
 	}
 
 	[GtkCallback] void validate () {

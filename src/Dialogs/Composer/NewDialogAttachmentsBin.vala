@@ -55,7 +55,6 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			}
 		}
 
-		public bool working { get; set; default = false; }
 		public bool edit_mode { get; set; default = false; }
 		public float pos_x { get; set; default = 0.0f; }
 		public float pos_y { get; set; default = 0.0f; }
@@ -156,25 +155,25 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			((GtkSource.Buffer) alt_editor.buffer).style_scheme = manager.get_scheme (scheme_name);
 		}
 
+		bool working = false;
 		private void on_save () {
-			this.working = true; // TODO
+			if (working) return;
 			if (this.edit_mode) {
 				saved (this.pos_x, this.pos_y, alt_editor.buffer.text);
 				return;
 			}
+			working = true;
 
 			var builder = new Json.Builder ();
 			builder.begin_object ();
+				builder.set_member_name ("description");
+				builder.add_string_value (alt_editor.buffer.text);
 
-			builder.set_member_name ("description");
-			builder.add_string_value (alt_editor.buffer.text);
-
-			builder.set_member_name ("focus");
-			builder.add_string_value ("%s,%s".printf (
-				Utils.Units.float_to_2_point_string (this.pos_x),
-				Utils.Units.float_to_2_point_string (this.pos_y)
-			));
-
+				builder.set_member_name ("focus");
+				builder.add_string_value ("%s,%s".printf (
+					Utils.Units.float_to_2_point_string (this.pos_x),
+					Utils.Units.float_to_2_point_string (this.pos_y)
+				));
 			builder.end_object ();
 
 			new Request.PUT (@"/api/v1/media/$media_id")
@@ -182,9 +181,11 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 				.body_json (builder)
 				.then (() => {
 					saved (this.pos_x, this.pos_y, alt_editor.buffer.text);
+					working = false;
 				})
 				.on_error ((code, message) => {
 					toast (new Adw.Toast (@"$code $message"));
+					working = false;
 				})
 				.exec ();
 		}
