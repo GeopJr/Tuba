@@ -175,6 +175,19 @@ public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
 		}
 	}
 
+	public bool has_rows {
+		get {
+			bool result = false;
+			foreach (var poll_option in poll_options) {
+				if (poll_option.text != "") {
+					result = true;
+					break;
+				}
+			}
+			return result;
+		}
+	}
+
 	public string[] get_all_options () {
 		string[] result = {};
 

@@ -808,7 +808,7 @@ public class Tuba.Dialogs.NewCompose : Adw.Dialog {
 		builder.set_member_name ("spoiler_text");
 		builder.add_string_value (cw_button.active ? cw_entry.text : "");
 
-		if (polls_component != null && editor.is_bottom_child (polls_component) && polls_component.is_valid) {
+		if (polls_component != null && editor.is_bottom_child (polls_component) && polls_component.is_valid && polls_component.has_rows) {
 			builder.set_member_name ("poll");
 			builder.begin_object ();
 				builder.set_member_name ("multiple");
