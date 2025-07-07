@@ -108,6 +108,7 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 				sensitive = false
 			});
 			alt_editor.add_overlay (placeholder, 0, 0);
+			alt_editor.update_property (Gtk.AccessibleProperty.PLACEHOLDER, _("Describe the media…"), -1);
 
 			Adw.StyleManager.get_default ().notify["dark"].connect (update_style_scheme);
 			update_style_scheme ();

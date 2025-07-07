@@ -473,9 +473,16 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		widget_status.add_css_class ("card");
 		widget_status.add_css_class ("initial-font-size");
 		widget_status.to_display_only ();
+		// translators: composer embedded replying-to post, aria label
+		widget_status.update_property (Gtk.AccessibleProperty.LABEL, _("The post you are replying to."), -1);
+
+		var lbox = new Gtk.ListBox () {
+			selection_mode = Gtk.SelectionMode.NONE
+		};
+		lbox.append (widget_status);
 
 		// translators: composer title. The variable is a string username
-		this.set_editor_title (_("Reply to @%s").printf (to.account.username), widget_status);
+		this.set_editor_title (_("Reply to @%s").printf (to.account.username), lbox);
 		this.scroller.vadjustment.value = editor.top_margin;
 		this.cb = (owned) t_cb;
 	}
@@ -536,9 +543,16 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		widget_status.add_css_class ("card");
 		widget_status.add_css_class ("initial-font-size");
 		widget_status.to_display_only ();
+		// translators: composer embedded quoting post, aria label
+		widget_status.update_property (Gtk.AccessibleProperty.LABEL, _("The post you are quoting."), -1);
+
+		var lbox = new Gtk.ListBox () {
+			selection_mode = Gtk.SelectionMode.NONE
+		};
+		lbox.append (widget_status);
 
 		// translators: composer title. The variable is a string username
-		this.set_editor_title (_("Quoting @%s").printf (to.account.username), widget_status);
+		this.set_editor_title (_("Quoting @%s").printf (to.account.username), lbox);
 		this.scroller.vadjustment.value = editor.top_margin;
 	}
 

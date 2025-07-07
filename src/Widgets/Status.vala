@@ -1231,7 +1231,6 @@
 	}
 
 	public void to_display_only () {
-		content.selectable = true;
 		if (poll != null) {
 			poll.usable = false;
 			poll.can_target = false;
@@ -1258,10 +1257,13 @@
 		name_button.focusable = false;
 		this.content.selectable = true;
 		this.content.can_open = false;
+		this.avatar.accessible_role = Gtk.AccessibleRole.PRESENTATION;
+		this.date_label.accessible_role = Gtk.AccessibleRole.PRESENTATION;
+		name_button.accessible_role = Gtk.AccessibleRole.PRESENTATION;
 		//  this.fade_bin.reveal = true;
-		this.update_relation (Gtk.AccessibleRelation.DESCRIBED_BY, this, null, -1);
-		this.update_property (Gtk.AccessibleProperty.LABEL, "", -1);
-		this.update_property (Gtk.AccessibleProperty.DESCRIPTION, "", -1);
+		this.reset_relation (DESCRIBED_BY);
+		this.reset_property (LABEL);
+		this.reset_property (DESCRIPTION);
 	}
 
 	bool expanded = false;

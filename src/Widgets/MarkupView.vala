@@ -62,9 +62,9 @@ public class Tuba.Widgets.MarkupView : Gtk.Box {
 		}
 	}
 
-	static construct {
-		set_accessible_role (Gtk.AccessibleRole.GENERIC);
-	}
+	//  static construct {
+	//  	set_accessible_role (Gtk.AccessibleRole.GENERIC);
+	//  }
 
 	construct {
 		this.focusable = true;

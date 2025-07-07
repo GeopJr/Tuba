@@ -29,6 +29,9 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 		}
 	}
 
+	static construct {
+		set_accessible_role (Gtk.AccessibleRole.GROUP);
+	}
 
 	// TextView's overlay children have weird
 	// measuring that messes with our clamp.
@@ -271,6 +274,7 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 			css_classes = {"font-large"}
 		});
 		this.add_overlay (placeholder, 0, 0);
+		this.update_property (Gtk.AccessibleProperty.PLACEHOLDER, _("What's on your mind?"), -1);
 
 		unowned Gtk.Widget? view_child = placeholder.get_parent ();
 		if (view_child != null) view_child.can_target = view_child.can_focus = false;
