@@ -141,13 +141,21 @@
 					}
 				}
 			],
+			"cleanup": [
+				"/bin"
+			],
 			"buildsystem": "cmake-ninja",
 			"config-opts": [
 				"-DEXIV2_BUILD_EXIV2_COMMAND=OFF",
 				"-DEXIV2_ENABLE_INIH=OFF",
 				"-DEXIV2_ENABLE_VIDEO=OFF",
+				"-DEXIV2_BUILD_SAMPLES=OFF",
+				"-DEXIV2_BUILD_UNIT_TESTS=OFF",
 				"-DEXIV2_BUILD_DOC=OFF",
-				"-DEXIV2_ENABLE_LENSDATA=OFF"
+				"-DEXIV2_ENABLE_LENSDATA=OFF",
+				"-DEXIV2_ENABLE_XMP=ON",
+				"-DEXIV2_ENABLE_EXTERNAL_XMP=OFF",
+				"-DCMAKE_BUILD_TYPE=Release"
 			]
 		},
 		{
@@ -179,7 +187,7 @@
 				"-Dspelling=enabled",
 				"-Dgstreamer=enabled",
 				"-Din-app-browser=enabled",
-				"-Dgexiv2=disabled"
+				"-Dgexiv2=enabled"
 			],
 			"build-options": {
 				"arch": {
