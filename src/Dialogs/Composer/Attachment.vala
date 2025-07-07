@@ -1,4 +1,4 @@
-public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
+public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 	public signal void switch_place (Attachment with);
 	public signal void delete_me ();
 	public signal void edit ();
@@ -170,7 +170,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 	Gtk.Image media_icon;
 	Adw.TimedAnimation animation;
 	Adw.TimedAnimation progress_animation;
-	Components.DropOverlay drop_overlay;
+	Composer.Components.DropOverlay drop_overlay;
 	Gtk.DropTarget drop_target_controller;
 	Gdk.RGBA color = { 120 / 255.0f, 174 / 255.0f, 237 / 255.0f, 0.5f };
 	construct {
@@ -258,7 +258,7 @@ public class Tuba.Dialogs.Components.Attachment : Adw.Bin {
 		overlay.add_overlay (progress_label);
 		overlay.add_overlay (media_icon);
 
-		drop_overlay = new Components.DropOverlay () {
+		drop_overlay = new Composer.Components.DropOverlay () {
 			compact = true,
 			overlay_child = overlay,
 			icon_name = ""

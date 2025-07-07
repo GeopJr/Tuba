@@ -1,4 +1,4 @@
-public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Components.Attachable {
+public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceView, Composer.Components.Attachable {
 	public bool edit_mode { get; set; default = false; }
 	public signal void ctrl_return_pressed ();
 
@@ -144,7 +144,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Compon
 		if (new_bottom_child != null) scroll_to_widget (true);
 	}
 
-	private void connect_child_attachable (Components.Attachable attachable) {
+	private void connect_child_attachable (Composer.Components.Attachable attachable) {
 		attachable.scroll.connect (scroll_request);
 		attachable.toast.connect (toast_request);
 		attachable.push_subpage.connect (push_subpage_request);
@@ -152,7 +152,7 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Compon
 		attachable.edit_mode = this.edit_mode;
 	}
 
-	private void disconnect_child_attachable (Components.Attachable attachable) {
+	private void disconnect_child_attachable (Composer.Components.Attachable attachable) {
 		attachable.scroll.disconnect (scroll_request);
 		attachable.toast.disconnect (toast_request);
 		attachable.push_subpage.disconnect (push_subpage_request);
@@ -160,13 +160,13 @@ public class Tuba.Dialogs.Components.Editor : Widgets.SandwichSourceView, Compon
 	}
 
 	protected override void clear_child_widget (Gtk.Widget widget) {
-		if (widget is Components.Attachable) disconnect_child_attachable (widget as Components.Attachable);
+		if (widget is Composer.Components.Attachable) disconnect_child_attachable (widget as Composer.Components.Attachable);
 		base.clear_child_widget (widget);
 	}
 
 	protected override void setup_child_widget (Gtk.Widget widget) {
-		if (widget is Components.Attachable) {
-			connect_child_attachable (widget as Components.Attachable);
+		if (widget is Composer.Components.Attachable) {
+			connect_child_attachable (widget as Composer.Components.Attachable);
 			widget.add_css_class ("editor-component");
 			widget.margin_top = 28;
 		}

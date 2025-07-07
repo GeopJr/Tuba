@@ -1,4 +1,4 @@
-public class Tuba.Dialogs.Components.Polls : Gtk.Box, Attachable {
+public class Tuba.Dialogs.Composer.Components.Polls : Gtk.Box, Attachable {
 	public bool edit_mode { get; set; default = false; }
 
 	~Polls () {

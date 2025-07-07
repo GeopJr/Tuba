@@ -228,7 +228,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	private void on_activated () {
 		if (!_draft || status_widget == null) return;
 
-		new Dialogs.NewCompose.from_scheduled (bound_scheduled_status, true, status_poll, on_draft_posted);
+		new Dialogs.Composer.Dialog.from_scheduled (bound_scheduled_status, true, status_poll, on_draft_posted);
 	}
 
 	private void on_draft_posted (API.Status x) {
@@ -236,7 +236,7 @@ public class Tuba.Widgets.ScheduledStatus : Gtk.ListBoxRow {
 	}
 
 	private void on_edit () {
-		new Dialogs.NewCompose.from_scheduled (bound_scheduled_status, false, status_poll, on_edited);
+		new Dialogs.Composer.Dialog.from_scheduled (bound_scheduled_status, false, status_poll, on_edited);
 	}
 
 	private void on_edited (API.Status x) {

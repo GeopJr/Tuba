@@ -2,7 +2,7 @@
 <interface>
 	<requires lib="gtk" version="4.0" />
 	<requires lib="Adw" version="1.0" />
-	<template class="TubaDialogsNewCompose" parent="AdwDialog">
+	<template class="TubaDialogsComposerDialog" parent="AdwDialog">
 		<property name="content_width">500</property>
 		<property name="content-height">400</property>
 		<property name="follows-content-size">1</property>
@@ -17,7 +17,7 @@
 							<object class="AdwNavigationPage" id="nav_page">
 								<property name="title" translatable="yes">New Post</property>
 								<property name="child">
-									<object class="TubaDialogsComponentsDropOverlay" id="drop_overlay">
+									<object class="TubaDialogsComposerComponentsDropOverlay" id="drop_overlay">
 										<!-- translators: composer overlay shown when dragging files above it -->
 										<property name="title" translatable="yes">Drop media to attach them</property>
 										<property name="overlay-child">

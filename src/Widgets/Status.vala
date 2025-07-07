@@ -102,7 +102,7 @@
 		}
 	}
 
-	public Dialogs.NewCompose.SuccessCallback? reply_cb;
+	public Dialogs.Composer.Dialog.SuccessCallback? reply_cb;
 
 	[GtkChild] protected unowned Gtk.Box status_box;
 	[GtkChild] protected unowned Gtk.Box avatar_side;
@@ -478,10 +478,10 @@
 				var node = network.parse_node (parser);
 				var source = API.StatusSource.from (node);
 
-				new Dialogs.NewCompose.edit (status.formal, source, on_edit);
+				new Dialogs.Composer.Dialog.edit (status.formal, source, on_edit);
 			})
 			.on_error (() => {
-				new Dialogs.NewCompose.edit (status.formal, null, on_edit);
+				new Dialogs.Composer.Dialog.edit (status.formal, null, on_edit);
 			})
 			.exec ();
 	}
@@ -1203,7 +1203,7 @@
 	}
 
 	private void on_reply_button_clicked () {
-		new Dialogs.NewCompose.reply (status.formal, on_reply);
+		new Dialogs.Composer.Dialog.reply (status.formal, on_reply);
 	}
 
 	[GtkCallback] public void on_fade_reveal () {

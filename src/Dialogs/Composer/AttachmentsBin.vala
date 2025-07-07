@@ -1,4 +1,4 @@
-public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
+public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attachable {
 	public bool edit_mode { get; set; default = false; }
 	public bool working { get; set; default = false; }
 	public bool is_empty { get { return attachment_widgets.size == 0; } }
@@ -67,7 +67,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		public string media_id { get; set; }
 
 		GtkSource.View alt_editor;
-		Components.Editor.PlaceholderHack placeholder;
+		Composer.Components.Editor.PlaceholderHack placeholder;
 		Gtk.Box content_box;
 		Gtk.Label dialog_char_counter;
 		construct {
@@ -97,7 +97,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 			alt_editor.remove_css_class ("view");
 			alt_editor.add_css_class ("reset");
 
-			placeholder = new Components.Editor.PlaceholderHack (new Gtk.Label (_("Describe the media…")) {
+			placeholder = new Composer.Components.Editor.PlaceholderHack (new Gtk.Label (_("Describe the media…")) {
 				valign = Gtk.Align.START,
 				halign = Gtk.Align.START,
 				justify = Gtk.Justification.FILL,
@@ -253,7 +253,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 	};
 	private Gee.ArrayList<string> supported_mimes = new Gee.ArrayList<string>.wrap (SUPPORTED_MIMES);
 
-	Gee.ArrayList<Components.Attachment> attachment_widgets = new Gee.ArrayList<Components.Attachment> ();
+	Gee.ArrayList<Composer.Components.Attachment> attachment_widgets = new Gee.ArrayList<Composer.Components.Attachment> ();
 	construct {
 		populate_filter ();
 		this.column_spacing = this.row_spacing = 12;
@@ -265,7 +265,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		this.attach (new Adw.Bin (), 1, 0);
 	}
 
-	private void add_attachment (Components.Attachment attachment) {
+	private void add_attachment (Composer.Components.Attachment attachment) {
 		attachment.switch_place.connect (on_switch_place);
 		attachment.delete_me.connect (on_delete);
 		attachment.edit.connect (show_editor);
@@ -275,7 +275,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		attachment.play_animation ();
 	}
 
-	private void on_switch_place (Components.Attachment from, Components.Attachment to) {
+	private void on_switch_place (Composer.Components.Attachment from, Composer.Components.Attachment to) {
 		int from_column;
 		int from_row;
 		this.query_child (from, out from_column, out from_row, null, null);
@@ -301,7 +301,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		to.cleanup ();
 	}
 
-	private void on_delete (Components.Attachment attachment) {
+	private void on_delete (Composer.Components.Attachment attachment) {
 		int removed_column;
 		int removed_row;
 		this.query_child (attachment, out removed_column, out removed_row, null, null);
@@ -424,7 +424,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		for (int i = 0; i < files_for_upload.length; i++) {
 			var file13 = files_for_upload[i];
 
-			var attachment = new Components.Attachment ();
+			var attachment = new Composer.Components.Attachment ();
 			attachment.upload_error.connect (on_upload_error);
 			attachment.notify["done"].connect (on_attachment_done);
 			attachment.upload.begin (file13);
@@ -432,7 +432,7 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 		}
 	}
 
-	private void on_upload_error (Components.Attachment attachment, string message) {
+	private void on_upload_error (Composer.Components.Attachment attachment, string message) {
 		toast (new Adw.Toast (message));
 		on_delete (attachment);
 	}
@@ -478,9 +478,9 @@ public class Tuba.Dialogs.Components.AttachmentsBin : Gtk.Grid, Attachable {
 	public void preload_attachment (API.Attachment api_attachment) {
 		if (accounts.active.instance_info.compat_status_max_media_attachments - attachment_widgets.size <= 0) return;
 
-		var attachment = new Components.Attachment ();
+		var attachment = new Composer.Components.Attachment ();
 		attachment.notify["done"].connect (on_attachment_done);
-		attachment.preload (api_attachment.id, api_attachment.url, api_attachment.preview_url, Components.Attachment.MediaType.from_string (api_attachment.kind));
+		attachment.preload (api_attachment.id, api_attachment.url, api_attachment.preview_url, Composer.Components.Attachment.MediaType.from_string (api_attachment.kind));
 		attachment.edit_mode = true;
 
 		float x = 0;

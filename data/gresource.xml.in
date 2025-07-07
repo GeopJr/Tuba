@@ -120,8 +120,7 @@
         <file>ui/dialogs/list_edit.ui</file>
         <file>ui/dialogs/advanced_search.ui</file>
         <file>ui/dialogs/new_account.ui</file>
-        <file>ui/dialogs/compose.ui</file>
-        <file>ui/dialogs/new_composer.ui</file>
+        <file>ui/dialogs/composer.ui</file>
         <file>ui/dialogs/notification_settings.ui</file>
         <file>ui/dialogs/main.ui</file>
         <file>ui/dialogs/preferences.ui</file>
