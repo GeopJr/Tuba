@@ -72,6 +72,7 @@ i18n = import('i18n')
 
 gstreamer = false
 webkit = false
+gexiv2 = false
 gtk_dep = dependency('gtk4', version: '>=4.17.5', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.7', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
@@ -106,6 +107,7 @@ endif
 
 if gexiv2_dep.found ()
   add_project_arguments(['--define=GEXIV2'], language: 'vala')
+  gexiv2 = true
 endif
 
 if clapper_dep.found () and clapper_gtk_dep.found ()
