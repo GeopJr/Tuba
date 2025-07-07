@@ -187,6 +187,9 @@ namespace Tuba {
 				warning (e.message);
 			}
 
+			#if GEXIV2
+				GExiv2.initialize ();
+			#endif
 			#if GSTREAMER
 				Gst.init (ref args);
 			#endif
