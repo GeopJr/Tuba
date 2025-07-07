@@ -432,7 +432,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			final_visibility = settings.default_post_visibility;
 		}
 
-		this ({to.formal.get_reply_mentions (), to.spoiler_text, null, null, to.id, null, null, false, false}, final_visibility, to.language, _("Reply"));
+		this ({@"$(to.formal.get_reply_mentions ()) ", to.spoiler_text, null, null, to.id, null, null, false, false}, final_visibility, to.language, _("Reply"));
 
 		var sample = new API.Status.empty () {
 			poll = to.poll,

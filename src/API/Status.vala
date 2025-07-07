@@ -241,19 +241,19 @@ public class Tuba.API.Status : Entity, Widgetizable, SearchResult {
 	public virtual string get_reply_mentions () {
 		string[] result = {};
 		if (account.acct != accounts.active.acct)
-			result += account.acct;
+			result += account.handle;
 
 		if (mentions != null) {
 			foreach (var mention in mentions) {
 				var equals_current = mention.acct == accounts.active.acct;
-				var already_mentioned = mention.acct in result;
+				var already_mentioned = mention.handle in result;
 
 				if (!equals_current && !already_mentioned)
-					result += mention.acct;
+					result += mention.handle;
 			}
 		}
 
-		return string.joinv (", ", result);
+		return string.joinv (" ", result);
 	}
 
 	private Request action (string action) {
