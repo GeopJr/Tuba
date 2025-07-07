@@ -557,7 +557,7 @@ namespace Tuba {
 				split_view.show_sidebar = false;
 		}
 
-		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s\nlibspelling: %s\nClapper: %s\nGStreamer: %s".printf ( // vala-lint=line-length
+		string troubleshooting = "os: %s %s\nprefix: %s\nflatpak: %s\nversion: %s (%s)\ngtk: %u.%u.%u (%d.%d.%d)\nlibadwaita: %u.%u.%u (%d.%d.%d)\nlibsoup: %u.%u.%u (%d.%d.%d)%s\nlibspelling: %s\nClapper: %s\nGStreamer: %s\nGExiv2: %s".printf ( // vala-lint=line-length
 				GLib.Environment.get_os_info ("NAME"), GLib.Environment.get_os_info ("VERSION"),
 				Build.PREFIX,
 				Tuba.is_flatpak.to_string (),
@@ -591,6 +591,12 @@ namespace Tuba {
 				,
 				#if GSTREAMER
 					@"$(Gst.version_string ()) ($(Gst.VERSION_MAJOR).$(Gst.VERSION_MICRO).$(Gst.VERSION_MINOR).$(Gst.VERSION_NANO))"
+				#else
+					"false"
+				#endif
+				,
+				#if GEXIV2
+					@"$(GExiv2.get_version ()) ($(GExiv2.MAJOR_VERSION).$(GExiv2.MINOR_VERSION).$(GExiv2.MICRO_VERSION))"
 				#else
 					"false"
 				#endif
