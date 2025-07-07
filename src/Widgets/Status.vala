@@ -1235,8 +1235,14 @@
 		if (poll != null) {
 			poll.usable = false;
 			poll.can_target = false;
+			poll.focusable = false;
+			poll.can_focus = false;
 		}
-		if (hashtag_bar != null) hashtag_bar.can_target = false;
+		if (hashtag_bar != null) {
+			hashtag_bar.can_target = false;
+			hashtag_bar.can_focus = false;
+			hashtag_bar.focusable = false;
+		}
 		if (attachments != null) attachments.usable = false;
 		if (emoji_reactions != null) emoji_reactions.visible = false;
 		this.can_be_opened = false;
@@ -1245,10 +1251,17 @@
 		this.activatable = false;
 		this.avatar.allow_mini_profile = false;
 		this.avatar.can_target = false;
+		this.avatar.focusable = false;
+		this.avatar.can_focus = false;
 		name_button.can_target = false;
+		name_button.can_focus = false;
+		name_button.focusable = false;
 		this.content.selectable = true;
 		this.content.can_open = false;
 		//  this.fade_bin.reveal = true;
+		this.update_relation (Gtk.AccessibleRelation.DESCRIBED_BY, this, null, -1);
+		this.update_property (Gtk.AccessibleProperty.LABEL, "", -1);
+		this.update_property (Gtk.AccessibleProperty.DESCRIPTION, "", -1);
 	}
 
 	bool expanded = false;

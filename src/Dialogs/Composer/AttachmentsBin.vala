@@ -261,8 +261,8 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 
 		// HACK: 2 cols otherwise when there's
 		//		 only 1 attachment, it expands
-		this.attach (new Adw.Bin (), 0, 0);
-		this.attach (new Adw.Bin (), 1, 0);
+		this.attach (new Adw.Bin () { can_target = false, focusable = false, can_focus = false, accessible_role = PRESENTATION }, 0, 0);
+		this.attach (new Adw.Bin () { can_target = false, focusable = false, can_focus = false, accessible_role = PRESENTATION }, 1, 0);
 	}
 
 	private void add_attachment (Composer.Components.Attachment attachment) {

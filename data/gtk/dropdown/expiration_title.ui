@@ -1,10 +1,9 @@
-<!-- TODO REMOVE -->
 <interface>
   <template class="GtkListItem">
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="text_short" type="TubaDialogsComponentsPollsExpiration">
+          <lookup name="text_short" type="TubaDialogsComposerComponentsPollsExpiration">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>

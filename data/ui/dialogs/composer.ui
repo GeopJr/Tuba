@@ -143,6 +143,7 @@
 																<property name="valign">center</property>
 																<property name="ellipsize">end</property>
 																<property name="margin-start">12</property>
+																<property name="accessible-role">presentation</property>
 																<style>
 																	<class name="font-bold" />
 																	<class name="numeric" />

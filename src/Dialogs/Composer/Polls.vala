@@ -120,7 +120,6 @@ public class Tuba.Dialogs.Composer.Components.Polls : Gtk.Box, Attachable {
 				can_shrink = true
 			};
 			this.child = content;
-
 			this.clicked.connect (on_clicked);
 		}
 
@@ -132,6 +131,10 @@ public class Tuba.Dialogs.Composer.Components.Polls : Gtk.Box, Attachable {
 
 		private void on_clicked () {
 			this.active = !this.active;
+			// translators: screen reader announcements on buttons that change label
+			//				when clicked in the composer. The variable is a string of
+			//				the new state.
+			this.announce (_("Changed state to \"%s\"").printf (content.label), HIGH);
 		}
 	}
 
@@ -368,23 +371,26 @@ public class Tuba.Dialogs.Composer.Components.Polls : Gtk.Box, Attachable {
 	Expiration[] expirations = {
 		// translators: the variable is a number
 		new Expiration (GLib.ngettext ("%d Minute", "%d Minutes", (ulong) 5).printf (5),
-		"%dmin".printf (5), 300),
+		// translators: the variable is a number, short form for minutes
+		_("%dmin").printf (5), 300),
 		new Expiration (GLib.ngettext ("%d Minute", "%d Minutes", (ulong) 30).printf (30),
-		"%dmin".printf (30), 1800),
+		_("%dmin").printf (30), 1800),
 		// translators: the variable is a number
 		new Expiration (GLib.ngettext ("%d Hour", "%d Hours", (ulong) 1).printf (1),
-		"%dh".printf (1), 3600),
+		// translators: the variable is a number, short form for hours
+		_("%dh").printf (1), 3600),
 		new Expiration (GLib.ngettext ("%d Hour", "%d Hours", (ulong) 6).printf (6),
-		"%dh".printf (6), 21600),
+		_("%dh").printf (6), 21600),
 		new Expiration (GLib.ngettext ("%d Hour", "%d Hours", (ulong) 12).printf (12),
-		"%dh".printf (12), 43200),
+		_("%dh").printf (12), 43200),
 		// translators: the variable is a number
 		new Expiration (GLib.ngettext ("%d Day", "%d Days", (ulong) 1).printf (1),
-		"%dd".printf (1), 86400),
+		// translators: the variable is a number, short form for days
+		_("%dd").printf (1), 86400),
 		new Expiration (GLib.ngettext ("%d Day", "%d Days", (ulong) 3).printf (3),
-		"%dd".printf (3), 259200),
+		_("%dd").printf (3), 259200),
 		new Expiration (GLib.ngettext ("%d Day", "%d Days", (ulong) 7).printf (7),
-		"%dd".printf (7), 604800)
+		_("%dd").printf (7), 604800)
 	};
 
 	protected void install_expires_in (string? expires_at = null) {

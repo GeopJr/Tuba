@@ -17,6 +17,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 	[GtkChild] private unowned Gtk.ScrolledWindow scroller;
 	[GtkChild] private unowned Adw.HeaderBar headerbar;
+	[GtkChild] private unowned Gtk.Revealer cw_revealer;
 
 	[GtkChild] private unowned Gtk.MenuButton native_emojis_button;
 	[GtkChild] private unowned Gtk.MenuButton custom_emojis_button;
@@ -100,7 +101,13 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			if (value < 0) {
 				counter_label.add_css_class ("error");
 				counter_label.remove_css_class ("accented-color");
-			} else {
+
+				// translators: screen reader announcement when the composer
+				//				passed the character limit. The variable is
+				//				the amount of characters the user exceeded
+				//				the limit by.
+				this.announce (_("Exceeded character limit by %lld").printf (value.abs ()), HIGH);
+			} else if (counter_label.has_css_class ("error")) {
 				counter_label.remove_css_class ("error");
 				counter_label.add_css_class ("accented-color");
 			}
@@ -168,6 +175,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			expression = new Gtk.PropertyExpression (typeof (InstanceAccount.Visibility), null, "name"),
 			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/icon.ui"),
 			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/full.ui"),
+			// translators: composer dropdown tooltip text
 			tooltip_text = _("Post Privacy"),
 			valign = Gtk.Align.CENTER
 		};
@@ -192,6 +200,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			expression = new Gtk.PropertyExpression (typeof (Utils.Locales.Locale), null, "name"),
 			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language_title.ui"),
 			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/language.ui"),
+			// translators: composer dropdown tooltip text
 			tooltip_text = _("Post Language"),
 			enable_search = true,
 			valign = Gtk.Align.CENTER
@@ -288,15 +297,17 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		toolbar_view.add_controller (dnd_controller);
 		sensitive_media_button.toggled.connect (update_attachmentsbin_sensitivity);
 		this.close_attempt.connect (on_exit);
+
+		cw_revealer.notify["child-revealed"].connect (on_cw_revealed);
 	}
 
 	private void install_post_button (string label, bool with_menu) {
 		if (with_menu) {
 			var menu_model = new GLib.Menu ();
-			// translators: 'Draft' is a verb
+			// translators: 'Draft' is a verb; entry in composer post menu
 			menu_model.append (_("Draft Post"), "composer.draft");
 
-			// translators: 'Schedule' is a verb
+			// translators: 'Schedule' is a verb; entry in composer post menu
 			menu_model.append (_("Schedule Post…"), "composer.schedule");
 
 			var btn = new Adw.SplitButton () {
@@ -323,6 +334,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			expression = new Gtk.PropertyExpression (typeof (Tuba.InstanceAccount.StatusContentType), null, "title"),
 			factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/content_type_title.ui"),
 			list_factory = new Gtk.BuilderListItemFactory.from_resource (null, @"$(Build.RESOURCES)gtk/dropdown/content_type.ui"),
+			// translators: composer dropdown tooltip text
 			tooltip_text = _("Post Content Type"),
 			enable_search = false
 		};
@@ -366,6 +378,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		Precompose? precompose = null,
 		string default_visibility = settings.default_post_visibility,
 		string default_language = settings.default_language,
+		// translators: composer post button label
 		string post_button_label = _("Post"),
 		bool edit_mode = false,
 		bool can_schedule = true
@@ -393,6 +406,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		toggle_poll_component ();
 
 		add_media_button.clicked.connect (on_add_media_clicked);
+		// translators: composer title
 		this.set_editor_title (_("New Post"), null);
 
 		if (precompose != null) {
@@ -432,6 +446,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			final_visibility = settings.default_post_visibility;
 		}
 
+		// translators: composer post button label
 		this ({@"$(to.formal.get_reply_mentions ()) ", to.spoiler_text, null, null, to.id, null, null, false, false}, final_visibility, to.language, _("Reply"));
 
 		var sample = new API.Status.empty () {
@@ -459,6 +474,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		widget_status.add_css_class ("initial-font-size");
 		widget_status.to_display_only ();
 
+		// translators: composer title. The variable is a string username
 		this.set_editor_title (_("Reply to @%s").printf (to.account.username), widget_status);
 		this.scroller.vadjustment.value = editor.top_margin;
 		this.cb = (owned) t_cb;
@@ -490,6 +506,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			},
 			final_visibility,
 			to.language,
+			// translators: composer post button label
 			_("Quote"),
 			false,
 			!supports_quotes
@@ -520,6 +537,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		widget_status.add_css_class ("initial-font-size");
 		widget_status.to_display_only ();
 
+		// translators: composer title. The variable is a string username
 		this.set_editor_title (_("Quoting @%s").printf (to.account.username), widget_status);
 		this.scroller.vadjustment.value = editor.top_margin;
 	}
@@ -537,11 +555,13 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			},
 			t_status.visibility,
 			t_status.language,
+			// translators: composer post button label
 			_("Edit"),
 			true
 		);
 		this.edit_status_id = t_status.id;
 
+		// translators: composer title
 		this.set_editor_title (_("Edit Post"), null);
 		this.cb = (owned) t_cb;
 	}
@@ -561,12 +581,14 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			},
 			scheduled_status.props.visibility,
 			scheduled_status.props.language,
+			// translators: composer post button label
 			posting_draft ? _("Post") : _("Edit"),
 			false,
 			false
 		);
 
 		if (!posting_draft) {
+			// translators: composer title
 			this.set_editor_title (_("Edit Post"), null);
 			this.schedule_iso8601 = scheduled_status.scheduled_at;
 		}
@@ -728,7 +750,9 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 		Signal.stop_emission_by_name (editor, "paste-clipboard");
 		app.question.begin (
+			// translators: media as in picture or files
 			{_("Paste Media from Clipboard?"), false},
+
 			// translators: they = media / files from clipboard, instance = server
 			{_("They will be uploaded to your instance"), false},
 			this,
@@ -998,6 +1022,12 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 			app.question.begin (
 				// translators: Dialog title when closing the composer
 				{_("Discard Post?"), false},
+
+				// translators: Dialog body when closing the composer.
+				//				'progress' of using the composer (e.g.
+				//				it shows up if the user typed something
+				//				and pressed esc / the composer is not
+				//				empty)
 				{_("Your progress will be lost."), false},
 				this,
 				{ { _("Discard"), Adw.ResponseAppearance.DESTRUCTIVE }, { _("Cancel"), Adw.ResponseAppearance.DEFAULT } },
@@ -1010,5 +1040,10 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		} else {
 			this.force_close ();
 		}
+	}
+
+	private void on_cw_revealed () {
+		if (!cw_revealer.reveal_child) return;
+		cw_entry.grab_focus ();
 	}
 }

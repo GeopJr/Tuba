@@ -6,6 +6,7 @@
         <property name="spacing">6</property>
         <child>
           <object class="GtkImage">
+			  <property name="accessible-role">presentation</property>
             <binding name="icon_name">
               <lookup name="icon_name" type="TubaInstanceAccountVisibility">
                 <lookup name="item">GtkListItem</lookup>

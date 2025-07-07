@@ -248,7 +248,11 @@ public class Tuba.Dialogs.Composer.Components.Editor : Widgets.SandwichSourceVie
 			css_classes = {"title-2"},
 			justify = CENTER,
 			ellipsize = END,
-			lines = 3
+			lines = 3,
+			// this label is synced with the dialog title,
+			// screen readers end up reading it twice,
+			// let's hide this
+			accessible_role = PRESENTATION
 		};
 
 		status_box.append (status_title);

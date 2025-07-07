@@ -8,6 +8,10 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 		debug ("Destroying Composer Component Attachment");
 	}
 
+	static construct {
+		set_accessible_role (Gtk.AccessibleRole.GROUP);
+	}
+
 	public class AltIndicator : Gtk.Box {
 		private bool _valid = false;
 		public bool valid {
@@ -152,6 +156,12 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 		set {
 			_alt_text = value;
 			alt_indicator.valid = value != "";
+
+			if (alt_indicator.valid) {
+				this.update_property (Gtk.AccessibleProperty.DESCRIPTION, value, -1);
+			} else {
+				this.update_property (Gtk.AccessibleProperty.DESCRIPTION, "", -1);
+			}
 		}
 	}
 
@@ -199,7 +209,8 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 			hexpand = true,
 			vexpand = true,
 			can_shrink = true,
-			content_fit = Gtk.ContentFit.COVER
+			content_fit = Gtk.ContentFit.COVER,
+			accessible_role = PRESENTATION
 		};
 
 		var overlay = new Gtk.Overlay () {
@@ -215,6 +226,7 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 			margin_end = 6,
 			css_classes = { "osd", "circular" },
 			visible = false,
+			// translators: composer media attachment button that removes it
 			tooltip_text = _("Remove Attachment")
 		};
 		delete_button.clicked.connect (on_delete);
@@ -226,6 +238,9 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 			margin_end = 6,
 			css_classes = { "osd", "circular" },
 			visible = false,
+			// translators: composer media attachment button that edits its
+			//				alt text and focus point. If metadata is difficult
+			//				to translate, leave it as just "Edit"
 			tooltip_text = _("Edit Metadata")
 		};
 		alt_button.clicked.connect (on_edit_clicked);
@@ -285,6 +300,8 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 		opacity_animation = new Adw.TimedAnimation (this, 0, 1, 200, new Adw.PropertyAnimationTarget (this, "opacity")) {
 			easing = Adw.Easing.LINEAR
 		};
+
+		this.update_property (Gtk.AccessibleProperty.LABEL, _("Media Attachment"), -1);
 	}
 
 	// leaks as animation target
@@ -299,7 +316,12 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 	}
 
 	private void on_animation_end () {
-		if (animation.value == 0) delete_me ();
+		if (animation.value == 0) {
+			// translators: screen reader announcement when the user
+			//				deletes attachments in the composer
+			this.announce (_("Deleted Attachment"), MEDIUM);
+			delete_me ();
+		}
 	}
 
 	private void on_edit_clicked () {
@@ -458,6 +480,11 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 
 		this.done = true;
 		this.uploading = false;
+		update_aria_label ();
+
+		// translators: screen reader announcement when the composer
+		//				successfully uploads an attachment
+		this.announce (_("Finished Uploading Attachment"), LOW);
 	}
 
 	private class AttachmentThumbnailer : GLib.Object {
@@ -622,6 +649,21 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 		}
 
 		this.done = true;
+		update_aria_label ();
+	}
+
+	private void update_aria_label () {
+		if (this.file != null) {
+			string? file_name = this.file.get_basename ();
+			if (file_name != null) {
+				// translators: aria label on composer media attachments. The variable is a string file name.
+				this.update_property (Gtk.AccessibleProperty.LABEL, _("Media Attachment (%s)".printf (file_name)), -1);
+				return;
+			}
+		}
+
+		// translators: aria label on composer media attachments
+		this.update_property (Gtk.AccessibleProperty.LABEL, _("Media Attachment"), -1);
 	}
 
 	public void saved (float pos_x, float pos_y, string alt_text) {
