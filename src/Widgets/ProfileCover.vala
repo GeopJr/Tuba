@@ -266,6 +266,9 @@ protected class Tuba.Widgets.Cover : Gtk.Box {
 	string stats_string = "";
 	string profile_id;
 	public Cover (Views.Profile.ProfileAccount profile, bool mini = false) {
+		#if !ADW_1_7_5
+			avatar.size = 100;
+		#endif
 		profile_id = profile.account.id;
 		if (settings.scale_emoji_hover)
 			this.add_css_class ("lww-scale-emoji-hover");

@@ -96,6 +96,10 @@ if libspelling.found ()
   add_project_arguments(['--define=LIBSPELLING'], language: 'vala')
 endif
 
+if libadwaita_dep.version().version_compare('>=1.7.5')
+  add_project_arguments(['--define=ADW_1_7_5'], language: 'vala')
+endif
+
 if gtksourceview_dep.version().version_compare('>=5.7.1')
   add_project_arguments(['--define=GTKSOURCEVIEW_5_7_1'], language: 'vala')
 endif
