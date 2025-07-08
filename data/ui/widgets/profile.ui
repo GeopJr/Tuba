@@ -60,7 +60,7 @@
 						<property name="valign">start</property>
 						<property name="margin-start">12</property>
 						<property name="margin-end">12</property>
-						<property name="size">100</property>
+						<property name="size">88</property>
 						<style>
 							<class name="account-avatar" />
 							<class name="main-avi" />
