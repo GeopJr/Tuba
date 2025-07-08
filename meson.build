@@ -73,7 +73,7 @@ i18n = import('i18n')
 gstreamer = false
 webkit = false
 gexiv2 = false
-gtk_dep = dependency('gtk4', version: '>=4.17.5', required: true)
+gtk_dep = dependency('gtk4', version: '>=4.18', required: true)
 libadwaita_dep = dependency('libadwaita-1', version: '>=1.7', required: true)
 gtksourceview_dep = dependency('gtksourceview-5', required: true, version: '>=5.6.0')
 libwebp_dep = dependency('libwebp', required: false)
