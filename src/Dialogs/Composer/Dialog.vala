@@ -483,7 +483,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 		// translators: composer title. The variable is a string username
 		this.set_editor_title (_("Reply to @%s").printf (to.account.username), lbox);
-		this.scroller.vadjustment.value = editor.top_margin;
+		this.scroller.map.connect (scroller_mapped);
 		this.cb = (owned) t_cb;
 	}
 
@@ -553,7 +553,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 
 		// translators: composer title. The variable is a string username
 		this.set_editor_title (_("Quoting @%s").printf (to.account.username), lbox);
-		this.scroller.vadjustment.value = editor.top_margin;
+		this.scroller.map.connect (scroller_mapped);
 	}
 
 	public Dialog.edit (API.Status t_status, API.StatusSource? source = null, owned SuccessCallback? t_cb = null) {
@@ -614,6 +614,10 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		this.title = new_title;
 		nav_page.title = new_title;
 		editor.set_title (new_title, widget_status);
+	}
+
+	private void scroller_mapped () {
+		this.scroller.vadjustment.value = editor.top_margin;
 	}
 
 	Composer.Components.Polls? polls_component = null;
