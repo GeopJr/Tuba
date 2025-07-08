@@ -741,6 +741,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
 		attachmentsbin_component = new Composer.Components.AttachmentsBin ();
 		attachmentsbin_component.notify["working"].connect (update_attachmentsbin_meta);
 		attachmentsbin_component.notify["is-empty"].connect (update_attachmentsbin_meta);
+		attachmentsbin_component.bind_property ("can-add-media", add_media_button, "sensitive", SYNC_CREATE);
 
 		if (attachments_obj != null && attachments_obj.size > 0) {
 			foreach (var attachment_obj in attachments_obj) {
