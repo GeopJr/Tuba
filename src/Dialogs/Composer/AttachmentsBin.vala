@@ -2,6 +2,19 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 	public bool edit_mode { get; set; default = false; }
 	public bool working { get; set; default = false; }
 	public bool is_empty { get { return attachment_widgets.size == 0; } }
+	public bool can_add_media {
+		get {
+			bool has_only_images = true;
+			//  foreach (var attachment in attachment_widgets) {
+			//  	if (attachment.kind == VIDEO || attachment.kind == AUDIO) {
+			//  		has_only_images = false;
+			//  		break;
+			//  	}
+			//  }
+
+			return has_only_images && attachment_widgets.size < accounts.active.instance_info.compat_status_max_media_attachments;
+		}
+	}
 
 	~AttachmentsBin () {
 		debug ("Destroying Composer Component AttachmentsBin");
@@ -273,6 +286,7 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 		this.attach (attachment, attachment_widgets.size % 2, (int) Math.floor (attachment_widgets.size / 2));
 		attachment_widgets.add (attachment);
 		this.notify_property ("is-empty");
+		this.notify_property ("can-add-media");
 		attachment.play_animation ();
 	}
 
@@ -334,6 +348,7 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 		}
 
 		this.notify_property ("is-empty");
+		this.notify_property ("can-add-media");
 		on_attachment_done ();
 	}
 
@@ -359,8 +374,7 @@ public class Tuba.Dialogs.Composer.Components.AttachmentsBin : Gtk.Grid, Attacha
 	}
 
 	public async void upload_files (File[] files) {
-		var selected_files_amount = files.length;
-		if (this.working || selected_files_amount == 0) return;
+		if (files.length == 0) return;
 
 		// We want to only upload as many attachments as the server
 		// accepts based on the amount we have already uploaded.

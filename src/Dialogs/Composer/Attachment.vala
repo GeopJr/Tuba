@@ -61,6 +61,7 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 	public enum MediaType {
 		IMAGE,
 		VIDEO,
+		GIFV,
 		AUDIO;
 
 		public static MediaType from_string (string kind) {
@@ -68,8 +69,9 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 				case "audio":
 					return AUDIO;
 				case "video":
-				case "gifv":
 					return VIDEO;
+				case "gifv":
+					return GIFV;
 				default:
 					return IMAGE;
 			}
@@ -87,6 +89,7 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 					media_icon.visible = true;
 					break;
 				case VIDEO:
+				case GIFV:
 					media_icon.icon_name = "media-playback-start-symbolic";
 					media_icon.visible = true;
 					break;
@@ -514,6 +517,7 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 						done (Gdk.Texture.from_file (this.file));
 						break;
 					case VIDEO:
+					case GIFV:
 						#if GSTREAMER
 							var playbin = Gst.ElementFactory.make ("playbin");
 							playbin.set ("video-sink", Gst.ElementFactory.make ("fakesink"));
@@ -629,6 +633,7 @@ public class Tuba.Dialogs.Composer.Components.Attachment : Adw.Bin {
 		switch (this.kind) {
 			case AUDIO:
 			case VIDEO:
+			case GIFV:
 				if (preview == null) {
 					var working_loader = new AttachmentThumbnailer (url, this.kind);
 					working_loader.done.connect (on_done);
