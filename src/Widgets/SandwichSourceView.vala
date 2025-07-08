@@ -286,7 +286,7 @@ public class Tuba.Widgets.SandwichSourceView : GtkSource.View {
 		// aka the top-most value of the bottom widget.
 		double y_val = this.vadjustment.value;
 		if (
-			(!bottom && y_val < this.top_margin)
+			(!bottom && y_val < int.min (this.top_margin, 100))
 			|| (bottom && y_val > (this.vadjustment.upper - this.vadjustment.page_size - this.bottom_margin))
 		) return;
 
